@@ -1,12 +1,31 @@
 <!DOCTYPE html>
 <html lang="el" class="scroll-smooth">
 <head>
-
-    <link rel="icon" href="/favicon.ico">
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Γ.Α.Σ. Αρχέλαος Κατερίνης | archelaos.club</title>
+    <title>Γ.Α.Σ. Αρχέλαος Κατερίνης | Επίσημη Ιστοσελίδα</title>
+    <link rel="icon" href="https://lh3.googleusercontent.com/d/1JwGT61jDKXuBU6rA1OCiC1laeKh8gKdV" type="image/png">
+
+    <!-- Βασικά SEO Meta Tags -->
+    <meta name="description" content="Η επίσημη ιστοσελίδα του Γυμναστικού Αγωνιστικού Συλλόγου (Γ.Α.Σ.) Αρχέλαος Κατερίνης. Ενημερωθείτε για τα 8 αθλητικά τμήματα, τους αγώνες και τα νέα του συλλόγου.">
+    <meta name="keywords" content="Αρχέλαος Κατερίνης, ΓΑΣ Αρχέλαος, Χάντμπολ, Στίβος, Τοξοβολία, Σκοποβολή, Ενόργανη Γυμναστική, Πάλη, Βόλεϊ, Κολύμβηση, Κατερίνη, Πιερία">
+    <meta name="author" content="Γ.Α.Σ. Αρχέλαος Κατερίνης">
+    <link rel="canonical" href="https://archelaos.club">
+
+    <!-- Open Graph / Social Media Tags (Facebook, Viber, Messenger, WhatsApp κλπ.) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://archelaos.club">
+    <meta property="og:title" content="Γ.Α.Σ. Αρχέλαος Κατερίνης | Επίσημη Ιστοσελίδα">
+    <meta property="og:description" content="Η επίσημη ιστοσελίδα του Γ.Α.Σ. Αρχέλαος Κατερίνης. 70 χρόνια αθλητισμού, ήθους και παράδοσης στην Πιερία.">
+    <meta property="og:image" content="https://lh3.googleusercontent.com/d/1lILSdnXV0Y383UeFwcJbnhHaYvu3nJHj">
+    <meta property="og:locale" content="el_GR">
+    <meta property="og:site_name" content="Γ.Α.Σ. Αρχέλαος Κατερίνης">
+
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Γ.Α.Σ. Αρχέλαος Κατερίνης | Επίσημη Ιστοσελίδα">
+    <meta name="twitter:description" content="Η επίσημη ιστοσελίδα του Γ.Α.Σ. Αρχέλαος Κατερίνης. Αθλητικά τμήματα, νέα και εκδηλώσεις.">
+    <meta name="twitter:image" content="https://lh3.googleusercontent.com/d/1lILSdnXV0Y383UeFwcJbnhHaYvu3nJHj">
 
     <!-- Google Fonts with full Greek support: Manrope & Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -78,7 +97,7 @@
       .reveal-text.is-visible {
         opacity: 1;
         transform: translate3d(0, 0, 0) scale(1);
-        will-change: auto; /* Απελευθερώνει τη μνήμη GPU μετά την εμφάνιση */
+        will-change: auto;
       }
 
       .delay-100 { transition-delay: 100ms; }
@@ -97,7 +116,7 @@
         background: transparent !important;
       }
 
-      /* Optimized Frosted Glassmorphism (Reduced blur radius for 60fps scrolling) */
+      /* Frosted Glassmorphism */
       .glass-section {
         background: rgba(255, 255, 255, 0.62);
         backdrop-filter: blur(12px) saturate(140%);
@@ -109,10 +128,10 @@
 
       .glass-card {
         position: relative;
-        background: rgba(255, 255, 255, 0.78);
+        background: rgba(255, 255, 255, 0.82);
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.85);
+        border: 1px solid rgba(255, 255, 255, 0.9);
         box-shadow: 0 12px 30px -8px rgba(8, 76, 36, 0.1),
                     inset 0 1px 1px rgba(255, 255, 255, 0.9);
         transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
@@ -136,14 +155,14 @@
       }
       .glass-card:hover {
         transform: translate3d(0, -9px, 0) scale(1.015);
-        background: rgba(255, 255, 255, 0.92);
+        background: rgba(255, 255, 255, 0.95);
         box-shadow: 0 26px 48px -12px rgba(8, 76, 36, 0.22),
                     inset 0 1px 2px rgba(255, 255, 255, 1);
         border-color: rgba(0, 138, 40, 0.45);
       }
 
       .glass-nav {
-        background: rgba(246, 238, 66, 0.85);
+        background: rgba(246, 238, 66, 0.88);
         backdrop-filter: blur(12px) saturate(150%);
         -webkit-backdrop-filter: blur(12px) saturate(150%);
         border-bottom: 1px solid rgba(8, 76, 36, 0.14);
@@ -151,7 +170,7 @@
         transform: translateZ(0);
       }
       .glass-nav.scrolled {
-        background: rgba(246, 238, 66, 0.95);
+        background: rgba(246, 238, 66, 0.98);
         box-shadow: 0 10px 28px -10px rgba(8, 76, 36, 0.18);
       }
 
@@ -169,7 +188,7 @@
         box-shadow: 0 12px 22px -6px rgba(8, 76, 36, 0.35);
       }
 
-      /* Button Shimmer Effect (GPU Transform instead of Left property) */
+      /* Button Shimmer Effect */
       .btn-shimmer {
         position: relative;
         overflow: hidden;
@@ -190,7 +209,7 @@
         transform: translate3d(280%, 0, 0) rotate(25deg);
       }
 
-      /* Pro Slideshow Styles */
+      /* Slideshow Styles */
       .slideshow-slide {
         position: absolute;
         inset: 0;
@@ -210,14 +229,13 @@
         height: 100%;
         object-fit: cover;
         object-position: center;
-        transform: scale(1.1);
+        transform: scale(1.08);
         transition: transform 6.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       }
       .slideshow-slide.active img {
         transform: scale(1);
       }
 
-      /* GPU-Accelerated Progress Bar */
       @keyframes progressScale {
         from { transform: scaleX(0); }
         to { transform: scaleX(1); }
@@ -241,7 +259,7 @@
         box-shadow: 0 6px 16px -4px rgba(0, 0, 0, 0.35);
       }
 
-      /* ==================== HAMBURGER MENU & DROPDOWN ANIMATIONS ==================== */
+      /* Mobile Menu */
       #mobileMenuBtn {
         transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
       }
@@ -259,7 +277,6 @@
         transform: rotate(90deg);
       }
 
-      /* Smooth Floating Mobile Dropdown Transition */
       #mobileMenu {
         position: absolute;
         top: 100%;
@@ -281,9 +298,9 @@
                     border-bottom-width 0.25s ease;
       }
       #mobileMenu.menu-open {
-        max-height: 440px;
+        max-height: 480px;
         opacity: 1;
-        padding-top: 0.85rem;
+        padding-top: 1rem;
         padding-bottom: 1.5rem;
         border-bottom-width: 1px;
         pointer-events: auto;
@@ -291,7 +308,6 @@
         box-shadow: 0 20px 32px -8px rgba(8, 76, 36, 0.25);
       }
 
-      /* Staggered Menu Items Animation */
       #mobileMenu .mobile-menu-item {
         opacity: 0;
         transform: translate3d(-18px, 0, 0);
@@ -308,6 +324,123 @@
       #mobileMenu.menu-open .mobile-menu-item:nth-child(3) { transition-delay: 160ms; }
       #mobileMenu.menu-open .mobile-menu-item:nth-child(4) { transition-delay: 210ms; }
       #mobileMenu.menu-open .mobile-menu-item:nth-child(5) { transition-delay: 260ms; }
+
+      /* ==================== THEME TOGGLE & DARK / LIGHT MODE STYLES ==================== */
+      body {
+        transition: background-color 0.4s ease, color 0.4s ease;
+      }
+
+      /* Dark Mode Style Overrides */
+      body.dark-mode {
+        background-color: #071f11 !important;
+        color: #f1f5f9 !important;
+      }
+      body.dark-mode .glass-nav {
+        background: rgba(7, 31, 17, 0.92) !important;
+        border-bottom-color: rgba(246, 238, 66, 0.2) !important;
+      }
+      body.dark-mode .glass-section {
+        background: rgba(10, 42, 23, 0.72) !important;
+        border-top-color: rgba(246, 238, 66, 0.15) !important;
+        border-bottom-color: rgba(0, 0, 0, 0.4) !important;
+      }
+      body.dark-mode .glass-card {
+        background: rgba(14, 54, 30, 0.85) !important;
+        border-color: rgba(246, 238, 66, 0.25) !important;
+        color: #f8fafc !important;
+        box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.5) !important;
+      }
+      body.dark-mode .glass-card p,
+      body.dark-mode .glass-section p {
+        color: #e2e8f0 !important;
+      }
+      body.dark-mode h1,
+      body.dark-mode h2,
+      body.dark-mode h3,
+      body.dark-mode h4,
+      body.dark-mode .font-heading {
+        color: #f6ee42 !important;
+      }
+      body.dark-mode #mobileMenu {
+        background: rgba(7, 31, 17, 0.98) !important;
+        border-color: rgba(246, 238, 66, 0.25) !important;
+      }
+      body.dark-mode #mobileMenu a {
+        color: #f6ee42 !important;
+      }
+      body.dark-mode input,
+      body.dark-mode textarea,
+      body.dark-mode select {
+        background-color: #0b2b17 !important;
+        color: #ffffff !important;
+        border-color: rgba(246, 238, 66, 0.3) !important;
+      }
+
+      /* Dark mode modal styles - Υψηλή αντίθεση και αρμονία */
+      body.dark-mode #registrationModal .modal-box {
+        background-color: #0c2d19 !important;
+        border-color: rgba(246, 238, 66, 0.35) !important;
+      }
+      body.dark-mode #registrationModal .modal-header {
+        background-color: #084c24 !important;
+        border-bottom: 1px solid rgba(246, 238, 66, 0.25) !important;
+      }
+      body.dark-mode #registrationModal .modal-header-title {
+        color: #f6ee42 !important;
+      }
+      body.dark-mode #registrationModal .modal-header-icon {
+        color: #f6ee42 !important;
+      }
+      body.dark-mode #registrationModal .modal-close-btn {
+        background-color: rgba(246, 238, 66, 0.15) !important;
+        color: #f6ee42 !important;
+      }
+      body.dark-mode #registrationModal .modal-close-btn:hover {
+        background-color: #f6ee42 !important;
+        color: #084c24 !important;
+      }
+      body.dark-mode #registrationModal .modal-label {
+        color: #f6ee42 !important;
+      }
+      body.dark-mode #registrationModal .modal-submit-btn {
+        background-color: #f6ee42 !important;
+        color: #084c24 !important;
+      }
+      body.dark-mode #registrationModal .modal-submit-btn:hover {
+        background-color: #ffffff !important;
+        color: #084c24 !important;
+      }
+
+      /* Light / Neutral Mode Style Overrides */
+      body.light-mode {
+        background-color: #f8f9fa !important;
+        color: #212529 !important;
+      }
+      body.light-mode .glass-nav {
+        background: rgba(255, 255, 255, 0.92) !important;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+      }
+      body.light-mode .glass-section {
+        background: rgba(241, 245, 249, 0.75) !important;
+      }
+      body.light-mode .glass-card {
+        background: rgba(255, 255, 255, 0.9) !important;
+        border: 1px solid rgba(0, 0, 0, 0.1) !important;
+        color: #212529 !important;
+      }
+      body.light-mode h1,
+      body.light-mode h2,
+      body.light-mode h3,
+      body.light-mode .font-heading {
+        color: #084c24 !important;
+      }
+      body.light-mode .glass-card p,
+      body.light-mode .glass-section p {
+        color: #334155 !important;
+      }
+      body.light-mode #mobileMenu {
+        background: rgba(255, 255, 255, 0.98) !important;
+      }
     </style>
 </head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow">
@@ -341,28 +474,33 @@
             </div>
           </a>
 
-          <nav class="hidden md:flex items-center space-x-1 bg-white/55 px-4 py-1.5 rounded-2xl border border-white/70 shadow-sm">
+          <nav class="hidden md:flex items-center space-x-1 bg-white/60 px-4 py-1.5 rounded-2xl border border-white/70 shadow-sm">
             <a href="#home" class="px-3.5 py-1.5 rounded-xl text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-300">Αρχική</a>
             <a href="#about" class="px-3.5 py-1.5 rounded-xl text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-300">Ο Σύλλογος</a>
             <a href="#departments" class="px-3.5 py-1.5 rounded-xl text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-300">Τμήματα</a>
             <a href="#contact" class="px-3.5 py-1.5 rounded-xl text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-300">Επικοινωνία</a>
           </nav>
 
-          <div class="hidden sm:flex items-center space-x-3">
-            <button onclick="openRegistrationModal('Γενική Εγγραφή')" class="btn-shimmer relative inline-flex items-center justify-center px-6 py-3 text-sm font-extrabold text-archelaos-yellow bg-archelaos-deepgreen hover:bg-archelaos-darkgreen rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition duration-300">
+          <div class="flex items-center space-x-2 sm:space-x-3">
+            <!-- Theme Toggle Button -->
+            <button id="themeToggleBtn" aria-label="Εναλλαγή θέματος (Dark/Light)" class="w-11 h-11 flex items-center justify-center rounded-2xl bg-white/70 hover:bg-white text-archelaos-deepgreen border border-white/80 shadow-sm transition transform hover:scale-105 active:scale-95 text-lg" title="Εναλλαγή εμφάνισης">
+              🌙
+            </button>
+
+            <button onclick="openRegistrationModal('Γενική Εγγραφή')" class="hidden sm:inline-flex btn-shimmer relative items-center justify-center px-6 py-3 text-sm font-extrabold text-archelaos-yellow bg-archelaos-deepgreen hover:bg-archelaos-darkgreen rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition duration-300">
               <i class="fa-solid fa-bolt mr-2 text-archelaos-yellow"></i> Εγγραφές / Εκδήλωση
             </button>
-          </div>
 
-          <!-- Robust Mobile Menu Button -->
-          <button id="mobileMenuBtn" aria-label="Μενού" aria-expanded="false" class="md:hidden w-11 h-11 flex items-center justify-center rounded-xl bg-white/70 hover:bg-white text-archelaos-deepgreen border border-white/80 shadow-sm transition">
-            <i id="menuIcon" class="fa-solid fa-bars text-xl text-archelaos-deepgreen transition-transform duration-300"></i>
-          </button>
+            <!-- Mobile Menu Button -->
+            <button id="mobileMenuBtn" aria-label="Μενού" aria-expanded="false" class="md:hidden w-11 h-11 flex items-center justify-center rounded-xl bg-white/70 hover:bg-white text-archelaos-deepgreen border border-white/80 shadow-sm transition">
+              <i id="menuIcon" class="fa-solid fa-bars text-xl text-archelaos-deepgreen transition-transform duration-300"></i>
+            </button>
+          </div>
         </div>
       </div>
 
       <!-- Floating Mobile Dropdown Menu -->
-      <div id="mobileMenu" class="md:hidden bg-archelaos-yellow/95 backdrop-blur-md border-archelaos-darkgreen/20 px-5 space-y-2.5">
+      <div id="mobileMenu" class="md:hidden bg-archelaos-yellow/98 backdrop-blur-md border-archelaos-darkgreen/20 px-5 space-y-2.5">
         <a href="#home" class="mobile-nav-link mobile-menu-item block px-4 py-2.5 rounded-xl text-base font-extrabold text-archelaos-deepgreen hover:bg-white/50">Αρχική</a>
         <a href="#about" class="mobile-nav-link mobile-menu-item block px-4 py-2.5 rounded-xl text-base font-extrabold text-archelaos-deepgreen hover:bg-white/50">Ο Σύλλογος</a>
         <a href="#departments" class="mobile-nav-link mobile-menu-item block px-4 py-2.5 rounded-xl text-base font-extrabold text-archelaos-deepgreen hover:bg-white/50">Αθλητικά Τμήματα</a>
@@ -403,7 +541,7 @@
           <!-- Central Emblem -->
           <div class="lg:col-span-5 flex items-center justify-center">
             <div class="reveal-text delay-200 hero-emblem-float relative w-72 h-72 sm:w-80 sm:h-80 lg:w-[420px] lg:h-[420px] flex items-center justify-center select-none">
-              <img src="https://lh3.googleusercontent.com/d/1lILSdnXV0Y383UeFwcJbnhHaYvu3nJHj" alt="Έμβλημα Αρχέλαος" class="w-full h-full object-contain" fetchpriority="high" decoding="async">
+              <img src="https://lh3.googleusercontent.com/d/1lILSdnXV0Y383UeFwcJbnhHaYvu3nJHj" alt="Έμβλημα Αρχέλαος" class="w-full h-full object-contain drop-shadow-2xl" fetchpriority="high" decoding="async">
             </div>
           </div>
         </div>
@@ -743,6 +881,9 @@
                 <div>
                   <h4 class="font-extrabold text-archelaos-deepgreen text-sm">Διεύθυνση Έδρας</h4>
                   <p class="text-slate-700 text-xs sm:text-sm mt-0.5 font-medium">Εθνικού Σταδίου 3Α (Α΄ ΔΑΚ Κατερίνης), Τ.Κ. 60132</p>
+                  <a href="https://maps.google.com/?cid=2075916960789215158" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs text-archelaos-forest font-bold hover:underline mt-1">
+                    <i class="fa-solid fa-map-pin"></i> Προβολή στο Google Maps
+                  </a>
                 </div>
               </div>
 
@@ -751,7 +892,7 @@
                 <div>
                   <h4 class="font-extrabold text-archelaos-deepgreen text-sm">Τηλέφωνο Επικοινωνίας</h4>
                   <a href="tel:2351028611" class="text-archelaos-darkgreen hover:underline font-black text-base mt-0.5 inline-block">23510 28611</a>
-                  <p class="text-xs font-bold text-archelaos-forest mt-1"><i class="fa-regular fa-clock mr-1"></i> Τρίτη - Πέμπτη 8.00 - 14.00</p>
+                  <p class="text-xs font-bold text-archelaos-forest mt-1"><i class="fa-regular fa-clock mr-1"></i> Τρίτη & Πέμπτη: 09:00 - 14:00</p>
                 </div>
               </div>
 
@@ -809,7 +950,7 @@
                 </div>
 
                 <div id="formSuccessAlert" class="hidden p-4 rounded-xl text-xs font-bold bg-emerald-100 text-emerald-900 border border-emerald-300">
-                  <i class="fa-solid fa-circle-check mr-1 text-emerald-700"></i> Το μήνυμά σας καταχωρήθηκε επιτυχώς και στάλθηκε στη γραμματεία!
+                  <i class="fa-solid fa-circle-check mr-1 text-emerald-700"></i> Το μήνυμά σας καταχωρήθηκε επιτυχώς και ανοίγει η προετοιμασία αποστολής!
                 </div>
 
                 <button type="submit" class="btn-shimmer w-full py-4 bg-archelaos-deepgreen hover:bg-archelaos-darkgreen text-archelaos-yellow font-black rounded-xl shadow-xl transition flex items-center justify-center gap-2">
@@ -825,17 +966,17 @@
 
     <!-- REGISTRATION MODAL -->
     <div id="registrationModal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-archelaos-deepgreen/65 backdrop-blur-sm flex items-center justify-center p-4">
-      <div class="relative w-full max-w-lg bg-white/95 rounded-3xl shadow-2xl overflow-hidden border-2 border-white">
-        <div class="bg-archelaos-yellow p-6 flex items-center justify-between border-b border-archelaos-darkgreen/20">
+      <div class="modal-box relative w-full max-w-lg bg-white/95 rounded-3xl shadow-2xl overflow-hidden border-2 border-white transition-colors duration-300">
+        <div class="modal-header bg-archelaos-yellow p-6 flex items-center justify-between border-b border-archelaos-darkgreen/20 transition-colors duration-300">
           <div class="flex items-center gap-2.5">
-            <i class="fa-solid fa-user-plus text-archelaos-deepgreen text-lg"></i>
-            <h3 class="font-heading font-black text-lg text-archelaos-deepgreen">Εκδήλωση Ενδιαφέροντος για Τμήμα</h3>
+            <i class="modal-header-icon fa-solid fa-user-plus text-archelaos-deepgreen text-lg"></i>
+            <h3 class="modal-header-title font-heading font-black text-lg text-archelaos-deepgreen">Εκδήλωση Ενδιαφέροντος για Τμήμα</h3>
           </div>
-          <button onclick="closeRegistrationModal()" class="w-8 h-8 rounded-full bg-archelaos-darkgreen/10 text-archelaos-deepgreen flex items-center justify-center hover:bg-archelaos-darkgreen hover:text-archelaos-yellow transition"><i class="fa-solid fa-xmark"></i></button>
+          <button onclick="closeRegistrationModal()" class="modal-close-btn w-8 h-8 rounded-full bg-archelaos-darkgreen/10 text-archelaos-deepgreen flex items-center justify-center hover:bg-archelaos-darkgreen hover:text-archelaos-yellow transition"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <form id="modalForm" onsubmit="handleModalDirectSubmit(event)" class="p-6 sm:p-8 space-y-4">
           <div>
-            <label class="block text-xs font-black text-archelaos-deepgreen uppercase mb-1">Τμήμα *</label>
+            <label class="modal-label block text-xs font-black text-archelaos-deepgreen uppercase mb-1">Τμήμα *</label>
             <select id="modalDeptSelect" required class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm bg-white">
               <option value="Χειροσφαίριση (Χάντμπολ)">Χειροσφαίριση (Χάντμπολ)</option>
               <option value="Στίβος">Στίβος</option>
@@ -848,21 +989,21 @@
             </select>
           </div>
           <div>
-            <label class="block text-xs font-black text-archelaos-deepgreen uppercase mb-1">Ονοματεπώνυμο *</label>
+            <label class="modal-label block text-xs font-black text-archelaos-deepgreen uppercase mb-1">Ονοματεπώνυμο *</label>
             <input type="text" id="modalName" required placeholder="π.χ. Κωνσταντίνος Νικολάου" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm">
           </div>
           <div>
-            <label class="block text-xs font-black text-archelaos-deepgreen uppercase mb-1">Τηλέφωνο Επικοινωνίας *</label>
+            <label class="modal-label block text-xs font-black text-archelaos-deepgreen uppercase mb-1">Τηλέφωνο Επικοινωνίας *</label>
             <input type="tel" id="modalPhone" required placeholder="π.χ. 6970000000" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm">
           </div>
           <div>
-            <label class="block text-xs font-black text-archelaos-deepgreen uppercase mb-1">Email</label>
+            <label class="modal-label block text-xs font-black text-archelaos-deepgreen uppercase mb-1">Email</label>
             <input type="email" id="modalEmail" placeholder="email@example.com" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm">
           </div>
           <div id="modalAlert" class="hidden p-3 rounded-xl text-xs font-bold bg-emerald-100 text-emerald-900 border border-emerald-300">
             <i class="fa-solid fa-circle-check mr-1 text-emerald-700"></i> Η εγγραφή σας καταχωρήθηκε επιτυχώς!
           </div>
-          <button type="submit" class="btn-shimmer w-full py-4 bg-archelaos-deepgreen text-archelaos-yellow font-black rounded-xl shadow-lg transition">Υποβολή Ενδιαφέροντος</button>
+          <button type="submit" class="modal-submit-btn btn-shimmer w-full py-4 bg-archelaos-deepgreen text-archelaos-yellow font-black rounded-xl shadow-lg transition">Υποβολή Ενδιαφέροντος</button>
         </form>
       </div>
     </div>
@@ -871,14 +1012,17 @@
     <footer class="relative z-10 bg-archelaos-deepgreen text-archelaos-yellow/80 border-t border-archelaos-yellow/20">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col items-center justify-center gap-6 text-center text-xs">
         <img src="https://lh3.googleusercontent.com/d/1JwGT61jDKXuBU6rA1OCiC1laeKh8gKdV" alt="Γ.Α.Σ. Αρχέλαος - Yellow Logo" class="w-24 h-24 object-contain opacity-95 hover:scale-105 transition-transform duration-300" loading="lazy" decoding="async">
-        <p class="font-semibold tracking-wide">&copy; 1956 - 2026 Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης &bull; archelaos.club</p>
+        <div class="space-y-1">
+          <p class="font-semibold tracking-wide">&copy; 1956 - 2026 Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης &bull; archelaos.club</p>
+          <p class="text-[11px] text-archelaos-yellow/60">Α΄ Δημοτικό Αθλητικό Κέντρο (ΔΑΚ) Κατερίνης, 60132</p>
+        </div>
       </div>
     </footer>
 
     <!-- JAVASCRIPT -->
     <script>
       document.addEventListener('DOMContentLoaded', () => {
-        // 1. Unified Passive Scroll Listener (Zero main-thread blocking)
+        // 1. Passive Scroll Listener
         const mainHeader = document.getElementById('mainHeader');
         const mobileMenu = document.getElementById('mobileMenu');
         let isScrolled = false;
@@ -894,7 +1038,7 @@
           }
         }, { passive: true });
 
-        // 2. Throttled Mouse Spotlight effect on Desktop Devices Only
+        // 2. Mouse Spotlight effect on Desktop Devices
         if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
           document.querySelectorAll('.glass-card').forEach(card => {
             let rafPending = false;
@@ -943,7 +1087,7 @@
           requestAnimationFrame(update);
         }
 
-        // 4. GPU-Driven 8-Sport Slideshow (Pauses automatically when off-screen)
+        // 4. GPU-Driven 8-Sport Slideshow
         const slideshowWrapper = document.getElementById('slideshowWrapper');
         const slides = document.querySelectorAll('.slideshow-slide');
         const pillsContainer = document.getElementById('sportPillsContainer');
@@ -974,7 +1118,7 @@
 
         function restartProgressBar() {
           progressBar.classList.remove('progress-animate');
-          void progressBar.offsetWidth; // Reflow μόνο στο progress bar element
+          void progressBar.offsetWidth;
           progressBar.classList.add('progress-animate');
         }
 
@@ -997,12 +1141,10 @@
           restartProgressBar();
         }
 
-        // Όταν τελειώνει το CSS animation της μπάρας, προχωράει στο επόμενο slide
         progressBar.addEventListener('animationend', () => {
           goToSlide(currentSlide + 1);
         });
 
-        // Παύση του slideshow όταν ο χρήστης σκρολάρει εκτός οπτικού πεδίου
         const slideshowObserver = new IntersectionObserver((entries) => {
           entries.forEach(entry => {
             progressBar.style.animationPlayState = entry.isIntersecting ? 'running' : 'paused';
@@ -1014,7 +1156,39 @@
         nextBtn.addEventListener('click', () => goToSlide(currentSlide + 1));
       });
 
-      // Animated Mobile Hamburger Menu Toggle
+      // 5. Dark / Light Mode Toggle with LocalStorage Persistence
+      const themeToggleBtn = document.getElementById('themeToggleBtn');
+      const body = document.body;
+
+      // Έλεγχος αν ο χρήστης είχε αποθηκεύσει παλιότερα επιλογή θέματος
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') {
+        body.classList.add('dark-mode');
+        if (themeToggleBtn) themeToggleBtn.textContent = '☀️';
+      } else if (savedTheme === 'light') {
+        body.classList.add('light-mode');
+        if (themeToggleBtn) themeToggleBtn.textContent = '🌙';
+      }
+
+      if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', () => {
+          if (body.classList.contains('dark-mode')) {
+            // Μετάβαση σε κανονικό/Light Mode
+            body.classList.remove('dark-mode');
+            body.classList.remove('light-mode');
+            localStorage.setItem('theme', 'default');
+            themeToggleBtn.textContent = '🌙';
+          } else {
+            // Μετάβαση σε Dark Mode
+            body.classList.add('dark-mode');
+            body.classList.remove('light-mode');
+            localStorage.setItem('theme', 'dark');
+            themeToggleBtn.textContent = '☀️';
+          }
+        });
+      }
+
+      // Mobile Hamburger Toggle
       const mobileMenuBtn = document.getElementById('mobileMenuBtn');
       const mobileMenu = document.getElementById('mobileMenu');
 
