@@ -872,12 +872,7 @@
 
     <!-- JAVASCRIPT -->
 
-    // Κλείσιμο του mobile menu αυτόματα με το scroll
-        window.addEventListener('scroll', () => {
-          if (mobileMenu.classList.contains('menu-open')) {
-            toggleMobileMenu();
-          }
-        });
+   
     
     <script>
       document.addEventListener('DOMContentLoaded', () => {
@@ -1010,6 +1005,13 @@
         mobileMenuBtn.setAttribute('aria-expanded', isOpen);
       }
       mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+
+        // Κλείσιμο του mobile menu αυτόματα με το scroll
+      window.addEventListener('scroll', () => {
+        if (mobileMenu.classList.contains('menu-open')) {
+          toggleMobileMenu();
+        }
+      });
 
       document.querySelectorAll('.mobile-nav-link').forEach(link => {
         link.addEventListener('click', () => {
