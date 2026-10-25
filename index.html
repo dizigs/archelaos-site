@@ -277,6 +277,7 @@
         transform: rotate(90deg);
       }
 
+      /* 100% Solid Opaque Mobile Dropdown Menu (No Transparency Glitches) */
       #mobileMenu {
         position: absolute;
         top: 100%;
@@ -291,21 +292,24 @@
         border-bottom-width: 0px;
         pointer-events: none;
         transform: translate3d(0, -8px, 0);
+        background-color: #f6ee42 !important; /* Πλήρως αδιαφανές, solid κίτρινο χωρίς να φαίνεται τίποτα από πίσω */
+        border-bottom: 2px solid rgba(8, 76, 36, 0.25);
+        box-shadow: 0 25px 35px -8px rgba(8, 76, 36, 0.35);
         transition: max-height 0.4s cubic-bezier(0.22, 1, 0.36, 1),
                     opacity 0.3s cubic-bezier(0.22, 1, 0.36, 1),
                     transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
                     padding 0.3s ease,
-                    border-bottom-width 0.25s ease;
+                    border-bottom-width 0.25s ease,
+                    background-color 0.3s ease;
       }
       #mobileMenu.menu-open {
-        max-height: 480px;
+        max-height: 520px;
         opacity: 1;
-        padding-top: 1rem;
-        padding-bottom: 1.5rem;
-        border-bottom-width: 1px;
+        padding-top: 1.25rem;
+        padding-bottom: 1.75rem;
+        border-bottom-width: 2px;
         pointer-events: auto;
         transform: translate3d(0, 0, 0);
-        box-shadow: 0 20px 32px -8px rgba(8, 76, 36, 0.25);
       }
 
       #mobileMenu .mobile-menu-item {
@@ -313,7 +317,16 @@
         transform: translate3d(-18px, 0, 0);
         transition: opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1),
                     transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
-                    background-color 0.25s ease;
+                    background-color 0.25s ease,
+                    color 0.25s ease;
+      }
+      #mobileMenu a.mobile-menu-item {
+        background-color: rgba(255, 255, 255, 0.85);
+        border: 1px solid rgba(255, 255, 255, 0.95);
+        box-shadow: 0 2px 6px -1px rgba(8, 76, 36, 0.08);
+      }
+      #mobileMenu a.mobile-menu-item:hover {
+        background-color: #ffffff;
       }
       #mobileMenu.menu-open .mobile-menu-item {
         opacity: 1;
@@ -362,11 +375,17 @@
         color: #f6ee42 !important;
       }
       body.dark-mode #mobileMenu {
-        background: rgba(7, 31, 17, 0.98) !important;
+        background-color: #071f11 !important;
+        border-bottom: 2px solid rgba(246, 238, 66, 0.3) !important;
+        box-shadow: 0 25px 35px -8px rgba(0, 0, 0, 0.7) !important;
+      }
+      body.dark-mode #mobileMenu a.mobile-menu-item {
+        background-color: rgba(14, 54, 30, 0.85) !important;
+        color: #f6ee42 !important;
         border-color: rgba(246, 238, 66, 0.25) !important;
       }
-      body.dark-mode #mobileMenu a {
-        color: #f6ee42 !important;
+      body.dark-mode #mobileMenu a.mobile-menu-item:hover {
+        background-color: #084c24 !important;
       }
       body.dark-mode input,
       body.dark-mode textarea,
@@ -439,7 +458,17 @@
         color: #334155 !important;
       }
       body.light-mode #mobileMenu {
-        background: rgba(255, 255, 255, 0.98) !important;
+        background-color: #ffffff !important;
+        border-bottom: 2px solid rgba(0, 0, 0, 0.12) !important;
+        box-shadow: 0 25px 35px -8px rgba(0, 0, 0, 0.15) !important;
+      }
+      body.light-mode #mobileMenu a.mobile-menu-item {
+        background-color: #f1f5f9 !important;
+        color: #084c24 !important;
+        border-color: rgba(0, 0, 0, 0.08) !important;
+      }
+      body.light-mode #mobileMenu a.mobile-menu-item:hover {
+        background-color: #e2e8f0 !important;
       }
     </style>
 </head>
@@ -499,12 +528,12 @@
         </div>
       </div>
 
-      <!-- Floating Mobile Dropdown Menu -->
-      <div id="mobileMenu" class="md:hidden bg-archelaos-yellow/98 backdrop-blur-md border-archelaos-darkgreen/20 px-5 space-y-2.5">
-        <a href="#home" class="mobile-nav-link mobile-menu-item block px-4 py-2.5 rounded-xl text-base font-extrabold text-archelaos-deepgreen hover:bg-white/50">Αρχική</a>
-        <a href="#about" class="mobile-nav-link mobile-menu-item block px-4 py-2.5 rounded-xl text-base font-extrabold text-archelaos-deepgreen hover:bg-white/50">Ο Σύλλογος</a>
-        <a href="#departments" class="mobile-nav-link mobile-menu-item block px-4 py-2.5 rounded-xl text-base font-extrabold text-archelaos-deepgreen hover:bg-white/50">Αθλητικά Τμήματα</a>
-        <a href="#contact" class="mobile-nav-link mobile-menu-item block px-4 py-2.5 rounded-xl text-base font-extrabold text-archelaos-deepgreen hover:bg-white/50">Επικοινωνία</a>
+      <!-- Solid Mobile Dropdown Menu -->
+      <div id="mobileMenu" class="md:hidden px-5 space-y-2.5">
+        <a href="#home" class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen">Αρχική</a>
+        <a href="#about" class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen">Ο Σύλλογος</a>
+        <a href="#departments" class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen">Αθλητικά Τμήματα</a>
+        <a href="#contact" class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen">Επικοινωνία</a>
         <button onclick="openRegistrationModal('Γενική Εγγραφή'); toggleMobileMenu();" class="mobile-menu-item w-full text-center px-4 py-3.5 bg-archelaos-deepgreen text-archelaos-yellow font-extrabold rounded-xl shadow-lg">
           <i class="fa-solid fa-user-plus mr-2"></i> Εκδήλωση Ενδιαφέροντος
         </button>
