@@ -63,7 +63,7 @@
         animation: waveDrift 14s ease-in-out infinite;
       }
 
-      /* Smooth Spring Reveal Animations (No background discoloration) */
+      /* Smooth Spring Reveal Animations */
       .reveal-text {
         opacity: 0;
         transform: translateY(34px) scale(0.97);
@@ -81,7 +81,7 @@
       .delay-300 { transition-delay: 300ms; }
       .delay-400 { transition-delay: 400ms; }
 
-      /* Pure Floating Animation for Central Logo (Zero background/shadow artifacts) */
+      /* Pure Floating Animation for Central Logo */
       @keyframes gentleFloat {
         0%, 100% { transform: translateY(0px); }
         50% { transform: translateY(-12px); }
@@ -216,57 +216,29 @@
 
       /* ==================== HAMBURGER MENU & DROPDOWN ANIMATIONS ==================== */
       #mobileMenuBtn {
-        transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
-                    background-color 0.3s ease,
-                    box-shadow 0.3s ease;
+        transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
       }
       #mobileMenuBtn:active {
-        transform: scale(0.9);
+        transform: scale(0.92);
       }
       #mobileMenuBtn.is-active {
         background-color: #084c24;
         color: #f6ee42;
         border-color: #084c24;
-        box-shadow: 0 8px 20px -4px rgba(8, 76, 36, 0.35);
+        box-shadow: 0 10px 24px -4px rgba(8, 76, 36, 0.35);
+      }
+      #mobileMenuBtn.is-active #menuIcon {
+        color: #f6ee42 !important;
+        transform: rotate(90deg);
       }
 
-      .hamburger-box {
-        width: 24px;
-        height: 18px;
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-      }
-      .hamburger-line {
-        display: block;
-        width: 100%;
-        height: 2.5px;
-        background-color: currentColor;
-        border-radius: 9999px;
-        transition: transform 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6),
-                    opacity 0.25s ease,
-                    width 0.3s ease;
-        transform-origin: center;
-      }
-      .hamburger-line:nth-child(2) {
-        width: 75%;
-        margin-left: auto;
-      }
-      #mobileMenuBtn.is-active .hamburger-line:nth-child(1) {
-        transform: translateY(7.75px) rotate(45deg);
-      }
-      #mobileMenuBtn.is-active .hamburger-line:nth-child(2) {
-        opacity: 0;
-        width: 0%;
-        transform: translateX(10px);
-      }
-      #mobileMenuBtn.is-active .hamburger-line:nth-child(3) {
-        transform: translateY(-7.75px) rotate(-45deg);
-      }
-
-      /* Smooth Mobile Dropdown Transition */
+      /* Smooth Floating Mobile Dropdown Transition */
       #mobileMenu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        width: 100%;
         max-height: 0;
         opacity: 0;
         overflow: hidden;
@@ -274,21 +246,22 @@
         padding-bottom: 0;
         border-bottom-width: 0px;
         pointer-events: none;
-        transform: translateY(-10px);
-        transition: max-height 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-                    opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-                    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-                    padding 0.35s ease,
-                    border-bottom-width 0.3s ease;
+        transform: translateY(-8px);
+        transition: max-height 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+                    opacity 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+                    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+                    padding 0.3s ease,
+                    border-bottom-width 0.25s ease;
       }
       #mobileMenu.menu-open {
-        max-height: 420px;
+        max-height: 440px;
         opacity: 1;
-        padding-top: 0.75rem;
+        padding-top: 0.85rem;
         padding-bottom: 1.5rem;
         border-bottom-width: 1px;
         pointer-events: auto;
         transform: translateY(0);
+        box-shadow: 0 20px 32px -8px rgba(8, 76, 36, 0.25);
       }
 
       /* Staggered Menu Items Animation */
@@ -312,7 +285,7 @@
 </head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow">
 
-    <!-- ANIMATED CONTOUR WAVES (Pure yellow background without color blotches) -->
+    <!-- ANIMATED CONTOUR WAVES -->
     <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-85">
       <svg class="animate-waves absolute top-0 left-0 w-full h-full min-w-[1100px]" viewBox="0 0 1440 900" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
         <path d="M-60 220 C220 190 310 40 460 -40" stroke="#084c24" stroke-width="2.5" stroke-linecap="round"/>
@@ -354,16 +327,14 @@
             </button>
           </div>
 
-          <button id="mobileMenuBtn" aria-label="Μενού" aria-expanded="false" class="md:hidden p-3 rounded-xl bg-white/50 backdrop-blur-md text-archelaos-deepgreen border border-white/60">
-            <div class="hamburger-box">
-              <span class="hamburger-line"></span>
-              <span class="hamburger-line"></span>
-              <span class="hamburger-line"></span>
-            </div>
+          <!-- Robust Mobile Menu Button -->
+          <button id="mobileMenuBtn" aria-label="Μενού" aria-expanded="false" class="md:hidden w-11 h-11 flex items-center justify-center rounded-xl bg-white/70 hover:bg-white text-archelaos-deepgreen border border-white/80 shadow-sm transition">
+            <i id="menuIcon" class="fa-solid fa-bars text-xl text-archelaos-deepgreen transition-transform duration-300"></i>
           </button>
         </div>
       </div>
 
+      <!-- Floating Mobile Dropdown Menu -->
       <div id="mobileMenu" class="md:hidden bg-archelaos-yellow/95 backdrop-blur-xl border-archelaos-darkgreen/20 px-5 space-y-2.5">
         <a href="#home" class="mobile-nav-link mobile-menu-item block px-4 py-2.5 rounded-xl text-base font-extrabold text-archelaos-deepgreen hover:bg-white/50">Αρχική</a>
         <a href="#about" class="mobile-nav-link mobile-menu-item block px-4 py-2.5 rounded-xl text-base font-extrabold text-archelaos-deepgreen hover:bg-white/50">Ο Σύλλογος</a>
@@ -375,7 +346,7 @@
       </div>
     </header>
 
-    <!-- HERO SECTION (Clean transparent logo directly on yellow background) -->
+    <!-- HERO SECTION -->
     <section id="home" class="relative z-10 pt-10 pb-20 md:pt-16 md:pb-28">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -402,7 +373,7 @@
             </div>
           </div>
 
-          <!-- Central Emblem without any background circle or shadow box -->
+          <!-- Central Emblem -->
           <div class="lg:col-span-5 flex items-center justify-center">
             <div class="reveal-text delay-200 hero-emblem-float relative w-72 h-72 sm:w-80 sm:h-80 lg:w-[420px] lg:h-[420px] flex items-center justify-center select-none">
               <img src="https://lh3.googleusercontent.com/d/1lILSdnXV0Y383UeFwcJbnhHaYvu3nJHj" alt="Έμβλημα Αρχέλαος" class="w-full h-full object-contain">
@@ -417,7 +388,7 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           
-          <!-- Left Column: Interactive 8-Department Competitive Action Slideshow -->
+          <!-- Interactive 8-Department Competitive Action Slideshow -->
           <div class="lg:col-span-7 order-2 lg:order-1 reveal-text">
             <div class="relative rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white/85 h-[420px] sm:h-[520px] bg-archelaos-deepgreen group">
               
@@ -426,7 +397,7 @@
                 <div id="slideProgressBar" class="h-full bg-archelaos-yellow transition-all duration-100 ease-linear" style="width: 0%;"></div>
               </div>
 
-              <!-- Slideshow Container (100% Verified HD Images for all 8 Sports) -->
+              <!-- Slideshow Container -->
               <div id="heroSlideshow" class="relative w-full h-full">
 
                 <!-- 1. Χειροσφαίριση (Χάντμπολ) -->
@@ -443,28 +414,28 @@
                        onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=1600&q=85';">
                 </div>
 
-                <!-- 3. Τοξοβολία (HD Στόχος με Βέλη) -->
+                <!-- 3. Τοξοβολία -->
                 <div class="slideshow-slide" data-sport="Τοξοβολία" data-caption="Ολυμπιακό και σύνθετο τόξο — Απόλυτη ευστοχία στον στόχο.">
                   <img src="https://sportsfeed.gr/wp-content/uploads/2024/10/%CE%B2%CE%B2%CE%B2-scaled.jpeg"
                        alt="Τοξοβολία HD Στόχος με Βέλη"
                        onerror="this.onerror=null; this.src='https://sportsfeed.gr/wp-content/uploads/2024/10/%CE%B2%CE%B2%CE%B2-scaled.jpeg'">
                 </div>
 
-                <!-- 4. Σκοποβολή (Αγωνιστική Σκοποβολή Ακριβείας) -->
+                <!-- 4. Σκοποβολή -->
                 <div class="slideshow-slide" data-sport="Αγωνιστική Σκοποβολή" data-caption="Αγωνιστική σκοποβολή αεροβόλων όπλων και στόχων υψηλής ακρίβειας.">
                   <img src="https://0501.nccdn.net/4_2/000/000/048/0a6/ISSF.jpg"
                        alt="Αγωνιστική Σκοποβολή Αρχέλαος"
                        onerror="this.onerror=null; this.src='https://0501.nccdn.net/4_2/000/000/048/0a6/ISSF.jpg'">
                 </div>
 
-                <!-- 5. Ενόργανη Γυμναστική (Κρίκοι & Όργανα) -->
+                <!-- 5. Ενόργανη Γυμναστική -->
                 <div class="slideshow-slide" data-sport="Ενόργανη Γυμναστική" data-caption="Αγωνιστική ενόργανη γυμναστική — Δύναμη, έλεγχος και αρμονία.">
                   <img src="https://www.delasalle.gr/wp-content/uploads/2025/09/depositphotos_127887760-stock-photo-portrait-of-young-gymnasts-competing.webp"
                        alt="Ενόργανη Γυμναστική Αρχέλαος"
                        onerror="this.onerror=null; this.src='https://www.delasalle.gr/wp-content/uploads/2025/09/depositphotos_127887760-stock-photo-portrait-of-young-gymnasts-competing.webp'">
                 </div>
 
-                <!-- 6. Πάλη (Αγωνιστική Πάλη) -->
+                <!-- 6. Πάλη -->
                 <div class="slideshow-slide" data-sport="Αγωνιστική Πάλη" data-caption="Ολυμπιακή πάλη στο ταπί — Ένα από τα πιο ένδοξα και παραδοσιακά τμήματα του Αρχελάου.">
                   <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVLxI6PiDSGj3e_-EDi1o76kx6O9DJkd8DHF2yZPp-qg&s=10"
                        alt="Αγωνιστική Πάλη Αρχέλαος"
@@ -523,14 +494,13 @@
 
                 <!-- Interactive 8 Sport Selector Pills -->
                 <div id="sportPillsContainer" class="flex flex-wrap items-center gap-1.5 pt-2 border-t border-white/20">
-                  <!-- Generated dynamically by JS for all 8 sports -->
                 </div>
               </div>
 
             </div>
           </div>
 
-          <!-- Right Column: Club History & Mobile-Optimized Stat Cards -->
+          <!-- Right Column: Club History & Stats -->
           <div class="lg:col-span-5 order-1 lg:order-2 space-y-5 sm:space-y-6">
             <div class="reveal-text">
               <span class="inline-block px-4 py-1.5 rounded-full bg-archelaos-deepgreen text-archelaos-yellow font-black text-xs uppercase tracking-wider mb-3 shadow-md">Η Ιστορία Μας</span>
@@ -547,7 +517,7 @@
               Από τις ακαδημίες βάσης μέχρι τις εθνικές κατηγορίες και τις ολυμπιακές διακρίσεις, ο σύλλογος έχει αναδείξει χιλιάδες αθλητές και στα <strong class="text-archelaos-deepgreen">8 ενεργά τμήματά του</strong> (Χάντμπολ, Στίβος, Τοξοβολία, Σκοποβολή, Ενόργανη Γυμναστική, Πάλη, Βόλεϊ και Κολύμβηση).
             </p>
 
-            <!-- Compact Mobile-Friendly Counter Cards (10.000+ & 1956) -->
+            <!-- Compact Counter Cards -->
             <div class="reveal-text delay-300 grid grid-cols-2 gap-2.5 sm:gap-4 pt-1">
               <div class="glass-card p-3 sm:p-4 rounded-2xl flex items-center gap-2.5 sm:gap-3.5">
                 <div class="w-9 h-9 sm:w-11 sm:h-11 bg-archelaos-deepgreen text-archelaos-yellow rounded-xl flex items-center justify-center text-sm sm:text-lg shrink-0 shadow-sm">
@@ -871,9 +841,6 @@
     </footer>
 
     <!-- JAVASCRIPT -->
-
-   
-    
     <script>
       document.addEventListener('DOMContentLoaded', () => {
         // 1. Navbar dynamic scroll glass effect
@@ -998,27 +965,71 @@
       // Animated Mobile Hamburger Menu Toggle
       const mobileMenuBtn = document.getElementById('mobileMenuBtn');
       const mobileMenu = document.getElementById('mobileMenu');
+      const menuIcon = document.getElementById('menuIcon');
+
+      let menuOpenScrollY = 0;
+      let menuIsOpening = false;
+
+      function openMobileMenu() {
+        mobileMenu.classList.add('menu-open');
+        mobileMenuBtn.classList.add('is-active');
+        mobileMenuBtn.setAttribute('aria-expanded', 'true');
+        if (menuIcon) {
+          menuIcon.classList.remove('fa-bars');
+          menuIcon.classList.add('fa-xmark');
+        }
+        menuOpenScrollY = window.scrollY;
+        menuIsOpening = true;
+        setTimeout(() => {
+          menuIsOpening = false;
+          menuOpenScrollY = window.scrollY;
+        }, 300);
+      }
+
+      function closeMobileMenu() {
+        mobileMenu.classList.remove('menu-open');
+        mobileMenuBtn.classList.remove('is-active');
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+        if (menuIcon) {
+          menuIcon.classList.remove('fa-xmark');
+          menuIcon.classList.add('fa-bars');
+        }
+      }
 
       function toggleMobileMenu() {
-        const isOpen = mobileMenu.classList.toggle('menu-open');
-        mobileMenuBtn.classList.toggle('is-active', isOpen);
-        mobileMenuBtn.setAttribute('aria-expanded', isOpen);
-      }
-      mobileMenuBtn.addEventListener('click', toggleMobileMenu);
-
-        // Κλείσιμο του mobile menu αυτόματα με το scroll
-      window.addEventListener('scroll', () => {
         if (mobileMenu.classList.contains('menu-open')) {
-          toggleMobileMenu();
+          closeMobileMenu();
+        } else {
+          openMobileMenu();
         }
+      }
+
+      mobileMenuBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleMobileMenu();
       });
 
-      document.querySelectorAll('.mobile-nav-link').forEach(link => {
-        link.addEventListener('click', () => {
-          if (mobileMenu.classList.contains('menu-open')) {
-            toggleMobileMenu();
+      // Αυτόματο κλείσιμο του μενού ΜΟΝΟ κατά την πραγματική κύλιση (scroll > 25px)
+      window.addEventListener('scroll', () => {
+        if (mobileMenu.classList.contains('menu-open') && !menuIsOpening) {
+          if (Math.abs(window.scrollY - menuOpenScrollY) > 25) {
+            closeMobileMenu();
           }
-        });
+        }
+      }, { passive: true });
+
+      // Κλείσιμο όταν πατηθεί σύνδεσμος
+      document.querySelectorAll('.mobile-nav-link').forEach(link => {
+        link.addEventListener('click', closeMobileMenu);
+      });
+
+      // Κλείσιμο όταν πατηθεί έξω από το μενού
+      document.addEventListener('click', (e) => {
+        if (mobileMenu.classList.contains('menu-open')) {
+          if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+            closeMobileMenu();
+          }
+        }
       });
 
       // Modal Controls
