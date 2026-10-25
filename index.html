@@ -57,26 +57,28 @@
         letter-spacing: -0.03em;
       }
 
-      /* Animated Background Waves */
+      /* Animated Background Waves - GPU Promoted */
       @keyframes waveDrift {
         0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
         50% { transform: translate3d(-15px, 10px, 0) scale(1.02); }
       }
       .animate-waves {
         animation: waveDrift 14s ease-in-out infinite;
+        will-change: transform;
       }
 
       /* Smooth Spring Reveal Animations */
       .reveal-text {
         opacity: 0;
-        transform: translateY(34px) scale(0.97);
+        transform: translate3d(0, 34px, 0) scale(0.97);
         transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
                     transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
         will-change: opacity, transform;
       }
       .reveal-text.is-visible {
         opacity: 1;
-        transform: translateY(0) scale(1);
+        transform: translate3d(0, 0, 0) scale(1);
+        will-change: auto; /* Απελευθερώνει τη μνήμη GPU μετά την εμφάνιση */
       }
 
       .delay-100 { transition-delay: 100ms; }
@@ -86,28 +88,30 @@
 
       /* Pure Floating Animation for Central Logo */
       @keyframes gentleFloat {
-        0%, 100% { transform: translateY(0px); }
-        50% { transform: translateY(-12px); }
+        0%, 100% { transform: translate3d(0, 0px, 0); }
+        50% { transform: translate3d(0, -12px, 0); }
       }
       .hero-emblem-float {
         animation: gentleFloat 5.5s ease-in-out infinite;
+        will-change: transform;
         background: transparent !important;
       }
 
-      /* Premium Frosted Glassmorphism */
+      /* Optimized Frosted Glassmorphism (Reduced blur radius for 60fps scrolling) */
       .glass-section {
-        background: rgba(255, 255, 255, 0.55);
-        backdrop-filter: blur(20px) saturate(160%);
-        -webkit-backdrop-filter: blur(20px) saturate(160%);
+        background: rgba(255, 255, 255, 0.62);
+        backdrop-filter: blur(12px) saturate(140%);
+        -webkit-backdrop-filter: blur(12px) saturate(140%);
         border-top: 1px solid rgba(255, 255, 255, 0.65);
         border-bottom: 1px solid rgba(8, 76, 36, 0.15);
+        transform: translateZ(0);
       }
 
       .glass-card {
         position: relative;
-        background: rgba(255, 255, 255, 0.72);
-        backdrop-filter: blur(18px) saturate(180%);
-        -webkit-backdrop-filter: blur(18px) saturate(180%);
+        background: rgba(255, 255, 255, 0.78);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
         border: 1px solid rgba(255, 255, 255, 0.85);
         box-shadow: 0 12px 30px -8px rgba(8, 76, 36, 0.1),
                     inset 0 1px 1px rgba(255, 255, 255, 0.9);
@@ -116,12 +120,13 @@
                     background-color 0.45s ease,
                     border-color 0.45s ease;
         overflow: hidden;
+        transform: translateZ(0);
       }
       .glass-card::before {
         content: '';
         position: absolute;
         inset: 0;
-        background: radial-gradient(480px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(246, 238, 66, 0.32), transparent 40%);
+        background: radial-gradient(420px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(246, 238, 66, 0.32), transparent 40%);
         opacity: 0;
         transition: opacity 0.4s ease;
         pointer-events: none;
@@ -130,28 +135,32 @@
         opacity: 1;
       }
       .glass-card:hover {
-        transform: translateY(-9px) scale(1.015);
-        background: rgba(255, 255, 255, 0.9);
+        transform: translate3d(0, -9px, 0) scale(1.015);
+        background: rgba(255, 255, 255, 0.92);
         box-shadow: 0 26px 48px -12px rgba(8, 76, 36, 0.22),
                     inset 0 1px 2px rgba(255, 255, 255, 1);
         border-color: rgba(0, 138, 40, 0.45);
       }
 
       .glass-nav {
-        background: rgba(246, 238, 66, 0.82);
-        backdrop-filter: blur(18px) saturate(170%);
-        -webkit-backdrop-filter: blur(18px) saturate(170%);
+        background: rgba(246, 238, 66, 0.85);
+        backdrop-filter: blur(12px) saturate(150%);
+        -webkit-backdrop-filter: blur(12px) saturate(150%);
         border-bottom: 1px solid rgba(8, 76, 36, 0.14);
-        transition: all 0.35s ease;
+        transition: background-color 0.35s ease, box-shadow 0.35s ease;
+        transform: translateZ(0);
       }
       .glass-nav.scrolled {
-        background: rgba(246, 238, 66, 0.94);
+        background: rgba(246, 238, 66, 0.95);
         box-shadow: 0 10px 28px -10px rgba(8, 76, 36, 0.18);
       }
 
       /* Department Card Icon Animation */
       .icon-box {
-        transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+                    background-color 0.4s ease,
+                    color 0.4s ease,
+                    box-shadow 0.4s ease;
       }
       .department-card:hover .icon-box {
         background-color: #084c24;
@@ -160,7 +169,7 @@
         box-shadow: 0 12px 22px -6px rgba(8, 76, 36, 0.35);
       }
 
-      /* Button Shimmer Effect */
+      /* Button Shimmer Effect (GPU Transform instead of Left property) */
       .btn-shimmer {
         position: relative;
         overflow: hidden;
@@ -169,15 +178,16 @@
         content: '';
         position: absolute;
         top: -50%;
-        left: -60%;
+        left: 0;
         width: 45%;
         height: 200%;
         background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.28) 50%, rgba(255,255,255,0) 100%);
-        transform: rotate(25deg);
-        transition: all 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+        transform: translate3d(-160%, 0, 0) rotate(25deg);
+        transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+        pointer-events: none;
       }
       .btn-shimmer:hover::after {
-        left: 130%;
+        transform: translate3d(280%, 0, 0) rotate(25deg);
       }
 
       /* Pro Slideshow Styles */
@@ -207,13 +217,27 @@
         transform: scale(1);
       }
 
+      /* GPU-Accelerated Progress Bar */
+      @keyframes progressScale {
+        from { transform: scaleX(0); }
+        to { transform: scaleX(1); }
+      }
+      .progress-animate {
+        transform-origin: left center;
+        animation: progressScale 4500ms linear forwards;
+        will-change: transform;
+      }
+
       .sport-pill {
-        transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+        transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+                    background-color 0.3s ease,
+                    color 0.3s ease,
+                    box-shadow 0.3s ease;
       }
       .sport-pill.active {
         background-color: #f6ee42;
         color: #084c24;
-        transform: translateY(-2px) scale(1.05);
+        transform: translate3d(0, -2px, 0) scale(1.05);
         box-shadow: 0 6px 16px -4px rgba(0, 0, 0, 0.35);
       }
 
@@ -249,7 +273,7 @@
         padding-bottom: 0;
         border-bottom-width: 0px;
         pointer-events: none;
-        transform: translateY(-8px);
+        transform: translate3d(0, -8px, 0);
         transition: max-height 0.4s cubic-bezier(0.22, 1, 0.36, 1),
                     opacity 0.3s cubic-bezier(0.22, 1, 0.36, 1),
                     transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
@@ -263,21 +287,21 @@
         padding-bottom: 1.5rem;
         border-bottom-width: 1px;
         pointer-events: auto;
-        transform: translateY(0);
+        transform: translate3d(0, 0, 0);
         box-shadow: 0 20px 32px -8px rgba(8, 76, 36, 0.25);
       }
 
       /* Staggered Menu Items Animation */
       #mobileMenu .mobile-menu-item {
         opacity: 0;
-        transform: translateX(-18px);
+        transform: translate3d(-18px, 0, 0);
         transition: opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1),
                     transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
                     background-color 0.25s ease;
       }
       #mobileMenu.menu-open .mobile-menu-item {
         opacity: 1;
-        transform: translateX(0);
+        transform: translate3d(0, 0, 0);
       }
       #mobileMenu.menu-open .mobile-menu-item:nth-child(1) { transition-delay: 60ms; }
       #mobileMenu.menu-open .mobile-menu-item:nth-child(2) { transition-delay: 110ms; }
@@ -306,7 +330,7 @@
         <div class="flex items-center justify-between h-20">
           <a href="#home" class="flex items-center space-x-3.5 group">
             <div class="relative w-16 h-16 shrink-0 flex items-center justify-center transform group-hover:scale-110 transition duration-500">
-              <img src="https://lh3.googleusercontent.com/d/1lILSdnXV0Y383UeFwcJbnhHaYvu3nJHj" alt="Γ.Α.Σ. Αρχέλαος 1956" class="w-full h-full object-contain">
+              <img src="https://lh3.googleusercontent.com/d/1lILSdnXV0Y383UeFwcJbnhHaYvu3nJHj" alt="Γ.Α.Σ. Αρχέλαος 1956" class="w-full h-full object-contain" decoding="async">
             </div>
             <div class="flex flex-col">
               <div class="flex items-center gap-2">
@@ -317,7 +341,7 @@
             </div>
           </a>
 
-          <nav class="hidden md:flex items-center space-x-1 bg-white/45 backdrop-blur-md px-4 py-1.5 rounded-2xl border border-white/70 shadow-sm">
+          <nav class="hidden md:flex items-center space-x-1 bg-white/55 px-4 py-1.5 rounded-2xl border border-white/70 shadow-sm">
             <a href="#home" class="px-3.5 py-1.5 rounded-xl text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-300">Αρχική</a>
             <a href="#about" class="px-3.5 py-1.5 rounded-xl text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-300">Ο Σύλλογος</a>
             <a href="#departments" class="px-3.5 py-1.5 rounded-xl text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-300">Τμήματα</a>
@@ -338,7 +362,7 @@
       </div>
 
       <!-- Floating Mobile Dropdown Menu -->
-      <div id="mobileMenu" class="md:hidden bg-archelaos-yellow/95 backdrop-blur-xl border-archelaos-darkgreen/20 px-5 space-y-2.5">
+      <div id="mobileMenu" class="md:hidden bg-archelaos-yellow/95 backdrop-blur-md border-archelaos-darkgreen/20 px-5 space-y-2.5">
         <a href="#home" class="mobile-nav-link mobile-menu-item block px-4 py-2.5 rounded-xl text-base font-extrabold text-archelaos-deepgreen hover:bg-white/50">Αρχική</a>
         <a href="#about" class="mobile-nav-link mobile-menu-item block px-4 py-2.5 rounded-xl text-base font-extrabold text-archelaos-deepgreen hover:bg-white/50">Ο Σύλλογος</a>
         <a href="#departments" class="mobile-nav-link mobile-menu-item block px-4 py-2.5 rounded-xl text-base font-extrabold text-archelaos-deepgreen hover:bg-white/50">Αθλητικά Τμήματα</a>
@@ -370,7 +394,7 @@
               <button onclick="openRegistrationModal('Γενική Εγγραφή')" class="btn-shimmer w-full sm:w-auto px-8 py-4 bg-archelaos-deepgreen hover:bg-archelaos-darkgreen text-archelaos-yellow font-black rounded-2xl shadow-xl hover:-translate-y-1 transition duration-300">
                 Εκδήλωση Ενδιαφέροντος <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
               </button>
-              <a href="#departments" class="w-full sm:w-auto px-8 py-4 bg-white/75 hover:bg-white backdrop-blur-md text-archelaos-deepgreen border border-archelaos-darkgreen/25 font-extrabold rounded-2xl shadow-md hover:-translate-y-1 transition duration-300 text-center">
+              <a href="#departments" class="w-full sm:w-auto px-8 py-4 bg-white/80 hover:bg-white text-archelaos-deepgreen border border-archelaos-darkgreen/25 font-extrabold rounded-2xl shadow-md hover:-translate-y-1 transition duration-300 text-center">
                 Γνωρίστε τα 8 Τμήματα
               </a>
             </div>
@@ -379,7 +403,7 @@
           <!-- Central Emblem -->
           <div class="lg:col-span-5 flex items-center justify-center">
             <div class="reveal-text delay-200 hero-emblem-float relative w-72 h-72 sm:w-80 sm:h-80 lg:w-[420px] lg:h-[420px] flex items-center justify-center select-none">
-              <img src="https://lh3.googleusercontent.com/d/1lILSdnXV0Y383UeFwcJbnhHaYvu3nJHj" alt="Έμβλημα Αρχέλαος" class="w-full h-full object-contain">
+              <img src="https://lh3.googleusercontent.com/d/1lILSdnXV0Y383UeFwcJbnhHaYvu3nJHj" alt="Έμβλημα Αρχέλαος" class="w-full h-full object-contain" fetchpriority="high" decoding="async">
             </div>
           </div>
         </div>
@@ -393,11 +417,11 @@
           
           <!-- Interactive 8-Department Competitive Action Slideshow -->
           <div class="lg:col-span-7 order-2 lg:order-1 reveal-text">
-            <div class="relative rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white/85 h-[420px] sm:h-[520px] bg-archelaos-deepgreen group">
+            <div id="slideshowWrapper" class="relative rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white/85 h-[420px] sm:h-[520px] bg-archelaos-deepgreen group">
               
-              <!-- Top Progress Bar -->
-              <div class="absolute top-0 left-0 right-0 h-1.5 bg-black/30 z-30">
-                <div id="slideProgressBar" class="h-full bg-archelaos-yellow transition-all duration-100 ease-linear" style="width: 0%;"></div>
+              <!-- Top Progress Bar (GPU ScaleX) -->
+              <div class="absolute top-0 left-0 right-0 h-1.5 bg-black/30 z-30 overflow-hidden">
+                <div id="slideProgressBar" class="h-full w-full bg-archelaos-yellow progress-animate"></div>
               </div>
 
               <!-- Slideshow Container -->
@@ -407,20 +431,23 @@
                 <div class="slideshow-slide active" data-sport="Χειροσφαίριση (Χάντμπολ)" data-caption="Αγωνιστική δράση στη Χειροσφαίριση — 2 Κύπελλα Ελλάδος & ιστορική παρουσία στην Α1 Εθνική.">
                   <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaOFUCWatPwP-EycFiHffCCMk_Kz1ScNWPtg7znhR3mQ&s=10"
                        alt="Χειροσφαίριση Αρχέλαος"
+                       decoding="async"
                        onerror="this.onerror=null; this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaOFUCWatPwP-EycFiHffCCMk_Kz1ScNWPtg7znhR3mQ&s=10'">
                 </div>
 
                 <!-- 2. Στίβος (Κλασικός Αθλητισμός) -->
                 <div class="slideshow-slide" data-sport="Στίβος (Κλασικός Αθλητισμός)" data-caption="Εκκίνηση και αγωνιστικοί δρόμοι ταχύτητας στο στάδιο — Φυτώριο πρωταθλητών από το 1956.">
-                  <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=1600&q=85"
+                  <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=1200&q=80"
                        alt="Στίβος Αρχέλαος"
-                       onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=1600&q=85';">
+                       loading="lazy" decoding="async"
+                       onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=1200&q=80';">
                 </div>
 
                 <!-- 3. Τοξοβολία -->
                 <div class="slideshow-slide" data-sport="Τοξοβολία" data-caption="Ολυμπιακό και σύνθετο τόξο — Απόλυτη ευστοχία στον στόχο.">
                   <img src="https://sportsfeed.gr/wp-content/uploads/2024/10/%CE%B2%CE%B2%CE%B2-scaled.jpeg"
                        alt="Τοξοβολία HD Στόχος με Βέλη"
+                       loading="lazy" decoding="async"
                        onerror="this.onerror=null; this.src='https://sportsfeed.gr/wp-content/uploads/2024/10/%CE%B2%CE%B2%CE%B2-scaled.jpeg'">
                 </div>
 
@@ -428,6 +455,7 @@
                 <div class="slideshow-slide" data-sport="Αγωνιστική Σκοποβολή" data-caption="Αγωνιστική σκοποβολή αεροβόλων όπλων και στόχων υψηλής ακρίβειας.">
                   <img src="https://0501.nccdn.net/4_2/000/000/048/0a6/ISSF.jpg"
                        alt="Αγωνιστική Σκοποβολή Αρχέλαος"
+                       loading="lazy" decoding="async"
                        onerror="this.onerror=null; this.src='https://0501.nccdn.net/4_2/000/000/048/0a6/ISSF.jpg'">
                 </div>
 
@@ -435,6 +463,7 @@
                 <div class="slideshow-slide" data-sport="Ενόργανη Γυμναστική" data-caption="Αγωνιστική ενόργανη γυμναστική — Δύναμη, έλεγχος και αρμονία.">
                   <img src="https://www.delasalle.gr/wp-content/uploads/2025/09/depositphotos_127887760-stock-photo-portrait-of-young-gymnasts-competing.webp"
                        alt="Ενόργανη Γυμναστική Αρχέλαος"
+                       loading="lazy" decoding="async"
                        onerror="this.onerror=null; this.src='https://www.delasalle.gr/wp-content/uploads/2025/09/depositphotos_127887760-stock-photo-portrait-of-young-gymnasts-competing.webp'">
                 </div>
 
@@ -442,6 +471,7 @@
                 <div class="slideshow-slide" data-sport="Αγωνιστική Πάλη" data-caption="Ολυμπιακή πάλη στο ταπί — Ένα από τα πιο ένδοξα και παραδοσιακά τμήματα του Αρχελάου.">
                   <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVLxI6PiDSGj3e_-EDi1o76kx6O9DJkd8DHF2yZPp-qg&s=10"
                        alt="Αγωνιστική Πάλη Αρχέλαος"
+                       loading="lazy" decoding="async"
                        onerror="this.onerror=null; this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVLxI6PiDSGj3e_-EDi1o76kx6O9DJkd8DHF2yZPp-qg&s=10'">
                 </div>
 
@@ -449,30 +479,32 @@
                 <div class="slideshow-slide" data-sport="Πετοσφαίριση (Βόλεϊ)" data-caption="Αγωνιστική δράση στο φιλέ — Ομαδικότητα, εκρηκτικότητα και τεχνική υπεροχή.">
                   <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIex8YMFGm7cLdQvLNvrQ4fdkg45xPl68ULVxGERNXOw&s=10"
                        alt="Πετοσφαίριση Βόλεϊ Αρχέλαος"
+                       loading="lazy" decoding="async"
                        onerror="this.onerror=null; this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIex8YMFGm7cLdQvLNvrQ4fdkg45xPl68ULVxGERNXOw&s=10'">
                 </div>
 
                 <!-- 8. Κολύμβηση -->
                 <div class="slideshow-slide" data-sport="Αγωνιστική Κολύμβηση" data-caption="Αγωνιστικός υγρός στίβος στις διαδρομές της πισίνας — Ταχύτητα και αντοχή στο νερό.">
-                  <img src="https://images.unsplash.com/photo-1530549387789-4c1017266635?auto=format&fit=crop&w=1600&q=85"
+                  <img src="https://images.unsplash.com/photo-1530549387789-4c1017266635?auto=format&fit=crop&w=1200&q=80"
                        alt="Κολύμβηση Αρχέλαος"
-                       onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1519315901367-f34ff9154487?auto=format&fit=crop&w=1600&q=85';">
+                       loading="lazy" decoding="async"
+                       onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1519315901367-f34ff9154487?auto=format&fit=crop&w=1200&q=80';">
                 </div>
 
               </div>
 
               <!-- Top Left Active Sport Badge -->
               <div class="absolute top-5 left-5 z-20 flex items-center gap-2">
-                <span id="activeSportBadge" class="px-3.5 py-1.5 rounded-full bg-archelaos-deepgreen/85 backdrop-blur-md text-archelaos-yellow text-xs sm:text-sm font-black uppercase tracking-wider border border-archelaos-yellow/50 shadow-xl">
+                <span id="activeSportBadge" class="px-3.5 py-1.5 rounded-full bg-archelaos-deepgreen/90 text-archelaos-yellow text-xs sm:text-sm font-black uppercase tracking-wider border border-archelaos-yellow/50 shadow-xl">
                   1/8 • Χειροσφαίριση (Χάντμπολ)
                 </span>
               </div>
 
               <!-- Prev / Next Glass Buttons -->
-              <button id="prevSlideBtn" aria-label="Προηγούμενο άθλημα" class="absolute left-3.5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-black/35 hover:bg-archelaos-yellow text-white hover:text-archelaos-deepgreen backdrop-blur-md border border-white/30 flex items-center justify-center transition duration-300 opacity-85 group-hover:opacity-100">
+              <button id="prevSlideBtn" aria-label="Προηγούμενο άθλημα" class="absolute left-3.5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-black/45 hover:bg-archelaos-yellow text-white hover:text-archelaos-deepgreen border border-white/30 flex items-center justify-center transition duration-300 opacity-85 group-hover:opacity-100">
                 <i class="fa-solid fa-chevron-left"></i>
               </button>
-              <button id="nextSlideBtn" aria-label="Επόμενο άθλημα" class="absolute right-3.5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-black/35 hover:bg-archelaos-yellow text-white hover:text-archelaos-deepgreen backdrop-blur-md border border-white/30 flex items-center justify-center transition duration-300 opacity-85 group-hover:opacity-100">
+              <button id="nextSlideBtn" aria-label="Επόμενο άθλημα" class="absolute right-3.5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-black/45 hover:bg-archelaos-yellow text-white hover:text-archelaos-deepgreen border border-white/30 flex items-center justify-center transition duration-300 opacity-85 group-hover:opacity-100">
                 <i class="fa-solid fa-chevron-right"></i>
               </button>
 
@@ -483,7 +515,7 @@
               <div class="absolute bottom-0 inset-x-0 p-4 sm:p-7 z-20 flex flex-col gap-3.5">
                 <div class="flex items-end justify-between gap-4">
                   <div class="flex items-center gap-3">
-                    <img src="https://lh3.googleusercontent.com/d/1JwGT61jDKXuBU6rA1OCiC1laeKh8gKdV" alt="Αρχέλαος Logo" class="w-12 h-12 sm:w-14 sm:h-14 object-contain drop-shadow-lg shrink-0">
+                    <img src="https://lh3.googleusercontent.com/d/1JwGT61jDKXuBU6rA1OCiC1laeKh8gKdV" alt="Αρχέλαος Logo" class="w-12 h-12 sm:w-14 sm:h-14 object-contain drop-shadow-lg shrink-0" loading="lazy" decoding="async">
                     <div>
                       <h3 class="text-lg sm:text-2xl font-black text-white font-heading leading-tight drop-shadow">
                         70 Χρόνια <span class="text-archelaos-yellow">Αγωνιστικής Δράσης</span>
@@ -560,7 +592,7 @@
     <section id="departments" class="relative z-10 py-24">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="reveal-text text-center max-w-3xl mx-auto mb-16">
-          <span class="inline-block px-4 py-1.5 rounded-full bg-white/75 backdrop-blur-md text-archelaos-deepgreen font-black text-xs uppercase tracking-wider mb-3 shadow-sm border border-white">
+          <span class="inline-block px-4 py-1.5 rounded-full bg-white/85 text-archelaos-deepgreen font-black text-xs uppercase tracking-wider mb-3 shadow-sm border border-white">
             Αθλητισμός για όλους
           </span>
           <h2 class="text-3xl sm:text-5xl font-black font-heading text-archelaos-deepgreen">
@@ -792,8 +824,8 @@
     </section>
 
     <!-- REGISTRATION MODAL -->
-    <div id="registrationModal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-archelaos-deepgreen/65 backdrop-blur-md flex items-center justify-center p-4">
-      <div class="relative w-full max-w-lg bg-white/95 backdrop-blur-2xl rounded-3xl shadow-2xl overflow-hidden border-2 border-white">
+    <div id="registrationModal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-archelaos-deepgreen/65 backdrop-blur-sm flex items-center justify-center p-4">
+      <div class="relative w-full max-w-lg bg-white/95 rounded-3xl shadow-2xl overflow-hidden border-2 border-white">
         <div class="bg-archelaos-yellow p-6 flex items-center justify-between border-b border-archelaos-darkgreen/20">
           <div class="flex items-center gap-2.5">
             <i class="fa-solid fa-user-plus text-archelaos-deepgreen text-lg"></i>
@@ -836,9 +868,9 @@
     </div>
 
     <!-- FOOTER -->
-    <footer class="relative z-10 bg-archelaos-deepgreen/95 backdrop-blur-xl text-archelaos-yellow/80 border-t border-archelaos-yellow/20">
+    <footer class="relative z-10 bg-archelaos-deepgreen text-archelaos-yellow/80 border-t border-archelaos-yellow/20">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col items-center justify-center gap-6 text-center text-xs">
-        <img src="https://lh3.googleusercontent.com/d/1JwGT61jDKXuBU6rA1OCiC1laeKh8gKdV" alt="Γ.Α.Σ. Αρχέλαος - Yellow Logo" class="w-24 h-24 object-contain opacity-95 hover:scale-105 transition-transform duration-300">
+        <img src="https://lh3.googleusercontent.com/d/1JwGT61jDKXuBU6rA1OCiC1laeKh8gKdV" alt="Γ.Α.Σ. Αρχέλαος - Yellow Logo" class="w-24 h-24 object-contain opacity-95 hover:scale-105 transition-transform duration-300" loading="lazy" decoding="async">
         <p class="font-semibold tracking-wide">&copy; 1956 - 2026 Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης &bull; archelaos.club</p>
       </div>
     </footer>
@@ -846,26 +878,38 @@
     <!-- JAVASCRIPT -->
     <script>
       document.addEventListener('DOMContentLoaded', () => {
-        // 1. Navbar dynamic scroll glass effect
+        // 1. Unified Passive Scroll Listener (Zero main-thread blocking)
         const mainHeader = document.getElementById('mainHeader');
-        window.addEventListener('scroll', () => {
-          if (window.scrollY > 25) {
-            mainHeader.classList.add('scrolled');
-          } else {
-            mainHeader.classList.remove('scrolled');
-          }
-        });
+        const mobileMenu = document.getElementById('mobileMenu');
+        let isScrolled = false;
 
-        // 2. Mouse Spotlight effect on Glass Cards
-        document.querySelectorAll('.glass-card').forEach(card => {
-          card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            card.style.setProperty('--mouse-x', `${x}px`);
-            card.style.setProperty('--mouse-y', `${y}px`);
+        window.addEventListener('scroll', () => {
+          const shouldBeScrolled = window.scrollY > 25;
+          if (shouldBeScrolled !== isScrolled) {
+            isScrolled = shouldBeScrolled;
+            mainHeader.classList.toggle('scrolled', isScrolled);
+          }
+          if (mobileMenu.classList.contains('menu-open')) {
+            toggleMobileMenu();
+          }
+        }, { passive: true });
+
+        // 2. Throttled Mouse Spotlight effect on Desktop Devices Only
+        if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+          document.querySelectorAll('.glass-card').forEach(card => {
+            let rafPending = false;
+            card.addEventListener('mousemove', (e) => {
+              if (rafPending) return;
+              rafPending = true;
+              requestAnimationFrame(() => {
+                const rect = card.getBoundingClientRect();
+                card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+                card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+                rafPending = false;
+              });
+            }, { passive: true });
           });
-        });
+        }
 
         // 3. Scroll Reveal & Number Counter Observer
         const observer = new IntersectionObserver((entries) => {
@@ -899,7 +943,8 @@
           requestAnimationFrame(update);
         }
 
-        // 4. Interactive 8-Sport Slideshow with Pills & Progress Bar
+        // 4. GPU-Driven 8-Sport Slideshow (Pauses automatically when off-screen)
+        const slideshowWrapper = document.getElementById('slideshowWrapper');
         const slides = document.querySelectorAll('.slideshow-slide');
         const pillsContainer = document.getElementById('sportPillsContainer');
         const activeSportBadge = document.getElementById('activeSportBadge');
@@ -914,8 +959,6 @@
         ];
 
         let currentSlide = 0;
-        const slideDuration = 4500;
-        let progressStart = performance.now();
 
         slides.forEach((_, idx) => {
           const pill = document.createElement('button');
@@ -923,13 +966,17 @@
           pill.textContent = shortLabels[idx] || `Τμήμα ${idx + 1}`;
           pill.className = 'sport-pill px-2.5 sm:px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wide ' +
                            (idx === 0 ? 'active' : 'bg-black/45 text-white/90 hover:bg-white/25 border border-white/20');
-          pill.addEventListener('click', () => {
-            goToSlide(idx);
-          });
+          pill.addEventListener('click', () => goToSlide(idx));
           pillsContainer.appendChild(pill);
         });
 
         const pills = pillsContainer.querySelectorAll('.sport-pill');
+
+        function restartProgressBar() {
+          progressBar.classList.remove('progress-animate');
+          void progressBar.offsetWidth; // Reflow μόνο στο progress bar element
+          progressBar.classList.add('progress-animate');
+        }
 
         function goToSlide(index) {
           slides[currentSlide].classList.remove('active');
@@ -947,22 +994,24 @@
           activeSportBadge.textContent = `${currentSlide + 1}/${slides.length} • ${sportTitle}`;
           activeSlideCaption.textContent = sportCaption;
 
-          progressStart = performance.now();
+          restartProgressBar();
         }
+
+        // Όταν τελειώνει το CSS animation της μπάρας, προχωράει στο επόμενο slide
+        progressBar.addEventListener('animationend', () => {
+          goToSlide(currentSlide + 1);
+        });
+
+        // Παύση του slideshow όταν ο χρήστης σκρολάρει εκτός οπτικού πεδίου
+        const slideshowObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            progressBar.style.animationPlayState = entry.isIntersecting ? 'running' : 'paused';
+          });
+        }, { threshold: 0.1 });
+        slideshowObserver.observe(slideshowWrapper);
 
         prevBtn.addEventListener('click', () => goToSlide(currentSlide - 1));
         nextBtn.addEventListener('click', () => goToSlide(currentSlide + 1));
-
-        function animateProgress(now) {
-          const elapsed = now - progressStart;
-          const pct = Math.min((elapsed / slideDuration) * 100, 100);
-          progressBar.style.width = `${pct}%`;
-          if (elapsed >= slideDuration) {
-            goToSlide(currentSlide + 1);
-          }
-          requestAnimationFrame(animateProgress);
-        }
-        requestAnimationFrame(animateProgress);
       });
 
       // Animated Mobile Hamburger Menu Toggle
@@ -975,13 +1024,6 @@
         mobileMenuBtn.setAttribute('aria-expanded', isOpen);
       }
       mobileMenuBtn.addEventListener('click', toggleMobileMenu);
-
-        // Κλείσιμο του mobile menu αυτόματα με το scroll
-      window.addEventListener('scroll', () => {
-        if (mobileMenu.classList.contains('menu-open')) {
-          toggleMobileMenu();
-        }
-      });
 
       document.querySelectorAll('.mobile-nav-link').forEach(link => {
         link.addEventListener('click', () => {
