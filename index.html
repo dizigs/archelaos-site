@@ -968,71 +968,27 @@
       // Animated Mobile Hamburger Menu Toggle
       const mobileMenuBtn = document.getElementById('mobileMenuBtn');
       const mobileMenu = document.getElementById('mobileMenu');
-      const menuIcon = document.getElementById('menuIcon');
-
-      let menuOpenScrollY = 0;
-      let menuIsOpening = false;
-
-      function openMobileMenu() {
-        mobileMenu.classList.add('menu-open');
-        mobileMenuBtn.classList.add('is-active');
-        mobileMenuBtn.setAttribute('aria-expanded', 'true');
-        if (menuIcon) {
-          menuIcon.classList.remove('fa-bars');
-          menuIcon.classList.add('fa-xmark');
-        }
-        menuOpenScrollY = window.scrollY;
-        menuIsOpening = true;
-        setTimeout(() => {
-          menuIsOpening = false;
-          menuOpenScrollY = window.scrollY;
-        }, 300);
-      }
-
-      function closeMobileMenu() {
-        mobileMenu.classList.remove('menu-open');
-        mobileMenuBtn.classList.remove('is-active');
-        mobileMenuBtn.setAttribute('aria-expanded', 'false');
-        if (menuIcon) {
-          menuIcon.classList.remove('fa-xmark');
-          menuIcon.classList.add('fa-bars');
-        }
-      }
 
       function toggleMobileMenu() {
-        if (mobileMenu.classList.contains('menu-open')) {
-          closeMobileMenu();
-        } else {
-          openMobileMenu();
-        }
+        const isOpen = mobileMenu.classList.toggle('menu-open');
+        mobileMenuBtn.classList.toggle('is-active', isOpen);
+        mobileMenuBtn.setAttribute('aria-expanded', isOpen);
       }
+      mobileMenuBtn.addEventListener('click', toggleMobileMenu);
 
-      mobileMenuBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        toggleMobileMenu();
-      });
-
-      // Αυτόματο κλείσιμο του μενού ΜΟΝΟ κατά την πραγματική κύλιση (scroll > 25px)
+        // Κλείσιμο του mobile menu αυτόματα με το scroll
       window.addEventListener('scroll', () => {
-        if (mobileMenu.classList.contains('menu-open') && !menuIsOpening) {
-          if (Math.abs(window.scrollY - menuOpenScrollY) > 25) {
-            closeMobileMenu();
-          }
+        if (mobileMenu.classList.contains('menu-open')) {
+          toggleMobileMenu();
         }
-      }, { passive: true });
-
-      // Κλείσιμο όταν πατηθεί σύνδεσμος
-      document.querySelectorAll('.mobile-nav-link').forEach(link => {
-        link.addEventListener('click', closeMobileMenu);
       });
 
-      // Κλείσιμο όταν πατηθεί έξω από το μενού
-      document.addEventListener('click', (e) => {
-        if (mobileMenu.classList.contains('menu-open')) {
-          if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
-            closeMobileMenu();
+      document.querySelectorAll('.mobile-nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+          if (mobileMenu.classList.contains('menu-open')) {
+            toggleMobileMenu();
           }
-        }
+        });
       });
 
       // Modal Controls
