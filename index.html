@@ -871,6 +871,14 @@
     </footer>
 
     <!-- JAVASCRIPT -->
+
+    // Κλείσιμο του mobile menu αυτόματα με το scroll
+        window.addEventListener('scroll', () => {
+          if (mobileMenu.classList.contains('menu-open')) {
+            toggleMobileMenu();
+          }
+        });
+    
     <script>
       document.addEventListener('DOMContentLoaded', () => {
         // 1. Navbar dynamic scroll glass effect
