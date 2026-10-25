@@ -230,6 +230,16 @@
         box-shadow: 0 8px 20px -4px rgba(8, 76, 36, 0.35);
       }
 
+        #mobileMenu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        width: 100%;
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+            
       .hamburger-box {
         width: 24px;
         height: 18px;
@@ -995,23 +1005,29 @@
         requestAnimationFrame(animateProgress);
       });
 
-      // Animated Mobile Hamburger Menu Toggle
+    // Animated Mobile Hamburger Menu Toggle
       const mobileMenuBtn = document.getElementById('mobileMenuBtn');
       const mobileMenu = document.getElementById('mobileMenu');
+
+      let openScrollY = 0;
+      let isOpening = false;
 
       function toggleMobileMenu() {
         const isOpen = mobileMenu.classList.toggle('menu-open');
         mobileMenuBtn.classList.toggle('is-active', isOpen);
         mobileMenuBtn.setAttribute('aria-expanded', isOpen);
+
+        if (isOpen) {
+          openScrollY = window.scrollY;
+          isOpening = true;
+          // Προστασία 350ms για να αγνοηθεί το layout shift και η αδράνεια του πατήματος
+          setTimeout(() => {
+            isOpening = false;
+            openScrollY = window.scrollY;
+          }, 350);
+        }
       }
       mobileMenuBtn.addEventListener('click', toggleMobileMenu);
-
-        // Κλείσιμο του mobile menu αυτόματα με το scroll
-      window.addEventListener('scroll', () => {
-        if (mobileMenu.classList.contains('menu-open')) {
-          toggleMobileMenu();
-        }
-      });
 
       document.querySelectorAll('.mobile-nav-link').forEach(link => {
         link.addEventListener('click', () => {
@@ -1020,6 +1036,15 @@
           }
         });
       });
+
+      // Κλείνει αυτόματα ΜΟΝΟ όταν ο χρήστης κάνει πραγματικό scroll (> 25px)
+      window.addEventListener('scroll', () => {
+        if (mobileMenu.classList.contains('menu-open') && !isOpening) {
+          if (Math.abs(window.scrollY - openScrollY) > 25) {
+            toggleMobileMenu();
+          }
+        }
+      }, { passive: true });
 
       // Modal Controls
       const registrationModal = document.getElementById('registrationModal');
