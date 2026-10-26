@@ -76,7 +76,7 @@
         letter-spacing: -0.03em;
       }
 
-      /* Animated Contour Waves */
+      /* Animated Contour Waves (Isolated for performance) */
       @keyframes waveDrift {
         0%, 100% { transform: translate3d(0, 0, 0); }
         50% { transform: translate3d(-12px, 8px, 0); }
@@ -85,6 +85,7 @@
         animation: waveDrift 16s ease-in-out infinite;
         will-change: transform;
         pointer-events: none;
+        contain: layout paint;
       }
       body.is-scrolling .animate-waves {
         animation-play-state: paused !important;
@@ -120,10 +121,10 @@
         animation-play-state: paused !important;
       }
 
-      /* Mobile-First Default: Solid, Lightweight Cards */
+      /* Base Solid Performance Cards (Mobile-first, zero-lag) */
       .glass-section {
-        background-color: rgba(255, 255, 255, 0.94);
-        border-top: 1px solid rgba(255, 255, 255, 0.95);
+        background-color: #ffffff;
+        border-top: 1px solid rgba(8, 76, 36, 0.08);
         border-bottom: 1px solid rgba(8, 76, 36, 0.12);
       }
       .glass-card {
@@ -143,50 +144,27 @@
         box-shadow: 0 8px 24px -6px rgba(8, 76, 36, 0.2);
       }
 
-      /* Desktop-Only Premium Glassmorphism & Mouse Spotlight */
+      /* Desktop-Only Frosted Glass Enhancements (Only on high-perf hover devices) */
       @media (min-width: 1024px) and (hover: hover) {
         .glass-section {
-          background-color: rgba(255, 255, 255, 0.65);
-          backdrop-filter: blur(14px) saturate(140%);
-          -webkit-backdrop-filter: blur(14px) saturate(140%);
-          border-top: 1px solid rgba(255, 255, 255, 0.7);
+          background-color: rgba(255, 255, 255, 0.88);
+          border-top: 1px solid rgba(255, 255, 255, 0.9);
         }
         .glass-card {
-          background-color: rgba(255, 255, 255, 0.82);
-          backdrop-filter: blur(10px);
-          -webkit-backdrop-filter: blur(10px);
-          border: 1px solid rgba(255, 255, 255, 0.9);
-          position: relative;
-          overflow: hidden;
-        }
-        .glass-card::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          background: radial-gradient(380px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(246, 238, 66, 0.35), transparent 45%);
-          opacity: 0;
-          transition: opacity 0.35s ease;
-          pointer-events: none;
-        }
-        .glass-card:hover::before {
-          opacity: 1;
+          background-color: rgba(255, 255, 255, 0.94);
+          border: 1px solid rgba(255, 255, 255, 0.95);
         }
         .glass-card:hover {
-          transform: translate3d(0, -6px, 0) scale(1.01);
-          background-color: rgba(255, 255, 255, 0.95);
-          box-shadow: 0 20px 36px -10px rgba(8, 76, 36, 0.2);
-          border-color: rgba(0, 138, 40, 0.45);
-        }
-        .glass-nav {
-          background-color: rgba(246, 238, 66, 0.88);
-          backdrop-filter: blur(12px) saturate(150%);
-          -webkit-backdrop-filter: blur(12px) saturate(150%);
+          transform: translate3d(0, -5px, 0);
+          background-color: #ffffff;
+          box-shadow: 0 16px 32px -8px rgba(8, 76, 36, 0.18);
+          border-color: rgba(0, 138, 40, 0.35);
         }
       }
 
       /* Department Icon Box */
       .icon-box {
-        transition: transform 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+        transition: transform 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
         cursor: pointer;
       }
       .department-card:hover .icon-box,
@@ -295,18 +273,32 @@
         box-shadow: 0 2px 4px rgba(8, 76, 36, 0.05);
       }
 
-      /* Dark / Light Modes */
+      /* -------------------------------------------------------------
+         DARK MODE STYLING & HIGH CONTRAST LOGO SWITCH
+         ------------------------------------------------------------- */
       body { transition: background-color 0.3s ease, color 0.3s ease; }
       body.dark-mode { background-color: #071f11 !important; color: #f1f5f9 !important; }
-      body.dark-mode .glass-nav { background-color: #071f11 !important; border-bottom-color: rgba(246, 238, 66, 0.2) !important; }
-      body.dark-mode .glass-section { background-color: #0c2b18 !important; border-top-color: rgba(246, 238, 66, 0.15) !important; border-bottom-color: rgba(0, 0, 0, 0.45) !important; }
-      body.dark-mode .glass-card { background-color: #113820 !important; border-color: rgba(246, 238, 66, 0.2) !important; color: #f8fafc !important; }
+      body.dark-mode .glass-nav { background-color: #071f11 !important; border-bottom-color: rgba(246, 238, 66, 0.25) !important; }
+      body.dark-mode .glass-section { background-color: #0c2b18 !important; border-top-color: rgba(246, 238, 66, 0.2) !important; border-bottom-color: rgba(0, 0, 0, 0.45) !important; }
+      body.dark-mode .glass-card { background-color: #113820 !important; border-color: rgba(246, 238, 66, 0.25) !important; color: #f8fafc !important; }
       body.dark-mode .glass-card p, body.dark-mode .glass-section p { color: #e2e8f0 !important; }
       body.dark-mode h1, body.dark-mode h2, body.dark-mode h3, body.dark-mode h4, body.dark-mode .font-heading { color: #f6ee42 !important; }
       body.dark-mode #mobileMenu { background-color: #071f11 !important; border-bottom: 2px solid rgba(246, 238, 66, 0.3) !important; }
       body.dark-mode #mobileMenu a.mobile-menu-item { background-color: #113820 !important; color: #f6ee42 !important; border-color: rgba(246, 238, 66, 0.25) !important; }
       body.dark-mode input, body.dark-mode textarea, body.dark-mode select { background-color: #0b2b17 !important; color: #ffffff !important; border-color: rgba(246, 238, 66, 0.3) !important; }
 
+      /* In Dark Mode, header & hero emblems switch to glowing yellow contrast like footer */
+      body.dark-mode .archelaos-crest-adapt {
+        filter: brightness(0) saturate(100%) invert(86%) sepia(51%) saturate(836%) hue-rotate(352deg) brightness(103%) contrast(97%) drop-shadow(0 0 12px rgba(246, 238, 66, 0.45)) !important;
+      }
+      body.dark-mode [data-i18n="brand_title"] {
+        color: #f6ee42 !important;
+      }
+      body.dark-mode [data-i18n="brand_sub"] {
+        color: rgba(246, 238, 66, 0.8) !important;
+      }
+
+      /* Modals in Dark Mode */
       body.dark-mode #registrationModal .modal-box,
       body.dark-mode #deptHistoryModal .modal-box { background-color: #0c2d19 !important; border-color: rgba(246, 238, 66, 0.35) !important; }
       body.dark-mode #registrationModal .modal-header,
@@ -321,17 +313,9 @@
       body.dark-mode #registrationModal .modal-submit-btn { background-color: #f6ee42 !important; color: #084c24 !important; }
       body.dark-mode #deptHistoryModal .history-content { color: #e2e8f0 !important; }
       body.dark-mode #deptHistoryModal .history-highlight { background-color: rgba(246, 238, 66, 0.12) !important; border-color: rgba(246, 238, 66, 0.3) !important; color: #f6ee42 !important; }
+      body.dark-mode #deptModalWikiBtn { background-color: #113820 !important; color: #f6ee42 !important; border-color: rgba(246, 238, 66, 0.3) !important; }
 
-      body.light-mode { background-color: #f8f9fa !important; color: #212529 !important; }
-      body.light-mode .glass-nav { background-color: #ffffff !important; border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important; }
-      body.light-mode .glass-section { background-color: #f1f5f9 !important; }
-      body.light-mode .glass-card { background-color: #ffffff !important; border: 1px solid rgba(0, 0, 0, 0.1) !important; color: #212529 !important; }
-      body.light-mode h1, body.light-mode h2, body.light-mode h3, body.light-mode .font-heading { color: #084c24 !important; }
-      body.light-mode .glass-card p, body.light-mode .glass-section p { color: #334155 !important; }
-      body.light-mode #mobileMenu { background-color: #ffffff !important; }
-      body.light-mode #mobileMenu a.mobile-menu-item { background-color: #f8fafc !important; color: #084c24 !important; border-color: rgba(0, 0, 0, 0.08) !important; }
-
-      /* Modals */
+      /* Modals Transition */
       .modal-backdrop {
         opacity: 0; visibility: hidden; pointer-events: none;
         transition: opacity 0.24s ease, visibility 0.24s ease;
@@ -377,7 +361,7 @@
         <div class="flex items-center justify-between h-20">
           <a href="#home" class="flex items-center space-x-2.5 sm:space-x-3.5 group min-w-0">
             <div class="relative w-14 h-14 sm:w-16 sm:h-16 shrink-0 flex items-center justify-center transform group-hover:scale-105 transition duration-300">
-              <img src="https://lh3.googleusercontent.com/d/1lILSdnXV0Y383UeFwcJbnhHaYvu3nJHj" alt="Γ.Α.Σ. Αρχέλαος 1956" class="w-full h-full object-contain" decoding="async">
+              <img src="https://lh3.googleusercontent.com/d/1lILSdnXV0Y383UeFwcJbnhHaYvu3nJHj" alt="Γ.Α.Σ. Αρχέλαος 1956" class="archelaos-crest-adapt w-full h-full object-contain transition-all duration-300" decoding="async">
             </div>
             <div class="flex flex-col min-w-0">
               <div class="flex items-center gap-1.5 sm:gap-2">
@@ -422,7 +406,6 @@
 
       <!-- Mobile Dropdown Menu with Embedded Language & Theme Controls -->
       <div id="mobileMenu" class="md:hidden px-5 space-y-2.5">
-        <!-- Controls Toolbar inside Mobile Drawer -->
         <div class="flex items-center justify-between gap-2 p-2 bg-white/80 rounded-2xl border border-archelaos-deepgreen/15 mb-3">
           <div class="flex items-center bg-white rounded-xl p-0.5 border border-slate-200 shadow-sm text-xs font-black">
             <button id="mobileLangBtnEL" onclick="setLanguage('el')" class="lang-btn active px-3 py-1.5 rounded-lg uppercase">GR</button>
@@ -469,7 +452,7 @@
           </div>
           <div class="lg:col-span-5 flex items-center justify-center">
             <div class="reveal-text delay-200 hero-emblem-float relative w-72 h-72 sm:w-80 sm:h-80 lg:w-[420px] lg:h-[420px] flex items-center justify-center select-none">
-              <img src="https://lh3.googleusercontent.com/d/1lILSdnXV0Y383UeFwcJbnhHaYvu3nJHj" alt="Έμβλημα Αρχέλαος" class="w-full h-full object-contain drop-shadow-xl" fetchpriority="high" decoding="async">
+              <img src="https://lh3.googleusercontent.com/d/1lILSdnXV0Y383UeFwcJbnhHaYvu3nJHj" alt="Έμβλημα Αρχέλαος" class="archelaos-crest-adapt w-full h-full object-contain drop-shadow-xl transition-all duration-300" fetchpriority="high" decoding="async">
             </div>
           </div>
         </div>
@@ -581,7 +564,7 @@
           <div class="department-card reveal-text glass-card rounded-[2rem] p-6 flex flex-col justify-between group">
             <div>
               <div class="flex items-center justify-between mb-6">
-                <div onclick="openDeptHistoryModal('handball')" class="icon-box w-16 h-16 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-2xl shadow-sm border border-white" title="Ιστορικό Τμήματος">
+                <div onclick="openDeptHistoryModal('handball')" class="icon-box w-16 h-16 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-3xl shadow-sm border border-white" title="Ιστορικό Τμήματος">
                   <i class="fa-solid fa-volleyball"></i>
                 </div>
                 <button type="button" onclick="openDeptHistoryModal('handball')" class="text-[11px] font-black text-archelaos-darkgreen hover:underline flex items-center gap-1 opacity-80 hover:opacity-100">
@@ -603,7 +586,7 @@
           <div class="department-card reveal-text delay-100 glass-card rounded-[2rem] p-6 flex flex-col justify-between group">
             <div>
               <div class="flex items-center justify-between mb-6">
-                <div onclick="openDeptHistoryModal('track')" class="icon-box w-16 h-16 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-2xl shadow-sm border border-white" title="Ιστορικό Τμήματος">
+                <div onclick="openDeptHistoryModal('track')" class="icon-box w-16 h-16 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-3xl shadow-sm border border-white" title="Ιστορικό Τμήματος">
                   <i class="fa-solid fa-person-running"></i>
                 </div>
                 <button type="button" onclick="openDeptHistoryModal('track')" class="text-[11px] font-black text-archelaos-darkgreen hover:underline flex items-center gap-1 opacity-80 hover:opacity-100">
@@ -625,7 +608,7 @@
           <div class="department-card reveal-text delay-200 glass-card rounded-[2rem] p-6 flex flex-col justify-between group">
             <div>
               <div class="flex items-center justify-between mb-6">
-                <div onclick="openDeptHistoryModal('archery')" class="icon-box w-16 h-16 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-2xl shadow-sm border border-white" title="Ιστορικό Τμήματος">
+                <div onclick="openDeptHistoryModal('archery')" class="icon-box w-16 h-16 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-3xl shadow-sm border border-white" title="Ιστορικό Τμήματος">
                   <i class="fa-solid fa-bullseye"></i>
                 </div>
                 <button type="button" onclick="openDeptHistoryModal('archery')" class="text-[11px] font-black text-archelaos-darkgreen hover:underline flex items-center gap-1 opacity-80 hover:opacity-100">
@@ -646,7 +629,7 @@
           <div class="department-card reveal-text delay-300 glass-card rounded-[2rem] p-6 flex flex-col justify-between group">
             <div>
               <div class="flex items-center justify-between mb-6">
-                <div onclick="openDeptHistoryModal('shooting')" class="icon-box w-16 h-16 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-2xl shadow-sm border border-white" title="Ιστορικό Τμήματος">
+                <div onclick="openDeptHistoryModal('shooting')" class="icon-box w-16 h-16 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-3xl shadow-sm border border-white" title="Ιστορικό Τμήματος">
                   <i class="fa-solid fa-crosshairs"></i>
                 </div>
                 <button type="button" onclick="openDeptHistoryModal('shooting')" class="text-[11px] font-black text-archelaos-darkgreen hover:underline flex items-center gap-1 opacity-80 hover:opacity-100">
@@ -667,7 +650,7 @@
           <div class="department-card reveal-text glass-card rounded-[2rem] p-6 flex flex-col justify-between group">
             <div>
               <div class="flex items-center justify-between mb-6">
-                <div onclick="openDeptHistoryModal('gymnastics')" class="icon-box w-16 h-16 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-2xl shadow-sm border border-white" title="Ιστορικό Τμήματος">
+                <div onclick="openDeptHistoryModal('gymnastics')" class="icon-box w-16 h-16 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-3xl shadow-sm border border-white" title="Ιστορικό Τμήματος">
                   <i class="fa-solid fa-child-reaching"></i>
                 </div>
                 <button type="button" onclick="openDeptHistoryModal('gymnastics')" class="text-[11px] font-black text-archelaos-darkgreen hover:underline flex items-center gap-1 opacity-80 hover:opacity-100">
@@ -688,7 +671,7 @@
           <div class="department-card reveal-text delay-100 glass-card rounded-[2rem] p-6 flex flex-col justify-between group">
             <div>
               <div class="flex items-center justify-between mb-6">
-                <div onclick="openDeptHistoryModal('volleyball')" class="icon-box w-16 h-16 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-2xl shadow-sm border border-white" title="Ιστορικό Τμήματος">
+                <div onclick="openDeptHistoryModal('volleyball')" class="icon-box w-16 h-16 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-3xl shadow-sm border border-white" title="Ιστορικό Τμήματος">
                   <i class="fa-solid fa-volleyball"></i>
                 </div>
                 <button type="button" onclick="openDeptHistoryModal('volleyball')" class="text-[11px] font-black text-archelaos-darkgreen hover:underline flex items-center gap-1 opacity-80 hover:opacity-100">
@@ -710,7 +693,7 @@
           <div class="department-card reveal-text delay-200 glass-card rounded-[2rem] p-6 flex flex-col justify-between group">
             <div>
               <div class="flex items-center justify-between mb-6">
-                <div onclick="openDeptHistoryModal('wrestling')" class="icon-box w-16 h-16 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-2xl shadow-sm border border-white" title="Ιστορικό Τμήματος">
+                <div onclick="openDeptHistoryModal('wrestling')" class="icon-box w-16 h-16 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-3xl shadow-sm border border-white" title="Ιστορικό Τμήματος">
                   <i class="fa-solid fa-hand-fist"></i>
                 </div>
                 <button type="button" onclick="openDeptHistoryModal('wrestling')" class="text-[11px] font-black text-archelaos-darkgreen hover:underline flex items-center gap-1 opacity-80 hover:opacity-100">
@@ -731,7 +714,7 @@
           <div class="department-card reveal-text delay-300 glass-card rounded-[2rem] p-6 flex flex-col justify-between group">
             <div>
               <div class="flex items-center justify-between mb-6">
-                <div onclick="openDeptHistoryModal('swimming')" class="icon-box w-16 h-16 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-2xl shadow-sm border border-white" title="Ιστορικό Τμήματος">
+                <div onclick="openDeptHistoryModal('swimming')" class="icon-box w-16 h-16 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-3xl shadow-sm border border-white" title="Ιστορικό Τμήματος">
                   <i class="fa-solid fa-person-swimming"></i>
                 </div>
                 <button type="button" onclick="openDeptHistoryModal('swimming')" class="text-[11px] font-black text-archelaos-darkgreen hover:underline flex items-center gap-1 opacity-80 hover:opacity-100">
@@ -993,7 +976,7 @@
       <div class="modal-box relative w-full max-w-xl bg-white rounded-3xl shadow-2xl overflow-hidden border-2 border-white">
         <div class="modal-header bg-archelaos-yellow p-6 flex items-center justify-between border-b border-archelaos-darkgreen/20">
           <div class="flex items-center gap-3">
-            <div id="deptModalIcon" class="w-11 h-11 rounded-xl bg-archelaos-deepgreen text-archelaos-yellow flex items-center justify-center text-lg shadow-sm"></div>
+            <div id="deptModalIcon" class="w-11 h-11 rounded-xl bg-archelaos-deepgreen text-archelaos-yellow flex items-center justify-center text-xl shadow-sm"></div>
             <div>
               <span class="text-[10px] font-black uppercase tracking-wider text-archelaos-darkgreen block" data-i18n="modal_history_tag">Ιστορική Αναδρομή</span>
               <h3 id="deptModalTitle" class="modal-header-title font-heading font-black text-lg text-archelaos-deepgreen leading-tight">Τμήμα</h3>
@@ -1545,7 +1528,7 @@
         }
       }
 
-      // DOM Elements
+      // DOM Elements Cache
       const mainHeader = document.getElementById('mainHeader');
       const mobileMenuBtn = document.getElementById('mobileMenuBtn');
       const mobileMenu = document.getElementById('mobileMenu');
@@ -1570,7 +1553,7 @@
         // Initialize Language
         setLanguage(currentLang);
 
-        // Fast Throttled Scroll Listener
+        // Optimized Lightweight Scroll Listener
         let isScrolled = false;
         let scrollTimeout;
         let ticking = false;
@@ -1596,23 +1579,6 @@
 
           if (mobileMenu.classList.contains('menu-open')) toggleMobileMenu();
         }, { passive: true });
-
-        // Desktop-Only Mouse Spotlight Effect
-        if (window.matchMedia('(min-width: 1024px) and (hover: hover)').matches) {
-          document.querySelectorAll('.glass-card').forEach(card => {
-            let rafPending = false;
-            card.addEventListener('mousemove', (e) => {
-              if (rafPending) return;
-              rafPending = true;
-              requestAnimationFrame(() => {
-                const rect = card.getBoundingClientRect();
-                card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
-                card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
-                rafPending = false;
-              });
-            }, { passive: true });
-          });
-        }
 
         // Scroll Intersection Observer
         const observer = new IntersectionObserver((entries) => {
@@ -1764,7 +1730,6 @@
         deptModalText.innerHTML = currentLang === 'en' ? info.text_en : info.text_el;
         deptModalIcon.innerHTML = `<i class="${info.iconClass}"></i>`;
 
-        // Direct link to the department's dedicated Wikipedia article
         if (deptModalWikiBtn) {
           deptModalWikiBtn.href = info.wiki_url;
         }
@@ -1783,7 +1748,7 @@
         currentDeptHistoryKey = null;
       }
 
-      // Registration Modal
+      // Registration Modal with Intelligent Department Selector
       function openRegistrationModal(departmentName = '') {
         registrationModal.classList.add('is-open');
         document.body.style.overflow = 'hidden';
@@ -1824,8 +1789,8 @@
         const msg = document.getElementById('formMsg').value;
         document.getElementById('formSuccessAlert').classList.remove('hidden');
         const subject = encodeURIComponent(`[SITE MESSAGE] ${dept} - ${name}`);
-        const body = encodeURIComponent(`Name: ${name}\nPhone: ${phone}\nEmail: ${email}\nDepartment: ${dept}\n\nMessage:\n${msg}`);
-        setTimeout(() => { window.location.href = `mailto:dimitriszgalanis@gmail.com?cc=admin@archelaos.club&subject=${subject}&body=${body}`; }, 1200);
+        const bodyText = encodeURIComponent(`Name: ${name}\nPhone: ${phone}\nEmail: ${email}\nDepartment: ${dept}\n\nMessage:\n${msg}`);
+        setTimeout(() => { window.location.href = `mailto:dimitriszgalanis@gmail.com?cc=admin@archelaos.club&subject=${subject}&body=${bodyText}`; }, 1200);
         document.getElementById('contactForm').reset();
       }
 
@@ -1837,9 +1802,9 @@
         const email = document.getElementById('modalEmail').value;
         document.getElementById('modalAlert').classList.remove('hidden');
         const subject = encodeURIComponent(`[NEW REGISTRATION] Department: ${dept} - ${name}`);
-        const body = encodeURIComponent(`New Registration Request:\n\nName: ${name}\nPhone: ${phone}\nEmail: ${email}\nDepartment: ${dept}`);
+        const bodyText = encodeURIComponent(`New Registration Request:\n\nName: ${name}\nPhone: ${phone}\nEmail: ${email}\nDepartment: ${dept}`);
         setTimeout(() => {
-          window.location.href = `mailto:admin@archelaos.club?cc=dimitriszgalanis@gmail.com&subject=${subject}&body=${body}`;
+          window.location.href = `mailto:admin@archelaos.club?cc=dimitriszgalanis@gmail.com&subject=${subject}&body=${bodyText}`;
           closeRegistrationModal();
           document.getElementById('modalAlert').classList.add('hidden');
           document.getElementById('modalForm').reset();
