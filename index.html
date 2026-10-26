@@ -70,6 +70,7 @@
         letter-spacing: -0.01em;
         overflow-x: hidden;
         -webkit-font-smoothing: antialiased;
+        transition: background-color 0.3s ease, color 0.3s ease;
       }
       h1, h2, h3, h4, .font-heading {
         font-family: 'Manrope', 'Inter', sans-serif;
@@ -138,7 +139,7 @@
       .glass-nav {
         background-color: #f6ee42;
         border-bottom: 1px solid rgba(8, 76, 36, 0.15);
-        transition: box-shadow 0.25s ease;
+        transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.25s ease;
       }
       .glass-nav.scrolled {
         box-shadow: 0 8px 24px -6px rgba(8, 76, 36, 0.2);
@@ -274,9 +275,16 @@
       }
 
       /* -------------------------------------------------------------
+         CREST LOGO TRANSITION & HIGH-CONTRAST SWITCHING (NO PINK GLITCH)
+         ------------------------------------------------------------- */
+      .archelaos-crest-adapt {
+        /* EXCLUDE filter from transition to eliminate the interim pink/magenta phase */
+        transition: transform 0.3s ease, opacity 0.2s ease;
+      }
+
+      /* -------------------------------------------------------------
          DARK MODE STYLING & HIGH CONTRAST LOGO SWITCH
          ------------------------------------------------------------- */
-      body { transition: background-color 0.3s ease, color 0.3s ease; }
       body.dark-mode { background-color: #071f11 !important; color: #f1f5f9 !important; }
       body.dark-mode .glass-nav { background-color: #071f11 !important; border-bottom-color: rgba(246, 238, 66, 0.25) !important; }
       body.dark-mode .glass-section { background-color: #0c2b18 !important; border-top-color: rgba(246, 238, 66, 0.2) !important; border-bottom-color: rgba(0, 0, 0, 0.45) !important; }
@@ -287,7 +295,7 @@
       body.dark-mode #mobileMenu a.mobile-menu-item { background-color: #113820 !important; color: #f6ee42 !important; border-color: rgba(246, 238, 66, 0.25) !important; }
       body.dark-mode input, body.dark-mode textarea, body.dark-mode select { background-color: #0b2b17 !important; color: #ffffff !important; border-color: rgba(246, 238, 66, 0.3) !important; }
 
-      /* In Dark Mode, header & hero emblems switch to glowing yellow contrast like footer */
+      /* In Dark Mode, switch emblems crisply to radiant yellow */
       body.dark-mode .archelaos-crest-adapt {
         filter: brightness(0) saturate(100%) invert(86%) sepia(51%) saturate(836%) hue-rotate(352deg) brightness(103%) contrast(97%) drop-shadow(0 0 12px rgba(246, 238, 66, 0.45)) !important;
       }
@@ -361,7 +369,7 @@
         <div class="flex items-center justify-between h-20">
           <a href="#home" class="flex items-center space-x-2.5 sm:space-x-3.5 group min-w-0">
             <div class="relative w-14 h-14 sm:w-16 sm:h-16 shrink-0 flex items-center justify-center transform group-hover:scale-105 transition duration-300">
-              <img src="https://lh3.googleusercontent.com/d/1lILSdnXV0Y383UeFwcJbnhHaYvu3nJHj" alt="Γ.Α.Σ. Αρχέλαος 1956" class="archelaos-crest-adapt w-full h-full object-contain transition-all duration-300" decoding="async">
+              <img src="https://lh3.googleusercontent.com/d/1lILSdnXV0Y383UeFwcJbnhHaYvu3nJHj" alt="Γ.Α.Σ. Αρχέλαος 1956" class="archelaos-crest-adapt w-full h-full object-contain" decoding="async">
             </div>
             <div class="flex flex-col min-w-0">
               <div class="flex items-center gap-1.5 sm:gap-2">
@@ -452,7 +460,7 @@
           </div>
           <div class="lg:col-span-5 flex items-center justify-center">
             <div class="reveal-text delay-200 hero-emblem-float relative w-72 h-72 sm:w-80 sm:h-80 lg:w-[420px] lg:h-[420px] flex items-center justify-center select-none">
-              <img src="https://lh3.googleusercontent.com/d/1lILSdnXV0Y383UeFwcJbnhHaYvu3nJHj" alt="Έμβλημα Αρχέλαος" class="archelaos-crest-adapt w-full h-full object-contain drop-shadow-xl transition-all duration-300" fetchpriority="high" decoding="async">
+              <img src="https://lh3.googleusercontent.com/d/1lILSdnXV0Y383UeFwcJbnhHaYvu3nJHj" alt="Έμβλημα Αρχέλαος" class="archelaos-crest-adapt w-full h-full object-contain drop-shadow-xl" fetchpriority="high" decoding="async">
             </div>
           </div>
         </div>
