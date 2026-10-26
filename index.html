@@ -295,6 +295,25 @@
       body.dark-mode #mobileMenu a.mobile-menu-item { background-color: #113820 !important; color: #f6ee42 !important; border-color: rgba(246, 238, 66, 0.25) !important; }
       body.dark-mode input, body.dark-mode textarea, body.dark-mode select { background-color: #0b2b17 !important; color: #ffffff !important; border-color: rgba(246, 238, 66, 0.3) !important; }
 
+      /* Mobile Drawer Controls in Dark Mode */
+      body.dark-mode #mobileControlsBar {
+        background-color: #113820 !important;
+        border-color: rgba(246, 238, 66, 0.25) !important;
+      }
+      body.dark-mode #mobileLangToggleWrapper {
+        background-color: #071f11 !important;
+        border-color: rgba(246, 238, 66, 0.2) !important;
+      }
+      body.dark-mode #mobileThemeToggleBtn {
+        background-color: #071f11 !important;
+        border-color: rgba(246, 238, 66, 0.2) !important;
+        color: #f6ee42 !important;
+      }
+      body.dark-mode #mobileLangBtnEL:not(.active),
+      body.dark-mode #mobileLangBtnEN:not(.active) {
+        color: rgba(246, 238, 66, 0.7) !important;
+      }
+
       /* In Dark Mode, switch emblems crisply to radiant yellow */
       body.dark-mode .archelaos-crest-adapt {
         filter: brightness(0) saturate(100%) invert(86%) sepia(51%) saturate(836%) hue-rotate(352deg) brightness(103%) contrast(97%) drop-shadow(0 0 12px rgba(246, 238, 66, 0.45)) !important;
@@ -414,12 +433,12 @@
 
       <!-- Mobile Dropdown Menu with Embedded Language & Theme Controls -->
       <div id="mobileMenu" class="md:hidden px-5 space-y-2.5">
-        <div class="flex items-center justify-between gap-2 p-2 bg-white/80 rounded-2xl border border-archelaos-deepgreen/15 mb-3">
-          <div class="flex items-center bg-white rounded-xl p-0.5 border border-slate-200 shadow-sm text-xs font-black">
+        <div id="mobileControlsBar" class="flex items-center justify-between gap-2 p-2 bg-white/80 rounded-2xl border border-archelaos-deepgreen/15 mb-3 transition-colors duration-200">
+          <div id="mobileLangToggleWrapper" class="flex items-center bg-white rounded-xl p-0.5 border border-slate-200 shadow-sm text-xs font-black transition-colors duration-200">
             <button id="mobileLangBtnEL" onclick="setLanguage('el')" class="lang-btn active px-3 py-1.5 rounded-lg uppercase">GR</button>
             <button id="mobileLangBtnEN" onclick="setLanguage('en')" class="lang-btn px-3 py-1.5 rounded-lg uppercase text-archelaos-deepgreen hover:opacity-80">EN</button>
           </div>
-          <button id="mobileThemeToggleBtn" aria-label="Εναλλαγή θέματος" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white text-archelaos-deepgreen border border-slate-200 shadow-sm text-xs font-extrabold">
+          <button id="mobileThemeToggleBtn" aria-label="Εναλλαγή θέματος" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white text-archelaos-deepgreen border border-slate-200 shadow-sm text-xs font-extrabold transition-colors duration-200">
             <span id="mobileThemeIcon">🌙</span> <span id="mobileThemeLabel">Σκούρο Θέμα</span>
           </button>
         </div>
