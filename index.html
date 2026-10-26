@@ -77,10 +77,10 @@
         letter-spacing: -0.03em;
       }
 
-      /* Animated Contour Waves (Isolated for performance) */
+      /* Animated Contour Waves */
       @keyframes waveDrift {
         0%, 100% { transform: translate3d(0, 0, 0); }
-        50% { transform: translate3d(-12px, 8px, 0); }
+        50% { transform: translate3d(-10px, 6px, 0); }
       }
       .animate-waves {
         animation: waveDrift 16s ease-in-out infinite;
@@ -122,7 +122,7 @@
         animation-play-state: paused !important;
       }
 
-      /* Base Solid Performance Cards (Mobile-first, zero-lag) */
+      /* Base Solid Performance Cards */
       .glass-section {
         background-color: #ffffff;
         border-top: 1px solid rgba(8, 76, 36, 0.08);
@@ -147,7 +147,7 @@
         box-shadow: 0 8px 24px -6px rgba(8, 76, 36, 0.2);
       }
 
-      /* Desktop-Only Frosted Glass & Interactive Spotlight Enhancements */
+      /* Desktop-Only Frosted Glass & Spotlight */
       @media (min-width: 1024px) and (hover: hover) {
         .glass-section {
           background-color: rgba(255, 255, 255, 0.90);
@@ -158,13 +158,12 @@
           border: 1px solid rgba(255, 255, 255, 0.95);
         }
         .glass-card:hover {
-          transform: translate3d(0, -6px, 0);
+          transform: translate3d(0, -5px, 0);
           background-color: #ffffff;
           box-shadow: 0 18px 36px -8px rgba(8, 76, 36, 0.22);
-          border-color: rgba(0, 138, 40, 0.4);
+          border-color: rgba(0, 138, 40, 0.45);
         }
 
-        /* Desktop Spotlight Glow Overlay */
         .glass-card::before {
           content: '';
           position: absolute;
@@ -183,6 +182,101 @@
         body.dark-mode .glass-card::before {
           background: radial-gradient(320px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), rgba(246, 238, 66, 0.28), transparent 75%);
         }
+      }
+
+      /* -------------------------------------------------------------
+         ELEGANT HORIZONTAL TIMELINE STYLES
+         ------------------------------------------------------------- */
+      .timeline-horizontal-scroll {
+        scrollbar-width: thin;
+        scrollbar-color: rgba(8, 76, 36, 0.35) transparent;
+        -webkit-overflow-scrolling: touch;
+      }
+      .timeline-horizontal-scroll::-webkit-scrollbar {
+        height: 6px;
+      }
+      .timeline-horizontal-scroll::-webkit-scrollbar-track {
+        background: rgba(8, 76, 36, 0.08);
+        border-radius: 9999px;
+      }
+      .timeline-horizontal-scroll::-webkit-scrollbar-thumb {
+        background: #084c24;
+        border-radius: 9999px;
+      }
+      .timeline-h-track-line {
+        background: repeating-linear-gradient(
+          to right,
+          rgba(8, 76, 36, 0.28) 0px,
+          rgba(8, 76, 36, 0.28) 6px,
+          transparent 6px,
+          transparent 12px
+        );
+      }
+      .timeline-h-fill-line {
+        background: linear-gradient(90deg, #084c24 0%, #008a28 75%, #084c24 100%);
+        box-shadow: 0 0 10px rgba(8, 76, 36, 0.35);
+        transition: width 0.15s ease-out;
+      }
+      .timeline-h-dot {
+        background-color: #ffffff;
+        border: 3px solid #084c24;
+        box-shadow: 0 0 0 3px rgba(246, 238, 66, 0.9);
+        transition: transform 0.22s ease, background-color 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+      }
+      .timeline-h-item:hover .timeline-h-dot,
+      .timeline-h-dot.is-reached {
+        background-color: #084c24;
+        border-color: #f6ee42;
+        box-shadow: 0 0 0 4px rgba(8, 76, 36, 0.3);
+        transform: scale(1.22);
+      }
+      .timeline-h-connector {
+        background: linear-gradient(180deg, rgba(8, 76, 36, 0.5), rgba(8, 76, 36, 0.2));
+        transition: background 0.2s ease;
+      }
+      .timeline-h-item:hover .timeline-h-connector {
+        background: #084c24;
+      }
+
+      /* Dark mode styles for horizontal timeline */
+      body.dark-mode .timeline-horizontal-scroll {
+        scrollbar-color: rgba(246, 238, 66, 0.4) transparent;
+      }
+      body.dark-mode .timeline-horizontal-scroll::-webkit-scrollbar-track {
+        background: rgba(246, 238, 66, 0.1);
+      }
+      body.dark-mode .timeline-horizontal-scroll::-webkit-scrollbar-thumb {
+        background: #f6ee42;
+      }
+      body.dark-mode .timeline-h-track-line {
+        background: repeating-linear-gradient(
+          to right,
+          rgba(246, 238, 66, 0.25) 0px,
+          rgba(246, 238, 66, 0.25) 6px,
+          transparent 6px,
+          transparent 12px
+        );
+      }
+      body.dark-mode .timeline-h-fill-line {
+        background: linear-gradient(90deg, #f6ee42 0%, #008a28 85%, #f6ee42 100%);
+        box-shadow: 0 0 12px rgba(246, 238, 66, 0.45);
+      }
+      body.dark-mode .timeline-h-dot {
+        background-color: #071f11;
+        border-color: #f6ee42;
+        box-shadow: 0 0 0 3px rgba(7, 31, 17, 0.9);
+      }
+      body.dark-mode .timeline-h-item:hover .timeline-h-dot,
+      body.dark-mode .timeline-h-dot.is-reached {
+        background-color: #f6ee42;
+        border-color: #008a28;
+        box-shadow: 0 0 10px rgba(246, 238, 66, 0.6);
+      }
+      body.dark-mode .timeline-h-connector {
+        background: rgba(246, 238, 66, 0.3);
+      }
+      body.dark-mode .timeline-h-item:hover .timeline-h-connector {
+        background: #f6ee42;
       }
 
       /* Department Icon Box */
@@ -246,15 +340,6 @@
         object-position: center;
       }
 
-      @keyframes progressScale {
-        from { transform: scaleX(0); }
-        to { transform: scaleX(1); }
-      }
-      .progress-animate {
-        transform-origin: left center;
-        animation: progressScale 4500ms linear forwards;
-        will-change: transform;
-      }
       .sport-pill {
         transition: background-color 0.2s ease, transform 0.2s ease;
       }
@@ -264,9 +349,7 @@
         transform: scale(1.04);
       }
 
-      /* -------------------------------------------------------------
-         MOBILE MENU: SMOOTH SLIDE-UP & COLLAPSE ANIMATION
-         ------------------------------------------------------------- */
+      /* Mobile Menu */
       #mobileMenu {
         position: absolute;
         top: 100%;
@@ -310,20 +393,31 @@
         transition: transform 0.3s ease, opacity 0.2s ease;
       }
 
-      /* -------------------------------------------------------------
-         DARK MODE STYLING & HIGH CONTRAST LOGO SWITCH
-         ------------------------------------------------------------- */
+      /* Dark Mode Styles */
       body.dark-mode { background-color: #071f11 !important; color: #f1f5f9 !important; }
       body.dark-mode .glass-nav { background-color: #071f11 !important; border-bottom-color: rgba(246, 238, 66, 0.25) !important; }
       body.dark-mode .glass-section { background-color: #0c2b18 !important; border-top-color: rgba(246, 238, 66, 0.2) !important; border-bottom-color: rgba(0, 0, 0, 0.45) !important; }
       body.dark-mode .glass-card { background-color: #113820 !important; border-color: rgba(246, 238, 66, 0.25) !important; color: #f8fafc !important; }
       body.dark-mode .glass-card p, body.dark-mode .glass-section p { color: #e2e8f0 !important; }
       body.dark-mode h1, body.dark-mode h2, body.dark-mode h3, body.dark-mode h4, body.dark-mode .font-heading { color: #f6ee42 !important; }
+      body.dark-mode #desktopNavBar,
+      body.dark-mode #desktopLangSwitch,
+      body.dark-mode #themeToggleBtn {
+        background-color: #113820 !important;
+        border-color: rgba(246, 238, 66, 0.28) !important;
+        color: #f6ee42 !important;
+      }
+      body.dark-mode #desktopNavBar a {
+        color: #f6ee42 !important;
+      }
+      body.dark-mode #desktopNavBar a:hover {
+        background-color: #f6ee42 !important;
+        color: #084c24 !important;
+      }
       body.dark-mode #mobileMenu { background-color: #071f11 !important; border-bottom-color: rgba(246, 238, 66, 0.3) !important; }
       body.dark-mode #mobileMenu a.mobile-menu-item { background-color: #113820 !important; color: #f6ee42 !important; border-color: rgba(246, 238, 66, 0.25) !important; }
       body.dark-mode input, body.dark-mode textarea, body.dark-mode select { background-color: #0b2b17 !important; color: #ffffff !important; border-color: rgba(246, 238, 66, 0.3) !important; }
 
-      /* Mobile Drawer Controls in Dark Mode */
       body.dark-mode #mobileControlsBar {
         background-color: #113820 !important;
         border-color: rgba(246, 238, 66, 0.25) !important;
@@ -338,11 +432,12 @@
         color: #f6ee42 !important;
       }
       body.dark-mode #mobileLangBtnEL:not(.active),
-      body.dark-mode #mobileLangBtnEN:not(.active) {
-        color: rgba(246, 238, 66, 0.7) !important;
+      body.dark-mode #mobileLangBtnEN:not(.active),
+      body.dark-mode #langBtnEL:not(.active),
+      body.dark-mode #langBtnEN:not(.active) {
+        color: rgba(246, 238, 66, 0.75) !important;
       }
 
-      /* In Dark Mode, switch emblems crisply to radiant yellow */
       body.dark-mode .archelaos-crest-adapt {
         filter: brightness(0) saturate(100%) invert(86%) sepia(51%) saturate(836%) hue-rotate(352deg) brightness(103%) contrast(97%) drop-shadow(0 0 12px rgba(246, 238, 66, 0.45)) !important;
       }
@@ -352,8 +447,11 @@
       body.dark-mode [data-i18n="brand_sub"] {
         color: rgba(246, 238, 66, 0.8) !important;
       }
+      body.dark-mode .animate-waves path {
+        stroke: rgba(246, 238, 66, 0.22) !important;
+      }
 
-      /* Modals in Dark Mode */
+      /* Modals */
       body.dark-mode #registrationModal .modal-box,
       body.dark-mode #deptHistoryModal .modal-box,
       body.dark-mode #timelineDetailModal .modal-box { background-color: #0c2d19 !important; border-color: rgba(246, 238, 66, 0.35) !important; }
@@ -377,7 +475,6 @@
       body.dark-mode #timelineDetailModal .history-highlight { background-color: rgba(246, 238, 66, 0.12) !important; border-color: rgba(246, 238, 66, 0.3) !important; color: #f6ee42 !important; }
       body.dark-mode #deptModalWikiBtn { background-color: #113820 !important; color: #f6ee42 !important; border-color: rgba(246, 238, 66, 0.3) !important; }
 
-      /* Modals Transition */
       .modal-backdrop {
         opacity: 0; visibility: hidden; pointer-events: none;
         transition: opacity 0.24s ease, visibility 0.24s ease;
@@ -389,7 +486,6 @@
       }
       .modal-backdrop.is-open .modal-box { transform: translate3d(0, 0, 0) scale(1); opacity: 1; }
 
-      /* Language Toggle Pills */
       .lang-btn {
         transition: background-color 0.2s ease, color 0.2s ease;
       }
@@ -407,56 +503,57 @@
 
     <!-- ANIMATED CONTOUR WAVES -->
     <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-75">
-      <svg class="animate-waves absolute top-0 left-0 w-full h-full min-w-[1100px]" viewBox="0 0 1440 900" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-        <path d="M-60 220 C220 190 310 40 460 -40" stroke="#084c24" stroke-width="2.5" stroke-linecap="round"/>
-        <path d="M-90 320 C240 290 360 80 540 -30" stroke="#0d5c2e" stroke-width="1.8" stroke-linecap="round" stroke-opacity="0.85"/>
-        <path d="M-120 420 C260 380 410 130 620 -20" stroke="#15803D" stroke-width="1.2" stroke-linecap="round" stroke-opacity="0.5"/>
-        <path d="M880 920 C1020 840 1140 660 1480 620" stroke="#084c24" stroke-width="2.5" stroke-linecap="round"/>
-        <path d="M720 940 C950 820 1100 700 1490 530" stroke="#0d5c2e" stroke-width="1.8" stroke-linecap="round" stroke-opacity="0.85"/>
-        <path d="M560 960 C860 850 1070 740 1510 450" stroke="#15803D" stroke-width="1.2" stroke-linecap="round" stroke-opacity="0.5"/>
+      <svg class="animate-waves absolute -top-12 -left-12 w-[calc(100%+6rem)] h-[calc(100%+6rem)] min-w-[1200px]" viewBox="0 0 1440 1000" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <path d="M-120 260 C200 210 330 60 520 -80" stroke="#084c24" stroke-width="2.4" stroke-linecap="round"/>
+        <path d="M-140 360 C230 310 380 100 600 -70" stroke="#0d5c2e" stroke-width="1.7" stroke-linecap="round" stroke-opacity="0.8"/>
+        <path d="M-160 460 C260 400 430 150 680 -60" stroke="#15803D" stroke-width="1.2" stroke-linecap="round" stroke-opacity="0.5"/>
+        <path d="M780 1080 C980 920 1150 720 1560 640" stroke="#084c24" stroke-width="2.4" stroke-linecap="round"/>
+        <path d="M620 1090 C910 890 1110 750 1570 540" stroke="#0d5c2e" stroke-width="1.7" stroke-linecap="round" stroke-opacity="0.8"/>
+        <path d="M460 1100 C820 910 1070 780 1580 450" stroke="#15803D" stroke-width="1.2" stroke-linecap="round" stroke-opacity="0.5"/>
       </svg>
     </div>
 
     <!-- HEADER -->
     <header id="mainHeader" class="sticky top-0 z-40 glass-nav">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between h-20">
-          <a href="#home" class="flex items-center space-x-2.5 sm:space-x-3.5 group min-w-0">
-            <div class="relative w-14 h-14 sm:w-16 sm:h-16 shrink-0 flex items-center justify-center transform group-hover:scale-105 transition duration-300">
+        <div class="flex items-center justify-between h-20 gap-2 lg:gap-4">
+          <!-- Brand Identity -->
+          <a href="#home" class="flex items-center space-x-2.5 sm:space-x-3 group shrink-0">
+            <div class="relative w-12 h-12 sm:w-14 sm:h-14 lg:w-15 lg:h-15 shrink-0 flex items-center justify-center transform group-hover:scale-105 transition duration-300">
               <img src="https://lh3.googleusercontent.com/d/1lILSdnXV0Y383UeFwcJbnhHaYvu3nJHj" alt="Γ.Α.Σ. Αρχέλαος 1956" class="archelaos-crest-adapt w-full h-full object-contain" decoding="async">
             </div>
-            <div class="flex flex-col min-w-0">
-              <div class="flex items-center gap-1.5 sm:gap-2">
-                <span class="font-heading font-black text-lg sm:text-2xl text-archelaos-deepgreen tracking-tight uppercase truncate" data-i18n="brand_title">Αρχέλαος</span>
+            <div class="flex flex-col">
+              <div class="flex items-center gap-1.5">
+                <span class="font-heading font-black text-lg sm:text-xl lg:text-2xl text-archelaos-deepgreen tracking-tight uppercase whitespace-nowrap" data-i18n="brand_title">Αρχέλαος</span>
                 <span class="bg-archelaos-darkgreen text-archelaos-yellow text-[9px] sm:text-[10px] font-extrabold px-2 py-0.5 rounded-full tracking-wider shadow-sm shrink-0">1956</span>
               </div>
-              <span class="text-[10px] sm:text-[11px] text-archelaos-deepgreen/80 tracking-wider font-bold uppercase truncate" data-i18n="brand_sub">Γ.Α.Σ. Κατερίνης &bull; archelaos.club</span>
+              <span class="text-[10px] sm:text-[11px] text-archelaos-deepgreen/80 tracking-wider font-bold uppercase whitespace-nowrap" data-i18n="brand_sub">Γ.Α.Σ. Κατερίνης &bull; archelaos.club</span>
             </div>
           </a>
 
           <!-- Desktop Navigation -->
-          <nav class="hidden md:flex items-center space-x-1 bg-white/80 px-4 py-1.5 rounded-2xl border border-white/90 shadow-sm">
-            <a href="#home" class="px-3 py-1.5 rounded-xl text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200" data-i18n="nav_home">Αρχική</a>
-            <a href="#about" class="px-3 py-1.5 rounded-xl text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200" data-i18n="nav_about">Ο Σύλλογος</a>
-            <a href="#timeline" class="px-3 py-1.5 rounded-xl text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200" data-i18n="nav_timeline">Χρονολόγιο</a>
-            <a href="#departments" class="px-3 py-1.5 rounded-xl text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200" data-i18n="nav_dept">Τμήματα</a>
-            <a href="#board" class="px-3 py-1.5 rounded-xl text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200" data-i18n="nav_board">Διοίκηση</a>
-            <a href="#contact" class="px-3 py-1.5 rounded-xl text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200" data-i18n="nav_contact">Επικοινωνία</a>
+          <nav id="desktopNavBar" class="hidden md:flex items-center gap-0.5 lg:gap-1 bg-white/85 px-2.5 lg:px-3.5 py-1.5 rounded-2xl border border-white/90 shadow-sm shrink-0">
+            <a href="#home" class="whitespace-nowrap px-2.5 lg:px-3 py-1.5 rounded-xl text-xs lg:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200" data-i18n="nav_home">Αρχική</a>
+            <a href="#about" class="whitespace-nowrap px-2.5 lg:px-3 py-1.5 rounded-xl text-xs lg:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200" data-i18n="nav_about">Ο Σύλλογος</a>
+            <a href="#timeline" class="whitespace-nowrap px-2.5 lg:px-3 py-1.5 rounded-xl text-xs lg:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200" data-i18n="nav_timeline">Χρονολόγιο</a>
+            <a href="#departments" class="whitespace-nowrap px-2.5 lg:px-3 py-1.5 rounded-xl text-xs lg:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200" data-i18n="nav_dept">Τμήματα</a>
+            <a href="#board" class="whitespace-nowrap px-2.5 lg:px-3 py-1.5 rounded-xl text-xs lg:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200" data-i18n="nav_board">Διοίκηση</a>
+            <a href="#contact" class="whitespace-nowrap px-2.5 lg:px-3 py-1.5 rounded-xl text-xs lg:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200" data-i18n="nav_contact">Επικοινωνία</a>
           </nav>
 
-          <div class="flex items-center space-x-2 sm:space-x-3">
+          <div class="flex items-center space-x-2 lg:space-x-2.5 shrink-0">
             <!-- Desktop Language Switcher -->
-            <div class="hidden md:flex items-center bg-white/85 rounded-2xl p-1 border border-white/90 shadow-sm text-xs font-black">
+            <div id="desktopLangSwitch" class="hidden md:flex items-center bg-white/85 rounded-2xl p-1 border border-white/90 shadow-sm text-xs font-black shrink-0">
               <button id="langBtnEL" onclick="setLanguage('el')" class="lang-btn active px-2.5 py-1 rounded-xl uppercase">GR</button>
               <button id="langBtnEN" onclick="setLanguage('en')" class="lang-btn px-2.5 py-1 rounded-xl uppercase text-archelaos-deepgreen hover:opacity-80">EN</button>
             </div>
 
             <!-- Desktop Theme Toggle Button -->
-            <button id="themeToggleBtn" aria-label="Εναλλαγή θέματος" class="hidden md:flex w-11 h-11 items-center justify-center rounded-2xl bg-white/85 hover:bg-white text-archelaos-deepgreen border border-white/90 shadow-sm transition transform hover:scale-105 active:scale-95 text-lg" title="Εναλλαγή εμφάνισης">🌙</button>
+            <button id="themeToggleBtn" aria-label="Εναλλαγή θέματος" class="hidden md:flex w-10 h-10 lg:w-11 lg:h-11 shrink-0 items-center justify-center rounded-2xl bg-white/85 hover:bg-white text-archelaos-deepgreen border border-white/90 shadow-sm transition transform hover:scale-105 active:scale-95 text-base lg:text-lg" title="Εναλλαγή εμφάνισης">🌙</button>
 
             <!-- Registration CTA (Desktop) -->
-            <button onclick="openRegistrationModal('Γενική Εγγραφή')" class="hidden sm:inline-flex btn-shimmer relative items-center justify-center px-5 py-3 text-sm font-extrabold text-archelaos-yellow bg-archelaos-deepgreen hover:bg-archelaos-darkgreen rounded-2xl shadow-md hover:-translate-y-0.5 transition duration-200">
-              <i class="fa-solid fa-bolt mr-2 text-archelaos-yellow"></i> <span data-i18n="btn_register">Εγγραφές / Εκδήλωση</span>
+            <button onclick="openRegistrationModal('Γενική Εγγραφή')" class="hidden sm:inline-flex btn-shimmer relative items-center justify-center whitespace-nowrap shrink-0 px-4 lg:px-5 py-2.5 lg:py-3 text-xs lg:text-sm font-extrabold text-archelaos-yellow bg-archelaos-deepgreen hover:bg-archelaos-darkgreen rounded-2xl shadow-md hover:-translate-y-0.5 transition duration-200">
+              <i class="fa-solid fa-bolt mr-1.5 lg:mr-2 text-archelaos-yellow"></i> <span data-i18n="btn_register">Εγγραφές / Εκδήλωση</span>
             </button>
 
             <!-- Mobile Hamburger Button -->
@@ -467,7 +564,7 @@
         </div>
       </div>
 
-      <!-- Mobile Dropdown Menu with Embedded Language & Theme Controls -->
+      <!-- Mobile Dropdown Menu -->
       <div id="mobileMenu" class="md:hidden px-5 space-y-2.5">
         <div id="mobileControlsBar" class="flex items-center justify-between gap-2 p-2 bg-white/80 rounded-2xl border border-archelaos-deepgreen/15 mb-3 transition-colors duration-200">
           <div id="mobileLangToggleWrapper" class="flex items-center bg-white rounded-xl p-0.5 border border-slate-200 shadow-sm text-xs font-black transition-colors duration-200">
@@ -500,7 +597,7 @@
               <span class="w-2.5 h-2.5 rounded-full bg-archelaos-yellow animate-ping"></span> <span data-i18n="hero_badge">Γ.Α.Σ. «Ο ΑΡΧΕΛΑΟΣ» ΚΑΤΕΡΙΝΗΣ &bull; EST. 1956</span>
             </div>
             <h1 class="reveal-text delay-100 text-4xl sm:text-6xl lg:text-7xl font-black font-heading text-archelaos-deepgreen leading-[1.06] tracking-tight">
-              <span data-i18n="hero_h1_1">Αθλητισμός,</span> <br> <span data-i18n="hero_h1_2">Ήθος &</span> <span class="text-archelaos-yellow bg-archelaos-darkgreen px-5 py-1 rounded-3xl inline-block mt-1.5 shadow-md" data-i18n="hero_h1_3">Παράδοση</span>
+              <span data-i18n="hero_h1_1">Αθλητισμός,</span > <br> <span data-i18n="hero_h1_2">Ήθος &</span> <span class="text-archelaos-yellow bg-archelaos-darkgreen px-5 py-1 rounded-3xl inline-block mt-1.5 shadow-md" data-i18n="hero_h1_3">Παράδοση</span>
             </h1>
             <p class="reveal-text delay-200 text-base sm:text-xl text-archelaos-deepgreen/90 max-w-2xl mx-auto lg:mx-0 font-semibold leading-relaxed" data-i18n="hero_desc">
               Ο ιστορικός πολυαθλητικός σύλλογος της Πιερίας. Πάνω από 70 χρόνια προσφοράς στον κλασικό αθλητισμό, τα ομαδικά και ατομικά αθλήματα.
@@ -529,8 +626,8 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           <div class="lg:col-span-7 order-2 lg:order-1 reveal-text">
             <div id="slideshowWrapper" class="relative rounded-[2rem] overflow-hidden shadow-xl border-4 border-white/90 h-[420px] sm:h-[520px] bg-archelaos-deepgreen group">
-              <div class="absolute top-0 left-0 right-0 h-1.5 bg-black/30 z-30 overflow-hidden">
-                <div id="slideProgressBar" class="h-full w-full bg-archelaos-yellow progress-animate"></div>
+              <div class="absolute top-0 left-0 right-0 h-1.5 bg-black/35 z-30 overflow-hidden">
+                <div id="slideProgressBar" class="h-full w-full bg-archelaos-yellow origin-left" style="transform: scaleX(0);"></div>
               </div>
               <div id="heroSlideshow" class="relative w-full h-full">
                 <div class="slideshow-slide active" data-sport-el="Χειροσφαίριση (Χάντμπολ)" data-sport-en="Handball" data-caption-el="Αγωνιστική δράση στη Χειροσφαίριση — 2 Κύπελλα Ελλάδος & ιστορική παρουσία στην Α1 Εθνική." data-caption-en="Handball action — 2 Greek Cups & historic presence in the A1 National League.">
@@ -608,21 +705,63 @@
       </div>
     </section>
 
-    <!-- MINIMAL HISTORICAL TIMELINE SECTION (1956–2026) -->
-    <section id="timeline" class="relative z-10 py-16 sm:py-20">
+    <!-- HISTORICAL TIMELINE SECTION (1956–2026) - ELEGANT HORIZONTAL LINE -->
+    <section id="timeline" class="relative z-10 py-16 sm:py-24">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="reveal-text text-center max-w-2xl mx-auto mb-10">
-          <span class="inline-block px-3.5 py-1 rounded-full bg-archelaos-deepgreen text-archelaos-yellow font-black text-[11px] uppercase tracking-wider mb-2.5 shadow-sm" data-i18n="timeline_tag">1956 – 2026 • 70 Χρόνια</span>
-          <h2 class="text-2xl sm:text-4xl font-black font-heading text-archelaos-deepgreen" data-i18n="timeline_title">Χρονολόγιο Ιστορίας</h2>
-          <p class="mt-2 text-archelaos-deepgreen/80 font-semibold text-xs sm:text-sm" data-i18n="timeline_sub">Επιλέξτε έναν σταθμό για να διαβάσετε την αναλυτική επεξήγηση.</p>
+        
+        <!-- Section Header with Title and Scroll Navigation Controls -->
+        <div class="reveal-text flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+          <div>
+            <span class="inline-block px-3.5 py-1 rounded-full bg-archelaos-deepgreen text-archelaos-yellow font-black text-[11px] uppercase tracking-wider mb-2.5 shadow-sm" data-i18n="timeline_tag">1956 – 2026 • 70 Χρόνια</span>
+            <h2 class="text-2xl sm:text-4xl font-black font-heading text-archelaos-deepgreen" data-i18n="timeline_title">Χρονολόγιο Ιστορίας</h2>
+            <p class="mt-1.5 text-archelaos-deepgreen/80 font-semibold text-xs sm:text-sm" data-i18n="timeline_sub">Οριζόντια γραμμή ορόσημων. Πατήστε σε έναν τίτλο για αναλυτικές λεπτομέρειες.</p>
+          </div>
+
+          <!-- Controls: Navigation Arrows -->
+          <div class="flex items-center gap-2 self-start md:self-auto shrink-0">
+            <span class="text-xs font-bold text-archelaos-deepgreen/70 hidden sm:inline-block mr-1" data-i18n="timeline_scroll_hint">← Σύρετε ή πατήστε τα βέλη →</span>
+            <button type="button" onclick="scrollTimeline(-1)" aria-label="Προηγούμενα έτη" class="w-10 h-10 rounded-2xl bg-white/90 hover:bg-archelaos-deepgreen text-archelaos-deepgreen hover:text-archelaos-yellow border border-archelaos-deepgreen/20 shadow-sm flex items-center justify-center transition active:scale-95">
+              <i class="fa-solid fa-chevron-left text-xs"></i>
+            </button>
+            <button type="button" onclick="scrollTimeline(1)" aria-label="Επόμενα έτη" class="w-10 h-10 rounded-2xl bg-white/90 hover:bg-archelaos-deepgreen text-archelaos-deepgreen hover:text-archelaos-yellow border border-archelaos-deepgreen/20 shadow-sm flex items-center justify-center transition active:scale-95">
+              <i class="fa-solid fa-chevron-right text-xs"></i>
+            </button>
+          </div>
         </div>
 
-        <!-- Minimal Compact Pills Grid -->
-        <div id="timelineGridContainer" class="reveal-text grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-3.5">
-          <!-- Populated dynamically via JS -->
+        <!-- Horizontal Timeline Scroll Container -->
+        <div class="relative bg-white/50 dark:bg-white/5 rounded-3xl p-4 sm:p-7 border border-archelaos-deepgreen/15 backdrop-blur-sm shadow-md">
+          
+          <!-- Outer Scroll Viewport -->
+          <div id="timelineScrollContainer" class="timeline-horizontal-scroll overflow-x-auto scroll-smooth py-3 cursor-grab select-none">
+            
+            <!-- Inner Canvas with Continuous Track Line -->
+            <div id="timelineTrackCanvas" class="relative inline-flex items-start min-w-full px-6 sm:px-10 pt-2 pb-4">
+              
+              <!-- Background Continuous Dashed Track Line (Aligned at 44px with node dots) -->
+              <div class="timeline-h-track-line absolute left-10 right-10 top-[44px] h-[3px] -translate-y-1/2 rounded-full pointer-events-none z-0"></div>
+              
+              <!-- Dynamic Filled Progress Line (Follows horizontal scroll) -->
+              <div id="timelineHFill" class="timeline-h-fill-line absolute left-10 top-[44px] h-[3px] -translate-y-1/2 rounded-full pointer-events-none z-0" style="width: 0%;"></div>
+
+              <!-- Milestones Horizontal Items (Rendered dynamically) -->
+              <div id="timelineGridContainer" class="relative z-10 flex items-start gap-4 sm:gap-6"></div>
+
+            </div>
+          </div>
+
+          <!-- Horizontal Scroll Progress Indicator Bar at Bottom -->
+          <div class="mt-3 pt-3 border-t border-archelaos-deepgreen/10 flex items-center justify-between text-[11px] font-black text-archelaos-deepgreen">
+            <span class="px-2.5 py-0.5 rounded-full bg-archelaos-deepgreen text-archelaos-yellow text-[10px]">1956</span>
+            <div class="flex-1 mx-4 h-1.5 bg-archelaos-deepgreen/15 dark:bg-archelaos-yellow/20 rounded-full overflow-hidden">
+              <div id="timelineScrollProgressBar" class="h-full bg-archelaos-deepgreen dark:bg-archelaos-yellow transition-all duration-100 rounded-full" style="width: 0%;"></div>
+            </div>
+            <span class="px-2.5 py-0.5 rounded-full bg-archelaos-deepgreen text-archelaos-yellow text-[10px]">2026</span>
+          </div>
+
         </div>
 
-        <!-- Wikipedia Reference Button Relocated Here -->
+        <!-- Wikipedia Reference Button -->
         <div class="reveal-text pt-10 text-center">
           <a href="https://el.wikipedia.org/wiki/%CE%93.%CE%91.%CE%A3._%CE%9F_%CE%91%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82_%CE%9A%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82" target="_blank" rel="noopener noreferrer" class="btn-shimmer inline-flex items-center justify-center w-full sm:w-auto px-7 py-3.5 text-sm font-extrabold text-archelaos-yellow hover:text-archelaos-deepgreen bg-archelaos-deepgreen hover:bg-archelaos-yellow rounded-2xl shadow-md transition duration-200 group border border-archelaos-deepgreen">
             <i class="fa-brands fa-wikipedia-w mr-2.5 text-lg text-archelaos-yellow group-hover:text-archelaos-deepgreen transition-colors"></i> <span data-i18n="btn_wikipedia">Διαβάστε την ιστορία μας στη Wikipedia</span>
@@ -962,7 +1101,7 @@
           <div class="lg:col-span-5 space-y-6">
             <div class="reveal-text space-y-4">
               <span class="px-4 py-1.5 rounded-full bg-archelaos-deepgreen text-archelaos-yellow font-black text-xs uppercase tracking-wider inline-block shadow-md" data-i18n="contact_tag">Επικοινωνία & Έδρα</span>
-              <h2 class="text-3xl sm:font-bold text-3xl sm:text-5xl font-black font-heading text-archelaos-deepgreen leading-tight" data-i18n="contact_title">Ελάτε σε επαφή με τον Αρχέλαο</h2>
+              <h2 class="text-3xl sm:text-5xl font-black font-heading text-archelaos-deepgreen leading-tight" data-i18n="contact_title">Ελάτε σε επαφή με τον Αρχέλαο</h2>
               <p class="text-archelaos-deepgreen/90 text-base font-medium leading-relaxed" data-i18n="contact_sub">Επισκεφθείτε τα γραφεία μας στο Α΄ ΔΑΚ Κατερίνης ή στείλτε μας απευθείας μήνυμα μέσα από τη φόρμα.</p>
             </div>
 
@@ -1169,12 +1308,15 @@
     <footer class="relative z-10 bg-archelaos-deepgreen text-archelaos-yellow/80 border-t border-archelaos-yellow/20">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col items-center justify-center gap-6 text-center text-xs">
         <img src="https://lh3.googleusercontent.com/d/1JwGT61jDKXuBU6rA1OCiC1laeKh8gKdV" alt="Logo" class="w-24 h-24 object-contain opacity-95 hover:scale-105 transition duration-200" loading="lazy" decoding="async">
-        <div class="flex items-center justify-center gap-3">
+        <div class="flex flex-wrap items-center justify-center gap-3">
           <a href="https://www.facebook.com/oarxelaos" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-white/10 hover:bg-archelaos-yellow text-archelaos-yellow hover:text-archelaos-deepgreen border border-archelaos-yellow/30 font-extrabold text-xs transition shadow-sm">
             <i class="fa-brands fa-facebook-f text-sm"></i> <span>Facebook</span>
           </a>
           <a href="https://www.youtube.com/@GASArchelaosKaterinis" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-white/10 hover:bg-archelaos-yellow text-archelaos-yellow hover:text-archelaos-deepgreen border border-archelaos-yellow/30 font-extrabold text-xs transition shadow-sm">
-            <i class="fa-brands fa-youtube text-sm text-red-400 group-hover:text-archelaos-deepgreen"></i> <span>YouTube</span>
+            <i class="fa-brands fa-youtube text-sm text-red-400 group-hover:text-archelaos-deepgreen transition-colors"></i> <span>YouTube</span>
+          </a>
+          <a href="https://el.wikipedia.org/wiki/%CE%93.%CE%91.%CE%A3._%CE%9F_%CE%91%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82_%CE%9A%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-white/10 hover:bg-archelaos-yellow text-archelaos-yellow hover:text-archelaos-deepgreen border border-archelaos-yellow/30 font-extrabold text-xs transition shadow-sm">
+            <i class="fa-brands fa-wikipedia-w text-sm"></i> <span>Wikipedia</span>
           </a>
         </div>
         <div class="space-y-1">
@@ -1186,7 +1328,7 @@
 
     <!-- JAVASCRIPT & BILINGUAL ENGINE -->
     <script>
-      // 1. Translation Dictionary (Greek & English)
+      // 1. Translation Dictionary
       const translations = {
         el: {
           brand_title: "Αρχέλαος",
@@ -1215,7 +1357,9 @@
           btn_wikipedia: "Διαβάστε την ιστορία μας στη Wikipedia",
           timeline_tag: "1956 – 2026 • 70 Χρόνια",
           timeline_title: "Χρονολόγιο Ιστορίας",
-          timeline_sub: "Επιλέξτε έναν σταθμό για να διαβάσετε την αναλυτική επεξήγηση.",
+          timeline_sub: "Οριζόντια γραμμή ορόσημων. Πατήστε σε έναν τίτλο για αναλυτικές λεπτομέρειες.",
+          timeline_scroll_hint: "← Σύρετε ή πατήστε τα βέλη →",
+          timeline_click_hint: "Λεπτομέρειες",
           dept_tag: "Αθλητισμός για όλους",
           dept_title: "Τα 8 Αθλητικά Τμήματα",
           dept_sub: "Επιλέξτε το άθλημα που σας ταιριάζει και γίνετε μέλος της οικογένειας του Αρχελάου Κατερίνης.",
@@ -1333,7 +1477,9 @@
           btn_wikipedia: "Read our History on Wikipedia",
           timeline_tag: "1956 – 2026 • 70 Years",
           timeline_title: "Historical Timeline",
-          timeline_sub: "Click on any milestone to read the full historical overview.",
+          timeline_sub: "Horizontal milestone track. Click on any title to view detailed popup.",
+          timeline_scroll_hint: "← Scroll or use arrows →",
+          timeline_click_hint: "Details",
           dept_tag: "Sports for Everyone",
           dept_title: "The 8 Sports Departments",
           dept_sub: "Choose your sport and become part of the Archelaos Katerini athletic family.",
@@ -1426,7 +1572,7 @@
         }
       };
 
-      // 2. 14 Historical Milestones (Minimal Cards + Detailed Popup)
+      // 2. 14 Historical Milestones
       const timelineMilestones = [
         {
           id: "m1956",
@@ -1612,7 +1758,7 @@
         }
       ];
 
-      // 3. Department History Data (Rich, Wikipedia-backed & Bilingual)
+      // 3. Department History Data
       const deptHistories = {
         handball: {
           title_el: "Χειροσφαίριση (Χάντμπολ)",
@@ -1764,35 +1910,143 @@
       let currentLang = localStorage.getItem('archelaos_lang') || 'el';
       let currentDeptHistoryKey = null;
       let currentTimelineMilestoneId = null;
+      let isTimelineDragging = false;
+      let timelineDragStartX = 0;
+      let timelineScrollStartLeft = 0;
+      let timelineDragMoved = false;
 
-      // Render Minimal Timeline Cards
+      // Render Horizontal Timeline Milestone Cards
       function renderTimelineCards() {
         const container = document.getElementById('timelineGridContainer');
         if (!container) return;
         container.innerHTML = '';
 
         const isEn = currentLang === 'en';
-        timelineMilestones.forEach(item => {
-          const btn = document.createElement('button');
-          btn.type = 'button';
-          btn.onclick = () => openTimelineModal(item.id);
-          btn.className = 'glass-card p-3.5 rounded-2xl text-left flex items-center gap-3.5 group hover:border-archelaos-darkgreen/40 transition duration-200 w-full';
 
+        timelineMilestones.forEach((item, index) => {
           const cat = isEn ? item.category_en : item.category_el;
           const title = isEn ? item.title_en : item.title_el;
 
-          btn.innerHTML = `
-            <div class="w-11 h-11 rounded-xl bg-archelaos-deepgreen text-archelaos-yellow flex flex-col items-center justify-center shrink-0 shadow-sm group-hover:scale-105 transition-transform relative z-10">
-              <i class="${item.icon} text-xs"></i>
-              <span class="font-heading font-black text-[10px] leading-tight mt-0.5">${item.year}</span>
+          const itemEl = document.createElement('div');
+          itemEl.className = 'timeline-h-item flex flex-col items-center w-[170px] sm:w-[200px] shrink-0 text-center cursor-pointer group select-none';
+          itemEl.setAttribute('role', 'button');
+          itemEl.setAttribute('tabindex', '0');
+          itemEl.setAttribute('aria-label', `${item.year}: ${title}`);
+
+          itemEl.innerHTML = `
+            <!-- Top Year Badge (Prominent on line) -->
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-archelaos-deepgreen text-archelaos-yellow font-heading font-black text-xs shadow-sm border border-white/80 group-hover:bg-archelaos-darkgreen group-hover:scale-105 transition duration-200 z-10">
+              <i class="${item.icon} text-[10px]"></i>
+              <span>${item.year}</span>
             </div>
-            <div class="min-w-0 flex-1 relative z-10">
-              <span class="block text-[10px] font-black uppercase tracking-wider text-archelaos-darkgreen truncate">${cat}</span>
-              <h3 class="font-heading font-extrabold text-xs sm:text-sm text-archelaos-deepgreen truncate">${title}</h3>
+
+            <!-- Central Node Dot on the horizontal line -->
+            <div class="timeline-h-dot w-3.5 h-3.5 rounded-full mt-2 z-10" data-node-idx="${index}"></div>
+
+            <!-- Vertical Connector Arm linking line to title card -->
+            <div class="timeline-h-connector w-[2px] h-3.5 my-0.5"></div>
+
+            <!-- Bottom Title Card with Small Letters -->
+            <div class="glass-card w-full p-2.5 sm:p-3 rounded-2xl flex flex-col justify-between text-center min-h-[96px] sm:min-h-[106px] border border-archelaos-deepgreen/15 group-hover:border-archelaos-darkgreen/45 group-hover:-translate-y-1 transition duration-200">
+              <div class="relative z-10">
+                <span class="block text-[9px] font-black uppercase tracking-wider text-archelaos-darkgreen truncate mb-1">${cat}</span>
+                <h4 class="font-heading font-bold text-[11px] sm:text-xs text-archelaos-deepgreen line-clamp-2 leading-tight group-hover:text-archelaos-darkgreen transition-colors">${title}</h4>
+              </div>
+              <div class="relative z-10 pt-1.5 mt-1 border-t border-slate-100 flex items-center justify-center gap-1 text-[10px] font-extrabold text-archelaos-forest">
+                <i class="fa-solid fa-circle-info text-[9px]"></i>
+                <span data-i18n="timeline_click_hint">${isEn ? 'Details' : 'Λεπτομέρειες'}</span>
+              </div>
             </div>
-            <i class="fa-solid fa-chevron-right text-xs text-archelaos-deepgreen/40 group-hover:text-archelaos-deepgreen group-hover:translate-x-0.5 transition-all shrink-0 relative z-10"></i>
           `;
-          container.appendChild(btn);
+
+          // Click handler (prevents firing when dragging)
+          itemEl.addEventListener('click', () => {
+            if (timelineDragMoved) return;
+            openTimelineModal(item.id);
+          });
+
+          // Keyboard Enter / Space support
+          itemEl.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              openTimelineModal(item.id);
+            }
+          });
+
+          container.appendChild(itemEl);
+        });
+
+        updateHorizontalTimelineProgress();
+      }
+
+      // Smooth horizontal step scrolling via arrow buttons
+      function scrollTimeline(direction) {
+        const container = document.getElementById('timelineScrollContainer');
+        if (!container) return;
+        const scrollAmount = (container.clientWidth * 0.65) * direction;
+        container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      }
+
+      // Update Horizontal Timeline line fill and reached node states
+      function updateHorizontalTimelineProgress() {
+        const container = document.getElementById('timelineScrollContainer');
+        const fill = document.getElementById('timelineHFill');
+        const pBar = document.getElementById('timelineScrollProgressBar');
+        if (!container) return;
+
+        const maxScroll = container.scrollWidth - container.clientWidth;
+        const scrollLeft = container.scrollLeft;
+        const progress = maxScroll > 0 ? Math.min(1, Math.max(0, scrollLeft / maxScroll)) : 0;
+
+        if (fill) {
+          fill.style.width = `${(progress * 100).toFixed(1)}%`;
+        }
+        if (pBar) {
+          pBar.style.width = `${(progress * 100).toFixed(1)}%`;
+        }
+
+        const dots = container.querySelectorAll('.timeline-h-dot');
+        const total = dots.length;
+        dots.forEach((dot, idx) => {
+          const threshold = total > 1 ? idx / (total - 1) : 0;
+          dot.classList.toggle('is-reached', progress >= (threshold - 0.05));
+        });
+      }
+
+      // Initialize Desktop Mouse Drag & Touch listeners
+      function initTimelineDrag() {
+        const container = document.getElementById('timelineScrollContainer');
+        if (!container) return;
+
+        container.addEventListener('scroll', updateHorizontalTimelineProgress, { passive: true });
+
+        container.addEventListener('mousedown', (e) => {
+          isTimelineDragging = true;
+          timelineDragMoved = false;
+          timelineDragStartX = e.pageX - container.offsetLeft;
+          timelineScrollStartLeft = container.scrollLeft;
+          container.classList.add('cursor-grabbing');
+          container.classList.remove('cursor-grab');
+        });
+
+        window.addEventListener('mousemove', (e) => {
+          if (!isTimelineDragging) return;
+          const x = e.pageX - container.offsetLeft;
+          const distance = x - timelineDragStartX;
+          if (Math.abs(distance) > 5) {
+            timelineDragMoved = true;
+          }
+          container.scrollLeft = timelineScrollStartLeft - distance;
+        });
+
+        window.addEventListener('mouseup', () => {
+          if (!isTimelineDragging) return;
+          container.classList.remove('cursor-grabbing');
+          container.classList.add('cursor-grab');
+          setTimeout(() => {
+            isTimelineDragging = false;
+            timelineDragMoved = false;
+          }, 60);
         });
       }
 
@@ -1876,7 +2130,7 @@
           if (modalPhone) modalPhone.placeholder = "π.χ. 6970000000";
         }
 
-        // Update Theme labels according to selected language
+        // Update Theme labels
         const isDark = document.body.classList.contains('dark-mode');
         updateThemeButtons(isDark);
 
@@ -1920,7 +2174,7 @@
 
       let updateSlideCaptions;
 
-      // Mobile Menu Functions (Smooth Slide-up & Outside Click Closure)
+      // Mobile Menu
       function isMobileMenuOpen() {
         return mobileMenu.classList.contains('menu-open');
       }
@@ -1957,8 +2211,9 @@
       document.addEventListener('DOMContentLoaded', () => {
         // Initialize Language & Timeline
         setLanguage(currentLang);
+        initTimelineDrag();
 
-        // Optimized Lightweight Scroll Listener
+        // Optimized Scroll Listener
         let isScrolled = false;
         let scrollTimeout;
         let ticking = false;
@@ -1982,13 +2237,14 @@
             body.classList.remove('is-scrolling');
           }, 150);
 
-          // Smoothly retract mobile menu upwards on scroll
           if (isMobileMenuOpen()) {
             closeMobileMenu();
           }
         }, { passive: true });
 
-        // Delegated Desktop Mouse Spotlight Effect (Works for static and dynamic cards)
+        window.addEventListener('resize', updateHorizontalTimelineProgress, { passive: true });
+
+        // Delegated Desktop Mouse Spotlight Effect
         if (window.matchMedia('(hover: hover) and (min-width: 1024px)').matches) {
           document.addEventListener('mousemove', (e) => {
             if (body.classList.contains('is-scrolling')) return;
@@ -2034,7 +2290,7 @@
           requestAnimationFrame(update);
         }
 
-        // Slideshow Engine
+        // Continuous requestAnimationFrame Slideshow Engine
         const slideshowWrapper = document.getElementById('slideshowWrapper');
         const slides = document.querySelectorAll('.slideshow-slide');
         const pillsContainer = document.getElementById('sportPillsContainer');
@@ -2047,6 +2303,11 @@
         const labelsEL = ['Χάντμπολ', 'Στίβος', 'Τοξοβολία', 'Σκοποβολή', 'Ενόργανη', 'Πάλη', 'Βόλεϊ', 'Κολύμβηση'];
         const labelsEN = ['Handball', 'Athletics', 'Archery', 'Shooting', 'Gymnastics', 'Wrestling', 'Volleyball', 'Swimming'];
         let currentSlide = 0;
+        const SLIDE_DURATION = 4500;
+        let slideElapsed = 0;
+        let lastFrameTime = performance.now();
+        let isSlideshowVisible = true;
+        let isSlideshowHovered = false;
 
         slides.forEach((_, idx) => {
           const pill = document.createElement('button');
@@ -2069,12 +2330,6 @@
           activeSlideCaption.textContent = sportCaption;
         };
 
-        function restartProgressBar() {
-          progressBar.classList.remove('progress-animate');
-          void progressBar.offsetWidth;
-          progressBar.classList.add('progress-animate');
-        }
-
         function goToSlide(index) {
           slides[currentSlide].classList.remove('active');
           pills[currentSlide].classList.remove('active');
@@ -2087,21 +2342,49 @@
           pills[currentSlide].classList.remove('bg-black/45', 'text-white/90');
 
           updateSlideCaptions();
-          restartProgressBar();
+          slideElapsed = 0;
+          if (progressBar) progressBar.style.transform = 'scaleX(0)';
+        }
+
+        function tickSlideshow(now) {
+          const dt = now - lastFrameTime;
+          lastFrameTime = now;
+
+          if (isSlideshowVisible && !isSlideshowHovered) {
+            slideElapsed += dt;
+            const ratio = Math.min(slideElapsed / SLIDE_DURATION, 1);
+            if (progressBar) {
+              progressBar.style.transform = `scaleX(${ratio.toFixed(4)})`;
+            }
+            if (slideElapsed >= SLIDE_DURATION) {
+              goToSlide(currentSlide + 1);
+            }
+          }
+          requestAnimationFrame(tickSlideshow);
         }
 
         updateSlideCaptions();
-        progressBar.addEventListener('animationend', () => goToSlide(currentSlide + 1));
+        requestAnimationFrame(tickSlideshow);
+
         const slideshowObserver = new IntersectionObserver((entries) => {
-          entries.forEach(entry => { progressBar.style.animationPlayState = entry.isIntersecting ? 'running' : 'paused'; });
-        }, { threshold: 0.1 });
+          entries.forEach(entry => {
+            isSlideshowVisible = entry.isIntersecting;
+            lastFrameTime = performance.now();
+          });
+        }, { threshold: 0.05 });
         slideshowObserver.observe(slideshowWrapper);
+
+        slideshowWrapper.addEventListener('mouseenter', () => { isSlideshowHovered = true; });
+        slideshowWrapper.addEventListener('mouseleave', () => {
+          isSlideshowHovered = false;
+          lastFrameTime = performance.now();
+        });
 
         prevBtn.addEventListener('click', () => goToSlide(currentSlide - 1));
         nextBtn.addEventListener('click', () => goToSlide(currentSlide + 1));
       });
 
-      // Synchronize Theme across Desktop & Mobile Drawer with Bilingual Support
+      // Synchronize Theme
       function updateThemeButtons(isDark) {
         if (themeToggleBtn) themeToggleBtn.textContent = isDark ? '☀️' : '🌙';
         if (mobileThemeIcon) mobileThemeIcon.textContent = isDark ? '☀️' : '🌙';
@@ -2135,12 +2418,10 @@
         toggleMobileMenu();
       });
 
-      // Close menu when tapping links
       document.querySelectorAll('.mobile-nav-link').forEach(link => {
         link.addEventListener('click', () => closeMobileMenu());
       });
 
-      // Close mobile menu when tapping anywhere OUTSIDE the menu and header button
       document.addEventListener('click', (e) => {
         if (!isMobileMenuOpen()) return;
         const isClickInsideMenu = mobileMenu.contains(e.target);
@@ -2150,7 +2431,6 @@
         }
       });
 
-      // Touch listener for mobile devices to dismiss outside
       document.addEventListener('touchstart', (e) => {
         if (!isMobileMenuOpen()) return;
         const isTouchInsideMenu = mobileMenu.contains(e.target);
@@ -2160,7 +2440,7 @@
         }
       }, { passive: true });
 
-      // History Modal with Dedicated Wikipedia Links
+      // History Modal
       function openDeptHistoryModal(deptKey) {
         currentDeptHistoryKey = deptKey;
         const info = deptHistories[deptKey];
@@ -2189,7 +2469,7 @@
         currentDeptHistoryKey = null;
       }
 
-      // Registration Modal with Intelligent Department Selector
+      // Registration Modal
       function openRegistrationModal(departmentName = '') {
         registrationModal.classList.add('is-open');
         document.body.style.overflow = 'hidden';
