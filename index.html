@@ -69,7 +69,6 @@
         color: #084c24;
         letter-spacing: -0.01em;
         overflow-x: hidden;
-        text-rendering: optimizeSpeed;
         -webkit-font-smoothing: antialiased;
       }
       h1, h2, h3, h4, .font-heading {
@@ -77,7 +76,7 @@
         letter-spacing: -0.03em;
       }
 
-      /* Animated Contour Waves (Hardware-accelerated) */
+      /* Animated Contour Waves */
       @keyframes waveDrift {
         0%, 100% { transform: translate3d(0, 0, 0); }
         50% { transform: translate3d(-12px, 8px, 0); }
@@ -85,7 +84,6 @@
       .animate-waves {
         animation: waveDrift 16s ease-in-out infinite;
         will-change: transform;
-        contain: strict;
         pointer-events: none;
       }
       body.is-scrolling .animate-waves {
@@ -122,39 +120,68 @@
         animation-play-state: paused !important;
       }
 
-      /* High Performance Glass Cards without Gaussian Blur Lag */
+      /* Mobile-First Default: Solid, Lightweight Cards */
       .glass-section {
-        background-color: rgba(255, 255, 255, 0.88);
+        background-color: rgba(255, 255, 255, 0.94);
         border-top: 1px solid rgba(255, 255, 255, 0.95);
         border-bottom: 1px solid rgba(8, 76, 36, 0.12);
-        contain: content;
       }
       .glass-card {
-        background-color: rgba(255, 255, 255, 0.95);
-        border: 1px solid rgba(255, 255, 255, 0.95);
+        background-color: #ffffff;
+        border: 1px solid rgba(8, 76, 36, 0.12);
         box-shadow: 0 4px 16px -2px rgba(8, 76, 36, 0.08);
         transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
                     box-shadow 0.25s ease,
                     border-color 0.25s ease;
-        transform: translateZ(0);
-        backface-visibility: hidden;
       }
-      .glass-card:hover {
-        transform: translate3d(0, -5px, 0);
-        background-color: #ffffff;
-        box-shadow: 0 14px 28px -6px rgba(8, 76, 36, 0.18);
-        border-color: rgba(0, 138, 40, 0.4);
-      }
-
-      /* Navbar */
       .glass-nav {
         background-color: #f6ee42;
         border-bottom: 1px solid rgba(8, 76, 36, 0.15);
         transition: box-shadow 0.25s ease;
-        transform: translateZ(0);
       }
       .glass-nav.scrolled {
         box-shadow: 0 8px 24px -6px rgba(8, 76, 36, 0.2);
+      }
+
+      /* Desktop-Only Premium Glassmorphism & Mouse Spotlight */
+      @media (min-width: 1024px) and (hover: hover) {
+        .glass-section {
+          background-color: rgba(255, 255, 255, 0.65);
+          backdrop-filter: blur(14px) saturate(140%);
+          -webkit-backdrop-filter: blur(14px) saturate(140%);
+          border-top: 1px solid rgba(255, 255, 255, 0.7);
+        }
+        .glass-card {
+          background-color: rgba(255, 255, 255, 0.82);
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+          border: 1px solid rgba(255, 255, 255, 0.9);
+          position: relative;
+          overflow: hidden;
+        }
+        .glass-card::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: radial-gradient(380px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(246, 238, 66, 0.35), transparent 45%);
+          opacity: 0;
+          transition: opacity 0.35s ease;
+          pointer-events: none;
+        }
+        .glass-card:hover::before {
+          opacity: 1;
+        }
+        .glass-card:hover {
+          transform: translate3d(0, -6px, 0) scale(1.01);
+          background-color: rgba(255, 255, 255, 0.95);
+          box-shadow: 0 20px 36px -10px rgba(8, 76, 36, 0.2);
+          border-color: rgba(0, 138, 40, 0.45);
+        }
+        .glass-nav {
+          background-color: rgba(246, 238, 66, 0.88);
+          backdrop-filter: blur(12px) saturate(150%);
+          -webkit-backdrop-filter: blur(12px) saturate(150%);
+        }
       }
 
       /* Department Icon Box */
@@ -254,7 +281,7 @@
         transition: max-height 0.35s ease, opacity 0.25s ease, transform 0.25s ease;
       }
       #mobileMenu.menu-open {
-        max-height: 580px;
+        max-height: 640px;
         opacity: 1;
         padding-top: 1.25rem;
         padding-bottom: 1.75rem;
@@ -279,7 +306,7 @@
       body.dark-mode #mobileMenu { background-color: #071f11 !important; border-bottom: 2px solid rgba(246, 238, 66, 0.3) !important; }
       body.dark-mode #mobileMenu a.mobile-menu-item { background-color: #113820 !important; color: #f6ee42 !important; border-color: rgba(246, 238, 66, 0.25) !important; }
       body.dark-mode input, body.dark-mode textarea, body.dark-mode select { background-color: #0b2b17 !important; color: #ffffff !important; border-color: rgba(246, 238, 66, 0.3) !important; }
-      
+
       body.dark-mode #registrationModal .modal-box,
       body.dark-mode #deptHistoryModal .modal-box { background-color: #0c2d19 !important; border-color: rgba(246, 238, 66, 0.35) !important; }
       body.dark-mode #registrationModal .modal-header,
@@ -348,16 +375,16 @@
     <header id="mainHeader" class="sticky top-0 z-40 glass-nav">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-20">
-          <a href="#home" class="flex items-center space-x-3.5 group">
-            <div class="relative w-16 h-16 shrink-0 flex items-center justify-center transform group-hover:scale-105 transition duration-300">
+          <a href="#home" class="flex items-center space-x-2.5 sm:space-x-3.5 group min-w-0">
+            <div class="relative w-14 h-14 sm:w-16 sm:h-16 shrink-0 flex items-center justify-center transform group-hover:scale-105 transition duration-300">
               <img src="https://lh3.googleusercontent.com/d/1lILSdnXV0Y383UeFwcJbnhHaYvu3nJHj" alt="Γ.Α.Σ. Αρχέλαος 1956" class="w-full h-full object-contain" decoding="async">
             </div>
-            <div class="flex flex-col">
-              <div class="flex items-center gap-2">
-                <span class="font-heading font-black text-xl sm:text-2xl text-archelaos-deepgreen tracking-tight uppercase" data-i18n="brand_title">Αρχέλαος</span>
-                <span class="bg-archelaos-darkgreen text-archelaos-yellow text-[10px] font-extrabold px-2.5 py-0.5 rounded-full tracking-wider shadow-sm">1956</span>
+            <div class="flex flex-col min-w-0">
+              <div class="flex items-center gap-1.5 sm:gap-2">
+                <span class="font-heading font-black text-lg sm:text-2xl text-archelaos-deepgreen tracking-tight uppercase truncate" data-i18n="brand_title">Αρχέλαος</span>
+                <span class="bg-archelaos-darkgreen text-archelaos-yellow text-[9px] sm:text-[10px] font-extrabold px-2 py-0.5 rounded-full tracking-wider shadow-sm shrink-0">1956</span>
               </div>
-              <span class="text-[11px] text-archelaos-deepgreen/80 tracking-wider font-bold uppercase" data-i18n="brand_sub">Γ.Α.Σ. Κατερίνης &bull; archelaos.club</span>
+              <span class="text-[10px] sm:text-[11px] text-archelaos-deepgreen/80 tracking-wider font-bold uppercase truncate" data-i18n="brand_sub">Γ.Α.Σ. Κατερίνης &bull; archelaos.club</span>
             </div>
           </a>
 
@@ -371,30 +398,41 @@
           </nav>
 
           <div class="flex items-center space-x-2 sm:space-x-3">
-            <!-- Language Switcher -->
-            <div class="flex items-center bg-white/85 rounded-2xl p-1 border border-white/90 shadow-sm text-xs font-black">
+            <!-- Desktop Language Switcher -->
+            <div class="hidden md:flex items-center bg-white/85 rounded-2xl p-1 border border-white/90 shadow-sm text-xs font-black">
               <button id="langBtnEL" onclick="setLanguage('el')" class="lang-btn active px-2.5 py-1 rounded-xl uppercase">GR</button>
               <button id="langBtnEN" onclick="setLanguage('en')" class="lang-btn px-2.5 py-1 rounded-xl uppercase text-archelaos-deepgreen hover:opacity-80">EN</button>
             </div>
 
-            <!-- Theme Toggle Button -->
-            <button id="themeToggleBtn" aria-label="Εναλλαγή θέματος" class="w-11 h-11 flex items-center justify-center rounded-2xl bg-white/85 hover:bg-white text-archelaos-deepgreen border border-white/90 shadow-sm transition transform hover:scale-105 active:scale-95 text-lg" title="Εναλλαγή εμφάνισης">🌙</button>
+            <!-- Desktop Theme Toggle Button -->
+            <button id="themeToggleBtn" aria-label="Εναλλαγή θέματος" class="hidden md:flex w-11 h-11 items-center justify-center rounded-2xl bg-white/85 hover:bg-white text-archelaos-deepgreen border border-white/90 shadow-sm transition transform hover:scale-105 active:scale-95 text-lg" title="Εναλλαγή εμφάνισης">🌙</button>
 
-            <!-- Registration CTA -->
+            <!-- Registration CTA (Desktop) -->
             <button onclick="openRegistrationModal('Γενική Εγγραφή')" class="hidden sm:inline-flex btn-shimmer relative items-center justify-center px-5 py-3 text-sm font-extrabold text-archelaos-yellow bg-archelaos-deepgreen hover:bg-archelaos-darkgreen rounded-2xl shadow-md hover:-translate-y-0.5 transition duration-200">
               <i class="fa-solid fa-bolt mr-2 text-archelaos-yellow"></i> <span data-i18n="btn_register">Εγγραφές / Εκδήλωση</span>
             </button>
 
-            <!-- Mobile Hamburger Button -->
-            <button id="mobileMenuBtn" aria-label="Μενού" aria-expanded="false" class="md:hidden w-11 h-11 flex items-center justify-center rounded-xl bg-white/85 hover:bg-white text-archelaos-deepgreen border border-white/90 shadow-sm transition">
+            <!-- Mobile Hamburger Button (Always Visible & Accessible on Mobile) -->
+            <button id="mobileMenuBtn" aria-label="Μενού" aria-expanded="false" class="md:hidden w-11 h-11 shrink-0 flex items-center justify-center rounded-xl bg-white/90 hover:bg-white text-archelaos-deepgreen border border-archelaos-deepgreen/20 shadow-sm transition">
               <i id="menuIcon" class="fa-solid fa-bars text-xl text-archelaos-deepgreen transition-transform duration-200"></i>
             </button>
           </div>
         </div>
       </div>
 
-      <!-- Mobile Dropdown Menu -->
+      <!-- Mobile Dropdown Menu with Embedded Language & Theme Controls -->
       <div id="mobileMenu" class="md:hidden px-5 space-y-2.5">
+        <!-- Controls Toolbar inside Mobile Drawer -->
+        <div class="flex items-center justify-between gap-2 p-2 bg-white/80 rounded-2xl border border-archelaos-deepgreen/15 mb-3">
+          <div class="flex items-center bg-white rounded-xl p-0.5 border border-slate-200 shadow-sm text-xs font-black">
+            <button id="mobileLangBtnEL" onclick="setLanguage('el')" class="lang-btn active px-3 py-1.5 rounded-lg uppercase">GR</button>
+            <button id="mobileLangBtnEN" onclick="setLanguage('en')" class="lang-btn px-3 py-1.5 rounded-lg uppercase text-archelaos-deepgreen hover:opacity-80">EN</button>
+          </div>
+          <button id="mobileThemeToggleBtn" aria-label="Εναλλαγή θέματος" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white text-archelaos-deepgreen border border-slate-200 shadow-sm text-xs font-extrabold">
+            <span id="mobileThemeIcon">🌙</span> <span id="mobileThemeLabel">Σκούρο Θέμα</span>
+          </button>
+        </div>
+
         <a href="#home" class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" data-i18n="nav_home">Αρχική</a>
         <a href="#about" class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" data-i18n="nav_about">Ο Σύλλογος</a>
         <a href="#departments" class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" data-i18n="nav_dept">Αθλητικά Τμήματα</a>
@@ -539,7 +577,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
           
-          <!-- 1. Χειροσφαίριση (Χάντμπολ) - Fixed Icon: fa-volleyball (Handball action ball) -->
+          <!-- 1. Χειροσφαίριση (Χάντμπολ) -->
           <div class="department-card reveal-text glass-card rounded-[2rem] p-6 flex flex-col justify-between group">
             <div>
               <div class="flex items-center justify-between mb-6">
@@ -1339,11 +1377,25 @@
         localStorage.setItem('archelaos_lang', lang);
         document.documentElement.lang = lang;
 
-        // Update pills active states
-        document.getElementById('langBtnEL').classList.toggle('active', lang === 'el');
-        document.getElementById('langBtnEN').classList.toggle('active', lang === 'en');
-        document.getElementById('langBtnEL').classList.toggle('text-archelaos-deepgreen', lang !== 'el');
-        document.getElementById('langBtnEN').classList.toggle('text-archelaos-deepgreen', lang !== 'en');
+        // Desktop Language buttons
+        const elBtn = document.getElementById('langBtnEL');
+        const enBtn = document.getElementById('langBtnEN');
+        if (elBtn && enBtn) {
+          elBtn.classList.toggle('active', lang === 'el');
+          enBtn.classList.toggle('active', lang === 'en');
+          elBtn.classList.toggle('text-archelaos-deepgreen', lang !== 'el');
+          enBtn.classList.toggle('text-archelaos-deepgreen', lang !== 'en');
+        }
+
+        // Mobile Drawer Language buttons
+        const mobElBtn = document.getElementById('mobileLangBtnEL');
+        const mobEnBtn = document.getElementById('mobileLangBtnEN');
+        if (mobElBtn && mobEnBtn) {
+          mobElBtn.classList.toggle('active', lang === 'el');
+          mobEnBtn.classList.toggle('active', lang === 'en');
+          mobElBtn.classList.toggle('text-archelaos-deepgreen', lang !== 'el');
+          mobEnBtn.classList.toggle('text-archelaos-deepgreen', lang !== 'en');
+        }
 
         // Translate text elements with data-i18n
         document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -1385,6 +1437,9 @@
       const mobileMenuBtn = document.getElementById('mobileMenuBtn');
       const mobileMenu = document.getElementById('mobileMenu');
       const themeToggleBtn = document.getElementById('themeToggleBtn');
+      const mobileThemeToggleBtn = document.getElementById('mobileThemeToggleBtn');
+      const mobileThemeIcon = document.getElementById('mobileThemeIcon');
+      const mobileThemeLabel = document.getElementById('mobileThemeLabel');
       const registrationModal = document.getElementById('registrationModal');
       const modalDeptSelect = document.getElementById('modalDeptSelect');
       const deptHistoryModal = document.getElementById('deptHistoryModal');
@@ -1401,7 +1456,7 @@
         // Initialize Language
         setLanguage(currentLang);
 
-        // Fast Throttled Scroll Listener (Zero layout shift)
+        // Fast Throttled Scroll Listener
         let isScrolled = false;
         let scrollTimeout;
         let ticking = false;
@@ -1427,6 +1482,23 @@
 
           if (mobileMenu.classList.contains('menu-open')) toggleMobileMenu();
         }, { passive: true });
+
+        // Desktop-Only Mouse Spotlight Effect
+        if (window.matchMedia('(min-width: 1024px) and (hover: hover)').matches) {
+          document.querySelectorAll('.glass-card').forEach(card => {
+            let rafPending = false;
+            card.addEventListener('mousemove', (e) => {
+              if (rafPending) return;
+              rafPending = true;
+              requestAnimationFrame(() => {
+                const rect = card.getBoundingClientRect();
+                card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+                card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+                rafPending = false;
+              });
+            }, { passive: true });
+          });
+        }
 
         // Scroll Intersection Observer
         const observer = new IntersectionObserver((entries) => {
@@ -1526,32 +1598,32 @@
         nextBtn.addEventListener('click', () => goToSlide(currentSlide + 1));
       });
 
-      // Dark / Light Theme Persistence
+      // Synchronize Theme across Desktop & Mobile Drawer
+      function updateThemeButtons(isDark) {
+        if (themeToggleBtn) themeToggleBtn.textContent = isDark ? '☀️' : '🌙';
+        if (mobileThemeIcon) mobileThemeIcon.textContent = isDark ? '☀️' : '🌙';
+        if (mobileThemeLabel) mobileThemeLabel.textContent = isDark ? 'Φωτεινό Θέμα' : 'Σκούρο Θέμα';
+      }
+
+      function toggleTheme() {
+        const isDark = body.classList.toggle('dark-mode');
+        body.classList.remove('light-mode');
+        localStorage.setItem('theme', isDark ? 'dark' : 'default');
+        updateThemeButtons(isDark);
+      }
+
       const savedTheme = localStorage.getItem('theme');
       if (savedTheme === 'dark') {
         body.classList.add('dark-mode');
-        if (themeToggleBtn) themeToggleBtn.textContent = '☀️';
-      } else if (savedTheme === 'light') {
-        body.classList.add('light-mode');
-        if (themeToggleBtn) themeToggleBtn.textContent = '🌙';
+        updateThemeButtons(true);
+      } else {
+        updateThemeButtons(false);
       }
 
-      if (themeToggleBtn) {
-        themeToggleBtn.addEventListener('click', () => {
-          if (body.classList.contains('dark-mode')) {
-            body.classList.remove('dark-mode', 'light-mode');
-            localStorage.setItem('theme', 'default');
-            themeToggleBtn.textContent = '🌙';
-          } else {
-            body.classList.add('dark-mode');
-            body.classList.remove('light-mode');
-            localStorage.setItem('theme', 'dark');
-            themeToggleBtn.textContent = '☀️';
-          }
-        });
-      }
+      if (themeToggleBtn) themeToggleBtn.addEventListener('click', toggleTheme);
+      if (mobileThemeToggleBtn) mobileThemeToggleBtn.addEventListener('click', toggleTheme);
 
-      // Mobile Menu
+      // Mobile Menu Toggle
       function toggleMobileMenu() {
         const isOpen = mobileMenu.classList.toggle('menu-open');
         mobileMenuBtn.classList.toggle('is-active', isOpen);
@@ -1620,7 +1692,7 @@
         }
       });
 
-      // Direct Contact Form Submit (mailto fallback)
+      // Direct Contact Form Submit
       function handleDirectSubmit(e) {
         e.preventDefault();
         const name = document.getElementById('formName').value;
