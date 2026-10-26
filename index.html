@@ -265,6 +265,64 @@
       }
 
       /* -------------------------------------------------------------
+         HORIZONTAL TIMELINE TRACK STYLING
+         ------------------------------------------------------------- */
+      .timeline-track-container {
+        scrollbar-width: thin;
+        scrollbar-color: #084c24 rgba(8, 76, 36, 0.1);
+      }
+      .timeline-track-container::-webkit-scrollbar {
+        height: 6px;
+      }
+      .timeline-track-container::-webkit-scrollbar-track {
+        background: rgba(8, 76, 36, 0.08);
+        border-radius: 9999px;
+      }
+      .timeline-track-container::-webkit-scrollbar-thumb {
+        background: #084c24;
+        border-radius: 9999px;
+      }
+
+      .timeline-node {
+        transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, background-color 0.2s ease;
+      }
+      .timeline-item:hover .timeline-node {
+        transform: scale(1.15);
+        box-shadow: 0 10px 20px -3px rgba(8, 76, 36, 0.35);
+        background-color: #008a28 !important;
+        color: #ffffff !important;
+      }
+
+      body.dark-mode .timeline-track-container::-webkit-scrollbar-track {
+        background: rgba(246, 238, 66, 0.1);
+      }
+      body.dark-mode .timeline-track-container::-webkit-scrollbar-thumb {
+        background: #f6ee42;
+      }
+      body.dark-mode .timeline-connecting-line {
+        background-color: rgba(246, 238, 66, 0.35) !important;
+      }
+      body.dark-mode .timeline-node {
+        background-color: #f6ee42 !important;
+        color: #084c24 !important;
+        border-color: #0c2d19 !important;
+      }
+      body.dark-mode .timeline-item:hover .timeline-node {
+        background-color: #ffffff !important;
+        color: #071f11 !important;
+      }
+      body.dark-mode .timeline-item-title {
+        color: #f6ee42 !important;
+      }
+      body.dark-mode .timeline-item-cat {
+        color: rgba(246, 238, 66, 0.75) !important;
+      }
+      body.dark-mode .timeline-item-box {
+        background-color: #113820 !important;
+        border-color: rgba(246, 238, 66, 0.25) !important;
+      }
+
+      /* -------------------------------------------------------------
          MOBILE MENU: SMOOTH SLIDE-UP & COLLAPSE ANIMATION
          ------------------------------------------------------------- */
       #mobileMenu {
@@ -608,27 +666,50 @@
       </div>
     </section>
 
-    <!-- MINIMAL HISTORICAL TIMELINE SECTION (1956–2026) -->
-    <section id="timeline" class="relative z-10 py-16 sm:py-20">
+    <!-- HORIZONTAL HISTORICAL TIMELINE SECTION (1956–2026) -->
+    <section id="timeline" class="relative z-10 py-16 sm:py-20 overflow-hidden">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="reveal-text text-center max-w-2xl mx-auto mb-10">
-          <span class="inline-block px-3.5 py-1 rounded-full bg-archelaos-deepgreen text-archelaos-yellow font-black text-[11px] uppercase tracking-wider mb-2.5 shadow-sm" data-i18n="timeline_tag">1956 – 2026 • 70 Χρόνια</span>
-          <h2 class="text-2xl sm:text-4xl font-black font-heading text-archelaos-deepgreen" data-i18n="timeline_title">Χρονολόγιο Ιστορίας</h2>
-          <p class="mt-2 text-archelaos-deepgreen/80 font-semibold text-xs sm:text-sm" data-i18n="timeline_sub">Επιλέξτε έναν σταθμό για να διαβάσετε την αναλυτική επεξήγηση.</p>
+        
+        <div class="reveal-text flex flex-col sm:flex-row items-center justify-between gap-4 mb-8">
+          <div class="text-center sm:text-left">
+            <span class="inline-block px-3.5 py-1 rounded-full bg-archelaos-deepgreen text-archelaos-yellow font-black text-[11px] uppercase tracking-wider mb-2 shadow-sm" data-i18n="timeline_tag">1956 – 2026 • 70 Χρόνια</span>
+            <h2 class="text-2xl sm:text-4xl font-black font-heading text-archelaos-deepgreen leading-tight" data-i18n="timeline_title">Χρονολόγιο Ιστορίας</h2>
+            <p class="mt-1 text-archelaos-deepgreen/80 font-semibold text-xs sm:text-sm" data-i18n="timeline_sub">Σύρετε οριζόντια και επιλέξτε έναν σταθμό για να δείτε την επεξήγηση.</p>
+          </div>
+
+          <!-- Desktop Quick Navigation Arrows -->
+          <div class="hidden sm:flex items-center gap-2 shrink-0">
+            <button onclick="scrollTimeline(-320)" aria-label="Προηγούμενοι σταθμοί" class="w-10 h-10 rounded-xl bg-white hover:bg-archelaos-deepgreen text-archelaos-deepgreen hover:text-archelaos-yellow border border-archelaos-deepgreen/20 shadow-sm flex items-center justify-center transition active:scale-95">
+              <i class="fa-solid fa-chevron-left text-sm"></i>
+            </button>
+            <button onclick="scrollTimeline(320)" aria-label="Επόμενοι σταθμοί" class="w-10 h-10 rounded-xl bg-white hover:bg-archelaos-deepgreen text-archelaos-deepgreen hover:text-archelaos-yellow border border-archelaos-deepgreen/20 shadow-sm flex items-center justify-center transition active:scale-95">
+              <i class="fa-solid fa-chevron-right text-sm"></i>
+            </button>
+          </div>
         </div>
 
-        <!-- Minimal Compact Pills Grid -->
-        <div id="timelineGridContainer" class="reveal-text grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-3.5">
-          <!-- Populated dynamically via JS -->
+        <!-- Horizontal Scrollable Timeline Wrapper -->
+        <div class="relative reveal-text">
+          <div id="timelineScrollTrack" class="timeline-track-container flex items-start overflow-x-auto scroll-smooth py-6 px-3 relative select-none">
+            
+            <!-- Continuous Connecting Line behind nodes -->
+            <div class="timeline-connecting-line absolute top-[52px] left-6 right-6 h-1 bg-archelaos-deepgreen/25 pointer-events-none z-0 rounded-full"></div>
+
+            <!-- Milestone items rendered dynamically via JS -->
+            <div id="timelineTrackInner" class="flex items-start gap-4 sm:gap-6 relative z-10 min-w-max">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
         </div>
 
-        <!-- Wikipedia Reference Button Relocated Here -->
+        <!-- Wikipedia Reference Link Below Timeline -->
         <div class="reveal-text pt-10 text-center">
           <a href="https://el.wikipedia.org/wiki/%CE%93.%CE%91.%CE%A3._%CE%9F_%CE%91%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82_%CE%9A%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82" target="_blank" rel="noopener noreferrer" class="btn-shimmer inline-flex items-center justify-center w-full sm:w-auto px-7 py-3.5 text-sm font-extrabold text-archelaos-yellow hover:text-archelaos-deepgreen bg-archelaos-deepgreen hover:bg-archelaos-yellow rounded-2xl shadow-md transition duration-200 group border border-archelaos-deepgreen">
             <i class="fa-brands fa-wikipedia-w mr-2.5 text-lg text-archelaos-yellow group-hover:text-archelaos-deepgreen transition-colors"></i> <span data-i18n="btn_wikipedia">Διαβάστε την ιστορία μας στη Wikipedia</span>
             <i class="fa-solid fa-arrow-up-right-from-square ml-2.5 text-xs opacity-75"></i>
           </a>
         </div>
+
       </div>
     </section>
 
@@ -1215,7 +1296,7 @@
           btn_wikipedia: "Διαβάστε την ιστορία μας στη Wikipedia",
           timeline_tag: "1956 – 2026 • 70 Χρόνια",
           timeline_title: "Χρονολόγιο Ιστορίας",
-          timeline_sub: "Επιλέξτε έναν σταθμό για να διαβάσετε την αναλυτική επεξήγηση.",
+          timeline_sub: "Σύρετε οριζόντια και επιλέξτε έναν σταθμό για να δείτε την επεξήγηση.",
           dept_tag: "Αθλητισμός για όλους",
           dept_title: "Τα 8 Αθλητικά Τμήματα",
           dept_sub: "Επιλέξτε το άθλημα που σας ταιριάζει και γίνετε μέλος της οικογένειας του Αρχελάου Κατερίνης.",
@@ -1333,7 +1414,7 @@
           btn_wikipedia: "Read our History on Wikipedia",
           timeline_tag: "1956 – 2026 • 70 Years",
           timeline_title: "Historical Timeline",
-          timeline_sub: "Click on any milestone to read the full historical overview.",
+          timeline_sub: "Scroll horizontally and click any milestone to view details.",
           dept_tag: "Sports for Everyone",
           dept_title: "The 8 Sports Departments",
           dept_sub: "Choose your sport and become part of the Archelaos Katerini athletic family.",
@@ -1426,7 +1507,7 @@
         }
       };
 
-      // 2. 14 Historical Milestones (Minimal Cards + Detailed Popup)
+      // 2. 14 Historical Milestones (Timeline Data)
       const timelineMilestones = [
         {
           id: "m1956",
@@ -1456,7 +1537,7 @@
         },
         {
           id: "m1967",
-          year: "1964–67",
+          year: "1967",
           category_el: "ΣΕΓΑΣ Α.Μ. 238",
           category_en: "SEGAS Registry",
           title_el: "Επίσημη Ένταξη στον ΣΕΓΑΣ",
@@ -1472,7 +1553,7 @@
           year: "1974",
           category_el: "Κολύμβηση & Βόλεϊ",
           category_en: "Swimming & Volleyball",
-          title_el: "Τα «Χρόνια της Θάλασσας» & Βόλεϊ",
+          title_el: "«Χρόνια της Θάλασσας» & Βόλεϊ",
           title_en: "The 'Seaside Years' & Volleyball",
           icon: "fa-solid fa-water",
           highlight_el: "Θερινές προπονήσεις κολύμβησης στην Παραλία και ίδρυση του τμήματος Βόλεϊ.",
@@ -1482,7 +1563,7 @@
         },
         {
           id: "m1975",
-          year: "1975–76",
+          year: "1975",
           category_el: "Ενόργανη & Χάντμπολ",
           category_en: "Gymnastics & Handball",
           title_el: "Ενόργανη & Ιδρυτικό Μέλος ΟΧΕ",
@@ -1494,8 +1575,8 @@
           body_en: "<p>Gymnastics was established in April 1975 under Stavros Diamantopoulos, followed by Handball in December 1976, co-founding the Hellenic Handball Federation in 1979.</p>"
         },
         {
-          id: "m1977",
-          year: "1977–80",
+          id: "m1978",
+          year: "1978",
           category_el: "ΕΑΚ, Πάλη & Σκοποβολή",
           category_en: "Arena, Wrestling & Shooting",
           title_el: "Κλειστό ΕΑΚ, Πάλη & Σκοποβολή",
@@ -1508,7 +1589,7 @@
         },
         {
           id: "m1981",
-          year: "1981–91",
+          year: "1981",
           category_el: "Ενόργανη Γυμναστική",
           category_en: "Artistic Gymnastics",
           title_el: "Το 10ετές Πανελλήνιο Σερί",
@@ -1520,8 +1601,8 @@
           body_en: "<p>From 1981 to 1991, Archelaos swept 1st place across Greek national championships, led by champions Katsikakis, Kakalis, Zaras, and Chrysafis.</p>"
         },
         {
-          id: "m1983",
-          year: "1983–84",
+          id: "m1984",
+          year: "1984",
           category_el: "Χάντμπολ Α1",
           category_en: "Handball A1",
           title_el: "Άνοδος Α1 & 1ος Τελικός Κυπέλλου",
@@ -1534,7 +1615,7 @@
         },
         {
           id: "m1987",
-          year: "1987–89",
+          year: "1987",
           category_el: "Στίβος & Σκοποβολή",
           category_en: "Athletics & Shooting",
           title_el: "«Δίος Δρόμος» & Βαλκανικό Ρεκόρ",
@@ -1573,7 +1654,7 @@
         },
         {
           id: "m1994",
-          year: "1993–94",
+          year: "1994",
           category_el: "Τοξοβολία & 2ο Κύπελλο",
           category_en: "Archery & 2nd Cup",
           title_el: "Τοξοβολία & «Άστεγοι» Κυπελλούχοι",
@@ -1586,7 +1667,7 @@
         },
         {
           id: "m2004",
-          year: "1999–04",
+          year: "2004",
           category_el: "ΕΦΟΤ & Αθήνα 2004",
           category_en: "EFOT & Athens 2004",
           title_el: "Ίδρυση ΕΦΟΤ & Ολυμπιακοί Αθήνας",
@@ -1599,7 +1680,7 @@
         },
         {
           id: "m2026",
-          year: "2024–26",
+          year: "2026",
           category_el: "70 Χρόνια",
           category_en: "70 Years Anniversary",
           title_el: "Πρωταθλητές Ελλάδας & Παγκόσμιο",
@@ -1765,9 +1846,9 @@
       let currentDeptHistoryKey = null;
       let currentTimelineMilestoneId = null;
 
-      // Render Minimal Timeline Cards
-      function renderTimelineCards() {
-        const container = document.getElementById('timelineGridContainer');
+      // Render Horizontal Minimal Timeline
+      function renderTimelineTrack() {
+        const container = document.getElementById('timelineTrackInner');
         if (!container) return;
         container.innerHTML = '';
 
@@ -1776,24 +1857,32 @@
           const btn = document.createElement('button');
           btn.type = 'button';
           btn.onclick = () => openTimelineModal(item.id);
-          btn.className = 'glass-card p-3.5 rounded-2xl text-left flex items-center gap-3.5 group hover:border-archelaos-darkgreen/40 transition duration-200 w-full';
+          btn.className = 'timeline-item group flex flex-col items-center text-center w-[150px] sm:w-[170px] shrink-0 p-3 rounded-2xl transition hover:bg-white/40 active:scale-95 focus:outline-none';
 
           const cat = isEn ? item.category_en : item.category_el;
           const title = isEn ? item.title_en : item.title_el;
 
           btn.innerHTML = `
-            <div class="w-11 h-11 rounded-xl bg-archelaos-deepgreen text-archelaos-yellow flex flex-col items-center justify-center shrink-0 shadow-sm group-hover:scale-105 transition-transform relative z-10">
-              <i class="${item.icon} text-xs"></i>
-              <span class="font-heading font-black text-[10px] leading-tight mt-0.5">${item.year}</span>
+            <div class="relative z-10 mb-3 flex items-center justify-center">
+              <div class="timeline-node w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-archelaos-deepgreen text-archelaos-yellow flex flex-col items-center justify-center font-heading font-black shadow-md border-4 border-white cursor-pointer shrink-0">
+                <i class="${item.icon} text-[10px] sm:text-xs"></i>
+                <span class="text-[10px] sm:text-[11px] leading-tight font-black">${item.year}</span>
+              </div>
             </div>
-            <div class="min-w-0 flex-1 relative z-10">
-              <span class="block text-[10px] font-black uppercase tracking-wider text-archelaos-darkgreen truncate">${cat}</span>
-              <h3 class="font-heading font-extrabold text-xs sm:text-sm text-archelaos-deepgreen truncate">${title}</h3>
+            <div class="timeline-item-box w-full p-2.5 rounded-xl bg-white/90 border border-archelaos-deepgreen/15 shadow-sm transition group-hover:border-archelaos-darkgreen/40 group-hover:shadow-md">
+              <span class="timeline-item-cat block text-[9px] sm:text-[10px] font-black uppercase tracking-wider text-archelaos-darkgreen truncate mb-0.5">${cat}</span>
+              <h4 class="timeline-item-title text-[11px] sm:text-xs font-extrabold text-archelaos-deepgreen group-hover:text-archelaos-forest line-clamp-2 leading-tight">${title}</h4>
             </div>
-            <i class="fa-solid fa-chevron-right text-xs text-archelaos-deepgreen/40 group-hover:text-archelaos-deepgreen group-hover:translate-x-0.5 transition-all shrink-0 relative z-10"></i>
           `;
           container.appendChild(btn);
         });
+      }
+
+      function scrollTimeline(offset) {
+        const track = document.getElementById('timelineScrollTrack');
+        if (track) {
+          track.scrollBy({ left: offset, behavior: 'smooth' });
+        }
       }
 
       // Open / Close Timeline Modal
@@ -1885,8 +1974,8 @@
           updateSlideCaptions();
         }
 
-        // Re-render Timeline Cards
-        renderTimelineCards();
+        // Re-render Timeline Track with updated titles & categories
+        renderTimelineTrack();
 
         // Update open modals if visible
         if (currentDeptHistoryKey && deptHistories[currentDeptHistoryKey]) {
@@ -1955,7 +2044,7 @@
       }
 
       document.addEventListener('DOMContentLoaded', () => {
-        // Initialize Language & Timeline
+        // Initialize Language & Horizontal Timeline
         setLanguage(currentLang);
 
         // Optimized Lightweight Scroll Listener
@@ -1988,7 +2077,7 @@
           }
         }, { passive: true });
 
-        // Delegated Desktop Mouse Spotlight Effect (Works for static and dynamic cards)
+        // Delegated Desktop Mouse Spotlight Effect
         if (window.matchMedia('(hover: hover) and (min-width: 1024px)').matches) {
           document.addEventListener('mousemove', (e) => {
             if (body.classList.contains('is-scrolling')) return;
