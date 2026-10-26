@@ -1185,7 +1185,9 @@
           field_email_opt: "Email",
           reg_sent_success: "Η εγγραφή σας καταχωρήθηκε επιτυχώς!",
           btn_submit_interest: "Υποβολή Ενδιαφέροντος",
-          footer_address: "Α΄ Δημοτικό Αθλητικό Κέντρο (ΔΑΚ) Κατερίνης, 60132"
+          footer_address: "Α΄ Δημοτικό Αθλητικό Κέντρο (ΔΑΚ) Κατερίνης, 60132",
+          theme_dark: "Σκούρο Θέμα",
+          theme_light: "Φωτεινό Θέμα"
         },
         en: {
           brand_title: "Archelaos",
@@ -1288,7 +1290,9 @@
           field_email_opt: "Email",
           reg_sent_success: "Your registration has been logged successfully!",
           btn_submit_interest: "Submit Registration",
-          footer_address: "1st Municipal Athletic Center (DAK) of Katerini, GR-60132"
+          footer_address: "1st Municipal Athletic Center (DAK) of Katerini, GR-60132",
+          theme_dark: "Dark Mode",
+          theme_light: "Light Mode"
         }
       };
 
@@ -1425,6 +1429,10 @@
           if (modalName) modalName.placeholder = "π.χ. Κωνσταντίνος Νικολάου";
           if (modalPhone) modalPhone.placeholder = "π.χ. 6970000000";
         }
+
+        // Update Theme labels according to selected language
+        const isDark = document.body.classList.contains('dark-mode');
+        updateThemeButtons(isDark);
 
         // Update active slide labels in current slideshow
         if (typeof updateSlideCaptions === 'function') {
@@ -1598,11 +1606,14 @@
         nextBtn.addEventListener('click', () => goToSlide(currentSlide + 1));
       });
 
-      // Synchronize Theme across Desktop & Mobile Drawer
+      // Synchronize Theme across Desktop & Mobile Drawer with Bilingual Support
       function updateThemeButtons(isDark) {
         if (themeToggleBtn) themeToggleBtn.textContent = isDark ? '☀️' : '🌙';
         if (mobileThemeIcon) mobileThemeIcon.textContent = isDark ? '☀️' : '🌙';
-        if (mobileThemeLabel) mobileThemeLabel.textContent = isDark ? 'Φωτεινό Θέμα' : 'Σκούρο Θέμα';
+        if (mobileThemeLabel) {
+          const dict = translations[currentLang] || translations.el;
+          mobileThemeLabel.textContent = isDark ? dict.theme_light : dict.theme_dark;
+        }
       }
 
       function toggleTheme() {
