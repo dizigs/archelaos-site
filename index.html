@@ -12,7 +12,7 @@
     <meta name="author" content="Γ.Α.Σ. Αρχέλαος Κατερίνης">
     <link rel="canonical" href="https://archelaos.club">
 
-    <!-- Open Graph / Social Media Tags (Facebook, Viber, Messenger, WhatsApp κλπ.) -->
+    <!-- Open Graph / Social Media Tags -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://archelaos.club">
     <meta property="og:title" content="Γ.Α.Σ. Αρχέλαος Κατερίνης | Επίσημη Ιστοσελίδα">
@@ -21,13 +21,7 @@
     <meta property="og:locale" content="el_GR">
     <meta property="og:site_name" content="Γ.Α.Σ. Αρχέλαος Κατερίνης">
 
-    <!-- Twitter Card Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Γ.Α.Σ. Αρχέλαος Κατερίνης | Επίσημη Ιστοσελίδα">
-    <meta name="twitter:description" content="Η επίσημη ιστοσελίδα του Γ.Α.Σ. Αρχέλαος Κατερίνης. Αθλητικά τμήματα, νέα και εκδηλώσεις.">
-    <meta name="twitter:image" content="https://lh3.googleusercontent.com/d/1lILSdnXV0Y383UeFwcJbnhHaYvu3nJHj">
-
-    <!-- Google Fonts with full Greek support: Manrope & Inter -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;700;800;900&display=swap&subset=greek" rel="stylesheet">
@@ -70,45 +64,37 @@
         letter-spacing: -0.01em;
         overflow-x: hidden;
       }
-
       h1, h2, h3, h4, .font-heading {
         font-family: 'Manrope', 'Inter', sans-serif;
         letter-spacing: -0.03em;
       }
-
-      /* Animated Background Waves - GPU Promoted */
       @keyframes waveDrift {
-        0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-        50% { transform: translate3d(-15px, 10px, 0) scale(1.02); }
+        0%, 100% { transform: translate3d(0, 0, 0); }
+        50% { transform: translate3d(-10px, 8px, 0); }
       }
       .animate-waves {
-        animation: waveDrift 14s ease-in-out infinite;
+        animation: waveDrift 16s ease-in-out infinite;
         will-change: transform;
+        contain: layout paint;
       }
-
-      /* Smooth Spring Reveal Animations */
       .reveal-text {
         opacity: 0;
-        transform: translate3d(0, 34px, 0) scale(0.97);
-        transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
-                    transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
-        will-change: opacity, transform;
+        transform: translate3d(0, 24px, 0);
+        transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+                    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
       }
       .reveal-text.is-visible {
         opacity: 1;
-        transform: translate3d(0, 0, 0) scale(1);
-        will-change: auto;
+        transform: translate3d(0, 0, 0);
       }
+      .delay-100 { transition-delay: 80ms; }
+      .delay-200 { transition-delay: 140ms; }
+      .delay-300 { transition-delay: 200ms; }
+      .delay-400 { transition-delay: 260ms; }
 
-      .delay-100 { transition-delay: 100ms; }
-      .delay-200 { transition-delay: 200ms; }
-      .delay-300 { transition-delay: 300ms; }
-      .delay-400 { transition-delay: 400ms; }
-
-      /* Pure Floating Animation for Central Logo */
       @keyframes gentleFloat {
         0%, 100% { transform: translate3d(0, 0px, 0); }
-        50% { transform: translate3d(0, -12px, 0); }
+        50% { transform: translate3d(0, -10px, 0); }
       }
       .hero-emblem-float {
         animation: gentleFloat 5.5s ease-in-out infinite;
@@ -116,81 +102,53 @@
         background: transparent !important;
       }
 
-      /* Frosted Glassmorphism */
+      /* 60FPS OPTIMIZED SURFACES (No heavy backdrop-filter inside scroll content) */
       .glass-section {
-        background: rgba(255, 255, 255, 0.62);
-        backdrop-filter: blur(12px) saturate(140%);
-        -webkit-backdrop-filter: blur(12px) saturate(140%);
-        border-top: 1px solid rgba(255, 255, 255, 0.65);
-        border-bottom: 1px solid rgba(8, 76, 36, 0.15);
-        transform: translateZ(0);
+        background: rgba(255, 255, 255, 0.88);
+        border-top: 1px solid rgba(255, 255, 255, 0.95);
+        border-bottom: 1px solid rgba(8, 76, 36, 0.12);
+        contain: content;
       }
-
       .glass-card {
         position: relative;
-        background: rgba(255, 255, 255, 0.82);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.9);
-        box-shadow: 0 12px 30px -8px rgba(8, 76, 36, 0.1),
-                    inset 0 1px 1px rgba(255, 255, 255, 0.9);
-        transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-                    box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-                    background-color 0.45s ease,
-                    border-color 0.45s ease;
+        background: #ffffff;
+        border: 1px solid rgba(8, 76, 36, 0.1);
+        box-shadow: 0 10px 24px -8px rgba(8, 76, 36, 0.08);
+        transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+                    box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+                    border-color 0.3s ease;
         overflow: hidden;
-        transform: translateZ(0);
-      }
-      .glass-card::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: radial-gradient(420px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(246, 238, 66, 0.32), transparent 40%);
-        opacity: 0;
-        transition: opacity 0.4s ease;
-        pointer-events: none;
-      }
-      .glass-card:hover::before {
-        opacity: 1;
       }
       .glass-card:hover {
-        transform: translate3d(0, -9px, 0) scale(1.015);
-        background: rgba(255, 255, 255, 0.95);
-        box-shadow: 0 26px 48px -12px rgba(8, 76, 36, 0.22),
-                    inset 0 1px 2px rgba(255, 255, 255, 1);
+        transform: translate3d(0, -6px, 0);
+        box-shadow: 0 20px 32px -10px rgba(8, 76, 36, 0.18);
         border-color: rgba(0, 138, 40, 0.45);
       }
-
       .glass-nav {
-        background: rgba(246, 238, 66, 0.88);
-        backdrop-filter: blur(12px) saturate(150%);
-        -webkit-backdrop-filter: blur(12px) saturate(150%);
+        background: #f6ee42;
         border-bottom: 1px solid rgba(8, 76, 36, 0.14);
-        transition: background-color 0.35s ease, box-shadow 0.35s ease;
-        transform: translateZ(0);
+        transition: box-shadow 0.25s ease;
       }
       .glass-nav.scrolled {
-        background: rgba(246, 238, 66, 0.98);
-        box-shadow: 0 10px 28px -10px rgba(8, 76, 36, 0.18);
+        box-shadow: 0 10px 24px -10px rgba(8, 76, 36, 0.2);
       }
-
-      /* Department Card Icon Animation */
       .icon-box {
-        transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
-                    background-color 0.4s ease,
-                    color 0.4s ease,
-                    box-shadow 0.4s ease;
+        transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+                    background-color 0.25s ease,
+                    box-shadow 0.25s ease;
         cursor: pointer;
       }
       .department-card:hover .icon-box,
       .icon-box:hover {
-        background-color: #084c24;
-        color: #f6ee42;
-        transform: scale(1.15) rotate(-6deg);
-        box-shadow: 0 12px 22px -6px rgba(8, 76, 36, 0.35);
+        background-color: #084c24 !important;
+        transform: scale(1.08) rotate(-3deg);
+        box-shadow: 0 10px 20px -6px rgba(8, 76, 36, 0.3);
+        color: #f6ee42 !important;
       }
-
-      /* Button Shimmer Effect */
+      .department-card:hover .icon-box i,
+      .icon-box:hover i {
+        color: #f6ee42 !important;
+      }
       .btn-shimmer {
         position: relative;
         overflow: hidden;
@@ -210,8 +168,6 @@
       .btn-shimmer:hover::after {
         transform: translate3d(280%, 0, 0) rotate(25deg);
       }
-
-      /* Slideshow Styles */
       .slideshow-slide {
         position: absolute;
         inset: 0;
@@ -219,23 +175,14 @@
         height: 100%;
         opacity: 0;
         visibility: hidden;
-        transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
-                    visibility 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+        transition: opacity 0.7s ease, visibility 0.7s ease;
       }
-      .slideshow-slide.active {
-        opacity: 1;
-        visibility: visible;
-      }
+      .slideshow-slide.active { opacity: 1; visibility: visible; }
       .slideshow-slide img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         object-position: center;
-        transform: scale(1.08);
-        transition: transform 6.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      }
-      .slideshow-slide.active img {
-        transform: scale(1);
       }
 
       @keyframes progressScale {
@@ -247,39 +194,16 @@
         animation: progressScale 4500ms linear forwards;
         will-change: transform;
       }
-
       .sport-pill {
-        transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
-                    background-color 0.3s ease,
-                    color 0.3s ease,
-                    box-shadow 0.3s ease;
+        transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
       }
       .sport-pill.active {
         background-color: #f6ee42;
         color: #084c24;
-        transform: translate3d(0, -2px, 0) scale(1.05);
-        box-shadow: 0 6px 16px -4px rgba(0, 0, 0, 0.35);
+        transform: scale(1.04);
+        box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.3);
       }
 
-      /* Mobile Menu */
-      #mobileMenuBtn {
-        transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-      }
-      #mobileMenuBtn:active {
-        transform: scale(0.92);
-      }
-      #mobileMenuBtn.is-active {
-        background-color: #084c24;
-        color: #f6ee42;
-        border-color: #084c24;
-        box-shadow: 0 10px 24px -4px rgba(8, 76, 36, 0.35);
-      }
-      #mobileMenuBtn.is-active #menuIcon {
-        color: #f6ee42 !important;
-        transform: rotate(90deg);
-      }
-
-      /* 100% Solid Opaque Mobile Dropdown Menu (No Transparency Glitches) */
       #mobileMenu {
         position: absolute;
         top: 100%;
@@ -293,16 +217,10 @@
         padding-bottom: 0;
         border-bottom-width: 0px;
         pointer-events: none;
-        transform: translate3d(0, -8px, 0);
-        background-color: #f6ee42 !important; /* Πλήρως αδιαφανές, solid κίτρινο χωρίς να φαίνεται τίποτα από πίσω */
+        background-color: #f6ee42 !important;
         border-bottom: 2px solid rgba(8, 76, 36, 0.25);
         box-shadow: 0 25px 35px -8px rgba(8, 76, 36, 0.35);
-        transition: max-height 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-                    opacity 0.3s cubic-bezier(0.22, 1, 0.36, 1),
-                    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-                    padding 0.3s ease,
-                    border-bottom-width 0.25s ease,
-                    background-color 0.3s ease;
+        transition: max-height 0.35s ease, opacity 0.25s ease, padding 0.25s ease;
       }
       #mobileMenu.menu-open {
         max-height: 520px;
@@ -311,209 +229,64 @@
         padding-bottom: 1.75rem;
         border-bottom-width: 2px;
         pointer-events: auto;
-        transform: translate3d(0, 0, 0);
-      }
-
-      #mobileMenu .mobile-menu-item {
-        opacity: 0;
-        transform: translate3d(-18px, 0, 0);
-        transition: opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-                    transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
-                    background-color 0.25s ease,
-                    color 0.25s ease;
       }
       #mobileMenu a.mobile-menu-item {
-        background-color: rgba(255, 255, 255, 0.85);
+        background-color: rgba(255, 255, 255, 0.95);
         border: 1px solid rgba(255, 255, 255, 0.95);
         box-shadow: 0 2px 6px -1px rgba(8, 76, 36, 0.08);
       }
-      #mobileMenu a.mobile-menu-item:hover {
-        background-color: #ffffff;
-      }
-      #mobileMenu.menu-open .mobile-menu-item {
-        opacity: 1;
-        transform: translate3d(0, 0, 0);
-      }
-      #mobileMenu.menu-open .mobile-menu-item:nth-child(1) { transition-delay: 60ms; }
-      #mobileMenu.menu-open .mobile-menu-item:nth-child(2) { transition-delay: 110ms; }
-      #mobileMenu.menu-open .mobile-menu-item:nth-child(3) { transition-delay: 160ms; }
-      #mobileMenu.menu-open .mobile-menu-item:nth-child(4) { transition-delay: 210ms; }
-      #mobileMenu.menu-open .mobile-menu-item:nth-child(5) { transition-delay: 260ms; }
+      #mobileMenu a.mobile-menu-item:hover { background-color: #ffffff; }
 
-      /* ==================== THEME TOGGLE & DARK / LIGHT MODE STYLES ==================== */
-      body {
-        transition: background-color 0.4s ease, color 0.4s ease;
-      }
-
-      /* Dark Mode Style Overrides */
-      body.dark-mode {
-        background-color: #071f11 !important;
-        color: #f1f5f9 !important;
-      }
-      body.dark-mode .glass-nav {
-        background: rgba(7, 31, 17, 0.94) !important;
-        border-bottom-color: rgba(246, 238, 66, 0.2) !important;
-      }
-      body.dark-mode .glass-section {
-        background: rgba(10, 42, 23, 0.75) !important;
-        border-top-color: rgba(246, 238, 66, 0.15) !important;
-        border-bottom-color: rgba(0, 0, 0, 0.45) !important;
-      }
-      body.dark-mode .glass-card {
-        background: rgba(14, 54, 30, 0.88) !important;
-        border-color: rgba(246, 238, 66, 0.25) !important;
-        color: #f8fafc !important;
-        box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.5) !important;
-      }
-      body.dark-mode .glass-card p,
-      body.dark-mode .glass-section p {
-        color: #e2e8f0 !important;
-      }
-      body.dark-mode h1,
-      body.dark-mode h2,
-      body.dark-mode h3,
-      body.dark-mode h4,
-      body.dark-mode .font-heading {
-        color: #f6ee42 !important;
-      }
-      body.dark-mode #mobileMenu {
-        background-color: #071f11 !important;
-        border-bottom: 2px solid rgba(246, 238, 66, 0.3) !important;
-        box-shadow: 0 25px 35px -8px rgba(0, 0, 0, 0.7) !important;
-      }
-      body.dark-mode #mobileMenu a.mobile-menu-item {
-        background-color: rgba(14, 54, 30, 0.85) !important;
-        color: #f6ee42 !important;
-        border-color: rgba(246, 238, 66, 0.25) !important;
-      }
-      body.dark-mode #mobileMenu a.mobile-menu-item:hover {
-        background-color: #084c24 !important;
-      }
-      body.dark-mode input,
-      body.dark-mode textarea,
-      body.dark-mode select {
-        background-color: #0b2b17 !important;
-        color: #ffffff !important;
-        border-color: rgba(246, 238, 66, 0.3) !important;
-      }
-
-      /* Dark mode modal styles */
+      body { transition: background-color 0.3s ease, color 0.3s ease; }
+      body.dark-mode { background-color: #071f11 !important; color: #f1f5f9 !important; }
+      body.dark-mode .glass-nav { background: #071f11 !important; border-bottom-color: rgba(246, 238, 66, 0.2) !important; }
+      body.dark-mode .glass-section { background: #0a2715 !important; border-top-color: rgba(246, 238, 66, 0.15) !important; border-bottom-color: #030e07 !important; }
+      body.dark-mode .glass-card { background: #0e361e !important; border-color: rgba(246, 238, 66, 0.2) !important; color: #f8fafc !important; box-shadow: 0 12px 28px -10px rgba(0, 0, 0, 0.5) !important; }
+      body.dark-mode .glass-card p, body.dark-mode .glass-section p { color: #e2e8f0 !important; }
+      body.dark-mode h1, body.dark-mode h2, body.dark-mode h3, body.dark-mode h4, body.dark-mode .font-heading { color: #f6ee42 !important; }
+      body.dark-mode #mobileMenu { background-color: #071f11 !important; border-bottom: 2px solid rgba(246, 238, 66, 0.3) !important; }
+      body.dark-mode #mobileMenu a.mobile-menu-item { background-color: #0e361e !important; color: #f6ee42 !important; border-color: rgba(246, 238, 66, 0.25) !important; }
+      body.dark-mode #mobileMenu a.mobile-menu-item:hover { background-color: #084c24 !important; }
+      body.dark-mode input, body.dark-mode textarea, body.dark-mode select { background-color: #0b2b17 !important; color: #ffffff !important; border-color: rgba(246, 238, 66, 0.3) !important; }
+      
       body.dark-mode #registrationModal .modal-box,
-      body.dark-mode #deptHistoryModal .modal-box {
-        background-color: #0c2d19 !important;
-        border-color: rgba(246, 238, 66, 0.35) !important;
-      }
+      body.dark-mode #deptHistoryModal .modal-box { background-color: #0c2d19 !important; border-color: rgba(246, 238, 66, 0.35) !important; }
       body.dark-mode #registrationModal .modal-header,
-      body.dark-mode #deptHistoryModal .modal-header {
-        background-color: #084c24 !important;
-        border-bottom: 1px solid rgba(246, 238, 66, 0.25) !important;
-      }
+      body.dark-mode #deptHistoryModal .modal-header { background-color: #084c24 !important; border-bottom: 1px solid rgba(246, 238, 66, 0.25) !important; }
       body.dark-mode #registrationModal .modal-header-title,
-      body.dark-mode #deptHistoryModal .modal-header-title {
-        color: #f6ee42 !important;
-      }
+      body.dark-mode #deptHistoryModal .modal-header-title { color: #f6ee42 !important; }
       body.dark-mode #registrationModal .modal-header-icon,
-      body.dark-mode #deptHistoryModal .modal-header-icon {
-        color: #f6ee42 !important;
-      }
+      body.dark-mode #deptHistoryModal .modal-header-icon { color: #f6ee42 !important; }
       body.dark-mode #registrationModal .modal-close-btn,
-      body.dark-mode #deptHistoryModal .modal-close-btn {
-        background-color: rgba(246, 238, 66, 0.15) !important;
-        color: #f6ee42 !important;
-      }
+      body.dark-mode #deptHistoryModal .modal-close-btn { background-color: rgba(246, 238, 66, 0.15) !important; color: #f6ee42 !important; }
       body.dark-mode #registrationModal .modal-close-btn:hover,
-      body.dark-mode #deptHistoryModal .modal-close-btn:hover {
-        background-color: #f6ee42 !important;
-        color: #084c24 !important;
-      }
-      body.dark-mode #registrationModal .modal-label {
-        color: #f6ee42 !important;
-      }
-      body.dark-mode #registrationModal .modal-submit-btn {
-        background-color: #f6ee42 !important;
-        color: #084c24 !important;
-      }
-      body.dark-mode #registrationModal .modal-submit-btn:hover {
-        background-color: #ffffff !important;
-        color: #084c24 !important;
-      }
-      body.dark-mode #deptHistoryModal .history-content {
-        color: #e2e8f0 !important;
-      }
-      body.dark-mode #deptHistoryModal .history-highlight {
-        background-color: rgba(246, 238, 66, 0.12) !important;
-        border-color: rgba(246, 238, 66, 0.3) !important;
-        color: #f6ee42 !important;
-      }
+      body.dark-mode #deptHistoryModal .modal-close-btn:hover { background-color: #f6ee42 !important; color: #084c24 !important; }
+      body.dark-mode #registrationModal .modal-label { color: #f6ee42 !important; }
+      body.dark-mode #registrationModal .modal-submit-btn { background-color: #f6ee42 !important; color: #084c24 !important; }
+      body.dark-mode #registrationModal .modal-submit-btn:hover { background-color: #ffffff !important; color: #084c24 !important; }
+      body.dark-mode #deptHistoryModal .history-content { color: #e2e8f0 !important; }
+      body.dark-mode #deptHistoryModal .history-highlight { background-color: rgba(246, 238, 66, 0.12) !important; border-color: rgba(246, 238, 66, 0.3) !important; color: #f6ee42 !important; }
 
-      /* Light / Neutral Mode Style Overrides */
-      body.light-mode {
-        background-color: #f8f9fa !important;
-        color: #212529 !important;
-      }
-      body.light-mode .glass-nav {
-        background: rgba(255, 255, 255, 0.94) !important;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
-      }
-      body.light-mode .glass-section {
-        background: rgba(241, 245, 249, 0.78) !important;
-      }
-      body.light-mode .glass-card {
-        background: rgba(255, 255, 255, 0.92) !important;
-        border: 1px solid rgba(0, 0, 0, 0.1) !important;
-        color: #212529 !important;
-      }
-      body.light-mode h1,
-      body.light-mode h2,
-      body.light-mode h3,
-      body.light-mode .font-heading {
-        color: #084c24 !important;
-      }
-      body.light-mode .glass-card p,
-      body.light-mode .glass-section p {
-        color: #334155 !important;
-      }
-      body.light-mode #mobileMenu {
-        background-color: #ffffff !important;
-        border-bottom: 2px solid rgba(0, 0, 0, 0.12) !important;
-        box-shadow: 0 25px 35px -8px rgba(0, 0, 0, 0.15) !important;
-      }
-      body.light-mode #mobileMenu a.mobile-menu-item {
-        background-color: #f1f5f9 !important;
-        color: #084c24 !important;
-        border-color: rgba(0, 0, 0, 0.08) !important;
-      }
-      body.light-mode #mobileMenu a.mobile-menu-item:hover {
-        background-color: #e2e8f0 !important;
-      }
+      body.light-mode { background-color: #f8f9fa !important; color: #212529 !important; }
+      body.light-mode .glass-nav { background: #ffffff !important; border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important; }
+      body.light-mode .glass-section { background: #f1f5f9 !important; }
+      body.light-mode .glass-card { background: #ffffff !important; border: 1px solid rgba(0, 0, 0, 0.08) !important; color: #212529 !important; }
+      body.light-mode h1, body.light-mode h2, body.light-mode h3, body.light-mode .font-heading { color: #084c24 !important; }
+      body.light-mode .glass-card p, body.light-mode .glass-section p { color: #334155 !important; }
+      body.light-mode #mobileMenu { background-color: #ffffff !important; border-bottom: 2px solid rgba(0, 0, 0, 0.12) !important; }
+      body.light-mode #mobileMenu a.mobile-menu-item { background-color: #f1f5f9 !important; color: #084c24 !important; border-color: rgba(0, 0, 0, 0.08) !important; }
+      body.light-mode #mobileMenu a.mobile-menu-item:hover { background-color: #e2e8f0 !important; }
 
-      /* ==================== LIGHTWEIGHT GPU POP-UP ANIMATIONS ==================== */
       .modal-backdrop {
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
-        transition: opacity 0.28s cubic-bezier(0.22, 1, 0.36, 1),
-                    visibility 0.28s cubic-bezier(0.22, 1, 0.36, 1);
-        will-change: opacity;
+        opacity: 0; visibility: hidden; pointer-events: none;
+        transition: opacity 0.24s ease, visibility 0.24s ease;
       }
-      .modal-backdrop.is-open {
-        opacity: 1;
-        visibility: visible;
-        pointer-events: auto;
-      }
-
-      /* Apple-style subtle micro-spring scale & lift */
+      .modal-backdrop.is-open { opacity: 1; visibility: visible; pointer-events: auto; }
       .modal-backdrop .modal-box {
-        transform: translate3d(0, 22px, 0) scale(0.93);
-        opacity: 0;
-        transition: transform 0.34s cubic-bezier(0.34, 1.32, 0.64, 1),
-                    opacity 0.24s ease-out;
-        will-change: transform, opacity;
+        transform: translate3d(0, 18px, 0) scale(0.96); opacity: 0;
+        transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.24s ease;
       }
-      .modal-backdrop.is-open .modal-box {
-        transform: translate3d(0, 0, 0) scale(1);
-        opacity: 1;
-      }
+      .modal-backdrop.is-open .modal-box { transform: translate3d(0, 0, 0) scale(1); opacity: 1; }
     </style>
 </head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow">
@@ -556,16 +329,10 @@
           </nav>
 
           <div class="flex items-center space-x-2 sm:space-x-3">
-            <!-- Theme Toggle Button -->
-            <button id="themeToggleBtn" aria-label="Εναλλαγή θέματος (Dark/Light)" class="w-11 h-11 flex items-center justify-center rounded-2xl bg-white/70 hover:bg-white text-archelaos-deepgreen border border-white/80 shadow-sm transition transform hover:scale-105 active:scale-95 text-lg" title="Εναλλαγή εμφάνισης">
-              🌙
-            </button>
-
+            <button id="themeToggleBtn" aria-label="Εναλλαγή θέματος" class="w-11 h-11 flex items-center justify-center rounded-2xl bg-white/70 hover:bg-white text-archelaos-deepgreen border border-white/80 shadow-sm transition transform hover:scale-105 active:scale-95 text-lg" title="Εναλλαγή εμφάνισης">🌙</button>
             <button onclick="openRegistrationModal('Γενική Εγγραφή')" class="hidden sm:inline-flex btn-shimmer relative items-center justify-center px-6 py-3 text-sm font-extrabold text-archelaos-yellow bg-archelaos-deepgreen hover:bg-archelaos-darkgreen rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition duration-300">
               <i class="fa-solid fa-bolt mr-2 text-archelaos-yellow"></i> Εγγραφές / Εκδήλωση
             </button>
-
-            <!-- Mobile Menu Button -->
             <button id="mobileMenuBtn" aria-label="Μενού" aria-expanded="false" class="md:hidden w-11 h-11 flex items-center justify-center rounded-xl bg-white/70 hover:bg-white text-archelaos-deepgreen border border-white/80 shadow-sm transition">
               <i id="menuIcon" class="fa-solid fa-bars text-xl text-archelaos-deepgreen transition-transform duration-300"></i>
             </button>
@@ -573,7 +340,6 @@
         </div>
       </div>
 
-      <!-- Solid Mobile Dropdown Menu -->
       <div id="mobileMenu" class="md:hidden px-5 space-y-2.5">
         <a href="#home" class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen">Αρχική</a>
         <a href="#about" class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen">Ο Σύλλογος</a>
@@ -594,15 +360,12 @@
             <div class="reveal-text inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-archelaos-deepgreen text-archelaos-yellow text-xs font-black uppercase tracking-wider shadow-md">
               <span class="w-2.5 h-2.5 rounded-full bg-archelaos-yellow animate-ping"></span> Γ.Α.Σ. «Ο ΑΡΧΕΛΑΟΣ» ΚΑΤΕΡΙΝΗΣ &bull; EST. 1956
             </div>
-
             <h1 class="reveal-text delay-100 text-4xl sm:text-6xl lg:text-7xl font-black font-heading text-archelaos-deepgreen leading-[1.06] tracking-tight">
               Αθλητισμός, <br> Ήθος & <span class="text-archelaos-yellow bg-archelaos-darkgreen px-5 py-1 rounded-3xl inline-block mt-1.5 shadow-lg">Παράδοση</span>
             </h1>
-
             <p class="reveal-text delay-200 text-base sm:text-xl text-archelaos-deepgreen/90 max-w-2xl mx-auto lg:mx-0 font-semibold leading-relaxed">
               Ο ιστορικός πολυαθλητικός σύλλογος της Πιερίας. Πάνω από 70 χρόνια προσφοράς στον κλασικό αθλητισμό, τα ομαδικά και ατομικά αθλήματα.
             </p>
-
             <div class="reveal-text delay-300 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-3">
               <button onclick="openRegistrationModal('Γενική Εγγραφή')" class="btn-shimmer w-full sm:w-auto px-8 py-4 bg-archelaos-deepgreen hover:bg-archelaos-darkgreen text-archelaos-yellow font-black rounded-2xl shadow-xl hover:-translate-y-1 transition duration-300">
                 Εκδήλωση Ενδιαφέροντος <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
@@ -612,8 +375,6 @@
               </a>
             </div>
           </div>
-
-          <!-- Central Emblem -->
           <div class="lg:col-span-5 flex items-center justify-center">
             <div class="reveal-text delay-200 hero-emblem-float relative w-72 h-72 sm:w-80 sm:h-80 lg:w-[420px] lg:h-[420px] flex items-center justify-center select-none">
               <img src="https://lh3.googleusercontent.com/d/1lILSdnXV0Y383UeFwcJbnhHaYvu3nJHj" alt="Έμβλημα Αρχέλαος" class="w-full h-full object-contain drop-shadow-2xl" fetchpriority="high" decoding="async">
@@ -623,180 +384,92 @@
       </div>
     </section>
 
-    <!-- ABOUT & 8-SPORT COMPETITIVE SLIDESHOW SECTION -->
+    <!-- ABOUT SECTION -->
     <section id="about" class="relative z-10 py-20 sm:py-24 glass-section">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-          
-          <!-- Interactive 8-Department Competitive Action Slideshow -->
           <div class="lg:col-span-7 order-2 lg:order-1 reveal-text">
             <div id="slideshowWrapper" class="relative rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white/85 h-[420px] sm:h-[520px] bg-archelaos-deepgreen group">
-              
-              <!-- Top Progress Bar (GPU ScaleX) -->
               <div class="absolute top-0 left-0 right-0 h-1.5 bg-black/30 z-30 overflow-hidden">
                 <div id="slideProgressBar" class="h-full w-full bg-archelaos-yellow progress-animate"></div>
               </div>
-
-              <!-- Slideshow Container -->
               <div id="heroSlideshow" class="relative w-full h-full">
-
-                <!-- 1. Χειροσφαίριση (Χάντμπολ) -->
                 <div class="slideshow-slide active" data-sport="Χειροσφαίριση (Χάντμπολ)" data-caption="Αγωνιστική δράση στη Χειροσφαίριση — 2 Κύπελλα Ελλάδος & ιστορική παρουσία στην Α1 Εθνική.">
-                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaOFUCWatPwP-EycFiHffCCMk_Kz1ScNWPtg7znhR3mQ&s=10"
-                       alt="Χειροσφαίριση Αρχέλαος"
-                       decoding="async"
-                       onerror="this.onerror=null; this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaOFUCWatPwP-EycFiHffCCMk_Kz1ScNWPtg7znhR3mQ&s=10'">
+                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaOFUCWatPwP-EycFiHffCCMk_Kz1ScNWPtg7znhR3mQ&s=10" alt="Χάντμπολ" decoding="async">
                 </div>
-
-                <!-- 2. Στίβος (Κλασικός Αθλητισμός) -->
                 <div class="slideshow-slide" data-sport="Στίβος (Κλασικός Αθλητισμός)" data-caption="Εκκίνηση και αγωνιστικοί δρόμοι ταχύτητας στο στάδιο — Φυτώριο πρωταθλητών από το 1956.">
-                  <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=1200&q=80"
-                       alt="Στίβος Αρχέλαος"
-                       loading="lazy" decoding="async"
-                       onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=1200&q=80';">
+                  <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=1200&q=80" alt="Στίβος" loading="lazy" decoding="async">
                 </div>
-
-                <!-- 3. Τοξοβολία -->
                 <div class="slideshow-slide" data-sport="Τοξοβολία" data-caption="Ολυμπιακό και σύνθετο τόξο — Απόλυτη ευστοχία στον στόχο.">
-                  <img src="https://sportsfeed.gr/wp-content/uploads/2024/10/%CE%B2%CE%B2%CE%B2-scaled.jpeg"
-                       alt="Τοξοβολία HD Στόχος με Βέλη"
-                       loading="lazy" decoding="async"
-                       onerror="this.onerror=null; this.src='https://sportsfeed.gr/wp-content/uploads/2024/10/%CE%B2%CE%B2%CE%B2-scaled.jpeg'">
+                  <img src="https://sportsfeed.gr/wp-content/uploads/2024/10/%CE%B2%CE%B2%CE%B2-scaled.jpeg" alt="Τοξοβολία" loading="lazy" decoding="async">
                 </div>
-
-                <!-- 4. Σκοποβολή -->
                 <div class="slideshow-slide" data-sport="Αγωνιστική Σκοποβολή" data-caption="Αγωνιστική σκοποβολή αεροβόλων όπλων και στόχων υψηλής ακρίβειας.">
-                  <img src="https://0501.nccdn.net/4_2/000/000/048/0a6/ISSF.jpg"
-                       alt="Αγωνιστική Σκοποβολή Αρχέλαος"
-                       loading="lazy" decoding="async"
-                       onerror="this.onerror=null; this.src='https://0501.nccdn.net/4_2/000/000/048/0a6/ISSF.jpg'">
+                  <img src="https://0501.nccdn.net/4_2/000/000/048/0a6/ISSF.jpg" alt="Σκοποβολή" loading="lazy" decoding="async">
                 </div>
-
-                <!-- 5. Ενόργανη Γυμναστική -->
                 <div class="slideshow-slide" data-sport="Ενόργανη Γυμναστική" data-caption="Αγωνιστική ενόργανη γυμναστική — Δύναμη, έλεγχος και αρμονία.">
-                  <img src="https://www.delasalle.gr/wp-content/uploads/2025/09/depositphotos_127887760-stock-photo-portrait-of-young-gymnasts-competing.webp"
-                       alt="Ενόργανη Γυμναστική Αρχέλαος"
-                       loading="lazy" decoding="async"
-                       onerror="this.onerror=null; this.src='https://www.delasalle.gr/wp-content/uploads/2025/09/depositphotos_127887760-stock-photo-portrait-of-young-gymnasts-competing.webp'">
+                  <img src="https://www.delasalle.gr/wp-content/uploads/2025/09/depositphotos_127887760-stock-photo-portrait-of-young-gymnasts-competing.webp" alt="Ενόργανη" loading="lazy" decoding="async">
                 </div>
-
-                <!-- 6. Πάλη -->
                 <div class="slideshow-slide" data-sport="Αγωνιστική Πάλη" data-caption="Ολυμπιακή πάλη στο ταπί — Ένα από τα πιο ένδοξα και παραδοσιακά τμήματα του Αρχελάου.">
-                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVLxI6PiDSGj3e_-EDi1o76kx6O9DJkd8DHF2yZPp-qg&s=10"
-                       alt="Αγωνιστική Πάλη Αρχέλαος"
-                       loading="lazy" decoding="async"
-                       onerror="this.onerror=null; this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVLxI6PiDSGj3e_-EDi1o76kx6O9DJkd8DHF2yZPp-qg&s=10'">
+                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVLxI6PiDSGj3e_-EDi1o76kx6O9DJkd8DHF2yZPp-qg&s=10" alt="Πάλη" loading="lazy" decoding="async">
                 </div>
-
-                <!-- 7. Πετοσφαίριση (Βόλεϊ) -->
                 <div class="slideshow-slide" data-sport="Πετοσφαίριση (Βόλεϊ)" data-caption="Αγωνιστική δράση στο φιλέ — Ομαδικότητα, εκρηκτικότητα και τεχνική υπεροχή.">
-                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIex8YMFGm7cLdQvLNvrQ4fdkg45xPl68ULVxGERNXOw&s=10"
-                       alt="Πετοσφαίριση Βόλεϊ Αρχέλαος"
-                       loading="lazy" decoding="async"
-                       onerror="this.onerror=null; this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIex8YMFGm7cLdQvLNvrQ4fdkg45xPl68ULVxGERNXOw&s=10'">
+                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIex8YMFGm7cLdQvLNvrQ4fdkg45xPl68ULVxGERNXOw&s=10" alt="Βόλεϊ" loading="lazy" decoding="async">
                 </div>
-
-                <!-- 8. Κολύμβηση -->
                 <div class="slideshow-slide" data-sport="Αγωνιστική Κολύμβηση" data-caption="Αγωνιστικός υγρός στίβος στις διαδρομές της πισίνας — Ταχύτητα και αντοχή στο νερό.">
-                  <img src="https://images.unsplash.com/photo-1530549387789-4c1017266635?auto=format&fit=crop&w=1200&q=80"
-                       alt="Κολύμβηση Αρχέλαος"
-                       loading="lazy" decoding="async"
-                       onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1519315901367-f34ff9154487?auto=format&fit=crop&w=1200&q=80';">
+                  <img src="https://images.unsplash.com/photo-1530549387789-4c1017266635?auto=format&fit=crop&w=1200&q=80" alt="Κολύμβηση" loading="lazy" decoding="async">
                 </div>
-
               </div>
-
-              <!-- Top Left Active Sport Badge -->
               <div class="absolute top-5 left-5 z-20 flex items-center gap-2">
-                <span id="activeSportBadge" class="px-3.5 py-1.5 rounded-full bg-archelaos-deepgreen/90 text-archelaos-yellow text-xs sm:text-sm font-black uppercase tracking-wider border border-archelaos-yellow/50 shadow-xl">
-                  1/8 • Χειροσφαίριση (Χάντμπολ)
-                </span>
+                <span id="activeSportBadge" class="px-3.5 py-1.5 rounded-full bg-archelaos-deepgreen/90 text-archelaos-yellow text-xs sm:text-sm font-black uppercase tracking-wider border border-archelaos-yellow/50 shadow-xl">1/8 • Χειροσφαίριση (Χάντμπολ)</span>
               </div>
-
-              <!-- Prev / Next Glass Buttons -->
-              <button id="prevSlideBtn" aria-label="Προηγούμενο άθλημα" class="absolute left-3.5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-black/45 hover:bg-archelaos-yellow text-white hover:text-archelaos-deepgreen border border-white/30 flex items-center justify-center transition duration-300 opacity-85 group-hover:opacity-100">
-                <i class="fa-solid fa-chevron-left"></i>
-              </button>
-              <button id="nextSlideBtn" aria-label="Επόμενο άθλημα" class="absolute right-3.5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-black/45 hover:bg-archelaos-yellow text-white hover:text-archelaos-deepgreen border border-white/30 flex items-center justify-center transition duration-300 opacity-85 group-hover:opacity-100">
-                <i class="fa-solid fa-chevron-right"></i>
-              </button>
-
-              <!-- Dark Gradient Overlay for Readability -->
+              <button id="prevSlideBtn" aria-label="Προηγούμενο" class="absolute left-3.5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/45 hover:bg-archelaos-yellow text-white hover:text-archelaos-deepgreen border border-white/30 flex items-center justify-center transition opacity-85 group-hover:opacity-100"><i class="fa-solid fa-chevron-left"></i></button>
+              <button id="nextSlideBtn" aria-label="Επόμενο" class="absolute right-3.5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/45 hover:bg-archelaos-yellow text-white hover:text-archelaos-deepgreen border border-white/30 flex items-center justify-center transition opacity-85 group-hover:opacity-100"><i class="fa-solid fa-chevron-right"></i></button>
               <div class="absolute inset-0 bg-gradient-to-t from-archelaos-deepgreen via-archelaos-deepgreen/40 to-transparent z-10 pointer-events-none"></div>
-
-              <!-- Bottom Overlay Info + Interactive Sport Pills -->
               <div class="absolute bottom-0 inset-x-0 p-4 sm:p-7 z-20 flex flex-col gap-3.5">
                 <div class="flex items-end justify-between gap-4">
                   <div class="flex items-center gap-3">
-                    <img src="https://lh3.googleusercontent.com/d/1JwGT61jDKXuBU6rA1OCiC1laeKh8gKdV" alt="Αρχέλαος Logo" class="w-12 h-12 sm:w-14 sm:h-14 object-contain drop-shadow-lg shrink-0" loading="lazy" decoding="async">
+                    <img src="https://lh3.googleusercontent.com/d/1JwGT61jDKXuBU6rA1OCiC1laeKh8gKdV" alt="Logo" class="w-12 h-12 object-contain drop-shadow-lg shrink-0">
                     <div>
-                      <h3 class="text-lg sm:text-2xl font-black text-white font-heading leading-tight drop-shadow">
-                        70 Χρόνια <span class="text-archelaos-yellow">Αγωνιστικής Δράσης</span>
-                      </h3>
-                      <p id="activeSlideCaption" class="text-xs sm:text-sm text-white/90 font-medium mt-0.5 line-clamp-2">
-                        Αγωνιστική δράση στη Χειροσφαίριση — 2 Κύπελλα Ελλάδος & ιστορική παρουσία στην Α1 Εθνική.
-                      </p>
+                      <h3 class="text-lg sm:text-2xl font-black text-white font-heading leading-tight drop-shadow">70 Χρόνια <span class="text-archelaos-yellow">Αγωνιστικής Δράσης</span></h3>
+                      <p id="activeSlideCaption" class="text-xs sm:text-sm text-white/90 font-medium mt-0.5 line-clamp-2">Αγωνιστική δράση στη Χειροσφαίριση — 2 Κύπελλα Ελλάδος & ιστορική παρουσία στην Α1 Εθνική.</p>
                     </div>
                   </div>
                 </div>
-
-                <!-- Interactive 8 Sport Selector Pills -->
-                <div id="sportPillsContainer" class="flex flex-wrap items-center gap-1.5 pt-2 border-t border-white/20">
-                </div>
+                <div id="sportPillsContainer" class="flex flex-wrap items-center gap-1.5 pt-2 border-t border-white/20"></div>
               </div>
-
             </div>
           </div>
 
-          <!-- Right Column: Club History & Stats -->
           <div class="lg:col-span-5 order-1 lg:order-2 space-y-5 sm:space-y-6">
             <div class="reveal-text">
               <span class="inline-block px-4 py-1.5 rounded-full bg-archelaos-deepgreen text-archelaos-yellow font-black text-xs uppercase tracking-wider mb-3 shadow-md">Η Ιστορία Μας</span>
-              <h2 class="text-3xl sm:text-5xl font-black font-heading text-archelaos-deepgreen leading-tight">
-                Ο Σύλλογος που <br>ένωσε την Πιερία
-              </h2>
+              <h2 class="text-3xl sm:text-5xl font-black font-heading text-archelaos-deepgreen leading-tight">Ο Σύλλογος που <br>ένωσε την Πιερία</h2>
             </div>
-
             <p class="reveal-text delay-100 text-base sm:text-lg text-slate-800 font-medium leading-relaxed">
-              Ο Γυμναστικός Αγωνιστικός Σύλλογος «Ο Αρχέλαος» Κατερίνης αποτελεί έναν από τους ιστορικότερους πολυαθλητικούς συλλόγους της Μακεδονίας. Ιδρύθηκε το <strong class="text-archelaos-deepgreen">1956</strong> και παραμένει πιστός στο όραμά του: να καλλιεργεί τις αξίες του «ευ αγωνίζεσθαι», της πειθαρχίας και του πρωταθλητισμού.
+              Ο Γυμναστικός Αγωνιστικός Σύλλογος «Ο Αρχέλαος» Κατερίνης αποτελεί έναν από τους ιστορικότερους πολυαθλητικούς συλλόγους της Μακεδονίας. Ιδρύθηκε το <strong class="text-archelaos-deepgreen">1956</strong> και παραμένει πιστός στο όραμά του.
             </p>
-
-            <p class="reveal-text delay-200 text-sm sm:text-base text-slate-800 font-medium leading-relaxed">
-              Από τις ακαδημίες βάσης μέχρι τις εθνικές κατηγορίες και τις ολυμπιακές διακρίσεις, ο σύλλογος έχει αναδείξει χιλιάδες αθλητές και στα <strong class="text-archelaos-deepgreen">8 ενεργά τμήματά του</strong> (Χάντμπολ, Στίβος, Τοξοβολία, Σκοποβολή, Ενόργανη Γυμναστική, Πάλη, Βόλεϊ και Κολύμβηση).
-            </p>
-
-            <!-- Compact Counter Cards -->
             <div class="reveal-text delay-300 grid grid-cols-2 gap-2.5 sm:gap-4 pt-1">
               <div class="glass-card p-3 sm:p-4 rounded-2xl flex items-center gap-2.5 sm:gap-3.5">
-                <div class="w-9 h-9 sm:w-11 sm:h-11 bg-archelaos-deepgreen text-archelaos-yellow rounded-xl flex items-center justify-center text-sm sm:text-lg shrink-0 shadow-sm">
-                  <i class="fa-solid fa-people-group"></i>
-                </div>
+                <div class="w-9 h-9 sm:w-11 sm:h-11 bg-archelaos-deepgreen text-archelaos-yellow rounded-xl flex items-center justify-center text-sm sm:text-lg shrink-0 shadow-sm"><i class="fa-solid fa-people-group"></i></div>
                 <div class="min-w-0">
                   <span class="block text-base sm:text-xl font-black text-archelaos-deepgreen font-heading leading-tight truncate"><span class="counter" data-target="10000">0</span>+</span>
                   <span class="block text-[10px] sm:text-[11px] font-bold text-slate-600 uppercase tracking-tight truncate">Αθλητές</span>
                 </div>
               </div>
-
               <div class="glass-card p-3 sm:p-4 rounded-2xl flex items-center gap-2.5 sm:gap-3.5">
-                <div class="w-9 h-9 sm:w-11 sm:h-11 bg-archelaos-deepgreen text-archelaos-yellow rounded-xl flex items-center justify-center text-sm sm:text-lg shrink-0 shadow-sm">
-                  <i class="fa-solid fa-trophy"></i>
-                </div>
+                <div class="w-9 h-9 sm:w-11 sm:h-11 bg-archelaos-deepgreen text-archelaos-yellow rounded-xl flex items-center justify-center text-sm sm:text-lg shrink-0 shadow-sm"><i class="fa-solid fa-trophy"></i></div>
                 <div class="min-w-0">
                   <span class="block text-base sm:text-xl font-black text-archelaos-deepgreen font-heading leading-tight counter" data-target="1956">0</span>
                   <span class="block text-[10px] sm:text-[11px] font-bold text-slate-600 uppercase tracking-tight truncate">Ίδρυση</span>
                 </div>
               </div>
             </div>
-
             <div class="reveal-text delay-400 pt-2">
               <a href="https://el.wikipedia.org/wiki/%CE%93.%CE%91.%CE%A3._%CE%9F_%CE%91%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82_%CE%9A%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82" target="_blank" rel="noopener noreferrer" class="btn-shimmer inline-flex items-center justify-center w-full sm:w-auto px-6 py-3.5 text-sm font-extrabold text-white bg-archelaos-deepgreen hover:bg-slate-900 rounded-2xl shadow-lg transition group">
-                <i class="fa-brands fa-wikipedia-w mr-2.5 text-lg text-archelaos-yellow"></i>
-                Διαβάστε την ιστορία μας στη Wikipedia
-                <i class="fa-solid fa-arrow-up-right-from-square ml-2.5 text-xs opacity-80 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
+                <i class="fa-brands fa-wikipedia-w mr-2.5 text-lg text-archelaos-yellow"></i> Διαβάστε την ιστορία μας στη Wikipedia
               </a>
             </div>
           </div>
-
         </div>
       </div>
     </section>
@@ -805,33 +478,20 @@
     <section id="departments" class="relative z-10 py-24">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="reveal-text text-center max-w-3xl mx-auto mb-16">
-          <span class="inline-block px-4 py-1.5 rounded-full bg-white/85 text-archelaos-deepgreen font-black text-xs uppercase tracking-wider mb-3 shadow-sm border border-white">
-            Αθλητισμός για όλους
-          </span>
-          <h2 class="text-3xl sm:text-5xl font-black font-heading text-archelaos-deepgreen">
-            Τα 8 Αθλητικά Τμήματα
-          </h2>
-          <p class="mt-3 text-archelaos-deepgreen/85 font-semibold text-base">
-            Επιλέξτε το άθλημα που σας ταιριάζει και γίνετε μέλος της οικογένειας του Αρχελάου Κατερίνης.
-          </p>
+          <span class="inline-block px-4 py-1.5 rounded-full bg-white/85 text-archelaos-deepgreen font-black text-xs uppercase tracking-wider mb-3 shadow-sm border border-white">Αθλητισμός για όλους</span>
+          <h2 class="text-3xl sm:text-5xl font-black font-heading text-archelaos-deepgreen">Τα 8 Αθλητικά Τμήματα</h2>
+          <p class="mt-3 text-archelaos-deepgreen/85 font-semibold text-base">Επιλέξτε το άθλημα που σας ταιριάζει και γίνετε μέλος της οικογένειας του Αρχελάου Κατερίνης.</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
           
-          <!-- 1. Χειροσφαίριση (Χάντμπολ) -->
+          <!-- 1. Χειροσφαίριση -->
           <div class="department-card reveal-text glass-card rounded-[2rem] p-6 flex flex-col justify-between group">
             <div>
               <div class="flex items-center justify-between mb-6">
-                <button type="button" onclick="openDeptHistoryModal('handball')" title="Κάντε κλικ για να διαβάσετε την ιστορική αναδρομή" class="icon-box relative w-16 h-16 rounded-2xl bg-archelaos-yellow/90 text-archelaos-deepgreen flex items-center justify-center shadow-md border border-white">
-                  <svg class="w-8 h-8 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="20.5" cy="4" r="1.8" />
-                    <circle cx="10" cy="4.5" r="2" />
-                    <path d="M11.5 7.5c-1.2.2-2.8.9-3.8 1.8l-3.2-1.5c-.5-.2-1.1 0-1.3.5-.2.5 0 1.1.5 1.3l3 1.4-1.2 2.8c-.3.7 0 1.5.7 1.8l3.5 1.6-1.5 4.5c-.2.6.1 1.2.7 1.4.6.2 1.2-.1 1.4-.7l1.8-5.2 2.2-2.5 2.5 1.8c.4.3 1 .2 1.3-.2.3-.4.2-1-.2-1.3l-2.4-1.7.8-2.6 3.5.5c.5.1 1-.3 1.1-.8.1-.5-.3-1-.8-1.1l-4.5-.6-1.5-1.5c-.6-.7-1.5-1-2.3-.8z"/>
-                  </svg>
-                  <span class="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-archelaos-deepgreen text-archelaos-yellow text-[9px] font-black border border-white shadow">
-                    <i class="fa-solid fa-book-open"></i>
-                  </span>
-                </button>
+                <div onclick="openDeptHistoryModal('handball')" class="icon-box w-16 h-16 rounded-2xl bg-archelaos-yellow/90 text-archelaos-deepgreen flex items-center justify-center text-2xl shadow-md border border-white" title="Ιστορικό Τμήματος">
+                  <i class="fa-solid fa-hand-playing-audio"></i>
+                </div>
                 <button type="button" onclick="openDeptHistoryModal('handball')" class="text-[11px] font-black text-archelaos-darkgreen hover:underline flex items-center gap-1 opacity-80 hover:opacity-100">
                   <i class="fa-solid fa-circle-info"></i> Ιστορικό
                 </button>
@@ -848,12 +508,9 @@
           <div class="department-card reveal-text delay-100 glass-card rounded-[2rem] p-6 flex flex-col justify-between group">
             <div>
               <div class="flex items-center justify-between mb-6">
-                <button type="button" onclick="openDeptHistoryModal('track')" title="Κάντε κλικ για να διαβάσετε την ιστορική αναδρομή" class="icon-box relative w-16 h-16 rounded-2xl bg-archelaos-yellow/90 text-archelaos-deepgreen flex items-center justify-center text-3xl font-black shadow-md border border-white">
+                <div onclick="openDeptHistoryModal('track')" class="icon-box w-16 h-16 rounded-2xl bg-archelaos-yellow/90 text-archelaos-deepgreen flex items-center justify-center text-2xl shadow-md border border-white" title="Ιστορικό Τμήματος">
                   <i class="fa-solid fa-person-running"></i>
-                  <span class="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-archelaos-deepgreen text-archelaos-yellow text-[9px] font-black border border-white shadow">
-                    <i class="fa-solid fa-book-open"></i>
-                  </span>
-                </button>
+                </div>
                 <button type="button" onclick="openDeptHistoryModal('track')" class="text-[11px] font-black text-archelaos-darkgreen hover:underline flex items-center gap-1 opacity-80 hover:opacity-100">
                   <i class="fa-solid fa-circle-info"></i> Ιστορικό
                 </button>
@@ -870,17 +527,14 @@
           <div class="department-card reveal-text delay-200 glass-card rounded-[2rem] p-6 flex flex-col justify-between group">
             <div>
               <div class="flex items-center justify-between mb-6">
-                <button type="button" onclick="openDeptHistoryModal('archery')" title="Κάντε κλικ για να διαβάσετε την ιστορική αναδρομή" class="icon-box relative w-16 h-16 rounded-2xl bg-archelaos-yellow/90 text-archelaos-deepgreen flex items-center justify-center text-3xl font-black shadow-md border border-white">
+                <div onclick="openDeptHistoryModal('archery')" class="icon-box w-16 h-16 rounded-2xl bg-archelaos-yellow/90 text-archelaos-deepgreen flex items-center justify-center text-2xl shadow-md border border-white" title="Ιστορικό Τμήματος">
                   <i class="fa-solid fa-bullseye"></i>
-                  <span class="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-archelaos-deepgreen text-archelaos-yellow text-[9px] font-black border border-white shadow">
-                    <i class="fa-solid fa-book-open"></i>
-                  </span>
-                </button>
+                </div>
                 <button type="button" onclick="openDeptHistoryModal('archery')" class="text-[11px] font-black text-archelaos-darkgreen hover:underline flex items-center gap-1 opacity-80 hover:opacity-100">
                   <i class="fa-solid fa-circle-info"></i> Ιστορικό
                 </button>
               </div>
-              <h3 class="text-xl font-black font-heading text-archelaos-deepgreen mb-2 leading-tight">Τοξοβολία<br><span class="text-sm text-archelaos-darkgreen font-extrabold"></span></h3>
+              <h3 class="text-xl font-black font-heading text-archelaos-deepgreen mb-2 leading-tight">Τοξοβολία</h3>
               <p class="text-sm text-slate-700 leading-relaxed mb-6 font-medium">Ολυμπιακό άθλημα με ενεργή αγωνιστική παρουσία και τμήματα υποδομών.</p>
             </div>
             <button onclick="openRegistrationModal('Τοξοβολία')" class="w-full py-3.5 bg-white/85 hover:bg-archelaos-deepgreen text-archelaos-deepgreen hover:text-archelaos-yellow font-extrabold text-sm rounded-xl border border-archelaos-darkgreen/20 transition-all duration-300 shadow-sm">
@@ -892,17 +546,14 @@
           <div class="department-card reveal-text delay-300 glass-card rounded-[2rem] p-6 flex flex-col justify-between group">
             <div>
               <div class="flex items-center justify-between mb-6">
-                <button type="button" onclick="openDeptHistoryModal('shooting')" title="Κάντε κλικ για να διαβάσετε την ιστορική αναδρομή" class="icon-box relative w-16 h-16 rounded-2xl bg-archelaos-yellow/90 text-archelaos-deepgreen flex items-center justify-center text-3xl font-black shadow-md border border-white">
+                <div onclick="openDeptHistoryModal('shooting')" class="icon-box w-16 h-16 rounded-2xl bg-archelaos-yellow/90 text-archelaos-deepgreen flex items-center justify-center text-2xl shadow-md border border-white" title="Ιστορικό Τμήματος">
                   <i class="fa-solid fa-crosshairs"></i>
-                  <span class="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-archelaos-deepgreen text-archelaos-yellow text-[9px] font-black border border-white shadow">
-                    <i class="fa-solid fa-book-open"></i>
-                  </span>
-                </button>
+                </div>
                 <button type="button" onclick="openDeptHistoryModal('shooting')" class="text-[11px] font-black text-archelaos-darkgreen hover:underline flex items-center gap-1 opacity-80 hover:opacity-100">
                   <i class="fa-solid fa-circle-info"></i> Ιστορικό
                 </button>
               </div>
-              <h3 class="text-xl font-black font-heading text-archelaos-deepgreen mb-2 leading-tight">Σκοποβολή<br><span class="text-sm text-archelaos-darkgreen font-extrabold"></span></h3>
+              <h3 class="text-xl font-black font-heading text-archelaos-deepgreen mb-2 leading-tight">Σκοποβολή</h3>
               <p class="text-sm text-slate-700 leading-relaxed mb-6 font-medium">Αγωνίσματα ακριβείας και αεροβόλων όπλων υπό την καθοδήγηση έμπειρων προπονητών.</p>
             </div>
             <button onclick="openRegistrationModal('Σκοποβολή')" class="w-full py-3.5 bg-white/85 hover:bg-archelaos-deepgreen text-archelaos-deepgreen hover:text-archelaos-yellow font-extrabold text-sm rounded-xl border border-archelaos-darkgreen/20 transition-all duration-300 shadow-sm">
@@ -914,17 +565,14 @@
           <div class="department-card reveal-text glass-card rounded-[2rem] p-6 flex flex-col justify-between group">
             <div>
               <div class="flex items-center justify-between mb-6">
-                <button type="button" onclick="openDeptHistoryModal('gymnastics')" title="Κάντε κλικ για να διαβάσετε την ιστορική αναδρομή" class="icon-box relative w-16 h-16 rounded-2xl bg-archelaos-yellow/90 text-archelaos-deepgreen flex items-center justify-center text-3xl font-black shadow-md border border-white">
+                <div onclick="openDeptHistoryModal('gymnastics')" class="icon-box w-16 h-16 rounded-2xl bg-archelaos-yellow/90 text-archelaos-deepgreen flex items-center justify-center text-2xl shadow-md border border-white" title="Ιστορικό Τμήματος">
                   <i class="fa-solid fa-child-reaching"></i>
-                  <span class="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-archelaos-deepgreen text-archelaos-yellow text-[9px] font-black border border-white shadow">
-                    <i class="fa-solid fa-book-open"></i>
-                  </span>
-                </button>
+                </div>
                 <button type="button" onclick="openDeptHistoryModal('gymnastics')" class="text-[11px] font-black text-archelaos-darkgreen hover:underline flex items-center gap-1 opacity-80 hover:opacity-100">
                   <i class="fa-solid fa-circle-info"></i> Ιστορικό
                 </button>
               </div>
-              <h3 class="text-xl font-black font-heading text-archelaos-deepgreen mb-2 leading-tight">Ενόργανη Γυμναστική<br><span class="text-sm text-archelaos-darkgreen font-extrabold"></span></h3>
+              <h3 class="text-xl font-black font-heading text-archelaos-deepgreen mb-2 leading-tight">Ενόργανη Γυμναστική</h3>
               <p class="text-sm text-slate-700 leading-relaxed mb-6 font-medium">Ανάπτυξη ευλυγισίας, δύναμης, ισορροπίας και συντονισμού σε εξοπλισμένη αίθουσα.</p>
             </div>
             <button onclick="openRegistrationModal('Ενόργανη Γυμναστική')" class="w-full py-3.5 bg-white/85 hover:bg-archelaos-deepgreen text-archelaos-deepgreen hover:text-archelaos-yellow font-extrabold text-sm rounded-xl border border-archelaos-darkgreen/20 transition-all duration-300 shadow-sm">
@@ -936,12 +584,9 @@
           <div class="department-card reveal-text delay-100 glass-card rounded-[2rem] p-6 flex flex-col justify-between group">
             <div>
               <div class="flex items-center justify-between mb-6">
-                <button type="button" onclick="openDeptHistoryModal('volleyball')" title="Κάντε κλικ για να διαβάσετε την ιστορική αναδρομή" class="icon-box relative w-16 h-16 rounded-2xl bg-archelaos-yellow/90 text-archelaos-deepgreen flex items-center justify-center text-3xl font-black shadow-md border border-white">
+                <div onclick="openDeptHistoryModal('volleyball')" class="icon-box w-16 h-16 rounded-2xl bg-archelaos-yellow/90 text-archelaos-deepgreen flex items-center justify-center text-2xl shadow-md border border-white" title="Ιστορικό Τμήματος">
                   <i class="fa-solid fa-volleyball"></i>
-                  <span class="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-archelaos-deepgreen text-archelaos-yellow text-[9px] font-black border border-white shadow">
-                    <i class="fa-solid fa-book-open"></i>
-                  </span>
-                </button>
+                </div>
                 <button type="button" onclick="openDeptHistoryModal('volleyball')" class="text-[11px] font-black text-archelaos-darkgreen hover:underline flex items-center gap-1 opacity-80 hover:opacity-100">
                   <i class="fa-solid fa-circle-info"></i> Ιστορικό
                 </button>
@@ -958,17 +603,14 @@
           <div class="department-card reveal-text delay-200 glass-card rounded-[2rem] p-6 flex flex-col justify-between group">
             <div>
               <div class="flex items-center justify-between mb-6">
-                <button type="button" onclick="openDeptHistoryModal('wrestling')" title="Κάντε κλικ για να διαβάσετε την ιστορική αναδρομή" class="icon-box relative w-16 h-16 rounded-2xl bg-archelaos-yellow/90 text-archelaos-deepgreen flex items-center justify-center text-3xl font-black shadow-md border border-white">
+                <div onclick="openDeptHistoryModal('wrestling')" class="icon-box w-16 h-16 rounded-2xl bg-archelaos-yellow/90 text-archelaos-deepgreen flex items-center justify-center text-2xl shadow-md border border-white" title="Ιστορικό Τμήματος">
                   <i class="fa-solid fa-hand-fist"></i>
-                  <span class="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-archelaos-deepgreen text-archelaos-yellow text-[9px] font-black border border-white shadow">
-                    <i class="fa-solid fa-book-open"></i>
-                  </span>
-                </button>
+                </div>
                 <button type="button" onclick="openDeptHistoryModal('wrestling')" class="text-[11px] font-black text-archelaos-darkgreen hover:underline flex items-center gap-1 opacity-80 hover:opacity-100">
                   <i class="fa-solid fa-circle-info"></i> Ιστορικό
                 </button>
               </div>
-              <h3 class="text-xl font-black font-heading text-archelaos-deepgreen mb-2 leading-tight">Πάλη<br><span class="text-sm text-archelaos-darkgreen font-extrabold"></span></h3>
+              <h3 class="text-xl font-black font-heading text-archelaos-deepgreen mb-2 leading-tight">Πάλη</h3>
               <p class="text-sm text-slate-700 leading-relaxed mb-6 font-medium">Παραδοσιακό δυναμικό άθλημα με πλούσια ιστορία διακρίσεων στην Πιερία.</p>
             </div>
             <button onclick="openRegistrationModal('Πάλη')" class="w-full py-3.5 bg-white/85 hover:bg-archelaos-deepgreen text-archelaos-deepgreen hover:text-archelaos-yellow font-extrabold text-sm rounded-xl border border-archelaos-darkgreen/20 transition-all duration-300 shadow-sm">
@@ -980,12 +622,9 @@
           <div class="department-card reveal-text delay-300 glass-card rounded-[2rem] p-6 flex flex-col justify-between group">
             <div>
               <div class="flex items-center justify-between mb-6">
-                <button type="button" onclick="openDeptHistoryModal('swimming')" title="Κάντε κλικ για να διαβάσετε την ιστορική αναδρομή" class="icon-box relative w-16 h-16 rounded-2xl bg-archelaos-yellow/90 text-archelaos-deepgreen flex items-center justify-center text-3xl font-black shadow-md border border-white">
+                <div onclick="openDeptHistoryModal('swimming')" class="icon-box w-16 h-16 rounded-2xl bg-archelaos-yellow/90 text-archelaos-deepgreen flex items-center justify-center text-2xl shadow-md border border-white" title="Ιστορικό Τμήματος">
                   <i class="fa-solid fa-person-swimming"></i>
-                  <span class="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-archelaos-deepgreen text-archelaos-yellow text-[9px] font-black border border-white shadow">
-                    <i class="fa-solid fa-book-open"></i>
-                  </span>
-                </button>
+                </div>
                 <button type="button" onclick="openDeptHistoryModal('swimming')" class="text-[11px] font-black text-archelaos-darkgreen hover:underline flex items-center gap-1 opacity-80 hover:opacity-100">
                   <i class="fa-solid fa-circle-info"></i> Ιστορικό
                 </button>
@@ -1002,184 +641,131 @@
       </div>
     </section>
 
-    <!-- BOARD OF DIRECTORS (ΔΙΟΙΚΗΤΙΚΟ ΣΥΜΒΟΥΛΙΟ) SECTION -->
+    <!-- BOARD OF DIRECTORS SECTION -->
     <section id="board" class="relative z-10 py-20 sm:py-24 glass-section">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <!-- Section Header -->
         <div class="reveal-text text-center max-w-2xl mx-auto mb-12">
-          <span class="inline-block px-4 py-1.5 rounded-full bg-archelaos-deepgreen text-archelaos-yellow font-black text-xs uppercase tracking-wider mb-3 shadow-md">
-            Διοίκηση
-          </span>
-          <h2 class="text-3xl sm:text-5xl font-black font-heading text-archelaos-deepgreen">
-            Διοικητικό Συμβούλιο
-          </h2>
-          <p class="mt-3 text-slate-700 font-semibold text-sm sm:text-base leading-relaxed">
-            Η σύνθεση του Δ.Σ. και οι υπεύθυνοι έφοροι των 8 αθλητικών τμημάτων του συλλόγου.
-          </p>
+          <span class="inline-block px-4 py-1.5 rounded-full bg-archelaos-deepgreen text-archelaos-yellow font-black text-xs uppercase tracking-wider mb-3 shadow-md">Διοίκηση</span>
+          <h2 class="text-3xl sm:text-5xl font-black font-heading text-archelaos-deepgreen">Διοικητικό Συμβούλιο</h2>
+          <p class="mt-3 text-slate-700 font-semibold text-sm sm:text-base leading-relaxed">Η σύνθεση του Δ.Σ. και οι υπεύθυνοι έφοροι των 8 αθλητικών τμημάτων του συλλόγου.</p>
         </div>
 
-        <!-- Unified Modern 8-Member Grid -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 reveal-text">
           
-          <!-- 1. Παναγιώτης Διαμαντόπουλος -->
           <div class="glass-card p-5 rounded-2xl flex flex-col justify-between hover:shadow-xl transition-all duration-300 border border-white/90">
             <div>
               <div class="flex items-center justify-between gap-2 mb-3">
-                <span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-archelaos-deepgreen text-archelaos-yellow text-[11px] font-black uppercase tracking-wider shadow-sm">
-                  Πρόεδρος
-                </span>
-                <span class="w-8 h-8 rounded-lg bg-archelaos-yellow/80 text-archelaos-deepgreen flex items-center justify-center text-sm shrink-0 shadow-sm">
+                <span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-archelaos-deepgreen text-archelaos-yellow text-[11px] font-black uppercase tracking-wider shadow-sm">Πρόεδρος</span>
+                <div class="w-9 h-9 rounded-lg bg-archelaos-yellow/80 text-archelaos-deepgreen flex items-center justify-center text-base shrink-0 shadow-sm" title="Ενόργανη Γυμναστική">
                   <i class="fa-solid fa-child-reaching"></i>
-                </span>
+                </div>
               </div>
-              <h3 class="font-heading font-black text-base text-archelaos-deepgreen leading-snug">
-                Παναγιώτης Διαμαντόπουλος
-              </h3>
+              <h3 class="font-heading font-black text-base text-archelaos-deepgreen leading-snug">Παναγιώτης Διαμαντόπουλος</h3>
             </div>
             <div class="text-xs font-bold text-slate-600 flex items-center gap-1.5 mt-3 pt-2.5 border-t border-slate-200/80">
               <span class="text-archelaos-forest font-black">Έφορος:</span> Ενόργανη Γυμναστική
             </div>
           </div>
 
-          <!-- 2. Χαράλαμπος Σαββίδης -->
           <div class="glass-card p-5 rounded-2xl flex flex-col justify-between hover:shadow-xl transition-all duration-300 border border-white/90">
             <div>
               <div class="flex items-center justify-between gap-2 mb-3">
-                <span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-archelaos-deepgreen text-archelaos-yellow text-[11px] font-black uppercase tracking-wider shadow-sm">
-                  Α΄ Αντιπρόεδρος
-                </span>
-                <span class="w-8 h-8 rounded-lg bg-archelaos-yellow/80 text-archelaos-deepgreen flex items-center justify-center text-sm shrink-0 shadow-sm">
-                  <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="20.5" cy="4" r="1.8"/>
-                    <circle cx="10" cy="4.5" r="2"/>
-                    <path d="M11.5 7.5c-1.2.2-2.8.9-3.8 1.8l-3.2-1.5c-.5-.2-1.1 0-1.3.5-.2.5 0 1.1.5 1.3l3 1.4-1.2 2.8c-.3.7 0 1.5.7 1.8l3.5 1.6-1.5 4.5c-.2.6.1 1.2.7 1.4.6.2 1.2-.1 1.4-.7l1.8-5.2 2.2-2.5 2.5 1.8c.4.3 1 .2 1.3-.2.3-.4.2-1-.2-1.3l-2.4-1.7.8-2.6 3.5.5c.5.1 1-.3 1.1-.8.1-.5-.3-1-.8-1.1l-4.5-.6-1.5-1.5c-.6-.7-1.5-1-2.3-.8z"/>
-                  </svg>
-                </span>
+                <span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-archelaos-deepgreen text-archelaos-yellow text-[11px] font-black uppercase tracking-wider shadow-sm">Α΄ Αντιπρόεδρος</span>
+                <div class="w-9 h-9 rounded-lg bg-archelaos-yellow/80 text-archelaos-deepgreen flex items-center justify-center text-base shrink-0 shadow-sm" title="Χειροσφαίριση (Χάντμπολ)">
+                  <i class="fa-solid fa-hand-playing-audio"></i>
+                </div>
               </div>
-              <h3 class="font-heading font-black text-base text-archelaos-deepgreen leading-snug">
-                Χαράλαμπος Σαββίδης
-              </h3>
+              <h3 class="font-heading font-black text-base text-archelaos-deepgreen leading-snug">Χαράλαμπος Σαββίδης</h3>
             </div>
             <div class="text-xs font-bold text-slate-600 flex items-center gap-1.5 mt-3 pt-2.5 border-t border-slate-200/80">
               <span class="text-archelaos-forest font-black">Έφορος:</span> Χειροσφαίριση (Χάντμπολ)
             </div>
           </div>
 
-          <!-- 3. Δημήτριος Γαλάνης -->
           <div class="glass-card p-5 rounded-2xl flex flex-col justify-between hover:shadow-xl transition-all duration-300 border border-white/90">
             <div>
               <div class="flex items-center justify-between gap-2 mb-3">
-                <span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-archelaos-deepgreen text-archelaos-yellow text-[11px] font-black uppercase tracking-wider shadow-sm">
-                  Β΄ Αντιπρόεδρος
-                </span>
-                <span class="w-8 h-8 rounded-lg bg-archelaos-yellow/80 text-archelaos-deepgreen flex items-center justify-center text-sm shrink-0 shadow-sm">
+                <span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-archelaos-deepgreen text-archelaos-yellow text-[11px] font-black uppercase tracking-wider shadow-sm">Β΄ Αντιπρόεδρος</span>
+                <div class="w-9 h-9 rounded-lg bg-archelaos-yellow/80 text-archelaos-deepgreen flex items-center justify-center text-base shrink-0 shadow-sm" title="Τοξοβολία">
                   <i class="fa-solid fa-bullseye"></i>
-                </span>
+                </div>
               </div>
-              <h3 class="font-heading font-black text-base text-archelaos-deepgreen leading-snug">
-                Δημήτριος Γαλάνης
-              </h3>
+              <h3 class="font-heading font-black text-base text-archelaos-deepgreen leading-snug">Δημήτριος Γαλάνης</h3>
             </div>
             <div class="text-xs font-bold text-slate-600 flex items-center gap-1.5 mt-3 pt-2.5 border-t border-slate-200/80">
               <span class="text-archelaos-forest font-black">Έφορος:</span> Τοξοβολία
             </div>
           </div>
 
-          <!-- 4. Αθανάσιος Μαυροειδής -->
           <div class="glass-card p-5 rounded-2xl flex flex-col justify-between hover:shadow-xl transition-all duration-300 border border-white/90">
             <div>
               <div class="flex items-center justify-between gap-2 mb-3">
-                <span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-archelaos-deepgreen text-archelaos-yellow text-[11px] font-black uppercase tracking-wider shadow-sm">
-                  Γεν. Γραμματέας
-                </span>
-                <span class="w-8 h-8 rounded-lg bg-archelaos-yellow/80 text-archelaos-deepgreen flex items-center justify-center text-sm shrink-0 shadow-sm">
+                <span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-archelaos-deepgreen text-archelaos-yellow text-[11px] font-black uppercase tracking-wider shadow-sm">Γεν. Γραμματέας</span>
+                <div class="w-9 h-9 rounded-lg bg-archelaos-yellow/80 text-archelaos-deepgreen flex items-center justify-center text-base shrink-0 shadow-sm" title="Κολύμβηση">
                   <i class="fa-solid fa-person-swimming"></i>
-                </span>
+                </div>
               </div>
-              <h3 class="font-heading font-black text-base text-archelaos-deepgreen leading-snug">
-                Αθανάσιος Μαυροειδής
-              </h3>
+              <h3 class="font-heading font-black text-base text-archelaos-deepgreen leading-snug">Αθανάσιος Μαυροειδής</h3>
             </div>
             <div class="text-xs font-bold text-slate-600 flex items-center gap-1.5 mt-3 pt-2.5 border-t border-slate-200/80">
               <span class="text-archelaos-forest font-black">Έφορος:</span> Κολύμβηση
             </div>
           </div>
 
-          <!-- 5. Παύλος Συμεωνίδης -->
           <div class="glass-card p-5 rounded-2xl flex flex-col justify-between hover:shadow-xl transition-all duration-300 border border-white/90">
             <div>
               <div class="flex items-center justify-between gap-2 mb-3">
-                <span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-archelaos-deepgreen text-archelaos-yellow text-[11px] font-black uppercase tracking-wider shadow-sm">
-                  Ταμίας
-                </span>
-                <span class="w-8 h-8 rounded-lg bg-archelaos-yellow/80 text-archelaos-deepgreen flex items-center justify-center text-sm shrink-0 shadow-sm">
+                <span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-archelaos-deepgreen text-archelaos-yellow text-[11px] font-black uppercase tracking-wider shadow-sm">Ταμίας</span>
+                <div class="w-9 h-9 rounded-lg bg-archelaos-yellow/80 text-archelaos-deepgreen flex items-center justify-center text-base shrink-0 shadow-sm" title="Πετοσφαίριση (Βόλεϊ)">
                   <i class="fa-solid fa-volleyball"></i>
-                </span>
+                </div>
               </div>
-              <h3 class="font-heading font-black text-base text-archelaos-deepgreen leading-snug">
-                Παύλος Συμεωνίδης
-              </h3>
+              <h3 class="font-heading font-black text-base text-archelaos-deepgreen leading-snug">Παύλος Συμεωνίδης</h3>
             </div>
             <div class="text-xs font-bold text-slate-600 flex items-center gap-1.5 mt-3 pt-2.5 border-t border-slate-200/80">
               <span class="text-archelaos-forest font-black">Έφορος:</span> Πετοσφαίριση (Βόλεϊ)
             </div>
           </div>
 
-          <!-- 6. Γεώργιος Αθανασίου -->
           <div class="glass-card p-5 rounded-2xl flex flex-col justify-between hover:shadow-xl transition-all duration-300 border border-white/90">
             <div>
               <div class="flex items-center justify-between gap-2 mb-3">
-                <span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-archelaos-deepgreen text-archelaos-yellow text-[11px] font-black uppercase tracking-wider shadow-sm">
-                  Μέλος Δ.Σ.
-                </span>
-                <span class="w-8 h-8 rounded-lg bg-archelaos-yellow/80 text-archelaos-deepgreen flex items-center justify-center text-sm shrink-0 shadow-sm">
+                <span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-archelaos-deepgreen text-archelaos-yellow text-[11px] font-black uppercase tracking-wider shadow-sm">Μέλος Δ.Σ.</span>
+                <div class="w-9 h-9 rounded-lg bg-archelaos-yellow/80 text-archelaos-deepgreen flex items-center justify-center text-base shrink-0 shadow-sm" title="Στίβος">
                   <i class="fa-solid fa-person-running"></i>
-                </span>
+                </div>
               </div>
-              <h3 class="font-heading font-black text-base text-archelaos-deepgreen leading-snug">
-                Γεώργιος Αθανασίου
-              </h3>
+              <h3 class="font-heading font-black text-base text-archelaos-deepgreen leading-snug">Γεώργιος Αθανασίου</h3>
             </div>
             <div class="text-xs font-bold text-slate-600 flex items-center gap-1.5 mt-3 pt-2.5 border-t border-slate-200/80">
-              <span class="text-archelaos-forest font-black">Έφορος:</span> Στίβος (Κλασικός Αθλητισμός)
+              <span class="text-archelaos-forest font-black">Έφορος:</span> Στίβος (Κλασικός)
             </div>
           </div>
 
-          <!-- 7. Κυριάκος Κωνσταντινίδης -->
           <div class="glass-card p-5 rounded-2xl flex flex-col justify-between hover:shadow-xl transition-all duration-300 border border-white/90">
             <div>
               <div class="flex items-center justify-between gap-2 mb-3">
-                <span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-archelaos-deepgreen text-archelaos-yellow text-[11px] font-black uppercase tracking-wider shadow-sm">
-                  Μέλος Δ.Σ.
-                </span>
-                <span class="w-8 h-8 rounded-lg bg-archelaos-yellow/80 text-archelaos-deepgreen flex items-center justify-center text-sm shrink-0 shadow-sm">
+                <span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-archelaos-deepgreen text-archelaos-yellow text-[11px] font-black uppercase tracking-wider shadow-sm">Μέλος Δ.Σ.</span>
+                <div class="w-9 h-9 rounded-lg bg-archelaos-yellow/80 text-archelaos-deepgreen flex items-center justify-center text-base shrink-0 shadow-sm" title="Πάλη">
                   <i class="fa-solid fa-hand-fist"></i>
-                </span>
+                </div>
               </div>
-              <h3 class="font-heading font-black text-base text-archelaos-deepgreen leading-snug">
-                Κυριάκος Κωνσταντινίδης
-              </h3>
+              <h3 class="font-heading font-black text-base text-archelaos-deepgreen leading-snug">Κυριάκος Κωνσταντινίδης</h3>
             </div>
             <div class="text-xs font-bold text-slate-600 flex items-center gap-1.5 mt-3 pt-2.5 border-t border-slate-200/80">
               <span class="text-archelaos-forest font-black">Έφορος:</span> Πάλη
             </div>
           </div>
 
-          <!-- 8. Χρυσούλα Κουτσουδάκη -->
           <div class="glass-card p-5 rounded-2xl flex flex-col justify-between hover:shadow-xl transition-all duration-300 border border-white/90">
             <div>
               <div class="flex items-center justify-between gap-2 mb-3">
-                <span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-archelaos-deepgreen text-archelaos-yellow text-[11px] font-black uppercase tracking-wider shadow-sm">
-                  Μέλος Δ.Σ.
-                </span>
-                <span class="w-8 h-8 rounded-lg bg-archelaos-yellow/80 text-archelaos-deepgreen flex items-center justify-center text-sm shrink-0 shadow-sm">
+                <span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-archelaos-deepgreen text-archelaos-yellow text-[11px] font-black uppercase tracking-wider shadow-sm">Μέλος Δ.Σ.</span>
+                <div class="w-9 h-9 rounded-lg bg-archelaos-yellow/80 text-archelaos-deepgreen flex items-center justify-center text-base shrink-0 shadow-sm" title="Σκοποβολή">
                   <i class="fa-solid fa-crosshairs"></i>
-                </span>
+                </div>
               </div>
-              <h3 class="font-heading font-black text-base text-archelaos-deepgreen leading-snug">
-                Χρυσούλα Κουτσουδάκη
-              </h3>
+              <h3 class="font-heading font-black text-base text-archelaos-deepgreen leading-snug">Χρυσούλα Κουτσουδάκη</h3>
             </div>
             <div class="text-xs font-bold text-slate-600 flex items-center gap-1.5 mt-3 pt-2.5 border-t border-slate-200/80">
               <span class="text-archelaos-forest font-black">Έφορος:</span> Σκοποβολή
@@ -1277,7 +863,7 @@
                 </div>
 
                 <div id="formSuccessAlert" class="hidden p-4 rounded-xl text-xs font-bold bg-emerald-100 text-emerald-900 border border-emerald-300">
-                  <i class="fa-solid fa-circle-check mr-1 text-emerald-700"></i> Το μήνυμά σας καταχωρήθηκε επιτυχώς και στάλθηκε στη γραμματεία!
+                  <i class="fa-solid fa-circle-check mr-1 text-emerald-700"></i> Το μήνυμά σας καταχωρήθηκε επιτυχώς!
                 </div>
 
                 <button type="submit" class="btn-shimmer w-full py-4 bg-archelaos-deepgreen hover:bg-archelaos-darkgreen text-archelaos-yellow font-black rounded-xl shadow-xl transition flex items-center justify-center gap-2">
@@ -1286,7 +872,6 @@
               </form>
             </div>
           </div>
-
         </div>
       </div>
     </section>
@@ -1294,35 +879,27 @@
     <!-- DEPARTMENT HISTORY POPUP MODAL -->
     <div id="deptHistoryModal" class="modal-backdrop fixed inset-0 z-50 overflow-y-auto bg-archelaos-deepgreen/70 backdrop-blur-sm flex items-center justify-center p-4">
       <div class="modal-box relative w-full max-w-lg bg-white/95 rounded-3xl shadow-2xl overflow-hidden border-2 border-white transition-colors duration-300">
-        <div class="modal-header bg-archelaos-yellow p-6 flex items-center justify-between border-b border-archelaos-darkgreen/20 transition-colors duration-300">
+        <div class="modal-header bg-archelaos-yellow p-6 flex items-center justify-between border-b border-archelaos-darkgreen/20">
           <div class="flex items-center gap-3">
-            <div id="deptModalIcon" class="w-11 h-11 rounded-xl bg-archelaos-deepgreen text-archelaos-yellow flex items-center justify-center text-lg shadow-sm">
-              <i class="fa-solid fa-trophy"></i>
-            </div>
+            <div id="deptModalIcon" class="w-11 h-11 rounded-xl bg-archelaos-deepgreen text-archelaos-yellow flex items-center justify-center text-lg shadow-sm"></div>
             <div>
               <span class="text-[10px] font-black uppercase tracking-wider text-archelaos-darkgreen block">Ιστορική Αναδρομή</span>
               <h3 id="deptModalTitle" class="modal-header-title font-heading font-black text-lg text-archelaos-deepgreen leading-tight">Τμήμα</h3>
             </div>
           </div>
-          <button onclick="closeDeptHistoryModal()" aria-label="Κλείσιμο παραθύρου" class="modal-close-btn w-8 h-8 rounded-full bg-archelaos-darkgreen/10 text-archelaos-deepgreen flex items-center justify-center hover:bg-archelaos-darkgreen hover:text-archelaos-yellow transition"><i class="fa-solid fa-xmark"></i></button>
+          <button onclick="closeDeptHistoryModal()" class="modal-close-btn w-8 h-8 rounded-full bg-archelaos-darkgreen/10 text-archelaos-deepgreen flex items-center justify-center hover:bg-archelaos-darkgreen hover:text-archelaos-yellow transition"><i class="fa-solid fa-xmark"></i></button>
         </div>
-        
         <div class="p-6 sm:p-7 space-y-4 max-h-[75vh] overflow-y-auto">
           <div id="deptModalHighlight" class="history-highlight p-3.5 rounded-2xl bg-archelaos-yellow/20 border border-archelaos-darkgreen/20 text-archelaos-deepgreen font-bold text-xs sm:text-sm flex items-start gap-2.5">
             <i class="fa-solid fa-award text-base text-archelaos-darkgreen shrink-0 mt-0.5"></i>
             <span id="deptModalHighlightText"></span>
           </div>
-
-          <div id="deptModalText" class="history-content text-slate-700 text-sm leading-relaxed font-medium space-y-2.5">
-          </div>
-
+          <div id="deptModalText" class="history-content text-slate-700 text-sm leading-relaxed font-medium space-y-2.5"></div>
           <div class="pt-2 flex flex-col sm:flex-row gap-2.5">
             <button id="deptModalRegisterBtn" type="button" class="modal-submit-btn btn-shimmer w-full py-3.5 bg-archelaos-deepgreen text-archelaos-yellow font-black rounded-xl shadow-lg transition flex items-center justify-center gap-2 text-sm">
               <i class="fa-solid fa-bolt"></i> Εκδήλωση Ενδιαφέροντος
             </button>
-            <button onclick="closeDeptHistoryModal()" type="button" class="w-full sm:w-auto px-5 py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-extrabold rounded-xl transition text-sm">
-              Κλείσιμο
-            </button>
+            <button onclick="closeDeptHistoryModal()" type="button" class="w-full sm:w-auto px-5 py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-extrabold rounded-xl transition text-sm">Κλείσιμο</button>
           </div>
         </div>
       </div>
@@ -1331,7 +908,7 @@
     <!-- REGISTRATION MODAL -->
     <div id="registrationModal" class="modal-backdrop fixed inset-0 z-50 overflow-y-auto bg-archelaos-deepgreen/70 backdrop-blur-sm flex items-center justify-center p-4">
       <div class="modal-box relative w-full max-w-lg bg-white/95 rounded-3xl shadow-2xl overflow-hidden border-2 border-white transition-colors duration-300">
-        <div class="modal-header bg-archelaos-yellow p-6 flex items-center justify-between border-b border-archelaos-darkgreen/20 transition-colors duration-300">
+        <div class="modal-header bg-archelaos-yellow p-6 flex items-center justify-between border-b border-archelaos-darkgreen/20">
           <div class="flex items-center gap-2.5">
             <i class="modal-header-icon fa-solid fa-user-plus text-archelaos-deepgreen text-lg"></i>
             <h3 class="modal-header-title font-heading font-black text-lg text-archelaos-deepgreen">Εκδήλωση Ενδιαφέροντος για Τμήμα</h3>
@@ -1375,21 +952,15 @@
     <!-- FOOTER -->
     <footer class="relative z-10 bg-archelaos-deepgreen text-archelaos-yellow/80 border-t border-archelaos-yellow/20">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col items-center justify-center gap-6 text-center text-xs">
-        <img src="https://lh3.googleusercontent.com/d/1JwGT61jDKXuBU6rA1OCiC1laeKh8gKdV" alt="Γ.Α.Σ. Αρχέλαος - Yellow Logo" class="w-24 h-24 object-contain opacity-95 hover:scale-105 transition-transform duration-300" loading="lazy" decoding="async">
-        
-        <!-- Επίσημα Social Media Συλλόγου (Facebook & YouTube) -->
+        <img src="https://lh3.googleusercontent.com/d/1JwGT61jDKXuBU6rA1OCiC1laeKh8gKdV" alt="Logo" class="w-24 h-24 object-contain opacity-95 hover:scale-105 transition-transform duration-300" loading="lazy" decoding="async">
         <div class="flex items-center justify-center gap-3">
-          <a href="https://www.facebook.com/oarxelaos" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-white/10 hover:bg-archelaos-yellow text-archelaos-yellow hover:text-archelaos-deepgreen border border-archelaos-yellow/30 font-extrabold text-xs transition-all duration-300 shadow-md transform hover:-translate-y-0.5" aria-label="Επίσημη Σελίδα Facebook Γ.Α.Σ. Αρχέλαος Κατερίνης">
-            <i class="fa-brands fa-facebook-f text-sm"></i>
-            <span>Facebook</span>
+          <a href="https://www.facebook.com/oarxelaos" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-white/10 hover:bg-archelaos-yellow text-archelaos-yellow hover:text-archelaos-deepgreen border border-archelaos-yellow/30 font-extrabold text-xs transition shadow-md">
+            <i class="fa-brands fa-facebook-f text-sm"></i> <span>Facebook</span>
           </a>
-
-          <a href="https://www.youtube.com/@GASArchelaosKaterinis" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-white/10 hover:bg-archelaos-yellow text-archelaos-yellow hover:text-archelaos-deepgreen border border-archelaos-yellow/30 font-extrabold text-xs transition-all duration-300 shadow-md transform hover:-translate-y-0.5" aria-label="Επίσημο Κανάλι YouTube Γ.Α.Σ. Αρχέλαος Κατερίνης">
-            <i class="fa-brands fa-youtube text-sm text-red-400 group-hover:text-archelaos-deepgreen transition-colors"></i>
-            <span>YouTube</span>
+          <a href="https://www.youtube.com/@GASArchelaosKaterinis" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-white/10 hover:bg-archelaos-yellow text-archelaos-yellow hover:text-archelaos-deepgreen border border-archelaos-yellow/30 font-extrabold text-xs transition shadow-md">
+            <i class="fa-brands fa-youtube text-sm text-red-400 group-hover:text-archelaos-deepgreen"></i> <span>YouTube</span>
           </a>
         </div>
-
         <div class="space-y-1">
           <p class="font-semibold tracking-wide">&copy; 1956 - 2026 Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης &bull; archelaos.club</p>
           <p class="text-[11px] text-archelaos-yellow/60">Α΄ Δημοτικό Αθλητικό Κέντρο (ΔΑΚ) Κατερίνης, 60132</p>
@@ -1399,7 +970,6 @@
 
     <!-- JAVASCRIPT -->
     <script>
-      // Global Element References (cached for performance)
       const mainHeader = document.getElementById('mainHeader');
       const mobileMenuBtn = document.getElementById('mobileMenuBtn');
       const mobileMenu = document.getElementById('mobileMenu');
@@ -1415,38 +985,16 @@
       const body = document.body;
 
       document.addEventListener('DOMContentLoaded', () => {
-        // 1. Passive Scroll Listener
         let isScrolled = false;
-
         window.addEventListener('scroll', () => {
           const shouldBeScrolled = window.scrollY > 25;
           if (shouldBeScrolled !== isScrolled) {
             isScrolled = shouldBeScrolled;
             mainHeader.classList.toggle('scrolled', isScrolled);
           }
-          if (mobileMenu.classList.contains('menu-open')) {
-            toggleMobileMenu();
-          }
+          if (mobileMenu.classList.contains('menu-open')) toggleMobileMenu();
         }, { passive: true });
 
-        // 2. Mouse Spotlight effect on Desktop Devices
-        if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-          document.querySelectorAll('.glass-card').forEach(card => {
-            let rafPending = false;
-            card.addEventListener('mousemove', (e) => {
-              if (rafPending) return;
-              rafPending = true;
-              requestAnimationFrame(() => {
-                const rect = card.getBoundingClientRect();
-                card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
-                card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
-                rafPending = false;
-              });
-            }, { passive: true });
-          });
-        }
-
-        // 3. Scroll Reveal & Number Counter Observer
         const observer = new IntersectionObserver((entries) => {
           entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -1460,17 +1008,16 @@
               observer.unobserve(entry.target);
             }
           });
-        }, { threshold: 0.14 });
-
+        }, { threshold: 0.1 });
         document.querySelectorAll('.reveal-text').forEach(el => observer.observe(el));
 
         function animateCounter(el) {
           const target = parseInt(el.dataset.target, 10);
-          const duration = 1800;
+          const duration = 1600;
           const startTime = performance.now();
           function update(now) {
             const progress = Math.min((now - startTime) / duration, 1);
-            const eased = 1 - Math.pow(1 - progress, 4);
+            const eased = 1 - Math.pow(1 - progress, 3);
             const current = Math.floor(eased * target);
             el.textContent = target >= 10000 ? current.toLocaleString('el-GR') : current;
             if (progress < 1) requestAnimationFrame(update);
@@ -1478,7 +1025,6 @@
           requestAnimationFrame(update);
         }
 
-        // 4. GPU-Driven 8-Sport Slideshow
         const slideshowWrapper = document.getElementById('slideshowWrapper');
         const slides = document.querySelectorAll('.slideshow-slide');
         const pillsContainer = document.getElementById('sportPillsContainer');
@@ -1488,11 +1034,7 @@
         const prevBtn = document.getElementById('prevSlideBtn');
         const nextBtn = document.getElementById('nextSlideBtn');
 
-        const shortLabels = [
-          'Χάντμπολ', 'Στίβος', 'Τοξοβολία', 'Σκοποβολή',
-          'Ενόργανη', 'Πάλη', 'Βόλεϊ', 'Κολύμβηση'
-        ];
-
+        const shortLabels = ['Χάντμπολ', 'Στίβος', 'Τοξοβολία', 'Σκοποβολή', 'Ενόργανη', 'Πάλη', 'Βόλεϊ', 'Κολύμβηση'];
         let currentSlide = 0;
 
         slides.forEach((_, idx) => {
@@ -1524,22 +1066,14 @@
           pills[currentSlide].classList.add('active');
           pills[currentSlide].classList.remove('bg-black/45', 'text-white/90');
 
-          const sportTitle = slides[currentSlide].getAttribute('data-sport');
-          const sportCaption = slides[currentSlide].getAttribute('data-caption');
-          activeSportBadge.textContent = `${currentSlide + 1}/${slides.length} • ${sportTitle}`;
-          activeSlideCaption.textContent = sportCaption;
-
+          activeSportBadge.textContent = `${currentSlide + 1}/${slides.length} • ${slides[currentSlide].getAttribute('data-sport')}`;
+          activeSlideCaption.textContent = slides[currentSlide].getAttribute('data-caption');
           restartProgressBar();
         }
 
-        progressBar.addEventListener('animationend', () => {
-          goToSlide(currentSlide + 1);
-        });
-
+        progressBar.addEventListener('animationend', () => goToSlide(currentSlide + 1));
         const slideshowObserver = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            progressBar.style.animationPlayState = entry.isIntersecting ? 'running' : 'paused';
-          });
+          entries.forEach(entry => { progressBar.style.animationPlayState = entry.isIntersecting ? 'running' : 'paused'; });
         }, { threshold: 0.1 });
         slideshowObserver.observe(slideshowWrapper);
 
@@ -1547,7 +1081,6 @@
         nextBtn.addEventListener('click', () => goToSlide(currentSlide + 1));
       });
 
-      // 5. Dark / Light Mode Toggle with LocalStorage Persistence
       const savedTheme = localStorage.getItem('theme');
       if (savedTheme === 'dark') {
         body.classList.add('dark-mode');
@@ -1560,8 +1093,7 @@
       if (themeToggleBtn) {
         themeToggleBtn.addEventListener('click', () => {
           if (body.classList.contains('dark-mode')) {
-            body.classList.remove('dark-mode');
-            body.classList.remove('light-mode');
+            body.classList.remove('dark-mode', 'light-mode');
             localStorage.setItem('theme', 'default');
             themeToggleBtn.textContent = '🌙';
           } else {
@@ -1573,7 +1105,6 @@
         });
       }
 
-      // Mobile Hamburger Toggle
       function toggleMobileMenu() {
         const isOpen = mobileMenu.classList.toggle('menu-open');
         mobileMenuBtn.classList.toggle('is-active', isOpen);
@@ -1582,19 +1113,84 @@
       mobileMenuBtn.addEventListener('click', toggleMobileMenu);
 
       document.querySelectorAll('.mobile-nav-link').forEach(link => {
-        link.addEventListener('click', () => {
-          if (mobileMenu.classList.contains('menu-open')) {
-            toggleMobileMenu();
-          }
-        });
+        link.addEventListener('click', () => { if (mobileMenu.classList.contains('menu-open')) toggleMobileMenu(); });
       });
 
-      // Modal Controls & Smart Dept Value Matching
+      const deptHistories = {
+        handball: {
+          title: "Χειροσφαίριση (Χάντμπολ)",
+          iconClass: "fa-solid fa-hand-playing-audio",
+          highlight: "2 Κύπελλα Ελλάδος (1990, 1994) & ιστορική πορεία στην Α1 Εθνική και στην Ευρώπη.",
+          text: "<p>Το τμήμα Χειροσφαίρισης του Αρχελάου κατέκτησε δύο Κύπελλα Ελλάδος Ανδρών (1990 και 1994), εκπροσώπησε τη χώρα στα ευρωπαϊκά κύπελλα και ανέδειξε δεκάδες διεθνείς αθλητές.</p><p class='mt-2'>Σήμερα, συνεχίζει με εξαιρετικές ακαδημίες όλων των ηλικιών στο Β΄ ΔΑΚ Κατερίνης.</p>"
+        },
+        track: {
+          title: "Στίβος (Κλασικός Αθλητισμός)",
+          iconClass: "fa-solid fa-person-running",
+          highlight: "Η ραχοκοκαλιά του συλλόγου από την ίδρυσή του το 1956.",
+          text: "<p>Ο κλασικός αθλητισμός αποτέλεσε τον θεμέλιο λίθο της ίδρυσης του Γ.Α.Σ. «Ο Αρχέλαος» το 1956. Ο σύλλογος έχει αναδείξει πανελληνιονίκες, βαλκανιονίκες και μέλη των εθνικών ομάδων.</p>"
+        },
+        archery: {
+          title: "Τοξοβολία",
+          iconClass: "fa-solid fa-bullseye",
+          highlight: "Ολυμπιακό & Σύνθετο Τόξο — Συνεχείς πανελλήνιες διακρίσεις.",
+          text: "<p>Το τμήμα Τοξοβολίας καλλιεργεί τόσο το Ολυμπιακό όσο και το Σύνθετο Τόξο με κορυφαίες διακρίσεις στα Πανελλήνια Πρωταθλήματα και διεθνή τουρνουά.</p>"
+        },
+        shooting: {
+          title: "Σκοποβολή",
+          iconClass: "fa-solid fa-crosshairs",
+          highlight: "Αθλητισμός υψηλής ακρίβειας και αεροβόλων όπλων.",
+          text: "<p>Δραστηριοποιείται στα αγωνίσματα σταθερού στόχου (αεροβόλο τουφέκι και πιστόλι) με έμπειρους προπονητές και διακρίσεις σε πανελλήνιο επίπεδο.</p>"
+        },
+        gymnastics: {
+          title: "Ενόργανη Γυμναστική",
+          iconClass: "fa-solid fa-child-reaching",
+          highlight: "Βάση σωματικής διάπλασης, ευλυγισίας και πειθαρχίας.",
+          text: "<p>Λειτουργεί σε ειδικά διαμορφωμένη αίθουσα με πιστοποιημένα όργανα, αναπτύσσοντας ισορροπία, μυϊκή δύναμη και ευλυγισία από μικρή ηλικία.</p>"
+        },
+        volleyball: {
+          title: "Πετοσφαίριση (Βόλεϊ)",
+          iconClass: "fa-solid fa-volleyball",
+          highlight: "Ομαδικότητα, ρυθμός και ένταση στο φιλέ.",
+          text: "<p>Διατηρεί δραστήριες ακαδημίες υποδομών για αγόρια και κορίτσια, καλλιεργώντας το ομαδικό πνεύμα και τη συμμετοχή σε τοπικά πρωτάθλημα.</p>"
+        },
+        wrestling: {
+          title: "Πάλη",
+          iconClass: "fa-solid fa-hand-fist",
+          highlight: "Από τα πιο ένδοξα ολυμπιακά τμήματα στην ιστορία της Πιερίας.",
+          text: "<p>Η Πάλη είναι άρρηκτα συνδεδεμένη με τις μεγαλύτερες επιτυχίες του συλλόγου, διδάσκοντας σεβασμό, πειθαρχία και ψυχική αντοχή στο ταπί.</p>"
+        },
+        swimming: {
+          title: "Κολύμβηση (Υγρός Στίβος)",
+          iconClass: "fa-solid fa-person-swimming",
+          highlight: "Ακαδημίες εκμάθησης & αγωνιστική ομάδα στο Κολυμβητήριο.",
+          text: "<p>Δραστηριοποιείται στο Δημοτικό Κολυμβητήριο Κατερίνης με προγράμματα εκμάθησης, προαγωνιστική και αγωνιστική ομάδα.</p>"
+        }
+      };
+
+      function openDeptHistoryModal(deptKey) {
+        const info = deptHistories[deptKey];
+        if (!info) return;
+        deptModalTitle.textContent = info.title;
+        deptModalHighlightText.textContent = info.highlight;
+        deptModalText.innerHTML = info.text;
+        deptModalIcon.innerHTML = `<i class="${info.iconClass}"></i>`;
+        deptModalRegisterBtn.onclick = () => {
+          closeDeptHistoryModal();
+          setTimeout(() => { openRegistrationModal(info.title); }, 180);
+        };
+        deptHistoryModal.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeDeptHistoryModal() {
+        deptHistoryModal.classList.remove('is-open');
+        document.body.style.overflow = 'auto';
+      }
+
       function openRegistrationModal(departmentName = '') {
         registrationModal.classList.add('is-open');
         document.body.style.overflow = 'hidden';
         if (departmentName && departmentName !== 'Γενική Εγγραφή') {
-          // Smart fuzzy matching for select options
           for (let opt of modalDeptSelect.options) {
             if (opt.value === departmentName || departmentName.includes(opt.value) || opt.value.includes(departmentName)) {
               modalDeptSelect.value = opt.value;
@@ -1609,104 +1205,15 @@
         document.body.style.overflow = 'auto';
       }
 
-      // Department Histories Data Dictionary
-      const deptHistories = {
-        handball: {
-          title: "Χειροσφαίριση (Χάντμπολ)",
-          svg: `<svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><circle cx="20.5" cy="4" r="1.8"/><circle cx="10" cy="4.5" r="2"/><path d="M11.5 7.5c-1.2.2-2.8.9-3.8 1.8l-3.2-1.5c-.5-.2-1.1 0-1.3.5-.2.5 0 1.1.5 1.3l3 1.4-1.2 2.8c-.3.7 0 1.5.7 1.8l3.5 1.6-1.5 4.5c-.2.6.1 1.2.7 1.4.6.2 1.2-.1 1.4-.7l1.8-5.2 2.2-2.5 2.5 1.8c.4.3 1 .2 1.3-.2.3-.4.2-1-.2-1.3l-2.4-1.7.8-2.6 3.5.5c.5.1 1-.3 1.1-.8.1-.5-.3-1-.8-1.1l-4.5-.6-1.5-1.5c-.6-.7-1.5-1-2.3-.8z"/></svg>`,
-          highlight: "2 Κύπελλα Ελλάδος (1990, 1994) & ιστορική πορεία στην Α1 Εθνική και στην Ευρώπη.",
-          text: "<p>Το τμήμα Χειροσφαίρισης του Αρχελάου αποτελεί τη μεγαλύτερη αθλητική υπερηφάνεια της Πιερίας σε επίπεδο ομαδικών αθλημάτων. Κατέκτησε δύο Κύπελλα Ελλάδος Ανδρών (1990 και 1994), εκπροσώπησε τη χώρα στα ευρωπαϊκά κύπελλα (Κύπελλο Κυπελλούχων Ευρώπης) και ανέδειξε δεκάδες διεθνείς αθλητές που τίμησαν την Εθνική Ελλάδος.</p><p class='mt-2'>Σήμερα, το τμήμα συνεχίζει με εξαιρετικές ακαδημίες και αγωνιστικά κλιμάκια όλων των ηλικιών στο Β΄ ΔΑΚ Κατερίνης.</p>"
-        },
-        track: {
-          title: "Στίβος (Κλασικός Αθλητισμός)",
-          icon: "fa-solid fa-person-running",
-          highlight: "Η ραχοκοκαλιά του συλλόγου από την ίδρυσή του το 1956.",
-          text: "<p>Ο κλασικός αθλητισμός αποτέλεσε τον θεμέλιο λίθο της ίδρυσης του Γ.Α.Σ. «Ο Αρχέλαος» το 1956. Μέσα σε επτά δεκαετίες, τα στάδια της Κατερίνης γέμισαν με χιλιάδες παιδιά που έμαθαν τους δρόμους, τα άλματα και τις ρίψεις.</p><p class='mt-2'>Ο σύλλογος έχει αναδείξει πανελληνιονίκες, βαλκανιονίκες και μέλη των εθνικών ομάδων, παραμένοντας σταθερά μία από τις πιο αναγνωρίσιμες δυνάμεις του ελληνικού στίβου στη Βόρεια Ελλάδα.</p>"
-        },
-        archery: {
-          title: "Τοξοβολία",
-          icon: "fa-solid fa-bullseye",
-          highlight: "Ολυμπιακό & Σύνθετο Τόξο — Συνεχείς πανελλήνιες διακρίσεις.",
-          text: "<p>Το τμήμα Τοξοβολίας του Αρχελάου έχει εδραιωθεί ως ένα από τα κορυφαία στην περιφέρεια, καλλιεργώντας τόσο το Ολυμπιακό όσο και το Σύνθετο Τόξο. Με εξειδικευμένους προπονητές, αθλητές του συλλόγου έχουν ανέβει επανειλημμένα στο βάθρο των Πανελληνίων Πρωταθλημάτων.</p><p class='mt-2'>Η τοξοβολία συνδυάζει την απόλυτη αυτοσυγκέντρωση, την ψυχραιμία και τον κινητικό έλεγχο, διαθέτοντας τμήματα αρχαρίων και αγωνιστικά.</p>"
-        },
-        shooting: {
-          title: "Σκοποβολή",
-          icon: "fa-solid fa-crosshairs",
-          highlight: "Αθλητισμός υψηλής ακρίβειας και αεροβόλων όπλων.",
-          text: "<p>Το τμήμα Σκοποβολής του Αρχελάου δραστηριοποιείται στα αγωνίσματα σταθερού στόχου (αεροβόλο τουφέκι και αεροβόλο πιστόλι). Υπό αυστηρούς κανονισμούς ασφαλείας και με σύγχρονο εξοπλισμό, προσφέρει άρτια τεχνική κατάρτιση σε νέους και ενήλικες σκοπευτές.</p><p class='mt-2'>Οι σκοπευτές του συλλόγου λαμβάνουν τακτικά μέρος στους επίσημους αγώνες της ΣΚ.Ο.Ε. εκπροσωπώντας την πόλη της Κατερίνης.</p>"
-        },
-        gymnastics: {
-          title: "Ενόργανη Γυμναστική",
-          icon: "fa-solid fa-child-reaching",
-          highlight: "Βάση σωματικής διάπλασης, ευλυγισίας και πειθαρχίας.",
-          text: "<p>Η ενόργανη γυμναστική αποτελεί το ιδανικό άθλημα εισαγωγής των παιδιών στον αθλητισμό. Το τμήμα του Αρχελάου λειτουργεί σε ειδικά διαμορφωμένη αίθουσα με πιστοποιημένα όργανα και προστατευτικά στρώματα.</p><p class='mt-2'>Μέσα από τη ρυθμική και ακροβατική κίνηση, τα παιδιά αναπτύσσουν εξαιρετική ισορροπία, μυϊκή δύναμη, ευλυγισία και αυτοπεποίθηση από μικρή ηλικία.</p>"
-        },
-        volleyball: {
-          title: "Πετοσφαίριση (Βόλεϊ)",
-          icon: "fa-solid fa-volleyball",
-          highlight: "Ομαδικότητα, ρυθμός και ένταση στο φιλέ.",
-          text: "<p>Το τμήμα Πετοσφαίρισης του Αρχελάου έχει γράψει τη δική του σημαντική πορεία στα γήπεδα της Πιερίας και της Κεντρικής Μακεδονίας, με συμμετοχές στα εθνικά και περιφερειακά πρωταθλήματα.</p><p class='mt-2'>Διατηρεί δραστήριες ακαδημίες υποδομών για αγόρια και κορίτσια, καλλιεργώντας την ομαδικότητα, τη γρήγορη αντίληψη και το αθλητικό πνεύμα.</p>"
-        },
-        wrestling: {
-          title: "Πάλη",
-          icon: "fa-solid fa-hand-fist",
-          highlight: "Από τα πιο ένδοξα ολυμπιακά τμήματα στην ιστορία της Πιερίας.",
-          text: "<p>Η Πάλη (Ελληνορωμαϊκή και Ελευθέρα) είναι άρρηκτα συνδεδεμένη με τις μεγαλύτερες επιτυχίες του Αρχελάου Κατερίνης. Σπουδαίοι παλαιστές του συλλόγου έχουν κατακτήσει πανελλήνια πρωταθλήματα και εκπροσώπησαν την Ελλάδα σε διεθνείς διοργανώσεις.</p><p class='mt-2'>Το τμήμα διδάσκει σεβασμό, πειθαρχία, στρατηγική σκέψη και απαράμιλλη σωματική και ψυχική αντοχή στο ταπί.</p>"
-        },
-        swimming: {
-          title: "Κολύμβηση (Υγρός Στίβος)",
-          icon: "fa-solid fa-person-swimming",
-          highlight: "Ακαδημίες εκμάθησης & αγωνιστική ομάδα στο Κολυμβητήριο.",
-          text: "<p>Το τμήμα Κολύμβησης του Αρχελάου δραστηριοποιείται στο Δημοτικό Κολυμβητήριο Κατερίνης. Παρέχει ολοκληρωμένα προγράμματα εκμάθησης για μικρά παιδιά, τμήματα βελτίωσης τεχνικής καθώς και προαγωνιστική/αγωνιστική ομάδα.</p><p class='mt-2'>Προσφέρει ιδανική καρδιοαναπνευστική άσκηση και ασφαλή εκγύμναση για κάθε ηλικία.</p>"
-        }
-      };
-
-      // Department History Modal Controls
-      function openDeptHistoryModal(deptKey) {
-        const info = deptHistories[deptKey];
-        if (!info) return;
-
-        deptModalTitle.textContent = info.title;
-        deptModalHighlightText.textContent = info.highlight;
-        deptModalText.innerHTML = info.text;
-
-        if (info.svg) {
-          deptModalIcon.innerHTML = info.svg;
-        } else {
-          deptModalIcon.innerHTML = `<i class="${info.icon}"></i>`;
-        }
-        
-        deptModalRegisterBtn.onclick = () => {
-          closeDeptHistoryModal();
-          setTimeout(() => {
-            openRegistrationModal(info.title);
-          }, 180);
-        };
-
-        deptHistoryModal.classList.add('is-open');
-        document.body.style.overflow = 'hidden';
-      }
-
-      function closeDeptHistoryModal() {
-        deptHistoryModal.classList.remove('is-open');
-        document.body.style.overflow = 'auto';
-      }
-
-      // Backward-compatible Aliases
-      const openDeptHistory = openDeptHistoryModal;
-      const closeDeptHistory = closeDeptHistoryModal;
-
-      // Global backdrop clicks
       window.addEventListener('click', (e) => {
         if (e.target === deptHistoryModal) closeDeptHistoryModal();
         if (e.target === registrationModal) closeRegistrationModal();
       });
 
-      // Escape key to dismiss active modals
       window.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
-          if (deptHistoryModal && deptHistoryModal.classList.contains('is-open')) closeDeptHistoryModal();
-          if (registrationModal && registrationModal.classList.contains('is-open')) closeRegistrationModal();
+          if (deptHistoryModal.classList.contains('is-open')) closeDeptHistoryModal();
+          if (registrationModal.classList.contains('is-open')) closeRegistrationModal();
         }
       });
 
@@ -1717,17 +1224,10 @@
         const email = document.getElementById('formEmail').value;
         const dept = document.getElementById('formDept').value;
         const msg = document.getElementById('formMsg').value;
-
-        const alertBox = document.getElementById('formSuccessAlert');
-        alertBox.classList.remove('hidden');
-
+        document.getElementById('formSuccessAlert').classList.remove('hidden');
         const subject = encodeURIComponent(`[ΜΗΝΥΜΑ SITE] ${dept} - ${name}`);
         const body = encodeURIComponent(`Ονοματεπώνυμο: ${name}\nΤηλέφωνο: ${phone}\nEmail: ${email}\nΤμήμα: ${dept}\n\nΜήνυμα:\n${msg}`);
-
-        setTimeout(() => {
-          window.location.href = `mailto:dimitriszgalanis@gmail.com?cc=admin@archelaos.club&subject=${subject}&body=${body}`;
-        }, 1200);
-
+        setTimeout(() => { window.location.href = `mailto:dimitriszgalanis@gmail.com?cc=admin@archelaos.club&subject=${subject}&body=${body}`; }, 1200);
         document.getElementById('contactForm').reset();
       }
 
@@ -1737,17 +1237,13 @@
         const name = document.getElementById('modalName').value;
         const phone = document.getElementById('modalPhone').value;
         const email = document.getElementById('modalEmail').value;
-
-        const alertBox = document.getElementById('modalAlert');
-        alertBox.classList.remove('hidden');
-
+        document.getElementById('modalAlert').classList.remove('hidden');
         const subject = encodeURIComponent(`[ΝΕΑ ΕΓΓΡΑΦΗ] Τμήμα ${dept} - ${name}`);
         const body = encodeURIComponent(`Νέα αίτηση εγγραφής:\n\nΟνοματεπώνυμο: ${name}\nΤηλέφωνο: ${phone}\nEmail: ${email}\nΤμήμα: ${dept}`);
-
         setTimeout(() => {
           window.location.href = `mailto:admin@archelaos.club?cc=dimitriszgalanis@gmail.com&subject=${subject}&body=${body}`;
           closeRegistrationModal();
-          alertBox.classList.add('hidden');
+          document.getElementById('modalAlert').classList.add('hidden');
           document.getElementById('modalForm').reset();
         }, 1500);
       }
