@@ -83,23 +83,12 @@ contain: layout paint;
 body.is-scrolling .animate-waves {
 animation-play-state: paused !important;
 }
-​/* Transitions */
+​/* Transitions - Default to visible so nothing is ever hidden if JS is waiting */
 .reveal-text {
-opacity: 0;
-transform: translate3d(0, 20px, 0);
-transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-will-change: opacity, transform;
-}
-.reveal-text.is-visible {
 opacity: 1;
 transform: translate3d(0, 0, 0);
-will-change: auto;
+transition: opacity 0.4s ease, transform 0.4s ease;
 }
-.delay-100 { transition-delay: 80ms; }
-.delay-200 { transition-delay: 140ms; }
-.delay-300 { transition-delay: 200ms; }
-.delay-400 { transition-delay: 260ms; }
 ​@keyframes gentleFloat {
 0%, 100% { transform: translate3d(0, 0px, 0); }
 50% { transform: translate3d(0, -10px, 0); }
@@ -111,7 +100,7 @@ will-change: transform;
 body.is-scrolling .hero-emblem-float {
 animation-play-state: paused !important;
 }
-​/* Base Solid Performance Cards (Mobile-first, zero-lag) */
+​/* Base Solid Performance Cards */
 .glass-section {
 background-color: #ffffff;
 border-top: 1px solid rgba(8, 76, 36, 0.08);
@@ -135,10 +124,10 @@ transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.25s
 .glass-nav.scrolled {
 box-shadow: 0 8px 24px -6px rgba(8, 76, 36, 0.2);
 }
-​/* Desktop-Only Frosted Glass & Interactive Spotlight Enhancements */
+​/* Desktop-Only Frosted Glass & Interactive Spotlight */
 @media (min-width: 1024px) and (hover: hover) {
 .glass-section {
-background-color: rgba(255, 255, 255, 0.90);
+background-color: rgba(255, 255, 255, 0.92);
 border-top: 1px solid rgba(255, 255, 255, 0.9);
 }
 .glass-card {
@@ -146,12 +135,11 @@ background-color: rgba(255, 255, 255, 0.95);
 border: 1px solid rgba(255, 255, 255, 0.95);
 }
 .glass-card:hover {
-transform: translate3d(0, -6px, 0);
+transform: translate3d(0, -5px, 0);
 background-color: #ffffff;
-box-shadow: 0 18px 36px -8px rgba(8, 76, 36, 0.22);
+box-shadow: 0 16px 32px -8px rgba(8, 76, 36, 0.22);
 border-color: rgba(0, 138, 40, 0.4);
 }
-​/* Desktop Spotlight Glow Overlay */
 .glass-card::before {
 content: '';
 position: absolute;
@@ -166,7 +154,7 @@ z-index: 1;
 .glass-card:hover::before {
 opacity: 1;
 }
-​body.dark-mode .glass-card::before {
+body.dark-mode .glass-card::before {
 background: radial-gradient(320px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), rgba(246, 238, 66, 0.28), transparent 75%);
 }
 }
@@ -267,8 +255,8 @@ border-radius: 9999px;
 transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, background-color 0.2s ease;
 }
 .timeline-item:hover .timeline-node {
-transform: scale(1.15);
-box-shadow: 0 10px 20px -3px rgba(8, 76, 36, 0.35);
+transform: scale(1.12);
+box-shadow: 0 8px 18px -3px rgba(8, 76, 36, 0.35);
 background-color: #008a28 !important;
 color: #ffffff !important;
 }
@@ -279,7 +267,7 @@ body.dark-mode .timeline-track-container::-webkit-scrollbar-thumb {
 background: #f6ee42;
 }
 body.dark-mode .timeline-connecting-line {
-background-color: rgba(246, 238, 66, 0.4) !important;
+background-color: rgba(246, 238, 66, 0.35) !important;
 }
 body.dark-mode .timeline-node {
 background-color: #f6ee42 !important;
@@ -384,8 +372,28 @@ color: #f6ee42 !important;
 body.dark-mode [data-i18n="brand_sub"] {
 color: rgba(246, 238, 66, 0.8) !important;
 }
-​/* Modals in Dark Mode */
-body.dark-mode #registrationModal .modal-box,
+​/* -------------------------------------------------------------
+MODALS: BULLETPROOF VISIBILITY (display: none by default)
+------------------------------------------------------------- */
+.modal-backdrop {
+display: none !important;
+opacity: 0;
+pointer-events: none;
+transition: opacity 0.24s ease;
+}
+.modal-backdrop.is-open {
+display: flex !important;
+opacity: 1 !important;
+pointer-events: auto !important;
+}
+.modal-backdrop .modal-box {
+transform: translate3d(0, 16px, 0) scale(0.96);
+transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.modal-backdrop.is-open .modal-box {
+transform: translate3d(0, 0, 0) scale(1);
+}
+​body.dark-mode #registrationModal .modal-box,
 body.dark-mode #deptHistoryModal .modal-box,
 body.dark-mode #timelineDetailModal .modal-box { background-color: #0c2d19 !important; border-color: rgba(246, 238, 66, 0.35) !important; }
 body.dark-mode #registrationModal .modal-header,
@@ -407,17 +415,6 @@ body.dark-mode #timelineDetailModal .history-content { color: #e2e8f0 !important
 body.dark-mode #deptHistoryModal .history-highlight,
 body.dark-mode #timelineDetailModal .history-highlight { background-color: rgba(246, 238, 66, 0.12) !important; border-color: rgba(246, 238, 66, 0.3) !important; color: #f6ee42 !important; }
 body.dark-mode #deptModalWikiBtn { background-color: #113820 !important; color: #f6ee42 !important; border-color: rgba(246, 238, 66, 0.3) !important; }
-​/* Modals Transition */
-.modal-backdrop {
-opacity: 0; visibility: hidden; pointer-events: none;
-transition: opacity 0.24s ease, visibility 0.24s ease;
-}
-.modal-backdrop.is-open { opacity: 1; visibility: visible; pointer-events: auto; }
-.modal-backdrop .modal-box {
-transform: translate3d(0, 16px, 0) scale(0.96); opacity: 0;
-transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease-out;
-}
-.modal-backdrop.is-open .modal-box { transform: translate3d(0, 0, 0) scale(1); opacity: 1; }
 ​/* Language Toggle Pills */
 .lang-btn {
 transition: background-color 0.2s ease, color 0.2s ease;
@@ -501,7 +498,7 @@ color: #084c24;
 </div>
 ​<a href="#home" class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" data-i18n="nav_home">Αρχική</a>
 <a href="#about" class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" data-i18n="nav_about">Ο Σύλλογος</a>
-<a href="#timeline" class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" data-i18n="nav_timeline">Χρονολόγιο 1956–2026</a>
+<a href="#timeline" class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" data-i18n="nav_timeline">Χρονολόγιο</a>
 <a href="#departments" class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" data-i18n="nav_dept">Αθλητικά Τμήματα</a>
 <a href="#board" class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" data-i18n="nav_board">Διοίκηση (Δ.Σ.)</a>
 <a href="#contact" class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" data-i18n="nav_contact">Επικοινωνία</a>
@@ -518,14 +515,14 @@ color: #084c24;
 <div class="reveal-text inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-archelaos-deepgreen text-archelaos-yellow text-xs font-black uppercase tracking-wider shadow-md">
 <span class="w-2.5 h-2.5 rounded-full bg-archelaos-yellow animate-ping"></span> <span data-i18n="hero_badge">Γ.Α.Σ. «Ο ΑΡΧΕΛΑΟΣ» ΚΑΤΕΡΙΝΗΣ • EST. 1956</span>
 </div>
-<h1 class="reveal-text delay-100 text-4xl sm:text-6xl lg:text-7xl font-black font-heading text-archelaos-deepgreen leading-[1.06] tracking-tight">
+<h1 class="reveal-text text-4xl sm:text-6xl lg:text-7xl font-black font-heading text-archelaos-deepgreen leading-[1.06] tracking-tight">
 <span data-i18n="hero_h1_1">Αθλητισμός,</span> 
  <span data-i18n="hero_h1_2">Ήθος &</span> <span class="text-archelaos-yellow bg-archelaos-darkgreen px-5 py-1 rounded-3xl inline-block mt-1.5 shadow-md" data-i18n="hero_h1_3">Παράδοση</span>
 </h1>
-<p class="reveal-text delay-200 text-base sm:text-xl text-archelaos-deepgreen/90 max-w-2xl mx-auto lg:mx-0 font-semibold leading-relaxed" data-i18n="hero_desc">
+<p class="reveal-text text-base sm:text-xl text-archelaos-deepgreen/90 max-w-2xl mx-auto lg:mx-0 font-semibold leading-relaxed" data-i18n="hero_desc">
 Ο ιστορικός πολυαθλητικός σύλλογος της Πιερίας. Πάνω από 70 χρόνια προσφοράς στον κλασικό αθλητισμό, τα ομαδικά και ατομικά αθλήματα.
 </p>
-<div class="reveal-text delay-300 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-3">
+<div class="reveal-text flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-3">
 <button onclick="openRegistrationModal('Γενική Εγγραφή')" class="btn-shimmer w-full sm:w-auto px-8 py-4 bg-archelaos-deepgreen hover:bg-archelaos-darkgreen text-archelaos-yellow font-black rounded-2xl shadow-lg hover:-translate-y-0.5 transition duration-200">
 <span data-i18n="btn_register_interest">Εκδήλωση Ενδιαφέροντος</span> <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
 </button>
@@ -535,7 +532,7 @@ color: #084c24;
 </div>
 </div>
 <div class="lg:col-span-5 flex items-center justify-center">
-<div class="reveal-text delay-200 hero-emblem-float relative w-72 h-72 sm:w-80 sm:h-80 lg:w-[420px] lg:h-[420px] flex items-center justify-center select-none">
+<div class="reveal-text hero-emblem-float relative w-72 h-72 sm:w-80 sm:h-80 lg:w-[420px] lg:h-[420px] flex items-center justify-center select-none">
 <img src="https://lh3.googleusercontent.com/d/1lILSdnXV0Y383UeFwcJbnhHaYvu3nJHj" alt="Έμβλημα Αρχέλαος" class="archelaos-crest-adapt w-full h-full object-contain drop-shadow-xl" fetchpriority="high" decoding="async">
 </div>
 </div>
@@ -603,10 +600,10 @@ color: #084c24;
 <h2 class="text-3xl sm:text-5xl font-black font-heading text-archelaos-deepgreen leading-tight" data-i18n="about_title">Ο Σύλλογος που 
 ένωσε την Πιερία</h2>
 </div>
-<p class="reveal-text delay-100 text-base sm:text-lg text-slate-800 font-medium leading-relaxed" data-i18n="about_p1">
+<p class="reveal-text text-base sm:text-lg text-slate-800 font-medium leading-relaxed" data-i18n="about_p1">
 Ο Γυμναστικός Αγωνιστικός Σύλλογος «Ο Αρχέλαος» Κατερίνης αποτελεί έναν από τους ιστορικότερους πολυαθλητικούς συλλόγους της Μακεδονίας. Ιδρύθηκε το <strong class="text-archelaos-deepgreen">1956</strong> και παραμένει πιστός στο όραμά του.
 </p>
-<div class="reveal-text delay-300 grid grid-cols-2 gap-2.5 sm:gap-4 pt-1">
+<div class="reveal-text grid grid-cols-2 gap-2.5 sm:gap-4 pt-1">
 <div class="glass-card p-3 sm:p-4 rounded-2xl flex items-center gap-2.5 sm:gap-3.5">
 <div class="w-9 h-9 sm:w-11 sm:h-11 bg-archelaos-deepgreen text-archelaos-yellow rounded-xl flex items-center justify-center text-sm sm:text-lg shrink-0 shadow-sm relative z-10"><i class="fa-solid fa-people-group"></i></div>
 <div class="min-w-0 relative z-10">
@@ -648,7 +645,6 @@ color: #084c24;
 ​<!-- Horizontal Scrollable Timeline Wrapper -->
 <div class="relative reveal-text">
 <div id="timelineScrollTrack" class="timeline-track-container flex items-start overflow-x-auto scroll-smooth py-6 px-3 relative select-none">
-<!-- Milestone items and unbroken continuous connecting line rendered dynamically via JS -->
 <div id="timelineTrackInner" class="flex items-start gap-4 sm:gap-6 relative z-10 min-w-max">
 <!-- Dynamically populated with unbroken line & nodes -->
 </div>
@@ -695,7 +691,7 @@ color: #084c24;
 </button>
 </div>
 ​<!-- 2. Στίβος -->
-<div class="department-card reveal-text delay-100 glass-card rounded-[2rem] p-6 flex flex-col justify-between group">
+<div class="department-card reveal-text glass-card rounded-[2rem] p-6 flex flex-col justify-between group">
 <div class="relative z-10">
 <div class="flex items-center justify-between mb-6">
 <div onclick="openDeptHistoryModal('track')" class="icon-box w-16 h-16 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-3xl shadow-sm border border-white" title="Ιστορικό Τμήματος">
@@ -717,7 +713,7 @@ color: #084c24;
 </button>
 </div>
 ​<!-- 3. Τοξοβολία -->
-<div class="department-card reveal-text delay-200 glass-card rounded-[2rem] p-6 flex flex-col justify-between group">
+<div class="department-card reveal-text glass-card rounded-[2rem] p-6 flex flex-col justify-between group">
 <div class="relative z-10">
 <div class="flex items-center justify-between mb-6">
 <div onclick="openDeptHistoryModal('archery')" class="icon-box w-16 h-16 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-3xl shadow-sm border border-white" title="Ιστορικό Τμήματος">
@@ -737,7 +733,7 @@ color: #084c24;
 </button>
 </div>
 ​<!-- 4. Σκοποβολή -->
-<div class="department-card reveal-text delay-300 glass-card rounded-[2rem] p-6 flex flex-col justify-between group">
+<div class="department-card reveal-text glass-card rounded-[2rem] p-6 flex flex-col justify-between group">
 <div class="relative z-10">
 <div class="flex items-center justify-between mb-6">
 <div onclick="openDeptHistoryModal('shooting')" class="icon-box w-16 h-16 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-3xl shadow-sm border border-white" title="Ιστορικό Τμήματος">
@@ -777,7 +773,7 @@ color: #084c24;
 </button>
 </div>
 ​<!-- 6. Πετοσφαίριση (Βόλεϊ) -->
-<div class="department-card reveal-text delay-100 glass-card rounded-[2rem] p-6 flex flex-col justify-between group">
+<div class="department-card reveal-text glass-card rounded-[2rem] p-6 flex flex-col justify-between group">
 <div class="relative z-10">
 <div class="flex items-center justify-between mb-6">
 <div onclick="openDeptHistoryModal('volleyball')" class="icon-box w-16 h-16 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-3xl shadow-sm border border-white" title="Ιστορικό Τμήματος">
@@ -799,7 +795,7 @@ color: #084c24;
 </button>
 </div>
 ​<!-- 7. Πάλη -->
-<div class="department-card reveal-text delay-200 glass-card rounded-[2rem] p-6 flex flex-col justify-between group">
+<div class="department-card reveal-text glass-card rounded-[2rem] p-6 flex flex-col justify-between group">
 <div class="relative z-10">
 <div class="flex items-center justify-between mb-6">
 <div onclick="openDeptHistoryModal('wrestling')" class="icon-box w-16 h-16 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-3xl shadow-sm border border-white" title="Ιστορικό Τμήματος">
@@ -819,7 +815,7 @@ color: #084c24;
 </button>
 </div>
 ​<!-- 8. Κολύμβηση -->
-<div class="department-card reveal-text delay-300 glass-card rounded-[2rem] p-6 flex flex-col justify-between group">
+<div class="department-card reveal-text glass-card rounded-[2rem] p-6 flex flex-col justify-between group">
 <div class="relative z-10">
 <div class="flex items-center justify-between mb-6">
 <div onclick="openDeptHistoryModal('swimming')" class="icon-box w-16 h-16 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-3xl shadow-sm border border-white" title="Ιστορικό Τμήματος">
@@ -977,7 +973,7 @@ color: #084c24;
 <h2 class="text-3xl sm:font-bold text-3xl sm:text-5xl font-black font-heading text-archelaos-deepgreen leading-tight" data-i18n="contact_title">Ελάτε σε επαφή με τον Αρχέλαο</h2>
 <p class="text-archelaos-deepgreen/90 text-base font-medium leading-relaxed" data-i18n="contact_sub">Επισκεφθείτε τα γραφεία μας στο Α΄ ΔΑΚ Κατερίνης ή στείλτε μας απευθείας μήνυμα μέσα από τη φόρμα.</p>
 </div>
-​<div class="reveal-text delay-100 space-y-4">
+​<div class="reveal-text space-y-4">
 <div class="flex items-start gap-4 p-4 rounded-2xl glass-card">
 <div class="w-12 h-12 rounded-xl bg-archelaos-deepgreen text-archelaos-yellow flex items-center justify-center shrink-0 shadow-sm relative z-10"><i class="fa-solid fa-location-dot"></i></div>
 <div class="relative z-10">
@@ -1005,7 +1001,7 @@ color: #084c24;
 </div>
 </div>
 </div>
-​<div class="lg:col-span-7 reveal-text delay-200">
+​<div class="lg:col-span-7 reveal-text">
 <div class="glass-card rounded-[2.2rem] p-6 sm:p-10 shadow-xl">
 <div class="relative z-10">
 <h3 class="text-2xl font-black font-heading text-archelaos-deepgreen mb-2" data-i18n="form_title">Φόρμα Επικοινωνίας</h3>
@@ -1059,7 +1055,7 @@ color: #084c24;
 </div>
 </section>
 ​<!-- TIMELINE DETAIL POPUP MODAL -->
-<div id="timelineDetailModal" class="modal-backdrop fixed inset-0 z-50 overflow-y-auto bg-black/60 flex items-center justify-center p-4">
+<div id="timelineDetailModal" class="modal-backdrop fixed inset-0 z-50 overflow-y-auto bg-black/60 items-center justify-center p-4">
 <div class="modal-box relative w-full max-w-xl bg-white rounded-3xl shadow-2xl overflow-hidden border-2 border-white">
 <div class="modal-header bg-archelaos-yellow p-5 sm:p-6 flex items-center justify-between border-b border-archelaos-darkgreen/20">
 <div class="flex items-center gap-3">
@@ -1084,7 +1080,7 @@ color: #084c24;
 </div>
 </div>
 ​<!-- DEPARTMENT HISTORY POPUP MODAL -->
-<div id="deptHistoryModal" class="modal-backdrop fixed inset-0 z-50 overflow-y-auto bg-black/60 flex items-center justify-center p-4">
+<div id="deptHistoryModal" class="modal-backdrop fixed inset-0 z-50 overflow-y-auto bg-black/60 items-center justify-center p-4">
 <div class="modal-box relative w-full max-w-xl bg-white rounded-3xl shadow-2xl overflow-hidden border-2 border-white">
 <div class="modal-header bg-archelaos-yellow p-6 flex items-center justify-between border-b border-archelaos-darkgreen/20">
 <div class="flex items-center gap-3">
@@ -1120,7 +1116,7 @@ color: #084c24;
 </div>
 </div>
 ​<!-- REGISTRATION MODAL -->
-<div id="registrationModal" class="modal-backdrop fixed inset-0 z-50 overflow-y-auto bg-black/60 flex items-center justify-center p-4">
+<div id="registrationModal" class="modal-backdrop fixed inset-0 z-50 overflow-y-auto bg-black/60 items-center justify-center p-4">
 <div class="modal-box relative w-full max-w-lg bg-white rounded-3xl shadow-2xl overflow-hidden border-2 border-white">
 <div class="modal-header bg-archelaos-yellow p-6 flex items-center justify-between border-b border-archelaos-darkgreen/20">
 <div class="flex items-center gap-2.5">
@@ -1608,7 +1604,7 @@ body_el: "<p>Η ανδρική ομάδα Τοξοβολίας κατακτά δ
 body_en: "<p>Men's Archery won back-to-back National Championships (2025, 2026), and wrestler Dimitris Soulis earned Silver at the 2025 U17 World Championships.</p>"
 }
 ];
-​// 3. Department History Data (Rich, Wikipedia-backed & Bilingual)
+​// 3. Department History Data
 const deptHistories = {
 handball: {
 title_el: "Χειροσφαίριση (Χάντμπολ)",
@@ -1692,10 +1688,14 @@ text_en: <p><strong>The "Seaside Years" (1974–1982):</strong> Formed in 1974 w
 }
 };
 ​// 4. Current Language & Active Modal States
-let currentLang = localStorage.getItem('archelaos_lang') || 'el';
-let currentDeptHistoryKey = null;
+let currentLang = 'el';
+try {
+const stored = localStorage.getItem('archelaos_lang');
+if (stored) currentLang = stored;
+} catch (err) {}
+​let currentDeptHistoryKey = null;
 let currentTimelineMilestoneId = null;
-​// Render Horizontal Minimal Timeline with Unbroken Continuous Line
+​// Render Horizontal Minimal Timeline
 function renderTimelineTrack() {
 const container = document.getElementById('timelineTrackInner');
 if (!container) return;
@@ -1728,13 +1728,18 @@ const item = timelineMilestones.find(m => m.id === id);
 if (!item) return;
 currentTimelineMilestoneId = id;
 const isEn = currentLang === 'en';
-​document.getElementById('timelineModalYearBadge').textContent = item.year;
-document.getElementById('timelineModalCategory').textContent = isEn ? item.category_en : item.category_el;
-document.getElementById('timelineModalTitle').textContent = isEn ? item.title_en : item.title_el;
-document.getElementById('timelineModalHighlightText').textContent = isEn ? item.highlight_en : item.highlight_el;
-document.getElementById('timelineModalBody').innerHTML = isEn ? item.body_en : item.body_el;
+​const yBadge = document.getElementById('timelineModalYearBadge');
+const cBadge = document.getElementById('timelineModalCategory');
+const tTitle = document.getElementById('timelineModalTitle');
+const hText = document.getElementById('timelineModalHighlightText');
+const mBody = document.getElementById('timelineModalBody');
+​if (yBadge) yBadge.textContent = item.year;
+if (cBadge) cBadge.textContent = isEn ? item.category_en : item.category_el;
+if (tTitle) tTitle.textContent = isEn ? item.title_en : item.title_el;
+if (hText) hText.textContent = isEn ? item.highlight_en : item.highlight_el;
+if (mBody) mBody.innerHTML = isEn ? item.body_en : item.body_el;
 ​const modal = document.getElementById('timelineDetailModal');
-modal.classList.add('is-open');
+if (modal) modal.classList.add('is-open');
 document.body.style.overflow = 'hidden';
 }
 ​function closeTimelineModal() {
@@ -1746,7 +1751,7 @@ currentTimelineMilestoneId = null;
 ​function setLanguage(lang) {
 if (!translations[lang]) return;
 currentLang = lang;
-localStorage.setItem('archelaos_lang', lang);
+try { localStorage.setItem('archelaos_lang', lang); } catch (err) {}
 document.documentElement.lang = lang;
 ​// Desktop Language buttons
 const elBtn = document.getElementById('langBtnEL');
@@ -1769,7 +1774,7 @@ mobEnBtn.classList.toggle('text-archelaos-deepgreen', lang !== 'en');
 ​// Translate text elements with data-i18n
 document.querySelectorAll('[data-i18n]').forEach(el => {
 const key = el.getAttribute('data-i18n');
-if (translations[lang][key]) {
+if (translations[lang] && translations[lang][key]) {
 el.innerHTML = translations[lang][key];
 }
 });
@@ -1792,7 +1797,7 @@ if (formMsg) formMsg.placeholder = "Γράψτε το μήνυμά σας...";
 if (modalName) modalName.placeholder = "π.χ. Κωνσταντίνος Νικολάου";
 if (modalPhone) modalPhone.placeholder = "π.χ. 6970000000";
 }
-​// Update Theme labels according to selected language
+​// Update Theme labels
 const isDark = document.body.classList.contains('dark-mode');
 updateThemeButtons(isDark);
 ​// Update active slide labels in current slideshow
@@ -1809,48 +1814,55 @@ if (currentTimelineMilestoneId) {
 openTimelineModal(currentTimelineMilestoneId);
 }
 }
-​// DOM Elements Cache
-const mainHeader = document.getElementById('mainHeader');
-const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-const mobileMenu = document.getElementById('mobileMenu');
-const menuIcon = document.getElementById('menuIcon');
-const themeToggleBtn = document.getElementById('themeToggleBtn');
-const mobileThemeToggleBtn = document.getElementById('mobileThemeToggleBtn');
-const mobileThemeIcon = document.getElementById('mobileThemeIcon');
-const mobileThemeLabel = document.getElementById('mobileThemeLabel');
-const registrationModal = document.getElementById('registrationModal');
-const modalDeptSelect = document.getElementById('modalDeptSelect');
-const deptHistoryModal = document.getElementById('deptHistoryModal');
-const deptModalTitle = document.getElementById('deptModalTitle');
-const deptModalText = document.getElementById('deptModalText');
-const deptModalIcon = document.getElementById('deptModalIcon');
-const deptModalHighlightText = document.getElementById('deptModalHighlightText');
-const deptModalRegisterBtn = document.getElementById('deptModalRegisterBtn');
-const deptModalWikiBtn = document.getElementById('deptModalWikiBtn');
-const timelineDetailModal = document.getElementById('timelineDetailModal');
-const body = document.body;
-​let updateSlideCaptions;
-​// Mobile Menu Functions (Smooth Slide-up & Outside Click Closure)
+​// Synchronize Theme across Desktop & Mobile Drawer
+function updateThemeButtons(isDark) {
+const themeBtn = document.getElementById('themeToggleBtn');
+const mobIcon = document.getElementById('mobileThemeIcon');
+const mobLabel = document.getElementById('mobileThemeLabel');
+​if (themeBtn) themeBtn.textContent = isDark ? '☀️' : '🌙';
+if (mobIcon) mobIcon.textContent = isDark ? '☀️' : '🌙';
+if (mobLabel) {
+const dict = translations[currentLang] || translations.el;
+mobLabel.textContent = isDark ? dict.theme_light : dict.theme_dark;
+}
+}
+​function toggleTheme() {
+const isDark = document.body.classList.toggle('dark-mode');
+try { localStorage.setItem('theme', isDark ? 'dark' : 'default'); } catch (err) {}
+updateThemeButtons(isDark);
+}
+​// Mobile Menu Functions
 function isMobileMenuOpen() {
-return mobileMenu.classList.contains('menu-open');
+const menu = document.getElementById('mobileMenu');
+return menu && menu.classList.contains('menu-open');
 }
 ​function openMobileMenu() {
-mobileMenu.classList.add('menu-open');
-mobileMenuBtn.classList.add('is-active');
-mobileMenuBtn.setAttribute('aria-expanded', 'true');
-if (menuIcon) {
-menuIcon.classList.remove('fa-bars');
-menuIcon.classList.add('fa-xmark');
+const menu = document.getElementById('mobileMenu');
+const btn = document.getElementById('mobileMenuBtn');
+const icon = document.getElementById('menuIcon');
+if (menu) menu.classList.add('menu-open');
+if (btn) {
+btn.classList.add('is-active');
+btn.setAttribute('aria-expanded', 'true');
+}
+if (icon) {
+icon.classList.remove('fa-bars');
+icon.classList.add('fa-xmark');
 }
 }
 ​function closeMobileMenu() {
-if (!isMobileMenuOpen()) return;
-mobileMenu.classList.remove('menu-open');
-mobileMenuBtn.classList.remove('is-active');
-mobileMenuBtn.setAttribute('aria-expanded', 'false');
-if (menuIcon) {
-menuIcon.classList.remove('fa-xmark');
-menuIcon.classList.add('fa-bars');
+const menu = document.getElementById('mobileMenu');
+const btn = document.getElementById('mobileMenuBtn');
+const icon = document.getElementById('menuIcon');
+if (!menu || !menu.classList.contains('menu-open')) return;
+menu.classList.remove('menu-open');
+if (btn) {
+btn.classList.remove('is-active');
+btn.setAttribute('aria-expanded', 'false');
+}
+if (icon) {
+icon.classList.remove('fa-xmark');
+icon.classList.add('fa-bars');
 }
 }
 ​function toggleMobileMenu() {
@@ -1860,12 +1872,57 @@ closeMobileMenu();
 openMobileMenu();
 }
 }
+​let updateSlideCaptions;
 ​document.addEventListener('DOMContentLoaded', () => {
-// Initialize Language & Horizontal Timeline
+// Safe Theme init
+try {
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme === 'dark') {
+document.body.classList.add('dark-mode');
+updateThemeButtons(true);
+} else {
+updateThemeButtons(false);
+}
+} catch (err) {}
+​// Initialize Language & Horizontal Timeline
 setLanguage(currentLang);
-​// Optimized Lightweight Scroll Listener
+​// Theme Toggle buttons
+const themeBtn = document.getElementById('themeToggleBtn');
+const mobThemeBtn = document.getElementById('mobileThemeToggleBtn');
+if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
+if (mobThemeBtn) mobThemeBtn.addEventListener('click', toggleTheme);
+​// Mobile Menu Trigger
+const mobMenuBtn = document.getElementById('mobileMenuBtn');
+if (mobMenuBtn) {
+mobMenuBtn.addEventListener('click', (e) => {
+e.stopPropagation();
+toggleMobileMenu();
+});
+}
+​// Close menu when tapping links
+document.querySelectorAll('.mobile-nav-link').forEach(link => {
+link.addEventListener('click', () => closeMobileMenu());
+});
+​// Close mobile menu when tapping anywhere outside
+document.addEventListener('click', (e) => {
+const menu = document.getElementById('mobileMenu');
+const btn = document.getElementById('mobileMenuBtn');
+if (!isMobileMenuOpen() || !menu || !btn) return;
+if (!menu.contains(e.target) && !btn.contains(e.target)) {
+closeMobileMenu();
+}
+});
+​document.addEventListener('touchstart', (e) => {
+const menu = document.getElementById('mobileMenu');
+const btn = document.getElementById('mobileMenuBtn');
+if (!isMobileMenuOpen() || !menu || !btn) return;
+if (!menu.contains(e.target) && !btn.contains(e.target)) {
+closeMobileMenu();
+}
+}, { passive: true });
+​// Scroll listener for header & mobile menu auto-close
+const mainHeader = document.getElementById('mainHeader');
 let isScrolled = false;
-let scrollTimeout;
 let ticking = false;
 ​window.addEventListener('scroll', () => {
 if (!ticking) {
@@ -1873,26 +1930,17 @@ window.requestAnimationFrame(() => {
 const shouldBeScrolled = window.scrollY > 25;
 if (shouldBeScrolled !== isScrolled) {
 isScrolled = shouldBeScrolled;
-mainHeader.classList.toggle('scrolled', isScrolled);
+if (mainHeader) mainHeader.classList.toggle('scrolled', isScrolled);
 }
 ticking = false;
 });
 ticking = true;
 }
-​body.classList.add('is-scrolling');
-clearTimeout(scrollTimeout);
-scrollTimeout = setTimeout(() => {
-body.classList.remove('is-scrolling');
-}, 150);
-​// Smoothly retract mobile menu upwards on scroll
-if (isMobileMenuOpen()) {
-closeMobileMenu();
-}
+if (isMobileMenuOpen()) closeMobileMenu();
 }, { passive: true });
-​// Delegated Desktop Mouse Spotlight Effect
+​// Desktop Mouse Spotlight Effect
 if (window.matchMedia('(hover: hover) and (min-width: 1024px)').matches) {
 document.addEventListener('mousemove', (e) => {
-if (body.classList.contains('is-scrolling')) return;
 const card = e.target.closest('.glass-card');
 if (card) {
 const rect = card.getBoundingClientRect();
@@ -1903,25 +1951,10 @@ card.style.setProperty('--mouse-y', ${y}px);
 }
 }, { passive: true });
 }
-​// Scroll Intersection Observer
-const observer = new IntersectionObserver((entries) => {
-entries.forEach(entry => {
-if (entry.isIntersecting) {
-entry.target.classList.add('is-visible');
-entry.target.querySelectorAll('.counter').forEach(counter => {
-if (!counter.dataset.animated) {
-counter.dataset.animated = 'true';
-animateCounter(counter);
-}
-});
-observer.unobserve(entry.target);
-}
-});
-}, { threshold: 0.1 });
-document.querySelectorAll('.reveal-text').forEach(el => observer.observe(el));
-​function animateCounter(el) {
+​// Numeric Counters
+function animateCounter(el) {
 const target = parseInt(el.dataset.target, 10);
-const duration = 1500;
+const duration = 1400;
 const startTime = performance.now();
 function update(now) {
 const progress = Math.min((now - startTime) / duration, 1);
@@ -1932,6 +1965,8 @@ if (progress < 1) requestAnimationFrame(update);
 }
 requestAnimationFrame(update);
 }
+​const counters = document.querySelectorAll('.counter');
+counters.forEach(c => animateCounter(c));
 ​// Slideshow Engine
 const slideshowWrapper = document.getElementById('slideshowWrapper');
 const slides = document.querySelectorAll('.slideshow-slide');
@@ -1944,7 +1979,8 @@ const nextBtn = document.getElementById('nextSlideBtn');
 ​const labelsEL = ['Χάντμπολ', 'Στίβος', 'Τοξοβολία', 'Σκοποβολή', 'Ενόργανη', 'Πάλη', 'Βόλεϊ', 'Κολύμβηση'];
 const labelsEN = ['Handball', 'Athletics', 'Archery', 'Shooting', 'Gymnastics', 'Wrestling', 'Volleyball', 'Swimming'];
 let currentSlide = 0;
-​slides.forEach((_, idx) => {
+​if (pillsContainer) {
+slides.forEach((_, idx) => {
 const pill = document.createElement('button');
 pill.type = 'button';
 pill.className = 'sport-pill px-2.5 sm:px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wide ' +
@@ -1952,144 +1988,116 @@ pill.className = 'sport-pill px-2.5 sm:px-3 py-1 rounded-full text-[10px] sm:tex
 pill.addEventListener('click', () => goToSlide(idx));
 pillsContainer.appendChild(pill);
 });
-​const pills = pillsContainer.querySelectorAll('.sport-pill');
+}
 ​updateSlideCaptions = function() {
+const pills = pillsContainer ? pillsContainer.querySelectorAll('.sport-pill') : [];
 pills.forEach((p, i) => {
 p.textContent = currentLang === 'en' ? labelsEN[i] : labelsEL[i];
 });
+if (slides[currentSlide]) {
 const sportTitle = currentLang === 'en' ? slides[currentSlide].getAttribute('data-sport-en') : slides[currentSlide].getAttribute('data-sport-el');
 const sportCaption = currentLang === 'en' ? slides[currentSlide].getAttribute('data-caption-en') : slides[currentSlide].getAttribute('data-caption-el');
-activeSportBadge.textContent = ${currentSlide + 1}/${slides.length} • ${sportTitle};
-activeSlideCaption.textContent = sportCaption;
+if (activeSportBadge) activeSportBadge.textContent = ${currentSlide + 1}/${slides.length} • ${sportTitle};
+if (activeSlideCaption) activeSlideCaption.textContent = sportCaption;
+}
 };
 ​function restartProgressBar() {
+if (!progressBar) return;
 progressBar.classList.remove('progress-animate');
 void progressBar.offsetWidth;
 progressBar.classList.add('progress-animate');
 }
 ​function goToSlide(index) {
-slides[currentSlide].classList.remove('active');
+if (!slides.length) return;
+const pills = pillsContainer ? pillsContainer.querySelectorAll('.sport-pill') : [];
+​if (slides[currentSlide]) slides[currentSlide].classList.remove('active');
+if (pills[currentSlide]) {
 pills[currentSlide].classList.remove('active');
 pills[currentSlide].classList.add('bg-black/45', 'text-white/90');
+}
 ​currentSlide = (index + slides.length) % slides.length;
-​slides[currentSlide].classList.add('active');
+​if (slides[currentSlide]) slides[currentSlide].classList.add('active');
+if (pills[currentSlide]) {
 pills[currentSlide].classList.add('active');
 pills[currentSlide].classList.remove('bg-black/45', 'text-white/90');
+}
 ​updateSlideCaptions();
 restartProgressBar();
 }
 ​updateSlideCaptions();
+if (progressBar) {
 progressBar.addEventListener('animationend', () => goToSlide(currentSlide + 1));
-const slideshowObserver = new IntersectionObserver((entries) => {
-entries.forEach(entry => { progressBar.style.animationPlayState = entry.isIntersecting ? 'running' : 'paused'; });
-}, { threshold: 0.1 });
-slideshowObserver.observe(slideshowWrapper);
-​prevBtn.addEventListener('click', () => goToSlide(currentSlide - 1));
-nextBtn.addEventListener('click', () => goToSlide(currentSlide + 1));
+}
+​if (prevBtn) prevBtn.addEventListener('click', () => goToSlide(currentSlide - 1));
+if (nextBtn) nextBtn.addEventListener('click', () => goToSlide(currentSlide + 1));
 });
-​// Synchronize Theme across Desktop & Mobile Drawer with Bilingual Support
-function updateThemeButtons(isDark) {
-if (themeToggleBtn) themeToggleBtn.textContent = isDark ? '☀️' : '🌙';
-if (mobileThemeIcon) mobileThemeIcon.textContent = isDark ? '☀️' : '🌙';
-if (mobileThemeLabel) {
-const dict = translations[currentLang] || translations.el;
-mobileThemeLabel.textContent = isDark ? dict.theme_light : dict.theme_dark;
-}
-}
-​function toggleTheme() {
-const isDark = body.classList.toggle('dark-mode');
-body.classList.remove('light-mode');
-localStorage.setItem('theme', isDark ? 'dark' : 'default');
-updateThemeButtons(isDark);
-}
-​const savedTheme = localStorage.getItem('theme');
-if (savedTheme === 'dark') {
-body.classList.add('dark-mode');
-updateThemeButtons(true);
-} else {
-updateThemeButtons(false);
-}
-​if (themeToggleBtn) themeToggleBtn.addEventListener('click', toggleTheme);
-if (mobileThemeToggleBtn) mobileThemeToggleBtn.addEventListener('click', toggleTheme);
-​// Mobile Menu Trigger
-mobileMenuBtn.addEventListener('click', (e) => {
-e.stopPropagation();
-toggleMobileMenu();
-});
-​// Close menu when tapping links
-document.querySelectorAll('.mobile-nav-link').forEach(link => {
-link.addEventListener('click', () => closeMobileMenu());
-});
-​// Close mobile menu when tapping anywhere OUTSIDE the menu and header button
-document.addEventListener('click', (e) => {
-if (!isMobileMenuOpen()) return;
-const isClickInsideMenu = mobileMenu.contains(e.target);
-const isClickOnToggleBtn = mobileMenuBtn.contains(e.target);
-if (!isClickInsideMenu && !isClickOnToggleBtn) {
-closeMobileMenu();
-}
-});
-​// Touch listener for mobile devices to dismiss outside
-document.addEventListener('touchstart', (e) => {
-if (!isMobileMenuOpen()) return;
-const isTouchInsideMenu = mobileMenu.contains(e.target);
-const isTouchOnToggleBtn = mobileMenuBtn.contains(e.target);
-if (!isTouchInsideMenu && !isTouchOnToggleBtn) {
-closeMobileMenu();
-}
-}, { passive: true });
 ​// History Modal with Dedicated Wikipedia Links
 function openDeptHistoryModal(deptKey) {
 currentDeptHistoryKey = deptKey;
 const info = deptHistories[deptKey];
 if (!info) return;
-​deptModalTitle.textContent = currentLang === 'en' ? info.title_en : info.title_el;
-deptModalHighlightText.textContent = currentLang === 'en' ? info.highlight_en : info.highlight_el;
-deptModalText.innerHTML = currentLang === 'en' ? info.text_en : info.text_el;
-deptModalIcon.innerHTML = <i class="${info.iconClass}"></i>;
-​if (deptModalWikiBtn) {
-deptModalWikiBtn.href = info.wiki_url;
-}
-​deptModalRegisterBtn.onclick = () => {
+​const titleEl = document.getElementById('deptModalTitle');
+const hlEl = document.getElementById('deptModalHighlightText');
+const textEl = document.getElementById('deptModalText');
+const iconEl = document.getElementById('deptModalIcon');
+const wikiBtn = document.getElementById('deptModalWikiBtn');
+const regBtn = document.getElementById('deptModalRegisterBtn');
+​if (titleEl) titleEl.textContent = currentLang === 'en' ? info.title_en : info.title_el;
+if (hlEl) hlEl.textContent = currentLang === 'en' ? info.highlight_en : info.highlight_el;
+if (textEl) textEl.innerHTML = currentLang === 'en' ? info.text_en : info.text_el;
+if (iconEl) iconEl.innerHTML = <i class="${info.iconClass}"></i>;
+​if (wikiBtn) wikiBtn.href = info.wiki_url;
+​if (regBtn) {
+regBtn.onclick = () => {
 closeDeptHistoryModal();
 setTimeout(() => { openRegistrationModal(info.title_el); }, 180);
 };
-deptHistoryModal.classList.add('is-open');
+}
+​const modal = document.getElementById('deptHistoryModal');
+if (modal) modal.classList.add('is-open');
 document.body.style.overflow = 'hidden';
 }
 ​function closeDeptHistoryModal() {
-deptHistoryModal.classList.remove('is-open');
+const modal = document.getElementById('deptHistoryModal');
+if (modal) modal.classList.remove('is-open');
 document.body.style.overflow = 'auto';
 currentDeptHistoryKey = null;
 }
 ​// Registration Modal with Intelligent Department Selector
 function openRegistrationModal(departmentName = '') {
-registrationModal.classList.add('is-open');
+const modal = document.getElementById('registrationModal');
+const select = document.getElementById('modalDeptSelect');
+if (modal) modal.classList.add('is-open');
 document.body.style.overflow = 'hidden';
-if (departmentName && departmentName !== 'Γενική Εγγραφή') {
-for (let opt of modalDeptSelect.options) {
+​if (select && departmentName && departmentName !== 'Γενική Εγγραφή') {
+for (let opt of select.options) {
 if (opt.value === departmentName || departmentName.includes(opt.value) || opt.value.includes(departmentName)) {
-modalDeptSelect.value = opt.value;
+select.value = opt.value;
 break;
 }
 }
 }
 }
 ​function closeRegistrationModal() {
-registrationModal.classList.remove('is-open');
+const modal = document.getElementById('registrationModal');
+if (modal) modal.classList.remove('is-open');
 document.body.style.overflow = 'auto';
 }
-​window.addEventListener('click', (e) => {
-if (e.target === deptHistoryModal) closeDeptHistoryModal();
-if (e.target === registrationModal) closeRegistrationModal();
-if (e.target === timelineDetailModal) closeTimelineModal();
+​// Universal backdrop and Escape dismissal
+window.addEventListener('click', (e) => {
+const dModal = document.getElementById('deptHistoryModal');
+const rModal = document.getElementById('registrationModal');
+const tModal = document.getElementById('timelineDetailModal');
+if (e.target === dModal) closeDeptHistoryModal();
+if (e.target === rModal) closeRegistrationModal();
+if (e.target === tModal) closeTimelineModal();
 });
 ​window.addEventListener('keydown', (e) => {
 if (e.key === 'Escape') {
-if (deptHistoryModal.classList.contains('is-open')) closeDeptHistoryModal();
-if (registrationModal.classList.contains('is-open')) closeRegistrationModal();
-if (timelineDetailModal.classList.contains('is-open')) closeTimelineModal();
-if (isMobileMenuOpen()) closeMobileMenu();
+closeDeptHistoryModal();
+closeRegistrationModal();
+closeTimelineModal();
+closeMobileMenu();
 }
 });
 ​// Direct Contact Form Submit
@@ -2100,25 +2108,28 @@ const phone = document.getElementById('formPhone').value;
 const email = document.getElementById('formEmail').value;
 const dept = document.getElementById('formDept').value;
 const msg = document.getElementById('formMsg').value;
-document.getElementById('formSuccessAlert').classList.remove('hidden');
-const subject = encodeURIComponent([SITE MESSAGE] ${dept} - ${name});
+const alertBox = document.getElementById('formSuccessAlert');
+if (alertBox) alertBox.classList.remove('hidden');
+​const subject = encodeURIComponent([SITE MESSAGE] ${dept} - ${name});
 const bodyText = encodeURIComponent(Name: ${name}\nPhone: ${phone}\nEmail: ${email}\nDepartment: ${dept}\n\nMessage:\n${msg});
 setTimeout(() => { window.location.href = mailto:dimitriszgalanis@gmail.com?cc=admin@archelaos.club&subject=${subject}&body=${bodyText}; }, 1200);
 document.getElementById('contactForm').reset();
 }
 ​function handleModalDirectSubmit(e) {
 e.preventDefault();
-const dept = modalDeptSelect.value;
+const select = document.getElementById('modalDeptSelect');
+const dept = select ? select.value : '';
 const name = document.getElementById('modalName').value;
 const phone = document.getElementById('modalPhone').value;
 const email = document.getElementById('modalEmail').value;
-document.getElementById('modalAlert').classList.remove('hidden');
-const subject = encodeURIComponent([NEW REGISTRATION] Department: ${dept} - ${name});
+const alertBox = document.getElementById('modalAlert');
+if (alertBox) alertBox.classList.remove('hidden');
+​const subject = encodeURIComponent([NEW REGISTRATION] Department: ${dept} - ${name});
 const bodyText = encodeURIComponent(New Registration Request:\n\nName: ${name}\nPhone: ${phone}\nEmail: ${email}\nDepartment: ${dept});
 setTimeout(() => {
 window.location.href = mailto:admin@archelaos.club?cc=dimitriszgalanis@gmail.com&subject=${subject}&body=${bodyText};
 closeRegistrationModal();
-document.getElementById('modalAlert').classList.add('hidden');
+if (alertBox) alertBox.classList.add('hidden');
 document.getElementById('modalForm').reset();
 }, 1500);
 }
