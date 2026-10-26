@@ -170,7 +170,7 @@
           position: absolute;
           inset: 0;
           border-radius: inherit;
-          background: radial-gradient(320px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), rgba(246, 238, 66, 0.4), transparent 75%);
+          background: radial-gradient(320px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), rgba(246, 238, 66, 0.45), transparent 75%);
           opacity: 0;
           transition: opacity 0.3s ease;
           pointer-events: none;
@@ -181,7 +181,7 @@
         }
 
         body.dark-mode .glass-card::before {
-          background: radial-gradient(320px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), rgba(246, 238, 66, 0.25), transparent 75%);
+          background: radial-gradient(320px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), rgba(246, 238, 66, 0.28), transparent 75%);
         }
       }
 
@@ -264,7 +264,9 @@
         transform: scale(1.04);
       }
 
-      /* Mobile Menu */
+      /* -------------------------------------------------------------
+         MOBILE MENU: SMOOTH SLIDE-UP & COLLAPSE ANIMATION
+         ------------------------------------------------------------- */
       #mobileMenu {
         position: absolute;
         top: 100%;
@@ -277,18 +279,24 @@
         padding-top: 0;
         padding-bottom: 0;
         pointer-events: none;
-        transform: translate3d(0, -6px, 0);
+        transform: translate3d(0, -14px, 0);
         background-color: #f6ee42 !important;
-        border-bottom: 2px solid rgba(8, 76, 36, 0.25);
-        box-shadow: 0 20px 30px -8px rgba(8, 76, 36, 0.35);
-        transition: max-height 0.35s ease, opacity 0.25s ease, transform 0.25s ease;
+        border-bottom: 0px solid transparent;
+        box-shadow: 0 0px 0px rgba(8, 76, 36, 0);
+        /* Smooth cubic-bezier upward retraction and downward unveiling */
+        transition: max-height 0.36s cubic-bezier(0.32, 0.72, 0, 1),
+                    opacity 0.26s ease,
+                    transform 0.32s cubic-bezier(0.32, 0.72, 0, 1),
+                    padding 0.3s ease,
+                    box-shadow 0.3s ease;
       }
       #mobileMenu.menu-open {
         max-height: 640px;
         opacity: 1;
         padding-top: 1.25rem;
         padding-bottom: 1.75rem;
-        border-bottom-width: 2px;
+        border-bottom: 2px solid rgba(8, 76, 36, 0.25);
+        box-shadow: 0 20px 30px -8px rgba(8, 76, 36, 0.35);
         pointer-events: auto;
         transform: translate3d(0, 0, 0);
       }
@@ -298,7 +306,7 @@
         box-shadow: 0 2px 4px rgba(8, 76, 36, 0.05);
       }
 
-      /* Crest Logo Transition */
+      /* Crest Logo Transition (Clean Color Switch without magenta/pink phase) */
       .archelaos-crest-adapt {
         transition: transform 0.3s ease, opacity 0.2s ease;
       }
@@ -312,7 +320,7 @@
       body.dark-mode .glass-card { background-color: #113820 !important; border-color: rgba(246, 238, 66, 0.25) !important; color: #f8fafc !important; }
       body.dark-mode .glass-card p, body.dark-mode .glass-section p { color: #e2e8f0 !important; }
       body.dark-mode h1, body.dark-mode h2, body.dark-mode h3, body.dark-mode h4, body.dark-mode .font-heading { color: #f6ee42 !important; }
-      body.dark-mode #mobileMenu { background-color: #071f11 !important; border-bottom: 2px solid rgba(246, 238, 66, 0.3) !important; }
+      body.dark-mode #mobileMenu { background-color: #071f11 !important; border-bottom-color: rgba(246, 238, 66, 0.3) !important; }
       body.dark-mode #mobileMenu a.mobile-menu-item { background-color: #113820 !important; color: #f6ee42 !important; border-color: rgba(246, 238, 66, 0.25) !important; }
       body.dark-mode input, body.dark-mode textarea, body.dark-mode select { background-color: #0b2b17 !important; color: #ffffff !important; border-color: rgba(246, 238, 66, 0.3) !important; }
 
@@ -445,7 +453,7 @@
             </button>
 
             <!-- Mobile Hamburger Button -->
-            <button id="mobileMenuBtn" aria-label="Μενού" aria-expanded="false" class="md:hidden w-11 h-11 shrink-0 flex items-center justify-center rounded-xl bg-white/90 hover:bg-white text-archelaos-deepgreen border border-archelaos-deepgreen/20 shadow-sm transition">
+            <button id="mobileMenuBtn" aria-label="Μενού" aria-expanded="false" class="md:hidden w-11 h-11 shrink-0 flex items-center justify-center rounded-xl bg-white/90 hover:bg-white text-archelaos-deepgreen border border-archelaos-deepgreen/20 shadow-sm transition active:scale-95">
               <i id="menuIcon" class="fa-solid fa-bars text-xl text-archelaos-deepgreen transition-transform duration-200"></i>
             </button>
           </div>
@@ -469,7 +477,7 @@
         <a href="#departments" class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" data-i18n="nav_dept">Αθλητικά Τμήματα</a>
         <a href="#board" class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" data-i18n="nav_board">Διοίκηση (Δ.Σ.)</a>
         <a href="#contact" class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" data-i18n="nav_contact">Επικοινωνία</a>
-        <button onclick="openRegistrationModal('Γενική Εγγραφή'); toggleMobileMenu();" class="mobile-menu-item w-full text-center px-4 py-3.5 bg-archelaos-deepgreen text-archelaos-yellow font-extrabold rounded-xl shadow-lg">
+        <button onclick="openRegistrationModal('Γενική Εγγραφή'); closeMobileMenu();" class="mobile-menu-item w-full text-center px-4 py-3.5 bg-archelaos-deepgreen text-archelaos-yellow font-extrabold rounded-xl shadow-lg">
           <i class="fa-solid fa-user-plus mr-2"></i> <span data-i18n="btn_register_interest">Εκδήλωση Ενδιαφέροντος</span>
         </button>
       </div>
@@ -588,7 +596,7 @@
               </div>
             </div>
             <div class="reveal-text delay-400 pt-2">
-              <a href="https://el.wikipedia.org/wiki/%CE%93.%CE%91.%CE%A3._%CE%9F_%CE%91%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82_%CE%9A%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82" target="_blank" rel="noopener noreferrer" class="btn-shimmer inline-flex items-center justify-center w-full sm:w-auto px-6 py-3.5 text-sm font-extrabold text-white bg-archelaos-deepgreen hover:bg-archelaos-yellow hover:text-archelaos-deepgreen rounded-2xl shadow-md transition duration-200 group">
+              <a href="https://el.wikipedia.org/wiki/%CE%93.%CE%91.%CE%A3._%CE%9F_%CE%91%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82_%CE%9A%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82" target="_blank" rel="noopener noreferrer" class="btn-shimmer inline-flex items-center justify-center w-full sm:w-auto px-6 py-3.5 text-sm font-extrabold text-archelaos-yellow hover:text-archelaos-deepgreen bg-archelaos-deepgreen hover:bg-archelaos-yellow rounded-2xl shadow-md transition duration-200 group border border-archelaos-deepgreen">
                 <i class="fa-brands fa-wikipedia-w mr-2.5 text-lg text-archelaos-yellow group-hover:text-archelaos-deepgreen transition-colors"></i> <span data-i18n="btn_wikipedia">Διαβάστε την ιστορία μας στη Wikipedia</span>
               </a>
             </div>
@@ -927,7 +935,7 @@
           <div class="lg:col-span-5 space-y-6">
             <div class="reveal-text space-y-4">
               <span class="px-4 py-1.5 rounded-full bg-archelaos-deepgreen text-archelaos-yellow font-black text-xs uppercase tracking-wider inline-block shadow-md" data-i18n="contact_tag">Επικοινωνία & Έδρα</span>
-              <h2 class="text-3xl sm:text-5xl font-black font-heading text-archelaos-deepgreen leading-tight" data-i18n="contact_title">Ελάτε σε επαφή με τον Αρχέλαο</h2>
+              <h2 class="text-3xl sm:font-bold text-3xl sm:text-5xl font-black font-heading text-archelaos-deepgreen leading-tight" data-i18n="contact_title">Ελάτε σε επαφή με τον Αρχέλαο</h2>
               <p class="text-archelaos-deepgreen/90 text-base font-medium leading-relaxed" data-i18n="contact_sub">Επισκεφθείτε τα γραφεία μας στο Α΄ ΔΑΚ Κατερίνης ή στείλτε μας απευθείας μήνυμα μέσα από τη φόρμα.</p>
             </div>
 
@@ -1582,6 +1590,7 @@
       const mainHeader = document.getElementById('mainHeader');
       const mobileMenuBtn = document.getElementById('mobileMenuBtn');
       const mobileMenu = document.getElementById('mobileMenu');
+      const menuIcon = document.getElementById('menuIcon');
       const themeToggleBtn = document.getElementById('themeToggleBtn');
       const mobileThemeToggleBtn = document.getElementById('mobileThemeToggleBtn');
       const mobileThemeIcon = document.getElementById('mobileThemeIcon');
@@ -1598,6 +1607,40 @@
       const body = document.body;
 
       let updateSlideCaptions;
+
+      // Mobile Menu Functions (Smooth Slide-up & Outside Click Closure)
+      function isMobileMenuOpen() {
+        return mobileMenu.classList.contains('menu-open');
+      }
+
+      function openMobileMenu() {
+        mobileMenu.classList.add('menu-open');
+        mobileMenuBtn.classList.add('is-active');
+        mobileMenuBtn.setAttribute('aria-expanded', 'true');
+        if (menuIcon) {
+          menuIcon.classList.remove('fa-bars');
+          menuIcon.classList.add('fa-xmark');
+        }
+      }
+
+      function closeMobileMenu() {
+        if (!isMobileMenuOpen()) return;
+        mobileMenu.classList.remove('menu-open');
+        mobileMenuBtn.classList.remove('is-active');
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+        if (menuIcon) {
+          menuIcon.classList.remove('fa-xmark');
+          menuIcon.classList.add('fa-bars');
+        }
+      }
+
+      function toggleMobileMenu() {
+        if (isMobileMenuOpen()) {
+          closeMobileMenu();
+        } else {
+          openMobileMenu();
+        }
+      }
 
       document.addEventListener('DOMContentLoaded', () => {
         // Initialize Language
@@ -1627,7 +1670,10 @@
             body.classList.remove('is-scrolling');
           }, 150);
 
-          if (mobileMenu.classList.contains('menu-open')) toggleMobileMenu();
+          // Smoothly retract mobile menu upwards on scroll
+          if (isMobileMenuOpen()) {
+            closeMobileMenu();
+          }
         }, { passive: true });
 
         // Desktop Mouse Spotlight Effect (Active strictly on hover-enabled large screens)
@@ -1771,17 +1817,36 @@
       if (themeToggleBtn) themeToggleBtn.addEventListener('click', toggleTheme);
       if (mobileThemeToggleBtn) mobileThemeToggleBtn.addEventListener('click', toggleTheme);
 
-      // Mobile Menu Toggle
-      function toggleMobileMenu() {
-        const isOpen = mobileMenu.classList.toggle('menu-open');
-        mobileMenuBtn.classList.toggle('is-active', isOpen);
-        mobileMenuBtn.setAttribute('aria-expanded', isOpen);
-      }
-      mobileMenuBtn.addEventListener('click', toggleMobileMenu);
-
-      document.querySelectorAll('.mobile-nav-link').forEach(link => {
-        link.addEventListener('click', () => { if (mobileMenu.classList.contains('menu-open')) toggleMobileMenu(); });
+      // Mobile Menu Trigger
+      mobileMenuBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleMobileMenu();
       });
+
+      // Close menu when tapping links
+      document.querySelectorAll('.mobile-nav-link').forEach(link => {
+        link.addEventListener('click', () => closeMobileMenu());
+      });
+
+      // Close mobile menu when tapping anywhere OUTSIDE the menu and header button
+      document.addEventListener('click', (e) => {
+        if (!isMobileMenuOpen()) return;
+        const isClickInsideMenu = mobileMenu.contains(e.target);
+        const isClickOnToggleBtn = mobileMenuBtn.contains(e.target);
+        if (!isClickInsideMenu && !isClickOnToggleBtn) {
+          closeMobileMenu();
+        }
+      });
+
+      // Touch listener for mobile devices to dismiss outside
+      document.addEventListener('touchstart', (e) => {
+        if (!isMobileMenuOpen()) return;
+        const isTouchInsideMenu = mobileMenu.contains(e.target);
+        const isTouchOnToggleBtn = mobileMenuBtn.contains(e.target);
+        if (!isTouchInsideMenu && !isTouchOnToggleBtn) {
+          closeMobileMenu();
+        }
+      }, { passive: true });
 
       // History Modal with Dedicated Wikipedia Links
       let currentDeptHistoryKey = null;
@@ -1841,6 +1906,7 @@
         if (e.key === 'Escape') {
           if (deptHistoryModal.classList.contains('is-open')) closeDeptHistoryModal();
           if (registrationModal.classList.contains('is-open')) closeRegistrationModal();
+          if (isMobileMenuOpen()) closeMobileMenu();
         }
       });
 
