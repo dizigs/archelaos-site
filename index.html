@@ -412,7 +412,7 @@
               <i class="fa-solid fa-bolt mr-2 text-archelaos-yellow"></i> <span data-i18n="btn_register">Εγγραφές / Εκδήλωση</span>
             </button>
 
-            <!-- Mobile Hamburger Button (Always Visible & Accessible on Mobile) -->
+            <!-- Mobile Hamburger Button -->
             <button id="mobileMenuBtn" aria-label="Μενού" aria-expanded="false" class="md:hidden w-11 h-11 shrink-0 flex items-center justify-center rounded-xl bg-white/90 hover:bg-white text-archelaos-deepgreen border border-archelaos-deepgreen/20 shadow-sm transition">
               <i id="menuIcon" class="fa-solid fa-bars text-xl text-archelaos-deepgreen transition-transform duration-200"></i>
             </button>
@@ -990,7 +990,7 @@
 
     <!-- DEPARTMENT HISTORY POPUP MODAL -->
     <div id="deptHistoryModal" class="modal-backdrop fixed inset-0 z-50 overflow-y-auto bg-black/60 flex items-center justify-center p-4">
-      <div class="modal-box relative w-full max-w-lg bg-white rounded-3xl shadow-2xl overflow-hidden border-2 border-white">
+      <div class="modal-box relative w-full max-w-xl bg-white rounded-3xl shadow-2xl overflow-hidden border-2 border-white">
         <div class="modal-header bg-archelaos-yellow p-6 flex items-center justify-between border-b border-archelaos-darkgreen/20">
           <div class="flex items-center gap-3">
             <div id="deptModalIcon" class="w-11 h-11 rounded-xl bg-archelaos-deepgreen text-archelaos-yellow flex items-center justify-center text-lg shadow-sm"></div>
@@ -1006,8 +1006,18 @@
             <i class="fa-solid fa-award text-base text-archelaos-darkgreen shrink-0 mt-0.5"></i>
             <span id="deptModalHighlightText"></span>
           </div>
-          <div id="deptModalText" class="history-content text-slate-700 text-sm leading-relaxed font-medium space-y-2.5"></div>
-          <div class="pt-2 flex flex-col sm:flex-row gap-2.5">
+          <div id="deptModalText" class="history-content text-slate-700 text-sm leading-relaxed font-medium space-y-3"></div>
+          
+          <!-- Wikipedia External Source Link Button -->
+          <div class="pt-2">
+            <a id="deptModalWikiBtn" href="#" target="_blank" rel="noopener noreferrer" class="w-full inline-flex items-center justify-center gap-2 px-4 py-3 bg-slate-100 hover:bg-slate-200 text-slate-800 font-extrabold text-xs sm:text-sm rounded-xl transition border border-slate-300">
+              <i class="fa-brands fa-wikipedia-w text-base text-archelaos-darkgreen"></i>
+              <span data-i18n="btn_dept_wikipedia">Αναλυτικό Άρθρο στη Wikipedia</span>
+              <i class="fa-solid fa-arrow-up-right-from-square text-xs opacity-75"></i>
+            </a>
+          </div>
+
+          <div class="pt-1 flex flex-col sm:flex-row gap-2.5">
             <button id="deptModalRegisterBtn" type="button" class="modal-submit-btn btn-shimmer w-full py-3.5 bg-archelaos-deepgreen text-archelaos-yellow font-black rounded-xl shadow-md transition flex items-center justify-center gap-2 text-sm">
               <i class="fa-solid fa-bolt"></i> <span data-i18n="btn_register_interest">Εκδήλωση Ενδιαφέροντος</span>
             </button>
@@ -1187,6 +1197,7 @@
           btn_send_message: "Αποστολή Μηνύματος",
           modal_history_tag: "Ιστορική Αναδρομή",
           btn_close: "Κλείσιμο",
+          btn_dept_wikipedia: "Αναλυτικό Άρθρο στη Wikipedia",
           modal_reg_title: "Εκδήλωση Ενδιαφέροντος για Τμήμα",
           field_dept_req: "Τμήμα *",
           field_phone_contact: "Τηλέφωνο Επικοινωνίας *",
@@ -1300,6 +1311,7 @@
           btn_send_message: "Send Message",
           modal_history_tag: "Historical Overview",
           btn_close: "Close",
+          btn_dept_wikipedia: "Full Department Article on Wikipedia",
           modal_reg_title: "Department Enrollment Inquiry",
           field_dept_req: "Department *",
           field_phone_contact: "Contact Phone *",
@@ -1312,79 +1324,151 @@
         }
       };
 
-      // 2. Department History Data (Bilingual)
+      // 2. Department History Data (Rich, Wikipedia-backed & Bilingual)
       const deptHistories = {
         handball: {
           title_el: "Χειροσφαίριση (Χάντμπολ)",
           title_en: "Handball",
           iconClass: "fa-solid fa-volleyball",
-          highlight_el: "2 Κύπελλα Ελλάδος (1990, 1994) & ιστορική πορεία στην Α1 Εθνική και στην Ευρώπη.",
-          highlight_en: "2 Greek National Cups (1990, 1994) and prominent runs in European Cup competitions.",
-          text_el: "<p>Το τμήμα Χειροσφαίρισης του Αρχελάου κατέκτησε δύο Κύπελλα Ελλάδος Ανδρών (1990 και 1994), εκπροσώπησε τη χώρα στα ευρωπαϊκά κύπελλα και ανέδειξε δεκάδες διεθνείς αθλητές.</p><p class='mt-2'>Σήμερα, συνεχίζει με εξαιρετικές ακαδημίες όλων των ηλικιών στο Β΄ ΔΑΚ Κατερίνης.</p>",
-          text_en: "<p>The Handball section of Archelaos won two Greek Men's Cups (1990 and 1994), competed across European club competitions (EHF Cup Winners' Cup), and nurtured Olympic-level champions.</p><p class='mt-2'>Today, our youth academies train actively at the 2nd Municipal Indoor Arena of Katerini.</p>"
+          wiki_url: "https://el.wikipedia.org/wiki/%CE%93%CE%91%CE%A3_%CE%9F_%CE%91%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82_%CE%9A%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82_(%CF%87%CE%B5%CE%B9%CF%81%CE%BF%CF%83%CF%86%CE%B1%CE%AF%CF%81%CE%B9%CF%83%CE%B7)",
+          highlight_el: "2 Κύπελλα Ελλάδας Ανδρών (1990, 1994) & 4 φορές Φιναλίστ (1984, 1993, 1996, 2000).",
+          highlight_en: "2 Men's Greek Cups (1990, 1994) & 4-time Cup Finalist (1984, 1993, 1996, 2000).",
+          text_el: `
+            <p><strong>Ίδρυση & Πρωτοπορία (1976):</strong> Η απόφαση σύστασης ελήφθη στις 22 Δεκεμβρίου 1976 με εισήγηση του Ευστάθιου Ζάννα και πρώτο έφορο τον Χρήστο Παπακωνσταντίνου. Ο Αρχέλαος υπήρξε <em>ιδρυτικό μέλος της ΟΧΕ</em> το 1979.</p>
+            <p><strong>Χρυσή Εποχή & Τίτλοι:</strong> Ανήλθε στην Α΄ Εθνική το 1983-84 και έφτασε κατευθείαν στον πρώτο του τελικό Κυπέλλου. Κορυφαίες στιγμές αποτελούν η κατάκτηση του <strong>Κυπέλλου Ελλάδας το 1990</strong> (νίκη επί του ΑΣΕ Δούκα 27-21 στο Μετς) και ο θρίαμβος του <strong>1994</strong> (επικράτηση επί του ΓΑΣ Κιλκίς 27-25). Η επιτυχία του 1994 έμεινε στην ιστορία ως ο άθλος των «άστεγων» κυπελλούχων, καθώς οι αθλητές προπονούνταν σε ανοικτό γήπεδο τένις λόγω ανακατασκευής του κλειστού του ΕΑΚ.</p>
+            <p><strong>Ευρωπαϊκή Παρουσία & Υποδομές:</strong> Ο σύλλογος εκπροσώπησε την Ελλάδα στο Κύπελλο Κυπελλούχων Ευρώπης (EHF Cup Winners' Cup), ενώ έχει κατακτήσει 2 Πανελλήνια Πρωταθλήματα Εφήβων (1984, 1996) και 4 Πανελλήνια Πρωταθλήματα Παίδων (1994, 1995, 1996, 1997).</p>
+          `,
+          text_en: `
+            <p><strong>Foundation (1976):</strong> Established on December 22, 1976, G.A.S. Archelaos became a founding member of the Hellenic Handball Federation (OXE) in 1979 and advanced to the top division (A1) in 1983-84.</p>
+            <p><strong>Greek National Cups:</strong> The club lifted the <strong>Greek Men's National Cup in 1990</strong> (defeating ASE Douka 27-21 in Athens) and <strong>1994</strong> (defeating GAS Kilkis 27-25). The 1994 triumph is celebrated as the "homeless champions' miracle," achieved while their home arena was undergoing renovation for 19 months.</p>
+            <p><strong>European Campaigns & Youth Titles:</strong> Competed in the European Cup Winners' Cup and developed one of Greece's premier academies, claiming 2 National Junior Championships (1984, 1996) and 4 National Cadet Titles (1994-1997).</p>
+          `
         },
         track: {
           title_el: "Στίβος (Κλασικός Αθλητισμός)",
           title_en: "Track & Field (Athletics)",
           iconClass: "fa-solid fa-person-running",
-          highlight_el: "Η ραχοκοκαλιά του συλλόγου από την ίδρυσή του το 1956.",
-          highlight_en: "The historic foundation of the club since its inception in 1956.",
-          text_el: "<p>Ο κλασικός αθλητισμός αποτέλεσε τον θεμέλιο λίθο της ίδρυσης του Γ.Α.Σ. «Ο Αρχέλαος» το 1956. Ο σύλλογος έχει αναδείξει πανελληνιονίκες, βαλκανιονίκες, ολυμπιονίκες και μέλη των εθνικών ομάδων.</p>",
-          text_en: "<p>Classical athletics was the founding discipline of G.A.S. Archelaos in 1956. The club has produced national record holders, Balkan champions, and Olympians at the 1st Municipal Stadium.</p>"
+          wiki_url: "https://el.wikipedia.org/wiki/%CE%93%CE%91%CE%A3_%CE%9F_%CE%91%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82_%CE%9A%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82_(%CF%83%CF%84%CE%AF%CE%B2%CE%BF%CF%82)",
+          highlight_el: "Ιδρυτικό τμήμα (1956) — Κοιτίδα ανάδειξης Ολυμπιονικών και πρωταθλητών Ελλάδας.",
+          highlight_en: "Founding section (1956) — Home to Olympic finalists and national record breakers.",
+          text_el: `
+            <p><strong>Η Αφετηρία του Συλλόγου (1956):</strong> Για 17 συναπτά έτη (1956–1973) υπήρξε το μοναδικό τμήμα του σωματείου, ταυτίζοντας το όνομα του Αρχελάου με τον κλασικό αθλητισμό. Ιδρύθηκε υπό την καθοδήγηση του επιθεωρητή Γεωργίου Ευθυμίου και του πρώτου προέδρου Ιωάννη Μαντζαρόπουλου, με τους αθλητές να προπονούνται στο Δημοτικό Πάρκο.</p>
+            <p><strong>Ολυμπιακές & Διεθνείς Επιτυχίες:</strong> Αποτέλεσε την κοιτίδα ανάδειξης κορυφαίων μορφών του ελληνικού αθλητισμού, με προεξάρχοντα τον <strong>Κώστα Κουκοδήμο</strong> (6ος Ολυμπιονίκης στη Βαρκελώνη 1992, χάλκινος πρωταθλητής Ευρώπης στο μήκος). Σπουδαίοι αθλητές του συλλόγου υπήρξαν επίσης ο Δημήτριος Μαγκλάρας (3 φορές Βαλκανιονίκης), ο Αλκίνοος Τασόπουλος, καθώς και οι Ζαΐρα Λαζαρίδου, Μιράντα Παπά και Βέτα Μοσχονά.</p>
+            <p><strong>«Δίια» & «Δίος Δρόμος»:</strong> Ο σύλλογος συνδέθηκε ιστορικά με τη θέσπιση των πανελλήνιων αγώνων στίβου «Δίια» (από το 1957) και του ιστορικού ημιμαραθωνίου «Δίος Δρόμος» (από το 1987), αποτελώντας αναπόσπαστο κομμάτι του Α΄ ΔΑΚ Κατερίνης.</p>
+          `,
+          text_en: `
+            <p><strong>Foundation (1956):</strong> For 17 consecutive years (1956–1973), Track & Field was the sole department of Archelaos, establishing athletics across Pieria.</p>
+            <p><strong>Olympic Legacy:</strong> The academy produced world-class talents including long jump icon <strong>Kostas Koukodimos</strong> (6th at the 1992 Barcelona Olympics, European Championship bronze medalist), Balkan champion Dimitrios Magklaras, and national record holders in middle distances and throws.</p>
+            <p><strong>Historic Races:</strong> Organizer of the historic nationwide "Diia" games (since 1957) and the iconic "Dion Road" race (since 1987), training generations of athletes at the 1st Municipal Stadium of Katerini.</p>
+          `
         },
         archery: {
           title_el: "Τοξοβολία",
           title_en: "Archery",
           iconClass: "fa-solid fa-bullseye",
-          highlight_el: "Ολυμπιακό & Σύνθετο Τόξο — Συνεχείς πανελλήνιες και διεθνείς διακρίσεις.",
-          highlight_en: "Recurve & Compound Archery — Consecutive Greek National Championships.",
-          text_el: "<p>Το τμήμα Τοξοβολίας καλλιεργεί τόσο το Ολυμπιακό όσο και το Σύνθετο Τόξο με κορυφαίες διακρίσεις στα Πανελλήνια Πρωταθλήματα και συμμετοχές σε διεθνή τουρνουά.</p>",
-          text_en: "<p>Founded in 1993, the Archery section trains national recurve and compound champions in Katerini, boasting back-to-back National Team Championship titles and international training camps.</p>"
+          wiki_url: "https://el.wikipedia.org/wiki/%CE%93.%CE%91.%CE%A3._%CE%9F_%CE%91%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82_%CE%9A%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82_(%CE%A4%CE%BF%CE%BE%CE%BF%CE%B2%CE%BF%CE%BB%CE%AF%CE%B1)",
+          highlight_el: "Πρωταθλητής Ελλάδας Ομαδικού Ανδρών (2025, 2026) & Κυπελλούχος Ελλάδας (2024, 2026).",
+          highlight_en: "Back-to-back Greek Team Champions (2025, 2026) & Cup Winners (2024, 2026).",
+          text_el: `
+            <p><strong>Ίδρυση & Πρωτοπορία (1993):</strong> Ιδρύθηκε το φθινόπωρο του 1993 υπό τον πρωτεργάτη και έφορο Ιορδάνη Τσαχουρίδη. Στις 22 Μαΐου 1999 ο Αρχέλαος αποτέλεσε <em>ιδρυτικό σωματείο της Ελληνικής Φιλάθλου Ομοσπονδίας Τοξοβολίας (ΕΦΟΤ)</em>.</p>
+            <p><strong>Σύγχρονη Κυριαρχία:</strong> Η ανδρική ομάδα του Αρχελάου στο Ολυμπιακό Τόξο αναδείχθηκε <strong>Πρωταθλήτρια Ελλάδας δύο διαδοχικές χρονιές</strong> (ΟΑΚΑ 2025 και Φλώρινα 2026) με τους Ευάγγελο Χαρίση, Χάρη Ιακωβίδη και Ευάγγελο Μαρινόπουλο, κατακτώντας παράλληλα το Κύπελλο Ελλάδας (2024, 2026).</p>
+            <p><strong>Διεθνείς Διακρίσεις & Barebow:</strong> Ο Ευάγγελος Χαρίσης βραβεύτηκε από την ΕΟΕ ως Πολυνίκης Αθλητής 2025 και κατέχει Πανελλήνιο Ρεκόρ στο Μικτό Ομαδικό U21 (Mediterranean Cup), ενταγμένος στο πλάνο για τους Ολυμπιακούς του 2028. Παράλληλα, ο σύλλογος καλλιεργεί με μεγάλες επιτυχίες την κατηγορία Barebow (Δ. Αλεξούλης, Δ. Γαλάνης).</p>
+          `,
+          text_en: `
+            <p><strong>Pioneering Roots (1993):</strong> Established in 1993 by Iordanis Tsachouridis, Archelaos was a founding member of the Hellenic Archery Federation (EFOT) in 1999.</p>
+            <p><strong>National Champions:</strong> Archelaos Men's Recurve Team was crowned <strong>Greek National Champion for two consecutive years (2025, 2026)</strong> and Greek Cup Winners (2024, 2026) with Evangelos Charisis, Charis Iakovidis, and Evangelos Marinopoulos.</p>
+            <p><strong>Olympic Prospects:</strong> Evangelos Charisis was awarded National Multi-Winner 2025 by the Hellenic Olympic Committee, holding the Greek U21 Mixed Team record and preparing for the 2028 Olympic cycle.</p>
+          `
         },
         shooting: {
           title_el: "Σκοποβολή",
           title_en: "Sport Shooting",
           iconClass: "fa-solid fa-crosshairs",
-          highlight_el: "Αθλητισμός υψηλής ακρίβειας και αεροβόλων όπλων.",
-          highlight_en: "Olympic target shooting with air rifles and air pistols.",
-          text_el: "<p>Δραστηριοποιείται στα αγωνίσματα σταθερού στόχου (αεροβόλο τουφέκι και πιστόλι) με έμπειρους προπονητές και διακρίσεις σε πανελλήνιο επίπεδο.</p>",
-          text_en: "<p>Focusing on 10m precision air rifle and pistol events with certified coaches, yielding numerous national junior and senior records.</p>"
+          wiki_url: "https://el.wikipedia.org/wiki/%CE%93%CE%91%CE%A3_%CE%9F_%CE%91%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82_%CE%9A%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82_(%CF%83%CE%BA%CE%BF%CF%80%CE%BF%CE%B2%CE%BF%CE%BB%CE%AE)",
+          highlight_el: "Ολυμπιακή συμμετοχή στην Αθήνα 2004 (Μαρία Φάκα) & Βαλκανικό Ρεκόρ (Γ. Ιωαννίδης).",
+          highlight_en: "Olympic Games participation (Athens 2004 - Maria Faka) & Balkan Record holder.",
+          text_el: `
+            <p><strong>Ίδρυση & Εγκαταστάσεις (1980):</strong> Θεμελιώθηκε το 1980 με αφορμή την κατασκευή του κλειστού σκοπευτηρίου στο ΕΑΚ Κατερίνης. Βασικός εμπνευστής υπήρξε ο καθηγητής Φυσικής Αγωγής Κωνσταντίνος Μυρωτής, με επίσημη αναγνώριση από τη ΣΚΟΕ το 1981.</p>
+            <p><strong>Κορυφαία Ολυμπιακή Στιγμή:</strong> Σπουδαιότερο ιστορικό ορόσημο υπήρξε η συμμετοχή της πρωταθλήτριας του συλλόγου <strong>Μαρίας Φάκα στους Ολυμπιακούς Αγώνες της Αθήνας (2004)</strong> στο Αεροβόλο Τουφέκι Γυναικών (πανελλήνιο ρεκόρ 395/400).</p>
+            <p><strong>Πανελλήνια & Βαλκανικά Ρεκόρ:</strong> Το τμήμα κατέκτησε σταθερή θέση ανάμεσα στις τρεις κορυφαίες ομάδες της χώρας, με τον Γεώργιο Ιωαννίδη να κατακτά το χρυσό μετάλλιο και το Βαλκανικό Ρεκόρ το 1989, πλαισιωμένος από διακεκριμένες αθλήτριες όπως οι Δήμητρα Τσακιστάρα, Δάφνη Σαρρή και Ελένη Γύμπαση.</p>
+          `,
+          text_en: `
+            <p><strong>Foundation (1980):</strong> Formed following the construction of the indoor shooting range at Katerini Municipal Stadium, under the leadership of Konstantinos Myrotis and recognized by SKOE in 1981.</p>
+            <p><strong>Athens 2004 Olympian:</strong> Archelaos champion <strong>Maria Faka represented Greece at the 2004 Athens Olympic Games</strong> in 10m Air Rifle Women, holding long-standing national scoring records.</p>
+            <p><strong>Balkan & National Honours:</strong> Consistently ranked among Greece's top 3 shooting clubs throughout the 1980s and 1990s, with Georgios Ioannidis setting a Balkan Championship record in 1989.</p>
+          `
         },
         gymnastics: {
           title_el: "Ενόργανη Γυμναστική",
           title_en: "Artistic Gymnastics",
           iconClass: "fa-solid fa-child-reaching",
-          highlight_el: "Βάση σωματικής διάπλασης, ευλυγισίας και πειθαρχίας.",
-          highlight_en: "Core motor skills, body control, balance, and gymnastic discipline.",
-          text_el: "<p>Λειτουργεί σε ειδικά διαμορφωμένη αίθουσα με πιστοποιημένα όργανα, αναπτύσσοντας ισορροπία, μυϊκή δύναμη και ευλυγισία από μικρή ηλικία.</p>",
-          text_en: "<p>Operating in a dedicated equipment gym, fostering strength, flexibility, coordination, and athletic foundation for boys and girls from an early age.</p>"
+          wiki_url: "https://el.wikipedia.org/wiki/%CE%93%CE%91%CE%A3_%CE%9F_%CE%91%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82_%CE%9A%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82_(%CE%B5%CE%BD%CF%8C%CF%81%CE%B3%CE%B1%CE%BD%CE%B7_%CE%B3%CF%85%CE%BC%CE%BD%CE%B1%CF%83%CF%84%CE%B9%CE%BA%CE%AE)",
+          highlight_el: "Πρωταθλητής Ελλάδας Ανδρών & Δεκαετές Πανελλήνιο Σερί Πρωτιάς (1981–1991).",
+          highlight_en: "Men's National Team Champions & Ten-Year Consecutive Title Run (1981–1991).",
+          text_el: `
+            <p><strong>Ίδρυση & Πρωτοπορία (1975):</strong> Συγκροτήθηκε στις 3 Απριλίου 1975 με πρώτο προπονητή τον Σταύρο Διαμαντόπουλο και έφορο τον Ορέστη Νταρλαγιάννη, αποτελώντας ένα από τα πρώτα σωματεία της ελληνικής επαρχίας στην ενόργανη.</p>
+            <p><strong>Το Ιστορικό Δεκαετές Σερί (1981–1991):</strong> Η ανδρική ομάδα του συλλόγου σημείωσε έναν ανεπανάληπτο άθλο κατακτώντας <strong>διαδοχικά την 1η θέση στο Πανελλήνιο Πρωτάθλημα</strong> σε όλες τις ηλικιακές βαθμίδες (Παμπαίδων, Παίδων, Εφήβων και Ανδρών).</p>
+            <p><strong>Εθνικοί Τίτλοι Οργάνων:</strong> Αναδείχθηκε Πρωταθλητής Ελλάδας στη Γενική Ομαδική Ανδρών (Πανελλήνιοι Γλυφάδας και Καλλιθέας 1993). Ανέδειξε κορυφαίους πρωταθλητές όπως ο Αλέξανδρος Κατσικάκης (1ος στο άλμα), ο Χαρίλαος Κακάλης (1ος σε κρίκους και δίζυγο), ο Κωνσταντίνος Ζάρας (1ος στις ασκήσεις εδάφους) και ο Ιωάννης Χρυσάφης.</p>
+          `,
+          text_en: `
+            <p><strong>Foundation (1975):</strong> Founded on April 3, 1975 by Stavros Diamantopoulos, becoming one of the first provincial gymnastics clubs in Northern Greece.</p>
+            <p><strong>A Decade of Dominance (1981–1991):</strong> Archelaos achieved an extraordinary 10-year winning streak, sweeping 1st place across every youth and senior category in Greek national gymnastics championships.</p>
+            <p><strong>National Champions:</strong> Won the National Team Championship in 1993, with gymnasts Alexandros Katsikakis (Vault), Charilaos Kakalis (Rings, Parallel Bars), and Konstantinos Zaras (Floor) earning individual national titles.</p>
+          `
         },
         volleyball: {
           title_el: "Πετοσφαίριση (Βόλεϊ)",
           title_en: "Volleyball",
           iconClass: "fa-solid fa-volleyball",
-          highlight_el: "Ομαδικότητα, ρυθμός και ένταση στο φιλέ.",
-          highlight_en: "Teamwork, agility, and competitive spirit at the net.",
-          text_el: "<p>Διατηρεί δραστήριες ακαδημίες υποδομών για αγόρια και κορίτσια, καλλιεργώντας το ομαδικό πνεύμα και τη συμμετοχή σε περιφερειακά πρωταθλήματα.</p>",
-          text_en: "<p>Established in the 1970s, maintaining vibrant academies and competitive squads competing in regional and national championship leagues.</p>"
+          wiki_url: "https://el.wikipedia.org/wiki/%CE%93%CE%91%CE%A3_%CE%9F_%CE%91%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82_%CE%9A%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82_(%CF%80%CE%B5%CF%84%CE%BF%CF%83%CF%86%CE%B1%CE%AF%CF%81%CE%B9%CF%83%CE%B7)",
+          highlight_el: "Παρουσία στη Β΄ Εθνική Ανδρών & Γυναικών, με πλούσιες ακαδημίες υποδομών.",
+          highlight_en: "Longstanding competitive presence in National Division B leagues with vibrant academies.",
+          text_el: `
+            <p><strong>Ίδρυση & Πρώτα Χρόνια (1974):</strong> Το τμήμα ξεκίνησε την αγωνιστική του δράση το 1974 υπό τον έφορο Ορέστη Νταρλαγιάννη, ενώ το 1975 διοργάνωσε ιστορικό φιλικό αγώνα με τον Παναθηναϊκό στο Γυμνάσιο Αρρένων. Το 1976 υπήρξε ιδρυτικό μέλος της Τ.Ε. ΕΟΠΕ Βέροιας με πρώτο τεχνικό δίδυμο τους Θεόδωρο Σφήκα και Αβραάμ Τερζόπουλο.</p>
+            <p><strong>Αγωνιστική Πορεία:</strong> Η ανδρική ομάδα αγωνίστηκε επί σειρά ετών στη <strong>Β΄ Εθνική Κατηγορία Ανδρών</strong>, κατακτώντας επανειλημμένα τα περιφερειακά πρωταθλήματα της ΕΣΠΕΜ. Το γυναικείο τμήμα πρωταγωνιστεί σταθερά στον όμιλο της Β΄ Εθνικής διεκδικώντας ανόδους στην Α2.</p>
+            <p><strong>Φυτώριο Νέων:</strong> Με έδρα το κλειστό του Β΄ ΔΑΚ «Θεόδωρος Διαμαντόπουλος» και το Τ9, οι ομάδες κορασίδων και παγκορασίδων συμμετέχουν σταθερά σε Final Four Μακεδονίας, τροφοδοτώντας την πρώτη ομάδα με ντόπιο ταλέντο.</p>
+          `,
+          text_en: `
+            <p><strong>Early Days (1974):</strong> Formed in 1974 under Orestis Ntarlagiannis and organized a showcase friendly match against Panathinaikos in 1975, co-founding regional volleyball association structures.</p>
+            <p><strong>League Achievements:</strong> Archelaos men's squad competed over multiple seasons in National Division B, claiming several regional ESPEM championships. The women's team remains a top contender in Division B.</p>
+            <p><strong>Youth Academies:</strong> Based at the 2nd Municipal Stadium ("Theodoros Diamantopoulos") and T9 indoor gym, the girls' and boys' developmental squads frequently reach northern Greek Final Fours.</p>
+          `
         },
         wrestling: {
           title_el: "Πάλη",
           title_en: "Wrestling",
           iconClass: "fa-solid fa-hand-fist",
-          highlight_el: "Από τα πιο ένδοξα ολυμπιακά τμήματα στην ιστορία της Πιερίας.",
-          highlight_en: "One of Pieria's most decorated Olympic combat sports.",
-          text_el: "<p>Η Πάλη είναι άρρηκτα συνδεδεμένη με τις μεγαλύτερες επιτυχίες του συλλόγου, διδάσκοντας σεβασμό, πειθαρχία και ψυχική αντοχή στο ταπί.</p>",
-          text_en: "<p>Our wrestling department has brought home World U17 silver medals, Mediterranean Games gold medals, and national team titles in Greco-Roman wrestling.</p>"
+          wiki_url: "https://el.wikipedia.org/wiki/%CE%93%CE%91%CE%A3_%CE%9F_%CE%91%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82_%CE%9A%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82_(%CF%80%CE%AC%CE%BB%CE%B7)",
+          highlight_el: "Πρωταθλητής Ελλάδας Συλλόγων Ελληνορωμαϊκής & Ασημένιο στο Παγκόσμιο U17 (2025).",
+          highlight_en: "Men's Greco-Roman National Team Champions & U17 World Championship Silver (2025).",
+          text_el: `
+            <p><strong>Ίδρυση (1978):</strong> Η σύσταση του τμήματος ελληνορωμαϊκής πάλης αποφασίστηκε στις 4 Απριλίου 1978 και αναγνωρίστηκε επίσημα από την ΕΟΠ το 1980, αποτελώντας ένα από τα πιο ένδοξα επαρχιακά τμήματα στην Ελλάδα.</p>
+            <p><strong>Παγκόσμιες & Μεσογειακές Επιτυχίες:</strong> Στο ενεργητικό του συγκαταλέγονται το <strong>Ασημένιο Μετάλλιο στο Παγκόσμιο Πρωτάθλημα U17 (2025)</strong> από τον Δημήτρη Σούλη, το <strong>Χρυσό Μετάλλιο στους Μεσογειακούς Αγώνες 1993</strong> και το Ασημένιο στο Παγκόσμιο Εφήβων 1990 από τον Νικόλαο Ζαμάνη, καθώς και χάλκινα ευρωπαϊκά μετάλλια.</p>
+            <p><strong>Πρωταθλητής Ελλάδας:</strong> Ο σύλλογος έχει αναδειχθεί Πρωταθλητής Ελλάδας Συλλόγων Ελληνορωμαϊκής Ανδρών, ενώ το 2024 αξιολογήθηκε στην <strong>3η θέση της πανελλήνιας κατάταξης</strong> της ΕΟΠ. Το 1986 υπήρξε πρωτοπόρος ιδρύοντας και γυναικείο τμήμα πάλης.</p>
+          `,
+          text_en: `
+            <p><strong>Foundation (1978):</strong> Greco-Roman wrestling was established on April 4, 1978, growing into one of Greece's most formidable wrestling centers.</p>
+            <p><strong>World & Mediterranean Medals:</strong> Proud home to Dimitris Soulis (<strong>World U17 Championship Silver Medalist, 2025</strong>) and Nikolaos Zamanis (<strong>Mediterranean Games Gold Medalist 1993</strong>, World Junior Silver 1990), alongside European medal winners.</p>
+            <p><strong>National Honors:</strong> Crowned Greek Greco-Roman Club Champions and evaluated 3rd overall nationwide in 2024 by the Hellenic Wrestling Federation.</p>
+          `
         },
         swimming: {
           title_el: "Κολύμβηση (Υγρός Στίβος)",
           title_en: "Swimming",
           iconClass: "fa-solid fa-person-swimming",
-          highlight_el: "Ακαδημίες εκμάθησης & αγωνιστική ομάδα στο Κολυμβητήριο.",
-          highlight_en: "Grassroots academies and competitive swimming squad.",
-          text_el: "<p>Δραστηριοποιείται στο Δημοτικό Κολυμβητήριο Κατερίνης με προγράμματα εκμάθησης, προαγωνιστική και αγωνιστική ομάδα.</p>",
-          text_en: "<p>Based at Katerini Municipal Pool, providing professional swimming lessons for toddlers, juniors, and competitive race squads.</p>"
+          wiki_url: "https://el.wikipedia.org/wiki/%CE%93%CE%91%CE%A3_%CE%9F_%CE%91%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82_%CE%9A%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82_(%CE%BA%CE%BF%CE%BB%CF%8D%CE%BC%CE%B2%CE%B7%CF%83%CE%B7)",
+          highlight_el: "Από τα «χρόνια της θάλασσας» (1974) στο Δημοτικό Κολυμβητήριο — Πρωταθλητές Βορείου Ελλάδας.",
+          highlight_en: "From seaside training (1974) to the Municipal 50m Pool — Northern Greek championship victories.",
+          text_el: `
+            <p><strong>Ίδρυση & Τα Χρόνια της Θάλασσας (1974–1982):</strong> Ιδρύθηκε το 1974. Καθώς η Κατερίνη δεν διέθετε πισίνα, οι πρώτες προπονήσεις γίνονταν στη θάλασσα της Παραλίας με πλωτές διαδρομές! Τον χειμώνα οι αθλητές έκαναν «ξηρά προπόνηση» σε μισθωμένο κατάστημα στα Καταφυγιώτικα και μετακινούνταν με λεωφορεία στη Θεσσαλονίκη και τη Λάρισα.</p>
+            <p><strong>Εκτόξευση στο Δημοτικό Κολυμβητήριο:</strong> Με την κατασκευή της ολυμπιακής πισίνας 50μ. στο Β΄ ΔΑΚ, ο Αρχέλαος ανέπτυξε τεράστιες ακαδημίες όπου έμαθαν κολύμβηση χιλιάδες παιδιά της Πιερίας. Αθλητές του κατέκτησαν δεκάδες μετάλλια στα Πανελλήνια Πρωταθλήματα και στα Πρωταθλήματα Βορείου Ελλάδος της ΚΟΕ.</p>
+            <p><strong>Υδατοσφαίριση (Πόλο) & Τεχνική:</strong> Μέσα από το τμήμα γεννήθηκαν ιστορικά και τα τμήματα πόλο και τεχνικής κολύμβησης με πέδιλα, προτού ο σύλλογος επικεντρώσει τις δυνάμεις του στις σύγχρονες βαθμίδες Baby Swimming, εκμάθησης και αγωνιστικής κολύμβησης.</p>
+          `,
+          text_en: `
+            <p><strong>The "Seaside Years" (1974–1982):</strong> Formed in 1974 without an existing swimming pool, pioneers trained with floating lanes in the Aegean sea off Paralia Katerinis during summer, complemented by dry-land training in winter.</p>
+            <p><strong>Olympic Pool Era:</strong> The opening of the 50m Katerini Municipal Pool propelled the section into a regional swimming powerhouse, earning podiums across national and Northern Greek championships.</p>
+            <p><strong>Aquatic Breadth:</strong> The section also birthed water polo and finswimming squads, evolving into today's comprehensive academies ranging from baby swimming to competitive squad swimming.</p>
+          `
         }
       };
 
@@ -1454,6 +1538,11 @@
         if (typeof updateSlideCaptions === 'function') {
           updateSlideCaptions();
         }
+
+        // Update open history modal if visible
+        if (currentDeptHistoryKey && deptHistories[currentDeptHistoryKey]) {
+          openDeptHistoryModal(currentDeptHistoryKey);
+        }
       }
 
       // DOM Elements
@@ -1472,6 +1561,7 @@
       const deptModalIcon = document.getElementById('deptModalIcon');
       const deptModalHighlightText = document.getElementById('deptModalHighlightText');
       const deptModalRegisterBtn = document.getElementById('deptModalRegisterBtn');
+      const deptModalWikiBtn = document.getElementById('deptModalWikiBtn');
       const body = document.body;
 
       let updateSlideCaptions;
@@ -1662,7 +1752,7 @@
         link.addEventListener('click', () => { if (mobileMenu.classList.contains('menu-open')) toggleMobileMenu(); });
       });
 
-      // History Modal
+      // History Modal with Dedicated Wikipedia Links
       let currentDeptHistoryKey = null;
       function openDeptHistoryModal(deptKey) {
         currentDeptHistoryKey = deptKey;
@@ -1673,6 +1763,11 @@
         deptModalHighlightText.textContent = currentLang === 'en' ? info.highlight_en : info.highlight_el;
         deptModalText.innerHTML = currentLang === 'en' ? info.text_en : info.text_el;
         deptModalIcon.innerHTML = `<i class="${info.iconClass}"></i>`;
+
+        // Direct link to the department's dedicated Wikipedia article
+        if (deptModalWikiBtn) {
+          deptModalWikiBtn.href = info.wiki_url;
+        }
 
         deptModalRegisterBtn.onclick = () => {
           closeDeptHistoryModal();
