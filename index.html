@@ -36,6 +36,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
+        darkMode: 'class',
         theme: {
           extend: {
             colors: {
@@ -216,6 +217,20 @@
       }
 
       /* Dark mode styles for horizontal timeline */
+      .timeline-h-item h4 {
+        color: #084c24 !important;
+      }
+      .timeline-h-item span {
+        color: #084c24;
+      }
+
+      body.dark-mode .timeline-h-item h4 {
+        color: #f6ee42 !important;
+      }
+      body.dark-mode .timeline-h-item span {
+        color: #f6ee42 !important;
+      }
+
       body.dark-mode .timeline-h-track-line {
         background: rgba(246, 238, 66, 0.2);
       }
@@ -1897,15 +1912,15 @@
             <!-- Small Connector Stem -->
             <div class="w-[1.5px] h-2 bg-archelaos-deepgreen/25 dark:bg-archelaos-yellow/25 group-hover:bg-archelaos-darkgreen transition-colors"></div>
 
-            <!-- Minimal Text below in small letters (No heavy cards) -->
-            <div class="mt-1 flex flex-col items-center text-center w-full px-1">
-              <span class="text-[9px] font-black uppercase tracking-wider text-archelaos-darkgreen/80 dark:text-archelaos-yellow/75 truncate w-full mb-0.5">${cat}</span>
-              <h4 class="font-heading font-bold text-[11px] sm:text-xs text-archelaos-deepgreen dark:text-slate-100 line-clamp-2 leading-snug group-hover:text-archelaos-darkgreen transition-colors">${title}</h4>
-              <span class="inline-flex items-center gap-1 text-[9px] font-extrabold text-archelaos-darkgreen/70 dark:text-archelaos-yellow/60 mt-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                <i class="fa-solid fa-circle-info text-[8px]"></i> <span>${isEn ? 'Info' : 'Λεπτομέρειες'}</span>
-              </span>
-            </div>
-          `;
+              <!-- Minimal Text below in small letters (No heavy cards) -->
+              <div class="mt-1 flex flex-col items-center text-center w-full px-1">
+                <span class="text-[9px] font-black uppercase tracking-wider text-archelaos-deepgreen dark:text-archelaos-yellow/80 truncate w-full mb-0.5">${cat}</span>
+                <h4 class="font-heading font-bold text-[11px] sm:text-xs text-archelaos-deepgreen dark:text-archelaos-yellow line-clamp-2 leading-snug group-hover:text-archelaos-darkgreen transition-colors">${title}</h4>
+                <span class="inline-flex items-center gap-1 text-[9px] font-extrabold text-archelaos-deepgreen dark:text-archelaos-yellow/70 mt-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <i class="fa-solid fa-circle-info text-[8px]"></i> <span>${isEn ? 'Info' : 'Λεπτομέρειες'}</span>
+                </span>
+              </div>
+            `;
 
           // Click handler (prevents firing when dragging)
           itemEl.addEventListener('click', () => {
