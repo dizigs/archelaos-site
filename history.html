@@ -62,6 +62,7 @@
         letter-spacing: -0.03em;
       }
 
+      /* Animated Contour Waves */
       @keyframes waveDrift {
         0%, 100% { transform: translate3d(0, 0, 0); }
         50% { transform: translate3d(-12px, 8px, 0); }
@@ -76,6 +77,7 @@
         animation-play-state: paused !important;
       }
 
+      /* Glass Cards & Sections matching index.html */
       .glass-section {
         background-color: #ffffff;
         border-top: 1px solid rgba(8, 76, 36, 0.08);
@@ -85,7 +87,9 @@
         background-color: #ffffff;
         border: 1px solid rgba(8, 76, 36, 0.14);
         box-shadow: 0 4px 16px -2px rgba(8, 76, 36, 0.08);
-        transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+        transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                    box-shadow 0.25s ease,
+                    border-color 0.25s ease;
         position: relative;
         overflow: hidden;
       }
@@ -113,12 +117,15 @@
           pointer-events: none;
           z-index: 1;
         }
-        .glass-card:hover::before { opacity: 1; }
+        .glass-card:hover::before {
+          opacity: 1;
+        }
         body.dark-mode .glass-card::before {
           background: radial-gradient(380px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), rgba(246, 238, 66, 0.18), transparent 75%);
         }
       }
 
+      /* Shimmer Button */
       .btn-shimmer {
         position: relative;
         overflow: hidden;
@@ -139,6 +146,7 @@
         transform: translate3d(280%, 0, 0) rotate(25deg);
       }
 
+      /* Mobile Menu */
       #mobileMenu {
         position: absolute;
         top: 100%;
@@ -153,7 +161,10 @@
         pointer-events: none;
         transform: translate3d(0, -14px, 0);
         background-color: #f6ee42 !important;
-        transition: max-height 0.36s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.26s ease, transform 0.32s cubic-bezier(0.32, 0.72, 0, 1), padding 0.3s ease;
+        transition: max-height 0.36s cubic-bezier(0.32, 0.72, 0, 1),
+                    opacity 0.26s ease,
+                    transform 0.32s cubic-bezier(0.32, 0.72, 0, 1),
+                    padding 0.3s ease;
       }
       #mobileMenu.menu-open {
         max-height: 750px;
@@ -170,6 +181,7 @@
         border: 1px solid rgba(8, 76, 36, 0.12);
       }
 
+      /* TOC Active Link */
       .toc-link {
         transition: all 0.2s ease;
       }
@@ -184,6 +196,7 @@
         color: #084c24 !important;
       }
 
+      /* Article Typography */
       .wiki-article p {
         line-height: 1.8;
         margin-bottom: 1.15rem;
@@ -203,6 +216,7 @@
         color: #e2e8f0;
       }
 
+      /* Custom Scrollbar for TOC */
       .toc-scroll::-webkit-scrollbar {
         width: 5px;
       }
@@ -214,6 +228,7 @@
         background: rgba(246, 238, 66, 0.3);
       }
 
+      /* Dark Mode Styling matching index.html */
       body.dark-mode { background-color: #071f11 !important; color: #f1f5f9 !important; }
       body.dark-mode .glass-nav { background-color: #071f11 !important; border-bottom-color: rgba(246, 238, 66, 0.25) !important; }
       body.dark-mode .glass-section { background-color: #0c2b18 !important; border-top-color: rgba(246, 238, 66, 0.2) !important; border-bottom-color: rgba(0, 0, 0, 0.45) !important; }
@@ -247,18 +262,6 @@
         border-radius: 4px;
         font-weight: 700;
       }
-
-      .lang-btn {
-        transition: background-color 0.2s ease, color 0.2s ease;
-      }
-      .lang-btn.active {
-        background-color: #084c24;
-        color: #f6ee42;
-      }
-      body.dark-mode .lang-btn.active {
-        background-color: #f6ee42;
-        color: #084c24;
-      }
     </style>
 </head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow">
@@ -268,7 +271,7 @@
       <div id="readingProgressBar" class="h-full bg-archelaos-darkgreen dark:bg-archelaos-yellow w-0 transition-all duration-75"></div>
     </div>
 
-    <!-- ANIMATED CONTOUR WAVES -->
+    <!-- ANIMATED CONTOUR WAVES (IDENTICAL TO INDEX.HTML) -->
     <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-75">
       <svg class="animate-waves absolute -top-10 -left-10 w-[120vw] h-[120vh] min-w-[1400px]" viewBox="0 0 1600 1000" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
         <path d="M-100 240 C240 210 350 40 520 -50" stroke="#084c24" stroke-width="2.5" stroke-linecap="round"/>
@@ -280,7 +283,7 @@
       </svg>
     </div>
 
-    <!-- HEADER -->
+    <!-- HEADER (WITH LINKS TO INDEX.HTML) -->
     <header id="mainHeader" class="sticky top-0 z-40 glass-nav">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-20 gap-2 sm:gap-4">
@@ -290,38 +293,32 @@
             </div>
             <div class="flex flex-col min-w-0">
               <div class="flex items-center gap-1.5 sm:gap-2">
-                <span class="font-heading font-black text-lg sm:text-2xl text-archelaos-deepgreen dark:text-archelaos-yellow tracking-tight uppercase truncate" data-i18n="brand_title">Αρχέλαος</span>
+                <span class="font-heading font-black text-lg sm:text-2xl text-archelaos-deepgreen dark:text-archelaos-yellow tracking-tight uppercase truncate">Αρχέλαος</span>
                 <span class="bg-archelaos-darkgreen text-archelaos-yellow text-[9px] sm:text-[10px] font-extrabold px-1.5 sm:px-2 py-0.5 rounded-full tracking-wider shadow-sm shrink-0">1956</span>
               </div>
-              <span class="text-[9px] sm:text-[11px] text-archelaos-deepgreen/85 dark:text-archelaos-yellow/80 tracking-wider font-bold uppercase truncate" data-i18n="history_sub_title">Ιστορικο Αρχείο • 70 Χρόνια</span>
+              <span class="text-[9px] sm:text-[11px] text-archelaos-deepgreen/85 dark:text-archelaos-yellow/80 tracking-wider font-bold uppercase truncate">Ιστορικο Αρχείο • 70 Χρόνια</span>
             </div>
           </a>
 
           <!-- Desktop Navigation -->
           <nav class="hidden lg:flex items-center space-x-1 xl:space-x-1.5 bg-white/85 px-3 py-1.5 rounded-2xl border border-white/90 shadow-sm shrink-0">
             <a href="index.html" class="px-2.5 xl:px-3 py-1.5 rounded-xl text-xs xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap">
-              <i class="fa-solid fa-house mr-1"></i> <span data-i18n="nav_home">Αρχική</span>
+              <i class="fa-solid fa-house mr-1"></i> Αρχική
             </a>
-            <a href="#dioikisi" class="px-2.5 xl:px-3 py-1.5 rounded-xl text-xs xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap" data-i18n="nav_hist_admin">Διοικητική Ιστορία</a>
-            <a href="#egkatastaseis" class="px-2.5 xl:px-3 py-1.5 rounded-xl text-xs xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap" data-i18n="nav_hist_facilities">Εγκαταστάσεις</a>
-            <a href="#tmimata" class="px-2.5 xl:px-3 py-1.5 rounded-xl text-xs xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap" data-i18n="nav_hist_depts">Τμήματα</a>
-            <a href="#diia" class="px-2.5 xl:px-3 py-1.5 rounded-xl text-xs xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap" data-i18n="nav_hist_diia">Αγώνες «Δίια»</a>
-            <a href="#titloi" class="px-2.5 xl:px-3 py-1.5 rounded-xl text-xs xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap" data-i18n="nav_hist_titles">Τίτλοι</a>
+            <a href="#dioikisi" class="px-2.5 xl:px-3 py-1.5 rounded-xl text-xs xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap">Διοικητική Ιστορία</a>
+            <a href="#egkatastaseis" class="px-2.5 xl:px-3 py-1.5 rounded-xl text-xs xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap">Εγκαταστάσεις</a>
+            <a href="#tmimata" class="px-2.5 xl:px-3 py-1.5 rounded-xl text-xs xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap">Τμήματα</a>
+            <a href="#diia" class="px-2.5 xl:px-3 py-1.5 rounded-xl text-xs xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap">Αγώνες «Δίια»</a>
+            <a href="#titloi" class="px-2.5 xl:px-3 py-1.5 rounded-xl text-xs xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap">Τίτλοι</a>
           </nav>
 
-          <div class="flex items-center space-x-1.5 sm:space-x-3 shrink-0">
-            <!-- Language Switcher -->
-            <div class="flex items-center bg-white/85 rounded-2xl p-1 border border-white/90 shadow-sm text-xs font-black">
-              <button id="langBtnEL" onclick="setLanguage('el')" class="lang-btn active px-2.5 py-1 rounded-xl uppercase">GR</button>
-              <button id="langBtnEN" onclick="setLanguage('en')" class="lang-btn px-2.5 py-1 rounded-xl uppercase text-archelaos-deepgreen hover:opacity-80">EN</button>
-            </div>
-
+          <div class="flex items-center space-x-2 sm:space-x-3 shrink-0">
             <!-- Theme Toggle Button -->
             <button id="themeToggleBtn" aria-label="Εναλλαγή θέματος" class="w-10 h-10 xl:w-11 xl:h-11 flex items-center justify-center rounded-2xl bg-white/85 hover:bg-white text-archelaos-deepgreen border border-white/90 shadow-sm transition transform hover:scale-105 active:scale-95 text-base xl:text-lg" title="Εναλλαγή εμφάνισης">🌙</button>
 
             <!-- Return to Home CTA -->
             <a href="index.html" class="hidden sm:inline-flex btn-shimmer relative items-center justify-center px-4 py-2.5 text-xs xl:text-sm font-extrabold text-archelaos-yellow bg-archelaos-deepgreen hover:bg-archelaos-darkgreen rounded-2xl shadow-md hover:-translate-y-0.5 transition duration-200 whitespace-nowrap">
-              <i class="fa-solid fa-arrow-left mr-2 text-archelaos-yellow"></i> <span data-i18n="btn_return_home">Επιστροφή στην Αρχική</span>
+              <i class="fa-solid fa-arrow-left mr-2 text-archelaos-yellow"></i> <span>Επιστροφή στην Αρχική</span>
             </a>
 
             <!-- Mobile Hamburger Button -->
@@ -334,22 +331,16 @@
 
       <!-- Mobile Dropdown Menu -->
       <div id="mobileMenu" class="lg:hidden px-5 space-y-2">
-        <div class="flex items-center justify-between gap-2 p-2 bg-white/80 rounded-2xl border border-archelaos-deepgreen/15 mb-3">
-          <div class="flex items-center bg-white rounded-xl p-0.5 border border-slate-200 shadow-sm text-xs font-black">
-            <button onclick="setLanguage('el')" class="lang-btn active px-3 py-1.5 rounded-lg uppercase">GR</button>
-            <button onclick="setLanguage('en')" class="lang-btn px-3 py-1.5 rounded-lg uppercase text-archelaos-deepgreen hover:opacity-80">EN</button>
-          </div>
-        </div>
         <a href="index.html" class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen">
-          <i class="fa-solid fa-house mr-2"></i> <span data-i18n="nav_home">Επιστροφή στην Αρχική Σελίδα</span>
+          <i class="fa-solid fa-house mr-2"></i> Επιστροφή στην Αρχική Σελίδα
         </a>
-        <a href="#intro" class="mobile-nav-link mobile-menu-item block px-4 py-2.5 rounded-xl text-sm font-extrabold text-archelaos-deepgreen" data-i18n="mob_toc_1">1. Ταυτότητα & Ίδρυση (1956)</a>
-        <a href="#dioikisi" class="mobile-nav-link mobile-menu-item block px-4 py-2.5 rounded-xl text-sm font-extrabold text-archelaos-deepgreen" data-i18n="mob_toc_2">2. Διοικητική Ιστορία & Πρόεδροι</a>
-        <a href="#egkatastaseis" class="mobile-nav-link mobile-menu-item block px-4 py-2.5 rounded-xl text-sm font-extrabold text-archelaos-deepgreen" data-i18n="mob_toc_3">3. Αθλητικές Εγκαταστάσεις</a>
-        <a href="#tmimata" class="mobile-nav-link mobile-menu-item block px-4 py-2.5 rounded-xl text-sm font-extrabold text-archelaos-deepgreen" data-i18n="mob_toc_4">4. Ιστορία Αθλητικών Τμημάτων</a>
-        <a href="#diia" class="mobile-nav-link mobile-menu-item block px-4 py-2.5 rounded-xl text-sm font-extrabold text-archelaos-deepgreen" data-i18n="mob_toc_5">5. Αγώνες «Δίια» & «Δίος Δρόμος»</a>
-        <a href="#titloi" class="mobile-nav-link mobile-menu-item block px-4 py-2.5 rounded-xl text-sm font-extrabold text-archelaos-deepgreen" data-i18n="mob_toc_6">6. Τροπαιοθήκη & Διακρίσεις</a>
-        <a href="#vivliografia" class="mobile-nav-link mobile-menu-item block px-4 py-2.5 rounded-xl text-sm font-extrabold text-archelaos-deepgreen" data-i18n="mob_toc_7">7. Βιβλιογραφία & Πηγές</a>
+        <a href="#intro" class="mobile-nav-link mobile-menu-item block px-4 py-2.5 rounded-xl text-sm font-extrabold text-archelaos-deepgreen">1. Ταυτότητα & Ίδρυση (1956)</a>
+        <a href="#dioikisi" class="mobile-nav-link mobile-menu-item block px-4 py-2.5 rounded-xl text-sm font-extrabold text-archelaos-deepgreen">2. Διοικητική Ιστορία & Πρόεδροι</a>
+        <a href="#egkatastaseis" class="mobile-nav-link mobile-menu-item block px-4 py-2.5 rounded-xl text-sm font-extrabold text-archelaos-deepgreen">3. Αθλητικές Εγκαταστάσεις</a>
+        <a href="#tmimata" class="mobile-nav-link mobile-menu-item block px-4 py-2.5 rounded-xl text-sm font-extrabold text-archelaos-deepgreen">4. Ιστορία Αθλητικών Τμημάτων</a>
+        <a href="#diia" class="mobile-nav-link mobile-menu-item block px-4 py-2.5 rounded-xl text-sm font-extrabold text-archelaos-deepgreen">5. Αγώνες «Δίια» & «Δίος Δρόμος»</a>
+        <a href="#titloi" class="mobile-nav-link mobile-menu-item block px-4 py-2.5 rounded-xl text-sm font-extrabold text-archelaos-deepgreen">6. Τροπαιοθήκη & Διακρίσεις</a>
+        <a href="#vivliografia" class="mobile-nav-link mobile-menu-item block px-4 py-2.5 rounded-xl text-sm font-extrabold text-archelaos-deepgreen">7. Βιβλιογραφία & Πηγές</a>
       </div>
     </header>
 
@@ -360,117 +351,121 @@
           <div class="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8">
             <div class="space-y-4 text-center lg:text-left max-w-3xl">
               <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-archelaos-deepgreen text-archelaos-yellow text-xs font-black uppercase tracking-wider shadow-sm">
-                <i class="fa-solid fa-landmark"></i> <span data-i18n="hero_hist_badge">Επίσημο Ιστορικό Αρχείο • 1956–2026</span>
+                <i class="fa-solid fa-landmark"></i> <span>Επίσημο Ιστορικό Αρχείο • 1956–2026</span>
               </div>
               <h1 class="text-3xl sm:text-5xl font-black font-heading text-archelaos-deepgreen leading-tight">
-                <span data-i18n="hero_hist_title_1">Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης:</span> <span class="text-archelaos-darkgreen underline decoration-archelaos-yellow decoration-4" data-i18n="hero_hist_title_2">70 Χρόνια Ιστορίας</span>
+                Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης: <span class="text-archelaos-darkgreen underline decoration-archelaos-yellow decoration-4">70 Χρόνια Ιστορίας</span>
               </h1>
-              <p class="text-sm sm:text-base text-slate-700 font-medium leading-relaxed" data-i18n="hero_hist_desc">
+              <p class="text-sm sm:text-base text-slate-700 font-medium leading-relaxed">
                 Η πλήρης εγκυκλοπαιδική καταγραφή του αρχαιότερου και ιστορικότερου εν ενεργεία πολυαθλητικού οργανισμού της Πιερίας. Όλοι οι πρόεδροι, οι σταθμοί, οι προπονητές, οι Ολυμπιονίκες, τα αθλητικά τμήματα και η τροπαιοθήκη του συλλόγου.
               </p>
+              <!-- Live Search Box inside History -->
               <div class="pt-2 max-w-xl mx-auto lg:mx-0">
                 <div class="relative flex items-center">
                   <i class="fa-solid fa-magnifying-glass absolute left-4 text-archelaos-deepgreen/60 text-sm"></i>
-                  <input id="historySearchInput" type="text" placeholder="Αναζήτηση ονόματος, έτους ή αθλήματος..." class="w-full pl-10 pr-24 py-3 rounded-2xl border border-archelaos-deepgreen/25 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-archelaos-darkgreen focus:outline-none text-xs sm:text-sm font-medium transition shadow-inner" data-i18n-placeholder="search_placeholder">
-                  <button id="clearSearchBtn" type="button" class="hidden absolute right-3 px-2.5 py-1 rounded-lg bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-bold transition" data-i18n="btn_clear">Καθαρισμός</button>
+                  <input id="historySearchInput" type="text" placeholder="Αναζήτηση ονόματος, έτους ή αθλήματος (π.χ. Κουκοδήμος, 1990, Σκούφας)..." class="w-full pl-10 pr-24 py-3 rounded-2xl border border-archelaos-deepgreen/25 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-archelaos-darkgreen focus:outline-none text-xs sm:text-sm font-medium transition shadow-inner">
+                  <button id="clearSearchBtn" type="button" class="hidden absolute right-3 px-2.5 py-1 rounded-lg bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-bold transition">Καθαρισμός</button>
                 </div>
                 <p id="searchResultCount" class="hidden text-xs font-extrabold text-archelaos-darkgreen mt-1.5 pl-2"></p>
               </div>
             </div>
             <div class="shrink-0 flex flex-col items-center">
-              <img src="https://lh3.googleusercontent.com/d/1lILSdnXV0Y383UeFwcJbnhHaYvu3nJHj" alt="Έμβλημα Γ.Α.Σ. Αρχέλαος" class="w-32 h-32 sm:w-40 sm:h-40 object-contain drop-shadow-lg">
-              <span class="mt-2 text-[11px] font-black uppercase tracking-widest text-archelaos-deepgreen/80" data-i18n="reg_no">Αρ. Μητρώου 2/1957</span>
+              <img src="https://lh3.googleusercontent.com/d/1JwGT61jDKXuBU6rA1OCiC1laeKh8gKdV" alt="Έμβλημα Γ.Α.Σ. Αρχέλαος" class="w-32 h-32 sm:w-40 sm:h-40 object-contain drop-shadow-lg">
+              <span class="mt-2 text-[11px] font-black uppercase tracking-widest text-archelaos-deepgreen/80">Αρ. Μητρώου 2/1957</span>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- MAIN CONTENT GRID -->
+    <!-- MAIN CONTENT GRID (SIDEBAR TOC + FULL WIKIPEDIA CONTENT) -->
     <main class="relative z-10 pb-24">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
 
-          <!-- SIDEBAR TOC & INFOBOX -->
+          <!-- LEFT STICKY SIDEBAR: TABLE OF CONTENTS & INFOBOX SUMMARY -->
           <aside class="lg:col-span-4 xl:col-span-3 lg:sticky lg:top-24 space-y-6">
+            
+            <!-- Table of Contents -->
             <div class="glass-card rounded-3xl p-5 shadow-lg">
               <div class="relative z-10">
                 <div class="flex items-center gap-2 pb-3 mb-3 border-b border-slate-200/80">
                   <i class="fa-solid fa-list-ul text-archelaos-darkgreen"></i>
-                  <h2 class="font-heading font-black text-sm uppercase tracking-wider text-archelaos-deepgreen" data-i18n="toc_heading">Περιεχόμενα</h2>
+                  <h2 class="font-heading font-black text-sm uppercase tracking-wider text-archelaos-deepgreen">Περιεχόμενα</h2>
                 </div>
                 <nav id="tocNav" class="toc-scroll max-h-[60vh] overflow-y-auto space-y-1 pr-1 text-xs font-bold">
-                  <a href="#intro" class="toc-link active block px-3 py-2 rounded-xl text-slate-700 hover:bg-archelaos-yellow/40" data-i18n="toc_1">1. Ταυτότητα & Ίδρυση (1956)</a>
-                  <a href="#dioikisi" class="toc-link block px-3 py-2 rounded-xl text-slate-700 hover:bg-archelaos-yellow/40" data-i18n="toc_2">2. Διοικητική Ιστορία & Πρόεδροι</a>
-                  <a href="#sygxonefsi1970" class="toc-link block pl-6 pr-3 py-1.5 rounded-xl text-slate-600 hover:bg-archelaos-yellow/40 text-[11px]" data-i18n="toc_2_1">2.1 Απόπειρα συγχώνευσης (1970)</a>
-                  <a href="#current-board" class="toc-link block pl-6 pr-3 py-1.5 rounded-xl text-slate-600 hover:bg-archelaos-yellow/40 text-[11px]" data-i18n="toc_2_2">2.2 Τρέχουσα διοίκηση (2026)</a>
-                  <a href="#egkatastaseis" class="toc-link block px-3 py-2 rounded-xl text-slate-700 hover:bg-archelaos-yellow/40" data-i18n="toc_3">3. Εγκαταστάσεις</a>
-                  <a href="#tmimata" class="toc-link block px-3 py-2 rounded-xl text-slate-700 hover:bg-archelaos-yellow/40" data-i18n="toc_4">4. Αθλητικά Τμήματα</a>
-                  <a href="#handball" class="toc-link block pl-6 pr-3 py-1.5 rounded-xl text-slate-600 hover:bg-archelaos-yellow/40 text-[11px]" data-i18n="toc_4_1">• Χειροσφαίριση (Χάντμπολ)</a>
-                  <a href="#track" class="toc-link block pl-6 pr-3 py-1.5 rounded-xl text-slate-600 hover:bg-archelaos-yellow/40 text-[11px]" data-i18n="toc_4_2">• Κλασικός Αθλητισμός (Στίβος)</a>
-                  <a href="#archery" class="toc-link block pl-6 pr-3 py-1.5 rounded-xl text-slate-600 hover:bg-archelaos-yellow/40 text-[11px]" data-i18n="toc_4_3">• Τοξοβολία</a>
-                  <a href="#volleyball" class="toc-link block pl-6 pr-3 py-1.5 rounded-xl text-slate-600 hover:bg-archelaos-yellow/40 text-[11px]" data-i18n="toc_4_4">• Πετοσφαίριση (Βόλεϊ)</a>
-                  <a href="#shooting" class="toc-link block pl-6 pr-3 py-1.5 rounded-xl text-slate-600 hover:bg-archelaos-yellow/40 text-[11px]" data-i18n="toc_4_5">• Σκοποβολή</a>
-                  <a href="#wrestling" class="toc-link block pl-6 pr-3 py-1.5 rounded-xl text-slate-600 hover:bg-archelaos-yellow/40 text-[11px]" data-i18n="toc_4_6">• Πάλη</a>
-                  <a href="#swimming" class="toc-link block pl-6 pr-3 py-1.5 rounded-xl text-slate-600 hover:bg-archelaos-yellow/40 text-[11px]" data-i18n="toc_4_7">• Κολύμβηση & Τεχνική</a>
-                  <a href="#gymnastics" class="toc-link block pl-6 pr-3 py-1.5 rounded-xl text-slate-600 hover:bg-archelaos-yellow/40 text-[11px]" data-i18n="toc_4_8">• Ενόργανη & Γενική Γύμναση</a>
-                  <a href="#basketball" class="toc-link block pl-6 pr-3 py-1.5 rounded-xl text-slate-600 hover:bg-archelaos-yellow/40 text-[11px]" data-i18n="toc_4_9">• Καλαθοσφαίριση (Συγχώνευση)</a>
-                  <a href="#inactive-depts" class="toc-link block pl-6 pr-3 py-1.5 rounded-xl text-slate-600 hover:bg-archelaos-yellow/40 text-[11px]" data-i18n="toc_4_10">• Πόλο, Πινγκ-Πονγκ & Άρση Βαρών</a>
-                  <a href="#diia" class="toc-link block px-3 py-2 rounded-xl text-slate-700 hover:bg-archelaos-yellow/40" data-i18n="toc_5">5. Αγώνες «Δίια» & «Δίος Δρόμος»</a>
-                  <a href="#titloi" class="toc-link block px-3 py-2 rounded-xl text-slate-700 hover:bg-archelaos-yellow/40" data-i18n="toc_6">6. Τίτλοι & Διακρίσεις</a>
-                  <a href="#vivliografia" class="toc-link block px-3 py-2 rounded-xl text-slate-700 hover:bg-archelaos-yellow/40" data-i18n="toc_7">7. Βιβλιογραφία & Πηγές</a>
+                  <a href="#intro" class="toc-link active block px-3 py-2 rounded-xl text-slate-700 hover:bg-archelaos-yellow/40">1. Ταυτότητα & Ίδρυση (1956)</a>
+                  <a href="#dioikisi" class="toc-link block px-3 py-2 rounded-xl text-slate-700 hover:bg-archelaos-yellow/40">2. Διοικητική Ιστορία & Πρόεδροι</a>
+                  <a href="#sygxonefsi1970" class="toc-link block pl-6 pr-3 py-1.5 rounded-xl text-slate-600 hover:bg-archelaos-yellow/40 text-[11px]">2.1 Απόπειρα συγχώνευσης (1970)</a>
+                  <a href="#current-board" class="toc-link block pl-6 pr-3 py-1.5 rounded-xl text-slate-600 hover:bg-archelaos-yellow/40 text-[11px]">2.2 Τρέχουσα διοίκηση (2026)</a>
+                  <a href="#egkatastaseis" class="toc-link block px-3 py-2 rounded-xl text-slate-700 hover:bg-archelaos-yellow/40">3. Εγκαταστάσεις</a>
+                  <a href="#tmimata" class="toc-link block px-3 py-2 rounded-xl text-slate-700 hover:bg-archelaos-yellow/40">4. Αθλητικά Τμήματα</a>
+                  <a href="#handball" class="toc-link block pl-6 pr-3 py-1.5 rounded-xl text-slate-600 hover:bg-archelaos-yellow/40 text-[11px]">• Χειροσφαίριση (Χάντμπολ)</a>
+                  <a href="#track" class="toc-link block pl-6 pr-3 py-1.5 rounded-xl text-slate-600 hover:bg-archelaos-yellow/40 text-[11px]">• Κλασικός Αθλητισμός (Στίβος)</a>
+                  <a href="#archery" class="toc-link block pl-6 pr-3 py-1.5 rounded-xl text-slate-600 hover:bg-archelaos-yellow/40 text-[11px]">• Τοξοβολία</a>
+                  <a href="#volleyball" class="toc-link block pl-6 pr-3 py-1.5 rounded-xl text-slate-600 hover:bg-archelaos-yellow/40 text-[11px]">• Πετοσφαίριση (Βόλεϊ)</a>
+                  <a href="#shooting" class="toc-link block pl-6 pr-3 py-1.5 rounded-xl text-slate-600 hover:bg-archelaos-yellow/40 text-[11px]">• Σκοποβολή</a>
+                  <a href="#wrestling" class="toc-link block pl-6 pr-3 py-1.5 rounded-xl text-slate-600 hover:bg-archelaos-yellow/40 text-[11px]">• Πάλη</a>
+                  <a href="#swimming" class="toc-link block pl-6 pr-3 py-1.5 rounded-xl text-slate-600 hover:bg-archelaos-yellow/40 text-[11px]">• Κολύμβηση & Τεχνική</a>
+                  <a href="#gymnastics" class="toc-link block pl-6 pr-3 py-1.5 rounded-xl text-slate-600 hover:bg-archelaos-yellow/40 text-[11px]">• Ενόργανη & Γενική Γύμναση</a>
+                  <a href="#basketball" class="toc-link block pl-6 pr-3 py-1.5 rounded-xl text-slate-600 hover:bg-archelaos-yellow/40 text-[11px]">• Καλαθοσφαίριση (Συγχώνευση)</a>
+                  <a href="#inactive-depts" class="toc-link block pl-6 pr-3 py-1.5 rounded-xl text-slate-600 hover:bg-archelaos-yellow/40 text-[11px]">• Πόλο, Πινγκ-Πονγκ & Άρση Βαρών</a>
+                  <a href="#diia" class="toc-link block px-3 py-2 rounded-xl text-slate-700 hover:bg-archelaos-yellow/40">5. Αγώνες «Δίια» & «Δίος Δρόμος»</a>
+                  <a href="#titloi" class="toc-link block px-3 py-2 rounded-xl text-slate-700 hover:bg-archelaos-yellow/40">6. Τίτλοι & Διακρίσεις</a>
+                  <a href="#vivliografia" class="toc-link block px-3 py-2 rounded-xl text-slate-700 hover:bg-archelaos-yellow/40">7. Βιβλιογραφία & Πηγές</a>
                 </nav>
               </div>
             </div>
 
-            <!-- Club Infobox Card -->
+            <!-- Club Infobox Card (From Wikipedia Infobox) -->
             <div class="glass-card rounded-3xl p-5 shadow-lg">
               <div class="relative z-10 space-y-3 text-xs">
-                <div class="bg-archelaos-deepgreen text-archelaos-yellow px-3.5 py-2.5 rounded-2xl font-heading font-black text-center uppercase tracking-wider" data-i18n="infobox_title">
+                <div class="bg-archelaos-deepgreen text-archelaos-yellow px-3.5 py-2.5 rounded-2xl font-heading font-black text-center uppercase tracking-wider">
                   Ταυτότητα Σωματείου
                 </div>
                 <div class="divide-y divide-slate-200/80">
                   <div class="py-2 flex justify-between gap-2">
-                    <span class="font-extrabold text-archelaos-deepgreen" data-i18n="info_name">Πλήρες όνομα:</span>
+                    <span class="font-extrabold text-archelaos-deepgreen">Πλήρες όνομα:</span>
                     <span class="text-right font-semibold text-slate-700">Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης</span>
                   </div>
                   <div class="py-2 flex justify-between gap-2">
-                    <span class="font-extrabold text-archelaos-deepgreen" data-i18n="info_founded">Ίδρυση:</span>
+                    <span class="font-extrabold text-archelaos-deepgreen">Ίδρυση:</span>
                     <span class="text-right font-semibold text-slate-700">29 Απριλίου 1956 (Α.Μ. 2/1957)</span>
                   </div>
                   <div class="py-2 flex justify-between items-center gap-2">
-                    <span class="font-extrabold text-archelaos-deepgreen" data-i18n="info_colors">Χρώματα:</span>
+                    <span class="font-extrabold text-archelaos-deepgreen">Χρώματα:</span>
                     <span class="flex items-center gap-1.5 font-semibold text-slate-700">
                       <span class="w-3.5 h-3.5 rounded-full bg-[#006633] border border-slate-300 inline-block"></span>
                       <span class="w-3.5 h-3.5 rounded-full bg-[#ffd700] border border-slate-300 inline-block"></span>
-                      <span data-i18n="info_colors_val">Πράσινο, Κίτρινο</span>
+                      Πράσινο, Κίτρινο
                     </span>
                   </div>
                   <div class="py-2 flex justify-between gap-2">
-                    <span class="font-extrabold text-archelaos-deepgreen" data-i18n="info_president">Πρόεδρος:</span>
-                    <span class="text-right font-semibold text-slate-700" data-i18n="board_1_name">Παναγιώτης Διαμαντόπουλος</span>
+                    <span class="font-extrabold text-archelaos-deepgreen">Πρόεδρος:</span>
+                    <span class="text-right font-semibold text-slate-700">Παναγιώτης Διαμαντόπουλος</span>
                   </div>
                   <div class="py-2 flex justify-between gap-2">
-                    <span class="font-extrabold text-archelaos-deepgreen" data-i18n="info_sec">Γεν. Γραμματέας:</span>
-                    <span class="text-right font-semibold text-slate-700" data-i18n="board_4_name">Αθανάσιος Μαυροειδής</span>
+                    <span class="font-extrabold text-archelaos-deepgreen">Γεν. Γραμματέας:</span>
+                    <span class="text-right font-semibold text-slate-700">Αθανάσιος Μαυροειδής</span>
                   </div>
                   <div class="py-2 flex justify-between gap-2">
-                    <span class="font-extrabold text-archelaos-deepgreen" data-i18n="info_hq">Έδρα:</span>
-                    <span class="text-right font-semibold text-slate-700" data-i18n="address_val">Εθνικού Σταδίου 3Α (Α΄ ΔΑΚ), 60132, Κατερίνη</span>
+                    <span class="font-extrabold text-archelaos-deepgreen">Έδρα:</span>
+                    <span class="text-right font-semibold text-slate-700">Εθνικού Σταδίου 3Α (Α΄ ΔΑΚ), 60132, Κατερίνη</span>
                   </div>
                   <div class="py-2 flex justify-between gap-2">
-                    <span class="font-extrabold text-archelaos-deepgreen" data-i18n="info_courts">Κύρια Γήπεδα:</span>
-                    <span class="text-right font-semibold text-slate-700" data-i18n="info_courts_val">Β΄ ΔΑΚ («Θ. Διαμαντόπουλος»), Α΄ ΔΑΚ, Γήπεδο Ν. Χράνης</span>
+                    <span class="font-extrabold text-archelaos-deepgreen">Κύρια Γήπεδα:</span>
+                    <span class="text-right font-semibold text-slate-700">Β΄ ΔΑΚ («Θ. Διαμαντόπουλος»), Α΄ ΔΑΚ, Γήπεδο Ν. Χράνης</span>
                   </div>
                 </div>
               </div>
             </div>
+
           </aside>
 
-          <!-- WIKI ARTICLE CONTENT -->
+          <!-- RIGHT COLUMN: FULL WIKIPEDIA ARTICLE CONTENT -->
           <div id="wikiArticleContainer" class="lg:col-span-8 xl:col-span-9 space-y-8 wiki-article">
 
-            <!-- 1. INTRO -->
+            <!-- 1. ΕΙΣΑΓΩΓΗ & ΤΑΥΤΟΤΗΤΑ -->
             <article id="intro" class="glass-card rounded-[2rem] p-6 sm:p-10 shadow-lg scroll-mt-24">
               <div class="relative z-10">
                 <div class="flex items-center gap-3 mb-5">
@@ -478,21 +473,21 @@
                     <i class="fa-solid fa-scroll"></i>
                   </div>
                   <div>
-                    <span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen block" data-i18n="chap_1">Κεφάλαιο 1</span>
-                    <h2 class="text-2xl sm:text-3xl font-black font-heading text-archelaos-deepgreen" data-i18n="sec_1_title">Ίδρυση, Έμβλημα & Ιστορική Ταυτότητα</h2>
+                    <span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen block">Κεφάλαιο 1</span>
+                    <h2 class="text-2xl sm:text-3xl font-black font-heading text-archelaos-deepgreen">Ίδρυση, Έμβλημα & Ιστορική Ταυτότητα</h2>
                   </div>
                 </div>
 
-                <p class="text-base sm:text-lg font-medium" data-i18n="sec_1_p1">
+                <p class="text-base sm:text-lg font-medium">
                   Ο <strong>Γυμναστικός Αγωνιστικός Σύλλογος «Ο Αρχέλαος» Κατερίνης</strong> (συντετμημένα <strong>Γ.Α.Σ. Αρχέλαος</strong>) είναι ελληνικό πολυαθλητικό σωματείο με έδρα την πόλη της Κατερίνης στην Πιερία. Ιδρύθηκε στις <strong>29 Απριλίου 1956</strong> και αναγνωρίστηκε επίσημα με την υπ' αριθμόν <strong>38/1957</strong> απόφαση του Πρωτοδικείου Κατερίνης (αριθμός μητρώου σωματείων <strong>2/1957</strong>), αποτελώντας τον αρχαιότερο και ιστορικότερο εν ενεργεία αθλητικό οργανισμό του νομού Πιερίας.
                 </p>
-                <p class="text-base" data-i18n="sec_1_p2">
+                <p class="text-base">
                   Τα επίσημα χρώματα του συλλόγου είναι το <strong>πράσινο και το κίτρινο</strong> (με εναλλακτική εμφάνιση τη λευκή στολή), τα οποία καθιερώθηκαν επισήμως στις <strong>27 Ιουνίου 1968</strong>. Το όνομα και το έμβλημά του είναι εμπνευσμένα από τον αρχαίο Μακεδόνα βασιλιά <strong>Αρχέλαο Α΄</strong>, ο οποίος καθιέρωσε τα αρχαία «Ολύμπια» στη γειτονική ιερή πόλη του Δίου.
                 </p>
               </div>
             </article>
 
-            <!-- 2. GOVERNANCE -->
+            <!-- 2. ΔΙΟΙΚΗΤΙΚΗ ΙΣΤΟΡΙΑ -->
             <article id="dioikisi" class="glass-card rounded-[2rem] p-6 sm:p-10 shadow-lg scroll-mt-24">
               <div class="relative z-10 space-y-6">
                 <div class="flex items-center gap-3">
@@ -500,95 +495,170 @@
                     <i class="fa-solid fa-building-columns"></i>
                   </div>
                   <div>
-                    <span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen block" data-i18n="chap_2">Κεφάλαιο 2</span>
-                    <h2 class="text-2xl sm:text-3xl font-black font-heading text-archelaos-deepgreen" data-i18n="sec_2_title">Διοικητική Ιστορία (1956–2026)</h2>
+                    <span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen block">Κεφάλαιο 2</span>
+                    <h2 class="text-2xl sm:text-3xl font-black font-heading text-archelaos-deepgreen">Διοικητική Ιστορία (1956–2026)</h2>
                   </div>
                 </div>
 
-                <p data-i18n="sec_2_p1">
+                <p>
                   Η θεσμική αφετηρία του Γ.Α.Σ. Αρχέλαος τοποθετείται στις 29 Απριλίου 1956 με τη σύνταξη του αρχικού καταστατικού, ενώ η δικαστική αναγνώριση επισφραγίστηκε το 1957. Πρωτεργάτης της ίδρυσης και πρώτος πρόεδρος του συλλόγου υπήρξε ο τότε Επιθεωρητής Σωματικής Αγωγής Πιερίας (1954–1969) <strong>Γεώργιος Ευθυμίου (1908–2006)</strong>, ενώ το πρώτο καταγεγραμμένο ιδρυτικό διοικητικό συμβούλιο συγκροτήθηκε από τους <strong>Αθανάσιο Τσακνάκη</strong> (πρόεδρος), <strong>Ιωάννη Ζαρογιάννη</strong> (αντιπρόεδρος) και <strong>Θεόδωρο Ξηρομερίτη</strong> (ταμίας).
                 </p>
 
-                <p class="font-bold text-archelaos-deepgreen" data-i18n="sec_2_p2">
+                <p class="font-bold text-archelaos-deepgreen">
                   Στη μακρόχρονη πορεία του σωματείου, τα ηνία της προεδρίας ανέλαβαν διαδοχικά οι:
                 </p>
 
-                <!-- Presidents Table -->
+                <!-- Responsive Table of Presidents -->
                 <div class="overflow-x-auto rounded-2xl border border-archelaos-deepgreen/20 shadow-sm">
                   <table class="w-full text-left border-collapse text-xs sm:text-sm">
                     <thead>
                       <tr class="bg-archelaos-deepgreen text-archelaos-yellow font-heading uppercase text-xs tracking-wider">
-                        <th class="py-3.5 px-4 w-[16%]" data-i18n="th_term">Θητεία</th>
-                        <th class="py-3.5 px-4 w-[24%]" data-i18n="th_pres">Πρόεδρος</th>
-                        <th class="py-3.5 px-4" data-i18n="th_events">Σημαντικότεροι σταθμοί & γεγονότα</th>
+                        <th class="py-3.5 px-4 w-[16%]">Θητεία</th>
+                        <th class="py-3.5 px-4 w-[24%]">Πρόεδρος</th>
+                        <th class="py-3.5 px-4">Σημαντικότεροι σταθμοί & γεγονότα</th>
                       </tr>
                     </thead>
                     <tbody class="divide-y divide-slate-200/80">
-                      <tr class="table-row-alt"><td class="py-3.5 px-4 font-black text-archelaos-deepgreen whitespace-nowrap">1956–1957</td><td class="py-3.5 px-4 font-bold" data-i18n="pres_name_1">Γεώργιος Ευθυμίου</td><td class="py-3.5 px-4" data-i18n="pres_desc_1">Πρωτεργάτης της ίδρυσης του συλλόγου και του τμήματος κλασικού αθλητισμού στην Κατερίνη, Επιθεωρητής Σωματικής Αγωγής Πιερίας.</td></tr>
-                      <tr class="table-row-alt bg-slate-50/70"><td class="py-3.5 px-4 font-black text-archelaos-deepgreen whitespace-nowrap">1957–1958</td><td class="py-3.5 px-4 font-bold" data-i18n="pres_name_2">Αθανάσιος Τσακνάκης</td><td class="py-3.5 px-4" data-i18n="pres_desc_2">Ίδρυση, ψήφιση πρώτου καταστατικού και νομική συγκρότηση συλλόγου.</td></tr>
-                      <tr class="table-row-alt"><td class="py-3.5 px-4 font-black text-archelaos-deepgreen whitespace-nowrap">1958–1959</td><td class="py-3.5 px-4 font-bold" data-i18n="pres_name_3">Ιωάννης Μαντζαρόπουλος</td><td class="py-3.5 px-4" data-i18n="pres_desc_3">Πρώτες διοργανώσεις στο Δημοτικό Πάρκο Κατερίνης.</td></tr>
-                      <tr class="table-row-alt bg-slate-50/70"><td class="py-3.5 px-4 font-black text-archelaos-deepgreen whitespace-nowrap">1959–1961</td><td class="py-3.5 px-4 font-bold" data-i18n="pres_name_4">Θεόφιλος Καμπερίδης</td><td class="py-3.5 px-4" data-i18n="pres_desc_4">Σύνδεση με τοπικούς θεσμούς (μετέπειτα βουλευτής και Δήμαρχος Κατερίνης).</td></tr>
-                      <tr class="table-row-alt"><td class="py-3.5 px-4 font-black text-archelaos-deepgreen whitespace-nowrap">1961</td><td class="py-3.5 px-4 font-bold" data-i18n="pres_name_5">Ιωάννης Παπαδημητρίου</td><td class="py-3.5 px-4" data-i18n="pres_desc_5">Προσωρινή διοίκηση.</td></tr>
-                      <tr class="table-row-alt bg-slate-50/70"><td class="py-3.5 px-4 font-black text-archelaos-deepgreen whitespace-nowrap">1964–1972</td><td class="py-3.5 px-4 font-bold" data-i18n="pres_name_6">Ιωάννης Μαντζαρόπουλος</td><td class="py-3.5 px-4" data-i18n="pres_desc_6">Εγγραφή στίβου στον ΣΕΓΑΣ (1967), θέσπιση των αγώνων «Δίια» (1968), επίσημη καθιέρωση χρωμάτων, απόρριψη συγχώνευσης με Πιερικό (1970).</td></tr>
-                      <tr class="table-row-alt"><td class="py-3.5 px-4 font-black text-archelaos-deepgreen whitespace-nowrap">1973–1975</td><td class="py-3.5 px-4 font-bold" data-i18n="pres_name_7">Αθανάσιος Ευθυμίου</td><td class="py-3.5 px-4" data-i18n="pres_desc_7">Ιστορική τομή 24ης Ιουνίου 1973. Ανάληψη διοίκησης από καθηγητές Φ.Α., ίδρυση τμημάτων μπάσκετ & βόλεϊ, διεξαγωγή Ε΄ Δίων (1974).</td></tr>
-                      <tr class="table-row-alt bg-slate-50/70"><td class="py-3.5 px-4 font-black text-archelaos-deepgreen whitespace-nowrap">1975–1977</td><td class="py-3.5 px-4 font-bold" data-i18n="pres_name_8">Νίκος Τσινόπουλος</td><td class="py-3.5 px-4" data-i18n="pres_desc_8">Μεταπολιτευτική ανασυγκρότηση, ίδρυση ενόργανης γυμναστικής (1975), διοργάνωση Ζ΄ Δίων (1977).</td></tr>
-                      <tr class="table-row-alt"><td class="py-3.5 px-4 font-black text-archelaos-deepgreen whitespace-nowrap">1977–1985</td><td class="py-3.5 px-4 font-bold" data-i18n="pres_name_9">Δημήτριος (Μήτσος) Γιάνναρος</td><td class="py-3.5 px-4" data-i18n="pres_desc_9">Ίδρυση χειροσφαίρισης (1976/78), πάλης (1978), κολύμβησης (1980), υδατοσφαίρισης και άρσης βαρών. Απεβίωσε εν ενεργεία (1985).</td></tr>
-                      <tr class="table-row-alt bg-slate-50/70"><td class="py-3.5 px-4 font-black text-archelaos-deepgreen whitespace-nowrap">1985–1989</td><td class="py-3.5 px-4 font-bold" data-i18n="pres_name_10">Ευστάθιος Ζάννας</td><td class="py-3.5 px-4" data-i18n="pres_desc_10">Εορτασμός 30ετίας (1986), θέσπιση «Δίου Δρόμου» (1987), άνοδος χάντμπολ στην εθνική ελίτ και θεμελίωση σκοποβολής.</td></tr>
-                      <tr class="table-row-alt"><td class="py-3.5 px-4 font-black text-archelaos-deepgreen whitespace-nowrap">1989–1993</td><td class="py-3.5 px-4 font-bold" data-i18n="pres_name_11">Δημήτριος Παπαδημητρίου</td><td class="py-3.5 px-4" data-i18n="pres_desc_11">1ο Κύπελλο Ελλάδας Χάντμπολ (1990) και έξοδος στην Ευρώπη, Βαλκανικοί Αγώνες Νέων (1991), ίδρυση τοξοβολίας.</td></tr>
-                      <tr class="table-row-alt bg-slate-50/70"><td class="py-3.5 px-4 font-black text-archelaos-deepgreen whitespace-nowrap">1993–2011</td><td class="py-3.5 px-4 font-bold" data-i18n="pres_name_12">Χρήστος Ελευθερούδης</td><td class="py-3.5 px-4" data-i18n="pres_desc_12">Μακροβιότερη θητεία. 2ο Κύπελλο Χάντμπολ (1994), ευρωπαϊκές πορείες, ιδρυτικό μέλος ΕΦΟΤ (1999), συγχώνευση μπάσκετ (2008).</td></tr>
-                      <tr class="table-row-alt"><td class="py-3.5 px-4 font-black text-archelaos-deepgreen whitespace-nowrap">2011–2019</td><td class="py-3.5 px-4 font-bold" data-i18n="pres_name_13">Θεόδωρος Διαμαντόπουλος</td><td class="py-3.5 px-4" data-i18n="pres_desc_13">Επιστροφή χάντμπολ στην Α1 (2013) και Handball Premier (2015–16), διαχείριση οικονομικής κρίσης.</td></tr>
-                      <tr class="table-row-alt bg-slate-50/70"><td class="py-3.5 px-4 font-black text-archelaos-deepgreen whitespace-nowrap">2019–2026</td><td class="py-3.5 px-4 font-bold" data-i18n="pres_name_14">Αλκίνοος (Άλκης) Τασόπουλος</td><td class="py-3.5 px-4" data-i18n="pres_desc_14">Μεταφορά γραφείων στο Α΄ ΔΑΚ (2021). Απεβίωσε εν ενεργεία στις 30 Ιουλίου 2026.</td></tr>
-                      <tr class="table-row-alt"><td class="py-3.5 px-4 font-black text-archelaos-deepgreen whitespace-nowrap">2026–σήμερα</td><td class="py-3.5 px-4 font-bold" data-i18n="pres_name_15">Παναγιώτης Διαμαντόπουλος</td><td class="py-3.5 px-4" data-i18n="pres_desc_15">Ομόφωνη ανασυγκρότηση Δ.Σ. (2026), εκσυγχρονισμός και επετειακοί εορτασμοί 70 ετών.</td></tr>
+                      <tr class="table-row-alt">
+                        <td class="py-3.5 px-4 font-black text-archelaos-deepgreen whitespace-nowrap">1956–1957</td>
+                        <td class="py-3.5 px-4 font-bold">Γεώργιος Ευθυμίου</td>
+                        <td class="py-3.5 px-4">Πρωτεργάτης της ίδρυσης του συλλόγου και του τμήματος κλασικού αθλητισμού στην Κατερίνη, Επιθεωρητής Σωματικής Αγωγής Πιερίας.</td>
+                      </tr>
+                      <tr class="table-row-alt bg-slate-50/70">
+                        <td class="py-3.5 px-4 font-black text-archelaos-deepgreen whitespace-nowrap">1957–1958</td>
+                        <td class="py-3.5 px-4 font-bold">Αθανάσιος Τσακνάκης</td>
+                        <td class="py-3.5 px-4">Ίδρυση, ψήφιση πρώτου καταστατικού και νομική συγκρότηση συλλόγου.</td>
+                      </tr>
+                      <tr class="table-row-alt">
+                        <td class="py-3.5 px-4 font-black text-archelaos-deepgreen whitespace-nowrap">1958–1959</td>
+                        <td class="py-3.5 px-4 font-bold">Ιωάννης Μαντζαρόπουλος</td>
+                        <td class="py-3.5 px-4">Πρώτες διοργανώσεις στο Δημοτικό Πάρκο Κατερίνης.</td>
+                      </tr>
+                      <tr class="table-row-alt bg-slate-50/70">
+                        <td class="py-3.5 px-4 font-black text-archelaos-deepgreen whitespace-nowrap">1959–1961</td>
+                        <td class="py-3.5 px-4 font-bold">Θεόφιλος Καμπερίδης</td>
+                        <td class="py-3.5 px-4">Σύνδεση με τοπικούς θεσμούς (μετέπειτα βουλευτής και Δήμαρχος Κατερίνης).</td>
+                      </tr>
+                      <tr class="table-row-alt">
+                        <td class="py-3.5 px-4 font-black text-archelaos-deepgreen whitespace-nowrap">1961</td>
+                        <td class="py-3.5 px-4 font-bold">Ιωάννης Παπαδημητρίου</td>
+                        <td class="py-3.5 px-4">Προσωρινή διοίκηση.</td>
+                      </tr>
+                      <tr class="table-row-alt bg-slate-50/70">
+                        <td class="py-3.5 px-4 font-black text-archelaos-deepgreen whitespace-nowrap">1964–1972</td>
+                        <td class="py-3.5 px-4 font-bold">Ιωάννης Μαντζαρόπουλος</td>
+                        <td class="py-3.5 px-4">Εγγραφή στίβου στον ΣΕΓΑΣ (1967), θέσπιση των αγώνων «Δίια» (1968), επίσημη καθιέρωση χρωμάτων (κίτρινο-πράσινο, 1968), ομόφωνη απόρριψη της πρότασης συγχώνευσης με τον Σ.Φ.Κ. Πιερικό (1970).</td>
+                      </tr>
+                      <tr class="table-row-alt">
+                        <td class="py-3.5 px-4 font-black text-archelaos-deepgreen whitespace-nowrap">1973–1975</td>
+                        <td class="py-3.5 px-4 font-bold">Αθανάσιος Ευθυμίου</td>
+                        <td class="py-3.5 px-4">Ιστορική τομή της 24ης Ιουνίου 1973. Ανάληψη διοίκησης από καθηγητές Φυσικής Αγωγής, ίδρυση τμημάτων μπάσκετ και βόλεϊ (αναγνώριση από ΕΟΚ και ΕΟΠΕ), διεξαγωγή Ε΄ Δίων (1974), διαχείριση της περιόδου επιστράτευσης κατά την τουρκική εισβολή στην Κύπρο (1974).</td>
+                      </tr>
+                      <tr class="table-row-alt bg-slate-50/70">
+                        <td class="py-3.5 px-4 font-black text-archelaos-deepgreen whitespace-nowrap">1975–1977</td>
+                        <td class="py-3.5 px-4 font-bold">Νίκος Τσινόπουλος</td>
+                        <td class="py-3.5 px-4">Μεταπολιτευτική ανασυγκρότηση, ίδρυση τμήματος ενόργανης γυμναστικής (1975), εναρμόνιση καταστατικού με τον Ν. 75/1975 (απόφαση 121/1976 Πρωτοδικείου), διοργάνωση Ζ΄ Δίων (1977). Παραιτήθηκε για λόγους υγείας τον Δεκέμβριο του 1977 (απεβίωσε στις 25/09/1978).</td>
+                      </tr>
+                      <tr class="table-row-alt">
+                        <td class="py-3.5 px-4 font-black text-archelaos-deepgreen whitespace-nowrap">1977–1985</td>
+                        <td class="py-3.5 px-4 font-bold">Δημήτριος (Μήτσος) Γιάνναρος</td>
+                        <td class="py-3.5 px-4">Εκλογή στις 20 Δεκεμβρίου 1977. Ίδρυση τμημάτων χειροσφαίρισης (1976/1978), πάλης (1978/1980), κολύμβησης (1980/1981), υδατοσφαίρισης (1982), επιτραπέζιας αντισφαίρισης (1978) και άρσης βαρών (1980). Διεύρυνση του Δ.Σ. σε 15μελές (1981), εορτασμός 25ετίας (1981). Απεβίωσε εν ενεργεία στις 31 Ιουλίου 1985 (επίσημη λήξη θητείας 23 Αυγούστου 1985), με τον σύλλογο να αφιερώνει στη μνήμη του τα ΙΒ΄ Δίια.</td>
+                      </tr>
+                      <tr class="table-row-alt bg-slate-50/70">
+                        <td class="py-3.5 px-4 font-black text-archelaos-deepgreen whitespace-nowrap">1985–1989</td>
+                        <td class="py-3.5 px-4 font-bold">Ευστάθιος Ζάννας</td>
+                        <td class="py-3.5 px-4">Εκλογή στις 23 Αυγούστου 1985 μετά την απώλεια Γιάνναρου (με Α΄ αντιπρόεδρο τον Δ. Παπαδημητρίου και Γενικό Γραμματέα τον Χρήστο Ελευθερούδη). Εορτασμός 30ετίας προσφοράς (1956–1986), θέσπιση του αγώνα δρόμου «Δίος Δρόμος» (1987), άνοδος του χάντμπολ στην εθνική ελίτ και θεμελίωση σκοποβολής. Παραιτήθηκε στις 9 Δεκεμβρίου 1989 λόγω ανάληψης καθηκόντων στη Γενική Γραμματεία Αθλητισμού στην Αθήνα.</td>
+                      </tr>
+                      <tr class="table-row-alt">
+                        <td class="py-3.5 px-4 font-black text-archelaos-deepgreen whitespace-nowrap">1989–1993</td>
+                        <td class="py-3.5 px-4 font-bold">Δημήτριος Παπαδημητρίου</td>
+                        <td class="py-3.5 px-4">Ανάληψη προεδρίας στις 9 Δεκεμβρίου 1989 έπειτα από την παραίτηση του Ε. Ζάννα (επανεκλογή στις 13 Μαρτίου 1991). Κατάκτηση του 1ου Κυπέλλου Ελλάδας χειροσφαίρισης (1990) στο κλειστό του Μετς και πρώτη έξοδος στην Ευρώπη, βράβευση του συλλόγου από το Υπουργείο Πολιτισμού/ΓΓΑ (1990), διοργάνωση των 13ων Βαλκανικών Αγώνων Νέων Χειροσφαίρισης στην Κατερίνη (1991), πρώτη απόφαση για τμήμα τοξοβολίας (17 Δεκεμβρίου 1991) και επαναδραστηριοποίηση άρσης βαρών (1991).</td>
+                      </tr>
+                      <tr class="table-row-alt bg-slate-50/70">
+                        <td class="py-3.5 px-4 font-black text-archelaos-deepgreen whitespace-nowrap">1993–2011</td>
+                        <td class="py-3.5 px-4 font-bold">Χρήστος Ελευθερούδης</td>
+                        <td class="py-3.5 px-4">Η μακροβιότερη προεδρική θητεία στην ιστορία του συλλόγου (εκλογή 27 Φεβρουαρίου 1993, επανεκλογές 1995, 1997, 1999, 2002, 2005, 2008, 2011). Κατάκτηση του 2ου Κυπέλλου Ελλάδας χειροσφαίρισης (1994), ευρωπαϊκές πορείες απέναντι σε RK Umag (1993), Titov Veles (1994) και Fotex Veszprém (1994–95), δευτεραθλητής Ελλάδας στην Α1 χάντμπολ (1995) και φιναλίστ κυπέλλου (1993, 1996, 2000), επίσημη ίδρυση τοξοβολίας (1993), πρωτοστασία στην ίδρυση της Ελληνικής Ομοσπονδίας Τοξοβολίας (ΕΦΟΤ, 1999), ίδρυση κολυμβητικού συλλόγου «Α.Σ. ΔΙΑΣ» (1999–2000), μετάβαση στο Ευρώ (2002), επετειακοί εορτασμοί 40ετίας (1996) και 50ετίας (2006), συγχώνευση τμήματος μπάσκετ με τον Πιερικό (2008). Παραιτήθηκε στις 31 Αυγούστου 2011.</td>
+                      </tr>
+                      <tr class="table-row-alt">
+                        <td class="py-3.5 px-4 font-black text-archelaos-deepgreen whitespace-nowrap">2011–2019</td>
+                        <td class="py-3.5 px-4 font-bold">Θεόδωρος Διαμαντόπουλος</td>
+                        <td class="py-3.5 px-4">Εκλογή στις 31 Αυγούστου 2011 μετά την παραίτηση Ελευθερούδη και επανεκλογή το 2014. Επιστροφή της ανδρικής ομάδας χειροσφαίρισης στην Α1 Εθνική (2013), συμμετοχή στην Handball Premier (2015–16), επιστροφή Σάββα Καρυπίδη στον σύλλογο, διαχείριση της περιόδου βαθιάς οικονομικής κρίσης και αναδιοργάνωση των αναπτυξιακών υποδομών.</td>
+                      </tr>
+                      <tr class="table-row-alt bg-slate-50/70">
+                        <td class="py-3.5 px-4 font-black text-archelaos-deepgreen whitespace-nowrap">2019–2026</td>
+                        <td class="py-3.5 px-4 font-bold">Αλκίνοος (Άλκης) Τασόπουλος</td>
+                        <td class="py-3.5 px-4">Μεταφορά της επίσης έδρας και των γραφείων του συλλόγου στο Α΄ ΔΑΚ Κατερίνης (2021), ανασυγκρότηση όλων των αθλητικών τμημάτων (επανεκλογές 2022, 2025). Λόγω σοβαρής ασθένειάς του από τον Μάρτιο του 2026, τα διοικητικά καθήκοντα ασκούσε μεταβατικά ο αντιπρόεδρος Παναγιώτης Διαμαντόπουλος, με το Δ.Σ. να διατηρεί τη θέση του προέδρου κενή ως ένδειξη σεβασμού. Απεβίωσε εν ενεργεία στις 30 Ιουλίου 2026.</td>
+                      </tr>
+                      <tr class="table-row-alt">
+                        <td class="py-3.5 px-4 font-black text-archelaos-deepgreen whitespace-nowrap">2026–σήμερα</td>
+                        <td class="py-3.5 px-4 font-bold">Παναγιώτης Διαμαντόπουλος</td>
+                        <td class="py-3.5 px-4">Ομόφωνη ανασυγκρότηση Δ.Σ. στις 8 Σεπτεμβρίου 2026, εκσυγχρονισμός εγκαταστάσεων και επίσημοι εορτασμοί για τη συμπλήρωση 70 ετών από την ίδρυση του συλλόγου (αφιέρωση μεταλλίου διοργάνωσης «Τρέχω για την Κατερίνη 2026» από τον Δήμο Κατερίνης).</td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>
 
-                <!-- 1973 Box -->
+                <!-- Milestone 1973 Highlight Box -->
                 <div class="sub-box p-5 rounded-2xl bg-archelaos-yellow/20 border border-archelaos-darkgreen/25 space-y-3">
-                  <h3 class="text-lg font-black font-heading text-archelaos-deepgreen flex items-center gap-2" data-i18n="box_1973_title">
+                  <h3 class="text-lg font-black font-heading text-archelaos-deepgreen flex items-center gap-2">
                     <i class="fa-solid fa-star text-archelaos-darkgreen"></i> Η Ιστορική Τομή της 24ης Ιουνίου 1973
                   </h3>
-                  <p class="!mb-0 text-sm" data-i18n="box_1973_desc">
-                    Ιστορικό ορόσημο για τον σύλλογο υπήρξε η <strong>24η Ιουνίου 1973</strong>. Μέχρι τότε ο Αρχέλαος λειτουργούσε αποκλειστικά ως σωματείο στίβου και το αρχείο του φυλασσόταν άτυπα σε ένα στρατιωτικό κασόνι. Τότε πέντε καθηγητές Φυσικής Αγωγής (<strong>Αθανάσιος Ευθυμίου, Δημήτριος Παρασκευόπουλος, Ευστάθιος Ζάννας, Ορέστης Νταρλαγιάννης, Θεόδωρος Σφήκας</strong>) ανέλαβαν τη διοίκηση, δρομολογώντας τη μετεξέλιξη του συλλόγου σε πολυαθλητικό οργανισμό.
+                  <p class="!mb-0 text-sm">
+                    Ιστορικό ορόσημο για τον σύλλογο υπήρξε η <strong>24η Ιουνίου 1973</strong>. Μέχρι τότε ο Αρχέλαος λειτουργούσε αποκλειστικά ως σωματείο στίβου και το αρχείο του φυλασσόταν άτυπα σε ένα στρατιωτικό κασόνι. Τότε πέντε καθηγητές Φυσικής Αγωγής (<strong>Αθανάσιος Ευθυμίου, Δημήτριος Παρασκευόπουλος, Ευστάθιος Ζάννας, Ορέστης Νταρλαγιάννης, Θεόδωρος Σφήκας</strong>) ανέλαβαν τη διοίκηση, δρομολογώντας τη μετεξέλιξη του συλλόγου σε πολυαθλητικό οργανισμό με την ίδρυση των τμημάτων καλαθοσφαίρισης, πετοσφαίρισης και αργότερα χειροσφαίρισης, εξασφαλίζοντας παράλληλα τα πρώτα μόνιμα γραφεία στο Μέγαρο Παπαγεωργίου και ακολούθως στην οδό Γεωργάκη Ολυμπίου 1.
                   </p>
                 </div>
 
-                <!-- 2.1 Merger Attempt -->
+                <p>
+                  Στη διαδρομή του, το καταστατικό του συλλόγου τροποποιήθηκε διαδοχικά (1969, 1976, 1981, 2000, 2008, 2015), με την πιο πρόσφατη κωδικοποίηση να ψηφίζεται στις <strong>18 Απριλίου 2022</strong> (διάταξη 81/2022 Ειρηνοδικείου Κατερίνης). Κομβική υπήρξε επίσης η διαχρονική προσφορά της υπαλλήλου και ειδικής γραμματέως του συλλόγου, <strong>Βασιλικής Λαζαρίδου (του Θεοφίλου)</strong>, η οποία προσελήφθη το 1983 και υπηρέτησε επί δεκαετίες τη διοικητική λειτουργία και τη διαχείριση των μητρώων του σωματείου. Στις 27 Δεκεμβρίου 1994 τα γραφεία του συλλόγου επισκέφθηκε επισήμως η Υφυπουργός Προεδρίας Μαρία Αρσένη, επισφραγίζοντας την αναγνώριση του ρόλου του συλλόγου στον αθλητικό σχεδιασμό της Πιερίας.
+                </p>
+
+                <p>
+                  Λόγω της ραγδαίας ανάπτυξης των αθλημάτων και του κορεσμού του μοναδικού κλειστού γυμναστηρίου της πόλης, ο Αρχέλαος στις 15 Μαρτίου 1999 (και με διάβημα προς όλα τα σωματεία στις 6 Ιουλίου 1999) πρωτοστάτησε στη συγκρότηση κοινού μετώπου διεκδικώντας τη δημιουργία νέου κλειστού γυμναστηρίου στην Κατερίνη και κολυμβητηρίου 50 μέτρων. Παράλληλα, στις 7 Φεβρουαρίου 2001 ο σύλλογος υπέβαλε επίσημο αίτημα προς τη Γενική Γραμματεία Αθλητισμού (Αρ. Πρωτ. 69) για τη δημιουργία τμήματος στίβου για Άτομα με Ειδικές Ανάγκες (ΑμεΑ), πρωτοπορώντας στην ευαισθητοποίηση για τον αθλητισμό αναπήρων στην περιοχή.
+                </p>
+
+                <p>
+                  Το <strong>2026</strong>, με αφορμή τη συμπλήρωση 70 ετών από την ίδρυσή του (1956–2026), ο σύλλογος τιμήθηκε επίσημα από τον Δήμο Κατερίνης στον ετήσιο αγώνα δρόμου <strong>«Τρέχω για την Κατερίνη 2026»</strong>, όπου το συλλεκτικό μετάλλιο της διοργάνωσης αφιερώθηκε εξ ολοκλήρου στην ιστορία και την προσφορά του Γ.Α.Σ. Αρχέλαος στον τοπικό αθλητισμό.
+                </p>
+
+                <!-- 2.1 Απόπειρα Συγχώνευσης 1970 -->
                 <div id="sygxonefsi1970" class="pt-4 border-t border-slate-200/80 scroll-mt-24">
-                  <h3 class="text-xl font-black font-heading text-archelaos-deepgreen mb-3" data-i18n="sec_2_1_title">Η απόπειρα συγχώνευσης του 1970 και οι σχέσεις με τον Πιερικό</h3>
-                  <p data-i18n="sec_2_1_desc">
-                    Κομβικό σημείο για την αυτοτέλεια και την ιστορική επιβίωση του σωματείου υπήρξε ο <strong>Ιανουάριος του 1970</strong>. Ο ποδοσφαιρικός Σ.Φ.Κ. Πιερικός, με επίσημο έγγραφό του, πρότεινε προς τον Αρχέλαο τη συνένωση των δύο συλλόγων. Σε διαδοχικές συνεδριάσεις, η διοίκηση του Ιωάννη Μαντζαρόπουλου απέρριψε ομόφωνα την πρόταση, διαφυλάσσοντας την ανεξάρτητη πορεία και τη φυσιογνωμία του στίβου της Κατερίνης.
+                  <h3 class="text-xl font-black font-heading text-archelaos-deepgreen mb-3">Η απόπειρα συγχώνευσης του 1970 και οι σχέσεις με τον Πιερικό</h3>
+                  <p>
+                    Κομβικό σημείο για την αυτοτέλεια και την ιστορική επιβίωση του σωματείου υπήρξε ο <strong>Ιανουάριος του 1970</strong>. Ο ποδοσφαιρικός Σ.Φ.Κ. Πιερικός, με το υπ' αριθμόν 261/14-1-1970 επίσημο έγγραφό του, πρότεινε προς τον Αρχέλαο τη συνένωση των δύο συλλόγων σε έναν ενιαίο αθλητικό οργανισμό. Σε διαδοχικές συνεδριάσεις στις 22 και 26 Ιανουαρίου 1970, παρουσία τοπικών καθηγητών Φυσικής Αγωγής, η διοίκηση του Ιωάννη Μαντζαρόπουλου απέρριψε ομόφωνα την πρόταση συγχώνευσης, διαφυλάσσοντας την ανεξάρτητη πορεία και τη φυσιογνωμία του στίβου της Κατερίνης, ενώ παράλληλα ανέθεσε τη σύνταξη αναλυτικής έκθεσης για την καταγραφή της αθλητικής δράσης του συλλόγου από το 1965.
+                  </p>
+                  <p class="!mb-0">
+                    Η προάσπιση της ανεξαρτησίας του σωματείου συνεχίστηκε και τα επόμενα χρόνια. Τον Σεπτέμβριο του 1976, όταν ο Πιερικός ζήτησε τη μεταγραφή των καλαθοσφαιριστών Τσουγκράνη και Τσαγκαλίδη, ο Αρχέλαος αρνήθηκε κατηγορηματικά βάσει καταστατικής αρχής περί μη παραχώρησης αθλητών. Η άρνηση προκάλεσε προσωρινή ένταση μεταξύ των δύο συλλόγων στο Εθνικό Στάδιο Κατερίνης, με τον Αρχέλαο να αποστέλλει επίσημο διάβημα προς τις αρχές και να διαφυλάσσει την αυτονομία του έμψυχου δυναμικού του. Ανάλογες εντάσεις σημειώθηκαν και τον Ιανουάριο του 1991 αναφορικά με τα ωράρια χρήσης του κλειστού γυμναστηρίου του ΕΑΚ Κατερίνης μεταξύ του τμήματος χάντμπολ του Αρχελάου και του γυναικείου μπάσκετ του Πιερικού (έγγραφο 1/14-1-1991), γεγονός που οδήγησε σε έντονη δημόσια αντιπαράθεση πριν από την οριστική εξομάλυνση των σχέσεων.
                   </p>
                 </div>
 
-                <!-- 2.2 Current Board -->
+                <!-- 2.2 Τρέχουσα Διοίκηση (2026) -->
                 <div id="current-board" class="pt-4 border-t border-slate-200/80 scroll-mt-24">
-                  <h3 class="text-xl font-black font-heading text-archelaos-deepgreen mb-3" data-i18n="sec_2_2_title">Τρέχουσα διοίκηση (2026)</h3>
-                  <p data-i18n="sec_2_2_desc">
-                    Μετά την απώλεια του προέδρου Αλκίνοου Τασόπουλου, το Διοικητικό Συμβούλιο ανασυγκροτήθηκε επίσημα σε σώμα στις <strong>8 Σεπτεμβρίου 2026</strong>:
+                  <h3 class="text-xl font-black font-heading text-archelaos-deepgreen mb-3">Τρέχουσα διοίκηση (2026)</h3>
+                  <p>
+                    Μετά την απώλεια του προέδρου Αλκίνοου Τασόπουλου στις 30 Ιουλίου 2026, το Διοικητικό Συμβούλιο του συλλόγου (προερχόμενο από τις αρχαιρεσίες της 30ής Μαρτίου 2025) ανασυγκροτήθηκε επίσημα σε σώμα στις <strong>8 Σεπτεμβρίου 2026</strong> ως εξής:
                   </p>
                   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="sub-box p-4 rounded-2xl bg-slate-50 border border-slate-200">
-                      <h4 class="font-heading font-black text-sm uppercase tracking-wider text-archelaos-deepgreen mb-2.5" data-i18n="board_exec">Προεδρείο & Εκτελεστική Επιτροπή</h4>
+                      <h4 class="font-heading font-black text-sm uppercase tracking-wider text-archelaos-deepgreen mb-2.5">Προεδρείο & Εκτελεστική Επιτροπή</h4>
                       <ul class="space-y-1.5 text-xs sm:text-sm font-medium">
-                        <li><strong><span data-i18n="role_pres">Πρόεδρος</span>:</strong> <span data-i18n="board_1_name">Παναγιώτης Διαμαντόπουλος</span></li>
-                        <li><strong><span data-i18n="role_vp1">Α΄ Αντιπρόεδρος</span>:</strong> <span data-i18n="board_2_name_full">Χαράλαμπος Σαββίδης</span></li>
-                        <li><strong><span data-i18n="role_vp2">Β΄ Αντιπρόεδρος</span>:</strong> <span data-i18n="board_3_name_full">Δημήτριος Γαλάνης</span></li>
-                        <li><strong><span data-i18n="role_sec">Γενικός Γραμματέας</span>:</strong> <span data-i18n="board_4_name">Αθανάσιος Μαυροειδής</span></li>
-                        <li><strong><span data-i18n="role_treas">Ταμίας</span>:</strong> <span data-i18n="board_5_name_full">Παύλος Συμεωνίδης</span></li>
+                        <li><strong>Πρόεδρος:</strong> Παναγιώτης Διαμαντόπουλος</li>
+                        <li><strong>Α΄ Αντιπρόεδρος:</strong> Χαράλαμπος Σαββίδης</li>
+                        <li><strong>Β΄ Αντιπρόεδρος:</strong> Δημήτριος Γαλάνης</li>
+                        <li><strong>Γενικός Γραμματέας:</strong> Αθανάσιος Μαυροειδής</li>
+                        <li><strong>Ταμίας:</strong> Παύλος Συμεωνίδης</li>
                       </ul>
                     </div>
                     <div class="sub-box p-4 rounded-2xl bg-slate-50 border border-slate-200">
-                      <h4 class="font-heading font-black text-sm uppercase tracking-wider text-archelaos-deepgreen mb-2.5" data-i18n="board_ephors">Έφοροι Αθλητικών Τμημάτων</h4>
+                      <h4 class="font-heading font-black text-sm uppercase tracking-wider text-archelaos-deepgreen mb-2.5">Έφοροι Αθλητικών Τμημάτων</h4>
                       <ul class="space-y-1.5 text-xs sm:text-sm font-medium">
-                        <li><strong><span data-i18n="eph_hb">Χειροσφαίριση</span>:</strong> <span data-i18n="board_2_name_full">Χαράλαμπος Σαββίδης</span></li>
-                        <li><strong><span data-i18n="eph_tr">Στίβος</span>:</strong> <span data-i18n="board_6_name_full">Γεώργιος Αθανασίου</span></li>
-                        <li><strong><span data-i18n="eph_ar">Τοξοβολία</span>:</strong> <span data-i18n="board_3_name_full">Δημήτριος Γαλάνης</span></li>
-                        <li><strong><span data-i18n="eph_vb">Πετοσφαίριση</span>:</strong> <span data-i18n="board_5_name_full">Παύλος Συμεωνίδης</span></li>
-                        <li><strong><span data-i18n="eph_wr">Πάλη</span>:</strong> <span data-i18n="board_7_name_full">Κυριάκος Κωνσταντινίδης</span></li>
-                        <li><strong><span data-i18n="eph_sw">Κολύμβηση</span>:</strong> <span data-i18n="board_4_name">Αθανάσιος Μαυροειδής</span></li>
-                        <li><strong><span data-i18n="eph_gym">Ενόργανη</span>:</strong> <span data-i18n="board_1_name">Παναγιώτης Διαμαντόπουλος</span></li>
-                        <li><strong><span data-i18n="eph_sh">Σκοποβολή</span>:</strong> <span data-i18n="board_8_name_full">Χρυσούλα Κουτσουδάκη</span></li>
+                        <li><strong>Έφορος Χειροσφαίρισης:</strong> Χαράλαμπος Σαββίδης</li>
+                        <li><strong>Έφορος Στίβου:</strong> Γεώργιος Αθανασίου</li>
+                        <li><strong>Έφορος Τοξοβολίας:</strong> Δημήτριος Γαλάνης</li>
+                        <li><strong>Έφορος Πετοσφαίρισης:</strong> Παύλος Συμεωνίδης</li>
+                        <li><strong>Έφορος Πάλης:</strong> Κυριάκος Κωνσταντινίδης</li>
+                        <li><strong>Έφορος Κολύμβησης:</strong> Αθανάσιος Μαυροειδής</li>
+                        <li><strong>Έφορος Ενόργανης Γυμναστικής:</strong> Παναγιώτης Διαμαντόπουλος</li>
+                        <li><strong>Έφορος Σκοποβολής:</strong> Χρυσούλα Κουτσουδάκη</li>
                       </ul>
                     </div>
                   </div>
@@ -596,7 +666,7 @@
               </div>
             </article>
 
-            <!-- 3. FACILITIES -->
+            <!-- 3. ΕΓΚΑΤΑΣΤΑΣΕΙΣ -->
             <article id="egkatastaseis" class="glass-card rounded-[2rem] p-6 sm:p-10 shadow-lg scroll-mt-24">
               <div class="relative z-10 space-y-5">
                 <div class="flex items-center gap-3">
@@ -604,143 +674,651 @@
                     <i class="fa-solid fa-location-dot"></i>
                   </div>
                   <div>
-                    <span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen block" data-i18n="chap_3">Κεφάλαιο 3</span>
-                    <h2 class="text-2xl sm:text-3xl font-black font-heading text-archelaos-deepgreen" data-i18n="sec_3_title">Αθλητικές Εγκαταστάσεις</h2>
+                    <span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen block">Κεφάλαιο 3</span>
+                    <h2 class="text-2xl sm:text-3xl font-black font-heading text-archelaos-deepgreen">Αθλητικές Εγκαταστάσεις</h2>
                   </div>
                 </div>
 
-                <p data-i18n="sec_3_desc">Οι αθλητικές δραστηριότητες, οι ακαδημίες και τα αγωνιστικά τμήματα του Γ.Α.Σ. Αρχέλαος φιλοξενούνται σε δημοτικές αθλητικές εγκαταστάσεις της Κατερίνης:</p>
+                <p>Οι αθλητικές δραστηριότητες, οι ακαδημίες και τα αγωνιστικά τμήματα του Γ.Α.Σ. Αρχέλαος φιλοξενούνται σε δημοτικές αθλητικές εγκαταστάσεις της Κατερίνης:</p>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div class="sub-box p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-                    <h3 class="font-heading font-black text-base text-archelaos-deepgreen" data-i18n="fac_1_title">Β΄ Δ.Α.Κ. «Θεόδωρος Διαμαντόπουλος»</h3>
-                    <p class="text-xs sm:text-sm !mb-2" data-i18n="fac_1_sub">Το βασικό κλειστό αθλητικό συγκρότημα του συλλόγου, περιλαμβάνοντας:</p>
+                    <h3 class="font-heading font-black text-base text-archelaos-deepgreen">Β΄ Δ.Α.Κ. «Θεόδωρος Διαμαντόπουλος»</h3>
+                    <p class="text-xs sm:text-sm !mb-2">Το βασικό κλειστό αθλητικό συγκρότημα του συλλόγου (πρώην Ε.Α.Κ. Κατερίνης), περιλαμβάνοντας:</p>
                     <ul class="list-disc pl-4 space-y-1.5 text-xs sm:text-sm">
-                      <li><strong data-i18n="fac_1_1">Κλειστό Γυμναστήριο:</strong> <span data-i18n="fac_1_1_val">Φυσική έδρα Χειροσφαίρισης και Πετοσφαίρισης.</span></li>
-                      <li><strong data-i18n="fac_1_2">Ειδικές Αίθουσες:</strong> <span data-i18n="fac_1_2_val">Ελληνορωμαϊκή Πάλη, Ενόργανη Γυμναστική & Σκοπευτήριο.</span></li>
-                      <li><strong data-i18n="fac_1_3">Δημοτικό Κολυμβητήριο:</strong> <span data-i18n="fac_1_3_val">Προπονήσεις τμήματος Κολύμβησης.</span></li>
+                      <li><strong>Κλειστό Γυμναστήριο:</strong> Εγκαινιάστηκε στις 12 Σεπτεμβρίου 1977. Φυσική έδρα Χειροσφαίρισης και Πετοσφαίρισης.</li>
+                      <li><strong>Ειδικές Αίθουσες:</strong> Ελληνορωμαϊκή Πάλη (με ειδικό ταπί), Ενόργανη Γυμναστική και εσωτερικό Σκοπευτήριο (από το 1979).</li>
+                      <li><strong>Δημοτικό Κολυμβητήριο:</strong> Προπονήσεις τμήματος Κολύμβησης (λειτουργεί από το 1981).</li>
                     </ul>
                   </div>
 
                   <div class="sub-box p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-                    <h3 class="font-heading font-black text-base text-archelaos-deepgreen" data-i18n="fac_2_title">Α΄ Δ.Α.Κ. (Δημοτικό Στάδιο Κατερίνης)</h3>
-                    <p class="text-xs sm:text-sm !mb-0" data-i18n="fac_2_desc">
-                      Στις υπαίθριες εγκαταστάσεις του ιστορικού σταδίου πραγματοποιούνται οι προπονήσεις του τμήματος <strong>Κλασικού Αθλητισμού (Στίβος)</strong>, ενώ εκεί στεγάζονται και τα επίσημα γραφεία του συλλόγου (Εθνικού Σταδίου 3Α).
+                    <h3 class="font-heading font-black text-base text-archelaos-deepgreen">Α΄ Δ.Α.Κ. (Δημοτικό Στάδιο Κατερίνης)</h3>
+                    <p class="text-xs sm:text-sm !mb-0">
+                      Στις υπαίθριες εγκαταστάσεις του ιστορικού σταδίου (ταρτάν, σκάμματα και κλωβοί ρίψεων) πραγματοποιούνται καθημερινά οι προπονήσεις του τμήματος <strong>Κλασικού Αθλητισμού (Στίβος)</strong>, ενώ εκεί στεγάζονται από το 2021 και τα επίσημα γραφεία του συλλόγου (Εθνικού Σταδίου 3Α).
                     </p>
                   </div>
 
                   <div class="sub-box p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-                    <h3 class="font-heading font-black text-base text-archelaos-deepgreen" data-i18n="fac_3_title">Εγκαταστάσεις Τοξοβολίας</h3>
+                    <h3 class="font-heading font-black text-base text-archelaos-deepgreen">Εγκαταστάσεις Τοξοβολίας</h3>
                     <ul class="list-disc pl-4 space-y-1.5 text-xs sm:text-sm">
-                      <li><strong data-i18n="fac_3_1">Κλειστό προπονητήριο:</strong> <span data-i18n="fac_3_1_val">Οδός Πλάτωνος για χειμερινές προπονήσεις 18μ.</span></li>
-                      <li><strong data-i18n="fac_3_2">Υπαίθριο πεδίο βολής:</strong> <span data-i18n="fac_3_2_val">Δημοτικό Γήπεδο Νέας Χράνης για αποστάσεις 50μ. & 70μ.</span></li>
+                      <li><strong>Κλειστό προπονητήριο:</strong> Το γυμναστήριο του παλαιού εκπαιδευτηρίου («Ορθόδοξο» και μετέπειτα «Πλάτων») στην οδό Πλάτωνος για τις χειμερινές προπονήσεις κλειστού χώρου (18 μέτρων).</li>
+                      <li><strong>Υπαίθριο πεδίο βολής:</strong> Ειδικά διαμορφωμένος χώρος στο Δημοτικό Γήπεδο Νέας Χράνης για τις ολυμπιακές αποστάσεις ανοικτού χώρου (50 και 70 μέτρων).</li>
                     </ul>
                   </div>
                 </div>
+
+                <p class="!mb-0 text-xs sm:text-sm bg-archelaos-deepgreen/5 p-4 rounded-2xl border border-archelaos-deepgreen/15">
+                  <strong>Ιστορικές μισθωμένες εγκαταστάσεις:</strong> Στο παρελθόν, λόγω στεγαστικών αναγκών, ο σύλλογος διατηρούσε με ίδια μέσα μισθωμένες εγκαταστάσεις: ειδική αίθουσα γυμναστικής 110 τ.μ. στα Καταφυγιώτικα (γωνία Παπαγεωργίου & Σακελλαρίδη, 1993–1995) αποκλειστικά για την ξηρά προπόνηση των κολυμβητών, προπονητήριο 200 τ.μ. στην οδό 7ης Μεραρχίας 102 (1995), καθώς και διαμερίσματα-ξενώνες για τη στέγαση αθλητών και προπονητών στις οδούς Σκρά 11 και Βύρωνος 26.
+                </p>
               </div>
             </article>
 
-            <!-- 4. SPORTS DEPARTMENTS -->
+            <!-- 4. ΑΘΛΗΤΙΚΑ ΤΜΗΜΑΤΑ (ΟΛΑ ΤΑ ΤΜΗΜΑΤΑ ΑΝΑΛΥΤΙΚΑ) -->
             <div id="tmimata" class="space-y-8 scroll-mt-24">
               
+              <!-- 4.1 ΧΕΙΡΟΣΦΑΙΡΙΣΗ (ΧΑΝΤΜΠΟΛ) -->
               <article id="handball" class="glass-card rounded-[2rem] p-6 sm:p-10 shadow-lg scroll-mt-24">
-                <div class="relative z-10 space-y-3">
-                  <h3 class="text-xl font-black font-heading text-archelaos-deepgreen" data-i18n="dept_h_title">Χειροσφαίριση (Χάντμπολ)</h3>
-                  <p class="text-sm !mb-0" data-i18n="dept_h_desc">Ιστορικό τμήμα με 2 Κύπελλα Ελλάδος (1990, 1994) και λαμπρή παρουσία στην Α1 Εθνική.</p>
+                <div class="relative z-10 space-y-5">
+                  <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200/80 pb-4">
+                    <div class="flex items-center gap-3">
+                      <div class="w-12 h-12 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-2xl shadow-sm border border-archelaos-deepgreen/15">
+                        <i class="fa-solid fa-volleyball"></i>
+                      </div>
+                      <div>
+                        <span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen block">Αθλητικό Τμήμα • Ίδρυση 1976</span>
+                        <h2 class="text-2xl sm:text-3xl font-black font-heading text-archelaos-deepgreen">Χειροσφαίριση (Χάντμπολ)</h2>
+                      </div>
+                    </div>
+                    <span class="px-3.5 py-1.5 rounded-full bg-archelaos-deepgreen text-archelaos-yellow text-xs font-black">2 Κύπελλα Ελλάδας (1990, 1994)</span>
+                  </div>
+
+                  <p>
+                    Η σύσταση τμήματος χειροσφαιρίσεως («Χαντ-μπωλ») αποφασίστηκε στις <strong>22 Δεκεμβρίου 1976</strong> με εισήγηση του Ευστάθιου Ζάννα. Η οργανωτική συγκρότηση ολοκληρώθηκε τον Ιανουάριο του 1978, με πρώτο έφορο τον Χρήστο Παπακωνσταντίνου και πρόσληψη του πρώτου προπονητή Ιωάννη Ζιώγα τον Μάρτιο του 1978. Τον Μάιο του 1978 ο Αρχέλαος διοργάνωσε στην Κατερίνη το πρώτο επίσημο τουρνουά διάδοσης του αθλήματος στη Βόρεια Ελλάδα. Το 1979 εντάχθηκε στην υπό ίδρυση Ομοσπονδία Χειροσφαιρίσεως Ελλάδος (ΟΧΕ) με έφορο τον Χαράλαμπο Ιωαννίδη και προπονητές τους Αντώνιο Ματθαιίδη και Απόστολο Πιπίλη, ενώ τον Ιούλιο του 1981 ο αθλητής <strong>Σωκράτης Σκούφας</strong> αποτέλεσε τον πρώτο χειροσφαιριστή του συλλόγου που κλήθηκε σε αξιολόγηση για την Εθνική Ομάδα. Τον Μάιο του 1991 ο σύλλογος ίδρυσε επίσης το θυγατρικό σωματείο «Γ.Α.Σ. Ορφέας» ως αναπτυξιακή ομάδα υποδομών χάντμπολ (υπό τους εφόρους Β. Ευκαρπίδη, Δ. Σκαμαγκά και Π. Χαρικλειά-Αθανασιάδου). Το καλοκαίρι του 2005 απορρίφθηκε πρόταση συγχώνευσης μεταξύ Αρχελάου και Ορφέα, καθώς η διοίκηση του Αρχελάου (υπό τον έφορο Βασίλη Νουλέζα) αρνήθηκε τον όρο κατάργησης του ιστορικού τμήματος.
+                  </p>
+
+                  <p>
+                    Η ανδρική ομάδα ανήλθε για πρώτη φορά στην Α΄ Εθνική την περίοδο <strong>1983–84</strong> και καθιερώθηκε γρήγορα στην ελίτ της ελληνικής χειροσφαίρισης. Κατέκτησε δύο φορές το <strong>Κύπελλο Ελλάδας Ανδρών</strong>:
+                  </p>
+                  <ul class="list-disc pl-5 space-y-2 text-sm">
+                    <li><strong>Το 1990 (Σάββατο 2 Ιουνίου 1990)</strong> στο κλειστό γυμναστήριο του Μετς, επικρατώντας του Α.Σ.Ε. Δούκα με <strong>27–21</strong> (ημίχρονο 15–8).</li>
+                    <li><strong>Το 1994</strong> νικώντας τον Ιωνικό Ν.Φ. με <strong>27–25</strong> στο κλειστό γυμναστήριο της Μίκρας. Η κατάκτηση του 1994 χαρακτηρίστηκε ως άθλος των <em>«άστεγων» κυπελλούχων</em>, καθώς λόγω των παρατεταμένων εργασιών ανακατασκευής της οροφής και του δαπέδου στο κλειστό του ΕΑΚ Κατερίνης (το οποίο παρέμενε κλειστό επί 19 μήνες), οι αθλητές αναγκάζονταν να προπονούνται στο ανοικτό τσιμεντένιο γήπεδο του τένις.</li>
+                  </ul>
+
+                  <!-- Συνθέσεις Κυπελλούχων 1990 & 1994 -->
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="sub-box p-4 rounded-2xl bg-archelaos-yellow/20 border border-archelaos-darkgreen/20">
+                      <h4 class="font-heading font-black text-sm text-archelaos-deepgreen mb-2"><i class="fa-solid fa-trophy mr-1.5 text-archelaos-darkgreen"></i> Σύνθεση Κυπελλούχων 1990 (Προπ: Δημήτρης Σκούφας)</h4>
+                      <p class="text-xs !mb-0 leading-relaxed">
+                        Διονύσης Αναγνωστόπουλος (9 γκολ), Λευτέρης Ελευθεριάδης (5), Γιώργος Βαρμάζης (4), Μιχάλης Μήτρας (3), Βασίλης Σκαμαγκάς (2), Πέτρος Παπανάκος (2), Γιώργος Καραδήμος (1), Πολύκαρπος Σιδηρόπουλος (1), Αδάμ Μαυρόπουλος, Διονύσης Ευκαρπίδης, Στάθης Μαυρόπουλος, Τάκης Χριστοδουλίδης.
+                      </p>
+                    </div>
+                    <div class="sub-box p-4 rounded-2xl bg-archelaos-yellow/20 border border-archelaos-darkgreen/20">
+                      <h4 class="font-heading font-black text-sm text-archelaos-deepgreen mb-2"><i class="fa-solid fa-trophy mr-1.5 text-archelaos-darkgreen"></i> Σύνθεση Κυπελλούχων 1994 (Προπ: Σωκράτης Σκούφας)</h4>
+                      <p class="text-xs !mb-0 leading-relaxed">
+                        Γεώργιος Καραδήμος (5 γκολ), Ηλίας Νταρλαγιάννης (5), Γιάννης Λαζαρίδης (4), Αντώνης Σιαμάγκας (3), Διονύσης Αναγνωστόπουλος (3), Μιχάλης Μήτρας (3), Πολύκαρπος Σιδηρόπουλος (3), Λευτέρης Ελευθεριάδης (1), Αδάμ Μαυρόπουλος, Βασίλης Κοσμίδης, Ευστάθιος Μαυρόπουλος, Συμελίδης.
+                      </p>
+                    </div>
+                  </div>
+
+                  <p>
+                    Ο Αρχέλαος υπήρξε φιναλίστ του τελικού Κυπέλλου άλλες τέσσερις φορές: το <strong>1984</strong> απέναντι στον ΒΑΟ (18–24), το <strong>1993</strong> στον Βύρωνα απέναντι στον Ιωνικό Ν.Φ. (33–34 στην παράταση, 30–30 κ.α., έπειτα από ημιτελικό όπου απέκλεισε τον Φίλιππο Βέροιας στα πέναλτι με 4–3), το <strong>1996</strong> στο κλειστό της Νεάπολης (22 Μαΐου 1996) απέναντι στα Βριλήσσια (21–22, ημίχρονο 12–12) και το <strong>2000</strong> απέναντι στον Πανελλήνιο (18–24).
+                  </p>
+
+                  <p>
+                    Στο Πρωτάθλημα Ελλάδας Ανδρών αναδείχθηκε <strong>δευτεραθλητής (2η θέση) την περίοδο 1994–95</strong> και κατέλαβε την <strong>3η θέση τα έτη 1990, 1991 και 1993</strong>. Ως κορυφαία δύναμη εκπροσώπησε επανειλημμένα την Ελλάδα στις ευρωπαϊκές διοργανώσεις:
+                  </p>
+                  <ul class="list-disc pl-5 space-y-1.5 text-sm">
+                    <li>Στο <strong>Κύπελλο Κυπελλούχων Ευρώπης 1990–91</strong> απέναντι στην τουρκική Halkbank Ankara.</li>
+                    <li>Στο <strong>Κύπελλο Κυπελλούχων 1993–94</strong> απέναντι στην κροατική RK Umag, όπου μετά την ήττα στην Ίζολα της Σλοβενίας, πέτυχε ιστορική διεθνή νίκη στη ρεβάνς της Νεάπολης με <strong>21–19</strong> στις 3 Οκτωβρίου 1993.</li>
+                    <li>Στο <strong>Κύπελλο Κυπελλούχων 1994–95</strong>, όπου στον α΄ γύρο απέκλεισε τη σκοπιανή Μπόρετς Τίτοβ Βέλες (νίκη <strong>22–18</strong> στην Κατερίνη στις 15 Οκτωβρίου 1994) και ακολούθως αντιμετώπισε την ουγγρική Fotex Veszprém.</li>
+                    <li>Στο <strong>Κύπελλο Πόλεων (City Cup) το 1995–96</strong> απέναντι στην ισπανική BM Granollers και στο <strong>Κύπελλο Κυπελλούχων 2000–01</strong> απέναντι στη ΣΠΕ Στροβόλου.</li>
+                  </ul>
+
+                  <p>
+                    Στην Α1 Εθνική και στις ευρωπαϊκές διοργανώσεις αγωνίστηκαν επίσης ξένοι διεθνείς αθλητές, όπως οι Σέρβοι Αλεξάνταρ Τσβετάνοβιτς (Aleksandar Cvetanovic, 2000–01) και Ράντοβαν Βούινιτς (Radovan Vujnic, 2008–09). Την περίοδο 1998–99, υπό την επιστημονική εποπτεία του ιατρού Εμμανουήλ Παπακώστα, εφαρμόστηκε στην ομάδα πρωτοποριακό πρόγραμμα αθλητιατρικής παρακολούθησης και επιδημιολογικής καταγραφής τραυματισμών. Διαχρονική αρχή του συλλόγου υπήρξε η αποκλειστική στήριξη στα δικά του αναπτυξιακά φυτώρια (με ελάχιστες εξαιρέσεις μεταγραφών όπως οι Μασλαρινός και Κιοσσές), ενώ τροφοδότησε νωρίς ιστορικά σωματεία παραχωρώντας τον Σωκράτη Σκούφα στον Άρη Θεσσαλονίκης (1985), τον Κωνσταντίνο Χωρίκη στον Απόλλωνα Καλαμαριάς (1986) και τον Διονύση Ευκαρπίδη στον Άρη (1986).
+                  </p>
+
+                  <p>
+                    Η Κατερίνη φιλοξένησε επίσης σπουδαίες διοργανώσεις: από τις 21 έως τις 25 Αυγούστου 1991 διεξήχθησαν στο ΕΑΚ οι <strong>13οι Βαλκανικοί Αγώνες Νέων</strong> με πρόεδρο της οργανωτικής επιτροπής τον Βασίλειο Ευκαρπίδη, ενώ τον Ιανουάριο και Φεβρουάριο του 1995 η Εθνική Ανδρών πραγματοποίησε την προετοιμασία της στην Κατερίνη, δίνοντας στο ΕΑΚ τον επίσημο αγώνα για τα προκριματικά του Πανευρωπαϊκού Πρωταθλήματος Ελλάδα – Ισραήλ (21–21 στις 4 Φεβρουαρίου 1995).
+                  </p>
+
+                  <p>
+                    Ο σύλλογος δημιούργησε ένα από τα κορυφαία αναπτυξιακά φυτώρια στην Ελλάδα, κατακτώντας σωρεία πανελλήνιων τίτλων: <strong>Πανελλήνιο Πρωτάθλημα Εφήβων (2):</strong> 1984, 1996 • <strong>Πανελλήνιο Πρωτάθλημα Παίδων (4):</strong> 1994, 1995 (νίκη επί Περιστερίου Χανίων 37–21), 1996 (επικράτηση επί της ΧΑΝ Καλαμαριάς με 38–36 στα πέναλτι με κορυφαίο τον τερματοφύλακα Λάζαρο Ζαγάρη), 1997 • <strong>Πανελλήνιο Πρωτάθλημα Μίνι (3):</strong> 1993 (νίκη στα πέναλτι επί του Άρη Νίκαιας με 29–28), 1994, 1995 (επικράτηση στην παράταση επί του Φιλίππου Βέροιας με 22–21).
+                  </p>
+
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
+                    <div class="sub-box p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                      <h4 class="font-heading font-black text-archelaos-deepgreen mb-1.5">Ιστορικοί Προπονητές Τμήματος</h4>
+                      <p class="!mb-0">Δημήτριος Σκούφας, Σωκράτης Σκούφας (1992–1997, 1999–2000, 2001–2002, 2013), Λευτέρης Ελευθεριάδης (1997–1999, 6η θέση στην Α1 το 1998–99), Διονύσης Αναγνωστόπουλος (2000–2001), Γεώργιος Καραδήμος (2006–2007), Βασίλειος Σκαμαγκάς & Γεώργιος Βαρμάζης (υποδομές).</p>
+                    </div>
+                    <div class="sub-box p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                      <h4 class="font-heading font-black text-archelaos-deepgreen mb-1.5">Εμβληματικοί Αθλητές & Διεθνείς</h4>
+                      <p class="!mb-0">Σάββας Καρυπίδης (Ολυμπιονίκης, κορυφαίος διεθνής εξτρέμ), Σωκράτης Σκούφας (πρώτος διεθνής στην ιστορία του συλλόγου), Λευτέρης Ελευθεριάδης, Γιάννης Λαζαρίδης, Ηλίας Νταρλαγιάννης, Αντώνης Σιαμάγκας, Βασίλης Κοσμίδης, Στάθης Μαυρόπουλος, Βασίλης Σκαμαγκάς, Γιώργος Μαστορογιάννης, Δημήτρης Δημητρούλιας, Λάζαρος Ζαγάρης, Παναγιώτης Σαμλίδης.</p>
+                    </div>
+                  </div>
+
+                  <p class="!mb-0">
+                    Στο κλείσιμο της αγωνιστικής τους σταδιοδρομίας το 2013, οι παλαιοί διεθνείς του συλλόγου (με επικεφαλής τους Σάββα Καρυπίδη, Δημήτρη Δημητρούλια και Γιώργο Μαστορογιάννη) επέστρεψαν στον Αρχέλαο με συνδετικό κρίκο τον προπονητή Σωκράτη Σκούφα, οδηγώντας την ομάδα στην επάνοδό της στην Α1 Εθνική (2013) και στη Handball Premier (2015–16), ενώ το 2026 ο Σάββας Καρυπίδης τιμήθηκε επίσημα από τη διοίκηση του συλλόγου στους εορτασμούς της 70ετίας για τη συνολική προσφορά του. Το γυναικείο τμήμα ιδρύθηκε συστηματικά το 1986 με πρώτο προπονητή τον Διονύση Αναγνωστόπουλο και αγωνίστηκε έως και την Α΄ Εθνική Κατηγορία Γυναικών, ενώ ο σύλλογος καθιέρωσε το πανελλήνιο αναπτυξιακό τουρνουά «Pieria Handball Cup» στο Β΄ ΔΑΚ. Τον Αύγουστο του 2024, ο Αρχέλαος απέσυρε τη συμμετοχή του από διεθνές τουρνουά στη Σερβία, καταγγέλλοντας τη συμμετοχή ομάδας από την κατεχόμενη Κύπρο.
+                  </p>
                 </div>
               </article>
 
+              <!-- 4.2 ΚΛΑΣΙΚΟΣ ΑΘΛΗΤΙΣΜΟΣ (ΣΤΙΒΟΣ) -->
               <article id="track" class="glass-card rounded-[2rem] p-6 sm:p-10 shadow-lg scroll-mt-24">
-                <div class="relative z-10 space-y-3">
-                  <h3 class="text-xl font-black font-heading text-archelaos-deepgreen" data-i18n="dept_t_title">Κλασικός Αθλητισμός (Στίβος)</h3>
-                  <p class="text-sm !mb-0" data-i18n="dept_t_desc">Κλασικός αθλητισμός με έδρα το Α΄ ΔΑΚ Κατερίνης και φυτώρια νέων ταλέντων.</p>
+                <div class="relative z-10 space-y-5">
+                  <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200/80 pb-4">
+                    <div class="flex items-center gap-3">
+                      <div class="w-12 h-12 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-2xl shadow-sm border border-archelaos-deepgreen/15">
+                        <i class="fa-solid fa-person-running"></i>
+                      </div>
+                      <div>
+                        <span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen block">Ιδρυτικό Τμήμα • 1956 (ΣΕΓΑΣ Α.Μ. 238)</span>
+                        <h2 class="text-2xl sm:text-3xl font-black font-heading text-archelaos-deepgreen">Κλασικός Αθλητισμός (Στίβος)</h2>
+                      </div>
+                    </div>
+                    <span class="px-3.5 py-1.5 rounded-full bg-archelaos-deepgreen text-archelaos-yellow text-xs font-black">1ος Επαρχιακός Σύλλογος Ελλάδας</span>
+                  </div>
+
+                  <p>
+                    Αποτελεί τον ιστορικότερο πυλώνα του συλλόγου, με επίσημη εγγραφή στον ΣΕΓΑΣ στις <strong>20 Μαΐου 1967 (Αριθμός Μητρώου 238)</strong>. Ήδη από το 1966 η γυναικεία ομάδα κατέλαβε την 5η θέση στην τελική βαθμολογία του Πανελληνίου Πρωταθλήματος. Τις δεκαετίες του 1980 και 1990 αναδείχθηκε σε κορυφαία περιφερειακή δύναμη του ελληνικού στίβου, καταλαμβάνοντας σταθερά την 1η θέση ανάμεσα στα σωματεία της επαρχίας και φτάνοντας έως την 5η θέση της πανελλήνιας κατάταξης (το 2006 αξιολογήθηκε στη 19η θέση πανελλαδικά ανάμεσα σε εκατοντάδες σωματεία).
+                  </p>
+
+                  <p>
+                    Κατά την πρώιμη «ρομαντική περίοδο» (1956–1972), όταν οι αθλητές γυμνάζονταν στο παλιό γήπεδο του Πάρκου (χώρος όπου στεγάζεται σήμερα το 4ο ΓΕΛ Κατερίνης), διακρίθηκε ο άλτης του μήκους <strong>Δημήτριος Μαγκλάρας</strong> (μετέπειτα τρεις φορές βαλκανιονίκης με την ΑΕΚ), ο <strong>Τράντης (Τριαντάφυλλος Σιδηρόπουλος)</strong>, καθώς και ο μετέπειτα πρόεδρος του συλλόγου <strong>Αλκίνοος Τασόπουλος</strong>, ο οποίος πέτυχε το ιστορικό ρεκόρ συλλόγου στα 3.000 μ. στιπλ με 9:42.2 (1971) και κατέκτησε τη 2η θέση στο Πανελλήνιο Πρωτάθλημα Εφήβων.
+                  </p>
+
+                  <p>
+                    Καθοριστική φυσιογνωμία στην ιστορία του τμήματος υπήρξε ο επί δεκαετίες επικεφαλής προπονητής <strong>Δημήτριος (Τάκης) Παρασκευόπουλος</strong>, ο οποίος ανέλαβε το 1964 όντας ο ίδιος αθλητής ρίψεων με εξειδίκευση στη λιθοβολία. Τον Οκτώβριο του 1973 πραγματοποίησε μαζική επιλογή ταλέντων στο Γυμνάσιο Αρρένων μαζί με τους γυμναστές Ευθυμίου, Σφήκα και Ζάννα, συγκροτώντας τον νέο κορμό αθλητών του συλλόγου. Αποχώρησε επισήμως από την ενεργό δράση τον Ιούνιο του 1996, αναλαμβάνοντας μετέπειτα διοικητικά καθήκοντα Β΄ Αντιπροέδρου. Την προπονητική ομάδα στελέχωσαν διαχρονικά οι Γεώργιος Μαβίδης (από το 1978), Ιωάννης Παπαργυρίου (αδιάλειπτα από το 1982, προπονητής του Κουκοδήμου), Έφη Λαψάνα, Επαμεινώνδας Κούρτης, Νικηφόρος Μαντζόλης (από το 1991), Χρήστος Αθανασιάδης (1991–1999, 2005–2006), Θεοχάρης Βαρυτιμίδης (από το 1996), Μαρία Κυριάκη (1998–2002, 2004–2006), Βικτωρία Μπατάλα και Ζαΐρα Λαζαρίδου (1985–1990). Το 1992, η ομάδα στίβου του 4ου Γενικού Λυκείου Κατερίνης, αποτελούμενη εξ ολοκλήρου από αθλητές του Αρχελάου (Κ. Βασιλειάδης, Αθ. Βλάγκας, Κ. Διαμαντόπουλος, Γ. Καρατζούλας, Αντ. Κεσκίνης, Ι. Τρυγώνης) υπό τον Τάκη Παρασκευόπουλο, κατέκτησε τη <strong>2η θέση στο Πανευρωπαϊκό Σχολικό Πρωτάθλημα στη Γαλλία</strong>.
+                  </p>
+
+                  <div class="sub-box p-5 rounded-2xl bg-slate-50 border border-slate-200">
+                    <h4 class="font-heading font-black text-base text-archelaos-deepgreen mb-3">Κορυφαίοι Αθλητές & Διακριθέντες Στίβου</h4>
+                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-2.5 text-xs sm:text-sm list-disc pl-5">
+                      <li><strong>Κώστας Κουκοδήμος (Άλμα εις μήκος):</strong> Πανελλήνια ρεκόρ σε παίδες (7,40 μ. το 1985), κλειστό (7,97 μ. στο ΣΕΦ το 1990 και 8,09 μ. στο Παρίσι το 1994) και ανοικτό στίβο (8,36 μ. το 1994 στα Χανιά), 6ος Ολυμπιονίκης στη Βαρκελώνη (1992), χρυσό στους Μεσογειακούς (1991 με 8,26 μ.), 100 μ. σε 10.5 (1988) και 200 μ. σε 22.49 (1986).</li>
+                      <li><strong>Αντώνης Παπαδημητρίου (Ακοντισμός):</strong> Πανελλήνια ρεκόρ σε παίδες (63,02 μ. στα Ι΄ Δίια το 1980), εφήβους (83,56 μ. το 1984 στο Μάλμε) και άνδρες (79,56 μ. το 1987 στη Δράμα), βαλκανιονίκης (1984) και ανεπίσημο παγκόσμιο ρεκόρ παίδων (71,14 μ. το 1981).</li>
+                      <li><strong>Αθηνά Παπασωτηρίου:</strong> Πανελλήνιο ρεκόρ κλειστού στίβου στο πένταθλο γυναικών (4.251 βαθμοί το 1996), 5.758 βαθμοί στο έπταθλο (Ρίγα 1996), ύψος 1,80 μ., μήκος 6,23 μ., ακόντιο 50,00 μ.</li>
+                      <li><strong>Θεοχάρης Βαρυτιμίδης:</strong> 110 μ. με εμπόδια σε 14.00 (1992 στα Χανιά) και 60 μ. εμπ. κλειστού στίβου σε 7.92 (1991).</li>
+                      <li><strong>Γιάννης Λευτεριώτης:</strong> Πρωταθλητής Ελλάδας στο άλμα επί κοντώ κλειστού στίβου το 1991 (5,20 μ.), ατομική επίδοση 5,30 μ. στη Λευκωσία (1992).</li>
+                      <li><strong>Κώστας Διαμαντόπουλος:</strong> Πανελλήνιο ρεκόρ παίδων κλειστού στίβου στα 60 μ. με εμπόδια (8,37" το 1993).</li>
+                      <li><strong>Ελισάβετ Πεσιρίδου (100 μ. με εμπόδια):</strong> Διεθνής πρωταθλήτρια που αναδείχθηκε από τα τμήματα υποδομής του Αρχελάου.</li>
+                      <li><strong>Κατερίνα Δαλάκα:</strong> Πανελλήνια ρεκόρ κορασίδων και μαθητριών στα 300 μ. και 400 μ. με εμπόδια με τη φανέλα του Αρχελάου.</li>
+                      <li><strong>Μιχάλης Κουκλής:</strong> 1ος Βαλκανιονίκης Εφήβων στο άλμα επί κοντώ με 5,05 μ. το 1993.</li>
+                      <li><strong>Ζαΐρα Λαζαρίδου:</strong> Πανελλήνιο ρεκόρ δισκοβολίας νεανίδων (43,80 μ. το 1978), σφαιροβολία 14,51 μ. (1981) και μέλος Εθνικής Ομάδας.</li>
+                      <li><strong>Κατερίνα Ρέχα:</strong> Χάλκινο μετάλλιο στα 100 μ. με εμπόδια στο Πανελλήνιο Πρωτάθλημα Στίβου 2025 με 13.93.</li>
+                      <li><strong>Διακριθέντες αθλητές & ρεκόρ:</strong> Γιάννης Μπούσιος (Σφαίρα 16,90 μ., Δίσκος 48,40 μ.), Ευστάθιος Τζιτιρίδης (Σφύρα 61,80 μ.), Εμμανουήλ Παπακώστας (Δέκαθλο 6.532 β.), Άρης Νικολαΐδης, Γιάννης Στάθης (Μήκος 7,38 μ.), Δημήτρης Κεσκίνης (Σφαίρα 16,60 μ.), Παναγιώτης Ταρενίδης, Γεωργία Τσανακτσίδου (100 μ. εμπ. 14.10), Πέτρα Τσαουσίδου, Ελισάβετ Μοσχονά, Ειρήνη Καρρά, Αλεξάνδρα Σουλιώτου, Φανή Ζέλκα, Θεόδωρος Βροντινός, Άννα Χατζηπουργάνη, 4x100 μ. Ανδρών (41.99 το 1990), 4x400 μ. Γυναικών (4:00.72 το 1995).</li>
+                    </ul>
+                  </div>
                 </div>
               </article>
 
+              <!-- 4.3 ΤΟΞΟΒΟΛΙΑ -->
               <article id="archery" class="glass-card rounded-[2rem] p-6 sm:p-10 shadow-lg scroll-mt-24">
-                <div class="relative z-10 space-y-3">
-                  <h3 class="text-xl font-black font-heading text-archelaos-deepgreen" data-i18n="dept_a_title">Τοξοβολία</h3>
-                  <p class="text-sm !mb-0" data-i18n="dept_a_desc">Ολυμπιακό άθλημα με ενεργή αγωνιστική παρουσία και τμήματα υποδομών.</p>
+                <div class="relative z-10 space-y-5">
+                  <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200/80 pb-4">
+                    <div class="flex items-center gap-3">
+                      <div class="w-12 h-12 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-2xl shadow-sm border border-archelaos-deepgreen/15">
+                        <i class="fa-solid fa-bullseye"></i>
+                      </div>
+                      <div>
+                        <span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen block">Αθλητικό Τμήμα • Ίδρυση 1991/1993</span>
+                        <h2 class="text-2xl sm:text-3xl font-black font-heading text-archelaos-deepgreen">Τοξοβολία</h2>
+                      </div>
+                    </div>
+                    <span class="px-3.5 py-1.5 rounded-full bg-archelaos-deepgreen text-archelaos-yellow text-xs font-black">Πρωταθλητής Ελλάδας (2025, 2026) & Κυπελλούχος (2024, 2026)</span>
+                  </div>
+
+                  <p>
+                    Η πρώτη καταγραφή προθέσεων για τη συγκρότηση τμήματος τοξοβολίας αποτυπώθηκε στις <strong>17 Δεκεμβρίου 1991</strong> υπό τον καθηγητή Φυσικής Αγωγής Κωνσταντίνο Μυρωτή. Η ουσιαστική ίδρυση και επίσημη ένταξη στις ομοσπονδίες πραγματοποιήθηκε στα τέλη του <strong>1993</strong> με πρωτοβουλία των Κωνσταντίνου Μυρωτή και Ανάργυρου Καπετανάκη ως εξέλιξη μέσα από το τμήμα σκοποβολής. Οι πρώτες εγγραφές πραγματοποιήθηκαν στο σκοπευτήριο του ΕΑΚ, ενώ οι προπονήσεις στεγάστηκαν αρχικά απέναντι από το πάρκο Ηρώων στην πλατεία Ελευθερίας και ακολούθως στην οδό Αναπαύσεως 1, με προπονήτριες τις Δάφνη Σαρρή, Ευρώπη Υφαντίδου και Κωνσταντίνα Γκουτζαμάνη. Η πρώτη επίσημη αγωνιστική εμφάνιση έγινε τον Νοέμβριο του 1993 στους αγώνες του ΣΚΟΑΑΠΘ. Στις 6 Νοεμβρίου 1994 διοργανώθηκαν για πρώτη φορά στην Κατερίνη οι <strong>Α΄ Διασυλλογικοί Αγώνες Τοξοβολίας</strong> στο γυμναστήριο του Ε.Π.Λ. (Τεχνικά Λύκεια).
+                  </p>
+
+                  <p>
+                    Την περίοδο 1997–2000 ο σύλλογος ανέπτυξε περιφερειακό αναπτυξιακό πυρήνα τοξοβολίας στο κοινοτικό διαμέρισμα του Λόφου Πιερίας. Στις 22 Μαΐου 1999 ο Αρχέλαος αποτέλεσε <strong>ιδρυτικό σωματείο της Ελληνικής Φιλάθλου Ομοσπονδίας Τοξοβολίας (Ε.Φ.Ο.Τ.)</strong>, με τον έφορο <strong>Ιορδάνη Τσαχουρίδη</strong> να εκλέγεται στο 1ο Διοικητικό Συμβούλιο αναλαμβάνοντας καθήκοντα Ειδικού Γραμματέα της Ομοσπονδίας. Στην τεχνική καθοδήγηση του τμήματος εργάστηκε ο καθηγητής Φυσικής Αγωγής Γεώργιος Βαλαβάνης (αφιλοκερδώς την τετραετία 1994–1998 και εκ νέου από το 2007 σε συνεργασία με τον ομοσπονδιακό προπονητή Αλέξανδρο Νασούλα και έφορο τον Αθανάσιο Ευαγγέλου), καθώς και η Αικατερίνη Αντοπούλου.
+                  </p>
+
+                  <div class="sub-box p-4 rounded-2xl bg-slate-50 border border-slate-200 text-xs sm:text-sm">
+                    <h4 class="font-heading font-black text-archelaos-deepgreen mb-2">Διακριθέντες Αθλητές & Πρωταθλητές Τοξοβολίας</h4>
+                    <p class="!mb-0">
+                      <strong>Δωροθέα Ποιμενίδου</strong> (Παραολυμπιονίκης, κάτοχος ευρωπαϊκών μεταλλίων Para-archery), <strong>Ευάγγελος Χαρίσης</strong> (Πρωταθλητής Ελλάδας Ανοικτού Χώρου 2025, κάτοχος πανελληνίου ρεκόρ U21), <strong>Χάρης Ιακωβίδης</strong> (Πρωταθλητής Ελλάδας Ομαδικού 2025, 2026 & δευτεραθλητής ατομικού), <strong>Ευάγγελος Μαρινόπουλος</strong> (Πρωταθλητής Ελλάδας Ομαδικού 2025, 2026), <strong>Κωνσταντίνος Χαρίσης, Γεώργιος Ζαππίδης, Νικόλαος Ζαππίδης</strong> (Πρωταθλητές Ελλάδας U21 το 2026), Δημήτριος Αλεξούλης, Δημήτριος Γαλάνης, Θεόδωρος Πασαχίδης (Σύνθετο & Barebow), Σπύρος Παρουσιάδης, Θανάσης Κατσάρας, Νίκος Γερονάτσιος, Νίκος Φλώρος (3η θέση Ομαδικού Ανδρών 1994), Γεώργιος Ζιώγας, Μίλτος Αντωνάτος, Ιωάννης Απατσίδης (2η θέση Ομαδικού Εφήβων 1994), Έρρικα Παπαδημητρίου, Μαρία Σκουμποπούλου, Γιώτα Κυρμανίδου, Πάρις Κουτλουμπάσης, Χρήστος Στεφανίδης, Αθανάσιος Ελμαλιώτης, Κωνσταντίνος Νάκος-Σφήκας.
+                    </p>
+                  </div>
+
+                  <p class="!mb-0">
+                    Το τμήμα συνδιοργανώνει τακτικά με την ΕΟΤ και τους τοπικούς δήμους την αγωνιστική σειρά πανελλήνιας εμβέλειας <em>Olympus Archery Series</em>, ενώ στις εγκαταστάσεις της Νέας Χράνης φιλοξένησε δύο φορές (Νοέμβριος 2025, Απρίλιος 2026) την Εθνική Ομάδα Para-Archery της Ουκρανίας για επίσημα προπονητικά camps.
+                  </p>
                 </div>
               </article>
 
+              <!-- 4.4 ΠΕΤΟΣΦΑΙΡΙΣΗ (ΒΟΛΕΪ) -->
               <article id="volleyball" class="glass-card rounded-[2rem] p-6 sm:p-10 shadow-lg scroll-mt-24">
-                <div class="relative z-10 space-y-3">
-                  <h3 class="text-xl font-black font-heading text-archelaos-deepgreen" data-i18n="dept_v_title">Πετοσφαίριση (Βόλεϊ)</h3>
-                  <p class="text-sm !mb-0" data-i18n="dept_v_desc">Ομαδικό άθλημα με τμήματα υποδομών και αγωνιστικά κλιμάκια.</p>
+                <div class="relative z-10 space-y-5">
+                  <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200/80 pb-4">
+                    <div class="flex items-center gap-3">
+                      <div class="w-12 h-12 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-2xl shadow-sm border border-archelaos-deepgreen/15">
+                        <i class="fa-solid fa-volleyball"></i>
+                      </div>
+                      <div>
+                        <span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen block">Αθλητικό Τμήμα • Ίδρυση 1973/1974</span>
+                        <h2 class="text-2xl sm:text-3xl font-black font-heading text-archelaos-deepgreen">Πετοσφαίριση (Βόλεϊ)</h2>
+                      </div>
+                    </div>
+                  </div>
+
+                  <p>
+                    Οι πρώτες ενέργειες για την αναγνώριση του τμήματος από την Ε.Ο.Π.Ε. έγιναν το καλοκαίρι του <strong>1973</strong>, ενώ η αγωνιστική παρουσία ξεκίνησε το 1974 στο πρωτάθλημα Κεντροδυτικής Μακεδονίας υπό τον έφορο Ορέστη Νταρλαγιάννη. Το 1975, για τη διάδοση του αθλήματος στην Πιερία, ο Αρχέλαος διοργάνωσε ιστορικό φιλικό αγώνα με τον Παναθηναϊκό στον αύλειο χώρο του Γυμνασίου Αρρένων (σημερινό 5ο Γυμνάσιο). Το 1976 υπήρξε ιδρυτικό μέλος της Τ.Ε. ΕΟΠΕ Βέροιας. Πρώτος έφορος διετέλεσε ο Χρήστος Ελευθερούδης και πρώτος προπονητής ο Θεόδωρος Σφήκας με βοηθό τον Αβραάμ Τερζόπουλο. Τον Νοέμβριο του 1978 την τεχνική ηγεσία του γυναικείου τμήματος ανέλαβε ο Μιχάλης Σαρηγιαννίδης.
+                  </p>
+
+                  <p>
+                    Η ανδρική ομάδα αγωνίστηκε στη Β΄ Εθνική την περίοδο 1977–78, ενώ το 1981 διεκδίκησε την άνοδο στην Α΄ Εθνική στα μπαράζ υπό τον προπονητή Ηλία Ιεροκλή. Στα τέλη της δεκαετίας του 1980, με παίκτη-προπονητή τον Χαράλαμπο Καρασαρλίδη, κέρδισε την άνοδο στη Γ΄ Εθνική (1989–90) και αμέσως μετά στη Β΄ Εθνική (1990–91), όπου την περίοδο 1993–94 τερμάτισε στην 5η θέση του ομίλου της. Σημαντική παρουσία στη Β΄ Εθνική Ανδρών κατέγραψε και την περίοδο 1995–96 υπό τον προπονητή Μαμούρη, ενώ την περίοδο 1999–2000 διατηρήθηκε επιτυχώς στη Γ΄ Εθνική Κατηγορία.
+                  </p>
+
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
+                    <div class="sub-box p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                      <h4 class="font-heading font-black text-archelaos-deepgreen mb-1.5">Ιστορικοί Προπονητές</h4>
+                      <p class="!mb-0">Θεόδωρος Σφήκας & Αβραάμ Τερζόπουλος, Μιχάλης Σαρηγιαννίδης, Ηλίας Ιεροκλής, Χαράλαμπος Καρασαρλίδης, Μαμούρης, Πέτρος Σαρηγιαννίδης, Γ. Χελιδόνης, Βασίλης Παπαδόπουλος, Γαβριήλ Τσακιρίδης, Ιωάννης Διδασκάλου, Κυριάκος Κανάλης, Κωνσταντίνος Σαρρής, Αστέριος Τσιουπλής, Δημήτριος Λιάπης.</p>
+                    </div>
+                    <div class="sub-box p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                      <h4 class="font-heading font-black text-archelaos-deepgreen mb-1.5">Διακριθείσες Αθλήτριες & Συνεργασίες</h4>
+                      <p class="!mb-0"><strong>Σταματία Κυπαρίσση</strong> (διεθνής ακραία με την Εθνική Γυναικών), <strong>Μαρία Κόσσυβα</strong> (βασικό στέλεχος δεκαετίας 1980), <strong>Ευθυμία Κώνστα</strong> (μεταγραφή στον Άρη Θεσσαλονίκης το 1991). Τα τελευταία χρόνια το τμήμα ανέπτυξε συνεργασία με τον Σ.Φ.Κ. Πιερικός υπό την πρωτοβουλία «Together as One».</p>
+                    </div>
+                  </div>
                 </div>
               </article>
 
+              <!-- 4.5 ΣΚΟΠΟΒΟΛΗ -->
               <article id="shooting" class="glass-card rounded-[2rem] p-6 sm:p-10 shadow-lg scroll-mt-24">
-                <div class="relative z-10 space-y-3">
-                  <h3 class="text-xl font-black font-heading text-archelaos-deepgreen" data-i18n="dept_s_title">Σκοποβολή</h3>
-                  <p class="text-sm !mb-0" data-i18n="dept_s_desc">Αγωνίσματα ακριβείας και αεροβόλων όπλων υπό την καθοδήγηση έμπειρων προπονητών.</p>
+                <div class="relative z-10 space-y-5">
+                  <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200/80 pb-4">
+                    <div class="flex items-center gap-3">
+                      <div class="w-12 h-12 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-2xl shadow-sm border border-archelaos-deepgreen/15">
+                        <i class="fa-solid fa-crosshairs"></i>
+                      </div>
+                      <div>
+                        <span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen block">Αθλητικό Τμήμα • Ίδρυση 1981</span>
+                        <h2 class="text-2xl sm:text-3xl font-black font-heading text-archelaos-deepgreen">Σκοποβολή</h2>
+                      </div>
+                    </div>
+                    <span class="px-3.5 py-1.5 rounded-full bg-archelaos-deepgreen text-archelaos-yellow text-xs font-black">Ολυμπιακή Συμμετοχή Αθήνα 2004</span>
+                  </div>
+
+                  <p>
+                    Αφορμή για την ενεργοποίηση του τμήματος σκοποβολής αποτέλεσε η κατασκευή του σκοπευτηρίου στο ΕΑΚ Κατερίνης το 1979. Ο σύλλογος αναγνωρίστηκε επίσημα στη Σκοπευτική Ομοσπονδία Ελλάδος (ΣΚ.Ο.Ε.) στις <strong>10 Απριλίου 1981</strong>, φτάνοντας το 2001 να αριθμεί 197 αθλούμενα μέλη. Η συστηματική λειτουργία ξεκίνησε το φθινόπωρο του 1983 υπό τον Κωνσταντίνο Μυρωτή και τον πρώτο έφορο Ανάργυρο Καπετανάκη. Έφοροι διετέλεσαν επίσης ο Χαράλαμπος Ιωαννίδης, η Μάχη Παύλου (1987–1992), ο Δημήτριος Παπαχρήστου (ο οποίος ίδρυσε την ομάδα πυροβόλων το 1994–1995), ο Ιορδάνης Τσαχουρίδης, ο Τριαντάφυλλος Τιόκας και ο Ηλίας Κεσανλής. Για τις ανάγκες των πυροβόλων όπλων ο Αρχέλαος διαμόρφωσε από το 1998 το Σκοπευτήριο της Κοινότητας Νεοκαισάρειας. Στην τεχνική καθοδήγηση σημαντική υπήρξε η συνεισφορά των Κωνσταντίνου Μυρωτή, Ντίνας Γκουτζαμάνη, Γεωργίου Γραμμενόπουλου, Ευρώπης Υφαντίδου, Δάφνης Σαρρή και Γεωργίου Ιωαννίδη.
+                  </p>
+
+                  <p>
+                    Το 1993 η ομάδα νεανίδων στο αεροβόλο τουφέκι (Ε. Γύμπαση, Μ. Φάκα, Αχ. Κύρκου) κατέκτησε την 1η θέση με πανελλήνιο ρεκόρ (1119/1200). Κορυφαία σκοπεύτρια του συλλόγου αναδείχθηκε η <strong>Μαρία Φάκα</strong>, η οποία πέτυχε πανελλήνιο ρεκόρ νεανίδων με 388/400 στους Πανευρωπαϊκούς της Βουδαπέστης (1996), πανελλήνιο ρεκόρ γυναικών με 395/400 και <strong>συμμετείχε ως μέλος της ελληνικής ολυμπιακής ομάδας στους Ολυμπιακούς Αγώνες της Αθήνας το 2004</strong> στο Αεροβόλο Τουφέκι Γυναικών. Μετά το 2004 ανέλαβε προπονήτρια του Αρχελάου (2004–2008). Σημαντικές διεθνείς επιτυχίες κατέγραψε και η <strong>Δάφνη Σαρρή</strong> (1η στους Πανελλήνιους Νεανίδων 1989 με 358/400 και μέλος της Εθνικής στους Βαλκανικούς Αγώνες 1990 & 1991).
+                  </p>
+
+                  <div class="sub-box p-4 rounded-2xl bg-slate-50 border border-slate-200 text-xs sm:text-sm">
+                    <h4 class="font-heading font-black text-archelaos-deepgreen mb-1.5">Διακριθέντες Σκοπευτές & Αθλήτριες</h4>
+                    <p class="!mb-0">
+                      Χριστίνα Μόσχη (διεθνής πρωταθλήτρια Ελλάδας), Μαρία Φάκα (Ολυμπιονίκης 2004, ρέκορντγουμαν), Δάφνη Σαρρή, Δήμητρα Τσακιστάρα (βαλκανιονίκης στο πιστόλι), Αναστασία Αμβροσιάδου, Ε. Γύμπαση & Αχ. Κύρκου, Μαρία Τσιόνογλου (393/400), Μαρία Πεΐδου (391/400), Αστέριος Θεοδώρου, Νικολέττα Ιορδανίδου, Μαρία Ζυγοπούλου, Νικόλαος Γιαννούλης, Παπαθανασίου, Αθανάσιος Κωσταμπίτσης, Εμμανουήλ Μανωλάς, Γεώργιος Ιωαννίδης (βαλκανιονίκης & ρέκορντμαν), Σπύρος Παρουσιάδης, Δ. Δράντζιος, Ν. Γερονάτσιος, Ν. Πόδας, Μ. Αντωνάτος, Ι. Απατσίδης, Γ. Ζιώγας, Αν. Αγγέλης, Θ. Κατσάρας, Ν. Λιάκος, Π. Κουρμανίδου, Μ. Σκουμποπούλου, Ελ. Σαρρή, Άννα Τσίρκου, Δ. Δημητριάδου, Αικ. Ξανθοπούλου, Μ. Λεμονιά.
+                    </p>
+                  </div>
                 </div>
               </article>
 
+              <!-- 4.6 ΠΑΛΗ -->
               <article id="wrestling" class="glass-card rounded-[2rem] p-6 sm:p-10 shadow-lg scroll-mt-24">
-                <div class="relative z-10 space-y-3">
-                  <h3 class="text-xl font-black font-heading text-archelaos-deepgreen" data-i18n="dept_w_title">Πάλη</h3>
-                  <p class="text-sm !mb-0" data-i18n="dept_w_desc">Παραδοσιακό δυναμικό άθλημα με πλούσια ιστορία διακρίσεων στην Πιερία.</p>
+                <div class="relative z-10 space-y-5">
+                  <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200/80 pb-4">
+                    <div class="flex items-center gap-3">
+                      <div class="w-12 h-12 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-2xl shadow-sm border border-archelaos-deepgreen/15">
+                        <i class="fa-solid fa-hand-fist"></i>
+                      </div>
+                      <div>
+                        <span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen block">Αθλητικό Τμήμα • Ίδρυση 1978/1980</span>
+                        <h2 class="text-2xl sm:text-3xl font-black font-heading text-archelaos-deepgreen">Πάλη</h2>
+                      </div>
+                    </div>
+                    <span class="px-3.5 py-1.5 rounded-full bg-archelaos-deepgreen text-archelaos-yellow text-xs font-black">Πρωταθλητής Ελλάδας & Παγκόσμια Μετάλλια</span>
+                  </div>
+
+                  <p>
+                    Η σύσταση τμήματος ελευθέρας και ελληνορωμαϊκής πάλης προτάθηκε στις <strong>4 Απριλίου 1978</strong> από τους Λάζαρο Τσακιρίδη και Λάζαρο Ψωμιάδη, με επίσημη αναγνώριση από την ΕΟΠ την <strong>1η Ιανουαρίου 1980</strong> υπό τον Λάζαρο Ψωμιάδη. Πρώτος έφορος ορίστηκε ο Διονύσιος Ευθυμιάδης και προπονητής ο Αλέκος Καρυπίδης, ενώ αργότερα έφοροι διετέλεσαν οι Ευστάθιος Ζάννας, Μιχάλης Ζαμάνης (1987–1995), Δημήτριος Μοιξάκης, Αθανάσιος Τρυγώνης, Νικόλαος Ζαμάνης και Νικόλαος Κατόγλου. Τον Σεπτέμβριο του 1993 ο σύλλογος κατασκεύασε με δικά του έξοδα μόνιμη κλειστή αίθουσα πάλης στο κτιριακό συγκρότημα του ΕΠΛ (οδός Ηπείρου). Ως προπονητές εργάστηκαν διαχρονικά οι Λάζαρος Ψωμιάδης, Νικόλαος Ζαμάνης, Ιωάννης Κριζαλιώτης, Σάββας Τσεντίδης και Κωνσταντίνος Τάμος.
+                  </p>
+
+                  <div class="sub-box p-4 rounded-2xl bg-slate-50 border border-slate-200 text-xs sm:text-sm">
+                    <h4 class="font-heading font-black text-archelaos-deepgreen mb-2">Διακριθέντες Παλαιστές & Πρωταθλητές</h4>
+                    <ul class="list-disc pl-5 space-y-1.5">
+                      <li><strong>Δημήτρης Σουλής:</strong> 2ος Παγκόσμιος Πρωταθλητής (ασημένιο μετάλλιο) στα 71 κ. ελληνορωμαϊκής στο Παγκόσμιο Πρωτάθλημα Πάλης U17 (2025 στην Αθήνα).</li>
+                      <li><strong>Νικόλαος Ζαμάνης:</strong> Χρυσό μετάλλιο στους Μεσογειακούς Αγώνες (1993), ασημένιο στο Παγκόσμιο Εφήβων (1990 στο Ισραήλ), χάλκινο στο Ευρωπαϊκό Παίδων (1988), έπαθλο Βασίλη Χατζηγιάννη του ΠΣΑΤ.</li>
+                      <li><strong>Αλέξιος Πουλικίδης:</strong> Χάλκινο μετάλλιο στο Ευρωπαϊκό Πρωτάθλημα Εφήβων (1988).</li>
+                      <li><strong>Κωνσταντίνος Σούλης:</strong> 6η θέση στο Παγκόσμιο Πρωτάθλημα Εφήβων.</li>
+                      <li><strong>Ματθαίος Εγγονίδης:</strong> Πρωταθλητής Ελλάδας Ανδρών στα 120 κ. (2013).</li>
+                      <li><strong>Κώστας Σαμακοβλής & Χρήστος Τορτοπίδης:</strong> 1η θέση στα Πανελλήνια Πρωταθλήματα Εφήβων 1994 (81 κ. και 74 κ.).</li>
+                      <li><strong>Σπυρίδων Γκαράς:</strong> 1η θέση στους Πανελλήνιους Αγώνες Παμπαίδων (59 κ., Μεσολόγγι 2003).</li>
+                      <li><strong>Ευγενία Παντελίδου & Σταυρούλα Ψωμιάδου:</strong> Πρωτοπόροι της γυναικείας πάλης στην Ελλάδα (ίδρυση τμήματος 1986).</li>
+                    </ul>
+                  </div>
+
+                  <p class="!mb-0">
+                    Ο Αρχέλαος έχει αναδειχθεί <strong>Πρωταθλητής Ελλάδας συλλόγων στην ελληνορωμαϊκή πάλη ανδρών</strong>, ενώ το 2024 αξιολογήθηκε στην <strong>3η θέση πανελλαδικά</strong>.
+                  </p>
                 </div>
               </article>
 
+              <!-- 4.7 ΚΟΛΥΜΒΗΣΗ & ΤΕΧΝΙΚΗ ΚΟΛΥΜΒΗΣΗ -->
               <article id="swimming" class="glass-card rounded-[2rem] p-6 sm:p-10 shadow-lg scroll-mt-24">
-                <div class="relative z-10 space-y-3">
-                  <h3 class="text-xl font-black font-heading text-archelaos-deepgreen" data-i18n="dept_sw_title">Κολύμβηση & Τεχνική Κολύμβηση</h3>
-                  <p class="text-sm !mb-0" data-i18n="dept_sw_desc">Ακαδημίες εκμάθησης και αγωνιστικό τμήμα υγρού στίβου για όλες τις ηλικίες.</p>
+                <div class="relative z-10 space-y-5">
+                  <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200/80 pb-4">
+                    <div class="flex items-center gap-3">
+                      <div class="w-12 h-12 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-2xl shadow-sm border border-archelaos-deepgreen/15">
+                        <i class="fa-solid fa-person-swimming"></i>
+                      </div>
+                      <div>
+                        <span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen block">Αθλητικό Τμήμα • Ίδρυση 1980/1981</span>
+                        <h2 class="text-2xl sm:text-3xl font-black font-heading text-archelaos-deepgreen">Κολύμβηση & Τεχνική Κολύμβηση</h2>
+                      </div>
+                    </div>
+                  </div>
+
+                  <p>
+                    Η συγκρότηση του κολυμβητικού τμήματος αποφασίστηκε στις <strong>14 Οκτωβρίου 1980</strong> με υπεύθυνο οργάνωσης τον Ευστάθιο Ζάννα, και οι πρώτες προπονήσεις ξεκίνησαν την 1η Ιουνίου 1981 υπό τον έφορο Κωνσταντίνο Παπαδόπουλο και τον προπονητή Απόστολο Πιπίλη. Μετά τον αδόκητο θάνατο του Κωνσταντίνου Παπαδόπουλου τον Νοέμβριο του 1985, ο σύλλογος καθιέρωσε από το 1986 προς τιμήν του τους ετήσιους αγώνες <strong>«Παπαδοπούλεια»</strong>. Το 1988, υπό τον έφορο Λάμπρο Σαπρανίδη, εισήχθησαν εξειδικευμένα όργανα μυϊκής ενδυνάμωσης από τη Γερμανία για το γυμναστήριο ξηράς προπόνησης. Ως προπονητές εργάστηκαν οι Εμμανουήλ Κατιρτζής, Μενέλαος Δόκας, Παναγιώτης Ευθυμίου, Αλέκα Κατσαούνη, Θεόδωρος Σιαμάγκας, Χρήστος Καλαϊτζής και Ράνια Δανιηλίδου (με εφόρους τους Αν. Καπετανάκη, Χ. Διαμαντίδη, Θ. Παπανικολάου και Λ. Σαλτσίδη).
+                  </p>
+
+                  <p>
+                    Στο Πανεπαρχιακό Πρωτάθλημα Ανοικτής Πισίνας στην Καλαμάτα ο Αρχέλαος κατέκτησε πέντε πρώτες και τρεις δεύτερες θέσεις ανάμεσα σε 25 επαρχιακούς συλλόγους. Διακρίθηκαν οι κολυμβητές: <strong>Θωμάς Νικοδέλης</strong> (διεθνής με πανελλήνια ρεκόρ στα 50 μ. και 100 μ. ελεύθερο), <strong>Δημήτρης Παπαδόπουλος</strong> (τρεις πρώτες νίκες στην Καλαμάτα), <strong>Φώντας Μπαραλιάκος</strong> (1ος στα 400 μ. ελεύθερο), Απόστολος Γιαννούλης, Ιωάννης Προβατίδης, Παντελής Λογγινίδης, Αικατερίνη Καραπαναγιωτίδου, Γεωργία Λύρα, Ειρήνη Λύρα, Σοφία Λογγινίδου, Χρ. Παπαδόπουλος και Αικατερίνη Γεωργιάδου. Τον Οκτώβριο του 1999 ο Αρχέλαος πρωτοστάτησε στη συνένωση των αγωνιστικών τμημάτων κολύμβησης υπό τον σύλλογο «Α.Σ. ΔΙΑΣ Κατερίνης», διατηρώντας αυτόνομα τα τμήματα υποδομών και εκμάθησης.
+                  </p>
+
+                  <div class="sub-box p-4 rounded-2xl bg-slate-50 border border-slate-200 text-xs sm:text-sm">
+                    <h4 class="font-heading font-black text-archelaos-deepgreen mb-1">Τεχνική Κολύμβηση (1994–2006)</h4>
+                    <p class="!mb-0">Κατά τη δεκαετία του 1990 ο σύλλογος συγκρότησε τμήμα Τεχνικής Κολύμβησης (αγωνίσματα επιφανείας με διπλά πέδιλα και μονοπέδιλο), αποτελώντας μέλος της Ε.Ο.Υ.Δ.Α.Α.Τ.Κ. Το τμήμα συμμετείχε σε πανελλήνια πρωταθλήματα έως τον Οκτώβριο του 2006, οπότε ανεστάλη η λειτουργία του λόγω έλλειψης διαθέσιμων ωρών στο κολυμβητήριο.</p>
+                  </div>
                 </div>
               </article>
 
+              <!-- 4.8 ΕΝΟΡΓΑΝΗ ΓΥΜΝΑΣΤΙΚΗ & ΓΕΝΙΚΗ ΓΥΜΝΑΣΗ -->
               <article id="gymnastics" class="glass-card rounded-[2rem] p-6 sm:p-10 shadow-lg scroll-mt-24">
-                <div class="relative z-10 space-y-3">
-                  <h3 class="text-xl font-black font-heading text-archelaos-deepgreen" data-i18n="dept_g_title">Ενόργανη Γυμναστική & Γενική Γύμναση</h3>
-                  <p class="text-sm !mb-0" data-i18n="dept_g_desc">Ανάπτυξη ευλυγισίας, δύναμης, ισορροπίας και συντονισμού σε εξοπλισμένη αίθουσα.</p>
+                <div class="relative z-10 space-y-5">
+                  <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200/80 pb-4">
+                    <div class="flex items-center gap-3">
+                      <div class="w-12 h-12 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-2xl shadow-sm border border-archelaos-deepgreen/15">
+                        <i class="fa-solid fa-child-reaching"></i>
+                      </div>
+                      <div>
+                        <span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen block">Αθλητικό Τμήμα • Ίδρυση 1975</span>
+                        <h2 class="text-2xl sm:text-3xl font-black font-heading text-archelaos-deepgreen">Ενόργανη Γυμναστική & Γενική Γύμναση</h2>
+                      </div>
+                    </div>
+                    <span class="px-3.5 py-1.5 rounded-full bg-archelaos-deepgreen text-archelaos-yellow text-xs font-black">10ετές Πανελλήνιο Σερί Πρωτιάς (1981–1991)</span>
+                  </div>
+
+                  <p>
+                    Ιδρύθηκε επίσημα στις <strong>3 Απριλίου 1975</strong> με πρώτο προπονητή τον καθηγητή Σωματικής Αγωγής Σταύρο Διαμαντόπουλο (αφιλοκερδώς) και έφορο τον Ορέστη Νταρλαγιάννη. Τον Μάιο του 1975 συμμετείχε στο Πανελλήνιο Πρωτάθλημα στη Θεσσαλονίκη, ενώ τον Οκτώβριο του 1977 διοργάνωσε στην Κατερίνη το 1ο Πανελλήνιο Πρωτάθλημα Εφήβων–Νεανίδων. Το 1978 ιδρύθηκε το γυναικείο τμήμα (έφορος: Κ. Κουτσιώνας, προπονήτρια: Θ. Πασπάλη).
+                  </p>
+
+                  <p>
+                    Από τις αρχές της δεκαετίας του 1980, υπό τον ομοσπονδιακό τεχνικό <strong>Απόστολο Σαμαλή</strong> και τον έφορο Εμμανουήλ Ζάρα, η ανδρική ομάδα σημείωσε ανεπανάληπτο ιστορικό επίτευγμα: η πεντάδα των <strong>Χαρίλαου Κακάλη, Κωνσταντίνου Ζάρα, Αλέξανδρου Κατσικάκη, Ευάγγελου Χρυσόπουλου και Ιωάννη Χαρίση</strong> κατέκτησε επί μία δεκαετία (<strong>1981–1991</strong>) διαδοχικά την <strong>1η θέση στο Πανελλήνιο Πρωτάθλημα σε όλες τις ηλικιακές κατηγορίες</strong> (Παμπαίδων, Παίδων, Εφήβων και Ανδρών). Στους Πανελλήνιους Αγώνες Ανδρών στη Γλυφάδα αναδείχθηκε Πρωταθλητής Ελλάδας κατακτώντας 9 μετάλλια (8 ατομικές νίκες). Στους Μεσογειακούς Αγώνες του 1991 στην Αθήνα ο Χαρίλαος Κακάλης κατέκτησε το ασημένιο μετάλλιο, ενώ το 1993 στην Καλλιθέα ο Αρχέλαος κατέκτησε εκ νέου την 1η θέση στη γενική βαθμολογία ανδρών και το χρυσό στο άλμα με τον Αλέκο Κατσικάκη.
+                  </p>
+
+                  <p>
+                    Από το 1992 την τεχνική ηγεσία του τμήματος κοριτσιών ανέλαβε η Ρουμάνα παγκόσμια πρωταθλήτρια (1981–1982) <strong>Μαριάνα Κωνσταντίν (Mariana Constantin - Καμαλέτσου)</strong>. Την περίοδο 1997–1999 ο σύλλογος διαμόρφωσε προσωρινά χώρο σε αποθήκη του ΟΣΕ στον Σιδηροδρομικό Σταθμό Κατερίνης, ενώ στις 5 Δεκεμβρίου 2001 ίδρυσε και τμήμα αγωνιστικού τραμπολίνο. Ως προπονητές εργάστηκαν επίσης οι Ευάγγελος Φλουρής και Ιωάννης Χαρίσης.
+                  </p>
+
+                  <div class="sub-box p-4 rounded-2xl bg-slate-50 border border-slate-200 text-xs sm:text-sm">
+                    <h4 class="font-heading font-black text-archelaos-deepgreen mb-1.5">Τμήμα Γενικής Γύμνασης Μικρών Παιδιών (1978–1983)</h4>
+                    <p class="!mb-0">
+                      Λειτούργησε από τον Φεβρουάριο του 1978 έως το 1983 υπό την οργάνωση του Ευστάθιου Ζάννα ως προ-αγωνιστική δεξαμενή αθλητών, προτού απορροφηθεί από την Ενόργανη Γυμναστική. Προπονητές που δίδαξαν: Πηνελόπη Ζουρνά & Βέτα Ζούκα (πρώτες προπονήτριες, 1978), Ευστάθιος Ζάννας, Κωνσταντίνος Μυρωτής, Γεώργιος Μαβίδης, Ασπασία Οικονομικού, Σοφία Μπέζα, Ε. Στεφανίδου, Ηλίας Αλεξίου και Δημήτριος Γκόρτσιος.
+                    </p>
+                  </div>
                 </div>
               </article>
 
+              <!-- 4.9 ΚΑΛΑΘΟΣΦΑΙΡΙΣΗ (ΣΥΓΧΩΝΕΥΣΗ 2008) -->
               <article id="basketball" class="glass-card rounded-[2rem] p-6 sm:p-10 shadow-lg scroll-mt-24">
-                <div class="relative z-10 space-y-3">
-                  <h3 class="text-xl font-black font-heading text-archelaos-deepgreen" data-i18n="dept_b_title">Καλαθοσφαίριση (Συγχώνευση το 2008)</h3>
-                  <p class="text-sm !mb-0" data-i18n="dept_b_desc">Ιδρυτικό μέλος ΕΚΑΣΚΕΜ, συμμετοχή στη Β΄ Εθνική Ανδρών και συνένωση το 2008.</p>
+                <div class="relative z-10 space-y-5">
+                  <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200/80 pb-4">
+                    <div class="flex items-center gap-3">
+                      <div class="w-12 h-12 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-2xl shadow-sm border border-archelaos-deepgreen/15">
+                        <i class="fa-solid fa-basketball"></i>
+                      </div>
+                      <div>
+                        <span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen block">Ιστορικό Τμήμα • 1973–2008</span>
+                        <h2 class="text-2xl sm:text-3xl font-black font-heading text-archelaos-deepgreen">Καλαθοσφαίριση (Συγχώνευση το 2008)</h2>
+                      </div>
+                    </div>
+                  </div>
+
+                  <p>
+                    Το τμήμα καλαθοσφαίρισης ιδρύθηκε το καλοκαίρι του <strong>1973</strong> υπό τον Θεόδωρο Σφήκα (πρώτος έφορος και προπονητής έως το 1977) και το 1980 αποτέλεσε ένα από τα 11 ιδρυτικά σωματεία της Ε.ΚΑ.Σ.ΚΕ.ΔΥ.Μ. (μετέπειτα ΕΚΑΣΚΕΜ). Η ανδρική ομάδα αγωνίστηκε στη <strong>Β΄ Εθνική Κατηγορία επί δύο έτη (1977–1979)</strong>, κατέκτησε το Πρωτάθλημα Α΄ ΕΚΑΣΚΕΜ (2001–02), αγωνίστηκε επί έξι έτη στη Γ΄ Εθνική (2002–2008, 2η θέση το 2006–07 και 2007–08) και κατέκτησε το Κύπελλο Ανδρών ΕΚΑΣΚΕΜ (2007–08). Η γυναικεία ομάδα ανήλθε στη Β΄ Εθνική το 1989 έχοντας κατακτήσει 4 πρωταθλήματα Ένωσης (1981–82, 1987–88, 1988–89, 1997–98). Η ομάδα Κορασίδων υπό τον Κυριάκο Κανάλη κατέκτησε την <strong>3η θέση στο Πανελλήνιο Πρωτάθλημα Κορασίδων (1995–96)</strong> στην Τρίπολη. Στυλοβάτης του τμήματος επί τρεις δεκαετίες υπήρξε ο αντιπρόεδρος Αντώνης Χαλεπλής, μαζί με τους εφόρους Μιχάλη Σαπίδη και Θεόδωρο Γαλανό.
+                  </p>
+
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
+                    <div class="sub-box p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                      <h4 class="font-heading font-black text-archelaos-deepgreen mb-1">Ιστορικοί Προπονητές</h4>
+                      <p class="!mb-0">Θεόδωρος Σφήκας, Κυριάκος Κανάλης, Αναστάσιος Θωμαΐδης, Χρήστος Ξηρομερίτης, Παναγιώτης Αθανασιάδης, Δημοσθένης Σιδηρόπουλος, Δημήτριος Σμυρλής, Πλάτων Χοτοκουρίδης, Αναστασία Φυλακτακίδου.</p>
+                    </div>
+                    <div class="sub-box p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                      <h4 class="font-heading font-black text-archelaos-deepgreen mb-1">Εμβληματικοί Καλαθοσφαιριστές & Αθλήτριες</h4>
+                      <p class="!mb-0">Κωνσταντίνος Τσουγκράνης, Τσαγκαλίδης, Ελένη Μαλεζά, Τασούλα Τσιρογιάννη, Δημήτριος Τσιγγαρόπουλος, Γεώργιος Αντωνιάδης, Γιάννης Παναγιωτίδης, Θεόδωρος Βύρος, Χρήστος Τοπαλίδης, Θεόδωρος Πρισκομάτης, Αλεξάνδρα Μπίλα, Παναγιώτα Νικολαΐδου.</p>
+                    </div>
+                  </div>
+
+                  <p class="!mb-0">
+                    Το καλοκαίρι του <strong>2008</strong>, μετά από απόφαση της Γενικής Συνέλευσης (4 Ιουνίου 2008), τα τμήματα μπάσκετ του Αρχελάου και του Σ.Φ.Κ. Πιερικού συνενώθηκαν δημιουργώντας τον ενιαίο <strong>Σ.Φ.Κ. Πιερικός Αρχέλαος</strong>.
+                  </p>
                 </div>
               </article>
 
+              <!-- 4.10 ΑΝΕΝΕΡΓΑ ΤΜΗΜΑΤΑ (ΠΟΛΟ, ΠΙΝΓΚ-ΠΟΝΓΚ, ΑΡΣΗ ΒΑΡΩΝ) -->
               <article id="inactive-depts" class="glass-card rounded-[2rem] p-6 sm:p-10 shadow-lg scroll-mt-24">
-                <div class="relative z-10 space-y-3">
-                  <h3 class="text-xl font-black font-heading text-archelaos-deepgreen" data-i18n="dept_in_title">Υδατοσφαίριση, Επιτραπέζια Αντισφαίριση & Άρση Βαρών</h3>
-                  <p class="text-sm !mb-0" data-i18n="dept_in_desc">Ιστορικά τμήματα που λειτούργησαν σε διακριτές περιόδους της πορείας του συλλόγου.</p>
+                <div class="relative z-10 space-y-5">
+                  <div class="flex items-center gap-3 border-b border-slate-200/80 pb-4">
+                    <div class="w-12 h-12 rounded-2xl bg-archelaos-deepgreen text-archelaos-yellow flex items-center justify-center text-xl shadow-sm">
+                      <i class="fa-solid fa-box-archive"></i>
+                    </div>
+                    <div>
+                      <span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen block">Ιστορικά Τμήματα</span>
+                      <h2 class="text-2xl sm:text-3xl font-black font-heading text-archelaos-deepgreen">Υδατοσφαίριση, Επιτραπέζια Αντισφαίριση & Άρση Βαρών</h2>
+                    </div>
+                  </div>
+
+                  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="sub-box p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                      <h3 class="font-heading font-black text-base text-archelaos-deepgreen mb-2">Υδατοσφαίριση (Πόλο)</h3>
+                      <p class="text-xs sm:text-sm !mb-0">
+                        Αναπτύχθηκε σε τρεις σταθμούς: πρώτη συγκρότηση το <strong>1982–1985</strong> (βράβευση εφηβικής ομάδας στις 19/01/1985), επαναδραστηριοποίηση στις <strong>15 Οκτωβρίου 1995</strong> για την αξιοποίηση των κολυμβητών του συλλόγου, και οριστική αναστολή το <strong>2008–2009</strong> λόγω έλλειψης θερμαινόμενης πισίνας τους χειμερινούς μήνες.
+                      </p>
+                    </div>
+                    <div class="sub-box p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                      <h3 class="font-heading font-black text-base text-archelaos-deepgreen mb-2">Επιτραπέζια Αντισφαίριση</h3>
+                      <p class="text-xs sm:text-sm !mb-0">
+                        Η απόφαση ίδρυσης ελήφθη στις <strong>22 Δεκεμβρίου 1976</strong> και εντάχθηκε στην Ε.Φ.Ο.Επ.Α. το <strong>1978</strong> με πρώτο έφορο τον Λάζαρο Μπλάτζα και τεχνική επιτροπή υπό τους Ντινόκα και Λύτρα (1979). Ανεστάλη μεταγενέστερα λόγω έλλειψης μόνιμης στέγης.
+                      </p>
+                    </div>
+                    <div class="sub-box p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                      <h3 class="font-heading font-black text-base text-archelaos-deepgreen mb-2">Άρση Βαρών</h3>
+                      <p class="text-xs sm:text-sm !mb-0">
+                        Συστάθηκε στις <strong>14 Οκτωβρίου 1980</strong> (Δ. Παρασκευόπουλος) και λειτούργησε συστηματικά από το 1985 με προπονητές τους Γεώργιο Χατζησαββίδη, Θεόδωρο Παυλίδη, Πέτρο Μαυρόπουλο (1991) και Δημήτριο Χατζησαββίδη (2008), και εφόρους τους Νικόλαο Δουκάκη, Εμμανουήλ Ζάρα, Θεόδωρο Διαμαντόπουλο, Γρηγόριο Ζάννα και Νικόλαο Κατόγλου. Το 1988 διοργάνωσε τους αγώνες Βορείου Ελλάδος στο ΕΑΚ.
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </article>
+
             </div>
 
-            <!-- 5. DIIA -->
+            <!-- 5. ΑΓΩΝΕΣ «ΔΙΙΑ» & «ΔΙΟΣ ΔΡΟΜΟΣ» -->
             <article id="diia" class="glass-card rounded-[2rem] p-6 sm:p-10 shadow-lg scroll-mt-24">
-              <div class="relative z-10 space-y-4">
-                <h2 class="text-2xl font-black font-heading text-archelaos-deepgreen" data-i18n="sec_diia_title">Αγώνες «Δίια» & «Δίος Δρόμος»</h2>
-                <p class="text-sm !mb-0" data-i18n="sec_diia_desc">
-                  Ο κορυφαίος αθλητικός θεσμός του συλλόγου που θεσπίστηκε το 1957 προς αναβίωση των αρχαίων αγώνων του Δίου, συνοδευόμενος από τον καθιερωθέντα από το 1987 ημιμαραθώνιο «Δίος Δρόμος».
+              <div class="relative z-10 space-y-5">
+                <div class="flex items-center gap-3">
+                  <div class="w-11 h-11 rounded-2xl bg-archelaos-deepgreen text-archelaos-yellow flex items-center justify-center text-lg shadow-sm shrink-0">
+                    <i class="fa-solid fa-fire-flame-curved"></i>
+                  </div>
+                  <div>
+                    <span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen block">Κεφάλαιο 5 • Ιστορικός Θεσμός (1957)</span>
+                    <h2 class="text-2xl sm:text-3xl font-black font-heading text-archelaos-deepgreen">Αγώνες «Δίια» & «Δίος Δρόμος»</h2>
+                  </div>
+                </div>
+
+                <p>
+                  Οι διασυλλογικοί αγώνες στίβου <strong>«Δίια»</strong> (αναφερόμενοι συχνά και ως «Ολύμπια εν Δίω») αποτέλεσαν τον κορυφαίο, ιστορικό αθλητικό θεσμό του Γ.Α.Σ. Αρχέλαος και ολόκληρης της Πιερίας. Η θέσπισή τους στηρίχθηκε στην ιστορική υπ' αριθμόν <strong>4060/18-3-1957</strong> απόφαση του τότε νομαρχεύοντος Πιερίας Μενέλαου Τσακίρη, ο οποίος ανέθεσε επίσημα στον Αρχέλαο την ετήσια διοργάνωση αθλητικών αγώνων προς αναβίωση των αρχαίων μακεδονικών αγώνων που τελούνταν στο ιερό του Δίου.
+                </p>
+
+                <p>
+                  Η πρώτη επίσημη τέλεση υπό την αιγίδα του συλλόγου έλαβε χώρα στις <strong>30 Ιουνίου 1957</strong> στο γήπεδο του Δημοτικού Πάρκου Κατερίνης («Α΄ Δίια»). Μέχρι το 1973 οι αγώνες διεξήχθησαν τέσσερις φορές (1957, 1959, 1965 και 1968), ενώ από το 1974 και μετά εξελίχθηκαν σε ένα από τα μαζικότερα περιφερειακά μίτινγκ στίβου στην Ελλάδα:
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5 text-xs sm:text-sm">
+                  <div class="sub-box p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                    <strong>Ε΄ Δίια (22–23 Ιουνίου 1974):</strong> Διεξήχθησαν στο Εθνικό Στάδιο Κατερίνης με συμμετοχή 16 σωματείων από όλη τη χώρα.
+                  </div>
+                  <div class="sub-box p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                    <strong>ΣΤ΄ Δίια (21–22 Ιουνίου 1975):</strong> Συμμετοχή 18 σωματείων από 15 πόλεις. Ο Αρχέλαος κάλυψε εξ ολοκλήρου τα έξοδα φιλοξενίας των αποστολών.
+                  </div>
+                  <div class="sub-box p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                    <strong>Ζ΄ Δίια (4–5 Ιουνίου 1977):</strong> Εορτασμός 20ετίας συλλόγου. Τιμήθηκαν οι Χρήστος Παπανικολάου, Σταύρος Τζιωρτζής και Δημοσθένης Μαγκλάρας.
+                  </div>
+                  <div class="sub-box p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                    <strong>Η΄ Δίια (1978):</strong> Διεξήχθησαν προς τιμήν του Γενικού Γραμματέα Αθλητισμού Κωνσταντίνου Παπαναστασίου.
+                  </div>
+                  <div class="sub-box p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                    <strong>Θ΄ Δίια (13–14 Οκτωβρίου 1979):</strong> Συμμετοχή 19 σωματείων και κορυφαίων πανελληνιονικών (Μιχάλης Κούσης, Σταύρος Μερμήγκης, Σαρούδη).
+                  </div>
+                  <div class="sub-box p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                    <strong>Ι΄ Δίια (11–12 Οκτωβρίου 1980) & ΙΑ΄ Δίια (3–4 Οκτωβρίου 1981):</strong> Μεγάλη βολή Αντ. Παπαδημητρίου (63,02 μ.) το 1980 και συμμετοχή 23 συλλόγων το 1981 (το 1982–84 δεν έγιναν λόγω τοποθέτησης ταρτάν).
+                  </div>
+                  <div class="sub-box p-4 rounded-2xl bg-archelaos-yellow/25 border border-archelaos-darkgreen/25">
+                    <strong>ΙΒ΄ Δίια (21 Σεπτεμβρίου 1985):</strong> Αφιερώθηκαν στη μνήμη του εκλιπόντος προέδρου Δημητρίου Γιάνναρου. Ο 16χρονος Κώστας Κουκοδήμος πέτυχε πανελλήνιο ρεκόρ παίδων στο μήκος με 7,40 μ. Θεσπίστηκε το ετήσιο Βραβείο «Δημήτριος Γιάνναρος».
+                  </div>
+                  <div class="sub-box p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                    <strong>ΙΓ΄ Δίια (4 Οκτωβρίου 1986):</strong> Εορτασμός «30 Χρόνια Προσφοράς» (1956–1986) με συμμετοχή 22 σωματείων.
+                  </div>
+                </div>
+
+                <p class="!mb-0">
+                  Το <strong>1987</strong> καθιερώθηκε παράλληλα ο <strong>«Δίος Δρόμος»</strong>, ένας επίσημος αγώνας αντοχής σε δημόσια οδό μήκους 15,5 χιλιομέτρων, με αφετηρία το αρχαίο θέατρο του Δίου (όπου τελούνταν τελετή αφής της φλόγας) και τερματισμό την Πλατεία Ελευθερίας της Κατερίνης.
                 </p>
               </div>
             </article>
 
-            <!-- 6. TITLES -->
+            <!-- 6. ΤΙΤΛΟΙ ΚΑΙ ΔΙΑΚΡΙΣΕΙΣ -->
             <article id="titloi" class="glass-card rounded-[2rem] p-6 sm:p-10 shadow-lg scroll-mt-24">
-              <div class="relative z-10 space-y-4">
-                <h2 class="text-2xl font-black font-heading text-archelaos-deepgreen" data-i18n="sec_titles_title">Τίτλοι και Διακρίσεις (Τροπαιοθήκη)</h2>
-                <p class="text-sm !mb-0" data-i18n="sec_titles_desc">
-                  Πάνω από 70 χρόνια διακρίσεων, πανελλήνιων τίτλων, κυπέλλων και διεθνών εκπροσώπησεων σε όλα τα αθλήματα.
-                </p>
+              <div class="relative z-10 space-y-6">
+                <div class="flex items-center gap-3">
+                  <div class="w-11 h-11 rounded-2xl bg-archelaos-deepgreen text-archelaos-yellow flex items-center justify-center text-lg shadow-sm shrink-0">
+                    <i class="fa-solid fa-trophy"></i>
+                  </div>
+                  <div>
+                    <span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen block">Κεφάλαιο 6 • Τροπαιοθήκη</span>
+                    <h2 class="text-2xl sm:text-3xl font-black font-heading text-archelaos-deepgreen">Τίτλοι και Διακρίσεις (Ανά Τμήμα)</h2>
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 text-xs sm:text-sm">
+                  
+                  <!-- Χάντμπολ -->
+                  <div class="sub-box p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+                    <h3 class="font-heading font-black text-base text-archelaos-deepgreen flex items-center gap-2">
+                      <i class="fa-solid fa-medal text-archelaos-darkgreen"></i> Χειροσφαίριση (Χάντμπολ)
+                    </h3>
+                    <ul class="list-disc pl-5 space-y-1">
+                      <li><strong>Κυπελλούχος Ελλάδας Ανδρών (2):</strong> 1990, 1994 <em>(Φιναλίστ 4: 1984, 1993, 1996, 2000)</em></li>
+                      <li><strong>Πρωτάθλημα Ελλάδας Ανδρών:</strong> 2η θέση (1994–95), 3η θέση (1989–90, 1990–91, 1992–93)</li>
+                      <li><strong>Ευρωπαϊκές διοργανώσεις:</strong> Κύπελλο Κυπελλούχων (1990–91, 1993–94 νίκη επί RK Umag, 1994–95 πρόκριση επί Titov Veles, 2000–01), City Cup (1995–96)</li>
+                      <li><strong>Πρωταθλητής Ελλάδας Εφήβων (2):</strong> 1984, 1996</li>
+                      <li><strong>Πρωταθλητής Ελλάδας Παίδων (4):</strong> 1994, 1995, 1996, 1997</li>
+                      <li><strong>Πρωταθλητής Ελλάδας Μίνι/Παμπαίδων (3):</strong> 1993, 1994, 1995</li>
+                    </ul>
+                  </div>
+
+                  <!-- Τοξοβολία -->
+                  <div class="sub-box p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+                    <h3 class="font-heading font-black text-base text-archelaos-deepgreen flex items-center gap-2">
+                      <i class="fa-solid fa-medal text-archelaos-darkgreen"></i> Τοξοβολία
+                    </h3>
+                    <ul class="list-disc pl-5 space-y-1">
+                      <li><strong>Πρωταθλητής Ελλάδας Ομαδικού Ανδρών Ολυμπιακού Τόξου (2):</strong> 2025, 2026</li>
+                      <li><strong>Κυπελλούχος Ελλάδας Ομαδικού Ανδρών (2):</strong> 2024, 2026</li>
+                      <li><strong>Πρωταθλητής Ελλάδας U21 Ομαδικού Νέων Ανδρών (1):</strong> 2026</li>
+                      <li><strong>Πανελλήνιο Ατομικό Ανδρών:</strong> 1η θέση 2025 (Ευ. Χαρίσης), 2η θέση 2025 & 2026 (Χ. Ιακωβίδης), 3η θέση 2026 (Ευ. Χαρίσης)</li>
+                      <li><strong>Διεθνείς & Para-archery:</strong> Ασημένιο (Ρώμη) & Χάλκινο (Νόβε Μέστο 2025) Ευρωπαϊκού Κυπέλλου Para-Archery (Δωροθέα Ποιμενίδου), Πανελλήνιο Ρεκόρ Μικτού U21 (Ευ. Χαρίσης, 2025)</li>
+                    </ul>
+                  </div>
+
+                  <!-- Ενόργανη -->
+                  <div class="sub-box p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+                    <h3 class="font-heading font-black text-base text-archelaos-deepgreen flex items-center gap-2">
+                      <i class="fa-solid fa-medal text-archelaos-darkgreen"></i> Ενόργανη Γυμναστική
+                    </h3>
+                    <ul class="list-disc pl-5 space-y-1">
+                      <li><strong>Πρωταθλητής Ελλάδας Ανδρών (Γενική Ομαδική):</strong> Γλυφάδα (9 μετάλλια), Καλλιθέα (1993)</li>
+                      <li><strong>Δεκαετές Πανελλήνιο Σερί (1981–1991):</strong> 1η θέση στο Ομαδικό σε Παμπαίδες, Παίδες, Εφήβους & Άνδρες</li>
+                      <li><strong>Μεσογειακοί Αγώνες:</strong> Ασημένιο μετάλλιο (Αθήνα 1991 – Χαρίλαος Κακάλης)</li>
+                      <li><strong>Ατομικοί Πανελλήνιοι Τίτλοι:</strong> Χ. Κακάλης (Κρίκοι, Δίζυγο), Αλ. Κατσικάκης (Άλμα), Κ. Ζάρας (Έδαφος)</li>
+                    </ul>
+                  </div>
+
+                  <!-- Πάλη -->
+                  <div class="sub-box p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+                    <h3 class="font-heading font-black text-base text-archelaos-deepgreen flex items-center gap-2">
+                      <i class="fa-solid fa-medal text-archelaos-darkgreen"></i> Ελληνορωμαϊκή Πάλη
+                    </h3>
+                    <ul class="list-disc pl-5 space-y-1">
+                      <li><strong>Παγκόσμιο Πρωτάθλημα U17 (2025):</strong> Ασημένιο μετάλλιο (71 κ. – Δημήτρης Σουλής)</li>
+                      <li><strong>Μεσογειακοί Αγώνες (1993):</strong> Χρυσό μετάλλιο (82 κ. – Νικόλαος Ζαμάνης)</li>
+                      <li><strong>Παγκόσμιο Εφήβων (1990):</strong> Ασημένιο μετάλλιο (Νικόλαος Ζαμάνης)</li>
+                      <li><strong>Ευρωπαϊκά Πρωταθλήματα (1988):</strong> Χάλκινα μετάλλια (Ν. Ζαμάνης & Αλ. Πουλικίδης)</li>
+                      <li><strong>Εθνικοί Τίτλοι:</strong> Πρωταθλητής Ελλάδας Συλλόγων Ανδρών, 3η θέση Πανελλήνιας Αξιολόγησης (2024)</li>
+                    </ul>
+                  </div>
+
+                  <!-- Στίβος -->
+                  <div class="sub-box p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+                    <h3 class="font-heading font-black text-base text-archelaos-deepgreen flex items-center gap-2">
+                      <i class="fa-solid fa-medal text-archelaos-darkgreen"></i> Κλασικός Αθλητισμός (Στίβος)
+                    </h3>
+                    <ul class="list-disc pl-5 space-y-1">
+                      <li><strong>Ολυμπιακοί & Μεσογειακοί:</strong> 6ος Ολυμπιονίκης Βαρκελώνη 1992 & Χρυσό Μεσογειακών 1991 (Κώστας Κουκοδήμος)</li>
+                      <li><strong>Πανελλήνια Ρεκόρ:</strong> Κ. Κουκοδήμος (Μήκος 8,36 μ.), Αντ. Παπαδημητρίου (Ακόντιο 83,56 μ. / 79,56 μ.), Αθ. Παπασωτηρίου (Πένταθλο 4.251 β.), Κ. Διαμαντόπουλος (60 μ. εμπ.), Κ. Δαλάκα, Ζ. Λαζαρίδου</li>
+                      <li><strong>Συλλογικές Διακρίσεις:</strong> 1ος επαρχιακός σύλλογος Ελλάδας & έως 5ος πανελληνίως (1980–1990), 2η θέση Πανευρωπαϊκού Σχολικού (1992)</li>
+                    </ul>
+                  </div>
+
+                  <!-- Σκοποβολή & Μπάσκετ -->
+                  <div class="sub-box p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+                    <h3 class="font-heading font-black text-base text-archelaos-deepgreen flex items-center gap-2">
+                      <i class="fa-solid fa-medal text-archelaos-darkgreen"></i> Σκοποβολή & Καλαθοσφαίριση
+                    </h3>
+                    <ul class="list-disc pl-5 space-y-1">
+                      <li><strong>Σκοποβολή – Ολυμπιακοί Αγώνες:</strong> Συμμετοχή Αθήνα 2004 (Μαρία Φάκα – Αεροβόλο Τουφέκι)</li>
+                      <li><strong>Σκοποβολή – Ρεκόρ:</strong> Πανελλήνια ρεκόρ Μαρίας Φάκα (395/400), Ομαδικό Νεανίδων 1993 (1119/1200) & Βαλκανικό Ρεκόρ Γ. Ιωαννίδη (1990)</li>
+                      <li><strong>Καλαθοσφαίριση:</strong> 3η θέση Πανελλήνιο Κορασίδων (1995–96), Β΄ Εθνική Ανδρών (1977–79) & Γυναικών (1989), Πρωταθλητής & Κυπελλούχος ΕΚΑΣΚΕΜ</li>
+                    </ul>
+                  </div>
+
+                </div>
               </div>
             </article>
 
-            <!-- 7. BIBLIOGRAPHY -->
+            <!-- 7. ΒΙΒΛΙΟΓΡΑΦΙΑ & ΠΗΓΕΣ -->
             <article id="vivliografia" class="glass-card rounded-[2rem] p-6 sm:p-10 shadow-lg scroll-mt-24">
               <div class="relative z-10 space-y-4">
-                <h2 class="text-2xl font-black font-heading text-archelaos-deepgreen" data-i18n="sec_bib_title">Βιβλιογραφία & Αρχειακές Πηγές</h2>
-                <p class="text-sm !mb-0" data-i18n="sec_bib_desc">
-                  Βασισμένο στα επίσημα Βιβλία Πρακτικών Δ.Σ. του Γ.Α.Σ. Αρχέλαος (1968–2026), επετειακές εκδόσεις του συλλόγου και τοπικό αρχειακό υλικό.
-                </p>
+                <div class="flex items-center gap-3">
+                  <div class="w-11 h-11 rounded-2xl bg-archelaos-deepgreen text-archelaos-yellow flex items-center justify-center text-lg shadow-sm shrink-0">
+                    <i class="fa-solid fa-book"></i>
+                  </div>
+                  <div>
+                    <span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen block">Κεφάλαιο 7 • Τεκμηρίωση</span>
+                    <h2 class="text-2xl sm:text-3xl font-black font-heading text-archelaos-deepgreen">Βιβλιογραφία & Αρχειακές Πηγές</h2>
+                  </div>
+                </div>
+
+                <ul class="list-disc pl-5 space-y-2 text-xs sm:text-sm font-medium">
+                  <li><strong>Αρχείο Πρακτικών Διοικητικού Συμβουλίου Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης</strong> (Τόμοι 1968–2026) & Αρχείο Εισερχομένων/Εξερχομένων Εγγράφων και Βεβαιώσεων.</li>
+                  <li>Χρήστος Ελευθερούδης (επιμ.), <em>Γ.Α.Σ. Ο ΑΡΧΕΛΑΟΣ Κατερίνης 1956: 40 Χρόνια Έντονης Αθλητικής Δραστηριότητας - Σύντομη Ιστορική Αναδρομή και Αγωνιστικός Απολογισμός Περιόδου 1993-1994</em>, Έκδοση Γ.Α.Σ. Αρχέλαος Κατερίνης, Κατερίνη 1996.</li>
+                  <li>Συλλογικό έργο, <em>Γ.Α.Σ. Αρχέλαος: 46 χρόνια - Πάντα Πρώτος</em>, Έκδοση Γ.Α.Σ. Αρχέλαος Κατερίνης, Κατερίνη 2002.</li>
+                  <li>Αρχείο εφημερίδων <em>Ολύμπιο Βήμα</em> Κατερίνης (1978–2026) και <em>Πιερικοί Αντίλαλοι</em> (1994–2006).</li>
+                  <li>Επίσημα δελτία βαθμολογίας και αξιολόγησης σωματείων ΣΕΓΑΣ, Ο.Χ.Ε., Ε.Ο.Π., ΣΚ.Ο.Ε., Ε.Ο.Τ. και Ε.Ο.ΠΕ.</li>
+                </ul>
+
+                <div class="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-200/80">
+                  <span class="text-xs font-bold text-slate-500">Πλήρες Ιστορικό Αρχείο Γ.Α.Σ. Αρχέλαος Κατερίνης (1956–2026)</span>
+                  <a href="index.html" class="btn-shimmer inline-flex items-center justify-center px-6 py-3 bg-archelaos-deepgreen text-archelaos-yellow font-black text-xs sm:text-sm rounded-xl shadow-md hover:bg-archelaos-darkgreen transition">
+                    <i class="fa-solid fa-house mr-2"></i> Επιστροφή στην Αρχική Σελίδα
+                  </a>
+                </div>
               </div>
             </article>
 
@@ -749,8 +1327,8 @@
       </div>
     </main>
 
-    <!-- BACK TO TOP BUTTON -->
-    <button id="backToTopBtn" aria-label="Επιστροφή στην κορυφή" class="fixed bottom-7 right-7 z-40 hidden lg:flex items-center justify-center w-14 h-14 rounded-full bg-archelaos-deepgreen text-archelaos-yellow shadow-2xl border-2 border-archelaos-yellow/50 group transition-all duration-300 hover:scale-110 opacity-0 pointer-events-none translate-y-4">
+    <!-- DESKTOP BACK-TO-TOP FLOATING BUTTON (IDENTICAL TO INDEX.HTML) -->
+    <button id="backToTopBtn" aria-label="Επιστροφή στην κορυφή" class="fixed bottom-7 right-7 z-40 hidden lg:flex items-center justify-center w-14 h-14 rounded-full bg-archelaos-deepgreen text-archelaos-yellow shadow-2xl border-2 border-archelaos-yellow/50 group transition-all duration-300 hover:scale-110 hover:shadow-archelaos-deepgreen/40 opacity-0 pointer-events-none translate-y-4">
       <svg class="absolute inset-0 w-full h-full -rotate-90 pointer-events-none" viewBox="0 0 56 56">
         <circle cx="28" cy="28" r="25" fill="none" stroke="rgba(246, 238, 66, 0.2)" stroke-width="2.5"></circle>
         <circle id="bttScrollProgress" cx="28" cy="28" r="25" fill="none" stroke="#f6ee42" stroke-width="2.5" stroke-dasharray="157.08" stroke-dashoffset="157.08" stroke-linecap="round" class="transition-all duration-150"></circle>
@@ -759,32 +1337,36 @@
         <img src="https://lh3.googleusercontent.com/d/1JwGT61jDKXuBU6rA1OCiC1laeKh8gKdV" alt="Αρχέλαος" class="w-7 h-7 object-contain transition-all duration-300 transform group-hover:-translate-y-8 group-hover:opacity-0 group-hover:scale-50">
         <i class="fa-solid fa-arrow-up text-lg text-archelaos-yellow absolute transition-all duration-300 transform translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 group-hover:scale-110"></i>
       </div>
-      <span class="absolute right-16 bg-archelaos-deepgreen text-archelaos-yellow text-[11px] font-black uppercase tracking-wider px-3 py-1.5 rounded-xl shadow-lg border border-archelaos-yellow/40 opacity-0 pointer-events-none translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 whitespace-nowrap" data-i18n="back_to_top_tooltip">Κορυφή</span>
+      <span class="absolute right-16 bg-archelaos-deepgreen text-archelaos-yellow text-[11px] font-black uppercase tracking-wider px-3 py-1.5 rounded-xl shadow-lg border border-archelaos-yellow/40 opacity-0 pointer-events-none translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 whitespace-nowrap">Κορυφή</span>
     </button>
 
-    <!-- FOOTER -->
+    <!-- FOOTER (IDENTICAL TO INDEX.HTML WITH HOME, FACEBOOK, YOUTUBE & WIKIPEDIA LINKS) -->
     <footer class="relative z-10 bg-archelaos-deepgreen text-archelaos-yellow/80 border-t border-archelaos-yellow/20">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col items-center justify-center gap-6 text-center text-xs">
         <a href="index.html" title="Επιστροφή στην Αρχική Σελίδα">
           <img src="https://lh3.googleusercontent.com/d/1JwGT61jDKXuBU6rA1OCiC1laeKh8gKdV" alt="Logo" class="w-24 h-24 object-contain opacity-95 hover:scale-105 transition duration-200" loading="lazy" decoding="async">
         </a>
+
+        <!-- Navigation Links to Index Page -->
         <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
           <a href="index.html" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-archelaos-yellow text-archelaos-deepgreen font-extrabold text-xs hover:bg-white transition shadow-sm">
-            <i class="fa-solid fa-house text-xs"></i> <span data-i18n="footer_home">Αρχική Σελίδα</span>
+            <i class="fa-solid fa-house text-xs"></i> <span>Αρχική Σελίδα</span>
           </a>
           <a href="index.html#departments" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-archelaos-yellow font-bold text-xs border border-archelaos-yellow/25 transition">
-            <span data-i18n="footer_depts">8 Τμήματα</span>
+            <span>8 Τμήματα</span>
           </a>
           <a href="index.html#timeline" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-archelaos-yellow font-bold text-xs border border-archelaos-yellow/25 transition">
-            <span data-i18n="footer_timeline">Χρονολόγιο</span>
+            <span>Χρονολόγιο</span>
           </a>
           <a href="index.html#board" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-archelaos-yellow font-bold text-xs border border-archelaos-yellow/25 transition">
-            <span data-i18n="footer_board">Διοίκηση</span>
+            <span>Διοίκηση</span>
           </a>
           <a href="index.html#contact" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-archelaos-yellow font-bold text-xs border border-archelaos-yellow/25 transition">
-            <span data-i18n="footer_contact">Επικοινωνία</span>
+            <span>Επικοινωνία</span>
           </a>
         </div>
+
+        <!-- Social & Wikipedia Links (Identical to index.html) -->
         <div class="flex flex-wrap items-center justify-center gap-3">
           <a href="https://www.facebook.com/oarxelaos" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-white/10 hover:bg-archelaos-yellow text-archelaos-yellow hover:text-archelaos-deepgreen border border-archelaos-yellow/30 font-extrabold text-xs transition shadow-sm">
             <i class="fa-brands fa-facebook-f text-sm"></i> <span>Facebook</span>
@@ -796,400 +1378,16 @@
             <i class="fa-brands fa-wikipedia-w text-sm"></i> <span>Wikipedia</span>
           </a>
         </div>
+
         <div class="space-y-1">
           <p class="font-semibold tracking-wide">&copy; 1956 - 2026 Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης &bull; archelaos.club</p>
-          <p class="text-[11px] text-archelaos-yellow/60" data-i18n="footer_address">Α΄ Δημοτικό Αθλητικό Κέντρο (ΔΑΚ) Κατερίνης, 60132</p>
+          <p class="text-[11px] text-archelaos-yellow/60">Α΄ Δημοτικό Αθλητικό Κέντρο (ΔΑΚ) Κατερίνης, 60132</p>
         </div>
       </div>
     </footer>
 
-    <!-- JAVASCRIPT & BILINGUAL ENGINE -->
+    <!-- INTERACTIVE JAVASCRIPT -->
     <script>
-      const translations = {
-        el: {
-          brand_title: "Αρχέλαος",
-          history_sub_title: "Ιστορικο Αρχείο • 70 Χρόνια",
-          nav_home: "Αρχική",
-          nav_hist_admin: "Διοικητική Ιστορία",
-          nav_hist_facilities: "Εγκαταστάσεις",
-          nav_hist_depts: "Τμήματα",
-          nav_hist_diia: "Αγώνες «Δίια»",
-          nav_hist_titles: "Τίτλοι",
-          btn_return_home: "Επιστροφή στην Αρχική",
-          mob_toc_1: "1. Ταυτότητα & Ίδρυση (1956)",
-          mob_toc_2: "2. Διοικητική Ιστορία & Πρόεδροι",
-          mob_toc_3: "3. Αθλητικές Εγκαταστάσεις",
-          mob_toc_4: "4. Ιστορία Αθλητικών Τμημάτων",
-          mob_toc_5: "5. Αγώνες «Δίια» & «Δίος Δρόμος»",
-          mob_toc_6: "6. Τροπαιοθήκη & Διακρίσεις",
-          mob_toc_7: "7. Βιβλιογραφία & Πηγές",
-          hero_hist_badge: "Επίσημο Ιστορικό Αρχείο • 1956–2026",
-          hero_hist_title_1: "Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης:",
-          hero_hist_title_2: "70 Χρόνια Ιστορίας",
-          hero_hist_desc: "Η πλήρης εγκυκλοπαιδική καταγραφή του αρχαιότερου και ιστορικότερου εν ενεργεία πολυαθλητικού οργανισμού της Πιερίας. Όλοι οι πρόεδροι, οι σταθμοί, οι προπονητές, οι Ολυμπιονίκες, τα αθλητικά τμήματα και η τροπαιοθήκη του συλλόγου.",
-          search_placeholder: "Αναζήτηση ονόματος, έτους ή αθλήματος...",
-          btn_clear: "Καθαρισμός",
-          reg_no: "Αρ. Μητρώου 2/1957",
-          toc_heading: "Περιεχόμενα",
-          toc_1: "1. Ταυτότητα & Ίδρυση (1956)",
-          toc_2: "2. Διοικητική Ιστορία & Πρόεδροι",
-          toc_2_1: "2.1 Απόπειρα συγχώνευσης (1970)",
-          toc_2_2: "2.2 Τρέχουσα διοίκηση (2026)",
-          toc_3: "3. Εγκαταστάσεις",
-          toc_4: "4. Αθλητικά Τμήματα",
-          toc_4_1: "• Χειροσφαίριση (Χάντμπολ)",
-          toc_4_2: "• Κλασικός Αθλητισμός (Στίβος)",
-          toc_4_3: "• Τοξοβολία",
-          toc_4_4: "• Πετοσφαίριση (Βόλεϊ)",
-          toc_4_5: "• Σκοποβολή",
-          toc_4_6: "• Πάλη",
-          toc_4_7: "• Κολύμβηση & Τεχνική",
-          toc_4_8: "• Ενόργανη & Γενική Γύμναση",
-          toc_4_9: "• Καλαθοσφαίριση (Συγχώνευση)",
-          toc_4_10: "• Πόλο, Πινγκ-Πονγκ & Άρση Βαρών",
-          toc_5: "5. Αγώνες «Δίια» & «Δίος Δρόμος»",
-          toc_6: "6. Τίτλοι & Διακρίσεις",
-          toc_7: "7. Βιβλιογραφία & Πηγές",
-          infobox_title: "Ταυτότητα Σωματείου",
-          info_name: "Πλήρες όνομα:",
-          info_founded: "Ίδρυση:",
-          info_colors: "Χρώματα:",
-          info_colors_val: "Πράσινο, Κίτρινο",
-          info_president: "Πρόεδρος:",
-          info_sec: "Γεν. Γραμματέας:",
-          info_hq: "Έδρα:",
-          info_courts: "Κύρια Γήπεδα:",
-          info_courts_val: "Β΄ ΔΑΚ («Θ. Διαμαντόπουλος»), Α΄ ΔΑΚ, Γήπεδο Ν. Χράνης",
-          chap_1: "Κεφάλαιο 1",
-          sec_1_title: "Ίδρυση, Έμβλημα & Ιστορική Ταυτότητα",
-          sec_1_p1: "Ο <strong>Γυμναστικός Αγωνιστικός Σύλλογος «Ο Αρχέλαος» Κατερίνης</strong> (συντετμημένα <strong>Γ.Α.Σ. Αρχέλαος</strong>) είναι ελληνικό πολυαθλητικό σωματείο με έδρα την πόλη της Κατερίνης στην Πιερία. Ιδρύθηκε στις <strong>29 Απριλίου 1956</strong> και αναγνωρίστηκε επίσημα με την υπ' αριθμόν <strong>38/1957</strong> απόφαση του Πρωτοδικείου Κατερίνης (αριθμός μητρώου σωματείων <strong>2/1957</strong>), αποτελώντας τον αρχαιότερο και ιστορικότερο εν ενεργεία αθλητικό οργανισμό του νομού Πιερίας.",
-          sec_1_p2: "Τα επίσημα χρώματα του συλλόγου είναι το <strong>πράσινο και το κίτρινο</strong> (με εναλλακτική εμφάνιση τη λευκή στολή), τα οποία καθιερώθηκαν επισήμως στις <strong>27 Ιουνίου 1968</strong>. Το όνομα και το έμβλημά του είναι εμπνευσμένα από τον αρχαίο Μακεδόνα βασιλιά <strong>Αρχέλαο Α΄</strong>, ο οποίος καθιέρωσε τα αρχαία «Ολύμπια» στη γειτονική ιερή πόλη του Δίου.",
-          chap_2: "Κεφάλαιο 2",
-          sec_2_title: "Διοικητική Ιστορία (1956–2026)",
-          sec_2_p1: "Η θεσμική αφετηρία του Γ.Α.Σ. Αρχέλαος τοποθετείται στις 29 Απριλίου 1956 με τη σύνταξη του αρχικού καταστατικού, ενώ η δικαστική αναγνώριση επισφραγίστηκε το 1957. Πρωτεργάτης της ίδρυσης και πρώτος πρόεδρος του συλλόγου υπήρξε ο τότε Επιθεωρητής Σωματικής Αγωγής Πιερίας (1954–1969) <strong>Γεώργιος Ευθυμίου (1908–2006)</strong>, ενώ το πρώτο καταγεγραμμένο ιδρυτικό διοικητικό συμβούλιο συγκροτήθηκε από τους <strong>Αθανάσιο Τσακνάκη</strong> (πρόεδρος), <strong>Ιωάννη Ζαρογιάννη</strong> (αντιπρόεδρος) και <strong>Θεόδωρο Ξηρομερίτη</strong> (ταμίας).",
-          sec_2_p2: "Στη μακρόχρονη πορεία του σωματείου, τα ηνία της προεδρίας ανέλαβαν διαδοχικά οι:",
-          th_term: "Θητεία",
-          th_pres: "Πρόεδρος",
-          th_events: "Σημαντικότεροι σταθμοί & γεγονότα",
-          box_1973_title: "Η Ιστορική Τομή της 24ης Ιουνίου 1973",
-          box_1973_desc: "Ιστορικό ορόσημο για τον σύλλογο υπήρξε η <strong>24η Ιουνίου 1973</strong>. Μέχρι τότε ο Αρχέλαος λειτουργούσε αποκλειστικά ως σωματείο στίβου και το αρχείο του φυλασσόταν άτυπα σε ένα στρατιωτικό κασόνι. Τότε πέντε καθηγητές Φυσικής Αγωγής (<strong>Αθανάσιος Ευθυμίου, Δημήτριος Παρασκευόπουλος, Ευστάθιος Ζάννας, Ορέστης Νταρλαγιάννης, Θεόδωρος Σφήκας</strong>) ανέλαβαν τη διοίκηση, δρομολογώντας τη μετεξέλιξη του συλλόγου σε πολυαθλητικό οργανισμό.",
-          sec_2_1_title: "Η απόπειρα συγχώνευσης του 1970 και οι σχέσεις με τον Πιερικό",
-          sec_2_1_desc: "Κομβικό σημείο για την αυτοτέλεια και την ιστορική επιβίωση του σωματείου υπήρξε ο <strong>Ιανουάριος του 1970</strong>. Ο ποδοσφαιρικός Σ.Φ.Κ. Πιερικός, με επίσημο έγγραφό του, πρότεινε προς τον Αρχέλαο τη συνένωση των δύο συλλόγων. Σε διαδοχικές συνεδριάσεις, η διοίκηση του Ιωάννη Μαντζαρόπουλου απέρριψε ομόφωνα την πρόταση, διαφυλάσσοντας την ανεξάρτητη πορεία και τη φυσιογνωμία του στίβου της Κατερίνης.",
-          sec_2_2_title: "Τρέχουσα διοίκηση (2026)",
-          sec_2_2_desc: "Μετά την απώλεια του προέδρου Αλκίνοου Τασόπουλου, το Διοικητικό Συμβούλιο ανασυγκροτήθηκε επίσημα σε σώμα στις <strong>8 Σεπτεμβρίου 2026</strong>:",
-          board_exec: "Προεδρείο & Εκτελεστική Επιτροπή",
-          board_ephors: "Έφοροι Αθλητικών Τμημάτων",
-          role_pres: "Πρόεδρος",
-          role_vp1: "Α΄ Αντιπρόεδρος",
-          role_vp2: "Β΄ Αντιπρόεδρος",
-          role_sec: "Γενικός Γραμματέας",
-          role_treas: "Ταμίας",
-          eph_hb: "Χειροσφαίριση",
-          eph_tr: "Στίβος",
-          eph_ar: "Τοξοβολία",
-          eph_vb: "Πετοσφαίριση",
-          eph_wr: "Πάλη",
-          eph_sw: "Κολύμβηση",
-          eph_gym: "Ενόργανη",
-          eph_sh: "Σκοποβολή",
-          chap_3: "Κεφάλαιο 3",
-          sec_3_title: "Αθλητικές Εγκαταστάσεις",
-          sec_3_desc: "Οι αθλητικές δραστηριότητες, οι ακαδημίες και τα αγωνιστικά τμήματα του Γ.Α.Σ. Αρχέλαος φιλοξενούνται σε δημοτικές αθλητικές εγκαταστάσεις της Κατερίνης:",
-          fac_1_title: "Β΄ Δ.Α.Κ. «Θεόδωρος Διαμαντόπουλος»",
-          fac_1_sub: "Το βασικό κλειστό αθλητικό συγκρότημα του συλλόγου, περιλαμβάνοντας:",
-          fac_1_1: "Κλειστό Γυμναστήριο:",
-          fac_1_1_val: "Φυσική έδρα Χειροσφαίρισης και Πετοσφαίρισης.",
-          fac_1_2: "Ειδικές Αίθουσες:",
-          fac_1_2_val: "Ελληνορωμαϊκή Πάλη, Ενόργανη Γυμναστική & Σκοπευτήριο.",
-          fac_1_3: "Δημοτικό Κολυμβητήριο:",
-          fac_1_3_val: "Προπονήσεις τμήματος Κολύμβησης.",
-          fac_2_title: "Α΄ Δ.Α.Κ. (Δημοτικό Στάδιο Κατερίνης)",
-          fac_2_desc: "Στις υπαίθριες εγκαταστάσεις του ιστορικού σταδίου πραγματοποιούνται οι προπονήσεις του τμήματος <strong>Κλασικού Αθλητισμού (Στίβος)</strong>, ενώ εκεί στεγάζονται και τα επίσημα γραφεία του συλλόγου (Εθνικού Σταδίου 3Α).",
-          fac_3_title: "Εγκαταστάσεις Τοξοβολίας",
-          fac_3_1: "Κλειστό προπονητήριο:",
-          fac_3_1_val: "Οδός Πλάτωνος για χειμερινές προπονήσεις 18μ.",
-          fac_3_2: "Υπαίθριο πεδίο βολής:",
-          fac_3_2_val: "Δημοτικό Γήπεδο Νέας Χράνης για αποστάσεις 50μ. & 70μ.",
-          dept_h_title: "Χειροσφαίριση (Χάντμπολ)",
-          dept_h_desc: "Ιστορικό τμήμα με 2 Κύπελλα Ελλάδος (1990, 1994) και λαμπρή παρουσία στην Α1 Εθνική.",
-          dept_t_title: "Κλασικός Αθλητισμός (Στίβος)",
-          dept_t_desc: "Κλασικός αθλητισμός με έδρα το Α΄ ΔΑΚ Κατερίνης και φυτώρια νέων ταλέντων.",
-          dept_a_title: "Τοξοβολία",
-          dept_a_desc: "Ολυμπιακό άθλημα με ενεργή αγωνιστική παρουσία και τμήματα υποδομών.",
-          dept_v_title: "Πετοσφαίριση (Βόλεϊ)",
-          dept_v_desc: "Ομαδικό άθλημα με τμήματα υποδομών και αγωνιστικά κλιμάκια.",
-          dept_s_title: "Σκοποβολή",
-          dept_s_desc: "Αγωνίσματα ακριβείας και αεροβόλων όπλων υπό την καθοδήγηση έμπειρων προπονητών.",
-          dept_w_title: "Πάλη",
-          dept_w_desc: "Παραδοσιακό δυναμικό άθλημα με πλούσια ιστορία διακρίσεων στην Πιερία.",
-          dept_sw_title: "Κολύμβηση & Τεχνική Κολύμβηση",
-          dept_sw_desc: "Ακαδημίες εκμάθησης και αγωνιστικό τμήμα υγρού στίβου για όλες τις ηλικίες.",
-          dept_g_title: "Ενόργανη Γυμναστική & Γενική Γύμναση",
-          dept_g_desc: "Ανάπτυξη ευλυγισίας, δύναμης, ισορροπίας και συντονισμού σε εξοπλισμένη αίθουσα.",
-          dept_b_title: "Καλαθοσφαίριση (Συγχώνευση το 2008)",
-          dept_b_desc: "Ιδρυτικό μέλος ΕΚΑΣΚΕΜ, συμμετοχή στη Β΄ Εθνική Ανδρών και συνένωση το 2008 για τη δημιουργία του Πιερικού Αρχελάου.",
-          dept_in_title: "Υδατοσφαίριση, Επιτραπέζια Αντισφαίριση & Άρση Βαρών",
-          dept_in_desc: "Ιστορικά τμήματα που λειτούργησαν σε διακριτές περιόδους της πορείας του συλλόγου.",
-          sec_diia_title: "Αγώνες «Δίια» & «Δίος Δρόμος»",
-          sec_diia_desc: "Ο κορυφαίος αθλητικός θεσμός του συλλόγου που θεσπίστηκε το 1957 προς αναβίωση των αρχαίων αγώνων του Δίου, συνοδευόμενος από τον καθιερωθέντα από το 1987 ημιμαραθώνιο «Δίος Δρόμος».",
-          sec_titles_title: "Τίτλοι και Διακρίσεις (Τροπαιοθήκη)",
-          sec_titles_desc: "Πάνω από 70 χρόνια διακρίσεων, πανελλήνιων τίτλων, κυπέλλων και διεθνών εκπροσώπησεων σε όλα τα αθλήματα.",
-          sec_bib_title: "Βιβλιογραφία & Αρχειακές Πηγές",
-          sec_bib_desc: "Βασισμένο στα επίσημα Βιβλία Πρακτικών Δ.Σ. του Γ.Α.Σ. Αρχέλαος (1968–2026), επετειακές εκδόσεις του συλλόγου και τοπικό αρχειακό υλικό.",
-          footer_home: "Αρχική Σελίδα",
-          footer_depts: "8 Τμήματα",
-          footer_timeline: "Χρονολόγιο",
-          footer_board: "Διοίκηση",
-          footer_contact: "Επικοινωνία",
-          footer_address: "Α΄ Δημοτικό Αθλητικό Κέντρο (ΔΑΚ) Κατερίνης, 60132",
-          back_to_top_tooltip: "Κορυφή",
-          board_1_name: "Παναγιώτης Διαμαντόπουλος",
-          board_2_name_full: "Χαράλαμπος Σαββίδης",
-          board_3_name_full: "Δημήτριος Γαλάνης",
-          board_4_name: "Αθανάσιος Μαυροειδής",
-          board_5_name_full: "Παύλος Συμεωνίδης",
-          board_6_name_full: "Γεώργιος Αθανασίου",
-          board_7_name_full: "Κυριάκος Κωνσταντινίδης",
-          board_8_name_full: "Χρυσούλα Κουτσουδάκη",
-          pres_name_1: "Γεώργιος Ευθυμίου",
-          pres_desc_1: "Πρωτεργάτης της ίδρυσης του συλλόγου και του τμήματος κλασικού αθλητισμού στην Κατερίνη, Επιθεωρητής Σωματικής Αγωγής Πιερίας.",
-          pres_name_2: "Αθανάσιος Τσακνάκης",
-          pres_desc_2: "Ίδρυση, ψήφιση πρώτου καταστατικού και νομική συγκρότηση συλλόγου.",
-          pres_name_3: "Ιωάννης Μαντζαρόπουλος",
-          pres_desc_3: "Πρώτες διοργανώσεις στο Δημοτικό Πάρκο Κατερίνης.",
-          pres_name_4: "Θεόφιλος Καμπερίδης",
-          pres_desc_4: "Σύνδεση με τοπικούς θεσμούς (μετέπειτα βουλευτής και Δήμαρχος Κατερίνης).",
-          pres_name_5: "Ιωάννης Παπαδημητρίου",
-          pres_desc_5: "Προσωρινή διοίκηση.",
-          pres_name_6: "Ιωάννης Μαντζαρόπουλος",
-          pres_desc_6: "Εγγραφή στίβου στον ΣΕΓΑΣ (1967), θέσπιση των αγώνων «Δίια» (1968), επίσημη καθιέρωση χρωμάτων, απόρριψη συγχώνευσης με Πιερικό (1970).",
-          pres_name_7: "Αθανάσιος Ευθυμίου",
-          pres_desc_7: "Ιστορική τομή 24ης Ιουνίου 1973. Ανάληψη διοίκησης από καθηγητές Φ.Α., ίδρυση τμημάτων μπάσκετ & βόλεϊ, διεξαγωγή Ε΄ Δίων (1974).",
-          pres_name_8: "Νίκος Τσινόπουλος",
-          pres_desc_8: "Μεταπολιτευτική ανασυγκρότηση, ίδρυση ενόργανης γυμναστικής (1975), διοργάνωση Ζ΄ Δίων (1977).",
-          pres_name_9: "Δημήτριος (Μήτσος) Γιάνναρος",
-          pres_desc_9: "Ίδρυση χειροσφαίρισης (1976/78), πάλης (1978), κολύμβησης (1980), υδατοσφαίρισης και άρσης βαρών. Απεβίωσε εν ενεργεία (1985).",
-          pres_name_10: "Ευστάθιος Ζάννας",
-          pres_desc_10: "Εορτασμός 30ετίας (1986), θέσπιση «Δίου Δρόμου» (1987), άνοδος χάντμπολ στην εθνική ελίτ και θεμελίωση σκοποβολής.",
-          pres_name_11: "Δημήτριος Παπαδημητρίου",
-          pres_desc_11: "1ο Κύπελλο Ελλάδας Χάντμπολ (1990) και έξοδος στην Ευρώπη, Βαλκανικοί Αγώνες Νέων (1991), ίδρυση τοξοβολίας.",
-          pres_name_12: "Χρήστος Ελευθερούδης",
-          pres_desc_12: "Μακροβιότερη θητεία. 2ο Κύπελλο Χάντμπολ (1994), ευρωπαϊκές πορείες, ιδρυτικό μέλος ΕΦΟΤ (1999), συγχώνευση μπάσκετ (2008).",
-          pres_name_13: "Θεόδωρος Διαμαντόπουλος",
-          pres_desc_13: "Επιστροφή χάντμπολ στην Α1 (2013) και Handball Premier (2015–16), διαχείριση οικονομικής κρίσης.",
-          pres_name_14: "Αλκίνοος (Άλκης) Τασόπουλος",
-          pres_desc_14: "Μεταφορά γραφείων στο Α΄ ΔΑΚ (2021). Απεβίωσε εν ενεργεία στις 30 Ιουλίου 2026.",
-          pres_name_15: "Παναγιώτης Διαμαντόπουλος",
-          pres_desc_15: "Ομόφωνη ανασυγκρότηση Δ.Σ. (2026), εκσυγχρονισμός και επετειακοί εορτασμοί 70 ετών."
-        },
-        en: {
-          brand_title: "Archelaos",
-          history_sub_title: "Historical Archive • 70 Years",
-          nav_home: "Home",
-          nav_hist_admin: "Governance History",
-          nav_hist_facilities: "Facilities",
-          nav_hist_depts: "Departments",
-          nav_hist_diia: "'Diia' Games",
-          nav_hist_titles: "Titles",
-          btn_return_home: "Return to Home",
-          mob_toc_1: "1. Identity & Foundation (1956)",
-          mob_toc_2: "2. Governance & Presidents",
-          mob_toc_3: "3. Athletic Facilities",
-          mob_toc_4: "4. Sports Departments",
-          mob_toc_5: "5. 'Diia' Games & 'Dion Road'",
-          mob_toc_6: "6. Trophy Cabinet & Honors",
-          mob_toc_7: "7. Bibliography & Sources",
-          hero_hist_badge: "Official Historical Archive • 1956–2026",
-          hero_hist_title_1: "G.A.S. 'Archelaos' Katerini:",
-          hero_hist_title_2: "70 Years of History",
-          hero_hist_desc: "The comprehensive encyclopedic chronicle of Pieria's oldest multi-sport organization. All presidents, milestones, coaches, Olympians, sports departments, and club trophies.",
-          search_placeholder: "Search name, year or sport...",
-          btn_clear: "Clear",
-          reg_no: "Reg. No. 2/1957",
-          toc_heading: "Table of Contents",
-          toc_1: "1. Identity & Foundation (1956)",
-          toc_2: "2. Governance & Presidents",
-          toc_2_1: "2.1 Merger Attempt (1970)",
-          toc_2_2: "2.2 Current Board (2026)",
-          toc_3: "3. Athletic Facilities",
-          toc_4: "4. Sports Departments",
-          toc_4_1: "• Handball",
-          toc_4_2: "• Track & Field (Athletics)",
-          toc_4_3: "• Archery",
-          toc_4_4: "• Volleyball",
-          toc_4_5: "• Sport Shooting",
-          toc_4_6: "• Wrestling",
-          toc_4_7: "• Swimming & Finswimming",
-          toc_4_8: "• Artistic & General Gymnastics",
-          toc_4_9: "• Basketball (Merger)",
-          toc_4_10: "• Water Polo, Table Tennis & Weightlifting",
-          toc_5: "5. 'Diia' Games & 'Dion Road'",
-          toc_6: "6. Titles & Honors",
-          toc_7: "7. Bibliography & Sources",
-          infobox_title: "Club Profile",
-          info_name: "Full Name:",
-          info_founded: "Founded:",
-          info_colors: "Colors:",
-          info_colors_val: "Green, Yellow",
-          info_president: "President:",
-          info_sec: "General Secretary:",
-          info_hq: "Headquarters:",
-          info_courts: "Home Venues:",
-          info_courts_val: "2nd DAK ('Th. Diamantopoulos'), 1st DAK, Nea Hrani Field",
-          chap_1: "Chapter 1",
-          sec_1_title: "Foundation, Crest & Historical Identity",
-          sec_1_p1: "The <strong>Gymnastic Athletic Club 'Archelaos' of Katerini</strong> (abbreviated as <strong>G.A.S. Archelaos</strong>) is a Greek multi-sport club based in Katerini, Pieria. Founded on <strong>April 29, 1956</strong> and officially recognized by decision 38/1957 of the Katerini Court of First Instance (registry no. 2/1957), it is Pieria's oldest active athletic organization.",
-          sec_1_p2: "The official club colors are <strong>green and yellow</strong> (with white as an alternative), established on <strong>June 27, 1968</strong>. The club's name and emblem are inspired by the ancient Macedonian King <strong>Archelaus I</strong>, who instituted the ancient 'Olympia' games at nearby sacred Dion.",
-          chap_2: "Chapter 2",
-          sec_2_title: "Governance History (1956–2026)",
-          sec_2_p1: "The institutional genesis of G.A.S. Archelaos began on April 29, 1956, with the initial charter signed under Pieria's Inspector of Physical Education <strong>Georgios Efthymiou (1908–2006)</strong>, alongside founding president Athanasios Tsaknakis.",
-          sec_2_p2: "Throughout its long history, the club's presidency was held successively by:",
-          th_term: "Term",
-          th_pres: "President",
-          th_events: "Key Milestones & Events",
-          box_1973_title: "The Historic Milestone of June 24, 1973",
-          box_1973_desc: "A watershed moment occurred on <strong>June 24, 1973</strong>, when five physical education teachers (<strong>Athanasios Efthymiou, Dimitrios Paraskevopoulos, Efstathios Zannas, Orestis Ntarlagiannis, Theodoros Sfikas</strong>) took over governance, transforming Archelaos into a multi-sport organization.",
-          sec_2_1_title: "The 1970 Merger Attempt and Relations with Pierikos",
-          sec_2_1_desc: "A pivotal moment for the club's independence occurred in <strong>January 1970</strong>, when football club Pierikos proposed a merger. Ioannis Mantzaropoulos's administration unanimously rejected the proposal, safeguarding Archelaos's independent pathway.",
-          sec_2_2_title: "Current Governance (2026)",
-          sec_2_2_desc: "Following the passing of President Alkinoos Tasopoulos, the Board of Directors was officially reconstituted on <strong>September 8, 2026</strong>:",
-          board_exec: "Executive Board",
-          board_ephors: "Department Directors",
-          role_pres: "President",
-          role_vp1: "1st Vice President",
-          role_vp2: "2nd Vice President",
-          role_sec: "General Secretary",
-          role_treas: "Treasurer",
-          eph_hb: "Handball",
-          eph_tr: "Track & Field",
-          eph_ar: "Archery",
-          eph_vb: "Volleyball",
-          eph_wr: "Wrestling",
-          eph_sw: "Swimming",
-          eph_gym: "Gymnastics",
-          eph_sh: "Shooting",
-          chap_3: "Chapter 3",
-          sec_3_title: "Athletic Facilities",
-          sec_3_desc: "G.A.S. Archelaos hosts its training sessions and academies across Katerini's municipal athletic facilities:",
-          fac_1_title: "2nd Municipal Athletic Center 'Theodoros Diamantopoulos'",
-          fac_1_sub: "The primary indoor complex, including:",
-          fac_1_1: "Indoor Arena:",
-          fac_1_1_val: "Home venue for Handball and Volleyball.",
-          fac_1_2: "Specialized Rooms:",
-          fac_1_2_val: "Greco-Roman Wrestling, Artistic Gymnastics & Shooting range.",
-          fac_1_3: "Municipal Pool:",
-          fac_1_3_val: "Swimming squad training pool.",
-          fac_2_title: "1st Municipal Athletic Center (Katerini Stadium)",
-          fac_2_desc: "Outdoor tracks and throwing cages used daily by our <strong>Track & Field</strong> section, housing our official clubhouse (3A Ethnikou Stadiou St.).",
-          fac_3_title: "Archery Facilities",
-          fac_3_1: "Indoor range:",
-          fac_3_1_val: "Platonos St. for 18m winter training.",
-          fac_3_2: "Outdoor range:",
-          fac_3_2_val: "Nea Hrani Municipal Field for 50m & 70m Olympic distances.",
-          dept_h_title: "Handball",
-          dept_h_desc: "Historic section with 2 Greek National Cups (1990, 1994) and top tier A1 presence.",
-          dept_t_title: "Track & Field (Athletics)",
-          dept_t_desc: "Classical athletics based at the 1st Municipal Stadium of Katerini with Olympic alumni.",
-          dept_a_title: "Archery",
-          dept_a_desc: "Olympic recurve and compound archery with multiple national championships.",
-          dept_v_title: "Volleyball",
-          dept_v_desc: "Youth development academies and competitive leagues for boys and girls.",
-          dept_s_title: "Sport Shooting",
-          dept_s_desc: "Highlighted by Maria Faka's participation at the Athens 2004 Olympic Games.",
-          dept_w_title: "Wrestling",
-          dept_w_desc: "Greco-Roman National Club Champions and World U17 Championship Silver Medalist (2025) Dimitris Soulis.",
-          dept_sw_title: "Swimming & Finswimming",
-          dept_sw_desc: "From the pioneering 'seaside years' (1974) to Katerini's 50m Olympic Municipal Pool.",
-          dept_g_title: "Artistic & General Gymnastics",
-          dept_g_desc: "The extraordinary 10-year consecutive national championship winning streak (1981–1991).",
-          dept_b_title: "Basketball (Merged in 2008)",
-          dept_b_desc: "EKASKEM founding member, competing in National Division B before merging in 2008 to form Pierikos Archelaos.",
-          dept_in_title: "Water Polo, Table Tennis & Weightlifting",
-          dept_in_desc: "Historic sections active during specific eras of the club's evolution.",
-          sec_diia_title: "'Diia' Games & 'Dion Road'",
-          sec_diia_desc: "The club's premier athletic institution instituted in 1957 to revive ancient Dion games, complemented by the annual 'Dion Road' half-marathon since 1987.",
-          sec_titles_title: "Titles & Honors (Trophy Cabinet)",
-          sec_titles_desc: "Over 70 years of athletic distinction, national championships, cups, and international representations across all sports.",
-          sec_bib_title: "Bibliography & Sources",
-          sec_bib_desc: "Derived from official G.A.S. Archelaos Board Meeting Minutes (1968–2026), anniversary publications, and local historical archives.",
-          footer_home: "Home",
-          footer_depts: "8 Departments",
-          footer_timeline: "Timeline",
-          footer_board: "Board",
-          footer_contact: "Contact",
-          footer_address: "1st Municipal Athletic Center (DAK) of Katerini, GR-60132",
-          back_to_top_tooltip: "Top",
-          board_1_name: "Panagiotis Diamantopoulos",
-          board_2_name_full: "Charalampos Savvidis",
-          board_3_name_full: "Dimitrios Galanis",
-          board_4_name: "Athanasios Mavroeidis",
-          board_5_name_full: "Pavlos Symeonidis",
-          board_6_name_full: "Georgios Athanasiou",
-          board_7_name_full: "Kyriakos Konstantinidis",
-          board_8_name_full: "Chrysoula Koutsoudaki",
-          pres_name_1: "Georgios Efthymiou",
-          pres_desc_1: "Pioneer of club foundation and athletics in Katerini, Pieria Inspector of Physical Education.",
-          pres_name_2: "Athanasios Tsaknakis",
-          pres_desc_2: "Foundation, charter adoption, and legal incorporation of the club.",
-          pres_name_3: "Ioannis Mantzaropoulos",
-          pres_desc_3: "Initial competitions at Katerini Municipal Park.",
-          pres_name_4: "Theofilos Kamperidis",
-          pres_desc_4: "Connection with local institutions (later MP and Mayor of Katerini).",
-          pres_name_5: "Ioannis Papadimitriou",
-          pres_desc_5: "Interim board governance.",
-          pres_name_6: "Ioannis Mantzaropoulos",
-          pres_desc_6: "SEGAS affiliation (1967), 'Diia' Games (1968), official colors, rejection of Pierikos merger (1970).",
-          pres_name_7: "Athanasios Efthymiou",
-          pres_desc_7: "Historic milestone of June 24, 1973. PE teachers takeover, basketball & volleyball founding.",
-          pres_name_8: "Nikos Tsinopoulos",
-          pres_desc_8: "Post-junta reorganization, gymnastics founding (1975), 7th Diia Games (1977).",
-          pres_name_9: "Dimitrios (Mitsos) Giannaros",
-          pres_desc_9: "Handball (1976/78), wrestling (1978), swimming (1980), water polo and weightlifting founding. Passed away in office (1985).",
-          pres_name_10: "Efstathios Zannas",
-          pres_desc_10: "30th anniversary (1986), 'Dion Road' race (1987), handball national elite promotion and shooting founding.",
-          pres_name_11: "Dimitrios Papadimitriou",
-          pres_desc_11: "1st Greek Handball Cup (1990) & European debut, Balkan Youth Games (1991), archery founding.",
-          pres_name_12: "Christos Eleftheroudis",
-          pres_desc_12: "Longest presidency. 2nd Handball Cup (1994), European campaigns, EFOT co-founder (1999), basketball merger (2008).",
-          pres_name_13: "Theodoros Diamantopoulos",
-          pres_desc_13: "Handball return to A1 (2013) & Handball Premier (2015–16), crisis management.",
-          pres_name_14: "Alkinoos (Alkis) Tasopoulos",
-          pres_desc_14: "Transfer of headquarters to 1st DAK (2021). Passed away in office on July 30, 2026.",
-          pres_name_15: "Panagiotis Diamantopoulos",
-          pres_desc_15: "Unanimous board reconstitution (2026), modernization and 70th anniversary celebrations."
-        }
-      };
-
-      let currentLang = localStorage.getItem('archelaos_lang') || 'el';
-
-      function setLanguage(lang) {
-        if (!translations[lang]) return;
-        currentLang = lang;
-        localStorage.setItem('archelaos_lang', lang);
-        document.documentElement.lang = lang;
-
-        const elBtn = document.getElementById('langBtnEL');
-        const enBtn = document.getElementById('langBtnEN');
-        if (elBtn && enBtn) {
-          elBtn.classList.toggle('active', lang === 'el');
-          enBtn.classList.toggle('active', lang === 'en');
-        }
-
-        document.querySelectorAll('[data-i18n]').forEach(el => {
-          const key = el.getAttribute('data-i18n');
-          if (translations[lang][key]) {
-            el.innerHTML = translations[lang][key];
-          }
-        });
-
-        document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-          const key = el.getAttribute('data-i18n-placeholder');
-          if (translations[lang][key]) {
-            el.placeholder = translations[lang][key];
-          }
-        });
-      }
-
       const mainHeader = document.getElementById('mainHeader');
       const mobileMenuBtn = document.getElementById('mobileMenuBtn');
       const mobileMenu = document.getElementById('mobileMenu');
@@ -1200,6 +1398,7 @@
       const bttScrollProgress = document.getElementById('bttScrollProgress');
       const body = document.body;
 
+      // 1. Synchronize Dark/Light Mode with index.html
       function updateThemeUI(isDark) {
         if (themeToggleBtn) themeToggleBtn.textContent = isDark ? '☀️' : '🌙';
       }
@@ -1220,6 +1419,15 @@
         });
       }
 
+      // 2. Mobile Menu Toggle
+      function closeMobileMenu() {
+        mobileMenu.classList.remove('menu-open');
+        if (menuIcon) {
+          menuIcon.classList.remove('fa-xmark');
+          menuIcon.classList.add('fa-bars');
+        }
+      }
+
       if (mobileMenuBtn) {
         mobileMenuBtn.addEventListener('click', (e) => {
           e.stopPropagation();
@@ -1232,15 +1440,16 @@
       }
 
       document.querySelectorAll('.mobile-nav-link').forEach(link => {
-        link.addEventListener('click', () => {
-          mobileMenu.classList.remove('menu-open');
-          if (menuIcon) {
-            menuIcon.classList.remove('fa-xmark');
-            menuIcon.classList.add('fa-bars');
-          }
-        });
+        link.addEventListener('click', closeMobileMenu);
       });
 
+      document.addEventListener('click', (e) => {
+        if (mobileMenu.classList.contains('menu-open') && !mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+          closeMobileMenu();
+        }
+      });
+
+      // 3. Scroll Progress, Back-to-Top & TOC ScrollSpy
       const bttCircumference = 2 * Math.PI * 25;
       const sections = document.querySelectorAll('article[id], div[id="sygxonefsi1970"], div[id="current-board"]');
       const tocLinks = document.querySelectorAll('.toc-link');
@@ -1269,6 +1478,7 @@
           }
         }
 
+        // ScrollSpy for TOC
         let currentSectionId = 'intro';
         sections.forEach(sec => {
           const rect = sec.getBoundingClientRect();
@@ -1289,6 +1499,19 @@
         });
       }
 
+      // 4. Spotlight Hover Effect on Desktop Cards
+      if (window.matchMedia('(hover: hover) and (min-width: 1024px)').matches) {
+        document.addEventListener('mousemove', (e) => {
+          const card = e.target.closest('.glass-card');
+          if (card) {
+            const rect = card.getBoundingClientRect();
+            card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+            card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+          }
+        }, { passive: true });
+      }
+
+      // 5. Instant In-Page Search & Highlight
       const searchInput = document.getElementById('historySearchInput');
       const clearSearchBtn = document.getElementById('clearSearchBtn');
       const searchResultCount = document.getElementById('searchResultCount');
@@ -1333,7 +1556,7 @@
           }
         });
 
-        searchResultCount.textContent = count > 0 ? (currentLang === 'en' ? `Found ${count} matches for "${query}"` : `Βρέθηκαν ${count} αναφορές για «${query}»`) : (currentLang === 'en' ? `No results found for "${query}"` : `Δεν βρέθηκαν αποτελέσματα για «${query}»`);
+        searchResultCount.textContent = count > 0 ? `Βρέθηκαν ${count} αναφορές για «${query}»` : `Δεν βρέθηκαν αποτελέσματα για «${query}»`;
         searchResultCount.classList.remove('hidden');
 
         const firstMark = articleContainer.querySelector('mark.search-highlight');
@@ -1356,10 +1579,6 @@
           highlightMatches('');
         });
       }
-
-      document.addEventListener('DOMContentLoaded', () => {
-        setLanguage(currentLang);
-      });
     </script>
 </body>
 </html>
