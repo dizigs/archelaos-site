@@ -1385,6 +1385,203 @@ html.arch-welcome-pending #archWelcome{display:flex}
  #board .executive-board-card:hover {transform:none!important;}
 }
 </style>
+<style id="archelaos-premium-cleanup">
+/* Preserve JS category filters even if other styles use !important. */
+#departmentsGrid .editorial-sport-card[style*="display: none"],
+#departmentsGrid .editorial-sport-card[style*="display:none"] {display:none!important;}
+#departmentsGrid .editorial-sport-title {margin-top:3px!important;}
+#departmentsGrid .editorial-sport-body {padding-top:19px!important;}
+#departmentsGrid .editorial-sport-description {margin-top:10px;}
+#departmentsGrid .editorial-sport-photo-label {font-size:10px;}
+#departmentsGrid .editorial-sport-index {font-size:10px;}
+#about .counter {font-variant-numeric:tabular-nums;}
+#board .executive-board-ephor-label {white-space:nowrap;}
+#anniversary70 .ann70-message p {max-width:570px;}
+@media(min-width:1024px){
+ #departments,#board {padding-top:76px;padding-bottom:76px;}
+}
+@media(max-width:639px){
+ #departmentsGrid .editorial-sport-body {padding-top:18px!important;}
+ #board .executive-board-bottom {gap:5px;}
+}
+</style>
+
+<style id="archelaos-balanced-spacing-text-reveal">
+/* Generous premium spacing: calm rhythm and more room between sections. */
+#home {padding-top:52px!important;padding-bottom:100px!important;}
+#about,#departments,#board {padding-top:90px!important;padding-bottom:90px!important;}
+#contact {padding-top:96px!important;padding-bottom:96px!important;}
+#join-history.join-history-section {padding-top:88px!important;padding-bottom:88px!important;}
+#departments .mb-10,#departments .mb-12,#board .mb-12 {margin-bottom:42px!important;}
+#departmentsGrid {row-gap:26px!important;column-gap:24px!important;}
+#board .executive-board-grid {row-gap:25px!important;column-gap:22px!important;}
+/* Understated editorial entrance: smaller travel, soft focus, no bouncing. */
+.reveal-text {
+  transform:translate3d(0,12px,0);
+  transition:opacity .65s cubic-bezier(.22,1,.36,1),
+             transform .65s cubic-bezier(.22,1,.36,1);
+}
+.reveal-text.is-visible {transform:translate3d(0,0,0);}
+h1.reveal-text,h2.reveal-text,h3.reveal-text,
+p.reveal-text,#about .reveal-text > h2,
+#departments .reveal-text > h2,
+#board .reveal-text > h2,
+#contact .reveal-text > h2 {
+  filter:blur(2.5px);
+  transition:opacity .65s cubic-bezier(.22,1,.36,1),
+             transform .65s cubic-bezier(.22,1,.36,1),
+             filter .65s ease;
+}
+h1.reveal-text.is-visible,h2.reveal-text.is-visible,h3.reveal-text.is-visible,
+p.reveal-text.is-visible,
+#about .reveal-text.is-visible > h2,
+#departments .reveal-text.is-visible > h2,
+#board .reveal-text.is-visible > h2,
+#contact .reveal-text.is-visible > h2 {filter:blur(0);}
+@media(min-width:1024px){
+ #home {padding-top:64px!important;padding-bottom:116px!important;}
+ #about,#departments,#board {padding-top:106px!important;padding-bottom:106px!important;}
+ #contact {padding-top:112px!important;padding-bottom:112px!important;}
+ #join-history.join-history-section {padding-top:100px!important;padding-bottom:100px!important;}
+}
+@media(max-width:639px){
+ #home {padding-top:36px!important;padding-bottom:72px!important;}
+ #about,#departments,#board {padding-top:70px!important;padding-bottom:70px!important;}
+ #contact {padding-top:74px!important;padding-bottom:74px!important;}
+ #join-history.join-history-section {padding-top:68px!important;padding-bottom:68px!important;}
+ #departmentsGrid {row-gap:22px!important;}
+ #board .executive-board-grid {row-gap:21px!important;}
+}
+/* Accessibility: never hide content when reduced motion is requested. */
+@media(prefers-reduced-motion:reduce){
+ .reveal-text,.reveal-text.is-visible {opacity:1!important;transform:none!important;filter:none!important;transition:none!important;}
+ h1.reveal-text,h2.reveal-text,h3.reveal-text,p.reveal-text,
+ #about .reveal-text > h2,#departments .reveal-text > h2,
+ #board .reveal-text > h2,#contact .reveal-text > h2 {filter:none!important;}
+}
+</style>
+
+<style id="archelaos-warm-ivory-sage-premium">
+/* Premium palette — one light theme; existing dark-green anniversary remains a branded feature. */
+:root { --arch-ivory:#f8f6ef; --arch-sage:#eaf1e8; --arch-green:#083e2a; --arch-gold:#bc9941; }
+html {background:var(--arch-ivory);color-scheme:light;}
+body {background:var(--arch-ivory)!important;color-scheme:light;}
+/* Alternating backgrounds retain the existing generous section spacing. */
+#home {background:linear-gradient(160deg,#fbfaf5 0%,#f6f4eb 100%);}
+#about {background:#f8f6ef!important;border-color:rgba(11,71,43,.06)!important;}
+#departments {background:var(--arch-sage)!important;border-top:1px solid #dbe7da;border-bottom:1px solid #dbe7da;}
+#board {background:#fff!important;border-top:1px solid #e6ede5!important;border-bottom:1px solid #e6ede5!important;}
+#contact {background:#f8f6ef!important;border-top:1px solid #e6e7dd!important;}
+#join-history {background:#f8f6ef!important;}
+/* Maintain crisp contrast in the editorial cards over the sage section. */
+#departmentsGrid .editorial-sport-card {background:#fff!important;border-color:#d5e3d2!important;box-shadow:0 10px 30px rgba(6,54,31,.07)!important;}
+#departmentsGrid .editorial-sport-card:hover {box-shadow:0 18px 40px rgba(6,54,31,.13)!important;}
+#board .executive-board-card {background:#fff!important;}
+/* Subtle gold underline below key section headings; never under all text. */
+#about h2,#departments h2,#board h2,#contact h2 {position:relative;}
+#about h2::after,#departments h2::after,#board h2::after,#contact h2::after {
+ content:"";display:block;width:55px;height:3px;margin:17px 0 0;
+ border-radius:99px;background:linear-gradient(90deg,#aa852e,#e6cd7c);
+}
+#departments h2::after,#board h2::after {margin:17px auto 0;}
+/* Quiet anniversary watermark: text is decoration, not a second heading. */
+#anniversary70 .ann70-watermark {
+ position:absolute;right:3%;bottom:4%;z-index:0;
+ font-family:Georgia,"Times New Roman",serif;font-size:clamp(90px,19vw,290px);
+ line-height:1;font-weight:700;letter-spacing:-.09em;
+ color:rgba(243,212,107,.055);pointer-events:none;user-select:none;
+ white-space:nowrap;
+}
+#anniversary70 .ann70-inner {position:relative;z-index:2;}
+/* Premium hover: small arrow movement, not a whole-button jump. */
+#departmentsGrid .editorial-sport-join i,
+#join-history .join-history-action i {transition:transform .22s ease;}
+#departmentsGrid .editorial-sport-join:hover i,
+#departmentsGrid .editorial-sport-join:focus-visible i,
+#join-history .join-history-action:hover i {transform:translate(2px,-2px);}
+@media(max-width:639px) {
+ #anniversary70 .ann70-watermark {right:3%;bottom:7%;font-size:clamp(80px,25vw,150px);}
+ #about h2::after,#departments h2::after,#board h2::after,#contact h2::after {width:43px;height:2px;margin-top:12px;}
+ #departments h2::after,#board h2::after {margin-left:auto;margin-right:auto;}
+}
+@media(prefers-reduced-motion:reduce) {
+ #departmentsGrid .editorial-sport-join i,#join-history .join-history-action i {transition:none!important;transform:none!important;}
+}
+</style>
+
+<style id="archelaos-heritage-premium-footer">
+.heritage-footer {position:relative;isolation:isolate;background:#073b28!important;color:#eaf1e8!important;border-top:3px solid #c7a448!important;overflow:hidden;}
+.heritage-footer::before {content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 10% 0%,rgba(42,112,76,.29),transparent 50%),linear-gradient(120deg,transparent 50%,rgba(255,255,255,.018));pointer-events:none;z-index:-1;}
+.heritage-footer a {text-decoration:none;}
+.heritage-footer-inner {max-width:1200px;margin:0 auto;padding:76px 24px 26px;}
+.heritage-footer-top {display:grid;grid-template-columns:minmax(260px,1.45fr) minmax(160px,.8fr) minmax(180px,.9fr);gap:clamp(32px,5vw,90px);padding-bottom:55px;}
+.heritage-footer-brand {display:flex;align-items:center;gap:19px;}
+.heritage-footer-logo {display:block;flex-shrink:0;width:93px;height:93px;object-fit:contain;filter:drop-shadow(0 4px 12px rgba(0,0,0,.16));transition:transform .2s ease;}
+.heritage-footer-brand-link:hover .heritage-footer-logo {transform:scale(1.035);}
+.heritage-footer-kicker {font-size:11px;letter-spacing:.16em;font-weight:900;color:#e9ce77;margin-bottom:9px;}
+.heritage-footer-title {font-size:clamp(20px,2.2vw,27px);line-height:1.24;font-weight:900;color:#fff;letter-spacing:-.025em;}
+.heritage-footer-city {margin-top:8px;font-size:12px;color:#b8d3bf;font-weight:650;}
+.heritage-footer-motto {margin:23px 0 0;color:#e6e9d9;font-family:Georgia,"Times New Roman",serif;font-style:italic;font-size:19px;line-height:1.55;}
+.heritage-footer-col-title {font-size:11px;letter-spacing:.13em;font-weight:900;color:#f1d37c;margin:6px 0 22px;}
+.heritage-footer-links {display:flex;flex-direction:column;align-items:flex-start;gap:15px;}
+.heritage-footer-links a {color:#e4ede4!important;font-size:14px;font-weight:650;line-height:1.4;transition:color .2s ease,transform .2s ease;}
+.heritage-footer-links a:hover,.heritage-footer-links a:focus-visible {color:#f5d977!important;transform:translateX(3px);}
+.heritage-footer-bottom {border-top:1px solid rgba(241,211,124,.22);padding-top:24px;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;}
+.heritage-footer-socials {display:flex;align-items:center;gap:10px;}
+.heritage-footer-socials a {width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(241,211,124,.35);border-radius:11px;color:#f2d477!important;background:rgba(255,255,255,.04);font-size:17px;transition:background .2s ease,transform .2s ease;}
+.heritage-footer-socials a:hover {background:rgba(241,211,124,.14);transform:translateY(-2px);}
+.heritage-footer-dates {font-family:Georgia,"Times New Roman",serif;font-size:16px;font-weight:700;letter-spacing:.07em;color:#f1d37c;}
+.heritage-footer-meta {padding-top:19px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:9px 24px;font-size:11px;line-height:1.7;color:#b9d0be;}
+.heritage-footer a:focus-visible {outline:2px solid #f1d37c;outline-offset:4px;}
+@media(max-width:800px){.heritage-footer-inner {padding:56px 23px 24px;}.heritage-footer-top {grid-template-columns:repeat(2,minmax(0,1fr));gap:38px 25px;padding-bottom:40px;}.heritage-footer-intro {grid-column:1/-1;}.heritage-footer-motto {margin-top:16px;}}
+@media(max-width:450px){.heritage-footer-inner {padding:47px 21px 22px;}.heritage-footer-brand {gap:13px;}.heritage-footer-logo {width:76px;height:76px;}.heritage-footer-title {font-size:21px;}.heritage-footer-col-title {font-size:10px;margin-bottom:17px;}.heritage-footer-links {gap:14px;}.heritage-footer-links a {font-size:13px;}.heritage-footer-top {gap:34px 17px;}.heritage-footer-bottom {padding-top:20px;}.heritage-footer-meta {padding-top:16px;}}
+@media(prefers-reduced-motion:reduce){.heritage-footer a,.heritage-footer-logo {transition:none!important;transform:none!important;}}
+</style>
+
+<style id="archelaos-yellow-club-identity">
+/* Club identity: confidently green AND yellow, in a light-only design. */
+:root {--club-yellow:#f5e638;--club-yellow-soft:#fff5a8;--club-yellow-pale:#fffbe4;--club-green:#06442c;}
+/* A golden halo around the crest, with plenty of ivory breathing room. */
+#home {position:relative;isolation:isolate;overflow:hidden;
+ background:radial-gradient(ellipse 40% 62% at 82% 44%,rgba(249,232,60,.26) 0%,rgba(249,232,60,.12) 48%,transparent 80%),linear-gradient(155deg,#fffdf1 0%,#f8f6ef 65%,#f5f3e8 100%)!important;}
+#home::before {content:"";position:absolute;inset:auto auto -130px -160px;width:390px;height:390px;border:1px solid rgba(215,178,37,.17);border-radius:50%;pointer-events:none;}
+#home .hero-text-column {position:relative;z-index:1;}
+#home [data-i18n="hero_h1_3"] {color:#073d2a!important;background:#f5e638!important;
+ box-shadow:0 8px 24px rgba(195,164,31,.19)!important;}
+#home .hero-text-column a[data-i18n="btn_explore_depts"] {background:#fff2a5!important;color:#073d2a!important;
+ border:1px solid #e7cf58!important;box-shadow:0 6px 20px rgba(130,102,11,.08)!important;}
+#home .hero-text-column a[data-i18n="btn_explore_depts"]:hover {background:#f5e638!important;}
+#home .hero-text-column button[onclick*="openRegistrationModal"] {border:2px solid #d8c041!important;}
+/* Thin golden transition from anniversary into the next chapter. */
+#anniversary70 {border-bottom:4px solid #edce39;}
+/* Yellow becomes a visual signature, not a wash over every surface. */
+#departments {background:linear-gradient(165deg,#edf3e8 0%,#edf3e8 77%,#f9f7df 100%)!important;}
+#departments [data-i18n="dept_tag"] {background:#f7e65a!important;color:#063d27!important;border-color:#e9d23d!important;box-shadow:none!important;}
+#departments .dept-filter-pill.active {background:#f5e638!important;color:#063d27!important;
+ border-color:#d5bc25!important;box-shadow:0 5px 15px rgba(129,110,20,.13)!important;}
+#departmentsGrid .editorial-sport-photo-label {background:#06452f!important;border-left-color:#f5e638!important;}
+#departmentsGrid .editorial-sport-index {border-color:rgba(245,230,56,.65)!important;}
+#departmentsGrid .editorial-sport-card {border-bottom:3px solid #e9d64c!important;}
+#departmentsGrid .editorial-sport-join:hover {background:#f5e638!important;color:#073d2a!important;}
+#board [data-i18n="board_tag"] {background:#073d2a!important;color:#f5e638!important;}
+#board .executive-board-monogram {color:#f5e638!important;}
+#board .executive-board-card {border-bottom:2px solid #e5d35a!important;}
+/* One bright golden accent around the call to join, without changing its structure. */
+#join-history {border-top:3px solid rgba(225,190,43,.75);border-bottom:3px solid rgba(225,190,43,.55);}
+#contact [data-i18n="contact_tag"] {background:#f5e638!important;color:#073d2a!important;}
+/* Consistent gold strokes beneath editorial headings. */
+#about h2::after,#departments h2::after,#board h2::after,#contact h2::after {
+ background:linear-gradient(90deg,#d6b51b,#f5e638)!important;width:70px!important;height:4px!important;
+}
+@media(max-width:767px){
+ #home {background:radial-gradient(ellipse 78% 35% at 50% 77%,rgba(249,232,60,.20),transparent 90%),linear-gradient(155deg,#fffdf1,#f8f6ef)!important;}
+ #home::before {width:210px;height:210px;left:-95px;bottom:-80px;}
+ #about h2::after,#departments h2::after,#board h2::after,#contact h2::after {width:54px!important;height:3px!important;}
+}
+@media(prefers-reduced-motion:reduce){
+ #home .hero-text-column a[data-i18n="btn_explore_depts"] {transition:none!important;}
+}
+</style>
 </head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow">
 
@@ -1512,6 +1709,7 @@ html.arch-welcome-pending #archWelcome{display:flex}
 </div>
 </div>
 </section><section aria-labelledby="ann70-title" class="ann70" id="anniversary70">
+<div class="ann70-watermark" aria-hidden="true">1956</div>
 <div aria-hidden="true" class="ann70-noise"></div>
 <div aria-hidden="true" class="ann70-halo"></div>
 <div class="ann70-inner">
@@ -1529,7 +1727,7 @@ html.arch-welcome-pending #archWelcome{display:flex}
 <span class="ann70-overline"><span data-lang="el">ΕΠΤΑ ΔΕΚΑΕΤΙΕΣ ΠΡΟΣΦΟΡΑΣ</span><span data-lang="en">SEVEN DECADES OF DEDICATION</span></span>
 <h2 id="ann70-title"><span data-lang="el">Χρόνια ιστορίας.<br/><em>Το μέλλον συνεχίζεται.</em></span><span data-lang="en">Years of history.<br/><em>The future continues.</em></span></h2>
 <p><span data-lang="el">Από την ίδρυση στην Κατερίνη το 1956 έως σήμερα, ο Αρχέλαος γράφει τη δική του ιστορία μέσα από τον αθλητισμό, τους ανθρώπους και τις αξίες του.</span><span data-lang="en">Founded in Katerini in 1956, Archelaos continues its story through sport, people and shared values.</span></p>
-<a class="ann70-cta" href="history.html"><i aria-hidden="true" class="fa-solid fa-book-open"></i><span data-lang="el">Μπείτε στο Ψηφιακό Μουσείο</span><span data-lang="en">Enter the Digital Museum</span><i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square"></i></a>
+<a class="ann70-cta" href="history.html" id="history-link"><i aria-hidden="true" class="fa-solid fa-book-open"></i><span data-lang="el">Μπείτε στο Ψηφιακό Μουσείο</span><span data-lang="en">Enter the Digital Museum</span><i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square"></i></a>
 </div>
 </div>
 </div>
@@ -1618,16 +1816,13 @@ html.arch-welcome-pending #archWelcome{display:flex}
 <h2 class="text-3xl sm:text-5xl font-black font-heading text-archelaos-deepgreen leading-tight" data-i18n="about_title">Ο Σύλλογος που <br/>ένωσε την Πιερία</h2>
 </div>
 <p class="reveal-text delay-100 text-base sm:text-lg text-slate-800 font-medium leading-relaxed" data-i18n="about_p1">
-              Ο Γυμναστικός Αγωνιστικός Σύλλογος «Ο Αρχέλαος» Κατερίνης αποτελεί έναν από τους ιστορικότερους πολυαθλητικούς συλλόγους της Μακεδονίας. Ιδρύθηκε το <strong class="text-archelaos-deepgreen">1956</strong> και παραμένει πιστός στο όραμά του.
+              Από το <strong class="text-archelaos-deepgreen">1956</strong> ο Αρχέλαος ενώνει την Κατερίνη μέσα από τον αθλητισμό, τις αξίες και τους ανθρώπους του.
             </p>
-<a aria-label="Μετάβαση στην ενότητα ιστορίας" class="reveal-text delay-200 inline-flex items-center gap-3 px-5 py-3 rounded-2xl bg-archelaos-deepgreen text-archelaos-yellow font-extrabold text-sm shadow-lg hover:-translate-y-1 hover:shadow-xl transition duration-300 group" href="history.html#chapters">
-<i class="fa-solid fa-book-open"></i><span data-lang="el">Ανακαλύψτε την ιστορία μας</span><span data-lang="en">Explore our history</span><i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
-</a>
 <div class="reveal-text delay-300 grid grid-cols-2 gap-2.5 sm:gap-4 pt-1">
 <div class="glass-card p-3 sm:p-4 rounded-2xl flex items-center gap-2.5 sm:gap-3.5">
 <div class="w-9 h-9 sm:w-11 sm:h-11 bg-archelaos-deepgreen text-archelaos-yellow rounded-xl flex items-center justify-center text-sm sm:text-lg shrink-0 shadow-sm relative z-10"><i class="fa-solid fa-people-group"></i></div>
 <div class="min-w-0 relative z-10">
-<span class="block text-base sm:text-xl font-black text-archelaos-deepgreen font-heading leading-tight truncate"><span class="counter" data-target="10000">0</span>+</span>
+<span class="block text-base sm:text-xl font-black text-archelaos-deepgreen font-heading leading-tight truncate"><span class="counter" data-target="10000">10.000</span>+</span>
 <span class="block text-[10px] sm:text-[11px] font-bold text-slate-600 uppercase tracking-tight truncate" data-i18n="stat_athletes">Αθλητές</span>
 </div>
 </div>
@@ -1645,15 +1840,7 @@ html.arch-welcome-pending #archWelcome{display:flex}
 </section>
 <!-- 8 DEPARTMENTS SECTION WITH INTERACTIVE PILLS -->
 <!-- INTEGRATED HISTORY ARCHIVE: full source content is available in the topic popups below -->
-<section class="relative z-10 px-4 sm:px-6 lg:px-8 py-9 sm:py-12" id="history-link">
-<div class="max-w-7xl mx-auto rounded-[2rem] overflow-hidden bg-archelaos-deepgreen text-white border border-archelaos-yellow/30 shadow-xl relative">
-<div aria-hidden="true" class="absolute right-0 top-0 text-[9rem] leading-none opacity-[.07] font-black pointer-events-none">70</div>
-<div class="relative flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 px-6 py-7 sm:px-9 sm:py-8">
-<div><p class="uppercase tracking-[.18em] text-[11px] font-black text-archelaos-yellow mb-2"><span data-lang="el">1956 — 2026 · 70 χρόνια</span><span data-lang="en">1956 — 2026 · 70 years</span></p>
-<h2 class="font-heading font-black text-2xl sm:text-3xl"><span data-lang="el">Η ιστορία του Αρχέλαου</span><span data-lang="en">The history of Archelaos</span></h2>
-<p class="text-white/75 text-sm mt-2 max-w-xl"><span data-lang="el">Ανακαλύψτε το πλήρες ιστορικό αρχείο, το διαδραστικό χρονολόγιο και τα αθλητικά τμήματα σε ξεχωριστή σελίδα.</span><span data-lang="en">Explore the full archive, interactive timeline and sports history on a dedicated page.</span></p></div>
-<a class="shrink-0 inline-flex items-center justify-center gap-3 px-5 py-3.5 rounded-xl bg-archelaos-yellow text-archelaos-deepgreen font-black text-sm hover:bg-white transition" href="history.html"><i class="fa-solid fa-book-open"></i><span data-lang="el">Εξερευνήστε την ιστορία</span><span data-lang="en">Explore the history</span><i class="fa-solid fa-arrow-right"></i></a>
-</div></div></section><section class="relative z-10 py-20 sm:py-24" id="departments">
+<section class="relative z-10 py-20 sm:py-24" id="departments">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 <div class="reveal-text text-center max-w-3xl mx-auto mb-10">
 <span class="inline-block px-4 py-1.5 rounded-full bg-white/95 text-archelaos-deepgreen font-black text-xs uppercase tracking-wider mb-3 shadow-sm border border-white" data-i18n="dept_tag">Αθλητισμός για όλους</span>
@@ -1684,13 +1871,12 @@ html.arch-welcome-pending #archWelcome{display:flex}
     <span class="editorial-sport-photo-label"><span data-lang="el">Ομαδικό άθλημα</span><span data-lang="en">Team sport</span></span>
   </div>
   <div class="editorial-sport-body">
-    <div class="editorial-sport-eyebrow"><span><span data-lang="el">ΑΘΛΗΤΙΚΟ ΤΜΗΜΑ</span><span data-lang="en">SPORTS DEPARTMENT</span></span><span class="editorial-sport-year">ΑΡΧΕΛΑΟΣ · 1956</span></div>
     <h3 class="editorial-sport-title"><span data-i18n="dept_1_title">Χάντμπολ</span></h3>
     <p class="editorial-sport-description"><span data-lang="el">Δύναμη, συνεργασία και αγωνιστικό πάθος.</span><span data-lang="en">Strength, teamwork and competitive spirit.</span></p>
     <div class="editorial-sport-divider"></div>
     <div class="editorial-sport-actions">
       <button type="button" class="editorial-sport-history" onclick="openDeptHistoryModal('handball')" aria-label="Χάντμπολ — ιστορικό / history"><i class="fa-regular fa-clock" aria-hidden="true"></i> <span data-i18n="btn_dept_history">Ιστορικό</span></button>
-      <button type="button" class="editorial-sport-join sport-join-action" onclick="openRegistrationModal('Χάντμπολ')"><span data-i18n="btn_register_interest">Εκδήλωση Ενδιαφέροντος</span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></button>
+      <button type="button" class="editorial-sport-join sport-join-action" onclick="openRegistrationModal('Χάντμπολ')"><span data-lang="el">Ενδιαφέρομαι</span><span data-lang="en">Join us</span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></button>
     </div>
   </div>
 </article>
@@ -1701,14 +1887,13 @@ html.arch-welcome-pending #archWelcome{display:flex}
     <span class="editorial-sport-photo-label"><span data-lang="el">Ατομικό άθλημα</span><span data-lang="en">Individual sport</span></span>
   </div>
   <div class="editorial-sport-body">
-    <div class="editorial-sport-eyebrow"><span><span data-lang="el">ΑΘΛΗΤΙΚΟ ΤΜΗΜΑ</span><span data-lang="en">SPORTS DEPARTMENT</span></span><span class="editorial-sport-year">ΑΡΧΕΛΑΟΣ · 1956</span></div>
     <h3 class="editorial-sport-title"><span data-i18n="dept_2_title">Στίβος</span></h3>
     <p class="editorial-sport-subtitle"><span data-lang="el">(Κλασικός Αθλητισμός)</span><span data-lang="en">(Track &amp; Field)</span></p>
     <p class="editorial-sport-description"><span data-lang="el">Ταχύτητα, αντοχή και προσωπική εξέλιξη.</span><span data-lang="en">Speed, endurance and personal progress.</span></p>
     <div class="editorial-sport-divider"></div>
     <div class="editorial-sport-actions">
       <button type="button" class="editorial-sport-history" onclick="openDeptHistoryModal('track')" aria-label="Στίβος — ιστορικό / history"><i class="fa-regular fa-clock" aria-hidden="true"></i> <span data-i18n="btn_dept_history">Ιστορικό</span></button>
-      <button type="button" class="editorial-sport-join sport-join-action" onclick="openRegistrationModal('Στίβος')"><span data-i18n="btn_register_interest">Εκδήλωση Ενδιαφέροντος</span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></button>
+      <button type="button" class="editorial-sport-join sport-join-action" onclick="openRegistrationModal('Στίβος')"><span data-lang="el">Ενδιαφέρομαι</span><span data-lang="en">Join us</span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></button>
     </div>
   </div>
 </article>
@@ -1719,14 +1904,13 @@ html.arch-welcome-pending #archWelcome{display:flex}
     <span class="editorial-sport-photo-label"><span data-lang="el">Ατομικό άθλημα</span><span data-lang="en">Individual sport</span></span>
   </div>
   <div class="editorial-sport-body">
-    <div class="editorial-sport-eyebrow"><span><span data-lang="el">ΑΘΛΗΤΙΚΟ ΤΜΗΜΑ</span><span data-lang="en">SPORTS DEPARTMENT</span></span><span class="editorial-sport-year">ΑΡΧΕΛΑΟΣ · 1956</span></div>
     <h3 class="editorial-sport-title"><span data-i18n="dept_3_title">Τοξοβολία</span></h3>
     
     <p class="editorial-sport-description"><span data-lang="el">Συγκέντρωση, τεχνική και ακρίβεια.</span><span data-lang="en">Focus, technique and precision.</span></p>
     <div class="editorial-sport-divider"></div>
     <div class="editorial-sport-actions">
       <button type="button" class="editorial-sport-history" onclick="openDeptHistoryModal('archery')" aria-label="Τοξοβολία — ιστορικό / history"><i class="fa-regular fa-clock" aria-hidden="true"></i> <span data-i18n="btn_dept_history">Ιστορικό</span></button>
-      <button type="button" class="editorial-sport-join sport-join-action" onclick="openRegistrationModal('Τοξοβολία')"><span data-i18n="btn_register_interest">Εκδήλωση Ενδιαφέροντος</span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></button>
+      <button type="button" class="editorial-sport-join sport-join-action" onclick="openRegistrationModal('Τοξοβολία')"><span data-lang="el">Ενδιαφέρομαι</span><span data-lang="en">Join us</span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></button>
     </div>
   </div>
 </article>
@@ -1737,14 +1921,13 @@ html.arch-welcome-pending #archWelcome{display:flex}
     <span class="editorial-sport-photo-label"><span data-lang="el">Ατομικό άθλημα</span><span data-lang="en">Individual sport</span></span>
   </div>
   <div class="editorial-sport-body">
-    <div class="editorial-sport-eyebrow"><span><span data-lang="el">ΑΘΛΗΤΙΚΟ ΤΜΗΜΑ</span><span data-lang="en">SPORTS DEPARTMENT</span></span><span class="editorial-sport-year">ΑΡΧΕΛΑΟΣ · 1956</span></div>
     <h3 class="editorial-sport-title"><span data-i18n="dept_4_title">Σκοποβολή</span></h3>
     
     <p class="editorial-sport-description"><span data-lang="el">Πειθαρχία, σταθερότητα και αυτοσυγκέντρωση.</span><span data-lang="en">Discipline, control and concentration.</span></p>
     <div class="editorial-sport-divider"></div>
     <div class="editorial-sport-actions">
       <button type="button" class="editorial-sport-history" onclick="openDeptHistoryModal('shooting')" aria-label="Σκοποβολή — ιστορικό / history"><i class="fa-regular fa-clock" aria-hidden="true"></i> <span data-i18n="btn_dept_history">Ιστορικό</span></button>
-      <button type="button" class="editorial-sport-join sport-join-action" onclick="openRegistrationModal('Σκοποβολή')"><span data-i18n="btn_register_interest">Εκδήλωση Ενδιαφέροντος</span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></button>
+      <button type="button" class="editorial-sport-join sport-join-action" onclick="openRegistrationModal('Σκοποβολή')"><span data-lang="el">Ενδιαφέρομαι</span><span data-lang="en">Join us</span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></button>
     </div>
   </div>
 </article>
@@ -1755,14 +1938,13 @@ html.arch-welcome-pending #archWelcome{display:flex}
     <span class="editorial-sport-photo-label"><span data-lang="el">Ατομικό άθλημα</span><span data-lang="en">Individual sport</span></span>
   </div>
   <div class="editorial-sport-body">
-    <div class="editorial-sport-eyebrow"><span><span data-lang="el">ΑΘΛΗΤΙΚΟ ΤΜΗΜΑ</span><span data-lang="en">SPORTS DEPARTMENT</span></span><span class="editorial-sport-year">ΑΡΧΕΛΑΟΣ · 1956</span></div>
     <h3 class="editorial-sport-title"><span data-i18n="dept_5_title">Ενόργανη Γυμναστική</span></h3>
     
     <p class="editorial-sport-description"><span data-lang="el">Ισορροπία, δύναμη και ευλυγισία.</span><span data-lang="en">Balance, strength and flexibility.</span></p>
     <div class="editorial-sport-divider"></div>
     <div class="editorial-sport-actions">
       <button type="button" class="editorial-sport-history" onclick="openDeptHistoryModal('gymnastics')" aria-label="Ενόργανη Γυμναστική — ιστορικό / history"><i class="fa-regular fa-clock" aria-hidden="true"></i> <span data-i18n="btn_dept_history">Ιστορικό</span></button>
-      <button type="button" class="editorial-sport-join sport-join-action" onclick="openRegistrationModal('Ενόργανη Γυμναστική')"><span data-i18n="btn_register_interest">Εκδήλωση Ενδιαφέροντος</span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></button>
+      <button type="button" class="editorial-sport-join sport-join-action" onclick="openRegistrationModal('Ενόργανη Γυμναστική')"><span data-lang="el">Ενδιαφέρομαι</span><span data-lang="en">Join us</span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></button>
     </div>
   </div>
 </article>
@@ -1773,13 +1955,12 @@ html.arch-welcome-pending #archWelcome{display:flex}
     <span class="editorial-sport-photo-label"><span data-lang="el">Ομαδικό άθλημα</span><span data-lang="en">Team sport</span></span>
   </div>
   <div class="editorial-sport-body">
-    <div class="editorial-sport-eyebrow"><span><span data-lang="el">ΑΘΛΗΤΙΚΟ ΤΜΗΜΑ</span><span data-lang="en">SPORTS DEPARTMENT</span></span><span class="editorial-sport-year">ΑΡΧΕΛΑΟΣ · 1956</span></div>
     <h3 class="editorial-sport-title"><span data-i18n="dept_6_title">Βόλεϊ</span></h3>
     <p class="editorial-sport-description"><span data-lang="el">Ρυθμός, ομαδικότητα και ενέργεια.</span><span data-lang="en">Rhythm, teamwork and energy.</span></p>
     <div class="editorial-sport-divider"></div>
     <div class="editorial-sport-actions">
       <button type="button" class="editorial-sport-history" onclick="openDeptHistoryModal('volleyball')" aria-label="Βόλεϊ — ιστορικό / history"><i class="fa-regular fa-clock" aria-hidden="true"></i> <span data-i18n="btn_dept_history">Ιστορικό</span></button>
-      <button type="button" class="editorial-sport-join sport-join-action" onclick="openRegistrationModal('Βόλεϊ')"><span data-i18n="btn_register_interest">Εκδήλωση Ενδιαφέροντος</span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></button>
+      <button type="button" class="editorial-sport-join sport-join-action" onclick="openRegistrationModal('Βόλεϊ')"><span data-lang="el">Ενδιαφέρομαι</span><span data-lang="en">Join us</span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></button>
     </div>
   </div>
 </article>
@@ -1790,14 +1971,13 @@ html.arch-welcome-pending #archWelcome{display:flex}
     <span class="editorial-sport-photo-label"><span data-lang="el">Ατομικό άθλημα</span><span data-lang="en">Individual sport</span></span>
   </div>
   <div class="editorial-sport-body">
-    <div class="editorial-sport-eyebrow"><span><span data-lang="el">ΑΘΛΗΤΙΚΟ ΤΜΗΜΑ</span><span data-lang="en">SPORTS DEPARTMENT</span></span><span class="editorial-sport-year">ΑΡΧΕΛΑΟΣ · 1956</span></div>
     <h3 class="editorial-sport-title"><span data-i18n="dept_7_title">Πάλη</span></h3>
     
     <p class="editorial-sport-description"><span data-lang="el">Παράδοση, τεχνική και αγωνιστικό ήθος.</span><span data-lang="en">Tradition, technique and sportsmanship.</span></p>
     <div class="editorial-sport-divider"></div>
     <div class="editorial-sport-actions">
       <button type="button" class="editorial-sport-history" onclick="openDeptHistoryModal('wrestling')" aria-label="Πάλη — ιστορικό / history"><i class="fa-regular fa-clock" aria-hidden="true"></i> <span data-i18n="btn_dept_history">Ιστορικό</span></button>
-      <button type="button" class="editorial-sport-join sport-join-action" onclick="openRegistrationModal('Πάλη')"><span data-i18n="btn_register_interest">Εκδήλωση Ενδιαφέροντος</span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></button>
+      <button type="button" class="editorial-sport-join sport-join-action" onclick="openRegistrationModal('Πάλη')"><span data-lang="el">Ενδιαφέρομαι</span><span data-lang="en">Join us</span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></button>
     </div>
   </div>
 </article>
@@ -1808,14 +1988,13 @@ html.arch-welcome-pending #archWelcome{display:flex}
     <span class="editorial-sport-photo-label"><span data-lang="el">Υγρός στίβος</span><span data-lang="en">Aquatics</span></span>
   </div>
   <div class="editorial-sport-body">
-    <div class="editorial-sport-eyebrow"><span><span data-lang="el">ΑΘΛΗΤΙΚΟ ΤΜΗΜΑ</span><span data-lang="en">SPORTS DEPARTMENT</span></span><span class="editorial-sport-year">ΑΡΧΕΛΑΟΣ · 1956</span></div>
     <h3 class="editorial-sport-title"><span data-i18n="dept_8_title">Κολύμβηση</span></h3>
     <p class="editorial-sport-subtitle"><span data-lang="el">(Υγρός Στίβος)</span><span data-lang="en">(Aquatics)</span></p>
     <p class="editorial-sport-description"><span data-lang="el">Κίνηση, αντοχή και αυτοπεποίθηση στο νερό.</span><span data-lang="en">Movement, stamina and confidence in water.</span></p>
     <div class="editorial-sport-divider"></div>
     <div class="editorial-sport-actions">
       <button type="button" class="editorial-sport-history" onclick="openDeptHistoryModal('swimming')" aria-label="Κολύμβηση — ιστορικό / history"><i class="fa-regular fa-clock" aria-hidden="true"></i> <span data-i18n="btn_dept_history">Ιστορικό</span></button>
-      <button type="button" class="editorial-sport-join sport-join-action" onclick="openRegistrationModal('Κολύμβηση')"><span data-i18n="btn_register_interest">Εκδήλωση Ενδιαφέροντος</span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></button>
+      <button type="button" class="editorial-sport-join sport-join-action" onclick="openRegistrationModal('Κολύμβηση')"><span data-lang="el">Ενδιαφέρομαι</span><span data-lang="en">Join us</span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></button>
     </div>
   </div>
 </article>
@@ -1841,7 +2020,7 @@ html.arch-welcome-pending #archWelcome{display:flex}
   </div>
   <div class="executive-board-bottom">
     <span class="executive-board-ephor-label" data-i18n="ephor_label">Έφορος:</span>
-    <span class="executive-board-ephor" data-i18n="ephor_label">Έφορος:</span>
+    <span class="executive-board-ephor" data-i18n="ephor_gymnastics">Ενόργανη Γυμναστική</span>
   </div>
 </article>
 <article class="executive-board-card premium-person-card" aria-label="Χαράλαμπος Σαββίδης">
@@ -1854,7 +2033,7 @@ html.arch-welcome-pending #archWelcome{display:flex}
   </div>
   <div class="executive-board-bottom">
     <span class="executive-board-ephor-label" data-i18n="ephor_label">Έφορος:</span>
-    <span class="executive-board-ephor" data-i18n="ephor_label">Έφορος:</span>
+    <span class="executive-board-ephor" data-i18n="ephor_handball">Χάντμπολ</span>
   </div>
 </article>
 <article class="executive-board-card premium-person-card" aria-label="Δημήτριος Γαλάνης">
@@ -1867,7 +2046,7 @@ html.arch-welcome-pending #archWelcome{display:flex}
   </div>
   <div class="executive-board-bottom">
     <span class="executive-board-ephor-label" data-i18n="ephor_label">Έφορος:</span>
-    <span class="executive-board-ephor" data-i18n="ephor_label">Έφορος:</span>
+    <span class="executive-board-ephor" data-i18n="ephor_archery">Τοξοβολία</span>
   </div>
 </article>
 <article class="executive-board-card premium-person-card" aria-label="Αθανάσιος Μαυροειδής">
@@ -1880,7 +2059,7 @@ html.arch-welcome-pending #archWelcome{display:flex}
   </div>
   <div class="executive-board-bottom">
     <span class="executive-board-ephor-label" data-i18n="ephor_label">Έφορος:</span>
-    <span class="executive-board-ephor" data-i18n="ephor_label">Έφορος:</span>
+    <span class="executive-board-ephor" data-i18n="ephor_swimming">Κολύμβηση</span>
   </div>
 </article>
 <article class="executive-board-card premium-person-card" aria-label="Παύλος Συμεωνίδης">
@@ -1893,7 +2072,7 @@ html.arch-welcome-pending #archWelcome{display:flex}
   </div>
   <div class="executive-board-bottom">
     <span class="executive-board-ephor-label" data-i18n="ephor_label">Έφορος:</span>
-    <span class="executive-board-ephor" data-i18n="ephor_label">Έφορος:</span>
+    <span class="executive-board-ephor" data-i18n="ephor_volleyball">Βόλεϊ</span>
   </div>
 </article>
 <article class="executive-board-card premium-person-card" aria-label="Γεώργιος Αθανασίου">
@@ -1906,7 +2085,7 @@ html.arch-welcome-pending #archWelcome{display:flex}
   </div>
   <div class="executive-board-bottom">
     <span class="executive-board-ephor-label" data-i18n="ephor_label">Έφορος:</span>
-    <span class="executive-board-ephor" data-i18n="ephor_label">Έφορος:</span>
+    <span class="executive-board-ephor" data-i18n="ephor_track">Στίβος (Κλασικός)</span>
   </div>
 </article>
 <article class="executive-board-card premium-person-card" aria-label="Κυριάκος Κωνσταντινίδης">
@@ -1919,7 +2098,7 @@ html.arch-welcome-pending #archWelcome{display:flex}
   </div>
   <div class="executive-board-bottom">
     <span class="executive-board-ephor-label" data-i18n="ephor_label">Έφορος:</span>
-    <span class="executive-board-ephor" data-i18n="ephor_label">Έφορος:</span>
+    <span class="executive-board-ephor" data-i18n="ephor_wrestling">Πάλη</span>
   </div>
 </article>
 <article class="executive-board-card premium-person-card" aria-label="Χρυσούλα Κουτσουδάκη">
@@ -1932,7 +2111,7 @@ html.arch-welcome-pending #archWelcome{display:flex}
   </div>
   <div class="executive-board-bottom">
     <span class="executive-board-ephor-label" data-i18n="ephor_label">Έφορος:</span>
-    <span class="executive-board-ephor" data-i18n="ephor_label">Έφορος:</span>
+    <span class="executive-board-ephor" data-i18n="ephor_shooting">Σκοποβολή</span>
   </div>
 </article>
 </div>
@@ -2161,49 +2340,48 @@ html.arch-welcome-pending #archWelcome{display:flex}
 <span class="absolute right-16 bg-archelaos-deepgreen text-archelaos-yellow text-[11px] font-black uppercase tracking-wider px-3 py-1.5 rounded-xl shadow-lg border border-archelaos-yellow/40 opacity-0 pointer-events-none translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 whitespace-nowrap" data-i18n="back_to_top_tooltip">Κορυφή</span>
 </button>
 <!-- FOOTER (IDENTICAL ACROSS BOTH PAGES) -->
-<footer class="relative z-10 bg-archelaos-deepgreen text-archelaos-yellow/80 border-t border-archelaos-yellow/20">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col items-center justify-center gap-6 text-center text-xs">
-<a href="#home" title="Επιστροφή στην Κορυφή">
-<img alt="Logo" class="w-24 h-24 object-contain opacity-95 hover:scale-105 transition duration-200" decoding="async" loading="lazy" src="https://lh3.googleusercontent.com/d/1JwGT61jDKXuBU6rA1OCiC1laeKh8gKdV"/>
-</a>
-<!-- Quick Navigation Links (Matching history.html) -->
-<div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
-<a class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-archelaos-yellow text-archelaos-deepgreen font-extrabold text-xs hover:bg-white transition shadow-sm" href="#home">
-<i class="fa-solid fa-house text-xs"></i> <span data-i18n="nav_home">Αρχική</span>
-</a>
-<a class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-archelaos-yellow font-bold text-xs border border-archelaos-yellow/25 transition" href="history.html#chapters">
-<i class="fa-solid fa-landmark text-xs"></i> <span data-i18n="nav_history">Ιστορία</span>
-</a>
-<a class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-archelaos-yellow font-bold text-xs border border-archelaos-yellow/25 transition" href="#departments">
-<span data-i18n="nav_dept">Τμήματα</span>
-</a>
-<a class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-archelaos-yellow font-bold text-xs border border-archelaos-yellow/25 transition" href="history.html#timeline">
-<span data-i18n="nav_timeline">Χρονολόγιο</span>
-</a>
-<a class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-archelaos-yellow font-bold text-xs border border-archelaos-yellow/25 transition" href="#board">
-<span data-i18n="nav_board">Διοίκηση</span>
-</a>
-<a class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-archelaos-yellow font-bold text-xs border border-archelaos-yellow/25 transition" href="#contact">
-<span data-i18n="nav_contact">Επικοινωνία</span>
-</a>
-</div>
-<!-- Social & History Links -->
-<div class="flex flex-wrap items-center justify-center gap-3">
-<a class="group inline-flex items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-white/10 hover:bg-archelaos-yellow text-archelaos-yellow hover:text-archelaos-deepgreen border border-archelaos-yellow/30 font-extrabold text-xs transition shadow-sm" href="https://www.facebook.com/oarxelaos" rel="noopener noreferrer" target="_blank">
-<i class="fa-brands fa-facebook-f text-sm"></i> <span>Facebook</span>
-</a>
-<a class="group inline-flex items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-white/10 hover:bg-archelaos-yellow text-archelaos-yellow hover:text-archelaos-deepgreen border border-archelaos-yellow/30 font-extrabold text-xs transition shadow-sm" href="https://www.youtube.com/@GASArchelaosKaterinis" rel="noopener noreferrer" target="_blank">
-<i class="fa-brands fa-youtube text-sm text-red-400 group-hover:text-archelaos-deepgreen"></i> <span>YouTube</span>
-</a>
-<a class="group inline-flex items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-white/10 hover:bg-archelaos-yellow text-archelaos-yellow hover:text-archelaos-deepgreen border border-archelaos-yellow/30 font-extrabold text-xs transition shadow-sm" href="https://el.wikipedia.org/wiki/%CE%93.%CE%91.%CE%A3._%CE%9F_%CE%91%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82_%CE%9A%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82" rel="noopener noreferrer" target="_blank">
-<i class="fa-brands fa-wikipedia-w text-sm"></i> <span>Wikipedia</span>
-</a>
-</div>
-<div class="space-y-1">
-<p class="font-semibold tracking-wide">© 1956 - 2026 Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης • archelaos.club</p>
-<p class="text-[11px] text-archelaos-yellow/60" data-i18n="footer_address">Α΄ Δημοτικό Αθλητικό Κέντρο (ΔΑΚ) Κατερίνης, 60132</p>
-</div>
-</div>
+<footer class="heritage-footer" aria-label="Γ.Α.Σ. Ο Αρχέλαος — footer">
+  <div class="heritage-footer-inner">
+    <div class="heritage-footer-top">
+      <div class="heritage-footer-intro">
+        <div class="heritage-footer-brand">
+          <a class="heritage-footer-brand-link" href="#home" aria-label="Αρχική — Γ.Α.Σ. Ο Αρχέλαος">
+            <img class="heritage-footer-logo" src="https://lh3.googleusercontent.com/d/1JwGT61jDKXuBU6rA1OCiC1laeKh8gKdV" alt="Λογότυπο Γ.Α.Σ. Ο Αρχέλαος" loading="lazy" decoding="async">
+          </a>
+          <div>
+            <p class="heritage-footer-kicker" data-i18n="heritage_footer_since">ΑΠΟ ΤΟ 1956</p>
+            <p class="heritage-footer-title" data-i18n="heritage_footer_club">Γ.Α.Σ. «Ο Αρχέλαος»</p>
+            <p class="heritage-footer-city" data-i18n="heritage_footer_city">Κατερίνη · 70 χρόνια αθλητισμού</p>
+          </div>
+        </div>
+        <p class="heritage-footer-motto" data-i18n="heritage_footer_motto">Ο αθλητισμός μάς ενώνει.</p>
+      </div>
+      <nav class="heritage-footer-nav" aria-label="Εξερεύνηση">
+        <h2 class="heritage-footer-col-title" data-i18n="heritage_footer_explore">ΕΞΕΡΕΥΝΗΣΗ</h2>
+        <div class="heritage-footer-links">
+          <a href="#home"><span data-i18n="nav_home">Αρχική</span></a>
+          <a href="#departments"><span data-i18n="nav_dept">Τμήματα</span></a>
+          <a href="#board"><span data-i18n="nav_board">Διοίκηση</span></a>
+        </div>
+      </nav>
+      <nav class="heritage-footer-nav" aria-label="Ιστορία και επαφή">
+        <h2 class="heritage-footer-col-title" data-i18n="heritage_footer_history_contact">ΠΕΡΙΣΣΟΤΕΡΑ &amp; ΕΠΑΦΗ</h2>
+        <div class="heritage-footer-links">
+          <a href="history.html#chapters"><span data-i18n="nav_history">Ιστορία</span></a>
+          <a href="history.html#timeline"><span data-i18n="nav_timeline">Χρονολόγιο</span></a>
+          <a href="#contact"><span data-i18n="nav_contact">Επικοινωνία</span></a>
+        </div>
+      </nav>
+    </div>
+    <div class="heritage-footer-bottom">
+      <div class="heritage-footer-socials" aria-label="Κοινωνικά δίκτυα"><a href="https://www.facebook.com/oarxelaos" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a><a href="https://www.youtube.com/@GASArchelaosKaterinis" target="_blank" rel="noopener noreferrer" aria-label="YouTube" title="YouTube"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a><a href="https://el.wikipedia.org/wiki/%CE%93.%CE%91.%CE%A3._%CE%9F_%CE%91%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82_%CE%9A%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82" target="_blank" rel="noopener noreferrer" aria-label="Wikipedia" title="Wikipedia"><i class="fa-brands fa-wikipedia-w" aria-hidden="true"></i></a></div>
+      <span class="heritage-footer-dates" aria-label="1956 έως 2026">1956 — 2026</span>
+    </div>
+    <div class="heritage-footer-meta">
+      <span data-i18n="heritage_footer_copyright">© 2026 Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης · archelaos.club</span>
+      <span data-i18n="footer_address">Α΄ Δημοτικό Αθλητικό Κέντρο (ΔΑΚ) Κατερίνης, 60132</span>
+    </div>
+  </div>
 </footer>
 <!-- JAVASCRIPT & BILINGUAL ENGINE -->
 <script>
@@ -2247,7 +2425,7 @@ html.arch-welcome-pending #archWelcome{display:flex}
           slide_heading_2: "Αγωνιστικής Δράσης",
           about_tag: "Η Ιστορία Μας",
           about_title: "Ο Σύλλογος που <br>ένωσε την Πιερία",
-          about_p1: "Ο Γυμναστικός Αγωνιστικός Σύλλογος «Ο Αρχέλαος» Κατερίνης αποτελεί έναν από τους ιστορικότερους πολυαθλητικούς συλλόγους της Μακεδονίας. Ιδρύθηκε το <strong class='text-archelaos-deepgreen'>1956</strong> και παραμένει πιστός στο όραμά του.",
+          about_p1: "Από το <strong class='text-archelaos-deepgreen'>1956</strong> ο Αρχέλαος ενώνει την Κατερίνη μέσα από τον αθλητισμό, τις αξίες και τους ανθρώπους του.",
           stat_athletes: "Αθλητές",
           stat_founded: "Ίδρυση",
           btn_full_history: "Διαβάστε όλη την Ιστορία (Αναλυτικό Αρχείο 70 Ετών)",
@@ -2345,6 +2523,13 @@ html.arch-welcome-pending #archWelcome{display:flex}
           field_email_opt: "Email",
           reg_sent_success: "Η εγγραφή σας καταχωρήθηκε επιτυχώς!",
           btn_submit_interest: "Υποβολή Ενδιαφέροντος",
+          heritage_footer_since: "ΑΠΟ ΤΟ 1956",
+          heritage_footer_club: "Γ.Α.Σ. «Ο Αρχέλαος»",
+          heritage_footer_city: "Κατερίνη · 70 χρόνια αθλητισμού",
+          heritage_footer_motto: "Ο αθλητισμός μάς ενώνει.",
+          heritage_footer_explore: "ΕΞΕΡΕΥΝΗΣΗ",
+          heritage_footer_history_contact: "ΠΕΡΙΣΣΟΤΕΡΑ & ΕΠΑΦΗ",
+          heritage_footer_copyright: "© 2026 Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης · archelaos.club",
           footer_address: "Α΄ Δημοτικό Αθλητικό Κέντρο (ΔΑΚ) Κατερίνης, 60132",
           footer_history_btn: "Ιστορικό Αρχείο",
           back_to_top_tooltip: "Κορυφή"
@@ -2387,7 +2572,7 @@ html.arch-welcome-pending #archWelcome{display:flex}
           slide_heading_2: "of Sporting Excellence",
           about_tag: "Our Legacy",
           about_title: "The Club that <br>United Pieria",
-          about_p1: "Gymnastic Athletic Club 'Archelaos' of Katerini is one of the most prominent multi-sport organizations in Northern Greece. Founded in <strong class='text-archelaos-deepgreen'>1956</strong>, remaining dedicated to athletic virtue and grassroots development.",
+          about_p1: "Since <strong class='text-archelaos-deepgreen'>1956</strong>, Archelaos has brought Katerini together through sport, values and community.",
           stat_athletes: "Athletes",
           stat_founded: "Founded",
           btn_full_history: "Read Full History (70-Year Archive)",
@@ -2485,6 +2670,13 @@ html.arch-welcome-pending #archWelcome{display:flex}
           field_email_opt: "Email",
           reg_sent_success: "Your registration has been logged successfully!",
           btn_submit_interest: "Submit Registration",
+          heritage_footer_since: "SINCE 1956",
+          heritage_footer_club: "G.A.S. Archelaos",
+          heritage_footer_city: "Katerini · 70 years of sport",
+          heritage_footer_motto: "Sport brings us together.",
+          heritage_footer_explore: "EXPLORE",
+          heritage_footer_history_contact: "MORE & CONTACT",
+          heritage_footer_copyright: "© 2026 G.A.S. Archelaos Katerinis · archelaos.club",
           footer_address: "1st Municipal Athletic Center (DAK) of Katerini, GR-60132",
           footer_history_btn: "Historical Archive",
           back_to_top_tooltip: "Top"
