@@ -1288,6 +1288,103 @@ html.arch-welcome-pending #archWelcome{display:flex}
 }
 </style>
 <style id="archelaos-single-theme">:root{color-scheme:light}body{color-scheme:light}</style>
+
+<style id="archelaos-editorial-sports">
+/* Editorial Sports — a single light-theme presentation, scoped to department cards. */
+#departmentsGrid {align-items:stretch;gap:clamp(16px,2vw,24px);}
+#departmentsGrid .editorial-sport-card {
+ display:flex;flex-direction:column!important;justify-content:flex-start!important;
+ padding:0!important;min-height:0!important;overflow:hidden!important;
+ border-radius:21px!important;background:#fff!important;
+ border:1px solid #d9e5d8!important;isolation:isolate;
+ box-shadow:0 8px 25px rgba(4,56,31,.065)!important;
+ transition:transform .26s ease,box-shadow .26s ease,border-color .26s ease!important;
+}
+#departmentsGrid .editorial-sport-card::before,
+#departmentsGrid .editorial-sport-card::after {content:none!important;display:none!important;}
+#departmentsGrid .editorial-sport-card:hover,
+#departmentsGrid .editorial-sport-card:focus-within {
+ transform:translateY(-4px);border-color:#b7cdb8!important;
+ box-shadow:0 17px 38px rgba(4,56,31,.14)!important;
+}
+#departmentsGrid .editorial-sport-photo {height:185px;position:relative;overflow:hidden;background:linear-gradient(135deg,#0b4b30,#167348);flex-shrink:0;}
+#departmentsGrid .editorial-sport-photo img {display:block;width:100%;height:100%;object-fit:cover;object-position:center;transition:transform .5s ease;}
+#departmentsGrid .editorial-sport-card:hover .editorial-sport-photo img {transform:scale(1.045);}
+#departmentsGrid .editorial-sport-photo::after {content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,27,13,.38),transparent 46%,rgba(0,27,13,.32));pointer-events:none;}
+#departmentsGrid .editorial-sport-photo.photo-unavailable::before {content:"ΑΡΧΕΛΑΟΣ · 1956";position:absolute;inset:0;display:grid;place-items:center;color:#f6e66b;font-size:13px;font-weight:900;letter-spacing:.18em;}
+#departmentsGrid .editorial-sport-index,#departmentsGrid .editorial-sport-photo-label {position:absolute;z-index:2;color:#fff;font-weight:850;letter-spacing:.07em;font-size:10px;}
+#departmentsGrid .editorial-sport-index {top:15px;left:16px;padding:6px 9px;background:rgba(4,48,28,.72);border:1px solid rgba(255,255,255,.3);border-radius:7px;}
+#departmentsGrid .editorial-sport-photo-label {bottom:14px;left:16px;padding:5px 10px;border-radius:7px;background:rgba(3,49,29,.82);border-left:3px solid #f1d75a;}
+#departmentsGrid .editorial-sport-body {display:flex;flex-direction:column;flex:1;padding:20px 19px 18px!important;position:relative;z-index:1;}
+#departmentsGrid .editorial-sport-eyebrow {display:flex;align-items:center;justify-content:space-between;gap:6px;flex-wrap:wrap;font-size:9px;font-weight:900;letter-spacing:.08em;color:#47634f;}
+#departmentsGrid .editorial-sport-year {color:#866b17;}
+#departmentsGrid .editorial-sport-title {font-size:clamp(20px,1.9vw,24px)!important;line-height:1.17!important;letter-spacing:-.035em;color:#083d28!important;margin:14px 0 0!important;font-weight:900!important;}
+#departmentsGrid .editorial-sport-subtitle {font-size:12px;line-height:1.4;font-weight:750;color:#346b4a;margin-top:5px;}
+#departmentsGrid .editorial-sport-description {font-size:13px;line-height:1.6;color:#526559;margin-top:12px;min-height:42px;}
+#departmentsGrid .editorial-sport-divider {height:1px;background:#e1e9df;margin:17px 0 13px;margin-top:auto;}
+#departmentsGrid .editorial-sport-actions {display:flex;align-items:stretch;gap:8px;flex-wrap:wrap;}
+#departmentsGrid .editorial-sport-history {border:1px solid #c7d8c8;background:#f5f8f3;color:#0a4b2f;border-radius:10px;min-height:43px;padding:9px 11px;font-size:11px;font-weight:900;display:inline-flex;gap:6px;align-items:center;justify-content:center;transition:background .2s ease;}
+#departmentsGrid .editorial-sport-history:hover {background:#e6f0e4;}
+#departmentsGrid .editorial-sport-join {flex:1;display:flex!important;align-items:center;justify-content:center;gap:7px;min-height:43px;padding:9px 11px!important;margin:0!important;background:#084c24!important;color:#fff!important;border:1px solid #084c24!important;border-radius:10px!important;font-size:11px;font-weight:900;line-height:1.3;text-align:center;box-shadow:none!important;transition:background .2s ease,color .2s ease!important;}
+#departmentsGrid .editorial-sport-join:hover {background:#f4de74!important;color:#073e26!important;}
+#departmentsGrid .editorial-sport-history:focus-visible,#departmentsGrid .editorial-sport-join:focus-visible {outline:3px solid #c28e11;outline-offset:3px;}
+@media(max-width:767px) {
+ #departmentsGrid .editorial-sport-card {border-radius:18px!important;}
+ #departmentsGrid .editorial-sport-photo {height:195px;}
+ #departmentsGrid .editorial-sport-body {padding:19px!important;}
+ #departmentsGrid .editorial-sport-title {font-size:23px!important;}
+}
+@media(min-width:640px) and (max-width:1050px) {
+ #departmentsGrid .editorial-sport-photo {height:170px;}
+ #departmentsGrid .editorial-sport-actions {flex-direction:column;}
+}
+@media(prefers-reduced-motion:reduce) {
+ #departmentsGrid .editorial-sport-card,#departmentsGrid .editorial-sport-photo img {transition:none!important;}
+ #departmentsGrid .editorial-sport-card:hover {transform:none!important;}
+ #departmentsGrid .editorial-sport-card:hover .editorial-sport-photo img {transform:none!important;}
+}
+</style>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=GFS+Didot:ital@0;1&amp;display=swap" rel="stylesheet">
+<style id="archelaos-executive-board">
+#board .executive-board-card {
+  display:flex;flex-direction:column;justify-content:space-between;gap:22px;
+  padding:21px 19px 17px;border:1px solid #d7e4d6;border-radius:20px;
+  background:#fff;box-shadow:0 7px 23px rgba(4,56,31,.065);
+  min-height:176px;transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease;
+}
+#board .executive-board-card::before,#board .executive-board-card::after {content:none!important;display:none!important;}
+#board .executive-board-card:hover {transform:translateY(-3px);border-color:#adc8ad;box-shadow:0 14px 32px rgba(4,56,31,.12);}
+#board .executive-board-upper {display:flex;align-items:center;gap:14px;min-width:0;}
+#board .executive-board-monogram {
+  position:relative;display:flex;align-items:center;justify-content:center;flex:0 0 66px;
+  width:66px;height:74px;border-radius:15px 15px 19px 19px;
+  color:#f5dc76;background:linear-gradient(145deg,#0d603b 0%,#073e2b 75%);
+  border:1px solid #26704d;box-shadow:inset 0 0 0 3px rgba(247,218,112,.1);
+}
+#board .executive-board-monogram:after {content:"";position:absolute;inset:6px;border:1px solid rgba(245,220,118,.35);border-radius:11px 11px 15px 15px;pointer-events:none;}
+#board .executive-board-monogram span {
+  font-family:"GFS Didot","Palatino Linotype","Times New Roman",serif;
+  font-style:italic;font-weight:400;font-size:31px;line-height:1;letter-spacing:-.095em;
+  padding-right:4px;transform:rotate(-5deg) translateY(-1px);
+  text-shadow:0 1px 1px rgba(0,0,0,.15);
+}
+#board .executive-board-ident {min-width:0;display:flex;flex-direction:column;gap:9px;}
+#board .executive-board-role {color:#9b7614;font-weight:900;font-size:10px;line-height:1.3;letter-spacing:.04em;text-transform:uppercase;}
+#board .executive-board-name {color:#073e2a;font-family:"Manrope","Inter",sans-serif;font-size:15px;line-height:1.35;font-weight:850;overflow-wrap:anywhere;}
+#board .executive-board-bottom {border-top:1px solid #e1e9df;padding-top:12px;display:flex;flex-wrap:wrap;gap:5px;align-items:baseline;font-size:12px;line-height:1.45;}
+#board .executive-board-ephor-label {color:#0a5132;font-weight:900;}
+#board .executive-board-ephor {color:#52665a;font-weight:700;}
+@media(max-width:639px) {
+ #board .executive-board-card {min-height:0;padding:17px;gap:16px;border-radius:17px;}
+ #board .executive-board-monogram {width:62px;height:67px;flex-basis:62px;}
+ #board .executive-board-name {font-size:16px;}
+}
+@media(prefers-reduced-motion:reduce) {
+ #board .executive-board-card {transition:none!important;}
+ #board .executive-board-card:hover {transform:none!important;}
+}
+</style>
 </head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow">
 
@@ -1470,7 +1567,7 @@ html.arch-welcome-pending #archWelcome{display:flex}
 <div class="h-full bg-archelaos-yellow w-0" id="slideProgressBar"></div>
 </div>
 <div class="relative w-full h-full" id="heroSlideshow">
-<div class="slideshow-slide active" data-caption-el="Αγωνιστική δράση στη Χειροσφαίριση — 2 Κύπελλα Ελλάδος &amp; ιστορική παρουσία στην Α1 Εθνική." data-caption-en="Handball action — 2 Greek Cups &amp; historic presence in the A1 National League." data-sport-el="Χειροσφαίριση (Χάντμπολ)" data-sport-en="Handball">
+<div class="slideshow-slide active" data-caption-el="Αγωνιστική δράση στο Χάντμπολ — 2 Κύπελλα Ελλάδος &amp; ιστορική παρουσία στην Α1 Εθνική." data-caption-en="Handball action — 2 Greek Cups &amp; historic presence in the A1 National League." data-sport-el="Χάντμπολ" data-sport-en="Handball">
 <img alt="Χάντμπολ" decoding="async" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaOFUCWatPwP-EycFiHffCCMk_Kz1ScNWPtg7znhR3mQ&amp;s=10"/>
 </div>
 <div class="slideshow-slide" data-caption-el="Εκκίνηση και αγωνιστικοί δρόμοι ταχύτητας στο στάδιο — Φυτώριο πρωταθλητών από το 1956." data-caption-en="Stadium racing lanes — A hotbed of champions since 1956." data-sport-el="Στίβος (Κλασικός Αθλητισμός)" data-sport-en="Track &amp; Field (Athletics)">
@@ -1488,7 +1585,7 @@ html.arch-welcome-pending #archWelcome{display:flex}
 <div class="slideshow-slide" data-caption-el="Ολυμπιακή πάλη στο ταπί — Ένα από τα πιο ένδοξα και παραδοσιακά τμήματα του Αρχελάου." data-caption-en="Greco-Roman &amp; Freestyle wrestling on the mat — Olympic pedigree." data-sport-el="Αγωνιστική Πάλη" data-sport-en="Olympic Wrestling">
 <img alt="Πάλη" decoding="async" loading="lazy" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVLxI6PiDSGj3e_-EDi1o76kx6O9DJkd8DHF2yZPp-qg&amp;s=10"/>
 </div>
-<div class="slideshow-slide" data-caption-el="Αγωνιστική δράση στο φιλέ — Ομαδικότητα, εκρηκτικότητα και τεχνική υπεροχή." data-caption-en="Spikes and net defense — Team spirit, power, and technical skill." data-sport-el="Πετοσφαίριση (Βόλεϊ)" data-sport-en="Volleyball">
+<div class="slideshow-slide" data-caption-el="Αγωνιστική δράση στο φιλέ — Ομαδικότητα, εκρηκτικότητα και τεχνική υπεροχή." data-caption-en="Spikes and net defense — Team spirit, power, and technical skill." data-sport-el="Βόλεϊ" data-sport-en="Volleyball">
 <img alt="Βόλεϊ" decoding="async" loading="lazy" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIex8YMFGm7cLdQvLNvrQ4fdkg45xPl68ULVxGERNXOw&amp;s=10"/>
 </div>
 <div class="slideshow-slide" data-caption-el="Αγωνιστικός υγρός στίβος στις διαδρομές της πισίνας — Ταχύτητα και αντοχή στο νερό." data-caption-en="Speed and endurance across pool lanes for all ages." data-sport-el="Αγωνιστική Κολύμβηση" data-sport-en="Swimming">
@@ -1496,7 +1593,7 @@ html.arch-welcome-pending #archWelcome{display:flex}
 </div>
 </div>
 <div class="absolute top-5 left-5 z-20 flex items-center gap-2">
-<span class="px-3.5 py-1.5 rounded-full bg-archelaos-deepgreen/90 text-archelaos-yellow text-xs sm:text-sm font-black uppercase tracking-wider border border-archelaos-yellow/50 shadow-md" id="activeSportBadge">1/8 • Χειροσφαίριση (Χάντμπολ)</span>
+<span class="px-3.5 py-1.5 rounded-full bg-archelaos-deepgreen/90 text-archelaos-yellow text-xs sm:text-sm font-black uppercase tracking-wider border border-archelaos-yellow/50 shadow-md" id="activeSportBadge">1/8 • Χάντμπολ</span>
 </div>
 <button aria-label="Προηγούμενο" class="absolute left-3.5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/45 hover:bg-archelaos-yellow text-white hover:text-archelaos-deepgreen border border-white/30 flex items-center justify-center transition opacity-85 group-hover:opacity-100" id="prevSlideBtn"><i class="fa-solid fa-chevron-left"></i></button>
 <button aria-label="Επόμενο" class="absolute right-3.5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/45 hover:bg-archelaos-yellow text-white hover:text-archelaos-deepgreen border border-white/30 flex items-center justify-center transition opacity-85 group-hover:opacity-100" id="nextSlideBtn"><i class="fa-solid fa-chevron-right"></i></button>
@@ -1507,7 +1604,7 @@ html.arch-welcome-pending #archWelcome{display:flex}
 <img alt="Logo" class="w-12 h-12 object-contain drop-shadow-md shrink-0" src="https://lh3.googleusercontent.com/d/1JwGT61jDKXuBU6rA1OCiC1laeKh8gKdV"/>
 <div>
 <h3 class="text-lg sm:text-2xl font-black text-white font-heading leading-tight drop-shadow"><span data-i18n="slide_heading_1">70 Χρόνια</span> <span class="text-archelaos-yellow" data-i18n="slide_heading_2">Αγωνιστικής Δράσης</span></h3>
-<p class="text-xs sm:text-sm text-white/90 font-medium mt-0.5 line-clamp-2" id="activeSlideCaption">Αγωνιστική δράση στη Χειροσφαίριση — 2 Κύπελλα Ελλάδος &amp; ιστορική παρουσία στην Α1 Εθνική.</p>
+<p class="text-xs sm:text-sm text-white/90 font-medium mt-0.5 line-clamp-2" id="activeSlideCaption">Αγωνιστική δράση στο Χάντμπολ — 2 Κύπελλα Ελλάδος &amp; ιστορική παρουσία στην Α1 Εθνική.</p>
 </div>
 </div>
 </div>
@@ -1579,163 +1676,149 @@ html.arch-welcome-pending #archWelcome{display:flex}
 </button>
 </div>
 <!-- Grid Τμημάτων (με data-category σε κάθε κάρτα) -->
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8" id="departmentsGrid">
-<!-- 1. Χειροσφαίριση [team] -->
-<div class="department-card reveal-text glass-card rounded-[2rem] p-6 flex flex-col justify-between group" data-category="team" data-sport-index="01">
-<div class="relative z-10 sport-content"><span aria-hidden="true" class="sport-number">01</span>
-<div class="flex items-center justify-between mb-6">
-<button aria-label="Ιστορικό τμήματος / Department history" class="icon-box sport-emblem" onclick="openDeptHistoryModal('handball')" type="button">
-<i class="fa-solid fa-person-running"></i>
-<span aria-hidden="true" class="sport-handball-ball"></span></button>
-<button class="text-[11px] font-black text-archelaos-darkgreen hover:underline flex items-center gap-1 opacity-80 hover:opacity-100" onclick="openDeptHistoryModal('handball')" type="button">
-<i class="fa-solid fa-circle-info"></i> <span data-i18n="btn_dept_history">Ιστορικό</span>
-</button>
-</div>
-<h3 class="text-xl font-black font-heading text-archelaos-deepgreen mb-2 leading-tight">
-<span data-i18n="dept_1_title">Χειροσφαίριση</span><br/>
-<span class="text-sm text-archelaos-darkgreen font-extrabold" data-i18n="dept_1_sub">(Χάντμπολ)</span>
-</h3>
-</div>
-<button class="relative z-10 w-full py-3.5 bg-white hover:bg-archelaos-deepgreen text-archelaos-deepgreen hover:text-archelaos-yellow font-extrabold text-sm rounded-xl border border-archelaos-darkgreen/20 transition-colors duration-200 shadow-sm mt-6 sport-join-action" data-i18n="btn_register_interest" onclick="openRegistrationModal('Χειροσφαίριση (Χάντμπολ)')">
-              Εκδήλωση Ενδιαφέροντος
-            <i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square sport-join-arrow"></i></button>
-</div>
-<!-- 2. Στίβος [individual] -->
-<div class="department-card reveal-text delay-100 glass-card rounded-[2rem] p-6 flex flex-col justify-between group" data-category="individual" data-sport-index="02">
-<div class="relative z-10 sport-content"><span aria-hidden="true" class="sport-number">02</span>
-<div class="flex items-center justify-between mb-6">
-<button aria-label="Ιστορικό τμήματος / Department history" class="icon-box sport-emblem" onclick="openDeptHistoryModal('track')" type="button">
-<i class="fa-solid fa-person-running"></i>
-</button>
-<button class="text-[11px] font-black text-archelaos-darkgreen hover:underline flex items-center gap-1 opacity-80 hover:opacity-100" onclick="openDeptHistoryModal('track')" type="button">
-<i class="fa-solid fa-circle-info"></i> <span data-i18n="btn_dept_history">Ιστορικό</span>
-</button>
-</div>
-<h3 class="text-xl font-black font-heading text-archelaos-deepgreen mb-2 leading-tight">
-<span data-i18n="dept_2_title">Στίβος</span><br/>
-<span class="text-sm text-archelaos-darkgreen font-extrabold" data-i18n="dept_2_sub">(Κλασικός Αθλητισμός)</span>
-</h3>
-</div>
-<button class="relative z-10 w-full py-3.5 bg-white hover:bg-archelaos-deepgreen text-archelaos-deepgreen hover:text-archelaos-yellow font-extrabold text-sm rounded-xl border border-archelaos-darkgreen/20 transition-colors duration-200 shadow-sm mt-6 sport-join-action" data-i18n="btn_register_interest" onclick="openRegistrationModal('Στίβος')">
-              Εκδήλωση Ενδιαφέροντος
-            <i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square sport-join-arrow"></i></button>
-</div>
-<!-- 3. Τοξοβολία [individual] -->
-<div class="department-card reveal-text delay-200 glass-card rounded-[2rem] p-6 flex flex-col justify-between group" data-category="individual" data-sport-index="03">
-<div class="relative z-10 sport-content"><span aria-hidden="true" class="sport-number">03</span>
-<div class="flex items-center justify-between mb-6">
-<button aria-label="Ιστορικό τμήματος / Department history" class="icon-box sport-emblem" onclick="openDeptHistoryModal('archery')" type="button">
-<i class="fa-solid fa-bullseye"></i>
-</button>
-<button class="text-[11px] font-black text-archelaos-darkgreen hover:underline flex items-center gap-1 opacity-80 hover:opacity-100" onclick="openDeptHistoryModal('archery')" type="button">
-<i class="fa-solid fa-circle-info"></i> <span data-i18n="btn_dept_history">Ιστορικό</span>
-</button>
-</div>
-<h3 class="text-xl font-black font-heading text-archelaos-deepgreen mb-2 leading-tight">
-<span data-i18n="dept_3_title">Τοξοβολία</span>
-</h3>
-</div>
-<button class="relative z-10 w-full py-3.5 bg-white hover:bg-archelaos-deepgreen text-archelaos-deepgreen hover:text-archelaos-yellow font-extrabold text-sm rounded-xl border border-archelaos-darkgreen/20 transition-colors duration-200 shadow-sm mt-6 sport-join-action" data-i18n="btn_register_interest" onclick="openRegistrationModal('Τοξοβολία')">
-              Εκδήλωση Ενδιαφέροντος
-            <i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square sport-join-arrow"></i></button>
-</div>
-<!-- 4. Σκοποβολή [individual] -->
-<div class="department-card reveal-text delay-300 glass-card rounded-[2rem] p-6 flex flex-col justify-between group" data-category="individual" data-sport-index="04">
-<div class="relative z-10 sport-content"><span aria-hidden="true" class="sport-number">04</span>
-<div class="flex items-center justify-between mb-6">
-<button aria-label="Ιστορικό τμήματος / Department history" class="icon-box sport-emblem" onclick="openDeptHistoryModal('shooting')" type="button">
-<i class="fa-solid fa-crosshairs"></i>
-</button>
-<button class="text-[11px] font-black text-archelaos-darkgreen hover:underline flex items-center gap-1 opacity-80 hover:opacity-100" onclick="openDeptHistoryModal('shooting')" type="button">
-<i class="fa-solid fa-circle-info"></i> <span data-i18n="btn_dept_history">Ιστορικό</span>
-</button>
-</div>
-<h3 class="text-xl font-black font-heading text-archelaos-deepgreen mb-2 leading-tight">
-<span data-i18n="dept_4_title">Σκοποβολή</span>
-</h3>
-</div>
-<button class="relative z-10 w-full py-3.5 bg-white hover:bg-archelaos-deepgreen text-archelaos-deepgreen hover:text-archelaos-yellow font-extrabold text-sm rounded-xl border border-archelaos-darkgreen/20 transition-colors duration-200 shadow-sm mt-6 sport-join-action" data-i18n="btn_register_interest" onclick="openRegistrationModal('Σκοποβολή')">
-              Εκδήλωση Ενδιαφέροντος
-            <i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square sport-join-arrow"></i></button>
-</div>
-<!-- 5. Ενόργανη Γυμναστική [individual] -->
-<div class="department-card reveal-text glass-card rounded-[2rem] p-6 flex flex-col justify-between group" data-category="individual" data-sport-index="05">
-<div class="relative z-10 sport-content"><span aria-hidden="true" class="sport-number">05</span>
-<div class="flex items-center justify-between mb-6">
-<button aria-label="Ιστορικό τμήματος / Department history" class="icon-box sport-emblem" onclick="openDeptHistoryModal('gymnastics')" type="button">
-<i class="fa-solid fa-child-reaching"></i>
-</button>
-<button class="text-[11px] font-black text-archelaos-darkgreen hover:underline flex items-center gap-1 opacity-80 hover:opacity-100" onclick="openDeptHistoryModal('gymnastics')" type="button">
-<i class="fa-solid fa-circle-info"></i> <span data-i18n="btn_dept_history">Ιστορικό</span>
-</button>
-</div>
-<h3 class="text-xl font-black font-heading text-archelaos-deepgreen mb-2 leading-tight">
-<span data-i18n="dept_5_title">Ενόργανη Γυμναστική</span>
-</h3>
-</div>
-<button class="relative z-10 w-full py-3.5 bg-white hover:bg-archelaos-deepgreen text-archelaos-deepgreen hover:text-archelaos-yellow font-extrabold text-sm rounded-xl border border-archelaos-darkgreen/20 transition-colors duration-200 shadow-sm mt-6 sport-join-action" data-i18n="btn_register_interest" onclick="openRegistrationModal('Ενόργανη Γυμναστική')">
-              Εκδήλωση Ενδιαφέροντος
-            <i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square sport-join-arrow"></i></button>
-</div>
-<!-- 6. Πετοσφαίριση (Βόλεϊ) [team] -->
-<div class="department-card reveal-text delay-100 glass-card rounded-[2rem] p-6 flex flex-col justify-between group" data-category="team" data-sport-index="06">
-<div class="relative z-10 sport-content"><span aria-hidden="true" class="sport-number">06</span>
-<div class="flex items-center justify-between mb-6">
-<button aria-label="Ιστορικό τμήματος / Department history" class="icon-box sport-emblem" onclick="openDeptHistoryModal('volleyball')" type="button">
-<i class="fa-solid fa-volleyball"></i>
-</button>
-<button class="text-[11px] font-black text-archelaos-darkgreen hover:underline flex items-center gap-1 opacity-80 hover:opacity-100" onclick="openDeptHistoryModal('volleyball')" type="button">
-<i class="fa-solid fa-circle-info"></i> <span data-i18n="btn_dept_history">Ιστορικό</span>
-</button>
-</div>
-<h3 class="text-xl font-black font-heading text-archelaos-deepgreen mb-2 leading-tight">
-<span data-i18n="dept_6_title">Πετοσφαίριση</span><br/>
-<span class="text-sm text-archelaos-darkgreen font-extrabold" data-i18n="dept_6_sub">(Βόλεϊ)</span>
-</h3>
-</div>
-<button class="relative z-10 w-full py-3.5 bg-white hover:bg-archelaos-deepgreen text-archelaos-deepgreen hover:text-archelaos-yellow font-extrabold text-sm rounded-xl border border-archelaos-darkgreen/20 transition-colors duration-200 shadow-sm mt-6 sport-join-action" data-i18n="btn_register_interest" onclick="openRegistrationModal('Πετοσφαίριση (Βόλεϊ)')">
-              Εκδήλωση Ενδιαφέροντος
-            <i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square sport-join-arrow"></i></button>
-</div>
-<!-- 7. Πάλη [individual] -->
-<div class="department-card reveal-text delay-200 glass-card rounded-[2rem] p-6 flex flex-col justify-between group" data-category="individual" data-sport-index="07">
-<div class="relative z-10 sport-content"><span aria-hidden="true" class="sport-number">07</span>
-<div class="flex items-center justify-between mb-6">
-<button aria-label="Ιστορικό τμήματος / Department history" class="icon-box sport-emblem" onclick="openDeptHistoryModal('wrestling')" type="button">
-<i class="fa-solid fa-hand-fist"></i>
-</button>
-<button class="text-[11px] font-black text-archelaos-darkgreen hover:underline flex items-center gap-1 opacity-80 hover:opacity-100" onclick="openDeptHistoryModal('wrestling')" type="button">
-<i class="fa-solid fa-circle-info"></i> <span data-i18n="btn_dept_history">Ιστορικό</span>
-</button>
-</div>
-<h3 class="text-xl font-black font-heading text-archelaos-deepgreen mb-2 leading-tight">
-<span data-i18n="dept_7_title">Πάλη</span>
-</h3>
-</div>
-<button class="relative z-10 w-full py-3.5 bg-white hover:bg-archelaos-deepgreen text-archelaos-deepgreen hover:text-archelaos-yellow font-extrabold text-sm rounded-xl border border-archelaos-darkgreen/20 transition-colors duration-200 shadow-sm mt-6 sport-join-action" data-i18n="btn_register_interest" onclick="openRegistrationModal('Πάλη')">
-              Εκδήλωση Ενδιαφέροντος
-            <i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square sport-join-arrow"></i></button>
-</div>
-<!-- 8. Κολύμβηση [aquatics] -->
-<div class="department-card reveal-text delay-300 glass-card rounded-[2rem] p-6 flex flex-col justify-between group" data-category="aquatics" data-sport-index="08">
-<div class="relative z-10 sport-content"><span aria-hidden="true" class="sport-number">08</span>
-<div class="flex items-center justify-between mb-6">
-<button aria-label="Ιστορικό τμήματος / Department history" class="icon-box sport-emblem" onclick="openDeptHistoryModal('swimming')" type="button">
-<i class="fa-solid fa-person-swimming"></i>
-</button>
-<button class="text-[11px] font-black text-archelaos-darkgreen hover:underline flex items-center gap-1 opacity-80 hover:opacity-100" onclick="openDeptHistoryModal('swimming')" type="button">
-<i class="fa-solid fa-circle-info"></i> <span data-i18n="btn_dept_history">Ιστορικό</span>
-</button>
-</div>
-<h3 class="text-xl font-black font-heading text-archelaos-deepgreen mb-2 leading-tight">
-<span data-i18n="dept_8_title">Κολύμβηση</span><br/>
-<span class="text-sm text-archelaos-darkgreen font-extrabold" data-i18n="dept_8_sub">(Υγρός Στίβος)</span>
-</h3>
-</div>
-<button class="relative z-10 w-full py-3.5 bg-white hover:bg-archelaos-deepgreen text-archelaos-deepgreen hover:text-archelaos-yellow font-extrabold text-sm rounded-xl border border-archelaos-darkgreen/20 transition-colors duration-200 shadow-sm mt-6 sport-join-action" data-i18n="btn_register_interest" onclick="openRegistrationModal('Κολύμβηση')">
-              Εκδήλωση Ενδιαφέροντος
-            <i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square sport-join-arrow"></i></button>
-</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6" id="departmentsGrid">
+<article class="department-card editorial-sport-card reveal-text" data-category="team" data-sport-index="01">
+  <div class="editorial-sport-photo">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaOFUCWatPwP-EycFiHffCCMk_Kz1ScNWPtg7znhR3mQ&amp;s=10" alt="Χάντμπολ — Handball" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.closest('.editorial-sport-photo').classList.add('photo-unavailable');this.style.display='none'"/>
+    <span class="editorial-sport-index" aria-hidden="true">01 / 08</span>
+    <span class="editorial-sport-photo-label"><span data-lang="el">Ομαδικό άθλημα</span><span data-lang="en">Team sport</span></span>
+  </div>
+  <div class="editorial-sport-body">
+    <div class="editorial-sport-eyebrow"><span><span data-lang="el">ΑΘΛΗΤΙΚΟ ΤΜΗΜΑ</span><span data-lang="en">SPORTS DEPARTMENT</span></span><span class="editorial-sport-year">ΑΡΧΕΛΑΟΣ · 1956</span></div>
+    <h3 class="editorial-sport-title"><span data-i18n="dept_1_title">Χάντμπολ</span></h3>
+    <p class="editorial-sport-description"><span data-lang="el">Δύναμη, συνεργασία και αγωνιστικό πάθος.</span><span data-lang="en">Strength, teamwork and competitive spirit.</span></p>
+    <div class="editorial-sport-divider"></div>
+    <div class="editorial-sport-actions">
+      <button type="button" class="editorial-sport-history" onclick="openDeptHistoryModal('handball')" aria-label="Χάντμπολ — ιστορικό / history"><i class="fa-regular fa-clock" aria-hidden="true"></i> <span data-i18n="btn_dept_history">Ιστορικό</span></button>
+      <button type="button" class="editorial-sport-join sport-join-action" onclick="openRegistrationModal('Χάντμπολ')"><span data-i18n="btn_register_interest">Εκδήλωση Ενδιαφέροντος</span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></button>
+    </div>
+  </div>
+</article>
+<article class="department-card editorial-sport-card reveal-text" data-category="individual" data-sport-index="02">
+  <div class="editorial-sport-photo">
+    <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="Στίβος — Athletics" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.closest('.editorial-sport-photo').classList.add('photo-unavailable');this.style.display='none'"/>
+    <span class="editorial-sport-index" aria-hidden="true">02 / 08</span>
+    <span class="editorial-sport-photo-label"><span data-lang="el">Ατομικό άθλημα</span><span data-lang="en">Individual sport</span></span>
+  </div>
+  <div class="editorial-sport-body">
+    <div class="editorial-sport-eyebrow"><span><span data-lang="el">ΑΘΛΗΤΙΚΟ ΤΜΗΜΑ</span><span data-lang="en">SPORTS DEPARTMENT</span></span><span class="editorial-sport-year">ΑΡΧΕΛΑΟΣ · 1956</span></div>
+    <h3 class="editorial-sport-title"><span data-i18n="dept_2_title">Στίβος</span></h3>
+    <p class="editorial-sport-subtitle"><span data-lang="el">(Κλασικός Αθλητισμός)</span><span data-lang="en">(Track &amp; Field)</span></p>
+    <p class="editorial-sport-description"><span data-lang="el">Ταχύτητα, αντοχή και προσωπική εξέλιξη.</span><span data-lang="en">Speed, endurance and personal progress.</span></p>
+    <div class="editorial-sport-divider"></div>
+    <div class="editorial-sport-actions">
+      <button type="button" class="editorial-sport-history" onclick="openDeptHistoryModal('track')" aria-label="Στίβος — ιστορικό / history"><i class="fa-regular fa-clock" aria-hidden="true"></i> <span data-i18n="btn_dept_history">Ιστορικό</span></button>
+      <button type="button" class="editorial-sport-join sport-join-action" onclick="openRegistrationModal('Στίβος')"><span data-i18n="btn_register_interest">Εκδήλωση Ενδιαφέροντος</span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></button>
+    </div>
+  </div>
+</article>
+<article class="department-card editorial-sport-card reveal-text" data-category="individual" data-sport-index="03">
+  <div class="editorial-sport-photo">
+    <img src="https://sportsfeed.gr/wp-content/uploads/2024/10/%CE%B2%CE%B2%CE%B2-scaled.jpeg" alt="Τοξοβολία — Archery" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.closest('.editorial-sport-photo').classList.add('photo-unavailable');this.style.display='none'"/>
+    <span class="editorial-sport-index" aria-hidden="true">03 / 08</span>
+    <span class="editorial-sport-photo-label"><span data-lang="el">Ατομικό άθλημα</span><span data-lang="en">Individual sport</span></span>
+  </div>
+  <div class="editorial-sport-body">
+    <div class="editorial-sport-eyebrow"><span><span data-lang="el">ΑΘΛΗΤΙΚΟ ΤΜΗΜΑ</span><span data-lang="en">SPORTS DEPARTMENT</span></span><span class="editorial-sport-year">ΑΡΧΕΛΑΟΣ · 1956</span></div>
+    <h3 class="editorial-sport-title"><span data-i18n="dept_3_title">Τοξοβολία</span></h3>
+    
+    <p class="editorial-sport-description"><span data-lang="el">Συγκέντρωση, τεχνική και ακρίβεια.</span><span data-lang="en">Focus, technique and precision.</span></p>
+    <div class="editorial-sport-divider"></div>
+    <div class="editorial-sport-actions">
+      <button type="button" class="editorial-sport-history" onclick="openDeptHistoryModal('archery')" aria-label="Τοξοβολία — ιστορικό / history"><i class="fa-regular fa-clock" aria-hidden="true"></i> <span data-i18n="btn_dept_history">Ιστορικό</span></button>
+      <button type="button" class="editorial-sport-join sport-join-action" onclick="openRegistrationModal('Τοξοβολία')"><span data-i18n="btn_register_interest">Εκδήλωση Ενδιαφέροντος</span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></button>
+    </div>
+  </div>
+</article>
+<article class="department-card editorial-sport-card reveal-text" data-category="individual" data-sport-index="04">
+  <div class="editorial-sport-photo">
+    <img src="https://0501.nccdn.net/4_2/000/000/048/0a6/ISSF.jpg" alt="Σκοποβολή — Shooting" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.closest('.editorial-sport-photo').classList.add('photo-unavailable');this.style.display='none'"/>
+    <span class="editorial-sport-index" aria-hidden="true">04 / 08</span>
+    <span class="editorial-sport-photo-label"><span data-lang="el">Ατομικό άθλημα</span><span data-lang="en">Individual sport</span></span>
+  </div>
+  <div class="editorial-sport-body">
+    <div class="editorial-sport-eyebrow"><span><span data-lang="el">ΑΘΛΗΤΙΚΟ ΤΜΗΜΑ</span><span data-lang="en">SPORTS DEPARTMENT</span></span><span class="editorial-sport-year">ΑΡΧΕΛΑΟΣ · 1956</span></div>
+    <h3 class="editorial-sport-title"><span data-i18n="dept_4_title">Σκοποβολή</span></h3>
+    
+    <p class="editorial-sport-description"><span data-lang="el">Πειθαρχία, σταθερότητα και αυτοσυγκέντρωση.</span><span data-lang="en">Discipline, control and concentration.</span></p>
+    <div class="editorial-sport-divider"></div>
+    <div class="editorial-sport-actions">
+      <button type="button" class="editorial-sport-history" onclick="openDeptHistoryModal('shooting')" aria-label="Σκοποβολή — ιστορικό / history"><i class="fa-regular fa-clock" aria-hidden="true"></i> <span data-i18n="btn_dept_history">Ιστορικό</span></button>
+      <button type="button" class="editorial-sport-join sport-join-action" onclick="openRegistrationModal('Σκοποβολή')"><span data-i18n="btn_register_interest">Εκδήλωση Ενδιαφέροντος</span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></button>
+    </div>
+  </div>
+</article>
+<article class="department-card editorial-sport-card reveal-text" data-category="individual" data-sport-index="05">
+  <div class="editorial-sport-photo">
+    <img src="https://www.delasalle.gr/wp-content/uploads/2025/09/depositphotos_127887760-stock-photo-portrait-of-young-gymnasts-competing.webp" alt="Ενόργανη Γυμναστική — Artistic Gymnastics" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.closest('.editorial-sport-photo').classList.add('photo-unavailable');this.style.display='none'"/>
+    <span class="editorial-sport-index" aria-hidden="true">05 / 08</span>
+    <span class="editorial-sport-photo-label"><span data-lang="el">Ατομικό άθλημα</span><span data-lang="en">Individual sport</span></span>
+  </div>
+  <div class="editorial-sport-body">
+    <div class="editorial-sport-eyebrow"><span><span data-lang="el">ΑΘΛΗΤΙΚΟ ΤΜΗΜΑ</span><span data-lang="en">SPORTS DEPARTMENT</span></span><span class="editorial-sport-year">ΑΡΧΕΛΑΟΣ · 1956</span></div>
+    <h3 class="editorial-sport-title"><span data-i18n="dept_5_title">Ενόργανη Γυμναστική</span></h3>
+    
+    <p class="editorial-sport-description"><span data-lang="el">Ισορροπία, δύναμη και ευλυγισία.</span><span data-lang="en">Balance, strength and flexibility.</span></p>
+    <div class="editorial-sport-divider"></div>
+    <div class="editorial-sport-actions">
+      <button type="button" class="editorial-sport-history" onclick="openDeptHistoryModal('gymnastics')" aria-label="Ενόργανη Γυμναστική — ιστορικό / history"><i class="fa-regular fa-clock" aria-hidden="true"></i> <span data-i18n="btn_dept_history">Ιστορικό</span></button>
+      <button type="button" class="editorial-sport-join sport-join-action" onclick="openRegistrationModal('Ενόργανη Γυμναστική')"><span data-i18n="btn_register_interest">Εκδήλωση Ενδιαφέροντος</span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></button>
+    </div>
+  </div>
+</article>
+<article class="department-card editorial-sport-card reveal-text" data-category="team" data-sport-index="06">
+  <div class="editorial-sport-photo">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVLxI6PiDSGj3e_-EDi1o76kx6O9DJkd8DHF2yZPp-qg&amp;s=10" alt="Βόλεϊ — Volleyball" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.closest('.editorial-sport-photo').classList.add('photo-unavailable');this.style.display='none'"/>
+    <span class="editorial-sport-index" aria-hidden="true">06 / 08</span>
+    <span class="editorial-sport-photo-label"><span data-lang="el">Ομαδικό άθλημα</span><span data-lang="en">Team sport</span></span>
+  </div>
+  <div class="editorial-sport-body">
+    <div class="editorial-sport-eyebrow"><span><span data-lang="el">ΑΘΛΗΤΙΚΟ ΤΜΗΜΑ</span><span data-lang="en">SPORTS DEPARTMENT</span></span><span class="editorial-sport-year">ΑΡΧΕΛΑΟΣ · 1956</span></div>
+    <h3 class="editorial-sport-title"><span data-i18n="dept_6_title">Βόλεϊ</span></h3>
+    <p class="editorial-sport-description"><span data-lang="el">Ρυθμός, ομαδικότητα και ενέργεια.</span><span data-lang="en">Rhythm, teamwork and energy.</span></p>
+    <div class="editorial-sport-divider"></div>
+    <div class="editorial-sport-actions">
+      <button type="button" class="editorial-sport-history" onclick="openDeptHistoryModal('volleyball')" aria-label="Βόλεϊ — ιστορικό / history"><i class="fa-regular fa-clock" aria-hidden="true"></i> <span data-i18n="btn_dept_history">Ιστορικό</span></button>
+      <button type="button" class="editorial-sport-join sport-join-action" onclick="openRegistrationModal('Βόλεϊ')"><span data-i18n="btn_register_interest">Εκδήλωση Ενδιαφέροντος</span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></button>
+    </div>
+  </div>
+</article>
+<article class="department-card editorial-sport-card reveal-text" data-category="individual" data-sport-index="07">
+  <div class="editorial-sport-photo">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIex8YMFGm7cLdQvLNvrQ4fdkg45xPl68ULVxGERNXOw&amp;s=10" alt="Πάλη — Wrestling" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.closest('.editorial-sport-photo').classList.add('photo-unavailable');this.style.display='none'"/>
+    <span class="editorial-sport-index" aria-hidden="true">07 / 08</span>
+    <span class="editorial-sport-photo-label"><span data-lang="el">Ατομικό άθλημα</span><span data-lang="en">Individual sport</span></span>
+  </div>
+  <div class="editorial-sport-body">
+    <div class="editorial-sport-eyebrow"><span><span data-lang="el">ΑΘΛΗΤΙΚΟ ΤΜΗΜΑ</span><span data-lang="en">SPORTS DEPARTMENT</span></span><span class="editorial-sport-year">ΑΡΧΕΛΑΟΣ · 1956</span></div>
+    <h3 class="editorial-sport-title"><span data-i18n="dept_7_title">Πάλη</span></h3>
+    
+    <p class="editorial-sport-description"><span data-lang="el">Παράδοση, τεχνική και αγωνιστικό ήθος.</span><span data-lang="en">Tradition, technique and sportsmanship.</span></p>
+    <div class="editorial-sport-divider"></div>
+    <div class="editorial-sport-actions">
+      <button type="button" class="editorial-sport-history" onclick="openDeptHistoryModal('wrestling')" aria-label="Πάλη — ιστορικό / history"><i class="fa-regular fa-clock" aria-hidden="true"></i> <span data-i18n="btn_dept_history">Ιστορικό</span></button>
+      <button type="button" class="editorial-sport-join sport-join-action" onclick="openRegistrationModal('Πάλη')"><span data-i18n="btn_register_interest">Εκδήλωση Ενδιαφέροντος</span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></button>
+    </div>
+  </div>
+</article>
+<article class="department-card editorial-sport-card reveal-text" data-category="aquatics" data-sport-index="08">
+  <div class="editorial-sport-photo">
+    <img src="https://images.unsplash.com/photo-1530549387789-4c1017266635?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="Κολύμβηση — Swimming" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.closest('.editorial-sport-photo').classList.add('photo-unavailable');this.style.display='none'"/>
+    <span class="editorial-sport-index" aria-hidden="true">08 / 08</span>
+    <span class="editorial-sport-photo-label"><span data-lang="el">Υγρός στίβος</span><span data-lang="en">Aquatics</span></span>
+  </div>
+  <div class="editorial-sport-body">
+    <div class="editorial-sport-eyebrow"><span><span data-lang="el">ΑΘΛΗΤΙΚΟ ΤΜΗΜΑ</span><span data-lang="en">SPORTS DEPARTMENT</span></span><span class="editorial-sport-year">ΑΡΧΕΛΑΟΣ · 1956</span></div>
+    <h3 class="editorial-sport-title"><span data-i18n="dept_8_title">Κολύμβηση</span></h3>
+    <p class="editorial-sport-subtitle"><span data-lang="el">(Υγρός Στίβος)</span><span data-lang="en">(Aquatics)</span></p>
+    <p class="editorial-sport-description"><span data-lang="el">Κίνηση, αντοχή και αυτοπεποίθηση στο νερό.</span><span data-lang="en">Movement, stamina and confidence in water.</span></p>
+    <div class="editorial-sport-divider"></div>
+    <div class="editorial-sport-actions">
+      <button type="button" class="editorial-sport-history" onclick="openDeptHistoryModal('swimming')" aria-label="Κολύμβηση — ιστορικό / history"><i class="fa-regular fa-clock" aria-hidden="true"></i> <span data-i18n="btn_dept_history">Ιστορικό</span></button>
+      <button type="button" class="editorial-sport-join sport-join-action" onclick="openRegistrationModal('Κολύμβηση')"><span data-i18n="btn_register_interest">Εκδήλωση Ενδιαφέροντος</span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></button>
+    </div>
+  </div>
+</article>
 </div>
 </div>
 </section>
@@ -1747,119 +1830,111 @@ html.arch-welcome-pending #archWelcome{display:flex}
 <h2 class="text-3xl sm:text-5xl font-black font-heading text-archelaos-deepgreen" data-i18n="board_title">Διοικητικό Συμβούλιο</h2>
 <p class="mt-3 text-slate-700 font-semibold text-sm sm:text-base leading-relaxed" data-i18n="board_sub">Η σύνθεση του Δ.Σ. και οι υπεύθυνοι έφοροι των 8 αθλητικών τμημάτων του συλλόγου.</p>
 </div>
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 reveal-text">
-<div class="glass-card p-5 rounded-2xl flex flex-col justify-between hover:shadow-md transition duration-200 premium-person-card">
-<div class="relative z-10">
-<div class="flex items-center justify-between gap-2 mb-3">
-<span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-archelaos-deepgreen text-archelaos-yellow text-[11px] font-black uppercase tracking-wider shadow-sm" data-i18n="role_president">Πρόεδρος</span>
-<div class="w-9 h-9 rounded-lg bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-base shrink-0 shadow-sm">
-<i class="fa-solid fa-child-reaching"></i>
-</div>
-</div>
-<h3 class="font-heading font-black text-base text-archelaos-deepgreen leading-snug" data-i18n="board_1_name">Παναγιώτης Διαμαντόπουλος</h3>
-</div>
-<div class="relative z-10 text-xs font-bold text-slate-600 flex items-center gap-1.5 mt-3 pt-2.5 border-t border-slate-200/80">
-<span class="text-archelaos-forest font-black" data-i18n="ephor_label">Έφορος:</span> <span data-i18n="ephor_gymnastics">Ενόργανη Γυμναστική</span>
-</div>
-</div>
-<div class="glass-card p-5 rounded-2xl flex flex-col justify-between hover:shadow-md transition duration-200 premium-person-card">
-<div class="relative z-10">
-<div class="flex items-center justify-between gap-2 mb-3">
-<span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-archelaos-deepgreen text-archelaos-yellow text-[11px] font-black uppercase tracking-wider shadow-sm" data-i18n="role_vp1">Α΄ Αντιπρόεδρος</span>
-<div class="w-9 h-9 rounded-lg bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-base shrink-0 shadow-sm">
-<i class="fa-solid fa-volleyball"></i>
-</div>
-</div>
-<h3 class="font-heading font-black text-base text-archelaos-deepgreen leading-snug" data-i18n="board_2_name">Χαράλαμπος Σαββίδης</h3>
-</div>
-<div class="relative z-10 text-xs font-bold text-slate-600 flex items-center gap-1.5 mt-3 pt-2.5 border-t border-slate-200/80">
-<span class="text-archelaos-forest font-black" data-i18n="ephor_label">Έφορος:</span> <span data-i18n="ephor_handball">Χειροσφαίριση (Χάντμπολ)</span>
-</div>
-</div>
-<div class="glass-card p-5 rounded-2xl flex flex-col justify-between hover:shadow-md transition duration-200 premium-person-card">
-<div class="relative z-10">
-<div class="flex items-center justify-between gap-2 mb-3">
-<span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-archelaos-deepgreen text-archelaos-yellow text-[11px] font-black uppercase tracking-wider shadow-sm" data-i18n="role_vp2">Β΄ Αντιπρόεδρος</span>
-<div class="w-9 h-9 rounded-lg bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-base shrink-0 shadow-sm">
-<i class="fa-solid fa-bullseye"></i>
-</div>
-</div>
-<h3 class="font-heading font-black text-base text-archelaos-deepgreen leading-snug" data-i18n="board_3_name">Δημήτριος Γαλάνης</h3>
-</div>
-<div class="relative z-10 text-xs font-bold text-slate-600 flex items-center gap-1.5 mt-3 pt-2.5 border-t border-slate-200/80">
-<span class="text-archelaos-forest font-black" data-i18n="ephor_label">Έφορος:</span> <span data-i18n="ephor_archery">Τοξοβολία</span>
-</div>
-</div>
-<div class="glass-card p-5 rounded-2xl flex flex-col justify-between hover:shadow-md transition duration-200 premium-person-card">
-<div class="relative z-10">
-<div class="flex items-center justify-between gap-2 mb-3">
-<span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-archelaos-deepgreen text-archelaos-yellow text-[11px] font-black uppercase tracking-wider shadow-sm" data-i18n="role_gen_sec">Γεν. Γραμματέας</span>
-<div class="w-9 h-9 rounded-lg bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-base shrink-0 shadow-sm">
-<i class="fa-solid fa-person-swimming"></i>
-</div>
-</div>
-<h3 class="font-heading font-black text-base text-archelaos-deepgreen leading-snug" data-i18n="board_4_name">Αθανάσιος Μαυροειδής</h3>
-</div>
-<div class="relative z-10 text-xs font-bold text-slate-600 flex items-center gap-1.5 mt-3 pt-2.5 border-t border-slate-200/80">
-<span class="text-archelaos-forest font-black" data-i18n="ephor_label">Έφορος:</span> <span data-i18n="ephor_swimming">Κολύμβηση</span>
-</div>
-</div>
-<div class="glass-card p-5 rounded-2xl flex flex-col justify-between hover:shadow-md transition duration-200 premium-person-card">
-<div class="relative z-10">
-<div class="flex items-center justify-between gap-2 mb-3">
-<span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-archelaos-deepgreen text-archelaos-yellow text-[11px] font-black uppercase tracking-wider shadow-sm" data-i18n="role_treasurer">Ταμίας</span>
-<div class="w-9 h-9 rounded-lg bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-base shrink-0 shadow-sm">
-<i class="fa-solid fa-volleyball"></i>
-</div>
-</div>
-<h3 class="font-heading font-black text-base text-archelaos-deepgreen leading-snug" data-i18n="board_5_name">Παύλος Συμεωνίδης</h3>
-</div>
-<div class="relative z-10 text-xs font-bold text-slate-600 flex items-center gap-1.5 mt-3 pt-2.5 border-t border-slate-200/80">
-<span class="text-archelaos-forest font-black" data-i18n="ephor_label">Έφορος:</span> <span data-i18n="ephor_volleyball">Πετοσφαίριση (Βόλεϊ)</span>
-</div>
-</div>
-<div class="glass-card p-5 rounded-2xl flex flex-col justify-between hover:shadow-md transition duration-200 premium-person-card">
-<div class="relative z-10">
-<div class="flex items-center justify-between gap-2 mb-3">
-<span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-archelaos-deepgreen text-archelaos-yellow text-[11px] font-black uppercase tracking-wider shadow-sm" data-i18n="role_member">Μέλος Δ.Σ.</span>
-<div class="w-9 h-9 rounded-lg bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-base shrink-0 shadow-sm">
-<i class="fa-solid fa-person-running"></i>
-</div>
-</div>
-<h3 class="font-heading font-black text-base text-archelaos-deepgreen leading-snug" data-i18n="board_6_name">Γεώργιος Αθανασίου</h3>
-</div>
-<div class="relative z-10 text-xs font-bold text-slate-600 flex items-center gap-1.5 mt-3 pt-2.5 border-t border-slate-200/80">
-<span class="text-archelaos-forest font-black" data-i18n="ephor_label">Έφορος:</span> <span data-i18n="ephor_track">Στίβος (Κλασικός)</span>
-</div>
-</div>
-<div class="glass-card p-5 rounded-2xl flex flex-col justify-between hover:shadow-md transition duration-200 premium-person-card">
-<div class="relative z-10">
-<div class="flex items-center justify-between gap-2 mb-3">
-<span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-archelaos-deepgreen text-archelaos-yellow text-[11px] font-black uppercase tracking-wider shadow-sm" data-i18n="role_member">Μέλος Δ.Σ.</span>
-<div class="w-9 h-9 rounded-lg bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-base shrink-0 shadow-sm">
-<i class="fa-solid fa-hand-fist"></i>
-</div>
-</div>
-<h3 class="font-heading font-black text-base text-archelaos-deepgreen leading-snug" data-i18n="board_7_name">Κυριάκος Κωνσταντινίδης</h3>
-</div>
-<div class="relative z-10 text-xs font-bold text-slate-600 flex items-center gap-1.5 mt-3 pt-2.5 border-t border-slate-200/80">
-<span class="text-archelaos-forest font-black" data-i18n="ephor_label">Έφορος:</span> <span data-i18n="ephor_wrestling">Πάλη</span>
-</div>
-</div>
-<div class="glass-card p-5 rounded-2xl flex flex-col justify-between hover:shadow-md transition duration-200 premium-person-card">
-<div class="relative z-10">
-<div class="flex items-center justify-between gap-2 mb-3">
-<span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-archelaos-deepgreen text-archelaos-yellow text-[11px] font-black uppercase tracking-wider shadow-sm" data-i18n="role_member">Μέλος Δ.Σ.</span>
-<div class="w-9 h-9 rounded-lg bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-base shrink-0 shadow-sm">
-<i class="fa-solid fa-crosshairs"></i>
-</div>
-</div>
-<h3 class="font-heading font-black text-base text-archelaos-deepgreen leading-snug" data-i18n="board_8_name">Χρυσούλα Κουτσουδάκη</h3>
-</div>
-<div class="relative z-10 text-xs font-bold text-slate-600 flex items-center gap-1.5 mt-3 pt-2.5 border-t border-slate-200/80">
-<span class="text-archelaos-forest font-black" data-i18n="ephor_label">Έφορος:</span> <span data-i18n="ephor_shooting">Σκοποβολή</span>
-</div>
-</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 reveal-text executive-board-grid">
+<article class="executive-board-card premium-person-card" aria-label="Παναγιώτης Διαμαντόπουλος">
+  <div class="executive-board-upper">
+    <div class="executive-board-monogram" aria-hidden="true"><span>ΠΔ</span></div>
+    <div class="executive-board-ident">
+      <span class="executive-board-role" data-i18n="role_president">Πρόεδρος</span>
+      <h3 class="executive-board-name" data-i18n="board_1_name">Παναγιώτης Διαμαντόπουλος</h3>
+    </div>
+  </div>
+  <div class="executive-board-bottom">
+    <span class="executive-board-ephor-label" data-i18n="ephor_label">Έφορος:</span>
+    <span class="executive-board-ephor" data-i18n="ephor_label">Έφορος:</span>
+  </div>
+</article>
+<article class="executive-board-card premium-person-card" aria-label="Χαράλαμπος Σαββίδης">
+  <div class="executive-board-upper">
+    <div class="executive-board-monogram" aria-hidden="true"><span>ΧΣ</span></div>
+    <div class="executive-board-ident">
+      <span class="executive-board-role" data-i18n="role_vp1">Α΄ Αντιπρόεδρος</span>
+      <h3 class="executive-board-name" data-i18n="board_2_name">Χαράλαμπος Σαββίδης</h3>
+    </div>
+  </div>
+  <div class="executive-board-bottom">
+    <span class="executive-board-ephor-label" data-i18n="ephor_label">Έφορος:</span>
+    <span class="executive-board-ephor" data-i18n="ephor_label">Έφορος:</span>
+  </div>
+</article>
+<article class="executive-board-card premium-person-card" aria-label="Δημήτριος Γαλάνης">
+  <div class="executive-board-upper">
+    <div class="executive-board-monogram" aria-hidden="true"><span>ΔΓ</span></div>
+    <div class="executive-board-ident">
+      <span class="executive-board-role" data-i18n="role_vp2">Β΄ Αντιπρόεδρος</span>
+      <h3 class="executive-board-name" data-i18n="board_3_name">Δημήτριος Γαλάνης</h3>
+    </div>
+  </div>
+  <div class="executive-board-bottom">
+    <span class="executive-board-ephor-label" data-i18n="ephor_label">Έφορος:</span>
+    <span class="executive-board-ephor" data-i18n="ephor_label">Έφορος:</span>
+  </div>
+</article>
+<article class="executive-board-card premium-person-card" aria-label="Αθανάσιος Μαυροειδής">
+  <div class="executive-board-upper">
+    <div class="executive-board-monogram" aria-hidden="true"><span>ΑΜ</span></div>
+    <div class="executive-board-ident">
+      <span class="executive-board-role" data-i18n="role_gen_sec">Γεν. Γραμματέας</span>
+      <h3 class="executive-board-name" data-i18n="board_4_name">Αθανάσιος Μαυροειδής</h3>
+    </div>
+  </div>
+  <div class="executive-board-bottom">
+    <span class="executive-board-ephor-label" data-i18n="ephor_label">Έφορος:</span>
+    <span class="executive-board-ephor" data-i18n="ephor_label">Έφορος:</span>
+  </div>
+</article>
+<article class="executive-board-card premium-person-card" aria-label="Παύλος Συμεωνίδης">
+  <div class="executive-board-upper">
+    <div class="executive-board-monogram" aria-hidden="true"><span>ΠΣ</span></div>
+    <div class="executive-board-ident">
+      <span class="executive-board-role" data-i18n="role_treasurer">Ταμίας</span>
+      <h3 class="executive-board-name" data-i18n="board_5_name">Παύλος Συμεωνίδης</h3>
+    </div>
+  </div>
+  <div class="executive-board-bottom">
+    <span class="executive-board-ephor-label" data-i18n="ephor_label">Έφορος:</span>
+    <span class="executive-board-ephor" data-i18n="ephor_label">Έφορος:</span>
+  </div>
+</article>
+<article class="executive-board-card premium-person-card" aria-label="Γεώργιος Αθανασίου">
+  <div class="executive-board-upper">
+    <div class="executive-board-monogram" aria-hidden="true"><span>ΓΑ</span></div>
+    <div class="executive-board-ident">
+      <span class="executive-board-role" data-i18n="role_member">Μέλος Δ.Σ.</span>
+      <h3 class="executive-board-name" data-i18n="board_6_name">Γεώργιος Αθανασίου</h3>
+    </div>
+  </div>
+  <div class="executive-board-bottom">
+    <span class="executive-board-ephor-label" data-i18n="ephor_label">Έφορος:</span>
+    <span class="executive-board-ephor" data-i18n="ephor_label">Έφορος:</span>
+  </div>
+</article>
+<article class="executive-board-card premium-person-card" aria-label="Κυριάκος Κωνσταντινίδης">
+  <div class="executive-board-upper">
+    <div class="executive-board-monogram" aria-hidden="true"><span>ΚΚ</span></div>
+    <div class="executive-board-ident">
+      <span class="executive-board-role" data-i18n="role_member">Μέλος Δ.Σ.</span>
+      <h3 class="executive-board-name" data-i18n="board_7_name">Κυριάκος Κωνσταντινίδης</h3>
+    </div>
+  </div>
+  <div class="executive-board-bottom">
+    <span class="executive-board-ephor-label" data-i18n="ephor_label">Έφορος:</span>
+    <span class="executive-board-ephor" data-i18n="ephor_label">Έφορος:</span>
+  </div>
+</article>
+<article class="executive-board-card premium-person-card" aria-label="Χρυσούλα Κουτσουδάκη">
+  <div class="executive-board-upper">
+    <div class="executive-board-monogram" aria-hidden="true"><span>ΧΚ</span></div>
+    <div class="executive-board-ident">
+      <span class="executive-board-role" data-i18n="role_member">Μέλος Δ.Σ.</span>
+      <h3 class="executive-board-name" data-i18n="board_8_name">Χρυσούλα Κουτσουδάκη</h3>
+    </div>
+  </div>
+  <div class="executive-board-bottom">
+    <span class="executive-board-ephor-label" data-i18n="ephor_label">Έφορος:</span>
+    <span class="executive-board-ephor" data-i18n="ephor_label">Έφορος:</span>
+  </div>
+</article>
 </div>
 </div>
 </section>
@@ -1964,12 +2039,12 @@ html.arch-welcome-pending #archWelcome{display:flex}
 <option data-i18n="opt_general" value="Γενική Επικοινωνία">Γενική Επικοινωνία</option>
 <option data-i18n="join_volunteer_title" value="Εθελοντισμός">Γίνε εθελοντής</option>
 <option data-i18n="join_support_title" value="Χορηγία / Συνεργασία">Στήριξε τον σύλλογο</option>
-<option data-i18n="opt_handball" value="Χειροσφαίριση (Χάντμπολ)">Χειροσφαίριση (Χάντμπολ)</option>
+<option data-i18n="opt_handball" value="Χάντμπολ">Χάντμπολ</option>
 <option data-i18n="opt_track" value="Στίβος">Στίβος</option>
 <option data-i18n="opt_archery" value="Τοξοβολία">Τοξοβολία</option>
 <option data-i18n="opt_shooting" value="Σκοποβολή">Σκοποβολή</option>
 <option data-i18n="opt_gymnastics" value="Ενόργανη Γυμναστική">Ενόργανη Γυμναστική</option>
-<option data-i18n="opt_volleyball" value="Πετοσφαίριση (Βόλεϊ)">Πετοσφαίριση (Βόλεϊ)</option>
+<option data-i18n="opt_volleyball" value="Βόλεϊ">Βόλεϊ</option>
 <option data-i18n="opt_wrestling" value="Πάλη">Πάλη</option>
 <option data-i18n="opt_swimming" value="Κολύμβηση">Κολύμβηση</option>
 </select>
@@ -2044,12 +2119,12 @@ html.arch-welcome-pending #archWelcome{display:flex}
 <div>
 <label class="modal-label block text-xs font-black text-archelaos-deepgreen uppercase mb-1" data-i18n="field_dept_req">Τμήμα *</label>
 <select class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm bg-white" id="modalDeptSelect" required="">
-<option data-i18n="opt_handball" value="Χειροσφαίριση (Χάντμπολ)">Χειροσφαίριση (Χάντμπολ)</option>
+<option data-i18n="opt_handball" value="Χάντμπολ">Χάντμπολ</option>
 <option data-i18n="opt_track" value="Στίβος">Στίβος</option>
 <option data-i18n="opt_archery" value="Τοξοβολία">Τοξοβολία</option>
 <option data-i18n="opt_shooting" value="Σκοποβολή">Σκοποβολή</option>
 <option data-i18n="opt_gymnastics" value="Ενόργανη Γυμναστική">Ενόργανη Γυμναστική</option>
-<option data-i18n="opt_volleyball" value="Πετοσφαίριση (Βόλεϊ)">Πετοσφαίριση (Βόλεϊ)</option>
+<option data-i18n="opt_volleyball" value="Βόλεϊ">Βόλεϊ</option>
 <option data-i18n="opt_wrestling" value="Πάλη">Πάλη</option>
 <option data-i18n="opt_swimming" value="Κολύμβηση">Κολύμβηση</option>
 </select>
@@ -2188,7 +2263,7 @@ html.arch-welcome-pending #archWelcome{display:flex}
           filter_individual: "Ατομικά",
           filter_aquatics: "Υγρός Στίβος",
           btn_dept_history: "Ιστορικό",
-          dept_1_title: "Χειροσφαίριση",
+          dept_1_title: "Χάντμπολ",
           dept_1_sub: "(Χάντμπολ)",
           dept_1_desc: "Ιστορικό τμήμα με 2 Κύπελλα Ελλάδος (1990, 1994) και λαμπρή παρουσία στην Α1 Εθνική.",
           dept_2_title: "Στίβος",
@@ -2200,7 +2275,7 @@ html.arch-welcome-pending #archWelcome{display:flex}
           dept_4_desc: "Αγωνίσματα ακριβείας και αεροβόλων όπλων υπό την καθοδήγηση έμπειρων προπονητών.",
           dept_5_title: "Ενόργανη Γυμναστική",
           dept_5_desc: "Ανάπτυξη ευλυγισίας, δύναμης, ισορροπίας και συντονισμού σε εξοπλισμένη αίθουσα.",
-          dept_6_title: "Πετοσφαίριση",
+          dept_6_title: "Βόλεϊ",
           dept_6_sub: "(Βόλεϊ)",
           dept_6_desc: "Ομαδικό άθλημα με τμήματα υποδομών και αγωνιστικά κλιμάκια.",
           dept_7_title: "Πάλη",
@@ -2227,10 +2302,10 @@ html.arch-welcome-pending #archWelcome{display:flex}
           role_member: "Μέλος Δ.Σ.",
           ephor_label: "Έφορος:",
           ephor_gymnastics: "Ενόργανη Γυμναστική",
-          ephor_handball: "Χειροσφαίριση (Χάντμπολ)",
+          ephor_handball: "Χάντμπολ",
           ephor_archery: "Τοξοβολία",
           ephor_swimming: "Κολύμβηση",
-          ephor_volleyball: "Πετοσφαίριση (Βόλεϊ)",
+          ephor_volleyball: "Βόλεϊ",
           ephor_track: "Στίβος (Κλασικός)",
           ephor_wrestling: "Πάλη",
           ephor_shooting: "Σκοποβολή",
@@ -2251,12 +2326,12 @@ html.arch-welcome-pending #archWelcome{display:flex}
           field_dept: "Τμήμα Ενδιαφέροντος",
           field_message: "Μήνυμα *",
           opt_general: "Γενική Επικοινωνία",
-          opt_handball: "Χειροσφαίριση (Χάντμπολ)",
+          opt_handball: "Χάντμπολ",
           opt_track: "Στίβος",
           opt_archery: "Τοξοβολία",
           opt_shooting: "Σκοποβολή",
           opt_gymnastics: "Ενόργανη Γυμναστική",
-          opt_volleyball: "Πετοσφαίριση (Βόλεϊ)",
+          opt_volleyball: "Βόλεϊ",
           opt_wrestling: "Πάλη",
           opt_swimming: "Κολύμβηση",
           msg_sent_success: "Το μήνυμά σας καταχωρήθηκε επιτυχώς!",
@@ -2422,7 +2497,7 @@ html.arch-welcome-pending #archWelcome{display:flex}
       // 3. Department History Data
       const deptHistories = {
         handball: {
-          title_el: "Χειροσφαίριση (Χάντμπολ)",
+          title_el: "Χάντμπολ",
           title_en: "Handball",
           iconClass: "fa-solid fa-volleyball",
           wiki_url: "#history-archive", history_dept: "handball",
@@ -2502,7 +2577,7 @@ html.arch-welcome-pending #archWelcome{display:flex}
           `
         },
         volleyball: {
-          title_el: "Πετοσφαίριση (Βόλεϊ)",
+          title_el: "Βόλεϊ",
           title_en: "Volleyball",
           iconClass: "fa-solid fa-volleyball",
           wiki_url: "#history-archive", history_dept: "volleyball",
@@ -2568,20 +2643,11 @@ html.arch-welcome-pending #archWelcome{display:flex}
         }
 
         document.querySelectorAll('.department-card').forEach(card => {
-          const cardCat = card.getAttribute('data-category');
-          if (category === 'all' || cardCat === category) {
-            card.style.display = 'flex';
-            setTimeout(() => { 
-              card.style.opacity = '1'; 
-              card.style.transform = 'scale(1)'; 
-            }, 20);
-          } else {
-            card.style.opacity = '0';
-            card.style.transform = 'scale(0.95)';
-            setTimeout(() => { 
-              card.style.display = 'none'; 
-            }, 250);
-          }
+          const visible = category === 'all' || card.dataset.category === category;
+          card.style.display = visible ? 'flex' : 'none';
+          card.style.opacity = visible ? '1' : '0';
+          card.style.transform = '';
+          card.setAttribute('aria-hidden', visible ? 'false' : 'true');
         });
       }
         
