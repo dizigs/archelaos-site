@@ -915,8 +915,317 @@ body.dark-mode .glass-section .bg-archelaos-yellow .text-archelaos-darkgreen,
 body.dark-mode .glass-card .bg-archelaos-yellow .text-archelaos-darkgreen {color:#084c24!important;}
 body.dark-mode #historyArchiveContent .bg-archelaos-deepgreen,
 body.dark-mode #historyArchiveContent button.bg-archelaos-deepgreen {color:#f6ee42!important;}
+
+/* Dark theme: original menu layout and surfaces; neutral, readable lettering instead of yellow. */
+body.dark-mode #mainHeader nav a:not(.bg-archelaos-yellow),
+body.dark-mode #mainHeader a.premium-nav-link,
+body.dark-mode #mainHeader button:not(.bg-archelaos-deepgreen):not(.bg-archelaos-yellow):not(.lang-btn.active) {
+  color:#f2f7f1!important;
+}
+body.dark-mode #mainHeader nav a.premium-nav-active {
+  background:#176337!important;
+  color:#ffffff!important;
+}
+body.dark-mode #mainHeader nav a:hover:not(.premium-nav-active),
+body.dark-mode #mainHeader nav a:focus-visible:not(.premium-nav-active) {color:#ffffff!important;}
+body.dark-mode #mobileMenu a.mobile-menu-item,
+body.dark-mode #mobileMenu .mobile-nav-link {color:#f2f7f1!important;}
+body.dark-mode #mobileMenu a.mobile-menu-item.premium-mobile-active,
+body.dark-mode #mobileMenu .mobile-nav-link.premium-mobile-active {
+  color:#ffffff!important;
+  background:#176337!important;
+}
+body.dark-mode #mainHeader .lang-btn.active,
+body.dark-mode #mobileLangBtnEL.active,
+body.dark-mode #mobileLangBtnEN.active {
+  background:#176337!important;
+  color:#ffffff!important;
+}
+
+
+/* FINAL MENU COLORS — dark theme only. Preserve existing layout and interactions.
+   Light menu surfaces ensure dark-green labels remain readable. */
+body.dark-mode #mainHeader.glass-nav {background-color:#f3f6ec!important;border-bottom:1px solid #b8d1bd!important;}
+body.dark-mode #mainHeader nav a:not(.premium-nav-active),
+body.dark-mode #mainHeader a.premium-nav-link:not(.premium-nav-active),
+body.dark-mode #mainHeader button:not(.lang-btn.active),
+body.dark-mode #mainHeader .lang-btn:not(.active) {color:#084c24!important;}
+body.dark-mode #mainHeader nav a.premium-nav-active,
+body.dark-mode #mainHeader nav a.premium-nav-active:hover,
+body.dark-mode #mainHeader nav a.premium-nav-active:focus-visible {
+  background:#084c24!important;color:#f6ee42!important;
+  border:2px solid #148447!important;
+  box-shadow:0 0 0 1px rgba(20,132,71,.12)!important;
+}
+body.dark-mode #mainHeader nav a:not(.premium-nav-active):hover,
+body.dark-mode #mainHeader nav a:not(.premium-nav-active):focus-visible {color:#084c24!important;background:rgba(8,76,36,.09)!important;}
+body.dark-mode #mainHeader .lang-btn.active,
+body.dark-mode #mobileLangBtnEL.active,
+body.dark-mode #mobileLangBtnEN.active {background:#084c24!important;color:#f6ee42!important;border:2px solid #148447!important;}
+body.dark-mode #mobileMenu {background-color:#f3f6ec!important;border-bottom-color:#b8d1bd!important;}
+body.dark-mode #mobileMenu a.mobile-menu-item,
+body.dark-mode #mobileMenu .mobile-nav-link {background:#eaf2e7!important;color:#084c24!important;border-color:#b8d1bd!important;}
+body.dark-mode #mobileMenu a.mobile-menu-item.premium-mobile-active,
+body.dark-mode #mobileMenu .mobile-nav-link.premium-mobile-active,
+body.dark-mode #mobileMenu a.mobile-menu-item.premium-mobile-active:hover,
+body.dark-mode #mobileMenu .mobile-nav-link.premium-mobile-active:hover {
+  background:#084c24!important;color:#f6ee42!important;
+  border:2px solid #148447!important;
+}
+body.dark-mode #mobileMenu a.mobile-menu-item:not(.premium-mobile-active):hover,
+body.dark-mode #mobileMenu .mobile-nav-link:not(.premium-mobile-active):focus-visible {background:#dcebd9!important;color:#084c24!important;}
+body.dark-mode #mobileControlsBar,
+body.dark-mode #mobileLangToggleWrapper {background:#eaf2e7!important;border-color:#b8d1bd!important;}
+body.dark-mode #mobileLangBtnEL:not(.active),
+body.dark-mode #mobileLangBtnEN:not(.active) {color:#084c24!important;}
+/* History secondary navigation follows the same selection convention. */
+body.dark-mode .history-quicknav {background:rgba(243,246,236,.97)!important;border-color:#b8d1bd!important;}
+body.dark-mode .history-quicknav a {color:#084c24!important;}
+body.dark-mode .history-quicknav a:hover,
+body.dark-mode .history-quicknav a:focus-visible,
+body.dark-mode .history-quicknav a[aria-current],
+body.dark-mode .history-quicknav a.active {background:#084c24!important;color:#f6ee42!important;outline:2px solid #148447!important;outline-offset:-2px;}
+
+
+/* OCT 2026 — final dark-theme header palette. Original navigation layout preserved. */
+body.dark-mode #mainHeader.glass-nav,
+body.dark-mode #mainHeader.glass-nav.scrolled {
+  background:#084c24!important;
+  border-bottom:1px solid #176c3b!important;
+}
+/* The white option containers remain white against the green header. */
+body.dark-mode #mainHeader nav,
+body.dark-mode #mainHeader div:has(> #langBtnEL) {
+  background:rgba(255,255,255,.96)!important;
+  border-color:rgba(255,255,255,.96)!important;
+}
+/* Regular links in the white menu: dark green. */
+body.dark-mode #mainHeader nav a:not(.premium-nav-active),
+body.dark-mode #mainHeader nav a.premium-nav-link:not(.premium-nav-active),
+body.dark-mode #mainHeader .lang-btn:not(.active) {
+  color:#084c24!important;
+}
+body.dark-mode #mainHeader nav a:not(.premium-nav-active):hover,
+body.dark-mode #mainHeader nav a:not(.premium-nav-active):focus-visible {
+  background:#e6f1e7!important;color:#084c24!important;
+}
+/* Active choice: green fill + green outline + yellow type. */
+body.dark-mode #mainHeader nav a.premium-nav-active,
+body.dark-mode #mainHeader nav a.premium-nav-active:hover,
+body.dark-mode #mainHeader nav a.premium-nav-active:focus-visible,
+body.dark-mode #mainHeader .lang-btn.active {
+  background:#084c24!important;color:#f6ee42!important;
+  border:2px solid #219052!important;
+  box-shadow:0 0 0 1px rgba(33,144,82,.16)!important;
+}
+/* Green bar text outside the white options needs yellow for legibility. */
+body.dark-mode #mainHeader [data-i18n="brand_title"],
+body.dark-mode #mainHeader [data-i18n="brand_sub"] {
+  color:#f6ee42!important;
+}
+body.dark-mode #mainHeader button:not(.lang-btn):not(.bg-archelaos-yellow),
+body.dark-mode #mainHeader button:not(.lang-btn):not(.bg-archelaos-yellow) i {
+  color:#f6ee42!important;
+}
+/* Keep the original emblem asset untouched; tint its visible pixels yellow only in dark mode. */
+body.dark-mode #mainHeader img.archelaos-crest-adapt,
+body.dark-mode #home img.archelaos-crest-adapt {
+  filter:brightness(0) saturate(100%) invert(91%) sepia(35%) saturate(941%) hue-rotate(348deg) brightness(106%) contrast(94%)!important;
+}
+/* On history.html, the header crest is the primary visible emblem. */
+body.dark-mode #mainHeader img.archelaos-crest-adapt {opacity:1!important;}
+/* Mobile: keep green top bar and legible light dropdown choices. */
+body.dark-mode #mobileMenu {background:#f3f6ec!important;border-color:#b8d1bd!important;}
+body.dark-mode #mobileMenu .mobile-nav-link,
+body.dark-mode #mobileMenu a.mobile-menu-item {
+  color:#084c24!important;background:#eaf2e7!important;border-color:#b8d1bd!important;
+}
+body.dark-mode #mobileMenu .mobile-nav-link.premium-mobile-active,
+body.dark-mode #mobileMenu a.mobile-menu-item.premium-mobile-active {
+  background:#084c24!important;border:2px solid #219052!important;color:#f6ee42!important;
+}
+body.dark-mode #mobileControlsBar,
+body.dark-mode #mobileLangToggleWrapper {background:#fff!important;border-color:#b8d1bd!important;}
+body.dark-mode #mobileLangBtnEL:not(.active),
+body.dark-mode #mobileLangBtnEN:not(.active) {color:#084c24!important;}
+body.dark-mode #mobileLangBtnEL.active,
+body.dark-mode #mobileLangBtnEN.active {background:#084c24!important;border:2px solid #219052!important;color:#f6ee42!important;}
+/* Secondary history navigation: white bar, green links, outlined green selection. */
+body.dark-mode .history-quicknav {background:rgba(243,246,236,.97)!important;border-color:#b8d1bd!important;}
+body.dark-mode .history-quicknav a {color:#084c24!important;}
+body.dark-mode .history-quicknav a:hover,
+body.dark-mode .history-quicknav a:focus-visible,
+body.dark-mode .history-quicknav a[aria-current],
+body.dark-mode .history-quicknav a.active {background:#084c24!important;color:#f6ee42!important;outline:2px solid #219052!important;outline-offset:-2px;}
+
+
+/* MENU READABILITY FIX — 2026-10-27
+   Override older yellow-on-white dark-theme rules.
+   Green header, white navigation capsule, green inactive labels,
+   green outlined active item with yellow label. */
+body.dark-mode #mainHeader.glass-nav,
+body.dark-mode #mainHeader.glass-nav.scrolled {
+ background-color:#084c24!important;
+ border-bottom-color:#176c3b!important;
+}
+body.dark-mode #mainHeader nav {
+ background-color:#f7faf5!important;
+ border-color:#f7faf5!important;
+}
+/* Crucially target ALL links, not only the ones with a particular JS class. */
+body.dark-mode #mainHeader nav a,
+body.dark-mode #mainHeader nav a:link,
+body.dark-mode #mainHeader nav a:visited,
+body.dark-mode #mainHeader nav a:not(.premium-nav-active),
+body.dark-mode #mainHeader nav a:not(.premium-nav-active):hover,
+body.dark-mode #mainHeader nav a:not(.premium-nav-active):focus-visible,
+body.dark-mode #mainHeader nav a:not(.premium-nav-active) span {
+ color:#07552b!important;
+}
+body.dark-mode #mainHeader nav a:not(.premium-nav-active):hover,
+body.dark-mode #mainHeader nav a:not(.premium-nav-active):focus-visible {
+ background-color:#e4f0e6!important;
+}
+body.dark-mode #mainHeader nav a.premium-nav-active,
+body.dark-mode #mainHeader nav a.premium-nav-active:link,
+body.dark-mode #mainHeader nav a.premium-nav-active:visited,
+body.dark-mode #mainHeader nav a.premium-nav-active:hover,
+body.dark-mode #mainHeader nav a.premium-nav-active:focus-visible,
+body.dark-mode #mainHeader nav a[aria-current="location"],
+body.dark-mode #mainHeader nav a.premium-nav-active span {
+ background-color:#07552b!important;
+ color:#ffe84b!important;
+ border-color:#179353!important;
+}
+body.dark-mode #mainHeader nav a.premium-nav-active,
+body.dark-mode #mainHeader nav a[aria-current="location"] {
+ border:2px solid #179353!important;
+ box-shadow:0 0 0 1px rgba(23,147,83,.18)!important;
+}
+/* Mobile navigation matches the same active/inactive distinction. */
+body.dark-mode #mobileMenu a.mobile-menu-item:not(.premium-mobile-active),
+body.dark-mode #mobileMenu a.mobile-nav-link:not(.premium-mobile-active),
+body.dark-mode #mobileMenu a.mobile-menu-item:not(.premium-mobile-active) span,
+body.dark-mode #mobileMenu a.mobile-nav-link:not(.premium-mobile-active) span {
+ color:#07552b!important;
+}
+body.dark-mode #mobileMenu a.premium-mobile-active,
+body.dark-mode #mobileMenu a.premium-mobile-active span {
+ color:#ffe84b!important;
+ background-color:#07552b!important;
+ border-color:#179353!important;
+}
+/* Keep the History quick-navigation legible too. */
+body.dark-mode .history-quicknav a:not(.active):not([aria-current]),
+body.dark-mode .history-quicknav a:not(.active):not([aria-current]) span {
+ color:#07552b!important;
+}
+body.dark-mode .history-quicknav a.active,
+body.dark-mode .history-quicknav a[aria-current],
+body.dark-mode .history-quicknav a.active span,
+body.dark-mode .history-quicknav a[aria-current] span {
+ background-color:#07552b!important;
+ color:#ffe84b!important;
+}
 </style>
-</head>
+<style id="menu-contrast-final">
+/* FINAL CONSISTENT MENU: high-specificity dark-mode colors on BOTH pages.
+   All normal links (including external History link) stay green on white.
+   Only the selected link is yellow on a green background with green outline. */
+html body.dark-mode header#mainHeader nav a:not(.premium-nav-active):not([aria-current="location"]),
+html body.dark-mode header#mainHeader nav a:not(.premium-nav-active):not([aria-current="location"]):link,
+html body.dark-mode header#mainHeader nav a:not(.premium-nav-active):not([aria-current="location"]):visited,
+html body.dark-mode header#mainHeader nav a:not(.premium-nav-active):not([aria-current="location"]):hover,
+html body.dark-mode header#mainHeader nav a:not(.premium-nav-active):not([aria-current="location"]):focus-visible,
+html body.dark-mode header#mainHeader nav a[data-i18n="nav_history"]:not(.premium-nav-active),
+html body.dark-mode header#mainHeader nav a[data-i18n="nav_history"]:not(.premium-nav-active) span {
+  color:#07552b!important;
+  -webkit-text-fill-color:#07552b!important;
+}
+html body.dark-mode header#mainHeader nav a.premium-nav-active,
+html body.dark-mode header#mainHeader nav a.premium-nav-active:link,
+html body.dark-mode header#mainHeader nav a.premium-nav-active:visited,
+html body.dark-mode header#mainHeader nav a.premium-nav-active:hover,
+html body.dark-mode header#mainHeader nav a.premium-nav-active:focus-visible,
+html body.dark-mode header#mainHeader nav a[aria-current="location"],
+html body.dark-mode header#mainHeader nav a.premium-nav-active span {
+  background:#07552b!important;
+  color:#ffe84b!important;
+  -webkit-text-fill-color:#ffe84b!important;
+  border:2px solid #179353!important;
+  box-shadow:0 0 0 1px rgba(23,147,83,.18)!important;
+}
+html body.dark-mode header#mainHeader nav {
+  background:#f7faf5!important;
+  border-color:#f7faf5!important;
+}
+html body.dark-mode header#mainHeader.glass-nav,
+html body.dark-mode header#mainHeader.glass-nav.scrolled {
+  background:#084c24!important;
+  border-bottom-color:#176c3b!important;
+}
+html body.dark-mode #mobileMenu a.mobile-nav-link:not(.premium-mobile-active),
+html body.dark-mode #mobileMenu a.mobile-menu-item:not(.premium-mobile-active) {
+  color:#07552b!important;
+  -webkit-text-fill-color:#07552b!important;
+}
+html body.dark-mode #mobileMenu a.premium-mobile-active {
+  background:#07552b!important;
+  border:2px solid #179353!important;
+  color:#ffe84b!important;
+  -webkit-text-fill-color:#ffe84b!important;
+}
+html body.dark-mode .history-quicknav a:not(.active):not([aria-current]) {
+  color:#07552b!important;
+  -webkit-text-fill-color:#07552b!important;
+}
+html body.dark-mode .history-quicknav a.active,
+html body.dark-mode .history-quicknav a[aria-current] {
+  background:#07552b!important;
+  border:2px solid #179353!important;
+  color:#ffe84b!important;
+  -webkit-text-fill-color:#ffe84b!important;
+}
+
+html body.dark-mode header#mainHeader nav a[aria-current="page"],
+html body.dark-mode header#mainHeader nav a[aria-current="page"]:hover {
+ background:#07552b!important;
+ color:#ffe84b!important;
+ -webkit-text-fill-color:#ffe84b!important;
+ border:2px solid #179353!important;
+}
+</style><style id="modal-close-contrast-fix">
+/* Dark theme: clearly visible close actions in interest and department modals. */
+body.dark-mode #registrationModal .modal-close-btn,
+body.dark-mode #deptHistoryModal .modal-close-btn,
+body.dark-mode #historyArchiveModal .modal-close-btn {
+  background-color:#f6ee42!important;
+  color:#084c24!important;
+  -webkit-text-fill-color:#084c24!important;
+  border:2px solid #f6ee42!important;
+  opacity:1!important;
+  box-shadow:0 2px 10px rgba(0,0,0,.25)!important;
+}
+body.dark-mode #registrationModal .modal-close-btn i,
+body.dark-mode #deptHistoryModal .modal-close-btn i,
+body.dark-mode #historyArchiveModal .modal-close-btn i {
+  color:#084c24!important;
+  -webkit-text-fill-color:#084c24!important;
+  opacity:1!important;
+}
+body.dark-mode #registrationModal .modal-close-btn:hover,
+body.dark-mode #deptHistoryModal .modal-close-btn:hover,
+body.dark-mode #historyArchiveModal .modal-close-btn:hover {
+  background-color:#fff5a0!important;
+  color:#084c24!important;
+}
+body.dark-mode #deptHistoryModal [data-i18n="btn_close"] {
+  background:#f6ee42!important;
+  color:#084c24!important;
+  -webkit-text-fill-color:#084c24!important;
+  border:1px solid #f6ee42!important;
+}
+</style></head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow">
 <!-- ANIMATED CONTOUR WAVES -->
 <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-75">
@@ -1578,7 +1887,7 @@ body.dark-mode #historyArchiveContent button.bg-archelaos-deepgreen {color:#f6ee
 <i class="modal-header-icon fa-solid fa-user-plus text-archelaos-deepgreen text-lg"></i>
 <h3 class="modal-header-title font-heading font-black text-lg text-archelaos-deepgreen" data-i18n="modal_reg_title">Εκδήλωση Ενδιαφέροντος για Τμήμα</h3>
 </div>
-<button class="modal-close-btn w-8 h-8 rounded-full bg-archelaos-darkgreen/10 text-archelaos-deepgreen flex items-center justify-center hover:bg-archelaos-darkgreen hover:text-archelaos-yellow transition" onclick="closeRegistrationModal()"><i class="fa-solid fa-xmark"></i></button>
+<button aria-label="Κλείσιμο / Close" class="modal-close-btn w-8 h-8 rounded-full bg-archelaos-darkgreen/10 text-archelaos-deepgreen flex items-center justify-center hover:bg-archelaos-darkgreen hover:text-archelaos-yellow transition" onclick="closeRegistrationModal()" title="Κλείσιμο / Close" type="button"><i class="fa-solid fa-xmark"></i></button>
 </div>
 <form class="p-6 sm:p-8 space-y-4" id="modalForm" onsubmit="handleModalDirectSubmit(event)">
 <div>
