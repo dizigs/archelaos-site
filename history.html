@@ -1414,6 +1414,91 @@ body.dark-mode .museum-fact-badge i,body.dark-mode .museum-fact-badge span,
 html.dark body .museum-fact-badge i,html.dark body .museum-fact-badge span {
  color:#fff5ac!important;-webkit-text-fill-color:#fff5ac!important;opacity:1!important;
 }
+</style><style id="mobile-dark-menu-refinement">
+/* Mobile dark navigation — dedicated dark palette, no pale menu surfaces.
+   Scoped to mobile and dark mode; desktop and light mode remain unchanged. */
+@media(max-width:1023px) {
+ html body.dark-mode #mobileMenu {
+   background:#071f15!important;
+   border:1px solid rgba(246,238,66,.24)!important;
+   border-top:1px solid rgba(246,238,66,.18)!important;
+   border-radius:0 0 22px 22px!important;
+   box-shadow:0 20px 34px rgba(0,0,0,.3)!important;
+   color:#f4f7ed!important;
+   padding-top:14px!important;
+   padding-bottom:18px!important;
+ }
+ html body.dark-mode #mobileMenu a.mobile-nav-link,
+ html body.dark-mode #mobileMenu a.mobile-menu-item:not(.premium-mobile-active) {
+   background:#103923!important;
+   color:#eaf5e9!important;
+   -webkit-text-fill-color:#eaf5e9!important;
+   border:1px solid #2d6544!important;
+   border-radius:13px!important;
+   box-shadow:none!important;
+ }
+ html body.dark-mode #mobileMenu a.mobile-nav-link:not(.premium-mobile-active):hover,
+ html body.dark-mode #mobileMenu a.mobile-nav-link:not(.premium-mobile-active):focus-visible {
+   background:#1b5132!important;
+   border-color:#c8bf5a!important;
+   color:#fff8cc!important;
+   -webkit-text-fill-color:#fff8cc!important;
+ }
+ html body.dark-mode #mobileMenu a.mobile-nav-link.premium-mobile-active,
+ html body.dark-mode #mobileMenu a.mobile-menu-item.premium-mobile-active,
+ html body.dark-mode #mobileMenu a.mobile-nav-link[aria-current="page"] {
+   background:#176b3b!important;
+   color:#f6ee42!important;
+   -webkit-text-fill-color:#f6ee42!important;
+   border:2px solid #c8db67!important;
+   box-shadow:inset 0 0 0 1px rgba(246,238,66,.12)!important;
+ }
+ html body.dark-mode #mobileControlsBar {
+   background:#0c2c1c!important;
+   border:1px solid #366b47!important;
+   color:#f4f7ed!important;
+ }
+ html body.dark-mode #mobileLangToggleWrapper {
+   background:#163c28!important;
+   border:1px solid #3a7650!important;
+   color:#eaf5e9!important;
+ }
+ html body.dark-mode #mobileLangBtnEL:not(.active),
+ html body.dark-mode #mobileLangBtnEN:not(.active) {
+   color:#f0f5e9!important;
+   -webkit-text-fill-color:#f0f5e9!important;
+ }
+ html body.dark-mode #mobileLangBtnEL.active,
+ html body.dark-mode #mobileLangBtnEN.active {
+   background:#f6ee42!important;
+   color:#073c21!important;
+   -webkit-text-fill-color:#073c21!important;
+   border:1px solid #f6ee42!important;
+ }
+ html body.dark-mode #mobileThemeToggleBtn {
+   background:#163c28!important;
+   color:#f6eecc!important;
+   -webkit-text-fill-color:#f6eecc!important;
+   border:1px solid #3a7650!important;
+ }
+ html body.dark-mode #mobileMenu > button.mobile-menu-item {
+   background:#f6ee42!important;
+   color:#073c21!important;
+   -webkit-text-fill-color:#073c21!important;
+   border:1px solid #f6ee42!important;
+ }
+ html body.dark-mode #mobileMenu > button.mobile-menu-item i,
+ html body.dark-mode #mobileMenu > button.mobile-menu-item span {
+   color:#073c21!important;
+   -webkit-text-fill-color:#073c21!important;
+ }
+ html body.dark-mode #mobileMenuBtn {
+   background:#103923!important;
+   color:#f6ee42!important;
+   -webkit-text-fill-color:#f6ee42!important;
+   border:1px solid #438258!important;
+ }
+}
 </style></head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow">
 <!-- ANIMATED CONTOUR WAVES -->
