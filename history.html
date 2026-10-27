@@ -1499,6 +1499,84 @@ html.dark body .museum-fact-badge i,html.dark body .museum-fact-badge span {
    border:1px solid #438258!important;
  }
 }
+</style><style id="timeline-anniversary-tag-mobile-fix">
+/* Mobile history timeline: keep the entire anniversary label visible. */
+@media (max-width: 640px) {
+ #timeline .museum-timeline-anniversary-tag {
+   display: inline-flex !important;
+   align-items: center;
+   justify-content: center;
+   max-width: 100%;
+   width: max-content;
+   box-sizing: border-box;
+   white-space: normal !important;
+   overflow-wrap: normal;
+   word-break: keep-all;
+   line-height: 1.5 !important;
+   padding: 8px 13px !important;
+   font-size: 10px !important;
+   letter-spacing: .025em !important;
+   text-align: center;
+   vertical-align: middle;
+   overflow: visible !important;
+ }
+ #timeline .museum-timeline-anniversary-tag[data-i18n] { text-indent: 0 !important; }
+ #timeline .reveal-text:has(> .museum-timeline-anniversary-tag) {
+   min-width: 0;
+   max-width: 100%;
+   overflow: visible !important;
+ }
+}
+</style><style id="museum-clean-dates-no-exhibit-labels">
+/* Museum milestone cards: only the dates, no illustrative icons or EXHIBIT labels. */
+#museum-exhibits .museum-exhibit-art {min-height:180px;}
+#museum-exhibits .museum-exhibit-main .museum-exhibit-art {min-height:210px;}
+#museum-exhibits .museum-exhibit-watermark {
+ position:relative!important;left:auto!important;bottom:auto!important;
+ display:block;z-index:2;font-family:Georgia,'Times New Roman',serif!important;
+ font-size:clamp(70px,9vw,118px)!important;line-height:1!important;
+ font-weight:700!important;letter-spacing:-.065em!important;
+ color:#f6ee80!important;text-shadow:0 7px 22px rgba(0,0,0,.3)!important;
+}
+#museum-exhibits .museum-exhibit-artline {opacity:.42;pointer-events:none;}
+#museum-exhibits .museum-exhibit-copy h3 {margin-top:0;}
+#history-archive .museum-chapter-grid .history-archive-card::before {content:none!important;display:none!important;}
+@media(max-width:640px) {
+ #museum-exhibits .museum-exhibit-art,
+ #museum-exhibits .museum-exhibit-main .museum-exhibit-art {min-height:125px;}
+ #museum-exhibits .museum-exhibit-watermark {font-size:clamp(64px,18vw,94px)!important;}
+}
+</style><style id="chapter-icon-visibility-fix">
+/* Fix invisible chapter icons: force foreground contrast in both themes.
+   Target only the six archive chapter cards. */
+#history-archive #chapters .chapter-icon-yellow {
+  background:#f6ee42!important;
+  color:#073d24!important;
+  -webkit-text-fill-color:#073d24!important;
+}
+#history-archive #chapters .chapter-icon-yellow i,
+body.dark-mode #history-archive #chapters .chapter-icon-yellow i {
+  display:inline-block!important;
+  color:#073d24!important;
+  -webkit-text-fill-color:#073d24!important;
+  opacity:1!important;
+  visibility:visible!important;
+  font-size:22px!important;
+}
+#history-archive #chapters .chapter-icon-green {
+  background:#07552b!important;
+  color:#f6ee42!important;
+  -webkit-text-fill-color:#f6ee42!important;
+}
+#history-archive #chapters .chapter-icon-green i,
+body.dark-mode #history-archive #chapters .chapter-icon-green i {
+  display:inline-block!important;
+  color:#f6ee42!important;
+  -webkit-text-fill-color:#f6ee42!important;
+  opacity:1!important;
+  visibility:visible!important;
+  font-size:22px!important;
+}
 </style></head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow">
 <!-- ANIMATED CONTOUR WAVES -->
@@ -1614,22 +1692,21 @@ html.dark body .museum-fact-badge i,html.dark body .museum-fact-badge span {
 </div><a class="museum-subtle-link" href="#timeline"><span data-lang="el">Όλο το χρονολόγιο</span><span data-lang="en">Full timeline</span><i class="fa-solid fa-arrow-down"></i></a></div>
 <div class="museum-exhibit-grid">
 <button class="museum-exhibit museum-exhibit-main" onclick="openHistoryArchive('intro')" type="button">
-<div class="museum-exhibit-art"><span class="museum-exhibit-watermark">1956</span><i class="fa-solid fa-scroll"></i><span class="museum-exhibit-artline"></span></div>
-<div class="museum-exhibit-copy"><span class="museum-exhibit-number">EXHIBIT 01 · 1956</span><h3><span data-lang="el">Η αρχή μιας διαδρομής</span><span data-lang="en">Where it all began</span></h3>
+<div class="museum-exhibit-art"><span class="museum-exhibit-watermark">1956</span><span class="museum-exhibit-artline"></span></div>
+<div class="museum-exhibit-copy"><h3><span data-lang="el">Η αρχή μιας διαδρομής</span><span data-lang="en">Where it all began</span></h3>
 <p><span data-lang="el">29 Απριλίου 1956 — η ίδρυση του συλλόγου στην Κατερίνη.</span><span data-lang="en">April 29, 1956 — the club's founding in Katerini.</span></p><span class="museum-exhibit-cta"><span data-lang="el">Δείτε το έκθεμα</span><span data-lang="en">View exhibit</span><i class="fa-solid fa-arrow-up-right-from-square"></i></span></div>
 </button>
 <button class="museum-exhibit" onclick="openHistoryArchive('intro')" type="button">
-<div class="museum-exhibit-art museum-exhibit-art-secondary"><span class="museum-exhibit-watermark">1968</span><i class="fa-solid fa-palette"></i></div>
-<div class="museum-exhibit-copy"><span class="museum-exhibit-number">EXHIBIT 02 · 1968</span><h3><span data-lang="el">Τα χρώματα της ταυτότητας</span><span data-lang="en">The colors of identity</span></h3>
+<div class="museum-exhibit-art museum-exhibit-art-secondary"><span class="museum-exhibit-watermark">1968</span></div>
+<div class="museum-exhibit-copy"><h3><span data-lang="el">Τα χρώματα της ταυτότητας</span><span data-lang="en">The colors of identity</span></h3>
 <p><span data-lang="el">27 Ιουνίου 1968 — καθιέρωση του πράσινου και του κίτρινου.</span><span data-lang="en">June 27, 1968 — green and yellow become the official colors.</span></p><span class="museum-exhibit-cta"><span data-lang="el">Δείτε το έκθεμα</span><span data-lang="en">View exhibit</span><i class="fa-solid fa-arrow-up-right-from-square"></i></span></div>
 </button>
 <button class="museum-exhibit" onclick="openHistoryArchive('diia')" type="button">
-<div class="museum-exhibit-art museum-exhibit-art-third"><span class="museum-exhibit-watermark">1957</span><i class="fa-solid fa-person-running"></i></div>
-<div class="museum-exhibit-copy"><span class="museum-exhibit-number">EXHIBIT 03 · 1957</span><h3><span data-lang="el">Η γέννηση των «Δίιων»</span><span data-lang="en">The birth of the Diia Games</span></h3>
+<div class="museum-exhibit-art museum-exhibit-art-third"><span class="museum-exhibit-watermark">1957</span></div>
+<div class="museum-exhibit-copy"><h3><span data-lang="el">Η γέννηση των «Δίιων»</span><span data-lang="en">The birth of the Diia Games</span></h3>
 <p><span data-lang="el">Οι πρώτοι Πανελλήνιοι Αγώνες Στίβου «Δίια» στην Κατερίνη.</span><span data-lang="en">The first Panhellenic “Diia” track and field games in Katerini.</span></p><span class="museum-exhibit-cta"><span data-lang="el">Δείτε το έκθεμα</span><span data-lang="en">View exhibit</span><i class="fa-solid fa-arrow-up-right-from-square"></i></span></div>
 </button>
 </div>
-<div class="museum-art-note"><i class="fa-solid fa-circle-info"></i><span data-lang="el">Τα γραφικά των εκθεμάτων είναι εικονογραφικές συνθέσεις, όχι ιστορικές φωτογραφίες.</span><span data-lang="en">Exhibit visuals are illustrative designs, not archival photographs.</span></div>
 </div></section><nav aria-label="Γρήγορη πλοήγηση ιστορίας / History quick navigation" class="history-quicknav relative z-30">
 <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 flex items-center gap-1 overflow-x-auto py-2" style="scrollbar-width:thin">
 <a href="index.html"><i class="fa-solid fa-house"></i><span data-lang="el">Αρχική</span><span data-lang="en">Home</span></a>
@@ -1663,7 +1740,7 @@ html.dark body .museum-fact-badge i,html.dark body .museum-fact-badge span {
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
 <div class="reveal-text">
-<span class="inline-block px-3.5 py-1 rounded-full bg-archelaos-deepgreen text-archelaos-yellow font-black text-[11px] uppercase tracking-wider mb-2 shadow-sm" data-i18n="timeline_tag">1956 – 2026 • 70 Χρόνια</span>
+<span class="inline-block px-3.5 py-1 rounded-full bg-archelaos-deepgreen text-archelaos-yellow font-black text-[11px] uppercase tracking-wider mb-2 shadow-sm museum-timeline-anniversary-tag" data-i18n="timeline_tag">1956 – 2026 • 70 Χρόνια</span>
 <h2 class="text-2xl sm:text-4xl font-black font-heading text-archelaos-deepgreen" data-i18n="timeline_title">Χρονολόγιο Ιστορίας</h2>
 <p class="mt-1.5 text-archelaos-deepgreen/80 font-semibold text-xs sm:text-sm" data-i18n="timeline_sub">Οριζόντια γραμμή ορόσημων. Πατήστε σε έναν τίτλο για αναλυτικές λεπτομέρειες.</p>
 </div>
@@ -1807,39 +1884,39 @@ html.dark body .museum-fact-badge i,html.dark body .museum-fact-badge span {
 <kbd class="hidden sm:inline text-[10px] font-black text-slate-400">/</kbd></label>
 <p class="hidden mt-3 text-sm font-semibold text-archelaos-deepgreen/70" id="historyNoResults"><span data-lang="el">Δεν βρέθηκε κεφάλαιο. Δοκιμάστε άλλη λέξη.</span><span data-lang="en">No chapters found. Try another term.</span></p>
 </div><div class="grid sm:grid-cols-2 gap-4 museum-chapter-grid" id="chapters">
-<button aria-label="Κεφάλαιο 1 Chapter 1 Ίδρυση &amp; Ιστορική Ταυτότητα Foundation &amp; Identity Η ίδρυση, το έμβλημα και τα επίσημα χρώματα. The founding, emblem, and official colours. " class="history-archive-card glass-card w-full text-left rounded-3xl p-5 sm:p-6 group" data-exhibit="01" onclick="openHistoryArchive('intro')" type="button">
+<button aria-label="Κεφάλαιο 1 Chapter 1 Ίδρυση &amp; Ιστορική Ταυτότητα Foundation &amp; Identity Η ίδρυση, το έμβλημα και τα επίσημα χρώματα. The founding, emblem, and official colours. " class="history-archive-card glass-card w-full text-left rounded-3xl p-5 sm:p-6 group" onclick="openHistoryArchive('intro')" type="button">
 <div class="flex items-start gap-4 relative z-10">
-<div class="w-12 h-12 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-xl shrink-0 group-hover:scale-105 transition"><i class="fa-solid fa-scroll"></i></div>
+<div class="w-12 h-12 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-xl shrink-0 group-hover:scale-105 transition chapter-icon-contrast chapter-icon-yellow"><i aria-hidden="true" class="fa-solid fa-scroll"></i></div>
 <div><span class="text-[10px] font-black tracking-[.16em] uppercase text-archelaos-darkgreen dark:text-archelaos-yellow/80"><span data-lang="el">Κεφάλαιο 1</span><span data-lang="en">Chapter 1</span></span><h3 class="font-heading font-black text-lg sm:text-xl text-archelaos-deepgreen mt-1"><span data-lang="el">Ίδρυση &amp; Ιστορική Ταυτότητα</span><span data-lang="en">Foundation &amp; Identity</span></h3><p class="text-sm text-slate-600 dark:text-slate-200 mt-2 leading-relaxed"><span data-lang="el">Η ίδρυση, το έμβλημα και τα επίσημα χρώματα.</span><span data-lang="en">The founding, emblem, and official colours.</span></p><span class="inline-flex items-center gap-2 mt-4 text-xs font-black text-archelaos-darkgreen dark:text-archelaos-yellow"><span data-lang="el">Άνοιγμα αρχείου</span><span data-lang="en">Open archive</span><i class="fa-solid fa-arrow-up-right-from-square transition group-hover:translate-x-1"></i></span></div>
 </div>
 </button>
-<button aria-label="Κεφάλαιο 2 Chapter 2 Διοίκηση &amp; Πρόεδροι Administration &amp; Presidents Αναλυτική διοικητική ιστορία και pop-up για κάθε προεδρική θητεία. Full administrative hist" class="history-archive-card glass-card w-full text-left rounded-3xl p-5 sm:p-6 group" data-exhibit="02" onclick="openHistoryArchive('dioikisi')" type="button">
+<button aria-label="Κεφάλαιο 2 Chapter 2 Διοίκηση &amp; Πρόεδροι Administration &amp; Presidents Αναλυτική διοικητική ιστορία και pop-up για κάθε προεδρική θητεία. Full administrative hist" class="history-archive-card glass-card w-full text-left rounded-3xl p-5 sm:p-6 group" onclick="openHistoryArchive('dioikisi')" type="button">
 <div class="flex items-start gap-4 relative z-10">
-<div class="w-12 h-12 rounded-2xl bg-archelaos-deepgreen text-archelaos-yellow flex items-center justify-center text-xl shrink-0 group-hover:scale-105 transition"><i class="fa-solid fa-landmark"></i></div>
+<div class="w-12 h-12 rounded-2xl bg-archelaos-deepgreen text-archelaos-yellow flex items-center justify-center text-xl shrink-0 group-hover:scale-105 transition chapter-icon-contrast chapter-icon-green"><i aria-hidden="true" class="fa-solid fa-landmark"></i></div>
 <div><span class="text-[10px] font-black tracking-[.16em] uppercase text-archelaos-darkgreen dark:text-archelaos-yellow/80"><span data-lang="el">Κεφάλαιο 2</span><span data-lang="en">Chapter 2</span></span><h3 class="font-heading font-black text-lg sm:text-xl text-archelaos-deepgreen mt-1"><span data-lang="el">Διοίκηση &amp; Πρόεδροι</span><span data-lang="en">Administration &amp; Presidents</span></h3><p class="text-sm text-slate-600 dark:text-slate-200 mt-2 leading-relaxed"><span data-lang="el">Αναλυτική διοικητική ιστορία και pop-up για κάθε προεδρική θητεία.</span><span data-lang="en">Full administrative history and a popup for each presidential term.</span></p><span class="inline-flex items-center gap-2 mt-4 text-xs font-black text-archelaos-darkgreen dark:text-archelaos-yellow"><span data-lang="el">Με διαδραστικό πίνακα</span><span data-lang="en">Interactive timeline table</span><i class="fa-solid fa-arrow-up-right-from-square transition group-hover:translate-x-1"></i></span></div>
 </div>
 </button>
-<button aria-label="Κεφάλαιο 3 Chapter 3 Αθλητικές Εγκαταστάσεις Sports Facilities Στάδια, γήπεδα και χώροι προπόνησης. Stadiums, courts, and training venues. Προβολή εγκαταστάσεων" class="history-archive-card glass-card w-full text-left rounded-3xl p-5 sm:p-6 group" data-exhibit="03" onclick="openHistoryArchive('egkatastaseis')" type="button">
+<button aria-label="Κεφάλαιο 3 Chapter 3 Αθλητικές Εγκαταστάσεις Sports Facilities Στάδια, γήπεδα και χώροι προπόνησης. Stadiums, courts, and training venues. Προβολή εγκαταστάσεων" class="history-archive-card glass-card w-full text-left rounded-3xl p-5 sm:p-6 group" onclick="openHistoryArchive('egkatastaseis')" type="button">
 <div class="flex items-start gap-4 relative z-10">
-<div class="w-12 h-12 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-xl shrink-0 group-hover:scale-105 transition"><i class="fa-solid fa-location-dot"></i></div>
+<div class="w-12 h-12 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-xl shrink-0 group-hover:scale-105 transition chapter-icon-contrast chapter-icon-yellow"><i aria-hidden="true" class="fa-solid fa-location-dot"></i></div>
 <div><span class="text-[10px] font-black tracking-[.16em] uppercase text-archelaos-darkgreen dark:text-archelaos-yellow/80"><span data-lang="el">Κεφάλαιο 3</span><span data-lang="en">Chapter 3</span></span><h3 class="font-heading font-black text-lg sm:text-xl text-archelaos-deepgreen mt-1"><span data-lang="el">Αθλητικές Εγκαταστάσεις</span><span data-lang="en">Sports Facilities</span></h3><p class="text-sm text-slate-600 dark:text-slate-200 mt-2 leading-relaxed"><span data-lang="el">Στάδια, γήπεδα και χώροι προπόνησης.</span><span data-lang="en">Stadiums, courts, and training venues.</span></p><span class="inline-flex items-center gap-2 mt-4 text-xs font-black text-archelaos-darkgreen dark:text-archelaos-yellow"><span data-lang="el">Προβολή εγκαταστάσεων</span><span data-lang="en">View facilities</span><i class="fa-solid fa-arrow-up-right-from-square transition group-hover:translate-x-1"></i></span></div>
 </div>
 </button>
-<button aria-label="Κεφάλαιο 4 Chapter 4 Ιστορία Αθλητικών Τμημάτων Sports Department History Δέκα ενότητες, με επιλογή τμήματος μέσα στο popup. Ten sections, with department selec" class="history-archive-card glass-card w-full text-left rounded-3xl p-5 sm:p-6 group" data-exhibit="04" onclick="openHistoryArchive('tmimata')" type="button">
+<button aria-label="Κεφάλαιο 4 Chapter 4 Ιστορία Αθλητικών Τμημάτων Sports Department History Δέκα ενότητες, με επιλογή τμήματος μέσα στο popup. Ten sections, with department selec" class="history-archive-card glass-card w-full text-left rounded-3xl p-5 sm:p-6 group" onclick="openHistoryArchive('tmimata')" type="button">
 <div class="flex items-start gap-4 relative z-10">
-<div class="w-12 h-12 rounded-2xl bg-archelaos-deepgreen text-archelaos-yellow flex items-center justify-center text-xl shrink-0 group-hover:scale-105 transition"><i class="fa-solid fa-medal"></i></div>
+<div class="w-12 h-12 rounded-2xl bg-archelaos-deepgreen text-archelaos-yellow flex items-center justify-center text-xl shrink-0 group-hover:scale-105 transition chapter-icon-contrast chapter-icon-green"><i aria-hidden="true" class="fa-solid fa-medal"></i></div>
 <div><span class="text-[10px] font-black tracking-[.16em] uppercase text-archelaos-darkgreen dark:text-archelaos-yellow/80"><span data-lang="el">Κεφάλαιο 4</span><span data-lang="en">Chapter 4</span></span><h3 class="font-heading font-black text-lg sm:text-xl text-archelaos-deepgreen mt-1"><span data-lang="el">Ιστορία Αθλητικών Τμημάτων</span><span data-lang="en">Sports Department History</span></h3><p class="text-sm text-slate-600 dark:text-slate-200 mt-2 leading-relaxed"><span data-lang="el">Δέκα ενότητες, με επιλογή τμήματος μέσα στο popup.</span><span data-lang="en">Ten sections, with department selection inside the popup.</span></p><span class="inline-flex items-center gap-2 mt-4 text-xs font-black text-archelaos-darkgreen dark:text-archelaos-yellow"><span data-lang="el">Επιλογή τμήματος</span><span data-lang="en">Choose a department</span><i class="fa-solid fa-arrow-up-right-from-square transition group-hover:translate-x-1"></i></span></div>
 </div>
 </button>
-<button aria-label="Κεφάλαιο 5 Chapter 5 Δίια &amp; Δίος Δρόμος Diia Games &amp; Dios Dromos Η αναδρομή στους ιστορικούς αγώνες και στον δρόμο. A look back at the historic games and road r" class="history-archive-card glass-card w-full text-left rounded-3xl p-5 sm:p-6 group" data-exhibit="05" onclick="openHistoryArchive('diia')" type="button">
+<button aria-label="Κεφάλαιο 5 Chapter 5 Δίια &amp; Δίος Δρόμος Diia Games &amp; Dios Dromos Η αναδρομή στους ιστορικούς αγώνες και στον δρόμο. A look back at the historic games and road r" class="history-archive-card glass-card w-full text-left rounded-3xl p-5 sm:p-6 group" onclick="openHistoryArchive('diia')" type="button">
 <div class="flex items-start gap-4 relative z-10">
-<div class="w-12 h-12 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-xl shrink-0 group-hover:scale-105 transition"><i class="fa-solid fa-person-running"></i></div>
+<div class="w-12 h-12 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-xl shrink-0 group-hover:scale-105 transition chapter-icon-contrast chapter-icon-yellow"><i aria-hidden="true" class="fa-solid fa-person-running"></i></div>
 <div><span class="text-[10px] font-black tracking-[.16em] uppercase text-archelaos-darkgreen dark:text-archelaos-yellow/80"><span data-lang="el">Κεφάλαιο 5</span><span data-lang="en">Chapter 5</span></span><h3 class="font-heading font-black text-lg sm:text-xl text-archelaos-deepgreen mt-1"><span data-lang="el">Δίια &amp; Δίος Δρόμος</span><span data-lang="en">Diia Games &amp; Dios Dromos</span></h3><p class="text-sm text-slate-600 dark:text-slate-200 mt-2 leading-relaxed"><span data-lang="el">Η αναδρομή στους ιστορικούς αγώνες και στον δρόμο.</span><span data-lang="en">A look back at the historic games and road race.</span></p><span class="inline-flex items-center gap-2 mt-4 text-xs font-black text-archelaos-darkgreen dark:text-archelaos-yellow"><span data-lang="el">Δείτε την ιστορία</span><span data-lang="en">Explore the history</span><i class="fa-solid fa-arrow-up-right-from-square transition group-hover:translate-x-1"></i></span></div>
 </div>
 </button>
-<button aria-label="Κεφάλαιο 6 Chapter 6 Τίτλοι &amp; Διακρίσεις Titles &amp; Honors Η τροπαιοθήκη και οι επιτυχίες ανά τμήμα. The trophy cabinet and achievements by department. Άνοιγμα τρ" class="history-archive-card glass-card w-full text-left rounded-3xl p-5 sm:p-6 group" data-exhibit="06" onclick="openHistoryArchive('titloi')" type="button">
+<button aria-label="Κεφάλαιο 6 Chapter 6 Τίτλοι &amp; Διακρίσεις Titles &amp; Honors Η τροπαιοθήκη και οι επιτυχίες ανά τμήμα. The trophy cabinet and achievements by department. Άνοιγμα τρ" class="history-archive-card glass-card w-full text-left rounded-3xl p-5 sm:p-6 group" onclick="openHistoryArchive('titloi')" type="button">
 <div class="flex items-start gap-4 relative z-10">
-<div class="w-12 h-12 rounded-2xl bg-archelaos-deepgreen text-archelaos-yellow flex items-center justify-center text-xl shrink-0 group-hover:scale-105 transition"><i class="fa-solid fa-trophy"></i></div>
+<div class="w-12 h-12 rounded-2xl bg-archelaos-deepgreen text-archelaos-yellow flex items-center justify-center text-xl shrink-0 group-hover:scale-105 transition chapter-icon-contrast chapter-icon-green"><i aria-hidden="true" class="fa-solid fa-trophy"></i></div>
 <div><span class="text-[10px] font-black tracking-[.16em] uppercase text-archelaos-darkgreen dark:text-archelaos-yellow/80"><span data-lang="el">Κεφάλαιο 6</span><span data-lang="en">Chapter 6</span></span><h3 class="font-heading font-black text-lg sm:text-xl text-archelaos-deepgreen mt-1"><span data-lang="el">Τίτλοι &amp; Διακρίσεις</span><span data-lang="en">Titles &amp; Honors</span></h3><p class="text-sm text-slate-600 dark:text-slate-200 mt-2 leading-relaxed"><span data-lang="el">Η τροπαιοθήκη και οι επιτυχίες ανά τμήμα.</span><span data-lang="en">The trophy cabinet and achievements by department.</span></p><span class="inline-flex items-center gap-2 mt-4 text-xs font-black text-archelaos-darkgreen dark:text-archelaos-yellow"><span data-lang="el">Άνοιγμα τροπαιοθήκης</span><span data-lang="en">Open honors archive</span><i class="fa-solid fa-arrow-up-right-from-square transition group-hover:translate-x-1"></i></span></div>
 </div>
 </button>
