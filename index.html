@@ -1225,6 +1225,194 @@ body.dark-mode #deptHistoryModal [data-i18n="btn_close"] {
   -webkit-text-fill-color:#084c24!important;
   border:1px solid #f6ee42!important;
 }
+</style><style id="mobile-dark-menu-refinement">
+/* Mobile dark navigation — dedicated dark palette, no pale menu surfaces.
+   Scoped to mobile and dark mode; desktop and light mode remain unchanged. */
+@media(max-width:1023px) {
+ html body.dark-mode #mobileMenu {
+   background:#071f15!important;
+   border:1px solid rgba(246,238,66,.24)!important;
+   border-top:1px solid rgba(246,238,66,.18)!important;
+   border-radius:0 0 22px 22px!important;
+   box-shadow:0 20px 34px rgba(0,0,0,.3)!important;
+   color:#f4f7ed!important;
+   padding-top:14px!important;
+   padding-bottom:18px!important;
+ }
+ html body.dark-mode #mobileMenu a.mobile-nav-link,
+ html body.dark-mode #mobileMenu a.mobile-menu-item:not(.premium-mobile-active) {
+   background:#103923!important;
+   color:#eaf5e9!important;
+   -webkit-text-fill-color:#eaf5e9!important;
+   border:1px solid #2d6544!important;
+   border-radius:13px!important;
+   box-shadow:none!important;
+ }
+ html body.dark-mode #mobileMenu a.mobile-nav-link:not(.premium-mobile-active):hover,
+ html body.dark-mode #mobileMenu a.mobile-nav-link:not(.premium-mobile-active):focus-visible {
+   background:#1b5132!important;
+   border-color:#c8bf5a!important;
+   color:#fff8cc!important;
+   -webkit-text-fill-color:#fff8cc!important;
+ }
+ html body.dark-mode #mobileMenu a.mobile-nav-link.premium-mobile-active,
+ html body.dark-mode #mobileMenu a.mobile-menu-item.premium-mobile-active,
+ html body.dark-mode #mobileMenu a.mobile-nav-link[aria-current="page"] {
+   background:#176b3b!important;
+   color:#f6ee42!important;
+   -webkit-text-fill-color:#f6ee42!important;
+   border:2px solid #c8db67!important;
+   box-shadow:inset 0 0 0 1px rgba(246,238,66,.12)!important;
+ }
+ html body.dark-mode #mobileControlsBar {
+   background:#0c2c1c!important;
+   border:1px solid #366b47!important;
+   color:#f4f7ed!important;
+ }
+ html body.dark-mode #mobileLangToggleWrapper {
+   background:#163c28!important;
+   border:1px solid #3a7650!important;
+   color:#eaf5e9!important;
+ }
+ html body.dark-mode #mobileLangBtnEL:not(.active),
+ html body.dark-mode #mobileLangBtnEN:not(.active) {
+   color:#f0f5e9!important;
+   -webkit-text-fill-color:#f0f5e9!important;
+ }
+ html body.dark-mode #mobileLangBtnEL.active,
+ html body.dark-mode #mobileLangBtnEN.active {
+   background:#f6ee42!important;
+   color:#073c21!important;
+   -webkit-text-fill-color:#073c21!important;
+   border:1px solid #f6ee42!important;
+ }
+ html body.dark-mode #mobileThemeToggleBtn {
+   background:#163c28!important;
+   color:#f6eecc!important;
+   -webkit-text-fill-color:#f6eecc!important;
+   border:1px solid #3a7650!important;
+ }
+ html body.dark-mode #mobileMenu > button.mobile-menu-item {
+   background:#f6ee42!important;
+   color:#073c21!important;
+   -webkit-text-fill-color:#073c21!important;
+   border:1px solid #f6ee42!important;
+ }
+ html body.dark-mode #mobileMenu > button.mobile-menu-item i,
+ html body.dark-mode #mobileMenu > button.mobile-menu-item span {
+   color:#073c21!important;
+   -webkit-text-fill-color:#073c21!important;
+ }
+ html body.dark-mode #mobileMenuBtn {
+   background:#103923!important;
+   color:#f6ee42!important;
+   -webkit-text-fill-color:#f6ee42!important;
+   border:1px solid #438258!important;
+ }
+}
+</style><style id="anniversary-70-design">
+/* 70th anniversary — standalone section, no changes to existing hero or menus */
+#anniversary70.ann70 {position:relative;isolation:isolate;overflow:hidden;background:#06291a;color:#f9f9f0;padding:78px 0 55px;scroll-margin-top:90px;}
+#anniversary70 .ann70-inner {max-width:1230px;margin:0 auto;padding:0 30px;position:relative;z-index:2;}
+#anniversary70 .ann70-noise {position:absolute;inset:0;pointer-events:none;opacity:.22;background-image:radial-gradient(circle,rgba(240,229,114,.35) .7px,transparent 1px);background-size:19px 19px;mask-image:linear-gradient(90deg,transparent,#000);}
+#anniversary70 .ann70-halo {position:absolute;right:-190px;top:-300px;width:790px;height:790px;border-radius:50%;background:radial-gradient(circle,rgba(161,169,47,.16),rgba(6,41,26,.05) 48%,transparent 68%);pointer-events:none;}
+#anniversary70 .ann70-eyebrow {display:inline-flex;align-items:center;gap:12px;color:#f4e76b;font-size:11px;font-weight:900;letter-spacing:.19em;}
+#anniversary70 .ann70-eyebrow-line {display:inline-block;width:34px;height:2px;background:#f4e76b;}
+#anniversary70 .ann70-title-layout {display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:30px;align-items:center;min-height:410px;}
+#anniversary70 .ann70-number-wrap {position:relative;display:flex;align-items:center;justify-content:center;min-height:370px;overflow:visible;}
+#anniversary70 .ann70-number {display:block;font:900 clamp(11rem,26vw,24rem)/.85 Manrope,Inter,sans-serif;letter-spacing:-.13em;padding-right:.13em;color:#f5e35a;text-shadow:0 15px 50px rgba(0,0,0,.3),0 0 80px rgba(245,227,90,.12);transform:translateY(20px);opacity:.2;transition:transform 1.1s cubic-bezier(.2,.8,.2,1),opacity 1.1s ease;}
+#anniversary70 .ann70-number-outline {position:absolute;top:50%;left:50%;transform:translate(-50%,-43%);font:900 clamp(11rem,26vw,24rem)/.85 Manrope,Inter,sans-serif;letter-spacing:-.13em;padding-right:.13em;color:transparent;-webkit-text-stroke:1px rgba(245,227,90,.2);pointer-events:none;}
+#anniversary70.ann70-visible .ann70-number {transform:translateY(0);opacity:1;}
+#anniversary70 .ann70-message {position:relative;padding:28px 0;}
+#anniversary70 .ann70-overline {font-size:10px;letter-spacing:.22em;font-weight:900;color:#e4df9b;}
+#anniversary70 .ann70-message h2 {font:900 clamp(2rem,4vw,3.9rem)/1.1 Manrope,Inter,sans-serif;letter-spacing:-.055em;margin:14px 0 18px;color:#fff;}
+#anniversary70 .ann70-message h2 em {font-style:normal;color:#f5e35a;}
+#anniversary70 .ann70-message p {max-width:500px;font-size:15px;line-height:1.85;color:#e4eee1;font-weight:550;}
+#anniversary70 .ann70-cta {margin-top:26px;display:inline-flex;align-items:center;gap:13px;padding:15px 19px;border-radius:14px;background:#f5e35a;color:#07331e!important;font-size:13px;font-weight:900;box-shadow:0 8px 24px rgba(0,0,0,.2);transition:transform .2s ease,background .2s ease;}
+#anniversary70 .ann70-cta:hover {background:#fff1a2;transform:translateY(-3px);}
+#anniversary70 .ann70-cta:focus-visible,#anniversary70 .ann70-milestone:focus-visible {outline:3px solid #fff;outline-offset:4px;}
+#anniversary70 .ann70-story {position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:20px;padding-top:38px;}
+#anniversary70 .ann70-track {position:absolute;top:14px;left:16.66%;right:16.66%;height:2px;background:rgba(245,227,90,.27);}
+#anniversary70 .ann70-track-progress {height:100%;width:0;background:#f5e35a;transition:width 1.5s .2s ease;}
+#anniversary70.ann70-visible .ann70-track-progress {width:100%;}
+#anniversary70 .ann70-milestone {position:relative;display:flex;flex-direction:column;min-height:176px;padding:23px 23px 20px;border:1px solid rgba(245,227,90,.3);border-radius:19px;background:rgba(8,58,34,.75);color:#fff;transition:transform .2s ease,background .2s ease,border-color .2s ease;}
+#anniversary70 .ann70-milestone:hover {transform:translateY(-5px);background:#125337;border-color:#f5e35a;}
+#anniversary70 .ann70-point {position:absolute;top:-31px;left:50%;transform:translateX(-50%);width:16px;height:16px;border-radius:50%;background:#f5e35a;border:4px solid #06291a;box-shadow:0 0 0 2px #f5e35a;}
+#anniversary70 .ann70-date {font:900 29px/1.1 Manrope,Inter,sans-serif;color:#f5e35a;letter-spacing:-.04em;}
+#anniversary70 .ann70-milestone strong {font-size:16px;font-weight:900;margin-top:11px;color:#fff;}
+#anniversary70 .ann70-milestone small {font-size:12px;line-height:1.5;color:#e3ecde;margin-top:5px;}
+#anniversary70 .ann70-open {display:inline-flex;gap:7px;align-items:center;color:#f5e35a;font-size:11px;font-weight:900;margin-top:auto;padding-top:14px;}
+#anniversary70 .ann70-foot {display:flex;justify-content:space-between;gap:16px;margin-top:31px;padding-top:20px;border-top:1px solid rgba(245,227,90,.23);color:#e4df9b;font-size:10px;letter-spacing:.16em;font-weight:900;}
+#anniversary70 .ann70-foot i {margin-right:6px;}
+/* Keep the anniversary area dark and legible in both themes */
+body.dark-mode #anniversary70.ann70 {background:#06291a!important;color:#fff!important;}
+body.dark-mode #anniversary70 .ann70-milestone {background:#0c3c27!important;}
+body.dark-mode #anniversary70 .ann70-milestone:hover {background:#145b3b!important;}
+@media(max-width:900px) {
+ #anniversary70.ann70 {padding:52px 0 40px;}
+ #anniversary70 .ann70-title-layout {gap:8px;min-height:310px;}
+ #anniversary70 .ann70-number-wrap {min-height:290px;}
+ #anniversary70 .ann70-number,#anniversary70 .ann70-number-outline {font-size:clamp(10rem,24vw,17rem);}
+ #anniversary70 .ann70-message h2 {font-size:clamp(1.8rem,4.5vw,3rem);}
+ #anniversary70 .ann70-story {gap:11px;}
+ #anniversary70 .ann70-milestone {padding:18px 14px;}
+}
+@media(max-width:640px) {
+ #anniversary70.ann70 {padding:46px 0 34px;}
+ #anniversary70 .ann70-inner {padding:0 18px;}
+ #anniversary70 .ann70-eyebrow {font-size:9px;letter-spacing:.11em;}
+ #anniversary70 .ann70-title-layout {grid-template-columns:1fr;gap:0;}
+ #anniversary70 .ann70-number-wrap {min-height:200px;}
+ #anniversary70 .ann70-number,#anniversary70 .ann70-number-outline {font-size:clamp(11rem,56vw,19rem);}
+ #anniversary70 .ann70-message {padding:0 0 22px;text-align:center;}
+ #anniversary70 .ann70-message h2 {font-size:clamp(2rem,8vw,2.9rem);}
+ #anniversary70 .ann70-message p {font-size:13px;line-height:1.7;}
+ #anniversary70 .ann70-cta {font-size:12px;padding:14px 16px;}
+ #anniversary70 .ann70-story {grid-template-columns:1fr;gap:13px;margin-top:8px;padding:0 0 0 25px;}
+ #anniversary70 .ann70-track {top:16px;bottom:16px;left:7px;right:auto;width:2px;height:auto;}
+ #anniversary70 .ann70-track-progress {width:100%;height:0;transition:height 1.5s .2s ease;}
+ #anniversary70.ann70-visible .ann70-track-progress {height:100%;width:100%;}
+ #anniversary70 .ann70-point {top:50%;left:-27px;transform:translateY(-50%);}
+ #anniversary70 .ann70-milestone {min-height:135px;padding:17px 18px;}
+ #anniversary70 .ann70-date {font-size:24px;}
+ #anniversary70 .ann70-milestone strong {margin-top:7px;}
+ #anniversary70 .ann70-foot {font-size:9px;line-height:1.6;}
+}
+@media(prefers-reduced-motion:reduce) {
+ #anniversary70 .ann70-number {opacity:1;transform:none;transition:none;}
+ #anniversary70 .ann70-track-progress {width:100%;transition:none;}
+ #anniversary70 .ann70-cta,#anniversary70 .ann70-milestone {transition:none;}
+ #anniversary70 .ann70-cta:hover,#anniversary70 .ann70-milestone:hover {transform:none;}
+}
+</style><link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500;6..96,600&amp;display=swap" rel="stylesheet"/><style id="anniversary-70-elegant-type">
+/* Refined anniversary numerals: high-contrast editorial Bodoni with subtle champagne-gold finish. */
+#anniversary70 .ann70-number,
+#anniversary70 .ann70-number-outline {
+  font-family:'Bodoni Moda','Bodoni MT','Didot','Times New Roman',serif!important;
+  font-weight:600!important;
+  font-optical-sizing:auto;
+  font-variant-numeric:lining-nums;
+  font-feature-settings:'lnum' 1;
+  letter-spacing:-.09em!important;
+  line-height:.93!important;
+}
+#anniversary70 .ann70-number {
+  background:linear-gradient(155deg,#fff6bb 2%,#e6c958 28%,#f9e788 47%,#b89b37 69%,#ffec96 91%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent!important;
+  -webkit-text-fill-color:transparent!important;
+  -webkit-text-stroke:.5px rgba(255,241,170,.35);
+  text-shadow:none!important;
+  filter:drop-shadow(0 12px 22px rgba(0,0,0,.24));
+}
+#anniversary70 .ann70-number-outline {
+  -webkit-text-stroke:1px rgba(248,224,123,.28)!important;
+  color:transparent!important;
+}
+@media(max-width:640px){
+ #anniversary70 .ann70-number,#anniversary70 .ann70-number-outline {font-size:clamp(10rem,53vw,18rem)!important;}
+}
 </style></head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow">
 <!-- ANIMATED CONTOUR WAVES -->
@@ -1345,6 +1533,51 @@ body.dark-mode #deptHistoryModal [data-i18n="btn_close"] {
 </div>
 </div>
 </div>
+</div>
+</section><section aria-labelledby="ann70-title" class="ann70" id="anniversary70">
+<div aria-hidden="true" class="ann70-noise"></div>
+<div aria-hidden="true" class="ann70-halo"></div>
+<div class="ann70-inner">
+<div class="ann70-intro">
+<span class="ann70-eyebrow"><span class="ann70-eyebrow-line"></span>
+<span data-lang="el">1956 — 2026 · ΕΠΕΤΕΙΑΚΟ ΑΦΙΕΡΩΜΑ</span>
+<span data-lang="en">1956 — 2026 · ANNIVERSARY TRIBUTE</span>
+</span>
+<div class="ann70-title-layout">
+<div aria-hidden="true" class="ann70-number-wrap">
+<span class="ann70-number">70</span>
+<span class="ann70-number-outline">70</span>
+</div>
+<div class="ann70-message">
+<span class="ann70-overline"><span data-lang="el">ΕΠΤΑ ΔΕΚΑΕΤΙΕΣ ΠΡΟΣΦΟΡΑΣ</span><span data-lang="en">SEVEN DECADES OF DEDICATION</span></span>
+<h2 id="ann70-title"><span data-lang="el">Χρόνια ιστορίας.<br/><em>Το μέλλον συνεχίζεται.</em></span><span data-lang="en">Years of history.<br/><em>The future continues.</em></span></h2>
+<p><span data-lang="el">Από την ίδρυση στην Κατερίνη το 1956 έως σήμερα, ο Αρχέλαος γράφει τη δική του ιστορία μέσα από τον αθλητισμό, τους ανθρώπους και τις αξίες του.</span><span data-lang="en">Founded in Katerini in 1956, Archelaos continues its story through sport, people and shared values.</span></p>
+<a class="ann70-cta" href="history.html"><i aria-hidden="true" class="fa-solid fa-book-open"></i><span data-lang="el">Μπείτε στο Ψηφιακό Μουσείο</span><span data-lang="en">Enter the Digital Museum</span><i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square"></i></a>
+</div>
+</div>
+</div>
+<div aria-label="Ιστορικοί σταθμοί / Historical milestones" class="ann70-story">
+<div aria-hidden="true" class="ann70-track"><div class="ann70-track-progress"></div></div>
+<a class="ann70-milestone" href="history.html#chapter-intro">
+<span aria-hidden="true" class="ann70-point"></span><span class="ann70-date">1956</span>
+<strong><span data-lang="el">Η αρχή</span><span data-lang="en">The beginning</span></strong>
+<small><span data-lang="el">29 Απριλίου · Ίδρυση του συλλόγου</span><span data-lang="en">29 April · The club is founded</span></small>
+<span class="ann70-open"><span data-lang="el">Ανακαλύψτε</span><span data-lang="en">Explore</span> <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></span>
+</a>
+<a class="ann70-milestone" href="history.html#chapter-intro">
+<span aria-hidden="true" class="ann70-point"></span><span class="ann70-date">1968</span>
+<strong><span data-lang="el">Η ταυτότητά μας</span><span data-lang="en">Our identity</span></strong>
+<small><span data-lang="el">27 Ιουνίου · Πράσινο και κίτρινο</span><span data-lang="en">27 June · Green and yellow</span></small>
+<span class="ann70-open"><span data-lang="el">Ανακαλύψτε</span><span data-lang="en">Explore</span> <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></span>
+</a>
+<a class="ann70-milestone" href="history.html#timeline">
+<span aria-hidden="true" class="ann70-point"></span><span class="ann70-date">1956–2026</span>
+<strong><span data-lang="el">70 χρόνια πορείας</span><span data-lang="en">70 years of history</span></strong>
+<small><span data-lang="el">Αθλητισμός · Παιδεία · Κοινωνία</span><span data-lang="en">Sport · Education · Community</span></small>
+<span class="ann70-open"><span data-lang="el">Χρονολόγιο</span><span data-lang="en">Timeline</span> <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></span>
+</a>
+</div>
+<div class="ann70-foot"><span><i aria-hidden="true" class="fa-solid fa-location-dot"></i> <span data-lang="el">ΚΑΤΕΡΙΝΗ · ΑΠΟ ΤΟ 1956</span><span data-lang="en">KATERINI · SINCE 1956</span></span><span>Γ.Α.Σ. «Ο ΑΡΧΕΛΑΟΣ»</span></div>
 </div>
 </section>
 <!-- ABOUT SECTION -->
@@ -3056,5 +3289,17 @@ body.dark-mode #deptHistoryModal [data-i18n="btn_close"] {
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
 </script>
-</body>
+<script>
+(function(){
+  const section=document.getElementById('anniversary70');
+  if(!section)return;
+  if(!('IntersectionObserver' in window)||window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    section.classList.add('ann70-visible');return;
+  }
+  const observer=new IntersectionObserver((entries)=>{
+    if(entries.some(e=>e.isIntersecting)){section.classList.add('ann70-visible');observer.disconnect();}
+  },{threshold:0.12});
+  observer.observe(section);
+})();
+</script></body>
 </html>
