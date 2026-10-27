@@ -27,7 +27,6 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
       tailwind.config = {
-        darkMode: 'class',
         theme: {
           extend: {
             colors: {
@@ -54,7 +53,7 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
 <style>
       body {
-        font-family: 'Inter', sans-serif;
+        font-family: "Inter", sans-serif;
         background-color: #f6ee42;
         color: #084c24;
         letter-spacing: -0.01em;
@@ -63,7 +62,7 @@
         transition: background-color 0.3s ease, color 0.3s ease;
       }
       h1, h2, h3, h4, .font-heading {
-        font-family: 'Manrope', 'Inter', sans-serif;
+        font-family: "Manrope", "Inter", sans-serif;
         letter-spacing: -0.03em;
       }
 
@@ -156,7 +155,7 @@
         }
 
         .glass-card::before {
-          content: '';
+          content: "";
           position: absolute;
           inset: 0;
           border-radius: inherit;
@@ -170,9 +169,7 @@
           opacity: 1;
         }
 
-        body.dark-mode .glass-card::before {
-          background: radial-gradient(320px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), rgba(246, 238, 66, 0.28), transparent 75%);
-        }
+        
       }
 
         /* Interactive Category Pills */
@@ -186,10 +183,7 @@
         box-shadow: 0 6px 16px -4px rgba(8, 76, 36, 0.3);
         transform: translateY(-2px);
       }
-      body.dark-mode .dept-filter-pill.active {
-        background-color: #f6ee42 !important;
-        color: #084c24 !important;
-      }
+      
         
       /* Department Icon Box */
       .icon-box {
@@ -216,7 +210,7 @@
         overflow: hidden;
       }
       .btn-shimmer::after {
-        content: '';
+        content: "";
         position: absolute;
         top: -50%;
         left: 0;
@@ -278,22 +272,16 @@
         background: rgba(8, 76, 36, 0.25);
         border-radius: 9999px;
       }
-      body.dark-mode .timeline-horizontal-scroll::-webkit-scrollbar-thumb {
-        background: rgba(246, 238, 66, 0.3);
-      }
+      
 
       .timeline-h-item h4 {
         color: #084c24 !important;
       }
-      body.dark-mode .timeline-h-item h4 {
-        color: #f6ee42 !important;
-      }
+      
       .timeline-h-item:hover h4 {
         color: #008a28 !important;
       }
-      body.dark-mode .timeline-h-item:hover h4 {
-        color: #ffffff !important;
-      }
+      
 
       /* Mobile Menu */
       #mobileMenu {
@@ -340,64 +328,35 @@
       }
 
       /* Dark Mode Styling */
-      body.dark-mode { background-color: #071f11 !important; color: #f1f5f9 !important; }
-      body.dark-mode .glass-nav { background-color: #071f11 !important; border-bottom-color: rgba(246, 238, 66, 0.25) !important; }
-      body.dark-mode .glass-section { background-color: #0c2b18 !important; border-top-color: rgba(246, 238, 66, 0.2) !important; border-bottom-color: rgba(0, 0, 0, 0.45) !important; }
-      body.dark-mode .glass-card { background-color: #113820 !important; border-color: rgba(246, 238, 66, 0.25) !important; color: #f8fafc !important; }
-      body.dark-mode .glass-card p, body.dark-mode .glass-section p { color: #e2e8f0 !important; }
-      body.dark-mode h1, body.dark-mode h2, body.dark-mode h3, body.dark-mode h4, body.dark-mode .font-heading { color: #f6ee42 !important; }
-      body.dark-mode #mobileMenu { background-color: #071f11 !important; border-bottom-color: rgba(246, 238, 66, 0.3) !important; }
-      body.dark-mode #mobileMenu a.mobile-menu-item { background-color: #113820 !important; color: #f6ee42 !important; border-color: rgba(246, 238, 66, 0.25) !important; }
-      body.dark-mode input, body.dark-mode textarea, body.dark-mode select { background-color: #0b2b17 !important; color: #ffffff !important; border-color: rgba(246, 238, 66, 0.3) !important; }
+      
+      
+      
+      
+      
+      
+      
+      
+      
 
-      body.dark-mode #mobileControlsBar {
-        background-color: #113820 !important;
-        border-color: rgba(246, 238, 66, 0.25) !important;
-      }
-      body.dark-mode #mobileLangToggleWrapper {
-        background-color: #071f11 !important;
-        border-color: rgba(246, 238, 66, 0.2) !important;
-      }
-      body.dark-mode #mobileThemeToggleBtn {
-        background-color: #071f11 !important;
-        border-color: rgba(246, 238, 66, 0.2) !important;
-        color: #f6ee42 !important;
-      }
-      body.dark-mode #mobileLangBtnEL:not(.active),
-      body.dark-mode #mobileLangBtnEN:not(.active) {
-        color: rgba(246, 238, 66, 0.7) !important;
-      }
+      
+      
+      
+      
 
-      body.dark-mode .archelaos-crest-adapt {
-        filter: brightness(0) saturate(100%) invert(86%) sepia(51%) saturate(836%) hue-rotate(352deg) brightness(103%) contrast(97%) drop-shadow(0 0 12px rgba(246, 238, 66, 0.45)) !important;
-      }
-      body.dark-mode [data-i18n="brand_title"] {
-        color: #f6ee42 !important;
-      }
-      body.dark-mode [data-i18n="brand_sub"] {
-        color: rgba(246, 238, 66, 0.8) !important;
-      }
+      
+      
+      
 
       /* Modals */
-      body.dark-mode #registrationModal .modal-box,
-      body.dark-mode #deptHistoryModal .modal-box,
-      body.dark-mode #timelineDetailModal .modal-box { background-color: #0c2d19 !important; border-color: rgba(246, 238, 66, 0.35) !important; }
-      body.dark-mode #registrationModal .modal-header,
-      body.dark-mode #deptHistoryModal .modal-header,
-      body.dark-mode #timelineDetailModal .modal-header { background-color: #084c24 !important; border-bottom: 1px solid rgba(246, 238, 66, 0.25) !important; }
-      body.dark-mode #registrationModal .modal-header-title,
-      body.dark-mode #deptHistoryModal .modal-header-title,
-      body.dark-mode #timelineDetailModal .modal-header-title { color: #f6ee42 !important; }
-      body.dark-mode #registrationModal .modal-close-btn,
-      body.dark-mode #deptHistoryModal .modal-close-btn,
-      body.dark-mode #timelineDetailModal .modal-close-btn { background-color: rgba(246, 238, 66, 0.15) !important; color: #f6ee42 !important; }
-      body.dark-mode #registrationModal .modal-label { color: #f6ee42 !important; }
-      body.dark-mode #registrationModal .modal-submit-btn { background-color: #f6ee42 !important; color: #084c24 !important; }
-      body.dark-mode #deptHistoryModal .history-content,
-      body.dark-mode #timelineDetailModal .history-content { color: #e2e8f0 !important; }
-      body.dark-mode #deptHistoryModal .history-highlight,
-      body.dark-mode #timelineDetailModal .history-highlight { background-color: rgba(246, 238, 66, 0.12) !important; border-color: rgba(246, 238, 66, 0.3) !important; color: #f6ee42 !important; }
-      body.dark-mode #deptModalWikiBtn { background-color: #113820 !important; color: #f6ee42 !important; border-color: rgba(246, 238, 66, 0.3) !important; }
+      
+      
+      
+      
+      
+      
+      
+      
+      
 
       .modal-backdrop {
         opacity: 0; visibility: hidden; pointer-events: none;
@@ -417,10 +376,7 @@
         background-color: #084c24;
         color: #f6ee42;
       }
-      body.dark-mode .lang-btn.active {
-        background-color: #f6ee42;
-        color: #084c24;
-      }
+      
         /* Responsive Laptop Header Guard (1024px to 1280px) */
     @media (min-width: 1024px) and (max-width: 1280px) {
   header nav a {
@@ -451,10 +407,10 @@
       .history-dept-shortcut i { color: #008a28; width: 1.15rem; text-align: center; }
       .history-dept-shortcut:hover { transform: translateY(-2px); background: #084c24; color: #f6ee42; border-color: #084c24; }
       .history-dept-shortcut:hover i { color: #f6ee42; }
-      body.dark-mode .history-dept-shortcut { background: #113820; color: #f6ee42; border-color: rgba(246,238,66,.22); }
-      body.dark-mode .history-dept-shortcut i { color: #f6ee42; }
-      body.dark-mode .history-dept-shortcut:hover { background: #f6ee42; color: #084c24; }
-      body.dark-mode .history-dept-shortcut:hover i { color: #084c24; }
+      
+      
+      
+      
       #historyArchiveProfile .glass-card { height: 100%; }
       .history-archive-content .wiki-article p,
       .history-archive-content p { line-height: 1.8; }
@@ -462,21 +418,20 @@
       .history-archive-content li { line-height: 1.7; }
       .history-archive-content table { max-width: 100%; }
       .history-archive-content { color: #1e293b; }
-      body.dark-mode .history-archive-content { color: #e2e8f0; }
-      body.dark-mode #historyArchiveModal .modal-box,
-      body.dark-mode #historyPresidentModal .history-president-card { background: #0c2d19 !important; border-color: rgba(246,238,66,.35) !important; color: #f8fafc; }
-      body.dark-mode #historyArchiveModal .history-archive-content .glass-card { background: #113820 !important; border-color: rgba(246,238,66,.22) !important; }
-      body.dark-mode #historyArchiveModal .history-archive-content .table-row-alt:nth-child(even) { background: rgba(255,255,255,.035) !important; }
-      body.dark-mode #historyArchiveModal .history-archive-content .table-row-alt:hover { background: rgba(246,238,66,.1) !important; }
+      
+      
+      
+      
+      
       #historyArchiveContent #tmimata .dept-panel { display: none; }
       #historyArchiveContent #tmimata .dept-panel.active-panel { display: block; animation: deptFadeIn .3s ease; }
       #historyArchiveContent #tmimata.show-all-depts .dept-panel { display: block; margin-bottom: 1.25rem; }
       #historyArchiveContent #tmimata .dept-tab-btn { transition: all .2s ease; }
       #historyArchiveContent #tmimata .dept-tab-btn.active { background: #084c24 !important; color: #f6ee42 !important; border-color: #084c24 !important; box-shadow: 0 6px 16px -4px rgba(8,76,36,.25); }
       #historyArchiveContent #tmimata .dept-tab-btn.active .dept-tab-icon { background: #f6ee42 !important; color: #084c24 !important; }
-      body.dark-mode #historyArchiveContent #tmimata .dept-tab-btn { background: #0b2916; color: #e2e8f0; border-color: rgba(246,238,66,.22); }
-      body.dark-mode #historyArchiveContent #tmimata .dept-tab-btn.active { background: #f6ee42 !important; color: #084c24 !important; border-color: #f6ee42 !important; }
-      body.dark-mode #historyArchiveContent #tmimata .dept-tab-btn.active .dept-tab-icon { background: #084c24 !important; color: #f6ee42 !important; }
+      
+      
+      
       #historyArchiveContent #tmimata .dept-panel { overflow: visible; }
       #historyArchiveModal .modal-box { min-height: 0; }
       @media (prefers-reduced-motion: reduce) {
@@ -536,16 +491,16 @@
 #timeline .timeline-h-item { border-radius:18px; transition:transform .3s var(--premium-ease),background .3s ease !important; }
 #timeline .timeline-h-item:hover,#timeline .timeline-h-item:focus-visible { transform:translateY(-5px); background:rgba(255,255,255,.34); }
 #timeline .timeline-h-item.premium-active { background:rgba(255,255,255,.55); outline:1px solid rgba(8,76,36,.16); }
-body.dark-mode #timeline .timeline-h-item.premium-active { background:rgba(246,238,66,.10); outline-color:rgba(246,238,66,.3); }
-body.dark-mode #timeline .timeline-premium-track { background:rgba(246,238,66,.16); }
+
+
 .modal-backdrop.is-open .modal-box,.modal-backdrop.is-open .history-president-card { border:1px solid rgba(246,238,66,.30); }
 .modal-backdrop .modal-header { position:relative; overflow:hidden; }
 .modal-backdrop .modal-header::after { content:""; position:absolute; width:220px; height:220px; right:-110px; top:-150px; border-radius:50%; background:radial-gradient(circle,rgba(246,238,66,.20),transparent 72%); pointer-events:none; }
 .modal-backdrop .modal-box { scrollbar-color:rgba(8,76,36,.35) transparent; }
 header nav a.premium-nav-active { background:#084c24 !important; color:#f6ee42 !important; box-shadow:0 5px 15px rgba(8,76,36,.18); }
-body.dark-mode header nav a.premium-nav-active { background:#f6ee42 !important; color:#084c24 !important; }
+
 html { scroll-padding-top:96px; }
-body.dark-mode .department-card:hover { border-color:rgba(246,238,66,.55) !important; }
+
 @media (prefers-reduced-motion:reduce) {
  #home::before,#home .hero-emblem-float::after { animation:none !important; }
  .department-card,#timeline .timeline-h-item,#timeline .timeline-premium-fill { transition:none !important; }
@@ -564,8 +519,8 @@ body.dark-mode .department-card:hover { border-color:rgba(246,238,66,.55) !impor
 .anniversary-copy>span:last-child{font-size:12px;line-height:1.5;font-weight:650;opacity:.8}
 @media(min-width:1024px){.anniversary-editorial{margin-left:0;margin-right:0}}
 @media(max-width:390px){.anniversary-editorial{gap:10px;padding:15px}.anniversary-number{font-size:54px}.anniversary-copy>span:last-child{font-size:11px}}
-body.dark-mode .anniversary-editorial{background:linear-gradient(115deg,rgba(8,76,36,.92),rgba(246,238,66,.09));border-color:rgba(246,238,66,.32)}
-body.dark-mode .anniversary-copy,body.dark-mode .anniversary-number{color:#f6ee42}
+
+
 #mainHeader{transition:box-shadow .35s ease,background .35s ease,backdrop-filter .35s ease;}
 #mainHeader.premium-header-scrolled{box-shadow:0 13px 35px -22px rgba(8,76,36,.52);backdrop-filter:blur(20px) saturate(145%);}
 #mainHeader .premium-nav-link{position:relative;transition:background .2s ease,color .2s ease,transform .3s ease;}
@@ -574,7 +529,7 @@ body.dark-mode .anniversary-copy,body.dark-mode .anniversary-number{color:#f6ee4
 
 #mobileMenu .mobile-nav-link{border:1px solid transparent;transition:background .2s ease,border-color .2s ease,transform .2s ease;}
 #mobileMenu .mobile-nav-link:hover,#mobileMenu .mobile-nav-link.premium-mobile-active{background:rgba(8,76,36,.10);border-color:rgba(8,76,36,.15);transform:translateX(3px)}
-body.dark-mode #mobileMenu .mobile-nav-link.premium-mobile-active{background:rgba(246,238,66,.15)}
+
 #timeline .timeline-h-item{padding:13px 7px 16px !important;min-height:146px;position:relative}
 @media(prefers-reduced-motion:reduce){#mainHeader,#mainHeader .premium-nav-link,#mobileMenu .mobile-nav-link{transition:none !important}}
 
@@ -706,14 +661,11 @@ body.dark-mode #mobileMenu .mobile-nav-link.premium-mobile-active{background:rgb
  transform:translateY(-3px);border-color:rgba(8,76,36,.28);
  box-shadow:0 16px 32px rgba(8,76,36,.10);
 }
-body.dark-mode #departmentsGrid .department-card {
- background:linear-gradient(145deg,rgba(16,51,31,.97),rgba(9,35,21,.97));
- border-color:rgba(246,238,66,.22);box-shadow:0 9px 24px rgba(0,0,0,.15);
-}
-body.dark-mode #departmentsGrid .sport-number {color:rgba(246,238,66,.12);}
-body.dark-mode #departmentsGrid .sport-history-action {background:rgba(246,238,66,.12);border-color:rgba(246,238,66,.2);color:#f6ee42;}
-body.dark-mode #departmentsGrid .sport-join-action {background:#f6ee42!important;color:#084c24!important;border-color:#f6ee42!important;}
-body.dark-mode #departmentsGrid .sport-join-action:hover {background:#fff!important;color:#084c24!important;}
+
+
+
+
+
 @media(max-width:767px){
  #departmentsGrid {gap:13px;}
  #departmentsGrid .department-card {min-height:0;padding:17px!important;border-radius:20px!important;}
@@ -805,510 +757,164 @@ body.dark-mode #departmentsGrid .sport-join-action:hover {background:#fff!import
 
 /* Accessibility contrast pass: light/dark palettes, text, controls and focus. */
 :root { color-scheme:light; }
-body.dark-mode { color-scheme:dark; }
+
 /* Preserve the original, unaltered crest in both themes. */
-body.dark-mode .archelaos-crest-adapt { filter:none!important; }
+
 /* Clear dark-theme foregrounds on dark surfaces, without changing colored CTA buttons. */
-body.dark-mode .glass-section .text-archelaos-deepgreen,
-body.dark-mode .glass-card .text-archelaos-deepgreen,
-body.dark-mode .glass-section .text-archelaos-darkgreen,
-body.dark-mode .glass-card .text-archelaos-darkgreen {
- color:#f2f7ef!important;
-}
-body.dark-mode .glass-section .text-slate-600,
-body.dark-mode .glass-card .text-slate-600,
-body.dark-mode .glass-section .text-slate-700,
-body.dark-mode .glass-card .text-slate-700,
-body.dark-mode .glass-section .text-slate-500,
-body.dark-mode .glass-card .text-slate-500 {color:#dbe8dc!important;}
-body.dark-mode .glass-section .text-archelaos-deepgreen\/80 {color:#e2e8f0!important;}
+
+
+
 /* Headings must remain dark when their immediate surface is bright/yellow. */
-body.dark-mode .bg-archelaos-yellow h1,
-body.dark-mode .bg-archelaos-yellow h2,
-body.dark-mode .bg-archelaos-yellow h3,
-body.dark-mode .bg-archelaos-yellow h4,
-body.dark-mode .modal-header.bg-archelaos-yellow .font-heading {
- color:#084c24!important;
-}
-body.dark-mode .bg-archelaos-yellow.text-archelaos-deepgreen,
-body.dark-mode a.bg-archelaos-yellow,
-body.dark-mode button.bg-archelaos-yellow {
- color:#084c24!important;
-}
+
+
 /* Dark header, menu and theme/language controls. */
-body.dark-mode #mainHeader a:not(.bg-archelaos-deepgreen):not(.bg-archelaos-yellow),
-body.dark-mode #mainHeader button:not(.bg-archelaos-deepgreen):not(.bg-archelaos-yellow):not(.lang-btn.active) {
- color:#f6ee42!important;
-}
-body.dark-mode #mainHeader .lang-btn.active,
-body.dark-mode #mobileLangBtnEL.active,
-body.dark-mode #mobileLangBtnEN.active {background:#f6ee42!important;color:#084c24!important;}
-body.dark-mode #mobileControlsBar,
-body.dark-mode #mobileLangToggleWrapper {color:#f5f9f1!important;}
-body.dark-mode #mobileControlsBar .lang-btn:not(.active) {color:#e4ebda!important;}
+
+
+
+
 /* Inputs and placeholders: readable in both themes. */
 input::placeholder,textarea::placeholder {color:#526477;opacity:1;}
-body.dark-mode input::placeholder,
-body.dark-mode textarea::placeholder {color:#c4d6c8!important;opacity:1;}
-body.dark-mode input,body.dark-mode textarea,body.dark-mode select {
- background-color:#0b2b17!important;color:#f8fafc!important;
- border-color:rgba(246,238,66,.48)!important;
-}
-body.dark-mode input:focus,body.dark-mode textarea:focus,body.dark-mode select:focus {
- outline-color:#f6ee42!important;
-}
+
+
+
 /* Visible keyboard focus, including the compact navigation and interactive cards. */
 a:focus-visible,button:focus-visible,input:focus-visible,
 textarea:focus-visible,select:focus-visible {
  outline:3px solid #084c24;outline-offset:3px;
 }
-body.dark-mode a:focus-visible,body.dark-mode button:focus-visible,
-body.dark-mode input:focus-visible,body.dark-mode textarea:focus-visible,
-body.dark-mode select:focus-visible {
- outline-color:#f6ee42;
-}
+
 /* Card actions: maintain 4.5+:1 contrast even when dark mode is on. */
-body.dark-mode #departmentsGrid .sport-history-action,
-body.dark-mode #departmentsGrid .department-card h3,
-body.dark-mode #departmentsGrid .department-card h3 span {
- color:#f2f7ef!important;
-}
-body.dark-mode #departmentsGrid .sport-join-action,
-body.dark-mode #departmentsGrid .sport-join-action * {
- color:#084c24!important;
-}
-body.dark-mode #departmentsGrid .sport-emblem {color:#084c24!important;}
-body.dark-mode #departmentsGrid .sport-emblem:hover,
-body.dark-mode #departmentsGrid .sport-emblem:focus-visible,
-body.dark-mode #departmentsGrid .department-card:hover .sport-emblem,
-body.dark-mode #departmentsGrid .department-card:focus-within .sport-emblem,
-body.dark-mode #departmentsGrid .sport-emblem:hover > i,
-body.dark-mode #departmentsGrid .department-card:hover .sport-emblem > i {
- color:#f6ee42!important;
-}
+
+
+
+
 /* Form/dialog body text and label colors. */
-body.dark-mode .modal-box {color:#f1f5f9;}
-body.dark-mode .modal-box .modal-label {color:#f6ee42!important;}
-body.dark-mode .modal-box .text-slate-600,
-body.dark-mode .modal-box .text-slate-700,
-body.dark-mode .modal-box .text-slate-500 {color:#dbe8dc!important;}
-body.dark-mode .modal-box .modal-header.bg-archelaos-yellow .text-archelaos-darkgreen {
- color:#084c24!important;
-}
+
+
+
+
 /* Yellow text on dark-green buttons and green text on yellow buttons. */
-body.dark-mode .modal-box button.bg-archelaos-deepgreen,
-body.dark-mode .modal-box a.bg-archelaos-deepgreen {
- color:#f6ee42!important;
-}
-body.dark-mode .modal-box button.bg-archelaos-yellow,
-body.dark-mode .modal-box a.bg-archelaos-yellow {
- color:#084c24!important;
-}
+
+
 @media(prefers-reduced-motion:reduce){
  a,button,input,textarea,select {scroll-behavior:auto;}
 }
 
 /* High contrast for dark-green text nested in yellow badges/buttons. */
-body.dark-mode .glass-section .bg-archelaos-yellow .text-archelaos-deepgreen,
-body.dark-mode .glass-card .bg-archelaos-yellow .text-archelaos-deepgreen,
-body.dark-mode .glass-section .bg-archelaos-yellow .text-archelaos-darkgreen,
-body.dark-mode .glass-card .bg-archelaos-yellow .text-archelaos-darkgreen {color:#084c24!important;}
-body.dark-mode #historyArchiveContent .bg-archelaos-deepgreen,
-body.dark-mode #historyArchiveContent button.bg-archelaos-deepgreen {color:#f6ee42!important;}
+
+
 
 /* Dark theme: original menu layout and surfaces; neutral, readable lettering instead of yellow. */
-body.dark-mode #mainHeader nav a:not(.bg-archelaos-yellow),
-body.dark-mode #mainHeader a.premium-nav-link,
-body.dark-mode #mainHeader button:not(.bg-archelaos-deepgreen):not(.bg-archelaos-yellow):not(.lang-btn.active) {
-  color:#f2f7f1!important;
-}
-body.dark-mode #mainHeader nav a.premium-nav-active {
-  background:#176337!important;
-  color:#ffffff!important;
-}
-body.dark-mode #mainHeader nav a:hover:not(.premium-nav-active),
-body.dark-mode #mainHeader nav a:focus-visible:not(.premium-nav-active) {color:#ffffff!important;}
-body.dark-mode #mobileMenu a.mobile-menu-item,
-body.dark-mode #mobileMenu .mobile-nav-link {color:#f2f7f1!important;}
-body.dark-mode #mobileMenu a.mobile-menu-item.premium-mobile-active,
-body.dark-mode #mobileMenu .mobile-nav-link.premium-mobile-active {
-  color:#ffffff!important;
-  background:#176337!important;
-}
-body.dark-mode #mainHeader .lang-btn.active,
-body.dark-mode #mobileLangBtnEL.active,
-body.dark-mode #mobileLangBtnEN.active {
-  background:#176337!important;
-  color:#ffffff!important;
-}
+
+
+
+
+
+
 
 
 /* FINAL MENU COLORS — dark theme only. Preserve existing layout and interactions.
    Light menu surfaces ensure dark-green labels remain readable. */
-body.dark-mode #mainHeader.glass-nav {background-color:#f3f6ec!important;border-bottom:1px solid #b8d1bd!important;}
-body.dark-mode #mainHeader nav a:not(.premium-nav-active),
-body.dark-mode #mainHeader a.premium-nav-link:not(.premium-nav-active),
-body.dark-mode #mainHeader button:not(.lang-btn.active),
-body.dark-mode #mainHeader .lang-btn:not(.active) {color:#084c24!important;}
-body.dark-mode #mainHeader nav a.premium-nav-active,
-body.dark-mode #mainHeader nav a.premium-nav-active:hover,
-body.dark-mode #mainHeader nav a.premium-nav-active:focus-visible {
-  background:#084c24!important;color:#f6ee42!important;
-  border:2px solid #148447!important;
-  box-shadow:0 0 0 1px rgba(20,132,71,.12)!important;
-}
-body.dark-mode #mainHeader nav a:not(.premium-nav-active):hover,
-body.dark-mode #mainHeader nav a:not(.premium-nav-active):focus-visible {color:#084c24!important;background:rgba(8,76,36,.09)!important;}
-body.dark-mode #mainHeader .lang-btn.active,
-body.dark-mode #mobileLangBtnEL.active,
-body.dark-mode #mobileLangBtnEN.active {background:#084c24!important;color:#f6ee42!important;border:2px solid #148447!important;}
-body.dark-mode #mobileMenu {background-color:#f3f6ec!important;border-bottom-color:#b8d1bd!important;}
-body.dark-mode #mobileMenu a.mobile-menu-item,
-body.dark-mode #mobileMenu .mobile-nav-link {background:#eaf2e7!important;color:#084c24!important;border-color:#b8d1bd!important;}
-body.dark-mode #mobileMenu a.mobile-menu-item.premium-mobile-active,
-body.dark-mode #mobileMenu .mobile-nav-link.premium-mobile-active,
-body.dark-mode #mobileMenu a.mobile-menu-item.premium-mobile-active:hover,
-body.dark-mode #mobileMenu .mobile-nav-link.premium-mobile-active:hover {
-  background:#084c24!important;color:#f6ee42!important;
-  border:2px solid #148447!important;
-}
-body.dark-mode #mobileMenu a.mobile-menu-item:not(.premium-mobile-active):hover,
-body.dark-mode #mobileMenu .mobile-nav-link:not(.premium-mobile-active):focus-visible {background:#dcebd9!important;color:#084c24!important;}
-body.dark-mode #mobileControlsBar,
-body.dark-mode #mobileLangToggleWrapper {background:#eaf2e7!important;border-color:#b8d1bd!important;}
-body.dark-mode #mobileLangBtnEL:not(.active),
-body.dark-mode #mobileLangBtnEN:not(.active) {color:#084c24!important;}
+
+
+
+
+
+
+
+
+
+
+
 /* History secondary navigation follows the same selection convention. */
-body.dark-mode .history-quicknav {background:rgba(243,246,236,.97)!important;border-color:#b8d1bd!important;}
-body.dark-mode .history-quicknav a {color:#084c24!important;}
-body.dark-mode .history-quicknav a:hover,
-body.dark-mode .history-quicknav a:focus-visible,
-body.dark-mode .history-quicknav a[aria-current],
-body.dark-mode .history-quicknav a.active {background:#084c24!important;color:#f6ee42!important;outline:2px solid #148447!important;outline-offset:-2px;}
+
+
+
 
 
 /* OCT 2026 — final dark-theme header palette. Original navigation layout preserved. */
-body.dark-mode #mainHeader.glass-nav,
-body.dark-mode #mainHeader.glass-nav.scrolled {
-  background:#084c24!important;
-  border-bottom:1px solid #176c3b!important;
-}
+
 /* The white option containers remain white against the green header. */
-body.dark-mode #mainHeader nav,
-body.dark-mode #mainHeader div:has(> #langBtnEL) {
-  background:rgba(255,255,255,.96)!important;
-  border-color:rgba(255,255,255,.96)!important;
-}
+
 /* Regular links in the white menu: dark green. */
-body.dark-mode #mainHeader nav a:not(.premium-nav-active),
-body.dark-mode #mainHeader nav a.premium-nav-link:not(.premium-nav-active),
-body.dark-mode #mainHeader .lang-btn:not(.active) {
-  color:#084c24!important;
-}
-body.dark-mode #mainHeader nav a:not(.premium-nav-active):hover,
-body.dark-mode #mainHeader nav a:not(.premium-nav-active):focus-visible {
-  background:#e6f1e7!important;color:#084c24!important;
-}
+
+
 /* Active choice: green fill + green outline + yellow type. */
-body.dark-mode #mainHeader nav a.premium-nav-active,
-body.dark-mode #mainHeader nav a.premium-nav-active:hover,
-body.dark-mode #mainHeader nav a.premium-nav-active:focus-visible,
-body.dark-mode #mainHeader .lang-btn.active {
-  background:#084c24!important;color:#f6ee42!important;
-  border:2px solid #219052!important;
-  box-shadow:0 0 0 1px rgba(33,144,82,.16)!important;
-}
+
 /* Green bar text outside the white options needs yellow for legibility. */
-body.dark-mode #mainHeader [data-i18n="brand_title"],
-body.dark-mode #mainHeader [data-i18n="brand_sub"] {
-  color:#f6ee42!important;
-}
-body.dark-mode #mainHeader button:not(.lang-btn):not(.bg-archelaos-yellow),
-body.dark-mode #mainHeader button:not(.lang-btn):not(.bg-archelaos-yellow) i {
-  color:#f6ee42!important;
-}
+
+
 /* Keep the original emblem asset untouched; tint its visible pixels yellow only in dark mode. */
-body.dark-mode #mainHeader img.archelaos-crest-adapt,
-body.dark-mode #home img.archelaos-crest-adapt {
-  filter:brightness(0) saturate(100%) invert(91%) sepia(35%) saturate(941%) hue-rotate(348deg) brightness(106%) contrast(94%)!important;
-}
+
 /* On history.html, the header crest is the primary visible emblem. */
-body.dark-mode #mainHeader img.archelaos-crest-adapt {opacity:1!important;}
+
 /* Mobile: keep green top bar and legible light dropdown choices. */
-body.dark-mode #mobileMenu {background:#f3f6ec!important;border-color:#b8d1bd!important;}
-body.dark-mode #mobileMenu .mobile-nav-link,
-body.dark-mode #mobileMenu a.mobile-menu-item {
-  color:#084c24!important;background:#eaf2e7!important;border-color:#b8d1bd!important;
-}
-body.dark-mode #mobileMenu .mobile-nav-link.premium-mobile-active,
-body.dark-mode #mobileMenu a.mobile-menu-item.premium-mobile-active {
-  background:#084c24!important;border:2px solid #219052!important;color:#f6ee42!important;
-}
-body.dark-mode #mobileControlsBar,
-body.dark-mode #mobileLangToggleWrapper {background:#fff!important;border-color:#b8d1bd!important;}
-body.dark-mode #mobileLangBtnEL:not(.active),
-body.dark-mode #mobileLangBtnEN:not(.active) {color:#084c24!important;}
-body.dark-mode #mobileLangBtnEL.active,
-body.dark-mode #mobileLangBtnEN.active {background:#084c24!important;border:2px solid #219052!important;color:#f6ee42!important;}
+
+
+
+
+
+
 /* Secondary history navigation: white bar, green links, outlined green selection. */
-body.dark-mode .history-quicknav {background:rgba(243,246,236,.97)!important;border-color:#b8d1bd!important;}
-body.dark-mode .history-quicknav a {color:#084c24!important;}
-body.dark-mode .history-quicknav a:hover,
-body.dark-mode .history-quicknav a:focus-visible,
-body.dark-mode .history-quicknav a[aria-current],
-body.dark-mode .history-quicknav a.active {background:#084c24!important;color:#f6ee42!important;outline:2px solid #219052!important;outline-offset:-2px;}
+
+
+
 
 
 /* MENU READABILITY FIX — 2026-10-27
    Override older yellow-on-white dark-theme rules.
    Green header, white navigation capsule, green inactive labels,
    green outlined active item with yellow label. */
-body.dark-mode #mainHeader.glass-nav,
-body.dark-mode #mainHeader.glass-nav.scrolled {
- background-color:#084c24!important;
- border-bottom-color:#176c3b!important;
-}
-body.dark-mode #mainHeader nav {
- background-color:#f7faf5!important;
- border-color:#f7faf5!important;
-}
+
+
 /* Crucially target ALL links, not only the ones with a particular JS class. */
-body.dark-mode #mainHeader nav a,
-body.dark-mode #mainHeader nav a:link,
-body.dark-mode #mainHeader nav a:visited,
-body.dark-mode #mainHeader nav a:not(.premium-nav-active),
-body.dark-mode #mainHeader nav a:not(.premium-nav-active):hover,
-body.dark-mode #mainHeader nav a:not(.premium-nav-active):focus-visible,
-body.dark-mode #mainHeader nav a:not(.premium-nav-active) span {
- color:#07552b!important;
-}
-body.dark-mode #mainHeader nav a:not(.premium-nav-active):hover,
-body.dark-mode #mainHeader nav a:not(.premium-nav-active):focus-visible {
- background-color:#e4f0e6!important;
-}
-body.dark-mode #mainHeader nav a.premium-nav-active,
-body.dark-mode #mainHeader nav a.premium-nav-active:link,
-body.dark-mode #mainHeader nav a.premium-nav-active:visited,
-body.dark-mode #mainHeader nav a.premium-nav-active:hover,
-body.dark-mode #mainHeader nav a.premium-nav-active:focus-visible,
-body.dark-mode #mainHeader nav a[aria-current="location"],
-body.dark-mode #mainHeader nav a.premium-nav-active span {
- background-color:#07552b!important;
- color:#ffe84b!important;
- border-color:#179353!important;
-}
-body.dark-mode #mainHeader nav a.premium-nav-active,
-body.dark-mode #mainHeader nav a[aria-current="location"] {
- border:2px solid #179353!important;
- box-shadow:0 0 0 1px rgba(23,147,83,.18)!important;
-}
+
+
+
+
 /* Mobile navigation matches the same active/inactive distinction. */
-body.dark-mode #mobileMenu a.mobile-menu-item:not(.premium-mobile-active),
-body.dark-mode #mobileMenu a.mobile-nav-link:not(.premium-mobile-active),
-body.dark-mode #mobileMenu a.mobile-menu-item:not(.premium-mobile-active) span,
-body.dark-mode #mobileMenu a.mobile-nav-link:not(.premium-mobile-active) span {
- color:#07552b!important;
-}
-body.dark-mode #mobileMenu a.premium-mobile-active,
-body.dark-mode #mobileMenu a.premium-mobile-active span {
- color:#ffe84b!important;
- background-color:#07552b!important;
- border-color:#179353!important;
-}
+
+
 /* Keep the History quick-navigation legible too. */
-body.dark-mode .history-quicknav a:not(.active):not([aria-current]),
-body.dark-mode .history-quicknav a:not(.active):not([aria-current]) span {
- color:#07552b!important;
-}
-body.dark-mode .history-quicknav a.active,
-body.dark-mode .history-quicknav a[aria-current],
-body.dark-mode .history-quicknav a.active span,
-body.dark-mode .history-quicknav a[aria-current] span {
- background-color:#07552b!important;
- color:#ffe84b!important;
-}
+
+
 </style>
 <style id="menu-contrast-final">
 /* FINAL CONSISTENT MENU: high-specificity dark-mode colors on BOTH pages.
    All normal links (including external History link) stay green on white.
    Only the selected link is yellow on a green background with green outline. */
-html body.dark-mode header#mainHeader nav a:not(.premium-nav-active):not([aria-current="location"]),
-html body.dark-mode header#mainHeader nav a:not(.premium-nav-active):not([aria-current="location"]):link,
-html body.dark-mode header#mainHeader nav a:not(.premium-nav-active):not([aria-current="location"]):visited,
-html body.dark-mode header#mainHeader nav a:not(.premium-nav-active):not([aria-current="location"]):hover,
-html body.dark-mode header#mainHeader nav a:not(.premium-nav-active):not([aria-current="location"]):focus-visible,
-html body.dark-mode header#mainHeader nav a[data-i18n="nav_history"]:not(.premium-nav-active),
-html body.dark-mode header#mainHeader nav a[data-i18n="nav_history"]:not(.premium-nav-active) span {
-  color:#07552b!important;
-  -webkit-text-fill-color:#07552b!important;
-}
-html body.dark-mode header#mainHeader nav a.premium-nav-active,
-html body.dark-mode header#mainHeader nav a.premium-nav-active:link,
-html body.dark-mode header#mainHeader nav a.premium-nav-active:visited,
-html body.dark-mode header#mainHeader nav a.premium-nav-active:hover,
-html body.dark-mode header#mainHeader nav a.premium-nav-active:focus-visible,
-html body.dark-mode header#mainHeader nav a[aria-current="location"],
-html body.dark-mode header#mainHeader nav a.premium-nav-active span {
-  background:#07552b!important;
-  color:#ffe84b!important;
-  -webkit-text-fill-color:#ffe84b!important;
-  border:2px solid #179353!important;
-  box-shadow:0 0 0 1px rgba(23,147,83,.18)!important;
-}
-html body.dark-mode header#mainHeader nav {
-  background:#f7faf5!important;
-  border-color:#f7faf5!important;
-}
-html body.dark-mode header#mainHeader.glass-nav,
-html body.dark-mode header#mainHeader.glass-nav.scrolled {
-  background:#084c24!important;
-  border-bottom-color:#176c3b!important;
-}
-html body.dark-mode #mobileMenu a.mobile-nav-link:not(.premium-mobile-active),
-html body.dark-mode #mobileMenu a.mobile-menu-item:not(.premium-mobile-active) {
-  color:#07552b!important;
-  -webkit-text-fill-color:#07552b!important;
-}
-html body.dark-mode #mobileMenu a.premium-mobile-active {
-  background:#07552b!important;
-  border:2px solid #179353!important;
-  color:#ffe84b!important;
-  -webkit-text-fill-color:#ffe84b!important;
-}
-html body.dark-mode .history-quicknav a:not(.active):not([aria-current]) {
-  color:#07552b!important;
-  -webkit-text-fill-color:#07552b!important;
-}
-html body.dark-mode .history-quicknav a.active,
-html body.dark-mode .history-quicknav a[aria-current] {
-  background:#07552b!important;
-  border:2px solid #179353!important;
-  color:#ffe84b!important;
-  -webkit-text-fill-color:#ffe84b!important;
-}
 
-html body.dark-mode header#mainHeader nav a[aria-current="page"],
-html body.dark-mode header#mainHeader nav a[aria-current="page"]:hover {
- background:#07552b!important;
- color:#ffe84b!important;
- -webkit-text-fill-color:#ffe84b!important;
- border:2px solid #179353!important;
-}
+
+
+
+
+
+
+
+
+
 </style><style id="modal-close-contrast-fix">
 /* Dark theme: clearly visible close actions in interest and department modals. */
-body.dark-mode #registrationModal .modal-close-btn,
-body.dark-mode #deptHistoryModal .modal-close-btn,
-body.dark-mode #historyArchiveModal .modal-close-btn {
-  background-color:#f6ee42!important;
-  color:#084c24!important;
-  -webkit-text-fill-color:#084c24!important;
-  border:2px solid #f6ee42!important;
-  opacity:1!important;
-  box-shadow:0 2px 10px rgba(0,0,0,.25)!important;
-}
-body.dark-mode #registrationModal .modal-close-btn i,
-body.dark-mode #deptHistoryModal .modal-close-btn i,
-body.dark-mode #historyArchiveModal .modal-close-btn i {
-  color:#084c24!important;
-  -webkit-text-fill-color:#084c24!important;
-  opacity:1!important;
-}
-body.dark-mode #registrationModal .modal-close-btn:hover,
-body.dark-mode #deptHistoryModal .modal-close-btn:hover,
-body.dark-mode #historyArchiveModal .modal-close-btn:hover {
-  background-color:#fff5a0!important;
-  color:#084c24!important;
-}
-body.dark-mode #deptHistoryModal [data-i18n="btn_close"] {
-  background:#f6ee42!important;
-  color:#084c24!important;
-  -webkit-text-fill-color:#084c24!important;
-  border:1px solid #f6ee42!important;
-}
+
+
+
+
 </style><style id="mobile-dark-menu-refinement">
 /* Mobile dark navigation — dedicated dark palette, no pale menu surfaces.
    Scoped to mobile and dark mode; desktop and light mode remain unchanged. */
 @media(max-width:1023px) {
- html body.dark-mode #mobileMenu {
-   background:#071f15!important;
-   border:1px solid rgba(246,238,66,.24)!important;
-   border-top:1px solid rgba(246,238,66,.18)!important;
-   border-radius:0 0 22px 22px!important;
-   box-shadow:0 20px 34px rgba(0,0,0,.3)!important;
-   color:#f4f7ed!important;
-   padding-top:14px!important;
-   padding-bottom:18px!important;
- }
- html body.dark-mode #mobileMenu a.mobile-nav-link,
- html body.dark-mode #mobileMenu a.mobile-menu-item:not(.premium-mobile-active) {
-   background:#103923!important;
-   color:#eaf5e9!important;
-   -webkit-text-fill-color:#eaf5e9!important;
-   border:1px solid #2d6544!important;
-   border-radius:13px!important;
-   box-shadow:none!important;
- }
- html body.dark-mode #mobileMenu a.mobile-nav-link:not(.premium-mobile-active):hover,
- html body.dark-mode #mobileMenu a.mobile-nav-link:not(.premium-mobile-active):focus-visible {
-   background:#1b5132!important;
-   border-color:#c8bf5a!important;
-   color:#fff8cc!important;
-   -webkit-text-fill-color:#fff8cc!important;
- }
- html body.dark-mode #mobileMenu a.mobile-nav-link.premium-mobile-active,
- html body.dark-mode #mobileMenu a.mobile-menu-item.premium-mobile-active,
- html body.dark-mode #mobileMenu a.mobile-nav-link[aria-current="page"] {
-   background:#176b3b!important;
-   color:#f6ee42!important;
-   -webkit-text-fill-color:#f6ee42!important;
-   border:2px solid #c8db67!important;
-   box-shadow:inset 0 0 0 1px rgba(246,238,66,.12)!important;
- }
- html body.dark-mode #mobileControlsBar {
-   background:#0c2c1c!important;
-   border:1px solid #366b47!important;
-   color:#f4f7ed!important;
- }
- html body.dark-mode #mobileLangToggleWrapper {
-   background:#163c28!important;
-   border:1px solid #3a7650!important;
-   color:#eaf5e9!important;
- }
- html body.dark-mode #mobileLangBtnEL:not(.active),
- html body.dark-mode #mobileLangBtnEN:not(.active) {
-   color:#f0f5e9!important;
-   -webkit-text-fill-color:#f0f5e9!important;
- }
- html body.dark-mode #mobileLangBtnEL.active,
- html body.dark-mode #mobileLangBtnEN.active {
-   background:#f6ee42!important;
-   color:#073c21!important;
-   -webkit-text-fill-color:#073c21!important;
-   border:1px solid #f6ee42!important;
- }
- html body.dark-mode #mobileThemeToggleBtn {
-   background:#163c28!important;
-   color:#f6eecc!important;
-   -webkit-text-fill-color:#f6eecc!important;
-   border:1px solid #3a7650!important;
- }
- html body.dark-mode #mobileMenu > button.mobile-menu-item {
-   background:#f6ee42!important;
-   color:#073c21!important;
-   -webkit-text-fill-color:#073c21!important;
-   border:1px solid #f6ee42!important;
- }
- html body.dark-mode #mobileMenu > button.mobile-menu-item i,
- html body.dark-mode #mobileMenu > button.mobile-menu-item span {
-   color:#073c21!important;
-   -webkit-text-fill-color:#073c21!important;
- }
- html body.dark-mode #mobileMenuBtn {
-   background:#103923!important;
-   color:#f6ee42!important;
-   -webkit-text-fill-color:#f6ee42!important;
-   border:1px solid #438258!important;
- }
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 }
 </style><style id="anniversary-70-design">
 /* 70th anniversary — standalone section, no changes to existing hero or menus */
@@ -1345,9 +951,9 @@ body.dark-mode #deptHistoryModal [data-i18n="btn_close"] {
 #anniversary70 .ann70-foot {display:flex;justify-content:space-between;gap:16px;margin-top:31px;padding-top:20px;border-top:1px solid rgba(245,227,90,.23);color:#e4df9b;font-size:10px;letter-spacing:.16em;font-weight:900;}
 #anniversary70 .ann70-foot i {margin-right:6px;}
 /* Keep the anniversary area dark and legible in both themes */
-body.dark-mode #anniversary70.ann70 {background:#06291a!important;color:#fff!important;}
-body.dark-mode #anniversary70 .ann70-milestone {background:#0c3c27!important;}
-body.dark-mode #anniversary70 .ann70-milestone:hover {background:#145b3b!important;}
+
+
+
 @media(max-width:900px) {
  #anniversary70.ann70 {padding:52px 0 40px;}
  #anniversary70 .ann70-title-layout {gap:8px;min-height:310px;}
@@ -1388,11 +994,11 @@ body.dark-mode #anniversary70 .ann70-milestone:hover {background:#145b3b!importa
 /* Refined anniversary numerals: high-contrast editorial Bodoni with subtle champagne-gold finish. */
 #anniversary70 .ann70-number,
 #anniversary70 .ann70-number-outline {
-  font-family:'Bodoni Moda','Bodoni MT','Didot','Times New Roman',serif!important;
+  font-family:"Bodoni Moda","Bodoni MT","Didot","Times New Roman",serif!important;
   font-weight:600!important;
   font-optical-sizing:auto;
   font-variant-numeric:lining-nums;
-  font-feature-settings:'lnum' 1;
+  font-feature-settings:"lnum" 1;
   letter-spacing:-.09em!important;
   line-height:.93!important;
 }
@@ -1448,10 +1054,10 @@ body.dark-mode #anniversary70 .ann70-milestone:hover {background:#145b3b!importa
 .join-history-action:hover{background:#fff0a2;transform:translateY(-1px)}
 .join-history-action:focus-visible{outline:3px solid #fff;outline-offset:3px}
 .join-history-foot{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:36px;color:#eadc9d;font-size:10px;font-weight:850;letter-spacing:.16em;text-align:center}
-body.dark-mode .join-history-inner{background:linear-gradient(145deg,#032e1d,#06452d 70%,#063b27)}
-body.dark-mode .join-history-card h3,body.dark-mode .join-history-head h2{color:#fff}
-body.dark-mode .join-history-card p,body.dark-mode .join-history-head p{color:#e3ede4}
-body.dark-mode .join-history-action{color:#063a27;background:#f4d96b}
+
+
+
+
 @media(max-width:860px){.join-history-grid{grid-template-columns:1fr}.join-history-card{min-height:0}.join-history-inner{padding:35px 22px}.join-history-head{margin-bottom:28px}.join-history-section{padding:60px 14px}.join-history-foot{flex-wrap:wrap;line-height:1.8}}
 @media(prefers-reduced-motion:reduce){.join-history-card,.join-history-action{transition:none}.join-history-card:hover,.join-history-action:hover{transform:none}}
 </style>
@@ -1497,7 +1103,7 @@ html.arch-welcome-pending #archWelcome{display:flex}
 <style id="archelaos-premium-menu-2026">
 /* Navigation visual system: same identity, intentional light and dark palettes. */
 :root{--arch-menu-bg:rgba(255,255,255,.94);--arch-menu-text:#084c24;--arch-menu-border:rgba(8,76,36,.16);--arch-menu-hover:#e9f3eb;--arch-menu-active:#084c24;--arch-menu-active-text:#ffe84b;--arch-overlay-bg:#f6f8f2;--arch-overlay-text:#084c24;--arch-overlay-line:rgba(8,76,36,.16);--arch-overlay-muted:#55745d}
-body.dark-mode{--arch-menu-bg:rgba(4,45,31,.97);--arch-menu-text:#f3f9ef;--arch-menu-border:rgba(247,220,104,.27);--arch-menu-hover:#145b3d;--arch-menu-active:#f6ee42;--arch-menu-active-text:#084c24;--arch-overlay-bg:#032b1e;--arch-overlay-text:#f6f9f0;--arch-overlay-line:rgba(245,218,110,.24);--arch-overlay-muted:#c1d3c1}
+
 @media(min-width:1024px){
  header#mainHeader nav.arch-floating-nav{background:var(--arch-menu-bg)!important;border:1px solid var(--arch-menu-border)!important;box-shadow:0 12px 34px rgba(2,38,24,.15),0 2px 5px rgba(0,0,0,.05)!important;border-radius:999px!important;padding:7px!important;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);transition:background .35s,border-color .35s,box-shadow .35s,transform .35s}
  header#mainHeader nav.arch-floating-nav a{border-radius:999px!important;color:var(--arch-menu-text)!important;background:transparent!important;transition:background .2s,color .2s,transform .2s!important}
@@ -1517,21 +1123,172 @@ body.dark-mode{--arch-menu-bg:rgba(4,45,31,.97);--arch-menu-text:#f3f9ef;--arch-
  header#mainHeader #mobileMenu.arch-cinematic-menu a.mobile-nav-link{display:flex!important;align-items:center;gap:12px;padding:clamp(7px,1.3vh,14px) 4px!important;border:0!important;border-bottom:1px solid var(--arch-overlay-line)!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;color:var(--arch-overlay-text)!important;font-family:inherit;font-size:clamp(21px,5.4vw,38px)!important;font-weight:850!important;line-height:1.18!important;letter-spacing:-.025em;transform:none!important;transition:color .2s,padding-left .2s!important}
  #mobileMenu .arch-menu-number{color:var(--arch-overlay-muted);font-size:11px;font-weight:800;letter-spacing:.08em;min-width:25px;align-self:center}
  header#mainHeader #mobileMenu.arch-cinematic-menu a.mobile-nav-link:hover,header#mainHeader #mobileMenu.arch-cinematic-menu a.mobile-nav-link.premium-mobile-active{color:#b89228!important;padding-left:12px!important}
- body.dark-mode header#mainHeader #mobileMenu.arch-cinematic-menu a.mobile-nav-link:hover,body.dark-mode header#mainHeader #mobileMenu.arch-cinematic-menu a.mobile-nav-link.premium-mobile-active{color:#f6ee42!important}
+ 
  #mobileMenu #mobileControlsBar{order:20!important;margin:clamp(6px,2vh,20px) 0 0!important;background:transparent!important;border:1px solid var(--arch-overlay-line)!important;border-radius:16px!important;padding:10px!important;flex-shrink:0}
  #mobileMenu .arch-menu-footer{order:21;color:var(--arch-overlay-muted);text-align:center;font-size:11px;font-weight:800;letter-spacing:.13em;margin-top:4px}
+ 
  #mobileMenu .arch-mobile-cta{order:19;margin-top:clamp(6px,1vh,12px);border:1px solid rgba(8,76,36,.15)}
- body.dark-mode #mobileMenu .arch-mobile-cta{background:#f6ee42!important;color:#084c24!important}
- body.dark-mode #mobileMenu #mobileControlsBar #mobileThemeToggleBtn,body.dark-mode #mobileMenu #mobileControlsBar #mobileLangToggleWrapper{background:#fff!important;color:#084c24!important}
+ 
+ 
 }
 @media(prefers-reduced-motion:reduce){header#mainHeader nav.arch-floating-nav,header#mainHeader nav.arch-floating-nav a,header#mainHeader #mobileMenu.arch-cinematic-menu,header#mainHeader #mobileMenu.arch-cinematic-menu a.mobile-nav-link{transition:none!important;animation:none!important}}
 
 /* Explicit dark-theme specificity beats the legacy navigation color rules. */
-html body.dark-mode header#mainHeader nav.arch-floating-nav a:not(.premium-nav-active):not([aria-current="location"]){color:var(--arch-menu-text)!important;background:transparent!important}
-html body.dark-mode header#mainHeader nav.arch-floating-nav a:not(.premium-nav-active):not([aria-current="location"]):hover,html body.dark-mode header#mainHeader nav.arch-floating-nav a:not(.premium-nav-active):not([aria-current="location"]):focus-visible{color:var(--arch-menu-text)!important;background:var(--arch-menu-hover)!important}
-html body.dark-mode header#mainHeader nav.arch-floating-nav a.premium-nav-active,html body.dark-mode header#mainHeader nav.arch-floating-nav a[aria-current="location"]{color:var(--arch-menu-active-text)!important;background:var(--arch-menu-active)!important}
+
+
+
 </style>
-<style>@media(max-width:1023px){body.arch-menu-open{overflow:hidden!important}}</style></head>
+<style>@media(max-width:1023px){body.arch-menu-open{overflow:hidden!important}}</style>
+<style id="arch-mobile-soft-effects">
+/* Mobile-only: compositor-friendly motion; desktop untouched. */
+@media (max-width:1023px) and (prefers-reduced-motion:no-preference){
+  header#mainHeader #mobileMenu.arch-cinematic-menu{
+    transform:translate3d(0,-10px,0)!important;
+    transition:opacity .28s ease-out,transform .36s cubic-bezier(.22,1,.36,1),visibility .28s!important;
+  }
+  header#mainHeader #mobileMenu.arch-cinematic-menu.menu-open{
+    transform:translate3d(0,0,0)!important;
+  }
+  header#mainHeader #mobileMenu.arch-cinematic-menu .arch-menu-heading,
+  header#mainHeader #mobileMenu.arch-cinematic-menu .mobile-menu-item,
+  header#mainHeader #mobileMenu.arch-cinematic-menu a.mobile-nav-link,
+  header#mainHeader #mobileMenu.arch-cinematic-menu #mobileControlsBar,
+  header#mainHeader #mobileMenu.arch-cinematic-menu .arch-menu-footer{
+    opacity:0;
+    transform:translate3d(0,9px,0)!important;
+    transition:opacity .25s ease-out,transform .34s cubic-bezier(.22,1,.36,1);
+  }
+  header#mainHeader #mobileMenu.arch-cinematic-menu.menu-open .arch-menu-heading,
+  header#mainHeader #mobileMenu.arch-cinematic-menu.menu-open .mobile-menu-item,
+  header#mainHeader #mobileMenu.arch-cinematic-menu.menu-open a.mobile-nav-link,
+  header#mainHeader #mobileMenu.arch-cinematic-menu.menu-open #mobileControlsBar,
+  header#mainHeader #mobileMenu.arch-cinematic-menu.menu-open .arch-menu-footer{
+    opacity:1;
+    transform:translate3d(0,0,0)!important;
+  }
+  #mobileMenu.menu-open .arch-menu-heading{transition-delay:.035s!important}
+  #mobileMenu.menu-open .mobile-menu-item:nth-of-type(1){transition-delay:.055s!important}
+  #mobileMenu.menu-open .mobile-menu-item:nth-of-type(2){transition-delay:.075s!important}
+  #mobileMenu.menu-open .mobile-menu-item:nth-of-type(3){transition-delay:.095s!important}
+  #mobileMenu.menu-open .mobile-menu-item:nth-of-type(4){transition-delay:.115s!important}
+  #mobileMenu.menu-open .mobile-menu-item:nth-of-type(5){transition-delay:.135s!important}
+  #mobileMenu.menu-open .mobile-menu-item:nth-of-type(6){transition-delay:.155s!important}
+  #mobileMenu.menu-open #mobileControlsBar{transition-delay:.16s!important}
+  #mobileMenu.menu-open .arch-menu-footer{transition-delay:.18s!important}
+  header#mainHeader #mobileMenu.arch-cinematic-menu a.mobile-nav-link{
+    transition:color .18s ease,padding-left .18s ease,background-color .18s ease,opacity .25s ease-out,transform .34s cubic-bezier(.22,1,.36,1)!important;
+    -webkit-tap-highlight-color:transparent;
+  }
+  header#mainHeader #mobileMenu.arch-cinematic-menu a.mobile-nav-link:active{
+    background:var(--arch-overlay-line)!important;
+    padding-left:9px!important;
+  }
+  #mobileMenu .arch-menu-close:active,
+  #mobileMenu .arch-mobile-cta:active{transform:scale(.975)!important}
+}
+/* The touch effects intentionally use existing light/dark variables. */
+@media (max-width:1023px) and (prefers-reduced-motion:reduce){
+  header#mainHeader #mobileMenu.arch-cinematic-menu .arch-menu-heading,
+  header#mainHeader #mobileMenu.arch-cinematic-menu .mobile-menu-item,
+  header#mainHeader #mobileMenu.arch-cinematic-menu a.mobile-nav-link,
+  header#mainHeader #mobileMenu.arch-cinematic-menu #mobileControlsBar,
+  header#mainHeader #mobileMenu.arch-cinematic-menu .arch-menu-footer{opacity:1!important;transform:none!important;transition:none!important}
+}
+</style>
+
+<style id="arch-mobile-compact-dropdown">
+/* Compact anchored dropdown; desktop floating navigation remains unchanged. */
+@media(max-width:1023px){
+ header#mainHeader{overflow:visible!important}
+ header#mainHeader #mobileMenu.arch-cinematic-menu{
+  position:absolute!important;inset:auto!important;top:calc(100% + 7px)!important;
+  right:12px!important;left:auto!important;width:min(370px,calc(100vw - 24px))!important;
+  height:auto!important;max-height:min(72dvh,620px)!important;overflow-y:auto!important;
+  z-index:1000!important;display:flex!important;flex-direction:column!important;
+  gap:3px!important;box-sizing:border-box!important;padding:12px!important;
+  background:var(--arch-menu-bg)!important;color:var(--arch-menu-text)!important;
+  border:1px solid var(--arch-menu-border)!important;border-radius:20px!important;
+  box-shadow:0 16px 42px rgba(1,31,18,.23)!important;
+  -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
+  opacity:0!important;visibility:hidden!important;pointer-events:none!important;
+  transform:translate3d(0,-8px,0) scale(.985)!important;transform-origin:top right!important;
+  transition:opacity .22s ease,transform .25s cubic-bezier(.22,1,.36,1),visibility .22s!important;
+ }
+ header#mainHeader #mobileMenu.arch-cinematic-menu.menu-open{
+  opacity:1!important;visibility:visible!important;pointer-events:auto!important;
+  transform:translate3d(0,0,0) scale(1)!important;
+ }
+ #mobileMenu .arch-menu-heading,#mobileMenu .arch-menu-footer,#mobileMenu .arch-menu-number{display:none!important}
+ header#mainHeader #mobileMenu.arch-cinematic-menu a.mobile-nav-link{
+  display:flex!important;align-items:center!important;min-height:43px!important;
+  padding:10px 13px!important;border:0!important;border-radius:11px!important;
+  background:transparent!important;color:var(--arch-menu-text)!important;
+  font-size:14px!important;line-height:1.3!important;font-weight:800!important;
+  letter-spacing:0!important;transform:none!important;opacity:1!important;
+  transition:background .18s,color .18s!important;
+ }
+ header#mainHeader #mobileMenu.arch-cinematic-menu a.mobile-nav-link:hover,
+ header#mainHeader #mobileMenu.arch-cinematic-menu a.mobile-nav-link:focus-visible{
+  background:var(--arch-menu-hover)!important;color:var(--arch-menu-text)!important;
+  padding-left:13px!important;outline-offset:-2px;
+ }
+ header#mainHeader #mobileMenu.arch-cinematic-menu a.mobile-nav-link.premium-mobile-active,
+ header#mainHeader #mobileMenu.arch-cinematic-menu a.mobile-nav-link[aria-current]{
+  background:var(--arch-menu-active)!important;color:var(--arch-menu-active-text)!important;
+  padding-left:13px!important;
+ }
+ #mobileMenu .arch-mobile-cta{
+  order:10!important;margin-top:7px!important;min-height:44px!important;
+  background:#084c24!important;color:#ffe84b!important;border-radius:12px!important;
+  font-size:13px!important;box-shadow:none!important;opacity:1!important;transform:none!important;
+ }
+ 
+ #mobileMenu #mobileControlsBar{
+  order:11!important;margin:8px 0 0!important;padding:8px!important;
+  border-radius:12px!important;border:1px solid var(--arch-menu-border)!important;
+  background:var(--arch-menu-hover)!important;opacity:1!important;transform:none!important;
+ }
+ #mobileMenu #mobileControlsBar button{min-height:34px}
+ #mobileMenu .mobile-menu-item{opacity:1!important;transform:none!important;transition-delay:0s!important}
+ body.arch-menu-open{overflow:auto!important}
+}
+@media(max-width:1023px) and (prefers-reduced-motion:reduce){
+ header#mainHeader #mobileMenu.arch-cinematic-menu,
+ header#mainHeader #mobileMenu.arch-cinematic-menu a.mobile-nav-link{transition:none!important}
+}
+</style>
+
+<style id="arch-mobile-controls-contrast-fix">
+/* Contrast-safe mobile language and theme controls, in both themes. */
+@media (max-width:1023px){
+ body #mainHeader #mobileMenu #mobileControlsBar{
+  background:#e8f0e8!important;border:1px solid #bdcebe!important;
+ }
+ body #mainHeader #mobileMenu #mobileLangToggleWrapper{
+  background:#fff!important;border:1px solid #b7cbbb!important;
+ }
+ body #mainHeader #mobileMenu #mobileLangToggleWrapper .lang-btn:not(.active){
+  background:#fff!important;color:#084c24!important;border:1px solid transparent!important;
+  box-shadow:none!important;
+ }
+ body #mainHeader #mobileMenu #mobileLangToggleWrapper .lang-btn.active{
+  background:#084c24!important;color:#fff!important;
+  border:1px solid #14713d!important;box-shadow:none!important;
+ }
+ 
+ 
+ 
+ body #mainHeader #mobileMenu #mobileLangToggleWrapper .lang-btn:not(.active):hover{
+  background:#e1eddf!important;
+ }
+ 
+ body #mainHeader #mobileMenu #mobileLangToggleWrapper .lang-btn:focus-visible {
+  outline:3px solid #d1a91d!important;outline-offset:2px!important;
+ }
+}
+</style>
+<style id="archelaos-single-theme">:root{color-scheme:light}body{color-scheme:light}</style>
+</head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow">
 
 <div id="archWelcome" role="dialog" aria-modal="true" aria-label="Καλώς ήρθατε στον Αρχέλαο" aria-hidden="true">
@@ -1591,7 +1348,7 @@ html body.dark-mode header#mainHeader nav.arch-floating-nav a.premium-nav-active
 <button class="lang-btn px-2 py-1 rounded-lg uppercase text-[11px] text-archelaos-deepgreen hover:opacity-80" id="langBtnEN" onclick="setLanguage('en')">EN</button>
 </div>
 <!-- Theme Toggle Button -->
-<button aria-label="Εναλλαγή θέματος" class="hidden lg:flex w-9 h-9 xl:w-10 xl:h-10 items-center justify-center rounded-xl bg-white/85 hover:bg-white text-archelaos-deepgreen border border-white/90 shadow-sm transition transform hover:scale-105 active:scale-95 text-sm xl:text-base" id="themeToggleBtn" title="Εναλλαγή εμφάνισης">🌙</button>
+
 <!-- Registration CTA (Fits on Laptop & Desktop) -->
 <button class="hidden lg:inline-flex btn-shimmer relative items-center justify-center px-3 xl:px-4 py-2 xl:py-2.5 text-xs xl:text-sm font-black text-archelaos-yellow bg-archelaos-deepgreen hover:bg-archelaos-darkgreen rounded-xl shadow-md hover:-translate-y-0.5 transition duration-200 whitespace-nowrap" onclick="openRegistrationModal('Γενική Εγγραφή')">
 <i class="fa-solid fa-bolt mr-1.5 text-archelaos-yellow text-xs"></i> <span data-i18n="btn_register">Εγγραφές</span>
@@ -1611,9 +1368,7 @@ html body.dark-mode header#mainHeader nav.arch-floating-nav a.premium-nav-active
 <button class="lang-btn active px-3 py-1.5 rounded-lg uppercase" id="mobileLangBtnEL" onclick="setLanguage('el')">GR</button>
 <button class="lang-btn px-3 py-1.5 rounded-lg uppercase text-archelaos-deepgreen hover:opacity-80" id="mobileLangBtnEN" onclick="setLanguage('en')">EN</button>
 </div>
-<button aria-label="Εναλλαγή θέματος" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white text-archelaos-deepgreen border border-slate-200 shadow-sm text-xs font-extrabold transition-colors duration-200" id="mobileThemeToggleBtn">
-<span id="mobileThemeIcon">🌙</span> <span id="mobileThemeLabel">Σκούρο Θέμα</span>
-</button>
+
 </div>
 <a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="#home"><span class="arch-menu-number" aria-hidden="true">01</span><span data-i18n="nav_home">Αρχική</span></a>
 <a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="history.html#chapters"><span class="arch-menu-number" aria-hidden="true">02</span><span data-i18n="nav_history">Ιστορία</span></a>
@@ -2517,8 +2272,6 @@ html body.dark-mode header#mainHeader nav.arch-floating-nav a.premium-nav-active
           btn_submit_interest: "Υποβολή Ενδιαφέροντος",
           footer_address: "Α΄ Δημοτικό Αθλητικό Κέντρο (ΔΑΚ) Κατερίνης, 60132",
           footer_history_btn: "Ιστορικό Αρχείο",
-          theme_dark: "Σκούρο Θέμα",
-          theme_light: "Φωτεινό Θέμα",
           back_to_top_tooltip: "Κορυφή"
         },
         en: {
@@ -2659,8 +2412,6 @@ html body.dark-mode header#mainHeader nav.arch-floating-nav a.premium-nav-active
           btn_submit_interest: "Submit Registration",
           footer_address: "1st Municipal Athletic Center (DAK) of Katerini, GR-60132",
           footer_history_btn: "Historical Archive",
-          theme_dark: "Dark Mode",
-          theme_light: "Light Mode",
           back_to_top_tooltip: "Top"
         }
       };
@@ -2942,9 +2693,6 @@ html body.dark-mode header#mainHeader nav.arch-floating-nav a.premium-nav-active
           if (modalPhone) modalPhone.placeholder = "π.χ. 6970000000";
         }
 
-        const isDark = document.body.classList.contains('dark-mode');
-        updateThemeButtons(isDark);
-
         if (typeof updateSlideCaptions === 'function') {
           updateSlideCaptions();
         }
@@ -2963,10 +2711,6 @@ html body.dark-mode header#mainHeader nav.arch-floating-nav a.premium-nav-active
       const mobileMenuBtn = document.getElementById('mobileMenuBtn');
       const mobileMenu = document.getElementById('mobileMenu');
       const menuIcon = document.getElementById('menuIcon');
-      const themeToggleBtn = document.getElementById('themeToggleBtn');
-      const mobileThemeToggleBtn = document.getElementById('mobileThemeToggleBtn');
-      const mobileThemeIcon = document.getElementById('mobileThemeIcon');
-      const mobileThemeLabel = document.getElementById('mobileThemeLabel');
       const registrationModal = document.getElementById('registrationModal');
       const modalDeptSelect = document.getElementById('modalDeptSelect');
       const deptHistoryModal = document.getElementById('deptHistoryModal');
@@ -3248,34 +2992,7 @@ html body.dark-mode header#mainHeader nav.arch-floating-nav a.premium-nav-active
         prevBtn.addEventListener('click', () => goToSlide(currentSlide - 1));
         nextBtn.addEventListener('click', () => goToSlide(currentSlide + 1));
       });
-
-      // Synchronize Theme
-      function updateThemeButtons(isDark) {
-        if (themeToggleBtn) themeToggleBtn.textContent = isDark ? '☀️' : '🌙';
-        if (mobileThemeIcon) mobileThemeIcon.textContent = isDark ? '☀️' : '🌙';
-        if (mobileThemeLabel) {
-          const dict = translations[currentLang] || translations.el;
-          mobileThemeLabel.textContent = isDark ? dict.theme_light : dict.theme_dark;
-        }
-      }
-
-      function toggleTheme() {
-        const isDark = body.classList.toggle('dark-mode');
-        body.classList.remove('light-mode');
-        localStorage.setItem('theme', isDark ? 'dark' : 'default');
-        updateThemeButtons(isDark);
-      }
-
-      const savedTheme = localStorage.getItem('theme');
-      if (savedTheme === 'dark') {
-        body.classList.add('dark-mode');
-        updateThemeButtons(true);
-      } else {
-        updateThemeButtons(false);
-      }
-
-      if (themeToggleBtn) themeToggleBtn.addEventListener('click', toggleTheme);
-      if (mobileThemeToggleBtn) mobileThemeToggleBtn.addEventListener('click', toggleTheme);
+      // One consistent light theme across all devices.
 
       mobileMenuBtn.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -3511,12 +3228,18 @@ function openJoinContact(kind) {
 })();
 </script>
 <script id="arch-premium-menu-behavior">(function(){
- const menu=document.getElementById('mobileMenu'),button=document.getElementById('mobileMenuBtn'),close=document.getElementById('archMenuClose');
- if(!menu||!button||!close)return;
- let lastFocus=null;
- const observer=new MutationObserver(()=>{const open=menu.classList.contains('menu-open');menu.setAttribute('aria-hidden',String(!open));document.body.classList.toggle('arch-menu-open',open);if(open){if(!lastFocus)lastFocus=document.activeElement;close.focus({preventScroll:true})}else if(lastFocus){if(lastFocus.isConnected)lastFocus.focus({preventScroll:true});lastFocus=null}});
+ const menu=document.getElementById('mobileMenu'),button=document.getElementById('mobileMenuBtn');
+ if(!menu||!button)return;
+ const observer=new MutationObserver(()=>{
+  const open=menu.classList.contains('menu-open');
+  menu.setAttribute('aria-hidden',String(!open));
+  document.body.classList.remove('arch-menu-open');
+ });
  observer.observe(menu,{attributes:true,attributeFilter:['class']});
- close.addEventListener('click',()=>{if(typeof closeMobileMenu==='function')closeMobileMenu();else button.click()});
- document.addEventListener('keydown',e=>{if(!menu.classList.contains('menu-open'))return;if(e.key==='Escape'){e.preventDefault();close.click()}if(e.key==='Tab'){const nodes=[...menu.querySelectorAll('button:not([disabled]),a[href]')].filter(n=>n.getClientRects().length);if(!nodes.length)return;const first=nodes[0],last=nodes[nodes.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});
+ document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'&&menu.classList.contains('menu-open')){
+   e.preventDefault();button.click();button.focus({preventScroll:true});
+  }
+ });
 })();</script></body>
 </html>
