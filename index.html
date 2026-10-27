@@ -1493,7 +1493,45 @@ html.arch-welcome-pending #archWelcome{display:flex}
 <script id="archelaos-first-welcome-preflight">
 (function(){try{if(!localStorage.getItem('archelaos-welcome-seen-v2')&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('arch-welcome-pending')}}catch(e){/* Storage unavailable: don't block entry. */}})();
 </script>
-</head>
+
+<style id="archelaos-premium-menu-2026">
+/* Navigation visual system: same identity, intentional light and dark palettes. */
+:root{--arch-menu-bg:rgba(255,255,255,.94);--arch-menu-text:#084c24;--arch-menu-border:rgba(8,76,36,.16);--arch-menu-hover:#e9f3eb;--arch-menu-active:#084c24;--arch-menu-active-text:#ffe84b;--arch-overlay-bg:#f6f8f2;--arch-overlay-text:#084c24;--arch-overlay-line:rgba(8,76,36,.16);--arch-overlay-muted:#55745d}
+body.dark-mode{--arch-menu-bg:rgba(4,45,31,.97);--arch-menu-text:#f3f9ef;--arch-menu-border:rgba(247,220,104,.27);--arch-menu-hover:#145b3d;--arch-menu-active:#f6ee42;--arch-menu-active-text:#084c24;--arch-overlay-bg:#032b1e;--arch-overlay-text:#f6f9f0;--arch-overlay-line:rgba(245,218,110,.24);--arch-overlay-muted:#c1d3c1}
+@media(min-width:1024px){
+ header#mainHeader nav.arch-floating-nav{background:var(--arch-menu-bg)!important;border:1px solid var(--arch-menu-border)!important;box-shadow:0 12px 34px rgba(2,38,24,.15),0 2px 5px rgba(0,0,0,.05)!important;border-radius:999px!important;padding:7px!important;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);transition:background .35s,border-color .35s,box-shadow .35s,transform .35s}
+ header#mainHeader nav.arch-floating-nav a{border-radius:999px!important;color:var(--arch-menu-text)!important;background:transparent!important;transition:background .2s,color .2s,transform .2s!important}
+ header#mainHeader nav.arch-floating-nav a:hover,header#mainHeader nav.arch-floating-nav a:focus-visible{background:var(--arch-menu-hover)!important;color:var(--arch-menu-text)!important;transform:translateY(-1px)}
+ header#mainHeader nav.arch-floating-nav a.premium-nav-active,header#mainHeader nav.arch-floating-nav a[aria-current="location"]{background:var(--arch-menu-active)!important;color:var(--arch-menu-active-text)!important;box-shadow:0 4px 12px rgba(2,38,24,.12)!important}
+ header#mainHeader nav.arch-floating-nav a:focus-visible{outline:2px solid #d2b14c;outline-offset:2px}
+}
+@media(max-width:1023px){
+ header#mainHeader:has(#mobileMenu.menu-open){z-index:999!important;isolation:auto}
+ header#mainHeader #mobileMenu.arch-cinematic-menu{position:fixed!important;inset:0!important;top:0!important;left:0!important;right:0!important;width:100vw!important;height:100dvh!important;max-height:none!important;overflow-y:auto!important;overscroll-behavior:contain;z-index:1000!important;box-sizing:border-box!important;padding:clamp(22px,5vw,40px)!important;padding-top:max(22px,env(safe-area-inset-top))!important;padding-bottom:max(32px,env(safe-area-inset-bottom))!important;background:var(--arch-overlay-bg)!important;color:var(--arch-overlay-text)!important;border:0!important;border-radius:0!important;box-shadow:none!important;opacity:0!important;visibility:hidden;pointer-events:none!important;transform:translateY(-18px)!important;transition:opacity .35s ease,transform .45s cubic-bezier(.16,1,.3,1),visibility .35s!important;display:flex!important;flex-direction:column;gap:clamp(7px,1.6vh,14px)!important}
+ header#mainHeader #mobileMenu.arch-cinematic-menu.menu-open{opacity:1!important;visibility:visible;pointer-events:auto!important;transform:translateY(0)!important}
+ #mobileMenu .arch-menu-heading{display:flex;align-items:center;justify-content:space-between;gap:15px;border-bottom:1px solid var(--arch-overlay-line);padding-bottom:clamp(14px,3vh,28px);margin-bottom:clamp(10px,3vh,25px)}
+ #mobileMenu .arch-menu-brand{font-size:clamp(14px,3.8vw,19px);font-weight:900;letter-spacing:.07em;color:var(--arch-overlay-text)}
+ #mobileMenu .arch-menu-est{display:block;font-size:11px;letter-spacing:.18em;font-weight:800;color:var(--arch-overlay-muted);margin-top:4px}
+ #mobileMenu .arch-menu-close{width:44px;height:44px;border:1px solid var(--arch-overlay-line);border-radius:50%;display:grid;place-items:center;color:var(--arch-overlay-text);background:transparent;flex-shrink:0;font-size:18px}
+ #mobileMenu .arch-menu-close:focus-visible{outline:3px solid #d2b14c;outline-offset:3px}
+ header#mainHeader #mobileMenu.arch-cinematic-menu a.mobile-nav-link{display:flex!important;align-items:center;gap:12px;padding:clamp(7px,1.3vh,14px) 4px!important;border:0!important;border-bottom:1px solid var(--arch-overlay-line)!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;color:var(--arch-overlay-text)!important;font-family:inherit;font-size:clamp(21px,5.4vw,38px)!important;font-weight:850!important;line-height:1.18!important;letter-spacing:-.025em;transform:none!important;transition:color .2s,padding-left .2s!important}
+ #mobileMenu .arch-menu-number{color:var(--arch-overlay-muted);font-size:11px;font-weight:800;letter-spacing:.08em;min-width:25px;align-self:center}
+ header#mainHeader #mobileMenu.arch-cinematic-menu a.mobile-nav-link:hover,header#mainHeader #mobileMenu.arch-cinematic-menu a.mobile-nav-link.premium-mobile-active{color:#b89228!important;padding-left:12px!important}
+ body.dark-mode header#mainHeader #mobileMenu.arch-cinematic-menu a.mobile-nav-link:hover,body.dark-mode header#mainHeader #mobileMenu.arch-cinematic-menu a.mobile-nav-link.premium-mobile-active{color:#f6ee42!important}
+ #mobileMenu #mobileControlsBar{order:20!important;margin:clamp(6px,2vh,20px) 0 0!important;background:transparent!important;border:1px solid var(--arch-overlay-line)!important;border-radius:16px!important;padding:10px!important;flex-shrink:0}
+ #mobileMenu .arch-menu-footer{order:21;color:var(--arch-overlay-muted);text-align:center;font-size:11px;font-weight:800;letter-spacing:.13em;margin-top:4px}
+ #mobileMenu .arch-mobile-cta{order:19;margin-top:clamp(6px,1vh,12px);border:1px solid rgba(8,76,36,.15)}
+ body.dark-mode #mobileMenu .arch-mobile-cta{background:#f6ee42!important;color:#084c24!important}
+ body.dark-mode #mobileMenu #mobileControlsBar #mobileThemeToggleBtn,body.dark-mode #mobileMenu #mobileControlsBar #mobileLangToggleWrapper{background:#fff!important;color:#084c24!important}
+}
+@media(prefers-reduced-motion:reduce){header#mainHeader nav.arch-floating-nav,header#mainHeader nav.arch-floating-nav a,header#mainHeader #mobileMenu.arch-cinematic-menu,header#mainHeader #mobileMenu.arch-cinematic-menu a.mobile-nav-link{transition:none!important;animation:none!important}}
+
+/* Explicit dark-theme specificity beats the legacy navigation color rules. */
+html body.dark-mode header#mainHeader nav.arch-floating-nav a:not(.premium-nav-active):not([aria-current="location"]){color:var(--arch-menu-text)!important;background:transparent!important}
+html body.dark-mode header#mainHeader nav.arch-floating-nav a:not(.premium-nav-active):not([aria-current="location"]):hover,html body.dark-mode header#mainHeader nav.arch-floating-nav a:not(.premium-nav-active):not([aria-current="location"]):focus-visible{color:var(--arch-menu-text)!important;background:var(--arch-menu-hover)!important}
+html body.dark-mode header#mainHeader nav.arch-floating-nav a.premium-nav-active,html body.dark-mode header#mainHeader nav.arch-floating-nav a[aria-current="location"]{color:var(--arch-menu-active-text)!important;background:var(--arch-menu-active)!important}
+</style>
+<style>@media(max-width:1023px){body.arch-menu-open{overflow:hidden!important}}</style></head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow">
 
 <div id="archWelcome" role="dialog" aria-modal="true" aria-label="Καλώς ήρθατε στον Αρχέλαο" aria-hidden="true">
@@ -1537,7 +1575,7 @@ html.arch-welcome-pending #archWelcome{display:flex}
 </div>
 </a>
 <!-- Desktop Navigation (Compact spacing for laptops) -->
-<nav class="hidden lg:flex items-center space-x-0.5 xl:space-x-1 bg-white/85 px-1.5 xl:px-2.5 py-1.5 rounded-2xl border border-white/90 shadow-sm shrink-0">
+<nav aria-label="Κύρια πλοήγηση" class="arch-floating-nav hidden lg:flex items-center space-x-0.5 xl:space-x-1 bg-white/85 px-1.5 xl:px-2.5 py-1.5 rounded-2xl border border-white/90 shadow-sm shrink-0">
 <a class="px-2 xl:px-2.5 py-1.5 rounded-xl text-[11px] xl:text-xs 2xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap" data-i18n="nav_home" href="#home">Αρχική</a>
 <a class="px-2 xl:px-2.5 py-1.5 rounded-xl text-[11px] xl:text-xs 2xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap" data-i18n="nav_history" href="history.html#chapters">Ιστορία</a>
 <a class="px-2 xl:px-2.5 py-1.5 rounded-xl text-[11px] xl:text-xs 2xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap" data-i18n="nav_about" href="#about">Ο Σύλλογος</a>
@@ -1566,7 +1604,8 @@ html.arch-welcome-pending #archWelcome{display:flex}
 </div>
 </div>
 <!-- Mobile Dropdown Menu -->
-<div class="lg:hidden px-5 space-y-2.5" id="mobileMenu">
+<div class="arch-cinematic-menu lg:hidden px-5 space-y-2.5" id="mobileMenu" role="navigation" aria-label="Μενού κινητού" aria-hidden="true">
+<div class="arch-menu-heading"><div><span class="arch-menu-brand">Γ.Α.Σ. «Ο ΑΡΧΕΛΑΟΣ»</span><span class="arch-menu-est">KATERINI · EST. 1956</span></div><button class="arch-menu-close" id="archMenuClose" type="button" aria-label="Κλείσιμο μενού"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button></div>
 <div class="flex items-center justify-between gap-2 p-2 bg-white/80 rounded-2xl border border-archelaos-deepgreen/15 mb-3 transition-colors duration-200" id="mobileControlsBar">
 <div class="flex items-center bg-white rounded-xl p-0.5 border border-slate-200 shadow-sm text-xs font-black transition-colors duration-200" id="mobileLangToggleWrapper">
 <button class="lang-btn active px-3 py-1.5 rounded-lg uppercase" id="mobileLangBtnEL" onclick="setLanguage('el')">GR</button>
@@ -1576,15 +1615,16 @@ html.arch-welcome-pending #archWelcome{display:flex}
 <span id="mobileThemeIcon">🌙</span> <span id="mobileThemeLabel">Σκούρο Θέμα</span>
 </button>
 </div>
-<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" data-i18n="nav_home" href="#home">Αρχική</a>
-<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" data-i18n="nav_history" href="history.html#chapters">Ιστορία</a>
-<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" data-i18n="nav_about" href="#about">Ο Σύλλογος</a>
-<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" data-i18n="nav_dept" href="#departments">Αθλητικά Τμήματα</a>
-<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" data-i18n="nav_board" href="#board">Διοίκηση (Δ.Σ.)</a>
-<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" data-i18n="nav_contact" href="#contact">Επικοινωνία</a>
-<button class="mobile-menu-item w-full text-center px-4 py-3.5 bg-archelaos-deepgreen text-archelaos-yellow font-extrabold rounded-xl shadow-lg" onclick="openRegistrationModal('Γενική Εγγραφή'); closeMobileMenu();">
+<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="#home"><span class="arch-menu-number" aria-hidden="true">01</span><span data-i18n="nav_home">Αρχική</span></a>
+<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="history.html#chapters"><span class="arch-menu-number" aria-hidden="true">02</span><span data-i18n="nav_history">Ιστορία</span></a>
+<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="#about"><span class="arch-menu-number" aria-hidden="true">03</span><span data-i18n="nav_about">Ο Σύλλογος</span></a>
+<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="#departments"><span class="arch-menu-number" aria-hidden="true">04</span><span data-i18n="nav_dept">Αθλητικά Τμήματα</span></a>
+<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="#board"><span class="arch-menu-number" aria-hidden="true">05</span><span data-i18n="nav_board">Διοίκηση (Δ.Σ.)</span></a>
+<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="#contact"><span class="arch-menu-number" aria-hidden="true">06</span><span data-i18n="nav_contact">Επικοινωνία</span></a>
+<button class="arch-mobile-cta mobile-menu-item w-full text-center px-4 py-3.5 bg-archelaos-deepgreen text-archelaos-yellow font-extrabold rounded-xl shadow-lg" onclick="openRegistrationModal('Γενική Εγγραφή'); closeMobileMenu();">
 <i class="fa-solid fa-user-plus mr-2"></i> <span data-i18n="btn_register_interest">Εκδήλωση Ενδιαφέροντος</span>
 </button>
+<div class="arch-menu-footer">70 ΧΡΟΝΙΑ · 1956—2026</div>
 </div>
 </header>
 <!-- HERO SECTION -->
@@ -3470,5 +3510,13 @@ function openJoinContact(kind) {
  btn.focus({preventScroll:true});
 })();
 </script>
-</body>
+<script id="arch-premium-menu-behavior">(function(){
+ const menu=document.getElementById('mobileMenu'),button=document.getElementById('mobileMenuBtn'),close=document.getElementById('archMenuClose');
+ if(!menu||!button||!close)return;
+ let lastFocus=null;
+ const observer=new MutationObserver(()=>{const open=menu.classList.contains('menu-open');menu.setAttribute('aria-hidden',String(!open));document.body.classList.toggle('arch-menu-open',open);if(open){if(!lastFocus)lastFocus=document.activeElement;close.focus({preventScroll:true})}else if(lastFocus){if(lastFocus.isConnected)lastFocus.focus({preventScroll:true});lastFocus=null}});
+ observer.observe(menu,{attributes:true,attributeFilter:['class']});
+ close.addEventListener('click',()=>{if(typeof closeMobileMenu==='function')closeMobileMenu();else button.click()});
+ document.addEventListener('keydown',e=>{if(!menu.classList.contains('menu-open'))return;if(e.key==='Escape'){e.preventDefault();close.click()}if(e.key==='Tab'){const nodes=[...menu.querySelectorAll('button:not([disabled]),a[href]')].filter(n=>n.getClientRects().length);if(!nodes.length)return;const first=nodes[0],last=nodes[nodes.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});
+})();</script></body>
 </html>
