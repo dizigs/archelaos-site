@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="el" class="scroll-smooth">
 <head>
@@ -2705,9 +2706,184 @@
       const clearSearchBtn = document.getElementById('clearSearchBtn');
       const searchResultCount = document.getElementById('searchResultCount');
       const articleContainer = document.getElementById('wikiArticleContainer');
+      const presidentModal = document.getElementById('presidentModal');
+      const presidentModalCard = document.getElementById('presidentModalCard');
+      const presidentModalTerm = document.getElementById('presidentModalTerm');
+      const presidentModalName = document.getElementById('presidentModalName');
+      const presidentModalSub = document.getElementById('presidentModalSub');
+      const presidentModalDetails = document.getElementById('presidentModalDetails');
+      const closePresidentModalBtn = document.getElementById('closePresidentModalBtn');
+      const closePresidentModalFooterBtn = document.getElementById('closePresidentModalFooterBtn');
+      const prevPresidentBtn = document.getElementById('prevPresidentBtn');
+      const nextPresidentBtn = document.getElementById('nextPresidentBtn');
       const body = document.body;
 
       let currentLang = localStorage.getItem('archelaos_lang') || 'el';
+      let currentPresidentIndex = 0;
+
+      // Presidents Pop-up Modal Data
+      const presidentsData = [
+        {
+          termEl: '1956–1957',
+          termEn: '1956–1957',
+          nameEl: 'Γεώργιος Ευθυμίου',
+          nameEn: 'Georgios Efthymiou',
+          subEl: '1ος Πρόεδρος & Ιδρυτής (1908–2006)',
+          subEn: '1st President & Founder (1908–2006)',
+          detailsEl: 'Πρωτεργάτης της ίδρυσης του συλλόγου και του τμήματος κλασικού αθλητισμού στην Κατερίνη, Επιθεωρητής Σωματικής Αγωγής Πιερίας (1954–1969).',
+          detailsEn: 'Pioneer of the club\'s foundation and the track & field department in Katerini; Inspector of Physical Education of Pieria (1954–1969).'
+        },
+        {
+          termEl: '1957–1958',
+          termEn: '1957–1958',
+          nameEl: 'Αθανάσιος Τσακνάκης',
+          nameEn: 'Athanasios Tsaknakis',
+          subEl: 'Πρόεδρος Ιδρυτικού Δ.Σ.',
+          subEn: 'Founding Board President',
+          detailsEl: 'Ίδρυση, ψήφιση πρώτου καταστατικού και νομική συγκρότηση του συλλόγου στο Πρωτοδικείο Κατερίνης (Α.Μ. 2/1957).',
+          detailsEn: 'Foundation, ratification of the first club charter, and legal incorporation of the club at the Court of First Instance of Katerini (Reg. No. 2/1957).'
+        },
+        {
+          termEl: '1958–1959',
+          termEn: '1958–1959',
+          nameEl: 'Ιωάννης Μαντζαρόπουλος',
+          nameEn: 'Ioannis Mantzaropoulos',
+          subEl: 'Πρόεδρος Δ.Σ. (Α΄ Θητεία)',
+          subEn: 'Club President (1st Term)',
+          detailsEl: 'Πρώτες αθλητικές διοργανώσεις στίβου στο γήπεδο του Δημοτικού Πάρκου Κατερίνης.',
+          detailsEn: 'First track and field athletic events held at the Municipal Park of Katerini.'
+        },
+        {
+          termEl: '1959–1961',
+          termEn: '1959–1961',
+          nameEl: 'Θεόφιλος Καμπερίδης',
+          nameEn: 'Theofilos Kamperidis',
+          subEl: 'Πρόεδρος Δ.Σ.',
+          subEn: 'Club President',
+          detailsEl: 'Σύνδεση του συλλόγου με τους τοπικούς θεσμούς της Πιερίας (μετέπειτα βουλευτής Πιερίας και Δήμαρχος Κατερίνης).',
+          detailsEn: 'Strengthening ties with local institutions in Pieria (later Member of Parliament and Mayor of Katerini).'
+        },
+        {
+          termEl: '1961',
+          termEn: '1961',
+          nameEl: 'Ιωάννης Παπαδημητρίου',
+          nameEn: 'Ioannis Papadimitriou',
+          subEl: 'Προσωρινή Διοίκηση',
+          subEn: 'Interim Administration',
+          detailsEl: 'Άσκηση προσωρινής διοίκησης του σωματείου κατά το έτος 1961.',
+          detailsEn: 'Interim administration of the club during 1961.'
+        },
+        {
+          termEl: '1964–1972',
+          termEn: '1964–1972',
+          nameEl: 'Ιωάννης Μαντζαρόπουλος',
+          nameEn: 'Ioannis Mantzaropoulos',
+          subEl: 'Πρόεδρος Δ.Σ. (Β΄ Θητεία)',
+          subEn: 'Club President (2nd Term)',
+          detailsEl: 'Εγγραφή του τμήματος στίβου στον ΣΕΓΑΣ (20 Μαΐου 1967, Α.Μ. 238), αναβίωση των αγώνων «Δίια» (1968), επίσημη καθιέρωση των χρωμάτων πράσινο-κίτρινο (27 Ιουνίου 1968) και ομόφωνη απόρριψη της πρότασης συγχώνευσης με τον Σ.Φ.Κ. Πιερικό τον Ιανουάριο του 1970.',
+          detailsEn: 'Official registration with SEGAS (May 20, 1967, Reg. 238), revival of the "Diia" games (1968), official adoption of the green & yellow club colors (June 27, 1968), and unanimous rejection of the merger proposal with S.F.K. Pierikos in January 1970.'
+        },
+        {
+          termEl: '1973–1975',
+          termEn: '1973–1975',
+          nameEl: 'Αθανάσιος Ευθυμίου',
+          nameEn: 'Athanasios Efthymiou',
+          subEl: 'Πρόεδρος Δ.Σ. • Ιστορική Τομή 1973',
+          subEn: 'Club President • 1973 Turning Point',
+          detailsEl: 'Ιστορική τομή της 24ης Ιουνίου 1973. Ανάληψη διοίκησης από πέντε καθηγητές Φυσικής Αγωγής, ίδρυση τμημάτων καλαθοσφαίρισης και πετοσφαίρισης (αναγνώριση από ΕΟΚ και ΕΟΠΕ), διεξαγωγή Ε΄ Δίων (1974) και διαχείριση της περιόδου επιστράτευσης κατά την τουρκική εισβολή στην Κύπρο (1974).',
+          detailsEn: 'Historic turning point of June 24, 1973. Five Physical Education teachers assume administration; founding of Basketball & Volleyball departments (recognized by EOK & EOPE); 5th Diia Games (1974); management during the 1974 Cyprus mobilization.'
+        },
+        {
+          termEl: '1975–1977',
+          termEn: '1975–1977',
+          nameEl: 'Νίκος Τσινόπουλος',
+          nameEn: 'Nikos Tsinopoulos',
+          subEl: 'Πρόεδρος Δ.Σ.',
+          subEn: 'Club President',
+          detailsEl: 'Μεταπολιτευτική ανασυγκρότηση, ίδρυση τμήματος ενόργανης γυμναστικής (3 Απριλίου 1975), εναρμόνιση καταστατικού με τον Ν. 75/1975 (απόφαση 121/1976 Πρωτοδικείου), διοργάνωση Ζ΄ Δίων (1977). Παραιτήθηκε για λόγους υγείας τον Δεκέμβριο του 1977 (απεβίωσε στις 25/09/1978).',
+          detailsEn: 'Post-1974 reorganization, founding of the Artistic Gymnastics department (April 3, 1975), charter alignment with Law 75/1975 (Court Decision 121/1976), 7th Diia Games (1977). Resigned due to health reasons in December 1977 (passed away on 25/09/1978).'
+        },
+        {
+          termEl: '1977–1985',
+          termEn: '1977–1985',
+          nameEl: 'Δημήτριος (Μήτσος) Γιάνναρος',
+          nameEn: 'Dimitrios (Mitsos) Giannaros',
+          subEl: 'Πρόεδρος Δ.Σ.',
+          subEn: 'Club President',
+          detailsEl: 'Εκλογή στις 20 Δεκεμβρίου 1977. Ίδρυση τμημάτων χειροσφαίρισης (1976/1978), πάλης (1978/1980), κολύμβησης (1980/1981), υδατοσφαίρισης (1982), επιτραπέζιας αντισφαίρισης (1978) και άρσης βαρών (1980). Διεύρυνση του Δ.Σ. σε 15μελές (1981), εορτασμός 25ετίας (1981). Απεβίωσε εν ενεργεία στις 31 Ιουλίου 1985, με τον σύλλογο να αφιερώνει στη μνήμη του τα ΙΒ΄ Δίια.',
+          detailsEn: 'Elected Dec 20, 1977. Founding of Handball (1976/1978), Wrestling (1978/1980), Swimming (1980/1981), Water Polo (1982), Table Tennis (1978), and Weightlifting (1980). Expansion of the Board to 15 members (1981), 25th Anniversary (1981). Passed away in office on July 31, 1985; the 12th Diia Games were dedicated to his memory.'
+        },
+        {
+          termEl: '1985–1989',
+          termEn: '1985–1989',
+          nameEl: 'Ευστάθιος Ζάννας',
+          nameEn: 'Efstathios Zannas',
+          subEl: 'Πρόεδρος Δ.Σ.',
+          subEn: 'Club President',
+          detailsEl: 'Εκλογή στις 23 Αυγούστου 1985 μετά την απώλεια Γιάνναρου (με Α΄ αντιπρόεδρο τον Δ. Παπαδημητρίου και Γενικό Γραμματέα τον Χρήστο Ελευθερούδη). Εορτασμός 30ετίας προσφοράς (1956–1986), θέσπιση του αγώνα δρόμου «Δίος Δρόμος» (1987), άνοδος του χάντμπολ στην εθνική ελίτ και θεμελίωση σκοποβολής. Παραιτήθηκε στις 9 Δεκεμβρίου 1989 λόγω ανάληψης καθηκόντων στη Γενική Γραμματεία Αθλητισμού στην Αθήνα.',
+          detailsEn: 'Elected Aug 23, 1985 following the passing of D. Giannaros (with 1st VP Dimitrios Papadimitriou and Gen. Secretary Christos Eleftheroudis). 30th Anniversary celebration (1956–1986), establishment of the "Dios Dromos" road race (1987), rise of Handball to the national elite, and consolidation of Shooting. Resigned Dec 9, 1989 upon assuming duties at the General Secretariat of Sports in Athens.'
+        },
+        {
+          termEl: '1989–1993',
+          termEn: '1989–1993',
+          nameEl: 'Δημήτριος Παπαδημητρίου',
+          nameEn: 'Dimitrios Papadimitriou',
+          subEl: 'Πρόεδρος Δ.Σ.',
+          subEn: 'Club President',
+          detailsEl: 'Ανάληψη προεδρίας στις 9 Δεκεμβρίου 1989 έπειτα από την παραίτηση του Ε. Ζάννα (επανεκλογή στις 13 Μαρτίου 1991). Κατάκτηση του 1ου Κυπέλλου Ελλάδας χειροσφαίρισης (2 Ιουνίου 1990) στο κλειστό του Μετς και πρώτη έξοδος στην Ευρώπη, βράβευση του συλλόγου από το Υπουργείο Πολιτισμού/ΓΓΑ (1990), διοργάνωση των 13ων Βαλκανικών Αγώνων Νέων Χειροσφαίρισης στην Κατερίνη (1991), πρώτη απόφαση για τμήμα τοξοβολίας (17 Δεκεμβρίου 1991) και επαναδραστηριοποίηση άρσης βαρών (1991).',
+          detailsEn: 'Assumed presidency Dec 9, 1989 (re-elected March 13, 1991). Won the 1st Greek Men\'s Handball Cup (June 2, 1990) at Mets Indoor Hall and first European campaign; club awarded by the Ministry of Culture/GGA (1990); hosted the 13th Balkan Youth Handball Championship in Katerini (1991); initial decision to form the Archery department (Dec 17, 1991) and reactivation of Weightlifting (1991).'
+        },
+        {
+          termEl: '1993–2011',
+          termEn: '1993–2011',
+          nameEl: 'Χρήστος Ελευθερούδης',
+          nameEn: 'Christos Eleftheroudis',
+          subEl: 'Μακροβιότερος Πρόεδρος Δ.Σ. (18 έτη)',
+          subEn: 'Longest-Serving Club President (18 years)',
+          detailsEl: 'Η μακροβιότερη προεδρική θητεία στην ιστορία του συλλόγου (εκλογή 27 Φεβρουαρίου 1993, επανεκλογές 1995, 1997, 1999, 2002, 2005, 2008, 2011). Κατάκτηση του 2ου Κυπέλλου Ελλάδας χειροσφαίρισης (1994), ευρωπαϊκές πορείες απέναντι σε RK Umag (1993), Titov Veles (1994) και Fotex Veszprém (1994–95), δευτεραθλητής Ελλάδας στην Α1 χάντμπολ (1995) και φιναλίστ κυπέλλου (1993, 1996, 2000), επίσημη ίδρυση τοξοβολίας (1993), πρωτοστασία στην ίδρυση της Ελληνικής Ομοσπονδίας Τοξοβολίας (ΕΦΟΤ, 1999), ίδρυση κολυμβητικού συλλόγου «Α.Σ. ΔΙΑΣ» (1999–2000), επετειακοί εορτασμοί 40ετίας (1996) και 50ετίας (2006), συγχώνευση τμήματος μπάσκετ με τον Πιερικό (2008). Παραιτήθηκε στις 31 Αυγούστου 2011.',
+          detailsEn: 'Longest presidential tenure in club history (elected Feb 27, 1993; re-elected 1995, 1997, 1999, 2002, 2005, 2008, 2011). Won the 2nd Greek Handball Cup (1994); European campaigns vs RK Umag (1993), Titov Veles (1994), and Fotex Veszprém (1994–95); Greek A1 Handball Runner-up (1995) and Cup Finalist (1993, 1996, 2000); official founding of Archery (1993); co-founded the Hellenic Archery Federation (EFOT, 1999); co-founded "A.S. DIAS" Swimming Club (1999–2000); 40th (1996) & 50th (2006) anniversaries; Basketball merger with Pierikos (2008). Stepped down Aug 31, 2011.'
+        },
+        {
+          termEl: '2011–2019',
+          termEn: '2011–2019',
+          nameEl: 'Θεόδωρος Διαμαντόπουλος',
+          nameEn: 'Theodoros Diamantopoulos',
+          subEl: 'Πρόεδρος Δ.Σ.',
+          subEn: 'Club President',
+          detailsEl: 'Εκλογή στις 31 Αυγούστου 2011 μετά την παραίτηση Ελευθερούδη και επανεκλογή το 2014. Επιστροφή της ανδρικής ομάδας χειροσφαίρισης στην Α1 Εθνική (2013), συμμετοχή στην Handball Premier (2015–16), επιστροφή του Ολυμπιονίκη Σάββα Καρυπίδη στον σύλλογο, διαχείριση της περιόδου βαθιάς οικονομικής κρίσης και αναδιοργάνωση των αναπτυξιακών υποδομών.',
+          detailsEn: 'Elected Aug 31, 2011 and re-elected in 2014. Return of the Men\'s Handball team to the A1 National Division (2013) and participation in the Handball Premier (2015–16); return of Olympian Savvas Karypidis to the club; stewardship through Greece\'s severe economic crisis and reorganization of youth academies.'
+        },
+        {
+          termEl: '2019–2026',
+          termEn: '2019–2026',
+          nameEl: 'Αλκίνοος (Άλκης) Τασόπουλος',
+          nameEn: 'Alkinoos (Alkis) Tasopoulos',
+          subEl: 'Πρόεδρος Δ.Σ.',
+          subEn: 'Club President',
+          detailsEl: 'Μεταφορά της επίσημης έδρας και των γραφείων του συλλόγου στο Α΄ ΔΑΚ Κατερίνης (2021), ανασυγκρότηση όλων των αθλητικών τμημάτων (επανεκλογές 2022, 2025). Λόγω σοβαρής ασθένειάς του από τον Μάρτιο του 2026, τα διοικητικά καθήκοντα ασκούσε μεταβατικά ο αντιπρόεδρος Παναγιώτης Διαμαντόπουλος, με το Δ.Σ. να διατηρεί τη θέση του προέδρου κενή ως ένδειξη σεβασμού. Απεβίωσε εν ενεργεία στις 30 Ιουλίου 2026.',
+          detailsEn: 'Relocation of official headquarters and offices to the 1st DAK of Katerini (2021), revitalization of all sports departments (re-elected 2022, 2025). Due to serious illness from March 2026, Vice President Panagiotis Diamantopoulos served as acting president while the Board kept the presidency unfilled out of respect. Passed away in office on July 30, 2026.'
+        },
+        {
+          termEl: '2026–σήμερα',
+          termEn: '2026–present',
+          nameEl: 'Παναγιώτης Διαμαντόπουλος',
+          nameEn: 'Panagiotis Diamantopoulos',
+          subEl: 'Σημερινός Πρόεδρος Δ.Σ.',
+          subEn: 'Current Club President',
+          detailsEl: 'Ομόφωνη ανασυγκρότηση Δ.Σ. στις 8 Σεπτεμβρίου 2026, εκσυγχρονισμός εγκαταστάσεων και επίσημοι εορτασμοί για τη συμπλήρωση 70 ετών από την ίδρυση του συλλόγου (αφιέρωση μεταλλίου διοργάνωσης «Τρέχω για την Κατερίνη 2026» από τον Δήμο Κατερίνης).',
+          detailsEn: 'Unanimous Board reconstitution on September 8, 2026; modernization of club facilities and official celebrations for the club\'s 70th Anniversary (dedication of the "Run for Katerini 2026" commemorative medal by the Municipality of Katerini).'
+        }
+      ];
+
+      function renderPresidentModalContent(index) {
+        const item = presidentsData[index];
+        if (!item) return;
+        const isEn = currentLang === 'en';
+        presidentModalTerm.textContent = isEn ? item.termEn : item.termEl;
+        presidentModalName.textContent = isEn ? item.nameEn : item.nameEl;
+        presidentModalSub.textContent = isEn ? item.subEn : item.subEl;
+        presidentModalDetails.textContent = isEn ? item.detailsEn : item.detailsEl;
+      }
 
       // 1. Language Switching (Greek / English)
       function applyLanguage(lang) {
@@ -2878,182 +3054,7 @@
         });
       });
 
-      // 5. Presidents Pop-up Modal Data & Logic
-      const presidentsData = [
-        {
-          termEl: '1956–1957',
-          termEn: '1956–1957',
-          nameEl: 'Γεώργιος Ευθυμίου',
-          nameEn: 'Georgios Efthymiou',
-          subEl: '1ος Πρόεδρος & Ιδρυτής (1908–2006)',
-          subEn: '1st President & Founder (1908–2006)',
-          detailsEl: 'Πρωτεργάτης της ίδρυσης του συλλόγου και του τμήματος κλασικού αθλητισμού στην Κατερίνη, Επιθεωρητής Σωματικής Αγωγής Πιερίας (1954–1969).',
-          detailsEn: 'Pioneer of the club\'s foundation and the track & field department in Katerini; Inspector of Physical Education of Pieria (1954–1969).'
-        },
-        {
-          termEl: '1957–1958',
-          termEn: '1957–1958',
-          nameEl: 'Αθανάσιος Τσακνάκης',
-          nameEn: 'Athanasios Tsaknakis',
-          subEl: 'Πρόεδρος Ιδρυτικού Δ.Σ.',
-          subEn: 'Founding Board President',
-          detailsEl: 'Ίδρυση, ψήφιση πρώτου καταστατικού και νομική συγκρότηση του συλλόγου στο Πρωτοδικείο Κατερίνης (Α.Μ. 2/1957).',
-          detailsEn: 'Foundation, ratification of the first club charter, and legal incorporation of the club at the Court of First Instance of Katerini (Reg. No. 2/1957).'
-        },
-        {
-          termEl: '1958–1959',
-          termEn: '1958–1959',
-          nameEl: 'Ιωάννης Μαντζαρόπουλος',
-          nameEn: 'Ioannis Mantzaropoulos',
-          subEl: 'Πρόεδρος Δ.Σ. (Α΄ Θητεία)',
-          subEn: 'Club President (1st Term)',
-          detailsEl: 'Πρώτες αθλητικές διοργανώσεις στίβου στο γήπεδο του Δημοτικού Πάρκου Κατερίνης.',
-          detailsEn: 'First track and field athletic events held at the Municipal Park of Katerini.'
-        },
-        {
-          termEl: '1959–1961',
-          termEn: '1959–1961',
-          nameEl: 'Θεόφιλος Καμπερίδης',
-          nameEn: 'Theofilos Kamperidis',
-          subEl: 'Πρόεδρος Δ.Σ.',
-          subEn: 'Club President',
-          detailsEl: 'Σύνδεση του συλλόγου με τους τοπικούς θεσμούς της Πιερίας (μετέπειτα βουλευτής Πιερίας και Δήμαρχος Κατερίνης).',
-          detailsEn: 'Strengthening ties with local institutions in Pieria (later Member of Parliament and Mayor of Katerini).'
-        },
-        {
-          termEl: '1961',
-          termEn: '1961',
-          nameEl: 'Ιωάννης Παπαδημητρίου',
-          nameEn: 'Ioannis Papadimitriou',
-          subEl: 'Προσωρινή Διοίκηση',
-          subEn: 'Interim Administration',
-          detailsEl: 'Άσκηση προσωρινής διοίκησης του σωματείου κατά το έτος 1961.',
-          detailsEn: 'Interim administration of the club during 1961.'
-        },
-        {
-          termEl: '1964–1972',
-          termEn: '1964–1972',
-          nameEl: 'Ιωάννης Μαντζαρόπουλος',
-          nameEn: 'Ioannis Mantzaropoulos',
-          subEl: 'Πρόεδρος Δ.Σ. (Β΄ Θητεία)',
-          subEn: 'Club President (2nd Term)',
-          detailsEl: 'Εγγραφή του τμήματος στίβου στον ΣΕΓΑΣ (20 Μαΐου 1967, Α.Μ. 238), αναβίωση των αγώνων «Δίια» (1968), επίσημη καθιέρωση των χρωμάτων πράσινο-κίτρινο (27 Ιουνίου 1968) και ομόφωνη απόρριψη της πρότασης συγχώνευσης με τον Σ.Φ.Κ. Πιερικό τον Ιανουάριο του 1970.',
-          detailsEn: 'Official registration with SEGAS (May 20, 1967, Reg. 238), revival of the "Diia" games (1968), official adoption of the green & yellow club colors (June 27, 1968), and unanimous rejection of the merger proposal with S.F.K. Pierikos in January 1970.'
-        },
-        {
-          termEl: '1973–1975',
-          termEn: '1973–1975',
-          nameEl: 'Αθανάσιος Ευθυμίου',
-          nameEn: 'Athanasios Efthymiou',
-          subEl: 'Πρόεδρος Δ.Σ. • Ιστορική Τομή 1973',
-          subEn: 'Club President • 1973 Turning Point',
-          detailsEl: 'Ιστορική τομή της 24ης Ιουνίου 1973. Ανάληψη διοίκησης από πέντε καθηγητές Φυσικής Αγωγής, ίδρυση τμημάτων καλαθοσφαίρισης και πετοσφαίρισης (αναγνώριση από ΕΟΚ και ΕΟΠΕ), διεξαγωγή Ε΄ Δίων (1974) και διαχείριση της περιόδου επιστράτευσης κατά την τουρκική εισβολή στην Κύπρο (1974).',
-          detailsEn: 'Historic turning point of June 24, 1973. Five Physical Education teachers assume administration; founding of Basketball & Volleyball departments (recognized by EOK & EOPE); 5th Diia Games (1974); management during the 1974 Cyprus mobilization.'
-        },
-        {
-          termEl: '1975–1977',
-          termEn: '1975–1977',
-          nameEl: 'Νίκος Τσινόπουλος',
-          nameEn: 'Nikos Tsinopoulos',
-          subEl: 'Πρόεδρος Δ.Σ.',
-          subEn: 'Club President',
-          detailsEl: 'Μεταπολιτευτική ανασυγκρότηση, ίδρυση τμήματος ενόργανης γυμναστικής (3 Απριλίου 1975), εναρμόνιση καταστατικού με τον Ν. 75/1975 (απόφαση 121/1976 Πρωτοδικείου), διοργάνωση Ζ΄ Δίων (1977). Παραιτήθηκε για λόγους υγείας τον Δεκέμβριο του 1977 (απεβίωσε στις 25/09/1978).',
-          detailsEn: 'Post-1974 reorganization, founding of the Artistic Gymnastics department (April 3, 1975), charter alignment with Law 75/1975 (Court Decision 121/1976), 7th Diia Games (1977). Resigned due to health reasons in December 1977 (passed away on 25/09/1978).'
-        },
-        {
-          termEl: '1977–1985',
-          termEn: '1977–1985',
-          nameEl: 'Δημήτριος (Μήτσος) Γιάνναρος',
-          nameEn: 'Dimitrios (Mitsos) Giannaros',
-          subEl: 'Πρόεδρος Δ.Σ.',
-          subEn: 'Club President',
-          detailsEl: 'Εκλογή στις 20 Δεκεμβρίου 1977. Ίδρυση τμημάτων χειροσφαίρισης (1976/1978), πάλης (1978/1980), κολύμβησης (1980/1981), υδατοσφαίρισης (1982), επιτραπέζιας αντισφαίρισης (1978) και άρσης βαρών (1980). Διεύρυνση του Δ.Σ. σε 15μελές (1981), εορτασμός 25ετίας (1981). Απεβίωσε εν ενεργεία στις 31 Ιουλίου 1985, με τον σύλλογο να αφιερώνει στη μνήμη του τα ΙΒ΄ Δίια.',
-          detailsEn: 'Elected Dec 20, 1977. Founding of Handball (1976/1978), Wrestling (1978/1980), Swimming (1980/1981), Water Polo (1982), Table Tennis (1978), and Weightlifting (1980). Expansion of the Board to 15 members (1981), 25th Anniversary (1981). Passed away in office on July 31, 1985; the 12th Diia Games were dedicated to his memory.'
-        },
-        {
-          termEl: '1985–1989',
-          termEn: '1985–1989',
-          nameEl: 'Ευστάθιος Ζάννας',
-          nameEn: 'Efstathios Zannas',
-          subEl: 'Πρόεδρος Δ.Σ.',
-          subEn: 'Club President',
-          detailsEl: 'Εκλογή στις 23 Αυγούστου 1985 μετά την απώλεια Γιάνναρου (με Α΄ αντιπρόεδρο τον Δ. Παπαδημητρίου και Γενικό Γραμματέα τον Χρήστο Ελευθερούδη). Εορτασμός 30ετίας προσφοράς (1956–1986), θέσπιση του αγώνα δρόμου «Δίος Δρόμος» (1987), άνοδος του χάντμπολ στην εθνική ελίτ και θεμελίωση σκοποβολής. Παραιτήθηκε στις 9 Δεκεμβρίου 1989 λόγω ανάληψης καθηκόντων στη Γενική Γραμματεία Αθλητισμού στην Αθήνα.',
-          detailsEn: 'Elected Aug 23, 1985 following the passing of D. Giannaros (with 1st VP Dimitrios Papadimitriou and Gen. Secretary Christos Eleftheroudis). 30th Anniversary celebration (1956–1986), establishment of the "Dios Dromos" road race (1987), rise of Handball to the national elite, and consolidation of Shooting. Resigned Dec 9, 1989 upon assuming duties at the General Secretariat of Sports in Athens.'
-        },
-        {
-          termEl: '1989–1993',
-          termEn: '1989–1993',
-          nameEl: 'Δημήτριος Παπαδημητρίου',
-          nameEn: 'Dimitrios Papadimitriou',
-          subEl: 'Πρόεδρος Δ.Σ.',
-          subEn: 'Club President',
-          detailsEl: 'Ανάληψη προεδρίας στις 9 Δεκεμβρίου 1989 έπειτα από την παραίτηση του Ε. Ζάννα (επανεκλογή στις 13 Μαρτίου 1991). Κατάκτηση του 1ου Κυπέλλου Ελλάδας χειροσφαίρισης (2 Ιουνίου 1990) στο κλειστό του Μετς και πρώτη έξοδος στην Ευρώπη, βράβευση του συλλόγου από το Υπουργείο Πολιτισμού/ΓΓΑ (1990), διοργάνωση των 13ων Βαλκανικών Αγώνων Νέων Χειροσφαίρισης στην Κατερίνη (1991), πρώτη απόφαση για τμήμα τοξοβολίας (17 Δεκεμβρίου 1991) και επαναδραστηριοποίηση άρσης βαρών (1991).',
-          detailsEn: 'Assumed presidency Dec 9, 1989 (re-elected March 13, 1991). Won the 1st Greek Men\'s Handball Cup (June 2, 1990) at Mets Indoor Hall and first European campaign; club awarded by the Ministry of Culture/GGA (1990); hosted the 13th Balkan Youth Handball Championship in Katerini (1991); initial decision to form the Archery department (Dec 17, 1991) and reactivation of Weightlifting (1991).'
-        },
-        {
-          termEl: '1993–2011',
-          termEn: '1993–2011',
-          nameEl: 'Χρήστος Ελευθερούδης',
-          nameEn: 'Christos Eleftheroudis',
-          subEl: 'Μακροβιότερος Πρόεδρος Δ.Σ. (18 έτη)',
-          subEn: 'Longest-Serving Club President (18 years)',
-          detailsEl: 'Η μακροβιότερη προεδρική θητεία στην ιστορία του συλλόγου (εκλογή 27 Φεβρουαρίου 1993, επανεκλογές 1995, 1997, 1999, 2002, 2005, 2008, 2011). Κατάκτηση του 2ου Κυπέλλου Ελλάδας χειροσφαίρισης (1994), ευρωπαϊκές πορείες απέναντι σε RK Umag (1993), Titov Veles (1994) και Fotex Veszprém (1994–95), δευτεραθλητής Ελλάδας στην Α1 χάντμπολ (1995) και φιναλίστ κυπέλλου (1993, 1996, 2000), επίσημη ίδρυση τοξοβολίας (1993), πρωτοστασία στην ίδρυση της Ελληνικής Ομοσπονδίας Τοξοβολίας (ΕΦΟΤ, 1999), ίδρυση κολυμβητικού συλλόγου «Α.Σ. ΔΙΑΣ» (1999–2000), επετειακοί εορτασμοί 40ετίας (1996) και 50ετίας (2006), συγχώνευση τμήματος μπάσκετ με τον Πιερικό (2008). Παραιτήθηκε στις 31 Αυγούστου 2011.',
-          detailsEn: 'Longest presidential tenure in club history (elected Feb 27, 1993; re-elected 1995, 1997, 1999, 2002, 2005, 2008, 2011). Won the 2nd Greek Handball Cup (1994); European campaigns vs RK Umag (1993), Titov Veles (1994), and Fotex Veszprém (1994–95); Greek A1 Handball Runner-up (1995) and Cup Finalist (1993, 1996, 2000); official founding of Archery (1993); co-founded the Hellenic Archery Federation (EFOT, 1999); co-founded "A.S. DIAS" Swimming Club (1999–2000); 40th (1996) & 50th (2006) anniversaries; Basketball merger with Pierikos (2008). Stepped down Aug 31, 2011.'
-        },
-        {
-          termEl: '2011–2019',
-          termEn: '2011–2019',
-          nameEl: 'Θεόδωρος Διαμαντόπουλος',
-          nameEn: 'Theodoros Diamantopoulos',
-          subEl: 'Πρόεδρος Δ.Σ.',
-          subEn: 'Club President',
-          detailsEl: 'Εκλογή στις 31 Αυγούστου 2011 μετά την παραίτηση Ελευθερούδη και επανεκλογή το 2014. Επιστροφή της ανδρικής ομάδας χειροσφαίρισης στην Α1 Εθνική (2013), συμμετοχή στην Handball Premier (2015–16), επιστροφή του Ολυμπιονίκη Σάββα Καρυπίδη στον σύλλογο, διαχείριση της περιόδου βαθιάς οικονομικής κρίσης και αναδιοργάνωση των αναπτυξιακών υποδομών.',
-          detailsEn: 'Elected Aug 31, 2011 and re-elected in 2014. Return of the Men\'s Handball team to the A1 National Division (2013) and participation in the Handball Premier (2015–16); return of Olympian Savvas Karypidis to the club; stewardship through Greece\'s severe economic crisis and reorganization of youth academies.'
-        },
-        {
-          termEl: '2019–2026',
-          termEn: '2019–2026',
-          nameEl: 'Αλκίνοος (Άλκης) Τασόπουλος',
-          nameEn: 'Alkinoos (Alkis) Tasopoulos',
-          subEl: 'Πρόεδρος Δ.Σ.',
-          subEn: 'Club President',
-          detailsEl: 'Μεταφορά της επίσημης έδρας και των γραφείων του συλλόγου στο Α΄ ΔΑΚ Κατερίνης (2021), ανασυγκρότηση όλων των αθλητικών τμημάτων (επανεκλογές 2022, 2025). Λόγω σοβαρής ασθένειάς του από τον Μάρτιο του 2026, τα διοικητικά καθήκοντα ασκούσε μεταβατικά ο αντιπρόεδρος Παναγιώτης Διαμαντόπουλος, με το Δ.Σ. να διατηρεί τη θέση του προέδρου κενή ως ένδειξη σεβασμού. Απεβίωσε εν ενεργεία στις 30 Ιουλίου 2026.',
-          detailsEn: 'Relocation of official headquarters and offices to the 1st DAK of Katerini (2021), revitalization of all sports departments (re-elected 2022, 2025). Due to serious illness from March 2026, Vice President Panagiotis Diamantopoulos served as acting president while the Board kept the presidency unfilled out of respect. Passed away in office on July 30, 2026.'
-        },
-        {
-          termEl: '2026–σήμερα',
-          termEn: '2026–present',
-          nameEl: 'Παναγιώτης Διαμαντόπουλος',
-          nameEn: 'Panagiotis Diamantopoulos',
-          subEl: 'Σημερινός Πρόεδρος Δ.Σ.',
-          subEn: 'Current Club President',
-          detailsEl: 'Ομόφωνη ανασυγκρότηση Δ.Σ. στις 8 Σεπτεμβρίου 2026, εκσυγχρονισμός εγκαταστάσεων και επίσημοι εορτασμοί για τη συμπλήρωση 70 ετών από την ίδρυση του συλλόγου (αφιέρωση μεταλλίου διοργάνωσης «Τρέχω για την Κατερίνη 2026» από τον Δήμο Κατερίνης).',
-          detailsEn: 'Unanimous Board reconstitution on September 8, 2026; modernization of club facilities and official celebrations for the club\'s 70th Anniversary (dedication of the "Run for Katerini 2026" commemorative medal by the Municipality of Katerini).'
-        }
-      ];
-
-      const presidentModal = document.getElementById('presidentModal');
-      const presidentModalCard = document.getElementById('presidentModalCard');
-      const presidentModalTerm = document.getElementById('presidentModalTerm');
-      const presidentModalName = document.getElementById('presidentModalName');
-      const presidentModalSub = document.getElementById('presidentModalSub');
-      const presidentModalDetails = document.getElementById('presidentModalDetails');
-      const closePresidentModalBtn = document.getElementById('closePresidentModalBtn');
-      const closePresidentModalFooterBtn = document.getElementById('closePresidentModalFooterBtn');
-      const prevPresidentBtn = document.getElementById('prevPresidentBtn');
-      const nextPresidentBtn = document.getElementById('nextPresidentBtn');
-      let currentPresidentIndex = 0;
-
-      function renderPresidentModalContent(index) {
-        const item = presidentsData[index];
-        if (!item) return;
-        const isEn = currentLang === 'en';
-        presidentModalTerm.textContent = isEn ? item.termEn : item.termEl;
-        presidentModalName.textContent = isEn ? item.nameEn : item.nameEl;
-        presidentModalSub.textContent = isEn ? item.subEn : item.subEl;
-        presidentModalDetails.textContent = isEn ? item.detailsEn : item.detailsEl;
-      }
-
+      // 5. Presidents Pop-up Modal Actions
       window.openPresidentModal = function(index) {
         currentPresidentIndex = index;
         renderPresidentModalContent(index);
@@ -3244,3 +3245,4 @@
     </script>
 </body>
 </html>
+```
