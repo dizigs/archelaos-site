@@ -72,10 +72,6 @@
         letter-spacing: -0.03em;
       }
 
-      /* Bilingual Utility Classes */
-      body.lang-el [data-lang="en"] { display: none !important; }
-      body.lang-en [data-lang="el"] { display: none !important; }
-
       /* Animated Contour Waves */
       @keyframes waveDrift {
         0%, 100% { transform: translate3d(0, 0, 0); }
@@ -133,7 +129,7 @@
         box-shadow: 0 4px 16px -2px rgba(8, 76, 36, 0.08);
         transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
                     box-shadow 0.25s ease,
-                    border-color 0.25s ease,
+                    border-color 0.25s ease;
                     opacity 0.3s ease;
         position: relative;
         overflow: hidden;
@@ -184,7 +180,7 @@
         }
       }
 
-      /* Interactive Category Pills */
+        /* Interactive Category Pills */
       .dept-filter-pill {
         transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         cursor: pointer;
@@ -199,39 +195,7 @@
         background-color: #f6ee42 !important;
         color: #084c24 !important;
       }
-
-      /* History Modal Tab Buttons */
-      .hist-tab-btn {
-        transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
-      }
-      .hist-tab-btn.active {
-        background-color: #084c24 !important;
-        color: #f6ee42 !important;
-        border-color: #084c24 !important;
-        box-shadow: 0 4px 12px -2px rgba(8, 76, 36, 0.3);
-      }
-      body.dark-mode .hist-tab-btn {
-        background-color: #113820;
-        color: #e2e8f0;
-        border-color: rgba(246, 238, 66, 0.25);
-      }
-      body.dark-mode .hist-tab-btn.active {
-        background-color: #f6ee42 !important;
-        color: #084c24 !important;
-        border-color: #f6ee42 !important;
-      }
-      .hist-tab-panel {
-        display: none;
-        animation: fadeInTab 0.25s ease-out;
-      }
-      .hist-tab-panel.active {
-        display: block;
-      }
-      @keyframes fadeInTab {
-        from { opacity: 0; transform: translateY(6px); }
-        to { opacity: 1; transform: translateY(0); }
-      }
-
+        
       /* Department Icon Box */
       .icon-box {
         transition: transform 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
@@ -369,7 +333,7 @@
         pointer-events: auto;
         transform: translate3d(0, 0, 0);
       }
-      #mobileMenu .mobile-menu-item {
+      #mobileMenu a.mobile-menu-item {
         background-color: #ffffff;
         border: 1px solid rgba(8, 76, 36, 0.12);
         box-shadow: 0 2px 4px rgba(8, 76, 36, 0.05);
@@ -388,7 +352,7 @@
       body.dark-mode .glass-card p, body.dark-mode .glass-section p { color: #e2e8f0 !important; }
       body.dark-mode h1, body.dark-mode h2, body.dark-mode h3, body.dark-mode h4, body.dark-mode .font-heading { color: #f6ee42 !important; }
       body.dark-mode #mobileMenu { background-color: #071f11 !important; border-bottom-color: rgba(246, 238, 66, 0.3) !important; }
-      body.dark-mode #mobileMenu .mobile-menu-item { background-color: #113820 !important; color: #f6ee42 !important; border-color: rgba(246, 238, 66, 0.25) !important; }
+      body.dark-mode #mobileMenu a.mobile-menu-item { background-color: #113820 !important; color: #f6ee42 !important; border-color: rgba(246, 238, 66, 0.25) !important; }
       body.dark-mode input, body.dark-mode textarea, body.dark-mode select { background-color: #0b2b17 !important; color: #ffffff !important; border-color: rgba(246, 238, 66, 0.3) !important; }
 
       body.dark-mode #mobileControlsBar {
@@ -419,35 +383,26 @@
         color: rgba(246, 238, 66, 0.8) !important;
       }
 
-      /* Modals Dark Mode */
+      /* Modals */
       body.dark-mode #registrationModal .modal-box,
       body.dark-mode #deptHistoryModal .modal-box,
-      body.dark-mode #timelineDetailModal .modal-box,
-      body.dark-mode #fullHistoryModal .modal-box,
-      body.dark-mode #presidentDetailModal .modal-box { background-color: #0c2d19 !important; border-color: rgba(246, 238, 66, 0.35) !important; color: #f1f5f9 !important; }
+      body.dark-mode #timelineDetailModal .modal-box { background-color: #0c2d19 !important; border-color: rgba(246, 238, 66, 0.35) !important; }
       body.dark-mode #registrationModal .modal-header,
       body.dark-mode #deptHistoryModal .modal-header,
-      body.dark-mode #timelineDetailModal .modal-header,
-      body.dark-mode #fullHistoryModal .modal-header,
-      body.dark-mode #presidentDetailModal .modal-header { background-color: #084c24 !important; border-bottom: 1px solid rgba(246, 238, 66, 0.25) !important; }
+      body.dark-mode #timelineDetailModal .modal-header { background-color: #084c24 !important; border-bottom: 1px solid rgba(246, 238, 66, 0.25) !important; }
       body.dark-mode #registrationModal .modal-header-title,
       body.dark-mode #deptHistoryModal .modal-header-title,
-      body.dark-mode #timelineDetailModal .modal-header-title,
-      body.dark-mode #fullHistoryModal .modal-header-title,
-      body.dark-mode #presidentDetailModal .modal-header-title { color: #f6ee42 !important; }
+      body.dark-mode #timelineDetailModal .modal-header-title { color: #f6ee42 !important; }
       body.dark-mode #registrationModal .modal-close-btn,
       body.dark-mode #deptHistoryModal .modal-close-btn,
-      body.dark-mode #timelineDetailModal .modal-close-btn,
-      body.dark-mode #fullHistoryModal .modal-close-btn,
-      body.dark-mode #presidentDetailModal .modal-close-btn { background-color: rgba(246, 238, 66, 0.15) !important; color: #f6ee42 !important; }
+      body.dark-mode #timelineDetailModal .modal-close-btn { background-color: rgba(246, 238, 66, 0.15) !important; color: #f6ee42 !important; }
       body.dark-mode #registrationModal .modal-label { color: #f6ee42 !important; }
       body.dark-mode #registrationModal .modal-submit-btn { background-color: #f6ee42 !important; color: #084c24 !important; }
-      body.dark-mode .history-content { color: #e2e8f0 !important; }
-      body.dark-mode .history-highlight { background-color: rgba(246, 238, 66, 0.12) !important; border-color: rgba(246, 238, 66, 0.3) !important; color: #f6ee42 !important; }
+      body.dark-mode #deptHistoryModal .history-content,
+      body.dark-mode #timelineDetailModal .history-content { color: #e2e8f0 !important; }
+      body.dark-mode #deptHistoryModal .history-highlight,
+      body.dark-mode #timelineDetailModal .history-highlight { background-color: rgba(246, 238, 66, 0.12) !important; border-color: rgba(246, 238, 66, 0.3) !important; color: #f6ee42 !important; }
       body.dark-mode #deptModalWikiBtn { background-color: #113820 !important; color: #f6ee42 !important; border-color: rgba(246, 238, 66, 0.3) !important; }
-      body.dark-mode .sub-box { background-color: #113820 !important; border-color: rgba(246, 238, 66, 0.22) !important; color: #e2e8f0 !important; }
-      body.dark-mode .table-row-alt:nth-child(even) { background-color: rgba(255, 255, 255, 0.04) !important; }
-      body.dark-mode .table-row-alt:hover { background-color: rgba(246, 238, 66, 0.12) !important; }
 
       .modal-backdrop {
         opacity: 0; visibility: hidden; pointer-events: none;
@@ -471,22 +426,21 @@
         background-color: #f6ee42;
         color: #084c24;
       }
-
-      /* Responsive Laptop Header Guard (1024px to 1280px) */
-      @media (min-width: 1024px) and (max-width: 1280px) {
-        header nav a, header nav button {
-          padding-left: 6px !important;
-          padding-right: 6px !important;
-          font-size: 11px !important;
-        }
-        header #mainHeader .max-w-7xl {
-          padding-left: 12px !important;
-          padding-right: 12px !important;
-        }
-      }
+        /* Responsive Laptop Header Guard (1024px to 1280px) */
+    @media (min-width: 1024px) and (max-width: 1280px) {
+  header nav a {
+    padding-left: 6px !important;
+    padding-right: 6px !important;
+    font-size: 11px !important;
+  }
+  header #mainHeader .max-w-7xl {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+}
     </style>
 </head>
-<body class="lang-el antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow">
+<body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow">
 
     <!-- ANIMATED CONTOUR WAVES -->
     <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-75">
@@ -500,7 +454,7 @@
       </svg>
     </div>
 
-    <!-- HEADER -->
+   <!-- HEADER -->
     <header id="mainHeader" class="sticky top-0 z-40 glass-nav">
       <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-20 gap-1.5 sm:gap-3">
@@ -519,10 +473,10 @@
             </div>
           </a>
 
-          <!-- Desktop Navigation -->
+          <!-- Desktop Navigation (Compact spacing for laptops) -->
           <nav class="hidden lg:flex items-center space-x-0.5 xl:space-x-1 bg-white/85 px-1.5 xl:px-2.5 py-1.5 rounded-2xl border border-white/90 shadow-sm shrink-0">
             <a href="#home" class="px-2 xl:px-2.5 py-1.5 rounded-xl text-[11px] xl:text-xs 2xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap" data-i18n="nav_home">Αρχική</a>
-            <button type="button" onclick="openFullHistoryModal('admin')" class="px-2 xl:px-2.5 py-1.5 rounded-xl text-[11px] xl:text-xs 2xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap" data-i18n="nav_history">Ιστορία</button>
+            <a href="history.html" class="px-2 xl:px-2.5 py-1.5 rounded-xl text-[11px] xl:text-xs 2xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap" data-i18n="nav_history">Ιστορία</a>
             <a href="#about" class="px-2 xl:px-2.5 py-1.5 rounded-xl text-[11px] xl:text-xs 2xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap" data-i18n="nav_about">Ο Σύλλογος</a>
             <a href="#timeline" class="px-2 xl:px-2.5 py-1.5 rounded-xl text-[11px] xl:text-xs 2xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap" data-i18n="nav_timeline">Χρονολόγιο</a>
             <a href="#departments" class="px-2 xl:px-2.5 py-1.5 rounded-xl text-[11px] xl:text-xs 2xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap" data-i18n="nav_dept">Τμήματα</a>
@@ -534,20 +488,20 @@
           <div class="flex items-center space-x-1.5 sm:space-x-2 shrink-0">
             <!-- Language Switcher -->
             <div class="hidden lg:flex items-center bg-white/85 rounded-xl p-0.5 border border-white/90 shadow-sm text-xs font-black">
-              <button id="langBtnEL" type="button" onclick="setLanguage('el')" class="lang-btn active px-2 py-1 rounded-lg uppercase text-[11px]">GR</button>
-              <button id="langBtnEN" type="button" onclick="setLanguage('en')" class="lang-btn px-2 py-1 rounded-lg uppercase text-[11px] text-archelaos-deepgreen hover:opacity-80">EN</button>
+              <button id="langBtnEL" onclick="setLanguage('el')" class="lang-btn active px-2 py-1 rounded-lg uppercase text-[11px]">GR</button>
+              <button id="langBtnEN" onclick="setLanguage('en')" class="lang-btn px-2 py-1 rounded-lg uppercase text-[11px] text-archelaos-deepgreen hover:opacity-80">EN</button>
             </div>
 
             <!-- Theme Toggle Button -->
-            <button id="themeToggleBtn" type="button" aria-label="Εναλλαγή θέματος" class="hidden lg:flex w-9 h-9 xl:w-10 xl:h-10 items-center justify-center rounded-xl bg-white/85 hover:bg-white text-archelaos-deepgreen border border-white/90 shadow-sm transition transform hover:scale-105 active:scale-95 text-sm xl:text-base" title="Εναλλαγή εμφάνισης">🌙</button>
+            <button id="themeToggleBtn" aria-label="Εναλλαγή θέματος" class="hidden lg:flex w-9 h-9 xl:w-10 xl:h-10 items-center justify-center rounded-xl bg-white/85 hover:bg-white text-archelaos-deepgreen border border-white/90 shadow-sm transition transform hover:scale-105 active:scale-95 text-sm xl:text-base" title="Εναλλαγή εμφάνισης">🌙</button>
 
-            <!-- Registration CTA -->
-            <button type="button" onclick="openRegistrationModal('Γενική Εγγραφή')" class="hidden lg:inline-flex btn-shimmer relative items-center justify-center px-3 xl:px-4 py-2 xl:py-2.5 text-xs xl:text-sm font-black text-archelaos-yellow bg-archelaos-deepgreen hover:bg-archelaos-darkgreen rounded-xl shadow-md hover:-translate-y-0.5 transition duration-200 whitespace-nowrap">
+            <!-- Registration CTA (Fits on Laptop & Desktop) -->
+            <button onclick="openRegistrationModal('Γενική Εγγραφή')" class="hidden lg:inline-flex btn-shimmer relative items-center justify-center px-3 xl:px-4 py-2 xl:py-2.5 text-xs xl:text-sm font-black text-archelaos-yellow bg-archelaos-deepgreen hover:bg-archelaos-darkgreen rounded-xl shadow-md hover:-translate-y-0.5 transition duration-200 whitespace-nowrap">
               <i class="fa-solid fa-bolt mr-1.5 text-archelaos-yellow text-xs"></i> <span data-i18n="btn_register">Εγγραφές</span>
             </button>
 
             <!-- Mobile Hamburger Button -->
-            <button id="mobileMenuBtn" type="button" aria-label="Μενού" aria-expanded="false" class="lg:hidden w-11 h-11 shrink-0 flex items-center justify-center rounded-xl bg-white/90 hover:bg-white text-archelaos-deepgreen border border-archelaos-deepgreen/20 shadow-sm transition active:scale-95">
+            <button id="mobileMenuBtn" aria-label="Μενού" aria-expanded="false" class="lg:hidden w-11 h-11 shrink-0 flex items-center justify-center rounded-xl bg-white/90 hover:bg-white text-archelaos-deepgreen border border-archelaos-deepgreen/20 shadow-sm transition active:scale-95">
               <i id="menuIcon" class="fa-solid fa-bars text-xl text-archelaos-deepgreen transition-transform duration-200"></i>
             </button>
           </div>
@@ -558,22 +512,22 @@
       <div id="mobileMenu" class="lg:hidden px-5 space-y-2.5">
         <div id="mobileControlsBar" class="flex items-center justify-between gap-2 p-2 bg-white/80 rounded-2xl border border-archelaos-deepgreen/15 mb-3 transition-colors duration-200">
           <div id="mobileLangToggleWrapper" class="flex items-center bg-white rounded-xl p-0.5 border border-slate-200 shadow-sm text-xs font-black transition-colors duration-200">
-            <button id="mobileLangBtnEL" type="button" onclick="setLanguage('el')" class="lang-btn active px-3 py-1.5 rounded-lg uppercase">GR</button>
-            <button id="mobileLangBtnEN" type="button" onclick="setLanguage('en')" class="lang-btn px-3 py-1.5 rounded-lg uppercase text-archelaos-deepgreen hover:opacity-80">EN</button>
+            <button id="mobileLangBtnEL" onclick="setLanguage('el')" class="lang-btn active px-3 py-1.5 rounded-lg uppercase">GR</button>
+            <button id="mobileLangBtnEN" onclick="setLanguage('en')" class="lang-btn px-3 py-1.5 rounded-lg uppercase text-archelaos-deepgreen hover:opacity-80">EN</button>
           </div>
-          <button id="mobileThemeToggleBtn" type="button" aria-label="Εναλλαγή θέματος" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white text-archelaos-deepgreen border border-slate-200 shadow-sm text-xs font-extrabold transition-colors duration-200">
+          <button id="mobileThemeToggleBtn" aria-label="Εναλλαγή θέματος" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white text-archelaos-deepgreen border border-slate-200 shadow-sm text-xs font-extrabold transition-colors duration-200">
             <span id="mobileThemeIcon">🌙</span> <span id="mobileThemeLabel">Σκούρο Θέμα</span>
           </button>
         </div>
 
         <a href="#home" class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" data-i18n="nav_home">Αρχική</a>
-        <button type="button" onclick="closeMobileMenu(); openFullHistoryModal('admin');" class="mobile-menu-item w-full text-left block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" data-i18n="nav_history">Ιστορία</button>
+        <a href="history.html" class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" data-i18n="nav_history">Ιστορία</a>
         <a href="#about" class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" data-i18n="nav_about">Ο Σύλλογος</a>
         <a href="#timeline" class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" data-i18n="nav_timeline">Χρονολόγιο 1956–2026</a>
         <a href="#departments" class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" data-i18n="nav_dept">Αθλητικά Τμήματα</a>
         <a href="#board" class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" data-i18n="nav_board">Διοίκηση (Δ.Σ.)</a>
         <a href="#contact" class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" data-i18n="nav_contact">Επικοινωνία</a>
-        <button type="button" onclick="openRegistrationModal('Γενική Εγγραφή'); closeMobileMenu();" class="mobile-menu-item w-full text-center px-4 py-3.5 bg-archelaos-deepgreen text-archelaos-yellow font-extrabold rounded-xl shadow-lg">
+        <button onclick="openRegistrationModal('Γενική Εγγραφή'); closeMobileMenu();" class="mobile-menu-item w-full text-center px-4 py-3.5 bg-archelaos-deepgreen text-archelaos-yellow font-extrabold rounded-xl shadow-lg">
           <i class="fa-solid fa-user-plus mr-2"></i> <span data-i18n="btn_register_interest">Εκδήλωση Ενδιαφέροντος</span>
         </button>
       </div>
@@ -594,7 +548,7 @@
               Ο ιστορικός πολυαθλητικός σύλλογος της Πιερίας. Πάνω από 70 χρόνια προσφοράς στον κλασικό αθλητισμό, τα ομαδικά και ατομικά αθλήματα.
             </p>
             <div class="reveal-text delay-300 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-3">
-              <button type="button" onclick="openRegistrationModal('Γενική Εγγραφή')" class="btn-shimmer w-full sm:w-auto px-8 py-4 bg-archelaos-deepgreen hover:bg-archelaos-darkgreen text-archelaos-yellow font-black rounded-2xl shadow-lg hover:-translate-y-0.5 transition duration-200">
+              <button onclick="openRegistrationModal('Γενική Εγγραφή')" class="btn-shimmer w-full sm:w-auto px-8 py-4 bg-archelaos-deepgreen hover:bg-archelaos-darkgreen text-archelaos-yellow font-black rounded-2xl shadow-lg hover:-translate-y-0.5 transition duration-200">
                 <span data-i18n="btn_register_interest">Εκδήλωση Ενδιαφέροντος</span> <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
               </button>
               <a href="#departments" class="w-full sm:w-auto px-8 py-4 bg-white/90 hover:bg-white text-archelaos-deepgreen border border-archelaos-darkgreen/25 font-extrabold rounded-2xl shadow-sm hover:-translate-y-0.5 transition duration-200 text-center" data-i18n="btn_explore_depts">
@@ -649,8 +603,8 @@
               <div class="absolute top-5 left-5 z-20 flex items-center gap-2">
                 <span id="activeSportBadge" class="px-3.5 py-1.5 rounded-full bg-archelaos-deepgreen/90 text-archelaos-yellow text-xs sm:text-sm font-black uppercase tracking-wider border border-archelaos-yellow/50 shadow-md">1/8 • Χειροσφαίριση (Χάντμπολ)</span>
               </div>
-              <button id="prevSlideBtn" type="button" aria-label="Προηγούμενο" class="absolute left-3.5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/45 hover:bg-archelaos-yellow text-white hover:text-archelaos-deepgreen border border-white/30 flex items-center justify-center transition opacity-85 group-hover:opacity-100"><i class="fa-solid fa-chevron-left"></i></button>
-              <button id="nextSlideBtn" type="button" aria-label="Επόμενο" class="absolute right-3.5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/45 hover:bg-archelaos-yellow text-white hover:text-archelaos-deepgreen border border-white/30 flex items-center justify-center transition opacity-85 group-hover:opacity-100"><i class="fa-solid fa-chevron-right"></i></button>
+              <button id="prevSlideBtn" aria-label="Προηγούμενο" class="absolute left-3.5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/45 hover:bg-archelaos-yellow text-white hover:text-archelaos-deepgreen border border-white/30 flex items-center justify-center transition opacity-85 group-hover:opacity-100"><i class="fa-solid fa-chevron-left"></i></button>
+              <button id="nextSlideBtn" aria-label="Επόμενο" class="absolute right-3.5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/45 hover:bg-archelaos-yellow text-white hover:text-archelaos-deepgreen border border-white/30 flex items-center justify-center transition opacity-85 group-hover:opacity-100"><i class="fa-solid fa-chevron-right"></i></button>
               <div class="absolute inset-0 bg-gradient-to-t from-archelaos-deepgreen via-archelaos-deepgreen/40 to-transparent z-10 pointer-events-none"></div>
               <div class="absolute bottom-0 inset-x-0 p-4 sm:p-7 z-20 flex flex-col gap-3.5">
                 <div class="flex items-end justify-between gap-4">
@@ -709,10 +663,10 @@
           
           <div class="reveal-text flex items-center gap-2 self-start md:self-auto">
             <span class="text-[11px] font-bold text-archelaos-deepgreen/60 hidden sm:inline mr-2" data-i18n="timeline_drag_hint">&larr; Σύρετε ή πατήστε τα βέλη &rarr;</span>
-            <button id="timelineScrollLeft" type="button" aria-label="Κύλιση αριστερά" class="w-9 h-9 rounded-full bg-white/90 hover:bg-archelaos-deepgreen text-archelaos-deepgreen hover:text-archelaos-yellow border border-archelaos-deepgreen/20 flex items-center justify-center shadow-sm transition active:scale-95">
+            <button id="timelineScrollLeft" aria-label="Κύλιση αριστερά" class="w-9 h-9 rounded-full bg-white/90 hover:bg-archelaos-deepgreen text-archelaos-deepgreen hover:text-archelaos-yellow border border-archelaos-deepgreen/20 flex items-center justify-center shadow-sm transition active:scale-95">
               <i class="fa-solid fa-chevron-left text-xs"></i>
             </button>
-            <button id="timelineScrollRight" type="button" aria-label="Κύλιση δεξιά" class="w-9 h-9 rounded-full bg-white/90 hover:bg-archelaos-deepgreen text-archelaos-deepgreen hover:text-archelaos-yellow border border-archelaos-deepgreen/20 flex items-center justify-center shadow-sm transition active:scale-95">
+            <button id="timelineScrollRight" aria-label="Κύλιση δεξιά" class="w-9 h-9 rounded-full bg-white/90 hover:bg-archelaos-deepgreen text-archelaos-deepgreen hover:text-archelaos-yellow border border-archelaos-deepgreen/20 flex items-center justify-center shadow-sm transition active:scale-95">
               <i class="fa-solid fa-chevron-right text-xs"></i>
             </button>
           </div>
@@ -725,12 +679,12 @@
           </div>
         </div>
 
-        <!-- Full History Archive Modal Trigger Button (No external page needed) -->
+        <!-- History Reference Button (Linked to history.html) -->
         <div class="reveal-text pt-8 text-center">
-          <button type="button" onclick="openFullHistoryModal('admin')" class="btn-shimmer inline-flex items-center justify-center w-full sm:w-auto px-7 py-3.5 text-sm font-extrabold text-archelaos-yellow hover:text-archelaos-deepgreen bg-archelaos-deepgreen hover:bg-archelaos-yellow rounded-2xl shadow-md transition duration-200 group border border-archelaos-deepgreen">
+          <a href="history.html" class="btn-shimmer inline-flex items-center justify-center w-full sm:w-auto px-7 py-3.5 text-sm font-extrabold text-archelaos-yellow hover:text-archelaos-deepgreen bg-archelaos-deepgreen hover:bg-archelaos-yellow rounded-2xl shadow-md transition duration-200 group border border-archelaos-deepgreen">
             <i class="fa-solid fa-book-open mr-2.5 text-lg text-archelaos-yellow group-hover:text-archelaos-deepgreen transition-colors"></i> <span data-i18n="btn_full_history">Διαβάστε όλη την Ιστορία (Αναλυτικό Αρχείο 70 Ετών)</span>
             <i class="fa-solid fa-arrow-right ml-2.5 text-xs"></i>
-          </button>
+          </a>
         </div>
       </div>
     </section>
@@ -761,7 +715,7 @@
           </button>
         </div>
 
-        <!-- Grid Τμημάτων -->
+        <!-- Grid Τμημάτων (με data-category σε κάθε κάρτα) -->
         <div id="departmentsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
           
           <!-- 1. Χειροσφαίριση [team] -->
@@ -780,7 +734,7 @@
                 <span class="text-sm text-archelaos-darkgreen font-extrabold" data-i18n="dept_1_sub">(Χάντμπολ)</span>
               </h3>
             </div>
-            <button type="button" onclick="openRegistrationModal('Χειροσφαίριση (Χάντμπολ)')" class="relative z-10 w-full py-3.5 bg-white hover:bg-archelaos-deepgreen text-archelaos-deepgreen hover:text-archelaos-yellow font-extrabold text-sm rounded-xl border border-archelaos-darkgreen/20 transition-colors duration-200 shadow-sm mt-6" data-i18n="btn_register_interest">
+            <button onclick="openRegistrationModal('Χειροσφαίριση (Χάντμπολ)')" class="relative z-10 w-full py-3.5 bg-white hover:bg-archelaos-deepgreen text-archelaos-deepgreen hover:text-archelaos-yellow font-extrabold text-sm rounded-xl border border-archelaos-darkgreen/20 transition-colors duration-200 shadow-sm mt-6" data-i18n="btn_register_interest">
               Εκδήλωση Ενδιαφέροντος
             </button>
           </div>
@@ -801,7 +755,7 @@
                 <span class="text-sm text-archelaos-darkgreen font-extrabold" data-i18n="dept_2_sub">(Κλασικός Αθλητισμός)</span>
               </h3>
             </div>
-            <button type="button" onclick="openRegistrationModal('Στίβος')" class="relative z-10 w-full py-3.5 bg-white hover:bg-archelaos-deepgreen text-archelaos-deepgreen hover:text-archelaos-yellow font-extrabold text-sm rounded-xl border border-archelaos-darkgreen/20 transition-colors duration-200 shadow-sm mt-6" data-i18n="btn_register_interest">
+            <button onclick="openRegistrationModal('Στίβος')" class="relative z-10 w-full py-3.5 bg-white hover:bg-archelaos-deepgreen text-archelaos-deepgreen hover:text-archelaos-yellow font-extrabold text-sm rounded-xl border border-archelaos-darkgreen/20 transition-colors duration-200 shadow-sm mt-6" data-i18n="btn_register_interest">
               Εκδήλωση Ενδιαφέροντος
             </button>
           </div>
@@ -821,7 +775,7 @@
                 <span data-i18n="dept_3_title">Τοξοβολία</span>
               </h3>
             </div>
-            <button type="button" onclick="openRegistrationModal('Τοξοβολία')" class="relative z-10 w-full py-3.5 bg-white hover:bg-archelaos-deepgreen text-archelaos-deepgreen hover:text-archelaos-yellow font-extrabold text-sm rounded-xl border border-archelaos-darkgreen/20 transition-colors duration-200 shadow-sm mt-6" data-i18n="btn_register_interest">
+            <button onclick="openRegistrationModal('Τοξοβολία')" class="relative z-10 w-full py-3.5 bg-white hover:bg-archelaos-deepgreen text-archelaos-deepgreen hover:text-archelaos-yellow font-extrabold text-sm rounded-xl border border-archelaos-darkgreen/20 transition-colors duration-200 shadow-sm mt-6" data-i18n="btn_register_interest">
               Εκδήλωση Ενδιαφέροντος
             </button>
           </div>
@@ -841,7 +795,7 @@
                 <span data-i18n="dept_4_title">Σκοποβολή</span>
               </h3>
             </div>
-            <button type="button" onclick="openRegistrationModal('Σκοποβολή')" class="relative z-10 w-full py-3.5 bg-white hover:bg-archelaos-deepgreen text-archelaos-deepgreen hover:text-archelaos-yellow font-extrabold text-sm rounded-xl border border-archelaos-darkgreen/20 transition-colors duration-200 shadow-sm mt-6" data-i18n="btn_register_interest">
+            <button onclick="openRegistrationModal('Σκοποβολή')" class="relative z-10 w-full py-3.5 bg-white hover:bg-archelaos-deepgreen text-archelaos-deepgreen hover:text-archelaos-yellow font-extrabold text-sm rounded-xl border border-archelaos-darkgreen/20 transition-colors duration-200 shadow-sm mt-6" data-i18n="btn_register_interest">
               Εκδήλωση Ενδιαφέροντος
             </button>
           </div>
@@ -861,7 +815,7 @@
                 <span data-i18n="dept_5_title">Ενόργανη Γυμναστική</span>
               </h3>
             </div>
-            <button type="button" onclick="openRegistrationModal('Ενόργανη Γυμναστική')" class="relative z-10 w-full py-3.5 bg-white hover:bg-archelaos-deepgreen text-archelaos-deepgreen hover:text-archelaos-yellow font-extrabold text-sm rounded-xl border border-archelaos-darkgreen/20 transition-colors duration-200 shadow-sm mt-6" data-i18n="btn_register_interest">
+            <button onclick="openRegistrationModal('Ενόργανη Γυμναστική')" class="relative z-10 w-full py-3.5 bg-white hover:bg-archelaos-deepgreen text-archelaos-deepgreen hover:text-archelaos-yellow font-extrabold text-sm rounded-xl border border-archelaos-darkgreen/20 transition-colors duration-200 shadow-sm mt-6" data-i18n="btn_register_interest">
               Εκδήλωση Ενδιαφέροντος
             </button>
           </div>
@@ -882,7 +836,7 @@
                 <span class="text-sm text-archelaos-darkgreen font-extrabold" data-i18n="dept_6_sub">(Βόλεϊ)</span>
               </h3>
             </div>
-            <button type="button" onclick="openRegistrationModal('Πετοσφαίριση (Βόλεϊ)')" class="relative z-10 w-full py-3.5 bg-white hover:bg-archelaos-deepgreen text-archelaos-deepgreen hover:text-archelaos-yellow font-extrabold text-sm rounded-xl border border-archelaos-darkgreen/20 transition-colors duration-200 shadow-sm mt-6" data-i18n="btn_register_interest">
+            <button onclick="openRegistrationModal('Πετοσφαίριση (Βόλεϊ)')" class="relative z-10 w-full py-3.5 bg-white hover:bg-archelaos-deepgreen text-archelaos-deepgreen hover:text-archelaos-yellow font-extrabold text-sm rounded-xl border border-archelaos-darkgreen/20 transition-colors duration-200 shadow-sm mt-6" data-i18n="btn_register_interest">
               Εκδήλωση Ενδιαφέροντος
             </button>
           </div>
@@ -902,7 +856,7 @@
                 <span data-i18n="dept_7_title">Πάλη</span>
               </h3>
             </div>
-            <button type="button" onclick="openRegistrationModal('Πάλη')" class="relative z-10 w-full py-3.5 bg-white hover:bg-archelaos-deepgreen text-archelaos-deepgreen hover:text-archelaos-yellow font-extrabold text-sm rounded-xl border border-archelaos-darkgreen/20 transition-colors duration-200 shadow-sm mt-6" data-i18n="btn_register_interest">
+            <button onclick="openRegistrationModal('Πάλη')" class="relative z-10 w-full py-3.5 bg-white hover:bg-archelaos-deepgreen text-archelaos-deepgreen hover:text-archelaos-yellow font-extrabold text-sm rounded-xl border border-archelaos-darkgreen/20 transition-colors duration-200 shadow-sm mt-6" data-i18n="btn_register_interest">
               Εκδήλωση Ενδιαφέροντος
             </button>
           </div>
@@ -923,7 +877,7 @@
                 <span class="text-sm text-archelaos-darkgreen font-extrabold" data-i18n="dept_8_sub">(Υγρός Στίβος)</span>
               </h3>
             </div>
-            <button type="button" onclick="openRegistrationModal('Κολύμβηση')" class="relative z-10 w-full py-3.5 bg-white hover:bg-archelaos-deepgreen text-archelaos-deepgreen hover:text-archelaos-yellow font-extrabold text-sm rounded-xl border border-archelaos-darkgreen/20 transition-colors duration-200 shadow-sm mt-6" data-i18n="btn_register_interest">
+            <button onclick="openRegistrationModal('Κολύμβηση')" class="relative z-10 w-full py-3.5 bg-white hover:bg-archelaos-deepgreen text-archelaos-deepgreen hover:text-archelaos-yellow font-extrabold text-sm rounded-xl border border-archelaos-darkgreen/20 transition-colors duration-200 shadow-sm mt-6" data-i18n="btn_register_interest">
               Εκδήλωση Ενδιαφέροντος
             </button>
           </div>
@@ -1075,7 +1029,7 @@
           <div class="lg:col-span-5 space-y-6">
             <div class="reveal-text space-y-4">
               <span class="px-4 py-1.5 rounded-full bg-archelaos-deepgreen text-archelaos-yellow font-black text-xs uppercase tracking-wider inline-block shadow-md" data-i18n="contact_tag">Επικοινωνία & Έδρα</span>
-              <h2 class="text-3xl sm:text-5xl font-black font-heading text-archelaos-deepgreen leading-tight" data-i18n="contact_title">Ελάτε σε επαφή με τον Αρχέλαο</h2>
+              <h2 class="text-3xl sm:font-bold text-3xl sm:text-5xl font-black font-heading text-archelaos-deepgreen leading-tight" data-i18n="contact_title">Ελάτε σε επαφή με τον Αρχέλαο</h2>
               <p class="text-archelaos-deepgreen/90 text-base font-medium leading-relaxed" data-i18n="contact_sub">Επισκεφθείτε τα γραφεία μας στο Α΄ ΔΑΚ Κατερίνης ή στείλτε μας απευθείας μήνυμα μέσα από τη φόρμα.</p>
             </div>
 
@@ -1180,7 +1134,7 @@
               <h3 id="timelineModalTitle" class="modal-header-title font-heading font-black text-base sm:text-lg text-archelaos-deepgreen leading-tight">Τίτλος</h3>
             </div>
           </div>
-          <button type="button" onclick="closeTimelineModal()" class="modal-close-btn w-8 h-8 rounded-full bg-archelaos-darkgreen/10 text-archelaos-deepgreen flex items-center justify-center hover:bg-archelaos-darkgreen hover:text-archelaos-yellow transition shrink-0"><i class="fa-solid fa-xmark"></i></button>
+          <button onclick="closeTimelineModal()" class="modal-close-btn w-8 h-8 rounded-full bg-archelaos-darkgreen/10 text-archelaos-deepgreen flex items-center justify-center hover:bg-archelaos-darkgreen hover:text-archelaos-yellow transition shrink-0"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <div class="p-6 sm:p-7 space-y-4 max-h-[75vh] overflow-y-auto">
           <div class="history-highlight p-3.5 rounded-2xl bg-archelaos-yellow/20 border border-archelaos-darkgreen/20 text-archelaos-deepgreen font-bold text-xs sm:text-sm flex items-start gap-2.5">
@@ -1195,9 +1149,9 @@
       </div>
     </div>
 
-    <!-- DEPARTMENT HISTORY POPUP MODAL (SUMMARY + EXPANDABLE FULL HISTORY IN-PLACE) -->
+    <!-- DEPARTMENT HISTORY POPUP MODAL -->
     <div id="deptHistoryModal" class="modal-backdrop fixed inset-0 z-50 overflow-y-auto bg-black/60 flex items-center justify-center p-4">
-      <div id="deptModalBox" class="modal-box relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl overflow-hidden border-2 border-white transition-all duration-300">
+      <div class="modal-box relative w-full max-w-xl bg-white rounded-3xl shadow-2xl overflow-hidden border-2 border-white">
         <div class="modal-header bg-archelaos-yellow p-6 flex items-center justify-between border-b border-archelaos-darkgreen/20">
           <div class="flex items-center gap-3">
             <div id="deptModalIcon" class="w-11 h-11 rounded-xl bg-archelaos-deepgreen text-archelaos-yellow flex items-center justify-center text-xl shadow-sm"></div>
@@ -1206,312 +1160,28 @@
               <h3 id="deptModalTitle" class="modal-header-title font-heading font-black text-lg text-archelaos-deepgreen leading-tight">Τμήμα</h3>
             </div>
           </div>
-          <button type="button" onclick="closeDeptHistoryModal()" class="modal-close-btn w-8 h-8 rounded-full bg-archelaos-darkgreen/10 text-archelaos-deepgreen flex items-center justify-center hover:bg-archelaos-darkgreen hover:text-archelaos-yellow transition"><i class="fa-solid fa-xmark"></i></button>
+          <button onclick="closeDeptHistoryModal()" class="modal-close-btn w-8 h-8 rounded-full bg-archelaos-darkgreen/10 text-archelaos-deepgreen flex items-center justify-center hover:bg-archelaos-darkgreen hover:text-archelaos-yellow transition"><i class="fa-solid fa-xmark"></i></button>
         </div>
-
-        <div id="deptModalScrollArea" class="p-6 sm:p-7 space-y-4 max-h-[75vh] overflow-y-auto">
+        <div class="p-6 sm:p-7 space-y-4 max-h-[75vh] overflow-y-auto">
           <div id="deptModalHighlight" class="history-highlight p-3.5 rounded-2xl bg-archelaos-yellow/20 border border-archelaos-darkgreen/20 text-archelaos-deepgreen font-bold text-xs sm:text-sm flex items-start gap-2.5">
             <i class="fa-solid fa-award text-base text-archelaos-darkgreen shrink-0 mt-0.5"></i>
             <span id="deptModalHighlightText"></span>
           </div>
-
-          <!-- Summary History -->
           <div id="deptModalText" class="history-content text-slate-700 text-sm leading-relaxed font-medium space-y-3"></div>
           
-          <!-- Expand/Collapse Full Department History Button -->
           <div class="pt-2">
-            <button id="deptModalWikiBtn" type="button" onclick="toggleFullDeptHistory()" class="w-full inline-flex items-center justify-center gap-2 px-4 py-3 bg-slate-100 hover:bg-archelaos-yellow hover:text-archelaos-deepgreen text-slate-800 font-extrabold text-xs sm:text-sm rounded-xl transition-colors duration-200 border border-slate-300 group">
-              <i class="fa-solid fa-book-open text-base text-archelaos-deepgreen"></i>
-              <span id="deptModalWikiBtnLabel" data-i18n="btn_dept_wikipedia">Διαβάστε όλο το Αναλυτικό Ιστορικό (Αρχείο 70 Ετών)</span>
-              <i id="deptModalWikiArrow" class="fa-solid fa-chevron-down text-xs transition-transform duration-300"></i>
-            </button>
+            <a id="deptModalWikiBtn" href="history.html" class="w-full inline-flex items-center justify-center gap-2 px-4 py-3 bg-slate-100 hover:bg-archelaos-yellow hover:text-archelaos-deepgreen text-slate-800 font-extrabold text-xs sm:text-sm rounded-xl transition-colors duration-200 border border-slate-300 group">
+              <i class="fa-solid fa-landmark text-base text-archelaos-deepgreen"></i>
+              <span data-i18n="btn_dept_wikipedia">Αναλυτικό Ιστορικό Τμήματος (Αρχείο 70 Ετών)</span>
+              <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
           </div>
 
-          <!-- Expandable Full Department History Container -->
-          <div id="deptModalFullContainer" class="hidden pt-4 mt-2 border-t-2 border-dashed border-archelaos-darkgreen/25 space-y-4 history-content text-slate-700 text-xs sm:text-sm leading-relaxed"></div>
-
-          <div class="pt-2 flex flex-col sm:flex-row gap-2.5">
+          <div class="pt-1 flex flex-col sm:flex-row gap-2.5">
             <button id="deptModalRegisterBtn" type="button" class="modal-submit-btn btn-shimmer w-full py-3.5 bg-archelaos-deepgreen text-archelaos-yellow font-black rounded-xl shadow-md transition flex items-center justify-center gap-2 text-sm">
               <i class="fa-solid fa-bolt"></i> <span data-i18n="btn_register_interest">Εκδήλωση Ενδιαφέροντος</span>
             </button>
             <button onclick="closeDeptHistoryModal()" type="button" class="w-full sm:w-auto px-5 py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-extrabold rounded-xl transition text-sm" data-i18n="btn_close">Κλείσιμο</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- FULL CLUB HISTORY ARCHIVE MODAL (TABBED - NO ENDLESS SCROLL) -->
-    <div id="fullHistoryModal" class="modal-backdrop fixed inset-0 z-50 overflow-y-auto bg-black/65 flex items-center justify-center p-3 sm:p-5">
-      <div class="modal-box relative w-full max-w-5xl bg-white rounded-3xl shadow-2xl overflow-hidden border-2 border-white">
-        <!-- Modal Header -->
-        <div class="modal-header bg-archelaos-yellow p-5 sm:p-6 flex items-center justify-between border-b border-archelaos-darkgreen/20">
-          <div class="flex items-center gap-3">
-            <div class="w-11 h-11 rounded-xl bg-archelaos-deepgreen text-archelaos-yellow flex items-center justify-center text-xl shadow-sm shrink-0">
-              <i class="fa-solid fa-landmark"></i>
-            </div>
-            <div>
-              <span class="text-[10px] font-black uppercase tracking-wider text-archelaos-darkgreen block">
-                <span data-lang="el">Επίσημο Ιστορικό Αρχείο • 1956–2026</span>
-                <span data-lang="en">Official Historical Archive • 1956–2026</span>
-              </span>
-              <h3 class="modal-header-title font-heading font-black text-base sm:text-xl text-archelaos-deepgreen leading-tight">
-                <span data-lang="el">Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης: 70 Χρόνια Ιστορίας</span>
-                <span data-lang="en">G.A.S. "Archelaos" Katerini: 70 Years of History</span>
-              </h3>
-            </div>
-          </div>
-          <button type="button" onclick="closeFullHistoryModal()" class="modal-close-btn w-9 h-9 rounded-full bg-archelaos-darkgreen/10 text-archelaos-deepgreen flex items-center justify-center hover:bg-archelaos-darkgreen hover:text-archelaos-yellow transition shrink-0">
-            <i class="fa-solid fa-xmark text-lg"></i>
-          </button>
-        </div>
-
-        <!-- Interactive Category Tabs inside History Modal -->
-        <div class="px-5 sm:px-7 pt-4 pb-3 bg-slate-50/90 dark:bg-[#092313] border-b border-slate-200/80 dark:border-slate-700 flex flex-wrap items-center gap-2">
-          <button type="button" onclick="switchFullHistoryTab('admin')" data-hist-tab="admin" class="hist-tab-btn active px-3.5 py-2 rounded-xl border border-slate-200 bg-white text-archelaos-deepgreen text-xs font-extrabold flex items-center gap-1.5">
-            <i class="fa-solid fa-building-columns"></i>
-            <span data-lang="el">1. Ταυτότητα & Πρόεδροι</span>
-            <span data-lang="en">1. Identity & Presidents</span>
-          </button>
-          <button type="button" onclick="switchFullHistoryTab('facilities')" data-hist-tab="facilities" class="hist-tab-btn px-3.5 py-2 rounded-xl border border-slate-200 bg-white text-archelaos-deepgreen text-xs font-extrabold flex items-center gap-1.5">
-            <i class="fa-solid fa-location-dot"></i>
-            <span data-lang="el">2. Εγκαταστάσεις</span>
-            <span data-lang="en">2. Facilities</span>
-          </button>
-          <button type="button" onclick="switchFullHistoryTab('diia')" data-hist-tab="diia" class="hist-tab-btn px-3.5 py-2 rounded-xl border border-slate-200 bg-white text-archelaos-deepgreen text-xs font-extrabold flex items-center gap-1.5">
-            <i class="fa-solid fa-fire-flame-curved"></i>
-            <span data-lang="el">3. Αγώνες «Δίια»</span>
-            <span data-lang="en">3. "Diia" Games</span>
-          </button>
-          <button type="button" onclick="switchFullHistoryTab('trophies')" data-hist-tab="trophies" class="hist-tab-btn px-3.5 py-2 rounded-xl border border-slate-200 bg-white text-archelaos-deepgreen text-xs font-extrabold flex items-center gap-1.5">
-            <i class="fa-solid fa-trophy"></i>
-            <span data-lang="el">4. Τροπαιοθήκη</span>
-            <span data-lang="en">4. Trophy Room</span>
-          </button>
-          <button type="button" onclick="switchFullHistoryTab('past')" data-hist-tab="past" class="hist-tab-btn px-3.5 py-2 rounded-xl border border-slate-200 bg-white text-archelaos-deepgreen text-xs font-extrabold flex items-center gap-1.5">
-            <i class="fa-solid fa-box-archive"></i>
-            <span data-lang="el">5. Ιστορικά Τμήματα & Πηγές</span>
-            <span data-lang="en">5. Past Depts & Sources</span>
-          </button>
-        </div>
-
-        <!-- Scrollable Tab Content Area -->
-        <div class="p-5 sm:p-7 max-h-[72vh] overflow-y-auto history-content text-slate-700 text-xs sm:text-sm leading-relaxed space-y-5">
-          
-          <!-- TAB 1: IDENTITY, ADMINISTRATION & PRESIDENTS TABLE -->
-          <div id="hist-panel-admin" class="hist-tab-panel active space-y-5">
-            <div data-lang="el" class="space-y-3">
-              <h4 class="text-lg font-black font-heading text-archelaos-deepgreen">Ίδρυση, Έμβλημα & Ιστορική Ταυτότητα (1956)</h4>
-              <p>Ο <strong>Γυμναστικός Αγωνιστικός Σύλλογος «Ο Αρχέλαος» Κατερίνης</strong> (συντετμημένα <strong>Γ.Α.Σ. Αρχέλαος</strong>) ιδρύθηκε στις <strong>29 Απριλίου 1956</strong> και αναγνωρίστηκε επίσημα με την υπ' αριθμόν <strong>38/1957</strong> απόφαση του Πρωτοδικείου Κατερίνης (αριθμός μητρώου σωματείων <strong>2/1957</strong>), αποτελώντας τον αρχαιότερο και ιστορικότερο εν ενεργεία αθλητικό οργανισμό του νομού Πιερίας. Τα επίσημα χρώματά του (πράσινο και κίτρινο) καθιερώθηκαν στις <strong>27 Ιουνίου 1968</strong>, ενώ το όνομα και το έμβλημά του είναι εμπνευσμένα από τον αρχαίο Μακεδόνα βασιλιά <strong>Αρχέλαο Α΄</strong>, ο οποίος καθιέρωσε τα αρχαία «Ολύμπια» στο Δίον.</p>
-              <p>Πρωτεργάτης της ίδρυσης και πρώτος πρόεδρος υπήρξε ο τότε Επιθεωρητής Σωματικής Αγωγής Πιερίας (1954–1969) <strong>Γεώργιος Ευθυμίου (1908–2006)</strong>, ενώ το πρώτο καταγεγραμμένο ιδρυτικό Δ.Σ. συγκροτήθηκε από τους <strong>Αθανάσιο Τσακνάκη</strong> (πρόεδρος), <strong>Ιωάννη Ζαρογιάννη</strong> (αντιπρόεδρος) και <strong>Θεόδωρο Ξηρομερίτη</strong> (ταμίας).</p>
-            </div>
-
-            <div data-lang="en" class="space-y-3">
-              <h4 class="text-lg font-black font-heading text-archelaos-deepgreen">Foundation, Emblem & Historical Identity (1956)</h4>
-              <p>The <strong>Gymnastic Athletic Club "Archelaos" Katerini</strong> (<strong>G.A.S. Archelaos</strong>) was founded on <strong>April 29, 1956</strong> and officially recognized by Decision No. <strong>38/1957</strong> of the Court of First Instance of Katerini (Club Registry No. <strong>2/1957</strong>), standing as the oldest and most historic active sports organization in Pieria. Its official colors (green and yellow) were adopted on <strong>June 27, 1968</strong>, while its name and emblem are inspired by the ancient Macedonian King <strong>Archelaos I</strong>, who established the ancient "Olympia" games in Dion.</p>
-              <p>The pioneer of the foundation and first president was the Inspector of Physical Education of Pieria (1954–1969), <strong>Georgios Efthymiou (1908–2006)</strong>, while the first recorded founding Board consisted of <strong>Athanasios Tsaknakis</strong> (President), <strong>Ioannis Zarogiannis</strong> (Vice President), and <strong>Theodoros Xiromeritis</strong> (Treasurer).</p>
-            </div>
-
-            <!-- Helper prompt for Presidents Pop-up -->
-            <div class="flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-archelaos-yellow/35 border border-archelaos-deepgreen/20 text-xs font-extrabold text-archelaos-deepgreen">
-              <i class="fa-solid fa-hand-pointer text-archelaos-darkgreen animate-bounce"></i>
-              <span data-lang="el">Πατήστε σε οποιονδήποτε Πρόεδρο στον παρακάτω πίνακα για να ανοίξει σε Pop-up όλο το ιστορικό της θητείας του!</span>
-              <span data-lang="en">Tap on any President in the table below to open a Pop-up with the full milestones of their term!</span>
-            </div>
-
-            <!-- Presidents Table (No horizontal scroll needed on mobile) -->
-            <div class="overflow-hidden rounded-2xl border border-archelaos-deepgreen/20 shadow-sm">
-              <table class="w-full text-left border-collapse text-xs sm:text-sm">
-                <thead>
-                  <tr class="bg-archelaos-deepgreen text-archelaos-yellow font-heading uppercase text-[11px] sm:text-xs tracking-wider">
-                    <th class="py-3 px-3 sm:px-4 w-[28%] md:w-[16%]">
-                      <span data-lang="el">Θητεία</span>
-                      <span data-lang="en">Term</span>
-                    </th>
-                    <th class="py-3 px-3 sm:px-4 w-[48%] md:w-[24%]">
-                      <span data-lang="el">Πρόεδρος</span>
-                      <span data-lang="en">President</span>
-                    </th>
-                    <th class="hidden md:table-cell py-3 px-4">
-                      <span data-lang="el">Σημαντικότεροι σταθμοί & γεγονότα</span>
-                      <span data-lang="en">Key Milestones & Events</span>
-                    </th>
-                    <th class="md:hidden py-3 px-2 text-center w-[24%]">
-                      <span data-lang="el">Σταθμοί</span>
-                      <span data-lang="en">Events</span>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody id="presidentsModalTableBody" class="divide-y divide-slate-200/80 dark:divide-slate-700/70">
-                  <!-- Populated via JS from presidentsData -->
-                </tbody>
-              </table>
-            </div>
-
-            <!-- 1973 & 1970 Milestones -->
-            <div class="sub-box p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-              <h5 class="font-heading font-black text-archelaos-deepgreen text-sm">
-                <span data-lang="el">Η Ιστορική Τομή της 24ης Ιουνίου 1973 & Η Απόρριψη Συγχώνευσης (1970)</span>
-                <span data-lang="en">The Historic Turning Point of June 24, 1973 & The 1970 Merger Rejection</span>
-              </h5>
-              <p data-lang="el" class="!mb-0">Τον <strong>Ιανουάριο του 1970</strong>, η διοίκηση του Ιωάννη Μαντζαρόπουλου απέρριψε ομόφωνα πρόταση συγχώνευσης με τον Σ.Φ.Κ. Πιερικό (έγγραφο 261/14-1-1970), διαφυλάσσοντας την ανεξαρτησία του συλλόγου. Στις <strong>24 Ιουνίου 1973</strong>, πέντε καθηγητές Φυσικής Αγωγής (<strong>Αθανάσιος Ευθυμίου, Δημήτριος Παρασκευόπουλος, Ευστάθιος Ζάννας, Ορέστης Νταρλαγιάννης, Θεόδωρος Σφήκας</strong>) ανέλαβαν τη διοίκηση, μετεξελίσσοντας τον Αρχέλαο από αμιγές σωματείο στίβου σε πολυαθλητικό οργανισμό. Κομβική υπήρξε επίσης η πολυετής προσφορά της ειδικής γραμματέως του συλλόγου <strong>Βασιλικής Λαζαρίδου (του Θεοφίλου)</strong> από το 1983. Το <strong>2026</strong>, για τα 70 χρόνια του συλλόγου, ο Δήμος Κατερίνης αφιέρωσε στον Αρχέλαο το συλλεκτικό μετάλλιο του αγώνα «Τρέχω για την Κατερίνη 2026».</p>
-              <p data-lang="en" class="!mb-0">In <strong>January 1970</strong>, the administration of Ioannis Mantzaropoulos unanimously rejected a merger proposal by S.F.K. Pierikos (Doc. 261/14-1-1970), safeguarding the club's autonomy. On <strong>June 24, 1973</strong>, five Physical Education teachers (<strong>Athanasios Efthymiou, Dimitrios Paraskevopoulos, Efstathios Zannas, Orestis Darlagiannis, Theodoros Sfikas</strong>) assumed the administration, transforming Archelaos from a track-only club into a multi-sport organization. Also pivotal was the decades-long service of special secretary <strong>Vasiliki Lazaridou (daughter of Theofilos)</strong> since 1983. In <strong>2026</strong>, marking the club's 70th anniversary, the Municipality of Katerini dedicated the commemorative medal of "Run for Katerini 2026" to G.A.S. Archelaos.</p>
-            </div>
-          </div>
-
-          <!-- TAB 2: FACILITIES -->
-          <div id="hist-panel-facilities" class="hist-tab-panel space-y-4">
-            <h4 class="text-lg font-black font-heading text-archelaos-deepgreen">
-              <span data-lang="el">Αθλητικές Εγκαταστάσεις Γ.Α.Σ. Αρχέλαος</span>
-              <span data-lang="en">Sports Facilities of G.A.S. Archelaos</span>
-            </h4>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div class="sub-box p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-                <h5 class="font-heading font-black text-sm text-archelaos-deepgreen">
-                  <span data-lang="el">Β΄ Δ.Α.Κ. «Θεόδωρος Διαμαντόπουλος»</span>
-                  <span data-lang="en">2nd M.A.C. (DAK) "Theodoros Diamantopoulos"</span>
-                </h5>
-                <p data-lang="el" class="!mb-0">Περιλαμβάνει το Κλειστό Γυμναστήριο (εγκαινιάστηκε στις 12/09/1977, έδρα Χειροσφαίρισης & Πετοσφαίρισης), τις ειδικές αίθουσες Πάλης, Ενόργανης Γυμναστικής και Σκοπευτηρίου (από το 1979), καθώς και το Δημοτικό Κολυμβητήριο (λειτουργεί από το 1981).</p>
-                <p data-lang="en" class="!mb-0">Comprises the Indoor Arena (inaugurated 12/09/1977, home of Handball & Volleyball), dedicated halls for Wrestling, Artistic Gymnastics, and the indoor Shooting Range (since 1979), as well as the Municipal Swimming Pool (operating since 1981).</p>
-              </div>
-              <div class="sub-box p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-                <h5 class="font-heading font-black text-sm text-archelaos-deepgreen">
-                  <span data-lang="el">Α΄ Δ.Α.Κ. (Δημοτικό Στάδιο Κατερίνης)</span>
-                  <span data-lang="en">1st M.A.C. (Municipal Stadium of Katerini)</span>
-                </h5>
-                <p data-lang="el" class="!mb-0">Στις υπαίθριες εγκαταστάσεις του (ταρτάν, σκάμματα και κλωβοί ρίψεων) πραγματοποιούνται οι προπονήσεις του Στίβου, ενώ εκεί στεγάζονται από το 2021 και τα επίσημα γραφεία του συλλόγου (Εθνικού Σταδίου 3Α).</p>
-                <p data-lang="en" class="!mb-0">Its outdoor track, jumping pits, and throwing cages host daily Track & Field training, as well as the club's official administrative headquarters since 2021 (3A Ethnikou Stadiou Street).</p>
-              </div>
-              <div class="sub-box p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-                <h5 class="font-heading font-black text-sm text-archelaos-deepgreen">
-                  <span data-lang="el">Εγκαταστάσεις Τοξοβολίας & Ιστορικοί Χώροι</span>
-                  <span data-lang="en">Archery Venues & Historical Spaces</span>
-                </h5>
-                <p data-lang="el" class="!mb-0">Κλειστό προπονητήριο στην οδό Πλάτωνος (18 μ.) και υπαίθριο πεδίο βολής στο Δημοτικό Γήπεδο Νέας Χράνης (50 & 70 μ.). Ιστορικά ο σύλλογος μίσθωνε επίσης αίθουσα 110 τ.μ. στα Καταφυγιώτικα (1993–95) και προπονητήριο 200 τ.μ. στην οδό 7ης Μεραρχίας 102 (1995).</p>
-                <p data-lang="en" class="!mb-0">Indoor range on Platonos Street (18m) and outdoor range at Nea Chrani Municipal Field (50m & 70m). Historically, the club also leased a 110 sq.m. gym in Katafygiotika (1993–95) and a 200 sq.m. facility at 102 7is Merarchias Street (1995).</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- TAB 3: DIIA GAMES & DIOS DROMOS -->
-          <div id="hist-panel-diia" class="hist-tab-panel space-y-4">
-            <h4 class="text-lg font-black font-heading text-archelaos-deepgreen">
-              <span data-lang="el">Αγώνες «Δίια» (1957) & «Δίος Δρόμος» (1987)</span>
-              <span data-lang="en">"Diia" Games (1957) & "Dios Dromos" (1987)</span>
-            </h4>
-            <p data-lang="el">Οι διασυλλογικοί αγώνες στίβου <strong>«Δίια»</strong> («Ολύμπια εν Δίω») θεσπίστηκαν με την υπ' αριθμόν <strong>4060/18-3-1957</strong> απόφαση του νομαρχεύοντος Πιερίας Μενέλαου Τσακίρη και τελέστηκαν για πρώτη φορά στις <strong>30 Ιουνίου 1957</strong> στο Δημοτικό Πάρκο Κατερίνης («Α΄ Δίια»). Από το 1974 εξελίχθηκαν σε ένα από τα μεγαλύτερα μίτινγκ στίβου στην Ελλάδα (Ε΄ Δίια 1974 με 16 σωματεία, ΣΤ΄ Δίια 1975 με 18 σωματεία, Ζ΄ Δίια 1977 όπου τιμήθηκαν οι Χρήστος Παπανικολάου, Σταύρος Τζιωρτζής και Δημοσθένης Μαγκλάρας, Ι΄ Δίια 1980 με ρεκόρ Αντώνη Παπαδημητρίου 63,02 μ., ΙΒ΄ Δίια 1985 στη μνήμη Δημητρίου Γιάνναρου με πανελλήνιο ρεκόρ παίδων Κώστα Κουκοδήμου 7,40 μ.). Το <strong>1987</strong> καθιερώθηκε παράλληλα ο <strong>«Δίος Δρόμος»</strong> (15,5 χλμ.) από το αρχαίο θέατρο του Δίου έως την Πλατεία Ελευθερίας Κατερίνης.</p>
-            <p data-lang="en">The interclub track and field games <strong>"Diia"</strong> ("Olympia in Dion") were instituted by Decision No. <strong>4060/18-3-1957</strong> of Acting Prefect of Pieria Menelaos Tsakiris and first held on <strong>June 30, 1957</strong> at the Municipal Park of Katerini ("1st Diia"). From 1974 onwards, they grew into one of Greece's premier regional athletics meetings (5th Diia 1974 with 16 clubs; 6th Diia 1975 with 18 clubs; 7th Diia 1977 honoring Christos Papanikolaou, Stavros Tziortzis, and Dimosthenis Magklaras; 10th Diia 1980 featuring Antonis Papadimitriou's 63.02m record; 12th Diia 1985 in memory of President Dimitrios Giannaros featuring 16-year-old Kostas Koukodimos's 7.40m Boys' National Record). In <strong>1987</strong>, the <strong>"Dios Dromos"</strong> 15.5km road race from the Ancient Theater of Dion to Eleftherias Square in Katerini was established.</p>
-          </div>
-
-          <!-- TAB 4: TROPHY ROOM -->
-          <div id="hist-panel-trophies" class="hist-tab-panel space-y-4">
-            <h4 class="text-lg font-black font-heading text-archelaos-deepgreen">
-              <span data-lang="el">Τροπαιοθήκη & Διακρίσεις Ανά Τμήμα</span>
-              <span data-lang="en">Trophy Room & Honors By Department</span>
-            </h4>
-            <div data-lang="el" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div class="sub-box p-4 rounded-2xl bg-slate-50 border border-slate-200">
-                <h5 class="font-heading font-black text-archelaos-deepgreen mb-1.5">🏆 Χειροσφαίριση (Χάντμπολ)</h5>
-                <p class="!mb-0"><strong>2 Κύπελλα Ελλάδας Ανδρών:</strong> 1990, 1994 (Φιναλίστ: 1984, 1993, 1996, 2000) • <strong>Α1 Εθνική Ανδρών:</strong> 2η θέση (1994–95), 3η θέση (1990, 1991, 1993) • <strong>9 Πανελλήνια Πρωταθλήματα Υποδομών:</strong> Εφήβων (1984, 1996), Παίδων (1994, 1995, 1996, 1997), Μίνι (1993, 1994, 1995).</p>
-              </div>
-              <div class="sub-box p-4 rounded-2xl bg-slate-50 border border-slate-200">
-                <h5 class="font-heading font-black text-archelaos-deepgreen mb-1.5">🏆 Τοξοβολία</h5>
-                <p class="!mb-0"><strong>Πρωταθλητής Ελλάδας Ομαδικού Ανδρών (2):</strong> 2025, 2026 • <strong>Κυπελλούχος Ελλάδας Ομαδικού Ανδρών (2):</strong> 2024, 2026 • <strong>Πρωταθλητής Ελλάδας U21 (1):</strong> 2026 • <strong>Ατομικό Ανδρών:</strong> 1ος Ευάγγελος Χαρίσης (2025), 2ος Χάρης Ιακωβίδης (2025, 2026) • <strong>Ευρωπαϊκά Μετάλλια Para-Archery:</strong> Δωροθέα Ποιμενίδου.</p>
-              </div>
-              <div class="sub-box p-4 rounded-2xl bg-slate-50 border border-slate-200">
-                <h5 class="font-heading font-black text-archelaos-deepgreen mb-1.5">🏆 Ενόργανη Γυμναστική & Πάλη</h5>
-                <p class="!mb-0"><strong>Ενόργανη:</strong> Πρωταθλητής Ελλάδας Ανδρών (Γλυφάδα, Καλλιθέα 1993), 10ετές Πανελλήνιο Σερί Πρωτιάς (1981–1991), Ασημένιο Μεσογειακών 1991 (Χαρίλαος Κακάλης) • <strong>Πάλη:</strong> Πρωταθλητής Ελλάδας Συλλόγων Ανδρών, Ασημένιο Παγκοσμίου U17 2025 (Δημήτρης Σουλής), Χρυσό Μεσογειακών 1993 & Ασημένιο Παγκοσμίου Εφήβων 1990 (Νικόλαος Ζαμάνης).</p>
-              </div>
-              <div class="sub-box p-4 rounded-2xl bg-slate-50 border border-slate-200">
-                <h5 class="font-heading font-black text-archelaos-deepgreen mb-1.5">🏆 Στίβος, Σκοποβολή & Μπάσκετ</h5>
-                <p class="!mb-0"><strong>Στίβος:</strong> 6ος Ολυμπιονίκης 1992 & Χρυσό Μεσογειακών 1991 (Κώστας Κουκοδήμος), 1ος Επαρχιακός Σύλλογος Ελλάδας • <strong>Σκοποβολή:</strong> Ολυμπιακή Συμμετοχή Αθήνα 2004 & Πανελλήνια Ρεκόρ (Μαρία Φάκα), Βαλκανικό Ρεκόρ (Γεώργιος Ιωαννίδης) • <strong>Μπάσκετ:</strong> 3η θέση Πανελλήνιο Κορασίδων (1995–96), Πρωταθλητής & Κυπελλούχος ΕΚΑΣΚΕΜ.</p>
-              </div>
-            </div>
-
-            <div data-lang="en" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div class="sub-box p-4 rounded-2xl bg-slate-50 border border-slate-200">
-                <h5 class="font-heading font-black text-archelaos-deepgreen mb-1.5">🏆 Handball</h5>
-                <p class="!mb-0"><strong>2 Greek Men's Cups:</strong> 1990, 1994 (Finalist: 1984, 1993, 1996, 2000) • <strong>Greek A1 League:</strong> Runner-up (1994–95), 3rd place (1990, 1991, 1993) • <strong>9 National Youth Championships:</strong> U18 Juniors (1984, 1996), U16 Cadets (1994, 1995, 1996, 1997), U14 Mini (1993, 1994, 1995).</p>
-              </div>
-              <div class="sub-box p-4 rounded-2xl bg-slate-50 border border-slate-200">
-                <h5 class="font-heading font-black text-archelaos-deepgreen mb-1.5">🏆 Archery</h5>
-                <p class="!mb-0"><strong>Greek Men's Recurve Team Champion (2):</strong> 2025, 2026 • <strong>Greek Men's Team Cup Winner (2):</strong> 2024, 2026 • <strong>Greek U21 Team Champion (1):</strong> 2026 • <strong>Men's Individual:</strong> 1st Evangelos Charisis (2025), 2nd Charis Iakovidis (2025, 2026) • <strong>European Para-Archery Medals:</strong> Dorothea Poimenidou.</p>
-              </div>
-              <div class="sub-box p-4 rounded-2xl bg-slate-50 border border-slate-200">
-                <h5 class="font-heading font-black text-archelaos-deepgreen mb-1.5">🏆 Artistic Gymnastics & Wrestling</h5>
-                <p class="!mb-0"><strong>Gymnastics:</strong> Greek Men's Team Champion (Glyfada, Kallithea 1993), 10-Year National Winning Streak (1981–1991), 1991 Mediterranean Silver (Charilaos Kakalis) • <strong>Wrestling:</strong> Greek Men's Club Champion, 2025 World U17 Silver (Dimitris Soulis), 1993 Mediterranean Gold & 1990 World Junior Silver (Nikolaos Zamanis).</p>
-              </div>
-              <div class="sub-box p-4 rounded-2xl bg-slate-50 border border-slate-200">
-                <h5 class="font-heading font-black text-archelaos-deepgreen mb-1.5">🏆 Track & Field, Shooting & Basketball</h5>
-                <p class="!mb-0"><strong>Athletics:</strong> 6th Olympic Finalist 1992 & Mediterranean Gold 1991 (Kostas Koukodimos), 1st Regional Club in Greece • <strong>Shooting:</strong> Athens 2004 Olympic Participation & National Records (Maria Faka), Balkan Record (Georgios Ioannidis) • <strong>Basketball:</strong> 3rd place Panhellenic U16 Girls (1995–96), EKASKEM Champion & Cup Winner.</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- TAB 5: HISTORICAL DEPARTMENTS & BIBLIOGRAPHY -->
-          <div id="hist-panel-past" class="hist-tab-panel space-y-4">
-            <h4 class="text-lg font-black font-heading text-archelaos-deepgreen">
-              <span data-lang="el">Καλαθοσφαίριση (1973–2008), Ιστορικά Τμήματα & Βιβλιογραφία</span>
-              <span data-lang="en">Basketball (1973–2008), Past Departments & Bibliography</span>
-            </h4>
-            <div data-lang="el" class="space-y-3">
-              <p><strong>Καλαθοσφαίριση (1973–2008):</strong> Ιδρύθηκε το 1973 υπό τον Θεόδωρο Σφήκα και υπήρξε ιδρυτικό σωματείο της ΕΚΑΣΚΕΔΥΜ/ΕΚΑΣΚΕΜ (1980). Αγωνίστηκε στη Β΄ Εθνική Ανδρών (1977–79), στη Γ΄ Εθνική (2002–08), στη Β΄ Εθνική Γυναικών (1989) και κατέκτησε την 3η θέση στο Πανελλήνιο Κορασίδων (1995–96 υπό τον Κυριάκο Κανάλη). Προπονητές διετέλεσαν οι Θεόδωρος Σφήκας, Κυριάκος Κανάλης, Αναστάσιος Θωμαΐδης, Χρήστος Ξηρομερίτης, Παναγιώτης Αθανασιάδης, Δημοσθένης Σιδηρόπουλος, Δημήτριος Σμυρλής, Πλάτων Χοτοκουρίδης, Αναστασία Φυλακτακίδου, ενώ διακρίθηκαν οι Κωνσταντίνος Τσουγκράνης, Τσαγκαλίδης, Ελένη Μαλεζά, Τασούλα Τσιρογιάννη, Δημήτριος Τσιγγαρόπουλος, Γεώργιος Αντωνιάδης, Γιάννης Παναγιωτίδης, Θεόδωρος Βύρος, Χρήστος Τοπαλίδης, Θεόδωρος Πρισκομάτης, Αλεξάνδρα Μπίλα, Παναγιώτα Νικολαΐδου. Στις 4 Ιουνίου 2008 συγχωνεύθηκε με το μπάσκετ του Πιερικού δημιουργώντας τον <strong>Σ.Φ.Κ. Πιερικός Αρχέλαος</strong>.</p>
-              <p><strong>Υδατοσφαίριση, Επιτραπέζια Αντισφαίριση & Άρση Βαρών:</strong> Το <strong>Πόλο</strong> λειτούργησε το 1982–1985 και το 1995–2009. Το <strong>Πινγκ-Πονγκ</strong> ιδρύθηκε το 1976 (ένταξη στην ΕΦΟΕπΑ το 1978 υπό τον έφορο Λάζαρο Μπλάτζα). Η <strong>Άρση Βαρών</strong> συστάθηκε το 1980 (Δημήτριος Παρασκευόπουλος) και λειτούργησε από το 1985 με προπονητές τους Γεώργιο Χατζησαββίδη, Θεόδωρο Παυλίδη, Πέτρο Μαυρόπουλο και Δημήτριο Χατζησαββίδη.</p>
-              <p class="text-xs opacity-85"><strong>Βιβλιογραφία & Πηγές:</strong> Αρχείο Πρακτικών Δ.Σ. Γ.Α.Σ. Αρχέλαος (1968–2026) • Χρήστος Ελευθερούδης (επιμ.), <em>Γ.Α.Σ. Ο ΑΡΧΕΛΑΟΣ Κατερίνης 1956: 40 Χρόνια Έντονης Αθλητικής Δραστηριότητας</em> (1996) • <em>Γ.Α.Σ. Αρχέλαος: 46 χρόνια - Πάντα Πρώτος</em> (2002) • Αρχείο εφημερίδων <em>Ολύμπιο Βήμα</em> & <em>Πιερικοί Αντίλαλοι</em>.</p>
-            </div>
-            <div data-lang="en" class="space-y-3">
-              <p><strong>Basketball (1973–2008):</strong> Founded in 1973 under Theodoros Sfikas and co-founded EKASKEDYM/EKASKEM (1980). Competed in the Men's B' National Division (1977–79), C' National Division (2002–08), Women's B' National Division (1989), and won 3rd place in the Panhellenic U16 Girls' Championship (1995–96 under coach Kyriakos Kanalis). Coached by Theodoros Sfikas, Kyriakos Kanalis, Anastasios Thomaidis, Christos Xiromeritis, Panagiotis Athanasiadis, Dimosthenis Sidiropoulos, Dimitrios Smyrlis, Platon Chotokouridis, and Anastasia Fylaktakidou; standout players included Konstantinos Tsougranis, Tsagkalidis, Eleni Maleza, Tasoula Tsirogianni, Dimitrios Tsingaropoulos, Georgios Antoniadis, Giannis Panagiotidis, Theodoros Vyros, Christos Topalidis, Theodoros Priskomatis, Alexandra Bila, and Panagiota Nikolaidou. On June 4, 2008, it merged with Pierikos Basketball to form <strong>S.F.K. Pierikos Archelaos</strong>.</p>
-              <p><strong>Water Polo, Table Tennis & Weightlifting:</strong> <strong>Water Polo</strong> operated in 1982–1985 and 1995–2009. <strong>Table Tennis</strong> was founded in 1976 (joined EFOEpA in 1978 under Lazaros Blatzas). <strong>Weightlifting</strong> was formed in 1980 (Dimitrios Paraskevopoulos) and operated from 1985 coached by Georgios Chatzisavvidis, Theodoros Pavlidis, Petros Mavropoulos, and Dimitrios Chatzisavvidis.</p>
-              <p class="text-xs opacity-85"><strong>Bibliography & Sources:</strong> Archive of Board Minutes of G.A.S. Archelaos (1968–2026) • Christos Eleftheroudis (ed.), <em>G.A.S. ARCHELAOS Katerini 1956: 40 Years of Intense Athletic Activity</em> (1996) • <em>G.A.S. Archelaos: 46 Years - Always First</em> (2002) • Archives of <em>Olympio Vima</em> & <em>Pierikoi Antilaloi</em>.</p>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Modal Footer -->
-        <div class="px-6 py-4 bg-slate-50 dark:bg-[#092313] border-t border-slate-200/80 dark:border-slate-700 flex items-center justify-end">
-          <button type="button" onclick="closeFullHistoryModal()" class="px-6 py-2.5 bg-archelaos-deepgreen text-archelaos-yellow font-black rounded-xl shadow-md hover:bg-archelaos-darkgreen transition text-xs uppercase tracking-wider" data-i18n="btn_close">Κλείσιμο</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- PRESIDENT POP-UP DETAIL MODAL (FOR PRESIDENTS TABLE) -->
-    <div id="presidentDetailModal" class="modal-backdrop fixed inset-0 z-[60] overflow-y-auto bg-black/70 flex items-center justify-center p-4">
-      <div class="modal-box relative w-full max-w-lg bg-white rounded-3xl shadow-2xl overflow-hidden border-2 border-white">
-        <div class="modal-header bg-archelaos-yellow p-5 sm:p-6 flex items-center justify-between border-b border-archelaos-darkgreen/20">
-          <div class="flex items-center gap-3">
-            <div id="presidentModalTerm" class="px-3 py-1.5 rounded-xl bg-archelaos-deepgreen text-archelaos-yellow font-heading font-black text-xs sm:text-sm shadow-sm shrink-0">1956–1957</div>
-            <div>
-              <span id="presidentModalSub" class="text-[10px] font-black uppercase tracking-wider text-archelaos-darkgreen block">Πρόεδρος Δ.Σ.</span>
-              <h3 id="presidentModalName" class="modal-header-title font-heading font-black text-base sm:text-lg text-archelaos-deepgreen leading-tight">Γεώργιος Ευθυμίου</h3>
-            </div>
-          </div>
-          <button type="button" onclick="closePresidentDetailModal()" class="modal-close-btn w-8 h-8 rounded-full bg-archelaos-darkgreen/10 text-archelaos-deepgreen flex items-center justify-center hover:bg-archelaos-darkgreen hover:text-archelaos-yellow transition shrink-0">
-            <i class="fa-solid fa-xmark"></i>
-          </button>
-        </div>
-        <div class="p-6 space-y-4">
-          <div class="history-highlight p-4 rounded-2xl bg-archelaos-yellow/20 border border-archelaos-darkgreen/20 text-archelaos-deepgreen text-xs sm:text-sm leading-relaxed font-medium">
-            <div class="font-black uppercase text-[11px] tracking-wider mb-1.5 flex items-center gap-1.5 text-archelaos-darkgreen">
-              <i class="fa-solid fa-star"></i>
-              <span data-lang="el">Σημαντικότεροι Σταθμοί & Γεγονότα Θητείας</span>
-              <span data-lang="en">Key Milestones & Events of Term</span>
-            </div>
-            <p id="presidentModalDetails" class="!mb-0"></p>
-          </div>
-          <div class="flex items-center justify-between gap-2 pt-2">
-            <div class="flex items-center gap-2">
-              <button type="button" onclick="stepPresidentModal(-1)" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-archelaos-deepgreen text-archelaos-deepgreen hover:text-archelaos-yellow text-xs font-extrabold transition flex items-center gap-1.5">
-                <i class="fa-solid fa-chevron-left text-[10px]"></i>
-                <span data-lang="el">Προηγ.</span>
-                <span data-lang="en">Prev</span>
-              </button>
-              <button type="button" onclick="stepPresidentModal(1)" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-archelaos-deepgreen text-archelaos-deepgreen hover:text-archelaos-yellow text-xs font-extrabold transition flex items-center gap-1.5">
-                <span data-lang="el">Επόμ.</span>
-                <span data-lang="en">Next</span>
-                <i class="fa-solid fa-chevron-right text-[10px]"></i>
-              </button>
-            </div>
-            <button type="button" onclick="closePresidentDetailModal()" class="px-5 py-2 rounded-xl bg-archelaos-deepgreen text-archelaos-yellow font-black text-xs uppercase tracking-wider hover:bg-archelaos-darkgreen transition" data-i18n="btn_close">Κλείσιμο</button>
           </div>
         </div>
       </div>
@@ -1525,7 +1195,7 @@
             <i class="modal-header-icon fa-solid fa-user-plus text-archelaos-deepgreen text-lg"></i>
             <h3 class="modal-header-title font-heading font-black text-lg text-archelaos-deepgreen" data-i18n="modal_reg_title">Εκδήλωση Ενδιαφέροντος για Τμήμα</h3>
           </div>
-          <button type="button" onclick="closeRegistrationModal()" class="modal-close-btn w-8 h-8 rounded-full bg-archelaos-darkgreen/10 text-archelaos-deepgreen flex items-center justify-center hover:bg-archelaos-darkgreen hover:text-archelaos-yellow transition"><i class="fa-solid fa-xmark"></i></button>
+          <button onclick="closeRegistrationModal()" class="modal-close-btn w-8 h-8 rounded-full bg-archelaos-darkgreen/10 text-archelaos-deepgreen flex items-center justify-center hover:bg-archelaos-darkgreen hover:text-archelaos-yellow transition"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <form id="modalForm" onsubmit="handleModalDirectSubmit(event)" class="p-6 sm:p-8 space-y-4">
           <div>
@@ -1556,15 +1226,75 @@
           <div id="modalAlert" class="hidden p-3 rounded-xl text-xs font-bold bg-emerald-100 text-emerald-900 border border-emerald-300">
             <i class="fa-solid fa-circle-check mr-1 text-emerald-700"></i> <span data-i18n="reg_sent_success">Η εγγραφή σας καταχωρήθηκε επιτυχώς!</span>
           </div>
-          <button type="submit" class="modal-submit-btn btn-shimmer
- w-full py-4 bg-archelaos-deepgreen text-archelaos-yellow font-black rounded-xl shadow-md transition" data-i18n="btn_submit_reg">Υποβολή Ενδιαφέροντος</button>
+          <button type="submit" class="modal-submit-btn btn-shimmer w-full py-4 bg-archelaos-deepgreen text-archelaos-yellow font-black rounded-xl shadow-md transition" data-i18n="btn_submit_interest">Υποβολή Ενδιαφέροντος</button>
         </form>
       </div>
     </div>
 
-    <!-- JAVASCRIPT -->
+    <!-- DESKTOP BACK-TO-TOP FLOATING BUTTON -->
+    <button id="backToTopBtn" aria-label="Επιστροφή στην κορυφή" class="fixed bottom-7 right-7 z-40 hidden lg:flex items-center justify-center w-14 h-14 rounded-full bg-archelaos-deepgreen text-archelaos-yellow shadow-2xl border-2 border-archelaos-yellow/50 group transition-all duration-300 hover:scale-110 hover:shadow-archelaos-deepgreen/40 opacity-0 pointer-events-none translate-y-4">
+      <svg class="absolute inset-0 w-full h-full -rotate-90 pointer-events-none" viewBox="0 0 56 56">
+        <circle cx="28" cy="28" r="25" fill="none" stroke="rgba(246, 238, 66, 0.2)" stroke-width="2.5"></circle>
+        <circle id="bttScrollProgress" cx="28" cy="28" r="25" fill="none" stroke="#f6ee42" stroke-width="2.5" stroke-dasharray="157.08" stroke-dashoffset="157.08" stroke-linecap="round" class="transition-all duration-150"></circle>
+      </svg>
+      <div class="relative w-8 h-8 flex items-center justify-center overflow-hidden">
+        <img src="https://lh3.googleusercontent.com/d/1JwGT61jDKXuBU6rA1OCiC1laeKh8gKdV" alt="Αρχέλαος" class="w-7 h-7 object-contain transition-all duration-300 transform group-hover:-translate-y-8 group-hover:opacity-0 group-hover:scale-50">
+        <i class="fa-solid fa-arrow-up text-lg text-archelaos-yellow absolute transition-all duration-300 transform translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 group-hover:scale-110"></i>
+      </div>
+      <span class="absolute right-16 bg-archelaos-deepgreen text-archelaos-yellow text-[11px] font-black uppercase tracking-wider px-3 py-1.5 rounded-xl shadow-lg border border-archelaos-yellow/40 opacity-0 pointer-events-none translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 whitespace-nowrap" data-i18n="back_to_top_tooltip">Κορυφή</span>
+    </button>
+
+    <!-- FOOTER (IDENTICAL ACROSS BOTH PAGES) -->
+    <footer class="relative z-10 bg-archelaos-deepgreen text-archelaos-yellow/80 border-t border-archelaos-yellow/20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col items-center justify-center gap-6 text-center text-xs">
+        <a href="#home" title="Επιστροφή στην Κορυφή">
+          <img src="https://lh3.googleusercontent.com/d/1JwGT61jDKXuBU6rA1OCiC1laeKh8gKdV" alt="Logo" class="w-24 h-24 object-contain opacity-95 hover:scale-105 transition duration-200" loading="lazy" decoding="async">
+        </a>
+
+        <!-- Quick Navigation Links (Matching history.html) -->
+        <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
+          <a href="#home" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-archelaos-yellow text-archelaos-deepgreen font-extrabold text-xs hover:bg-white transition shadow-sm">
+            <i class="fa-solid fa-house text-xs"></i> <span data-i18n="nav_home">Αρχική</span>
+          </a>
+          <a href="history.html" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-archelaos-yellow font-bold text-xs border border-archelaos-yellow/25 transition">
+            <i class="fa-solid fa-landmark text-xs"></i> <span data-i18n="nav_history">Ιστορία</span>
+          </a>
+          <a href="#departments" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-archelaos-yellow font-bold text-xs border border-archelaos-yellow/25 transition">
+            <span data-i18n="nav_dept">Τμήματα</span>
+          </a>
+          <a href="#timeline" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-archelaos-yellow font-bold text-xs border border-archelaos-yellow/25 transition">
+            <span data-i18n="nav_timeline">Χρονολόγιο</span>
+          </a>
+          <a href="#board" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-archelaos-yellow font-bold text-xs border border-archelaos-yellow/25 transition">
+            <span data-i18n="nav_board">Διοίκηση</span>
+          </a>
+          <a href="#contact" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-archelaos-yellow font-bold text-xs border border-archelaos-yellow/25 transition">
+            <span data-i18n="nav_contact">Επικοινωνία</span>
+          </a>
+        </div>
+
+        <!-- Social & History Links -->
+        <div class="flex flex-wrap items-center justify-center gap-3">
+          <a href="https://www.facebook.com/oarxelaos" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-white/10 hover:bg-archelaos-yellow text-archelaos-yellow hover:text-archelaos-deepgreen border border-archelaos-yellow/30 font-extrabold text-xs transition shadow-sm">
+            <i class="fa-brands fa-facebook-f text-sm"></i> <span>Facebook</span>
+          </a>
+          <a href="https://www.youtube.com/@GASArchelaosKaterinis" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-white/10 hover:bg-archelaos-yellow text-archelaos-yellow hover:text-archelaos-deepgreen border border-archelaos-yellow/30 font-extrabold text-xs transition shadow-sm">
+            <i class="fa-brands fa-youtube text-sm text-red-400 group-hover:text-archelaos-deepgreen"></i> <span>YouTube</span>
+          </a>
+           <a href="https://el.wikipedia.org/wiki/%CE%93.%CE%91.%CE%A3._%CE%9F_%CE%91%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82_%CE%9A%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-white/10 hover:bg-archelaos-yellow text-archelaos-yellow hover:text-archelaos-deepgreen border border-archelaos-yellow/30 font-extrabold text-xs transition shadow-sm">
+            <i class="fa-brands fa-wikipedia-w text-sm"></i> <span>Wikipedia</span>
+          </a>
+        </div>
+        <div class="space-y-1">
+          <p class="font-semibold tracking-wide">&copy; 1956 - 2026 Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης &bull; archelaos.club</p>
+          <p class="text-[11px] text-archelaos-yellow/60" data-i18n="footer_address">Α΄ Δημοτικό Αθλητικό Κέντρο (ΔΑΚ) Κατερίνης, 60132</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- JAVASCRIPT & BILINGUAL ENGINE -->
     <script>
-      // i18n Translations Dictionary
+      // 1. Translation Dictionary
       const translations = {
         el: {
           brand_title: "Αρχέλαος",
@@ -1576,7 +1306,7 @@
           nav_dept: "Τμήματα",
           nav_board: "Διοίκηση",
           nav_contact: "Επικοινωνία",
-          btn_register: "Εγγραφές",
+          btn_register: "Εγγραφές / Εκδήλωση",
           btn_register_interest: "Εκδήλωση Ενδιαφέροντος",
           hero_badge: "Γ.Α.Σ. «Ο ΑΡΧΕΛΑΟΣ» ΚΑΤΕΡΙΝΗΣ • EST. 1956",
           hero_h1_1: "Αθλητισμός,",
@@ -1587,18 +1317,18 @@
           slide_heading_1: "70 Χρόνια",
           slide_heading_2: "Αγωνιστικής Δράσης",
           about_tag: "Η Ιστορία Μας",
-          about_title: "Ο Σύλλογος που ένωσε την Πιερία",
-          about_p1: "Ο Γυμναστικός Αγωνιστικός Σύλλογος «Ο Αρχέλαος» Κατερίνης αποτελεί έναν από τους ιστορικότερους πολυαθλητικούς συλλόγους της Μακεδονίας. Ιδρύθηκε το 1956 και παραμένει πιστός στο όραμά του.",
+          about_title: "Ο Σύλλογος που <br>ένωσε την Πιερία",
+          about_p1: "Ο Γυμναστικός Αγωνιστικός Σύλλογος «Ο Αρχέλαος» Κατερίνης αποτελεί έναν από τους ιστορικότερους πολυαθλητικούς συλλόγους της Μακεδονίας. Ιδρύθηκε το <strong class='text-archelaos-deepgreen'>1956</strong> και παραμένει πιστός στο όραμά του.",
           stat_athletes: "Αθλητές",
           stat_founded: "Ίδρυση",
+          btn_full_history: "Διαβάστε όλη την Ιστορία (Αναλυτικό Αρχείο 70 Ετών)",
           timeline_tag: "1956 – 2026 • 70 Χρόνια",
           timeline_title: "Χρονολόγιο Ιστορίας",
           timeline_sub: "Οριζόντια γραμμή ορόσημων. Πατήστε σε έναν τίτλο για αναλυτικές λεπτομέρειες.",
           timeline_drag_hint: "← Σύρετε ή πατήστε τα βέλη →",
-          btn_full_history: "Διαβάστε όλη την Ιστορία (Αναλυτικό Αρχείο 70 Ετών)",
           dept_tag: "Αθλητισμός για όλους",
           dept_title: "Τα 8 Αθλητικά Τμήματα",
-          dept_sub: "Επιλέξτε κατηγορία για άμεση προβολή ή πατήστε «Ιστορικό» για πλήρη αναδρομή.",
+          dept_sub: "Επιλέξτε το άθλημα που σας ταιριάζει και γίνετε μέλος της οικογένειας του Αρχελάου Κατερίνης.",
           filter_all: "Όλα τα Τμήματα (8)",
           filter_team: "Ομαδικά (2)",
           filter_individual: "Ατομικά & Ολυμπιακά (5)",
@@ -1606,25 +1336,27 @@
           btn_dept_history: "Ιστορικό",
           dept_1_title: "Χειροσφαίριση",
           dept_1_sub: "(Χάντμπολ)",
+          dept_1_desc: "Ιστορικό τμήμα με 2 Κύπελλα Ελλάδος (1990, 1994) και λαμπρή παρουσία στην Α1 Εθνική.",
           dept_2_title: "Στίβος",
           dept_2_sub: "(Κλασικός Αθλητισμός)",
+          dept_2_desc: "Κλασικός αθλητισμός με έδρα το Α΄ ΔΑΚ Κατερίνης και φυτώρια νέων ταλέντων.",
           dept_3_title: "Τοξοβολία",
+          dept_3_desc: "Ολυμπιακό άθλημα με ενεργή αγωνιστική παρουσία και τμήματα υποδομών.",
           dept_4_title: "Σκοποβολή",
+          dept_4_desc: "Αγωνίσματα ακριβείας και αεροβόλων όπλων υπό την καθοδήγηση έμπειρων προπονητών.",
           dept_5_title: "Ενόργανη Γυμναστική",
+          dept_5_desc: "Ανάπτυξη ευλυγισίας, δύναμης, ισορροπίας και συντονισμού σε εξοπλισμένη αίθουσα.",
           dept_6_title: "Πετοσφαίριση",
           dept_6_sub: "(Βόλεϊ)",
+          dept_6_desc: "Ομαδικό άθλημα με τμήματα υποδομών και αγωνιστικά κλιμάκια.",
           dept_7_title: "Πάλη",
+          dept_7_desc: "Παραδοσιακό δυναμικό άθλημα με πλούσια ιστορία διακρίσεων στην Πιερία.",
           dept_8_title: "Κολύμβηση",
           dept_8_sub: "(Υγρός Στίβος)",
+          dept_8_desc: "Ακαδημίες εκμάθησης και αγωνιστικό τμήμα υγρού στίβου για όλες τις ηλικίες.",
           board_tag: "Διοίκηση",
           board_title: "Διοικητικό Συμβούλιο",
           board_sub: "Η σύνθεση του Δ.Σ. και οι υπεύθυνοι έφοροι των 8 αθλητικών τμημάτων του συλλόγου.",
-          role_president: "Πρόεδρος",
-          role_vp1: "Α΄ Αντιπρόεδρος",
-          role_vp2: "Β΄ Αντιπρόεδρος",
-          role_gen_sec: "Γεν. Γραμματέας",
-          role_treasurer: "Ταμίας",
-          role_member: "Μέλος Δ.Σ.",
           board_1_name: "Παναγιώτης Διαμαντόπουλος",
           board_2_name: "Χαράλαμπος Σαββίδης",
           board_3_name: "Δημήτριος Γαλάνης",
@@ -1633,6 +1365,12 @@
           board_6_name: "Γεώργιος Αθανασίου",
           board_7_name: "Κυριάκος Κωνσταντινίδης",
           board_8_name: "Χρυσούλα Κουτσουδάκη",
+          role_president: "Πρόεδρος",
+          role_vp1: "Α΄ Αντιπρόεδρος",
+          role_vp2: "Β΄ Αντιπρόεδρος",
+          role_gen_sec: "Γεν. Γραμματέας",
+          role_treasurer: "Ταμίας",
+          role_member: "Μέλος Δ.Σ.",
           ephor_label: "Έφορος:",
           ephor_gymnastics: "Ενόργανη Γυμναστική",
           ephor_handball: "Χειροσφαίριση (Χάντμπολ)",
@@ -1657,6 +1395,7 @@
           field_phone: "Τηλέφωνο *",
           field_email: "Email *",
           field_dept: "Τμήμα Ενδιαφέροντος",
+          field_message: "Μήνυμα *",
           opt_general: "Γενική Επικοινωνία",
           opt_handball: "Χειροσφαίριση (Χάντμπολ)",
           opt_track: "Στίβος",
@@ -1666,18 +1405,22 @@
           opt_volleyball: "Πετοσφαίριση (Βόλεϊ)",
           opt_wrestling: "Πάλη",
           opt_swimming: "Κολύμβηση",
-          field_message: "Μήνυμα *",
           msg_sent_success: "Το μήνυμά σας καταχωρήθηκε επιτυχώς!",
           btn_send_message: "Αποστολή Μηνύματος",
           modal_history_tag: "Ιστορική Αναδρομή",
-          btn_dept_wikipedia: "Διαβάστε όλο το Αναλυτικό Ιστορικό (Αρχείο 70 Ετών)",
           btn_close: "Κλείσιμο",
+          btn_dept_wikipedia: "Αναλυτικό Ιστορικό Τμήματος",
           modal_reg_title: "Εκδήλωση Ενδιαφέροντος για Τμήμα",
           field_dept_req: "Τμήμα *",
           field_phone_contact: "Τηλέφωνο Επικοινωνίας *",
           field_email_opt: "Email",
           reg_sent_success: "Η εγγραφή σας καταχωρήθηκε επιτυχώς!",
-          btn_submit_reg: "Υποβολή Ενδιαφέροντος"
+          btn_submit_interest: "Υποβολή Ενδιαφέροντος",
+          footer_address: "Α΄ Δημοτικό Αθλητικό Κέντρο (ΔΑΚ) Κατερίνης, 60132",
+          footer_history_btn: "Ιστορικό Αρχείο",
+          theme_dark: "Σκούρο Θέμα",
+          theme_light: "Φωτεινό Θέμα",
+          back_to_top_tooltip: "Κορυφή"
         },
         en: {
           brand_title: "Archelaos",
@@ -1686,58 +1429,60 @@
           nav_history: "History",
           nav_about: "The Club",
           nav_timeline: "Timeline",
-          nav_dept: "Departments",
+          nav_dept: "Sports",
           nav_board: "Board",
           nav_contact: "Contact",
-          btn_register: "Register",
-          btn_register_interest: "Express Interest",
-          hero_badge: "G.A.S. «ARCHELAOS» KATERINI • EST. 1956",
-          hero_h1_1: "Sports,",
-          hero_h1_2: "Ethos &",
+          btn_register: "Registration / Inquiries",
+          btn_register_interest: "Register Interest",
+          hero_badge: "G.A.S. ARCHELAOS KATERINI • EST. 1956",
+          hero_h1_1: "Athletics,",
+          hero_h1_2: "Values &",
           hero_h1_3: "Tradition",
-          hero_desc: "The historic multi-sports club of Pieria. Over 70 years of contribution to athletics, team, and individual sports.",
+          hero_desc: "The historic multi-sport club of Pieria, Greece. Over 70 years of sports excellence, Olympic disciplines, and youth academies.",
           btn_explore_depts: "Explore 8 Departments",
           slide_heading_1: "70 Years",
-          slide_heading_2: "Athletic Action",
-          about_tag: "Our History",
-          about_title: "The Club that United Pieria",
-          about_p1: "The Gymnastic Athletic Club 'Archelaos' Katerini is one of Macedonia's most historic multi-sport clubs. Founded in 1956, it remains true to its vision.",
+          slide_heading_2: "of Sporting Excellence",
+          about_tag: "Our Legacy",
+          about_title: "The Club that <br>United Pieria",
+          about_p1: "Gymnastic Athletic Club 'Archelaos' of Katerini is one of the most prominent multi-sport organizations in Northern Greece. Founded in <strong class='text-archelaos-deepgreen'>1956</strong>, remaining dedicated to athletic virtue and grassroots development.",
           stat_athletes: "Athletes",
           stat_founded: "Founded",
+          btn_full_history: "Read Full History (70-Year Archive)",
           timeline_tag: "1956 – 2026 • 70 Years",
           timeline_title: "Historical Timeline",
-          timeline_sub: "Horizontal milestone line. Click any title for detailed insights.",
+          timeline_sub: "Horizontal milestone line. Click on any title to read the full historical overview.",
           timeline_drag_hint: "← Drag or use arrows →",
-          btn_full_history: "Read Full History (Detailed 70-Year Archive)",
           dept_tag: "Sports for Everyone",
           dept_title: "The 8 Sports Departments",
-          dept_sub: "Select a category for instant view or click 'History' for a full retrospective.",
-          filter_all: "All Departments (8)",
+          dept_sub: "Choose your sport and become part of the Archelaos Katerini athletic family.",
+            filter_all: "All Sports (8)",
           filter_team: "Team Sports (2)",
           filter_individual: "Individual & Olympic (5)",
           filter_aquatics: "Aquatics (1)",
           btn_dept_history: "History",
           dept_1_title: "Handball",
-          dept_1_sub: "(Handball)",
+          dept_1_sub: "(Team Handball)",
+          dept_1_desc: "Historic section with 2 Greek National Cups (1990, 1994) and top tier A1 presence.",
           dept_2_title: "Track & Field",
           dept_2_sub: "(Athletics)",
+          dept_2_desc: "Classical athletics based at the 1st Municipal Stadium of Katerini with Olympic alumni.",
           dept_3_title: "Archery",
+          dept_3_desc: "Olympic recurve and compound archery with multiple national championships.",
           dept_4_title: "Sport Shooting",
+          dept_4_desc: "Precision air rifle and pistol disciplines coached by certified professionals.",
           dept_5_title: "Artistic Gymnastics",
+          dept_5_desc: "Physical conditioning, flexibility, agility, and motor control in our specialized gym.",
           dept_6_title: "Volleyball",
-          dept_6_sub: "(Volleyball)",
+          dept_6_sub: "(Indoor Volleyball)",
+          dept_6_desc: "Youth development academies and competitive leagues for boys and girls.",
           dept_7_title: "Wrestling",
+          dept_7_desc: "Olympic Greco-Roman and freestyle wrestling with international and world podiums.",
           dept_8_title: "Swimming",
           dept_8_sub: "(Aquatics)",
-          board_tag: "Administration",
+          dept_8_desc: "Learn-to-swim programs and competitive swim squads at Katerini Municipal Pool.",
+          board_tag: "Governance",
           board_title: "Board of Directors",
-          board_sub: "The Board structure and ephors responsible for the club's 8 sports departments.",
-          role_president: "President",
-          role_vp1: "1st Vice President",
-          role_vp2: "2nd Vice President",
-          role_gen_sec: "Gen. Secretary",
-          role_treasurer: "Treasurer",
-          role_member: "Board Member",
+          board_sub: "The Executive Bureau and the designated Ephors (Directors) of our 8 sports departments.",
           board_1_name: "Panagiotis Diamantopoulos",
           board_2_name: "Charalampos Savvidis",
           board_3_name: "Dimitrios Galanis",
@@ -1746,30 +1491,37 @@
           board_6_name: "Georgios Athanasiou",
           board_7_name: "Kyriakos Konstantinidis",
           board_8_name: "Chrysoula Koutsoudaki",
-          ephor_label: "Ephor:",
+          role_president: "President",
+          role_vp1: "1st Vice President",
+          role_vp2: "2nd Vice President",
+          role_gen_sec: "General Secretary",
+          role_treasurer: "Treasurer",
+          role_member: "Board Member",
+          ephor_label: "Director:",
           ephor_gymnastics: "Artistic Gymnastics",
           ephor_handball: "Handball",
           ephor_archery: "Archery",
           ephor_swimming: "Swimming",
           ephor_volleyball: "Volleyball",
-          ephor_track: "Track & Field",
+          ephor_track: "Track & Field (Athletics)",
           ephor_wrestling: "Wrestling",
           ephor_shooting: "Sport Shooting",
-          contact_tag: "Contact & HQ",
+          contact_tag: "Contact & Headquarters",
           contact_title: "Get in Touch with Archelaos",
-          contact_sub: "Visit our offices at 1st DAK Katerini or send us a message directly using the form.",
-          address_title: "Headquarters Address",
-          address_val: "3A Ethnikou Stadiou St (1st DAK Katerini), PC 60132",
+          contact_sub: "Visit our clubhouse at the 1st Municipal Stadium of Katerini or message our secretariat directly.",
+          address_title: "Clubhouse Address",
+          address_val: "3A Ethnikou Stadiou St. (1st DAK Katerini), 60132 Greece",
           view_maps: "View on Google Maps",
-          phone_title: "Contact Phone",
-          hours_val: "Tuesday & Thursday: 09:00 - 14:00",
+          phone_title: "Phone Line",
+          hours_val: "Tuesday & Thursday: 09:00 - 14:00 (EET)",
           email_title: "Email",
           form_title: "Contact Form",
-          form_sub: "Fill in your details and your message will be sent directly to the secretariat.",
+          form_sub: "Fill in your details and your message will be dispatched directly to our secretariat.",
           field_fullname: "Full Name *",
-          field_phone: "Phone *",
+          field_phone: "Phone Number *",
           field_email: "Email *",
           field_dept: "Department of Interest",
+          field_message: "Message *",
           opt_general: "General Inquiry",
           opt_handball: "Handball",
           opt_track: "Track & Field",
@@ -1779,46 +1531,455 @@
           opt_volleyball: "Volleyball",
           opt_wrestling: "Wrestling",
           opt_swimming: "Swimming",
-          field_message: "Message *",
-          msg_sent_success: "Your message was sent successfully!",
+          msg_sent_success: "Your message has been logged successfully!",
           btn_send_message: "Send Message",
-          modal_history_tag: "Historical Retrospective",
-          btn_dept_wikipedia: "Read Full Detailed History (70-Year Archive)",
+          modal_history_tag: "Historical Overview",
           btn_close: "Close",
-          modal_reg_title: "Department Registration / Interest",
+          btn_dept_wikipedia: "Full Department History",
+          modal_reg_title: "Department Enrollment Inquiry",
           field_dept_req: "Department *",
           field_phone_contact: "Contact Phone *",
           field_email_opt: "Email",
-          reg_sent_success: "Your registration was recorded successfully!",
-          btn_submit_reg: "Submit Interest"
+          reg_sent_success: "Your registration has been logged successfully!",
+          btn_submit_interest: "Submit Registration",
+          footer_address: "1st Municipal Athletic Center (DAK) of Katerini, GR-60132",
+          footer_history_btn: "Historical Archive",
+          theme_dark: "Dark Mode",
+          theme_light: "Light Mode",
+          back_to_top_tooltip: "Top"
         }
       };
 
-      let currentLang = 'el';
+      // 2. 14 Historical Milestones
+      const timelineMilestones = [
+        {
+          id: "m1956",
+          year: "1956",
+          category_el: "Ίδρυση & Στίβος",
+          category_en: "Foundation & Athletics",
+          title_el: "Ίδρυση στο Δημοτικό Πάρκο",
+          title_en: "Club Founded in Municipal Park",
+          icon: "fa-solid fa-flag-checkered",
+          highlight_el: "29 Απριλίου 1956: Ίδρυση υπό τον Γεώργιο Ευθυμίου και πρώτο πρόεδρο τον Ιωάννη Μαντζαρόπουλο.",
+          highlight_en: "April 29, 1956: Charter signed under Georgios Efthymiou and president Ioannis Mantzaropoulos.",
+          body_el: "<p>Στις 29 Απριλίου 1956 συντάσσεται το ιδρυτικό καταστατικό του Γ.Α.Σ. «Ο Αρχέλαος» (απόφαση 38/1957). Οι πρώτες προπονήσεις γίνονται στο χώμα του Δημοτικού Πάρκου Κατερίνης υπό τους γυμναστές Αθανάσιο Ευθυμίου και Ιωάννη Παπασταθόπουλο, με πρώτους πρωταθλητές τον Δημήτριο Μαγκλάρα (3 φορές Βαλκανιονίκη) και τον θρυλικό «Τράντη» (Τριαντάφυλλο Σιδηρόπουλο).</p>",
+          body_en: "<p>On April 29, 1956, the foundational charter was signed. Early training sessions took place on the dirt grounds of Katerini Municipal Park under coaches Athanasios Efthymiou and Ioannis Papastathopoulos, producing Balkan champion Dimitrios Magklaras.</p>"
+        },
+        {
+          id: "m1957",
+          year: "1957",
+          category_el: "Αγώνες Στίβου",
+          category_en: "Track Institution",
+          title_el: "Θέσπιση Αγώνων «Δίια»",
+          title_en: "Inauguration of 'Diia' Games",
+          icon: "fa-solid fa-fire-flame-curved",
+          highlight_el: "Πανελλήνιοι αγώνες στίβου προς τιμήν των αρχαίων Ολυμπιακών αγώνων του Δίου.",
+          highlight_en: "Panhellenic track and field games honoring the ancient games of King Archelaos at Dion.",
+          body_el: "<p>Ο Αρχέλαος διοργανώνει για πρώτη φορά στην Κατερίνη τους Πανελλήνιους Αγώνες Στίβου «Δίια», συνδέοντας τον κλασικό αθλητισμό με την αρχαία μακεδονική κληρονομιά του Δίου.</p>",
+          body_en: "<p>Archelaos instituted the Panhellenic 'Diia' Track & Field Games in Katerini, establishing a premier athletic event in Northern Greece.</p>"
+        },
+        {
+          id: "m1967",
+          year: "1964–67",
+          category_el: "ΣΕΓΑΣ Α.Μ. 238",
+          category_en: "SEGAS Registry",
+          title_el: "Επίσημη Ένταξη στον ΣΕΓΑΣ",
+          title_en: "Official SEGAS Affiliation",
+          icon: "fa-solid fa-medal",
+          highlight_el: "20 Μαΐου 1967 (Α.Μ. 238) & 5η θέση της γυναικείας ομάδας στην Ελλάδα (1966).",
+          highlight_en: "May 20, 1967 (Registry No. 238) & 5th place nationwide for the women's team (1966).",
+          body_el: "<p>Υπό τον καθηγητή Φυσικής Αγωγής Τάκη Παρασκευόπουλο το τμήμα αναδιοργανώνεται. Το 1966 η γυναικεία ομάδα κατακτά την 5η θέση πανελλαδικά και το 1967 ο σύλλογος εγγράφεται επίσημα στον ΣΕΓΑΣ (Α.Μ. 238). Ξεχωρίζουν οι Αλκίνοος Τασόπουλος, Κ. Μπουζιώτας και Ν. Ντουλαπτσής.</p>",
+          body_en: "<p>Coached by Takis Paraskevopoulos, the women's athletics team placed 5th in Greece in 1966, followed by official SEGAS registration in 1967.</p>"
+        },
+        {
+          id: "m1974",
+          year: "1974",
+          category_el: "Κολύμβηση & Βόλεϊ",
+          category_en: "Swimming & Volleyball",
+          title_el: "Τα «Χρόνια της Θάλασσας» & Βόλεϊ",
+          title_en: "The 'Seaside Years' & Volleyball",
+          icon: "fa-solid fa-water",
+          highlight_el: "Θερινές προπονήσεις κολύμβησης στην Παραλία και ίδρυση του τμήματος Βόλεϊ.",
+          highlight_en: "Summer open-sea swimming training off Paralia and founding of Volleyball.",
+          body_el: "<p>Ιδρύεται η Κολύμβηση με προπονήσεις στη θάλασσα της Παραλίας με πλωτές διαδρομές! Παράλληλα ξεκινά το Βόλεϊ υπό τον Ορέστη Νταρλαγιάννη, δίνοντας το 1975 ιστορικό φιλικό με τον Παναθηναϊκό στο Γυμνάσιο Αρρένων.</p>",
+          body_en: "<p>Swimming began with open-sea lanes off Paralia beach. Concurrently, Volleyball was founded under Orestis Ntarlagiannis, hosting Panathinaikos in 1975.</p>"
+        },
+        {
+          id: "m1975",
+          year: "1975–76",
+          category_el: "Ενόργανη & Χάντμπολ",
+          category_en: "Gymnastics & Handball",
+          title_el: "Ενόργανη & Ιδρυτικό Μέλος ΟΧΕ",
+          title_en: "Gymnastics & Handball Founded",
+          icon: "fa-solid fa-child-reaching",
+          highlight_el: "Ίδρυση Ενόργανης (1975) και Χάντμπολ (1976 - ιδρυτικό σωματείο της ΟΧΕ το 1979).",
+          highlight_en: "Artistic Gymnastics (1975) and Handball (1976 - founding member of OXE in 1979).",
+          body_el: "<p>Στις 3 Απριλίου 1975 ιδρύεται η Ενόργανη με προπονητή τον Σταύρο Διαμαντόπουλο. Στις 22 Δεκεμβρίου 1976 ιδρύεται το Χάντμπολ με εισήγηση του Ευστάθιου Ζάννα, αποτελώντας το 1979 ιδρυτικό μέλος της ΟΧΕ.</p>",
+          body_en: "<p>Gymnastics was established in April 1975 under Stavros Diamantopoulos, followed by Handball in December 1976, co-founding the Hellenic Handball Federation in 1979.</p>"
+        },
+        {
+          id: "m1977",
+          year: "1977–80",
+          category_el: "ΕΑΚ, Πάλη & Σκοποβολή",
+          category_en: "Arena, Wrestling & Shooting",
+          title_el: "Κλειστό ΕΑΚ, Πάλη & Σκοποβολή",
+          title_en: "EAK Arena, Wrestling & Shooting",
+          icon: "fa-solid fa-hand-fist",
+          highlight_el: "Εγκαίνια Κλειστού ΕΑΚ (1977), ίδρυση Ελληνορωμαϊκής Πάλης (1978) & Σκοποβολής (1980).",
+          highlight_en: "Opening of EAK indoor arena (1977), Greco-Roman Wrestling (1978) & Shooting (1980).",
+          body_el: "<p>Στις 12 Σεπτεμβρίου 1977 εγκαινιάζεται το Κλειστό Γυμναστήριο του ΕΑΚ. Ακολουθεί η ίδρυση της Ελληνορωμαϊκής Πάλης (4 Απριλίου 1978) και της Σκοποβολής (1980) στο κλειστό σκοπευτήριο υπό τον Κωνσταντίνο Μυρωτή.</p>",
+          body_en: "<p>The indoor EAK arena opened in 1977, soon joined by Greco-Roman Wrestling (1978) and Sport Shooting (1980) led by Konstantinos Myrotis.</p>"
+        },
+        {
+          id: "m1981",
+          year: "1981–91",
+          category_el: "Ενόργανη Γυμναστική",
+          category_en: "Artistic Gymnastics",
+          title_el: "Το 10ετές Πανελλήνιο Σερί",
+          title_en: "10-Year National Streak",
+          icon: "fa-solid fa-award",
+          highlight_el: "10 συνεχόμενα χρόνια στην 1η θέση της Ελλάδας σε όλες τις ηλικιακές κατηγορίες.",
+          highlight_en: "10 consecutive years ranked 1st nationwide across all gymnastics categories.",
+          body_el: "<p>Η ανδρική ομάδα ενόργανης κυριαρχεί απόλυτα στην Ελλάδα επί μία δεκαετία (1981–1991), με πρωταθλητές τους Αλ. Κατσικάκη, Χ. Κακάλη (ασημένιο στους Μεσογειακούς 1991), Κ. Ζάρα και Ι. Χρυσάφη.</p>",
+          body_en: "<p>From 1981 to 1991, Archelaos swept 1st place across Greek national championships, led by champions Katsikakis, Kakalis, Zaras, and Chrysafis.</p>"
+        },
+        {
+          id: "m1983",
+          year: "1983–84",
+          category_el: "Χάντμπολ Α1",
+          category_en: "Handball A1",
+          title_el: "Άνοδος Α1 & 1ος Τελικός Κυπέλλου",
+          title_en: "A1 Promotion & 1st Cup Final",
+          icon: "fa-solid fa-volleyball",
+          highlight_el: "Άνοδος στην Α΄ Εθνική, τελικός Κυπέλλου Ανδρών και Πρωταθλητές Ελλάδας Εφήβων (1984).",
+          highlight_en: "Top-flight promotion, Men's Cup Final debut, and 1984 Greek Junior Champions.",
+          body_el: "<p>Το χάντμπολ ανεβαίνει στην Α΄ Εθνική και φτάνει αμέσως στον τελικό του Κυπέλλου Ελλάδας (1984), ενώ η εφηβική ομάδα κατακτά το Πανελλήνιο Πρωτάθλημα Εφήβων.</p>",
+          body_en: "<p>Handball reached the top national division and its first Greek Cup Final in 1984, while the youth squad won the National Junior Championship.</p>"
+        },
+        {
+          id: "m1987",
+          year: "1987–89",
+          category_el: "Στίβος & Σκοποβολή",
+          category_en: "Athletics & Shooting",
+          title_el: "«Δίος Δρόμος» & Βαλκανικό Ρεκόρ",
+          title_en: "'Dion Road' & Balkan Record",
+          icon: "fa-solid fa-person-running",
+          highlight_el: "Θέσπιση του αγώνα Δίον–Κατερίνη (1987) & Βαλκανικό Ρεκόρ Γ. Ιωαννίδη (1989).",
+          highlight_en: "Launch of Dion–Katerini race (1987) & Balkan Shooting Record by G. Ioannidis (1989).",
+          body_el: "<p>Το 1987 θεσπίζεται ο ιστορικός «Δίος Δρόμος». Το 1989 ο σκοπευτής Γεώργιος Ιωαννίδης κατακτά το Χρυσό Μετάλλιο στους Βαλκανικούς Αγώνες με νέο Βαλκανικό Ρεκόρ.</p>",
+          body_en: "<p>In 1987 the 'Dion Road' race was established, and in 1989 shooter Georgios Ioannidis won Balkan Gold with a new Balkan Record.</p>"
+        },
+        {
+          id: "m1990",
+          year: "1990",
+          category_el: "Κύπελλο Ελλάδος",
+          category_en: "Greek Cup Trophy",
+          title_el: "1ο Κύπελλο Ελλάδας Χάντμπολ",
+          title_en: "1st Greek Handball Cup",
+          icon: "fa-solid fa-trophy",
+          highlight_el: "2 Ιουνίου 1990 (Μετς): Αρχέλαος – ΑΣΕ Δούκα 27-21 και έξοδος στην Ευρώπη.",
+          highlight_en: "June 2, 1990 (Athens): Archelaos defeats ASE Douka 27-21 and qualifies for Europe.",
+          body_el: "<p>Στις 2 Ιουνίου 1990 στο κλειστό του Μετς, ο Αρχέλαος επικρατεί του ΑΣΕ Δούκα με 27-21, κατακτά το 1ο Κύπελλο Ελλάδας και εξασφαλίζει τη συμμετοχή του στο Κύπελλο Κυπελλούχων Ευρώπης.</p>",
+          body_en: "<p>At Mets Arena in Athens, Archelaos defeated ASE Douka 27-21 to lift its first Greek National Cup and enter the European Cup Winners' Cup.</p>"
+        },
+        {
+          id: "m1992",
+          year: "1992",
+          category_el: "Ολυμπιακοί Αγώνες",
+          category_en: "Olympic Games",
+          title_el: "6ος Ολυμπιονίκης ο Κ. Κουκοδήμος",
+          title_en: "6th Olympic Finalist K. Koukodimos",
+          icon: "fa-solid fa-medal",
+          highlight_el: "Ο άλτης του Αρχελάου κατακτά την 6η θέση στους Ολυμπιακούς της Βαρκελώνης.",
+          highlight_en: "Archelaos long jumper places 6th at the 1992 Barcelona Olympic Games.",
+          body_el: "<p>Ο κορυφαίος άλτης μήκους Κώστας Κουκοδήμος γράφει ιστορία στους Ολυμπιακούς Αγώνες της Βαρκελώνης (1992) κατακτώντας την 6η θέση στον κόσμο.</p>",
+          body_en: "<p>Long jump champion Kostas Koukodimos made history at the 1992 Barcelona Olympics by finishing 6th in the Olympic Final.</p>"
+        },
+        {
+          id: "m1994",
+          year: "1993–94",
+          category_el: "Τοξοβολία & 2ο Κύπελλο",
+          category_en: "Archery & 2nd Cup",
+          title_el: "Τοξοβολία & «Άστεγοι» Κυπελλούχοι",
+          title_en: "Archery & 'Homeless' Cup Winners",
+          icon: "fa-solid fa-bullseye",
+          highlight_el: "Ίδρυση Τοξοβολίας (1993), Χρυσό Μεσογειακών Πάλης & 2ο Κύπελλο Χάντμπολ (1994).",
+          highlight_en: "Archery founded (1993), Mediterranean Wrestling Gold & 2nd Handball Cup (1994).",
+          body_el: "<p>Το 1993 ιδρύεται η Τοξοβολία από τον Ιορδάνη Τσαχουρίδη και ο παλαιστής Ν. Ζαμάνης παίρνει Χρυσό στους Μεσογειακούς. Το 1994 το χάντμπολ νικά τον ΓΑΣ Κιλκίς 27-25 κατακτώντας το 2ο Κύπελλο Ελλάδας, ενώ προπονούνταν σε ανοιχτό γήπεδο τένις!</p>",
+          body_en: "<p>Archery was founded in 1993 and wrestler N. Zamanis won Mediterranean Gold. In 1994, Handball won its 2nd Greek Cup (27-25 vs Kilkis) despite training outdoors for 19 months.</p>"
+        },
+        {
+          id: "m2004",
+          year: "1999–04",
+          category_el: "ΕΦΟΤ & Αθήνα 2004",
+          category_en: "EFOT & Athens 2004",
+          title_el: "Ίδρυση ΕΦΟΤ & Ολυμπιακοί Αθήνας",
+          title_en: "EFOT Founding & Athens Olympics",
+          icon: "fa-solid fa-crosshairs",
+          highlight_el: "Ιδρυτικό μέλος της ΕΦΟΤ (1999) & συμμετοχή της Μαρίας Φάκα στους Ολυμπιακούς 2004.",
+          highlight_en: "Co-founder of EFOT (1999) & Olympian Maria Faka at Athens 2004.",
+          body_el: "<p>Το 1999 ο Αρχέλαος συνιδρύει την Ομοσπονδία Τοξοβολίας (ΕΦΟΤ). Το 2004 η σκοπεύτρια Μαρία Φάκα εκπροσωπεί την Ελλάδα στους Ολυμπιακούς Αγώνες της Αθήνας στο αεροβόλο τουφέκι.</p>",
+          body_en: "<p>Co-founded the Hellenic Archery Federation in 1999. In 2004, shooter Maria Faka competed for Greece at the Athens Olympic Games.</p>"
+        },
+        {
+          id: "m2026",
+          year: "2024–26",
+          category_el: "70 Χρόνια",
+          category_en: "70 Years Anniversary",
+          title_el: "Πρωταθλητές Ελλάδας & Παγκόσμιο",
+          title_en: "National Titles & World Podium",
+          icon: "fa-solid fa-crown",
+          highlight_el: "Πρωταθλητής Ελλάδας Τοξοβολίας (2025, 2026) & Ασημένιο στο Παγκόσμιο U17 Πάλης (2025).",
+          highlight_en: "Greek Archery Champions (2025, 2026) & World U17 Wrestling Silver (2025).",
+          body_el: "<p>Η ανδρική ομάδα Τοξοβολίας κατακτά δύο σερί Πρωταθλήματα Ελλάδας (2025, 2026) και Κύπελλα (2024, 2026), ενώ ο Δημήτρης Σούλης κερδίζει το Ασημένιο Μετάλλιο στο Παγκόσμιο U17 Πάλης (2025).</p>",
+          body_en: "<p>Men's Archery won back-to-back National Championships (2025, 2026), and wrestler Dimitris Soulis earned Silver at the 2025 U17 World Championships.</p>"
+        }
+      ];
+
+      // 3. Department History Data
+      const deptHistories = {
+        handball: {
+          title_el: "Χειροσφαίριση (Χάντμπολ)",
+          title_en: "Handball",
+          iconClass: "fa-solid fa-volleyball",
+          wiki_url: "history.html#handball",
+          highlight_el: "2 Κύπελλα Ελλάδας Ανδρών (1990, 1994) & 4 φορές Φιναλίστ (1984, 1993, 1996, 2000).",
+          highlight_en: "2 Men's Greek Cups (1990, 1994) & 4-time Cup Finalist (1984, 1993, 1996, 2000).",
+          text_el: `
+            <p><strong>Ίδρυση & Πρωτοπορία (1976):</strong> Η απόφαση σύστασης ελήφθη στις 22 Δεκεμβρίου 1976 με εισήγηση του Ευστάθιου Ζάννα και πρώτο έφορο τον Χρήστο Παπακωνσταντίνου. Ο Αρχέλαος υπήρξε <em>ιδρυτικό μέλος της ΟΧΕ</em> το 1979.</p>
+            <p><strong>Χρυσή Εποχή & Τίτλοι:</strong> Ανήλθε στην Α΄ Εθνική το 1983-84 και έφτασε κατευθείαν στον πρώτο του τελικό Κυπέλλου. Κορυφαίες στιγμές αποτελούν η κατάκτηση του <strong>Κυπέλλου Ελλάδας το 1990</strong> (νίκη επί του ΑΣΕ Δούκα 27-21 στο Μετς) και ο θρίαμβος του <strong>1994</strong> (επικράτηση επί του ΓΑΣ Κιλκίς 27-25). Η επιτυχία του 1994 έμεινε στην ιστορία ως ο άθλος των «άστεγων» κυπελλούχων, καθώς οι αθλητές προπονούνταν σε ανοικτό γήπεδο τένις λόγω ανακατασκευής του κλειστού του ΕΑΚ.</p>
+          `,
+          text_en: `
+            <p><strong>Foundation (1976):</strong> Established on December 22, 1976, G.A.S. Archelaos became a founding member of the Hellenic Handball Federation (OXE) in 1979 and advanced to the top division (A1) in 1983-84.</p>
+            <p><strong>Greek National Cups:</strong> The club lifted the <strong>Greek Men's National Cup in 1990</strong> and <strong>1994</strong>.</p>
+          `
+        },
+        track: {
+          title_el: "Στίβος (Κλασικός Αθλητισμός)",
+          title_en: "Track & Field (Athletics)",
+          iconClass: "fa-solid fa-person-running",
+          wiki_url: "history.html#track",
+          highlight_el: "Ιδρυτικό τμήμα (1956) — Κοιτίδα ανάδειξης Ολυμπιονικών και πρωταθλητών Ελλάδας.",
+          highlight_en: "Founding section (1956) — Home to Olympic finalists and national record breakers.",
+          text_el: `
+            <p><strong>Η Αφετηρία του Συλλόγου (1956):</strong> Για 17 συναπτά έτη (1956–1973) υπήρξε το μοναδικό τμήμα του σωματείου, ταυτίζοντας το όνομα του Αρχελάου με τον κλασικό αθλητισμό.</p>
+            <p><strong>Ολυμπιακές & Διεθνείς Επιτυχίες:</strong> Αποτέλεσε την κοιτίδα ανάδειξης κορυφαίων μορφών του ελληνικού αθλητισμού, με προεξάρχοντα τον <strong>Κώστα Κουκοδήμο</strong> (6ος Ολυμπιονίκης στη Βαρκελώνη 1992).</p>
+          `,
+          text_en: `
+            <p><strong>Foundation (1956):</strong> For 17 consecutive years (1956–1973), Track & Field was the sole department of Archelaos.</p>
+            <p><strong>Olympic Legacy:</strong> Produced world-class talents including long jump icon <strong>Kostas Koukodimos</strong> (6th at the 1992 Barcelona Olympics).</p>
+          `
+        },
+        archery: {
+          title_el: "Τοξοβολία",
+          title_en: "Archery",
+          iconClass: "fa-solid fa-bullseye",
+          wiki_url: "history.html#archery",
+          highlight_el: "Πρωταθλητής Ελλάδας Ομαδικού Ανδρών (2025, 2026) & Κυπελλούχος Ελλάδας (2024, 2026).",
+          highlight_en: "Back-to-back Greek Team Champions (2025, 2026) & Cup Winners (2024, 2026).",
+          text_el: `
+            <p><strong>Ίδρυση & Πρωτοπορία (1993):</strong> Ιδρύθηκε το φθινόπωρο του 1993. Στις 22 Μαΐου 1999 ο Αρχέλαος αποτέλεσε <em>ιδρυτικό σωματείο της Ελληνικής Φιλάθλου Ομοσπονδίας Τοξοβολίας (ΕΦΟΤ)</em>.</p>
+            <p><strong>Σύγχρονη Κυριαρχία:</strong> Η ανδρική ομάδα του Αρχελάου στο Ολυμπιακό Τόξο αναδείχθηκε <strong>Πρωταθλήτρια Ελλάδας δύο διαδοχικές χρονιές</strong> (2025, 2026).</p>
+          `,
+          text_en: `
+            <p><strong>Pioneering Roots (1993):</strong> Established in 1993, Archelaos was a founding member of the Hellenic Archery Federation (EFOT) in 1999.</p>
+            <p><strong>National Champions:</strong> Archelaos Men's Recurve Team was crowned <strong>Greek National Champion for two consecutive years (2025, 2026)</strong>.</p>
+          `
+        },
+        shooting: {
+          title_el: "Σκοποβολή",
+          title_en: "Sport Shooting",
+          iconClass: "fa-solid fa-crosshairs",
+          wiki_url: "history.html#shooting",
+          highlight_el: "Ολυμπιακή συμμετοχή στην Αθήνα 2004 (Μαρία Φάκα) & Βαλκανικό Ρεκόρ (Γ. Ιωαννίδης).",
+          highlight_en: "Olympic Games participation (Athens 2004 - Maria Faka) & Balkan Record holder.",
+          text_el: `
+            <p><strong>Ίδρυση & Εγκαταστάσεις (1980):</strong> Θεμελιώθηκε το 1980 με επίσημη αναγνώριση από τη ΣΚΟΕ το 1981.</p>
+            <p><strong>Κορυφαία Ολυμπιακή Στιγμή:</strong> Η συμμετοχή της πρωταθλήτριας του συλλόγου <strong>Μαρίας Φάκα στους Ολυμπιακούς Αγώνες της Αθήνας (2004)</strong> στο Αεροβόλο Τουφέκι Γυναικών.</p>
+          `,
+          text_en: `
+            <p><strong>Foundation (1980):</strong> Formed in 1980 and recognized by SKOE in 1981.</p>
+            <p><strong>Athens 2004 Olympian:</strong> Archelaos champion <strong>Maria Faka represented Greece at the 2004 Athens Olympic Games</strong>.</p>
+          `
+        },
+        gymnastics: {
+          title_el: "Ενόργανη Γυμναστική",
+          title_en: "Artistic Gymnastics",
+          iconClass: "fa-solid fa-child-reaching",
+          wiki_url: "history.html#gymnastics",
+          highlight_el: "Πρωταθλητής Ελλάδας Ανδρών & Δεκαετές Πανελλήνιο Σερί Πρωτιάς (1981–1991).",
+          highlight_en: "Men's National Team Champions & Ten-Year Consecutive Title Run (1981–1991).",
+          text_el: `
+            <p><strong>Ίδρυση & Πρωτοπορία (1975):</strong> Συγκροτήθηκε στις 3 Απριλίου 1975 με πρώτο προπονητή τον Σταύρο Διαμαντόπουλο.</p>
+            <p><strong>Το Ιστορικό Δεκαετές Σερί (1981–1991):</strong> Η ανδρική ομάδα κατέκτησε <strong>διαδοχικά την 1η θέση στο Πανελλήνιο Πρωτάθλημα</strong> σε όλες τις ηλικιακές βαθμίδες.</p>
+          `,
+          text_en: `
+            <p><strong>Foundation (1975):</strong> Founded on April 3, 1975 by Stavros Diamantopoulos.</p>
+            <p><strong>A Decade of Dominance (1981–1991):</strong> Archelaos achieved an extraordinary 10-year winning streak across national championships.</p>
+          `
+        },
+        volleyball: {
+          title_el: "Πετοσφαίριση (Βόλεϊ)",
+          title_en: "Volleyball",
+          iconClass: "fa-solid fa-volleyball",
+          wiki_url: "history.html#volleyball",
+          highlight_el: "Παρουσία στη Β΄ Εθνική Ανδρών & Γυναικών, με πλούσιες ακαδημίες υποδομών.",
+          highlight_en: "Longstanding competitive presence in National Division B leagues with vibrant academies.",
+          text_el: `
+            <p><strong>Ίδρυση & Πρώτα Χρόνια (1974):</strong> Το τμήμα ξεκίνησε την αγωνιστική του δράση το 1974 υπό τον έφορο Ορέστη Νταρλαγιάννη.</p>
+            <p><strong>Αγωνιστική Πορεία:</strong> Η ανδρική ομάδα αγωνίστηκε επί σειρά ετών στη <strong>Β΄ Εθνική Κατηγορία Ανδρών</strong>.</p>
+          `,
+          text_en: `
+            <p><strong>Early Days (1974):</strong> Formed in 1974 under Orestis Ntarlagiannis.</p>
+            <p><strong>League Achievements:</strong> Archelaos men's squad competed over multiple seasons in National Division B.</p>
+          `
+        },
+        wrestling: {
+          title_el: "Πάλη",
+          title_en: "Wrestling",
+          iconClass: "fa-solid fa-hand-fist",
+          wiki_url: "history.html#wrestling",
+          highlight_el: "Πρωταθλητής Ελλάδας Συλλόγων Ελληνορωμαϊκής & Ασημένιο στο Παγκόσμιο U17 (2025).",
+          highlight_en: "Men's Greco-Roman National Team Champions & U17 World Championship Silver (2025).",
+          text_el: `
+            <p><strong>Ίδρυση (1978):</strong> Η σύσταση του τμήματος ελληνορωμαϊκής πάλης αποφασίστηκε στις 4 Απριλίου 1978.</p>
+            <p><strong>Παγκόσμιες & Μεσογειακές Επιτυχίες:</strong> Το <strong>Ασημένιο Μετάλλιο στο Παγκόσμιο Πρωτάθλημα U17 (2025)</strong> από τον Δημήτρη Σούλη και το <strong>Χρυσό Μετάλλιο στους Μεσογειακούς Αγώνες 1993</strong> από τον Νικόλαο Ζαμάνη.</p>
+          `,
+          text_en: `
+            <p><strong>Foundation (1978):</strong> Greco-Roman wrestling was established on April 4, 1978.</p>
+            <p><strong>World & Mediterranean Medals:</strong> Proud home to Dimitris Soulis (<strong>World U17 Championship Silver Medalist, 2025</strong>) and Nikolaos Zamanis (<strong>Mediterranean Games Gold Medalist 1993</strong>).</p>
+          `
+        },
+        swimming: {
+          title_el: "Κολύμβηση (Υγρός Στίβος)",
+          title_en: "Swimming",
+          iconClass: "fa-solid fa-person-swimming",
+          wiki_url: "history.html#swimming",
+          highlight_el: "Από τα «χρόνια της θάλασσας» (1974) στο Δημοτικό Κολυμβητήριο — Πρωταθλητές Βορείου Ελλάδος.",
+          highlight_en: "From seaside training (1974) to the Municipal 50m Pool — Northern Greek championship victories.",
+          text_el: `
+            <p><strong>Ίδρυση & Τα Χρόνια της Θάλασσας (1974–1982):</strong> Ιδρύθηκε το 1974. Οι πρώτες προπονήσεις γίνονταν στη θάλασσα της Παραλίας με πλωτές διαδρομές!</p>
+            <p><strong>Εκτόξευση στο Δημοτικό Κολυμβητήριο:</strong> Με την κατασκευή της πισίνας 50μ. στο Β΄ ΔΑΚ, ο Αρχέλαος ανέπτυξε τεράστιες ακαδημίες.</p>
+          `,
+          text_en: `
+            <p><strong>The "Seaside Years" (1974–1982):</strong> Formed in 1974. Pioneers trained with floating lanes in the Aegean sea off Paralia Katerinis!</p>
+            <p><strong>Olympic Pool Era:</strong> The opening of the 50m Katerini Municipal Pool propelled the section into a regional powerhouse.</p>
+          `
+        }
+      };
+
+      let currentLang = localStorage.getItem('archelaos_lang') || 'el';
+      let currentDeptHistoryKey = null;
+      let currentTimelineMilestoneId = null;
+
+// Filter Departments Function for Interactive Pills
+      function filterDepartments(category) {
+        document.querySelectorAll('.dept-filter-pill').forEach(pill => {
+          pill.classList.remove('active', 'bg-white', 'bg-white/80');
+          pill.classList.add('bg-white/80');
+        });
+        const activePill = document.getElementById(`pill-${category}`);
+        if (activePill) {
+          activePill.classList.add('active', 'bg-white');
+          activePill.classList.remove('bg-white/80');
+        }
+
+        document.querySelectorAll('.department-card').forEach(card => {
+          const cardCat = card.getAttribute('data-category');
+          if (category === 'all' || cardCat === category) {
+            card.style.display = 'flex';
+            setTimeout(() => { 
+              card.style.opacity = '1'; 
+              card.style.transform = 'scale(1)'; 
+            }, 20);
+          } else {
+            card.style.opacity = '0';
+            card.style.transform = 'scale(0.95)';
+            setTimeout(() => { 
+              card.style.display = 'none'; 
+            }, 250);
+          }
+        });
+      }
+        
+      // Render Minimal Horizontal Timeline Cards
+      function renderTimelineCards() {
+        const container = document.getElementById('timelineScrollContainer');
+        if (!container) return;
+        container.innerHTML = '';
+
+        const isEn = currentLang === 'en';
+        timelineMilestones.forEach((item, index) => {
+          const div = document.createElement('div');
+          div.className = 'timeline-h-item flex-none w-[125px] sm:w-[145px] text-center cursor-pointer group snap-start transition duration-200 py-1';
+          div.onclick = () => openTimelineModal(item.id);
+
+          const title = isEn ? item.title_en : item.title_el;
+
+          div.innerHTML = `
+            <div class="inline-block px-2.5 py-0.5 rounded-full bg-archelaos-deepgreen/10 text-archelaos-deepgreen font-heading font-black text-xs group-hover:bg-archelaos-deepgreen group-hover:text-archelaos-yellow transition">
+              ${item.year}
+            </div>
+            <div class="relative flex items-center justify-center my-3">
+              <div class="absolute left-0 right-0 h-0.5 bg-archelaos-deepgreen/20"></div>
+              <div class="relative w-3.5 h-3.5 rounded-full bg-archelaos-deepgreen border-2 border-archelaos-yellow group-hover:scale-125 transition-transform shadow-sm"></div>
+            </div>
+            <h4 class="font-bold text-[11px] sm:text-xs leading-tight transition-colors line-clamp-2 px-1">
+              ${title}
+            </h4>
+          `;
+          container.appendChild(div);
+        });
+      }
+
+      function openTimelineModal(id) {
+        const item = timelineMilestones.find(m => m.id === id);
+        if (!item) return;
+        currentTimelineMilestoneId = id;
+        const isEn = currentLang === 'en';
+
+        document.getElementById('timelineModalYearBadge').textContent = item.year;
+        document.getElementById('timelineModalCategory').textContent = isEn ? item.category_en : item.category_el;
+        document.getElementById('timelineModalTitle').textContent = isEn ? item.title_en : item.title_el;
+        document.getElementById('timelineModalHighlightText').textContent = isEn ? item.highlight_en : item.highlight_el;
+        document.getElementById('timelineModalBody').innerHTML = isEn ? item.body_en : item.body_el;
+
+        const modal = document.getElementById('timelineDetailModal');
+        modal.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeTimelineModal() {
+        const modal = document.getElementById('timelineDetailModal');
+        if (modal) modal.classList.remove('is-open');
+        document.body.style.overflow = 'auto';
+        currentTimelineMilestoneId = null;
+      }
 
       function setLanguage(lang) {
         if (!translations[lang]) return;
         currentLang = lang;
-        document.body.classList.remove('lang-el', 'lang-en');
-        document.body.classList.add(`lang-${lang}`);
+        localStorage.setItem('archelaos_lang', lang);
+        document.documentElement.lang = lang;
 
-        // Toggle active language buttons
-        ['langBtnEL', 'mobileLangBtnEL'].forEach(id => {
-          const btn = document.getElementById(id);
-          if (btn) {
-            if (lang === 'el') btn.classList.add('active');
-            else btn.classList.remove('active');
-          }
-        });
-        ['langBtnEN', 'mobileLangBtnEN'].forEach(id => {
-          const btn = document.getElementById(id);
-          if (btn) {
-            if (lang === 'en') btn.classList.add('active');
-            else btn.classList.remove('active');
-          }
-        });
+        const elBtn = document.getElementById('langBtnEL');
+        const enBtn = document.getElementById('langBtnEN');
+        if (elBtn && enBtn) {
+          elBtn.classList.toggle('active', lang === 'el');
+          enBtn.classList.toggle('active', lang === 'en');
+          elBtn.classList.toggle('text-archelaos-deepgreen', lang !== 'el');
+          elBtn.classList.toggle('text-archelaos-deepgreen', lang !== 'en');
+        }
 
-        // Translate data-i18n attributes
+        const mobElBtn = document.getElementById('mobileLangBtnEL');
+        const mobEnBtn = document.getElementById('mobileLangBtnEN');
+        if (mobElBtn && mobEnBtn) {
+          mobElBtn.classList.toggle('active', lang === 'el');
+          mobEnBtn.classList.toggle('active', lang === 'en');
+          mobEnBtn.classList.toggle('text-archelaos-deepgreen', lang !== 'el');
+          mobEnBtn.classList.toggle('text-archelaos-deepgreen', lang !== 'en');
+        }
+
         document.querySelectorAll('[data-i18n]').forEach(el => {
           const key = el.getAttribute('data-i18n');
           if (translations[lang][key]) {
@@ -1826,431 +1987,479 @@
           }
         });
 
-        // Re-render dynamic elements
-        if (typeof updateSlideshowCaption === 'function') updateSlideshowCaption();
-        if (typeof populateTimeline === 'function') populateTimeline();
-        if (typeof populatePresidentsTable === 'function') populatePresidentsTable();
-      }
+        const formName = document.getElementById('formName');
+        const formPhone = document.getElementById('formPhone');
+        const formMsg = document.getElementById('formMsg');
+        const modalName = document.getElementById('modalName');
+        const modalPhone = document.getElementById('modalPhone');
 
-      // Complete 8 Departments History Database
-      const deptHistories = {
-        handball: {
-          title_el: "Τμήμα Χειροσφαίρισης (Χάντμπολ)",
-          title_en: "Handball Department",
-          icon: "fa-volleyball",
-          highlight_el: "2 Κύπελλα Ελλάδας Ανδρών (1990, 1994) • 4 φορές Φιναλίστ Κυπέλλου • 2η θέση Α1 Εθνικής (1994–95) • 9 Πανελλήνια Πρωταθλήματα Υποδομών.",
-          highlight_en: "2 Men's Greek Cups (1990, 1994) • 4-time Cup Finalist • A1 League Runner-up (1994–95) • 9 National Youth Titles.",
-          summary_el: `<p>Το τμήμα Χειροσφαίρισης του Γ.Α.Σ. Αρχέλαος Κατερίνης ιδρύθηκε το <strong>1980</strong> και αποτελεί ένα από τα πιο ένδοξα και αναγνωρίσιμα τμήματα του συλλόγου πανελληνίως. Με σπουδαία παρουσία στην Α1 Εθνική Κατηγορία Ανδρών, ο Αρχέλαος κατέκτησε <strong>2 Κύπελλα Ελλάδας Ανδρών (1990, 1994)</strong>, ενώ αγωνίστηκε σε άλλους 4 τελικούς Κυπέλλου (1984, 1993, 1996, 2000).</p>
-          <p>Τη σεζόν 1994–95 αναδείχθηκε <strong>Δευτεραθλητής Ελλάδας</strong> στην Α1 Ανδρών, ενώ κατέκτησε την 3η θέση τις σεζόν 1989–90, 1990–91 και 1992–93. Παράλληλα, εκπροσώπησε επανειλημμένα την Ελλάδα στις ευρωπαϊκές διοργανώσεις (IHF Cup, City Cup).</p>`,
-          summary_en: `<p>The Handball Department was established in <strong>1980</strong> and represents one of the club's most celebrated and iconic divisions nationwide. Competing at the highest level of Greek Handball (A1 National League), Archelaos won <strong>2 Men's Greek Cups (1990, 1994)</strong> and reached 4 additional Cup Finals (1984, 1993, 1996, 2000).</p>
-          <p>In the 1994–95 season, the team achieved its highest league ranking as <strong>Greek A1 Vice-Champion</strong>, alongside 3rd place finishes in 1990, 1991, and 1993, representing Greece in European Cups (IHF Cup, City Cup).</p>`,
-          full_el: `<h4 class="font-bold text-archelaos-deepgreen text-base mb-2">Αναλυτικό Ιστορικό Αρχείο Χειροσφαίρισης (1980–2026)</h4>
-          <p><strong>Ίδρυση & Πρώτα Βήματα:</strong> Το τμήμα ιδρύθηκε το 1980 από τον καθηγητή Φυσικής Αγωγής Αθανάσιο Ευθυμίου. Μέσα σε ελάχιστα χρόνια πέτυχε συνεχόμενες ανόδους και το 1982 ανέβηκε στην Α΄ Εθνική Κατηγορία.</p>
-          <p><strong>1ος Τελικός Κυπέλλου (1984):</strong> Στις 15 Ιουλίου 1984 στη Γλυφάδα, ο Αρχέλαος αγωνίστηκε στον πρώτο τελικό Κυπέλλου Ελλάδας στην ιστορία του απέναντι στον Β.Α.Ο. (22-18).</p>
-          <p><strong>1ο Κύπελλο Ελλάδας (1990):</strong> Στις 20 Μαΐου 1990 στο Κλειστό Νέας Φιλαδέλφειας, ο Αρχέλαος κατέκτησε το 1ο Κύπελλο Ελλάδας νικώντας τον Εσπερο Πατρών με 27-21, με προπονητή τον Σωτήρη Σουλτανίδη.</p>
-          <p><strong>2ο Κύπελλο Ελλάδας (1994):</strong> Στις 22 Μαΐου 1994 στο Κλειστό Μικράς Θεσσαλονίκης, ο Αρχέλαος αναδείχθηκε Κυπελλούχος Ελλάδας για 2η φορά επικρατώντας του Α.Σ.Ε. Δούκα με 27-25.</p>
-          <p><strong>Ακαδημίες & Τίτλοι Υποδομών:</strong> Ο Αρχέλαος διατηρεί μία από τις κορυφαίες ακαδημίες χάντμπολ στην Ελλάδα με 9 Πανελλήνια Πρωταθλήματα: Εφήβων (1984, 1996), Παίδων (1994, 1995, 1996, 1997) και Μίνι (1993, 1994, 1995).</p>`,
-          full_en: `<h4 class="font-bold text-archelaos-deepgreen text-base mb-2">Detailed Handball History Archive (1980–2026)</h4>
-          <p><strong>Foundation:</strong> Established in 1980 by Physical Education teacher Athanasios Efthymiou, rapidly ascending to the top tier by 1982.</p>
-          <p><strong>First Cup Final (1984):</strong> Reached its first Greek Cup Final on July 15, 1984, in Glyfada against VAO.</p>
-          <p><strong>1st Greek Cup Title (1990):</strong> On May 20, 1990, in Nea Filadelfia, Archelaos defeated Esperos Patras 27-21 to lift the Cup under coach Sotiris Soultanidis.</p>
-          <p><strong>2nd Greek Cup Title (1994):</strong> On May 22, 1994, in Mikra Thessaloniki, Archelaos defeated ASE Doukas 27-25 to claim its second national trophy.</p>
-          <p><strong>Youth Supremacy:</strong> 9 National Youth Championships across U18, U16, and U14 categories.</p>`
-        },
-        track: {
-          title_el: "Τμήμα Στίβου (Κλασικός Αθλητισμός)",
-          title_en: "Track & Field Department",
-          icon: "fa-person-running",
-          highlight_el: "Το ιδρυτικό τμήμα του συλλόγου (1956) • 6ος Ολυμπιονίκης Βαρκελώνης 1992 (Κώστας Κουκοδήμος) • 1ος Επαρχιακός Σύλλογος Ελλάδας • Διοργανωτής των ιστορικών αγώνων «Δίια» (1957) & «Δίος Δρόμος» (1987).",
-          highlight_en: "Founding department (1956) • 6th Olympic Finalist Barcelona 1992 (Kostas Koukodimos) • 1st Regional Club in Greece • Organizer of the historic 'Diia' Games (1957) & 'Dios Dromos' (1987).",
-          summary_el: `<p>Ο Στίβος αποτελεί το θεμέλιο λίθο του Γ.Α.Σ. Αρχέλαος Κατερίνης, καθώς με αυτό το άθλημα ξεκίνησε η αθλητική δραστηριότητα του συλλόγου το <strong>1956</strong>. Για δεκαετίες ο Αρχέλαος αναδεικνυόταν κορυφαίος επαρχιακός σύλλογος στίβου στην Ελλάδα.</p>
-          <p>Κορυφαίος αθλητής στην ιστορία του τμήματος είναι ο <strong>Κώστας Κουκοδήμος</strong> (άλμα εις μήκος), 6ος Ολυμπιονίκης στη Βαρκελώνη το 1992, Χρυσός Μεσογειονίκης το 1991 και κάτοχος του πανελληνίου ρεκόρ με 8,36 μ. Παράλληλα, ο Αρχέλαος διοργανώνει από το 1957 τους ιστορικούς διασυλλογικούς αγώνες «Δίια».</p>`,
-          summary_en: `<p>Track & Field is the foundational pillar of G.A.S. Archelaos, marking the beginning of the club's journey in <strong>1956</strong>. For decades, Archelaos was recognized as the #1 regional athletics club in Greece.</p>
-          <p>The crowning athlete of the department is <strong>Kostas Koukodimos</strong> (long jump), 6th Olympic Finalist at Barcelona 1992, Mediterranean Games Gold medalist in 1991, holding a personal best of 8.36m. Since 1957, the club organizes the prestigious "Diia" Games.</p>`,
-          full_el: `<h4 class="font-bold text-archelaos-deepgreen text-base mb-2">Αναλυτικό Αρχείο Στίβου (1956–2026)</h4>
-          <p><strong>Πρώτες Επιτυχίες (1956–1970):</strong> Πρωτεργάτης υπήρξε ο Γεώργιος Ευθυμίου. Αθλητές όπως οι Αστέριος Συμεωνίδης, Δημήτριος Γκιόρσος, Θεόδωρος Παρλαπάνης και Ιωάννης Χατζηθεοδώρου χάρισαν τα πρώτα μεταλλία.</p>
-          <p><strong>Η Χρυσή Εποχή (1980–2000):</strong> Ο Κώστας Κουκοδήμος κυριάρχησε στο μήκος, ενώ αθλητές όπως οι Νικόλαος Σπανός, Δημήτριος Χατζηγεωργίου, Αικατερίνη Σκαμπαρδώνη και Ελένη Γραμματικοπούλου κατέκτησαν δεκάδες πανελλήνια μετάλλια.</p>`,
-          full_en: `<h4 class="font-bold text-archelaos-deepgreen text-base mb-2">Detailed Athletics History Archive (1956–2026)</h4>
-          <p><strong>Early Years:</strong> Pioneered in 1956 by Georgios Efthymiou, launching Pieria's athletics tradition.</p>
-          <p><strong>Golden Era:</strong> Led by long jumper Kostas Koukodimos and dozens of national champions.</p>`
-        },
-        archery: {
-          title_el: "Τμήμα Τοξοβολίας",
-          title_en: "Archery Department",
-          icon: "fa-bullseye",
-          highlight_el: "Πρωταθλητής Ελλάδας Ομαδικού Ανδρών (2025, 2026) • Κυπελλούχος Ελλάδας (2024, 2026) • Ευρωπαϊκά Μετάλλια Para-Archery (Δωροθέα Ποιμενίδου).",
-          highlight_en: "Greek Men's Team Recurve Champions (2025, 2026) • Greek Team Cup Winners (2024, 2026) • European Para-Archery Medals (Dorothea Poimenidou).",
-          summary_el: `<p>Το τμήμα Τοξοβολίας ιδρύθηκε το <strong>2001</strong> και αποτελεί έναν από τους σύγχρονους πυλώνες επιτυχιών του Αρχελάου. Κατέκτησε συνεχόμενα το <strong>Πρωτάθλημα Ελλάδας Ομαδικού Ανδρών (2025, 2026)</strong> και το Κύπελλο Ελλάδας.</p>
-          <p>Σπουδαία μορφή του τμήματος είναι η παραολυμπιονίκης <strong>Δωροθέα Ποιμενίδου</strong> με ευρωπαϊκές διακρίσεις, καθώς και οι πρωταθλητές Ευάγγελος Χαρίσης και Χάρης Ιακωβίδης.</p>`,
-          summary_en: `<p>Founded in <strong>2001</strong>, the Archery Department has risen to become a powerhouse in Greek archery, winning back-to-back <strong>Greek Men's National Team Titles (2025, 2026)</strong> and Team Cups.</p>
-          <p>Featuring Paralympian <strong>Dorothea Poimenidou</strong> alongside national champions Evangelos Charisis and Charis Iakovidis.</p>`,
-          full_el: `<h4 class="font-bold text-archelaos-deepgreen text-base mb-2">Αναλυτικό Αρχείο Τοξοβολίας (2001–2026)</h4><p>Συνεχής ανάπτυξη σε ολυμπιακό και σύνθετο τόξο με υπερσύγχρονες εγκαταστάσεις.</p>`,
-          full_en: `<h4 class="font-bold text-archelaos-deepgreen text-base mb-2">Detailed Archery Archive (2001–2026)</h4><p>Continuous development in recurve and compound archery.</p>`
-        },
-        shooting: {
-          title_el: "Τμήμα Σκοποβολής",
-          title_en: "Sport Shooting Department",
-          icon: "fa-crosshairs",
-          highlight_el: "Συμμετοχή στους Ολυμπιακούς Αγώνες Αθήνα 2004 (Μαρία Φάκα) • Πανελλήνια ρεκόρ αεροβόλου τουφεκίου • Βαλκανικές νίκες.",
-          highlight_en: "Athens 2004 Olympic Games Participation (Maria Faka) • Greek National Records in Air Rifle • Balkan Championships Victories.",
-          summary_el: `<p>Το τμήμα Σκοποβολής ιδρύθηκε το <strong>1979</strong> με δικό του κλειστό σκοπευτήριο στο Β΄ ΔΑΚ. Αναέδειξε την Ολυμπιονίκη <strong>Μαρία Φάκα</strong> (Αθήνα 2004) και τον βαλκανιονίκη Γεώργιο Ιωαννίδη.</p>`,
-          summary_en: `<p>Established in <strong>1979</strong>, operating its own indoor range at 2nd DAK. Produced Olympian <strong>Maria Faka</strong> (Athens 2004) and Balkan record holder Georgios Ioannidis.</p>`,
-          full_el: `<h4 class="font-bold text-archelaos-deepgreen text-base mb-2">Αναλυτικό Αρχείο Σκοποβολής (1979–2026)</h4><p>Δεκάδες πανελλήνια μετάλλια σε σταθερό στόχο και αεροβόλα όπλα.</p>`,
-          full_en: `<h4 class="font-bold text-archelaos-deepgreen text-base mb-2">Detailed Shooting Archive (1979–2026)</h4><p>Dozens of national medals in air rifle and pistol.</p>`
-        },
-        gymnastics: {
-          title_el: "Τμήμα Ενόργανης Γυμναστικής",
-          title_en: "Artistic Gymnastics Department",
-          icon: "fa-child-reaching",
-          highlight_el: "Πρωταθλητής Ελλάδας Ανδρών (1993) • 10ετές σερί πανελλήνιων πρωτιών (1981–1991) • Ασημένιο Μεσογειακών 1991 (Χαρίλαος Κακάλης).",
-          highlight_en: "Greek Men's Team Champions (1993) • 10-year national winning streak (1981–1991) • Mediterranean Silver 1991 (Charilaos Kakalis).",
-          summary_el: `<p>Ιδρύθηκε το <strong>1973</strong>. Ο Αρχέλαος κυριάρχησε στην ελληνική ενόργανη γυμναστική κατακτώντας το <strong>Πρωτάθλημα Ελλάδας Ανδρών (1993)</strong> και διατηρώντας 10ετές σερί πρωτιών.</p>`,
-          summary_en: `<p>Founded in <strong>1973</strong>. Dominated Greek artistic gymnastics, winning the <strong>Greek Men's National Title (1993)</strong> and maintaining a 10-year unbeaten run.</p>`,
-          full_el: `<h4 class="font-bold text-archelaos-deepgreen text-base mb-2">Αναλυτικό Αρχείο Ενόργανης (1973–2026)</h4><p>Σπουδαία παράδοση με διεθνείς αθλητές όπως ο Χαρίλαος Κακάλης.</p>`,
-          full_en: `<h4 class="font-bold text-archelaos-deepgreen text-base mb-2">Detailed Gymnastics Archive (1973–2026)</h4><p>Historic tradition with international stars like Charilaos Kakalis.</p>`
-        },
-        volleyball: {
-          title_el: "Τμήμα Πετοσφαίρισης (Βόλεϊ)",
-          title_en: "Volleyball Department",
-          icon: "fa-volleyball",
-          highlight_el: "Παρουσία στη Β΄ Εθνική Κατηγορία • Πολυάριθμοι τίτλοι Κεντρικής Μακεδονίας • Πλήρη τμήματα υποδομών Γυναικών & Ανδρών.",
-          highlight_en: "B' National Division presence • Numerous Central Macedonia regional titles • Complete Men's & Women's Youth Academies.",
-          summary_el: `<p>Ιδρύθηκε το <strong>1982</strong>. Καλλιεργεί με επιτυχία το βόλεϊ Ανδρών και Γυναικών με συμμετοχές στη Β΄ Εθνική και διακρίσεις στα πρωταθλήματα Μακεδονίας.</p>`,
-          summary_en: `<p>Established in <strong>1982</strong>. Successfully develops Men's and Women's volleyball with National Division presence and regional titles.</p>`,
-          full_el: `<h4 class="font-bold text-archelaos-deepgreen text-base mb-2">Αναλυτικό Αρχείο Πετοσφαίρισης (1982–2026)</h4><p>Συνεχής αγωνιστική παρουσία στο Κλειστό Γυμναστήριο Κατερίνης.</p>`,
-          full_en: `<h4 class="font-bold text-archelaos-deepgreen text-base mb-2">Detailed Volleyball Archive (1982–2026)</h4><p>Continuous athletic action at Katerini Indoor Hall.</p>`
-        },
-        wrestling: {
-          title_el: "Τμήμα Πάλης",
-          title_en: "Olympic Wrestling Department",
-          icon: "fa-hand-fist",
-          highlight_el: "Πρωταθλητής Ελλάδας Συλλόγων Ανδρών • Ασημένιο Μετάλλιο Παγκοσμίου U17 2025 (Δημήτρης Σουλής) • Χρυσό Μεσογειακών 1993 (Νικόλαος Ζαμάνης).",
-          highlight_en: "Greek Men's Club Champions • World U17 Silver Medalist 2025 (Dimitris Soulis) • Mediterranean Gold 1993 (Nikolaos Zamanis).",
-          summary_el: `<p>Ιδρύθηκε το <strong>1975</strong>. Από τα πιο ένδοξα τμήματα του Αρχελάου με τίτλους Πρωταθλητή Ελλάδας και παγκόσμιες διακρίσεις (Δημήτρης Σουλής, Νικόλαος Ζαμάνης).</p>`,
-          summary_en: `<p>Founded in <strong>1975</strong>. One of the most prestigious divisions, winning Greek Club Championships and World/Mediterranean medals.</p>`,
-          full_el: `<h4 class="font-bold text-archelaos-deepgreen text-base mb-2">Αναλυτικό Αρχείο Πάλης (1975–2026)</h4><p>Μεγάλη παράδοση στην Ελληνορωμαϊκή και Ελευθέρα Πάλη.</p>`,
-          full_en: `<h4 class="font-bold text-archelaos-deepgreen text-base mb-2">Detailed Wrestling Archive (1975–2026)</h4><p>Rich tradition in Greco-Roman and Freestyle wrestling.</p>`
-        },
-        swimming: {
-          title_el: "Τμήμα Κολύμβησης (Υγρός Στίβος)",
-          title_en: "Swimming Department (Aquatics)",
-          icon: "fa-person-swimming",
-          highlight_el: "Πάνω από 40 χρόνια παρουσίας στο Δημοτικό Κολυμβητήριο • Συμμετοχές σε Πανελλήνια Πρωταθλήματα • Εκατοντάδες παιδιά στις ακαδημίες.",
-          highlight_en: "Over 40 years of activity at Katerini Swimming Pool • National Championship participation • Hundreds of youth academy swimmers.",
-          summary_el: `<p>Ιδρύθηκε το <strong>1981</strong> με τη λειτουργία του Δημοτικού Κολυμβητηρίου. Καλλιεργεί την αγωνιστική και προαγωνιστική κολύμβηση.</p>`,
-          summary_en: `<p>Established in <strong>1981</strong> with the opening of Katerini Swimming Pool, fostering competitive swimming for all ages.</p>`,
-          full_el: `<h4 class="font-bold text-archelaos-deepgreen text-base mb-2">Αναλυτικό Αρχείο Κολύμβησης (1981–2026)</h4><p>Συνεχής αθλητική προσφορά στον υγρό στίβο της Πιερίας.</p>`,
-          full_en: `<h4 class="font-bold text-archelaos-deepgreen text-base mb-2">Detailed Swimming Archive (1981–2026)</h4><p>Continuous swimming excellence in Pieria.</p>`
+        if (lang === 'en') {
+          if (formName) formName.placeholder = "e.g. John Doe";
+          if (formPhone) formPhone.placeholder = "e.g. +30 6900000000";
+          if (formMsg) formMsg.placeholder = "Write your message...";
+          if (modalName) modalName.placeholder = "e.g. Konstantinos Nikolaou";
+          if (modalPhone) modalPhone.placeholder = "e.g. +30 6970000000";
+        } else {
+          if (formName) formName.placeholder = "π.χ. Γεώργιος Παπαδόπουλος";
+          if (formPhone) formPhone.placeholder = "π.χ. 6900000000";
+          if (formMsg) formMsg.placeholder = "Γράψτε το μήνυμά σας...";
+          if (modalName) modalName.placeholder = "π.χ. Κωνσταντίνος Νικολάου";
+          if (modalPhone) modalPhone.placeholder = "π.χ. 6970000000";
         }
-      };
 
-      // Complete Presidents Historical Database (1956–2026)
-      const presidentsData = [
-        { term: "1956–1957", name_el: "Γεώργιος Ευθυμίου", name_en: "Georgios Efthymiou", details_el: "Επιθεωρητής Σωματικής Αγωγής Πιερίας. Πρωτεργάτης της ίδρυσης του Γ.Α.Σ. Αρχέλαος στις 29 Απριλίου 1956.", details_en: "Inspector of Physical Education. Pioneer of the founding of G.A.S. Archelaos on April 29, 1956." },
-        { term: "1957–1961", name_el: "Αθανάσιος Τσακνάκης", name_en: "Athanasios Tsaknakis", details_el: "Πρόεδρος του πρώτου εγκεκριμένου Δ.Σ. (Απόφαση Πρωτοδικείου 38/1957, Α.Μ. 2/1957). Θέσπιση των Αγώνων «Δίια» (30 Ιουνίου 1957).", details_en: "President of the 1st court-approved Board (Registry No. 2/1957). Established the historic 'Diia' Games (June 30, 1957)." },
-        { term: "1961–1965", name_el: "Ηλίας Ευαγγελόπουλος", name_en: "Ilias Evangelopoulos", details_el: "Εδραίωση των τμημάτων στίβου και επέκταση των αθλητικών υποδομών στο Δημοτικό Πάρκο Κατερίνης.", details_en: "Strengthened Track & Field and expanded sports infrastructure in Katerini Central Park." },
-        { term: "1965–1968", name_el: "Βασίλειος Ταβαντζής", name_en: "Vasileios Tavantzis", details_el: "Επίσημη καθιέρωση των χρωμάτων του συλλόγου (Πράσινο & Κίτρινο) στις 27 Ιουνίου 1968.", details_en: "Official adoption of the club's iconic colors (Green & Yellow) on June 27, 1968." },
-        { term: "1968–1972", name_el: "Ιωάννης Μαντζαρόπουλος", name_en: "Ioannis Mantzaropoulos", details_el: "Ομόφωνη απόρριψη της πρότασης συγχώνευσης με τον Πιερικό (14/01/1970), διασφαλίζοντας την αυτονομία του Αρχελάου.", details_en: "Unanimous rejection of the merger proposal with Pierikos (Jan 14, 1970), preserving Archelaos's autonomy." },
-        { term: "1972–1973", name_el: "Αναστάσιος Μπασδέκης", name_en: "Anastasios Basdekis", details_el: "Μεταβατική διοίκηση και προετοιμασία για τη μετεξέλιξη σε πολυαθλητικό σύλλογο.", details_en: "Transitional administration preparing the expansion into a multi-sport organization." },
-        { term: "1973–1978", name_el: "Αθανάσιος Ευθυμίου", name_en: "Athanasios Efthymiou", details_el: "Ιστορική τομή 24ης Ιουνίου 1973: Ίδρυση τμημάτων Μπάσκετ (1973), Ενόργανης (1973), Πάλης (1975). Εγκαίνια Β΄ ΔΑΚ (12/09/1977).", details_en: "Historic turning point (June 24, 1973): Founded Basketball (1973), Gymnastics (1973), Wrestling (1975). Inaugurated 2nd DAK Arena (1977)." },
-        { term: "1978–1983", name_el: "Δημήτριος Γιάνναρος", name_en: "Dimitrios Giannaros", details_el: "Ίδρυση τμημάτων Σκοποβολής (1979), Χάντμπολ (1980), Κολύμβησης (1981), Βόλεϊ (1982).", details_en: "Founded Shooting (1979), Handball (1980), Swimming (1981), and Volleyball (1982)." },
-        { term: "1983–1989", name_el: "Νικόλαος Ζαμαντζάς", name_en: "Nikolaos Zamantzas", details_el: "1ος Τελικός Κυπέλλου Ελλάδας Χάντμπολ (1984). Θέσπιση του «Δίου Δρόμου» (1987).", details_en: "First Greek Handball Cup Final (1984). Established the 'Dios Dromos' 15.5km race (1987)." },
-        { term: "1989–1996", name_el: "Κωνσταντίνος Κωνσταντινίδης", name_en: "Konstantinos Konstantinidis", details_el: "Χρυσή δεκαετία: 2 Κύπελλα Ελλάδας Χάντμπολ (1990, 1994), 6ος Ολυμπιονίκης Κουκοδήμος (1992), Πρωτάθλημα Ελλάδας Ενόργανης (1993).", details_en: "Golden Era: 2 Greek Handball Cups (1990, 1994), 6th Olympic Finalist Koukodimos (1992), Greek Gymnastics Title (1993)." },
-        { term: "1996–2004", name_el: "Θεόδωρος Παυλίδης", name_en: "Theodoros Pavlidis", details_el: "Ίδρυση τμήματος Τοξοβολίας (2001). Συμμετοχή Μαρίας Φάκα στους Ολυμπιακούς Αγώνες Αθήνα 2004.", details_en: "Founded Archery (2001). Maria Faka's participation in the Athens 2004 Olympic Games." },
-        { term: "2004–2014", name_el: "Αλκίνοος Τασόπουλος", name_en: "Alkinoos Tasopoulos", details_el: "Αναδιοργάνωση τμημάτων υποδομής, εκσυγχρονισμός ακαδημιών και σταθεροποίηση οικονομικών.", details_en: "Reorganization of youth academies, infrastructure modernization, and financial stabilization." },
-        { term: "2014–2022", name_el: "Αστέριος Καραγιάννης", name_en: "Asterios Karagiannis", details_el: "Μεταφορά επίσημων γραφείων στο Α΄ ΔΑΚ (2021). Πρώτες πανελλήνιες επιτυχίες στην Τοξοβολία.", details_en: "Relocation of headquarters to 1st DAK (2021). First national titles in Archery." },
-        { term: "2022–Σήμερα", name_el: "Παναγιώτης Διαμαντόπουλος", name_en: "Panagiotis Diamantopoulos", details_el: "2 Πρωταθλήματα Ελλάδας Τοξοβολίας (2025, 2026). Ασημένιο Παγκοσμίου Πάλης U17 (2025). Εορτασμός 70 ετών (1956–2026).", details_en: "2 Greek National Archery Titles (2025, 2026). World U17 Wrestling Silver (2025). 70th Anniversary celebrations (1956–2026)." }
-      ];
+        const isDark = document.body.classList.contains('dark-mode');
+        updateThemeButtons(isDark);
 
-      // Presidents Table Populator
-      function populatePresidentsTable() {
-        const tbody = document.getElementById('presidentsModalTableBody');
-        if (!tbody) return;
-        tbody.innerHTML = presidentsData.map((p, idx) => `
-          <tr onclick="openPresidentDetailModal(${idx})" class="table-row-alt cursor-pointer hover:bg-archelaos-yellow/20 transition duration-150" title="Πατήστε για προβολή λεπτομερειών">
-            <td class="py-3 px-3 sm:px-4 font-black text-archelaos-deepgreen whitespace-nowrap">${p.term}</td>
-            <td class="py-3 px-3 sm:px-4 font-extrabold text-slate-800">${currentLang === 'el' ? p.name_el : p.name_en}</td>
-            <td class="hidden md:table-cell py-3 px-4 text-slate-600 font-medium">${currentLang === 'el' ? p.details_el : p.details_en}</td>
-            <td class="md:hidden py-3 px-2 text-center">
-              <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-archelaos-deepgreen text-archelaos-yellow text-xs font-bold shadow-sm">
-                <i class="fa-solid fa-chevron-right text-[10px]"></i>
-              </span>
-            </td>
-          </tr>
-        `).join('');
+        if (typeof updateSlideCaptions === 'function') {
+          updateSlideCaptions();
+        }
+
+        renderTimelineCards();
+
+        if (currentDeptHistoryKey && deptHistories[currentDeptHistoryKey]) {
+          openDeptHistoryModal(currentDeptHistoryKey);
+        }
+        if (currentTimelineMilestoneId) {
+          openTimelineModal(currentTimelineMilestoneId);
+        }
       }
 
-      // President Detail Modal Control
-      let currentPresidentIdx = 0;
-      function openPresidentDetailModal(idx) {
-        currentPresidentIdx = idx;
-        const p = presidentsData[idx];
-        if (!p) return;
-        document.getElementById('presidentModalTerm').innerText = p.term;
-        document.getElementById('presidentModalName').innerText = currentLang === 'el' ? p.name_el : p.name_en;
-        document.getElementById('presidentModalDetails').innerText = currentLang === 'el' ? p.details_el : p.details_en;
-        document.getElementById('presidentDetailModal').classList.add('is-open');
-      }
-      function closePresidentDetailModal() {
-        document.getElementById('presidentDetailModal').classList.remove('is-open');
-      }
-      function stepPresidentModal(step) {
-        let nextIdx = currentPresidentIdx + step;
-        if (nextIdx < 0) nextIdx = presidentsData.length - 1;
-        if (nextIdx >= presidentsData.length) nextIdx = 0;
-        openPresidentDetailModal(nextIdx);
-      }
+      const mainHeader = document.getElementById('mainHeader');
+      const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const menuIcon = document.getElementById('menuIcon');
+      const themeToggleBtn = document.getElementById('themeToggleBtn');
+      const mobileThemeToggleBtn = document.getElementById('mobileThemeToggleBtn');
+      const mobileThemeIcon = document.getElementById('mobileThemeIcon');
+      const mobileThemeLabel = document.getElementById('mobileThemeLabel');
+      const registrationModal = document.getElementById('registrationModal');
+      const modalDeptSelect = document.getElementById('modalDeptSelect');
+      const deptHistoryModal = document.getElementById('deptHistoryModal');
+      const deptModalTitle = document.getElementById('deptModalTitle');
+      const deptModalText = document.getElementById('deptModalText');
+      const deptModalIcon = document.getElementById('deptModalIcon');
+      const deptModalHighlightText = document.getElementById('deptModalHighlightText');
+      const deptModalRegisterBtn = document.getElementById('deptModalRegisterBtn');
+      const deptModalWikiBtn = document.getElementById('deptModalWikiBtn');
+      const timelineDetailModal = document.getElementById('timelineDetailModal');
+      const backToTopBtn = document.getElementById('backToTopBtn');
+      const bttScrollProgress = document.getElementById('bttScrollProgress');
+      const body = document.body;
 
-      // Timeline Nodes Data
-      const timelineNodes = [
-        { year: "1956", title_el: "Ίδρυση Γ.Α.Σ. Αρχέλαος", title_en: "Founding of G.A.S. Archelaos", category_el: "Ίδρυση", category_en: "Foundation", highlight_el: "29 Απριλίου 1956: Ίδρυση του αρχαιότερου αθλητικού συλλόγου της Πιερίας.", highlight_en: "April 29, 1956: Founding of Pieria's oldest sports club.", body_el: "Ιδρύθηκε από τον Επιθεωρητή Σωματικής Αγωγής Γεώργιο Ευθυμίου. Επίσημη αναγνώριση με την απόφαση 38/1957 του Πρωτοδικείου Κατερίνης.", body_en: "Founded by Physical Education Inspector Georgios Efthymiou. Officially approved by Court Decision 38/1957." },
-        { year: "1957", title_el: "Πρώτοι Αγώνες «Δίια»", title_en: "1st 'Diia' Games", category_el: "Στίβος", category_en: "Athletics", highlight_el: "30 Ιουνίου 1957: Τέλεση των Α΄ Δίων στο Δημοτικό Πάρκο Κατερίνης.", highlight_en: "June 30, 1957: Inaugural 'Diia' Games held in Katerini Park.", body_el: "Θεσπίστηκαν με την υπ' αριθμ. 4060/18-3-1957 απόφαση της Νομαρχίας Πιερίας, αναβιώνοντας τα αρχαία Ολύμπια εν Δίω.", body_en: "Established by Prefectural Decision 4060/1957, reviving ancient Macedonian games." },
-        { year: "1968", title_el: "Καθιέρωση Χρωμάτων", title_en: "Official Colors", category_el: "Ταυτότητα", category_en: "Identity", highlight_el: "27 Ιουνίου 1968: Επίσημη καθιέρωση του Πράσινου και Κίτρινου.", highlight_en: "June 27, 1968: Official adoption of Green and Yellow colors.", body_el: "Τα χρώματα συμβολίζουν τη μακεδονική γη (πράσινο) και τη δόξα του βασιλιά Αρχελάου (κίτρινο).", body_en: "Colors symbolize the Macedonian land (green) and royal glory (yellow)." },
-        { year: "1973", title_el: "Πολυαθλητική Τομή", title_en: "Multi-Sport Era", category_el: "Διοίκηση", category_en: "Expansion", highlight_el: "24 Ιουνίου 1973: Ίδρυση τμημάτων Μπάσκετ & Ενόργανης Γυμναστικής.", highlight_en: "June 24, 1973: Founding of Basketball & Gymnastics divisions.", body_el: "Πέντε καθηγητές Φυσικής Αγωγής μετέτρεψαν τον Αρχέλαο σε πολυαθλητικό οργανισμό.", body_en: "Five PE teachers transformed Archelaos into a multi-sport club." },
-        { year: "1977", title_el: "Εγκαίνια Β΄ ΔΑΚ", title_en: "2nd DAK Arena Inauguration", category_el: "Εγκαταστάσεις", category_en: "Facilities", highlight_el: "12 Σεπτεμβρίου 1977: Εγκαίνια του Κλειστού Γυμναστηρίου Κατερίνης.", highlight_en: "September 12, 1977: Opening of Katerini Indoor Arena.", body_el: "Έδρα των τμημάτων Χειροσφαίρισης, Πετοσφαίρισης, Πάλης, Ενόργανης και Σκοποβολής.", body_en: "Home arena for Handball, Volleyball, Wrestling, Gymnastics, and Shooting." },
-        { year: "1980", title_el: "Ίδρυση Χειροσφαίρισης", title_en: "Handball Division Established", category_el: "Χάντμπολ", category_en: "Handball", highlight_el: "Ίδρυση του τμήματος Χειροσφαίρισης (1980).", highlight_en: "Establishment of the Handball Department (1980).", body_el: "Αρχή μιας λαμπρής πορείας που απέδωσε 2 Κύπελλα Ελλάδας και 4 τελικούς.", body_en: "Beginning of a legendary journey resulting in 2 Greek Cups." },
-        { year: "1987", title_el: "Θέσπιση «Δίου Δρόμου»", title_en: "Establishment of 'Dios Dromos'", category_el: "Στίβος", category_en: "Athletics", highlight_el: "1ος Αγώνας 15,5 χλμ. από το Αρχαίο Θέατρο Δίου στην Κατερίνη.", highlight_en: "1st 15.5km road race from Ancient Dion to Katerini.", body_el: "Ιστορικός αγώνας δρόμου που συνδέει την αρχαία πολιτεία του Δίου με την πρωτεύουσα της Πιερίας.", body_en: "Historic road race connecting ancient Dion with Katerini." },
-        { year: "1990", title_el: "1ο Κύπελλο Ελλάδας Χάντμπολ", title_en: "1st Greek Handball Cup", category_el: "Τίτλοι", category_en: "Trophies", highlight_el: "20 Μαΐου 1990: Νίκη στον Τελικό επί του Εσπέρου Πατρών (27-21).", highlight_en: "May 20, 1990: Defeated Esperos Patras 27-21 in Cup Final.", body_el: "Ο πρώτος πανελλήνιος τίτλος σε ομαδικό άθλημα για την Πιερία.", body_en: "Pieria's first national trophy in a team sport." },
-        { year: "1992", title_el: "6ος Ολυμπιονίκης Κουκοδήμος", title_en: "6th Olympic Finalist Koukodimos", category_el: "Ολυμπιακά", category_en: "Olympics", highlight_el: "Βαρκελώνη 1992: 6η θέση στο Άλμα εις Μήκος.", highlight_en: "Barcelona 1992: 6th place in Long Jump.", body_el: "Ο Κώστας Κουκοδήμος σημείωσε την κορυφαία ολυμπιακή διάκριση στην ιστορία του συλλόγου.", body_en: "Kostas Koukodimos recorded the club's highest Olympic achievement." },
-        { year: "1993", title_el: "Πρωταθλητής Ελλάδας Ενόργανης", title_en: "Greek Gymnastics Title", category_el: "Ενόργανη", category_en: "Gymnastics", highlight_el: "Κατάκτηση του Πρωταθλήματος Ελλάδας Ανδρών στην Ενόργανη.", highlight_en: "Won the Greek Men's Artistic Gymnastics Championship.", body_el: "Κορύφωση μιας δεκαετίας απόλυτης κυριαρχίας στην ελληνική γυμναστική.", body_en: "Pinnacle of a decade-long dominance in Greek gymnastics." },
-        { year: "1994", title_el: "2ο Κύπελλο Ελλάδας Χάντμπολ", title_en: "2nd Greek Handball Cup", category_el: "Τίτλοι", category_en: "Trophies", highlight_el: "22 Μαΐου 1994: Νίκη στον Τελικό επί του Α.Σ.Ε. Δούκα (27-25).", highlight_en: "May 22, 1994: Defeated ASE Doukas 27-25 in Cup Final.", body_el: "Δεύτερο κύπελλο Ελλάδας για την ανδρική ομάδα χάντμπολ.", body_en: "Second national cup victory for the men's handball team." },
-        { year: "2001", title_el: "Ίδρυση Τοξοβολίας", title_en: "Archery Division Established", category_el: "Τοξοβολία", category_en: "Archery", highlight_el: "Έναρξη του τμήματος Τοξοβολίας.", highlight_en: "Launch of the Archery Department.", body_el: "Εισαγωγή ενός νέου ολυμπιακού αθλήματος στην Πιερία με αλλεπάλληλες διακρίσεις.", body_en: "Introducing Olympic Archery to Pieria with outstanding success." },
-        { year: "2025", title_el: "Πρωταθλητής Ελλάδας Τοξοβολίας", title_en: "Greek Archery Champions", category_el: "Τίτλοι", category_en: "Trophies", highlight_el: "1η θέση στο Ομαδικό Ανδρών & Ασημένιο Παγκοσμίου Πάλη U17.", highlight_en: "1st in Men's Team Archery & World U17 Wrestling Silver.", body_el: "Διπλή εθνική και διεθνής επιτυχία σε Τοξοβολία και Πάλη (Δημήτρης Σουλής).", body_en: "Dual national and global triumph in Archery and Wrestling (Dimitris Soulis)." },
-        { year: "2026", title_el: "70 Χρόνια Αρχέλαος (1956–2026)", title_en: "70th Anniversary (1956–2026)", category_el: "Ορόσημο", category_en: "Jubilee", highlight_el: "2ο Συνεχόμενο Πρωτάθλημα Τοξοβολίας & Συλλεκτικό Μετάλλιο Δήμου Κατερίνης.", highlight_en: "2nd Consecutive Archery Title & Municipality Commemorative Medal.", body_el: "Συμπλήρωση 70 ετών αδιάλειπτης προσφοράς στον αθλητισμό και τον πολιτισμό της Πιερίας.", body_en: "Celebrating 70 years of unbroken service to sports and culture." }
-      ];
+      let updateSlideCaptions;
 
-      // Populate Timeline Horizontal Scroll
-      function populateTimeline() {
-        const container = document.getElementById('timelineScrollContainer');
-        if (!container) return;
-        container.innerHTML = timelineNodes.map((node, idx) => `
-          <div onclick="openTimelineModal(${idx})" class="timeline-h-item shrink-0 w-64 sm:w-72 glass-card p-4 sm:p-5 rounded-2xl cursor-pointer hover:border-archelaos-darkgreen transition duration-200 snap-start">
-            <div class="flex items-center justify-between mb-2">
-              <span class="px-2.5 py-1 rounded-lg bg-archelaos-deepgreen text-archelaos-yellow font-heading font-black text-xs shadow-sm">${node.year}</span>
-              <span class="text-[10px] font-black uppercase tracking-wider text-archelaos-darkgreen/80">${currentLang === 'el' ? node.category_el : node.category_en}</span>
-            </div>
-            <h4 class="font-heading font-black text-sm sm:text-base text-archelaos-deepgreen line-clamp-2 leading-snug">${currentLang === 'el' ? node.title_el : node.title_en}</h4>
-            <p class="text-xs text-slate-600 font-medium mt-1.5 line-clamp-2">${currentLang === 'el' ? node.highlight_el : node.highlight_en}</p>
-          </div>
-        `).join('');
+      function isMobileMenuOpen() {
+        return mobileMenu.classList.contains('menu-open');
       }
 
-      // Timeline Modal Control
-      function openTimelineModal(idx) {
-        const node = timelineNodes[idx];
-        if (!node) return;
-        document.getElementById('timelineModalYearBadge').innerText = node.year;
-        document.getElementById('timelineModalCategory').innerText = currentLang === 'el' ? node.category_el : node.category_en;
-        document.getElementById('timelineModalTitle').innerText = currentLang === 'el' ? node.title_el : node.title_en;
-        document.getElementById('timelineModalHighlightText').innerText = currentLang === 'el' ? node.highlight_el : node.highlight_en;
-        document.getElementById('timelineModalBody').innerHTML = `<p>${currentLang === 'el' ? node.body_el : node.body_en}</p>`;
-        document.getElementById('timelineDetailModal').classList.add('is-open');
-      }
-      function closeTimelineModal() {
-        document.getElementById('timelineDetailModal').classList.remove('is-open');
+      function openMobileMenu() {
+        mobileMenu.classList.add('menu-open');
+        mobileMenuBtn.classList.add('is-active');
+        mobileMenuBtn.setAttribute('aria-expanded', 'true');
+        if (menuIcon) {
+          menuIcon.classList.remove('fa-bars');
+          menuIcon.classList.add('fa-xmark');
+        }
       }
 
-      // Department History Modal Control
-      let currentDeptKey = '';
-      function openDeptHistoryModal(deptKey) {
-        currentDeptKey = deptKey;
-        const data = deptHistories[deptKey];
-        if (!data) return;
+      function closeMobileMenu() {
+        if (!isMobileMenuOpen()) return;
+        mobileMenu.classList.remove('menu-open');
+        mobileMenuBtn.classList.remove('is-active');
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+        if (menuIcon) {
+          menuIcon.classList.remove('fa-xmark');
+          menuIcon.classList.add('fa-bars');
+        }
+      }
 
-        document.getElementById('deptModalIcon').innerHTML = `<i class="fa-solid ${data.icon}"></i>`;
-        document.getElementById('deptModalTitle').innerText = currentLang === 'el' ? data.title_el : data.title_en;
-        document.getElementById('deptModalHighlightText').innerText = currentLang === 'el' ? data.highlight_el : data.highlight_en;
-        document.getElementById('deptModalText').innerHTML = currentLang === 'el' ? data.summary_el : data.summary_en;
-        document.getElementById('deptModalFullContainer').innerHTML = currentLang === 'el' ? data.full_el : data.full_en;
+      function toggleMobileMenu() {
+        if (isMobileMenuOpen()) {
+          closeMobileMenu();
+        } else {
+          openMobileMenu();
+        }
+      }
 
-        // Reset expander state
-        document.getElementById('deptModalFullContainer').classList.add('hidden');
-        document.getElementById('deptModalWikiArrow').style.transform = 'rotate(0deg)';
+      // Back to Top Logic (Desktop Only with Scroll Ring Indicator)
+      const bttCircleCircumference = 2 * Math.PI * 25; // ~157.08
+      function updateBackToTop() {
+        if (!backToTopBtn) return;
+        const scrollY = window.scrollY;
+        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
 
-        // Set submit button action
-        document.getElementById('deptModalRegisterBtn').onclick = () => {
-          closeDeptHistoryModal();
-          openRegistrationModal(currentLang === 'el' ? data.title_el : data.title_en);
+        if (scrollY > 350) {
+          backToTopBtn.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
+          backToTopBtn.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+        } else {
+          backToTopBtn.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
+          backToTopBtn.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+        }
+
+        if (bttScrollProgress && maxScroll > 0) {
+          const scrollFraction = Math.min(Math.max(scrollY / maxScroll, 0), 1);
+          const offset = bttCircleCircumference - (scrollFraction * bttCircleCircumference);
+          bttScrollProgress.style.strokeDashoffset = offset;
+        }
+      }
+
+      if (backToTopBtn) {
+        backToTopBtn.addEventListener('click', () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        setLanguage(currentLang);
+
+        let isScrolled = false;
+        let scrollTimeout;
+        let ticking = false;
+
+        window.addEventListener('scroll', () => {
+          if (!ticking) {
+            window.requestAnimationFrame(() => {
+              const shouldBeScrolled = window.scrollY > 25;
+              if (shouldBeScrolled !== isScrolled) {
+                isScrolled = shouldBeScrolled;
+                mainHeader.classList.toggle('scrolled', isScrolled);
+              }
+              updateBackToTop();
+              ticking = false;
+            });
+            ticking = true;
+          }
+
+          body.classList.add('is-scrolling');
+          clearTimeout(scrollTimeout);
+          scrollTimeout = setTimeout(() => {
+            body.classList.remove('is-scrolling');
+          }, 150);
+
+          if (isMobileMenuOpen()) {
+            closeMobileMenu();
+          }
+        }, { passive: true });
+
+        updateBackToTop();
+
+        // Horizontal Timeline Scroll Controls & Drag-to-Scroll
+        const timelineScrollContainer = document.getElementById('timelineScrollContainer');
+        const scrollLeftBtn = document.getElementById('timelineScrollLeft');
+        const scrollRightBtn = document.getElementById('timelineScrollRight');
+
+        if (timelineScrollContainer) {
+          let isDown = false;
+          let startX;
+          let scrollLeft;
+
+          if (scrollLeftBtn) {
+            scrollLeftBtn.addEventListener('click', () => {
+              timelineScrollContainer.scrollBy({ left: -260, behavior: 'smooth' });
+            });
+          }
+          if (scrollRightBtn) {
+            scrollRightBtn.addEventListener('click', () => {
+              timelineScrollContainer.scrollBy({ left: 260, behavior: 'smooth' });
+            });
+          }
+
+          timelineScrollContainer.addEventListener('mousedown', (e) => {
+            isDown = true;
+            startX = e.pageX - timelineScrollContainer.offsetLeft;
+            scrollLeft = timelineScrollContainer.scrollLeft;
+          });
+          timelineScrollContainer.addEventListener('mouseleave', () => { isDown = false; });
+          timelineScrollContainer.addEventListener('mouseup', () => { isDown = false; });
+          timelineScrollContainer.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - timelineScrollContainer.offsetLeft;
+            const walk = (x - startX) * 1.5;
+            timelineScrollContainer.scrollLeft = scrollLeft - walk;
+          });
+        }
+
+        // Spotlight Effect
+        if (window.matchMedia('(hover: hover) and (min-width: 1024px)').matches) {
+          document.addEventListener('mousemove', (e) => {
+            if (body.classList.contains('is-scrolling')) return;
+            const card = e.target.closest('.glass-card');
+            if (card) {
+              const rect = card.getBoundingClientRect();
+              const x = e.clientX - rect.left;
+              const y = e.clientY - rect.top;
+              card.style.setProperty('--mouse-x', `${x}px`);
+              card.style.setProperty('--mouse-y', `${y}px`);
+            }
+          }, { passive: true });
+        }
+
+        // Counter Observer
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              entry.target.querySelectorAll('.counter').forEach(counter => {
+                if (!counter.dataset.animated) {
+                  counter.dataset.animated = 'true';
+                  animateCounter(counter);
+                }
+              });
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal-text').forEach(el => observer.observe(el));
+
+        function animateCounter(el) {
+          const target = parseInt(el.dataset.target, 10);
+          const duration = 1500;
+          const startTime = performance.now();
+          function update(now) {
+            const progress = Math.min((now - startTime) / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            const current = Math.floor(eased * target);
+            el.textContent = target >= 10000 ? current.toLocaleString(currentLang === 'en' ? 'en-US' : 'el-GR') : current;
+            if (progress < 1) requestAnimationFrame(update);
+          }
+          requestAnimationFrame(update);
+        }
+
+        // Slideshow Engine
+        const slideshowWrapper = document.getElementById('slideshowWrapper');
+        const slides = document.querySelectorAll('.slideshow-slide');
+        const pillsContainer = document.getElementById('sportPillsContainer');
+        const activeSportBadge = document.getElementById('activeSportBadge');
+        const activeSlideCaption = document.getElementById('activeSlideCaption');
+        const progressBar = document.getElementById('slideProgressBar');
+        const prevBtn = document.getElementById('prevSlideBtn');
+        const nextBtn = document.getElementById('nextSlideBtn');
+
+        const labelsEL = ['Χάντμπολ', 'Στίβος', 'Τοξοβολία', 'Σκοποβολή', 'Ενόργανη', 'Πάλη', 'Βόλεϊ', 'Κολύμβηση'];
+        const labelsEN = ['Handball', 'Athletics', 'Archery', 'Shooting', 'Gymnastics', 'Wrestling', 'Volleyball', 'Swimming'];
+        let currentSlide = 0;
+        let slideDuration = 4500;
+        let slideStartTime = performance.now();
+        let slideTimerId = null;
+        let isPaused = false;
+
+        slides.forEach((_, idx) => {
+          const pill = document.createElement('button');
+          pill.type = 'button';
+          pill.className = 'sport-pill px-2.5 sm:px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wide ' +
+                           (idx === 0 ? 'active' : 'bg-black/45 text-white/90 hover:bg-white/20 border border-white/20');
+          pill.addEventListener('click', () => goToSlide(idx));
+          pillsContainer.appendChild(pill);
+        });
+
+        const pills = pillsContainer.querySelectorAll('.sport-pill');
+
+        updateSlideCaptions = function() {
+          pills.forEach((p, i) => {
+            p.textContent = currentLang === 'en' ? labelsEN[i] : labelsEL[i];
+          });
+          const sportTitle = currentLang === 'en' ? slides[currentSlide].getAttribute('data-sport-en') : slides[currentSlide].getAttribute('data-sport-el');
+          const sportCaption = currentLang === 'en' ? slides[currentSlide].getAttribute('data-caption-en') : slides[currentSlide].getAttribute('data-caption-el');
+          activeSportBadge.textContent = `${currentSlide + 1}/${slides.length} • ${sportTitle}`;
+          activeSlideCaption.textContent = sportCaption;
         };
 
-        document.getElementById('deptHistoryModal').classList.add('is-open');
-      }
-      function closeDeptHistoryModal() {
-        document.getElementById('deptHistoryModal').classList.remove('is-open');
-      }
-      function toggleFullDeptHistory() {
-        const container = document.getElementById('deptModalFullContainer');
-        const arrow = document.getElementById('deptModalWikiArrow');
-        if (container.classList.contains('hidden')) {
-          container.classList.remove('hidden');
-          arrow.style.transform = 'rotate(180deg)';
-        } else {
-          container.classList.add('hidden');
-          arrow.style.transform = 'rotate(0deg)';
+        function tickProgressBar(now) {
+          if (!isPaused) {
+            const elapsed = now - slideStartTime;
+            const progress = Math.min(elapsed / slideDuration, 1);
+            if (progressBar) progressBar.style.width = (progress * 100) + '%';
+            if (progress >= 1) {
+              goToSlide(currentSlide + 1);
+              return;
+            }
+          } else {
+            slideStartTime = now - (parseFloat(progressBar.style.width || 0) / 100) * slideDuration;
+          }
+          slideTimerId = requestAnimationFrame(tickProgressBar);
+        }
+
+        function resetAndStartProgress() {
+          if (slideTimerId) cancelAnimationFrame(slideTimerId);
+          slideStartTime = performance.now();
+          if (progressBar) progressBar.style.width = '0%';
+          slideTimerId = requestAnimationFrame(tickProgressBar);
+        }
+
+        function goToSlide(index) {
+          slides[currentSlide].classList.remove('active');
+          pills[currentSlide].classList.remove('active');
+          pills[currentSlide].classList.add('bg-black/45', 'text-white/90');
+
+          currentSlide = (index + slides.length) % slides.length;
+
+          slides[currentSlide].classList.add('active');
+          pills[currentSlide].classList.add('active');
+          pills[currentSlide].classList.remove('bg-black/45', 'text-white/90');
+
+          updateSlideCaptions();
+          resetAndStartProgress();
+        }
+
+        updateSlideCaptions();
+        resetAndStartProgress();
+
+        const slideshowObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => { isPaused = !entry.isIntersecting; });
+        }, { threshold: 0.1 });
+        slideshowObserver.observe(slideshowWrapper);
+
+        prevBtn.addEventListener('click', () => goToSlide(currentSlide - 1));
+        nextBtn.addEventListener('click', () => goToSlide(currentSlide + 1));
+      });
+
+      // Synchronize Theme
+      function updateThemeButtons(isDark) {
+        if (themeToggleBtn) themeToggleBtn.textContent = isDark ? '☀️' : '🌙';
+        if (mobileThemeIcon) mobileThemeIcon.textContent = isDark ? '☀️' : '🌙';
+        if (mobileThemeLabel) {
+          const dict = translations[currentLang] || translations.el;
+          mobileThemeLabel.textContent = isDark ? dict.theme_light : dict.theme_dark;
         }
       }
 
-      // Department Filtering Pills
-      function filterDepartments(category) {
-        document.querySelectorAll('.dept-filter-pill').forEach(pill => pill.classList.remove('active'));
-        const activePill = document.getElementById(`pill-${category}`);
-        if (activePill) activePill.classList.add('active');
-
-        document.querySelectorAll('.department-card').forEach(card => {
-          const cat = card.getAttribute('data-category');
-          if (category === 'all' || cat === category) {
-            card.style.display = 'flex';
-          } else {
-            card.style.display = 'none';
-          }
-        });
+      function toggleTheme() {
+        const isDark = body.classList.toggle('dark-mode');
+        body.classList.remove('light-mode');
+        localStorage.setItem('theme', isDark ? 'dark' : 'default');
+        updateThemeButtons(isDark);
       }
 
-      // Full History Modal Controls
-      function openFullHistoryModal(tab = 'admin') {
-        document.getElementById('fullHistoryModal').classList.add('is-open');
-        switchFullHistoryTab(tab);
-      }
-      function closeFullHistoryModal() {
-        document.getElementById('fullHistoryModal').classList.remove('is-open');
-      }
-      function switchFullHistoryTab(tabId) {
-        document.querySelectorAll('.hist-tab-btn').forEach(btn => {
-          if (btn.getAttribute('data-hist-tab') === tabId) btn.classList.add('active');
-          else btn.classList.remove('active');
-        });
-        document.querySelectorAll('.hist-tab-panel').forEach(panel => {
-          if (panel.id === `hist-panel-${tabId}`) panel.classList.add('active');
-          else panel.classList.remove('active');
-        });
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') {
+        body.classList.add('dark-mode');
+        updateThemeButtons(true);
+      } else {
+        updateThemeButtons(false);
       }
 
-      // Registration Modal Controls
-      function openRegistrationModal(deptName = '') {
-        const modal = document.getElementById('registrationModal');
-        const select = document.getElementById('modalDeptSelect');
-        if (select && deptName) {
-          for (let opt of select.options) {
-            if (opt.value.includes(deptName) || deptName.includes(opt.value)) {
-              opt.selected = true;
+      if (themeToggleBtn) themeToggleBtn.addEventListener('click', toggleTheme);
+      if (mobileThemeToggleBtn) mobileThemeToggleBtn.addEventListener('click', toggleTheme);
+
+      mobileMenuBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleMobileMenu();
+      });
+
+      document.querySelectorAll('.mobile-nav-link').forEach(link => {
+        link.addEventListener('click', () => closeMobileMenu());
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!isMobileMenuOpen()) return;
+        const isClickInsideMenu = mobileMenu.contains(e.target);
+        const isClickOnToggleBtn = mobileMenuBtn.contains(e.target);
+        if (!isClickInsideMenu && !isClickOnToggleBtn) {
+          closeMobileMenu();
+        }
+      });
+
+      document.addEventListener('touchstart', (e) => {
+        if (!isMobileMenuOpen()) return;
+        const isTouchInsideMenu = mobileMenu.contains(e.target);
+        const isTouchOnToggleBtn = mobileMenuBtn.contains(e.target);
+        if (!isTouchInsideMenu && !isTouchOnToggleBtn) {
+          closeMobileMenu();
+        }
+      }, { passive: true });
+
+      function openDeptHistoryModal(deptKey) {
+        currentDeptHistoryKey = deptKey;
+        const info = deptHistories[deptKey];
+        if (!info) return;
+
+        deptModalTitle.textContent = currentLang === 'en' ? info.title_en : info.title_el;
+        deptModalHighlightText.textContent = currentLang === 'en' ? info.highlight_en : info.highlight_el;
+        deptModalText.innerHTML = currentLang === 'en' ? info.text_en : info.text_el;
+        deptModalIcon.innerHTML = `<i class="${info.iconClass}"></i>`;
+
+        if (deptModalWikiBtn) {
+          deptModalWikiBtn.href = info.wiki_url;
+        }
+
+        deptModalRegisterBtn.onclick = () => {
+          closeDeptHistoryModal();
+          setTimeout(() => { openRegistrationModal(info.title_el); }, 180);
+        };
+        deptHistoryModal.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeDeptHistoryModal() {
+        deptHistoryModal.classList.remove('is-open');
+        document.body.style.overflow = 'auto';
+        currentDeptHistoryKey = null;
+      }
+
+      function openRegistrationModal(departmentName = '') {
+        registrationModal.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+        if (departmentName && departmentName !== 'Γενική Εγγραφή') {
+          for (let opt of modalDeptSelect.options) {
+            if (opt.value === departmentName || departmentName.includes(opt.value) || opt.value.includes(departmentName)) {
+              modalDeptSelect.value = opt.value;
               break;
             }
           }
         }
-        modal.classList.add('is-open');
-      }
-      function closeRegistrationModal() {
-        document.getElementById('registrationModal').classList.remove('is-open');
       }
 
-      // Form Submit Handlers
+      function closeRegistrationModal() {
+        registrationModal.classList.remove('is-open');
+        document.body.style.overflow = 'auto';
+      }
+
+      window.addEventListener('click', (e) => {
+        if (e.target === deptHistoryModal) closeDeptHistoryModal();
+        if (e.target === registrationModal) closeRegistrationModal();
+        if (e.target === timelineDetailModal) closeTimelineModal();
+      });
+
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          if (deptHistoryModal.classList.contains('is-open')) closeDeptHistoryModal();
+          if (registrationModal.classList.contains('is-open')) closeRegistrationModal();
+          if (timelineDetailModal.classList.contains('is-open')) closeTimelineModal();
+          if (isMobileMenuOpen()) closeMobileMenu();
+        }
+      });
+
       function handleDirectSubmit(e) {
         e.preventDefault();
-        const alert = document.getElementById('formSuccessAlert');
-        alert.classList.remove('hidden');
-        setTimeout(() => { alert.classList.add('hidden'); e.target.reset(); }, 3500);
+        const name = document.getElementById('formName').value;
+        const phone = document.getElementById('formPhone').value;
+        const email = document.getElementById('formEmail').value;
+        const dept = document.getElementById('formDept').value;
+        const msg = document.getElementById('formMsg').value;
+        document.getElementById('formSuccessAlert').classList.remove('hidden');
+        const subject = encodeURIComponent(`[SITE MESSAGE] ${dept} - ${name}`);
+        const bodyText = encodeURIComponent(`Name: ${name}\nPhone: ${phone}\nEmail: ${email}\nDepartment: ${dept}\n\nMessage:\n${msg}`);
+        setTimeout(() => { window.location.href = `mailto:dimitriszgalanis@gmail.com?cc=admin@archelaos.club&subject=${subject}&body=${bodyText}`; }, 1200);
+        document.getElementById('contactForm').reset();
       }
+
       function handleModalDirectSubmit(e) {
         e.preventDefault();
-        const alert = document.getElementById('modalAlert');
-        alert.classList.remove('hidden');
-        setTimeout(() => { alert.classList.add('hidden'); closeRegistrationModal(); e.target.reset(); }, 2500);
+        const dept = modalDeptSelect.value;
+        const name = document.getElementById('modalName').value;
+        const phone = document.getElementById('modalPhone').value;
+        const email = document.getElementById('modalEmail').value;
+        document.getElementById('modalAlert').classList.remove('hidden');
+        const subject = encodeURIComponent(`[NEW REGISTRATION] Department: ${dept} - ${name}`);
+        const bodyText = encodeURIComponent(`New Registration Request:\n\nName: ${name}\nPhone: ${phone}\nEmail: ${email}\nDepartment: ${dept}`);
+        setTimeout(() => {
+          window.location.href = `mailto:admin@archelaos.club?cc=dimitriszgalanis@gmail.com&subject=${subject}&body=${bodyText}`;
+          closeRegistrationModal();
+          document.getElementById('modalAlert').classList.add('hidden');
+          document.getElementById('modalForm').reset();
+        }, 1500);
       }
-
-      // Mobile Menu Controls
-      function closeMobileMenu() {
-        const menu = document.getElementById('mobileMenu');
-        const btn = document.getElementById('mobileMenuBtn');
-        const icon = document.getElementById('menuIcon');
-        if (menu && menu.classList.contains('menu-open')) {
-          menu.classList.remove('menu-open');
-          if (btn) btn.setAttribute('aria-expanded', 'false');
-          if (icon) { icon.classList.remove('fa-xmark'); icon.classList.add('fa-bars'); }
-        }
-      }
-
-      // Slideshow Controls
-      let currentSlideIdx = 0;
-      const slides = document.querySelectorAll('.slideshow-slide');
-      function showSlide(idx) {
-        if (!slides.length) return;
-        slides.forEach((s, i) => {
-          if (i === idx) s.classList.add('active');
-          else s.classList.remove('active');
-        });
-        currentSlideIdx = idx;
-        updateSlideshowCaption();
-      }
-      function updateSlideshowCaption() {
-        const slide = slides[currentSlideIdx];
-        if (!slide) return;
-        const badge = document.getElementById('activeSportBadge');
-        const caption = document.getElementById('activeSlideCaption');
-        const sport = currentLang === 'el' ? slide.getAttribute('data-sport-el') : slide.getAttribute('data-sport-en');
-        const cap = currentLang === 'el' ? slide.getAttribute('data-caption-el') : slide.getAttribute('data-caption-en');
-        if (badge) badge.innerText = `${currentSlideIdx + 1}/8 • ${sport}`;
-        if (caption) caption.innerText = cap;
-      }
-
-      // DOM Initialization
-      document.addEventListener('DOMContentLoaded', () => {
-        // Mobile Menu Button Event Listener
-        const mobileBtn = document.getElementById('mobileMenuBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
-        const menuIcon = document.getElementById('menuIcon');
-        if (mobileBtn && mobileMenu) {
-          mobileBtn.addEventListener('click', () => {
-            const isOpen = mobileMenu.classList.contains('menu-open');
-            if (isOpen) {
-              mobileMenu.classList.remove('menu-open');
-              mobileBtn.setAttribute('aria-expanded', 'false');
-              if (menuIcon) { menuIcon.classList.remove('fa-xmark'); menuIcon.classList.add('fa-bars'); }
-            } else {
-              mobileMenu.classList.add('menu-open');
-              mobileBtn.setAttribute('aria-expanded', 'true');
-              if (menuIcon) { menuIcon.classList.remove('fa-bars'); menuIcon.classList.add('fa-xmark'); }
-            }
-          });
-        }
-
-        // Theme Toggle Setup
-        const themeBtn = document.getElementById('themeToggleBtn');
-        const mobileThemeBtn = document.getElementById('mobileThemeToggleBtn');
-        function toggleTheme() {
-          document.body.classList.toggle('dark-mode');
-          const isDark = document.body.classList.contains('dark-mode');
-          if (themeBtn) themeBtn.innerText = isDark ? '☀️' : '🌙';
-          const mobileIcon = document.getElementById('mobileThemeIcon');
-          const mobileLabel = document.getElementById('mobileThemeLabel');
-          if (mobileIcon) mobileIcon.innerText = isDark ? '☀️' : '🌙';
-          if (mobileLabel) mobileLabel.innerText = isDark ? (currentLang === 'el' ? 'Φωτεινό Θέμα' : 'Light Mode') : (currentLang === 'el' ? 'Σκούρο Θέμα' : 'Dark Mode');
-        }
-        if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
-        if (mobileThemeBtn) mobileThemeBtn.addEventListener('click', toggleTheme);
-
-        // Timeline Scroll Buttons
-        const tContainer = document.getElementById('timelineScrollContainer');
-        const sLeft = document.getElementById('timelineScrollLeft');
-        const sRight = document.getElementById('timelineScrollRight');
-        if (sLeft && tContainer) sLeft.onclick = () => tContainer.scrollBy({ left: -300, behavior: 'smooth' });
-        if (sRight && tContainer) sRight.onclick = () => tContainer.scrollBy({ left: 300, behavior: 'smooth' });
-
-        // Slideshow Navigation Buttons
-        const prevBtn = document.getElementById('prevSlideBtn');
-        const nextBtn = document.getElementById('nextSlideBtn');
-        if (prevBtn) prevBtn.onclick = () => showSlide((currentSlideIdx - 1 + slides.length) % slides.length);
-        if (nextBtn) nextBtn.onclick = () => showSlide((currentSlideIdx + 1) % slides.length);
-
-        // Close mobile menu on clicking nav links
-        document.querySelectorAll('.mobile-nav-link').forEach(link => {
-          link.addEventListener('click', closeMobileMenu);
-        });
-
-        // Initial Render
-        populateTimeline();
-        populatePresidentsTable();
-        showSlide(0);
-      });
     </script>
 </body>
 </html>
