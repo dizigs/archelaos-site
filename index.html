@@ -1413,6 +1413,20 @@ body.dark-mode #anniversary70 .ann70-milestone:hover {background:#145b3b!importa
 @media(max-width:640px){
  #anniversary70 .ann70-number,#anniversary70 .ann70-number-outline {font-size:clamp(10rem,53vw,18rem)!important;}
 }
+</style><style id="hero-mobile-logo-priority">
+/* Original hero preserved: mobile emblem comes first, centered and higher. */
+@media(max-width:1023px){
+  #home {padding-top:12px!important;padding-bottom:58px!important;}
+  #home > .max-w-7xl > .grid {display:flex!important;flex-direction:column!important;gap:18px!important;align-items:stretch!important;}
+  #home .hero-logo-column {order:-1!important;width:100%;display:flex!important;justify-content:center!important;align-items:center!important;margin:0 auto!important;}
+  #home .hero-logo-column .hero-emblem-float {width:clamp(170px,45vw,230px)!important;height:clamp(170px,45vw,230px)!important;margin:0 auto!important;}
+  #home .hero-text-column {order:1!important;width:100%;}
+  #home .hero-text-column > .reveal-text:first-child {margin-top:0!important;}
+}
+@media(max-width:390px){
+  #home .hero-logo-column .hero-emblem-float {width:170px!important;height:170px!important;}
+  #home > .max-w-7xl > .grid {gap:13px!important;}
+}
 </style></head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow">
 <!-- ANIMATED CONTOUR WAVES -->
@@ -1498,7 +1512,7 @@ body.dark-mode #anniversary70 .ann70-milestone:hover {background:#145b3b!importa
 <section class="relative z-10 pt-10 pb-20 md:pt-16 md:pb-28" id="home">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-<div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+<div class="lg:col-span-7 space-y-6 text-center lg:text-left hero-text-column">
 <div class="reveal-text inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-archelaos-deepgreen text-archelaos-yellow text-xs font-black uppercase tracking-wider shadow-md">
 <span class="w-2.5 h-2.5 rounded-full bg-archelaos-yellow animate-ping"></span> <span data-i18n="hero_badge">Γ.Α.Σ. «Ο ΑΡΧΕΛΑΟΣ» ΚΑΤΕΡΙΝΗΣ • EST. 1956</span>
 </div>
@@ -1509,15 +1523,7 @@ body.dark-mode #anniversary70 .ann70-milestone:hover {background:#145b3b!importa
               Ο ιστορικός πολυαθλητικός σύλλογος της Πιερίας. Πάνω από 70 χρόνια προσφοράς στον κλασικό αθλητισμό, τα ομαδικά και ατομικά αθλήματα.
             </p>
 <!-- 70-year commemorative editorial mark — no changes to original crest -->
-<div aria-label="1956–2026 · 70 χρόνια ιστορίας" class="anniversary-editorial reveal-text delay-300">
-<span aria-hidden="true" class="anniversary-rule"></span>
-<div aria-hidden="true" class="anniversary-number">70</div>
-<div class="anniversary-copy">
-<span class="anniversary-kicker" data-i18n="anniversary_kicker">1956 — 2026</span>
-<strong data-i18n="anniversary_title">70 ΧΡΟΝΙΑ ΙΣΤΟΡΙΑΣ</strong>
-<span data-i18n="anniversary_sub">Μια διαδρομή αθλητισμού, ήθους και προσφοράς στην Κατερίνη.</span>
-</div>
-</div>
+
 <div class="reveal-text delay-300 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-3">
 <button class="btn-shimmer w-full sm:w-auto px-8 py-4 bg-archelaos-deepgreen hover:bg-archelaos-darkgreen text-archelaos-yellow font-black rounded-2xl shadow-lg hover:-translate-y-0.5 transition duration-200" onclick="openRegistrationModal('Γενική Εγγραφή')">
 <span data-i18n="btn_register_interest">Εκδήλωση Ενδιαφέροντος</span> <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
@@ -1527,7 +1533,7 @@ body.dark-mode #anniversary70 .ann70-milestone:hover {background:#145b3b!importa
               </a>
 </div>
 </div>
-<div class="lg:col-span-5 flex items-center justify-center">
+<div class="lg:col-span-5 flex items-center justify-center hero-logo-column">
 <div class="reveal-text delay-200 hero-emblem-float relative w-72 h-72 sm:w-80 sm:h-80 lg:w-[420px] lg:h-[420px] flex items-center justify-center select-none">
 <img alt="Έμβλημα Αρχέλαος" class="archelaos-crest-adapt w-full h-full object-contain drop-shadow-xl" decoding="async" fetchpriority="high" src="https://lh3.googleusercontent.com/d/1lILSdnXV0Y383UeFwcJbnhHaYvu3nJHj"/>
 </div>
