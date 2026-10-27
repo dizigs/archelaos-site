@@ -1427,7 +1427,35 @@ body.dark-mode #anniversary70 .ann70-milestone:hover {background:#145b3b!importa
   #home .hero-logo-column .hero-emblem-float {width:170px!important;height:170px!important;}
   #home > .max-w-7xl > .grid {gap:13px!important;}
 }
-</style></head>
+</style><style id="join-history-styles">
+.join-history-section{padding:clamp(64px,9vw,112px) 16px;background:transparent}
+.join-history-inner{max-width:1190px;margin:0 auto;position:relative;overflow:hidden;padding:clamp(30px,5vw,76px);border-radius:32px;background:linear-gradient(145deg,#053823 0%,#06452d 60%,#093b29 100%);box-shadow:0 24px 75px rgba(1,38,22,.22);isolation:isolate}
+.join-history-inner:before{content:"70";position:absolute;right:-.04em;top:-.34em;font:900 clamp(200px,34vw,480px)/1 Georgia,serif;letter-spacing:-.09em;color:rgba(245,215,93,.045);pointer-events:none;z-index:-1}
+.join-history-head{text-align:center;max-width:760px;margin:0 auto 40px}
+.join-history-eyebrow{font-size:11px;letter-spacing:.23em;font-weight:850;color:#f1d876}
+.join-history-rule{height:2px;width:46px;background:#f1d876;margin:19px auto 20px}
+.join-history-head h2{font-family:Georgia,"Times New Roman",serif;font-weight:700;font-size:clamp(34px,5vw,66px);line-height:1.12;letter-spacing:-.045em;color:#fff;margin:0 0 18px}
+.join-history-head h2 em{font-style:normal;color:#f4d96b}
+.join-history-head p{color:#e3ede4;font-size:clamp(15px,1.7vw,18px);line-height:1.7}
+.join-history-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.join-history-card{display:flex;flex-direction:column;min-height:310px;padding:26px 25px;border:1px solid rgba(246,219,111,.27);border-radius:21px;background:rgba(255,255,255,.055);transition:transform .25s ease,border-color .25s ease,background .25s ease}
+.join-history-card:hover{transform:translateY(-5px);border-color:rgba(246,219,111,.75);background:rgba(255,255,255,.085)}
+.join-history-index{font-size:10px;letter-spacing:.18em;color:#e6d78d;font-weight:800}
+.join-history-icon{display:flex;align-items:center;justify-content:center;margin:18px 0 14px;width:52px;height:52px;border:1px solid rgba(244,217,107,.48);border-radius:16px;background:rgba(244,217,107,.12);color:#f4d96b;font-size:22px}
+.join-history-card h3{color:#fff;font-weight:850;font-size:clamp(21px,2vw,26px);margin:0 0 11px;line-height:1.2}
+.join-history-card p{color:#e0eae2;line-height:1.65;font-size:14px;margin:0 0 25px;flex:1}
+.join-history-action{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:46px;width:100%;padding:12px 15px;border-radius:12px;background:#f4d96b;color:#063a27;font-weight:900;font-size:13px;text-align:left;transition:background .2s ease,transform .2s ease}
+.join-history-action:hover{background:#fff0a2;transform:translateY(-1px)}
+.join-history-action:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.join-history-foot{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:36px;color:#eadc9d;font-size:10px;font-weight:850;letter-spacing:.16em;text-align:center}
+body.dark-mode .join-history-inner{background:linear-gradient(145deg,#032e1d,#06452d 70%,#063b27)}
+body.dark-mode .join-history-card h3,body.dark-mode .join-history-head h2{color:#fff}
+body.dark-mode .join-history-card p,body.dark-mode .join-history-head p{color:#e3ede4}
+body.dark-mode .join-history-action{color:#063a27;background:#f4d96b}
+@media(max-width:860px){.join-history-grid{grid-template-columns:1fr}.join-history-card{min-height:0}.join-history-inner{padding:35px 22px}.join-history-head{margin-bottom:28px}.join-history-section{padding:60px 14px}.join-history-foot{flex-wrap:wrap;line-height:1.8}}
+@media(prefers-reduced-motion:reduce){.join-history-card,.join-history-action{transition:none}.join-history-card:hover,.join-history-action:hover{transform:none}}
+</style>
+</head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow">
 <!-- ANIMATED CONTOUR WAVES -->
 <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-75">
@@ -1990,6 +2018,42 @@ body.dark-mode #anniversary70 .ann70-milestone:hover {background:#145b3b!importa
 </div>
 </section>
 <!-- CONTACT SECTION -->
+
+<!-- 70 years: join the story -->
+<section id="join-history" class="join-history-section relative z-10" aria-labelledby="joinHistoryTitle">
+ <div class="join-history-inner">
+  <div class="join-history-head">
+   <span class="join-history-eyebrow" data-i18n="join_eyebrow">Γ.Α.Σ. «Ο ΑΡΧΕΛΑΟΣ» · 1956—2026</span>
+   <div class="join-history-rule" aria-hidden="true"></div>
+   <h2 id="joinHistoryTitle" data-i18n="join_title">Γίνε μέρος <em>της ιστορίας.</em></h2>
+   <p data-i18n="join_subtitle">70 χρόνια διαδρομής. Χιλιάδες στιγμές. Η επόμενη γράφεται μαζί σου.</p>
+  </div>
+  <div class="join-history-grid">
+   <article class="join-history-card">
+    <span class="join-history-index" aria-hidden="true">01 / 03</span>
+    <span class="join-history-icon" aria-hidden="true"><i class="fa-solid fa-medal"></i></span>
+    <h3 data-i18n="join_athlete_title">Γίνε αθλητής</h3>
+    <p data-i18n="join_athlete_desc">Βρες το άθλημα που σου ταιριάζει και ξεκίνα τη δική σου διαδρομή στον Αρχέλαο.</p>
+    <button type="button" class="join-history-action" onclick="openRegistrationModal('Γενική Εγγραφή')"><span data-i18n="join_athlete_action">Εκδήλωση ενδιαφέροντος</span><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+   </article>
+   <article class="join-history-card">
+    <span class="join-history-index" aria-hidden="true">02 / 03</span>
+    <span class="join-history-icon" aria-hidden="true"><i class="fa-solid fa-hands-holding-circle"></i></span>
+    <h3 data-i18n="join_volunteer_title">Γίνε εθελοντής</h3>
+    <p data-i18n="join_volunteer_desc">Πρόσφερε χρόνο, ιδέες και ενέργεια στις δράσεις και τις εκδηλώσεις του συλλόγου.</p>
+    <button type="button" class="join-history-action" onclick="openJoinContact('volunteer')"><span data-i18n="join_volunteer_action">Θέλω να βοηθήσω</span><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+   </article>
+   <article class="join-history-card">
+    <span class="join-history-index" aria-hidden="true">03 / 03</span>
+    <span class="join-history-icon" aria-hidden="true"><i class="fa-solid fa-handshake"></i></span>
+    <h3 data-i18n="join_support_title">Στήριξε τον σύλλογο</h3>
+    <p data-i18n="join_support_desc">Γίνε συνοδοιπόρος μέσα από μια χορηγία, συνεργασία ή άλλη μορφή υποστήριξης.</p>
+    <button type="button" class="join-history-action" onclick="openJoinContact('support')"><span data-i18n="join_support_action">Μίλησε μαζί μας</span><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+   </article>
+  </div>
+  <div class="join-history-foot"><span data-i18n="join_footer">Η ΙΣΤΟΡΙΑ ΣΥΝΕΧΙΖΕΤΑΙ ΜΑΖΙ ΜΑΣ.</span><span aria-hidden="true">✦</span><span>1956 — 2026</span></div>
+ </div>
+</section>
 <section class="relative z-10 py-24 glass-section" id="contact">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
@@ -2052,6 +2116,8 @@ body.dark-mode #anniversary70 .ann70-milestone:hover {background:#145b3b!importa
 <label class="block text-xs font-black text-archelaos-deepgreen uppercase mb-1" data-i18n="field_dept">Τμήμα Ενδιαφέροντος</label>
 <select class="w-full px-4 py-3.5 rounded-xl border border-slate-200 bg-white focus:ring-2 focus:ring-archelaos-darkgreen focus:outline-none text-sm transition" id="formDept">
 <option data-i18n="opt_general" value="Γενική Επικοινωνία">Γενική Επικοινωνία</option>
+<option data-i18n="join_volunteer_title" value="Εθελοντισμός">Γίνε εθελοντής</option>
+<option data-i18n="join_support_title" value="Χορηγία / Συνεργασία">Στήριξε τον σύλλογο</option>
 <option data-i18n="opt_handball" value="Χειροσφαίριση (Χάντμπολ)">Χειροσφαίριση (Χάντμπολ)</option>
 <option data-i18n="opt_track" value="Στίβος">Στίβος</option>
 <option data-i18n="opt_archery" value="Τοξοβολία">Τοξοβολία</option>
@@ -2223,6 +2289,19 @@ body.dark-mode #anniversary70 .ann70-milestone:hover {background:#145b3b!importa
       // 1. Translation Dictionary
       const translations = {
         el: {
+          join_eyebrow: "Γ.Α.Σ. «Ο ΑΡΧΕΛΑΟΣ» · 1956—2026",
+          join_title: "Γίνε μέρος <em>της ιστορίας.</em>",
+          join_subtitle: "70 χρόνια διαδρομής. Χιλιάδες στιγμές. Η επόμενη γράφεται μαζί σου.",
+          join_athlete_title: "Γίνε αθλητής",
+          join_athlete_desc: "Βρες το άθλημα που σου ταιριάζει και ξεκίνα τη δική σου διαδρομή στον Αρχέλαο.",
+          join_athlete_action: "Εκδήλωση ενδιαφέροντος",
+          join_volunteer_title: "Γίνε εθελοντής",
+          join_volunteer_desc: "Πρόσφερε χρόνο, ιδέες και ενέργεια στις δράσεις και τις εκδηλώσεις του συλλόγου.",
+          join_volunteer_action: "Θέλω να βοηθήσω",
+          join_support_title: "Στήριξε τον σύλλογο",
+          join_support_desc: "Γίνε συνοδοιπόρος μέσα από μια χορηγία, συνεργασία ή άλλη μορφή υποστήριξης.",
+          join_support_action: "Μίλησε μαζί μας",
+          join_footer: "Η ΙΣΤΟΡΙΑ ΣΥΝΕΧΙΖΕΤΑΙ ΜΑΖΙ ΜΑΣ.",
           brand_title: "Αρχέλαος",
           anniversary_kicker: "1956 — 2026",
           anniversary_title: "70 ΧΡΟΝΙΑ ΙΣΤΟΡΙΑΣ",
@@ -2352,6 +2431,19 @@ body.dark-mode #anniversary70 .ann70-milestone:hover {background:#145b3b!importa
           back_to_top_tooltip: "Κορυφή"
         },
         en: {
+          join_eyebrow: "G.A.S. ARCHELAOS · 1956—2026",
+          join_title: "Become part of <em>our story.</em>",
+          join_subtitle: "70 years of dedication. Thousands of moments. The next one starts with you.",
+          join_athlete_title: "Become an athlete",
+          join_athlete_desc: "Find your sport and start your own journey with Archelaos.",
+          join_athlete_action: "Register your interest",
+          join_volunteer_title: "Become a volunteer",
+          join_volunteer_desc: "Contribute your time, ideas and energy to our club’s activities and events.",
+          join_volunteer_action: "I want to help",
+          join_support_title: "Support the club",
+          join_support_desc: "Partner with us through sponsorship, collaboration or another form of support.",
+          join_support_action: "Get in touch",
+          join_footer: "THE STORY CONTINUES WITH ALL OF US.",
           brand_title: "Archelaos",
           anniversary_kicker: "1956 — 2026",
           anniversary_title: "70 YEARS OF HISTORY",
@@ -3183,36 +3275,8 @@ body.dark-mode #anniversary70 .ann70-milestone:hover {background:#145b3b!importa
         }
       });
 
-      function handleDirectSubmit(e) {
-        e.preventDefault();
-        const name = document.getElementById('formName').value;
-        const phone = document.getElementById('formPhone').value;
-        const email = document.getElementById('formEmail').value;
-        const dept = document.getElementById('formDept').value;
-        const msg = document.getElementById('formMsg').value;
-        document.getElementById('formSuccessAlert').classList.remove('hidden');
-        const subject = encodeURIComponent(`[SITE MESSAGE] ${dept} - ${name}`);
-        const bodyText = encodeURIComponent(`Name: ${name}\nPhone: ${phone}\nEmail: ${email}\nDepartment: ${dept}\n\nMessage:\n${msg}`);
-        setTimeout(() => { window.location.href = `mailto:dimitriszgalanis@gmail.com?cc=admin@archelaos.club&subject=${subject}&body=${bodyText}`; }, 1200);
-        document.getElementById('contactForm').reset();
-      }
-
-      function handleModalDirectSubmit(e) {
-        e.preventDefault();
-        const dept = modalDeptSelect.value;
-        const name = document.getElementById('modalName').value;
-        const phone = document.getElementById('modalPhone').value;
-        const email = document.getElementById('modalEmail').value;
-        document.getElementById('modalAlert').classList.remove('hidden');
-        const subject = encodeURIComponent(`[NEW REGISTRATION] Department: ${dept} - ${name}`);
-        const bodyText = encodeURIComponent(`New Registration Request:\n\nName: ${name}\nPhone: ${phone}\nEmail: ${email}\nDepartment: ${dept}`);
-        setTimeout(() => {
-          window.location.href = `mailto:admin@archelaos.club?cc=dimitriszgalanis@gmail.com&subject=${subject}&body=${bodyText}`;
-          closeRegistrationModal();
-          document.getElementById('modalAlert').classList.add('hidden');
-          document.getElementById('modalForm').reset();
-        }, 1500);
-      }
+      function handleDirectSubmit(e) { return window.archelaosSubmit(e, 'contact'); }
+      function handleModalDirectSubmit(e) { return window.archelaosSubmit(e, 'interest'); }
     </script>
 <script>
 
@@ -3307,5 +3371,20 @@ body.dark-mode #anniversary70 .ann70-milestone:hover {background:#145b3b!importa
   },{threshold:0.12});
   observer.observe(section);
 })();
-</script></body>
+</script><script src="forms.js" defer></script>
+<script id="join-history-behavior">
+function openJoinContact(kind) {
+  const select=document.getElementById('formDept');
+  const message=document.getElementById('formMsg');
+  const english=document.documentElement.lang==='en';
+  const isVolunteer=kind==='volunteer';
+  if(select) select.value=isVolunteer?'Εθελοντισμός':'Χορηγία / Συνεργασία';
+  if(message && !message.value.trim()) message.value=isVolunteer?
+    (english?'I would like to volunteer with Archelaos. Please contact me.':'Θα ήθελα να βοηθήσω εθελοντικά στις δράσεις του Αρχέλαου. Παρακαλώ επικοινωνήστε μαζί μου.'):
+    (english?'I would like to discuss supporting or partnering with Archelaos. Please contact me.':'Θα ήθελα να συζητήσουμε για υποστήριξη ή συνεργασία με τον Αρχέλαο. Παρακαλώ επικοινωνήστε μαζί μου.');
+  document.getElementById('contact')?.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
+  setTimeout(()=>document.getElementById('formName')?.focus({preventScroll:true}),450);
+}
+</script>
+</body>
 </html>
