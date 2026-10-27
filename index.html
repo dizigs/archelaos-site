@@ -1849,6 +1849,36 @@
       let currentDeptHistoryKey = null;
       let currentTimelineMilestoneId = null;
 
+// Filter Departments Function for Interactive Pills
+      function filterDepartments(category) {
+        document.querySelectorAll('.dept-filter-pill').forEach(pill => {
+          pill.classList.remove('active', 'bg-white', 'bg-white/80');
+          pill.classList.add('bg-white/80');
+        });
+        const activePill = document.getElementById(`pill-${category}`);
+        if (activePill) {
+          activePill.classList.add('active', 'bg-white');
+          activePill.classList.remove('bg-white/80');
+        }
+
+        document.querySelectorAll('.department-card').forEach(card => {
+          const cardCat = card.getAttribute('data-category');
+          if (category === 'all' || cardCat === category) {
+            card.style.display = 'flex';
+            setTimeout(() => { 
+              card.style.opacity = '1'; 
+              card.style.transform = 'scale(1)'; 
+            }, 20);
+          } else {
+            card.style.opacity = '0';
+            card.style.transform = 'scale(0.95)';
+            setTimeout(() => { 
+              card.style.display = 'none'; 
+            }, 250);
+          }
+        });
+      }
+        
       // Render Minimal Horizontal Timeline Cards
       function renderTimelineCards() {
         const container = document.getElementById('timelineScrollContainer');
