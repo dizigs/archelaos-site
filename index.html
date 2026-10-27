@@ -130,6 +130,7 @@
         transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
                     box-shadow 0.25s ease,
                     border-color 0.25s ease;
+                    opacity 0.3s ease;
         position: relative;
         overflow: hidden;
       }
@@ -179,6 +180,22 @@
         }
       }
 
+        /* Interactive Category Pills */
+      .dept-filter-pill {
+        transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        cursor: pointer;
+      }
+      .dept-filter-pill.active {
+        background-color: #084c24 !important;
+        color: #f6ee42 !important;
+        box-shadow: 0 6px 16px -4px rgba(8, 76, 36, 0.3);
+        transform: translateY(-2px);
+      }
+      body.dark-mode .dept-filter-pill.active {
+        background-color: #f6ee42 !important;
+        color: #084c24 !important;
+      }
+        
       /* Department Icon Box */
       .icon-box {
         transition: transform 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
