@@ -1696,7 +1696,65 @@ a:focus-visible,button:focus-visible{outline:3px solid #e0bd23!important;outline
 }
 #board .executive-board-grid {display:grid!important;}
 </style>
-</head><body class="lang-el"><header class="sticky top-0 z-40 glass-nav" id="mainHeader">
+<style id="archelaos-heritage-premium-header">
+/* Shared 1956 heritage header: ivory, deep green, and a restrained 3px gold accent. */
+html body #mainHeader.glass-nav,
+html body #mainHeader.glass-nav.scrolled {
+ background:#FFFDF7!important;
+ background-color:#FFFDF7!important;
+ border-top:3px solid #D8B63B!important;
+ border-bottom:1px solid #E3E8DA!important;
+ box-shadow:0 5px 24px rgba(7,61,42,.055)!important;
+ backdrop-filter:blur(16px);
+ -webkit-backdrop-filter:blur(16px);
+ transition:box-shadow .2s ease,background-color .2s ease!important;
+}
+html body #mainHeader.glass-nav.scrolled {
+ box-shadow:0 8px 26px rgba(7,61,42,.10)!important;
+}
+#mainHeader > .max-w-7xl {position:relative;}
+#mainHeader a:has(.archelaos-crest-adapt) {gap:10px;}
+#mainHeader a:has(.archelaos-crest-adapt) > div:first-child {
+ background:linear-gradient(145deg,#F5F7ED,#E9F0E6);
+ border:1px solid #DFE8D8;
+ border-radius:12px;
+ padding:4px;
+ box-shadow:0 2px 10px rgba(7,61,42,.06);
+}
+#mainHeader .archelaos-crest-adapt {object-fit:contain;}
+#mainHeader .arch-floating-nav {
+ background:rgba(245,247,238,.88)!important;
+ border:1px solid #E3E9DD!important;
+ box-shadow:none!important;
+}
+#mainHeader .arch-floating-nav a {color:#073D2A!important;}
+#mainHeader .arch-floating-nav a:hover,
+#mainHeader .arch-floating-nav a:focus-visible {
+ background:#073D2A!important;
+ color:#F5E638!important;
+}
+#mainHeader #mobileMenuBtn {
+ background:#F1F4E9!important;
+ border:1px solid #DDE5D5!important;
+ color:#073D2A!important;
+ box-shadow:0 2px 8px rgba(7,61,42,.055)!important;
+ border-radius:12px!important;
+}
+#mainHeader #mobileMenuBtn:hover {background:#E7EEDC!important;}
+#mainHeader #mobileMenuBtn i {color:#073D2A!important;}
+#mainHeader .lang-btn.active {background:#073D2A!important;color:#F5E638!important;}
+#mainHeader a:focus-visible,#mainHeader button:focus-visible {
+ outline:3px solid #C7A32C!important;
+ outline-offset:3px!important;
+}
+@media(max-width:640px){
+ #mainHeader a:has(.archelaos-crest-adapt) {gap:7px;}
+ #mainHeader a:has(.archelaos-crest-adapt) > div:first-child {padding:3px;border-radius:10px;}
+}
+@media(prefers-reduced-motion:reduce){
+ #mainHeader.glass-nav,#mainHeader.glass-nav.scrolled {transition:none!important;}
+}
+</style></head><body class="lang-el"><header class="sticky top-0 z-40 glass-nav" id="mainHeader">
 <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
 <div class="flex items-center justify-between h-20 gap-1.5 sm:gap-3">
 <!-- Logo & Title -->
