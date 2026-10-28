@@ -1649,7 +1649,83 @@ body {background:var(--arch-ivory)!important;color-scheme:light;}
  .arch-cinematic-menu,.arch-cinematic-menu * {animation-duration:.01ms!important;transition-duration:.01ms!important;}
 }
 </style>
-</head>
+<style id="arch-board-teaser-style">
+#board.arch-board-teaser{padding:clamp(65px,8vw,112px) 0;background:linear-gradient(145deg,#fffdf2,#f8f6ef)!important;border-top:3px solid #ead642;border-bottom:1px solid #dce5d7;}
+.arch-board-teaser-layout{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(260px,.8fr);align-items:center;gap:clamp(30px,6vw,85px);}
+.arch-board-teaser-kicker{font-size:11px;letter-spacing:.13em;color:#8c7b13;font-weight:900;}
+.arch-board-teaser-copy h2{font-size:clamp(33px,4.2vw,54px);line-height:1.1;letter-spacing:-.04em;color:#073d2a;font-weight:900;margin:16px 0 20px;}
+.arch-board-teaser-copy h2:after{content:"";display:block;width:66px;height:4px;background:#e6c72e;border-radius:8px;margin-top:22px;}
+.arch-board-teaser-copy p{max-width:560px;color:#4e6555;line-height:1.85;font-size:clamp(15px,1.5vw,18px);margin-bottom:25px;}
+.arch-board-teaser-button{display:inline-flex;align-items:center;justify-content:center;gap:17px;background:#073d2a;color:#f5e638;border:1px solid #073d2a;padding:15px 23px;border-radius:12px;font-weight:900;font-size:13px;transition:background .2s ease,transform .2s ease;}
+.arch-board-teaser-button:hover{background:#12583b;transform:translateY(-2px);}
+.arch-board-teaser-button:focus-visible{outline:3px solid #e3bf23;outline-offset:3px;}
+.arch-board-teaser-art{position:relative;min-height:265px;border-radius:22px;background:radial-gradient(circle at 68% 40%,#155d3c,#073d2a 75%);border:1px solid rgba(229,207,70,.6);display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 18px 38px rgba(6,58,37,.12);}
+.arch-board-teaser-art:before{content:"";position:absolute;width:230px;height:230px;border:1px solid rgba(245,230,56,.18);border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);}
+.arch-board-teaser-seal{font-size:clamp(42px,6vw,67px);font-weight:900;letter-spacing:-.045em;color:#f5e638;line-height:1;}
+.arch-board-teaser-year{font-size:18px;font-weight:900;letter-spacing:.25em;color:#fff9d5;margin-top:15px;}
+.arch-board-teaser-lines{display:flex;gap:7px;margin-top:23px;}.arch-board-teaser-lines span{display:block;height:3px;width:22px;background:#e7cf3b;border-radius:10px;}
+.arch-board-teaser-caption{font-size:10px;letter-spacing:.14em;font-weight:850;color:rgba(255,255,255,.78);margin-top:21px;}
+@media(max-width:767px){.arch-board-teaser-layout{grid-template-columns:1fr;gap:28px}.arch-board-teaser-art{min-height:175px}.arch-board-teaser-art:before{width:175px;height:175px}.arch-board-teaser-seal{font-size:48px}.arch-board-teaser-year{font-size:14px;margin-top:8px}.arch-board-teaser-lines{margin-top:13px}.arch-board-teaser-caption{margin-top:13px}}
+@media(prefers-reduced-motion:reduce){.arch-board-teaser-button{transition:none!important}}
+</style><style id="archelaos-heritage-premium-header">
+/* Shared 1956 heritage header: ivory, deep green, and a restrained 3px gold accent. */
+html body #mainHeader.glass-nav,
+html body #mainHeader.glass-nav.scrolled {
+ background:#FFFDF7!important;
+ background-color:#FFFDF7!important;
+ border-top:3px solid #D8B63B!important;
+ border-bottom:1px solid #E3E8DA!important;
+ box-shadow:0 5px 24px rgba(7,61,42,.055)!important;
+ backdrop-filter:blur(16px);
+ -webkit-backdrop-filter:blur(16px);
+ transition:box-shadow .2s ease,background-color .2s ease!important;
+}
+html body #mainHeader.glass-nav.scrolled {
+ box-shadow:0 8px 26px rgba(7,61,42,.10)!important;
+}
+#mainHeader > .max-w-7xl {position:relative;}
+#mainHeader a:has(.archelaos-crest-adapt) {gap:10px;}
+#mainHeader a:has(.archelaos-crest-adapt) > div:first-child {
+ background:linear-gradient(145deg,#F5F7ED,#E9F0E6);
+ border:1px solid #DFE8D8;
+ border-radius:12px;
+ padding:4px;
+ box-shadow:0 2px 10px rgba(7,61,42,.06);
+}
+#mainHeader .archelaos-crest-adapt {object-fit:contain;}
+#mainHeader .arch-floating-nav {
+ background:rgba(245,247,238,.88)!important;
+ border:1px solid #E3E9DD!important;
+ box-shadow:none!important;
+}
+#mainHeader .arch-floating-nav a {color:#073D2A!important;}
+#mainHeader .arch-floating-nav a:hover,
+#mainHeader .arch-floating-nav a:focus-visible {
+ background:#073D2A!important;
+ color:#F5E638!important;
+}
+#mainHeader #mobileMenuBtn {
+ background:#F1F4E9!important;
+ border:1px solid #DDE5D5!important;
+ color:#073D2A!important;
+ box-shadow:0 2px 8px rgba(7,61,42,.055)!important;
+ border-radius:12px!important;
+}
+#mainHeader #mobileMenuBtn:hover {background:#E7EEDC!important;}
+#mainHeader #mobileMenuBtn i {color:#073D2A!important;}
+#mainHeader .lang-btn.active {background:#073D2A!important;color:#F5E638!important;}
+#mainHeader a:focus-visible,#mainHeader button:focus-visible {
+ outline:3px solid #C7A32C!important;
+ outline-offset:3px!important;
+}
+@media(max-width:640px){
+ #mainHeader a:has(.archelaos-crest-adapt) {gap:7px;}
+ #mainHeader a:has(.archelaos-crest-adapt) > div:first-child {padding:3px;border-radius:10px;}
+}
+@media(prefers-reduced-motion:reduce){
+ #mainHeader.glass-nav,#mainHeader.glass-nav.scrolled {transition:none!important;}
+}
+</style></head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow">
 <div aria-hidden="true" aria-label="Καλώς ήρθατε στον Αρχέλαο" aria-modal="true" id="archWelcome" role="dialog">
 <div aria-hidden="true" class="arch-welcome-edge"></div>
@@ -1680,8 +1756,8 @@ body {background:var(--arch-ivory)!important;color-scheme:light;}
 <!-- Logo & Title -->
 <a class="flex items-center space-x-2 group shrink-0" href="#home">
 <div class="relative w-11 h-11 sm:w-14 sm:h-14 xl:w-16 xl:h-16 shrink-0 flex items-center justify-center transform group-hover:scale-105 transition duration-300">
-<img alt="Γ.Α.Σ. Αρχέλαος 1956" class="archelaos-crest-adapt w-full h-full object-contain" decoding="async" src="https://lh3.googleusercontent.com/d/1lILSdnXV0Y383UeFwcJbnhHaYvu3nJHj">
-</img></div>
+<img alt="Γ.Α.Σ. Αρχέλαος 1956" class="archelaos-crest-adapt w-full h-full object-contain" decoding="async" src="https://lh3.googleusercontent.com/d/1lILSdnXV0Y383UeFwcJbnhHaYvu3nJHj"/>
+</div>
 <div class="flex flex-col min-w-0">
 <div class="flex items-center gap-1.5">
 <span class="font-heading font-black text-base sm:text-xl xl:text-2xl text-archelaos-deepgreen tracking-tight uppercase truncate" data-i18n="brand_title">Αρχέλαος</span>
@@ -1696,7 +1772,7 @@ body {background:var(--arch-ivory)!important;color-scheme:light;}
 <a class="px-2 xl:px-2.5 py-1.5 rounded-xl text-[11px] xl:text-xs 2xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap" data-i18n="nav_history" href="history.html#chapters">Ιστορία</a>
 <a class="px-2 xl:px-2.5 py-1.5 rounded-xl text-[11px] xl:text-xs 2xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap" data-i18n="nav_about" href="#about">Ο Σύλλογος</a>
 <a class="px-2 xl:px-2.5 py-1.5 rounded-xl text-[11px] xl:text-xs 2xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap" data-i18n="nav_dept" href="#departments">Τμήματα</a>
-<a class="px-2 xl:px-2.5 py-1.5 rounded-xl text-[11px] xl:text-xs 2xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap" data-i18n="nav_board" href="#board">Διοίκηση</a>
+<a class="px-2 xl:px-2.5 py-1.5 rounded-xl text-[11px] xl:text-xs 2xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap" data-i18n="nav_board" href="board.html">Διοίκηση</a>
 <a class="px-2 xl:px-2.5 py-1.5 rounded-xl text-[11px] xl:text-xs 2xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap" data-i18n="nav_contact" href="#contact">Επικοινωνία</a>
 </nav>
 <!-- Right Controls & Actions -->
@@ -1731,7 +1807,7 @@ body {background:var(--arch-ivory)!important;color-scheme:light;}
 <a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="history.html#chapters"><span aria-hidden="true" class="arch-menu-number">02</span><span data-i18n="nav_history">Ιστορία</span></a>
 <a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="#about"><span aria-hidden="true" class="arch-menu-number">03</span><span data-i18n="nav_about">Ο Σύλλογος</span></a>
 <a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="#departments"><span aria-hidden="true" class="arch-menu-number">04</span><span data-i18n="nav_dept">Αθλητικά Τμήματα</span></a>
-<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="#board"><span aria-hidden="true" class="arch-menu-number">05</span><span data-i18n="nav_board">Διοίκηση (Δ.Σ.)</span></a>
+<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="board.html"><span aria-hidden="true" class="arch-menu-number">05</span><span data-i18n="nav_board">Διοίκηση (Δ.Σ.)</span></a>
 <a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="#contact"><span aria-hidden="true" class="arch-menu-number">06</span><span data-i18n="nav_contact">Επικοινωνία</span></a>
 <button class="arch-mobile-cta mobile-menu-item w-full text-center px-4 py-3.5 bg-archelaos-deepgreen text-archelaos-yellow font-extrabold rounded-xl shadow-lg" onclick="openRegistrationModal('Γενική Εγγραφή'); closeMobileMenu();">
 <i class="fa-solid fa-user-plus mr-2"></i> <span data-i18n="btn_register_interest">Εκδήλωση Ενδιαφέροντος</span>
@@ -2051,121 +2127,12 @@ body {background:var(--arch-ivory)!important;color-scheme:light;}
 </div>
 </section>
 <!-- BOARD OF DIRECTORS SECTION -->
-<section class="relative z-10 py-20 sm:py-24 glass-section" id="board">
+<section aria-labelledby="board-teaser-title" class="arch-board-teaser" id="board">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="reveal-text text-center max-w-2xl mx-auto mb-12">
-<span class="inline-block px-4 py-1.5 rounded-full bg-archelaos-deepgreen text-archelaos-yellow font-black text-xs uppercase tracking-wider mb-3 shadow-md" data-i18n="board_tag">Διοίκηση</span>
-<h2 class="text-3xl sm:text-5xl font-black font-heading text-archelaos-deepgreen" data-i18n="board_title">Διοικητικό Συμβούλιο</h2>
-<p class="mt-3 text-slate-700 font-semibold text-sm sm:text-base leading-relaxed" data-i18n="board_sub">Η σύνθεση του Δ.Σ. και οι υπεύθυνοι έφοροι των 8 αθλητικών τμημάτων του συλλόγου.</p>
-</div>
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 reveal-text executive-board-grid">
-<article aria-label="Παναγιώτης Διαμαντόπουλος" class="executive-board-card premium-person-card">
-<div class="executive-board-upper">
-<div aria-hidden="true" class="executive-board-monogram"><span>ΠΔ</span></div>
-<div class="executive-board-ident">
-<span class="executive-board-role" data-i18n="role_president">Πρόεδρος</span>
-<h3 class="executive-board-name" data-i18n="board_1_name">Παναγιώτης Διαμαντόπουλος</h3>
-</div>
-</div>
-<div class="executive-board-bottom">
-<span class="executive-board-ephor-label" data-i18n="ephor_label">Έφορος:</span>
-<span class="executive-board-ephor" data-i18n="ephor_gymnastics">Ενόργανη Γυμναστική</span>
-</div>
-</article>
-<article aria-label="Χαράλαμπος Σαββίδης" class="executive-board-card premium-person-card">
-<div class="executive-board-upper">
-<div aria-hidden="true" class="executive-board-monogram"><span>ΧΣ</span></div>
-<div class="executive-board-ident">
-<span class="executive-board-role" data-i18n="role_vp1">Α΄ Αντιπρόεδρος</span>
-<h3 class="executive-board-name" data-i18n="board_2_name">Χαράλαμπος Σαββίδης</h3>
-</div>
-</div>
-<div class="executive-board-bottom">
-<span class="executive-board-ephor-label" data-i18n="ephor_label">Έφορος:</span>
-<span class="executive-board-ephor" data-i18n="ephor_handball">Χάντμπολ</span>
-</div>
-</article>
-<article aria-label="Δημήτριος Γαλάνης" class="executive-board-card premium-person-card">
-<div class="executive-board-upper">
-<div aria-hidden="true" class="executive-board-monogram"><span>ΔΓ</span></div>
-<div class="executive-board-ident">
-<span class="executive-board-role" data-i18n="role_vp2">Β΄ Αντιπρόεδρος</span>
-<h3 class="executive-board-name" data-i18n="board_3_name">Δημήτριος Γαλάνης</h3>
-</div>
-</div>
-<div class="executive-board-bottom">
-<span class="executive-board-ephor-label" data-i18n="ephor_label">Έφορος:</span>
-<span class="executive-board-ephor" data-i18n="ephor_archery">Τοξοβολία</span>
-</div>
-</article>
-<article aria-label="Αθανάσιος Μαυροειδής" class="executive-board-card premium-person-card">
-<div class="executive-board-upper">
-<div aria-hidden="true" class="executive-board-monogram"><span>ΑΜ</span></div>
-<div class="executive-board-ident">
-<span class="executive-board-role" data-i18n="role_gen_sec">Γεν. Γραμματέας</span>
-<h3 class="executive-board-name" data-i18n="board_4_name">Αθανάσιος Μαυροειδής</h3>
-</div>
-</div>
-<div class="executive-board-bottom">
-<span class="executive-board-ephor-label" data-i18n="ephor_label">Έφορος:</span>
-<span class="executive-board-ephor" data-i18n="ephor_swimming">Κολύμβηση</span>
-</div>
-</article>
-<article aria-label="Παύλος Συμεωνίδης" class="executive-board-card premium-person-card">
-<div class="executive-board-upper">
-<div aria-hidden="true" class="executive-board-monogram"><span>ΠΣ</span></div>
-<div class="executive-board-ident">
-<span class="executive-board-role" data-i18n="role_treasurer">Ταμίας</span>
-<h3 class="executive-board-name" data-i18n="board_5_name">Παύλος Συμεωνίδης</h3>
-</div>
-</div>
-<div class="executive-board-bottom">
-<span class="executive-board-ephor-label" data-i18n="ephor_label">Έφορος:</span>
-<span class="executive-board-ephor" data-i18n="ephor_volleyball">Βόλεϊ</span>
-</div>
-</article>
-<article aria-label="Γεώργιος Αθανασίου" class="executive-board-card premium-person-card">
-<div class="executive-board-upper">
-<div aria-hidden="true" class="executive-board-monogram"><span>ΓΑ</span></div>
-<div class="executive-board-ident">
-<span class="executive-board-role" data-i18n="role_member">Μέλος Δ.Σ.</span>
-<h3 class="executive-board-name" data-i18n="board_6_name">Γεώργιος Αθανασίου</h3>
-</div>
-</div>
-<div class="executive-board-bottom">
-<span class="executive-board-ephor-label" data-i18n="ephor_label">Έφορος:</span>
-<span class="executive-board-ephor" data-i18n="ephor_track">Στίβος (Κλασικός)</span>
-</div>
-</article>
-<article aria-label="Κυριάκος Κωνσταντινίδης" class="executive-board-card premium-person-card">
-<div class="executive-board-upper">
-<div aria-hidden="true" class="executive-board-monogram"><span>ΚΚ</span></div>
-<div class="executive-board-ident">
-<span class="executive-board-role" data-i18n="role_member">Μέλος Δ.Σ.</span>
-<h3 class="executive-board-name" data-i18n="board_7_name">Κυριάκος Κωνσταντινίδης</h3>
-</div>
-</div>
-<div class="executive-board-bottom">
-<span class="executive-board-ephor-label" data-i18n="ephor_label">Έφορος:</span>
-<span class="executive-board-ephor" data-i18n="ephor_wrestling">Πάλη</span>
-</div>
-</article>
-<article aria-label="Χρυσούλα Κουτσουδάκη" class="executive-board-card premium-person-card">
-<div class="executive-board-upper">
-<div aria-hidden="true" class="executive-board-monogram"><span>ΧΚ</span></div>
-<div class="executive-board-ident">
-<span class="executive-board-role" data-i18n="role_member">Μέλος Δ.Σ.</span>
-<h3 class="executive-board-name" data-i18n="board_8_name">Χρυσούλα Κουτσουδάκη</h3>
-</div>
-</div>
-<div class="executive-board-bottom">
-<span class="executive-board-ephor-label" data-i18n="ephor_label">Έφορος:</span>
-<span class="executive-board-ephor" data-i18n="ephor_shooting">Σκοποβολή</span>
-</div>
-</article>
-</div>
-</div>
-</section>
+<div class="arch-board-teaser-layout">
+<div class="arch-board-teaser-copy"><span class="arch-board-teaser-kicker" data-i18n="board_teaser_kicker">ΟΙ ΑΝΘΡΩΠΟΙ ΤΟΥ ΣΥΛΛΟΓΟΥ</span><h2 data-i18n="board_teaser_title" id="board-teaser-title">Μαζί για τον Αρχέλαο.</h2><p data-i18n="board_teaser_desc">Γνωρίστε τους ανθρώπους που στηρίζουν τη λειτουργία και την εξέλιξη του συλλόγου.</p><a class="arch-board-teaser-button" href="board.html"><span data-i18n="board_teaser_button">Γνωρίστε τη Διοίκηση</span><i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></div>
+<div aria-hidden="true" class="arch-board-teaser-art"><span class="arch-board-teaser-seal">Γ.Α.Σ.</span><span class="arch-board-teaser-year">1956</span><div class="arch-board-teaser-lines"><span></span><span></span><span></span></div><span class="arch-board-teaser-caption">ΑΡΧΕΛΑΟΣ · ΚΑΤΕΡΙΝΗ</span></div>
+</div></div></section>
 <!-- CONTACT SECTION -->
 <!-- 70 years: join the story -->
 <section aria-labelledby="joinHistoryTitle" class="join-history-section relative z-10" id="join-history">
@@ -2409,7 +2376,7 @@ body {background:var(--arch-ivory)!important;color-scheme:light;}
 <div class="heritage-footer-links">
 <a href="#home"><span data-i18n="nav_home">Αρχική</span></a>
 <a href="#departments"><span data-i18n="nav_dept">Τμήματα</span></a>
-<a href="#board"><span data-i18n="nav_board">Διοίκηση</span></a>
+<a href="board.html"><span data-i18n="nav_board">Διοίκηση</span></a>
 </div>
 </nav>
 <nav aria-label="Ιστορία και επαφή" class="heritage-footer-nav">
@@ -2511,6 +2478,10 @@ body {background:var(--arch-ivory)!important;color-scheme:light;}
           dept_8_title: "Κολύμβηση",
           dept_8_sub: "(Υγρός Στίβος)",
           dept_8_desc: "Ακαδημίες εκμάθησης και αγωνιστικό τμήμα υγρού στίβου για όλες τις ηλικίες.",
+          board_teaser_kicker: "ΟΙ ΑΝΘΡΩΠΟΙ ΤΟΥ ΣΥΛΛΟΓΟΥ",
+          board_teaser_title: "Μαζί για τον Αρχέλαο.",
+          board_teaser_desc: "Γνωρίστε τους ανθρώπους που στηρίζουν τη λειτουργία και την εξέλιξη του συλλόγου.",
+          board_teaser_button: "Γνωρίστε τη Διοίκηση",
           board_tag: "Διοίκηση",
           board_title: "Διοικητικό Συμβούλιο",
           board_sub: "Η σύνθεση του Δ.Σ. και οι υπεύθυνοι έφοροι των 8 αθλητικών τμημάτων του συλλόγου.",
@@ -2660,6 +2631,10 @@ body {background:var(--arch-ivory)!important;color-scheme:light;}
           dept_8_title: "Swimming",
           dept_8_sub: "(Aquatics)",
           dept_8_desc: "Learn-to-swim programs and competitive swim squads at Katerini Municipal Pool.",
+          board_teaser_kicker: "THE PEOPLE BEHIND THE CLUB",
+          board_teaser_title: "Together for Archelaos.",
+          board_teaser_desc: "Meet the people who support the club's work and its future.",
+          board_teaser_button: "Meet the Board",
           board_tag: "Governance",
           board_title: "Board of Directors",
           board_sub: "The Executive Bureau and the designated Ephors (Directors) of our 8 sports departments.",
