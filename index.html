@@ -2666,6 +2666,26 @@ html.arch-a11y-contrast-light #arch-a11y-easy-nav,html.arch-a11y-contrast-dark #
 #about .arch-slide-caption{font-size:clamp(29px,8vw,40px)!important}
 }
 </style>
+<style>
+/* v2.3 — refined, accessible premium micro-interactions */
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+  .heritage-footer-links a, .heritage-footer-social a, .nav a, .mobile-nav-link, .mobile-menu-item {
+    transition: color .24s ease, background-color .24s ease, border-color .24s ease, transform .24s cubic-bezier(.2,.75,.3,1), box-shadow .24s ease;
+  }
+  .heritage-footer-links a:hover { color: #d6b45e; transform: translateX(4px); }
+  .heritage-footer-social a:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,.16); }
+  .nav a:hover, .mobile-nav-link:hover, .mobile-menu-item:hover { transform: translateY(-1px); }
+  .person:hover, .moment:hover, .card:hover { transition: transform .28s cubic-bezier(.2,.75,.3,1), box-shadow .28s ease; }
+  .person:hover, .moment:hover { transform: translateY(-3px); }
+  .heritage-footer-quote { transition: border-color .3s ease; }
+  .heritage-footer-quote:hover { border-color: #d6b45e; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
+  .heritage-footer-links a, .heritage-footer-social a, .nav a, .mobile-nav-link, .mobile-menu-item { transition: none !important; }
+}
+</style>
 </head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow">
 <div aria-hidden="true" aria-label="Καλώς ήρθατε στον Αρχέλαο" aria-modal="true" id="archWelcome" role="dialog">
