@@ -1372,7 +1372,65 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 @media(max-width:560px){.museum-archive-contribute{padding:20px;gap:13px}.museum-archive-contribute-icon{width:44px;height:44px;font-size:20px}.museum-archive-contribute-copy strong{font-size:16px}.museum-archive-contribute-copy p{font-size:12px}.museum-archive-contribute-link{width:100%;white-space:normal}}
 @media(prefers-reduced-motion:reduce){.museum-archive-contribute-link{transition:none!important}}
 </style>
-</head>
+<style id="archelaos-heritage-premium-header">
+/* Shared 1956 heritage header: ivory, deep green, and a restrained 3px gold accent. */
+html body #mainHeader.glass-nav,
+html body #mainHeader.glass-nav.scrolled {
+ background:#FFFDF7!important;
+ background-color:#FFFDF7!important;
+ border-top:3px solid #D8B63B!important;
+ border-bottom:1px solid #E3E8DA!important;
+ box-shadow:0 5px 24px rgba(7,61,42,.055)!important;
+ backdrop-filter:blur(16px);
+ -webkit-backdrop-filter:blur(16px);
+ transition:box-shadow .2s ease,background-color .2s ease!important;
+}
+html body #mainHeader.glass-nav.scrolled {
+ box-shadow:0 8px 26px rgba(7,61,42,.10)!important;
+}
+#mainHeader > .max-w-7xl {position:relative;}
+#mainHeader a:has(.archelaos-crest-adapt) {gap:10px;}
+#mainHeader a:has(.archelaos-crest-adapt) > div:first-child {
+ background:linear-gradient(145deg,#F5F7ED,#E9F0E6);
+ border:1px solid #DFE8D8;
+ border-radius:12px;
+ padding:4px;
+ box-shadow:0 2px 10px rgba(7,61,42,.06);
+}
+#mainHeader .archelaos-crest-adapt {object-fit:contain;}
+#mainHeader .arch-floating-nav {
+ background:rgba(245,247,238,.88)!important;
+ border:1px solid #E3E9DD!important;
+ box-shadow:none!important;
+}
+#mainHeader .arch-floating-nav a {color:#073D2A!important;}
+#mainHeader .arch-floating-nav a:hover,
+#mainHeader .arch-floating-nav a:focus-visible {
+ background:#073D2A!important;
+ color:#F5E638!important;
+}
+#mainHeader #mobileMenuBtn {
+ background:#F1F4E9!important;
+ border:1px solid #DDE5D5!important;
+ color:#073D2A!important;
+ box-shadow:0 2px 8px rgba(7,61,42,.055)!important;
+ border-radius:12px!important;
+}
+#mainHeader #mobileMenuBtn:hover {background:#E7EEDC!important;}
+#mainHeader #mobileMenuBtn i {color:#073D2A!important;}
+#mainHeader .lang-btn.active {background:#073D2A!important;color:#F5E638!important;}
+#mainHeader a:focus-visible,#mainHeader button:focus-visible {
+ outline:3px solid #C7A32C!important;
+ outline-offset:3px!important;
+}
+@media(max-width:640px){
+ #mainHeader a:has(.archelaos-crest-adapt) {gap:7px;}
+ #mainHeader a:has(.archelaos-crest-adapt) > div:first-child {padding:3px;border-radius:10px;}
+}
+@media(prefers-reduced-motion:reduce){
+ #mainHeader.glass-nav,#mainHeader.glass-nav.scrolled {transition:none!important;}
+}
+</style></head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow">
 <!-- ANIMATED CONTOUR WAVES -->
 <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-75">
@@ -1408,7 +1466,7 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 <a aria-current="page" class="premium-nav-active text-archelaos-deepgreen 2xl:text-sm whitespace-nowrap duration-200 hover:bg-archelaos-deepgreen transition xl:text-xs rounded-xl hover:text-archelaos-yellow text-[11px] font-extrabold px-2 xl:px-2.5 py-1.5" data-i18n="nav_history" href="#chapters">Ιστορία</a>
 <a class="px-2 xl:px-2.5 py-1.5 rounded-xl text-[11px] xl:text-xs 2xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap" data-i18n="nav_about" href="index.html#about">Ο Σύλλογος</a>
 <a class="px-2 xl:px-2.5 py-1.5 rounded-xl text-[11px] xl:text-xs 2xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap" data-i18n="nav_dept" href="index.html#departments">Τμήματα</a>
-<a class="px-2 xl:px-2.5 py-1.5 rounded-xl text-[11px] xl:text-xs 2xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap" data-i18n="nav_board" href="index.html#board">Διοίκηση</a>
+<a class="px-2 xl:px-2.5 py-1.5 rounded-xl text-[11px] xl:text-xs 2xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap" data-i18n="nav_board" href="board.html">Διοίκηση</a>
 <a class="px-2 xl:px-2.5 py-1.5 rounded-xl text-[11px] xl:text-xs 2xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap" data-i18n="nav_contact" href="index.html#contact">Επικοινωνία</a>
 </nav>
 <!-- Right Controls & Actions -->
@@ -1443,7 +1501,7 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 <a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="#chapters"><span aria-hidden="true" class="arch-menu-number">02</span><span data-i18n="nav_history">Ιστορία</span></a>
 <a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="index.html#about"><span aria-hidden="true" class="arch-menu-number">03</span><span data-i18n="nav_about">Ο Σύλλογος</span></a>
 <a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="index.html#departments"><span aria-hidden="true" class="arch-menu-number">04</span><span data-i18n="nav_dept">Αθλητικά Τμήματα</span></a>
-<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="index.html#board"><span aria-hidden="true" class="arch-menu-number">05</span><span data-i18n="nav_board">Διοίκηση (Δ.Σ.)</span></a>
+<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="board.html"><span aria-hidden="true" class="arch-menu-number">05</span><span data-i18n="nav_board">Διοίκηση (Δ.Σ.)</span></a>
 <a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="index.html#contact"><span aria-hidden="true" class="arch-menu-number">06</span><span data-i18n="nav_contact">Επικοινωνία</span></a>
 <button class="arch-mobile-cta mobile-menu-item w-full text-center px-4 py-3.5 bg-archelaos-deepgreen text-archelaos-yellow font-extrabold rounded-xl shadow-lg" onclick="openRegistrationModal('Γενική Εγγραφή'); closeMobileMenu();">
 <i class="fa-solid fa-user-plus mr-2"></i> <span data-i18n="btn_register_interest">Εκδήλωση Ενδιαφέροντος</span>
@@ -3618,7 +3676,7 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 <div class="heritage-footer-links">
 <a href="index.html#home"><span data-i18n="nav_home">Αρχική</span></a>
 <a href="index.html#departments"><span data-i18n="nav_dept">Τμήματα</span></a>
-<a href="index.html#board"><span data-i18n="nav_board">Διοίκηση</span></a>
+<a href="board.html"><span data-i18n="nav_board">Διοίκηση</span></a>
 </div>
 </nav>
 <nav aria-label="Ιστορία και επαφή" class="heritage-footer-nav">
