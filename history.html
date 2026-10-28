@@ -1358,7 +1358,6 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
  .arch-cinematic-menu,.arch-cinematic-menu * {animation-duration:.01ms!important;transition-duration:.01ms!important;}
 }
 </style>
-
 <style id="archelaos-archive-participation">
 .museum-archive-contribute {display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:21px;margin-top:26px;padding:24px 26px;background:linear-gradient(115deg,#0a462e,#0c5739);color:#fff;border:1px solid rgba(245,230,56,.35);border-radius:20px;box-shadow:0 13px 34px rgba(6,49,29,.12);}
 .museum-archive-contribute-icon {width:56px;height:56px;border-radius:16px;background:rgba(245,230,56,.14);display:flex;align-items:center;justify-content:center;color:#f5e638;font-size:24px;flex-shrink:0;}
@@ -1430,7 +1429,66 @@ html body #mainHeader.glass-nav.scrolled {
 @media(prefers-reduced-motion:reduce){
  #mainHeader.glass-nav,#mainHeader.glass-nav.scrolled {transition:none!important;}
 }
-</style></head>
+</style><style id="archelaos-premium-section-titles-2026">
+/* Shared Heritage Premium heading language: restrained gold, deep green, generous rhythm. */
+.heritage-section-heading{position:relative;isolation:isolate;}
+.heritage-section-eyebrow{display:flex;align-items:center;gap:11px;color:#95791f!important;font-size:11px!important;font-weight:900!important;letter-spacing:.14em!important;text-transform:uppercase;line-height:1.55;margin-bottom:14px!important;}
+.heritage-section-eyebrow::before{content:"";display:block;width:26px;height:2px;background:#d1b136;border-radius:4px;flex:none;}
+.heritage-section-heading h2{letter-spacing:-.035em!important;line-height:1.15!important;color:#073d2a!important;}
+.heritage-section-heading h2::after{content:"";display:block;width:64px;height:3px;border-radius:6px;background:linear-gradient(90deg,#bfa02c,#e6d566);margin:19px 0 0;}
+.heritage-section-heading.heritage-centered .heritage-section-eyebrow{justify-content:center;}
+.heritage-section-heading.heritage-centered h2::after{margin:19px auto 0;}
+.heritage-section-heading.heritage-on-dark .heritage-section-eyebrow{color:#f3d96a!important;}
+.heritage-section-heading.heritage-on-dark h2{color:#fffdf4!important;}
+.heritage-section-heading.heritage-on-dark h2::after{background:#e2c44e;}
+.heritage-section-heading.heritage-on-dark .heritage-section-eyebrow::before{background:#e2c44e;}
+@media(max-width:640px){.heritage-section-eyebrow{font-size:10px!important;gap:9px;letter-spacing:.11em!important;margin-bottom:10px!important;}.heritage-section-heading h2::after{margin-top:15px;}}
+@media(prefers-reduced-motion:reduce){.heritage-section-heading *{scroll-behavior:auto!important;}}
+</style><style id="archelaos-museum-cinematic-entrance-2026">
+/* Museum entrance uses existing historical copy and original abstract decoration only. */
+#history-hero.museum-cinematic-entrance{padding-top:clamp(20px,4vw,56px)!important;padding-bottom:clamp(34px,6vw,76px)!important;}
+#history-hero.museum-cinematic-entrance > .max-w-7xl{background:radial-gradient(ellipse at 88% 18%,rgba(229,197,77,.12),transparent 45%),linear-gradient(135deg,#062d21 0%,#073d2a 57%,#105039 100%)!important;border:1px solid rgba(220,185,67,.42)!important;box-shadow:0 22px 70px rgba(6,42,28,.18)!important;}
+#history-hero .museum-hero-inner{position:relative;z-index:1;}
+#history-hero .museum-hero-inner > a:first-child{color:#f4d46d!important;}
+#history-hero .museum-cinematic-kicker{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:900;letter-spacing:.17em;text-transform:uppercase;color:#e7ca61;margin:2px 0 20px;}
+#history-hero .museum-cinematic-kicker::before{content:"";height:2px;width:26px;background:#e7ca61;border-radius:5px;}
+#history-hero .museum-cinematic-line{width:68px;height:3px;background:linear-gradient(90deg,#f5e638,#c9a441);border-radius:5px;margin-top:23px;}
+#history-hero .museum-cinematic-tagline{max-width:720px;font-size:clamp(19px,2.4vw,29px);font-weight:800;line-height:1.36;letter-spacing:-.025em;color:#fffdf6;margin-top:23px;}
+#history-hero .museum-cinematic-tagline em{display:block;font-style:normal;color:#e9d16c;margin-top:3px;}
+#history-hero .museum-cinematic-scroll{display:inline-flex;align-items:center;gap:11px;margin-top:28px;color:#f2d778;text-decoration:none;font-size:12px;font-weight:800;letter-spacing:.03em;border-bottom:1px solid rgba(232,207,93,.55);padding-bottom:8px;transition:color .2s ease;}
+#history-hero .museum-cinematic-scroll:hover{color:#fff;}
+#history-hero .museum-cinematic-scroll i{font-size:12px;}
+#history-hero .museum-hero-art{opacity:.75;pointer-events:none;}
+#history-hero .museum-art-ring{border-color:rgba(234,209,95,.18)!important;}
+#history-hero .museum-hero-inner > p{color:rgba(255,255,255,.8)!important;}
+#history-hero .museum-cinematic-scroll:focus-visible{outline:3px solid #f5e638;outline-offset:5px;}
+@media(max-width:767px){#history-hero .museum-cinematic-tagline{font-size:21px;}#history-hero .museum-cinematic-kicker{font-size:10px;letter-spacing:.1em;}#history-hero .museum-hero-art{opacity:.28;}#history-hero .museum-hero-inner{padding-top:34px!important;padding-bottom:40px!important;}}
+@media(prefers-reduced-motion:reduce){#history-hero .museum-cinematic-scroll{transition:none!important;}}
+</style>
+<style id="archelaos-clean-crest-no-background">
+/* The club's original crest sits directly on the ivory header, without a badge/card. */
+#mainHeader a:has(.archelaos-crest-adapt) > div:first-child,
+#mainHeader a:has(.archelaos-crest-adapt) > div:first-child:hover,
+#mainHeader .archelaos-crest-adapt,
+#mainHeader .archelaos-crest-adapt:hover {
+  background:transparent!important;
+  background-color:transparent!important;
+  background-image:none!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  outline:0!important;
+  padding:0!important;
+  filter:none!important;
+}
+#mainHeader a:has(.archelaos-crest-adapt) > div:first-child::before,
+#mainHeader a:has(.archelaos-crest-adapt) > div:first-child::after {
+  content:none!important;
+  display:none!important;
+}
+#mainHeader .archelaos-crest-adapt { object-fit:contain!important; }
+</style>
+</head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow">
 <!-- ANIMATED CONTOUR WAVES -->
 <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-75">
@@ -1513,16 +1571,16 @@ html body #mainHeader.glass-nav.scrolled {
 <!-- ABOUT SECTION -->
 <!-- 8 DEPARTMENTS SECTION WITH INTERACTIVE PILLS -->
 <!-- INTEGRATED HISTORY ARCHIVE: full source content is available in the topic popups below -->
-<section class="relative z-10 overflow-hidden pt-10 sm:pt-16 pb-9 sm:pb-14 px-4 sm:px-6 lg:px-8 museum-hero" id="history-hero">
+<section class="relative z-10 overflow-hidden pt-10 sm:pt-16 pb-9 sm:pb-14 px-4 sm:px-6 lg:px-8 museum-hero museum-cinematic-entrance" id="history-hero">
 <div class="max-w-7xl mx-auto relative overflow-hidden rounded-[2rem] sm:rounded-[2.5rem] bg-archelaos-deepgreen text-white shadow-2xl border border-archelaos-yellow/25">
 <div aria-hidden="true" class="absolute -right-8 -top-12 text-[11rem] sm:text-[17rem] font-heading font-black leading-none tracking-tighter text-archelaos-yellow opacity-[.07] pointer-events-none select-none">70</div>
 <div class="relative px-6 py-11 sm:px-12 sm:py-16 lg:px-16 lg:py-20 museum-hero-inner">
 <a class="inline-flex items-center gap-2 text-xs font-extrabold text-archelaos-yellow/85 hover:text-white transition mb-8" href="index.html"><i class="fa-solid fa-arrow-left"></i><span data-lang="el">Πίσω στην αρχική</span><span data-lang="en">Back to home</span></a>
-<div class="inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-white/10 border border-white/15 text-archelaos-yellow text-[11px] uppercase tracking-[.16em] font-black mb-5"><i class="fa-solid fa-landmark"></i><span data-lang="el">Ιστορικό αρχείο · 1956—2026</span><span data-lang="en">Historical archive · 1956—2026</span></div>
-<h1 class="font-heading font-black tracking-tight text-4xl sm:text-6xl lg:text-7xl leading-[1.06] max-w-4xl"><span data-lang="el">70 χρόνια<br/><span class="text-archelaos-yellow">ιστορίας.</span></span><span data-lang="en">70 years<br/><span class="text-archelaos-yellow">of history.</span></span></h1>
+<div class="inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-white/10 border border-white/15 text-archelaos-yellow text-[11px] uppercase tracking-[.16em] font-black mb-5"><i class="fa-solid fa-landmark"></i><span data-lang="el">ΤΟ ΑΡΧΕΙΟ ΤΟΥ ΑΡΧΕΛΑΟΥ</span><span data-lang="en">THE ARCHELAOS ARCHIVE</span></div>
+<h1 class="font-heading font-black tracking-tight text-4xl sm:text-6xl lg:text-7xl leading-[1.06] max-w-4xl"><span data-lang="el">70 χρόνια<br/><span class="text-archelaos-yellow">ιστορίας.</span></span><span data-lang="en">70 years<br/><span class="text-archelaos-yellow">of history.</span></span></h1><div aria-hidden="true" class="museum-cinematic-line"></div><p class="museum-cinematic-tagline"><span data-lang="el">Η ιστορία δεν μένει πίσω.<em>Μένει ζωντανή.</em></span><span data-lang="en">History does not stay behind.<em>It lives on.</em></span></p>
 <p class="text-white/80 mt-5 max-w-2xl text-sm sm:text-base leading-relaxed"><span data-lang="el">Από την ίδρυση το 1956 έως σήμερα. Πρόσωπα, σταθμοί, αθλήματα, εγκαταστάσεις και διακρίσεις — όλα σε ένα διαδραστικό ιστορικό αρχείο.</span><span data-lang="en">From the club's foundation in 1956 to today. People, milestones, sports, facilities and honors — in one interactive historical archive.</span></p>
 <div class="flex flex-wrap gap-3 mt-8"><a class="inline-flex items-center gap-2 rounded-xl bg-archelaos-yellow text-archelaos-deepgreen font-black text-sm px-5 py-3 hover:bg-white transition" href="#timeline"><i class="fa-solid fa-timeline"></i><span data-lang="el">Χρονολόγιο</span><span data-lang="en">Timeline</span></a>
-<a class="inline-flex items-center gap-2 rounded-xl border border-white/30 text-white font-black text-sm px-5 py-3 hover:bg-white/10 transition" href="#chapters"><i class="fa-solid fa-book-open"></i><span data-lang="el">6 ιστορικά κεφάλαια</span><span data-lang="en">6 history chapters</span></a></div>
+<a class="inline-flex items-center gap-2 rounded-xl border border-white/30 text-white font-black text-sm px-5 py-3 hover:bg-white/10 transition" href="#chapters"><i class="fa-solid fa-book-open"></i><span data-lang="el">6 ιστορικά κεφάλαια</span><span data-lang="en">6 history chapters</span></a></div><a class="museum-cinematic-scroll" href="#museum-exhibits"><i aria-hidden="true" class="fa-solid fa-arrow-down"></i><span data-lang="el">Ανακαλύψτε την ιστορία</span><span data-lang="en">Discover the story</span></a>
 <div aria-hidden="true" class="museum-hero-art">
 <div class="museum-art-ring"></div><div class="museum-art-year">1956</div>
 <div class="museum-art-seal"><i class="fa-solid fa-landmark"></i></div>
@@ -1537,8 +1595,8 @@ html body #mainHeader.glass-nav.scrolled {
 </div></div></section><section aria-label="Ιστορικά εκθέματα / Historical exhibits" class="museum-exhibits" id="museum-exhibits">
 <div class="museum-section-wrap">
 <div class="museum-section-kicker"><i class="fa-solid fa-star"></i><span data-lang="el">ΕΠΙΛΕΓΜΕΝΑ ΕΚΘΕΜΑΤΑ</span><span data-lang="en">FEATURED EXHIBITS</span></div>
-<div class="museum-section-head"><div>
-<h2><span data-lang="el">Σταθμοί που έγραψαν ιστορία</span><span data-lang="en">Milestones that shaped the club</span></h2>
+<div class="museum-section-head"><div class="heritage-section-heading">
+<div aria-hidden="true" class="heritage-section-eyebrow"><span data-lang="el">01 / ΕΠΙΛΕΓΜΕΝΑ ΚΕΦΑΛΑΙΑ</span><span data-lang="en">01 / FEATURED CHAPTERS</span></div><h2><span data-lang="el">Σταθμοί που έγραψαν ιστορία</span><span data-lang="en">Milestones that shaped the club</span></h2>
 <p><span data-lang="el">Μικρές ιστορίες από το υπάρχον αρχείο. Επιλέξτε ένα έκθεμα για να διαβάσετε ολόκληρο το σχετικό κεφάλαιο.</span><span data-lang="en">Stories from the original archive. Select an exhibit to read its complete chapter.</span></p>
 </div><a class="museum-subtle-link" href="#timeline"><span data-lang="el">Όλο το χρονολόγιο</span><span data-lang="en">Full timeline</span><i class="fa-solid fa-arrow-down"></i></a></div>
 <div class="museum-exhibit-grid">
@@ -1566,13 +1624,13 @@ html body #mainHeader.glass-nav.scrolled {
 <a href="#sports-archive"><i class="fa-solid fa-medal"></i><span data-lang="el">Αθλήματα</span><span data-lang="en">Sports</span></a>
 </div></nav><section class="relative z-10 py-8 sm:py-12 glass-section scroll-mt-24" id="history-archive">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="max-w-3xl mx-auto text-center mb-10 sm:mb-14">
+<div class="max-w-3xl mx-auto text-center mb-10 sm:mb-14 heritage-section-heading heritage-centered">
 <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-archelaos-deepgreen text-archelaos-yellow text-[11px] sm:text-xs font-black uppercase tracking-[.16em] shadow-sm mb-5">
 <i class="fa-solid fa-scroll"></i>
 <span data-lang="el">Επίσημο Ιστορικό Αρχείο • 1956–2026</span>
 <span data-lang="en">Official Historical Archive • 1956–2026</span>
 </div>
-<h2 class="text-3xl sm:text-5xl font-black font-heading text-archelaos-deepgreen leading-tight mb-4">
+<div aria-hidden="true" class="heritage-section-eyebrow"><span data-lang="el">02 / ΙΣΤΟΡΙΚΟ ΑΡΧΕΙΟ</span><span data-lang="en">02 / HISTORICAL ARCHIVE</span></div><h2 class="text-3xl sm:text-5xl font-black font-heading text-archelaos-deepgreen leading-tight mb-4">
 <span data-lang="el">70 χρόνια ιστορίας, σε ένα σημείο</span>
 <span data-lang="en">70 years of history, all in one place</span>
 </h2>
@@ -1590,9 +1648,9 @@ html body #mainHeader.glass-nav.scrolled {
 <section class="relative z-10 py-10 sm:py-14 museum-timeline" id="timeline">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
-<div class="reveal-text">
+<div class="reveal-text heritage-section-heading">
 <span class="inline-block px-3.5 py-1 rounded-full bg-archelaos-deepgreen text-archelaos-yellow font-black text-[11px] uppercase tracking-wider mb-2 shadow-sm museum-timeline-anniversary-tag" data-i18n="timeline_tag">1956 – 2026 • 70 Χρόνια</span>
-<h2 class="text-2xl sm:text-4xl font-black font-heading text-archelaos-deepgreen" data-i18n="timeline_title">Χρονολόγιο Ιστορίας</h2>
+<div aria-hidden="true" class="heritage-section-eyebrow"><span data-lang="el">03 / ΧΡΟΝΟΛΟΓΙΟ</span><span data-lang="en">03 / TIMELINE</span></div><h2 class="text-2xl sm:text-4xl font-black font-heading text-archelaos-deepgreen" data-i18n="timeline_title">Χρονολόγιο Ιστορίας</h2>
 <p class="mt-1.5 text-archelaos-deepgreen/80 font-semibold text-xs sm:text-sm" data-i18n="timeline_sub">Οριζόντια γραμμή ορόσημων. Πατήστε σε έναν τίτλο για αναλυτικές λεπτομέρειες.</p>
 </div>
 <div class="reveal-text flex items-center gap-2 self-start md:self-auto">
@@ -1624,7 +1682,7 @@ html body #mainHeader.glass-nav.scrolled {
 </section><section aria-label="Αρχειακή συλλογή / Archive gallery" class="museum-gallery" id="museum-gallery">
 <div class="museum-section-wrap">
 <div class="museum-section-kicker"><i class="fa-solid fa-images"></i><span data-lang="el">ΑΡΧΕΙΑΚΗ ΣΥΛΛΟΓΗ</span><span data-lang="en">ARCHIVAL COLLECTION</span></div>
-<div class="museum-section-head"><div><h2><span data-lang="el">Η ιστορία μέσα από τεκμήρια</span><span data-lang="en">History through artifacts</span></h2>
+<div class="museum-section-head"><div class="heritage-section-heading"><div aria-hidden="true" class="heritage-section-eyebrow"><span data-lang="el">04 / ΑΡΧΕΙΑΚΗ ΣΥΛΛΟΓΗ</span><span data-lang="en">04 / ARCHIVAL COLLECTION</span></div><h2><span data-lang="el">Η ιστορία μέσα από τεκμήρια</span><span data-lang="en">History through artifacts</span></h2>
 <p><span data-lang="el">Χώρος για αυθεντικές φωτογραφίες, έγγραφα και αφίσες του συλλόγου. Προς το παρόν παρουσιάζονται θεματικές εικονογραφήσεις.</span><span data-lang="en">A place for genuine photographs, documents and posters. The current panels are thematic illustrations.</span></p></div></div>
 <div class="museum-gallery-grid">
 <button class="museum-gallery-tile" onclick="openHistoryArchive('dioikisi')" type="button"><div class="museum-gallery-illustration"><i class="fa-solid fa-building-columns"></i><span>ΘΕΜΑΤΙΚΗ / 01</span></div><div><strong><span data-lang="el">Πρόσωπα &amp; διοίκηση</span><span data-lang="en">People &amp; leadership</span></strong><small><span data-lang="el">Δείτε τις προεδρικές θητείες</span><span data-lang="en">Explore presidential terms</span></small></div><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
