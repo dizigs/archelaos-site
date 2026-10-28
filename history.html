@@ -2135,7 +2135,31 @@ html body {margin:0!important;}
 @media(max-height:680px){#registrationModal{padding:8px!important}#registrationModal>.modal-box{max-height:calc(100dvh - 16px)!important}}
 @media(prefers-reduced-motion:reduce){#registrationModal .arch-dept-trigger,#registrationModal .arch-dept-trigger svg{transition:none}}
 </style>
-<meta content="#073D2A" name="theme-color"/><meta content="1200" property="og:image:width"/><meta content="630" property="og:image:height"/><meta content="Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης – χρυσό έμβλημα" property="og:image:alt"/><meta content="summary_large_image" name="twitter:card"/><meta content="Ψηφιακό Μουσείο | Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης" name="twitter:title"/><meta content="Εξερευνήστε 70 χρόνια ιστορίας του Αρχέλαου Κατερίνης μέσα από αρχειακά τεκμήρια, διαδραστικό χρονολόγιο και ιστορίες των αθλητικών τμημάτων." name="twitter:description"/><meta content="https://archelaos.club/social-preview.jpg" name="twitter:image"/><link href="https://archelaos.club/history.html" rel="canonical"/><link href="favicon.ico" rel="icon" sizes="any"/><link href="favicon-192.png" rel="icon" sizes="192x192" type="image/png"/><link href="favicon-180.png" rel="apple-touch-icon" sizes="180x180"/></head>
+<meta content="#073D2A" name="theme-color"/><meta content="1200" property="og:image:width"/><meta content="630" property="og:image:height"/><meta content="Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης – χρυσό έμβλημα" property="og:image:alt"/><meta content="summary_large_image" name="twitter:card"/><meta content="Ψηφιακό Μουσείο | Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης" name="twitter:title"/><meta content="Εξερευνήστε 70 χρόνια ιστορίας του Αρχέλαου Κατερίνης μέσα από αρχειακά τεκμήρια, διαδραστικό χρονολόγιο και ιστορίες των αθλητικών τμημάτων." name="twitter:description"/><meta content="https://archelaos.club/social-preview.jpg" name="twitter:image"/><link href="https://archelaos.club/history.html" rel="canonical"/><link href="favicon.ico" rel="icon" sizes="any"/><link href="favicon-192.png" rel="icon" sizes="192x192" type="image/png"/><link href="favicon-180.png" rel="apple-touch-icon" sizes="180x180"/><style id="archelaos-premium-polish-2026">
+:root{--arch-polish-gold:#c7a65e;--arch-polish-green:#073d2a}
+html{scroll-behavior:smooth}body{overflow-wrap:break-word}
+/* Shared floating crest-to-arrow button */
+.arch-polish-top{position:fixed;right:22px;bottom:24px;z-index:8000;width:55px;height:55px;border:1.5px solid #c7a65e;border-radius:50%;background:#073d2a;box-shadow:0 7px 24px rgba(0,0,0,.2);cursor:pointer;display:grid;place-items:center;opacity:0;visibility:hidden;transform:translateY(12px);transition:opacity .3s,visibility .3s,transform .3s;overflow:hidden}
+.arch-polish-top.is-shown{opacity:1;visibility:visible;transform:translateY(0)}
+.arch-polish-top:focus-visible{outline:3px solid #c7a65e;outline-offset:4px}
+.arch-polish-top .arch-top-crest,.arch-polish-top .arch-top-arrow{position:absolute;display:grid;place-items:center;transition:opacity .28s,transform .28s}
+.arch-polish-top .arch-top-crest{opacity:1;transform:translateY(0) scale(1)}
+.arch-polish-top .arch-top-arrow{opacity:0;transform:translateY(24px) scale(.65);color:#c7a65e;font-size:26px;line-height:1}
+.arch-polish-top:hover .arch-top-crest,.arch-polish-top:focus-visible .arch-top-crest{opacity:0;transform:translateY(-25px) scale(.6)}
+.arch-polish-top:hover .arch-top-arrow,.arch-polish-top:focus-visible .arch-top-arrow{opacity:1;transform:translateY(0) scale(1)}
+.arch-polish-top img{width:34px;height:34px;object-fit:contain}
+.arch-polish-top .arch-top-ring{position:absolute;inset:0;transform:rotate(-90deg);pointer-events:none}
+.arch-polish-top .arch-top-ring circle{fill:none;stroke:#c7a65e;stroke-width:2;stroke-linecap:round;stroke-dasharray:151;stroke-dashoffset:151;transition:stroke-dashoffset .1s linear}
+/* Restrained entrance effects only on elements explicitly marked */
+.arch-polish-reveal{opacity:0;transform:translateY(12px);transition:opacity .65s ease,transform .65s ease}
+.arch-polish-reveal.is-visible{opacity:1;transform:none}
+/* Long-form legibility without changing page composition */
+article p,.history-content p,.museum-content p,.bio-text p,.person-bio p{line-height:1.78;overflow-wrap:break-word}
+article img,.history-content img,.museum-content img{max-width:100%;height:auto}
+@media(max-width:600px){.arch-polish-top{right:14px;bottom:16px;width:49px;height:49px}.arch-polish-top img{width:30px;height:30px}article p,.history-content p,.museum-content p,.bio-text p,.person-bio p{line-height:1.82}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.arch-polish-reveal{opacity:1;transform:none;transition:none}.arch-polish-top,.arch-polish-top *{transition:none!important}}
+</style>
+</head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow arch-gold-page">
 <!-- ANIMATED CONTOUR WAVES -->
 <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-75">
@@ -4236,18 +4260,7 @@ html body {margin:0!important;}
 </form>
 </div>
 </div>
-<!-- DESKTOP BACK-TO-TOP FLOATING BUTTON -->
-<button aria-label="Επιστροφή στην κορυφή" class="fixed bottom-7 right-7 z-40 hidden lg:flex items-center justify-center w-14 h-14 rounded-full bg-archelaos-deepgreen text-archelaos-yellow shadow-2xl border-2 border-archelaos-yellow/50 group transition-all duration-300 hover:scale-110 hover:shadow-archelaos-deepgreen/40 opacity-0 pointer-events-none translate-y-4" id="backToTopBtn">
-<svg class="absolute inset-0 w-full h-full -rotate-90 pointer-events-none" viewbox="0 0 56 56">
-<circle cx="28" cy="28" fill="none" r="25" stroke="rgba(246, 238, 66, 0.2)" stroke-width="2.5"></circle>
-<circle class="transition-all duration-150" cx="28" cy="28" fill="none" id="bttScrollProgress" r="25" stroke="#c7a65e" stroke-dasharray="157.08" stroke-dashoffset="157.08" stroke-linecap="round" stroke-width="2.5"></circle>
-</svg>
-<div class="relative w-8 h-8 flex items-center justify-center overflow-hidden">
-<img alt="Αρχέλαος" class="w-7 h-7 object-contain transition-all duration-300 transform group-hover:-translate-y-8 group-hover:opacity-0 group-hover:scale-50" src="https://lh3.googleusercontent.com/d/1JwGT61jDKXuBU6rA1OCiC1laeKh8gKdV"/>
-<i class="fa-solid fa-arrow-up text-lg text-archelaos-yellow absolute transition-all duration-300 transform translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 group-hover:scale-110"></i>
-</div>
-<span class="absolute right-16 bg-archelaos-deepgreen text-archelaos-yellow text-[11px] font-black uppercase tracking-wider px-3 py-1.5 rounded-xl shadow-lg border border-archelaos-yellow/40 opacity-0 pointer-events-none translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 whitespace-nowrap" data-i18n="back_to_top_tooltip">Κορυφή</span>
-</button>
+
 <!-- FOOTER (IDENTICAL ACROSS BOTH PAGES) -->
 <!-- ANNIVERSARY COLLECTIONS: deliberately placed before the footer -->
 <section aria-labelledby="anniv-entrance-title" class="arch-anniversary-entrance" id="anniversary-collections">
@@ -6197,5 +6210,12 @@ render(0,false);
  render();
 })();
 </script>
+<button class="arch-polish-top" id="archPolishTop" type="button" aria-label="Επιστροφή στην κορυφή" title="Επιστροφή στην κορυφή"><svg class="arch-top-ring" viewBox="0 0 55 55" aria-hidden="true"><circle cx="27.5" cy="27.5" r="24"/></svg><span class="arch-top-crest"><img src="archelaos-logo-gold.png" alt="" loading="lazy" width="34" height="34"/></span><span class="arch-top-arrow" aria-hidden="true">↑</span></button>
+<script id="archelaos-premium-polish-js">(function(){
+'use strict';
+var btn=document.getElementById('archPolishTop');if(btn){var ring=btn.querySelector('circle');var update=function(){var y=window.scrollY||document.documentElement.scrollTop;btn.classList.toggle('is-shown',y>380);var max=Math.max(1,document.documentElement.scrollHeight-window.innerHeight);if(ring)ring.style.strokeDashoffset=String(151*(1-Math.min(1,y/max)));};window.addEventListener('scroll',update,{passive:true});window.addEventListener('resize',update,{passive:true});update();btn.addEventListener('click',function(){window.scrollTo({top:0,behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});});}
+var lang=(document.documentElement.lang||'el').toLowerCase();var labels={el:'Επιστροφή στην κορυφή',en:'Back to top'};if(btn){var sync=function(){var english=(document.documentElement.lang||'').toLowerCase().startsWith('en')||document.body.classList.contains('lang-en');btn.setAttribute('aria-label',english?labels.en:labels.el);btn.title=english?labels.en:labels.el;};sync();new MutationObserver(sync).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});}
+if('IntersectionObserver' in window&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.querySelectorAll('main section').forEach(function(section,i){if(i>0 && i<16 && !section.closest('[role=dialog]') && !section.hidden)section.classList.add('arch-polish-reveal');});var targets=document.querySelectorAll('.arch-polish-reveal');var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('is-visible');io.unobserve(e.target);}})},{threshold:.08,rootMargin:'0px 0px -25px 0px'});targets.forEach(function(el){io.observe(el);});}else{document.querySelectorAll('.arch-polish-reveal').forEach(function(el){el.classList.add('is-visible');});}
+})();</script>
 </body>
 </html>
