@@ -1802,6 +1802,48 @@ html body #mainHeader.glass-nav.scrolled {
 }
 #mainHeader .archelaos-crest-adapt { object-fit:contain!important; }
 </style>
+<style id="arch-modern-navigation-2026">
+/* Consistent, restrained interactions across all three pages. */
+:root {--modern-green:#073d2a;--modern-ivory:#fffdf7;--modern-gold:#c8a74a;--modern-sage:#eaf1e8;}
+#mainHeader .arch-floating-nav{gap:3px!important;background:#f7f8f2!important;border:1px solid #e3e9dd!important;border-radius:15px!important;padding:5px!important;box-shadow:none!important;}
+#mainHeader .arch-floating-nav a{position:relative;display:inline-flex;align-items:center;justify-content:center;min-height:38px;border-radius:10px!important;font-size:clamp(10px,.81vw,13px)!important;font-weight:750!important;letter-spacing:-.01em!important;padding:9px clamp(7px,.76vw,12px)!important;white-space:nowrap;transition:color .22s ease,background-color .22s ease,box-shadow .22s ease!important;transform:none!important;}
+#mainHeader .arch-floating-nav a::after{content:"";position:absolute;bottom:5px;left:50%;width:0;height:2px;background:var(--modern-gold);border-radius:2px;transform:translateX(-50%);transition:width .22s ease;}
+#mainHeader .arch-floating-nav a:hover::after,#mainHeader .arch-floating-nav a:focus-visible::after{width:calc(100% - 25px);}
+#mainHeader .arch-floating-nav a:hover,#mainHeader .arch-floating-nav a:focus-visible{background:var(--modern-sage)!important;color:var(--modern-green)!important;}
+#mainHeader .arch-floating-nav a.premium-nav-active,#mainHeader .arch-floating-nav a[aria-current]{background:var(--modern-green)!important;color:#fffdf7!important;box-shadow:0 2px 9px rgba(7,61,42,.12)!important;}
+#mainHeader .arch-floating-nav a.premium-nav-active::after,#mainHeader .arch-floating-nav a[aria-current]::after{background:var(--modern-gold);width:calc(100% - 26px);}
+/* Original crest remains unboxed, in its authentic colors. */
+#mainHeader a:has(.archelaos-crest-adapt)>div:first-child{background:transparent!important;border:0!important;box-shadow:none!important;padding:0!important;}
+#mainHeader .archelaos-crest-adapt{filter:none!important;-webkit-filter:none!important;}
+#mainHeader #mobileMenuBtn{transition:background-color .2s ease,border-color .2s ease!important;transform:none!important;}
+#mainHeader #mobileMenuBtn:hover{background:var(--modern-sage)!important;}
+@media(max-width:1023px){
+ header#mainHeader #mobileMenu.arch-cinematic-menu{padding:12px!important;gap:3px!important;background:var(--modern-ivory)!important;border:1px solid #dce7d8!important;border-top:3px solid var(--modern-gold)!important;border-radius:16px!important;box-shadow:0 20px 46px rgba(7,61,42,.16)!important;transform:translateY(-9px) scale(.99)!important;transition:opacity .22s ease,transform .28s cubic-bezier(.2,.8,.2,1),visibility .22s!important;}
+ header#mainHeader #mobileMenu.arch-cinematic-menu.menu-open{transform:translateY(0) scale(1)!important;}
+ #mobileMenu .arch-modern-menu-eyebrow{padding:5px 12px 9px;color:#7c806d;font-size:10px;font-weight:850;letter-spacing:.14em;text-transform:uppercase;border-bottom:1px solid #e4eadd;margin-bottom:4px;}
+ header#mainHeader #mobileMenu.arch-cinematic-menu a.mobile-nav-link{display:flex!important;gap:11px!important;min-height:46px!important;padding:11px 13px!important;border-radius:10px!important;font-size:14px!important;font-weight:760!important;letter-spacing:-.01em!important;transition:background-color .2s ease,color .2s ease,transform .2s ease!important;}
+ #mobileMenu .arch-modern-link-icon{display:inline-flex;align-items:center;justify-content:center;width:23px;min-width:23px;color:#9b873f;font-size:14px;}
+ #mobileMenu a.mobile-nav-link.premium-mobile-active .arch-modern-link-icon,#mobileMenu a.mobile-nav-link[aria-current] .arch-modern-link-icon{color:#e4ce73;}
+ #mobileMenu a.mobile-nav-link .arch-modern-link-arrow{margin-left:auto;color:#9da99b;font-size:10px;opacity:0;transform:translateX(-4px);transition:opacity .2s,transform .2s;}
+ #mobileMenu a.mobile-nav-link:hover .arch-modern-link-arrow,#mobileMenu a.mobile-nav-link:focus-visible .arch-modern-link-arrow{opacity:1;transform:translateX(0);}
+ #mobileMenu .arch-mobile-cta{border-radius:11px!important;background:var(--modern-green)!important;color:#fffdf7!important;min-height:46px!important;transition:background-color .2s ease!important;}
+ #mobileMenu .arch-mobile-cta:hover{background:#12583b!important;}
+ #mobileMenu #mobileControlsBar{background:#f1f4eb!important;border:1px solid #e0e7d9!important;}
+ #mobileMenu .mobile-menu-item{animation:none!important;}
+ #mobileMenu.menu-open .mobile-nav-link{animation:arch-menu-item-in .28s both!important;animation-delay:calc(var(--arch-item-index,0) * 35ms)!important;}
+ @keyframes arch-menu-item-in{from{opacity:0;translate:0 5px;}to{opacity:1;translate:0 0;}}
+}
+.heritage-footer-links a{transition:color .2s ease,padding-left .2s ease!important;}
+.heritage-footer-links a:hover,.heritage-footer-links a:focus-visible{color:#e1c36c!important;padding-left:5px;}
+.heritage-museum-jump-details>summary{transition:background-color .2s ease,box-shadow .2s ease!important;}
+.heritage-museum-jump-details>summary:hover{background:#13553a!important;}
+.heritage-museum-jump-details[open] .heritage-museum-jump-links{animation:arch-dropdown-in .2s ease-out both;}
+@keyframes arch-dropdown-in{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:translateY(0);}}
+@media(prefers-reduced-motion:reduce){
+ #mainHeader .arch-floating-nav a,#mainHeader .arch-floating-nav a::after,#mainHeader #mobileMenuBtn,#mobileMenu .mobile-nav-link,.heritage-footer-links a,.heritage-museum-jump-details>summary{transition:none!important;animation:none!important;}
+ #mobileMenu.menu-open .mobile-nav-link,.heritage-museum-jump-details[open] .heritage-museum-jump-links{animation:none!important;}
+}
+</style>
 </head><body class="lang-el"><header class="sticky top-0 z-40 glass-nav" id="mainHeader">
 <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
 <div class="flex items-center justify-between h-20 gap-1.5 sm:gap-3">
@@ -1854,15 +1896,15 @@ html body #mainHeader.glass-nav.scrolled {
 <button class="lang-btn active px-3 py-1.5 rounded-lg uppercase" id="mobileLangBtnEL">GR</button>
 <button class="lang-btn px-3 py-1.5 rounded-lg uppercase text-archelaos-deepgreen hover:opacity-80" id="mobileLangBtnEN">EN</button>
 </div>
-</div>
-<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="index.html#home"><span aria-hidden="true" class="arch-menu-number">01</span><span data-i18n="nav_home">Αρχική</span></a>
-<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="history.html#chapters"><span aria-hidden="true" class="arch-menu-number">02</span><span data-i18n="nav_history">Ιστορία</span></a>
-<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="index.html#about"><span aria-hidden="true" class="arch-menu-number">03</span><span data-i18n="nav_about">Ο Σύλλογος</span></a>
-<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="index.html#departments"><span aria-hidden="true" class="arch-menu-number">04</span><span data-i18n="nav_dept">Αθλητικά Τμήματα</span></a>
-<a aria-current="page" class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="board.html"><span aria-hidden="true" class="arch-menu-number">05</span><span data-i18n="nav_board">Διοίκηση (Δ.Σ.)</span></a>
-<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="index.html#contact"><span aria-hidden="true" class="arch-menu-number">06</span><span data-i18n="nav_contact">Επικοινωνία</span></a>
+</div><div aria-hidden="true" class="arch-modern-menu-eyebrow">ΕΞΕΡΕΥΝΗΣΕ ΤΟΝ ΑΡΧΕΛΑΟ</div>
+<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="index.html#home"><span aria-hidden="true" class="arch-menu-number">01</span><i aria-hidden="true" class="fa-solid fa-house arch-modern-link-icon"></i><span data-i18n="nav_home">Αρχική</span><i aria-hidden="true" class="fa-solid fa-chevron-right arch-modern-link-arrow"></i></a>
+<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="history.html#chapters"><span aria-hidden="true" class="arch-menu-number">02</span><i aria-hidden="true" class="fa-solid fa-landmark arch-modern-link-icon"></i><span data-i18n="nav_history">Ψηφιακό Μουσείο</span><i aria-hidden="true" class="fa-solid fa-chevron-right arch-modern-link-arrow"></i></a>
+<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="index.html#about"><span aria-hidden="true" class="arch-menu-number">03</span><i aria-hidden="true" class="fa-solid fa-people-group arch-modern-link-icon"></i><span data-i18n="nav_about">Ο Σύλλογος</span><i aria-hidden="true" class="fa-solid fa-chevron-right arch-modern-link-arrow"></i></a>
+<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="index.html#departments"><span aria-hidden="true" class="arch-menu-number">04</span><i aria-hidden="true" class="fa-solid fa-medal arch-modern-link-icon"></i><span data-i18n="nav_dept">Αθλήματα</span><i aria-hidden="true" class="fa-solid fa-chevron-right arch-modern-link-arrow"></i></a>
+<a aria-current="page" class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="board.html"><span aria-hidden="true" class="arch-menu-number">05</span><i aria-hidden="true" class="fa-solid fa-users arch-modern-link-icon"></i><span data-i18n="nav_board">Διοίκηση</span><i aria-hidden="true" class="fa-solid fa-chevron-right arch-modern-link-arrow"></i></a>
+<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="index.html#contact"><span aria-hidden="true" class="arch-menu-number">06</span><i aria-hidden="true" class="fa-solid fa-envelope arch-modern-link-icon"></i><span data-i18n="nav_contact">Επικοινωνία</span><i aria-hidden="true" class="fa-solid fa-chevron-right arch-modern-link-arrow"></i></a>
 <button class="arch-mobile-cta mobile-menu-item w-full text-center px-4 py-3.5 bg-archelaos-deepgreen text-archelaos-yellow font-extrabold rounded-xl shadow-lg" onclick="window.location.href='index.html#contact'">
-<i class="fa-solid fa-user-plus mr-2"></i> <span data-i18n="btn_register_interest">Εκδήλωση Ενδιαφέροντος</span>
+<i class="fa-solid fa-user-plus mr-2"></i> <span data-i18n="btn_register_interest">Ενδιαφέρομαι να συμμετέχω</span>
 </button>
 <div class="arch-menu-footer">70 ΧΡΟΝΙΑ · 1956—2026</div>
 </div>
@@ -2000,14 +2042,14 @@ html body #mainHeader.glass-nav.scrolled {
 <h2 class="heritage-footer-col-title" data-i18n="heritage_footer_explore">ΕΞΕΡΕΥΝΗΣΗ</h2>
 <div class="heritage-footer-links">
 <a href="index.html#home"><span data-i18n="nav_home">Αρχική</span></a>
-<a href="index.html#departments"><span data-i18n="nav_dept">Τμήματα</span></a>
+<a href="index.html#departments"><span data-i18n="nav_dept">Αθλήματα</span></a>
 <a aria-current="page" href="board.html"><span data-i18n="nav_board">Διοίκηση</span></a>
 </div>
 </nav>
 <nav aria-label="Ιστορία και επαφή" class="heritage-footer-nav">
 <h2 class="heritage-footer-col-title" data-i18n="heritage_footer_history_contact">ΠΕΡΙΣΣΟΤΕΡΑ &amp; ΕΠΑΦΗ</h2>
 <div class="heritage-footer-links">
-<a href="history.html#chapters"><span data-i18n="nav_history">Ιστορία</span></a>
+<a href="history.html#chapters"><span data-i18n="nav_history">Ψηφιακό Μουσείο</span></a>
 <a href="history.html#timeline"><span data-i18n="nav_timeline">Χρονολόγιο</span></a>
 <a href="index.html#contact"><span data-i18n="nav_contact">Επικοινωνία</span></a>
 </div>
@@ -2024,7 +2066,7 @@ html body #mainHeader.glass-nav.scrolled {
 </div>
 </footer><script id="board-page-behavior">
 (function(){
- const translations={"el": {"board_4_name": "Αθανάσιος Μαυροειδής", "heritage_footer_since": "ΑΠΟ ΤΟ 1956", "nav_history": "Ιστορία", "board_5_name": "Παύλος Συμεωνίδης", "heritage_footer_motto": "Ο αθλητισμός μάς ενώνει.", "heritage_footer_history_contact": "ΠΕΡΙΣΣΟΤΕΡΑ & ΕΠΑΦΗ", "nav_home": "Αρχική", "btn_register_interest": "Εκδήλωση Ενδιαφέροντος", "ephor_volleyball": "Βόλεϊ", "board_tag": "Διοίκηση", "heritage_footer_city": "Κατερίνη · 70 χρόνια αθλητισμού", "ephor_swimming": "Κολύμβηση", "nav_timeline": "Χρονολόγιο", "footer_address": "Α΄ Δημοτικό Αθλητικό Κέντρο (ΔΑΚ) Κατερίνης, 60132", "board_2_name": "Χαράλαμπος Σαββίδης", "ephor_gymnastics": "Ενόργανη Γυμναστική", "ephor_label": "Έφορος:", "ephor_track": "Στίβος (Κλασικός)", "board_sub": "Η σύνθεση του Δ.Σ. και οι υπεύθυνοι έφοροι των 8 αθλητικών τμημάτων του συλλόγου.", "nav_contact": "Επικοινωνία", "nav_about": "Ο Σύλλογος", "ephor_handball": "Χάντμπολ", "heritage_footer_copyright": "© 2026 Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης · archelaos.club", "role_president": "Πρόεδρος", "heritage_footer_explore": "ΕΞΕΡΕΥΝΗΣΗ", "nav_dept": "Τμήματα", "board_title": "Διοικητικό Συμβούλιο", "board_3_name": "Δημήτριος Γαλάνης", "board_1_name": "Παναγιώτης Διαμαντόπουλος", "brand_sub": "Γ.Α.Σ. Κατερίνης • archelaos.club", "btn_register": "Εγγραφές / Εκδήλωση", "brand_title": "Αρχέλαος", "board_6_name": "Γεώργιος Αθανασίου", "role_gen_sec": "Γεν. Γραμματέας", "nav_board": "Διοίκηση", "role_treasurer": "Ταμίας", "ephor_wrestling": "Πάλη", "heritage_footer_club": "Γ.Α.Σ. «Ο Αρχέλαος»", "role_member": "Μέλος Δ.Σ.", "ephor_shooting": "Σκοποβολή", "board_7_name": "Κυριάκος Κωνσταντινίδης", "board_8_name": "Χρυσούλα Κουτσουδάκη", "role_vp2": "Β΄ Αντιπρόεδρος", "ephor_archery": "Τοξοβολία", "role_vp1": "Α΄ Αντιπρόεδρος"}, "en": {"board_4_name": "Athanasios Mavroeidis", "heritage_footer_since": "SINCE 1956", "nav_history": "History", "board_5_name": "Pavlos Symeonidis", "heritage_footer_motto": "Sport brings us together.", "heritage_footer_history_contact": "MORE & CONTACT", "nav_home": "Home", "btn_register_interest": "Register Interest", "ephor_volleyball": "Volleyball", "board_tag": "Governance", "heritage_footer_city": "Katerini · 70 years of sport", "ephor_swimming": "Swimming", "nav_timeline": "Timeline", "footer_address": "1st Municipal Athletic Center (DAK) of Katerini, GR-60132", "board_2_name": "Charalampos Savvidis", "ephor_gymnastics": "Artistic Gymnastics", "ephor_label": "Director:", "ephor_track": "Track & Field (Athletics)", "board_sub": "The Executive Bureau and the designated Ephors (Directors) of our 8 sports departments.", "nav_contact": "Contact", "nav_about": "The Club", "ephor_handball": "Handball", "heritage_footer_copyright": "© 2026 G.A.S. Archelaos Katerinis · archelaos.club", "role_president": "President", "heritage_footer_explore": "EXPLORE", "nav_dept": "Sports", "board_title": "Board of Directors", "board_3_name": "Dimitrios Galanis", "board_1_name": "Panagiotis Diamantopoulos", "brand_sub": "G.A.S. Katerini • archelaos.club", "btn_register": "Registration / Inquiries", "brand_title": "Archelaos", "board_6_name": "Georgios Athanasiou", "role_gen_sec": "General Secretary", "nav_board": "Board", "role_treasurer": "Treasurer", "ephor_wrestling": "Wrestling", "heritage_footer_club": "G.A.S. Archelaos", "role_member": "Board Member", "ephor_shooting": "Sport Shooting", "board_7_name": "Kyriakos Konstantinidis", "board_8_name": "Chrysoula Koutsoudaki", "role_vp2": "2nd Vice President", "ephor_archery": "Archery", "role_vp1": "1st Vice President"}};
+ const translations={"el": {"board_4_name": "Αθανάσιος Μαυροειδής", "heritage_footer_since": "ΑΠΟ ΤΟ 1956", "nav_history": "Ψηφιακό Μουσείο", "board_5_name": "Παύλος Συμεωνίδης", "heritage_footer_motto": "Ο αθλητισμός μάς ενώνει.", "heritage_footer_history_contact": "ΠΕΡΙΣΣΟΤΕΡΑ & ΕΠΑΦΗ", "nav_home": "Αρχική", "btn_register_interest": "Ενδιαφέρομαι να συμμετέχω", "ephor_volleyball": "Βόλεϊ", "board_tag": "Διοίκηση", "heritage_footer_city": "Κατερίνη · 70 χρόνια αθλητισμού", "ephor_swimming": "Κολύμβηση", "nav_timeline": "Χρονολόγιο", "footer_address": "Α΄ Δημοτικό Αθλητικό Κέντρο (ΔΑΚ) Κατερίνης, 60132", "board_2_name": "Χαράλαμπος Σαββίδης", "ephor_gymnastics": "Ενόργανη Γυμναστική", "ephor_label": "Έφορος:", "ephor_track": "Στίβος (Κλασικός)", "board_sub": "Η σύνθεση του Δ.Σ. και οι υπεύθυνοι έφοροι των 8 αθλητικών τμημάτων του συλλόγου.", "nav_contact": "Επικοινωνία", "nav_about": "Ο Σύλλογος", "ephor_handball": "Χάντμπολ", "heritage_footer_copyright": "© 2026 Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης · archelaos.club", "role_president": "Πρόεδρος", "heritage_footer_explore": "ΕΞΕΡΕΥΝΗΣΗ", "nav_dept": "Αθλήματα", "board_title": "Διοικητικό Συμβούλιο", "board_3_name": "Δημήτριος Γαλάνης", "board_1_name": "Παναγιώτης Διαμαντόπουλος", "brand_sub": "Γ.Α.Σ. Κατερίνης • archelaos.club", "btn_register": "Εγγραφές / Εκδήλωση", "brand_title": "Αρχέλαος", "board_6_name": "Γεώργιος Αθανασίου", "role_gen_sec": "Γεν. Γραμματέας", "nav_board": "Διοίκηση", "role_treasurer": "Ταμίας", "ephor_wrestling": "Πάλη", "heritage_footer_club": "Γ.Α.Σ. «Ο Αρχέλαος»", "role_member": "Μέλος Δ.Σ.", "ephor_shooting": "Σκοποβολή", "board_7_name": "Κυριάκος Κωνσταντινίδης", "board_8_name": "Χρυσούλα Κουτσουδάκη", "role_vp2": "Β΄ Αντιπρόεδρος", "ephor_archery": "Τοξοβολία", "role_vp1": "Α΄ Αντιπρόεδρος"}, "en": {"board_4_name": "Athanasios Mavroeidis", "heritage_footer_since": "SINCE 1956", "nav_history": "Digital Museum", "board_5_name": "Pavlos Symeonidis", "heritage_footer_motto": "Sport brings us together.", "heritage_footer_history_contact": "MORE & CONTACT", "nav_home": "Home", "btn_register_interest": "Join the Club", "ephor_volleyball": "Volleyball", "board_tag": "Governance", "heritage_footer_city": "Katerini · 70 years of sport", "ephor_swimming": "Swimming", "nav_timeline": "Timeline", "footer_address": "1st Municipal Athletic Center (DAK) of Katerini, GR-60132", "board_2_name": "Charalampos Savvidis", "ephor_gymnastics": "Artistic Gymnastics", "ephor_label": "Director:", "ephor_track": "Track & Field (Athletics)", "board_sub": "The Executive Bureau and the designated Ephors (Directors) of our 8 sports departments.", "nav_contact": "Contact", "nav_about": "Our Club", "ephor_handball": "Handball", "heritage_footer_copyright": "© 2026 G.A.S. Archelaos Katerinis · archelaos.club", "role_president": "President", "heritage_footer_explore": "EXPLORE", "nav_dept": "Sports", "board_title": "Board of Directors", "board_3_name": "Dimitrios Galanis", "board_1_name": "Panagiotis Diamantopoulos", "brand_sub": "G.A.S. Katerini • archelaos.club", "btn_register": "Registration / Inquiries", "brand_title": "Archelaos", "board_6_name": "Georgios Athanasiou", "role_gen_sec": "General Secretary", "nav_board": "Leadership", "role_treasurer": "Treasurer", "ephor_wrestling": "Wrestling", "heritage_footer_club": "G.A.S. Archelaos", "role_member": "Board Member", "ephor_shooting": "Sport Shooting", "board_7_name": "Kyriakos Konstantinidis", "board_8_name": "Chrysoula Koutsoudaki", "role_vp2": "2nd Vice President", "ephor_archery": "Archery", "role_vp1": "1st Vice President"}};
  const menu=document.getElementById('mobileMenu'),toggle=document.getElementById('mobileMenuBtn'),closeBtn=document.getElementById('archMenuClose');
  function closeMenu(){if(!menu)return;menu.classList.remove('menu-open');menu.inert=true;menu.setAttribute('aria-hidden','true');if(toggle){toggle.classList.remove('is-active');toggle.setAttribute('aria-expanded','false');}}
  function openMenu(){if(!menu)return;menu.classList.add('menu-open');menu.inert=false;menu.setAttribute('aria-hidden','false');if(toggle){toggle.classList.add('is-active');toggle.setAttribute('aria-expanded','true');}const first=menu.querySelector('a,button');if(first)first.focus();}
@@ -2047,4 +2089,21 @@ html body #mainHeader.glass-nav.scrolled {
  // Reveal animations and intersection observer are optional enhancement.
  const els=document.querySelectorAll('.reveal-text');if('IntersectionObserver'in window){const io=new IntersectionObserver(entries=>{for(const entry of entries)if(entry.isIntersecting){entry.target.classList.add('is-visible');io.unobserve(entry.target);}},{threshold:.08});els.forEach(el=>io.observe(el));}else els.forEach(el=>el.classList.add('visible'));
 })();
-</script></body></html>
+</script><script id="arch-modern-navigation-behavior">
+(function(){
+ const menu=document.getElementById('mobileMenu');
+ if(menu){
+   const links=[...menu.querySelectorAll('a.mobile-nav-link')];
+   links.forEach((a,i)=>a.style.setProperty('--arch-item-index',i));
+   const eyebrow=menu.querySelector('.arch-modern-menu-eyebrow');
+   const update=()=>{
+     if(eyebrow)eyebrow.textContent=document.body.classList.contains('lang-en')?'EXPLORE ARCHELAOS':'ΕΞΕΡΕΥΝΗΣΕ ΤΟΝ ΑΡΧΕΛΑΟ';
+     const btn=document.getElementById('mobileMenuBtn');
+     if(btn)btn.setAttribute('aria-label',document.body.classList.contains('lang-en')?'Open navigation':'Άνοιγμα πλοήγησης');
+   };
+   update();
+   new MutationObserver(update).observe(document.body,{attributes:true,attributeFilter:['class']});
+ }
+})();
+</script>
+</body></html>
