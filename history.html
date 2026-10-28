@@ -411,7 +411,6 @@
       
       
       
-      #historyArchiveProfile .glass-card { height: 100%; }
       .history-archive-content .wiki-article p,
       .history-archive-content p { line-height: 1.8; }
       .history-archive-content .wiki-article li,
@@ -1861,27 +1860,58 @@ footer.arch-footer-signature .heritage-footer-logo {filter:drop-shadow(0 3px 8px
  #archive-voices .arch-folio-note{max-width:150px}
 }
 @media(prefers-reduced-motion:reduce){#archive-voices .arch-folio-tab{transition:none}}
-</style><style id="arch-sponsor-nav-visibility">html[lang="el"] .arch-sponsor-nav-en,html[lang="en"] .arch-sponsor-nav-el{display:none!important}</style><style>
-/* Authentic diploma exhibit — museum collection */
-.arch-diploma-zoom{display:block;width:100%;border:0;padding:0;background:transparent;cursor:zoom-in}
-.arch-diploma-zoom:focus-visible{outline:3px solid #ad8a40;outline-offset:5px}
-.arch-diploma-hint{font-size:12px;color:#6b694f;text-align:center;margin:12px 0 0}
-.arch-diploma-dialog{border:0;border-radius:14px;padding:14px;max-width:min(96vw,900px);max-height:94vh;background:#f8f6ef;box-shadow:0 25px 90px #0009}
-.arch-diploma-dialog::backdrop{background:rgba(1,21,14,.86)}
-.arch-diploma-dialog img{display:block;max-width:100%;max-height:84vh;width:auto;height:auto;object-fit:contain;margin:auto}
-.arch-diploma-dialog-close{position:sticky;top:0;float:right;z-index:2;padding:9px 14px;background:#073d2a;color:#fff;border:0;border-radius:8px;cursor:pointer;font-size:15px}
-
-.arch-museum-document{display:grid;grid-template-columns:minmax(240px,.72fr) minmax(0,1fr);align-items:center;gap:clamp(25px,5vw,78px);padding:clamp(22px,4vw,55px);margin:35px 0 43px;background:linear-gradient(125deg,#f8f4e9,#eee9db);border:1px solid #d9cda8;border-radius:26px;box-shadow:0 20px 60px rgba(12,50,31,.1);color:#073d2a}
-.arch-museum-document-image{max-width:470px;margin:auto;transform:rotate(-.4deg);background:white;padding:10px;box-shadow:0 18px 36px rgba(22,37,25,.18);border:1px solid #d6d0bd}
-.arch-museum-document-image a{display:block;cursor:zoom-in}
-.arch-museum-document-image img{display:block;width:100%;height:auto;max-height:none;object-fit:contain}
-.arch-museum-document-overline{display:flex;align-items:center;gap:10px;font-size:11px;letter-spacing:.14em;font-weight:850;color:#987a39;margin:0 0 22px}
-.arch-museum-document-content h3{font-family:Georgia,'Times New Roman',serif;font-size:clamp(28px,3vw,44px);line-height:1.18;font-weight:500;color:#073d2a;margin:0 0 23px}
-.arch-museum-document-main{font-size:clamp(15px,1.35vw,17px);line-height:1.85;color:#365c48;margin:0 0 20px}
-.arch-museum-document-source{font-size:12px;line-height:1.7;color:#7d796c;margin:0 0 26px}
-.arch-museum-document-open{display:inline-flex;align-items:center;gap:11px;border-radius:12px;padding:14px 19px;background:#073d2a;color:#f5e4a4!important;font-size:13px;font-weight:800;text-decoration:none;transition:transform .2s,background .2s}
-.arch-museum-document-open:hover{background:#0d573c;transform:translateY(-2px)}
-@media(max-width:720px){.arch-museum-document{grid-template-columns:1fr;padding:22px;gap:30px;margin:25px 0 35px}.arch-museum-document-image{max-width:100%;transform:none}.arch-museum-document-content h3{font-size:29px}}
+</style><style id="arch-sponsor-nav-visibility">html[lang="el"] .arch-sponsor-nav-en,html[lang="en"] .arch-sponsor-nav-el{display:none!important}</style><style id="arch-page-active-nav-final">
+/* Definitive active menu item for desktop and mobile. */
+#mainHeader nav a.premium-nav-active[aria-current="page"]{background:#073d2a!important;color:#f8f6ef!important;box-shadow:inset 0 -2px 0 #c5a854!important}
+#mainHeader #mobileMenu a.mobile-nav-link.premium-mobile-active[aria-current="page"]{background:#073d2a!important;color:#f8f6ef!important;box-shadow:inset 3px 0 0 #c5a854!important}
+#mainHeader #mobileMenu a.mobile-nav-link.premium-mobile-active[aria-current="page"] .arch-modern-link-icon{color:#c5a854!important}
+</style><style id="arch-anniversary-nav-polish">
+/* 70th anniversary entrance — intentionally above the footer */
+#anniversary-collections{scroll-margin-top:120px}
+.arch-anniversary-entrance{position:relative;isolation:isolate;padding:90px 24px 85px;background:#f7f5ee;overflow:hidden;border-top:1px solid #e5e2d7}
+.arch-anniversary-entrance::before{content:"";position:absolute;width:660px;height:660px;border:1px solid #d7bd8447;border-radius:50%;right:-370px;bottom:-430px;pointer-events:none}
+.arch-anniversary-inner{max-width:1190px;margin:auto;position:relative;z-index:1}
+.arch-anniversary-heading{display:flex;justify-content:space-between;gap:32px;align-items:end;margin-bottom:31px}
+.arch-anniversary-eyebrow{color:#94743a;font-size:11px;letter-spacing:.2em;font-weight:900}
+.arch-anniversary-heading h2{font-family:Georgia,serif;font-size:clamp(29px,3.5vw,44px);line-height:1.17;font-weight:400;color:#073d2a;margin:13px 0 0}
+.arch-anniversary-heading p{max-width:270px;color:#657565;line-height:1.6;font-size:14px;margin:0 0 3px}
+.arch-anniversary-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.arch-anniversary-card{display:flex!important;flex-direction:column;justify-content:space-between;min-height:330px;padding:31px 33px 34px;border-radius:23px;text-decoration:none!important;position:relative;overflow:hidden;isolation:isolate;box-shadow:0 16px 50px #0835210c;transition:transform .4s cubic-bezier(.2,.7,.2,1),box-shadow .4s,border-color .3s!important}
+.arch-anniversary-card:hover{transform:translateY(-9px);box-shadow:0 29px 60px #08352124}
+.arch-anniversary-moments{background:radial-gradient(circle at 90% 7%,#18523c 0%,#073d2a 65%);color:#f6efdf!important;border:1px solid #18513b}
+.arch-anniversary-people{background:linear-gradient(145deg,#fffefa,#f5f0e2);color:#073d2a!important;border:1px solid #d8d0b8}
+.arch-anniversary-card::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 38%,#f5dfa413 46%,transparent 54%);transform:translateX(-160%);transition:transform .8s ease;pointer-events:none;z-index:3}
+.arch-anniversary-card:hover::after{transform:translateX(160%)}
+.arch-anniversary-card-top,.arch-anniversary-card-bottom{position:relative;z-index:2;display:flex;flex-direction:column}
+.arch-anniversary-card-top{flex-direction:row;justify-content:space-between;align-items:center;font-weight:800;font-size:11px;letter-spacing:.18em;color:#dec78d}
+.arch-anniversary-people .arch-anniversary-card-top{color:#957741}
+.arch-anniversary-arrow{display:grid;place-items:center;width:37px;height:37px;border-radius:50%;border:1px solid currentColor;font-size:17px;transition:transform .3s,background .3s}
+.arch-anniversary-card:hover .arch-anniversary-arrow{transform:rotate(45deg);background:#ffffff17}
+.arch-anniversary-number{font-size:12px;letter-spacing:.16em;color:#dcc68d;margin-bottom:12px;font-weight:700}
+.arch-anniversary-people .arch-anniversary-number{color:#a58a55}
+.arch-anniversary-card strong{font:400 clamp(35px,4vw,54px)/1.1 Georgia,serif;letter-spacing:-.025em}
+.arch-anniversary-description{font-size:14px;line-height:1.5;margin-top:21px;opacity:.84}
+.arch-anniversary-ornament{position:absolute;top:64px;right:40px;font:400 200px/.8 Georgia,serif;color:#ffffff0c;pointer-events:none}
+.arch-anniversary-ornament-person{color:#b9a46b14;top:75px;font-size:230px}
+.arch-anniversary-bottom-note{display:flex;align-items:center;justify-content:center;gap:18px;font:italic 18px Georgia,serif;color:#947b49;margin-top:34px}
+.arch-anniversary-bottom-note>span:first-child,.arch-anniversary-bottom-note>span:last-child{font-style:normal;font-size:12px}
+/* polished desktop navigation */
+#mainHeader .arch-floating-nav{border:1px solid #d9d8c8!important;background:rgba(255,255,251,.93)!important;box-shadow:0 9px 30px #073d2a13,0 1px 3px #073d2a08!important;padding:6px 8px!important;backdrop-filter:blur(14px);border-radius:999px!important}
+#mainHeader .arch-floating-nav>a{position:relative;isolation:isolate;border-radius:999px!important;transition:transform .28s ease,color .28s ease,background .28s ease,box-shadow .28s ease!important}
+#mainHeader .arch-floating-nav>a:hover{transform:translateY(-2px);background:#073d2a!important;color:#e7ca78!important;box-shadow:0 6px 18px #073d2a2e!important}
+#mainHeader .arch-floating-nav>a.premium-nav-active{box-shadow:inset 0 -3px 0 #c5a55b,0 7px 16px #043c271f!important;color:#e6c47c!important}
+#mainHeader .arch-floating-nav>a.premium-nav-active::after{content:"";width:5px;height:5px;border-radius:50%;background:#d9b45f;position:absolute;left:calc(50% - 2.5px);bottom:2px}
+#mainHeader .archelaos-crest-adapt{transition:transform .45s ease,filter .45s ease!important}
+#mainHeader a:hover .archelaos-crest-adapt{transform:rotate(-8deg) scale(1.07);filter:drop-shadow(0 0 8px #bd9e4b70)}
+#mobileMenu .mobile-nav-link{transition:transform .3s ease,background .3s ease,box-shadow .3s ease!important}
+#mobileMenu .mobile-nav-link:hover{transform:translateX(5px);box-shadow:inset 3px 0 #caa65d}
+@media(max-width:760px){.arch-anniversary-entrance{padding:58px 18px 62px}.arch-anniversary-heading{display:block;margin-bottom:24px}.arch-anniversary-heading p{margin:15px 0 0;max-width:100%}.arch-anniversary-grid{grid-template-columns:1fr;gap:15px}.arch-anniversary-card{min-height:275px;padding:25px}.arch-anniversary-card strong{font-size:38px}.arch-anniversary-bottom-note{font-size:15px}}
+@media(prefers-reduced-motion:reduce){.arch-anniversary-card,#mainHeader .arch-floating-nav>a,#mobileMenu .mobile-nav-link{transition:none!important}.arch-anniversary-card:hover{transform:none}}
+</style><style id="anniversary-1956-70-backgrounds">
+#anniversary-collections{position:relative;isolation:isolate;overflow:hidden}
+#anniversary-collections::before{content:'1956 — 2026';position:absolute;right:-1%;top:8%;font:700 clamp(55px,13vw,170px)/1 Georgia,serif;letter-spacing:-.05em;color:rgba(7,61,42,.045);white-space:nowrap;pointer-events:none;z-index:-1}
+#anniversary-collections::after{content:'70';position:absolute;left:-20px;bottom:-100px;font:700 clamp(150px,27vw,360px)/1 Georgia,serif;color:rgba(190,155,79,.06);pointer-events:none;z-index:-1}
+@media(prefers-reduced-motion:no-preference){#anniversary-collections a{transition:transform .3s ease,box-shadow .3s ease}#anniversary-collections a:hover{transform:translateY(-5px)}}
 </style></head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow arch-gold-page">
 <!-- ANIMATED CONTOUR WAVES -->
@@ -1902,7 +1932,7 @@ footer.arch-footer-signature .heritage-footer-logo {filter:drop-shadow(0 3px 8px
 <!-- Logo & Title -->
 <a class="flex items-center space-x-2 group shrink-0" href="index.html#home">
 <div class="relative w-11 h-11 sm:w-14 sm:h-14 xl:w-16 xl:h-16 shrink-0 flex items-center justify-center transform group-hover:scale-105 transition duration-300">
-<img alt="Γ.Α.Σ. Αρχέλαος 1956" class="archelaos-crest-adapt w-full h-full object-contain" decoding="async" src="https://lh3.googleusercontent.com/d/1lILSdnXV0Y383UeFwcJbnhHaYvu3nJHj"/>
+<img alt="Γ.Α.Σ. Αρχέλαος 1956" class="archelaos-crest-adapt w-full h-full object-contain" decoding="async" src="assets/archelaos-logo-gold.png"/>
 </div>
 <div class="flex flex-col min-w-0">
 <div class="flex items-center gap-1.5">
@@ -1915,7 +1945,7 @@ footer.arch-footer-signature .heritage-footer-logo {filter:drop-shadow(0 3px 8px
 <!-- Desktop Navigation (Compact spacing for laptops) -->
 <nav aria-label="Κύρια πλοήγηση" class="arch-floating-nav hidden lg:flex items-center space-x-0.5 xl:space-x-1 bg-white/85 px-1.5 xl:px-2.5 py-1.5 rounded-2xl border border-white/90 shadow-sm shrink-0">
 <a class="px-2 xl:px-2.5 py-1.5 rounded-xl text-[11px] xl:text-xs 2xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap" data-i18n="nav_home" href="index.html#home">Αρχική</a>
-<a aria-current="page" class="premium-nav-active text-archelaos-deepgreen 2xl:text-sm whitespace-nowrap duration-200 hover:bg-archelaos-deepgreen transition xl:text-xs rounded-xl hover:text-archelaos-yellow text-[11px] font-extrabold px-2 xl:px-2.5 py-1.5" data-i18n="nav_history" href="history.html">Ιστορία</a>
+<a aria-current="page" class="text-archelaos-deepgreen 2xl:text-sm whitespace-nowrap duration-200 hover:bg-archelaos-deepgreen transition xl:text-xs rounded-xl hover:text-archelaos-yellow text-[11px] font-extrabold px-2 xl:px-2.5 py-1.5 premium-nav-active" data-i18n="nav_history" href="history.html">Ιστορία</a>
 <a class="px-2 xl:px-2.5 py-1.5 rounded-xl text-[11px] xl:text-xs 2xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap" data-i18n="nav_about" href="index.html#about">Ο Σύλλογος</a>
 <a class="px-2 xl:px-2.5 py-1.5 rounded-xl text-[11px] xl:text-xs 2xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap" data-i18n="nav_dept" href="index.html#departments">Τμήματα</a>
 <a class="px-2 xl:px-2.5 py-1.5 rounded-xl text-[11px] xl:text-xs 2xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap" data-i18n="nav_board" href="board.html">Διοίκηση</a><a class="px-2 xl:px-2.5 py-1.5 rounded-xl text-[11px] xl:text-xs 2xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap" href="sponsors.html"><span class="arch-sponsor-nav-el">Χορηγίες</span><span class="arch-sponsor-nav-en">Sponsorship</span></a>
@@ -1950,7 +1980,7 @@ footer.arch-footer-signature .heritage-footer-logo {filter:drop-shadow(0 3px 8px
 </div>
 </div><div aria-hidden="true" class="arch-modern-menu-eyebrow">ΕΞΕΡΕΥΝΗΣΕ ΤΟΝ ΑΡΧΕΛΑΟ</div>
 <a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="index.html#home"><span aria-hidden="true" class="arch-menu-number">01</span><i aria-hidden="true" class="fa-solid fa-house arch-modern-link-icon"></i><span data-i18n="nav_home">Αρχική</span><i aria-hidden="true" class="fa-solid fa-chevron-right arch-modern-link-arrow"></i></a>
-<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="history.html"><span aria-hidden="true" class="arch-menu-number">02</span><i aria-hidden="true" class="fa-solid fa-landmark arch-modern-link-icon"></i><span data-i18n="nav_history">Ψηφιακό Μουσείο</span><i aria-hidden="true" class="fa-solid fa-chevron-right arch-modern-link-arrow"></i></a>
+<a aria-current="page" class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen premium-mobile-active" href="history.html"><span aria-hidden="true" class="arch-menu-number">02</span><i aria-hidden="true" class="fa-solid fa-landmark arch-modern-link-icon"></i><span data-i18n="nav_history">Ψηφιακό Μουσείο</span><i aria-hidden="true" class="fa-solid fa-chevron-right arch-modern-link-arrow"></i></a>
 <a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="index.html#about"><span aria-hidden="true" class="arch-menu-number">03</span><i aria-hidden="true" class="fa-solid fa-people-group arch-modern-link-icon"></i><span data-i18n="nav_about">Ο Σύλλογος</span><i aria-hidden="true" class="fa-solid fa-chevron-right arch-modern-link-arrow"></i></a>
 <a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="index.html#departments"><span aria-hidden="true" class="arch-menu-number">04</span><i aria-hidden="true" class="fa-solid fa-medal arch-modern-link-icon"></i><span data-i18n="nav_dept">Αθλήματα</span><i aria-hidden="true" class="fa-solid fa-chevron-right arch-modern-link-arrow"></i></a>
 <a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="board.html"><span aria-hidden="true" class="arch-menu-number">05</span><i aria-hidden="true" class="fa-solid fa-users arch-modern-link-icon"></i><span data-i18n="nav_board">Διοίκηση</span><i aria-hidden="true" class="fa-solid fa-chevron-right arch-modern-link-arrow"></i></a>
@@ -2093,19 +2123,7 @@ footer.arch-footer-signature .heritage-footer-logo {filter:drop-shadow(0 3px 8px
 <div class="museum-section-kicker"><i class="fa-solid fa-images"></i><span data-lang="el">ΑΡΧΕΙΑΚΗ ΣΥΛΛΟΓΗ</span><span data-lang="en">ARCHIVAL COLLECTION</span></div>
 <div class="museum-section-head"><div class="heritage-section-heading"><div aria-hidden="true" class="heritage-section-eyebrow"><span data-lang="el">04 / ΑΡΧΕΙΑΚΗ ΣΥΛΛΟΓΗ</span><span data-lang="en">04 / ARCHIVAL COLLECTION</span></div><h2><span data-lang="el">Η ιστορία μέσα από τεκμήρια</span><span data-lang="en">History through artifacts</span></h2>
 <p><span data-lang="el">Αυθεντικά τεκμήρια από την πορεία του συλλόγου, μαζί με θεματικές πύλες προς το ιστορικό αρχείο.</span><span data-lang="en">Original documents from the club’s history, alongside thematic gateways to the historical archive.</span></p></div></div>
-
-<div aria-labelledby="arch-diploma-title" class="arch-museum-document">
-<div class="arch-museum-document-image">
-<button aria-label="Μεγέθυνση διπλώματος / Enlarge diploma" class="arch-diploma-zoom" onclick="document.getElementById('arch-diploma-dialog').showModal()" type="button"><img alt="Σκαναρισμένο δίπλωμα του Υπουργείου Πολιτισμού προς τον Γ.Α.Σ. Αρχέλαος Κατερίνης, 20 Δεκεμβρίου 1990" loading="lazy" src="assets/archelaos-diploma-1990.jpg"/></button><p class="arch-diploma-hint"><span data-lang="el">Πατήστε την εικόνα για μεγέθυνση</span><span data-lang="en">Tap the image to enlarge</span></p>
-</div>
-<div class="arch-museum-document-content">
-<p class="arch-museum-document-overline"><i aria-hidden="true" class="fa-solid fa-award"></i><span data-lang="el">ΠΡΩΤΟΤΥΠΟ ΤΕΚΜΗΡΙΟ · 1990</span><span data-lang="en">ARCHIVAL DOCUMENT · 1990</span></p>
-<h3 id="arch-diploma-title"><span data-lang="el">Μια επίσημη αναγνώριση της αθλητικής πορείας</span><span data-lang="en">Official recognition of a sporting journey</span></h3>
-<p class="arch-museum-document-main"><span data-lang="el">Στις 20 Δεκεμβρίου 1990, η Υφυπουργός Πολιτισμού Φάνη Πάλλη-Πετραλιά απένειμε δίπλωμα στον Γ.Α.Σ. «Αρχέλαος» Κατερίνης για την «εξαίρετη αγωνιστική δραστηριότητα το 1989».</span><span data-lang="en">On 20 December 1990, Deputy Minister of Culture Fani Palli-Petralia awarded a diploma to G.A.S. “Archelaos” Katerini for its “outstanding sporting activity in 1989.”</span></p>
-<p class="arch-museum-document-source"><span data-lang="el">Πηγή: Δίπλωμα Υπουργείου Πολιτισμού, Αθήνα, 20.12.1990 · Ψηφιοποιημένο αρχείο Αρχέλαου.</span><span data-lang="en">Source: Ministry of Culture diploma, Athens, 20 Dec 1990 · Archelaos digitized archive.</span></p>
-<a class="arch-museum-document-open" href="assets/archelaos-diploma-1990.pdf" rel="noopener" target="_blank"><i aria-hidden="true" class="fa-solid fa-file-pdf"></i><span data-lang="el">Δείτε το πρωτότυπο δίπλωμα</span><span data-lang="en">View the original diploma</span><i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square"></i></a>
-</div>
-</div><dialog aria-label="Δίπλωμα 1990 / Diploma 1990" class="arch-diploma-dialog" id="arch-diploma-dialog" onclick="if(event.target===this)this.close()"><button aria-label="Κλείσιμο / Close" class="arch-diploma-dialog-close" onclick="document.getElementById('arch-diploma-dialog').close()" type="button">✕</button><img alt="Δίπλωμα Γ.Α.Σ. Αρχέλαος, 1990" loading="lazy" src="assets/archelaos-diploma-1990.jpg"/></dialog><div class="museum-gallery-grid">
+<div class="museum-gallery-grid">
 <button class="museum-gallery-tile" onclick="openHistoryArchive('dioikisi')" type="button"><div class="museum-gallery-illustration"><i class="fa-solid fa-building-columns"></i><span>ΘΕΜΑΤΙΚΗ / 01</span></div><div><strong><span data-lang="el">Πρόσωπα &amp; διοίκηση</span><span data-lang="en">People &amp; leadership</span></strong><small><span data-lang="el">Δείτε τις προεδρικές θητείες</span><span data-lang="en">Explore presidential terms</span></small></div><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
 <button class="museum-gallery-tile" onclick="openHistoryArchive('egkatastaseis')" type="button"><div class="museum-gallery-illustration"><i class="fa-solid fa-location-dot"></i><span>ΘΕΜΑΤΙΚΗ / 02</span></div><div><strong><span data-lang="el">Αθλητικοί χώροι</span><span data-lang="en">Sporting venues</span></strong><small><span data-lang="el">Στάδια και εγκαταστάσεις</span><span data-lang="en">Stadiums and facilities</span></small></div><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
 <button class="museum-gallery-tile" onclick="openHistoryArchive('titloi')" type="button"><div class="museum-gallery-illustration"><i class="fa-solid fa-trophy"></i><span>ΘΕΜΑΤΙΚΗ / 03</span></div><div><strong><span data-lang="el">Τίτλοι &amp; διακρίσεις</span><span data-lang="en">Honors &amp; achievements</span></strong><small><span data-lang="el">Οι επιτυχίες του συλλόγου</span><span data-lang="en">Club achievements</span></small></div><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
@@ -2121,99 +2139,7 @@ footer.arch-footer-signature .heritage-footer-logo {filter:drop-shadow(0 3px 8px
 <div class="museum-gallery-disclaimer"><i aria-hidden="true" class="fa-solid fa-circle-info"></i><span data-lang="el">Οι τρεις παραπάνω κάρτες είναι θεματικές πύλες προς το υπάρχον κείμενο του μουσείου, όχι ψηφιοποιημένα πρωτότυπα τεκμήρια.</span><span data-lang="en">The three cards above link to existing museum chapters; they are not digitized original artifacts.</span></div>
 </div></section>
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
-<aside class="lg:col-span-4 space-y-5">
-<div class="rounded-[2rem] bg-archelaos-deepgreen text-archelaos-yellow p-5 sm:p-6 shadow-xl relative overflow-hidden">
-<div class="absolute -right-6 -top-8 opacity-[.09] text-8xl"><i class="fa-solid fa-landmark"></i></div>
-<div class="relative z-10">
-<p class="text-[10px] uppercase tracking-[.18em] font-black opacity-80 mb-2"><span data-lang="el">Ταυτότητα συλλόγου</span><span data-lang="en">Club profile</span></p>
-<h3 class="font-heading text-2xl font-black mb-2"><span data-lang="el">Γ.Α.Σ. «Ο Αρχέλαος»</span><span data-lang="en">G.A.S. Archelaos</span></h3>
-<p class="text-sm leading-relaxed text-white/85"><span data-lang="el">Η ιστορία του συλλόγου, με τα ιστορικά στοιχεία και την πλήρη τεκμηρίωση συγκεντρωμένα στην ίδια σελίδα.</span><span data-lang="en">The club’s story, with its historic facts and full documentation gathered on the same page.</span></p>
-</div>
-</div>
-<div class="history-archive-profile" id="historyArchiveProfile"><div class="glass-card rounded-3xl p-5 shadow-lg">
-<div class="relative z-10 space-y-3 text-xs">
-<div class="bg-archelaos-deepgreen text-archelaos-yellow px-3.5 py-2.5 rounded-2xl font-heading font-black text-center uppercase tracking-wider">
-<span data-lang="el">Ταυτότητα Σωματείου</span>
-<span data-lang="en">Club Profile</span>
-</div>
-<div class="divide-y divide-slate-200/80">
-<div class="py-2 flex justify-between gap-2">
-<span class="font-extrabold text-archelaos-deepgreen">
-<span data-lang="el">Πλήρες όνομα:</span>
-<span data-lang="en">Full Name:</span>
-</span>
-<span class="text-right font-semibold text-slate-700">
-<span data-lang="el">Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης</span>
-<span data-lang="en">G.A.S. "Archelaos" Katerini</span>
-</span>
-</div>
-<div class="py-2 flex justify-between gap-2">
-<span class="font-extrabold text-archelaos-deepgreen">
-<span data-lang="el">Ίδρυση:</span>
-<span data-lang="en">Founded:</span>
-</span>
-<span class="text-right font-semibold text-slate-700">
-<span data-lang="el">29 Απριλίου 1956 (Α.Μ. 2/1957)</span>
-<span data-lang="en">April 29, 1956 (Reg. 2/1957)</span>
-</span>
-</div>
-<div class="py-2 flex justify-between items-center gap-2">
-<span class="font-extrabold text-archelaos-deepgreen">
-<span data-lang="el">Χρώματα:</span>
-<span data-lang="en">Colors:</span>
-</span>
-<span class="flex items-center gap-1.5 font-semibold text-slate-700">
-<span class="w-3.5 h-3.5 rounded-full bg-[#006633] border border-slate-300 inline-block"></span>
-<span class="w-3.5 h-3.5 rounded-full bg-[#ffd700] border border-slate-300 inline-block"></span>
-<span data-lang="el">Πράσινο, Κίτρινο</span>
-<span data-lang="en">Green, Yellow</span>
-</span>
-</div>
-<div class="py-2 flex justify-between gap-2">
-<span class="font-extrabold text-archelaos-deepgreen">
-<span data-lang="el">Πρόεδρος:</span>
-<span data-lang="en">President:</span>
-</span>
-<span class="text-right font-semibold text-slate-700">
-<span data-lang="el">Παναγιώτης Διαμαντόπουλος</span>
-<span data-lang="en">Panagiotis Diamantopoulos</span>
-</span>
-</div>
-<div class="py-2 flex justify-between gap-2">
-<span class="font-extrabold text-archelaos-deepgreen">
-<span data-lang="el">Γεν. Γραμματέας:</span>
-<span data-lang="en">Gen. Secretary:</span>
-</span>
-<span class="text-right font-semibold text-slate-700">
-<span data-lang="el">Αθανάσιος Μαυροειδής</span>
-<span data-lang="en">Athanasios Mavroeidis</span>
-</span>
-</div>
-<div class="py-2 flex justify-between gap-2">
-<span class="font-extrabold text-archelaos-deepgreen">
-<span data-lang="el">Έδρα:</span>
-<span data-lang="en">Headquarters:</span>
-</span>
-<span class="text-right font-semibold text-slate-700">
-<span data-lang="el">Εθνικού Σταδίου 3Α (Α΄ ΔΑΚ), 60132, Κατερίνη</span>
-<span data-lang="en">3A Ethnikou Stadiou St. (1st DAK), 60132, Katerini</span>
-</span>
-</div>
-<div class="py-2 flex justify-between gap-2">
-<span class="font-extrabold text-archelaos-deepgreen">
-<span data-lang="el">Κύρια Γήπεδα:</span>
-<span data-lang="en">Main Venues:</span>
-</span>
-<span class="text-right font-semibold text-slate-700">
-<span data-lang="el">Β΄ ΔΑΚ («Θ. Διαμαντόπουλος»), Α΄ ΔΑΚ, Γήπεδο Ν. Χράνης</span>
-<span data-lang="en">2nd DAK ("Th. Diamantopoulos"), 1st DAK, Nea Chrani Field</span>
-</span>
-</div>
-</div>
-</div>
-</div></div>
-</aside>
-<div class="lg:col-span-8 space-y-5">
+<div class="lg:col-span-12 space-y-5">
 <div class="history-search-wrap mb-5 sm:mb-6">
 <div class="flex items-center justify-between gap-3 mb-3">
 <h2 class="font-heading font-black text-xl sm:text-2xl text-archelaos-deepgreen"><span data-lang="el">Εξερεύνηση κεφαλαίων</span><span data-lang="en">Explore chapters</span></h2>
@@ -4134,6 +4060,30 @@ footer.arch-footer-signature .heritage-footer-logo {filter:drop-shadow(0 3px 8px
 <span class="absolute right-16 bg-archelaos-deepgreen text-archelaos-yellow text-[11px] font-black uppercase tracking-wider px-3 py-1.5 rounded-xl shadow-lg border border-archelaos-yellow/40 opacity-0 pointer-events-none translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 whitespace-nowrap" data-i18n="back_to_top_tooltip">Κορυφή</span>
 </button>
 <!-- FOOTER (IDENTICAL ACROSS BOTH PAGES) -->
+
+<!-- ANNIVERSARY COLLECTIONS: deliberately placed before the footer -->
+<section id="anniversary-collections" class="arch-anniversary-entrance" aria-labelledby="anniv-entrance-title">
+  <div class="arch-anniversary-inner">
+    <div class="arch-anniversary-heading">
+      <div><span class="arch-anniversary-eyebrow">1956 — 2026 &nbsp;·&nbsp; 70 YEARS OF HERITAGE</span><h2 id="anniv-entrance-title"><span class="arch-collection-el">Εβδομήντα χρόνια. Δύο ζωντανές συλλογές.</span><span class="arch-collection-en" hidden>Seventy years. Two living collections.</span></h2></div>
+      <p><span class="arch-collection-el">Γεγονότα που έγραψαν ιστορία και άνθρωποι που την έκαναν πράξη.</span><span class="arch-collection-en" hidden>Milestones that made history and the people who brought it to life.</span></p>
+    </div>
+    <div class="arch-anniversary-grid">
+      <a class="arch-anniversary-card arch-anniversary-moments" href="70-stigmes.html" aria-label="70 χρόνια, 70 στιγμές">
+        <span class="arch-anniversary-card-top"><span>01 / THE MOMENTS</span><span class="arch-anniversary-arrow" aria-hidden="true">↗</span></span>
+        <span class="arch-anniversary-ornament" aria-hidden="true">70</span>
+        <span class="arch-anniversary-card-bottom"><span class="arch-anniversary-number">1956 — 2026</span><strong><span class="arch-collection-el">70 χρόνια<br>70 στιγμές</span><span class="arch-collection-en" hidden>70 years<br>70 moments</span></strong><span class="arch-anniversary-description"><span class="arch-collection-el">Περιηγήσου στο κατακόρυφο χρονολόγιο της ιστορίας μας</span><span class="arch-collection-en" hidden>Explore the vertical timeline of our history</span><span aria-hidden="true"> →</span></span></span>
+      </a>
+      <a class="arch-anniversary-card arch-anniversary-people" href="hall-of-fame.html" aria-label="Οι Άνθρωποι του Αρχέλαου">
+        <span class="arch-anniversary-card-top"><span>02 / THE PEOPLE</span><span class="arch-anniversary-arrow" aria-hidden="true">↗</span></span>
+        <span class="arch-anniversary-ornament arch-anniversary-ornament-person" aria-hidden="true">Α</span>
+        <span class="arch-anniversary-card-bottom"><span class="arch-anniversary-number">HALL OF FAME</span><strong><span class="arch-collection-el">Οι Άνθρωποι<br>του Αρχέλαου</span><span class="arch-collection-en" hidden>The People<br>of Archelaos</span></strong><span class="arch-anniversary-description"><span class="arch-collection-el">Γνώρισε τις προσωπικότητες πίσω από τη διαδρομή</span><span class="arch-collection-en" hidden>Discover the people behind the journey</span><span aria-hidden="true"> →</span></span></span>
+      </a>
+    </div>
+    <div class="arch-anniversary-bottom-note"><span aria-hidden="true">✦</span><span class="arch-collection-el">Η ιστορία συνεχίζεται — και μας ενώνει.</span><span class="arch-collection-en" hidden>History continues — and brings us together.</span><span aria-hidden="true">✦</span></div>
+  </div>
+</section>
+
 <footer aria-label="Γ.Α.Σ. Ο Αρχέλαος — footer" class="heritage-footer arch-footer-signature">
 <div class="heritage-footer-inner">
 <div class="heritage-footer-top">
@@ -4161,7 +4111,7 @@ footer.arch-footer-signature .heritage-footer-logo {filter:drop-shadow(0 3px 8px
 <nav aria-label="Ιστορία και επαφή" class="heritage-footer-nav">
 <h2 class="heritage-footer-col-title" data-i18n="heritage_footer_history_contact">ΠΕΡΙΣΣΟΤΕΡΑ &amp; ΕΠΑΦΗ</h2>
 <div class="heritage-footer-links">
-<a href="history.html"><span data-i18n="nav_history">Ψηφιακό Μουσείο</span></a>
+<a aria-current="page" href="history.html"><span data-i18n="nav_history">Ψηφιακό Μουσείο</span></a>
 <a href="#timeline"><span data-i18n="nav_timeline">Χρονολόγιο</span></a>
 <a href="index.html#contact"><span data-i18n="nav_contact">Επικοινωνία</span></a>
 </div>
@@ -5996,5 +5946,25 @@ const langObserver=new MutationObserver(()=>render(current,false));
 langObserver.observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
 document.querySelectorAll('[data-lang-toggle],[data-set-lang],.lang-toggle').forEach(b=>b.addEventListener('click',()=>setTimeout(()=>render(current,false),0)));
 render(0,false);
-})();</script></body>
+})();</script><script id="arch-page-active-nav-sync">
+(function(){
+ function syncActiveNav(){
+   var page=(location.pathname.split('/').pop()||'index.html').toLowerCase();
+   document.querySelectorAll('#mainHeader a[href], footer a[href]').forEach(function(a){
+     var target=(a.getAttribute('href')||'').split(/[?#]/)[0].toLowerCase();
+     if(!['board.html','sponsors.html','history.html'].includes(target))return;
+     var active=target===page;
+     a.classList.remove('premium-nav-active','premium-mobile-active');
+     if(active){
+       a.setAttribute('aria-current','page');
+       if(a.closest('#mobileMenu'))a.classList.add('premium-mobile-active');
+       else if(a.closest('#mainHeader'))a.classList.add('premium-nav-active');
+     } else a.removeAttribute('aria-current');
+   });
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',syncActiveNav);
+ else syncActiveNav();
+ window.addEventListener('pageshow',syncActiveNav);
+})();
+</script><script id="anniversary-collections-language">(function(){function update(){var english=(document.documentElement.lang||'').toLowerCase().startsWith('en');document.querySelectorAll('#anniversary-collections .arch-collection-el').forEach(function(el){el.hidden=english;el.style.display=english?'none':''});document.querySelectorAll('#anniversary-collections .arch-collection-en').forEach(function(el){el.hidden=!english;el.style.display=english?'':'none'})}new MutationObserver(update).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});update()})();</script></body>
 </html>
