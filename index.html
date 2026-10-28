@@ -2433,6 +2433,43 @@ article img,.history-content img,.museum-content img{max-width:100%;height:auto}
 @media(max-width:600px){.arch-polish-top{right:14px;bottom:16px;width:49px;height:49px}.arch-polish-top img{width:30px;height:30px}article p,.history-content p,.museum-content p,.bio-text p,.person-bio p{line-height:1.82}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.arch-polish-reveal{opacity:1;transform:none;transition:none}.arch-polish-top,.arch-polish-top *{transition:none!important}}
 </style>
+<style id="archelaos-slideshow-split-2026">
+/* Sports-first editorial split-screen carousel; scoped to About slideshow only. */
+#about .arch-about-slideshow{height:clamp(390px,41vw,540px);border-radius:23px;box-shadow:0 25px 65px rgba(5,45,28,.17);background:#073d2a}
+#about #heroSlideshow{position:absolute!important;inset:0 0 0 39%!important;width:61%!important;height:100%!important}
+#about .slideshow-slide img{object-position:center;filter:saturate(1.08) contrast(1.03)}
+#about .arch-slide-shade{z-index:10;background:linear-gradient(90deg,#073d2a 0%,#073d2a 35%,rgba(7,61,42,.96) 41%,rgba(7,61,42,.25) 64%,rgba(4,30,20,.12) 100%)}
+#about .arch-slide-topline{inset:28px 29px auto;z-index:16}
+#about .arch-slide-badge{background:rgba(199,166,94,.12);border:1px solid rgba(199,166,94,.65);color:#e7cb8c;border-radius:30px;padding:9px 14px;font-size:10px;letter-spacing:.08em}
+#about .arch-slide-top-mark{color:#f0dfb4;letter-spacing:.18em}
+#about .arch-slide-bottom{inset:auto 29px 34px;display:block;z-index:16}
+#about .arch-slide-bottom-text{max-width:54%;}
+#about .arch-slide-caption-label{font-size:11px;letter-spacing:.19em;color:#d5b46a}
+#about .arch-slide-caption{font-size:clamp(34px,4vw,55px);line-height:1.08;letter-spacing:-.05em;margin-top:15px;text-shadow:none;overflow-wrap:anywhere}
+#about .arch-slide-caption::after{content:'';display:block;width:50px;height:3px;background:#c7a65e;margin-top:22px;border-radius:5px}
+#about .arch-slide-controls{position:absolute;right:0;bottom:0;gap:8px}
+#about .arch-slide-arrow{width:47px;height:47px;border-radius:13px;background:rgba(7,61,42,.85);border:1px solid rgba(199,166,94,.6);color:#f7e9ca}
+#about .arch-slide-arrow:hover{background:#c7a65e;color:#073d2a}
+#about .arch-slide-navigation{padding:19px 2px 0;gap:15px}
+#about .arch-slide-dot-list{display:flex;flex-wrap:wrap;gap:7px;align-items:center}
+#about .sport-pill{width:31px!important;height:31px!important;min-width:31px!important;min-height:31px!important;border-radius:9px!important;background:#fff!important;border:1px solid #d8e0d4!important;color:#42614b!important;font-size:11px!important;font-weight:850!important;display:grid!important;place-items:center!important;transition:background .2s,color .2s,border-color .2s,transform .2s!important}
+#about .sport-pill.active{background:#073d2a!important;color:#e9cb87!important;border-color:#c7a65e!important;transform:translateY(-2px)!important}
+#about .sport-pill:hover{border-color:#073d2a!important}
+@media(max-width:700px){
+ #about .arch-about-slideshow{height:clamp(375px,108vw,480px);border-radius:20px}
+ #about #heroSlideshow{inset:0!important;width:100%!important;height:100%!important}
+ #about .arch-slide-shade{background:linear-gradient(180deg,rgba(3,30,20,.3),rgba(3,30,20,.1) 30%,rgba(3,30,20,.25) 46%,rgba(3,30,20,.96) 100%)}
+ #about .arch-slide-topline{inset:17px 17px auto}
+ #about .arch-slide-bottom{inset:auto 19px 22px}
+ #about .arch-slide-bottom-text{max-width:calc(100% - 95px)}
+ #about .arch-slide-caption{font-size:clamp(31px,8.5vw,43px);margin-top:9px}
+ #about .arch-slide-caption::after{margin-top:14px}
+ #about .arch-slide-arrow{width:40px;height:40px;border-radius:11px}
+ #about .arch-slide-navigation-note{font-size:10px}
+}
+@media(prefers-reduced-motion:reduce){#about .sport-pill{transition:none!important}}
+</style>
+<link rel="stylesheet" href="accessibility.css?v=1.2"/>
 </head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow">
 <div aria-hidden="true" aria-label="Καλώς ήρθατε στον Αρχέλαο" aria-modal="true" id="archWelcome" role="dialog">
@@ -2489,6 +2526,7 @@ article img,.history-content img,.museum-content img{max-width:100%;height:auto}
 <div class="arch-menu-footer">70 ΧΡΟΝΙΑ · 1956—2026</div>
 </div>
 </header>
+<main id="main-content">
 <!-- HERO SECTION -->
 <section class="relative z-10 pt-10 pb-20 md:pt-16 md:pb-28 arch-matte-hero" id="home">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -2574,7 +2612,7 @@ article img,.history-content img,.museum-content img{max-width:100%;height:auto}
 <div aria-hidden="true" class="arch-slide-progress-track"><div id="slideProgressBar"></div></div>
 <div class="relative w-full h-full" id="heroSlideshow">
 <div class="slideshow-slide active" data-caption-el="Αγωνιστική δράση στο Χάντμπολ — 2 Κύπελλα Ελλάδος &amp; ιστορική παρουσία στην Α1 Εθνική." data-caption-en="Handball action — 2 Greek Cups &amp; historic presence in the A1 National League." data-sport-el="Χάντμπολ" data-sport-en="Handball">
-<img alt="Χάντμπολ" decoding="async" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaOFUCWatPwP-EycFiHffCCMk_Kz1ScNWPtg7znhR3mQ&amp;s=10"/ loading="lazy" decoding="async">
+<img alt="Χάντμπολ" decoding="async" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaOFUCWatPwP-EycFiHffCCMk_Kz1ScNWPtg7znhR3mQ&amp;s=10" loading="lazy"/>
 </div>
 <div class="slideshow-slide" data-caption-el="Εκκίνηση και αγωνιστικοί δρόμοι ταχύτητας στο στάδιο — Φυτώριο πρωταθλητών από το 1956." data-caption-en="Stadium racing lanes — A hotbed of champions since 1956." data-sport-el="Στίβος (Κλασικός Αθλητισμός)" data-sport-en="Track &amp; Field (Athletics)">
 <img alt="Στίβος" decoding="async" loading="lazy" src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&amp;fit=crop&amp;w=1200&amp;q=80"/>
@@ -2985,6 +3023,7 @@ article img,.history-content img,.museum-content img{max-width:100%;height:auto}
 <!-- TIMELINE DETAIL POPUP MODAL -->
 <!-- Full-history topic popup -->
 <!-- President popup used by the original table rows in the history chapter -->
+</main>
 <!-- DEPARTMENT HISTORY POPUP MODAL -->
 <div class="modal-backdrop fixed inset-0 z-50 overflow-y-auto bg-black/60 flex items-center justify-center p-4" id="deptHistoryModal">
 <div class="modal-box relative w-full max-w-xl bg-white rounded-3xl shadow-2xl overflow-hidden border-2 border-white">
@@ -3925,6 +3964,7 @@ article img,.history-content img,.museum-content img{max-width:100%;height:auto}
           const pill = document.createElement('button');
           pill.type = 'button';
           pill.className = 'sport-pill' + (idx === 0 ? ' active' : '');
+          pill.textContent = String(idx + 1).padStart(2, '0');
           pill.setAttribute('aria-label', (currentLang === 'en' ? labelsEN[idx] : labelsEL[idx]));
           pill.setAttribute('aria-pressed', idx === 0 ? 'true' : 'false');
           pill.title = currentLang === 'en' ? labelsEN[idx] : labelsEL[idx];
@@ -4407,5 +4447,6 @@ var btn=document.getElementById('archPolishTop');if(btn){var ring=btn.querySelec
 var lang=(document.documentElement.lang||'el').toLowerCase();var labels={el:'Επιστροφή στην κορυφή',en:'Back to top'};if(btn){var sync=function(){var english=(document.documentElement.lang||'').toLowerCase().startsWith('en')||document.body.classList.contains('lang-en');btn.setAttribute('aria-label',english?labels.en:labels.el);btn.title=english?labels.en:labels.el;};sync();new MutationObserver(sync).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});}
 if('IntersectionObserver' in window&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.querySelectorAll('main section').forEach(function(section,i){if(i>0 && i<16 && !section.closest('[role=dialog]') && !section.hidden)section.classList.add('arch-polish-reveal');});var targets=document.querySelectorAll('.arch-polish-reveal');var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('is-visible');io.unobserve(e.target);}})},{threshold:.08,rootMargin:'0px 0px -25px 0px'});targets.forEach(function(el){io.observe(el);});}else{document.querySelectorAll('.arch-polish-reveal').forEach(function(el){el.classList.add('is-visible');});}
 })();</script>
+<script defer src="accessibility.js?v=1.2"></script>
 </body>
 </html>
