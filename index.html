@@ -1874,6 +1874,55 @@ html body #mainHeader.glass-nav.scrolled {
  #home h1 {font-size:clamp(2rem,9vw,2.5rem)!important;}
  #home .hero-text-column .btn-shimmer,#home .hero-text-column a[data-i18n="btn_explore_depts"] {padding:13px 16px!important;}
 }
+</style><style id="arch-values-and-mobile-polish">
+/* Evergreen values, built into the existing Heritage Premium theme. */
+#club-values.arch-values {position:relative;z-index:2;background:#f7f6ef;padding:clamp(55px,7vw,104px) 20px;overflow:hidden;isolation:isolate;}
+#club-values .arch-values-shell {max-width:1160px;margin:auto;}
+#club-values .arch-values-intro {max-width:700px;margin:0 0 clamp(25px,4vw,43px);}
+#club-values .arch-values-eyebrow {font:700 11px/1.5 system-ui,sans-serif;letter-spacing:.22em;color:#a18a40;margin:0 0 15px;}
+#club-values h2 {font-size:clamp(2rem,4.3vw,3.7rem);line-height:1.12;letter-spacing:-.045em;color:#073d2a;font-weight:800;margin:0 0 16px;overflow-wrap:break-word;}
+#club-values .arch-values-period {color:#c4a33c;}
+#club-values .arch-values-lead {font-size:clamp(15px,1.5vw,18px);line-height:1.65;color:#54705e;margin:0;}
+#club-values .arch-values-grid {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,2vw,22px);}
+#club-values .arch-value {min-width:0;padding:clamp(23px,2.7vw,35px);background:#fffef9;border:1px solid #e1e7d9;border-radius:18px;transition:transform .28s ease,box-shadow .28s ease,border-color .28s ease;}
+#club-values .arch-value-top {display:flex;align-items:center;justify-content:space-between;color:#b19846;margin-bottom:29px;}
+#club-values .arch-value-index {font:700 12px/1 system-ui,sans-serif;letter-spacing:.16em;}
+#club-values .arch-value svg {width:35px;height:35px;color:#0c5637;flex:none;}
+#club-values .arch-value h3 {font-size:clamp(21px,2.2vw,29px);font-weight:750;line-height:1.2;letter-spacing:-.035em;color:#073d2a;margin:0 0 13px;}
+#club-values .arch-value p {font-size:15px;line-height:1.7;color:#56705f;margin:0;}
+@media(hover:hover) and (pointer:fine) {
+ #club-values .arch-value:hover {transform:translateY(-5px);box-shadow:0 18px 36px rgba(7,61,42,.09);border-color:#c4cfae;}
+}
+@media(min-width:721px) {
+ #club-values.arch-values-motion .arch-values-reveal {opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1);}
+ #club-values.arch-values-motion .arch-values-reveal.arch-values-in {opacity:1;transform:translateY(0);}
+ #club-values.arch-values-motion .arch-value:nth-child(2) {transition-delay:90ms;}
+ #club-values.arch-values-motion .arch-value:nth-child(3) {transition-delay:170ms;}
+}
+@media(max-width:720px) {
+ #club-values.arch-values {padding:56px 18px;}
+ #club-values .arch-values-grid {grid-template-columns:1fr;gap:12px;}
+ #club-values .arch-value {padding:22px 23px;}
+ #club-values .arch-value-top {margin-bottom:14px;}
+ #club-values .arch-value svg {width:30px;height:30px;}
+ #club-values .arch-value h3 {margin-bottom:8px;}
+}
+@media(min-width:721px) and (max-width:920px) {
+ #club-values .arch-values-grid {grid-template-columns:repeat(2,minmax(0,1fr));}
+ #club-values .arch-value:last-child {grid-column:1/-1;}
+}
+/* Responsive typography and controls: prevent the previously observed awkward wrapping. */
+#home h1 {max-width:100%;overflow-wrap:normal;}
+#home .hero-text-column {min-width:0;}
+#home .hero-text-column a {overflow-wrap:break-word;}
+@media(max-width:720px) {
+ #home .hero-text-column .btn-shimmer,#home .hero-text-column a[data-i18n="btn_explore_depts"] {max-width:100%;min-width:0!important;white-space:normal!important;line-height:1.35!important;text-align:center;}
+ #home .arch-hero-second-line {white-space:normal!important;}
+}
+@media(prefers-reduced-motion:reduce) {
+ #club-values .arch-values-reveal {opacity:1!important;transform:none!important;transition:none!important;}
+ #club-values .arch-value {transition:none!important;}
+}
 </style></head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow">
 <div aria-hidden="true" aria-label="Καλώς ήρθατε στον Αρχέλαο" aria-modal="true" id="archWelcome" role="dialog">
@@ -1973,7 +2022,7 @@ html body #mainHeader.glass-nav.scrolled {
 <span class="w-2.5 h-2.5 rounded-full bg-archelaos-yellow animate-ping"></span> <span data-i18n="hero_badge">Γ.Α.Σ. «Ο ΑΡΧΕΛΑΟΣ» ΚΑΤΕΡΙΝΗΣ • EST. 1956</span>
 </div>
 <h1 class="reveal-text delay-100 text-4xl sm:text-6xl lg:text-7xl font-black font-heading text-archelaos-deepgreen leading-[1.06] tracking-tight">
-<span data-i18n="hero_h1_1">Αθλητισμός,</span> <br/> <span class="arch-hero-second-line"><span data-i18n="hero_h1_2">Ήθος &amp;</span> <span class="text-archelaos-yellow bg-archelaos-darkgreen px-5 py-1 rounded-3xl inline-block mt-1.5 shadow-md" data-i18n="hero_h1_3">Παράδοση</span></span> 
+<span data-i18n="hero_h1_1">Αθλητισμός,</span> <br/> <span class="arch-hero-second-line"><span data-i18n="hero_h1_2">Ήθος &amp;</span> <span class="text-archelaos-yellow bg-archelaos-darkgreen px-5 py-1 rounded-3xl inline-block mt-1.5 shadow-md" data-i18n="hero_h1_3">Παράδοση</span></span>
 </h1>
 <p class="reveal-text delay-200 text-base sm:text-xl text-archelaos-deepgreen/90 max-w-2xl mx-auto lg:mx-0 font-semibold leading-relaxed" data-i18n="hero_desc">
               Ο ιστορικός πολυαθλητικός σύλλογος της Πιερίας. Πάνω από 70 χρόνια προσφοράς στον κλασικό αθλητισμό, τα ομαδικά και ατομικά αθλήματα.
@@ -2118,7 +2167,32 @@ html body #mainHeader.glass-nav.scrolled {
 </aside>
 <!-- 8 DEPARTMENTS SECTION WITH INTERACTIVE PILLS -->
 <!-- INTEGRATED HISTORY ARCHIVE: full source content is available in the topic popups below -->
-<section class="relative z-10 py-20 sm:py-24" id="departments">
+<section aria-labelledby="arch-values-title" class="arch-values" id="club-values">
+<div class="arch-values-shell">
+<div class="arch-values-intro arch-values-reveal">
+<p class="arch-values-eyebrow"><span data-lang="el">Ο ΧΑΡΑΚΤΗΡΑΣ ΜΑΣ</span><span data-lang="en">WHAT DEFINES US</span></p>
+<h2 id="arch-values-title"><span data-lang="el">Οι αξίες μας<span class="arch-values-period">.</span></span><span data-lang="en">Our values<span class="arch-values-period">.</span></span></h2>
+<p class="arch-values-lead"><span data-lang="el">Τρεις λέξεις που εκφράζουν το πνεύμα του Αρχέλαου.</span><span data-lang="en">Three words that express the spirit of Archelaos.</span></p>
+</div>
+<div class="arch-values-grid">
+<article class="arch-value arch-values-reveal">
+<div class="arch-value-top"><span class="arch-value-index">01</span><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewbox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"></path></svg></div>
+<h3><span data-lang="el">Ήθος</span><span data-lang="en">Integrity</span></h3>
+<p><span data-lang="el">Σεβασμός, συνέπεια και ευγενής άμιλλα σε κάθε προσπάθεια.</span><span data-lang="en">Respect, commitment and fair play in every effort.</span></p>
+</article>
+<article class="arch-value arch-values-reveal">
+<div class="arch-value-top"><span class="arch-value-index">02</span><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewbox="0 0 24 24"><circle cx="8" cy="8" r="3"></circle><circle cx="17" cy="9" r="2.5"></circle><path d="M2 20v-2a6 6 0 0 1 12 0v2M14 15a5 5 0 0 1 8 4v1"></path></svg></div>
+<h3><span data-lang="el">Ενότητα</span><span data-lang="en">Togetherness</span></h3>
+<p><span data-lang="el">Διαφορετικά αθλήματα, κοινό πνεύμα και δύναμη στην ομάδα.</span><span data-lang="en">Different sports, a shared spirit and strength in teamwork.</span></p>
+</article>
+<article class="arch-value arch-values-reveal">
+<div class="arch-value-top"><span class="arch-value-index">03</span><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewbox="0 0 24 24"><path d="M8 3h8v4a4 4 0 0 1-8 0V3ZM8 5H4v2a4 4 0 0 0 4 4m8-6h4v2a4 4 0 0 1-4 4M12 11v6m-4 4h8m-4-4a4 4 0 0 0-4 4h8a4 4 0 0 0-4-4Z"></path></svg></div>
+<h3><span data-lang="el">Προσπάθεια</span><span data-lang="en">Dedication</span></h3>
+<p><span data-lang="el">Καθημερινή εξέλιξη, επιμονή και αγάπη για τον αθλητισμό.</span><span data-lang="en">Daily growth, perseverance and a love of sport.</span></p>
+</article>
+</div>
+</div>
+</section><section class="relative z-10 py-20 sm:py-24" id="departments">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 <div class="reveal-text text-center max-w-3xl mx-auto mb-10 heritage-section-heading heritage-centered">
 <span class="inline-block px-4 py-1.5 rounded-full bg-white/95 text-archelaos-deepgreen font-black text-xs uppercase tracking-wider mb-3 shadow-sm border border-white" data-i18n="dept_tag">Αθλητισμός για όλους</span>
@@ -3766,5 +3840,18 @@ function openJoinContact(kind) {
   },{threshold:.12,rootMargin:'0px 0px -20px 0px'});
   items.forEach(el=>observer.observe(el));
 })();
-</script></body>
+</script><script id="arch-values-reveal-script">(function(){
+  const root=document.getElementById('club-values');
+  if(!root)return;
+  const items=root.querySelectorAll('.arch-values-reveal');
+  const reduced=window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduced || !('IntersectionObserver' in window) || window.innerWidth<=720)return;
+  root.classList.add('arch-values-motion');
+  const observer=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){entry.target.classList.add('arch-values-in');observer.unobserve(entry.target);}
+    });
+  },{threshold:.08,rootMargin:'0px 0px 20px 0px'});
+  items.forEach(item=>observer.observe(item));
+})();</script></body>
 </html>
