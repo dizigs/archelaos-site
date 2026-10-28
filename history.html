@@ -2116,6 +2116,25 @@ html body {margin:0!important;}
  #mainHeader #mobileMenu .mobile-nav-link{transition:none!important}
 }
 </style>
+<style id="archelaos-registration-dialog-fix-2026">
+/* Keep the registration title below the fixed site header, including short viewports. */
+#registrationModal { z-index:9999!important; box-sizing:border-box!important; padding:clamp(12px,3vh,28px) 16px!important; overflow-y:auto!important; overscroll-behavior:contain; align-items:safe center!important; justify-content:center!important; }
+#registrationModal > .modal-box {max-height:calc(100dvh - 32px)!important; max-height:calc(100vh - 32px); overflow-y:auto!important; overflow-x:visible!important; margin:auto!important; overscroll-behavior:contain; scrollbar-width:thin; }
+#registrationModal .modal-header {position:sticky!important;top:0!important;z-index:12!important;}
+#registrationModal .arch-dept-picker {position:relative;}
+#registrationModal .arch-dept-picker select {position:absolute!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important;overflow:hidden!important;padding:0!important;border:0!important;}
+#registrationModal .arch-dept-trigger {width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 16px;background:#fffdf8;border:1px solid #d9d4c4;border-radius:13px;color:#073d2a;font-size:14px;font-weight:650;text-align:left;cursor:pointer;transition:border-color .2s,box-shadow .2s;}
+#registrationModal .arch-dept-trigger:hover,#registrationModal .arch-dept-trigger:focus-visible {border-color:#c7a65e;box-shadow:0 0 0 3px rgba(199,166,94,.18);outline:none;}
+#registrationModal .arch-dept-trigger svg {width:17px;height:17px;color:#a2823d;flex-shrink:0;transition:transform .2s;}
+#registrationModal .arch-dept-picker.is-open .arch-dept-trigger svg {transform:rotate(180deg)}
+#registrationModal .arch-dept-options {display:none;position:relative;z-index:4;margin-top:7px;padding:5px;background:#fffdf8;border:1px solid #c7a65e;border-radius:13px;box-shadow:0 12px 25px rgba(3,45,29,.13);max-height:200px;overflow-y:auto;}
+#registrationModal .arch-dept-picker.is-open .arch-dept-options {display:block;}
+#registrationModal .arch-dept-option {width:100%;display:block;padding:10px 12px;text-align:left;border:0;background:transparent;color:#073d2a;border-radius:9px;cursor:pointer;font-size:14px;}
+#registrationModal .arch-dept-option:hover,#registrationModal .arch-dept-option:focus-visible {background:#f0e7d2;outline:none;}
+#registrationModal .arch-dept-option[aria-selected=true] {background:#073d2a;color:#f8f6ef;}
+@media(max-height:680px){#registrationModal{padding:8px!important}#registrationModal>.modal-box{max-height:calc(100dvh - 16px)!important}}
+@media(prefers-reduced-motion:reduce){#registrationModal .arch-dept-trigger,#registrationModal .arch-dept-trigger svg{transition:none}}
+</style>
 </head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow arch-gold-page">
 <!-- ANIMATED CONTOUR WAVES -->
@@ -6155,5 +6174,28 @@ render(0,false);
   new MutationObserver(refresh).observe(document.body,{attributes:true,attributeFilter:['class']});
   new MutationObserver(refresh).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
 })();
-</script></body>
+</script><script id="archelaos-registration-custom-dept-2026">
+(function(){
+ const select=document.getElementById('modalDeptSelect');
+ if(!select || select.closest('.arch-dept-picker'))return;
+ const wrap=document.createElement('div');wrap.className='arch-dept-picker';
+ select.parentNode.insertBefore(wrap,select);wrap.appendChild(select);
+ const trigger=document.createElement('button');trigger.type='button';trigger.className='arch-dept-trigger';trigger.setAttribute('aria-haspopup','listbox');trigger.setAttribute('aria-expanded','false');trigger.setAttribute('aria-label','Επιλογή τμήματος / Select sport');
+ const label=document.createElement('span');const arrow=document.createElementNS('http://www.w3.org/2000/svg','svg');arrow.setAttribute('viewBox','0 0 24 24');arrow.setAttribute('fill','none');arrow.setAttribute('stroke','currentColor');arrow.setAttribute('stroke-width','2');arrow.innerHTML='<path d="m6 9 6 6 6-6"/>';trigger.append(label,arrow);
+ const menu=document.createElement('div');menu.className='arch-dept-options';menu.setAttribute('role','listbox');
+ wrap.append(trigger,menu);
+ function close(){wrap.classList.remove('is-open');trigger.setAttribute('aria-expanded','false')}
+ function sync(){label.textContent=select.selectedOptions[0]?.textContent||'';[...menu.children].forEach((b,i)=>b.setAttribute('aria-selected',String(i===select.selectedIndex)))}
+ function render(){menu.replaceChildren();[...select.options].forEach((opt,i)=>{const b=document.createElement('button');b.type='button';b.className='arch-dept-option';b.setAttribute('role','option');b.textContent=opt.textContent;b.addEventListener('click',()=>{select.selectedIndex=i;select.dispatchEvent(new Event('change',{bubbles:true}));sync();close();trigger.focus()});menu.appendChild(b)});sync()}
+ trigger.addEventListener('click',()=>{const open=wrap.classList.toggle('is-open');trigger.setAttribute('aria-expanded',String(open));if(open)menu.querySelector('[aria-selected=true]')?.scrollIntoView({block:'nearest'})});
+ trigger.addEventListener('keydown',e=>{if(e.key==='ArrowDown'||e.key==='Enter'||e.key===' '){if(!wrap.classList.contains('is-open')){e.preventDefault();trigger.click();} if(e.key==='ArrowDown'){e.preventDefault();menu.querySelector('[aria-selected=true]')?.focus()}}});
+ menu.addEventListener('keydown',e=>{const items=[...menu.querySelectorAll('button')];const i=items.indexOf(document.activeElement);if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();items[(i+(e.key==='ArrowDown'?1:-1)+items.length)%items.length].focus()}else if(e.key==='Escape'){close();trigger.focus()}});
+ document.addEventListener('pointerdown',e=>{if(!wrap.contains(e.target))close()});document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+ select.addEventListener('change',sync);
+ // Existing translation code updates option text; refresh custom labels afterwards.
+ const observer=new MutationObserver(()=>{const prev=label.textContent;render();if(prev!==label.textContent)sync()});observer.observe(select,{subtree:true,childList:true,characterData:true});
+ render();
+})();
+</script>
+</body>
 </html>
