@@ -2363,6 +2363,28 @@ html.arch-a11y-contrast-light #arch-a11y-easy-nav,html.arch-a11y-contrast-dark #
   .heritage-footer-links a, .heritage-footer-social a, .nav a, .mobile-nav-link, .mobile-menu-item { transition: none !important; }
 }
 </style>
+<style id="archelaos-v25-quality">
+/* v2.5 | Consistent premium interactions and responsive refinements */
+:root{--arch-focus:#c7a65e}
+:where(a,button,input,select,textarea):focus-visible{outline:3px solid var(--arch-focus)!important;outline-offset:3px}
+:where(a,button){-webkit-tap-highlight-color:transparent}
+:where(.arch-anniversary-header,.mast,.heritage-footer) a{transition:color .22s ease,opacity .22s ease,transform .22s ease}
+:where(.arch-anniversary-header,.mast,.heritage-footer) a:hover{opacity:.88}
+img{max-width:100%}
+@media(max-width:767px){
+  :where(.heritage-footer,.arch-footer-signature){overflow-wrap:anywhere}
+  :where(.heritage-footer-inner,.wrap){max-width:100%}
+  :where(.heritage-footer) a{min-height:32px}
+  :where(.mast) button,:where(.mast) a{touch-action:manipulation}
+  :where(.person-grid){grid-template-columns:minmax(0,1fr)!important}
+  :where(.person){min-width:0}
+  :where(.person strong,.person small){overflow-wrap:anywhere}
+}
+@media(prefers-reduced-motion:reduce){
+  :where(.arch-anniversary-header,.mast,.heritage-footer) a{transition:none!important}
+  html{scroll-behavior:auto!important}
+}
+</style>
 </head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow arch-gold-page">
 <!-- ANIMATED CONTOUR WAVES -->

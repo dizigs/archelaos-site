@@ -2686,6 +2686,36 @@ html.arch-a11y-contrast-light #arch-a11y-easy-nav,html.arch-a11y-contrast-dark #
   .heritage-footer-links a, .heritage-footer-social a, .nav a, .mobile-nav-link, .mobile-menu-item { transition: none !important; }
 }
 </style>
+<style id="archelaos-v25-quality">
+/* v2.5 | Consistent premium interactions and responsive refinements */
+:root{--arch-focus:#c7a65e}
+:where(a,button,input,select,textarea):focus-visible{outline:3px solid var(--arch-focus)!important;outline-offset:3px}
+:where(a,button){-webkit-tap-highlight-color:transparent}
+:where(.arch-anniversary-header,.mast,.heritage-footer) a{transition:color .22s ease,opacity .22s ease,transform .22s ease}
+:where(.arch-anniversary-header,.mast,.heritage-footer) a:hover{opacity:.88}
+img{max-width:100%}
+@media(max-width:767px){
+  :where(.heritage-footer,.arch-footer-signature){overflow-wrap:anywhere}
+  :where(.heritage-footer-inner,.wrap){max-width:100%}
+  :where(.heritage-footer) a{min-height:32px}
+  :where(.mast) button,:where(.mast) a{touch-action:manipulation}
+  :where(.person-grid){grid-template-columns:minmax(0,1fr)!important}
+  :where(.person){min-width:0}
+  :where(.person strong,.person small){overflow-wrap:anywhere}
+}
+@media(prefers-reduced-motion:reduce){
+  :where(.arch-anniversary-header,.mast,.heritage-footer) a{transition:none!important}
+  html{scroll-behavior:auto!important}
+}
+
+/* v2.5 | Cinematic hero: gentle zoom only on the active slide */
+#heroSlideshow{overflow:hidden;isolation:isolate}
+#heroSlideshow .slideshow-slide{transition:opacity 1.05s cubic-bezier(.22,.61,.36,1),visibility 1.05s ease!important;will-change:opacity}
+#heroSlideshow .slideshow-slide img{transform:scale(1.025);transition:transform 9s linear;backface-visibility:hidden}
+#heroSlideshow .slideshow-slide.active img{transform:scale(1.10)}
+@media(max-width:767px){#heroSlideshow .slideshow-slide img{object-position:center center}}
+@media(prefers-reduced-motion:reduce){#heroSlideshow .slideshow-slide,#heroSlideshow .slideshow-slide img{transition:none!important;transform:none!important;will-change:auto}}
+</style>
 </head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow">
 <div aria-hidden="true" aria-label="Καλώς ήρθατε στον Αρχέλαο" aria-modal="true" id="archWelcome" role="dialog">

@@ -532,6 +532,46 @@ body.lang-en .heritage-footer [data-lang="el"],body.lang-en .heritage-footer .ar
   .heritage-footer-links a, .heritage-footer-social a, .nav a, .mobile-nav-link, .mobile-menu-item { transition: none !important; }
 }
 </style>
+<style id="archelaos-v25-quality">
+/* v2.5 | Consistent premium interactions and responsive refinements */
+:root{--arch-focus:#c7a65e}
+:where(a,button,input,select,textarea):focus-visible{outline:3px solid var(--arch-focus)!important;outline-offset:3px}
+:where(a,button){-webkit-tap-highlight-color:transparent}
+:where(.arch-anniversary-header,.mast,.heritage-footer) a{transition:color .22s ease,opacity .22s ease,transform .22s ease}
+:where(.arch-anniversary-header,.mast,.heritage-footer) a:hover{opacity:.88}
+img{max-width:100%}
+@media(max-width:767px){
+  :where(.heritage-footer,.arch-footer-signature){overflow-wrap:anywhere}
+  :where(.heritage-footer-inner,.wrap){max-width:100%}
+  :where(.heritage-footer) a{min-height:32px}
+  :where(.mast) button,:where(.mast) a{touch-action:manipulation}
+  :where(.person-grid){grid-template-columns:minmax(0,1fr)!important}
+  :where(.person){min-width:0}
+  :where(.person strong,.person small){overflow-wrap:anywhere}
+}
+@media(prefers-reduced-motion:reduce){
+  :where(.arch-anniversary-header,.mast,.heritage-footer) a{transition:none!important}
+  html{scroll-behavior:auto!important}
+}
+
+/* v2.5 | People directory, polished readable cards and biography dialog */
+#people-grid{gap:clamp(10px,1.5vw,18px)}
+#people-grid .person{position:relative;min-width:0;min-height:94px;gap:16px;padding:clamp(15px,1.7vw,22px);border-radius:18px;box-shadow:0 4px 18px rgba(7,61,42,.045);transition:box-shadow .24s ease,border-color .24s ease,transform .24s ease,background-color .24s ease}
+#people-grid .person:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(7,61,42,.12);border-color:#c7a65e}
+#people-grid .person:active{transform:translateY(-1px)}
+#people-grid .person strong{font-size:clamp(15px,1.15vw,17px);line-height:1.4;letter-spacing:-.01em}
+#people-grid .person small{font-size:13px;line-height:1.5}
+#people-grid .person .monogram{width:54px;height:54px;transition:background-color .2s ease,transform .24s ease}
+#people-grid .person:hover .monogram{transform:scale(1.06);background-color:#10583c}
+#people-grid .person .arrow{font-size:19px;transition:transform .22s ease}
+#people-grid .person:hover .arrow{transform:translate(2px,-2px)}
+#person-dialog{max-height:min(85vh,780px);overflow-y:auto;overscroll-behavior:contain}
+#person-dialog .dialog-inner{padding:clamp(22px,4vw,38px)}
+#person-dialog #dialog-name{line-height:1.18;overflow-wrap:anywhere}
+#person-dialog #dialog-bio{font-size:clamp(15px,1.15vw,17px);line-height:1.85}
+@media(max-width:700px){#people-grid{grid-template-columns:1fr!important}#people-grid .person{min-height:82px;padding:15px}#people-grid .person .monogram{width:46px;height:46px}#person-dialog{width:calc(100% - 24px);max-height:85dvh}}
+@media(prefers-reduced-motion:reduce){#people-grid .person,#people-grid .person .monogram,#people-grid .person .arrow{transition:none!important;transform:none!important}}
+</style>
 </head><body><div aria-hidden="true" aria-label="Επετειακό καλωσόρισμα" aria-modal="true" class="anniv-entrance" id="annivEntrance2026" role="dialog"><button class="anniv-entrance-skip" id="annivEntranceSkip" type="button"><span data-el="Παράλειψη" data-en="Skip">Παράλειψη</span> ×</button><div class="anniv-entrance-content"><img alt="Χρυσό έμβλημα Γ.Α.Σ. Αρχέλαος" class="anniv-entrance-logo" height="165" src="archelaos-logo-gold.png" width="165"/><div class="anniv-entrance-kicker">Γ.Α.Σ. «Ο ΑΡΧΕΛΑΟΣ» · <span data-el="ΚΑΤΕΡΙΝΗ" data-en="KATERINI">ΚΑΤΕΡΙΝΗ</span></div><h2><span data-el="70 ΧΡΟΝΙΑ ΙΣΤΟΡΙΑΣ" data-en="70 YEARS OF HISTORY">70 ΧΡΟΝΙΑ ΙΣΤΟΡΙΑΣ</span></h2><p class="anniv-entrance-years">1956 — 2026</p><p class="anniv-entrance-sub"><span data-el="Μια φλόγα. Χιλιάδες διαδρομές." data-en="One flame. Countless journeys.">Μια φλόγα. Χιλιάδες διαδρομές.</span></p><div class="anniv-entrance-rule"></div><div class="anniv-entrance-foot"><span data-el="70 ΧΡΟΝΙΑ · 70 ΣΤΙΓΜΕΣ · ΟΙ ΑΝΘΡΩΠΟΙ" data-en="70 YEARS · 70 MOMENTS · OUR PEOPLE">70 ΧΡΟΝΙΑ · 70 ΣΤΙΓΜΕΣ · ΟΙ ΑΝΘΡΩΠΟΙ</span></div><div aria-hidden="true" class="anniv-entrance-bar"><span></span></div></div></div><header class="mast"><div class="wrap mast-in"><a class="brand" href="index.html"><img alt="" onerror="this.style.display='none'" src="archelaos-logo-gold.png"/><span>Γ.Α.Σ. «Ο ΑΡΧΕΛΑΟΣ»<small>ΚΑΤΕΡΙΝΗ · 1956—2026</small></span></a><nav aria-label="Museum navigation" class="nav"><a class="" data-el="Αρχική" data-en="Home" href="index.html">Αρχική</a><a class="" data-el="Ψηφιακό Μουσείο" data-en="Digital Museum" href="history.html">Μουσείο</a><a class="" data-el="70 Στιγμές" data-en="70 Moments" href="70-stigmes.html">70 Στιγμές</a><a class="active" data-el="Οι Άνθρωποι" data-en="Our People" href="hall-of-fame.html">Οι Άνθρωποι</a><button aria-label="Change language" class="language" id="language" type="button">EN</button></nav><button aria-controls="annivMobileDrawer" aria-expanded="false" aria-label="Άνοιγμα μενού" class="anniv-menu-toggle" id="annivMenuToggle" type="button">
 <svg aria-hidden="true" class="anniv-menu-bars" viewbox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"></path></svg>
 <svg aria-hidden="true" class="anniv-menu-x" viewbox="0 0 24 24"><path d="M5 5l14 14M19 5 5 19"></path></svg></button>
