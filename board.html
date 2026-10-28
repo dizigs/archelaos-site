@@ -2078,71 +2078,177 @@ footer.arch-footer-signature .heritage-footer-logo {filter:drop-shadow(0 3px 8px
 @media(max-width:760px){.arch-anniversary-entrance{padding:58px 18px 62px}.arch-anniversary-heading{display:block;margin-bottom:24px}.arch-anniversary-heading p{margin:15px 0 0;max-width:100%}.arch-anniversary-grid{grid-template-columns:1fr;gap:15px}.arch-anniversary-card{min-height:275px;padding:25px}.arch-anniversary-card strong{font-size:38px}.arch-anniversary-bottom-note{font-size:15px}}
 @media(prefers-reduced-motion:reduce){.arch-anniversary-card,#mainHeader .arch-floating-nav>a,#mobileMenu .mobile-nav-link{transition:none!important}.arch-anniversary-card:hover{transform:none}}
 </style>
-
-
-
-<style id="archelaos-logo-clean-2026">
-#mainHeader a:has(img.archelaos-crest-adapt) > div:first-child,
-#mainHeader a:has(img.archelaos-crest-adapt) > div:first-child::before,
-#mainHeader a:has(img.archelaos-crest-adapt) > div:first-child::after {
-  background:transparent!important;background-color:transparent!important;background-image:none!important;
-  border:0!important;box-shadow:none!important;outline:0!important;filter:none!important;
-  backdrop-filter:none!important;content:none!important;
+<style id="arch-gold-unified-nav">
+#mainHeader{background:linear-gradient(110deg,#052e21,#073d2a 60%,#104934)!important;border-bottom:1px solid #bda06b!important;box-shadow:0 8px 28px #032a2040!important}
+#mainHeader .arch-floating-nav{background:transparent!important;border:0!important;box-shadow:none!important;padding:0!important}
+#mainHeader .arch-floating-nav>a{position:relative;background:transparent!important;color:#f8f6ef!important;transition:color .3s,transform .3s!important}
+#mainHeader .arch-floating-nav>a::after{content:"";position:absolute;bottom:0;left:15%;width:70%;height:2px;background:linear-gradient(90deg,transparent,#d9b66b,transparent);transform:scaleX(0);transition:transform .3s}
+#mainHeader .arch-floating-nav>a:hover,#mainHeader .arch-floating-nav>a[aria-current="page"]{color:#e8c778!important;transform:translateY(-2px)}
+#mainHeader .arch-floating-nav>a:hover::after,#mainHeader .arch-floating-nav>a[aria-current="page"]::after{transform:scaleX(1)}
+#mainHeader .arch-floating-nav a span{color:inherit!important}
+#mainHeader a:has(img.archelaos-crest-adapt)>div:first-child{background:transparent!important;border:0!important;box-shadow:none!important;filter:none!important}
+#mainHeader img.archelaos-crest-adapt{background:transparent!important;border:0!important;box-shadow:none!important;filter:none!important;opacity:1!important;transition:transform .4s,filter .4s!important}
+#mainHeader a:hover img.archelaos-crest-adapt{transform:scale(1.07) rotate(-4deg);filter:drop-shadow(0 0 8px #d9b66b88)!important}
+#mainHeader [data-i18n="brand_title"]{color:#f8f6ef!important}
+#mainHeader [data-i18n="brand_sub"]{color:#e1cda5!important}
+#mainHeader #mobileMenuBtn{background:#ffffff17!important;border:1px solid #c5a66d!important}
+#mainHeader #menuIcon{color:#e7c677!important}
+#mainHeader .arch-cinematic-menu{background:#f8f6ef!important}
+@media(prefers-reduced-motion:reduce){#mainHeader *,#mainHeader *::after{animation:none!important;transition:none!important}}
+</style><style id="hall-of-fame-exact-menu-palette">
+/* Header palette and interactions adapted directly from hall-of-fame.html */
+#mainHeader {background:#073d2a!important;background-image:none!important;color:#fff!important;border:0!important;border-bottom:1px solid #ffffff20!important;box-shadow:none!important;backdrop-filter:none!important}
+#mainHeader .arch-floating-nav {background:transparent!important;background-image:none!important;border:0!important;border-radius:0!important;box-shadow:none!important;padding:0!important;gap:4px!important}
+#mainHeader .arch-floating-nav > a {background:transparent!important;background-image:none!important;color:#fff!important;border:0!important;border-radius:25px!important;box-shadow:none!important;transform:none!important;position:relative!important;padding:10px 12px!important;transition:background .27s,color .27s,transform .27s,box-shadow .27s!important}
+#mainHeader .arch-floating-nav > a::after {content:none!important;display:none!important}
+#mainHeader .arch-floating-nav > a:hover {background:#ffffff1a!important;color:#f3d68b!important;transform:translateY(-2px)!important}
+#mainHeader .arch-floating-nav > a.arch-hof-active {background:#e7c783!important;color:#073d2a!important;box-shadow:0 5px 15px #0003!important;font-weight:850!important}
+#mainHeader .arch-floating-nav > a.arch-hof-active:hover {transform:translateY(-2px)!important;background:#f1d695!important;color:#073d2a!important}
+#mainHeader .arch-floating-nav > a.arch-hof-active::after {content:""!important;display:block!important;position:absolute!important;bottom:4px!important;left:calc(50% - 2px)!important;width:4px!important;height:4px!important;border-radius:50%!important;background:#073d2a!important;transform:none!important}
+#mainHeader .arch-floating-nav > a span {color:inherit!important}
+#mainHeader a:has(img.archelaos-crest-adapt)>div:first-child {background:transparent!important;background-image:none!important;border:0!important;border-radius:0!important;box-shadow:none!important;padding:0!important;overflow:visible!important}
+#mainHeader a:has(img.archelaos-crest-adapt)>div:first-child::before,#mainHeader a:has(img.archelaos-crest-adapt)>div:first-child::after {content:none!important;display:none!important}
+#mainHeader img.archelaos-crest-adapt {background:transparent!important;box-shadow:none!important;border:0!important;filter:none!important;object-fit:contain!important;transition:transform .3s ease!important}
+#mainHeader a:hover img.archelaos-crest-adapt {transform:scale(1.055)!important;filter:none!important}
+#mainHeader [data-i18n="brand_title"] {color:#fff!important}
+#mainHeader [data-i18n="brand_sub"] {color:#dbc795!important}
+#mainHeader .lang-btn,#mainHeader [id*="lang"] {transition:background .25s,color .25s,transform .25s!important}
+#mainHeader .lang-btn:hover {transform:translateY(-1px)!important}
+#mainHeader #mobileMenuBtn {background:transparent!important;color:white!important;border:1px solid #ffffff75!important}
+#mainHeader #mobileMenuBtn svg {color:white!important}
+@media(prefers-reduced-motion:reduce){#mainHeader *,#mainHeader *::before,#mainHeader *::after{transition:none!important;animation:none!important}}
+</style><style id="archelaos-actual-anniversary-header">
+/* This header replaces the legacy white glass menu, not just recolors it.
+   Palette, brand dimensions and link style are based on the actual Hall of Fame mast. */
+html body {margin:0!important;}
+#mainHeader.arch-anniversary-header {
+ position:sticky!important;top:0!important;z-index:500!important;
+ background:#073d2a!important;background-color:#073d2a!important;background-image:none!important;
+ color:#fff!important;border:0!important;border-bottom:1px solid #ffffff20!important;
+ box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+ filter:none!important;min-height:96px!important;width:100%!important;
 }
-#mainHeader a:has(img.archelaos-crest-adapt) > div:first-child {
-  padding:0!important;overflow:visible!important;border-radius:0!important;
+#mainHeader.arch-anniversary-header::before,#mainHeader.arch-anniversary-header::after {content:none!important;background:none!important;box-shadow:none!important}
+#mainHeader .arch-anniversary-inner {
+ max-width:1460px!important;width:calc(100% - 72px)!important;
+ min-height:96px!important;margin:0 auto!important;padding:0 0!important;
+ display:flex!important;justify-content:space-between!important;align-items:center!important;gap:22px!important;
+ background:transparent!important;box-shadow:none!important;
 }
-#mainHeader img.archelaos-crest-adapt {
-  background:transparent!important;border:0!important;box-shadow:none!important;
-  filter:none!important;-webkit-filter:none!important;opacity:1!important;visibility:visible!important;
-  display:block!important;width:100%!important;height:100%!important;object-fit:contain!important;
+#mainHeader .arch-anniversary-brand {
+ display:inline-flex!important;align-items:center!important;gap:13px!important;
+ color:white!important;text-decoration:none!important;flex:0 0 auto!important;
+ min-width:0!important;box-shadow:none!important;background:transparent!important;
 }
-</style>
-</head><body class="lang-el arch-gold-page"><header class="sticky top-0 z-40 glass-nav" id="mainHeader">
-<div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-<div class="flex items-center justify-between h-20 gap-1.5 sm:gap-3">
-<!-- Logo & Title -->
-<a class="flex items-center space-x-2 group shrink-0" href="index.html#home">
-<div class="relative w-11 h-11 sm:w-14 sm:h-14 xl:w-16 xl:h-16 shrink-0 flex items-center justify-center transform group-hover:scale-105 transition duration-300">
-<img alt="Γ.Α.Σ. Αρχέλαος 1956" class="archelaos-crest-adapt w-full h-full object-contain" decoding="async" src="archelaos-logo-green.png"/>
-</div>
-<div class="flex flex-col min-w-0">
-<div class="flex items-center gap-1.5">
-<span class="font-heading font-black text-base sm:text-xl xl:text-2xl text-archelaos-deepgreen tracking-tight uppercase truncate" data-i18n="brand_title">Αρχέλαος</span>
-<span class="bg-archelaos-darkgreen text-archelaos-yellow text-[9px] sm:text-[10px] font-extrabold px-1.5 py-0.5 rounded-full tracking-wider shadow-sm shrink-0">1956</span>
-</div>
-<span class="text-[9px] sm:text-[10px] xl:text-[11px] text-archelaos-deepgreen/85 tracking-wider font-bold uppercase truncate" data-i18n="brand_sub">Γ.Α.Σ. Κατερίνης • archelaos.club</span>
-</div>
+#mainHeader .arch-anniversary-brand img {
+ width:72px!important;height:72px!important;object-fit:contain!important;display:block!important;
+ background:transparent!important;border:0!important;border-radius:0!important;
+ box-shadow:none!important;filter:none!important;opacity:1!important;
+ transition:transform .35s ease!important;
+}
+#mainHeader .arch-anniversary-brand:hover img {transform:scale(1.055) rotate(-2deg)!important}
+#mainHeader .arch-anniversary-name {
+ display:flex!important;flex-direction:column!important;align-items:flex-start!important;
+ color:white!important;font-family:system-ui,-apple-system,'Segoe UI',sans-serif!important;
+ font-size:15px!important;font-weight:850!important;white-space:nowrap!important;
+ line-height:1.25!important;letter-spacing:0!important;
+}
+#mainHeader .arch-anniversary-name small {
+ display:block!important;margin-top:7px!important;font-size:10px!important;
+ letter-spacing:.15em!important;color:#dbc795!important;font-weight:750!important;
+}
+#mainHeader .arch-anniversary-actions {
+ display:flex!important;align-items:center!important;min-width:0!important;
+ gap:10px!important;flex:0 1 auto!important;background:transparent!important;
+}
+#mainHeader .arch-anniversary-nav {
+ display:flex!important;align-items:center!important;gap:3px!important;
+ flex-wrap:nowrap!important;width:max-content!important;min-width:0!important;
+ padding:7px!important;border-radius:999px!important;
+ background:#ffffff08!important;border:1px solid #ffffff25!important;
+ box-shadow:none!important;backdrop-filter:none!important;
+}
+#mainHeader .arch-anniversary-nav > a {
+ display:inline-flex!important;align-items:center!important;justify-content:center!important;
+ position:relative!important;white-space:nowrap!important;
+ padding:11px 11px!important;border-radius:999px!important;
+ font:700 12.5px/1.2 system-ui,-apple-system,'Segoe UI',sans-serif!important;
+ color:#fff!important;text-decoration:none!important;
+ background:transparent!important;border:0!important;box-shadow:none!important;
+ transform:none!important;
+ transition:color .26s ease,background .26s ease,transform .26s ease!important;
+}
+#mainHeader .arch-anniversary-nav > a::before {content:none!important;display:none!important}
+#mainHeader .arch-anniversary-nav > a::after {content:none!important;display:none!important}
+#mainHeader .arch-anniversary-nav > a:hover,#mainHeader .arch-anniversary-nav > a:focus-visible {
+ color:#e7c783!important;background:#ffffff13!important;transform:translateY(-2px)!important;
+}
+#mainHeader .arch-anniversary-nav > a.arch-anniversary-active {
+ background:#e7c783!important;color:#073d2a!important;font-weight:850!important;
+ box-shadow:none!important;
+}
+#mainHeader .arch-anniversary-nav > a.arch-anniversary-active::after {
+ content:''!important;display:block!important;position:absolute!important;
+ width:4px!important;height:4px!important;bottom:4px!important;left:calc(50% - 2px)!important;
+ background:#073d2a!important;border-radius:50%!important;transform:none!important;
+}
+#mainHeader .arch-anniversary-nav > a.arch-anniversary-active:hover {background:#efd395!important;color:#073d2a!important;transform:translateY(-1px)!important}
+#mainHeader .arch-anniversary-nav a span {color:inherit!important}
+#mainHeader .arch-anniversary-nav .arch-anniversary-language {
+ display:inline-flex!important;align-items:center!important;justify-content:center!important;
+ border:1px solid #ffffff75!important;background:transparent!important;color:#fff!important;
+ padding:9px 12px!important;border-radius:999px!important;min-width:44px!important;
+ font:700 12px system-ui,-apple-system,'Segoe UI',sans-serif!important;
+ margin-left:3px!important;cursor:pointer!important;transition:color .25s ease,background .25s ease!important;
+}
+#mainHeader .arch-anniversary-nav .arch-anniversary-language:hover {background:#ffffff18!important;color:#e7c783!important}
+#mainHeader .arch-anniversary-menu-trigger {
+ display:none!important;align-items:center!important;justify-content:center!important;
+ background:transparent!important;color:white!important;
+ border:1px solid #ffffff75!important;border-radius:100px!important;
+ width:44px!important;height:44px!important;cursor:pointer!important;
+}
+#mainHeader .arch-anniversary-menu-trigger #menuIcon {color:white!important;font-size:19px!important;font-style:normal!important}
+#mainHeader .arch-anniversary-menu-trigger #menuIcon::before {content:'☰'!important;font:700 21px/1 system-ui,sans-serif!important}
+#mainHeader .arch-anniversary-menu-trigger[aria-expanded="true"] #menuIcon::before {content:'×'!important;font:400 28px/1 system-ui,sans-serif!important}
+#mainHeader .arch-cinematic-menu {z-index:501!important}
+#mainHeader .arch-cinematic-menu.menu-open {background:#f8f6ef!important}
+@media(max-width:1350px) {
+ #mainHeader .arch-anniversary-inner {width:calc(100% - 44px)!important;gap:10px!important}
+ #mainHeader .arch-anniversary-brand img {width:62px!important;height:62px!important}
+ #mainHeader .arch-anniversary-name {font-size:13px!important}
+ #mainHeader .arch-anniversary-name small {font-size:9px!important}
+ #mainHeader .arch-anniversary-nav > a {padding:10px 8px!important;font-size:11.5px!important}
+}
+@media(max-width:1160px) {
+ #mainHeader .arch-anniversary-nav {display:none!important}
+ #mainHeader .arch-anniversary-menu-trigger {display:inline-flex!important}
+ #mainHeader .arch-cinematic-menu.menu-open {display:block!important}
+}
+@media(max-width:640px) {
+ #mainHeader.arch-anniversary-header,#mainHeader .arch-anniversary-inner {min-height:78px!important}
+ #mainHeader .arch-anniversary-inner {width:calc(100% - 28px)!important}
+ #mainHeader .arch-anniversary-brand img {width:56px!important;height:56px!important}
+ #mainHeader .arch-anniversary-name {font-size:12px!important}
+ #mainHeader .arch-anniversary-name small {font-size:8px!important;letter-spacing:.09em!important}
+}
+@media(prefers-reduced-motion:reduce) {
+ #mainHeader .arch-anniversary-nav > a,#mainHeader .arch-anniversary-brand img {transition:none!important;transform:none!important}
+}
+</style></head><body class="lang-el arch-gold-page"><header class="arch-anniversary-header" id="mainHeader">
+<div class="arch-anniversary-inner">
+<a aria-label="Αρχική · Γ.Α.Σ. Ο Αρχέλαος" class="arch-anniversary-brand" href="index.html">
+<img alt="Έμβλημα Γ.Α.Σ. Ο Αρχέλαος 1956" class="archelaos-crest-adapt" height="72" src="archelaos-logo-gold.png" width="72"/>
+<span class="arch-anniversary-name">Γ.Α.Σ. «Ο ΑΡΧΕΛΑΟΣ»<small>ΚΑΤΕΡΙΝΗ · 1956—2026</small></span>
 </a>
-<!-- Desktop Navigation (Compact spacing for laptops) -->
-<nav aria-label="Κύρια πλοήγηση" class="arch-floating-nav hidden lg:flex items-center space-x-0.5 xl:space-x-1 bg-white/85 px-1.5 xl:px-2.5 py-1.5 rounded-2xl border border-white/90 shadow-sm shrink-0">
-<a class="px-2 xl:px-2.5 py-1.5 rounded-xl text-[11px] xl:text-xs 2xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap" data-i18n="nav_home" href="index.html#home">Αρχική</a>
-<a class="px-2 xl:px-2.5 py-1.5 rounded-xl text-[11px] xl:text-xs 2xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap" data-i18n="nav_history" href="history.html">Ιστορία</a>
-<a class="px-2 xl:px-2.5 py-1.5 rounded-xl text-[11px] xl:text-xs 2xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap" data-i18n="nav_about" href="index.html#about">Ο Σύλλογος</a>
-<a class="px-2 xl:px-2.5 py-1.5 rounded-xl text-[11px] xl:text-xs 2xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap" data-i18n="nav_dept" href="index.html#departments">Τμήματα</a>
-<a aria-current="page" class="px-2 xl:px-2.5 py-1.5 rounded-xl text-[11px] xl:text-xs 2xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap premium-nav-active" data-i18n="nav_board" href="board.html">Διοίκηση</a><a class="px-2 xl:px-2.5 py-1.5 rounded-xl text-[11px] xl:text-xs 2xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap" href="sponsors.html"><span class="arch-sponsor-nav-el">Χορηγίες</span><span class="arch-sponsor-nav-en">Sponsorship</span></a>
-<a class="px-2 xl:px-2.5 py-1.5 rounded-xl text-[11px] xl:text-xs 2xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap" data-i18n="nav_contact" href="index.html#contact">Επικοινωνία</a>
+<div class="arch-anniversary-actions">
+<nav aria-label="Κύρια πλοήγηση" class="arch-anniversary-nav">
+<a class="" data-i18n="nav_home" href="index.html#home">Αρχική</a><a class="" data-i18n="nav_history" href="history.html">Μουσείο</a><a class="" data-i18n="nav_about" href="index.html#about">Ο Σύλλογος</a><a class="" data-i18n="nav_dept" href="index.html#departments">Αθλήματα</a><a aria-current="page" class="arch-anniversary-active" data-i18n="nav_board" href="board.html">Διοίκηση</a><a class="" data-el="Χορηγίες" data-en="Sponsorship" href="sponsors.html">Χορηγίες</a><a class="" data-i18n="nav_contact" href="index.html#contact">Επικοινωνία</a>
+<button aria-label="Change language" class="arch-anniversary-language" id="archAnniversaryLanguage" title="Εναλλαγή γλώσσας / Switch language" type="button">EN</button>
 </nav>
-<!-- Right Controls & Actions -->
-<div class="flex items-center space-x-1.5 sm:space-x-2 shrink-0">
-<!-- Language Switcher -->
-<div class="hidden lg:flex items-center bg-white/85 rounded-xl p-0.5 border border-white/90 shadow-sm text-xs font-black">
-<button class="lang-btn active px-2 py-1 rounded-lg uppercase text-[11px]" id="langBtnEL">GR</button>
-<button class="lang-btn px-2 py-1 rounded-lg uppercase text-[11px] text-archelaos-deepgreen hover:opacity-80" id="langBtnEN">EN</button>
-</div>
-<!-- Theme Toggle Button -->
-<!-- Registration CTA (Fits on Laptop & Desktop) -->
-<button class="hidden lg:inline-flex btn-shimmer relative items-center justify-center px-3 xl:px-4 py-2 xl:py-2.5 text-xs xl:text-sm font-black text-archelaos-yellow bg-archelaos-deepgreen hover:bg-archelaos-darkgreen rounded-xl shadow-md hover:-translate-y-0.5 transition duration-200 whitespace-nowrap" onclick="window.location.href='index.html#contact'">
-<i class="fa-solid fa-bolt mr-1.5 text-archelaos-yellow text-xs"></i> <span data-i18n="btn_register">Εγγραφές</span>
-</button>
-<!-- Mobile Hamburger Button -->
-<button aria-expanded="false" aria-label="Μενού" class="lg:hidden w-11 h-11 shrink-0 flex items-center justify-center rounded-xl bg-white/90 hover:bg-white text-archelaos-deepgreen border border-archelaos-deepgreen/20 shadow-sm transition active:scale-95" id="mobileMenuBtn">
-<i class="fa-solid fa-bars text-xl text-archelaos-deepgreen transition-transform duration-200" id="menuIcon"></i>
-</button>
+<button aria-controls="mobileMenu" aria-expanded="false" aria-label="Άνοιγμα μενού" class="arch-anniversary-menu-trigger" id="mobileMenuBtn" type="button"><i aria-hidden="true" class="fa-solid fa-bars" id="menuIcon"></i></button>
 </div>
 </div>
-</div>
-<!-- Mobile Dropdown Menu -->
 <div aria-hidden="true" aria-label="Μενού κινητού" class="arch-cinematic-menu lg:hidden px-5 space-y-2.5" id="mobileMenu" role="navigation">
 <div class="arch-menu-heading"><div><span class="arch-menu-brand">Γ.Α.Σ. «Ο ΑΡΧΕΛΑΟΣ»</span><span class="arch-menu-est">KATERINI · EST. 1956</span></div><button aria-label="Κλείσιμο μενού" class="arch-menu-close" id="archMenuClose" type="button"><i aria-hidden="true" class="fa-solid fa-xmark"></i></button></div>
 <div class="flex items-center justify-between gap-2 p-2 bg-white/80 rounded-2xl border border-archelaos-deepgreen/15 mb-3 transition-colors duration-200" id="mobileControlsBar">
@@ -2157,9 +2263,6 @@ footer.arch-footer-signature .heritage-footer-logo {filter:drop-shadow(0 3px 8px
 <a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="index.html#departments"><span aria-hidden="true" class="arch-menu-number">04</span><i aria-hidden="true" class="fa-solid fa-medal arch-modern-link-icon"></i><span data-i18n="nav_dept">Αθλήματα</span><i aria-hidden="true" class="fa-solid fa-chevron-right arch-modern-link-arrow"></i></a>
 <a aria-current="page" class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen premium-mobile-active" href="board.html"><span aria-hidden="true" class="arch-menu-number">05</span><i aria-hidden="true" class="fa-solid fa-users arch-modern-link-icon"></i><span data-i18n="nav_board">Διοίκηση</span><i aria-hidden="true" class="fa-solid fa-chevron-right arch-modern-link-arrow"></i></a>
 <a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="index.html#contact"><span aria-hidden="true" class="arch-menu-number">06</span><i aria-hidden="true" class="fa-solid fa-envelope arch-modern-link-icon"></i><span data-i18n="nav_contact">Επικοινωνία</span><i aria-hidden="true" class="fa-solid fa-chevron-right arch-modern-link-arrow"></i></a><a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="sponsors.html"><span aria-hidden="true" class="arch-menu-number">07</span><i aria-hidden="true" class="fa-solid fa-handshake arch-modern-link-icon"></i><span class="arch-sponsor-nav-el">Χορηγίες</span><span class="arch-sponsor-nav-en">Sponsorship</span><i aria-hidden="true" class="fa-solid fa-chevron-right arch-modern-link-arrow"></i></a>
-<button class="arch-mobile-cta mobile-menu-item w-full text-center px-4 py-3.5 bg-archelaos-deepgreen text-archelaos-yellow font-extrabold rounded-xl shadow-lg" onclick="window.location.href='index.html#contact'">
-<i class="fa-solid fa-user-plus mr-2"></i> <span data-i18n="btn_register_interest">Ενδιαφέρομαι να συμμετέχω</span>
-</button>
 <div class="arch-menu-footer">70 ΧΡΟΝΙΑ · 1956—2026</div>
 </div>
 </header><div class="arch-board-hero"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><span class="arch-board-hero-eyebrow" data-board-el="ΟΙ ΑΝΘΡΩΠΟΙ ΤΟΥ ΣΥΛΛΟΓΟΥ" data-board-en="THE PEOPLE BEHIND THE CLUB">ΟΙ ΑΝΘΡΩΠΟΙ ΤΟΥ ΣΥΛΛΟΓΟΥ</span><h1 data-board-el="Μαζί για τον Αρχέλαο." data-board-en="Together for Archelaos.">Μαζί για τον Αρχέλαο.</h1><p data-board-el="Γνωρίστε το Διοικητικό Συμβούλιο και τους υπεύθυνους εφόρους των οκτώ αθλητικών τμημάτων." data-board-en="Meet the Board of Directors and the representatives of our eight sports departments.">Γνωρίστε το Διοικητικό Συμβούλιο και τους υπεύθυνους εφόρους των οκτώ αθλητικών τμημάτων.</p><a class="arch-board-hero-back" href="index.html#departments"><i aria-hidden="true" class="fa-solid fa-arrow-left"></i><span data-board-el="Αθλητικά τμήματα" data-board-en="Sports departments">Αθλητικά τμήματα</span></a></div></div><section class="arch-board-dedicated py-20 relative z-10 sm:py-24 glass-section arch-gold-board" id="board">
@@ -2393,5 +2496,24 @@ footer.arch-footer-signature .heritage-footer-logo {filter:drop-shadow(0 3px 8px
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',syncActiveNav);
  else syncActiveNav();
  window.addEventListener('pageshow',syncActiveNav);
+})();
+</script><script id="arch-anniversary-lang-sync">
+(function(){
+  const header=document.getElementById('mainHeader'),btn=document.getElementById('archAnniversaryLanguage');
+  if(!header||!btn)return;
+  function currentLang(){return document.body.classList.contains('lang-en')||document.documentElement.lang==='en'?'en':'el'}
+  function refresh(){
+    const en=currentLang();btn.textContent=en?'GR':'EN';
+    header.querySelectorAll('[data-el][data-en]').forEach(e=>{e.textContent=e.getAttribute(en?'data-en':'data-el')});
+  }
+  btn.addEventListener('click',()=>{
+    const target=currentLang()==='en'?'el':'en';
+    if(typeof window.setLanguage==='function') window.setLanguage(target);
+    else {document.documentElement.lang=target;document.body.classList.toggle('lang-en',target==='en')}
+    refresh();
+  });
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',refresh);else refresh();
+  new MutationObserver(refresh).observe(document.body,{attributes:true,attributeFilter:['class']});
+  new MutationObserver(refresh).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
 })();
 </script></body></html>
