@@ -1850,6 +1850,30 @@ html body #mainHeader.glass-nav.scrolled {
 @media(prefers-reduced-motion:reduce){
  .arch-whisper[data-arch-reveal] {opacity:1;transform:none;transition:none;}
 }
+</style><style id="archelaos-hero-final-typography">
+/* Desktop hero: readable two-line heading and one-line CTA labels. */
+@media (min-width:1024px) {
+  #home {padding-top:clamp(65px,6vw,100px)!important;}
+  #home h1 {font-size:clamp(2.65rem,3.8vw,4rem)!important;line-height:1.15!important;letter-spacing:-.045em!important;text-wrap:initial!important;}
+  #home .arch-hero-second-line {display:inline-block;white-space:nowrap;}
+  #home .arch-hero-second-line [data-i18n="hero_h1_3"] {padding:.02em .16em!important;border-radius:.27em!important;white-space:nowrap;}
+  #home .hero-text-column {min-width:0!important;}
+  #home .hero-text-column .btn-shimmer,#home .hero-text-column a[data-i18n="btn_explore_depts"] {width:auto!important;white-space:nowrap!important;min-width:0!important;padding:15px 23px!important;font-size:clamp(14px,1.05vw,17px)!important;}
+  #home .hero-text-column > div:has(> .btn-shimmer) {flex-wrap:wrap!important;gap:12px!important;}
+}
+@media (min-width:1024px) and (max-width:1250px){
+ #home h1 {font-size:clamp(2.35rem,3.6vw,3.2rem)!important;}
+}
+@media (max-width:1023px){
+ #home h1 {font-size:clamp(2.2rem,6.7vw,4.25rem)!important;line-height:1.15!important;}
+ #home .arch-hero-second-line {display:inline!important;white-space:normal;}
+ #home .arch-hero-second-line [data-i18n="hero_h1_3"] {display:inline-block!important;max-width:100%;padding:.02em .15em!important;}
+ #home .hero-text-column .btn-shimmer,#home .hero-text-column a[data-i18n="btn_explore_depts"] {font-size:15px!important;}
+}
+@media(max-width:420px){
+ #home h1 {font-size:clamp(2rem,9vw,2.5rem)!important;}
+ #home .hero-text-column .btn-shimmer,#home .hero-text-column a[data-i18n="btn_explore_depts"] {padding:13px 16px!important;}
+}
 </style></head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow">
 <div aria-hidden="true" aria-label="Καλώς ήρθατε στον Αρχέλαο" aria-modal="true" id="archWelcome" role="dialog">
@@ -1935,7 +1959,7 @@ html body #mainHeader.glass-nav.scrolled {
 <a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="board.html"><span aria-hidden="true" class="arch-menu-number">05</span><i aria-hidden="true" class="fa-solid fa-users arch-modern-link-icon"></i><span data-i18n="nav_board">Διοίκηση</span><i aria-hidden="true" class="fa-solid fa-chevron-right arch-modern-link-arrow"></i></a>
 <a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="#contact"><span aria-hidden="true" class="arch-menu-number">06</span><i aria-hidden="true" class="fa-solid fa-envelope arch-modern-link-icon"></i><span data-i18n="nav_contact">Επικοινωνία</span><i aria-hidden="true" class="fa-solid fa-chevron-right arch-modern-link-arrow"></i></a>
 <button class="arch-mobile-cta mobile-menu-item w-full text-center px-4 py-3.5 bg-archelaos-deepgreen text-archelaos-yellow font-extrabold rounded-xl shadow-lg" onclick="openRegistrationModal('Γενική Εγγραφή'); closeMobileMenu();">
-<i class="fa-solid fa-user-plus mr-2"></i> <span data-i18n="btn_register_interest">Ενδιαφέρομαι να συμμετέχω</span>
+<i class="fa-solid fa-user-plus mr-2"></i> <span data-i18n="btn_register_interest">Γίνε μέλος</span>
 </button>
 <div class="arch-menu-footer">70 ΧΡΟΝΙΑ · 1956—2026</div>
 </div>
@@ -1949,7 +1973,7 @@ html body #mainHeader.glass-nav.scrolled {
 <span class="w-2.5 h-2.5 rounded-full bg-archelaos-yellow animate-ping"></span> <span data-i18n="hero_badge">Γ.Α.Σ. «Ο ΑΡΧΕΛΑΟΣ» ΚΑΤΕΡΙΝΗΣ • EST. 1956</span>
 </div>
 <h1 class="reveal-text delay-100 text-4xl sm:text-6xl lg:text-7xl font-black font-heading text-archelaos-deepgreen leading-[1.06] tracking-tight">
-<span data-i18n="hero_h1_1">Αθλητισμός,</span> <br/> <span data-i18n="hero_h1_2">Ήθος &amp;</span> <span class="text-archelaos-yellow bg-archelaos-darkgreen px-5 py-1 rounded-3xl inline-block mt-1.5 shadow-md" data-i18n="hero_h1_3">Παράδοση</span>
+<span data-i18n="hero_h1_1">Αθλητισμός,</span> <br/> <span class="arch-hero-second-line"><span data-i18n="hero_h1_2">Ήθος &amp;</span> <span class="text-archelaos-yellow bg-archelaos-darkgreen px-5 py-1 rounded-3xl inline-block mt-1.5 shadow-md" data-i18n="hero_h1_3">Παράδοση</span></span> 
 </h1>
 <p class="reveal-text delay-200 text-base sm:text-xl text-archelaos-deepgreen/90 max-w-2xl mx-auto lg:mx-0 font-semibold leading-relaxed" data-i18n="hero_desc">
               Ο ιστορικός πολυαθλητικός σύλλογος της Πιερίας. Πάνω από 70 χρόνια προσφοράς στον κλασικό αθλητισμό, τα ομαδικά και ατομικά αθλήματα.
@@ -1957,11 +1981,9 @@ html body #mainHeader.glass-nav.scrolled {
 <!-- 70-year commemorative editorial mark — no changes to original crest -->
 <div class="reveal-text delay-300 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-3">
 <button class="btn-shimmer w-full sm:w-auto px-8 py-4 bg-archelaos-deepgreen hover:bg-archelaos-darkgreen text-archelaos-yellow font-black rounded-2xl shadow-lg hover:-translate-y-0.5 transition duration-200" onclick="openRegistrationModal('Γενική Εγγραφή')">
-<span data-i18n="btn_register_interest">Ενδιαφέρομαι να συμμετέχω</span> <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
+<span data-i18n="btn_register_interest">Γίνε μέλος</span> <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
 </button>
-<a class="w-full sm:w-auto px-8 py-4 bg-white/90 hover:bg-white text-archelaos-deepgreen border border-archelaos-darkgreen/25 font-extrabold rounded-2xl shadow-sm hover:-translate-y-0.5 transition duration-200 text-center" data-i18n="btn_explore_depts" href="#departments">
-                Γνωρίστε τα αγωνιστικά τμήματά μας
-              </a>
+<a class="w-full sm:w-auto px-8 py-4 bg-white/90 hover:bg-white text-archelaos-deepgreen border border-archelaos-darkgreen/25 font-extrabold rounded-2xl shadow-sm hover:-translate-y-0.5 transition duration-200 text-center" data-i18n="btn_explore_depts" href="#departments">Τα αθλήματά μας</a>
 </div>
 </div>
 <div class="lg:col-span-5 flex items-center justify-center hero-logo-column">
@@ -2423,7 +2445,7 @@ html body #mainHeader.glass-nav.scrolled {
 </div>
 <div class="pt-1 flex flex-col sm:flex-row gap-2.5">
 <button class="modal-submit-btn btn-shimmer w-full py-3.5 bg-archelaos-deepgreen text-archelaos-yellow font-black rounded-xl shadow-md transition flex items-center justify-center gap-2 text-sm" id="deptModalRegisterBtn" type="button">
-<i class="fa-solid fa-bolt"></i> <span data-i18n="btn_register_interest">Ενδιαφέρομαι να συμμετέχω</span>
+<i class="fa-solid fa-bolt"></i> <span data-i18n="btn_register_interest">Γίνε μέλος</span>
 </button>
 <button class="w-full sm:w-auto px-5 py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-extrabold rounded-xl transition text-sm" data-i18n="btn_close" onclick="closeDeptHistoryModal()" type="button">Κλείσιμο</button>
 </div>
@@ -2560,13 +2582,13 @@ html body #mainHeader.glass-nav.scrolled {
           nav_board: "Διοίκηση",
           nav_contact: "Επικοινωνία",
           btn_register: "Εγγραφές / Εκδήλωση",
-          btn_register_interest: "Ενδιαφέρομαι να συμμετέχω",
+          btn_register_interest: "Γίνε μέλος",
           hero_badge: "Γ.Α.Σ. «Ο ΑΡΧΕΛΑΟΣ» ΚΑΤΕΡΙΝΗΣ • EST. 1956",
           hero_h1_1: "Αθλητισμός,",
           hero_h1_2: "Ήθος &",
           hero_h1_3: "Παράδοση",
           hero_desc: "Ο ιστορικός πολυαθλητικός σύλλογος της Πιερίας. Πάνω από 70 χρόνια προσφοράς στον κλασικό αθλητισμό, τα ομαδικά και ατομικά αθλήματα.",
-          btn_explore_depts: "Γνωρίστε τα αγωνιστικά τμήματά μας",
+          btn_explore_depts: "Τα αθλήματά μας",
           slide_heading_1: "70 Χρόνια",
           slide_heading_2: "Αγωνιστικής Δράσης",
           about_slideshow_label: "ΤΑ ΑΘΛΗΜΑΤΑ ΜΑΣ",
@@ -2719,7 +2741,7 @@ html body #mainHeader.glass-nav.scrolled {
           hero_h1_2: "Values &",
           hero_h1_3: "Tradition",
           hero_desc: "The historic multi-sport club of Pieria, Greece. Over 70 years of sports excellence, Olympic disciplines, and youth academies.",
-          btn_explore_depts: "Explore Our Sports Departments",
+          btn_explore_depts: "Our sports",
           slide_heading_1: "70 Years",
           slide_heading_2: "of Sporting Excellence",
           about_slideshow_label: "OUR SPORTS",
