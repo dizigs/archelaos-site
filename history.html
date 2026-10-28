@@ -1531,6 +1531,35 @@ html body #mainHeader.glass-nav.scrolled {
 #historyPresidentPrev:hover,#historyPresidentNext:hover,#deptModalWikiBtn:hover {background:#f5e638!important;color:#073d2a!important;}
 #historyArchiveModal button:focus-visible,#historyPresidentModal button:focus-visible,#timelineDetailModal button:focus-visible,#deptHistoryModal button:focus-visible,#registrationModal button:focus-visible,#timeline button:focus-visible,#timeline .timeline-h-item:focus-visible {outline:3px solid #c8a832!important;outline-offset:3px!important;}
 @media(prefers-reduced-motion:reduce){#timeline .heritage-timeline-preview-action{transition:none!important;}}
+</style><style id="heritage-museum-compact-navigation">
+/* Compact non-sticky museum navigation. No horizontal overflow or overlap. */
+.history-quicknav {display:none!important;}
+.heritage-museum-jump {position:relative;z-index:20;background:#f8f6ef;padding:19px 16px 16px;border-bottom:1px solid #e1e8dc;}
+.heritage-museum-jump-inner {max-width:1120px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:18px;min-width:0;}
+.heritage-museum-jump-label {display:flex;align-items:center;gap:10px;color:#073d2a;font-size:14px;font-weight:900;white-space:nowrap;}
+.heritage-museum-jump-label i {color:#b0942d;font-size:17px;}
+.heritage-museum-jump-details {position:relative;min-width:0;}
+.heritage-museum-jump-details > summary {display:flex;align-items:center;justify-content:center;gap:11px;min-height:47px;padding:12px 17px;cursor:pointer;background:#073d2a;color:#fffdf7;border-radius:12px;font-size:13px;font-weight:850;list-style:none;user-select:none;box-shadow:0 6px 17px rgba(7,61,42,.12);}
+.heritage-museum-jump-details > summary::-webkit-details-marker {display:none;}
+.heritage-museum-jump-details > summary .fa-compass,.heritage-museum-jump-details > summary .heritage-jump-chevron {color:#f5e638;}
+.heritage-jump-chevron {font-size:11px;transition:transform .2s ease;}
+.heritage-museum-jump-details[open] .heritage-jump-chevron {transform:rotate(180deg);}
+.heritage-museum-jump-links {position:absolute;right:0;top:calc(100% + 9px);width:min(340px,calc(100vw - 32px));background:#fffdf7;border:1px solid #dce7d8;border-top:3px solid #d8b63b;border-radius:14px;padding:8px;box-shadow:0 16px 38px rgba(7,61,42,.15);display:grid;gap:3px;z-index:35;}
+.heritage-museum-jump-links a {display:flex;align-items:center;gap:12px;padding:12px 13px;border-radius:9px;color:#073d2a;font-size:13px;font-weight:750;min-height:44px;text-decoration:none;}
+.heritage-museum-jump-links a i {color:#a68b2a;width:19px;text-align:center;}
+.heritage-museum-jump-links a:hover,.heritage-museum-jump-links a:focus-visible {background:#eaf1e8;color:#073d2a;}
+.heritage-museum-jump-details > summary:focus-visible,.heritage-museum-jump-links a:focus-visible {outline:3px solid #c8a62f;outline-offset:3px;}
+#history-archive,#timeline,#museum-gallery,#chapters,#sports-archive {scroll-margin-top:100px;}
+@media(max-width:650px) {
+ .heritage-museum-jump {padding:12px 15px;}
+ .heritage-museum-jump-inner {display:block;}
+ .heritage-museum-jump-label {display:none;}
+ .heritage-museum-jump-details {width:100%;}
+ .heritage-museum-jump-details > summary {justify-content:space-between;width:100%;padding:12px 15px;min-height:49px;}
+ .heritage-museum-jump-details > summary span:first-of-type {margin-right:auto;}
+ .heritage-museum-jump-links {left:0;right:0;width:100%;}
+}
+@media(prefers-reduced-motion:reduce){.heritage-jump-chevron{transition:none;}}
 </style></head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow">
 <!-- ANIMATED CONTOUR WAVES -->
@@ -1659,13 +1688,22 @@ html body #mainHeader.glass-nav.scrolled {
 <p><span data-lang="el">Οι πρώτοι Πανελλήνιοι Αγώνες Στίβου «Δίια» στην Κατερίνη.</span><span data-lang="en">The first Panhellenic “Diia” track and field games in Katerini.</span></p><span class="museum-exhibit-cta"><span data-lang="el">Διαβάστε το κεφάλαιο</span><span data-lang="en">Read chapter</span><i class="fa-solid fa-arrow-up-right-from-square"></i></span></div>
 </button>
 </div>
-</div></section><nav aria-label="Γρήγορη πλοήγηση ιστορίας / History quick navigation" class="history-quicknav relative z-30">
-<div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 flex items-center gap-1 overflow-x-auto py-2" style="scrollbar-width:thin">
-<a href="index.html"><i class="fa-solid fa-house"></i><span data-lang="el">Αρχική</span><span data-lang="en">Home</span></a>
-<a href="#timeline"><i class="fa-solid fa-timeline"></i><span data-lang="el">Χρονολόγιο</span><span data-lang="en">Timeline</span></a><a href="#museum-gallery"><i class="fa-solid fa-images"></i><span data-lang="el">Συλλογή</span><span data-lang="en">Collection</span></a>
-<a href="#chapters"><i class="fa-solid fa-book-open"></i><span data-lang="el">Κεφάλαια</span><span data-lang="en">Chapters</span></a>
-<a href="#sports-archive"><i class="fa-solid fa-medal"></i><span data-lang="el">Αθλήματα</span><span data-lang="en">Sports</span></a>
-</div></nav><section class="relative z-10 py-8 sm:py-12 glass-section scroll-mt-24" id="history-archive">
+</div></section><div class="heritage-museum-jump" id="museum-jump">
+<div class="heritage-museum-jump-inner">
+<div class="heritage-museum-jump-label"><i aria-hidden="true" class="fa-solid fa-landmark"></i><span data-lang="el">Ψηφιακό Μουσείο</span><span data-lang="en">Digital Museum</span></div>
+<details class="heritage-museum-jump-details" id="heritageMuseumJump">
+<summary><i aria-hidden="true" class="fa-solid fa-compass"></i><span data-lang="el">Εξερεύνηση Μουσείου</span><span data-lang="en">Explore the Museum</span><i aria-hidden="true" class="fa-solid fa-chevron-down heritage-jump-chevron"></i></summary>
+<nav aria-label="Museum sections" class="heritage-museum-jump-links">
+<a href="#history-archive"><i aria-hidden="true" class="fa-solid fa-scroll"></i><span data-lang="el">Ιστορικό Αρχείο</span><span data-lang="en">Historical Archive</span></a>
+<a href="#timeline"><i aria-hidden="true" class="fa-solid fa-timeline"></i><span data-lang="el">Χρονολόγιο</span><span data-lang="en">Timeline</span></a>
+<a href="#museum-gallery"><i aria-hidden="true" class="fa-solid fa-images"></i><span data-lang="el">Συλλογή</span><span data-lang="en">Collection</span></a>
+<a href="#chapters"><i aria-hidden="true" class="fa-solid fa-book-open"></i><span data-lang="el">Ιστορικά Κεφάλαια</span><span data-lang="en">Historical Chapters</span></a>
+<a href="#sports-archive"><i aria-hidden="true" class="fa-solid fa-medal"></i><span data-lang="el">Αθλητικά Τμήματα</span><span data-lang="en">Sports Departments</span></a>
+<a href="index.html"><i aria-hidden="true" class="fa-solid fa-house"></i><span data-lang="el">Αρχική</span><span data-lang="en">Home</span></a>
+</nav>
+</details>
+</div>
+</div><section class="relative z-10 py-8 sm:py-12 glass-section scroll-mt-24" id="history-archive">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 <div class="max-w-3xl mx-auto text-center mb-10 sm:mb-14 heritage-section-heading heritage-centered">
 <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-archelaos-deepgreen text-archelaos-yellow text-[11px] sm:text-xs font-black uppercase tracking-[.16em] shadow-sm mb-5">
@@ -1716,11 +1754,11 @@ html body #mainHeader.glass-nav.scrolled {
 <div aria-label="Φίλτρο δεκαετίας / Decade filter" class="museum-decade-filters" id="museumDecadeFilters" role="group">
 <button aria-pressed="true" class="museum-decade-btn is-active" data-decade="all" type="button"><span data-lang="el">Όλες</span><span data-lang="en">All</span></button>
 </div>
-</div><div class="heritage-timeline-intro" aria-label="Heritage Timeline"><div class="heritage-timeline-intro-line"><span data-lang="el">HERITAGE TIMELINE · 1956—2026</span><span data-lang="en">HERITAGE TIMELINE · 1956—2026</span></div><p><span data-lang="el">Επιλέξτε έναν πραγματικό ιστορικό σταθμό για να δείτε την παρουσίασή του. Πατήστε «Διαβάστε περισσότερα» για το πλήρες περιεχόμενο.</span><span data-lang="en">Select a documented milestone to preview it. Choose “Read more” to open its full story.</span></p></div>
-<div class="heritage-timeline-preview" id="heritageTimelinePreview" aria-live="polite" aria-atomic="true">
+</div><div aria-label="Heritage Timeline" class="heritage-timeline-intro"><div class="heritage-timeline-intro-line"><span data-lang="el">HERITAGE TIMELINE · 1956—2026</span><span data-lang="en">HERITAGE TIMELINE · 1956—2026</span></div><p><span data-lang="el">Επιλέξτε έναν πραγματικό ιστορικό σταθμό για να δείτε την παρουσίασή του. Πατήστε «Διαβάστε περισσότερα» για το πλήρες περιεχόμενο.</span><span data-lang="en">Select a documented milestone to preview it. Choose “Read more” to open its full story.</span></p></div>
+<div aria-atomic="true" aria-live="polite" class="heritage-timeline-preview" id="heritageTimelinePreview">
 <div class="heritage-timeline-preview-date" id="heritageTimelinePreviewDate">1956</div>
 <div class="heritage-timeline-preview-copy"><span class="heritage-timeline-preview-eyebrow" id="heritageTimelinePreviewCategory"></span><h3 id="heritageTimelinePreviewTitle"></h3><p id="heritageTimelinePreviewSummary"></p></div>
-<button type="button" class="heritage-timeline-preview-action" id="heritageTimelinePreviewAction"><span data-lang="el">Διαβάστε περισσότερα</span><span data-lang="en">Read more</span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></button>
+<button class="heritage-timeline-preview-action" id="heritageTimelinePreviewAction" type="button"><span data-lang="el">Διαβάστε περισσότερα</span><span data-lang="en">Read more</span><i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square"></i></button>
 </div>
 <div class="reveal-text relative py-4">
 <div class="timeline-horizontal-scroll flex items-start gap-3 sm:gap-4 overflow-x-auto pb-4 pt-2 select-none cursor-grab active:cursor-grabbing snap-x" id="timelineScrollContainer">
@@ -5551,5 +5589,13 @@ html body #mainHeader.glass-nav.scrolled {
  }
 })();
 </script>
-</body>
+<script id="heritage-museum-jump-behavior">
+(function(){
+ const details=document.getElementById('heritageMuseumJump');
+ if(!details)return;
+ details.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>{details.open=false;}));
+ document.addEventListener('pointerdown',e=>{if(details.open&&!details.contains(e.target))details.open=false;});
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&details.open){details.open=false;details.querySelector('summary')?.focus();}});
+})();
+</script></body>
 </html>
