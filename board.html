@@ -1961,6 +1961,75 @@ footer.arch-footer-signature .heritage-footer-logo {filter:drop-shadow(0 3px 8px
  footer.arch-footer-signature .arch-footer-gold-rule {margin-bottom:20px;}
 }
 @media(prefers-reduced-motion:reduce) {#club-philosophy *,footer.arch-footer-signature *{animation:none!important;}}
+</style><style id="archelaos-heritage-premium-popups">
+/* ARCHELAOS / unified Heritage Premium overlays — shared across pages.
+   Scoped to existing dialogs; preserves their forms, actions, IDs and scripts. */
+:root {--arch-pop-green:#073d2a;--arch-pop-forest:#0c4b35;--arch-pop-ivory:#f8f6ef;--arch-pop-gold:#c7ab6c;--arch-pop-ink:#153f2e;}
+.modal-backdrop {background:rgba(3,27,18,.77)!important;backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);}
+.modal-backdrop > .modal-box {
+ background:var(--arch-pop-ivory)!important;color:var(--arch-pop-ink)!important;
+ border:1px solid rgba(199,171,108,.56)!important;
+ box-shadow:0 25px 85px rgba(0,0,0,.32),0 0 0 1px rgba(255,255,255,.12)!important;
+ border-radius:23px!important;
+}
+.modal-backdrop .modal-header {
+ background:linear-gradient(120deg,#073d2a,#0c4b35)!important;
+ border-bottom:2px solid var(--arch-pop-gold)!important;
+ color:var(--arch-pop-ivory)!important;
+}
+.modal-backdrop .modal-header-title,.modal-backdrop .modal-header-icon {color:#f6efd9!important;}
+.modal-backdrop .modal-header .bg-archelaos-deepgreen {
+ background:rgba(204,174,105,.13)!important;color:#dfc88e!important;
+ border:1px solid rgba(220,194,125,.38)!important;
+}
+.modal-backdrop .modal-header .bg-archelaos-deepgreen i,
+.modal-backdrop .modal-header .bg-archelaos-deepgreen span {color:#e6d19d!important;}
+.modal-backdrop .modal-close-btn {
+ background:rgba(255,255,255,.12)!important;color:#f8f6ef!important;
+ border:1px solid rgba(230,211,160,.46)!important;
+}
+.modal-backdrop .modal-close-btn:hover,.modal-backdrop .modal-close-btn:focus-visible {
+ background:var(--arch-pop-gold)!important;color:#073d2a!important;
+}
+.modal-backdrop .modal-label {color:#174a35!important;letter-spacing:.035em;}
+.modal-backdrop input:not([type=checkbox]):not([type=radio]),
+.modal-backdrop select,.modal-backdrop textarea {
+ background:#fffefa!important;color:#173e2e!important;
+ border:1px solid #d9d8c9!important;
+}
+.modal-backdrop input:focus,.modal-backdrop select:focus,.modal-backdrop textarea:focus {
+ outline:2px solid rgba(184,151,75,.55)!important;outline-offset:1px;
+ border-color:#ad8c4c!important;box-shadow:0 0 0 3px rgba(199,171,108,.12)!important;
+}
+.modal-backdrop .modal-submit-btn,
+#timelineDetailModal button.bg-archelaos-deepgreen,
+#historyPresidentCloseFooter {
+ background:#073d2a!important;color:#ead6a2!important;
+ border:1px solid #bda16a!important;
+ box-shadow:0 7px 18px rgba(7,61,42,.14)!important;
+}
+.modal-backdrop .modal-submit-btn:hover,
+#timelineDetailModal button.bg-archelaos-deepgreen:hover,
+#historyPresidentCloseFooter:hover {background:#10543a!important;color:#fff5d6!important;}
+.modal-backdrop .modal-box button.bg-slate-100 {background:#e9e9dc!important;color:#174a35!important;}
+.modal-backdrop .modal-box button.bg-slate-100:hover {background:#d9d7c4!important;}
+#historyPresidentModal .history-president-card {background:#f8f6ef!important;}
+#historyPresidentModal .history-president-card h3 {color:#073d2a!important;}
+#historyPresidentClose,#historyPresidentPrev,#historyPresidentNext {border:1px solid #d8cfb8!important;}
+#historyArchiveModal > .modal-box {background:#f8f6ef!important;}
+#historyArchiveModal > .modal-box > div:first-child {background:#073d2a!important;color:#f8f6ef!important;border-bottom:2px solid #c7ab6c!important;}
+#historyArchiveModal > .modal-box > div:first-child button:first-of-type {
+ color:#f8f6ef!important;background:rgba(255,255,255,.12)!important;
+ border:1px solid rgba(199,171,108,.4)!important;
+}
+#historyArchiveModal > .modal-box > div:first-child button:first-of-type:hover {background:#c7ab6c!important;color:#073d2a!important;}
+#historyArchiveModal > .modal-box > div:first-child button.bg-archelaos-deepgreen {background:#c7ab6c!important;color:#073d2a!important;}
+/* Intro overlay: remove neon yellow and echo the same muted satin gold. */
+#archWelcome .arch-welcome-top {color:#d8c18a!important;}
+#archWelcome:before {background:conic-gradient(from 0deg,transparent 0deg,rgba(204,174,105,.085) 40deg,transparent 90deg,transparent 210deg,rgba(204,174,105,.07) 270deg,transparent 320deg)!important;}
+#archWelcome .arch-welcome-crest-wrap:before,#archWelcome .arch-welcome-crest-wrap:after {border-color:rgba(204,174,105,.45)!important;}
+@media(max-width:600px){.modal-backdrop > .modal-box {border-radius:18px!important;max-width:100%;}}
+@media(prefers-reduced-motion:reduce){.modal-backdrop * {transition:none!important;}}
 </style></head><body class="lang-el arch-gold-page"><header class="sticky top-0 z-40 glass-nav" id="mainHeader">
 <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
 <div class="flex items-center justify-between h-20 gap-1.5 sm:gap-3">
