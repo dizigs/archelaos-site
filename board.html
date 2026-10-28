@@ -2030,13 +2030,60 @@ footer.arch-footer-signature .heritage-footer-logo {filter:drop-shadow(0 3px 8px
 #archWelcome .arch-welcome-crest-wrap:before,#archWelcome .arch-welcome-crest-wrap:after {border-color:rgba(204,174,105,.45)!important;}
 @media(max-width:600px){.modal-backdrop > .modal-box {border-radius:18px!important;max-width:100%;}}
 @media(prefers-reduced-motion:reduce){.modal-backdrop * {transition:none!important;}}
-</style><style id="arch-sponsor-nav-visibility">html[lang="el"] .arch-sponsor-nav-en,html[lang="en"] .arch-sponsor-nav-el{display:none!important}</style></head><body class="lang-el arch-gold-page"><header class="sticky top-0 z-40 glass-nav" id="mainHeader">
+</style><style id="arch-sponsor-nav-visibility">html[lang="el"] .arch-sponsor-nav-en,html[lang="en"] .arch-sponsor-nav-el{display:none!important}</style><style id="arch-page-active-nav-final">
+/* Definitive active menu item for desktop and mobile. */
+#mainHeader nav a.premium-nav-active[aria-current="page"]{background:#073d2a!important;color:#f8f6ef!important;box-shadow:inset 0 -2px 0 #c5a854!important}
+#mainHeader #mobileMenu a.mobile-nav-link.premium-mobile-active[aria-current="page"]{background:#073d2a!important;color:#f8f6ef!important;box-shadow:inset 3px 0 0 #c5a854!important}
+#mainHeader #mobileMenu a.mobile-nav-link.premium-mobile-active[aria-current="page"] .arch-modern-link-icon{color:#c5a854!important}
+</style><style id="arch-anniversary-nav-polish">
+/* 70th anniversary entrance — intentionally above the footer */
+#anniversary-collections{scroll-margin-top:120px}
+.arch-anniversary-entrance{position:relative;isolation:isolate;padding:90px 24px 85px;background:#f7f5ee;overflow:hidden;border-top:1px solid #e5e2d7}
+.arch-anniversary-entrance::before{content:"";position:absolute;width:660px;height:660px;border:1px solid #d7bd8447;border-radius:50%;right:-370px;bottom:-430px;pointer-events:none}
+.arch-anniversary-inner{max-width:1190px;margin:auto;position:relative;z-index:1}
+.arch-anniversary-heading{display:flex;justify-content:space-between;gap:32px;align-items:end;margin-bottom:31px}
+.arch-anniversary-eyebrow{color:#94743a;font-size:11px;letter-spacing:.2em;font-weight:900}
+.arch-anniversary-heading h2{font-family:Georgia,serif;font-size:clamp(29px,3.5vw,44px);line-height:1.17;font-weight:400;color:#073d2a;margin:13px 0 0}
+.arch-anniversary-heading p{max-width:270px;color:#657565;line-height:1.6;font-size:14px;margin:0 0 3px}
+.arch-anniversary-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.arch-anniversary-card{display:flex!important;flex-direction:column;justify-content:space-between;min-height:330px;padding:31px 33px 34px;border-radius:23px;text-decoration:none!important;position:relative;overflow:hidden;isolation:isolate;box-shadow:0 16px 50px #0835210c;transition:transform .4s cubic-bezier(.2,.7,.2,1),box-shadow .4s,border-color .3s!important}
+.arch-anniversary-card:hover{transform:translateY(-9px);box-shadow:0 29px 60px #08352124}
+.arch-anniversary-moments{background:radial-gradient(circle at 90% 7%,#18523c 0%,#073d2a 65%);color:#f6efdf!important;border:1px solid #18513b}
+.arch-anniversary-people{background:linear-gradient(145deg,#fffefa,#f5f0e2);color:#073d2a!important;border:1px solid #d8d0b8}
+.arch-anniversary-card::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 38%,#f5dfa413 46%,transparent 54%);transform:translateX(-160%);transition:transform .8s ease;pointer-events:none;z-index:3}
+.arch-anniversary-card:hover::after{transform:translateX(160%)}
+.arch-anniversary-card-top,.arch-anniversary-card-bottom{position:relative;z-index:2;display:flex;flex-direction:column}
+.arch-anniversary-card-top{flex-direction:row;justify-content:space-between;align-items:center;font-weight:800;font-size:11px;letter-spacing:.18em;color:#dec78d}
+.arch-anniversary-people .arch-anniversary-card-top{color:#957741}
+.arch-anniversary-arrow{display:grid;place-items:center;width:37px;height:37px;border-radius:50%;border:1px solid currentColor;font-size:17px;transition:transform .3s,background .3s}
+.arch-anniversary-card:hover .arch-anniversary-arrow{transform:rotate(45deg);background:#ffffff17}
+.arch-anniversary-number{font-size:12px;letter-spacing:.16em;color:#dcc68d;margin-bottom:12px;font-weight:700}
+.arch-anniversary-people .arch-anniversary-number{color:#a58a55}
+.arch-anniversary-card strong{font:400 clamp(35px,4vw,54px)/1.1 Georgia,serif;letter-spacing:-.025em}
+.arch-anniversary-description{font-size:14px;line-height:1.5;margin-top:21px;opacity:.84}
+.arch-anniversary-ornament{position:absolute;top:64px;right:40px;font:400 200px/.8 Georgia,serif;color:#ffffff0c;pointer-events:none}
+.arch-anniversary-ornament-person{color:#b9a46b14;top:75px;font-size:230px}
+.arch-anniversary-bottom-note{display:flex;align-items:center;justify-content:center;gap:18px;font:italic 18px Georgia,serif;color:#947b49;margin-top:34px}
+.arch-anniversary-bottom-note>span:first-child,.arch-anniversary-bottom-note>span:last-child{font-style:normal;font-size:12px}
+/* polished desktop navigation */
+#mainHeader .arch-floating-nav{border:1px solid #d9d8c8!important;background:rgba(255,255,251,.93)!important;box-shadow:0 9px 30px #073d2a13,0 1px 3px #073d2a08!important;padding:6px 8px!important;backdrop-filter:blur(14px);border-radius:999px!important}
+#mainHeader .arch-floating-nav>a{position:relative;isolation:isolate;border-radius:999px!important;transition:transform .28s ease,color .28s ease,background .28s ease,box-shadow .28s ease!important}
+#mainHeader .arch-floating-nav>a:hover{transform:translateY(-2px);background:#073d2a!important;color:#e7ca78!important;box-shadow:0 6px 18px #073d2a2e!important}
+#mainHeader .arch-floating-nav>a.premium-nav-active{box-shadow:inset 0 -3px 0 #c5a55b,0 7px 16px #043c271f!important;color:#e6c47c!important}
+#mainHeader .arch-floating-nav>a.premium-nav-active::after{content:"";width:5px;height:5px;border-radius:50%;background:#d9b45f;position:absolute;left:calc(50% - 2.5px);bottom:2px}
+#mainHeader .archelaos-crest-adapt{transition:transform .45s ease,filter .45s ease!important}
+#mainHeader a:hover .archelaos-crest-adapt{transform:rotate(-8deg) scale(1.07);filter:drop-shadow(0 0 8px #bd9e4b70)}
+#mobileMenu .mobile-nav-link{transition:transform .3s ease,background .3s ease,box-shadow .3s ease!important}
+#mobileMenu .mobile-nav-link:hover{transform:translateX(5px);box-shadow:inset 3px 0 #caa65d}
+@media(max-width:760px){.arch-anniversary-entrance{padding:58px 18px 62px}.arch-anniversary-heading{display:block;margin-bottom:24px}.arch-anniversary-heading p{margin:15px 0 0;max-width:100%}.arch-anniversary-grid{grid-template-columns:1fr;gap:15px}.arch-anniversary-card{min-height:275px;padding:25px}.arch-anniversary-card strong{font-size:38px}.arch-anniversary-bottom-note{font-size:15px}}
+@media(prefers-reduced-motion:reduce){.arch-anniversary-card,#mainHeader .arch-floating-nav>a,#mobileMenu .mobile-nav-link{transition:none!important}.arch-anniversary-card:hover{transform:none}}
+</style></head><body class="lang-el arch-gold-page"><header class="sticky top-0 z-40 glass-nav" id="mainHeader">
 <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
 <div class="flex items-center justify-between h-20 gap-1.5 sm:gap-3">
 <!-- Logo & Title -->
 <a class="flex items-center space-x-2 group shrink-0" href="index.html#home">
 <div class="relative w-11 h-11 sm:w-14 sm:h-14 xl:w-16 xl:h-16 shrink-0 flex items-center justify-center transform group-hover:scale-105 transition duration-300">
-<img alt="Γ.Α.Σ. Αρχέλαος 1956" class="archelaos-crest-adapt w-full h-full object-contain" decoding="async" src="https://lh3.googleusercontent.com/d/1lILSdnXV0Y383UeFwcJbnhHaYvu3nJHj"/>
+<img alt="Γ.Α.Σ. Αρχέλαος 1956" class="archelaos-crest-adapt w-full h-full object-contain" decoding="async" src="assets/archelaos-logo-gold.png"/>
 </div>
 <div class="flex flex-col min-w-0">
 <div class="flex items-center gap-1.5">
@@ -2052,7 +2099,7 @@ footer.arch-footer-signature .heritage-footer-logo {filter:drop-shadow(0 3px 8px
 <a class="px-2 xl:px-2.5 py-1.5 rounded-xl text-[11px] xl:text-xs 2xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap" data-i18n="nav_history" href="history.html">Ιστορία</a>
 <a class="px-2 xl:px-2.5 py-1.5 rounded-xl text-[11px] xl:text-xs 2xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap" data-i18n="nav_about" href="index.html#about">Ο Σύλλογος</a>
 <a class="px-2 xl:px-2.5 py-1.5 rounded-xl text-[11px] xl:text-xs 2xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap" data-i18n="nav_dept" href="index.html#departments">Τμήματα</a>
-<a aria-current="page" class="px-2 xl:px-2.5 py-1.5 rounded-xl text-[11px] xl:text-xs 2xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap" data-i18n="nav_board" href="board.html">Διοίκηση</a><a class="px-2 xl:px-2.5 py-1.5 rounded-xl text-[11px] xl:text-xs 2xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap" href="sponsors.html"><span class="arch-sponsor-nav-el">Χορηγίες</span><span class="arch-sponsor-nav-en">Sponsorship</span></a>
+<a aria-current="page" class="px-2 xl:px-2.5 py-1.5 rounded-xl text-[11px] xl:text-xs 2xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap premium-nav-active" data-i18n="nav_board" href="board.html">Διοίκηση</a><a class="px-2 xl:px-2.5 py-1.5 rounded-xl text-[11px] xl:text-xs 2xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap" href="sponsors.html"><span class="arch-sponsor-nav-el">Χορηγίες</span><span class="arch-sponsor-nav-en">Sponsorship</span></a>
 <a class="px-2 xl:px-2.5 py-1.5 rounded-xl text-[11px] xl:text-xs 2xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap" data-i18n="nav_contact" href="index.html#contact">Επικοινωνία</a>
 </nav>
 <!-- Right Controls & Actions -->
@@ -2087,7 +2134,7 @@ footer.arch-footer-signature .heritage-footer-logo {filter:drop-shadow(0 3px 8px
 <a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="history.html"><span aria-hidden="true" class="arch-menu-number">02</span><i aria-hidden="true" class="fa-solid fa-landmark arch-modern-link-icon"></i><span data-i18n="nav_history">Ψηφιακό Μουσείο</span><i aria-hidden="true" class="fa-solid fa-chevron-right arch-modern-link-arrow"></i></a>
 <a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="index.html#about"><span aria-hidden="true" class="arch-menu-number">03</span><i aria-hidden="true" class="fa-solid fa-people-group arch-modern-link-icon"></i><span data-i18n="nav_about">Ο Σύλλογος</span><i aria-hidden="true" class="fa-solid fa-chevron-right arch-modern-link-arrow"></i></a>
 <a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="index.html#departments"><span aria-hidden="true" class="arch-menu-number">04</span><i aria-hidden="true" class="fa-solid fa-medal arch-modern-link-icon"></i><span data-i18n="nav_dept">Αθλήματα</span><i aria-hidden="true" class="fa-solid fa-chevron-right arch-modern-link-arrow"></i></a>
-<a aria-current="page" class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="board.html"><span aria-hidden="true" class="arch-menu-number">05</span><i aria-hidden="true" class="fa-solid fa-users arch-modern-link-icon"></i><span data-i18n="nav_board">Διοίκηση</span><i aria-hidden="true" class="fa-solid fa-chevron-right arch-modern-link-arrow"></i></a>
+<a aria-current="page" class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen premium-mobile-active" href="board.html"><span aria-hidden="true" class="arch-menu-number">05</span><i aria-hidden="true" class="fa-solid fa-users arch-modern-link-icon"></i><span data-i18n="nav_board">Διοίκηση</span><i aria-hidden="true" class="fa-solid fa-chevron-right arch-modern-link-arrow"></i></a>
 <a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="index.html#contact"><span aria-hidden="true" class="arch-menu-number">06</span><i aria-hidden="true" class="fa-solid fa-envelope arch-modern-link-icon"></i><span data-i18n="nav_contact">Επικοινωνία</span><i aria-hidden="true" class="fa-solid fa-chevron-right arch-modern-link-arrow"></i></a><a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="sponsors.html"><span aria-hidden="true" class="arch-menu-number">07</span><i aria-hidden="true" class="fa-solid fa-handshake arch-modern-link-icon"></i><span class="arch-sponsor-nav-el">Χορηγίες</span><span class="arch-sponsor-nav-en">Sponsorship</span><i aria-hidden="true" class="fa-solid fa-chevron-right arch-modern-link-arrow"></i></a>
 <button class="arch-mobile-cta mobile-menu-item w-full text-center px-4 py-3.5 bg-archelaos-deepgreen text-archelaos-yellow font-extrabold rounded-xl shadow-lg" onclick="window.location.href='index.html#contact'">
 <i class="fa-solid fa-user-plus mr-2"></i> <span data-i18n="btn_register_interest">Ενδιαφέρομαι να συμμετέχω</span>
@@ -2305,5 +2352,25 @@ footer.arch-footer-signature .heritage-footer-logo {filter:drop-shadow(0 3px 8px
     entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('arch-whisper-visible');observer.unobserve(entry.target);}});
   },{threshold:.12,rootMargin:'0px 0px -20px 0px'});
   items.forEach(el=>observer.observe(el));
+})();
+</script><script id="arch-page-active-nav-sync">
+(function(){
+ function syncActiveNav(){
+   var page=(location.pathname.split('/').pop()||'index.html').toLowerCase();
+   document.querySelectorAll('#mainHeader a[href], footer a[href]').forEach(function(a){
+     var target=(a.getAttribute('href')||'').split(/[?#]/)[0].toLowerCase();
+     if(!['board.html','sponsors.html','history.html'].includes(target))return;
+     var active=target===page;
+     a.classList.remove('premium-nav-active','premium-mobile-active');
+     if(active){
+       a.setAttribute('aria-current','page');
+       if(a.closest('#mobileMenu'))a.classList.add('premium-mobile-active');
+       else if(a.closest('#mainHeader'))a.classList.add('premium-nav-active');
+     } else a.removeAttribute('aria-current');
+   });
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',syncActiveNav);
+ else syncActiveNav();
+ window.addEventListener('pageshow',syncActiveNav);
 })();
 </script></body></html>
