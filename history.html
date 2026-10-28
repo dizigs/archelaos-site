@@ -10,12 +10,12 @@
 <meta content="Το ψηφιακό μουσείο του Γ.Α.Σ. Αρχέλαος Κατερίνης: ιστορικά εκθέματα, διαδραστικό χρονολόγιο ανά δεκαετία, έξι κεφάλαια και ιστορία αθλητικών τμημάτων." name="description"/>
 <meta content="Αρχέλαος Κατερίνης, ΓΑΣ Αρχέλαος, Χάντμπολ, Στίβος, Τοξοβολία, Σκοποβολή, Ενόργανη Γυμναστική, Πάλη, Βόλεϊ, Κολύμβηση, Κατερίνη, Πιερία" name="keywords"/>
 <meta content="Γ.Α.Σ. Αρχέλαος Κατερίνης" name="author"/>
-<link href="https://archelaos.club" rel="canonical"/>
+<link href="https://archelaos.club/history.html" rel="canonical"/>
 <!-- Open Graph / Social Media Tags -->
 <meta content="website" property="og:type"/>
-<meta content="https://archelaos.club" property="og:url"/>
-<meta content="Γ.Α.Σ. Αρχέλαος Κατερίνης | Επίσημη Ιστοσελίδα" property="og:title"/>
-<meta content="Η επίσημη ιστοσελίδα του Γ.Α.Σ. Αρχέλαος Κατερίνης. 70 χρόνια αθλητισμού, ήθους και παράδοσης στην Πιερία." property="og:description"/>
+<meta content="https://archelaos.club/history.html" property="og:url"/>
+<meta content="Ψηφιακό Μουσείο | Γ.Α.Σ. Αρχέλαος Κατερίνης" property="og:title"/>
+<meta content="Το Ψηφιακό Μουσείο του Αρχέλαου: ιστορικά κεφάλαια, διαδραστικό χρονολόγιο και αρχειακή συλλογή." property="og:description"/>
 <meta content="https://lh3.googleusercontent.com/d/1lILSdnXV0Y383UeFwcJbnhHaYvu3nJHj" property="og:image"/>
 <meta content="el_GR" property="og:locale"/>
 <meta content="Γ.Α.Σ. Αρχέλαος Κατερίνης" property="og:site_name"/>
@@ -1174,7 +1174,6 @@ html.dark body .museum-fact-badge i,html.dark body .museum-fact-badge span {
   header#mainHeader #mobileMenu.arch-cinematic-menu .arch-menu-footer{opacity:1!important;transform:none!important;transition:none!important}
 }
 </style>
-
 <style id="arch-mobile-compact-dropdown">
 /* Compact anchored dropdown; desktop floating navigation remains unchanged. */
 @media(max-width:1023px){
@@ -1236,7 +1235,6 @@ html.dark body .museum-fact-badge i,html.dark body .museum-fact-badge span {
  header#mainHeader #mobileMenu.arch-cinematic-menu a.mobile-nav-link{transition:none!important}
 }
 </style>
-
 <style id="arch-mobile-controls-contrast-fix">
 /* Contrast-safe mobile language and theme controls, in both themes. */
 @media (max-width:1023px){
@@ -1267,7 +1265,6 @@ html.dark body .museum-fact-badge i,html.dark body .museum-fact-badge span {
 }
 </style>
 <style id="archelaos-single-theme">:root{color-scheme:light}body{color-scheme:light}</style>
-
 <style id="archelaos-heritage-premium-footer">
 .heritage-footer {position:relative;isolation:isolate;background:#073b28!important;color:#eaf1e8!important;border-top:3px solid #c7a448!important;overflow:hidden;}
 .heritage-footer::before {content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 10% 0%,rgba(42,112,76,.29),transparent 50%),linear-gradient(120deg,transparent 50%,rgba(255,255,255,.018));pointer-events:none;z-index:-1;}
@@ -1296,7 +1293,6 @@ html.dark body .museum-fact-badge i,html.dark body .museum-fact-badge span {
 @media(max-width:450px){.heritage-footer-inner {padding:47px 21px 22px;}.heritage-footer-brand {gap:13px;}.heritage-footer-logo {width:76px;height:76px;}.heritage-footer-title {font-size:21px;}.heritage-footer-col-title {font-size:10px;margin-bottom:17px;}.heritage-footer-links {gap:14px;}.heritage-footer-links a {font-size:13px;}.heritage-footer-top {gap:34px 17px;}.heritage-footer-bottom {padding-top:20px;}.heritage-footer-meta {padding-top:16px;}}
 @media(prefers-reduced-motion:reduce){.heritage-footer a,.heritage-footer-logo {transition:none!important;transform:none!important;}}
 </style>
-
 <style id="archelaos-history-warm-ivory-sage-yellow">
 /* Same visual language as the redesigned home: warm ivory, soft sage and club yellow. */
 :root {--arch-history-ivory:#f8f6ef;--arch-history-sage:#eaf1e8;--arch-history-yellow:#f5e638;--arch-history-green:#073d2a;}
@@ -1343,6 +1339,38 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 @media(prefers-reduced-motion:reduce) {
  body > .fixed.inset-0.pointer-events-none.z-0 svg {animation:none!important;}
 }
+</style>
+<style id="archelaos-ux-accessibility-2026">
+/* Readable, touch-friendly controls without altering the site's light palette. */
+:where(a,button,input,select,textarea):focus-visible {outline:3px solid #d4b800!important;outline-offset:3px!important;}
+#mobileMenuBtn {touch-action:manipulation;}
+@media(max-width:1023px) {
+ #mobileMenu .mobile-nav-link {min-height:46px;display:flex!important;align-items:center;gap:13px;}
+ #mobileMenu .mobile-nav-link[aria-current="page"] {background:#fff4aa!important;color:#073d2a!important;box-shadow:inset 3px 0 0 #0b5839;}
+ #mobileMenu .arch-mobile-cta {min-height:49px;display:flex;align-items:center;justify-content:center;}
+ #mobileMenu .arch-menu-close {min-width:40px;min-height:40px;}
+ #mobileMenu:not(.menu-open) {visibility:hidden!important;pointer-events:none!important;}
+}
+.archelaos-form-note {font-size:12px;line-height:1.6;color:#496550;background:#f7f8ed;border:1px solid #dbe5d4;border-left:3px solid #ddc62f;padding:12px 14px;border-radius:10px;}
+.archelaos-form-status:focus {outline:none!important;}
+@media(prefers-reduced-motion:reduce) {
+ html:focus-within {scroll-behavior:auto!important;}
+ .arch-cinematic-menu,.arch-cinematic-menu * {animation-duration:.01ms!important;transition-duration:.01ms!important;}
+}
+</style>
+
+<style id="archelaos-archive-participation">
+.museum-archive-contribute {display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:21px;margin-top:26px;padding:24px 26px;background:linear-gradient(115deg,#0a462e,#0c5739);color:#fff;border:1px solid rgba(245,230,56,.35);border-radius:20px;box-shadow:0 13px 34px rgba(6,49,29,.12);}
+.museum-archive-contribute-icon {width:56px;height:56px;border-radius:16px;background:rgba(245,230,56,.14);display:flex;align-items:center;justify-content:center;color:#f5e638;font-size:24px;flex-shrink:0;}
+.museum-archive-contribute-copy strong {display:block;font-size:clamp(17px,2vw,21px);font-weight:900;line-height:1.35;color:#fff;}
+.museum-archive-contribute-copy p {font-size:13px;line-height:1.7;color:rgba(255,255,255,.83);margin:7px 0 0;max-width:690px;}
+.museum-archive-contribute-link {display:inline-flex;align-items:center;justify-content:center;gap:10px;background:#f5e638;color:#073d2a;font-size:12px;font-weight:900;line-height:1.4;padding:14px 17px;border-radius:12px;text-align:center;white-space:nowrap;transition:background .2s ease,transform .2s ease;}
+.museum-archive-contribute-link:hover {background:#fff4a2;transform:translateY(-2px);}
+.museum-gallery-disclaimer {display:flex;align-items:flex-start;gap:10px;font-size:12px;line-height:1.6;color:#5b6d5c;margin:17px 4px 0;}
+.museum-gallery-disclaimer i {color:#9b8520;margin-top:3px;}
+@media(max-width:950px){.museum-archive-contribute{grid-template-columns:auto 1fr}.museum-archive-contribute-link{grid-column:1/-1;justify-self:start}}
+@media(max-width:560px){.museum-archive-contribute{padding:20px;gap:13px}.museum-archive-contribute-icon{width:44px;height:44px;font-size:20px}.museum-archive-contribute-copy strong{font-size:16px}.museum-archive-contribute-copy p{font-size:12px}.museum-archive-contribute-link{width:100%;white-space:normal}}
+@media(prefers-reduced-motion:reduce){.museum-archive-contribute-link{transition:none!important}}
 </style>
 </head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow">
@@ -1391,7 +1419,6 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 <button class="lang-btn px-2 py-1 rounded-lg uppercase text-[11px] text-archelaos-deepgreen hover:opacity-80" id="langBtnEN" onclick="setLanguage('en')">EN</button>
 </div>
 <!-- Theme Toggle Button -->
-
 <!-- Registration CTA (Fits on Laptop & Desktop) -->
 <button class="hidden lg:inline-flex btn-shimmer relative items-center justify-center px-3 xl:px-4 py-2 xl:py-2.5 text-xs xl:text-sm font-black text-archelaos-yellow bg-archelaos-deepgreen hover:bg-archelaos-darkgreen rounded-xl shadow-md hover:-translate-y-0.5 transition duration-200 whitespace-nowrap" onclick="openRegistrationModal('Γενική Εγγραφή')">
 <i class="fa-solid fa-bolt mr-1.5 text-archelaos-yellow text-xs"></i> <span data-i18n="btn_register">Εγγραφές</span>
@@ -1404,21 +1431,20 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 </div>
 </div>
 <!-- Mobile Dropdown Menu -->
-<div class="arch-cinematic-menu lg:hidden px-5 space-y-2.5" id="mobileMenu" role="navigation" aria-label="Μενού κινητού" aria-hidden="true">
-<div class="arch-menu-heading"><div><span class="arch-menu-brand">Γ.Α.Σ. «Ο ΑΡΧΕΛΑΟΣ»</span><span class="arch-menu-est">KATERINI · EST. 1956</span></div><button class="arch-menu-close" id="archMenuClose" type="button" aria-label="Κλείσιμο μενού"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button></div>
+<div aria-hidden="true" aria-label="Μενού κινητού" class="arch-cinematic-menu lg:hidden px-5 space-y-2.5" id="mobileMenu" role="navigation">
+<div class="arch-menu-heading"><div><span class="arch-menu-brand">Γ.Α.Σ. «Ο ΑΡΧΕΛΑΟΣ»</span><span class="arch-menu-est">KATERINI · EST. 1956</span></div><button aria-label="Κλείσιμο μενού" class="arch-menu-close" id="archMenuClose" type="button"><i aria-hidden="true" class="fa-solid fa-xmark"></i></button></div>
 <div class="flex items-center justify-between gap-2 p-2 bg-white/80 rounded-2xl border border-archelaos-deepgreen/15 mb-3 transition-colors duration-200" id="mobileControlsBar">
 <div class="flex items-center bg-white rounded-xl p-0.5 border border-slate-200 shadow-sm text-xs font-black transition-colors duration-200" id="mobileLangToggleWrapper">
 <button class="lang-btn active px-3 py-1.5 rounded-lg uppercase" id="mobileLangBtnEL" onclick="setLanguage('el')">GR</button>
 <button class="lang-btn px-3 py-1.5 rounded-lg uppercase text-archelaos-deepgreen hover:opacity-80" id="mobileLangBtnEN" onclick="setLanguage('en')">EN</button>
 </div>
-
 </div>
-<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="index.html#home"><span class="arch-menu-number" aria-hidden="true">01</span><span data-i18n="nav_home">Αρχική</span></a>
-<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="#chapters"><span class="arch-menu-number" aria-hidden="true">02</span><span data-i18n="nav_history">Ιστορία</span></a>
-<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="index.html#about"><span class="arch-menu-number" aria-hidden="true">03</span><span data-i18n="nav_about">Ο Σύλλογος</span></a>
-<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="index.html#departments"><span class="arch-menu-number" aria-hidden="true">04</span><span data-i18n="nav_dept">Αθλητικά Τμήματα</span></a>
-<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="index.html#board"><span class="arch-menu-number" aria-hidden="true">05</span><span data-i18n="nav_board">Διοίκηση (Δ.Σ.)</span></a>
-<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="index.html#contact"><span class="arch-menu-number" aria-hidden="true">06</span><span data-i18n="nav_contact">Επικοινωνία</span></a>
+<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="index.html#home"><span aria-hidden="true" class="arch-menu-number">01</span><span data-i18n="nav_home">Αρχική</span></a>
+<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="#chapters"><span aria-hidden="true" class="arch-menu-number">02</span><span data-i18n="nav_history">Ιστορία</span></a>
+<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="index.html#about"><span aria-hidden="true" class="arch-menu-number">03</span><span data-i18n="nav_about">Ο Σύλλογος</span></a>
+<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="index.html#departments"><span aria-hidden="true" class="arch-menu-number">04</span><span data-i18n="nav_dept">Αθλητικά Τμήματα</span></a>
+<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="index.html#board"><span aria-hidden="true" class="arch-menu-number">05</span><span data-i18n="nav_board">Διοίκηση (Δ.Σ.)</span></a>
+<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="index.html#contact"><span aria-hidden="true" class="arch-menu-number">06</span><span data-i18n="nav_contact">Επικοινωνία</span></a>
 <button class="arch-mobile-cta mobile-menu-item w-full text-center px-4 py-3.5 bg-archelaos-deepgreen text-archelaos-yellow font-extrabold rounded-xl shadow-lg" onclick="openRegistrationModal('Γενική Εγγραφή'); closeMobileMenu();">
 <i class="fa-solid fa-user-plus mr-2"></i> <span data-i18n="btn_register_interest">Εκδήλωση Ενδιαφέροντος</span>
 </button>
@@ -1458,20 +1484,20 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 <p><span data-lang="el">Μικρές ιστορίες από το υπάρχον αρχείο. Επιλέξτε ένα έκθεμα για να διαβάσετε ολόκληρο το σχετικό κεφάλαιο.</span><span data-lang="en">Stories from the original archive. Select an exhibit to read its complete chapter.</span></p>
 </div><a class="museum-subtle-link" href="#timeline"><span data-lang="el">Όλο το χρονολόγιο</span><span data-lang="en">Full timeline</span><i class="fa-solid fa-arrow-down"></i></a></div>
 <div class="museum-exhibit-grid">
-<button class="museum-exhibit museum-exhibit-main" onclick="openHistoryArchive('intro')" type="button">
+<button aria-label="1956 Η αρχή μιας διαδρομής Where it all began 29 Απριλίου 1956 — η ίδρυση του συλλόγου στην Κατερίνη. April 29, 1956 — the club's " class="museum-exhibit museum-exhibit-main" onclick="openHistoryArchive('intro')" type="button">
 <div class="museum-exhibit-art"><span class="museum-exhibit-watermark">1956</span><span class="museum-exhibit-artline"></span></div>
 <div class="museum-exhibit-copy"><h3><span data-lang="el">Η αρχή μιας διαδρομής</span><span data-lang="en">Where it all began</span></h3>
-<p><span data-lang="el">29 Απριλίου 1956 — η ίδρυση του συλλόγου στην Κατερίνη.</span><span data-lang="en">April 29, 1956 — the club's founding in Katerini.</span></p><span class="museum-exhibit-cta"><span data-lang="el">Δείτε το έκθεμα</span><span data-lang="en">View exhibit</span><i class="fa-solid fa-arrow-up-right-from-square"></i></span></div>
+<p><span data-lang="el">29 Απριλίου 1956 — η ίδρυση του συλλόγου στην Κατερίνη.</span><span data-lang="en">April 29, 1956 — the club's founding in Katerini.</span></p><span class="museum-exhibit-cta"><span data-lang="el">Διαβάστε το κεφάλαιο</span><span data-lang="en">Read chapter</span><i class="fa-solid fa-arrow-up-right-from-square"></i></span></div>
 </button>
-<button class="museum-exhibit" onclick="openHistoryArchive('intro')" type="button">
+<button aria-label="1968 Τα χρώματα της ταυτότητας The colors of identity 27 Ιουνίου 1968 — καθιέρωση του πράσινου και του κίτρινου. June 27, 1968 — g" class="museum-exhibit" onclick="openHistoryArchive('intro')" type="button">
 <div class="museum-exhibit-art museum-exhibit-art-secondary"><span class="museum-exhibit-watermark">1968</span></div>
 <div class="museum-exhibit-copy"><h3><span data-lang="el">Τα χρώματα της ταυτότητας</span><span data-lang="en">The colors of identity</span></h3>
-<p><span data-lang="el">27 Ιουνίου 1968 — καθιέρωση του πράσινου και του κίτρινου.</span><span data-lang="en">June 27, 1968 — green and yellow become the official colors.</span></p><span class="museum-exhibit-cta"><span data-lang="el">Δείτε το έκθεμα</span><span data-lang="en">View exhibit</span><i class="fa-solid fa-arrow-up-right-from-square"></i></span></div>
+<p><span data-lang="el">27 Ιουνίου 1968 — καθιέρωση του πράσινου και του κίτρινου.</span><span data-lang="en">June 27, 1968 — green and yellow become the official colors.</span></p><span class="museum-exhibit-cta"><span data-lang="el">Διαβάστε το κεφάλαιο</span><span data-lang="en">Read chapter</span><i class="fa-solid fa-arrow-up-right-from-square"></i></span></div>
 </button>
-<button class="museum-exhibit" onclick="openHistoryArchive('diia')" type="button">
+<button aria-label="1957 Η γέννηση των «Δίιων» The birth of the Diia Games Οι πρώτοι Πανελλήνιοι Αγώνες Στίβου «Δίια» στην Κατερίνη. The first Panhell" class="museum-exhibit" onclick="openHistoryArchive('diia')" type="button">
 <div class="museum-exhibit-art museum-exhibit-art-third"><span class="museum-exhibit-watermark">1957</span></div>
 <div class="museum-exhibit-copy"><h3><span data-lang="el">Η γέννηση των «Δίιων»</span><span data-lang="en">The birth of the Diia Games</span></h3>
-<p><span data-lang="el">Οι πρώτοι Πανελλήνιοι Αγώνες Στίβου «Δίια» στην Κατερίνη.</span><span data-lang="en">The first Panhellenic “Diia” track and field games in Katerini.</span></p><span class="museum-exhibit-cta"><span data-lang="el">Δείτε το έκθεμα</span><span data-lang="en">View exhibit</span><i class="fa-solid fa-arrow-up-right-from-square"></i></span></div>
+<p><span data-lang="el">Οι πρώτοι Πανελλήνιοι Αγώνες Στίβου «Δίια» στην Κατερίνη.</span><span data-lang="en">The first Panhellenic “Diia” track and field games in Katerini.</span></p><span class="museum-exhibit-cta"><span data-lang="el">Διαβάστε το κεφάλαιο</span><span data-lang="en">Read chapter</span><i class="fa-solid fa-arrow-up-right-from-square"></i></span></div>
 </button>
 </div>
 </div></section><nav aria-label="Γρήγορη πλοήγηση ιστορίας / History quick navigation" class="history-quicknav relative z-30">
@@ -1492,14 +1518,14 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 <span data-lang="el">70 χρόνια ιστορίας, σε ένα σημείο</span>
 <span data-lang="en">70 years of history, all in one place</span>
 </h2>
-<p class="text-sm sm:text-base text-archelaos-deepgreen/80  leading-relaxed max-w-2xl mx-auto">
+<p class="text-sm sm:text-base text-archelaos-deepgreen/80 leading-relaxed max-w-2xl mx-auto">
 <span data-lang="el">Η πλήρης εγκυκλοπαιδική καταγραφή του αρχαιότερου και ιστορικότερου εν ενεργεία πολυαθλητικού οργανισμού της Πιερίας. Όλοι οι πρόεδροι, οι σταθμοί, οι προπονητές, οι Ολυμπιονίκες, τα αθλητικά τμήματα, η τροπαιοθήκη και η ιστορική διαδρομή του συλλόγου. Επιλέξτε ενότητα για να ανοίξει σε προσεγμένο αναδυόμενο παράθυρο.</span>
 <span data-lang="en">The complete encyclopedic chronicle of Pieria’s oldest and most historic active multi-sport organization. All presidents, milestones, coaches, Olympians, sports departments, the trophy cabinet, are included. Choose a topic to open its full details in a carefully styled popup.</span>
 </p>
 <div class="flex flex-wrap justify-center gap-2 mt-6">
-<span class="inline-flex items-center gap-2 rounded-xl bg-white/80  border border-archelaos-deepgreen/15  px-3 py-2 text-xs font-extrabold text-archelaos-deepgreen  museum-fact-badge"><i class="fa-regular fa-calendar-check"></i> 29/04/1956</span>
-<span class="inline-flex items-center gap-2 rounded-xl bg-white/80  border border-archelaos-deepgreen/15  px-3 py-2 text-xs font-extrabold text-archelaos-deepgreen  museum-fact-badge"><i class="fa-solid fa-book-open"></i> 1956–2026</span>
-<span class="inline-flex items-center gap-2 rounded-xl bg-white/80  border border-archelaos-deepgreen/15  px-3 py-2 text-xs font-extrabold text-archelaos-deepgreen  museum-fact-badge"><i class="fa-solid fa-palette"></i><span data-lang="el">Πράσινο &amp; Κίτρινο</span><span data-lang="en">Green &amp; Yellow</span></span>
+<span class="inline-flex items-center gap-2 rounded-xl bg-white/80 border border-archelaos-deepgreen/15 px-3 py-2 text-xs font-extrabold text-archelaos-deepgreen museum-fact-badge"><i class="fa-regular fa-calendar-check"></i> 29/04/1956</span>
+<span class="inline-flex items-center gap-2 rounded-xl bg-white/80 border border-archelaos-deepgreen/15 px-3 py-2 text-xs font-extrabold text-archelaos-deepgreen museum-fact-badge"><i class="fa-solid fa-book-open"></i> 1956–2026</span>
+<span class="inline-flex items-center gap-2 rounded-xl bg-white/80 border border-archelaos-deepgreen/15 px-3 py-2 text-xs font-extrabold text-archelaos-deepgreen museum-fact-badge"><i class="fa-solid fa-palette"></i><span data-lang="el">Πράσινο &amp; Κίτρινο</span><span data-lang="en">Green &amp; Yellow</span></span>
 </div>
 </div>
 <!-- Timeline integrated into historical archive -->
@@ -1543,10 +1569,20 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 <div class="museum-section-head"><div><h2><span data-lang="el">Η ιστορία μέσα από τεκμήρια</span><span data-lang="en">History through artifacts</span></h2>
 <p><span data-lang="el">Χώρος για αυθεντικές φωτογραφίες, έγγραφα και αφίσες του συλλόγου. Προς το παρόν παρουσιάζονται θεματικές εικονογραφήσεις.</span><span data-lang="en">A place for genuine photographs, documents and posters. The current panels are thematic illustrations.</span></p></div></div>
 <div class="museum-gallery-grid">
-<button class="museum-gallery-tile" onclick="openHistoryArchive('dioikisi')" type="button"><div class="museum-gallery-illustration"><i class="fa-solid fa-building-columns"></i><span>ARCHIVE / 01</span></div><div><strong><span data-lang="el">Πρόσωπα &amp; διοίκηση</span><span data-lang="en">People &amp; leadership</span></strong><small><span data-lang="el">Δείτε τις προεδρικές θητείες</span><span data-lang="en">Explore presidential terms</span></small></div><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
-<button class="museum-gallery-tile" onclick="openHistoryArchive('egkatastaseis')" type="button"><div class="museum-gallery-illustration"><i class="fa-solid fa-location-dot"></i><span>ARCHIVE / 02</span></div><div><strong><span data-lang="el">Αθλητικοί χώροι</span><span data-lang="en">Sporting venues</span></strong><small><span data-lang="el">Στάδια και εγκαταστάσεις</span><span data-lang="en">Stadiums and facilities</span></small></div><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
-<button class="museum-gallery-tile" onclick="openHistoryArchive('titloi')" type="button"><div class="museum-gallery-illustration"><i class="fa-solid fa-trophy"></i><span>ARCHIVE / 03</span></div><div><strong><span data-lang="el">Τίτλοι &amp; διακρίσεις</span><span data-lang="en">Honors &amp; achievements</span></strong><small><span data-lang="el">Οι επιτυχίες του συλλόγου</span><span data-lang="en">Club achievements</span></small></div><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
-</div></div></section>
+<button class="museum-gallery-tile" onclick="openHistoryArchive('dioikisi')" type="button"><div class="museum-gallery-illustration"><i class="fa-solid fa-building-columns"></i><span>ΘΕΜΑΤΙΚΗ / 01</span></div><div><strong><span data-lang="el">Πρόσωπα &amp; διοίκηση</span><span data-lang="en">People &amp; leadership</span></strong><small><span data-lang="el">Δείτε τις προεδρικές θητείες</span><span data-lang="en">Explore presidential terms</span></small></div><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+<button class="museum-gallery-tile" onclick="openHistoryArchive('egkatastaseis')" type="button"><div class="museum-gallery-illustration"><i class="fa-solid fa-location-dot"></i><span>ΘΕΜΑΤΙΚΗ / 02</span></div><div><strong><span data-lang="el">Αθλητικοί χώροι</span><span data-lang="en">Sporting venues</span></strong><small><span data-lang="el">Στάδια και εγκαταστάσεις</span><span data-lang="en">Stadiums and facilities</span></small></div><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+<button class="museum-gallery-tile" onclick="openHistoryArchive('titloi')" type="button"><div class="museum-gallery-illustration"><i class="fa-solid fa-trophy"></i><span>ΘΕΜΑΤΙΚΗ / 03</span></div><div><strong><span data-lang="el">Τίτλοι &amp; διακρίσεις</span><span data-lang="en">Honors &amp; achievements</span></strong><small><span data-lang="el">Οι επιτυχίες του συλλόγου</span><span data-lang="en">Club achievements</span></small></div><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+</div>
+<div class="museum-archive-contribute">
+<div aria-hidden="true" class="museum-archive-contribute-icon"><i class="fa-solid fa-box-archive"></i></div>
+<div class="museum-archive-contribute-copy">
+<strong><span data-lang="el">Έχετε ιστορικό υλικό του Αρχέλαου;</span><span data-lang="en">Do you have historical material about Archelaos?</span></strong>
+<p><span data-lang="el">Φωτογραφίες, προγράμματα αγώνων, αποκόμματα ή έγγραφα μπορούν να βοηθήσουν στην τεκμηρίωση της διαδρομής του συλλόγου. Επικοινωνήστε μαζί μας για να συζητήσουμε την καταγραφή τους. Δεν ανεβαίνει κανένα αρχείο αυτόματα.</span><span data-lang="en">Photographs, match programs, press clippings or documents can help document the club's history. Contact us to discuss their inclusion. No files are uploaded automatically.</span></p>
+</div>
+<a class="museum-archive-contribute-link" href="index.html#contact"><span data-lang="el">Επικοινωνία για το αρχείο</span><span data-lang="en">Contact us about the archive</span><i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square"></i></a>
+</div>
+<div class="museum-gallery-disclaimer"><i aria-hidden="true" class="fa-solid fa-circle-info"></i><span data-lang="el">Οι τρεις παραπάνω κάρτες είναι θεματικές πύλες προς το υπάρχον κείμενο του μουσείου, όχι ψηφιοποιημένα πρωτότυπα τεκμήρια.</span><span data-lang="en">The three cards above link to existing museum chapters; they are not digitized original artifacts.</span></div>
+</div></section>
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
 <aside class="lg:col-span-4 space-y-5">
 <div class="rounded-[2rem] bg-archelaos-deepgreen text-archelaos-yellow p-5 sm:p-6 shadow-xl relative overflow-hidden">
@@ -1563,33 +1599,33 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 <span data-lang="el">Ταυτότητα Σωματείου</span>
 <span data-lang="en">Club Profile</span>
 </div>
-<div class="divide-y divide-slate-200/80 ">
+<div class="divide-y divide-slate-200/80">
 <div class="py-2 flex justify-between gap-2">
-<span class="font-extrabold text-archelaos-deepgreen ">
+<span class="font-extrabold text-archelaos-deepgreen">
 <span data-lang="el">Πλήρες όνομα:</span>
 <span data-lang="en">Full Name:</span>
 </span>
-<span class="text-right font-semibold text-slate-700 ">
+<span class="text-right font-semibold text-slate-700">
 <span data-lang="el">Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης</span>
 <span data-lang="en">G.A.S. "Archelaos" Katerini</span>
 </span>
 </div>
 <div class="py-2 flex justify-between gap-2">
-<span class="font-extrabold text-archelaos-deepgreen ">
+<span class="font-extrabold text-archelaos-deepgreen">
 <span data-lang="el">Ίδρυση:</span>
 <span data-lang="en">Founded:</span>
 </span>
-<span class="text-right font-semibold text-slate-700 ">
+<span class="text-right font-semibold text-slate-700">
 <span data-lang="el">29 Απριλίου 1956 (Α.Μ. 2/1957)</span>
 <span data-lang="en">April 29, 1956 (Reg. 2/1957)</span>
 </span>
 </div>
 <div class="py-2 flex justify-between items-center gap-2">
-<span class="font-extrabold text-archelaos-deepgreen ">
+<span class="font-extrabold text-archelaos-deepgreen">
 <span data-lang="el">Χρώματα:</span>
 <span data-lang="en">Colors:</span>
 </span>
-<span class="flex items-center gap-1.5 font-semibold text-slate-700 ">
+<span class="flex items-center gap-1.5 font-semibold text-slate-700">
 <span class="w-3.5 h-3.5 rounded-full bg-[#006633] border border-slate-300 inline-block"></span>
 <span class="w-3.5 h-3.5 rounded-full bg-[#ffd700] border border-slate-300 inline-block"></span>
 <span data-lang="el">Πράσινο, Κίτρινο</span>
@@ -1597,41 +1633,41 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 </span>
 </div>
 <div class="py-2 flex justify-between gap-2">
-<span class="font-extrabold text-archelaos-deepgreen ">
+<span class="font-extrabold text-archelaos-deepgreen">
 <span data-lang="el">Πρόεδρος:</span>
 <span data-lang="en">President:</span>
 </span>
-<span class="text-right font-semibold text-slate-700 ">
+<span class="text-right font-semibold text-slate-700">
 <span data-lang="el">Παναγιώτης Διαμαντόπουλος</span>
 <span data-lang="en">Panagiotis Diamantopoulos</span>
 </span>
 </div>
 <div class="py-2 flex justify-between gap-2">
-<span class="font-extrabold text-archelaos-deepgreen ">
+<span class="font-extrabold text-archelaos-deepgreen">
 <span data-lang="el">Γεν. Γραμματέας:</span>
 <span data-lang="en">Gen. Secretary:</span>
 </span>
-<span class="text-right font-semibold text-slate-700 ">
+<span class="text-right font-semibold text-slate-700">
 <span data-lang="el">Αθανάσιος Μαυροειδής</span>
 <span data-lang="en">Athanasios Mavroeidis</span>
 </span>
 </div>
 <div class="py-2 flex justify-between gap-2">
-<span class="font-extrabold text-archelaos-deepgreen ">
+<span class="font-extrabold text-archelaos-deepgreen">
 <span data-lang="el">Έδρα:</span>
 <span data-lang="en">Headquarters:</span>
 </span>
-<span class="text-right font-semibold text-slate-700 ">
+<span class="text-right font-semibold text-slate-700">
 <span data-lang="el">Εθνικού Σταδίου 3Α (Α΄ ΔΑΚ), 60132, Κατερίνη</span>
 <span data-lang="en">3A Ethnikou Stadiou St. (1st DAK), 60132, Katerini</span>
 </span>
 </div>
 <div class="py-2 flex justify-between gap-2">
-<span class="font-extrabold text-archelaos-deepgreen ">
+<span class="font-extrabold text-archelaos-deepgreen">
 <span data-lang="el">Κύρια Γήπεδα:</span>
 <span data-lang="en">Main Venues:</span>
 </span>
-<span class="text-right font-semibold text-slate-700 ">
+<span class="text-right font-semibold text-slate-700">
 <span data-lang="el">Β΄ ΔΑΚ («Θ. Διαμαντόπουλος»), Α΄ ΔΑΚ, Γήπεδο Ν. Χράνης</span>
 <span data-lang="en">2nd DAK ("Th. Diamantopoulos"), 1st DAK, Nea Chrani Field</span>
 </span>
@@ -1645,53 +1681,53 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 <div class="flex items-center justify-between gap-3 mb-3">
 <h2 class="font-heading font-black text-xl sm:text-2xl text-archelaos-deepgreen"><span data-lang="el">Εξερεύνηση κεφαλαίων</span><span data-lang="en">Explore chapters</span></h2>
 <span aria-live="polite" class="text-xs font-bold text-archelaos-deepgreen/65" id="historySearchCount">6 / 6</span></div>
-<label class="flex items-center gap-3 rounded-2xl border border-archelaos-deepgreen/20 bg-white/85  px-4 py-3 shadow-sm focus-within:ring-2 focus-within:ring-archelaos-darkgreen/30">
+<label class="flex items-center gap-3 rounded-2xl border border-archelaos-deepgreen/20 bg-white/85 px-4 py-3 shadow-sm focus-within:ring-2 focus-within:ring-archelaos-darkgreen/30">
 <i class="fa-solid fa-magnifying-glass text-archelaos-darkgreen"></i>
-<input aria-label="Αναζήτηση ιστορικού / Search history" autocomplete="off" class="bg-transparent outline-none min-w-0 flex-1 text-sm text-archelaos-deepgreen " id="historySearch" placeholder="Αναζήτηση στα ιστορικά κεφάλαια..." type="search"/>
+<input aria-label="Αναζήτηση ιστορικού / Search history" autocomplete="off" class="bg-transparent outline-none min-w-0 flex-1 text-sm text-archelaos-deepgreen" id="historySearch" placeholder="Αναζήτηση στα ιστορικά κεφάλαια..." type="search"/>
 <kbd class="hidden sm:inline text-[10px] font-black text-slate-400">/</kbd></label>
 <p class="hidden mt-3 text-sm font-semibold text-archelaos-deepgreen/70" id="historyNoResults"><span data-lang="el">Δεν βρέθηκε κεφάλαιο. Δοκιμάστε άλλη λέξη.</span><span data-lang="en">No chapters found. Try another term.</span></p>
 </div><div class="grid sm:grid-cols-2 gap-4 museum-chapter-grid" id="chapters">
 <button aria-label="Κεφάλαιο 1 Chapter 1 Ίδρυση &amp; Ιστορική Ταυτότητα Foundation &amp; Identity Η ίδρυση, το έμβλημα και τα επίσημα χρώματα. The founding, emblem, and official colours. " class="history-archive-card glass-card w-full text-left rounded-3xl p-5 sm:p-6 group" onclick="openHistoryArchive('intro')" type="button">
 <div class="flex items-start gap-4 relative z-10">
 <div class="w-12 h-12 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-xl shrink-0 group-hover:scale-105 transition chapter-icon-contrast chapter-icon-yellow"><i aria-hidden="true" class="fa-solid fa-scroll"></i></div>
-<div><span class="text-[10px] font-black tracking-[.16em] uppercase text-archelaos-darkgreen "><span data-lang="el">Κεφάλαιο 1</span><span data-lang="en">Chapter 1</span></span><h3 class="font-heading font-black text-lg sm:text-xl text-archelaos-deepgreen mt-1"><span data-lang="el">Ίδρυση &amp; Ιστορική Ταυτότητα</span><span data-lang="en">Foundation &amp; Identity</span></h3><p class="text-sm text-slate-600  mt-2 leading-relaxed"><span data-lang="el">Η ίδρυση, το έμβλημα και τα επίσημα χρώματα.</span><span data-lang="en">The founding, emblem, and official colours.</span></p><span class="inline-flex items-center gap-2 mt-4 text-xs font-black text-archelaos-darkgreen "><span data-lang="el">Άνοιγμα αρχείου</span><span data-lang="en">Open archive</span><i class="fa-solid fa-arrow-up-right-from-square transition group-hover:translate-x-1"></i></span></div>
+<div><span class="text-[10px] font-black tracking-[.16em] uppercase text-archelaos-darkgreen"><span data-lang="el">Κεφάλαιο 1</span><span data-lang="en">Chapter 1</span></span><h3 class="font-heading font-black text-lg sm:text-xl text-archelaos-deepgreen mt-1"><span data-lang="el">Ίδρυση &amp; Ιστορική Ταυτότητα</span><span data-lang="en">Foundation &amp; Identity</span></h3><p class="text-sm text-slate-600 mt-2 leading-relaxed"><span data-lang="el">Η ίδρυση, το έμβλημα και τα επίσημα χρώματα.</span><span data-lang="en">The founding, emblem, and official colours.</span></p><span class="inline-flex items-center gap-2 mt-4 text-xs font-black text-archelaos-darkgreen"><span data-lang="el">Άνοιγμα αρχείου</span><span data-lang="en">Open archive</span><i class="fa-solid fa-arrow-up-right-from-square transition group-hover:translate-x-1"></i></span></div>
 </div>
 </button>
 <button aria-label="Κεφάλαιο 2 Chapter 2 Διοίκηση &amp; Πρόεδροι Administration &amp; Presidents Αναλυτική διοικητική ιστορία και pop-up για κάθε προεδρική θητεία. Full administrative hist" class="history-archive-card glass-card w-full text-left rounded-3xl p-5 sm:p-6 group" onclick="openHistoryArchive('dioikisi')" type="button">
 <div class="flex items-start gap-4 relative z-10">
 <div class="w-12 h-12 rounded-2xl bg-archelaos-deepgreen text-archelaos-yellow flex items-center justify-center text-xl shrink-0 group-hover:scale-105 transition chapter-icon-contrast chapter-icon-green"><i aria-hidden="true" class="fa-solid fa-landmark"></i></div>
-<div><span class="text-[10px] font-black tracking-[.16em] uppercase text-archelaos-darkgreen "><span data-lang="el">Κεφάλαιο 2</span><span data-lang="en">Chapter 2</span></span><h3 class="font-heading font-black text-lg sm:text-xl text-archelaos-deepgreen mt-1"><span data-lang="el">Διοίκηση &amp; Πρόεδροι</span><span data-lang="en">Administration &amp; Presidents</span></h3><p class="text-sm text-slate-600  mt-2 leading-relaxed"><span data-lang="el">Αναλυτική διοικητική ιστορία και pop-up για κάθε προεδρική θητεία.</span><span data-lang="en">Full administrative history and a popup for each presidential term.</span></p><span class="inline-flex items-center gap-2 mt-4 text-xs font-black text-archelaos-darkgreen "><span data-lang="el">Με διαδραστικό πίνακα</span><span data-lang="en">Interactive timeline table</span><i class="fa-solid fa-arrow-up-right-from-square transition group-hover:translate-x-1"></i></span></div>
+<div><span class="text-[10px] font-black tracking-[.16em] uppercase text-archelaos-darkgreen"><span data-lang="el">Κεφάλαιο 2</span><span data-lang="en">Chapter 2</span></span><h3 class="font-heading font-black text-lg sm:text-xl text-archelaos-deepgreen mt-1"><span data-lang="el">Διοίκηση &amp; Πρόεδροι</span><span data-lang="en">Administration &amp; Presidents</span></h3><p class="text-sm text-slate-600 mt-2 leading-relaxed"><span data-lang="el">Αναλυτική διοικητική ιστορία και pop-up για κάθε προεδρική θητεία.</span><span data-lang="en">Full administrative history and a popup for each presidential term.</span></p><span class="inline-flex items-center gap-2 mt-4 text-xs font-black text-archelaos-darkgreen"><span data-lang="el">Με διαδραστικό πίνακα</span><span data-lang="en">Interactive timeline table</span><i class="fa-solid fa-arrow-up-right-from-square transition group-hover:translate-x-1"></i></span></div>
 </div>
 </button>
 <button aria-label="Κεφάλαιο 3 Chapter 3 Αθλητικές Εγκαταστάσεις Sports Facilities Στάδια, γήπεδα και χώροι προπόνησης. Stadiums, courts, and training venues. Προβολή εγκαταστάσεων" class="history-archive-card glass-card w-full text-left rounded-3xl p-5 sm:p-6 group" onclick="openHistoryArchive('egkatastaseis')" type="button">
 <div class="flex items-start gap-4 relative z-10">
 <div class="w-12 h-12 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-xl shrink-0 group-hover:scale-105 transition chapter-icon-contrast chapter-icon-yellow"><i aria-hidden="true" class="fa-solid fa-location-dot"></i></div>
-<div><span class="text-[10px] font-black tracking-[.16em] uppercase text-archelaos-darkgreen "><span data-lang="el">Κεφάλαιο 3</span><span data-lang="en">Chapter 3</span></span><h3 class="font-heading font-black text-lg sm:text-xl text-archelaos-deepgreen mt-1"><span data-lang="el">Αθλητικές Εγκαταστάσεις</span><span data-lang="en">Sports Facilities</span></h3><p class="text-sm text-slate-600  mt-2 leading-relaxed"><span data-lang="el">Στάδια, γήπεδα και χώροι προπόνησης.</span><span data-lang="en">Stadiums, courts, and training venues.</span></p><span class="inline-flex items-center gap-2 mt-4 text-xs font-black text-archelaos-darkgreen "><span data-lang="el">Προβολή εγκαταστάσεων</span><span data-lang="en">View facilities</span><i class="fa-solid fa-arrow-up-right-from-square transition group-hover:translate-x-1"></i></span></div>
+<div><span class="text-[10px] font-black tracking-[.16em] uppercase text-archelaos-darkgreen"><span data-lang="el">Κεφάλαιο 3</span><span data-lang="en">Chapter 3</span></span><h3 class="font-heading font-black text-lg sm:text-xl text-archelaos-deepgreen mt-1"><span data-lang="el">Αθλητικές Εγκαταστάσεις</span><span data-lang="en">Sports Facilities</span></h3><p class="text-sm text-slate-600 mt-2 leading-relaxed"><span data-lang="el">Στάδια, γήπεδα και χώροι προπόνησης.</span><span data-lang="en">Stadiums, courts, and training venues.</span></p><span class="inline-flex items-center gap-2 mt-4 text-xs font-black text-archelaos-darkgreen"><span data-lang="el">Προβολή εγκαταστάσεων</span><span data-lang="en">View facilities</span><i class="fa-solid fa-arrow-up-right-from-square transition group-hover:translate-x-1"></i></span></div>
 </div>
 </button>
 <button aria-label="Κεφάλαιο 4 Chapter 4 Ιστορία Αθλητικών Τμημάτων Sports Department History Δέκα ενότητες, με επιλογή τμήματος μέσα στο popup. Ten sections, with department selec" class="history-archive-card glass-card w-full text-left rounded-3xl p-5 sm:p-6 group" onclick="openHistoryArchive('tmimata')" type="button">
 <div class="flex items-start gap-4 relative z-10">
 <div class="w-12 h-12 rounded-2xl bg-archelaos-deepgreen text-archelaos-yellow flex items-center justify-center text-xl shrink-0 group-hover:scale-105 transition chapter-icon-contrast chapter-icon-green"><i aria-hidden="true" class="fa-solid fa-medal"></i></div>
-<div><span class="text-[10px] font-black tracking-[.16em] uppercase text-archelaos-darkgreen "><span data-lang="el">Κεφάλαιο 4</span><span data-lang="en">Chapter 4</span></span><h3 class="font-heading font-black text-lg sm:text-xl text-archelaos-deepgreen mt-1"><span data-lang="el">Ιστορία Αθλητικών Τμημάτων</span><span data-lang="en">Sports Department History</span></h3><p class="text-sm text-slate-600  mt-2 leading-relaxed"><span data-lang="el">Δέκα ενότητες, με επιλογή τμήματος μέσα στο popup.</span><span data-lang="en">Ten sections, with department selection inside the popup.</span></p><span class="inline-flex items-center gap-2 mt-4 text-xs font-black text-archelaos-darkgreen "><span data-lang="el">Επιλογή τμήματος</span><span data-lang="en">Choose a department</span><i class="fa-solid fa-arrow-up-right-from-square transition group-hover:translate-x-1"></i></span></div>
+<div><span class="text-[10px] font-black tracking-[.16em] uppercase text-archelaos-darkgreen"><span data-lang="el">Κεφάλαιο 4</span><span data-lang="en">Chapter 4</span></span><h3 class="font-heading font-black text-lg sm:text-xl text-archelaos-deepgreen mt-1"><span data-lang="el">Ιστορία Αθλητικών Τμημάτων</span><span data-lang="en">Sports Department History</span></h3><p class="text-sm text-slate-600 mt-2 leading-relaxed"><span data-lang="el">Δέκα ενότητες, με επιλογή τμήματος μέσα στο popup.</span><span data-lang="en">Ten sections, with department selection inside the popup.</span></p><span class="inline-flex items-center gap-2 mt-4 text-xs font-black text-archelaos-darkgreen"><span data-lang="el">Επιλογή τμήματος</span><span data-lang="en">Choose a department</span><i class="fa-solid fa-arrow-up-right-from-square transition group-hover:translate-x-1"></i></span></div>
 </div>
 </button>
 <button aria-label="Κεφάλαιο 5 Chapter 5 Δίια &amp; Δίος Δρόμος Diia Games &amp; Dios Dromos Η αναδρομή στους ιστορικούς αγώνες και στον δρόμο. A look back at the historic games and road r" class="history-archive-card glass-card w-full text-left rounded-3xl p-5 sm:p-6 group" onclick="openHistoryArchive('diia')" type="button">
 <div class="flex items-start gap-4 relative z-10">
 <div class="w-12 h-12 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-xl shrink-0 group-hover:scale-105 transition chapter-icon-contrast chapter-icon-yellow"><i aria-hidden="true" class="fa-solid fa-person-running"></i></div>
-<div><span class="text-[10px] font-black tracking-[.16em] uppercase text-archelaos-darkgreen "><span data-lang="el">Κεφάλαιο 5</span><span data-lang="en">Chapter 5</span></span><h3 class="font-heading font-black text-lg sm:text-xl text-archelaos-deepgreen mt-1"><span data-lang="el">Δίια &amp; Δίος Δρόμος</span><span data-lang="en">Diia Games &amp; Dios Dromos</span></h3><p class="text-sm text-slate-600  mt-2 leading-relaxed"><span data-lang="el">Η αναδρομή στους ιστορικούς αγώνες και στον δρόμο.</span><span data-lang="en">A look back at the historic games and road race.</span></p><span class="inline-flex items-center gap-2 mt-4 text-xs font-black text-archelaos-darkgreen "><span data-lang="el">Δείτε την ιστορία</span><span data-lang="en">Explore the history</span><i class="fa-solid fa-arrow-up-right-from-square transition group-hover:translate-x-1"></i></span></div>
+<div><span class="text-[10px] font-black tracking-[.16em] uppercase text-archelaos-darkgreen"><span data-lang="el">Κεφάλαιο 5</span><span data-lang="en">Chapter 5</span></span><h3 class="font-heading font-black text-lg sm:text-xl text-archelaos-deepgreen mt-1"><span data-lang="el">Δίια &amp; Δίος Δρόμος</span><span data-lang="en">Diia Games &amp; Dios Dromos</span></h3><p class="text-sm text-slate-600 mt-2 leading-relaxed"><span data-lang="el">Η αναδρομή στους ιστορικούς αγώνες και στον δρόμο.</span><span data-lang="en">A look back at the historic games and road race.</span></p><span class="inline-flex items-center gap-2 mt-4 text-xs font-black text-archelaos-darkgreen"><span data-lang="el">Δείτε την ιστορία</span><span data-lang="en">Explore the history</span><i class="fa-solid fa-arrow-up-right-from-square transition group-hover:translate-x-1"></i></span></div>
 </div>
 </button>
 <button aria-label="Κεφάλαιο 6 Chapter 6 Τίτλοι &amp; Διακρίσεις Titles &amp; Honors Η τροπαιοθήκη και οι επιτυχίες ανά τμήμα. The trophy cabinet and achievements by department. Άνοιγμα τρ" class="history-archive-card glass-card w-full text-left rounded-3xl p-5 sm:p-6 group" onclick="openHistoryArchive('titloi')" type="button">
 <div class="flex items-start gap-4 relative z-10">
 <div class="w-12 h-12 rounded-2xl bg-archelaos-deepgreen text-archelaos-yellow flex items-center justify-center text-xl shrink-0 group-hover:scale-105 transition chapter-icon-contrast chapter-icon-green"><i aria-hidden="true" class="fa-solid fa-trophy"></i></div>
-<div><span class="text-[10px] font-black tracking-[.16em] uppercase text-archelaos-darkgreen "><span data-lang="el">Κεφάλαιο 6</span><span data-lang="en">Chapter 6</span></span><h3 class="font-heading font-black text-lg sm:text-xl text-archelaos-deepgreen mt-1"><span data-lang="el">Τίτλοι &amp; Διακρίσεις</span><span data-lang="en">Titles &amp; Honors</span></h3><p class="text-sm text-slate-600  mt-2 leading-relaxed"><span data-lang="el">Η τροπαιοθήκη και οι επιτυχίες ανά τμήμα.</span><span data-lang="en">The trophy cabinet and achievements by department.</span></p><span class="inline-flex items-center gap-2 mt-4 text-xs font-black text-archelaos-darkgreen "><span data-lang="el">Άνοιγμα τροπαιοθήκης</span><span data-lang="en">Open honors archive</span><i class="fa-solid fa-arrow-up-right-from-square transition group-hover:translate-x-1"></i></span></div>
+<div><span class="text-[10px] font-black tracking-[.16em] uppercase text-archelaos-darkgreen"><span data-lang="el">Κεφάλαιο 6</span><span data-lang="en">Chapter 6</span></span><h3 class="font-heading font-black text-lg sm:text-xl text-archelaos-deepgreen mt-1"><span data-lang="el">Τίτλοι &amp; Διακρίσεις</span><span data-lang="en">Titles &amp; Honors</span></h3><p class="text-sm text-slate-600 mt-2 leading-relaxed"><span data-lang="el">Η τροπαιοθήκη και οι επιτυχίες ανά τμήμα.</span><span data-lang="en">The trophy cabinet and achievements by department.</span></p><span class="inline-flex items-center gap-2 mt-4 text-xs font-black text-archelaos-darkgreen"><span data-lang="el">Άνοιγμα τροπαιοθήκης</span><span data-lang="en">Open honors archive</span><i class="fa-solid fa-arrow-up-right-from-square transition group-hover:translate-x-1"></i></span></div>
 </div>
 </button>
 </div>
-<div class="rounded-3xl border border-archelaos-deepgreen/15  bg-white/75  p-5 sm:p-6 museum-sport-access-panel">
+<div class="rounded-3xl border border-archelaos-deepgreen/15 bg-white/75 p-5 sm:p-6 museum-sport-access-panel">
 <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-4">
-<div><p class="text-[10px] font-black uppercase tracking-[.17em] text-archelaos-darkgreen "><span data-lang="el">Γρήγορη πρόσβαση</span><span data-lang="en">Quick access</span></p><h3 class="font-heading font-black text-xl sm:text-2xl text-archelaos-deepgreen mt-1"><span data-lang="el">Επιλέξτε απευθείας αθλητικό τμήμα</span><span data-lang="en">Jump straight to a sports department</span></h3></div>
-<span class="text-xs text-slate-500 "><span data-lang="el">Ανοίγει το πλήρες ιστορικό με το αντίστοιχο τμήμα επιλεγμένο.</span><span data-lang="en">Opens the full archive with that department selected.</span></span>
+<div><p class="text-[10px] font-black uppercase tracking-[.17em] text-archelaos-darkgreen"><span data-lang="el">Γρήγορη πρόσβαση</span><span data-lang="en">Quick access</span></p><h3 class="font-heading font-black text-xl sm:text-2xl text-archelaos-deepgreen mt-1"><span data-lang="el">Επιλέξτε απευθείας αθλητικό τμήμα</span><span data-lang="en">Jump straight to a sports department</span></h3></div>
+<span class="text-xs text-slate-500"><span data-lang="el">Ανοίγει το πλήρες ιστορικό με το αντίστοιχο τμήμα επιλεγμένο.</span><span data-lang="en">Opens the full archive with that department selected.</span></span>
 </div>
 <div class="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-2.5" id="sports-archive">
 <button class="history-dept-shortcut" onclick="openHistoryArchive('tmimata','handball')" type="button"><i class="fa-solid fa-hand-fist"></i><span data-lang="el">Χάντμπολ</span><span data-lang="en">Handball</span></button>
@@ -1721,7 +1757,7 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 <i class="fa-solid fa-scroll"></i>
 </div>
 <div>
-<span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen  block">
+<span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen block">
 <span data-lang="el">Κεφάλαιο 1</span>
 <span data-lang="en">Chapter 1</span>
 </span>
@@ -1758,7 +1794,7 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 <i class="fa-solid fa-building-columns"></i>
 </div>
 <div>
-<span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen  block">
+<span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen block">
 <span data-lang="el">Κεφάλαιο 2</span>
 <span data-lang="en">Chapter 2</span>
 </span>
@@ -1772,7 +1808,7 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 <p>
                     Η θεσμική αφετηρία του Γ.Α.Σ. Αρχέλαος τοποθετείται στις 29 Απριλίου 1956 με τη σύνταξη του αρχικού καταστατικού, ενώ η δικαστική αναγνώριση επισφραγίστηκε το 1957. Πρωτεργάτης της ίδρυσης και πρώτος πρόεδρος του συλλόγου υπήρξε ο τότε Επιθεωρητής Σωματικής Αγωγής Πιερίας (1954–1969) <strong>Γεώργιος Ευθυμίου (1908–2006)</strong>, ενώ το πρώτο καταγεγραμμένο ιδρυτικό διοικητικό συμβούλιο συγκροτήθηκε από τους <strong>Αθανάσιο Τσακνάκη</strong> (πρόεδρος), <strong>Ιωάννη Ζαρογιάννη</strong> (αντιπρόεδρος) και <strong>Θεόδωρο Ξηρομερίτη</strong> (ταμίας).
                   </p>
-<p class="font-bold text-archelaos-deepgreen  !mb-2">
+<p class="font-bold text-archelaos-deepgreen !mb-2">
                     Στη μακρόχρονη πορεία του σωματείου, τα ηνία της προεδρίας ανέλαβαν διαδοχικά οι εξής πρόεδροι:
                   </p>
 </div>
@@ -1780,13 +1816,13 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 <p>
                     The institutional starting point of G.A.S. Archelaos dates back to April 29, 1956, with the drafting of its founding charter, while judicial recognition was ratified in 1957. The pioneer of the foundation and first president of the club was the Inspector of Physical Education of Pieria (1954–1969), <strong>Georgios Efthymiou (1908–2006)</strong>, while the first recorded founding Board of Directors consisted of <strong>Athanasios Tsaknakis</strong> (President), <strong>Ioannis Zarogiannis</strong> (Vice President), and <strong>Theodoros Xiromeritis</strong> (Treasurer).
                   </p>
-<p class="font-bold text-archelaos-deepgreen  !mb-2">
+<p class="font-bold text-archelaos-deepgreen !mb-2">
                     Throughout the club's long history, the presidency was held successively by the following presidents:
                   </p>
 </div>
 <!-- Mobile helper prompt for Pop-up -->
-<div class="flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-archelaos-yellow/35  border border-archelaos-deepgreen/20 text-xs font-extrabold text-archelaos-deepgreen ">
-<i class="fa-solid fa-hand-pointer text-archelaos-darkgreen  animate-bounce"></i>
+<div class="flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-archelaos-yellow/35 border border-archelaos-deepgreen/20 text-xs font-extrabold text-archelaos-deepgreen">
+<i class="fa-solid fa-hand-pointer text-archelaos-darkgreen animate-bounce"></i>
 <span data-lang="el">Πατήστε σε οποιονδήποτε Πρόεδρο για να δείτε αναλυτικά σε Pop-up τους σταθμούς και τα γεγονότα της θητείας του!</span>
 <span data-lang="en">Tap on any President to open a Pop-up with the full milestones and events of their term!</span>
 </div>
@@ -1813,10 +1849,10 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 </th>
 </tr>
 </thead>
-<tbody class="divide-y divide-slate-200/80 " id="presidentsTableBody">
+<tbody class="divide-y divide-slate-200/80" id="presidentsTableBody">
 <!-- Rows dynamically rendered or enhanced via JS & HTML for instant SEO + Pop-up -->
 <tr class="table-row-alt cursor-pointer transition" onclick="openPresidentModal(0)">
-<td class="py-3.5 px-3 sm:px-4 font-black text-archelaos-deepgreen  whitespace-nowrap">1956–1957</td>
+<td class="py-3.5 px-3 sm:px-4 font-black text-archelaos-deepgreen whitespace-nowrap">1956–1957</td>
 <td class="py-3.5 px-3 sm:px-4 font-bold">
 <span data-lang="el">Γεώργιος Ευθυμίου</span>
 <span data-lang="en">Georgios Efthymiou</span>
@@ -1834,7 +1870,7 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 </td>
 </tr>
 <tr class="table-row-alt bg-slate-50/70 cursor-pointer transition" onclick="openPresidentModal(1)">
-<td class="py-3.5 px-3 sm:px-4 font-black text-archelaos-deepgreen  whitespace-nowrap">1957–1958</td>
+<td class="py-3.5 px-3 sm:px-4 font-black text-archelaos-deepgreen whitespace-nowrap">1957–1958</td>
 <td class="py-3.5 px-3 sm:px-4 font-bold">
 <span data-lang="el">Αθανάσιος Τσακνάκης</span>
 <span data-lang="en">Athanasios Tsaknakis</span>
@@ -1852,7 +1888,7 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 </td>
 </tr>
 <tr class="table-row-alt cursor-pointer transition" onclick="openPresidentModal(2)">
-<td class="py-3.5 px-3 sm:px-4 font-black text-archelaos-deepgreen  whitespace-nowrap">1958–1959</td>
+<td class="py-3.5 px-3 sm:px-4 font-black text-archelaos-deepgreen whitespace-nowrap">1958–1959</td>
 <td class="py-3.5 px-3 sm:px-4 font-bold">
 <span data-lang="el">Ιωάννης Μαντζαρόπουλος</span>
 <span data-lang="en">Ioannis Mantzaropoulos</span>
@@ -1870,7 +1906,7 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 </td>
 </tr>
 <tr class="table-row-alt bg-slate-50/70 cursor-pointer transition" onclick="openPresidentModal(3)">
-<td class="py-3.5 px-3 sm:px-4 font-black text-archelaos-deepgreen  whitespace-nowrap">1959–1961</td>
+<td class="py-3.5 px-3 sm:px-4 font-black text-archelaos-deepgreen whitespace-nowrap">1959–1961</td>
 <td class="py-3.5 px-3 sm:px-4 font-bold">
 <span data-lang="el">Θεόφιλος Καμπερίδης</span>
 <span data-lang="en">Theofilos Kamperidis</span>
@@ -1888,7 +1924,7 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 </td>
 </tr>
 <tr class="table-row-alt cursor-pointer transition" onclick="openPresidentModal(4)">
-<td class="py-3.5 px-3 sm:px-4 font-black text-archelaos-deepgreen  whitespace-nowrap">1961</td>
+<td class="py-3.5 px-3 sm:px-4 font-black text-archelaos-deepgreen whitespace-nowrap">1961</td>
 <td class="py-3.5 px-3 sm:px-4 font-bold">
 <span data-lang="el">Ιωάννης Παπαδημητρίου</span>
 <span data-lang="en">Ioannis Papadimitriou</span>
@@ -1906,7 +1942,7 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 </td>
 </tr>
 <tr class="table-row-alt bg-slate-50/70 cursor-pointer transition" onclick="openPresidentModal(5)">
-<td class="py-3.5 px-3 sm:px-4 font-black text-archelaos-deepgreen  whitespace-nowrap">1964–1972</td>
+<td class="py-3.5 px-3 sm:px-4 font-black text-archelaos-deepgreen whitespace-nowrap">1964–1972</td>
 <td class="py-3.5 px-3 sm:px-4 font-bold">
 <span data-lang="el">Ιωάννης Μαντζαρόπουλος</span>
 <span data-lang="en">Ioannis Mantzaropoulos</span>
@@ -1924,7 +1960,7 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 </td>
 </tr>
 <tr class="table-row-alt cursor-pointer transition" onclick="openPresidentModal(6)">
-<td class="py-3.5 px-3 sm:px-4 font-black text-archelaos-deepgreen  whitespace-nowrap">1973–1975</td>
+<td class="py-3.5 px-3 sm:px-4 font-black text-archelaos-deepgreen whitespace-nowrap">1973–1975</td>
 <td class="py-3.5 px-3 sm:px-4 font-bold">
 <span data-lang="el">Αθανάσιος Ευθυμίου</span>
 <span data-lang="en">Athanasios Efthymiou</span>
@@ -1942,7 +1978,7 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 </td>
 </tr>
 <tr class="table-row-alt bg-slate-50/70 cursor-pointer transition" onclick="openPresidentModal(7)">
-<td class="py-3.5 px-3 sm:px-4 font-black text-archelaos-deepgreen  whitespace-nowrap">1975–1977</td>
+<td class="py-3.5 px-3 sm:px-4 font-black text-archelaos-deepgreen whitespace-nowrap">1975–1977</td>
 <td class="py-3.5 px-3 sm:px-4 font-bold">
 <span data-lang="el">Νίκος Τσινόπουλος</span>
 <span data-lang="en">Nikos Tsinopoulos</span>
@@ -1960,7 +1996,7 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 </td>
 </tr>
 <tr class="table-row-alt cursor-pointer transition" onclick="openPresidentModal(8)">
-<td class="py-3.5 px-3 sm:px-4 font-black text-archelaos-deepgreen  whitespace-nowrap">1977–1985</td>
+<td class="py-3.5 px-3 sm:px-4 font-black text-archelaos-deepgreen whitespace-nowrap">1977–1985</td>
 <td class="py-3.5 px-3 sm:px-4 font-bold">
 <span data-lang="el">Δημήτριος (Μήτσος) Γιάνναρος</span>
 <span data-lang="en">Dimitrios (Mitsos) Giannaros</span>
@@ -1978,7 +2014,7 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 </td>
 </tr>
 <tr class="table-row-alt bg-slate-50/70 cursor-pointer transition" onclick="openPresidentModal(9)">
-<td class="py-3.5 px-3 sm:px-4 font-black text-archelaos-deepgreen  whitespace-nowrap">1985–1989</td>
+<td class="py-3.5 px-3 sm:px-4 font-black text-archelaos-deepgreen whitespace-nowrap">1985–1989</td>
 <td class="py-3.5 px-3 sm:px-4 font-bold">
 <span data-lang="el">Ευστάθιος Ζάννας</span>
 <span data-lang="en">Efstathios Zannas</span>
@@ -1996,7 +2032,7 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 </td>
 </tr>
 <tr class="table-row-alt cursor-pointer transition" onclick="openPresidentModal(10)">
-<td class="py-3.5 px-3 sm:px-4 font-black text-archelaos-deepgreen  whitespace-nowrap">1989–1993</td>
+<td class="py-3.5 px-3 sm:px-4 font-black text-archelaos-deepgreen whitespace-nowrap">1989–1993</td>
 <td class="py-3.5 px-3 sm:px-4 font-bold">
 <span data-lang="el">Δημήτριος Παπαδημητρίου</span>
 <span data-lang="en">Dimitrios Papadimitriou</span>
@@ -2014,7 +2050,7 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 </td>
 </tr>
 <tr class="table-row-alt bg-slate-50/70 cursor-pointer transition" onclick="openPresidentModal(11)">
-<td class="py-3.5 px-3 sm:px-4 font-black text-archelaos-deepgreen  whitespace-nowrap">1993–2011</td>
+<td class="py-3.5 px-3 sm:px-4 font-black text-archelaos-deepgreen whitespace-nowrap">1993–2011</td>
 <td class="py-3.5 px-3 sm:px-4 font-bold">
 <span data-lang="el">Χρήστος Ελευθερούδης</span>
 <span data-lang="en">Christos Eleftheroudis</span>
@@ -2032,7 +2068,7 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 </td>
 </tr>
 <tr class="table-row-alt cursor-pointer transition" onclick="openPresidentModal(12)">
-<td class="py-3.5 px-3 sm:px-4 font-black text-archelaos-deepgreen  whitespace-nowrap">2011–2019</td>
+<td class="py-3.5 px-3 sm:px-4 font-black text-archelaos-deepgreen whitespace-nowrap">2011–2019</td>
 <td class="py-3.5 px-3 sm:px-4 font-bold">
 <span data-lang="el">Θεόδωρος Διαμαντόπουλος</span>
 <span data-lang="en">Theodoros Diamantopoulos</span>
@@ -2050,7 +2086,7 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 </td>
 </tr>
 <tr class="table-row-alt bg-slate-50/70 cursor-pointer transition" onclick="openPresidentModal(13)">
-<td class="py-3.5 px-3 sm:px-4 font-black text-archelaos-deepgreen  whitespace-nowrap">2019–2026</td>
+<td class="py-3.5 px-3 sm:px-4 font-black text-archelaos-deepgreen whitespace-nowrap">2019–2026</td>
 <td class="py-3.5 px-3 sm:px-4 font-bold">
 <span data-lang="el">Αλκίνοος (Άλκης) Τασόπουλος</span>
 <span data-lang="en">Alkinoos (Alkis) Tasopoulos</span>
@@ -2068,7 +2104,7 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 </td>
 </tr>
 <tr class="table-row-alt cursor-pointer transition" onclick="openPresidentModal(14)">
-<td class="py-3.5 px-3 sm:px-4 font-black text-archelaos-deepgreen  whitespace-nowrap">
+<td class="py-3.5 px-3 sm:px-4 font-black text-archelaos-deepgreen whitespace-nowrap">
 <span data-lang="el">2026–σήμερα</span>
 <span data-lang="en">2026–present</span>
 </td>
@@ -2094,7 +2130,7 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 <!-- Milestone 1973 Highlight Box -->
 <div class="sub-box p-5 rounded-2xl bg-archelaos-yellow/20 border border-archelaos-darkgreen/25 space-y-3">
 <h3 class="text-lg font-black font-heading text-archelaos-deepgreen flex items-center gap-2">
-<i class="fa-solid fa-star text-archelaos-darkgreen "></i>
+<i class="fa-solid fa-star text-archelaos-darkgreen"></i>
 <span data-lang="el">Η Ιστορική Τομή της 24ης Ιουνίου 1973</span>
 <span data-lang="en">The Historic Turning Point of June 24, 1973</span>
 </h3>
@@ -2128,7 +2164,7 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
                   </p>
 </div>
 <!-- 2.1 Απόπειρα Συγχώνευσης 1970 -->
-<div class="pt-4 border-t border-slate-200/80  scroll-mt-24" id="sygxonefsi1970">
+<div class="pt-4 border-t border-slate-200/80 scroll-mt-24" id="sygxonefsi1970">
 <h3 class="text-xl font-black font-heading text-archelaos-deepgreen mb-3">
 <span data-lang="el">Η απόπειρα συγχώνευσης του 1970 και οι σχέσεις με τον Πιερικό</span>
 <span data-lang="en">The 1970 Merger Attempt and Relations with Pierikos</span>
@@ -2151,7 +2187,7 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 </div>
 </div>
 <!-- 2.2 Τρέχουσα Διοίκηση (2026) -->
-<div class="pt-4 border-t border-slate-200/80  scroll-mt-24" id="current-board">
+<div class="pt-4 border-t border-slate-200/80 scroll-mt-24" id="current-board">
 <h3 class="text-xl font-black font-heading text-archelaos-deepgreen mb-3">
 <span data-lang="el">Τρέχουσα διοίκηση (2026)</span>
 <span data-lang="en">Current Board of Directors (2026)</span>
@@ -2222,7 +2258,7 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 <i class="fa-solid fa-location-dot"></i>
 </div>
 <div>
-<span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen  block">
+<span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen block">
 <span data-lang="el">Κεφάλαιο 3</span>
 <span data-lang="en">Chapter 3</span>
 </span>
@@ -2280,10 +2316,10 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 </ul>
 </div>
 </div>
-<p class="!mb-0 text-xs sm:text-sm bg-archelaos-deepgreen/5  p-4 rounded-2xl border border-archelaos-deepgreen/15" data-lang="el">
+<p class="!mb-0 text-xs sm:text-sm bg-archelaos-deepgreen/5 p-4 rounded-2xl border border-archelaos-deepgreen/15" data-lang="el">
 <strong>Ιστορικές μισθωμένες εγκαταστάσεις:</strong> Στο παρελθόν, λόγω στεγαστικών αναγκών, ο σύλλογος διατηρούσε με ίδια μέσα μισθωμένες εγκαταστάσεις: ειδική αίθουσα γυμναστικής 110 τ.μ. στα Καταφυγιώτικα (γωνία Παπαγεωργίου &amp; Σακελλαρίδη, 1993–1995) αποκλειστικά για την ξηρά προπόνηση των κολυμβητών, προπονητήριο 200 τ.μ. στην οδό 7ης Μεραρχίας 102 (1995), καθώς και διαμερίσματα-ξενώνες για τη στέγαση αθλητών και προπονητών στις οδούς Σκρά 11 και Βύρωνος 26.
                 </p>
-<p class="!mb-0 text-xs sm:text-sm bg-archelaos-deepgreen/5  p-4 rounded-2xl border border-archelaos-deepgreen/15" data-lang="en">
+<p class="!mb-0 text-xs sm:text-sm bg-archelaos-deepgreen/5 p-4 rounded-2xl border border-archelaos-deepgreen/15" data-lang="en">
 <strong>Historical Leased Facilities:</strong> In the past, to meet housing needs, the club privately leased dedicated spaces: a 110 sq.m. gym in Katafygiotika (corner of Papageorgiou &amp; Sakellaridi Streets, 1993–1995) exclusively for swimmers' dry-land training, a 200 sq.m. training facility at 102 7is Merarchias Street (1995), as well as apartments/hostels to house athletes and coaches at 11 Skra Street and 26 Vyronos Street.
                 </p>
 </div>
@@ -2294,13 +2330,13 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 <!-- Department Selector Card -->
 <div class="glass-card rounded-[2rem] p-6 sm:p-8 shadow-lg">
 <div class="relative z-10 space-y-5">
-<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200/80  pb-4">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200/80 pb-4">
 <div class="flex items-center gap-3">
 <div class="w-11 h-11 rounded-2xl bg-archelaos-deepgreen text-archelaos-yellow flex items-center justify-center text-lg shadow-sm shrink-0">
 <i class="fa-solid fa-layer-group"></i>
 </div>
 <div>
-<span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen  block">
+<span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen block">
 <span data-lang="el">Κεφάλαιο 4 • Διαδραστικός Επιλογέας</span>
 <span data-lang="en">Chapter 4 • Interactive Selector</span>
 </span>
@@ -2311,14 +2347,14 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 </div>
 </div>
 <!-- Toggle All Departments Button -->
-<button class="self-start sm:self-auto inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-archelaos-deepgreen text-archelaos-deepgreen hover:text-archelaos-yellow   border border-archelaos-deepgreen/20 text-xs font-extrabold transition shadow-sm shrink-0" id="toggleAllDeptsBtn" type="button">
+<button class="self-start sm:self-auto inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-archelaos-deepgreen text-archelaos-deepgreen hover:text-archelaos-yellow border border-archelaos-deepgreen/20 text-xs font-extrabold transition shadow-sm shrink-0" id="toggleAllDeptsBtn" type="button">
 <i class="fa-solid fa-expand" id="toggleAllDeptsIcon"></i>
 <span data-lang="el" id="toggleAllDeptsTextEl">Προβολή Όλων</span>
 <span data-lang="en" id="toggleAllDeptsTextEn">Show All</span>
 </button>
 </div>
-<p class="text-xs sm:text-sm font-semibold text-slate-600  !mb-1">
-<i class="fa-solid fa-hand-pointer mr-1.5 text-archelaos-darkgreen "></i>
+<p class="text-xs sm:text-sm font-semibold text-slate-600 !mb-1">
+<i class="fa-solid fa-hand-pointer mr-1.5 text-archelaos-darkgreen"></i>
 <span data-lang="el">Επιλέξτε το αθλητικό τμήμα που σας ενδιαφέρει για να διαβάσετε την πλήρη ιστορική του αναδρομή:</span>
 <span data-lang="en">Select the sports department you wish to explore to read its complete historical chronicle:</span>
 </p>
@@ -2450,13 +2486,13 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 <!-- 4.1 ΧΕΙΡΟΣΦΑΙΡΙΣΗ (ΧΑΝΤΜΠΟΛ) -->
 <article class="dept-panel active-panel glass-card rounded-[2rem] p-6 sm:p-10 shadow-lg scroll-mt-24" id="handball">
 <div class="relative z-10 space-y-5">
-<div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200/80  pb-4">
+<div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200/80 pb-4">
 <div class="flex items-center gap-3">
 <div class="w-12 h-12 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-2xl shadow-sm border border-archelaos-deepgreen/15">
 <i class="fa-solid fa-futbol"></i>
 </div>
 <div>
-<span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen  block">
+<span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen block">
 <span data-lang="el">Αθλητικό Τμήμα • Ίδρυση 1976</span>
 <span data-lang="en">Sports Department • Founded 1976</span>
 </span>
@@ -2598,13 +2634,13 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 <!-- 4.2 ΚΛΑΣΙΚΟΣ ΑΘΛΗΤΙΣΜΟΣ (ΣΤΙΒΟΣ) -->
 <article class="dept-panel glass-card rounded-[2rem] p-6 sm:p-10 shadow-lg scroll-mt-24" id="track">
 <div class="relative z-10 space-y-5">
-<div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200/80  pb-4">
+<div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200/80 pb-4">
 <div class="flex items-center gap-3">
 <div class="w-12 h-12 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-2xl shadow-sm border border-archelaos-deepgreen/15">
 <i class="fa-solid fa-person-running"></i>
 </div>
 <div>
-<span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen  block">
+<span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen block">
 <span data-lang="el">Ιδρυτικό Τμήμα • 1956 (ΣΕΓΑΣ Α.Μ. 238)</span>
 <span data-lang="en">Founding Department • 1956 (SEGAS Reg. 238)</span>
 </span>
@@ -2682,13 +2718,13 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 <!-- 4.3 ΤΟΞΟΒΟΛΙΑ -->
 <article class="dept-panel glass-card rounded-[2rem] p-6 sm:p-10 shadow-lg scroll-mt-24" id="archery">
 <div class="relative z-10 space-y-5">
-<div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200/80  pb-4">
+<div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200/80 pb-4">
 <div class="flex items-center gap-3">
 <div class="w-12 h-12 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-2xl shadow-sm border border-archelaos-deepgreen/15">
 <i class="fa-solid fa-bullseye"></i>
 </div>
 <div>
-<span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen  block">
+<span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen block">
 <span data-lang="el">Αθλητικό Τμήμα • Ίδρυση 1991/1993</span>
 <span data-lang="en">Sports Department • Founded 1991/1993</span>
 </span>
@@ -2744,13 +2780,13 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 <!-- 4.4 ΠΕΤΟΣΦΑΙΡΙΣΗ (ΒΟΛΕΪ) -->
 <article class="dept-panel glass-card rounded-[2rem] p-6 sm:p-10 shadow-lg scroll-mt-24" id="volleyball">
 <div class="relative z-10 space-y-5">
-<div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200/80  pb-4">
+<div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200/80 pb-4">
 <div class="flex items-center gap-3">
 <div class="w-12 h-12 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-2xl shadow-sm border border-archelaos-deepgreen/15">
 <i class="fa-solid fa-volleyball"></i>
 </div>
 <div>
-<span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen  block">
+<span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen block">
 <span data-lang="el">Αθλητικό Τμήμα • Ίδρυση 1973/1974</span>
 <span data-lang="en">Sports Department • Founded 1973/1974</span>
 </span>
@@ -2804,13 +2840,13 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 <!-- 4.5 ΣΚΟΠΟΒΟΛΗ -->
 <article class="dept-panel glass-card rounded-[2rem] p-6 sm:p-10 shadow-lg scroll-mt-24" id="shooting">
 <div class="relative z-10 space-y-5">
-<div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200/80  pb-4">
+<div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200/80 pb-4">
 <div class="flex items-center gap-3">
 <div class="w-12 h-12 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-2xl shadow-sm border border-archelaos-deepgreen/15">
 <i class="fa-solid fa-crosshairs"></i>
 </div>
 <div>
-<span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen  block">
+<span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen block">
 <span data-lang="el">Αθλητικό Τμήμα • Ίδρυση 1981</span>
 <span data-lang="en">Sports Department • Founded 1981</span>
 </span>
@@ -2860,13 +2896,13 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 <!-- 4.6 ΠΑΛΗ -->
 <article class="dept-panel glass-card rounded-[2rem] p-6 sm:p-10 shadow-lg scroll-mt-24" id="wrestling">
 <div class="relative z-10 space-y-5">
-<div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200/80  pb-4">
+<div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200/80 pb-4">
 <div class="flex items-center gap-3">
 <div class="w-12 h-12 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-2xl shadow-sm border border-archelaos-deepgreen/15">
 <i class="fa-solid fa-hand-fist"></i>
 </div>
 <div>
-<span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen  block">
+<span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen block">
 <span data-lang="el">Αθλητικό Τμήμα • Ίδρυση 1978/1980</span>
 <span data-lang="en">Sports Department • Founded 1978/1980</span>
 </span>
@@ -2930,13 +2966,13 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 <!-- 4.7 ΚΟΛΥΜΒΗΣΗ & ΤΕΧΝΙΚΗ ΚΟΛΥΜΒΗΣΗ -->
 <article class="dept-panel glass-card rounded-[2rem] p-6 sm:p-10 shadow-lg scroll-mt-24" id="swimming">
 <div class="relative z-10 space-y-5">
-<div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200/80  pb-4">
+<div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200/80 pb-4">
 <div class="flex items-center gap-3">
 <div class="w-12 h-12 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-2xl shadow-sm border border-archelaos-deepgreen/15">
 <i class="fa-solid fa-person-swimming"></i>
 </div>
 <div>
-<span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen  block">
+<span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen block">
 <span data-lang="el">Αθλητικό Τμήμα • Ίδρυση 1980/1981</span>
 <span data-lang="en">Sports Department • Founded 1980/1981</span>
 </span>
@@ -2978,13 +3014,13 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 <!-- 4.8 ΕΝΟΡΓΑΝΗ ΓΥΜΝΑΣΤΙΚΗ & ΓΕΝΙΚΗ ΓΥΜΝΑΣΗ -->
 <article class="dept-panel glass-card rounded-[2rem] p-6 sm:p-10 shadow-lg scroll-mt-24" id="gymnastics">
 <div class="relative z-10 space-y-5">
-<div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200/80  pb-4">
+<div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200/80 pb-4">
 <div class="flex items-center gap-3">
 <div class="w-12 h-12 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-2xl shadow-sm border border-archelaos-deepgreen/15">
 <i class="fa-solid fa-child-reaching"></i>
 </div>
 <div>
-<span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen  block">
+<span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen block">
 <span data-lang="el">Αθλητικό Τμήμα • Ίδρυση 1975</span>
 <span data-lang="en">Sports Department • Founded 1975</span>
 </span>
@@ -3040,13 +3076,13 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 <!-- 4.9 ΚΑΛΑΘΟΣΦΑΙΡΙΣΗ (ΣΥΓΧΩΝΕΥΣΗ 2008) -->
 <article class="dept-panel glass-card rounded-[2rem] p-6 sm:p-10 shadow-lg scroll-mt-24" id="basketball">
 <div class="relative z-10 space-y-5">
-<div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200/80  pb-4">
+<div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200/80 pb-4">
 <div class="flex items-center gap-3">
 <div class="w-12 h-12 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-2xl shadow-sm border border-archelaos-deepgreen/15">
 <i class="fa-solid fa-basketball"></i>
 </div>
 <div>
-<span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen  block">
+<span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen block">
 <span data-lang="el">Ιστορικό Τμήμα • 1973–2008</span>
 <span data-lang="en">Historical Department • 1973–2008</span>
 </span>
@@ -3100,12 +3136,12 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 <!-- 4.10 ΑΝΕΝΕΡΓΑ ΤΜΗΜΑΤΑ (ΠΟΛΟ, ΠΙΝΓΚ-ΠΟΝΓΚ, ΑΡΣΗ ΒΑΡΩΝ) -->
 <article class="dept-panel glass-card rounded-[2rem] p-6 sm:p-10 shadow-lg scroll-mt-24" id="inactive-depts">
 <div class="relative z-10 space-y-5">
-<div class="flex items-center gap-3 border-b border-slate-200/80  pb-4">
+<div class="flex items-center gap-3 border-b border-slate-200/80 pb-4">
 <div class="w-12 h-12 rounded-2xl bg-archelaos-deepgreen text-archelaos-yellow flex items-center justify-center text-xl shadow-sm">
 <i class="fa-solid fa-box-archive"></i>
 </div>
 <div>
-<span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen  block">
+<span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen block">
 <span data-lang="el">Ιστορικά Τμήματα</span>
 <span data-lang="en">Historical Departments</span>
 </span>
@@ -3169,7 +3205,7 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 <i class="fa-solid fa-fire-flame-curved"></i>
 </div>
 <div>
-<span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen  block">
+<span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen block">
 <span data-lang="el">Κεφάλαιο 5 • Ιστορικός Θεσμός (1957)</span>
 <span data-lang="en">Chapter 5 • Historic Institution (1957)</span>
 </span>
@@ -3266,7 +3302,7 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 <i class="fa-solid fa-trophy"></i>
 </div>
 <div>
-<span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen  block">
+<span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen block">
 <span data-lang="el">Κεφάλαιο 6 • Τροπαιοθήκη</span>
 <span data-lang="en">Chapter 6 • Trophy Room</span>
 </span>
@@ -3429,8 +3465,8 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 <button aria-label="Κλείσιμο / Close" class="shrink-0 w-10 h-10 rounded-xl bg-white/10 hover:bg-archelaos-yellow hover:text-archelaos-deepgreen flex items-center justify-center transition" onclick="closeHistoryArchive()" type="button"><i class="fa-solid fa-xmark text-xl"></i></button>
 </div>
 <div class="history-archive-content min-h-0 overflow-y-auto overscroll-contain p-3 sm:p-7" id="historyArchiveContent"></div>
-<div class="shrink-0 flex items-center justify-between gap-3 px-4 sm:px-7 py-3 border-t border-archelaos-deepgreen/10 bg-slate-50 ">
-<span class="text-[10px] sm:text-xs font-bold text-slate-500 "><span data-lang="el">Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης · Πλήρες ιστορικό αρχείο</span><span data-lang="en">G.A.S. “Archelaos” Katerini · Complete historical archive</span></span>
+<div class="shrink-0 flex items-center justify-between gap-3 px-4 sm:px-7 py-3 border-t border-archelaos-deepgreen/10 bg-slate-50">
+<span class="text-[10px] sm:text-xs font-bold text-slate-500"><span data-lang="el">Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης · Πλήρες ιστορικό αρχείο</span><span data-lang="en">G.A.S. “Archelaos” Katerini · Complete historical archive</span></span>
 <button class="shrink-0 inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-archelaos-deepgreen text-archelaos-yellow text-xs font-black hover:bg-archelaos-darkgreen transition" onclick="closeHistoryArchive()" type="button"><i class="fa-solid fa-check"></i><span data-lang="el">Έγινε</span><span data-lang="en">Done</span></button>
 </div>
 </div>
@@ -3438,12 +3474,12 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 <!-- President popup used by the original table rows in the history chapter -->
 <div aria-hidden="true" aria-labelledby="historyPresidentModalName" aria-modal="true" class="modal-backdrop fixed inset-0 z-[80] flex items-center justify-center overflow-y-auto bg-black/70 backdrop-blur-sm p-4" id="historyPresidentModal" role="dialog">
 <div class="modal-box history-president-card w-full max-w-lg mx-auto my-auto rounded-3xl bg-white border-2 border-archelaos-deepgreen/20 shadow-2xl p-6 sm:p-8 relative">
-<button aria-label="Κλείσιμο / Close" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-slate-100 hover:bg-archelaos-deepgreen text-archelaos-deepgreen hover:text-archelaos-yellow   flex items-center justify-center transition" id="historyPresidentClose" type="button"><i class="fa-solid fa-xmark text-base"></i></button>
+<button aria-label="Κλείσιμο / Close" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-slate-100 hover:bg-archelaos-deepgreen text-archelaos-deepgreen hover:text-archelaos-yellow flex items-center justify-center transition" id="historyPresidentClose" type="button"><i class="fa-solid fa-xmark text-base"></i></button>
 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-archelaos-deepgreen text-archelaos-yellow text-xs font-black uppercase tracking-wider mb-3"><i class="fa-solid fa-calendar-days"></i><span id="historyPresidentTerm">1956–1957</span></div>
 <h3 class="text-xl sm:text-2xl font-black font-heading text-archelaos-deepgreen mb-1" id="historyPresidentModalName">Γεώργιος Ευθυμίου</h3>
-<p class="text-xs font-bold uppercase tracking-wider text-archelaos-darkgreen  mb-4" id="historyPresidentModalSub">Πρόεδρος Γ.Α.Σ. Αρχέλαος Κατερίνης</p>
-<div class="sub-box p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200/90 text-xs sm:text-sm leading-relaxed text-slate-700  font-medium mb-6"><div class="font-extrabold text-archelaos-deepgreen  text-xs uppercase tracking-wider mb-1.5 flex items-center gap-1.5"><i class="fa-solid fa-star"></i><span data-lang="el">Σημαντικότεροι Σταθμοί &amp; Γεγονότα Θητείας</span><span data-lang="en">Key Milestones &amp; Events of Term</span></div><p class="!mb-0" id="historyPresidentDetails"></p></div>
-<div class="flex items-center justify-between gap-2 pt-2 border-t border-slate-200/80 "><div class="flex items-center gap-2"><button class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-archelaos-deepgreen text-archelaos-deepgreen hover:text-archelaos-yellow   text-xs font-extrabold transition flex items-center gap-1.5" id="historyPresidentPrev" type="button"><i class="fa-solid fa-chevron-left text-[10px]"></i><span data-lang="el">Προηγ.</span><span data-lang="en">Prev</span></button><button class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-archelaos-deepgreen text-archelaos-deepgreen hover:text-archelaos-yellow   text-xs font-extrabold transition flex items-center gap-1.5" id="historyPresidentNext" type="button"><span data-lang="el">Επόμ.</span><span data-lang="en">Next</span><i class="fa-solid fa-chevron-right text-[10px]"></i></button></div><button class="px-4 py-2 rounded-xl bg-archelaos-deepgreen text-archelaos-yellow hover:bg-archelaos-darkgreen text-xs font-extrabold transition" id="historyPresidentCloseFooter" type="button"><span data-lang="el">Κλείσιμο</span><span data-lang="en">Close</span></button></div>
+<p class="text-xs font-bold uppercase tracking-wider text-archelaos-darkgreen mb-4" id="historyPresidentModalSub">Πρόεδρος Γ.Α.Σ. Αρχέλαος Κατερίνης</p>
+<div class="sub-box p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200/90 text-xs sm:text-sm leading-relaxed text-slate-700 font-medium mb-6"><div class="font-extrabold text-archelaos-deepgreen text-xs uppercase tracking-wider mb-1.5 flex items-center gap-1.5"><i class="fa-solid fa-star"></i><span data-lang="el">Σημαντικότεροι Σταθμοί &amp; Γεγονότα Θητείας</span><span data-lang="en">Key Milestones &amp; Events of Term</span></div><p class="!mb-0" id="historyPresidentDetails"></p></div>
+<div class="flex items-center justify-between gap-2 pt-2 border-t border-slate-200/80"><div class="flex items-center gap-2"><button class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-archelaos-deepgreen text-archelaos-deepgreen hover:text-archelaos-yellow text-xs font-extrabold transition flex items-center gap-1.5" id="historyPresidentPrev" type="button"><i class="fa-solid fa-chevron-left text-[10px]"></i><span data-lang="el">Προηγ.</span><span data-lang="en">Prev</span></button><button class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-archelaos-deepgreen text-archelaos-deepgreen hover:text-archelaos-yellow text-xs font-extrabold transition flex items-center gap-1.5" id="historyPresidentNext" type="button"><span data-lang="el">Επόμ.</span><span data-lang="en">Next</span><i class="fa-solid fa-chevron-right text-[10px]"></i></button></div><button class="px-4 py-2 rounded-xl bg-archelaos-deepgreen text-archelaos-yellow hover:bg-archelaos-darkgreen text-xs font-extrabold transition" id="historyPresidentCloseFooter" type="button"><span data-lang="el">Κλείσιμο</span><span data-lang="en">Close</span></button></div>
 </div>
 </div>
 <div class="modal-backdrop fixed inset-0 z-50 overflow-y-auto bg-black/60 flex items-center justify-center p-4" id="timelineDetailModal">
@@ -3517,8 +3553,8 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 </div>
 <form class="p-6 sm:p-8 space-y-4" id="modalForm" onsubmit="handleModalDirectSubmit(event)">
 <div>
-<label class="modal-label block text-xs font-black text-archelaos-deepgreen uppercase mb-1" data-i18n="field_dept_req">Τμήμα *</label>
-<select class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm bg-white" id="modalDeptSelect" required="">
+<label class="modal-label block text-xs font-black text-archelaos-deepgreen uppercase mb-1" data-i18n="field_dept_req" for="modalDeptSelect">Τμήμα *</label>
+<select autocomplete="off" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm bg-white" id="modalDeptSelect" required="">
 <option data-i18n="opt_handball" value="Χάντμπολ">Χάντμπολ</option>
 <option data-i18n="opt_track" value="Στίβος">Στίβος</option>
 <option data-i18n="opt_archery" value="Τοξοβολία">Τοξοβολία</option>
@@ -3530,21 +3566,21 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 </select>
 </div>
 <div>
-<label class="modal-label block text-xs font-black text-archelaos-deepgreen uppercase mb-1" data-i18n="field_fullname">Ονοματεπώνυμο *</label>
-<input class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm" id="modalName" placeholder="π.χ. Κωνσταντίνος Νικολάου" required="" type="text"/>
+<label class="modal-label block text-xs font-black text-archelaos-deepgreen uppercase mb-1" data-i18n="field_fullname" for="modalName">Ονοματεπώνυμο *</label>
+<input autocomplete="name" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm" id="modalName" maxlength="120" placeholder="π.χ. Κωνσταντίνος Νικολάου" required="" type="text"/>
 </div>
 <div>
-<label class="modal-label block text-xs font-black text-archelaos-deepgreen uppercase mb-1" data-i18n="field_phone_contact">Τηλέφωνο Επικοινωνίας *</label>
-<input class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm" id="modalPhone" placeholder="π.χ. 6970000000" required="" type="tel"/>
+<label class="modal-label block text-xs font-black text-archelaos-deepgreen uppercase mb-1" data-i18n="field_phone_contact" for="modalPhone">Τηλέφωνο Επικοινωνίας *</label>
+<input autocomplete="tel" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm" id="modalPhone" maxlength="40" placeholder="π.χ. 6970000000" required="" type="tel"/>
 </div>
 <div>
-<label class="modal-label block text-xs font-black text-archelaos-deepgreen uppercase mb-1" data-i18n="field_email_opt">Email</label>
-<input class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm" id="modalEmail" placeholder="email@example.com" type="email"/>
+<label class="modal-label block text-xs font-black text-archelaos-deepgreen uppercase mb-1" data-i18n="field_email_opt" for="modalEmail">Email</label>
+<input autocomplete="email" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm" id="modalEmail" maxlength="254" placeholder="email@example.com" type="email"/>
 </div>
 <div class="hidden p-3 rounded-xl text-xs font-bold bg-emerald-100 text-emerald-900 border border-emerald-300" id="modalAlert">
 <i class="fa-solid fa-circle-check mr-1 text-emerald-700"></i> <span data-i18n="reg_sent_success">Η εγγραφή σας καταχωρήθηκε επιτυχώς!</span>
 </div>
-<button class="modal-submit-btn btn-shimmer w-full py-4 bg-archelaos-deepgreen text-archelaos-yellow font-black rounded-xl shadow-md transition" data-i18n="btn_submit_interest" type="submit">Υποβολή Ενδιαφέροντος</button>
+<p class="archelaos-form-note">Τα στοιχεία σας χρησιμοποιούνται για την επικοινωνία σχετικά με το ενδιαφέρον σας. / Your details are used to respond to your enquiry.</p><button class="modal-submit-btn btn-shimmer w-full py-4 bg-archelaos-deepgreen text-archelaos-yellow font-black rounded-xl shadow-md transition" data-i18n="btn_submit_interest" type="submit">Υποβολή Ενδιαφέροντος</button>
 </form>
 </div>
 </div>
@@ -3561,48 +3597,48 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
 <span class="absolute right-16 bg-archelaos-deepgreen text-archelaos-yellow text-[11px] font-black uppercase tracking-wider px-3 py-1.5 rounded-xl shadow-lg border border-archelaos-yellow/40 opacity-0 pointer-events-none translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 whitespace-nowrap" data-i18n="back_to_top_tooltip">Κορυφή</span>
 </button>
 <!-- FOOTER (IDENTICAL ACROSS BOTH PAGES) -->
-<footer class="heritage-footer" aria-label="Γ.Α.Σ. Ο Αρχέλαος — footer">
-  <div class="heritage-footer-inner">
-    <div class="heritage-footer-top">
-      <div class="heritage-footer-intro">
-        <div class="heritage-footer-brand">
-          <a class="heritage-footer-brand-link" href="index.html#home" aria-label="Αρχική — Γ.Α.Σ. Ο Αρχέλαος">
-            <img class="heritage-footer-logo" src="https://lh3.googleusercontent.com/d/1JwGT61jDKXuBU6rA1OCiC1laeKh8gKdV" alt="Λογότυπο Γ.Α.Σ. Ο Αρχέλαος" loading="lazy" decoding="async">
-          </a>
-          <div>
-            <p class="heritage-footer-kicker" data-i18n="heritage_footer_since">ΑΠΟ ΤΟ 1956</p>
-            <p class="heritage-footer-title" data-i18n="heritage_footer_club">Γ.Α.Σ. «Ο Αρχέλαος»</p>
-            <p class="heritage-footer-city" data-i18n="heritage_footer_city">Κατερίνη · 70 χρόνια αθλητισμού</p>
-          </div>
-        </div>
-        <p class="heritage-footer-motto" data-i18n="heritage_footer_motto">Ο αθλητισμός μάς ενώνει.</p>
-      </div>
-      <nav class="heritage-footer-nav" aria-label="Εξερεύνηση">
-        <h2 class="heritage-footer-col-title" data-i18n="heritage_footer_explore">ΕΞΕΡΕΥΝΗΣΗ</h2>
-        <div class="heritage-footer-links">
-          <a href="index.html#home"><span data-i18n="nav_home">Αρχική</span></a>
-          <a href="index.html#departments"><span data-i18n="nav_dept">Τμήματα</span></a>
-          <a href="index.html#board"><span data-i18n="nav_board">Διοίκηση</span></a>
-        </div>
-      </nav>
-      <nav class="heritage-footer-nav" aria-label="Ιστορία και επαφή">
-        <h2 class="heritage-footer-col-title" data-i18n="heritage_footer_history_contact">ΠΕΡΙΣΣΟΤΕΡΑ &amp; ΕΠΑΦΗ</h2>
-        <div class="heritage-footer-links">
-          <a href="#chapters"><span data-i18n="nav_history">Ιστορία</span></a>
-          <a href="#timeline"><span data-i18n="nav_timeline">Χρονολόγιο</span></a>
-          <a href="index.html#contact"><span data-i18n="nav_contact">Επικοινωνία</span></a>
-        </div>
-      </nav>
-    </div>
-    <div class="heritage-footer-bottom">
-      <div class="heritage-footer-socials" aria-label="Κοινωνικά δίκτυα"><a href="https://www.facebook.com/oarxelaos" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a><a href="https://www.youtube.com/@GASArchelaosKaterinis" target="_blank" rel="noopener noreferrer" aria-label="YouTube" title="YouTube"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a><a href="https://el.wikipedia.org/wiki/%CE%93.%CE%91.%CE%A3._%CE%9F_%CE%91%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82_%CE%9A%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82" target="_blank" rel="noopener noreferrer" aria-label="Wikipedia" title="Wikipedia"><i class="fa-brands fa-wikipedia-w" aria-hidden="true"></i></a></div>
-      <span class="heritage-footer-dates" aria-label="1956 έως 2026">1956 — 2026</span>
-    </div>
-    <div class="heritage-footer-meta">
-      <span data-i18n="heritage_footer_copyright">© 2026 Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης · archelaos.club</span>
-      <span data-i18n="footer_address">Α΄ Δημοτικό Αθλητικό Κέντρο (ΔΑΚ) Κατερίνης, 60132</span>
-    </div>
-  </div>
+<footer aria-label="Γ.Α.Σ. Ο Αρχέλαος — footer" class="heritage-footer">
+<div class="heritage-footer-inner">
+<div class="heritage-footer-top">
+<div class="heritage-footer-intro">
+<div class="heritage-footer-brand">
+<a aria-label="Αρχική — Γ.Α.Σ. Ο Αρχέλαος" class="heritage-footer-brand-link" href="index.html#home">
+<img alt="Λογότυπο Γ.Α.Σ. Ο Αρχέλαος" class="heritage-footer-logo" decoding="async" loading="lazy" src="https://lh3.googleusercontent.com/d/1JwGT61jDKXuBU6rA1OCiC1laeKh8gKdV"/>
+</a>
+<div>
+<p class="heritage-footer-kicker" data-i18n="heritage_footer_since">ΑΠΟ ΤΟ 1956</p>
+<p class="heritage-footer-title" data-i18n="heritage_footer_club">Γ.Α.Σ. «Ο Αρχέλαος»</p>
+<p class="heritage-footer-city" data-i18n="heritage_footer_city">Κατερίνη · 70 χρόνια αθλητισμού</p>
+</div>
+</div>
+<p class="heritage-footer-motto" data-i18n="heritage_footer_motto">Ο αθλητισμός μάς ενώνει.</p>
+</div>
+<nav aria-label="Εξερεύνηση" class="heritage-footer-nav">
+<h2 class="heritage-footer-col-title" data-i18n="heritage_footer_explore">ΕΞΕΡΕΥΝΗΣΗ</h2>
+<div class="heritage-footer-links">
+<a href="index.html#home"><span data-i18n="nav_home">Αρχική</span></a>
+<a href="index.html#departments"><span data-i18n="nav_dept">Τμήματα</span></a>
+<a href="index.html#board"><span data-i18n="nav_board">Διοίκηση</span></a>
+</div>
+</nav>
+<nav aria-label="Ιστορία και επαφή" class="heritage-footer-nav">
+<h2 class="heritage-footer-col-title" data-i18n="heritage_footer_history_contact">ΠΕΡΙΣΣΟΤΕΡΑ &amp; ΕΠΑΦΗ</h2>
+<div class="heritage-footer-links">
+<a href="#chapters"><span data-i18n="nav_history">Ιστορία</span></a>
+<a href="#timeline"><span data-i18n="nav_timeline">Χρονολόγιο</span></a>
+<a href="index.html#contact"><span data-i18n="nav_contact">Επικοινωνία</span></a>
+</div>
+</nav>
+</div>
+<div class="heritage-footer-bottom">
+<div aria-label="Κοινωνικά δίκτυα" class="heritage-footer-socials"><a aria-label="Facebook" href="https://www.facebook.com/oarxelaos" rel="noopener noreferrer" target="_blank" title="Facebook"><i aria-hidden="true" class="fa-brands fa-facebook-f"></i></a><a aria-label="YouTube" href="https://www.youtube.com/@GASArchelaosKaterinis" rel="noopener noreferrer" target="_blank" title="YouTube"><i aria-hidden="true" class="fa-brands fa-youtube"></i></a><a aria-label="Wikipedia" href="https://el.wikipedia.org/wiki/%CE%93.%CE%91.%CE%A3._%CE%9F_%CE%91%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82_%CE%9A%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82" rel="noopener noreferrer" target="_blank" title="Wikipedia"><i aria-hidden="true" class="fa-brands fa-wikipedia-w"></i></a></div>
+<span aria-label="1956 έως 2026" class="heritage-footer-dates">1956 — 2026</span>
+</div>
+<div class="heritage-footer-meta">
+<span data-i18n="heritage_footer_copyright">© 2026 Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης · archelaos.club</span>
+<span data-i18n="footer_address">Α΄ Δημοτικό Αθλητικό Κέντρο (ΔΑΚ) Κατερίνης, 60132</span>
+</div>
+</div>
 </footer>
 <!-- JAVASCRIPT & BILINGUAL ENGINE -->
 <script>
@@ -4747,22 +4783,7 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
         document.getElementById('contactForm').reset();
       }
 
-      function handleModalDirectSubmit(e) {
-        e.preventDefault();
-        const dept = modalDeptSelect.value;
-        const name = document.getElementById('modalName').value;
-        const phone = document.getElementById('modalPhone').value;
-        const email = document.getElementById('modalEmail').value;
-        document.getElementById('modalAlert').classList.remove('hidden');
-        const subject = encodeURIComponent(`[NEW REGISTRATION] Department: ${dept} - ${name}`);
-        const bodyText = encodeURIComponent(`New Registration Request:\n\nName: ${name}\nPhone: ${phone}\nEmail: ${email}\nDepartment: ${dept}`);
-        setTimeout(() => {
-          window.location.href = `mailto:admin@archelaos.club?cc=dimitriszgalanis@gmail.com&subject=${subject}&body=${bodyText}`;
-          closeRegistrationModal();
-          document.getElementById('modalAlert').classList.add('hidden');
-          document.getElementById('modalForm').reset();
-        }, 1500);
-      }
+      function handleModalDirectSubmit(e) { return window.archelaosSubmit(e, 'interest'); }
     </script>
 <script>
   // Original presidential terms and milestones from the former history page.
@@ -5295,5 +5316,53 @@ body > .fixed.inset-0.pointer-events-none.z-0 svg {filter:sepia(.1);}
    e.preventDefault();button.click();button.focus({preventScroll:true});
   }
  });
-})();</script></body>
+})();</script><script defer="" src="forms.js"></script>\n
+<script id="archelaos-mobile-menu-accessibility">
+(function(){
+ const menu=document.getElementById('mobileMenu'),button=document.getElementById('mobileMenuBtn');
+ if(!menu||!button)return;
+ button.type='button';
+ button.setAttribute('aria-controls','mobileMenu');
+ menu.setAttribute('aria-label',document.documentElement.lang==='en'?'Mobile navigation':'Πλοήγηση κινητού');
+ const items=()=>Array.from(menu.querySelectorAll('a,button')).filter(el=>!el.disabled);
+ const sync=()=>{
+  const opened=menu.classList.contains('menu-open');
+  menu.inert=!opened;
+  menu.setAttribute('aria-hidden',String(!opened));
+  button.setAttribute('aria-expanded',String(opened));
+ };
+ sync();
+ const observer=new MutationObserver(sync);
+ observer.observe(menu,{attributes:true,attributeFilter:['class']});
+ const close=(focusButton=false)=>{
+  if(!menu.classList.contains('menu-open'))return;
+  if(typeof window.closeMobileMenu==='function')window.closeMobileMenu();
+  else {menu.classList.remove('menu-open');button.setAttribute('aria-expanded','false');}
+  if(focusButton)button.focus({preventScroll:true});
+ };
+ document.addEventListener('pointerdown',e=>{
+  if(menu.classList.contains('menu-open')&&!menu.contains(e.target)&&!button.contains(e.target))close();
+ });
+ menu.addEventListener('click',e=>{
+  const link=e.target.closest('a[href]');
+  if(link)close();
+ });
+ menu.addEventListener('keydown',e=>{
+  if(e.key==='Tab'&&menu.classList.contains('menu-open')){
+   const focusable=items(),first=focusable[0],last=focusable[focusable.length-1];
+   if(!first)return;
+   if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
+   else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
+  }
+ });
+ window.addEventListener('resize',()=>{if(window.innerWidth>=1024)close();},{passive:true});
+ // Highlight the page currently visited without falsely highlighting anchor links on other pages.
+ const page=location.pathname.endsWith('/history.html')?'history':'home';
+ for(const link of menu.querySelectorAll('a[href]')){
+  const href=link.getAttribute('href')||'';
+  if((page==='history'&&href==='#chapters')||(page==='home'&&href==='#home'))link.setAttribute('aria-current','page');
+ }
+})();
+</script>
+</body>
 </html>
