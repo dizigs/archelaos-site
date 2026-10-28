@@ -2653,6 +2653,19 @@ html.arch-a11y-contrast-light #arch-a11y-easy-nav,html.arch-a11y-contrast-dark #
 }
 @media(max-width:1023px){#arch-a11y-root #arch-a11y-launch > span{display:none !important}}
 </style>
+<style id="arch-slide-photo-visibility-fix-v17">
+/* Show the actual sports photograph across the full slideshow, preserving text legibility. */
+#about #heroSlideshow{inset:0!important;width:100%!important;height:100%!important}
+#about .arch-slide-shade{background:linear-gradient(90deg,rgba(3,37,25,.83) 0%,rgba(3,37,25,.62) 24%,rgba(3,37,25,.17) 58%,rgba(3,37,25,.04) 100%)!important}
+#about .arch-slide-bottom-text{max-width:65%!important}
+#about .arch-slide-caption{font-size:clamp(32px,3.3vw,49px)!important;line-height:1.12!important}
+#about .slideshow-slide img{object-position:center center!important}
+@media(max-width:700px){
+#about .arch-slide-shade{background:linear-gradient(180deg,rgba(3,30,20,.35) 0%,rgba(3,30,20,.02) 32%,rgba(3,30,20,.35) 57%,rgba(3,30,20,.9) 100%)!important}
+#about .arch-slide-bottom-text{max-width:calc(100% - 85px)!important}
+#about .arch-slide-caption{font-size:clamp(29px,8vw,40px)!important}
+}
+</style>
 </head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow">
 <div aria-hidden="true" aria-label="Καλώς ήρθατε στον Αρχέλαο" aria-modal="true" id="archWelcome" role="dialog">
