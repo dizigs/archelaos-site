@@ -1560,7 +1560,49 @@ html body #mainHeader.glass-nav.scrolled {
  .heritage-museum-jump-links {left:0;right:0;width:100%;}
 }
 @media(prefers-reduced-motion:reduce){.heritage-jump-chevron{transition:none;}}
-</style></head>
+</style><style id="arch-modern-navigation-2026">
+/* Consistent, restrained interactions across all three pages. */
+:root {--modern-green:#073d2a;--modern-ivory:#fffdf7;--modern-gold:#c8a74a;--modern-sage:#eaf1e8;}
+#mainHeader .arch-floating-nav{gap:3px!important;background:#f7f8f2!important;border:1px solid #e3e9dd!important;border-radius:15px!important;padding:5px!important;box-shadow:none!important;}
+#mainHeader .arch-floating-nav a{position:relative;display:inline-flex;align-items:center;justify-content:center;min-height:38px;border-radius:10px!important;font-size:clamp(10px,.81vw,13px)!important;font-weight:750!important;letter-spacing:-.01em!important;padding:9px clamp(7px,.76vw,12px)!important;white-space:nowrap;transition:color .22s ease,background-color .22s ease,box-shadow .22s ease!important;transform:none!important;}
+#mainHeader .arch-floating-nav a::after{content:"";position:absolute;bottom:5px;left:50%;width:0;height:2px;background:var(--modern-gold);border-radius:2px;transform:translateX(-50%);transition:width .22s ease;}
+#mainHeader .arch-floating-nav a:hover::after,#mainHeader .arch-floating-nav a:focus-visible::after{width:calc(100% - 25px);}
+#mainHeader .arch-floating-nav a:hover,#mainHeader .arch-floating-nav a:focus-visible{background:var(--modern-sage)!important;color:var(--modern-green)!important;}
+#mainHeader .arch-floating-nav a.premium-nav-active,#mainHeader .arch-floating-nav a[aria-current]{background:var(--modern-green)!important;color:#fffdf7!important;box-shadow:0 2px 9px rgba(7,61,42,.12)!important;}
+#mainHeader .arch-floating-nav a.premium-nav-active::after,#mainHeader .arch-floating-nav a[aria-current]::after{background:var(--modern-gold);width:calc(100% - 26px);}
+/* Original crest remains unboxed, in its authentic colors. */
+#mainHeader a:has(.archelaos-crest-adapt)>div:first-child{background:transparent!important;border:0!important;box-shadow:none!important;padding:0!important;}
+#mainHeader .archelaos-crest-adapt{filter:none!important;-webkit-filter:none!important;}
+#mainHeader #mobileMenuBtn{transition:background-color .2s ease,border-color .2s ease!important;transform:none!important;}
+#mainHeader #mobileMenuBtn:hover{background:var(--modern-sage)!important;}
+@media(max-width:1023px){
+ header#mainHeader #mobileMenu.arch-cinematic-menu{padding:12px!important;gap:3px!important;background:var(--modern-ivory)!important;border:1px solid #dce7d8!important;border-top:3px solid var(--modern-gold)!important;border-radius:16px!important;box-shadow:0 20px 46px rgba(7,61,42,.16)!important;transform:translateY(-9px) scale(.99)!important;transition:opacity .22s ease,transform .28s cubic-bezier(.2,.8,.2,1),visibility .22s!important;}
+ header#mainHeader #mobileMenu.arch-cinematic-menu.menu-open{transform:translateY(0) scale(1)!important;}
+ #mobileMenu .arch-modern-menu-eyebrow{padding:5px 12px 9px;color:#7c806d;font-size:10px;font-weight:850;letter-spacing:.14em;text-transform:uppercase;border-bottom:1px solid #e4eadd;margin-bottom:4px;}
+ header#mainHeader #mobileMenu.arch-cinematic-menu a.mobile-nav-link{display:flex!important;gap:11px!important;min-height:46px!important;padding:11px 13px!important;border-radius:10px!important;font-size:14px!important;font-weight:760!important;letter-spacing:-.01em!important;transition:background-color .2s ease,color .2s ease,transform .2s ease!important;}
+ #mobileMenu .arch-modern-link-icon{display:inline-flex;align-items:center;justify-content:center;width:23px;min-width:23px;color:#9b873f;font-size:14px;}
+ #mobileMenu a.mobile-nav-link.premium-mobile-active .arch-modern-link-icon,#mobileMenu a.mobile-nav-link[aria-current] .arch-modern-link-icon{color:#e4ce73;}
+ #mobileMenu a.mobile-nav-link .arch-modern-link-arrow{margin-left:auto;color:#9da99b;font-size:10px;opacity:0;transform:translateX(-4px);transition:opacity .2s,transform .2s;}
+ #mobileMenu a.mobile-nav-link:hover .arch-modern-link-arrow,#mobileMenu a.mobile-nav-link:focus-visible .arch-modern-link-arrow{opacity:1;transform:translateX(0);}
+ #mobileMenu .arch-mobile-cta{border-radius:11px!important;background:var(--modern-green)!important;color:#fffdf7!important;min-height:46px!important;transition:background-color .2s ease!important;}
+ #mobileMenu .arch-mobile-cta:hover{background:#12583b!important;}
+ #mobileMenu #mobileControlsBar{background:#f1f4eb!important;border:1px solid #e0e7d9!important;}
+ #mobileMenu .mobile-menu-item{animation:none!important;}
+ #mobileMenu.menu-open .mobile-nav-link{animation:arch-menu-item-in .28s both!important;animation-delay:calc(var(--arch-item-index,0) * 35ms)!important;}
+ @keyframes arch-menu-item-in{from{opacity:0;translate:0 5px;}to{opacity:1;translate:0 0;}}
+}
+.heritage-footer-links a{transition:color .2s ease,padding-left .2s ease!important;}
+.heritage-footer-links a:hover,.heritage-footer-links a:focus-visible{color:#e1c36c!important;padding-left:5px;}
+.heritage-museum-jump-details>summary{transition:background-color .2s ease,box-shadow .2s ease!important;}
+.heritage-museum-jump-details>summary:hover{background:#13553a!important;}
+.heritage-museum-jump-details[open] .heritage-museum-jump-links{animation:arch-dropdown-in .2s ease-out both;}
+@keyframes arch-dropdown-in{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:translateY(0);}}
+@media(prefers-reduced-motion:reduce){
+ #mainHeader .arch-floating-nav a,#mainHeader .arch-floating-nav a::after,#mainHeader #mobileMenuBtn,#mobileMenu .mobile-nav-link,.heritage-footer-links a,.heritage-museum-jump-details>summary{transition:none!important;animation:none!important;}
+ #mobileMenu.menu-open .mobile-nav-link,.heritage-museum-jump-details[open] .heritage-museum-jump-links{animation:none!important;}
+}
+</style>
+</head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow">
 <!-- ANIMATED CONTOUR WAVES -->
 <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-75">
@@ -1626,15 +1668,15 @@ html body #mainHeader.glass-nav.scrolled {
 <button class="lang-btn active px-3 py-1.5 rounded-lg uppercase" id="mobileLangBtnEL" onclick="setLanguage('el')">GR</button>
 <button class="lang-btn px-3 py-1.5 rounded-lg uppercase text-archelaos-deepgreen hover:opacity-80" id="mobileLangBtnEN" onclick="setLanguage('en')">EN</button>
 </div>
-</div>
-<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="index.html#home"><span aria-hidden="true" class="arch-menu-number">01</span><span data-i18n="nav_home">Αρχική</span></a>
-<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="#chapters"><span aria-hidden="true" class="arch-menu-number">02</span><span data-i18n="nav_history">Ιστορία</span></a>
-<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="index.html#about"><span aria-hidden="true" class="arch-menu-number">03</span><span data-i18n="nav_about">Ο Σύλλογος</span></a>
-<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="index.html#departments"><span aria-hidden="true" class="arch-menu-number">04</span><span data-i18n="nav_dept">Αθλητικά Τμήματα</span></a>
-<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="board.html"><span aria-hidden="true" class="arch-menu-number">05</span><span data-i18n="nav_board">Διοίκηση (Δ.Σ.)</span></a>
-<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="index.html#contact"><span aria-hidden="true" class="arch-menu-number">06</span><span data-i18n="nav_contact">Επικοινωνία</span></a>
+</div><div aria-hidden="true" class="arch-modern-menu-eyebrow">ΕΞΕΡΕΥΝΗΣΕ ΤΟΝ ΑΡΧΕΛΑΟ</div>
+<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="index.html#home"><span aria-hidden="true" class="arch-menu-number">01</span><i aria-hidden="true" class="fa-solid fa-house arch-modern-link-icon"></i><span data-i18n="nav_home">Αρχική</span><i aria-hidden="true" class="fa-solid fa-chevron-right arch-modern-link-arrow"></i></a>
+<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="#chapters"><span aria-hidden="true" class="arch-menu-number">02</span><i aria-hidden="true" class="fa-solid fa-landmark arch-modern-link-icon"></i><span data-i18n="nav_history">Ψηφιακό Μουσείο</span><i aria-hidden="true" class="fa-solid fa-chevron-right arch-modern-link-arrow"></i></a>
+<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="index.html#about"><span aria-hidden="true" class="arch-menu-number">03</span><i aria-hidden="true" class="fa-solid fa-people-group arch-modern-link-icon"></i><span data-i18n="nav_about">Ο Σύλλογος</span><i aria-hidden="true" class="fa-solid fa-chevron-right arch-modern-link-arrow"></i></a>
+<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="index.html#departments"><span aria-hidden="true" class="arch-menu-number">04</span><i aria-hidden="true" class="fa-solid fa-medal arch-modern-link-icon"></i><span data-i18n="nav_dept">Αθλήματα</span><i aria-hidden="true" class="fa-solid fa-chevron-right arch-modern-link-arrow"></i></a>
+<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="board.html"><span aria-hidden="true" class="arch-menu-number">05</span><i aria-hidden="true" class="fa-solid fa-users arch-modern-link-icon"></i><span data-i18n="nav_board">Διοίκηση</span><i aria-hidden="true" class="fa-solid fa-chevron-right arch-modern-link-arrow"></i></a>
+<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="index.html#contact"><span aria-hidden="true" class="arch-menu-number">06</span><i aria-hidden="true" class="fa-solid fa-envelope arch-modern-link-icon"></i><span data-i18n="nav_contact">Επικοινωνία</span><i aria-hidden="true" class="fa-solid fa-chevron-right arch-modern-link-arrow"></i></a>
 <button class="arch-mobile-cta mobile-menu-item w-full text-center px-4 py-3.5 bg-archelaos-deepgreen text-archelaos-yellow font-extrabold rounded-xl shadow-lg" onclick="openRegistrationModal('Γενική Εγγραφή'); closeMobileMenu();">
-<i class="fa-solid fa-user-plus mr-2"></i> <span data-i18n="btn_register_interest">Εκδήλωση Ενδιαφέροντος</span>
+<i class="fa-solid fa-user-plus mr-2"></i> <span data-i18n="btn_register_interest">Ενδιαφέρομαι να συμμετέχω</span>
 </button>
 <div class="arch-menu-footer">70 ΧΡΟΝΙΑ · 1956—2026</div>
 </div>
@@ -1692,7 +1734,7 @@ html body #mainHeader.glass-nav.scrolled {
 <div class="heritage-museum-jump-inner">
 <div class="heritage-museum-jump-label"><i aria-hidden="true" class="fa-solid fa-landmark"></i><span data-lang="el">Ψηφιακό Μουσείο</span><span data-lang="en">Digital Museum</span></div>
 <details class="heritage-museum-jump-details" id="heritageMuseumJump">
-<summary><i aria-hidden="true" class="fa-solid fa-compass"></i><span data-lang="el">Εξερεύνηση Μουσείου</span><span data-lang="en">Explore the Museum</span><i aria-hidden="true" class="fa-solid fa-chevron-down heritage-jump-chevron"></i></summary>
+<summary><i aria-hidden="true" class="fa-solid fa-compass"></i><span data-lang="el">Περιήγηση στο Μουσείο</span><span data-lang="en">Museum Guide</span><i aria-hidden="true" class="fa-solid fa-chevron-down heritage-jump-chevron"></i></summary>
 <nav aria-label="Museum sections" class="heritage-museum-jump-links">
 <a href="#history-archive"><i aria-hidden="true" class="fa-solid fa-scroll"></i><span data-lang="el">Ιστορικό Αρχείο</span><span data-lang="en">Historical Archive</span></a>
 <a href="#timeline"><i aria-hidden="true" class="fa-solid fa-timeline"></i><span data-lang="el">Χρονολόγιο</span><span data-lang="en">Timeline</span></a>
@@ -3737,7 +3779,7 @@ html body #mainHeader.glass-nav.scrolled {
 </div>
 <div class="pt-1 flex flex-col sm:flex-row gap-2.5">
 <button class="modal-submit-btn btn-shimmer w-full py-3.5 bg-archelaos-deepgreen text-archelaos-yellow font-black rounded-xl shadow-md transition flex items-center justify-center gap-2 text-sm" id="deptModalRegisterBtn" type="button">
-<i class="fa-solid fa-bolt"></i> <span data-i18n="btn_register_interest">Εκδήλωση Ενδιαφέροντος</span>
+<i class="fa-solid fa-bolt"></i> <span data-i18n="btn_register_interest">Ενδιαφέρομαι να συμμετέχω</span>
 </button>
 <button class="w-full sm:w-auto px-5 py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-extrabold rounded-xl transition text-sm" data-i18n="btn_close" onclick="closeDeptHistoryModal()" type="button">Κλείσιμο</button>
 </div>
@@ -3820,14 +3862,14 @@ html body #mainHeader.glass-nav.scrolled {
 <h2 class="heritage-footer-col-title" data-i18n="heritage_footer_explore">ΕΞΕΡΕΥΝΗΣΗ</h2>
 <div class="heritage-footer-links">
 <a href="index.html#home"><span data-i18n="nav_home">Αρχική</span></a>
-<a href="index.html#departments"><span data-i18n="nav_dept">Τμήματα</span></a>
+<a href="index.html#departments"><span data-i18n="nav_dept">Αθλήματα</span></a>
 <a href="board.html"><span data-i18n="nav_board">Διοίκηση</span></a>
 </div>
 </nav>
 <nav aria-label="Ιστορία και επαφή" class="heritage-footer-nav">
 <h2 class="heritage-footer-col-title" data-i18n="heritage_footer_history_contact">ΠΕΡΙΣΣΟΤΕΡΑ &amp; ΕΠΑΦΗ</h2>
 <div class="heritage-footer-links">
-<a href="#chapters"><span data-i18n="nav_history">Ιστορία</span></a>
+<a href="#chapters"><span data-i18n="nav_history">Ψηφιακό Μουσείο</span></a>
 <a href="#timeline"><span data-i18n="nav_timeline">Χρονολόγιο</span></a>
 <a href="index.html#contact"><span data-i18n="nav_contact">Επικοινωνία</span></a>
 </div>
@@ -3854,14 +3896,14 @@ html body #mainHeader.glass-nav.scrolled {
           anniversary_sub: "Μια διαδρομή αθλητισμού, ήθους και προσφοράς στην Κατερίνη.",
           brand_sub: "Γ.Α.Σ. Κατερίνης • archelaos.club",
           nav_home: "Αρχική",
-          nav_history: "Ιστορία",
+          nav_history: "Ψηφιακό Μουσείο",
           nav_about: "Ο Σύλλογος",
           nav_timeline: "Χρονολόγιο",
-          nav_dept: "Τμήματα",
+          nav_dept: "Αθλήματα",
           nav_board: "Διοίκηση",
           nav_contact: "Επικοινωνία",
           btn_register: "Εγγραφές / Εκδήλωση",
-          btn_register_interest: "Εκδήλωση Ενδιαφέροντος",
+          btn_register_interest: "Ενδιαφέρομαι να συμμετέχω",
           hero_badge: "Γ.Α.Σ. «Ο ΑΡΧΕΛΑΟΣ» ΚΑΤΕΡΙΝΗΣ • EST. 1956",
           hero_h1_1: "Αθλητισμός,",
           hero_h1_2: "Ήθος &",
@@ -3988,14 +4030,14 @@ html body #mainHeader.glass-nav.scrolled {
           anniversary_sub: "A legacy of sport, integrity and service to Katerini.",
           brand_sub: "G.A.S. Katerini • archelaos.club",
           nav_home: "Home",
-          nav_history: "History",
-          nav_about: "The Club",
+          nav_history: "Digital Museum",
+          nav_about: "Our Club",
           nav_timeline: "Timeline",
           nav_dept: "Sports",
-          nav_board: "Board",
+          nav_board: "Leadership",
           nav_contact: "Contact",
           btn_register: "Registration / Inquiries",
-          btn_register_interest: "Register Interest",
+          btn_register_interest: "Join the Club",
           hero_badge: "G.A.S. ARCHELAOS KATERINI • EST. 1956",
           hero_h1_1: "Athletics,",
           hero_h1_2: "Values &",
@@ -5597,5 +5639,22 @@ html body #mainHeader.glass-nav.scrolled {
  document.addEventListener('pointerdown',e=>{if(details.open&&!details.contains(e.target))details.open=false;});
  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&details.open){details.open=false;details.querySelector('summary')?.focus();}});
 })();
-</script></body>
+</script><script id="arch-modern-navigation-behavior">
+(function(){
+ const menu=document.getElementById('mobileMenu');
+ if(menu){
+   const links=[...menu.querySelectorAll('a.mobile-nav-link')];
+   links.forEach((a,i)=>a.style.setProperty('--arch-item-index',i));
+   const eyebrow=menu.querySelector('.arch-modern-menu-eyebrow');
+   const update=()=>{
+     if(eyebrow)eyebrow.textContent=document.body.classList.contains('lang-en')?'EXPLORE ARCHELAOS':'ΕΞΕΡΕΥΝΗΣΕ ΤΟΝ ΑΡΧΕΛΑΟ';
+     const btn=document.getElementById('mobileMenuBtn');
+     if(btn)btn.setAttribute('aria-label',document.body.classList.contains('lang-en')?'Open navigation':'Άνοιγμα πλοήγησης');
+   };
+   update();
+   new MutationObserver(update).observe(document.body,{attributes:true,attributeFilter:['class']});
+ }
+})();
+</script>
+</body>
 </html>
