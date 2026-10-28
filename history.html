@@ -1912,50 +1912,25 @@ footer.arch-footer-signature .heritage-footer-logo {filter:drop-shadow(0 3px 8px
 #anniversary-collections::before{content:'1956 — 2026';position:absolute;right:-1%;top:8%;font:700 clamp(55px,13vw,170px)/1 Georgia,serif;letter-spacing:-.05em;color:rgba(7,61,42,.045);white-space:nowrap;pointer-events:none;z-index:-1}
 #anniversary-collections::after{content:'70';position:absolute;left:-20px;bottom:-100px;font:700 clamp(150px,27vw,360px)/1 Georgia,serif;color:rgba(190,155,79,.06);pointer-events:none;z-index:-1}
 @media(prefers-reduced-motion:no-preference){#anniversary-collections a{transition:transform .3s ease,box-shadow .3s ease}#anniversary-collections a:hover{transform:translateY(-5px)}}
-</style><style id="archelaos-header-logo-visibility-fix">
-/* Gold crest, with dependable contrast on the ivory navigation bar. */
-#mainHeader a:has(> div > img.archelaos-crest-adapt) > div:first-child {
-  background:#073D2A !important;
-  border:2px solid #D5AB50 !important;
-  border-radius:50% !important;
-  padding:5px !important;
-  box-shadow:0 2px 12px rgba(7,61,42,.16) !important;
-  overflow:hidden !important;
-}
-#mainHeader img.archelaos-crest-adapt {
-  opacity:1 !important;
-  visibility:visible !important;
-  display:block !important;
-  width:100% !important;
-  height:100% !important;
-  object-fit:contain !important;
-}
-@media(max-width:640px){#mainHeader a:has(> div > img.archelaos-crest-adapt) > div:first-child{padding:3px !important;border-width:1.5px !important}}
 </style>
 
-<style id="archelaos-green-header-final-fix">
-/* Normal site: authentic green crest on clean ivory navigation, without Heritage Gold frame. */
-#mainHeader a:has(img.archelaos-crest-adapt) > div:first-child {
-  background: transparent !important; border: 0 !important; border-radius: 50% !important;
-  box-shadow: none !important; padding: 0 !important; overflow: visible !important;
-}
-#mainHeader img.archelaos-crest-adapt {
-  filter: none !important; -webkit-filter: none !important; opacity: 1 !important;
-  visibility: visible !important; display: block !important; object-fit: contain !important;
-  width: 100% !important; height: 100% !important;
-}
-#mainHeader a:hover img.archelaos-crest-adapt {
-  transform: scale(1.055) !important; filter: none !important;
-}
-</style>
-<style id="archelaos-transparent-crest-final">
-/* Plain green crest: no surrounding badge, panel, shadow, border or filter. */
+
+
+<style id="archelaos-logo-clean-2026">
 #mainHeader a:has(img.archelaos-crest-adapt) > div:first-child,
-#mainHeader a:has(img.archelaos-crest-adapt) > div:first-child:hover,
+#mainHeader a:has(img.archelaos-crest-adapt) > div:first-child::before,
+#mainHeader a:has(img.archelaos-crest-adapt) > div:first-child::after {
+  background:transparent!important;background-color:transparent!important;background-image:none!important;
+  border:0!important;box-shadow:none!important;outline:0!important;filter:none!important;
+  backdrop-filter:none!important;content:none!important;
+}
+#mainHeader a:has(img.archelaos-crest-adapt) > div:first-child {
+  padding:0!important;overflow:visible!important;border-radius:0!important;
+}
 #mainHeader img.archelaos-crest-adapt {
-background:none!important;background-color:transparent!important;background-image:none!important;
-border:0!important;border-radius:0!important;box-shadow:none!important;outline:0!important;
-padding:0!important;filter:none!important;backdrop-filter:none!important;
+  background:transparent!important;border:0!important;box-shadow:none!important;
+  filter:none!important;-webkit-filter:none!important;opacity:1!important;visibility:visible!important;
+  display:block!important;width:100%!important;height:100%!important;object-fit:contain!important;
 }
 </style>
 </head>
