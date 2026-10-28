@@ -1725,7 +1725,59 @@ html body #mainHeader.glass-nav.scrolled {
 @media(prefers-reduced-motion:reduce){
  #mainHeader.glass-nav,#mainHeader.glass-nav.scrolled {transition:none!important;}
 }
-</style></head>
+</style><style id="archelaos-premium-section-titles-2026">
+/* Shared Heritage Premium heading language: restrained gold, deep green, generous rhythm. */
+/* Supersede the former badge labels rather than stacking two labels above each title. */
+#about .heritage-section-heading > .arch-about-eyebrow,
+#departments .heritage-section-heading > [data-i18n="dept_tag"],
+#board .heritage-section-heading > .arch-board-teaser-kicker,
+#contact .heritage-section-heading > [data-i18n="contact_tag"],
+#join-history .heritage-section-heading > .join-history-eyebrow,
+#join-history .heritage-section-heading > .join-history-rule {display:none!important;}
+#join-history .heritage-section-heading{max-width:760px;}
+#join-history .heritage-section-heading .heritage-section-eyebrow{justify-content:center;color:#f3d96a!important;}
+#join-history .heritage-section-heading .heritage-section-eyebrow::before{background:#e2c44e;}
+#join-history .heritage-section-heading h2{color:#fffdf4!important;}
+#join-history .heritage-section-heading h2::after{margin:19px auto 0;background:#e2c44e;}
+
+.heritage-section-heading{position:relative;isolation:isolate;}
+.heritage-section-eyebrow{display:flex;align-items:center;gap:11px;color:#95791f!important;font-size:11px!important;font-weight:900!important;letter-spacing:.14em!important;text-transform:uppercase;line-height:1.55;margin-bottom:14px!important;}
+.heritage-section-eyebrow::before{content:"";display:block;width:26px;height:2px;background:#d1b136;border-radius:4px;flex:none;}
+.heritage-section-heading h2{letter-spacing:-.035em!important;line-height:1.15!important;color:#073d2a!important;}
+.heritage-section-heading h2::after{content:"";display:block;width:64px;height:3px;border-radius:6px;background:linear-gradient(90deg,#bfa02c,#e6d566);margin:19px 0 0;}
+.heritage-section-heading.heritage-centered .heritage-section-eyebrow{justify-content:center;}
+.heritage-section-heading.heritage-centered h2::after{margin:19px auto 0;}
+.heritage-section-heading.heritage-on-dark .heritage-section-eyebrow{color:#f3d96a!important;}
+.heritage-section-heading.heritage-on-dark h2{color:#fffdf4!important;}
+.heritage-section-heading.heritage-on-dark h2::after{background:#e2c44e;}
+.heritage-section-heading.heritage-on-dark .heritage-section-eyebrow::before{background:#e2c44e;}
+@media(max-width:640px){.heritage-section-eyebrow{font-size:10px!important;gap:9px;letter-spacing:.11em!important;margin-bottom:10px!important;}.heritage-section-heading h2::after{margin-top:15px;}}
+@media(prefers-reduced-motion:reduce){.heritage-section-heading *{scroll-behavior:auto!important;}}
+</style>
+<style id="archelaos-clean-crest-no-background">
+/* The club's original crest sits directly on the ivory header, without a badge/card. */
+#mainHeader a:has(.archelaos-crest-adapt) > div:first-child,
+#mainHeader a:has(.archelaos-crest-adapt) > div:first-child:hover,
+#mainHeader .archelaos-crest-adapt,
+#mainHeader .archelaos-crest-adapt:hover {
+  background:transparent!important;
+  background-color:transparent!important;
+  background-image:none!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  outline:0!important;
+  padding:0!important;
+  filter:none!important;
+}
+#mainHeader a:has(.archelaos-crest-adapt) > div:first-child::before,
+#mainHeader a:has(.archelaos-crest-adapt) > div:first-child::after {
+  content:none!important;
+  display:none!important;
+}
+#mainHeader .archelaos-crest-adapt { object-fit:contain!important; }
+</style>
+</head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow">
 <div aria-hidden="true" aria-label="Καλώς ήρθατε στον Αρχέλαο" aria-modal="true" id="archWelcome" role="dialog">
 <div aria-hidden="true" class="arch-welcome-edge"></div>
@@ -1904,7 +1956,7 @@ html body #mainHeader.glass-nav.scrolled {
 <div class="slideshow-slide active" data-caption-el="Αγωνιστική δράση στο Χάντμπολ — 2 Κύπελλα Ελλάδος &amp; ιστορική παρουσία στην Α1 Εθνική." data-caption-en="Handball action — 2 Greek Cups &amp; historic presence in the A1 National League." data-sport-el="Χάντμπολ" data-sport-en="Handball">
 <img alt="Χάντμπολ" decoding="async" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaOFUCWatPwP-EycFiHffCCMk_Kz1ScNWPtg7znhR3mQ&amp;s=10"/>
 </div>
-<div class="slideshow-slide" data-caption-el="Εκκίνηση και αγωνιστικοί δρόμοι ταχύτητας στο στάδιο — Φυτώριο πρωταθλητών από το 1956." data-caption-en="Stadium racing lanes — A hotbed of champions since 1956." data-sport-el="Στίβος (Κλασικός Αθλητισμός)" data-sport-en="Track &amp; Field (Athletics)">
+<div class="slideshow-slide" data-caption-el="Εκκίνηση και αγωνιστικοί δρόμοι ταχύτητας στο στάδιο — Φυτώριο πρωταθλητών από το 1956." data-caption-en="Stadium racing lanes — A hotbed of champions since 1956." data-sport-el="Στίβος" data-sport-en="Track &amp; Field (Athletics)">
 <img alt="Στίβος" decoding="async" loading="lazy" src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&amp;fit=crop&amp;w=1200&amp;q=80"/>
 </div>
 <div class="slideshow-slide" data-caption-el="Ολυμπιακό και σύνθετο τόξο — Απόλυτη ευστοχία στον στόχο." data-caption-en="Recurve and Compound archery — Precision on target." data-sport-el="Τοξοβολία" data-sport-en="Archery">
@@ -1948,9 +2000,9 @@ html body #mainHeader.glass-nav.scrolled {
 </div>
 </div>
 <div class="lg:col-span-5 order-1 lg:order-2 arch-about-content">
-<div class="reveal-text">
+<div class="reveal-text heritage-section-heading">
 <span class="arch-about-eyebrow" data-i18n="about_tag">Η Ιστορία Μας</span>
-<h2 class="arch-about-heading font-heading" data-i18n="about_title">Ο Σύλλογος που <br/>ένωσε την Πιερία</h2>
+<div aria-hidden="true" class="heritage-section-eyebrow"><span data-lang="el">01 / Ο ΣΥΛΛΟΓΟΣ</span><span data-lang="en">01 / THE CLUB</span></div><h2 class="arch-about-heading font-heading" data-i18n="about_title">Ο Σύλλογος που <br/>ένωσε την Πιερία</h2>
 </div>
 <p class="reveal-text delay-100 arch-about-copy" data-i18n="about_p1">Από το <strong>1956</strong> ο Αρχέλαος ενώνει την Κατερίνη μέσα από τον αθλητισμό, τις αξίες και τους ανθρώπους του.</p>
 <div class="reveal-text delay-300 arch-about-stats">
@@ -1971,9 +2023,9 @@ html body #mainHeader.glass-nav.scrolled {
 <!-- INTEGRATED HISTORY ARCHIVE: full source content is available in the topic popups below -->
 <section class="relative z-10 py-20 sm:py-24" id="departments">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="reveal-text text-center max-w-3xl mx-auto mb-10">
+<div class="reveal-text text-center max-w-3xl mx-auto mb-10 heritage-section-heading heritage-centered">
 <span class="inline-block px-4 py-1.5 rounded-full bg-white/95 text-archelaos-deepgreen font-black text-xs uppercase tracking-wider mb-3 shadow-sm border border-white" data-i18n="dept_tag">Αθλητισμός για όλους</span>
-<h2 class="text-3xl sm:text-5xl font-black font-heading text-archelaos-deepgreen" data-i18n="dept_title">Τα Αγωνιστικά Τμήματά μας</h2>
+<div aria-hidden="true" class="heritage-section-eyebrow"><span data-lang="el">02 / ΑΘΛΗΤΙΚΑ ΤΜΗΜΑΤΑ</span><span data-lang="en">02 / SPORTS DEPARTMENTS</span></div><h2 class="text-3xl sm:text-5xl font-black font-heading text-archelaos-deepgreen" data-i18n="dept_title">Τα Αγωνιστικά Τμήματά μας</h2>
 <p class="mt-3 text-archelaos-deepgreen/85 font-semibold text-base" data-i18n="dept_sub">Επιλέξτε κατηγορία για άμεση προβολή ή πατήστε «Ιστορικό» για πλήρη αναδρομή.</p>
 </div>
 <!-- Μπάρα Φίλτρων / Pills -->
@@ -2130,17 +2182,17 @@ html body #mainHeader.glass-nav.scrolled {
 <section aria-labelledby="board-teaser-title" class="arch-board-teaser" id="board">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 <div class="arch-board-teaser-layout">
-<div class="arch-board-teaser-copy"><span class="arch-board-teaser-kicker" data-i18n="board_teaser_kicker">ΟΙ ΑΝΘΡΩΠΟΙ ΤΟΥ ΣΥΛΛΟΓΟΥ</span><h2 data-i18n="board_teaser_title" id="board-teaser-title">Μαζί για τον Αρχέλαο.</h2><p data-i18n="board_teaser_desc">Γνωρίστε τους ανθρώπους που στηρίζουν τη λειτουργία και την εξέλιξη του συλλόγου.</p><a class="arch-board-teaser-button" href="board.html"><span data-i18n="board_teaser_button">Γνωρίστε τη Διοίκηση</span><i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></div>
+<div class="arch-board-teaser-copy heritage-section-heading"><span class="arch-board-teaser-kicker" data-i18n="board_teaser_kicker">ΟΙ ΑΝΘΡΩΠΟΙ ΤΟΥ ΣΥΛΛΟΓΟΥ</span><div aria-hidden="true" class="heritage-section-eyebrow"><span data-lang="el">03 / Η ΔΙΟΙΚΗΣΗ</span><span data-lang="en">03 / LEADERSHIP</span></div><h2 data-i18n="board_teaser_title" id="board-teaser-title">Μαζί για τον Αρχέλαο.</h2><p data-i18n="board_teaser_desc">Γνωρίστε τους ανθρώπους που στηρίζουν τη λειτουργία και την εξέλιξη του συλλόγου.</p><a class="arch-board-teaser-button" href="board.html"><span data-i18n="board_teaser_button">Γνωρίστε τη Διοίκηση</span><i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></div>
 <div aria-hidden="true" class="arch-board-teaser-art"><span class="arch-board-teaser-seal">Γ.Α.Σ.</span><span class="arch-board-teaser-year">1956</span><div class="arch-board-teaser-lines"><span></span><span></span><span></span></div><span class="arch-board-teaser-caption">ΑΡΧΕΛΑΟΣ · ΚΑΤΕΡΙΝΗ</span></div>
 </div></div></section>
 <!-- CONTACT SECTION -->
 <!-- 70 years: join the story -->
 <section aria-labelledby="joinHistoryTitle" class="join-history-section relative z-10" id="join-history">
 <div class="join-history-inner">
-<div class="join-history-head">
+<div class="join-history-head heritage-section-heading">
 <span class="join-history-eyebrow" data-i18n="join_eyebrow">Γ.Α.Σ. «Ο ΑΡΧΕΛΑΟΣ» · 1956—2026</span>
 <div aria-hidden="true" class="join-history-rule"></div>
-<h2 data-i18n="join_title" id="joinHistoryTitle">Γίνε μέρος <em>της ιστορίας.</em></h2>
+<div aria-hidden="true" class="heritage-section-eyebrow"><span data-lang="el">04 / ΓΙΝΕ ΜΕΡΟΣ</span><span data-lang="en">04 / GET INVOLVED</span></div><h2 data-i18n="join_title" id="joinHistoryTitle">Γίνε μέρος <em>της ιστορίας.</em></h2>
 <p data-i18n="join_subtitle">70 χρόνια διαδρομής. Χιλιάδες στιγμές. Η επόμενη γράφεται μαζί σου.</p>
 </div>
 <div class="join-history-grid">
@@ -2173,9 +2225,9 @@ html body #mainHeader.glass-nav.scrolled {
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
 <div class="lg:col-span-5 space-y-6">
-<div class="reveal-text space-y-4">
+<div class="reveal-text space-y-4 heritage-section-heading">
 <span class="px-4 py-1.5 rounded-full bg-archelaos-deepgreen text-archelaos-yellow font-black text-xs uppercase tracking-wider inline-block shadow-md" data-i18n="contact_tag">Επικοινωνία &amp; Έδρα</span>
-<h2 class="text-3xl sm:font-bold text-3xl sm:text-5xl font-black font-heading text-archelaos-deepgreen leading-tight" data-i18n="contact_title">Ελάτε σε επαφή με τον Αρχέλαο</h2>
+<div aria-hidden="true" class="heritage-section-eyebrow"><span data-lang="el">05 / ΕΠΙΚΟΙΝΩΝΙΑ</span><span data-lang="en">05 / CONTACT</span></div><h2 class="text-3xl sm:font-bold text-3xl sm:text-5xl font-black font-heading text-archelaos-deepgreen leading-tight" data-i18n="contact_title">Ελάτε σε επαφή με τον Αρχέλαο</h2>
 <p class="text-archelaos-deepgreen/90 text-base font-medium leading-relaxed" data-i18n="contact_sub">Επισκεφθείτε τα γραφεία μας στο Α΄ ΔΑΚ Κατερίνης ή στείλτε μας απευθείας μήνυμα μέσα από τη φόρμα.</p>
 </div>
 <div class="reveal-text delay-100 space-y-4">
