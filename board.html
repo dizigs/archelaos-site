@@ -1,0 +1,1944 @@
+<!DOCTYPE html>
+
+<html lang="el"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Διοικητικό Συμβούλιο | Γ.Α.Σ. Αρχέλαος Κατερίνης</title>
+<link href="https://lh3.googleusercontent.com/d/1JwGT61jDKXuBU6rA1OCiC1laeKh8gKdV" rel="icon" type="image/png"/>
+ SEO Meta Tags 
+<meta content="Γνωρίστε το Διοικητικό Συμβούλιο και τους εφόρους των οκτώ αθλητικών τμημάτων του Γ.Α.Σ. Αρχέλαος Κατερίνης." name="description"/>
+<meta content="Αρχέλαος Κατερίνης, ΓΑΣ Αρχέλαος, Χάντμπολ, Στίβος, Τοξοβολία, Σκοποβολή, Ενόργανη Γυμναστική, Πάλη, Βόλεϊ, Κολύμβηση, Κατερίνη, Πιερία" name="keywords"/>
+<meta content="Γ.Α.Σ. Αρχέλαος Κατερίνης" name="author"/>
+<link href="https://archelaos.club/board.html" rel="canonical"/>
+ Open Graph / Social Media Tags 
+<meta content="website" property="og:type"/>
+<meta content="https://archelaos.club/board.html" property="og:url"/>
+<meta content="Διοικητικό Συμβούλιο | Γ.Α.Σ. Αρχέλαος Κατερίνης" property="og:title"/>
+<meta content="Η διοίκηση του Γ.Α.Σ. Αρχέλαος Κατερίνης και οι υπεύθυνοι των αθλητικών τμημάτων." property="og:description"/>
+<meta content="https://lh3.googleusercontent.com/d/1lILSdnXV0Y383UeFwcJbnhHaYvu3nJHj" property="og:image"/>
+<meta content="el_GR" property="og:locale"/>
+<meta content="Γ.Α.Σ. Αρχέλαος Κατερίνης" property="og:site_name"/>
+ Google Fonts 
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Manrope:wght@600;700;800;900&amp;display=swap&amp;subset=greek,latin" rel="stylesheet"/>
+ Tailwind CSS CDN 
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              archelaos: {
+                yellow: '#f6ee42',
+                lemon: '#f4e83a',
+                light: '#FEF9C3',
+                darkgreen: '#008a28',
+                deepgreen: '#084c24',
+                forest: '#0d5c2e',
+                accentgreen: '#15803D',
+                surface: '#FFFFFF',
+              }
+            },
+            fontFamily: {
+              heading: ['Manrope', 'Inter', 'sans-serif'],
+              body: ['Inter', 'sans-serif'],
+            }
+          }
+        }
+      }
+    </script>
+ Font Awesome 6 Icons 
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
+<style>
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #f6ee42;
+        color: #084c24;
+        letter-spacing: -0.01em;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+      h1, h2, h3, h4, .font-heading {
+        font-family: "Manrope", "Inter", sans-serif;
+        letter-spacing: -0.03em;
+      }
+
+      /* Animated Contour Waves */
+      @keyframes waveDrift {
+        0%, 100% { transform: translate3d(0, 0, 0); }
+        50% { transform: translate3d(-12px, 8px, 0); }
+      }
+      .animate-waves {
+        animation: waveDrift 16s ease-in-out infinite;
+        will-change: transform;
+        pointer-events: none;
+        contain: layout paint;
+      }
+      body.is-scrolling .animate-waves {
+        animation-play-state: paused !important;
+      }
+
+      /* Transitions */
+      .reveal-text {
+        opacity: 0;
+        transform: translate3d(0, 20px, 0);
+        transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: opacity, transform;
+      }
+      .reveal-text.is-visible {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+        will-change: auto;
+      }
+      .delay-100 { transition-delay: 80ms; }
+      .delay-200 { transition-delay: 140ms; }
+      .delay-300 { transition-delay: 200ms; }
+      .delay-400 { transition-delay: 260ms; }
+
+      @keyframes gentleFloat {
+        0%, 100% { transform: translate3d(0, 0px, 0); }
+        50% { transform: translate3d(0, -10px, 0); }
+      }
+      .hero-emblem-float {
+        animation: gentleFloat 5s ease-in-out infinite;
+        will-change: transform;
+      }
+      body.is-scrolling .hero-emblem-float {
+        animation-play-state: paused !important;
+      }
+
+      /* Solid Performance Cards */
+      .glass-section {
+        background-color: #ffffff;
+        border-top: 1px solid rgba(8, 76, 36, 0.08);
+        border-bottom: 1px solid rgba(8, 76, 36, 0.12);
+      }
+      .glass-card {
+        background-color: #ffffff;
+        border: 1px solid rgba(8, 76, 36, 0.12);
+        box-shadow: 0 4px 16px -2px rgba(8, 76, 36, 0.08);
+        transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                    box-shadow 0.25s ease,
+                    border-color 0.25s ease;
+                    opacity 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+      .glass-nav {
+        background-color: #f6ee42;
+        border-bottom: 1px solid rgba(8, 76, 36, 0.15);
+        transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.25s ease;
+      }
+      .glass-nav.scrolled {
+        box-shadow: 0 8px 24px -6px rgba(8, 76, 36, 0.2);
+      }
+
+      /* Desktop-Only Frosted Glass */
+      @media (min-width: 1024px) and (hover: hover) {
+        .glass-section {
+          background-color: rgba(255, 255, 255, 0.90);
+          border-top: 1px solid rgba(255, 255, 255, 0.9);
+        }
+        .glass-card {
+          background-color: rgba(255, 255, 255, 0.95);
+          border: 1px solid rgba(255, 255, 255, 0.95);
+        }
+        .glass-card:hover {
+          transform: translate3d(0, -6px, 0);
+          background-color: #ffffff;
+          box-shadow: 0 18px 36px -8px rgba(8, 76, 36, 0.22);
+          border-color: rgba(0, 138, 40, 0.4);
+        }
+
+        .glass-card::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          border-radius: inherit;
+          background: radial-gradient(320px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), rgba(246, 238, 66, 0.45), transparent 75%);
+          opacity: 0;
+          transition: opacity 0.3s ease;
+          pointer-events: none;
+          z-index: 1;
+        }
+        .glass-card:hover::before {
+          opacity: 1;
+        }
+
+        
+      }
+
+        /* Interactive Category Pills */
+      .dept-filter-pill {
+        transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        cursor: pointer;
+      }
+      .dept-filter-pill.active {
+        background-color: #084c24 !important;
+        color: #f6ee42 !important;
+        box-shadow: 0 6px 16px -4px rgba(8, 76, 36, 0.3);
+        transform: translateY(-2px);
+      }
+      
+        
+      /* Department Icon Box */
+      .icon-box {
+        transition: transform 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
+        cursor: pointer;
+        position: relative;
+        z-index: 2;
+      }
+      .department-card:hover .icon-box,
+      .icon-box:hover {
+        background-color: #084c24 !important;
+        transform: scale(1.08) rotate(-3deg);
+        box-shadow: 0 8px 18px -4px rgba(8, 76, 36, 0.35);
+        color: #f6ee42 !important;
+      }
+      .department-card:hover .icon-box i,
+      .icon-box:hover i {
+        color: #f6ee42 !important;
+      }
+
+      /* Shimmer Button */
+      .btn-shimmer {
+        position: relative;
+        overflow: hidden;
+      }
+      .btn-shimmer::after {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: 0;
+        width: 45%;
+        height: 200%;
+        background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0) 100%);
+        transform: translate3d(-160%, 0, 0) rotate(25deg);
+        transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+        pointer-events: none;
+      }
+      .btn-shimmer:hover::after {
+        transform: translate3d(280%, 0, 0) rotate(25deg);
+      }
+
+      /* Slideshow */
+      .slideshow-slide {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.6s ease, visibility 0.6s ease;
+      }
+      .slideshow-slide.active {
+        opacity: 1;
+        visibility: visible;
+      }
+      .slideshow-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+
+      .sport-pill {
+        transition: background-color 0.2s ease, transform 0.2s ease;
+      }
+      .sport-pill.active {
+        background-color: #f6ee42;
+        color: #084c24;
+        transform: scale(1.04);
+      }
+
+      /* Horizontal Minimal Timeline Styling */
+      .timeline-horizontal-scroll {
+        scrollbar-width: thin;
+        scrollbar-color: rgba(8, 76, 36, 0.3) transparent;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+      }
+      .timeline-horizontal-scroll::-webkit-scrollbar {
+        height: 5px;
+      }
+      .timeline-horizontal-scroll::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .timeline-horizontal-scroll::-webkit-scrollbar-thumb {
+        background: rgba(8, 76, 36, 0.25);
+        border-radius: 9999px;
+      }
+      
+
+      .timeline-h-item h4 {
+        color: #084c24 !important;
+      }
+      
+      .timeline-h-item:hover h4 {
+        color: #008a28 !important;
+      }
+      
+
+      /* Mobile Menu */
+      #mobileMenu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        width: 100%;
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        padding-top: 0;
+        padding-bottom: 0;
+        pointer-events: none;
+        transform: translate3d(0, -14px, 0);
+        background-color: #f6ee42 !important;
+        border-bottom: 0px solid transparent;
+        box-shadow: 0 0px 0px rgba(8, 76, 36, 0);
+        transition: max-height 0.36s cubic-bezier(0.32, 0.72, 0, 1),
+                    opacity 0.26s ease,
+                    transform 0.32s cubic-bezier(0.32, 0.72, 0, 1),
+                    padding 0.3s ease,
+                    box-shadow 0.3s ease;
+      }
+      #mobileMenu.menu-open {
+        max-height: 750px;
+        opacity: 1;
+        padding-top: 1.25rem;
+        padding-bottom: 1.75rem;
+        border-bottom: 2px solid rgba(8, 76, 36, 0.25);
+        box-shadow: 0 20px 30px -8px rgba(8, 76, 36, 0.35);
+        pointer-events: auto;
+        transform: translate3d(0, 0, 0);
+      }
+      #mobileMenu a.mobile-menu-item {
+        background-color: #ffffff;
+        border: 1px solid rgba(8, 76, 36, 0.12);
+        box-shadow: 0 2px 4px rgba(8, 76, 36, 0.05);
+      }
+
+      /* Crest Logo Transition */
+      .archelaos-crest-adapt {
+        transition: transform 0.3s ease, opacity 0.2s ease;
+      }
+
+      /* Dark Mode Styling */
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+      
+      
+      
+      
+
+      
+      
+      
+
+      /* Modals */
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+      .modal-backdrop {
+        opacity: 0; visibility: hidden; pointer-events: none;
+        transition: opacity 0.24s ease, visibility 0.24s ease;
+      }
+      .modal-backdrop.is-open { opacity: 1; visibility: visible; pointer-events: auto; }
+      .modal-backdrop .modal-box {
+        transform: translate3d(0, 16px, 0) scale(0.96); opacity: 0;
+        transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease-out;
+      }
+      .modal-backdrop.is-open .modal-box { transform: translate3d(0, 0, 0) scale(1); opacity: 1; }
+
+      .lang-btn {
+        transition: background-color 0.2s ease, color 0.2s ease;
+      }
+      .lang-btn.active {
+        background-color: #084c24;
+        color: #f6ee42;
+      }
+      
+        /* Responsive Laptop Header Guard (1024px to 1280px) */
+    @media (min-width: 1024px) and (max-width: 1280px) {
+  header nav a {
+    padding-left: 6px !important;
+    padding-right: 6px !important;
+    font-size: 11px !important;
+  }
+  header #mainHeader .max-w-7xl {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+}
+    
+
+      /* Integrated full-history archive popups */
+      body.lang-el [data-lang="en"] { display: none !important; }
+      body.lang-en [data-lang="el"] { display: none !important; }
+      .history-archive-card { cursor: pointer; }
+      .history-archive-card:focus-visible,
+      .history-dept-shortcut:focus-visible { outline: 3px solid #f6ee42; outline-offset: 3px; }
+      .history-archive-card:hover { border-color: rgba(0,138,40,.45); }
+      .history-dept-shortcut {
+        min-height: 44px; display: inline-flex; align-items: center; justify-content: flex-start; gap: .55rem;
+        padding: .7rem .8rem; border: 1px solid rgba(8,76,36,.16); border-radius: .9rem;
+        background: rgba(255,255,255,.85); color: #084c24; font-size: .78rem; font-weight: 800;
+        text-align: left; transition: transform .2s ease, background-color .2s ease, color .2s ease, border-color .2s ease;
+      }
+      .history-dept-shortcut i { color: #008a28; width: 1.15rem; text-align: center; }
+      .history-dept-shortcut:hover { transform: translateY(-2px); background: #084c24; color: #f6ee42; border-color: #084c24; }
+      .history-dept-shortcut:hover i { color: #f6ee42; }
+      
+      
+      
+      
+      #historyArchiveProfile .glass-card { height: 100%; }
+      .history-archive-content .wiki-article p,
+      .history-archive-content p { line-height: 1.8; }
+      .history-archive-content .wiki-article li,
+      .history-archive-content li { line-height: 1.7; }
+      .history-archive-content table { max-width: 100%; }
+      .history-archive-content { color: #1e293b; }
+      
+      
+      
+      
+      
+      #historyArchiveContent #tmimata .dept-panel { display: none; }
+      #historyArchiveContent #tmimata .dept-panel.active-panel { display: block; animation: deptFadeIn .3s ease; }
+      #historyArchiveContent #tmimata.show-all-depts .dept-panel { display: block; margin-bottom: 1.25rem; }
+      #historyArchiveContent #tmimata .dept-tab-btn { transition: all .2s ease; }
+      #historyArchiveContent #tmimata .dept-tab-btn.active { background: #084c24 !important; color: #f6ee42 !important; border-color: #084c24 !important; box-shadow: 0 6px 16px -4px rgba(8,76,36,.25); }
+      #historyArchiveContent #tmimata .dept-tab-btn.active .dept-tab-icon { background: #f6ee42 !important; color: #084c24 !important; }
+      
+      
+      
+      #historyArchiveContent #tmimata .dept-panel { overflow: visible; }
+      #historyArchiveModal .modal-box { min-height: 0; }
+      @media (prefers-reduced-motion: reduce) {
+        .history-archive-card, .history-dept-shortcut { transition: none !important; }
+      }
+
+
+      /* Unified premium modal motion — all popups */
+      .modal-backdrop {
+        background-color: rgba(3, 20, 11, .68) !important;
+        -webkit-backdrop-filter: blur(0px) saturate(100%);
+        backdrop-filter: blur(0px) saturate(100%);
+        transition: opacity .38s ease, visibility .38s ease, backdrop-filter .45s ease, -webkit-backdrop-filter .45s ease;
+      }
+      .modal-backdrop.is-open {
+        -webkit-backdrop-filter: blur(11px) saturate(115%);
+        backdrop-filter: blur(11px) saturate(115%);
+      }
+      .modal-backdrop .modal-box,
+      .modal-backdrop .history-president-card {
+        transform: translate3d(0, 34px, 0) scale(.935);
+        opacity: 0;
+        filter: blur(7px);
+        transition: transform .52s cubic-bezier(.16,1,.3,1), opacity .36s ease, filter .45s ease, box-shadow .45s ease;
+        box-shadow: 0 25px 75px rgba(0, 24, 11, .26), 0 0 0 1px rgba(246,238,66,.12);
+      }
+      .modal-backdrop.is-open .modal-box,
+      .modal-backdrop.is-open .history-president-card {
+        transform: translate3d(0, 0, 0) scale(1);
+        opacity: 1;
+        filter: blur(0);
+        box-shadow: 0 32px 90px rgba(0, 24, 11, .40), 0 0 0 1px rgba(246,238,66,.22);
+      }
+      .modal-backdrop .modal-close-btn { transition: transform .25s ease, background-color .25s ease, box-shadow .25s ease; }
+      .modal-backdrop .modal-close-btn:hover { transform: rotate(90deg) scale(1.08); box-shadow: 0 4px 18px rgba(0,0,0,.15); }
+      @media (prefers-reduced-motion: reduce) {
+        .modal-backdrop, .modal-backdrop .modal-box, .modal-backdrop .history-president-card, .modal-backdrop .modal-close-btn { transition: none !important; filter: none !important; }
+      }
+
+    
+/* ARCHELAOS PREMIUM DESIGN REFINEMENT */
+:root { --premium-ease: cubic-bezier(.16,1,.3,1); }
+#home { isolation:isolate; }
+
+#home h1 { text-wrap:balance; }
+
+
+.department-card { isolation:isolate; border-radius:2rem; transition:transform .45s var(--premium-ease),box-shadow .45s ease,border-color .35s ease !important; }
+.department-card::after { content:""; position:absolute; inset:auto 18% -45% 18%; height:55%; border-radius:50%; background:rgba(246,238,66,.22); filter:blur(42px); opacity:0; pointer-events:none; transition:opacity .4s ease; }
+.department-card:hover::after,.department-card:focus-within::after { opacity:1; }
+.department-card:hover,.department-card:focus-within { transform:translateY(-7px); box-shadow:0 24px 55px -22px rgba(8,76,36,.36); }
+.department-card > * { position:relative; z-index:2; }
+.department-card .icon-box { border-radius:1.15rem; }
+#timelineScrollContainer { position:relative; scroll-padding-inline:16px; }
+#timeline .timeline-premium-track { height:4px; background:rgba(8,76,36,.13); border-radius:999px; overflow:hidden; margin:0 0 16px; }
+#timeline .timeline-premium-fill { width:0; height:100%; background:linear-gradient(90deg,#084c24,#008a28,#f6ee42); border-radius:inherit; transition:width .18s ease-out; }
+#timeline .timeline-h-item { border-radius:18px; transition:transform .3s var(--premium-ease),background .3s ease !important; }
+#timeline .timeline-h-item:hover,#timeline .timeline-h-item:focus-visible { transform:translateY(-5px); background:rgba(255,255,255,.34); }
+#timeline .timeline-h-item.premium-active { background:rgba(255,255,255,.55); outline:1px solid rgba(8,76,36,.16); }
+
+
+.modal-backdrop.is-open .modal-box,.modal-backdrop.is-open .history-president-card { border:1px solid rgba(246,238,66,.30); }
+.modal-backdrop .modal-header { position:relative; overflow:hidden; }
+.modal-backdrop .modal-header::after { content:""; position:absolute; width:220px; height:220px; right:-110px; top:-150px; border-radius:50%; background:radial-gradient(circle,rgba(246,238,66,.20),transparent 72%); pointer-events:none; }
+.modal-backdrop .modal-box { scrollbar-color:rgba(8,76,36,.35) transparent; }
+header nav a.premium-nav-active { background:#084c24 !important; color:#f6ee42 !important; box-shadow:0 5px 15px rgba(8,76,36,.18); }
+
+html { scroll-padding-top:96px; }
+
+@media (prefers-reduced-motion:reduce) {
+ #home::before,#home .hero-emblem-float::after { animation:none !important; }
+ .department-card,#timeline .timeline-h-item,#timeline .timeline-premium-fill { transition:none !important; }
+ html { scroll-behavior:auto !important; }
+}
+
+
+/* ===== 70 years / documentary / refined navigation (crest untouched) ===== */
+.anniversary-editorial{display:flex;align-items:center;gap:17px;max-width:610px;margin:25px auto 2px;padding:20px 22px;border:1px solid rgba(8,76,36,.16);border-radius:21px;background:linear-gradient(115deg,rgba(255,255,255,.94),rgba(246,238,66,.13));box-shadow:0 16px 38px -30px rgba(8,76,36,.55);text-align:left;}
+.anniversary-rule{width:3px;height:72px;flex:none;border-radius:6px;background:linear-gradient(#084c24,#f6ee42)}
+.anniversary-number{font-family:Manrope, sans-serif;font-size:clamp(60px,7vw,86px);font-weight:900;line-height:.9;letter-spacing:-.1em;color:#084c24;white-space:nowrap;padding-right:8px;}
+.anniversary-small{font-size:.26em;vertical-align:top;margin-left:8px;color:#8b821e;letter-spacing:0;}
+.anniversary-copy{display:flex;flex-direction:column;gap:5px;min-width:0;color:#084c24}
+.anniversary-kicker{font-size:10px;font-weight:900;letter-spacing:.22em;opacity:.68}
+.anniversary-copy strong{font-size:clamp(13px,1.25vw,18px);font-weight:900;letter-spacing:.035em;line-height:1.15}
+.anniversary-copy>span:last-child{font-size:12px;line-height:1.5;font-weight:650;opacity:.8}
+@media(min-width:1024px){.anniversary-editorial{margin-left:0;margin-right:0}}
+@media(max-width:390px){.anniversary-editorial{gap:10px;padding:15px}.anniversary-number{font-size:54px}.anniversary-copy>span:last-child{font-size:11px}}
+
+
+#mainHeader{transition:box-shadow .35s ease,background .35s ease,backdrop-filter .35s ease;}
+#mainHeader.premium-header-scrolled{box-shadow:0 13px 35px -22px rgba(8,76,36,.52);backdrop-filter:blur(20px) saturate(145%);}
+#mainHeader .premium-nav-link{position:relative;transition:background .2s ease,color .2s ease,transform .3s ease;}
+#mainHeader .premium-nav-link:not(.premium-nav-active):hover{transform:translateY(-2px)}
+#mainHeader .premium-nav-link::after{display:none !important;}
+
+#mobileMenu .mobile-nav-link{border:1px solid transparent;transition:background .2s ease,border-color .2s ease,transform .2s ease;}
+#mobileMenu .mobile-nav-link:hover,#mobileMenu .mobile-nav-link.premium-mobile-active{background:rgba(8,76,36,.10);border-color:rgba(8,76,36,.15);transform:translateX(3px)}
+
+#timeline .timeline-h-item{padding:13px 7px 16px !important;min-height:146px;position:relative}
+@media(prefers-reduced-motion:reduce){#mainHeader,#mainHeader .premium-nav-link,#mobileMenu .mobile-nav-link{transition:none !important}}
+
+#mainHeader nav a, #mainHeader .premium-nav-link { text-decoration:none !important; }
+
+/* Compact history archive: mobile-first, all full articles remain in their popups. */
+#history-archive { padding-top:3.25rem; padding-bottom:3.5rem; }
+#history-archive > div > .max-w-3xl { margin-bottom:1.4rem; }
+#history-archive #timeline { padding-top:1.2rem; padding-bottom:1.4rem; }
+#history-archive .history-archive-card { transition:transform .22s ease, border-color .22s ease; }
+@media (max-width: 767px) {
+  #history-archive { padding-top:2.6rem !important; padding-bottom:2.8rem !important; }
+  #history-archive > div > .max-w-3xl { margin-bottom:1rem !important; }
+  #history-archive > div > .max-w-3xl > p { display:none; }
+  #history-archive > div > .max-w-3xl > .flex.flex-wrap { margin-top:1rem; }
+  #history-archive > div > .max-w-3xl > .flex.flex-wrap > span:nth-child(2),
+  #history-archive > div > .max-w-3xl > .flex.flex-wrap > span:nth-child(3) { display:none; }
+  #history-archive #timeline { padding-top:.75rem !important; padding-bottom:1rem !important; }
+  #history-archive #timeline .max-w-7xl { padding-left:0; padding-right:0; }
+  #history-archive #timeline .flex.flex-col.md\\:flex-row { margin-bottom:.75rem; }
+  #history-archive .history-archive-profile,
+  #history-archive aside.lg\\:col-span-4 { display:none !important; }
+  #history-archive .history-archive-card { border-radius:1rem !important; padding:.8rem .85rem !important; }
+  #history-archive .history-archive-card > .flex { gap:.75rem !important; align-items:center; }
+  #history-archive .history-archive-card > .flex > div:first-child { width:2.5rem !important; height:2.5rem !important; border-radius:.75rem !important; font-size:1rem !important; }
+  #history-archive .history-archive-card h3 { font-size:.95rem !important; line-height:1.2 !important; margin-top:.15rem !important; }
+  #history-archive .history-archive-card p,
+  #history-archive .history-archive-card .inline-flex.items-center { display:none !important; }
+  #history-archive .history-archive-card .text-\\[10px\\] { font-size:.57rem !important; }
+  #history-archive .history-archive-card > .flex > div:last-child { flex:1; min-width:0; }
+  #history-archive .history-archive-card > .flex::after { content:"›"; margin-left:auto; color:#084c24; font-size:1.6rem; font-weight:600; }
+  #history-archive .history-dept-shortcut { min-height:2.5rem; }
+}
+@media (min-width:768px) {
+  #history-archive .history-archive-card { padding:1.05rem 1.2rem !important; }
+  #history-archive .history-archive-card p { margin-top:.4rem !important; }
+  #history-archive .history-archive-card .inline-flex.items-center { margin-top:.6rem !important; }
+}
+
+
+/* Archelaos: premium sport identity cards and refined secondary cards */
+#departmentsGrid {align-items:stretch;}
+#departmentsGrid .department-card {
+ --sport-glow:rgba(246,238,66,.23);
+ position:relative; isolation:isolate; overflow:hidden;
+ background:linear-gradient(152deg,rgba(255,255,255,.96) 0%,rgba(249,252,246,.90) 62%,rgba(233,243,230,.92) 100%);
+ border:1px solid rgba(8,76,36,.16); border-radius:25px!important;
+ min-height:305px; padding:22px!important;
+ box-shadow:0 7px 20px rgba(8,76,36,.055),inset 0 1px rgba(255,255,255,.95);
+ transition:transform .36s cubic-bezier(.2,.8,.2,1),box-shadow .36s ease,border-color .36s ease!important;
+}
+#departmentsGrid .department-card::before {
+ content:""; position:absolute; inset:0 0 auto; height:4px;
+ background:linear-gradient(90deg,#084c24 0%,#148047 62%,#f6ee42 100%);
+ opacity:.9; transition:height .3s ease;
+}
+#departmentsGrid .department-card::after {
+ content:""; position:absolute; width:220px;height:220px; border-radius:50%;
+ top:-115px;right:-105px; background:radial-gradient(circle,var(--sport-glow),transparent 69%);
+ opacity:.65;pointer-events:none; transition:transform .45s ease,opacity .45s ease;
+}
+#departmentsGrid .department-card:hover,
+#departmentsGrid .department-card:focus-within {
+ transform:translateY(-5px);border-color:rgba(8,76,36,.32);
+ box-shadow:0 22px 45px rgba(8,76,36,.13),inset 0 1px rgba(255,255,255,.95);
+}
+#departmentsGrid .department-card:hover::after {transform:scale(1.28);opacity:1;}
+#departmentsGrid .department-card:hover::before {height:5px;}
+#departmentsGrid .sport-content {position:relative;}
+#departmentsGrid .sport-number {
+ position:absolute;top:3px;right:1px;
+ font-family:Manrope,Inter,sans-serif;font-size:45px;font-weight:900;line-height:1;
+ letter-spacing:-.075em;color:rgba(8,76,36,.075);pointer-events:none;
+}
+#departmentsGrid .sport-emblem {
+ width:75px;height:75px;position:relative;display:inline-flex;
+ align-items:center;justify-content:center;border-radius:21px;
+ background:linear-gradient(145deg,#f6ee42 0%,#f7f2a1 100%);
+ border:1px solid rgba(8,76,36,.13); color:#084c24;font-size:32px;
+ box-shadow:0 8px 20px rgba(8,76,36,.12),inset 0 2px 0 rgba(255,255,255,.6);
+ cursor:pointer; transition:transform .32s cubic-bezier(.2,.8,.2,1),box-shadow .32s ease;
+}
+#departmentsGrid .sport-emblem::after {
+ content:"";position:absolute;inset:6px;border:1px solid rgba(8,76,36,.12);
+ border-radius:16px;pointer-events:none;
+}
+#departmentsGrid .sport-emblem:hover,
+#departmentsGrid .sport-emblem:focus-visible {
+ transform:rotate(-4deg) scale(1.06);box-shadow:0 13px 27px rgba(8,76,36,.19);
+}
+#departmentsGrid .sport-emblem:focus-visible,
+#departmentsGrid .sport-join-action:focus-visible,
+#departmentsGrid .sport-history-action:focus-visible {
+ outline:3px solid #084c24;outline-offset:3px;
+}
+#departmentsGrid .sport-handball-ball {
+ position:absolute;right:16px;top:16px;width:12px;height:12px;
+ background:#084c24;border-radius:50%;border:2px solid #f6ee42;
+ box-shadow:0 0 0 1px rgba(8,76,36,.22);
+}
+#departmentsGrid .sport-history-action {
+ padding:8px 11px;border-radius:999px;
+ background:rgba(8,76,36,.06);border:1px solid rgba(8,76,36,.11);
+ text-decoration:none!important;opacity:1!important;font-size:11px;
+ transition:background .2s ease,transform .2s ease;
+}
+#departmentsGrid .sport-history-action:hover {background:rgba(8,76,36,.13);transform:translateY(-1px);}
+#departmentsGrid h3 {font-size:1.3rem;letter-spacing:-.025em;line-height:1.25;}
+#departmentsGrid .sport-join-action {
+ display:flex;align-items:center;justify-content:center;gap:8px;
+ background:#084c24!important;color:#fff!important;
+ border:1px solid #084c24!important;border-radius:13px!important;
+ box-shadow:0 7px 17px rgba(8,76,36,.13);
+ transition:transform .2s ease,background .2s ease,color .2s ease,box-shadow .2s ease!important;
+}
+#departmentsGrid .sport-join-action:hover {
+ background:#f6ee42!important;color:#084c24!important;
+ transform:translateY(-2px);box-shadow:0 10px 20px rgba(8,76,36,.17);
+}
+#departmentsGrid .sport-join-arrow {font-size:11px;opacity:.7;}
+#board .premium-person-card,
+#contact .premium-contact-card {
+ border:1px solid rgba(8,76,36,.12);
+ box-shadow:0 6px 22px rgba(8,76,36,.045);
+ transition:transform .28s ease,box-shadow .28s ease,border-color .28s ease;
+}
+#board .premium-person-card:hover,
+#contact .premium-contact-card:hover {
+ transform:translateY(-3px);border-color:rgba(8,76,36,.28);
+ box-shadow:0 16px 32px rgba(8,76,36,.10);
+}
+
+
+
+
+
+@media(max-width:767px){
+ #departmentsGrid {gap:13px;}
+ #departmentsGrid .department-card {min-height:0;padding:17px!important;border-radius:20px!important;}
+ #departmentsGrid .sport-emblem {width:62px;height:62px;border-radius:18px;font-size:27px;}
+ #departmentsGrid .sport-emblem::after {border-radius:13px;}
+ #departmentsGrid .sport-number {font-size:39px;}
+ #departmentsGrid .department-card .mb-6 {margin-bottom:13px!important;}
+ #departmentsGrid .sport-join-action {margin-top:16px!important;padding:12px!important;}
+}
+@media(prefers-reduced-motion:reduce){
+ #departmentsGrid .department-card,
+ #departmentsGrid .sport-emblem,
+ #departmentsGrid .sport-join-action,
+ #board .premium-person-card,
+ #contact .premium-contact-card {transition:none!important;}
+ #departmentsGrid .department-card:hover,
+ #board .premium-person-card:hover,
+ #contact .premium-contact-card:hover {transform:none!important;}
+}
+
+/* Bigger, more legible department symbols — desktop, tablet and mobile. */
+#departmentsGrid .sport-emblem {
+  width:102px!important;height:102px!important;
+  min-width:102px!important;min-height:102px!important;
+  border-radius:26px!important;font-size:48px!important;
+  flex-shrink:0;
+  box-shadow:0 11px 26px rgba(8,76,36,.15),inset 0 2px 0 rgba(255,255,255,.65);
+}
+#departmentsGrid .sport-emblem > i {
+  font-size:48px!important;line-height:1!important;
+  position:relative;z-index:1;
+}
+#departmentsGrid .sport-emblem::after {inset:8px;border-radius:20px!important;}
+#departmentsGrid .sport-handball-ball {
+  width:16px;height:16px;right:18px;top:18px;
+}
+#departmentsGrid .sport-number {font-size:51px;}
+@media (max-width:767px) {
+  #departmentsGrid .sport-emblem {
+    width:88px!important;height:88px!important;
+    min-width:88px!important;min-height:88px!important;
+    border-radius:23px!important;font-size:40px!important;
+  }
+  #departmentsGrid .sport-emblem > i {font-size:40px!important;}
+  #departmentsGrid .sport-emblem::after {border-radius:17px!important;}
+  #departmentsGrid .sport-number {font-size:43px;}
+}
+@media (max-width:360px) {
+  #departmentsGrid .sport-emblem {
+    width:78px!important;height:78px!important;
+    min-width:78px!important;min-height:78px!important;
+  }
+  #departmentsGrid .sport-emblem > i {font-size:36px!important;}
+}
+
+/* Strong green-on-hover contrast for the sports emblems. */
+#departmentsGrid .sport-emblem {
+  transition:transform .32s cubic-bezier(.2,.8,.2,1),box-shadow .32s ease,
+    background .28s ease,color .28s ease,border-color .28s ease!important;
+}
+#departmentsGrid .sport-emblem:hover,
+#departmentsGrid .sport-emblem:focus-visible,
+#departmentsGrid .department-card:hover .sport-emblem,
+#departmentsGrid .department-card:focus-within .sport-emblem {
+  background:#084c24!important;
+  color:#f6ee42!important;
+  border-color:#f6ee42!important;
+  box-shadow:0 13px 27px rgba(8,76,36,.24),inset 0 2px 0 rgba(255,255,255,.09)!important;
+}
+#departmentsGrid .sport-emblem:hover::after,
+#departmentsGrid .sport-emblem:focus-visible::after,
+#departmentsGrid .department-card:hover .sport-emblem::after,
+#departmentsGrid .department-card:focus-within .sport-emblem::after {
+  border-color:rgba(246,238,66,.4)!important;
+}
+#departmentsGrid .sport-emblem:hover .sport-handball-ball,
+#departmentsGrid .sport-emblem:focus-visible .sport-handball-ball,
+#departmentsGrid .department-card:hover .sport-handball-ball,
+#departmentsGrid .department-card:focus-within .sport-handball-ball {
+  background:#f6ee42;
+  border-color:#084c24;
+  box-shadow:0 0 0 1px rgba(246,238,66,.6);
+}
+@media (prefers-reduced-motion:reduce) {
+  #departmentsGrid .sport-emblem {transition:none!important;}
+}
+
+
+
+/* Accessibility contrast pass: light/dark palettes, text, controls and focus. */
+:root { color-scheme:light; }
+
+/* Preserve the original, unaltered crest in both themes. */
+
+/* Clear dark-theme foregrounds on dark surfaces, without changing colored CTA buttons. */
+
+
+
+/* Headings must remain dark when their immediate surface is bright/yellow. */
+
+
+/* Dark header, menu and theme/language controls. */
+
+
+
+
+/* Inputs and placeholders: readable in both themes. */
+input::placeholder,textarea::placeholder {color:#526477;opacity:1;}
+
+
+
+/* Visible keyboard focus, including the compact navigation and interactive cards. */
+a:focus-visible,button:focus-visible,input:focus-visible,
+textarea:focus-visible,select:focus-visible {
+ outline:3px solid #084c24;outline-offset:3px;
+}
+
+/* Card actions: maintain 4.5+:1 contrast even when dark mode is on. */
+
+
+
+
+/* Form/dialog body text and label colors. */
+
+
+
+
+/* Yellow text on dark-green buttons and green text on yellow buttons. */
+
+
+@media(prefers-reduced-motion:reduce){
+ a,button,input,textarea,select {scroll-behavior:auto;}
+}
+
+/* High contrast for dark-green text nested in yellow badges/buttons. */
+
+
+
+/* Dark theme: original menu layout and surfaces; neutral, readable lettering instead of yellow. */
+
+
+
+
+
+
+
+
+/* FINAL MENU COLORS — dark theme only. Preserve existing layout and interactions.
+   Light menu surfaces ensure dark-green labels remain readable. */
+
+
+
+
+
+
+
+
+
+
+
+/* History secondary navigation follows the same selection convention. */
+
+
+
+
+
+/* OCT 2026 — final dark-theme header palette. Original navigation layout preserved. */
+
+/* The white option containers remain white against the green header. */
+
+/* Regular links in the white menu: dark green. */
+
+
+/* Active choice: green fill + green outline + yellow type. */
+
+/* Green bar text outside the white options needs yellow for legibility. */
+
+
+/* Keep the original emblem asset untouched; tint its visible pixels yellow only in dark mode. */
+
+/* On history.html, the header crest is the primary visible emblem. */
+
+/* Mobile: keep green top bar and legible light dropdown choices. */
+
+
+
+
+
+
+/* Secondary history navigation: white bar, green links, outlined green selection. */
+
+
+
+
+
+/* MENU READABILITY FIX — 2026-10-27
+   Override older yellow-on-white dark-theme rules.
+   Green header, white navigation capsule, green inactive labels,
+   green outlined active item with yellow label. */
+
+
+/* Crucially target ALL links, not only the ones with a particular JS class. */
+
+
+
+
+/* Mobile navigation matches the same active/inactive distinction. */
+
+
+/* Keep the History quick-navigation legible too. */
+
+
+</style>
+<style id="menu-contrast-final">
+/* FINAL CONSISTENT MENU: high-specificity dark-mode colors on BOTH pages.
+   All normal links (including external History link) stay green on white.
+   Only the selected link is yellow on a green background with green outline. */
+
+
+
+
+
+
+
+
+
+
+</style><style id="modal-close-contrast-fix">
+/* Dark theme: clearly visible close actions in interest and department modals. */
+
+
+
+
+</style><style id="mobile-dark-menu-refinement">
+/* Mobile dark navigation — dedicated dark palette, no pale menu surfaces.
+   Scoped to mobile and dark mode; desktop and light mode remain unchanged. */
+@media(max-width:1023px) {
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+}
+</style><style id="anniversary-70-design">
+/* 70th anniversary — standalone section, no changes to existing hero or menus */
+#anniversary70.ann70 {position:relative;isolation:isolate;overflow:hidden;background:#06291a;color:#f9f9f0;padding:78px 0 55px;scroll-margin-top:90px;}
+#anniversary70 .ann70-inner {max-width:1230px;margin:0 auto;padding:0 30px;position:relative;z-index:2;}
+#anniversary70 .ann70-noise {position:absolute;inset:0;pointer-events:none;opacity:.22;background-image:radial-gradient(circle,rgba(240,229,114,.35) .7px,transparent 1px);background-size:19px 19px;mask-image:linear-gradient(90deg,transparent,#000);}
+#anniversary70 .ann70-halo {position:absolute;right:-190px;top:-300px;width:790px;height:790px;border-radius:50%;background:radial-gradient(circle,rgba(161,169,47,.16),rgba(6,41,26,.05) 48%,transparent 68%);pointer-events:none;}
+#anniversary70 .ann70-eyebrow {display:inline-flex;align-items:center;gap:12px;color:#f4e76b;font-size:11px;font-weight:900;letter-spacing:.19em;}
+#anniversary70 .ann70-eyebrow-line {display:inline-block;width:34px;height:2px;background:#f4e76b;}
+#anniversary70 .ann70-title-layout {display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:30px;align-items:center;min-height:410px;}
+#anniversary70 .ann70-number-wrap {position:relative;display:flex;align-items:center;justify-content:center;min-height:370px;overflow:visible;}
+#anniversary70 .ann70-number {display:block;font:900 clamp(11rem,26vw,24rem)/.85 Manrope,Inter,sans-serif;letter-spacing:-.13em;padding-right:.13em;color:#f5e35a;text-shadow:0 15px 50px rgba(0,0,0,.3),0 0 80px rgba(245,227,90,.12);transform:translateY(20px);opacity:.2;transition:transform 1.1s cubic-bezier(.2,.8,.2,1),opacity 1.1s ease;}
+#anniversary70 .ann70-number-outline {position:absolute;top:50%;left:50%;transform:translate(-50%,-43%);font:900 clamp(11rem,26vw,24rem)/.85 Manrope,Inter,sans-serif;letter-spacing:-.13em;padding-right:.13em;color:transparent;-webkit-text-stroke:1px rgba(245,227,90,.2);pointer-events:none;}
+#anniversary70.ann70-visible .ann70-number {transform:translateY(0);opacity:1;}
+#anniversary70 .ann70-message {position:relative;padding:28px 0;}
+#anniversary70 .ann70-overline {font-size:10px;letter-spacing:.22em;font-weight:900;color:#e4df9b;}
+#anniversary70 .ann70-message h2 {font:900 clamp(2rem,4vw,3.9rem)/1.1 Manrope,Inter,sans-serif;letter-spacing:-.055em;margin:14px 0 18px;color:#fff;}
+#anniversary70 .ann70-message h2 em {font-style:normal;color:#f5e35a;}
+#anniversary70 .ann70-message p {max-width:500px;font-size:15px;line-height:1.85;color:#e4eee1;font-weight:550;}
+#anniversary70 .ann70-cta {margin-top:26px;display:inline-flex;align-items:center;gap:13px;padding:15px 19px;border-radius:14px;background:#f5e35a;color:#07331e!important;font-size:13px;font-weight:900;box-shadow:0 8px 24px rgba(0,0,0,.2);transition:transform .2s ease,background .2s ease;}
+#anniversary70 .ann70-cta:hover {background:#fff1a2;transform:translateY(-3px);}
+#anniversary70 .ann70-cta:focus-visible,#anniversary70 .ann70-milestone:focus-visible {outline:3px solid #fff;outline-offset:4px;}
+#anniversary70 .ann70-story {position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:20px;padding-top:38px;}
+#anniversary70 .ann70-track {position:absolute;top:14px;left:16.66%;right:16.66%;height:2px;background:rgba(245,227,90,.27);}
+#anniversary70 .ann70-track-progress {height:100%;width:0;background:#f5e35a;transition:width 1.5s .2s ease;}
+#anniversary70.ann70-visible .ann70-track-progress {width:100%;}
+#anniversary70 .ann70-milestone {position:relative;display:flex;flex-direction:column;min-height:176px;padding:23px 23px 20px;border:1px solid rgba(245,227,90,.3);border-radius:19px;background:rgba(8,58,34,.75);color:#fff;transition:transform .2s ease,background .2s ease,border-color .2s ease;}
+#anniversary70 .ann70-milestone:hover {transform:translateY(-5px);background:#125337;border-color:#f5e35a;}
+#anniversary70 .ann70-point {position:absolute;top:-31px;left:50%;transform:translateX(-50%);width:16px;height:16px;border-radius:50%;background:#f5e35a;border:4px solid #06291a;box-shadow:0 0 0 2px #f5e35a;}
+#anniversary70 .ann70-date {font:900 29px/1.1 Manrope,Inter,sans-serif;color:#f5e35a;letter-spacing:-.04em;}
+#anniversary70 .ann70-milestone strong {font-size:16px;font-weight:900;margin-top:11px;color:#fff;}
+#anniversary70 .ann70-milestone small {font-size:12px;line-height:1.5;color:#e3ecde;margin-top:5px;}
+#anniversary70 .ann70-open {display:inline-flex;gap:7px;align-items:center;color:#f5e35a;font-size:11px;font-weight:900;margin-top:auto;padding-top:14px;}
+#anniversary70 .ann70-foot {display:flex;justify-content:space-between;gap:16px;margin-top:31px;padding-top:20px;border-top:1px solid rgba(245,227,90,.23);color:#e4df9b;font-size:10px;letter-spacing:.16em;font-weight:900;}
+#anniversary70 .ann70-foot i {margin-right:6px;}
+/* Keep the anniversary area dark and legible in both themes */
+
+
+
+@media(max-width:900px) {
+ #anniversary70.ann70 {padding:52px 0 40px;}
+ #anniversary70 .ann70-title-layout {gap:8px;min-height:310px;}
+ #anniversary70 .ann70-number-wrap {min-height:290px;}
+ #anniversary70 .ann70-number,#anniversary70 .ann70-number-outline {font-size:clamp(10rem,24vw,17rem);}
+ #anniversary70 .ann70-message h2 {font-size:clamp(1.8rem,4.5vw,3rem);}
+ #anniversary70 .ann70-story {gap:11px;}
+ #anniversary70 .ann70-milestone {padding:18px 14px;}
+}
+@media(max-width:640px) {
+ #anniversary70.ann70 {padding:46px 0 34px;}
+ #anniversary70 .ann70-inner {padding:0 18px;}
+ #anniversary70 .ann70-eyebrow {font-size:9px;letter-spacing:.11em;}
+ #anniversary70 .ann70-title-layout {grid-template-columns:1fr;gap:0;}
+ #anniversary70 .ann70-number-wrap {min-height:200px;}
+ #anniversary70 .ann70-number,#anniversary70 .ann70-number-outline {font-size:clamp(11rem,56vw,19rem);}
+ #anniversary70 .ann70-message {padding:0 0 22px;text-align:center;}
+ #anniversary70 .ann70-message h2 {font-size:clamp(2rem,8vw,2.9rem);}
+ #anniversary70 .ann70-message p {font-size:13px;line-height:1.7;}
+ #anniversary70 .ann70-cta {font-size:12px;padding:14px 16px;}
+ #anniversary70 .ann70-story {grid-template-columns:1fr;gap:13px;margin-top:8px;padding:0 0 0 25px;}
+ #anniversary70 .ann70-track {top:16px;bottom:16px;left:7px;right:auto;width:2px;height:auto;}
+ #anniversary70 .ann70-track-progress {width:100%;height:0;transition:height 1.5s .2s ease;}
+ #anniversary70.ann70-visible .ann70-track-progress {height:100%;width:100%;}
+ #anniversary70 .ann70-point {top:50%;left:-27px;transform:translateY(-50%);}
+ #anniversary70 .ann70-milestone {min-height:135px;padding:17px 18px;}
+ #anniversary70 .ann70-date {font-size:24px;}
+ #anniversary70 .ann70-milestone strong {margin-top:7px;}
+ #anniversary70 .ann70-foot {font-size:9px;line-height:1.6;}
+}
+@media(prefers-reduced-motion:reduce) {
+ #anniversary70 .ann70-number {opacity:1;transform:none;transition:none;}
+ #anniversary70 .ann70-track-progress {width:100%;transition:none;}
+ #anniversary70 .ann70-cta,#anniversary70 .ann70-milestone {transition:none;}
+ #anniversary70 .ann70-cta:hover,#anniversary70 .ann70-milestone:hover {transform:none;}
+}
+</style><link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500;6..96,600&amp;display=swap" rel="stylesheet"/><style id="anniversary-70-elegant-type">
+/* Refined anniversary numerals: high-contrast editorial Bodoni with subtle champagne-gold finish. */
+#anniversary70 .ann70-number,
+#anniversary70 .ann70-number-outline {
+  font-family:"Bodoni Moda","Bodoni MT","Didot","Times New Roman",serif!important;
+  font-weight:600!important;
+  font-optical-sizing:auto;
+  font-variant-numeric:lining-nums;
+  font-feature-settings:"lnum" 1;
+  letter-spacing:-.09em!important;
+  line-height:.93!important;
+}
+#anniversary70 .ann70-number {
+  background:linear-gradient(155deg,#fff6bb 2%,#e6c958 28%,#f9e788 47%,#b89b37 69%,#ffec96 91%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent!important;
+  -webkit-text-fill-color:transparent!important;
+  -webkit-text-stroke:.5px rgba(255,241,170,.35);
+  text-shadow:none!important;
+  filter:drop-shadow(0 12px 22px rgba(0,0,0,.24));
+}
+#anniversary70 .ann70-number-outline {
+  -webkit-text-stroke:1px rgba(248,224,123,.28)!important;
+  color:transparent!important;
+}
+@media(max-width:640px){
+ #anniversary70 .ann70-number,#anniversary70 .ann70-number-outline {font-size:clamp(10rem,53vw,18rem)!important;}
+}
+</style><style id="hero-mobile-logo-priority">
+/* Original hero preserved: mobile emblem comes first, centered and higher. */
+@media(max-width:1023px){
+  #home {padding-top:12px!important;padding-bottom:58px!important;}
+  #home > .max-w-7xl > .grid {display:flex!important;flex-direction:column!important;gap:18px!important;align-items:stretch!important;}
+  #home .hero-logo-column {order:-1!important;width:100%;display:flex!important;justify-content:center!important;align-items:center!important;margin:0 auto!important;}
+  #home .hero-logo-column .hero-emblem-float {width:clamp(170px,45vw,230px)!important;height:clamp(170px,45vw,230px)!important;margin:0 auto!important;}
+  #home .hero-text-column {order:1!important;width:100%;}
+  #home .hero-text-column > .reveal-text:first-child {margin-top:0!important;}
+}
+@media(max-width:390px){
+  #home .hero-logo-column .hero-emblem-float {width:170px!important;height:170px!important;}
+  #home > .max-w-7xl > .grid {gap:13px!important;}
+}
+</style><style id="join-history-styles">
+.join-history-section{padding:clamp(64px,9vw,112px) 16px;background:transparent}
+.join-history-inner{max-width:1190px;margin:0 auto;position:relative;overflow:hidden;padding:clamp(30px,5vw,76px);border-radius:32px;background:linear-gradient(145deg,#053823 0%,#06452d 60%,#093b29 100%);box-shadow:0 24px 75px rgba(1,38,22,.22);isolation:isolate}
+.join-history-inner:before{content:"70";position:absolute;right:-.04em;top:-.34em;font:900 clamp(200px,34vw,480px)/1 Georgia,serif;letter-spacing:-.09em;color:rgba(245,215,93,.045);pointer-events:none;z-index:-1}
+.join-history-head{text-align:center;max-width:760px;margin:0 auto 40px}
+.join-history-eyebrow{font-size:11px;letter-spacing:.23em;font-weight:850;color:#f1d876}
+.join-history-rule{height:2px;width:46px;background:#f1d876;margin:19px auto 20px}
+.join-history-head h2{font-family:Georgia,"Times New Roman",serif;font-weight:700;font-size:clamp(34px,5vw,66px);line-height:1.12;letter-spacing:-.045em;color:#fff;margin:0 0 18px}
+.join-history-head h2 em{font-style:normal;color:#f4d96b}
+.join-history-head p{color:#e3ede4;font-size:clamp(15px,1.7vw,18px);line-height:1.7}
+.join-history-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.join-history-card{display:flex;flex-direction:column;min-height:310px;padding:26px 25px;border:1px solid rgba(246,219,111,.27);border-radius:21px;background:rgba(255,255,255,.055);transition:transform .25s ease,border-color .25s ease,background .25s ease}
+.join-history-card:hover{transform:translateY(-5px);border-color:rgba(246,219,111,.75);background:rgba(255,255,255,.085)}
+.join-history-index{font-size:10px;letter-spacing:.18em;color:#e6d78d;font-weight:800}
+.join-history-icon{display:flex;align-items:center;justify-content:center;margin:18px 0 14px;width:52px;height:52px;border:1px solid rgba(244,217,107,.48);border-radius:16px;background:rgba(244,217,107,.12);color:#f4d96b;font-size:22px}
+.join-history-card h3{color:#fff;font-weight:850;font-size:clamp(21px,2vw,26px);margin:0 0 11px;line-height:1.2}
+.join-history-card p{color:#e0eae2;line-height:1.65;font-size:14px;margin:0 0 25px;flex:1}
+.join-history-action{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:46px;width:100%;padding:12px 15px;border-radius:12px;background:#f4d96b;color:#063a27;font-weight:900;font-size:13px;text-align:left;transition:background .2s ease,transform .2s ease}
+.join-history-action:hover{background:#fff0a2;transform:translateY(-1px)}
+.join-history-action:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.join-history-foot{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:36px;color:#eadc9d;font-size:10px;font-weight:850;letter-spacing:.16em;text-align:center}
+
+
+
+
+@media(max-width:860px){.join-history-grid{grid-template-columns:1fr}.join-history-card{min-height:0}.join-history-inner{padding:35px 22px}.join-history-head{margin-bottom:28px}.join-history-section{padding:60px 14px}.join-history-foot{flex-wrap:wrap;line-height:1.8}}
+@media(prefers-reduced-motion:reduce){.join-history-card,.join-history-action{transition:none}.join-history-card:hover,.join-history-action:hover{transform:none}}
+</style>
+<style id="archelaos-first-welcome-css">
+html.arch-welcome-pending,html.arch-welcome-pending body{overflow:hidden!important}
+#archWelcome{position:fixed;inset:0;z-index:2147483000;display:none;align-items:center;justify-content:center;overflow:hidden;background:radial-gradient(ellipse at 50% 37%,#126443 0%,#063d2b 40%,#022518 100%);color:#fff;isolation:isolate}
+html.arch-welcome-pending #archWelcome{display:flex}
+#archWelcome:before{content:"";position:absolute;inset:-45%;background:conic-gradient(from 0deg,transparent 0deg,rgba(245,215,91,.1) 40deg,transparent 90deg,transparent 210deg,rgba(245,215,91,.08) 270deg,transparent 320deg);animation:archWelcomeOrbit 12s linear infinite;pointer-events:none}
+#archWelcome:after{content:"";position:absolute;inset:18px;border:1px solid rgba(242,213,104,.19);border-radius:20px;pointer-events:none}
+.arch-welcome-content{position:relative;z-index:2;width:min(92vw,650px);padding:40px 16px;text-align:center}
+.arch-welcome-top{font-size:clamp(10px,1.5vw,13px);letter-spacing:.29em;font-weight:800;color:#f4dc83;animation:archWelcomeRise .75s .1s both}
+.arch-welcome-crest-wrap{position:relative;width:clamp(158px,32vw,244px);height:clamp(158px,32vw,244px);margin:34px auto 24px;display:grid;place-items:center;animation:archWelcomeCrest 1.2s .15s cubic-bezier(.16,1,.3,1) both}
+.arch-welcome-crest-wrap:before,.arch-welcome-crest-wrap:after{content:"";position:absolute;inset:-13px;border:1px solid rgba(242,214,100,.46);border-radius:50%;animation:archWelcomeRing 2.1s .4s ease-out both}
+.arch-welcome-crest-wrap:after{inset:-26px;animation-delay:.65s;opacity:.5}
+.arch-welcome-crest{width:100%;height:100%;object-fit:contain;filter:brightness(0) saturate(100%) invert(87%) sepia(31%) saturate(788%) hue-rotate(342deg) brightness(101%) contrast(94%) drop-shadow(0 10px 24px rgba(0,0,0,.25))}
+.arch-welcome-title{font-family:Georgia,"Times New Roman",serif;font-size:clamp(34px,6vw,61px);font-weight:700;letter-spacing:-.04em;line-height:1.15;color:#fff;margin:0;animation:archWelcomeRise .8s .55s both}
+.arch-welcome-sub{font-size:clamp(13px,2vw,17px);font-weight:650;color:#f4dc83;letter-spacing:.07em;margin:14px 0 30px;animation:archWelcomeRise .8s .75s both}
+.arch-welcome-progress{width:min(250px,65vw);height:2px;margin:0 auto;background:rgba(255,255,255,.23);border-radius:10px;overflow:hidden}
+.arch-welcome-progress>span{display:block;height:100%;width:100%;background:#f4dc83;transform-origin:left;animation:archWelcomeLoad 4.8s linear both}
+.arch-welcome-skip{position:absolute;right:clamp(22px,5vw,70px);bottom:clamp(25px,6vh,65px);z-index:4;display:flex;gap:10px;align-items:center;background:rgba(255,255,255,.09);border:1px solid rgba(244,220,131,.45);color:#fff;padding:12px 17px;border-radius:999px;font-size:13px;font-weight:750;cursor:pointer;transition:background .2s}
+.arch-welcome-skip:hover{background:rgba(255,255,255,.2)}
+.arch-welcome-skip:focus-visible{outline:3px solid #f4dc83;outline-offset:4px}
+/* Cinematic curtain reveal: the welcome screen lifts away to reveal the actual homepage. */
+#archWelcome{will-change:transform;transform:translate3d(0,0,0)}
+#archWelcome.arch-welcome-exiting{transform:translate3d(0,-105%,0);transition:transform 1.15s cubic-bezier(.76,0,.22,1);pointer-events:none}
+#archWelcome.arch-welcome-exiting .arch-welcome-content{opacity:0;transform:translateY(-28px) scale(.96);transition:opacity .55s ease,transform .85s ease}
+#archWelcome.arch-welcome-exiting .arch-welcome-skip{opacity:0;transition:opacity .2s ease}
+#archWelcome .arch-welcome-edge{position:absolute;left:0;right:0;bottom:0;height:4px;background:linear-gradient(90deg,transparent,#f4dc83 18%,#fff1b2 50%,#f4dc83 82%,transparent);box-shadow:0 0 28px rgba(244,220,131,.55);pointer-events:none}
+@media(prefers-reduced-motion:reduce){#archWelcome.arch-welcome-exiting{transition:none;transform:translate3d(0,-105%,0)}#archWelcome.arch-welcome-exiting .arch-welcome-content{transition:none}}
+@keyframes archWelcomeCrest{from{opacity:0;transform:scale(.75) translateY(22px);filter:blur(7px)}to{opacity:1;transform:scale(1) translateY(0);filter:blur(0)}}
+@keyframes archWelcomeRise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes archWelcomeRing{from{opacity:0;transform:scale(.78)}to{opacity:.8;transform:scale(1.04)}}
+@keyframes archWelcomeOrbit{to{transform:rotate(360deg)}}
+@keyframes archWelcomeLoad{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@media(max-width:480px){#archWelcome:after{inset:10px;border-radius:13px}.arch-welcome-crest-wrap{margin:28px auto 22px}.arch-welcome-content{padding-bottom:70px}.arch-welcome-top{letter-spacing:.16em}}
+@media(prefers-reduced-motion:reduce){#archWelcome *,#archWelcome:before,#archWelcome:after{animation:none!important;transition:none!important}.arch-welcome-progress>span{transform:none!important}}
+</style>
+
+<style id="archelaos-premium-menu-2026">
+/* Navigation visual system: same identity, intentional light and dark palettes. */
+:root{--arch-menu-bg:rgba(255,255,255,.94);--arch-menu-text:#084c24;--arch-menu-border:rgba(8,76,36,.16);--arch-menu-hover:#e9f3eb;--arch-menu-active:#084c24;--arch-menu-active-text:#ffe84b;--arch-overlay-bg:#f6f8f2;--arch-overlay-text:#084c24;--arch-overlay-line:rgba(8,76,36,.16);--arch-overlay-muted:#55745d}
+
+@media(min-width:1024px){
+ header#mainHeader nav.arch-floating-nav{background:var(--arch-menu-bg)!important;border:1px solid var(--arch-menu-border)!important;box-shadow:0 12px 34px rgba(2,38,24,.15),0 2px 5px rgba(0,0,0,.05)!important;border-radius:999px!important;padding:7px!important;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);transition:background .35s,border-color .35s,box-shadow .35s,transform .35s}
+ header#mainHeader nav.arch-floating-nav a{border-radius:999px!important;color:var(--arch-menu-text)!important;background:transparent!important;transition:background .2s,color .2s,transform .2s!important}
+ header#mainHeader nav.arch-floating-nav a:hover,header#mainHeader nav.arch-floating-nav a:focus-visible{background:var(--arch-menu-hover)!important;color:var(--arch-menu-text)!important;transform:translateY(-1px)}
+ header#mainHeader nav.arch-floating-nav a.premium-nav-active,header#mainHeader nav.arch-floating-nav a[aria-current="location"]{background:var(--arch-menu-active)!important;color:var(--arch-menu-active-text)!important;box-shadow:0 4px 12px rgba(2,38,24,.12)!important}
+ header#mainHeader nav.arch-floating-nav a:focus-visible{outline:2px solid #d2b14c;outline-offset:2px}
+}
+@media(max-width:1023px){
+ header#mainHeader:has(#mobileMenu.menu-open){z-index:999!important;isolation:auto}
+ header#mainHeader #mobileMenu.arch-cinematic-menu{position:fixed!important;inset:0!important;top:0!important;left:0!important;right:0!important;width:100vw!important;height:100dvh!important;max-height:none!important;overflow-y:auto!important;overscroll-behavior:contain;z-index:1000!important;box-sizing:border-box!important;padding:clamp(22px,5vw,40px)!important;padding-top:max(22px,env(safe-area-inset-top))!important;padding-bottom:max(32px,env(safe-area-inset-bottom))!important;background:var(--arch-overlay-bg)!important;color:var(--arch-overlay-text)!important;border:0!important;border-radius:0!important;box-shadow:none!important;opacity:0!important;visibility:hidden;pointer-events:none!important;transform:translateY(-18px)!important;transition:opacity .35s ease,transform .45s cubic-bezier(.16,1,.3,1),visibility .35s!important;display:flex!important;flex-direction:column;gap:clamp(7px,1.6vh,14px)!important}
+ header#mainHeader #mobileMenu.arch-cinematic-menu.menu-open{opacity:1!important;visibility:visible;pointer-events:auto!important;transform:translateY(0)!important}
+ #mobileMenu .arch-menu-heading{display:flex;align-items:center;justify-content:space-between;gap:15px;border-bottom:1px solid var(--arch-overlay-line);padding-bottom:clamp(14px,3vh,28px);margin-bottom:clamp(10px,3vh,25px)}
+ #mobileMenu .arch-menu-brand{font-size:clamp(14px,3.8vw,19px);font-weight:900;letter-spacing:.07em;color:var(--arch-overlay-text)}
+ #mobileMenu .arch-menu-est{display:block;font-size:11px;letter-spacing:.18em;font-weight:800;color:var(--arch-overlay-muted);margin-top:4px}
+ #mobileMenu .arch-menu-close{width:44px;height:44px;border:1px solid var(--arch-overlay-line);border-radius:50%;display:grid;place-items:center;color:var(--arch-overlay-text);background:transparent;flex-shrink:0;font-size:18px}
+ #mobileMenu .arch-menu-close:focus-visible{outline:3px solid #d2b14c;outline-offset:3px}
+ header#mainHeader #mobileMenu.arch-cinematic-menu a.mobile-nav-link{display:flex!important;align-items:center;gap:12px;padding:clamp(7px,1.3vh,14px) 4px!important;border:0!important;border-bottom:1px solid var(--arch-overlay-line)!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;color:var(--arch-overlay-text)!important;font-family:inherit;font-size:clamp(21px,5.4vw,38px)!important;font-weight:850!important;line-height:1.18!important;letter-spacing:-.025em;transform:none!important;transition:color .2s,padding-left .2s!important}
+ #mobileMenu .arch-menu-number{color:var(--arch-overlay-muted);font-size:11px;font-weight:800;letter-spacing:.08em;min-width:25px;align-self:center}
+ header#mainHeader #mobileMenu.arch-cinematic-menu a.mobile-nav-link:hover,header#mainHeader #mobileMenu.arch-cinematic-menu a.mobile-nav-link.premium-mobile-active{color:#b89228!important;padding-left:12px!important}
+ 
+ #mobileMenu #mobileControlsBar{order:20!important;margin:clamp(6px,2vh,20px) 0 0!important;background:transparent!important;border:1px solid var(--arch-overlay-line)!important;border-radius:16px!important;padding:10px!important;flex-shrink:0}
+ #mobileMenu .arch-menu-footer{order:21;color:var(--arch-overlay-muted);text-align:center;font-size:11px;font-weight:800;letter-spacing:.13em;margin-top:4px}
+ 
+ #mobileMenu .arch-mobile-cta{order:19;margin-top:clamp(6px,1vh,12px);border:1px solid rgba(8,76,36,.15)}
+ 
+ 
+}
+@media(prefers-reduced-motion:reduce){header#mainHeader nav.arch-floating-nav,header#mainHeader nav.arch-floating-nav a,header#mainHeader #mobileMenu.arch-cinematic-menu,header#mainHeader #mobileMenu.arch-cinematic-menu a.mobile-nav-link{transition:none!important;animation:none!important}}
+
+/* Explicit dark-theme specificity beats the legacy navigation color rules. */
+
+
+
+</style>
+<style>@media(max-width:1023px){body.arch-menu-open{overflow:hidden!important}}</style>
+<style id="arch-mobile-soft-effects">
+/* Mobile-only: compositor-friendly motion; desktop untouched. */
+@media (max-width:1023px) and (prefers-reduced-motion:no-preference){
+  header#mainHeader #mobileMenu.arch-cinematic-menu{
+    transform:translate3d(0,-10px,0)!important;
+    transition:opacity .28s ease-out,transform .36s cubic-bezier(.22,1,.36,1),visibility .28s!important;
+  }
+  header#mainHeader #mobileMenu.arch-cinematic-menu.menu-open{
+    transform:translate3d(0,0,0)!important;
+  }
+  header#mainHeader #mobileMenu.arch-cinematic-menu .arch-menu-heading,
+  header#mainHeader #mobileMenu.arch-cinematic-menu .mobile-menu-item,
+  header#mainHeader #mobileMenu.arch-cinematic-menu a.mobile-nav-link,
+  header#mainHeader #mobileMenu.arch-cinematic-menu #mobileControlsBar,
+  header#mainHeader #mobileMenu.arch-cinematic-menu .arch-menu-footer{
+    opacity:0;
+    transform:translate3d(0,9px,0)!important;
+    transition:opacity .25s ease-out,transform .34s cubic-bezier(.22,1,.36,1);
+  }
+  header#mainHeader #mobileMenu.arch-cinematic-menu.menu-open .arch-menu-heading,
+  header#mainHeader #mobileMenu.arch-cinematic-menu.menu-open .mobile-menu-item,
+  header#mainHeader #mobileMenu.arch-cinematic-menu.menu-open a.mobile-nav-link,
+  header#mainHeader #mobileMenu.arch-cinematic-menu.menu-open #mobileControlsBar,
+  header#mainHeader #mobileMenu.arch-cinematic-menu.menu-open .arch-menu-footer{
+    opacity:1;
+    transform:translate3d(0,0,0)!important;
+  }
+  #mobileMenu.menu-open .arch-menu-heading{transition-delay:.035s!important}
+  #mobileMenu.menu-open .mobile-menu-item:nth-of-type(1){transition-delay:.055s!important}
+  #mobileMenu.menu-open .mobile-menu-item:nth-of-type(2){transition-delay:.075s!important}
+  #mobileMenu.menu-open .mobile-menu-item:nth-of-type(3){transition-delay:.095s!important}
+  #mobileMenu.menu-open .mobile-menu-item:nth-of-type(4){transition-delay:.115s!important}
+  #mobileMenu.menu-open .mobile-menu-item:nth-of-type(5){transition-delay:.135s!important}
+  #mobileMenu.menu-open .mobile-menu-item:nth-of-type(6){transition-delay:.155s!important}
+  #mobileMenu.menu-open #mobileControlsBar{transition-delay:.16s!important}
+  #mobileMenu.menu-open .arch-menu-footer{transition-delay:.18s!important}
+  header#mainHeader #mobileMenu.arch-cinematic-menu a.mobile-nav-link{
+    transition:color .18s ease,padding-left .18s ease,background-color .18s ease,opacity .25s ease-out,transform .34s cubic-bezier(.22,1,.36,1)!important;
+    -webkit-tap-highlight-color:transparent;
+  }
+  header#mainHeader #mobileMenu.arch-cinematic-menu a.mobile-nav-link:active{
+    background:var(--arch-overlay-line)!important;
+    padding-left:9px!important;
+  }
+  #mobileMenu .arch-menu-close:active,
+  #mobileMenu .arch-mobile-cta:active{transform:scale(.975)!important}
+}
+/* The touch effects intentionally use existing light/dark variables. */
+@media (max-width:1023px) and (prefers-reduced-motion:reduce){
+  header#mainHeader #mobileMenu.arch-cinematic-menu .arch-menu-heading,
+  header#mainHeader #mobileMenu.arch-cinematic-menu .mobile-menu-item,
+  header#mainHeader #mobileMenu.arch-cinematic-menu a.mobile-nav-link,
+  header#mainHeader #mobileMenu.arch-cinematic-menu #mobileControlsBar,
+  header#mainHeader #mobileMenu.arch-cinematic-menu .arch-menu-footer{opacity:1!important;transform:none!important;transition:none!important}
+}
+</style>
+<style id="arch-mobile-compact-dropdown">
+/* Compact anchored dropdown; desktop floating navigation remains unchanged. */
+@media(max-width:1023px){
+ header#mainHeader{overflow:visible!important}
+ header#mainHeader #mobileMenu.arch-cinematic-menu{
+  position:absolute!important;inset:auto!important;top:calc(100% + 7px)!important;
+  right:12px!important;left:auto!important;width:min(370px,calc(100vw - 24px))!important;
+  height:auto!important;max-height:min(72dvh,620px)!important;overflow-y:auto!important;
+  z-index:1000!important;display:flex!important;flex-direction:column!important;
+  gap:3px!important;box-sizing:border-box!important;padding:12px!important;
+  background:var(--arch-menu-bg)!important;color:var(--arch-menu-text)!important;
+  border:1px solid var(--arch-menu-border)!important;border-radius:20px!important;
+  box-shadow:0 16px 42px rgba(1,31,18,.23)!important;
+  -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
+  opacity:0!important;visibility:hidden!important;pointer-events:none!important;
+  transform:translate3d(0,-8px,0) scale(.985)!important;transform-origin:top right!important;
+  transition:opacity .22s ease,transform .25s cubic-bezier(.22,1,.36,1),visibility .22s!important;
+ }
+ header#mainHeader #mobileMenu.arch-cinematic-menu.menu-open{
+  opacity:1!important;visibility:visible!important;pointer-events:auto!important;
+  transform:translate3d(0,0,0) scale(1)!important;
+ }
+ #mobileMenu .arch-menu-heading,#mobileMenu .arch-menu-footer,#mobileMenu .arch-menu-number{display:none!important}
+ header#mainHeader #mobileMenu.arch-cinematic-menu a.mobile-nav-link{
+  display:flex!important;align-items:center!important;min-height:43px!important;
+  padding:10px 13px!important;border:0!important;border-radius:11px!important;
+  background:transparent!important;color:var(--arch-menu-text)!important;
+  font-size:14px!important;line-height:1.3!important;font-weight:800!important;
+  letter-spacing:0!important;transform:none!important;opacity:1!important;
+  transition:background .18s,color .18s!important;
+ }
+ header#mainHeader #mobileMenu.arch-cinematic-menu a.mobile-nav-link:hover,
+ header#mainHeader #mobileMenu.arch-cinematic-menu a.mobile-nav-link:focus-visible{
+  background:var(--arch-menu-hover)!important;color:var(--arch-menu-text)!important;
+  padding-left:13px!important;outline-offset:-2px;
+ }
+ header#mainHeader #mobileMenu.arch-cinematic-menu a.mobile-nav-link.premium-mobile-active,
+ header#mainHeader #mobileMenu.arch-cinematic-menu a.mobile-nav-link[aria-current]{
+  background:var(--arch-menu-active)!important;color:var(--arch-menu-active-text)!important;
+  padding-left:13px!important;
+ }
+ #mobileMenu .arch-mobile-cta{
+  order:10!important;margin-top:7px!important;min-height:44px!important;
+  background:#084c24!important;color:#ffe84b!important;border-radius:12px!important;
+  font-size:13px!important;box-shadow:none!important;opacity:1!important;transform:none!important;
+ }
+ 
+ #mobileMenu #mobileControlsBar{
+  order:11!important;margin:8px 0 0!important;padding:8px!important;
+  border-radius:12px!important;border:1px solid var(--arch-menu-border)!important;
+  background:var(--arch-menu-hover)!important;opacity:1!important;transform:none!important;
+ }
+ #mobileMenu #mobileControlsBar button{min-height:34px}
+ #mobileMenu .mobile-menu-item{opacity:1!important;transform:none!important;transition-delay:0s!important}
+ body.arch-menu-open{overflow:auto!important}
+}
+@media(max-width:1023px) and (prefers-reduced-motion:reduce){
+ header#mainHeader #mobileMenu.arch-cinematic-menu,
+ header#mainHeader #mobileMenu.arch-cinematic-menu a.mobile-nav-link{transition:none!important}
+}
+</style>
+<style id="arch-mobile-controls-contrast-fix">
+/* Contrast-safe mobile language and theme controls, in both themes. */
+@media (max-width:1023px){
+ body #mainHeader #mobileMenu #mobileControlsBar{
+  background:#e8f0e8!important;border:1px solid #bdcebe!important;
+ }
+ body #mainHeader #mobileMenu #mobileLangToggleWrapper{
+  background:#fff!important;border:1px solid #b7cbbb!important;
+ }
+ body #mainHeader #mobileMenu #mobileLangToggleWrapper .lang-btn:not(.active){
+  background:#fff!important;color:#084c24!important;border:1px solid transparent!important;
+  box-shadow:none!important;
+ }
+ body #mainHeader #mobileMenu #mobileLangToggleWrapper .lang-btn.active{
+  background:#084c24!important;color:#fff!important;
+  border:1px solid #14713d!important;box-shadow:none!important;
+ }
+ 
+ 
+ 
+ body #mainHeader #mobileMenu #mobileLangToggleWrapper .lang-btn:not(.active):hover{
+  background:#e1eddf!important;
+ }
+ 
+ body #mainHeader #mobileMenu #mobileLangToggleWrapper .lang-btn:focus-visible {
+  outline:3px solid #d1a91d!important;outline-offset:2px!important;
+ }
+}
+</style>
+<style id="archelaos-single-theme">:root{color-scheme:light}body{color-scheme:light}</style>
+<style id="archelaos-editorial-sports">
+/* Editorial Sports — a single light-theme presentation, scoped to department cards. */
+#departmentsGrid {align-items:stretch;gap:clamp(16px,2vw,24px);}
+#departmentsGrid .editorial-sport-card {
+ display:flex;flex-direction:column!important;justify-content:flex-start!important;
+ padding:0!important;min-height:0!important;overflow:hidden!important;
+ border-radius:21px!important;background:#fff!important;
+ border:1px solid #d9e5d8!important;isolation:isolate;
+ box-shadow:0 8px 25px rgba(4,56,31,.065)!important;
+ transition:transform .26s ease,box-shadow .26s ease,border-color .26s ease!important;
+}
+#departmentsGrid .editorial-sport-card::before,
+#departmentsGrid .editorial-sport-card::after {content:none!important;display:none!important;}
+#departmentsGrid .editorial-sport-card:hover,
+#departmentsGrid .editorial-sport-card:focus-within {
+ transform:translateY(-4px);border-color:#b7cdb8!important;
+ box-shadow:0 17px 38px rgba(4,56,31,.14)!important;
+}
+#departmentsGrid .editorial-sport-photo {height:185px;position:relative;overflow:hidden;background:linear-gradient(135deg,#0b4b30,#167348);flex-shrink:0;}
+#departmentsGrid .editorial-sport-photo img {display:block;width:100%;height:100%;object-fit:cover;object-position:center;transition:transform .5s ease;}
+#departmentsGrid .editorial-sport-card:hover .editorial-sport-photo img {transform:scale(1.045);}
+#departmentsGrid .editorial-sport-photo::after {content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,27,13,.38),transparent 46%,rgba(0,27,13,.32));pointer-events:none;}
+#departmentsGrid .editorial-sport-photo.photo-unavailable::before {content:"ΑΡΧΕΛΑΟΣ · 1956";position:absolute;inset:0;display:grid;place-items:center;color:#f6e66b;font-size:13px;font-weight:900;letter-spacing:.18em;}
+#departmentsGrid .editorial-sport-index,#departmentsGrid .editorial-sport-photo-label {position:absolute;z-index:2;color:#fff;font-weight:850;letter-spacing:.07em;font-size:10px;}
+#departmentsGrid .editorial-sport-index {top:15px;left:16px;padding:6px 9px;background:rgba(4,48,28,.72);border:1px solid rgba(255,255,255,.3);border-radius:7px;}
+#departmentsGrid .editorial-sport-photo-label {bottom:14px;left:16px;padding:5px 10px;border-radius:7px;background:rgba(3,49,29,.82);border-left:3px solid #f1d75a;}
+#departmentsGrid .editorial-sport-body {display:flex;flex-direction:column;flex:1;padding:20px 19px 18px!important;position:relative;z-index:1;}
+#departmentsGrid .editorial-sport-eyebrow {display:flex;align-items:center;justify-content:space-between;gap:6px;flex-wrap:wrap;font-size:9px;font-weight:900;letter-spacing:.08em;color:#47634f;}
+#departmentsGrid .editorial-sport-year {color:#866b17;}
+#departmentsGrid .editorial-sport-title {font-size:clamp(20px,1.9vw,24px)!important;line-height:1.17!important;letter-spacing:-.035em;color:#083d28!important;margin:14px 0 0!important;font-weight:900!important;}
+#departmentsGrid .editorial-sport-subtitle {font-size:12px;line-height:1.4;font-weight:750;color:#346b4a;margin-top:5px;}
+#departmentsGrid .editorial-sport-description {font-size:13px;line-height:1.6;color:#526559;margin-top:12px;min-height:42px;}
+#departmentsGrid .editorial-sport-divider {height:1px;background:#e1e9df;margin:17px 0 13px;margin-top:auto;}
+#departmentsGrid .editorial-sport-actions {display:flex;align-items:stretch;gap:8px;flex-wrap:wrap;}
+#departmentsGrid .editorial-sport-history {border:1px solid #c7d8c8;background:#f5f8f3;color:#0a4b2f;border-radius:10px;min-height:43px;padding:9px 11px;font-size:11px;font-weight:900;display:inline-flex;gap:6px;align-items:center;justify-content:center;transition:background .2s ease;}
+#departmentsGrid .editorial-sport-history:hover {background:#e6f0e4;}
+#departmentsGrid .editorial-sport-join {flex:1;display:flex!important;align-items:center;justify-content:center;gap:7px;min-height:43px;padding:9px 11px!important;margin:0!important;background:#084c24!important;color:#fff!important;border:1px solid #084c24!important;border-radius:10px!important;font-size:11px;font-weight:900;line-height:1.3;text-align:center;box-shadow:none!important;transition:background .2s ease,color .2s ease!important;}
+#departmentsGrid .editorial-sport-join:hover {background:#f4de74!important;color:#073e26!important;}
+#departmentsGrid .editorial-sport-history:focus-visible,#departmentsGrid .editorial-sport-join:focus-visible {outline:3px solid #c28e11;outline-offset:3px;}
+@media(max-width:767px) {
+ #departmentsGrid .editorial-sport-card {border-radius:18px!important;}
+ #departmentsGrid .editorial-sport-photo {height:195px;}
+ #departmentsGrid .editorial-sport-body {padding:19px!important;}
+ #departmentsGrid .editorial-sport-title {font-size:23px!important;}
+}
+@media(min-width:640px) and (max-width:1050px) {
+ #departmentsGrid .editorial-sport-photo {height:170px;}
+ #departmentsGrid .editorial-sport-actions {flex-direction:column;}
+}
+@media(prefers-reduced-motion:reduce) {
+ #departmentsGrid .editorial-sport-card,#departmentsGrid .editorial-sport-photo img {transition:none!important;}
+ #departmentsGrid .editorial-sport-card:hover {transform:none!important;}
+ #departmentsGrid .editorial-sport-card:hover .editorial-sport-photo img {transform:none!important;}
+}
+</style>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=GFS+Didot:ital@0;1&amp;display=swap" rel="stylesheet"/>
+<style id="archelaos-executive-board">
+#board .executive-board-card {
+  display:flex;flex-direction:column;justify-content:space-between;gap:22px;
+  padding:21px 19px 17px;border:1px solid #d7e4d6;border-radius:20px;
+  background:#fff;box-shadow:0 7px 23px rgba(4,56,31,.065);
+  min-height:176px;transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease;
+}
+#board .executive-board-card::before,#board .executive-board-card::after {content:none!important;display:none!important;}
+#board .executive-board-card:hover {transform:translateY(-3px);border-color:#adc8ad;box-shadow:0 14px 32px rgba(4,56,31,.12);}
+#board .executive-board-upper {display:flex;align-items:center;gap:14px;min-width:0;}
+#board .executive-board-monogram {
+  position:relative;display:flex;align-items:center;justify-content:center;flex:0 0 66px;
+  width:66px;height:74px;border-radius:15px 15px 19px 19px;
+  color:#f5dc76;background:linear-gradient(145deg,#0d603b 0%,#073e2b 75%);
+  border:1px solid #26704d;box-shadow:inset 0 0 0 3px rgba(247,218,112,.1);
+}
+#board .executive-board-monogram:after {content:"";position:absolute;inset:6px;border:1px solid rgba(245,220,118,.35);border-radius:11px 11px 15px 15px;pointer-events:none;}
+#board .executive-board-monogram span {
+  font-family:"GFS Didot","Palatino Linotype","Times New Roman",serif;
+  font-style:italic;font-weight:400;font-size:31px;line-height:1;letter-spacing:-.095em;
+  padding-right:4px;transform:rotate(-5deg) translateY(-1px);
+  text-shadow:0 1px 1px rgba(0,0,0,.15);
+}
+#board .executive-board-ident {min-width:0;display:flex;flex-direction:column;gap:9px;}
+#board .executive-board-role {color:#9b7614;font-weight:900;font-size:10px;line-height:1.3;letter-spacing:.04em;text-transform:uppercase;}
+#board .executive-board-name {color:#073e2a;font-family:"Manrope","Inter",sans-serif;font-size:15px;line-height:1.35;font-weight:850;overflow-wrap:anywhere;}
+#board .executive-board-bottom {border-top:1px solid #e1e9df;padding-top:12px;display:flex;flex-wrap:wrap;gap:5px;align-items:baseline;font-size:12px;line-height:1.45;}
+#board .executive-board-ephor-label {color:#0a5132;font-weight:900;}
+#board .executive-board-ephor {color:#52665a;font-weight:700;}
+@media(max-width:639px) {
+ #board .executive-board-card {min-height:0;padding:17px;gap:16px;border-radius:17px;}
+ #board .executive-board-monogram {width:62px;height:67px;flex-basis:62px;}
+ #board .executive-board-name {font-size:16px;}
+}
+@media(prefers-reduced-motion:reduce) {
+ #board .executive-board-card {transition:none!important;}
+ #board .executive-board-card:hover {transform:none!important;}
+}
+</style>
+<style id="archelaos-premium-cleanup">
+/* Preserve JS category filters even if other styles use !important. */
+#departmentsGrid .editorial-sport-card[style*="display: none"],
+#departmentsGrid .editorial-sport-card[style*="display:none"] {display:none!important;}
+#departmentsGrid .editorial-sport-title {margin-top:3px!important;}
+#departmentsGrid .editorial-sport-body {padding-top:19px!important;}
+#departmentsGrid .editorial-sport-description {margin-top:10px;}
+#departmentsGrid .editorial-sport-photo-label {font-size:10px;}
+#departmentsGrid .editorial-sport-index {font-size:10px;}
+#about .counter {font-variant-numeric:tabular-nums;}
+#board .executive-board-ephor-label {white-space:nowrap;}
+#anniversary70 .ann70-message p {max-width:570px;}
+@media(min-width:1024px){
+ #departments,#board {padding-top:76px;padding-bottom:76px;}
+}
+@media(max-width:639px){
+ #departmentsGrid .editorial-sport-body {padding-top:18px!important;}
+ #board .executive-board-bottom {gap:5px;}
+}
+</style>
+<style id="archelaos-balanced-spacing-text-reveal">
+/* Generous premium spacing: calm rhythm and more room between sections. */
+#home {padding-top:52px!important;padding-bottom:100px!important;}
+#about,#departments,#board {padding-top:90px!important;padding-bottom:90px!important;}
+#contact {padding-top:96px!important;padding-bottom:96px!important;}
+#join-history.join-history-section {padding-top:88px!important;padding-bottom:88px!important;}
+#departments .mb-10,#departments .mb-12,#board .mb-12 {margin-bottom:42px!important;}
+#departmentsGrid {row-gap:26px!important;column-gap:24px!important;}
+#board .executive-board-grid {row-gap:25px!important;column-gap:22px!important;}
+/* Understated editorial entrance: smaller travel, soft focus, no bouncing. */
+.reveal-text {
+  transform:translate3d(0,12px,0);
+  transition:opacity .65s cubic-bezier(.22,1,.36,1),
+             transform .65s cubic-bezier(.22,1,.36,1);
+}
+.reveal-text.is-visible {transform:translate3d(0,0,0);}
+h1.reveal-text,h2.reveal-text,h3.reveal-text,
+p.reveal-text,#about .reveal-text > h2,
+#departments .reveal-text > h2,
+#board .reveal-text > h2,
+#contact .reveal-text > h2 {
+  filter:blur(2.5px);
+  transition:opacity .65s cubic-bezier(.22,1,.36,1),
+             transform .65s cubic-bezier(.22,1,.36,1),
+             filter .65s ease;
+}
+h1.reveal-text.is-visible,h2.reveal-text.is-visible,h3.reveal-text.is-visible,
+p.reveal-text.is-visible,
+#about .reveal-text.is-visible > h2,
+#departments .reveal-text.is-visible > h2,
+#board .reveal-text.is-visible > h2,
+#contact .reveal-text.is-visible > h2 {filter:blur(0);}
+@media(min-width:1024px){
+ #home {padding-top:64px!important;padding-bottom:116px!important;}
+ #about,#departments,#board {padding-top:106px!important;padding-bottom:106px!important;}
+ #contact {padding-top:112px!important;padding-bottom:112px!important;}
+ #join-history.join-history-section {padding-top:100px!important;padding-bottom:100px!important;}
+}
+@media(max-width:639px){
+ #home {padding-top:36px!important;padding-bottom:72px!important;}
+ #about,#departments,#board {padding-top:70px!important;padding-bottom:70px!important;}
+ #contact {padding-top:74px!important;padding-bottom:74px!important;}
+ #join-history.join-history-section {padding-top:68px!important;padding-bottom:68px!important;}
+ #departmentsGrid {row-gap:22px!important;}
+ #board .executive-board-grid {row-gap:21px!important;}
+}
+/* Accessibility: never hide content when reduced motion is requested. */
+@media(prefers-reduced-motion:reduce){
+ .reveal-text,.reveal-text.is-visible {opacity:1!important;transform:none!important;filter:none!important;transition:none!important;}
+ h1.reveal-text,h2.reveal-text,h3.reveal-text,p.reveal-text,
+ #about .reveal-text > h2,#departments .reveal-text > h2,
+ #board .reveal-text > h2,#contact .reveal-text > h2 {filter:none!important;}
+}
+</style>
+<style id="archelaos-warm-ivory-sage-premium">
+/* Premium palette — one light theme; existing dark-green anniversary remains a branded feature. */
+:root { --arch-ivory:#f8f6ef; --arch-sage:#eaf1e8; --arch-green:#083e2a; --arch-gold:#bc9941; }
+html {background:var(--arch-ivory);color-scheme:light;}
+body {background:var(--arch-ivory)!important;color-scheme:light;}
+/* Alternating backgrounds retain the existing generous section spacing. */
+#home {background:linear-gradient(160deg,#fbfaf5 0%,#f6f4eb 100%);}
+#about {background:#f8f6ef!important;border-color:rgba(11,71,43,.06)!important;}
+#departments {background:var(--arch-sage)!important;border-top:1px solid #dbe7da;border-bottom:1px solid #dbe7da;}
+#board {background:#fff!important;border-top:1px solid #e6ede5!important;border-bottom:1px solid #e6ede5!important;}
+#contact {background:#f8f6ef!important;border-top:1px solid #e6e7dd!important;}
+#join-history {background:#f8f6ef!important;}
+/* Maintain crisp contrast in the editorial cards over the sage section. */
+#departmentsGrid .editorial-sport-card {background:#fff!important;border-color:#d5e3d2!important;box-shadow:0 10px 30px rgba(6,54,31,.07)!important;}
+#departmentsGrid .editorial-sport-card:hover {box-shadow:0 18px 40px rgba(6,54,31,.13)!important;}
+#board .executive-board-card {background:#fff!important;}
+/* Subtle gold underline below key section headings; never under all text. */
+#about h2,#departments h2,#board h2,#contact h2 {position:relative;}
+#about h2::after,#departments h2::after,#board h2::after,#contact h2::after {
+ content:"";display:block;width:55px;height:3px;margin:17px 0 0;
+ border-radius:99px;background:linear-gradient(90deg,#aa852e,#e6cd7c);
+}
+#departments h2::after,#board h2::after {margin:17px auto 0;}
+/* Quiet anniversary watermark: text is decoration, not a second heading. */
+#anniversary70 .ann70-watermark {
+ position:absolute;right:3%;bottom:4%;z-index:0;
+ font-family:Georgia,"Times New Roman",serif;font-size:clamp(90px,19vw,290px);
+ line-height:1;font-weight:700;letter-spacing:-.09em;
+ color:rgba(243,212,107,.055);pointer-events:none;user-select:none;
+ white-space:nowrap;
+}
+#anniversary70 .ann70-inner {position:relative;z-index:2;}
+/* Premium hover: small arrow movement, not a whole-button jump. */
+#departmentsGrid .editorial-sport-join i,
+#join-history .join-history-action i {transition:transform .22s ease;}
+#departmentsGrid .editorial-sport-join:hover i,
+#departmentsGrid .editorial-sport-join:focus-visible i,
+#join-history .join-history-action:hover i {transform:translate(2px,-2px);}
+@media(max-width:639px) {
+ #anniversary70 .ann70-watermark {right:3%;bottom:7%;font-size:clamp(80px,25vw,150px);}
+ #about h2::after,#departments h2::after,#board h2::after,#contact h2::after {width:43px;height:2px;margin-top:12px;}
+ #departments h2::after,#board h2::after {margin-left:auto;margin-right:auto;}
+}
+@media(prefers-reduced-motion:reduce) {
+ #departmentsGrid .editorial-sport-join i,#join-history .join-history-action i {transition:none!important;transform:none!important;}
+}
+</style>
+<style id="archelaos-heritage-premium-footer">
+.heritage-footer {position:relative;isolation:isolate;background:#073b28!important;color:#eaf1e8!important;border-top:3px solid #c7a448!important;overflow:hidden;}
+.heritage-footer::before {content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 10% 0%,rgba(42,112,76,.29),transparent 50%),linear-gradient(120deg,transparent 50%,rgba(255,255,255,.018));pointer-events:none;z-index:-1;}
+.heritage-footer a {text-decoration:none;}
+.heritage-footer-inner {max-width:1200px;margin:0 auto;padding:76px 24px 26px;}
+.heritage-footer-top {display:grid;grid-template-columns:minmax(260px,1.45fr) minmax(160px,.8fr) minmax(180px,.9fr);gap:clamp(32px,5vw,90px);padding-bottom:55px;}
+.heritage-footer-brand {display:flex;align-items:center;gap:19px;}
+.heritage-footer-logo {display:block;flex-shrink:0;width:93px;height:93px;object-fit:contain;filter:drop-shadow(0 4px 12px rgba(0,0,0,.16));transition:transform .2s ease;}
+.heritage-footer-brand-link:hover .heritage-footer-logo {transform:scale(1.035);}
+.heritage-footer-kicker {font-size:11px;letter-spacing:.16em;font-weight:900;color:#e9ce77;margin-bottom:9px;}
+.heritage-footer-title {font-size:clamp(20px,2.2vw,27px);line-height:1.24;font-weight:900;color:#fff;letter-spacing:-.025em;}
+.heritage-footer-city {margin-top:8px;font-size:12px;color:#b8d3bf;font-weight:650;}
+.heritage-footer-motto {margin:23px 0 0;color:#e6e9d9;font-family:Georgia,"Times New Roman",serif;font-style:italic;font-size:19px;line-height:1.55;}
+.heritage-footer-col-title {font-size:11px;letter-spacing:.13em;font-weight:900;color:#f1d37c;margin:6px 0 22px;}
+.heritage-footer-links {display:flex;flex-direction:column;align-items:flex-start;gap:15px;}
+.heritage-footer-links a {color:#e4ede4!important;font-size:14px;font-weight:650;line-height:1.4;transition:color .2s ease,transform .2s ease;}
+.heritage-footer-links a:hover,.heritage-footer-links a:focus-visible {color:#f5d977!important;transform:translateX(3px);}
+.heritage-footer-bottom {border-top:1px solid rgba(241,211,124,.22);padding-top:24px;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;}
+.heritage-footer-socials {display:flex;align-items:center;gap:10px;}
+.heritage-footer-socials a {width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(241,211,124,.35);border-radius:11px;color:#f2d477!important;background:rgba(255,255,255,.04);font-size:17px;transition:background .2s ease,transform .2s ease;}
+.heritage-footer-socials a:hover {background:rgba(241,211,124,.14);transform:translateY(-2px);}
+.heritage-footer-dates {font-family:Georgia,"Times New Roman",serif;font-size:16px;font-weight:700;letter-spacing:.07em;color:#f1d37c;}
+.heritage-footer-meta {padding-top:19px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:9px 24px;font-size:11px;line-height:1.7;color:#b9d0be;}
+.heritage-footer a:focus-visible {outline:2px solid #f1d37c;outline-offset:4px;}
+@media(max-width:800px){.heritage-footer-inner {padding:56px 23px 24px;}.heritage-footer-top {grid-template-columns:repeat(2,minmax(0,1fr));gap:38px 25px;padding-bottom:40px;}.heritage-footer-intro {grid-column:1/-1;}.heritage-footer-motto {margin-top:16px;}}
+@media(max-width:450px){.heritage-footer-inner {padding:47px 21px 22px;}.heritage-footer-brand {gap:13px;}.heritage-footer-logo {width:76px;height:76px;}.heritage-footer-title {font-size:21px;}.heritage-footer-col-title {font-size:10px;margin-bottom:17px;}.heritage-footer-links {gap:14px;}.heritage-footer-links a {font-size:13px;}.heritage-footer-top {gap:34px 17px;}.heritage-footer-bottom {padding-top:20px;}.heritage-footer-meta {padding-top:16px;}}
+@media(prefers-reduced-motion:reduce){.heritage-footer a,.heritage-footer-logo {transition:none!important;transform:none!important;}}
+</style>
+<style id="archelaos-yellow-club-identity">
+/* Club identity: confidently green AND yellow, in a light-only design. */
+:root {--club-yellow:#f5e638;--club-yellow-soft:#fff5a8;--club-yellow-pale:#fffbe4;--club-green:#06442c;}
+/* A golden halo around the crest, with plenty of ivory breathing room. */
+#home {position:relative;isolation:isolate;overflow:hidden;
+ background:radial-gradient(ellipse 40% 62% at 82% 44%,rgba(249,232,60,.26) 0%,rgba(249,232,60,.12) 48%,transparent 80%),linear-gradient(155deg,#fffdf1 0%,#f8f6ef 65%,#f5f3e8 100%)!important;}
+#home::before {content:"";position:absolute;inset:auto auto -130px -160px;width:390px;height:390px;border:1px solid rgba(215,178,37,.17);border-radius:50%;pointer-events:none;}
+#home .hero-text-column {position:relative;z-index:1;}
+#home [data-i18n="hero_h1_3"] {color:#073d2a!important;background:#f5e638!important;
+ box-shadow:0 8px 24px rgba(195,164,31,.19)!important;}
+#home .hero-text-column a[data-i18n="btn_explore_depts"] {background:#fff2a5!important;color:#073d2a!important;
+ border:1px solid #e7cf58!important;box-shadow:0 6px 20px rgba(130,102,11,.08)!important;}
+#home .hero-text-column a[data-i18n="btn_explore_depts"]:hover {background:#f5e638!important;}
+#home .hero-text-column button[onclick*="openRegistrationModal"] {border:2px solid #d8c041!important;}
+/* Thin golden transition from anniversary into the next chapter. */
+#anniversary70 {border-bottom:4px solid #edce39;}
+/* Yellow becomes a visual signature, not a wash over every surface. */
+#departments {background:linear-gradient(165deg,#edf3e8 0%,#edf3e8 77%,#f9f7df 100%)!important;}
+#departments [data-i18n="dept_tag"] {background:#f7e65a!important;color:#063d27!important;border-color:#e9d23d!important;box-shadow:none!important;}
+#departments .dept-filter-pill.active {background:#f5e638!important;color:#063d27!important;
+ border-color:#d5bc25!important;box-shadow:0 5px 15px rgba(129,110,20,.13)!important;}
+#departmentsGrid .editorial-sport-photo-label {background:#06452f!important;border-left-color:#f5e638!important;}
+#departmentsGrid .editorial-sport-index {border-color:rgba(245,230,56,.65)!important;}
+#departmentsGrid .editorial-sport-card {border-bottom:3px solid #e9d64c!important;}
+#departmentsGrid .editorial-sport-join:hover {background:#f5e638!important;color:#073d2a!important;}
+#board [data-i18n="board_tag"] {background:#073d2a!important;color:#f5e638!important;}
+#board .executive-board-monogram {color:#f5e638!important;}
+#board .executive-board-card {border-bottom:2px solid #e5d35a!important;}
+/* One bright golden accent around the call to join, without changing its structure. */
+#join-history {border-top:3px solid rgba(225,190,43,.75);border-bottom:3px solid rgba(225,190,43,.55);}
+#contact [data-i18n="contact_tag"] {background:#f5e638!important;color:#073d2a!important;}
+/* Consistent gold strokes beneath editorial headings. */
+#about h2::after,#departments h2::after,#board h2::after,#contact h2::after {
+ background:linear-gradient(90deg,#d6b51b,#f5e638)!important;width:70px!important;height:4px!important;
+}
+@media(max-width:767px){
+ #home {background:radial-gradient(ellipse 78% 35% at 50% 77%,rgba(249,232,60,.20),transparent 90%),linear-gradient(155deg,#fffdf1,#f8f6ef)!important;}
+ #home::before {width:210px;height:210px;left:-95px;bottom:-80px;}
+ #about h2::after,#departments h2::after,#board h2::after,#contact h2::after {width:54px!important;height:3px!important;}
+}
+@media(prefers-reduced-motion:reduce){
+ #home .hero-text-column a[data-i18n="btn_explore_depts"] {transition:none!important;}
+}
+</style>
+<style id="archelaos-premium-about-slideshow">
+/* Premium editorial About section: a generous two-column layout with a restrained photo carousel. */
+#about.arch-about-premium {padding-top:clamp(75px,8.5vw,135px)!important;padding-bottom:clamp(85px,9vw,145px)!important;background:#f8f6ef!important;}
+#about .arch-about-slideshow {height:clamp(365px,40vw,535px);position:relative;overflow:hidden;border-radius:25px;background:#0a3f2b;isolation:isolate;box-shadow:0 22px 55px rgba(5,53,32,.18);border:1px solid rgba(9,71,45,.16);}
+#about .arch-slide-progress-track {position:absolute;inset:0 0 auto;z-index:25;height:3px;background:rgba(255,255,255,.18);}
+#about #slideProgressBar {height:100%;width:0;background:#f5e638;box-shadow:0 0 13px rgba(245,230,56,.35);}
+#about .slideshow-slide {transition:opacity 1.1s ease,visibility 1.1s ease!important;}
+#about .slideshow-slide img {height:100%;width:100%;object-fit:cover;object-position:center;transform:scale(1.045);transition:transform 6.5s ease!important;}
+#about .slideshow-slide.active img {transform:scale(1);}
+#about .arch-slide-shade {position:absolute;inset:0;z-index:9;pointer-events:none;background:linear-gradient(180deg,rgba(1,29,17,.32),transparent 30%,transparent 49%,rgba(1,26,17,.74) 100%);}
+#about .arch-slide-topline {position:absolute;inset:23px 25px auto;z-index:15;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+#about .arch-slide-badge {display:inline-flex;align-items:center;min-height:31px;padding:7px 12px;border-radius:8px;background:rgba(5,52,34,.83);border:1px solid rgba(245,230,56,.5);color:#f5e638;font-size:11px;line-height:1.2;font-weight:850;letter-spacing:.055em;backdrop-filter:blur(8px);}
+#about .arch-slide-top-mark {font-size:11px;color:rgba(255,255,255,.88);letter-spacing:.12em;font-weight:800;text-shadow:0 2px 7px rgba(0,0,0,.4);}
+#about .arch-slide-bottom {position:absolute;inset:auto 25px 25px;z-index:15;display:flex;align-items:end;justify-content:space-between;gap:18px;}
+#about .arch-slide-caption-label {font-size:10px;letter-spacing:.15em;font-weight:900;color:#f5e638;}
+#about .arch-slide-caption {font-family:inherit;font-size:clamp(27px,3.4vw,41px);line-height:1.12;font-weight:900;color:#fff;margin:7px 0 0;letter-spacing:-.03em;text-shadow:0 2px 14px rgba(0,0,0,.4);}
+#about .arch-slide-controls {display:flex;gap:9px;flex-shrink:0;}
+#about .arch-slide-arrow {display:flex;align-items:center;justify-content:center;width:43px;height:43px;border-radius:50%;background:rgba(6,56,37,.78);color:#fff;border:1px solid rgba(255,255,255,.5);transition:background .2s ease,color .2s ease,transform .2s ease;backdrop-filter:blur(6px);}
+#about .arch-slide-arrow:hover {background:#f5e638;color:#073e2a;transform:translateY(-2px);}
+#about .arch-slide-arrow:focus-visible,#about .sport-pill:focus-visible {outline:3px solid #f5e638;outline-offset:3px;}
+#about .arch-slide-navigation {display:flex;align-items:center;justify-content:space-between;gap:12px;padding:17px 5px 0;flex-wrap:wrap;}
+#about .arch-slide-dot-list {display:flex;align-items:center;gap:9px;}
+#about .sport-pill {display:block;width:9px;height:9px;min-width:9px;min-height:9px;padding:0!important;border:0!important;border-radius:50%;background:#a5b9a6!important;box-shadow:none!important;transform:none!important;transition:width .25s ease,background .25s ease!important;cursor:pointer;}
+#about .sport-pill.active {width:31px;border-radius:8px;background:#0b5839!important;}
+#about .arch-slide-navigation-note {font-size:11px;color:#536b57;font-weight:800;letter-spacing:.03em;}
+#about .arch-about-content {display:flex;flex-direction:column;align-items:flex-start;gap:23px;}
+#about .arch-about-eyebrow {display:inline-block;padding:8px 14px;background:#073e2a;color:#f5e638;border-radius:8px;font-size:11px;letter-spacing:.085em;font-weight:900;margin-bottom:21px;}
+#about .arch-about-heading {font-size:clamp(35px,4vw,53px);line-height:1.12;font-weight:900;letter-spacing:-.04em;color:#073e2a;margin:0!important;}
+#about .arch-about-heading::after {content:"";display:block;margin:22px 0 0;width:69px;height:4px;background:#e9cf35;border-radius:9px;}
+#about .arch-about-copy {font-size:clamp(15px,1.55vw,18px);line-height:1.85;color:#455d4d;font-weight:550;max-width:490px;margin:0;}
+#about .arch-about-copy strong {font-weight:900;color:#073e2a;}
+#about .arch-about-stats {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;width:100%;margin-top:7px;}
+#about .arch-about-stat {min-height:120px;padding:23px 20px;border:1px solid #dbe6d9;border-bottom:3px solid #e8d442;background:#fff;border-radius:16px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;box-shadow:0 8px 22px rgba(7,53,31,.05);}
+#about .arch-about-stat-number {color:#073e2a;font-size:clamp(28px,3vw,37px);font-weight:900;line-height:1.1;letter-spacing:-.035em;font-variant-numeric:tabular-nums;}
+#about .arch-about-stat-label {margin-top:9px;color:#58705b;font-size:11px;letter-spacing:.075em;font-weight:900;text-transform:uppercase;}
+@media(max-width:1023px) {
+ #about.arch-about-premium {padding-top:80px!important;padding-bottom:85px!important;}
+ #about .arch-about-content {gap:19px;}
+ #about .arch-about-slideshow {height:clamp(330px,60vw,510px);}
+}
+@media(max-width:639px) {
+ #about.arch-about-premium {padding-top:61px!important;padding-bottom:70px!important;}
+ #about .arch-about-heading {font-size:clamp(32px,9vw,42px);}
+ #about .arch-about-slideshow {height:clamp(300px,82vw,415px);border-radius:19px;}
+ #about .arch-slide-topline {inset:15px 15px auto;}
+ #about .arch-slide-bottom {inset:auto 17px 18px;}
+ #about .arch-slide-top-mark {font-size:9px;}
+ #about .arch-slide-caption {font-size:29px;}
+ #about .arch-slide-arrow {width:38px;height:38px;}
+ #about .arch-about-stat {padding:17px 15px;min-height:105px;}
+ #about .arch-about-stats {gap:10px;}
+ #about .arch-slide-navigation {padding-top:15px;}
+}
+@media(prefers-reduced-motion:reduce) {
+ #about .slideshow-slide,#about .slideshow-slide img,#about .sport-pill,#about .arch-slide-arrow {transition:none!important;}
+ #about .slideshow-slide img,#about .slideshow-slide.active img {transform:none!important;}
+}
+</style>
+<style id="archelaos-ux-accessibility-2026">
+/* Readable, touch-friendly controls without altering the site's light palette. */
+:where(a,button,input,select,textarea):focus-visible {outline:3px solid #d4b800!important;outline-offset:3px!important;}
+#mobileMenuBtn {touch-action:manipulation;}
+@media(max-width:1023px) {
+ #mobileMenu .mobile-nav-link {min-height:46px;display:flex!important;align-items:center;gap:13px;}
+ #mobileMenu .mobile-nav-link[aria-current="page"] {background:#fff4aa!important;color:#073d2a!important;box-shadow:inset 3px 0 0 #0b5839;}
+ #mobileMenu .arch-mobile-cta {min-height:49px;display:flex;align-items:center;justify-content:center;}
+ #mobileMenu .arch-menu-close {min-width:40px;min-height:40px;}
+ #mobileMenu:not(.menu-open) {visibility:hidden!important;pointer-events:none!important;}
+}
+.archelaos-form-note {font-size:12px;line-height:1.6;color:#496550;background:#f7f8ed;border:1px solid #dbe5d4;border-left:3px solid #ddc62f;padding:12px 14px;border-radius:10px;}
+.archelaos-form-status:focus {outline:none!important;}
+@media(prefers-reduced-motion:reduce) {
+ html:focus-within {scroll-behavior:auto!important;}
+ .arch-cinematic-menu,.arch-cinematic-menu * {animation-duration:.01ms!important;transition-duration:.01ms!important;}
+}
+</style>
+<script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              archelaos: {
+                yellow: '#f6ee42',
+                lemon: '#f4e83a',
+                light: '#FEF9C3',
+                darkgreen: '#008a28',
+                deepgreen: '#084c24',
+                forest: '#0d5c2e',
+                accentgreen: '#15803D',
+                surface: '#FFFFFF',
+              }
+            },
+            fontFamily: {
+              heading: ['Manrope', 'Inter', 'sans-serif'],
+              body: ['Inter', 'sans-serif'],
+            }
+          }
+        }
+      }
+    </script><style id="arch-board-page-style">
+body {background:#f8f6ef!important;color:#073d2a;}
+.arch-board-hero{position:relative;overflow:hidden;padding:clamp(65px,8vw,118px) 0 clamp(50px,6vw,75px);background:radial-gradient(ellipse 35% 90% at 83% 38%,rgba(245,230,56,.18),transparent 85%),linear-gradient(135deg,#fffdf2,#f8f6ef);border-bottom:1px solid #e2e9d9;}
+.arch-board-hero:before{content:"1956";position:absolute;right:4%;top:4%;font-size:clamp(110px,20vw,300px);line-height:1;font-weight:900;color:rgba(9,75,46,.035);pointer-events:none;}
+.arch-board-hero .max-w-7xl{position:relative;z-index:1;}
+.arch-board-hero-eyebrow{display:inline-block;background:#073d2a;color:#f5e638;padding:9px 14px;border-radius:8px;font-size:11px;letter-spacing:.12em;font-weight:900;}
+.arch-board-hero h1{font-size:clamp(38px,5.5vw,72px);line-height:1.08;letter-spacing:-.045em;font-weight:900;margin:23px 0 18px;max-width:800px;color:#073d2a;}
+.arch-board-hero h1:after{content:"";display:block;background:#e8cf35;width:78px;height:4px;border-radius:10px;margin-top:24px;}
+.arch-board-hero p{font-size:clamp(15px,1.65vw,19px);line-height:1.8;color:#4a6451;max-width:720px;}
+.arch-board-hero-back{display:inline-flex;align-items:center;gap:10px;margin-top:24px;color:#073d2a;font-weight:850;font-size:13px;text-decoration:none;border-bottom:2px solid #e4c831;padding-bottom:7px;}
+.arch-board-hero-back:hover{color:#1b7950;}
+#board.arch-board-dedicated{background:linear-gradient(160deg,#f8f6ef 0%,#f1f5eb 100%)!important;padding-top:clamp(65px,7vw,95px)!important;padding-bottom:clamp(90px,9vw,145px)!important;}
+#board .executive-board-card{border-bottom:3px solid #e5d35a!important;}
+#board .executive-board-monogram{color:#f5e638!important;}
+a:focus-visible,button:focus-visible{outline:3px solid #e0bd23!important;outline-offset:3px;}
+@media(max-width:640px){.arch-board-hero{padding:55px 0 48px;}.arch-board-hero h1{font-size:38px;}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important;}*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important;}}
+</style><style id="archelaos-board-visible-fix">
+/* A dedicated content page must never depend on scroll animation JS to show its board. */
+#board .reveal-text,#board .executive-board-grid,
+#board .executive-board-card {
+ opacity:1!important;visibility:visible!important;
+ transform:none!important;filter:none!important;
+ animation:none!important;
+}
+#board .executive-board-grid {display:grid!important;}
+</style>
+</head><body class="lang-el"><header class="sticky top-0 z-40 glass-nav" id="mainHeader">
+<div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between h-20 gap-1.5 sm:gap-3">
+<!-- Logo & Title -->
+<a class="flex items-center space-x-2 group shrink-0" href="index.html#home">
+<div class="relative w-11 h-11 sm:w-14 sm:h-14 xl:w-16 xl:h-16 shrink-0 flex items-center justify-center transform group-hover:scale-105 transition duration-300">
+<img alt="Γ.Α.Σ. Αρχέλαος 1956" class="archelaos-crest-adapt w-full h-full object-contain" decoding="async" src="https://lh3.googleusercontent.com/d/1lILSdnXV0Y383UeFwcJbnhHaYvu3nJHj"/>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-heading font-black text-base sm:text-xl xl:text-2xl text-archelaos-deepgreen tracking-tight uppercase truncate" data-i18n="brand_title">Αρχέλαος</span>
+<span class="bg-archelaos-darkgreen text-archelaos-yellow text-[9px] sm:text-[10px] font-extrabold px-1.5 py-0.5 rounded-full tracking-wider shadow-sm shrink-0">1956</span>
+</div>
+<span class="text-[9px] sm:text-[10px] xl:text-[11px] text-archelaos-deepgreen/85 tracking-wider font-bold uppercase truncate" data-i18n="brand_sub">Γ.Α.Σ. Κατερίνης • archelaos.club</span>
+</div>
+</a>
+<!-- Desktop Navigation (Compact spacing for laptops) -->
+<nav aria-label="Κύρια πλοήγηση" class="arch-floating-nav hidden lg:flex items-center space-x-0.5 xl:space-x-1 bg-white/85 px-1.5 xl:px-2.5 py-1.5 rounded-2xl border border-white/90 shadow-sm shrink-0">
+<a class="px-2 xl:px-2.5 py-1.5 rounded-xl text-[11px] xl:text-xs 2xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap" data-i18n="nav_home" href="index.html#home">Αρχική</a>
+<a class="px-2 xl:px-2.5 py-1.5 rounded-xl text-[11px] xl:text-xs 2xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap" data-i18n="nav_history" href="history.html#chapters">Ιστορία</a>
+<a class="px-2 xl:px-2.5 py-1.5 rounded-xl text-[11px] xl:text-xs 2xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap" data-i18n="nav_about" href="index.html#about">Ο Σύλλογος</a>
+<a class="px-2 xl:px-2.5 py-1.5 rounded-xl text-[11px] xl:text-xs 2xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap" data-i18n="nav_dept" href="index.html#departments">Τμήματα</a>
+<a aria-current="page" class="px-2 xl:px-2.5 py-1.5 rounded-xl text-[11px] xl:text-xs 2xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap" data-i18n="nav_board" href="board.html">Διοίκηση</a>
+<a class="px-2 xl:px-2.5 py-1.5 rounded-xl text-[11px] xl:text-xs 2xl:text-sm font-extrabold text-archelaos-deepgreen hover:bg-archelaos-deepgreen hover:text-archelaos-yellow transition duration-200 whitespace-nowrap" data-i18n="nav_contact" href="index.html#contact">Επικοινωνία</a>
+</nav>
+<!-- Right Controls & Actions -->
+<div class="flex items-center space-x-1.5 sm:space-x-2 shrink-0">
+<!-- Language Switcher -->
+<div class="hidden lg:flex items-center bg-white/85 rounded-xl p-0.5 border border-white/90 shadow-sm text-xs font-black">
+<button class="lang-btn active px-2 py-1 rounded-lg uppercase text-[11px]" id="langBtnEL">GR</button>
+<button class="lang-btn px-2 py-1 rounded-lg uppercase text-[11px] text-archelaos-deepgreen hover:opacity-80" id="langBtnEN">EN</button>
+</div>
+<!-- Theme Toggle Button -->
+<!-- Registration CTA (Fits on Laptop & Desktop) -->
+<button class="hidden lg:inline-flex btn-shimmer relative items-center justify-center px-3 xl:px-4 py-2 xl:py-2.5 text-xs xl:text-sm font-black text-archelaos-yellow bg-archelaos-deepgreen hover:bg-archelaos-darkgreen rounded-xl shadow-md hover:-translate-y-0.5 transition duration-200 whitespace-nowrap" onclick="window.location.href='index.html#contact'">
+<i class="fa-solid fa-bolt mr-1.5 text-archelaos-yellow text-xs"></i> <span data-i18n="btn_register">Εγγραφές</span>
+</button>
+<!-- Mobile Hamburger Button -->
+<button aria-expanded="false" aria-label="Μενού" class="lg:hidden w-11 h-11 shrink-0 flex items-center justify-center rounded-xl bg-white/90 hover:bg-white text-archelaos-deepgreen border border-archelaos-deepgreen/20 shadow-sm transition active:scale-95" id="mobileMenuBtn">
+<i class="fa-solid fa-bars text-xl text-archelaos-deepgreen transition-transform duration-200" id="menuIcon"></i>
+</button>
+</div>
+</div>
+</div>
+<!-- Mobile Dropdown Menu -->
+<div aria-hidden="true" aria-label="Μενού κινητού" class="arch-cinematic-menu lg:hidden px-5 space-y-2.5" id="mobileMenu" role="navigation">
+<div class="arch-menu-heading"><div><span class="arch-menu-brand">Γ.Α.Σ. «Ο ΑΡΧΕΛΑΟΣ»</span><span class="arch-menu-est">KATERINI · EST. 1956</span></div><button aria-label="Κλείσιμο μενού" class="arch-menu-close" id="archMenuClose" type="button"><i aria-hidden="true" class="fa-solid fa-xmark"></i></button></div>
+<div class="flex items-center justify-between gap-2 p-2 bg-white/80 rounded-2xl border border-archelaos-deepgreen/15 mb-3 transition-colors duration-200" id="mobileControlsBar">
+<div class="flex items-center bg-white rounded-xl p-0.5 border border-slate-200 shadow-sm text-xs font-black transition-colors duration-200" id="mobileLangToggleWrapper">
+<button class="lang-btn active px-3 py-1.5 rounded-lg uppercase" id="mobileLangBtnEL">GR</button>
+<button class="lang-btn px-3 py-1.5 rounded-lg uppercase text-archelaos-deepgreen hover:opacity-80" id="mobileLangBtnEN">EN</button>
+</div>
+</div>
+<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="index.html#home"><span aria-hidden="true" class="arch-menu-number">01</span><span data-i18n="nav_home">Αρχική</span></a>
+<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="history.html#chapters"><span aria-hidden="true" class="arch-menu-number">02</span><span data-i18n="nav_history">Ιστορία</span></a>
+<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="index.html#about"><span aria-hidden="true" class="arch-menu-number">03</span><span data-i18n="nav_about">Ο Σύλλογος</span></a>
+<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="index.html#departments"><span aria-hidden="true" class="arch-menu-number">04</span><span data-i18n="nav_dept">Αθλητικά Τμήματα</span></a>
+<a aria-current="page" class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="board.html"><span aria-hidden="true" class="arch-menu-number">05</span><span data-i18n="nav_board">Διοίκηση (Δ.Σ.)</span></a>
+<a class="mobile-nav-link mobile-menu-item block px-4 py-3 rounded-xl text-base font-extrabold text-archelaos-deepgreen" href="index.html#contact"><span aria-hidden="true" class="arch-menu-number">06</span><span data-i18n="nav_contact">Επικοινωνία</span></a>
+<button class="arch-mobile-cta mobile-menu-item w-full text-center px-4 py-3.5 bg-archelaos-deepgreen text-archelaos-yellow font-extrabold rounded-xl shadow-lg" onclick="window.location.href='index.html#contact'">
+<i class="fa-solid fa-user-plus mr-2"></i> <span data-i18n="btn_register_interest">Εκδήλωση Ενδιαφέροντος</span>
+</button>
+<div class="arch-menu-footer">70 ΧΡΟΝΙΑ · 1956—2026</div>
+</div>
+</header><div class="arch-board-hero"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><span class="arch-board-hero-eyebrow" data-board-el="ΟΙ ΑΝΘΡΩΠΟΙ ΤΟΥ ΣΥΛΛΟΓΟΥ" data-board-en="THE PEOPLE BEHIND THE CLUB">ΟΙ ΑΝΘΡΩΠΟΙ ΤΟΥ ΣΥΛΛΟΓΟΥ</span><h1 data-board-el="Μαζί για τον Αρχέλαο." data-board-en="Together for Archelaos.">Μαζί για τον Αρχέλαο.</h1><p data-board-el="Γνωρίστε το Διοικητικό Συμβούλιο και τους υπεύθυνους εφόρους των οκτώ αθλητικών τμημάτων." data-board-en="Meet the Board of Directors and the representatives of our eight sports departments.">Γνωρίστε το Διοικητικό Συμβούλιο και τους υπεύθυνους εφόρους των οκτώ αθλητικών τμημάτων.</p><a class="arch-board-hero-back" href="index.html#departments"><i aria-hidden="true" class="fa-solid fa-arrow-left"></i><span data-board-el="Αθλητικά τμήματα" data-board-en="Sports departments">Αθλητικά τμήματα</span></a></div></div><section class="arch-board-dedicated py-20 relative z-10 sm:py-24 glass-section" id="board">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="reveal-text text-center max-w-2xl mx-auto mb-12">
+<span class="inline-block px-4 py-1.5 rounded-full bg-archelaos-deepgreen text-archelaos-yellow font-black text-xs uppercase tracking-wider mb-3 shadow-md" data-i18n="board_tag">Διοίκηση</span>
+<h2 class="text-3xl sm:text-5xl font-black font-heading text-archelaos-deepgreen" data-i18n="board_title">Διοικητικό Συμβούλιο</h2>
+<p class="mt-3 text-slate-700 font-semibold text-sm sm:text-base leading-relaxed" data-i18n="board_sub">Η σύνθεση του Δ.Σ. και οι υπεύθυνοι έφοροι των 8 αθλητικών τμημάτων του συλλόγου.</p>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 reveal-text executive-board-grid">
+<article aria-label="Παναγιώτης Διαμαντόπουλος" class="executive-board-card premium-person-card">
+<div class="executive-board-upper">
+<div aria-hidden="true" class="executive-board-monogram"><span>ΠΔ</span></div>
+<div class="executive-board-ident">
+<span class="executive-board-role" data-i18n="role_president">Πρόεδρος</span>
+<h3 class="executive-board-name" data-i18n="board_1_name">Παναγιώτης Διαμαντόπουλος</h3>
+</div>
+</div>
+<div class="executive-board-bottom">
+<span class="executive-board-ephor-label" data-i18n="ephor_label">Έφορος:</span>
+<span class="executive-board-ephor" data-i18n="ephor_gymnastics">Ενόργανη Γυμναστική</span>
+</div>
+</article>
+<article aria-label="Χαράλαμπος Σαββίδης" class="executive-board-card premium-person-card">
+<div class="executive-board-upper">
+<div aria-hidden="true" class="executive-board-monogram"><span>ΧΣ</span></div>
+<div class="executive-board-ident">
+<span class="executive-board-role" data-i18n="role_vp1">Α΄ Αντιπρόεδρος</span>
+<h3 class="executive-board-name" data-i18n="board_2_name">Χαράλαμπος Σαββίδης</h3>
+</div>
+</div>
+<div class="executive-board-bottom">
+<span class="executive-board-ephor-label" data-i18n="ephor_label">Έφορος:</span>
+<span class="executive-board-ephor" data-i18n="ephor_handball">Χάντμπολ</span>
+</div>
+</article>
+<article aria-label="Δημήτριος Γαλάνης" class="executive-board-card premium-person-card">
+<div class="executive-board-upper">
+<div aria-hidden="true" class="executive-board-monogram"><span>ΔΓ</span></div>
+<div class="executive-board-ident">
+<span class="executive-board-role" data-i18n="role_vp2">Β΄ Αντιπρόεδρος</span>
+<h3 class="executive-board-name" data-i18n="board_3_name">Δημήτριος Γαλάνης</h3>
+</div>
+</div>
+<div class="executive-board-bottom">
+<span class="executive-board-ephor-label" data-i18n="ephor_label">Έφορος:</span>
+<span class="executive-board-ephor" data-i18n="ephor_archery">Τοξοβολία</span>
+</div>
+</article>
+<article aria-label="Αθανάσιος Μαυροειδής" class="executive-board-card premium-person-card">
+<div class="executive-board-upper">
+<div aria-hidden="true" class="executive-board-monogram"><span>ΑΜ</span></div>
+<div class="executive-board-ident">
+<span class="executive-board-role" data-i18n="role_gen_sec">Γεν. Γραμματέας</span>
+<h3 class="executive-board-name" data-i18n="board_4_name">Αθανάσιος Μαυροειδής</h3>
+</div>
+</div>
+<div class="executive-board-bottom">
+<span class="executive-board-ephor-label" data-i18n="ephor_label">Έφορος:</span>
+<span class="executive-board-ephor" data-i18n="ephor_swimming">Κολύμβηση</span>
+</div>
+</article>
+<article aria-label="Παύλος Συμεωνίδης" class="executive-board-card premium-person-card">
+<div class="executive-board-upper">
+<div aria-hidden="true" class="executive-board-monogram"><span>ΠΣ</span></div>
+<div class="executive-board-ident">
+<span class="executive-board-role" data-i18n="role_treasurer">Ταμίας</span>
+<h3 class="executive-board-name" data-i18n="board_5_name">Παύλος Συμεωνίδης</h3>
+</div>
+</div>
+<div class="executive-board-bottom">
+<span class="executive-board-ephor-label" data-i18n="ephor_label">Έφορος:</span>
+<span class="executive-board-ephor" data-i18n="ephor_volleyball">Βόλεϊ</span>
+</div>
+</article>
+<article aria-label="Γεώργιος Αθανασίου" class="executive-board-card premium-person-card">
+<div class="executive-board-upper">
+<div aria-hidden="true" class="executive-board-monogram"><span>ΓΑ</span></div>
+<div class="executive-board-ident">
+<span class="executive-board-role" data-i18n="role_member">Μέλος Δ.Σ.</span>
+<h3 class="executive-board-name" data-i18n="board_6_name">Γεώργιος Αθανασίου</h3>
+</div>
+</div>
+<div class="executive-board-bottom">
+<span class="executive-board-ephor-label" data-i18n="ephor_label">Έφορος:</span>
+<span class="executive-board-ephor" data-i18n="ephor_track">Στίβος (Κλασικός)</span>
+</div>
+</article>
+<article aria-label="Κυριάκος Κωνσταντινίδης" class="executive-board-card premium-person-card">
+<div class="executive-board-upper">
+<div aria-hidden="true" class="executive-board-monogram"><span>ΚΚ</span></div>
+<div class="executive-board-ident">
+<span class="executive-board-role" data-i18n="role_member">Μέλος Δ.Σ.</span>
+<h3 class="executive-board-name" data-i18n="board_7_name">Κυριάκος Κωνσταντινίδης</h3>
+</div>
+</div>
+<div class="executive-board-bottom">
+<span class="executive-board-ephor-label" data-i18n="ephor_label">Έφορος:</span>
+<span class="executive-board-ephor" data-i18n="ephor_wrestling">Πάλη</span>
+</div>
+</article>
+<article aria-label="Χρυσούλα Κουτσουδάκη" class="executive-board-card premium-person-card">
+<div class="executive-board-upper">
+<div aria-hidden="true" class="executive-board-monogram"><span>ΧΚ</span></div>
+<div class="executive-board-ident">
+<span class="executive-board-role" data-i18n="role_member">Μέλος Δ.Σ.</span>
+<h3 class="executive-board-name" data-i18n="board_8_name">Χρυσούλα Κουτσουδάκη</h3>
+</div>
+</div>
+<div class="executive-board-bottom">
+<span class="executive-board-ephor-label" data-i18n="ephor_label">Έφορος:</span>
+<span class="executive-board-ephor" data-i18n="ephor_shooting">Σκοποβολή</span>
+</div>
+</article>
+</div>
+</div>
+</section><footer aria-label="Γ.Α.Σ. Ο Αρχέλαος — footer" class="heritage-footer">
+<div class="heritage-footer-inner">
+<div class="heritage-footer-top">
+<div class="heritage-footer-intro">
+<div class="heritage-footer-brand">
+<a aria-label="Αρχική — Γ.Α.Σ. Ο Αρχέλαος" class="heritage-footer-brand-link" href="index.html#home">
+<img alt="Λογότυπο Γ.Α.Σ. Ο Αρχέλαος" class="heritage-footer-logo" decoding="async" loading="lazy" src="https://lh3.googleusercontent.com/d/1JwGT61jDKXuBU6rA1OCiC1laeKh8gKdV"/>
+</a>
+<div>
+<p class="heritage-footer-kicker" data-i18n="heritage_footer_since">ΑΠΟ ΤΟ 1956</p>
+<p class="heritage-footer-title" data-i18n="heritage_footer_club">Γ.Α.Σ. «Ο Αρχέλαος»</p>
+<p class="heritage-footer-city" data-i18n="heritage_footer_city">Κατερίνη · 70 χρόνια αθλητισμού</p>
+</div>
+</div>
+<p class="heritage-footer-motto" data-i18n="heritage_footer_motto">Ο αθλητισμός μάς ενώνει.</p>
+</div>
+<nav aria-label="Εξερεύνηση" class="heritage-footer-nav">
+<h2 class="heritage-footer-col-title" data-i18n="heritage_footer_explore">ΕΞΕΡΕΥΝΗΣΗ</h2>
+<div class="heritage-footer-links">
+<a href="index.html#home"><span data-i18n="nav_home">Αρχική</span></a>
+<a href="index.html#departments"><span data-i18n="nav_dept">Τμήματα</span></a>
+<a aria-current="page" href="board.html"><span data-i18n="nav_board">Διοίκηση</span></a>
+</div>
+</nav>
+<nav aria-label="Ιστορία και επαφή" class="heritage-footer-nav">
+<h2 class="heritage-footer-col-title" data-i18n="heritage_footer_history_contact">ΠΕΡΙΣΣΟΤΕΡΑ &amp; ΕΠΑΦΗ</h2>
+<div class="heritage-footer-links">
+<a href="history.html#chapters"><span data-i18n="nav_history">Ιστορία</span></a>
+<a href="history.html#timeline"><span data-i18n="nav_timeline">Χρονολόγιο</span></a>
+<a href="index.html#contact"><span data-i18n="nav_contact">Επικοινωνία</span></a>
+</div>
+</nav>
+</div>
+<div class="heritage-footer-bottom">
+<div aria-label="Κοινωνικά δίκτυα" class="heritage-footer-socials"><a aria-label="Facebook" href="https://www.facebook.com/oarxelaos" rel="noopener noreferrer" target="_blank" title="Facebook"><i aria-hidden="true" class="fa-brands fa-facebook-f"></i></a><a aria-label="YouTube" href="https://www.youtube.com/@GASArchelaosKaterinis" rel="noopener noreferrer" target="_blank" title="YouTube"><i aria-hidden="true" class="fa-brands fa-youtube"></i></a><a aria-label="Wikipedia" href="https://el.wikipedia.org/wiki/%CE%93.%CE%91.%CE%A3._%CE%9F_%CE%91%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82_%CE%9A%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82" rel="noopener noreferrer" target="_blank" title="Wikipedia"><i aria-hidden="true" class="fa-brands fa-wikipedia-w"></i></a></div>
+<span aria-label="1956 έως 2026" class="heritage-footer-dates">1956 — 2026</span>
+</div>
+<div class="heritage-footer-meta">
+<span data-i18n="heritage_footer_copyright">© 2026 Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης · archelaos.club</span>
+<span data-i18n="footer_address">Α΄ Δημοτικό Αθλητικό Κέντρο (ΔΑΚ) Κατερίνης, 60132</span>
+</div>
+</div>
+</footer><script id="board-page-behavior">
+(function(){
+ const translations={"el": {"board_4_name": "Αθανάσιος Μαυροειδής", "heritage_footer_since": "ΑΠΟ ΤΟ 1956", "nav_history": "Ιστορία", "board_5_name": "Παύλος Συμεωνίδης", "heritage_footer_motto": "Ο αθλητισμός μάς ενώνει.", "heritage_footer_history_contact": "ΠΕΡΙΣΣΟΤΕΡΑ & ΕΠΑΦΗ", "nav_home": "Αρχική", "btn_register_interest": "Εκδήλωση Ενδιαφέροντος", "ephor_volleyball": "Βόλεϊ", "board_tag": "Διοίκηση", "heritage_footer_city": "Κατερίνη · 70 χρόνια αθλητισμού", "ephor_swimming": "Κολύμβηση", "nav_timeline": "Χρονολόγιο", "footer_address": "Α΄ Δημοτικό Αθλητικό Κέντρο (ΔΑΚ) Κατερίνης, 60132", "board_2_name": "Χαράλαμπος Σαββίδης", "ephor_gymnastics": "Ενόργανη Γυμναστική", "ephor_label": "Έφορος:", "ephor_track": "Στίβος (Κλασικός)", "board_sub": "Η σύνθεση του Δ.Σ. και οι υπεύθυνοι έφοροι των 8 αθλητικών τμημάτων του συλλόγου.", "nav_contact": "Επικοινωνία", "nav_about": "Ο Σύλλογος", "ephor_handball": "Χάντμπολ", "heritage_footer_copyright": "© 2026 Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης · archelaos.club", "role_president": "Πρόεδρος", "heritage_footer_explore": "ΕΞΕΡΕΥΝΗΣΗ", "nav_dept": "Τμήματα", "board_title": "Διοικητικό Συμβούλιο", "board_3_name": "Δημήτριος Γαλάνης", "board_1_name": "Παναγιώτης Διαμαντόπουλος", "brand_sub": "Γ.Α.Σ. Κατερίνης • archelaos.club", "btn_register": "Εγγραφές / Εκδήλωση", "brand_title": "Αρχέλαος", "board_6_name": "Γεώργιος Αθανασίου", "role_gen_sec": "Γεν. Γραμματέας", "nav_board": "Διοίκηση", "role_treasurer": "Ταμίας", "ephor_wrestling": "Πάλη", "heritage_footer_club": "Γ.Α.Σ. «Ο Αρχέλαος»", "role_member": "Μέλος Δ.Σ.", "ephor_shooting": "Σκοποβολή", "board_7_name": "Κυριάκος Κωνσταντινίδης", "board_8_name": "Χρυσούλα Κουτσουδάκη", "role_vp2": "Β΄ Αντιπρόεδρος", "ephor_archery": "Τοξοβολία", "role_vp1": "Α΄ Αντιπρόεδρος"}, "en": {"board_4_name": "Athanasios Mavroeidis", "heritage_footer_since": "SINCE 1956", "nav_history": "History", "board_5_name": "Pavlos Symeonidis", "heritage_footer_motto": "Sport brings us together.", "heritage_footer_history_contact": "MORE & CONTACT", "nav_home": "Home", "btn_register_interest": "Register Interest", "ephor_volleyball": "Volleyball", "board_tag": "Governance", "heritage_footer_city": "Katerini · 70 years of sport", "ephor_swimming": "Swimming", "nav_timeline": "Timeline", "footer_address": "1st Municipal Athletic Center (DAK) of Katerini, GR-60132", "board_2_name": "Charalampos Savvidis", "ephor_gymnastics": "Artistic Gymnastics", "ephor_label": "Director:", "ephor_track": "Track & Field (Athletics)", "board_sub": "The Executive Bureau and the designated Ephors (Directors) of our 8 sports departments.", "nav_contact": "Contact", "nav_about": "The Club", "ephor_handball": "Handball", "heritage_footer_copyright": "© 2026 G.A.S. Archelaos Katerinis · archelaos.club", "role_president": "President", "heritage_footer_explore": "EXPLORE", "nav_dept": "Sports", "board_title": "Board of Directors", "board_3_name": "Dimitrios Galanis", "board_1_name": "Panagiotis Diamantopoulos", "brand_sub": "G.A.S. Katerini • archelaos.club", "btn_register": "Registration / Inquiries", "brand_title": "Archelaos", "board_6_name": "Georgios Athanasiou", "role_gen_sec": "General Secretary", "nav_board": "Board", "role_treasurer": "Treasurer", "ephor_wrestling": "Wrestling", "heritage_footer_club": "G.A.S. Archelaos", "role_member": "Board Member", "ephor_shooting": "Sport Shooting", "board_7_name": "Kyriakos Konstantinidis", "board_8_name": "Chrysoula Koutsoudaki", "role_vp2": "2nd Vice President", "ephor_archery": "Archery", "role_vp1": "1st Vice President"}};
+ const menu=document.getElementById('mobileMenu'),toggle=document.getElementById('mobileMenuBtn'),closeBtn=document.getElementById('archMenuClose');
+ function closeMenu(){if(!menu)return;menu.classList.remove('menu-open');menu.inert=true;menu.setAttribute('aria-hidden','true');if(toggle){toggle.classList.remove('is-active');toggle.setAttribute('aria-expanded','false');}}
+ function openMenu(){if(!menu)return;menu.classList.add('menu-open');menu.inert=false;menu.setAttribute('aria-hidden','false');if(toggle){toggle.classList.add('is-active');toggle.setAttribute('aria-expanded','true');}const first=menu.querySelector('a,button');if(first)first.focus();}
+ window.closeMobileMenu=closeMenu;
+ window.toggleMobileMenu=function(){if(menu.classList.contains('menu-open'))closeMenu();else openMenu();};
+ if(toggle){toggle.type='button';toggle.setAttribute('aria-controls','mobileMenu');toggle.setAttribute('aria-expanded','false');toggle.addEventListener('click',window.toggleMobileMenu);}
+ if(closeBtn)closeBtn.addEventListener('click',()=>{closeMenu();toggle?.focus();});
+ if(menu){closeMenu();menu.addEventListener('click',e=>{if(e.target.closest('a[href]'))closeMenu();});}
+ document.addEventListener('pointerdown',e=>{if(menu?.classList.contains('menu-open')&&!menu.contains(e.target)&&!toggle?.contains(e.target))closeMenu();});
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&menu?.classList.contains('menu-open')){closeMenu();toggle?.focus();}if(e.key==='Tab'&&menu?.classList.contains('menu-open')){const a=[...menu.querySelectorAll('a,button')].filter(x=>!x.disabled),first=a[0],last=a[a.length-1];if(!first)return;if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}}});
+ window.addEventListener('resize',()=>{if(window.innerWidth>=1024)closeMenu();},{passive:true});
+ window.setLanguage=function(lang){if(!translations[lang])return;document.documentElement.lang=lang;document.body.classList.toggle('lang-el',lang==='el');document.body.classList.toggle('lang-en',lang==='en');try{localStorage.setItem('archelaos_lang',lang);}catch(e){}
+ document.querySelectorAll('[data-i18n]').forEach(el=>{const val=translations[lang][el.dataset.i18n];if(val!==undefined)el.textContent=val;});
+ document.querySelectorAll('[data-board-el]').forEach(el=>{el.textContent=el.getAttribute('data-board-'+lang);});
+ for(const [id,active] of [['langBtnEL',lang==='el'],['langBtnEN',lang==='en'],['mobileLangBtnEL',lang==='el'],['mobileLangBtnEN',lang==='en']]){const btn=document.getElementById(id);if(btn)btn.classList.toggle('active',active);}
+ if(menu)menu.setAttribute('aria-label',lang==='en'?'Mobile navigation':'Πλοήγηση κινητού');
+ };
+ for(const [id,lang] of [['langBtnEL','el'],['langBtnEN','en'],['mobileLangBtnEL','el'],['mobileLangBtnEN','en']]){const btn=document.getElementById(id);if(btn){btn.removeAttribute('onclick');btn.addEventListener('click',()=>window.setLanguage(lang));}}
+ try{window.setLanguage(localStorage.getItem('archelaos_lang')==='en'?'en':'el');}catch(e){window.setLanguage('el');}
+ // Reveal animations and intersection observer are optional enhancement.
+ const els=document.querySelectorAll('.reveal-text');if('IntersectionObserver'in window){const io=new IntersectionObserver(entries=>{for(const entry of entries)if(entry.isIntersecting){entry.target.classList.add('is-visible');io.unobserve(entry.target);}},{threshold:.08});els.forEach(el=>io.observe(el));}else els.forEach(el=>el.classList.add('visible'));
+})();
+</script></body></html>
