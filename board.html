@@ -2077,7 +2077,27 @@ footer.arch-footer-signature .heritage-footer-logo {filter:drop-shadow(0 3px 8px
 #mobileMenu .mobile-nav-link:hover{transform:translateX(5px);box-shadow:inset 3px 0 #caa65d}
 @media(max-width:760px){.arch-anniversary-entrance{padding:58px 18px 62px}.arch-anniversary-heading{display:block;margin-bottom:24px}.arch-anniversary-heading p{margin:15px 0 0;max-width:100%}.arch-anniversary-grid{grid-template-columns:1fr;gap:15px}.arch-anniversary-card{min-height:275px;padding:25px}.arch-anniversary-card strong{font-size:38px}.arch-anniversary-bottom-note{font-size:15px}}
 @media(prefers-reduced-motion:reduce){.arch-anniversary-card,#mainHeader .arch-floating-nav>a,#mobileMenu .mobile-nav-link{transition:none!important}.arch-anniversary-card:hover{transform:none}}
-</style></head><body class="lang-el arch-gold-page"><header class="sticky top-0 z-40 glass-nav" id="mainHeader">
+</style><style id="archelaos-header-logo-visibility-fix">
+/* Gold crest, with dependable contrast on the ivory navigation bar. */
+#mainHeader a:has(> div > img.archelaos-crest-adapt) > div:first-child {
+  background:#073D2A !important;
+  border:2px solid #D5AB50 !important;
+  border-radius:50% !important;
+  padding:5px !important;
+  box-shadow:0 2px 12px rgba(7,61,42,.16) !important;
+  overflow:hidden !important;
+}
+#mainHeader img.archelaos-crest-adapt {
+  opacity:1 !important;
+  visibility:visible !important;
+  display:block !important;
+  width:100% !important;
+  height:100% !important;
+  object-fit:contain !important;
+}
+@media(max-width:640px){#mainHeader a:has(> div > img.archelaos-crest-adapt) > div:first-child{padding:3px !important;border-width:1.5px !important}}
+</style>
+</head><body class="lang-el arch-gold-page"><header class="sticky top-0 z-40 glass-nav" id="mainHeader">
 <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
 <div class="flex items-center justify-between h-20 gap-1.5 sm:gap-3">
 <!-- Logo & Title -->
