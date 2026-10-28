@@ -1488,7 +1488,50 @@ html body #mainHeader.glass-nav.scrolled {
 }
 #mainHeader .archelaos-crest-adapt { object-fit:contain!important; }
 </style>
-</head>
+<style id="archelaos-history-heritage-timeline-popups">
+/* Heritage Timeline: compact, readable and built on the existing documented milestones. */
+#timeline .heritage-timeline-intro {margin:6px 0 17px;max-width:780px;}
+#timeline .heritage-timeline-intro-line {color:#937b24;font-size:10px;font-weight:900;letter-spacing:.15em;}
+#timeline .heritage-timeline-intro p {color:#536b59;font-size:13px;line-height:1.8;margin-top:7px;}
+#timeline .heritage-timeline-preview {display:grid;grid-template-columns:110px minmax(0,1fr) auto;align-items:center;gap:22px;background:linear-gradient(115deg,#fffef8,#f3f7ef);border:1px solid #dce5d5;border-left:4px solid #c8a832;border-radius:19px;padding:24px 26px;box-shadow:0 12px 35px rgba(7,61,42,.065);}
+#timeline .heritage-timeline-preview-date {font-size:clamp(27px,3vw,40px);font-weight:900;line-height:1;letter-spacing:-.04em;color:#073d2a;border-right:1px solid #d8dfcf;padding-right:15px;}
+#timeline .heritage-timeline-preview-eyebrow {display:block;font-size:10px;font-weight:900;letter-spacing:.1em;color:#9b7e24;text-transform:uppercase;margin-bottom:6px;}
+#timeline .heritage-timeline-preview-copy h3 {font-size:clamp(17px,2vw,23px);font-weight:900;line-height:1.3;color:#073d2a;}
+#timeline .heritage-timeline-preview-copy p {font-size:12px;line-height:1.75;color:#526a58;margin:8px 0 0;max-width:650px;}
+#timeline .heritage-timeline-preview-action {display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:44px;background:#073d2a;color:#f5e638;padding:12px 17px;border-radius:11px;font-size:12px;font-weight:900;white-space:nowrap;border:1px solid #073d2a;cursor:pointer;transition:background .2s ease,transform .2s ease;}
+#timeline .heritage-timeline-preview-action:hover {background:#155b3d;transform:translateY(-2px);}
+#timeline .timeline-h-item {background:#fffdf7!important;border:1px solid #dce5d5!important;cursor:pointer;}
+#timeline .timeline-h-item.heritage-selected {background:#eef3e9!important;border:1px solid #b7a04a!important;box-shadow:0 7px 22px rgba(7,61,42,.09)!important;}
+#timeline .timeline-h-item.heritage-selected > div:first-child {background:#073d2a!important;color:#f5e638!important;}
+#timeline .museum-decade-panel {background:#fffdf7!important;border:1px solid #dfe7d9!important;}
+#timeline .museum-decade-btn.is-active,#timeline .museum-decade-btn:hover {background:#073d2a!important;color:#f5e638!important;border-color:#073d2a!important;}
+@media(max-width:900px){#timeline .heritage-timeline-preview{grid-template-columns:90px minmax(0,1fr);gap:15px;}#timeline .heritage-timeline-preview-action{grid-column:1/-1;justify-self:start;}}
+@media(max-width:550px){#timeline .heritage-timeline-preview{grid-template-columns:1fr;gap:13px;padding:19px;}#timeline .heritage-timeline-preview-date{border-right:0;border-bottom:1px solid #d8dfcf;padding:0 0 10px;}#timeline .heritage-timeline-preview-action{width:100%;}}
+/* Unified popups: deep green/ivory/sage/muted gold, no bright-yellow full-width headers. */
+#historyArchiveModal,#historyPresidentModal,#timelineDetailModal,#deptHistoryModal,#registrationModal {background:rgba(5,34,23,.72)!important;backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px);}
+#historyArchiveModal .modal-box,#historyPresidentModal .modal-box,#timelineDetailModal .modal-box,#deptHistoryModal .modal-box,#registrationModal .modal-box {background:#fffdf7!important;border:1px solid rgba(198,169,60,.50)!important;border-radius:22px!important;box-shadow:0 28px 85px rgba(3,32,19,.32)!important;color:#073d2a;}
+#historyArchiveModal .modal-header,#timelineDetailModal .modal-header,#deptHistoryModal .modal-header,#registrationModal .modal-header {background:#073d2a!important;color:#fffdf7!important;border-bottom:3px solid #c9a83b!important;}
+#historyArchiveModal .modal-header h2,#timelineDetailModal .modal-header-title,#deptHistoryModal .modal-header-title,#registrationModal .modal-header-title {color:#fffdf7!important;}
+#historyArchiveModal .modal-header p,#timelineDetailModal .modal-header span:not(#timelineModalYearBadge),#deptHistoryModal .modal-header span,#registrationModal .modal-header-icon {color:#ead479!important;}
+#timelineModalYearBadge,#deptModalIcon {background:#f5e638!important;color:#073d2a!important;box-shadow:none!important;}
+#historyArchiveModal .modal-close-btn,#historyArchiveModal .modal-header button,#timelineDetailModal .modal-close-btn,#deptHistoryModal .modal-close-btn,#registrationModal .modal-close-btn,#historyPresidentClose {background:rgba(255,255,255,.13)!important;color:#fffdf7!important;border:1px solid rgba(255,255,255,.20)!important;}
+#historyArchiveModal .modal-header button:hover,#timelineDetailModal .modal-close-btn:hover,#deptHistoryModal .modal-close-btn:hover,#registrationModal .modal-close-btn:hover,#historyPresidentClose:hover {background:#f5e638!important;color:#073d2a!important;}
+#historyPresidentModal .history-president-card {background:#fffdf7!important;}
+#historyPresidentModal .sub-box,#timelineDetailModal .history-highlight,#deptHistoryModal .history-highlight {background:#eef3e9!important;border:1px solid #d6e3d3!important;color:#073d2a!important;}
+#historyPresidentModal .sub-box i,#timelineDetailModal .history-highlight i,#deptHistoryModal .history-highlight i {color:#a88b27!important;}
+#historyArchiveModal .history-archive-content {background:#fffdf7!important;}
+#historyArchiveModal .modal-box > div:last-child {background:#edf3e9!important;border-top:1px solid #dbe5d7!important;}
+#historyArchiveModal .modal-box > div:last-child span {color:#526858!important;}
+#historyArchiveModal .modal-box > div:last-child button {background:#073d2a!important;color:#f5e638!important;}
+#registrationModal input,#registrationModal select {background:#fffefb!important;border:1px solid #cbdacb!important;color:#073d2a!important;min-height:46px;}
+#registrationModal input:focus,#registrationModal select:focus {border-color:#aa8f2e!important;outline:2px solid rgba(200,168,50,.25)!important;outline-offset:1px;}
+#registrationModal .archelaos-form-note {background:#edf3e9!important;border-color:#d8e3d3!important;border-left-color:#c9a83b!important;color:#4d6554!important;}
+#timelineDetailModal .modal-box button:not(.modal-close-btn),#deptHistoryModal .modal-submit-btn,#registrationModal button[type=submit],#historyPresidentCloseFooter {background:#073d2a!important;color:#f5e638!important;}
+#historyPresidentPrev,#historyPresidentNext,#deptModalWikiBtn {background:#edf3e9!important;color:#073d2a!important;border-color:#dbe5d7!important;}
+#historyPresidentPrev:hover,#historyPresidentNext:hover,#deptModalWikiBtn:hover {background:#f5e638!important;color:#073d2a!important;}
+#historyArchiveModal button:focus-visible,#historyPresidentModal button:focus-visible,#timelineDetailModal button:focus-visible,#deptHistoryModal button:focus-visible,#registrationModal button:focus-visible,#timeline button:focus-visible,#timeline .timeline-h-item:focus-visible {outline:3px solid #c8a832!important;outline-offset:3px!important;}
+@media(prefers-reduced-motion:reduce){#timeline .heritage-timeline-preview-action{transition:none!important;}}
+</style></head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow">
 <!-- ANIMATED CONTOUR WAVES -->
 <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-75">
@@ -1673,7 +1716,13 @@ html body #mainHeader.glass-nav.scrolled {
 <div aria-label="Φίλτρο δεκαετίας / Decade filter" class="museum-decade-filters" id="museumDecadeFilters" role="group">
 <button aria-pressed="true" class="museum-decade-btn is-active" data-decade="all" type="button"><span data-lang="el">Όλες</span><span data-lang="en">All</span></button>
 </div>
-</div><div class="reveal-text relative py-4">
+</div><div class="heritage-timeline-intro" aria-label="Heritage Timeline"><div class="heritage-timeline-intro-line"><span data-lang="el">HERITAGE TIMELINE · 1956—2026</span><span data-lang="en">HERITAGE TIMELINE · 1956—2026</span></div><p><span data-lang="el">Επιλέξτε έναν πραγματικό ιστορικό σταθμό για να δείτε την παρουσίασή του. Πατήστε «Διαβάστε περισσότερα» για το πλήρες περιεχόμενο.</span><span data-lang="en">Select a documented milestone to preview it. Choose “Read more” to open its full story.</span></p></div>
+<div class="heritage-timeline-preview" id="heritageTimelinePreview" aria-live="polite" aria-atomic="true">
+<div class="heritage-timeline-preview-date" id="heritageTimelinePreviewDate">1956</div>
+<div class="heritage-timeline-preview-copy"><span class="heritage-timeline-preview-eyebrow" id="heritageTimelinePreviewCategory"></span><h3 id="heritageTimelinePreviewTitle"></h3><p id="heritageTimelinePreviewSummary"></p></div>
+<button type="button" class="heritage-timeline-preview-action" id="heritageTimelinePreviewAction"><span data-lang="el">Διαβάστε περισσότερα</span><span data-lang="en">Read more</span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></button>
+</div>
+<div class="reveal-text relative py-4">
 <div class="timeline-horizontal-scroll flex items-start gap-3 sm:gap-4 overflow-x-auto pb-4 pt-2 select-none cursor-grab active:cursor-grabbing snap-x" id="timelineScrollContainer">
 <!-- Populated dynamically via JS: 14 minimal chronology nodes -->
 </div>
@@ -4382,6 +4431,26 @@ html body #mainHeader.glass-nav.scrolled {
         });
       }
         
+      // The preview uses only the existing timelineMilestones records; no extra historical facts.
+      let selectedHeritageMilestoneId = 'm1956';
+      function selectHeritageTimeline(id) {
+        const item = timelineMilestones.find(m => m.id === id);
+        if (!item) return;
+        selectedHeritageMilestoneId = id;
+        const en = currentLang === 'en';
+        const byId = id => document.getElementById(id);
+        if (byId('heritageTimelinePreviewDate')) byId('heritageTimelinePreviewDate').textContent = item.year;
+        if (byId('heritageTimelinePreviewCategory')) byId('heritageTimelinePreviewCategory').textContent = en ? item.category_en : item.category_el;
+        if (byId('heritageTimelinePreviewTitle')) byId('heritageTimelinePreviewTitle').textContent = en ? item.title_en : item.title_el;
+        if (byId('heritageTimelinePreviewSummary')) byId('heritageTimelinePreviewSummary').textContent = en ? item.highlight_en : item.highlight_el;
+        document.querySelectorAll('#timelineScrollContainer .timeline-h-item').forEach(card => {
+          const active = card.dataset.milestoneId === id;
+          card.classList.toggle('heritage-selected', active);
+          card.setAttribute('aria-pressed', String(active));
+        });
+      }
+      document.getElementById('heritageTimelinePreviewAction')?.addEventListener('click', () => openTimelineModal(selectedHeritageMilestoneId));
+
       // Render Minimal Horizontal Timeline Cards
       function renderTimelineCards() {
         const container = document.getElementById('timelineScrollContainer');
@@ -4392,7 +4461,8 @@ html body #mainHeader.glass-nav.scrolled {
         timelineMilestones.forEach((item, index) => {
           const div = document.createElement('div');
           div.className = 'timeline-h-item flex-none w-[125px] sm:w-[145px] text-center cursor-pointer group snap-start transition duration-200 py-1';
-          div.onclick = () => openTimelineModal(item.id);
+          div.dataset.milestoneId = item.id;
+          div.onclick = () => selectHeritageTimeline(item.id);
 
           const title = isEn ? item.title_en : item.title_el;
 
@@ -4410,6 +4480,7 @@ html body #mainHeader.glass-nav.scrolled {
           `;
           container.appendChild(div);
         });
+        selectHeritageTimeline(selectedHeritageMilestoneId);
       }
 
       function openTimelineModal(id) {
