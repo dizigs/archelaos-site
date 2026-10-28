@@ -2385,6 +2385,49 @@ img{max-width:100%}
   html{scroll-behavior:auto!important}
 }
 </style>
+
+<style id="archelaos-museum-tutorial-2026">
+/* Self-contained four-step onboarding. Only the museum page is modified. */
+#archMuseumTourLaunch {display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:46px;max-width:100%;padding:10px 14px;border:1px solid #b9954d;border-radius:12px;color:#073d2a;background:#fff9e9;font-size:12px;font-weight:900;line-height:1.35;white-space:normal;text-align:center;cursor:pointer;transition:background-color .18s,border-color .18s,transform .18s;}
+#archMuseumTourLaunch:hover {background:#f2e7c9;border-color:#846628;transform:translateY(-1px);}
+#archMuseumTourLaunch i {color:#916a25;font-size:15px;}
+#archMuseumTourLaunch:focus-visible {outline:3px solid #d5b866;outline-offset:4px;}
+#museum-jump .heritage-museum-jump-inner {gap:12px;flex-wrap:wrap;}
+#museum-jump .heritage-museum-jump-label {margin-right:auto;}
+@media(max-width:640px){#museum-jump .heritage-museum-jump-inner{justify-content:center;gap:9px;}#museum-jump .heritage-museum-jump-label{flex:0 0 100%;justify-content:center;margin:0 0 2px;}#archMuseumTourLaunch{flex:1 1 160px;}#museum-jump .heritage-museum-jump-details{flex:1 1 160px;}#museum-jump .heritage-museum-jump-details>summary{min-height:46px;padding:9px 11px;font-size:12px;}}
+#archMuseumTourOverlay[hidden],#archMuseumTourOverlay [hidden]{display:none!important;}
+#archMuseumTourOverlay{position:fixed;inset:0;z-index:2147483000;isolation:isolate;pointer-events:none;font-family:inherit;}
+#archMuseumTourOverlay .arch-tour-shade{position:absolute;inset:0;pointer-events:auto;background:transparent;}
+#archMuseumTourOverlay.is-welcome .arch-tour-shade{background:rgba(4,19,14,.75);backdrop-filter:blur(2px);}
+#archMuseumTourOverlay .arch-tour-spotlight{position:fixed;top:0;left:0;width:1px;height:1px;box-sizing:border-box;border:2px solid #e5c47d;border-radius:17px;box-shadow:0 0 0 9999px rgba(4,19,14,.75),0 0 0 5px rgba(229,196,125,.20);pointer-events:none;opacity:1;transition:top .18s ease,left .18s ease,width .18s ease,height .18s ease;}
+#archMuseumTourOverlay.is-welcome .arch-tour-spotlight{opacity:0;box-shadow:none;}
+#archMuseumTourOverlay .arch-tour-card{position:fixed;left:12px;top:12px;width:min(398px,calc(100vw - 24px));max-height:calc(100dvh - 24px);overflow-y:auto;overscroll-behavior:contain;pointer-events:auto;box-sizing:border-box;padding:23px 24px 19px;border-radius:20px;border:1px solid rgba(229,196,125,.62);background:#fffdf5!important;color:#123c2b!important;box-shadow:0 22px 70px rgba(0,0,0,.35),0 4px 12px rgba(4,19,14,.1);font-size:14px;line-height:1.58;}
+#archMuseumTourOverlay.is-welcome .arch-tour-card{left:50%;top:50%;transform:translate(-50%,-50%);width:min(450px,calc(100vw - 28px));padding:28px;}
+#archMuseumTourOverlay .arch-tour-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px;}
+#archMuseumTourOverlay .arch-tour-eyebrow{color:#7c622e!important;font-weight:900;letter-spacing:.11em;font-size:11px;text-transform:uppercase;}
+#archMuseumTourOverlay .arch-tour-close{width:35px;height:35px;min-width:35px;display:grid;place-items:center;color:#1e4532!important;background:#f0eadc!important;border:1px solid #d8d5c8;border-radius:50%;cursor:pointer;font-size:20px;line-height:1;}
+#archMuseumTourOverlay .arch-tour-title{font-size:22px;line-height:1.2;font-weight:900;color:#0a3625!important;letter-spacing:-.025em;margin:0 0 12px;}
+#archMuseumTourOverlay .arch-tour-desc{font-size:14px;line-height:1.65;color:#2c4c3b!important;margin:0 0 17px;}
+#archMuseumTourOverlay .arch-tour-count{font-weight:800;font-size:12px;color:#536d58!important;}
+#archMuseumTourOverlay .arch-tour-progress{display:flex;gap:7px;margin:0 0 17px;}
+#archMuseumTourOverlay .arch-tour-progress span{height:4px;flex:1;border-radius:8px;background:#e0decf;}
+#archMuseumTourOverlay .arch-tour-progress span.is-current,#archMuseumTourOverlay .arch-tour-progress span.is-done{background:#ac863e;}
+#archMuseumTourOverlay .arch-tour-controls{display:flex;align-items:center;justify-content:space-between;gap:9px;flex-wrap:wrap;}
+#archMuseumTourOverlay .arch-tour-btn{min-height:42px;display:inline-flex;align-items:center;justify-content:center;padding:10px 16px;border-radius:10px;font-size:13px;font-weight:900;line-height:1.2;cursor:pointer;transition:background-color .15s;}
+#archMuseumTourOverlay .arch-tour-btn:focus-visible,#archMuseumTourOverlay a:focus-visible,#archMuseumTourOverlay .arch-tour-close:focus-visible{outline:3px solid #b18b43;outline-offset:3px;}
+#archMuseumTourOverlay .arch-tour-btn.primary{background:#0b4b32!important;border:1px solid #0b4b32;color:#fffdf5!important;}
+#archMuseumTourOverlay .arch-tour-btn.primary:hover{background:#176d47!important;}
+#archMuseumTourOverlay .arch-tour-btn.secondary{background:transparent!important;border:1px solid #a7b7ab;color:#12442d!important;}
+#archMuseumTourOverlay .arch-tour-btn.secondary:hover{background:#f0f4ef!important;}
+#archMuseumTourOverlay .arch-tour-btn:disabled{opacity:.35;cursor:not-allowed;}
+#archMuseumTourOverlay .arch-tour-links{border-top:1px solid #dcd9c9;padding-top:12px;margin:0 0 16px;display:flex;flex-wrap:wrap;gap:8px;}
+#archMuseumTourOverlay .arch-tour-links a{color:#0b4b32!important;background:#eaf1e8!important;border:1px solid #d0dfcc;border-radius:9px;display:inline-flex;align-items:center;gap:5px;text-decoration:none;font-size:12px;font-weight:850;padding:9px 12px;}
+#archMuseumTourOverlay .arch-tour-links a:hover{background:#dae9d7!important;}
+#archMuseumTourOverlay .arch-tour-skip{background:transparent;border:0;cursor:pointer;font-size:12px;font-weight:800;padding:9px 4px;color:#5b655e!important;}
+#archMuseumTourOverlay .arch-tour-skip:hover{text-decoration:underline;}
+@media(max-width:640px){#archMuseumTourOverlay .arch-tour-card{padding:16px 18px 15px;border-radius:15px;}#archMuseumTourOverlay.is-welcome .arch-tour-card{padding:20px;}#archMuseumTourOverlay .arch-tour-title{font-size:19px;margin-bottom:8px;}#archMuseumTourOverlay .arch-tour-desc{font-size:13px;line-height:1.5;margin-bottom:11px;}#archMuseumTourOverlay .arch-tour-progress{margin-bottom:12px;}#archMuseumTourOverlay .arch-tour-btn{min-height:43px;}#archMuseumTourOverlay .arch-tour-links{gap:6px;padding-top:9px;margin-bottom:11px;}}
+@media(prefers-reduced-motion:reduce){#archMuseumTourOverlay .arch-tour-spotlight,#archMuseumTourLaunch,#archMuseumTourOverlay .arch-tour-btn{transition:none!important;}}
+</style>
 </head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow arch-gold-page">
 <!-- ANIMATED CONTOUR WAVES -->
@@ -2493,7 +2536,7 @@ img{max-width:100%}
 <a href="#sports-archive"><i aria-hidden="true" class="fa-solid fa-medal"></i><span data-lang="el">Αθλητικά Τμήματα</span><span data-lang="en">Sports Departments</span></a>
 <a href="index.html"><i aria-hidden="true" class="fa-solid fa-house"></i><span data-lang="el">Αρχική</span><span data-lang="en">Home</span></a>
 </nav>
-</details>
+</details><button id="archMuseumTourLaunch" type="button" aria-haspopup="dialog" aria-controls="archMuseumTourOverlay"><i aria-hidden="true" class="fa-solid fa-circle-question"></i><span data-lang="el">Πώς λειτουργεί το Μουσείο;</span><span data-lang="en">How does the Museum work?</span></button>
 </div>
 </div><section class="relative z-10 py-8 sm:py-12 glass-section scroll-mt-24" id="history-archive">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -6546,6 +6589,149 @@ if('IntersectionObserver' in window&&!window.matchMedia('(prefers-reduced-motion
  if(doc.readyState==='loading')doc.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
 
+</script>
+
+<!-- 70 years: on-page introductory help for real Museum controls, not the retired guided-tour feature. -->
+<div id="archMuseumTourOverlay" hidden aria-hidden="true">
+  <div class="arch-tour-shade" aria-hidden="true"></div>
+  <div class="arch-tour-spotlight" aria-hidden="true"></div>
+  <section class="arch-tour-card" role="dialog" aria-modal="true" aria-labelledby="archMuseumTourTitle" aria-describedby="archMuseumTourDesc" tabindex="-1">
+    <div class="arch-tour-top"><span class="arch-tour-eyebrow" id="archMuseumTourEyebrow">Ψηφιακό Μουσείο · 1956–2026</span><button class="arch-tour-close" type="button" data-tour-action="skip" aria-label="Κλείσιμο / Close">&times;</button></div>
+    <h2 class="arch-tour-title" id="archMuseumTourTitle"></h2>
+    <p class="arch-tour-desc" id="archMuseumTourDesc"></p>
+    <div class="arch-tour-links" id="archMuseumTourLinks" hidden><a href="70-stigmes.html" data-tour-link="moments">70 Στιγμές</a><a href="hall-of-fame.html" data-tour-link="people">Οι Άνθρωποι του Αρχέλαου</a></div>
+    <div class="arch-tour-progress" id="archMuseumTourProgress" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+    <div class="arch-tour-controls"><span id="archMuseumTourCount" class="arch-tour-count" aria-live="polite"></span><div style="display:flex;gap:8px;align-items:center"><button type="button" class="arch-tour-btn secondary" data-tour-action="back">Πίσω</button><button type="button" class="arch-tour-btn primary" data-tour-action="next">Επόμενο</button></div></div>
+    <button type="button" class="arch-tour-skip" data-tour-action="skip">Παράλειψη</button>
+  </section>
+</div>
+
+<script id="archelaos-museum-tutorial-js">
+(function(){
+ 'use strict';
+ var KEY='archelaos_museum_tutorial_v1';
+ var steps={
+   el:[
+    {title:'Καλώς ήρθατε στο Ψηφιακό Μουσείο!',text:'Ανακαλύψτε 70 χρόνια αθλητικής ιστορίας του Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης. Σε τέσσερα σύντομα βήματα θα δείτε πώς να εξερευνήσετε το μουσείο.'},
+    {title:'Επιλέξτε μια εποχή',text:'Στο χρονολόγιο, πατήστε μια δεκαετία για να δείτε τα γεγονότα της. Στη συνέχεια μπορείτε να ανοίξετε κάθε ιστορικό σταθμό.',selector:'#museumDecadeFilters',fallback:'#timeline'},
+    {title:'Ανοίξτε τα ιστορικά κεφάλαια',text:'Κάθε κάρτα ανοίγει ένα πραγματικό κεφάλαιο του αρχείου, με ιστορία, πρόσωπα, διακρίσεις και διαθέσιμα τεκμήρια.',selector:'#chapters .history-archive-card',fallback:'#chapters'},
+    {title:'Συνεχίστε την εξερεύνηση',text:'Από την πλοήγηση του μουσείου θα βρείτε όλες τις ενότητες. Ανακαλύψτε ακόμη τις «70 Στιγμές» και τους «Ανθρώπους του Αρχέλαου» από τους παρακάτω συνδέσμους.',selector:'#museum-jump',fallback:'#history-hero'}
+   ],
+   en:[
+    {title:'Welcome to the Digital Museum!',text:'Discover 70 years of sporting history at G.A.S. Archelaos Katerini. This short four-step guide shows you how to explore the museum.'},
+    {title:'Choose a decade',text:'Use the timeline filters to explore events from a particular decade. Then select a milestone to read its story.',selector:'#museumDecadeFilters',fallback:'#timeline'},
+    {title:'Open the historical chapters',text:'Each card opens a real chapter of the archive, including people, sporting achievements and available historical material.',selector:'#chapters .history-archive-card',fallback:'#chapters'},
+    {title:'Keep exploring',text:'Use the museum navigation to visit every section. You can also discover the “70 Moments” and the “People of Archelaos” through the links below.',selector:'#museum-jump',fallback:'#history-hero'}
+   ]
+ };
+ var words={
+   el:{eyebrow:'ΨΗΦΙΑΚΟ ΜΟΥΣΕΙΟ · 1956–2026',back:'Πίσω',next:'Επόμενο',start:'Ξεκινήστε',finish:'Ολοκλήρωση',skip:'Παράλειψη',count:function(n){return 'Βήμα '+n+' από 4';},moments:'70 Στιγμές',people:'Οι Άνθρωποι του Αρχέλαου',close:'Κλείσιμο'},
+   en:{eyebrow:'DIGITAL MUSEUM · 1956–2026',back:'Back',next:'Next',start:'Start',finish:'Finish',skip:'Skip tour',count:function(n){return 'Step '+n+' of 4';},moments:'70 Moments',people:'People of Archelaos',close:'Close'}
+ };
+ var root,shade,spotlight,card,launch,current=-1,lastFocus=null,lastScrollY=0,positionTimer=null,mutationObserver=null,resizeObserver=null;
+ function lang(){return document.body.classList.contains('lang-en')||document.documentElement.lang==='en'?'en':'el';}
+ function getSeen(){try{return localStorage.getItem(KEY)==='seen';}catch(e){return !!window.__archMuseumTourSeen;}}
+ function setSeen(){try{localStorage.setItem(KEY,'seen');}catch(e){window.__archMuseumTourSeen=true;}}
+ function target(){if(current<=0)return null;var data=steps[lang()][current];var el=document.querySelector(data.selector);if(el&&el.getClientRects().length)return el;return document.querySelector(data.fallback);}
+ function isOpen(){return root&&!root.hidden;}
+ function rememberFocus(){lastFocus=document.activeElement;lastScrollY=window.scrollY;}
+ function content(){if(!isOpen())return;
+   var l=lang(),w=words[l],d=steps[l][current];
+   document.getElementById('archMuseumTourEyebrow').textContent=w.eyebrow;
+   document.getElementById('archMuseumTourTitle').textContent=d.title;
+   document.getElementById('archMuseumTourDesc').textContent=d.text;
+   document.getElementById('archMuseumTourCount').textContent=w.count(current+1);
+   var progress=document.getElementById('archMuseumTourProgress').children;
+   for(var i=0;i<progress.length;i++)progress[i].className=i<current?'is-done':i===current?'is-current':'';
+   var back=root.querySelector('[data-tour-action="back"]'),next=root.querySelector('[data-tour-action="next"]');
+   back.textContent=w.back;back.disabled=current===0;
+   next.textContent=current===0?w.start:current===3?w.finish:w.next;
+   root.querySelector('.arch-tour-skip').textContent=w.skip;
+   root.querySelector('.arch-tour-close').setAttribute('aria-label',w.close);
+   var links=document.getElementById('archMuseumTourLinks'); links.hidden=current!==3;
+   links.querySelector('[data-tour-link="moments"]').textContent=w.moments+' ↗';
+   links.querySelector('[data-tour-link="people"]').textContent=w.people+' ↗';
+ }
+ function place(){if(!isOpen())return;
+   root.classList.toggle('is-welcome',current===0);
+   if(current===0){spotlight.style.width='1px';spotlight.style.height='1px';card.style.left='';card.style.top='';card.style.transform='';return;}
+   var el=target();if(!el){close(false);return;}
+   var r=el.getBoundingClientRect(),pad=7;
+   var left=Math.max(6,r.left-pad),top=Math.max(6,r.top-pad),right=Math.min(innerWidth-6,r.right+pad),bottom=Math.min(innerHeight-6,r.bottom+pad);
+   // Use only the real visible portion of a large element as the highlighted region.
+   spotlight.style.left=left+'px';spotlight.style.top=top+'px';spotlight.style.width=Math.max(24,right-left)+'px';spotlight.style.height=Math.max(24,bottom-top)+'px';
+   spotlight.style.borderRadius='15px';
+   card.style.transform='none';
+   var width=card.offsetWidth,height=card.offsetHeight,margin=12;
+   var x=Math.max(margin,Math.min(innerWidth-width-margin,left));
+   var y;
+   if(innerHeight-bottom>=height+margin+12)y=bottom+12;
+   else if(top>=height+margin+12)y=top-height-12;
+   else {
+     // Side position if a compact screen cannot fit the card above or below.
+     var sideRight=innerWidth-right,sideLeft=left;
+     if(sideRight>=width+margin+12){x=right+12;y=Math.max(margin,Math.min(innerHeight-height-margin,top));}
+     else if(sideLeft>=width+margin+12){x=left-width-12;y=Math.max(margin,Math.min(innerHeight-height-margin,top));}
+     else {x=Math.max(margin,(innerWidth-width)/2);y=Math.max(margin,innerHeight-height-margin);}
+   }
+   card.style.left=Math.round(x)+'px';card.style.top=Math.round(y)+'px';
+ }
+ function focusCard(){var primary=root.querySelector('[data-tour-action="next"]');if(primary)primary.focus({preventScroll:true});}
+ function showStep(n){if(!isOpen())return;
+   current=Math.max(0,Math.min(3,n));content();
+   if(current===0){place();focusCard();return;}
+   var el=target();if(el){
+     var r=el.getBoundingClientRect(), safeTop=90, safeBottom=innerHeight-105;
+     if(r.top<safeTop||r.bottom>safeBottom||r.height>innerHeight-150){
+       el.scrollIntoView({behavior:'instant',block:'center',inline:'nearest'});
+     }
+   }
+   place();focusCard();
+   clearTimeout(positionTimer);positionTimer=setTimeout(place,110);
+ }
+ function open(){if(isOpen())return;
+   if(!root||!launch)return;
+   var modalOpen=Array.from(document.querySelectorAll('.modal-backdrop')).some(function(e){return e.classList.contains('is-open')});
+   if(modalOpen)return;
+   var nav=document.getElementById('heritageMuseumJump');if(nav)nav.open=false;
+   rememberFocus();root.hidden=false;root.removeAttribute('aria-hidden');showStep(0);
+ }
+ function close(markSeen){if(!isOpen())return;
+   clearTimeout(positionTimer);
+   if(markSeen!==false)setSeen();
+   root.hidden=true;root.setAttribute('aria-hidden','true');root.classList.remove('is-welcome');current=-1;
+   card.style.left='';card.style.top='';card.style.transform='';
+   if(lastFocus&&lastFocus.isConnected&&typeof lastFocus.focus==='function')lastFocus.focus({preventScroll:true});
+   else if(launch)launch.focus({preventScroll:true});
+ }
+ function onKey(e){if(!isOpen())return;
+   if(e.key==='Escape'){e.preventDefault();close(true);return;}
+   if(e.key==='Tab'){
+     var all=Array.from(card.querySelectorAll('button:not([disabled]):not([hidden]),a[href]:not([hidden])')).filter(function(el){return el.getClientRects().length;});
+     if(!all.length)return;
+     var first=all[0],last=all[all.length-1];
+     if(e.shiftKey&&(document.activeElement===first||document.activeElement===card)){e.preventDefault();last.focus();}
+     else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
+   }
+ }
+ function init(){root=document.getElementById('archMuseumTourOverlay');launch=document.getElementById('archMuseumTourLaunch');if(!root||!launch)return;
+   shade=root.querySelector('.arch-tour-shade');spotlight=root.querySelector('.arch-tour-spotlight');card=root.querySelector('.arch-tour-card');
+   launch.addEventListener('click',open);
+   root.addEventListener('click',function(e){
+     var btn=e.target.closest('[data-tour-action]');
+     if(btn){var a=btn.getAttribute('data-tour-action');if(a==='skip')close(true);if(a==='back')showStep(current-1);if(a==='next'){if(current===3)close(true);else showStep(current+1);}return;}
+     if(e.target.closest('[data-tour-link]'))setSeen();
+   });
+   document.addEventListener('keydown',onKey,true);
+   window.addEventListener('resize',function(){if(isOpen())place();},{passive:true});
+   window.addEventListener('scroll',function(){if(isOpen())place();},{passive:true});
+   mutationObserver=new MutationObserver(function(){if(isOpen()){content();place();}});
+   mutationObserver.observe(document.body,{attributes:true,attributeFilter:['class']});
+   // First visit only; reopening is always available from the museum navigation.
+   if(!getSeen()&&!location.hash){window.setTimeout(function(){if(!getSeen()&&!isOpen()&&document.visibilityState!=='hidden')open();},1000);}
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
+})();
 </script>
 </body>
 </html>
