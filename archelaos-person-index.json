@@ -1667,14 +1667,6 @@
     ]
   },
   {
-    "id": "arch-0d265eeb5633",
-    "name": "Νικηφόρος Μαντζόλης",
-    "name_en": "Nikiforos Mantzolis",
-    "names": [
-      "Νικηφόρος Μαντζόλης"
-    ]
-  },
-  {
     "id": "arch-3b85ec8130de",
     "name": "Εμμανουήλ Μανωλάς",
     "name_en": "Emmanouil Manolas",
@@ -3371,6 +3363,54 @@
     "name_en": "Andreas Kirkintziotes",
     "names": [
       "Ανδρέας Κιρκιντζιώτης"
+    ]
+  },
+  {
+    "id": "arch-c71376255ac4",
+    "name": "Νικόλαος Καπουράνης",
+    "name_en": "Nikolaos Kapouranis",
+    "names": [
+      "Νικόλαος Καπουράνης"
+    ]
+  },
+  {
+    "id": "arch-cc1efed701ce",
+    "name": "Αικατερίνη Βουτσά",
+    "name_en": "Aikaterini Voutsa",
+    "names": [
+      "Αικατερίνη Βουτσά"
+    ]
+  },
+  {
+    "id": "arch-ccaf623e428b",
+    "name": "Νικόλαος Μαντζόλης",
+    "name_en": "Nikolaos Mantzolis",
+    "names": [
+      "Νικόλαος Μαντζόλης"
+    ]
+  },
+  {
+    "id": "arch-66ad095bd70e",
+    "name": "Πέτρος Παπανάτος",
+    "name_en": "Petros Papanatos",
+    "names": [
+      "Πέτρος Παπανάτος"
+    ]
+  },
+  {
+    "id": "arch-ef200dd72711",
+    "name": "Ελισάβετ Χριστοφορίδου",
+    "name_en": "Elisavet Christoforidou",
+    "names": [
+      "Ελισάβετ Χριστοφορίδου"
+    ]
+  },
+  {
+    "id": "arch-9bf28f6a39aa",
+    "name": "Βασίλειος Χριστοφορίδης",
+    "name_en": "Vasileios Christoforidis",
+    "names": [
+      "Βασίλειος Χριστοφορίδης"
     ]
   }
 ]

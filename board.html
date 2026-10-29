@@ -2616,7 +2616,17 @@ img{max-width:100%}
 .arch-person-foot{padding-top:19px;margin-top:26px;border-top:1px solid #ddcfaa}
 .arch-person-hall{color:#073d2a!important;font-size:13px;font-weight:800;text-decoration:underline!important}
 @media(prefers-reduced-motion:reduce){.arch-person-dialog,.arch-person-link{transition:none!important}}
-</style></head><body data-arch-people-page="board" class="lang-el arch-gold-page"><header class="arch-anniversary-header" id="mainHeader">
+</style><style id="arch-biography-popup-motion-v12">
+/* V12 — Hall of Fame-style animated biography popup: preserved native dialog + existing layout. */
+@keyframes archBioDialogEnter {from {opacity:0;transform:translateY(18px) scale(.978)}to {opacity:1;transform:translateY(0) scale(1)}}
+@keyframes archBioBackdropEnter {from {opacity:0}to {opacity:1}}
+.arch-person-dialog[open] {animation:archBioDialogEnter .38s cubic-bezier(.2,.75,.2,1) both!important;transform-origin:center center;}
+.arch-person-dialog[open]::backdrop {animation:archBioBackdropEnter .32s ease both;}
+.arch-person-dialog[open] .arch-person-monogram {animation:archBioDialogEnter .49s .06s both;}
+.arch-person-link,.arch-person-link:hover,.arch-person-link:visited,.arch-person-link:active {text-decoration:none!important;text-decoration-line:none!important;border-bottom:0!important;box-shadow:none!important;}
+@media(prefers-reduced-motion:reduce){.arch-person-dialog[open],.arch-person-dialog[open]::backdrop,.arch-person-dialog[open] .arch-person-monogram{animation:none!important;}}
+</style>
+</head><body data-arch-people-page="board" class="lang-el arch-gold-page"><header class="arch-anniversary-header" id="mainHeader">
 <div class="arch-anniversary-inner">
 <a aria-label="Αρχική · Γ.Α.Σ. Ο Αρχέλαος" class="arch-anniversary-brand" href="index.html">
 <img alt="Έμβλημα Γ.Α.Σ. Ο Αρχέλαος 1956" class="archelaos-crest-adapt" height="72" src="archelaos-logo-gold.png" width="72"/>

@@ -2522,7 +2522,17 @@ img{max-width:100%}
 .arch-person-foot{padding-top:19px;margin-top:26px;border-top:1px solid #ddcfaa}
 .arch-person-hall{color:#073d2a!important;font-size:13px;font-weight:800;text-decoration:underline!important}
 @media(prefers-reduced-motion:reduce){.arch-person-dialog,.arch-person-link{transition:none!important}}
-</style></head>
+</style><style id="arch-biography-popup-motion-v12">
+/* V12 — Hall of Fame-style animated biography popup: preserved native dialog + existing layout. */
+@keyframes archBioDialogEnter {from {opacity:0;transform:translateY(18px) scale(.978)}to {opacity:1;transform:translateY(0) scale(1)}}
+@keyframes archBioBackdropEnter {from {opacity:0}to {opacity:1}}
+.arch-person-dialog[open] {animation:archBioDialogEnter .38s cubic-bezier(.2,.75,.2,1) both!important;transform-origin:center center;}
+.arch-person-dialog[open]::backdrop {animation:archBioBackdropEnter .32s ease both;}
+.arch-person-dialog[open] .arch-person-monogram {animation:archBioDialogEnter .49s .06s both;}
+.arch-person-link,.arch-person-link:hover,.arch-person-link:visited,.arch-person-link:active {text-decoration:none!important;text-decoration-line:none!important;border-bottom:0!important;box-shadow:none!important;}
+@media(prefers-reduced-motion:reduce){.arch-person-dialog[open],.arch-person-dialog[open]::backdrop,.arch-person-dialog[open] .arch-person-monogram{animation:none!important;}}
+</style>
+</head>
 <body data-arch-people-page="history" class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow arch-gold-page">
 <!-- ANIMATED CONTOUR WAVES -->
 <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-75">
@@ -3889,7 +3899,7 @@ img{max-width:100%}
                       Κατά την πρώιμη «ρομαντική περίοδο» (1956–1972), όταν οι αθλητές γυμνάζονταν στο παλιό γήπεδο του Πάρκου (χώρος όπου στεγάζεται σήμερα το 4ο ΓΕΛ Κατερίνης), διακρίθηκε ο άλτης του μήκους <strong>Δημήτριος Μαγκλάρας</strong> (μετέπειτα τρεις φορές βαλκανιονίκης με την ΑΕΚ), ο <strong>Τράντης (Τριαντάφυλλος Σιδηρόπουλος)</strong>, καθώς και ο μετέπειτα πρόεδρος του συλλόγου <strong>Αλκίνοος Τασόπουλος</strong>, ο οποίος πέτυχε το ιστορικό ρεκόρ συλλόγου στα 3.000 μ. στιπλ με 9:42.2 (1971) και κατέκτησε τη 2η θέση στο Πανελλήνιο Πρωτάθλημα Εφήβων.
                     </p>
 <p>
-                      Καθοριστική φυσιογνωμία στην ιστορία του τμήματος υπήρξε ο επί δεκαετίες επικεφαλής προπονητής <strong>Δημήτριος (Τάκης) Παρασκευόπουλος</strong>, ο οποίος ανέλαβε το 1964 όντας ο ίδιος αθλητής ρίψεων με εξειδίκευση στη λιθοβολία. Τον Οκτώβριο του 1973 πραγματοποίησε μαζική επιλογή ταλέντων στο Γυμνάσιο Αρρένων μαζί με τους γυμναστές Ευθυμίου, Σφήκα και Ζάννα, συγκροτώντας τον νέο κορμό αθλητών του συλλόγου. Αποχώρησε επισήμως από την ενεργό δράση τον Ιούνιο του 1996, αναλαμβάνοντας μετέπειτα διοικητικά καθήκοντα Β΄ Αντιπροέδρου. Την προπονητική ομάδα στελέχωσαν διαχρονικά οι Γεώργιος Μαβίδης (από το 1978), Ιωάννης Παπαργυρίου (αδιάλειπτα από το 1982, προπονητής του Κουκοδήμου), Έφη Λαψάνα, Επαμεινώνδας Κούρτης, Νικηφόρος Μαντζόλης (από το 1991), Χρήστος Αθανασιάδης (1991–1999, 2005–2006), Θεοχάρης Βαρυτιμίδης (από το 1996), Μαρία Κυριάκη (1998–2002, 2004–2006), Βικτωρία Μπατάλα και Ζαΐρα Λαζαρίδου (1985–1990). Το 1992, η ομάδα στίβου του 4ου Γενικού Λυκείου Κατερίνης, αποτελούμενη εξ ολοκλήρου από αθλητές του Αρχελάου (Κ. Βασιλειάδης, Αθ. Βλάγκας, Κ. Διαμαντόπουλος, Γ. Καρατζούλας, Αντ. Κεσκίνης, Ι. Τρυγώνης) υπό τον Τάκη Παρασκευόπουλο, κατέκτησε τη <strong>2η θέση στο Πανευρωπαϊκό Σχολικό Πρωτάθλημα στη Γαλλία</strong>.
+                      Καθοριστική φυσιογνωμία στην ιστορία του τμήματος υπήρξε ο επί δεκαετίες επικεφαλής προπονητής <strong>Δημήτριος (Τάκης) Παρασκευόπουλος</strong>, ο οποίος ανέλαβε το 1964 όντας ο ίδιος αθλητής ρίψεων με εξειδίκευση στη λιθοβολία. Τον Οκτώβριο του 1973 πραγματοποίησε μαζική επιλογή ταλέντων στο Γυμνάσιο Αρρένων μαζί με τους γυμναστές Ευθυμίου, Σφήκα και Ζάννα, συγκροτώντας τον νέο κορμό αθλητών του συλλόγου. Αποχώρησε επισήμως από την ενεργό δράση τον Ιούνιο του 1996, αναλαμβάνοντας μετέπειτα διοικητικά καθήκοντα Β΄ Αντιπροέδρου. Την προπονητική ομάδα στελέχωσαν διαχρονικά οι Γεώργιος Μαβίδης (από το 1978), Ιωάννης Παπαργυρίου (αδιάλειπτα από το 1982, προπονητής του Κουκοδήμου), Έφη Λαψάνα, Επαμεινώνδας Κούρτης, Νικόλαος Μαντζόλης (από το 1991), Χρήστος Αθανασιάδης (1991–1999, 2005–2006), Θεοχάρης Βαρυτιμίδης (από το 1996), Μαρία Κυριάκη (1998–2002, 2004–2006), Βικτωρία Μπατάλα και Ζαΐρα Λαζαρίδου (1985–1990). Το 1992, η ομάδα στίβου του 4ου Γενικού Λυκείου Κατερίνης, αποτελούμενη εξ ολοκλήρου από αθλητές του Αρχελάου (Κ. Βασιλειάδης, Αθ. Βλάγκας, Κ. Διαμαντόπουλος, Γ. Καρατζούλας, Αντ. Κεσκίνης, Ι. Τρυγώνης) υπό τον Τάκη Παρασκευόπουλο, κατέκτησε τη <strong>2η θέση στο Πανευρωπαϊκό Σχολικό Πρωτάθλημα στη Γαλλία</strong>.
                     </p>
 <div class="sub-box p-5 rounded-2xl bg-slate-50 border border-slate-200">
 <h4 class="font-heading font-black text-base text-archelaos-deepgreen mb-3">Κορυφαίοι Αθλητές &amp; Διακριθέντες Στίβου</h4>
