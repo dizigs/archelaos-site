@@ -2570,7 +2570,24 @@ header nav.arch-anniversary-nav a[aria-current="page"]:focus-visible {
 #anniversary-collections .arch-anniversary-stories-card:hover .arch-anniversary-arrow{background:#073d2a12;}
 @media(max-width:700px){#anniversary-collections .arch-anniversary-stories-card{grid-column:auto;min-height:240px;}#anniversary-collections .arch-anniversary-stories-ornament{right:16px;top:70px;}}
 </style>
-<style id="arch-contact-footer-v7">.heritage-footer-contactline{display:flex;flex-direction:column;align-items:flex-start;gap:9px;margin-top:16px}.heritage-footer-contactline a,.heritage-footer-contactline span{color:#e5eadf!important;font-size:12px;line-height:1.6;text-decoration:none}.heritage-footer-contactline a:hover{color:#e6cb84!important}.arch-join-redesign .join-history-card{cursor:pointer}.arch-join-redesign .join-history-card:focus-visible{outline:3px solid #c7a65e;outline-offset:5px}.arch-join-redesign .join-history-action{display:none!important}@media(max-width:640px){.heritage-footer-contactline{gap:7px}}</style></head>
+<style id="arch-contact-footer-v7">.heritage-footer-contactline{display:flex;flex-direction:column;align-items:flex-start;gap:9px;margin-top:16px}.heritage-footer-contactline a,.heritage-footer-contactline span{color:#e5eadf!important;font-size:12px;line-height:1.6;text-decoration:none}.heritage-footer-contactline a:hover{color:#e6cb84!important}.arch-join-redesign .join-history-card{cursor:pointer}.arch-join-redesign .join-history-card:focus-visible{outline:3px solid #c7a65e;outline-offset:5px}.arch-join-redesign .join-history-action{display:none!important}@media(max-width:640px){.heritage-footer-contactline{gap:7px}}</style><style id="arch-unified-footer-v8">
+/* V8 consistent footer and card links */
+.heritage-footer-contactline{display:grid!important;grid-template-columns:1fr;gap:7px!important;margin-top:18px!important;border-top:1px solid rgba(210,181,112,.24);padding-top:16px;max-width:345px}
+.heritage-footer-contactline a,.heritage-footer-contactline>span{display:flex;align-items:center;gap:10px;color:#dce9df!important;line-height:1.5;font-size:12px!important;overflow-wrap:anywhere}
+.heritage-footer-contactline a:hover{color:#f0cf7d!important}
+.heritage-footer-contactline .footer-symbol{display:inline-flex;flex:0 0 22px;width:22px;height:22px;align-items:center;justify-content:center;border:1px solid rgba(214,184,109,.45);border-radius:7px;color:#e4c477;font-size:12px}
+.heritage-footer-contactline [data-lang="en"]{display:none}
+html[lang="en"] .heritage-footer-contactline [data-lang="el"]{display:none}
+html[lang="en"] .heritage-footer-contactline [data-lang="en"]{display:inline}
+.heritage-footer-socials a svg{width:17px;height:17px;display:block;fill:currentColor;stroke:currentColor}
+.arch-board-teaser .arch-board-teaser-full-link{display:block;text-decoration:none;color:inherit;cursor:pointer;position:relative;z-index:1}
+.arch-board-teaser .arch-board-teaser-full-link:focus-visible{outline:3px solid #d8b66e;outline-offset:5px;border-radius:18px}
+.arch-board-teaser .arch-board-teaser-full-link:hover .arch-museum-corner-arrow{transform:translate(3px,-3px)}
+.arch-board-teaser .arch-board-teaser-button{display:none!important}
+/* Consistent click targets for any already-linked editorial card */
+a.join-history-card,a.arch-board-teaser-full-link{cursor:pointer}
+a.join-history-card:focus-visible{outline:3px solid #d6b66f;outline-offset:4px}
+</style></head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow arch-gold-page" data-arch-people-page="history">
 <!-- ANIMATED CONTOUR WAVES -->
 <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-75">
@@ -4733,7 +4750,7 @@ header nav.arch-anniversary-nav a[aria-current="page"]:focus-visible {
 </div>
 </div>
 <p class="heritage-footer-motto arch-footer-archive-quote arch-footer-motto-hero"><span data-lang="el">«Η φλόγα του αγνού και κλασικού αθλητισμού.»</span><span data-lang="en">“The flame of pure and classical sport.”</span></p>
-<div class="heritage-footer-contactline"><a href="tel:+302351028611"><span data-lang="el">☎ 23510 28611</span><span data-lang="en">☎ +30 23510 28611</span></a><a href="mailto:info@archelaos.club"><span data-lang="el">✉ info@archelaos.club</span><span data-lang="en">✉ info@archelaos.club</span></a><span><span data-lang="el">Εθνικού Σταδίου 3Α · Α΄ ΔΑΚ Κατερίνης</span><span data-lang="en">Ethnikou Stadiou 3A · Katerini</span></span></div></div>
+<div class="heritage-footer-contactline"><a href="tel:+302351028611"><span aria-hidden="true" class="footer-symbol">☎</span><span data-lang="el">23510 28611</span><span data-lang="en">+30 23510 28611</span></a><a href="mailto:info@archelaos.club"><span aria-hidden="true" class="footer-symbol">✉</span><span data-lang="el">info@archelaos.club</span><span data-lang="en">info@archelaos.club</span></a><a href="contact.html"><span aria-hidden="true" class="footer-symbol">⌖</span><span data-lang="el">Εθνικού Σταδίου 3Α · Κατερίνη</span><span data-lang="en">Ethnikou Stadiou 3A · Katerini</span></a></div></div>
 <nav aria-label="Εξερεύνηση" class="heritage-footer-nav">
 <h2 class="heritage-footer-col-title" data-i18n="heritage_footer_explore">ΕΞΕΡΕΥΝΗΣΗ</h2>
 <div class="heritage-footer-links">
@@ -4753,7 +4770,7 @@ header nav.arch-anniversary-nav a[aria-current="page"]:focus-visible {
 </nav>
 </div>
 <div class="heritage-footer-bottom">
-<div aria-label="Κοινωνικά δίκτυα" class="heritage-footer-socials"><a aria-label="Facebook" href="https://www.facebook.com/oarxelaos" rel="noopener noreferrer" target="_blank" title="Facebook"><i aria-hidden="true" class="fa-brands fa-facebook-f"></i></a><a aria-label="YouTube" href="https://www.youtube.com/@GASArchelaosKaterinis" rel="noopener noreferrer" target="_blank" title="YouTube"><i aria-hidden="true" class="fa-brands fa-youtube"></i></a><a aria-label="Wikipedia" href="https://el.wikipedia.org/wiki/%CE%93.%CE%91.%CE%A3._%CE%9F_%CE%91%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82_%CE%9A%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82" rel="noopener noreferrer" target="_blank" title="Wikipedia"><i aria-hidden="true" class="fa-brands fa-wikipedia-w"></i></a></div>
+<div aria-label="Κοινωνικά δίκτυα" class="heritage-footer-socials"><a aria-label="Facebook" href="https://www.facebook.com/oarxelaos" rel="noopener noreferrer" target="_blank" title="Facebook"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M15.5 8.2h-2.2V6.7c0-.6.4-.8.8-.8h1.4V3h-2.6C10.2 3 9.6 4.7 9.6 6.6v1.6H7.7v3.2h1.9V21h3.7v-9.6h2.2l.4-3.2z"></path></svg></a><a aria-label="YouTube" href="https://www.youtube.com/@GASArchelaosKaterinis" rel="noopener noreferrer" target="_blank" title="YouTube"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M21.5 7.1c-.2-1.4-1.1-2.3-2.5-2.5C17.1 4.3 12 4.3 12 4.3s-5.1 0-7 .3C3.6 4.8 2.7 5.7 2.5 7.1 2.2 8.6 2.2 12s0 3.4.3 4.9c.2 1.4 1.1 2.3 2.5 2.5 1.9.3 7 .3 7 .3s5.1 0 7-.3c1.4-.2 2.3-1.1 2.5-2.5.3-1.5.3-4.9.3-4.9s0-3.4-.3-4.9zM10 15.5v-7l6 3.5z"></path></svg></a><a aria-label="Wikipedia" href="https://el.wikipedia.org/wiki/%CE%93.%CE%91.%CE%A3._%CE%9F_%CE%91%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82_%CE%9A%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82" rel="noopener noreferrer" target="_blank" title="Wikipedia"><i aria-hidden="true" class="fa-brands fa-wikipedia-w"></i></a></div>
 <span aria-label="1956 έως 2026" class="heritage-footer-dates">1956 — 2026</span>
 </div>
 <div class="heritage-footer-meta">
