@@ -1648,23 +1648,38 @@ body {background:var(--arch-ivory)!important;color-scheme:light;}
 }
 </style>
 <style id="arch-board-teaser-style">
-#board.arch-board-teaser{padding:clamp(65px,8vw,112px) 0;background:linear-gradient(145deg,#fffdf2,#f8f6ef)!important;border-top:3px solid #c7a65e;border-bottom:1px solid #dce5d7;}
-.arch-board-teaser-layout{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(260px,.8fr);align-items:center;gap:clamp(30px,6vw,85px);}
-.arch-board-teaser-kicker{font-size:11px;letter-spacing:.13em;color:#9c7b36;font-weight:900;}
-.arch-board-teaser-copy h2{font-size:clamp(33px,4.2vw,54px);line-height:1.1;letter-spacing:-.04em;color:#073d2a;font-weight:900;margin:16px 0 20px;}
-.arch-board-teaser-copy h2:after{content:"";display:block;width:66px;height:4px;background:#c7a65e;border-radius:8px;margin-top:22px;}
-.arch-board-teaser-copy p{max-width:560px;color:#4e6555;line-height:1.85;font-size:clamp(15px,1.5vw,18px);margin-bottom:25px;}
-.arch-board-teaser-button{display:inline-flex;align-items:center;justify-content:center;gap:17px;background:#073d2a;color:#c7a65e;border:1px solid #073d2a;padding:15px 23px;border-radius:12px;font-weight:900;font-size:13px;transition:background .2s ease,transform .2s ease;}
-.arch-board-teaser-button:hover{background:#12583b;transform:translateY(-2px);}
-.arch-board-teaser-button:focus-visible{outline:3px solid #c7a65e;outline-offset:3px;}
-.arch-board-teaser-art{position:relative;min-height:265px;border-radius:22px;background:radial-gradient(circle at 68% 40%,#155d3c,#073d2a 75%);border:1px solid rgba(229,207,70,.6);display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 18px 38px rgba(6,58,37,.12);}
-.arch-board-teaser-art:before{content:"";position:absolute;width:230px;height:230px;border:1px solid rgba(245,230,56,.18);border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);}
-.arch-board-teaser-seal{font-size:clamp(42px,6vw,67px);font-weight:900;letter-spacing:-.045em;color:#c7a65e;line-height:1;}
-.arch-board-teaser-year{font-size:18px;font-weight:900;letter-spacing:.25em;color:#fff9d5;margin-top:15px;}
-.arch-board-teaser-lines{display:flex;gap:7px;margin-top:23px;}.arch-board-teaser-lines span{display:block;height:3px;width:22px;background:#c7a65e;border-radius:10px;}
-.arch-board-teaser-caption{font-size:10px;letter-spacing:.14em;font-weight:850;color:rgba(255,255,255,.78);margin-top:21px;}
-@media(max-width:767px){.arch-board-teaser-layout{grid-template-columns:1fr;gap:28px}.arch-board-teaser-art{min-height:175px}.arch-board-teaser-art:before{width:175px;height:175px}.arch-board-teaser-seal{font-size:48px}.arch-board-teaser-year{font-size:14px;margin-top:8px}.arch-board-teaser-lines{margin-top:13px}.arch-board-teaser-caption{margin-top:13px}}
-@media(prefers-reduced-motion:reduce){.arch-board-teaser-button{transition:none!important}}
+/* Leadership teaser — typographic, editorial, no photos or body copy. */
+#board.arch-board-teaser{position:relative;isolation:isolate;overflow:hidden;padding:clamp(72px,8vw,120px) 0;background:linear-gradient(120deg,#fffdf7 0%,#faf8f0 60%,#f4f4e9 100%)!important;border-top:3px solid #c7a65e;border-bottom:1px solid #dce5d7;}
+#board.arch-board-teaser:before{content:"";position:absolute;inset:0 0 auto auto;width:min(48vw,680px);height:100%;pointer-events:none;background:radial-gradient(ellipse at 75% 45%,rgba(199,166,94,.11),transparent 67%);}
+#board .arch-board-teaser-layout{position:relative;display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,1fr);align-items:center;gap:clamp(30px,6vw,100px);}
+#board .arch-board-teaser-copy{max-width:565px;}
+#board .arch-board-teaser-copy .heritage-section-eyebrow{margin-bottom:21px!important;}
+#board .arch-board-teaser-copy h2{font-size:clamp(38px,4.7vw,65px)!important;line-height:1.12!important;letter-spacing:-.055em!important;color:#073d2a!important;font-weight:900;margin:0 0 37px;max-width:12ch;text-wrap:balance;}
+#board .arch-board-teaser-copy h2::after{content:"";display:block;width:67px;height:3px;margin:24px 0 0;border-radius:5px;background:#c7a65e;}
+#board .arch-board-teaser-button{display:inline-flex;align-items:center;justify-content:center;gap:19px;min-height:53px;background:#c7a65e!important;color:#073d2a!important;border:1px solid #c7a65e;padding:15px 21px;border-radius:12px;font-size:13px;font-weight:900;text-decoration:none;box-shadow:0 10px 22px rgba(98,78,32,.11);transition:transform .24s ease,background .24s ease,box-shadow .24s ease;}
+#board .arch-board-teaser-button:hover{background:#e3ca91!important;transform:translateY(-3px);box-shadow:0 15px 30px rgba(98,78,32,.16);}
+#board .arch-board-teaser-button i{font-size:13px;transition:transform .24s ease;}
+#board .arch-board-teaser-button:hover i{transform:translate(3px,-3px);}
+#board .arch-board-teaser-links{display:grid;gap:16px;}
+#board .arch-board-teaser-tile{position:relative;display:flex;flex-direction:column;justify-content:space-between;min-height:176px;padding:26px 29px 26px;background:#fffefa;border:1px solid #dfe5d9;border-radius:21px;text-decoration:none;box-shadow:0 8px 27px rgba(7,61,42,.055);overflow:hidden;transition:transform .32s cubic-bezier(.2,.8,.2,1),border-color .24s ease,box-shadow .3s ease;}
+#board .arch-board-teaser-tile::before{content:"";position:absolute;inset:0 auto 0 0;width:4px;background:#c7a65e;opacity:.8;}
+#board .arch-board-teaser-tile--future{background:linear-gradient(120deg,#0a4b32,#073d2a);border-color:#14563c;box-shadow:0 12px 33px rgba(7,61,42,.15);}
+#board .arch-board-teaser-tile--future::before{background:#e6c67c;}
+#board .arch-board-teaser-tile-index{display:inline-flex;align-items:center;gap:9px;color:#997c3e;font-size:10px;font-weight:900;letter-spacing:.16em;line-height:1.3;}
+#board .arch-board-teaser-tile-index>span:first-child{color:#b5b7a6;}
+#board .arch-board-teaser-tile--future .arch-board-teaser-tile-index{color:#e6cf92;}
+#board .arch-board-teaser-tile--future .arch-board-teaser-tile-index>span:first-child{color:rgba(255,255,255,.45);}
+#board .arch-board-teaser-tile-main{display:flex;align-items:end;justify-content:space-between;gap:15px;}
+#board .arch-board-teaser-tile-main strong{font-family:Manrope,Inter,sans-serif;color:#073d2a;font-size:clamp(22px,2.1vw,29px);line-height:1.2;font-weight:900;letter-spacing:-.04em;max-width:330px;}
+#board .arch-board-teaser-tile--future .arch-board-teaser-tile-main strong{color:#fffdf4;}
+#board .arch-board-teaser-tile-arrow{display:grid;place-items:center;flex:none;width:44px;height:44px;border:1px solid #d4dfd3;border-radius:50%;color:#073d2a;background:#f2f6ef;font-size:14px;transition:transform .24s ease,background .24s ease,color .24s ease;}
+#board .arch-board-teaser-tile--future .arch-board-teaser-tile-arrow{border-color:rgba(199,166,94,.55);color:#e6cf92;background:rgba(255,255,255,.08);}
+#board .arch-board-teaser-tile:hover{transform:translateY(-5px);border-color:#c7a65e;box-shadow:0 19px 42px rgba(7,61,42,.14);}
+#board .arch-board-teaser-tile:hover .arch-board-teaser-tile-arrow{transform:translate(3px,-3px);background:#c7a65e;color:#073d2a;}
+#board .arch-board-teaser-tile:focus-visible,#board .arch-board-teaser-button:focus-visible{outline:3px solid #a58339;outline-offset:4px;}
+@media(max-width:860px){#board .arch-board-teaser-layout{grid-template-columns:1fr;gap:32px;}#board .arch-board-teaser-copy h2{max-width:18ch;margin-bottom:28px;}#board .arch-board-teaser-links{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;}#board .arch-board-teaser-tile{min-height:180px;padding:23px 20px;}}
+@media(max-width:560px){#board.arch-board-teaser{padding:64px 0 70px;}#board .arch-board-teaser-layout{gap:27px;}#board .arch-board-teaser-copy h2{font-size:clamp(34px,9vw,45px)!important;max-width:13ch;margin-bottom:26px;}#board .arch-board-teaser-links{grid-template-columns:1fr;gap:12px;}#board .arch-board-teaser-tile{min-height:138px;padding:20px 21px;}#board .arch-board-teaser-tile-main strong{font-size:23px;}#board .arch-board-teaser-tile-arrow{width:40px;height:40px;}}
+@media(prefers-reduced-motion:reduce){#board .arch-board-teaser-tile,#board .arch-board-teaser-button,#board .arch-board-teaser-tile-arrow,#board .arch-board-teaser-button i{transition:none!important;}#board .arch-board-teaser-tile:hover,#board .arch-board-teaser-button:hover{transform:none!important;}}
 </style><style id="archelaos-heritage-premium-header">
 /* Shared 1956 heritage header: ivory, deep green, and a restrained 3px gold accent. */
 html body #mainHeader.glass-nav,
@@ -3112,12 +3127,38 @@ img{max-width:100%}
 <div class="arch-whisper-inner"><p class="arch-whisper-words"><span data-lang="el">«Οι τίτλοι κερδίζονται με καρδιά, συλλογικότητα και αστείρευτο πάθος.»</span><span data-lang="en">“Titles are won with heart, togetherness and unending passion.”</span></p><span class="arch-whisper-year">1994</span></div>
 </aside>
 <!-- BOARD OF DIRECTORS SECTION -->
-<section aria-labelledby="board-teaser-title" class="arch-board-teaser" id="board">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="arch-board-teaser-layout">
-<div class="arch-board-teaser-copy heritage-section-heading"><span class="arch-board-teaser-kicker" data-i18n="board_teaser_kicker">ΟΙ ΑΝΘΡΩΠΟΙ ΤΟΥ ΣΥΛΛΟΓΟΥ</span><div aria-hidden="true" class="heritage-section-eyebrow"><span data-lang="el">03 / Η ΔΙΟΙΚΗΣΗ</span><span data-lang="en">03 / LEADERSHIP</span></div><h2 data-i18n="board_teaser_title" id="board-teaser-title">Μαζί για τον Αρχέλαο.</h2><p data-i18n="board_teaser_desc">Γνωρίστε τους ανθρώπους που στηρίζουν τη λειτουργία και την εξέλιξη του συλλόγου.</p><a class="arch-board-teaser-button" href="board.html"><span data-i18n="board_teaser_button">Γνωρίστε τη Διοίκηση</span><i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></div>
-<div aria-hidden="true" class="arch-board-teaser-art"><span class="arch-board-teaser-seal">Γ.Α.Σ.</span><span class="arch-board-teaser-year">1956</span><div class="arch-board-teaser-lines"><span></span><span></span><span></span></div><span class="arch-board-teaser-caption">ΑΡΧΕΛΑΟΣ · ΚΑΤΕΡΙΝΗ</span></div>
-</div></div></section>
+<section id="board" class="arch-board-teaser" aria-labelledby="board-teaser-title">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="arch-board-teaser-layout">
+      <div class="arch-board-teaser-copy heritage-section-heading">
+        <div class="heritage-section-eyebrow" aria-hidden="true">
+          <span data-lang="el">03 / Η ΔΙΟΙΚΗΣΗ</span><span data-lang="en">03 / LEADERSHIP</span>
+        </div>
+        <h2 id="board-teaser-title" data-i18n="board_teaser_title">Οι άνθρωποι πίσω από τον Αρχέλαο.</h2>
+        <a href="board.html" class="arch-board-teaser-button">
+          <span data-i18n="board_teaser_button">Γνώρισε τη Διοίκηση</span>
+          <i class="fa-solid fa-arrow-up-right" aria-hidden="true"></i>
+        </a>
+      </div>
+      <div class="arch-board-teaser-links" aria-label="Ενότητες διοίκησης">
+        <a class="arch-board-teaser-tile" href="board.html#board" aria-label="Τα μέλη της διοίκησης">
+          <span class="arch-board-teaser-tile-index">01 <span aria-hidden="true">/</span> <span data-i18n="board_teaser_people_label">ΟΙ ΑΝΘΡΩΠΟΙ</span></span>
+          <span class="arch-board-teaser-tile-main">
+            <strong data-i18n="board_teaser_people">Τα μέλη της διοίκησης</strong>
+            <span class="arch-board-teaser-tile-arrow" aria-hidden="true"><i class="fa-solid fa-arrow-up-right"></i></span>
+          </span>
+        </a>
+        <a class="arch-board-teaser-tile arch-board-teaser-tile--future" href="board.html#board-future" aria-label="Το αύριο του συλλόγου">
+          <span class="arch-board-teaser-tile-index">02 <span aria-hidden="true">/</span> <span data-i18n="board_teaser_future_label">ΤΟ ΑΥΡΙΟ</span></span>
+          <span class="arch-board-teaser-tile-main">
+            <strong data-i18n="board_teaser_future">Το αύριο του συλλόγου</strong>
+            <span class="arch-board-teaser-tile-arrow" aria-hidden="true"><i class="fa-solid fa-arrow-up-right"></i></span>
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
 <!-- CONTACT SECTION -->
 <!-- 70 years: join the story -->
 <section aria-labelledby="arch-philosophy-title" class="arch-philosophy" id="club-philosophy">
@@ -3475,9 +3516,13 @@ img{max-width:100%}
           dept_8_sub: "(Υγρός Στίβος)",
           dept_8_desc: "Ακαδημίες εκμάθησης και αγωνιστικό τμήμα υγρού στίβου για όλες τις ηλικίες.",
           board_teaser_kicker: "ΟΙ ΑΝΘΡΩΠΟΙ ΤΟΥ ΣΥΛΛΟΓΟΥ",
-          board_teaser_title: "Μαζί για τον Αρχέλαο.",
+          board_teaser_title: "Οι άνθρωποι πίσω από τον Αρχέλαο.",
+          board_teaser_people_label: "ΟΙ ΑΝΘΡΩΠΟΙ",
+          board_teaser_people: "Τα μέλη της διοίκησης",
+          board_teaser_future_label: "ΤΟ ΑΥΡΙΟ",
+          board_teaser_future: "Το αύριο του συλλόγου",
           board_teaser_desc: "Γνωρίστε τους ανθρώπους που στηρίζουν τη λειτουργία και την εξέλιξη του συλλόγου.",
-          board_teaser_button: "Γνωρίστε τη Διοίκηση",
+          board_teaser_button: "Γνώρισε τη Διοίκηση",
           board_tag: "Διοίκηση",
           board_title: "Διοικητικό Συμβούλιο",
           board_sub: "Η σύνθεση του Δ.Σ. και οι υπεύθυνοι έφοροι των 8 αθλητικών τμημάτων του συλλόγου.",
@@ -3629,7 +3674,11 @@ img{max-width:100%}
           dept_8_sub: "(Aquatics)",
           dept_8_desc: "Learn-to-swim programs and competitive swim squads at Katerini Municipal Pool.",
           board_teaser_kicker: "THE PEOPLE BEHIND THE CLUB",
-          board_teaser_title: "Together for Archelaos.",
+          board_teaser_title: "The people behind Archelaos.",
+          board_teaser_people_label: "THE PEOPLE",
+          board_teaser_people: "Meet the Board",
+          board_teaser_future_label: "THE FUTURE",
+          board_teaser_future: "The club’s future",
           board_teaser_desc: "Meet the people who support the club's work and its future.",
           board_teaser_button: "Meet the Board",
           board_tag: "Governance",
