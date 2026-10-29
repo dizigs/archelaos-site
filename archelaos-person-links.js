@@ -59,7 +59,7 @@ function scan(root){if(!state.index||!root||root.closest?.('.arch-person-dialog'
 let modal=null,prevFocus=null;
 function ensureModal(){if(modal)return modal;
  modal=document.createElement('dialog');modal.className='arch-person-dialog';modal.setAttribute('aria-label','Βιογραφικό / Biography');
- modal.innerHTML='<div class="arch-person-inner"><div class="arch-person-top"><span class="arch-person-kicker">ΑΡΧΕΛΑΟΣ · HALL OF FAME</span><button class="arch-person-close" type="button" aria-label="Κλείσιμο / Close">×</button></div><div class="arch-person-monogram" aria-hidden="true"></div><div class="arch-person-role"></div><h2 class="arch-person-name"></h2><p class="arch-person-biography"></p><div class="arch-person-foot"><a class="arch-person-hall" href="hall-of-fame.html">Hall of Fame ↗</a></div></div>';
+ modal.innerHTML='<div class="arch-person-inner"><div class="arch-person-top"><span class="arch-person-kicker">ΑΡΧΕΛΑΟΣ · HALL OF FAME</span><button class="arch-person-close" type="button" aria-label="Κλείσιμο / Close">×</button></div><div class="arch-person-monogram" aria-hidden="true"></div><div class="arch-person-role"></div><h2 class="arch-person-name"></h2><p class="arch-person-biography"></p></div>';
  document.body.append(modal);modal.querySelector('.arch-person-close').addEventListener('click',()=>modal.close());modal.addEventListener('click',e=>{if(e.target===modal)modal.close()});modal.addEventListener('close',()=>prevFocus?.focus?.({preventScroll:true}));return modal;
 }
 async function show(id){const d=ensureModal();prevFocus=document.activeElement;const lang=document.body.classList.contains('lang-en')||document.documentElement.lang==='en'?'en':'el';
@@ -69,7 +69,6 @@ async function show(id){const d=ensureModal();prevFocus=document.activeElement;c
   d.querySelector('.arch-person-role').textContent=lang==='en'?(p.role_en||p.role):(p.role||'');
   d.querySelector('.arch-person-name').textContent=lang==='en'?(p.name_en||p.name):p.name;
   d.querySelector('.arch-person-biography').textContent=lang==='en'?(p.bio_en||p.bio||''):(p.bio||'');
-  d.querySelector('.arch-person-hall').href='hall-of-fame.html?person='+encodeURIComponent(p.id);
   d.showModal();d.querySelector('.arch-person-close').focus();
  }catch(err){console.warn('Archelaos person index unavailable',err);d.querySelector('.arch-person-name').textContent=lang==='en'?'Biography temporarily unavailable':'Το βιογραφικό δεν είναι προσωρινά διαθέσιμο';d.querySelector('.arch-person-biography').textContent=lang==='en'?'Please verify that both JSON files were uploaded together.':'Ελέγξτε ότι ανεβάσατε και τα δύο αρχεία JSON μαζί με τις ιστοσελίδες.';d.showModal()}
 }
