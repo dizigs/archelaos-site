@@ -2506,8 +2506,24 @@ img{max-width:100%}
 @media(max-width:820px){.arch-stories-museum-inner{grid-template-columns:1fr;gap:15px;padding:25px 22px}.arch-stories-museum-mark{flex-direction:row;justify-content:flex-start;border-right:0;padding-right:0}.arch-stories-museum-link{width:100%;white-space:normal}.arch-stories-museum-feature{padding:16px 14px 26px}}
 @media(prefers-reduced-motion:reduce){.arch-stories-museum-link{transition:none}}
 </style>
-<style id="nblm-dept-styles">.nblm-dept-notes{margin:22px 0 4px;padding:19px 22px;border-left:3px solid #b99243;background:rgba(20,86,66,.055);border-radius:0 12px 12px 0}.nblm-dept-notes h4{font-size:1.05rem;font-weight:800;margin-bottom:12px;color:#145642}.nblm-dept-notes ul{list-style:disc;padding-left:19px}.nblm-dept-notes li{margin:8px 0;line-height:1.6;font-size:.92rem}</style><style id="arch-2026-documentary-updates">.arch-2026-context{border-left:3px solid #c7a65e;background:#f8f6ef;padding:18px 21px;margin:22px 0;border-radius:0 13px 13px 0;color:#173b29}.arch-2026-context h3{color:#073d2a;font-size:18px;font-weight:850;margin:0 0 12px}.arch-2026-context p{font-size:14px;line-height:1.8;margin:9px 0}.arch-2026-context a{color:#075c38;text-decoration:underline;text-underline-offset:3px}.arch-2026-context .arch-2026-source{font-size:12px;color:#637567;margin-top:14px}@media(max-width:600px){.arch-2026-context{padding:15px 16px;margin:15px 0}}</style></head>
-<body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow arch-gold-page">
+<style id="nblm-dept-styles">.nblm-dept-notes{margin:22px 0 4px;padding:19px 22px;border-left:3px solid #b99243;background:rgba(20,86,66,.055);border-radius:0 12px 12px 0}.nblm-dept-notes h4{font-size:1.05rem;font-weight:800;margin-bottom:12px;color:#145642}.nblm-dept-notes ul{list-style:disc;padding-left:19px}.nblm-dept-notes li{margin:8px 0;line-height:1.6;font-size:.92rem}</style><style id="arch-2026-documentary-updates">.arch-2026-context{border-left:3px solid #c7a65e;background:#f8f6ef;padding:18px 21px;margin:22px 0;border-radius:0 13px 13px 0;color:#173b29}.arch-2026-context h3{color:#073d2a;font-size:18px;font-weight:850;margin:0 0 12px}.arch-2026-context p{font-size:14px;line-height:1.8;margin:9px 0}.arch-2026-context a{color:#075c38;text-decoration:underline;text-underline-offset:3px}.arch-2026-context .arch-2026-source{font-size:12px;color:#637567;margin-top:14px}@media(max-width:600px){.arch-2026-context{padding:15px 16px;margin:15px 0}}</style><style id="arch-person-links-style">/* Clickable historic names: minimal change to established page design. */
+.arch-person-link{font:inherit;color:inherit;background:transparent;border:0;border-bottom:1px dotted #a2813d;display:inline;padding:0 1px;cursor:pointer;font-weight:inherit;text-align:inherit;line-height:inherit}
+.arch-person-link:hover,.arch-person-link:focus-visible{color:#08703c!important;background:#f7edd3;border-bottom:2px solid #c7a65e;border-radius:2px;outline-offset:2px}
+.arch-person-dialog{position:fixed;inset:0;margin:auto;border:1px solid #d5be83;border-radius:24px;width:min(730px,calc(100% - 26px));max-height:min(88dvh,820px);padding:0;color:#18372a;background:#fffdf7;box-shadow:0 28px 85px #001e1555;z-index:2147483601;overflow:auto}
+.arch-person-dialog::backdrop{background:rgba(3,31,18,.73);backdrop-filter:blur(5px)}
+.arch-person-inner{padding:clamp(22px,4vw,42px);background:linear-gradient(155deg,#fffdf8,#f7f2e4);font-family:system-ui,-apple-system,Segoe UI,sans-serif}
+.arch-person-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.arch-person-kicker{font-size:11px;letter-spacing:.19em;color:#95763d;font-weight:850}
+.arch-person-close{width:42px;height:42px;min-width:42px;border:1px solid #d8c79d;background:#f1e7cc;border-radius:50%;color:#073d2a;font-size:28px;line-height:1;cursor:pointer}
+.arch-person-monogram{width:70px;height:70px;margin-top:24px;border-radius:50%;display:grid;place-items:center;background:#073d2a;color:#d9bf7c;font:36px Georgia,serif}
+.arch-person-role{color:#97723a;font-size:12px;font-weight:850;letter-spacing:.09em;margin-top:22px}
+.arch-person-name{font:400 clamp(28px,4vw,42px)/1.14 Georgia,serif;color:#073d2a!important;margin:12px 0 20px!important}
+.arch-person-biography{font-size:16px!important;white-space:pre-line;line-height:1.9!important;color:#354d3c!important;overflow-wrap:anywhere}
+.arch-person-foot{padding-top:19px;margin-top:26px;border-top:1px solid #ddcfaa}
+.arch-person-hall{color:#073d2a!important;font-size:13px;font-weight:800;text-decoration:underline!important}
+@media(prefers-reduced-motion:reduce){.arch-person-dialog,.arch-person-link{transition:none!important}}
+</style></head>
+<body data-arch-people-page="history" class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow arch-gold-page">
 <!-- ANIMATED CONTOUR WAVES -->
 <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-75">
 <svg class="animate-waves absolute -top-10 -left-10 w-[120vw] h-[120vh] min-w-[1400px]" fill="none" preserveaspectratio="none" viewbox="0 0 1600 1000" xmlns="http://www.w3.org/2000/svg">
@@ -6838,5 +6854,5 @@ if('IntersectionObserver' in window&&!window.matchMedia('(prefers-reduced-motion
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
 </script>
-</body>
+<script defer src="archelaos-person-links.js"></script></body>
 </html>
