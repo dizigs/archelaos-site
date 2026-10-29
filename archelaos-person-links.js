@@ -6,7 +6,7 @@ const safeText=s=>String(s||'');
 const state={entries:null, people:null, unresolved:[], index:null};
 const articleSelector=document.body.dataset.archPeoplePage==='board'
  ? '.executive-board-name, .pbh-presidency-body, .pbh-history-content, #historyArchiveContent, #historyArchiveModal, .history-archive-content'
- : '.history-archive-content, #historyArchiveContent, #historyArchiveModal, #chapters, #sports-archive, #museum-exhibits, .wiki-article, .museum-history-person, .museum-story-content, #museum-gallery';
+ : '.history-archive-content, #historyArchiveContent, #historyArchiveModal, #chapters, #sports-archive, #museum-exhibits, .wiki-article, .museum-history-person, .museum-story-content, #museum-gallery, #archStoryGrid, #archStoryDialogContent';
 const excluded='script,style,noscript,textarea,input,button,a,select,option,nav,header,footer,code,pre,[contenteditable],.arch-person-dialog,[data-no-person-links],.modal-close-btn';
 const firstName = s => /^[\p{L}]{2,}/u.test(s);
 function buildIndex(items){
