@@ -69,6 +69,38 @@
       "description_en": "On 3 April 1975 Archelaos formally established its artistic gymnastics department, with Stavros Diamantopoulos as its first coach."
     },
     {
+      "id": "handball-first-coach-1978",
+      "date": "1978-03-09",
+      "date_precision": "day",
+      "category": "Χειροσφαίριση",
+      "category_en": "Handball",
+      "title": "Πρώτος προπονητής στο τμήμα χειροσφαίρισης",
+      "title_en": "First Coach of the Handball Department",
+      "description": "Στις 9 Μαρτίου 1978, σύμφωνα με πρακτικό του Δ.Σ. που αναφέρεται στο βιογραφικό του, ο Ιωάννης Ζιώγας προσλήφθηκε ως πρώτος προπονητής του τμήματος χειροσφαίρισης. Τον Μάιο του ίδιου έτους διοργάνωσε στην Κατερίνη το 1ο Τουρνουά Χάντμπολ Βορείου Ελλάδος.",
+      "description_en": "On 9 March 1978, according to board minutes cited in his biography, Ioannis Ziogas was appointed the handball department's first coach. In May that year, he organised Katerini's first Northern Greece Handball Tournament.",
+      "people": [
+        "arch-08dc545654fe"
+      ],
+      "source": "hall-of-fame-people.json",
+      "verification": "existing-biographies"
+    },
+    {
+      "id": "lazaridou-discus-record-1978",
+      "date": "1978-05-09",
+      "date_precision": "month",
+      "category": "Στίβος",
+      "category_en": "Athletics",
+      "title": "Πανελλήνιο ρεκόρ νεανίδων της Ζαΐρας Λαζαρίδου",
+      "title_en": "Zaira Lazaridou Sets a National Junior Discus Record",
+      "description": "Τον Μάιο του 1978 η Ζαΐρα Λαζαρίδου κατέρριψε το πανελλήνιο ρεκόρ νεανίδων στη δισκοβολία με 43,80 μ. Η επίδοση καταγράφεται σε πρακτικό του Δ.Σ. της 9ης Μαΐου 1978.",
+      "description_en": "In May 1978, Zaira Lazaridou set a Greek junior women's discus record with a throw of 43.80 metres. The achievement is recorded in board minutes dated 9 May 1978.",
+      "people": [
+        "arch-de86490d1101"
+      ],
+      "source": "hall-of-fame-people.json",
+      "verification": "existing-biographies"
+    },
+    {
       "id": "wrestling-training-1980",
       "date": "1980-01-01",
       "date_precision": "day",
@@ -80,6 +112,23 @@
       "description_en": "On 1 January 1980, Lazaros Psomiadis formally began training sessions as the first coach of the freestyle and Greco-Roman wrestling department, whose establishment had been proposed to the board in April 1978.",
       "people": [
         "arch-2010dac2d75a"
+      ],
+      "source": "hall-of-fame-people.json",
+      "verification": "existing-biographies"
+    },
+    {
+      "id": "swimming-training-1981",
+      "date": "1981-06-01",
+      "date_precision": "day",
+      "category": "Κολύμβηση",
+      "category_en": "Swimming",
+      "title": "Έναρξη προπονήσεων του τμήματος κολύμβησης",
+      "title_en": "Swimming Department Begins Training",
+      "description": "Την 1η Ιουνίου 1981 άρχισαν οι προπονήσεις του τμήματος κολύμβησης στο ΕΑΚ, με πρώτο έφορο τον Κωνσταντίνο Παπαδόπουλο και πρώτο προπονητή τον Απόστολο Πιπίλη.",
+      "description_en": "On 1 June 1981, Archelaos's swimming department began training at the EAK pool, with Konstantinos Papadopoulos as its first department official and Apostolos Pipilis as its first coach.",
+      "people": [
+        "arch-f6dac99e5223",
+        "arch-e24bbfb7dc9a"
       ],
       "source": "hall-of-fame-people.json",
       "verification": "existing-biographies"
