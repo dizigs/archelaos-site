@@ -17,8 +17,7 @@ PAGES = (
     "board.html", "sponsors.html", "contact.html",
 )
 JSON_FILES = (
-    "hall-of-fame-people.json", "archelaos-people.json",
-    "archelaos-person-index.json",
+    "hall-of-fame-people.json", "archelaos-person-index.json",
 )
 errors: list[str] = []
 
@@ -124,8 +123,19 @@ def main() -> int:
     if isinstance(hall, dict) and isinstance(hall.get("people"), list) and not hall["people"]:
         error("Hall of Fame: biography list must not be empty")
     index = check_json("archelaos-person-index.json")
-    if index is not None and not isinstance(index, list):
-        error("archelaos-person-index.json: expected a list")
+    if index is not None:
+        if not isinstance(index, list):
+            error("archelaos-person-index.json: expected a list")
+        elif isinstance(hall, dict) and isinstance(hall.get("people"), list):
+            canonical_ids = {person["id"] for person in hall["people"] if isinstance(person, dict) and person.get("id")}
+            index_ids = [person.get("id") for person in index if isinstance(person, dict)]
+            if len(index) != len(index_ids) or len(index_ids) != len(set(index_ids)):
+                error("archelaos-person-index.json: malformed rows or duplicate IDs")
+            if set(index_ids) != canonical_ids:
+                error("archelaos-person-index.json: IDs differ from canonical Hall of Fame records")
+    links_source = (ROOT / "archelaos-person-links.js").read_text(encoding="utf-8")
+    if "DATA_URL='hall-of-fame-people.json'" not in links_source:
+        error("Biography link script must load the canonical Hall of Fame JSON")
     check_sitemap()
     if errors:
         print(f"\nSite validation FAILED: {len(errors)} issue(s).")
