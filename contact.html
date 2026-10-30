@@ -2974,19 +2974,6 @@ main p,main li,article p,article li{line-height:1.72;}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style><link rel="stylesheet" href="assets/navigation.css">
 <link rel="stylesheet" href="/assets/footer.css">
-
-<style id="arch-unified-page-links-v1">
-/* Shared page-navigation cards: full clickable area, forest/cream, gold arrow. */
-a.arch-page-link-card{box-sizing:border-box;display:inline-flex;align-items:center;justify-content:space-between;gap:clamp(12px,2vw,28px);max-width:100%;min-height:52px;padding:13px 18px;border:1px solid #d9c69b;border-radius:14px;background:#f8f3e7;color:#073d2a!important;text-decoration:none!important;font-weight:750;line-height:1.45;box-shadow:0 3px 13px rgba(7,61,42,.06);transition:transform .2s,background .2s,border-color .2s,box-shadow .2s}
-a.arch-page-link-card::after{content:"↗";flex:0 0 auto;display:grid;place-items:center;width:27px;height:27px;border-radius:50%;background:#e9dab5;color:#073d2a;font-size:18px;font-weight:700;line-height:1}
-a.arch-page-link-card.arch-page-link-green{background:#073d2a;color:#fbf3df!important;border-color:#bd9a51}
-a.arch-page-link-card.arch-page-link-green::after{background:#c7a65e;color:#073d2a}
-a.arch-page-link-card:hover{transform:translateY(-2px);background:#efe5cf;border-color:#bd9a51;box-shadow:0 9px 24px rgba(7,61,42,.13)}
-a.arch-page-link-card.arch-page-link-green:hover{background:#12543b}
-a.arch-page-link-card:focus-visible{outline:3px solid #c7a65e;outline-offset:4px}
-@media(max-width:600px){a.arch-page-link-card{white-space:normal;text-align:left;min-height:52px;padding:12px 14px}}
-@media(prefers-reduced-motion:reduce){a.arch-page-link-card{transition:none}a.arch-page-link-card:hover{transform:none}}
-</style>
 </head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow"><script src="assets/navigation.js"></script>
 <header class="arch-anniversary-header" id="mainHeader">
@@ -3327,30 +3314,5 @@ a.arch-detail-card:focus-visible{outline:3px solid #c7a65e;outline-offset:4px}
  window.addEventListener('resize',()=>{if(window.innerWidth>1023)setOpen(false)},{passive:true});
 })();
 </script><script src="/assets/footer.js" defer></script>
-
-<script id="arch-unified-page-links-init-v1">
-/* Normalize simple page-to-page and section links. Existing fully clickable visual cards stay intact. */
-(function(){
-function init(){
- var scope=document.querySelector('main')||document.body;
- var excluded='header,nav,footer,[role="navigation"],[role="menu"],.nav,.arch-anniversary-nav,.arch-cinematic-menu,.anniv-mobile-drawer,.arch-mobile-menu,.ann70-portal-card,.ann70-milestone,.arch-anniversary-card,.m55-nav-card,.arch-board-teaser-full-link,.join-history-card,.v62-contribute-card,.v57-contribute-card,.arch-sponsor-museum-card,.arch-museum-card,.arch-board-teaser-layout,.hall-hero-stat a:not(.hall-secondary-link)';
- scope.querySelectorAll('a[href]').forEach(function(a){
-  if(a.closest(excluded)||a.classList.contains('arch-page-link-card'))return;
-  var href=a.getAttribute('href')||'';
-  if(!href||href==='#'||/^(?:https?:|mailto:|tel:|javascript:|data:)/i.test(href))return;
-  if(!/^(?:(?:\.\/)?[\w-]+\.html(?:[?#].*)?|#[\w-]+)/i.test(href))return;
-  if(a.querySelector('img,svg,video,figure,article,h1,h2,h3,h4,section,div,button,input'))return;
-  if(a.closest('p,li,td,th,blockquote,[contenteditable],.timeline-h-item,.arch-shelf-list,.arch-shelf-sidebar'))return;
-  var text=(a.textContent||'').trim();
-  if(!text||text.length>110)return;
-  var cls=a.className;
-  if(typeof cls==='string'&&/\b(?:brand|logo|nav|menu|filter|tab|social|icon|skip|pagination|page-number|language|ann70-cta|hall-primary-link)\b/i.test(cls))return;
-  a.classList.add('arch-page-link-card');
-  if(/\b(?:back|secondary|future-action)\b/i.test(cls)||/^(?:←|πίσω|επιστροφή)/i.test(text))a.classList.add('arch-page-link-green');
- });
-}
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
-})();
-</script>
 </body>
 </html>
