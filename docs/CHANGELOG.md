@@ -1,3 +1,10 @@
+## V3 biography ↔ event navigation — 30/10/2026
+
+- Individual published biographies now link back to their curated timeline events using stable event anchors.
+- `tools/sync_biographies.mjs` generates the related-events section from `archelaos-history-events.json` and checks for missing relationships in CI.
+- The four profiles related to the initial three events were updated; all other profiles remain unchanged.
+- No scanned archival records or unpublished personal data were exposed.
+
 ## V3 historical event connections — 30/10/2026
 
 - Added `archelaos-history-events.json` with three conservatively curated event-to-person relationships grounded in existing published biographies.
