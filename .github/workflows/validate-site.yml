@@ -22,6 +22,8 @@ jobs:
           python-version: '3.12'
       - name: Validate HTML assets, JSON and sitemap
         run: python tools/validate_site.py
+      - name: Verify biography source synchronization
+        run: node tools/sync_biographies.mjs --check
       - name: Check JavaScript syntax
         run: |
           find . -type f -name '*.js' -not -path './.git/*' -print0 | xargs -0 -r -n1 node --check
