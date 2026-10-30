@@ -3122,6 +3122,38 @@ html body #museum-history #history-archive .v61-sport-card[aria-pressed="true"] 
 }
 </style>
 <link rel="stylesheet" href="assets/navigation.css">
+<style id="arch-press-voices-v90-styles">
+/* Newspaper excerpts are a separate collection from the board-minutes folio. */
+#arch-press-voices{background:#f8f6ef;color:#073d2a;padding:clamp(52px,7vw,100px) 20px;border-top:1px solid rgba(173,145,83,.32);scroll-margin-top:110px}
+#arch-press-voices *{box-sizing:border-box}
+#arch-press-voices .arch-press-wrap{max-width:1200px;margin:auto}
+#arch-press-voices .arch-press-kicker{text-align:center;font:800 11px/1.7 system-ui,sans-serif;letter-spacing:.19em;color:#97753c}
+#arch-press-voices h2{text-align:center;font:600 clamp(2.25rem,4.4vw,4.35rem)/1.13 Georgia,serif;letter-spacing:-.038em;color:#073d2a;margin:14px auto 18px;max-width:950px}
+#arch-press-voices .arch-press-lead{font:400 clamp(15px,1.3vw,18px)/1.8 system-ui,sans-serif;text-align:center;max-width:790px;margin:0 auto 32px;color:#3e634f}
+#arch-press-voices .arch-press-legend{display:flex;justify-content:center;gap:12px;align-items:center;flex-wrap:wrap;margin:0 auto 28px;color:#806b45;font:700 12px/1.5 system-ui,sans-serif}
+#arch-press-voices .arch-press-legend i{display:inline-block;width:24px;height:1px;background:#b99c5e}
+#arch-press-voices .arch-press-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;gap:14px}
+#arch-press-voices .arch-press-card{background:#fffdf8;border:1px solid #d7d0bd;border-radius:17px;overflow:hidden;min-width:0;box-shadow:0 6px 22px rgba(13,55,36,.035);transition:border-color .22s ease,box-shadow .22s ease}
+#arch-press-voices .arch-press-card:hover,#arch-press-voices .arch-press-card[open]{border-color:#b99c5e;box-shadow:0 12px 30px rgba(13,55,36,.07)}
+#arch-press-voices .arch-press-summary{display:grid;grid-template-columns:1fr auto;grid-template-areas:'meta plus' 'name plus' 'role plus';gap:6px 12px;cursor:pointer;list-style:none;align-items:center;padding:22px 23px;min-height:144px}
+#arch-press-voices .arch-press-summary::-webkit-details-marker{display:none}
+#arch-press-voices .arch-press-summary:focus-visible{outline:3px solid #c7a65e;outline-offset:-4px}
+#arch-press-voices .arch-press-card-meta{grid-area:meta;display:flex;align-items:center;gap:12px}
+#arch-press-voices .arch-press-year{color:#aa873e;font:800 12px/1.3 system-ui,sans-serif;letter-spacing:.12em}
+#arch-press-voices .arch-press-index{color:#8b978a;font:600 11px/1.3 system-ui,sans-serif}
+#arch-press-voices .arch-press-name{grid-area:name;display:block;color:#073d2a;font:600 clamp(21px,2.1vw,26px)/1.25 Georgia,serif}
+#arch-press-voices .arch-press-role{grid-area:role;color:#52705b;font:500 13px/1.5 system-ui,sans-serif}
+#arch-press-voices .arch-press-open-icon{grid-area:plus;justify-self:end;display:grid;place-items:center;width:35px;height:35px;border-radius:50%;background:#f1eadb;border:1px solid #dfd1ae;color:#073d2a;font:400 25px/1 system-ui,sans-serif;transition:transform .22s ease,background .22s ease}
+#arch-press-voices .arch-press-card[open] .arch-press-open-icon{transform:rotate(45deg);background:#073d2a;color:#fff}
+#arch-press-voices .arch-press-card-content{border-top:1px solid #e6decc;padding:8px clamp(18px,2.3vw,28px) 24px;overflow-wrap:break-word}
+#arch-press-voices .arch-press-quote{position:relative;font:400 clamp(18px,1.6vw,21px)/1.68 Georgia,serif;color:#16462f;margin:12px 0 20px;padding:0;border:0;font-style:italic}
+#arch-press-voices .arch-press-context{font:400 14px/1.75 system-ui,sans-serif;color:#476553;margin:0 0 16px}
+#arch-press-voices .arch-press-source{display:flex;align-items:flex-start;gap:9px;border-top:1px solid #e7ddc8;padding-top:15px;color:#795f37;font:650 12px/1.6 system-ui,sans-serif}
+#arch-press-voices .arch-press-source-dot{background:#c7a65e;flex:0 0 6px;height:6px;border-radius:50%;margin-top:7px}
+#arch-press-voices .arch-press-footer{text-align:center;font:500 12px/1.7 system-ui,sans-serif;color:#6b776b;max-width:760px;margin:26px auto 0}
+@media(max-width:700px){#arch-press-voices{padding:56px 14px}#arch-press-voices .arch-press-grid{grid-template-columns:minmax(0,1fr)}#arch-press-voices .arch-press-summary{min-height:125px;padding:19px 17px}}
+@media(prefers-reduced-motion:reduce){#arch-press-voices *{transition:none!important}}
+</style>
 </head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow arch-gold-page" data-arch-people-page="history">
 <!-- ANIMATED CONTOUR WAVES -->
@@ -3220,7 +3252,148 @@ html body #museum-history #history-archive .v61-sport-card[aria-pressed="true"] 
 <p><span data-lang="el">Οι πρώτοι Πανελλήνιοι Αγώνες Στίβου «Δίια» στην Κατερίνη.</span><span data-lang="en">The first Panhellenic “Diia” track and field games in Katerini.</span></p></div>
 </button>
 </div>
-</div></section><section aria-labelledby="arch-folio-title" class="arch-folio" id="archive-voices"><div class="arch-folio-wrap"><p class="arch-folio-overline"><span data-lang="el">ΑΠΟΣΠΑΣΜΑΤΑ ΑΠΟ ΤΟ ΑΡΧΕΙΟ</span><span data-lang="en">EXCERPTS FROM THE ARCHIVE</span></p><h2 id="arch-folio-title"><span data-lang="el">Οι φωνές<em> του αρχείου</em></span><span data-lang="en">Voices<em> of the archive</em></span></h2><p class="arch-folio-lead"><span data-lang="el">Δέκα στιγμές, δέκα φωνές. Επιλέξτε μια χρονιά και ανακαλύψτε τι έλεγαν οι άνθρωποι του Αρχέλαου και όσοι τον γνώρισαν μέσα στις δεκαετίες.</span><span data-lang="en">Ten moments, ten voices. Choose a year to discover the words of Archelaos and those who encountered the club across the decades.</span></p><div class="arch-folio-layout"><div aria-label="Επιλογή ιστορικού αποσπάσματος / Choose an archival excerpt" class="arch-folio-rail" role="group"><button aria-controls="arch-folio-reader" aria-pressed="true" class="arch-folio-tab is-active" data-folio="0" type="button"><span class="arch-folio-tab-index">01</span><span class="arch-folio-tab-year">1968</span><span class="arch-folio-tab-title"><span data-lang="el">Τα χρώματα του συλλόγου</span><span data-lang="en">The club colours</span></span></button><button aria-controls="arch-folio-reader" aria-pressed="false" class="arch-folio-tab" data-folio="1" type="button"><span class="arch-folio-tab-index">02</span><span class="arch-folio-tab-year">1970</span><span class="arch-folio-tab-title"><span data-lang="el">Αυτονομία</span><span data-lang="en">Independence</span></span></button><button aria-controls="arch-folio-reader" aria-pressed="false" class="arch-folio-tab" data-folio="2" type="button"><span class="arch-folio-tab-index">03</span><span class="arch-folio-tab-year">1973</span><span class="arch-folio-tab-title"><span data-lang="el">Νέα εποχή</span><span data-lang="en">A new era</span></span></button><button aria-controls="arch-folio-reader" aria-pressed="false" class="arch-folio-tab" data-folio="3" type="button"><span class="arch-folio-tab-index">04</span><span class="arch-folio-tab-year">1976</span><span class="arch-folio-tab-title"><span data-lang="el">Πρωτοπορία</span><span data-lang="en">Pioneering spirit</span></span></button><button aria-controls="arch-folio-reader" aria-pressed="false" class="arch-folio-tab" data-folio="4" type="button"><span class="arch-folio-tab-index">05</span><span class="arch-folio-tab-year">1990</span><span class="arch-folio-tab-title"><span data-lang="el">Αθλητικό ήθος</span><span data-lang="en">Sporting spirit</span></span></button><button aria-controls="arch-folio-reader" aria-pressed="false" class="arch-folio-tab" data-folio="5" type="button"><span class="arch-folio-tab-index">06</span><span class="arch-folio-tab-year">1992</span><span class="arch-folio-tab-title"><span data-lang="el">Μια αρχή τον χειμώνα</span><span data-lang="en">A winter beginning</span></span></button><button aria-controls="arch-folio-reader" aria-pressed="false" class="arch-folio-tab" data-folio="6" type="button"><span class="arch-folio-tab-index">07</span><span class="arch-folio-tab-year">1993</span><span class="arch-folio-tab-title"><span data-lang="el">Η φωνή του αθλητή</span><span data-lang="en">The athlete’s voice</span></span></button><button aria-controls="arch-folio-reader" aria-pressed="false" class="arch-folio-tab" data-folio="7" type="button"><span class="arch-folio-tab-index">08</span><span class="arch-folio-tab-year">1993</span><span class="arch-folio-tab-title"><span data-lang="el">Το δέος των αντιπάλων</span><span data-lang="en">Respect from opponents</span></span></button><button aria-controls="arch-folio-reader" aria-pressed="false" class="arch-folio-tab" data-folio="8" type="button"><span class="arch-folio-tab-index">09</span><span class="arch-folio-tab-year">1994</span><span class="arch-folio-tab-title"><span data-lang="el">Η δύναμη της ομάδας</span><span data-lang="en">The strength of a team</span></span></button><button aria-controls="arch-folio-reader" aria-pressed="false" class="arch-folio-tab" data-folio="9" type="button"><span class="arch-folio-tab-index">10</span><span class="arch-folio-tab-year">2016</span><span class="arch-folio-tab-title"><span data-lang="el">Η φλόγα συνεχίζεται</span><span data-lang="en">The flame lives on</span></span></button></div><article aria-atomic="true" aria-live="polite" class="arch-folio-reader" id="arch-folio-reader"><div class="arch-folio-reader-top"><span class="arch-folio-reader-label"><span data-lang="el">ΙΣΤΟΡΙΚΟ ΤΕΚΜΗΡΙΟ</span><span data-lang="en">HISTORICAL EXCERPT</span></span><span class="arch-folio-count" id="arch-folio-count">01 / 10</span></div><div aria-hidden="true" class="arch-folio-watermark" id="arch-folio-watermark">1968</div><div class="arch-folio-year" id="arch-folio-year">1968</div><h3 id="arch-folio-story-title"></h3><p class="arch-folio-story-intro" id="arch-folio-story-intro"></p><div aria-hidden="true" class="arch-folio-ornament">❦</div><blockquote class="arch-folio-quote" id="arch-folio-quote"></blockquote><div class="arch-folio-reader-bottom"><span class="arch-folio-note"><span data-lang="el">Από το αρχείο του Αρχέλαου</span><span data-lang="en">From the Archelaos archive</span></span><div class="arch-folio-nav"><button aria-label="Προηγούμενο / Previous" class="arch-folio-nav-btn" id="arch-folio-prev" type="button">←</button><button aria-label="Επόμενο / Next" class="arch-folio-nav-btn" id="arch-folio-next" type="button">→</button></div></div></article></div><p class="arch-folio-disclaimer"><span data-lang="el">Μαρτυρίες και αποσπάσματα από το ιστορικό αρχείο του Αρχέλαου.</span><span data-lang="en">Testimonies and excerpts from the Archelaos historical archive.</span></p></div></section></div></section><section class="m55-section" id="museum-history"><h2 class="m55-section-title"><span class="lang-el">Το Ιστορικό Αρχείο</span><span class="lang-en">The Historical Archive</span></h2><div class="m54-panel"><div class="heritage-museum-jump" id="museum-jump">
+</div></section><section aria-labelledby="arch-folio-title" class="arch-folio" id="archive-voices"><div class="arch-folio-wrap"><p class="arch-folio-overline"><span data-lang="el">ΑΠΟΣΠΑΣΜΑΤΑ ΑΠΟ ΤΟ ΑΡΧΕΙΟ</span><span data-lang="en">EXCERPTS FROM THE ARCHIVE</span></p><h2 id="arch-folio-title"><span data-lang="el">Οι φωνές<em> του αρχείου</em></span><span data-lang="en">Voices<em> of the archive</em></span></h2><p class="arch-folio-lead"><span data-lang="el">Δέκα στιγμές, δέκα φωνές. Επιλέξτε μια χρονιά και ανακαλύψτε τι έλεγαν οι άνθρωποι του Αρχέλαου και όσοι τον γνώρισαν μέσα στις δεκαετίες.</span><span data-lang="en">Ten moments, ten voices. Choose a year to discover the words of Archelaos and those who encountered the club across the decades.</span></p><div class="arch-folio-layout"><div aria-label="Επιλογή ιστορικού αποσπάσματος / Choose an archival excerpt" class="arch-folio-rail" role="group"><button aria-controls="arch-folio-reader" aria-pressed="true" class="arch-folio-tab is-active" data-folio="0" type="button"><span class="arch-folio-tab-index">01</span><span class="arch-folio-tab-year">1968</span><span class="arch-folio-tab-title"><span data-lang="el">Τα χρώματα του συλλόγου</span><span data-lang="en">The club colours</span></span></button><button aria-controls="arch-folio-reader" aria-pressed="false" class="arch-folio-tab" data-folio="1" type="button"><span class="arch-folio-tab-index">02</span><span class="arch-folio-tab-year">1970</span><span class="arch-folio-tab-title"><span data-lang="el">Αυτονομία</span><span data-lang="en">Independence</span></span></button><button aria-controls="arch-folio-reader" aria-pressed="false" class="arch-folio-tab" data-folio="2" type="button"><span class="arch-folio-tab-index">03</span><span class="arch-folio-tab-year">1973</span><span class="arch-folio-tab-title"><span data-lang="el">Νέα εποχή</span><span data-lang="en">A new era</span></span></button><button aria-controls="arch-folio-reader" aria-pressed="false" class="arch-folio-tab" data-folio="3" type="button"><span class="arch-folio-tab-index">04</span><span class="arch-folio-tab-year">1976</span><span class="arch-folio-tab-title"><span data-lang="el">Πρωτοπορία</span><span data-lang="en">Pioneering spirit</span></span></button><button aria-controls="arch-folio-reader" aria-pressed="false" class="arch-folio-tab" data-folio="4" type="button"><span class="arch-folio-tab-index">05</span><span class="arch-folio-tab-year">1990</span><span class="arch-folio-tab-title"><span data-lang="el">Αθλητικό ήθος</span><span data-lang="en">Sporting spirit</span></span></button><button aria-controls="arch-folio-reader" aria-pressed="false" class="arch-folio-tab" data-folio="5" type="button"><span class="arch-folio-tab-index">06</span><span class="arch-folio-tab-year">1992</span><span class="arch-folio-tab-title"><span data-lang="el">Μια αρχή τον χειμώνα</span><span data-lang="en">A winter beginning</span></span></button><button aria-controls="arch-folio-reader" aria-pressed="false" class="arch-folio-tab" data-folio="6" type="button"><span class="arch-folio-tab-index">07</span><span class="arch-folio-tab-year">1993</span><span class="arch-folio-tab-title"><span data-lang="el">Η φωνή του αθλητή</span><span data-lang="en">The athlete’s voice</span></span></button><button aria-controls="arch-folio-reader" aria-pressed="false" class="arch-folio-tab" data-folio="7" type="button"><span class="arch-folio-tab-index">08</span><span class="arch-folio-tab-year">1993</span><span class="arch-folio-tab-title"><span data-lang="el">Το δέος των αντιπάλων</span><span data-lang="en">Respect from opponents</span></span></button><button aria-controls="arch-folio-reader" aria-pressed="false" class="arch-folio-tab" data-folio="8" type="button"><span class="arch-folio-tab-index">09</span><span class="arch-folio-tab-year">1994</span><span class="arch-folio-tab-title"><span data-lang="el">Η δύναμη της ομάδας</span><span data-lang="en">The strength of a team</span></span></button><button aria-controls="arch-folio-reader" aria-pressed="false" class="arch-folio-tab" data-folio="9" type="button"><span class="arch-folio-tab-index">10</span><span class="arch-folio-tab-year">2016</span><span class="arch-folio-tab-title"><span data-lang="el">Η φλόγα συνεχίζεται</span><span data-lang="en">The flame lives on</span></span></button></div><article aria-atomic="true" aria-live="polite" class="arch-folio-reader" id="arch-folio-reader"><div class="arch-folio-reader-top"><span class="arch-folio-reader-label"><span data-lang="el">ΙΣΤΟΡΙΚΟ ΤΕΚΜΗΡΙΟ</span><span data-lang="en">HISTORICAL EXCERPT</span></span><span class="arch-folio-count" id="arch-folio-count">01 / 10</span></div><div aria-hidden="true" class="arch-folio-watermark" id="arch-folio-watermark">1968</div><div class="arch-folio-year" id="arch-folio-year">1968</div><h3 id="arch-folio-story-title"></h3><p class="arch-folio-story-intro" id="arch-folio-story-intro"></p><div aria-hidden="true" class="arch-folio-ornament">❦</div><blockquote class="arch-folio-quote" id="arch-folio-quote"></blockquote><div class="arch-folio-reader-bottom"><span class="arch-folio-note"><span data-lang="el">Από το αρχείο του Αρχέλαου</span><span data-lang="en">From the Archelaos archive</span></span><div class="arch-folio-nav"><button aria-label="Προηγούμενο / Previous" class="arch-folio-nav-btn" id="arch-folio-prev" type="button">←</button><button aria-label="Επόμενο / Next" class="arch-folio-nav-btn" id="arch-folio-next" type="button">→</button></div></div></article></div><p class="arch-folio-disclaimer"><span data-lang="el">Μαρτυρίες και αποσπάσματα από το ιστορικό αρχείο του Αρχέλαου.</span><span data-lang="en">Testimonies and excerpts from the Archelaos historical archive.</span></p></div></section></div></section><section id="arch-press-voices" aria-labelledby="arch-press-title">
+<div class="arch-press-wrap">
+  <div class="arch-press-kicker"><span data-lang="el">Ο ΤΥΠΟΣ ΘΥΜΑΤΑΙ · 1982–2006</span><span data-lang="en">PRESS ARCHIVE · 1982–2006</span></div>
+  <h2 id="arch-press-title"><span data-lang="el">Δέκα φωνές από τις εφημερίδες</span><span data-lang="en">Ten voices from the newspapers</span></h2>
+  <p class="arch-press-lead"><span data-lang="el">Δηλώσεις αθλητών, προπονητών και ανθρώπων του αθλητισμού, όπως καταγράφηκαν στον Τύπο. Πατήστε σε ένα πρόσωπο για να διαβάσετε τη δήλωση και το ιστορικό της πλαίσιο.</span><span data-lang="en">Statements by athletes, coaches and sports figures as documented in newspaper coverage. Select a name to read the quotation and its historical context.</span></p>
+  <p class="arch-press-legend"><i aria-hidden="true"></i><span data-lang="el">Ξεχωριστή συλλογή από τις μαρτυρίες των πρακτικών</span><span data-lang="en">Separate from the board-minutes archive</span><i aria-hidden="true"></i></p>
+  <div class="arch-press-grid">
+<details class="arch-press-card" id="arch-press-01" open>
+      <summary class="arch-press-summary">
+        <span class="arch-press-card-meta"><span class="arch-press-year">1992</span><span class="arch-press-index">01 / 10</span></span>
+        <span class="arch-press-name"><span data-lang="el">Κώστας Κουκοδήμος</span><span data-lang="en">Kostas Koukodimos</span></span>
+        <span class="arch-press-role"><span data-lang="el">Στίβος · Άλμα εις μήκος</span><span data-lang="en">Athletics · Long jump</span></span>
+        <span class="arch-press-open-icon" aria-hidden="true">+</span>
+      </summary>
+      <div class="arch-press-card-content">
+        <blockquote class="arch-press-quote"><span data-lang="el">«Θα φέρω μετάλλιο από την Ατλάντα... Θα φέρω μετάλλιο στην Κατερίνη!»</span><span data-lang="en">“I will bring a medal back from Atlanta... I will bring a medal to Katerini!”</span></blockquote>
+        <p class="arch-press-context"><span data-lang="el">Δήλωση στην πανηγυρική υποδοχή του στην Κατερίνη, μετά την ευρωπαϊκή του διάκριση στο μήκος (8,35 μ.).</span><span data-lang="en">Statement during his celebratory welcome in Katerini following his European long-jump success (8.35 m).</span></p>
+        <div class="arch-press-source"><span class="arch-press-source-dot" aria-hidden="true"></span><span><span data-lang="el">14 Σεπτεμβρίου 1992 · «Αθλητικό Βήμα» · Αποκόμματα Τύπου 2</span><span data-lang="en">14 September 1992 · Athlitiko Vima · Press Clippings 2</span></span></div>
+      </div>
+    </details>
+<details class="arch-press-card" id="arch-press-02">
+      <summary class="arch-press-summary">
+        <span class="arch-press-card-meta"><span class="arch-press-year">1993</span><span class="arch-press-index">02 / 10</span></span>
+        <span class="arch-press-name"><span data-lang="el">Σωκράτης Σκούφας</span><span data-lang="en">Sokratis Skoufas</span></span>
+        <span class="arch-press-role"><span data-lang="el">Προπονητής Χειροσφαίρισης</span><span data-lang="en">Handball coach</span></span>
+        <span class="arch-press-open-icon" aria-hidden="true">+</span>
+      </summary>
+      <div class="arch-press-card-content">
+        <blockquote class="arch-press-quote"><span data-lang="el">«Δουλεύουμε σκληρά επάνω στο τσιμέντο... αλλά το χάντ-μπωλ διαφημίζει την Κατερίνη στην Ευρώπη και εμείς μοχθούμε για να το ανεβάσουμε ακόμη πιο ψηλά!»</span><span data-lang="en">“We work hard on the concrete... but handball puts Katerini on the European map, and we strive to take it even higher!”</span></blockquote>
+        <p class="arch-press-context"><span data-lang="el">Για τις συνθήκες προετοιμασίας στο ανοικτό τσιμεντένιο γήπεδο του ΕΑΚ, ενόψει των ευρωπαϊκών αγώνων με τη ΡΚ Ούμαγκ.</span><span data-lang="en">On preparations on the outdoor concrete court ahead of the European matches against RK Umag.</span></p>
+        <div class="arch-press-source"><span class="arch-press-source-dot" aria-hidden="true"></span><span><span data-lang="el">Σεπτέμβριος 1993 · «Αθλητικό Βήμα» · Αποκόμματα Τύπου 2</span><span data-lang="en">September 1993 · Athlitiko Vima · Press Clippings 2</span></span></div>
+      </div>
+    </details>
+<details class="arch-press-card" id="arch-press-03">
+      <summary class="arch-press-summary">
+        <span class="arch-press-card-meta"><span class="arch-press-year">1993</span><span class="arch-press-index">03 / 10</span></span>
+        <span class="arch-press-name"><span data-lang="el">Στάθης Μαυρόπουλος</span><span data-lang="en">Stathis Mavropoulos</span></span>
+        <span class="arch-press-role"><span data-lang="el">Διεθνής αθλητής Χειροσφαίρισης</span><span data-lang="en">International handball player</span></span>
+        <span class="arch-press-open-icon" aria-hidden="true">+</span>
+      </summary>
+      <div class="arch-press-card-content">
+        <blockquote class="arch-press-quote"><span data-lang="el">«Κάναμε τόσες θυσίες, δώσαμε τα καλύτερά μας χρόνια για να πετύχουμε τέτοιες διακρίσεις. Αν πέσει κάποιος στο τσιμέντο θα καταστραφεί!»</span><span data-lang="en">“We made so many sacrifices, gave the best years of our lives to achieve these distinctions. If someone falls on the concrete, they could be seriously hurt!”</span></blockquote>
+        <p class="arch-press-context"><span data-lang="el">Παρέμβαση για την αδυναμία χρήσης του κλειστού γυμναστηρίου ενώ η ομάδα συμμετείχε στην Ευρώπη.</span><span data-lang="en">On the lack of access to an indoor arena while the team competed in Europe.</span></p>
+        <div class="arch-press-source"><span class="arch-press-source-dot" aria-hidden="true"></span><span><span data-lang="el">Οκτώβριος 1993 · Αποκόμματα Τύπου 2</span><span data-lang="en">October 1993 · Press Clippings 2</span></span></div>
+      </div>
+    </details>
+<details class="arch-press-card" id="arch-press-04">
+      <summary class="arch-press-summary">
+        <span class="arch-press-card-meta"><span class="arch-press-year">1991</span><span class="arch-press-index">04 / 10</span></span>
+        <span class="arch-press-name"><span data-lang="el">Χαρίλαος Κακάλης</span><span data-lang="en">Charilaos Kakalis</span></span>
+        <span class="arch-press-role"><span data-lang="el">Μεσογειονίκης Ενόργανης Γυμναστικής</span><span data-lang="en">Mediterranean Games gymnastics medallist</span></span>
+        <span class="arch-press-open-icon" aria-hidden="true">+</span>
+      </summary>
+      <div class="arch-press-card-content">
+        <blockquote class="arch-press-quote"><span data-lang="el">«Χαρίζω την επιτυχία μου στο θείο μου Κώστα Κακάλη... Είναι ο άνθρωπος που με ενέταξε στον αθλητισμό. Η καταξίωση ήρθε μετά από δουλειά 11 χρόνων!»</span><span data-lang="en">“I dedicate my success to my uncle Kostas Kakalis... He was the person who introduced me to sport. Recognition came after eleven years of work!”</span></blockquote>
+        <p class="arch-press-context"><span data-lang="el">Δηλώσεις μετά το ασημένιο μετάλλιο στο έδαφος στους Μεσογειακούς Αγώνες της Αθήνας. Το κείμενο διατηρείται όπως αποδελτιώθηκε.</span><span data-lang="en">Statements following his floor-exercise silver medal at the Mediterranean Games in Athens; wording follows the supplied transcript.</span></p>
+        <div class="arch-press-source"><span class="arch-press-source-dot" aria-hidden="true"></span><span><span data-lang="el">4 Ιουλίου 1991 · Αποτελέσματα Αγώνων Στίβου &amp; Αποκόμματα Τύπου (1992–1997)</span><span data-lang="en">4 July 1991 · Athletics Results &amp; Press Clippings (1992–1997)</span></span></div>
+      </div>
+    </details>
+<details class="arch-press-card" id="arch-press-05">
+      <summary class="arch-press-summary">
+        <span class="arch-press-card-meta"><span class="arch-press-year">1982</span><span class="arch-press-index">05 / 10</span></span>
+        <span class="arch-press-name"><span data-lang="el">Τάκης Παρασκευόπουλος</span><span data-lang="en">Takis Paraskevopoulos</span></span>
+        <span class="arch-press-role"><span data-lang="el">Ομοσπονδιακός προπονητής Στίβου</span><span data-lang="en">National athletics coach</span></span>
+        <span class="arch-press-open-icon" aria-hidden="true">+</span>
+      </summary>
+      <div class="arch-press-card-content">
+        <blockquote class="arch-press-quote"><span data-lang="el">«Ο αθλητής της επαρχίας πρέπει να είναι μεγάλο ταλέντο για να προχωρήσει... Ο Αρχέλαος στο τμήμα στίβου είναι ο μοναδικός σύλλογος της Κατερίνης που βρίσκεται στην Α΄ κατηγορία!»</span><span data-lang="en">“For an athlete from the provinces to advance, they must be an exceptional talent... Archelaos is the only Katerini athletics club competing in the top division!”</span></blockquote>
+        <p class="arch-press-context"><span data-lang="el">Συνέντευξη για τις προπονητικές υποδομές και τις δυσκολίες του αθλητισμού στην περιφέρεια.</span><span data-lang="en">Interview on training facilities and the challenges facing athletes outside major cities.</span></p>
+        <div class="arch-press-source"><span class="arch-press-source-dot" aria-hidden="true"></span><span><span data-lang="el">4 Φεβρουαρίου 1982 · «Αθλητικό Ολύμπιο Βήμα»</span><span data-lang="en">4 February 1982 · Athlitiko Olympio Vima</span></span></div>
+      </div>
+    </details>
+<details class="arch-press-card" id="arch-press-06">
+      <summary class="arch-press-summary">
+        <span class="arch-press-card-meta"><span class="arch-press-year">1995</span><span class="arch-press-index">06 / 10</span></span>
+        <span class="arch-press-name"><span data-lang="el">Γιώργος Χαλκίδης</span><span data-lang="en">Giorgos Chalkidis</span></span>
+        <span class="arch-press-role"><span data-lang="el">Πρόεδρος Ομοσπονδίας Χειροσφαίρισης (ΟΧΕ)</span><span data-lang="en">President of the Hellenic Handball Federation</span></span>
+        <span class="arch-press-open-icon" aria-hidden="true">+</span>
+      </summary>
+      <div class="arch-press-card-content">
+        <blockquote class="arch-press-quote"><span data-lang="el">«Δεν θα ισχύει για το χάντμπολ το &quot;σφάξε με αγά μου να αγιάσω&quot;! Η Πολιτεία πρέπει να δώσει λύση στο γηπεδικό και το οικονομικό.»</span><span data-lang="en">“The old attitude of silent submission will not apply to handball! The State must find solutions to the arena and financial problems.”</span></blockquote>
+        <p class="arch-press-context"><span data-lang="el">Συνέντευξη Τύπου για τη στήριξη των σωματείων και τα οικονομικά και γηπεδικά προβλήματα του αθλήματος.</span><span data-lang="en">Press conference concerning support for clubs and handball’s financial and venue challenges.</span></p>
+        <div class="arch-press-source"><span class="arch-press-source-dot" aria-hidden="true"></span><span><span data-lang="el">10 Νοεμβρίου 1995 · Αρχείο Χάντμπολ Α1 &amp; Κυπέλλου 1995–1996</span><span data-lang="en">10 November 1995 · Handball A1 &amp; Cup Archive 1995–1996</span></span></div>
+      </div>
+    </details>
+<details class="arch-press-card" id="arch-press-07">
+      <summary class="arch-press-summary">
+        <span class="arch-press-card-meta"><span class="arch-press-year">1996</span><span class="arch-press-index">07 / 10</span></span>
+        <span class="arch-press-name"><span data-lang="el">Παναγιώτα Νικολαΐδου</span><span data-lang="en">Panagiota Nikolaidou</span></span>
+        <span class="arch-press-role"><span data-lang="el">Αθλήτρια Καλαθοσφαίρισης</span><span data-lang="en">Basketball player</span></span>
+        <span class="arch-press-open-icon" aria-hidden="true">+</span>
+      </summary>
+      <div class="arch-press-card-content">
+        <blockquote class="arch-press-quote"><span data-lang="el">«Με ζήλο και πειθαρχία! Δείξαμε ότι μπορούμε να κερδίσουμε οποιονδήποτε αντίπαλο έρθει στην έδρα μας!»</span><span data-lang="en">“With determination and discipline! We showed that we can beat any opponent who comes to our home court!”</span></blockquote>
+        <p class="arch-press-context"><span data-lang="el">Μετά τη νίκη της γυναικείας ομάδας επί της Προποντίδας με 69–57 στη Β΄ Εθνική.</span><span data-lang="en">After the women’s team defeated Propontida 69–57 in the second national division.</span></p>
+        <div class="arch-press-source"><span class="arch-press-source-dot" aria-hidden="true"></span><span><span data-lang="el">Μάρτιος 1996 · Αρχείο Τύπου &amp; Αθλητικά Νέα Κατερίνης (1994–1996)</span><span data-lang="en">March 1996 · Katerini Sports Press Archive (1994–1996)</span></span></div>
+      </div>
+    </details>
+<details class="arch-press-card" id="arch-press-08">
+      <summary class="arch-press-summary">
+        <span class="arch-press-card-meta"><span class="arch-press-year">2006</span><span class="arch-press-index">08 / 10</span></span>
+        <span class="arch-press-name"><span data-lang="el">Βασίλης Δ. Νουλέζας</span><span data-lang="en">Vasilis D. Noulezas</span></span>
+        <span class="arch-press-role"><span data-lang="el">Έφορος Χειροσφαίρισης</span><span data-lang="en">Handball department official</span></span>
+        <span class="arch-press-open-icon" aria-hidden="true">+</span>
+      </summary>
+      <div class="arch-press-card-content">
+        <blockquote class="arch-press-quote"><span data-lang="el">«Ο Αρχέλαος αγωνίζεται από το 1983 στην επαγγελματική κατηγορία... Έχει τις δυνάμεις να επανακάμψει και να ανέβει ψηλά, στηριζόμενος στον μόχθο της διοίκησης και το έμψυχο δυναμικό του!»</span><span data-lang="en">“Archelaos has competed in the professional division since 1983... It has the strength to recover and rise, thanks to the efforts of its administration and its people!”</span></blockquote>
+        <p class="arch-press-context"><span data-lang="el">Δημόσια παρέμβαση στον τοπικό Τύπο για την αυτοτελή πορεία και την προοπτική του τμήματος.</span><span data-lang="en">Public statement in the local press about the handball department’s independent course and prospects.</span></p>
+        <div class="arch-press-source"><span class="arch-press-source-dot" aria-hidden="true"></span><span><span data-lang="el">20 Ιανουαρίου 2006 · «Ημερησία» · Αρχείο Τύπου &amp; Δελτίων Γ.Α.Σ. Αρχέλαος</span><span data-lang="en">20 January 2006 · Imerisia · Archelaos Press &amp; Bulletins Archive</span></span></div>
+      </div>
+    </details>
+<details class="arch-press-card" id="arch-press-09">
+      <summary class="arch-press-summary">
+        <span class="arch-press-card-meta"><span class="arch-press-year">1997</span><span class="arch-press-index">09 / 10</span></span>
+        <span class="arch-press-name"><span data-lang="el">Κώστας Σαρρής</span><span data-lang="en">Kostas Sarris</span></span>
+        <span class="arch-press-role"><span data-lang="el">Προπονητής Πετοσφαίρισης</span><span data-lang="en">Volleyball coach</span></span>
+        <span class="arch-press-open-icon" aria-hidden="true">+</span>
+      </summary>
+      <div class="arch-press-card-content">
+        <blockquote class="arch-press-quote"><span data-lang="el">«Μέσα από τη σκληρή δουλειά, την πειθαρχία και την υπομονή θα έλθουν τα καλά αποτελέσματα. Αυτά τα παιδιά θα τροφοδοτήσουν το μέλλον του συλλόγου!»</span><span data-lang="en">“Hard work, discipline and patience will bring good results. These children will shape the future of the club!”</span></blockquote>
+        <p class="arch-press-context"><span data-lang="el">Για την ανάπτυξη των τμημάτων υποδομών και την πρόκριση στις τελικές φάσεις της Κεντρικής Μακεδονίας.</span><span data-lang="en">On the youth teams and their qualification for the Central Macedonia final rounds.</span></p>
+        <div class="arch-press-source"><span class="arch-press-source-dot" aria-hidden="true"></span><span><span data-lang="el">25 Σεπτεμβρίου 1997 · Αποκόμματα Τύπου 1</span><span data-lang="en">25 September 1997 · Press Clippings 1</span></span></div>
+      </div>
+    </details>
+<details class="arch-press-card" id="arch-press-10">
+      <summary class="arch-press-summary">
+        <span class="arch-press-card-meta"><span class="arch-press-year">1990</span><span class="arch-press-index">10 / 10</span></span>
+        <span class="arch-press-name"><span data-lang="el">Εφημερίδα «Τα Γεγονότα»</span><span data-lang="en">Ta Gegonota newspaper</span></span>
+        <span class="arch-press-role"><span data-lang="el">Δημοσιογραφικό ρεπορτάζ · Τελικός Κυπέλλου Χάντμπολ</span><span data-lang="en">Press report · 1990 Handball Cup Final</span></span>
+        <span class="arch-press-open-icon" aria-hidden="true">+</span>
+      </summary>
+      <div class="arch-press-card-content">
+        <blockquote class="arch-press-quote"><span data-lang="el">«Με το βλέμμα στραμμένο στην Ευρώπη είναι πλέον η ομάδα του Αρχελάου... Η κατάκτηση του Κυπέλλου όσο και η έξοδος στην Ευρώπη αποτελούν το πιο σημαντικό ίσως γεγονός στην ιστορία του αθλητισμού της Πιερίας!»</span><span data-lang="en">“The Archelaos team is now looking towards Europe... Winning the Cup and qualifying for Europe may be the most significant event in Pieria’s sporting history!”</span></blockquote>
+        <p class="arch-press-context"><span data-lang="el">Πρωτοσέλιδο αφιέρωμα μετά την κατάκτηση του Κυπέλλου Ελλάδας επί του Δούκα (27–21) στο Μετς.</span><span data-lang="en">Front-page report after the 27–21 Greek Cup final victory over Doukas at Mets.</span></p>
+        <div class="arch-press-source"><span class="arch-press-source-dot" aria-hidden="true"></span><span><span data-lang="el">4 Ιουνίου 1990 · «Τα Γεγονότα» · Αρχείο Κυπέλλου Χειροσφαίρισης 1990–1992</span><span data-lang="en">4 June 1990 · Ta Gegonota · Handball Cup Archive 1990–1992</span></span></div>
+      </div>
+    </details>
+  </div>
+  <p class="arch-press-footer"><span data-lang="el">Αποδελτίωση από εφημερίδες και αρχειακά αποκόμματα του συλλόγου. Οι πρωτότυπες μαρτυρίες των πρακτικών παραμένουν στην προηγούμενη ενότητα.</span><span data-lang="en">Compiled from newspapers and club press clippings. The board-minutes testimonies remain unchanged in the preceding section.</span></p>
+</div>
+</section>
+<section class="m55-section" id="museum-history"><h2 class="m55-section-title"><span class="lang-el">Το Ιστορικό Αρχείο</span><span class="lang-en">The Historical Archive</span></h2><div class="m54-panel"><div class="heritage-museum-jump" id="museum-jump">
 <div class="heritage-museum-jump-inner">
 <div class="heritage-museum-jump-label"><i aria-hidden="true" class="fa-solid fa-landmark"></i><span data-lang="el">Ψηφιακό Μουσείο</span><span data-lang="en">Digital Museum</span></div>
 <details class="heritage-museum-jump-details" id="heritageMuseumJump">
