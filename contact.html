@@ -2974,6 +2974,21 @@ main p,main li,article p,article li{line-height:1.72;}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style><link rel="stylesheet" href="assets/navigation.css">
 <link rel="stylesheet" href="/assets/footer.css">
+
+<style id="arch-navigation-visibility-repair">
+/* Explicit navigation visibility. No changes to link cards or menu scripts. */
+#mainHeader{position:relative;z-index:1000}
+#mainHeader .arch-anniversary-actions{display:flex!important;visibility:visible!important;opacity:1!important}
+@media(min-width:1161px){
+ #mainHeader .arch-anniversary-nav{display:flex!important;visibility:visible!important;opacity:1!important}
+ #mainHeader .arch-anniversary-menu-trigger{display:none!important}
+}
+@media(max-width:1160px){
+ #mainHeader .arch-anniversary-nav{display:none!important}
+ #mainHeader .arch-anniversary-menu-trigger{display:inline-flex!important;visibility:visible!important;opacity:1!important;pointer-events:auto!important}
+ #mainHeader .arch-cinematic-menu.menu-open{display:block!important;visibility:visible!important;opacity:1!important}
+}
+</style>
 </head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow"><script src="assets/navigation.js"></script>
 <header class="arch-anniversary-header" id="mainHeader">
