@@ -37,6 +37,22 @@
       "editorial_note": "Based on existing published biographies; original archive cross-check pending."
     },
     {
+      "id": "basketball-department-1973",
+      "date": "1973-06-24",
+      "date_precision": "year",
+      "category": "Καλαθοσφαίριση",
+      "category_en": "Basketball",
+      "title": "Οργάνωση του τμήματος καλαθοσφαίρισης",
+      "title_en": "Organisation of the Basketball Department",
+      "description": "Το 1973 ο Θεόδωρος Σφήκας ανέλαβε πρώτος έφορος και προπονητής του τμήματος καλαθοσφαίρισης του Αρχέλαου, συμβάλλοντας στην αναγνώρισή του από την ΕΟΚ και στη συμμετοχή του σε διοργανώσεις της Κεντροδυτικής Μακεδονίας.",
+      "description_en": "In 1973, Theodoros Sfikas became Archelaos's first basketball department official and coach, helping secure its recognition by the Greek Basketball Federation and participation in Central-Western Macedonia competitions.",
+      "people": [
+        "arch-f6a4e2956785"
+      ],
+      "source": "hall-of-fame-people.json",
+      "verification": "existing-biographies"
+    },
+    {
       "id": "gymnastics-1975",
       "date": "1975-04-03",
       "title": "Ίδρυση τμήματος ενόργανης γυμναστικής",
@@ -45,6 +61,25 @@
       "people": [
         "arch-5a04cbbb57e4",
         "arch-ce5f9b978973"
+      ],
+      "source": "hall-of-fame-people.json",
+      "verification": "existing-biographies",
+      "category_en": "Gymnastics",
+      "title_en": "Establishment of Artistic Gymnastics",
+      "description_en": "On 3 April 1975 Archelaos formally established its artistic gymnastics department, with Stavros Diamantopoulos as its first coach."
+    },
+    {
+      "id": "wrestling-training-1980",
+      "date": "1980-01-01",
+      "date_precision": "day",
+      "category": "Πάλη",
+      "category_en": "Wrestling",
+      "title": "Έναρξη προπονήσεων του τμήματος πάλης",
+      "title_en": "The Wrestling Department Begins Training",
+      "description": "Την 1η Ιανουαρίου 1980 ο Λάζαρος Ψωμιάδης ξεκίνησε επίσημα τις προπονήσεις ως πρώτος προπονητής του τμήματος ελευθέρας και ελληνορωμαϊκής πάλης. Η ίδρυση είχε προταθεί στο Δ.Σ. τον Απρίλιο του 1978.",
+      "description_en": "On 1 January 1980, Lazaros Psomiadis formally began training sessions as the first coach of the freestyle and Greco-Roman wrestling department, whose establishment had been proposed to the board in April 1978.",
+      "people": [
+        "arch-2010dac2d75a"
       ],
       "source": "hall-of-fame-people.json",
       "verification": "existing-biographies"
@@ -143,7 +178,10 @@
         "arch-ec55ccba275f"
       ],
       "source": "hall-of-fame-people.json",
-      "verification": "existing-biographies"
+      "verification": "existing-biographies",
+      "category_en": "Administration",
+      "title_en": "Theodoros Diamantopoulos Becomes President",
+      "description_en": "According to the existing biography, Theodoros Diamantopoulos became president of Archelaos in 2011."
     },
     {
       "id": "parousis-horizon-2022",
@@ -172,7 +210,10 @@
         "arch-85fcb478d724"
       ],
       "source": "hall-of-fame-people.json",
-      "verification": "existing-biographies"
+      "verification": "existing-biographies",
+      "category_en": "Administration",
+      "title_en": "Panagiotis Diamantopoulos Elected President",
+      "description_en": "According to the existing biography, Panagiotis Diamantopoulos was elected president of Archelaos on 8 September 2026."
     }
   ]
 }
