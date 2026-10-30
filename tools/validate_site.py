@@ -42,7 +42,7 @@ class LocalAssets(HTMLParser):
                 continue
             url = attributes[attribute] or ""
             parts = urlsplit(url)
-            if parts.scheme or parts.netloc or url.startswith(("//", "#", "/")):
+            if parts.scheme or parts.netloc or url.startswith(("//", "#")):
                 continue
             target = unquote(parts.path)
             if not target or "{" in target or "}" in target:
@@ -50,7 +50,7 @@ class LocalAssets(HTMLParser):
             # Only check actual bundled assets, not navigational/anchor hrefs.
             if tag == "link" and target.lower().endswith((".html", ".htm")):
                 continue
-            asset = (ROOT / self.source).parent / target
+            asset = (ROOT / target.lstrip("/")) if target.startswith("/") else (ROOT / self.source).parent / target
             if not asset.is_file():
                 error(f"{self.source}: missing local asset {target!r}")
 
@@ -143,6 +143,16 @@ def main() -> int:
             error(f"{page}: missing page title")
         if not re.search(r'<meta\b[^>]*\bname=["\']description["\']', text, re.IGNORECASE):
             error(f"{page}: missing SEO description")
+    # Every primary page must declare its own canonical URL exactly once.
+    for page in PAGES:
+        file = ROOT / page
+        if not file.is_file():
+            continue
+        html = file.read_text(encoding="utf-8")
+        canonical = re.findall(r'<link\\b[^>]*\\brel=["\\']canonical["\\'][^>]*>', html, re.IGNORECASE)
+        expected = "https://archelaos.club/" + ("" if page == "index.html" else page)
+        if len(canonical) != 1 or f'href="{expected}"' not in canonical[0]:
+            error(f"{page}: missing, duplicate or incorrect canonical URL (expected {expected})")
     # Shared footer and navigation remain single-source components on primary pages.
     for page in PAGES:
         text_path = ROOT / page
