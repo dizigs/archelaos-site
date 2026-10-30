@@ -929,6 +929,70 @@
       "verification": "published-club-history"
     },
     {
+      "id": "katsikakis-vault-title-1991",
+      "date": "1991",
+      "date_precision": "year",
+      "category": "Ενόργανη γυμναστική",
+      "category_en": "Artistic Gymnastics",
+      "title": "Πανελλήνιος τίτλος του Αλέξανδρου Κατσικάκη στο άλμα",
+      "title_en": "Alexandros Katsikakis Wins the National Vault Title",
+      "description": "Το 1991 ο Αλέξανδρος Κατσικάκης κατέκτησε το χρυσό μετάλλιο στο άλμα ανδρών στο Πανελλήνιο Πρωτάθλημα στη Γλυφάδα με 8,962 βαθμούς.",
+      "description_en": "In 1991, Alexandros Katsikakis won the Greek men's vault title at the national championships in Glyfada, scoring 8.962 points.",
+      "people": [
+        "arch-db2ed4303837"
+      ],
+      "source": "hall-of-fame-people.json",
+      "verification": "existing-biographies"
+    },
+    {
+      "id": "lefteriotis-pole-vault-title-1991",
+      "date": "1991",
+      "date_precision": "year",
+      "category": "Στίβος",
+      "category_en": "Athletics",
+      "title": "Πανελλήνιος τίτλος κλειστού στίβου του Γιάννη Λευτεριώτη",
+      "title_en": "Giannis Lefteriotis Wins the National Indoor Pole Vault Title",
+      "description": "Το 1991 ο Γιάννης Λευτεριώτης αναδείχθηκε πρωταθλητής Ελλάδας ανδρών κλειστού στίβου στο επί κοντώ στο ΣΕΦ, με επίδοση 5,20 μέτρων.",
+      "description_en": "In 1991, Giannis Lefteriotis became Greek men's indoor pole vault champion at the Peace and Friendship Stadium with 5.20 metres.",
+      "people": [
+        "arch-0d05bd7afa12"
+      ],
+      "source": "hall-of-fame-people.json",
+      "verification": "existing-biographies"
+    },
+    {
+      "id": "kakalis-gymnastics-medals-1991",
+      "date": "1991",
+      "date_precision": "year",
+      "category": "Ενόργανη γυμναστική",
+      "category_en": "Artistic Gymnastics",
+      "title": "Δύο πανελλήνιοι τίτλοι του Χαρίλαου Κακάλη",
+      "title_en": "Charilaos Kakalis Claims Two National Gymnastics Titles",
+      "description": "Στο Πανελλήνιο Πρωτάθλημα Ανδρών στη Γλυφάδα το 1991 ο Χαρίλαος Κακάλης κατέκτησε την πρώτη θέση στους κρίκους και στο δίζυγο και τη δεύτερη στο σύνθετο ατομικό, στο μονόζυγο και στο έδαφος.",
+      "description_en": "At the 1991 Greek men's gymnastics championships in Glyfada, Charilaos Kakalis placed first on rings and parallel bars and second in the all-around, horizontal bar and floor exercise.",
+      "people": [
+        "arch-fae2ef2c0646"
+      ],
+      "source": "hall-of-fame-people.json",
+      "verification": "existing-biographies"
+    },
+    {
+      "id": "papasotiriou-long-jump-1991",
+      "date": "1991",
+      "date_precision": "year",
+      "category": "Στίβος",
+      "category_en": "Athletics",
+      "title": "Πανελλήνιος τίτλος της Αθηνάς Παπασωτηρίου στο μήκος",
+      "title_en": "Athina Papasotiriou Wins National Long Jump Title",
+      "description": "Το 1991 η Αθηνά Παπασωτηρίου αναδείχθηκε πρωταθλήτρια Ελλάδας στο άλμα εις μήκος με επίδοση 6,15 μέτρων.",
+      "description_en": "In 1991, Athina Papasotiriou became Greek women's long jump champion with a mark of 6.15 metres.",
+      "people": [
+        "arch-3e3c931a8dee"
+      ],
+      "source": "hall-of-fame-people.json",
+      "verification": "existing-biographies"
+    },
+    {
       "id": "koukodimos-olympics-1992",
       "date": "1992",
       "date_precision": "year",
@@ -959,6 +1023,22 @@
       "source": "70-stigmes.html",
       "source_moment": 58,
       "verification": "published-club-history"
+    },
+    {
+      "id": "karatzoulas-triple-jump-1992",
+      "date": "1992-06-07",
+      "date_precision": "day",
+      "category": "Στίβος",
+      "category_en": "Athletics",
+      "title": "Ρεκόρ συλλόγου του Γιώργου Καρατζούλα στο τριπλούν",
+      "title_en": "Giorgos Karatzoulas Sets Club Triple Jump Record",
+      "description": "Στις 7 Ιουνίου 1992 ο Γιώργος Καρατζούλας σημείωσε επίδοση 14,68 μέτρων στο τριπλούν στα «Μακάρεια» της Λευκωσίας, που καταγράφεται ως ρεκόρ του Αρχέλαου.",
+      "description_en": "On 7 June 1992, Giorgos Karatzoulas jumped 14.68 metres in the triple jump at the Makareia meeting in Nicosia, recorded as an Archelaos club record.",
+      "people": [
+        "arch-73fcffd7e0b7"
+      ],
+      "source": "hall-of-fame-people.json",
+      "verification": "existing-biographies"
     },
     {
       "id": "archery-formation-1993",
@@ -1092,6 +1172,22 @@
       "source": "70-stigmes.html",
       "source_moment": 64,
       "verification": "published-club-history"
+    },
+    {
+      "id": "faka-junior-shooting-record-1996",
+      "date": "1996",
+      "date_precision": "year",
+      "category": "Σκοποβολή",
+      "category_en": "Shooting",
+      "title": "Πανελλήνιο ρεκόρ νεανίδων της Μαρίας Φάκα",
+      "title_en": "Maria Faka Sets National Junior Shooting Record",
+      "description": "Το 1996 η Μαρία Φάκα σημείωσε πανελλήνιο ρεκόρ νεανίδων στη σκοποβολή με 388/400 σε ευρωπαϊκή διοργάνωση στη Βουδαπέστη.",
+      "description_en": "In 1996, Maria Faka set a Greek junior women's shooting record of 388/400 at a European competition in Budapest.",
+      "people": [
+        "arch-6aa13d0c3e0a"
+      ],
+      "source": "hall-of-fame-people.json",
+      "verification": "existing-biographies"
     },
     {
       "id": "papasotiriou-pentathlon-record-1996",
