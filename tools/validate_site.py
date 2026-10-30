@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PAGES = (
     "index.html", "history.html", "hall-of-fame.html",
     "70-stigmes.html", "stories.html", "retro-matches.html",
-    "board.html", "sponsors.html", "contact.html",
+    "board.html", "sponsors.html", "contact.html", "history-events.html",
 )
 JSON_FILES = (
     "hall-of-fame-people.json", "archelaos-person-index.json",
@@ -216,6 +216,26 @@ def main() -> int:
             if isinstance(person, dict) and isinstance(person.get("id"), str):
                 if "/people/" + person["id"] + ".html</loc>" not in sitemap:
                     error(f"Missing biography sitemap URL: {person['id']}")
+    events = check_json("archelaos-history-events.json")
+    if events is not None:
+        if not isinstance(events, dict) or not isinstance(events.get("events"), list):
+            error("archelaos-history-events.json: malformed event list")
+        else:
+            valid_ids = {person["id"] for person in (hall or {}).get("people", []) if isinstance(person, dict) and person.get("id")}
+            event_ids = set()
+            for event in events["events"]:
+                if not isinstance(event, dict) or not isinstance(event.get("id"), str) or not event.get("title") or not event.get("date"):
+                    error("history events: invalid event")
+                    continue
+                if event["id"] in event_ids:
+                    error(f"history events: duplicate ID {event['id']}")
+                event_ids.add(event["id"])
+                if not isinstance(event.get("people"), list) or not event["people"]:
+                    error(f"history events: missing people for {event['id']}")
+                else:
+                    for person_id in event["people"]:
+                        if person_id not in valid_ids:
+                            error(f"history events: unknown person ID {person_id}")
     check_sitemap()
     if errors:
         print(f"\nSite validation FAILED: {len(errors)} issue(s).")
