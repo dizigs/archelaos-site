@@ -164,6 +164,15 @@ def main() -> int:
     links_source = (ROOT / "archelaos-person-links.js").read_text(encoding="utf-8")
     if "DATA_URL='hall-of-fame-people.json'" not in links_source:
         error("Biography link script must load the canonical Hall of Fame JSON")
+    if isinstance(hall, dict) and isinstance(hall.get("people"), list):
+        for person in hall["people"]:
+            if not isinstance(person, dict) or not isinstance(person.get("id"), str):
+                continue
+            profile = ROOT / "people" / (person["id"] + ".html")
+            if not profile.is_file():
+                error(f"Missing published profile for {person['id']}")
+            elif '<link rel="canonical"' not in profile.read_text(encoding="utf-8"):
+                error(f"Missing canonical URL in profile for {person['id']}")
     check_sitemap()
     if errors:
         print(f"\nSite validation FAILED: {len(errors)} issue(s).")
