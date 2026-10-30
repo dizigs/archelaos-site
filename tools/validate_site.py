@@ -14,7 +14,7 @@ from xml.etree import ElementTree as ET
 ROOT = Path(__file__).resolve().parents[1]
 PAGES = (
     "index.html", "history.html", "hall-of-fame.html",
-    "70-stigmes.html", "stories.html", "retro-matches.html",
+    "70-stigmes.html", "stories.html",
     "board.html", "sponsors.html", "contact.html", "history-events.html",
 )
 JSON_FILES = (
