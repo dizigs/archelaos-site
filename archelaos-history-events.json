@@ -1503,11 +1503,12 @@
       "category_en": "Archery",
       "title": "Χάλκινο μετάλλιο U21 στο ομαδικό Ολυμπιακού Τόξου",
       "title_en": "U21 team recurve bronze",
-      "description": "Στο Πανελλήνιο Πρωτάθλημα Τοξοβολίας U21 που διεξήχθη στο Λουτράκι τον Μάρτιο του 2023, κατέκτησε την 3η θέση και το χάλκινο μετάλλιο στο Ομαδικό Ανδρών U21 Ολυμπιακού Τόξου, συγκροτώντας πανίσχυρη τριάδα μαζί με τον Ευάγγελο Χαρίση και τον Νικόλαο Νταμπόση και ανοίγοντας τον δρόμο για τους μετέπειτα πανελλήνιους τίτλους του τμήματος. Στο Πανελλήνιο Πρωτάθλημα Τοξοβολίας U21 που διεξήχθη στο Λουτράκι τον Μάρτιο του 2023, κατέκτησε το χάλκινο μετάλλιο (3η θέση) στο Ομαδικό Ανδρών U21 Ολυμπιακού Τόξου, συγκροτώντας πανίσχυρη τριάδα με τους Ευάγγελο Χαρίση και Αθανάσιο Δημόπουλο.",
-      "description_en": "U21 team recurve bronze (2023). The club's archival biographies record this achievement for Athanasios Dimopoulos, Nikolaos Ntamposis.",
+      "description": "Τον Μάρτιο του 2023 στο Λουτράκι, ο Αρχέλαος κατέκτησε χάλκινο μετάλλιο στο ομαδικό Ολυμπιακού Τόξου U21 με τους Αθανάσιο Δημόπουλο, Ευάγγελο Χαρίση και Νικόλαο Νταμπόση.",
+      "description_en": "In March 2023 at Loutraki, Archelaos won bronze in the U21 recurve team event with Athanasios Dimopoulos, Evangelos Charisis and Nikolaos Ntamposis.",
       "people": [
         "arch-9d63723c6ec9",
-        "arch-6e4fe6e8f1e9"
+        "arch-6e4fe6e8f1e9",
+        "arch-955a386f547f"
       ],
       "source": "hall-of-fame-people.json",
       "source_review_group": "review-0169",
@@ -1622,11 +1623,10 @@
       "category_en": "Wrestling",
       "title": "Βαλκανικός τίτλος της Ιωάννας Ξενίδου",
       "title_en": "Balkan wrestling gold for Ioanna Xenidou",
-      "description": "Τον Οκτώβριο του 2026 κατέκτησε το χρυσό μετάλλιο στο Βαλκανικό Πρωτάθλημα Πάλης στην Κοπρίβνιτσα της Κροατίας. Κατέκτησε χρυσό μετάλλιο στο Πανελλήνιο Πρωτάθλημα U17 (2026) και ασημένιο (2025).",
-      "description_en": "Balkan wrestling gold for Ioanna Xenidou (2026). The club's archival biographies record this achievement for Ioanna Xenidou, Pavlos Tsentidis.",
+      "description": "Τον Οκτώβριο του 2026 η Ιωάννα Ξενίδου κατέκτησε χρυσό μετάλλιο στο Βαλκανικό Πρωτάθλημα Πάλης στην Κοπρίβνιτσα της Κροατίας.",
+      "description_en": "In October 2026, Ioanna Xenidou won a gold medal at the Balkan wrestling championships in Koprivnica, Croatia.",
       "people": [
-        "arch-957a876e770d",
-        "arch-b48656c62600"
+        "arch-957a876e770d"
       ],
       "source": "hall-of-fame-people.json",
       "source_review_group": "review-0209",
