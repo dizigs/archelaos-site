@@ -67,6 +67,39 @@
       "editorial_note": "Based on existing published biographies; original archive cross-check pending."
     },
     {
+      "id": "koukodimos-olympics-1992",
+      "date": "1992",
+      "date_precision": "year",
+      "title": "Έκτη θέση του Κώστα Κουκοδήμου στους Ολυμπιακούς Αγώνες",
+      "title_en": "Kostas Koukodimos Places Sixth at Barcelona Olympics",
+      "category": "Στίβος",
+      "category_en": "Athletics",
+      "description": "Ο αθλητής του Αρχέλαου Κώστας Κουκοδήμος κατέκτησε την έκτη θέση στο μήκος στους Ολυμπιακούς Αγώνες της Βαρκελώνης το 1992.",
+      "description_en": "Archelaos long jumper Kostas Koukodimos finished sixth at the 1992 Barcelona Olympic Games.",
+      "people": [
+        "arch-5abfbe9e285a"
+      ],
+      "source": "hall-of-fame-people.json",
+      "verification": "existing-biographies"
+    },
+    {
+      "id": "archery-formation-1993",
+      "date": "1993",
+      "date_precision": "year",
+      "title": "Ίδρυση του τμήματος τοξοβολίας",
+      "title_en": "Establishment of the Archery Department",
+      "category": "Τοξοβολία",
+      "category_en": "Archery",
+      "description": "Στα τέλη του 1993 ο Κωνσταντίνος Μυρωτής και ο Ανάργυρος Καπετανάκης οργάνωσαν το τμήμα τοξοβολίας του Αρχέλαου, ύστερα από την πρώτη εισήγηση που είχε καταγραφεί το 1991.",
+      "description_en": "In late 1993, Konstantinos Myrotis and Anargyros Kapetanakis established Archelaos's archery department, following an initial proposal recorded in 1991.",
+      "people": [
+        "arch-b1e10ae2cfc0",
+        "arch-a8d0aff8cc20"
+      ],
+      "source": "hall-of-fame-people.json",
+      "verification": "existing-biographies"
+    },
+    {
       "id": "eleftheroudis-presidency-1993",
       "date": "1993-02-27",
       "date_precision": "day",
@@ -82,6 +115,23 @@
       "source": "hall-of-fame-people.json",
       "verification": "existing-biographies",
       "editorial_note": "Based on existing published biographies; original archive cross-check pending."
+    },
+    {
+      "id": "handball-second-cup-1994",
+      "date": "1994",
+      "date_precision": "year",
+      "title": "Δεύτερο Κύπελλο Ελλάδας στη χειροσφαίριση",
+      "title_en": "Second Greek Handball Cup Title",
+      "category": "Χειροσφαίριση",
+      "category_en": "Handball",
+      "description": "Το 1994 ο Αρχέλαος κατέκτησε το δεύτερο Κύπελλο Ελλάδας στο χάντμπολ, επικρατώντας του Ιωνικού Νέας Φιλαδέλφειας με 27–25 στη Μίκρα. Προπονητής ήταν ο Σωκράτης Σκούφας. Η ομάδα έμεινε στην ιστορία ως οι «άστεγοι Κυπελλούχοι».",
+      "description_en": "In 1994, Archelaos won its second Greek Handball Cup, defeating Ionikos Neas Filadelfeias 27–25 at Mikra under coach Sokratis Skoufas. The team became known as the 'homeless cup winners'.",
+      "people": [
+        "arch-178813c8e013",
+        "arch-e355f0a88983"
+      ],
+      "source": "hall-of-fame-people.json",
+      "verification": "existing-biographies"
     },
     {
       "id": "administration-2011",
