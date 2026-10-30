@@ -1,4 +1,6 @@
 /* ARCHELAOS UNIFIED NAVIGATION v88 — one stylesheet for every page */
+/* Shared font, including nested /people/ pages. */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap&subset=greek,latin");
 :root{--asn-green:#073d2a;--asn-dark:#052d20;--asn-gold:#d8b66e;--asn-paper:#f8f6ef;--asn-height:82px;}
 header#mainHeader.arch-anniversary-header,header.mast{display:none!important}
 #arch-global-nav-root{position:fixed!important;inset:0 0 auto!important;display:block!important;z-index:2147480000!important;height:var(--asn-height)!important;font-family:Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif!important;color:var(--asn-paper)!important;isolation:isolate}
