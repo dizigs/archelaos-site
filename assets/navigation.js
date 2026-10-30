@@ -87,11 +87,32 @@
   if(e.key==='Escape'){if(drawerOpen){e.preventDefault();setOpen(false);}else closeDrops();}
   if(e.key==='Tab'&&drawerOpen){const nodes=[...drawer.querySelectorAll('a[href],button:not([disabled])')].filter(x=>x.getClientRects().length);if(!nodes.length)return;const first=nodes[0],last=nodes[nodes.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}}
  });
- const toggleLanguage=()=>{const before=language();const legacy=document.getElementById(isMuseum&&pageName!=='stories.html'?'language':'archAnniversaryLanguage');if(legacy){legacy.click();}
-  if(language()===before){const next=before==='en'?'el':'en';document.documentElement.lang=next;document.body.classList.toggle('lang-el',next==='el');document.body.classList.toggle('lang-en',next==='en');try{localStorage.setItem('archelaos_lang',next);}catch(e){}}
-  try{localStorage.setItem('archelaos_lang',language());}catch(e){}
-  document.dispatchEvent(new CustomEvent('archelaos:language-change',{detail:{language:language()}}));
-  sync();};
+ const applySharedLanguage=(next)=>{
+  document.documentElement.lang=next;
+  document.body.classList.toggle('lang-el',next==='el');
+  document.body.classList.toggle('lang-en',next==='en');
+  try{localStorage.setItem('archelaos_lang',next)}catch(e){}
+  document.querySelectorAll('[data-el][data-en]').forEach(n=>{if(n.closest('#arch-global-nav-root'))return;const value=n.getAttribute('data-'+next);if(value!=null)n.textContent=value});
+  document.dispatchEvent(new CustomEvent('archelaos:language-change',{detail:{language:next}}));
+  sync();
+ };
+ const toggleLanguage=()=>{
+  const next=language()==='en'?'el':'en';
+  // Each historical page has its own translator. Invoke it only if present,
+  // then normalize the state for the unified navigation and profile cards.
+  const candidates=['language','archAnniversaryLanguage'];
+  const legacy=candidates.map(id=>document.getElementById(id)).find(el=>el&&!root.contains(el));
+  if(legacy)try{legacy.click()}catch(e){}
+  applySharedLanguage(next);
+ };
+ // Restore the selected language on navigation between regular pages and /people/.
+ try{const saved=localStorage.getItem('archelaos_lang');if(saved==='en'||saved==='el'){
+  if(saved!==language()){
+   const legacy=['language','archAnniversaryLanguage'].map(id=>document.getElementById(id)).find(el=>el&&!root.contains(el));
+   if(legacy)try{legacy.click()}catch(e){}
+  }
+  applySharedLanguage(saved);
+ }}catch(e){}
  $('[data-asn-language]').forEach(b=>b.addEventListener('click',toggleLanguage));
  if(typeof MutationObserver!=='undefined'){
   new MutationObserver(sync).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
