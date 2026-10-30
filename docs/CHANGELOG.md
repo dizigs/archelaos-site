@@ -1,3 +1,8 @@
+## V3 source integrity — 30/10/2026
+
+- Prevented biography regeneration from erasing 140 existing alternate name spellings from `archelaos-person-index.json`. The generator retains editorial aliases by person ID and merges canonical aliases.
+- Current check confirms canonical aliases remain present. Source archives on Drive remain private; unverified OCR matches are not automatically published.
+
 ## V3 biography automation — 30/10/2026
 
 - Added `tools/sync_biographies.mjs` as the single command to regenerate all `people/*.html` pages, the person index and sitemap from `hall-of-fame-people.json` using `node tools/sync_biographies.mjs --write`.
