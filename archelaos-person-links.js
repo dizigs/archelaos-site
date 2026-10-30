@@ -1,6 +1,6 @@
-/* Archelaos unified biography links — V1: current Hall of Fame V11 / 405 names. */
+/* Archelaos unified biography links — V2: shared Hall of Fame biographies / 682 people. */
 (()=>{'use strict';
-const INDEX_URL='archelaos-person-index.json', DATA_URL='archelaos-people.json';
+const INDEX_URL='archelaos-person-index.json', DATA_URL='hall-of-fame-people.json';
 const norm=s=>(s||'').toLocaleLowerCase('el').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/ς/g,'σ').replace(/[^\p{L}\p{N}\s]/gu,' ').replace(/\s+/g,' ').trim();
 const safeText=s=>String(s||'');
 const state={people:null, index:null};
