@@ -1373,6 +1373,112 @@
       "description_en": "According to the existing biography, Theodoros Diamantopoulos became president of Archelaos in 2011."
     },
     {
+      "id": "archive-0147",
+      "date": "2014",
+      "date_precision": "year",
+      "category": "Τοξοβολία",
+      "category_en": "Archery",
+      "title": "Πρώτη θέση του Νικόλαου Μόσχοβα στην Πάργα",
+      "title_en": "Nikolaos Moschovas wins in Parga",
+      "description": "Σε πανελλήνιους αγώνες τοξοβολίας στην Πάργα το 2014 κατέκτησε την πρώτη θέση στην κατηγορία Παμπαίδων Β΄ Ολυμπιακού Τόξου.",
+      "description_en": "Nikolaos Moschovas wins in Parga (2014). The club's archival biographies record this achievement for Nikolaos Moschovas.",
+      "people": [
+        "arch-0a5d919a8df2"
+      ],
+      "source": "hall-of-fame-people.json",
+      "source_review_group": "review-0147",
+      "verification": "existing-biographies"
+    },
+    {
+      "id": "archive-0148",
+      "date": "2016",
+      "date_precision": "year",
+      "category": "Στίβος",
+      "category_en": "Athletics",
+      "title": "Ολυμπιακή παρουσία της Ελισάβετ Πεσιρίδου",
+      "title_en": "Elisavet Pesiridou at the Olympic Games",
+      "description": "Εξελίχθηκε σε εμβληματική μορφή της Εθνικής Ομάδας Στίβου, εκπροσωπώντας την Ελλάδα στους Ολυμπιακούς Αγώνες του Ρίο (2016) και του Τόκιο (2021).",
+      "description_en": "Elisavet Pesiridou at the Olympic Games (2016). The club's archival biographies record this achievement for Elisavet Pesiridou.",
+      "people": [
+        "arch-0d08a0ebfafe"
+      ],
+      "source": "hall-of-fame-people.json",
+      "source_review_group": "review-0148",
+      "verification": "existing-biographies"
+    },
+    {
+      "id": "archive-0149",
+      "date": "2019",
+      "date_precision": "year",
+      "category": "Πάλη",
+      "category_en": "Wrestling",
+      "title": "Πανελλήνιο χάλκινο του Θεοχάρη Αναστασιάδη",
+      "title_en": "National bronze for Theoharis Anastasiadis",
+      "description": "Κατέκτησε την 3η θέση και το χάλκινο μετάλλιο στο Πανελλήνιο Πρωτάθλημα Πάλης Παίδων, λαμβάνοντας δημόσια τιμητική διάκριση στην επετειακή βραδιά του 2019.",
+      "description_en": "National bronze for Theoharis Anastasiadis (2019). The club's archival biographies record this achievement for Theocharis Anastasiadis.",
+      "people": [
+        "arch-eb30e824d0a2"
+      ],
+      "source": "hall-of-fame-people.json",
+      "source_review_group": "review-0149",
+      "verification": "existing-biographies"
+    },
+    {
+      "id": "archive-0151",
+      "date": "2019",
+      "date_precision": "year",
+      "category": "Πάλη",
+      "category_en": "Wrestling",
+      "title": "Πανελλήνιος τίτλος του Σωκράτη Κωνσταντινίδη",
+      "title_en": "National title for Sokratis Konstantinidis",
+      "description": "Το 2019 βραβεύτηκε για την κατάκτηση της 1ης θέσης στο Πανελλήνιο Πρωτάθλημα Παμπαίδων.",
+      "description_en": "National title for Sokratis Konstantinidis (2019). The club's archival biographies record this achievement for Sokratis Konstantinidis.",
+      "people": [
+        "arch-73968afa517e"
+      ],
+      "source": "hall-of-fame-people.json",
+      "source_review_group": "review-0151",
+      "verification": "existing-biographies"
+    },
+    {
+      "id": "archive-0156",
+      "date": "2020",
+      "date_precision": "year",
+      "category": "Στίβος",
+      "category_en": "Athletics",
+      "title": "Πανελλήνια ρεκόρ της Άννας Χατζηπουργάνη",
+      "title_en": "Greek records for Anna Chatzipourgani",
+      "description": "Το 2020 κατέρριψε διαδοχικά το πανελλήνιο ρεκόρ κορασίδων στα 400 μ.",
+      "description_en": "Greek records for Anna Chatzipourgani (2020). The club's archival biographies record this achievement for Anna Chatzipourgani.",
+      "people": [
+        "arch-68fef0f68151"
+      ],
+      "source": "hall-of-fame-people.json",
+      "source_review_group": "review-0156",
+      "verification": "existing-biographies"
+    },
+    {
+      "id": "archive-0160",
+      "date": "2022",
+      "date_precision": "year",
+      "category": "Πάλη",
+      "category_en": "Wrestling",
+      "title": "Μετάλλια του Αρχέλαου στην ελληνορωμαϊκή πάλη ανδρών",
+      "title_en": "Archelaos medals at Greek senior wrestling championships",
+      "description": "Κατέκτησε την 3η θέση και το χάλκινο μετάλλιο στο Πανελλήνιο Πρωτάθλημα Ελληνορωμαϊκής Πάλης Ανδρών στα Τρίκαλα (Μάιος 2022), ενισχύοντας τη συγκομιδή βαθμών που έφερε τον σύλλογο στο βάθρο των κορυφαίων σωματείων της χώρας. Ανέβηκε στο βάθρο των νικητών κατακτώντας την 3η θέση και το χάλκινο μετάλλιο στο Πανελλήνιο Πρωτάθλημα Ελληνορωμαϊκής Πάλης Ανδρών στα Τρίκαλα (14 Μαΐου 2022). Στο Πανελλήνιο Πρωτάθλημα Ελληνορωμαϊκής Πάλης Ανδρών στα Τρίκαλα (14 Μαΐου 2022) κατέκτησε τη 2η θέση και το ασημένιο μετάλλιο στην κατηγορία του. Κατέκτησε χάλκινο μετάλλιο στο Πανελλήνιο Πρωτάθλημα παίδων ελληνορωμαϊκής πάλης το 2022, όταν ο Αρχέλαος αναδείχθηκε πρωταθλητής Ελλάδας στην κατηγορία του. Κατέκτησε χάλκινο μετάλλιο στο Πανελλήνιο Πρωτάθλημα παίδων ελληνορωμαϊκής πάλης το 2022, όταν ο Αρχέλαος αναδείχθηκε πρωταθλητής Ελλάδας στην κατηγορία του.",
+      "description_en": "Archelaos medals at Greek senior wrestling championships (2022). The club's archival biographies record this achievement for Achilleas Giassirianis, Giorgos Makrivasillis, Dimitris Seretidis, Stefanos Oikonomidis, Charalambos Kordonoulis.",
+      "people": [
+        "arch-3d709819bef5",
+        "arch-7f8c550f1a00",
+        "arch-8971afb30555",
+        "arch-32f943eae9a0",
+        "arch-c9649834c98e"
+      ],
+      "source": "hall-of-fame-people.json",
+      "source_review_group": "review-0160",
+      "verification": "existing-biographies"
+    },
+    {
       "id": "parousis-horizon-2022",
       "date": "2022-11",
       "date_precision": "month",
@@ -1390,6 +1496,41 @@
       "editorial_note": "Based on existing published biographies; original archive cross-check pending."
     },
     {
+      "id": "archive-0169",
+      "date": "2023",
+      "date_precision": "year",
+      "category": "Τοξοβολία",
+      "category_en": "Archery",
+      "title": "Χάλκινο μετάλλιο U21 στο ομαδικό Ολυμπιακού Τόξου",
+      "title_en": "U21 team recurve bronze",
+      "description": "Στο Πανελλήνιο Πρωτάθλημα Τοξοβολίας U21 που διεξήχθη στο Λουτράκι τον Μάρτιο του 2023, κατέκτησε την 3η θέση και το χάλκινο μετάλλιο στο Ομαδικό Ανδρών U21 Ολυμπιακού Τόξου, συγκροτώντας πανίσχυρη τριάδα μαζί με τον Ευάγγελο Χαρίση και τον Νικόλαο Νταμπόση και ανοίγοντας τον δρόμο για τους μετέπειτα πανελλήνιους τίτλους του τμήματος. Στο Πανελλήνιο Πρωτάθλημα Τοξοβολίας U21 που διεξήχθη στο Λουτράκι τον Μάρτιο του 2023, κατέκτησε το χάλκινο μετάλλιο (3η θέση) στο Ομαδικό Ανδρών U21 Ολυμπιακού Τόξου, συγκροτώντας πανίσχυρη τριάδα με τους Ευάγγελο Χαρίση και Αθανάσιο Δημόπουλο.",
+      "description_en": "U21 team recurve bronze (2023). The club's archival biographies record this achievement for Athanasios Dimopoulos, Nikolaos Ntamposis.",
+      "people": [
+        "arch-9d63723c6ec9",
+        "arch-6e4fe6e8f1e9"
+      ],
+      "source": "hall-of-fame-people.json",
+      "source_review_group": "review-0169",
+      "verification": "existing-biographies"
+    },
+    {
+      "id": "archive-0172",
+      "date": "2023",
+      "date_precision": "year",
+      "category": "Σκοποβολή",
+      "category_en": "Shooting",
+      "title": "Ολυμπιακή πρόκριση της Χριστίνας Μόσχη",
+      "title_en": "Christina Moschi secures Olympic qualification",
+      "description": "Στο Ευρωπαϊκό Πρωτάθλημα Σκοποβολής στο Ταλίν της Εσθονίας (Μάρτιος 2023) κατέκτησε την 4η θέση στον τελικό εξασφαλίζοντας την απευθείας ολυμπιακή πρόκριση.",
+      "description_en": "Christina Moschi secures Olympic qualification (2023). The club's archival biographies record this achievement for Christina Moschi.",
+      "people": [
+        "arch-87ea05ce738a"
+      ],
+      "source": "hall-of-fame-people.json",
+      "source_review_group": "review-0172",
+      "verification": "existing-biographies"
+    },
+    {
       "id": "moment-69-2024",
       "date": "2024",
       "date_precision": "year",
@@ -1404,6 +1545,109 @@
       "source": "70-stigmes.html",
       "source_moment": 69,
       "verification": "published-club-history"
+    },
+    {
+      "id": "archive-0191",
+      "date": "2025",
+      "date_precision": "year",
+      "category": "Πάλη",
+      "category_en": "Wrestling",
+      "title": "Παγκόσμιο ασημένιο U17 του Δημήτρη Σουλή",
+      "title_en": "Dimitris Soulis wins U17 world silver",
+      "description": "Στις 30 Ιουλίου 2025, στο Παγκόσμιο Πρωτάθλημα Πάλης U17 στα Άνω Λιόσια, κατέκτησε το ασημένιο μετάλλιο (2ος στον κόσμο) στα 71 κιλά ελληνορωμαϊκής πάλης.",
+      "description_en": "Dimitris Soulis wins U17 world silver (2025). The club's archival biographies record this achievement for Dimitris Soulis.",
+      "people": [
+        "arch-f3d93442851f"
+      ],
+      "source": "hall-of-fame-people.json",
+      "source_review_group": "review-0191",
+      "verification": "existing-biographies"
+    },
+    {
+      "id": "archive-0199",
+      "date": "2025",
+      "date_precision": "year",
+      "category": "Πάλη",
+      "category_en": "Wrestling",
+      "title": "Ευρωπαϊκό χρυσό U15 του Νίκου Ζινίσα",
+      "title_en": "Nikos Zinisas wins European U15 gold",
+      "description": "Εκπροσωπώντας τον Αρχέλαο και την Εθνική Ομάδα, κατέκτησε το Χρυσό Μετάλλιο στο Ευρωπαϊκό Πρωτάθλημα Πάλης U15 στην Ιταλία (Ιούλιος 2025).",
+      "description_en": "Nikos Zinisas wins European U15 gold (2025). The club's archival biographies record this achievement for Nikos Zinisa.",
+      "people": [
+        "arch-2616694d9908"
+      ],
+      "source": "hall-of-fame-people.json",
+      "source_review_group": "review-0199",
+      "verification": "existing-biographies"
+    },
+    {
+      "id": "archive-0205",
+      "date": "2025",
+      "date_precision": "year",
+      "category": "Τοξοβολία",
+      "category_en": "Archery",
+      "title": "Ευρωπαϊκά μετάλλια της Δωροθέας Ποιμενίδου",
+      "title_en": "European Para-Archery medals for Dorothea Poimenidou",
+      "description": "Κατέκτησε το ασημένιο μετάλλιο στο Ευρωπαϊκό Κύπελλο Παρα-Τοξοβολίας στη Ρώμη (Ιούνιος 2025) και το χάλκινο μετάλλιο στο Ευρωπαϊκό Κύπελλο στο Νόβε Μέστο της Τσεχίας (2025).",
+      "description_en": "European Para-Archery medals for Dorothea Poimenidou (2025). The club's archival biographies record this achievement for Dorothea Poimenidou.",
+      "people": [
+        "arch-aaa2527334ce"
+      ],
+      "source": "hall-of-fame-people.json",
+      "source_review_group": "review-0205",
+      "verification": "existing-biographies"
+    },
+    {
+      "id": "archive-0206",
+      "date": "2025",
+      "date_precision": "year",
+      "category": "Τοξοβολία",
+      "category_en": "Archery",
+      "title": "Πανελλήνιο ρεκόρ μικτού ομαδικού U21",
+      "title_en": "Greek U21 mixed-team archery record",
+      "description": "Κάτοχος του Πανελληνίου Ρεκόρ Μικτού Ομαδικού U21 με 1216/1440 (2025), κατετάγη 9ος στην παγκόσμια κατάταξη εφήβων της World Archery και 7ος στους Μεσογειακούς Αγώνες του 2026.",
+      "description_en": "Greek U21 mixed-team archery record (2025). The club's archival biographies record this achievement for Evangelos Charisis.",
+      "people": [
+        "arch-955a386f547f"
+      ],
+      "source": "hall-of-fame-people.json",
+      "source_review_group": "review-0206",
+      "verification": "existing-biographies"
+    },
+    {
+      "id": "archive-0209",
+      "date": "2026",
+      "date_precision": "year",
+      "category": "Πάλη",
+      "category_en": "Wrestling",
+      "title": "Βαλκανικός τίτλος της Ιωάννας Ξενίδου",
+      "title_en": "Balkan wrestling gold for Ioanna Xenidou",
+      "description": "Τον Οκτώβριο του 2026 κατέκτησε το χρυσό μετάλλιο στο Βαλκανικό Πρωτάθλημα Πάλης στην Κοπρίβνιτσα της Κροατίας. Κατέκτησε χρυσό μετάλλιο στο Πανελλήνιο Πρωτάθλημα U17 (2026) και ασημένιο (2025).",
+      "description_en": "Balkan wrestling gold for Ioanna Xenidou (2026). The club's archival biographies record this achievement for Ioanna Xenidou, Pavlos Tsentidis.",
+      "people": [
+        "arch-957a876e770d",
+        "arch-b48656c62600"
+      ],
+      "source": "hall-of-fame-people.json",
+      "source_review_group": "review-0209",
+      "verification": "existing-biographies"
+    },
+    {
+      "id": "archive-0215",
+      "date": "2026",
+      "date_precision": "year",
+      "category": "Πάλη",
+      "category_en": "Wrestling",
+      "title": "Βαλκανικός τίτλος του Νίκου Ζινίσα",
+      "title_en": "Balkan title for Nikos Zinisas",
+      "description": "Το 2026 αναδείχθηκε Χρυσός Βαλκανιονίκης Ελληνορωμαϊκής Πάλης, επιβεβαιώνοντας την απόλυτη κυριαρχία του στα διεθνή ταπί και τιμώμενος επίσημα από τον Δήμο Κατερίνης.",
+      "description_en": "Balkan title for Nikos Zinisas (2026). The club's archival biographies record this achievement for Nikos Zinisa.",
+      "people": [
+        "arch-2616694d9908"
+      ],
+      "source": "hall-of-fame-people.json",
+      "source_review_group": "review-0215",
+      "verification": "existing-biographies"
     },
     {
       "id": "administration-2026",
