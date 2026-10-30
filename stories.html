@@ -1425,14 +1425,14 @@ function storyParagraphs(raw){
  const quote=q=>'<blockquote class="story-dialogue"><p>'+esc(q.trim())+'</p></blockquote>';
  return paragraphs.map(paragraph=>{
   // Only speech-like quotes become pull-quotes; titles and quoted nicknames stay in prose.
-  const qre=/«[^»\n]{12,}[!?]»/g;
+  const qre=/«[^»\n]{12,}[!?;;]»/g;
   let match,last=0,html='',found=false;
   while((match=qre.exec(paragraph))!==null){
    html+=prose(paragraph.slice(last,match.index))+quote(match[0]);
    last=match.index+match[0].length;found=true;
   }
   if(found)return html+prose(paragraph.slice(last));
-  if(/^\\s*[—–-]\\s+/.test(paragraph)||(/^«/.test(paragraph)&&/»$/.test(paragraph)))return quote(paragraph);
+  if(/^\s*[—–-]\s+/.test(paragraph)||(/^«/.test(paragraph)&&/»$/.test(paragraph)))return quote(paragraph);
   return prose(paragraph);
  }).join('');
 }
