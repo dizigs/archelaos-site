@@ -1,3 +1,10 @@
+## V3 historical event connections — 30/10/2026
+
+- Added `archelaos-history-events.json` with three conservatively curated event-to-person relationships grounded in existing published biographies.
+- Published `/history-events.html`, linking those events directly to the corresponding individual biography pages; added Hall of Fame link and sitemap entry.
+- Added CI validation for event structure, unique IDs and referenced canonical person IDs.
+- Source-status note makes clear that existing biographies are not independently verified archival scans. No private Drive scans or photos were published.
+
 ## V3 source integrity — 30/10/2026
 
 - Prevented biography regeneration from erasing 140 existing alternate name spellings from `archelaos-person-index.json`. The generator retains editorial aliases by person ID and merges canonical aliases.
