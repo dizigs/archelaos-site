@@ -1,3 +1,9 @@
+## V3 groundwork — 30/10/2026
+
+- Removed fixed 682-entry limit from Hall of Fame JSON loader; it now validates that `count` matches the actual number of people.
+- Extended offline CI verification to flag stale profile name/biography text and missing profile URLs in sitemap after any changes to the canonical JSON.
+- Archival Drive evidence stays private. Adding people still requires regenerating new static profiles and updating the index/sitemap; CI now flags omissions instead of silently publishing incomplete updates.
+
 ## v2.2 — 30/10/2026 — Ευρετηριάσιμα βιογραφικά
 
 - Δημιουργήθηκαν 682 αυτόνομες, στατικές σελίδες βιογραφικών κάτω από `people/<id>.html`, με κείμενο ελληνικών/αγγλικών όπου υπάρχει, μοναδικό τίτλο, περιγραφή, canonical URL, Open Graph και δομημένα δεδομένα Schema.org Person.
