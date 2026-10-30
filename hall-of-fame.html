@@ -1045,7 +1045,7 @@ function setupPeopleReveals(){const nodes=document.querySelectorAll('.person.rev
   const response=await fetch('hall-of-fame-people.json',{cache:'no-cache'});
   if(!response.ok)throw new Error('HTTP '+response.status);
   const data=await response.json();
-  if(!data||!Array.isArray(data.people)||data.people.length!==682||data.people.some(p=>!p.id||!p.name))throw new Error('Invalid Hall of Fame data');
+  if(!data||!Array.isArray(data.people)||data.count!==data.people.length||data.people.some(p=>!p.id||!p.name))throw new Error('Invalid Hall of Fame data');
   people=data.people;
   $('#hall-hero-total').textContent=people.length;
   $('#hall-number-total').textContent=people.length;
