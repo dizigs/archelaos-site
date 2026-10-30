@@ -79,6 +79,33 @@ def check_people(path: str, data: object) -> None:
         error(f"{path}: duplicate person IDs")
 
 
+
+def check_biography_index(index: list, hall: dict) -> None:
+    """Enforce source/index consistency; report ambiguous names without merging people."""
+    people = {p["id"]: p for p in hall["people"] if isinstance(p, dict) and p.get("id")}
+    variants: dict[str, set[str]] = {}
+    for row in index:
+        if not isinstance(row, dict) or not isinstance(row.get("id"), str):
+            continue
+        identifier = row["id"]
+        canonical = people.get(identifier)
+        if canonical is None:
+            continue
+        if row.get("name") != canonical.get("name"):
+            error(f"Biography index: name differs for ID {identifier}")
+        aliases = row.get("names", [])
+        if not isinstance(aliases, list) or not all(isinstance(a, str) for a in aliases):
+            error(f"Biography index: malformed aliases for ID {identifier}")
+            aliases = []
+        for name in [row.get("name", ""), row.get("name_en", ""), *aliases]:
+            key = " ".join(str(name).casefold().split())
+            if len(key.split()) >= 2:
+                variants.setdefault(key, set()).add(identifier)
+    ambiguous = [(name, ids) for name, ids in variants.items() if len(ids) > 1]
+    for name, ids in sorted(ambiguous):
+        print(f"NOTICE: ambiguous biography name {name!r}; auto-linking skips {len(ids)} matching IDs")
+    print(f"Biography index verified: {len(people)} records, {len(ambiguous)} ambiguous name spellings")
+
 def check_sitemap() -> None:
     try:
         xml = ET.parse(ROOT / "sitemap.xml")
@@ -133,6 +160,7 @@ def main() -> int:
                 error("archelaos-person-index.json: malformed rows or duplicate IDs")
             if set(index_ids) != canonical_ids:
                 error("archelaos-person-index.json: IDs differ from canonical Hall of Fame records")
+            check_biography_index(index, hall)
     links_source = (ROOT / "archelaos-person-links.js").read_text(encoding="utf-8")
     if "DATA_URL='hall-of-fame-people.json'" not in links_source:
         error("Biography link script must load the canonical Hall of Fame JSON")
