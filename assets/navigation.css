@@ -127,3 +127,12 @@ body header.arch-anniversary-header,body header.mast,body #mainHeader,body .muse
 /* Shared navigation typography, independent of historic page-local styles. */
 #arch-global-nav-root .asn-topbar,#arch-global-nav-root .asn-desktop,#arch-global-nav-root .asn-desktop a,#arch-global-nav-root .asn-desktop button,#arch-global-nav-root .asn-mobile-actions button{font-family:Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif!important}
 #arch-global-nav-root button[data-asn-language]{pointer-events:auto!important;position:relative!important;z-index:2!important;cursor:pointer!important}
+
+/* V3 mobile: keep crest visible without forcing a 52px width on narrow screens. */
+@media(max-width:600px){
+ #arch-global-nav-root .asn-brand img.asn-crest{width:41px!important;height:41px!important;min-width:41px!important;min-height:41px!important;max-width:41px!important}
+ #arch-global-nav-root .asn-brand-lines{min-width:0!important}
+}
+@media(max-width:370px){
+ #arch-global-nav-root .asn-brand img.asn-crest{width:36px!important;height:36px!important;min-width:36px!important;min-height:36px!important;max-width:36px!important}
+}
