@@ -46,6 +46,7 @@
 .language:hover{background:rgba(215,180,99,.2);border-color:#e6c985;transform:translateY(-2px)}
 @media(prefers-reduced-motion:reduce){.nav a,.nav a::after,.language{transition:none!important}.nav a:hover,.language:hover{transform:none}}
 @media(max-width:650px){.hero::before{bottom:5px;font-size:16vw}.hero::after{font-size:65vw;top:7px;right:-5%}}
+.hall-history-link{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid #c7a65e;border-radius:999px;padding:9px 15px;margin:12px 0 16px;color:#c7a65e;font-weight:700;font-size:13px;text-decoration:none;line-height:1.4;max-width:100%;transition:background .2s,color .2s}.hall-history-link:hover{background:#c7a65e;color:#073d2a}.hall-history-link:focus-visible{outline:3px solid #c7a65e;outline-offset:3px}@media(max-width:640px){.hall-history-link{font-size:12px;padding:8px 12px;white-space:normal;text-align:center}}
 </style><style id="anniv-mobile-drawer-2026">
 /* Anniversary pages: mobile navigation uses the exact visual grammar of the
    main-page #mobileMenu compact drawer (not the previous generic popover). */
@@ -962,7 +963,7 @@ body{background:#f8f6ef}
     </div>
     <aside class="hall-hero-stat" aria-label="Hall of Fame archive total">
       <span class="hall-stat-top" data-el="ΤΟ ΕΥΡΕΤΗΡΙΟ" data-en="THE DIRECTORY">ΤΟ ΕΥΡΕΤΗΡΙΟ</span>
-      <a href="history-events.html" style="display:inline-flex;align-items:center;gap:8px;border:1px solid #c7a65e;border-radius:999px;padding:9px 15px;margin:10px 0;color:#c7a65e;font-weight:700;text-decoration:none">Ιστορικά γεγονότα &amp; πρόσωπα ↗</a><div></div><strong id="hall-hero-total">682</strong>
+      <a class="hall-history-link" href="history-events.html" data-el="Ιστορικά γεγονότα &amp; πρόσωπα ↗" data-en="Historical events &amp; people ↗">Ιστορικά γεγονότα &amp; πρόσωπα ↗</a><strong id="hall-hero-total">682</strong>
       <span class="hall-stat-label" data-el="πρόσωπα · μία κοινή ιστορία" data-en="people · one shared history">πρόσωπα · μία κοινή ιστορία</span>
       <span class="hall-stat-divider"></span>
       <span class="hall-stat-years">1956 <span>—</span> 2026</span>
