@@ -149,7 +149,7 @@ def main() -> int:
         if not file.is_file():
             continue
         html = file.read_text(encoding="utf-8")
-        canonical = [tag for tag in re.findall(r"<link\\b[^>]*>", html, re.IGNORECASE) if re.search(r"""\brel\s*=\s*["']canonical["']""", tag, re.IGNORECASE)]
+        canonical = [tag for tag in re.findall(r"<link\b[^>]*>", html, re.IGNORECASE) if re.search(r"""\brel\s*=\s*["']canonical["']""", tag, re.IGNORECASE)]
         expected = "https://archelaos.club/" + ("" if page == "index.html" else page)
         if len(canonical) != 1 or not re.search(r"""\bhref\s*=\s*["']""" + re.escape(expected) + r"""["']""", canonical[0], re.IGNORECASE):
             error(f"{page}: missing, duplicate or incorrect canonical URL (expected {expected})")
