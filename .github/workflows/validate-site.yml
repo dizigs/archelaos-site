@@ -26,6 +26,8 @@ jobs:
         run: node tools/sync_biographies.mjs --check
       - name: Verify Stories cross-links against canonical sources
         run: node tools/sync_story_links.mjs --check
+      - name: Verify Story navigation manifest synchronization
+        run: node tools/sync_story_relations.mjs --check
       - name: Check JavaScript syntax
         run: |
           find . -type f -name '*.js' -not -path './.git/*' -print0 | xargs -0 -r -n1 node --check
