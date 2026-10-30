@@ -1,3 +1,10 @@
+## V3 shared footer consolidation — 30/10/2026
+
+- Established single-source `assets/footer.js` and `assets/footer.css` (green/gold/cream). Removed large duplicated inline `<footer>` markup from all ten primary HTML pages.
+- Migrated the timeline and four curated linked biography pages to shared global navigation/footer; the biography generator now emits the same shared assets for future regenerations.
+- Extended `assets/navigation.js` to include the historical timeline and expanded CI to reject inline footer copies on primary pages.
+- Remaining cleanup: old footer-related CSS and legacy footer-specific JS embedded in some pages should be reviewed before removal to avoid affecting unrelated layout; the remaining legacy generated biographies will be migrated when regenerated.
+
 ## V3 navigation & footer polish — 30/10/2026
 
 - Redesigned the `history-events.html` museum navigation and footer to echo the site's green/gold heritage visual language; added accessible mobile navigation and contextual museum links.
