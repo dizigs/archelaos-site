@@ -11,22 +11,19 @@ const create=()=>{
  if(dlg)return dlg;
  dlg=document.createElement('dialog');dlg.className='arc-bio-dialog';
  dlg.setAttribute('aria-labelledby','arc-bio-name');
- dlg.innerHTML='<div class="arc-bio-inner"><button class="arc-bio-close" type="button" aria-label="Close">×</button><div class="arc-bio-mark" aria-hidden="true"></div><div class="arc-bio-role"></div><h2 id="arc-bio-name"></h2><div class="arc-bio-text"></div><div class="arc-bio-sources"></div><div class="arc-bio-footer"><a class="arc-bio-full" href="#">Πλήρες βιογραφικό</a></div></div>';
+ dlg.innerHTML='<div class="arc-bio-inner"><button class="arc-bio-close" type="button" aria-label="Close">×</button><div class="arc-bio-role"></div><h2 id="arc-bio-name"></h2><div class="arc-bio-text"></div><div class="arc-bio-sources"></div></div>';
  document.body.append(dlg);dlg.querySelector('.arc-bio-close').addEventListener('click',()=>dlg.close());
  dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close()});return dlg;
 };
-const surname=name=>String(name||'').replace(/\([^)]*\)/g,' ').trim().split(/\s+/).filter(Boolean).at(-1)||'';
 let current;
 const render=p=>{
  const d=create(), en=isEnglish(), t=(el,english)=>en?(english||el):el;
- d.querySelector('.arc-bio-mark').textContent=surname(t(p.name,p.name_en)).match(/\p{L}/u)?.[0]||'•';
  d.querySelector('.arc-bio-role').textContent=t(p.role,p.role_en);
  d.querySelector('#arc-bio-name').textContent=t(p.name,p.name_en);
  d.querySelector('.arc-bio-text').textContent=t(p.bio,p.bio_en);
  const sources=d.querySelector('.arc-bio-sources');sources.replaceChildren();
  const refs=(p.refs||[]).filter(x=>{try{return ['https:','http:'].includes(new URL(x.url).protocol)}catch{return false}});
  if(refs.length){const label=document.createElement('strong');label.textContent=en?'Sources':'Πηγές';sources.append(label);for(const ref of refs){const a=document.createElement('a');a.href=ref.url;a.rel='noopener noreferrer';a.target='_blank';a.textContent=ref.label||ref.url;sources.append(a)}}
- const full=d.querySelector('.arc-bio-full');full.href='/people/'+encodeURIComponent(p.id)+'.html';full.textContent=en?'Open full biography page':'Άνοιγμα πλήρους σελίδας';
  d.querySelector('.arc-bio-close').setAttribute('aria-label',en?'Close biography':'Κλείσιμο βιογραφικού');
 };
 document.addEventListener('click',async e=>{
