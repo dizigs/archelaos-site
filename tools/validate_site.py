@@ -220,7 +220,7 @@ def main() -> int:
             if not profile.is_file():
                 continue
             html = profile.read_text(encoding="utf-8")
-            if "<h1>" + escape(str(person.get("name", "")), quote=True).replace("&#x27;", "&#39;") + "</h1>" not in html:
+            if ">" + escape(str(person.get("name", "")), quote=True).replace("&#x27;", "&#39;") + "</h1>" not in html:
                 error(f"Outdated profile name: {person['id']}")
             bio = escape(str(person.get("bio") or ""), quote=True).replace("&#x27;", "&#39;")
             if bio and '<div class="bio">' + bio + '</div>' not in html:
