@@ -12,8 +12,8 @@
 - `board.html`, `contact.html`, `sponsors.html`, `retro-matches.html` — επιμέρους σελίδες.
 - `images/` — φωτογραφίες περιεχομένου.
 - `assets/` — assets και κώδικας πλοήγησης (CSS/JS, έμβλημα).
-- `shared/` — κοινά scripts και styles της ιστοσελίδας.
-- `archelaos-people.json`, `archelaos-person-index.json`, `archelaos-person-links.js` — δεδομένα και συνδέσεις προσώπων. **Μην τα μετακινείτε χωρίς ενημέρωση των αναφορών.**
+- `hall-of-fame-people.json` — κύριο αρχείο των 682 βιογραφικών του Hall of Fame.
+- `archelaos-people.json`, `archelaos-person-index.json`, `archelaos-person-links.js` — δεδομένα και συνδέσεις προσώπων για τις υπόλοιπες σελίδες. **Μην τα μετακινείτε χωρίς ενημέρωση των αναφορών.**
 - Εικόνες λογοτύπων, favicons, `social-preview.jpg`, `robots.txt`, `sitemap.xml` — διατηρούνται στη ρίζα, ώστε να μη σπάσουν παλιές διαδρομές και μεταδεδομένα.
 - `docs/` — εσωτερική τεκμηρίωση και οδηγίες συντήρησης.
 
