@@ -1,3 +1,9 @@
+## V3 footer cleanup — 30/10/2026
+
+- Removed 27 obsolete standalone footer-only CSS `<style>` blocks from nine primary pages (~45 KB), now superseded by `assets/footer.css`.
+- Kept mixed selectors and scripts that also affect live site sections, avoiding broad text deletion.
+- The unified footer remains the only footer HTML source in `assets/footer.js`. Next migration target: remaining static person pages.
+
 ## V3 shared footer consolidation — 30/10/2026
 
 - Established single-source `assets/footer.js` and `assets/footer.css` (green/gold/cream). Removed large duplicated inline `<footer>` markup from all ten primary HTML pages.
