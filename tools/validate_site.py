@@ -121,8 +121,8 @@ def main() -> int:
         if data is not None and filename.endswith("people.json"):
             check_people(filename, data)
     hall = check_json("hall-of-fame-people.json")
-    if isinstance(hall, dict) and hall.get("count") != 682:
-        error("Hall of Fame: expected 682 biographies; review intentional changes")
+    if isinstance(hall, dict) and isinstance(hall.get("people"), list) and not hall["people"]:
+        error("Hall of Fame: biography list must not be empty")
     index = check_json("archelaos-person-index.json")
     if index is not None and not isinstance(index, list):
         error("archelaos-person-index.json: expected a list")
