@@ -143,6 +143,21 @@ def main() -> int:
             error(f"{page}: missing page title")
         if not re.search(r'<meta\b[^>]*\bname=["\']description["\']', text, re.IGNORECASE):
             error(f"{page}: missing SEO description")
+    # Shared footer and navigation remain single-source components on primary pages.
+    for page in PAGES:
+        text_path = ROOT / page
+        if not text_path.is_file():
+            continue
+        html = text_path.read_text(encoding="utf-8")
+        if '/assets/footer.js' not in html or '/assets/footer.css' not in html:
+            error(f"{page}: missing common footer assets")
+        if re.search(r"<footer\\b", html, re.IGNORECASE):
+            error(f"{page}: duplicated inline footer markup")
+    if not (ROOT / "assets/footer.js").is_file() or not (ROOT / "assets/footer.css").is_file():
+        error("Common footer assets are missing")
+    for page in ("history-events.html",):
+        if '/assets/navigation.js' not in (ROOT / page).read_text(encoding="utf-8"):
+            error(f"{page}: missing shared navigation")
     for filename in JSON_FILES:
         data = check_json(filename)
         if data is not None and filename.endswith("people.json"):
