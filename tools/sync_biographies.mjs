@@ -27,12 +27,14 @@ const html=p=>{
  '<html lang="el"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="'+esc(description)+'"><meta name="robots" content="index,follow"><title>'+esc(title)+'</title><link rel="canonical" href="'+esc(url)+'"><meta property="og:type" content="profile"><meta property="og:site_name" content="Γ.Α.Σ. Αρχέλαος Κατερίνης"><meta property="og:title" content="'+esc(title)+'"><meta property="og:description" content="'+esc(description)+'"><meta property="og:url" content="'+esc(url)+'"><meta property="og:image" content="https://archelaos.club/social-preview.jpg"><style>:root{color-scheme:light}*{box-sizing:border-box}body{margin:0;font:17px/1.7 system-ui,-apple-system,Segoe UI,sans-serif;background:#f8f6ef;color:#18372a}header{background:#073d2a;color:white;padding:24px max(20px,calc((100% - 960px)/2))}header a{color:white;text-decoration:none}header img{width:58px;height:58px;vertical-align:middle;margin-right:15px}main{max-width:960px;margin:44px auto;padding:0 22px}article{background:white;border:1px solid #e3e4d8;border-radius:20px;padding:clamp(22px,5vw,56px)}h1{line-height:1.2;margin:16px 0 12px;font-size:clamp(29px,5vw,44px)}.category{color:#6d623e;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.05em}.bio{white-space:pre-line}a{color:#075239}a:focus-visible{outline:3px solid #c7a65e;outline-offset:3px}.return{display:inline-block;margin-top:25px;font-weight:700}footer{text-align:center;padding:32px}</style><script type="application/ld+json">'+schema+'</script></head>\n'+
  '<body><header><a href="/hall-of-fame.html"><img src="/archelaos-logo-gold.png" alt="" width="58" height="58">Γ.Α.Σ. Αρχέλαος Κατερίνης · Hall of Fame</a></header><main><article><div class="category">'+esc(p.role||'Hall of Fame')+'</div><h1>'+esc(p.name)+'</h1>'+(p.name_en&&p.name_en!==p.name?'<p lang="en">'+esc(p.name_en)+'</p>':'')+'<div class="bio">'+esc(p.bio||'')+'</div>'+(p.bio_en?'<section lang="en"><h2>Biography in English</h2><div class="bio">'+esc(p.bio_en)+'</div></section>':'')+(refs?'<section><h2>Πηγές</h2><ul>'+refs+'</ul></section>':'')+'<a class="return" href="/hall-of-fame.html">← Επιστροφή στο Hall of Fame</a></article></main><footer>Ιστορικό αρχείο Γ.Α.Σ. Αρχέλαος Κατερίνης</footer></body></html>';
 };
-const index=people.map(p=>({id:p.id,name:p.name,...(p.name_en?{name_en:p.name_en}:{}),names:[...new Set([p.name,...(p.names||[])])]}));
 const indexPath=join(root,'archelaos-person-index.json'),sitemapPath=join(root,'sitemap.xml');
+const existingIndex=JSON.parse(readFileSync(indexPath,'utf8'));
+const previousById=new Map(existingIndex.map(x=>[x.id,x]));
+// Alias spellings are editorial data: never discard them during regeneration.
+const index=people.map(p=>({id:p.id,name:p.name,...(p.name_en?{name_en:p.name_en}:{}),names:[...new Set([p.name,...(p.names||[]),...(previousById.get(p.id)?.names||[])])]}));
 const urlLines=people.map(p=>'  <url><loc>https://archelaos.club/people/'+p.id+'.html</loc></url>').join('\n');
 const sitemapBase=readFileSync(sitemapPath,'utf8').replace(/  <url><loc>https:\/\/archelaos\.club\/people\/[a-z0-9-]+\.html<\/loc><\/url>\n?/g,'');
 const sitemap=sitemapBase.replace('</urlset>',urlLines+'\n</urlset>');
-const existingIndex=JSON.parse(readFileSync(indexPath,'utf8'));
 let problems=[];
 if(mode==='--write'){
  mkdirSync(join(root,'people'),{recursive:true});
@@ -48,6 +50,7 @@ if(mode==='--write'){
   const body=readFileSync(path,'utf8');
   if(!body.includes('<h1>'+esc(p.name)+'</h1>')||!body.includes('<div class="bio">'+esc(p.bio||'')+'</div>'))problems.push('Outdated profile '+p.id);
   if(!indexed.has(p.id)||indexed.get(p.id).name!==p.name)problems.push('Outdated index '+p.id);
+  if(indexed.has(p.id)&&((p.names||[]).some(n=>!indexed.get(p.id).names?.includes(n))))problems.push('Missing canonical alias '+p.id);
   if(!sitemapBase.includes('</urlset>')||!readFileSync(sitemapPath,'utf8').includes('/people/'+p.id+'.html</loc>'))problems.push('Missing sitemap '+p.id);
  }
  if(existingIndex.length!==people.length)problems.push('Index count mismatch');
