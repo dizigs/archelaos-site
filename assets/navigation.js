@@ -113,7 +113,7 @@
   }
   applySharedLanguage(saved);
  }}catch(e){}
- $('[data-asn-language]').forEach(b=>b.addEventListener('click',toggleLanguage));
+ $$('[data-asn-language]').forEach(b=>b.addEventListener('click',toggleLanguage));
  if(typeof MutationObserver!=='undefined'){
   new MutationObserver(sync).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
   new MutationObserver(sync).observe(document.body,{attributes:true,attributeFilter:['class']});
