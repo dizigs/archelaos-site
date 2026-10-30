@@ -1386,6 +1386,21 @@ a.story-museum-back:hover{background:#ede1c9!important;color:#073d2a!important;t
 a.story-museum-back:focus-visible{outline:3px solid #c7a65e;outline-offset:3px}
 @media(max-width:600px){a.story-museum-back{padding:12px 14px!important}}
 </style>
+
+<style id="arch-navigation-visibility-repair">
+/* Explicit navigation visibility. No changes to link cards or menu scripts. */
+#mainHeader{position:relative;z-index:1000}
+#mainHeader .arch-anniversary-actions{display:flex!important;visibility:visible!important;opacity:1!important}
+@media(min-width:1161px){
+ #mainHeader .arch-anniversary-nav{display:flex!important;visibility:visible!important;opacity:1!important}
+ #mainHeader .arch-anniversary-menu-trigger{display:none!important}
+}
+@media(max-width:1160px){
+ #mainHeader .arch-anniversary-nav{display:none!important}
+ #mainHeader .arch-anniversary-menu-trigger{display:inline-flex!important;visibility:visible!important;opacity:1!important;pointer-events:auto!important}
+ #mainHeader .arch-cinematic-menu.menu-open{display:block!important;visibility:visible!important;opacity:1!important}
+}
+</style>
 </head>
 <body>
 <script src="assets/navigation.js"></script>
