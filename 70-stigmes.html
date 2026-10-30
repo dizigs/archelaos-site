@@ -1029,4 +1029,5 @@ document.addEventListener('click',function(e){const btn=e.target.closest('[data-
 close.addEventListener('click',finish);modal.addEventListener('click',e=>{if(e.target===modal)finish()});
 document.addEventListener('keydown',e=>{if(modal.hidden&&(e.key==='Enter'||e.key===' ')){const card=e.target.closest('[data-story-card]');if(card){e.preventDefault();show(card);}return;}if(modal.hidden)return;if(e.key==='Escape'){e.preventDefault();finish()}if(e.key==='Tab'){e.preventDefault();close.focus()}});
 })();</script><script src="/assets/footer.js" defer></script>
+<script src="/assets/navigation.js" defer></script>
 </body></html>
