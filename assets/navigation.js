@@ -20,7 +20,7 @@
  const active=(href)=>href.split('#')[0]===pageName && !href.includes('#');
  const bi=(el,en)=>`<span data-asn-el="${el}" data-asn-en="${en}">${el}</span>`;
  const arrow='<svg class="asn-down" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
- const link=(i,cls='')=>`<a class="${cls}${active(ITEMS[i].href)?' asn-active':''}" href="${ITEMS[i].href}"${active(ITEMS[i].href)?' aria-current="page"':''}>${bi(ITEMS[i].el,ITEMS[i].en)}</a>`;
+ const link=(i,cls='')=>{const current=active(ITEMS[i].href);return `<a class="${cls}${current?' asn-active':''}" href="${ITEMS[i].href}"${current?' aria-current="page"':''}>${bi(ITEMS[i].el,ITEMS[i].en)}</a>`;};
  const dropdown=(key,el,en,indices)=>`<div class="asn-dropdown" data-asn-dropdown="${key}"><button class="asn-drop-trigger${indices.some(i=>active(ITEMS[i].href))?' asn-active':''}" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="asn-drop-${key}">${bi(el,en)}${arrow}</button><div class="asn-drop-panel" id="asn-drop-${key}">${indices.map(i=>link(i)).join('')}</div></div>`;
  const mobileLink=(i)=>`<a style="--asn-order:${i+1}" class="asn-m-link" href="${ITEMS[i].href}"${active(ITEMS[i].href)?' aria-current="page"':''}><span class="asn-m-num" aria-hidden="true">${String(i+1).padStart(2,'0')}</span>${bi(ITEMS[i].el,ITEMS[i].en)}<span class="asn-m-arrow" aria-hidden="true">›</span></a>`;
  const root=document.createElement('div');root.id='arch-global-nav-root';root.setAttribute('role','banner');
