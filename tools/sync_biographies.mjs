@@ -52,7 +52,7 @@ if(mode==='--write'){
   if(!existsSync(path)){problems.push('Missing profile '+p.id);continue}
   const body=readFileSync(path,'utf8');
   if(!(body.includes('<h1>'+esc(p.name)+'</h1>')||body.includes('>'+esc(p.name)+'</h1>'))||!body.includes('<div class="bio">'+esc(p.bio||'')+'</div>'))problems.push('Outdated profile '+p.id);
-  if(relatedHistory(p)&&!body.includes(relatedHistory(p)))problems.push('Missing historical relationships '+p.id);
+  if(relatedHistory(p)&&!historyEvents.filter(e=>Array.isArray(e.people)&&e.people.includes(p.id)).every(e=>body.includes('/history-events.html#'+esc(e.id))))problems.push('Missing historical relationships '+p.id);
   if(!indexed.has(p.id)||indexed.get(p.id).name!==p.name)problems.push('Outdated index '+p.id);
   if(indexed.has(p.id)&&((p.names||[]).some(n=>!indexed.get(p.id).names?.includes(n))))problems.push('Missing canonical alias '+p.id);
   if(!sitemapBase.includes('</urlset>')||!readFileSync(sitemapPath,'utf8').includes('/people/'+p.id+'.html</loc>'))problems.push('Missing sitemap '+p.id);
