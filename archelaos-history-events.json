@@ -1092,6 +1092,22 @@
       "verification": "existing-biographies"
     },
     {
+      "id": "diamantopoulos-hurdles-record-1993",
+      "date": "1993",
+      "date_precision": "year",
+      "category": "Στίβος",
+      "category_en": "Athletics",
+      "title": "Πανελλήνιο ρεκόρ εμποδίων του Κώστα Διαμαντόπουλου",
+      "title_en": "Kostas Diamantopoulos Sets National Youth Hurdles Record",
+      "description": "Το 1993 ο Κώστας Διαμαντόπουλος σημείωσε πανελλήνιο ρεκόρ παίδων κλειστού στίβου στα 60 μ. με εμπόδια με χρόνο 8,37 δευτερολέπτων.",
+      "description_en": "In 1993, Kostas Diamantopoulos set a Greek boys' indoor 60-metre hurdles record in 8.37 seconds.",
+      "people": [
+        "arch-5bfc11417f2c"
+      ],
+      "source": "hall-of-fame-people.json",
+      "verification": "existing-biographies"
+    },
+    {
       "id": "eleftheroudis-presidency-1993",
       "date": "1993-02-27",
       "date_precision": "day",
@@ -1142,6 +1158,39 @@
       "verification": "published-club-history"
     },
     {
+      "id": "archery-junior-team-silver-1994",
+      "date": "1994",
+      "date_precision": "year",
+      "category": "Τοξοβολία",
+      "category_en": "Archery",
+      "title": "Ασημένια πανελλήνια διάκριση της εφηβικής ομάδας τοξοβολίας",
+      "title_en": "Junior Archery Team Wins National Silver",
+      "description": "Το 1994 η εφηβική ομάδα τοξοβολίας του Αρχέλαου κατέκτησε τη δεύτερη θέση στο Πανελλήνιο Πρωτάθλημα Ομαδικού. Στα καταγεγραμμένα μέλη της περιλαμβάνονται ο Ιωάννης Απατσίδης και ο Μίλτος Αντωνάτος.",
+      "description_en": "In 1994, Archelaos's junior archery team placed second at the Greek national team championships. Recorded team members include Ioannis Apatsidis and Miltos Antonatos.",
+      "people": [
+        "arch-3a6035bb4f86",
+        "arch-7f975b16bebf"
+      ],
+      "source": "hall-of-fame-people.json",
+      "verification": "existing-biographies"
+    },
+    {
+      "id": "samakovlis-wrestling-title-1994",
+      "date": "1994",
+      "date_precision": "year",
+      "category": "Πάλη",
+      "category_en": "Wrestling",
+      "title": "Πανελλήνιος τίτλος πάλης εφήβων του Κώστα Σαμακοβλή",
+      "title_en": "Kostas Samakovlis Wins National Junior Wrestling Title",
+      "description": "Το 1994 ο Κώστας Σαμακοβλής αναδείχθηκε πρωταθλητής Ελλάδας εφήβων στην πάλη στην κατηγορία των 81 κιλών.",
+      "description_en": "In 1994, Kostas Samakovlis became Greek junior wrestling champion in the 81 kg category.",
+      "people": [
+        "arch-08bc7b724207"
+      ],
+      "source": "hall-of-fame-people.json",
+      "verification": "existing-biographies"
+    },
+    {
       "id": "koukodimos-national-record-1994",
       "date": "1994-06-05",
       "date_precision": "day",
@@ -1174,6 +1223,22 @@
       "verification": "published-club-history"
     },
     {
+      "id": "stamkopoulou-triple-jump-1995",
+      "date": "1995-05-27",
+      "date_precision": "day",
+      "category": "Στίβος",
+      "category_en": "Athletics",
+      "title": "Ρεκόρ συλλόγου της Αγγέλας Σταμκοπούλου στο τριπλούν",
+      "title_en": "Angela Stamkopoulou Sets Club Triple Jump Record",
+      "description": "Στις 27 Μαΐου 1995, στα «Δημάδεια» της Θεσσαλονίκης, η Αγγέλα Σταμκοπούλου σημείωσε 12,23 μ. στο τριπλούν, επίδοση που καταγράφεται ως ρεκόρ συλλόγου.",
+      "description_en": "On 27 May 1995, Angela Stamkopoulou recorded a 12.23-metre triple jump at the Dimadeia meeting in Thessaloniki, listed as an Archelaos club record.",
+      "people": [
+        "arch-1f676ccf0dab"
+      ],
+      "source": "hall-of-fame-people.json",
+      "verification": "existing-biographies"
+    },
+    {
       "id": "faka-junior-shooting-record-1996",
       "date": "1996",
       "date_precision": "year",
@@ -1201,6 +1266,41 @@
       "description_en": "In February 1996, Athina Papasotiriou set a Greek women's indoor pentathlon record with 4,251 points.",
       "people": [
         "arch-3e3c931a8dee"
+      ],
+      "source": "hall-of-fame-people.json",
+      "verification": "existing-biographies"
+    },
+    {
+      "id": "telidou-national-call-1997",
+      "date": "1997-01",
+      "date_precision": "month",
+      "category": "Καλαθοσφαίριση",
+      "category_en": "Basketball",
+      "title": "Κλήση της Δήμητρας Τελίδου στην Εθνική Γυναικών",
+      "title_en": "Dimitra Telidou Called Up to Greece Women's National Team",
+      "description": "Τον Ιανουάριο του 1997 η αθλήτρια μπάσκετ του Αρχέλαου Δήμητρα Τελίδου κλήθηκε στην Εθνική Ομάδα Γυναικών Ελλάδας, έπειτα από τις εμφανίσεις της στη Β΄ Εθνική.",
+      "description_en": "In January 1997, Archelaos basketball player Dimitra Telidou received a call-up to Greece's women's national team after her performances in the second national division.",
+      "people": [
+        "arch-fb8fb7dc8f22"
+      ],
+      "source": "hall-of-fame-people.json",
+      "verification": "existing-biographies"
+    },
+    {
+      "id": "boys-cross-country-silver-1997",
+      "date": "1997-02-23",
+      "date_precision": "day",
+      "category": "Στίβος",
+      "category_en": "Athletics",
+      "title": "Ασημένιο μετάλλιο της ομάδας παίδων στον ανώμαλο δρόμο",
+      "title_en": "Boys' Cross-Country Team Wins National Silver",
+      "description": "Στις 23 Φεβρουαρίου 1997 στο Ναύπλιο, η ομάδα παίδων του Αρχέλαου κατέκτησε τη δεύτερη πανελλήνια θέση στο ομαδικό πρωτάθλημα ανωμάλου δρόμου. Στα καταγεγραμμένα μέλη της περιλαμβάνονται οι Γιάννης Δημητσάκης, Στέλιος Νικολάου, Στέλιος Τσιουλάκης και Μιχάλης Γαλανός.",
+      "description_en": "On 23 February 1997 in Nafplio, Archelaos's boys' team finished second at the Greek national team cross-country championship. Recorded members include Giannis Dimitsakis, Stelios Nikolaou, Stelios Tsioulakis and Michalis Galanos.",
+      "people": [
+        "arch-99dd5db67eaf",
+        "arch-cf9a3ad2feb0",
+        "arch-fa8277316f82",
+        "arch-7a5c8ab3160a"
       ],
       "source": "hall-of-fame-people.json",
       "verification": "existing-biographies"
