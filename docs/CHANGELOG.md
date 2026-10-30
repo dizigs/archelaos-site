@@ -1,3 +1,13 @@
+## V3 maintenance and SEO verification — 31/10/2026
+
+- Improved offline asset checks to catch broken root-relative image, stylesheet and script paths, which previously bypassed validation.
+- Added canonical URL checks for all eight primary pages, checking uniqueness and consistency with https://archelaos.club/.
+- Updated the Hall of Fame title to remove the internal draft label (without changing biographies).
+- Improved full-card keyboard/click interaction on the featured Stories card without altering story content.
+- **Pending external verification:** Cloudflare routing and redirects for www.archelaos.club vs archelaos.club. An external web snapshot of www showed outdated site content; the apex host was not retrievable through that checker. Verify DNS/Pages custom domains, redirects, live deploy and HTTP response statuses before claiming resolution.
+- **Pending:** Google Search Console Page Indexing and Core Web Vitals reports, and current GitHub Actions outcome for the enhanced validator.
+- Biography content remains out of scope.
+
 ## V3 footer cleanup — 30/10/2026
 
 - Removed 27 obsolete standalone footer-only CSS `<style>` blocks from nine primary pages (~45 KB), now superseded by `assets/footer.css`.
