@@ -4,7 +4,7 @@
 - Added canonical URL checks for all eight primary pages, checking uniqueness and consistency with https://archelaos.club/.
 - Updated the Hall of Fame title to remove the internal draft label (without changing biographies).
 - Improved full-card keyboard/click interaction on the featured Stories card without altering story content.
-- **Pending external verification:** Cloudflare routing and redirects for www.archelaos.club vs archelaos.club. An external web snapshot of www showed outdated site content; the apex host was not retrievable through that checker. Verify DNS/Pages custom domains, redirects, live deploy and HTTP response statuses before claiming resolution.
+- **Domain check (user-confirmed, 31/10/2026):** The site owner verified the domain configuration and confirms it is satisfactory. No independent HTTP/redirect verification was performed in this maintenance pass.
 - **Pending:** Google Search Console Page Indexing and Core Web Vitals reports, and current GitHub Actions outcome for the enhanced validator.
 - Biography content remains out of scope.
 
