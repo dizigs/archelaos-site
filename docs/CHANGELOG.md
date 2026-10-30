@@ -1,3 +1,10 @@
+## V3 biography automation — 30/10/2026
+
+- Added `tools/sync_biographies.mjs` as the single command to regenerate all `people/*.html` pages, the person index and sitemap from `hall-of-fame-people.json` using `node tools/sync_biographies.mjs --write`.
+- Added non-mutating `--check` mode and wired it into GitHub Actions to catch missing or stale biography pages, person index entries and sitemap URLs.
+- Keep generated profile content in Git, so Cloudflare Pages can serve static pages without an extra deploy build command. GitHub Actions validates but does not auto-commit changes.
+- No historical documents or images were changed.
+
 ## V3 groundwork — 30/10/2026
 
 - Removed fixed 682-entry limit from Hall of Fame JSON loader; it now validates that `count` matches the actual number of people.
