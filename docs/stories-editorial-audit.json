@@ -1,0 +1,23 @@
+{
+  "status": "in_progress",
+  "scope": "21 existing Stories compared with user-supplied enriched narrative PDF",
+  "editorial_rules": [
+    "Maintain 21 canonical story cards; do not duplicate stories",
+    "Treat reconstructed dialogue as literary reconstruction unless backed by literal source",
+    "When PDF and existing content disagree on exact dates, check primary sports federation or source",
+    "Do not publish unverified statements as verbatim historical testimony"
+  ],
+  "reviewed": [
+    {
+      "story": 1,
+      "title": "Οι άστεγοι Κυπελλούχοι και το γήπεδο που έλειπε",
+      "finding": "PDF: 29 May 1994; prior site: 8 June 1994",
+      "decision": "Keep 8 June 1994: official Hellenic Handball Federation Cup winners list confirms date, venue, score",
+      "official_source": "https://www.handball.org.gr/competitions/all-time-cup-winners",
+      "publication": "corrected_and_sourced"
+    }
+  ],
+  "remaining_stories": "2–21: detailed claim-by-claim source comparison pending",
+  "source_document": "Οι 21 Ιστορίες του Αρχέλαου (Εμπλουτισμένη Αφηγηματική Έκδοση) — user-provided PDF",
+  "notes": "The published website already contains all 21 matching story titles. This report tracks content verification, not a request to duplicate them."
+}
