@@ -2542,6 +2542,24 @@ a.join-history-card:focus-visible{outline:3px solid #d6b66f;outline-offset:4px}
 .arch-sponsor-beige-cta .arch-sponsor-museum-arrow{color:#92713c;border-color:#a88a50}
 .arch-sponsor-beige-cta .arch-sponsor-museum-card:hover .arch-sponsor-museum-arrow{background:#e8dbc0}
 @media(max-width:640px){.arch-sponsor-beige-cta{padding:38px 17px 65px}.arch-sponsor-beige-cta .arch-sponsor-museum-card{min-height:260px}}
+</style><style id="v51-mobile-navigation-fix">/* V51: universal mobile navigation behavior and visible open/close state. */
+@media (max-width:1023px) {
+  #mobileMenuBtn, #annivMenuToggle {cursor:pointer!important;position:relative!important;z-index:10010!important;touch-action:manipulation!important;}
+  #mobileMenuBtn #menuIcon {color:#c7a65e!important;font-size:0!important;line-height:1!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;}
+  #mobileMenuBtn #menuIcon::before {content:"☰"!important;font:normal 26px/1 Arial,sans-serif!important;display:block!important;color:#c7a65e!important;}
+  #mobileMenuBtn[aria-expanded="true"] #menuIcon::before {content:"×"!important;font-size:34px!important;}
+  #mobileMenuBtn[aria-expanded="true"] {border-color:#c7a65e!important;}
+  #mobileMenu {position:fixed!important;top:clamp(72px, 13vw, 90px)!important;left:12px!important;right:12px!important;bottom:auto!important;inset-inline:12px!important;width:auto!important;height:auto!important;max-height:min(76dvh,680px)!important;min-height:0!important;overflow-y:auto!important;overscroll-behavior:contain!important;z-index:10005!important;display:block!important;box-sizing:border-box!important;border-radius:15px!important;transition:transform .25s ease,opacity .2s ease,visibility .2s ease!important;}
+  #mobileMenu:not(.menu-open) {visibility:hidden!important;opacity:0!important;pointer-events:none!important;transform:translateY(-12px)!important;}
+  #mobileMenu.menu-open {visibility:visible!important;opacity:1!important;pointer-events:auto!important;transform:translateY(0)!important;}
+  #annivMenuToggle[aria-expanded="true"] .anniv-menu-bars {display:none!important;}
+  #annivMenuToggle[aria-expanded="true"] .anniv-menu-x {display:block!important;}
+  #annivMenuToggle[aria-expanded="false"] .anniv-menu-bars {display:block!important;}
+  #annivMenuToggle[aria-expanded="false"] .anniv-menu-x {display:none!important;}
+  #annivMobileDrawer {z-index:10005!important;}
+  #annivMobileDrawer.is-open {display:block!important;visibility:visible!important;opacity:1!important;pointer-events:auto!important;}
+}
+@media (prefers-reduced-motion:reduce){#mobileMenu{transition:none!important}}
 </style></head><body class="lang-el arch-gold-page"><header class="arch-anniversary-header" id="mainHeader">
 <div class="arch-anniversary-inner">
 <a aria-label="Αρχική · Γ.Α.Σ. Ο Αρχέλαος" class="arch-anniversary-brand" href="index.html">
@@ -2616,11 +2634,11 @@ a.join-history-card:focus-visible{outline:3px solid #d6b66f;outline-offset:4px}
 <section aria-labelledby="sponsor-options-title" class="arch-sponsor-options" id="sponsor-options"><div class="arch-sponsor-container"><p class="arch-sponsor-kicker" data-board-el="ΤΡΟΠΟΙ ΣΥΝΕΡΓΑΣΙΑΣ" data-board-en="WAYS TO PARTNER">ΤΡΟΠΟΙ ΣΥΝΕΡΓΑΣΙΑΣ</p><h2 id="sponsor-options-title"><span data-board-el="Κάθε συνεργασία έχει" data-board-en="Every partnership has">Κάθε συνεργασία έχει</span> <em data-board-el="τον δικό της χαρακτήρα." data-board-en="its own character.">τον δικό της χαρακτήρα.</em></h2><p class="arch-sponsor-options-lead" data-board-el="Δεν υπάρχουν προκαθορισμένα πακέτα ή ποσά. Συζητάμε τις δυνατότητες κάθε συνεργασίας με βάση τις ανάγκες και τους στόχους που συμφωνούμε από κοινού." data-board-en="There are no preset packages or amounts. Each partnership is discussed around needs and goals agreed together.">Δεν υπάρχουν προκαθορισμένα πακέτα ή ποσά. Συζητάμε τις δυνατότητες κάθε συνεργασίας με βάση τις ανάγκες και τους στόχους που συμφωνούμε από κοινού.</p>
 <div class="arch-sponsor-option-grid"><article><div class="arch-sponsor-option-icon"><svg aria-hidden="true" fill="none" focusable="false" height="25" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24" width="25"><path d="M2 18h4l4 2h8a3 3 0 0 0 3-3c0-1-.8-2-2-2H13"></path><path d="M6 18v-5l3-3 5 1a2 2 0 0 1 1 3H9"></path><path d="M13 3c-1.5-2-4.5 0-3 2l3 3 3-3c1.5-2-1.5-4-3-2Z"></path></svg></div><h3 data-board-el="Οικονομική ενίσχυση" data-board-en="Financial support">Οικονομική ενίσχυση</h3><p data-board-el="Συμβολή στις ανάγκες των αθλητικών τμημάτων, ύστερα από συνεννόηση με τον σύλλογο." data-board-en="A contribution to the needs of the sports departments, agreed with the club.">Συμβολή στις ανάγκες των αθλητικών τμημάτων, ύστερα από συνεννόηση με τον σύλλογο.</p></article><article><div class="arch-sponsor-option-icon"><svg aria-hidden="true" fill="none" focusable="false" height="25" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24" width="25"><path d="M3 8 12 4l9 4-9 4-9-4Z"></path><path d="M3 8v9l9 4 9-4V8M12 12v9M7 6l10 4"></path></svg></div><h3 data-board-el="Υλικά και υπηρεσίες" data-board-en="Goods and services">Υλικά και υπηρεσίες</h3><p data-board-el="Εξοπλισμός, υπηρεσίες ή άλλη πρακτική υποστήριξη, ανάλογα με τις πραγματικές ανάγκες." data-board-en="Equipment, services or other practical support, based on actual needs.">Εξοπλισμός, υπηρεσίες ή άλλη πρακτική υποστήριξη, ανάλογα με τις πραγματικές ανάγκες.</p></article><article><div class="arch-sponsor-option-icon"><svg aria-hidden="true" fill="none" focusable="false" height="25" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24" width="25"><path d="m2 12 4-5 5 3 4-3 7 5-4 5-5-3"></path><path d="m6 16 3 3 2-1 2 2 2-1 2 1 3-3M2 12l3 3m17-3-3 3"></path></svg></div><h3 data-board-el="Υποστήριξη δράσεων" data-board-en="Support for initiatives">Υποστήριξη δράσεων</h3><p data-board-el="Συνεργασίες γύρω από συγκεκριμένες αθλητικές δράσεις, εκδηλώσεις ή διοργανώσεις." data-board-en="Partnerships around specific sporting initiatives, events or competitions.">Συνεργασίες γύρω από συγκεκριμένες αθλητικές δράσεις, εκδηλώσεις ή διοργανώσεις.</p></article></div></div></section>
 <section aria-labelledby="sponsor-contact-title" class="arch-sponsor-contact" id="sponsor-contact"><div class="arch-sponsor-container arch-sponsor-contact-inner"><div><p class="arch-sponsor-kicker" data-board-el="ΑΣ ΜΙΛΗΣΟΥΜΕ" data-board-en="LET'S TALK">ΑΣ ΜΙΛΗΣΟΥΜΕ</p><h2 id="sponsor-contact-title"><span data-board-el="Ας δημιουργήσουμε κάτι" data-board-en="Let’s create something">Ας δημιουργήσουμε κάτι</span> <em data-board-el="που θα μείνει." data-board-en="that lasts.">που θα μείνει.</em></h2><p data-board-el="Κάθε συνεργασία ξεκινά από μια συζήτηση. Επικοινωνήστε μαζί μας για να γνωρίσετε τις ανάγκες του συλλόγου και να εξετάσουμε έναν ουσιαστικό τρόπο υποστήριξης." data-board-en="Every partnership starts with a conversation. Contact us to explore the club’s needs and discuss a meaningful way to contribute.">Κάθε συνεργασία ξεκινά από μια συζήτηση. Επικοινωνήστε μαζί μας για να γνωρίσετε τις ανάγκες του συλλόγου και να εξετάσουμε έναν ουσιαστικό τρόπο υποστήριξης.</p></div><div aria-hidden="true" class="arch-sponsor-contact-seal"><div class="arch-sponsor-seal-inner"><span>ΑΡΧΕΛΑΟΣ</span><strong>1956</strong><span>ΚΑΤΕΡΙΝΗ</span></div></div></div></section>
-<section class="arch-sponsor-beige-cta" aria-label="Συνεργασία / Partnership"><div class="arch-sponsor-beige-cta-inner"><a class="arch-sponsor-museum-card" href="contact.html?topic=sponsorship#contact-form" aria-label="Επικοινωνία για χορηγία / Sponsorship enquiry">
-  <span class="arch-sponsor-museum-label"><span data-board-el="ΣΥΝΕΡΓΑΣΙΕΣ / ΧΟΡΗΓΙΕΣ" data-board-en="PARTNERSHIPS / SPONSORSHIP">ΣΥΝΕΡΓΑΣΙΕΣ / ΧΟΡΗΓΙΕΣ</span></span>
-  <span class="arch-sponsor-museum-arrow" aria-hidden="true">↗</span>
-  <span class="arch-sponsor-museum-title"><span data-board-el="Μαζί μπορούμε περισσότερα." data-board-en="Together, we can do more.">Μαζί μπορούμε περισσότερα.</span></span>
-  <span class="arch-sponsor-museum-copy"><span data-board-el="Μιλήστε μαζί μας για μια συνεργασία που στηρίζει τις επόμενες γενιές του Αρχέλαου." data-board-en="Let's discuss a partnership that supports the next generations of Archelaos.">Μιλήστε μαζί μας για μια συνεργασία που στηρίζει τις επόμενες γενιές του Αρχέλαου.</span></span>
+<section aria-label="Συνεργασία / Partnership" class="arch-sponsor-beige-cta"><div class="arch-sponsor-beige-cta-inner"><a aria-label="Επικοινωνία για χορηγία / Sponsorship enquiry" class="arch-sponsor-museum-card" href="contact.html?topic=sponsorship#contact-form">
+<span class="arch-sponsor-museum-label"><span data-board-el="ΣΥΝΕΡΓΑΣΙΕΣ / ΧΟΡΗΓΙΕΣ" data-board-en="PARTNERSHIPS / SPONSORSHIP">ΣΥΝΕΡΓΑΣΙΕΣ / ΧΟΡΗΓΙΕΣ</span></span>
+<span aria-hidden="true" class="arch-sponsor-museum-arrow">↗</span>
+<span class="arch-sponsor-museum-title"><span data-board-el="Μαζί μπορούμε περισσότερα." data-board-en="Together, we can do more.">Μαζί μπορούμε περισσότερα.</span></span>
+<span class="arch-sponsor-museum-copy"><span data-board-el="Μιλήστε μαζί μας για μια συνεργασία που στηρίζει τις επόμενες γενιές του Αρχέλαου." data-board-en="Let's discuss a partnership that supports the next generations of Archelaos.">Μιλήστε μαζί μας για μια συνεργασία που στηρίζει τις επόμενες γενιές του Αρχέλαου.</span></span>
 </a></div></section>
 </main><footer aria-label="Γ.Α.Σ. Ο Αρχέλαος — footer" class="heritage-footer arch-footer-signature">
 <div class="heritage-footer-inner">
@@ -2847,4 +2865,36 @@ a.join-history-card:focus-visible{outline:3px solid #d6b66f;outline-offset:4px}
 })();
 
 </script>
-</body></html>
+<script id="v51-mobile-navigation-controller">/* V51: consistent mobile navigation; capture prevents legacy handlers toggling twice. */
+(function(){
+ 'use strict';
+ const trigger=document.getElementById('mobileMenuBtn')||document.getElementById('annivMenuToggle');
+ const panel=document.getElementById('mobileMenu')||document.getElementById('annivMobileDrawer');
+ if(!trigger||!panel) return;
+ const isAnniv=panel.id==='annivMobileDrawer';
+ const openClass=isAnniv?'is-open':'menu-open';
+ const closeBtn=document.getElementById('archMenuClose');
+ const setOpen=(open)=>{
+   panel.classList.toggle(openClass,open);
+   trigger.classList.toggle('is-active',open);
+   trigger.setAttribute('aria-expanded',String(open));
+   trigger.setAttribute('aria-label',open?'Κλείσιμο μενού':'Άνοιγμα μενού');
+   panel.setAttribute('aria-hidden',String(!open));
+   if(isAnniv)panel.inert=!open;
+   const icon=document.getElementById('menuIcon');
+   if(icon){icon.classList.toggle('fa-bars',!open);icon.classList.toggle('fa-xmark',open);}
+ };
+ setOpen(false);
+ // Capture-phase handler on the actual trigger wins over conflicting page scripts.
+ trigger.addEventListener('click',function(event){
+   if(window.innerWidth>1023)return;
+   event.preventDefault();event.stopImmediatePropagation();event.stopPropagation();
+   setOpen(!panel.classList.contains(openClass));
+ },true);
+ if(closeBtn)closeBtn.addEventListener('click',function(event){event.stopImmediatePropagation();setOpen(false)},true);
+ panel.querySelectorAll('a[href]').forEach(a=>a.addEventListener('click',()=>setOpen(false),true));
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&panel.classList.contains(openClass))setOpen(false)},true);
+ document.addEventListener('pointerdown',e=>{if(panel.classList.contains(openClass)&&!panel.contains(e.target)&&!trigger.contains(e.target))setOpen(false)},true);
+ window.addEventListener('resize',()=>{if(window.innerWidth>1023)setOpen(false)},{passive:true});
+})();
+</script></body></html>

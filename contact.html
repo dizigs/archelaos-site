@@ -2988,7 +2988,25 @@ html{scroll-behavior:smooth}body{overflow-x:hidden}.contact-editorial{font-famil
 .arch-modal-form .arch-select-wrap select:focus-visible{border-color:#ac8a44;outline:3px solid #d8bb7455;outline-offset:2px}
 @media(max-width:690px){.arch-locations{grid-template-columns:1fr}.arch-location-tile{min-height:178px;padding:24px 64px 24px 24px}.arch-locations-intro{margin-bottom:3px}}
 @media(prefers-reduced-motion:reduce){.arch-location-tile,.arch-location-tile .arch-venue-arrow{transition:none}}
-</style><style id="arch-v17-language-visibility">html[lang="el"] .arch-sponsor-nav-en,html[lang="en"] .arch-sponsor-nav-el{display:none!important}body.lang-el [data-lang="en"],body.lang-en [data-lang="el"]{display:none!important}</style></head>
+</style><style id="arch-v17-language-visibility">html[lang="el"] .arch-sponsor-nav-en,html[lang="en"] .arch-sponsor-nav-el{display:none!important}body.lang-el [data-lang="en"],body.lang-en [data-lang="el"]{display:none!important}</style><style id="v51-mobile-navigation-fix">/* V51: universal mobile navigation behavior and visible open/close state. */
+@media (max-width:1023px) {
+  #mobileMenuBtn, #annivMenuToggle {cursor:pointer!important;position:relative!important;z-index:10010!important;touch-action:manipulation!important;}
+  #mobileMenuBtn #menuIcon {color:#c7a65e!important;font-size:0!important;line-height:1!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;}
+  #mobileMenuBtn #menuIcon::before {content:"☰"!important;font:normal 26px/1 Arial,sans-serif!important;display:block!important;color:#c7a65e!important;}
+  #mobileMenuBtn[aria-expanded="true"] #menuIcon::before {content:"×"!important;font-size:34px!important;}
+  #mobileMenuBtn[aria-expanded="true"] {border-color:#c7a65e!important;}
+  #mobileMenu {position:fixed!important;top:clamp(72px, 13vw, 90px)!important;left:12px!important;right:12px!important;bottom:auto!important;inset-inline:12px!important;width:auto!important;height:auto!important;max-height:min(76dvh,680px)!important;min-height:0!important;overflow-y:auto!important;overscroll-behavior:contain!important;z-index:10005!important;display:block!important;box-sizing:border-box!important;border-radius:15px!important;transition:transform .25s ease,opacity .2s ease,visibility .2s ease!important;}
+  #mobileMenu:not(.menu-open) {visibility:hidden!important;opacity:0!important;pointer-events:none!important;transform:translateY(-12px)!important;}
+  #mobileMenu.menu-open {visibility:visible!important;opacity:1!important;pointer-events:auto!important;transform:translateY(0)!important;}
+  #annivMenuToggle[aria-expanded="true"] .anniv-menu-bars {display:none!important;}
+  #annivMenuToggle[aria-expanded="true"] .anniv-menu-x {display:block!important;}
+  #annivMenuToggle[aria-expanded="false"] .anniv-menu-bars {display:block!important;}
+  #annivMenuToggle[aria-expanded="false"] .anniv-menu-x {display:none!important;}
+  #annivMobileDrawer {z-index:10005!important;}
+  #annivMobileDrawer.is-open {display:block!important;visibility:visible!important;opacity:1!important;pointer-events:auto!important;}
+}
+@media (prefers-reduced-motion:reduce){#mobileMenu{transition:none!important}}
+</style></head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow"><header class="arch-anniversary-header" id="mainHeader">
 <div class="arch-anniversary-inner">
 <a aria-label="Αρχική · Γ.Α.Σ. Ο Αρχέλαος" class="arch-anniversary-brand" href="index.html">
@@ -3032,9 +3050,9 @@ html{scroll-behavior:smooth}body{overflow-x:hidden}.contact-editorial{font-famil
 <div class="arch-detail-card arch-detail-hours"><span class="arch-card-label" data-contact-el="ΩΡΕΣ ΕΠΙΚΟΙΝΩΝΙΑΣ" data-contact-en="CONTACT HOURS">ΩΡΕΣ ΕΠΙΚΟΙΝΩΝΙΑΣ</span><strong data-contact-el="Τρίτη &amp; Πέμπτη" data-contact-en="Tuesday &amp; Thursday">Τρίτη &amp; Πέμπτη</strong><span>09:00–14:00</span><small data-contact-el="Επιβεβαιώστε το ωράριο πριν την επίσκεψη." data-contact-en="Please confirm hours before visiting.">Επιβεβαιώστε το ωράριο πριν την επίσκεψη.</small></div>
 </div>
 <!-- Historical quotation (1993): same restrained editorial styling as the site's 1973 quotation -->
-<figure class="arch-heritage-quote" aria-label="Ιστορικό απόσπασμα του 1993">
-  <blockquote data-contact-el="«Δεν λυγίζουμε. Θα μοχθούμε στο τσιμέντο και στο ανοιχτό γήπεδο τένις, γιατί η Κατερίνη και ο Αρχέλαος δεν σταματούν πουθενά· θα πάμε στην Ευρώπη να δείξουμε ποιοι είμαστε!»" data-contact-en="“We will not bend. We will work hard on the concrete and the outdoor tennis court, because Katerini and Archelaos will not be stopped; we will go to Europe and show who we are!”">«Δεν λυγίζουμε. Θα μοχθούμε στο τσιμέντο και στο ανοιχτό γήπεδο τένις, γιατί η Κατερίνη και ο Αρχέλαος δεν σταματούν πουθενά· θα πάμε στην Ευρώπη να δείξουμε ποιοι είμαστε!»</blockquote>
-  <figcaption>1993</figcaption>
+<figure aria-label="Ιστορικό απόσπασμα του 1993" class="arch-heritage-quote">
+<blockquote data-contact-el="«Δεν λυγίζουμε. Θα μοχθούμε στο τσιμέντο και στο ανοιχτό γήπεδο τένις, γιατί η Κατερίνη και ο Αρχέλαος δεν σταματούν πουθενά· θα πάμε στην Ευρώπη να δείξουμε ποιοι είμαστε!»" data-contact-en="“We will not bend. We will work hard on the concrete and the outdoor tennis court, because Katerini and Archelaos will not be stopped; we will go to Europe and show who we are!”">«Δεν λυγίζουμε. Θα μοχθούμε στο τσιμέντο και στο ανοιχτό γήπεδο τένις, γιατί η Κατερίνη και ο Αρχέλαος δεν σταματούν πουθενά· θα πάμε στην Ευρώπη να δείξουμε ποιοι είμαστε!»</blockquote>
+<figcaption>1993</figcaption>
 </figure>
 <div class="arch-locations"><div class="arch-locations-intro"><p class="arch-kicker" data-contact-el="ΧΩΡΟΙ ΠΡΟΠΟΝΗΣΗΣ" data-contact-en="TRAINING VENUES">ΧΩΡΟΙ ΠΡΟΠΟΝΗΣΗΣ</p><h3 data-contact-el="Οι εγκαταστάσεις μας" data-contact-en="Our venues">Οι εγκαταστάσεις μας</h3><p data-contact-el="Επιλέξτε οποιαδήποτε κάρτα για να ανοίξει η τοποθεσία στον χάρτη." data-contact-en="Select a card to open its location on the map.">Επιλέξτε οποιαδήποτε κάρτα για να ανοίξει η τοποθεσία στον χάρτη.</p></div><a aria-label="Α΄ Δημοτικό Αθλητικό Κέντρο — Χάρτης" class="arch-location-tile" href="https://maps.google.com/?cid=2075916960789215158" rel="noopener noreferrer" target="_blank"><span class="arch-venue-eyebrow" data-contact-el="01 / ΚΑΤΕΡΙΝΗ" data-contact-en="01 / KATERINI">01 / ΚΑΤΕΡΙΝΗ</span><strong data-contact-el="Α΄ Δημοτικό Αθλητικό Κέντρο" data-contact-en="First Municipal Sports Centre">Α΄ Δημοτικό Αθλητικό Κέντρο</strong><span data-contact-el="Εθνικού Σταδίου 3Α · Έδρα συλλόγου" data-contact-en="3A Ethnikou Stadiou · Club headquarters">Εθνικού Σταδίου 3Α · Έδρα συλλόγου</span><span aria-hidden="true" class="arch-venue-arrow">↗</span></a><a aria-label="Β΄ Δημοτικό Αθλητικό Κέντρο — Χάρτης" class="arch-location-tile" href="https://www.google.com/maps/search/?api=1&amp;query=%CE%92%CE%84%20%CE%94%CE%91%CE%9A%20%CE%9A%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82" rel="noopener noreferrer" target="_blank"><span class="arch-venue-eyebrow" data-contact-el="02 / ΚΑΤΕΡΙΝΗ" data-contact-en="02 / KATERINI">02 / ΚΑΤΕΡΙΝΗ</span><strong data-contact-el="Β΄ Δημοτικό Αθλητικό Κέντρο" data-contact-en="Second Municipal Sports Centre">Β΄ Δημοτικό Αθλητικό Κέντρο</strong><span data-contact-el="Δημοτικού Σταδίου 27, 60131" data-contact-en="27 Dimotikou Stadiou, 60131">Δημοτικού Σταδίου 27, 60131</span><span aria-hidden="true" class="arch-venue-arrow">↗</span></a><a aria-label="Ανοικτό γήπεδο τοξοβολίας — Χάρτης" class="arch-location-tile" href="https://maps.app.goo.gl/KFhY9bSNNMoV24KE9" rel="noopener noreferrer" target="_blank"><span class="arch-venue-eyebrow" data-contact-el="03 / ΝΕΑ ΧΡΑΝΗ" data-contact-en="03 / NEA CHRANI">03 / ΝΕΑ ΧΡΑΝΗ</span><strong data-contact-el="Ανοικτό γήπεδο τοξοβολίας" data-contact-en="Outdoor Archery Range">Ανοικτό γήπεδο τοξοβολίας</strong><span data-contact-el="Νέα Χράνη" data-contact-en="Nea Chrani">Νέα Χράνη</span><span aria-hidden="true" class="arch-venue-arrow">↗</span></a><a aria-label="Κλειστό γυμναστήριο τοξοβολίας — Χάρτης" class="arch-location-tile" href="https://maps.app.goo.gl/jQ4cV5SKJV4hAJqH7" rel="noopener noreferrer" target="_blank"><span class="arch-venue-eyebrow" data-contact-el="04 / ΚΑΤΕΡΙΝΗ" data-contact-en="04 / KATERINI">04 / ΚΑΤΕΡΙΝΗ</span><strong data-contact-el="Κλειστό γυμναστήριο τοξοβολίας" data-contact-en="Indoor Archery Hall">Κλειστό γυμναστήριο τοξοβολίας</strong><span data-contact-el="Τέρμα Πλάτωνος" data-contact-en="End of Platonos Street">Τέρμα Πλάτωνος</span><span aria-hidden="true" class="arch-venue-arrow">↗</span></a></div></div></section>
 </main>
@@ -3334,5 +3352,37 @@ a.arch-detail-card:focus-visible{outline:3px solid #c7a65e;outline-offset:4px}
 })();
 
 </script>
-</body>
+<script id="v51-mobile-navigation-controller">/* V51: consistent mobile navigation; capture prevents legacy handlers toggling twice. */
+(function(){
+ 'use strict';
+ const trigger=document.getElementById('mobileMenuBtn')||document.getElementById('annivMenuToggle');
+ const panel=document.getElementById('mobileMenu')||document.getElementById('annivMobileDrawer');
+ if(!trigger||!panel) return;
+ const isAnniv=panel.id==='annivMobileDrawer';
+ const openClass=isAnniv?'is-open':'menu-open';
+ const closeBtn=document.getElementById('archMenuClose');
+ const setOpen=(open)=>{
+   panel.classList.toggle(openClass,open);
+   trigger.classList.toggle('is-active',open);
+   trigger.setAttribute('aria-expanded',String(open));
+   trigger.setAttribute('aria-label',open?'Κλείσιμο μενού':'Άνοιγμα μενού');
+   panel.setAttribute('aria-hidden',String(!open));
+   if(isAnniv)panel.inert=!open;
+   const icon=document.getElementById('menuIcon');
+   if(icon){icon.classList.toggle('fa-bars',!open);icon.classList.toggle('fa-xmark',open);}
+ };
+ setOpen(false);
+ // Capture-phase handler on the actual trigger wins over conflicting page scripts.
+ trigger.addEventListener('click',function(event){
+   if(window.innerWidth>1023)return;
+   event.preventDefault();event.stopImmediatePropagation();event.stopPropagation();
+   setOpen(!panel.classList.contains(openClass));
+ },true);
+ if(closeBtn)closeBtn.addEventListener('click',function(event){event.stopImmediatePropagation();setOpen(false)},true);
+ panel.querySelectorAll('a[href]').forEach(a=>a.addEventListener('click',()=>setOpen(false),true));
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&panel.classList.contains(openClass))setOpen(false)},true);
+ document.addEventListener('pointerdown',e=>{if(panel.classList.contains(openClass)&&!panel.contains(e.target)&&!trigger.contains(e.target))setOpen(false)},true);
+ window.addEventListener('resize',()=>{if(window.innerWidth>1023)setOpen(false)},{passive:true});
+})();
+</script></body>
 </html>

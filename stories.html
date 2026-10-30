@@ -1319,7 +1319,31 @@ a.join-history-card:focus-visible{outline:3px solid #d6b66f;outline-offset:4px}
  .heritage-footer-socials svg{width:19px!important;height:19px!important;fill:currentColor;stroke:none!important}
  .heritage-footer-socials svg.youtube-play{fill:currentColor}
  .heritage-footer-socials .footer-wiki{font-family:Georgia,serif;font-weight:700;font-size:20px;line-height:1}
- </style></head>
+ </style><style id="v51-mobile-navigation-fix">/* V51: universal mobile navigation behavior and visible open/close state. */
+@media (max-width:1023px) {
+  #mobileMenuBtn, #annivMenuToggle {cursor:pointer!important;position:relative!important;z-index:10010!important;touch-action:manipulation!important;}
+  #mobileMenuBtn #menuIcon {color:#c7a65e!important;font-size:0!important;line-height:1!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;}
+  #mobileMenuBtn #menuIcon::before {content:"☰"!important;font:normal 26px/1 Arial,sans-serif!important;display:block!important;color:#c7a65e!important;}
+  #mobileMenuBtn[aria-expanded="true"] #menuIcon::before {content:"×"!important;font-size:34px!important;}
+  #mobileMenuBtn[aria-expanded="true"] {border-color:#c7a65e!important;}
+  #mobileMenu {position:fixed!important;top:clamp(72px, 13vw, 90px)!important;left:12px!important;right:12px!important;bottom:auto!important;inset-inline:12px!important;width:auto!important;height:auto!important;max-height:min(76dvh,680px)!important;min-height:0!important;overflow-y:auto!important;overscroll-behavior:contain!important;z-index:10005!important;display:block!important;box-sizing:border-box!important;border-radius:15px!important;transition:transform .25s ease,opacity .2s ease,visibility .2s ease!important;}
+  #mobileMenu:not(.menu-open) {visibility:hidden!important;opacity:0!important;pointer-events:none!important;transform:translateY(-12px)!important;}
+  #mobileMenu.menu-open {visibility:visible!important;opacity:1!important;pointer-events:auto!important;transform:translateY(0)!important;}
+  #annivMenuToggle[aria-expanded="true"] .anniv-menu-bars {display:none!important;}
+  #annivMenuToggle[aria-expanded="true"] .anniv-menu-x {display:block!important;}
+  #annivMenuToggle[aria-expanded="false"] .anniv-menu-bars {display:block!important;}
+  #annivMenuToggle[aria-expanded="false"] .anniv-menu-x {display:none!important;}
+  #annivMobileDrawer {z-index:10005!important;}
+  #annivMobileDrawer.is-open {display:block!important;visibility:visible!important;opacity:1!important;pointer-events:auto!important;}
+}
+@media (prefers-reduced-motion:reduce){#mobileMenu{transition:none!important}}
+</style><style id="v51-story-popup-reveal">/* V51: story reader opens with the same polished modal reveal as site pop-ups. */
+@keyframes archelaosReaderBackdrop {from {opacity:0;backdrop-filter:blur(0)}to{opacity:1;backdrop-filter:blur(5px)}}
+@keyframes archelaosReaderReveal {from{opacity:0;transform:translateY(22px) scale(.965)}to{opacity:1;transform:translateY(0) scale(1)}}
+#overlay.open{animation:archelaosReaderBackdrop .27s ease-out both!important}
+#overlay.open #reader{transform-origin:center center;animation:archelaosReaderReveal .36s cubic-bezier(.18,.76,.24,1) both!important}
+@media(prefers-reduced-motion:reduce){#overlay.open,#overlay.open #reader{animation:none!important}}
+</style></head>
 <body>
 <header class="arch-anniversary-header" id="mainHeader">
 <div class="arch-anniversary-inner">
@@ -1386,7 +1410,7 @@ a.join-history-card:focus-visible{outline:3px solid #d6b66f;outline-offset:4px}
 <nav aria-label="Ιστορία και επαφή" class="heritage-footer-nav">
 <h2 class="heritage-footer-col-title" data-i18n="heritage_footer_history_contact">ΠΕΡΙΣΣΟΤΕΡΑ &amp; ΕΠΑΦΗ</h2>
 <div class="heritage-footer-links">
-<a href="stories.html"><span data-lang="el">Ιστορίες του Αρχέλαου</span><span data-lang="en">Club Stories</span></a>
+
 <a href="history.html"><span data-i18n="nav_history">Ψηφιακό Μουσείο</span></a>
 <a href="#timeline"><span data-i18n="nav_timeline">Χρονολόγιο</span></a>
 <a href="contact.html"><span data-i18n="nav_contact">Επικοινωνία</span></a>
@@ -1521,4 +1545,36 @@ setLang('el');
  }
 })();
 </script>
-</body></html>
+<script id="v51-mobile-navigation-controller">/* V51: consistent mobile navigation; capture prevents legacy handlers toggling twice. */
+(function(){
+ 'use strict';
+ const trigger=document.getElementById('mobileMenuBtn')||document.getElementById('annivMenuToggle');
+ const panel=document.getElementById('mobileMenu')||document.getElementById('annivMobileDrawer');
+ if(!trigger||!panel) return;
+ const isAnniv=panel.id==='annivMobileDrawer';
+ const openClass=isAnniv?'is-open':'menu-open';
+ const closeBtn=document.getElementById('archMenuClose');
+ const setOpen=(open)=>{
+   panel.classList.toggle(openClass,open);
+   trigger.classList.toggle('is-active',open);
+   trigger.setAttribute('aria-expanded',String(open));
+   trigger.setAttribute('aria-label',open?'Κλείσιμο μενού':'Άνοιγμα μενού');
+   panel.setAttribute('aria-hidden',String(!open));
+   if(isAnniv)panel.inert=!open;
+   const icon=document.getElementById('menuIcon');
+   if(icon){icon.classList.toggle('fa-bars',!open);icon.classList.toggle('fa-xmark',open);}
+ };
+ setOpen(false);
+ // Capture-phase handler on the actual trigger wins over conflicting page scripts.
+ trigger.addEventListener('click',function(event){
+   if(window.innerWidth>1023)return;
+   event.preventDefault();event.stopImmediatePropagation();event.stopPropagation();
+   setOpen(!panel.classList.contains(openClass));
+ },true);
+ if(closeBtn)closeBtn.addEventListener('click',function(event){event.stopImmediatePropagation();setOpen(false)},true);
+ panel.querySelectorAll('a[href]').forEach(a=>a.addEventListener('click',()=>setOpen(false),true));
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&panel.classList.contains(openClass))setOpen(false)},true);
+ document.addEventListener('pointerdown',e=>{if(panel.classList.contains(openClass)&&!panel.contains(e.target)&&!trigger.contains(e.target))setOpen(false)},true);
+ window.addEventListener('resize',()=>{if(window.innerWidth>1023)setOpen(false)},{passive:true});
+})();
+</script></body></html>
