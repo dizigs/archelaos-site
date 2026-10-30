@@ -5,6 +5,9 @@
  const pageName=(location.pathname.split('/').pop()||'index.html').toLowerCase();
  const isProfile=location.pathname.startsWith('/people/');
  const isMuseum=['history.html','hall-of-fame.html','70-stigmes.html','stories.html','history-events.html'].includes(pageName);
+ if(isProfile||pageName==='history-events.html'){
+  const relatedScript=document.createElement('script');relatedScript.src='/assets/story-relations.js';relatedScript.defer=true;document.head.appendChild(relatedScript);
+ }
  if(isMuseum)document.body.classList.add('asn-museum-layout');
  const ITEMS=[
   {href:'index.html',el:'Αρχική',en:'Home'},
