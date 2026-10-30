@@ -8,3 +8,10 @@
 .arc-bio-text{white-space:pre-line;line-height:1.85;font-size:15px;overflow-wrap:anywhere}
 .arc-bio-sources{display:flex;flex-direction:column;gap:7px;margin-top:20px;font-size:13px}.arc-bio-sources strong{color:#876b37}.arc-bio-sources a{color:#0a5840;overflow-wrap:anywhere}
 .arc-bio-dialog :focus-visible{outline:2px solid #bf9e57;outline-offset:3px}
+
+/* Consistent, centered close control for biography dialogs. */
+.arc-bio-close{display:grid;place-items:center;float:none;position:absolute;inset-block-start:16px;inset-inline-end:16px;width:42px;height:42px;padding:0;line-height:1;font-family:Arial,sans-serif;font-size:25px;font-weight:400;border:1px solid #ddcba6;border-radius:12px;background:#f1e9d6;color:#173d2a;cursor:pointer;z-index:3;transition:background .15s ease,border-color .15s ease}
+.arc-bio-close:hover{background:#e9d9ae;border-color:#b99b5d}
+.arc-bio-close:focus-visible{outline:3px solid #b59149;outline-offset:3px}
+.arc-bio-dialog h2{padding-inline-end:32px}
+@media(max-width:600px){.arc-bio-close{inset-block-start:12px;inset-inline-end:12px;width:42px;height:42px}}
