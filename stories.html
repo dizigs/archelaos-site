@@ -1421,10 +1421,19 @@ function normal(s){return String(s).toLocaleLowerCase('el').normalize('NFD').rep
 /* Editorial story typography: separated prose and highlighted direct speech. */
 function storyParagraphs(raw){
  const paragraphs=String(raw).split(/\n\s*\n+/).map(p=>p.trim()).filter(Boolean);
- return paragraphs.map(p=>{
-   const dialogue=/^(?:[—–-]\s*|«)[\s\S]{8,}[»!?…。]*$/.test(p) && (p.startsWith('«')?p.endsWith('»'):true);
-   if(dialogue)return '<blockquote class="story-dialogue"><p>'+esc(p)+'</p></blockquote>';
-   return '<p class="story-prose">'+esc(p)+'</p>';
+ const prose=p=>p.trim()?'<p class="story-prose">'+esc(p.trim())+'</p>':'';
+ const quote=q=>'<blockquote class="story-dialogue"><p>'+esc(q.trim())+'</p></blockquote>';
+ return paragraphs.map(paragraph=>{
+  // Only speech-like quotes become pull-quotes; titles and quoted nicknames stay in prose.
+  const qre=/«[^»\n]{12,}[!?]»/g;
+  let match,last=0,html='',found=false;
+  while((match=qre.exec(paragraph))!==null){
+   html+=prose(paragraph.slice(last,match.index))+quote(match[0]);
+   last=match.index+match[0].length;found=true;
+  }
+  if(found)return html+prose(paragraph.slice(last));
+  if(/^\\s*[—–-]\\s+/.test(paragraph)||(/^«/.test(paragraph)&&/»$/.test(paragraph)))return quote(paragraph);
+  return prose(paragraph);
  }).join('');
 }
 function render(){const q=normal(search.value.trim());const found=stories.map((s,i)=>({...s,i})).filter(s=>!q||normal([s.sport,s.year,s.title,s.lead,s.text].join(' ')).includes(q));count.textContent=found.length+' από '+stories.length+' ιστορίες';if(!found.length){featured.hidden=true;index.innerHTML='<div class="empty">Δεν βρέθηκε κάποια ιστορία με αυτά τα κριτήρια.</div>';return} featured.hidden=false;
