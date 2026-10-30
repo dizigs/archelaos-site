@@ -1,0 +1,27 @@
+name: Validate website
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate HTML assets, JSON and sitemap
+        run: python tools/validate_site.py
+      - name: Check JavaScript syntax
+        run: |
+          find . -type f -name '*.js' -not -path './.git/*' -print0 | xargs -0 -r -n1 node --check
