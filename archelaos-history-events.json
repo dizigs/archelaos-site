@@ -996,6 +996,22 @@
       "verification": "published-club-history"
     },
     {
+      "id": "kouklis-balkan-pole-vault-1993",
+      "date": "1993",
+      "date_precision": "year",
+      "category": "Στίβος",
+      "category_en": "Athletics",
+      "title": "Βαλκανικός τίτλος εφήβων για τον Μιχάλη Κουκλή",
+      "title_en": "Michalis Kouklis Wins Junior Balkan Pole Vault Title",
+      "description": "Το 1993 ο Μιχάλης Κουκλής κατέκτησε την πρώτη θέση στο Βαλκανικό Πρωτάθλημα Στίβου Εφήβων στο άλμα επί κοντώ, στη Θεσσαλονίκη, με επίδοση 5,05 μέτρα.",
+      "description_en": "In 1993, Michalis Kouklis won the junior Balkan pole vault title in Thessaloniki with a clearance of 5.05 metres.",
+      "people": [
+        "arch-23f5b3ca37c0"
+      ],
+      "source": "hall-of-fame-people.json",
+      "verification": "existing-biographies"
+    },
+    {
       "id": "eleftheroudis-presidency-1993",
       "date": "1993-02-27",
       "date_precision": "day",
@@ -1046,6 +1062,22 @@
       "verification": "published-club-history"
     },
     {
+      "id": "koukodimos-national-record-1994",
+      "date": "1994-06-05",
+      "date_precision": "day",
+      "category": "Στίβος",
+      "category_en": "Athletics",
+      "title": "Πανελλήνιο ρεκόρ 8,36 μ. του Κώστα Κουκοδήμου",
+      "title_en": "Kostas Koukodimos Sets a National Long Jump Record of 8.36 m",
+      "description": "Στις 5 Ιουνίου 1994, στα «Βενιζέλεια» των Χανίων, ο Κώστας Κουκοδήμος σημείωσε πανελλήνιο ρεκόρ ανοικτού στίβου στο άλμα εις μήκος με 8,36 μέτρα.",
+      "description_en": "On 5 June 1994, Kostas Koukodimos set a Greek outdoor long jump record of 8.36 metres at the Venizeleia meeting in Chania.",
+      "people": [
+        "arch-5abfbe9e285a"
+      ],
+      "source": "hall-of-fame-people.json",
+      "verification": "existing-biographies"
+    },
+    {
       "id": "moment-64-1995",
       "date": "1995",
       "date_precision": "year",
@@ -1060,6 +1092,22 @@
       "source": "70-stigmes.html",
       "source_moment": 64,
       "verification": "published-club-history"
+    },
+    {
+      "id": "papasotiriou-pentathlon-record-1996",
+      "date": "1996-02",
+      "date_precision": "month",
+      "category": "Στίβος",
+      "category_en": "Athletics",
+      "title": "Πανελλήνιο ρεκόρ πεντάθλου της Αθηνάς Παπασωτηρίου",
+      "title_en": "Athina Papasotiriou Sets a National Indoor Pentathlon Record",
+      "description": "Τον Φεβρουάριο του 1996 η Αθηνά Παπασωτηρίου σημείωσε πανελλήνιο ρεκόρ γυναικών κλειστού στίβου στο πένταθλο, συγκεντρώνοντας 4.251 βαθμούς.",
+      "description_en": "In February 1996, Athina Papasotiriou set a Greek women's indoor pentathlon record with 4,251 points.",
+      "people": [
+        "arch-3e3c931a8dee"
+      ],
+      "source": "hall-of-fame-people.json",
+      "verification": "existing-biographies"
     },
     {
       "id": "moment-65-1999",
