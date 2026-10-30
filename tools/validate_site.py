@@ -245,7 +245,11 @@ def main() -> int:
                 if event["id"] in event_ids:
                     error(f"history events: duplicate ID {event['id']}")
                 event_ids.add(event["id"])
-                if not isinstance(event.get("people"), list) or not event["people"]:
+                # Club-wide events can be documented without naming an individual.
+                # Keep strict validation for every actual person reference.
+                if not isinstance(event.get("people"), list):
+                    error(f"history events: invalid people list for {event['id']}")
+                elif not event["people"] and event.get("source") != "70-stigmes.html":
                     error(f"history events: missing people for {event['id']}")
                 else:
                     for person_id in event["people"]:
