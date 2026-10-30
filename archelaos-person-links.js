@@ -3,7 +3,7 @@
 const INDEX_URL='archelaos-person-index.json', DATA_URL='archelaos-people.json';
 const norm=s=>(s||'').toLocaleLowerCase('el').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/ς/g,'σ').replace(/[^\p{L}\p{N}\s]/gu,' ').replace(/\s+/g,' ').trim();
 const safeText=s=>String(s||'');
-const state={entries:null, people:null, unresolved:[], index:null};
+const state={people:null, index:null};
 const articleSelector=document.body.dataset.archPeoplePage==='board'
  ? '.executive-board-name, .pbh-presidency-body, .pbh-history-content, #historyArchiveContent, #historyArchiveModal, .history-archive-content'
  : '.history-archive-content, #historyArchiveContent, #historyArchiveModal, #chapters, #sports-archive, #museum-exhibits, .wiki-article, .museum-history-person, .museum-story-content, #museum-gallery, #archStoryGrid, #archStoryDialogContent';
