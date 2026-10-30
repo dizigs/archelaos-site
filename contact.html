@@ -2989,6 +2989,46 @@ main p,main li,article p,article li{line-height:1.72;}
  #mainHeader .arch-cinematic-menu.menu-open{display:block!important;visibility:visible!important;opacity:1!important}
 }
 </style>
+<style id="arch-contact-modal-viewport-fix-v1">
+/* Contact modal must sit BELOW the fixed shared navigation, scroll internally and keep close control visible. */
+#archContactModal.arch-modal-backdrop{
+ position:fixed!important;
+ inset:var(--asn-height,82px) 0 0 0!important;
+ height:calc(100dvh - var(--asn-height,82px))!important;
+ box-sizing:border-box!important;
+ overflow-y:auto!important;
+ overscroll-behavior:contain!important;
+ display:flex!important;
+ align-items:safe center!important;
+ justify-content:center!important;
+ padding:clamp(12px,2.5vh,24px) 14px!important;
+ z-index:2147480001!important;
+}
+#archContactModal[hidden]{display:none!important}
+#archContactModal .arch-contact-dialog{
+ width:min(100%,816px)!important;
+ box-sizing:border-box!important;
+ max-height:calc(100dvh - var(--asn-height,82px) - 24px)!important;
+ overflow-y:auto!important;
+ overscroll-behavior:contain!important;
+ margin:auto!important;
+ position:relative!important;
+ scrollbar-width:thin;
+}
+#archContactModal .arch-modal-head{
+ position:sticky!important;
+ top:0!important;
+ z-index:3!important;
+ background:#f8f6ef!important;
+ padding:8px 0 12px!important;
+ margin-top:-8px!important;
+}
+#archContactModal .arch-modal-close{flex-shrink:0!important;display:grid!important;place-items:center!important;line-height:1!important}
+@media(max-width:640px){
+ #archContactModal .arch-contact-dialog{padding:19px 16px!important;max-height:calc(100dvh - var(--asn-height,70px) - 16px)!important}
+ #archContactModal .arch-modal-head h2{font-size:clamp(28px,8vw,40px)!important}
+}
+</style>
 </head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow"><script src="assets/navigation.js"></script>
 <header class="arch-anniversary-header" id="mainHeader">
