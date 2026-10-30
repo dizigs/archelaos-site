@@ -136,3 +136,11 @@ body header.arch-anniversary-header,body header.mast,body #mainHeader,body .muse
 @media(max-width:370px){
  #arch-global-nav-root .asn-brand img.asn-crest{width:36px!important;height:36px!important;min-width:36px!important;min-height:36px!important;max-width:36px!important}
 }
+
+/* Museum cross-navigation: understated cream/gold links, mobile friendly. */
+.asr-related{margin:26px 0 18px;padding-top:20px;border-top:1px solid rgba(179,149,91,.38)}
+.asr-related h2,.asr-related h3{margin:0 0 13px!important;font-family:Georgia,'Times New Roman',serif!important;font-size:clamp(18px,2vw,22px)!important;font-weight:500!important;color:#88672b!important}
+.asr-items{display:flex;flex-wrap:wrap;gap:10px}
+.asr-items .asr-link{display:inline-flex;align-items:center;padding:9px 14px;border:1px solid #d4b875;border-radius:9px;background:#fffaf0;color:#785822!important;font-size:14px;font-weight:500;text-decoration:none;line-height:1.5;max-width:100%;overflow-wrap:anywhere}
+.asr-items .asr-link:hover,.asr-items .asr-link:focus-visible{background:#f4e8cf;border-color:#b89851;color:#46310d!important}
+@media(max-width:600px){.asr-items{gap:8px}.asr-items .asr-link{font-size:13px;padding:9px 11px}}
