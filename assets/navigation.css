@@ -114,3 +114,6 @@ body.asn-museum-layout{padding-top:var(--asn-height)!important}
   #arch-global-nav-root .asn-drawer:not([hidden]){transform:translate3d(102%,0,0)}
   #arch-global-nav-root .asn-drawer.is-visible{transform:none}
 }
+
+/* Profile subroutes: keep the shared crest visible above legacy page styles. */
+body.person-page #arch-global-nav-root .asn-crest{display:block!important;visibility:visible!important;opacity:1!important;width:52px!important;height:52px!important;max-width:none!important;object-fit:contain!important}
