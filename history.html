@@ -2384,7 +2384,7 @@ img{max-width:100%}
 }
 </style>
 <style id="archelaos-museum-tutorial-2026">
-/* Self-contained four-step onboarding. Only the museum page is modified. */
+/* Museum tour of primary collections. Only the museum page is modified. */
 #archMuseumTourLaunch {display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:46px;max-width:100%;padding:10px 14px;border:1px solid #b9954d;border-radius:12px;color:#073d2a;background:#fff9e9;font-size:12px;font-weight:900;line-height:1.35;white-space:normal;text-align:center;cursor:pointer;transition:background-color .18s,border-color .18s,transform .18s;}
 #archMuseumTourLaunch:hover {background:#f2e7c9;border-color:#846628;transform:translateY(-1px);}
 #archMuseumTourLaunch i {color:#916a25;font-size:15px;}
@@ -2881,6 +2881,93 @@ html[lang="el"] #arch-main-content .lang-en,html[lang="el"] #arch-main-content .
 .v65-basketball-link:hover{background:#eee4ce}
 @media(max-width:850px){#historyArchiveModal #sports-archive .v61-sport-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
 @media(max-width:620px){#chapters.museum-chapter-grid{grid-template-columns:1fr!important}#historyArchiveModal{padding:8px!important}#historyArchiveModal>.modal-box{height:calc(100dvh - 16px)!important;max-height:calc(100dvh - 16px)!important;border-radius:18px!important}#historyArchiveModal #historyArchiveContent{padding:14px!important}#historyArchiveModal #sports-archive .v61-sport-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}#historyArchiveModal .v61-sport-card{min-height:105px!important;padding:12px!important}}
+</style><style>
+/* V66: distinct, readable tour entry point */
+#museum-entrance-v42 #archMuseumTourHeroLaunch{
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  gap:12px!important;background:#f4e6c5!important;color:#073d2a!important;
+  border:2px solid #c7a65e!important;border-radius:999px!important;
+  padding:16px 27px!important;min-height:56px!important;font-weight:800!important;
+  font-size:15px!important;letter-spacing:.01em!important;text-decoration:none!important;
+  box-shadow:0 9px 25px rgba(0,0,0,.18)!important;cursor:pointer!important;
+  transition:background .2s,transform .2s,box-shadow .2s!important;
+}
+#museum-entrance-v42 #archMuseumTourHeroLaunch:hover{background:#fff9e9!important;transform:translateY(-2px);box-shadow:0 13px 28px rgba(0,0,0,.22)!important}
+#museum-entrance-v42 #archMuseumTourHeroLaunch:focus-visible{outline:3px solid #fff!important;outline-offset:4px!important}
+#museum-entrance-v42 #archMuseumTourHeroLaunch [aria-hidden="true"]{font-size:20px!important;font-weight:400!important}
+.v66-basketball-section{margin-top:28px;padding-top:25px;border-top:1px solid #d8c99f}
+.v66-basketball-section h2,.v66-basketball-section h3{color:#073d2a!important}
+.v62-contribute+.arch-anniversary-bottom-note{max-width:1020px;margin:8px auto 40px;padding:0 16px;text-align:center}
+@media(max-width:600px){#museum-entrance-v42 #archMuseumTourHeroLaunch{width:100%;max-width:340px;padding:15px 18px!important;font-size:14px!important}}
+</style><style id="v67-museum-unified-cards">
+/* V67 – restrained museum palette, consistent large milestone cards */
+html body #museum-explore, html body #museum-explore .m54-panel,
+html body #museum-explore .museum-exhibit-index,
+html body #museum-explore .museum-exhibits,
+html body #museum-explore .museum-section-wrap {
+ background:#f8f6ef!important;background-image:none!important;
+}
+html body #museum-explore .museum-exhibit-index-inner {background:#f1ede1!important;background-image:none!important;border:1px solid #dfd2af!important;box-shadow:none!important}
+html body #museum-explore .museum-index-stats {display:flex;align-items:center;justify-content:center;gap:clamp(22px,5vw,95px)}
+html body #museum-explore .museum-index-stats>div {flex:0 1 auto}
+html body #museum-explore .museum-exhibit-grid {display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:16px!important}
+html body #museum-explore .museum-exhibit-grid>.museum-exhibit {
+ display:flex!important;flex-direction:column!important;align-items:stretch!important;position:relative;
+ min-width:0!important;min-height:320px!important;max-width:none!important;
+ padding:0!important;overflow:hidden!important;border:1px solid #d7c8a6!important;
+ border-bottom:3px solid #c7a65e!important;border-radius:22px!important;
+ background:#fffdf8!important;color:#073d2a!important;box-shadow:0 8px 24px rgba(7,61,42,.06)!important;
+ text-align:left!important;transition:transform .2s ease,box-shadow .2s ease!important;
+}
+html body #museum-explore .museum-exhibit-grid>.museum-exhibit:hover {transform:translateY(-4px)!important;box-shadow:0 15px 30px rgba(7,61,42,.13)!important}
+html body #museum-explore .museum-exhibit-grid>.museum-exhibit:focus-visible {outline:3px solid #b29343!important;outline-offset:3px}
+html body #museum-explore .museum-exhibit-grid .museum-exhibit-art {
+ position:relative!important;display:flex!important;align-items:center!important;justify-content:center!important;
+ width:100%!important;min-height:175px!important;height:175px!important;flex:0 0 175px!important;
+ padding:12px!important;margin:0!important;border:0!important;border-radius:0!important;
+ background:#0b4a35!important;background-image:linear-gradient(130deg,#073d2a,#245a42)!important;
+}
+html body #museum-explore .museum-exhibit-grid>.museum-exhibit:nth-child(2) .museum-exhibit-art{background-image:linear-gradient(130deg,#174b36,#58754e)!important}
+html body #museum-explore .museum-exhibit-grid>.museum-exhibit:nth-child(3) .museum-exhibit-art{background-image:linear-gradient(130deg,#123d30,#6d633c)!important}
+html body #museum-explore .museum-exhibit-grid .museum-exhibit-watermark {
+ position:static!important;transform:none!important;opacity:1!important;display:block!important;
+ color:#f0d984!important;text-shadow:none!important;font-family:Georgia,serif!important;
+ font-size:clamp(58px,6.5vw,102px)!important;line-height:1!important;font-weight:700!important;letter-spacing:-.055em!important;
+}
+html body #museum-explore .museum-exhibit-grid .museum-exhibit-artline {display:none!important}
+html body #museum-explore .museum-exhibit-grid .museum-exhibit-copy {flex:1!important;display:flex!important;flex-direction:column!important;gap:8px!important;min-height:0!important;padding:20px!important;background:#fffdf8!important;color:#073d2a!important;}
+html body #museum-explore .museum-exhibit-grid .museum-exhibit-copy h3,
+html body #museum-explore .museum-exhibit-grid .museum-exhibit-copy h3 span {color:#073d2a!important;font-size:clamp(19px,2vw,24px)!important;line-height:1.25!important;font-weight:750!important;}
+html body #museum-explore .museum-exhibit-grid .museum-exhibit-copy p,
+html body #museum-explore .museum-exhibit-grid .museum-exhibit-copy p span {color:#3d5749!important;font-size:14px!important;line-height:1.55!important;}
+html body #museum-explore .museum-exhibit-grid .museum-exhibit-cta {margin-top:auto!important;color:#075c39!important;font-weight:750!important;}
+@media(max-width:850px){html body #museum-explore .museum-exhibit-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:580px){html body #museum-explore .museum-exhibit-grid{grid-template-columns:1fr!important}html body #museum-explore .museum-exhibit-grid>.museum-exhibit{min-height:0!important}html body #museum-explore .museum-exhibit-grid .museum-exhibit-art{height:160px!important;min-height:160px!important;flex-basis:160px!important}}
+</style><style id="v70-museum-unified-popup">
+/* V70: unified archive story modal — same minimalist surface as 70 Moments */
+#historyArchiveModal{padding:clamp(10px,2vw,24px)!important;background:rgba(5,34,23,.72)!important;align-items:center!important}
+#historyArchiveModal>.modal-box{position:relative!important;width:min(100%,900px)!important;max-width:900px!important;height:auto!important;max-height:calc(100dvh - 32px)!important;min-height:0!important;background:#f8f6ef!important;border:1px solid #d3bd87!important;border-radius:23px!important;overflow:hidden!important;box-shadow:0 24px 85px #00160e80!important;display:flex!important;flex-direction:column!important}
+#historyArchiveModal #historyArchiveContent{flex:1 1 auto!important;min-height:0!important;max-height:calc(100dvh - 34px)!important;overflow-y:auto!important;overflow-x:hidden!important;padding:clamp(20px,4vw,45px)!important;scrollbar-gutter:auto!important;background:#f8f6ef!important;color:#073d2a!important}
+#historyArchiveModal .v70-archive-close{position:absolute!important;right:clamp(13px,2.5vw,25px)!important;top:clamp(12px,2.5vw,23px)!important;z-index:25!important;width:44px!important;height:44px!important;border-radius:50%!important;border:1px solid #b7a16f!important;background:#073d2a!important;color:#fff!important;display:grid!important;place-items:center!important;cursor:pointer!important;box-shadow:0 3px 9px #073d2a1a}
+#historyArchiveModal .v70-archive-close:hover{background:#14523b!important}
+#historyArchiveModal .v70-archive-close:focus-visible{outline:3px solid #c7a65e!important;outline-offset:3px!important}
+#historyArchiveModal #historyArchiveContent>.space-y-6,#historyArchiveModal #historyArchiveContent>section{margin-top:0!important}
+/* Remove nested white boxes, green outlines, excessive spacing on archive chapter content */
+#historyArchiveModal #historyArchiveContent .glass-card{background:transparent!important;box-shadow:none!important;border:0!important;border-radius:0!important;padding:0!important}
+#historyArchiveModal #historyArchiveContent #tmimata>div:first-child{border:0!important;background:transparent!important;box-shadow:none!important;padding:0!important}
+#historyArchiveModal #historyArchiveContent #tmimata>div:first-child>div{padding:0!important}
+#historyArchiveModal #historyArchiveContent #tmimata .dept-panel{background:transparent!important;border:0!important;box-shadow:none!important;padding:0!important;margin-top:clamp(24px,4vw,40px)!important}
+#historyArchiveModal #historyArchiveContent .dept-panel>div{max-width:100%!important}
+#historyArchiveModal #historyArchiveContent #tmimata .dept-tab-btn{min-width:0!important}
+#historyArchiveModal #historyArchiveContent #tmimata .grid{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:12px!important}
+#historyArchiveModal #historyArchiveContent #tmimata .dept-tab-btn{min-height:124px!important;padding:15px!important;border:1px solid #dbc99c!important;border-radius:18px!important;background:#faf8f2!important;color:#073d2a!important;box-shadow:none!important}
+#historyArchiveModal #historyArchiveContent #tmimata .dept-tab-btn.active{background:#073d2a!important;border-color:#073d2a!important;color:#f2d484!important}
+#historyArchiveModal #historyArchiveContent #tmimata .dept-tab-btn span{white-space:normal!important;overflow:visible!important;text-overflow:clip!important}
+#historyArchiveModal #historyArchiveContent h2,#historyArchiveModal #historyArchiveContent h3{color:#073d2a}
+#historyArchiveModal #historyArchiveContent p{color:#244c3c}
+@media(max-width:760px){#historyArchiveModal #historyArchiveContent #tmimata .grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}#historyArchiveModal #historyArchiveContent{padding:22px 17px!important;padding-top:64px!important}#historyArchiveModal>.modal-box{max-height:calc(100dvh - 20px)!important}#historyArchiveModal #historyArchiveContent #tmimata .dept-tab-btn{min-height:104px!important;padding:12px!important}}
+@media(min-width:761px){#historyArchiveModal #historyArchiveContent{padding-top:74px!important}}
+@media(prefers-reduced-motion:reduce){#historyArchiveModal>.modal-box{animation:none!important}}
 </style></head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow arch-gold-page" data-arch-people-page="history">
 <!-- ANIMATED CONTOUR WAVES -->
@@ -2947,37 +3034,35 @@ html[lang="el"] #arch-main-content .lang-en,html[lang="el"] #arch-main-content .
 <span aria-hidden="true" class="arch-anniversary-ornament">70</span>
 <span class="arch-anniversary-card-bottom"><span class="arch-anniversary-number">1956 — 2026</span><strong><span class="arch-collection-el">70 χρόνια<br/>70 στιγμές</span><span class="arch-collection-en" hidden="">70 years<br/>70 moments</span></strong><span class="arch-anniversary-description"><span class="arch-collection-el">Περιηγήσου στο κατακόρυφο χρονολόγιο της ιστορίας μας</span><span class="arch-collection-en" hidden="">Explore the vertical timeline of our history</span><span aria-hidden="true"> →</span></span></span>
 </a><a aria-label="Ιστορίες του Αρχέλαου" class="arch-anniversary-card arch-anniversary-stories" href="stories.html"><span class="arch-anniversary-card-top"><span>03 / THE STORIES</span><span aria-hidden="true" class="arch-anniversary-arrow">↗</span></span><span aria-hidden="true" class="arch-anniversary-ornament arch-anniversary-ornament-stories">✦</span><span class="arch-anniversary-card-bottom"><span class="arch-anniversary-number">THE STORIES</span><strong><span class="arch-collection-el">Οι Ιστορίες<br/>του Αρχέλαου</span><span class="arch-collection-en" hidden="">Stories<br/>of Archelaos</span></strong><span class="arch-anniversary-description"><span class="arch-collection-el">Αφηγήσεις, μνήμες και πρόσωπα που διαμόρφωσαν τον σύλλογο</span><span class="arch-collection-en" hidden="">Memories, voices and people who shaped the club</span><span aria-hidden="true"> →</span></span></span></a></div>
-<div class="arch-anniversary-bottom-note"><span aria-hidden="true">✦</span><span class="arch-collection-el">Η ιστορία συνεχίζεται — και μας ενώνει.</span><span class="arch-collection-en" hidden="">History continues — and brings us together.</span><span aria-hidden="true">✦</span></div>
 </div>
 </section></div></section><div id="museum-v54-navigation"><div class="m54-intro"><div class="m54-eyebrow"><span class="lang-el">ΨΗΦΙΑΚΟ ΜΟΥΣΕΙΟ</span><span class="lang-en">DIGITAL MUSEUM</span></div><h2 class="m54-heading"><span class="lang-el">Εξερεύνησε το αρχείο</span><span class="lang-en">Explore the archive</span></h2><p class="m54-hint"><span class="lang-el">Επίλεξε μια ενότητα και ανακάλυψε το ιστορικό αρχείο.</span><span class="lang-en">Choose a section to explore the historical archive.</span></p></div><div class="m54-list"><a aria-label="Εκθέματα &amp; Αφηγήσεις Exhibits &amp; Stories" class="m55-nav-card" href="#museum-explore"><span aria-hidden="true" class="m54-num">01</span><span class="m54-name"><span class="lang-el">Εκθέματα &amp; Αφηγήσεις</span><span class="lang-en">Exhibits &amp; Stories</span></span><span class="m54-desc"><span class="lang-el">Ανακάλυψε τις ιστορικές ενότητες, τεκμήρια και φωνές του συλλόγου.</span><span class="lang-en">Explore featured exhibits, archive highlights and voices.</span></span><span class="m55-nav-arrow">↗</span></a><a aria-label="Το Ιστορικό Αρχείο The Historical Archive" class="m55-nav-card" href="#museum-history"><span aria-hidden="true" class="m54-num">02</span><span class="m54-name"><span class="lang-el">Το Ιστορικό Αρχείο</span><span class="lang-en">The Historical Archive</span></span><span class="m54-desc"><span class="lang-el">Η ιστορική διαδρομή του συλλόγου μέσα από τεκμήρια και αφηγήσεις.</span><span class="lang-en">The club’s journey through archival records and stories.</span></span><span class="m55-nav-arrow">↗</span></a></div></div><section class="m55-section" id="museum-explore"><h2 class="m55-section-title"><span class="lang-el">Εκθέματα &amp; Αφηγήσεις</span><span class="lang-en">Exhibits &amp; Stories</span></h2><div class="m54-panel"><section aria-label="Συλλογή μουσείου / Museum collection" class="museum-exhibit-index">
 <div class="museum-exhibit-index-inner">
 <div class="museum-index-label"><i class="fa-solid fa-layer-group"></i><span data-lang="el">ΨΗΦΙΑΚΗ ΣΥΛΛΟΓΗ</span><span data-lang="en">DIGITAL COLLECTION</span></div>
 <div class="museum-index-stats">
 <div><strong>70</strong><small><span data-lang="el">Χρόνια πορείας</span><span data-lang="en">Years of history</span></small></div>
-<div><strong>6</strong><small><span data-lang="el">Ιστορικές ενότητες</span><span data-lang="en">Archive collections</span></small></div>
 <div><strong>10</strong><small><span data-lang="el">Ενότητες αθλημάτων</span><span data-lang="en">Sports sections</span></small></div>
 </div></div></section><section aria-label="Ιστορικά εκθέματα / Historical exhibits" class="museum-exhibits" id="museum-exhibits">
 <div class="museum-section-wrap">
 <div class="museum-section-kicker"><i class="fa-solid fa-star"></i><span data-lang="el">ΕΠΙΛΕΓΜΕΝΑ ΕΚΘΕΜΑΤΑ</span><span data-lang="en">FEATURED EXHIBITS</span></div>
 <div class="museum-section-head"><div class="heritage-section-heading">
 <div aria-hidden="true" class="heritage-section-eyebrow"><span data-lang="el">ΙΣΤΟΡΙΚΕΣ ΕΝΟΤΗΤΕΣ</span><span data-lang="en">HISTORICAL COLLECTIONS</span></div><h2><span data-lang="el">Σταθμοί που έγραψαν ιστορία</span><span data-lang="en">Milestones that shaped the club</span></h2>
-<p><span data-lang="el">Μικρές ιστορίες από το υπάρχον αρχείο. Επιλέξτε ένα έκθεμα για να διαβάσετε ολόκληρο το σχετικό κεφάλαιο.</span><span data-lang="en">Stories from the original archive. Select an exhibit to read its complete chapter.</span></p>
+<p><span data-lang="el">Τρεις χαρακτηριστικές στιγμές από την ιστορία του συλλόγου. Πατήστε σε μια καρτέλα για να διαβάσετε περισσότερα.</span><span data-lang="en">Three milestones from the club’s history. Select a card to explore the full story.</span></p>
 </div><a class="museum-subtle-link" href="70-stigmes.html"><span data-lang="el">Όλο το χρονολόγιο</span><span data-lang="en">Full timeline</span><i class="fa-solid fa-arrow-down"></i></a></div>
 <div class="museum-exhibit-grid">
 <button aria-label="1956 Η αρχή μιας διαδρομής Where it all began 29 Απριλίου 1956 — η ίδρυση του συλλόγου στην Κατερίνη. April 29, 1956 — the club's " class="museum-exhibit museum-exhibit-main" onclick="openHistoryArchive('intro')" type="button">
 <div class="museum-exhibit-art"><span class="museum-exhibit-watermark">1956</span><span class="museum-exhibit-artline"></span></div>
 <div class="museum-exhibit-copy"><h3><span data-lang="el">Η αρχή μιας διαδρομής</span><span data-lang="en">Where it all began</span></h3>
-<p><span data-lang="el">29 Απριλίου 1956 — η ίδρυση του συλλόγου στην Κατερίνη.</span><span data-lang="en">April 29, 1956 — the club's founding in Katerini.</span></p><span class="museum-exhibit-cta"><span data-lang="el">Διαβάστε την ιστορία</span><span data-lang="en">Read the story</span><i class="fa-solid fa-arrow-up-right-from-square"></i></span></div>
+<p><span data-lang="el">29 Απριλίου 1956 — η ίδρυση του συλλόγου στην Κατερίνη.</span><span data-lang="en">April 29, 1956 — the club's founding in Katerini.</span></p></div>
 </button>
 <button aria-label="1968 Τα χρώματα της ταυτότητας The colors of identity 27 Ιουνίου 1968 — καθιέρωση του πράσινου και του κίτρινου. June 27, 1968 — g" class="museum-exhibit" onclick="openHistoryArchive('intro')" type="button">
 <div class="museum-exhibit-art museum-exhibit-art-secondary"><span class="museum-exhibit-watermark">1968</span></div>
 <div class="museum-exhibit-copy"><h3><span data-lang="el">Τα χρώματα της ταυτότητας</span><span data-lang="en">The colors of identity</span></h3>
-<p><span data-lang="el">27 Ιουνίου 1968 — καθιέρωση του πράσινου και του κίτρινου.</span><span data-lang="en">June 27, 1968 — green and yellow become the official colors.</span></p><span class="museum-exhibit-cta"><span data-lang="el">Διαβάστε την ιστορία</span><span data-lang="en">Read the story</span><i class="fa-solid fa-arrow-up-right-from-square"></i></span></div>
+<p><span data-lang="el">27 Ιουνίου 1968 — καθιέρωση του πράσινου και του κίτρινου.</span><span data-lang="en">June 27, 1968 — green and yellow become the official colors.</span></p></div>
 </button>
 <button aria-label="1957 Η γέννηση των «Δίιων» The birth of the Diia Games Οι πρώτοι Πανελλήνιοι Αγώνες Στίβου «Δίια» στην Κατερίνη. The first Panhell" class="museum-exhibit" onclick="openHistoryArchive('diia')" type="button">
 <div class="museum-exhibit-art museum-exhibit-art-third"><span class="museum-exhibit-watermark">1957</span></div>
 <div class="museum-exhibit-copy"><h3><span data-lang="el">Η γέννηση των «Δίιων»</span><span data-lang="en">The birth of the Diia Games</span></h3>
-<p><span data-lang="el">Οι πρώτοι Πανελλήνιοι Αγώνες Στίβου «Δίια» στην Κατερίνη.</span><span data-lang="en">The first Panhellenic “Diia” track and field games in Katerini.</span></p><span class="museum-exhibit-cta"><span data-lang="el">Διαβάστε την ιστορία</span><span data-lang="en">Read the story</span><i class="fa-solid fa-arrow-up-right-from-square"></i></span></div>
+<p><span data-lang="el">Οι πρώτοι Πανελλήνιοι Αγώνες Στίβου «Δίια» στην Κατερίνη.</span><span data-lang="en">The first Panhellenic “Diia” track and field games in Katerini.</span></p></div>
 </button>
 </div>
 </div></section><section aria-labelledby="arch-folio-title" class="arch-folio" id="archive-voices"><div class="arch-folio-wrap"><p class="arch-folio-overline"><span data-lang="el">ΑΠΟΣΠΑΣΜΑΤΑ ΑΠΟ ΤΟ ΑΡΧΕΙΟ</span><span data-lang="en">EXCERPTS FROM THE ARCHIVE</span></p><h2 id="arch-folio-title"><span data-lang="el">Οι φωνές<em> του αρχείου</em></span><span data-lang="en">Voices<em> of the archive</em></span></h2><p class="arch-folio-lead"><span data-lang="el">Δέκα στιγμές, δέκα φωνές. Επιλέξτε μια χρονιά και ανακαλύψτε τι έλεγαν οι άνθρωποι του Αρχέλαου και όσοι τον γνώρισαν μέσα στις δεκαετίες.</span><span data-lang="en">Ten moments, ten voices. Choose a year to discover the words of Archelaos and those who encountered the club across the decades.</span></p><div class="arch-folio-layout"><div aria-label="Επιλογή ιστορικού αποσπάσματος / Choose an archival excerpt" class="arch-folio-rail" role="group"><button aria-controls="arch-folio-reader" aria-pressed="true" class="arch-folio-tab is-active" data-folio="0" type="button"><span class="arch-folio-tab-index">01</span><span class="arch-folio-tab-year">1968</span><span class="arch-folio-tab-title"><span data-lang="el">Τα χρώματα του συλλόγου</span><span data-lang="en">The club colours</span></span></button><button aria-controls="arch-folio-reader" aria-pressed="false" class="arch-folio-tab" data-folio="1" type="button"><span class="arch-folio-tab-index">02</span><span class="arch-folio-tab-year">1970</span><span class="arch-folio-tab-title"><span data-lang="el">Αυτονομία</span><span data-lang="en">Independence</span></span></button><button aria-controls="arch-folio-reader" aria-pressed="false" class="arch-folio-tab" data-folio="2" type="button"><span class="arch-folio-tab-index">03</span><span class="arch-folio-tab-year">1973</span><span class="arch-folio-tab-title"><span data-lang="el">Νέα εποχή</span><span data-lang="en">A new era</span></span></button><button aria-controls="arch-folio-reader" aria-pressed="false" class="arch-folio-tab" data-folio="3" type="button"><span class="arch-folio-tab-index">04</span><span class="arch-folio-tab-year">1976</span><span class="arch-folio-tab-title"><span data-lang="el">Πρωτοπορία</span><span data-lang="en">Pioneering spirit</span></span></button><button aria-controls="arch-folio-reader" aria-pressed="false" class="arch-folio-tab" data-folio="4" type="button"><span class="arch-folio-tab-index">05</span><span class="arch-folio-tab-year">1990</span><span class="arch-folio-tab-title"><span data-lang="el">Αθλητικό ήθος</span><span data-lang="en">Sporting spirit</span></span></button><button aria-controls="arch-folio-reader" aria-pressed="false" class="arch-folio-tab" data-folio="5" type="button"><span class="arch-folio-tab-index">06</span><span class="arch-folio-tab-year">1992</span><span class="arch-folio-tab-title"><span data-lang="el">Μια αρχή τον χειμώνα</span><span data-lang="en">A winter beginning</span></span></button><button aria-controls="arch-folio-reader" aria-pressed="false" class="arch-folio-tab" data-folio="6" type="button"><span class="arch-folio-tab-index">07</span><span class="arch-folio-tab-year">1993</span><span class="arch-folio-tab-title"><span data-lang="el">Η φωνή του αθλητή</span><span data-lang="en">The athlete’s voice</span></span></button><button aria-controls="arch-folio-reader" aria-pressed="false" class="arch-folio-tab" data-folio="7" type="button"><span class="arch-folio-tab-index">08</span><span class="arch-folio-tab-year">1993</span><span class="arch-folio-tab-title"><span data-lang="el">Το δέος των αντιπάλων</span><span data-lang="en">Respect from opponents</span></span></button><button aria-controls="arch-folio-reader" aria-pressed="false" class="arch-folio-tab" data-folio="8" type="button"><span class="arch-folio-tab-index">09</span><span class="arch-folio-tab-year">1994</span><span class="arch-folio-tab-title"><span data-lang="el">Η δύναμη της ομάδας</span><span data-lang="en">The strength of a team</span></span></button><button aria-controls="arch-folio-reader" aria-pressed="false" class="arch-folio-tab" data-folio="9" type="button"><span class="arch-folio-tab-index">10</span><span class="arch-folio-tab-year">2016</span><span class="arch-folio-tab-title"><span data-lang="el">Η φλόγα συνεχίζεται</span><span data-lang="en">The flame lives on</span></span></button></div><article aria-atomic="true" aria-live="polite" class="arch-folio-reader" id="arch-folio-reader"><div class="arch-folio-reader-top"><span class="arch-folio-reader-label"><span data-lang="el">ΙΣΤΟΡΙΚΟ ΤΕΚΜΗΡΙΟ</span><span data-lang="en">HISTORICAL EXCERPT</span></span><span class="arch-folio-count" id="arch-folio-count">01 / 10</span></div><div aria-hidden="true" class="arch-folio-watermark" id="arch-folio-watermark">1968</div><div class="arch-folio-year" id="arch-folio-year">1968</div><h3 id="arch-folio-story-title"></h3><p class="arch-folio-story-intro" id="arch-folio-story-intro"></p><div aria-hidden="true" class="arch-folio-ornament">❦</div><blockquote class="arch-folio-quote" id="arch-folio-quote"></blockquote><div class="arch-folio-reader-bottom"><span class="arch-folio-note"><span data-lang="el">Από το αρχείο του Αρχέλαου</span><span data-lang="en">From the Archelaos archive</span></span><div class="arch-folio-nav"><button aria-label="Προηγούμενο / Previous" class="arch-folio-nav-btn" id="arch-folio-prev" type="button">←</button><button aria-label="Επόμενο / Next" class="arch-folio-nav-btn" id="arch-folio-next" type="button">→</button></div></div></article></div><p class="arch-folio-disclaimer"><span data-lang="el">Μαρτυρίες και αποσπάσματα από το ιστορικό αρχείο του Αρχέλαου.</span><span data-lang="en">Testimonies and excerpts from the Archelaos historical archive.</span></p></div></section></div></section><section class="m55-section" id="museum-history"><h2 class="m55-section-title"><span class="lang-el">Το Ιστορικό Αρχείο</span><span class="lang-en">The Historical Archive</span></h2><div class="m54-panel"><div class="heritage-museum-jump" id="museum-jump">
@@ -3022,8 +3107,8 @@ html[lang="el"] #arch-main-content .lang-en,html[lang="el"] #arch-main-content .
 <div class="lg:col-span-12 space-y-5">
 <div class="history-search-wrap mb-5 sm:mb-6">
 <div class="flex items-center justify-between gap-3 mb-3">
-<h2 class="font-heading font-black text-xl sm:text-2xl text-archelaos-deepgreen"><span data-lang="el">Εξερεύνηση κεφαλαίων</span><span data-lang="en">Explore history</span></h2>
-<span aria-live="polite" class="text-xs font-bold text-archelaos-deepgreen/65" id="historySearchCount">6 / 6</span></div>
+<h2 class="font-heading font-black text-xl sm:text-2xl text-archelaos-deepgreen"><span data-lang="el">Εξερευνήστε το αρχείο</span><span data-lang="en">Explore the archive</span></h2>
+<span aria-live="polite" class="sr-only" id="historySearchCount">6 / 6</span></div>
 <label class="flex items-center gap-3 rounded-2xl border border-archelaos-deepgreen/20 bg-white/85 px-4 py-3 shadow-sm focus-within:ring-2 focus-within:ring-archelaos-darkgreen/30">
 <i class="fa-solid fa-magnifying-glass text-archelaos-darkgreen"></i>
 <input aria-label="Αναζήτηση ιστορικού / Search history" autocomplete="off" class="bg-transparent outline-none min-w-0 flex-1 text-sm text-archelaos-deepgreen" id="historySearch" placeholder="Αναζήτηση στα ιστορικά κεφάλαια..." type="search"/>
@@ -3033,26 +3118,25 @@ html[lang="el"] #arch-main-content .lang-en,html[lang="el"] #arch-main-content .
 <button aria-label="Ίδρυση &amp; Ιστορική Ταυτότητα Foundation &amp; Identity Η ίδρυση, το έμβλημα και τα επίσημα χρώματα. The founding, emblem, and official colours." class="history-archive-card glass-card w-full text-left rounded-3xl p-5 sm:p-6 group v61-archive-card" onclick="openHistoryArchive('intro')" type="button">
 <div class="flex items-start gap-4 relative z-10">
 <div class="w-12 h-12 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-xl shrink-0 group-hover:scale-105 transition chapter-icon-contrast chapter-icon-yellow"><i aria-hidden="true" class="fa-solid fa-scroll"></i></div>
-<div><span class="text-[10px] font-black tracking-[.16em] uppercase text-archelaos-darkgreen"><span data-lang="el">Ιστορικό αρχείο</span><span data-lang="en">Archive collection</span></span><h3 class="font-heading font-black text-lg sm:text-xl text-archelaos-deepgreen mt-1"><span data-lang="el">Ίδρυση &amp; Ιστορική Ταυτότητα</span><span data-lang="en">Foundation &amp; Identity</span></h3><p class="text-sm text-slate-600 mt-2 leading-relaxed"><span data-lang="el">Η ίδρυση, το έμβλημα και τα επίσημα χρώματα.</span><span data-lang="en">The founding, emblem, and official colours.</span></p><span class="inline-flex items-center gap-2 mt-4 text-xs font-black text-archelaos-darkgreen"><span data-lang="el">Άνοιγμα αρχείου</span><span data-lang="en">Open archive</span><i class="fa-solid fa-arrow-up-right-from-square transition group-hover:translate-x-1"></i></span></div>
+<div><span class="text-[10px] font-black tracking-[.16em] uppercase text-archelaos-darkgreen"><span data-lang="el">Ιστορικό αρχείο</span><span data-lang="en">Archive collection</span></span><h3 class="font-heading font-black text-lg sm:text-xl text-archelaos-deepgreen mt-1"><span data-lang="el">Ίδρυση &amp; Ιστορική Ταυτότητα</span><span data-lang="en">Foundation &amp; Identity</span></h3><p class="text-sm text-slate-600 mt-2 leading-relaxed"><span data-lang="el">Η ίδρυση, το έμβλημα και τα επίσημα χρώματα.</span><span data-lang="en">The founding, emblem, and official colours.</span></p></div>
 </div>
 </button>
 <button aria-label="Διοίκηση &amp; Πρόεδροι Administration &amp; Presidents Αναλυτική διοικητική ιστορία και pop-up για κάθε προεδρική θητεία. Full administrative hist" class="history-archive-card glass-card w-full text-left rounded-3xl p-5 sm:p-6 group v61-archive-card" onclick="openHistoryArchive('dioikisi')" type="button">
 <div class="flex items-start gap-4 relative z-10">
 <div class="w-12 h-12 rounded-2xl bg-archelaos-deepgreen text-archelaos-yellow flex items-center justify-center text-xl shrink-0 group-hover:scale-105 transition chapter-icon-contrast chapter-icon-green"><i aria-hidden="true" class="fa-solid fa-landmark"></i></div>
-<div><span class="text-[10px] font-black tracking-[.16em] uppercase text-archelaos-darkgreen"><span data-lang="el">Ιστορικό αρχείο</span><span data-lang="en">Archive collection</span></span><h3 class="font-heading font-black text-lg sm:text-xl text-archelaos-deepgreen mt-1"><span data-lang="el">Διοίκηση &amp; Πρόεδροι</span><span data-lang="en">Administration &amp; Presidents</span></h3><p class="text-sm text-slate-600 mt-2 leading-relaxed"><span data-lang="el">Αναλυτική ιστορία της διοίκησης και αναδυόμενο παράθυρο πληροφοριών για κάθε προεδρική θητεία.</span><span data-lang="en">Full administrative history and a popup for each presidential term.</span></p><span class="inline-flex items-center gap-2 mt-4 text-xs font-black text-archelaos-darkgreen"><span data-lang="el">Με διαδραστικό πίνακα</span><span data-lang="en">Interactive timeline table</span><i class="fa-solid fa-arrow-up-right-from-square transition group-hover:translate-x-1"></i></span></div>
+<div><span class="text-[10px] font-black tracking-[.16em] uppercase text-archelaos-darkgreen"><span data-lang="el">Ιστορικό αρχείο</span><span data-lang="en">Archive collection</span></span><h3 class="font-heading font-black text-lg sm:text-xl text-archelaos-deepgreen mt-1"><span data-lang="el">Διοίκηση &amp; Πρόεδροι</span><span data-lang="en">Administration &amp; Presidents</span></h3><p class="text-sm text-slate-600 mt-2 leading-relaxed"><span data-lang="el">Αναλυτική ιστορία της διοίκησης και αναδυόμενο παράθυρο πληροφοριών για κάθε προεδρική θητεία.</span><span data-lang="en">Full administrative history and a popup for each presidential term.</span></p></div>
 </div>
 </button>
-
 <button aria-label="Ιστορία Αθλητικών Τμημάτων Sports Department History Δέκα ενότητες, με επιλογή τμήματος μέσα στο popup. Ten sections, with department selec" class="history-archive-card glass-card w-full text-left rounded-3xl p-5 sm:p-6 group" onclick="openHistoryArchive('tmimata')" type="button">
 <div class="flex items-start gap-4 relative z-10">
 <div class="w-12 h-12 rounded-2xl bg-archelaos-deepgreen text-archelaos-yellow flex items-center justify-center text-xl shrink-0 group-hover:scale-105 transition chapter-icon-contrast chapter-icon-green"><i aria-hidden="true" class="fa-solid fa-medal"></i></div>
-<div><span class="text-[10px] font-black tracking-[.16em] uppercase text-archelaos-darkgreen"><span data-lang="el">Ιστορία ανά τμήμα</span><span data-lang="en">Sports history</span></span><h3 class="font-heading font-black text-lg sm:text-xl text-archelaos-deepgreen mt-1"><span data-lang="el">Ιστορία Αθλητικών Τμημάτων</span><span data-lang="en">Sports Department History</span></h3><p class="text-sm text-slate-600 mt-2 leading-relaxed"><span data-lang="el">Δέκα ενότητες, με επιλογή αθλήματος σε αναδυόμενο παράθυρο.</span><span data-lang="en">Ten sections, with department selection inside the popup.</span></p><span class="inline-flex items-center gap-2 mt-4 text-xs font-black text-archelaos-darkgreen"><span data-lang="el">Επιλογή τμήματος</span><span data-lang="en">Choose a department</span><i class="fa-solid fa-arrow-up-right-from-square transition group-hover:translate-x-1"></i></span></div>
+<div><span class="text-[10px] font-black tracking-[.16em] uppercase text-archelaos-darkgreen"><span data-lang="el">Ιστορία ανά τμήμα</span><span data-lang="en">Sports history</span></span><h3 class="font-heading font-black text-lg sm:text-xl text-archelaos-deepgreen mt-1"><span data-lang="el">Ιστορία Αθλητικών Τμημάτων</span><span data-lang="en">Sports Department History</span></h3><p class="text-sm text-slate-600 mt-2 leading-relaxed"><span data-lang="el">Δέκα ενότητες, με επιλογή αθλήματος σε αναδυόμενο παράθυρο.</span><span data-lang="en">Ten sections, with department selection inside the popup.</span></p></div>
 </div>
 </button>
 <button aria-label="Δίια &amp; Δίος Δρόμος Diia Games &amp; Dios Dromos Η αναδρομή στους ιστορικούς αγώνες και στον δρόμο. A look back at the historic games and road r" class="history-archive-card glass-card w-full text-left rounded-3xl p-5 sm:p-6 group v61-archive-card" onclick="openHistoryArchive('diia')" type="button">
 <div class="flex items-start gap-4 relative z-10">
 <div class="w-12 h-12 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-xl shrink-0 group-hover:scale-105 transition chapter-icon-contrast chapter-icon-yellow"><i aria-hidden="true" class="fa-solid fa-person-running"></i></div>
-<div><span class="text-[10px] font-black tracking-[.16em] uppercase text-archelaos-darkgreen"><span data-lang="el">Ιστορικό αρχείο</span><span data-lang="en">Archive collection</span></span><h3 class="font-heading font-black text-lg sm:text-xl text-archelaos-deepgreen mt-1"><span data-lang="el">Δίια &amp; Δίος Δρόμος</span><span data-lang="en">Diia Games &amp; Dios Dromos</span></h3><p class="text-sm text-slate-600 mt-2 leading-relaxed"><span data-lang="el">Η αναδρομή στους ιστορικούς αγώνες και στον δρόμο.</span><span data-lang="en">A look back at the historic games and road race.</span></p><span class="inline-flex items-center gap-2 mt-4 text-xs font-black text-archelaos-darkgreen"><span data-lang="el">Δείτε την ιστορία</span><span data-lang="en">Explore the history</span><i class="fa-solid fa-arrow-up-right-from-square transition group-hover:translate-x-1"></i></span></div>
+<div><span class="text-[10px] font-black tracking-[.16em] uppercase text-archelaos-darkgreen"><span data-lang="el">Ιστορικό αρχείο</span><span data-lang="en">Archive collection</span></span><h3 class="font-heading font-black text-lg sm:text-xl text-archelaos-deepgreen mt-1"><span data-lang="el">Δίια &amp; Δίος Δρόμος</span><span data-lang="en">Diia Games &amp; Dios Dromos</span></h3><p class="text-sm text-slate-600 mt-2 leading-relaxed"><span data-lang="el">Η αναδρομή στους ιστορικούς αγώνες και στον δρόμο.</span><span data-lang="en">A look back at the historic games and road race.</span></p></div>
 </div>
 </button>
 </div>
@@ -3070,14 +3154,13 @@ html[lang="el"] #arch-main-content .lang-en,html[lang="el"] #arch-main-content .
 <button aria-haspopup="dialog" aria-label="Πάλη Wrestling" class="v61-sport-card" onclick="openHistoryArchive('tmimata','wrestling')" type="button"><i class="fa-solid fa-medal"></i><span data-lang="el">Πάλη</span><span data-lang="en">Wrestling</span><span aria-hidden="true" class="v61-open-indicator">↗</span></button>
 <button aria-haspopup="dialog" aria-label="Κολύμβηση Swimming" class="v61-sport-card" onclick="openHistoryArchive('tmimata','swimming')" type="button"><i class="fa-solid fa-person-swimming"></i><span data-lang="el">Κολύμβηση</span><span data-lang="en">Swimming</span><span aria-hidden="true" class="v61-open-indicator">↗</span></button>
 <button aria-haspopup="dialog" aria-label="Ενόργανη Gymnastics" class="v61-sport-card" onclick="openHistoryArchive('tmimata','gymnastics')" type="button"><i class="fa-solid fa-dumbbell"></i><span data-lang="el">Ενόργανη</span><span data-lang="en">Gymnastics</span><span aria-hidden="true" class="v61-open-indicator">↗</span></button>
-
 <button aria-haspopup="dialog" aria-label="Άλλα / πρώην τμήματα Other / former departments" class="v61-sport-card" onclick="openHistoryArchive('tmimata','inactive-depts')" type="button"><i class="fa-solid fa-box-archive"></i><span data-lang="el">Άλλα / πρώην τμήματα</span><span data-lang="en">Other / former departments</span><span aria-hidden="true" class="v61-open-indicator">↗</span></button>
 </div>
 </div>
 </div>
 </div>
 </div>
-</section></div><div class="v62-contribute"><a class="v62-contribute-card" href="contact.html"><span aria-hidden="true" class="v62-contribute-icon"><i class="fa-solid fa-box-archive"></i></span><span class="v62-contribute-copy"><span class="v62-contribute-kicker"><span data-lang="el">ΣΥΜΜΕΤΟΧΗ ΣΤΟ ΙΣΤΟΡΙΚΟ ΑΡΧΕΙΟ</span><span data-lang="en">CONTRIBUTE TO THE ARCHIVE</span></span><strong><span data-lang="el">Βοηθήστε μας να διαφυλάξουμε την ιστορία</span><span data-lang="en">Help us preserve our history</span></strong><span class="v62-contribute-description"><span data-lang="el">Έχετε φωτογραφίες, προγράμματα αγώνων, έγγραφα ή προσωπικές αναμνήσεις από τον Αρχέλαο; Επικοινωνήστε μαζί μας για να εμπλουτίσουμε το ιστορικό αρχείο του συλλόγου.</span><span data-lang="en">Do you have photographs, match programmes, documents or personal memories of Archelaos? Contact us to help enrich the club’s historical archive.</span></span></span><span aria-hidden="true" class="v62-contribute-arrow">↗</span></a></div></section>
+</section></div><div class="v62-contribute"><a class="v62-contribute-card" href="contact.html"><span aria-hidden="true" class="v62-contribute-icon"><i class="fa-solid fa-box-archive"></i></span><span class="v62-contribute-copy"><span class="v62-contribute-kicker"><span data-lang="el">ΣΥΜΜΕΤΟΧΗ ΣΤΟ ΙΣΤΟΡΙΚΟ ΑΡΧΕΙΟ</span><span data-lang="en">CONTRIBUTE TO THE ARCHIVE</span></span><strong><span data-lang="el">Βοηθήστε μας να διαφυλάξουμε την ιστορία</span><span data-lang="en">Help us preserve our history</span></strong><span class="v62-contribute-description"><span data-lang="el">Έχετε φωτογραφίες, προγράμματα αγώνων, έγγραφα ή προσωπικές αναμνήσεις από τον Αρχέλαο; Επικοινωνήστε μαζί μας για να εμπλουτίσουμε το ιστορικό αρχείο του συλλόγου.</span><span data-lang="en">Do you have photographs, match programmes, documents or personal memories of Archelaos? Contact us to help enrich the club’s historical archive.</span></span></span><span aria-hidden="true" class="v62-contribute-arrow">↗</span></a></div><div class="arch-anniversary-bottom-note"><span aria-hidden="true">✦</span><span class="arch-collection-el">Η ιστορία συνεχίζεται — και μας ενώνει.</span><span class="arch-collection-en" hidden="">History continues — and brings us together.</span><span aria-hidden="true">✦</span></div></section>
 <dialog aria-labelledby="honors-detail-title" class="w-[min(94vw,1100px)] max-h-[86vh] rounded-[1.5rem] sm:rounded-[2rem] p-0 shadow-2xl backdrop:bg-slate-950/75 text-slate-800" id="honors-detail-dialog">
 <div class="sticky top-0 z-10 bg-white border-b border-slate-200 px-5 sm:px-8 py-4 flex items-center justify-between gap-4">
 <h2 class="font-heading font-black text-lg sm:text-2xl text-archelaos-deepgreen" id="honors-detail-title"><span data-lang="el">Αναλυτικές Διακρίσεις ανά Άθλημα</span><span data-lang="en">Detailed Honors by Sport</span></h2>
@@ -4554,67 +4637,8 @@ html[lang="el"] #arch-main-content .lang-en,html[lang="el"] #arch-main-content .
 </div>
 </article>
 <!-- 4.9 ΚΑΛΑΘΟΣΦΑΙΡΙΣΗ (ΣΥΓΧΩΝΕΥΣΗ 2008) -->
-<article class="dept-panel glass-card rounded-[2rem] p-6 sm:p-10 shadow-lg scroll-mt-24" id="basketball">
-<div class="relative z-10 space-y-5">
-<div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200/80 pb-4">
-<div class="flex items-center gap-3">
-<div class="w-12 h-12 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-2xl shadow-sm border border-archelaos-deepgreen/15">
-<i class="fa-solid fa-basketball"></i>
-</div>
-<div>
-<span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen block">
-<span data-lang="el">Ιστορικό Τμήμα • 1973–2008</span>
-<span data-lang="en">Historical Department • 1973–2008</span>
-</span>
-<h2 class="text-2xl sm:text-3xl font-black font-heading text-archelaos-deepgreen">
-<span data-lang="el">Καλαθοσφαίριση (Συγχώνευση το 2008)</span>
-<span data-lang="en">Basketball (2008 Merger)</span>
-</h2>
-</div>
-</div>
-</div>
-<!-- GREEK CONTENT -->
-<div class="space-y-5" data-lang="el">
-<p>
-                      Το τμήμα καλαθοσφαίρισης ιδρύθηκε το καλοκαίρι του <strong>1973</strong> υπό τον Θεόδωρο Σφήκα (πρώτος έφορος και προπονητής έως το 1977) και το 1980 αποτέλεσε ένα από τα 11 ιδρυτικά σωματεία της Ε.ΚΑ.Σ.ΚΕ.ΔΥ.Μ. (μετέπειτα ΕΚΑΣΚΕΜ). Η ανδρική ομάδα αγωνίστηκε στη <strong>Β΄ Εθνική Κατηγορία επί δύο έτη (1977–1979)</strong>, κατέκτησε το Πρωτάθλημα Α΄ ΕΚΑΣΚΕΜ (2001–02), αγωνίστηκε επί έξι έτη στη Γ΄ Εθνική (2002–2008, 2η θέση το 2006–07 και 2007–08) και κατέκτησε το Κύπελλο Ανδρών ΕΚΑΣΚΕΜ (2007–08). Η γυναικεία ομάδα ανήλθε στη Β΄ Εθνική το 1989 έχοντας κατακτήσει 4 πρωταθλήματα Ένωσης (1981–82, 1987–88, 1988–89, 1997–98). Η ομάδα Κορασίδων υπό τον Κυριάκο Κανάλη κατέκτησε την <strong>3η θέση στο Πανελλήνιο Πρωτάθλημα Κορασίδων (1995–96)</strong> στην Τρίπολη. Στυλοβάτης του τμήματος επί τρεις δεκαετίες υπήρξε ο αντιπρόεδρος Αντώνης Χαλεπλής, μαζί με τους εφόρους Μιχάλη Σαπίδη και Θεόδωρο Γαλανό.
-                    </p>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
-<div class="sub-box p-4 rounded-2xl bg-slate-50 border border-slate-200">
-<h4 class="font-heading font-black text-archelaos-deepgreen mb-1">Ιστορικοί Προπονητές</h4>
-<p class="!mb-0">Θεόδωρος Σφήκας, Κυριάκος Κανάλης, Αναστάσιος Θωμαΐδης, Χρήστος Ξηρομερίτης, Παναγιώτης Αθανασιάδης, Δημοσθένης Σιδηρόπουλος, Δημήτριος Σμυρλής, Πλάτων Χοτοκουρίδης, Αναστασία Φυλακτακίδου.</p>
-</div>
-<div class="sub-box p-4 rounded-2xl bg-slate-50 border border-slate-200">
-<h4 class="font-heading font-black text-archelaos-deepgreen mb-1">Εμβληματικοί Καλαθοσφαιριστές &amp; Αθλήτριες</h4>
-<p class="!mb-0">Κωνσταντίνος Τσουγκράνης, Τσαγκαλίδης, Ελένη Μαλεζά, Τασούλα Τσιρογιάννη, Δημήτριος Τσιγγαρόπουλος, Γεώργιος Αντωνιάδης, Γιάννης Παναγιωτίδης, Θεόδωρος Βύρος, Χρήστος Τοπαλίδης, Θεόδωρος Πρισκομάτης, Αλεξάνδρα Μπίλα, Παναγιώτα Νικολαΐδου.</p>
-</div>
-</div>
-<p class="!mb-0">
-                      Το καλοκαίρι του <strong>2008</strong>, μετά από απόφαση της Γενικής Συνέλευσης (4 Ιουνίου 2008), τα τμήματα μπάσκετ του Αρχελάου και του Σ.Φ.Κ. Πιερικού συνενώθηκαν δημιουργώντας τον ενιαίο <strong>Σ.Φ.Κ. Πιερικός Αρχέλαος</strong>.
-                    </p>
-<div class="nblm-dept-notes"><h4>Νέες αρχειακές ψηφίδες</h4><ul><li>2008 · Η συνένωση με τον Πιερικό — Το Δ.Σ. συζήτησε τη συνένωση δυνάμεων του τοπικού μπάσκετ. Η ακριβής νομική μορφή της διαδικασίας χρειάζεται έλεγχο στα πλήρη πρακτικά.</li><li>1985 · Η μεταγραφή της Τασούλας Τσιρογιάννη — Έγγραφο αναφέρεται σε παραχώρηση της αθλήτριας στον Μέγα Αλέξανδρο με οικονομική υποχρέωση 100.000 δραχμών.</li><li>1996 · Αίτημα για την Αθηνά Παπασωτηρίου — Ο Άρης Θεσσαλονίκης ζήτησε την ελεύθερη μεταγραφή της Αθηνάς Παπασωτηρίου.</li></ul></div></div>
-<!-- ENGLISH CONTENT -->
-<div class="space-y-5" data-lang="en">
-<p>
-                      The Basketball department was founded in the summer of <strong>1973</strong> under Theodoros Sfikas (first department head and coach until 1977), and in 1980 it became one of the 11 founding clubs of E.KA.S.KE.DY.M. (later EKASKEM). The Men's team competed in the <strong>B' National Division for two seasons (1977–1979)</strong>, won the A' EKASKEM Championship (2001–02), competed for six seasons in the C' National Division (2002–2008, finishing 2nd in 2006–07 and 2007–08), and won the EKASKEM Men's Cup (2007–08). The Women's team earned promotion to the B' National Division in 1989 after winning 4 Regional Union Championships (1981–82, 1987–88, 1988–89, 1997–98). The U16 Girls' (Cadets) team under coach Kyriakos Kanalis won <strong>3rd place at the Panhellenic U16 Girls' Championship (1995–96)</strong> in Tripoli. Vice President Antonis Chaleplis was a pillar of the department for three decades, alongside department heads Michalis Sapidis and Theodoros Galanos.
-                    </p>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
-<div class="sub-box p-4 rounded-2xl bg-slate-50 border border-slate-200">
-<h4 class="font-heading font-black text-archelaos-deepgreen mb-1">Historic Coaches</h4>
-<p class="!mb-0">Theodoros Sfikas, Kyriakos Kanalis, Anastasios Thomaidis, Christos Xiromeritis, Panagiotis Athanasiadis, Dimosthenis Sidiropoulos, Dimitrios Smyrlis, Platon Chotokouridis, Anastasia Fylaktakidou.</p>
-</div>
-<div class="sub-box p-4 rounded-2xl bg-slate-50 border border-slate-200">
-<h4 class="font-heading font-black text-archelaos-deepgreen mb-1">Iconic Basketball Players</h4>
-<p class="!mb-0">Konstantinos Tsougranis, Tsagkalidis, Eleni Maleza, Tasoula Tsirogianni, Dimitrios Tsingaropoulos, Georgios Antoniadis, Giannis Panagiotidis, Theodoros Vyros, Christos Topalidis, Theodoros Priskomatis, Alexandra Bila, Panagiota Nikolaidou.</p>
-</div>
-</div>
-<p class="!mb-0">
-                      In the summer of <strong>2008</strong>, following a resolution of the General Assembly (June 4, 2008), the basketball departments of Archelaos and S.F.K. Pierikos merged to form the unified <strong>S.F.K. Pierikos Archelaos</strong>.
-                    </p>
-<div class="nblm-dept-notes"><h4>New archival notes</h4><ul><li>2008 · Η συνένωση με τον Πιερικό — Το Δ.Σ. συζήτησε τη συνένωση δυνάμεων του τοπικού μπάσκετ. Η ακριβής νομική μορφή της διαδικασίας χρειάζεται έλεγχο στα πλήρη πρακτικά.</li><li>1985 · Η μεταγραφή της Τασούλας Τσιρογιάννη — Έγγραφο αναφέρεται σε παραχώρηση της αθλήτριας στον Μέγα Αλέξανδρο με οικονομική υποχρέωση 100.000 δραχμών.</li><li>1996 · Αίτημα για την Αθηνά Παπασωτηρίου — Ο Άρης Θεσσαλονίκης ζήτησε την ελεύθερη μεταγραφή της Αθηνάς Παπασωτηρίου.</li></ul></div></div>
-</div>
-</article>
 <!-- 4.10 ΑΝΕΝΕΡΓΑ ΤΜΗΜΑΤΑ (ΠΟΛΟ, ΠΙΝΓΚ-ΠΟΝΓΚ, ΑΡΣΗ ΒΑΡΩΝ) -->
-<article class="dept-panel glass-card rounded-[2rem] p-6 sm:p-10 shadow-lg scroll-mt-24" id="inactive-depts"><button class="v65-basketball-link" onclick="openHistoryArchive('tmimata','basketball')" type="button"><span data-lang="el">Μπάσκετ · Δείτε την ιστορία του τμήματος ↗</span><span data-lang="en">Basketball · Read the department history ↗</span></button>
+<article class="dept-panel glass-card rounded-[2rem] p-6 sm:p-10 shadow-lg scroll-mt-24" id="inactive-depts">
 <div class="relative z-10 space-y-5">
 <div class="flex items-center gap-3 border-b border-slate-200/80 pb-4">
 <div class="w-12 h-12 rounded-2xl bg-archelaos-deepgreen text-archelaos-yellow flex items-center justify-center text-xl shadow-sm">
@@ -4673,7 +4697,63 @@ html[lang="el"] #arch-main-content .lang-en,html[lang="el"] #arch-main-content .
                       </p>
 </div>
 </div>
+<section aria-label="Ιστορία Μπάσκετ / Basketball history" class="v66-basketball-section" id="basketball"><div class="relative z-10 space-y-5">
+<div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200/80 pb-4">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-2xl shadow-sm border border-archelaos-deepgreen/15">
+<i class="fa-solid fa-basketball"></i>
 </div>
+<div>
+<span class="text-[11px] font-black uppercase tracking-wider text-archelaos-darkgreen block">
+<span data-lang="el">Ιστορικό Τμήμα • 1973–2008</span>
+<span data-lang="en">Historical Department • 1973–2008</span>
+</span>
+<h2 class="text-2xl sm:text-3xl font-black font-heading text-archelaos-deepgreen">
+<span data-lang="el">Καλαθοσφαίριση (Συγχώνευση το 2008)</span>
+<span data-lang="en">Basketball (2008 Merger)</span>
+</h2>
+</div>
+</div>
+</div>
+<!-- GREEK CONTENT -->
+<div class="space-y-5" data-lang="el">
+<p>
+                      Το τμήμα καλαθοσφαίρισης ιδρύθηκε το καλοκαίρι του <strong>1973</strong> υπό τον Θεόδωρο Σφήκα (πρώτος έφορος και προπονητής έως το 1977) και το 1980 αποτέλεσε ένα από τα 11 ιδρυτικά σωματεία της Ε.ΚΑ.Σ.ΚΕ.ΔΥ.Μ. (μετέπειτα ΕΚΑΣΚΕΜ). Η ανδρική ομάδα αγωνίστηκε στη <strong>Β΄ Εθνική Κατηγορία επί δύο έτη (1977–1979)</strong>, κατέκτησε το Πρωτάθλημα Α΄ ΕΚΑΣΚΕΜ (2001–02), αγωνίστηκε επί έξι έτη στη Γ΄ Εθνική (2002–2008, 2η θέση το 2006–07 και 2007–08) και κατέκτησε το Κύπελλο Ανδρών ΕΚΑΣΚΕΜ (2007–08). Η γυναικεία ομάδα ανήλθε στη Β΄ Εθνική το 1989 έχοντας κατακτήσει 4 πρωταθλήματα Ένωσης (1981–82, 1987–88, 1988–89, 1997–98). Η ομάδα Κορασίδων υπό τον Κυριάκο Κανάλη κατέκτησε την <strong>3η θέση στο Πανελλήνιο Πρωτάθλημα Κορασίδων (1995–96)</strong> στην Τρίπολη. Στυλοβάτης του τμήματος επί τρεις δεκαετίες υπήρξε ο αντιπρόεδρος Αντώνης Χαλεπλής, μαζί με τους εφόρους Μιχάλη Σαπίδη και Θεόδωρο Γαλανό.
+                    </p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
+<div class="sub-box p-4 rounded-2xl bg-slate-50 border border-slate-200">
+<h4 class="font-heading font-black text-archelaos-deepgreen mb-1">Ιστορικοί Προπονητές</h4>
+<p class="!mb-0">Θεόδωρος Σφήκας, Κυριάκος Κανάλης, Αναστάσιος Θωμαΐδης, Χρήστος Ξηρομερίτης, Παναγιώτης Αθανασιάδης, Δημοσθένης Σιδηρόπουλος, Δημήτριος Σμυρλής, Πλάτων Χοτοκουρίδης, Αναστασία Φυλακτακίδου.</p>
+</div>
+<div class="sub-box p-4 rounded-2xl bg-slate-50 border border-slate-200">
+<h4 class="font-heading font-black text-archelaos-deepgreen mb-1">Εμβληματικοί Καλαθοσφαιριστές &amp; Αθλήτριες</h4>
+<p class="!mb-0">Κωνσταντίνος Τσουγκράνης, Τσαγκαλίδης, Ελένη Μαλεζά, Τασούλα Τσιρογιάννη, Δημήτριος Τσιγγαρόπουλος, Γεώργιος Αντωνιάδης, Γιάννης Παναγιωτίδης, Θεόδωρος Βύρος, Χρήστος Τοπαλίδης, Θεόδωρος Πρισκομάτης, Αλεξάνδρα Μπίλα, Παναγιώτα Νικολαΐδου.</p>
+</div>
+</div>
+<p class="!mb-0">
+                      Το καλοκαίρι του <strong>2008</strong>, μετά από απόφαση της Γενικής Συνέλευσης (4 Ιουνίου 2008), τα τμήματα μπάσκετ του Αρχελάου και του Σ.Φ.Κ. Πιερικού συνενώθηκαν δημιουργώντας τον ενιαίο <strong>Σ.Φ.Κ. Πιερικός Αρχέλαος</strong>.
+                    </p>
+<div class="nblm-dept-notes"><h4>Νέες αρχειακές ψηφίδες</h4><ul><li>2008 · Η συνένωση με τον Πιερικό — Το Δ.Σ. συζήτησε τη συνένωση δυνάμεων του τοπικού μπάσκετ. Η ακριβής νομική μορφή της διαδικασίας χρειάζεται έλεγχο στα πλήρη πρακτικά.</li><li>1985 · Η μεταγραφή της Τασούλας Τσιρογιάννη — Έγγραφο αναφέρεται σε παραχώρηση της αθλήτριας στον Μέγα Αλέξανδρο με οικονομική υποχρέωση 100.000 δραχμών.</li><li>1996 · Αίτημα για την Αθηνά Παπασωτηρίου — Ο Άρης Θεσσαλονίκης ζήτησε την ελεύθερη μεταγραφή της Αθηνάς Παπασωτηρίου.</li></ul></div></div>
+<!-- ENGLISH CONTENT -->
+<div class="space-y-5" data-lang="en">
+<p>
+                      The Basketball department was founded in the summer of <strong>1973</strong> under Theodoros Sfikas (first department head and coach until 1977), and in 1980 it became one of the 11 founding clubs of E.KA.S.KE.DY.M. (later EKASKEM). The Men's team competed in the <strong>B' National Division for two seasons (1977–1979)</strong>, won the A' EKASKEM Championship (2001–02), competed for six seasons in the C' National Division (2002–2008, finishing 2nd in 2006–07 and 2007–08), and won the EKASKEM Men's Cup (2007–08). The Women's team earned promotion to the B' National Division in 1989 after winning 4 Regional Union Championships (1981–82, 1987–88, 1988–89, 1997–98). The U16 Girls' (Cadets) team under coach Kyriakos Kanalis won <strong>3rd place at the Panhellenic U16 Girls' Championship (1995–96)</strong> in Tripoli. Vice President Antonis Chaleplis was a pillar of the department for three decades, alongside department heads Michalis Sapidis and Theodoros Galanos.
+                    </p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
+<div class="sub-box p-4 rounded-2xl bg-slate-50 border border-slate-200">
+<h4 class="font-heading font-black text-archelaos-deepgreen mb-1">Historic Coaches</h4>
+<p class="!mb-0">Theodoros Sfikas, Kyriakos Kanalis, Anastasios Thomaidis, Christos Xiromeritis, Panagiotis Athanasiadis, Dimosthenis Sidiropoulos, Dimitrios Smyrlis, Platon Chotokouridis, Anastasia Fylaktakidou.</p>
+</div>
+<div class="sub-box p-4 rounded-2xl bg-slate-50 border border-slate-200">
+<h4 class="font-heading font-black text-archelaos-deepgreen mb-1">Iconic Basketball Players</h4>
+<p class="!mb-0">Konstantinos Tsougranis, Tsagkalidis, Eleni Maleza, Tasoula Tsirogianni, Dimitrios Tsingaropoulos, Georgios Antoniadis, Giannis Panagiotidis, Theodoros Vyros, Christos Topalidis, Theodoros Priskomatis, Alexandra Bila, Panagiota Nikolaidou.</p>
+</div>
+</div>
+<p class="!mb-0">
+                      In the summer of <strong>2008</strong>, following a resolution of the General Assembly (June 4, 2008), the basketball departments of Archelaos and S.F.K. Pierikos merged to form the unified <strong>S.F.K. Pierikos Archelaos</strong>.
+                    </p>
+<div class="nblm-dept-notes"><h4>New archival notes</h4><ul><li>2008 · Η συνένωση με τον Πιερικό — Το Δ.Σ. συζήτησε τη συνένωση δυνάμεων του τοπικού μπάσκετ. Η ακριβής νομική μορφή της διαδικασίας χρειάζεται έλεγχο στα πλήρη πρακτικά.</li><li>1985 · Η μεταγραφή της Τασούλας Τσιρογιάννη — Έγγραφο αναφέρεται σε παραχώρηση της αθλήτριας στον Μέγα Αλέξανδρο με οικονομική υποχρέωση 100.000 δραχμών.</li><li>1996 · Αίτημα για την Αθηνά Παπασωτηρίου — Ο Άρης Θεσσαλονίκης ζήτησε την ελεύθερη μεταγραφή της Αθηνάς Παπασωτηρίου.</li></ul></div></div>
+</div></section></div>
 </article>
 </section>
 <div aria-label="Συμπληρωματικά αρχειακά στοιχεία" class="arch-2026-context"><div data-lang="el"><h3>Άνθρωποι πίσω από την εξέλιξη των τμημάτων</h3><p><strong>Χάντμπολ — Κύπελλα 1990 και 1994:</strong> Οι Δημήτρης Σκούφας, Διονύσης Αναγνωστόπουλος, Λευτέρης Ελευθεριάδης, Γιάννης Λαζαρίδης, Ηλίας Νταρλαγιάννης, Γιώργος Καραδήμος, Στάθης Μαυρόπουλος και Πολύκαρπος Σιδηρόπουλος συνδέονται με τις κυπελλούχες ομάδες, τις εθνικές ομάδες και τις ευρωπαϊκές αποστολές.</p><p><strong>Μπάσκετ και βόλεϊ:</strong> Οι Θεόδωρος Σφήκας, Κωνσταντίνος Τσουγκράνης, Ελένη Μαλεζά και Χαράλαμπος Καρασαρλίδης συνδέονται με την ίδρυση τμημάτων, τις πρώτες αγωνιστικές ομάδες και ιστορικές ανόδους.</p><p><strong>Στίβος:</strong> Η Ζαΐρα Λαζαρίδου και ο Γιάννης Λευτεριώτης κατέγραψαν επιδόσεις στους αγώνες ρίψεων και επί κοντώ αντίστοιχα· οι Δημήτριος Παρασκευόπουλος, Ιωάννης Παπαργυρίου και Χρήστος Αθανασιάδης συνέβαλαν στην προπονητική ανάπτυξη.</p><p><strong>Σκοποβολή και τοξοβολία:</strong> Η Δάφνη Σαρρή συνδέεται με τις πρώτες δεκαετίες των τμημάτων· η Δωροθέα Ποιμενίδου και η Χριστίνα Μόσχη εκπροσώπησαν τον σύλλογο σε κορυφαίες διεθνείς διοργανώσεις. Η συμμετοχή της Μόσχη στους Ολυμπιακούς Αγώνες δεν αποδίδεται ως κατάκτηση ολυμπιακού μεταλλίου.</p><p><strong>Ενόργανη γυμναστική:</strong> Ο Χρήστος Λυμπανοβνός συνέχισε την αγωνιστική διαδρομή του στον προπονητικό χώρο, στηρίζοντας νέους γυμναστές όπως ο Άγγελος Παρούσης.</p></div><div data-lang="en"><h3>People behind the sports departments</h3><p><strong>Χάντμπολ — Κύπελλα 1990 και 1994:</strong> Dimitris Skoufas, Dionysis Anagnostopoulos, Lefteris Eleftheriadis, Giannis Lazaridis, Ilias Darlagiannis, Giorgos Karadimos, Stathis Mavropoulos and Polykarpos Sidiropoulos are linked to the Cup-winning teams, national teams and European campaigns.</p><p><strong>Μπάσκετ και βόλεϊ:</strong> Theodoros Sfikas, Konstantinos Tsougranis, Eleni Maleza and Charalampos Karasarlidis are linked to the creation of departments, early teams and promotions.</p><p><strong>Στίβος:</strong> Zaira Lazaridou and Giannis Lefteriotis achieved notable results in throwing and pole vault; Dimitrios Paraskevopoulos, Ioannis Papargyriou and Christos Athanasiadis contributed as coaches.</p><p><strong>Σκοποβολή και τοξοβολία:</strong> Dafni Sarri is connected to the early development of shooting and archery; Dorothea Poimenidou and Christina Moschi represented the club in major international competitions. Moschi’s Olympic participation is not described as an Olympic medal.</p><p><strong>Ενόργανη γυμναστική:</strong> Christos Lympanovnos moved from competing to coaching, supporting younger gymnasts such as Angelos Parousis.</p></div></div></template>
@@ -4776,16 +4856,8 @@ html[lang="el"] #arch-main-content .lang-en,html[lang="el"] #arch-main-content .
 </template>
 <!-- Full-history topic popup -->
 <div aria-hidden="true" aria-labelledby="historyArchiveTitle" aria-modal="true" class="modal-backdrop fixed inset-0 z-[70] flex items-start sm:items-center justify-center overflow-y-auto bg-black/65 backdrop-blur-sm p-2 sm:p-4" id="historyArchiveModal" role="dialog">
-<div class="modal-box max-w-6xl w-full max-h-[94vh] mx-auto my-2 sm:my-4 rounded-[1.6rem] sm:rounded-[2rem] bg-white border-2 border-archelaos-deepgreen/25 shadow-2xl overflow-hidden flex flex-col">
-<div class="shrink-0 flex items-start sm:items-center justify-between gap-4 px-4 sm:px-7 py-4 sm:py-5 bg-archelaos-deepgreen text-archelaos-yellow border-b border-archelaos-yellow/25">
-<div class="min-w-0"><p class="text-[10px] uppercase tracking-[.18em] font-black opacity-80 mb-1"><span data-lang="el">Ιστορικό Αρχείο • 1956–2026</span><span data-lang="en">History Archive • 1956–2026</span></p><h2 class="font-heading font-black text-lg sm:text-2xl leading-tight" id="historyArchiveTitle">Ιστορικό Αρχείο</h2></div>
-<button aria-label="Κλείσιμο / Close" class="shrink-0 w-10 h-10 rounded-xl bg-white/10 hover:bg-archelaos-yellow hover:text-archelaos-deepgreen flex items-center justify-center transition" onclick="closeHistoryArchive()" type="button"><i class="fa-solid fa-xmark text-xl"></i></button>
-</div>
+<div class="modal-box max-w-6xl w-full max-h-[94vh] mx-auto my-2 sm:my-4 rounded-[1.6rem] sm:rounded-[2rem] bg-white border-2 border-archelaos-deepgreen/25 shadow-2xl overflow-hidden flex flex-col"><button aria-label="Κλείσιμο / Close" class="v70-archive-close" onclick="closeHistoryArchive()" type="button"><svg aria-hidden="true" focusable="false" height="20" viewbox="0 0 24 24" width="20"><path d="M5 5L19 19M19 5L5 19" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2.8"></path></svg></button>
 <div class="history-archive-content min-h-0 overflow-y-auto overscroll-contain p-3 sm:p-7" id="historyArchiveContent"></div>
-<div class="shrink-0 flex items-center justify-between gap-3 px-4 sm:px-7 py-3 border-t border-archelaos-deepgreen/10 bg-slate-50">
-<span class="text-[10px] sm:text-xs font-bold text-slate-500"><span data-lang="el">Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης · Πλήρες ιστορικό αρχείο</span><span data-lang="en">G.A.S. “Archelaos” Katerini · Complete historical archive</span></span>
-<button class="shrink-0 inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-archelaos-deepgreen text-archelaos-yellow text-xs font-black hover:bg-archelaos-darkgreen transition" onclick="closeHistoryArchive()" type="button"><i class="fa-solid fa-check"></i><span data-lang="el">Έγινε</span><span data-lang="en">Done</span></button>
-</div>
 </div>
 </div>
 <!-- President popup used by the original table rows in the history chapter -->
@@ -6950,7 +7022,7 @@ if('IntersectionObserver' in window&&!window.matchMedia('(prefers-reduced-motion
 <h2 class="arch-tour-title" id="archMuseumTourTitle"></h2>
 <p class="arch-tour-desc" id="archMuseumTourDesc"></p>
 <div class="arch-tour-links" hidden="" id="archMuseumTourLinks"><a data-tour-link="moments" href="70-stigmes.html">70 Στιγμές</a><a data-tour-link="people" href="hall-of-fame.html">Οι Άνθρωποι του Αρχέλαου</a></div>
-<div aria-hidden="true" class="arch-tour-progress" id="archMuseumTourProgress"><span></span><span></span><span></span><span></span></div>
+<div aria-hidden="true" class="arch-tour-progress" id="archMuseumTourProgress"><span></span><span></span><span></span><span></span><span></span></div>
 <div class="arch-tour-controls"><span aria-live="polite" class="arch-tour-count" id="archMuseumTourCount"></span><div style="display:flex;gap:8px;align-items:center"><button class="arch-tour-btn secondary" data-tour-action="back" type="button">Πίσω</button><button class="arch-tour-btn primary" data-tour-action="next" type="button">Επόμενο</button></div></div>
 <button class="arch-tour-skip" data-tour-action="skip" type="button">Παράλειψη</button>
 </section>
@@ -6961,21 +7033,23 @@ if('IntersectionObserver' in window&&!window.matchMedia('(prefers-reduced-motion
  var KEY='archelaos_museum_tutorial_v1';
  var steps={
    el:[
-    {title:'Καλώς ήρθατε στο Ψηφιακό Μουσείο!',text:'Ανακαλύψτε 70 χρόνια αθλητικής ιστορίας του Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης. Σε τέσσερα σύντομα βήματα θα δείτε πώς να εξερευνήσετε το μουσείο.'},
-    {title:'Επιλέξτε μια εποχή',text:'Στο χρονολόγιο, πατήστε μια δεκαετία για να δείτε τα γεγονότα της. Στη συνέχεια μπορείτε να ανοίξετε κάθε ιστορικό σταθμό.',selector:'#museumDecadeFilters',fallback:'#timeline'},
-    {title:'Ανοίξτε τα ιστορικά κεφάλαια',text:'Κάθε κάρτα ανοίγει ένα πραγματικό κεφάλαιο του αρχείου, με ιστορία, πρόσωπα, διακρίσεις και διαθέσιμα τεκμήρια.',selector:'#chapters .history-archive-card',fallback:'#chapters'},
-    {title:'Συνεχίστε την εξερεύνηση',text:'Από την πλοήγηση του μουσείου θα βρείτε όλες τις ενότητες. Ανακαλύψτε ακόμη τις «70 Στιγμές» και τους «Ανθρώπους του Αρχέλαου» από τους παρακάτω συνδέσμους.',selector:'#museum-jump',fallback:'#history-hero'}
+    {title:'Καλώς ήρθατε στο Ψηφιακό Μουσείο',text:'Μια σύντομη περιήγηση στα βασικά σημεία. Χρησιμοποιήστε τα Επόμενο και Πίσω για να δείτε πού βρίσκεται κάθε συλλογή.'},
+    {title:'Hall of Fame, 70 Στιγμές και Ιστορίες',text:'Από αυτές τις μεγάλες καρτέλες γνωρίζετε τους ανθρώπους του Αρχέλαου, εξερευνάτε το ενιαίο χρονολόγιο και διαβάζετε προσωπικές αφηγήσεις.',selector:'#museum-collections',fallback:'#museum-collections'},
+    {title:'Σταθμοί που έγραψαν ιστορία',text:'Πατήστε ολόκληρη την καρτέλα ενός ιστορικού σταθμού για να διαβάσετε το πλήρες κείμενο σε αναδυόμενο παράθυρο.',selector:'#museum-exhibits',fallback:'#museum-explore'},
+    {title:'Η ιστορία ανά αθλητικό τμήμα',text:'Στο ιστορικό αρχείο επιλέγετε το άθλημα που σας ενδιαφέρει. Κάθε επιλογή ανοίγει τις πληροφορίες και την πορεία του τμήματος.',selector:'#chapters',fallback:'#museum-history'},
+    {title:'Συμβάλετε στο ιστορικό αρχείο',text:'Έχετε φωτογραφίες, έγγραφα, προγράμματα αγώνων ή αναμνήσεις; Η καρτέλα επικοινωνίας στο τέλος του Μουσείου σάς δείχνει πώς μπορείτε να συνεισφέρετε.',selector:'.v62-contribute-card',fallback:'#museum-history'}
    ],
    en:[
-    {title:'Welcome to the Digital Museum!',text:'Discover 70 years of sporting history at G.A.S. Archelaos Katerini. This short four-step guide shows you how to explore the museum.'},
-    {title:'Choose a decade',text:'Use the timeline filters to explore events from a particular decade. Then select a milestone to read its story.',selector:'#museumDecadeFilters',fallback:'#timeline'},
-    {title:'Open the historical chapters',text:'Each card opens a real chapter of the archive, including people, sporting achievements and available historical material.',selector:'#chapters .history-archive-card',fallback:'#chapters'},
-    {title:'Keep exploring',text:'Use the museum navigation to visit every section. You can also discover the “70 Moments” and the “People of Archelaos” through the links below.',selector:'#museum-jump',fallback:'#history-hero'}
+    {title:'Welcome to the Digital Museum',text:'A short guide to the main areas. Use Next and Back to see where each collection lives.'},
+    {title:'Hall of Fame, 70 Moments and Stories',text:'These prominent cards introduce the people of Archelaos, its unified timeline and personal stories.',selector:'#museum-collections',fallback:'#museum-collections'},
+    {title:'Milestones that made history',text:'Select an entire milestone card to open its complete historical account in a pop-up.',selector:'#museum-exhibits',fallback:'#museum-explore'},
+    {title:'History of each sporting department',text:'Choose a sport in the historical archive to explore the story and development of its department.',selector:'#chapters',fallback:'#museum-history'},
+    {title:'Contribute to the historical archive',text:'Have photos, documents, match programmes or memories? Use the contact card near the end of the Museum to help preserve them.',selector:'.v62-contribute-card',fallback:'#museum-history'}
    ]
  };
  var words={
-   el:{eyebrow:'ΨΗΦΙΑΚΟ ΜΟΥΣΕΙΟ · 1956–2026',back:'Πίσω',next:'Επόμενο',start:'Ξεκινήστε',finish:'Ολοκλήρωση',skip:'Παράλειψη',count:function(n){return 'Βήμα '+n+' από 4';},moments:'70 Στιγμές',people:'Οι Άνθρωποι του Αρχέλαου',close:'Κλείσιμο'},
-   en:{eyebrow:'DIGITAL MUSEUM · 1956–2026',back:'Back',next:'Next',start:'Start',finish:'Finish',skip:'Skip tour',count:function(n){return 'Step '+n+' of 4';},moments:'70 Moments',people:'People of Archelaos',close:'Close'}
+   el:{eyebrow:'ΨΗΦΙΑΚΟ ΜΟΥΣΕΙΟ · 1956–2026',back:'Πίσω',next:'Επόμενο',start:'Ξεκινήστε',finish:'Ολοκλήρωση',skip:'Παράλειψη',count:function(n){return 'Βήμα '+n+' από 5';},moments:'70 Στιγμές',people:'Οι Άνθρωποι του Αρχέλαου',close:'Κλείσιμο'},
+   en:{eyebrow:'DIGITAL MUSEUM · 1956–2026',back:'Back',next:'Next',start:'Start',finish:'Finish',skip:'Skip tour',count:function(n){return 'Step '+n+' of 5';},moments:'70 Moments',people:'People of Archelaos',close:'Close'}
  };
  var root,shade,spotlight,card,launch,current=-1,lastFocus=null,lastScrollY=0,positionTimer=null,mutationObserver=null,resizeObserver=null;
  function lang(){return document.body.classList.contains('lang-en')||document.documentElement.lang==='en'?'en':'el';}
@@ -6988,7 +7062,7 @@ if('IntersectionObserver' in window&&!window.matchMedia('(prefers-reduced-motion
    var l=lang(),w=words[l],d=steps[l][current];
    document.getElementById('archMuseumTourEyebrow').textContent=w.eyebrow;
    document.getElementById('archMuseumTourSealCaption').textContent=l==='el'?'ΧΡΟΝΙΑ':'YEARS';
-   var icons=['fa-landmark','fa-clock-rotate-left','fa-book-open','fa-compass'];
+   var icons=['fa-landmark','fa-users','fa-book-open','fa-medal','fa-envelope-open-text'];
    document.getElementById('archMuseumTourStepIcon').className='fa-solid '+icons[current];
    document.getElementById('archMuseumTourTitle').textContent=d.title;
    document.getElementById('archMuseumTourDesc').textContent=d.text;
@@ -6997,10 +7071,10 @@ if('IntersectionObserver' in window&&!window.matchMedia('(prefers-reduced-motion
    for(var i=0;i<progress.length;i++)progress[i].className=i<current?'is-done':i===current?'is-current':'';
    var back=root.querySelector('[data-tour-action="back"]'),next=root.querySelector('[data-tour-action="next"]');
    back.textContent=w.back;back.disabled=current===0;
-   next.textContent=current===0?w.start:current===3?w.finish:w.next;
+   next.textContent=current===0?w.start:current===4?w.finish:w.next;
    root.querySelector('.arch-tour-skip').textContent=w.skip;
    root.querySelector('.arch-tour-close').setAttribute('aria-label',w.close);
-   var links=document.getElementById('archMuseumTourLinks'); links.hidden=current!==3;
+   var links=document.getElementById('archMuseumTourLinks'); links.hidden=current!==4;
    links.querySelector('[data-tour-link="moments"]').textContent=w.moments+' ↗';
    links.querySelector('[data-tour-link="people"]').textContent=w.people+' ↗';
  }
@@ -7030,7 +7104,7 @@ if('IntersectionObserver' in window&&!window.matchMedia('(prefers-reduced-motion
  }
  function focusCard(){var primary=root.querySelector('[data-tour-action="next"]');if(primary)primary.focus({preventScroll:true});}
  function showStep(n){if(!isOpen())return;
-   current=Math.max(0,Math.min(3,n));content();
+   current=Math.max(0,Math.min(4,n));content();
    root.setAttribute('data-tour-step',String(current+1));
    card.classList.remove('arch-tour-panel-in','arch-tour-step-reveal');
    void card.offsetWidth; // Restart entrance on deliberate step changes, not on resize or scroll.
@@ -7075,7 +7149,7 @@ if('IntersectionObserver' in window&&!window.matchMedia('(prefers-reduced-motion
    launch.addEventListener('click',open);
    root.addEventListener('click',function(e){
      var btn=e.target.closest('[data-tour-action]');
-     if(btn){var a=btn.getAttribute('data-tour-action');if(a==='skip')close(true);if(a==='back')showStep(current-1);if(a==='next'){if(current===3)close(true);else showStep(current+1);}return;}
+     if(btn){var a=btn.getAttribute('data-tour-action');if(a==='skip')close(true);if(a==='back')showStep(current-1);if(a==='next'){if(current===4)close(true);else showStep(current+1);}return;}
      if(e.target.closest('[data-tour-link]'))setSeen();
    });
    document.addEventListener('keydown',onKey,true);
