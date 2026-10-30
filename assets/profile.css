@@ -37,3 +37,12 @@ body.person-page .profile-actions a:hover{transform:translateY(-2px);background:
 body.person-page .profile-actions a.secondary{background:#f8f3e7!important;border-color:#c7a65e!important;color:#806025!important}
 body.person-page .profile-actions a.secondary:hover{background:#f0e5cf!important;color:#806025!important}
 body.person-page .profile-intro .profile-subtitle{display:none!important}
+
+/* V3 refinement: aligned navigation buttons and quieter gold title on cream. */
+body.person-page .profile-actions{display:flex!important;align-items:stretch!important;gap:12px!important;flex-wrap:wrap!important}
+body.person-page .profile-actions a,
+body.person-page .profile-actions a.secondary{box-sizing:border-box!important;min-height:52px!important;padding:12px 20px!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;line-height:1.25!important;vertical-align:middle!important;margin:0!important;white-space:normal;text-align:center}
+body.person-page .profile-intro{background:linear-gradient(140deg,#fffdf7 10%,#f9f5ea 80%,#eee5d0 100%)!important}
+body.person-page .profile-intro h1{color:#705b34!important;font-weight:700!important;letter-spacing:-.025em!important;text-shadow:none!important}
+body.person-page .profile-intro .category{color:#a68448!important}
+@media(max-width:560px){body.person-page .profile-actions{flex-direction:column}body.person-page .profile-actions a{width:100%}}
