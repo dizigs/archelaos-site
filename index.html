@@ -2943,7 +2943,7 @@ a.join-history-card:focus-visible{outline:3px solid #d6b66f;outline-offset:4px}
 <div class="arch-anniversary-actions">
 <nav aria-label="Κύρια πλοήγηση" class="arch-anniversary-nav">
 <a aria-current="page" class="arch-anniversary-active" data-i18n="nav_home" href="index.html#home">Αρχική</a><a class="" data-i18n="nav_history" href="history.html">Μουσείο</a><a class="" data-i18n="nav_about" href="index.html#about">Ο Σύλλογος</a><a class="" data-i18n="nav_dept" href="index.html#departments">Αθλήματα</a><a class="" data-i18n="nav_board" href="board.html">Διοίκηση</a><a class="" data-i18n="nav_sponsors" href="sponsors.html">Χορηγίες</a><a class="" data-i18n="nav_contact" href="contact.html">Επικοινωνία</a>
-<button aria-label="Change language" class="arch-anniversary-language" id="archAnniversaryLanguage" title="Εναλλαγή γλώσσας / Switch language" type="button">EN</button>
+<button aria-label="Change language" class="arch-anniversary-language" id="archAnniversaryLanguage" title="Εναλλαγή γλώσσας / Switch language" type="button">GR</button>
 </nav>
 <button aria-controls="mobileMenu" aria-expanded="false" aria-label="Άνοιγμα μενού" class="arch-anniversary-menu-trigger" id="mobileMenuBtn" type="button"><i aria-hidden="true" class="fa-solid fa-bars" id="menuIcon"></i></button>
 </div>
@@ -4728,7 +4728,7 @@ function openJoinContact(kind) {
   if(!header||!btn)return;
   function currentLang(){return document.body.classList.contains('lang-en')||document.documentElement.lang==='en'?'en':'el'}
   function refresh(){
-    const en=currentLang();btn.textContent=en?'GR':'EN';
+    const en=currentLang();btn.textContent=en?'EN':'GR';
     
   }
   btn.addEventListener('click',()=>{

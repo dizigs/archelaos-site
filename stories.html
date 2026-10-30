@@ -1330,7 +1330,7 @@ a.join-history-card:focus-visible{outline:3px solid #d6b66f;outline-offset:4px}
 <div class="arch-anniversary-actions">
 <nav aria-label="Κύρια πλοήγηση" class="arch-anniversary-nav">
 <a class="" data-i18n="nav_home" data-tr-el="Αρχική" data-tr-en="Home" href="index.html#home">Αρχική</a><a class="" data-i18n="nav_history" data-tr-el="Ψηφιακό Μουσείο" data-tr-en="Digital Museum" href="history.html">Ψηφιακό Μουσείο</a><a class="" data-i18n="nav_about" data-tr-el="Ο Σύλλογος" data-tr-en="The Club" href="index.html#about">Ο Σύλλογος</a><a class="" data-i18n="nav_dept" data-tr-el="Αθλήματα" data-tr-en="Sports" href="index.html#departments">Αθλήματα</a><a class="" data-i18n="nav_board" data-tr-el="Διοίκηση" data-tr-en="Board" href="board.html">Διοίκηση</a><a class="" data-i18n="nav_sponsors" data-tr-el="Χορηγίες" data-tr-en="Sponsorship" href="sponsors.html">Χορηγίες</a><a class="" data-i18n="nav_contact" data-tr-el="Επικοινωνία" data-tr-en="Contact" href="contact.html">Επικοινωνία</a>
-<button aria-label="Change language" class="arch-anniversary-language" id="archAnniversaryLanguage" title="Εναλλαγή γλώσσας / Switch language" type="button">EN</button>
+<button aria-label="Change language" class="arch-anniversary-language" id="archAnniversaryLanguage" title="Εναλλαγή γλώσσας / Switch language" type="button">GR</button>
 </nav>
 <button aria-controls="mobileMenu" aria-expanded="false" aria-label="Άνοιγμα μενού" class="arch-anniversary-menu-trigger" id="mobileMenuBtn" type="button"><i aria-hidden="true" class="fa-solid fa-bars" id="menuIcon"></i></button>
 </div>
@@ -1431,7 +1431,7 @@ function setLang(next){lang=next;document.documentElement.lang=next;
 document.querySelectorAll('[data-tr-el][data-tr-en]').forEach(n=>{if(n.tagName==='H1'){n.innerHTML=next==='el'?'Οι ιστορίες<br>πίσω από την ιστορία.':'The stories<br>behind the history.'}else n.textContent=n.getAttribute('data-tr-'+next)});
 document.querySelectorAll('[data-lang="el"]').forEach(n=>n.style.display=next==='el'?'':'none');
 document.querySelectorAll('[data-lang="en"]').forEach(n=>n.style.display=next==='en'?'':'none');
-document.getElementById('archAnniversaryLanguage').textContent=next==='el'?'EN':'GR';
+document.getElementById('archAnniversaryLanguage').textContent=next==='el'?'GR':'EN';
 document.querySelectorAll('[data-lang-choice]').forEach(b=>{const on=b.dataset.langChoice===next;b.classList.toggle('current',on);b.classList.toggle('active',on)});
 const greekOriginal='Οι ιστορίες διατίθενται προς το παρόν στο ελληνικό πρωτότυπο.';
 let note=document.getElementById('englishNote');if(!note){note=document.createElement('p');note.id='englishNote';note.className='english-availability';document.querySelector('.section-head').append(note)};
