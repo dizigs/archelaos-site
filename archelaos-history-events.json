@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "description": "Επιλεγμένες συνδέσεις γεγονότων με βιογραφικά. Προέρχονται από ήδη δημοσιευμένες εγγραφές Hall of Fame, όχι από νέα OCR τεκμήρια.",
+  "events": [
+    {
+      "id": "gymnastics-1975",
+      "date": "1975-04-03",
+      "title": "Ίδρυση τμήματος ενόργανης γυμναστικής",
+      "category": "Ενόργανη γυμναστική",
+      "description": "Η ίδρυση του τμήματος ενόργανης γυμναστικής αναφέρεται στα βιογραφικά του πρώην προέδρου Νίκου Τσινόπουλου και του πρώτου προπονητή Σταύρου Διαμαντόπουλου.",
+      "people": [
+        "arch-5a04cbbb57e4",
+        "arch-ce5f9b978973"
+      ],
+      "source": "hall-of-fame-people.json",
+      "verification": "existing-biographies"
+    },
+    {
+      "id": "administration-2011",
+      "date": "2011-08-31",
+      "title": "Ανάληψη προεδρίας Θεόδωρου Διαμαντόπουλου",
+      "category": "Διοίκηση",
+      "description": "Το βιογραφικό του Θεόδωρου Διαμαντόπουλου καταγράφει την εκλογή του στην προεδρία του συλλόγου στις 31 Αυγούστου 2011.",
+      "people": [
+        "arch-ec55ccba275f"
+      ],
+      "source": "hall-of-fame-people.json",
+      "verification": "existing-biographies"
+    },
+    {
+      "id": "administration-2026",
+      "date": "2026-09-08",
+      "title": "Εκλογή Παναγιώτη Διαμαντόπουλου στην προεδρία",
+      "category": "Διοίκηση",
+      "description": "Σύμφωνα με το υπάρχον βιογραφικό, ο Παναγιώτης Διαμαντόπουλος εκλέχθηκε πρόεδρος στις 8 Σεπτεμβρίου 2026.",
+      "people": [
+        "arch-85fcb478d724"
+      ],
+      "source": "hall-of-fame-people.json",
+      "verification": "existing-biographies"
+    }
+  ]
+}
