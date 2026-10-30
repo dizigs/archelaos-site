@@ -67,9 +67,10 @@
         "arch-61d8d097f601"
       ],
       "triage": "potential_event",
-      "review_status": "requires_human_evidence_check",
+      "review_status": "covered_by_existing_timeline_or_duplicate",
       "possible_existing_event_id": null,
-      "excerpt": "Ξεκίνησε ως δρομέας αντοχής του Αρχελάου στο Δημοτικό Πάρκο, πετυχαίνοντας το 1971 ιστορικό ρεκόρ συλλόγου στα 3.000 μ."
+      "excerpt": "Ξεκίνησε ως δρομέας αντοχής του Αρχελάου στο Δημοτικό Πάρκο, πετυχαίνοντας το 1971 ιστορικό ρεκόρ συλλόγου στα 3.000 μ.",
+      "editorial_review_note": "Existing timeline entry covers substance; avoid duplicate"
     },
     {
       "group_id": "review-0006",
@@ -116,9 +117,10 @@
         "arch-56dd134e165f"
       ],
       "triage": "potential_event",
-      "review_status": "requires_human_evidence_check",
+      "review_status": "covered_by_existing_timeline_or_duplicate",
       "possible_existing_event_id": null,
-      "excerpt": "Στο επετειακό αρχείο καταγράφεται η επιλογή είκοσι μαθητών Γυμνασίου για την ανανέωση του στίβου το 1973, καθώς και η 2η θέση της σχολικής ομάδας του 4ου Λυκείου Κατερίνης στους ευρωπαϊκούς σχολικούς αγώνες του 1992."
+      "excerpt": "Στο επετειακό αρχείο καταγράφεται η επιλογή είκοσι μαθητών Γυμνασίου για την ανανέωση του στίβου το 1973, καθώς και η 2η θέση της σχολικής ομάδας του 4ου Λυκείου Κατερίνης στους ευρωπαϊκούς σχολικούς αγώνες του 1992.",
+      "editorial_review_note": "Existing timeline entry covers substance; avoid duplicate"
     },
     {
       "group_id": "review-0010",
@@ -394,9 +396,10 @@
         "arch-d69963f7377e"
       ],
       "triage": "potential_event",
-      "review_status": "requires_human_evidence_check",
+      "review_status": "covered_by_existing_timeline_or_duplicate",
       "possible_existing_event_id": null,
-      "excerpt": "Συνέβαλε καθοριστικά στην κατάκτηση του 10ετούς σερί (1981–1991) και κατέλαβε την 4η θέση στον πλάγιο ίππο στο Πανελλήνιο Πρωτάθλημα Ανδρών στη Γλυφάδα (1991)."
+      "excerpt": "Συνέβαλε καθοριστικά στην κατάκτηση του 10ετούς σερί (1981–1991) και κατέλαβε την 4η θέση στον πλάγιο ίππο στο Πανελλήνιο Πρωτάθλημα Ανδρών στη Γλυφάδα (1991).",
+      "editorial_review_note": "Existing timeline entry covers substance; avoid duplicate"
     },
     {
       "group_id": "review-0033",
@@ -419,9 +422,10 @@
         "arch-bec5518099cc"
       ],
       "triage": "potential_event",
-      "review_status": "requires_human_evidence_check",
+      "review_status": "retained_in_biography_or_needs_evidence",
       "possible_existing_event_id": null,
-      "excerpt": "Παγκόσμια πρωταθλήτρια (1981–1982) και μέλος της ολυμπιακής ομάδας της Ρουμανίας."
+      "excerpt": "Παγκόσμια πρωταθλήτρια (1981–1982) και μέλος της ολυμπιακής ομάδας της Ρουμανίας.",
+      "editorial_review_note": "No new independent entry without clearer distinct significance"
     },
     {
       "group_id": "review-0035",
@@ -541,9 +545,10 @@
         "arch-d25677ab9f72"
       ],
       "triage": "potential_event",
-      "review_status": "requires_human_evidence_check",
+      "review_status": "retained_in_biography_or_needs_evidence",
       "possible_existing_event_id": null,
-      "excerpt": "Στέφθηκε 1ος Βαλκανιονίκης το 1984, πέτυχε πανελλήνιο ρεκόρ εφήβων στο Μάλμε (83,56 μ."
+      "excerpt": "Στέφθηκε 1ος Βαλκανιονίκης το 1984, πέτυχε πανελλήνιο ρεκόρ εφήβων στο Μάλμε (83,56 μ.",
+      "editorial_review_note": "No new independent entry without clearer distinct significance"
     },
     {
       "group_id": "review-0044",
@@ -834,9 +839,10 @@
         "arch-c51b66db9180"
       ],
       "triage": "potential_event",
-      "review_status": "requires_human_evidence_check",
+      "review_status": "covered_by_existing_timeline_or_duplicate",
       "possible_existing_event_id": null,
-      "excerpt": "Αναδείχθηκε πρώτος πανελληνιονίκης ανδρών στις ασκήσεις εδάφους το 1990 στην Άρτα (9,200 βαθμοί) και το 1991 στη Γλυφάδα (9,300 βαθμοί)."
+      "excerpt": "Αναδείχθηκε πρώτος πανελληνιονίκης ανδρών στις ασκήσεις εδάφους το 1990 στην Άρτα (9,200 βαθμοί) και το 1991 στη Γλυφάδα (9,300 βαθμοί).",
+      "editorial_review_note": "Existing timeline entry covers substance; avoid duplicate"
     },
     {
       "group_id": "review-0068",
@@ -912,9 +918,10 @@
         "arch-e614ee83c1a7"
       ],
       "triage": "potential_event",
-      "review_status": "requires_human_evidence_check",
+      "review_status": "covered_by_existing_timeline_or_duplicate",
       "possible_existing_event_id": null,
-      "excerpt": "Οι αδελφοί Μαυρόπουλοι αποτέλεσαν τον αδιαπέραστο αμυντικό πυρήνα του Αρχελάου στις κατακτήσεις των δύο Κυπέλλων Ελλάδας (1990, 1994) και στις ευρωπαϊκές πορείες. Οι αδελφοί Μαυρόπουλοι αποτέλεσαν τον αδιαπέραστο αμυντικό πυρήνα του Αρχελάου στις κατακτήσεις των δύο Κυπέλλων Ελλάδας (1990, 1994) και στις ευρωπαϊκές πορείες."
+      "excerpt": "Οι αδελφοί Μαυρόπουλοι αποτέλεσαν τον αδιαπέραστο αμυντικό πυρήνα του Αρχελάου στις κατακτήσεις των δύο Κυπέλλων Ελλάδας (1990, 1994) και στις ευρωπαϊκές πορείες. Οι αδελφοί Μαυρόπουλοι αποτέλεσαν τον αδιαπέραστο αμυντικό πυρήνα του Αρχελάου στις κατακτήσεις των δύο Κυπέλλων Ελλάδας (1990, 1994) και στις ευρωπαϊκές πορείες.",
+      "editorial_review_note": "Existing timeline entry covers substance; avoid duplicate"
     },
     {
       "group_id": "review-0074",
@@ -924,9 +931,10 @@
         "arch-02d2cf31ee18"
       ],
       "triage": "potential_event",
-      "review_status": "requires_human_evidence_check",
+      "review_status": "retained_in_biography_or_needs_evidence",
       "possible_existing_event_id": null,
-      "excerpt": "Αγωνίστηκε σε όλες τις ευρωπαϊκές πορείες της δεκαετίας του 1990, κατέγραψε πάνω από 34 επίσημες διεθνείς συμμετοχές με την Εθνική Ανδρών και συνέχισε να προσφέρει στο άθλημα ως προπονητής και τεχνικός σύμβουλος."
+      "excerpt": "Αγωνίστηκε σε όλες τις ευρωπαϊκές πορείες της δεκαετίας του 1990, κατέγραψε πάνω από 34 επίσημες διεθνείς συμμετοχές με την Εθνική Ανδρών και συνέχισε να προσφέρει στο άθλημα ως προπονητής και τεχνικός σύμβουλος.",
+      "editorial_review_note": "No new independent entry without clearer distinct significance"
     },
     {
       "group_id": "review-0075",
@@ -972,9 +980,10 @@
         "arch-db2ed4303837"
       ],
       "triage": "potential_event",
-      "review_status": "requires_human_evidence_check",
+      "review_status": "published_from_biography",
       "possible_existing_event_id": null,
-      "excerpt": "Κατέκτησε το χρυσό μετάλλιο στο άλμα ανδρών στο Πανελλήνιο Πρωτάθλημα της Γλυφάδας το 1991 με 8,962 βαθμούς και επανέλαβε τον πανελλήνιο τίτλο στο άλμα στην Καλλιθέα το 1993, οδηγώντας τον σύλλογο στην 1η θέση της γενικής ομαδικής βαθμολογίας ανδρών."
+      "excerpt": "Κατέκτησε το χρυσό μετάλλιο στο άλμα ανδρών στο Πανελλήνιο Πρωτάθλημα της Γλυφάδας το 1991 με 8,962 βαθμούς και επανέλαβε τον πανελλήνιο τίτλο στο άλμα στην Καλλιθέα το 1993, οδηγώντας τον σύλλογο στην 1η θέση της γενικής ομαδικής βαθμολογίας ανδρών.",
+      "editorial_review_note": "Distinct supported sporting result added to bilingual timeline"
     },
     {
       "group_id": "review-0079",
@@ -984,9 +993,10 @@
         "arch-0d05bd7afa12"
       ],
       "triage": "potential_event",
-      "review_status": "requires_human_evidence_check",
+      "review_status": "published_from_biography",
       "possible_existing_event_id": null,
-      "excerpt": "Αναδείχθηκε 1ος Πανελληνιονίκης Ανδρών Κλειστού Στίβου στο ΣΕΦ το 1991 με επίδοση 5,20 μ."
+      "excerpt": "Αναδείχθηκε 1ος Πανελληνιονίκης Ανδρών Κλειστού Στίβου στο ΣΕΦ το 1991 με επίδοση 5,20 μ.",
+      "editorial_review_note": "Distinct supported sporting result added to bilingual timeline"
     },
     {
       "group_id": "review-0080",
@@ -997,9 +1007,10 @@
         "arch-fae2ef2c0646"
       ],
       "triage": "potential_event",
-      "review_status": "requires_human_evidence_check",
+      "review_status": "published_from_biography",
       "possible_existing_event_id": null,
-      "excerpt": "Στο Πανελλήνιο Πρωτάθλημα Ανδρών στη Γλυφάδα το 1991 κατέκτησε την 3η θέση στο δίζυγο (7,600 βαθμοί) και την 4η θέση στους κρίκους. Στο Πανελλήνιο Πρωτάθλημα Ανδρών στη Γλυφάδα (1991) αναδείχθηκε 1ος στους κρίκους και στο δίζυγο, και 2ος στο σύνθετο ατομικό, στο μονόζυγο και στο έδαφος, οδηγώντας τον Αρχέλαο στην κατάκτηση 9 μεταλλίων."
+      "excerpt": "Στο Πανελλήνιο Πρωτάθλημα Ανδρών στη Γλυφάδα το 1991 κατέκτησε την 3η θέση στο δίζυγο (7,600 βαθμοί) και την 4η θέση στους κρίκους. Στο Πανελλήνιο Πρωτάθλημα Ανδρών στη Γλυφάδα (1991) αναδείχθηκε 1ος στους κρίκους και στο δίζυγο, και 2ος στο σύνθετο ατομικό, στο μονόζυγο και στο έδαφος, οδηγώντας τον Αρχέλαο στην κατάκτηση 9 μεταλλίων.",
+      "editorial_review_note": "Distinct supported sporting result added to bilingual timeline"
     },
     {
       "group_id": "review-0081",
@@ -1009,9 +1020,10 @@
         "arch-3249aed77a3e"
       ],
       "triage": "potential_event",
-      "review_status": "requires_human_evidence_check",
+      "review_status": "retained_in_biography_or_needs_evidence",
       "possible_existing_event_id": null,
-      "excerpt": "Το ιστορικό αρχείο τον καταγράφει μεταξύ των προπονητών της ομάδας που διακρίθηκε στο Πανελλήνιο Πρωτάθλημα του 1991 στη Γλυφάδα."
+      "excerpt": "Το ιστορικό αρχείο τον καταγράφει μεταξύ των προπονητών της ομάδας που διακρίθηκε στο Πανελλήνιο Πρωτάθλημα του 1991 στη Γλυφάδα.",
+      "editorial_review_note": "No new independent entry without clearer distinct significance"
     },
     {
       "group_id": "review-0082",
@@ -1093,9 +1105,10 @@
         "arch-3e3c931a8dee"
       ],
       "triage": "potential_event",
-      "review_status": "requires_human_evidence_check",
+      "review_status": "published_from_biography",
       "possible_existing_event_id": null,
-      "excerpt": "Στέφθηκε Πρωταθλήτρια Ελλάδας στο άλμα εις μήκος το 1991 (6,15 μ.) και δύο φορές Πρωταθλήτρια Ελλάδας στο έπταθλο (1994, 1996), με ατομικά ρεκόρ 1,80 μ."
+      "excerpt": "Στέφθηκε Πρωταθλήτρια Ελλάδας στο άλμα εις μήκος το 1991 (6,15 μ.) και δύο φορές Πρωταθλήτρια Ελλάδας στο έπταθλο (1994, 1996), με ατομικά ρεκόρ 1,80 μ.",
+      "editorial_review_note": "Distinct supported sporting result added to bilingual timeline"
     },
     {
       "group_id": "review-0089",
@@ -1129,9 +1142,10 @@
         "arch-56dd134e165f"
       ],
       "triage": "potential_event",
-      "review_status": "requires_human_evidence_check",
+      "review_status": "covered_by_existing_timeline_or_duplicate",
       "possible_existing_event_id": null,
-      "excerpt": "Ανέδειξε γενιές πρωταθλητών (όπως ο Κουκοδήμος, ο Παπαδημητρίου, ο Βαρυτιμίδης, ο Λευτεριώτης) και οδήγησε το 4ο ΓΕΛ στη 2η θέση του Πανευρωπαϊκού Σχολικού Πρωταθλήματος στη Γαλλία (1992)."
+      "excerpt": "Ανέδειξε γενιές πρωταθλητών (όπως ο Κουκοδήμος, ο Παπαδημητρίου, ο Βαρυτιμίδης, ο Λευτεριώτης) και οδήγησε το 4ο ΓΕΛ στη 2η θέση του Πανευρωπαϊκού Σχολικού Πρωταθλήματος στη Γαλλία (1992).",
+      "editorial_review_note": "Existing timeline entry covers substance; avoid duplicate"
     },
     {
       "group_id": "review-0092",
@@ -1165,9 +1179,10 @@
         "arch-73fcffd7e0b7"
       ],
       "triage": "potential_event",
-      "review_status": "requires_human_evidence_check",
+      "review_status": "covered_by_existing_timeline_or_duplicate",
       "possible_existing_event_id": null,
-      "excerpt": "Συμμετείχε στην ομάδα που κατέκτησε τη 2η θέση σε πανευρωπαϊκή σχολική διοργάνωση στη Γαλλία το 1992."
+      "excerpt": "Συμμετείχε στην ομάδα που κατέκτησε τη 2η θέση σε πανευρωπαϊκή σχολική διοργάνωση στη Γαλλία το 1992.",
+      "editorial_review_note": "Existing timeline entry covers substance; avoid duplicate"
     },
     {
       "group_id": "review-0095",
@@ -1177,9 +1192,10 @@
         "arch-73fcffd7e0b7"
       ],
       "triage": "potential_event",
-      "review_status": "requires_human_evidence_check",
+      "review_status": "published_from_biography",
       "possible_existing_event_id": null,
-      "excerpt": "στο τριπλούν στις 7 Ιουνίου 1992 στα «Μακάρεια» της Λευκωσίας, καταχωρισμένη ως ρεκόρ συλλόγου."
+      "excerpt": "στο τριπλούν στις 7 Ιουνίου 1992 στα «Μακάρεια» της Λευκωσίας, καταχωρισμένη ως ρεκόρ συλλόγου.",
+      "editorial_review_note": "Distinct supported sporting result added to bilingual timeline"
     },
     {
       "group_id": "review-0096",
@@ -1189,9 +1205,10 @@
         "arch-6aa13d0c3e0a"
       ],
       "triage": "potential_event",
-      "review_status": "requires_human_evidence_check",
+      "review_status": "published_from_biography",
       "possible_existing_event_id": null,
-      "excerpt": "Σε ηλικία 13 ετών κατέκτησε χάλκινο μετάλλιο στο Πανελλήνιο Πρωτάθλημα (1992), πέτυχε πανελλήνιο ρεκόρ νεανίδων με 388/400 στους Πανευρωπαϊκούς της Βουδαπέστης (1996) και πανελλήνιο ρεκόρ γυναικών με 395/400."
+      "excerpt": "Σε ηλικία 13 ετών κατέκτησε χάλκινο μετάλλιο στο Πανελλήνιο Πρωτάθλημα (1992), πέτυχε πανελλήνιο ρεκόρ νεανίδων με 388/400 στους Πανευρωπαϊκούς της Βουδαπέστης (1996) και πανελλήνιο ρεκόρ γυναικών με 395/400.",
+      "editorial_review_note": "Distinct supported sporting result added to bilingual timeline"
     },
     {
       "group_id": "review-0097",
@@ -1201,9 +1218,10 @@
         "arch-ceccb0cad9fe"
       ],
       "triage": "potential_event",
-      "review_status": "requires_human_evidence_check",
+      "review_status": "retained_in_biography_or_needs_evidence",
       "possible_existing_event_id": null,
-      "excerpt": "Πρωταθλητής σκοποβολής του Αρχελάου, κατέκτησε τη 2η Πανελλήνια θέση στο ομαδικό αεροβόλου τουφεκίου εφήβων (1993 & 1997)."
+      "excerpt": "Πρωταθλητής σκοποβολής του Αρχελάου, κατέκτησε τη 2η Πανελλήνια θέση στο ομαδικό αεροβόλου τουφεκίου εφήβων (1993 & 1997).",
+      "editorial_review_note": "No new independent entry without clearer distinct significance"
     },
     {
       "group_id": "review-0098",
@@ -1213,9 +1231,10 @@
         "arch-23f5b3ca37c0"
       ],
       "triage": "potential_event",
-      "review_status": "requires_human_evidence_check",
+      "review_status": "covered_by_existing_timeline_or_duplicate",
       "possible_existing_event_id": null,
-      "excerpt": "Το 1993 στέφθηκε 1ος Βαλκανιονίκης στο Βαλκανικό Πρωτάθλημα Στίβου Εφήβων ξεπερνώντας τα 5,05 μέτρα, συνεχίζοντας τη μεγάλη σχολή επικοντιστών του συλλόγου που είχε ανοίξει ο Γιάννης Λευτεριώτης."
+      "excerpt": "Το 1993 στέφθηκε 1ος Βαλκανιονίκης στο Βαλκανικό Πρωτάθλημα Στίβου Εφήβων ξεπερνώντας τα 5,05 μέτρα, συνεχίζοντας τη μεγάλη σχολή επικοντιστών του συλλόγου που είχε ανοίξει ο Γιάννης Λευτεριώτης.",
+      "editorial_review_note": "Existing timeline entry covers substance; avoid duplicate"
     },
     {
       "group_id": "review-0099",
@@ -1225,9 +1244,10 @@
         "arch-cf55874ef67a"
       ],
       "triage": "potential_event",
-      "review_status": "requires_human_evidence_check",
+      "review_status": "retained_in_biography_or_needs_evidence",
       "possible_existing_event_id": null,
-      "excerpt": "Αναδείχθηκε πρώτος πανελληνιονίκης ανδρών το 1993 και το 1994."
+      "excerpt": "Αναδείχθηκε πρώτος πανελληνιονίκης ανδρών το 1993 και το 1994.",
+      "editorial_review_note": "No new independent entry without clearer distinct significance"
     },
     {
       "group_id": "review-0100",
@@ -2689,5 +2709,8 @@
       "possible_existing_event_id": null,
       "excerpt": "Το 2026 αναδείχθηκε Χρυσός Βαλκανιονίκης Ελληνορωμαϊκής Πάλης, επιβεβαιώνοντας την απόλυτη κυριαρχία του στα διεθνή ταπί και τιμώμενος επίσημα από τον Δήμο Κατερίνης."
     }
-  ]
+  ],
+  "reviewed_candidate_events": 20,
+  "reviewed_published": 6,
+  "reviewed_remaining": 14
 }
