@@ -162,6 +162,28 @@ def main() -> int:
             if set(index_ids) != canonical_ids:
                 error("archelaos-person-index.json: IDs differ from canonical Hall of Fame records")
             check_biography_index(index, hall)
+    # Public source references must be explicit, safe links; private archive stays off-site.
+    if isinstance(hall, dict) and isinstance(hall.get("people"), list):
+        for person in hall["people"]:
+            if not isinstance(person, dict):
+                continue
+            refs = person.get("refs", [])
+            if not isinstance(refs, list):
+                error(f"Invalid refs list for {person.get('id')}")
+                continue
+            seen_refs = set()
+            for ref in refs:
+                if not isinstance(ref, dict) or not isinstance(ref.get("label"), str) or not isinstance(ref.get("url"), str):
+                    error(f"Invalid source reference for {person.get('id')}")
+                    continue
+                parts = urlsplit(ref["url"])
+                if parts.scheme != "https" or not parts.netloc or parts.username or parts.password:
+                    error(f"Unsafe source URL for {person.get('id')}")
+                if parts.hostname in ("drive.google.com", "docs.google.com"):
+                    error(f"Private Drive link in public biography for {person.get('id')}")
+                if ref["url"] in seen_refs:
+                    error(f"Duplicate source URL for {person.get('id')}")
+                seen_refs.add(ref["url"])
     links_source = (ROOT / "archelaos-person-links.js").read_text(encoding="utf-8")
     if "DATA_URL='hall-of-fame-people.json'" not in links_source:
         error("Biography link script must load the canonical Hall of Fame JSON")
