@@ -1,3 +1,11 @@
+## v1.9 — 30/10/2026 — Αυτόματοι έλεγχοι GitHub Actions
+
+- Προστέθηκε `tools/validate_site.py`, που ελέγχει τις εννέα βασικές HTML σελίδες, τοπικά assets, τίτλους/περιγραφές SEO, σύνταξη και βασική δομή JSON, μοναδικά IDs προσώπων και το sitemap.
+- Προστέθηκε `.github/workflows/validate-site.yml`, που εκτελεί τους παραπάνω ελέγχους μαζί με `node --check` για τα JavaScript σε κάθε push στο `main`, pull request και με χειροκίνητη εκκίνηση.
+- Η πρώτη εκτέλεση GitHub Actions ολοκληρώθηκε επιτυχώς: https://github.com/dizigs/archelaos-site/actions/runs/41098688480
+- Οι έλεγχοι είναι offline και δεν αντικαθιστούν δοκιμές Cloudflare Pages, accessibility audit ή browser tests.
+- Ο validator επιτρέπει μελλοντική αύξηση του Hall of Fame, ελέγχοντας την αντιστοιχία του `count` με το πραγματικό πλήθος αντί να απαιτεί μόνιμα 682 εγγραφές.
+
 ## v1.8 — 30/10/2026 — Καθαρισμός αχρησιμοποίητων αρχείων
 
 - Διαγράφηκαν οι παλιές εικόνες `images/archery1.jpg`, `images/archery2.jpg`, `images/archery3.jpg`, οι οποίες δεν αναφέρονταν στις ελεγμένες πηγές της τρέχουσας ιστοσελίδας (περίπου 10,03 MB συνολικά).
