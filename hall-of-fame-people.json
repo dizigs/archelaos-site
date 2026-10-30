@@ -308,8 +308,8 @@
       "role": "Διοίκηση · Μέλος Δ.Σ. και έφορος στίβου",
       "role_en": "Administration · Board member and athletics department official",
       "category": "admin",
-      "bio": "Μέλος του σημερινού Διοικητικού Συμβουλίου του Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης και έφορος του τμήματος στίβου (κλασικού αθλητισμού). Πρόκειται για διαφορετικό πρόσωπο από τον συνονόματο αθλητή πάλης που καταγράφεται επίσης στο Hall of Fame.",
-      "bio_en": "Member of the current Board of Directors of G.A.S. Archelaos Katerinis and official responsible for the athletics (track and field) department. He is a different person from the wrestler of the same name also listed in the Hall of Fame.",
+      "bio": "Μέλος του σημερινού Διοικητικού Συμβουλίου του Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης και έφορος του τμήματος στίβου (κλασικού αθλητισμού).",
+      "bio_en": "Member of the current Board of Directors of G.A.S. Archelaos Katerinis and official responsible for the athletics (track and field) department.",
       "id": "arch-georgios-athanas-athletics-board-2026",
       "period": "2026"
     },
@@ -1707,8 +1707,8 @@
       "name_en": "Konstantinos Zaras",
       "role": "Ενόργανη Γυμναστική · Πρωταθλητής Εδάφους",
       "role_en": "Artistic Gymnastics · Floor Champion",
-      "bio": "Αθλητής της ενόργανης γυμναστικής του Αρχελάου και μέλος της διακεκριμένης ανδρικής ομάδας. Αναδείχθηκε πρώτος πανελληνιονίκης ανδρών στις ασκήσεις εδάφους το 1990 στην Άρτα (9,200 βαθμοί) και το 1991 στη Γλυφάδα (9,300 βαθμοί). Πρόκειται για διαφορετικό πρόσωπο από τον έφορο ενόργανης Εμμανουήλ (Μανώλη) Ζάρα.",
-      "bio_en": "Archelaos gymnast Konstantinos Zaras won Greek men’s floor titles in Arta in 1990 (9.200 points) and Glyfada in 1991 (9.300 points). He is a different person from gymnastics department official Emmanouil Zaras.",
+      "bio": "Αθλητής της ενόργανης γυμναστικής του Αρχελάου και μέλος της διακεκριμένης ανδρικής ομάδας. Αναδείχθηκε πρώτος πανελληνιονίκης ανδρών στις ασκήσεις εδάφους το 1990 στην Άρτα (9,200 βαθμοί) και το 1991 στη Γλυφάδα (9,300 βαθμοί).",
+      "bio_en": "Archelaos gymnast Konstantinos Zaras won Greek men’s floor titles in Arta in 1990 (9.200 points) and Glyfada in 1991 (9.300 points).",
       "category": "athlete",
       "id": "arch-c51b66db9180"
     },
