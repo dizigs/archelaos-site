@@ -117,3 +117,7 @@ body.asn-museum-layout{padding-top:var(--asn-height)!important}
 
 /* Profile subroutes: keep the shared crest visible above legacy page styles. */
 body.person-page #arch-global-nav-root .asn-crest{display:block!important;visibility:visible!important;opacity:1!important;width:52px!important;height:52px!important;max-width:none!important;object-fit:contain!important}
+
+/* V3 global navigation safety: legacy menus stay hidden on every page, including /people/. */
+body header.arch-anniversary-header,body header.mast,body #mainHeader,body .museum-nav{display:none!important}
+#arch-global-nav-root .asn-brand img.asn-crest{display:block!important;visibility:visible!important;opacity:1!important;min-width:52px!important;min-height:52px!important;width:52px!important;height:52px!important;object-fit:contain!important;position:static!important;transform:none!important}
