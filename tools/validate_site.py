@@ -252,11 +252,13 @@ def main() -> int:
                         if person_id not in valid_ids:
                             error(f"history events: unknown person ID {person_id}")
     nav_js = (ROOT / "assets/navigation.js").read_text(encoding="utf-8")
-    # querySelector returns one element; the language toggle must use querySelectorAll.
-    if re.search(r"(?<!\\$)\\$\\('\\[data-asn-language\\]'\\)\\.forEach", nav_js):
-        error("navigation: language controls bound with a single-element selector")
-    if "$('[data-asn-language]').forEach(b=>b.addEventListener" not in nav_js:
-        error("navigation: missing common GR/EN button event bindings")
+    # Guard against accidentally binding a single element instead of both language buttons.
+    expected = "$$('[data-asn-language]').forEach(b=>b.addEventListener"
+    broken = "$('[data-asn-language]').forEach(b=>b.addEventListener"
+    if broken in nav_js and expected not in nav_js:
+        error("navigation: GR/EN handlers use the single-element selector")
+    if expected not in nav_js:
+        error("navigation: missing shared GR/EN event bindings")
     check_sitemap()
     if errors:
         print(f"\nSite validation FAILED: {len(errors)} issue(s).")
