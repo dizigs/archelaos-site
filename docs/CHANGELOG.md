@@ -1,3 +1,9 @@
+## V3 navigation & footer polish — 30/10/2026
+
+- Redesigned the `history-events.html` museum navigation and footer to echo the site's green/gold heritage visual language; added accessible mobile navigation and contextual museum links.
+- Updated the biography generator so future regenerated individual profiles use a shared museum navigation/footer style. Existing generated profiles do not change until explicitly regenerated.
+- No archival files or photographs were altered.
+
 ## V3 biography ↔ event navigation — 30/10/2026
 
 - Individual published biographies now link back to their curated timeline events using stable event anchors.
