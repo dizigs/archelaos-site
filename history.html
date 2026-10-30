@@ -3003,6 +3003,124 @@ main p,main li,article p,article li{line-height:1.72;}
 #historyArchiveModal #historyArchiveContent #diia h2{font-size:clamp(23px,2.3vw,33px)!important;line-height:1.22!important}
 @media(max-width:700px){#historyArchiveModal #historyArchiveContent #diia .diia-events .sub-box{padding:16px!important}#historyArchiveModal #historyArchiveContent #diia p{font-size:16px!important}#historyArchiveModal #historyArchiveContent{padding-inline:18px!important}}
 </style>
+
+<style id="v83-curatorial-text-first">
+/* V83: text-first digital museum; no photos, placeholders or new artwork. */
+#museum-explore .museum-exhibit-index-inner{max-width:1120px!important;gap:20px!important;padding:24px clamp(20px,3vw,38px)!important}
+#museum-explore .museum-index-stats{gap:clamp(22px,4vw,65px)!important;flex-wrap:wrap!important}
+#museum-explore .museum-section-head h2,#history-archive h2{letter-spacing:-.035em!important;line-height:1.17!important;text-wrap:balance}
+#museum-explore .museum-exhibit-copy h3{font-size:clamp(19px,2vw,24px)!important;line-height:1.27!important;text-wrap:balance}
+#chapters.museum-chapter-grid{gap:20px!important}
+#chapters .v61-archive-card{min-height:176px!important;padding:clamp(19px,2.5vw,28px)!important;border-radius:20px!important}
+#chapters .v61-archive-card h3{font-size:clamp(19px,2.2vw,24px)!important;line-height:1.27!important;text-wrap:balance}
+#chapters .v61-archive-card p{font-size:15px!important;line-height:1.75!important;max-width:65ch}
+.v61-sport-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:16px!important}
+.v61-sport-card{min-height:132px!important;border-radius:18px!important;padding:22px!important;overflow-wrap:normal!important;word-break:normal!important}
+.v61-sport-card>span[data-lang]{font-size:clamp(17px,1.5vw,21px)!important;line-height:1.35!important;overflow-wrap:normal!important;word-break:normal!important;text-wrap:balance}
+/* Museum pop-up: a single comfortable reading column with headings, not four narrow columns. */
+#historyArchiveModal>.modal-box{width:min(990px,100%)!important;max-width:990px!important}
+#historyArchiveModal #historyArchiveContent{padding:clamp(18px,4.3vw,48px)!important;font-size:17px!important;line-height:1.85!important;overflow-wrap:normal!important;word-break:normal!important;hyphens:none!important}
+#historyArchiveModal #historyArchiveContent :is(p,li,blockquote){font-size:inherit!important;line-height:1.82!important;overflow-wrap:normal!important;word-break:normal!important;hyphens:none!important}
+#historyArchiveModal #historyArchiveContent :is(p,ul,ol,blockquote){max-width:76ch!important;margin-left:auto;margin-right:auto}
+#historyArchiveModal #historyArchiveContent :is(h2,h3,h4){max-width:76ch!important;margin-left:auto;margin-right:auto;color:#073d2a!important;line-height:1.34!important;letter-spacing:-.015em!important;overflow-wrap:normal!important;word-break:normal!important;text-wrap:balance}
+#historyArchiveModal #historyArchiveContent h2{font-size:clamp(23px,3vw,30px)!important;margin-top:1.2em!important;margin-bottom:.55em!important}
+#historyArchiveModal #historyArchiveContent h3{font-size:clamp(19px,2.4vw,24px)!important;margin-top:1.3em!important;margin-bottom:.5em!important}
+#historyArchiveModal #historyArchiveContent p + p{margin-top:1em!important}
+#historyArchiveModal #historyArchiveContent :is(.grid,[class*="grid-cols-"]){min-width:0}
+#historyArchiveModal #historyArchiveContent .dept-panel.active-panel{width:100%!important;max-width:100%!important}
+/* Preserve department navigation but let each selected department read as one full-width article. */
+#historyArchiveModal #tmimata .dept-panel.active-panel :is(.grid,[class*="grid-cols-"]){grid-template-columns:minmax(0,1fr)!important}
+#historyArchiveModal #tmimata .dept-panel.active-panel :is(.sub-box,article){min-width:0!important;width:100%!important}
+#historyArchiveModal #tmimata .dept-panel.active-panel p{max-width:76ch!important}
+#historyArchiveModal .v83-related-links{border-top:1px solid #d9c99f;margin:22px 0 0;padding:20px 0 0;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+#historyArchiveModal .v83-related-links a{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:10px 15px;border:1px solid #bda568;border-radius:999px;background:#f1e9d9;color:#073d2a!important;font-size:13px!important;line-height:1.4;font-weight:800;text-decoration:none!important}
+#historyArchiveModal .v83-related-links a:hover,#historyArchiveModal .v83-related-links a:focus-visible{background:#073d2a;color:#fff!important}
+@media(max-width:850px){.v61-sport-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:620px){
+ #museum-explore .museum-exhibit-index-inner{padding:22px!important}
+ #museum-explore .museum-index-stats{justify-content:flex-start!important;gap:18px!important}
+ #chapters.museum-chapter-grid{grid-template-columns:minmax(0,1fr)!important;gap:13px!important}
+ #chapters .v61-archive-card{padding:20px!important;min-height:0!important}
+ .v61-sport-grid{grid-template-columns:minmax(0,1fr)!important;gap:10px!important}
+ .v61-sport-card{min-height:90px!important;padding:18px!important}
+ #historyArchiveModal #historyArchiveContent{font-size:16px!important;line-height:1.77!important;padding:20px 17px!important}
+ #historyArchiveModal #historyArchiveContent :is(p,li,blockquote){font-size:16px!important}
+ #historyArchiveModal #sports-archive .v61-sport-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+@media(prefers-reduced-motion:reduce){#chapters .v61-archive-card,.v61-sport-card{transition:none!important}}
+</style>
+
+<style id="v84-archive-background-and-stat-centering">
+/* V84: the archive has one calm paper background, not a green central slab. */
+html body #museum-history,html body #museum-history>.m54-panel,
+html body #museum-explore,html body #museum-explore>.m54-panel,
+html body #museum-collections,html body #museum-collections>.m54-panel,
+html body #museum-v54-navigation {background:#f8f6ef!important;background-image:none!important;}
+html body #museum-history .heritage-museum-jump,html body #museum-history .museum-section-wrap {background-color:transparent!important;}
+/* The exhibits overview / stats must be evenly centered. */
+html body #museum-explore .museum-exhibit-index-inner {
+ display:grid!important;grid-template-columns:minmax(0,1fr) minmax(260px,1fr)!important;
+ align-items:center!important;column-gap:24px!important;
+ background:#f1ede1!important;border-color:#dfd2af!important;
+}
+html body #museum-explore .museum-index-label {min-width:0!important;justify-self:start!important;}
+html body #museum-explore .museum-index-stats {
+ display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+ width:100%!important;gap:0!important;align-items:stretch!important;justify-content:stretch!important;
+}
+html body #museum-explore .museum-index-stats>div {
+ min-width:0!important;width:100%!important;display:flex!important;flex-direction:column!important;
+ align-items:center!important;justify-content:center!important;text-align:center!important;
+ padding:4px 12px!important;
+}
+html body #museum-explore .museum-index-stats strong,
+html body #museum-explore .museum-index-stats small{display:block!important;width:100%!important;text-align:center!important;margin-inline:auto!important;}
+@media(max-width:690px){
+ html body #museum-explore .museum-exhibit-index-inner {grid-template-columns:1fr!important;row-gap:15px!important;}
+ html body #museum-explore .museum-index-label{justify-self:center!important;}
+ html body #museum-explore .museum-index-stats>div{padding:5px 8px!important;}
+}
+</style>
+
+<style id="v85-history-real-background-fix">
+/* V85: target the actual Historical Archive section, not only museum-history wrappers. */
+html body #history-archive.glass-section,
+html body #history-archive,
+html body #history-archive > .max-w-7xl {
+  background:#f8f6ef!important; background-color:#f8f6ef!important;
+  background-image:none!important; box-shadow:none!important;
+}
+html body #history-archive::before,html body #history-archive::after {background-image:none!important;}
+/* Preserve separate cream cards and all green text. */
+</style>
+
+<style id="v86-final-cream-archive-fix">
+/* Explicitly remove the lingering sage tint from the entire archive panel. */
+html body #museum-history,
+html body #museum-history > .m54-panel,
+html body #museum-history #history-archive,
+html body #museum-history #history-archive.glass-section,
+html body #museum-history #history-archive > div,
+html body #museum-history #history-archive #chapters,
+html body #museum-history #history-archive .museum-sport-access-panel {
+  background-color:#f8f6ef!important;
+  background-image:none!important;
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+}
+html body #museum-history #history-archive:before,
+html body #museum-history #history-archive:after {background:none!important;}
+/* Keep clickable cards visually separate from the paper surface. */
+html body #museum-history #history-archive .history-archive-card,
+html body #museum-history #history-archive .v61-sport-card {
+  background-color:#fffdf8!important;
+  background-image:none!important;
+}
+html body #museum-history #history-archive .v61-sport-card.active,
+html body #museum-history #history-archive .v61-sport-card[aria-pressed="true"] {
+  background-color:#073d2a!important;
+}
+</style>
 </head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow arch-gold-page" data-arch-people-page="history">
 <!-- ANIMATED CONTOUR WAVES -->
@@ -3115,7 +3233,7 @@ main p,main li,article p,article li{line-height:1.72;}
 </nav>
 </details>
 </div>
-</div><section class="relative z-10 py-8 sm:py-12 glass-section scroll-mt-24" id="history-archive">
+</div><section class="relative z-10 py-8 sm:py-12 glass-section scroll-mt-24" id="history-archive" style="background:#f8f6ef;background-image:none">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 <div class="max-w-3xl mx-auto text-center mb-10 sm:mb-14 heritage-section-heading heritage-centered">
 <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-archelaos-deepgreen text-archelaos-yellow text-[11px] sm:text-xs font-black uppercase tracking-[.16em] shadow-sm mb-5">
@@ -4674,7 +4792,7 @@ main p,main li,article p,article li{line-height:1.72;}
                         Λειτούργησε από τον Φεβρουάριο του 1978 έως το 1983 υπό την οργάνωση του Ευστάθιου Ζάννα ως προ-αγωνιστική δεξαμενή αθλητών, προτού απορροφηθεί από την Ενόργανη Γυμναστική. Προπονητές που δίδαξαν: Πηνελόπη Ζουρνά &amp; Βέτα Ζούκα (πρώτες προπονήτριες, 1978), Ευστάθιος Ζάννας, Κωνσταντίνος Μυρωτής, Γεώργιος Μαβίδης, Ασπασία Οικονομικού, Σοφία Μπέζα, Ε. Στεφανίδου, Ηλίας Αλεξίου και Δημήτριος Γκόρτσιος.
                       </p>
 </div>
-<div class="nblm-dept-notes"><h4>Νέες αρχειακές ψηφίδες</h4><ul><li>1981–1993 · Μια γενιά πρωταθλητών ενόργανης — Το επετειακό λεύκωμα καταγράφει διακρίσεις της ενόργανης και πρώτη θέση στο ομαδικό ανδρών το 1993. Η ακριβής ακολουθία τίτλων 1981–1991 χρειάζεται επιβεβαίωση.</li><li>1978–1983 · Γενική γύμναση για μικρά παιδιά — Ο σύλλογος οργάνωσε τμήμα γενικής γύμνασης μικρών παιδιών, που τροφοδοτούσε με αθλητές την ενόργανη.</li></ul></div>
+<div class="nblm-dept-notes"><h4>Νέες αρχειακές ψηφίδες</h4><ul><li>1981–1993 · Μια γενιά πρωταθλητών ενόργανης — Το επετειακό λεύκωμα καταγράφει διακρίσεις της ενόργανης και πρώτη θέση στο ομαδικό ανδρών το 1993.</li><li>1978–1983 · Γενική γύμναση για μικρά παιδιά — Ο σύλλογος οργάνωσε τμήμα γενικής γύμνασης μικρών παιδιών, που τροφοδοτούσε με αθλητές την ενόργανη.</li></ul></div>
 <section class="archive-enrichment" style="margin-top:1.5rem;padding:1.2rem 1.35rem;background:#f8f6ef;border-left:3px solid #c7a65e;border-radius:14px;color:#073d2a"><h3 style="font-weight:800;font-size:1.08rem;margin:0 0 .55rem">Η γενιά των πανελλήνιων πρωταθλητών</h3><p style="line-height:1.8;margin:0">Η περίοδος 1981–1991 αναφέρεται στο ιστορικό αρχείο ως δεκαετία πρωταγωνιστικής παρουσίας του Αρχέλαου στην ενόργανη γυμναστική, με διακρίσεις από τις μικρές κατηγορίες μέχρι τους άνδρες. Στο διασυλλογικό των Τρικάλων το 1991 καταγράφηκαν τέσσερις πρώτες θέσεις στα επτά όργανα, ενώ το 1997 στην Αταλάντη ο Χρήστος Λιμπανοβνός αναδείχθηκε πρωταθλητής Ελλάδας στο δίζυγο.</p></section>
 </div>
 <!-- ENGLISH CONTENT -->
@@ -4694,7 +4812,7 @@ main p,main li,article p,article li{line-height:1.72;}
                         Operated from February 1978 to 1983 under the organization of Efstathios Zannas as a pre-competitive nursery for young athletes before being absorbed into Artistic Gymnastics. Coaches who taught included: Pinelopi Zourna &amp; Veta Zouka (first coaches, 1978), Efstathios Zannas, Konstantinos Myrotis, Georgios Mavidis, Aspasia Oikonomikou, Sofia Beza, E. Stefanidou, Ilias Alexiou, and Dimitrios Gkortsios.
                       </p>
 </div>
-<div class="nblm-dept-notes"><h4>New archival notes</h4><ul><li>1981–1993 · Μια γενιά πρωταθλητών ενόργανης — Το επετειακό λεύκωμα καταγράφει διακρίσεις της ενόργανης και πρώτη θέση στο ομαδικό ανδρών το 1993. Η ακριβής ακολουθία τίτλων 1981–1991 χρειάζεται επιβεβαίωση.</li><li>1978–1983 · Γενική γύμναση για μικρά παιδιά — Ο σύλλογος οργάνωσε τμήμα γενικής γύμνασης μικρών παιδιών, που τροφοδοτούσε με αθλητές την ενόργανη.</li></ul></div>
+<div class="nblm-dept-notes"><h4>New archival notes</h4><ul><li>1981–1993 · Μια γενιά πρωταθλητών ενόργανης — Το επετειακό λεύκωμα καταγράφει διακρίσεις της ενόργανης και πρώτη θέση στο ομαδικό ανδρών το 1993.</li><li>1978–1983 · Γενική γύμναση για μικρά παιδιά — Ο σύλλογος οργάνωσε τμήμα γενικής γύμνασης μικρών παιδιών, που τροφοδοτούσε με αθλητές την ενόργανη.</li></ul></div>
 <section class="archive-enrichment" style="margin-top:1.5rem;padding:1.2rem 1.35rem;background:#f8f6ef;border-left:3px solid #c7a65e;border-radius:14px;color:#073d2a"><h3 style="font-weight:800;font-size:1.08rem;margin:0 0 .55rem">A generation of Greek champions</h3><p style="line-height:1.8;margin:0">Club records describe 1981–1991 as a decade of sustained success in artistic gymnastics, from youth categories through to senior men. At the 1991 interclub meeting in Trikala, Archelaos won four of the seven apparatus events; in 1997, Christos Libanovnos became Greek champion on parallel bars at Atalanti.</p></section>
 </div>
 </div>
@@ -6486,6 +6604,13 @@ main p,main li,article p,article li{line-height:1.72;}
         historyArchiveSelectDepartment(target, false);
       }
     } else { historyArchiveUpdateTitle(); }
+    // Related collections open their own pages, never a second stacked modal.
+    const related = document.createElement('nav');
+    related.className = 'v83-related-links';
+    related.setAttribute('aria-label', 'Σχετικές συλλογές / Related collections');
+    related.innerHTML = '<a href="70-stigmes.html" data-related-el="70 Στιγμές" data-related-en="70 Moments">70 Στιγμές</a><a href="hall-of-fame.html" data-related-el="Hall of Fame" data-related-en="Hall of Fame">Hall of Fame</a>';
+    related.querySelectorAll('a').forEach(a => { a.textContent = a.getAttribute(historyArchiveCurrentLanguage() === 'en' ? 'data-related-en' : 'data-related-el'); });
+    historyArchiveContent.appendChild(related);
     const closeBtn = historyArchiveModal.querySelector('button[aria-label="Κλείσιμο / Close"]');
     if (closeBtn) setTimeout(() => closeBtn.focus(), 60);
   };
