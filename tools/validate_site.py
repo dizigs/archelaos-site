@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+from html import escape
 import re
 import sys
 from html.parser import HTMLParser
@@ -173,6 +174,26 @@ def main() -> int:
                 error(f"Missing published profile for {person['id']}")
             elif '<link rel="canonical"' not in profile.read_text(encoding="utf-8"):
                 error(f"Missing canonical URL in profile for {person['id']}")
+    # V3 foundation: detect stale static profiles when JSON biographies change.
+    if isinstance(hall, dict) and isinstance(hall.get("people"), list):
+        for person in hall["people"]:
+            if not isinstance(person, dict) or not isinstance(person.get("id"), str):
+                continue
+            profile = ROOT / "people" / (person["id"] + ".html")
+            if not profile.is_file():
+                continue
+            html = profile.read_text(encoding="utf-8")
+            if "<h1>" + escape(str(person.get("name", "")), quote=True).replace("&#x27;", "&#39;") + "</h1>" not in html:
+                error(f"Outdated profile name: {person['id']}")
+            bio = escape(str(person.get("bio") or ""), quote=True).replace("&#x27;", "&#39;")
+            if bio and '<div class="bio">' + bio + '</div>' not in html:
+                error(f"Outdated profile biography: {person['id']}")
+    if isinstance(hall, dict) and isinstance(hall.get("people"), list):
+        sitemap = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
+        for person in hall["people"]:
+            if isinstance(person, dict) and isinstance(person.get("id"), str):
+                if "/people/" + person["id"] + ".html</loc>" not in sitemap:
+                    error(f"Missing biography sitemap URL: {person['id']}")
     check_sitemap()
     if errors:
         print(f"\nSite validation FAILED: {len(errors)} issue(s).")
