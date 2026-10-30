@@ -22,3 +22,18 @@ body.person-page{margin:0;background:var(--profile-cream);color:#19392b;font:16p
 .person-page .profile-actions{border-top:1px solid #e8e3d6;margin-top:30px;padding-top:22px}
 .person-page .return{font-weight:800;text-decoration:none}
 @media(max-width:600px){.person-page .profile-main{padding:108px 13px 48px}.person-page .profile-card{border-radius:15px}.person-page .profile-body{padding:24px 20px}}
+
+/* Cream-and-gold profile cards, shared across all people pages. */
+body.person-page .profile-card{background:#fffdf7!important;border:2px solid #c7a65e!important;box-shadow:0 20px 48px rgba(75,57,23,.1)!important}
+body.person-page .profile-intro{background:linear-gradient(130deg,#fffdf7,#f1ebd9)!important;color:#8e6b27!important;border-bottom:2px solid #c7a65e!important}
+body.person-page .profile-intro h1{color:#92712b!important}
+body.person-page .profile-intro .category{color:#98752c!important}
+body.person-page .profile-body{background:#fffdf7}
+body.person-page .profile-section{border:1px solid #dccaa6!important;border-radius:15px!important;padding:clamp(18px,3vw,30px)!important;background:#fdfaf1!important}
+body.person-page .profile-section h2{color:#8e6b27!important}
+body.person-page .profile-actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+body.person-page .profile-actions a{display:inline-flex!important;align-items:center;justify-content:center;min-height:47px;padding:11px 18px;border-radius:12px;font-size:14px;font-weight:800!important;text-decoration:none!important;background:#0b482e!important;border:1px solid #0b482e;color:#fffdf7!important;box-shadow:0 4px 10px #0b482e19;transition:transform .18s,background .18s}
+body.person-page .profile-actions a:hover{transform:translateY(-2px);background:#145a3b!important;color:#fffdf7!important}
+body.person-page .profile-actions a.secondary{background:#f8f3e7!important;border-color:#c7a65e!important;color:#806025!important}
+body.person-page .profile-actions a.secondary:hover{background:#f0e5cf!important;color:#806025!important}
+body.person-page .profile-intro .profile-subtitle{display:none!important}
