@@ -4,8 +4,8 @@
  if(!script||document.getElementById('arch-global-nav-root'))return;
  const pageName=(location.pathname.split('/').pop()||'index.html').toLowerCase();
  const isProfile=location.pathname.startsWith('/people/');
- const isMuseum=['history.html','hall-of-fame.html','70-stigmes.html','stories.html','history-events.html'].includes(pageName);
- if(isProfile||pageName==='history-events.html'){
+ const isMuseum=['history.html','hall-of-fame.html','70-stigmes.html','stories.html'].includes(pageName);
+ if(isProfile){
   const relatedScript=document.createElement('script');relatedScript.src='/assets/story-relations.js';relatedScript.defer=true;document.head.appendChild(relatedScript);
  }
  if(isMuseum)document.body.classList.add('asn-museum-layout');
@@ -19,8 +19,8 @@
   {href:'index.html#departments',el:'Αθλήματα',en:'Sports'},
   {href:'board.html',el:'Διοίκηση',en:'Board'},
   {href:'sponsors.html',el:'Χορηγίες',en:'Sponsorship'},
-  {href:'contact.html',el:'Επικοινωνία',en:'Contact'},
-  {href:'history-events.html',el:'Ιστορικά Γεγονότα',en:'Historical Events'}
+  {href:'contact.html',el:'Επικοινωνία',en:'Contact'}
+
  ];
  const absolute=href=>href.startsWith('/')?href:'/'+href;
  const active=(href)=>href.split('#')[0]===pageName && !href.includes('#');

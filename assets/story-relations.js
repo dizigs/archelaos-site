@@ -1,23 +1,13 @@
-/* Shared cross-navigation: Stories ↔ Historical Events ↔ People. */
+/* Shared cross-navigation: Stories ↔ People. */
 (function(){
 'use strict';
 const onProfile=location.pathname.startsWith('/people/');
-const onEvents=location.pathname.endsWith('/history-events.html');
-if(!onProfile&&!onEvents)return;
+if(!onProfile)return;
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 const label=(el,en)=>'<span data-el="'+esc(el)+'" data-en="'+esc(en)+'">'+esc(document.documentElement.lang==='en'?en:el)+'</span>';
 fetch('/assets/story-relations.json').then(r=>{if(!r.ok)throw new Error('Story relations unavailable');return r.json();}).then(data=>{
  if(!Array.isArray(data.stories))return;
  const storyLinks=items=>items.map(s=>'<a class="asr-link" href="/stories.html?story='+s.number+'">'+esc(s.title)+'</a>').join('');
- if(onEvents){
-  document.querySelectorAll('.milestone[id]').forEach(card=>{
-   const matches=data.stories.filter(s=>s.events.includes(card.id));
-   if(!matches.length||card.querySelector('.asr-related'))return;
-   const div=document.createElement('section');div.className='asr-related';
-   div.innerHTML='<h3>'+label('Σχετικές ιστορίες','Related Stories')+'</h3><div class="asr-items">'+storyLinks(matches)+'</div>';
-   card.querySelector('.milestone-card')?.append(div);
-  });
- }
  if(onProfile){
   const id=location.pathname.split('/').pop().replace(/\.html$/,'');
   const matches=data.stories.filter(s=>s.people.includes(id));

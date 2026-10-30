@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PAGES = (
     "index.html", "history.html", "hall-of-fame.html",
     "70-stigmes.html", "stories.html",
-    "board.html", "sponsors.html", "contact.html", "history-events.html",
+    "board.html", "sponsors.html", "contact.html"
 )
 JSON_FILES = (
     "hall-of-fame-people.json", "archelaos-person-index.json",
@@ -155,9 +155,6 @@ def main() -> int:
             error(f"{page}: duplicated inline footer markup")
     if not (ROOT / "assets/footer.js").is_file() or not (ROOT / "assets/footer.css").is_file():
         error("Common footer assets are missing")
-    for page in ("history-events.html",):
-        if '/assets/navigation.js' not in (ROOT / page).read_text(encoding="utf-8"):
-            error(f"{page}: missing shared navigation")
     for filename in JSON_FILES:
         data = check_json(filename)
         if data is not None and filename.endswith("people.json"):
