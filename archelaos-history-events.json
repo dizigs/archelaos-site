@@ -117,6 +117,41 @@
       "verification": "existing-biographies"
     },
     {
+      "id": "javelin-record-1980",
+      "date": "1980-10-11",
+      "date_precision": "range",
+      "category": "Στίβος",
+      "category_en": "Athletics",
+      "title": "Πανελλήνιο ρεκόρ παίδων στα Ι΄ Δίια",
+      "title_en": "National Boys' Javelin Record at the 10th Dia Games",
+      "description": "Στα Ι΄ Δίια (11–12 Οκτωβρίου 1980), ο Αντώνης Παπαδημητρίου σημείωσε πανελλήνιο ρεκόρ παίδων στον ακοντισμό με βολή 63,02 μέτρων.",
+      "description_en": "At the 10th Dia Games (11–12 October 1980), Antonis Papadimitriou set a Greek boys' javelin record with a throw of 63.02 metres.",
+      "people": [
+        "arch-d25677ab9f72"
+      ],
+      "source": "70-stigmes.html",
+      "verification": "published-club-history"
+    },
+    {
+      "id": "gymnastics-titles-1981-1991",
+      "date": "1981",
+      "date_precision": "range",
+      "category": "Ενόργανη γυμναστική",
+      "category_en": "Artistic Gymnastics",
+      "title": "Η δεκαετία πανελλήνιων τίτλων στην ενόργανη",
+      "title_en": "A Decade of National Gymnastics Team Titles",
+      "description": "Την περίοδο 1981–1991, η ομάδα ενόργανης του Αρχέλαου, με προπονητή τον Απόστολο Σαμαλή και έφορο τον Εμμανουήλ Ζάρα, κατέκτησε διαδοχικούς πανελλήνιους ομαδικούς τίτλους στις ηλικιακές κατηγορίες παμπαίδων, παίδων, εφήβων και ανδρών.",
+      "description_en": "Between 1981 and 1991, Archelaos's artistic gymnastics squad, led by coach Apostolos Samalis and department official Emmanouil Zaras, won successive Greek team titles across age groups from boys to senior men.",
+      "people": [
+        "arch-3c99e241b6d5",
+        "arch-edb75edd624b",
+        "arch-d69963f7377e",
+        "arch-c51b66db9180"
+      ],
+      "source": "70-stigmes.html",
+      "verification": "published-club-history"
+    },
+    {
       "id": "swimming-training-1981",
       "date": "1981-06-01",
       "date_precision": "day",
@@ -132,6 +167,54 @@
       ],
       "source": "hall-of-fame-people.json",
       "verification": "existing-biographies"
+    },
+    {
+      "id": "koukodimos-record-1985",
+      "date": "1985-09-21",
+      "date_precision": "day",
+      "category": "Στίβος",
+      "category_en": "Athletics",
+      "title": "Ρεκόρ του Κώστα Κουκοδήμου στα ΙΒ΄ Δίια",
+      "title_en": "Kostas Koukodimos Sets a Record at the 12th Dia Games",
+      "description": "Στις 21 Σεπτεμβρίου 1985 ο 16χρονος Κώστας Κουκοδήμος σημείωσε πανελλήνιο ρεκόρ παίδων στο μήκος με 7,40 μ. στα ΙΒ΄ Δίια στην Κατερίνη.",
+      "description_en": "On 21 September 1985, sixteen-year-old Kostas Koukodimos set a Greek boys' long-jump record of 7.40 metres at the 12th Dia Games in Katerini.",
+      "people": [
+        "arch-5abfbe9e285a"
+      ],
+      "source": "70-stigmes.html",
+      "verification": "published-club-history"
+    },
+    {
+      "id": "dios-dromos-1987",
+      "date": "1987",
+      "date_precision": "year",
+      "category": "Στίβος",
+      "category_en": "Athletics",
+      "title": "Καθιέρωση του Δίου Δρόμου",
+      "title_en": "The Dios Dromos Road Race Is Established",
+      "description": "Το 1987 ο Αρχέλαος καθιέρωσε τον «Δίο Δρόμο», αγώνα δρόμου 15,5 χιλιομέτρων με αφετηρία το αρχαίο θέατρο Δίου και τερματισμό στην Πλατεία Ελευθερίας της Κατερίνης.",
+      "description_en": "In 1987, Archelaos established the 15.5-kilometre Dios Dromos road race, starting at the ancient theatre of Dion and finishing in Katerini's Eleftherias Square.",
+      "people": [
+        "arch-9a81d12f0720"
+      ],
+      "source": "70-stigmes.html",
+      "verification": "published-club-history"
+    },
+    {
+      "id": "poulikidis-european-bronze-1988",
+      "date": "1988",
+      "date_precision": "year",
+      "category": "Πάλη",
+      "category_en": "Wrestling",
+      "title": "Ευρωπαϊκό χάλκινο μετάλλιο του Αλέξιου Πουλικίδη",
+      "title_en": "Alexios Poulikidis Wins European Junior Bronze",
+      "description": "Το 1988 ο παλαιστής του Αρχέλαου Αλέξιος Πουλικίδης κατέκτησε χάλκινο μετάλλιο στο Ευρωπαϊκό Πρωτάθλημα Εφήβων στη Σμύρνη, στην κατηγορία των 115 κιλών.",
+      "description_en": "In 1988, Archelaos wrestler Alexios Poulikidis won bronze in the 115 kg category at the European Junior Championships in İzmir.",
+      "people": [
+        "arch-39d3d90c7e59"
+      ],
+      "source": "70-stigmes.html",
+      "verification": "published-club-history"
     },
     {
       "id": "handball-cup-1990",
