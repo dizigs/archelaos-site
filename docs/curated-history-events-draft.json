@@ -1,0 +1,97 @@
+{
+  "version": 1,
+  "status": "editorial_draft_not_published",
+  "editorial_policy": "Only dates and achievements explicitly contained in canonical biographies. Requires review before transfer to public archelaos-history-events.json.",
+  "entries": [
+    {
+      "id": "foundation-1956",
+      "date": "1956-04-29",
+      "date_precision": "day",
+      "category": "Διοίκηση",
+      "category_en": "Administration",
+      "title": "Ίδρυση του Γ.Α.Σ. «Ο Αρχέλαος»",
+      "title_en": "Founding of G.A.S. Archelaos",
+      "description": "Στις 29 Απριλίου 1956 ο Γεώργιος Ευθυμίου συνέβαλε στην ίδρυση του Γ.Α.Σ. «Ο Αρχέλαος» στο Δημοτικό Πάρκο Κατερίνης. Συνέταξε το πρώτο καταστατικό και διετέλεσε πρώτος πρόεδρος του συλλόγου.",
+      "description_en": "On 29 April 1956, Georgios Efthymiou helped establish G.A.S. Archelaos at Katerini Municipal Park. He drafted the club's first constitution and served as its inaugural president.",
+      "people": [
+        "arch-4c82271a2365"
+      ],
+      "source": "hall-of-fame-people.json",
+      "verification": "existing-biographies",
+      "publication_status": "editorial_draft",
+      "requires_original_source_check": true
+    },
+    {
+      "id": "athletics-coach-1964",
+      "date": "1964",
+      "date_precision": "year",
+      "category": "Στίβος",
+      "category_en": "Athletics",
+      "title": "Ανάληψη της τεχνικής ηγεσίας του στίβου από τον Τάκη Παρασκευόπουλο",
+      "title_en": "Takis Paraskevopoulos Appointed Head Athletics Coach",
+      "description": "Το 1964 ο Τάκης Παρασκευόπουλος ανέλαβε επικεφαλής προπονητής στίβου του Αρχελάου, ξεκινώντας θητεία 32 ετών που ολοκληρώθηκε τον Ιούνιο του 1996.",
+      "description_en": "In 1964, Takis Paraskevopoulos became Archelaos's head athletics coach, beginning a 32-year tenure that ended in June 1996.",
+      "people": [
+        "arch-56dd134e165f"
+      ],
+      "source": "hall-of-fame-people.json",
+      "verification": "existing-biographies",
+      "publication_status": "editorial_draft",
+      "requires_original_source_check": true
+    },
+    {
+      "id": "handball-cup-1990",
+      "date": "1990-06-02",
+      "date_precision": "day",
+      "category": "Χειροσφαίριση",
+      "category_en": "Handball",
+      "title": "Πρώτο Κύπελλο Ελλάδας στη χειροσφαίριση",
+      "title_en": "First Greek Handball Cup Title",
+      "description": "Στις 2 Ιουνίου 1990, στο κλειστό του Μετς στην Αθήνα, ο Αρχέλαος κατέκτησε το πρώτο Κύπελλο Ελλάδας χάντμπολ της ιστορίας του, επικρατώντας του Α.Σ.Ε. Δούκα με 27–21 (ημίχρονο 15–8), με προπονητή τον Δημήτρη Σκούφα.",
+      "description_en": "On 2 June 1990, Archelaos won its first Greek Handball Cup at the Mets indoor arena in Athens, defeating A.S.E. Doukas 27–21 (15–8 at half-time) under coach Dimitris Skoufas.",
+      "people": [
+        "arch-803dd3926e77"
+      ],
+      "source": "hall-of-fame-people.json",
+      "verification": "existing-biographies",
+      "publication_status": "editorial_draft",
+      "requires_original_source_check": true
+    },
+    {
+      "id": "eleftheroudis-presidency-1993",
+      "date": "1993-02-27",
+      "date_precision": "day",
+      "category": "Διοίκηση",
+      "category_en": "Administration",
+      "title": "Έναρξη της προεδρίας του Χρήστου Ελευθερούδη",
+      "title_en": "Christos Eleftheroudis Begins His Presidency",
+      "description": "Στις 27 Φεβρουαρίου 1993 ξεκίνησε η προεδρία του Χρήστου Ελευθερούδη, η οποία διήρκεσε έως τις 31 Αυγούστου 2011 και περιλάμβανε οκτώ συνεχόμενες εκλογικές νίκες.",
+      "description_en": "Christos Eleftheroudis began his presidency on 27 February 1993. His tenure lasted until 31 August 2011 and included eight consecutive election victories.",
+      "people": [
+        "arch-e355f0a88983"
+      ],
+      "source": "hall-of-fame-people.json",
+      "verification": "existing-biographies",
+      "publication_status": "editorial_draft",
+      "requires_original_source_check": true
+    },
+    {
+      "id": "parousis-horizon-2022",
+      "date": "2022-11",
+      "date_precision": "month",
+      "category": "Ενόργανη γυμναστική",
+      "category_en": "Artistic Gymnastics",
+      "title": "Δύο χρυσά μετάλλια του Άγγελου Παρούση στο Horizon Cup",
+      "title_en": "Angelos Parousis Wins Two Horizon Cup Gold Medals",
+      "description": "Τον Νοέμβριο του 2022, ο Άγγελος Παρούσης, υπό την καθοδήγηση του Χρήστου Λυμπανοβνού, κατέκτησε στο Horizon Cup χρυσά μετάλλια στο έδαφος και στους κρίκους, μαζί με δύο ασημένια και δύο χάλκινα μετάλλια.",
+      "description_en": "In November 2022, Angelos Parousis, coached by Christos Lympanovnos, won gold on floor and rings at the Horizon Cup, alongside two silver and two bronze medals.",
+      "people": [
+        "arch-e6b31b31c3a9"
+      ],
+      "source": "hall-of-fame-people.json",
+      "verification": "existing-biographies",
+      "publication_status": "editorial_draft",
+      "requires_original_source_check": true
+    }
+  ]
+}
