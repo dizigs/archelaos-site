@@ -39,10 +39,13 @@ async function verify(){
     if(tag==='departments')await page.locator('.dp-card').first().waitFor();
     if(tag==='retro')await page.locator('.rt-scoreboard').first().waitFor();
     if(tag==='home'){
-     // Exercise the empty (correct, nonfabricated) state of public schedule.
-     await page.waitForFunction(()=>document.querySelector('#fx-status')?.textContent.includes('Δεν έχουν ανακοινωθεί'),null,{timeout:12000});
-     if(await page.locator('.fx-card').count())throw Error('Unapproved fixture appeared on homepage');
-     if(!await page.locator('#fx-download').isHidden())throw Error('Empty schedule exposes calendar download');
+     // Real reviewed data: upcoming ONLY, both departments, no away games.
+     const schedule=JSON.parse(require('node:fs').readFileSync(path.join(__dirname,'..','data','match-schedule.json'),'utf8'));
+     const upcoming=schedule.matches.filter(x=>Date.parse(x.start_at)>Date.now()).length;
+     await page.waitForFunction(()=>{const s=document.querySelector('#fx-status')?.textContent||'';return s.includes('επιβεβαιωμένοι')||s.includes('Δεν έχουν ανακοινωθεί')},null,{timeout:12000});
+     if(await page.locator('.fx-card').count()!==Math.min(6,upcoming))throw Error('Incorrect upcoming home fixture count');
+     if(schedule.matches.some(x=>x.home_team!=='ΓΑΣ Αρχέλαος Κατερίνης'))throw Error('Away fixture leaked to website');
+     if((await page.locator('#fx-download').isHidden())===Boolean(upcoming))throw Error('Wrong calendar download visibility');
      await page.locator('[data-fixture-sport="volleyball"]').click();
      if(await page.locator('[data-fixture-sport="volleyball"]').getAttribute('aria-pressed')!=='true')
        throw Error('Matchday sport filter not responding');
@@ -165,7 +168,7 @@ async function verify(){
    await page.close();
   }
   // Fake public schedule delivered ONLY inside the test browser, never committed as real games.
-  const fakeSchedule={schema_version:1,approval_policy:'owner_approved_only',timezone:'Europe/Athens',
+  const fakeSchedule={schema_version:1,approval_policy:'owner_approved_only',display_policy:'home_only',timezone:'Europe/Athens',
     matches:[
       {id:'fixture-ui-test-001',sport:'handball',home_team:'ΓΑΣ Αρχέλαος',away_team:'Δοκιμαστική Α',
        start_at:'2099-05-11T18:30:00+03:00',end_at:'2099-05-11T20:30:00+03:00',end_at_verified:true,

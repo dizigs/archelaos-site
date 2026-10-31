@@ -59,7 +59,7 @@ function external(label,url){
 function card(item,index){
  const date=displayDate(item);
  const a=create('article','fx-card'+(index===0?' fx-card-feature':''));a.dataset.ordinal=String(index+1).padStart(2,'0');
- const top=create('div','fx-top');top.append(create('span','fx-sport',labels[item.sport]||item.sport),
+ const top=create('div','fx-top');top.append(create('span','fx-sport',(labels[item.sport]||item.sport)+(item.category?' · '+item.category.toLocaleUpperCase('el-GR'):'')),
   create('span','fx-competition',item.competition||'Αγωνιστική αναμέτρηση'));a.append(top);
  const when=create('div','fx-when'),big=create('span','fx-date-large');
  big.append(create('strong','fx-date-number',format(date,{day:'2-digit'})),
@@ -117,10 +117,11 @@ async function init(){
   const response=await fetch(url,{cache:'no-cache'});
   if(!response.ok)throw Error('Match schedule unavailable');
   const data=await response.json();
-  if(data?.schema_version!==1||data?.approval_policy!=='owner_approved_only'||!Array.isArray(data.matches))
+  if(data?.schema_version!==1||data?.approval_policy!=='owner_approved_only'||data?.display_policy!=='home_only'||!Array.isArray(data.matches))
    throw Error('Invalid or unreviewed fixture list');
   fixtures=data.matches.filter(x=>x.approval?.status==='owner_approved'&&
-   ['handball','volleyball'].includes(x.sport)&&displayDate(x));
+   ['handball','volleyball'].includes(x.sport)&&displayDate(x)&&
+   /αρχελα|archela/i.test(String(x.home_team||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'')));
   render();
  }catch(error){
   console.warn('Match schedule fallback',error);

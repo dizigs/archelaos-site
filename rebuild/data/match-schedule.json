@@ -2,6 +2,249 @@
   "schema_version": 1,
   "timezone": "Europe/Athens",
   "approval_policy": "owner_approved_only",
-  "last_reviewed": null,
-  "matches": []
+  "display_policy": "home_only",
+  "last_reviewed": "2026-10-31T19:00:33.420Z",
+  "source_note": "Χάντμπολ: παρεχόμενο αρχείο ICS (Σάββατο 18:00). Βόλεϊ Κ16: ΕΣΠΕ Μακεδονίας, αριθ. πρωτ. 284, ΑΔΑ ΨΚ7Γ7ΛΛ-ΑΞΠ. Εντός έδρας μόνο. Οι διοργανώτριες μπορούν να τροποποιήσουν το πρόγραμμα.",
+  "matches": [
+    {
+      "id": "fixture-volleyball-k16-20261004-r01",
+      "sport": "volleyball",
+      "category": "Κορίτσια Κ16",
+      "home_team": "ΓΑΣ Αρχέλαος Κατερίνης",
+      "away_team": "ΓΑΣ Βαφύρας Δ. Δίου",
+      "start_at": "2026-10-04T16:00:00+03:00",
+      "kickoff_status": "confirmed_time",
+      "status": "scheduled",
+      "competition": "Πρωτάθλημα Κοριτσιών Κ16 · Α΄ Όμιλος · 1η αγωνιστική",
+      "venue": "ΔΑΚ Κατερίνης",
+      "source": {
+        "label": "ΕΣΠΕ Μακεδονίας · αριθ. πρωτ. 284 (14/09/2026) · ΑΔΑ ΨΚ7Γ7ΛΛ-ΑΞΠ"
+      },
+      "approval": {
+        "status": "owner_approved",
+        "reviewed_on": "2026-10-31T19:00:33.420Z",
+        "reason": "Προσκομισμένο πρόγραμμα και ρητή οδηγία να εμφανίζονται μόνο εντός έδρας αγώνες"
+      }
+    },
+    {
+      "id": "fixture-volleyball-k16-20261018-r03",
+      "sport": "volleyball",
+      "category": "Κορίτσια Κ16",
+      "home_team": "ΓΑΣ Αρχέλαος Κατερίνης",
+      "away_team": "ΑΠΣ Αίολος Κατερίνης",
+      "start_at": "2026-10-18T12:00:00+03:00",
+      "kickoff_status": "confirmed_time",
+      "status": "scheduled",
+      "competition": "Πρωτάθλημα Κοριτσιών Κ16 · Α΄ Όμιλος · 3η αγωνιστική",
+      "venue": "ΔΑΚ Κατερίνης",
+      "source": {
+        "label": "ΕΣΠΕ Μακεδονίας · αριθ. πρωτ. 284 (14/09/2026) · ΑΔΑ ΨΚ7Γ7ΛΛ-ΑΞΠ"
+      },
+      "approval": {
+        "status": "owner_approved",
+        "reviewed_on": "2026-10-31T19:00:33.420Z",
+        "reason": "Προσκομισμένο πρόγραμμα και ρητή οδηγία να εμφανίζονται μόνο εντός έδρας αγώνες"
+      }
+    },
+    {
+      "id": "fixture-handball-20261031-r01",
+      "sport": "handball",
+      "category": "Άνδρες",
+      "home_team": "ΓΑΣ Αρχέλαος Κατερίνης",
+      "away_team": "Α.Ο.Α. Καστοριάς",
+      "start_at": "2026-10-31T18:00:00+02:00",
+      "kickoff_status": "confirmed_time",
+      "status": "scheduled",
+      "competition": "Β΄ Εθνική Ανδρών Χειροσφαίρισης · 2ος Όμιλος · 1η αγωνιστική",
+      "venue": "Α΄ ΔΑΚ Κατερίνης",
+      "source": {
+        "label": "Πρόγραμμα Αρχέλαος χάντμπολ 2026–27 (.ics), παρεχόμενο από τον υπεύθυνο"
+      },
+      "approval": {
+        "status": "owner_approved",
+        "reviewed_on": "2026-10-31T19:00:33.420Z",
+        "reason": "Προσκομισμένο πρόγραμμα και ρητή οδηγία να εμφανίζονται μόνο εντός έδρας αγώνες"
+      }
+    },
+    {
+      "id": "fixture-volleyball-k16-20261108-r06",
+      "sport": "volleyball",
+      "category": "Κορίτσια Κ16",
+      "home_team": "ΓΑΣ Αρχέλαος Κατερίνης",
+      "away_team": "ΜΑΣ Νίκη Αιγινίου",
+      "start_at": "2026-11-08T12:00:00+02:00",
+      "kickoff_status": "confirmed_time",
+      "status": "scheduled",
+      "competition": "Πρωτάθλημα Κοριτσιών Κ16 · Α΄ Όμιλος · 6η αγωνιστική",
+      "venue": "ΔΑΚ Κατερίνης",
+      "source": {
+        "label": "ΕΣΠΕ Μακεδονίας · αριθ. πρωτ. 284 (14/09/2026) · ΑΔΑ ΨΚ7Γ7ΛΛ-ΑΞΠ"
+      },
+      "approval": {
+        "status": "owner_approved",
+        "reviewed_on": "2026-10-31T19:00:33.420Z",
+        "reason": "Προσκομισμένο πρόγραμμα και ρητή οδηγία να εμφανίζονται μόνο εντός έδρας αγώνες"
+      }
+    },
+    {
+      "id": "fixture-handball-20261121-r03",
+      "sport": "handball",
+      "category": "Άνδρες",
+      "home_team": "ΓΑΣ Αρχέλαος Κατερίνης",
+      "away_team": "Βέροια Ομ. Χειροσφαίρισης",
+      "start_at": "2026-11-21T18:00:00+02:00",
+      "kickoff_status": "confirmed_time",
+      "status": "scheduled",
+      "competition": "Β΄ Εθνική Ανδρών Χειροσφαίρισης · 2ος Όμιλος · 3η αγωνιστική",
+      "venue": "Α΄ ΔΑΚ Κατερίνης",
+      "source": {
+        "label": "Πρόγραμμα Αρχέλαος χάντμπολ 2026–27 (.ics), παρεχόμενο από τον υπεύθυνο"
+      },
+      "approval": {
+        "status": "owner_approved",
+        "reviewed_on": "2026-10-31T19:00:33.420Z",
+        "reason": "Προσκομισμένο πρόγραμμα και ρητή οδηγία να εμφανίζονται μόνο εντός έδρας αγώνες"
+      }
+    },
+    {
+      "id": "fixture-volleyball-k16-20261129-r09",
+      "sport": "volleyball",
+      "category": "Κορίτσια Κ16",
+      "home_team": "ΓΑΣ Αρχέλαος Κατερίνης",
+      "away_team": "ΓΑΣ Μελίκης",
+      "start_at": "2026-11-29T10:00:00+02:00",
+      "kickoff_status": "confirmed_time",
+      "status": "scheduled",
+      "competition": "Πρωτάθλημα Κοριτσιών Κ16 · Α΄ Όμιλος · 9η αγωνιστική",
+      "venue": "ΔΑΚ Κατερίνης",
+      "source": {
+        "label": "ΕΣΠΕ Μακεδονίας · αριθ. πρωτ. 284 (14/09/2026) · ΑΔΑ ΨΚ7Γ7ΛΛ-ΑΞΠ"
+      },
+      "approval": {
+        "status": "owner_approved",
+        "reviewed_on": "2026-10-31T19:00:33.420Z",
+        "reason": "Προσκομισμένο πρόγραμμα και ρητή οδηγία να εμφανίζονται μόνο εντός έδρας αγώνες"
+      }
+    },
+    {
+      "id": "fixture-handball-20261212-r06",
+      "sport": "handball",
+      "category": "Άνδρες",
+      "home_team": "ΓΑΣ Αρχέλαος Κατερίνης",
+      "away_team": "Άρτα Χάντμπολ 2015",
+      "start_at": "2026-12-12T18:00:00+02:00",
+      "kickoff_status": "confirmed_time",
+      "status": "scheduled",
+      "competition": "Β΄ Εθνική Ανδρών Χειροσφαίρισης · 2ος Όμιλος · 6η αγωνιστική",
+      "venue": "Α΄ ΔΑΚ Κατερίνης",
+      "source": {
+        "label": "Πρόγραμμα Αρχέλαος χάντμπολ 2026–27 (.ics), παρεχόμενο από τον υπεύθυνο"
+      },
+      "approval": {
+        "status": "owner_approved",
+        "reviewed_on": "2026-10-31T19:00:33.420Z",
+        "reason": "Προσκομισμένο πρόγραμμα και ρητή οδηγία να εμφανίζονται μόνο εντός έδρας αγώνες"
+      }
+    },
+    {
+      "id": "fixture-volleyball-k16-20261213-r11",
+      "sport": "volleyball",
+      "category": "Κορίτσια Κ16",
+      "home_team": "ΓΑΣ Αρχέλαος Κατερίνης",
+      "away_team": "ΑΣ Πάνθεον Λιτοχώρου",
+      "start_at": "2026-12-13T10:00:00+02:00",
+      "kickoff_status": "confirmed_time",
+      "status": "scheduled",
+      "competition": "Πρωτάθλημα Κοριτσιών Κ16 · Α΄ Όμιλος · 11η αγωνιστική",
+      "venue": "ΔΑΚ Κατερίνης",
+      "source": {
+        "label": "ΕΣΠΕ Μακεδονίας · αριθ. πρωτ. 284 (14/09/2026) · ΑΔΑ ΨΚ7Γ7ΛΛ-ΑΞΠ"
+      },
+      "approval": {
+        "status": "owner_approved",
+        "reviewed_on": "2026-10-31T19:00:33.420Z",
+        "reason": "Προσκομισμένο πρόγραμμα και ρητή οδηγία να εμφανίζονται μόνο εντός έδρας αγώνες"
+      }
+    },
+    {
+      "id": "fixture-volleyball-k16-20270124-r14",
+      "sport": "volleyball",
+      "category": "Κορίτσια Κ16",
+      "home_team": "ΓΑΣ Αρχέλαος Κατερίνης",
+      "away_team": "ΣΦΚ Πιερικός Κατερίνης",
+      "start_at": "2027-01-24T12:00:00+02:00",
+      "kickoff_status": "confirmed_time",
+      "status": "scheduled",
+      "competition": "Πρωτάθλημα Κοριτσιών Κ16 · Α΄ Όμιλος · 14η αγωνιστική",
+      "venue": "ΔΑΚ Κατερίνης",
+      "source": {
+        "label": "ΕΣΠΕ Μακεδονίας · αριθ. πρωτ. 284 (14/09/2026) · ΑΔΑ ΨΚ7Γ7ΛΛ-ΑΞΠ"
+      },
+      "approval": {
+        "status": "owner_approved",
+        "reviewed_on": "2026-10-31T19:00:33.420Z",
+        "reason": "Προσκομισμένο πρόγραμμα και ρητή οδηγία να εμφανίζονται μόνο εντός έδρας αγώνες"
+      }
+    },
+    {
+      "id": "fixture-handball-20270206-r09",
+      "sport": "handball",
+      "category": "Άνδρες",
+      "home_team": "ΓΑΣ Αρχέλαος Κατερίνης",
+      "away_team": "Αναγέννηση Άρτας",
+      "start_at": "2027-02-06T18:00:00+02:00",
+      "kickoff_status": "confirmed_time",
+      "status": "scheduled",
+      "competition": "Β΄ Εθνική Ανδρών Χειροσφαίρισης · 2ος Όμιλος · 9η αγωνιστική",
+      "venue": "Α΄ ΔΑΚ Κατερίνης",
+      "source": {
+        "label": "Πρόγραμμα Αρχέλαος χάντμπολ 2026–27 (.ics), παρεχόμενο από τον υπεύθυνο"
+      },
+      "approval": {
+        "status": "owner_approved",
+        "reviewed_on": "2026-10-31T19:00:33.420Z",
+        "reason": "Προσκομισμένο πρόγραμμα και ρητή οδηγία να εμφανίζονται μόνο εντός έδρας αγώνες"
+      }
+    },
+    {
+      "id": "fixture-handball-20270220-r11",
+      "sport": "handball",
+      "category": "Άνδρες",
+      "home_team": "ΓΑΣ Αρχέλαος Κατερίνης",
+      "away_team": "Α.Ο. Κοζάνης",
+      "start_at": "2027-02-20T18:00:00+02:00",
+      "kickoff_status": "confirmed_time",
+      "status": "scheduled",
+      "competition": "Β΄ Εθνική Ανδρών Χειροσφαίρισης · 2ος Όμιλος · 11η αγωνιστική",
+      "venue": "Α΄ ΔΑΚ Κατερίνης",
+      "source": {
+        "label": "Πρόγραμμα Αρχέλαος χάντμπολ 2026–27 (.ics), παρεχόμενο από τον υπεύθυνο"
+      },
+      "approval": {
+        "status": "owner_approved",
+        "reviewed_on": "2026-10-31T19:00:33.420Z",
+        "reason": "Προσκομισμένο πρόγραμμα και ρητή οδηγία να εμφανίζονται μόνο εντός έδρας αγώνες"
+      }
+    },
+    {
+      "id": "fixture-handball-20270320-r14",
+      "sport": "handball",
+      "category": "Άνδρες",
+      "home_team": "ΓΑΣ Αρχέλαος Κατερίνης",
+      "away_team": "Κερκυραϊκός ΓΣ",
+      "start_at": "2027-03-20T18:00:00+02:00",
+      "kickoff_status": "confirmed_time",
+      "status": "scheduled",
+      "competition": "Β΄ Εθνική Ανδρών Χειροσφαίρισης · 2ος Όμιλος · 14η αγωνιστική",
+      "venue": "Α΄ ΔΑΚ Κατερίνης",
+      "source": {
+        "label": "Πρόγραμμα Αρχέλαος χάντμπολ 2026–27 (.ics), παρεχόμενο από τον υπεύθυνο"
+      },
+      "approval": {
+        "status": "owner_approved",
+        "reviewed_on": "2026-10-31T19:00:33.420Z",
+        "reason": "Προσκομισμένο πρόγραμμα και ρητή οδηγία να εμφανίζονται μόνο εντός έδρας αγώνες"
+      }
+    }
+  ]
 }

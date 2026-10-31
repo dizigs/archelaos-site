@@ -9,7 +9,17 @@ m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
 
 def main():
     blank=json.loads((ROOT/"data/match-schedule.json").read_text(encoding="utf-8"))
-    assert m.validate(blank)==[]
+    assert blank["display_policy"]=="home_only"
+    assert len(m.validate(blank))==12
+    from datetime import datetime
+    assert sum(x["sport"]=="handball" for x in blank["matches"])==6
+    assert sum(x["sport"]=="volleyball" for x in blank["matches"])==6
+    for fixture in blank["matches"]:
+        dt=datetime.fromisoformat(fixture["start_at"])
+        assert dt.weekday()==(5 if fixture["sport"]=="handball" else 6)
+        assert fixture["home_team"]=="ΓΑΣ Αρχέλαος Κατερίνης"
+        assert "end_at" not in fixture
+        if fixture["sport"]=="handball":assert dt.hour==18
     assert "BEGIN:VCALENDAR\r\n" in m.calendar(blank)
     good={
      "id":"fixture-approve-a1b2c3d4","sport":"handball",
@@ -62,6 +72,16 @@ def main():
       try:m.validate(bad)
       except ValueError:pass
       else:raise AssertionError("Failed to reject "+key)
+    away=copy.deepcopy(data)
+    away["matches"][0]["home_team"]="ΑΣΕ Δούκας"
+    away["matches"][0]["away_team"]="ΓΑΣ Αρχέλαος"
+    try:m.validate(away)
+    except ValueError:pass
+    else:raise AssertionError("Away match accepted in home schedule")
+    missing_policy=copy.deepcopy(data);missing_policy.pop("display_policy")
+    try:m.validate(missing_policy)
+    except ValueError:pass
+    else:raise AssertionError("Home-only publication policy is missing")
     bad=copy.deepcopy(data);bad["matches"][0]["approval"]["status"]="draft"
     try:m.validate(bad)
     except ValueError:pass

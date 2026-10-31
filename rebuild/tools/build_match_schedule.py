@@ -18,7 +18,7 @@ STATES={"scheduled","postponed","cancelled"}
 SAFE=re.compile(r"^[^<>\x00-\x1f]{1,180}$")
 
 def validate(data:dict)->list[dict]:
-    if data.get("schema_version")!=1 or data.get("timezone")!="Europe/Athens" or data.get("approval_policy")!="owner_approved_only":
+    if data.get("schema_version")!=1 or data.get("timezone")!="Europe/Athens" or data.get("approval_policy")!="owner_approved_only" or data.get("display_policy")!="home_only":
         raise ValueError("Unknown schedule schema / approval policy")
     if not isinstance(data.get("matches"),list) or len(data["matches"])>500:
         raise ValueError("Invalid match count")
@@ -79,9 +79,10 @@ def validate(data:dict)->list[dict]:
         def normalized(value: str) -> str:
             return "".join(ch for ch in unicodedata.normalize("NFD",value.casefold())
                            if not unicodedata.combining(ch))
-        if not any("αρχελα" in normalized(n) or "archela" in normalized(n) for n in
-                   (m["home_team"],m["away_team"])):
-            raise ValueError("Neither side identifies Archelaos; manual review required")
+        if not ("αρχελα" in normalized(m["home_team"]) or "archela" in normalized(m["home_team"])):
+            raise ValueError("Away fixtures are excluded from the home-only calendar")
+        if "category" in m and (not isinstance(m["category"],str) or not SAFE.fullmatch(m["category"])):
+            raise ValueError("Invalid age category")
         for key in ("venue","competition"):
             val=m.get(key,"")
             if not isinstance(val,str) or (val and not SAFE.fullmatch(val)):
