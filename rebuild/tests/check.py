@@ -66,6 +66,11 @@ def inspect():
     board = json.loads((REBUILD/"data/board.json").read_text(encoding="utf-8"))
     assert len(board["members"]) == 8 and len(board["eras"]) == 4, "board source mismatch"
     timeline = " ".join(era["html"] for era in board["eras"])
+    assert not re.search(
+        r"Έχετε συμπληρωματικά στοιχεία|Επικοινωνήστε μαζί μας|Have additional information\\?|Contact us",
+        timeline, re.IGNORECASE
+    ), "Deprecated contact prompt leaked into Board popups"
+    assert "pbh-modal-foot" not in timeline, "Deprecated board popup footer reappeared"
     assert "τα διοικητικά καθήκοντα ασκούσε μεταβατικά ο αντιπρόεδρος Χαράλαμπος Σαββίδης" in timeline
     assert "Vice President Charalampos Savvidis temporarily performed the president's duties" in timeline
     assert "τα διοικητικά καθήκοντα ασκούσε μεταβατικά ο αντιπρόεδρος Παναγιώτης Διαμαντόπουλος" not in timeline
