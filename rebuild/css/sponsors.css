@@ -26,8 +26,8 @@
 .sp-values p,.sp-impact-grid p,.sp-options-grid p{font-size:15px;line-height:1.8;color:#596f60;margin:auto 0 0}
 .sp-impact-grid article{padding:30px 28px;min-height:240px;background:linear-gradient(135deg,#fffefa,#f6f0e4);border:1px solid #d5c8ac;border-radius:20px}
 .sp-note{font-size:13px;color:#6b7867;margin:27px 0 0}
-.sp-quote{background:#073d2a;padding:90px 0;text-align:center;color:#f8f1df}
-.sp-quote blockquote{font:italic 400 clamp(27px,4vw,51px)/1.35 Georgia,serif;max-width:950px;margin:0 auto 27px;color:#e5d1a2}
+.sp-quote{background:#073d2a;padding:43px 0;text-align:center;color:#f8f1df}
+.sp-quote blockquote{font:italic 400 clamp(20px,2.4vw,29px)/1.55 Georgia,serif;max-width:850px;margin:0 auto 12px;color:#e5d1a2}
 .sp-quote p{color:#c9ac6c;font-size:11px;font-weight:800;letter-spacing:.15em}
 .sp-options-grid article{position:relative;min-height:270px;background:linear-gradient(130deg,#0a4933,#073d2a 70%,#052d20);border:1px solid #b9a169;border-radius:24px;padding:30px;box-shadow:0 13px 32px #073d2a18}
 .sp-options-grid article>span{color:#e0c990}
