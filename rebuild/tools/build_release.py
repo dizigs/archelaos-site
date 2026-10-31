@@ -118,6 +118,10 @@ def create_page(entry: dict) -> None:
         raise ValueError(f"Staged file has unexpected canonical: {entry['file']}")
     head = "\n".join([
         '<meta name="robots" content="index,follow,max-image-preview:large">',
+        '<link rel="icon" href="/favicon.ico" sizes="any">',
+        '<link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png">',
+        '<link rel="manifest" href="/site.webmanifest">',
+
         '<link rel="canonical" href="' + escape(canonical, quote=True) + '">',
         meta_tag("og:type", "website", prop=True),
         meta_tag("og:site_name", METADATA["site_name"], prop=True),

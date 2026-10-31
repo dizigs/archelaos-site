@@ -63,6 +63,13 @@ jobs:
           python -m http.server 8765 --bind 127.0.0.1 > /tmp/archelaos-server.log 2>&1 &
       - name: Check interactive pages, menus, dialogs and forms
         run: node rebuild/tests/smoke.cjs
+      - name: Assemble future release locally
+        run: python rebuild/tools/build_release.py
+      - name: Serve release candidate for browser tests
+        run: |
+          python -m http.server 8766 --bind 127.0.0.1 --directory dist > /tmp/archelaos-dist.log 2>&1 &
+      - name: Test real release routes, forms and popups
+        run: node rebuild/tests/release_smoke.cjs
       - name: Capture backup-versus-rebuild reference views
         if: always()
         run: node rebuild/tests/visual.cjs
@@ -74,3 +81,24 @@ jobs:
           path: rebuild/test-artifacts/
           if-no-files-found: warn
           retention-days: 14
+
+  release-build:
+    name: Assemble and validate future Cloudflare release
+    runs-on: ubuntu-latest
+    needs: integrity
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Build organized static output
+        run: python rebuild/tools/build_release.py
+      - name: Check sitemap, metadata, canonical and 682 profiles
+        run: python rebuild/tools/verify_release.py
+      - name: Preserve release candidate without deployment
+        uses: actions/upload-artifact@v4
+        with:
+          name: archelaos-release-candidate
+          path: dist/
+          retention-days: 7
