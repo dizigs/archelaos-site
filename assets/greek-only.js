@@ -21,10 +21,18 @@
  enforce();
  const watch=new MutationObserver(enforce);
  watch.observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
+ const restoreGreekText=()=>{
+   document.querySelectorAll('[data-el][data-en]').forEach(node=>{
+     if(node.children.length||node.closest('[data-lang="en"]'))return;
+     const greek=node.getAttribute('data-el');
+     if(greek!=null&&node.textContent!==greek)node.textContent=greek;
+   });
+ };
  const ready=()=>{
    enforce();
+   restoreGreekText();
    if(document.body)watch.observe(document.body,{attributes:true,attributeFilter:['class']});
  };
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',ready,{once:true});else ready();
- window.addEventListener('pageshow',enforce);
+ window.addEventListener('pageshow',()=>{enforce();restoreGreekText()});
 })();
