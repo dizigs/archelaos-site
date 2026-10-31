@@ -63,6 +63,12 @@ def inspect():
     assert all(s.get("photo") and s.get("description") for s in home["sports"]), "homepage details missing"
 
     assert all(m.get("title_en") and m.get("body_en") for m in moments), "missing moment translations"
+    calendar = json.loads((REBUILD/"data/on-this-day.json").read_text(encoding="utf-8"))
+    assert all(len(event["day"]) == 5 and event["day"][2] == "-"
+               and event["momentId"] in {m["id"] for m in moments}
+               for event in calendar["events"]), "invalid daily archive data"
+    assert len({e["day"] for e in calendar["events"]}) == len(calendar["events"]), "duplicate exact-date entries"
+
     print(f"REBUILD OK: {len(html_pages)} HTML pages; {len(moments)} moments; {len(stories)} stories; {len(people)} profiles")
 
 if __name__ == "__main__":

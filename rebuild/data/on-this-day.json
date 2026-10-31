@@ -1,0 +1,98 @@
+{
+  "source": "Curated from documented exact dates in rebuild/data/moments.json; never infer from event year alone.",
+  "timeZone": "Europe/Athens",
+  "events": [
+    {
+      "day": "04-29",
+      "momentId": 1
+    },
+    {
+      "day": "06-30",
+      "momentId": 4
+    },
+    {
+      "day": "05-20",
+      "momentId": 8
+    },
+    {
+      "day": "06-27",
+      "momentId": 9
+    },
+    {
+      "day": "06-24",
+      "momentId": 12
+    },
+    {
+      "day": "04-03",
+      "momentId": 17
+    },
+    {
+      "day": "12-22",
+      "momentId": 21
+    },
+    {
+      "day": "09-12",
+      "momentId": 23
+    },
+    {
+      "day": "12-20",
+      "momentId": 26
+    },
+    {
+      "day": "04-04",
+      "momentId": 28
+    },
+    {
+      "day": "01-25",
+      "momentId": 33
+    },
+    {
+      "day": "10-14",
+      "momentId": 35
+    },
+    {
+      "day": "04-10",
+      "momentId": 37
+    },
+    {
+      "day": "07-31",
+      "momentId": 46
+    },
+    {
+      "day": "09-21",
+      "momentId": 47
+    },
+    {
+      "day": "08-23",
+      "momentId": 48
+    },
+    {
+      "day": "12-09",
+      "momentId": 52
+    },
+    {
+      "day": "06-02",
+      "momentId": 53
+    },
+    {
+      "day": "02-27",
+      "momentId": 59
+    },
+    {
+      "day": "10-03",
+      "momentId": 61
+    },
+    {
+      "day": "05-22",
+      "momentId": 65
+    },
+    {
+      "day": "06-04",
+      "momentId": 67
+    },
+    {
+      "day": "09-08",
+      "momentId": 70
+    }
+  ]
+}

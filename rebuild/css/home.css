@@ -157,3 +157,17 @@
 }
 .new-sport-photo.new-photo-missing::after{padding-top:65px}
 .new-sport-photo.new-photo-missing>span{z-index:1}
+
+/* Small editorial daily feature: archive content automatically, no fabricated anniversaries. */
+.new-today{padding:70px 0;background:#f1eadb;border-block:1px solid #dfd2b3}
+.new-today-grid{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(24px,5vw,72px);align-items:center}
+.new-today h2{font:400 clamp(34px,4.4vw,56px)/1.16 Georgia,serif;letter-spacing:-.035em;color:#073d2a;margin:0 0 15px}
+.new-today h2 em{color:#a18345}
+.new-today p{line-height:1.85;color:#5a6f5d;max-width:475px}
+.new-today-feature{display:flex;flex-direction:column;justify-content:center;min-height:245px;position:relative;isolation:isolate;overflow:hidden;padding:60px 30px 30px;border:1px solid #d4c09a;border-radius:24px;background:linear-gradient(135deg,#fffdf7,#f1e8d8);color:#073d2a;text-decoration:none;box-shadow:0 12px 29px #073d2a0b}
+.new-today-date{position:absolute;top:24px;left:28px;color:#a17c3c;letter-spacing:.12em;font-size:12px;font-weight:800}
+.new-today-feature strong{font:500 clamp(23px,2.5vw,35px)/1.25 Georgia,serif;position:relative;z-index:1;max-width:570px}
+.new-today-year{font:400 clamp(90px,12vw,155px)/1 Georgia,serif;position:absolute;right:0;bottom:-.18em;pointer-events:none;color:#073d2a0c}
+.new-today-arrow{position:absolute;right:25px;top:21px;color:#b89554;font-size:26px}
+.new-today-feature:hover{box-shadow:0 22px 42px #073d2a1e;transform:translateY(-2px)}
+@media(max-width:760px){.new-today-grid{grid-template-columns:1fr}.new-today{padding:55px 0}.new-today-feature{min-height:225px}}
