@@ -25,7 +25,7 @@ function open(id){
 function makeButton(record,cls){
  const button=$el('button',cls);button.type='button';
  if(record.period)button.append($el('span','',record.period));
- button.append($el('strong','',record.title),$el('b','','↗'));
+ button.append($el('strong','',record.title));
  button.addEventListener('click',()=>open(record.id));
  return button;
 }
