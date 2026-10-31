@@ -118,6 +118,7 @@ async function verify(){
      await page.locator('.av-card .arch-favorite-toggle').first().click();
      await page.locator('.av-empty').waitFor();
      // Cards also open popups for biographies, stories and museum exhibits.
+     await page.locator('[data-av-filter="all"]').click();
      for(const [type,id] of [['person','arch-5a04cbbb57e4'],['story','1'],['exhibit','intro']]){
       await page.evaluate(([t,k])=>window.ArchelaosFavorites.toggle(t,k),[type,id]);
       await page.locator('.av-card-hit').first().click();
