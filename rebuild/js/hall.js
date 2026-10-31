@@ -48,14 +48,9 @@ function renderControls(){
 function personCard(p){
  const b=el('button','h-new-person');b.type='button';
  b.setAttribute('aria-label',tr('Προβολή βιογραφικού: ','View biography: ')+field(p,'name'));
- const top=el('span','h-new-person-top');
- const letter=surname(field(p,'name')).match(/\p{L}/u)?.[0]||'•';
- const mono=el('span','h-new-monogram',letter),arrow=el('span','h-new-arrow','↗');arrow.setAttribute('aria-hidden','true');
- top.append(mono,arrow);
  const details=el('span','h-new-person-details');
  details.append(el('strong','',field(p,'name')),el('small','',field(p,'role')));
- const bottom=el('span','h-new-person-bottom',tr('Δείτε το βιογραφικό','Read biography'));
- b.append(top,details,bottom);
+ b.append(details);
  b.addEventListener('click',()=>window.ArchelaosBio.show(p));
  const wrap=el('div','h-new-person-wrap');wrap.append(b,window.ArchelaosFavorites.button('person',p.id));return wrap;
 }
