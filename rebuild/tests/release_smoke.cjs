@@ -148,6 +148,31 @@ async function verify(){
    if(pageErrors.length)throw Error('Browser errors: '+pageErrors.join(' | '));
    await page.close();
   }
+  // Check the reciprocal UI with a controlled approved graph fixture only.
+  // This test does NOT publish or approve the historical records.
+  const demo={
+   schema_version:1,publication_scope:'approved_only',
+   events:[{id:'arc-test-verified-1983',title:'Δοκιμαστικό εγκεκριμένο γεγονός',
+    sport:'handball',sports:['handball'],
+    temporal:{precision:'year',year:1983},
+    summary:'Δοκιμή εμφάνισης εγκεκριμένων στοιχείων και αμφίδρομων συνδέσεων.',
+    moment_ids:[],sources:[{provider:'Δοκιμή',title:'Ελεγχόμενη πηγή',url:'https://example.org/'}],
+    people:[{id:'arch-803dd3926e77',name:'Δημήτρης Σκούφας',role:'Προπονητής'}]}],
+   by_person:{'arch-803dd3926e77':['arc-test-verified-1983']},
+   by_event:{'arc-test-verified-1983':['arch-803dd3926e77']}
+  };
+  const relatedPage=await browser.newPage();
+  await relatedPage.route('**/assets/site/data/approved-event-graph.json',route=>
+   route.fulfill({status:200,contentType:'application/json',body:JSON.stringify(demo)}));
+  await relatedPage.goto(ROOT+'/hall-of-fame.html?person=arch-803dd3926e77',{waitUntil:'domcontentloaded'});
+  await relatedPage.locator('dialog.arch-dialog[open] .arch-related-card').waitFor({timeout:10000});
+  await relatedPage.locator('dialog.arch-dialog[open] .arch-related-card').first().click();
+  await relatedPage.locator('dialog.arch-dialog[open] .arch-related-contribute').waitFor();
+  if(!(await relatedPage.locator('dialog.arch-dialog[open] .arch-dialog-body').textContent()).includes('Συνδεδεμένα πρόσωπα'))
+   throw Error('Approved event does not show reciprocal people');
+  await relatedPage.locator('dialog.arch-dialog[open] .arch-related-card').first().click();
+  await relatedPage.locator('dialog.arch-dialog[open] .arch-related-card').waitFor();
+  await relatedPage.close();
   const profile=readdirSync(path.join(__dirname,'..','..','dist','people')).find(x=>x.endsWith('.html'));
   const p=await browser.newPage();
   const r=await p.goto(ROOT+'/people/'+profile,{waitUntil:'domcontentloaded'});

@@ -18,7 +18,7 @@ function show(person){
   sources:Array.isArray(person.refs)?person.refs:[],
   closeLabel:english()?'Close biography':'Κλείσιμο βιογραφικού',
   sourcesLabel:english()?'Sources':'Πηγές'
- });return true;
+ });window.ArchelaosRelated?.appendPerson(person.id);return true;
 }
 async function open(id){const data=await load();return show(data.byId.get(id))}
 function idFromLink(href){

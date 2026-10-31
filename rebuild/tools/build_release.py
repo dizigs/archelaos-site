@@ -186,6 +186,18 @@ def make_release() -> None:
         copytree(ROOT / folder, OUTPUT / folder)
     for name in ("css", "js", "data"):
         copytree(STAGE / name, OUTPUT / "assets" / "site" / name)
+    # Only independently approved, conflict-free relations may enter public data.
+    # Never copy research source, review queue or owner-only information to dist.
+    from build_event_graph import compile_graph
+    event_research = json.loads((STAGE / "research" / "historical-events.json").read_text(encoding="utf-8"))
+    owner_graph = compile_graph(event_research,
+        json.loads((STAGE / "data" / "people.json").read_text(encoding="utf-8"))["people"])
+    editorially_approved = sum(e.get("editorial_status") == "approved"
+                              for e in event_research["events"])
+    if len(owner_graph["events"]) != editorially_approved:
+        raise ValueError("An approved event is still blocked by identity or historical review")
+    (OUTPUT / "assets" / "site" / "data" / "approved-event-graph.json").write_text(
+        js_data(owner_graph) + "\n", encoding="utf-8")
     # Keep all 682 historic profile URLs/Person metadata, but replace the old
     # per-profile navbar/footer with the shared site-wide shell in the generated release.
     # Source backup profiles remain completely untouched.

@@ -115,6 +115,9 @@ async function init(){
   // Shared search opens the existing Hall of Fame biography dialog, not a second profile page.
   const requested=new URLSearchParams(location.search).get('person');
   if(requested){const person=state.people.find(p=>p.id===requested);if(person)window.ArchelaosBio.show(person);}
+  const eventRequest=new URLSearchParams(location.search).get('event');
+  if(eventRequest&&/^arc-[a-z0-9-]{8,100}$/.test(eventRequest))
+   void window.ArchelaosRelated?.openEvent(eventRequest);
 
  }catch(err){
   console.error('Hall of Fame loading:',err);

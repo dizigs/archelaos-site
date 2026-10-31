@@ -119,6 +119,16 @@ def verify() -> None:
     assert "Cache-Control: public, max-age=0, must-revalidate" in headers, "Unversioned assets may remain stale"
     assert not (DIST / "rebuild").exists(), "Never publish preview folder"
     assert not (DIST / "research").exists(), "Nonpublished source-checked history must never enter deployment"
+    graph = json.loads((DIST / "assets/site/data/approved-event-graph.json").read_text(encoding="utf-8"))
+    assert graph["publication_scope"] == "approved_only"
+    owner_research = json.loads((ROOT / "rebuild/research/historical-events.json").read_text(encoding="utf-8"))
+    expected_approved = {e["id"] for e in owner_research["events"] if e.get("editorial_status")=="approved"}
+    assert {e["id"] for e in graph["events"]} == expected_approved, "Research review or unapproved history leaked"
+    assert set(graph["by_event"]) == expected_approved
+    for event in graph["events"]:
+        for person in event["people"]:
+            assert event["id"] in graph["by_person"][person["id"]], "Missing reciprocal person link"
+
     print(f"RELEASE QA OK: {len(main)} core pages + {len(loc_people)} indexed profiles.")
     print("Canonicals, robots, structured data, two sitemaps, redirects and local paths verified.")
 

@@ -6,9 +6,10 @@ const fields=['type','sport','date','persons','details','source','rights'];
 const params=new URLSearchParams(location.search);
 const linkedKind=params.get('kind')||'',linkedId=params.get('id')||'';
 const linkedTitle=(params.get('title')||'').trim().slice(0,150);
-const validReference=/^[a-z0-9-]{1,100}$/.test(linkedId)&&['person','moment','story','exhibit','photo'].includes(linkedKind);
+const validReference=/^[a-z0-9-]{1,100}$/.test(linkedId)&&['person','moment','story','exhibit','photo','event'].includes(linkedKind);
 const linkedPaths={
  person:'/hall-of-fame.html?person='+encodeURIComponent(linkedId),
+ event:'/hall-of-fame.html?event='+encodeURIComponent(linkedId),
  moment:'/70-stigmes.html#moment-'+encodeURIComponent(linkedId),
  story:'/stories.html#story-'+encodeURIComponent(linkedId),
  exhibit:'/history.html#archive-'+encodeURIComponent(linkedId),
@@ -86,7 +87,7 @@ function init(){
   context.textContent='Σχετικά με: '+reference.title+'. Μπορείτε να προτείνετε διόρθωση ή πρόσθετο τεκμήριο.';
   if(linkedKind==='person')$('type').value='Βιογραφικό στοιχείο';
   if(linkedKind==='photo')$('type').value='Φωτογραφία';
-  if(linkedKind==='moment'||linkedKind==='story'||linkedKind==='exhibit')$('type').value='Ιστορική μαρτυρία';
+  if(linkedKind==='moment'||linkedKind==='story'||linkedKind==='exhibit'||linkedKind==='event')$('type').value='Ιστορική μαρτυρία';
  }
  for(const id of fields)$(id).addEventListener('input',()=>{refresh();$('guide-status').textContent='';});
  $('guide-copy').addEventListener('click',copy);
