@@ -45,3 +45,19 @@
 .rm-featured-item:hover{background:#f1eadb}
 @media(max-width:720px){.rm-timeline,.rm-featured-grid{grid-template-columns:1fr}.rm-timeline:before{left:18px}.rm-decade{justify-self:start;margin-left:35px}.rm-moment{margin-left:35px}.rm-card{min-height:215px;padding:70px 18px 30px}.rm-year{left:21px;top:18px}.rm-title{font-size:clamp(21px,5.2vw,28px)}.rm-featured{margin-top:65px}}
 @media(prefers-reduced-motion:reduce){.rm-card{transition:none}}
+
+/* Visual review correction: backup's cinematic cover is its first viewport, not a text hero. */
+.rm-cover{position:relative;min-height:calc(100svh - var(--arch-nav-height));display:flex;align-items:center;justify-content:center;text-align:center;background:radial-gradient(ellipse at 49% 43%,#155239,#073d2a 66%,#04301f);color:#fffaf1;padding:60px 22px}
+.rm-cover:before{content:"";position:absolute;inset:15px;border:1px solid rgba(199,166,94,.27);pointer-events:none}
+.rm-cover-inner{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;max-width:970px;width:100%}
+.rm-cover-crest{object-fit:contain;display:block;width:clamp(108px,13vw,160px);height:auto;filter:drop-shadow(0 3px 9px rgba(0,0,0,.18))}
+.rm-cover-club{margin:15px 0 25px;color:#d5bd80;font-size:10px;font-weight:750;letter-spacing:.25em}
+.rm-cover h1{font:400 clamp(37px,4.5vw,64px)/1.15 Georgia,serif;letter-spacing:.015em;margin:0;text-transform:uppercase}
+.rm-cover-period{font:400 clamp(21px,2.5vw,31px)/1 Georgia,serif;letter-spacing:.22em;color:#d2b773;margin:13px 0}
+.rm-cover-subtitle{font:400 15px/1.6 Georgia,serif;color:#e6e8df;margin:12px 0 16px}
+.rm-cover-rule{width:98px;height:1px;background:#b8a268}
+.rm-cover-bottom{margin:20px 0;color:#d6caab;font-size:10px;letter-spacing:.2em;font-weight:750}
+.rm-cover-last{width:143px}
+.rm-content-toolbar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:15px;margin-bottom:35px}
+.rm-content-toolbar a,.rm-content-toolbar button{border:1px solid #c4a66e;color:#073d2a;text-decoration:none;border-radius:12px;padding:11px 17px;font-weight:750;font-size:13px;background:#f8f1df}
+@media(max-width:650px){.rm-cover{padding:44px 25px}.rm-cover-crest{width:115px}.rm-cover h1{font-size:clamp(34px,9vw,47px)}.rm-cover-period{letter-spacing:.14em}}

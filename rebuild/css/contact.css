@@ -39,3 +39,24 @@
 .ct-form-note{background:#f6efe0;border:1px solid #d8c79e;border-radius:11px;padding:11px 14px;color:#715c34;font-size:12px;line-height:1.7}
 .ct-submit{border:1px solid #c7a65e;border-radius:12px;background:#073d2a;color:#fff3d8;padding:14px 20px;font-weight:800}
 @media(max-width:680px){.ct-info-grid,.ct-venues-grid,.ct-form-grid{grid-template-columns:1fr}.ct-detail,.ct-venue{min-height:145px}.ct-quote{margin-top:50px;padding:28px 8px}}
+
+/* Backup visual correction: warm ivory contact entrance with two exhibition-style destination cards. */
+.ct-hero{min-height:760px;padding:15px 0 75px;background:#f8f6ef;color:#073d2a;position:relative}
+.ct-hero:after{display:none}
+.ct-hero .ct-label{color:#9b7b3e;font-size:11px;letter-spacing:.13em;margin:0 0 17px}
+.ct-hero h1{font:400 clamp(43px,5.3vw,76px)/1.11 Georgia,serif;color:#073d2a;max-width:860px;letter-spacing:-.055em;margin:13px 0 22px}
+.ct-hero h1 em{color:#ae8740}
+.ct-hero .ct-hero-content>p:not(.ct-label){color:#536f5c;line-height:1.85;font-size:16px;max-width:775px;margin:15px 0 44px}
+.ct-hero-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.ct-hero-card{position:relative;overflow:hidden;isolation:isolate;display:flex;flex-direction:column;text-align:left;align-items:start;justify-content:flex-end;min-height:330px;padding:32px 37px;border-radius:24px;border:1px solid #d4c09b;box-shadow:0 13px 34px #073d2a14;text-decoration:none;cursor:pointer}
+.ct-hero-card-green{background:linear-gradient(125deg,#0a5037,#073d2a);color:#fff8e8}
+.ct-hero-card-cream{background:linear-gradient(125deg,#fffdf6,#f1ebdc);color:#073d2a}
+.ct-hero-card>span{position:absolute;left:33px;top:26px;color:#d2b775;font-weight:800;font-size:11px;letter-spacing:.13em}
+.ct-hero-card-cream>span{color:#927238}
+.ct-hero-card>b{position:absolute;right:30px;top:23px;display:grid;place-items:center;width:42px;height:42px;border:1px solid #c7a65e;border-radius:50%;font:23px Georgia,serif;color:#c7a65e}
+.ct-hero-card>strong{position:relative;z-index:1;font:400 clamp(28px,3vw,42px)/1.15 Georgia,serif;margin:0 0 12px}
+.ct-hero-card>small{position:relative;z-index:1;font-size:14px;color:inherit;opacity:.82}
+.ct-hero-card>i{position:absolute;right:0;bottom:-.2em;font:400 clamp(165px,18vw,270px)/1 Georgia,serif;opacity:.075;pointer-events:none}
+.ct-hero-card-green>i{color:#ddeddc}.ct-hero-card-cream>i{color:#073d2a}
+.ct-hero-card:hover{transform:translateY(-2px);box-shadow:0 20px 44px #073d2a26}
+@media(max-width:700px){.ct-hero{min-height:0;padding:35px 0 65px}.ct-hero-cards{grid-template-columns:1fr}.ct-hero-card{min-height:260px}.ct-hero h1{font-size:clamp(40px,9vw,58px)}}
