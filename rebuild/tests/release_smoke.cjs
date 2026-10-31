@@ -116,6 +116,24 @@ async function verify(){
        throw Error('Evidence card has no stable request ID');
      await page.goto(ROOT+evidenceLink,{waitUntil:'domcontentloaded'});
      await page.waitForFunction(()=>document.querySelector('#ac-guide-context')?.textContent.includes('request-archery-historical-records'),{timeout:10000});
+
+     // Private identification is recorded in the prepared email, even if credit is declined.
+     if(await page.locator('#ac-credit-consent').isChecked())throw Error('Public name credit should be opt-in');
+     if(await page.locator('#ac-credit-name-wrap').isVisible())throw Error('Public display name should be hidden by default');
+     await page.locator('#ac-sender-name').fill('Μαρία Δοκιμή');
+     const anonymousDraft=decodeURIComponent(await page.locator('#ac-guide-email').getAttribute('href'));
+     if(!anonymousDraft.includes('Μαρία Δοκιμή')||!anonymousDraft.includes('ΟΧΙ — χωρίς δημόσια ονομαστική αναφορά'))
+       throw Error('Contributor identity or private-only consent is not included in draft');
+     await page.locator('#ac-credit-consent').check();
+     if(!await page.locator('#ac-credit-name-wrap').isVisible())throw Error('Credit name field not displayed after opt-in');
+     await page.locator('#ac-credit-name').fill('Μ. Δοκιμή');
+     const namedDraft=decodeURIComponent(await page.locator('#ac-guide-email').getAttribute('href'));
+     if(!namedDraft.includes('Μ. Δοκιμή')||!namedDraft.includes('ΝΑΙ — επιτρέπω την αναφορά'))
+       throw Error('Explicitly approved display-name credit missing from email draft');
+     await page.locator('#ac-credit-consent').uncheck();
+     if(await page.locator('#ac-credit-name-wrap').isVisible())throw Error('Credit name field leaked after opt-out');
+     const finalDraft=decodeURIComponent(await page.locator('#ac-guide-email').getAttribute('href'));
+     if(finalDraft.includes('Μ. Δοκιμή'))throw Error('Opted-out public credit leaked into prepared email');
      const contextualMail=decodeURIComponent(await page.locator('#ac-guide-email').getAttribute('href'));
      if(!contextualMail.includes('request-archery-historical-records'))
        throw Error('Evidence request ID missing from real email draft');
