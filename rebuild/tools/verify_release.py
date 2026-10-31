@@ -124,6 +124,10 @@ def verify() -> None:
     valid_fixtures = validate_matches(fixtures_data)
     assert len(valid_fixtures)==len(fixtures_data["matches"])
     assert (DIST/"calendar.ics").read_bytes()==make_ical(fixtures_data).encode("utf-8"), "Published calendar out of sync"
+    for fixture in valid_fixtures:
+        individual = (DIST/"calendar/events"/(fixture["id"]+".ics"))
+        assert individual.is_file(), "Missing personal-calendar file for " + fixture["id"]
+        assert individual.read_bytes()==make_ical({**fixtures_data,"matches":[fixture]}).encode("utf-8")
 
     graph = json.loads((DIST / "assets/site/data/approved-event-graph.json").read_text(encoding="utf-8"))
     assert graph["publication_scope"] == "approved_only"

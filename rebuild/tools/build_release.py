@@ -281,6 +281,12 @@ def make_release() -> None:
     match_data = json.loads((STAGE / "data" / "match-schedule.json").read_text(encoding="utf-8"))
     validate_matches(match_data)
     (OUTPUT / "calendar.ics").write_bytes(make_ical(match_data).encode("utf-8"))
+    # Dedicated, stable URLs for adding JUST one approved match to a personal calendar.
+    individual = OUTPUT / "calendar" / "events"
+    individual.mkdir(parents=True, exist_ok=True)
+    for fixture in validate_matches(match_data):
+        item = {**match_data, "matches": [fixture]}
+        (individual / (fixture["id"] + ".ics")).write_bytes(make_ical(item).encode("utf-8"))
     (OUTPUT / "sitemaps").mkdir()
     (OUTPUT / "sitemaps" / "pages.xml").write_text(
         sitemap_xml([entry["path"] for entry in pages if entry.get("indexable", True)]), encoding="utf-8"

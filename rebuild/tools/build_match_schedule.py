@@ -40,6 +40,16 @@ def validate(data:dict)->list[dict]:
         except (ValueError,TypeError,KeyError) as exc:
             raise ValueError("Match date or review date invalid") from exc
         if not 2020<=dt.year<=2100:raise ValueError("Implausible match date")
+        if "end_at" in m:
+            try:
+                ending=datetime.fromisoformat(m["end_at"])
+                if ending.tzinfo is None or ending.utcoffset() is None:
+                    raise ValueError("Match ending has no explicit zone")
+                duration=(ending-datetime.fromisoformat(m["start_at"])).total_seconds()
+                if not 0 < duration <= 24*3600:
+                    raise ValueError("Match end must follow kickoff and be within 24 hours")
+            except (KeyError, TypeError, ValueError) as exc:
+                raise ValueError("Invalid verified ending time") from exc
         for key in ("home_team","away_team"):
             if not isinstance(m.get(key),str) or not SAFE.fullmatch(m[key]) or len(m[key].strip())<2:
                 raise ValueError("Missing / unsafe team name")
@@ -94,6 +104,9 @@ def calendar(data:dict)->str:
                 "SUMMARY:"+ics_escape(m["home_team"]+" - "+m["away_team"]),
                 "CATEGORIES:"+("HANDBALL" if m["sport"]=="handball" else "VOLLEYBALL"),
                 "STATUS:"+("CANCELLED" if m["status"]=="cancelled" else "TENTATIVE" if m["status"]=="postponed" else "CONFIRMED")]
+        if m.get("end_at"):
+            finished=datetime.fromisoformat(m["end_at"]).astimezone(timezone.utc)
+            lines.append("DTEND:"+finished.strftime("%Y%m%dT%H%M%SZ"))
         if m.get("venue"):lines.append("LOCATION:"+ics_escape(m["venue"]))
         if m.get("competition"):lines.append("DESCRIPTION:"+ics_escape(m["competition"]))
         lines.append("END:VEVENT")

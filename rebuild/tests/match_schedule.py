@@ -24,6 +24,16 @@ def main():
     assert "DTSTART:20270411T153000Z" in out
     assert "STATUS:CONFIRMED" in out
     assert "UID:fixture-approve-a1b2c3d4@archelaos.club" in out
+    assert "DTEND:" not in out, "Never invent the end time for a match"
+    end=copy.deepcopy(data)
+    end["matches"][0]["end_at"]="2027-04-11T20:45:00+03:00"
+    assert "DTEND:20270411T174500Z" in m.calendar(end)
+    invalid_end=copy.deepcopy(end)
+    invalid_end["matches"][0]["end_at"]="2027-04-11T17:00:00+03:00"
+    try:m.validate(invalid_end)
+    except ValueError:pass
+    else:raise AssertionError("Unexpected negative match duration was accepted")
+
     for key,value in [
      ("start_at","2027-04-11T18:30:00"),
      ("home_team","Κάποια άλλη ομάδα"),

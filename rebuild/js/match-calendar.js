@@ -1,67 +1,111 @@
-/* Upcoming, OWNER-APPROVED matches only. Source data auto-filters past kickoffs. */
+/* Archélaos Matchday — elegant, accessible, OWNER-APPROVED fixtures ONLY.
+ * Each match has its own .ics download; Google/Outlook links appear only when
+ * both start AND end were explicitly verified. No duration is invented.
+ */
 (function(){'use strict';
 const $=s=>document.querySelector(s);
 const stage=()=>location.pathname.startsWith('/rebuild/');
-const sportLabels={handball:'Χάντμπολ',volleyball:'Βόλεϊ'};
+const labels={handball:'ΧΑΝΤΜΠΟΛ',volleyball:'ΒΟΛΕΪ'};
+const create=(tag,cls,content)=>{const node=document.createElement(tag);if(cls)node.className=cls;
+ if(content!==undefined)node.textContent=String(content);return node};
 let fixtures=[],sport='all';
-function el(tag,cls,txt){const node=document.createElement(tag);if(cls)node.className=cls;if(txt!==undefined)node.textContent=String(txt);return node;}
-function readDate(iso){
- const d=new Date(iso);return Number.isFinite(d.getTime())?d:null;
+const dateOf=s=>{const d=new Date(s);return Number.isFinite(d.getTime())?d:null};
+const format=(date,parts)=>new Intl.DateTimeFormat('el-GR',{timeZone:'Europe/Athens',...parts}).format(date);
+const utcStamp=d=>d.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
+function calendarLink(item,provider){
+ if(!item.end_at)return null;
+ const begin=dateOf(item.start_at),end=dateOf(item.end_at);
+ if(!begin||!end||end<=begin)return null;
+ const title=item.home_team+' — '+item.away_team;
+ const description='Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης'+(item.competition?' · '+item.competition:'');
+ if(provider==='google'){
+  const url=new URL('https://calendar.google.com/calendar/r/eventedit');
+  url.search=new URLSearchParams({action:'TEMPLATE',text:title,
+   dates:utcStamp(begin)+'/'+utcStamp(end),stz:'Europe/Athens',etz:'Europe/Athens',
+   details:description,location:item.venue||''}).toString();
+  return url.toString();
+ }
+ if(provider==='outlook'){
+  const url=new URL('https://outlook.live.com/calendar/0/deeplink/compose');
+  url.search=new URLSearchParams({path:'/calendar/action/compose',rru:'addevent',
+   subject:title,startdt:begin.toISOString(),enddt:end.toISOString(),
+   body:description,location:item.venue||''}).toString();
+  return url.toString();
+ }
+ return null;
 }
 function upcoming(){
  const now=Date.now();
- return fixtures.filter(x=>x.status==='scheduled'&&readDate(x.start_at)&&readDate(x.start_at).getTime()>now)
-   .filter(x=>sport==='all'||x.sport===sport)
-   .sort((a,b)=>readDate(a.start_at)-readDate(b.start_at));
+ return fixtures.filter(x=>x.status==='scheduled'&&dateOf(x.start_at)?.getTime()>now)
+  .filter(x=>sport==='all'||x.sport===sport)
+  .sort((a,b)=>dateOf(a.start_at)-dateOf(b.start_at));
 }
-function card(item){
- const date=readDate(item.start_at);
- const article=el('article','fx-card');
- const header=el('div','fx-top');
- const label=el('span','fx-sport',sportLabels[item.sport]||item.sport);
- const competition=el('span','fx-competition',item.competition||'Αγωνιστική αναμέτρηση');
- header.append(label,competition);
- const when=el('div','fx-when');
- when.append(el('strong','fx-day',new Intl.DateTimeFormat('el-GR',{day:'2-digit',month:'short',timeZone:'Europe/Athens'}).format(date)),
-             el('span','fx-clock',new Intl.DateTimeFormat('el-GR',{weekday:'long',hour:'2-digit',minute:'2-digit',hour12:false,timeZone:'Europe/Athens'}).format(date)));
- const teams=el('div','fx-teams');
- teams.append(el('strong','',item.home_team),el('span','fx-versus','—'),el('strong','',item.away_team));
- article.append(header,when,teams);
- const footer=el('div','fx-bottom');
- footer.append(el('span','fx-venue',item.venue||'Γήπεδο: προς ανακοίνωση'));
- const a=el('a','fx-calendar-link','Στο ημερολόγιο ↗');
- a.href='/calendar.ics';a.title='Κατεβάστε τους εγκεκριμένους αγώνες σε μορφή ημερολογίου';
- footer.append(a);article.append(footer);return article;
+function external(label,url){
+ const a=create('a','fx-calendar-provider',label+' ↗');a.href=url;a.target='_blank';
+ a.rel='noopener noreferrer';return a;
+}
+function card(item,index){
+ const date=dateOf(item.start_at);
+ const a=create('article','fx-card'+(index===0?' fx-card-feature':''));a.dataset.ordinal=String(index+1).padStart(2,'0');
+ const top=create('div','fx-top');top.append(create('span','fx-sport',labels[item.sport]||item.sport),
+  create('span','fx-competition',item.competition||'Αγωνιστική αναμέτρηση'));a.append(top);
+ const when=create('div','fx-when'),big=create('span','fx-date-large');
+ big.append(create('strong','fx-date-number',format(date,{day:'2-digit'})),
+  create('span','fx-date-month',format(date,{month:'long'})));
+ when.append(big,create('span','fx-clock',format(date,{weekday:'long',hour:'2-digit',minute:'2-digit',hour12:false})));
+ a.append(when);
+ const matchup=create('div','fx-teams');
+ const left=create('div','fx-team'),right=create('div','fx-team');
+ left.append(create('span','fx-team-label','ΓΗΠΕΔΟΥΧΟΣ'),create('strong','',item.home_team));
+ right.append(create('span','fx-team-label','ΦΙΛΟΞΕΝΟΥΜΕΝΟΣ'),create('strong','',item.away_team));
+ matchup.append(left,create('span','fx-versus','VS'),right);a.append(matchup);
+ const bottom=create('div','fx-bottom');
+ bottom.append(create('span','fx-venue',item.venue||'Γήπεδο: προς ανακοίνωση'));
+ const menu=create('details','fx-calendar-actions');
+ const summary=create('summary','','Στο δικό μου ημερολόγιο');menu.append(summary);
+ const links=create('div','fx-calendar-menu');
+ const ics=create('a','','Λήψη του αγώνα (.ics) ↗');
+ ics.href='/calendar/events/'+encodeURIComponent(item.id)+'.ics';
+ ics.download=item.id+'.ics';
+ links.append(ics);
+ const google=calendarLink(item,'google'),outlook=calendarLink(item,'outlook');
+ if(google)links.append(external('Google Calendar',google));
+ if(outlook)links.append(external('Outlook Calendar',outlook));
+ if(!google)links.append(create('span','fx-calendar-note','Για Apple, Outlook ή εισαγωγή στο Google Calendar, χρησιμοποιήστε το αρχείο .ics. Δεν υποθέτουμε ώρα λήξης αγώνα.'));
+ menu.append(links);bottom.append(menu);a.append(bottom);return a;
 }
 function render(){
- const list=upcoming(),root=$('#fx-list');if(!root)return;
- root.replaceChildren(...list.slice(0,6).map(card));
- $('#fx-empty').hidden=list.length>0;
- $('#fx-list').hidden=list.length===0;
- $('#fx-status').textContent=list.length
-   ?'Εμφανίζονται '+Math.min(6,list.length)+' από '+list.length+' επόμενους εγκεκριμένους αγώνες.'
-   :'Δεν έχουν ανακοινωθεί ακόμη εγκεκριμένοι επόμενοι αγώνες για αυτή την επιλογή.';
- const link=$('#fx-download');link.hidden=!fixtures.some(x=>x.status==='scheduled');
+ const visible=upcoming(),root=$('#fx-list');if(!root)return;
+ root.replaceChildren(...visible.slice(0,6).map(card));
+ $('#fx-empty').hidden=visible.length>0;
+ root.hidden=!visible.length;
+ $('#fx-status').textContent=visible.length
+  ?'Οι επόμενοι '+Math.min(6,visible.length)+' επιβεβαιωμένοι αγώνες · ώρα Ελλάδας.'
+  :'Δεν έχουν ανακοινωθεί ακόμη εγκεκριμένοι επόμενοι αγώνες για αυτή την επιλογή.';
+ $('#fx-download').hidden=!fixtures.some(x=>x.status==='scheduled');
 }
 async function init(){
- const root=$('#upcoming-matches');if(!root)return;
- root.querySelectorAll('[data-fixture-sport]').forEach(b=>b.addEventListener('click',()=>{
-  sport=b.dataset.fixtureSport;
-  root.querySelectorAll('[data-fixture-sport]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));
-  render();
- }));
+ const node=$('#upcoming-matches');if(!node)return;
+ node.querySelectorAll('[data-fixture-sport]').forEach(button=>
+  button.addEventListener('click',()=>{
+   sport=button.dataset.fixtureSport;
+   node.querySelectorAll('[data-fixture-sport]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
+   render();
+  }));
  try{
-  const response=await fetch(stage()?'/rebuild/data/match-schedule.json':'/assets/site/data/match-schedule.json',{cache:'no-cache'});
+  const url=stage()?'/rebuild/data/match-schedule.json':'/assets/site/data/match-schedule.json';
+  const response=await fetch(url,{cache:'no-cache'});
   if(!response.ok)throw Error('Match schedule unavailable');
   const data=await response.json();
   if(data?.schema_version!==1||data?.approval_policy!=='owner_approved_only'||!Array.isArray(data.matches))
-   throw Error('Match data cannot be trusted');
-  fixtures=data.matches.filter(x=>x.approval?.status==='owner_approved'&&['handball','volleyball'].includes(x.sport));
+   throw Error('Invalid or unreviewed fixture list');
+  fixtures=data.matches.filter(x=>x.approval?.status==='owner_approved'&&
+   ['handball','volleyball'].includes(x.sport)&&dateOf(x.start_at));
   render();
  }catch(error){
   console.warn('Match schedule fallback',error);
   $('#fx-list').replaceChildren();$('#fx-list').hidden=true;$('#fx-empty').hidden=false;
-  $('#fx-status').textContent='Το πρόγραμμα αγώνων δεν είναι προσωρινά διαθέσιμο.';
+  $('#fx-status').textContent='Το επιβεβαιωμένο πρόγραμμα δεν είναι προσωρινά διαθέσιμο.';
   $('#fx-download').hidden=true;
  }
 }

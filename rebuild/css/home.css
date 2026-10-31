@@ -172,37 +172,79 @@
 .new-today-feature:hover{box-shadow:0 22px 42px #073d2a1e;transform:translateY(-2px)}
 @media(max-width:760px){.new-today-grid{grid-template-columns:1fr}.new-today{padding:55px 0}.new-today-feature{min-height:225px}}
 
-/* Upcoming approved match schedule — consistent cream/forest/gold visual language. */
-.fx-section{padding:clamp(60px,7.5vw,100px) 0;background:#f6f2e8;color:#073d2a;border-block:1px solid #e1d3b6}
-.fx-heading{display:flex;justify-content:space-between;align-items:center;gap:28px}
-.fx-heading h2{font:500 clamp(36px,4.6vw,62px)/1.15 Georgia,serif;margin:12px 0 13px;letter-spacing:-.04em}
-.fx-heading h2 em{color:#a7894c}
-.fx-heading p{margin:0;max-width:660px;color:#4a6854;line-height:1.85}
-.fx-download{white-space:nowrap;text-decoration:none;padding:12px 18px;border:1px solid #bba374;border-radius:12px;background:#fffdf7;color:#073d2a;font-weight:800;min-height:46px}
-.fx-switch{display:flex;flex-wrap:wrap;gap:9px;margin:30px 0 15px}
-.fx-switch button{background:#fffdf7;border:1px solid #c5b18b;border-radius:11px;padding:12px 19px;color:#073d2a;min-height:46px;font:750 13px/1.4 system-ui;cursor:pointer}
-.fx-switch button[aria-pressed="true"]{background:#073d2a;color:#fffdf7;border-color:#073d2a}
-.fx-status{min-height:1.3em;font-size:13px;color:#536e59}
-.fx-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;margin-top:21px}
-.fx-card{display:flex;flex-direction:column;gap:16px;min-width:0;padding:24px;border:1px solid #dbc6a2;border-radius:19px;background:linear-gradient(130deg,#fffdf7,#eee4d4)}
-.fx-top,.fx-bottom{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:9px}
-.fx-sport{font-size:12px;font-weight:800;letter-spacing:.09em;color:#7c5c23}
-.fx-competition{color:#58705c;font-size:11px;text-align:right}
-.fx-when{display:flex;flex-direction:column;gap:0}
-.fx-day{font:400 32px/1.2 Georgia,serif}
-.fx-clock{font-size:13px;color:#5a715d}
-.fx-teams{display:flex;align-items:center;justify-content:flex-start;gap:11px;min-height:60px}
-.fx-teams strong{font:500 clamp(16px,2vw,22px)/1.35 Georgia,serif;overflow-wrap:anywhere}
-.fx-versus{color:#a48e61;font-size:23px}
-.fx-bottom{margin-top:auto;border-top:1px solid #dbcbab;padding-top:14px;align-items:center;font-size:12px}
-.fx-venue{color:#5a715d}
-.fx-calendar-link{font-size:12px;color:#073d2a;text-underline-offset:3px;font-weight:750}
-.fx-empty{border-radius:17px;background:#fffcf5;border:1px solid #d9c6a2;padding:26px 30px;margin-top:18px}
-.fx-empty strong{font:500 23px Georgia,serif}
-.fx-empty p{max-width:680px;color:#586c59;line-height:1.8}
-:where(.fx-switch button,.fx-download,.fx-calendar-link):focus-visible{outline:3px solid #ac8942;outline-offset:3px}
-@media(max-width:1030px){.fx-cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:690px){.fx-heading{display:block}.fx-download{display:inline-flex;margin-top:16px}.fx-cards{grid-template-columns:1fr}.fx-card{padding:21px}.fx-switch button{flex:1}}
-
-/* Native [hidden] must win over responsive cards/download styles. */
-.fx-download[hidden],.fx-cards[hidden],.fx-empty[hidden]{display:none!important}
+/* ------------------------------------------------------------------
+  ARCHÉLAOS · MATCHDAY. Monumental 70-year editorial sports feature.
+  Matches are ALL independently reviewed; no invented fixture shown.
+------------------------------------------------------------------- */
+.fx-section{position:relative;isolation:isolate;overflow:hidden;padding:clamp(72px,8vw,115px) 0 85px;color:#fff7e8;background:
+ radial-gradient(ellipse at 95% 7%,rgba(179,154,83,.19),transparent 41%),
+ linear-gradient(132deg,#073f2a 0%,#062c1f 52%,#021b14 100%);
+ border-top:2px solid #b89654;border-bottom:1px solid #b89654}
+.fx-section::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.11;background:
+ radial-gradient(circle at 98% 5%,transparent 0 15%,#ceb682 15.05% 15.14%,transparent 15.2% 27%,#ceb682 27.06% 27.13%,transparent 27.2%),
+ repeating-linear-gradient(120deg,transparent 0 113px,#c6ad7815 114px,#c6ad7815 115px)}
+.fx-section::after{content:"";position:absolute;right:-170px;bottom:-380px;width:min(74vw,940px);aspect-ratio:1;background:url('/archelaos-logo-gold.png') center/contain no-repeat;opacity:.035;pointer-events:none;z-index:-1}
+.fx-shell{position:relative}
+.fx-legacy{display:flex;align-items:center;gap:16px;font-size:11px;letter-spacing:.17em;font-weight:800;color:#dfc994}
+.fx-legacy-star{font-size:22px;color:#e4be72}.fx-legacy-line{height:1px;background:#c5a26766;flex:1}.fx-legacy span:last-child{white-space:nowrap}
+.fx-heading{display:grid;grid-template-columns:minmax(0,1fr) minmax(170px,.28fr);align-items:center;gap:48px;margin:42px 0 25px}
+.fx-eyebrow{font-size:11px;font-weight:850;letter-spacing:.18em;color:#dbbf81}
+.fx-heading h2{font:400 clamp(41px,5.9vw,83px)/1.08 Georgia,serif;letter-spacing:-.055em;margin:19px 0 22px;max-width:1000px;color:#fff8e9}
+.fx-heading h2 em{font-style:italic;font-weight:400;color:#d7b46b}
+.fx-heading p{font-size:clamp(15px,1.4vw,18px);line-height:1.9;color:#dbdfcf;max-width:700px;margin:0}
+.fx-heritage{border-left:1px solid #bb9d6280;min-height:168px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding-left:28px}
+.fx-heritage-number{font:400 clamp(88px,12vw,158px)/.8 Georgia,serif;color:#d2b371;letter-spacing:-.08em}
+.fx-heritage-caption{font-size:11px;font-weight:850;letter-spacing:.18em;line-height:2.1;color:#e9d6a8;margin-top:20px}
+.fx-commandbar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:14px;margin:46px 0 18px;padding-top:20px;border-top:1px solid #ab956277}
+.fx-switch{display:flex;flex-wrap:wrap;gap:9px;margin:0}
+.fx-switch button{min-height:47px;padding:12px 19px;border-radius:10px;border:1px solid #d9c29571;background:transparent;color:#f5ead2;font:750 13px system-ui;cursor:pointer}
+.fx-switch button[aria-pressed="true"]{background:#eedbb5;color:#073d2a;border-color:#eedbb5}
+.fx-download{min-height:46px;display:inline-flex;align-items:center;gap:13px;padding:10px 17px;text-decoration:none;color:#f4dfad;border:1px solid #ba9c59;border-radius:10px;font-size:13px;font-weight:800}
+.fx-download[hidden]{display:none!important}
+.fx-download span{font-size:21px}
+.fx-status{min-height:25px;margin:16px 0 19px;color:#d8cfb6;font-size:13px}
+.fx-cards{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:18px}
+.fx-cards[hidden],.fx-empty[hidden]{display:none!important}
+.fx-card{grid-column:span 4;display:flex;flex-direction:column;min-width:0;gap:20px;padding:27px 29px 26px;position:relative;overflow:visible;border:1px solid #d6bd86;border-radius:18px;background:linear-gradient(145deg,#fffdf8 0%,#eee5d5 100%);color:#073d2a;box-shadow:0 15px 37px #00180e35}
+.fx-card:first-child,.fx-card:nth-child(2){grid-column:span 6;min-height:355px}
+.fx-card::after{content:attr(data-ordinal);position:absolute;right:16px;top:30px;font:400 100px/.8 Georgia,serif;color:#073d2a08;pointer-events:none}
+.fx-card-feature{background:linear-gradient(137deg,#fffdf8,#e9d9bb)}
+.fx-top{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;position:relative;z-index:1}
+.fx-sport{font-size:11px;color:#735728;letter-spacing:.16em;font-weight:850}
+.fx-competition{font-size:12px;color:#61715c;max-width:210px;text-align:right}
+.fx-when{display:flex;align-items:baseline;gap:17px;position:relative;z-index:1}
+.fx-date-large{display:flex;align-items:baseline;gap:10px}
+.fx-date-number{font:400 clamp(50px,5vw,78px)/.95 Georgia,serif;letter-spacing:-.07em;color:#073d2a}
+.fx-date-month{font:500 18px Georgia,serif;color:#9b7338}
+.fx-clock{font-size:14px;font-weight:800;color:#375b46}
+.fx-teams{display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:90px;position:relative;z-index:1}
+.fx-team{display:flex;flex:1;min-width:0;flex-direction:column;gap:6px}
+.fx-team:last-child{text-align:right}
+.fx-team-label{font-size:10px;font-weight:850;letter-spacing:.1em;color:#806e46}
+.fx-team strong{font:500 clamp(19px,2.2vw,28px)/1.22 Georgia,serif;overflow-wrap:anywhere}
+.fx-versus{font:400 21px Georgia,serif;color:#a7864c;letter-spacing:.02em}
+.fx-bottom{margin-top:auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap;border-top:1px solid #d7c7a7;padding-top:17px}
+.fx-venue{font-size:12px;line-height:1.5;color:#536852;flex:1}
+.fx-calendar-actions{position:relative;max-width:100%}
+.fx-calendar-actions summary{display:flex;align-items:center;gap:12px;list-style:none;cursor:pointer;padding:10px 13px;min-height:45px;background:#073d2a;color:#fff9ec;border-radius:11px;border:1px solid #8e784d;font-size:12px;font-weight:800;user-select:none}
+.fx-calendar-actions summary::-webkit-details-marker{display:none}
+.fx-calendar-actions summary::after{content:"+";font-size:20px;font-weight:400;margin-left:6px}
+.fx-calendar-actions[open] summary::after{content:"−"}
+.fx-calendar-menu{display:flex;flex-direction:column;gap:2px;position:relative;margin-top:8px;border:1px solid #c2a971;border-radius:12px;padding:7px;background:#fffdf7;box-shadow:0 8px 19px #00180e1b;z-index:2}
+.fx-calendar-menu a{display:block;padding:9px 12px;text-decoration:none;border-radius:7px;color:#073d2a;font-size:12px;font-weight:730;overflow-wrap:anywhere}
+.fx-calendar-menu a:hover{background:#eee3ca}
+.fx-calendar-note{font-size:11px;color:#64725c;max-width:350px;padding:5px 9px;line-height:1.5}
+.fx-empty{position:relative;overflow:hidden;min-height:260px;border:1px solid #bfa0688f;background:linear-gradient(125deg,#0b442d,#063221);border-radius:20px;padding:clamp(30px,4.5vw,58px);box-shadow:inset 0 0 0 1px #e4c98d15}
+.fx-empty-mark{position:absolute;font:400 clamp(160px,28vw,360px)/.9 Georgia,serif;right:-18px;bottom:-.31em;color:#ddc08312;pointer-events:none}
+.fx-empty-copy{position:relative;z-index:1;max-width:720px}
+.fx-empty h3{font:400 clamp(29px,3.5vw,47px)/1.22 Georgia,serif;margin:16px 0;color:#fff6e4}
+.fx-empty h3 em{color:#d5b36e}
+.fx-empty p{line-height:1.85;color:#d8e0d6;max-width:670px;font-size:15px}
+.fx-empty-seal{position:absolute;right:52px;top:55px;display:grid;place-items:center;width:120px;height:120px;border-radius:50%;border:1px solid #d5b46a7a;color:#d5b46a;line-height:1.5;letter-spacing:.12em;text-align:center;font:700 12px system-ui}
+.fx-footnote{display:flex;align-items:baseline;gap:13px;margin-top:30px;color:#e1c78e;font-size:13px}
+.fx-footnote p{margin:0;max-width:900px;color:#d5dacd;font-size:12px;line-height:1.75}
+:where(.fx-section button,.fx-section a,.fx-section summary):focus-visible{outline:3px solid #f4cc72;outline-offset:4px}
+@media(max-width:1020px){.fx-heading{grid-template-columns:1fr minmax(140px,.25fr);gap:23px}.fx-card{grid-column:span 6}.fx-empty-seal{right:28px;top:35px}}
+@media(max-width:720px){.fx-heritage{display:none}.fx-heading{grid-template-columns:1fr;margin:34px 0 21px}.fx-heading h2{font-size:clamp(37px,10vw,58px)}.fx-legacy{gap:9px;letter-spacing:.1em;font-size:9px}.fx-commandbar{margin-top:30px}.fx-cards{grid-template-columns:1fr}.fx-card,.fx-card:first-child,.fx-card:nth-child(2){grid-column:1;min-height:0}.fx-card{padding:23px}.fx-empty{padding:29px 23px;min-height:280px}.fx-empty-seal{display:none}.fx-empty-mark{font-size:200px;bottom:-.27em}.fx-date-number{font-size:64px}.fx-teams{min-height:70px}.fx-team strong{font-size:19px}.fx-bottom{align-items:flex-start}.fx-venue{flex-basis:100%}.fx-calendar-actions{width:100%}.fx-calendar-actions summary{justify-content:space-between}}
+@media(max-width:420px){.fx-section{padding-top:65px;padding-bottom:60px}.fx-switch{display:grid;grid-template-columns:1fr 1fr;width:100%}.fx-switch button:first-child{grid-column:span 2}.fx-download{width:100%;justify-content:space-between}.fx-teams{gap:8px}.fx-team strong{font-size:17px}.fx-when{flex-wrap:wrap;gap:5px 16px}.fx-empty h3{font-size:30px}}
+@media(prefers-reduced-motion:reduce){.fx-card,.fx-switch button,.fx-calendar-actions summary{transition:none!important}}
