@@ -44,6 +44,11 @@ def inspect():
         parser = Assets(path)
         parser.feed(source)
         assert not parser.missing, "\n".join(parser.missing)
+    # Responsive CSS must stay modular, and every declared import must exist.
+    viewport_css = (REBUILD/"css/viewports.css").read_text(encoding="utf-8")
+    for name in ("mobile.css", "tablet.css", "laptop.css", "desktop.css", "accessibility.css"):
+        assert (REBUILD/"css"/name).is_file(), f"responsive stylesheet missing: {name}"
+        assert f'url("./{name}")' in viewport_css, f"viewport stylesheet not imported: {name}"
     for file in (REBUILD/"data").glob("*.json"):
         json.loads(file.read_text(encoding="utf-8"))
     moments = json.loads((REBUILD/"data/moments.json").read_text(encoding="utf-8"))["moments"]
