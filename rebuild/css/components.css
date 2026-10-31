@@ -191,3 +191,63 @@ dialog.arch-menu-dialog[open]{position:fixed!important;inset:0 0 0 auto!importan
 .arch-quote-pause--forest blockquote{color:#e2c68c}
 .arch-quote-pause--forest figcaption{color:#d8c49c}
 @media(max-width:600px){.arch-quote-pause{padding:31px 0 34px}.arch-quote-pause blockquote{font-size:20px;line-height:1.6}}
+
+
+/* Site-wide utilities: floating accessibility menu and back-to-top, including profiles/404. */
+.arch-a11y-launch,.arch-back-to-top{
+ position:fixed;bottom:max(18px,env(safe-area-inset-bottom));display:grid;place-items:center;
+ width:56px;height:56px;padding:11px;border-radius:50%;cursor:pointer;
+ background:#073d2a;color:#f9eac4;border:2px solid #bd9d55;box-shadow:0 8px 30px #06271e55;
+ z-index:1200;transition:transform .18s ease,box-shadow .18s ease;
+}
+.arch-a11y-launch{left:max(16px,env(safe-area-inset-left))}
+.arch-back-to-top{right:max(16px,env(safe-area-inset-right));font:800 28px/1 Georgia,serif}
+.arch-a11y-launch svg{width:32px;height:32px}
+.arch-a11y-launch:hover,.arch-back-to-top:hover{transform:translateY(-3px);box-shadow:0 11px 34px #06271e70}
+.arch-a11y-launch:focus-visible,.arch-back-to-top:focus-visible{outline:3px solid #e9c66d;outline-offset:4px}
+.arch-back-to-top[hidden]{display:none!important}
+.arch-a11y-panel{
+ width:min(470px,calc(100vw - 24px));max-width:none;max-height:calc(100dvh - 28px);
+ border:1px solid #c6a966;border-radius:20px;padding:0;overflow:auto;
+ color:#073d2a;background:#fffbf2;box-shadow:0 26px 80px #011c14a0;
+}
+.arch-a11y-panel::backdrop{background:#03170db8;backdrop-filter:blur(3px)}
+.arch-a11y-head{display:flex;justify-content:space-between;align-items:start;gap:18px;
+ padding:23px 24px 18px;background:#073d2a;color:#fff5df}
+.arch-a11y-overline{font:800 10px/1.5 Inter,system-ui,sans-serif;letter-spacing:.13em;color:#ddc189}
+.arch-a11y-head h2{font:500 30px/1.2 Georgia,serif;margin:5px 0 0;color:#fff5df}
+.arch-a11y-close{flex:none;width:44px;height:44px;border:1px solid #d2b778;border-radius:12px;
+ background:transparent;color:#fff5df;font-size:29px;line-height:1}
+.arch-a11y-content{padding:22px 24px 26px}
+.arch-a11y-content p{font-size:14px;line-height:1.75;color:#385744;margin:0 0 20px}
+.arch-a11y-label{display:block;font-size:14px;font-weight:800;margin-bottom:8px}
+.arch-a11y-content select{width:100%;min-height:46px;border:1px solid #aa9569;border-radius:9px;
+ padding:8px 13px;background:#fff;color:#073d2a;font:600 15px/1.4 Inter,system-ui,sans-serif}
+.arch-a11y-toggles{display:grid;gap:10px;margin-top:18px}
+.arch-a11y-toggles button,.arch-a11y-reset{
+ min-height:46px;padding:11px 14px;text-align:left;border:1px solid #c6b28a;
+ background:#f5eddd;border-radius:11px;color:#073d2a;font-weight:750;font-size:14px
+}
+.arch-a11y-toggles button[aria-pressed="true"]{background:#073d2a;color:#fff5df;border-color:#073d2a}
+.arch-a11y-reset{display:block;width:100%;text-align:center;margin-top:17px;background:transparent}
+.arch-a11y-panel :is(button,select):focus-visible{outline:3px solid #b88b3b;outline-offset:3px}
+body[data-arch-a11y-size="125"] :is(main p,main li,main blockquote,.arch-dialog-body p){font-size:1.18rem!important;line-height:1.8!important}
+body[data-arch-a11y-size="150"] :is(main p,main li,main blockquote,.arch-dialog-body p){font-size:1.36rem!important;line-height:1.85!important}
+body.arch-a11y-contrast{--arch-cream:#fff;--arch-paper-soft:#fff;--arch-ink:#0b1e13;--arch-line:#75613b;--arch-gold:#926d21}
+body.arch-a11y-contrast :is(.arch-header,.arch-footer,.arch-card--green){filter:contrast(1.2)}
+body.arch-a11y-links a{text-decoration:underline!important;text-underline-offset:.19em}
+body.arch-a11y-calm *,body.arch-a11y-calm *::before,body.arch-a11y-calm *::after{
+ animation-duration:.01ms!important;transition-duration:.01ms!important;
+ animation-iteration-count:1!important;scroll-behavior:auto!important
+}
+@media(max-width:600px){
+ .arch-a11y-launch,.arch-back-to-top{bottom:max(12px,env(safe-area-inset-bottom));width:48px;height:48px}
+ .arch-a11y-launch{left:max(12px,env(safe-area-inset-left))}
+ .arch-back-to-top{right:max(12px,env(safe-area-inset-right))}
+ .arch-a11y-launch svg{width:27px;height:27px}
+ .arch-a11y-head{padding:18px}.arch-a11y-content{padding:18px}
+}
+@media(prefers-reduced-motion:reduce){.arch-a11y-launch,.arch-back-to-top{transition:none}}
+/* Legacy biography inline footer styling must not center the shared footer. */
+.arch-footer{text-align:left}
+.arch-header img{margin-right:0;vertical-align:baseline}
