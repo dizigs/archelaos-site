@@ -25,31 +25,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Manrope:wght@600;700;800;900&amp;display=swap&amp;subset=greek,latin" rel="stylesheet" media="print" onload="this.media='all'"/>
 <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Manrope:wght@600;700;800;900&amp;display=swap&amp;subset=greek,latin" rel="stylesheet"/></noscript>
 <!-- Tailwind CSS CDN -->
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              archelaos: {
-                yellow: '#c7a65e',
-                lemon: '#c7a65e',
-                light: '#f1e4c4',
-                darkgreen: '#008a28',
-                deepgreen: '#084c24',
-                forest: '#0d5c2e',
-                accentgreen: '#15803D',
-                surface: '#FFFFFF',
-              }
-            },
-            fontFamily: {
-              heading: ['Manrope', 'Inter', 'sans-serif'],
-              body: ['Inter', 'sans-serif'],
-            }
-          }
-        }
-      }
-    </script>
+<link rel="stylesheet" href="/assets/tailwind-static-candidate.css"/>
 <!-- Critical first-paint: show above-the-fold hero content immediately, without waiting for reveal JS. -->
 <style id="arch-critical-hero-paint">
 #home .reveal-text{opacity:1;transform:none;visibility:visible;transition:none;will-change:auto}
