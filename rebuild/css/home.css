@@ -272,3 +272,38 @@
 .fx-away .fx-venue-badge{background:#e9d7b6;color:#56431d;border:1px solid #b69a5e}
 .fx-away{background:linear-gradient(145deg,#fffdf8,#f5efe3)}
 @media(max-width:740px){.new-departments-intro-inner{flex-direction:column;align-items:flex-start}.new-departments-intro-cta{width:100%}}
+
+
+/* Matchday cards on phones: compact fixture slips, not desktop-sized panels. */
+@media(max-width:720px){
+ .fx-cards{display:grid;grid-template-columns:minmax(0,1fr);gap:10px}
+ .fx-card,.fx-card:first-child,.fx-card:nth-child(2){grid-column:1;min-height:0;display:grid;grid-template-columns:72px minmax(0,1fr);grid-template-areas:"top top" "when teams" "bottom bottom";align-items:center;gap:10px 13px;padding:15px 16px;border-radius:13px;box-shadow:0 6px 15px #00180e1f}
+ .fx-card::after{font-size:56px;top:18px;right:12px}
+ .fx-top{grid-area:top;display:flex;align-items:center;justify-content:flex-start;flex-wrap:wrap;gap:5px 10px}
+ .fx-venue-badge{font-size:9px;letter-spacing:.035em;padding:4px 7px}
+ .fx-sport{font-size:10px;letter-spacing:.08em}
+ .fx-competition{max-width:none;font-size:10px;text-align:left}
+ .fx-when{grid-area:when;display:flex;flex-direction:column;align-items:flex-start;gap:4px;min-width:0}
+ .fx-date-large{display:flex;flex-direction:column;align-items:flex-start;gap:2px}
+ .fx-date-number{font-size:39px;line-height:.95}
+ .fx-date-month{font-size:13px;line-height:1.2}
+ .fx-clock{font-size:11px;line-height:1.35;font-weight:700;overflow-wrap:anywhere}
+ .fx-teams{grid-area:teams;display:flex;align-items:center;justify-content:space-between;gap:7px;min-height:0;min-width:0}
+ .fx-team{gap:2px}
+ .fx-team-label{font-size:8px;letter-spacing:0}
+ .fx-team strong{font-size:clamp(13px,3.6vw,16px);line-height:1.2;overflow-wrap:anywhere}
+ .fx-versus{font-size:12px;flex:none}
+ .fx-bottom{grid-area:bottom;margin-top:0;padding-top:9px;gap:6px;flex-wrap:wrap}
+ .fx-venue{font-size:10px;line-height:1.4;flex:1 1 140px}
+ .fx-calendar-note{display:none}
+ .fx-calendar-actions{width:auto;max-width:100%;margin-left:auto}
+ .fx-calendar-actions summary{min-height:36px;font-size:10px;padding:7px 9px;gap:4px}
+ .fx-calendar-actions summary::after{font-size:15px}
+ .fx-calendar-menu a{font-size:11px}
+}
+@media(max-width:380px){
+ .fx-card,.fx-card:first-child,.fx-card:nth-child(2){grid-template-columns:60px minmax(0,1fr);gap:8px 10px;padding:13px 12px}
+ .fx-date-number{font-size:35px}
+ .fx-team strong{font-size:13px}
+ .fx-versus{font-size:10px}
+}
