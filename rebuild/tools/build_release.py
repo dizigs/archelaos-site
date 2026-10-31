@@ -186,6 +186,9 @@ def make_release() -> None:
         copytree(ROOT / folder, OUTPUT / folder)
     for name in ("css", "js", "data"):
         copytree(STAGE / name, OUTPUT / "assets" / "site" / name)
+    # The old public JSON endpoint must reflect exactly the same edited people
+    # as the new Hall of Fame; otherwise stale corrections remain discoverable.
+    copy2(STAGE / "data" / "people.json", OUTPUT / "hall-of-fame-people.json")
     # Only independently approved, conflict-free relations may enter public data.
     # Never copy research source, review queue or owner-only information to dist.
     from build_event_graph import compile_graph
