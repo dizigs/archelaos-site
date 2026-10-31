@@ -33,7 +33,7 @@ async function verify(){
     if(stageRefs)throw Error(name+': staging asset leaked');
     if(tag==='hall')await page.waitForFunction(()=>document.querySelector('#hall-count')?.textContent.includes('682'));
     if(tag==='moments')await page.locator('.rm-moment').first().waitFor();
-    if(tag==='museum')await page.locator('.mu-sport-item').first().waitFor();
+    if(tag==='museum')await page.locator('.mu-sports-link').first().waitFor();
     if(tag==='stories')await page.locator('.rs-card').first().waitFor();
     if(tag==='board')await page.locator('.bd-member').first().waitFor();
     if(tag==='departments')await page.locator('.dp-card').first().waitFor();
@@ -95,14 +95,40 @@ async function verify(){
      await page.reload({waitUntil:'domcontentloaded'});
      await page.locator('.av-card').first().waitFor();
      if(!await page.locator('.av-card').first().textContent())throw Error('Favorites not restored after reload');
+     await page.locator('.av-card-hit').first().click();
+     const favoriteDialog=page.locator('dialog.arch-dialog[open]');
+     await favoriteDialog.waitFor();
+     if(!await favoriteDialog.locator('h2').textContent())throw Error('Favorite moment popup has no title');
+     await favoriteDialog.locator('.arch-close').click();
+     await favoriteDialog.waitFor({state:'hidden'});
+
      await page.evaluate(()=>window.ArchelaosFavorites.toggle('photo','sport-archery'));
      await page.locator('[data-av-filter="photo"]').click();
      await page.locator('.av-card .av-photo').first().waitFor({state:'attached'});
+     await page.locator('.av-card-hit').first().click();
+     const photoDialog=page.locator('dialog.arch-dialog[open]');
+     await photoDialog.waitFor();
+     if(!await photoDialog.locator('.av-dialog-photo img').count())throw Error('Favorite photo popup does not contain the saved image');
+     await photoDialog.locator('.arch-close').click();
+     await photoDialog.waitFor({state:'hidden'});
+
      await page.locator('.av-card .arch-favorite-toggle').first().click();
           await page.locator('[data-av-filter="moment"]').click();
      if(await page.locator('.av-card').count()!==1)throw Error('Favorites filter failed');
      await page.locator('.av-card .arch-favorite-toggle').first().click();
      await page.locator('.av-empty').waitFor();
+     // Cards also open popups for biographies, stories and museum exhibits.
+     for(const [type,id] of [['person','arch-5a04cbbb57e4'],['story','1'],['exhibit','intro']]){
+      await page.evaluate(([t,k])=>window.ArchelaosFavorites.toggle(t,k),[type,id]);
+      await page.locator('.av-card-hit').first().click();
+      const dlg=page.locator('dialog.arch-dialog[open]');
+      await dlg.waitFor();
+      if(!await dlg.locator('h2').textContent())throw Error('Missing '+type+' popup title in favorites');
+      await dlg.locator('.arch-close').click();
+      await dlg.waitFor({state:'hidden'});
+      await page.locator('.av-card .arch-favorite-toggle').first().click();
+      await page.locator('.av-empty').waitFor();
+     }
     }
     if(tag==='contribute'){
      await page.locator('.av-verify-card').first().waitFor({timeout:10000});
