@@ -112,6 +112,10 @@ async function init(){
  try{
   const data=await window.ArchelaosBio.load();
   state.people=data.people;$('#hall-total').textContent=String(state.people.length);render();
+  // Shared search opens the existing Hall of Fame biography dialog, not a second profile page.
+  const requested=new URLSearchParams(location.search).get('person');
+  if(requested){const person=state.people.find(p=>p.id===requested);if(person)window.ArchelaosBio.show(person);}
+
  }catch(err){
   console.error('Hall of Fame loading:',err);
   $('#hall-count').textContent=tr('Δεν ήταν δυνατή η φόρτωση του αρχείου βιογραφικών.','The biography archive could not be loaded.');

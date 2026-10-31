@@ -125,3 +125,7 @@
 .arch-archive-content a{color:#0c6444;text-underline-offset:4px}
 .arch-archive-content hr{border:0;border-top:1px solid #dfd2b6;margin:1.7em 0}
 @media(max-width:600px){.arch-archive-content{font-size:15px;line-height:1.85}}
+
+/* Compact shared search entry in the existing desktop navigation. */
+.arch-nav .arch-nav-search{color:#f2d9a0;border-color:#b5986455;font-size:12px}
+.arch-nav .arch-nav-search:hover{background:#ffffff13;border-color:#c7a65e88}

@@ -32,7 +32,7 @@ def inspect():
     assert len(html_pages) >= 11, "expected multiple rebuilt pages"
     known = {p.name for p in html_pages}
     expected = {"index.html","history.html","hall-of-fame.html","70-stigmes.html","stories.html",
-                "board.html","contact.html","sponsors.html","tmimata.html","retro-matches.html"}
+                "board.html","contact.html","sponsors.html","tmimata.html","retro-matches.html","search.html"}
     assert expected.issubset(known), "missing required rebuilt routes: " + str(expected-known)
 
     for path in html_pages:

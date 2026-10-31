@@ -6,11 +6,11 @@ const pages=[
   ['70-stigmes.html','70 Στιγμές'],['hall-of-fame.html','Hall of Fame'],
   ['stories.html','Ιστορίες'],['index.html#about','Ο Σύλλογος'],
   ['index.html#departments','Αθλήματα'],['board.html','Διοίκηση'],
-  ['sponsors.html','Χορηγίες'],['contact.html','Επικοινωνία']
+  ['sponsors.html','Χορηγίες'],['contact.html','Επικοινωνία'],['search.html','Αναζήτηση']
 ];
 const groups=[['Συλλογές',[2,3,4]],['Ο Σύλλογος',[5,6,7]]];
 const path=(location.pathname.split('/').pop()||'index.html').toLowerCase();
-const COMPLETED=new Set(['index.html','history.html','hall-of-fame.html','70-stigmes.html','stories.html','board.html','contact.html','sponsors.html','tmimata.html','retro-matches.html']);
+const COMPLETED=new Set(['index.html','history.html','hall-of-fame.html','70-stigmes.html','stories.html','board.html','contact.html','sponsors.html','tmimata.html','retro-matches.html','search.html']);
 const stageUrl=(href)=>{
  if(!location.pathname.startsWith('/rebuild/'))return href;
  try{
@@ -46,7 +46,7 @@ function renderHeader(){
     const panel=document.createElement('div');panel.className='arch-dropdown';
     group[1].forEach(i=>addLink(panel,pages[i]));details.append(sum,panel);nav.append(details);
   }
-  addLink(nav,pages[8]);addLink(nav,pages[9]);inner.append(nav);
+  addLink(nav,pages[8]);addLink(nav,pages[9]);addLink(nav,pages[10],'arch-nav-search');inner.append(nav);
   const btn=document.createElement('button');btn.className='arch-menu-open';btn.type='button';btn.textContent='☰';btn.setAttribute('aria-label','Άνοιγμα μενού');
   btn.setAttribute('aria-haspopup','dialog');inner.append(btn);header.append(inner);
   const drawer=document.createElement('dialog');drawer.className='arch-menu-dialog';drawer.setAttribute('aria-label','Μενού Αρχέλαου');
@@ -55,7 +55,7 @@ function renderHeader(){
   const close=document.createElement('button');close.className='arch-close';close.type='button';close.textContent='×';close.setAttribute('aria-label','Κλείσιμο μενού');
   head.append(name,close);drawer.append(head);
   const content=document.createElement('div');content.className='arch-menu-content';
-  for(const group of [['Εξερεύνηση',[0,1,2,3,4]],['Ο Σύλλογος',[5,6,7,8,9]]]){
+  for(const group of [['Εξερεύνηση',[0,1,2,3,4]],['Ο Σύλλογος',[5,6,7,8,9,10]]]){
     const caption=document.createElement('div');caption.className='arch-menu-group';caption.textContent=group[0];content.append(caption);
     group[1].forEach(i=>{const a=addLink(content,pages[i],'arch-mobile-link');const arrow=document.createElement('span');arrow.textContent='↗';arrow.setAttribute('aria-hidden','true');a.append(arrow)});
   }
@@ -73,6 +73,7 @@ function renderFooter(){
   if(document.querySelector('.arch-footer'))return;
   const footer=document.createElement('footer');footer.className='arch-footer';
   footer.innerHTML='<div class="arch-footer-inner"><div class="arch-footer-top"><img src="/assets/archelaos-crest.png" alt="" loading="lazy" width="58" height="58"><div><strong>Γ.Α.Σ. «Ο ΑΡΧΕΛΑΟΣ»</strong><small>ΚΑΤΕΡΙΝΗ · 1956—2026</small></div></div><div class="arch-footer-rule"></div><div class="arch-footer-columns"><section><h2>ΨΗΦΙΑΚΟ ΜΟΥΣΕΙΟ</h2><a href="/history.html">Η ιστορία</a><a href="/70-stigmes.html">70 Στιγμές</a></section><section><h2>ΟΙ ΑΝΘΡΩΠΟΙ</h2><a href="/hall-of-fame.html">Hall of Fame</a><a href="/stories.html">Ιστορίες</a><a href="/board.html">Διοίκηση</a></section><section><h2>Ο ΣΥΛΛΟΓΟΣ</h2><a href="/index.html">Αρχική</a><a href="/index.html#departments">Αθλήματα</a><a href="/contact.html">Επικοινωνία</a></section></div><div class="arch-footer-social"><a href="https://www.facebook.com/oarxelaos" target="_blank" rel="noopener noreferrer">Facebook</a><a href="https://www.youtube.com/@GASArchelaosKaterinis" target="_blank" rel="noopener noreferrer">YouTube</a></div><div class="arch-footer-bottom"><span>Γ.Α.Σ. Αρχέλαος Κατερίνης · Από το 1956</span><span>Αθλητισμός · Παιδεία · Συμμετοχή</span></div></div>';
+  const searchAnchor=document.createElement('a');searchAnchor.href=hrefFor(pages[10]);searchAnchor.textContent='Αναζήτηση αρχείου';footer.querySelector('.arch-footer-social')?.append(searchAnchor);
   document.body.append(footer);
 }
 function routePreviewLinks(){
