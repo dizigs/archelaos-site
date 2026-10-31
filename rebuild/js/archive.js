@@ -3,6 +3,9 @@
 function fragment(raw){
  const parsed=new DOMParser().parseFromString(String(raw||''),'text/html');
  parsed.querySelectorAll('script,style,iframe,object,embed,form,template,meta,link').forEach(el=>el.remove());
+ // These legacy archive CTAs are redundant inside every native popup.
+ // Remove before attribute sanitization, so their source styling cannot matter.
+ parsed.querySelectorAll('.pbh-modal-foot').forEach(el=>el.remove());
  const language=document.documentElement.lang.toLowerCase().startsWith('en')?'en':'el';
  for(const item of [...parsed.body.querySelectorAll('*')]){
   const configured=item.getAttribute('data-lang');
