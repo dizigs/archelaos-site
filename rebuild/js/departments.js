@@ -2,7 +2,7 @@
 (()=>{'use strict';
 async function init(){
  // Illustrated cards live on this page, not on the homepage.
- const keys=['handball','track','archery','shooting','gymnastics','volleyball','wrestling','swimming','basketball'];
+ const keys=['handball','track','archery','shooting','gymnastics','volleyball','wrestling','swimming'];
  document.querySelectorAll('.new-sport-photo').forEach((photo,index)=>{
   const img=photo.querySelector('img');
   if(img){const fallback=()=>{photo.classList.add('new-photo-missing');photo.dataset.fallbackLabel=img.alt||'Γ.Α.Σ. Αρχέλαος';img.hidden=true};
