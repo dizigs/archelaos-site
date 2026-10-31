@@ -13,7 +13,7 @@
 .arch-nav>a:hover,.arch-nav summary:hover,.arch-nav details[open] summary{background:rgba(255,255,255,.105);color:white}
 .arch-nav [aria-current="page"]{color:#f4d992!important;background:rgba(216,182,110,.105)!important;border-color:rgba(216,182,110,.28)!important}
 .arch-nav details{position:relative}
-.arch-nav details summary::after{content:"⌄";font-size:15px;padding-left:6px}
+
 .arch-dropdown{position:absolute;right:0;top:calc(100% + 12px);min-width:238px;padding:10px;border:1px solid rgba(216,182,110,.43);background:#fffdf6;color:var(--arch-forest);border-radius:14px;box-shadow:0 20px 45px rgba(0,30,20,.2);display:grid;gap:3px}
 .arch-dropdown a{padding:12px 14px;border-radius:9px;text-decoration:none;font-weight:650;white-space:nowrap}
 .arch-dropdown a:hover{background:#f0e9d8}
@@ -53,7 +53,7 @@
 .arch-card-title{font:600 clamp(23px,2.5vw,32px)/1.25 Georgia,serif;position:relative;z-index:1;max-width:95%}
 .arch-card-watermark{position:absolute;right:12px;bottom:-10px;font:500 clamp(80px,11vw,144px)/1 Georgia,serif;color:rgba(7,61,42,.06);pointer-events:none;white-space:nowrap}
 .arch-card--green .arch-card-watermark{color:rgba(237,221,178,.095)}
-.arch-card-arrow{position:absolute;right:22px;top:19px;font:24px/1 Georgia,serif;color:var(--arch-gold)}
+
 .arch-card--small{min-height:172px}.arch-card--large{min-height:346px}.arch-card--wide{grid-column:span 2;min-height:310px}
 .arch-dialog{width:min(730px,calc(100vw - 26px));max-height:min(88dvh,850px);padding:0;border:1px solid #cbb77f;border-radius:20px;background:#fbf8ee;color:var(--arch-ink);box-shadow:0 28px 90px #001e1590;overflow:hidden}
 .arch-dialog-panel{display:flex;flex-direction:column;max-height:min(88dvh,850px)}
