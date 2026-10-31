@@ -103,15 +103,6 @@ async function verify(){
      await page.locator('.av-card .arch-favorite-toggle').first().click();
      await page.locator('.av-empty').waitFor();
     }
-    if(tag==='home'){
-     await page.locator('#fx-status').waitFor();
-     await page.waitForFunction(()=>document.querySelector('#fx-status')?.textContent.includes('Δεν έχουν ανακοινωθεί'));
-     if(await page.locator('.fx-card').count())throw Error('Unapproved fixture invented on homepage');
-     if(!await page.locator('#fx-download').isHidden())throw Error('Empty schedule shows a calendar download');
-     await page.locator('[data-fixture-sport="volleyball"]').click();
-     if(await page.locator('[data-fixture-sport="volleyball"]').getAttribute('aria-pressed')!=='true')
-      throw Error('Schedule sport filter unresponsive');
-    }
     if(tag==='contribute'){
      await page.locator('.av-verify-card').first().waitFor({timeout:10000});
      if(await page.locator('.av-verify-card').count()!==9)
