@@ -1,0 +1,29 @@
+/* Reference: backup/pre-v3-restore-2026-10-31. One color and spacing source. */
+:root {
+  --arch-forest:#073d2a;
+  --arch-forest-deep:#042b1e;
+  --arch-green-sheen:#0a4933;
+  --arch-gold:#c7a65e;
+  --arch-gold-pale:#e0c789;
+  --arch-cream:#f8f6ef;
+  --arch-paper:#e9dfcf;
+  --arch-paper-soft:#f4ede3;
+  --arch-ink:#18372a;
+  --arch-line:#d4c09a;
+  --arch-nav-height:82px;
+  --arch-radius:27px;
+  --arch-content-width:1150px;
+  --arch-focus:3px solid var(--arch-gold);
+  --arch-shadow:0 13px 34px rgba(4,47,29,.095);
+  --arch-shadow-hover:0 23px 46px rgba(4,47,29,.165);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--arch-nav-height) + 18px)}
+body{margin:0;padding-top:var(--arch-nav-height);background:var(--arch-cream);color:var(--arch-ink);font:15px/1.7 Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+body.arch-dialog-open{overflow:hidden}
+a{color:inherit}button{font:inherit;cursor:pointer}
+:where(a,button,summary):focus-visible{outline:var(--arch-focus);outline-offset:4px}
+[hidden]{display:none!important}
+.arch-container{width:min(var(--arch-content-width),calc(100% - 38px));margin-inline:auto}
+@media(max-width:600px){:root{--arch-nav-height:70px;--arch-radius:23px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}

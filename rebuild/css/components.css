@@ -1,0 +1,67 @@
+/* Rebuilt shared header, footer, editorial cards and accessible dialogs.
+   The colors and proportions follow the October 31 backup, not main. */
+.arch-header{position:fixed;inset:0 0 auto;z-index:1200;height:var(--arch-nav-height);background:rgba(5,48,33,.985);color:#f8f6ef;border-bottom:1px solid rgba(216,182,110,.48);box-shadow:0 4px 20px rgba(0,25,15,.19)}
+.arch-header-inner{height:100%;max-width:1460px;margin:auto;padding:0 clamp(14px,3vw,44px);display:flex;align-items:center;justify-content:space-between;gap:20px}
+.arch-brand{display:inline-flex;gap:12px;align-items:center;text-decoration:none;color:#fff8e7;flex-shrink:0}
+.arch-brand img{width:52px;height:52px;object-fit:contain}
+.arch-brand-lines{display:flex;flex-direction:column;min-width:0}
+.arch-brand-title{font:700 clamp(16px,1.35vw,20px)/1.25 Georgia,serif;letter-spacing:.04em;white-space:nowrap}
+.arch-brand-sub{font:600 10px/1.5 Inter,system-ui,sans-serif;color:#e5d09c;letter-spacing:.22em;margin-top:3px;white-space:nowrap}
+.arch-nav{display:flex;align-items:center;gap:clamp(2px,.35vw,10px);margin-left:auto;height:100%}
+.arch-nav>a,.arch-nav summary{list-style:none;text-decoration:none;font:700 clamp(11px,.91vw,14px)/1.4 Inter,system-ui,sans-serif;padding:11px clamp(7px,.8vw,13px);white-space:nowrap;color:#f3efe5;border:1px solid transparent;border-radius:10px;cursor:pointer}
+.arch-nav summary::-webkit-details-marker{display:none}
+.arch-nav>a:hover,.arch-nav summary:hover,.arch-nav details[open] summary{background:rgba(255,255,255,.105);color:white}
+.arch-nav [aria-current="page"]{color:#f4d992!important;background:rgba(216,182,110,.105)!important;border-color:rgba(216,182,110,.28)!important}
+.arch-nav details{position:relative}
+.arch-nav details summary::after{content:"⌄";font-size:15px;padding-left:6px}
+.arch-dropdown{position:absolute;right:0;top:calc(100% + 12px);min-width:238px;padding:10px;border:1px solid rgba(216,182,110,.43);background:#fffdf6;color:var(--arch-forest);border-radius:14px;box-shadow:0 20px 45px rgba(0,30,20,.2);display:grid;gap:3px}
+.arch-dropdown a{padding:12px 14px;border-radius:9px;text-decoration:none;font-weight:650;white-space:nowrap}
+.arch-dropdown a:hover{background:#f0e9d8}
+.arch-menu-open{display:none;width:43px;height:43px;align-items:center;justify-content:center;border:1px solid rgba(216,182,110,.45);border-radius:10px;background:rgba(255,255,255,.07);color:#fff9eb;font-size:25px}
+.arch-menu-dialog{position:fixed;inset:0 0 0 auto;margin:0;border:0;padding:0;width:min(430px,100vw);max-width:100vw;height:100dvh;max-height:100dvh;background:var(--arch-cream);color:var(--arch-forest);box-shadow:-20px 0 60px rgba(0,22,13,.25)}
+.arch-menu-dialog::backdrop,.arch-dialog::backdrop{background:rgba(0,28,18,.75)}
+.arch-menu-head{display:flex;justify-content:space-between;align-items:center;background:var(--arch-forest);color:var(--arch-cream);border-bottom:2px solid var(--arch-gold);padding:15px 19px;min-height:75px}
+.arch-menu-head strong{font:700 19px Georgia,serif}
+.arch-close{display:grid;place-items:center;width:42px;height:42px;border-radius:12px;border:1px solid #ddcba6;background:#f1e9d6;color:#173d2a;font:400 27px/1 Arial,sans-serif}
+.arch-close:hover{background:#e9d9ae;border-color:#b99b5d}
+.arch-menu-content{padding:16px 19px 32px;overflow-y:auto;max-height:calc(100dvh - 75px)}
+.arch-menu-group{font:800 11px/1.4 Inter,system-ui,sans-serif;letter-spacing:.16em;color:#8a753e;margin:20px 8px 8px}
+.arch-mobile-link{display:flex;align-items:center;min-height:49px;padding:12px 14px;margin:3px 0;border-radius:10px;text-decoration:none;font-weight:700}
+.arch-mobile-link:hover,.arch-mobile-link[aria-current="page"]{background:#eae3cf}
+.arch-mobile-link span{margin-left:auto;color:#9e8548}
+.arch-footer{background:var(--arch-forest-deep);color:#e8eee7;padding:50px 22px 24px;border-top:2px solid var(--arch-gold)}
+.arch-footer-inner{max-width:1150px;margin:auto}
+.arch-footer-top{display:flex;align-items:center;gap:14px}
+.arch-footer-top img{width:58px;height:58px;object-fit:contain}
+.arch-footer-top strong{display:block;font:700 22px/1.3 Georgia,serif;color:#fff8e7}
+.arch-footer-top small{font-size:12px;letter-spacing:.12em;color:#d5c28d}
+.arch-footer-rule{height:1px;background:linear-gradient(90deg,#c7a65e88,#fff2);margin:30px 0}
+.arch-footer-columns{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:30px}
+.arch-footer-columns h2{color:#e5cf95;font-size:13px;letter-spacing:.08em;margin:0 0 12px}
+.arch-footer-columns a{display:block;width:fit-content;color:#f8f6ef;font-size:14px;text-decoration:none;margin:7px 0}
+.arch-footer-columns a:hover{text-decoration:underline;color:#f6df9f}
+.arch-footer-bottom{border-top:1px solid #ffffff25;margin-top:29px;padding-top:19px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:#b0c3b5;font-size:12px}
+.arch-footer-social{display:flex;gap:14px;align-items:center;margin-top:20px}
+.arch-footer-social a{color:#f8f6ef;font-weight:600;text-decoration:none;font-size:13px}
+.arch-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.arch-card{position:relative;display:flex;align-items:center;justify-content:center;text-align:center;min-height:248px;padding:65px 27px 45px;isolation:isolate;overflow:hidden;border:1px solid var(--arch-line);border-radius:var(--arch-radius);text-decoration:none;box-shadow:var(--arch-shadow);transition:transform .24s,box-shadow .24s}
+.arch-card:hover{transform:translateY(-3px);box-shadow:var(--arch-shadow-hover)}
+.arch-card--cream{background:radial-gradient(ellipse at 12% 0%,rgba(255,255,255,.98),transparent 60%),linear-gradient(130deg,#fffdf7,#f8f1e3 66%,#eee4d0);color:var(--arch-forest)}
+.arch-card--green{background:radial-gradient(ellipse at 12% 0%,rgba(90,157,112,.26),transparent 57%),linear-gradient(130deg,#0a4a34 0%,#073d2a 62%,#052c1f);color:#fff9eb}
+.arch-card-date{position:absolute;top:21px;left:26px;color:#9e7d3e;font:700 24px/1.25 Georgia,serif}
+.arch-card--green .arch-card-date{color:#e0c789}
+.arch-card-title{font:600 clamp(23px,2.5vw,32px)/1.25 Georgia,serif;position:relative;z-index:1;max-width:95%}
+.arch-card-watermark{position:absolute;right:12px;bottom:-10px;font:500 clamp(80px,11vw,144px)/1 Georgia,serif;color:rgba(7,61,42,.06);pointer-events:none;white-space:nowrap}
+.arch-card--green .arch-card-watermark{color:rgba(237,221,178,.095)}
+.arch-card-arrow{position:absolute;right:22px;top:19px;font:24px/1 Georgia,serif;color:var(--arch-gold)}
+.arch-card--small{min-height:172px}.arch-card--large{min-height:346px}.arch-card--wide{grid-column:span 2;min-height:310px}
+.arch-dialog{width:min(730px,calc(100vw - 26px));max-height:min(88dvh,850px);padding:0;border:1px solid #cbb77f;border-radius:20px;background:#fbf8ee;color:var(--arch-ink);box-shadow:0 28px 90px #001e1590;overflow:hidden}
+.arch-dialog-panel{display:flex;flex-direction:column;max-height:min(88dvh,850px)}
+.arch-dialog-head{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;padding:24px 26px 15px;border-bottom:1px solid #e3d9c3}
+.arch-dialog h2{font:500 clamp(25px,4vw,35px)/1.18 Georgia,serif;color:var(--arch-forest);margin:0}
+.arch-dialog-body{padding:22px 26px 30px;overflow:auto;overscroll-behavior:contain;line-height:1.85;overflow-wrap:anywhere}
+.arch-dialog-body p{margin:0 0 1em}
+@media(max-width:1170px){.arch-nav{display:none}.arch-menu-open{display:flex}}
+@media(max-width:760px){.arch-cards{grid-template-columns:repeat(2,minmax(0,1fr))}.arch-card--wide{grid-column:auto}}
+@media(max-width:600px){.arch-brand{gap:9px}.arch-brand img{width:41px;height:41px}.arch-brand-title{font-size:15px}.arch-brand-sub{font-size:9px;letter-spacing:.115em}.arch-cards{grid-template-columns:1fr}.arch-card{min-height:215px}.arch-card--large{min-height:305px}.arch-footer{padding:36px 18px 20px}.arch-footer-top strong{font-size:18px}.arch-footer-columns{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}.arch-dialog-head{padding:18px}.arch-dialog-body{padding:18px}}
+@media(max-width:370px){.arch-brand-title{font-size:13px}.arch-brand-sub{font-size:8px}.arch-brand img{width:36px;height:36px}}

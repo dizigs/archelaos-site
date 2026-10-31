@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="el">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#073d2a">
+<title>Εσωτερική προεπισκόπηση · Ανακατασκευή Αρχέλαου</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/rebuild/css/tokens.css">
+<link rel="stylesheet" href="/rebuild/css/components.css">
+<script src="/rebuild/js/shell.js" defer></script>
+<script src="/rebuild/js/components.js" defer></script>
+</head>
+<body>
+<main>
+<section style="background:radial-gradient(ellipse at 80% 0%,#25553e,#073d2a 60%,#052b1e);color:#fff9eb;padding:75px 0 85px">
+<div class="arch-container">
+<p style="letter-spacing:.2em;color:#d6bb78;font-weight:800;font-size:12px;margin:0">1956 — 2026</p>
+<h1 style="font:400 clamp(42px,6vw,80px)/1.1 Georgia,serif;max-width:890px;margin:19px 0">Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης</h1>
+<p style="max-width:690px;margin:0;line-height:1.8;color:#e5e8df">Δοκιμή κοινών στοιχείων. Η εμφάνιση βασίζεται στο backup της 31ης Οκτωβρίου· δεν αποτελεί ακόμη την καινούργια αρχική σελίδα.</p>
+</div></section>
+<section class="arch-container" style="padding:62px 0 85px">
+<p style="color:#987941;letter-spacing:.14em;font-weight:800;font-size:12px;margin:0 0 10px">ΚΟΙΝΕΣ ΚΑΡΤΕΛΕΣ</p>
+<h2 style="font:500 clamp(30px,4vw,45px) Georgia,serif;color:#073d2a;margin:0 0 30px">Οι συλλογές μας</h2>
+<div class="arch-cards" id="arch-preview-cards"></div>
+<div style="margin-top:35px">
+<button id="arch-test-dialog" style="padding:13px 20px;border-radius:13px;background:#073d2a;color:#f8f6ef;border:1px solid #c7a65e">Δοκιμή popup ↗</button>
+</div>
+</section>
+</main>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+const target=document.querySelector('#arch-preview-cards');
+[
+ {title:'Ψηφιακό Μουσείο',marker:'1956',tone:'cream',href:'/history.html'},
+ {title:'70 Στιγμές',marker:'70',tone:'green',href:'/70-stigmes.html'},
+ {title:'Hall of Fame',tone:'cream',href:'/hall-of-fame.html'}
+].forEach(item=>target.append(window.ArchelaosUI.card(item)));
+document.querySelector('#arch-test-dialog').addEventListener('click',function(){
+ window.ArchelaosUI.openDialog({title:'Δοκιμή αναδυόμενου παραθύρου',paragraphs:[
+  'Το παράθυρο χρησιμοποιεί έναν κοινό μηχανισμό με σωστό κουμπί κλεισίματος, πληκτρολόγιο Escape και κύλιση μέσα στο περιεχόμενο.',
+  'Τα πραγματικά βιογραφικά και οι ιστορικές αφηγήσεις θα συνδεθούν με τα δεδομένα του backup στο επόμενο στάδιο.'
+ ]});
+});
+});
+</script>
+</body>
+</html>
