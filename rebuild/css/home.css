@@ -203,3 +203,6 @@
 :where(.fx-switch button,.fx-download,.fx-calendar-link):focus-visible{outline:3px solid #ac8942;outline-offset:3px}
 @media(max-width:1030px){.fx-cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:690px){.fx-heading{display:block}.fx-download{display:inline-flex;margin-top:16px}.fx-cards{grid-template-columns:1fr}.fx-card{padding:21px}.fx-switch button{flex:1}}
+
+/* Native [hidden] must win over responsive cards/download styles. */
+.fx-download[hidden],.fx-cards[hidden],.fx-empty[hidden]{display:none!important}

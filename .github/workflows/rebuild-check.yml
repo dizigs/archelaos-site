@@ -136,6 +136,11 @@ jobs:
         run: node rebuild/tests/archive_suggestions_api.cjs
       - name: Validate read-only editorial approval-board prototype
         run: python rebuild/tests/review_board.py
+      - name: Test imported Google/Apple/Outlook calendars and approved public fixtures
+        run: |
+          python rebuild/tests/match_calendar_import.py
+          python rebuild/tests/match_schedule.py
+          python rebuild/tools/build_match_schedule.py
       - name: Ensure all rebuild HTML pages are unpublished previews
         shell: bash
         run: |
