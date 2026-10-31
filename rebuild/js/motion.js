@@ -8,7 +8,7 @@
    'main .new-today-feature','main .arch-card','main .mu-nav-card',
    'main .mu-sport-item','main .rs-card','main .rm-card',
    'main .h-new-person','main .dp-card','main .ct-hero-card',
-   'main .sp-last-card','main .sr-card','main .rm-featured-item','main .rs-featured-card',
+   'main .sp-last-card','main .av-card','main .ac-tile','main .sr-card','main .rm-featured-item','main .rs-featured-card',
    'main .mu-archive-item','main .bd-era','main .rt-scoreboard'
  ].join(',');
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
