@@ -134,6 +134,8 @@ jobs:
         run: python rebuild/tests/event_decisions.py
       - name: Test disabled-by-default visitor proposal API and security boundaries
         run: node rebuild/tests/archive_suggestions_api.cjs
+      - name: Validate read-only editorial approval-board prototype
+        run: python rebuild/tests/review_board.py
       - name: Ensure all rebuild HTML pages are unpublished previews
         shell: bash
         run: |
