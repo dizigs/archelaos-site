@@ -97,11 +97,11 @@ async function fillVerificationContext(){
   if(!entry)return;
   verificationRequest={id:entry.id,title:entry.title};
   $('guide-context').hidden=false;
-  $('guide-context').textContent='Αίτημα προς τεκμηρίωση: '+entry.title+' · Κωδικός: '+entry.id;
+  $('guide-context').textContent='Αίτημα προς τεκμηρίωση: '+entry.title;
   const option=[...$('sport').options].find(x=>x.textContent===entry.sport_label);
   if(option)$('sport').value=option.value;
   $('type').value='Ιστορική μαρτυρία';
-  $('source').placeholder='Πηγή για το αίτημα '+entry.id;
+  $('source').placeholder='Αναφέρετε τη σχετική πηγή ή το τεκμήριο';
   $('guide-status').textContent='';
   refresh();
  }catch(error){console.warn('Cannot prefill evidence request',error)}
