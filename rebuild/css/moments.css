@@ -1,0 +1,47 @@
+/* 70 Moments visual language: upper-left year, centered heading, watermark bottom-right. */
+.rm-skip{position:fixed;top:-80px;left:12px;background:white;color:#073d2a;padding:11px;z-index:1500}.rm-skip:focus{top:12px}
+.rm-hero{background:radial-gradient(ellipse at 87% 15%,#285540,#073d2a 64%,#052a1d);padding:75px 0 84px;color:#fff8eb;position:relative;overflow:hidden}
+.rm-hero:after{content:"70";position:absolute;bottom:-.38em;right:4%;font:400 clamp(190px,36vw,450px) Georgia,serif;color:#fff2d30b;pointer-events:none}
+.rm-hero>.arch-container{position:relative;z-index:1}
+.rm-eyebrow{color:#d5bc82;letter-spacing:.18em;font-weight:850;font-size:11px;margin:0}
+.rm-hero h1{font:400 clamp(47px,7vw,94px)/1.05 Georgia,serif;letter-spacing:-.055em;margin:20px 0 18px}
+.rm-intro{max-width:750px;color:#dfebdf;line-height:1.85;font-size:18px}
+.rm-hero-actions{display:flex;align-items:center;flex-wrap:wrap;gap:14px;margin-top:30px}
+.rm-hero-actions a,.rm-hero-actions button{display:inline-flex;min-height:45px;align-items:center;padding:10px 18px;border:1px solid #d0ad6d;border-radius:12px;background:transparent;color:#fff3d6;text-decoration:none;font:750 13px Inter,system-ui,sans-serif}
+.rm-hero-actions a:hover,.rm-hero-actions button:hover{background:#ffffff12}
+.rm-content{background:#f8f6ef;padding:65px 0 98px}
+.rm-description{max-width:940px;color:#52705d;line-height:1.88;font-size:16px}
+.rm-filter-box{background:#fffdf8;border:1px solid #d9c8a4;border-radius:20px;padding:20px 24px;margin-top:28px}
+.rm-filter-label{display:block;color:#926f34;font-size:11px;letter-spacing:.15em;font-weight:800;margin-bottom:13px}
+.rm-filters{display:flex;flex-wrap:wrap;gap:8px}
+.rm-filters button{background:#f9f5eb;color:#073d2a;border:1px solid #cbb891;border-radius:10px;font:750 12px Inter,system-ui,sans-serif;padding:10px 14px}
+.rm-filters button.selected{background:#073d2a;color:#fff3d6;border-color:#073d2a}
+.rm-count{font-weight:700;color:#56705e;margin:24px 0}
+.rm-progress{display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px;color:#866f40;font-size:12px;font-weight:800;letter-spacing:.08em;margin:20px 0 44px}
+.rm-progress>div{grid-column:1/-1;background:#e4decf;height:3px;border-radius:10px;overflow:hidden}
+.rm-progress>div span{display:block;background:#c7a65e;height:100%;width:100%}
+.rm-timeline{position:relative;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:21px 27px}
+.rm-timeline:before{content:"";position:absolute;top:0;bottom:0;left:50%;width:1px;background:#d8c69f;pointer-events:none}
+.rm-decade{grid-column:1/-1;position:relative;z-index:1;margin:36px 0 12px;justify-self:center;padding:12px 26px;background:#073d2a;border:1px solid #c7a65e;border-radius:10px;color:#f8f1df;font:600 clamp(19px,2.4vw,27px) Georgia,serif;letter-spacing:.05em}
+.rm-moment{min-width:0}
+.rm-card{position:relative;isolation:isolate;display:flex;align-items:center;justify-content:center;text-align:center;width:100%;min-height:255px;padding:76px 28px 43px;overflow:hidden;border:1px solid #dce5dd;border-radius:23px;box-shadow:0 10px 30px rgba(5,45,28,.075);background:radial-gradient(ellipse at 12% 0%,#fffefa,transparent 60%),linear-gradient(130deg,#fffdf7,#f4ebda);color:#073d2a;transition:transform .24s,box-shadow .24s}
+.rm-moment:nth-of-type(even) .rm-card{background:radial-gradient(ellipse at 12% 0%,rgba(90,157,112,.26),transparent 57%),linear-gradient(130deg,#0a4a34 0%,#073d2a 62%,#052c1f);color:#fff9e9;border-color:#326a53}
+.rm-card:hover{transform:translateY(-3px);box-shadow:0 17px 38px rgba(5,45,28,.14)}
+.rm-year{position:absolute;left:28px;top:23px;z-index:2;color:#9e7d3e;font:700 clamp(20px,2.5vw,26px) Georgia,serif}
+.rm-moment:nth-of-type(even) .rm-year{color:#e0c789}
+.rm-arrow{position:absolute;right:25px;top:21px;color:#c7a65e;font:25px/1 Georgia,serif}
+.rm-title{position:relative;z-index:2;font:500 clamp(21px,2.4vw,31px)/1.3 Georgia,serif;max-width:97%;overflow-wrap:anywhere}
+.rm-watermark{position:absolute;right:12px;bottom:-.12em;color:rgba(7,61,42,.065);font:500 clamp(80px,11vw,145px)/1 Georgia,serif;letter-spacing:-.08em;white-space:nowrap;pointer-events:none}
+.rm-moment:nth-of-type(even) .rm-watermark{color:rgba(237,221,178,.095)}
+.rm-featured{margin-top:90px}
+.rm-featured-kicker{color:#997b43;letter-spacing:.17em;font-size:11px;font-weight:800}
+.rm-featured h2{font:400 clamp(35px,5vw,60px)/1.12 Georgia,serif;color:#073d2a;max-width:850px}
+.rm-featured>p:not(.rm-featured-kicker){color:#597160;line-height:1.8;max-width:780px}
+.rm-featured-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:34px}
+.rm-featured-item{display:flex;position:relative;flex-direction:column;text-align:left;justify-content:center;gap:13px;min-height:160px;padding:22px 60px 22px 25px;background:#fffdf6;border:1px solid #d7c69f;border-radius:17px;color:#073d2a}
+.rm-featured-item>span:first-child{font:600 22px Georgia,serif;color:#a0844c}
+.rm-featured-item strong{font:500 clamp(19px,2.5vw,26px)/1.3 Georgia,serif}
+.rm-featured-arrow{position:absolute;right:22px;top:20px;font:24px Georgia,serif;color:#9b7c3c}
+.rm-featured-item:hover{background:#f1eadb}
+@media(max-width:720px){.rm-timeline,.rm-featured-grid{grid-template-columns:1fr}.rm-timeline:before{left:18px}.rm-decade{justify-self:start;margin-left:35px}.rm-moment{margin-left:35px}.rm-card{min-height:215px;padding:70px 18px 30px}.rm-year{left:21px;top:18px}.rm-title{font-size:clamp(21px,5.2vw,28px)}.rm-featured{margin-top:65px}}
+@media(prefers-reduced-motion:reduce){.rm-card{transition:none}}
