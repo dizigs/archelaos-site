@@ -39,6 +39,8 @@ def inspect():
         source = path.read_text(encoding="utf-8")
         assert '/rebuild/css/motion.css' in source and '/rebuild/js/motion.js' in source, f"{path.name}: shared elegant motion missing"
         assert "noindex" in source, f"{path.name}: missing preview-only noindex"
+        if path.name not in ("preview.html", "contribute.html"):
+            assert '/rebuild/css/collection.css' in source and '/rebuild/js/favorites.js' in source, f"{path.name}: shared favorite module missing"
         parser = Assets(path)
         parser.feed(source)
         assert not parser.missing, "\n".join(parser.missing)

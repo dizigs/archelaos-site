@@ -8,7 +8,7 @@ const files=[
  ['index.html','home'],['history.html','museum'],['hall-of-fame.html','hall'],
  ['70-stigmes.html','moments'],['stories.html','stories'],['board.html','board'],
  ['contact.html','contact'],['sponsors.html','sponsors'],
- ['tmimata.html','departments'],['retro-matches.html','retro'],['search.html','search']
+ ['tmimata.html','departments'],['retro-matches.html','retro'],['search.html','search'],['favorites.html','favorites'],['contribute.html','contribute']
 ];
 async function verify(){
  mkdirSync(DEST,{recursive:true});
@@ -27,8 +27,8 @@ async function verify(){
     const canonical=await page.locator('link[rel="canonical"]').getAttribute('href');
     if(!canonical?.startsWith('https://archelaos.club/'))throw Error(name+': missing canonical');
     const robots=await page.locator('meta[name=robots]').getAttribute('content');
-    if(robots.includes('noindex') && name!=='search.html')throw Error(name+': release is noindex');
-    if(name==='search.html'&&!robots.includes('noindex'))throw Error('Public search results should be noindex');
+    if(robots.includes('noindex') && !['search.html','favorites.html'].includes(name))throw Error(name+': release is noindex');
+    if(['search.html','favorites.html'].includes(name)&&!robots.includes('noindex'))throw Error('Private collection or search should be noindex');
     const stageRefs=await page.locator('script[src^="/rebuild/"],link[href^="/rebuild/"]').count();
     if(stageRefs)throw Error(name+': staging asset leaked');
     if(tag==='hall')await page.waitForFunction(()=>document.querySelector('#hall-count')?.textContent.includes('682'));
@@ -50,6 +50,23 @@ async function verify(){
      await page.locator('[data-sr-filter="moment"]').click();
      await page.locator('[data-sr-filter="person"]').click();
      if(await page.locator('#sr-results .sr-card').count()===0)throw Error('Person search filter returns no results');
+    }
+    if(tag==='favorites'){
+     await page.locator('.av-empty').waitFor();
+     await page.evaluate(()=>window.ArchelaosFavorites.toggle('moment','1'));
+     await page.locator('.av-card').first().waitFor();
+     await page.reload({waitUntil:'domcontentloaded'});
+     await page.locator('.av-card').first().waitFor();
+     if(!await page.locator('.av-card').first().textContent())throw Error('Favorites not restored after reload');
+     await page.locator('[data-av-filter="moment"]').click();
+     if(await page.locator('.av-card').count()!==1)throw Error('Favorites filter failed');
+     await page.locator('.av-card .arch-favorite-toggle').first().click();
+     await page.locator('.av-empty').waitFor();
+    }
+    if(tag==='contribute'){
+     if(await page.locator('form,input[type="file"]').count())throw Error('Unexpected premature submission/upload');
+     const email=await page.locator('.ac-email').getAttribute('href');
+     if(!email?.startsWith('mailto:info@archelaos.club?subject='))throw Error('Contribution contact email missing');
     }
     if(tag==='contact'){
      const link=page.locator('[data-open-contact]').first();

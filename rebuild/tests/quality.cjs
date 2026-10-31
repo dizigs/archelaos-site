@@ -8,7 +8,7 @@ const BASE='http://127.0.0.1:8766';
 const routes=[
  'index.html','history.html','hall-of-fame.html','70-stigmes.html',
  'stories.html','board.html','contact.html','sponsors.html',
- 'tmimata.html','retro-matches.html','search.html'
+ 'tmimata.html','retro-matches.html','search.html','favorites.html','contribute.html'
 ];
 const output=path.join(__dirname,'..','test-artifacts','quality');
 mkdirSync(output,{recursive:true});
