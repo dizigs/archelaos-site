@@ -1,0 +1,41 @@
+/* Contact page — no fixed interactive overlay until the user opens the shared dialog. */
+.ct-skip{position:fixed;top:-80px;left:12px;z-index:1800;background:#fff;color:#073d2a;padding:10px}.ct-skip:focus{top:12px}
+.ct-hero{position:relative;overflow:hidden;color:#fff8e8;background:radial-gradient(ellipse at 81% 9%,#295e40,#073d2a 67%,#042a1b);padding:clamp(78px,10vw,142px) 0}
+.ct-hero:after{content:"70";position:absolute;right:3%;bottom:-.31em;font:400 clamp(180px,36vw,440px) Georgia,serif;color:#ffffff08;pointer-events:none}
+.ct-hero>.arch-container{position:relative;z-index:1}
+.ct-label{color:#9a7a3e;font-weight:850;font-size:11px;letter-spacing:.18em}
+.ct-hero .ct-label{color:#dec589}
+.ct-hero h1{font:400 clamp(45px,6vw,83px)/1.1 Georgia,serif;letter-spacing:-.05em;max-width:950px;margin:19px 0}
+.ct-hero h1 em{color:#e0c688}
+.ct-hero p{color:#deeadf;max-width:750px;line-height:1.85;font-size:17px}
+.ct-hero-actions{display:flex;flex-wrap:wrap;gap:13px;margin-top:29px;align-items:center}
+.ct-primary{display:inline-flex;padding:14px 22px;border:1px solid #c7a65e;border-radius:13px;background:#ead7aa;color:#073d2a;font-weight:800;min-height:48px}
+.ct-hero-actions>a{display:inline-flex;padding:13px 18px;border-radius:13px;border:1px solid #c7a65e;color:#fff1d3;text-decoration:none;font-weight:700}
+.ct-details,.ct-locations{background:#f8f6ef;padding:clamp(70px,8vw,115px) 0}
+.ct-details h2,.ct-locations h2,.ct-end h2{font:400 clamp(38px,5vw,63px)/1.13 Georgia,serif;letter-spacing:-.035em;margin:10px 0 35px;color:#073d2a}
+.ct-info-grid,.ct-venues-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:19px}
+.ct-detail,.ct-venue{position:relative;display:flex;flex-direction:column;align-items:start;gap:11px;min-height:160px;padding:29px;background:linear-gradient(136deg,#fffefa,#f1e8d6);border:1px solid #d4c09a;border-radius:24px;color:#073d2a;text-decoration:none;box-shadow:0 13px 35px #073d2a0f}
+.ct-detail:hover:is(a),.ct-venue:hover{box-shadow:0 20px 40px #073d2a20;transform:translateY(-2px)}
+.ct-detail>span,.ct-venue>span{font-size:11px;font-weight:850;letter-spacing:.16em;color:#9b7c3c}
+.ct-detail strong,.ct-venue strong{font:400 clamp(26px,3.1vw,37px)/1.2 Georgia,serif;overflow-wrap:anywhere}
+.ct-detail small,.ct-venue small{font-size:14px;color:#5d755e}
+.ct-detail b,.ct-venue b{position:absolute;top:25px;right:25px;font-size:24px;color:#9a7c44}
+.ct-quote{margin:75px 0 0;padding:40px 30px;text-align:center;border-top:1px solid #d3c096;border-bottom:1px solid #d3c096}
+.ct-quote blockquote{font:italic 400 clamp(23px,3.2vw,37px)/1.45 Georgia,serif;color:#9a7e43;max-width:900px;margin:auto}
+.ct-quote figcaption{font-weight:750;font-size:12px;color:#657663;letter-spacing:.1em;margin-top:24px}
+.ct-locations{background:#eee9dc}
+.ct-locations>div>p:not(.ct-label){color:#536957;margin-top:-15px;margin-bottom:36px}
+.ct-venue{min-height:210px}
+.ct-end{background:#073d2a;color:#fffdf4;text-align:center;padding:80px 0 100px}
+.ct-end h2{color:#fffdf4}
+.ct-end p{color:#d8e5d9;max-width:650px;margin:0 auto 25px}
+.ct-form{display:grid;gap:20px}
+.ct-form label{display:grid;gap:9px;font-weight:750;font-size:13px;color:#315541;min-width:0}
+.ct-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px}
+.ct-form input:not([type=checkbox]),.ct-form select,.ct-form textarea{display:block;width:100%;min-height:47px;border:1px solid #cbb991;background:#fffefb;border-radius:11px;color:#073d2a;padding:12px;font:500 15px/1.5 Inter,system-ui,sans-serif}
+.ct-form textarea{resize:vertical;min-height:135px}
+.ct-consent{display:flex!important;flex-direction:row;align-items:flex-start;gap:10px!important;font-size:12px!important;line-height:1.6}
+.ct-consent input{accent-color:#073d2a;width:19px;height:19px;flex:none}
+.ct-form-note{background:#f6efe0;border:1px solid #d8c79e;border-radius:11px;padding:11px 14px;color:#715c34;font-size:12px;line-height:1.7}
+.ct-submit{border:1px solid #c7a65e;border-radius:12px;background:#073d2a;color:#fff3d8;padding:14px 20px;font-weight:800}
+@media(max-width:680px){.ct-info-grid,.ct-venues-grid,.ct-form-grid{grid-template-columns:1fr}.ct-detail,.ct-venue{min-height:145px}.ct-quote{margin-top:50px;padding:28px 8px}}

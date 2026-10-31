@@ -29,7 +29,7 @@ class Assets(HTMLParser):
 
 def inspect():
     html_pages = sorted(REBUILD.glob("*.html"))
-    assert len(html_pages) >= 7, "expected multiple rebuilt pages"
+    assert len(html_pages) >= 8, "expected multiple rebuilt pages"
     for path in html_pages:
         source = path.read_text(encoding="utf-8")
         assert "noindex" in source, f"{path.name}: missing preview-only noindex"
