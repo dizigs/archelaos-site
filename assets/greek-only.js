@@ -10,15 +10,22 @@
  `;
  document.head.appendChild(css);
  const enforce=()=>{
+   // Do not write an already-present class or attribute: Chromium delivers
+   // MutationObserver records even for redundant classList.add calls.
    if(document.documentElement.lang!=='el')document.documentElement.lang='el';
-   document.documentElement.setAttribute('data-initial-lang','el');
+   if(document.documentElement.getAttribute('data-initial-lang')!=='el')
+     document.documentElement.setAttribute('data-initial-lang','el');
    if(document.body){
-     document.body.classList.remove('lang-en');
-     document.body.classList.add('lang-el');
+     if(document.body.classList.contains('lang-en'))
+       document.body.classList.remove('lang-en');
+     if(!document.body.classList.contains('lang-el'))
+       document.body.classList.add('lang-el');
    }
-   try{if(localStorage.getItem('archelaos_lang')!=='el')localStorage.setItem('archelaos_lang','el')}catch(_){}
+   try{
+     if(localStorage.getItem('archelaos_lang')!=='el')
+       localStorage.setItem('archelaos_lang','el');
+   }catch(_){}
  };
- enforce();
  const watch=new MutationObserver(enforce);
  watch.observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
  const restoreGreekText=()=>{
