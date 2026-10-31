@@ -193,6 +193,13 @@ dialog.arch-menu-dialog[open]{position:fixed!important;inset:0 0 0 auto!importan
 @media(max-width:600px){.arch-quote-pause{padding:31px 0 34px}.arch-quote-pause blockquote{font-size:20px;line-height:1.6}}
 
 
+/* Standard keyboard bypass to main content, available on every route. */
+.arch-skip-link{position:fixed;left:14px;top:-110px;z-index:1700;display:inline-block;
+ padding:12px 17px;border-radius:10px;background:#fff5db;color:#073d2a;
+ border:2px solid #9b7c38;font-size:14px;font-weight:800;text-decoration:none}
+.arch-skip-link:focus{top:12px;outline:3px solid #c7a65e;outline-offset:2px}
+@media print{.arch-a11y-launch,.arch-back-to-top,.arch-a11y-panel,.arch-skip-link{display:none!important}}
+
 /* Site-wide utilities: floating accessibility menu and back-to-top, including profiles/404. */
 .arch-a11y-launch,.arch-back-to-top{
  position:fixed;bottom:max(18px,env(safe-area-inset-bottom));display:grid;place-items:center;
