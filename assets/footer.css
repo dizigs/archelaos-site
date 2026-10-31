@@ -9,3 +9,16 @@
 /* Club social profiles: maintained centrally, cream links throughout. */
 .agf-social{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-top:14px}.agf-social a{display:inline-flex;align-items:center;justify-content:center;width:43px;height:43px;border:1px solid #c7a65e88;border-radius:50%;background:#f8f6ef0a;color:#f8f6ef;transition:background .2s,border-color .2s,transform .2s}.agf-social a:hover{background:#c7a65e24;border-color:#c7a65e;transform:translateY(-2px);text-decoration:none}.agf-social svg{display:block;width:21px;height:21px;fill:currentColor}.agf-sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .agf-brand{flex-wrap:wrap}.agf-brand>div{min-width:180px}
+
+/* Site-wide warm archival palette — shared across public pages. */
+:root{--arch-paper:#e9dfcf;--arch-paper-raised:#f0e7da;--arch-paper-soft:#f4ede3;--arch-logo-gold:#c7a65e;--arch-paper-border:#cbb99c}
+html body{--museum-cream:var(--arch-paper);--museum-gold:var(--arch-logo-gold)}
+/* Paper-colored main sections, not green heroes, images, dialogs or the global navigation. */
+body :is(.glass-section,.m54-panel,.museum-section-wrap,.museum-exhibit-index-inner,.museum-chapter-grid,.museum-reader-content,.heritage-section-panel){border-color:var(--arch-paper-border)}
+body :is(.glass-section,.m54-panel,.museum-section-wrap,.museum-exhibit-index-inner){background-color:var(--arch-paper)!important}
+body :is(.museum-exhibit,.history-archive-card,.m55-nav-card,.glass-card){border-color:var(--arch-paper-border)!important}
+body :is(.m55-nav-card,.history-archive-card){background-color:var(--arch-paper-soft)!important}
+#arch-global-footer{border-top-color:var(--arch-logo-gold)!important}
+#arch-global-footer .agf-line{background-color:var(--arch-logo-gold)!important}
+#arch-global-nav-root .asn-topbar{border-bottom-color:var(--arch-logo-gold)!important}
+@media(prefers-contrast:more){body :is(.m55-nav-card,.history-archive-card,.museum-exhibit){border-color:#725c38!important}}
