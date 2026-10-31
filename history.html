@@ -3233,164 +3233,30 @@ a.museum-subtle-link:focus-visible{outline:3px solid #c7a65e;outline-offset:3px}
   #chapters .history-archive-card { transition: none; }
 }
 </style>
-<style id="v31-museum-unified-modal-scroll">
-/* V3.1: consistent scroll-safe museum popups, including short mobile viewports. */
-@media (max-width: 767px), (max-height: 650px) {
-  #historyArchiveModal, #historyPresidentModal, #timelineDetailModal,
-  #deptHistoryModal, #registrationModal {
-    box-sizing: border-box !important;
-    padding: max(10px, env(safe-area-inset-top)) 10px max(10px, env(safe-area-inset-bottom)) !important;
-    overflow-y: auto !important;
-    overscroll-behavior: contain;
-  }
-  #historyArchiveModal .modal-box, #historyPresidentModal .modal-box,
-  #timelineDetailModal .modal-box, #deptHistoryModal .modal-box,
-  #registrationModal .modal-box {
-    box-sizing: border-box !important;
-    width: 100%;
-    min-height: 0 !important;
-    max-width: 100% !important;
-    max-height: calc(100dvh - 24px) !important;
-    margin: auto !important;
-    overflow-x: hidden !important;
-    overflow-y: auto !important;
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior-y: contain;
-    scroll-padding-bottom: 28px;
-  }
-  #timelineDetailModal .modal-box, #deptHistoryModal .modal-box,
-  #registrationModal .modal-box, #historyPresidentModal .modal-box {
-    padding-bottom: max(28px, env(safe-area-inset-bottom)) !important;
-  }
+
+
+<style id="v31-museum-archive-fixed-close">
+/* Close control is a sibling of the dialog panel, never clipped by the panel's scroll. */
+#historyArchiveModal > .v70-archive-close {
+  position: fixed !important;
+  top: max(16px, env(safe-area-inset-top)) !important;
+  right: max(16px, env(safe-area-inset-right)) !important;
+  left: auto !important;
+  z-index: 100 !important;
+  width: 46px !important;
+  height: 46px !important;
+  margin: 0 !important;
+  display: grid !important;
+  place-items: center !important;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
-/* Archive popup uses a fixed-height frame with a dedicated inner scroll pane. */
-#historyArchiveModal .modal-box {
-  position: relative;
-  min-height: 0 !important;
-  max-height: calc(100dvh - 24px) !important;
-  overflow: hidden !important;
-  display: flex !important;
-  flex-direction: column !important;
-}
-#historyArchiveModal #historyArchiveContent {
-  flex: 1 1 auto !important;
-  min-height: 0 !important;
-  overflow-x: hidden !important;
-  overflow-y: auto !important;
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior-y: contain;
-  padding-bottom: max(95px, calc(env(safe-area-inset-bottom) + 75px)) !important;
-  scroll-padding-bottom: 95px;
-}
-</style>
-<style id="v31-museum-archive-scroll-repair">
-/* Single scrolling surface for long museum archives: no nested clipped scroller. */
-#historyArchiveModal.is-open {
-  display: block !important;
-  overflow-x: hidden !important;
-  overflow-y: auto !important;
-  overscroll-behavior-y: contain;
-  padding: max(12px, env(safe-area-inset-top)) 10px max(32px, env(safe-area-inset-bottom)) !important;
-}
-#historyArchiveModal .modal-box {
-  display: block !important;
-  height: auto !important;
-  min-height: 0 !important;
-  max-height: none !important;
-  overflow: visible !important;
-  margin: 0 auto 22px !important;
-}
-#historyArchiveModal #historyArchiveContent {
-  height: auto !important;
-  min-height: 0 !important;
-  max-height: none !important;
-  overflow: visible !important;
-  padding-bottom: 48px !important;
-}
-#historyArchiveModal .v70-archive-close {
-  position: sticky !important;
-  top: 10px !important;
-  float: right;
-  margin: 10px 10px -54px 0;
-  z-index: 50 !important;
-}
+#historyArchiveModal .modal-box { min-height: 0 !important; }
+#historyArchiveModal #historyArchiveContent { min-height: 0 !important; overflow-y: auto !important; padding-bottom: 90px !important; }
 @media(max-width:767px) {
-  #historyArchiveModal .modal-box { width:100% !important; }
-  #historyArchiveModal #historyArchiveContent { padding-bottom:65px !important; }
+  #historyArchiveModal .modal-box { max-height: calc(100dvh - 24px) !important; overflow: hidden !important; }
+  #historyArchiveModal > .v70-archive-close { top: max(12px, env(safe-area-inset-top)) !important; right: max(12px, env(safe-area-inset-right)) !important; }
 }
-</style>
-<style id="v31-museum-mobile-fullscreen-archive">
-/* Mobile archive behaves as one full-screen scroll view, avoiding nested scroll clipping. */
-@media (max-width: 767px) {
-  #historyArchiveModal.is-open {
-    position: fixed !important;
-    inset: 0 !important;
-    z-index: 9999 !important;
-    display: block !important;
-    width: 100vw !important;
-    height: 100dvh !important;
-    max-height: 100dvh !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    overflow-x: hidden !important;
-    overflow-y: auto !important;
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior-y: contain;
-  }
-  #historyArchiveModal .modal-box {
-    position: relative !important;
-    width: 100% !important;
-    max-width: none !important;
-    height: auto !important;
-    max-height: none !important;
-    min-height: 100dvh !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    border-radius: 0 !important;
-    overflow: visible !important;
-    display: block !important;
-    transform: none !important;
-  }
-  #historyArchiveModal #historyArchiveContent {
-    display: block !important;
-    height: auto !important;
-    max-height: none !important;
-    min-height: 100dvh !important;
-    overflow: visible !important;
-    padding: 76px 18px max(120px, calc(env(safe-area-inset-bottom) + 96px)) !important;
-    box-sizing: border-box !important;
-  }
-  #historyArchiveModal .v70-archive-close {
-    position: sticky !important;
-    top: max(12px, env(safe-area-inset-top)) !important;
-    right: auto !important;
-    left: auto !important;
-    margin: 12px 12px -56px auto !important;
-    width: 48px !important;
-    height: 48px !important;
-    display: grid !important;
-    place-items: center !important;
-    background: #073d2a !important;
-    color: #ffffff !important;
-    border: 2px solid #c7a65e !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    pointer-events: auto !important;
-    box-shadow: 0 4px 16px rgba(0,0,0,.28) !important;
-    z-index: 10001 !important;
-    float: none !important;
-  }
-  #historyArchiveModal .v70-archive-close svg {
-    display: block !important;
-    stroke: currentColor !important;
-    width: 22px !important;
-    height: 22px !important;
-  }
-  #historyArchiveModal .v70-archive-close svg path {
-    stroke: #fff !important;
-    stroke-width: 3 !important;
-  }
-  }
 </style></head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow arch-gold-page" data-arch-people-page="history">
 <!-- ANIMATED CONTOUR WAVES -->
@@ -5525,7 +5391,8 @@ a.museum-subtle-link:focus-visible{outline:3px solid #c7a65e;outline-offset:3px}
 </template>
 <!-- Full-history topic popup -->
 <div aria-hidden="true" aria-labelledby="historyArchiveTitle" aria-modal="true" class="modal-backdrop fixed inset-0 z-[70] flex items-start sm:items-center justify-center overflow-y-auto bg-black/65 backdrop-blur-sm p-2 sm:p-4" id="historyArchiveModal" role="dialog">
-<div class="modal-box max-w-6xl w-full max-h-[94vh] mx-auto my-2 sm:my-4 rounded-[1.6rem] sm:rounded-[2rem] bg-white border-2 border-archelaos-deepgreen/25 shadow-2xl overflow-hidden flex flex-col"><button aria-label="Κλείσιμο / Close" class="v70-archive-close" onclick="closeHistoryArchive()" type="button"><svg aria-hidden="true" focusable="false" height="20" viewbox="0 0 24 24" width="20"><path d="M5 5L19 19M19 5L5 19" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2.8"></path></svg></button>
+<button aria-label="Κλείσιμο / Close" class="v70-archive-close" onclick="closeHistoryArchive()" type="button"><svg aria-hidden="true" focusable="false" height="20" viewbox="0 0 24 24" width="20"><path d="M5 5L19 19M19 5L5 19" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2.8"></path></svg></button>
+<div class="modal-box max-w-6xl w-full max-h-[94vh] mx-auto my-2 sm:my-4 rounded-[1.6rem] sm:rounded-[2rem] bg-white border-2 border-archelaos-deepgreen/25 shadow-2xl overflow-hidden flex flex-col">
 <div class="history-archive-content min-h-0 overflow-y-auto overscroll-contain p-3 sm:p-7" id="historyArchiveContent"></div>
 </div>
 </div>
