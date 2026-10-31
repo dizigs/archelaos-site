@@ -132,6 +132,8 @@ jobs:
           retention-days: 14
       - name: Validate owner-only final approval and block conflicting research
         run: python rebuild/tests/event_decisions.py
+      - name: Test disabled-by-default visitor proposal API and security boundaries
+        run: node rebuild/tests/archive_suggestions_api.cjs
       - name: Ensure all rebuild HTML pages are unpublished previews
         shell: bash
         run: |
