@@ -2,8 +2,10 @@
 (()=>{'use strict';
  const init=()=>{
   if(document.querySelector('.arch-welcome'))return;
-  if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-  try{if(sessionStorage.getItem('arch-welcome-2026')==='seen')return;sessionStorage.setItem('arch-welcome-2026','seen')}catch{return}
+  // First visit per tab only. Preview supports ?welcome=1 to inspect again.
+  // Respect reduced motion via CSS rather than hiding the welcome entirely.
+  const force=/^(127\.0\.0\.1|localhost)$/.test(location.hostname)&&new URLSearchParams(location.search).has('welcome');
+  try{if(!force&&sessionStorage.getItem('arch-welcome-2026')==='seen')return;sessionStorage.setItem('arch-welcome-2026','seen')}catch{ /* Private browsing may block storage. Welcome still works. */ }
   const root=document.createElement('div');root.className='arch-welcome';root.setAttribute('role','status');root.setAttribute('aria-label','Καλώς ήρθατε στον Γ.Α.Σ. Αρχέλαο');
   const inner=document.createElement('div');inner.className='arch-welcome-inner';
   const ring=document.createElement('div');ring.className='arch-welcome-ring';
