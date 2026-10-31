@@ -21,32 +21,8 @@
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Manrope:wght@600;700;800;900&amp;display=swap&amp;subset=greek,latin" rel="stylesheet"/>
-<!-- Tailwind CSS CDN -->
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              archelaos: {
-                yellow: '#c7a65e',
-                lemon: '#c7a65e',
-                light: '#f1e4c4',
-                darkgreen: '#008a28',
-                deepgreen: '#084c24',
-                forest: '#0d5c2e',
-                accentgreen: '#15803D',
-                surface: '#FFFFFF',
-              }
-            },
-            fontFamily: {
-              heading: ['Manrope', 'Inter', 'sans-serif'],
-              body: ['Inter', 'sans-serif'],
-            }
-          }
-        }
-      }
-    </script>
+<!-- Precompiled Tailwind styles: no runtime DOM rescanning -->
+<link rel="stylesheet" href="/assets/tailwind-static-candidate.css?v=3-stable"/>
 <!-- Font Awesome 6 Icons -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
 <style>
@@ -1093,9 +1069,7 @@ html.arch-welcome-pending #archWelcome{display:flex}
 @media(max-width:480px){#archWelcome:after{inset:10px;border-radius:13px}.arch-welcome-crest-wrap{margin:28px auto 22px}.arch-welcome-content{padding-bottom:70px}.arch-welcome-top{letter-spacing:.16em}}
 @media(prefers-reduced-motion:reduce){#archWelcome *,#archWelcome:before,#archWelcome:after{animation:none!important;transition:none!important}.arch-welcome-progress>span{transform:none!important}}
 </style>
-<script id="archelaos-first-welcome-preflight">
-(function(){try{if(!localStorage.getItem('archelaos-welcome-seen-v2')&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('arch-welcome-pending')}}catch(e){/* Storage unavailable: don't block entry. */}})();
-</script>
+
 <style id="archelaos-premium-menu-2026">
 /* Navigation visual system: same identity, intentional light and dark palettes. */
 :root{--arch-menu-bg:rgba(255,255,255,.94);--arch-menu-text:#084c24;--arch-menu-border:rgba(8,76,36,.16);--arch-menu-hover:#e9f3eb;--arch-menu-active:#084c24;--arch-menu-active-text:#c7a65e;--arch-overlay-bg:#f6f8f2;--arch-overlay-text:#084c24;--arch-overlay-line:rgba(8,76,36,.16);--arch-overlay-muted:#55745d}
@@ -2946,19 +2920,21 @@ main p,main li,article p,article li{line-height:1.72;}
 #departments .department-card[data-sport-index="03"] .editorial-sport-photo img{object-fit:cover!important;object-position:50% 32%!important}
 @media(max-width:720px){#about .slideshow-slide[data-sport-en="Archery"] img{object-position:48% 48%!important}}
 </style>
+<style id="arch-v3-home-stability-2026">
+/* Never hide page content behind animation-dependent visibility gates. */
+html.arch-welcome-pending,html.arch-welcome-pending body{overflow:auto!important}
+#archWelcome{display:none!important}
+.reveal-text,.reveal-text:not(.is-visible),.arch-polish-reveal,.arch-values-reveal,.arch-whisper[data-arch-reveal]{
+ opacity:1!important;visibility:visible!important;transform:none!important;filter:none!important;
+ transition:none!important;will-change:auto!important;
+}
+/* Heavy fixed full-viewport animations are dispensable on desktop. */
+@media(min-width:768px){
+.animate-waves,.hero-emblem-float{animation:none!important;will-change:auto!important}
+}
+</style>
 </head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow">
-<div aria-hidden="true" aria-label="Καλώς ήρθατε στον Αρχέλαο" aria-modal="true" id="archWelcome" role="dialog">
-<div aria-hidden="true" class="arch-welcome-edge"></div>
-<div class="arch-welcome-content">
-<div class="arch-welcome-top">Γ.Α.Σ. «Ο ΑΡΧΕΛΑΟΣ» · ΚΑΤΕΡΙΝΗ</div>
-<div class="arch-welcome-crest-wrap"><img alt="Επίσημο έμβλημα Γ.Α.Σ. Αρχέλαος" class="arch-welcome-crest" decoding="async" fetchpriority="high" loading="eager" src="archelaos-logo-gold.png"/></div>
-<h2 class="arch-welcome-title"><span data-lang="el">Καλώς ήρθατε.</span><span data-lang="en">Welcome.</span></h2>
-<p class="arch-welcome-sub"><span data-lang="el">70 χρόνια ιστορίας · 1956—2026</span><span data-lang="en">70 years of history · 1956—2026</span></p>
-<div aria-hidden="true" class="arch-welcome-progress"><span></span></div>
-</div>
-<button class="arch-welcome-skip" id="archWelcomeSkip" type="button"><span data-lang="el">Είσοδος στη σελίδα</span><span data-lang="en">Enter website</span> <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></button>
-</div>
 <!-- ANIMATED CONTOUR WAVES -->
 <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-75">
 <svg class="animate-waves absolute -top-10 -left-10 w-[120vw] h-[120vh] min-w-[1400px]" fill="none" preserveaspectratio="none" viewbox="0 0 1600 1000" xmlns="http://www.w3.org/2000/svg">
@@ -4360,14 +4336,14 @@ main p,main li,article p,article li{line-height:1.72;}
           } else {
             slideStartTime = now - (parseFloat(progressBar.style.width || 0) / 100) * slideDuration;
           }
-          slideTimerId = requestAnimationFrame(tickProgressBar);
+          slideTimerId = window.setTimeout(() => tickProgressBar(performance.now()), 250);
         }
 
         function resetAndStartProgress() {
-          if (slideTimerId) cancelAnimationFrame(slideTimerId);
+          if (slideTimerId) window.clearTimeout(slideTimerId);
           slideStartTime = performance.now();
           if (progressBar) progressBar.style.width = '0%';
-          slideTimerId = requestAnimationFrame(tickProgressBar);
+          slideTimerId = window.setTimeout(() => tickProgressBar(performance.now()), 250);
         }
 
         function goToSlide(index) {
@@ -4604,38 +4580,7 @@ function openJoinContact(kind) {
   setTimeout(()=>document.getElementById('formName')?.focus({preventScroll:true}),450);
 }
 </script>
-<script id="archelaos-first-welcome-behavior">
-(function(){
- const overlay=document.getElementById('archWelcome');
- const btn=document.getElementById('archWelcomeSkip');
- if(!overlay||!btn)return;
- if(!document.documentElement.classList.contains('arch-welcome-pending'))return;
- overlay.setAttribute('aria-hidden','false');
- let finished=false;
- let timeout;
- const previousFocus=document.activeElement;
- function finish(){
-   if(finished)return;
-   finished=true;
-   clearTimeout(timeout);
-   try{localStorage.setItem('archelaos-welcome-seen-v2','1')}catch(e){}
-   overlay.classList.add('arch-welcome-exiting');
-   overlay.setAttribute('aria-hidden','true');
-   const remove=()=>{
-     document.documentElement.classList.remove('arch-welcome-pending');
-     overlay.remove();
-     if(previousFocus&&previousFocus!==document.body&&previousFocus.isConnected)previousFocus.focus({preventScroll:true});
-   };
-   const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-   setTimeout(remove,reduced?0:1180);
- }
- btn.addEventListener('click',finish);
- document.addEventListener('keydown',function(e){if(!finished&&e.key==='Escape')finish()});
- timeout=setTimeout(finish,5000);
- window.addEventListener('pageshow',function(e){if(e.persisted)finish()},{once:true});
- btn.focus({preventScroll:true});
-})();
-</script>
+
 <script id="arch-premium-menu-behavior">(function(){
  const menu=document.getElementById('mobileMenu'),button=document.getElementById('mobileMenuBtn');
  if(!menu||!button)return;
