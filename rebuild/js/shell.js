@@ -126,16 +126,26 @@ function renderFooter(){
   }
   document.body.append(footer);
 }
+function rewritePreviewLink(link){
+ if(!link||!link.matches('a[href]'))return;
+ const raw=link.getAttribute('href');if(!raw||raw.startsWith('#'))return;
+ let url;try{url=new URL(raw,location.href)}catch(_){return}
+ if(url.origin!==location.origin||url.pathname.startsWith('/rebuild/'))return;
+ const file=url.pathname.replace(/^\//,'');
+ if(!COMPLETED.has(file))return;
+ link.href='/rebuild/'+file+url.search+url.hash;
+}
 function routePreviewLinks(){
  if(!location.pathname.startsWith('/rebuild/'))return;
- // Migration-only routing: public pages remain untouched, unfinished pages remain at their original URL.
- for(const link of document.querySelectorAll('a[href]')){
-  const raw=link.getAttribute('href');if(!raw||raw.startsWith('#'))continue;
-  let url;try{url=new URL(raw,location.href)}catch(_){continue}
-  if(url.origin!==location.origin||url.pathname.startsWith('/rebuild/'))continue;
-  const file=url.pathname.replace(/^\//,'');
-  if(!COMPLETED.has(file))continue;
-  link.href='/rebuild/'+file+url.search+url.hash;
+ // Existing anchors, including the shared footer, are rewritten immediately.
+ // Late-rendered museum/search/favorites cards are handled on interaction:
+ // no MutationObserver, no click hijacking, and no changes to public release links.
+ document.querySelectorAll('a[href]').forEach(rewritePreviewLink);
+ for(const type of ['pointerdown','focusin','click']){
+  document.addEventListener(type,event=>{
+   const target=event.target;
+   if(target instanceof Element)rewritePreviewLink(target.closest('a[href]'));
+  },true);
  }
 }
 function ready(){renderHeader();renderFooter();routePreviewLinks();updateFavoriteCounts()}
