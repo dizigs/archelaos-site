@@ -36,6 +36,15 @@ async function verify(){
     if(tag==='museum')await page.locator('.mu-sports-link').first().waitFor();
     if(tag==='stories')await page.locator('.rs-card').first().waitFor();
     if(tag==='board')await page.locator('.bd-member').first().waitFor();
+    if(tag==='board'){
+     await page.locator('.bd-era').first().click();
+     const dialog=page.locator('dialog.arch-dialog[open]');
+     await dialog.waitFor();
+     if(/Έχετε συμπληρωματικά στοιχεία|Επικοινωνήστε μαζί μας|Have additional information|Contact us/i.test(await dialog.innerText()))
+      throw Error('Redundant contact CTA leaked into historical Board popup');
+     await dialog.locator('.arch-close').click();
+     await dialog.waitFor({state:'hidden'});
+    }
     if(tag==='departments')await page.locator('.dp-card').first().waitFor();
     if(tag==='retro')await page.locator('.rt-scoreboard').first().waitFor();
     if(tag==='home'){
