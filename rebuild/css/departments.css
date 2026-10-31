@@ -66,3 +66,27 @@
 .dp-sport-gallery .new-sport-photo.new-photo-missing>span{z-index:1}
 @media(max-width:980px){.dp-sport-gallery .new-sport-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:550px){.dp-sport-gallery .new-sport-grid{grid-template-columns:1fr}.dp-sport-gallery .new-sport-photo{height:180px}.dp-sport-gallery .new-sport-body{padding:14px 16px 17px}}
+
+
+/* Nine sporting watermarks replace dates ONLY on active/historical sport cards.
+   The separate 'Ιστορικά τμήματα' card retains its original date watermark. */
+.dp-card .dp-silhouette{
+ position:absolute;right:-15px;bottom:-37px;width:min(60%,260px);height:230px;
+ background-position:right bottom;background-repeat:no-repeat;background-size:contain;
+ opacity:.105;filter:blur(2.1px);pointer-events:none;z-index:0;
+ transition:opacity .3s ease,filter .3s ease,transform .3s ease;
+}
+.dp-green .dp-silhouette{filter:blur(2.3px) brightness(0) invert(1);opacity:.09}
+.dp-card:hover .dp-silhouette{opacity:.17;filter:blur(1.1px);transform:scale(1.035)}
+.dp-green:hover .dp-silhouette{opacity:.15;filter:blur(1.2px) brightness(0) invert(1)}
+.dp-card[data-dp-open="handball"] .dp-silhouette{background-image:url("../images/sport-silhouettes/handball.svg")}
+.dp-card[data-dp-open="track"] .dp-silhouette{background-image:url("../images/sport-silhouettes/track.svg")}
+.dp-card[data-dp-open="archery"] .dp-silhouette{background-image:url("../images/sport-silhouettes/archery.svg")}
+.dp-card[data-dp-open="shooting"] .dp-silhouette{background-image:url("../images/sport-silhouettes/shooting.svg")}
+.dp-card[data-dp-open="gymnastics"] .dp-silhouette{background-image:url("../images/sport-silhouettes/gymnastics.svg")}
+.dp-card[data-dp-open="volleyball"] .dp-silhouette{background-image:url("../images/sport-silhouettes/volleyball.svg")}
+.dp-card[data-dp-open="wrestling"] .dp-silhouette{background-image:url("../images/sport-silhouettes/wrestling.svg")}
+.dp-card[data-dp-open="swimming"] .dp-silhouette{background-image:url("../images/sport-silhouettes/swimming.svg")}
+.dp-card[data-dp-open="basketball"] .dp-silhouette{background-image:url("../images/sport-silhouettes/basketball.svg")}
+@media(max-width:650px){.dp-card .dp-silhouette{right:-25px;bottom:-30px;width:190px;height:195px;opacity:.08}}
+@media(prefers-reduced-motion:reduce){.dp-card .dp-silhouette{transition:none!important}}
