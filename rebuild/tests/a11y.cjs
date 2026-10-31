@@ -71,6 +71,6 @@ async function test(){
  for(const v of serious.slice(0,20))console.warn('A11Y',v.where,v.impact,v.id,JSON.stringify(v.nodes.map(n=>n.target)));
  for(const e of report.errors)console.error('INTERACTION',e.where,e.message);
  // New shared navigation must work even if older archived content needs remediation.
- if(report.errors.length||report.violations.some(v=>v.impact==='critical'))process.exitCode=1;
+ if(report.errors.length||report.violations.some(v=>['critical','serious'].includes(v.impact)))process.exitCode=1;
 }
 test().catch(e=>{console.error(e);process.exit(1)});

@@ -22,3 +22,7 @@
 .ac-contact small{color:#475e4a}
 .ac-contact .av-kicker{color:#635026}
 .mu-press-item span{color:#edd5a2}
+
+/* Final small-caption fixes discovered during representative WCAG checks. */
+.new-philosophy small{color:#49604b}
+.new-philosophy-date{color:#604a22}
