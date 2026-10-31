@@ -112,3 +112,38 @@
  .mu-sports-link-description{font-size:12px}
 }
 @media(prefers-reduced-motion:reduce){.mu-sports-link{transition:none}.mu-sports-link:hover{transform:none}}
+
+
+/* On-demand guided museum tour; small coachmark, never an automatic popup. */
+.mu-tour{
+ position:fixed;top:auto;left:auto;right:clamp(15px,3.5vw,56px);bottom:clamp(15px,3.5vw,46px);
+ z-index:2900;margin:0;width:min(440px,calc(100vw - 30px));max-width:none;max-height:min(78vh,540px);
+ overflow:auto;box-sizing:border-box;padding:24px 26px 22px;
+ border-radius:19px;border:1px solid #ccb277;
+ color:#073d2a;background:#fffbf0;box-shadow:0 18px 72px #061a1390;
+}
+.mu-tour:not([open]){display:none}
+.mu-tour-top{display:flex;align-items:start;justify-content:space-between;gap:15px}
+.mu-tour-brand{color:#9a783d;font:800 9px/1.5 Inter,system-ui,sans-serif;letter-spacing:.12em}
+.mu-tour-close{width:36px;height:36px;flex:none;display:grid;place-items:center;border:1px solid #d8c39b;border-radius:9px;background:#f0e6d1;color:#073d2a;font-size:23px;line-height:1;cursor:pointer}
+.mu-tour-count{margin:13px 0 11px;color:#967138;font:800 11px Inter,system-ui,sans-serif;letter-spacing:.13em}
+.mu-tour-progress{display:flex;gap:6px;margin-bottom:16px}
+.mu-tour-dot{flex:1;height:3px;border-radius:6px;background:#ddd0b5}
+.mu-tour-dot.is-active{background:#b38d45}
+.mu-tour-title{margin:0 0 10px;color:#073d2a;font:400 clamp(25px,3.5vw,32px)/1.17 Georgia,serif}
+.mu-tour-desc{margin:0;color:#456451;font-size:13px;line-height:1.75}
+.mu-tour-actions{display:flex;align-items:center;gap:10px;margin-top:23px;flex-wrap:wrap}
+.mu-tour-actions button{font:750 12px/1.3 Inter,system-ui,sans-serif;min-height:40px;border-radius:9px;cursor:pointer;padding:10px 12px}
+.mu-tour-next{border:1px solid #073d2a;background:#073d2a;color:#fffbf0}
+.mu-tour-back{border:1px solid #c8b991;background:transparent;color:#073d2a}
+.mu-tour-back:disabled{opacity:.38;cursor:default}
+.mu-tour-skip{border:0;background:transparent;color:#876c38;margin-right:auto}
+.mu-tour button:focus-visible{outline:2px solid #b58d43;outline-offset:3px}
+.mu-tour-focus{outline:3px solid #d5ae64;outline-offset:8px;border-radius:7px;position:relative;z-index:2;box-shadow:0 0 0 9px #d5ae6425;transition:box-shadow .2s ease}
+@media(max-width:650px){
+ .mu-tour{right:12px;left:12px;bottom:12px;width:auto;padding:17px 18px 16px;max-height:52vh;border-radius:15px;box-shadow:0 12px 40px #061a13a6}
+ .mu-tour-desc{font-size:12px;line-height:1.55}
+ .mu-tour-title{font-size:25px}
+ .mu-tour-actions{margin-top:13px}
+}
+@media(prefers-reduced-motion:reduce){.mu-tour-focus{transition:none}}
