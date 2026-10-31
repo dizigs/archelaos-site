@@ -8,7 +8,7 @@ const stage=()=>location.pathname.startsWith('/rebuild/');
 const labels={handball:'ΧΑΝΤΜΠΟΛ',volleyball:'ΒΟΛΕΪ'};
 const create=(tag,cls,content)=>{const node=document.createElement(tag);if(cls)node.className=cls;
  if(content!==undefined)node.textContent=String(content);return node};
-let fixtures=[],sport='all';
+let fixtures=[],sport='all',venueFilter='all';
 function heritage(){
  const current=Number(new Intl.DateTimeFormat('en-US',{timeZone:'Europe/Athens',year:'numeric'}).format(new Date()));
  if(current<2026||current>2200)return;
@@ -21,6 +21,7 @@ const dateOnly=d=>typeof d==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(d);
 const displayDate=x=>dateOnly(x.date)?new Date(x.date+'T12:00:00Z'):dateOf(x.start_at);
 const todayAthens=()=>new Intl.DateTimeFormat('sv-SE',{timeZone:'Europe/Athens',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
 const inFuture=x=>dateOnly(x.date)?x.date>=todayAthens():dateOf(x.start_at)?.getTime()>Date.now();
+const isHome=x=>/αρχελα|archela/i.test(String(x.home_team||'').normalize('NFD').replace(/[\u0300-\u036f]/g,''));
 const format=(date,parts)=>new Intl.DateTimeFormat('el-GR',{timeZone:'Europe/Athens',...parts}).format(date);
 const utcStamp=d=>d.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
 function calendarLink(item,provider){
@@ -50,6 +51,7 @@ function upcoming(){
  const now=Date.now();
  return fixtures.filter(x=>x.status==='scheduled'&&inFuture(x))
   .filter(x=>sport==='all'||x.sport===sport)
+  .filter(x=>venueFilter==='all'||(venueFilter==='home' ? isHome(x) : !isHome(x)))
   .sort((a,b)=>displayDate(a)-displayDate(b));
 }
 function external(label,url){
@@ -58,9 +60,10 @@ function external(label,url){
 }
 function card(item,index){
  const date=displayDate(item);
- const a=create('article','fx-card'+(index===0?' fx-card-feature':''));a.dataset.ordinal=String(index+1).padStart(2,'0');
+ const a=create('article','fx-card'+(index===0?' fx-card-feature':'')+(isHome(item)?' fx-home':' fx-away'));a.dataset.ordinal=String(index+1).padStart(2,'0');
  const top=create('div','fx-top');top.append(create('span','fx-sport',(labels[item.sport]||item.sport)+(item.category?' · '+item.category.toLocaleUpperCase('el-GR'):'')),
-  create('span','fx-competition',item.competition||'Αγωνιστική αναμέτρηση'));a.append(top);
+  create('span','fx-competition',item.competition||'Αγωνιστική αναμέτρηση'));
+ top.prepend(create('span','fx-venue-badge',isHome(item)?'ΕΝΤΟΣ ΕΔΡΑΣ':'ΕΚΤΟΣ ΕΔΡΑΣ'));a.append(top);
  const when=create('div','fx-when'),big=create('span','fx-date-large');
  big.append(create('strong','fx-date-number',format(date,{day:'2-digit'})),
   create('span','fx-date-month',format(date,{month:'long'})));
@@ -103,7 +106,7 @@ function render(){
  $('#fx-empty').hidden=visible.length>0;
  root.hidden=!visible.length;
  $('#fx-status').textContent=visible.length
-  ?'Οι επόμενοι '+Math.min(6,visible.length)+' επιβεβαιωμένοι αγώνες · ώρα Ελλάδας.'
+  ?'Οι επόμενοι '+Math.min(6,visible.length)+' προγραμματισμένοι αγώνες · ώρα Ελλάδας. Η ώρα αναγράφεται μόνο όπου έχει επιβεβαιωθεί.'
   :'Δεν έχουν ανακοινωθεί ακόμη εγκεκριμένοι επόμενοι αγώνες για αυτή την επιλογή.';
  const anyUpcoming=fixtures.some(x=>x.status==='scheduled'&&inFuture(x));
  $('#fx-download').hidden=stage()||!anyUpcoming;
@@ -112,6 +115,12 @@ function render(){
 async function init(){
  const node=$('#upcoming-matches');if(!node)return;
  heritage();
+ node.querySelectorAll('[data-fixture-venue]').forEach(button=>
+  button.addEventListener('click',()=>{
+   venueFilter=button.dataset.fixtureVenue;
+   node.querySelectorAll('[data-fixture-venue]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
+   render();
+  }));
  node.querySelectorAll('[data-fixture-sport]').forEach(button=>
   button.addEventListener('click',()=>{
    sport=button.dataset.fixtureSport;
@@ -123,11 +132,11 @@ async function init(){
   const response=await fetch(url,{cache:'no-cache'});
   if(!response.ok)throw Error('Match schedule unavailable');
   const data=await response.json();
-  if(data?.schema_version!==1||data?.approval_policy!=='owner_approved_only'||data?.display_policy!=='home_only'||!Array.isArray(data.matches))
+  if(data?.schema_version!==1||data?.approval_policy!=='owner_approved_only'||data?.display_policy!=='home_and_away'||!Array.isArray(data.matches))
    throw Error('Invalid or unreviewed fixture list');
   fixtures=data.matches.filter(x=>x.approval?.status==='owner_approved'&&
    ['handball','volleyball'].includes(x.sport)&&displayDate(x)&&
-   /αρχελα|archela/i.test(String(x.home_team||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'')));
+   (isHome(x)||/αρχελα|archela/i.test(String(x.away_team||'').normalize('NFD').replace(/[\u0300-\u036f]/g,''))))
   render();
  }catch(error){
   console.warn('Match schedule fallback',error);
