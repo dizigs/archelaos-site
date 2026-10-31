@@ -350,3 +350,7 @@
 @media(prefers-reduced-motion:reduce){
  .new-value,.new-value h3,.new-value>span{transition:none!important;transform:none!important}
 }
+
+
+/* Contrast-safe gold on the pale Departments portal heading. */
+.new-departments-intro .new-eyebrow{color:#684c21}
