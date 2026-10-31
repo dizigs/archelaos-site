@@ -107,7 +107,7 @@ async function verify(){
      await page.locator('.av-card-hit').first().click();
      const favoriteDialog=page.locator('dialog.arch-dialog[open]');
      await favoriteDialog.waitFor();
-     if(!await favoriteDialog.locator('h2').textContent())throw Error('Favorite moment popup has no title');
+     if(!await favoriteDialog.locator('#arch-dialog-title').textContent())throw Error('Favorite moment popup has no title');
      await favoriteDialog.locator('.arch-close').click();
      await favoriteDialog.waitFor({state:'hidden'});
 
@@ -133,7 +133,7 @@ async function verify(){
       await page.locator('.av-card-hit').first().click();
       const dlg=page.locator('dialog.arch-dialog[open]');
       await dlg.waitFor();
-      if(!await dlg.locator('h2').textContent())throw Error('Missing '+type+' popup title in favorites');
+      if(!await dlg.locator('#arch-dialog-title').textContent())throw Error('Missing '+type+' popup title in favorites');
       await dlg.locator('.arch-close').click();
       await dlg.waitFor({state:'hidden'});
       await page.locator('.av-card .arch-favorite-toggle').first().click();
