@@ -6,9 +6,10 @@ const L=(a,b)=>en()?b:a;
 const norm=s=>String(s||'').toLocaleLowerCase('el').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/ς/g,'σ').replace(/\s+/g,' ').trim();
 const labels={person:['ΠΡΟΣΩΠΟ · HALL OF FAME','PERSON · HALL OF FAME'],interview:['ΣΥΝΕΝΤΕΥΞΗ / ΔΗΛΩΣΗ','INTERVIEW / STATEMENT'],moment:['ΙΣΤΟΡΙΚΟ ΓΕΓΟΝΟΣ','HISTORICAL MOMENT'],match:['RETRO MATCH','RETRO MATCH'],page:['ΣΥΛΛΟΓΗ','COLLECTION']};
 function rank(x,q){const t=norm(x.title),s=norm(x.summary),k=norm(x.keywords);
- if(t===q)return 0;if(t.startsWith(q))return 1;if(t.includes(q))return 2;if(s.includes(q))return 3;if(k.includes(q))return 4;return 99}
+ const text=t+' '+s+' '+k;const terms=q.split(' ').filter(Boolean);if(!terms.every(word=>text.includes(word)))return 99;
+ if(t===q)return 0;if(t.startsWith(q))return 1;if(t.includes(q))return 2;if(s.includes(q))return 3;return 4}
 function search(){
- const value=field.value.trim(),q=norm(value);if(q.length<2){list.replaceChildren();more.style.display='none';count.textContent=L('Αναζήτησε με τουλάχιστον δύο χαρακτήρες.','Search with at least two characters.');return}
+ const value=field.value.trim(),q=norm(value);if(q.length<2){list.replaceChildren();more.style.display='none';count.textContent=L('Αναζήτησε με τουλάχιστον δύο χαρακτήρες.','Search with at least two characters.');const url=new URL(location.href);if(url.searchParams.has('q')){url.searchParams.delete('q');history.replaceState(null,'',url)}return}
  found=data.map((x,i)=>({x,i,r:rank(x,q)})).filter(v=>v.r<99).sort((a,b)=>a.r-b.r||(a.x.type==='interview'?-1:0)-(b.x.type==='interview'?-1:0)||a.i-b.i);
  limit=30;draw();const url=new URL(location.href);url.searchParams.set('q',value);history.replaceState(null,'',url)
 }
