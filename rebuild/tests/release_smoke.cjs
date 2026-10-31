@@ -24,6 +24,10 @@ async function verify(){
     if(!response?.ok())throw Error(name+': status '+response?.status());
     await page.locator('.arch-header').waitFor();
     await page.locator('.arch-footer').waitFor();
+    await page.locator('.arch-a11y-launch').waitFor();
+    if(await page.locator('.arch-footer').count()!==1)throw Error(name+': duplicate footer');
+    if(await page.locator('.arch-a11y-launch').count()!==1)throw Error(name+': accessibility missing or duplicated');
+    if(await page.locator('.arch-back-to-top').count()!==1)throw Error(name+': back-to-top missing');
     const canonical=await page.locator('link[rel="canonical"]').getAttribute('href');
     if(!canonical?.startsWith('https://archelaos.club/'))throw Error(name+': missing canonical');
     const robots=await page.locator('meta[name=robots]').getAttribute('content');
@@ -208,6 +212,30 @@ async function verify(){
      await page.locator('.arch-menu-dialog[open]').waitFor();
      await page.locator('.arch-menu-dialog .arch-close').click();
     }
+    if(tag==='home'){
+      const trigger=page.locator('.arch-a11y-launch');
+      await trigger.click();
+      await page.locator('#arch-a11y-panel[open]').waitFor();
+      await page.locator('#arch-a11y-size').selectOption('125');
+      if(await page.locator('body[data-arch-a11y-size="125"]').count()!==1)
+        throw Error('Text-size accessibility setting does not apply');
+      await page.locator('[data-arch-a11y-toggle="links"]').click();
+      if(await page.locator('[data-arch-a11y-toggle="links"]').getAttribute('aria-pressed')!=='true')
+        throw Error('Underline links control not enabled');
+      await page.keyboard.press('Escape');
+      await page.locator('#arch-a11y-panel').waitFor({state:'hidden'});
+      if(await trigger.getAttribute('aria-expanded')!=='false')
+        throw Error('Accessibility dialog aria-expanded not reset');
+      await trigger.click();
+      await page.locator('.arch-a11y-reset').click();
+      await page.locator('.arch-a11y-close').click();
+      if(await page.locator('body[data-arch-a11y-size="100"]').count()!==1)
+        throw Error('Accessibility preferences did not reset');
+      await page.evaluate(()=>window.scrollTo({top:700,behavior:'auto'}));
+      await page.locator('.arch-back-to-top:visible').waitFor({timeout:5000});
+      await page.locator('.arch-back-to-top').click();
+      await page.waitForFunction(()=>window.scrollY<8,null,{timeout:9000});
+    }
     if(['home','hall','moments','contact','favorites','contribute'].includes(tag))
       await page.screenshot({path:path.join(DEST,tag+'-'+view.width+'.png'),animations:'disabled',fullPage:false});
    }
@@ -280,12 +308,25 @@ async function verify(){
   await relatedPage.locator('dialog.arch-dialog[open] .arch-related-card').first().click();
   await relatedPage.locator('dialog.arch-dialog[open] .arch-related-card').waitFor();
   await relatedPage.close();
+  // The error route must use the same footer/accessibility/top components.
+  const notFound=await browser.newPage();
+  await notFound.goto(ROOT+'/404.html',{waitUntil:'domcontentloaded'});
+  await notFound.locator('.arch-footer').waitFor();
+  await notFound.locator('.arch-a11y-launch').waitFor();
+  if(await notFound.locator('.arch-footer').count()!==1||
+     await notFound.locator('.arch-back-to-top').count()!==1)
+    throw Error('404 page missing shared footer/back-to-top');
+  await notFound.close();
   const profile=readdirSync(path.join(__dirname,'..','..','dist','people')).find(x=>x.endsWith('.html'));
   const p=await browser.newPage();
   const r=await p.goto(ROOT+'/people/'+profile,{waitUntil:'domcontentloaded'});
   if(!r?.ok()||await p.locator('link[rel=canonical]').count()!==1)throw Error('Legacy profile route broken');
   await p.locator('.arch-header').waitFor();
   await p.locator('.arch-footer').waitFor();
+  await p.locator('.arch-a11y-launch').waitFor();
+  if(await p.locator('body > header, body > footer').count()!==2||
+     await p.locator('.arch-back-to-top').count()!==1)
+    throw Error('Legacy profile has duplicate shell or missing shared utilities');
   const profileHeart=p.locator('.profile-actions .arch-favorite-toggle');
   await profileHeart.waitFor();
   await profileHeart.click();
