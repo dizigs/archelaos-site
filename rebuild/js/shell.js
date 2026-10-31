@@ -148,19 +148,6 @@ function routePreviewLinks(){
   },true);
  }
 }
-function setupLandingCue(){
- // The same CSS/JS runs in the stage and in the assembled public release.
- // Kept shared rather than copied across 13 pages and hundreds of profiles.
- if(document.querySelector('script[data-arch-landing-cue]'))return;
- const base=location.pathname.startsWith('/rebuild/')?'/rebuild/':'/assets/site/';
- const stylesheet=document.createElement('link');
- stylesheet.rel='stylesheet';stylesheet.href=base+'css/target-spotlight.css';
- stylesheet.dataset.archLandingStyle='';
- document.head.append(stylesheet);
- const script=document.createElement('script');
- script.src=base+'js/target-spotlight.js';script.dataset.archLandingCue='';
- document.head.append(script);
-}
-function ready(){renderHeader();renderFooter();routePreviewLinks();setupLandingCue();updateFavoriteCounts()}
+function ready(){renderHeader();renderFooter();routePreviewLinks();updateFavoriteCounts()}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',ready,{once:true});else ready();
 })();
