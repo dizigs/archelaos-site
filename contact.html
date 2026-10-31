@@ -1093,9 +1093,8 @@ html.arch-welcome-pending #archWelcome{display:flex}
 @media(max-width:480px){#archWelcome:after{inset:10px;border-radius:13px}.arch-welcome-crest-wrap{margin:28px auto 22px}.arch-welcome-content{padding-bottom:70px}.arch-welcome-top{letter-spacing:.16em}}
 @media(prefers-reduced-motion:reduce){#archWelcome *,#archWelcome:before,#archWelcome:after{animation:none!important;transition:none!important}.arch-welcome-progress>span{transform:none!important}}
 </style>
-<script id="archelaos-first-welcome-preflight">
-(function(){try{if(!localStorage.getItem('archelaos-welcome-seen-v2')&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('arch-welcome-pending')}}catch(e){/* Storage unavailable: don't block entry. */}})();
-</script>
+<!-- Removed orphan welcome preflight: contact has no welcome overlay, so a
+     first visit must never lock page scrolling via arch-welcome-pending. -->
 <style id="archelaos-premium-menu-2026">
 /* Navigation visual system: same identity, intentional light and dark palettes. */
 :root{--arch-menu-bg:rgba(255,255,255,.94);--arch-menu-text:#084c24;--arch-menu-border:rgba(8,76,36,.16);--arch-menu-hover:#e9f3eb;--arch-menu-active:#084c24;--arch-menu-active-text:#c7a65e;--arch-overlay-bg:#f6f8f2;--arch-overlay-text:#084c24;--arch-overlay-line:rgba(8,76,36,.16);--arch-overlay-muted:#55745d}
