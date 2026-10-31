@@ -1,0 +1,91 @@
+/* ARCHÉLAOS | Shared elegant motion design — same backup appearance, not a redesign.
+   Only transforms, opacity, shadows and colors. No overlays, scroll locks or layout shift.
+   Coarse pointer, reduced motion and print receive stable static content. */
+:root{
+  --arch-ease: cubic-bezier(.2,.8,.2,1);
+  --arch-motion-quick: 145ms;
+  --arch-motion-standard: 245ms;
+  --arch-motion-long: 490ms;
+}
+@keyframes arch-gentle-rise{
+  from{opacity:.78;transform:translate3d(0,13px,0)}
+  to{opacity:1;transform:translate3d(0,0,0)}
+}
+@keyframes arch-dialog-enter{
+  from{opacity:.4;transform:translate3d(0,10px,0) scale(.986)}
+  to{opacity:1;transform:translate3d(0,0,0) scale(1)}
+}
+@keyframes arch-drawer-enter{
+  from{opacity:.84;transform:translate3d(14px,0,0)}
+  to{opacity:1;transform:translate3d(0,0,0)}
+}
+@keyframes arch-backdrop-enter{
+  from{background:rgba(0,28,18,.35)}
+  to{background:rgba(0,28,18,.75)}
+}
+@media (prefers-reduced-motion: no-preference){
+  /* JavaScript never makes sections invisible. Observed elements animate after entry only. */
+  .arch-motion-entered{
+    animation:arch-gentle-rise var(--arch-motion-long) var(--arch-ease) both;
+    animation-delay:var(--arch-motion-delay,0ms)
+  }
+  .arch-dialog[open]{
+    animation:arch-dialog-enter var(--arch-motion-standard) var(--arch-ease) both
+  }
+  .arch-menu-dialog[open]{
+    animation:arch-drawer-enter var(--arch-motion-standard) var(--arch-ease) both
+  }
+  .arch-dialog[open]::backdrop,
+  .arch-menu-dialog[open]::backdrop{
+    animation:arch-backdrop-enter var(--arch-motion-standard) ease-out both
+  }
+  :where(.arch-card,.new-sport,.new-involve,.new-board-card,.new-today-feature,
+    .h-new-person,.rm-card,.rm-featured-item,.rs-card,.rs-featured-card,
+    .mu-nav-card,.mu-sport-item,.mu-archive-item,.bd-member,.dp-card,
+    .ct-hero-card,.sp-last-card){
+    transition-property:transform,box-shadow,border-color,background-color;
+    transition-duration:var(--arch-motion-standard);
+    transition-timing-function:var(--arch-ease)
+  }
+  :where(.arch-nav a,.arch-nav summary,.arch-dropdown a,.arch-mobile-link,
+    .arch-close,.arch-menu-open,.arch-footer a,.arch-button,
+    .new-button,.rh-button,.new-sport-links a,.rm-filters button,
+    .h-new-filter-row button,.rs-search button,.sp-button){
+    transition-property:background-color,color,border-color,box-shadow,opacity;
+    transition-duration:var(--arch-motion-quick);
+    transition-timing-function:ease-out
+  }
+  :where(.arch-card-arrow,.new-board-card>b,.new-today-arrow,
+    .new-involve>b,.rm-featured-arrow,.sp-button,.new-milestone>b){
+    transition:transform var(--arch-motion-standard) var(--arch-ease)
+  }
+}
+@media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
+  :where(.arch-card,.new-sport,.new-involve,.new-board-card,.new-today-feature,
+    .h-new-person,.rm-card,.rm-featured-item,.rs-card,.rs-featured-card,
+    .mu-nav-card,.mu-sport-item,.mu-archive-item,.bd-member,.dp-card,
+    .ct-hero-card,.sp-last-card):hover{
+    transform:translate3d(0,-3px,0);
+    box-shadow:0 18px 38px rgba(4,47,29,.14)
+  }
+  :where(.arch-card,.new-board-card,.new-today-feature,.new-involve,
+    .rm-featured-item):hover :where(.arch-card-arrow,.new-board-card>b,
+      .new-today-arrow,.new-involve>b,.rm-featured-arrow){
+    transform:translate3d(2px,-2px,0)
+  }
+}
+@media (prefers-reduced-motion:reduce){
+  :where(.arch-motion-entered,.arch-dialog[open],.arch-menu-dialog[open],
+    .arch-dialog[open]::backdrop,.arch-menu-dialog[open]::backdrop){
+    animation:none!important
+  }
+  :where(.arch-card,.new-sport,.new-involve,.new-board-card,.new-today-feature,
+    .h-new-person,.rm-card,.rs-card,.mu-nav-card,.mu-sport-item,
+    .bd-member,.dp-card,.ct-hero-card){
+    transform:none!important;
+    transition:none!important
+  }
+}
+@media print{
+  .arch-motion-entered{animation:none!important;transform:none!important;opacity:1!important}
+}

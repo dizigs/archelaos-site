@@ -1,0 +1,12 @@
+# Κοινή κίνηση και οπτική συνέπεια
+
+Η οπτική ταυτότητα παραμένει το backup 31-10-2026. Προστίθεται διακριτική κίνηση **σε όλες τις 11 δοκιμαστικές σελίδες**, μέσω κοινών `motion.css` και `motion.js`. Δεν προστίθενται επιπλέον επίπεδα/pseudo-elements που μπορούν να μπλοκάρουν κλικ.
+
+- **Είσοδος περιεχομένου:** μικρή μετατόπιση 13px και fade από 78% σε 100% μόλις το στοιχείο γίνει ορατό. Απουσία JavaScript/IntersectionObserver, το περιεχόμενο μένει 100% ορατό και προσβάσιμο.
+- **Κάρτες και σύνδεσμοι:** 245ms hover μετατόπιση 3px μόνο σε mouse/trackpad, χωρίς layout shifts. Τα touch devices διατηρούν σταθερό interaction.
+- **Popups:** 245ms ελαφρύ zoom/slide και backdrop· εγγενής κύλιση, πληκτρολόγιο και κλείσιμο παραμένουν λειτουργικά.
+- **Mobile drawer:** 245ms πολύ ήπιο slide και ανεμπόδιστη κύλιση.
+- **Accessibility:** `prefers-reduced-motion: reduce` ακυρώνει animations/transforms. Δεν προστίθενται listeners για wheel/touch/scroll ούτε global interception για κλικ.
+- **Αρχή απόδοσης:** transform/opacity/shadow, χωρίς μεγάλες βιβλιοθήκες ή timers.
+
+Πριν από τη δημοσίευση γίνεται σύγκριση screenshots και έλεγχος όλης της πλοήγησης σε Chrome, Edge και mobile.

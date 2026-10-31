@@ -37,6 +37,7 @@ def inspect():
 
     for path in html_pages:
         source = path.read_text(encoding="utf-8")
+        assert '/rebuild/css/motion.css' in source and '/rebuild/js/motion.js' in source, f"{path.name}: shared elegant motion missing"
         assert "noindex" in source, f"{path.name}: missing preview-only noindex"
         parser = Assets(path)
         parser.feed(source)
