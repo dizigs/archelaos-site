@@ -32,7 +32,8 @@ function safeArticle(original){
    node.removeAttribute(key);
   }
   if(node.tagName==='A'){
-   const href=node.getAttribute('href')||'';
+   let href=node.getAttribute('href')||'';
+   if(/^people\//.test(href)){href='/'+href;node.setAttribute('href',href)}
    try{
     const url=new URL(href,location.href);
     if(!['http:','https:'].includes(url.protocol))node.removeAttribute('href');

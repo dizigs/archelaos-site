@@ -15,18 +15,19 @@ async function run(){
    const page=await browser.newPage({viewport:size});
    const errors=[];
    page.on('pageerror',err=>errors.push(err.message));
-   for(const [url,name] of [['index.html','home'],['hall-of-fame.html','hall'],['70-stigmes.html','moments'],['stories.html','stories']]){
+   for(const [url,name] of [['index.html','home'],['hall-of-fame.html','hall'],['70-stigmes.html','moments'],['stories.html','stories'],['history.html','museum']]){
     await page.goto(ROOT+'/rebuild/'+url,{waitUntil:'domcontentloaded'});
     await page.locator('.arch-header').waitFor();
     await page.locator('.arch-footer').waitFor();
-    if(name==='hall')await page.locator('#hall-count').getByText(/682/).waitFor({timeout:20000});
+    if(name==='hall')await page.waitForFunction(()=>document.querySelector('#hall-count')?.textContent.includes('682'),{timeout:20000});
     if(name==='moments')await page.locator('.rm-moment').first().waitFor({timeout:20000});
     if(name==='stories')await page.locator('.rs-card').first().waitFor({timeout:20000});
+    if(name==='museum')await page.locator('.mu-sport-item').first().waitFor({timeout:20000});
     if(name==='home'){
      await page.locator('#new-slide-next').click();
-     await page.locator('#new-slide-title').getByText(/Στίβος/).waitFor();
+     await page.waitForFunction(()=>document.querySelector('#new-slide-title')?.textContent.includes('Στίβος'));
     }
-    const first={hall:'.h-new-person',moments:'.rm-card',stories:'.rs-card'}[name];
+    const first={hall:'.h-new-person',moments:'.rm-card',stories:'.rs-card',museum:'.mu-sport-item'}[name];
     if(first){
      await page.locator(first).first().click();
      await page.locator('dialog.arch-dialog[open]').waitFor({timeout:8000});
