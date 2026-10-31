@@ -31,6 +31,10 @@ function respond(status, body) {
     }
   });
 }
+export function onRequestGet({ env }) {
+  // Allows the static form to retain mailto mode until the secret is configured.
+  return respond(200, { ok: true, ready: Boolean(env.RESEND_API_KEY) });
+}
 export async function onRequestPost({ request, env }) {
   const origin = request.headers.get("Origin");
   // The website submits from the same origin; do not enable cross-origin API usage.

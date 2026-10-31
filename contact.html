@@ -3075,7 +3075,7 @@ main p,main li,article p,article li{line-height:1.72;}
 <div class="arch-conditional" hidden="" id="archSportWrap"><label><span data-contact-el="Ποιο άθλημα σας ενδιαφέρει; *" data-contact-en="Which sport are you interested in? *">Ποιο άθλημα σας ενδιαφέρει; *</span><span class="arch-select-wrap"><select id="archSport" name="sport"><option value="">Επιλέξτε άθλημα</option><option value="handball">Χάντμπολ / Handball</option><option value="track">Στίβος / Athletics</option><option value="archery">Τοξοβολία / Archery</option><option value="shooting">Σκοποβολή / Shooting</option><option value="gymnastics">Ενόργανη Γυμναστική / Gymnastics</option><option value="wrestling">Πάλη / Wrestling</option><option value="volleyball">Βόλεϊ / Volleyball</option><option value="swimming">Κολύμβηση / Swimming</option></select></span></label></div>
 <label class="arch-message-label"><span data-contact-el="Το μήνυμά σας *" data-contact-en="Your message *">Το μήνυμά σας *</span><textarea maxlength="5000" minlength="10" name="message" placeholder="Γράψτε το μήνυμά σας..." required="" rows="4"></textarea></label>
 <div class="arch-conditional" hidden="" id="archFileWrap"><label><span data-contact-el="Αρχεία ιστορικού υλικού (προαιρετικά)" data-contact-en="Historical material (optional)">Αρχεία ιστορικού υλικού (προαιρετικά)</span><input accept="image/*,.pdf,.doc,.docx,.txt" id="archFiles" multiple="" type="file"/><small data-contact-el="Τα αρχεία δεν αποστέλλονται ακόμη από τη φόρμα. Στείλτε τα ξεχωριστά στο history@archelaos.club." data-contact-en="Attachments cannot be sent through this form yet. Email historical files to history@archelaos.club.">Έως 5 αρχεία, 10 MB το καθένα. Τα συνημμένα απαιτούν σύνδεση υπηρεσίας υποβολής — δεν αποστέλλονται μέσω email app.</small></label></div>
-<label class="arch-consent"><input required="" type="checkbox"/><span data-contact-el="Συμφωνώ να χρησιμοποιηθούν τα στοιχεία μου μόνο για απάντηση στο αίτημά μου." data-contact-en="I agree to the use of my details solely to respond to my request.">Συμφωνώ να χρησιμοποιηθούν τα στοιχεία μου μόνο για απάντηση στο αίτημά μου.</span></label><p aria-live="polite" class="arch-form-note" data-contact-el="Το μήνυμά σας θα σταλεί στον αρμόδιο υπεύθυνο του συλλόγου. Τα συνημμένα αποστέλλονται ξεχωριστά μέσω email." data-contact-en="Your message will go to the relevant club contact. Please email attachments separately." id="archFormStatus" role="status">Το μήνυμά σας θα σταλεί στον αρμόδιο υπεύθυνο του συλλόγου. Τα συνημμένα αποστέλλονται ξεχωριστά μέσω email.</p><button class="arch-submit" data-contact-el="Αποστολή μηνύματος ↗" data-contact-en="Send message ↗" type="submit">Αποστολή μηνύματος ↗</button></form></div></div><footer aria-label="Γ.Α.Σ. Ο Αρχέλαος — footer" class="heritage-footer arch-footer-signature">
+<label class="arch-consent"><input required="" type="checkbox"/><span data-contact-el="Συμφωνώ να χρησιμοποιηθούν τα στοιχεία μου μόνο για απάντηση στο αίτημά μου." data-contact-en="I agree to the use of my details solely to respond to my request.">Συμφωνώ να χρησιμοποιηθούν τα στοιχεία μου μόνο για απάντηση στο αίτημά μου.</span></label><p aria-live="polite" class="arch-form-note" data-contact-el="Τα μηνύματα κατευθύνονται στον αρμόδιο υπεύθυνο. Τα συνημμένα αποστέλλονται ξεχωριστά μέσω email." data-contact-en="Messages are routed to the right team. Please email attachments separately." id="archFormStatus" role="status">Τα μηνύματα κατευθύνονται στον αρμόδιο υπεύθυνο. Τα συνημμένα αποστέλλονται ξεχωριστά μέσω email.</p><button class="arch-submit" data-contact-el="Συνέχεια στο email ↗" data-contact-en="Continue in email ↗" type="submit">Συνέχεια στο email ↗</button></form></div></div><footer aria-label="Γ.Α.Σ. Ο Αρχέλαος — footer" class="heritage-footer arch-footer-signature">
 <div class="heritage-footer-inner">
 <div class="heritage-footer-top">
 <div class="heritage-footer-intro"><div aria-hidden="true" class="arch-footer-gold-rule"><span></span><i></i><span></span></div>
@@ -3202,16 +3202,25 @@ document.querySelectorAll('[data-open-contact]').forEach(b=>b.addEventListener('
 const qs=new URLSearchParams(location.search);const incoming=qs.get('topic');if(incoming){topic.value=({sponsor:'sponsorship',sponsorship:'sponsorship',athlete:'sport',sport:'sport',volunteer:'volunteer',archive:'archive',history:'archive',general:'general'}[incoming]||incoming);refresh()}if(location.hash==='#contact-form')openModal(topic.value);window.addEventListener('hashchange',()=>{if(location.hash==='#contact-form'&&modal.hidden)openModal(topic.value)});
 const submitButton=form.querySelector('.arch-submit');
 let fallbackReady=false;
+let directReady=false;
 function recipient(){return topic.value==='sport'?'sports@archelaos.club':topic.value==='archive'?'history@archelaos.club':'contact@archelaos.club'}
-function buttonLabel(lang){return lang==='en'?'Send message ↗':'Αποστολή μηνύματος ↗'}
+function buttonLabel(lang){return directReady?(lang==='en'?'Send message ↗':'Αποστολή μηνύματος ↗'):(lang==='en'?'Continue in email ↗':'Συνέχεια στο email ↗')}
 function fallbackMailto(values,lang,status){
  const subject=topic.options[topic.selectedIndex].text;
  const lines=[String(values.get('message')||''),'','Ονοματεπώνυμο / Name: '+values.get('name'),'Email: '+values.get('email'),'Τηλέφωνο / Phone: '+(values.get('phone')||'—')];
  if(topic.value==='sport')lines.push('Άθλημα / Sport: '+sport.options[sport.selectedIndex].text);
- location.href='mailto:'+recipient()+'?subject='+encodeURIComponent('Αρχέλαος — '+subject)+'&body='+encodeURIComponent(lines.join('\\n'));
+ location.href='mailto:'+recipient()+'?subject='+encodeURIComponent('Αρχέλαος — '+subject)+'&body='+encodeURIComponent(lines.join('\n'));
  status.textContent=lang==='en'?'Your email app should open; please complete sending there.':'Θα ανοίξει η εφαρμογή email· ολοκληρώστε την αποστολή εκεί.';
 }
 function resetFallback(){fallbackReady=false;submitButton.textContent=buttonLabel(currentLanguage())}
+fetch('/api/contact',{method:'GET',cache:'no-store'}).then(r=>r.ok?r.json():null).then(data=>{
+ directReady=Boolean(data&&data.ready);
+ resetFallback();
+ if(!directReady)document.getElementById('archFormStatus').textContent=currentLanguage()==='en'?'Direct sending is not active yet. Your email app will be used instead.':'Η απευθείας αποστολή δεν έχει ενεργοποιηθεί ακόμη. Θα χρησιμοποιηθεί η εφαρμογή email.';
+}).catch(()=>{
+ directReady=false;resetFallback();
+});
+new MutationObserver(()=>{if(!submitButton.disabled&&!fallbackReady)submitButton.textContent=buttonLabel(currentLanguage())}).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
 form.addEventListener('input',resetFallback);
 form.addEventListener('change',resetFallback);
 form.addEventListener('submit',async e=>{
@@ -3222,7 +3231,7 @@ form.addEventListener('submit',async e=>{
   status.textContent=lang==='en'?'Attachments are not supported yet. Please email historical files to history@archelaos.club, or remove them to submit the message.':'Τα συνημμένα δεν υποστηρίζονται ακόμη. Στείλτε τα ιστορικά αρχεία στο history@archelaos.club ή αφαιρέστε τα για να στείλετε το μήνυμα.';
   return;
  }
- if(fallbackReady){fallbackMailto(values,lang,status);return}
+ if(fallbackReady||!directReady){fallbackMailto(values,lang,status);return}
  submitButton.disabled=true;
  submitButton.textContent=lang==='en'?'Sending…':'Αποστολή…';
  status.textContent=lang==='en'?'Sending your message securely…':'Αποστολή μηνύματος…';
