@@ -55,7 +55,7 @@ function upcoming(){
   .sort((a,b)=>displayDate(a)-displayDate(b));
 }
 function external(label,url){
- const a=create('a','fx-calendar-provider',label+' ↗');a.href=url;a.target='_blank';
+ const a=create('a','fx-calendar-provider',label+'');a.href=url;a.target='_blank';
  a.rel='noopener noreferrer';return a;
 }
 function card(item,index){
@@ -88,7 +88,7 @@ function card(item,index){
  const menu=create('details','fx-calendar-actions');
  const summary=create('summary','','Στο δικό μου ημερολόγιο');menu.append(summary);
  const links=create('div','fx-calendar-menu');
- const ics=create('a','','Λήψη του αγώνα (.ics) ↗');
+ const ics=create('a','','Λήψη του αγώνα (.ics)');
  ics.href='/calendar/events/'+encodeURIComponent(item.id)+'.ics';
  ics.download=item.id+'.ics';
  links.append(ics);
