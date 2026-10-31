@@ -7,7 +7,7 @@ function fragment(raw){
  for(const item of [...parsed.body.querySelectorAll('*')]){
   const configured=item.getAttribute('data-lang');
   if(configured&&configured!==language){item.remove();continue}
-  if(item.classList.contains('lang-en')&&language!=='en'||item.classList.contains('lang-el')&&language!=='el'
+  if(item.classList.contains('rm-lang-en')&&language!=='en'||item.classList.contains('rm-lang-el')&&language!=='el'||item.classList.contains('lang-en')&&language!=='en'||item.classList.contains('lang-el')&&language!=='el'
     ||item.classList.contains('arch-collection-en')&&language!=='en'||item.classList.contains('arch-collection-el')&&language!=='el'){
     item.remove();
   }
