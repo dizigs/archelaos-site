@@ -17,7 +17,10 @@ let records=new Map();
 
 function open(id){
  const record=records.get(id);if(!record)return;
- window.ArchelaosUI.openDialog({title:record.title,subtitle:record.period||'',contentNode:window.ArchelaosArchive.fragment(record.html),closeLabel:'Κλείσιμο ιστορικού'});
+ window.ArchelaosUI.openDialog({title:record.title,subtitle:record.period||record.year||'',
+  contentNode:window.ArchelaosArchive.fragment(record.html),
+  favorite:{type:'exhibit',id:record.id},closeLabel:'Κλείσιμο ιστορικού'});
+ history.replaceState(null,'','#archive-'+encodeURIComponent(record.id));
 }
 function makeButton(record,cls){
  const button=$el('button',cls);button.type='button';
@@ -56,6 +59,9 @@ async function init(){
   populate(data);
   const sport=location.hash.match(/^#sport-(.+)$/)?.[1];
   if(sport){const card=$('#sport-'+sport);card?.scrollIntoView({block:'center'});card?.focus({preventScroll:true})}
+  const archiveId=location.hash.startsWith('#archive-')?
+    decodeURIComponent(location.hash.slice('#archive-'.length)):null;
+  if(archiveId&&records.has(archiveId))open(archiveId);
  }catch(err){console.error('Museum data:',err);$('#mu-history-grid').textContent='Αδυναμία φόρτωσης ιστορικού αρχείου.'}
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();

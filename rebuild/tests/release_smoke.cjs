@@ -47,6 +47,17 @@ async function verify(){
      await page.waitForFunction(()=>document.querySelector('#sr-status')?.textContent.includes('αποτελέσματα') &&
        document.querySelector('#sr-results .sr-card')?.textContent.includes('Κουκοδήμος'),null,{timeout:9000});
      if(await page.locator('#sr-results .sr-card').count()===0)throw Error('Archive search returns no results');
+     await page.locator('[data-sr-filter="exhibit"]').click();
+     await field.fill('Δίια');
+     await page.waitForFunction(()=>document.querySelector('#sr-results .sr-card')?.textContent.includes('Δίια'),null,{timeout:9000});
+     const result=await page.locator('.sr-card[href*="/history.html#archive-"]').first().getAttribute('href');
+     if(!result)throw Error('Museum search cannot deep-link to original exhibit');
+     await page.goto(ROOT+result,{waitUntil:'domcontentloaded'});
+     await page.locator('dialog.arch-dialog[open]').waitFor();
+     await page.locator('dialog.arch-dialog .arch-favorite-toggle').click();
+     await page.locator('dialog.arch-dialog .arch-close').click();
+     await page.goto(ROOT+'/search.html',{waitUntil:'domcontentloaded'});
+     await page.locator('#sr-query').fill('Κουκοδήμος');
      await page.locator('[data-sr-filter="moment"]').click();
      await page.locator('[data-sr-filter="person"]').click();
      if(await page.locator('#sr-results .sr-card').count()===0)throw Error('Person search filter returns no results');

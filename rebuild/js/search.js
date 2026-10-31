@@ -20,7 +20,7 @@ function score(item,tokens){
 }
 function card(item){
  const a=make('a','sr-card');a.href=link(item.url);
- a.append(make('span','sr-card-kind',item.type==='person'?'HALL OF FAME · ΠΡΟΣΩΠΑ':item.type==='moment'?'ΙΣΤΟΡΙΚΟ ΑΡΧΕΙΟ · 70 ΣΤΙΓΜΕΣ':'ΙΣΤΟΡΙΕΣ ΤΟΥ ΣΥΛΛΟΓΟΥ'));
+ a.append(make('span','sr-card-kind',item.type==='person'?'HALL OF FAME · ΠΡΟΣΩΠΑ':item.type==='moment'?'ΙΣΤΟΡΙΚΟ ΑΡΧΕΙΟ · 70 ΣΤΙΓΜΕΣ':item.type==='exhibit'?'ΨΗΦΙΑΚΟ ΜΟΥΣΕΙΟ · ΕΚΘΕΜΑ':'ΙΣΤΟΡΙΕΣ ΤΟΥ ΣΥΛΛΟΓΟΥ'));
  a.append(make('strong','sr-card-title',item.title));
  if(item.excerpt)a.append(make('span','sr-card-excerpt',item.excerpt));
  if(item.year)a.append(make('small','sr-card-year',item.year));
@@ -61,13 +61,23 @@ async function init(){
  }));
  $('#sr-more-button').addEventListener('click',()=>{state.limit+=24;render()});
  try{
-  const [p,m,s]=await Promise.all(['people','moments','stories'].map(name=>
+  const [p,m,s,archive]=await Promise.all(['people','moments','stories','museum'].map(name=>
    fetch('/rebuild/data/'+name+'.json').then(r=>{if(!r.ok)throw Error(name+' HTTP '+r.status);return r.json()})
   ));
-  if(p.people?.length<682||m.moments?.length!==70||s.stories?.length<21)throw Error('Historical data incomplete');
+  if(p.people?.length<682||m.moments?.length!==70||s.stories?.length<21||archive.articles?.length<14||archive.press?.length<10)throw Error('Historical data incomplete');
   for(const person of p.people)add('person',person.id,person.name,person.role,person.bio,'','/hall-of-fame.html?person='+encodeURIComponent(person.id),[person.name_en,person.role_en,person.bio_en].join(' '));
   for(const moment of m.moments)add('moment',moment.id,moment.title,'70 Στιγμές',moment.body.join(' '),String(moment.year),'/70-stigmes.html#moment-'+moment.id,[moment.title_en,...moment.body_en].join(' '));
   s.stories.forEach((story,i)=>add('story',i+1,story.title,story.sport,story.lead+' '+story.text,story.year,'/stories.html#story-'+(i+1)));
+  // Search original museum exhibitions, sports departments and press clippings as
+  // distinct verified documents. A template keeps source HTML inert while indexing text.
+  for(const record of [...archive.articles,...archive.press]){
+   if(!record.id||!record.title)continue;
+   const inert=document.createElement('template');
+   inert.innerHTML=String(record.html||'');
+   const text=(inert.content.textContent||'').replace(/\s+/g,' ').trim();
+   add('exhibit',record.id,record.title,'Ψηφιακό Μουσείο',text,String(record.period||record.year||''),
+    '/history.html#archive-'+encodeURIComponent(record.id));
+  }
   state.ready=true;
   const params=new URLSearchParams(location.search),seed=params.get('q')||'';
   if(seed){input.value=seed.slice(0,120);state.query=input.value}
