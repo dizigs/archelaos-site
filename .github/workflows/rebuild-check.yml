@@ -16,11 +16,12 @@ jobs:
     name: HTML, data and JavaScript integrity
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: '22'
-      - uses: actions/setup-python@v5
+          package-manager-cache: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: '3.12'
       - name: Validate content, images and internal file references
@@ -31,7 +32,7 @@ jobs:
         run: python rebuild/tools/media_inventory.py --json rebuild/test-artifacts/media-inventory.json
       - name: Save media inventory
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
         with:
           name: archelaos-media-inventory
           path: rebuild/test-artifacts/media-inventory.json
@@ -59,7 +60,7 @@ jobs:
         run: python rebuild/tools/live_sync_audit.py --strict-reviewed --json rebuild/test-artifacts/live-sync-report.json
       - name: Preserve live-vs-rebuild editorial drift report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
         with:
           name: archelaos-live-sync-review
           path: rebuild/test-artifacts/live-sync-report.json
@@ -69,7 +70,7 @@ jobs:
         run: python rebuild/tools/editorial_audit.py --json rebuild/test-artifacts/editorial-report.json --strict
       - name: Save editorial review suggestions
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
         with:
           name: archelaos-editorial-review
           path: rebuild/test-artifacts/editorial-report.json
@@ -90,11 +91,12 @@ jobs:
     needs: integrity
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: '22'
-      - uses: actions/setup-python@v5
+          package-manager-cache: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: '3.12'
       - name: Install isolated browser test dependencies
@@ -122,7 +124,7 @@ jobs:
         run: node rebuild/tests/visual.cjs
       - name: Preserve screenshots for final approval
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
         with:
           name: archelaos-rebuild-browser-proof
           path: rebuild/test-artifacts/
@@ -135,26 +137,28 @@ jobs:
     needs: integrity
     timeout-minutes: 12
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: '3.12'
       - name: Build organized static output
         run: python rebuild/tools/build_release.py
       - name: Check sitemap, metadata, canonical and 682 profiles
         run: python rebuild/tools/verify_release.py
+      - name: Prove the risk scanner detects injected failures
+        run: python rebuild/tests/preflight_regression.py
       - name: Scan ALL generated pages for pre-deployment risk
         run: python rebuild/tools/preflight.py --strict --json rebuild/test-artifacts/preflight.json
       - name: Preserve security, links and cache preflight audit
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
         with:
           name: archelaos-preflight-risk-report
           path: rebuild/test-artifacts/preflight.json
           if-no-files-found: warn
           retention-days: 14
       - name: Preserve release candidate without deployment
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
         with:
           name: archelaos-release-candidate
           path: dist/
