@@ -73,6 +73,18 @@ jobs:
           ./node_modules/.bin/tailwindcss -c tailwind.candidate.config.cjs -i /tmp/archelaos-tailwind/input.css -o /tmp/archelaos-tailwind/site.css --minify
           test -s /tmp/archelaos-tailwind/site.css
           wc -c /tmp/archelaos-tailwind/site.css
+          # Guard against an empty or incomplete generated utility stylesheet.
+          node - <<'EOF'
+          const fs = require('fs');
+          const css = fs.readFileSync('/tmp/archelaos-tailwind/site.css', 'utf8');
+          const required = ['.flex', '.grid', '.hidden', '.fixed', '.relative', '.rounded-xl'];
+          const missing = required.filter(selector => !css.includes(selector));
+          if (missing.length) {
+            console.error('Missing required generated utilities:', missing.join(', '));
+            process.exit(1);
+          }
+          console.log('Static CSS candidate includes required foundational utilities.');
+          EOF
       - name: Save CSS candidate for visual verification
         uses: actions/upload-artifact@v4
         with:
