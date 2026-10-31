@@ -3,6 +3,31 @@
 const $=x=>document.querySelector(x);
 const el=(tag,cls,t)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(t!==undefined)n.textContent=t;return n};
 let matches=[],active;
+function retroReport(record){
+ // Preserve all original match evidence, but show only one language at a time.
+ const parsed=new DOMParser().parseFromString(record.originalHtml,'text/html');
+ const language=document.documentElement.lang?.startsWith('en')?'en':'el';
+ parsed.querySelectorAll(language==='el'?'.rm-lang-en':'.rm-lang-el').forEach(node=>node.remove());
+ // The original scoreboard is unstyled after safe HTML ingestion. Replace it
+ // with a compact, real score display rather than showing an ugly duplicate.
+ parsed.querySelectorAll('.rm-scoreboard').forEach(node=>node.remove());
+ parsed.querySelectorAll('small').forEach(node=>{
+  node.textContent=node.textContent.replace(/Τερματοφύλακας\s*\/\s*Goalkeeper/g,'Τερματοφύλακας');
+ });
+ const wrapper=el('div','rt-popup-report');
+ const score=el('div','rt-popup-scoreboard');
+ score.append(el('div','rt-popup-kicker','ΚΥΠΕΛΛΟ ΕΛΛΑΔΑΣ · ΤΕΛΙΚΟΣ '+record.year));
+ const row=el('div','rt-popup-teams');
+ const home=el('div','rt-popup-team');home.append(el('span','rt-popup-team-label','Γ.Α.Σ.'),el('strong','','Αρχέλαος'));
+ const away=el('div','rt-popup-team');away.append(el('span','rt-popup-team-label','ΑΝΤΙΠΑΛΟΣ'),el('strong','',record.opponent));
+ const result=el('strong','rt-popup-result',record.score);
+ result.setAttribute('aria-label','Τελικό σκορ '+record.score);
+ row.append(home,result,away);score.append(row);
+ score.append(el('p','rt-popup-location',record.date+' · '+record.venue));
+ score.append(el('span','rt-popup-outcome',record.outcome));
+ wrapper.append(score,window.ArchelaosArchive.fragment(parsed.body.innerHTML));
+ return wrapper;
+}
 function show(){
  const record=matches.find(m=>m.year===active);if(!record)return;
  $('#rt-years').querySelectorAll('button').forEach(b=>{
@@ -17,8 +42,8 @@ function show(){
  body.append(el('h3','','Η ιστορία του αγώνα'),el('p','',record.summary));
  const full=el('button','rt-detail-open','Αναλυτικό φύλλο αγώνα');full.type='button';
  full.addEventListener('click',()=>window.ArchelaosUI.openDialog({
-  title:'Τελικός Κυπέλλου '+record.year,subtitle:'Γ.Α.Σ. Αρχέλαος · '+record.score+' · '+record.opponent,
-  contentNode:window.ArchelaosArchive.fragment(record.originalHtml),
+  title:'Τελικός Κυπέλλου '+record.year,subtitle:'ΙΣΤΟΡΙΚΟ ΦΥΛΛΟ ΑΓΩΝΑ',
+  contentNode:retroReport(record),
   closeLabel:'Κλείσιμο φύλλου αγώνα'
  }));
  body.append(full);article.append(board,body);stage.append(article);
