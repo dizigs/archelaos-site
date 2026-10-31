@@ -31,3 +31,51 @@ jobs:
       - name: Check JavaScript syntax
         run: |
           find . -type f -name '*.js' -not -path './.git/*' -print0 | xargs -0 -r -n1 node --check
+
+  prepare-static-css:
+    name: Prepare Tailwind static CSS candidate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Tailwind CLI
+        run: npm install --no-save --no-package-lock tailwindcss@3.4.17
+      - name: Generate site stylesheet
+        run: |
+          mkdir -p /tmp/archelaos-tailwind
+          cat > /tmp/archelaos-tailwind/input.css <<'EOF'
+          @tailwind base;
+          @tailwind components;
+          @tailwind utilities;
+          EOF
+          cat > tailwind.candidate.config.cjs <<'EOF'
+          module.exports = {
+            content: ['./*.html', './assets/**/*.js', './*.js'],
+            safelist: [
+              'hidden','block','flex','grid','bg-white','bg-white/80',
+              'text-archelaos-deepgreen','text-archelaos-yellow',
+              'opacity-0','opacity-100','translate-y-0'
+            ],
+            theme: { extend: {
+              colors: { archelaos: {
+                yellow:'#c7a65e',lemon:'#c7a65e',light:'#f1e4c4',
+                darkgreen:'#008a28',deepgreen:'#084c24',
+                forest:'#0d5c2e',accentgreen:'#15803D',surface:'#FFFFFF'
+              }},
+              fontFamily: {
+                heading:['Manrope','Inter','sans-serif'],
+                body:['Inter','sans-serif']
+              }
+            }},
+            plugins: []
+          };
+          EOF
+          ./node_modules/.bin/tailwindcss -c tailwind.candidate.config.cjs -i /tmp/archelaos-tailwind/input.css -o /tmp/archelaos-tailwind/site.css --minify
+          test -s /tmp/archelaos-tailwind/site.css
+          wc -c /tmp/archelaos-tailwind/site.css
+      - name: Save CSS candidate for visual verification
+        uses: actions/upload-artifact@v4
+        with:
+          name: archelaos-tailwind-candidate
+          path: /tmp/archelaos-tailwind/site.css
+          retention-days: 14
