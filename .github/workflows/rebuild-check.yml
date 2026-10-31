@@ -27,6 +27,8 @@ jobs:
         run: python rebuild/tests/check.py
       - name: Verify reviewed archive intake is dry-run, private and idempotent
         run: python rebuild/tests/ingestion.py
+      - name: Verify unpublished translations and stable language dictionaries
+        run: python rebuild/tools/audit_translations.py
       - name: Check all rebuilt JavaScript syntax
         shell: bash
         run: |
@@ -68,7 +70,7 @@ jobs:
           python-version: '3.12'
       - name: Install isolated browser test dependencies
         run: |
-          npm install --no-save --ignore-scripts playwright@1.58.0
+          npm install --no-save --ignore-scripts playwright@1.58.0 axe-core@4.10.3
           npx playwright install --with-deps chromium
       - name: Start local preview server
         run: |
@@ -84,6 +86,8 @@ jobs:
         run: node rebuild/tests/release_smoke.cjs
       - name: Audit mobile overflow, popup accessibility and internal links
         run: node rebuild/tests/quality.cjs
+      - name: Audit WCAG 2.2 A/AA, keyboard and navigation semantics
+        run: node rebuild/tests/a11y.cjs
       - name: Capture backup-versus-rebuild reference views
         if: always()
         run: node rebuild/tests/visual.cjs
