@@ -3300,6 +3300,115 @@ a.museum-subtle-link:focus-visible{outline:3px solid #c7a65e;outline-offset:3px}
 #history-archive .history-archive-card > .flex::after {content:none!important;display:none!important}
 </style><link rel="stylesheet" href="/assets/biography-dialog.css"/>
 <style>.president-bio-link{display:inline-block;color:#084c24;text-decoration:underline;text-decoration-color:#b9954d;text-underline-offset:4px;text-decoration-thickness:1.5px;font-weight:800;cursor:pointer}.president-bio-link:hover,.president-bio-link:focus-visible{color:#09633a;text-decoration-thickness:2.5px}.president-bio-link:focus-visible{outline:2px solid #b9954d;outline-offset:4px;border-radius:3px}</style>
+<style id="arch-unified-museum-chapter-cards">
+/* One editorial card system for the Museum archives and collection navigation.
+   Four standalone archive cards replace the duplicate sport quick-access grid. */
+html body #museum-history #history-archive #chapters.museum-unified-chapters{
+  display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:clamp(14px,2.5vw,22px)!important;
+  background:transparent!important;
+}
+html body #museum-history #history-archive #chapters .museum-exhibit-chapter-card{
+  position:relative!important;isolation:isolate!important;
+  display:flex!important;flex-direction:column!important;
+  justify-content:space-between!important;align-items:flex-start!important;
+  text-align:left!important;gap:22px!important;
+  min-width:0!important;width:100%!important;min-height:220px!important;
+  margin:0!important;
+  padding:clamp(25px,3.5vw,38px)!important;
+  background:#fffdfa!important;background-image:none!important;
+  border:1px solid #d6c6a7!important;border-radius:27px!important;
+  color:#073d2a!important;
+  box-shadow:0 9px 25px rgba(5,49,30,.07)!important;
+  text-decoration:none!important;cursor:pointer!important;
+  overflow:hidden!important;
+}
+html body #museum-history #history-archive #chapters .museum-exhibit-chapter-card::before,
+html body #museum-history #history-archive #chapters .museum-exhibit-chapter-card::after{
+  display:none!important;content:none!important;
+}
+html body #museum-history #history-archive #chapters .museum-exhibit-chapter-card:is(:hover,:focus-visible){
+  background:#fff!important;border-color:#b79a5b!important;
+  box-shadow:0 17px 37px rgba(5,49,30,.11)!important;
+  transform:translateY(-3px)!important;
+}
+html body #museum-history #history-archive #chapters .museum-exhibit-chapter-icon{
+  position:relative!important;z-index:1!important;
+  display:inline-block!important;
+  font-size:clamp(1.85rem,3vw,2.35rem)!important;
+  line-height:1.2!important;color:#a88b4e!important;
+  background:none!important;border:0!important;
+}
+html body #museum-history #history-archive #chapters .museum-exhibit-chapter-title{
+  display:block!important;position:relative!important;z-index:1!important;
+  margin:auto 28px 0 0!important;
+  max-width:95%!important;
+  font:600 clamp(1.65rem,3vw,2.25rem)/1.2 Georgia,"Times New Roman",serif!important;
+  letter-spacing:-.028em!important;
+  color:#073d2a!important;overflow-wrap:break-word!important;
+}
+html body #museum-history #history-archive #chapters .museum-exhibit-chapter-arrow{
+  position:absolute!important;top:clamp(24px,3.4vw,37px)!important;
+  right:clamp(25px,3.4vw,37px)!important;
+  color:#9f8249!important;font:400 2rem/1 Arial,sans-serif!important;
+  pointer-events:none!important;
+}
+html body #museum-history #history-archive #chapters .museum-exhibit-chapter-card:focus-visible{
+  outline:3px solid #b99b59!important;outline-offset:3px!important;
+}
+/* Museum landing tiles share the same card silhouette, padding and typography. */
+html body #museum-v54-navigation .m54-list{
+  gap:clamp(14px,2.5vw,22px)!important;
+}
+html body #museum-v54-navigation .m55-nav-card{
+  display:flex!important;flex-direction:column!important;
+  justify-content:flex-end!important;align-items:flex-start!important;
+  position:relative!important;isolation:isolate!important;
+  min-height:220px!important;gap:10px!important;
+  padding:30px 32px!important;
+  background:#fffdfa!important;background-image:none!important;
+  border:1px solid #d6c6a7!important;border-radius:27px!important;
+  box-shadow:0 9px 25px rgba(5,49,30,.07)!important;
+  text-decoration:none!important;overflow:hidden!important;
+}
+html body #museum-v54-navigation .m55-nav-card:hover,
+html body #museum-v54-navigation .m55-nav-card:focus-visible{
+  background:#fff!important;border-color:#b79a5b!important;
+  box-shadow:0 17px 37px rgba(5,49,30,.11)!important;
+}
+html body #museum-v54-navigation .m55-nav-card .m54-num{
+  position:absolute!important;top:25px!important;left:31px!important;
+  color:#9f8249!important;font-size:1rem!important;
+}
+html body #museum-v54-navigation .m55-nav-card .m54-name{
+  margin:45px 0 0!important;
+  font:600 clamp(1.55rem,3vw,2.15rem)/1.2 Georgia,serif!important;
+  max-width:100%!important;color:#073d2a!important;
+}
+html body #museum-v54-navigation .m55-nav-card .m54-desc{
+  display:block!important;max-width:96%!important;
+  color:#4a6252!important;font-size:.92rem!important;line-height:1.55!important;
+}
+html body #museum-v54-navigation .m55-nav-card .m55-nav-arrow{
+  position:absolute!important;top:24px!important;right:28px!important;
+  color:#9f8249!important;font:400 1.8rem/1 Arial,sans-serif!important;
+}
+@media(max-width:670px){
+ html body #museum-history #history-archive #chapters.museum-unified-chapters{grid-template-columns:minmax(0,1fr)!important}
+ html body #museum-history #history-archive #chapters .museum-exhibit-chapter-card{
+  min-height:205px!important;padding:28px 29px!important;
+ }
+ html body #museum-history #history-archive #chapters .museum-exhibit-chapter-title{
+  font-size:clamp(1.7rem,6vw,2.15rem)!important;
+ }
+ html body #museum-v54-navigation .m55-nav-card{min-height:195px!important;padding:28px!important}
+ html body #museum-v54-navigation .m55-nav-card .m54-num{top:22px!important;left:28px!important}
+ html body #museum-v54-navigation .m55-nav-card .m55-nav-arrow{top:22px!important;right:27px!important}
+}
+@media(prefers-reduced-motion:reduce){
+ html body #museum-history #history-archive #chapters .museum-exhibit-chapter-card{transition:none!important;transform:none!important}
+}
+</style>
 </head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow arch-gold-page" data-arch-people-page="history">
 <!-- ANIMATED CONTOUR WAVES -->
@@ -3623,7 +3732,7 @@ a.museum-subtle-link:focus-visible{outline:3px solid #c7a65e;outline-offset:3px}
 <a href="70-stigmes.html"><i aria-hidden="true" class="fa-solid fa-timeline"></i><span data-lang="el">Χρονολόγιο</span><span data-lang="en">Timeline</span></a>
 <a href="#history-archive"><i aria-hidden="true" class="fa-solid fa-images"></i><span data-lang="el">Συλλογή</span><span data-lang="en">Collection</span></a>
 <a href="#chapters"><i aria-hidden="true" class="fa-solid fa-book-open"></i><span data-lang="el">Ιστορικές Ενότητες</span><span data-lang="en">Historical Collections</span></a>
-<a href="#sports-archive"><i aria-hidden="true" class="fa-solid fa-medal"></i><span data-lang="el">Αθλητικά Τμήματα</span><span data-lang="en">Sports Departments</span></a>
+<a href="/tmimata.html"><i aria-hidden="true" class="fa-solid fa-medal"></i><span data-lang="el">Αθλητικά Τμήματα</span><span data-lang="en">Sports Departments</span></a>
 <a href="index.html"><i aria-hidden="true" class="fa-solid fa-house"></i><span data-lang="el">Αρχική</span><span data-lang="en">Home</span></a>
 </nav>
 </details>
@@ -3656,55 +3765,35 @@ a.museum-subtle-link:focus-visible{outline:3px solid #c7a65e;outline-offset:3px}
 <div class="history-search-wrap mb-5 sm:mb-6">
 <div class="flex items-center justify-between gap-3 mb-3">
 <h2 class="font-heading font-black text-xl sm:text-2xl text-archelaos-deepgreen"><span data-lang="el">Εξερευνήστε το αρχείο</span><span data-lang="en">Explore the archive</span></h2>
-<span aria-live="polite" class="sr-only" id="historySearchCount">6 / 6</span></div>
+<span aria-live="polite" class="sr-only" id="historySearchCount">4 / 4</span></div>
 <label class="flex items-center gap-3 rounded-2xl border border-archelaos-deepgreen/20 bg-white/85 px-4 py-3 shadow-sm focus-within:ring-2 focus-within:ring-archelaos-darkgreen/30">
 <i class="fa-solid fa-magnifying-glass text-archelaos-darkgreen"></i>
 <input aria-label="Αναζήτηση ιστορικού / Search history" autocomplete="off" class="bg-transparent outline-none min-w-0 flex-1 text-sm text-archelaos-deepgreen" id="historySearch" placeholder="Αναζήτηση στα ιστορικά κεφάλαια..." type="search"/>
 <kbd class="hidden sm:inline text-[10px] font-black text-slate-400">/</kbd></label>
 <p class="hidden mt-3 text-sm font-semibold text-archelaos-deepgreen/70" id="historyNoResults"><span data-lang="el">Δεν βρέθηκε ιστορική ενότητα. Δοκιμάστε άλλη λέξη.</span><span data-lang="en">No archive collection found. Try another term.</span></p>
-</div><div class="grid sm:grid-cols-2 gap-4 museum-chapter-grid" id="chapters">
-<button aria-label="Ίδρυση &amp; Ιστορική Ταυτότητα Foundation &amp; Identity Η ίδρυση, το έμβλημα και τα επίσημα χρώματα. The founding, emblem, and official colours." class="history-archive-card glass-card w-full text-left rounded-3xl p-5 sm:p-6 group v61-archive-card" onclick="openHistoryArchive('intro')" type="button">
-<div class="flex items-start gap-4 relative z-10">
-<div class="w-12 h-12 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-xl shrink-0 group-hover:scale-105 transition chapter-icon-contrast chapter-icon-yellow"><i aria-hidden="true" class="fa-solid fa-scroll"></i></div>
-<div><span class="text-[10px] font-black tracking-[.16em] uppercase text-archelaos-darkgreen"><span data-lang="el">Ιστορικό αρχείο</span><span data-lang="en">Archive collection</span></span><h3 class="font-heading font-black text-lg sm:text-xl text-archelaos-deepgreen mt-1"><span data-lang="el">Ίδρυση &amp; Ιστορική Ταυτότητα</span><span data-lang="en">Foundation &amp; Identity</span></h3><p class="text-sm text-slate-600 mt-2 leading-relaxed"><span data-lang="el">Η ίδρυση, το έμβλημα και τα επίσημα χρώματα.</span><span data-lang="en">The founding, emblem, and official colours.</span></p></div>
-</div>
+</div><div class="grid sm:grid-cols-2 gap-4 museum-chapter-grid museum-unified-chapters" id="chapters">
+<button aria-label="Άνοιγμα: Ίδρυση και Ιστορική Ταυτότητα" class="history-archive-card v61-archive-card museum-exhibit-chapter-card" onclick="openHistoryArchive('intro')" type="button">
+  <i aria-hidden="true" class="fa-solid fa-scroll museum-exhibit-chapter-icon"></i>
+  <span class="museum-exhibit-chapter-title">Ίδρυση &amp; Ιστορική Ταυτότητα</span>
+  <span class="museum-exhibit-chapter-arrow" aria-hidden="true">↗</span>
 </button>
-<button aria-label="Διοίκηση &amp; Πρόεδροι Administration &amp; Presidents Αναλυτική διοικητική ιστορία και pop-up για κάθε προεδρική θητεία. Full administrative hist" class="history-archive-card glass-card w-full text-left rounded-3xl p-5 sm:p-6 group v61-archive-card" onclick="openHistoryArchive('dioikisi')" type="button">
-<div class="flex items-start gap-4 relative z-10">
-<div class="w-12 h-12 rounded-2xl bg-archelaos-deepgreen text-archelaos-yellow flex items-center justify-center text-xl shrink-0 group-hover:scale-105 transition chapter-icon-contrast chapter-icon-green"><i aria-hidden="true" class="fa-solid fa-landmark"></i></div>
-<div><span class="text-[10px] font-black tracking-[.16em] uppercase text-archelaos-darkgreen"><span data-lang="el">Ιστορικό αρχείο</span><span data-lang="en">Archive collection</span></span><h3 class="font-heading font-black text-lg sm:text-xl text-archelaos-deepgreen mt-1"><span data-lang="el">Διοίκηση &amp; Πρόεδροι</span><span data-lang="en">Administration &amp; Presidents</span></h3><p class="text-sm text-slate-600 mt-2 leading-relaxed"><span data-lang="el">Αναλυτική ιστορία της διοίκησης και αναδυόμενο παράθυρο πληροφοριών για κάθε προεδρική θητεία.</span><span data-lang="en">Full administrative history and a popup for each presidential term.</span></p></div>
-</div>
+<button aria-label="Άνοιγμα: Διοίκηση και Πρόεδροι" class="history-archive-card v61-archive-card museum-exhibit-chapter-card" onclick="openHistoryArchive('dioikisi')" type="button">
+  <i aria-hidden="true" class="fa-solid fa-landmark museum-exhibit-chapter-icon"></i>
+  <span class="museum-exhibit-chapter-title">Διοίκηση &amp; Πρόεδροι</span>
+  <span class="museum-exhibit-chapter-arrow" aria-hidden="true">↗</span>
 </button>
-<a href="/tmimata.html" aria-label="Ιστορία Αθλητικών Τμημάτων Sports Department History Δέκα ενότητες, με επιλογή τμήματος μέσα στο popup. Ten sections, with department selec" class="history-archive-card glass-card w-full text-left rounded-3xl p-5 sm:p-6 group" >
-<div class="flex items-start gap-4 relative z-10">
-<div class="w-12 h-12 rounded-2xl bg-archelaos-deepgreen text-archelaos-yellow flex items-center justify-center text-xl shrink-0 group-hover:scale-105 transition chapter-icon-contrast chapter-icon-green"><i aria-hidden="true" class="fa-solid fa-medal"></i></div>
-<div><span class="text-[10px] font-black tracking-[.16em] uppercase text-archelaos-darkgreen"><span data-lang="el">Ιστορία ανά τμήμα</span><span data-lang="en">Sports history</span></span><h3 class="font-heading font-black text-lg sm:text-xl text-archelaos-deepgreen mt-1"><span data-lang="el">Ιστορία Αθλητικών Τμημάτων</span><span data-lang="en">Sports Department History</span></h3><p class="text-sm text-slate-600 mt-2 leading-relaxed"><span data-lang="el">Η ιστορία των αθλητικών τμημάτων σε μια ξεχωριστή σελίδα.</span><span data-lang="en">Explore the history of each sports department on a dedicated page.</span></p></div>
-</div>
+<a aria-label="Ιστορία Αθλητικών Τμημάτων — άνοιγμα σελίδας" class="history-archive-card v61-archive-card museum-exhibit-chapter-card" href="/tmimata.html">
+  <i aria-hidden="true" class="fa-solid fa-medal museum-exhibit-chapter-icon"></i>
+  <span class="museum-exhibit-chapter-title">Ιστορία Αθλητικών Τμημάτων</span>
+  <span class="museum-exhibit-chapter-arrow" aria-hidden="true">↗</span>
 </a>
-<button aria-label="Δίια &amp; Δίος Δρόμος Diia Games &amp; Dios Dromos Η αναδρομή στους ιστορικούς αγώνες και στον δρόμο. A look back at the historic games and road r" class="history-archive-card glass-card w-full text-left rounded-3xl p-5 sm:p-6 group v61-archive-card" onclick="openHistoryArchive('diia')" type="button">
-<div class="flex items-start gap-4 relative z-10">
-<div class="w-12 h-12 rounded-2xl bg-archelaos-yellow text-archelaos-deepgreen flex items-center justify-center text-xl shrink-0 group-hover:scale-105 transition chapter-icon-contrast chapter-icon-yellow"><i aria-hidden="true" class="fa-solid fa-person-running"></i></div>
-<div><span class="text-[10px] font-black tracking-[.16em] uppercase text-archelaos-darkgreen"><span data-lang="el">Ιστορικό αρχείο</span><span data-lang="en">Archive collection</span></span><h3 class="font-heading font-black text-lg sm:text-xl text-archelaos-deepgreen mt-1"><span data-lang="el">Δίια &amp; Δίος Δρόμος</span><span data-lang="en">Diia Games &amp; Dios Dromos</span></h3><p class="text-sm text-slate-600 mt-2 leading-relaxed"><span data-lang="el">Η αναδρομή στους ιστορικούς αγώνες και στον δρόμο.</span><span data-lang="en">A look back at the historic games and road race.</span></p></div>
-</div>
+<button aria-label="Άνοιγμα: Δίια και Δίος Δρόμος" class="history-archive-card v61-archive-card museum-exhibit-chapter-card" onclick="openHistoryArchive('diia')" type="button">
+  <i aria-hidden="true" class="fa-solid fa-person-running museum-exhibit-chapter-icon"></i>
+  <span class="museum-exhibit-chapter-title">Δίια &amp; Δίος Δρόμος</span>
+  <span class="museum-exhibit-chapter-arrow" aria-hidden="true">↗</span>
 </button>
 </div>
-<div class="rounded-3xl border border-archelaos-deepgreen/15 bg-white/75 p-5 sm:p-6 museum-sport-access-panel">
-<div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-4">
-<div><p class="text-[10px] font-black uppercase tracking-[.17em] text-archelaos-darkgreen"><span data-lang="el">Γρήγορη πρόσβαση</span><span data-lang="en">Quick access</span></p><h3 class="font-heading font-black text-xl sm:text-2xl text-archelaos-deepgreen mt-1"><span data-lang="el">Η ιστορία κάθε αθλήματος</span><span data-lang="en">The story of every sport</span></h3></div>
-<span class="text-xs text-slate-500"><span data-lang="el">Επίλεξε ένα τμήμα για το πλήρες ιστορικό του.</span><span data-lang="en">Select a department to read its full history.</span></span>
-</div>
-<div class="v61-sport-grid" id="sports-archive">
-<button aria-haspopup="dialog" aria-label="Χάντμπολ Handball" class="v61-sport-card" onclick="openHistoryArchive('tmimata','handball')" type="button"><i class="fa-solid fa-hand-fist"></i><span data-lang="el">Χάντμπολ</span><span data-lang="en">Handball</span><span aria-hidden="true" class="v61-open-indicator">↗</span></button>
-<button aria-haspopup="dialog" aria-label="Στίβος Track &amp; Field" class="v61-sport-card" onclick="openHistoryArchive('tmimata','track')" type="button"><i class="fa-solid fa-person-running"></i><span data-lang="el">Στίβος</span><span data-lang="en">Track &amp; Field</span><span aria-hidden="true" class="v61-open-indicator">↗</span></button>
-<button aria-haspopup="dialog" aria-label="Τοξοβολία Archery" class="v61-sport-card" onclick="openHistoryArchive('tmimata','archery')" type="button"><i class="fa-solid fa-bullseye"></i><span data-lang="el">Τοξοβολία</span><span data-lang="en">Archery</span><span aria-hidden="true" class="v61-open-indicator">↗</span></button>
-<button aria-haspopup="dialog" aria-label="Βόλεϊ Volleyball" class="v61-sport-card" onclick="openHistoryArchive('tmimata','volleyball')" type="button"><i class="fa-solid fa-volleyball"></i><span data-lang="el">Βόλεϊ</span><span data-lang="en">Volleyball</span><span aria-hidden="true" class="v61-open-indicator">↗</span></button>
-<button aria-haspopup="dialog" aria-label="Σκοποβολή Shooting" class="v61-sport-card" onclick="openHistoryArchive('tmimata','shooting')" type="button"><i class="fa-solid fa-crosshairs"></i><span data-lang="el">Σκοποβολή</span><span data-lang="en">Shooting</span><span aria-hidden="true" class="v61-open-indicator">↗</span></button>
-<button aria-haspopup="dialog" aria-label="Πάλη Wrestling" class="v61-sport-card" onclick="openHistoryArchive('tmimata','wrestling')" type="button"><i class="fa-solid fa-medal"></i><span data-lang="el">Πάλη</span><span data-lang="en">Wrestling</span><span aria-hidden="true" class="v61-open-indicator">↗</span></button>
-<button aria-haspopup="dialog" aria-label="Κολύμβηση Swimming" class="v61-sport-card" onclick="openHistoryArchive('tmimata','swimming')" type="button"><i class="fa-solid fa-person-swimming"></i><span data-lang="el">Κολύμβηση</span><span data-lang="en">Swimming</span><span aria-hidden="true" class="v61-open-indicator">↗</span></button>
-<button aria-haspopup="dialog" aria-label="Ενόργανη Gymnastics" class="v61-sport-card" onclick="openHistoryArchive('tmimata','gymnastics')" type="button"><i class="fa-solid fa-dumbbell"></i><span data-lang="el">Ενόργανη</span><span data-lang="en">Gymnastics</span><span aria-hidden="true" class="v61-open-indicator">↗</span></button>
-<button aria-haspopup="dialog" aria-label="Άλλα / πρώην τμήματα Other / former departments" class="v61-sport-card" onclick="openHistoryArchive('tmimata','inactive-depts')" type="button"><i class="fa-solid fa-box-archive"></i><span data-lang="el">Άλλα / πρώην τμήματα</span><span data-lang="en">Other / former departments</span><span aria-hidden="true" class="v61-open-indicator">↗</span></button>
-</div>
-</div>
+
 </div>
 </div>
 </div>
