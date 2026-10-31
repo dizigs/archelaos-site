@@ -10,10 +10,11 @@ const pages=[
 ];
 const groups=[['Συλλογές',[2,3,4]],['Ο Σύλλογος',[5,6,7]]];
 const path=(location.pathname.split('/').pop()||'index.html').toLowerCase();
+const COMPLETED=new Set(['index.html','hall-of-fame.html','70-stigmes.html','stories.html']);
 const hrefFor=(item)=>{
  const href=item[0],file=href.split('#')[0];
  // Links to completed rebuild pages stay inside rebuild; unported pages still use unchanged originals.
- if(location.pathname.startsWith('/rebuild/')&&['index.html','hall-of-fame.html'].includes(file))return '/rebuild/'+href;
+ if(location.pathname.startsWith('/rebuild/')&&COMPLETED.has(file))return '/rebuild/'+href;
  return '/'+href;
 };
 function addLink(parent,item,className){
@@ -26,7 +27,7 @@ function renderHeader(){
   if(document.querySelector('.arch-header'))return;
   const header=document.createElement('header');header.className='arch-header';
   const inner=document.createElement('div');inner.className='arch-header-inner';
-  const brand=document.createElement('a');brand.className='arch-brand';brand.href='/index.html';brand.setAttribute('aria-label','Αρχική - Γ.Α.Σ. Ο Αρχέλαος');
+  const brand=document.createElement('a');brand.className='arch-brand';brand.href='/rebuild/index.html';brand.setAttribute('aria-label','Αρχική - Γ.Α.Σ. Ο Αρχέλαος');
   const crest=document.createElement('img');crest.src='/assets/archelaos-crest.png';crest.alt='';crest.width=52;crest.height=52;
   const lines=document.createElement('span');lines.className='arch-brand-lines';
   const title=document.createElement('span');title.className='arch-brand-title';title.textContent='Γ.Α.Σ. «Ο ΑΡΧΕΛΑΟΣ»';
@@ -67,6 +68,18 @@ function renderFooter(){
   footer.innerHTML='<div class="arch-footer-inner"><div class="arch-footer-top"><img src="/assets/archelaos-crest.png" alt="" loading="lazy" width="58" height="58"><div><strong>Γ.Α.Σ. «Ο ΑΡΧΕΛΑΟΣ»</strong><small>ΚΑΤΕΡΙΝΗ · 1956—2026</small></div></div><div class="arch-footer-rule"></div><div class="arch-footer-columns"><section><h2>ΨΗΦΙΑΚΟ ΜΟΥΣΕΙΟ</h2><a href="/history.html">Η ιστορία</a><a href="/70-stigmes.html">70 Στιγμές</a></section><section><h2>ΟΙ ΑΝΘΡΩΠΟΙ</h2><a href="/rebuild/hall-of-fame.html">Hall of Fame</a><a href="/stories.html">Ιστορίες</a><a href="/board.html">Διοίκηση</a></section><section><h2>Ο ΣΥΛΛΟΓΟΣ</h2><a href="/rebuild/index.html">Αρχική</a><a href="/rebuild/index.html#departments">Αθλήματα</a><a href="/contact.html">Επικοινωνία</a></section></div><div class="arch-footer-social"><a href="https://www.facebook.com/oarxelaos" target="_blank" rel="noopener noreferrer">Facebook</a><a href="https://www.youtube.com/@GASArchelaosKaterinis" target="_blank" rel="noopener noreferrer">YouTube</a></div><div class="arch-footer-bottom"><span>Γ.Α.Σ. Αρχέλαος Κατερίνης · Από το 1956</span><span>Αθλητισμός · Παιδεία · Συμμετοχή</span></div></div>';
   document.body.append(footer);
 }
-function ready(){renderHeader();renderFooter()}
+function routePreviewLinks(){
+ if(!location.pathname.startsWith('/rebuild/'))return;
+ // Migration-only routing: public pages remain untouched, unfinished pages remain at their original URL.
+ for(const link of document.querySelectorAll('a[href]')){
+  const raw=link.getAttribute('href');if(!raw||raw.startsWith('#'))continue;
+  let url;try{url=new URL(raw,location.href)}catch(_){continue}
+  if(url.origin!==location.origin||url.pathname.startsWith('/rebuild/'))continue;
+  const file=url.pathname.replace(/^\//,'');
+  if(!COMPLETED.has(file))continue;
+  link.href='/rebuild/'+file+url.search+url.hash;
+ }
+}
+function ready(){renderHeader();renderFooter();routePreviewLinks()}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',ready,{once:true});else ready();
 })();
