@@ -95,7 +95,7 @@ function renderHeader(){
   content.append(mobileLanguageSlot);
   for(const group of [['Εξερεύνηση',[0,1,2,3,4,10]],['Ο Σύλλογος',[5,6,7,8,9]]]){
     const caption=document.createElement('div');caption.className='arch-menu-group';caption.textContent=group[0];content.append(caption);
-    group[1].forEach(i=>{const a=addLink(content,pages[i],'arch-mobile-link');const arrow=document.createElement('span');arrow.textContent='↗';arrow.setAttribute('aria-hidden','true');a.append(arrow)});
+    group[1].forEach(i=>{addLink(content,pages[i],'arch-mobile-link')});
   }
   drawer.append(content);document.body.prepend(drawer);document.body.prepend(header);
   let prior=null;
