@@ -38,7 +38,8 @@ function openDialog(data){
  dlg.querySelector('h2').textContent=data.title||'';
  const body=dlg.querySelector('.arch-dialog-body');body.replaceChildren();
  const lines=Array.isArray(data.paragraphs)?data.paragraphs:[data.body||''];
- for(const line of lines){
+ if(data.contentNode)body.append(data.contentNode);
+ else for(const line of lines){
   if(!String(line||'').trim())continue;
   const p=document.createElement('p');p.textContent=line;body.append(p);
  }

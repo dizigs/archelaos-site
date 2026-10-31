@@ -1,0 +1,65 @@
+/* Digital Museum reconstructed from verified October backup editorial styles. */
+.mu-skip{position:fixed;top:-80px;left:10px;background:#fff;color:#073d2a;padding:10px;z-index:1800}.mu-skip:focus{top:12px}
+.mu-entrance{background:radial-gradient(ellipse at 77% 20%,#1c573d,#073d2a 68%,#042e20);color:#fff9e8;padding:120px 0 135px;text-align:center;position:relative;overflow:hidden}
+.mu-entrance:before{content:"1956";position:absolute;bottom:-.24em;left:0;font:400 clamp(150px,30vw,450px) Georgia,serif;color:#ffffff07}
+.mu-entrance>.arch-container{position:relative;z-index:1}
+.mu-entrance-kicker{font-size:12px;font-weight:800;color:#d6be81;letter-spacing:.22em}
+.mu-entrance h1{font:400 clamp(46px,7vw,94px)/1.07 Georgia,serif;letter-spacing:-.04em;max-width:950px;margin:25px auto}
+.mu-entrance h1 em{color:#e4c98d}
+.mu-divider{display:flex;justify-content:center;align-items:center;gap:19px;color:#c7a65e}
+.mu-divider span{width:65px;height:1px;background:#c7a65e}
+.mu-entrance p:not(.mu-entrance-kicker){max-width:720px;margin:25px auto 30px;color:#e2e9e2;font-size:17px;line-height:1.85}
+.mu-cta{display:inline-flex;text-decoration:none;color:#073d2a;background:#eddbaf;border-radius:13px;padding:14px 23px;font-size:14px;font-weight:800}
+.mu-collections,.mu-explore,.mu-exhibits,.mu-press,.mu-archive,.mu-sports{padding:clamp(65px,8vw,110px) 0}
+.mu-collections{background:#f8f6ef}
+.mu-explore{background:#efe9dc}
+.mu-exhibits{background:#f8f6ef}
+.mu-press{background:#073d2a;color:#fffaf0}
+.mu-archive{background:#f8f6ef}
+.mu-sports{background:#f1ecdf}
+.mu-label{font-size:11px;font-weight:800;letter-spacing:.17em;color:#94773d;margin:0 0 16px}
+.mu-press .mu-label{color:#d7bd83}
+.mu-collections h2,.mu-explore h2,.mu-exhibits h2,.mu-press h2,.mu-archive h2,.mu-sports h2{font:400 clamp(37px,5vw,64px)/1.12 Georgia,serif;letter-spacing:-.04em;color:#073d2a;max-width:940px;margin:0 0 20px}
+.mu-press h2{color:#fff7e9}
+.mu-desc{max-width:860px;color:#546e59;font-size:16px;line-height:1.85;margin-bottom:36px}
+.mu-press .mu-desc{color:#dce7da}
+.mu-collections .arch-cards{grid-template-columns:repeat(3,minmax(0,1fr))}
+.mu-nav-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.mu-nav-card{display:flex;flex-direction:column;gap:15px;position:relative;min-height:225px;padding:25px;background:linear-gradient(132deg,#fffefa,#f2e8d6);border:1px solid #d1be9a;border-radius:22px;text-decoration:none;color:#073d2a}
+.mu-nav-card span{color:#9b8047;font:600 22px Georgia,serif}
+.mu-nav-card strong{margin:auto 0 0;font:400 clamp(25px,2.7vw,33px) Georgia,serif}
+.mu-nav-card small{color:#597362}
+.mu-nav-card b{position:absolute;top:23px;right:25px;color:#94773d}
+.mu-exhibit-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.mu-exhibit{display:flex;flex-direction:column;text-align:left;position:relative;min-height:290px;padding:26px 28px;border:1px solid #d5c29f;border-radius:23px;background:linear-gradient(136deg,#fffdf6,#eee2cf);color:#073d2a;overflow:hidden}
+.mu-exhibit:nth-child(2){background:linear-gradient(136deg,#0a4e37,#073d2a);color:#fffaf0}
+.mu-exhibit:after{content:attr(data-year);position:absolute;right:10px;bottom:-.2em;font:400 135px Georgia,serif;color:#bba36f20;pointer-events:none}
+.mu-exhibit>span{position:relative;z-index:1;font:600 25px Georgia,serif;color:#a3874e}
+.mu-exhibit strong{position:relative;z-index:1;font:400 30px/1.2 Georgia,serif;margin:auto 0 10px}
+.mu-exhibit small{position:relative;z-index:1;color:inherit;opacity:.8;line-height:1.7}
+.mu-press-grid,.mu-history-grid,.mu-sports-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px}
+.mu-history-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.mu-press-item,.mu-archive-item,.mu-sport-item{display:flex;flex-direction:column;position:relative;justify-content:center;text-align:left;padding:25px 28px;min-height:150px;background:#fffaf0;border:1px solid #d8c59f;border-radius:18px;color:#073d2a}
+.mu-press-item{background:#0a4834;border-color:#a88d55;color:#fffaf0}
+.mu-press-item span,.mu-archive-item span,.mu-sport-item span{color:#a78b52;font:600 18px Georgia,serif}
+.mu-press-item span{color:#d6bd81}
+.mu-press-item strong,.mu-archive-item strong,.mu-sport-item strong{font:400 clamp(22px,2.5vw,30px)/1.2 Georgia,serif;margin:9px 0}
+.mu-press-item b,.mu-archive-item b,.mu-sport-item b{position:absolute;top:19px;right:22px;color:#be9d5b;font-size:22px}
+.mu-press-item:hover{background:#155b41}
+.mu-archive-item:hover,.mu-sport-item:hover{background:#fffefb}
+.mu-sport-item{min-height:195px;background:linear-gradient(130deg,#fffefa,#f2eadb)}
+.mu-contribute{padding:70px 0 85px;background:#073d2a;color:#fffaf0;text-align:center}
+.mu-contribute h2{font:400 clamp(34px,5vw,54px) Georgia,serif}
+.mu-contribute p{color:#dce8db}
+.mu-contribute a{display:inline-block;background:#e9d5a5;color:#073d2a;text-decoration:none;padding:13px 22px;border-radius:12px;font-weight:800;margin-top:20px}
+.arch-dialog .mu-article{color:#294d38}
+.arch-dialog .mu-article h2,.arch-dialog .mu-article h3,.arch-dialog .mu-article h4{font-family:Georgia,serif;color:#073d2a;font-weight:500;margin:1.35em 0 .55em}
+.arch-dialog .mu-article h2{font-size:29px}.arch-dialog .mu-article h3{font-size:24px}.arch-dialog .mu-article h4{font-size:20px}
+.arch-dialog .mu-article p,.arch-dialog .mu-article li{line-height:1.85}
+.arch-dialog .mu-article a{color:#8b6b2e;text-decoration:underline;overflow-wrap:anywhere}
+.arch-dialog .mu-article img{max-width:100%;height:auto}
+.arch-dialog .mu-article table{border-collapse:collapse;max-width:100%;display:block;overflow:auto}
+.arch-dialog .mu-article th,.arch-dialog .mu-article td{border:1px solid #d3c6a5;padding:8px}
+.arch-dialog .mu-article blockquote{border-left:2px solid #c7a65e;margin:25px 0;padding:9px 18px;color:#967139;font-style:italic}
+@media(max-width:920px){.mu-collections .arch-cards,.mu-nav-grid,.mu-history-grid,.mu-exhibit-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){.mu-collections .arch-cards,.mu-nav-grid,.mu-history-grid,.mu-exhibit-grid,.mu-press-grid,.mu-sports-grid{grid-template-columns:1fr}.mu-entrance{padding:85px 0 105px}.mu-entrance h1{font-size:clamp(41px,10vw,63px)}}
