@@ -1,14 +1,10 @@
 /* One local search over validated public archive data. No API calls, tracking or index service. */
 (function(){'use strict';
 const $=sel=>document.querySelector(sel);
-const normalize=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('el').replace(/\s+/g,' ').trim();
+const normalize=s=>window.ArchelaosCatalog.normalize(s);
 const state={ready:false,items:[],query:'',filter:'all',limit:24};
 const link=href=>window.ArchelaosRoutes?.toStage(href)||href;
 const make=(tag,cls,value)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(value!==undefined)e.textContent=value;return e};
-function add(type,ref,title,subtitle,body,year,url,secondary=''){
- state.items.push({type,ref,title,subtitle,year,url,text:normalize([title,subtitle,body,secondary].join(' ')),
-  excerpt:String(body||subtitle||'').replace(/\s+/g,' ').trim().slice(0,205)});
-}
 function score(item,tokens){
  const title=normalize(item.title),sub=normalize(item.subtitle),scoreText=item.text;
  let points=0;
@@ -20,12 +16,12 @@ function score(item,tokens){
 }
 function card(item){
  const a=make('a','sr-card');a.href=link(item.url);
- a.append(make('span','sr-card-kind',item.type==='person'?'HALL OF FAME · ΠΡΟΣΩΠΑ':item.type==='moment'?'ΙΣΤΟΡΙΚΟ ΑΡΧΕΙΟ · 70 ΣΤΙΓΜΕΣ':item.type==='exhibit'?'ΨΗΦΙΑΚΟ ΜΟΥΣΕΙΟ · ΕΚΘΕΜΑ':'ΙΣΤΟΡΙΕΣ ΤΟΥ ΣΥΛΛΟΓΟΥ'));
+ a.append(make('span','sr-card-kind',item.kindLabel));
  a.append(make('strong','sr-card-title',item.title));
  if(item.excerpt)a.append(make('span','sr-card-excerpt',item.excerpt));
  if(item.year)a.append(make('small','sr-card-year',item.year));
  const arrow=make('span','sr-card-arrow','↗');arrow.setAttribute('aria-hidden','true');a.append(arrow);
- const wrap=make('div','sr-card-wrap');wrap.append(a,window.ArchelaosFavorites.button(item.type,item.ref));return wrap;
+ const wrap=make('div','sr-card-wrap');wrap.append(a,window.ArchelaosFavorites.button(item.type,item.id));return wrap;
 }
 function render(){
  if(!state.ready)return;
@@ -61,23 +57,10 @@ async function init(){
  }));
  $('#sr-more-button').addEventListener('click',()=>{state.limit+=24;render()});
  try{
-  const [p,m,s,archive]=await Promise.all(['people','moments','stories','museum'].map(name=>
-   fetch('/rebuild/data/'+name+'.json').then(r=>{if(!r.ok)throw Error(name+' HTTP '+r.status);return r.json()})
-  ));
-  if(p.people?.length<682||m.moments?.length!==70||s.stories?.length<21||archive.articles?.length<14||archive.press?.length<10)throw Error('Historical data incomplete');
-  for(const person of p.people)add('person',person.id,person.name,person.role,person.bio,'','/hall-of-fame.html?person='+encodeURIComponent(person.id),[person.name_en,person.role_en,person.bio_en].join(' '));
-  for(const moment of m.moments)add('moment',moment.id,moment.title,'70 Στιγμές',moment.body.join(' '),String(moment.year),'/70-stigmes.html#moment-'+moment.id,[moment.title_en,...moment.body_en].join(' '));
-  s.stories.forEach((story,i)=>add('story',i+1,story.title,story.sport,story.lead+' '+story.text,story.year,'/stories.html#story-'+(i+1)));
-  // Search original museum exhibitions, sports departments and press clippings as
-  // distinct verified documents. A template keeps source HTML inert while indexing text.
-  for(const record of [...archive.articles,...archive.press]){
-   if(!record.id||!record.title)continue;
-   const inert=document.createElement('template');
-   inert.innerHTML=String(record.html||'');
-   const text=(inert.content.textContent||'').replace(/\s+/g,' ').trim();
-   add('exhibit',record.id,record.title,'Ψηφιακό Μουσείο',text,String(record.period||record.year||''),
-    '/history.html#archive-'+encodeURIComponent(record.id));
-  }
+  const catalog=await window.ArchelaosCatalog.load();
+  // Photos have their own collection, not thousands of duplicate search thumbnails.
+  state.items=catalog.records.filter(item=>item.type!=='photo')
+    .map(item=>({...item,text:item.searchText}));
   state.ready=true;
   const params=new URLSearchParams(location.search),seed=params.get('q')||'';
   if(seed){input.value=seed.slice(0,120);state.query=input.value}
