@@ -38,6 +38,7 @@ function render(){
  if(!matches.length){grid.append(el('p','rs-empty','Δεν βρέθηκαν ιστορίες με αυτό το κριτήριο.'));return}
  const [first,...rest]=matches;featured.append(card(first.story,first.index,true));
  const frag=document.createDocumentFragment();rest.forEach(x=>frag.append(card(x.story,x.index)));grid.append(frag);
+ window.ArchelaosMotion?.observe(document);
 }
 async function init(){
  $('#rs-search').addEventListener('input',e=>{s.search=e.target.value;render()});

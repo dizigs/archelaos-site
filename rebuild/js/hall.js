@@ -89,6 +89,7 @@ function render(){
   parent.append(fragment);
  }
  paginate(data);
+ window.ArchelaosMotion?.observe(document);
 }
 function setLanguage(lang){
  state.lang=lang;

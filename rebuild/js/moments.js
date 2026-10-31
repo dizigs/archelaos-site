@@ -46,6 +46,7 @@ function render(){
   fragment.append(makeCard(item));
  }
  container.append(fragment);
+ window.ArchelaosMotion?.observe(container);
 }
 function renderFeatured(){
  const root=q('#rm-featured-grid');root.replaceChildren();
@@ -59,6 +60,7 @@ function renderFeatured(){
    const card=q('#moment-'+id);card?.scrollIntoView({block:'center',behavior:'auto'});card?.querySelector('button')?.focus({preventScroll:true});
   });fragment.append(btn);
  }root.append(fragment);
+ window.ArchelaosMotion?.observe(root);
 }
 function apply(){
  document.documentElement.lang=state.lang;

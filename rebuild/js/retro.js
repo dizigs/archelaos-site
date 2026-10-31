@@ -22,6 +22,7 @@ function show(){
   closeLabel:'Κλείσιμο φύλλου αγώνα'
  }));
  body.append(full);article.append(board,body);stage.append(article);
+ window.ArchelaosMotion?.observe(stage);
 }
 async function init(){
  try{

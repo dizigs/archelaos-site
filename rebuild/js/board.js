@@ -23,6 +23,7 @@ async function init(){
   const members=document.createDocumentFragment(),eras=document.createDocumentFragment();
   data.members.forEach(p=>members.append(member(p)));data.eras.forEach(p=>eras.append(period(p)));
   $('#bd-members').append(members);$('#bd-eras').append(eras);
+  window.ArchelaosMotion?.observe(document);
  }catch(err){console.error('Board:',err);$('#bd-members').textContent='Αδυναμία φόρτωσης της διοίκησης.'}
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();

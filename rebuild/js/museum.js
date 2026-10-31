@@ -47,6 +47,7 @@ function populate(data){
   if(sports.includes(id)||['intro','dioikisi','egkatastaseis','diia'].includes(id))continue;
   if(!id.startsWith('arch-press-'))$('#mu-history-grid').append(makeButton(record,'mu-archive-item'));
  }
+ window.ArchelaosMotion?.observe(document);
 }
 async function init(){
  try{

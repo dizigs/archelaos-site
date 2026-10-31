@@ -74,3 +74,54 @@
 .arch-dialog-sources strong{color:#876b37;font-size:13px}
 .arch-dialog-sources a{color:#0a5840;font-size:13px;overflow-wrap:anywhere}
 .arch-dialog-body p{white-space:pre-line}
+
+
+/* Archival typography: one coherent editorial system for all extracted historic articles.
+   Original text stays intact. No legacy layout classes or gold sidebars are needed. */
+.arch-archive-content{
+  font:400 clamp(15px,1.55vw,17px)/1.9 Inter,system-ui,sans-serif;
+  color:#2a4536;
+  overflow-wrap:anywhere;
+}
+.arch-archive-content :is(h2,h3,h4,h5,h6){
+  color:var(--arch-forest);
+  font-family:Georgia,"Times New Roman",serif;
+  font-weight:500;
+  line-height:1.32;
+  letter-spacing:-.02em;
+  margin:1.6em 0 .65em;
+}
+.arch-archive-content h2{font-size:clamp(24px,3.2vw,32px)}
+.arch-archive-content h3{font-size:clamp(21px,2.8vw,27px)}
+.arch-archive-content h4{font-size:clamp(19px,2.25vw,23px)}
+.arch-archive-content :is(p,ul,ol,blockquote,figure,table){margin:0 0 1.25em}
+.arch-archive-content :is(ul,ol){padding-inline-start:1.6em}
+.arch-archive-content li{padding-inline-start:.1em;margin:.4em 0}
+.arch-archive-content li::marker{color:#a28446}
+.arch-archive-content :is(blockquote,q){
+  color:#98763a;
+  font:italic 400 clamp(17px,1.85vw,20px)/1.75 Georgia,serif;
+}
+.arch-archive-content blockquote{
+  padding:.25em 0 .25em .15em;
+  border:0;
+  background:transparent;
+}
+.arch-archive-content :is(strong,b){color:#214936;font-weight:750}
+.arch-archive-content :is(img,video,iframe){max-width:100%;height:auto;object-fit:contain}
+.arch-archive-content figure{max-width:100%}
+.arch-archive-content figcaption{color:#6a7566;font-size:12px}
+.arch-archive-content table{
+  display:block;
+  max-width:100%;
+  overflow:auto;
+  border-collapse:collapse;
+  font-size:14px;
+}
+.arch-archive-content :is(td,th){
+  border:1px solid #e2d8c3;padding:10px 12px;vertical-align:top;
+}
+.arch-archive-content th{background:#f1ebdb;color:#284d36}
+.arch-archive-content a{color:#0c6444;text-underline-offset:4px}
+.arch-archive-content hr{border:0;border-top:1px solid #dfd2b6;margin:1.7em 0}
+@media(max-width:600px){.arch-archive-content{font-size:15px;line-height:1.85}}
