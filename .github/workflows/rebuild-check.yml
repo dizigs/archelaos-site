@@ -130,6 +130,8 @@ jobs:
             rebuild/test-artifacts/event-review-queue.md
           if-no-files-found: warn
           retention-days: 14
+      - name: Validate owner-only final approval and block conflicting research
+        run: python rebuild/tests/event_decisions.py
       - name: Ensure all rebuild HTML pages are unpublished previews
         shell: bash
         run: |

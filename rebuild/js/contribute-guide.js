@@ -1,6 +1,7 @@
 /* Local-only contribution guide. No fetch, persistence, API or form submission. */
 (function(){
 'use strict';
+let verificationRequest=null;
 const fields=['type','sport','date','persons','details','source','rights'];
 const params=new URLSearchParams(location.search);
 const linkedKind=params.get('kind')||'',linkedId=params.get('id')||'';
@@ -26,6 +27,7 @@ function draft(){
   ['Προέλευση / πηγή',values.source],
   ['Δυνατότητα κοινοποίησης',values.rights],
   ['Περιγραφή',values.details],
+  ...(verificationRequest?[['Κωδικός αιτήματος τεκμηρίωσης',verificationRequest.id],['Θέμα αιτήματος',verificationRequest.title]]:[]),
   ...(reference?[['Σχετικό στοιχείο αρχείου',reference.title],['Σύνδεσμος εγγραφής',reference.url]]:[])
  ];
  const body='Καλησπέρα,\n\nΘα ήθελα να συνεισφέρω στο ιστορικό αρχείο του Γ.Α.Σ. Αρχέλαος.\n\n'
@@ -66,6 +68,7 @@ async function fillVerificationContext(){
   const data=await response.json();
   const entry=data.requests?.find(x=>x.id===id&&x.public_safe===true&&x.status==='awaiting_evidence');
   if(!entry)return;
+  verificationRequest={id:entry.id,title:entry.title};
   $('guide-context').hidden=false;
   $('guide-context').textContent='Αίτημα προς τεκμηρίωση: '+entry.title+' · Κωδικός: '+entry.id;
   const option=[...$('sport').options].find(x=>x.textContent===entry.sport_label);
