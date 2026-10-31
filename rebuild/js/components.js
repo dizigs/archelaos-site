@@ -68,6 +68,7 @@ function openDialog(data){
  dlg.querySelector('.arch-close').setAttribute('aria-label',data.closeLabel||'Κλείσιμο παραθύρου');
  if(!wasOpen)dlg.showModal();
  document.body.classList.add('arch-dialog-open');dlg.querySelector('.arch-close').focus();
+ document.dispatchEvent(new CustomEvent('archelaos:dialog-open',{detail:{dialog:dlg}}));
 }
 window.ArchelaosUI=Object.freeze({card,openDialog});
 })();
