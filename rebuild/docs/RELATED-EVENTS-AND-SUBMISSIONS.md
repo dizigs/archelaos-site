@@ -32,3 +32,23 @@ Run the offline reciprocal test and candidate export with:
 - python rebuild/tools/build_event_graph.py
 
 No form deployment, backend, D1 database, security secret, production change or automatic publishing is done by these commands.
+
+## Νέα υλοποίηση: εμφανές «Προς τεκμηρίωση» και δική σου τελική απόφαση
+
+Η σελίδα Συνεισφορά διαθέτει πλέον ενότητα με **εννέα ουδέτερα αιτήματα τεκμηρίων**, ένα για κάθε ενεργό/ιστορικό τμήμα, χωρίς δημοσίευση ανεπιβεβαίωτων αγωνιστικών ισχυρισμών. Κάθε φίλτρο/κάρτα οδηγεί σε προσυμπληρωμένο `mailto` που διατηρεί τον σταθερό κωδικό του αιτήματος. Το D1/Turnstile backend υπάρχει μόνο ως κώδικας υποψήφιας μελλοντικής ανάπτυξης και **δεν** έχει ενεργοποιηθεί ή συνδεθεί με πραγματική υπηρεσία.
+
+Η εσωτερική κατάταξη δημιουργείται με:
+```sh
+python rebuild/tools/event_triage.py
+```
+Αποθηκεύει αριθμημένες προτάσεις `event-review-queue.md` και `event-review-queue.json` στα αγνοημένα `rebuild/test-artifacts/`. Η πρόταση «προς έγκριση» είναι **μόνο υπόδειξη με βάση το είδος καταγεγραμμένης πηγής**, όχι τεκμηριωμένη επαλήθευση κάθε ισχυρισμού.
+
+Η επιμελητική εντολή μπορεί να εκφράζεται ως «ενέκρινε `arc-...`» (ή αριθμό συνδεδεμένο με συγκεκριμένο στιγμιότυπο). Το `review_event_decisions.py` ζητά ακριβές `dataset_fingerprint`, ρητή προηγούμενη απόφαση, συγκεκριμένο event ID και αιτιολογία, μπλοκάρει αντίφαση και προεπιλέγει `dry-run`. Δεν αποδέχεται μαζική αυτόματη έγκριση ή αίτημα επισκέπτη ως εξουσιοδότηση. Καμία έγκριση ιστορικού γεγονότος δεν δόθηκε στο παρόν στάδιο.
+
+```sh
+python rebuild/tests/event_decisions.py
+python rebuild/tests/event_triage.py
+python rebuild/tests/verification_requests.py
+```
+
+Τα δημοσιευμένα στοιχεία εμφανίζονται μόνο μετά από ξεχωριστό reviewed release. Το παλιό live site παραμένει ανέπαφο.

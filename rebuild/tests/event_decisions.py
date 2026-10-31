@@ -31,7 +31,7 @@ def main():
  refused("no explicit authorization",{**plan(requested),"authorization":"automatic"})
  refused("duplicate IDs",{**plan(requested),"decisions":plan(requested)["decisions"]*2})
  rejected,log=m.enact(data,plan("arc-archery-national-championship-2026","reject"))
- assert any(e["editorial_status"]=="rejected" for e in rejected["events"])
+ assert any(e.get("editorial_status")=="rejected" for e in rejected["events"])
  assert len(log)==1
  print("OWNER DECISION QA OK: no auto approval, stale/blocked/duplicate rejection, dry-run default.")
 if __name__=="__main__":main()

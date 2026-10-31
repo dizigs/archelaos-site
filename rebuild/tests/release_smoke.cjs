@@ -94,6 +94,20 @@ async function verify(){
      await page.locator('.av-empty').waitFor();
     }
     if(tag==='contribute'){
+     await page.locator('.av-verify-card').first().waitFor({timeout:10000});
+     if(await page.locator('.av-verify-card').count()!==9)
+       throw Error('Verification requests not present for all nine departments');
+     await page.locator('#av-verify-filter').selectOption('archery');
+     if(await page.locator('.av-verify-card').count()!==1)
+       throw Error('Documentation request sport filtering failed');
+     const evidenceLink=await page.locator('.av-verify-card a').getAttribute('href');
+     if(!evidenceLink.includes('verification=request-archery-historical-records'))
+       throw Error('Evidence card has no stable request ID');
+     await page.goto(ROOT+evidenceLink,{waitUntil:'domcontentloaded'});
+     await page.waitForFunction(()=>document.querySelector('#ac-guide-context')?.textContent.includes('request-archery-historical-records'),{timeout:10000});
+     const contextualMail=decodeURIComponent(await page.locator('#ac-guide-email').getAttribute('href'));
+     if(!contextualMail.includes('request-archery-historical-records'))
+       throw Error('Evidence request ID missing from real email draft');
      if(await page.locator('form,input[type="file"]').count())throw Error('Unexpected premature submission/upload');
      const email=await page.locator('.ac-email').getAttribute('href');
      if(!email?.startsWith('mailto:info@archelaos.club?subject='))throw Error('Contribution contact email missing');
