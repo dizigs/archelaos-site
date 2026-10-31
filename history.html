@@ -3233,13 +3233,37 @@ a.museum-subtle-link:focus-visible{outline:3px solid #c7a65e;outline-offset:3px}
   #chapters .history-archive-card { transition: none; }
 }
 </style>
-<style id="v31-archive-scroll-clipping-fix">
-/* Museum archive: the dialog stays within the viewport; the article owns the scroll. */
-#historyArchiveModal.is-open {
-  display: flex !important;
-  align-items: center !important;
-  overflow: hidden !important;
+<style id="v31-museum-unified-modal-scroll">
+/* V3.1: consistent scroll-safe museum popups, including short mobile viewports. */
+@media (max-width: 767px), (max-height: 650px) {
+  #historyArchiveModal, #historyPresidentModal, #timelineDetailModal,
+  #deptHistoryModal, #registrationModal {
+    box-sizing: border-box !important;
+    padding: max(10px, env(safe-area-inset-top)) 10px max(10px, env(safe-area-inset-bottom)) !important;
+    overflow-y: auto !important;
+    overscroll-behavior: contain;
+  }
+  #historyArchiveModal .modal-box, #historyPresidentModal .modal-box,
+  #timelineDetailModal .modal-box, #deptHistoryModal .modal-box,
+  #registrationModal .modal-box {
+    box-sizing: border-box !important;
+    width: 100%;
+    min-height: 0 !important;
+    max-width: 100% !important;
+    max-height: calc(100dvh - 24px) !important;
+    margin: auto !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+    scroll-padding-bottom: 28px;
+  }
+  #timelineDetailModal .modal-box, #deptHistoryModal .modal-box,
+  #registrationModal .modal-box, #historyPresidentModal .modal-box {
+    padding-bottom: max(28px, env(safe-area-inset-bottom)) !important;
+  }
 }
+/* Archive popup uses a fixed-height frame with a dedicated inner scroll pane. */
 #historyArchiveModal .modal-box {
   position: relative;
   min-height: 0 !important;
@@ -3251,17 +3275,12 @@ a.museum-subtle-link:focus-visible{outline:3px solid #c7a65e;outline-offset:3px}
 #historyArchiveModal #historyArchiveContent {
   flex: 1 1 auto !important;
   min-height: 0 !important;
-  overflow-y: auto !important;
   overflow-x: hidden !important;
+  overflow-y: auto !important;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior-y: contain;
-  padding-bottom: max(105px, calc(env(safe-area-inset-bottom) + 85px)) !important;
-  scroll-padding-bottom: 105px;
-}
-@media (max-width: 767px) {
-  #historyArchiveModal { padding: 12px 10px !important; }
-  #historyArchiveModal .modal-box { max-height: calc(100dvh - 24px) !important; }
-  #historyArchiveModal #historyArchiveContent { padding-bottom: max(125px, calc(env(safe-area-inset-bottom) + 100px)) !important; }
+  padding-bottom: max(95px, calc(env(safe-area-inset-bottom) + 75px)) !important;
+  scroll-padding-bottom: 95px;
 }
 </style>
 </head>
