@@ -279,7 +279,7 @@ def make_release() -> None:
                     return match.group(0)
                 if schema.get("@type") != "Person":
                     return match.group(0)
-                if schema.get("description") == before:
+                if re.sub(r"\s+", " ", schema.get("description", "")).strip() == re.sub(r"\s+", " ", before).strip():
                     schema["description"] = after
                 return match.group(1) + js_data(schema) + match.group(3)
 
