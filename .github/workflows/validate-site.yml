@@ -36,6 +36,8 @@ jobs:
     name: Prepare Tailwind static CSS candidate
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
       - name: Install Tailwind CLI
@@ -85,6 +87,20 @@ jobs:
           }
           console.log('Static CSS candidate includes required foundational utilities.');
           EOF
+      - name: Publish candidate CSS to isolated preview branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cp /tmp/archelaos-tailwind/site.css /tmp/archelaos-tailwind/candidate.css
+          git fetch origin performance/tailwind-candidate
+          git switch -C performance/tailwind-candidate origin/performance/tailwind-candidate
+          mkdir -p assets
+          cp /tmp/archelaos-tailwind/candidate.css assets/tailwind-static-candidate.css
+          git add assets/tailwind-static-candidate.css
+          if ! git diff --cached --quiet; then
+            git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m 'Build candidate Tailwind CSS for review'
+            git push origin HEAD:performance/tailwind-candidate
+          fi
       - name: Save CSS candidate for visual verification
         uses: actions/upload-artifact@v4
         with:
