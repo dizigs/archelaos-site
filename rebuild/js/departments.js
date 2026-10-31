@@ -1,6 +1,14 @@
 /* Reads sports chapters from the original backup's museum.json; no second dataset. */
 (()=>{'use strict';
 async function init(){
+ // Illustrated cards live on this page, not on the homepage.
+ const keys=['handball','track','archery','shooting','gymnastics','volleyball','wrestling','swimming'];
+ document.querySelectorAll('.new-sport-photo').forEach((photo,index)=>{
+  const img=photo.querySelector('img');
+  if(img){const fallback=()=>{photo.classList.add('new-photo-missing');photo.dataset.fallbackLabel=img.alt||'Γ.Α.Σ. Αρχέλαος';img.hidden=true};
+   img.addEventListener('error',fallback,{once:true});if(img.complete&&img.naturalWidth===0)fallback();}
+  if(keys[index]&&window.ArchelaosFavorites){photo.id='sport-photo-'+keys[index];photo.append(window.ArchelaosFavorites.button('photo','sport-'+keys[index]));}
+ });
  const cards=[...document.querySelectorAll('[data-dp-open]')];
  try{
   const r=await fetch('/rebuild/data/museum.json');if(!r.ok)throw Error('HTTP '+r.status);
