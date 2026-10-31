@@ -77,12 +77,38 @@
 
 /* One full-width destination instead of a second sports directory. */
 .mu-sports{padding:clamp(40px,5vw,68px) 0}
-.mu-sports-link{display:flex;align-items:center;min-height:156px;width:100%;padding:clamp(26px,4vw,45px);border-radius:22px;text-decoration:none;color:#073d2a;background:linear-gradient(125deg,#fffef8 0%,#efe3cd 100%);border:1px solid #cdb887;box-shadow:0 12px 30px #17331c0b;transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease}
+.mu-sports-link{
+ position:relative;isolation:isolate;overflow:hidden;
+ display:flex;align-items:center;min-height:176px;width:100%;
+ padding:clamp(28px,4.2vw,48px);border-radius:22px;
+ text-decoration:none;color:#073d2a;
+ background:linear-gradient(115deg,#fffdf6 0%,#f3ead9 70%,#e5d8bf 100%);
+ border:1px solid #cdb887;box-shadow:0 12px 30px #17331c0b;
+ transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease
+}
+.mu-sports-link::after{
+ content:"";position:absolute;right:clamp(-50px,-2vw,-12px);top:50%;
+ width:clamp(190px,25vw,310px);aspect-ratio:1;
+ background:url("/archelaos-logo-gold.png") center / contain no-repeat;
+ opacity:.14;filter:blur(1.7px) saturate(.65);
+ transform:translateY(-50%);pointer-events:none;z-index:-1;
+}
+.mu-sports-link::before{
+ content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+ background:linear-gradient(90deg,rgba(255,253,246,.92) 0%,rgba(255,253,246,.48) 66%,rgba(255,253,246,0) 100%);
+}
 .mu-sports-link:hover{border-color:#a88a49;box-shadow:0 14px 36px #17331c20;transform:translateY(-2px)}
 .mu-sports-link:focus-visible{outline:3px solid #cba75b;outline-offset:5px}
-.mu-sports-link-copy{display:flex;flex-direction:column;align-items:flex-start;gap:9px}
+.mu-sports-link-copy{position:relative;z-index:1;display:flex;flex-direction:column;align-items:flex-start;gap:9px;max-width:min(100%,680px)}
 .mu-sports-link-kicker{font-size:10px;font-weight:850;letter-spacing:.16em;color:#947239}
 .mu-sports-link strong{display:block;font:400 clamp(29px,4vw,49px)/1.12 Georgia,serif;letter-spacing:-.035em}
 .mu-sports-link-description{color:#536953;font-size:14px;line-height:1.65}
-@media(max-width:640px){.mu-sports{padding:34px 0}.mu-sports-link{min-height:0;padding:24px 23px;border-radius:16px}.mu-sports-link strong{font-size:clamp(27px,7vw,36px)}.mu-sports-link-description{font-size:12px}}
+@media(max-width:640px){
+ .mu-sports{padding:34px 0}
+ .mu-sports-link{min-height:0;padding:26px 23px;border-radius:16px}
+ .mu-sports-link::after{width:175px;right:-46px;opacity:.095;filter:blur(2.3px)}
+ .mu-sports-link::before{background:linear-gradient(90deg,#fffdf6e8 0%,#fffdf6a1 100%)}
+ .mu-sports-link strong{font-size:clamp(27px,7vw,36px)}
+ .mu-sports-link-description{font-size:12px}
+}
 @media(prefers-reduced-motion:reduce){.mu-sports-link{transition:none}.mu-sports-link:hover{transform:none}}
