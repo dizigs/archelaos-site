@@ -2933,6 +2933,29 @@ html.arch-welcome-pending,html.arch-welcome-pending body{overflow:auto!important
 .animate-waves,.hero-emblem-float{animation:none!important;will-change:auto!important}
 }
 </style>
+<script id="arch-v3-safestart-2026">
+/* Opt-in diagnostic: /?safestart=1 resets only old Archelaos UI preferences. */
+(function(){
+ try{
+  if(new URLSearchParams(window.location.search).get('safestart')!=='1')return;
+  document.documentElement.classList.add('arch-safe-boot');
+  ['archelaos_lang','archelaos_accessibility_v1','archelaos-welcome-seen-v2'].forEach(function(k){
+   try{localStorage.removeItem(k)}catch(e){}
+  });
+ }catch(e){}
+})();
+</script>
+<style id="arch-v3-safestart-styles">
+html.arch-safe-boot,html.arch-safe-boot body{scroll-behavior:auto!important;overflow-y:auto!important}
+html.arch-safe-boot .animate-waves{display:none!important}
+html.arch-safe-boot .reveal-text,
+html.arch-safe-boot .arch-polish-reveal,
+html.arch-safe-boot .arch-values-reveal,
+html.arch-safe-boot .arch-whisper{opacity:1!important;visibility:visible!important;transform:none!important}
+html.arch-safe-boot body *:not(svg):not(path){
+ animation:none!important;transition:none!important;backdrop-filter:none!important;
+}
+</style>
 </head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow">
 <!-- ANIMATED CONTOUR WAVES -->
@@ -3934,7 +3957,7 @@ html.arch-welcome-pending,html.arch-welcome-pending body{overflow:auto!important
         }
       };
 
-      let currentLang = localStorage.getItem('archelaos_lang') || 'el';
+      let currentLang = 'el'; try{const savedLang=localStorage.getItem('archelaos_lang');if(savedLang==='el'||savedLang==='en')currentLang=savedLang;}catch(e){}
       let currentDeptHistoryKey = null;
       let currentTimelineMilestoneId = null;
 
@@ -4019,7 +4042,7 @@ html.arch-welcome-pending,html.arch-welcome-pending body{overflow:auto!important
         document.body.classList.toggle('lang-el', lang === 'el');
         document.body.classList.toggle('lang-en', lang === 'en');
         if (window.refreshHistoryArchiveLanguage) window.refreshHistoryArchiveLanguage();
-        localStorage.setItem('archelaos_lang', lang);
+        try{localStorage.setItem('archelaos_lang', lang);}catch(e){}
         document.documentElement.lang = lang;
 
         const elBtn = document.getElementById('langBtnEL');
@@ -4758,7 +4781,7 @@ if('IntersectionObserver' in window&&!window.matchMedia('(prefers-reduced-motion
 /* ARCHELAOS ACCESSIBILITY SUITE v1.3 — no tracking, external APIs or dependencies. */
 (function(){
  'use strict';
- if(window.__ARCH_A11Y_INITIALIZED__)return;
+ if(window.__ARCH_A11Y_INITIALIZED__||document.documentElement.classList.contains('arch-safe-boot'))return;
  window.__ARCH_A11Y_INITIALIZED__=true;
  var doc=document, html=doc.documentElement;
  var defaults={scale:100,theme:'default',readable:false,space:false,letter:false,word:false,left:false,links:false,linkHighlight:false,headings:false,bigTargets:false,cursor:false,grayscale:false,lowSaturation:false,reduceMotion:false,simple:false,guide:false};
