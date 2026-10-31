@@ -62,9 +62,10 @@ function renderHeader(){
   drawer.append(content);document.body.prepend(drawer);document.body.prepend(header);
   let prior=null;
   btn.addEventListener('click',()=>{prior=document.activeElement;drawer.showModal();document.body.classList.add('arch-dialog-open');close.focus()});
-  close.addEventListener('click',()=>drawer.close());
+  close.addEventListener('click',()=>{document.body.classList.remove('arch-dialog-open');drawer.close()});
   drawer.addEventListener('click',e=>{if(e.target===drawer)drawer.close()});
-  drawer.addEventListener('close',()=>{document.body.classList.remove('arch-dialog-open');if(prior?.isConnected)prior.focus()});
+  drawer.addEventListener('cancel',()=>document.body.classList.remove('arch-dialog-open'));
+ drawer.addEventListener('close',()=>{document.body.classList.remove('arch-dialog-open');if(prior?.isConnected)prior.focus()});
   document.addEventListener('click',e=>{if(!nav.contains(e.target))nav.querySelectorAll('details[open]').forEach(d=>d.open=false)});
   nav.querySelectorAll('details').forEach(d=>d.addEventListener('toggle',()=>{if(d.open)nav.querySelectorAll('details').forEach(other=>{if(other!==d)other.open=false})}));
 }

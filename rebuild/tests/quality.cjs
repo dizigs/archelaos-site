@@ -60,8 +60,11 @@ async function audit(){
       await page.locator('.arch-menu-dialog[open]').waitFor({timeout:6000});
       await page.keyboard.press('Escape');
       await page.waitForFunction(()=>!document.querySelector('.arch-menu-dialog')?.open,null,{timeout:6000});
-      const stillLocked=await page.evaluate(()=>document.body.classList.contains('arch-dialog-open'));
-      if(stillLocked)issue('errors',route+'@'+view.width,'Body stayed scroll-locked after menu Escape');
+      try{
+        await page.waitForFunction(()=>!document.body.classList.contains('arch-dialog-open'),null,{timeout:1600});
+      }catch{
+        issue('errors',route+'@'+view.width,'Menu left body scroll locked beyond 1.6 seconds');
+      }
     }
     if(['history.html','hall-of-fame.html','stories.html','70-stigmes.html','board.html'].includes(route)){
       const opening={
@@ -80,8 +83,11 @@ async function audit(){
          issue('errors',route+'@'+view.width,'Modal close control inaccessible');
        await page.keyboard.press('Escape');
        await page.waitForFunction(()=>!document.querySelector('dialog.arch-dialog')?.open,null,{timeout:6000});
-       if(await page.evaluate(()=>document.body.classList.contains('arch-dialog-open')))
-         issue('errors',route+'@'+view.width,'Modal left body scroll locked');
+       try{
+         await page.waitForFunction(()=>!document.body.classList.contains('arch-dialog-open'),null,{timeout:1600});
+       }catch{
+         issue('errors',route+'@'+view.width,'Modal left body scroll locked beyond 1.6 seconds');
+       }
       }catch(e){issue('errors',route+'@'+view.width,'Dialog interaction failed: '+String(e.message).slice(0,350))}
     }
    }

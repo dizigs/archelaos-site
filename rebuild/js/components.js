@@ -24,7 +24,12 @@ function create(){
  header.append(titles,close);
  const body=document.createElement('div');body.className='arch-dialog-body';
  panel.append(header,body);dialog.append(panel);document.body.append(dialog);
- close.addEventListener('click',()=>dialog.close());
+ // Escape fires 'cancel' before 'close'; unlock immediately so page never remains frozen.
+ dialog.addEventListener('cancel',()=>document.body.classList.remove('arch-dialog-open'));
+ close.addEventListener('click',()=>{
+  document.body.classList.remove('arch-dialog-open');
+  dialog.close();
+ });
  dialog.addEventListener('click',event=>{if(event.target===dialog)dialog.close()});
  dialog.addEventListener('close',()=>{
   document.body.classList.remove('arch-dialog-open');
