@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "changes": [
+    {
+      "key": "tasopoulos-temporary-duty-2026",
+      "kind": "person",
+      "id": "arch-61d8d097f601",
+      "reason": "Διόρθωση διοικητικών καθηκόντων από τον υπεύθυνο αρχείου, Οκτώβριος 2026",
+      "replacements": [
+        {
+          "field": "bio",
+          "before": "Απεβίωσε εν ενεργεία στις 30 Ιουλίου 2026, αφήνοντας παρακαταθήκη ανιδιοτελούς προσφοράς.",
+          "after": "Απεβίωσε εν ενεργεία στις 30 Ιουλίου 2026, αφήνοντας παρακαταθήκη ανιδιοτελούς προσφοράς. Μετά τον θάνατό του, τα καθήκοντα του προέδρου άσκησε προσωρινά ο Χαράλαμπος Σαββίδης."
+        },
+        {
+          "field": "bio_en",
+          "before": "leading the club's modern reorganisation and facility modernisation.",
+          "after": "leading the club's modern reorganisation and facility modernisation. Following his death, Charalampos Savvidis temporarily carried out the president's duties."
+        }
+      ]
+    },
+    {
+      "key": "board-tasopoulos-interim-2026",
+      "kind": "board",
+      "id": "recent",
+      "reason": "Διόρθωση ιστορικής αναφοράς στα προσωρινά καθήκοντα προέδρου",
+      "replacements": [
+        {
+          "field": "html",
+          "before": "τα διοικητικά καθήκοντα ασκούσε μεταβατικά ο αντιπρόεδρος Παναγιώτης Διαμαντόπουλος",
+          "after": "τα διοικητικά καθήκοντα ασκούσε μεταβατικά ο αντιπρόεδρος Χαράλαμπος Σαββίδης"
+        }
+      ]
+    }
+  ]
+}
