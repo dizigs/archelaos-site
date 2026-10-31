@@ -40,3 +40,9 @@
 
 /* Verified contrast on the public evidence-request section (WCAG 2.2 AA). */
 .av-verify-section .av-kicker{color:#71531e}
+
+/* Uniform contribution actions: flat, equal-height, arrow-free controls. */
+.ac-guide-actions{display:flex;align-items:stretch;gap:12px;flex-wrap:wrap}
+.ac-guide-actions :is(a,button){display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;min-height:49px;height:auto;padding:12px 19px;line-height:1.35;margin:0;text-align:center}
+.av-verify-card a{justify-content:center;text-align:center}
+@media(max-width:767px){.ac-guide-actions{flex-direction:column}.ac-guide-actions :is(a,button){width:100%}}
