@@ -267,6 +267,31 @@ def make_release() -> None:
         html_text = profile.read_text(encoding="utf-8")
         for lang in ("el", "en"):
             html_text = sync_edited_bio(html_text, profile.stem, lang)
+        # Avoid leaving obsolete editorial correction text in Person JSON-LD
+        # and social metadata after the visible Greek biography is cleaned.
+        before = former_people[profile.stem].get("bio", "")
+        after = revised_people[profile.stem].get("bio", "")
+        if before != after:
+            def adjust_person_schema(match):
+                try:
+                    schema = json.loads(match.group(2))
+                except (TypeError, ValueError):
+                    return match.group(0)
+                if schema.get("@type") != "Person":
+                    return match.group(0)
+                if schema.get("description") == before:
+                    schema["description"] = after
+                return match.group(1) + js_data(schema) + match.group(3)
+
+            html_text = re.sub(
+                r'(<script type="application/ld\+json">)(.*?)(</script>)',
+                adjust_person_schema, html_text, count=1, flags=re.S)
+            brief = html_escape(re.sub(r"\s+", " ", after).strip()[:160], quote=True)
+            for attr in ('name="description"', 'property="og:description"'):
+                html_text = re.sub(
+                    r'(<meta ' + attr + r' content=")[^"]*(">)',
+                    lambda match: match.group(1) + brief + match.group(2),
+                    html_text, count=1)
         for lang in ("el", "en"):
             html_text = include_addenda(html_text, verified_addenda.get(profile.stem, []), lang, profile.stem)
         for old in ("/assets/navigation.css", "/assets/footer.css", "/assets/accessibility.css"):
