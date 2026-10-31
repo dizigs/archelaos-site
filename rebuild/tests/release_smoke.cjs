@@ -60,7 +60,7 @@ async function verify(){
      if(!await page.locator('.av-card').first().textContent())throw Error('Favorites not restored after reload');
      await page.evaluate(()=>window.ArchelaosFavorites.toggle('photo','sport-archery'));
      await page.locator('[data-av-filter="photo"]').click();
-     await page.locator('.av-card .av-photo').first().waitFor();
+     await page.locator('.av-card .av-photo').first().waitFor({state:'attached'});
      await page.locator('.av-card .arch-favorite-toggle').first().click();
           await page.locator('[data-av-filter="moment"]').click();
      if(await page.locator('.av-card').count()!==1)throw Error('Favorites filter failed');
