@@ -76,6 +76,18 @@ jobs:
           path: rebuild/test-artifacts/editorial-report.json
           if-no-files-found: warn
           retention-days: 14
+      - name: Suggest archive cross-links without altering biographies
+        run: |
+          python rebuild/tests/archive_opportunities.py
+          python rebuild/tools/archive_opportunities.py --json rebuild/test-artifacts/archive-connections.json
+      - name: Save proposed archive associations for human review
+        if: always()
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        with:
+          name: archelaos-archive-connections-review
+          path: rebuild/test-artifacts/archive-connections.json
+          if-no-files-found: warn
+          retention-days: 14
       - name: Ensure all rebuild HTML pages are unpublished previews
         shell: bash
         run: |
