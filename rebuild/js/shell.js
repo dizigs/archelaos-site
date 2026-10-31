@@ -10,7 +10,12 @@ const pages=[
 ];
 const groups=[['Συλλογές',[2,3,4]],['Ο Σύλλογος',[5,6,7]]];
 const path=(location.pathname.split('/').pop()||'index.html').toLowerCase();
-const hrefFor=(item)=>'/'+item[0];
+const hrefFor=(item)=>{
+ const href=item[0],file=href.split('#')[0];
+ // Links to completed rebuild pages stay inside rebuild; unported pages still use unchanged originals.
+ if(location.pathname.startsWith('/rebuild/')&&['index.html','hall-of-fame.html'].includes(file))return '/rebuild/'+href;
+ return '/'+href;
+};
 function addLink(parent,item,className){
   const a=document.createElement('a');a.href=hrefFor(item);a.textContent=item[1];
   if(className)a.className=className;
@@ -59,7 +64,7 @@ function renderHeader(){
 function renderFooter(){
   if(document.querySelector('.arch-footer'))return;
   const footer=document.createElement('footer');footer.className='arch-footer';
-  footer.innerHTML='<div class="arch-footer-inner"><div class="arch-footer-top"><img src="/assets/archelaos-crest.png" alt="" loading="lazy" width="58" height="58"><div><strong>Γ.Α.Σ. «Ο ΑΡΧΕΛΑΟΣ»</strong><small>ΚΑΤΕΡΙΝΗ · 1956—2026</small></div></div><div class="arch-footer-rule"></div><div class="arch-footer-columns"><section><h2>ΨΗΦΙΑΚΟ ΜΟΥΣΕΙΟ</h2><a href="/history.html">Η ιστορία</a><a href="/70-stigmes.html">70 Στιγμές</a></section><section><h2>ΟΙ ΑΝΘΡΩΠΟΙ</h2><a href="/hall-of-fame.html">Hall of Fame</a><a href="/stories.html">Ιστορίες</a><a href="/board.html">Διοίκηση</a></section><section><h2>Ο ΣΥΛΛΟΓΟΣ</h2><a href="/index.html">Αρχική</a><a href="/index.html#departments">Αθλήματα</a><a href="/contact.html">Επικοινωνία</a></section></div><div class="arch-footer-social"><a href="https://www.facebook.com/oarxelaos" target="_blank" rel="noopener noreferrer">Facebook</a><a href="https://www.youtube.com/@GASArchelaosKaterinis" target="_blank" rel="noopener noreferrer">YouTube</a></div><div class="arch-footer-bottom"><span>Γ.Α.Σ. Αρχέλαος Κατερίνης · Από το 1956</span><span>Αθλητισμός · Παιδεία · Συμμετοχή</span></div></div>';
+  footer.innerHTML='<div class="arch-footer-inner"><div class="arch-footer-top"><img src="/assets/archelaos-crest.png" alt="" loading="lazy" width="58" height="58"><div><strong>Γ.Α.Σ. «Ο ΑΡΧΕΛΑΟΣ»</strong><small>ΚΑΤΕΡΙΝΗ · 1956—2026</small></div></div><div class="arch-footer-rule"></div><div class="arch-footer-columns"><section><h2>ΨΗΦΙΑΚΟ ΜΟΥΣΕΙΟ</h2><a href="/history.html">Η ιστορία</a><a href="/70-stigmes.html">70 Στιγμές</a></section><section><h2>ΟΙ ΑΝΘΡΩΠΟΙ</h2><a href="/rebuild/hall-of-fame.html">Hall of Fame</a><a href="/stories.html">Ιστορίες</a><a href="/board.html">Διοίκηση</a></section><section><h2>Ο ΣΥΛΛΟΓΟΣ</h2><a href="/rebuild/index.html">Αρχική</a><a href="/rebuild/index.html#departments">Αθλήματα</a><a href="/contact.html">Επικοινωνία</a></section></div><div class="arch-footer-social"><a href="https://www.facebook.com/oarxelaos" target="_blank" rel="noopener noreferrer">Facebook</a><a href="https://www.youtube.com/@GASArchelaosKaterinis" target="_blank" rel="noopener noreferrer">YouTube</a></div><div class="arch-footer-bottom"><span>Γ.Α.Σ. Αρχέλαος Κατερίνης · Από το 1956</span><span>Αθλητισμός · Παιδεία · Συμμετοχή</span></div></div>';
   document.body.append(footer);
 }
 function ready(){renderHeader();renderFooter()}

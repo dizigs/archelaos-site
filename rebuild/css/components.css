@@ -65,3 +65,12 @@
 @media(max-width:760px){.arch-cards{grid-template-columns:repeat(2,minmax(0,1fr))}.arch-card--wide{grid-column:auto}}
 @media(max-width:600px){.arch-brand{gap:9px}.arch-brand img{width:41px;height:41px}.arch-brand-title{font-size:15px}.arch-brand-sub{font-size:9px;letter-spacing:.115em}.arch-cards{grid-template-columns:1fr}.arch-card{min-height:215px}.arch-card--large{min-height:305px}.arch-footer{padding:36px 18px 20px}.arch-footer-top strong{font-size:18px}.arch-footer-columns{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}.arch-dialog-head{padding:18px}.arch-dialog-body{padding:18px}}
 @media(max-width:370px){.arch-brand-title{font-size:13px}.arch-brand-sub{font-size:8px}.arch-brand img{width:36px;height:36px}}
+
+/* Unified popup typography and source references. */
+.arch-dialog-titles{min-width:0;flex:1}
+.arch-dialog-role{margin:0 0 9px;color:#927438;font-size:11px;font-weight:800;letter-spacing:.13em;text-transform:uppercase}
+.arch-dialog-head>.arch-close{flex:none}
+.arch-dialog-sources{border-top:1px solid #e3d9c3;margin-top:25px;padding-top:19px;display:grid;gap:8px}
+.arch-dialog-sources strong{color:#876b37;font-size:13px}
+.arch-dialog-sources a{color:#0a5840;font-size:13px;overflow-wrap:anywhere}
+.arch-dialog-body p{white-space:pre-line}
