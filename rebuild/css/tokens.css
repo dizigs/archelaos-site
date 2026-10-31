@@ -27,3 +27,6 @@ a{color:inherit}button{font:inherit;cursor:pointer}
 .arch-container{width:min(var(--arch-content-width),calc(100% - 38px));margin-inline:auto}
 @media(max-width:600px){:root{--arch-nav-height:70px;--arch-radius:23px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* Keyboard focus must remain perceivable on every native input and control. */
+:where(input,select,textarea):focus-visible{outline:3px solid #a17b38;outline-offset:2px}

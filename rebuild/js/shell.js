@@ -37,7 +37,7 @@ function svgIcon(name){
  return icon;
 }
 function iconLink(parent,item,icon,className,label){
- const a=addLink(parent,item,className);a.replaceChildren(svgIcon(icon));
+ const a=addLink(parent,item,className);a.setAttribute('aria-label',label||item[1]);a.replaceChildren(svgIcon(icon));
  const title=document.createElement('span');title.className='arch-action-name';title.textContent=label||item[1];a.append(title);
  if(icon==='heart'){const count=document.createElement('span');count.className='arch-fav-count';count.hidden=true;a.append(count)}
  return a;
@@ -102,7 +102,7 @@ function renderHeader(){
   btn.addEventListener('click',()=>{if(drawer.open)return;prior=document.activeElement;drawer.showModal();btn.setAttribute('aria-expanded','true');document.body.classList.add('arch-dialog-open');close.focus()});
   close.addEventListener('click',()=>{document.body.classList.remove('arch-dialog-open');drawer.close()});
   drawer.addEventListener('click',e=>{if(e.target===drawer)drawer.close()});
-  drawer.addEventListener('cancel',()=>document.body.classList.remove('arch-dialog-open'));
+  drawer.addEventListener('cancel',()=>{btn.setAttribute('aria-expanded','false');document.body.classList.remove('arch-dialog-open')});
  drawer.addEventListener('close',()=>{btn.setAttribute('aria-expanded','false');document.body.classList.remove('arch-dialog-open');if(prior?.isConnected)prior.focus()});
   document.addEventListener('click',e=>{if(!nav.contains(e.target))nav.querySelectorAll('details[open]').forEach(d=>d.open=false)});
   nav.querySelectorAll('details').forEach(d=>d.addEventListener('toggle',()=>{if(d.open)nav.querySelectorAll('details').forEach(other=>{if(other!==d)other.open=false})}));
