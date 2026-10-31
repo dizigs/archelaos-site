@@ -1,0 +1,28 @@
+{
+  "locale": "fr",
+  "scope": "navigation_footer_interface_only",
+  "review_status": "draft",
+  "strings": {
+    "home": "Accueil",
+    "museum": "Musée numérique",
+    "moments": "70 moments",
+    "hall": "Panthéon",
+    "stories": "Récits",
+    "about": "Le club",
+    "sports": "Sports",
+    "board": "Direction",
+    "sponsors": "Partenaires",
+    "contact": "Contact",
+    "search": "Recherche",
+    "favorites": "Favoris",
+    "contribute": "Contribuer",
+    "archive": "Archives",
+    "club": "Le club",
+    "contribution": "Contribuer aux archives",
+    "menu": "Menu",
+    "close": "Fermer",
+    "facebook": "Facebook",
+    "youtube": "YouTube",
+    "wikipedia": "Wikipédia"
+  }
+}
