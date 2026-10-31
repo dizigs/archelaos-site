@@ -1,0 +1,198 @@
+{
+  "schema_version": 1,
+  "language": "en",
+  "review_status": "draft_requires_editorial_review",
+  "fully_translated": false,
+  "source": "rebuild/data/stories.json",
+  "stories": [
+    {
+      "id": 1,
+      "year": "1994",
+      "sport_el": "Χειροσφαίριση",
+      "source_title_el": "Οι άστεγοι Κυπελλούχοι και το γήπεδο που έλειπε",
+      "title_en": "The Cup Winners Without a Home Ground",
+      "lead_en": "Two Greek Cups, nineteen months without an indoor arena—and the paradox of a team with trophies but nowhere suitable to play.",
+      "body_en": null
+    },
+    {
+      "id": 2,
+      "year": "1956–1992",
+      "sport_el": "Κλασικός Αθλητισμός",
+      "source_title_el": "Από το παλιό γήπεδο του Πάρκου μέχρι τη Γαλλία",
+      "title_en": "From the Old Park Stadium to France",
+      "lead_en": "How a sports section that started at the city's old ground went on to Olympic and European school-level distinctions.",
+      "body_en": null
+    },
+    {
+      "id": 3,
+      "year": "1991–2026",
+      "sport_el": "Τοξοβολία",
+      "source_title_el": "Το τόξο που έψαχνε γήπεδο και βρήκε ομοσπονδία",
+      "title_en": "The Bow That Needed a Range and Found a Federation",
+      "lead_en": "From early registrations at a shooting range and moves between training grounds to championship-level competition in Florina.",
+      "body_en": null
+    },
+    {
+      "id": 4,
+      "year": "1975",
+      "sport_el": "Πετοσφαίριση",
+      "source_title_el": "Ο Παναθηναϊκός στην αυλή του σχολείου",
+      "title_en": "Panathinaikos in the Schoolyard",
+      "lead_en": "A 1975 volleyball friendly with a major club, played in the courtyard of the Boys' Secondary School.",
+      "body_en": null
+    },
+    {
+      "id": 5,
+      "year": "1993–2025",
+      "sport_el": "Πάλη",
+      "source_title_el": "Πρώτα φτιάξαμε αίθουσα. Μετά ήρθαν τα μετάλλια.",
+      "title_en": "First We Built a Training Hall. Then Came the Medals.",
+      "lead_en": "The wrestling hall funded by the club, and the continuation of a tradition that reached the world stage.",
+      "body_en": null
+    },
+    {
+      "id": 6,
+      "year": "1981–2006",
+      "sport_el": "Κολύμβηση",
+      "source_title_el": "Πέντε χρυσά στην Καλαμάτα, αλλά η πισίνα δεν περίσσευε",
+      "title_en": "Five Golds in Kalamata, Yet No Pool Time to Spare",
+      "lead_en": "From the first lessons in 1981 and the Papadopouleia meets to finswimming, which stopped because training hours were unavailable.",
+      "body_en": null
+    },
+    {
+      "id": 7,
+      "year": "1997–2026",
+      "sport_el": "Ενόργανη Γυμναστική",
+      "source_title_el": "Οι πρωταθλητές, η αποθήκη του σταθμού και οι 112,59 βαθμοί",
+      "title_en": "Champions, a Station Storeroom, and 112.59 Points",
+      "lead_en": "Who said artistic gymnastics only takes balance? Sometimes it also takes ingenuity to find a place to train.",
+      "body_en": null
+    },
+    {
+      "id": 8,
+      "year": "2008",
+      "sport_el": "Καλαθοσφαίριση",
+      "source_title_el": "Δύο ονόματα, μία φανέλα και μια μεγάλη απόφαση",
+      "title_en": "Two Names, One Jersey, and a Major Decision",
+      "lead_en": "In 2008, Katerini basketball decided to join forces. This 'transfer' involved entire sports sections, not a single athlete.",
+      "body_en": null
+    },
+    {
+      "id": 9,
+      "year": "1975",
+      "sport_el": "Κλασικός Αθλητισμός",
+      "source_title_el": "Δεκαοκτώ σωματεία, δεκαπέντε πόλεις — και ο λογαριασμός στον Αρχέλαο",
+      "title_en": "Eighteen Clubs, Fifteen Cities—and the Bill for Archelaos",
+      "lead_en": "At the sixth Dia Games, the great challenge was not only athletic performance, but hosting every visiting delegation.",
+      "body_en": null
+    },
+    {
+      "id": 10,
+      "year": "1982–1985",
+      "sport_el": "Κλασικός Αθλητισμός",
+      "source_title_el": "Πώς ένα ταρτάν κράτησε τα Δίια στην αναμονή",
+      "title_en": "How a Tartan Track Kept the Dia Games Waiting",
+      "lead_en": "Stadium works postponed the games, but their return in 1985 brought a historic performance.",
+      "body_en": null
+    },
+    {
+      "id": 11,
+      "year": "1995",
+      "sport_el": "Χειροσφαίριση",
+      "source_title_el": "Δύο αγώνες με την Τιφλίδα και το ευρωπαϊκό εισιτήριο που δεν χαρίστηκε",
+      "title_en": "Two Matches Against Tbilisi and a European Berth That Was Earned",
+      "lead_en": "In 1995, Archelaos defeated Mamuli Tbilisi twice. The scores tell the story of a European adventure.",
+      "body_en": null
+    },
+    {
+      "id": 12,
+      "year": "1995–1999",
+      "sport_el": "Χειροσφαίριση",
+      "source_title_el": "Οι αφανείς βάρδιες του χάντμπολ: Λάκης και Πόπη Χαρικλειά",
+      "title_en": "The Unsung Shifts Behind Handball: Lakis and Popi Charikleia",
+      "lead_en": "A team official looking for solutions in the top division, a vice-president following the youth teams, and a sports-medicine programme well ahead of its time.",
+      "body_en": null
+    },
+    {
+      "id": 13,
+      "year": "1989–2007",
+      "sport_el": "Πετοσφαίριση",
+      "source_title_el": "Ο έφορος, τα ξενοδοχεία και οι επιχορηγήσεις που αργούσαν",
+      "title_en": "The Team Official, the Hotels, and the Late Grants",
+      "lead_en": "Vasilis Efkarpidis, the work behind handball and volleyball, and expenses that could not wait for the next grant.",
+      "body_en": null
+    },
+    {
+      "id": 14,
+      "year": "1993",
+      "sport_el": "Χειροσφαίριση",
+      "source_title_el": "Ο πόλεμος άλλαξε την έδρα, όχι το ταξίδι του Αρχέλαου",
+      "title_en": "War Changed the Venue, Not Archelaos's Journey",
+      "lead_en": "In 1993, a European handball match with Croatia's Umag took the delegation to Izola, Slovenia, when borders and venues were far from certain.",
+      "body_en": null
+    },
+    {
+      "id": 15,
+      "year": "1992",
+      "sport_el": "Κολύμβηση",
+      "source_title_el": "Η πισίνα έκλεισε και οι κολυμβητές έμειναν να περιμένουν",
+      "title_en": "The Pool Closed and the Swimmers Were Left Waiting",
+      "lead_en": "In 1992, work to cover the pool forced families and club officials to face a difficult question: how could training continue without a pool?",
+      "body_en": null
+    },
+    {
+      "id": 16,
+      "year": "2016",
+      "sport_el": "Στίβος",
+      "source_title_el": "Η αποστολή του στίβου και τα μπλόκα στην εθνική οδό",
+      "title_en": "The Athletics Team and the Highway Roadblocks",
+      "lead_en": "In 2016, travelling to the Greek Indoor Athletics Championships became part of the challenge, as farmers' roadblocks stood on the route to Athens.",
+      "body_en": null
+    },
+    {
+      "id": 17,
+      "year": "1974",
+      "sport_el": "Στίβος",
+      "source_title_el": "Οι αγώνες τελείωσαν, ο λογαριασμός όχι: 30.000 δραχμές για τα Δίια",
+      "title_en": "The Meet Ended, the Bills Did Not: 30,000 Drachmas for the Dia Games",
+      "lead_en": "A November 1974 resolution reveals the unseen cost of a sporting celebration: after the games ended, obligations still had to be paid.",
+      "body_en": null
+    },
+    {
+      "id": 18,
+      "year": "1982",
+      "sport_el": "Διοίκηση",
+      "source_title_el": "Κέρδισε την έγχρωμη τηλεόραση και επέστρεψε κάτι στον Αρχέλαο",
+      "title_en": "He Won the Colour Television and Gave Back to Archelaos",
+      "lead_en": "A 1982 raffle left an unexpected gesture in the minutes: winner Konstantinos Demertzidis donated 10,000 drachmas to the club.",
+      "body_en": null
+    },
+    {
+      "id": 19,
+      "year": "1987",
+      "sport_el": "Πετοσφαίριση",
+      "source_title_el": "Το βόλεϊ προπονούνταν όταν το γυμναστήριο είχε σχολάσει",
+      "title_en": "Volleyball Training After the Gym Closed",
+      "lead_en": "In 1987, the men's volleyball team needed time at the sports centre. The solution came after regular hours, at a cost of 12,000 drachmas a month.",
+      "body_en": null
+    },
+    {
+      "id": 20,
+      "year": "1994",
+      "sport_el": "Διοίκηση",
+      "source_title_el": "Το αρχείο που βρέθηκε σε άλλα γραφεία",
+      "title_en": "The Archive That Turned Up in Other Offices",
+      "lead_en": "In 1994, the board learnt that material from Archelaos's historical archive had been found at KAP's offices—a curious episode about the documents that keep memory alive.",
+      "body_en": null
+    },
+    {
+      "id": 21,
+      "year": "1994",
+      "sport_el": "Χειροσφαίριση",
+      "source_title_el": "Να παίξουμε και τα δύο ευρωπαϊκά στην Ισπανία;",
+      "title_en": "Could We Play Both European Matches in Spain?",
+      "lead_en": "In 1994, ahead of the Granollers match, travel costs became the subject of a genuine European negotiation.",
+      "body_en": null
+    }
+  ]
+}

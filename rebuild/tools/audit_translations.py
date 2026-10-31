@@ -32,4 +32,9 @@ assert all(m["title"] and m["paragraphs"] for m in translated)
 coverage=load(I18N/"content"/"en"/"coverage.json")
 assert coverage["verified_as_complete"] is False and coverage["published"] is False
 assert coverage["counts"]["untranslated_stories"]==len(load(DATA/"stories.json")["stories"])
+summaries=load(I18N/"content"/"en"/"stories-summaries.json")
+source_stories=load(DATA/"stories.json")["stories"]
+assert summaries["fully_translated"] is False and len(summaries["stories"])==len(source_stories)==21
+assert all(row["body_en"] is None and row["title_en"] and row["lead_en"] for row in summaries["stories"])
+assert [row["id"] for row in summaries["stories"]]==list(range(1,22))
 print("I18N OK:",len(langs),"prepared locales; 682 English biography drafts; 70 English moments; switch OFF")
