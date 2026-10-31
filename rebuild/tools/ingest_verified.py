@@ -58,6 +58,9 @@ def read(data_dir: Path) -> dict:
     ledger = data_dir / "import-ledger.json"
     data["ledger"] = (json.loads(ledger.read_text(encoding="utf-8"))
                       if ledger.exists() else {"hashes": []})
+    additions = data_dir / "people-addenda.json"
+    data["addenda"] = (json.loads(additions.read_text(encoding="utf-8"))
+                       if additions.exists() else {"entries": {}})
     return data
 
 
@@ -131,6 +134,11 @@ def merge(package: dict, original: dict) -> tuple[dict, list[str]]:
                 raise ValueError("This biography already contains the supplied paragraph")
             person["bio"] = person["bio"].rstrip() + "\n\n" + paragraph_el
             person["bio_en"] = person["bio_en"].rstrip() + "\n\n" + paragraph_en
+            result["addenda"]["entries"].setdefault(person_id, []).append({
+                "el": paragraph_el,
+                "en": paragraph_en,
+                "source_label": source
+            })
             messages.append("BIOGRAPHY UPDATE: " + person_id)
         elif op == "moment_addendum":
             moment_id = item.get("moment_id")
@@ -172,8 +180,8 @@ def run(package_path: Path, data_dir: Path, apply: bool) -> list[str]:
     updated, messages = merge(package, original)
     if apply:
         # Original files are not touched until *every* proposed change passes validation.
-        for key in (*TYPES, "ledger"):
-            filename = "import-ledger.json" if key == "ledger" else key + ".json"
+        for key in (*TYPES, "ledger", "addenda"):
+            filename = {"ledger": "import-ledger.json", "addenda": "people-addenda.json"}.get(key, key + ".json")
             destination = data_dir / filename
             with tempfile.NamedTemporaryFile(
                 mode="w", encoding="utf-8", dir=data_dir, prefix=".archive-",

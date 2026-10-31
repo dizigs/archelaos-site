@@ -11,7 +11,7 @@ The generated dist/ is intentionally untracked. Publish ONLY after owner approva
 """
 from __future__ import annotations
 
-from html import escape
+from html import escape, escape as html_escape
 from pathlib import Path
 from shutil import copy2, copytree, rmtree
 from urllib.parse import urlparse
@@ -190,8 +190,40 @@ def make_release() -> None:
     # per-profile navbar/footer with the shared site-wide shell in the generated release.
     # Source backup profiles remain completely untouched.
     profiles = sorted((OUTPUT / "people").glob("arch-*.html"))
+    # Never overwrite the richer legacy biography with the sometimes shorter
+    # central index summary. Append ONLY newly verified paragraphs to each language.
+    verified_addenda = json.loads((STAGE / "data" / "people-addenda.json").read_text(encoding="utf-8"))["entries"]
+    all_ids = {p.stem for p in profiles}
+    if set(verified_addenda) - all_ids:
+        raise ValueError("Biographical additions reference missing canonical profile IDs")
+
+    def include_addenda(source: str, additions: list[dict], language: str, profile_id: str) -> str:
+        if not additions:
+            return source
+        # A single scoped legacy biography section, no replacement of historical facts.
+        regex = (r'(<section\b[^>]*data-profile-language="' + language
+                 + r'"[^>]*>.*?<div class="bio">)(.*?)(</div>)')
+        def expand(match):
+            paragraphs = [html_escape(row[language]) for row in additions]
+            bibliography = " · ".join(dict.fromkeys(
+                html_escape(row["source_label"]) for row in additions
+            ))
+            # pre-line renders double newlines as actual paragraph breaks.
+            return (match.group(1) + match.group(2)
+                    + "\n\n" + "\n\n".join(paragraphs)
+                    + match.group(3)
+                    + '<p class="profile-addenda-source">'
+                    + ("Πηγές" if language == "el" else "Sources")
+                    + ": " + bibliography + "</p>")
+        updated, count = re.subn(regex, expand, source, count=1, flags=re.S)
+        if count != 1:
+            raise ValueError("Cannot locate " + language + " biography in " + profile_id)
+        return updated
+
     for profile in profiles:
         html_text = profile.read_text(encoding="utf-8")
+        for lang in ("el", "en"):
+            html_text = include_addenda(html_text, verified_addenda.get(profile.stem, []), lang, profile.stem)
         for old in ("/assets/navigation.css", "/assets/footer.css", "/assets/accessibility.css"):
             html_text = html_text.replace(f'<link rel="stylesheet" href="{old}">', "")
         for old in ("/assets/navigation.js", "/assets/footer.js", "/assets/accessibility.js"):

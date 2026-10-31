@@ -29,13 +29,18 @@ event=entry("add_event",event={
     "title":"Δοκιμαστικό ιστορικό γεγονός χωρίς δημοσίευση",
     "period":"1994","body":"Η δοκιμαστική περιγραφή περιέχει <script>alert(1)</script> "
                             "που πρέπει να μετατραπεί σε ασφαλές κείμενο."})
-changed,msg=tool.merge(pkg(story,event),data)
+bio=entry("biography_note",person_id=data["people"]["people"][0]["id"],
+    paragraph_el="Επαληθευμένη δοκιμαστική συμπληρωματική παράγραφος για την ιστορική πορεία του συλλόγου.",
+    paragraph_en="Verified test addition to the club historical biography, used only in the test fixture.")
+changed,msg=tool.merge(pkg(story,event,bio),data)
+assert changed["addenda"]["entries"][bio["person_id"]][0]["el"]==bio["paragraph_el"]
+assert changed["addenda"]["entries"][bio["person_id"]][0]["source_label"]==bio["source_label"]
 assert len(changed["stories"]["stories"])==len(data["stories"]["stories"])+1
 assert changed["stories"]["count"]==len(changed["stories"]["stories"])
 assert len(changed["museum"]["articles"])==len(data["museum"]["articles"])+1
 assert "<script>" not in changed["museum"]["articles"][-1]["html"]
 assert "&lt;script&gt;" in changed["museum"]["articles"][-1]["html"]
-again,_=tool.merge(pkg(story,event),changed)
+again,_=tool.merge(pkg(story,event,bio),changed)
 assert again==changed,"same package should not duplicate records"
 try:
     tool.merge(pkg(story,approved=False),data)

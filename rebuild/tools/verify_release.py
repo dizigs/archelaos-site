@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Read-only checks for the generated dist/ directory."""
 from html.parser import HTMLParser
+from html import escape
 from pathlib import Path
 from urllib.parse import urlsplit
 from xml.etree import ElementTree as ET
@@ -88,6 +89,12 @@ def verify() -> None:
     loc_people = [e.text for e in profiles.findall(".//s:loc", NS)]
     assert set(loc_pages) == canonical_set and len(loc_pages) == len(canonical_set)
     assert len(loc_people) == len(set(loc_people)) == 682
+    addenda = json.loads((ROOT/"rebuild"/"data"/"people-addenda.json").read_text(encoding="utf-8"))["entries"]
+    for pid, additions in addenda.items():
+        output = (DIST / "people" / (pid + ".html")).read_text(encoding="utf-8")
+        for addition in additions:
+            assert escape(addition["el"]) in output, "Missing Greek biography enrichment: " + pid
+            assert escape(addition["en"]) in output, "Missing English biography enrichment: " + pid
     for file in (DIST / "people").glob("arch-*.html"):
         text = file.read_text(encoding="utf-8")
         assert '/assets/site/js/shell.js' in text and '/assets/site/js/profile-favorite.js' in text, file.name

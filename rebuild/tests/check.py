@@ -62,6 +62,12 @@ def inspect():
     assert len(board["members"]) == 8 and len(board["eras"]) == 4, "board source mismatch"
     retro = json.loads((REBUILD/"data/retro.json").read_text(encoding="utf-8"))
     assert [m["year"] for m in retro["matches"]] == [1990,1993,1994,1996], "retro final years mismatch"
+    additions = json.loads((REBUILD/"data/people-addenda.json").read_text(encoding="utf-8"))["entries"]
+    assert isinstance(additions, dict), "profile additions must be a map"
+    assert all(person_id in {p["id"] for p in people}
+               for person_id in additions), "profile additions contain missing IDs"
+    assert all(all(x.get("el") and x.get("en") and x.get("source_label") for x in entries)
+               for entries in additions.values()), "incomplete bilingual additions"
     assert len(people) == 682 and len({p["id"] for p in people}) == 682, "682 biographies mismatch"
     assert all(p.get("name") and p.get("name_en") and p.get("bio") and p.get("bio_en") for p in people), "incomplete biographies"
     home = json.loads((REBUILD/"data/home.json").read_text(encoding="utf-8"))
