@@ -6,7 +6,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Bodoni+Moda:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/rebuild/css/tokens.css"><link rel="stylesheet" href="/rebuild/css/components.css"><link rel="stylesheet" href="/rebuild/css/home.css">
-<script defer src="/rebuild/js/shell.js"></script><script defer src="/rebuild/js/components.js"></script><script defer src="/rebuild/js/home.js"></script>
+<script defer src="/rebuild/js/shell.js"></script><script defer src="/rebuild/js/components.js"></script><script defer src="/rebuild/js/home.js"></script><script defer src="/rebuild/js/match-calendar.js"></script>
 <script defer src="/rebuild/js/today.js"></script><link rel="stylesheet" href="/rebuild/css/motion.css"><link rel="stylesheet" href="/rebuild/css/viewports.css">
 <script src="/rebuild/js/motion.js" defer></script>
 <link rel="stylesheet" href="/rebuild/css/collection.css">
@@ -35,6 +35,23 @@
 <span class="new-today-date" id="new-today-date">1956—2026</span>
 <strong id="new-today-title">Ανακαλύψτε μια ιστορική στιγμή</strong><span class="new-today-year" id="new-today-year" aria-hidden="true">70</span><span class="new-today-arrow" aria-hidden="true">↗</span>
 </a></div></div></section>
+<section class="fx-section" id="upcoming-matches" aria-labelledby="fx-title">
+<div class="arch-container">
+<div class="fx-heading">
+<div><span class="new-eyebrow">Η ΑΓΩΝΙΣΤΙΚΗ ΔΡΑΣΗ ΤΟΥ ΑΡΧΕΛΑΟΥ</span>
+<h2 id="fx-title">Οι επόμενοι <em>αγώνες.</em></h2>
+<p>Χάντμπολ και βόλεϊ. Εμφανίζονται μόνο προγράμματα που έχουν διασταυρωθεί και εγκριθεί.</p></div>
+<a id="fx-download" class="fx-download" href="/calendar.ics" hidden>Ημερολόγιο αγώνων ↗</a>
+</div>
+<div class="fx-switch" role="group" aria-label="Φιλτράρισμα προγράμματος ανά άθλημα">
+<button type="button" data-fixture-sport="all" aria-pressed="true">Όλοι οι αγώνες</button>
+<button type="button" data-fixture-sport="handball" aria-pressed="false">Χάντμπολ</button>
+<button type="button" data-fixture-sport="volleyball" aria-pressed="false">Βόλεϊ</button>
+</div>
+<p id="fx-status" class="fx-status" aria-live="polite">Ανάκτηση εγκεκριμένου αγωνιστικού προγράμματος…</p>
+<div class="fx-cards" id="fx-list"></div>
+<div class="fx-empty" id="fx-empty" hidden><strong>Το πρόγραμμα διαμορφώνεται.</strong><p>Μόλις επιβεβαιωθούν οι αγωνιστικές ημερομηνίες και ώρες, οι επόμενοι αγώνες θα εμφανίζονται αυτόματα εδώ.</p></div>
+</div></section>
 <section class="new-about" id="about"><div class="arch-container new-about-grid">
 <div class="new-slideshow" aria-roledescription="carousel" aria-label="Τα αθλήματα του Αρχέλαου"><div class="new-slides"><figure class="new-slide active" aria-hidden="false"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaOFUCWatPwP-EycFiHffCCMk_Kz1ScNWPtg7znhR3mQ&amp;s=10" alt="Χάντμπολ" loading="eager" decoding="async"></figure>
 <figure class="new-slide" aria-hidden="true"><img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="Στίβος" loading="lazy" decoding="async"></figure>

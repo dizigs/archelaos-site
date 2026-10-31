@@ -119,6 +119,12 @@ def verify() -> None:
     assert "Cache-Control: public, max-age=0, must-revalidate" in headers, "Unversioned assets may remain stale"
     assert not (DIST / "rebuild").exists(), "Never publish preview folder"
     assert not (DIST / "research").exists(), "Nonpublished source-checked history must never enter deployment"
+    from build_match_schedule import calendar as make_ical, validate as validate_matches
+    fixtures_data = json.loads((ROOT/"rebuild/data/match-schedule.json").read_text(encoding="utf-8"))
+    valid_fixtures = validate_matches(fixtures_data)
+    assert len(valid_fixtures)==len(fixtures_data["matches"])
+    assert (DIST/"calendar.ics").read_bytes()==make_ical(fixtures_data).encode("utf-8"), "Published calendar out of sync"
+
     graph = json.loads((DIST / "assets/site/data/approved-event-graph.json").read_text(encoding="utf-8"))
     assert graph["publication_scope"] == "approved_only"
     owner_research = json.loads((ROOT / "rebuild/research/historical-events.json").read_text(encoding="utf-8"))

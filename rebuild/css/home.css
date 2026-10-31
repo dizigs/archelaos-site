@@ -171,3 +171,35 @@
 .new-today-arrow{position:absolute;right:25px;top:21px;color:#b89554;font-size:26px}
 .new-today-feature:hover{box-shadow:0 22px 42px #073d2a1e;transform:translateY(-2px)}
 @media(max-width:760px){.new-today-grid{grid-template-columns:1fr}.new-today{padding:55px 0}.new-today-feature{min-height:225px}}
+
+/* Upcoming approved match schedule — consistent cream/forest/gold visual language. */
+.fx-section{padding:clamp(60px,7.5vw,100px) 0;background:#f6f2e8;color:#073d2a;border-block:1px solid #e1d3b6}
+.fx-heading{display:flex;justify-content:space-between;align-items:center;gap:28px}
+.fx-heading h2{font:500 clamp(36px,4.6vw,62px)/1.15 Georgia,serif;margin:12px 0 13px;letter-spacing:-.04em}
+.fx-heading h2 em{color:#a7894c}
+.fx-heading p{margin:0;max-width:660px;color:#4a6854;line-height:1.85}
+.fx-download{white-space:nowrap;text-decoration:none;padding:12px 18px;border:1px solid #bba374;border-radius:12px;background:#fffdf7;color:#073d2a;font-weight:800;min-height:46px}
+.fx-switch{display:flex;flex-wrap:wrap;gap:9px;margin:30px 0 15px}
+.fx-switch button{background:#fffdf7;border:1px solid #c5b18b;border-radius:11px;padding:12px 19px;color:#073d2a;min-height:46px;font:750 13px/1.4 system-ui;cursor:pointer}
+.fx-switch button[aria-pressed="true"]{background:#073d2a;color:#fffdf7;border-color:#073d2a}
+.fx-status{min-height:1.3em;font-size:13px;color:#536e59}
+.fx-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;margin-top:21px}
+.fx-card{display:flex;flex-direction:column;gap:16px;min-width:0;padding:24px;border:1px solid #dbc6a2;border-radius:19px;background:linear-gradient(130deg,#fffdf7,#eee4d4)}
+.fx-top,.fx-bottom{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:9px}
+.fx-sport{font-size:12px;font-weight:800;letter-spacing:.09em;color:#7c5c23}
+.fx-competition{color:#58705c;font-size:11px;text-align:right}
+.fx-when{display:flex;flex-direction:column;gap:0}
+.fx-day{font:400 32px/1.2 Georgia,serif}
+.fx-clock{font-size:13px;color:#5a715d}
+.fx-teams{display:flex;align-items:center;justify-content:flex-start;gap:11px;min-height:60px}
+.fx-teams strong{font:500 clamp(16px,2vw,22px)/1.35 Georgia,serif;overflow-wrap:anywhere}
+.fx-versus{color:#a48e61;font-size:23px}
+.fx-bottom{margin-top:auto;border-top:1px solid #dbcbab;padding-top:14px;align-items:center;font-size:12px}
+.fx-venue{color:#5a715d}
+.fx-calendar-link{font-size:12px;color:#073d2a;text-underline-offset:3px;font-weight:750}
+.fx-empty{border-radius:17px;background:#fffcf5;border:1px solid #d9c6a2;padding:26px 30px;margin-top:18px}
+.fx-empty strong{font:500 23px Georgia,serif}
+.fx-empty p{max-width:680px;color:#586c59;line-height:1.8}
+:where(.fx-switch button,.fx-download,.fx-calendar-link):focus-visible{outline:3px solid #ac8942;outline-offset:3px}
+@media(max-width:1030px){.fx-cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:690px){.fx-heading{display:block}.fx-download{display:inline-flex;margin-top:16px}.fx-cards{grid-template-columns:1fr}.fx-card{padding:21px}.fx-switch button{flex:1}}

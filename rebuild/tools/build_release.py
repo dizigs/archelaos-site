@@ -277,6 +277,10 @@ def make_release() -> None:
     if expected != actual:
         raise RuntimeError(f"Profile file mismatch: missing={len(expected-actual)} extra={len(actual-expected)}")
 
+    from build_match_schedule import calendar as make_ical, validate as validate_matches
+    match_data = json.loads((STAGE / "data" / "match-schedule.json").read_text(encoding="utf-8"))
+    validate_matches(match_data)
+    (OUTPUT / "calendar.ics").write_bytes(make_ical(match_data).encode("utf-8"))
     (OUTPUT / "sitemaps").mkdir()
     (OUTPUT / "sitemaps" / "pages.xml").write_text(
         sitemap_xml([entry["path"] for entry in pages if entry.get("indexable", True)]), encoding="utf-8"
@@ -298,7 +302,8 @@ def make_release() -> None:
         "  Referrer-Policy: strict-origin-when-cross-origin\n"
         "  Permissions-Policy: camera=(), microphone=(), geolocation=()\n"
         "\n/assets/site/*\n  Cache-Control: public, max-age=0, must-revalidate\n"
-        "\n/images/*\n  Cache-Control: public, max-age=604800\n",
+        "\n/images/*\n  Cache-Control: public, max-age=604800\n"
+        "\n/calendar.ics\n  Cache-Control: public, max-age=0, must-revalidate\n",
         encoding="utf-8"
     )
     (OUTPUT / "site.webmanifest").write_text(js_data({
