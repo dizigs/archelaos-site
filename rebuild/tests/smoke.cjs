@@ -52,6 +52,19 @@ async function run(){
     if(name==='departments')await page.locator('.dp-card').first().waitFor();
     if(name==='retro')await page.locator('.rt-scoreboard').first().waitFor();
     if(name==='home'){
+     // Preview-safe links: static links are rewritten on load; dynamic links on focus/click.
+     const routed=await page.evaluate(()=>{
+       const a=document.createElement('a');a.href='/hall-of-fame.html?person=arch-test#biography';
+       a.id='dynamic-preview-route-test';a.textContent='Dynamic preview route';document.body.append(a);a.focus();
+       const actual=a.getAttribute('href');a.remove();
+       const external=document.createElement('a');external.href='https://example.org/';
+       document.body.append(external);external.focus();const untouched=external.href;external.remove();
+       return {actual,untouched};
+     });
+     if(routed.actual!=='/rebuild/hall-of-fame.html?person=arch-test#biography')
+       throw Error('Dynamically created link escapes rebuild: '+routed.actual);
+     if(routed.untouched!=='https://example.org/')
+       throw Error('Preview rewrote an external URL');
      await page.locator('#new-slide-next').click();
      await page.waitForFunction(()=>document.querySelector('#new-slide-title')?.textContent.includes('Στίβος'));
     }
