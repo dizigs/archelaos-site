@@ -59,7 +59,7 @@ async function audit(){
       const b=page.locator('.arch-menu-open');await b.click({timeout:6000});
       await page.locator('.arch-menu-dialog[open]').waitFor({timeout:6000});
       await page.keyboard.press('Escape');
-      await page.locator('.arch-menu-dialog:not([open])').waitFor({timeout:6000});
+      await page.waitForFunction(()=>!document.querySelector('.arch-menu-dialog')?.open,null,{timeout:6000});
       const stillLocked=await page.evaluate(()=>document.body.classList.contains('arch-dialog-open'));
       if(stillLocked)issue('errors',route+'@'+view.width,'Body stayed scroll-locked after menu Escape');
     }
@@ -79,7 +79,7 @@ async function audit(){
        if(!c||c.width<28||c.height<28||c.x<0||c.x+c.width>view.width)
          issue('errors',route+'@'+view.width,'Modal close control inaccessible');
        await page.keyboard.press('Escape');
-       await page.locator('dialog.arch-dialog:not([open])').waitFor({timeout:6000});
+       await page.waitForFunction(()=>!document.querySelector('dialog.arch-dialog')?.open,null,{timeout:6000});
        if(await page.evaluate(()=>document.body.classList.contains('arch-dialog-open')))
          issue('errors',route+'@'+view.width,'Modal left body scroll locked');
       }catch(e){issue('errors',route+'@'+view.width,'Dialog interaction failed: '+String(e.message).slice(0,350))}
