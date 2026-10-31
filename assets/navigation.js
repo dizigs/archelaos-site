@@ -2,6 +2,16 @@
 (function(){'use strict';
  const script=document.currentScript;
  if(!script||document.getElementById('arch-global-nav-root'))return;
+ // Shared editorial design for major cards across the website.
+ if(!document.querySelector('link[data-archelaos-museum-cards]')){
+  const cardsCss=document.createElement('link');
+  cardsCss.rel='stylesheet';cardsCss.href='/assets/museum-cards.css';
+  cardsCss.setAttribute('data-archelaos-museum-cards','');
+  document.head.appendChild(cardsCss);
+  const cardsScript=document.createElement('script');
+  cardsScript.src='/assets/museum-cards.js';cardsScript.defer=true;
+  document.head.appendChild(cardsScript);
+ }
  // One shared Greek-only presentation layer across all pages.
  const greekOnly=document.createElement('script');greekOnly.src='/assets/greek-only.js';greekOnly.defer=true;document.head.appendChild(greekOnly);
  const pageName=(location.pathname.split('/').pop()||'index.html').toLowerCase();
