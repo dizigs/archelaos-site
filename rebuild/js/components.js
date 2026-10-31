@@ -3,7 +3,7 @@
 function card(data){
  const el=document.createElement('a');el.className='arch-card arch-card--'+(data.tone==='green'?'green':'cream');
  if(['small','large','wide'].includes(data.size))el.classList.add('arch-card--'+data.size);
- el.href=data.href||'#';
+ el.href=window.ArchelaosRoutes?.toStage(data.href||'#')||data.href||'#';
  const title=document.createElement('span');title.className='arch-card-title';title.textContent=data.title||'';
  if(data.marker){
   const date=document.createElement('span');date.className='arch-card-date';date.textContent=data.marker;

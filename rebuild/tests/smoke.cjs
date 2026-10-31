@@ -19,6 +19,14 @@ async function run(){
     await page.goto(ROOT+'/rebuild/'+url,{waitUntil:'domcontentloaded'});
     await page.locator('.arch-header').waitFor();
     await page.locator('.arch-footer').waitFor();
+    const sponsorLabel=await page.locator('.arch-nav a[href*="sponsors.html"]').first().textContent();
+    if(sponsorLabel.trim()!=='Χορηγίες')throw Error('Global menu label changed unexpectedly: '+sponsorLabel);
+    if(name==='museum'){
+      const firstCollection=page.locator('#mu-collection-cards a').first();
+      await firstCollection.waitFor({timeout:20000});
+      const href=await firstCollection.getAttribute('href');
+      if(!href.startsWith('/rebuild/'))throw Error('Dynamic museum card leaves rebuild: '+href);
+    }
     if(name==='hall')await page.waitForFunction(()=>document.querySelector('#hall-count')?.textContent.includes('682'),{timeout:20000});
     if(name==='moments')await page.locator('.rm-moment').first().waitFor({timeout:20000});
     if(name==='stories')await page.locator('.rs-card').first().waitFor({timeout:20000});

@@ -6,17 +6,23 @@ const pages=[
   ['70-stigmes.html','70 Στιγμές'],['hall-of-fame.html','Hall of Fame'],
   ['stories.html','Ιστορίες'],['index.html#about','Ο Σύλλογος'],
   ['index.html#departments','Αθλήματα'],['board.html','Διοίκηση'],
-  ['sponsors.html','tmimata.html','retro-matches.html','Χορηγίες'],['contact.html','Επικοινωνία']
+  ['sponsors.html','Χορηγίες'],['contact.html','Επικοινωνία']
 ];
 const groups=[['Συλλογές',[2,3,4]],['Ο Σύλλογος',[5,6,7]]];
 const path=(location.pathname.split('/').pop()||'index.html').toLowerCase();
-const COMPLETED=new Set(['index.html','history.html','hall-of-fame.html','70-stigmes.html','stories.html','board.html','contact.html','sponsors.html']);
-const hrefFor=(item)=>{
- const href=item[0],file=href.split('#')[0];
- // Links to completed rebuild pages stay inside rebuild; unported pages still use unchanged originals.
- if(location.pathname.startsWith('/rebuild/')&&COMPLETED.has(file))return '/rebuild/'+href;
- return '/'+href;
+const COMPLETED=new Set(['index.html','history.html','hall-of-fame.html','70-stigmes.html','stories.html','board.html','contact.html','sponsors.html','tmimata.html','retro-matches.html']);
+const stageUrl=(href)=>{
+ if(!location.pathname.startsWith('/rebuild/'))return href;
+ try{
+  const url=new URL(href,location.href);
+  if(url.origin!==location.origin)return href;
+  const file=url.pathname.replace(/^\/(?:rebuild\/)?/,'');
+  if(!COMPLETED.has(file))return href;
+  return '/rebuild/'+file+url.search+url.hash;
+ }catch(_){return href}
 };
+window.ArchelaosRoutes=Object.freeze({toStage:stageUrl});
+const hrefFor=(item)=>stageUrl('/'+item[0]);
 function addLink(parent,item,className){
   const a=document.createElement('a');a.href=hrefFor(item);a.textContent=item[1];
   if(className)a.className=className;

@@ -21,6 +21,7 @@ function fragment(raw){
   if(node.tagName==='A'){
    let href=node.getAttribute('href')||'';
    if(/^people\//.test(href)){href='/'+href;node.setAttribute('href',href)}
+   else if(href)node.setAttribute('href',window.ArchelaosRoutes?.toStage(href)||href)
    try{
     const url=new URL(href,location.href);
     if(!['http:','https:'].includes(url.protocol))node.removeAttribute('href');
