@@ -2,6 +2,18 @@
 (function(){
 'use strict';
 const fields=['type','sport','date','persons','details','source','rights'];
+const params=new URLSearchParams(location.search);
+const linkedKind=params.get('kind')||'',linkedId=params.get('id')||'';
+const linkedTitle=(params.get('title')||'').trim().slice(0,150);
+const validReference=/^[a-z0-9-]{1,100}$/.test(linkedId)&&['person','moment','story','exhibit','photo'].includes(linkedKind);
+const linkedPaths={
+ person:'/hall-of-fame.html?person='+encodeURIComponent(linkedId),
+ moment:'/70-stigmes.html#moment-'+encodeURIComponent(linkedId),
+ story:'/stories.html#story-'+encodeURIComponent(linkedId),
+ exhibit:'/history.html#archive-'+encodeURIComponent(linkedId),
+ photo:'/index.html'
+};
+const reference=validReference&&linkedTitle?{title:linkedTitle,url:'https://archelaos.club'+linkedPaths[linkedKind]}:null;
 const $=id=>document.getElementById('ac-'+id);
 const clean=value=>String(value||'').trim().replace(/\r\n?/g,'\n');
 function draft(){
@@ -13,7 +25,8 @@ function draft(){
   ['Πρόσωπα / ομάδα / διοργάνωση',values.persons],
   ['Προέλευση / πηγή',values.source],
   ['Δυνατότητα κοινοποίησης',values.rights],
-  ['Περιγραφή',values.details]
+  ['Περιγραφή',values.details],
+  ...(reference?[['Σχετικό στοιχείο αρχείου',reference.title],['Σύνδεσμος εγγραφής',reference.url]]:[])
  ];
  const body='Καλησπέρα,\n\nΘα ήθελα να συνεισφέρω στο ιστορικό αρχείο του Γ.Α.Σ. Αρχέλαος.\n\n'
    +entries.map(([label,value])=>label+': '+(value||'—')).join('\n\n')
@@ -44,6 +57,13 @@ async function copy(){
  }
 }
 function init(){
+ if(reference){
+  const context=$('guide-context');context.hidden=false;
+  context.textContent='Σχετικά με: '+reference.title+'. Μπορείτε να προτείνετε διόρθωση ή πρόσθετο τεκμήριο.';
+  if(linkedKind==='person')$('type').value='Βιογραφικό στοιχείο';
+  if(linkedKind==='photo')$('type').value='Φωτογραφία';
+  if(linkedKind==='moment'||linkedKind==='story'||linkedKind==='exhibit')$('type').value='Ιστορική μαρτυρία';
+ }
  for(const id of fields)$(id).addEventListener('input',()=>{refresh();$('guide-status').textContent='';});
  $('guide-copy').addEventListener('click',copy);
  refresh();

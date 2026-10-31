@@ -9,9 +9,14 @@ function card(saved){
  const article=el('article','av-card'),kind=el('span','av-card-kind',record.kindLabel);
  const title=el('h2','',record.title);
  const summary=el('p','av-card-summary',saved.type==='person'?item.role:record.year||record.subtitle);
- const footer=el('div','av-card-actions'),link=el('a','av-open','Εξερεύνηση ↗');
+ const footer=el('div','av-card-actions'),links=el('div','av-action-links'),link=el('a','av-open','Εξερεύνηση ↗');
  link.href=route(record.url);
- footer.append(link,window.ArchelaosFavorites.button(saved.type,saved.id));
+ const contribute=el('a','av-contribute','Προσθέστε στοιχείο ↗');
+ const query=new URLSearchParams({kind:record.type,id:record.id,title:record.title});
+ contribute.href=route('/contribute.html?'+query.toString());
+ contribute.setAttribute('aria-label','Προτείνετε ιστορικό στοιχείο για '+record.title);
+ links.append(link,contribute);
+ footer.append(links,window.ArchelaosFavorites.button(saved.type,saved.id));
  article.append(kind);
  if(saved.type==='photo'){
   const img=el('img','av-photo');img.src=item.photo;img.alt=item.name;img.loading='lazy';img.decoding='async';

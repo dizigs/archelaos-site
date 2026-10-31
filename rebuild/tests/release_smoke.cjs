@@ -78,6 +78,9 @@ async function verify(){
      await page.locator('.av-empty').waitFor();
      await page.evaluate(()=>window.ArchelaosFavorites.toggle('moment','1'));
      await page.locator('.av-card').first().waitFor();
+     const contribute=await page.locator('.av-card .av-contribute').first().getAttribute('href');
+     if(!contribute?.includes('/contribute.html?kind=moment')||
+        !contribute.includes('title='))throw Error('Favorite has no contextual archive contribution link');
      await page.reload({waitUntil:'domcontentloaded'});
      await page.locator('.av-card').first().waitFor();
      if(!await page.locator('.av-card').first().textContent())throw Error('Favorites not restored after reload');
