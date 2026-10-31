@@ -168,3 +168,14 @@ dialog.arch-menu-dialog[open]{position:fixed!important;inset:0 0 0 auto!importan
 @media(max-width:600px){.arch-header-actions{gap:6px}.arch-action{width:42px;height:42px;padding:8px}.arch-action .arch-action-name{display:none}.arch-action-icon{width:21px;height:21px}.arch-header-inner{gap:7px}.arch-fav-count{position:absolute;top:-7px;right:-5px}.arch-action{position:relative}.arch-footer-community{padding:22px 18px}.arch-footer-ctas{width:100%}.arch-footer-cta{flex:1;justify-content:center}.arch-footer-social a{flex:1;justify-content:center}}
 @media(max-width:355px){.arch-action-favorites{display:none}.arch-brand-title{font-size:12px}}
 @media(prefers-reduced-motion:reduce){.arch-footer-social a{transition:none}}
+
+/* Hall of Fame names inside archival stories: a restrained typographic link. */
+:where(.arch-archive-content,.arch-dialog-body) a:is([href*="/people/"],[href*="hall-of-fame.html?person="]),
+:where(.arch-archive-content,.arch-dialog-body) .arch-person-link{
+ color:inherit;text-decoration:none;font-weight:650;
+ border-bottom:1px solid transparent;cursor:pointer;
+}
+:where(.arch-archive-content,.arch-dialog-body) a:is([href*="/people/"],[href*="hall-of-fame.html?person="]):hover,
+:where(.arch-archive-content,.arch-dialog-body) .arch-person-link:hover{color:#0b6045;border-bottom-color:#bca26d}
+:where(.arch-archive-content,.arch-dialog-body) a:is([href*="/people/"],[href*="hall-of-fame.html?person="]):focus-visible,
+:where(.arch-archive-content,.arch-dialog-body) .arch-person-link:focus-visible{outline:2px solid #ad8a4c;outline-offset:3px}
