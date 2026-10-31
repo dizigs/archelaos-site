@@ -276,8 +276,8 @@ def make_release() -> None:
         html_text, old_footer = re.subn(
             r'</main>\s*<footer\b[^>]*>.*?</footer>', '</main>',
             html_text, count=1, flags=re.I|re.S)
-        if old_header != 1 or old_footer != 1:
-            raise ValueError('Unexpected legacy profile layout: ' + profile.name)
+        if old_header != old_footer:
+            raise ValueError('Unpaired legacy profile header/footer: ' + profile.name)
         for lang in ("el", "en"):
             html_text = sync_edited_bio(html_text, profile.stem, lang)
         # Avoid leaving obsolete editorial correction text in Person JSON-LD
