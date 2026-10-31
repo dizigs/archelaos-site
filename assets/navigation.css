@@ -125,3 +125,8 @@ body.asn-museum-layout{padding-top:var(--asn-height)!important}
 #arch-global-nav-root .asn-drawer:not([hidden]){pointer-events:auto!important}
 #arch-global-nav-root .asn-backdrop[hidden],
 #arch-global-nav-root .asn-drawer[hidden]{pointer-events:none!important;display:none!important}
+
+#arch-global-nav-root .asn-search-link{height:42px;min-width:42px;padding:10px!important;color:#e8d2a0!important;border-color:rgba(216,182,110,.38)!important}
+#arch-global-nav-root .asn-search-link svg{width:19px;height:19px;stroke:currentColor;flex:none}
+#arch-global-nav-root .asn-search-menu .asn-m-num{display:grid;place-items:center}
+#arch-global-nav-root .asn-search-menu svg{width:18px;height:18px;stroke:currentColor}
