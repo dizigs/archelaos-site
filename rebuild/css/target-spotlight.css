@@ -1,0 +1,17 @@
+/* Short-lived confirmation when an in-page action reaches its intended section. */
+.sp-impact-grid.arch-target-glow{position:relative;isolation:isolate;border-radius:22px;outline:2px solid #c7a65e;outline-offset:9px;animation:arch-target-glow 2.6s ease-out both}
+dialog.arch-dialog.arch-target-glow{border-color:#dbba70;animation:arch-dialog-target-glow 2.6s ease-out both}
+@keyframes arch-target-glow{
+  0%{outline-color:#f0d78d;box-shadow:0 0 0 3px #efdcaa80,0 0 36px 11px #d4aa4c7d}
+  35%{outline-color:#d6af5c;box-shadow:0 0 0 7px #e0c28040,0 0 25px 6px #d4aa4c5c}
+  100%{outline-color:transparent;box-shadow:0 0 0 0 transparent,0 0 0 0 transparent}
+}
+@keyframes arch-dialog-target-glow{
+  0%{box-shadow:0 0 0 5px #e5c77b,0 0 55px 14px #eac4779c,0 28px 90px #001e1590}
+  40%{box-shadow:0 0 0 3px #d3af5f,0 0 38px 8px #d4aa4c7d,0 28px 90px #001e1590}
+  100%{box-shadow:0 28px 90px #001e1590}
+}
+@media(prefers-reduced-motion:reduce){
+ .sp-impact-grid.arch-target-glow{animation:none;outline-color:#c7a65e;box-shadow:0 0 0 5px #dec68855}
+ dialog.arch-dialog.arch-target-glow{animation:none;border-color:#c7a65e;box-shadow:0 0 0 4px #c7a65e80,0 28px 90px #001e1590}
+}
