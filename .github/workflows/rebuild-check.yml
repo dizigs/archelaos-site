@@ -110,6 +110,10 @@ jobs:
           path: rebuild/test-artifacts/verified-events-report.json
           if-no-files-found: warn
           retention-days: 14
+      - name: Test publication-gated reciprocal events and biographies
+        run: |
+          python rebuild/tests/event_graph.py
+          python rebuild/tools/build_event_graph.py
       - name: Ensure all rebuild HTML pages are unpublished previews
         shell: bash
         run: |
