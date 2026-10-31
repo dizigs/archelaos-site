@@ -100,6 +100,16 @@ def verify() -> None:
         assert '/assets/site/js/shell.js' in text and '/assets/site/js/profile-favorite.js' in text, file.name
         assert '/assets/navigation.js' not in text and '/history-events.html' not in text, file.name
 
+    # Prevent legacy profile copies from reintroducing an incorrect presidential attribution.
+    pid = "arch-61d8d097f601"
+    profile = (DIST / "people" / (pid + ".html")).read_text(encoding="utf-8")
+    assert "τα καθήκοντα του προέδρου άσκησε προσωρινά ο Χαράλαμπος Σαββίδης" in profile
+    assert "Charalampos Savvidis temporarily carried out the president&#39;s duties" in profile
+    published_records = json.loads((DIST / "hall-of-fame-people.json").read_text(encoding="utf-8"))
+    rows = published_records if isinstance(published_records, list) else published_records["people"]
+    record = next(row for row in rows if row["id"] == pid)
+    assert "τα καθήκοντα του προέδρου άσκησε προσωρινά ο Χαράλαμπος Σαββίδης" in record["bio"]
+    assert "Charalampos Savvidis temporarily carried out the president's duties" in record["bio_en"]
     assert all((DIST / "people" / url.rsplit("/", 1)[-1]).is_file() for url in loc_people)
     robots = (DIST / "robots.txt").read_text()
     assert "Sitemap: " + SITE + "/sitemap.xml" in robots
