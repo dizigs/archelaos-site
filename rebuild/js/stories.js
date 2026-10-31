@@ -26,7 +26,7 @@ function card(story,index,featured=false){
   const mark=el('span','rs-featured-watermark',String(story.year||'').replace(/[^\d]/g,''));
   mark.setAttribute('aria-hidden','true');btn.append(copy,mark);
  }else{
-  btn.append(el('span','',story.sport+' · '+story.year),el('strong','',story.title),el('small','',story.lead),el('b','','↗'));
+  btn.append(el('span','',story.sport+' · '+story.year),el('strong','',story.title),el('small','',story.lead));
  }
  btn.addEventListener('click',()=>read(story,index));const wrap=el('div','rs-card-wrap');wrap.append(btn,window.ArchelaosFavorites.button('story',index+1));return wrap;
 }
