@@ -18,3 +18,12 @@
 .mu-archive-item span,.mu-sport-item span{color:#685124}
 .ac-process .av-kicker{color:#ebd5a1}
 .ac-guide-section .av-kicker{color:#655027}
+
+/* Third contrast pass: remaining light-background editorial labels and links. */
+:is(.new-about,.new-departments,.new-get-involved,.new-philosophy) .new-eyebrow,
+.new-board-card .new-eyebrow{color:#625023}
+.new-about .new-underline-link{color:#624e24}
+.ac-contact h2 em{color:#685020}
+.ac-contact small{color:#475e4a}
+.ac-contact .av-kicker{color:#635026}
+.mu-press-item span{color:#edd5a2}
