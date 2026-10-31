@@ -45,7 +45,7 @@ async function run(){
     if(name==='hall')await page.waitForFunction(()=>document.querySelector('#hall-count')?.textContent.includes('682'),{timeout:20000});
     if(name==='moments')await page.locator('.rm-moment').first().waitFor({timeout:20000});
     if(name==='stories')await page.locator('.rs-card').first().waitFor({timeout:20000});
-    if(name==='museum')await page.locator('.mu-sport-item').first().waitFor({timeout:20000});
+    if(name==='museum')await page.locator('.mu-sports-link').first().waitFor({timeout:20000});
     if(name==='board')await page.locator('.bd-member').first().waitFor({timeout:20000});
     if(name==='contact')await page.locator('[data-open-contact]').first().waitFor();
     if(name==='sponsors')await page.locator('.sp-values article').first().waitFor();
