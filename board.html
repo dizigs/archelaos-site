@@ -2537,6 +2537,168 @@ img{max-width:100%}
 @media (max-width:580px){.pbh-section{padding:47px 15px 55px}.pbh-heading-seal{display:none}.pbh-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:23px}.pbh-era{padding:16px 12px 13px;border-radius:13px}.pbh-era-years{font-size:23px;margin:12px 0 8px}.pbh-era-title{font-size:13px;min-height:36px}.pbh-era-sub{font-size:11px;line-height:1.5}.pbh-era-names{display:none}.pbh-era-count{font-size:9px}.pbh-era-top i{font-size:12px}.pbh-era-cta{font-size:10px;line-height:1.4;gap:3px;padding-top:10px;margin-top:12px}.pbh-caveat{padding:16px;gap:11px}.pbh-caveat-icon{width:32px;height:32px;font-size:13px}.pbh-dialog{width:calc(100vw - 18px);max-height:92dvh;border-radius:15px}.pbh-modal-head{padding:29px 62px 24px 20px}.pbh-presidencies{margin-left:22px;padding-left:20px}.pbh-presidency-marker{left:-28px}.pbh-modal-note{margin:13px 15px;padding:11px}.pbh-source-box{padding:17px}.pbh-modal-foot{padding:16px}}
 @media (prefers-reduced-motion:reduce){.pbh-era{transition:none}.pbh-era:hover{transform:none}}
 </style>
+
+<style id="pbh-historical-board-facelift-2026">
+/* Archive exhibit cards match the Museum's quiet cream, deep green and muted-gold system. */
+#previous-boards.pbh-section{scroll-margin-top:100px;padding:clamp(44px,6vw,76px) 16px clamp(58px,7vw,92px);background:#faf8f1}
+#previous-boards .pbh-shell{max-width:1120px}
+#previous-boards .pbh-heading-row{align-items:flex-start}
+#previous-boards .pbh-eyebrow{font-size:11px;letter-spacing:.15em;color:#947d49}
+#previous-boards .pbh-heading h2{font-family:Georgia,"Times New Roman",serif;font-size:clamp(1.9rem,3.5vw,2.85rem);line-height:1.18;font-weight:700;letter-spacing:-.025em;color:#083b2b}
+#previous-boards .pbh-heading p{font-size:clamp(14px,1.4vw,16px);line-height:1.7;max-width:710px;color:#536d5b}
+#previous-boards .pbh-heading-seal{background:#f7f1e4;border:1px solid #cfbf9d;color:#977c42;border-radius:50%}
+#previous-boards .pbh-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(14px,2.3vw,22px);margin-top:clamp(24px,3vw,36px)}
+#previous-boards .pbh-era{
+  position:relative;isolation:isolate;display:flex;flex-direction:column;align-items:stretch;
+  justify-content:space-between;gap:14px;min-width:0;min-height:236px;width:100%;
+  padding:clamp(24px,3.2vw,34px);overflow:hidden;text-align:left;
+  border:1px solid #d7c6a4;border-radius:25px;background:#fffdfa;
+  box-shadow:0 9px 27px rgba(5,49,30,.065);color:#073d2a;
+  transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease;
+  cursor:pointer;
+}
+#previous-boards .pbh-era::before{
+  content:attr(data-era-year);position:absolute;right:12px;bottom:-.19em;
+  font:800 clamp(5.1rem,10vw,8rem)/1 Georgia,"Times New Roman",serif;
+  letter-spacing:-.07em;color:rgba(8,61,42,.07);pointer-events:none;z-index:-1;
+}
+#previous-boards .pbh-era:hover{background:#fffdf8;border-color:#ac9159;box-shadow:0 17px 39px rgba(5,49,30,.13);transform:translateY(-3px)}
+#previous-boards .pbh-era:focus-visible{outline:3px solid #b99b59;outline-offset:4px}
+#previous-boards .pbh-era-years{
+  position:relative;z-index:1;display:block;align-self:flex-start;
+  margin:0;color:#9e8248;font:800 .86rem/1.3 Inter,Arial,sans-serif;
+  letter-spacing:.035em;
+}
+#previous-boards .pbh-era-middle{position:relative;z-index:1;display:flex;flex:1;flex-direction:column;align-items:center;justify-content:center;gap:9px;min-height:90px;text-align:center}
+#previous-boards .pbh-era-title{display:block;min-height:0;font:600 clamp(1.6rem,3vw,2.15rem)/1.22 Georgia,"Times New Roman",serif;letter-spacing:-.025em;color:#083b2b;overflow-wrap:break-word}
+#previous-boards .pbh-era-sub{display:block;max-width:36ch;min-height:0;margin:0;font-size:clamp(12px,1.2vw,14px);line-height:1.55;color:#54705e}
+#previous-boards .pbh-era-footer{position:relative;z-index:1;display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin-top:5px}
+#previous-boards .pbh-era-count{display:block;max-width:80%;color:#687c6b;font-size:11px;line-height:1.35;font-weight:600}
+#previous-boards .pbh-era-count strong{color:#9b8046;font-weight:900}
+#previous-boards .pbh-era-arrow{font:400 2rem/1 Georgia,serif;color:#9f834a;transition:transform .2s ease}
+#previous-boards .pbh-era:hover .pbh-era-arrow{transform:translate(3px,-3px)}
+/* Use the native dialog unchanged, keeping its working focus and scroll behavior. */
+dialog.pbh-dialog{
+  box-sizing:border-box;width:min(900px,calc(100vw - 32px));max-width:none;
+  max-height:min(90dvh,920px);padding:0;margin:auto;
+  overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;
+  -webkit-overflow-scrolling:touch;
+  background:#faf8f1;border:1px solid #c8b078;border-radius:23px;
+  color:#173e2e;box-shadow:0 26px 90px rgba(3,28,18,.35);
+}
+dialog.pbh-dialog::backdrop{background:rgba(3,28,19,.74);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)}
+dialog.pbh-dialog .pbh-modal-close{
+  position:sticky;top:12px;float:right;z-index:10;display:grid;place-items:center;
+  width:46px;height:46px;margin:14px 16px -60px 0;
+  border:1.5px solid #c5a45f;border-radius:50%;background:#fffdf7;
+  color:#073d2a;font-size:18px;
+  box-shadow:0 4px 16px rgba(0,0,0,.13);cursor:pointer;
+  transition:background .2s ease,transform .2s ease;
+}
+dialog.pbh-dialog .pbh-modal-close:hover{background:#e6d6ac;transform:rotate(90deg)}
+dialog.pbh-dialog .pbh-modal-close:focus-visible{outline:3px solid #d8b56c;outline-offset:3px}
+dialog.pbh-dialog .pbh-modal-head{
+  position:relative;isolation:isolate;overflow:hidden;
+  padding:clamp(29px,4vw,43px) 77px clamp(26px,3vw,37px) clamp(24px,4vw,42px);
+  background:linear-gradient(133deg,#062f21,#0b4c34);color:#fffdf6;
+  border-bottom:2px solid #bfa268;
+}
+dialog.pbh-dialog .pbh-modal-head::after{
+  content:"";position:absolute;right:-65px;bottom:-165px;z-index:-1;
+  width:340px;height:340px;border-radius:50%;border:1px solid rgba(232,207,151,.2);
+  box-shadow:0 0 0 55px rgba(232,207,151,.035),0 0 0 105px rgba(232,207,151,.026);
+  pointer-events:none;
+}
+dialog.pbh-dialog .pbh-modal-kicker{color:#e5d096;font-size:10px;letter-spacing:.15em;font-weight:850}
+dialog.pbh-dialog .pbh-modal-years{display:block;margin:22px 0 6px;color:#e7cd8e;font:700 15px/1.2 Georgia,serif;letter-spacing:.06em}
+dialog.pbh-dialog .pbh-modal-head h3{margin:6px 0 11px;font:600 clamp(1.7rem,4vw,2.45rem)/1.2 Georgia,"Times New Roman",serif;color:#fffdf6;letter-spacing:-.03em}
+dialog.pbh-dialog .pbh-modal-head p{font-size:clamp(13px,1.5vw,15px);line-height:1.6;color:#e2eadd;max-width:58ch;margin:0}
+dialog.pbh-dialog .pbh-modal-note{
+  display:flex;align-items:flex-start;gap:12px;
+  margin:clamp(16px,2.5vw,25px) clamp(18px,4vw,40px) 0;
+  padding:15px 17px;border:1px solid #e4dfcf;border-radius:13px;
+  background:#f3f1e9;color:#536a58;font-size:12px;line-height:1.6;
+}
+dialog.pbh-dialog .pbh-modal-note i{color:#9e8044;margin-top:2px}
+dialog.pbh-dialog .pbh-presidencies{
+  display:grid;grid-template-columns:minmax(0,1fr);gap:14px;
+  margin:0;padding:clamp(18px,3.5vw,35px) clamp(18px,4vw,40px);
+  border-left:0;
+}
+dialog.pbh-dialog .pbh-presidency{
+  position:relative;min-width:0;margin:0;padding:clamp(18px,3vw,26px);
+  border:1px solid #e2d8c4;border-radius:16px;background:#fffefa;
+  box-shadow:0 5px 17px rgba(3,35,24,.035);
+}
+dialog.pbh-dialog .pbh-presidency-marker{display:none}
+dialog.pbh-dialog .pbh-presidency-years{
+  display:inline-block;margin-bottom:9px;padding:5px 9px;
+  border:1px solid #e7d9b8;border-radius:7px;background:#f7f0df;
+  font-size:11px;line-height:1.4;letter-spacing:.04em;font-weight:850;color:#94773f;
+}
+dialog.pbh-dialog .pbh-presidency h4{
+  margin:2px 0 7px;font:600 clamp(1.25rem,2.6vw,1.55rem)/1.25 Georgia,"Times New Roman",serif;
+  letter-spacing:-.015em;color:#073d2a;overflow-wrap:anywhere;
+}
+dialog.pbh-dialog .pbh-role{margin:0 0 11px;font-size:11px;font-weight:800;letter-spacing:.035em;color:#7c815f}
+dialog.pbh-dialog .pbh-presidency-body>p{margin:0;font-size:clamp(13px,1.5vw,15px);line-height:1.75;color:#3a5a48;overflow-wrap:anywhere}
+dialog.pbh-dialog .pbh-verified-members{
+  margin:18px 0 0;padding:15px 17px;
+  background:#f3f4ed;border:1px solid #dde4d8;border-radius:12px;
+}
+dialog.pbh-dialog .pbh-verified-members p{font-size:12px;font-weight:800;color:#31563b}
+dialog.pbh-dialog .pbh-verified-members ul{padding-inline-start:18px;margin:0;color:#3d5848;font-size:12px;line-height:1.8}
+dialog.pbh-dialog .arch-2026-context{
+  margin:0 clamp(18px,4vw,40px) clamp(18px,3vw,30px);
+  padding:clamp(18px,3vw,26px);
+  background:#f4f1e8;border:1px solid #e3d7b9;border-radius:16px;
+}
+dialog.pbh-dialog .arch-2026-context h3{font:600 1.45rem/1.35 Georgia,"Times New Roman",serif;color:#073d2a}
+dialog.pbh-dialog .arch-2026-context p{line-height:1.75;color:#3b5948}
+dialog.pbh-dialog .pbh-source-box{
+  margin:0 clamp(18px,4vw,40px);padding:19px 21px;
+  border:1px solid #e3dfd2;border-radius:14px;background:#f5f4ed;
+}
+dialog.pbh-dialog .pbh-source-box h4{font:800 13px/1.45 Inter,Arial,sans-serif;color:#254f37}
+dialog.pbh-dialog .pbh-sources{gap:9px}
+dialog.pbh-dialog .pbh-source-ref,dialog.pbh-dialog .pbh-source-link{
+  display:inline-block;padding:9px 11px;
+  font-size:12px;line-height:1.55;border:1px solid #e1e4d8;border-radius:9px;
+  color:#506d5a;background:#fffefa;overflow-wrap:anywhere;
+}
+dialog.pbh-dialog .pbh-modal-foot{
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;
+  gap:12px;margin:0;padding:22px clamp(18px,4vw,40px) clamp(24px,4vw,35px);
+  color:#536d59;font-size:12px;line-height:1.55;
+}
+dialog.pbh-dialog .pbh-modal-foot a{
+  display:inline-flex;gap:8px;align-items:center;justify-content:center;
+  min-height:39px;padding:9px 16px;border-radius:10px;
+  background:#073d2a;border:1px solid #bfa56c;color:#f0dcaa;
+  font-size:12px;font-weight:800;text-decoration:none;
+}
+dialog.pbh-dialog .pbh-modal-foot a:hover{background:#0a5637}
+dialog.pbh-dialog .pbh-modal-foot a:focus-visible{outline:3px solid #bfa56c;outline-offset:3px}
+@media(max-width:670px){
+ #previous-boards .pbh-grid{grid-template-columns:minmax(0,1fr);gap:14px}
+ #previous-boards .pbh-era{min-height:214px;padding:25px 27px;border-radius:23px}
+ #previous-boards .pbh-era-title{font-size:clamp(1.58rem,6vw,2rem)}
+ #previous-boards .pbh-era::before{font-size:clamp(5.3rem,19vw,8rem)}
+ #previous-boards .pbh-heading-seal{display:none}
+ dialog.pbh-dialog{width:calc(100vw - 16px);max-height:94dvh;border-radius:16px}
+ dialog.pbh-dialog .pbh-modal-head{padding:30px 70px 25px 22px}
+ dialog.pbh-dialog .pbh-modal-close{width:43px;height:43px;margin:12px 13px -55px 0}
+ dialog.pbh-dialog .pbh-modal-note{padding:13px 14px}
+ dialog.pbh-dialog .pbh-presidencies{gap:12px}
+ dialog.pbh-dialog .pbh-presidency{padding:17px}
+ dialog.pbh-dialog .pbh-modal-foot{align-items:stretch}
+ dialog.pbh-dialog .pbh-modal-foot a{width:100%}
+}
+@media(prefers-reduced-motion:reduce){
+ #previous-boards .pbh-era, #previous-boards .pbh-era-arrow,
+ dialog.pbh-dialog .pbh-modal-close{transition:none!important;transform:none!important}
+}
+</style>
 <style id="arch-board-future-style">
 /* The club's future — a distinct editorial statement after the board roster. */
 #board-future.arch-board-future{padding:clamp(30px,5vw,72px) 0 clamp(75px,9vw,128px);background:linear-gradient(180deg,#f1f4ec,#fffdf7);scroll-margin-top:100px;}
@@ -2821,31 +2983,40 @@ a.arch-board-future-action:focus-visible{outline:3px solid #c7a65e;outline-offse
 <div class="pbh-heading-row"><div><h2 id="previous-boards-heading"><span data-lang="el">Οι διοικήσεις στην ιστορία του συλλόγου</span><span data-lang="en">Club Leadership Through the Years</span></h2>
 <p><span data-lang="el">Γνωρίστε τις διοικήσεις και τους ανθρώπους που συνέβαλαν στην πορεία του Αρχέλαου μέσα από το ιστορικό αρχείο του συλλόγου.</span><span data-lang="en">Discover the administrations and people who helped shape Archelaos, drawing on the club’s historical records.</span></p></div>
 <div aria-hidden="true" class="pbh-heading-seal"><i class="fa-solid fa-scroll"></i></div></div></div>
-<div class="pbh-grid"><button aria-controls="pbh-dialog" aria-haspopup="dialog" class="pbh-era" data-pbh-open="foundation" type="button">
-<span class="pbh-era-top"><i aria-hidden="true" class="fa-solid fa-landmark"></i><span class="pbh-era-count">8 <span data-lang="el">καταγεγραμμένες θητείες προέδρων</span><span data-lang="en">documented presidential terms</span></span></span>
-<strong class="pbh-era-years">1956–1977</strong><span class="pbh-era-title"><span data-lang="el">Οι πρώτες δεκαετίες</span><span data-lang="en">The early decades</span></span>
-<span class="pbh-era-sub"><span data-lang="el">Ίδρυση, θεσμοί και νέα τμήματα</span><span data-lang="en">Foundation, institutions and new sports sections</span></span>
-<span class="pbh-era-names"><span data-lang="el">Αθανάσιος Ευθυμίου, Νίκος Τσινόπουλος</span><span data-lang="en">Athanasios Efthymiou, Nikos Tsinopoulos</span></span>
-<span class="pbh-era-cta"><span data-lang="el">Προβολή ιστορικού</span><span data-lang="en">Explore the period</span> <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></span>
-</button><button aria-controls="pbh-dialog" aria-haspopup="dialog" class="pbh-era" data-pbh-open="growth" type="button">
-<span class="pbh-era-top"><i aria-hidden="true" class="fa-solid fa-landmark"></i><span class="pbh-era-count">3 <span data-lang="el">καταγεγραμμένες θητείες προέδρων</span><span data-lang="en">documented presidential terms</span></span></span>
-<strong class="pbh-era-years">1977–1993</strong><span class="pbh-era-title"><span data-lang="el">Εξέλιξη &amp; διεύρυνση</span><span data-lang="en">Growth &amp; expansion</span></span>
-<span class="pbh-era-sub"><span data-lang="el">Νέα αθλήματα, οργανωτική ανάπτυξη</span><span data-lang="en">New disciplines and structural growth</span></span>
-<span class="pbh-era-names"><span data-lang="el">Ευστάθιος Ζάννας, Δημήτριος Παπαδημητρίου</span><span data-lang="en">Efstathios Zannas, Dimitrios Papadimitriou</span></span>
-<span class="pbh-era-cta"><span data-lang="el">Προβολή ιστορικού</span><span data-lang="en">Explore the period</span> <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></span>
-</button><button aria-controls="pbh-dialog" aria-haspopup="dialog" class="pbh-era" data-pbh-open="europe" type="button">
-<span class="pbh-era-top"><i aria-hidden="true" class="fa-solid fa-landmark"></i><span class="pbh-era-count">1 <span data-lang="el">καταγεγραμμένη θητεία προέδρου</span><span data-lang="en">documented presidential term</span></span></span>
-<strong class="pbh-era-years">1993–2011</strong><span class="pbh-era-title"><span data-lang="el">Μια μακρά περίοδος διοίκησης</span><span data-lang="en">A long presidency</span></span>
-<span class="pbh-era-sub"><span data-lang="el">Ευρωπαϊκή παρουσία και σημαντικές διακρίσεις</span><span data-lang="en">European campaigns and major achievements</span></span>
-<span class="pbh-era-names"><span data-lang="el">Χρήστος Ελευθερούδης</span><span data-lang="en">Christos Eleftheroudis</span></span>
-<span class="pbh-era-cta"><span data-lang="el">Προβολή ιστορικού</span><span data-lang="en">Explore the period</span> <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></span>
-</button><button aria-controls="pbh-dialog" aria-haspopup="dialog" class="pbh-era" data-pbh-open="recent" type="button">
-<span class="pbh-era-top"><i aria-hidden="true" class="fa-solid fa-landmark"></i><span class="pbh-era-count">2 <span data-lang="el">καταγεγραμμένες θητείες προέδρων</span><span data-lang="en">documented presidential terms</span></span></span>
-<strong class="pbh-era-years">2011–2026</strong><span class="pbh-era-title"><span data-lang="el">Σύγχρονη εποχή</span><span data-lang="en">Contemporary era</span></span>
-<span class="pbh-era-sub"><span data-lang="el">Ανασυγκρότηση, υποδομές και νέα πορεία</span><span data-lang="en">Renewal, facilities and new directions</span></span>
-<span class="pbh-era-names"><span data-lang="el">Θεόδωρος Διαμαντόπουλος, Αλκίνοος</span><span data-lang="en">Theodoros Diamantopoulos, Alkinoos</span></span>
-<span class="pbh-era-cta"><span data-lang="el">Προβολή ιστορικού</span><span data-lang="en">Explore the period</span> <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></span>
-</button></div>
+<div class="pbh-grid" aria-label="Ιστορικές περίοδοι Διοικητικών Συμβουλίων">
+<button aria-controls="pbh-dialog" aria-haspopup="dialog" aria-label="1956–1977 · Οι πρώτες δεκαετίες" class="pbh-era" data-pbh-open="foundation" data-era-year="1956" type="button">
+  <span class="pbh-era-years">1956–1977</span>
+  <span class="pbh-era-middle">
+    <span class="pbh-era-title"><span data-lang="el">Οι πρώτες δεκαετίες</span><span data-lang="en">The early decades</span></span>
+    <span class="pbh-era-sub"><span data-lang="el">Ίδρυση, θεσμοί και νέα τμήματα</span><span data-lang="en">Foundation, institutions and new sports sections</span></span>
+  </span>
+  <span class="pbh-era-footer"><span class="pbh-era-count"><strong>8</strong> <span data-lang="el">καταγεγραμμένες θητείες προέδρων</span><span data-lang="en">recorded presidential terms</span></span><span class="pbh-era-arrow" aria-hidden="true">↗</span></span>
+</button>
+<button aria-controls="pbh-dialog" aria-haspopup="dialog" aria-label="1977–1993 · Εξέλιξη &amp; διεύρυνση" class="pbh-era" data-pbh-open="growth" data-era-year="1977" type="button">
+  <span class="pbh-era-years">1977–1993</span>
+  <span class="pbh-era-middle">
+    <span class="pbh-era-title"><span data-lang="el">Εξέλιξη &amp; διεύρυνση</span><span data-lang="en">Growth &amp; expansion</span></span>
+    <span class="pbh-era-sub"><span data-lang="el">Νέα αθλήματα, οργανωτική ανάπτυξη</span><span data-lang="en">New disciplines and structural growth</span></span>
+  </span>
+  <span class="pbh-era-footer"><span class="pbh-era-count"><strong>3</strong> <span data-lang="el">καταγεγραμμένες θητείες προέδρων</span><span data-lang="en">recorded presidential terms</span></span><span class="pbh-era-arrow" aria-hidden="true">↗</span></span>
+</button>
+<button aria-controls="pbh-dialog" aria-haspopup="dialog" aria-label="1993–2011 · Μια μακρά περίοδος διοίκησης" class="pbh-era" data-pbh-open="europe" data-era-year="1993" type="button">
+  <span class="pbh-era-years">1993–2011</span>
+  <span class="pbh-era-middle">
+    <span class="pbh-era-title"><span data-lang="el">Μια μακρά περίοδος διοίκησης</span><span data-lang="en">A long presidency</span></span>
+    <span class="pbh-era-sub"><span data-lang="el">Ευρωπαϊκή παρουσία και σημαντικές διακρίσεις</span><span data-lang="en">European campaigns and major achievements</span></span>
+  </span>
+  <span class="pbh-era-footer"><span class="pbh-era-count"><strong>1</strong> <span data-lang="el">καταγεγραμμένη θητεία προέδρου</span><span data-lang="en">recorded presidential term</span></span><span class="pbh-era-arrow" aria-hidden="true">↗</span></span>
+</button>
+<button aria-controls="pbh-dialog" aria-haspopup="dialog" aria-label="2011–2026 · Σύγχρονη εποχή" class="pbh-era" data-pbh-open="recent" data-era-year="2011" type="button">
+  <span class="pbh-era-years">2011–2026</span>
+  <span class="pbh-era-middle">
+    <span class="pbh-era-title"><span data-lang="el">Σύγχρονη εποχή</span><span data-lang="en">The contemporary era</span></span>
+    <span class="pbh-era-sub"><span data-lang="el">Ανασυγκρότηση, υποδομές και νέα πορεία</span><span data-lang="en">Renewal, facilities and new directions</span></span>
+  </span>
+  <span class="pbh-era-footer"><span class="pbh-era-count"><strong>2</strong> <span data-lang="el">καταγεγραμμένες θητείες προέδρων</span><span data-lang="en">recorded presidential terms</span></span><span class="pbh-era-arrow" aria-hidden="true">↗</span></span>
+</button>
+</div>
 <a aria-label="Συμβάλετε στο ιστορικό αρχείο — Επικοινωνία" class="pbh-caveat v57-contribute-card" href="contact.html" role="note"><div class="pbh-caveat-icon"><i aria-hidden="true" class="fa-solid fa-book-open"></i></div><div class="pbh-caveat-copy">
 <h3><span data-lang="el">Βοηθήστε μας να καταγράψουμε την ιστορία του συλλόγου</span><span data-lang="en">Help Us Complete Our History</span></h3>
 <p><span data-lang="el">Οι πληροφορίες προέρχονται από το ιστορικό αρχείο του Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης. Εξαιτίας της παλαιότητας και της αποσπασματικής διατήρησης εγγράφων, ενδέχεται να υπάρχουν ελλείψεις, λανθασμένα ονόματα, ιδιότητες ή χρονολογίες. Αν έχετε φωτογραφίες, πρακτικά, τεκμήρια ή διορθώσεις, θα χαρούμε να μας βοηθήσετε να εμπλουτίσουμε και να διορθώσουμε την καταγραφή.</span><span data-lang="en">The information comes from the historical archive of GAS Archelaos Katerinis. Because some records are old or incomplete, names, roles and dates may be missing or inaccurate. If you have photographs, minutes, documents or corrections, please help us improve this record.</span></p>
