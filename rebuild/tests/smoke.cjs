@@ -80,7 +80,10 @@ async function run(){
      if(!modal.opened||modal.title!=='Συνδεδεμένο γεγονός'||modal.dialogs!==1||!modal.locked)
        throw Error('Related popup navigation replaced the native modal incorrectly: '+JSON.stringify(modal));
      await page.locator('dialog.arch-dialog .arch-close').click();
-     await page.waitForFunction(()=>!document.querySelector('dialog.arch-dialog')?.open);
+     await page.waitForFunction(()=>
+       !document.querySelector('dialog.arch-dialog')?.open &&
+       !document.body.classList.contains('arch-dialog-open') &&
+       document.activeElement?.id==='dialog-focus-regression');
      const restored=await page.evaluate(()=>{
        const focus=document.activeElement?.id;
        const locked=document.body.classList.contains('arch-dialog-open');
