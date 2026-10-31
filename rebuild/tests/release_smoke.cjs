@@ -45,7 +45,7 @@ async function verify(){
       const upcoming=schedule.matches.filter(x=>x.start_at?Date.parse(x.start_at)>Date.now():x.date>=athensToday).length;
      await page.waitForFunction(()=>{const s=document.querySelector('#fx-status')?.textContent||'';return s.includes('προγραμματισμένοι')||s.includes('Δεν έχουν ανακοινωθεί')},null,{timeout:12000});
      if(await page.locator('.fx-card').count()!==Math.min(6,upcoming))throw Error('Incorrect upcoming match count');
-     if(schedule.matches.some(x=>x.home_team!=='ΓΑΣ Αρχέλαος Κατερίνης'))throw Error('Away fixture leaked to website');
+     if(schedule.matches.length!==24||!schedule.matches.some(x=>x.away_team==='ΓΑΣ Αρχέλαος Κατερίνης'))throw Error('Reviewed away fixtures missing');
      if((await page.locator('#fx-download').isHidden())===Boolean(upcoming))throw Error('Wrong calendar download visibility');
      await page.locator('[data-fixture-sport="volleyball"]').click();
      if(await page.locator('[data-fixture-sport="volleyball"]').getAttribute('aria-pressed')!=='true')
