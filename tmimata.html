@@ -403,6 +403,139 @@ html body .atlas-full-archive .atlas-content :is(.text-archelaos-yellow){color:#
 #tmimata .atlas-editorial-entry .atlas-event-arrow,#tmimata .atlas-editorial-entry .atlas-moment-count{display:none!important}
 @media(max-width:650px){#tmimata .atlas-design-moments:before{left:11px!important}#tmimata .atlas-editorial-entry{grid-template-columns:24px minmax(0,1fr)!important;gap:8px!important}#tmimata .atlas-editorial-entry .atlas-moment-dot{margin:28px 0 0 5px!important;width:11px!important;height:11px!important;box-shadow:0 0 0 3px #f4f4f0!important}#tmimata .atlas-editorial-entry .atlas-editorial-trigger{padding:16px 14px 17px 18px!important;min-height:100px!important}#tmimata .atlas-editorial-entry .atlas-editorial-trigger:hover,#tmimata .atlas-editorial-entry .atlas-editorial-trigger.is-selected{padding-left:18px!important}#tmimata .atlas-editorial-entry .atlas-editorial-top{gap:7px;margin-bottom:11px}#tmimata .atlas-editorial-entry .atlas-editorial-index{font-size:.67rem}#tmimata .atlas-editorial-entry .atlas-editorial-year{font-size:.56rem}}
 @media(prefers-reduced-motion:reduce){#tmimata .atlas-editorial-entry .atlas-editorial-card{transition:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}}
+
+/* Large museum exhibition cards (2026-10-31) — generous history-first layout */
+html body #tmimata .atlas-timeline-section .atlas-design-moments{
+  gap:26px!important;
+  margin-top:18px!important;
+}
+html body #tmimata .atlas-timeline-section .atlas-design-moments:before{
+  background:linear-gradient(180deg,#b79a59,#d8e5dc 55%,#b79a59)!important;
+}
+html body #tmimata .atlas-timeline-section .atlas-design-moments .atlas-editorial-entry{
+  grid-template-columns:58px minmax(0,1fr)!important;
+  gap:17px!important;
+}
+html body #tmimata .atlas-timeline-section .atlas-design-moments .atlas-editorial-entry .atlas-editorial-card{
+  position:relative!important;
+  isolation:isolate!important;
+  min-height:285px!important;
+  border-radius:22px 22px 22px 7px!important;
+  border:1px solid #d8e2da!important;
+  background:#fff!important;
+  box-shadow:0 12px 32px rgba(8,51,33,.075)!important;
+  overflow:hidden!important;
+}
+html body #tmimata .atlas-timeline-section .atlas-design-moments .atlas-editorial-entry .atlas-editorial-card::before{
+  top:29px!important;bottom:29px!important;width:3px!important;opacity:.95!important;
+}
+html body #tmimata .atlas-timeline-section .atlas-design-moments .atlas-editorial-entry .atlas-editorial-card::after{
+  content:attr(data-moment-index)!important;
+  position:absolute!important;
+  inset:auto 22px -48px auto!important;
+  z-index:0!important;
+  pointer-events:none!important;
+  font:500 clamp(8.5rem,19vw,13rem)/1 "Playfair Display",Georgia,serif!important;
+  letter-spacing:-.075em!important;
+  color:rgba(10,69,42,.045)!important;
+}
+html body #tmimata .atlas-timeline-section .atlas-design-moments .atlas-editorial-entry .atlas-editorial-trigger{
+  position:relative!important;z-index:1!important;
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:space-between!important;
+  align-items:stretch!important;
+  min-height:285px!important;
+  width:100%!important;
+  padding:34px clamp(25px,4.5vw,53px) 43px!important;
+  background:transparent!important;
+  color:#073d2a!important;
+  text-align:left!important;
+}
+html body #tmimata .atlas-timeline-section .atlas-design-moments .atlas-editorial-entry .atlas-editorial-top{
+  gap:13px!important;
+  margin-bottom:37px!important;
+}
+html body #tmimata .atlas-timeline-section .atlas-design-moments .atlas-editorial-entry .atlas-editorial-date{
+  font-size:clamp(1.25rem,2.9vw,1.8rem)!important;
+  color:#9b773d!important;
+}
+html body #tmimata .atlas-timeline-section .atlas-design-moments .atlas-editorial-entry .atlas-editorial-year{
+  font-size:.75rem!important;
+  letter-spacing:.115em!important;
+}
+html body #tmimata .atlas-timeline-section .atlas-design-moments .atlas-editorial-entry .atlas-editorial-index{
+  font-size:.78rem!important;
+  letter-spacing:.14em!important;
+}
+html body #tmimata .atlas-timeline-section .atlas-design-moments .atlas-editorial-entry .atlas-editorial-title{
+  max-width:670px!important;
+  font:600 clamp(1.6rem,3.35vw,2.65rem)/1.22 "Playfair Display",Georgia,serif!important;
+  letter-spacing:-.03em!important;
+  color:#073d2a!important;
+  padding:0!important;
+}
+html body #tmimata .atlas-timeline-section .atlas-design-moments .atlas-editorial-entry .atlas-moment-dot{
+  margin-top:43px!important;
+  width:16px!important;height:16px!important;
+  border:2px solid #b79856!important;
+  box-shadow:0 0 0 6px #eef3ee!important;
+}
+/* A forest-green exhibit alternating with white: no beige. */
+html body #tmimata .atlas-timeline-section .atlas-design-moments .atlas-editorial-entry:nth-child(odd) .atlas-editorial-card{
+  background:linear-gradient(155deg,#0c4933 0%,#073d2a 68%,#063623 100%)!important;
+  border-color:#2f6b50!important;
+}
+html body #tmimata .atlas-timeline-section .atlas-design-moments .atlas-editorial-entry:nth-child(odd) .atlas-editorial-card::after{
+  color:rgba(227,210,158,.075)!important;
+}
+html body #tmimata .atlas-timeline-section .atlas-design-moments .atlas-editorial-entry:nth-child(odd) .atlas-editorial-title,
+html body #tmimata .atlas-timeline-section .atlas-design-moments .atlas-editorial-entry:nth-child(odd) .atlas-editorial-trigger{
+  color:#fff8e9!important;
+}
+html body #tmimata .atlas-timeline-section .atlas-design-moments .atlas-editorial-entry:nth-child(odd) .atlas-editorial-date,
+html body #tmimata .atlas-timeline-section .atlas-design-moments .atlas-editorial-entry:nth-child(odd) .atlas-editorial-index{
+  color:#d8bd7f!important;
+}
+html body #tmimata .atlas-timeline-section .atlas-design-moments .atlas-editorial-entry:nth-child(odd) .atlas-editorial-year{
+  color:#c6d7cd!important;
+}
+html body #tmimata .atlas-timeline-section .atlas-design-moments .atlas-editorial-entry:nth-child(odd) .atlas-editorial-trigger:hover,
+html body #tmimata .atlas-timeline-section .atlas-design-moments .atlas-editorial-entry:nth-child(odd) .atlas-editorial-trigger.is-selected{
+  background:rgba(255,255,255,.055)!important;
+  color:#fff8e9!important;
+}
+html body #tmimata .atlas-timeline-section .atlas-design-moments .atlas-editorial-entry .atlas-editorial-trigger.is-selected{
+  box-shadow:inset 4px 0 #c7a65e!important;
+}
+@media(max-width:700px){
+  html body #tmimata .atlas-timeline-section .atlas-design-moments{gap:21px!important}
+  html body #tmimata .atlas-timeline-section .atlas-design-moments .atlas-editorial-entry{
+    grid-template-columns:25px minmax(0,1fr)!important;gap:9px!important;
+  }
+  html body #tmimata .atlas-timeline-section .atlas-design-moments .atlas-editorial-entry .atlas-editorial-card,
+  html body #tmimata .atlas-timeline-section .atlas-design-moments .atlas-editorial-entry .atlas-editorial-trigger{
+    min-height:260px!important;
+  }
+  html body #tmimata .atlas-timeline-section .atlas-design-moments .atlas-editorial-entry .atlas-editorial-card{
+    border-radius:19px 19px 19px 6px!important;
+  }
+  html body #tmimata .atlas-timeline-section .atlas-design-moments .atlas-editorial-entry .atlas-editorial-trigger{
+    padding:25px 20px 34px!important;
+  }
+  html body #tmimata .atlas-timeline-section .atlas-design-moments .atlas-editorial-entry .atlas-editorial-title{
+    font-size:clamp(1.55rem,6vw,2.2rem)!important;
+  }
+  html body #tmimata .atlas-timeline-section .atlas-design-moments .atlas-editorial-entry .atlas-editorial-top{
+    gap:8px!important;margin-bottom:26px!important;
+  }
+  html body #tmimata .atlas-timeline-section .atlas-design-moments .atlas-editorial-entry .atlas-editorial-index{
+    font-size:.68rem!important;
+  }
+  html body #tmimata .atlas-timeline-section .atlas-design-moments .atlas-editorial-entry .atlas-moment-dot{
+    margin:35px 0 0 4px!important;width:14px!important;height:14px!important;box-shadow:0 0 0 4px #eef3ee!important;
+  }
+}
 </style></head><body><script src="/assets/navigation.js"></script><section class="tm-hero" aria-labelledby="tm-hero-title"><div class="tm-hero-inner"><div class="tm-hero-eyebrow"><span class="tm-hero-rule" aria-hidden="true"></span>Γ.Α.Σ. Ο ΑΡΧΕΛΑΟΣ · ΨΗΦΙΑΚΟ ΜΟΥΣΕΙΟ<span class="tm-hero-rule" aria-hidden="true"></span></div><p class="tm-hero-index">ΑΘΛΗΤΙΚΗ ΚΛΗΡΟΝΟΜΙΑ · 1956—2026</p><h1 id="tm-hero-title">Οι ιστορίες <em>των τμημάτων</em></h1><p class="tm-hero-lead">Κάθε άθλημα, μια ξεχωριστή διαδρομή στον χρόνο. Ανακάλυψε τα γεγονότα και τους ανθρώπους που έγραψαν την ιστορία του Αρχέλαου.</p><a class="tm-hero-cta" href="#atlas-tabs">Εξερεύνησε τα αθλήματα <span aria-hidden="true">↓</span></a></div><div class="tm-hero-ornament" aria-hidden="true">Α</div></section><main class="tm-wrap"><a class="tm-back" href="/history.html"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Επιστροφή στο Ψηφιακό Μουσείο</a>
 <section class="space-y-6 scroll-mt-24" id="tmimata">
 <div class="atlas"><div class="atlas-heading"><span>ΨΗΦΙΑΚΟ ΜΟΥΣΕΙΟ · ΙΣΤΟΡΙΚΟΣ ΑΤΛΑΣ</span><h2>Δώδεκα διαδρομές, μια κοινή ιστορία</h2><p>Επίλεξε άθλημα για να εξερευνήσεις τη διαδρομή του στον Αρχέλαο.</p></div><div class="atlas-choose-heading">ΕΠΙΛΕΞΕ ΑΘΛΗΜΑ</div><nav class="atlas-tabs" id="atlas-tabs" aria-label="Γρήγορη επιλογή αθλήματος"></nav><div class="atlas-feature" aria-live="polite"><div class="atlas-feature-top"><span id="atlas-count">01 / 10</span><span>Γ.Α.Σ. ΑΡΧΕΛΑΟΣ · ΙΣΤΟΡΙΚΟ ΑΡΧΕΙΟ</span></div><div class="atlas-feature-main"><div class="atlas-feature-title"><span id="atlas-year"></span><h2 id="atlas-title">Στίβος</h2><p id="atlas-subtitle">Μια αθλητική διαδρομή μέσα στον χρόνο.</p></div><div class="atlas-feature-mark" aria-hidden="true"><img src="/archelaos-logo-gold.png" alt=""></div></div></div><section class="atlas-timeline-section" aria-label="Χρονολόγιο τμήματος"><div class="atlas-timeline-head"><span>ΤΑ ΓΕΓΟΝΟΤΑ ΜΕΣΑ ΣΤΟΝ ΧΡΟΝΟ</span><h3>Ιστορικό χρονολόγιο</h3><p>Πάτησε τον τίτλο ενός γεγονότος για να μεταφερθείς στην αναλυτική ιστορική καταγραφή.</p></div><div class="atlas-timeline-strip" id="atlas-timeline-strip" aria-label="Χρονολογίες"></div><div class="atlas-event-detail" id="atlas-event-detail" aria-live="polite"></div><details class="atlas-full-archive atlas-white-record"><summary style="background:#fff!important;background-color:#fff!important;background-image:none!important;">Διάβασε την πλήρη ιστορική καταγραφή</summary><div class="atlas-content" id="atlas-content"></div></details></section><div class="atlas-source" id="atlas-source" hidden><!-- 4.1 ΧΕΙΡΟΣΦΑΙΡΙΣΗ (ΧΑΝΤΜΠΟΛ) -->
@@ -1239,7 +1372,7 @@ function renderTimeline(id,panel){
     const date=dateOf(year,description);
     const entry=document.createElement('article');entry.className='atlas-moment atlas-curated-year atlas-editorial-entry';
     const dot=document.createElement('span');dot.className='atlas-moment-dot';dot.setAttribute('aria-hidden','true');
-    const card=document.createElement('div');card.className='atlas-moment-card atlas-editorial-card';
+    const card=document.createElement('div');card.className='atlas-moment-card atlas-editorial-card';card.setAttribute('data-moment-index',String(index+1).padStart(2,'0'));
     const button=document.createElement('button');button.type='button';button.className='atlas-event-link atlas-editorial-trigger';button.setAttribute('aria-pressed','false');button.setAttribute('aria-label',title+' — άνοιγμα πλήρους ιστορικού');
     const top=document.createElement('span');top.className='atlas-editorial-top';
     const stamp=document.createElement('span');stamp.className='atlas-editorial-date';
