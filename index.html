@@ -2877,6 +2877,13 @@ main p,main li,article p,article li{line-height:1.72;}
 #registrationModal #modalForm input:focus,#registrationModal #modalForm select:focus,#registrationModal #modalForm textarea:focus{outline:2px solid #c7a65e!important;outline-offset:1px!important}
 #registrationModal #modalForm button[type=submit]{min-height:54px!important;border-radius:12px!important;background:#073d2a!important;color:#fff8e7!important;font-weight:800!important}
 </style>
+<style id="arch-home-desktop-render-stability-2026">
+@media(min-width:768px){
+html body .reveal-text,html body .reveal-text:not(.is-visible),html body .arch-polish-reveal,html body .arch-values-reveal,html body .arch-whisper[data-arch-reveal]{
+opacity:1!important;visibility:visible!important;transform:none!important;filter:none!important;transition:none!important;will-change:auto!important}
+html body .animate-waves,html body .hero-emblem-float{animation:none!important;will-change:auto!important}
+}
+</style>
 </head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow">
 <!-- ANIMATED CONTOUR WAVES -->
@@ -4239,14 +4246,14 @@ main p,main li,article p,article li{line-height:1.72;}
           } else {
             slideStartTime = now - (parseFloat(progressBar.style.width || 0) / 100) * slideDuration;
           }
-          slideTimerId = requestAnimationFrame(tickProgressBar);
+          slideTimerId = window.setTimeout(() => tickProgressBar(performance.now()), 200);
         }
 
         function resetAndStartProgress() {
-          if (slideTimerId) cancelAnimationFrame(slideTimerId);
+          if (slideTimerId) window.clearTimeout(slideTimerId);
           slideStartTime = performance.now();
           if (progressBar) progressBar.style.width = '0%';
-          slideTimerId = requestAnimationFrame(tickProgressBar);
+          slideTimerId = window.setTimeout(() => tickProgressBar(performance.now()), 200);
         }
 
         function goToSlide(index) {
