@@ -1,6 +1,6 @@
 /* Private device-side favorites. Stores IDs only, never visitor identity or content. */
 (function(){'use strict';
-const KEY='archelaos:favorites:v1',MAX=800,TYPES=new Set(['person','moment','story']);
+const KEY='archelaos:favorites:v1',MAX=800,TYPES=new Set(['person','moment','story','photo']);
 let memory=[],persist=true;
 function normalized(type,id){
  type=String(type||'');id=String(id??'');
@@ -8,6 +8,7 @@ function normalized(type,id){
  if(type==='person'&&!/^arch-[a-z0-9-]{6,90}$/.test(id))return null;
  if(type==='moment'&&!/^(?:[1-9]|[1-6][0-9]|70)$/.test(id))return null;
  if(type==='story'&&!/^[1-9][0-9]{0,3}$/.test(id))return null;
+ if(type==='photo'&&!/^sport-(?:handball|track|archery|shooting|gymnastics|volleyball|wrestling|swimming)$/.test(id))return null;
  return {type,id};
 }
 function parse(raw){
