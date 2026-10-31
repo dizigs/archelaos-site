@@ -1,0 +1,116 @@
+/* New homepage — visual direction taken exclusively from 2026-10-31 backup. */
+.new-skip{position:fixed;top:-80px;left:10px;z-index:2000;background:#fff;color:#073d2a;padding:10px}
+.new-skip:focus{top:10px}
+.new-hero{position:relative;isolation:isolate;overflow:hidden;background:linear-gradient(102deg,#faf8ee 0%,#f7f5ea 49%,#103c2a 49.2%,#062b1e 100%);padding:clamp(62px,6.5vw,105px) 0;min-height:610px}
+.new-hero:before{content:"";position:absolute;inset:0 0 0 50%;z-index:-1;background:radial-gradient(ellipse at 40% 40%,rgba(132,164,116,.22),transparent 60%);pointer-events:none}
+.new-hero-grid{max-width:1280px;display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);align-items:center;gap:clamp(25px,4vw,52px)}
+.new-kicker{display:flex;align-items:center;gap:11px;color:#94792e;font-size:11px;font-weight:800;letter-spacing:.14em}
+.new-kicker:before{content:"";width:24px;height:1px;background:#bb9941;flex:none}
+.new-hero h1{font:700 clamp(2.8rem,4.4vw,5.1rem)/1.13 Georgia,serif;letter-spacing:-.055em;color:#073d2a;margin:22px 0}
+.new-hero-copy>p:not(.new-kicker){font-size:clamp(16px,1.3vw,20px);line-height:1.55;color:#2d5341;max-width:680px}
+.new-buttons{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.new-button{display:inline-flex;align-items:center;justify-content:center;min-height:49px;padding:14px 21px;border-radius:14px;text-decoration:none;font-weight:800;box-shadow:0 9px 24px rgba(3,45,28,.12)}
+.new-button.primary{background:#06472d;color:#f1d879;border:1px solid #bd9c45}
+.new-button.secondary{background:#f8efc9;color:#073d2a;border:1px solid #d7b657}
+.new-logo-col{display:flex;flex-direction:column;align-items:center;gap:13px}
+.new-logo-seal{display:grid;place-items:center;width:min(100%,445px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 38% 28%,#1b523a 0%,#073b2a 57%,#052b20 100%);border:1px solid rgba(220,188,109,.46);box-shadow:0 22px 54px rgba(0,0,0,.24),inset 0 0 0 8px rgba(216,180,88,.045),inset 0 0 0 15px rgba(0,0,0,.13);padding:clamp(12px,1.5vw,22px)}
+.new-logo-seal img{width:100%;height:100%;object-fit:contain}
+.new-logo-col small{color:#c6ac6a;letter-spacing:.24em;text-align:center;font-size:11px;font-weight:700}
+.new-anniversary{background:#06291a;color:#f9f9f0;padding:78px 0 60px}
+.new-anniversary-grid{display:grid;grid-template-columns:1fr 1.05fr;align-items:center;gap:30px}
+.new-anniversary-number{font:600 clamp(11rem,26vw,24rem)/.93 "Bodoni Moda",Georgia,serif;letter-spacing:-.09em;text-align:center;background:linear-gradient(155deg,#f1e4c4 2%,#c7a65e 28%,#f9e788 47%,#b9954d 69%,#e8d6a8 91%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.new-gold-label{display:block;color:#d8bd80;font-size:11px;font-weight:800;letter-spacing:.18em}
+.new-anniversary-copy .new-gold-label:nth-child(2){margin-top:30px}
+.new-anniversary-copy h2{font:500 clamp(37px,4.5vw,66px)/1.12 Georgia,serif;letter-spacing:-.04em;margin:17px 0}
+.new-anniversary-copy h2 em{color:#d6bd80}
+.new-anniversary-copy>p:not(.new-gold-label){color:#dce8de;font-size:16px;line-height:1.9}
+.new-anniversary-link{display:inline-flex;border:1px solid #bd9e61;border-radius:12px;padding:13px 19px;color:#f5e5b6;text-decoration:none;margin-top:18px;font-weight:700}
+.new-milestones{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin:25px 0 45px;padding-top:20px;border-top:1px solid #c7a65e66}
+.new-milestone{position:relative;display:grid;gap:9px;padding:15px 4px;color:#fffdf5;text-decoration:none}
+.new-milestone span{font:600 25px Georgia,serif;color:#d8bd80}
+.new-milestone strong{font:500 24px Georgia,serif}
+.new-milestone small{color:#d8e2d7}
+.new-milestone b{position:absolute;right:8px;top:15px;color:#c7a65e}
+.new-anniversary-portal{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:17px}
+.new-anniversary-portal a{display:grid;grid-template-columns:auto 1fr 20px;gap:7px 20px;align-items:center;min-height:135px;padding:23px;background:rgba(2,38,26,.57);border:1px solid rgba(199,166,94,.5);border-radius:18px;color:#fff;text-decoration:none}
+.new-anniversary-portal span{grid-row:span 2;font:400 clamp(48px,6vw,74px) Georgia,serif;color:#c7a65e}
+.new-anniversary-portal strong{font:600 clamp(17px,2vw,23px) Georgia,serif}
+.new-anniversary-portal small{grid-column:2;color:#e0d9ca}
+.new-anniversary-portal b{grid-column:3;grid-row:1;color:#c7a65e;font-size:23px}
+.new-about{background:#f5f2e9;padding:clamp(68px,8vw,108px) 0;border-block:1px solid #ddd3bb}
+.new-about-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:clamp(25px,5vw,72px);align-items:center}
+.new-slideshow{position:relative;height:clamp(390px,43vw,550px);background:#073d2a;border:7px solid #fffdf8;box-shadow:0 22px 45px rgba(7,61,42,.14);overflow:hidden}
+.new-slides,.new-slide{position:absolute;inset:0;margin:0}
+.new-slide{opacity:0;visibility:hidden;transition:opacity .7s,visibility .7s}
+.new-slide.active{opacity:1;visibility:visible}
+.new-slide img{display:block;width:100%;height:100%;object-fit:cover}
+.new-slide-shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(1,29,17,.32),transparent 36%,rgba(1,26,17,.74))}
+.new-slide-top,.new-slide-bottom{position:absolute;left:23px;right:23px;display:flex;justify-content:space-between;align-items:center;gap:10px;color:#fffdf8}
+.new-slide-top{top:20px;font-size:11px;font-weight:700}
+.new-slide-top span:first-child{border:1px solid #c7a65eaa;background:#042f20cc;padding:7px 12px;border-radius:9px}
+.new-slide-bottom{bottom:23px;align-items:flex-end}
+.new-slide-bottom small{color:#e5ca88;font-weight:800;letter-spacing:.18em}
+.new-slide-bottom h3{margin:5px 0 0;font:400 clamp(28px,3vw,43px) Georgia,serif}
+.new-slide-buttons{display:flex;gap:8px}
+.new-slide-buttons button{width:41px;height:41px;border:1px solid #dcc3898c;border-radius:50%;background:#052a1bd6;color:white;font:30px/1 Georgia,serif}
+.new-slide-buttons button:hover{background:#0e6142}
+.new-eyebrow{display:block;color:#9a7840;font-size:11px;letter-spacing:.17em;font-weight:800;margin-bottom:17px}
+.new-about-copy h2{font:400 clamp(39px,4.1vw,64px)/1.09 Georgia,serif;letter-spacing:-.045em;margin:0;color:#073d2a}
+.new-about-copy>p{color:#446252;line-height:1.85;font-size:clamp(15px,1.2vw,18px)}
+.new-about-stats{display:flex;gap:45px;padding-top:24px;margin-top:33px;border-top:1px solid #cbb989}
+.new-about-stats span{display:flex;flex-direction:column;font-size:12px;color:#586c5e}
+.new-about-stats strong{font:400 45px Georgia,serif;color:#073d2a}
+.new-underline-link{display:inline-block;color:#94733a;text-decoration:none;border-bottom:1px solid #c7a65e;margin-top:24px;font-weight:700;padding-bottom:5px}
+.new-values{background:#073d2a;color:#fbf8ef;padding:clamp(65px,7vw,105px) 0}
+.new-values-grid{display:grid;grid-template-columns:minmax(260px,.85fr) minmax(0,1.5fr);gap:clamp(30px,6vw,90px);align-items:center}
+.new-values .new-eyebrow{color:#d9bc79}
+.new-values h2{font:400 clamp(42px,5vw,72px)/1.05 Georgia,serif;letter-spacing:-.04em;margin:0 0 20px}
+.new-values h2 em{color:#c7a65e}
+.new-values p{color:#d8e2d9;line-height:1.85}
+.new-values-list{border-top:1px solid #d4bd7c5e}
+.new-value{display:grid;grid-template-columns:56px minmax(100px,.7fr) minmax(0,1.3fr);gap:20px;align-items:center;padding:22px 0;border-bottom:1px solid #d4bd7c5e}
+.new-value span{color:#d9bc79;font-weight:800}
+.new-value h3{font:400 clamp(26px,3vw,43px) Georgia,serif;margin:0}
+.new-value p{margin:0}
+.new-departments{background:#f8f6ef;padding:clamp(65px,8vw,115px) 0}
+.new-section-heading{max-width:780px;margin:0 auto 42px;text-align:center}
+.new-section-heading h2{font:400 clamp(37px,5.5vw,65px)/1.12 Georgia,serif;letter-spacing:-.04em;color:#073d2a;margin:0}
+.new-section-heading>p{color:#53695a;font-size:16px;line-height:1.8}
+.new-sport-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(16px,2.6vw,32px)}
+.new-sport{overflow:hidden;background:#fff;border:1px solid #e3dfd2;border-bottom:2px solid #c7a65e;border-radius:5px;box-shadow:0 7px 22px rgba(6,54,31,.045);transition:transform .25s,box-shadow .25s}
+.new-sport:hover{transform:translateY(-4px);box-shadow:0 15px 35px rgba(6,54,31,.11)}
+.new-sport-photo{height:clamp(220px,27vw,335px);position:relative;background:#073d2a}
+.new-sport-photo img{display:block;width:100%;height:100%;object-fit:cover}
+.new-sport-photo span{position:absolute;top:20px;left:24px;background:#03291bcc;color:#fff5df;padding:7px 12px;border:1px solid #c7a65e;font-size:11px;font-weight:800}
+.new-sport-body{padding:clamp(21px,2.4vw,33px)}
+.new-sport-body h3{font:400 clamp(25px,2.7vw,36px)/1.15 Georgia,serif;color:#073d2a;margin:0 0 14px}
+.new-sport-body>p{min-height:4.6em;line-height:1.72;color:#486455}
+.new-sport-links{display:flex;flex-wrap:wrap;gap:10px;border-top:1px solid #e6dfd0;padding-top:18px}
+.new-sport-links a{display:inline-flex;align-items:center;min-height:42px;padding:10px 13px;text-decoration:none;border:1px solid #c4af81;border-radius:10px;color:#073d2a;font-size:13px;font-weight:750}
+.new-sport-links a:last-child{background:#073d2a;color:#f8f6ef}
+.new-board{background:#f8f6ef;padding:clamp(55px,7vw,94px) 0}
+.new-board-card{display:block;position:relative;min-height:clamp(310px,32vw,410px);padding:clamp(30px,5vw,66px);overflow:hidden;border:1px solid #ded2b6;border-radius:24px;background:linear-gradient(145deg,#fffdf7,#f1eddf);color:#073d2a;text-decoration:none}
+.new-board-card h2{font:400 clamp(38px,5.4vw,72px)/1.08 Georgia,serif;letter-spacing:-.035em;position:relative;z-index:1}
+.new-board-card p{max-width:620px;color:#456555;position:relative;z-index:1}
+.new-board-watermark{position:absolute;right:7%;bottom:-.25em;font:500 clamp(210px,32vw,420px) Georgia,serif;color:#bea05b1b;pointer-events:none}
+.new-board-card b{position:absolute;top:32px;right:34px;color:#896a32;border:1px solid #ae8d51;border-radius:50%;width:43px;height:43px;display:grid;place-items:center;font-size:26px}
+.new-philosophy{text-align:center;background:#f8f6ef;padding:clamp(88px,10vw,150px) 22px;border-block:1px solid #e7e4d7}
+.new-philosophy .new-eyebrow{color:#92743a;letter-spacing:.22em}
+.new-philosophy small{color:#7a8d78;letter-spacing:.16em}
+.new-philosophy h2{font:600 clamp(2.45rem,5.1vw,5.1rem)/1.16 Georgia,serif;letter-spacing:-.046em;margin:28px auto}
+.new-philosophy h2 em{color:#a38846;font-weight:400}
+.new-philosophy p:not(.new-eyebrow){color:#566c5e;line-height:1.9;max-width:700px;margin:32px auto}
+.new-philosophy-date{color:#b49a61;letter-spacing:.2em}
+.new-get-involved{background:#f8f6ef;padding:clamp(60px,8vw,110px) 0}
+.new-involve-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:21px}
+.new-involve{position:relative;display:flex;flex-direction:column;justify-content:flex-end;min-height:300px;overflow:hidden;padding:clamp(26px,4vw,44px);border:1px solid #b8a06b;border-radius:25px;background:linear-gradient(128deg,#0a4933,#073d2a 62%,#052e21);color:#fff9eb;text-decoration:none;box-shadow:var(--arch-shadow)}
+.new-involve:nth-child(2){background:linear-gradient(128deg,#fffdf8,#f0e7d3);color:#073d2a}
+.new-involve:nth-child(3){grid-column:1/-1;min-height:265px}
+.new-involve>span{position:absolute;top:29px;left:30px;color:#d9c28a;font-weight:800}
+.new-involve b{position:absolute;top:25px;right:30px;color:#c7a65e;font-size:26px}
+.new-involve h3{font:400 clamp(30px,4vw,48px)/1.15 Georgia,serif;margin:0 0 10px}
+.new-involve p{font-size:16px;line-height:1.75;max-width:540px;margin:0}
+@media(max-width:1023px){.new-hero{background:linear-gradient(180deg,#faf8ee 0%,#faf8ee 52%,#0a3827 52%,#062b1e 100%)}.new-hero:before{inset:50% 0 0}.new-hero-grid,.new-about-grid,.new-values-grid{grid-template-columns:1fr}.new-hero-copy{text-align:center}.new-kicker,.new-buttons{justify-content:center}.new-logo-col{padding-top:45px}.new-logo-seal{width:min(82vw,400px)}.new-about-copy{order:1}.new-slideshow{order:2}}
+@media(max-width:700px){.new-anniversary-grid,.new-milestones,.new-anniversary-portal,.new-sport-grid,.new-involve-grid{grid-template-columns:1fr}.new-anniversary-number{font-size:clamp(10rem,53vw,18rem)}.new-milestones{gap:0}.new-milestone{border-bottom:1px solid #c7a65e66}.new-involve:nth-child(3){grid-column:auto}.new-value{grid-template-columns:35px 1fr;gap:9px 12px}.new-value p{grid-column:2}}
+@media(max-width:600px){.new-hero{background:linear-gradient(180deg,#faf8ee 0%,#faf8ee 59%,#0a3827 59%,#062b1e 100%);padding-top:36px}.new-hero h1{font-size:clamp(2.1rem,9vw,3.2rem)}.new-buttons{flex-direction:column}.new-logo-seal{width:min(80vw,340px)}.new-slideshow{height:360px}.new-slide-top,.new-slide-bottom{left:14px;right:14px}.new-about-stats{gap:25px}}
+@media(prefers-reduced-motion:reduce){.new-slide,.new-sport{transition:none!important}}
