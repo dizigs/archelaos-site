@@ -1,0 +1,36 @@
+/* Retro Match Center — heritage palette, clean scoreboard and archive details. */
+.rt-skip{position:fixed;top:-70px;left:12px;background:white;color:#073d2a;padding:10px;z-index:1600}.rt-skip:focus{top:12px}
+.rt-hero{position:relative;overflow:hidden;background:radial-gradient(ellipse at 85% 15%,#25563f,#073d2a 66%,#042a1b);color:#fff8ec;padding:83px 0 96px}
+.rt-hero:after{content:"90";position:absolute;right:4%;bottom:-.28em;color:#ffffff08;font:400 clamp(180px,30vw,410px) Georgia,serif;pointer-events:none}
+.rt-hero>.arch-container{position:relative;z-index:1}
+.rt-hero p:first-child,.rt-eyebrow{color:#d6bf89;font-size:11px;font-weight:850;letter-spacing:.17em}
+.rt-hero h1{font:400 clamp(44px,6vw,85px)/1.09 Georgia,serif;max-width:960px;letter-spacing:-.05em;margin:20px 0}
+.rt-hero h1 em{color:#dfbf75}
+.rt-hero .rt-lead{font-size:18px;line-height:1.85;max-width:850px;color:#dfe9df}
+.rt-tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.rt-tags span{padding:8px 13px;border:1px solid #c7a65e88;border-radius:11px;background:#ffffff0a;color:#f0ddaf;font-size:11px;font-weight:800;letter-spacing:.08em}
+.rt-content{padding:clamp(65px,8vw,110px) 0;background:#f8f6ef}
+.rt-eyebrow{color:#92743a}
+.rt-content h2{font:400 clamp(37px,5vw,64px)/1.1 Georgia,serif;color:#073d2a;letter-spacing:-.04em;margin:15px 0 35px}
+.rt-year-tabs{display:flex;gap:11px;flex-wrap:wrap;margin-bottom:26px}
+.rt-year-tabs button{min-height:53px;min-width:112px;padding:11px 18px;border:1px solid #bca472;border-radius:12px;background:#fffdf7;color:#073d2a;font:700 22px Georgia,serif}
+.rt-year-tabs button[aria-selected="true"]{background:#073d2a;color:#e9d4a2;border-color:#c7a65e}
+.rt-match{border:1px solid #d0be99;border-radius:25px;background:#fffdf8;box-shadow:0 14px 35px #073d2a12;overflow:hidden}
+.rt-scoreboard{padding:clamp(27px,5vw,55px);text-align:center;background:radial-gradient(ellipse at 77% 4%,#1c5539,#073d2a 67%);color:#fff7e6}
+.rt-final-label{font-size:11px;font-weight:800;color:#dec58a;letter-spacing:.16em}
+.rt-teams{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:18px;align-items:center;margin:35px 0 24px}
+.rt-teams span{font:500 clamp(19px,2.7vw,33px)/1.25 Georgia,serif}
+.rt-teams strong{font:500 clamp(44px,7vw,87px)/1 Georgia,serif;color:#e9d2a0;letter-spacing:-.065em;white-space:nowrap}
+.rt-match-meta{color:#dbe4db;line-height:1.75;font-size:14px}
+.rt-outcome{display:inline-flex;margin-top:22px;padding:8px 13px;border:1px solid #dfc389;border-radius:50px;color:#ebd49d;font-size:12px;font-weight:800;letter-spacing:.13em}
+.rt-match-body{padding:clamp(27px,4vw,43px)}
+.rt-match-body h3{font:400 clamp(28px,3.4vw,42px) Georgia,serif;color:#073d2a;margin:0 0 20px}
+.rt-match-body p{color:#536c5b;font-size:16px;line-height:1.9;max-width:940px}
+.rt-detail-open{display:inline-flex;margin-top:20px;padding:14px 20px;border:1px solid #b99d61;border-radius:12px;background:#073d2a;color:#fff1ce;font-weight:800;font-size:13px}
+.rt-note{margin:28px 0 20px;color:#687669;max-width:850px;font-size:13px;line-height:1.75}
+.rt-museum{text-decoration:none;color:#8a6a35;font-weight:800;border-bottom:1px solid #c7a65e;padding-bottom:5px}
+.arch-archive-content table{display:block;max-width:100%;overflow-x:auto;border-collapse:collapse}
+.arch-archive-content th,.arch-archive-content td{padding:8px 11px;border:1px solid #d6c9b0}
+.arch-archive-content details{padding:10px;border:1px solid #d9c9a7;border-radius:10px;margin:16px 0}
+.arch-archive-content svg{display:none}
+@media(max-width:660px){.rt-teams{gap:7px}.rt-teams span{font-size:17px}.rt-teams strong{font-size:38px}.rt-year-tabs button{min-width:calc(50% - 6px)}}

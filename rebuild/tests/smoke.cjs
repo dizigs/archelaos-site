@@ -15,7 +15,7 @@ async function run(){
    const page=await browser.newPage({viewport:size});
    const errors=[];
    page.on('pageerror',err=>errors.push(err.message));
-   for(const [url,name] of [['index.html','home'],['hall-of-fame.html','hall'],['70-stigmes.html','moments'],['stories.html','stories'],['history.html','museum'],['board.html','board'],['contact.html','contact'],['sponsors.html','sponsors'],['tmimata.html','departments']]){
+   for(const [url,name] of [['index.html','home'],['hall-of-fame.html','hall'],['70-stigmes.html','moments'],['stories.html','stories'],['history.html','museum'],['board.html','board'],['contact.html','contact'],['sponsors.html','sponsors'],['tmimata.html','departments'],['retro-matches.html','retro']]){
     await page.goto(ROOT+'/rebuild/'+url,{waitUntil:'domcontentloaded'});
     await page.locator('.arch-header').waitFor();
     await page.locator('.arch-footer').waitFor();
@@ -27,11 +27,12 @@ async function run(){
     if(name==='contact')await page.locator('[data-open-contact]').first().waitFor();
     if(name==='sponsors')await page.locator('.sp-values article').first().waitFor();
     if(name==='departments')await page.locator('.dp-card').first().waitFor();
+    if(name==='retro')await page.locator('.rt-scoreboard').first().waitFor();
     if(name==='home'){
      await page.locator('#new-slide-next').click();
      await page.waitForFunction(()=>document.querySelector('#new-slide-title')?.textContent.includes('Στίβος'));
     }
-    const first={hall:'.h-new-person',moments:'.rm-card',stories:'.rs-card',museum:'.mu-sport-item',board:'.bd-era',departments:'.dp-card'}[name];
+    const first={hall:'.h-new-person',moments:'.rm-card',stories:'.rs-card',museum:'.mu-sport-item',board:'.bd-era',departments:'.dp-card',retro:'.rt-detail-open'}[name];
     if(name==='contact'){
      await page.locator('[data-open-contact]').first().click();
      await page.locator('dialog.arch-dialog[open] #ct-topic').waitFor();
