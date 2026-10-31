@@ -11,7 +11,7 @@ function member(person){
  return card;
 }
 function period(era){
- const btn=node('button','bd-era');btn.type='button';btn.append(node('span','',era.years),node('strong','',era.title),node('small','',era.subtitle),node('b','','↗'));
+ const btn=node('button','bd-era');btn.type='button';btn.append(node('span','',era.years),node('strong','',era.title),node('small','',era.subtitle));
  btn.addEventListener('click',()=>window.ArchelaosUI.openDialog({
   title:era.title,subtitle:era.years,contentNode:window.ArchelaosArchive.fragment(era.html),closeLabel:'Κλείσιμο ιστορικού'
  }));return btn;
