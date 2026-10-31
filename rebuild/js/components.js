@@ -21,7 +21,8 @@ function create(){
  const role=document.createElement('div');role.className='arch-dialog-role';
  const h=document.createElement('h2');h.id='arch-dialog-title';titles.append(role,h);
  const close=document.createElement('button');close.className='arch-close';close.type='button';close.textContent='×';close.setAttribute('aria-label','Κλείσιμο παραθύρου');
- header.append(titles,close);
+ const favoriteSlot=document.createElement('span');favoriteSlot.className='arch-dialog-favorite-slot';
+ header.append(titles,favoriteSlot,close);
  const body=document.createElement('div');body.className='arch-dialog-body';
  panel.append(header,body);dialog.append(panel);document.body.append(dialog);
  // Escape fires 'cancel' before 'close'; unlock immediately so page never remains frozen.
@@ -57,6 +58,9 @@ function openDialog(data){
   for(const src of links){const a=document.createElement('a');a.href=src.url;a.target='_blank';a.rel='noopener noreferrer';a.textContent=src.label||src.url;list.append(a)}
   body.append(list);
  }
+ const slot=dlg.querySelector('.arch-dialog-favorite-slot');slot.replaceChildren();
+ if(data.favorite&&window.ArchelaosFavorites)
+  slot.append(window.ArchelaosFavorites.button(data.favorite.type,data.favorite.id,'arch-dialog-favorite'));
  dlg.querySelector('.arch-close').setAttribute('aria-label',data.closeLabel||'Κλείσιμο παραθύρου');
  lastFocus=document.activeElement;dlg.showModal();document.body.classList.add('arch-dialog-open');dlg.querySelector('.arch-close').focus();
 }

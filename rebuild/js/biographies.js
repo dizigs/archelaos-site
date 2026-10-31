@@ -13,7 +13,7 @@ function show(person){
  if(!person||!window.ArchelaosUI)return false;
  const txt=field(person,'bio');
  window.ArchelaosUI.openDialog({
-  title:field(person,'name'),subtitle:field(person,'role'),
+  title:field(person,'name'),subtitle:field(person,'role'),favorite:{type:'person',id:person.id},
   paragraphs:txt.split(/\n\s*\n/).map(v=>v.trim()).filter(Boolean),
   sources:Array.isArray(person.refs)?person.refs:[],
   closeLabel:english()?'Close biography':'Κλείσιμο βιογραφικού',
