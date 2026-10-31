@@ -1,17 +1,16 @@
-/* Short-lived confirmation when an in-page action reaches its intended section. */
-.sp-impact-grid.arch-target-glow{position:relative;isolation:isolate;border-radius:22px;outline:2px solid #c7a65e;outline-offset:9px;animation:arch-target-glow 2.6s ease-out both}
-dialog.arch-dialog.arch-target-glow{border-color:#dbba70;animation:arch-dialog-target-glow 2.6s ease-out both}
-@keyframes arch-target-glow{
-  0%{outline-color:#f0d78d;box-shadow:0 0 0 3px #efdcaa80,0 0 36px 11px #d4aa4c7d}
-  35%{outline-color:#d6af5c;box-shadow:0 0 0 7px #e0c28040,0 0 25px 6px #d4aa4c5c}
+/* One-second navigational cue, desktop/laptop only.
+   No decoration on mobile, touch pointers or reduced-motion systems. */
+@media (min-width:900px) and (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
+  .arch-target-glow:not(dialog){position:relative;z-index:1;outline:2px solid #d1aa52;outline-offset:7px;border-radius:12px;animation:arch-target-flash 1s ease-out both}
+  dialog.arch-dialog.arch-target-glow{animation:arch-dialog-flash 1s ease-out both}
+}
+@keyframes arch-target-flash{
+  0%{outline-color:#ffe19d;box-shadow:0 0 0 5px #e9c86f80,0 0 28px 9px #d6a94666}
+  45%{outline-color:#cc9f3d;box-shadow:0 0 0 3px #e9c86f55,0 0 19px 5px #d6a94655}
   100%{outline-color:transparent;box-shadow:0 0 0 0 transparent,0 0 0 0 transparent}
 }
-@keyframes arch-dialog-target-glow{
-  0%{box-shadow:0 0 0 5px #e5c77b,0 0 55px 14px #eac4779c,0 28px 90px #001e1590}
-  40%{box-shadow:0 0 0 3px #d3af5f,0 0 38px 8px #d4aa4c7d,0 28px 90px #001e1590}
-  100%{box-shadow:0 28px 90px #001e1590}
-}
-@media(prefers-reduced-motion:reduce){
- .sp-impact-grid.arch-target-glow{animation:none;outline-color:#c7a65e;box-shadow:0 0 0 5px #dec68855}
- dialog.arch-dialog.arch-target-glow{animation:none;border-color:#c7a65e;box-shadow:0 0 0 4px #c7a65e80,0 28px 90px #001e1590}
+@keyframes arch-dialog-flash{
+  0%{border-color:#f1d381;box-shadow:0 0 0 5px #e5c77b,0 0 55px 13px #eac47780,0 28px 90px #001e1590}
+  48%{border-color:#d0aa56;box-shadow:0 0 0 2px #d2aa5880,0 0 24px 4px #d4aa4c60,0 28px 90px #001e1590}
+  100%{border-color:#cbb77f;box-shadow:0 28px 90px #001e1590}
 }
