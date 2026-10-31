@@ -70,3 +70,7 @@
  .rt-popup-report .arch-archive-content table{font-size:11px}
  .rt-popup-report .arch-archive-content td,.rt-popup-report .arch-archive-content th{padding:7px}
 }
+
+/* Distinct final years rather than an imprecise range. */
+.rt-heading-years{display:inline-block;vertical-align:middle;white-space:normal;margin-left:15px;font:800 clamp(11px,1.4vw,14px)/1.5 system-ui,sans-serif;color:#b89555;letter-spacing:.06em}
+@media(max-width:650px){.rt-heading-years{display:block;margin:10px 0 0}}
