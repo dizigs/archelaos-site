@@ -2,7 +2,7 @@
 (function(){'use strict';
 let cached;
 function load(){
- return cached??=fetch('/hall-of-fame-people.json').then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json()})
+ return cached??=fetch('/rebuild/data/people.json').then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json()})
   .then(data=>{if(!Array.isArray(data.people))throw Error('Biography data malformed');return {
     people:data.people,byId:new Map(data.people.map(person=>[person.id,person]))
    }}).catch(err=>{cached=undefined;throw err});

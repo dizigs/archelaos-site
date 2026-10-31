@@ -40,7 +40,7 @@ def inspect():
         json.loads(file.read_text(encoding="utf-8"))
     moments = json.loads((REBUILD/"data/moments.json").read_text(encoding="utf-8"))["moments"]
     stories = json.loads((REBUILD/"data/stories.json").read_text(encoding="utf-8"))["stories"]
-    people = json.loads((ROOT/"hall-of-fame-people.json").read_text(encoding="utf-8"))["people"]
+    people = json.loads((REBUILD/"data/people.json").read_text(encoding="utf-8"))["people"]
     assert len(moments) == 70 and len({m["id"] for m in moments}) == 70, "70 moments mismatch"
     assert len(stories) == 21, "21 story records mismatch"
     museum = json.loads((REBUILD/"data/museum.json").read_text(encoding="utf-8"))
