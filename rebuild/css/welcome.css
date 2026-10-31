@@ -10,8 +10,6 @@
 .arch-welcome-years{font:400 clamp(19px,3.2vw,29px)/1.2 Georgia,serif;letter-spacing:.2em;color:#d9ba75;margin-top:15px}
 .arch-welcome-title{font:400 clamp(26px,4.5vw,44px)/1.2 Georgia,serif;letter-spacing:-.035em;margin:0;color:#f5ecd6}
 .arch-welcome-sub{font:700 10px/1.5 system-ui,sans-serif;letter-spacing:.28em;color:#e0c98d}
-.arch-welcome-skip{position:absolute;right:clamp(15px,4vw,45px);top:clamp(16px,3vw,32px);padding:9px 14px;border:1px solid #d1b16c80;border-radius:9px;background:transparent;color:#e5d5aa;font:700 12px system-ui,sans-serif;cursor:pointer}
-.arch-welcome-skip:focus-visible{outline:3px solid #f2d18e;outline-offset:4px}
 @keyframes arch-welcome-halo{from{transform:scale(.98);opacity:.65}to{transform:scale(1.06);opacity:1}}
 @media(max-width:650px){.arch-welcome-ring{width:min(54vw,172px);height:min(54vw,172px)}.arch-welcome-years{font-size:21px}.arch-welcome-title{font-size:29px}}
 @media(prefers-reduced-motion:reduce){.arch-welcome,.arch-welcome-ring::before{animation:none!important;transition:none!important}}
