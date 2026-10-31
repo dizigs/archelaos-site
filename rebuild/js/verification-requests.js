@@ -12,7 +12,7 @@ function card(item){
  const link=document.createElement('a');
  link.href='/contribute.html?verification='+encodeURIComponent(item.id)+'#ac-guide';
  if(location.pathname.startsWith('/rebuild/'))link.href='/rebuild/contribute.html?verification='+encodeURIComponent(item.id)+'#ac-guide';
- link.textContent='Έχω τεκμήριο · Συνεισφέρω ↗';
+ link.textContent='Συνεισφέρω';
  article.append(tag,title,desc,need,link);return article;
 }
 function render(){
