@@ -5,7 +5,7 @@
  if(window.ArchelaosLandingCue)return;
  const KEY='arch-landing-once';
  const eligible=()=>matchMedia('(min-width:900px) and (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference)').matches;
- const path=u=>u.pathname.replace(/^\\/rebuild\\//,'/');
+ const path=u=>u.pathname.startsWith('/rebuild/')?u.pathname.slice('/rebuild'.length):u.pathname;
  function targetFor(el){
   if(!el)return null;
   if(el.matches('dialog'))return el;
