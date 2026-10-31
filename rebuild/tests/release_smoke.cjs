@@ -115,8 +115,9 @@ async function verify(){
      if(!evidenceLink.includes('verification=request-archery-historical-records'))
        throw Error('Evidence card has no stable request ID');
      await page.goto(ROOT+evidenceLink,{waitUntil:'domcontentloaded'});
-     await page.waitForFunction(()=>document.querySelector('#ac-guide-context')?.textContent.includes('request-archery-historical-records'),{timeout:10000});
+     await page.waitForFunction(()=>document.querySelector('#ac-guide-context')?.textContent.includes('Αίτημα προς τεκμηρίωση:'),{timeout:10000});
 
+     if((await page.locator('#ac-guide-context').textContent()).includes('request-'))throw Error('Internal evidence request ID is publicly shown');
      // Private identification is recorded in the prepared email, even if credit is declined.
      if(await page.locator('#ac-credit-consent').isChecked())throw Error('Public name credit should be opt-in');
      if(await page.locator('#ac-credit-name-wrap').isVisible())throw Error('Public display name should be hidden by default');
