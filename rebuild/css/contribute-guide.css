@@ -37,3 +37,6 @@
 .av-verify-note{font-size:13px;color:#627365;line-height:1.7;margin:20px 0 0}
 @media(max-width:970px){.av-verify-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:650px){.av-verify-heading{display:block}.av-verify-label{margin-top:20px}.av-verify-grid{grid-template-columns:1fr}.av-verify-card{padding:23px}}
+
+/* Verified contrast on the public evidence-request section (WCAG 2.2 AA). */
+.av-verify-section .av-kicker{color:#71531e}
