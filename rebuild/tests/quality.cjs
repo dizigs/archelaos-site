@@ -82,7 +82,7 @@ async function audit(){
     }
     if(['history.html','hall-of-fame.html','stories.html','70-stigmes.html','board.html'].includes(route)){
       const opening={
-        'history.html':'.mu-sport-item',
+        'history.html':'.mu-exhibit',
         'hall-of-fame.html':'.h-new-person',
         'stories.html':'.rs-card',
         '70-stigmes.html':'.rm-card',
