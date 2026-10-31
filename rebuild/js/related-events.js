@@ -27,7 +27,7 @@ function load(){
 function personLink(person){
  const b=create('button','arch-related-card');
  b.type='button';
- b.append(create('strong','',person.name),create('span','',person.role+' ↗'));
+ b.append(create('strong','',person.name),create('span','',person.role));
  b.addEventListener('click',()=>{
   if(window.ArchelaosBio)window.ArchelaosBio.open(person.id);
   else location.assign(urlFor('/hall-of-fame.html?person='+encodeURIComponent(person.id)));
@@ -55,7 +55,7 @@ function openEvent(eventId){
    for(const person of item.people)grid.append(personLink(person));
    section.append(grid);body.append(section);
   }
-  const a=create('a','arch-related-contribute','Προτείνετε τεκμήριο ή διόρθωση ↗');
+  const a=create('a','arch-related-contribute','Προτείνετε τεκμήριο ή διόρθωση');
   a.href=urlFor('/contribute.html?kind=event&id='+encodeURIComponent(item.id)+
     '&title='+encodeURIComponent(item.title)+'#ac-guide');
   body.append(a);
@@ -78,7 +78,7 @@ function appendPerson(personId){
    const b=create('button','arch-related-card');b.type='button';
    b.append(create('span','arch-related-year',year(record)),
             create('strong','',record.title),
-            create('span','arch-related-open','Πηγές και πρόσωπα ↗'));
+            create('span','arch-related-open','Πηγές και πρόσωπα'));
    b.addEventListener('click',()=>{void openEvent(record.id)});
    grid.append(b);
   }
