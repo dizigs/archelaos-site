@@ -65,6 +65,11 @@ def inspect():
     assert len(museum["press"]) == 10, "10 press archive entries mismatch"
     board = json.loads((REBUILD/"data/board.json").read_text(encoding="utf-8"))
     assert len(board["members"]) == 8 and len(board["eras"]) == 4, "board source mismatch"
+    timeline = " ".join(era["html"] for era in board["eras"])
+    assert "τα διοικητικά καθήκοντα ασκούσε μεταβατικά ο αντιπρόεδρος Χαράλαμπος Σαββίδης" in timeline
+    assert "Vice President Charalampos Savvidis temporarily performed the president's duties" in timeline
+    assert "τα διοικητικά καθήκοντα ασκούσε μεταβατικά ο αντιπρόεδρος Παναγιώτης Διαμαντόπουλος" not in timeline
+
     retro = json.loads((REBUILD/"data/retro.json").read_text(encoding="utf-8"))
     assert [m["year"] for m in retro["matches"]] == [1990,1993,1994,1996], "retro final years mismatch"
     additions = json.loads((REBUILD/"data/people-addenda.json").read_text(encoding="utf-8"))["entries"]
