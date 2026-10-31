@@ -10,6 +10,7 @@ from datetime import datetime,timezone
 from pathlib import Path
 from zoneinfo import ZoneInfo
 import json,re
+import unicodedata
 
 ATHENS=ZoneInfo("Europe/Athens")
 SPORTS={"handball","volleyball"}
@@ -44,7 +45,10 @@ def validate(data:dict)->list[dict]:
                 raise ValueError("Missing / unsafe team name")
         if m["home_team"].strip().casefold()==m["away_team"].strip().casefold():
             raise ValueError("Same team in both sides")
-        if not any("αρχελα" in n.casefold() or "archela" in n.casefold() for n in
+        def normalized(value: str) -> str:
+            return "".join(ch for ch in unicodedata.normalize("NFD",value.casefold())
+                           if not unicodedata.combining(ch))
+        if not any("αρχελα" in normalized(n) or "archela" in normalized(n) for n in
                    (m["home_team"],m["away_team"])):
             raise ValueError("Neither side identifies Archelaos; manual review required")
         for key in ("venue","competition"):

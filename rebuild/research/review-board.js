@@ -25,7 +25,7 @@ function card(event,number){
  const state=recommendation(event);
  const root=make('article','entry');
  const head=make('div','entry-header');
- head.append(make('span','entry-category',event.sports.map(x=>catalog.department_registry.find(d=>d.id===x)?.label||x).join(' · ')),
+ head.append(make('span','entry-category',(event.sports||[event.sport]).map(x=>catalog.department_registry.find(d=>d.id===x)?.label||x).join(' · ')),
              make('span','entry-number','#'+String(number).padStart(2,'0')));
  root.append(head,make('h3','',event.title),make('p','entry-summary',event.summary));
  const meta=make('div','entry-meta');
@@ -57,7 +57,7 @@ function render(){
  const visible=items.filter(e=>{
   const r=recommendation(e);
   const hay=norm([e.id,e.title,e.summary,e.temporal.date,e.temporal.season,e.temporal.year].join(' '));
-  return (sport==='all'||e.sports.includes(sport))&&(st==='all'||r.kind===st)&&(!keyword||hay.includes(keyword));
+  return (sport==='all'||(e.sports||[e.sport]).includes(sport))&&(st==='all'||r.kind===st)&&(!keyword||hay.includes(keyword));
  });
  $('#entries').replaceChildren(...visible.map(e=>card(e,items.indexOf(e)+1)));
  $('#state').textContent=visible.length+' από '+items.length+' εγγραφές · Κάθε πηγή ανοίγει σε νέα καρτέλα.';
