@@ -32,12 +32,7 @@ function init(){
    if(status)status.textContent='Ανοίγει το πρόγραμμα email σας. Ελέγξτε και στείλτε το μήνυμα από εκεί.';
   });
   window.ArchelaosUI.openDialog({title:'Στείλτε ένα μήνυμα.',subtitle:'ΜΙΛΗΣΤΕ ΜΑΣ',contentNode:form,closeLabel:'Κλείσιμο φόρμας'});
-  // The sponsorship CTA lands on this already-centred modal. Draw attention to it.
-  if(query==='sponsorship'){
-   const dialog=document.querySelector('dialog.arch-dialog[open]');
-   if(dialog){dialog.classList.add('arch-target-glow');
-    dialog.addEventListener('animationend',()=>dialog.classList.remove('arch-target-glow'),{once:true});}
-  }
+
  }
  document.querySelectorAll('[data-open-contact]').forEach(btn=>btn.addEventListener('click',open));
  if(query&&['athlete','volunteer','sponsorship','archive','sport','general'].includes(query)){
