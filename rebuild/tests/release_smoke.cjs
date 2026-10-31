@@ -72,6 +72,9 @@ async function verify(){
      if(await page.locator('#sr-results .sr-card').count()===0)throw Error('Person search filter returns no results');
     }
     if(tag==='favorites'){
+     // The search scenario bookmarked a museum exhibit earlier in this same browser.
+     // Reset only test-owned favorites before verifying a new empty collection.
+     await page.evaluate(()=>window.ArchelaosFavorites.clear());
      await page.locator('.av-empty').waitFor();
      await page.evaluate(()=>window.ArchelaosFavorites.toggle('moment','1'));
      await page.locator('.av-card').first().waitFor();
