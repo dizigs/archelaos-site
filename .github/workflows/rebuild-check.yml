@@ -11,6 +11,12 @@ on:
 permissions:
   contents: read
 
+# Keep only the latest candidate running on this isolated rebuild branch.
+# Prevent overlapping screenshot runs from testing already superseded commits.
+concurrency:
+  group: rebuild-validation-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   integrity:
     name: HTML, data and JavaScript integrity
