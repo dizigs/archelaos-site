@@ -3409,6 +3409,8 @@ html body #museum-v54-navigation .m55-nav-card .m55-nav-arrow{
  html body #museum-history #history-archive #chapters .museum-exhibit-chapter-card{transition:none!important;transform:none!important}
 }
 
+/* Filtered chapter items must actually disappear despite the layout's !important display rules. */
+html body #museum-history #history-archive #chapters > [hidden] {display:none!important;}
 /* Founding statement: editorial green/gold chapter instead of a redundant popup. */
 html body #museum-history #history-archive #chapters .museum-foundation-quote {
   position:relative;isolation:isolate;display:flex;flex-direction:column;
