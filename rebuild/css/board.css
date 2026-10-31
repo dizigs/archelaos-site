@@ -1,0 +1,46 @@
+/* Unified Board page based on 2026-10-31 backup styles. */
+.bd-skip{position:fixed;top:-80px;left:10px;background:white;color:#073d2a;padding:11px;z-index:1800}.bd-skip:focus{top:10px}
+.bd-hero{background:radial-gradient(ellipse at 84% 21%,#2b5c43,#073d2a 60%,#042b1c);padding:90px 0 99px;color:#fff8e8;position:relative;overflow:hidden}
+.bd-hero:after{content:"1956";position:absolute;right:3%;bottom:-.27em;font:400 clamp(160px,28vw,350px) Georgia,serif;color:#ffffff08;pointer-events:none}
+.bd-hero>.arch-container{position:relative;z-index:1}
+.bd-hero span{font-size:11px;letter-spacing:.2em;color:#e1c789;font-weight:800}
+.bd-hero h1{font:400 clamp(43px,6vw,82px)/1.1 Georgia,serif;letter-spacing:-.05em;margin:18px 0}
+.bd-hero h1 em{color:#d7bf88}
+.bd-hero p{color:#dce9dc;font-size:17px;line-height:1.85;max-width:730px}
+.bd-current,.bd-history{padding:clamp(65px,8vw,115px) 0;background:#f8f6ef}
+.bd-history{background:#f1eadb}
+.bd-eyebrow{color:#98783e;font-size:11px;font-weight:850;letter-spacing:.18em;margin:0 0 15px}
+.bd-current h2,.bd-history h2,.bd-future h2{font:400 clamp(38px,5vw,65px)/1.12 Georgia,serif;color:#073d2a;margin:0 0 17px;letter-spacing:-.04em}
+.bd-lead{max-width:880px;color:#55705d;line-height:1.85;font-size:16px;margin:0 0 42px}
+.bd-members{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.bd-member{min-height:215px;padding:24px 23px;display:flex;flex-direction:column;background:linear-gradient(140deg,#fffcf5,#f3ead9);border:1px solid #d9c8a3;border-radius:19px;box-shadow:0 10px 26px #073d2a0e}
+.bd-member-top{display:flex;gap:12px;align-items:center}
+.bd-member-monogram{display:grid;place-items:center;width:52px;height:52px;flex:none;background:#073d2a;border:1px solid #c7a65e;border-radius:12px;color:#e8ce91;font:500 23px Georgia,serif}
+.bd-member-role{font-size:11px;font-weight:800;color:#907039;letter-spacing:.07em}
+.bd-member h3{font:400 clamp(19px,2vw,25px)/1.24 Georgia,serif;color:#073d2a;margin:13px 0 17px}
+.bd-member-bottom{margin-top:auto;border-top:1px solid #d6c59f;padding-top:12px;color:#536b57;font-size:12px}
+.bd-member-bottom b{color:#896c36}
+.bd-eras{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.bd-era{display:flex;position:relative;flex-direction:column;text-align:left;min-height:235px;padding:29px 32px;background:linear-gradient(130deg,#fffdf6,#f1e8d6);border:1px solid #d4bf96;border-radius:25px;color:#073d2a;box-shadow:0 13px 34px #073d2a18;transition:transform .24s,box-shadow .24s}
+.bd-era:hover{transform:translateY(-3px);box-shadow:0 20px 42px #073d2a25}
+.bd-era:nth-child(2n){background:linear-gradient(130deg,#0a4933,#073d2a);color:#fff8e6}
+.bd-era>span{font:600 25px Georgia,serif;color:#a5874a}
+.bd-era:nth-child(2n)>span{color:#d8c08c}
+.bd-era strong{font:400 clamp(28px,3vw,40px)/1.14 Georgia,serif;margin:auto 0 10px}
+.bd-era small{font-size:14px;color:#697761}
+.bd-era:nth-child(2n) small{color:#d9e5d7}
+.bd-era b{position:absolute;right:26px;top:23px;color:#c7a65e;font-size:23px}
+.bd-history-help{margin-top:45px;display:flex;flex-direction:column;gap:10px;padding:29px 34px;text-decoration:none;border:1px solid #c7a65e;border-radius:21px;background:#073d2a;color:#fff9eb}
+.bd-history-help strong{font:400 30px Georgia,serif}
+.bd-history-help span{color:#d6e2d2;font-size:14px}
+.bd-future{padding:clamp(75px,9vw,125px) 0;background:linear-gradient(145deg,#fffdf5,#f4ecde)}
+.bd-future .arch-container{max-width:900px;text-align:center}
+.bd-future p:not(.bd-eyebrow){color:#5f7461;font-size:17px;line-height:1.9;margin:24px auto}
+.bd-future a{display:inline-block;text-decoration:none;color:#f7e5ba;background:#073d2a;border:1px solid #c7a65e;border-radius:12px;padding:14px 20px;font-weight:800}
+.arch-archive-content h3,.arch-archive-content h4{font:500 25px Georgia,serif;margin:19px 0 10px;color:#073d2a}
+.arch-archive-content p{line-height:1.85}
+.arch-archive-content article{padding:14px 0;border-bottom:1px solid #e4d8c0}
+.arch-archive-content strong{color:#957538}
+@media(max-width:1000px){.bd-members{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.bd-members,.bd-eras{grid-template-columns:1fr}.bd-era{min-height:205px}.bd-member{min-height:190px}}
+@media(prefers-reduced-motion:reduce){.bd-era{transition:none}}

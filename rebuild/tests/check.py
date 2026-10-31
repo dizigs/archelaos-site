@@ -29,7 +29,7 @@ class Assets(HTMLParser):
 
 def inspect():
     html_pages = sorted(REBUILD.glob("*.html"))
-    assert len(html_pages) >= 6, "expected multiple rebuilt pages"
+    assert len(html_pages) >= 7, "expected multiple rebuilt pages"
     for path in html_pages:
         source = path.read_text(encoding="utf-8")
         assert "noindex" in source, f"{path.name}: missing preview-only noindex"
@@ -46,6 +46,8 @@ def inspect():
     museum = json.loads((REBUILD/"data/museum.json").read_text(encoding="utf-8"))
     assert len(museum["articles"]) == 14, "14 museum archive entries mismatch"
     assert len(museum["press"]) == 10, "10 press archive entries mismatch"
+    board = json.loads((REBUILD/"data/board.json").read_text(encoding="utf-8"))
+    assert len(board["members"]) == 8 and len(board["eras"]) == 4, "board source mismatch"
     assert len(people) == 682 and len({p["id"] for p in people}) == 682, "682 biographies mismatch"
     assert all(m.get("title_en") and m.get("body_en") for m in moments), "missing moment translations"
     print(f"REBUILD OK: {len(html_pages)} HTML pages; {len(moments)} moments; {len(stories)} stories; {len(people)} profiles")

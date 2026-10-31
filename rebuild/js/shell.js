@@ -10,7 +10,7 @@ const pages=[
 ];
 const groups=[['Συλλογές',[2,3,4]],['Ο Σύλλογος',[5,6,7]]];
 const path=(location.pathname.split('/').pop()||'index.html').toLowerCase();
-const COMPLETED=new Set(['index.html','history.html','hall-of-fame.html','70-stigmes.html','stories.html']);
+const COMPLETED=new Set(['index.html','history.html','hall-of-fame.html','70-stigmes.html','stories.html','board.html']);
 const hrefFor=(item)=>{
  const href=item[0],file=href.split('#')[0];
  // Links to completed rebuild pages stay inside rebuild; unported pages still use unchanged originals.

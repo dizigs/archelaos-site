@@ -14,40 +14,10 @@ const exhibits=[
 const sports=['handball','track','archery','shooting','gymnastics','volleyball','wrestling','swimming','basketball','inactive-depts'];
 const $el=(tag,cls,text)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=text;return n};
 let records=new Map();
-function safeArticle(original){
- const doc=new DOMParser().parseFromString(original,'text/html');
- const root=doc.body.firstElementChild;if(!root)return document.createDocumentFragment();
- // Sanitize archived HTML: no scripts, event attributes or legacy CSS/behaviors.
- doc.querySelectorAll('script,style,iframe,object,embed,form,template').forEach(n=>n.remove());
- for(const node of [...root.querySelectorAll('[data-lang],.lang-el,.lang-en,.arch-collection-el,.arch-collection-en')]){
-  const lang=node.getAttribute('data-lang');
-  const bad=lang==='en'||node.classList.contains('lang-en')||node.classList.contains('arch-collection-en');
-  if(bad)node.remove();
- }
- for(const button of [...root.querySelectorAll('button')])button.replaceWith(...button.childNodes);
- for(const node of [root,...root.querySelectorAll('*')]){
-  for(const attr of [...node.attributes]){
-   const key=attr.name;
-   if(['href','src','alt','title','colspan','rowspan'].includes(key))continue;
-   node.removeAttribute(key);
-  }
-  if(node.tagName==='A'){
-   let href=node.getAttribute('href')||'';
-   if(/^people\//.test(href)){href='/'+href;node.setAttribute('href',href)}
-   try{
-    const url=new URL(href,location.href);
-    if(!['http:','https:'].includes(url.protocol))node.removeAttribute('href');
-    else if(url.origin!==location.origin){node.setAttribute('target','_blank');node.setAttribute('rel','noopener noreferrer')}
-   }catch(_){node.removeAttribute('href')}
-  }
- }
- root.className='mu-article';
- const fragment=document.createDocumentFragment();fragment.append(root);
- return fragment;
-}
+
 function open(id){
  const record=records.get(id);if(!record)return;
- window.ArchelaosUI.openDialog({title:record.title,subtitle:record.period||'',contentNode:safeArticle(record.html),closeLabel:'Κλείσιμο ιστορικού'});
+ window.ArchelaosUI.openDialog({title:record.title,subtitle:record.period||'',contentNode:window.ArchelaosArchive.fragment(record.html),closeLabel:'Κλείσιμο ιστορικού'});
 }
 function makeButton(record,cls){
  const button=$el('button',cls);button.type='button';
