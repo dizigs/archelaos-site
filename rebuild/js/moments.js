@@ -29,9 +29,9 @@ function makeCard(item){
  const article=elem('article','rm-moment');article.id='moment-'+item.id;
  const btn=elem('button','rm-card');btn.type='button';
  btn.setAttribute('aria-label',item.year+' — '+field(item,'title'));
- const year=elem('span','rm-year',item.year),arrow=elem('span','rm-arrow','↗'),title=elem('span','rm-title',field(item,'title')),watermark=elem('span','rm-watermark',item.year);
- arrow.setAttribute('aria-hidden','true');watermark.setAttribute('aria-hidden','true');
- btn.append(year,arrow,title,watermark);
+ const year=elem('span','rm-year',item.year),title=elem('span','rm-title',field(item,'title')),watermark=elem('span','rm-watermark',item.year);
+ watermark.setAttribute('aria-hidden','true');
+ btn.append(year,title,watermark);
  btn.addEventListener('click',()=>show(item));article.append(btn,window.ArchelaosFavorites.button('moment',item.id));return article;
 }
 function render(){
@@ -54,7 +54,7 @@ function renderFeatured(){
  for(const id of picks){
   const item=state.data.find(row=>row.id===id);if(!item)continue;
   const btn=elem('button','rm-featured-item');btn.type='button';
-  btn.append(elem('span','',item.year),elem('strong','',field(item,'title')),elem('span','rm-featured-arrow','↗'));
+  btn.append(elem('span','',item.year),elem('strong','',field(item,'title')),elem('span','rm-featured-arrow',''));
   btn.addEventListener('click',()=>{
    state.decade='all';render();
    const card=q('#moment-'+id);card?.scrollIntoView({block:'center',behavior:'auto'});card?.querySelector('button')?.focus({preventScroll:true});
