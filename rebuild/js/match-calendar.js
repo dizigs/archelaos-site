@@ -97,7 +97,7 @@ function card(item,index){
  if(outlook)links.append(external('Outlook Calendar',outlook));
  if(!google)links.append(create('span','fx-calendar-note',
    dateOnly(item.date)?'Η ώρα δεν έχει οριστεί. Η προσθήκη γίνεται ως ολοήμερη υπενθύμιση, όχι ως ώρα αγώνα.':
-   'Για Apple, Outlook ή εισαγωγή στο Google Calendar, χρησιμοποιήστε το αρχείο .ics. Δεν υποθέτουμε ώρα λήξης αγώνα.'));
+   'Για Apple, Outlook ή εισαγωγή στο Google Calendar, χρησιμοποιήστε το αρχείο .ics.'));
  menu.append(links);bottom.append(menu);a.append(bottom);return a;
 }
 function render(){
