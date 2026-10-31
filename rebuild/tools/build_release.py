@@ -196,7 +196,9 @@ def make_release() -> None:
             html_text = html_text.replace(f'<link rel="stylesheet" href="{old}">', "")
         for old in ("/assets/navigation.js", "/assets/footer.js", "/assets/accessibility.js"):
             html_text = html_text.replace(f'<script src="{old}" defer></script>', "")
-        html_text = html_text.replace('href="/history-events.html"', 'href="/70-stigmes.html"')
+        # Old per-event fragments no longer exist after removal of history-events.
+        # Route to 70 Moments without leaving a dead or misleading fragment.
+        html_text = re.sub(r'href="/history-events\.html(?:#[^"]*)?"', 'href="/70-stigmes.html"', html_text)
         additions = [
             '<link rel="stylesheet" href="/assets/site/css/tokens.css">',
             '<link rel="stylesheet" href="/assets/site/css/components.css">',
