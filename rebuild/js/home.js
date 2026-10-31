@@ -1,6 +1,19 @@
 /* Minimal local image carousel — no observers, timers or global event interception. */
 (()=>{'use strict';
 const init=()=>{
+ // Keep image cards polished even if an external host blocks or removes a photo.
+ for(const img of document.querySelectorAll('.new-slide img,.new-sport-photo img')){
+  const missing=()=>{
+   const parent=img.parentElement;
+   if(!parent||parent.classList.contains('new-photo-missing'))return;
+   parent.classList.add('new-photo-missing');
+   parent.setAttribute('data-fallback-label',img.getAttribute('alt')||'Γ.Α.Σ. Αρχέλαος');
+   img.hidden=true;
+  };
+  img.addEventListener('error',missing,{once:true});
+  if(img.complete&&img.naturalWidth===0)missing();
+ }
+
 const root=document.querySelector('.new-slideshow');if(!root)return;
 const slides=[...root.querySelectorAll('.new-slide')],name=document.querySelector('#new-slide-title'),count=document.querySelector('#new-slide-count');let index=0;
 const show=n=>{index=(n+slides.length)%slides.length;slides.forEach((s,i)=>{const active=i===index;s.classList.toggle('active',active);s.setAttribute('aria-hidden',String(!active))});const label=slides[index].querySelector('img')?.alt||'';name.textContent=label;count.textContent=String(index+1).padStart(2,'0')+' / '+String(slides.length).padStart(2,'0')+' · '+label};

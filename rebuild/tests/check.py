@@ -30,6 +30,11 @@ class Assets(HTMLParser):
 def inspect():
     html_pages = sorted(REBUILD.glob("*.html"))
     assert len(html_pages) >= 11, "expected multiple rebuilt pages"
+    known = {p.name for p in html_pages}
+    expected = {"index.html","history.html","hall-of-fame.html","70-stigmes.html","stories.html",
+                "board.html","contact.html","sponsors.html","tmimata.html","retro-matches.html"}
+    assert expected.issubset(known), "missing required rebuilt routes: " + str(expected-known)
+
     for path in html_pages:
         source = path.read_text(encoding="utf-8")
         assert "noindex" in source, f"{path.name}: missing preview-only noindex"
@@ -51,6 +56,12 @@ def inspect():
     retro = json.loads((REBUILD/"data/retro.json").read_text(encoding="utf-8"))
     assert [m["year"] for m in retro["matches"]] == [1990,1993,1994,1996], "retro final years mismatch"
     assert len(people) == 682 and len({p["id"] for p in people}) == 682, "682 biographies mismatch"
+    assert all(p.get("name") and p.get("name_en") and p.get("bio") and p.get("bio_en") for p in people), "incomplete biographies"
+    home = json.loads((REBUILD/"data/home.json").read_text(encoding="utf-8"))
+    assert len(home["sports"]) == 8 and len(home["slides"]) == 8, "homepage sports/slides missing"
+    assert {s["key"] for s in home["sports"]} == {"handball","track","archery","shooting","gymnastics","volleyball","wrestling","swimming"}, "unexpected homepage sports list"
+    assert all(s.get("photo") and s.get("description") for s in home["sports"]), "homepage details missing"
+
     assert all(m.get("title_en") and m.get("body_en") for m in moments), "missing moment translations"
     print(f"REBUILD OK: {len(html_pages)} HTML pages; {len(moments)} moments; {len(stories)} stories; {len(people)} profiles")
 

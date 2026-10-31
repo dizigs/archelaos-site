@@ -140,3 +140,20 @@
  .new-logo-col small{font-size:10px;letter-spacing:.23em}
  .new-hero-copy>p:not(.new-kicker){line-height:1.7}
 }
+
+/* Offline/remote-host failure states: no broken-image glyph or empty cards. */
+.new-sport-photo.new-photo-missing,
+.new-slide.new-photo-missing{
+ background:radial-gradient(circle at 70% 30%,#1b6044,#073d2a 65%,#05271c);
+}
+.new-sport-photo.new-photo-missing::after,
+.new-slide.new-photo-missing::after{
+ content:attr(data-fallback-label);
+ position:absolute;inset:0;display:grid;place-items:center;
+ color:#f4e7c6;text-align:center;padding:25px;
+ font:400 clamp(22px,3vw,35px)/1.2 Georgia,serif;
+ letter-spacing:-.02em;
+ pointer-events:none;
+}
+.new-sport-photo.new-photo-missing::after{padding-top:65px}
+.new-sport-photo.new-photo-missing>span{z-index:1}
