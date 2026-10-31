@@ -9,7 +9,7 @@ function card(data){
   const date=document.createElement('span');date.className='arch-card-date';date.textContent=data.marker;
   const ghost=document.createElement('span');ghost.className='arch-card-watermark';ghost.textContent=data.marker;ghost.setAttribute('aria-hidden','true');el.append(date,ghost);
  }
- const arrow=document.createElement('span');arrow.className='arch-card-arrow';arrow.textContent='↗';arrow.setAttribute('aria-hidden','true');el.append(title,arrow);return el;
+ el.append(title);return el;
 }
 let dialog,lastFocus;
 function create(){
