@@ -50,9 +50,13 @@ def inspect():
     stories = json.loads((REBUILD/"data/stories.json").read_text(encoding="utf-8"))["stories"]
     people = json.loads((REBUILD/"data/people.json").read_text(encoding="utf-8"))["people"]
     assert len(moments) == 70 and len({m["id"] for m in moments}) == 70, "70 moments mismatch"
-    assert len(stories) == 21, "21 story records mismatch"
+    assert len(stories) >= 21, "21 original stories must remain"
+    source_stories = json.loads((REBUILD/"data/stories.json").read_text(encoding="utf-8"))
+    assert source_stories["count"] == len(stories), "story count metadata does not match entries"
+    assert len({s["title"].casefold() for s in stories}) == len(stories), "duplicate story titles"
     museum = json.loads((REBUILD/"data/museum.json").read_text(encoding="utf-8"))
-    assert len(museum["articles"]) == 14, "14 museum archive entries mismatch"
+    assert len(museum["articles"]) >= 14, "original 14 museum articles missing"
+    assert len({a["id"] for a in museum["articles"]}) == len(museum["articles"]), "duplicate museum article IDs"
     assert len(museum["press"]) == 10, "10 press archive entries mismatch"
     board = json.loads((REBUILD/"data/board.json").read_text(encoding="utf-8"))
     assert len(board["members"]) == 8 and len(board["eras"]) == 4, "board source mismatch"

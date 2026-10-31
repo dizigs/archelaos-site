@@ -5,3 +5,6 @@ node_modules/
 __pycache__/
 *.py[cod]
 .DS_Store
+
+# Private review packets and source documents must never enter the public repo.
+.archive-intake/

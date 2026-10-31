@@ -25,6 +25,8 @@ jobs:
           python-version: '3.12'
       - name: Validate content, images and internal file references
         run: python rebuild/tests/check.py
+      - name: Verify reviewed archive intake is dry-run, private and idempotent
+        run: python rebuild/tests/ingestion.py
       - name: Check all rebuilt JavaScript syntax
         shell: bash
         run: |
