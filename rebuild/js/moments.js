@@ -13,7 +13,7 @@ function show(item){
  const body=field(item,'body')||[];
  window.ArchelaosUI.openDialog({
   title:field(item,'title'),subtitle:String(item.year),
-  paragraphs:body,sources:[],closeLabel:tr('Κλείσιμο ιστορίας','Close story')
+  paragraphs:body,sources:[],favorite:{type:'moment',id:item.id},closeLabel:tr('Κλείσιμο ιστορίας','Close story')
  });
 }
 function filters(){
@@ -32,7 +32,7 @@ function makeCard(item){
  const year=elem('span','rm-year',item.year),arrow=elem('span','rm-arrow','↗'),title=elem('span','rm-title',field(item,'title')),watermark=elem('span','rm-watermark',item.year);
  arrow.setAttribute('aria-hidden','true');watermark.setAttribute('aria-hidden','true');
  btn.append(year,arrow,title,watermark);
- btn.addEventListener('click',()=>show(item));article.append(btn);return article;
+ btn.addEventListener('click',()=>show(item));article.append(btn,window.ArchelaosFavorites.button('moment',item.id));return article;
 }
 function render(){
  filters();

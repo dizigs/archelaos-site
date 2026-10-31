@@ -9,7 +9,7 @@ function read(story,index){
  // The shared modal preserves source narrative; reconstructed dialogue remains italic/gold.
  window.ArchelaosUI.openDialog({
   title:story.title,subtitle:[story.sport,story.year].filter(Boolean).join(' · '),
-  paragraphs:body,closeLabel:'Κλείσιμο ιστορίας'
+  paragraphs:body,favorite:{type:'story',id:index+1},closeLabel:'Κλείσιμο ιστορίας'
  });
  const dlg=document.querySelector('.arch-dialog');
  dlg?.querySelectorAll('.arch-dialog-body p').forEach(p=>{
@@ -28,7 +28,7 @@ function card(story,index,featured=false){
  }else{
   btn.append(el('span','',story.sport+' · '+story.year),el('strong','',story.title),el('small','',story.lead),el('b','','↗'));
  }
- btn.addEventListener('click',()=>read(story,index));return btn;
+ btn.addEventListener('click',()=>read(story,index));const wrap=el('div','rs-card-wrap');wrap.append(btn,window.ArchelaosFavorites.button('story',index+1));return wrap;
 }
 function render(){
  const query=norm(s.search);

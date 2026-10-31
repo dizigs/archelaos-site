@@ -57,7 +57,7 @@ function personCard(p){
  const bottom=el('span','h-new-person-bottom',tr('Δείτε το βιογραφικό','Read biography'));
  b.append(top,details,bottom);
  b.addEventListener('click',()=>window.ArchelaosBio.show(p));
- return b;
+ const wrap=el('div','h-new-person-wrap');wrap.append(b,window.ArchelaosFavorites.button('person',p.id));return wrap;
 }
 function paginate(data){
  const parent=$('#hall-pages');parent.replaceChildren();
