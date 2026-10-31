@@ -3170,6 +3170,44 @@ a.museum-subtle-link:focus-visible{outline:3px solid #c7a65e;outline-offset:3px}
 #registrationModal #modalForm input:focus,#registrationModal #modalForm select:focus,#registrationModal #modalForm textarea:focus{outline:2px solid #c7a65e!important;outline-offset:1px!important}
 #registrationModal #modalForm button[type=submit]{min-height:54px!important;border-radius:12px!important;background:#073d2a!important;color:#fff8e7!important;font-weight:800!important}
 </style>
+<style id="v31-museum-modal-mobile-guard">
+/* V3.1: keep every museum popup reachable on short and narrow screens. */
+@media (max-width: 767px), (max-height: 650px) {
+  #historyArchiveModal, #historyPresidentModal, #timelineDetailModal,
+  #deptHistoryModal, #registrationModal {
+    align-items: safe center !important;
+    padding: max(10px, env(safe-area-inset-top)) 10px max(10px, env(safe-area-inset-bottom)) !important;
+    overflow-y: auto !important;
+    overscroll-behavior: contain;
+  }
+  #historyArchiveModal .modal-box, #historyPresidentModal .modal-box,
+  #timelineDetailModal .modal-box, #deptHistoryModal .modal-box,
+  #registrationModal .modal-box {
+    max-height: calc(100dvh - 24px) !important;
+    max-width: 100% !important;
+    margin: auto !important;
+    overflow-y: auto !important;
+    overscroll-behavior: contain;
+  }
+  #historyArchiveModal .modal-box {
+    overflow: hidden !important;
+    display: flex;
+    flex-direction: column;
+  }
+  #historyArchiveContent { min-height: 0; overflow-y: auto; }
+  #timelineDetailModal .modal-header, #deptHistoryModal .modal-header,
+  #registrationModal .modal-header { gap: 12px; }
+  #timelineDetailModal .modal-header > div, #deptHistoryModal .modal-header > div,
+  #registrationModal .modal-header > div { min-width: 0; }
+  #timelineDetailModal .modal-header-title, #deptHistoryModal .modal-header-title,
+  #registrationModal .modal-header-title { overflow-wrap: anywhere; }
+}
+#historyArchiveModal button[aria-label*="Κλείσιμο"],
+#historyPresidentModal button[aria-label*="Κλείσιμο"],
+#timelineDetailModal .modal-close-btn,
+#deptHistoryModal .modal-close-btn,
+#registrationModal .modal-close-btn { flex-shrink: 0; }
+</style>
 </head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow arch-gold-page" data-arch-people-page="history">
 <!-- ANIMATED CONTOUR WAVES -->
