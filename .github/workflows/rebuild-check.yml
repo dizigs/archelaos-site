@@ -88,6 +88,8 @@ jobs:
           path: rebuild/test-artifacts/archive-connections.json
           if-no-files-found: warn
           retention-days: 14
+      - name: Check neutral public evidence requests and safe contribution prompts
+        run: python rebuild/tests/verification_requests.py
       - name: Validate hidden research event register and source-backed biographies
         run: |
           python rebuild/tests/verified_events.py

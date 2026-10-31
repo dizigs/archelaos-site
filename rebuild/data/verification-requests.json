@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "scope": "public-safe neutral requests for documentation, not confirmed historical facts",
+  "policy": {
+    "no_unreviewed_claims": true,
+    "no_user_content_displayed": true,
+    "publication_requires_review": true
+  },
+  "requests": [
+    {
+      "id": "request-handball-historical-records",
+      "sport": "handball",
+      "sport_label": "Χάντμπολ",
+      "title": "Ιστορικά φύλλα αγώνα και προγράμματα χάντμπολ",
+      "prompt": "Αναζητούμε επίσημα φύλλα αγώνα, φωτογραφίες με χρονολογία και προγράμματα διοργανώσεων από διαφορετικές εποχές.",
+      "evidence_needed": "Διοργάνωση, ημερομηνία, πρωτογενές αποτέλεσμα ή δημοσίευμα.",
+      "status": "awaiting_evidence",
+      "public_safe": true,
+      "kind": "neutral_document_request"
+    },
+    {
+      "id": "request-track-historical-records",
+      "sport": "track",
+      "sport_label": "Στίβος",
+      "title": "Αγώνες και αποτελέσματα στίβου",
+      "prompt": "Αναζητούμε αποτελέσματα αγωνισμάτων, χρονολογημένα προγράμματα και παλιές φωτογραφίες του τμήματος στίβου.",
+      "evidence_needed": "Αγώνισμα, επίδοση αν καταγράφεται, έτος και ομοσπονδιακή ή αρχειακή πηγή.",
+      "status": "awaiting_evidence",
+      "public_safe": true,
+      "kind": "neutral_document_request"
+    },
+    {
+      "id": "request-archery-historical-records",
+      "sport": "archery",
+      "sport_label": "Τοξοβολία",
+      "title": "Τεκμήρια παλαιότερων αγώνων τοξοβολίας",
+      "prompt": "Αναζητούμε προκηρύξεις, επίσημα φύλλα αποτελεσμάτων και υλικό από τη διαδρομή του τμήματος τοξοβολίας.",
+      "evidence_needed": "Κατηγορία, διοργάνωση, χρονολογία και πηγή από την ομοσπονδία ή το αρχείο.",
+      "status": "awaiting_evidence",
+      "public_safe": true,
+      "kind": "neutral_document_request"
+    },
+    {
+      "id": "request-shooting-historical-records",
+      "sport": "shooting",
+      "sport_label": "Σκοποβολή",
+      "title": "Πηγές για αγώνες σκοποβολής",
+      "prompt": "Αναζητούμε επίσημα αποτελέσματα και αγωνιστικά προγράμματα, καθώς και φωτογραφίες με γνωστή προέλευση.",
+      "evidence_needed": "Επίσημος πίνακας, χρονολογία, όνομα διοργάνωσης.",
+      "status": "awaiting_evidence",
+      "public_safe": true,
+      "kind": "neutral_document_request"
+    },
+    {
+      "id": "request-gymnastics-historical-records",
+      "sport": "gymnastics",
+      "sport_label": "Ενόργανη",
+      "title": "Ιστορικό υλικό ενόργανης γυμναστικής",
+      "prompt": "Αναζητούμε προγράμματα διοργανώσεων, αποτελέσματα και φωτογραφίες ομάδων με γνωστή ημερομηνία.",
+      "evidence_needed": "Διοργάνωση, χρονιά, επίσημη καταγραφή και προέλευση φωτογραφιών.",
+      "status": "awaiting_evidence",
+      "public_safe": true,
+      "kind": "neutral_document_request"
+    },
+    {
+      "id": "request-volleyball-historical-records",
+      "sport": "volleyball",
+      "sport_label": "Βόλεϊ",
+      "title": "Αγωνιστικές χρονιές του βόλεϊ",
+      "prompt": "Αναζητούμε βαθμολογίες, φύλλα αγώνων και προγράμματα της δραστηριότητας του τμήματος.",
+      "evidence_needed": "Σεζόν, κατηγορία, αποτέλεσμα από αξιόπιστο τεκμήριο.",
+      "status": "awaiting_evidence",
+      "public_safe": true,
+      "kind": "neutral_document_request"
+    },
+    {
+      "id": "request-wrestling-historical-records",
+      "sport": "wrestling",
+      "sport_label": "Πάλη",
+      "title": "Αγώνες και αποστολές πάλης",
+      "prompt": "Αναζητούμε επίσημα αποτελέσματα, προκηρύξεις και ιστορικές αναφορές για το τμήμα πάλης.",
+      "evidence_needed": "Κατηγορία, αγώνες, ημερομηνία, αρχική δημοσιευμένη πηγή.",
+      "status": "awaiting_evidence",
+      "public_safe": true,
+      "kind": "neutral_document_request"
+    },
+    {
+      "id": "request-swimming-historical-records",
+      "sport": "swimming",
+      "sport_label": "Κολύμβηση",
+      "title": "Προγράμματα και αποτελέσματα κολύμβησης",
+      "prompt": "Αναζητούμε χρονολογημένα αποτελέσματα, προγράμματα και φωτογραφίες του τμήματος.",
+      "evidence_needed": "Διοργάνωση, αγώνισμα, έτος και αρχειακή προέλευση.",
+      "status": "awaiting_evidence",
+      "public_safe": true,
+      "kind": "neutral_document_request"
+    },
+    {
+      "id": "request-basketball-historical-records",
+      "sport": "basketball",
+      "sport_label": "Ιστορικό μπάσκετ",
+      "title": "Η διαδρομή της ιστορικής καλαθοσφαίρισης",
+      "prompt": "Αναζητούμε φύλλα αγώνα, βαθμολογίες και φωτογραφίες των ιστορικών ομάδων καλαθοσφαίρισης.",
+      "evidence_needed": "Σεζόν, διοργάνωση, αντίπαλος και πρωτογενές τεκμήριο.",
+      "status": "awaiting_evidence",
+      "public_safe": true,
+      "kind": "neutral_document_request"
+    }
+  ]
+}

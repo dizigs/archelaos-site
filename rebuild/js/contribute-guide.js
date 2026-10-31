@@ -56,7 +56,28 @@ async function copy(){
   status.textContent='Η αντιγραφή δεν επιτράπηκε από τον browser. Χρησιμοποιήστε το άνοιγμα email.';
  }
 }
+async function fillVerificationContext(){
+ const id=new URLSearchParams(location.search).get('verification');
+ if(!id||!/^request-[a-z-]{8,100}$/.test(id))return;
+ try{
+  const root=location.pathname.startsWith('/rebuild/')?'/rebuild/data/verification-requests.json':'/assets/site/data/verification-requests.json';
+  const response=await fetch(root,{cache:'no-cache'});
+  if(!response.ok)return;
+  const data=await response.json();
+  const entry=data.requests?.find(x=>x.id===id&&x.public_safe===true&&x.status==='awaiting_evidence');
+  if(!entry)return;
+  $('guide-context').hidden=false;
+  $('guide-context').textContent='Αίτημα προς τεκμηρίωση: '+entry.title+' · Κωδικός: '+entry.id;
+  const option=[...$('sport').options].find(x=>x.textContent===entry.sport_label);
+  if(option)$('sport').value=option.value;
+  $('type').value='Ιστορική μαρτυρία';
+  $('source').placeholder='Πηγή για το αίτημα '+entry.id;
+  $('guide-status').textContent='';
+  refresh();
+ }catch(error){console.warn('Cannot prefill evidence request',error)}
+}
 function init(){
+ void fillVerificationContext();
  if(reference){
   const context=$('guide-context');context.hidden=false;
   context.textContent='Σχετικά με: '+reference.title+'. Μπορείτε να προτείνετε διόρθωση ή πρόσθετο τεκμήριο.';
