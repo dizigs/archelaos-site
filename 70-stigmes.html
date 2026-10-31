@@ -1122,4 +1122,17 @@ modal.hidden=false;document.body.style.overflow='hidden';document.getElementById
 document.addEventListener('click',function(e){const btn=e.target.closest('[data-story-card]');if(btn){e.preventDefault();show(btn);}},true);
 close.addEventListener('click',finish);modal.addEventListener('click',e=>{if(e.target===modal)finish()});
 document.addEventListener('keydown',e=>{if(modal.hidden&&(e.key==='Enter'||e.key===' ')){const card=e.target.closest('[data-story-card]');if(card){e.preventDefault();show(card);}return;}if(modal.hidden)return;if(e.key==='Escape'){e.preventDefault();finish()}if(e.key==='Tab'){e.preventDefault();close.focus()}});
-})();</script></body></html>
+})();</script><script id="arch-moment-direct-link">
+(function(){
+ function arrive(){
+  const found=location.hash.match(/^#moment-(\d{1,2})$/);if(!found)return;
+  const id=Number(found[1]);if(id<1||id>70)return;
+  const card=document.getElementById('moment-'+id);
+  if(!card)return;
+  card.scrollIntoView({block:'center',behavior:'instant'});
+  card.click();
+ }
+ if(document.readyState==='complete')requestAnimationFrame(arrive);
+ else window.addEventListener('load',()=>requestAnimationFrame(arrive),{once:true});
+})();
+</script></body></html>

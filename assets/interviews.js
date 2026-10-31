@@ -32,7 +32,12 @@ function open(id){
  else if(x.quote)inner+='<blockquote class="quote">'+esc(x.quote)+'</blockquote>';
  inner+='<section class="source"><h3>'+tr('Πηγή & τεκμηρίωση','Source & provenance')+'</h3><p>'+esc(x.source)+'</p></section>';
  if(x.needsReview)inner+='<div class="warning">'+tr('Ορισμένες συμπληρωματικές λεπτομέρειες του γεγονότος χρειάζονται διασταύρωση με το πρωτότυπο απόκομμα.','Some contextual details need verification against the original clipping.')+'</div>';
- if(x.personIds&&x.personIds.length){inner+='<div class="links">';x.personIds.forEach(id=>{inner+='<a href="hall-of-fame.html?person='+encodeURIComponent(id)+'">'+tr('Βιογραφικό στο Hall of Fame','Hall of Fame biography')+' ↗</a>'});inner+='</div>'}
+ if((x.relatedPeople&&x.relatedPeople.length)||(x.eventLinks&&x.eventLinks.length)){
+  inner+='<section class="source"><h3>'+tr('Συνδεδεμένα τεκμήρια & πρόσωπα','Related archive records & people')+'</h3><div class="links">';
+  (x.relatedPeople||[]).forEach(p=>{inner+='<a href="hall-of-fame.html?person='+encodeURIComponent(p.id)+'">'+tr('Βιογραφικό: '+p.name,'Biography: '+(p.nameEn||p.name))+' ↗</a>'});
+  (x.eventLinks||[]).forEach(link=>{if(!/^(?:history|70-stigmes|retro-matches)\.html(?:#(?:sport-[a-z]+|moment-\d+|match-\d+))?$/.test(link.href))return;inner+='<a href="'+esc(link.href)+'">'+esc(tr(link.labelEl,link.labelEn))+' ↗</a>'});
+  inner+='</div></section>';
+ }
  $('detail').innerHTML=inner;
  const dlg=$('dialog');if(!dlg.open)dlg.showModal();$('close').focus();
  const url=new URL(location.href);url.searchParams.set('record',id);history.replaceState(null,'',url);
