@@ -12,11 +12,9 @@
   const name=document.createElement('h2');name.className='arch-welcome-title';name.textContent='Μία ιστορία. Μία φλόγα.';
   const sub=document.createElement('div');sub.className='arch-welcome-sub';sub.textContent='Γ.Α.Σ. «Ο ΑΡΧΕΛΑΟΣ» ΚΑΤΕΡΙΝΗΣ';
   inner.append(ring,year,name,sub);
-  const skip=document.createElement('button');skip.className='arch-welcome-skip';skip.type='button';skip.textContent='Παράλειψη';skip.setAttribute('aria-label','Παράλειψη οθόνης καλωσορίσματος');
-  root.append(inner,skip);document.body.append(root);
+  root.append(inner);document.body.append(root);
   let done=false,timer;
   const close=()=>{if(done)return;done=true;clearTimeout(timer);root.classList.add('is-leaving');root.addEventListener('transitionend',()=>root.remove(),{once:true});setTimeout(()=>root.remove(),500)};
-  skip.addEventListener('click',close);
   timer=setTimeout(close,matchMedia('(max-width:700px)').matches?850:1400);
  };
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
