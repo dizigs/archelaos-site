@@ -76,7 +76,9 @@ function renderHeader(){
   const actions=document.createElement('div');actions.className='arch-header-actions';
   iconLink(actions,pages[11],'heart','arch-action arch-action-favorites','Αγαπημένα');
   iconLink(actions,pages[12],'plus','arch-action arch-action-contribute','Συνεισφέρω');
-  inner.append(actions);
+  // Reserved for any number of approved languages; hidden until publication is enabled.
+  const desktopLanguageSlot=document.createElement('div');desktopLanguageSlot.className='arch-language-slot';desktopLanguageSlot.dataset.i18nSlot='desktop';desktopLanguageSlot.hidden=true;
+  actions.append(desktopLanguageSlot);inner.append(actions);
   const btn=document.createElement('button');btn.className='arch-menu-open';btn.type='button';btn.textContent='☰';btn.setAttribute('aria-label','Άνοιγμα μενού');btn.setAttribute('aria-expanded','false');
   btn.setAttribute('aria-haspopup','dialog');inner.append(btn);header.append(inner);
   const drawer=document.createElement('dialog');drawer.className='arch-menu-dialog';drawer.setAttribute('aria-label','Μενού Αρχέλαου');
@@ -89,6 +91,8 @@ function renderHeader(){
   iconLink(quick,pages[11],'heart','arch-mobile-action arch-mobile-favorites','Τα αγαπημένα μου');
   iconLink(quick,pages[12],'plus','arch-mobile-action arch-mobile-contribute','Συνεισφορά αρχείου');
   content.append(quick);
+  const mobileLanguageSlot=document.createElement('div');mobileLanguageSlot.className='arch-language-slot arch-language-slot-mobile';mobileLanguageSlot.dataset.i18nSlot='mobile';mobileLanguageSlot.hidden=true;
+  content.append(mobileLanguageSlot);
   for(const group of [['Εξερεύνηση',[0,1,2,3,4,10]],['Ο Σύλλογος',[5,6,7,8,9]]]){
     const caption=document.createElement('div');caption.className='arch-menu-group';caption.textContent=group[0];content.append(caption);
     group[1].forEach(i=>{const a=addLink(content,pages[i],'arch-mobile-link');const arrow=document.createElement('span');arrow.textContent='↗';arrow.setAttribute('aria-hidden','true');a.append(arrow)});
@@ -114,7 +118,7 @@ function renderFooter(){
   for(const [label,icon,url] of [
     ['Facebook','facebook','https://www.facebook.com/oarxelaos'],
     ['YouTube','youtube','https://www.youtube.com/@GASArchelaosKaterinis'],
-    ['Wikipedia','wikipedia','https://el.wikipedia.org/wiki/Γ.Α.Σ._Ο_Αρχέλαος_Κατερίνης']
+    ['Wikipedia','wikipedia','https://en.wikipedia.org/wiki/GAS_Archelaos_Katerinis']
   ]){
     const link=document.createElement('a');link.href=url;link.target='_blank';link.rel='noopener noreferrer';
     link.setAttribute('aria-label',label+' · ανοίγει σε νέα καρτέλα');link.append(svgIcon(icon));
