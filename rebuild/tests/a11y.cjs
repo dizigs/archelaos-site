@@ -1,12 +1,19 @@
 /* Static release accessibility QA: automated audit + keyboard/landmark checks.
  * axe cannot replace human screen-reader and assistive-technology verification. */
 const {chromium}=require('playwright');
-const {mkdirSync,writeFileSync}=require('node:fs');
+const {mkdirSync,writeFileSync,readdirSync}=require('node:fs');
 const path=require('node:path');
 const BASE='http://127.0.0.1:8766';
 const OUTPUT=path.join(__dirname,'..','test-artifacts','accessibility');
-const routes=['index.html','hall-of-fame.html','history.html','contribute.html','favorites.html'];
-const viewports=[{width:320,height:720},{width:768,height:960},{width:1280,height:800},{width:1600,height:900}];
+const allProfiles=readdirSync(path.join(__dirname,'..','..','dist','people')).filter(x=>x.startsWith('arch-')&&x.endsWith('.html'));
+if(allProfiles.length!==682)throw Error('Expected all 682 profiles before accessibility audit');
+const routes=['index.html','history.html','hall-of-fame.html','70-stigmes.html',
+ 'stories.html','board.html','contact.html','sponsors.html','tmimata.html',
+ 'retro-matches.html','search.html','favorites.html','contribute.html',
+ '404.html','people/'+allProfiles[0]];
+// Full route coverage at representative mobile + desktop widths; geometric QA
+// independently tests six responsive widths.
+const viewports=[{width:390,height:844},{width:1280,height:800}];
 const report={guideline:'WCAG 2.2 A/AA',scope:'built local release',checks:[],violations:[],errors:[]};
 function fail(where,msg){report.errors.push({where,message:msg})}
 async function test(){
@@ -24,6 +31,16 @@ async function test(){
      if(!response?.ok()){fail(where,'HTTP '+response?.status());continue}
      await page.locator('.arch-header').waitFor();
      await page.locator('.arch-footer').waitFor();
+     await page.locator('.arch-a11y-launch').waitFor();
+     if(await page.locator('.arch-footer').count()!==1)fail(where,'Expected exactly one footer');
+     if(await page.locator('.arch-a11y-launch').count()!==1)fail(where,'Accessibility launch missing or duplicated');
+     if(await page.locator('.arch-back-to-top').count()!==1)fail(where,'Back-to-top control missing or duplicated');
+     const trigger=page.locator('.arch-a11y-launch');
+     await trigger.click();
+     await page.locator('#arch-a11y-panel[open]').waitFor();
+     await page.keyboard.press('Escape');
+     await page.locator('#arch-a11y-panel').waitFor({state:'hidden'});
+     if(await trigger.getAttribute('aria-expanded')!=='false')fail(where,'Accessibility dialog ARIA state did not reset');
      if(await page.locator('main').count()!==1)fail(where,'Main landmark not unique');
      if(await page.locator('h1').count()!==1)fail(where,'Primary heading not unique');
      if(await page.locator('[data-i18n-slot]:visible').count())fail(where,'Draft language control exposed');
