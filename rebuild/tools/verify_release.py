@@ -88,6 +88,11 @@ def verify() -> None:
     loc_people = [e.text for e in profiles.findall(".//s:loc", NS)]
     assert set(loc_pages) == canonical_set and len(loc_pages) == len(canonical_set)
     assert len(loc_people) == len(set(loc_people)) == 682
+    for file in (DIST / "people").glob("arch-*.html"):
+        text = file.read_text(encoding="utf-8")
+        assert '/assets/site/js/shell.js' in text and '/assets/site/js/profile-favorite.js' in text, file.name
+        assert '/assets/navigation.js' not in text and '/history-events.html' not in text, file.name
+
     assert all((DIST / "people" / url.rsplit("/", 1)[-1]).is_file() for url in loc_people)
     robots = (DIST / "robots.txt").read_text()
     assert "Sitemap: " + SITE + "/sitemap.xml" in robots

@@ -186,6 +186,33 @@ def make_release() -> None:
         copytree(ROOT / folder, OUTPUT / folder)
     for name in ("css", "js", "data"):
         copytree(STAGE / name, OUTPUT / "assets" / "site" / name)
+    # Keep all 682 historic profile URLs/Person metadata, but replace the old
+    # per-profile navbar/footer with the shared site-wide shell in the generated release.
+    # Source backup profiles remain completely untouched.
+    profiles = sorted((OUTPUT / "people").glob("arch-*.html"))
+    for profile in profiles:
+        html_text = profile.read_text(encoding="utf-8")
+        for old in ("/assets/navigation.css", "/assets/footer.css", "/assets/accessibility.css"):
+            html_text = html_text.replace(f'<link rel="stylesheet" href="{old}">', "")
+        for old in ("/assets/navigation.js", "/assets/footer.js", "/assets/accessibility.js"):
+            html_text = html_text.replace(f'<script src="{old}" defer></script>', "")
+        html_text = html_text.replace('href="/history-events.html"', 'href="/70-stigmes.html"')
+        additions = [
+            '<link rel="stylesheet" href="/assets/site/css/tokens.css">',
+            '<link rel="stylesheet" href="/assets/site/css/components.css">',
+            '<link rel="stylesheet" href="/assets/site/css/collection.css">',
+            '<link rel="stylesheet" href="/assets/site/css/profile-release.css">',
+            '<link rel="stylesheet" href="/assets/site/css/motion.css">',
+            '<script defer src="/assets/site/js/shell.js"></script>',
+            '<script defer src="/assets/site/js/favorites.js"></script>',
+            '<script defer src="/assets/site/js/profile-favorite.js"></script>',
+            '<script defer src="/assets/site/js/motion.js"></script>',
+        ]
+        if html_text.count("</head>") != 1:
+            raise ValueError("Invalid historical profile head: " + profile.name)
+        html_text = html_text.replace("</head>", "\n".join(additions) + "\n</head>")
+        profile.write_text(html_text, encoding="utf-8")
+
     # The published JavaScript refers to the new organized data folder.
     for script in (OUTPUT / "assets" / "site" / "js").glob("*.js"):
         src = script.read_text(encoding="utf-8")

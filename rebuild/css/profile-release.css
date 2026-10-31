@@ -1,0 +1,12 @@
+/* Unify 682 historical person pages under the new shell without a card redesign. */
+body.person-page{padding-top:var(--arch-nav-height)}
+body.person-page .profile-main{padding-top:clamp(30px,5vw,56px)}
+body.person-page .arch-brand,body.person-page .arch-nav a{color:#fff7e6!important}
+body.person-page .arch-header .arch-dropdown a{color:#073d2a!important}
+body.person-page .arch-menu-dialog a{color:#073d2a!important}
+body.person-page .arch-footer a{color:#f8f6ef!important}
+body.person-page .arch-footer-personal a{color:#e9ce96!important}
+body.person-page .profile-actions>.arch-favorite-toggle{min-width:52px;min-height:52px;font-size:25px}
+body.person-page .profile-card{overflow:hidden}
+body.person-page .arch-footer{font-family:Inter,system-ui,-apple-system,sans-serif}
+@media(max-width:600px){body.person-page .profile-main{padding-top:20px}}

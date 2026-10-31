@@ -98,6 +98,16 @@ async function verify(){
   const p=await browser.newPage();
   const r=await p.goto(ROOT+'/people/'+profile,{waitUntil:'domcontentloaded'});
   if(!r?.ok()||await p.locator('link[rel=canonical]').count()!==1)throw Error('Legacy profile route broken');
+  await p.locator('.arch-header').waitFor();
+  await p.locator('.arch-footer').waitFor();
+  const profileHeart=p.locator('.profile-actions .arch-favorite-toggle');
+  await profileHeart.waitFor();
+  await profileHeart.click();
+  if(await profileHeart.getAttribute('aria-pressed')!=='true')throw Error('Direct profile favorite missing');
+  await p.reload({waitUntil:'domcontentloaded'});
+  await p.locator('.profile-actions .arch-favorite-toggle[aria-pressed="true"]').waitFor();
+  const oldLinks=await p.locator('a[href="/history-events.html"]').count();
+  if(oldLinks)throw Error('Removed history-events link survived on profile');
   await p.close();
  } finally {await browser.close()}
  console.log('Release Chromium smoke checks passed on desktop/mobile and profile route.');
