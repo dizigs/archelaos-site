@@ -3235,27 +3235,49 @@ a.museum-subtle-link:focus-visible{outline:3px solid #c7a65e;outline-offset:3px}
 </style>
 
 
-<style id="v31-museum-archive-fixed-close">
-/* Close control is a sibling of the dialog panel, never clipped by the panel's scroll. */
-#historyArchiveModal > .v70-archive-close {
-  position: fixed !important;
-  top: max(16px, env(safe-area-inset-top)) !important;
-  right: max(16px, env(safe-area-inset-right)) !important;
-  left: auto !important;
-  z-index: 100 !important;
-  width: 46px !important;
-  height: 46px !important;
-  margin: 0 !important;
-  display: grid !important;
-  place-items: center !important;
-  opacity: 1 !important;
-  visibility: visible !important;
+<style id="v31-museum-reader-layout">
+/* Reader modal owns exactly one scrollable content region. */
+#historyArchiveModal.museum-reader {
+  position:fixed!important;inset:0!important;z-index:9000!important;
+  padding:16px!important;box-sizing:border-box!important;
+  display:flex!important;align-items:center!important;justify-content:center!important;
+  overflow:hidden!important;background:rgba(5,34,23,.78)!important;
 }
-#historyArchiveModal .modal-box { min-height: 0 !important; }
-#historyArchiveModal #historyArchiveContent { min-height: 0 !important; overflow-y: auto !important; padding-bottom: 90px !important; }
-@media(max-width:767px) {
-  #historyArchiveModal .modal-box { max-height: calc(100dvh - 24px) !important; overflow: hidden !important; }
-  #historyArchiveModal > .v70-archive-close { top: max(12px, env(safe-area-inset-top)) !important; right: max(12px, env(safe-area-inset-right)) !important; }
+#historyArchiveModal.museum-reader:not(.is-open) {display:none!important}
+#historyArchiveModal.museum-reader .museum-reader-panel {
+  position:relative!important;display:flex!important;flex-direction:column!important;
+  width:min(100%,1040px)!important;height:min(900px,calc(100dvh - 32px))!important;
+  max-height:calc(100dvh - 32px)!important;min-height:0!important;margin:0!important;
+  padding:0!important;border:1px solid #baa16a!important;border-radius:20px!important;
+  overflow:hidden!important;background:#fffdf7!important;
+  transform:none!important;filter:none!important;opacity:1!important;
+}
+#historyArchiveModal .museum-reader-header {
+  flex:0 0 auto!important;min-height:76px;display:flex;align-items:center;
+  justify-content:space-between;gap:14px;padding:14px 20px!important;
+  background:#073d2a!important;color:#fffdf7!important;border-bottom:3px solid #c7a65e!important;
+}
+#historyArchiveModal .museum-reader-heading {min-width:0;flex:1}
+#historyArchiveModal .museum-reader-eyebrow {display:block;color:#e3c98d;font-size:10px;font-weight:800;letter-spacing:.09em}
+#historyArchiveModal #historyArchiveTitle {color:#fffdf7!important;font-size:clamp(17px,3vw,23px)!important;line-height:1.25!important;margin:6px 0 0!important;overflow-wrap:anywhere}
+#historyArchiveModal .museum-reader-close {
+  flex:0 0 46px!important;width:46px!important;height:46px!important;
+  position:static!important;display:grid!important;place-items:center!important;
+  border-radius:50%!important;background:#fffdf7!important;color:#073d2a!important;
+  border:2px solid #c7a65e!important;opacity:1!important;visibility:visible!important;
+  cursor:pointer!important;z-index:2!important;
+}
+#historyArchiveModal .museum-reader-close:focus-visible{outline:3px solid #c7a65e;outline-offset:3px}
+#historyArchiveModal #historyArchiveContent.museum-reader-content {
+  flex:1 1 0!important;min-height:0!important;height:auto!important;max-height:none!important;
+  display:block!important;overflow-y:auto!important;overflow-x:hidden!important;
+  padding:24px clamp(16px,4vw,48px) max(48px,env(safe-area-inset-bottom))!important;
+  overscroll-behavior:contain;-webkit-overflow-scrolling:touch;
+}
+@media(max-width:767px){
+  #historyArchiveModal.museum-reader{padding:0!important}
+  #historyArchiveModal.museum-reader .museum-reader-panel{width:100%!important;height:100dvh!important;max-height:100dvh!important;border-radius:0!important;border:0!important}
+  #historyArchiveModal .museum-reader-header{padding:max(12px,env(safe-area-inset-top)) 14px 12px!important}
 }
 </style></head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow arch-gold-page" data-arch-people-page="history">
@@ -5390,11 +5412,17 @@ a.museum-subtle-link:focus-visible{outline:3px solid #c7a65e;outline-offset:3px}
 </article>
 </template>
 <!-- Full-history topic popup -->
-<div aria-hidden="true" aria-labelledby="historyArchiveTitle" aria-modal="true" class="modal-backdrop fixed inset-0 z-[70] flex items-start sm:items-center justify-center overflow-y-auto bg-black/65 backdrop-blur-sm p-2 sm:p-4" id="historyArchiveModal" role="dialog">
-<button aria-label="Κλείσιμο / Close" class="v70-archive-close" onclick="closeHistoryArchive()" type="button"><svg aria-hidden="true" focusable="false" height="20" viewbox="0 0 24 24" width="20"><path d="M5 5L19 19M19 5L5 19" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2.8"></path></svg></button>
-<div class="modal-box max-w-6xl w-full max-h-[94vh] mx-auto my-2 sm:my-4 rounded-[1.6rem] sm:rounded-[2rem] bg-white border-2 border-archelaos-deepgreen/25 shadow-2xl overflow-hidden flex flex-col">
-<div class="history-archive-content min-h-0 overflow-y-auto overscroll-contain p-3 sm:p-7" id="historyArchiveContent"></div>
-</div>
+<div aria-hidden="true" aria-labelledby="historyArchiveTitle" aria-modal="true" class="modal-backdrop museum-reader" id="historyArchiveModal" role="dialog">
+  <div class="modal-box museum-reader-panel">
+    <header class="museum-reader-header">
+      <div class="museum-reader-heading">
+        <span class="museum-reader-eyebrow">Γ.Α.Σ. «Ο ΑΡΧΕΛΑΟΣ» · ΨΗΦΙΑΚΟ ΜΟΥΣΕΙΟ</span>
+        <h2 id="historyArchiveTitle">Ιστορικό αρχείο</h2>
+      </div>
+      <button aria-label="Κλείσιμο / Close" class="museum-reader-close" onclick="closeHistoryArchive()" type="button"><svg aria-hidden="true" focusable="false" width="22" height="22" viewBox="0 0 24 24"><path d="M5 5L19 19M19 5L5 19" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2.8"/></svg></button>
+    </header>
+    <div class="history-archive-content museum-reader-content" id="historyArchiveContent" tabindex="0"></div>
+  </div>
 </div>
 <!-- President popup used by the original table rows in the history chapter -->
 <div aria-hidden="true" aria-labelledby="historyPresidentModalName" aria-modal="true" class="modal-backdrop fixed inset-0 z-[80] flex items-center justify-center overflow-y-auto bg-black/70 backdrop-blur-sm p-4" id="historyPresidentModal" role="dialog">
