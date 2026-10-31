@@ -1,9 +1,9 @@
 /* Archelaos unified navigation v88. Edit menu items here, never separately in pages. */
 (function(){'use strict';
- // Every page now uses the Greek-only presentation layer.
- const greekOnly=document.createElement('script');greekOnly.src='/assets/greek-only.js';greekOnly.defer=true;document.head.appendChild(greekOnly);
  const script=document.currentScript;
  if(!script||document.getElementById('arch-global-nav-root'))return;
+ // One shared Greek-only presentation layer across all pages.
+ const greekOnly=document.createElement('script');greekOnly.src='/assets/greek-only.js';greekOnly.defer=true;document.head.appendChild(greekOnly);
  const pageName=(location.pathname.split('/').pop()||'index.html').toLowerCase();
  const isProfile=location.pathname.startsWith('/people/');
  const isMuseum=['history.html','hall-of-fame.html','70-stigmes.html','stories.html'].includes(pageName);
