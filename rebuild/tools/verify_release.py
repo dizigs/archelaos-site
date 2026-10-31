@@ -36,6 +36,8 @@ def verify() -> None:
     for entry in main:
         file = DIST / entry["file"]
         src = file.read_text(encoding="utf-8")
+        assert '/assets/site/js/shell.js' in src, "Missing shared footer/accessibility/back-to-top: " + entry["file"]
+        assert '/assets/site/css/components.css' in src, "Missing shared controls styling: " + entry["file"]
         canonical = SITE + entry["path"]
         should_index = entry.get("indexable", True)
         expected_robots = 'index,follow,max-image-preview:large' if should_index else 'noindex,follow'
@@ -99,6 +101,18 @@ def verify() -> None:
         text = file.read_text(encoding="utf-8")
         assert '/assets/site/js/shell.js' in text and '/assets/site/js/profile-favorite.js' in text, file.name
         assert '/assets/navigation.js' not in text and '/history-events.html' not in text, file.name
+        assert "<header" not in text.lower(), "Duplicated legacy header in " + file.name
+        assert "<footer" not in text.lower(), "Duplicated legacy footer in " + file.name
+        assert '/assets/site/css/components.css' in text, "Shared controls CSS missing: " + file.name
+
+    # All public routes (13 pages, 682 biographies and 404) must share one
+    # footer, accessibility trigger and return-to-top implementation.
+    not_found=(DIST/"404.html").read_text(encoding="utf-8")
+    assert '/assets/site/js/shell.js' in not_found and '/assets/site/css/components.css' in not_found, "404 is missing site-wide tools"
+    shared_script=(DIST/"assets/site/js/shell.js").read_text(encoding="utf-8")
+    for signature in ('function renderFooter()', 'function renderSiteTools()', "'arch-a11y-launch'", "'arch-back-to-top'", "'arch-a11y-panel'"):
+        assert signature in shared_script, "Missing shared feature: " + signature
+    assert len(list((DIST/"people").glob("arch-*.html"))) == 682
 
     # Prevent legacy profile copies from reintroducing an incorrect presidential attribution.
     pid = "arch-61d8d097f601"
