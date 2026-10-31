@@ -4,14 +4,14 @@
 <title>Συνεισφορά στο ιστορικό αρχείο · Γ.Α.Σ. Αρχέλαος</title>
 <meta name="description" content="Μοιραστείτε φωτογραφίες, αγωνιστικά τεκμήρια, ονόματα και μαρτυρίες για 70 χρόνια αθλητικής ιστορίας του Αρχέλαου.">
 <link rel="stylesheet" href="/rebuild/css/tokens.css"><link rel="stylesheet" href="/rebuild/css/components.css"><link rel="stylesheet" href="/rebuild/css/collection.css"><link rel="stylesheet" href="/rebuild/css/motion.css"><link rel="stylesheet" href="/rebuild/css/viewports.css">
-<script defer src="/rebuild/js/shell.js"></script><script defer src="/rebuild/js/motion.js"></script>
+<script defer src="/rebuild/js/shell.js"></script><script defer src="/rebuild/js/motion.js"></script><script defer src="/rebuild/js/contribute-guide.js"></script>
 <link rel="stylesheet" href="/rebuild/css/contribute-guide.css"></head><body><a class="av-skip" href="#ac-main">Μετάβαση στο περιεχόμενο</a>
 <main id="ac-main">
 <section class="ac-hero"><div class="arch-container">
 <p class="av-kicker">70 ΧΡΟΝΙΑ · 1956—2026</p>
 <h1>Η ιστορία μας<br>γράφεται <em>μαζί.</em></h1>
 <p>Κάθε φωτογραφία, κάθε φύλλο αγώνα και κάθε προσωπική ανάμνηση μπορεί να φωτίσει μία ακόμη σελίδα της αθλητικής διαδρομής του Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης.</p>
-<a class="ac-cta" href="#ac-how">Πώς μπορώ να βοηθήσω; <span aria-hidden="true">↘</span></a>
+<a class="ac-cta" href="#ac-guide">Πώς μπορώ να βοηθήσω; <span aria-hidden="true">↘</span></a>
 </div></section>
 <section class="ac-section"><div class="arch-container">
 <p class="av-kicker">ΤΟ ΑΡΧΕΙΟ ΕΞΑΚΟΛΟΥΘΕΙ ΝΑ ΜΕΓΑΛΩΝΕΙ</p>
@@ -29,6 +29,34 @@
 <div><b>01</b><h3>Περιγράφετε το υλικό</h3><p>Ποια χρονιά, ποια ομάδα, ποιο αγώνισμα ή ποιοι άνθρωποι συνδέονται με αυτό; Ακόμη και λίγες αξιόπιστες πληροφορίες βοηθούν.</p></div>
 <div><b>02</b><h3>Διασταυρώνουμε τα στοιχεία</h3><p>Συγκρίνουμε μαρτυρίες και τεκμήρια με όσα έχουν ήδη καταγραφεί, χωρίς να επινοούμε ονόματα, επιδόσεις ή ημερομηνίες.</p></div>
 <div><b>03</b><h3>Εμπλουτίζουμε το αρχείο</h3><p>Με κατάλληλη άδεια και τεκμηρίωση, το υλικό μπορεί να αξιοποιηθεί σε βιογραφία, ιστορικό γεγονός ή ψηφιακή έκθεση.</p></div>
+</div></div></section>
+<section class="ac-guide-section" id="ac-guide" aria-labelledby="ac-guide-title"><div class="arch-container">
+<p class="av-kicker">ΣΥΜΠΛΗΡΩΣΤΕ ΜΟΝΟ ΟΣΑ ΓΝΩΡΙΖΕΤΕ</p>
+<h2 id="ac-guide-title">Μια πιο χρήσιμη <em>συνεισφορά.</em></h2>
+<p class="ac-guide-lead">Μας βοηθά να οργανώσουμε το ιστορικό υλικό. Δεν χρειάζονται όλες οι λεπτομέρειες· γράψτε ό,τι γνωρίζετε με βεβαιότητα, χωρίς να μαντεύετε χρονολογίες ή αποτελέσματα.</p>
+<div class="ac-guide" role="group" aria-labelledby="ac-guide-form-title">
+<h3 id="ac-guide-form-title">Ετοιμάστε το μήνυμά σας</h3>
+<p class="ac-guide-lead">Τα στοιχεία παραμένουν σε αυτή τη σελίδα μέχρι να ανοίξετε εσείς την εφαρμογή email. Δεν υπάρχει online αποστολή ή μεταφόρτωση αρχείων.</p>
+<div class="ac-guide-grid">
+<div class="ac-guide-field"><label for="ac-type">Τι είδους υλικό έχετε;</label><select id="ac-type" name="type">
+<option value="Φωτογραφία">Φωτογραφία</option><option value="Αγώνας ή αποτέλεσμα">Αγώνας ή αποτέλεσμα</option>
+<option value="Βιογραφικό στοιχείο">Βιογραφικό στοιχείο</option><option value="Ιστορική μαρτυρία">Ιστορική μαρτυρία</option><option value="Άλλο τεκμήριο">Άλλο τεκμήριο</option>
+</select></div>
+<div class="ac-guide-field"><label for="ac-sport">Άθλημα ή τμήμα</label><select id="ac-sport" name="sport">
+<option value="">Δεν γνωρίζω / γενικό</option><option>Χάντμπολ</option><option>Στίβος</option><option>Τοξοβολία</option><option>Σκοποβολή</option><option>Ενόργανη γυμναστική</option><option>Βόλεϊ</option><option>Πάλη</option><option>Κολύμβηση</option><option>Άλλο τμήμα</option>
+</select></div>
+<div class="ac-guide-field"><label for="ac-date">Χρονιά ή περίοδος</label><input id="ac-date" name="period" maxlength="65" placeholder="π.χ. 1994 ή δεκαετία 1970" autocomplete="off"></div>
+<div class="ac-guide-field"><label for="ac-persons">Πρόσωπα, ομάδα ή διοργάνωση</label><input id="ac-persons" name="people" maxlength="140" placeholder="Όσα ονόματα γνωρίζετε" autocomplete="off"></div>
+<div class="ac-guide-field wide"><label for="ac-details">Τι γνωρίζετε για το υλικό;</label><textarea id="ac-details" name="details" maxlength="800" rows="4" aria-describedby="ac-details-help" placeholder="Περιγράψτε με δικά σας λόγια το γεγονός, τη φωτογραφία ή την ιστορία."></textarea><small id="ac-details-help" class="ac-guide-help">Μην συμπεριλάβετε τηλέφωνα, διευθύνσεις ή άλλα ευαίσθητα προσωπικά στοιχεία.</small></div>
+<div class="ac-guide-field"><label for="ac-source">Προέλευση ή πηγή</label><input id="ac-source" name="source" maxlength="160" placeholder="π.χ. οικογενειακό αρχείο, εφημερίδα" autocomplete="off"></div>
+<div class="ac-guide-field"><label for="ac-rights">Δυνατότητα κοινοποίησης</label><select id="ac-rights" name="rights" aria-describedby="ac-rights-help">
+<option value="Χρειάζεται διευκρίνιση">Δεν είμαι βέβαιος/η</option><option value="Διαθέτω δικαίωμα κοινοποίησης">Διαθέτω δικαίωμα κοινοποίησης</option><option value="Δεν διαθέτω άδεια δημοσίευσης">Δεν διαθέτω άδεια δημοσίευσης</option>
+</select><small id="ac-rights-help" class="ac-guide-help">Η επιλογή δεν αποτελεί από μόνη της έγκριση δημοσίευσης.</small></div>
+</div>
+<div class="ac-guide-actions"><a class="ac-email" id="ac-guide-email" href="mailto:info@archelaos.club?subject=%CE%A5%CE%BB%CE%B9%CE%BA%CF%8C%20%CE%B3%CE%B9%CE%B1%20%CF%84%CE%BF%20%CE%91%CF%81%CF%87%CE%B5%CE%AF%CE%BF">Άνοιγμα προσυμπληρωμένου email ↗</a>
+<button class="ac-guide-copy" type="button" id="ac-guide-copy">Αντιγραφή περιγραφής</button></div>
+<p id="ac-guide-status" role="status" aria-live="polite" aria-atomic="true"></p>
+<p class="ac-guide-privacy">Πριν αποστείλετε μήνυμα, ελέγξτε όσα γράψατε και προσθέστε τυχόν φωτογραφίες ως συνημμένα από την εφαρμογή email. Για φωτογραφίες τρίτων ή ανηλίκων απαιτείται κατάλληλη άδεια.</p>
 </div></div></section>
 <section class="ac-contact"><div class="arch-container"><div class="ac-contact-grid">
 <div><p class="av-kicker">ΣΥΝΕΙΣΦΟΡΑ ΣΤΟ ΨΗΦΙΑΚΟ ΜΟΥΣΕΙΟ</p>
