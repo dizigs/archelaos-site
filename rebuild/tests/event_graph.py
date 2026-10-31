@@ -14,7 +14,7 @@ def main():
     baseline=mod.compile_graph(data,people)
     assert baseline["events"]==[] and baseline["by_person"]=={}, "No approved events should publish automatically"
     sample=copy.deepcopy(data)
-    event=sample["events"][0]
+    event=next(x for x in sample["events"] if x["id"]=="arc-multisport-honours-2022")
     event["editorial_status"]="approved"
     graph=mod.compile_graph(sample,people)
     assert len(graph["events"])==1
@@ -28,8 +28,8 @@ def main():
     disputed["editorial_status"]="approved"
     assert mod.compile_graph(other,people)["events"]==[]
     other=copy.deepcopy(data)
-    other["events"][0]["editorial_status"]="approved"
-    other["events"][0]["associations"]["people"][0]["person_id"]="arch-unknown"
+    other["events"][14]["editorial_status"]="approved"
+    other["events"][14]["associations"]["people"][0]["person_id"]="arch-unknown"
     assert mod.compile_graph(other,people)["events"]==[]
     print("BIDIRECTIONAL EVENT QA OK: approval gate, reciprocal links, conflict and identity locks.")
 

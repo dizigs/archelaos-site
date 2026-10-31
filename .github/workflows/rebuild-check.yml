@@ -114,6 +114,20 @@ jobs:
         run: |
           python rebuild/tests/event_graph.py
           python rebuild/tools/build_event_graph.py
+      - name: Produce non-binding editor recommendations and numbered owner queue
+        run: |
+          python rebuild/tests/event_triage.py
+          python rebuild/tools/event_triage.py
+      - name: Save owner review list and recommendations
+        if: always()
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        with:
+          name: archelaos-owner-event-review
+          path: |
+            rebuild/test-artifacts/event-review-queue.json
+            rebuild/test-artifacts/event-review-queue.md
+          if-no-files-found: warn
+          retention-days: 14
       - name: Ensure all rebuild HTML pages are unpublished previews
         shell: bash
         run: |
