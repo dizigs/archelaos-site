@@ -94,4 +94,11 @@ with tempfile.TemporaryDirectory() as scratch:
     else:
         raise AssertionError("Draft preparer overwrote a previous draft")
 
+# A corrected phrase elsewhere must NOT mask an unreplaced original.
+try:
+    editor.exact_replace("old phrase / new phrase","old phrase","new phrase","coexisting")
+except ValueError:
+    pass
+else:
+    raise AssertionError("Partially applied correction passed validation")
 print("EDITORIAL TOOL QA OK: exact multi-file records, idempotence, source lookup, safe failure")

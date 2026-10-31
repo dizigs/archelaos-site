@@ -26,7 +26,10 @@ def exact_replace(text,before,after,where):
     if not before or before==after or not after:
         raise ValueError(f"{where}: change must have distinct nonempty text")
     if after in text:
-        # This is an idempotent archived correction; do not duplicate.
+        # Idempotent ONLY when no separate old phrase remains uncorrected.
+        residual=text.replace(after,"")
+        if before in residual:
+            raise ValueError(f"{where}: old and new versions coexist; manual review required")
         return text,False
     count=text.count(before)
     if count!=1:
