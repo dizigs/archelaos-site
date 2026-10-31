@@ -7073,7 +7073,7 @@ html body #museum-v54-navigation .m55-nav-card .m55-nav-arrow{
 </script>
 <script>
 (function(){
-  const chapterIds=['intro','dioikisi','egkatastaseis','tmimata','diia'];
+  const chapterIds=['intro','dioikisi','tmimata','diia'];
   const sportIds=['handball','track','archery','volleyball','shooting','wrestling','swimming','gymnastics','basketball','inactive-depts'];
   function initHistory(){
     const search=document.getElementById('historySearch');
@@ -7109,6 +7109,8 @@ html body #museum-v54-navigation .m55-nav-card .m55-nav-arrow{
     routeHash();
     window.addEventListener('hashchange',routeHash);
     cards.forEach((card,index)=>{
+      // The sports-history card is a real page link; never overwrite the hash first.
+      if(card.matches('a[href]'))return;
       card.addEventListener('click',()=>history.replaceState(null,'','#chapter-'+chapterIds[index]));
     });
     document.querySelectorAll('#sports-archive .history-dept-shortcut').forEach((btn,index)=>{
