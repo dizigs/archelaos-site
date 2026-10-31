@@ -64,6 +64,10 @@ async function audit(){
     if(view.width<1170){
       const b=page.locator('.arch-menu-open');await b.click({timeout:6000});
       await page.locator('.arch-menu-dialog[open]').waitFor({timeout:6000});
+      // Check final drawer placement, not its intentional 245ms entrance animation.
+      await page.locator('.arch-menu-dialog[open]').evaluate(async el=>{
+        await Promise.all(el.getAnimations().map(a=>a.finished.catch(()=>{})));
+      });
       const menuBox=await page.locator('.arch-menu-dialog[open]').boundingBox();
       if(!menuBox||Math.abs(menuBox.y)>2||menuBox.x<0||
          menuBox.x+menuBox.width>view.width+2)
