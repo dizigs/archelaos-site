@@ -15,7 +15,7 @@ function show(){
  board.append(teams,el('div','rt-match-meta',record.date+' · '+record.venue),el('span','rt-outcome',record.outcome));
  const body=el('div','rt-match-body');
  body.append(el('h3','','Η ιστορία του αγώνα'),el('p','',record.summary));
- const full=el('button','rt-detail-open','Αναλυτικό φύλλο αγώνα ↗');full.type='button';
+ const full=el('button','rt-detail-open','Αναλυτικό φύλλο αγώνα');full.type='button';
  full.addEventListener('click',()=>window.ArchelaosUI.openDialog({
   title:'Τελικός Κυπέλλου '+record.year,subtitle:'Γ.Α.Σ. Αρχέλαος · '+record.score+' · '+record.opponent,
   contentNode:window.ArchelaosArchive.fragment(record.originalHtml),
