@@ -24,6 +24,13 @@ people=load(DATA/"people.json")["people"]
 en=load(I18N/"content"/"en"/"people.json")["people"]
 assert len(en)==len(people)==682
 assert [p["id"] for p in en]==[p["id"] for p in people]
+# Correct source of temporary presidential duties after Alkinoos Tasopoulos.
+alkinoos=next(p for p in people if p["id"]=="arch-61d8d097f601")
+alkinoos_en=next(p for p in en if p["id"]=="arch-61d8d097f601")
+assert "τα καθήκοντα του προέδρου άσκησε προσωρινά ο Χαράλαμπος Σαββίδης" in alkinoos["bio"]
+assert "Charalampos Savvidis temporarily carried out the president's duties" in alkinoos["bio_en"]
+assert alkinoos_en["biography"]==alkinoos["bio_en"], "English export not in sync"
+
 assert all(p["biography"] and p["name"] for p in en)
 moments=load(DATA/"moments.json")["moments"]
 translated=load(I18N/"content"/"en"/"moments.json")["moments"]
