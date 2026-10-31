@@ -100,7 +100,7 @@ async function run(){
      await page.locator('#new-slide-next').click();
      await page.waitForFunction(()=>document.querySelector('#new-slide-title')?.textContent.includes('Στίβος'));
     }
-    const first={hall:'.h-new-person',moments:'.rm-card',stories:'.rs-card',museum:'.mu-sport-item',board:'.bd-era',departments:'.dp-card',retro:'.rt-detail-open'}[name];
+    const first={hall:'.h-new-person',moments:'.rm-card',stories:'.rs-card',museum:'.mu-exhibit',board:'.bd-era',departments:'.dp-card',retro:'.rt-detail-open'}[name];
     if(name==='contact'){
      await page.locator('[data-open-contact]').first().click();
      await page.locator('dialog.arch-dialog[open] #ct-topic').waitFor();
