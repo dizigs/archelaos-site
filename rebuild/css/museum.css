@@ -69,3 +69,7 @@
 .mu-entrance h1{font-weight:600!important}
 .mu-entrance h1 em{font-weight:400}
 @media(max-width:700px){.mu-entrance{padding:68px 0 75px!important}}
+
+/* Biography references are distinguished by weight, not an underline. */
+.arch-dialog .mu-article a:is([href*="/people/"],[href*="hall-of-fame.html?person="]){font-weight:650;color:inherit;text-decoration:none}
+.arch-dialog .mu-article a:is([href*="/people/"],[href*="hall-of-fame.html?person="]):hover{color:#0b6045}
