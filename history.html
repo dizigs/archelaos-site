@@ -3279,6 +3279,25 @@ a.museum-subtle-link:focus-visible{outline:3px solid #c7a65e;outline-offset:3px}
   #historyArchiveModal.museum-reader .museum-reader-panel{width:100%!important;height:100dvh!important;max-height:100dvh!important;border-radius:0!important;border:0!important}
   #historyArchiveModal .museum-reader-header{padding:max(12px,env(safe-area-inset-top)) 14px 12px!important}
 }
+</style><style id="v31-popup-columns-single-arrow">
+/* Museum: long text and archival cards read in one column on phones. */
+@media(max-width:767px) {
+  #historyArchiveModal .museum-reader-content :is(.grid,[class*="grid-cols-"]),
+  #historyPresidentModal .modal-box :is(.grid,[class*="grid-cols-"]),
+  #timelineDetailModal .modal-box :is(.grid,[class*="grid-cols-"]),
+  #deptHistoryModal .modal-box :is(.grid,[class*="grid-cols-"]),
+  #registrationModal .modal-box :is(.grid,[class*="grid-cols-"]) {
+    grid-template-columns:minmax(0,1fr)!important;
+  }
+  #historyArchiveModal .museum-reader-content :is(.grid,[class*="grid-cols-"]) > *,
+  #historyPresidentModal .modal-box :is(.grid,[class*="grid-cols-"]) > *,
+  #timelineDetailModal .modal-box :is(.grid,[class*="grid-cols-"]) > *,
+  #deptHistoryModal .modal-box :is(.grid,[class*="grid-cols-"]) > * {
+    min-width:0!important;
+  }
+}
+/* Keep the existing diagonal arrow; hide the extra straight-chevron pseudo-element. */
+#history-archive .history-archive-card > .flex::after {content:none!important;display:none!important}
 </style></head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow arch-gold-page" data-arch-people-page="history">
 <!-- ANIMATED CONTOUR WAVES -->
