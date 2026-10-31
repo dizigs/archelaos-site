@@ -152,6 +152,14 @@ function routePreviewLinks(){
 /* Shared accessibility controls and back-to-top: every route, including biographies and 404. */
 function renderSiteTools(){
  if(document.querySelector('.arch-a11y-launch'))return;
+ const main=document.querySelector('main');
+ if(main&&!document.querySelector('a[href="#main-content"]')){
+  if(!main.id)main.id='main-content';
+  const skip=document.createElement('a');
+  skip.className='arch-skip-link';skip.href='#'+main.id;
+  skip.textContent='Παράκαμψη πλοήγησης — κύριο περιεχόμενο';
+  document.body.prepend(skip);
+ }
  const launch=document.createElement('button');
  launch.type='button';launch.className='arch-a11y-launch';
  launch.setAttribute('aria-label','Ρυθμίσεις προσβασιμότητας');
@@ -221,7 +229,7 @@ function renderSiteTools(){
   const brand=document.querySelector('.arch-brand');
   if(brand)brand.focus({preventScroll:true});
   const reduced=settings.calm||window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  window.scrollTo({top:0,behavior:reduced?'instant':'smooth'});
+  window.scrollTo({top:0,behavior:reduced?'auto':'smooth'});
  });
  window.addEventListener('scroll',updateBackTop,{passive:true});
  updateBackTop();
