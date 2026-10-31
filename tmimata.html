@@ -45,6 +45,25 @@ html,body{max-width:100%;overflow-x:clip}
 @media(max-width:640px){.tm-hero h1{font-size:clamp(2.3rem,10.3vw,4.2rem)!important}.tm-hero-lead{font-size:1rem!important}.atlas-feature{padding:22px 17px}.atlas-feature-main{align-items:center;flex-wrap:nowrap}.atlas-feature-mark{flex:0 1 64px;max-width:64px;opacity:.6}.atlas-feature-title h2{font-size:clamp(1.75rem,8vw,3rem)!important}.atlas-feature-title p{font-size:.91rem;line-height:1.55}.atlas-event-detail{padding:21px 15px!important}.atlas-event-detail h4{font-size:2rem}.atlas-events p{padding:13px 12px;font-size:.95rem}.atlas-content .dept-panel,.atlas-content .atlas-basketball{padding:16px!important}.atlas-content :is(.flex,.grid)>*{min-width:0}}
 @media(prefers-reduced-motion:no-preference){.atlas-event-detail{animation:atlasReveal .38s ease-out both}.atlas-events p{animation:atlasReveal .35s ease-out both}.atlas-events p:nth-child(2){animation-delay:.06s}.atlas-events p:nth-child(3){animation-delay:.12s}.atlas-events p:nth-child(4){animation-delay:.18s}@keyframes atlasReveal{from{opacity:.55;transform:translateY(9px)}to{opacity:1;transform:none}}}
 @media(prefers-reduced-motion:reduce){.atlas-year-btn,.atlas-events p,.atlas-event-detail,.atlas-full-archive summary{animation:none!important;transition:none!important;transform:none!important}}
+
+/* Warm stone-beige palette: replaces yellow cream only on this page */
+:root{--cream:#e9dfcf;--tm-beige:#e9dfcf;--tm-beige-soft:#f0e7da;--tm-paper:#f4ede3;--tm-border:#cdbca3}
+body{background:#e9dfcf!important}
+.tm-wrap{background:transparent}
+.atlas-heading p,.atlas-timeline-head p{color:#4b5b50}
+.atlas-tabs{border-bottom-color:#bfad94}
+.atlas-tab:hover{background:#dfd1be}
+.atlas-year-btn{background:#e4d5bf;border-color:#c4af8f}
+.atlas-year-btn:hover{background:#d8c4a8}
+.atlas-year-btn[aria-pressed=true]{background:#073d2a;color:#f6eddf}
+.atlas-timeline-strip{border-bottom-color:#cbb99d}
+.atlas-event-detail{background:linear-gradient(150deg,#f4ede3,#eae0d2)!important;border-color:#c9b89f!important;box-shadow:0 12px 28px rgba(40,49,33,.09)}
+.atlas-events p{background:#f0e7da!important;border-color:#d6c5ad!important;border-left-color:#a78958!important;color:#294438!important}
+.atlas-full-archive{background:#e5d7c4!important;border-color:#c7b295!important}
+.atlas-full-archive summary:hover{background:#d8c5ac!important}
+.atlas-content .dept-panel,.atlas-content .atlas-basketball{background:#f3eadf!important;border-color:#cdbba0!important}
+.tm-back{background:#e2d2ba!important;border-color:#c6ab7c!important}
+.tm-back:hover{background:#d5c09f!important}
 </style></head><body><script src="/assets/navigation.js"></script><section class="tm-hero" aria-labelledby="tm-hero-title"><div class="tm-hero-inner"><div class="tm-hero-eyebrow"><span class="tm-hero-rule" aria-hidden="true"></span>Γ.Α.Σ. Ο ΑΡΧΕΛΑΟΣ · ΨΗΦΙΑΚΟ ΜΟΥΣΕΙΟ<span class="tm-hero-rule" aria-hidden="true"></span></div><p class="tm-hero-index">ΑΘΛΗΤΙΚΗ ΚΛΗΡΟΝΟΜΙΑ · 1956—2026</p><h1 id="tm-hero-title">Οι ιστορίες <em>των τμημάτων</em></h1><p class="tm-hero-lead">Κάθε άθλημα, μια ξεχωριστή διαδρομή στον χρόνο. Ανακάλυψε τα γεγονότα και τους ανθρώπους που έγραψαν την ιστορία του Αρχέλαου.</p><a class="tm-hero-cta" href="#atlas-tabs">Εξερεύνησε τα αθλήματα <span aria-hidden="true">↓</span></a></div><div class="tm-hero-ornament" aria-hidden="true">Α</div></section><main class="tm-wrap"><a class="tm-back" href="/history.html"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Επιστροφή στο Ψηφιακό Μουσείο</a>
 <section class="space-y-6 scroll-mt-24" id="tmimata">
 <div class="atlas"><div class="atlas-heading"><span>ΨΗΦΙΑΚΟ ΜΟΥΣΕΙΟ · ΙΣΤΟΡΙΚΟΣ ΑΤΛΑΣ</span><h2>Δέκα διαδρομές, μια κοινή ιστορία</h2><p>Επίλεξε άθλημα για να εξερευνήσεις τη διαδρομή του στον Αρχέλαο.</p></div><nav class="atlas-tabs" id="atlas-tabs" aria-label="Επιλογή αθλήματος"></nav><div class="atlas-feature" aria-live="polite"><div class="atlas-feature-top"><span id="atlas-count">01 / 10</span><span>Γ.Α.Σ. ΑΡΧΕΛΑΟΣ · ΙΣΤΟΡΙΚΟ ΑΡΧΕΙΟ</span></div><div class="atlas-feature-main"><div class="atlas-feature-title"><span id="atlas-year"></span><h2 id="atlas-title">Στίβος</h2><p id="atlas-subtitle">Μια αθλητική διαδρομή μέσα στον χρόνο.</p></div><div class="atlas-feature-mark" aria-hidden="true"><img src="/archelaos-logo-gold.png" alt=""></div></div></div><section class="atlas-timeline-section" aria-label="Χρονολόγιο τμήματος"><div class="atlas-timeline-head"><span>ΤΑ ΓΕΓΟΝΟΤΑ ΜΕΣΑ ΣΤΟΝ ΧΡΟΝΟ</span><h3>Ιστορικό χρονολόγιο</h3><p>Επίλεξε μια χρονιά και διάβασε τι καταγράφει το αρχείο για εκείνη την περίοδο.</p></div><div class="atlas-timeline-strip" id="atlas-timeline-strip" aria-label="Χρονολογίες"></div><div class="atlas-event-detail" id="atlas-event-detail" aria-live="polite"></div><details class="atlas-full-archive"><summary>Διάβασε την πλήρη ιστορική καταγραφή</summary><div class="atlas-content" id="atlas-content"></div></details></section><div class="atlas-source" id="atlas-source" hidden><!-- 4.1 ΧΕΙΡΟΣΦΑΙΡΙΣΗ (ΧΑΝΤΜΠΟΛ) -->
