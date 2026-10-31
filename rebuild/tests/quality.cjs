@@ -28,6 +28,12 @@ async function audit(){
     if(!response?.ok()){issue('errors',route,'HTTP '+response?.status());continue}
     await page.locator('.arch-header').waitFor({timeout:10000});
     await page.locator('.arch-footer').waitFor({timeout:10000});
+    // Guard against the reported menu-in-the-middle regression.
+    const headerPos=await page.locator('.arch-header').evaluate(el=>({
+      top:el.getBoundingClientRect().top,position:getComputedStyle(el).position
+    }));
+    if(headerPos.position!=='fixed'||Math.abs(headerPos.top)>2)
+      issue('errors',route+'@'+view.width,'Main navigation not fixed to viewport top');
     await page.waitForTimeout(220);
     const metrics=await page.evaluate(()=>{
       const doc=document.documentElement,head=document.querySelector('.arch-header');
@@ -58,6 +64,10 @@ async function audit(){
     if(view.width<1170){
       const b=page.locator('.arch-menu-open');await b.click({timeout:6000});
       await page.locator('.arch-menu-dialog[open]').waitFor({timeout:6000});
+      const menuBox=await page.locator('.arch-menu-dialog[open]').boundingBox();
+      if(!menuBox||Math.abs(menuBox.y)>2||menuBox.x<0||
+         menuBox.x+menuBox.width>view.width+2)
+        issue('errors',route+'@'+view.width,'Mobile/tablet drawer outside viewport');
       await page.keyboard.press('Escape');
       await page.waitForFunction(()=>!document.querySelector('.arch-menu-dialog')?.open,null,{timeout:6000});
       try{
