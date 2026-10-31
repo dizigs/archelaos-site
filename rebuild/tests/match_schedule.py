@@ -27,7 +27,26 @@ def main():
     assert "DTEND:" not in out, "Never invent the end time for a match"
     end=copy.deepcopy(data)
     end["matches"][0]["end_at"]="2027-04-11T20:45:00+03:00"
+    end["matches"][0]["end_at_verified"]=True
     assert "DTEND:20270411T174500Z" in m.calendar(end)
+    unverified=copy.deepcopy(end);unverified["matches"][0].pop("end_at_verified")
+    try:m.validate(unverified)
+    except ValueError:pass
+    else:raise AssertionError("Unverified calendar end time accepted")
+    all_day=copy.deepcopy(data)
+    all_day["matches"][0].pop("start_at")
+    all_day["matches"][0]["date"]="2027-04-11"
+    all_day["matches"][0]["kickoff_status"]="time_to_be_announced"
+    assert len(m.validate(all_day))==1
+    ics=m.calendar(all_day)
+    assert "DTSTART;VALUE=DATE:20270411" in ics
+    assert "DTEND;VALUE=DATE:20270412" in ics
+    assert "T153000Z" not in ics
+    bad_day=copy.deepcopy(all_day);bad_day["matches"][0]["start_at"]="2027-04-11T18:30:00+03:00"
+    try:m.validate(bad_day)
+    except ValueError:pass
+    else:raise AssertionError("Mixed known and unknown fixture time accepted")
+
     invalid_end=copy.deepcopy(end)
     invalid_end["matches"][0]["end_at"]="2027-04-11T17:00:00+03:00"
     try:m.validate(invalid_end)

@@ -168,11 +168,11 @@ async function verify(){
   const fakeSchedule={schema_version:1,approval_policy:'owner_approved_only',timezone:'Europe/Athens',
     matches:[
       {id:'fixture-ui-test-001',sport:'handball',home_team:'ΓΑΣ Αρχέλαος',away_team:'Δοκιμαστική Α',
-       start_at:'2099-05-11T18:30:00+03:00',end_at:'2099-05-11T20:30:00+03:00',
+       start_at:'2099-05-11T18:30:00+03:00',end_at:'2099-05-11T20:30:00+03:00',end_at_verified:true,
        status:'scheduled',competition:'Δοκιμαστική διοργάνωση',
        venue:'Δοκιμαστικό γήπεδο',approval:{status:'owner_approved',reviewed_on:'2099-05-01T12:00:00+03:00'}},
       {id:'fixture-ui-test-002',sport:'volleyball',home_team:'ΓΑΣ Αρχέλαος',away_team:'Δοκιμαστική Β',
-       start_at:'2099-05-12T19:30:00+03:00',status:'scheduled',
+       date:'2099-05-12',kickoff_status:'time_to_be_announced',status:'scheduled',
        competition:'Δοκιμαστική διοργάνωση',
        approval:{status:'owner_approved',reviewed_on:'2099-05-01T12:00:00+03:00'}}
     ]};
@@ -196,8 +196,10 @@ async function verify(){
   await second.locator('details summary').click();
   if(await second.locator('a[href*="calendar.google.com"]').count())
     throw Error('A calendar end time was invented for a match without a verified end');
-  if(!(await second.locator('.fx-calendar-note').textContent()).includes('Δεν υποθέτουμε'))
-    throw Error('Missing explanation of safe .ics fallback');
+  if(!(await second.locator('.fx-calendar-note').textContent()).includes('ολοήμερη υπενθύμιση'))
+    throw Error('A date-only fixture must never pretend to have a kickoff hour');
+  if(!(await second.locator('.fx-clock').textContent()).includes('Ώρα προς ανακοίνωση'))
+    throw Error('Unknown kickoff hour displayed incorrectly');
   await matchPage.locator('[data-fixture-sport="handball"]').click();
   if(await matchPage.locator('.fx-card').count()!==1)
     throw Error('Approved Matchday filter failed');

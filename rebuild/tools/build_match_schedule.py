@@ -6,7 +6,7 @@ match goes to the website. The published ICS is updated with every approved
 rebuild. The date source must include an explicit UTC offset.
 """
 from __future__ import annotations
-from datetime import datetime,timezone
+from datetime import datetime,timezone,date,timedelta
 from pathlib import Path
 from zoneinfo import ZoneInfo
 import json,re
@@ -31,21 +31,37 @@ def validate(data:dict)->list[dict]:
             raise ValueError("Unknown sport or game status")
         if m.get("approval",{}).get("status")!="owner_approved" or not m["approval"].get("reviewed_on"):
             raise ValueError("Every match must be explicitly owner-approved")
+        date_only = m.get("date")
+        has_start = "start_at" in m
+        if bool(date_only) == has_start:
+            raise ValueError("Exactly one of start_at (verified time) or date (unknown time) is required")
         try:
-            dt=datetime.fromisoformat(m.get("start_at",""))
-            if dt.tzinfo is None or dt.utcoffset() is None:
-                raise ValueError("Unconfirmed match time zone")
-            local=dt.astimezone(ATHENS)
-            if local.utcoffset()!=dt.utcoffset():
-                raise ValueError("Fixture UTC offset does not match Athens local timezone")
-            dt=local
+            if has_start:
+                dt=datetime.fromisoformat(m["start_at"])
+                if dt.tzinfo is None or dt.utcoffset() is None:
+                    raise ValueError("Unconfirmed match time zone")
+                local=dt.astimezone(ATHENS)
+                if local.utcoffset()!=dt.utcoffset():
+                    raise ValueError("Fixture UTC offset does not match Athens local timezone")
+                dt=local
+                if m.get("kickoff_status","confirmed_time")!="confirmed_time":
+                    raise ValueError("A timed event must have confirmed_time")
+                game_date=dt.date()
+            else:
+                game_date=date.fromisoformat(date_only)
+                if date_only!=game_date.isoformat() or m.get("kickoff_status")!="time_to_be_announced":
+                    raise ValueError("Date-only match must remain explicitly time_to_be_announced")
+                if "end_at" in m:
+                    raise ValueError("A date-only match cannot have an invented end_at")
             reviewed=datetime.fromisoformat(m["approval"]["reviewed_on"])
             if reviewed.tzinfo is None or reviewed.utcoffset() is None:
                 raise ValueError("Owner review timestamp must include an explicit timezone")
         except (ValueError,TypeError,KeyError) as exc:
             raise ValueError("Match date or review date invalid") from exc
-        if not 2020<=dt.year<=2100:raise ValueError("Implausible match date")
+        if not 2020<=game_date.year<=2100:raise ValueError("Implausible match date")
         if "end_at" in m:
+            if m.get("end_at_verified") is not True:
+                raise ValueError("A calendar export's DTEND is NOT proof of a real match finishing time")
             try:
                 ending=datetime.fromisoformat(m["end_at"])
                 if ending.tzinfo is None or ending.utcoffset() is None:
@@ -76,7 +92,7 @@ def validate(data:dict)->list[dict]:
         uid=m.get("source_uid_hash")
         if uid is not None and not re.fullmatch(r"fixture-[0-9a-f]{18}",uid):
             raise ValueError("Unexpected imported UID hash")
-        signature=(m["sport"],dt.isoformat(),m["home_team"].casefold(),m["away_team"].casefold())
+        signature=(m["sport"],m.get("start_at") or m.get("date"),m["home_team"].casefold(),m["away_team"].casefold())
         if signature in fingerprints:raise ValueError("Duplicate fixture information")
         fingerprints.add(signature);ids.add(ident);results.append(m)
     return results
@@ -102,18 +118,23 @@ def calendar(data:dict)->str:
            "CALSCALE:GREGORIAN","METHOD:PUBLISH","X-WR-CALNAME:ΓΑΣ Αρχέλαος · Αγώνες",
            "X-WR-TIMEZONE:Europe/Athens"]
     for m in records:
-        dt=datetime.fromisoformat(m["start_at"]).astimezone(timezone.utc)
+        start_line = ("DTSTART:"+datetime.fromisoformat(m["start_at"]).astimezone(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+                      if m.get("start_at") else "DTSTART;VALUE=DATE:"+m["date"].replace("-",""))
         lines+=["BEGIN:VEVENT","UID:"+m["id"]+"@archelaos.club",
                 "DTSTAMP:"+datetime.fromisoformat(m["approval"]["reviewed_on"]).astimezone(timezone.utc).strftime("%Y%m%dT%H%M%SZ"),
-                "DTSTART:"+dt.strftime("%Y%m%dT%H%M%SZ"),
+                start_line,
                 "SUMMARY:"+ics_escape(m["home_team"]+" - "+m["away_team"]),
                 "CATEGORIES:"+("HANDBALL" if m["sport"]=="handball" else "VOLLEYBALL"),
                 "STATUS:"+("CANCELLED" if m["status"]=="cancelled" else "TENTATIVE" if m["status"]=="postponed" else "CONFIRMED")]
-        if m.get("end_at"):
+        if m.get("date"):
+            next_day=(date.fromisoformat(m["date"])+timedelta(days=1)).strftime("%Y%m%d")
+            lines.append("DTEND;VALUE=DATE:"+next_day)
+            lines.append("DESCRIPTION:"+ics_escape("Ώρα έναρξης προς ορισμό · Επιβεβαιώστε πριν μετακινηθείτε."))
+        elif m.get("end_at"):
             finished=datetime.fromisoformat(m["end_at"]).astimezone(timezone.utc)
             lines.append("DTEND:"+finished.strftime("%Y%m%dT%H%M%SZ"))
         if m.get("venue"):lines.append("LOCATION:"+ics_escape(m["venue"]))
-        if m.get("competition"):lines.append("DESCRIPTION:"+ics_escape(m["competition"]))
+        if m.get("competition") and not m.get("date"):lines.append("DESCRIPTION:"+ics_escape(m["competition"]))
         lines.append("END:VEVENT")
     lines.append("END:VCALENDAR")
     return "\r\n".join(part for line in lines for part in fold(line))+"\r\n"

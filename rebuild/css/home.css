@@ -255,3 +255,6 @@
 .fx-subscribe-help{font-size:12px;color:#d5dacd}
 .fx-subscribe[hidden],.fx-calendar-subscribe [hidden]{display:none!important}
 @media(max-width:720px){.fx-calendar-subscribe{width:100%}.fx-calendar-subscribe .fx-download{flex:1;justify-content:space-between}}
+
+/* Dates supplied without a confirmed start time are always clearly signposted. */
+.fx-clock-tbd{color:#825b26;font-weight:800}

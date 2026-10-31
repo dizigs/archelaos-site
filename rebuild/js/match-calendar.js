@@ -16,12 +16,17 @@ function heritage(){
  if(yrs)yrs.textContent=String(current-1956);
  if(range)range.textContent='1956 — '+current;
 }
-const dateOf=s=>{const d=new Date(s);return Number.isFinite(d.getTime())?d:null};
+const dateOf=s=>{if(!s)return null;const d=new Date(s);return Number.isFinite(d.getTime())?d:null};
+const dateOnly=d=>typeof d==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(d);
+const displayDate=x=>dateOnly(x.date)?new Date(x.date+'T12:00:00Z'):dateOf(x.start_at);
+const todayAthens=()=>new Intl.DateTimeFormat('sv-SE',{timeZone:'Europe/Athens',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+const inFuture=x=>dateOnly(x.date)?x.date>=todayAthens():dateOf(x.start_at)?.getTime()>Date.now();
 const format=(date,parts)=>new Intl.DateTimeFormat('el-GR',{timeZone:'Europe/Athens',...parts}).format(date);
 const utcStamp=d=>d.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
 function calendarLink(item,provider){
  if(!item.end_at)return null;
  const begin=dateOf(item.start_at),end=dateOf(item.end_at);
+ if(!item.end_at_verified)return null;
  if(!begin||!end||end<=begin)return null;
  const title=item.home_team+' — '+item.away_team;
  const description='Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης'+(item.competition?' · '+item.competition:'');
@@ -43,23 +48,26 @@ function calendarLink(item,provider){
 }
 function upcoming(){
  const now=Date.now();
- return fixtures.filter(x=>x.status==='scheduled'&&dateOf(x.start_at)?.getTime()>now)
+ return fixtures.filter(x=>x.status==='scheduled'&&inFuture(x))
   .filter(x=>sport==='all'||x.sport===sport)
-  .sort((a,b)=>dateOf(a.start_at)-dateOf(b.start_at));
+  .sort((a,b)=>displayDate(a)-displayDate(b));
 }
 function external(label,url){
  const a=create('a','fx-calendar-provider',label+' ↗');a.href=url;a.target='_blank';
  a.rel='noopener noreferrer';return a;
 }
 function card(item,index){
- const date=dateOf(item.start_at);
+ const date=displayDate(item);
  const a=create('article','fx-card'+(index===0?' fx-card-feature':''));a.dataset.ordinal=String(index+1).padStart(2,'0');
  const top=create('div','fx-top');top.append(create('span','fx-sport',labels[item.sport]||item.sport),
   create('span','fx-competition',item.competition||'Αγωνιστική αναμέτρηση'));a.append(top);
  const when=create('div','fx-when'),big=create('span','fx-date-large');
  big.append(create('strong','fx-date-number',format(date,{day:'2-digit'})),
   create('span','fx-date-month',format(date,{month:'long'})));
- when.append(big,create('span','fx-clock',format(date,{weekday:'long',hour:'2-digit',minute:'2-digit',hour12:false})));
+ const dayText=format(date,{weekday:'long'});
+ const whenLabel=dateOnly(item.date)?dayText+' · Ώρα προς ανακοίνωση':
+   format(date,{weekday:'long',hour:'2-digit',minute:'2-digit',hour12:false});
+ when.append(big,create('span','fx-clock'+(dateOnly(item.date)?' fx-clock-tbd':''),whenLabel));
  a.append(when);
  const matchup=create('div','fx-teams');
  const left=create('div','fx-team'),right=create('div','fx-team');
@@ -78,7 +86,9 @@ function card(item,index){
  const google=calendarLink(item,'google'),outlook=calendarLink(item,'outlook');
  if(google)links.append(external('Google Calendar',google));
  if(outlook)links.append(external('Outlook Calendar',outlook));
- if(!google)links.append(create('span','fx-calendar-note','Για Apple, Outlook ή εισαγωγή στο Google Calendar, χρησιμοποιήστε το αρχείο .ics. Δεν υποθέτουμε ώρα λήξης αγώνα.'));
+ if(!google)links.append(create('span','fx-calendar-note',
+   dateOnly(item.date)?'Η ώρα δεν έχει οριστεί. Η προσθήκη γίνεται ως ολοήμερη υπενθύμιση, όχι ως ώρα αγώνα.':
+   'Για Apple, Outlook ή εισαγωγή στο Google Calendar, χρησιμοποιήστε το αρχείο .ics. Δεν υποθέτουμε ώρα λήξης αγώνα.'));
  menu.append(links);bottom.append(menu);a.append(bottom);return a;
 }
 function render(){
@@ -89,7 +99,7 @@ function render(){
  $('#fx-status').textContent=visible.length
   ?'Οι επόμενοι '+Math.min(6,visible.length)+' επιβεβαιωμένοι αγώνες · ώρα Ελλάδας.'
   :'Δεν έχουν ανακοινωθεί ακόμη εγκεκριμένοι επόμενοι αγώνες για αυτή την επιλογή.';
- const anyUpcoming=fixtures.some(x=>x.status==='scheduled'&&dateOf(x.start_at)?.getTime()>Date.now());
+ const anyUpcoming=fixtures.some(x=>x.status==='scheduled'&&inFuture(x));
  $('#fx-download').hidden=!anyUpcoming;
  $('#fx-subscribe').hidden=!anyUpcoming;
 }
@@ -110,7 +120,7 @@ async function init(){
   if(data?.schema_version!==1||data?.approval_policy!=='owner_approved_only'||!Array.isArray(data.matches))
    throw Error('Invalid or unreviewed fixture list');
   fixtures=data.matches.filter(x=>x.approval?.status==='owner_approved'&&
-   ['handball','volleyball'].includes(x.sport)&&dateOf(x.start_at));
+   ['handball','volleyball'].includes(x.sport)&&displayDate(x));
   render();
  }catch(error){
   console.warn('Match schedule fallback',error);
