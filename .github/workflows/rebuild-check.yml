@@ -27,6 +27,8 @@ jobs:
         run: python rebuild/tests/check.py
       - name: Verify reviewed archive intake is dry-run, private and idempotent
         run: python rebuild/tests/ingestion.py
+      - name: Verify safe editorial quick corrections and source references
+        run: python rebuild/tests/editorial_tools.py
       - name: Verify unpublished translations and stable language dictionaries
         run: python rebuild/tools/audit_translations.py
       - name: Check all rebuilt JavaScript syntax
