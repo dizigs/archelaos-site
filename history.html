@@ -5424,6 +5424,19 @@ a.museum-subtle-link:focus-visible{outline:3px solid #c7a65e;outline-offset:3px}
     <div class="history-archive-content museum-reader-content" id="historyArchiveContent" tabindex="0"></div>
   </div>
 </div>
+<script id="museum-modal-portal-script">
+/* Mount overlays directly on <body> to avoid transformed/clipped ancestor containers. */
+(function(){
+  function mountMuseumDialogs(){
+    ['historyArchiveModal','historyPresidentModal','timelineDetailModal','deptHistoryModal','registrationModal'].forEach(function(id){
+      var modal=document.getElementById(id);
+      if(modal && modal.parentElement!==document.body)document.body.appendChild(modal);
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',mountMuseumDialogs,{once:true});
+  else mountMuseumDialogs();
+})();
+</script>
 <!-- President popup used by the original table rows in the history chapter -->
 <div aria-hidden="true" aria-labelledby="historyPresidentModalName" aria-modal="true" class="modal-backdrop fixed inset-0 z-[80] flex items-center justify-center overflow-y-auto bg-black/70 backdrop-blur-sm p-4" id="historyPresidentModal" role="dialog">
 <div class="modal-box history-president-card w-full max-w-lg mx-auto my-auto rounded-3xl bg-white border-2 border-archelaos-deepgreen/20 shadow-2xl p-6 sm:p-8 relative">
