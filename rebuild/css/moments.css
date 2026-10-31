@@ -29,7 +29,6 @@
 .rm-card:hover{transform:translateY(-3px);box-shadow:0 17px 38px rgba(5,45,28,.14)}
 .rm-year{position:absolute;left:28px;top:23px;z-index:2;color:#9e7d3e;font:700 clamp(20px,2.5vw,26px) Georgia,serif}
 .rm-moment:nth-of-type(even) .rm-year{color:#e0c789}
-.rm-arrow{position:absolute;right:25px;top:21px;color:#c7a65e;font:25px/1 Georgia,serif}
 .rm-title{position:relative;z-index:2;font:500 clamp(21px,2.4vw,31px)/1.3 Georgia,serif;max-width:97%;overflow-wrap:anywhere}
 .rm-watermark{position:absolute;right:12px;bottom:-.12em;color:rgba(7,61,42,.065);font:500 clamp(80px,11vw,145px)/1 Georgia,serif;letter-spacing:-.08em;white-space:nowrap;pointer-events:none}
 .rm-moment:nth-of-type(even) .rm-watermark{color:rgba(237,221,178,.095)}
@@ -38,10 +37,9 @@
 .rm-featured h2{font:400 clamp(35px,5vw,60px)/1.12 Georgia,serif;color:#073d2a;max-width:850px}
 .rm-featured>p:not(.rm-featured-kicker){color:#597160;line-height:1.8;max-width:780px}
 .rm-featured-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:34px}
-.rm-featured-item{display:flex;position:relative;flex-direction:column;text-align:left;justify-content:center;gap:13px;min-height:160px;padding:22px 60px 22px 25px;background:#fffdf6;border:1px solid #d7c69f;border-radius:17px;color:#073d2a}
+.rm-featured-item{display:flex;position:relative;flex-direction:column;text-align:left;justify-content:center;gap:13px;min-height:160px;padding:22px 25px;background:#fffdf6;border:1px solid #d7c69f;border-radius:17px;color:#073d2a}
 .rm-featured-item>span:first-child{font:600 22px Georgia,serif;color:#a0844c}
 .rm-featured-item strong{font:500 clamp(19px,2.5vw,26px)/1.3 Georgia,serif}
-.rm-featured-arrow{position:absolute;right:22px;top:20px;font:24px Georgia,serif;color:#9b7c3c}
 .rm-featured-item:hover{background:#f1eadb}
 @media(max-width:720px){.rm-timeline,.rm-featured-grid{grid-template-columns:1fr}.rm-timeline:before{left:18px}.rm-decade{justify-self:start;margin-left:35px}.rm-moment{margin-left:35px}.rm-card{min-height:215px;padding:70px 18px 30px}.rm-year{left:21px;top:18px}.rm-title{font-size:clamp(21px,5.2vw,28px)}.rm-featured{margin-top:65px}}
 @media(prefers-reduced-motion:reduce){.rm-card{transition:none}}
