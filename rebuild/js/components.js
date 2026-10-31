@@ -39,7 +39,11 @@ function create(){
 }
 function openDialog(data){
  const dlg=create();
- if(dlg.open)dlg.close();
+ // Reuse an already open native dialog when navigating between linked
+ // biographies/events. Closing/reopening can temporarily unlock page scroll,
+ // lose the original focus target and show the new dialog behind other overlays.
+ const wasOpen=dlg.open;
+ if(!wasOpen)lastFocus=document.activeElement;
  const role=dlg.querySelector('.arch-dialog-role');role.textContent=data.subtitle||'';role.hidden=!data.subtitle;
  dlg.querySelector('h2').textContent=data.title||'';
  const body=dlg.querySelector('.arch-dialog-body');body.replaceChildren();
@@ -62,7 +66,8 @@ function openDialog(data){
  if(data.favorite&&window.ArchelaosFavorites)
   slot.append(window.ArchelaosFavorites.button(data.favorite.type,data.favorite.id,'arch-dialog-favorite'));
  dlg.querySelector('.arch-close').setAttribute('aria-label',data.closeLabel||'Κλείσιμο παραθύρου');
- lastFocus=document.activeElement;dlg.showModal();document.body.classList.add('arch-dialog-open');dlg.querySelector('.arch-close').focus();
+ if(!wasOpen)dlg.showModal();
+ document.body.classList.add('arch-dialog-open');dlg.querySelector('.arch-close').focus();
 }
 window.ArchelaosUI=Object.freeze({card,openDialog});
 })();
