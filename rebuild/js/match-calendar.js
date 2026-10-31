@@ -76,6 +76,12 @@ function card(item,index){
  matchup.append(left,create('span','fx-versus','VS'),right);a.append(matchup);
  const bottom=create('div','fx-bottom');
  bottom.append(create('span','fx-venue',item.venue||'Γήπεδο: προς ανακοίνωση'));
+ // Staging serves fixture data but does not ship the generated /calendar/*.ics.
+ // Keep preview controls truthful; release build publishes the real files.
+ if(stage()){
+  bottom.append(create('span','fx-calendar-note','Η προσθήκη σε προσωπικό ημερολόγιο ενεργοποιείται με τη δημοσίευση.'));
+  a.append(bottom);return a;
+ }
  const menu=create('details','fx-calendar-actions');
  const summary=create('summary','','Στο δικό μου ημερολόγιο');menu.append(summary);
  const links=create('div','fx-calendar-menu');
@@ -100,8 +106,8 @@ function render(){
   ?'Οι επόμενοι '+Math.min(6,visible.length)+' επιβεβαιωμένοι αγώνες · ώρα Ελλάδας.'
   :'Δεν έχουν ανακοινωθεί ακόμη εγκεκριμένοι επόμενοι αγώνες για αυτή την επιλογή.';
  const anyUpcoming=fixtures.some(x=>x.status==='scheduled'&&inFuture(x));
- $('#fx-download').hidden=!anyUpcoming;
- $('#fx-subscribe').hidden=!anyUpcoming;
+ $('#fx-download').hidden=stage()||!anyUpcoming;
+ $('#fx-subscribe').hidden=stage()||!anyUpcoming;
 }
 async function init(){
  const node=$('#upcoming-matches');if(!node)return;
