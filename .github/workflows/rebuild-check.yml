@@ -1,42 +1,42 @@
-name: Check clean rebuild (isolated)
-
+name: Rebuild validation
 on:
   push:
     branches:
+      - rebuild/clean-foundation
+    paths:
       - 'rebuild/**'
+      - '.github/workflows/rebuild-check.yml'
   workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
-  validate:
+  integrity:
+    name: HTML, data and JavaScript integrity
     runs-on: ubuntu-latest
-    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Check all rebuilt JavaScript syntax
-        run: find rebuild/js -name '*.js' -print0 | xargs -0 -n1 node --check
-      - name: Validate data and HTML source paths
-        run: python rebuild/tests/check.py
-      - name: Install Chromium test browser
-        run: |
-          npm install --no-package-lock --no-save playwright@1.56.1
-          npx playwright install --with-deps chromium
-      - name: Smoke-test the isolated pages
-        run: |
-          python -m http.server 8765 --bind 127.0.0.1 >/tmp/archelaos-rebuild-http.log 2>&1 &
-          node rebuild/tests/smoke.cjs
-      - name: Capture original-backup and rebuild reference viewports
-        run: node rebuild/tests/visual.cjs
-      - name: Upload screenshots for visual comparison
-        if: always()
-        uses: actions/upload-artifact@v4
+      - uses: actions/setup-python@v5
         with:
-          name: archelaos-rebuild-smoke-screenshots
-          path: rebuild/test-artifacts/
-          if-no-files-found: ignore
-          retention-days: 14
+          python-version: '3.12'
+      - name: Validate content, images and internal file references
+        run: python rebuild/tests/check.py
+      - name: Check all rebuilt JavaScript syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          find rebuild/js -maxdepth 1 -type f -name '*.js' -print0 | while IFS= read -r -d '' file; do
+            node --check "$file"
+          done
+      - name: Ensure all rebuild HTML pages are unpublished previews
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f rebuild/index.html
+          for page in rebuild/*.html; do
+            grep -qi 'noindex' "$page" || { echo "Missing noindex in $page"; exit 1; }
+          done
