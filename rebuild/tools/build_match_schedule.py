@@ -36,7 +36,9 @@ def validate(data:dict)->list[dict]:
             if dt.tzinfo is None or dt.utcoffset() is None:
                 raise ValueError("Unconfirmed match time zone")
             dt=dt.astimezone(ATHENS)
-            datetime.fromisoformat(m["approval"]["reviewed_on"])
+            reviewed=datetime.fromisoformat(m["approval"]["reviewed_on"])
+            if reviewed.tzinfo is None or reviewed.utcoffset() is None:
+                raise ValueError("Owner review timestamp must include an explicit timezone")
         except (ValueError,TypeError,KeyError) as exc:
             raise ValueError("Match date or review date invalid") from exc
         if not 2020<=dt.year<=2100:raise ValueError("Implausible match date")

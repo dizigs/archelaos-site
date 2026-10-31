@@ -13,7 +13,11 @@ async function main(){
    const errors=[];page.on('pageerror',e=>errors.push(e.message));
    const response=await page.goto(TARGET,{waitUntil:'domcontentloaded'});
    if(!response?.ok())throw Error('Review dashboard unavailable');
-   await page.locator('.entry').first().waitFor();
+   try {await page.locator('.entry').first().waitFor({timeout:12000});}
+   catch(err){
+     const status=await page.locator('#state').textContent().catch(()=>'missing');
+     throw Error('Research dashboard did not render: '+status+' | JS: '+errors.join(' | '));
+   }
    if(await page.locator('.entry').count()!==19)throw Error('Owner board needs all researched events');
    const initialCount=await page.locator('#total').textContent();
    if(initialCount!=='19')throw Error('Historical event counter incorrect');

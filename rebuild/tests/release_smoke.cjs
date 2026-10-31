@@ -39,6 +39,13 @@ async function verify(){
     if(tag==='departments')await page.locator('.dp-card').first().waitFor();
     if(tag==='retro')await page.locator('.rt-scoreboard').first().waitFor();
     if(tag==='home'){
+     // Exercise the empty (correct, nonfabricated) state of public schedule.
+     await page.waitForFunction(()=>document.querySelector('#fx-status')?.textContent.includes('Δεν έχουν ανακοινωθεί'),null,{timeout:12000});
+     if(await page.locator('.fx-card').count())throw Error('Unapproved fixture appeared on homepage');
+     if(!await page.locator('#fx-download').isHidden())throw Error('Empty schedule exposes calendar download');
+     await page.locator('[data-fixture-sport="volleyball"]').click();
+     if(await page.locator('[data-fixture-sport="volleyball"]').getAttribute('aria-pressed')!=='true')
+       throw Error('Matchday sport filter not responding');
      await page.locator('#new-slide-next').click();
      await page.waitForFunction(()=>document.querySelector('#new-slide-title')?.textContent.includes('Στίβος'));
     }
@@ -157,6 +164,45 @@ async function verify(){
    if(pageErrors.length)throw Error('Browser errors: '+pageErrors.join(' | '));
    await page.close();
   }
+  // Fake public schedule delivered ONLY inside the test browser, never committed as real games.
+  const fakeSchedule={schema_version:1,approval_policy:'owner_approved_only',timezone:'Europe/Athens',
+    matches:[
+      {id:'fixture-ui-test-001',sport:'handball',home_team:'ΓΑΣ Αρχέλαος',away_team:'Δοκιμαστική Α',
+       start_at:'2099-05-11T18:30:00+03:00',end_at:'2099-05-11T20:30:00+03:00',
+       status:'scheduled',competition:'Δοκιμαστική διοργάνωση',
+       venue:'Δοκιμαστικό γήπεδο',approval:{status:'owner_approved',reviewed_on:'2099-05-01T12:00:00+03:00'}},
+      {id:'fixture-ui-test-002',sport:'volleyball',home_team:'ΓΑΣ Αρχέλαος',away_team:'Δοκιμαστική Β',
+       start_at:'2099-05-12T19:30:00+03:00',status:'scheduled',
+       competition:'Δοκιμαστική διοργάνωση',
+       approval:{status:'owner_approved',reviewed_on:'2099-05-01T12:00:00+03:00'}}
+    ]};
+  const matchPage=await browser.newPage();
+  await matchPage.route('**/assets/site/data/match-schedule.json',route=>
+     route.fulfill({status:200,contentType:'application/json',body:JSON.stringify(fakeSchedule)}));
+  await matchPage.goto(ROOT+'/',{waitUntil:'domcontentloaded'});
+  await matchPage.locator('.fx-card').first().waitFor({timeout:12000});
+  if(await matchPage.locator('.fx-card').count()!==2)
+    throw Error('Matchday did not render two approved test fixtures');
+  const firstMatch=matchPage.locator('.fx-card').first();
+  await firstMatch.locator('details summary').click();
+  const ownIcs=await firstMatch.locator('a[download]').getAttribute('href');
+  if(ownIcs!=='/calendar/events/fixture-ui-test-001.ics')
+    throw Error('Single-match calendar link missing or incorrect');
+  const google=await firstMatch.locator('a[href*="calendar.google.com"]').getAttribute('href');
+  const outlook=await firstMatch.locator('a[href*="outlook.live.com"]').getAttribute('href');
+  if(!google.includes('20990511T153000Z')||!google.includes('20990511T173000Z')||!outlook.includes('2099-05-11'))
+    throw Error('Provider calendar event times inaccurate');
+  const second=matchPage.locator('.fx-card').nth(1);
+  await second.locator('details summary').click();
+  if(await second.locator('a[href*="calendar.google.com"]').count())
+    throw Error('A calendar end time was invented for a match without a verified end');
+  if(!(await second.locator('.fx-calendar-note').textContent()).includes('Δεν υποθέτουμε'))
+    throw Error('Missing explanation of safe .ics fallback');
+  await matchPage.locator('[data-fixture-sport="handball"]').click();
+  if(await matchPage.locator('.fx-card').count()!==1)
+    throw Error('Approved Matchday filter failed');
+  await matchPage.close();
+
   // Check the reciprocal UI with a controlled approved graph fixture only.
   // This test does NOT publish or approve the historical records.
   const demo={
