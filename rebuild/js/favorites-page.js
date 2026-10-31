@@ -9,9 +9,9 @@ function card(saved){
  const article=el('article','av-card'),kind=el('span','av-card-kind',record.kindLabel);
  const title=el('h2','',record.title);
  const summary=el('p','av-card-summary',saved.type==='person'?item.role:record.year||record.subtitle);
- const footer=el('div','av-card-actions'),links=el('div','av-action-links'),link=el('a','av-open','Εξερεύνηση ↗');
+ const footer=el('div','av-card-actions'),links=el('div','av-action-links'),link=el('a','av-open','Εξερεύνηση');
  link.href=route(record.url);
- const contribute=el('a','av-contribute','Προσθέστε στοιχείο ↗');
+ const contribute=el('a','av-contribute','Προσθέστε στοιχείο');
  const query=new URLSearchParams({kind:record.type,id:record.id,title:record.title});
  contribute.href=route('/contribute.html?'+query.toString());
  contribute.setAttribute('aria-label','Προτείνετε ιστορικό στοιχείο για '+record.title);
@@ -32,7 +32,7 @@ function render(){
  if(!count){
   const empty=el('div','av-empty');empty.append(el('h2','','Η συλλογή σας περιμένει.'));
   empty.append(el('p','','Αποθηκεύστε πρόσωπα, στιγμές και ιστορίες με το σύμβολο ♡.'));
-  const a=el('a','av-primary-link','Εξερευνήστε το αρχείο ↗');a.href=route('/search.html');empty.append(a);fragment.append(empty);
+  const a=el('a','av-primary-link','Εξερευνήστε το αρχείο');a.href=route('/search.html');empty.append(a);fragment.append(empty);
  }
  grid.replaceChildren(fragment);
  $('#av-count').textContent=all.length+' αποθηκευμένα · '+count+' στην προβολή';
