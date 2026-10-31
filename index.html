@@ -49,6 +49,10 @@
         }
       }
     </script>
+<!-- Critical first-paint: show above-the-fold hero content immediately, without waiting for reveal JS. -->
+<style id="arch-critical-hero-paint">
+#home .reveal-text{opacity:1;transform:none;visibility:visible;transition:none;will-change:auto}
+</style>
 <!-- Font Awesome 6 Icons -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
 <style>
