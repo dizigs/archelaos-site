@@ -124,3 +124,19 @@
 .new-logo-seal{box-shadow:0 14px 35px rgba(5,50,31,.12),inset 0 0 0 7px rgba(216,180,88,.035)!important;width:min(100%,465px)}
 @media(max-width:1023px){.new-hero{background:#faf8ee!important;padding:37px 0 45px!important}.new-hero:before{inset:0!important}.new-logo-col{padding-top:22px}.new-logo-seal{width:min(80vw,370px)}}
 @media(max-width:600px){.new-hero{min-height:0!important}.new-logo-seal{width:min(78vw,320px)}}
+
+/* Mobile visual order: the original displays the monumental crest BEFORE the heading and calls to action. */
+@media(max-width:1023px){
+ .new-hero-grid{display:flex;flex-direction:column;gap:18px}
+ .new-logo-col{order:-1;padding-top:6px!important}
+ .new-hero-copy{order:2}
+ .new-logo-seal{width:min(82vw,390px)}
+ .new-kicker{margin-top:16px}
+}
+@media(max-width:600px){
+ .new-hero{padding:12px 0 50px!important}
+ .new-logo-seal{width:min(82vw,335px)}
+ .new-logo-col{gap:17px}
+ .new-logo-col small{font-size:10px;letter-spacing:.23em}
+ .new-hero-copy>p:not(.new-kicker){line-height:1.7}
+}
