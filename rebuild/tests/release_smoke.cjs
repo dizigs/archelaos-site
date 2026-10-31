@@ -197,7 +197,7 @@ async function verify(){
      if(await page.locator('#ct-topic').inputValue()!=='sport'||await page.locator('#ct-sport').inputValue()!=='archery')throw Error('Contact prefill incorrect');
      await page.locator('dialog.arch-dialog .arch-close').click();
     }
-    const popup={hall:'.h-new-person',moments:'.rm-card',stories:'.rs-card',museum:'.mu-sport-item',board:'.bd-era',departments:'.dp-card',retro:'.rt-detail-open'}[tag];
+    const popup={hall:'.h-new-person',moments:'.rm-card',stories:'.rs-card',museum:'.mu-exhibit',board:'.bd-era',departments:'.dp-card',retro:'.rt-detail-open'}[tag];
     if(popup){
      await page.locator(popup).first().click();
      await page.locator('dialog.arch-dialog[open]').waitFor({timeout:7000});
