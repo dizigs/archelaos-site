@@ -148,6 +148,85 @@ function routePreviewLinks(){
   },true);
  }
 }
-function ready(){renderHeader();renderFooter();routePreviewLinks();updateFavoriteCounts()}
+
+/* Shared accessibility controls and back-to-top: every route, including biographies and 404. */
+function renderSiteTools(){
+ if(document.querySelector('.arch-a11y-launch'))return;
+ const launch=document.createElement('button');
+ launch.type='button';launch.className='arch-a11y-launch';
+ launch.setAttribute('aria-label','Ρυθμίσεις προσβασιμότητας');
+ launch.setAttribute('title','Προσβασιμότητα');
+ launch.setAttribute('aria-haspopup','dialog');
+ launch.setAttribute('aria-controls','arch-a11y-panel');
+ launch.setAttribute('aria-expanded','false');
+ launch.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="4" r="2"/><path d="M4 9h16M12 7v14M8 21l4-7 4 7"/></svg>';
+ const panel=document.createElement('dialog');
+ panel.id='arch-a11y-panel';panel.className='arch-a11y-panel';
+ panel.setAttribute('aria-labelledby','arch-a11y-title');
+ panel.setAttribute('aria-describedby','arch-a11y-description');
+ panel.innerHTML=[
+  '<div class="arch-a11y-head"><div><span class="arch-a11y-overline">Γ.Α.Σ. «Ο ΑΡΧΕΛΑΟΣ»</span><h2 id="arch-a11y-title">Προσβασιμότητα</h2></div>',
+  '<button class="arch-a11y-close" type="button" aria-label="Κλείσιμο ρυθμίσεων">×</button></div>',
+  '<div class="arch-a11y-content"><p id="arch-a11y-description">Προσαρμόστε την εμφάνιση στις ανάγκες σας. Οι επιλογές αποθηκεύονται μόνο στη συσκευή σας.</p>',
+  '<label class="arch-a11y-label" for="arch-a11y-size">Μέγεθος κειμένου</label>',
+  '<select id="arch-a11y-size"><option value="100">Κανονικό · 100%</option><option value="125">Μεγαλύτερο · 125%</option><option value="150">Πολύ μεγάλο · 150%</option></select>',
+  '<div class="arch-a11y-toggles">',
+  '<button type="button" data-arch-a11y-toggle="contrast" aria-pressed="false">Εντονότερη αντίθεση</button>',
+  '<button type="button" data-arch-a11y-toggle="links" aria-pressed="false">Υπογράμμιση συνδέσμων</button>',
+  '<button type="button" data-arch-a11y-toggle="calm" aria-pressed="false">Χωρίς κινήσεις</button>',
+  '</div><button class="arch-a11y-reset" type="button">Επαναφορά ρυθμίσεων</button></div>'
+ ].join('');
+ const backTop=document.createElement('button');
+ backTop.type='button';backTop.className='arch-back-to-top';backTop.hidden=true;
+ backTop.setAttribute('aria-label','Επιστροφή στην κορυφή');
+ backTop.setAttribute('title','Επιστροφή στην κορυφή');
+ backTop.innerHTML='<span aria-hidden="true">↑</span>';
+ document.body.append(launch,panel,backTop);
+ const defaults={size:100,contrast:false,links:false,calm:false};
+ let settings={...defaults};
+ try{
+  const saved=JSON.parse(localStorage.getItem('archelaos-accessibility-v1')||'null');
+  if(saved&&typeof saved==='object'){
+   if([100,125,150].includes(saved.size))settings.size=saved.size;
+   for(const key of ['contrast','links','calm'])if(typeof saved[key]==='boolean')settings[key]=saved[key];
+  }
+ }catch(_){/* Storage can be disabled; controls still work. */}
+ const size=panel.querySelector('#arch-a11y-size');
+ function apply(){
+  document.body.dataset.archA11ySize=String(settings.size);
+  for(const key of ['contrast','links','calm']){
+   document.body.classList.toggle('arch-a11y-'+key,settings[key]);
+   panel.querySelector('[data-arch-a11y-toggle="'+key+'"]').setAttribute('aria-pressed',String(settings[key]));
+  }
+  size.value=String(settings.size);
+  try{localStorage.setItem('archelaos-accessibility-v1',JSON.stringify(settings))}catch(_){}
+ }
+ apply();
+ launch.addEventListener('click',()=>{
+  if(panel.open)return;
+  launch.setAttribute('aria-expanded','true');panel.showModal();
+  panel.querySelector('.arch-a11y-close').focus();
+ });
+ panel.querySelector('.arch-a11y-close').addEventListener('click',()=>panel.close());
+ panel.addEventListener('close',()=>{
+  launch.setAttribute('aria-expanded','false');launch.focus({preventScroll:true});
+ });
+ panel.addEventListener('cancel',()=>launch.setAttribute('aria-expanded','false'));
+ size.addEventListener('change',()=>{settings.size=Number(size.value);apply()});
+ panel.querySelectorAll('[data-arch-a11y-toggle]').forEach(button=>
+  button.addEventListener('click',()=>{const key=button.dataset.archA11yToggle;settings[key]=!settings[key];apply()}));
+ panel.querySelector('.arch-a11y-reset').addEventListener('click',()=>{settings={...defaults};apply()});
+ const updateBackTop=()=>{backTop.hidden=window.scrollY<320};
+ backTop.addEventListener('click',()=>{
+  const brand=document.querySelector('.arch-brand');
+  if(brand)brand.focus({preventScroll:true});
+  const reduced=settings.calm||window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  window.scrollTo({top:0,behavior:reduced?'instant':'smooth'});
+ });
+ window.addEventListener('scroll',updateBackTop,{passive:true});
+ updateBackTop();
+}
+
+function ready(){renderHeader();renderFooter();renderSiteTools();routePreviewLinks();updateFavoriteCounts()}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',ready,{once:true});else ready();
 })();
