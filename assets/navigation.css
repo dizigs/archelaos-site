@@ -114,3 +114,14 @@ body.asn-museum-layout{padding-top:var(--asn-height)!important}
   #arch-global-nav-root .asn-drawer:not([hidden]){transform:translate3d(102%,0,0)}
   #arch-global-nav-root .asn-drawer.is-visible{transform:none}
 }
+
+
+/* asn-click-through-hit-test-2026
+   The fixed, extremely high-z-index navigation shell must never intercept
+   clicks outside the visible mast. Explicitly opt in only its live surfaces. */
+#arch-global-nav-root{pointer-events:none!important}
+#arch-global-nav-root .asn-topbar{pointer-events:auto!important}
+#arch-global-nav-root .asn-backdrop:not([hidden]),
+#arch-global-nav-root .asn-drawer:not([hidden]){pointer-events:auto!important}
+#arch-global-nav-root .asn-backdrop[hidden],
+#arch-global-nav-root .asn-drawer[hidden]{pointer-events:none!important;display:none!important}
