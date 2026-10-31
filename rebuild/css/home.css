@@ -114,3 +114,13 @@
 @media(max-width:700px){.new-anniversary-grid,.new-milestones,.new-anniversary-portal,.new-sport-grid,.new-involve-grid{grid-template-columns:1fr}.new-anniversary-number{font-size:clamp(10rem,53vw,18rem)}.new-milestones{gap:0}.new-milestone{border-bottom:1px solid #c7a65e66}.new-involve:nth-child(3){grid-column:auto}.new-value{grid-template-columns:35px 1fr;gap:9px 12px}.new-value p{grid-column:2}}
 @media(max-width:600px){.new-hero{background:linear-gradient(180deg,#faf8ee 0%,#faf8ee 59%,#0a3827 59%,#062b1e 100%);padding-top:36px}.new-hero h1{font-size:clamp(2.1rem,9vw,3.2rem)}.new-buttons{flex-direction:column}.new-logo-seal{width:min(80vw,340px)}.new-slideshow{height:360px}.new-slide-top,.new-slide-bottom{left:14px;right:14px}.new-about-stats{gap:25px}}
 @media(prefers-reduced-motion:reduce){.new-slide,.new-sport{transition:none!important}}
+
+/* Visual comparison with October backup: homepage hero is warm ivory across its full width. */
+.new-hero{background:#faf8ee!important;min-height:575px!important;padding:40px 0 53px!important}
+.new-hero:before{inset:0!important;background:radial-gradient(ellipse at 76% 44%,rgba(202,170,95,.09),transparent 45%)!important}
+.new-hero-grid{align-items:center}
+.new-hero h1{font-size:clamp(2.8rem,4.4vw,5.1rem)}
+.new-logo-col small{color:#987d43}
+.new-logo-seal{box-shadow:0 14px 35px rgba(5,50,31,.12),inset 0 0 0 7px rgba(216,180,88,.035)!important;width:min(100%,465px)}
+@media(max-width:1023px){.new-hero{background:#faf8ee!important;padding:37px 0 45px!important}.new-hero:before{inset:0!important}.new-logo-col{padding-top:22px}.new-logo-seal{width:min(80vw,370px)}}
+@media(max-width:600px){.new-hero{min-height:0!important}.new-logo-seal{width:min(78vw,320px)}}

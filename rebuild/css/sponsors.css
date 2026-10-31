@@ -46,3 +46,13 @@
 .sp-last-card b{position:absolute;right:32px;top:30px;color:#d6ba7c;font-size:28px}
 @media(max-width:850px){.sp-values,.sp-impact-grid,.sp-options-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.sp-contact-inner{grid-template-columns:1fr}.sp-seal{width:210px}.sp-signature{margin-top:48px}}
 @media(max-width:600px){.sp-values,.sp-impact-grid,.sp-options-grid{grid-template-columns:1fr}.sp-actions{flex-direction:column;align-items:stretch}.sp-signature{flex-direction:column}.sp-hero{padding-top:72px}.sp-hero h1{font-size:clamp(40px,10vw,58px)}.sp-last-card{padding:30px}}
+
+/* Backup sponsorship entrance: top-aligned large title and wider editorial actions. */
+.sp-hero{padding-top:34px!important;padding-bottom:52px!important}
+.sp-hero h1{max-width:790px;font-size:clamp(50px,6.4vw,96px)}
+.sp-hero .sp-lead{max-width:750px}
+.sp-hero .sp-button-gold{min-width:425px;justify-content:space-between}
+.sp-hero .sp-button-outline{min-width:425px;justify-content:space-between;background:#f9f4e9;color:#073d2a}
+.sp-signature{border-top:0;margin-top:60px}
+@media(max-width:900px){.sp-hero .sp-button-gold,.sp-hero .sp-button-outline{min-width:0;width:auto}.sp-hero h1{font-size:clamp(45px,7vw,76px)}}
+@media(max-width:600px){.sp-hero{padding-top:44px!important}.sp-hero .sp-button{width:100%}}

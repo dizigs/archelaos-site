@@ -44,3 +44,16 @@
 @media(max-width:1000px){.bd-members{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:600px){.bd-members,.bd-eras{grid-template-columns:1fr}.bd-era{min-height:205px}.bd-member{min-height:190px}}
 @media(prefers-reduced-motion:reduce){.bd-era{transition:none}}
+
+/* Backup 31 Oct: board entrance is ivory, bold green sans typography, not dark. */
+.bd-hero{padding:28px 0 56px!important;min-height:420px;background:radial-gradient(ellipse at 72% 14%,#f7eed0,#fffdf6 60%,#f8f6ef)!important;color:#073d2a}
+.bd-hero:after{content:"1956";right:2%;top:-.2em;bottom:auto;color:rgba(199,166,94,.095);font-size:clamp(180px,30vw,420px)}
+.bd-hero span{display:inline-block;background:#073d2a;color:#e5cc91;border:1px solid #c7a65e;border-radius:8px;padding:7px 13px;font:800 11px Inter,system-ui,sans-serif;letter-spacing:.12em}
+.bd-hero h1{font:800 clamp(41px,5.4vw,74px)/1.08 Inter,system-ui,sans-serif!important;letter-spacing:-.05em;color:#073d2a!important;margin:25px 0 22px}
+.bd-hero h1 em{font-style:normal;color:#073d2a}
+.bd-hero p{font:400 17px/1.8 Inter,system-ui,sans-serif;color:#5a715d;max-width:700px}
+.bd-hero-link{display:inline-block;margin-top:14px;background:#f5efdf;color:#073d2a;border:1px solid #cbb787;border-radius:12px;padding:12px 19px;text-decoration:none;font-size:13px;font-weight:800}
+.bd-current{text-align:center}
+.bd-current>.arch-container>.bd-lead{margin-left:auto;margin-right:auto}
+.bd-members{text-align:left}
+@media(max-width:650px){.bd-hero{min-height:0;padding:40px 0 56px!important}.bd-hero h1{font-size:clamp(36px,8vw,58px)}}

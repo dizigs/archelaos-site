@@ -61,3 +61,10 @@
 @media(max-width:980px){.h-new-hero-grid{grid-template-columns:1fr}.h-new-stat{max-width:380px}.h-new-filter-top{grid-template-columns:1fr 1fr}.h-new-filter-top>button{grid-column:1/-1}.h-new-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:620px){.h-new-hero{padding:55px 0 65px}.h-new-stat{width:100%}.h-new-directory-heading{align-items:start;flex-wrap:wrap}.h-new-filter-top,.h-new-grid{grid-template-columns:1fr}.h-new-filters{padding:18px}.h-new-person{min-height:175px}.h-new-filter-top>button{grid-column:auto}.h-new-hero h1{font-size:clamp(41px,11vw,62px)}.h-new-notice{padding:22px}}
 @media(prefers-reduced-motion:reduce){.h-new-person{transition:none}}
+
+/* Reference: Hall of Fame edition is slightly taller, with outlined primary and ivory secondary CTA. */
+.h-new-hero{padding-top:90px;padding-bottom:105px}
+.h-new-hero-links a:first-child{background:transparent;color:#fff6e1}
+.h-new-hero-links a:nth-child(2){background:#f6f0e4;color:#073d2a}
+.h-new-stat{padding:38px 25px}
+@media(max-width:620px){.h-new-hero{padding:60px 0 76px}}

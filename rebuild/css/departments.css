@@ -29,3 +29,15 @@
 .dp-bottom a{display:inline-flex;border:1px solid #bb9c5b;border-radius:12px;padding:13px 20px;color:#073d2a;text-decoration:none;font-weight:750;background:#fffdf8}
 @media(max-width:650px){.dp-grid{grid-template-columns:1fr}.dp-card{min-height:225px;padding:65px 18px 34px}.dp-bottom{flex-direction:column}}
 @media(prefers-reduced-motion:reduce){.dp-card{transition:none}}
+
+/* The backup's sports atlas entrance is centered with an A watermark. */
+.dp-hero{padding:43px 0 57px!important;text-align:center}
+.dp-hero .arch-container{text-align:center;max-width:950px}
+.dp-hero h1{max-width:735px;margin:18px auto!important}
+.dp-hero h1 em{display:block}
+.dp-hero .dp-lead{max-width:710px;margin:20px auto 24px}
+.dp-hero:after{content:"Α";top:auto;right:3%;bottom:-.32em;font-size:clamp(210px,27vw,390px)}
+.dp-hero a{margin-top:8px}
+.dp-content h2{text-align:center}
+.dp-content>.arch-container>.dp-eyebrow,.dp-content>.arch-container>.dp-desc{text-align:center;margin-left:auto;margin-right:auto}
+@media(max-width:650px){.dp-hero h1{font-size:clamp(40px,9vw,60px)}}
