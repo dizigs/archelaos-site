@@ -114,6 +114,9 @@ def verify() -> None:
     robots = (DIST / "robots.txt").read_text()
     assert "Sitemap: " + SITE + "/sitemap.xml" in robots
     assert (DIST / "_redirects").read_text() == (ROOT / "_redirects").read_text()
+    headers = (DIST / "_headers").read_text(encoding="utf-8")
+    assert "X-Frame-Options: DENY" in headers, "Clickjacking protection missing"
+    assert "Cache-Control: public, max-age=0, must-revalidate" in headers, "Unversioned assets may remain stale"
     assert not (DIST / "rebuild").exists(), "Never publish preview folder"
     print(f"RELEASE QA OK: {len(main)} core pages + {len(loc_people)} indexed profiles.")
     print("Canonicals, robots, structured data, two sitemaps, redirects and local paths verified.")

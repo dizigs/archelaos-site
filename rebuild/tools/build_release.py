@@ -282,9 +282,10 @@ def make_release() -> None:
     copy2(ROOT / "_redirects", OUTPUT / "_redirects")
     (OUTPUT / "_headers").write_text(
         "/*\n  X-Content-Type-Options: nosniff\n"
+        "  X-Frame-Options: DENY\n"
         "  Referrer-Policy: strict-origin-when-cross-origin\n"
         "  Permissions-Policy: camera=(), microphone=(), geolocation=()\n"
-        "\n/assets/site/*\n  Cache-Control: public, max-age=86400\n"
+        "\n/assets/site/*\n  Cache-Control: public, max-age=0, must-revalidate\n"
         "\n/images/*\n  Cache-Control: public, max-age=604800\n",
         encoding="utf-8"
     )

@@ -143,6 +143,16 @@ jobs:
         run: python rebuild/tools/build_release.py
       - name: Check sitemap, metadata, canonical and 682 profiles
         run: python rebuild/tools/verify_release.py
+      - name: Scan ALL generated pages for pre-deployment risk
+        run: python rebuild/tools/preflight.py --strict --json rebuild/test-artifacts/preflight.json
+      - name: Preserve security, links and cache preflight audit
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: archelaos-preflight-risk-report
+          path: rebuild/test-artifacts/preflight.json
+          if-no-files-found: warn
+          retention-days: 14
       - name: Preserve release candidate without deployment
         uses: actions/upload-artifact@v4
         with:
