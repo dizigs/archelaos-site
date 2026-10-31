@@ -1,7 +1,7 @@
 /* An archival folio, not a carousel or another popup. */
 .voice-section{padding:clamp(68px,8vw,115px) 0;background:#eee9dd;color:#073d2a;scroll-margin-top:var(--arch-nav-height)}
 .voice-header{text-align:center;margin:0 auto 40px;max-width:840px}
-.voice-eyebrow{margin:0 0 16px;color:#89703d;letter-spacing:.17em;font-size:11px;font-weight:850}
+.voice-eyebrow{margin:0 0 16px;color:#674a20;letter-spacing:.17em;font-size:11px;font-weight:850}
 .voice-header h2{font:400 clamp(40px,5.4vw,68px)/1.12 Georgia,serif;letter-spacing:-.045em;margin:0 0 19px;color:#073d2a}
 .voice-header h2 em{font-weight:400;color:#997c42}
 .voice-lead{color:#486650;font-size:16px;line-height:1.8;margin:0 auto;max-width:730px}
@@ -10,7 +10,7 @@
 .voice-tab{display:grid;grid-template-columns:25px 61px minmax(0,1fr);align-items:center;gap:12px;min-height:57px;padding:11px 13px;text-align:left;color:#214633;border:1px solid transparent;border-radius:9px;background:transparent;cursor:pointer}
 .voice-tab:hover{border-color:#c5b080;background:#f4f0e5}
 .voice-tab.is-active{border-color:#a58a51;background:#073d2a;color:#fffaf0}
-.voice-tab-number{font:800 10px/1 Inter,system-ui,sans-serif;color:#9e8148}
+.voice-tab-number{font:800 10px/1 Inter,system-ui,sans-serif;color:#63471c}
 .voice-tab strong{font:500 21px/1.1 Georgia,serif}
 .voice-tab-title{font-size:13px;line-height:1.35;font-weight:650;overflow-wrap:anywhere}
 .voice-tab.is-active .voice-tab-number{color:#d7ba7d}
