@@ -40,14 +40,10 @@
 .h-new-count{margin:27px 0 21px;color:#637263;font-weight:650;font-size:14px}
 .h-new-archive-label{border-bottom:1px solid #c9b98e;padding-bottom:15px;color:#9a7740;font-weight:800;font-size:11px;letter-spacing:.19em;margin-bottom:24px}
 .h-new-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px}
-.h-new-person{position:relative;isolation:isolate;display:flex;flex-direction:column;justify-content:space-between;text-align:left;min-height:210px;padding:22px 23px;border:1px solid #d8ceb8;border-radius:20px;background:radial-gradient(ellipse at 12% 0%,#fffefa,transparent 59%),linear-gradient(134deg,#fffdf7,#f2eadb);color:#073d2a;box-shadow:0 9px 26px rgba(6,54,31,.055);transition:transform .23s,box-shadow .23s,border-color .23s}
+ .h-new-person{position:relative;isolation:isolate;display:flex;flex-direction:column;justify-content:center;text-align:left;min-height:178px;padding:28px 26px;overflow:hidden;border:1px solid #d8ceb8;border-radius:20px;background:radial-gradient(ellipse at 12% 0%,#fffefa,transparent 59%),linear-gradient(134deg,#fffdf7,#f2eadb);color:#073d2a;box-shadow:0 9px 26px rgba(6,54,31,.055);transition:transform .23s,box-shadow .23s,border-color .23s}
 .h-new-person:hover{transform:translateY(-3px);box-shadow:0 18px 37px rgba(7,61,42,.12);border-color:#bda46d}
-.h-new-person-top{display:flex;justify-content:space-between;align-items:center;gap:12px}
-.h-new-monogram{font:400 36px/1 Georgia,serif;color:#b29b66}
-.h-new-arrow{font:24px/1 Georgia,serif;color:#977837}
 .h-new-person strong{display:block;font:400 clamp(21px,2.4vw,29px)/1.18 Georgia,serif;overflow-wrap:anywhere}
 .h-new-person small{display:block;margin-top:11px;color:#6e786d;font-size:12px;line-height:1.5}
-.h-new-person-bottom{display:block;border-top:1px solid #d8cdb6;margin-top:20px;padding-top:13px;font-weight:800;font-size:11px;letter-spacing:.08em;color:#916f34}
 .h-new-pages{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:33px}
 .h-new-pages button{min-height:43px;min-width:43px;padding:8px 14px;border:1px solid #c5b28e;border-radius:10px;background:#fffdf8;color:#073d2a;font-weight:750}
 .h-new-pages button[aria-current="page"]{background:#073d2a;color:#fff6e3}
@@ -68,3 +64,13 @@
 .h-new-hero-links a:nth-child(2){background:#f6f0e4;color:#073d2a}
 .h-new-stat{padding:38px 25px}
 @media(max-width:620px){.h-new-hero{padding:60px 0 76px}}
+
+/* Hall of Fame: quiet editorial cards. Click anywhere for biography.
+   Crest is a decorative watermark: not another interactive element. */
+.h-new-person{cursor:pointer}
+.h-new-person::after{content:"";position:absolute;right:-20px;bottom:-24px;width:clamp(105px,14vw,175px);aspect-ratio:1;background:url("/assets/archelaos-crest.png") center/contain no-repeat;opacity:.07;filter:blur(1.6px) grayscale(25%);pointer-events:none;z-index:-1}
+.h-new-person-details{display:block;position:relative;z-index:1;padding-right:18px}
+.h-new-person strong{font-weight:500;line-height:1.28}
+.h-new-person small{margin-top:13px}
+.h-new-person:focus-visible{outline:3px solid #b49355;outline-offset:3px}
+@media(max-width:620px){.h-new-person{min-height:145px;padding:24px 22px}}
