@@ -32,4 +32,39 @@ except ValueError:
     pass
 else:
     raise AssertionError("Incorrect old phrase was accepted")
+# Simulate a REAL correction in an isolated temporary checkout.
+with tempfile.TemporaryDirectory() as temp:
+    sandbox=Path(temp)
+    used=[
+        "rebuild/data/people.json","hall-of-fame-people.json",
+        "rebuild/i18n/content/en/people.json",
+        "people/arch-61d8d097f601.html",
+        "rebuild/data/board.json","board.html"
+    ]
+    for relative in used:
+        path=sandbox/relative
+        path.parent.mkdir(parents=True,exist_ok=True)
+        text=(ROOT.parent/relative).read_text(encoding="utf-8")
+        for edit in manifest["changes"]:
+            for op in edit["replacements"]:
+                text=text.replace(op["after"],op["before"])
+                if op["field"]=="bio_en":
+                    text=text.replace(
+                        editor.escape(op["after"],quote=True).replace("&#x27;","&#39;"),
+                        editor.escape(op["before"],quote=True).replace("&#x27;","&#39;")
+                    )
+        path.write_text(text,encoding="utf-8")
+    prepared,comments=editor.patch_manifest(manifest,sandbox)
+    assert prepared, "Quick-edit did not produce any corrected files"
+    assert len(prepared)>=5, f"Unexpectedly few files: {list(prepared)}"
+    for relative,body in prepared.items():
+        (sandbox/relative).write_text(body,encoding="utf-8")
+    again,_=editor.patch_manifest(manifest,sandbox)
+    assert not again, "Second run must be idempotent"
+    for relative in used:
+        text=(sandbox/relative).read_text(encoding="utf-8")
+        for edit in manifest["changes"]:
+            for op in edit["replacements"]:
+                if op["after"] in (ROOT.parent/relative).read_text(encoding="utf-8"):
+                    assert op["after"] in text, relative
 print("EDITORIAL TOOL QA OK: exact multi-file records, idempotence, source lookup, safe failure")

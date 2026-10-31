@@ -34,18 +34,32 @@ def exact_replace(text,before,after,where):
     return text.replace(before,after,1),True
 
 def profile_replace(html,before,after,where):
-    # Preserve richer standalone profile HTML and JSON-LD in place.
-    for original,updated in (
+    # Keep visible biography AND JSON-LD in sync, including apostrophe entities.
+    pairs=list(dict.fromkeys((
         (before,after),
         (escape(before,quote=True),escape(after,quote=True)),
         (escape(before,quote=True).replace("&#x27;","&#39;"),
          escape(after,quote=True).replace("&#x27;","&#39;"))
-    ):
-        if after in html or updated in html:
-            return html,False
-        if original in html:
-            return html.replace(original,updated),True
-    raise ValueError(f"{where}: profile does not contain expected original phrase")
+    )))
+    matched=False
+    changed=False
+    for original,updated in pairs:
+        if original==updated:continue
+        token="\x01ARCH-QUICK-EDIT-RESERVED\x02"
+        if token in html:raise ValueError(f"{where}: reserved token found")
+        already=updated in html
+        protected=html.replace(updated,token) if already else html
+        count=protected.count(original)
+        if count>3:
+            raise ValueError(f"{where}: unexpected duplicate original phrase ({count})")
+        if count:
+            protected=protected.replace(original,updated)
+            changed=True
+        if already or count:matched=True
+        html=protected.replace(token,updated)
+    if not matched:
+        raise ValueError(f"{where}: profile does not contain expected original phrase")
+    return html,changed
 
 def patch_manifest(manifest, root=ROOT):
     if manifest.get("schema_version")!=1:
