@@ -247,12 +247,12 @@ def make_release() -> None:
         after = revised_people[person_id].get(key, "")
         if before == after:
             return source
-        regex = (r'(<section\\b[^>]*data-profile-language="' + lang +
+        regex = (r'(<section\b[^>]*data-profile-language="' + lang +
                  r'"[^>]*>.*?<div class="bio">)(.*?)(</div>)')
         match = re.search(regex, source, flags=re.S)
         if not match:
             raise ValueError("Missing biography section: " + person_id + "/" + lang)
-        normal = lambda value: re.sub(r"\\s+", " ", value).strip()
+        normal = lambda value: re.sub(r"\s+", " ", value).strip()
         if normal(html_unescape(match.group(2))) != normal(before):
             # Preserve the long-form archival page if it contains richer prose.
             # Canonical Hall of Fame popup still shows the revised biography.
