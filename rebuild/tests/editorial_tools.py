@@ -67,4 +67,31 @@ with tempfile.TemporaryDirectory() as temp:
             for op in edit["replacements"]:
                 if op["after"] in (ROOT.parent/relative).read_text(encoding="utf-8"):
                     assert op["after"] in text, relative
+# Prepare a draft by a full name, ignoring Greek accent differences.
+preparer=load_module("prepare_correction","prepare_correction.py")
+person=preparer.person_by_name("Αλκινοος Τασοπουλος")
+assert person["id"]=="arch-61d8d097f601"
+draft=preparer.prepare(kind="person",reference="Αλκινοος Τασοπουλος",
+    field="bio",before="τα καθήκοντα του προέδρου άσκησε προσωρινά ο Χαράλαμπος Σαββίδης",
+    after="τα καθήκοντα του προέδρου ασκούσε προσωρινά ο Χαράλαμπος Σαββίδης",
+    reason="Correction test: generated pending review only")
+assert draft["changes"][0]["id"]==person["id"]
+assert len(draft["changes"])==1
+for invalid_name in ("Τασόπουλος","Αλέξανδρος Ανύπαρκτος"):
+    try:
+        preparer.person_by_name(invalid_name)
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("Draft preparer accepted partial or unknown name")
+with tempfile.TemporaryDirectory() as scratch:
+    dest=preparer.save_draft(draft,"test-correction",Path(scratch))
+    assert json.loads(dest.read_text(encoding="utf-8"))==draft
+    try:
+        preparer.save_draft(draft,"test-correction",Path(scratch))
+    except FileExistsError:
+        pass
+    else:
+        raise AssertionError("Draft preparer overwrote a previous draft")
+
 print("EDITORIAL TOOL QA OK: exact multi-file records, idempotence, source lookup, safe failure")
