@@ -1,6 +1,14 @@
 /* Minimal local image carousel — no observers, timers or global event interception. */
 (()=>{'use strict';
 const init=()=>{
+ // Exact live archive count, not a decorative approximate number.
+ const total=document.querySelector('#new-people-total');
+ if(total){
+  const url=location.pathname.startsWith('/rebuild/')?'/rebuild/data/people.json':'/assets/site/data/people.json';
+  fetch(url).then(r=>{if(!r.ok)throw Error('people count unavailable');return r.json()})
+   .then(data=>{const count=data.people?.length;if(Number.isInteger(count)&&count>0)total.textContent=count.toLocaleString('el-GR')})
+   .catch(()=>{}); // The verified build-time 682 remains visible if offline.
+ }
  // Keep image cards polished even if an external host blocks or removes a photo.
  for(const img of document.querySelectorAll('.new-slide img')){
   const missing=()=>{
