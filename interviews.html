@@ -31,15 +31,39 @@ main{padding:55px 0 100px}.section-head{display:flex;gap:25px;align-items:end;ju
 footer{text-align:center;font-size:12px;color:#758273;padding:35px 15px;border-top:1px solid #dedfd6}
 @media(max-width:1000px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:690px){.wrap{width:calc(100% - 28px)}.hero{padding:48px 0 57px}.hero h1{font-size:clamp(46px,11vw,65px)}.section-head{display:block}.controls{grid-template-columns:1fr}.cards{grid-template-columns:1fr;gap:11px}.card{min-height:0;padding:19px}.year{font-size:34px;margin-top:15px}.dialog{max-width:calc(100vw - 12px);max-height:94vh}.dialog-inner{max-height:94vh}.detail{padding:22px 19px}.dialog-top{border-radius:12px 12px 0 0}}
 @media(prefers-reduced-motion:reduce){.card{transition:none}.card:hover{transform:none}}
+
+/* Compact editorial cards instead of a searching/filtering dashboard. */
+.cards{gap:12px}.card{padding:18px 19px;min-height:210px;border-radius:15px}
+.year{font-size:34px;margin:12px 0 0}.card h3{font-size:clamp(18px,1.8vw,22px);margin:8px 0}
+.card p{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;line-height:1.55;margin:0 0 12px;font-size:12px}
+.foot{padding-top:9px}.count{margin:3px 0 18px}.count a{color:#86672b;border-bottom:1px solid #c7a65e;margin-left:12px;font-weight:800}
+.dialog-inner{scrollbar-width:thin;-webkit-overflow-scrolling:touch}.links a{overflow-wrap:anywhere;line-height:1.5}
+@media(max-width:690px){
+ main{padding:29px 0 48px}.hero{padding:32px 0 39px}.hero h1{font-size:clamp(37px,10vw,53px);margin:12px 0}
+ .hero p{font-size:14px;line-height:1.62}.pills{margin:17px 0;gap:7px}.pills span{font-size:10px;padding:5px 9px}
+ .back{padding:9px 13px;font-size:12px}.section-head{margin-bottom:17px}.section-head h2{font-size:27px}.section-head p{line-height:1.6;font-size:12px}
+ .cards{grid-template-columns:minmax(0,1fr);gap:9px}
+ .card{display:grid;grid-template-columns:78px minmax(0,1fr);grid-template-rows:auto auto auto auto;align-items:start;column-gap:12px;row-gap:3px;min-height:0;padding:12px 14px;border-radius:13px;box-shadow:0 2px 10px #052b1c0d}
+ .card .meta{grid-column:1/-1;font-size:9px;letter-spacing:.06em;gap:6px;min-width:0}
+ .card .year{grid-column:1;grid-row:2/span 2;font-size:29px;margin:6px 0 0;line-height:1}
+ .card h3{grid-column:2;grid-row:2;font-size:16px;line-height:1.3;margin:4px 0 1px;overflow-wrap:break-word}
+ .card p{grid-column:2;grid-row:3;font-size:11.5px;line-height:1.5;margin:0;-webkit-line-clamp:2}
+ .card .foot{grid-column:1/-1;grid-row:4;padding-top:7px;margin-top:4px;font-size:10px}
+ .dialog{width:calc(100% - 12px);max-width:calc(100vw - 12px);max-height:calc(100dvh - 12px)}
+ .dialog-inner{max-height:calc(100dvh - 12px);border-radius:13px}.dialog-top{padding:10px 13px}
+ .close{min-width:42px;min-height:42px;display:grid;place-items:center}
+ .detail{padding:20px 17px}.detail-year{font-size:35px}.detail h2{font-size:clamp(26px,7vw,35px);overflow-wrap:break-word}
+ .event{font-size:14px}.detail h3{font-size:20px}.question,.answer{font-size:14px}.qa-row{padding:14px 0}.quote{font-size:17px}
+ .links{gap:6px}.links a{width:100%;padding:10px 12px;font-size:12px}.note{padding:13px 15px;font-size:11px}
+}
+@media(max-width:350px){.card{grid-template-columns:68px minmax(0,1fr);padding:11px 12px;column-gap:10px}.card .year{font-size:26px}.card h3{font-size:15px}}
 </style></head><body class="asn-museum-layout">
 <header class="mast" aria-hidden="true"></header><section class="hero"><div class="wrap"><span class="kicker" data-el="ΨΗΦΙΑΚΟ ΜΟΥΣΕΙΟ · ΜΑΡΤΥΡΙΕΣ" data-en="DIGITAL MUSEUM · ORAL HISTORY">ΨΗΦΙΑΚΟ ΜΟΥΣΕΙΟ · ΜΑΡΤΥΡΙΕΣ</span>
 <h1><span data-el="Οι Φωνές" data-en="Voices of">Οι Φωνές</span><br><span data-el="του Αρχέλαου." data-en="Archelaos.">του Αρχέλαου.</span></h1>
 <p data-el="Πίσω από κάθε νίκη, κάθε προσπάθεια και κάθε στιγμή, υπάρχουν άνθρωποι με ιστορίες να αφηγηθούν. Συνεντεύξεις και δηλώσεις μέσα στο ιστορικό τους πλαίσιο." data-en="Behind every victory, effort and milestone are people with stories to tell. Interviews and statements set in their historical context.">Πίσω από κάθε νίκη, κάθε προσπάθεια και κάθε στιγμή, υπάρχουν άνθρωποι με ιστορίες να αφηγηθούν. Συνεντεύξεις και δηλώσεις μέσα στο ιστορικό τους πλαίσιο.</p>
 <div class="pills"><span>1956–2026</span><span id="totalBadge">25 ΤΕΚΜΗΡΙΑ</span><span data-el="ΠΡΩΤΟΓΕΝΕΙΣ ΦΩΝΕΣ" data-en="FIRSTHAND ACCOUNTS">ΠΡΩΤΟΓΕΝΕΙΣ ΦΩΝΕΣ</span></div>
-<a class="back" href="history.html" data-el="← Επιστροφή στο Ψηφιακό Μουσείο" data-en="← Back to Digital Museum">← Επιστροφή στο Ψηφιακό Μουσείο</a></div></section>
+<a class="back" href="history.html" data-el="Επιστροφή στο Ψηφιακό Μουσείο" data-en="Back to Digital Museum">Επιστροφή στο Ψηφιακό Μουσείο</a></div></section>
 <main><div class="wrap"><div class="section-head"><div><h2 data-el="Το αρχείο των φωνών" data-en="The voices archive">Το αρχείο των φωνών</h2><p data-el="Ανακάλυψε το πρόσωπο, το γεγονός και την εποχή πίσω από κάθε ιστορική μαρτυρία." data-en="Discover the person, event and era behind each historical testimony.">Ανακάλυψε το πρόσωπο, το γεγονός και την εποχή πίσω από κάθε ιστορική μαρτυρία.</p></div></div>
-<div class="controls"><input id="search" class="control" type="search" aria-label="Αναζήτηση συνεντεύξεων" placeholder="Αναζήτηση προσώπου, αγώνα, θέματος…"><select id="kind" class="control" aria-label="Είδος"><option value="all">Όλα τα τεκμήρια</option><option value="interview">Συνεντεύξεις</option><option value="statement">Δηλώσεις</option><option value="report">Ρεπορτάζ</option></select>
-<select id="sport" class="control" aria-label="Άθλημα"><option value="all">Όλα τα αθλήματα</option><option value="handball">Χάντμπολ</option><option value="gymnastics">Ενόργανη</option><option value="track">Στίβος</option><option value="volleyball">Βόλεϊ</option><option value="basketball">Μπάσκετ</option><option value="administration">Διοίκηση</option></select></div>
 <div class="count" id="count" role="status" aria-live="polite">Φόρτωση συλλογής…</div><div class="cards" id="cards"></div>
 <p class="note" data-el="Το αρχείο διακρίνει τις πλήρεις συνεντεύξεις από τις σύντομες δηλώσεις και τα δημοσιογραφικά ρεπορτάζ. Οι πληροφορίες τεκμηρίωσης προέρχονται από την καταγραφή των αρχειακών αποκομμάτων. Όπου οι καταγραφές διαφωνούν, σημειώνεται η εκκρεμότητα." data-en="The archive distinguishes full interviews, short statements and press reports. Context is drawn from archival clippings; unresolved discrepancies are marked.">Το αρχείο διακρίνει τις πλήρεις συνεντεύξεις από τις σύντομες δηλώσεις και τα δημοσιογραφικά ρεπορτάζ. Οι πληροφορίες τεκμηρίωσης προέρχονται από την καταγραφή των αρχειακών αποκομμάτων. Όπου οι καταγραφές διαφωνούν, σημειώνεται η εκκρεμότητα.</p>
 </div></main><footer>Γ.Α.Σ. «Ο ΑΡΧΕΛΑΟΣ» · ΚΑΤΕΡΙΝΗ 1956–2026</footer>

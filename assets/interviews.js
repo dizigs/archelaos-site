@@ -9,15 +9,16 @@ const sports={handball:['Χάντμπολ','Handball'],gymnastics:['Ενόργα
 let lastFocus=null;
 const hay=x=>norm([x.name,x.event,x.context,x.source,x.quote,(x.qa||[]).map(v=>v.question+' '+v.answer).join(' ')].join(' '));
 function resultSet(){
- const q=norm($('search').value.trim()),kind=$('kind').value,sport=$('sport').value;
- return S.items.filter(x=>(!S.person||(x.personIds||[]).includes(S.person))&&(!S.record||x.id===S.record)&&(kind==='all'||x.kind===kind)&&(sport==='all'||x.sport===sport)&&(!q||hay(x).includes(q)));
+ const q=norm(new URLSearchParams(location.search).get('q')||'');
+ return S.items.filter(x=>(!S.person||(x.personIds||[]).includes(S.person))&&(!q||hay(x).includes(q)));
 }
 function showCards(){
- const list=resultSet();$('count').textContent=tr(list.length+' από '+S.items.length+' τεκμήρια',list.length+' of '+S.items.length+' records');
+ const list=resultSet(),counter=$('count');counter.textContent=tr(list.length+' από '+S.items.length+' τεκμήρια',list.length+' of '+S.items.length+' records');
+ const params=new URLSearchParams(location.search);if(params.has('person')||params.has('q')){const all=document.createElement('a');all.href='interviews.html';all.textContent=tr('Προβολή όλων','View all');counter.append(all)}
  const frag=document.createDocumentFragment();
  list.forEach(x=>{
   const btn=document.createElement('button');btn.type='button';btn.className='card'+(x.kind==='interview'?' feature':'');btn.dataset.id=x.id;
-  btn.innerHTML='<span class="meta"><span>'+esc(tr(...kinds[x.kind]))+'</span><span>'+esc(tr(...sports[x.sport]))+'</span></span><span class="year">'+esc(x.year)+'</span><h3>'+esc(x.name.split(' (')[0])+'</h3><p>'+esc(x.event)+'</p><span class="foot"><span>'+esc(x.qa?tr(x.qa.length+' ερωτήσεις',x.qa.length+' questions'):tr('Αρχειακό τεκμήριο','Archive record'))+'</span><span>↗</span></span>';
+  btn.innerHTML='<span class="meta"><span>'+esc(tr(...kinds[x.kind]))+'</span><span>'+esc(tr(...sports[x.sport]))+'</span></span><span class="year">'+esc(x.year)+'</span><h3>'+esc(x.name.split(' (')[0])+'</h3><p>'+esc(x.event)+'</p><span class="foot"><span>'+esc(x.qa?tr(x.qa.length+' ερωτήσεις',x.qa.length+' questions'):tr('Αρχειακό τεκμήριο','Archive record'))+'</span></span>';
   btn.addEventListener('click',()=>open(x.id));frag.append(btn);
  });
  if(!list.length){const p=document.createElement('p');p.className='empty';p.textContent=tr('Δεν βρέθηκαν καταχωρίσεις. Δοκίμασε άλλη αναζήτηση.','No matching records. Try another query.');frag.append(p)}
@@ -34,8 +35,8 @@ function open(id){
  if(x.needsReview)inner+='<div class="warning">'+tr('Ορισμένες συμπληρωματικές λεπτομέρειες του γεγονότος χρειάζονται διασταύρωση με το πρωτότυπο απόκομμα.','Some contextual details need verification against the original clipping.')+'</div>';
  if((x.relatedPeople&&x.relatedPeople.length)||(x.eventLinks&&x.eventLinks.length)){
   inner+='<section class="source"><h3>'+tr('Συνδεδεμένα τεκμήρια & πρόσωπα','Related archive records & people')+'</h3><div class="links">';
-  (x.relatedPeople||[]).forEach(p=>{inner+='<a href="hall-of-fame.html?person='+encodeURIComponent(p.id)+'">'+tr('Βιογραφικό: '+p.name,'Biography: '+(p.nameEn||p.name))+' ↗</a>'});
-  (x.eventLinks||[]).forEach(link=>{if(!/^(?:history|70-stigmes|retro-matches)\.html(?:#(?:sport-[a-z]+|moment-\d+|match-\d+))?$/.test(link.href))return;inner+='<a href="'+esc(link.href)+'">'+esc(tr(link.labelEl,link.labelEn))+' ↗</a>'});
+  (x.relatedPeople||[]).forEach(p=>{inner+='<a href="hall-of-fame.html?person='+encodeURIComponent(p.id)+'">'+tr('Βιογραφικό: '+p.name,'Biography: '+(p.nameEn||p.name))+'</a>'});
+  (x.eventLinks||[]).forEach(link=>{if(!/^(?:history|70-stigmes|retro-matches)\.html(?:#(?:sport-[a-z]+|moment-\d+|match-\d+))?$/.test(link.href))return;inner+='<a href="'+esc(link.href)+'">'+esc(tr(link.labelEl,link.labelEn))+'</a>'});
   inner+='</div></section>';
  }
  $('detail').innerHTML=inner;
@@ -45,11 +46,10 @@ function open(id){
 $('close').addEventListener('click',()=>$('dialog').close());
 $('dialog').addEventListener('click',e=>{if(e.target===$('dialog'))$('dialog').close()});
 $('dialog').addEventListener('close',()=>{lastFocus?.focus?.({preventScroll:true});const url=new URL(location.href);url.searchParams.delete('record');history.replaceState(null,'',url)});
-['search','kind','sport'].forEach(id=>$(id).addEventListener(id==='search'?'input':'change',showCards));
 fetch('interviews.json',{cache:'no-cache'}).then(r=>r.ok?r.json():Promise.reject(Error('HTTP '+r.status))).then(d=>{
  if(!Array.isArray(d.items))throw Error('Bad dataset');
  S.items=d.items;$('totalBadge').textContent=S.items.length+' '+tr('ΤΕΚΜΗΡΙΑ','RECORDS');
- const q=new URLSearchParams(location.search);S.person=q.get('person');S.record=q.get('record');if(q.get('q'))$('search').value=q.get('q');
+ const q=new URLSearchParams(location.search);S.person=q.get('person');S.record=q.get('record');
  showCards();
  if(S.record&&S.items.some(x=>x.id===S.record))open(S.record);
 }).catch(()=>{$('count').textContent=tr('Το αρχείο δεν είναι προσωρινά διαθέσιμο.','Archive currently unavailable.')});
