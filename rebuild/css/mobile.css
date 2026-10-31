@@ -1,0 +1,30 @@
+/* MOBILE: 0–767px. One shared semantic DOM; no separate mobile templates. */
+:root{--arch-nav-height:70px}
+.arch-header-inner{padding-inline:9px;gap:5px}
+.arch-brand{min-width:0;gap:6px;flex:1 1 auto}
+.arch-brand img{width:36px;height:36px;flex-shrink:0}
+.arch-brand-lines{min-width:0}
+.arch-brand-title{font-size:clamp(10.5px,3.3vw,15px);letter-spacing:0}
+.arch-brand-sub{font-size:8px;letter-spacing:.04em}
+.arch-header-actions{margin-left:auto;gap:5px;flex-shrink:0}
+.arch-action{position:relative;width:44px;height:44px;min-height:44px;padding:8px;border-radius:10px}
+.arch-action .arch-action-name{display:none}
+.arch-action-icon{width:21px;height:21px}
+.arch-nav{display:none!important}
+.arch-menu-open{display:flex;width:44px;height:44px;flex-shrink:0;font-size:22px}
+.arch-fav-count{position:absolute;top:-5px;right:-4px;min-width:18px;min-height:18px}
+.arch-menu-dialog[open]{width:min(410px,100vw)!important;left:auto!important;right:0!important}
+.arch-menu-content{overscroll-behavior:contain}
+.arch-language-slot-mobile:not([hidden]){display:block;margin:12px 3px}
+.arch-cards,.av-grid,.ac-grid,.ac-steps{grid-template-columns:minmax(0,1fr)}
+.arch-card{min-height:205px}
+.arch-dialog{width:min(730px,calc(100vw - 16px))}
+.arch-dialog-head{gap:10px}
+.arch-footer-ctas{width:100%}
+.arch-footer-cta{flex:1 1 120px;justify-content:center}
+.arch-footer-social a{flex:1 1 120px;justify-content:center}
+.ac-hero{min-height:0}
+.ac-section,.ac-process,.ac-contact{padding-block:60px}
+.ac-guide-grid{grid-template-columns:minmax(0,1fr)}
+.ac-guide{padding:22px}
+@media(max-width:355px){.arch-action-favorites{display:none}.arch-brand-title{font-size:11px}}

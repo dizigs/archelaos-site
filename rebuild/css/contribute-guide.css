@@ -1,0 +1,19 @@
+/* Guided archive contribution: drafts are composed locally, never submitted by this page. */
+.ac-guide-section{padding:76px 0;background:linear-gradient(135deg,#f5f0e4,#fffdf8)}
+.ac-guide{max-width:1050px;margin:28px auto 0;padding:clamp(24px,4vw,45px);background:#fffdf8;border:1px solid #d9c69f;border-radius:23px;box-shadow:0 18px 45px #14391e12}
+.ac-guide h3{font:400 clamp(25px,3.2vw,35px)/1.3 Georgia,serif;color:#083c2a;margin:0 0 9px}
+.ac-guide-lead{max-width:740px;color:#546b59;line-height:1.8}
+.ac-guide-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:19px;margin-top:25px}
+.ac-guide-field{display:flex;flex-direction:column;gap:7px;min-width:0}
+.ac-guide-field.wide{grid-column:1/-1}
+.ac-guide-field label{color:#17452f;font-weight:750;font-size:13px}
+.ac-guide-field :is(input,select,textarea){width:100%;min-height:47px;padding:11px 13px;border:1px solid #a8ad98;border-radius:10px;color:#153b2b;background:#fff;font:inherit;line-height:1.45}
+.ac-guide-field textarea{resize:vertical;min-height:120px}
+.ac-guide-field :is(input,select,textarea):focus-visible{outline:3px solid #a47c34;outline-offset:2px}
+.ac-guide-help{color:#586859;font-size:12px}
+.ac-guide-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:24px}
+.ac-guide-copy{min-height:48px;border:1px solid #b79a63;border-radius:11px;padding:11px 17px;background:#f8f1df;color:#123b2a;font-weight:800}
+.ac-guide-copy:hover{background:#ecdec0}
+#ac-guide-status{min-height:1.5em;font-size:13px;color:#285f43}
+.ac-guide-privacy{font-size:12px;color:#546755;line-height:1.8;border-top:1px solid #e5d9bd;padding-top:15px;margin-top:22px}
+@media(max-width:767px){.ac-guide-section{padding:54px 0}.ac-guide-grid{grid-template-columns:minmax(0,1fr)}.ac-guide-field.wide{grid-column:auto}.ac-guide-actions{align-items:stretch;flex-direction:column}.ac-guide-actions>a,.ac-guide-actions>button{justify-content:center;text-align:center;width:100%}}

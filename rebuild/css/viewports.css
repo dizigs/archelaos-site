@@ -1,0 +1,6 @@
+/* One viewport router, loaded AFTER shared styles on all preview and release pages.
+   Shared HTML/JS and a single responsive stylesheet entry point. */
+@import url("./mobile.css") screen and (max-width: 767px);
+@import url("./tablet.css") screen and (min-width: 768px) and (max-width: 1023px);
+@import url("./laptop.css") screen and (min-width: 1024px) and (max-width: 1439px);
+@import url("./desktop.css") screen and (min-width: 1440px);
