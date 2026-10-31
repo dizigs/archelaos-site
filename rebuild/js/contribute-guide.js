@@ -18,9 +18,34 @@ const linkedPaths={
 const reference=validReference&&linkedTitle?{title:linkedTitle,url:'https://archelaos.club'+linkedPaths[linkedKind]}:null;
 const $=id=>document.getElementById('ac-'+id);
 const clean=value=>String(value||'').trim().replace(/\r\n?/g,'\n');
+const credit=()=>{
+ const requested=$('credit-consent').checked;
+ const sender=clean($('sender-name').value);
+ const preferred=clean($('credit-name').value);
+ return {sender,requested,displayName:requested?(preferred||sender):''};
+};
+function validSender(){
+ const name=credit().sender;
+ return name.length>=2&&name.length<=120&&!/[\\r\\n]/.test(name);
+}
+function validateAndFocus(){
+ if(validSender())return true;
+ $('guide-status').textContent='Συμπληρώστε πρώτα το ονοματεπώνυμό σας για την εσωτερική καταγραφή.';
+ $('sender-name').focus();return false;
+}
+function updateCredit(){
+ $('credit-name-wrap').hidden=!$('credit-consent').checked;
+ if(!$('credit-consent').checked)$('credit-name').value='';
+ refresh();
+}
+
 function draft(){
  const values=Object.fromEntries(fields.map(key=>[key,clean($(key)?.value)]));
+ const c=credit();
  const entries=[
+  ['Ονοματεπώνυμο αποστολέα (εσωτερική καταγραφή)',c.sender],
+  ['Δημόσια αναφορά ονόματος',c.requested?'ΝΑΙ — επιτρέπω την αναφορά εφόσον εγκριθεί το υλικό':'ΟΧΙ — χωρίς δημόσια ονομαστική αναφορά'],
+  ...(c.requested?[['Όνομα δημόσιας αναφοράς',c.displayName]]:[]),
   ['Τύπος υλικού',values.type],
   ['Άθλημα / τμήμα',values.sport||'Δεν γνωρίζω'],
   ['Χρονιά / περίοδος',values.date],
@@ -47,6 +72,7 @@ function refresh(){
  link.title=mail.length>5000?'Αν το email δεν ανοίξει σωστά, χρησιμοποιήστε την Αντιγραφή περιγραφής.':'Ανοίγει στο δικό σας πρόγραμμα email';
 }
 async function copy(){
+ if(!validateAndFocus())return;
  const content=draft().body,status=$('guide-status');
  if(!navigator.clipboard?.writeText){
   status.textContent='Η αντιγραφή δεν υποστηρίζεται εδώ. Επιλέξτε το άνοιγμα email.';
@@ -89,7 +115,10 @@ function init(){
   if(linkedKind==='photo')$('type').value='Φωτογραφία';
   if(linkedKind==='moment'||linkedKind==='story'||linkedKind==='exhibit'||linkedKind==='event')$('type').value='Ιστορική μαρτυρία';
  }
- for(const id of fields)$(id).addEventListener('input',()=>{refresh();$('guide-status').textContent='';});
+ for(const id of [...fields,'sender-name','credit-name'])$(id).addEventListener('input',()=>{refresh();$('guide-status').textContent='';});
+ $('credit-consent').addEventListener('change',updateCredit);
+ $('guide-email').addEventListener('click',event=>{if(!validateAndFocus())event.preventDefault();});
+ updateCredit();
  $('guide-copy').addEventListener('click',copy);
  refresh();
 }
