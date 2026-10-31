@@ -11,3 +11,10 @@
 :is(.mu-collections,.mu-explore,.mu-exhibits,.mu-archive,.mu-sports) .mu-label{color:#635025}
 .ac-section .av-kicker{color:#635026}
 .arch-favorite-toggle,.arch-close,.arch-menu-open{min-width:44px;min-height:44px}
+
+/* Second WCAG color-contrast pass: editorial gold on light and dark canvases. */
+.new-today h2 em{color:#6b5021}
+.h-new-archive-label{color:#655026}
+.mu-archive-item span,.mu-sport-item span{color:#685124}
+.ac-process .av-kicker{color:#ebd5a1}
+.ac-guide-section .av-kicker{color:#655027}

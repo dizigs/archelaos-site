@@ -68,7 +68,7 @@ async function test(){
  console.log('Accessibility audit:',report.checks.length,'page/viewports;',
    report.violations.length,'axe findings;',report.errors.length,'interaction errors');
  const serious=report.violations.filter(v=>v.impact==='serious'||v.impact==='critical');
- for(const v of serious.slice(0,20))console.warn('A11Y',v.where,v.impact,v.id,JSON.stringify(v.nodes[0]?.target));
+ for(const v of serious.slice(0,20))console.warn('A11Y',v.where,v.impact,v.id,JSON.stringify(v.nodes.map(n=>n.target)));
  for(const e of report.errors)console.error('INTERACTION',e.where,e.message);
  // New shared navigation must work even if older archived content needs remediation.
  if(report.errors.length||report.violations.some(v=>v.impact==='critical'))process.exitCode=1;
