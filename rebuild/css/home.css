@@ -329,3 +329,24 @@
  .new-value>h3{font-size:clamp(25px,7vw,31px)}
  .new-value>p{font-size:13px}
 }
+
+
+/* Three club values: refined, local hover motion; not a navigation glow. */
+@media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
+ .new-value{
+  border-radius:10px;
+  transition:padding-inline .24s ease,background-color .24s ease,border-color .24s ease;
+ }
+ .new-value h3{transition:color .24s ease,transform .24s ease}
+ .new-value>span{transition:color .24s ease,transform .24s ease}
+ .new-value:hover{
+  padding-inline:12px;
+  background:rgba(218,189,117,.055);
+  border-bottom-color:rgba(220,189,112,.75);
+ }
+ .new-value:hover h3{color:#e7c987;transform:translateX(3px)}
+ .new-value:hover>span{color:#f0d28c;transform:translateY(-2px)}
+}
+@media(prefers-reduced-motion:reduce){
+ .new-value,.new-value h3,.new-value>span{transition:none!important;transform:none!important}
+}
