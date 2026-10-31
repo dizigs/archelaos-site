@@ -536,6 +536,78 @@ html body #tmimata .atlas-timeline-section .atlas-design-moments .atlas-editoria
     margin:35px 0 0 4px!important;width:14px!important;height:14px!important;box-shadow:0 0 0 4px #eef3ee!important;
   }
 }
+
+/* Definitive museum card layout: year top left, centered title, same year watermark. */
+html body #tmimata .atlas-timeline-section .atlas-editorial-entry .atlas-editorial-card{
+  min-height:318px!important;
+  position:relative!important;
+}
+html body #tmimata .atlas-timeline-section .atlas-editorial-entry .atlas-editorial-card::after{
+  content:attr(data-bg-year)!important;
+  inset:auto 18px -57px auto!important;
+  font:500 clamp(8rem,21vw,15rem)/1 "Playfair Display",Georgia,serif!important;
+  letter-spacing:-.08em!important;
+  color:rgba(7,61,42,.065)!important;
+  pointer-events:none!important;
+  z-index:0!important;
+  white-space:nowrap!important;
+}
+html body #tmimata .atlas-timeline-section .atlas-editorial-entry:nth-child(odd) .atlas-editorial-card::after{
+  color:rgba(225,215,175,.095)!important;
+}
+html body #tmimata .atlas-timeline-section .atlas-editorial-entry .atlas-editorial-trigger{
+  display:flex!important;flex-direction:column!important;
+  align-items:center!important;justify-content:center!important;
+  text-align:center!important;
+  min-height:318px!important;
+  padding:78px clamp(24px,4.4vw,54px) 64px!important;
+  position:relative!important;z-index:1!important;
+}
+html body #tmimata .atlas-timeline-section .atlas-editorial-entry .atlas-editorial-top{
+  position:absolute!important;
+  top:29px!important;left:clamp(24px,4.4vw,54px)!important;right:auto!important;
+  display:block!important;align-self:auto!important;
+  margin:0!important;padding:0!important;
+}
+html body #tmimata .atlas-timeline-section .atlas-editorial-entry .atlas-editorial-date{
+  display:block!important;
+  font:700 clamp(1.15rem,2.65vw,1.55rem)/1.2 "Playfair Display",Georgia,serif!important;
+  color:#a17e42!important;
+  letter-spacing:.045em!important;
+}
+html body #tmimata .atlas-timeline-section .atlas-editorial-entry:nth-child(odd) .atlas-editorial-date{
+  color:#dfc78c!important;
+}
+html body #tmimata .atlas-timeline-section .atlas-editorial-entry .atlas-editorial-title{
+  display:block!important;align-self:center!important;
+  margin:0 auto!important;
+  width:100%!important;
+  max-width:750px!important;
+  text-align:center!important;
+  font:600 clamp(1.75rem,3.7vw,3.15rem)/1.22 "Playfair Display",Georgia,serif!important;
+  letter-spacing:-.03em!important;
+}
+html body #tmimata .atlas-timeline-section .atlas-editorial-entry :is(.atlas-editorial-index,.atlas-editorial-year,.atlas-editorial-arrow){
+  display:none!important;
+}
+@media(max-width:700px){
+  html body #tmimata .atlas-timeline-section .atlas-editorial-entry :is(.atlas-editorial-trigger,.atlas-editorial-card){
+    min-height:275px!important;
+  }
+  html body #tmimata .atlas-timeline-section .atlas-editorial-entry .atlas-editorial-trigger{
+    padding:67px 19px 48px!important;
+  }
+  html body #tmimata .atlas-timeline-section .atlas-editorial-entry .atlas-editorial-top{
+    top:22px!important;left:19px!important;
+  }
+  html body #tmimata .atlas-timeline-section .atlas-editorial-entry .atlas-editorial-card::after{
+    right:8px!important;bottom:-25px!important;
+    font-size:clamp(6.6rem,28vw,10rem)!important;
+  }
+  html body #tmimata .atlas-timeline-section .atlas-editorial-entry .atlas-editorial-title{
+    font-size:clamp(1.6rem,7.3vw,2.45rem)!important;
+  }
+}
 </style></head><body><script src="/assets/navigation.js"></script><section class="tm-hero" aria-labelledby="tm-hero-title"><div class="tm-hero-inner"><div class="tm-hero-eyebrow"><span class="tm-hero-rule" aria-hidden="true"></span>Γ.Α.Σ. Ο ΑΡΧΕΛΑΟΣ · ΨΗΦΙΑΚΟ ΜΟΥΣΕΙΟ<span class="tm-hero-rule" aria-hidden="true"></span></div><p class="tm-hero-index">ΑΘΛΗΤΙΚΗ ΚΛΗΡΟΝΟΜΙΑ · 1956—2026</p><h1 id="tm-hero-title">Οι ιστορίες <em>των τμημάτων</em></h1><p class="tm-hero-lead">Κάθε άθλημα, μια ξεχωριστή διαδρομή στον χρόνο. Ανακάλυψε τα γεγονότα και τους ανθρώπους που έγραψαν την ιστορία του Αρχέλαου.</p><a class="tm-hero-cta" href="#atlas-tabs">Εξερεύνησε τα αθλήματα <span aria-hidden="true">↓</span></a></div><div class="tm-hero-ornament" aria-hidden="true">Α</div></section><main class="tm-wrap"><a class="tm-back" href="/history.html"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Επιστροφή στο Ψηφιακό Μουσείο</a>
 <section class="space-y-6 scroll-mt-24" id="tmimata">
 <div class="atlas"><div class="atlas-heading"><span>ΨΗΦΙΑΚΟ ΜΟΥΣΕΙΟ · ΙΣΤΟΡΙΚΟΣ ΑΤΛΑΣ</span><h2>Δώδεκα διαδρομές, μια κοινή ιστορία</h2><p>Επίλεξε άθλημα για να εξερευνήσεις τη διαδρομή του στον Αρχέλαο.</p></div><div class="atlas-choose-heading">ΕΠΙΛΕΞΕ ΑΘΛΗΜΑ</div><nav class="atlas-tabs" id="atlas-tabs" aria-label="Γρήγορη επιλογή αθλήματος"></nav><div class="atlas-feature" aria-live="polite"><div class="atlas-feature-top"><span id="atlas-count">01 / 10</span><span>Γ.Α.Σ. ΑΡΧΕΛΑΟΣ · ΙΣΤΟΡΙΚΟ ΑΡΧΕΙΟ</span></div><div class="atlas-feature-main"><div class="atlas-feature-title"><span id="atlas-year"></span><h2 id="atlas-title">Στίβος</h2><p id="atlas-subtitle">Μια αθλητική διαδρομή μέσα στον χρόνο.</p></div><div class="atlas-feature-mark" aria-hidden="true"><img src="/archelaos-logo-gold.png" alt=""></div></div></div><section class="atlas-timeline-section" aria-label="Χρονολόγιο τμήματος"><div class="atlas-timeline-head"><span>ΤΑ ΓΕΓΟΝΟΤΑ ΜΕΣΑ ΣΤΟΝ ΧΡΟΝΟ</span><h3>Ιστορικό χρονολόγιο</h3><p>Πάτησε τον τίτλο ενός γεγονότος για να μεταφερθείς στην αναλυτική ιστορική καταγραφή.</p></div><div class="atlas-timeline-strip" id="atlas-timeline-strip" aria-label="Χρονολογίες"></div><div class="atlas-event-detail" id="atlas-event-detail" aria-live="polite"></div><details class="atlas-full-archive atlas-white-record"><summary style="background:#fff!important;background-color:#fff!important;background-image:none!important;">Διάβασε την πλήρη ιστορική καταγραφή</summary><div class="atlas-content" id="atlas-content"></div></details></section><div class="atlas-source" id="atlas-source" hidden><!-- 4.1 ΧΕΙΡΟΣΦΑΙΡΙΣΗ (ΧΑΝΤΜΠΟΛ) -->
@@ -1357,33 +1429,31 @@ function renderTimeline(id,panel){
   strip.replaceChildren();strip.hidden=true;detail.replaceChildren();
   detail.classList.add('atlas-vertical-timeline','atlas-curated-timeline','atlas-design-moments');
   const records=(window.ARCH_SPORTS_TIMELINES||{})[id]||[];
-  if(!records.length){const p=document.createElement('p');p.textContent='Δεν υπάρχουν ακόμη επιμελημένες χρονολογικές καταγραφές. Η πλήρης ιστορία βρίσκεται παρακάτω.';detail.appendChild(p);return}
-  // Real historical dates only. Never infer day/month from a year alone.
-  const months={'ιανουαριου':'01','φεβρουαριου':'02','μαρτιου':'03','απριλιου':'04','μαιου':'05','ιουνιου':'06','ιουλιου':'07','αυγουστου':'08','σεπτεμβριου':'09','οκτωβριου':'10','νοεμβριου':'11','δεκεμβριου':'12'};
-  const dateOf=(year,description)=>{
-    const normalized=String(description).toLocaleLowerCase('el').normalize('NFD').replace(/[\u0300-\u036f]/g,'');
-    const m=normalized.match(/(?:στις|την|τη|την ημερα)\s+([0-3]?\d)(?:η|ης)?\s+(ιανουαριου|φεβρουαριου|μαρτιου|απριλιου|μαιου|ιουνιου|ιουλιου|αυγουστου|σεπτεμβριου|οκτωβριου|νοεμβριου|δεκεμβριου)/u);
-    if(!m||+m[1]<1||+m[1]>31)return {short:String(year),full:String(year),dated:false};
-    const day=m[1].padStart(2,'0'),month=months[m[2]];
-    return {short:day+' / '+month,full:day+'/'+month+'/'+year,dated:true};
-  };
-  records.forEach(([year,title,description],index)=>{
+  if(!records.length){const p=document.createElement('p');p.textContent='Δεν υπάρχουν ακόμη επιμελημένες χρονολογικές καταγραφές. Η πλήρης ιστορία βρίσκεται παρακάτω.';detail.appendChild(p);return;}
+  // Each historic event has its own spacious exhibit card; its original year
+  // is also the quiet background watermark. No invented or sequential numbers.
+  records.forEach(([year,title,description])=>{
     const event={title,description};
-    const date=dateOf(year,description);
-    const entry=document.createElement('article');entry.className='atlas-moment atlas-curated-year atlas-editorial-entry';
+    const entry=document.createElement('article');
+    entry.className='atlas-moment atlas-curated-year atlas-editorial-entry';
     const dot=document.createElement('span');dot.className='atlas-moment-dot';dot.setAttribute('aria-hidden','true');
-    const card=document.createElement('div');card.className='atlas-moment-card atlas-editorial-card';card.setAttribute('data-moment-index',String(index+1).padStart(2,'0'));
-    const button=document.createElement('button');button.type='button';button.className='atlas-event-link atlas-editorial-trigger';button.setAttribute('aria-pressed','false');button.setAttribute('aria-label',title+' — άνοιγμα πλήρους ιστορικού');
-    const top=document.createElement('span');top.className='atlas-editorial-top';
-    const stamp=document.createElement('span');stamp.className='atlas-editorial-date';
-    stamp.textContent=date.short;stamp.setAttribute('aria-label',date.full);
-    const yearlabel=document.createElement('span');yearlabel.className='atlas-editorial-year';yearlabel.textContent=date.dated?String(year):'ΙΣΤΟΡΙΚΗ ΚΑΤΑΓΡΑΦΗ';
-    const number=document.createElement('span');number.className='atlas-editorial-index';number.textContent=String(index+1).padStart(2,'0')+' / '+String(records.length).padStart(2,'0');
-    top.append(stamp,yearlabel,number);
+    const card=document.createElement('div');
+    card.className='atlas-moment-card atlas-editorial-card';
+    card.setAttribute('data-bg-year',String(year));
+    const button=document.createElement('button');button.type='button';
+    button.className='atlas-event-link atlas-editorial-trigger';
+    button.setAttribute('aria-pressed','false');
+    button.setAttribute('aria-label',title+' — '+year+' — άνοιγμα πλήρους ιστορικού');
+    const yearLabel=document.createElement('span');
+    yearLabel.className='atlas-editorial-top';
+    const yr=document.createElement('span');yr.className='atlas-editorial-date';yr.textContent=String(year);
+    yearLabel.appendChild(yr);
     const heading=document.createElement('span');heading.className='atlas-editorial-title';heading.textContent=title;
-    button.append(top,heading);
+    button.append(yearLabel,heading);
     button.addEventListener('click',()=>openArchiveEvent(id,year,event,button));
-    card.appendChild(button);entry.append(dot,card);detail.appendChild(entry);
+    card.appendChild(button);
+    entry.append(dot,card);
+    detail.appendChild(entry);
   });
 }
 entries.forEach(([id,el,en],i)=>{const btn=document.createElement('button');btn.type='button';btn.className='atlas-tab';btn.dataset.id=id;btn.setAttribute('aria-pressed','false');btn.innerHTML='<span class="atlas-tab-num">'+String(i+1).padStart(2,'0')+'</span><span data-lang="el"></span><span data-lang="en"></span>';btn.querySelector('[data-lang=el]').textContent=el;btn.querySelector('[data-lang=en]').textContent=en;btn.addEventListener('click',()=>select(id,true));tabs.appendChild(btn)});
