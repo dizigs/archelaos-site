@@ -11,7 +11,7 @@ The generated dist/ is intentionally untracked. Publish ONLY after owner approva
 """
 from __future__ import annotations
 
-from html import escape, escape as html_escape
+from html import escape, escape as html_escape, unescape as html_unescape
 from pathlib import Path
 from shutil import copy2, copytree, rmtree
 from urllib.parse import urlparse
@@ -232,8 +232,38 @@ def make_release() -> None:
             raise ValueError("Cannot locate " + language + " biography in " + profile_id)
         return updated
 
+
+    # An edited canonical biography must also appear in its standalone profile.
+    # Only update the old bio when it is the EXACT original index text; leave a
+    # richer independent profile untouched rather than risking deletion.
+    former_people = {p["id"]: p for p in json.loads(
+        (ROOT / "hall-of-fame-people.json").read_text(encoding="utf-8"))["people"]}
+    revised_people = {p["id"]: p for p in json.loads(
+        (STAGE / "data" / "people.json").read_text(encoding="utf-8"))["people"]}
+
+    def sync_edited_bio(source: str, person_id: str, lang: str) -> str:
+        key = "bio" if lang == "el" else "bio_en"
+        before = former_people[person_id].get(key, "")
+        after = revised_people[person_id].get(key, "")
+        if before == after:
+            return source
+        regex = (r'(<section\\b[^>]*data-profile-language="' + lang +
+                 r'"[^>]*>.*?<div class="bio">)(.*?)(</div>)')
+        match = re.search(regex, source, flags=re.S)
+        if not match:
+            raise ValueError("Missing biography section: " + person_id + "/" + lang)
+        normal = lambda value: re.sub(r"\\s+", " ", value).strip()
+        if normal(html_unescape(match.group(2))) != normal(before):
+            # Preserve the long-form archival page if it contains richer prose.
+            # Canonical Hall of Fame popup still shows the revised biography.
+            return source
+        return (source[:match.start(2)] + html_escape(after, quote=False)
+                + source[match.end(2):])
+
     for profile in profiles:
         html_text = profile.read_text(encoding="utf-8")
+        for lang in ("el", "en"):
+            html_text = sync_edited_bio(html_text, profile.stem, lang)
         for lang in ("el", "en"):
             html_text = include_addenda(html_text, verified_addenda.get(profile.stem, []), lang, profile.stem)
         for old in ("/assets/navigation.css", "/assets/footer.css", "/assets/accessibility.css"):
