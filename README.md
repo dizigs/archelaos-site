@@ -9,6 +9,8 @@
 - `hall-of-fame.html` — Hall of Fame.
 - `70-stigmes.html` — 70 στιγμές.
 - `stories.html` — ιστορίες.
+- `interviews.html` — Οι Φωνές του Αρχέλαου, συνεντεύξεις & δηλώσεις.
+- `interviews.json` — συγκεντρωτικό αρχείο ιστορικών συνεντεύξεων με IDs προσώπων και πηγές.
 - `board.html`, `contact.html`, `sponsors.html`, `retro-matches.html` — επιμέρους σελίδες.
 - `images/` — φωτογραφίες περιεχομένου.
 - `assets/` — assets και κώδικας πλοήγησης (CSS/JS, έμβλημα).
