@@ -6,7 +6,7 @@ const pages=[
   ['70-stigmes.html','70 Στιγμές'],['hall-of-fame.html','Hall of Fame'],
   ['stories.html','Ιστορίες'],['index.html#about','Ο Σύλλογος'],
   ['index.html#departments','Αθλήματα'],['board.html','Διοίκηση'],
-  ['sponsors.html','Χορηγίες'],['contact.html','Επικοινωνία']
+  ['sponsors.html','tmimata.html','Χορηγίες'],['contact.html','Επικοινωνία']
 ];
 const groups=[['Συλλογές',[2,3,4]],['Ο Σύλλογος',[5,6,7]]];
 const path=(location.pathname.split('/').pop()||'index.html').toLowerCase();

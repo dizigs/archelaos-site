@@ -1,0 +1,31 @@
+/* Standalone sports department history – shared archive data, shared popup. */
+.dp-skip{position:fixed;top:-75px;left:12px;z-index:1500;padding:11px;background:#fff;color:#073d2a}.dp-skip:focus{top:10px}
+.dp-hero{position:relative;overflow:hidden;padding:93px 0 100px;background:radial-gradient(ellipse at 82% 18%,#26593e,#073d2a 61%,#042c1d);color:#fff8ec}
+.dp-hero:after{content:"1956";position:absolute;right:0;bottom:-.28em;color:#ffffff09;pointer-events:none;font:400 clamp(170px,35vw,430px) Georgia,serif}
+.dp-hero>.arch-container{position:relative;z-index:1}
+.dp-hero p:first-child{font-size:11px;color:#dfc78d;letter-spacing:.19em;font-weight:800}
+.dp-hero h1{font:400 clamp(45px,6vw,82px)/1.09 Georgia,serif;letter-spacing:-.05em;margin:18px 0}
+.dp-hero h1 em{color:#e2c98c}
+.dp-hero .dp-lead{font-size:17px;line-height:1.8;max-width:750px;color:#dce8db}
+.dp-hero a{margin-top:18px;display:inline-block;color:#e8d1a0;text-decoration:none;border:1px solid #bfa36a;padding:11px 19px;border-radius:11px;font-weight:750;font-size:13px}
+.dp-content{background:#f8f6ef;padding:clamp(65px,8vw,115px) 0}
+.dp-eyebrow{color:#96773f;font-size:11px;font-weight:800;letter-spacing:.17em;margin:0 0 12px}
+.dp-content h2{font:400 clamp(37px,5vw,62px)/1.12 Georgia,serif;color:#073d2a;margin:0 0 18px;letter-spacing:-.045em}
+.dp-desc{max-width:800px;color:#54705d;line-height:1.85;margin-bottom:34px}
+.dp-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.dp-card{position:relative;min-height:265px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:15px;isolation:isolate;text-align:center;border:1px solid #c9b482;border-radius:24px;padding:70px 30px 37px;overflow:hidden;transition:transform .23s,box-shadow .23s;box-shadow:0 13px 34px #073d2a14}
+.dp-card:hover{transform:translateY(-3px);box-shadow:0 23px 46px #073d2a27}
+.dp-cream{background:radial-gradient(ellipse at 12% 0%,#fff,#fff0 60%),linear-gradient(132deg,#fffdf7,#f2eadb);color:#073d2a}
+.dp-green{background:radial-gradient(ellipse at 12% 0%,#256b4929,transparent 60%),linear-gradient(130deg,#0a4933,#073d2a 65%,#052c1f);color:#fff9eb}
+.dp-year{position:absolute;top:22px;left:26px;font:600 22px Georgia,serif;color:#a1854b}
+.dp-green .dp-year{color:#dec48a}
+.dp-title{position:relative;z-index:1;font:400 clamp(27px,3vw,40px)/1.16 Georgia,serif;max-width:96%}
+.dp-description{position:relative;z-index:1;font-size:14px;color:#637763}
+.dp-green .dp-description{color:#d7e6da}
+.dp-watermark{position:absolute;right:12px;bottom:-.13em;font:500 clamp(75px,13vw,160px)/1 Georgia,serif;letter-spacing:-.07em;color:#073d2a0f;pointer-events:none;white-space:nowrap}
+.dp-green .dp-watermark{color:#f7e9cd14}
+.dp-card b{position:absolute;right:22px;top:19px;color:#c7a65e;font-size:26px}
+.dp-bottom{display:flex;flex-wrap:wrap;gap:15px;margin-top:45px}
+.dp-bottom a{display:inline-flex;border:1px solid #bb9c5b;border-radius:12px;padding:13px 20px;color:#073d2a;text-decoration:none;font-weight:750;background:#fffdf8}
+@media(max-width:650px){.dp-grid{grid-template-columns:1fr}.dp-card{min-height:225px;padding:65px 18px 34px}.dp-bottom{flex-direction:column}}
+@media(prefers-reduced-motion:reduce){.dp-card{transition:none}}
