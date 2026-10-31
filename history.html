@@ -3233,6 +3233,37 @@ a.museum-subtle-link:focus-visible{outline:3px solid #c7a65e;outline-offset:3px}
   #chapters .history-archive-card { transition: none; }
 }
 </style>
+<style id="v31-archive-scroll-clipping-fix">
+/* Museum archive: the dialog stays within the viewport; the article owns the scroll. */
+#historyArchiveModal.is-open {
+  display: flex !important;
+  align-items: center !important;
+  overflow: hidden !important;
+}
+#historyArchiveModal .modal-box {
+  position: relative;
+  min-height: 0 !important;
+  max-height: calc(100dvh - 24px) !important;
+  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+#historyArchiveModal #historyArchiveContent {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+  padding-bottom: max(105px, calc(env(safe-area-inset-bottom) + 85px)) !important;
+  scroll-padding-bottom: 105px;
+}
+@media (max-width: 767px) {
+  #historyArchiveModal { padding: 12px 10px !important; }
+  #historyArchiveModal .modal-box { max-height: calc(100dvh - 24px) !important; }
+  #historyArchiveModal #historyArchiveContent { padding-bottom: max(125px, calc(env(safe-area-inset-bottom) + 100px)) !important; }
+}
+</style>
 </head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow arch-gold-page" data-arch-people-page="history">
 <!-- ANIMATED CONTOUR WAVES -->
