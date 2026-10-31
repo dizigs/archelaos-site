@@ -47,6 +47,11 @@ async function run(){
      await page.locator('[data-open-contact]').first().click();
      await page.locator('dialog.arch-dialog[open] #ct-topic').waitFor();
      await page.locator('dialog.arch-dialog .arch-close').click();
+     await page.goto(ROOT+'/rebuild/contact.html?topic=athlete&sport=archery',{waitUntil:'domcontentloaded'});
+     await page.locator('dialog.arch-dialog[open] #ct-topic').waitFor();
+     if(await page.locator('#ct-topic').inputValue()!=='sport')throw Error('Contact topic not prefilled');
+     if(await page.locator('#ct-sport').inputValue()!=='archery')throw Error('Archery sport not prefilled');
+     await page.locator('dialog.arch-dialog .arch-close').click();
     }
     if(first){
      await page.locator(first).first().click();

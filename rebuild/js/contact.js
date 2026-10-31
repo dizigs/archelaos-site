@@ -2,7 +2,9 @@
 (function(){'use strict';
 function init(){
  const template=document.querySelector('#ct-form-template');
- const query=new URLSearchParams(location.search).get('topic')||'';
+ const params=new URLSearchParams(location.search);
+ const query=params.get('topic')||'';
+ const requestedSport=params.get('sport')||'';
  const alias={athlete:'sport',volunteer:'volunteer',sponsorship:'sponsorship',archive:'archive',general:'general',sport:'sport'};
  function open(){
   const form=template.content.firstElementChild.cloneNode(true);
@@ -10,6 +12,7 @@ function init(){
   topic.value=alias[query]||'';
   const sync=()=>{const sportTopic=topic.value==='sport';sportWrap.hidden=!sportTopic;sport.required=sportTopic;if(!sportTopic)sport.value=''};
   topic.addEventListener('change',sync);sync();
+  if(topic.value==='sport' && [...sport.options].some(o=>o.value===requestedSport))sport.value=requestedSport;
   form.addEventListener('submit',event=>{
    event.preventDefault();
    if(!form.reportValidity())return;
@@ -34,6 +37,8 @@ function init(){
  if(query&&['athlete','volunteer','sponsorship','archive','sport','general'].includes(query)){
   const start=document.querySelector('[data-open-contact]');
   if(start)start.setAttribute('aria-label','Επικοινωνία σχετικά με '+query);
+  // Links from the homepage and department cards should open the correctly prefilled form.
+  open();
  }
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
