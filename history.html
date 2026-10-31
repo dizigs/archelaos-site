@@ -3408,6 +3408,45 @@ html body #museum-v54-navigation .m55-nav-card .m55-nav-arrow{
 @media(prefers-reduced-motion:reduce){
  html body #museum-history #history-archive #chapters .museum-exhibit-chapter-card{transition:none!important;transform:none!important}
 }
+
+/* Founding statement: editorial green/gold chapter instead of a redundant popup. */
+html body #museum-history #history-archive #chapters .museum-foundation-quote {
+  position:relative;isolation:isolate;display:flex;flex-direction:column;
+  justify-content:space-between;align-items:flex-start;gap:20px;
+  width:100%;min-width:0;min-height:220px;margin:0;
+  padding:clamp(25px,3.5vw,38px);
+  overflow:hidden;border:1px solid #b99b59;border-radius:27px;
+  background:linear-gradient(135deg,#063320,#073d2a 60%,#0b4a32);
+  box-shadow:0 12px 34px rgba(5,49,30,.17);color:#e8cf94;
+}
+html body #museum-history #history-archive #chapters .museum-foundation-kicker {
+  position:relative;z-index:1;display:flex;align-items:center;gap:12px;
+  font:800 .72rem/1.4 Inter,Arial,sans-serif;letter-spacing:.12em;
+  color:#e4cb93;text-transform:uppercase;
+}
+html body #museum-history #history-archive #chapters .museum-foundation-kicker i {font-size:1.5rem;color:#d7b975}
+html body #museum-history #history-archive #chapters .museum-foundation-statement {
+  position:relative;z-index:1;margin:6px 0 4px;max-width:33ch;
+  font:500 clamp(1.36rem,2.55vw,1.88rem)/1.38 Georgia,"Times New Roman",serif;
+  letter-spacing:-.02em;color:#f1d99f;
+}
+html body #museum-history #history-archive #chapters .museum-foundation-signature {
+  position:relative;z-index:1;font:700 .66rem/1.5 Inter,Arial,sans-serif;
+  letter-spacing:.13em;color:#e4d7b0;
+}
+html body #museum-history #history-archive #chapters .museum-foundation-watermark {
+  position:absolute;right:16px;bottom:-.22em;z-index:0;
+  font:800 clamp(5.5rem,13vw,9.5rem)/1 Georgia,serif;
+  letter-spacing:-.07em;color:rgba(229,195,126,.09);pointer-events:none;
+}
+@media(max-width:670px){
+  html body #museum-history #history-archive #chapters .museum-foundation-quote{
+    min-height:230px;padding:28px 29px;
+  }
+  html body #museum-history #history-archive #chapters .museum-foundation-statement{
+    font-size:clamp(1.36rem,5.1vw,1.7rem);
+  }
+}
 </style>
 </head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow arch-gold-page" data-arch-people-page="history">
@@ -3772,24 +3811,25 @@ html body #museum-v54-navigation .m55-nav-card .m55-nav-arrow{
 <kbd class="hidden sm:inline text-[10px] font-black text-slate-400">/</kbd></label>
 <p class="hidden mt-3 text-sm font-semibold text-archelaos-deepgreen/70" id="historyNoResults"><span data-lang="el">Δεν βρέθηκε ιστορική ενότητα. Δοκιμάστε άλλη λέξη.</span><span data-lang="en">No archive collection found. Try another term.</span></p>
 </div><div class="grid sm:grid-cols-2 gap-4 museum-chapter-grid museum-unified-chapters" id="chapters">
-<button aria-label="Άνοιγμα: Ίδρυση και Ιστορική Ταυτότητα" class="history-archive-card v61-archive-card museum-exhibit-chapter-card" onclick="openHistoryArchive('intro')" type="button">
-  <i aria-hidden="true" class="fa-solid fa-scroll museum-exhibit-chapter-icon"></i>
-  <span class="museum-exhibit-chapter-title">Ίδρυση &amp; Ιστορική Ταυτότητα</span>
-  <span class="museum-exhibit-chapter-arrow" aria-hidden="true">↗</span>
-</button>
-<button aria-label="Άνοιγμα: Διοίκηση και Πρόεδροι" class="history-archive-card v61-archive-card museum-exhibit-chapter-card" onclick="openHistoryArchive('dioikisi')" type="button">
+<aside aria-label="Ίδρυση και ιστορική ταυτότητα / Foundation and legacy" class="museum-foundation-quote" data-history-topic="intro" role="note">
+  <span class="museum-foundation-kicker"><i class="fa-solid fa-scroll" aria-hidden="true"></i> <span data-lang="el">1956 · Η ΑΡΧΗ ΠΟΥ ΣΥΝΕΧΙΖΕΤΑΙ</span><span data-lang="en">1956 · A LEGACY THAT LIVES ON</span></span>
+  <blockquote class="museum-foundation-statement"><span data-lang="el">«Μια ιστορία δεν μετριέται μόνο σε νίκες. Μετριέται στις γενιές που συνεχίζουν να γράφουν το επόμενο κεφάλαιο.»</span><span data-lang="en">“A legacy is measured not only in victories, but in the generations who keep writing its next chapter.”</span></blockquote>
+  <span class="museum-foundation-signature"><span data-lang="el">Γ.Α.Σ. «Ο ΑΡΧΕΛΑΟΣ» · ΚΑΤΕΡΙΝΗ</span><span data-lang="en">G.A.S. ARCHELAOS · KATERINI</span></span>
+  <span class="museum-foundation-watermark" aria-hidden="true">1956</span>
+</aside>
+<a aria-label="Διοίκηση και Πρόεδροι — παλαιά διοικητικά συμβούλια" class="history-archive-card v61-archive-card museum-exhibit-chapter-card" data-history-topic="dioikisi" href="/board.html#previous-boards">
   <i aria-hidden="true" class="fa-solid fa-landmark museum-exhibit-chapter-icon"></i>
-  <span class="museum-exhibit-chapter-title">Διοίκηση &amp; Πρόεδροι</span>
-  <span class="museum-exhibit-chapter-arrow" aria-hidden="true">↗</span>
-</button>
-<a aria-label="Ιστορία Αθλητικών Τμημάτων — άνοιγμα σελίδας" class="history-archive-card v61-archive-card museum-exhibit-chapter-card" href="/tmimata.html">
-  <i aria-hidden="true" class="fa-solid fa-medal museum-exhibit-chapter-icon"></i>
-  <span class="museum-exhibit-chapter-title">Ιστορία Αθλητικών Τμημάτων</span>
+  <span class="museum-exhibit-chapter-title"><span data-lang="el">Διοίκηση &amp; Πρόεδροι</span><span data-lang="en">Leadership &amp; Presidents</span></span>
   <span class="museum-exhibit-chapter-arrow" aria-hidden="true">↗</span>
 </a>
-<button aria-label="Άνοιγμα: Δίια και Δίος Δρόμος" class="history-archive-card v61-archive-card museum-exhibit-chapter-card" onclick="openHistoryArchive('diia')" type="button">
+<a aria-label="Ιστορία Αθλητικών Τμημάτων — άνοιγμα σελίδας" class="history-archive-card v61-archive-card museum-exhibit-chapter-card" data-history-topic="tmimata" href="/tmimata.html">
+  <i aria-hidden="true" class="fa-solid fa-medal museum-exhibit-chapter-icon"></i>
+  <span class="museum-exhibit-chapter-title"><span data-lang="el">Ιστορία Αθλητικών Τμημάτων</span><span data-lang="en">History of Sports Departments</span></span>
+  <span class="museum-exhibit-chapter-arrow" aria-hidden="true">↗</span>
+</a>
+<button aria-label="Άνοιγμα: Δίια και Δίος Δρόμος" class="history-archive-card v61-archive-card museum-exhibit-chapter-card" data-history-topic="diia" onclick="openHistoryArchive('diia')" type="button">
   <i aria-hidden="true" class="fa-solid fa-person-running museum-exhibit-chapter-icon"></i>
-  <span class="museum-exhibit-chapter-title">Δίια &amp; Δίος Δρόμος</span>
+  <span class="museum-exhibit-chapter-title"><span data-lang="el">Δίια &amp; Δίος Δρόμος</span><span data-lang="en">Diia &amp; Dios Dromos</span></span>
   <span class="museum-exhibit-chapter-arrow" aria-hidden="true">↗</span>
 </button>
 </div>
@@ -6866,6 +6906,8 @@ html body #museum-v54-navigation .m55-nav-card .m55-nav-arrow{
       ];
   let historyArchiveCurrentPresident = 0;
   let historyArchiveCurrentTopic = 'intro';
+  const historyPresidentModal = document.getElementById('historyPresidentModal');
+  let historyArchivePreviousBodyOverflow = null;
   const historyArchiveModal = document.getElementById('historyArchiveModal');
   const historyArchiveContent = document.getElementById('historyArchiveContent');
   const historyArchiveTitle = document.getElementById('historyArchiveTitle');
@@ -6929,6 +6971,9 @@ html body #museum-v54-navigation .m55-nav-card .m55-nav-arrow{
     if (!template || !historyArchiveContent || !historyArchiveModal) return;
     historyArchiveCurrentTopic = topic;
     historyArchiveContent.replaceChildren(template.content.cloneNode(true));
+    if (!historyArchiveModal.classList.contains('is-open')) {
+      historyArchivePreviousBodyOverflow = document.body.style.overflow;
+    }
     historyArchiveModal.classList.add('is-open');
     historyArchiveModal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
@@ -6955,7 +7000,11 @@ html body #museum-v54-navigation .m55-nav-card .m55-nav-arrow{
     historyArchiveModal.classList.remove('is-open');
     historyArchiveModal.setAttribute('aria-hidden', 'true');
     historyArchiveContent.replaceChildren();
-    if (!historyPresidentModal || !historyPresidentModal.classList.contains('is-open')) document.body.style.overflow = '';
+    const otherPopupOpen = !!document.querySelector('#historyPresidentModal.is-open, #timelineDetailModal.is-open, #deptHistoryModal.is-open, #registrationModal.is-open');
+    const mobileMenuOpen = !!document.querySelector('#asn-mobile-drawer[aria-hidden="false"], #mobileMenu.menu-open, #annivMobileDrawer.is-open');
+    // Restore scrolling after a museum popup closes, without unlocking a different active overlay.
+    document.body.style.overflow = (otherPopupOpen || mobileMenuOpen) ? 'hidden' : (historyArchivePreviousBodyOverflow && historyArchivePreviousBodyOverflow !== 'hidden' ? historyArchivePreviousBodyOverflow : '');
+    historyArchivePreviousBodyOverflow = null;
   };
 
   // The archive's original department-selector behaviour, contained within the popup.
@@ -7077,7 +7126,7 @@ html body #museum-v54-navigation .m55-nav-card .m55-nav-arrow{
   const sportIds=['handball','track','archery','volleyball','shooting','wrestling','swimming','gymnastics','basketball','inactive-depts'];
   function initHistory(){
     const search=document.getElementById('historySearch');
-    const cards=[...document.querySelectorAll('#chapters .history-archive-card')];
+    const cards=[...document.querySelectorAll('#chapters > .museum-foundation-quote, #chapters > .history-archive-card')];
     const count=document.getElementById('historySearchCount');
     const empty=document.getElementById('historyNoResults');
     const normal=t=>(t||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/ς/g,'σ');
@@ -7086,7 +7135,7 @@ html body #museum-v54-navigation .m55-nav-card .m55-nav-arrow{
         const query=normal(search.value.trim());
         let found=0;
         cards.forEach((card,index)=>{
-          const template=document.getElementById('historyTemplate-'+chapterIds[index]);
+          const template=document.getElementById('historyTemplate-'+(card.getAttribute('data-history-topic')||chapterIds[index]));
           const hay=normal(card.textContent+' '+(template?template.content.textContent:''));
           const visible=!query||hay.includes(query);
           card.hidden=!visible;
@@ -7104,14 +7153,16 @@ html body #museum-v54-navigation .m55-nav-card .m55-nav-arrow{
     function routeHash(){
       const hash=decodeURIComponent(location.hash.slice(1));
       if(hash.startsWith('sport-')&&sportIds.includes(hash.slice(6)))window.openHistoryArchive?.('tmimata',hash.slice(6));
+      else if(hash==='chapter-dioikisi')location.replace('/board.html#previous-boards');
+      else if(hash==='chapter-tmimata')location.replace('/tmimata.html');
       else if(hash.startsWith('chapter-')&&chapterIds.includes(hash.slice(8)))window.openHistoryArchive?.(hash.slice(8));
     }
     routeHash();
     window.addEventListener('hashchange',routeHash);
     cards.forEach((card,index)=>{
-      // The sports-history card is a real page link; never overwrite the hash first.
-      if(card.matches('a[href]'))return;
-      card.addEventListener('click',()=>history.replaceState(null,'','#chapter-'+chapterIds[index]));
+      // Navigation links and the founding quote must not create a popup/hash.
+      if(card.matches('a[href], .museum-foundation-quote'))return;
+      card.addEventListener('click',()=>history.replaceState(null,'','#chapter-'+card.getAttribute('data-history-topic')));
     });
     document.querySelectorAll('#sports-archive .history-dept-shortcut').forEach((btn,index)=>{
       btn.addEventListener('click',()=>history.replaceState(null,'','#sport-'+sportIds[index]));
