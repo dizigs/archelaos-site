@@ -258,3 +258,17 @@
 
 /* Dates supplied without a confirmed start time are always clearly signposted. */
 .fx-clock-tbd{color:#825b26;font-weight:800}
+
+/* A restrained homepage entrance; illustrated cards live in Departments. */
+.new-departments-intro{padding:clamp(50px,6vw,84px) 0;background:#f8f6ef;border-block:1px solid #e5dccb}
+.new-departments-intro-inner{display:flex;align-items:center;justify-content:space-between;gap:28px}
+.new-departments-intro h2{font:400 clamp(32px,4.3vw,55px)/1.14 Georgia,serif;color:#073d2a;margin:12px 0}
+.new-departments-intro h2 em{color:#95763c}
+.new-departments-intro p:not(.new-eyebrow){font-size:15px;line-height:1.75;color:#4c6755;max-width:650px}
+.new-departments-intro-cta{flex:none;display:inline-flex;justify-content:center;align-items:center;padding:15px 22px;min-height:49px;border-radius:11px;background:#073d2a;color:#f8f6ef;border:1px solid #c7a65e;text-decoration:none;font-weight:800}
+.new-departments-intro-cta:hover{background:#13573d}
+.fx-venue-filters button{font-size:12px;padding:9px 14px;min-height:41px}
+.fx-venue-badge{padding:5px 9px;border-radius:6px;background:#073d2a;color:#fff8e9;font-size:10px;letter-spacing:.08em;font-weight:850;white-space:nowrap}
+.fx-away .fx-venue-badge{background:#e9d7b6;color:#56431d;border:1px solid #b69a5e}
+.fx-away{background:linear-gradient(145deg,#fffdf8,#f5efe3)}
+@media(max-width:740px){.new-departments-intro-inner{flex-direction:column;align-items:flex-start}.new-departments-intro-cta{width:100%}}
