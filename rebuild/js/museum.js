@@ -42,10 +42,6 @@ function populate(data){
  for(const id of ['intro','dioikisi','egkatastaseis','diia']){
   const record=records.get(id);if(record)$('#mu-history-grid').append(makeButton(record,'mu-archive-item'));
  }
- for(const id of sports){const record=records.get(id);if(!record)continue;
-  const tile=makeButton(record,'mu-sport-item');tile.id='sport-'+id;
-  $('#mu-sports-grid').append(tile);
- }
  for(const [id,record] of records){
   if(sports.includes(id)||['intro','dioikisi','egkatastaseis','diia'].includes(id))continue;
   if(!id.startsWith('arch-press-'))$('#mu-history-grid').append(makeButton(record,'mu-archive-item'));
@@ -58,7 +54,7 @@ async function init(){
   const data=await response.json();if(!Array.isArray(data.articles)||data.articles.length<13)throw Error('Archive incomplete');
   populate(data);
   const sport=location.hash.match(/^#sport-(.+)$/)?.[1];
-  if(sport){const card=$('#sport-'+sport);card?.scrollIntoView({block:'center'});card?.focus({preventScroll:true})}
+  if(sport){location.replace('/tmimata.html#sport-'+encodeURIComponent(sport));return}
   const archiveId=location.hash.startsWith('#archive-')?
     decodeURIComponent(location.hash.slice('#archive-'.length)):null;
   if(archiveId&&records.has(archiveId))open(archiveId);
