@@ -267,6 +267,17 @@ def make_release() -> None:
 
     for profile in profiles:
         html_text = profile.read_text(encoding="utf-8")
+        # Standalone profiles have a legacy header and footer in their HTML.
+        # Keep the entire biographical article, but avoid two headers/footers
+        # when the shared shell injects the site-wide components at runtime.
+        html_text, old_header = re.subn(
+            r'(<body\b[^>]*>)\s*<header\b[^>]*>.*?</header>', r'\1',
+            html_text, count=1, flags=re.I|re.S)
+        html_text, old_footer = re.subn(
+            r'</main>\s*<footer\b[^>]*>.*?</footer>', '</main>',
+            html_text, count=1, flags=re.I|re.S)
+        if old_header != 1 or old_footer != 1:
+            raise ValueError('Unexpected legacy profile layout: ' + profile.name)
         for lang in ("el", "en"):
             html_text = sync_edited_bio(html_text, profile.stem, lang)
         # Avoid leaving obsolete editorial correction text in Person JSON-LD
@@ -381,14 +392,22 @@ def make_release() -> None:
             {"src": "/favicon-512.png", "sizes": "512x512", "type": "image/png"}
         ]
     })+"\n", encoding="utf-8")
+    # Error routes receive the same navigation, accessibility controls,
+    # scroll-to-top and footer as the 13 principal pages and 682 profiles.
     (OUTPUT / "404.html").write_text(
         '<!doctype html><html lang="el"><head><meta charset="utf-8">'
         '<meta name="viewport" content="width=device-width,initial-scale=1">'
         '<meta name="robots" content="noindex">'
-        '<title>404 · Η σελίδα δεν βρέθηκε | Αρχέλαος</title></head>'
-        '<body style="margin:0;background:#f8f6ef;color:#073d2a;font:20px/1.6 system-ui">'
-        '<main style="max-width:680px;padding:12vh 24px;margin:auto">'
-        '<p style="color:#9b7d3c">Γ.Α.Σ. «Ο ΑΡΧΕΛΑΟΣ»</p><h1 style="font:72px Georgia,serif">404</h1>'
+        '<title>404 · Η σελίδα δεν βρέθηκε | Αρχέλαος</title>'
+        '<link rel="stylesheet" href="/assets/site/css/tokens.css">'
+        '<link rel="stylesheet" href="/assets/site/css/components.css">'
+        '<link rel="stylesheet" href="/assets/site/css/viewports.css">'
+        '<script defer src="/assets/site/js/shell.js"></script>'
+        '<script defer src="/assets/site/js/favorites.js"></script>'
+        '</head><body>'
+        '<main id="main-content" style="max-width:680px;min-height:58vh;padding:10vh 24px;margin:auto">'
+        '<p style="color:#8c6c31">Γ.Α.Σ. «Ο ΑΡΧΕΛΑΟΣ»</p>'
+        '<h1 style="font:72px Georgia,serif;margin:16px 0">404</h1>'
         '<p>Η σελίδα που αναζητάτε δεν βρέθηκε.</p>'
         '<p><a href="/" style="color:#073d2a">Επιστροφή στην αρχική ↗</a></p>'
         '</main></body></html>', encoding="utf-8"
