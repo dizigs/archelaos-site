@@ -3231,6 +3231,11 @@ function checkFiles(){
 const oldRefresh=refresh;
 refresh=function(){
  oldRefresh();
+ const driveLink=document.getElementById('archDriveLink');
+ if(driveLink){
+  driveLink.disabled=fw.hidden;
+  if(fw.hidden)driveLink.value='';
+ }
  if(fw.hidden&&files.files.length){files.value='';fileFeedback.textContent=''}
 };
 fetch('/api/contact',{method:'GET',cache:'no-store'}).then(r=>r.ok?r.json():null).then(data=>{
