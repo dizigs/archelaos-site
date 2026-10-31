@@ -52,6 +52,11 @@ async function run(){
     if(name==='departments')await page.locator('.dp-card').first().waitFor();
     if(name==='retro')await page.locator('.rt-scoreboard').first().waitFor();
     if(name==='home'){
+     await page.waitForFunction(()=>document.querySelector('#fx-status')?.textContent.includes('επιβεβαιωμένοι'),null,{timeout:10000});
+     if(!await page.locator('#fx-download').isHidden()||!await page.locator('#fx-subscribe').isHidden())
+       throw Error('Unpublished preview exposes dead calendar download or subscription URLs');
+     if(await page.locator('.fx-card .fx-calendar-actions a').count())
+       throw Error('Unpublished preview exposes individual calendar files that only exist in dist');
      // Preview-safe links: static links are rewritten on load; dynamic links on focus/click.
      const routed=await page.evaluate(()=>{
        const a=document.createElement('a');a.href='/hall-of-fame.html?person=arch-test#biography';
