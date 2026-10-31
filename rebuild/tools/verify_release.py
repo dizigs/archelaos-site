@@ -77,7 +77,7 @@ def verify() -> None:
             if url.path in ("/history-events.html", "/history-events"):
                 continue
             raise AssertionError(f"Broken internal link in {entry['file']}: {link}")
-    assert len(canonical_set) == len(main), "Duplicate canonicals"
+    assert len(canonical_set) == sum(e.get("indexable", True) for e in main), "Duplicate indexable canonicals"
     sitemap = ET.parse(DIST / "sitemap.xml")
     submaps = [node.text for node in sitemap.findall(".//s:loc", NS)]
     expected = [SITE+"/sitemaps/pages.xml", SITE+"/sitemaps/people.xml"]
