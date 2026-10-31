@@ -26,6 +26,16 @@ def validate(catalog: dict, people: list[dict], moments: list[dict]) -> dict:
         fail("Automatic publication must stay disabled")
     if catalog.get("policies", {}).get("news_scraping") is not False:
         fail("News scraping is not authorized")
+    if catalog.get("policies", {}).get("strict_evidence_only") is not True:
+        fail("The strict source-evidence policy must be enabled")
+    if catalog.get("policies", {}).get("no_auto_write_to_biographies") is not True:
+        fail("Do not auto-update biographies from research")
+    registry = catalog.get("department_registry", [])
+    expected = {"handball", "track", "archery", "shooting", "gymnastics",
+                "volleyball", "wrestling", "swimming", "basketball"}
+    if {d.get("id") for d in registry} != expected or len(registry) != len(expected):
+        fail("All 8 current departments + historic basketball must remain represented")
+
     sources = catalog.get("source_registry")
     events = catalog.get("events")
     flags = catalog.get("review_flags")
@@ -63,6 +73,17 @@ def validate(catalog: dict, people: list[dict], moments: list[dict]) -> dict:
             fail("Unreviewed or fictional verification level")
         if not e.get("sport") or not e.get("event_type") or not e.get("title"):
             fail("Event kind/title/sport missing")
+        sport = e.get("sport")
+        sports = e.get("sports", [sport])
+        if not isinstance(sports, list) or not sports or len(sports) != len(set(sports)):
+            fail("Event needs valid unique department coverage")
+        if any(s not in expected for s in sports):
+            fail("Event claims an unknown sports department")
+        if sport == "multisport" and len(sports) < 2:
+            fail("Multisport events must actually cover multiple departments")
+        if sport != "multisport" and sports != [sport]:
+            fail("A single sport cannot silently claim other departments")
+
         if not isinstance(e.get("summary"),str) or not 15<=len(e["summary"])<=750:
             fail("Missing/oversized event summary")
         temporal=e.get("temporal",{})
@@ -75,6 +96,9 @@ def validate(catalog: dict, people: list[dict], moments: list[dict]) -> dict:
         elif temporal.get("precision")=="season":
             if "date" in temporal or not re.fullmatch(r"\d{4}[–-]\d{4}",temporal.get("season","")):
                 fail("Season must be explicit, never invented date")
+        elif temporal.get("precision")=="year":
+            if set(temporal)!={"precision","year"} or type(temporal["year"]) is not int or not 1956<=temporal["year"]<=2026:
+                fail("Year-only events may not invent a month or day")
         else:
             fail("Date precision missing")
         sources_used=e.get("source_ids")
@@ -109,6 +133,31 @@ def validate(catalog: dict, people: list[dict], moments: list[dict]) -> dict:
                          for k in ("home_score","away_score")):
                 fail("Invalid match identity/score")
         by_event[eid]=e
+
+    queue=catalog.get("research_queue")
+    if not isinstance(queue,list):
+        fail("Unverified claims must be tracked in a separate research queue")
+    queue_ids=set()
+    for item in queue:
+        qid=item.get("id")
+        if not qid or qid in queue_ids or item.get("sport") not in expected:
+            fail("Invalid or duplicated research queue item")
+        if item.get("status") not in {"needs_identity_evidence", "needs_sport_specific_source", "needs_source_reconciliation"}:
+            fail("An unverified queue item must stay pending until reviewed")
+        if item.get("event_id") and item["event_id"] not in by_event:
+            fail("Unverified queue references an unknown event")
+        if not item.get("required_evidence") or not item.get("issue"):
+            fail("Unverified item must explain the missing proof")
+        if any(x not in by_source for x in item.get("source_ids", [])):
+            fail("Queue references an unknown source")
+        queue_ids.add(qid)
+    sport_specific = Counter()
+    mentioned = Counter()
+    for event in events:
+        for sport_id in event.get("sports",[event["sport"]]):
+            mentioned[sport_id]+=1
+        if event["sport"]!="multisport":
+            sport_specific[event["sport"]]+=1
     flag_ids=set()
     for f in flags:
         fid=f.get("id")
@@ -125,6 +174,8 @@ def validate(catalog: dict, people: list[dict], moments: list[dict]) -> dict:
         "events":len(events), "sources":len(sources),
         "person_links":links, "review_flags":len(flags),
         "years":dict(Counter(str(e["temporal"].get("date",e["temporal"].get("season","")))[:4] for e in events)),
+        "unverified_queue":len(queue),
+        "sport_coverage":{key:{"documented_events":mentioned[key],"sport_specific_events":sport_specific[key]} for key in sorted(expected)},
         "public_webpage_created":False
     }
 
@@ -143,6 +194,8 @@ def main():
     print("HISTORICAL EVENT REGISTER OK:",result["events"],"events,",
           result["sources"],"public sources,",result["person_links"],
           "documented person links,",result["review_flags"],"historical review flags.")
+    print("SPORT COVERAGE:",json.dumps(result["sport_coverage"],ensure_ascii=False))
+    print("UNVERIFIED:",result["unverified_queue"],"queued for human review; not linked or published.")
     print("Dataset stays research-only and is excluded from dist/.")
 
 

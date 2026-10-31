@@ -35,6 +35,16 @@ def main():
     rejects("news scraping",lambda d:d["policies"].update(news_scraping=True))
     rejects("auto publication",lambda d:d["policies"].update(automatic_publication=True))
     rejects("hide conflict",lambda d:d["review_flags"][0].update(status="resolved"))
+    assert len(result["sport_coverage"]) == 9
+    assert all(result["sport_coverage"][s]["documented_events"]>0 for s in result["sport_coverage"])
+    assert result["unverified_queue"] >= 8
+    rejects("lost sports coverage",lambda d:d["department_registry"].pop())
+    rejects("untracked categories",lambda d:d["events"][-1].update(sports=["nonexistent"]))
+    rejects("unverified events being published",lambda d:d["policies"].update(strict_evidence_only=False))
+    rejects("unapproved biography writes",lambda d:d["policies"].update(no_auto_write_to_biographies=False))
+    rejects("made-up exact date",lambda d:d["events"][-1]["temporal"].update(month=4))
+    rejects("hide missing evidence queue",lambda d:d.pop("research_queue"))
+    print("ALL DEPARTMENTS QA OK: 8 current + historic basketball, strict evidence and pending queue.")
     print("HISTORICAL EVENT QA OK: identity, sources, dates, privacy, conflicts, no auto-publish.")
 
 

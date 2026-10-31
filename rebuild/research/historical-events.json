@@ -43,6 +43,46 @@
       "title": "Η ιστορία του Κυπέλλου Ανδρών Χάντμπολ",
       "url": "https://www.sport-fm.gr/article/sports/handball/i-istoria-tou-kupellou-andrwn-xadmpol/3343812",
       "checked_on": "2026-10-31"
+    },
+    {
+      "id": "municipality-2022-club-tribute",
+      "provider": "Δήμος Κατερίνης",
+      "kind": "official_municipality",
+      "title": "Αικατερίνεια: βραδιά τιμής του Αρχέλαου",
+      "url": "https://katerini.gr/?p=30090",
+      "checked_on": "2026-10-31"
+    },
+    {
+      "id": "municipality-2023-club-board",
+      "provider": "Δήμος Κατερίνης",
+      "kind": "official_municipality",
+      "title": "Συνάντηση νέου Δ.Σ. Γ.Α.Σ. Αρχέλαος με τον Δήμαρχο Κατερίνης",
+      "url": "https://katerini.gr/?p=32197",
+      "checked_on": "2026-10-31"
+    },
+    {
+      "id": "municipality-2026-archery-championship",
+      "provider": "Δήμος Κατερίνης",
+      "kind": "official_municipality",
+      "title": "Πρωταθλητής Ελλάδος στην Τοξοβολία ο ΓΑΣ Αρχέλαος Κατερίνης",
+      "url": "https://katerini.gr/?p=69956",
+      "checked_on": "2026-10-31"
+    },
+    {
+      "id": "segas-2019-indoor-200m",
+      "provider": "ΣΕΓΑΣ",
+      "kind": "official_federation",
+      "title": "33ο Πανελλήνιο Πρωτάθλημα: Η Κωνσταντινίδου τη νίκη στα 200 μέτρα",
+      "url": "https://www.segas.gr/6462-33o-panellinio-protathlima-i-konstantinidou-ti-niki-sta-200-metra/",
+      "checked_on": "2026-10-31"
+    },
+    {
+      "id": "segas-2025-indoor-60h",
+      "provider": "ΣΕΓΑΣ",
+      "kind": "official_federation",
+      "title": "Πανελλήνιο κλειστού 2025: δεύτερη στα 60 μ. εμπόδια η Κατερίνα Ρέχα",
+      "url": "https://www.segas.gr/panellinio-kleistoy-25-evdomos-panelli/",
+      "checked_on": "2026-10-31"
     }
   ],
   "events": [
@@ -428,6 +468,160 @@
         "moment_ids": [],
         "people": []
       }
+    },
+    {
+      "id": "arc-multisport-honours-2022",
+      "event_type": "club_honours",
+      "sport": "multisport",
+      "sports": [
+        "handball",
+        "track",
+        "archery",
+        "shooting",
+        "gymnastics",
+        "volleyball",
+        "wrestling",
+        "swimming",
+        "basketball"
+      ],
+      "title": "Τιμητική εκδήλωση για την ιστορική πορεία του Αρχέλαου",
+      "summary": "Σύμφωνα με το επίσημο δελτίο Τύπου του Δήμου Κατερίνης, σε εκδήλωση αφιερωμένη στην πορεία του συλλόγου τιμήθηκαν πρόσωπα από τον στίβο, την καλαθοσφαίριση, το βόλεϊ, την ενόργανη, το χάντμπολ, τη σκοποβολή, την πάλη, την κολύμβηση και την τοξοβολία.",
+      "temporal": {
+        "precision": "year",
+        "year": 2022
+      },
+      "verification": "source_checked",
+      "source_ids": [
+        "municipality-2022-club-tribute"
+      ],
+      "associations": {
+        "moment_ids": [],
+        "people": [
+          {
+            "person_id": "arch-999730e06982",
+            "name": "Σταματία Κυπαρίσση",
+            "role": "τιμώμενη για το βόλεϊ",
+            "source_id": "municipality-2022-club-tribute",
+            "evidence": "Το επίσημο δελτίο Τύπου του Δήμου την κατονομάζει στην τιμητική εκδήλωση ως εκπρόσωπο του βόλεϊ."
+          },
+          {
+            "person_id": "arch-6aa13d0c3e0a",
+            "name": "Μαρία Φάκα",
+            "role": "τιμώμενη για τη σκοποβολή",
+            "source_id": "municipality-2022-club-tribute",
+            "evidence": "Το επίσημο δελτίο Τύπου του Δήμου την κατονομάζει ως τιμώμενη για τη σκοποβολή."
+          },
+          {
+            "person_id": "arch-3c52a3f2a994",
+            "name": "Ευαγγελία Σαλτσίδου",
+            "role": "τιμώμενη για την κολύμβηση",
+            "source_id": "municipality-2022-club-tribute",
+            "evidence": "Το επίσημο δελτίο Τύπου του Δήμου την κατονομάζει ως τιμώμενη για την κολύμβηση."
+          },
+          {
+            "person_id": "arch-f6a4e2956785",
+            "name": "Θεόδωρος Σφήκας",
+            "role": "τιμώμενος για την καλαθοσφαίριση",
+            "source_id": "municipality-2022-club-tribute",
+            "evidence": "Το επίσημο δελτίο Τύπου του Δήμου τον κατονομάζει ως τιμώμενο για την καλαθοσφαίριση."
+          }
+        ]
+      }
+    },
+    {
+      "id": "arc-multisport-board-meeting-2023",
+      "event_type": "governance",
+      "sport": "multisport",
+      "sports": [
+        "handball",
+        "track",
+        "archery",
+        "shooting",
+        "gymnastics",
+        "volleyball",
+        "wrestling",
+        "swimming"
+      ],
+      "title": "Συνάντηση διοίκησης και εφόρων του Αρχέλαου με τον Δήμο",
+      "summary": "Σύμφωνα με το δελτίο Τύπου του Δήμου Κατερίνης της 24ης Φεβρουαρίου 2023, πραγματοποιήθηκε συνάντηση για ζητήματα αθλητικών υποδομών και λειτουργίας των τμημάτων. Η ανακοίνωση κατονομάζει εφόρους χειροσφαίρισης, στίβου, τοξοβολίας, σκοποβολής, γυμναστικής, πετοσφαίρισης, πάλης και κολύμβησης.",
+      "temporal": {
+        "precision": "year",
+        "year": 2023
+      },
+      "verification": "source_checked",
+      "source_ids": [
+        "municipality-2023-club-board"
+      ],
+      "associations": {
+        "moment_ids": [],
+        "people": []
+      }
+    },
+    {
+      "id": "arc-archery-national-championship-2026",
+      "event_type": "championship",
+      "sport": "archery",
+      "sports": [
+        "archery"
+      ],
+      "title": "Πρώτη θέση στη γενική βαθμολογία Πανελληνίου Τοξοβολίας Α/Χ 2026",
+      "summary": "Σύμφωνα με επίσημη ανακοίνωση του Δήμου Κατερίνης στις 23 Ιουνίου 2026, ο ΓΑΣ Αρχέλαος κατέλαβε την πρώτη θέση στη γενική βαθμολογία του Πανελληνίου Πρωταθλήματος Τοξοβολίας Α/Χ στη Φλώρινα. Η ίδια ανακοίνωση αναφέρει αργυρό μετάλλιο του Χάρη Ιακωβίδη, χάλκινο του Βαγγέλη Χαρίση και πέμπτη θέση του Βαγγέλη Μαρινόπουλου.",
+      "temporal": {
+        "precision": "year",
+        "year": 2026
+      },
+      "verification": "source_checked",
+      "source_ids": [
+        "municipality-2026-archery-championship"
+      ],
+      "associations": {
+        "moment_ids": [],
+        "people": []
+      }
+    },
+    {
+      "id": "arc-track-indoor-200m-2019",
+      "event_type": "track_result",
+      "sport": "track",
+      "sports": [
+        "track"
+      ],
+      "title": "Νίκη αθλήτριας του Αρχέλαου στα 200 μ. κλειστού στίβου",
+      "summary": "Ο ΣΕΓΑΣ αναφέρει ότι η Στέλλα Κωνσταντινίδου, αθλήτρια του Αρχέλαου, νίκησε στα 200 μ. στο Πανελλήνιο Πρωτάθλημα κλειστού στίβου, με επίδοση 25.28.",
+      "temporal": {
+        "precision": "day",
+        "date": "2019-02-10"
+      },
+      "verification": "source_checked",
+      "source_ids": [
+        "segas-2019-indoor-200m"
+      ],
+      "associations": {
+        "moment_ids": [],
+        "people": []
+      }
+    },
+    {
+      "id": "arc-track-indoor-60m-hurdles-2025",
+      "event_type": "track_result",
+      "sport": "track",
+      "sports": [
+        "track"
+      ],
+      "title": "Δεύτερη θέση στα 60 μ. εμπόδια στο Πανελλήνιο κλειστού 2025",
+      "summary": "Ο ΣΕΓΑΣ καταγράφει τη δεύτερη θέση της Κατερίνας Ρέχα (Αρχέλαος Κατερίνης) στα 60 μ. εμπόδια με επίδοση 8.42, στο Πανελλήνιο κλειστού στίβου 2025.",
+      "temporal": {
+        "precision": "year",
+        "year": 2025
+      },
+      "verification": "source_checked",
+      "source_ids": [
+        "segas-2025-indoor-60h"
+      ],
+      "associations": {
+        "moment_ids": [],
+        "people": []
+      }
     }
   ],
   "review_flags": [
@@ -478,6 +672,193 @@
     "news_scraping": false,
     "automatic_publication": false,
     "person_links": "Only explicit source mention + existing unique Hall of Fame ID; no inference from names alone",
-    "source_review": "New discoveries enter as draft; editor checks direct evidence; conflicts remain review_flags until resolved"
-  }
+    "source_review": "New discoveries enter as draft; editor checks direct evidence; conflicts remain review_flags until resolved",
+    "all_departments": true,
+    "strict_evidence_only": true,
+    "do_not_autolink_names": true,
+    "candidate_queues_never_published": true,
+    "no_auto_write_to_biographies": true
+  },
+  "department_registry": [
+    {
+      "id": "handball",
+      "label": "Χειροσφαίριση",
+      "status": "current_department",
+      "source": "rebuild/data/home.json for current; historically represented basketball in archive"
+    },
+    {
+      "id": "track",
+      "label": "Στίβος",
+      "status": "current_department",
+      "source": "rebuild/data/home.json for current; historically represented basketball in archive"
+    },
+    {
+      "id": "archery",
+      "label": "Τοξοβολία",
+      "status": "current_department",
+      "source": "rebuild/data/home.json for current; historically represented basketball in archive"
+    },
+    {
+      "id": "shooting",
+      "label": "Σκοποβολή",
+      "status": "current_department",
+      "source": "rebuild/data/home.json for current; historically represented basketball in archive"
+    },
+    {
+      "id": "gymnastics",
+      "label": "Ενόργανη Γυμναστική",
+      "status": "current_department",
+      "source": "rebuild/data/home.json for current; historically represented basketball in archive"
+    },
+    {
+      "id": "volleyball",
+      "label": "Πετοσφαίριση",
+      "status": "current_department",
+      "source": "rebuild/data/home.json for current; historically represented basketball in archive"
+    },
+    {
+      "id": "wrestling",
+      "label": "Πάλη",
+      "status": "current_department",
+      "source": "rebuild/data/home.json for current; historically represented basketball in archive"
+    },
+    {
+      "id": "swimming",
+      "label": "Κολύμβηση",
+      "status": "current_department",
+      "source": "rebuild/data/home.json for current; historically represented basketball in archive"
+    },
+    {
+      "id": "basketball",
+      "label": "Ιστορική Καλαθοσφαίριση",
+      "status": "historical_department",
+      "source": "rebuild/data/home.json for current; historically represented basketball in archive"
+    }
+  ],
+  "research_queue": [
+    {
+      "id": "track-identity-konstantinidou",
+      "sport": "track",
+      "status": "needs_identity_evidence",
+      "event_id": "arc-track-indoor-200m-2019",
+      "issue": "Η ΣΕΓΑΣ αναφέρει «Στέλλα Κωνσταντινίδου», αλλά δεν υπάρχει ακριβής αντιστοίχιση πλήρους ονόματος στο Hall of Fame.",
+      "source_ids": [
+        "segas-2019-indoor-200m"
+      ],
+      "required_evidence": "Επιβεβαιωμένο αναγνωριστικό προσώπου ή ακριβής ιστορική ονομαστική τεκμηρίωση."
+    },
+    {
+      "id": "track-identity-recha",
+      "sport": "track",
+      "status": "needs_identity_evidence",
+      "event_id": "arc-track-indoor-60m-hurdles-2025",
+      "issue": "Η Κατερίνα Ρέχα εμφανίζεται στον ΣΕΓΑΣ, όχι όμως με ακριβή αντιστοίχιση στην υπάρχουσα βάση Hall of Fame.",
+      "source_ids": [
+        "segas-2025-indoor-60h"
+      ],
+      "required_evidence": "Ελεγμένο προφίλ/επίσημη καταχώριση και επιμελητική ταυτοποίηση."
+    },
+    {
+      "id": "archery-identity-iakovidis",
+      "sport": "archery",
+      "status": "needs_identity_evidence",
+      "event_id": "arc-archery-national-championship-2026",
+      "issue": "Η πηγή χρησιμοποιεί την κλιτή μορφή «Χάρη Ιακωβίδη» και το Hall of Fame «Χάρης Ιακωβίδης». Δεν ενεργοποιείται αυτόματος συσχετισμός.",
+      "source_ids": [
+        "municipality-2026-archery-championship"
+      ],
+      "required_evidence": "Επιβεβαίωση ταύτισης από επίσημο αποτέλεσμα ή εγκεκριμένο αρχείο."
+    },
+    {
+      "id": "archery-identity-charisis",
+      "sport": "archery",
+      "status": "needs_identity_evidence",
+      "event_id": "arc-archery-national-championship-2026",
+      "issue": "Η πηγή χρησιμοποιεί «Βαγγέλη Χαρίση» ενώ το Hall of Fame έχει «Ευάγγελος Χαρίσης». Η αντιστοίχιση δεν θεωρείται βέβαιη.",
+      "source_ids": [
+        "municipality-2026-archery-championship"
+      ],
+      "required_evidence": "Ονομαστική ταύτιση από πρωτογενές αποτέλεσμα της ομοσπονδίας ή εγκεκριμένο αρχείο."
+    },
+    {
+      "id": "gap-shooting-sport-specific",
+      "sport": "shooting",
+      "status": "needs_sport_specific_source",
+      "issue": "Υπάρχει δημόσια δημοτική καταγραφή συμμετοχής σε συλλογικές ιστορικές δραστηριότητες/τιμητική εκδήλωση, αλλά δεν καταχωρίστηκε ακόμη ανεξάρτητο, ελεγμένο αγωνιστικό γεγονός για το τμήμα.",
+      "source_ids": [
+        "municipality-2022-club-tribute"
+      ],
+      "required_evidence": "Πρωτογενές αποτέλεσμα ομοσπονδίας, πρωτότυπο πρακτικό με δημόσια ασφαλή παραπομπή ή ταυτοποιημένη ιστορική δημοσίευση."
+    },
+    {
+      "id": "gap-gymnastics-sport-specific",
+      "sport": "gymnastics",
+      "status": "needs_sport_specific_source",
+      "issue": "Υπάρχει δημόσια δημοτική καταγραφή συμμετοχής σε συλλογικές ιστορικές δραστηριότητες/τιμητική εκδήλωση, αλλά δεν καταχωρίστηκε ακόμη ανεξάρτητο, ελεγμένο αγωνιστικό γεγονός για το τμήμα.",
+      "source_ids": [
+        "municipality-2022-club-tribute"
+      ],
+      "required_evidence": "Πρωτογενές αποτέλεσμα ομοσπονδίας, πρωτότυπο πρακτικό με δημόσια ασφαλή παραπομπή ή ταυτοποιημένη ιστορική δημοσίευση."
+    },
+    {
+      "id": "gap-volleyball-sport-specific",
+      "sport": "volleyball",
+      "status": "needs_sport_specific_source",
+      "issue": "Υπάρχει δημόσια δημοτική καταγραφή συμμετοχής σε συλλογικές ιστορικές δραστηριότητες/τιμητική εκδήλωση, αλλά δεν καταχωρίστηκε ακόμη ανεξάρτητο, ελεγμένο αγωνιστικό γεγονός για το τμήμα.",
+      "source_ids": [
+        "municipality-2022-club-tribute"
+      ],
+      "required_evidence": "Πρωτογενές αποτέλεσμα ομοσπονδίας, πρωτότυπο πρακτικό με δημόσια ασφαλή παραπομπή ή ταυτοποιημένη ιστορική δημοσίευση."
+    },
+    {
+      "id": "gap-wrestling-sport-specific",
+      "sport": "wrestling",
+      "status": "needs_sport_specific_source",
+      "issue": "Υπάρχει δημόσια δημοτική καταγραφή συμμετοχής σε συλλογικές ιστορικές δραστηριότητες/τιμητική εκδήλωση, αλλά δεν καταχωρίστηκε ακόμη ανεξάρτητο, ελεγμένο αγωνιστικό γεγονός για το τμήμα.",
+      "source_ids": [
+        "municipality-2022-club-tribute"
+      ],
+      "required_evidence": "Πρωτογενές αποτέλεσμα ομοσπονδίας, πρωτότυπο πρακτικό με δημόσια ασφαλή παραπομπή ή ταυτοποιημένη ιστορική δημοσίευση."
+    },
+    {
+      "id": "gap-swimming-sport-specific",
+      "sport": "swimming",
+      "status": "needs_sport_specific_source",
+      "issue": "Υπάρχει δημόσια δημοτική καταγραφή συμμετοχής σε συλλογικές ιστορικές δραστηριότητες/τιμητική εκδήλωση, αλλά δεν καταχωρίστηκε ακόμη ανεξάρτητο, ελεγμένο αγωνιστικό γεγονός για το τμήμα.",
+      "source_ids": [
+        "municipality-2022-club-tribute"
+      ],
+      "required_evidence": "Πρωτογενές αποτέλεσμα ομοσπονδίας, πρωτότυπο πρακτικό με δημόσια ασφαλή παραπομπή ή ταυτοποιημένη ιστορική δημοσίευση."
+    },
+    {
+      "id": "gap-basketball-sport-specific",
+      "sport": "basketball",
+      "status": "needs_sport_specific_source",
+      "issue": "Υπάρχει δημόσια δημοτική καταγραφή συμμετοχής σε συλλογικές ιστορικές δραστηριότητες/τιμητική εκδήλωση, αλλά δεν καταχωρίστηκε ακόμη ανεξάρτητο, ελεγμένο αγωνιστικό γεγονός για το τμήμα.",
+      "source_ids": [
+        "municipality-2022-club-tribute"
+      ],
+      "required_evidence": "Πρωτογενές αποτέλεσμα ομοσπονδίας, πρωτότυπο πρακτικό με δημόσια ασφαλή παραπομπή ή ταυτοποιημένη ιστορική δημοσίευση."
+    },
+    {
+      "id": "historical-cup-1984-conflict",
+      "sport": "handball",
+      "status": "needs_source_reconciliation",
+      "issue": "Η 70ή συλλογή έχει σκορ 1984 που διαφέρει από το επίσημο αποτέλεσμα της ΟΧΕ.",
+      "source_ids": [
+        "greek-handball-cup-record"
+      ],
+      "required_evidence": "Διασταύρωση και έλεγχος εγκεκριμένου κειμένου της στιγμής #45 πριν από αλλαγή."
+    },
+    {
+      "id": "historical-borec-1994-conflict",
+      "sport": "handball",
+      "status": "needs_source_reconciliation",
+      "issue": "Οι 70 Στιγμές περιγράφουν πρόκριση μετά τους αγώνες με την Borec, ενώ η EHF καταγράφει αποκλεισμό.",
+      "source_ids": [
+        "ehf-club-history"
+      ],
+      "required_evidence": "Έλεγχος πλήρων αποτελεσμάτων EHF και εγκεκριμένου κειμένου #63 πριν από αλλαγή."
+    }
+  ]
 }
