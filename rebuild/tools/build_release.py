@@ -114,6 +114,7 @@ def create_page(entry: dict) -> None:
     raw = raw.replace("/rebuild/css/", "/assets/site/css/")
     raw = raw.replace("/rebuild/js/", "/assets/site/js/")
     raw = raw.replace("/rebuild/data/", "/assets/site/data/")
+    raw = raw.replace("/rebuild/images/", "/assets/site/images/")
     if re.search(r'<link\b[^>]*rel=["\x27]canonical', raw, re.I):
         raise ValueError(f"Staged file has unexpected canonical: {entry['file']}")
     head = "\n".join([
@@ -186,6 +187,7 @@ def make_release() -> None:
         copytree(ROOT / folder, OUTPUT / folder)
     for name in ("css", "js", "data"):
         copytree(STAGE / name, OUTPUT / "assets" / "site" / name)
+    copytree(STAGE / "images", OUTPUT / "assets" / "site" / "images")
     # The old public JSON endpoint must reflect exactly the same edited people
     # as the new Hall of Fame; otherwise stale corrections remain discoverable.
     copy2(STAGE / "data" / "people.json", OUTPUT / "hall-of-fame-people.json")
