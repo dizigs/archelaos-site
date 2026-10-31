@@ -31,7 +31,6 @@
 .h-new-person-wrap,.rs-card-wrap,.sr-card-wrap{position:relative;min-width:0}
 .h-new-person-wrap>.h-new-person,.rs-card-wrap>:is(.rs-card,.rs-featured-card),.sr-card-wrap>.sr-card{width:100%;height:100%}
 .h-new-person-wrap>.arch-favorite-toggle,.rs-card-wrap>.arch-favorite-toggle,.sr-card-wrap>.arch-favorite-toggle{position:absolute;right:15px;top:15px}
-.h-new-person-wrap .h-new-person-top .h-new-arrow{margin-right:50px}
 .rm-moment{position:relative}
 .rm-moment>.arch-favorite-toggle{position:absolute;right:68px;top:16px}
 .sr-card-wrap>.arch-favorite-toggle{right:45px;top:16px}
