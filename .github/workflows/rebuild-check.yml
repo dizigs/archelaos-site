@@ -168,6 +168,8 @@ jobs:
           python -m http.server 8765 --bind 127.0.0.1 > /tmp/archelaos-server.log 2>&1 &
       - name: Check interactive pages, menus, dialogs and forms
         run: node rebuild/tests/smoke.cjs
+      - name: Inspect the internal owner review board on mobile and desktop
+        run: node rebuild/tests/editor_board_browser.cjs
       - name: Assemble future release locally
         run: python rebuild/tools/build_release.py
       - name: Serve release candidate for browser tests

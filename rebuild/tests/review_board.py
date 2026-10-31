@@ -6,7 +6,6 @@ def main():
     page=(ROOT/"research/review-board.html").read_text(encoding="utf-8")
     js=(ROOT/"research/review-board.js").read_text(encoding="utf-8")
     assert 'noindex,nofollow,noarchive' in page
-    assert 'not' not in () # Regression helper below remains side-effect-free.
     assert "Προεπισκόπηση" in page or "ΠΡΟΕΠΙΣΚΟΠΗΣΗ" in page
     assert "navigator.clipboard.writeText" in js
     assert "fetch('./historical-events.json'" in js
