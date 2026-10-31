@@ -5,7 +5,7 @@ const pages=[
   ['index.html','Αρχική'],['history.html','Ψηφιακό Μουσείο'],
   ['70-stigmes.html','70 Στιγμές'],['hall-of-fame.html','Hall of Fame'],
   ['stories.html','Ιστορίες'],['index.html#about','Ο Σύλλογος'],
-  ['index.html#departments','Αθλήματα'],['board.html','Διοίκηση'],
+  ['tmimata.html','Τμήματα'],['board.html','Διοίκηση'],
   ['sponsors.html','Χορηγίες'],['contact.html','Επικοινωνία'],['search.html','Αναζήτηση'],['favorites.html','Αγαπημένα'],['contribute.html','Συνεισφορά Αρχείου']
 ];
 const groups=[['Αρχείο',[2,3,4]],['Ο Σύλλογος',[5,6,7,8,9]]];
