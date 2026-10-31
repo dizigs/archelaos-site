@@ -65,6 +65,30 @@ async function run(){
        throw Error('Dynamically created link escapes rebuild: '+routed.actual);
      if(routed.untouched!=='https://example.org/')
        throw Error('Preview rewrote an external URL');
+     // Switching between related archive popups must reuse one modal and keep scroll locked.
+     const modal=await page.evaluate(()=>{
+       const trigger=document.createElement('button');
+       trigger.id='dialog-focus-regression';trigger.textContent='Dialog opener';
+       document.body.append(trigger);trigger.focus();
+       window.ArchelaosUI.openDialog({title:'Αρχικό βιογραφικό',body:'Πρώτο κείμενο'});
+       const first=document.querySelector('dialog.arch-dialog');
+       window.ArchelaosUI.openDialog({title:'Συνδεδεμένο γεγονός',body:'Δεύτερο κείμενο'});
+       return {opened:first.open,title:first.querySelector('h2')?.textContent,
+               dialogs:document.querySelectorAll('dialog.arch-dialog[open]').length,
+               locked:document.body.classList.contains('arch-dialog-open')};
+     });
+     if(!modal.opened||modal.title!=='Συνδεδεμένο γεγονός'||modal.dialogs!==1||!modal.locked)
+       throw Error('Related popup navigation replaced the native modal incorrectly: '+JSON.stringify(modal));
+     await page.locator('dialog.arch-dialog .arch-close').click();
+     await page.waitForFunction(()=>!document.querySelector('dialog.arch-dialog')?.open);
+     const restored=await page.evaluate(()=>{
+       const focus=document.activeElement?.id;
+       const locked=document.body.classList.contains('arch-dialog-open');
+       document.querySelector('#dialog-focus-regression')?.remove();
+       return {focus,locked};
+     });
+     if(restored.focus!=='dialog-focus-regression'||restored.locked)
+       throw Error('Popup close did not restore focus and page scroll: '+JSON.stringify(restored));
      await page.locator('#new-slide-next').click();
      await page.waitForFunction(()=>document.querySelector('#new-slide-title')?.textContent.includes('Στίβος'));
     }
