@@ -35,6 +35,7 @@ def main():
     else:raise AssertionError("Unexpected negative match duration was accepted")
 
     for key,value in [
+     ("start_at","2027-04-11T18:30:00+02:00"),
      ("start_at","2027-04-11T18:30:00"),
      ("home_team","Κάποια άλλη ομάδα"),
      ("sport","nonexistent")]:

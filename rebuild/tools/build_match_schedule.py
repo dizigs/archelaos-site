@@ -35,7 +35,10 @@ def validate(data:dict)->list[dict]:
             dt=datetime.fromisoformat(m.get("start_at",""))
             if dt.tzinfo is None or dt.utcoffset() is None:
                 raise ValueError("Unconfirmed match time zone")
-            dt=dt.astimezone(ATHENS)
+            local=dt.astimezone(ATHENS)
+            if local.utcoffset()!=dt.utcoffset():
+                raise ValueError("Fixture UTC offset does not match Athens local timezone")
+            dt=local
             reviewed=datetime.fromisoformat(m["approval"]["reviewed_on"])
             if reviewed.tzinfo is None or reviewed.utcoffset() is None:
                 raise ValueError("Owner review timestamp must include an explicit timezone")

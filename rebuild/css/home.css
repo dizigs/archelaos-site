@@ -248,3 +248,10 @@
 @media(max-width:720px){.fx-heritage{display:none}.fx-heading{grid-template-columns:1fr;margin:34px 0 21px}.fx-heading h2{font-size:clamp(37px,10vw,58px)}.fx-legacy{gap:9px;letter-spacing:.1em;font-size:9px}.fx-commandbar{margin-top:30px}.fx-cards{grid-template-columns:1fr}.fx-card,.fx-card:first-child,.fx-card:nth-child(2){grid-column:1;min-height:0}.fx-card{padding:23px}.fx-empty{padding:29px 23px;min-height:280px}.fx-empty-seal{display:none}.fx-empty-mark{font-size:200px;bottom:-.27em}.fx-date-number{font-size:64px}.fx-teams{min-height:70px}.fx-team strong{font-size:19px}.fx-bottom{align-items:flex-start}.fx-venue{flex-basis:100%}.fx-calendar-actions{width:100%}.fx-calendar-actions summary{justify-content:space-between}}
 @media(max-width:420px){.fx-section{padding-top:65px;padding-bottom:60px}.fx-switch{display:grid;grid-template-columns:1fr 1fr;width:100%}.fx-switch button:first-child{grid-column:span 2}.fx-download{width:100%;justify-content:space-between}.fx-teams{gap:8px}.fx-team strong{font-size:17px}.fx-when{flex-wrap:wrap;gap:5px 16px}.fx-empty h3{font-size:30px}}
 @media(prefers-reduced-motion:reduce){.fx-card,.fx-switch button,.fx-calendar-actions summary{transition:none!important}}
+
+/* Calendar subscription and download are separate choices, never decorative controls. */
+.fx-calendar-subscribe{display:flex;align-items:center;flex-wrap:wrap;gap:10px}
+.fx-calendar-subscribe .fx-download{white-space:normal}
+.fx-subscribe-help{font-size:12px;color:#d5dacd}
+.fx-subscribe[hidden],.fx-calendar-subscribe [hidden]{display:none!important}
+@media(max-width:720px){.fx-calendar-subscribe{width:100%}.fx-calendar-subscribe .fx-download{flex:1;justify-content:space-between}}

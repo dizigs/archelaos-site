@@ -9,6 +9,13 @@ const labels={handball:'ΧΑΝΤΜΠΟΛ',volleyball:'ΒΟΛΕΪ'};
 const create=(tag,cls,content)=>{const node=document.createElement(tag);if(cls)node.className=cls;
  if(content!==undefined)node.textContent=String(content);return node};
 let fixtures=[],sport='all';
+function heritage(){
+ const current=Number(new Intl.DateTimeFormat('en-US',{timeZone:'Europe/Athens',year:'numeric'}).format(new Date()));
+ if(current<2026||current>2200)return;
+ const yrs=$('#fx-history-years'),range=$('#fx-history-range');
+ if(yrs)yrs.textContent=String(current-1956);
+ if(range)range.textContent='1956 — '+current;
+}
 const dateOf=s=>{const d=new Date(s);return Number.isFinite(d.getTime())?d:null};
 const format=(date,parts)=>new Intl.DateTimeFormat('el-GR',{timeZone:'Europe/Athens',...parts}).format(date);
 const utcStamp=d=>d.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
@@ -82,10 +89,13 @@ function render(){
  $('#fx-status').textContent=visible.length
   ?'Οι επόμενοι '+Math.min(6,visible.length)+' επιβεβαιωμένοι αγώνες · ώρα Ελλάδας.'
   :'Δεν έχουν ανακοινωθεί ακόμη εγκεκριμένοι επόμενοι αγώνες για αυτή την επιλογή.';
- $('#fx-download').hidden=!fixtures.some(x=>x.status==='scheduled');
+ const anyUpcoming=fixtures.some(x=>x.status==='scheduled'&&dateOf(x.start_at)?.getTime()>Date.now());
+ $('#fx-download').hidden=!anyUpcoming;
+ $('#fx-subscribe').hidden=!anyUpcoming;
 }
 async function init(){
  const node=$('#upcoming-matches');if(!node)return;
+ heritage();
  node.querySelectorAll('[data-fixture-sport]').forEach(button=>
   button.addEventListener('click',()=>{
    sport=button.dataset.fixtureSport;
@@ -107,6 +117,7 @@ async function init(){
   $('#fx-list').replaceChildren();$('#fx-list').hidden=true;$('#fx-empty').hidden=false;
   $('#fx-status').textContent='Το επιβεβαιωμένο πρόγραμμα δεν είναι προσωρινά διαθέσιμο.';
   $('#fx-download').hidden=true;
+  $('#fx-subscribe').hidden=true;
  }
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
