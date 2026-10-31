@@ -88,6 +88,18 @@ jobs:
           path: rebuild/test-artifacts/archive-connections.json
           if-no-files-found: warn
           retention-days: 14
+      - name: Validate hidden research event register and source-backed biographies
+        run: |
+          python rebuild/tests/verified_events.py
+          python rebuild/tools/validate_verified_events.py --json rebuild/test-artifacts/verified-events-report.json
+      - name: Preserve historical event research integrity report
+        if: always()
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        with:
+          name: archelaos-historical-events-research
+          path: rebuild/test-artifacts/verified-events-report.json
+          if-no-files-found: warn
+          retention-days: 14
       - name: Ensure all rebuild HTML pages are unpublished previews
         shell: bash
         run: |

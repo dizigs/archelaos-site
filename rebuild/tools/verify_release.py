@@ -118,6 +118,7 @@ def verify() -> None:
     assert "X-Frame-Options: DENY" in headers, "Clickjacking protection missing"
     assert "Cache-Control: public, max-age=0, must-revalidate" in headers, "Unversioned assets may remain stale"
     assert not (DIST / "rebuild").exists(), "Never publish preview folder"
+    assert not (DIST / "research").exists(), "Nonpublished source-checked history must never enter deployment"
     print(f"RELEASE QA OK: {len(main)} core pages + {len(loc_people)} indexed profiles.")
     print("Canonicals, robots, structured data, two sitemaps, redirects and local paths verified.")
 
