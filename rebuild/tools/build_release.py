@@ -117,7 +117,7 @@ def create_page(entry: dict) -> None:
     if re.search(r'<link\b[^>]*rel=["\x27]canonical', raw, re.I):
         raise ValueError(f"Staged file has unexpected canonical: {entry['file']}")
     head = "\n".join([
-        '<meta name="robots" content="index,follow,max-image-preview:large">',
+        '<meta name="robots" content="' + ('index,follow,max-image-preview:large' if entry.get("indexable", True) else 'noindex,follow') + '">',
         '<link rel="icon" href="/favicon.ico" sizes="any">',
         '<link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png">',
         '<link rel="manifest" href="/site.webmanifest">',
@@ -206,7 +206,7 @@ def make_release() -> None:
 
     (OUTPUT / "sitemaps").mkdir()
     (OUTPUT / "sitemaps" / "pages.xml").write_text(
-        sitemap_xml([entry["path"] for entry in pages]), encoding="utf-8"
+        sitemap_xml([entry["path"] for entry in pages if entry.get("indexable", True)]), encoding="utf-8"
     )
     (OUTPUT / "sitemaps" / "people.xml").write_text(
         sitemap_xml(["/people/" + file.name for file in profile_files]), encoding="utf-8"

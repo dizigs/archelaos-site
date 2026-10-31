@@ -36,7 +36,9 @@ def verify() -> None:
         file = DIST / entry["file"]
         src = file.read_text(encoding="utf-8")
         canonical = SITE + entry["path"]
-        assert 'content="noindex' not in src.lower(), entry["file"]
+        should_index = entry.get("indexable", True)
+        expected_robots = 'index,follow,max-image-preview:large' if should_index else 'noindex,follow'
+        assert '<meta name="robots" content="' + expected_robots + '">' in src, entry["file"]
         assert src.count('<link rel="canonical" href="' + canonical + '">') == 1, entry["file"]
         assert src.count('property="og:url" content="' + canonical + '"') == 1, entry["file"]
         assert src.count('property="og:image"') == 1, entry["file"]
@@ -44,7 +46,8 @@ def verify() -> None:
         assert "/rebuild/" not in src, f"Staged asset reference leaked in {entry['file']}"
         assert src.count('name="description"') == 1, entry["file"]
         assert src.count('<meta name="robots"') == 1, entry["file"]
-        canonical_set.add(canonical)
+        if should_index:
+            canonical_set.add(canonical)
         head = src.split("</head>", 1)[0]
         script = re.search(r'<script type="application/ld\+json">([^<]+)</script>', head)
         assert script, entry["file"] + " has no structured data"
@@ -83,7 +86,7 @@ def verify() -> None:
     profiles = ET.parse(DIST / "sitemaps" / "people.xml")
     loc_pages = [e.text for e in pages.findall(".//s:loc", NS)]
     loc_people = [e.text for e in profiles.findall(".//s:loc", NS)]
-    assert set(loc_pages) == canonical_set and len(loc_pages) == len(main)
+    assert set(loc_pages) == canonical_set and len(loc_pages) == len(canonical_set)
     assert len(loc_people) == len(set(loc_people)) == 682
     assert all((DIST / "people" / url.rsplit("/", 1)[-1]).is_file() for url in loc_people)
     robots = (DIST / "robots.txt").read_text()

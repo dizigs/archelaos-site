@@ -8,7 +8,7 @@ const files=[
  ['index.html','home'],['history.html','museum'],['hall-of-fame.html','hall'],
  ['70-stigmes.html','moments'],['stories.html','stories'],['board.html','board'],
  ['contact.html','contact'],['sponsors.html','sponsors'],
- ['tmimata.html','departments'],['retro-matches.html','retro']
+ ['tmimata.html','departments'],['retro-matches.html','retro'],['search.html','search']
 ];
 async function verify(){
  mkdirSync(DEST,{recursive:true});
@@ -27,7 +27,8 @@ async function verify(){
     const canonical=await page.locator('link[rel="canonical"]').getAttribute('href');
     if(!canonical?.startsWith('https://archelaos.club/'))throw Error(name+': missing canonical');
     const robots=await page.locator('meta[name=robots]').getAttribute('content');
-    if(robots.includes('noindex'))throw Error(name+': release is noindex');
+    if(robots.includes('noindex') && name!=='search.html')throw Error(name+': release is noindex');
+    if(name==='search.html'&&!robots.includes('noindex'))throw Error('Public search results should be noindex');
     const stageRefs=await page.locator('script[src^="/rebuild/"],link[href^="/rebuild/"]').count();
     if(stageRefs)throw Error(name+': staging asset leaked');
     if(tag==='hall')await page.waitForFunction(()=>document.querySelector('#hall-count')?.textContent.includes('682'));
@@ -40,6 +41,15 @@ async function verify(){
     if(tag==='home'){
      await page.locator('#new-slide-next').click();
      await page.waitForFunction(()=>document.querySelector('#new-slide-title')?.textContent.includes('Στίβος'));
+    }
+    if(tag==='search'){
+     const field=page.locator('#sr-query');await field.fill('Κουκοδήμος');
+     await page.waitForFunction(()=>document.querySelector('#sr-status')?.textContent.includes('αποτελέσματα') &&
+       document.querySelector('#sr-results .sr-card')?.textContent.includes('Κουκοδήμος'),null,{timeout:9000});
+     if(await page.locator('#sr-results .sr-card').count()===0)throw Error('Archive search returns no results');
+     await page.locator('[data-sr-filter="moment"]').click();
+     await page.locator('[data-sr-filter="person"]').click();
+     if(await page.locator('#sr-results .sr-card').count()===0)throw Error('Person search filter returns no results');
     }
     if(tag==='contact'){
      const link=page.locator('[data-open-contact]').first();
