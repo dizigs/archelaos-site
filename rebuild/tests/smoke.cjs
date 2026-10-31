@@ -15,7 +15,7 @@ async function run(){
    const page=await browser.newPage({viewport:size});
    const errors=[];
    page.on('pageerror',err=>errors.push(err.message));
-   for(const [url,name] of [['index.html','home'],['hall-of-fame.html','hall'],['70-stigmes.html','moments'],['stories.html','stories'],['history.html','museum'],['board.html','board'],['contact.html','contact'],['sponsors.html','sponsors'],['tmimata.html','departments'],['retro-matches.html','retro']]){
+   for(const [url,name] of [['index.html','home'],['hall-of-fame.html','hall'],['70-stigmes.html','moments'],['stories.html','stories'],['history.html','museum'],['board.html','board'],['contact.html','contact'],['sponsors.html','sponsors'],['tmimata.html','departments'],['retro-matches.html','retro'],['search.html','search'],['favorites.html','favorites'],['contribute.html','contribute']]){
     await page.goto(ROOT+'/rebuild/'+url,{waitUntil:'domcontentloaded'});
     await page.locator('.arch-header').waitFor();
     await page.locator('.arch-footer').waitFor();
@@ -23,6 +23,19 @@ async function run(){
     if(sponsorLabel.trim()!=='Χορηγίες')throw Error('Global menu label changed unexpectedly: '+sponsorLabel);
     const logoTarget=await page.locator('.arch-brand').getAttribute('href');
     if(logoTarget!='/rebuild/index.html')throw Error('Brand link not stage-safe: '+logoTarget);
+    if(name==='favorites'){
+      await page.locator('.av-empty').waitFor();
+      await page.evaluate(()=>window.ArchelaosFavorites.toggle('story','1'));
+      await page.locator('.av-card').first().waitFor();
+      if(!await page.locator('.av-card').first().textContent())throw Error('Favorite did not show');
+      await page.locator('.av-card .arch-favorite-toggle').click();
+      await page.locator('.av-empty').waitFor();
+    }
+    if(name==='contribute'){
+      if(await page.locator('input[type=file],form').count())throw Error('Unexpected unfinished upload form');
+      const email=await page.locator('.ac-email').getAttribute('href');
+      if(!email?.startsWith('mailto:'))throw Error('Missing archive contact');
+    }
     if(name==='museum'){
       const firstCollection=page.locator('#mu-collection-cards a').first();
       await firstCollection.waitFor({timeout:20000});

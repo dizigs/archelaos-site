@@ -88,7 +88,7 @@ async function verify(){
      await page.locator('.arch-menu-dialog[open]').waitFor();
      await page.locator('.arch-menu-dialog .arch-close').click();
     }
-    if(['home','hall','moments','contact'].includes(tag))
+    if(['home','hall','moments','contact','favorites','contribute'].includes(tag))
       await page.screenshot({path:path.join(DEST,tag+'-'+view.width+'.png'),animations:'disabled',fullPage:false});
    }
    if(pageErrors.length)throw Error('Browser errors: '+pageErrors.join(' | '));
