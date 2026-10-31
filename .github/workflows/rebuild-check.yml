@@ -39,6 +39,11 @@ jobs:
           retention-days: 14
       - name: Verify safe editorial quick corrections and source references
         run: python rebuild/tests/editorial_tools.py
+      - name: Validate unified maintenance toolbox commands
+        run: |
+          python rebuild/tools/toolbox.py --help
+          python rebuild/tools/toolbox.py find "Χαράλαμπος Σαββίδης" --json > /tmp/archelaos-toolbox-search.json
+          python rebuild/tools/toolbox.py health
       - name: Verify unpublished translations and stable language dictionaries
         run: python rebuild/tools/audit_translations.py
       - name: Check all rebuilt JavaScript syntax
