@@ -3283,6 +3283,42 @@ a.museum-subtle-link:focus-visible{outline:3px solid #c7a65e;outline-offset:3px}
   scroll-padding-bottom: 95px;
 }
 </style>
+<style id="v31-museum-archive-scroll-repair">
+/* Single scrolling surface for long museum archives: no nested clipped scroller. */
+#historyArchiveModal.is-open {
+  display: block !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  overscroll-behavior-y: contain;
+  padding: max(12px, env(safe-area-inset-top)) 10px max(32px, env(safe-area-inset-bottom)) !important;
+}
+#historyArchiveModal .modal-box {
+  display: block !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow: visible !important;
+  margin: 0 auto 22px !important;
+}
+#historyArchiveModal #historyArchiveContent {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow: visible !important;
+  padding-bottom: 48px !important;
+}
+#historyArchiveModal .v70-archive-close {
+  position: sticky !important;
+  top: 10px !important;
+  float: right;
+  margin: 10px 10px -54px 0;
+  z-index: 50 !important;
+}
+@media(max-width:767px) {
+  #historyArchiveModal .modal-box { width:100% !important; }
+  #historyArchiveModal #historyArchiveContent { padding-bottom:65px !important; }
+}
+</style>
 </head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow arch-gold-page" data-arch-people-page="history">
 <!-- ANIMATED CONTOUR WAVES -->
