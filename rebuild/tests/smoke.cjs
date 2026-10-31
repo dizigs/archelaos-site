@@ -52,7 +52,7 @@ async function run(){
     if(name==='departments')await page.locator('.dp-card').first().waitFor();
     if(name==='retro')await page.locator('.rt-scoreboard').first().waitFor();
     if(name==='home'){
-     await page.waitForFunction(()=>document.querySelector('#fx-status')?.textContent.includes('επιβεβαιωμένοι'),null,{timeout:10000});
+     await page.waitForFunction(()=>document.querySelector('#fx-status')?.textContent.includes('προγραμματισμένοι'),null,{timeout:10000});
      if(!await page.locator('#fx-download').isHidden()||!await page.locator('#fx-subscribe').isHidden())
        throw Error('Unpublished preview exposes dead calendar download or subscription URLs');
      if(await page.locator('.fx-card .fx-calendar-actions a').count())
