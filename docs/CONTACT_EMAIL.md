@@ -19,6 +19,18 @@ The visitor cannot specify recipients. All mail originates from `noreply@archela
 
 Do **not** commit credentials or put the API key into browser JavaScript. The form will offer a `mailto:` alternative when direct submission is unavailable. Historical archive submissions can include attachments **without any new API key**. The existing Resend API key handles them.
 
+## Intake folder for large contributions
+
+A private, non-public Google Drive review folder was created under the club's existing archive: **Εισερχόμενες συνεισφορές ιστορικού αρχείου — Προς έλεγχο**.
+
+- Folder ID: `1wrG5XuC5IFkEINNJGAinxZl1WLKit83d`
+- Link: https://drive.google.com/drive/folders/1wrG5XuC5IFkEINNJGAinxZl1WLKit83d
+- **Not publicly writable**: it is for the archivist to review and import material, not for public access.
+
+Visitors with very large collections can paste a Google Drive sharing link into the archive topic of the contact form. The existing Resend route forwards the link securely to `history@archelaos.club`, so the archivist can request viewing access if needed and then manually copy approved material into the private intake folder. Links are never automatically fetched or imported, and visitors never get access to the club's Drive account or review folder.
+
+This is **link-based submission, not automatic direct upload to the club's Drive**. A direct Drive upload endpoint would require a separate authenticated backend/Google OAuth or properly secured upload application, abuse protection, and an authorization/configuration step. Do not embed Drive API credentials or publish a writable folder link.
+
 ## Historical uploads
 
 - Available only when the visitor selects `archive`; the server forces delivery to `history@archelaos.club`.

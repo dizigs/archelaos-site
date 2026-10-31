@@ -3074,7 +3074,12 @@ main p,main li,article p,article li{line-height:1.72;}
 <form class="arch-modal-form" id="archContactForm" enctype="multipart/form-data"><div aria-hidden="true" style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden"><label>Website<input autocomplete="off" name="website" tabindex="-1" type="text"/></label></div><div class="arch-form-grid"><label><span data-contact-el="Ονοματεπώνυμο *" data-contact-en="Full name *">Ονοματεπώνυμο *</span><input autocomplete="name" maxlength="120" name="name" required=""/></label><label><span>Email *</span><input autocomplete="email" maxlength="254" name="email" required="" type="email"/></label><label><span data-contact-el="Τηλέφωνο (προαιρετικό)" data-contact-en="Phone (optional)">Τηλέφωνο (προαιρετικό)</span><input autocomplete="tel" maxlength="35" name="phone" type="tel"/></label><label><span data-contact-el="Θέμα *" data-contact-en="Subject *">Θέμα *</span><span class="arch-select-wrap"><select id="archTopic" name="topic" required=""><option data-contact-el="Επιλέξτε θέμα" data-contact-en="Choose a subject" value="">Επιλέξτε θέμα</option><option data-contact-el="Γενική ερώτηση" data-contact-en="General enquiry" value="general">Γενική ερώτηση</option><option data-contact-el="Χορηγίες / Συνεργασίες" data-contact-en="Sponsorship / Partnerships" value="sponsorship">Χορηγίες / Συνεργασίες</option><option data-contact-el="Αθλητικό τμήμα / Εγγραφές" data-contact-en="Sport / Registration" value="sport">Αθλητικό τμήμα / Εγγραφές</option><option data-contact-el="Συνεισφορά στο Ψηφιακό Αρχείο" data-contact-en="Contribute to the Digital Archive" value="archive">Συνεισφορά στο Ψηφιακό Αρχείο</option><option data-contact-el="Εθελοντισμός" data-contact-en="Volunteering" value="volunteer">Εθελοντισμός</option><option data-contact-el="Άλλο θέμα" data-contact-en="Other" value="other">Άλλο θέμα</option></select></span></label></div>
 <div class="arch-conditional" hidden="" id="archSportWrap"><label><span data-contact-el="Ποιο άθλημα σας ενδιαφέρει; *" data-contact-en="Which sport are you interested in? *">Ποιο άθλημα σας ενδιαφέρει; *</span><span class="arch-select-wrap"><select id="archSport" name="sport"><option value="">Επιλέξτε άθλημα</option><option value="handball">Χάντμπολ / Handball</option><option value="track">Στίβος / Athletics</option><option value="archery">Τοξοβολία / Archery</option><option value="shooting">Σκοποβολή / Shooting</option><option value="gymnastics">Ενόργανη Γυμναστική / Gymnastics</option><option value="wrestling">Πάλη / Wrestling</option><option value="volleyball">Βόλεϊ / Volleyball</option><option value="swimming">Κολύμβηση / Swimming</option></select></span></label></div>
 <label class="arch-message-label"><span data-contact-el="Το μήνυμά σας *" data-contact-en="Your message *">Το μήνυμά σας *</span><textarea maxlength="5000" minlength="10" name="message" placeholder="Γράψτε το μήνυμά σας..." required="" rows="4"></textarea></label>
-<div class="arch-conditional" hidden="" id="archFileWrap"><label><span data-contact-el="Προσθέστε ιστορικές φωτογραφίες ή έγγραφα (προαιρετικά)" data-contact-en="Attach historical photos or documents (optional)">Προσθέστε ιστορικές φωτογραφίες ή έγγραφα (προαιρετικά)</span><input accept=".jpg,.jpeg,.png,.webp,.gif,.heic,.heif,.pdf,.doc,.docx,.txt" id="archFiles" multiple="" name="attachments" type="file"/><small data-contact-el="Έως 5 αρχεία · 10 MB το καθένα · 15 MB συνολικά. Αποστέλλονται στο history@archelaos.club." data-contact-en="Up to 5 files · 10 MB each · 15 MB total. Sent to history@archelaos.club.">Έως 5 αρχεία · 10 MB το καθένα · 15 MB συνολικά. Αποστέλλονται στο history@archelaos.club.</small><p class="arch-form-note" id="archFileFeedback" aria-live="polite"></p></label></div>
+<div class="arch-conditional" hidden="" id="archFileWrap"><label><span data-contact-el="Προσθέστε ιστορικές φωτογραφίες ή έγγραφα (προαιρετικά)" data-contact-en="Attach historical photos or documents (optional)">Προσθέστε ιστορικές φωτογραφίες ή έγγραφα (προαιρετικά)</span><input accept=".jpg,.jpeg,.png,.webp,.gif,.heic,.heif,.pdf,.doc,.docx,.txt" id="archFiles" multiple="" name="attachments" type="file"/><small data-contact-el="Έως 5 αρχεία · 10 MB το καθένα · 15 MB συνολικά. Αποστέλλονται στο history@archelaos.club." data-contact-en="Up to 5 files · 10 MB each · 15 MB total. Sent to history@archelaos.club.">Έως 5 αρχεία · 10 MB το καθένα · 15 MB συνολικά. Αποστέλλονται στο history@archelaos.club.</small><p class="arch-form-note" id="archFileFeedback" aria-live="polite"></p></label>
+<div class="arch-archive-drive-link" style="margin-top:18px;padding-top:17px;border-top:1px solid rgba(8,76,36,.18)">
+<label><span data-contact-el="Μεγάλη συλλογή; Στείλτε σύνδεσμο Google Drive (προαιρετικά)" data-contact-en="Large collection? Share a Google Drive link (optional)">Μεγάλη συλλογή; Στείλτε σύνδεσμο Google Drive (προαιρετικά)</span>
+<input type="url" id="archDriveLink" name="archiveLink" inputmode="url" autocomplete="off" maxlength="2048" placeholder="https://drive.google.com/drive/folders/..." aria-describedby="archDriveLinkHelp"/>
+<small id="archDriveLinkHelp" data-contact-el="Για πολλές φωτογραφίες ή μεγάλα βίντεο, επικολλήστε εδώ τον σύνδεσμο του φακέλου σας στο Google Drive. Δεν χρειάζεται να δώσετε δικαίωμα επεξεργασίας στον σύλλογο· μπορεί να ζητήσουμε άδεια προβολής." data-contact-en="For many photos or large videos, paste a link to your own Google Drive folder. No editing access is needed; we may request permission to view it.">Για πολλές φωτογραφίες ή μεγάλα βίντεο, επικολλήστε εδώ τον σύνδεσμο του φακέλου σας στο Google Drive. Δεν χρειάζεται να δώσετε δικαίωμα επεξεργασίας στον σύλλογο· μπορεί να ζητήσουμε άδεια προβολής.</small>
+</label></div></div>
 <label class="arch-consent"><input required="" type="checkbox"/><span data-contact-el="Συμφωνώ να χρησιμοποιηθούν τα στοιχεία μου μόνο για απάντηση στο αίτημά μου." data-contact-en="I agree to the use of my details solely to respond to my request.">Συμφωνώ να χρησιμοποιηθούν τα στοιχεία μου μόνο για απάντηση στο αίτημά μου.</span></label><p aria-live="polite" class="arch-form-note" data-contact-el="Τα μηνύματα και τα συνημμένα του ιστορικού αρχείου αποστέλλονται απευθείας στον αρμόδιο υπεύθυνο." data-contact-en="Messages and historical archive attachments are sent directly to the relevant team." id="archFormStatus" role="status">Τα μηνύματα και τα συνημμένα του ιστορικού αρχείου αποστέλλονται απευθείας στον αρμόδιο υπεύθυνο.</p><button class="arch-submit" data-contact-el="Συνέχεια στο email ↗" data-contact-en="Continue in email ↗" type="submit">Συνέχεια στο email ↗</button></form></div></div><footer aria-label="Γ.Α.Σ. Ο Αρχέλαος — footer" class="heritage-footer arch-footer-signature">
 <div class="heritage-footer-inner">
 <div class="heritage-footer-top">
@@ -3210,6 +3215,7 @@ function fallbackMailto(values,lang,status){
  const subject=topic.options[topic.selectedIndex].text;
  const lines=[String(values.get('message')||''),'','Ονοματεπώνυμο / Name: '+values.get('name'),'Email: '+values.get('email'),'Τηλέφωνο / Phone: '+(values.get('phone')||'—')];
  if(topic.value==='sport')lines.push('Άθλημα / Sport: '+sport.options[sport.selectedIndex].text);
+ if(values.get('archiveLink'))lines.push('Σύνδεσμος Google Drive: '+values.get('archiveLink'));
  location.href='mailto:'+recipient()+'?subject='+encodeURIComponent('Αρχέλαος — '+subject)+'&body='+encodeURIComponent(lines.join('\n'));
  status.textContent=lang==='en'?'Your email app should open; please complete sending there.':'Θα ανοίξει η εφαρμογή email· ολοκληρώστε την αποστολή εκεί.';
 }
@@ -3249,7 +3255,7 @@ form.addEventListener('submit',async e=>{
   const options={method:'POST'};
   if(selected.length){
    const payload=new FormData();
-   for(const key of ['name','email','phone','topic','sport','message','website'])payload.append(key,String(values.get(key)||''));
+   for(const key of ['name','email','phone','topic','sport','message','website','archiveLink'])payload.append(key,String(values.get(key)||''));
    payload.append('consent','true');
    for(const file of selected)payload.append('attachments',file,file.name);
    options.body=payload;
@@ -3258,7 +3264,7 @@ form.addEventListener('submit',async e=>{
    options.body=JSON.stringify({
     name:String(values.get('name')||''),email:String(values.get('email')||''),phone:String(values.get('phone')||''),
     topic:String(values.get('topic')||''),sport:String(values.get('sport')||''),
-    message:String(values.get('message')||''),website:String(values.get('website')||''),consent:true
+    message:String(values.get('message')||''),website:String(values.get('website')||''),archiveLink:String(values.get('archiveLink')||''),consent:true
    });
   }
   const response=await fetch('/api/contact',options);
@@ -3270,6 +3276,7 @@ form.addEventListener('submit',async e=>{
      file_too_large:['Κάποιο αρχείο υπερβαίνει τα 10 MB.','A file exceeds 10 MB.'],
      files_total_too_large:['Τα αρχεία υπερβαίνουν συνολικά τα 15 MB.','Files exceed 15 MB combined.'],
      unsupported_file:['Μη υποστηριζόμενο αρχείο. Επιτρέπονται φωτογραφίες, PDF, Word και TXT.','Unsupported file. Use photos, PDF, Word or TXT.'],
+     invalid_archive_link:['Χρησιμοποίησε έγκυρο σύνδεσμο Google Drive.','Please use a valid Google Drive link.'],
      attachments_not_allowed:['Τα συνημμένα επιτρέπονται μόνο για το ιστορικό αρχείο.','Attachments are for the historical archive only.'],
      invalid_fields:['Έλεγξε τα υποχρεωτικά πεδία.','Please check the required fields.']
     };

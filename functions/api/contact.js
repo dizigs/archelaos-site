@@ -95,7 +95,7 @@ export async function onRequestPost({ request, env }) {
   try {
     if (multipart) {
       const form = await request.formData();
-      data = Object.fromEntries(["name", "email", "phone", "message", "topic", "sport", "website"]
+      data = Object.fromEntries(["name", "email", "phone", "message", "topic", "sport", "website", "archiveLink"]
         .map(key => [key, form.get(key)]));
       data.consent = form.get("consent") === "true";
       files = form.getAll("attachments");
@@ -126,6 +126,16 @@ export async function onRequestPost({ request, env }) {
   const message = clean("message");
   const topic = clean("topic");
   const sport = clean("sport");
+  const archiveLink = clean("archiveLink");
+  if (archiveLink) {
+    let parsed;
+    try { parsed = new URL(archiveLink); } catch { return respond(400, { ok: false, error: "invalid_archive_link" }); }
+    if (topic !== "archive" || parsed.protocol !== "https:" ||
+        !["drive.google.com", "docs.google.com"].includes(parsed.hostname) ||
+        parsed.username || parsed.password || archiveLink.length > 2048) {
+      return respond(400, { ok: false, error: "invalid_archive_link" });
+    }
+  }
   const validEmail = /^[^\s@<>\r\n]+@[^\s@<>\r\n]+\.[^\s@<>\r\n]+$/.test(email);
   if (data.consent !== true || name.length < 2 || name.length > 120 ||
       !validEmail || email.length > 254 || phone.length > 35 ||
@@ -171,6 +181,7 @@ export async function onRequestPost({ request, env }) {
     "Email επισκέπτη: " + email,
     "Τηλέφωνο: " + (phone || "—"),
     "",
+    ...(archiveLink ? ["", "Σύνδεσμος συλλογής Google Drive:", archiveLink] : []),
     "Μήνυμα:",
     message
   ];
