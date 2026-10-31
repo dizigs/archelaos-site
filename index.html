@@ -17,6 +17,8 @@
 <meta content="https://archelaos.club/social-preview.jpg" property="og:image"/>
 <meta content="el_GR" property="og:locale"/>
 <meta content="Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης" property="og:site_name"/>
+<!-- Prioritize the above-the-fold crest used by the welcome screen and header -->
+<link rel="preload" href="/archelaos-logo-gold.png" as="image" fetchpriority="high"/>
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -4568,11 +4570,11 @@ function openJoinContact(kind) {
      if(previousFocus&&previousFocus!==document.body&&previousFocus.isConnected)previousFocus.focus({preventScroll:true});
    };
    const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-   setTimeout(remove,reduced?0:1180);
+   setTimeout(remove,reduced?0:450);
  }
  btn.addEventListener('click',finish);
  document.addEventListener('keydown',function(e){if(!finished&&e.key==='Escape')finish()});
- timeout=setTimeout(finish,5000);
+ timeout=setTimeout(finish,1800);
  window.addEventListener('pageshow',function(e){if(e.persisted)finish()},{once:true});
  btn.focus({preventScroll:true});
 })();
