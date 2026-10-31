@@ -3319,7 +3319,57 @@ a.museum-subtle-link:focus-visible{outline:3px solid #c7a65e;outline-offset:3px}
   #historyArchiveModal #historyArchiveContent { padding-bottom:65px !important; }
 }
 </style>
-</head>
+<style id="v31-museum-mobile-fullscreen-archive">
+/* Mobile archive behaves as one full-screen scroll view, avoiding nested scroll clipping. */
+@media (max-width: 767px) {
+  #historyArchiveModal.is-open {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 9999 !important;
+    display: block !important;
+    width: 100vw !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+  }
+  #historyArchiveModal .modal-box {
+    position: relative !important;
+    width: 100% !important;
+    max-width: none !important;
+    height: auto !important;
+    max-height: none !important;
+    min-height: 100dvh !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    overflow: visible !important;
+    display: block !important;
+    transform: none !important;
+  }
+  #historyArchiveModal #historyArchiveContent {
+    display: block !important;
+    height: auto !important;
+    max-height: none !important;
+    min-height: 100dvh !important;
+    overflow: visible !important;
+    padding: 76px 18px max(120px, calc(env(safe-area-inset-bottom) + 96px)) !important;
+    box-sizing: border-box !important;
+  }
+  #historyArchiveModal .v70-archive-close {
+    position: fixed !important;
+    top: max(12px, env(safe-area-inset-top)) !important;
+    right: 14px !important;
+    margin: 0 !important;
+    z-index: 10001 !important;
+    float: none !important;
+  }
+}
+</style></head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow arch-gold-page" data-arch-people-page="history">
 <!-- ANIMATED CONTOUR WAVES -->
 <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-75">
