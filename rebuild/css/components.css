@@ -185,7 +185,7 @@ dialog.arch-menu-dialog[open]{position:fixed!important;inset:0 0 0 auto!importan
 .arch-quote-pause{padding:38px 0 44px;background:#f8f6ef;text-align:center}
 .arch-quote-pause:nth-of-type(even){background:#f1ede2}
 .arch-quote-pause .arch-container{max-width:980px}
-.arch-quote-pause blockquote{max-width:800px;margin:0 auto;color:#9d7e40;font:italic 400 clamp(21px,2.4vw,29px)/1.55 Georgia,serif;letter-spacing:-.012em;text-wrap:balance}
+.arch-quote-pause blockquote{max-width:800px;margin:0 auto;color:#70511e;font:italic 400 clamp(21px,2.4vw,29px)/1.55 Georgia,serif;letter-spacing:-.012em;text-wrap:balance}
 .arch-quote-pause figcaption{margin-top:12px;color:#7b653a;font:700 11px/1.4 Inter,system-ui,sans-serif;letter-spacing:.12em}
 .arch-quote-pause--forest{background:#073d2a}
 .arch-quote-pause--forest blockquote{color:#e2c68c}
