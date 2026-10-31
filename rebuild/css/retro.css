@@ -34,3 +34,40 @@
 .arch-archive-content details{padding:10px;border:1px solid #d9c9a7;border-radius:10px;margin:16px 0}
 .arch-archive-content svg{display:none}
 @media(max-width:660px){.rt-teams{gap:7px}.rt-teams span{font-size:17px}.rt-teams strong{font-size:38px}.rt-year-tabs button{min-width:calc(50% - 6px)}}
+
+
+/* Archival final: one elegant scoreboard at the start of the popup. */
+.arch-dialog:has(.rt-popup-report) .arch-dialog-body{padding:0}
+.rt-popup-report{color:#163e2b;background:#f9f6ec;max-width:100%;overflow-wrap:anywhere}
+.rt-popup-scoreboard{padding:clamp(22px,4vw,37px);background:radial-gradient(ellipse at 74% 0%,#18553b,#073d2a 72%);color:#fff8e9;text-align:center;border-bottom:3px solid #c7a65e}
+.rt-popup-kicker{font:800 11px/1.5 system-ui,sans-serif;letter-spacing:.17em;color:#e0c78c}
+.rt-popup-teams{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:clamp(9px,2vw,32px);max-width:840px;margin:28px auto 22px}
+.rt-popup-team{min-width:0;display:flex;flex-direction:column;gap:9px;text-align:center}
+.rt-popup-team-label{font:800 10px/1.4 system-ui,sans-serif;letter-spacing:.13em;color:#d4bd88}
+.rt-popup-team strong{font:500 clamp(17px,2.8vw,30px)/1.18 Georgia,serif;overflow-wrap:anywhere}
+.rt-popup-result{font:500 clamp(44px,7vw,84px)/1 Georgia,serif;letter-spacing:-.06em;color:#f1d397;white-space:nowrap;padding:6px 12px;border-inline:1px solid #bca46a80}
+.rt-popup-location{color:#e4e8dc;font-size:13px;line-height:1.6;margin:0 auto 14px}
+.rt-popup-outcome{display:inline-flex;align-items:center;border:1px solid #bca36a;border-radius:999px;padding:7px 15px;font-size:11px;letter-spacing:.12em;font-weight:800;color:#f0daaa}
+.rt-popup-report>.arch-archive-content{padding:clamp(18px,3vw,32px)}
+.rt-popup-report .arch-archive-content article{display:block;max-width:100%}
+.rt-popup-report .arch-archive-content section,.rt-popup-report .arch-archive-content aside{margin:0 0 21px;padding:18px 20px;background:#fffefa;border:1px solid #e0d2b4;border-radius:15px}
+.rt-popup-report .arch-archive-content h2,.rt-popup-report .arch-archive-content h3{font:500 clamp(21px,2.6vw,29px)/1.24 Georgia,serif;color:#073d2a;margin:0 0 14px}
+.rt-popup-report .arch-archive-content p{line-height:1.75;margin:0 0 13px;font-size:14px;color:#496651}
+.rt-popup-report .arch-archive-content table{display:table;width:100%;max-width:100%;border-collapse:collapse;overflow-wrap:anywhere;font-size:13px}
+.rt-popup-report .arch-archive-content td,.rt-popup-report .arch-archive-content th{padding:10px 12px;border-bottom:1px solid #e2d5bc;text-align:left}
+.rt-popup-report .arch-archive-content tbody tr:nth-child(even){background:#f5f0e5}
+.rt-popup-report .arch-archive-content ul{margin:12px 0;padding-left:22px;line-height:1.7}
+.rt-popup-report .arch-archive-content details{padding:17px 19px;background:#fffefa;border:1px solid #d9c9a7;border-radius:14px;margin:18px 0}
+.rt-popup-report .arch-archive-content details summary{cursor:pointer;color:#073d2a;font-weight:750}
+.rt-popup-report .arch-archive-content svg{max-width:100%;height:auto}
+@media(max-width:620px){
+ .rt-popup-scoreboard{padding:19px 12px 22px}
+ .rt-popup-teams{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:5px;margin:20px 0}
+ .rt-popup-team strong{font-size:14px}
+ .rt-popup-team-label{font-size:8px}
+ .rt-popup-result{font-size:clamp(28px,7vw,43px);padding:4px 7px}
+ .rt-popup-report>.arch-archive-content{padding:13px}
+ .rt-popup-report .arch-archive-content section,.rt-popup-report .arch-archive-content aside{padding:15px 13px}
+ .rt-popup-report .arch-archive-content table{font-size:11px}
+ .rt-popup-report .arch-archive-content td,.rt-popup-report .arch-archive-content th{padding:7px}
+}
