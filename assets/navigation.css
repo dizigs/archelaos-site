@@ -1,6 +1,4 @@
 /* ARCHELAOS UNIFIED NAVIGATION v88 — one stylesheet for every page */
-/* Shared font, including nested /people/ pages. */
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap&subset=greek,latin");
 :root{--asn-green:#073d2a;--asn-dark:#052d20;--asn-gold:#d8b66e;--asn-paper:#f8f6ef;--asn-height:82px;}
 header#mainHeader.arch-anniversary-header,header.mast{display:none!important}
 #arch-global-nav-root{position:fixed!important;inset:0 0 auto!important;display:block!important;z-index:2147480000!important;height:var(--asn-height)!important;font-family:Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif!important;color:var(--asn-paper)!important;isolation:isolate}
@@ -115,66 +113,4 @@ body.asn-museum-layout{padding-top:var(--asn-height)!important}
   }
   #arch-global-nav-root .asn-drawer:not([hidden]){transform:translate3d(102%,0,0)}
   #arch-global-nav-root .asn-drawer.is-visible{transform:none}
-}
-
-/* Profile subroutes: keep the shared crest visible above legacy page styles. */
-body.person-page #arch-global-nav-root .asn-crest{display:block!important;visibility:visible!important;opacity:1!important;width:52px!important;height:52px!important;max-width:none!important;object-fit:contain!important}
-
-/* V3 global navigation safety: legacy menus stay hidden on every page, including /people/. */
-body header.arch-anniversary-header,body header.mast,body #mainHeader,body .museum-nav{display:none!important}
-#arch-global-nav-root .asn-brand img.asn-crest{display:block!important;visibility:visible!important;opacity:1!important;min-width:52px!important;min-height:52px!important;width:52px!important;height:52px!important;object-fit:contain!important;position:static!important;transform:none!important}
-
-/* Shared navigation typography, independent of historic page-local styles. */
-#arch-global-nav-root .asn-topbar,#arch-global-nav-root .asn-desktop,#arch-global-nav-root .asn-desktop a,#arch-global-nav-root .asn-desktop button,#arch-global-nav-root .asn-mobile-actions button{font-family:Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif!important}
-#arch-global-nav-root button[data-asn-language]{pointer-events:auto!important;position:relative!important;z-index:2!important;cursor:pointer!important}
-
-/* V3 mobile: keep crest visible without forcing a 52px width on narrow screens. */
-@media(max-width:600px){
- #arch-global-nav-root .asn-brand img.asn-crest{width:41px!important;height:41px!important;min-width:41px!important;min-height:41px!important;max-width:41px!important}
- #arch-global-nav-root .asn-brand-lines{min-width:0!important}
-}
-@media(max-width:370px){
- #arch-global-nav-root .asn-brand img.asn-crest{width:36px!important;height:36px!important;min-width:36px!important;min-height:36px!important;max-width:36px!important}
-}
-
-/* Museum cross-navigation: understated cream/gold links, mobile friendly. */
-.asr-related{margin:26px 0 18px;padding-top:20px;border-top:1px solid rgba(179,149,91,.38)}
-.asr-related h2,.asr-related h3{margin:0 0 13px!important;font-family:Georgia,'Times New Roman',serif!important;font-size:clamp(18px,2vw,22px)!important;font-weight:500!important;color:#88672b!important}
-.asr-items{display:flex;flex-wrap:wrap;gap:10px}
-.asr-items .asr-link{display:inline-flex;align-items:center;padding:9px 14px;border:1px solid #d4b875;border-radius:9px;background:#fffaf0;color:#785822!important;font-size:14px;font-weight:500;text-decoration:none;line-height:1.5;max-width:100%;overflow-wrap:anywhere}
-.asr-items .asr-link:hover,.asr-items .asr-link:focus-visible{background:#f4e8cf;border-color:#b89851;color:#46310d!important}
-@media(max-width:600px){.asr-items{gap:8px}.asr-items .asr-link{font-size:13px;padding:9px 11px}}
-
-
-/* Shared biography-name links, all site pages: visually identical to surrounding text.
-   The interactive behavior remains, keyboard focus must remain visible. */
-html body :is(a[href^="/people/"],a[href*="/people/"],a[href*="hall-of-fame.html?person="],a.arch-person-link,button.arch-person-link,button[data-person-bio]) {
-  color:inherit!important;
-  text-decoration:none!important;
-  text-decoration-line:none!important;
-  text-decoration-color:transparent!important;
-}
-html body :is(a[href^="/people/"],a[href*="/people/"],a[href*="hall-of-fame.html?person="],a.arch-person-link,button.arch-person-link,button[data-person-bio]):is(:hover,:visited,:active,:focus) {
-  color:inherit!important;
-  text-decoration:none!important;
-  text-decoration-line:none!important;
-  text-decoration-color:transparent!important;
-}
-html body :is(a.atlas-person-bio,a.arch-person-link,button.arch-person-link,a.president-bio-link){
-  border-bottom:0!important;
-  box-shadow:none!important;
-  background:transparent!important;
-  padding-bottom:0!important;
-}
-html body :is(a.atlas-person-bio,a.arch-person-link,button.arch-person-link,a.president-bio-link):is(:hover,:visited,:active,:focus){
-  color:inherit!important;
-  text-decoration:none!important;
-  border-bottom:0!important;
-  background:transparent!important;
-  box-shadow:none!important;
-}
-html body a[href*="/people/"]:focus-visible,
-html body :is(a.arch-person-link,button.arch-person-link,button[data-person-bio]):focus-visible{
-  outline:2px solid #c7a65e!important;
-  outline-offset:3px!important;
 }

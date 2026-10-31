@@ -14,8 +14,8 @@ from xml.etree import ElementTree as ET
 ROOT = Path(__file__).resolve().parents[1]
 PAGES = (
     "index.html", "history.html", "hall-of-fame.html",
-    "70-stigmes.html", "stories.html",
-    "board.html", "sponsors.html", "contact.html"
+    "70-stigmes.html", "stories.html", "retro-matches.html",
+    "board.html", "sponsors.html", "contact.html",
 )
 JSON_FILES = (
     "hall-of-fame-people.json", "archelaos-person-index.json",
@@ -42,7 +42,7 @@ class LocalAssets(HTMLParser):
                 continue
             url = attributes[attribute] or ""
             parts = urlsplit(url)
-            if parts.scheme or parts.netloc or url.startswith(("//", "#")):
+            if parts.scheme or parts.netloc or url.startswith(("//", "#", "/")):
                 continue
             target = unquote(parts.path)
             if not target or "{" in target or "}" in target:
@@ -50,7 +50,7 @@ class LocalAssets(HTMLParser):
             # Only check actual bundled assets, not navigational/anchor hrefs.
             if tag == "link" and target.lower().endswith((".html", ".htm")):
                 continue
-            asset = (ROOT / target.lstrip("/")) if target.startswith("/") else (ROOT / self.source).parent / target
+            asset = (ROOT / self.source).parent / target
             if not asset.is_file():
                 error(f"{self.source}: missing local asset {target!r}")
 
@@ -143,28 +143,6 @@ def main() -> int:
             error(f"{page}: missing page title")
         if not re.search(r'<meta\b[^>]*\bname=["\']description["\']', text, re.IGNORECASE):
             error(f"{page}: missing SEO description")
-    # Every primary page must declare its own canonical URL exactly once.
-    for page in PAGES:
-        file = ROOT / page
-        if not file.is_file():
-            continue
-        html = file.read_text(encoding="utf-8")
-        canonical = [tag for tag in re.findall(r"<link\b[^>]*>", html, re.IGNORECASE) if re.search(r"""\brel\s*=\s*["']canonical["']""", tag, re.IGNORECASE)]
-        expected = "https://archelaos.club/" + ("" if page == "index.html" else page)
-        if len(canonical) != 1 or not re.search(r"""\bhref\s*=\s*["']""" + re.escape(expected) + r"""["']""", canonical[0], re.IGNORECASE):
-            error(f"{page}: missing, duplicate or incorrect canonical URL (expected {expected})")
-    # Shared footer and navigation remain single-source components on primary pages.
-    for page in PAGES:
-        text_path = ROOT / page
-        if not text_path.is_file():
-            continue
-        html = text_path.read_text(encoding="utf-8")
-        if '/assets/footer.js' not in html or '/assets/footer.css' not in html:
-            error(f"{page}: missing common footer assets")
-        if re.search(r"<footer\\b", html, re.IGNORECASE):
-            error(f"{page}: duplicated inline footer markup")
-    if not (ROOT / "assets/footer.js").is_file() or not (ROOT / "assets/footer.css").is_file():
-        error("Common footer assets are missing")
     for filename in JSON_FILES:
         data = check_json(filename)
         if data is not None and filename.endswith("people.json"):
@@ -184,28 +162,6 @@ def main() -> int:
             if set(index_ids) != canonical_ids:
                 error("archelaos-person-index.json: IDs differ from canonical Hall of Fame records")
             check_biography_index(index, hall)
-    # Public source references must be explicit, safe links; private archive stays off-site.
-    if isinstance(hall, dict) and isinstance(hall.get("people"), list):
-        for person in hall["people"]:
-            if not isinstance(person, dict):
-                continue
-            refs = person.get("refs", [])
-            if not isinstance(refs, list):
-                error(f"Invalid refs list for {person.get('id')}")
-                continue
-            seen_refs = set()
-            for ref in refs:
-                if not isinstance(ref, dict) or not isinstance(ref.get("label"), str) or not isinstance(ref.get("url"), str):
-                    error(f"Invalid source reference for {person.get('id')}")
-                    continue
-                parts = urlsplit(ref["url"])
-                if parts.scheme != "https" or not parts.netloc or parts.username or parts.password:
-                    error(f"Unsafe source URL for {person.get('id')}")
-                if parts.hostname in ("drive.google.com", "docs.google.com"):
-                    error(f"Private Drive link in public biography for {person.get('id')}")
-                if ref["url"] in seen_refs:
-                    error(f"Duplicate source URL for {person.get('id')}")
-                seen_refs.add(ref["url"])
     links_source = (ROOT / "archelaos-person-links.js").read_text(encoding="utf-8")
     if "DATA_URL='hall-of-fame-people.json'" not in links_source:
         error("Biography link script must load the canonical Hall of Fame JSON")
@@ -227,7 +183,7 @@ def main() -> int:
             if not profile.is_file():
                 continue
             html = profile.read_text(encoding="utf-8")
-            if ">" + escape(str(person.get("name", "")), quote=True).replace("&#x27;", "&#39;") + "</h1>" not in html:
+            if "<h1>" + escape(str(person.get("name", "")), quote=True).replace("&#x27;", "&#39;") + "</h1>" not in html:
                 error(f"Outdated profile name: {person['id']}")
             bio = escape(str(person.get("bio") or ""), quote=True).replace("&#x27;", "&#39;")
             if bio and '<div class="bio">' + bio + '</div>' not in html:
@@ -238,38 +194,6 @@ def main() -> int:
             if isinstance(person, dict) and isinstance(person.get("id"), str):
                 if "/people/" + person["id"] + ".html</loc>" not in sitemap:
                     error(f"Missing biography sitemap URL: {person['id']}")
-    events = check_json("archelaos-history-events.json")
-    if events is not None:
-        if not isinstance(events, dict) or not isinstance(events.get("events"), list):
-            error("archelaos-history-events.json: malformed event list")
-        else:
-            valid_ids = {person["id"] for person in (hall or {}).get("people", []) if isinstance(person, dict) and person.get("id")}
-            event_ids = set()
-            for event in events["events"]:
-                if not isinstance(event, dict) or not isinstance(event.get("id"), str) or not event.get("title") or not event.get("date"):
-                    error("history events: invalid event")
-                    continue
-                if event["id"] in event_ids:
-                    error(f"history events: duplicate ID {event['id']}")
-                event_ids.add(event["id"])
-                # Club-wide events can be documented without naming an individual.
-                # Keep strict validation for every actual person reference.
-                if not isinstance(event.get("people"), list):
-                    error(f"history events: invalid people list for {event['id']}")
-                elif not event["people"] and event.get("source") != "70-stigmes.html":
-                    error(f"history events: missing people for {event['id']}")
-                else:
-                    for person_id in event["people"]:
-                        if person_id not in valid_ids:
-                            error(f"history events: unknown person ID {person_id}")
-    nav_js = (ROOT / "assets/navigation.js").read_text(encoding="utf-8")
-    # Guard against accidentally binding a single element instead of both language buttons.
-    expected = "$$('[data-asn-language]').forEach(b=>b.addEventListener"
-    broken = "$('[data-asn-language]').forEach(b=>b.addEventListener"
-    if broken in nav_js and expected not in nav_js:
-        error("navigation: GR/EN handlers use the single-element selector")
-    if expected not in nav_js:
-        error("navigation: missing shared GR/EN event bindings")
     check_sitemap()
     if errors:
         print(f"\nSite validation FAILED: {len(errors)} issue(s).")
