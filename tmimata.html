@@ -255,9 +255,124 @@ html body .atlas-full-archive .atlas-content :is(.text-archelaos-yellow){color:#
 .atlas-full-archive .atlas-content .atlas-source-match{background:#eef8f0!important;border-left:4px solid #237e50!important;padding:12px 14px!important;border-radius:0 9px 9px 0!important;scroll-margin-top:120px;box-shadow:0 4px 15px rgba(8,63,35,.06)!important}
 @media(max-width:600px){.atlas-curated-year .atlas-moment-card{padding:12px 12px 6px!important}.atlas-curated-year .atlas-event-link{min-height:50px;font-size:.93rem;padding:10px 3px}.atlas-full-archive .atlas-content>.atlas-focused-event{padding:16px!important}}
 @media(prefers-reduced-motion:reduce){.atlas-curated-year .atlas-event-link{transition:none!important}}
+
+/* Museum white reading surface v2026-10-31.
+   Use the same paper throughout; gold is reserved for dates and small accents. */
+.tm-wrap #tmimata .atlas-timeline-section .atlas-curated-year .atlas-moment-year{
+  color:#a07d3e!important;
+  font-weight:700!important;
+}
+.tm-wrap #tmimata .atlas-timeline-section .atlas-curated-year .atlas-moment-card{
+  background:#fff!important;
+  background-image:none!important;
+  border-color:#e1e7e1!important;
+  box-shadow:0 6px 19px rgba(7,53,34,.045)!important;
+}
+.tm-wrap #tmimata .atlas-timeline-section .atlas-curated-year .atlas-event-link{
+  color:#073d2a!important;
+}
+.tm-wrap #tmimata .atlas-timeline-section .atlas-curated-year .atlas-event-link.is-selected,
+.tm-wrap #tmimata .atlas-timeline-section .atlas-curated-year .atlas-event-link:hover{
+  background:#f8faf8!important;
+  color:#073d2a!important;
+  border-radius:4px!important;
+}
+.tm-wrap #tmimata .atlas-timeline-section .atlas-curated-year .atlas-event-link.is-selected{
+  box-shadow:inset 3px 0 #c7a65e!important;
+  padding-left:12px!important;
+}
+.tm-wrap #tmimata .atlas-timeline-section .atlas-event-arrow{color:#9b793e!important}
+.tm-wrap #tmimata .atlas-timeline-section .atlas-full-archive.atlas-white-record,
+.tm-wrap #tmimata .atlas-timeline-section .atlas-full-archive.atlas-white-record[open]{
+  display:block!important;
+  background:#fff!important;
+  background-color:#fff!important;
+  background-image:none!important;
+  border:1px solid #e1e8e2!important;
+  border-radius:13px!important;
+  box-shadow:0 7px 24px rgba(7,52,34,.045)!important;
+  overflow:hidden!important;
+  margin:26px 0 36px!important;
+}
+.tm-wrap #tmimata .atlas-timeline-section .atlas-full-archive.atlas-white-record>summary,
+.tm-wrap #tmimata .atlas-timeline-section .atlas-full-archive.atlas-white-record>summary:hover,
+.tm-wrap #tmimata .atlas-timeline-section .atlas-full-archive.atlas-white-record>summary:focus-visible,
+.tm-wrap #tmimata .atlas-timeline-section .atlas-full-archive.atlas-white-record[open]>summary{
+  background:#fff!important;
+  background-color:#fff!important;
+  background-image:none!important;
+  border:0!important;
+  border-bottom:1px solid transparent!important;
+  border-radius:0!important;
+  color:#073d2a!important;
+  padding:19px 53px 19px 21px!important;
+  min-height:64px!important;
+  font-size:clamp(.95rem,2.7vw,1.06rem)!important;
+  line-height:1.5!important;
+  box-shadow:none!important;
+}
+.tm-wrap #tmimata .atlas-timeline-section .atlas-full-archive.atlas-white-record[open]>summary{
+  border-bottom:1px solid #e5ebe6!important;
+}
+.tm-wrap #tmimata .atlas-timeline-section .atlas-full-archive.atlas-white-record>summary:hover{
+  color:#0b6041!important;
+}
+.tm-wrap #tmimata .atlas-timeline-section .atlas-full-archive.atlas-white-record>summary::after{
+  color:#a07d3e!important;
+}
+.tm-wrap #tmimata .atlas-timeline-section .atlas-full-archive.atlas-white-record[open] #atlas-content{
+  background:#fff!important;
+  background-color:#fff!important;
+  background-image:none!important;
+  border:0!important;
+  box-shadow:none!important;
+  padding:14px 21px 30px!important;
+}
+.tm-wrap #tmimata .atlas-timeline-section .atlas-full-archive.atlas-white-record #atlas-content :is(.dept-panel,.atlas-basketball,.atlas-extra-department,.v66-basketball-section){
+  background:#fff!important;
+  background-color:#fff!important;
+  background-image:none!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  padding:0!important;
+  margin:0!important;
+}
+.tm-wrap #tmimata .atlas-timeline-section .atlas-full-archive.atlas-white-record #atlas-content :is(.sub-box,.glass-card,.nblm-dept-notes,.bg-white,.bg-slate-50){
+  background:#fff!important;
+  background-color:#fff!important;
+  background-image:none!important;
+  border:1px solid #e7ebe7!important;
+  border-radius:10px!important;
+  box-shadow:none!important;
+}
+.tm-wrap #tmimata .atlas-timeline-section .atlas-full-archive.atlas-white-record #atlas-content .atlas-focused-event{
+  background:#fff!important;
+  background-color:#fff!important;
+  background-image:none!important;
+  border:1px solid #e2e8e2!important;
+  border-left:4px solid #c7a65e!important;
+  border-radius:4px 10px 10px 4px!important;
+  box-shadow:none!important;
+  padding:19px 21px!important;
+  margin-bottom:27px!important;
+}
+.tm-wrap #tmimata .atlas-timeline-section .atlas-full-archive.atlas-white-record #atlas-content .atlas-focused-kicker{
+  color:#977435!important;
+}
+.tm-wrap #tmimata .atlas-timeline-section .atlas-full-archive.atlas-white-record #atlas-content .atlas-source-match{
+  background:#fffdfa!important;
+  background-image:none!important;
+  border-left:3px solid #c7a65e!important;
+  box-shadow:none!important;
+}
+@media(max-width:640px){
+  .tm-wrap #tmimata .atlas-timeline-section .atlas-full-archive.atlas-white-record[open] #atlas-content{padding:12px 14px 22px!important}
+  .tm-wrap #tmimata .atlas-timeline-section .atlas-full-archive.atlas-white-record #atlas-content .atlas-focused-event{padding:15px!important}
+}
 </style></head><body><script src="/assets/navigation.js"></script><section class="tm-hero" aria-labelledby="tm-hero-title"><div class="tm-hero-inner"><div class="tm-hero-eyebrow"><span class="tm-hero-rule" aria-hidden="true"></span>Γ.Α.Σ. Ο ΑΡΧΕΛΑΟΣ · ΨΗΦΙΑΚΟ ΜΟΥΣΕΙΟ<span class="tm-hero-rule" aria-hidden="true"></span></div><p class="tm-hero-index">ΑΘΛΗΤΙΚΗ ΚΛΗΡΟΝΟΜΙΑ · 1956—2026</p><h1 id="tm-hero-title">Οι ιστορίες <em>των τμημάτων</em></h1><p class="tm-hero-lead">Κάθε άθλημα, μια ξεχωριστή διαδρομή στον χρόνο. Ανακάλυψε τα γεγονότα και τους ανθρώπους που έγραψαν την ιστορία του Αρχέλαου.</p><a class="tm-hero-cta" href="#atlas-tabs">Εξερεύνησε τα αθλήματα <span aria-hidden="true">↓</span></a></div><div class="tm-hero-ornament" aria-hidden="true">Α</div></section><main class="tm-wrap"><a class="tm-back" href="/history.html"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Επιστροφή στο Ψηφιακό Μουσείο</a>
 <section class="space-y-6 scroll-mt-24" id="tmimata">
-<div class="atlas"><div class="atlas-heading"><span>ΨΗΦΙΑΚΟ ΜΟΥΣΕΙΟ · ΙΣΤΟΡΙΚΟΣ ΑΤΛΑΣ</span><h2>Δέκα διαδρομές, μια κοινή ιστορία</h2><p>Επίλεξε άθλημα για να εξερευνήσεις τη διαδρομή του στον Αρχέλαο.</p></div><div class="atlas-choose-heading">ΕΠΙΛΕΞΕ ΑΘΛΗΜΑ</div><nav class="atlas-tabs" id="atlas-tabs" aria-label="Γρήγορη επιλογή αθλήματος"></nav><div class="atlas-feature" aria-live="polite"><div class="atlas-feature-top"><span id="atlas-count">01 / 10</span><span>Γ.Α.Σ. ΑΡΧΕΛΑΟΣ · ΙΣΤΟΡΙΚΟ ΑΡΧΕΙΟ</span></div><div class="atlas-feature-main"><div class="atlas-feature-title"><span id="atlas-year"></span><h2 id="atlas-title">Στίβος</h2><p id="atlas-subtitle">Μια αθλητική διαδρομή μέσα στον χρόνο.</p></div><div class="atlas-feature-mark" aria-hidden="true"><img src="/archelaos-logo-gold.png" alt=""></div></div></div><section class="atlas-timeline-section" aria-label="Χρονολόγιο τμήματος"><div class="atlas-timeline-head"><span>ΤΑ ΓΕΓΟΝΟΤΑ ΜΕΣΑ ΣΤΟΝ ΧΡΟΝΟ</span><h3>Ιστορικό χρονολόγιο</h3><p>Πάτησε τον τίτλο ενός γεγονότος για να μεταφερθείς στην αναλυτική ιστορική καταγραφή.</p></div><div class="atlas-timeline-strip" id="atlas-timeline-strip" aria-label="Χρονολογίες"></div><div class="atlas-event-detail" id="atlas-event-detail" aria-live="polite"></div><details class="atlas-full-archive"><summary>Διάβασε την πλήρη ιστορική καταγραφή</summary><div class="atlas-content" id="atlas-content"></div></details></section><div class="atlas-source" id="atlas-source" hidden><!-- 4.1 ΧΕΙΡΟΣΦΑΙΡΙΣΗ (ΧΑΝΤΜΠΟΛ) -->
+<div class="atlas"><div class="atlas-heading"><span>ΨΗΦΙΑΚΟ ΜΟΥΣΕΙΟ · ΙΣΤΟΡΙΚΟΣ ΑΤΛΑΣ</span><h2>Δώδεκα διαδρομές, μια κοινή ιστορία</h2><p>Επίλεξε άθλημα για να εξερευνήσεις τη διαδρομή του στον Αρχέλαο.</p></div><div class="atlas-choose-heading">ΕΠΙΛΕΞΕ ΑΘΛΗΜΑ</div><nav class="atlas-tabs" id="atlas-tabs" aria-label="Γρήγορη επιλογή αθλήματος"></nav><div class="atlas-feature" aria-live="polite"><div class="atlas-feature-top"><span id="atlas-count">01 / 10</span><span>Γ.Α.Σ. ΑΡΧΕΛΑΟΣ · ΙΣΤΟΡΙΚΟ ΑΡΧΕΙΟ</span></div><div class="atlas-feature-main"><div class="atlas-feature-title"><span id="atlas-year"></span><h2 id="atlas-title">Στίβος</h2><p id="atlas-subtitle">Μια αθλητική διαδρομή μέσα στον χρόνο.</p></div><div class="atlas-feature-mark" aria-hidden="true"><img src="/archelaos-logo-gold.png" alt=""></div></div></div><section class="atlas-timeline-section" aria-label="Χρονολόγιο τμήματος"><div class="atlas-timeline-head"><span>ΤΑ ΓΕΓΟΝΟΤΑ ΜΕΣΑ ΣΤΟΝ ΧΡΟΝΟ</span><h3>Ιστορικό χρονολόγιο</h3><p>Πάτησε τον τίτλο ενός γεγονότος για να μεταφερθείς στην αναλυτική ιστορική καταγραφή.</p></div><div class="atlas-timeline-strip" id="atlas-timeline-strip" aria-label="Χρονολογίες"></div><div class="atlas-event-detail" id="atlas-event-detail" aria-live="polite"></div><details class="atlas-full-archive atlas-white-record"><summary style="background:#fff!important;background-color:#fff!important;background-image:none!important;">Διάβασε την πλήρη ιστορική καταγραφή</summary><div class="atlas-content" id="atlas-content"></div></details></section><div class="atlas-source" id="atlas-source" hidden><!-- 4.1 ΧΕΙΡΟΣΦΑΙΡΙΣΗ (ΧΑΝΤΜΠΟΛ) -->
 <article class="dept-panel glass-card rounded-[2rem] p-6 sm:p-10 shadow-lg scroll-mt-24" id="handball">
 <div class="relative z-10 space-y-5">
 <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200/80 pb-4">
