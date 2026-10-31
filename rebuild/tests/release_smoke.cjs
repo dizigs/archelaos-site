@@ -94,6 +94,16 @@ async function verify(){
      if(await page.locator('form,input[type="file"]').count())throw Error('Unexpected premature submission/upload');
      const email=await page.locator('.ac-email').getAttribute('href');
      if(!email?.startsWith('mailto:info@archelaos.club?subject='))throw Error('Contribution contact email missing');
+     await page.locator('#ac-type').selectOption({label:'Αγώνας ή αποτέλεσμα'});
+     await page.locator('#ac-date').fill('1994');
+     await page.locator('#ac-details').fill('Κύπελλο Ελλάδας');
+     const prepared=await page.locator('#ac-guide-email').getAttribute('href');
+     if(!decodeURIComponent(prepared).includes('Κύπελλο Ελλάδας')||
+        !decodeURIComponent(prepared).includes('1994')||
+        !decodeURIComponent(prepared).includes('Αγώνας ή αποτέλεσμα'))
+        throw Error('Archive contribution email draft does not reflect fields');
+     if(await page.locator('[data-i18n-slot]:visible').count())
+        throw Error('Unfinished language switch appeared on site');
     }
     if(tag==='contact'){
      const link=page.locator('[data-open-contact]').first();

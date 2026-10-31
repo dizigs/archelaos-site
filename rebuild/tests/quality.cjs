@@ -12,7 +12,7 @@ const routes=[
 ];
 const output=path.join(__dirname,'..','test-artifacts','quality');
 mkdirSync(output,{recursive:true});
-const views=[{width:320,height:720},{width:390,height:844},{width:768,height:960},{width:1365,height:850}];
+const views=[{width:320,height:720},{width:390,height:844},{width:768,height:960},{width:1024,height:768},{width:1365,height:850},{width:1600,height:900}];
 const report={scope:'isolated local release only',tested:[],warnings:[],errors:[],links:[]};
 function issue(level,where,message){report[level].push({where,message})}
 async function audit(){

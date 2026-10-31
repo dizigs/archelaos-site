@@ -33,7 +33,7 @@ async function run(){
     }
     if(name==='contribute'){
       if(await page.locator('input[type=file],form').count())throw Error('Unexpected unfinished upload form');
-      const email=await page.locator('.ac-email').getAttribute('href');
+      const email=await page.locator('#ac-guide-email').getAttribute('href');
       if(!email?.startsWith('mailto:'))throw Error('Missing archive contact');
     }
     if(name==='museum'){
