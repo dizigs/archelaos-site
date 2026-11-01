@@ -101,16 +101,21 @@ function draw(){
  const q=norm(state.query.trim());
  const lead=state.items.find(i=>i.featured)||state.items[0];
  const showLead=state.category==='all'&&!q;
- $('an-feature').hidden=!showLead;
+ $('an-feature').hidden=!showLead||state.page!==1;
  const items=state.items.filter(x=>(!showLead||x.id!==lead?.id)&&(state.category==='all'||x.category===state.category)&&(!q||(window.ArchelaosSportSearch?window.ArchelaosSportSearch.sportMatch([x.title,x.summary,x.sport,x.source,...(x.body||[])].join(' '),q):norm([x.title,x.summary,x.sport,x.source,...(x.body||[])].join(' ')).includes(q)))).sort((a,b)=>b.date.localeCompare(a.date));
- const pageCount=Math.max(1,Math.ceil(items.length/PAGE_SIZE));
+ const pageCount=Math.max(1,Math.ceil((items.length+(showLead?1:0))/PAGE_SIZE));
  state.page=Math.min(Math.max(1,state.page),pageCount);
- const visible=items.slice((state.page-1)*PAGE_SIZE,state.page*PAGE_SIZE);
+ const offset=showLead?Math.max(0,(state.page-1)*PAGE_SIZE-1):(state.page-1)*PAGE_SIZE;
+ const limit=showLead&&state.page===1?PAGE_SIZE-1:PAGE_SIZE;
+ const visible=items.slice(offset,offset+limit);
+ $('an-feature').hidden=!showLead||state.page!==1;
  const frag=document.createDocumentFragment();for(const x of visible)frag.append(card(x));
  if(!items.length){const p=document.createElement('p');p.className='an-empty';p.textContent=t('Δεν βρέθηκαν δημοσιεύσεις.','No matching news found.');frag.append(p)}
  $('an-grid').replaceChildren(frag);
- const shown=items.length?((state.page-1)*PAGE_SIZE+1)+'–'+((state.page-1)*PAGE_SIZE+visible.length):'0';
- $('an-count').textContent=t('Εμφάνιση ','Showing ')+shown+' / '+items.length+t(' ειδήσεις',' stories');
+ const total=items.length+(showLead?1:0);
+ const first=total?(state.page-1)*PAGE_SIZE+1:0;
+ const last=Math.min(state.page*PAGE_SIZE,total);
+ $('an-count').textContent=t('Εμφάνιση ','Showing ')+first+'–'+last+' / '+total+t(' ειδήσεις',' stories');
  renderPagination(pageCount);
 }
 function featured(){
