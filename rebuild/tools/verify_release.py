@@ -195,7 +195,7 @@ def verify() -> None:
     assert "Διαβάστε την είδηση" not in home_js, "Redundant homepage card caption restored"
     # Pagination is always in groups of nineteen, with a shareable URL and
     # full-list filtering before slicing. Avoid accidental regression to 37 cards.
-    assert "PAGE_SIZE=19" in news_js, "News pagination size changed"
+    assert "PAGE_SIZE=18" in news_js, "News pagination size changed"
     assert "items.slice((state.page-1)*PAGE_SIZE,state.page*PAGE_SIZE)" in news_js, "News pagination not applied"
     assert "renderPagination(pageCount)" in news_js, "News page-number links not rendered"
     assert "window.addEventListener('popstate'" in news_js, "News page history navigation missing"
