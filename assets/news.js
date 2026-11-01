@@ -12,25 +12,24 @@ const label=x=>(categories[x.category]||['ΑΡΧΕΛΑΟΣ','ARCHELAOS'])[en()?1
 function media(x,cls){
  const b=document.createElement(cls==='an-cover'?'figure':'div');b.className=cls;
  const path=String(x.image||'');
- const valid=/^(?:images|assets)\/[a-zA-Z0-9._/-]+\.(?:webp|jpg|jpeg|png)$/.test(path);
- const emblem=()=>{b.classList.add('is-emblem');b.replaceChildren();const alt=document.createElement('img');alt.src='/assets/archelaos-crest.png';alt.alt='Έμβλημα Αρχέλαου';b.append(alt)};
- if(!valid){emblem();return b}
- if(path.includes('archelaos-crest')){emblem();return b}
- const img=document.createElement('img');
- img.src='/'+path;
- img.alt=x.imageNote||x.title;
- img.loading=cls==='an-feature-media'?'eager':'lazy';
- img.decoding='async';
+ const local=/^(?:images|assets)\/[a-zA-Z0-9._/-]+\.(?:webp|jpg|jpeg|png)$/.test(path);
+ let original=false;
+ try{const u=new URL(path);original=u.protocol==='https:'&&['i0.wp.com','i1.wp.com','i2.wp.com','i3.wp.com','pieriasocial.gr','www.handball.org.gr'].includes(u.hostname)}catch(_){}
+ const empty=()=>{
+   b.classList.remove('is-emblem');b.classList.add('is-unillustrated');b.replaceChildren();
+   const line=document.createElement('span');line.className='an-no-photo';
+   line.textContent=t('ΑΡΧΕΙΟ ΑΡΧΕΛΑΟΥ','ARCHELAOS ARCHIVE');
+   b.append(line);
+ };
+ if(!local&&!original){empty();return b}
+ const img=document.createElement('img');img.src=original?path:'/'+path;img.alt=x.imageNote||x.title;
+ img.loading=cls==='an-feature-media'||cls==='an-cover'?'eager':'lazy';img.decoding='async';
  img.addEventListener('error',()=>{
-   // A failed Cloudflare image should not silently become the crest if the
-   // corresponding archived photograph is available in the GitHub repository.
-   if(!img.dataset.archiveFallback){
-     img.dataset.archiveFallback='1';
-     img.src='https://raw.githubusercontent.com/dizigs/archelaos-site/main/'+path;
-   }else emblem();
+   if(local&&!img.dataset.archiveFallback){
+     img.dataset.archiveFallback='1';img.src='https://raw.githubusercontent.com/dizigs/archelaos-site/main/'+path;
+   }else empty();
  });
- b.append(img);
- return b;
+ b.append(img);return b;
 }
 function info(x){return {title:x.title,summary:x.summary,href:'news.html?article='+encodeURIComponent(x.id)}}
 function heart(x,cls){return window.ArchelaosFavorites?.button('news',x.id,cls,info(x))||document.createElement('span')}
