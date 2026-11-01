@@ -474,13 +474,12 @@
       ],
       "source": "Ομοσπονδία Χειροσφαιρίσεως Ελλάδος · 11/04/2026",
       "sourceUrl": "https://www.handball.org.gr/ethnikes-katigories/efivon/5421-petaei-gia-slovakia-i-ethniki-efivon",
-      "image": "images/news/handball-siokas-mediterranean-2026.jpg",
-      "imageNote": "Φωτογραφία από το αρχικό δημοσίευμα: Ομοσπονδία Χειροσφαιρίσεως Ελλάδος · 11/04/2026",
+      "image": "",
+      "imageNote": "Το αρχικό δημοσίευμα εμφανίζει το λογότυπο της ΟΧΕ, όχι φωτογραφία της αποστολής. Αναμένεται τεκμηριωμένη εικόνα.",
       "personIds": [
         "arch-dimitris-siokas-handball-2026"
       ],
-      "featured": false,
-      "imageSourceUrl": "https://www.handball.org.gr/media/yootheme/cache/71/ON_LIGHT_-_COMBO_x1-71e06b7f.png"
+      "featured": false
     },
     {
       "id": "handball-siokas-ehf-2026",
