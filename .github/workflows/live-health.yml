@@ -1,5 +1,10 @@
 name: Live site health
 on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/live-health.yml'
+      - 'rebuild/tools/live_site_health.py'
   schedule:
     - cron: '17 */6 * * *'
   workflow_dispatch:
