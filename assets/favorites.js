@@ -53,6 +53,23 @@ function initCounter(){
    });observer.observe(document.documentElement,{childList:true,subtree:true});
    window.addEventListener('load',()=>{installCounter();observer.disconnect()},{once:true});
  }
+ // Keep the shared badge alive when the navigation is re-rendered or replaced.
+ // The counter derives from persistent storage, never from the current news page.
+ let scheduled=false;
+ const navObserver=new MutationObserver(()=>{
+   if(scheduled)return;
+   const nav=document.getElementById('arch-global-nav-root');
+   if(!nav)return;
+   const desktop=nav.querySelector('.asn-desktop');
+   const mobile=nav.querySelector('.asn-mobile-actions');
+   const missing=(desktop&&!desktop.querySelector('[data-arch-favorites-shortcut]'))||
+     (mobile&&!mobile.querySelector('[data-arch-favorites-shortcut]'))||
+     [...nav.querySelectorAll('a[href$="favorites.html"]')].some(a=>!a.hasAttribute('data-arch-favorites-shortcut')&&!a.querySelector('[data-arch-favorites-count]'));
+   if(!missing)return;
+   scheduled=true;
+   queueMicrotask(()=>{scheduled=false;installCounter()});
+ });
+ navObserver.observe(document.body,{childList:true,subtree:true});
  const languageObserver=new MutationObserver(syncCounter);
  languageObserver.observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
  window.addEventListener('pageshow',syncCounter);
