@@ -179,6 +179,17 @@ def verify() -> None:
         assert f'data-sr-filter="{category}"' in search_html, "Missing search filter " + category
     assert "/rebuild/" not in catalog_js, "Preview-only search data URL in production"
 
+    # Deep links must open the requested department popup or fixture card.
+    departments_js = (DIST / "assets/site/js/departments.js").read_text(encoding="utf-8")
+    fixtures_js = (DIST / "assets/site/js/match-calendar.js").read_text(encoding="utf-8")
+    assert "card.click()" in departments_js, "Search department link does not open its popup"
+    assert "get('fixture')" in fixtures_js and "card(exact,0)" in fixtures_js, (
+        "Search fixture deep links do not render the selected match"
+    )
+    assert "fixture='+value" in catalog_js and "department:'/tmimata.html#sport-'" in catalog_js, (
+        "Search URLs missing direct department/fixture navigation"
+    )
+
     # All interview records must reach the production data source unchanged.
     source_interviews = json.loads((ROOT / "interviews.json").read_text(encoding="utf-8"))
     published_interviews = json.loads(
