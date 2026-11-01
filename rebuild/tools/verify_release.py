@@ -191,7 +191,8 @@ def verify() -> None:
     assert "an-cover" in media_js and "an-feature-media" in media_js
     for article in news["items"]:
         path = article.get("image", "")
-        if not path or path == "assets/archelaos-crest.png":
+        if not path or path == "assets/archelaos-crest.png" or path.startswith("https://"):
+            # Allowed HTTPS article sources were checked against a fixed host allowlist above.
             continue
         local = DIST / path
         assert local.is_file(), "Missing published article photo: " + article["id"]
