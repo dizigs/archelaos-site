@@ -95,9 +95,10 @@ export async function onRequestPost({ request, env }) {
   try {
     if (multipart) {
       const form = await request.formData();
-      data = Object.fromEntries(["name", "email", "phone", "message", "topic", "sport", "website", "archiveLink"]
+      data = Object.fromEntries(["name", "email", "phone", "message", "topic", "sport", "website", "archiveLink", "publicCreditName"]
         .map(key => [key, form.get(key)]));
       data.consent = form.get("consent") === "true";
+      data.publicNameConsent = form.get("publicNameConsent") === "true";
       files = form.getAll("attachments");
       // Some browsers include one empty file control even when no file is selected.
       files = files.filter(f => typeof f !== "string" && Boolean(f.name) && f.size > 0);
@@ -127,6 +128,9 @@ export async function onRequestPost({ request, env }) {
   const topic = clean("topic");
   const sport = clean("sport");
   const archiveLink = clean("archiveLink");
+  const creditRequested = topic === "archive" && data.publicNameConsent === true;
+  const publicCreditName = creditRequested ? clean("publicCreditName") : "";
+  if (publicCreditName.length > 90 || /[\r\n<>]/.test(publicCreditName)) return respond(400, { ok: false, error: "invalid_fields" });
   if (archiveLink) {
     let parsed;
     try { parsed = new URL(archiveLink); } catch { return respond(400, { ok: false, error: "invalid_archive_link" }); }
@@ -182,6 +186,7 @@ export async function onRequestPost({ request, env }) {
     "Τηλέφωνο: " + (phone || "—"),
     "",
     ...(archiveLink ? ["", "Σύνδεσμος συλλογής Google Drive:", archiveLink] : []),
+    ...(topic === "archive" ? ["", "Δημόσια αναφορά ονόματος: " + (creditRequested ? "ΝΑΙ" : "ΟΧΙ"), ...(creditRequested ? ["Όνομα δημόσιας αναφοράς: " + (publicCreditName || name)] : [])] : []),
     "Μήνυμα:",
     message
   ];
