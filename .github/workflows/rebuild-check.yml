@@ -6,6 +6,13 @@ on:
     paths:
       - 'rebuild/**'
       - '.github/workflows/rebuild-check.yml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'rebuild/**'
+      - 'functions/**'
+      - '.github/workflows/rebuild-check.yml'
   workflow_dispatch:
 
 permissions:
