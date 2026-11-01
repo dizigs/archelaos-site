@@ -354,3 +354,29 @@ body.arch-a11y-calm *,body.arch-a11y-calm *::before,body.arch-a11y-calm *::after
  .arch-presidents-table tbody td:nth-child(3){font-size:13px;line-height:1.73;margin-top:2px;padding-top:10px!important;border-top:1px solid #e8ddc7!important}
  .arch-presidents-table tbody td:nth-child(3)::before{content:"ΙΣΤΟΡΙΚΟΙ ΣΤΑΘΜΟΙ"}
 }
+
+/* Facilities · synchronized museum exhibit */
+
+.facility-museum{--fm-green:#084c24;--fm-gold:#c7a65e;--fm-cream:#f5eddd;color:var(--fm-green);font-family:inherit}
+.facility-museum *{box-sizing:border-box}
+.facility-museum .fm-intro{background:linear-gradient(135deg,#f6eedf,#efe1c5);border:1px solid rgba(199,166,94,.42);border-radius:1.7rem;padding:clamp(1.3rem,4vw,2.4rem)}
+.facility-museum .fm-eyebrow{font-size:.72rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:#80652e}
+.facility-museum h2{font-size:clamp(1.7rem,4vw,2.5rem);font-weight:900;letter-spacing:-.03em;margin:.4rem 0 1rem}
+.facility-museum .fm-lead{max-width:64rem;line-height:1.85;font-size:1rem;margin:0}
+.facility-museum .fm-milestones{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.6rem;margin:1.1rem 0 1.5rem}
+.facility-museum .fm-milestone{border:1px solid rgba(8,76,36,.16);border-radius:1rem;padding:.9rem;background:#faf6ec;display:flex;flex-direction:column;gap:.25rem}
+.facility-museum .fm-year{color:#94702f;font-size:1.3rem;font-weight:900}
+.facility-museum .fm-milestone span:last-child{font-size:.77rem;font-weight:700;line-height:1.5}
+.facility-museum .fm-sections{display:grid;gap:1rem}
+.facility-museum .fm-section{background:#faf6ec;border:1px solid rgba(199,166,94,.35);border-radius:1.5rem;padding:clamp(1.15rem,3vw,2rem);box-shadow:0 9px 25px rgba(8,76,36,.045)}
+.facility-museum .fm-title{display:flex;align-items:center;gap:1rem;margin:0 0 1.25rem;font-size:clamp(1.12rem,2.3vw,1.42rem);font-weight:900;line-height:1.35}
+.facility-museum .fm-index{font-weight:900;font-size:1.25rem;color:#ad8a42;border-bottom:2px solid #ad8a42;padding-bottom:.3rem;flex-shrink:0}
+.facility-museum .fm-items{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+.facility-museum .fm-item{padding:1rem 1.05rem;background:#fffdf8;border:1px solid #e7d9ba;border-radius:1rem}
+.facility-museum .fm-item h4{font-size:1rem;font-weight:850;color:#084c24;margin:0 0 .45rem}
+.facility-museum .fm-item p{font-size:.9rem;line-height:1.75;margin:0;color:#31503d}
+.facility-museum .fm-item strong{color:#084c24}
+.facility-museum .fm-note{margin-top:1rem;background:rgba(8,76,36,.045);border-radius:1rem;padding:1rem 1.15rem;font-size:.87rem;line-height:1.8}
+@media(max-width:650px){.facility-museum .fm-items{grid-template-columns:1fr}.facility-museum .fm-milestones{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(prefers-reduced-motion:no-preference){.facility-museum .fm-section{transition:border-color .2s,transform .2s}.facility-museum .fm-section:hover{border-color:#c7a65e;transform:translateY(-2px)}}
+
