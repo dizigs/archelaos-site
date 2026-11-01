@@ -32,7 +32,7 @@ def inspect():
     assert len(html_pages) >= 11, "expected multiple rebuilt pages"
     known = {p.name for p in html_pages}
     expected = {"index.html","history.html","hall-of-fame.html","70-stigmes.html","stories.html",
-                "board.html","contact.html","sponsors.html","tmimata.html","retro-matches.html","search.html","favorites.html","contribute.html"}
+                "board.html","contact.html","sponsors.html","tmimata.html","retro-matches.html","search.html","favorites.html","contribute.html","interviews.html"}
     assert expected.issubset(known), "missing required rebuilt routes: " + str(expected-known)
 
     for path in html_pages:
@@ -51,6 +51,9 @@ def inspect():
         assert f'url("./{name}")' in viewport_css, f"viewport stylesheet not imported: {name}"
     for file in (REBUILD/"data").glob("*.json"):
         json.loads(file.read_text(encoding="utf-8"))
+    interview_data = json.loads((REBUILD/"data/interviews.json").read_text(encoding="utf-8"))
+    assert len(interview_data["items"]) == 25, "Archive interviews incomplete"
+    assert len({record["id"] for record in interview_data["items"]}) == 25, "Duplicate interview identifiers"
     moments = json.loads((REBUILD/"data/moments.json").read_text(encoding="utf-8"))["moments"]
     stories = json.loads((REBUILD/"data/stories.json").read_text(encoding="utf-8"))["stories"]
     people = json.loads((REBUILD/"data/people.json").read_text(encoding="utf-8"))["people"]
