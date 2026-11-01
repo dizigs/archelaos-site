@@ -470,3 +470,40 @@
  .new-slide-bottom > div:first-child{min-width:0}
  .new-slide-bottom h3{font-size:clamp(24px,6.3vw,35px)}
 }
+
+
+/* Clickable slideshow titles and balanced arrow controls; no decorative underlines. */
+.new-slide-bottom #new-slide-link,
+.new-slide-bottom #new-slide-link:link,
+.new-slide-bottom #new-slide-link:visited,
+.new-slide-bottom #new-slide-link:hover,
+.new-slide-bottom #new-slide-link:active{
+ color:inherit!important;
+ text-decoration:none!important;
+ border:0!important;
+ box-shadow:none!important;
+ cursor:pointer;
+}
+.new-slide-bottom #new-slide-link{display:inline-block;max-width:100%;overflow-wrap:anywhere}
+.new-slide-bottom #new-slide-link:focus-visible{outline:3px solid #e5ca88;outline-offset:4px;border-radius:3px}
+.new-slide-buttons{display:flex;align-items:center;justify-content:flex-end;gap:9px;flex:none}
+.new-slide-buttons button{
+ display:grid;place-items:center;
+ flex:0 0 44px;width:44px;height:44px;
+ padding:0;line-height:1;border-radius:50%;
+ cursor:pointer;touch-action:manipulation;
+}
+.new-slide-buttons button svg{display:block;width:21px;height:21px;flex:none}
+.new-slide-buttons button:focus-visible{outline:3px solid #e5ca88;outline-offset:3px}
+@media(max-width:600px){
+ .new-slide-bottom{gap:10px}
+ .new-slide-bottom > div:first-child{min-width:0;flex:1}
+ .new-slide-bottom h3{font-size:clamp(24px,6.3vw,35px);line-height:1.12}
+ .new-slide-buttons{gap:7px;flex:none}
+ .new-slide-buttons button{flex-basis:42px;width:42px;height:42px;min-width:42px}
+ .new-slide-buttons button svg{width:20px;height:20px}
+}
+@media(max-width:380px){
+ .new-slide-buttons{gap:5px}
+ .new-slide-buttons button{flex-basis:39px;width:39px;height:39px;min-width:39px}
+}
