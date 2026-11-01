@@ -170,6 +170,41 @@ def verify() -> None:
         script_text = script_path.read_text(encoding="utf-8")
         assert "/rebuild/" not in script_text, f"Preview-only URL in deployed JS: {script_path.name}"
 
+    # Release-wide asset cache integrity: every page, including each standalone
+    # biography and 404, must load the exact published CSS/JS file version.
+    from hashlib import sha256 as version_sha256
+    from urllib.parse import parse_qs
+    published_pages = [DIST / e["file"] for e in main]
+    published_pages += list((DIST / "people").glob("arch-*.html"))
+    published_pages.append(DIST / "404.html")
+    checked_assets = set()
+    for html_file in published_pages:
+        parser = AssetRefs()
+        parser.feed(html_file.read_text(encoding="utf-8"))
+        for tag, ref in parser.links:
+            parts = urlsplit(ref)
+            if not (parts.path.startswith("/assets/site/css/") or
+                    parts.path.startswith("/assets/site/js/")):
+                continue
+            if not parts.path.endswith((".css", ".js")):
+                continue
+            local_asset = DIST / parts.path.lstrip("/")
+            assert local_asset.is_file(), f"Missing published asset in {html_file.name}: {ref}"
+            expected_hash = version_sha256(local_asset.read_bytes()).hexdigest()[:12]
+            actual_hash = parse_qs(parts.query).get("v", [])
+            assert actual_hash == [expected_hash], (
+                f"Stale or unversioned CSS/JS in {html_file.name}: {ref}"
+            )
+            checked_assets.add(parts.path)
+    assert any(x.endswith("/viewports.css") for x in checked_assets), "Responsive CSS not checked"
+    viewport_css = (DIST / "assets/site/css/viewports.css").read_text(encoding="utf-8")
+    for breakpoint in ("mobile", "tablet", "laptop", "desktop", "accessibility"):
+        stylesheet = DIST / "assets/site/css" / (breakpoint + ".css")
+        version = version_sha256(stylesheet.read_bytes()).hexdigest()[:12]
+        assert f'url("./{breakpoint}.css?v={version}")' in viewport_css, (
+            "Published viewport CSS imports a stale " + breakpoint + " stylesheet"
+        )
+
     # Search must expose the approved match calendar and department cards.
     catalog_js = (DIST / "assets/site/js/archive-catalog.js").read_text(encoding="utf-8")
     search_html = (DIST / "search.html").read_text(encoding="utf-8")
