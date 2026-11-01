@@ -1,5 +1,27 @@
 {
-  "version": 1,
-  "description": "Εγκεκριμένοι δημόσιοι συντελεστές Ψηφιακού Μουσείου (χωρίς στοιχεία επικοινωνίας). Δημοσιεύονται μόνο με ρητή συναίνεση και έγκριση.",
+  "version": 2,
+  "description": "Δημόσιο ευρετήριο Συντελεστών Ψηφιακού Μουσείου. Μόνο εγκεκριμένες καταχωρίσεις με ρητή συναίνεση. Κανένα email, τηλέφωνο ή ιδιωτικός σύνδεσμος Drive.",
+  "policy": {
+    "publication": "manual_approval_only",
+    "publicNameConsentRequired": true,
+    "oneEntryPerPerson": true,
+    "linkExistingHallOfFamePerson": true,
+    "publicLinksApprovedOnly": true
+  },
+  "contributorFields": [
+    "id",
+    "displayName",
+    "personId",
+    "contributionTypes",
+    "summary",
+    "contributions"
+  ],
+  "contributionFields": [
+    "id",
+    "type",
+    "summary",
+    "publishedLinks",
+    "artifactIds"
+  ],
   "contributors": []
 }
