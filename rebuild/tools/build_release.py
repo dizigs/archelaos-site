@@ -322,6 +322,7 @@ def make_release() -> None:
             '<link rel="stylesheet" href="/assets/site/css/components.css">',
             '<link rel="stylesheet" href="/assets/site/css/collection.css">',
             '<link rel="stylesheet" href="/assets/site/css/profile-release.css">',
+            '<link rel="stylesheet" href="/assets/site/css/viewports.css">',
             '<link rel="stylesheet" href="/assets/site/css/motion.css">',
             '<script defer src="/assets/site/js/shell.js"></script>',
             '<script defer src="/assets/site/js/favorites.js"></script>',
