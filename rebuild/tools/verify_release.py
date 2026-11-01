@@ -131,6 +131,24 @@ def verify() -> None:
     profile = (DIST / "people" / (pid + ".html")).read_text(encoding="utf-8")
     assert "τα καθήκοντα του προέδρου άσκησε προσωρινά ο Χαράλαμπος Σαββίδης" in profile
     assert "Charalampos Savvidis temporarily carried out the president&#39;s duties" in profile
+    # Release gate: the Hall, its modal feed, and the canonical master must be identical.
+    master = json.loads((ROOT / "hall-of-fame-people.json").read_text(encoding="utf-8"))
+    hall = json.loads((DIST / "hall-of-fame-people.json").read_text(encoding="utf-8"))
+    modal = json.loads((DIST / "assets/site/data/people.json").read_text(encoding="utf-8"))
+    assert hall == master == modal, "Hall of Fame release differs from canonical master"
+    assert hall["count"] == len(hall["people"]), "Hall count inconsistent"
+    ids = [person["id"] for person in hall["people"]]
+    assert len(ids) == len(set(ids)), "Duplicate Hall person identifiers"
+    names = [(p["name"].strip().casefold(), p.get("role", "").strip().casefold()) for p in hall["people"]]
+    assert len(names) == len(set(names)), "Duplicate Hall names and roles"
+    news = json.loads((DIST / "news.json").read_text(encoding="utf-8"))
+    assert news == json.loads((ROOT / "news.json").read_text(encoding="utf-8")), "News feed out of sync"
+    assert (DIST / "news.html").read_bytes() == (ROOT / "news.html").read_bytes(), "News page out of sync"
+    for article in news["items"]:
+        assert article.get("id") and article.get("title") and article.get("date"), "Invalid news item"
+        assert all(pid in ids for pid in article.get("personIds", [])), "News links to missing Hall biography: " + article["id"]
+        if article.get("image") and not article["image"].startswith(("https://", "http://")):
+            assert (DIST / article["image"]).is_file(), "Missing news image: " + article["image"]
     published_records = json.loads((DIST / "hall-of-fame-people.json").read_text(encoding="utf-8"))
     rows = published_records if isinstance(published_records, list) else published_records["people"]
     record = next(row for row in rows if row["id"] == pid)
