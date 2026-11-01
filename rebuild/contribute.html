@@ -41,7 +41,7 @@
   </div>
   <div id="av-verify-grid" class="av-verify-grid" aria-live="polite"><p>Φόρτωση αιτημάτων τεκμηρίωσης…</p></div>
   <p id="av-verify-status" class="av-verify-note" role="status" aria-live="polite"></p>
-  <p class="av-verify-note">Οι προσφορές υλικού στέλνονται προς έλεγχο και δεν εμφανίζονται αυτόματα σε αυτή τη σελίδα. Δεν ζητάμε δημόσια προσωπικά δεδομένα. Η προσθήκη online υποβολής θα γίνει μόνο όταν ενεργοποιηθεί ασφαλές σύστημα.</p>
+  <p class="av-verify-note">Οι προσφορές υλικού ελέγχονται πριν αξιοποιηθούν και δεν εμφανίζονται αυτόματα σε αυτή τη σελίδα. Η online αποστολή λειτουργεί μόνο με διαθέσιμη ασφαλή υπηρεσία· διαφορετικά χρησιμοποιήστε email.</p>
 </div></section>
 <section class="ac-guide-section" id="ac-guide" aria-labelledby="ac-guide-title"><div class="arch-container">
 <p class="av-kicker">ΣΥΜΠΛΗΡΩΣΤΕ ΜΟΝΟ ΟΣΑ ΓΝΩΡΙΖΕΤΕ</p>
@@ -49,9 +49,11 @@
 <p class="ac-guide-lead">Μας βοηθά να οργανώσουμε το ιστορικό υλικό. Δεν χρειάζονται όλες οι λεπτομέρειες· γράψτε ό,τι γνωρίζετε με βεβαιότητα, χωρίς να μαντεύετε χρονολογίες ή αποτελέσματα.</p>
 <div class="ac-guide" role="group" aria-labelledby="ac-guide-form-title">
 <h3 id="ac-guide-form-title">Ετοιμάστε το μήνυμά σας</h3><p id="ac-guide-context" class="ac-guide-context" hidden></p>
-<p class="ac-guide-lead">Τα στοιχεία δεν αποστέλλονται αυτόματα. Ετοιμάζουμε ένα email που εσείς αποστέλλετε· από εκεί καταγράφουμε εσωτερικά τα στοιχεία σας. Δεν υπάρχει online υποβολή ή μεταφόρτωση αρχείων.</p>
+<p class="ac-guide-lead">Συμπληρώστε τα στοιχεία σας και επισυνάψτε αρχεία ή προσθέστε σύνδεσμο Google Drive. Όταν η ασφαλής αποστολή είναι διαθέσιμη, η συνεισφορά στέλνεται απευθείας στον σύλλογο. Διαφορετικά μπορείτε να χρησιμοποιήσετε email.</p>
 <div class="ac-guide-grid">
 <div class="ac-guide-field wide"><label for="ac-sender-name">Ονοματεπώνυμο αποστολέα (μόνο για το εσωτερικό αρχείο) *</label><input id="ac-sender-name" name="sender_name" type="text" maxlength="120" autocomplete="name" required aria-describedby="ac-sender-note" placeholder="Το ονοματεπώνυμό σας"><small class="ac-guide-help" id="ac-sender-note">Καταγράφεται εσωτερικά για την προέλευση του τεκμηρίου, ανεξάρτητα από τη δημόσια αναφορά.</small></div>
+<div class="ac-guide-field"><label for="ac-sender-email">Email αποστολέα *</label><input id="ac-sender-email" type="email" name="sender_email" autocomplete="email" maxlength="254" required placeholder="email@example.com"><small class="ac-guide-help">Χρησιμοποιείται μόνο για να επικοινωνήσουμε μαζί σας σχετικά με τη συνεισφορά.</small></div>
+<div class="ac-guide-field"><label for="ac-sender-phone">Τηλέφωνο (προαιρετικό)</label><input id="ac-sender-phone" type="tel" maxlength="35" autocomplete="tel"></div>
 <div class="ac-guide-field"><label for="ac-type">Τι είδους υλικό έχετε;</label><select id="ac-type" name="type">
 <option value="Φωτογραφία">Φωτογραφία</option><option value="Αγώνας ή αποτέλεσμα">Αγώνας ή αποτέλεσμα</option>
 <option value="Βιογραφικό στοιχείο">Βιογραφικό στοιχείο</option><option value="Ιστορική μαρτυρία">Ιστορική μαρτυρία</option><option value="Άλλο τεκμήριο">Άλλο τεκμήριο</option>
@@ -66,6 +68,15 @@
 <div class="ac-guide-field"><label for="ac-rights">Δυνατότητα κοινοποίησης</label><select id="ac-rights" name="rights" aria-describedby="ac-rights-help">
 <option value="Χρειάζεται διευκρίνιση">Δεν είμαι βέβαιος/η</option><option value="Διαθέτω δικαίωμα κοινοποίησης">Διαθέτω δικαίωμα κοινοποίησης</option><option value="Δεν διαθέτω άδεια δημοσίευσης">Δεν διαθέτω άδεια δημοσίευσης</option>
 </select><small id="ac-rights-help" class="ac-guide-help">Η επιλογή δεν αποτελεί από μόνη της έγκριση δημοσίευσης.</small></div>
+<div class="ac-guide-field wide ac-archive-transfer">
+ <h4>Αρχεία και σύνδεσμος Drive</h4>
+ <label for="ac-archive-link">Σύνδεσμος Google Drive (προαιρετικά)</label>
+ <input id="ac-archive-link" name="archiveLink" type="url" maxlength="2048" inputmode="url" placeholder="https://drive.google.com/...">
+ <small class="ac-guide-help">Χρησιμοποιήστε σύνδεσμο Google Drive ή Google Docs με κατάλληλα δικαιώματα πρόσβασης.</small>
+ <label for="ac-attachments">Επισύναψη αρχείων (προαιρετικά)</label>
+ <input id="ac-attachments" type="file" name="attachments" multiple accept=".jpg,.jpeg,.png,.webp,.gif,.heic,.heif,.pdf,.doc,.docx,.txt" aria-describedby="ac-attachments-note">
+ <small id="ac-attachments-note" class="ac-guide-help">Έως 5 αρχεία, μέχρι 10 MB ανά αρχείο και 15 MB συνολικά.</small>
+</div>
 <div class="ac-credit-choice" role="group" aria-labelledby="ac-credit-title">
  <h4 id="ac-credit-title">Αναφορά του ονόματός σας</h4>
  <label class="ac-credit-check" for="ac-credit-consent"><input id="ac-credit-consent" type="checkbox" autocomplete="off"><span>Επιθυμώ να αναφερθεί το όνομά μου, αν δημοσιευτεί η συνεισφορά μου.</span></label>
@@ -73,20 +84,21 @@
  <p class="ac-guide-help" id="ac-credit-help">Το όνομα του αποστολέα καταγράφεται πάντα εσωτερικά στο μήνυμα που θα μας στείλετε. Χωρίς το τικ δεν θα δημοσιεύουμε το όνομά σας. Η επιλογή αυτή δεν εγκρίνει τη δημοσίευση του ίδιου του υλικού.</p>
 </div>
 </div>
-<div class="ac-guide-actions"><a class="ac-email" id="ac-guide-email" href="mailto:info@archelaos.club?subject=%CE%A5%CE%BB%CE%B9%CE%BA%CF%8C%20%CE%B3%CE%B9%CE%B1%20%CF%84%CE%BF%20%CE%91%CF%81%CF%87%CE%B5%CE%AF%CE%BF">Άνοιγμα προσυμπληρωμένου email</a>
+<label class="ac-private-consent" for="ac-private-consent"><input type="checkbox" id="ac-private-consent"><span>Συμφωνώ να χρησιμοποιηθούν τα στοιχεία επικοινωνίας μου μόνο για την εξέταση της συνεισφοράς και την απάντηση στο αίτημά μου. *</span></label>
+<div class="ac-guide-actions"><button class="ac-guide-send" type="button" id="ac-guide-send">Ασφαλής αποστολή υλικού</button><a class="ac-email" id="ac-guide-email" href="mailto:info@archelaos.club?subject=%CE%A5%CE%BB%CE%B9%CE%BA%CF%8C%20%CE%B3%CE%B9%CE%B1%20%CF%84%CE%BF%20%CE%91%CF%81%CF%87%CE%B5%CE%AF%CE%BF">Άνοιγμα προσυμπληρωμένου email</a>
 <button class="ac-guide-copy" type="button" id="ac-guide-copy">Αντιγραφή περιγραφής</button></div>
 <p id="ac-guide-status" role="status" aria-live="polite" aria-atomic="true"></p>
-<p class="ac-guide-privacy">Πριν αποστείλετε μήνυμα, ελέγξτε όσα γράψατε και προσθέστε τυχόν φωτογραφίες ως συνημμένα από την εφαρμογή email. Για φωτογραφίες τρίτων ή ανηλίκων απαιτείται κατάλληλη άδεια.</p>
+<p class="ac-guide-privacy">Πριν αποστείλετε υλικό, ελέγξτε τα στοιχεία και τυχόν άδειες. Αν η ασφαλής αποστολή δεν είναι διαθέσιμη, μπορείτε να ανοίξετε email ή να χρησιμοποιήσετε σύνδεσμο Google Drive. Για φωτογραφίες τρίτων ή ανηλίκων απαιτείται κατάλληλη άδεια.</p>
 </div></div></section>
 <section class="ac-contact"><div class="arch-container"><div class="ac-contact-grid">
 <div><p class="av-kicker">ΣΥΝΕΙΣΦΟΡΑ ΣΤΟ ΨΗΦΙΑΚΟ ΜΟΥΣΕΙΟ</p>
 <h2>Έχετε κάτι<br><em>να μοιραστείτε;</em></h2>
-<p>Αρχικά αρκεί μια σύντομη περιγραφή του υλικού και της προέλευσής του. Μπορείτε να ανοίξετε ένα προσυμπληρωμένο email από τη δική σας εφαρμογή. Η απευθείας φόρμα και η αποστολή αρχείων από το site θα προστεθούν αργότερα με ασφαλή εξυπηρέτηση.</p>
+<p>Αρχικά αρκεί μια σύντομη περιγραφή του υλικού και της προέλευσής του. Μπορείτε πλέον να επισυνάψετε αρχεία ή σύνδεσμο Google Drive στην παραπάνω φόρμα, ή να επιλέξετε προσυμπληρωμένο email.</p>
 <a class="ac-cta" href="#ac-guide">Ετοιμάστε τη συνεισφορά σας</a>
-<small>Συμπληρώνετε μόνο όσα γνωρίζετε και ανοίγετε το email εσείς. Δεν αποθηκεύουμε κανένα προσχέδιο στη σελίδα.</small></div>
+<small>Συμπληρώνετε μόνο όσα γνωρίζετε. Τα προσχέδια δεν αποθηκεύονται στη σελίδα.</small></div>
 <div class="ac-ethics"><h3>Πριν μοιραστείτε υλικό</h3>
 <p>Αναφέρετε την προέλευση και εάν διαθέτετε δικαίωμα κοινοποίησης. Η πιθανή δημοσίευση περνά πάντοτε από ιστορικό και συντακτικό έλεγχο.</p>
 <p>Για φωτογραφίες ανηλίκων ή τρίτων προσώπων απαιτείται ιδιαίτερη προσοχή και κατάλληλη άδεια. Αποφύγετε την αποστολή ευαίσθητων προσωπικών δεδομένων.</p>
-<p class="ac-upcoming">Η online φόρμα και το ασφαλές upload δεν έχουν ενεργοποιηθεί ακόμη. Δεν υπάρχει προσωρινός ή μη ασφαλής μηχανισμός υποβολής.</p></div>
+<p class="ac-upcoming">Τα αρχεία αποστέλλονται μόνο μέσω ασφαλούς υπηρεσίας. Αν δεν είναι διαθέσιμη, δεν γίνεται upload από τη σελίδα· χρησιμοποιήστε email ή σύνδεσμο Google Drive.</p></div>
 </div></div></section>
 </main></body></html>
