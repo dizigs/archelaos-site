@@ -178,7 +178,8 @@
       ],
       "featured": false,
       "imageSourceUrl": "https://www.pierianews.gr/wp-content/uploads/2026/07/sign.jpg",
-      "imageNote": "Εντοπίστηκε φωτογραφία του αρχικού δημοσιεύματος· εκκρεμεί επιβεβαίωση δικαιώματος αναδημοσίευσης πριν από την τοπική αρχειοθέτηση."
+      "imageNote": "Φωτογραφία της αρχικής δημοσίευσης · Pieria News · 29/07/2026",
+      "image": "https://www.pierianews.gr/wp-content/uploads/2026/07/sign.jpg"
     },
     {
       "id": "wrestling-darko-nisavic-serbia-july-2026",
@@ -639,7 +640,8 @@
       ],
       "featured": false,
       "imageSourceUrl": "https://www.pierianews.gr/wp-content/uploads/2025/04/gas8.jpg",
-      "imageNote": "Εντοπίστηκε φωτογραφία του αρχικού δημοσιεύματος· εκκρεμεί επιβεβαίωση δικαιώματος αναδημοσίευσης πριν από την τοπική αρχειοθέτηση."
+      "imageNote": "Φωτογραφία της αρχικής δημοσίευσης · Pieria News · 17/04/2025",
+      "image": "https://www.pierianews.gr/wp-content/uploads/2025/04/gas8.jpg"
     },
     {
       "id": "gym-2025-team",
@@ -679,7 +681,8 @@
       ],
       "featured": false,
       "imageSourceUrl": "https://media.pieriasocial.gr/2025/03/11111111111111111-10.jpg",
-      "imageNote": "Εντοπίστηκε φωτογραφία του αρχικού δημοσιεύματος· εκκρεμεί επιβεβαίωση δικαιώματος αναδημοσίευσης πριν από την τοπική αρχειοθέτηση."
+      "imageNote": "Φωτογραφία της αρχικής δημοσίευσης · Pieria Social · 23/03/2025",
+      "image": "https://media.pieriasocial.gr/2025/03/11111111111111111-10.jpg"
     },
     {
       "id": "wrestling-zagreb-team-first-dec-2024",
@@ -704,7 +707,8 @@
       ],
       "featured": false,
       "imageSourceUrl": "https://www.pierianews.gr/wp-content/uploads/2024/12/pal6.jpg",
-      "imageNote": "Εντοπίστηκε φωτογραφία του αρχικού δημοσιεύματος· εκκρεμεί επιβεβαίωση δικαιώματος αναδημοσίευσης πριν από την τοπική αρχειοθέτηση."
+      "imageNote": "Φωτογραφία της αρχικής δημοσίευσης · Pieria News · 17/12/2024",
+      "image": "https://www.pierianews.gr/wp-content/uploads/2024/12/pal6.jpg"
     },
     {
       "id": "handball-volos-2024",
@@ -770,7 +774,8 @@
       ],
       "featured": false,
       "imageSourceUrl": "https://www.pierianews.gr/wp-content/uploads/2024/08/toxovolia1.jpg",
-      "imageNote": "Εντοπίστηκε φωτογραφία του αρχικού δημοσιεύματος· εκκρεμεί επιβεβαίωση δικαιώματος αναδημοσίευσης πριν από την τοπική αρχειοθέτηση."
+      "imageNote": "Φωτογραφία της αρχικής δημοσίευσης · Pieria News · 29/08/2024",
+      "image": "https://www.pierianews.gr/wp-content/uploads/2024/08/toxovolia1.jpg"
     },
     {
       "id": "club-sports-facilities-proposals-aug-2024",
@@ -825,7 +830,9 @@
       "personIds": [
         "arch-2082f3abced0"
       ],
-      "imageSourceUrl": "https://media.pieriasocial.gr/2024/07/2222222222222222222.jpg"
+      "imageSourceUrl": "https://media.pieriasocial.gr/2024/07/2222222222222222222.jpg",
+      "image": "https://media.pieriasocial.gr/2024/07/2222222222222222222.jpg",
+      "imageNote": "Φωτογραφία της αρχικής δημοσίευσης · Pieria Social · 15/07/2024"
     },
     {
       "id": "track-academy-summer-celebration-2024",
@@ -844,7 +851,9 @@
       "personIds": [
         "arch-61d8d097f601"
       ],
-      "imageSourceUrl": "https://odialogos.gr/wp-content/uploads/2024/06/ΓΑΣ-ΑΡΧΕΛΑΟΣ-stivos1.jpg"
+      "imageSourceUrl": "https://odialogos.gr/wp-content/uploads/2024/06/ΓΑΣ-ΑΡΧΕΛΑΟΣ-stivos1.jpg",
+      "image": "https://odialogos.gr/wp-content/uploads/2024/06/ΓΑΣ-ΑΡΧΕΛΑΟΣ-stivos1.jpg",
+      "imageNote": "Φωτογραφία της αρχικής δημοσίευσης · Ο Διάλογος · 28/06/2024"
     },
     {
       "id": "gymnastics-d-category-regional-mikra-may-2024",
@@ -934,7 +943,8 @@
         "arch-6dac69941f40"
       ],
       "imageSourceUrl": "https://odialogos.gr/wp-content/uploads/2024/04/arxelaos-stivos-92.jpg",
-      "imageNote": "Φωτογραφία στο αρχικό δημοσίευμα· εκκρεμεί τοπική αρχειοθέτηση."
+      "imageNote": "Φωτογραφία της αρχικής δημοσίευσης · Ο Διάλογος · 26/04/2024",
+      "image": "https://odialogos.gr/wp-content/uploads/2024/04/arxelaos-stivos-92.jpg"
     },
     {
       "id": "wrestling-u17-trikala-team-third-2024",
@@ -1243,7 +1253,9 @@
       "personIds": [
         "arch-ccaf623e428b"
       ],
-      "imageSourceUrl": "https://odialogos.gr/wp-content/uploads/2023/02/στίβος-Αρχέλαος-1.jpeg"
+      "imageSourceUrl": "https://odialogos.gr/wp-content/uploads/2023/02/στίβος-Αρχέλαος-1.jpeg",
+      "image": "https://odialogos.gr/wp-content/uploads/2023/02/στίβος-Αρχέλαος-1.jpeg",
+      "imageNote": "Φωτογραφία της αρχικής δημοσίευσης · Ο Διάλογος · 22/02/2023"
     },
     {
       "id": "gym-2022-horizon",
@@ -1286,7 +1298,9 @@
         "arch-pavlina-charitidou-arch",
         "arch-44ef21dfb9b7"
       ],
-      "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2022/09/Στο-Κύπελλο-Ελλάδος-στην-Φλώρινα-το-τμήμα-τοξοβολίας-του-ΓΑΣ-Αρχέλαος-Κατερίνης-36785.jpg"
+      "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2022/09/Στο-Κύπελλο-Ελλάδος-στην-Φλώρινα-το-τμήμα-τοξοβολίας-του-ΓΑΣ-Αρχέλαος-Κατερίνης-36785.jpg",
+      "image": "https://olympiobima.gr/wp-content/uploads/2022/09/Στο-Κύπελλο-Ελλάδος-στην-Φλώρινα-το-τμήμα-τοξοβολίας-του-ΓΑΣ-Αρχέλαος-Κατερίνης-36785.jpg",
+      "imageNote": "Φωτογραφία της αρχικής δημοσίευσης · Ολύμπιο Βήμα · 27/09/2022"
     },
     {
       "id": "archery-u18-athens-national-results-july-2022",
@@ -1349,7 +1363,9 @@
         "arch-8c9cbe4897f0",
         "arch-32f943eae9a0"
       ],
-      "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2022/05/Archelaos-Katerinis-3-Chalkina-metallia-oi-athlites-tou-stous-Panellinious-scholikous-agones-sta-Trikala-42245.jpg"
+      "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2022/05/Archelaos-Katerinis-3-Chalkina-metallia-oi-athlites-tou-stous-Panellinious-scholikous-agones-sta-Trikala-42245.jpg",
+      "image": "https://olympiobima.gr/wp-content/uploads/2022/05/Archelaos-Katerinis-3-Chalkina-metallia-oi-athlites-tou-stous-Panellinious-scholikous-agones-sta-Trikala-42245.jpg",
+      "imageNote": "Φωτογραφία της αρχικής δημοσίευσης · Ολύμπιο Βήμα · 14/05/2022"
     },
     {
       "id": "wrestling-u17-serres-third-apr-2022",
@@ -1473,7 +1489,8 @@
       "source": "e-ptolemeos · 29/06/2020",
       "sourceUrl": "https://e-ptolemeos.gr/o-syllogos-toxovolias-toxoklytoi-koz",
       "imageSourceUrl": "https://e-ptolemeos.gr/wp-content/uploads/2020/06/toxoklitoi.jpg",
-      "imageNote": "Εντοπίστηκε φωτογραφία του αρχικού δημοσιεύματος· εκκρεμεί επιβεβαίωση δικαιώματος αναδημοσίευσης πριν από την τοπική αρχειοθέτηση."
+      "imageNote": "Φωτογραφία της αρχικής δημοσίευσης · e-ptolemeos · 29/06/2020",
+      "image": "https://e-ptolemeos.gr/wp-content/uploads/2020/06/toxoklitoi.jpg"
     },
     {
       "id": "wrestling-monaco-camp-nov-2019",
@@ -1532,7 +1549,8 @@
         "arch-ec55ccba275f"
       ],
       "imageSourceUrl": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj4ZTSKJi112HjXkqYQcqcUQE75tSRAqVYuGAHRT8hLdtKIQBdREEwm-MJ57htVequNYUb8CdnAQQ7N3x5_a4m6W-xvIha4VZ0PKaktjCFVc5cjoa2xlwgr_PgY8sSnt2sn-3mcGl367uV3/s640/DSC_9520.JPG",
-      "imageNote": "Εντοπίστηκε φωτογραφία του αρχικού δημοσιεύματος· εκκρεμεί επιβεβαίωση δικαιώματος αναδημοσίευσης πριν από την τοπική αρχειοθέτηση."
+      "imageNote": "Φωτογραφία της αρχικής δημοσίευσης · Καστανιά Πιερίας News · 27/02/2019",
+      "image": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj4ZTSKJi112HjXkqYQcqcUQE75tSRAqVYuGAHRT8hLdtKIQBdREEwm-MJ57htVequNYUb8CdnAQQ7N3x5_a4m6W-xvIha4VZ0PKaktjCFVc5cjoa2xlwgr_PgY8sSnt2sn-3mcGl367uV3/s640/DSC_9520.JPG"
     }
   ]
 }
