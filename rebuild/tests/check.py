@@ -83,8 +83,11 @@ def inspect():
     for file in (REBUILD/"data").glob("*.json"):
         json.loads(file.read_text(encoding="utf-8"))
     interview_data = json.loads((REBUILD/"data/interviews.json").read_text(encoding="utf-8"))
-    assert len(interview_data["items"]) == 25, "Archive interviews incomplete"
-    assert len({record["id"] for record in interview_data["items"]}) == 25, "Duplicate interview identifiers"
+    published_ids = [record["id"] for record in interview_data["items"]]
+    source_ids = [record["id"] for record in json.loads((ROOT/"interviews.json").read_text(encoding="utf-8"))["items"]]
+    assert len(published_ids) >= 25, "Archive interviews incomplete"
+    assert len(set(published_ids)) == len(published_ids), "Duplicate interview identifiers"
+    assert set(published_ids) == set(source_ids), "Interview production archive differs from source"
     moments = json.loads((REBUILD/"data/moments.json").read_text(encoding="utf-8"))["moments"]
     stories = json.loads((REBUILD/"data/stories.json").read_text(encoding="utf-8"))["stories"]
     people = json.loads((REBUILD/"data/people.json").read_text(encoding="utf-8"))["people"]
