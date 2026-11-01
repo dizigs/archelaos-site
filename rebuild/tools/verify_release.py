@@ -179,6 +179,19 @@ def verify() -> None:
         assert f'data-sr-filter="{category}"' in search_html, "Missing search filter " + category
     assert "/rebuild/" not in catalog_js, "Preview-only search data URL in production"
 
+    # Desktop and mobile load the SAME departments page; its responsive
+    # styles and script must have content-derived versions on each release.
+    department_html = (DIST / "tmimata.html").read_text(encoding="utf-8")
+    from hashlib import sha256 as asset_sha256
+    for asset in ("css/departments.css", "js/departments.js", "css/viewports.css"):
+        digest = asset_sha256((DIST / "assets/site" / asset).read_bytes()).hexdigest()[:12]
+        assert f"/assets/site/{asset}?v={digest}" in department_html, (
+            "Department asset version missing or stale: " + asset
+        )
+    assert "mobile.css" in (DIST / "assets/site/css/viewports.css").read_text(encoding="utf-8"), (
+        "Mobile stylesheet not routed by published viewport CSS"
+    )
+
     # Deep links must open the requested department popup or fixture card.
     departments_js = (DIST / "assets/site/js/departments.js").read_text(encoding="utf-8")
     fixtures_js = (DIST / "assets/site/js/match-calendar.js").read_text(encoding="utf-8")
