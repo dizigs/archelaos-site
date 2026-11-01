@@ -34,13 +34,25 @@ function media(x,cls){
 function info(x){return {title:x.title,summary:x.summary,href:'news.html?article='+encodeURIComponent(x.id)}}
 function heart(x,cls){return window.ArchelaosFavorites?.button('news',x.id,cls,info(x))||document.createElement('span')}
 function meta(x){const m=document.createElement('div');m.className='an-meta';for(const value of [label(x),x.sport,fmt(x.date)]){const s=document.createElement('span');s.textContent=value;m.append(s)}return m}
+function articleLink(x,cls){
+ const a=document.createElement('a');
+ a.className=cls;
+ a.href='/news.html?article='+encodeURIComponent(x.id);
+ a.setAttribute('aria-label',t('Άνοιγμα είδησης: ','Open article: ')+x.title);
+ // Keep ordinary click inside the modal; preserve browser new-tab gestures.
+ a.addEventListener('click',e=>{
+  if(e.button!==0||e.ctrlKey||e.metaKey||e.shiftKey||e.altKey)return;
+  e.preventDefault();show(x.id);
+ });
+ return a;
+}
 function card(x){
  const el=document.createElement('article');el.className='an-card';
  const m=media(x,'an-card-media'),content=document.createElement('div');content.className='an-card-text';
  const h=document.createElement('h3');h.textContent=x.title;const p=document.createElement('p');p.textContent=x.summary;
  const foot=document.createElement('div');foot.className='an-card-foot';
- const open=document.createElement('button');open.type='button';open.className='an-open';open.textContent=t('Διάβασε περισσότερα','Read more');open.addEventListener('click',()=>show(x.id));
- foot.append(open,heart(x,'an-card-heart'));content.append(meta(x),h,p,foot);el.append(m,content);
+ foot.append(heart(x,'an-card-heart'));content.append(meta(x),h,p,foot);
+ el.append(m,content,articleLink(x,'an-card-hit'));
  return el;
 }
 function draw(){
@@ -54,8 +66,7 @@ function featured(){
  const article=document.createElement('article');article.className='an-feature-card';const m=media(x,'an-feature-media');
  const content=document.createElement('div');content.className='an-feature-text';
  const h=document.createElement('h2');h.textContent=x.title;const p=document.createElement('p');p.textContent=x.summary;
- const open=document.createElement('button');open.type='button';open.className='an-primary';open.textContent=t('Δες την είδηση','Read the story');open.addEventListener('click',()=>show(x.id));
- content.append(meta(x),h,p,open);article.append(m,content);$('an-feature').replaceChildren(article);
+ content.append(meta(x),h,p);article.append(m,content,articleLink(x,'an-feature-hit'));$('an-feature').replaceChildren(article);
 }
 let closing=false;
 function show(id){
