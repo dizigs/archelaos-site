@@ -37,17 +37,21 @@ def fetch(base: str, route: str) -> tuple[bytes, dict]:
     for attempt in range(2):
         try:
             req = Request(base + route, headers={"User-Agent": USER_AGENT, "Accept": "*/*"})
-            with urlopen(req, timeout=18) as response:
+            with urlopen(req, timeout=8) as response:
+                landed = urlsplit(response.geturl())
+                wanted = urlsplit(base)
+                if landed.scheme != wanted.scheme or landed.netloc != wanted.netloc:
+                    raise RuntimeError("Unexpected redirect outside verified site")
                 if response.status != 200:
                     raise RuntimeError(f"HTTP {response.status}")
                 data = response.read(MAX_BODY + 1)
                 if len(data) > MAX_BODY:
                     raise RuntimeError("Response exceeds 12 MiB")
-                return data, dict(response.headers.items())
+                return data, {k.casefold(): v for k, v in response.headers.items()}
         except (HTTPError, URLError, TimeoutError, RuntimeError) as error:
             last = error
             if attempt == 0:
-                time.sleep(2)
+                time.sleep(1)
     raise RuntimeError(f"{route}: {last}")
 
 
@@ -65,8 +69,13 @@ def audit(base: str) -> dict:
             return None, {}
 
     pages = {}
+    # When the homepage itself is unavailable, fail immediately rather than
+    # spending minutes on dozens of follow-up requests during an outage.
+    home, home_headers = check("/")
+    if home is None:
+        return report
     for route in PAGES:
-        body, headers = check(route)
+        body, headers = (home, home_headers) if route == "/" else check(route)
         if body is None:
             continue
         html = body.decode("utf-8", errors="replace")
@@ -82,7 +91,7 @@ def audit(base: str) -> dict:
             report["errors"].append(f"{route}: responsive CSS missing")
         if "/assets/site/js/shell.js" not in html:
             report["errors"].append(f"{route}: common navigation script missing")
-        if not headers.get("Cache-Control") and route != "/":
+        if not headers.get("cache-control") and route != "/":
             report["warnings"].append(f"{route}: Cache-Control not returned")
         # Fingerprints prevent desktop and mobile from loading different stale assets.
         for asset in re.findall(r'["\x27](/assets/site/(?:css|js)/[\w./-]+\.(?:css|js))(?:\?v=([a-f0-9]{12}))?["\x27]', html):

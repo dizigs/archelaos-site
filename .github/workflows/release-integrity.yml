@@ -26,5 +26,9 @@ jobs:
         run: node rebuild/tests/ai_worker.cjs
       - name: Verify public-feed intake without network or scraping
         run: python rebuild/tests/public_mentions.py
+      - name: Verify live-site monitor without network
+        run: python rebuild/tests/live_site_health.py
+      - name: Verify public archive snapshot matches generated release
+        run: python rebuild/tests/public_snapshot.py
       - name: Verify generated HTML and data
         run: python rebuild/tools/verify_release.py
