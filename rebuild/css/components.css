@@ -263,3 +263,29 @@ body.arch-a11y-calm *,body.arch-a11y-calm *::before,body.arch-a11y-calm *::after
 /* Legacy biography inline footer styling must not center the shared footer. */
 .arch-footer{text-align:left}
 .arch-header img{margin-right:0;vertical-align:baseline}
+
+
+/* 2026-11-01 Mobile floating tool controls: always fully visible above safe area. */
+.arch-a11y-launch,.arch-back-to-top{
+ position:fixed!important;top:auto!important;bottom:max(24px,env(safe-area-inset-bottom))!important;
+ width:54px;height:54px;min-width:54px;min-height:54px;
+ border:2px solid #bda16a!important;box-shadow:0 5px 18px #09271c4d!important;
+ background:#f8f3e5!important;color:#073d2a!important;z-index:5000!important;
+ display:grid;place-items:center;line-height:1!important;opacity:1;
+ -webkit-tap-highlight-color:transparent;touch-action:manipulation;
+}
+.arch-a11y-launch{left:max(17px,env(safe-area-inset-left))!important}
+.arch-back-to-top{right:max(17px,env(safe-area-inset-right))!important}
+.arch-a11y-launch svg,.arch-back-to-top svg{width:29px;height:29px;stroke:currentColor;fill:none;stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round}
+.arch-back-to-top[hidden]{display:none!important}
+@media(max-width:600px){
+ .arch-a11y-launch,.arch-back-to-top{
+  bottom:max(24px,env(safe-area-inset-bottom))!important;
+  width:48px;height:48px;min-width:48px;min-height:48px;padding:9px;
+  border-width:2px!important;box-shadow:0 4px 17px #09271c61!important;
+ }
+ .arch-a11y-launch{left:max(14px,env(safe-area-inset-left))!important}
+ .arch-back-to-top{right:max(14px,env(safe-area-inset-right))!important}
+ .arch-a11y-launch svg,.arch-back-to-top svg{width:26px;height:26px}
+ .arch-a11y-panel{max-height:calc(100dvh - 24px);overflow:auto}
+}
