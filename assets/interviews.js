@@ -47,7 +47,7 @@ function open(id){
 $('close').addEventListener('click',()=>$('dialog').close());
 $('dialog').addEventListener('click',e=>{if(e.target===$('dialog'))$('dialog').close()});
 $('dialog').addEventListener('close',()=>{lastFocus?.focus?.({preventScroll:true});const url=new URL(location.href);url.searchParams.delete('record');history.replaceState(null,'',url)});
-fetch('interviews.json',{cache:'no-cache'}).then(r=>r.ok?r.json():Promise.reject(Error('HTTP '+r.status))).then(d=>{
+fetch('interviews.json?v=20261101-full-interviews-3',{cache:'no-store'}).then(r=>r.ok?r.json():Promise.reject(Error('HTTP '+r.status))).then(d=>{
  if(!Array.isArray(d.items))throw Error('Bad dataset');
  S.items=d.items;$('totalBadge').textContent=S.items.length+' '+tr('ΤΕΚΜΗΡΙΑ','RECORDS');
  const q=new URLSearchParams(location.search);S.person=q.get('person');S.record=q.get('record');
