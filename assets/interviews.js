@@ -5,9 +5,9 @@ const norm=x=>String(x??'').toLocaleLowerCase('el').normalize('NFD').replace(/[\
 const en=()=>document.documentElement.lang==='en'||document.body.classList.contains('lang-en');
 const tr=(el,english)=>en()?english:el;
 const kinds={interview:['Συνέντευξη','Interview'],statement:['Δήλωση','Statement'],report:['Δημοσιογραφικό ρεπορτάζ','Press report']};
-const sports={handball:['Χάντμπολ','Handball'],gymnastics:['Ενόργανη','Gymnastics'],track:['Στίβος','Athletics'],volleyball:['Βόλεϊ','Volleyball'],basketball:['Μπάσκετ','Basketball'],administration:['Διοίκηση','Administration']};
+const sports={handball:['Χάντμπολ','Handball'],gymnastics:['Ενόργανη','Gymnastics'],track:['Στίβος','Athletics'],volleyball:['Βόλεϊ','Volleyball'],basketball:['Μπάσκετ','Basketball'],shooting:['Σκοποβολή','Shooting'],archery:['Τοξοβολία','Archery'],administration:['Διοίκηση','Administration']};
 let lastFocus=null;
-const hay=x=>norm([x.name,x.event,x.context,x.source,x.quote,(x.qa||[]).map(v=>v.question+' '+v.answer).join(' ')].join(' '));
+const hay=x=>norm([x.name,x.event,x.context,x.source,x.quote,x.searchKeywords,(x.qa||[]).map(v=>v.question+' '+v.answer).join(' ')].join(' '));
 function resultSet(){
  const q=norm(new URLSearchParams(location.search).get('q')||'');
  return S.items.filter(x=>(!S.person||(x.personIds||[]).includes(S.person))&&(!q||hay(x).includes(q)));
