@@ -354,3 +354,109 @@
 
 /* Contrast-safe gold on the pale Departments portal heading. */
 .new-departments-intro .new-eyebrow{color:#684c21}
+
+
+/* PROMOTION 2026: sports participation takes precedence over club chronology. */
+.new-departments-intro{
+ position:relative;isolation:isolate;overflow:hidden;
+ padding:clamp(84px,9vw,146px) 0;
+ min-height:clamp(530px,53vw,760px);
+ background:radial-gradient(circle at 9% 17%,#fbf7e9 0%,#f5f0e2 42%,#ede5d4 100%);
+ border-block:1px solid #d9caaa;
+}
+.new-departments-intro:before{
+ content:"";position:absolute;pointer-events:none;z-index:-1;right:-10%;bottom:-42%;
+ width:min(65vw,790px);aspect-ratio:1;border:1px solid #ab8b4938;border-radius:50%;
+ box-shadow:0 0 0 40px #d6bd8020,0 0 0 100px #d6bd8010;
+}
+.new-departments-intro-inner{
+ display:grid;grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);
+ align-items:center;justify-content:initial;gap:clamp(35px,5.8vw,90px);
+}
+.new-departments-intro-copy{min-width:0;position:relative;z-index:2}
+.new-departments-intro .new-eyebrow{
+ display:inline-block;margin:0 0 24px;color:#75552a;
+ font-size:clamp(10px,1vw,12px);font-weight:850;letter-spacing:.18em;
+}
+.new-departments-intro h2{
+ max-width:650px;margin:0 0 30px;
+ font:500 clamp(45px,5.2vw,83px)/1.04 Georgia,serif;
+ letter-spacing:-.047em;color:#073d2a;text-wrap:balance;
+}
+.new-departments-intro h2 em{font-style:italic;color:#a17c3b}
+.new-departments-intro p.new-promo-lead{
+ font-size:clamp(17px,1.55vw,21px);line-height:1.66;
+ color:#365343;max-width:580px;margin:0 0 25px;
+}
+.new-departments-intro p.new-promo-sports{
+ font-size:clamp(12px,1.1vw,14px);font-weight:650;line-height:1.95;
+ max-width:590px;color:#48614d;margin:0 0 32px;
+}
+.new-promo-sports span{color:#b18e4c;margin-inline:5px}
+.new-promo-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.new-departments-intro .new-departments-intro-cta,
+.new-departments-intro .new-promo-contact{
+ display:inline-flex;align-items:center;justify-content:center;gap:17px;
+ min-height:58px;padding:16px 21px;border:1px solid #b59051;border-radius:11px;
+ font-weight:800;font-size:14px;line-height:1.3;text-decoration:none;
+ transition:background .2s ease,color .2s ease,transform .2s ease;
+}
+.new-departments-intro .new-departments-intro-cta{background:#073d2a;color:#fff5df;box-shadow:0 12px 25px #052e1e25}
+.new-departments-intro .new-promo-contact{background:#fffcf5;color:#073d2a}
+.new-departments-intro .new-departments-intro-cta:hover{background:#135a3d;transform:translateY(-2px)}
+.new-departments-intro .new-promo-contact:hover{background:#eedfc2;transform:translateY(-2px)}
+.new-departments-intro .new-departments-intro-cta:focus-visible,
+.new-departments-intro .new-promo-contact:focus-visible{outline:3px solid #a77a27;outline-offset:4px}
+.new-promo-photos{
+ position:relative;display:grid;grid-template-columns:1.3fr .75fr;
+ grid-template-rows:repeat(2,minmax(0,1fr));gap:11px;
+ width:100%;height:clamp(390px,43vw,610px);
+ min-width:0;filter:drop-shadow(0 22px 28px #123d2920);
+}
+.new-promo-photo{position:relative;margin:0;min-width:0;min-height:0;overflow:hidden;background:#073d2a;border:5px solid #fffdf6;border-radius:6px}
+.new-promo-photo-main{grid-area:1 / 1 / 3 / 2;border-radius:18px 5px 5px 18px}
+.new-promo-photo-archery{grid-area:1 / 2 / 2 / 3;border-radius:5px 18px 5px 5px}
+.new-promo-photo-gym{grid-area:2 / 2 / 3 / 3;border-radius:5px 5px 18px 5px}
+.new-promo-photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:center;transition:transform .6s ease}
+.new-promo-photo-main img{object-position:52% center}
+.new-promo-photo:after{content:"";position:absolute;inset:38% 0 0;background:linear-gradient(transparent,#001c11aa);pointer-events:none}
+.new-promo-photo figcaption{
+ position:absolute;left:14px;right:10px;bottom:17px;z-index:1;
+ font-size:clamp(10px,1.1vw,12px);font-weight:850;letter-spacing:.1em;
+ color:#fff7df;text-shadow:0 1px 7px #000;
+}
+.new-promo-photo-main figcaption{left:21px;bottom:23px;font-size:15px}
+.new-promo-photo figcaption span{display:block;font-size:11px;letter-spacing:.03em;font-weight:500;margin-top:5px}
+.new-promo-photo-seal{
+ position:absolute;z-index:3;right:-17px;bottom:-24px;
+ width:115px;height:115px;border-radius:50%;
+ border:5px solid #f8f1df;display:flex;align-items:center;justify-content:center;
+ flex-direction:column;background:#073d2a;color:#eed8a2;
+ font:500 39px/.94 Georgia,serif;box-shadow:0 8px 24px #001b1140;
+}
+.new-promo-photo-seal small{font:800 10px/1.2 system-ui,sans-serif;letter-spacing:.07em;margin-top:8px}
+@media(hover:hover){.new-promo-photo:hover img{transform:scale(1.035)}}
+@media(max-width:1023px){
+ .new-departments-intro{padding:75px 0;min-height:0}
+ .new-departments-intro-inner{grid-template-columns:1fr;gap:36px}
+ .new-departments-intro h2{max-width:700px;font-size:clamp(44px,7.5vw,70px)}
+ .new-promo-photos{height:clamp(375px,60vw,520px)}
+}
+@media(max-width:740px){
+ .new-departments-intro{padding:65px 0 83px}
+ .new-departments-intro-inner{align-items:stretch}
+ .new-departments-intro .new-eyebrow{margin-bottom:16px}
+ .new-departments-intro h2{font-size:clamp(40px,10vw,61px);margin-bottom:22px}
+ .new-departments-intro p.new-promo-lead{font-size:17px}
+ .new-promo-actions{flex-direction:column;align-items:stretch}
+ .new-departments-intro .new-departments-intro-cta,
+ .new-departments-intro .new-promo-contact{width:100%;min-height:56px}
+ .new-promo-photos{height:clamp(285px,86vw,425px);gap:7px}
+ .new-promo-photo{border-width:3px}
+ .new-promo-photo-seal{width:80px;height:80px;right:-8px;bottom:-24px;font-size:29px;border-width:3px}
+ .new-promo-photo-seal small{font-size:7px}
+}
+@media(prefers-reduced-motion:reduce){
+ .new-promo-photo img,.new-departments-intro .new-departments-intro-cta,
+ .new-departments-intro .new-promo-contact{transition:none}
+}
