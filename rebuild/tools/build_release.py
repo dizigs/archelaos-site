@@ -372,6 +372,21 @@ def make_release() -> None:
         src = src.replace("/rebuild/data/", "/assets/site/data/")
         script.write_text(src, encoding="utf-8")
 
+    # Fingerprint CSS imports. A new mobile.css must invalidate viewports.css,
+    # otherwise phones can keep stale imported CSS even when the parent changes.
+    viewport_css = OUTPUT / "assets/site/css/viewports.css"
+    viewport_text = viewport_css.read_text(encoding="utf-8")
+    for child in ("mobile", "tablet", "laptop", "desktop", "accessibility"):
+        child_path = OUTPUT / "assets/site/css" / (child + ".css")
+        fingerprint = sha256(child_path.read_bytes()).hexdigest()[:12]
+        needle = 'url("./' + child + '.css")'
+        if needle not in viewport_text:
+            raise ValueError("Responsive stylesheet import missing: " + child)
+        viewport_text = viewport_text.replace(
+            needle, 'url("./' + child + '.css?v=' + fingerprint + '")'
+        )
+    viewport_css.write_text(viewport_text, encoding="utf-8")
+
     pages = METADATA["pages"]
     for entry in pages:
         create_page(entry)
@@ -451,6 +466,29 @@ def make_release() -> None:
         '<p><a href="/" style="color:#073d2a">Επιστροφή στην αρχική ↗</a></p>'
         '</main></body></html>', encoding="utf-8"
     )
+    # Fingerprint every generated HTML reference to our shared CSS and JS,
+    # including all 682 people profiles and the 404 page. This prevents a split
+    # between cached mobile styles and fresh desktop HTML after deployment.
+    static_ref = re.compile(
+        r'(?P<quote>["\\x27])(?P<asset>/assets/site/(?:css|js)/'
+        r'[A-Za-z0-9._/-]+\\.(?:css|js))(?:[?][^"\\x27]*)?(?P=quote)'
+    )
+    fingerprints = {}
+    for page in OUTPUT.rglob("*.html"):
+        source = page.read_text(encoding="utf-8")
+        def rewrite_static_ref(match):
+            asset = match.group("asset")
+            if asset not in fingerprints:
+                local = OUTPUT / asset.lstrip("/")
+                if not local.is_file():
+                    raise FileNotFoundError("Missing linked static asset: " + asset)
+                fingerprints[asset] = sha256(local.read_bytes()).hexdigest()[:12]
+            quote = match.group("quote")
+            return quote + asset + "?v=" + fingerprints[asset] + quote
+        updated = static_ref.sub(rewrite_static_ref, source)
+        if updated != source:
+            page.write_text(updated, encoding="utf-8")
+
     print(f"BUILD OK: {len(pages)} principal pages, {len(profile_files)} profiles, "
           "two sitemaps, a sitemap index, robots.txt and preserved redirects.")
     print("Output: dist/ — not deployed. Production root was not modified.")
