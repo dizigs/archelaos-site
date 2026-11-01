@@ -5,8 +5,8 @@ async function init(){
  if(!title||!link)return;
  try{
   const [calendarResponse,momentResponse]=await Promise.all([
-   fetch('/rebuild/data/on-this-day.json'),
-   fetch('/rebuild/data/moments.json')
+   fetch('/assets/site/data/on-this-day.json',{cache:'no-store'}),
+   fetch('/assets/site/data/moments.json',{cache:'no-store'})
   ]);
   if(!calendarResponse.ok||!momentResponse.ok)throw Error('Archive unavailable');
   const calendar=await calendarResponse.json(),archive=await momentResponse.json();
