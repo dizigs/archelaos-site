@@ -53,6 +53,19 @@ def inspect():
     assert "museum-interviews" in museum_tour and "arch-press-voices" not in museum_tour, "The Museum tour must point to the single Voices card"
     museum_js=(REBUILD/"js/museum.js").read_text(encoding="utf-8")
     assert "mu-press-grid" not in museum_js, "Unused press grid binder remains"
+    departments_html = (REBUILD/"tmimata.html").read_text(encoding="utf-8")
+    departments_css = (REBUILD/"css/departments.css").read_text(encoding="utf-8")
+    sports = ("handball","track","archery","shooting","gymnastics","volleyball","wrestling","swimming","basketball")
+    assert departments_html.count('class="dp-card ') == 10, "Expected exactly nine sport cards and one historical card"
+    for sport in sports:
+        assert f'data-dp-open="{sport}"' in departments_html, f"Missing sport card: {sport}"
+        assert f'[data-dp-open="{sport}"]' in departments_css, f"Missing icon assignment: {sport}"
+        svg = (REBUILD/"images/sport-silhouettes"/(sport+".svg")).read_text(encoding="utf-8")
+        assert svg.count("<path") >= 1 and "Apache License 2.0" in svg, f"Sports pictogram not migrated: {sport}"
+    assert 'data-dp-open="inactive-depts"' in departments_html, "Historical departments card missing"
+    historic = departments_html.split('data-dp-open="inactive-depts"',1)[1].split('</button>',1)[0]
+    assert 'class="dp-watermark"' in historic and 'class="dp-silhouette"' not in historic, "Historical card must show a year, not a sports pictogram"
+    assert "filter:blur(" not in departments_css.split("/* Nine high-clarity professional sports pictograms.",1)[-1], "Sports pictograms must remain crisp"
     # Responsive CSS must stay modular, and every declared import must exist.
     viewport_css = (REBUILD/"css/viewports.css").read_text(encoding="utf-8")
     for name in ("mobile.css", "tablet.css", "laptop.css", "desktop.css", "accessibility.css"):
