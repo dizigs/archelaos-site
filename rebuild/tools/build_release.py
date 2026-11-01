@@ -124,7 +124,7 @@ def create_page(entry: dict) -> None:
             digest = sha256((OUTPUT / "assets/site" / asset).read_bytes()).hexdigest()[:12]
             asset_url = "/assets/site/" + asset
             raw = re.sub(
-                r'(' + re.escape(asset_url) + r')(?:\\?[^"\\x27]*)?',
+                r'(' + re.escape(asset_url) + r')(?:[?][^"\x27]*)?',
                 lambda match, digest=digest: match.group(1) + "?v=" + digest,
                 raw,
             )
