@@ -2960,7 +2960,7 @@ html.arch-safe-boot body *:not(svg):not(path){
  animation:none!important;transition:none!important;backdrop-filter:none!important;
 }
 </style>
-<link rel="stylesheet" href="/assets/favorites.css"><link rel="stylesheet" href="/assets/home-news.css?v=20261101"></head>
+<link rel="stylesheet" href="/assets/favorites.css"><link rel="stylesheet" href="/assets/home-news.css?v=20261101"><style id="arch-dept-heart-placement">#deptHistoryModal .modal-header .arch-dept-favorite{position:relative!important;flex:0 0 42px!important;z-index:3!important;margin-left:auto!important;margin-right:8px!important;align-self:center!important}#deptHistoryModal .modal-header .arch-dept-favorite+.modal-close-btn{flex:0 0 auto!important}@media(max-width:540px){#deptHistoryModal .modal-header{gap:8px!important}#deptHistoryModal .modal-header .arch-dept-favorite{margin-right:0!important}}</style></head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow">
 <!-- ANIMATED CONTOUR WAVES -->
 <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-75">
@@ -4447,6 +4447,19 @@ html.arch-safe-boot body *:not(svg):not(path){
         const info = deptHistories[deptKey];
         if (!info) return;
 
+        // Department popup favorites belong to the department, not to HOF profiles.
+        if (window.ArchelaosFavorites) {
+          const header = deptHistoryModal.querySelector('.modal-header');
+          const closeButton = header?.querySelector('.modal-close-btn');
+          header?.querySelector('.arch-dept-favorite')?.remove();
+          const heart = window.ArchelaosFavorites.button(
+            'page', 'department-' + deptKey, 'arch-dept-favorite',
+            {title: 'Αθλητικό Τμήμα · ' + info.title_el,
+             summary: info.highlight_el || 'Πληροφορίες και ιστορία του τμήματος',
+             href: 'index.html?department=' + encodeURIComponent(deptKey) + '#departments'}
+          );
+          if (closeButton) closeButton.before(heart); else header?.append(heart);
+        }
         deptModalTitle.textContent = currentLang === 'en' ? info.title_en : info.title_el;
         deptModalHighlightText.textContent = currentLang === 'en' ? info.highlight_en : info.highlight_el;
         deptModalText.innerHTML = currentLang === 'en' ? info.text_en : info.text_el;
@@ -4463,6 +4476,12 @@ html.arch-safe-boot body *:not(svg):not(path){
         };
         deptHistoryModal.classList.add('is-open');
         document.body.style.overflow = 'hidden';
+      }
+
+      // Saved department links reopen the information panel on the same page.
+      const savedDepartment = new URLSearchParams(location.search).get('department');
+      if (savedDepartment && Object.prototype.hasOwnProperty.call(deptHistories,savedDepartment)) {
+        setTimeout(() => openDeptHistoryModal(savedDepartment), 0);
       }
 
       function closeDeptHistoryModal() {
