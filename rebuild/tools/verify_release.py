@@ -326,9 +326,9 @@ def verify() -> None:
     # Search must expose the approved match calendar and department cards.
     catalog_js = (DIST / "assets/site/js/archive-catalog.js").read_text(encoding="utf-8")
     search_html = (DIST / "search.html").read_text(encoding="utf-8")
-    for required in ("match-schedule", "department", "fixture", "owner_approved"):
+    for required in ("match-schedule", "department", "fixture", "owner_approved", "news.json", "news:'/news.html?article='"):
         assert required in catalog_js, "Search catalog missing " + required
-    for category in ("department", "fixture", "person", "interview"):
+    for category in ("department", "fixture", "news", "person", "interview"):
         assert f'data-sr-filter="{category}"' in search_html, "Missing search filter " + category
     assert "/rebuild/" not in catalog_js, "Preview-only search data URL in production"
 
