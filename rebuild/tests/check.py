@@ -65,7 +65,9 @@ def inspect():
     assert 'data-dp-open="inactive-depts"' in departments_html, "Historical departments card missing"
     historic = departments_html.split('data-dp-open="inactive-depts"',1)[1].split('</button>',1)[0]
     assert 'class="dp-watermark"' in historic and 'class="dp-silhouette"' not in historic, "Historical card must show a year, not a sports pictogram"
-    assert "filter:blur(" not in departments_css.split("/* Nine high-clarity professional sports pictograms.",1)[-1], "Sports pictograms must remain crisp"
+    assert "filter:blur(5px)" in departments_css, "Classic sports cards should use blurred photo backdrops"
+    assert ".dp-silhouette{display:none!important}" in departments_css, "Sports pictograms should be hidden in classic photo cards"
+    assert 'class="dp-cta"' not in departments_html, "Sport cards must be entirely clickable, without CTA text"
     contribution=(REBUILD/"contribute.html").read_text(encoding="utf-8")
     contribution_js=(REBUILD/"js/contribute-guide.js").read_text(encoding="utf-8")
     for selector in ("ac-attachments", "ac-archive-link", "ac-sender-email", "ac-private-consent", "ac-guide-send"):
