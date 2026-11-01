@@ -7,6 +7,7 @@ from urllib.parse import urlsplit
 from xml.etree import ElementTree as ET
 import json
 import re
+from datetime import date
 
 ROOT = Path(__file__).resolve().parents[2]
 DIST = ROOT / "dist"
@@ -154,6 +155,26 @@ def verify() -> None:
     strip_version = lambda html: shared_ref.sub(lambda match: match.group(1), html)
     assert strip_version(built_news) == strip_version(src_news), "News page differs beyond expected CSS/JS cache versions"
 
+    # Prevent broken article deep links and duplicate cards without imposing
+    # editorial approval or a fixed number of published articles.
+    news_ids = [a.get("id") for a in news["items"]]
+    assert len(news_ids) == len(set(news_ids)), "Duplicate News IDs (article URLs must be unique)"
+    for article in news["items"]:
+        raw_date = article.get("date", "")
+        try:
+            valid_date = date.fromisoformat(raw_date)
+            assert valid_date.isoformat() == raw_date
+        except (TypeError, ValueError, AssertionError):
+            raise AssertionError("Invalid News date (YYYY-MM-DD): " + str(article.get("id")))
+        assert isinstance(article.get("body"), list) and article["body"], "News article has no body: " + str(article.get("id"))
+        assert article.get("source"), "News article missing source attribution: " + str(article.get("id"))
+        assert re.fullmatch(r"[a-zA-Z0-9._:-]{1,170}", article.get("id", "")), "Unsafe News article deep-link ID"
+    seen_news_titles = set()
+    for article in news["items"]:
+        fingerprint = (re.sub(r"\\s+", " ", article["title"]).casefold().strip(), article["date"])
+        if fingerprint in seen_news_titles:
+            print("[QA WARNING] Potential repeated News title/date: " + article["id"])
+        seen_news_titles.add(fingerprint)
     for article in news["items"]:
         assert article.get("id") and article.get("title") and article.get("date"), "Invalid news item"
         assert all(pid in ids for pid in article.get("personIds", [])), "News links to missing Hall biography: " + article["id"]
@@ -176,6 +197,15 @@ def verify() -> None:
             parts = urlsplit(photo)
             assert parts.scheme == "https" and parts.hostname and not parts.username and not parts.password, "Invalid remote news photo URL: " + article["id"]
             assert photo == article.get("imageSourceUrl"), "Original remote news photo lacks source trace"
+    # New external photography is an optional enhancement. Unknown domains
+    # are allowed; any unavailable image is handled as a visual fallback.
+    # Build still rejects unsafe URLs and missing local image files above.
+    assert (DIST / "assets/hof-inplace.js").is_file(), "Shared Hall of Fame popup script missing"
+    for entry in main:
+        public_page = (DIST / entry["file"]).read_text(encoding="utf-8")
+        assert '/assets/hof-inplace.js' in public_page, "In-place HOF biographies not loaded: " + entry["file"]
+    assert 'favorite:{type:\'page\',id:\'department-\'' in (DIST/"assets/site/js/departments.js").read_text(encoding="utf-8"), "Department detail popups lost favorites"
+    assert "'page'" in (DIST/"assets/site/js/favorites.js").read_text(encoding="utf-8"), "Saved department favorites unsupported"
     # News card, article and home-news links have no decorative arrows.
     for asset in (DIST / "news.html", DIST / "assets/news.js", DIST / "assets/home-news.js"):
         content = asset.read_text(encoding="utf-8")
