@@ -193,9 +193,10 @@ def verify() -> None:
     assert 'class="ahn-more"' in home_js and 'id="ahn-grid"' in home_js, "Homepage All News CTA missing"
     assert home_js.index('id="ahn-grid"') < home_js.index('class="ahn-more"'), "Homepage All News CTA not placed after the cards"
     assert "Διαβάστε την είδηση" not in home_js, "Redundant homepage card caption restored"
-    # Pagination is always in groups of nineteen, with a shareable URL and
+    # Pagination is always in groups of eighteen, with a shareable URL and
     # full-list filtering before slicing. Avoid accidental regression to 37 cards.
     assert "PAGE_SIZE=18" in news_js, "News pagination size changed"
+    assert "x.id!==lead?.id" in news_js, "Highlighted article duplicated in the news grid"
     assert "items.slice((state.page-1)*PAGE_SIZE,state.page*PAGE_SIZE)" in news_js, "News pagination not applied"
     assert "renderPagination(pageCount)" in news_js, "News page-number links not rendered"
     assert "window.addEventListener('popstate'" in news_js, "News page history navigation missing"
