@@ -1,4 +1,4 @@
-/* Local-only contribution guide. No fetch, persistence, API or form submission. */
+/* Guided contribution: private draft stays local until explicit secure send or manual email. */
 (function(){
 'use strict';
 let verificationRequest=null;
@@ -26,7 +26,7 @@ const credit=()=>{
 };
 function validSender(){
  const name=credit().sender;
- return name.length>=2&&name.length<=120&&!/[\\r\\n]/.test(name);
+ return name.length>=2&&name.length<=120&&!/[\r\n]/.test(name);
 }
 function validateAndFocus(){
  if(validSender())return true;
@@ -44,6 +44,9 @@ function draft(){
  const c=credit();
  const entries=[
   ['Ονοματεπώνυμο αποστολέα (εσωτερική καταγραφή)',c.sender],
+  ['Email επικοινωνίας',clean($('sender-email').value)],
+  ['Τηλέφωνο επικοινωνίας',clean($('sender-phone').value)],
+  ...(clean($('archive-link').value)?[['Σύνδεσμος Google Drive',clean($('archive-link').value)]]:[]),
   ['Δημόσια αναφορά ονόματος',c.requested?'ΝΑΙ — επιτρέπω την αναφορά εφόσον εγκριθεί το υλικό':'ΟΧΙ — χωρίς δημόσια ονομαστική αναφορά'],
   ...(c.requested?[['Όνομα δημόσιας αναφοράς',c.displayName]]:[]),
   ['Τύπος υλικού',values.type],
@@ -85,6 +88,94 @@ async function copy(){
   status.textContent='Η αντιγραφή δεν επιτράπηκε από τον browser. Χρησιμοποιήστε το άνοιγμα email.';
  }
 }
+
+function validateArchiveLink(){
+ const raw=clean($('archive-link').value);
+ if(!raw)return true;
+ try{
+  const url=new URL(raw);
+  return url.protocol==='https:'&&['drive.google.com','docs.google.com'].includes(url.hostname)&&
+    !url.username&&!url.password&&raw.length<=2048;
+ }catch{return false}
+}
+function validateTransfer(){
+ const status=$('guide-status');
+ if(!validateAndFocus())return false;
+ const email=$('sender-email');
+ if(!email.value.trim()||!email.checkValidity()){
+  status.textContent='Συμπληρώστε έγκυρο email επικοινωνίας.';
+  email.focus();return false;
+ }
+ if(!$('private-consent').checked){
+  status.textContent='Για την αποστολή χρειάζεται η συγκατάθεσή σας για επικοινωνία σχετικά με το υλικό.';
+  $('private-consent').focus();return false;
+ }
+ if(!validateArchiveLink()){
+  status.textContent='Ο σύνδεσμος πρέπει να είναι έγκυρο HTTPS URL από το Google Drive ή Google Docs.';
+  $('archive-link').focus();return false;
+ }
+ const files=Array.from($('attachments').files||[]);
+ if(files.length>5||files.some(file=>file.size>10*1024*1024)||
+    files.reduce((sum,file)=>sum+file.size,0)>15*1024*1024){
+  status.textContent='Επιλέξτε έως 5 αρχεία, μέχρι 10 MB το καθένα και 15 MB συνολικά.';
+  $('attachments').focus();return false;
+ }
+ const message=draft().body;
+ if(message.length>5000){
+  status.textContent='Η περιγραφή είναι μεγάλη. Συντομεύστε την ώστε να είναι έως 5.000 χαρακτήρες.';
+  $('details').focus();return false;
+ }
+ return true;
+}
+async function sendSecure(){
+ if(!validateTransfer())return;
+ const status=$('guide-status'),submit=$('guide-send');
+ const files=Array.from($('attachments').files||[]);
+ submit.disabled=true;
+ try{
+  status.textContent='Έλεγχος διαθέσιμης ασφαλούς αποστολής…';
+  let ready=false;
+  try{
+   const probe=await fetch('/api/contact',{method:'GET',cache:'no-store'});
+   if(probe.ok){
+    const capability=await probe.json();
+    ready=capability?.ready===true;
+   }
+  }catch(_){/* Not connected to Pages Functions or endpoint temporarily unavailable. */}
+  if(!ready){
+   status.textContent=files.length
+    ?'Η ασφαλής αποστολή αρχείων δεν είναι διαθέσιμη. Δεν στάλθηκε τίποτα. Χρησιμοποιήστε το email και επισυνάψτε τα αρχεία από την εφαρμογή σας ή προσθέστε σύνδεσμο Drive.'
+    :'Η ασφαλής αποστολή δεν είναι διαθέσιμη. Δεν στάλθηκε τίποτα. Μπορείτε να χρησιμοποιήσετε το προσυμπληρωμένο email.';
+   return;
+  }
+  const payload=new FormData();
+  payload.set('name',credit().sender);
+  payload.set('email',clean($('sender-email').value));
+  payload.set('phone',clean($('sender-phone').value));
+  payload.set('topic','archive');
+  payload.set('message',draft().body);
+  payload.set('archiveLink',clean($('archive-link').value));
+  payload.set('consent','true');
+  for(const file of files)payload.append('attachments',file,file.name);
+  status.textContent='Αποστολή προς το ιστορικό αρχείο…';
+  try{
+   const response=await fetch('/api/contact',{method:'POST',body:payload});
+   if(response.ok){
+    status.textContent='Η συνεισφορά σας στάλθηκε επιτυχώς στο ιστορικό αρχείο. Ευχαριστούμε!';
+    $('attachments').value='';
+    return;
+   }
+   status.textContent=response.status===413
+    ?'Η αποστολή δεν έγινε: τα αρχεία υπερβαίνουν το επιτρεπόμενο μέγεθος. Δοκιμάστε μικρότερα αρχεία ή σύνδεσμο Drive.'
+    :response.status>=400&&response.status<500
+     ?'Η αποστολή δεν έγινε. Ελέγξτε τα στοιχεία, τα συνημμένα και τον σύνδεσμο Drive.'
+     :'Ο διακομιστής δεν ολοκλήρωσε την αποστολή. Δεν υπάρχει επιβεβαίωση παραλαβής· χρησιμοποιήστε email.';
+  }catch(_){
+   status.textContent='Δεν επιβεβαιώθηκε η αποστολή λόγω προβλήματος σύνδεσης. Ελέγξτε πριν επαναλάβετε, για να αποφύγετε διπλή αποστολή.';
+  }
+ }finally{submit.disabled=false}
+}
+
 async function fillVerificationContext(){
  const id=new URLSearchParams(location.search).get('verification');
  if(!id||!/^request-[a-z-]{8,100}$/.test(id))return;
@@ -115,11 +206,12 @@ function init(){
   if(linkedKind==='photo')$('type').value='Φωτογραφία';
   if(linkedKind==='moment'||linkedKind==='story'||linkedKind==='exhibit'||linkedKind==='event')$('type').value='Ιστορική μαρτυρία';
  }
- for(const id of [...fields,'sender-name','credit-name'])$(id).addEventListener('input',()=>{refresh();$('guide-status').textContent='';});
+ for(const id of [...fields,'sender-name','sender-email','sender-phone','archive-link','attachments','credit-name'])$(id).addEventListener('input',()=>{refresh();$('guide-status').textContent='';});
  $('credit-consent').addEventListener('change',updateCredit);
  $('guide-email').addEventListener('click',event=>{if(!validateAndFocus())event.preventDefault();});
  updateCredit();
  $('guide-copy').addEventListener('click',copy);
+ $('guide-send').addEventListener('click',sendSecure);
  refresh();
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
