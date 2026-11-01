@@ -223,3 +223,10 @@
 .dp-grid .dp-green .dp-history-hint{color:#f3e0b7}
 .dp-grid .dp-cream .dp-history-hint{color:#28543b}
 @media(max-width:650px){.dp-grid .dp-card:not([data-dp-open="inactive-depts"]){min-height:290px;padding-bottom:25px}}
+
+/* High-specificity contrast fix for live sports cards: legible status over photo overlays. */
+body .dp-content .dp-grid .dp-card .dp-current-status{z-index:10!important;position:relative!important;display:block!important;opacity:1!important;visibility:visible!important;color:#17452f!important;background:#fffaf0!important;border:1px solid #b79a61!important;border-radius:12px!important;box-shadow:0 5px 18px #082b1c26!important;text-shadow:none!important;font:600 13px/1.5 Inter,Arial,sans-serif!important;padding:11px 17px!important;margin:10px auto 4px!important;max-width:90%!important}
+body .dp-content .dp-grid .dp-card .dp-current-status strong{color:#785520!important;opacity:1!important;font-weight:800!important;font-size:14px!important}
+body .dp-content .dp-grid .dp-card .dp-history-hint{z-index:10!important;position:relative!important;display:block!important;opacity:1!important;visibility:visible!important;padding:7px 12px!important;border-radius:9px!important;font:700 13px/1.5 Inter,Arial,sans-serif!important;text-shadow:none!important}
+body .dp-content .dp-grid .dp-card.dp-green .dp-history-hint{color:#ffe5a9!important;background:#063020d9!important}
+body .dp-content .dp-grid .dp-card.dp-cream .dp-history-hint{color:#06432c!important;background:#fff9e8e8!important}
