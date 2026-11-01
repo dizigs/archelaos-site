@@ -132,10 +132,10 @@ function show(id){
  for(const text of x.body||[]){const p=document.createElement('p');p.textContent=text;detail.append(p)}
  const source=document.createElement('div');source.className='an-source';source.textContent=t('Πηγή: ','Source: ')+x.source;const links=document.createElement('div');links.className='an-links';
  if(x.sourceUrl&&/^https:\/\//.test(x.sourceUrl)){const a=link(x.sourceUrl,t('Αρχικό δημοσίευμα','Original article'));a.target='_blank';a.rel='noopener noreferrer';links.append(a)}
- for(const id of x.personIds||[]){const a=link('hall-of-fame.html?person='+encodeURIComponent(id),'');a.dataset.personId=id;a.dataset.personName='true';links.append(a)}
+ for(const id of x.personIds||[]){const a=link('/hall-of-fame.html?person='+encodeURIComponent(id),'');a.dataset.personId=id;a.dataset.personName='true';a.setAttribute('aria-haspopup','dialog');a.setAttribute('title',t('Άνοιγμα βιογραφικού εδώ, πάνω από την είδηση','Open biography here over the article'));links.append(a)}
  if(links.querySelector('[data-person-name]')){
-  fetch('/hall-of-fame-people.json',{cache:'no-store'}).then(r=>r.ok?r.json():Promise.reject(Error('Hall data unavailable'))).then(data=>{
-   const names=new Map((data.people||[]).map(p=>[p.id,p.name]));
+  window.ArchelaosBio.load().then(data=>{
+   const names=new Map(data.people.map(p=>[p.id,p.name]));
    links.querySelectorAll('[data-person-name]').forEach(a=>{a.textContent=names.get(a.dataset.personId)||t('Βιογραφικό','Biography')});
   }).catch(()=>{links.querySelectorAll('[data-person-name]').forEach(a=>{a.textContent=t('Βιογραφικό','Biography')})});
  }
@@ -145,6 +145,22 @@ function show(id){
  const dialog=$('an-dialog');if(!dialog.open)dialog.showModal();$('an-close').focus();
  const url=new URL(location.href);url.searchParams.set('article',x.id);history.replaceState(null,'',url)
 }
+// A second *native* showModal() joins the browser top layer above the news
+// dialog. No z-index hacks, navigation or custom body scroll lock are needed.
+$('an-detail').addEventListener('click',async event=>{
+ const a=event.target.closest?.('a[data-person-id]');
+ if(!a||event.defaultPrevented||event.button!==0||event.ctrlKey||event.metaKey||event.shiftKey||event.altKey||a.target==='_blank')return;
+ event.preventDefault();
+ try{
+  const opened=await window.ArchelaosBio.open(a.dataset.personId);
+  if(!opened)throw Error('Biography not found');
+ }catch(err){
+  console.warn('In-place biography:',err);
+  let status=$('an-bio-error');
+  if(!status){status=document.createElement('p');status.id='an-bio-error';status.className='an-bio-error';status.setAttribute('role','status');$('an-detail').append(status)}
+  status.textContent=t('Το βιογραφικό δεν είναι προσωρινά διαθέσιμο. Η είδηση παραμένει ανοιχτή.','Biography temporarily unavailable. The article remains open.');
+ }
+});
 const dialog=$('an-dialog');
 $('an-dialog-heart').addEventListener('click',()=>{if(!active||!window.ArchelaosFavorites)return;window.ArchelaosFavorites.toggle('news',active.id,info(active));$('an-dialog-heart').querySelector('span').textContent=window.ArchelaosFavorites.has('news',active.id)?'♥':'♡'});
 $('an-close').addEventListener('click',()=>dialog.close());
