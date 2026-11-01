@@ -236,3 +236,22 @@ body .dp-content .dp-grid .dp-card{display:flex!important;align-items:center!imp
 body .dp-content .dp-grid .dp-card .dp-title{position:relative!important;z-index:5!important;display:block!important;max-width:95%!important;margin:auto!important;text-align:center!important;text-wrap:balance!important;font:500 clamp(30px,3.3vw,47px)/1.15 Georgia,serif!important}
 body .dp-content .dp-grid .dp-card .dp-year,body .dp-content .dp-grid .dp-card .dp-description,body .dp-content .dp-grid .dp-card .dp-current-status,body .dp-content .dp-grid .dp-card .dp-history-hint,body .dp-content .dp-grid .dp-card .dp-watermark{display:none!important}
 @media(max-width:720px){body .dp-content .dp-grid .dp-card{min-height:205px!important;padding:24px!important}}
+
+/* Department mini profiles in the shared accessible dialog */
+.arch-dialog-body .dp-profile{width:100%;max-width:850px;margin:auto;color:#173e2d;font-family:Inter,Arial,sans-serif}
+.arch-dialog-body .dp-profile-photo{position:relative;height:clamp(185px,28vw,310px);overflow:hidden;border-radius:17px;background:radial-gradient(circle at 75% 20%,#2c7250,#073d2a 70%);margin:0 0 23px}
+.arch-dialog-body .dp-profile-photo img{width:100%;height:100%;display:block;object-fit:cover}
+.arch-dialog-body .dp-profile-photo::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(0deg,#073d2a70,transparent 60%)}
+.arch-dialog-body .dp-profile-intro{padding:0 2px 15px}
+.arch-dialog-body .dp-profile-eyebrow{font-size:11px!important;font-weight:800!important;letter-spacing:.16em;color:#99773c!important;margin:0 0 9px!important}
+.arch-dialog-body .dp-profile-intro>p:last-child{margin:0!important;line-height:1.75;color:#375747}
+.arch-dialog-body .dp-profile-info{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin:13px 0 25px}
+.arch-dialog-body .dp-profile-field{display:flex;flex-direction:column;gap:9px;padding:18px;border:1px solid #e1d3b6;border-radius:13px;background:#faf6ec}
+.arch-dialog-body .dp-profile-field strong{font-size:14px;color:#16432f}
+.arch-dialog-body .dp-profile-field span{font-size:13px;color:#796c53}
+.arch-dialog-body .dp-profile-actions{display:flex;flex-wrap:wrap;gap:12px;border-top:1px solid #e0d3b8;padding-top:21px}
+.arch-dialog-body .dp-profile-history{appearance:none;cursor:pointer;border:1px solid #073d2a;background:#073d2a;color:#fff5dd;border-radius:11px;padding:13px 19px;font-weight:750;font-size:13px}
+.arch-dialog-body .dp-profile-history:hover{background:#13573c}
+.arch-dialog-body .dp-profile-history:focus-visible{outline:3px solid #b89955;outline-offset:3px}
+.arch-dialog-body .dp-profile-official{display:inline-flex;align-items:center;border:1px solid #d8c7a2;border-radius:11px;padding:13px 16px;color:#736a55;background:#f8f4eb;font-size:12px;font-weight:650}
+@media(max-width:580px){.arch-dialog-body .dp-profile-info{grid-template-columns:1fr 1fr;gap:9px}.arch-dialog-body .dp-profile-field{padding:12px}.arch-dialog-body .dp-profile-photo{height:185px}.arch-dialog-body .dp-profile-actions{flex-direction:column}.arch-dialog-body .dp-profile-history,.arch-dialog-body .dp-profile-official{width:100%;justify-content:center;text-align:center}}
