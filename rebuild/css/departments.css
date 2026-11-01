@@ -146,9 +146,9 @@
 .dp-grid .dp-card:not([data-dp-open="inactive-depts"])::before{
  content:"";position:absolute;inset:-9px;z-index:0;pointer-events:none;
  background-image:var(--dp-photo);background-position:center;background-size:cover;
- filter:blur(2px) grayscale(.32) sepia(.16) saturate(.86);opacity:.72;
+ filter:blur(4px) grayscale(.32) sepia(.16) saturate(.86);opacity:.72;
 }
-.dp-grid .dp-card.dp-green:not([data-dp-open="inactive-depts"])::before{opacity:.68;filter:blur(2px) grayscale(.32) sepia(.12)}
+.dp-grid .dp-card.dp-green:not([data-dp-open="inactive-depts"])::before{opacity:.68;filter:blur(4px) grayscale(.32) sepia(.12)}
 .dp-grid .dp-card:not([data-dp-open="inactive-depts"])::after{
  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
  background:linear-gradient(125deg,#f7f0e2c9 0%,#f7f0e2a6 54%,#f7f0e26b 100%);
