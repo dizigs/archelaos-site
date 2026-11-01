@@ -21,7 +21,7 @@
       "source": "Palmare · 01/11/2026",
       "sourceUrl": "https://www.palmare.gr/me-to-dexi-o-archelaos-katerinis-stin-v%CE%84-ethniki/",
       "personIds": [],
-      "featured": false
+      "featured": true
     },
     {
       "id": "wrestling-meteora-international-2026",
@@ -47,7 +47,7 @@
         "arch-wrest-taxiarhis-liakos",
         "arch-wrest-stavros-tsakiris"
       ],
-      "featured": true
+      "featured": false
     },
     {
       "id": "wrestling-balkan-2026",
