@@ -149,7 +149,7 @@ def verify() -> None:
     src_news = (ROOT / "news.html").read_text(encoding="utf-8")
     built_news = (DIST / "news.html").read_text(encoding="utf-8")
     shared_ref = re.compile(
-        r'(/assets/site/(?:css|js)/[A-Za-z0-9._/-]+\\.(?:css|js))(?:\\?v=[a-f0-9]{12})?'
+        r'(/assets/site/(?:css|js)/[A-Za-z0-9._/-]+[.](?:css|js))(?:[?]v=[a-f0-9]{12})?'
     )
     strip_version = lambda html: shared_ref.sub(lambda match: match.group(1), html)
     assert strip_version(built_news) == strip_version(src_news), "News page differs beyond expected CSS/JS cache versions"
