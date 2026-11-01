@@ -3,7 +3,7 @@
    Cached once per page, no external services, no user data or stored biographies. */
 (function(){'use strict';
 let pending=null;
-const NAMES=['people','moments','stories','home','museum','interviews'];
+const NAMES=['people','moments','stories','home','museum','interviews','match-schedule'];
 const normalize=text=>String(text||'').normalize('NFD')
   .replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('el').replace(/\s+/g,' ').trim();
 const urlFor=(type,id,entity)=>{
@@ -14,6 +14,8 @@ const urlFor=(type,id,entity)=>{
   story:'/stories.html#story-'+value,
   exhibit:'/history.html#archive-'+value,
   interview:'/interviews.html?record='+value,
+  department:'/tmimata.html#sport-'+value,
+  fixture:'/index.html#match-calendar',
   photo:'/index.html#sport-photo-'+encodeURIComponent(String(entity?.key||''))
  };
  return routes[type]||null;
@@ -24,7 +26,9 @@ const LABELS=Object.freeze({
  story:'ΑΦΗΓΗΣΕΙΣ · ΙΣΤΟΡΙΕΣ',
  photo:'ΦΩΤΟΓΡΑΦΙΕΣ · ΑΘΛΗΜΑΤΑ',
  exhibit:'ΨΗΦΙΑΚΟ ΜΟΥΣΕΙΟ · ΕΚΘΕΜΑΤΑ',
- interview:'ΟΙ ΦΩΝΕΣ · ΣΥΝΕΝΤΕΥΞΕΙΣ & ΔΗΛΩΣΕΙΣ'
+ interview:'ΟΙ ΦΩΝΕΣ · ΣΥΝΕΝΤΕΥΞΕΙΣ & ΔΗΛΩΣΕΙΣ',
+ department:'ΑΘΛΗΤΙΚΑ ΤΜΗΜΑΤΑ',
+ fixture:'ΗΜΕΡΟΛΟΓΙΟ · ΑΓΩΝΕΣ'
 });
 function plainText(html){
  const template=document.createElement('template');
@@ -32,7 +36,7 @@ function plainText(html){
  return (template.content.textContent||'').replace(/\s+/g,' ').trim();
 }
 async function create(){
- const [people,moments,stories,home,museum,interviews]=await Promise.all(NAMES.map(async name=>{
+ const [people,moments,stories,home,museum,interviews,schedule]=await Promise.all(NAMES.map(async name=>{
   const response=await fetch('/rebuild/data/'+name+'.json');
   if(!response.ok)throw Error('Archive '+name+' HTTP '+response.status);
   return response.json();
@@ -60,6 +64,13 @@ async function create(){
    m.body.join(' '),m.year,m,[m.title_en,...m.body_en].join(' '));
  stories.stories.forEach((s,i)=>add('story',i+1,s.title,s.sport,
    s.lead+' '+s.text,s.year,s));
+ for(const s of home.sports)add('department',s.key,s.name,'Αθλητικό τμήμα',s.description,'',s);
+ for(const game of schedule.matches||[]){
+  if(game.approval?.status!=='owner_approved')continue;
+  const sport=game.sport==='volleyball'?'Βόλεϊ':game.sport==='handball'?'Χάντμπολ':game.sport;
+  add('fixture',game.id,game.home_team+' – '+game.away_team,sport+' · '+(game.category||''),
+   [game.competition,game.venue,game.status,game.start_at].join(' '),game.start_at?.slice(0,10)||'',game);
+ }
  for(const s of home.sports)add('photo','sport-'+s.key,
    'Φωτογραφία · '+s.name,'Αθλητικό τμήμα · Γ.Α.Σ. Αρχέλαος','', '',s);
  for(const a of [...museum.articles,...museum.press])add(
