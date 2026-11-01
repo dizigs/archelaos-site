@@ -143,6 +143,7 @@ async function verify(){
         throw Error('Interview/statement favorite did not toggle');
        await page.keyboard.press('Escape');
        await page.locator('#dialog').waitFor({state:'hidden'});
+       await page.waitForFunction(()=>!new URL(location.href).searchParams.has('record'),null,{timeout:3000});
       }
       await page.reload({waitUntil:'domcontentloaded'});
       await page.locator('#cards .card[data-id="q1"]').click();
