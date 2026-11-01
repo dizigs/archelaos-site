@@ -1,6 +1,6 @@
 /* News reader: source-led items, shareable deep links, locally saved favorites. */
 (()=>{'use strict';
-const $=id=>document.getElementById(id),PAGE_SIZE=19,state={items:[],category:'all',query:'',page:Math.max(1,Number.parseInt(new URLSearchParams(location.search).get('page')||'1',10)||1)};
+const $=id=>document.getElementById(id),PAGE_SIZE=18,state={items:[],category:'all',query:'',page:Math.max(1,Number.parseInt(new URLSearchParams(location.search).get('page')||'1',10)||1)};
 const en=()=>document.documentElement.lang==='en';
 const t=(a,b)=>en()?b:a;
 const norm=s=>String(s||'').toLocaleLowerCase('el').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/ς/g,'σ');
