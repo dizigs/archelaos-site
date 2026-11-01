@@ -14,6 +14,7 @@ const urlFor=(type,id,entity)=>{
   story:'/stories.html#story-'+value,
   exhibit:'/history.html#archive-'+value,
   interview:'/interviews.html?record='+value,
+  news:'/news.html?article='+value,
   department:'/tmimata.html#sport-'+value,
   fixture:'/index.html?fixture='+value+'#upcoming-matches',
   photo:'/index.html#sport-photo-'+encodeURIComponent(String(entity?.key||''))
@@ -27,6 +28,7 @@ const LABELS=Object.freeze({
  photo:'ΦΩΤΟΓΡΑΦΙΕΣ · ΑΘΛΗΜΑΤΑ',
  exhibit:'ΨΗΦΙΑΚΟ ΜΟΥΣΕΙΟ · ΕΚΘΕΜΑΤΑ',
  interview:'ΟΙ ΦΩΝΕΣ · ΣΥΝΕΝΤΕΥΞΕΙΣ & ΔΗΛΩΣΕΙΣ',
+ news:'ΝΕΑ & ΔΡΑΣΗ',
  department:'ΑΘΛΗΤΙΚΑ ΤΜΗΜΑΤΑ',
  fixture:'ΗΜΕΡΟΛΟΓΙΟ · ΑΓΩΝΕΣ'
 });
@@ -45,6 +47,13 @@ async function create(){
   stories.stories?.length<21||home.sports?.length<8||
   museum.articles?.length<14||museum.press?.length<10||interviews.items?.length<25)
    throw Error('Incomplete canonical sports archive');
+ // News is an independent live collection: if temporarily inaccessible,
+ // people, stories and museum search remain functional.
+ let news={items:[]};
+ try{
+  const response=await fetch('/news.json',{cache:'no-store'});
+  if(response.ok)news=await response.json();
+ }catch(error){console.warn('News unavailable in unified search',error)}
  const records=[],byType=new Map();
  function add(type,id,title,subtitle,body,year,entity,secondary=''){
   const key=String(id),group=byType.get(type)||new Map();
@@ -83,6 +92,12 @@ async function create(){
    'exhibit',a.id,a.title,'Ψηφιακό Μουσείο',
    plainText(a.html),a.period||a.year||'',a
  );
+ for(const article of (Array.isArray(news.items)?news.items:[])){
+  if(article.unverified||!article.id||!article.title||!article.date)continue;
+  add('news',article.id,article.title,article.summary||'',
+    [article.sport,article.source,...(article.body||[])].filter(Boolean).join(' '),
+    article.date.slice(0,4),article);
+ }
  for(const v of interviews.items)add('interview',v.id,v.name.split(' (')[0],v.event,
    [v.context,v.quote,...(v.qa||[]).map(q=>q.question+' '+q.answer)].join(' '),v.year,v,v.source);
  return Object.freeze({
