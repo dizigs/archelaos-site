@@ -14,7 +14,7 @@ function media(x,cls){
  const path=String(x.image||'');
  const local=/^(?:images|assets)\/[a-zA-Z0-9._/-]+\.(?:webp|jpg|jpeg|png)$/.test(path);
  let original=false;
- try{const u=new URL(path);original=u.protocol==='https:'&&['i0.wp.com','i1.wp.com','i2.wp.com','i3.wp.com','pieriasocial.gr','www.handball.org.gr','www.palmare.gr','www.pierianews.gr','odelalis.gr','pieria24.gr'].includes(u.hostname)}catch(_){}
+ try{const u=new URL(path);original=u.protocol==='https:'&&['i0.wp.com','i1.wp.com','i2.wp.com','i3.wp.com','pieriasocial.gr','www.handball.org.gr','www.palmare.gr','www.pierianews.gr','odelalis.gr','pieria24.gr','odialogos.gr','www.odialogos.gr','katerini.gr','www.katerini.gr'].includes(u.hostname)}catch(_){}
  const empty=()=>{
    b.classList.remove('is-emblem');b.classList.add('is-unillustrated');b.replaceChildren();
    const line=document.createElement('span');line.className='an-no-photo';
@@ -170,7 +170,7 @@ $('an-search').addEventListener('input',e=>{state.query=e.target.value;state.pag
 document.querySelectorAll('.an-filter').forEach(b=>b.addEventListener('click',()=>{state.category=b.dataset.category;state.page=1;history.replaceState(null,'',pageUrl(1));document.querySelectorAll('.an-filter').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));draw()}));
 window.addEventListener('popstate',()=>{state.page=Math.max(1,Number.parseInt(new URLSearchParams(location.search).get('page')||'1',10)||1);draw();const id=new URLSearchParams(location.search).get('article');if(id&&id!==active?.id)show(id)});
 document.addEventListener('archelaos:favorites-change',()=>{if(active){let b=$('an-dialog-heart'),on=window.ArchelaosFavorites.has('news',active.id);b.setAttribute('aria-pressed',String(on));b.querySelector('span').textContent=on?'♥':'♡'}});
-fetch('/news.json?rev=20261101-photo-archive',{cache:'no-store'}).then(r=>r.ok?r.json():Promise.reject(Error('HTTP '+r.status))).then(data=>{
+fetch('/news.json?rev=20261101-archive2019',{cache:'no-store'}).then(r=>r.ok?r.json():Promise.reject(Error('HTTP '+r.status))).then(data=>{
  if(!Array.isArray(data.items))throw Error('Bad news index');state.items=data.items.filter(x=>x&&x.id&&x.title&&x.date&&!x.unverified).sort((a,b)=>b.date.localeCompare(a.date));
  $('an-total').textContent=state.items.length+' ΔΗΜΟΣΙΕΥΣΕΙΣ';featured();draw();const id=new URLSearchParams(location.search).get('article');if(id)show(id);
 }).catch(e=>{console.error('News loading:',e);$('an-count').textContent='Οι ειδήσεις δεν είναι προσωρινά διαθέσιμες.'});
