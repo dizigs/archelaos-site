@@ -40,7 +40,7 @@ function card(x){
  const m=media(x,'an-card-media'),content=document.createElement('div');content.className='an-card-text';
  const h=document.createElement('h3');h.textContent=x.title;const p=document.createElement('p');p.textContent=x.summary;
  const foot=document.createElement('div');foot.className='an-card-foot';
- const open=document.createElement('button');open.type='button';open.className='an-open';open.textContent=t('Διάβασε περισσότερα ↗','Read more ↗');open.addEventListener('click',()=>show(x.id));
+ const open=document.createElement('button');open.type='button';open.className='an-open';open.textContent=t('Διάβασε περισσότερα','Read more');open.addEventListener('click',()=>show(x.id));
  foot.append(open,heart(x,'an-card-heart'));content.append(meta(x),h,p,foot);el.append(m,content);
  return el;
 }
@@ -55,7 +55,7 @@ function featured(){
  const article=document.createElement('article');article.className='an-feature-card';const m=media(x,'an-feature-media');
  const content=document.createElement('div');content.className='an-feature-text';
  const h=document.createElement('h2');h.textContent=x.title;const p=document.createElement('p');p.textContent=x.summary;
- const open=document.createElement('button');open.type='button';open.className='an-primary';open.textContent=t('Δες την είδηση ↗','Read the story ↗');open.addEventListener('click',()=>show(x.id));
+ const open=document.createElement('button');open.type='button';open.className='an-primary';open.textContent=t('Δες την είδηση','Read the story');open.addEventListener('click',()=>show(x.id));
  content.append(meta(x),h,p,open);article.append(m,content);$('an-feature').replaceChildren(article);
 }
 let closing=false;
@@ -69,7 +69,7 @@ function show(id){
  detail.append(fig,meta(x),h,lead);
  for(const text of x.body||[]){const p=document.createElement('p');p.textContent=text;detail.append(p)}
  const source=document.createElement('div');source.className='an-source';source.textContent=t('Πηγή: ','Source: ')+x.source;const links=document.createElement('div');links.className='an-links';
- if(x.sourceUrl&&/^https:\/\//.test(x.sourceUrl)){const a=link(x.sourceUrl,t('Αρχικό δημοσίευμα ↗','Original article ↗'));a.target='_blank';a.rel='noopener noreferrer';links.append(a)}
+ if(x.sourceUrl&&/^https:\/\//.test(x.sourceUrl)){const a=link(x.sourceUrl,t('Αρχικό δημοσίευμα','Original article'));a.target='_blank';a.rel='noopener noreferrer';links.append(a)}
  for(const id of x.personIds||[]){const a=link('hall-of-fame.html?person='+encodeURIComponent(id),'');a.dataset.personId=id;a.dataset.personName='true';links.append(a)}
  if(links.querySelector('[data-person-name]')){
   fetch('/hall-of-fame-people.json',{cache:'no-store'}).then(r=>r.ok?r.json():Promise.reject(Error('Hall data unavailable'))).then(data=>{
