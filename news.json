@@ -39,8 +39,8 @@
         "Στο Βαλκανικό Πρωτάθλημα Πάλης που πραγματοποιήθηκε στην Κοπρίβνιτσα της Κροατίας, από τις 29 Σεπτεμβρίου έως τις 4 Οκτωβρίου 2026, ο Αρχέλαος Κατερίνης κατέγραψε τρεις διακρίσεις.",
         "Ο Νίκος Ζινίσα και η Ιωάννα Ξενίδου κατέκτησαν χρυσά μετάλλια, ενώ ο Παύλος Τσεντίδης κατέκτησε το χάλκινο. Η επιτυχία αποτυπώνει την αγωνιστική προσπάθεια των αθλητών και του τμήματος πάλης."
       ],
-      "image": "images/wrestling-victory.webp",
-      "imageNote": "Φωτογραφία αρχείου του τμήματος πάλης — όχι τεκμήριο της συγκεκριμένης διοργάνωσης.",
+      "image": "images/news/wrestling-balkan-2026.jpg",
+      "imageNote": "Φωτογραφία από το αρχικό δημοσίευμα: Pieria Social · 05/10/2026",
       "source": "Pieria Social · 05/10/2026",
       "sourceUrl": "https://pieriasocial.gr/?p=137516",
       "personIds": [
@@ -48,7 +48,8 @@
         "arch-957a876e770d",
         "arch-b48656c62600"
       ],
-      "featured": false
+      "featured": false,
+      "imageSourceUrl": "https://media.pieriasocial.gr/2026/10/1000004237.jpg"
     },
     {
       "id": "katerini-run-70-years-2026",
@@ -61,15 +62,16 @@
         "Ο αγώνας δρόμου «Τρέχω για την Κατερίνη» πραγματοποιήθηκε την Κυριακή 11 Οκτωβρίου 2026, παρά τη βροχή. Το αναμνηστικό μετάλλιο των συμμετεχόντων ήταν αφιερωμένο στα 70 χρόνια του Γ.Α.Σ. Αρχέλαος Κατερίνης.",
         "Ο Δήμαρχος Κατερίνης τίμησε τον σύλλογο και παρέδωσε το επετειακό μετάλλιο στον πρόεδρό του, Παναγιώτη Διαμαντόπουλο. Ο Αρχέλαος εξέφρασε δημόσια τις ευχαριστίες του για την τιμητική αυτή αναφορά."
       ],
-      "image": "assets/archelaos-crest.png",
-      "imageNote": "Έμβλημα Γ.Α.Σ. Αρχέλαος · εικονογράφηση αρχείου, όχι φωτογραφία του αγώνα.",
+      "image": "images/news/katerini-run-70-years-2026.jpg",
+      "imageNote": "Φωτογραφία από το αρχικό δημοσίευμα: Οδηγός Πιερίας · 11/10/2026",
       "source": "Οδηγός Πιερίας · 11/10/2026",
       "sourceUrl": "https://odigos-pierias.gr/%CE%BB%CE%B1%CF%8A%CE%BA%CF%8C%CF%82-%CE%B4%CF%81%CF%8C%CE%BC%CE%BF%CF%82-%CF%84%CF%81%CE%AD%CF%87%CF%89-%CE%B3%CE%B9%CE%B1-%CF%84%CE%B7%CE%BD-%CE%BA%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7/",
       "personIds": [
         "arch-85fcb478d724",
         "arch-d401b272f36b"
       ],
-      "featured": false
+      "featured": false,
+      "imageSourceUrl": "https://odigos-pierias.gr/wp-content/uploads/2026/10/periklissss2.jpg"
     },
     {
       "id": "new-president-2026",
@@ -82,14 +84,15 @@
         "Μετά την απώλεια του πρώην προέδρου Αλκίνοου Τασόπουλου, ο Παναγιώτης Διαμαντόπουλος ανέλαβε την προεδρία του Γ.Α.Σ. Αρχέλαος Κατερίνης.",
         "Στη σχετική συνέντευξη παρουσιάστηκε το νέο Διοικητικό Συμβούλιο και έγινε αναφορά στη συζήτηση για την παρουσίαση ιστορικού λευκώματος αφιερωμένου στα 70 χρόνια του συλλόγου."
       ],
-      "image": "assets/archelaos-crest.png",
-      "imageNote": "Έμβλημα Γ.Α.Σ. Αρχέλαος · δεν χρησιμοποιείται φωτογραφία τρίτου χωρίς επιβεβαίωση.",
+      "image": "images/news/new-president-2026.jpg",
+      "imageNote": "Φωτογραφία από το αρχικό δημοσίευμα: Pieria News · 22/09/2026",
       "source": "Pieria News · 22/09/2026",
       "sourceUrl": "https://www.pierianews.gr/2026/09/22/o-panagiotis-diamantopoulos-neos-proedros-tou-gas-archelaos/",
       "personIds": [
         "arch-85fcb478d724"
       ],
-      "featured": false
+      "featured": false,
+      "imageSourceUrl": "https://www.pierianews.gr/wp-content/uploads/2026/09/archelaos.jpg"
     },
     {
       "id": "archery-teachers-2026",
@@ -102,15 +105,16 @@
         "Το τμήμα τοξοβολίας του Αρχέλαου Κατερίνης έλαβε μέρος σε επιμορφωτική ημερίδα στον Χορτιάτη για εκπαιδευτικούς Φυσικής Αγωγής.",
         "Η δράση περιλάμβανε τοξοβολία, πεζοπορία και πρώτες βοήθειες, με τη συμμετοχή του Ιωάννη Χαρίση και του Δημήτρη Γαλάνη στους εισηγητές."
       ],
-      "image": "images/archery-outdoor-youth.webp",
-      "imageNote": "Φωτογραφία αρχείου από τη δραστηριότητα του τμήματος τοξοβολίας.",
+      "image": "images/news/archery-teachers-2026.jpg",
+      "imageNote": "Φωτογραφία από το αρχικό δημοσίευμα: Pieria24 · 10/09/2026",
       "source": "Pieria24 · 10/09/2026",
       "sourceUrl": "https://pieria24.gr/viomatiki-drasi-ston-chortiati-toxovolia-pezoporia-kai-karpa-gia-kathigites/",
       "personIds": [
         "arch-44ef21dfb9b7",
         "arch-6212ba5ea7f1"
       ],
-      "featured": false
+      "featured": false,
+      "imageSourceUrl": "https://pieria24.gr/wp-content/uploads/2026/09/img_1789034454_7091.webp"
     },
     {
       "id": "archery-national-title-2026",
@@ -210,10 +214,11 @@
       ],
       "source": "Pieria Social · 17/04/2024",
       "sourceUrl": "https://pieriasocial.gr/?p=83786",
-      "image": "images/archery-outdoor-youth.webp",
-      "imageNote": "Φωτογραφία αρχείου του τμήματος — όχι φωτογραφία του συγκεκριμένου γεγονότος.",
+      "image": "images/news/archery-olympus-2024.jpg",
+      "imageNote": "Φωτογραφία από το αρχικό δημοσίευμα: Pieria Social · 17/04/2024",
       "personIds": [],
-      "featured": false
+      "featured": false,
+      "imageSourceUrl": "https://media.pieriasocial.gr/2024/04/1111111111111111-1.jpg"
     },
     {
       "id": "gym-2024-mikra",
@@ -248,8 +253,8 @@
       ],
       "source": "Pieria News · 30/04/2024",
       "sourceUrl": "https://www.pierianews.gr/2024/04/30/me-epitychies-epestrepse-i-skopovoli-tou-gas-archelaos-katerinis-foto/",
-      "image": "images/skopovoli-archelaos-athlete.webp",
-      "imageNote": "Φωτογραφία αρχείου του τμήματος — όχι φωτογραφία του συγκεκριμένου γεγονότος.",
+      "image": "images/news/shooting-2024-vyronas.jpg",
+      "imageNote": "Φωτογραφία από το αρχικό δημοσίευμα: Pieria News · 30/04/2024",
       "personIds": [
         "arch-vasiliki-koufogianni-shoot",
         "arch-konstantinos-seitanidis-shoot",
@@ -259,7 +264,8 @@
         "arch-dimitrios-tsimponis-shoot",
         "arch-dimitrios-koufogiannis-shoot"
       ],
-      "featured": false
+      "featured": false,
+      "imageSourceUrl": "https://www.pierianews.gr/wp-content/uploads/2024/04/skopovoli3.jpg"
     },
     {
       "id": "wrestling-mayor-2024",
@@ -273,12 +279,13 @@
       ],
       "source": "Pieria Social · 02/08/2024",
       "sourceUrl": "https://pieriasocial.gr/?p=88797",
-      "image": "images/wrestling-action.webp",
-      "imageNote": "Φωτογραφία αρχείου του τμήματος — όχι φωτογραφία του συγκεκριμένου γεγονότος.",
+      "image": "images/news/wrestling-mayor-2024.jpg",
+      "imageNote": "Φωτογραφία από το αρχικό δημοσίευμα: Pieria Social · 02/08/2024",
       "personIds": [
         "arch-4b6d75d0faa2"
       ],
-      "featured": false
+      "featured": false,
+      "imageSourceUrl": "https://media.pieriasocial.gr/2024/08/1-2024-08-02T111120.118.jpg"
     },
     {
       "id": "archery-cup-2024",
@@ -293,8 +300,8 @@
       ],
       "source": "Pieria Social · 22/10/2024",
       "sourceUrl": "https://pieriasocial.gr/?p=93206",
-      "image": "images/archery-outdoor-youth.webp",
-      "imageNote": "Φωτογραφία αρχείου του τμήματος — όχι φωτογραφία του συγκεκριμένου γεγονότος.",
+      "image": "images/news/archery-cup-2024.jpg",
+      "imageNote": "Φωτογραφία από το αρχικό δημοσίευμα: Pieria Social · 22/10/2024",
       "personIds": [
         "arch-955a386f547f",
         "arch-pavlina-charitidou-arch",
@@ -304,7 +311,8 @@
         "arch-konstantinos-charisis-arch",
         "arch-ektoras-diamantidis-arch"
       ],
-      "featured": false
+      "featured": false,
+      "imageSourceUrl": "https://media.pieriasocial.gr/2024/10/111111111111111111111111-2.jpg"
     },
     {
       "id": "handball-volos-2024",
@@ -335,12 +343,13 @@
       ],
       "source": "Ο Διάλογος · 01/04/2025",
       "sourceUrl": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/%CF%80%CE%BF%CE%BB%CF%8D-%CE%BA%CE%B1%CE%BB%CE%AD%CF%82-%CE%B5%CF%80%CE%B9%CE%B4%CF%8C%CF%83%CE%B5%CE%B9%CF%82-%CE%B1%CF%80%CF%8C-%CF%84%CE%BF-%CF%84%CE%BC%CE%AE%CE%BC%CE%B1-e%CE%BD%CF%8C%CF%81%CE%B3/",
-      "image": "images/enorgani-slideshow-edafos.jpg",
-      "imageNote": "Φωτογραφία αρχείου του τμήματος — όχι φωτογραφία του συγκεκριμένου γεγονότος.",
+      "image": "images/news/gym-2025-team.jpg",
+      "imageNote": "Φωτογραφία από το αρχικό δημοσίευμα: Ο Διάλογος · 01/04/2025",
       "personIds": [
         "arch-f02298025e5c"
       ],
-      "featured": false
+      "featured": false,
+      "imageSourceUrl": "https://odialogos.gr/wp-content/uploads/2025/04/Archelaos-enorgani-02.jpg"
     },
     {
       "id": "archery-cyprus-2025",
@@ -354,12 +363,13 @@
       ],
       "source": "Pieria Social · 04/11/2025",
       "sourceUrl": "https://pieriasocial.gr/?p=114647",
-      "image": "images/archery-outdoor-youth.webp",
-      "imageNote": "Φωτογραφία αρχείου του τμήματος — όχι φωτογραφία του συγκεκριμένου γεγονότος.",
+      "image": "images/news/archery-cyprus-2025.jpg",
+      "imageNote": "Φωτογραφία από το αρχικό δημοσίευμα: Pieria Social · 04/11/2025",
       "personIds": [
         "arch-955a386f547f"
       ],
-      "featured": false
+      "featured": false,
+      "imageSourceUrl": "https://media.pieriasocial.gr/2025/11/FB_IMG_1762093474789.jpg"
     },
     {
       "id": "archery-youth-2025",
@@ -436,12 +446,13 @@
       ],
       "source": "Παναθηναϊκός Α.Ο. · 25/06/2026",
       "sourceUrl": "https://www.pao1908.com/nea/ston-panathinaiko-i-stamatia-kyparissi/",
-      "image": "assets/archelaos-crest.png",
-      "imageNote": "Έμβλημα του Αρχέλαου, όχι φωτογραφία της ανακοίνωσης.",
+      "image": "images/news/volleyball-kyparissi-panathinaikos-2026.jpg",
+      "imageNote": "Φωτογραφία από το αρχικό δημοσίευμα: Παναθηναϊκός Α.Ο. · 25/06/2026",
       "personIds": [
         "arch-999730e06982"
       ],
-      "featured": false
+      "featured": false,
+      "imageSourceUrl": "https://www.pao1908.com/wp-content/uploads/2026/06/25/kyparissiwebsite-e1782386155211.jpg"
     },
     {
       "id": "handball-siokas-mediterranean-2026",
@@ -493,8 +504,8 @@
       ],
       "source": "Ufight · 25/11/2025",
       "sourceUrl": "https://ns1.ufight.gr/wrestling/23770-4-xrysa-metallia-kai-1-argyro-oi-athlites-kai-athlitries-tou-arxelaou-katerinhs-sto-panellhnio-protathlima-palhs-pampaidon-pagkorasidon",
-      "image": "images/wrestling-action.webp",
-      "imageNote": "Φωτογραφία αρχείου του τμήματος πάλης, όχι της συγκεκριμένης διοργάνωσης.",
+      "image": "images/news/wrestling-u11-u13-karditsa-2025.jpg",
+      "imageNote": "Φωτογραφία από το αρχικό δημοσίευμα: Ufight · 25/11/2025",
       "personIds": [
         "arch-loukas-zinisa-wrest25",
         "arch-dimitrios-trigkas-wrest25",
@@ -502,7 +513,8 @@
         "arch-maria-mastorogianni-wrest25",
         "arch-5bc0ec7ec6e0"
       ],
-      "featured": false
+      "featured": false,
+      "imageSourceUrl": "https://ns1.ufight.gr/images/AsAigeas/arxelaos_katerinis.jpg"
     }
   ]
 }
