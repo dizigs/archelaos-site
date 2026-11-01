@@ -170,6 +170,15 @@ def verify() -> None:
         script_text = script_path.read_text(encoding="utf-8")
         assert "/rebuild/" not in script_text, f"Preview-only URL in deployed JS: {script_path.name}"
 
+    # Search must expose the approved match calendar and department cards.
+    catalog_js = (DIST / "assets/site/js/archive-catalog.js").read_text(encoding="utf-8")
+    search_html = (DIST / "search.html").read_text(encoding="utf-8")
+    for required in ("match-schedule", "department", "fixture", "owner_approved"):
+        assert required in catalog_js, "Search catalog missing " + required
+    for category in ("department", "fixture", "person", "interview"):
+        assert f'data-sr-filter="{category}"' in search_html, "Missing search filter " + category
+    assert "/rebuild/" not in catalog_js, "Preview-only search data URL in production"
+
     # All interview records must reach the production data source unchanged.
     source_interviews = json.loads((ROOT / "interviews.json").read_text(encoding="utf-8"))
     published_interviews = json.loads(
