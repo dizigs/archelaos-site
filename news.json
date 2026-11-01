@@ -176,7 +176,9 @@
       "personIds": [
         "arch-ec55ccba275f"
       ],
-      "featured": false
+      "featured": false,
+      "imageSourceUrl": "https://www.pierianews.gr/wp-content/uploads/2026/07/sign.jpg",
+      "imageNote": "Εντοπίστηκε φωτογραφία του αρχικού δημοσιεύματος· εκκρεμεί επιβεβαίωση δικαιώματος αναδημοσίευσης πριν από την τοπική αρχειοθέτηση."
     },
     {
       "id": "wrestling-darko-nisavic-serbia-july-2026",
@@ -635,7 +637,9 @@
         "arch-36de21f5268e",
         "arch-957a876e770d"
       ],
-      "featured": false
+      "featured": false,
+      "imageSourceUrl": "https://www.pierianews.gr/wp-content/uploads/2025/04/gas8.jpg",
+      "imageNote": "Εντοπίστηκε φωτογραφία του αρχικού δημοσιεύματος· εκκρεμεί επιβεβαίωση δικαιώματος αναδημοσίευσης πριν από την τοπική αρχειοθέτηση."
     },
     {
       "id": "gym-2025-team",
@@ -673,7 +677,9 @@
       "personIds": [
         "arch-c6dd24b37324"
       ],
-      "featured": false
+      "featured": false,
+      "imageSourceUrl": "https://media.pieriasocial.gr/2025/03/11111111111111111-10.jpg",
+      "imageNote": "Εντοπίστηκε φωτογραφία του αρχικού δημοσιεύματος· εκκρεμεί επιβεβαίωση δικαιώματος αναδημοσίευσης πριν από την τοπική αρχειοθέτηση."
     },
     {
       "id": "wrestling-zagreb-team-first-dec-2024",
@@ -696,7 +702,9 @@
         "arch-64dbf198bfd6",
         "arch-aristotelis-navrozidis-wrest24"
       ],
-      "featured": false
+      "featured": false,
+      "imageSourceUrl": "https://www.pierianews.gr/wp-content/uploads/2024/12/pal6.jpg",
+      "imageNote": "Εντοπίστηκε φωτογραφία του αρχικού δημοσιεύματος· εκκρεμεί επιβεβαίωση δικαιώματος αναδημοσίευσης πριν από την τοπική αρχειοθέτηση."
     },
     {
       "id": "handball-volos-2024",
@@ -760,7 +768,9 @@
       "personIds": [
         "arch-61d8d097f601"
       ],
-      "featured": false
+      "featured": false,
+      "imageSourceUrl": "https://www.pierianews.gr/wp-content/uploads/2024/08/toxovolia1.jpg",
+      "imageNote": "Εντοπίστηκε φωτογραφία του αρχικού δημοσιεύματος· εκκρεμεί επιβεβαίωση δικαιώματος αναδημοσίευσης πριν από την τοπική αρχειοθέτηση."
     },
     {
       "id": "club-sports-facilities-proposals-aug-2024",
@@ -1261,7 +1271,9 @@
         "Η διοργάνωση περιλάμβανε κατηγορίες ολυμπιακού τόξου, σύνθετου τόξου και barebow. Στη συμμετοχή του συλλόγου «Τοξόκλυτοι» Κοζάνης αποτυπώνεται η διασυλλογική διάσταση του αγώνα, ο οποίος πραγματοποιήθηκε μετά την αναστολή των αθλητικών δραστηριοτήτων λόγω πανδημίας."
       ],
       "source": "e-ptolemeos · 29/06/2020",
-      "sourceUrl": "https://e-ptolemeos.gr/o-syllogos-toxovolias-toxoklytoi-koz"
+      "sourceUrl": "https://e-ptolemeos.gr/o-syllogos-toxovolias-toxoklytoi-koz",
+      "imageSourceUrl": "https://e-ptolemeos.gr/wp-content/uploads/2020/06/toxoklitoi.jpg",
+      "imageNote": "Εντοπίστηκε φωτογραφία του αρχικού δημοσιεύματος· εκκρεμεί επιβεβαίωση δικαιώματος αναδημοσίευσης πριν από την τοπική αρχειοθέτηση."
     },
     {
       "id": "wrestling-monaco-camp-nov-2019",
@@ -1318,7 +1330,9 @@
       "sourceUrl": "https://kastania-pierias.blogspot.com/2019/02/blog-post_248.html?m=0",
       "personIds": [
         "arch-ec55ccba275f"
-      ]
+      ],
+      "imageSourceUrl": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj4ZTSKJi112HjXkqYQcqcUQE75tSRAqVYuGAHRT8hLdtKIQBdREEwm-MJ57htVequNYUb8CdnAQQ7N3x5_a4m6W-xvIha4VZ0PKaktjCFVc5cjoa2xlwgr_PgY8sSnt2sn-3mcGl367uV3/s640/DSC_9520.JPG",
+      "imageNote": "Εντοπίστηκε φωτογραφία του αρχικού δημοσιεύματος· εκκρεμεί επιβεβαίωση δικαιώματος αναδημοσίευσης πριν από την τοπική αρχειοθέτηση."
     }
   ]
 }
