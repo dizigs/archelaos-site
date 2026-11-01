@@ -957,6 +957,26 @@
       "imageNote": "Αρχική φωτογραφία δημοσιεύματος · Ο Ντελάλης · 12/11/2024"
     },
     {
+      "id": "archery-national-team-charisis-charitidou-nov-2024",
+      "date": "2024-11-07",
+      "category": "achievements",
+      "sport": "Τοξοβολία",
+      "title": "Στην Εθνική Ελλάδας ο Ευάγγελος Χαρίσης και η Παυλίνα Χαριτίδου",
+      "summary": "Δύο αθλητές του Αρχέλαου κλήθηκαν στην Εθνική U21 για διοργανώσεις τοξοβολίας στο Μαυροβούνιο.",
+      "body": [
+        "Ο Ευάγγελος Χαρίσης και η Παυλίνα Χαριτίδου του Αρχέλαου Κατερίνης συμπεριλήφθηκαν στην ελληνική αποστολή U21 Ολυμπιακού τόξου για το Balkan Indoor Championship και το Montenegro Grand Prix 2024.",
+        "Οι διοργανώσεις είχαν προγραμματιστεί στις 7–10 Νοεμβρίου στο Herceg Novi του Μαυροβουνίου, με συνοδό προπονητή τον Ιωάννη Χαρίση."
+      ],
+      "source": "Eptanews · 07/11/2024",
+      "sourceUrl": "https://eptanews.gr/athlitismos/stin-ethniki-ellados-athlites-toy-gas-archelaos-katerinis/",
+      "image": "https://eptanews.gr/wp-content/uploads/2024/11/%CE%A4%CE%9F%CE%9E%CE%9F%CE%92%CE%9F%CE%9B%CE%99%CE%91-1.jpg",
+      "imageSourceUrl": "https://eptanews.gr/wp-content/uploads/2024/11/%CE%A4%CE%9F%CE%9E%CE%9F%CE%92%CE%9F%CE%9B%CE%99%CE%91-1.jpg",
+      "imageNote": "Αρχική φωτογραφία του σχετικού δημοσιεύματος",
+      "personIds": [
+        "arch-pavlina-charitidou-arch"
+      ]
+    },
+    {
       "id": "archery-cup-2024",
       "date": "2024-10-22",
       "sport": "Τοξοβολία",
