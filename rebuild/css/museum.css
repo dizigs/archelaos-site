@@ -166,6 +166,19 @@
  font-weight:750;font-size:13px;color:#f2dbab}
 .mu-interviews-ornament{position:absolute;right:8%;top:-3%;font:normal clamp(240px,30vw,420px) Georgia,serif;
  opacity:.14;pointer-events:none}
+/* Soft archival newspaper, anchored to the bottom-right of the clickable hero. */
+.mu-interviews-newspaper{position:absolute;z-index:-1;right:-3%;bottom:-35%;width:47%;height:75%;pointer-events:none;
+ transform:rotate(-13deg);transform-origin:center;filter:blur(4px);opacity:.35;
+ background:linear-gradient(145deg,#d9c9a1,#a9a184);border:2px solid #e0d0aa;
+ box-shadow:0 0 65px 35px #d6c8a04a;display:flex;flex-direction:column;align-items:center;padding:20px 14px;gap:12px}
+.mu-interviews-paper-head{font:800 clamp(23px,3.5vw,55px) Georgia,serif;white-space:nowrap;color:#283d31;letter-spacing:.035em}
+.mu-interviews-paper-rule{width:95%;height:5px;border-block:2px solid #314438}
+.mu-interviews-paper-lines{width:95%;flex:1;background:
+ linear-gradient(90deg,transparent 0 60%,#36493d7a 60% 100%),
+ repeating-linear-gradient(0deg,#3244389c 0 3px,transparent 3px 12px);
+ background-size:100% 100%;opacity:.75}
+.mu-interviews-copy{position:relative;z-index:1}
+@media(max-width:650px){.mu-interviews-newspaper{width:68%;height:62%;bottom:-20%;right:-24%;opacity:.2;filter:blur(5px)}}
 .mu-interviews-card:hover{box-shadow:0 22px 45px #073d2a40}
 .mu-interviews-card:focus-visible{outline:3px solid #c7a65e;outline-offset:4px}
 @media(max-width:650px){.mu-interviews-card{min-height:260px}.mu-interviews-ornament{right:-5%;opacity:.07}}
