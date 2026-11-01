@@ -112,8 +112,8 @@ function renderFooter(){
   const footer=document.createElement('footer');footer.className='arch-footer';
   footer.innerHTML='<div class="arch-footer-inner"><div class="arch-footer-top"><img src="/assets/archelaos-crest.png" alt="" loading="lazy" width="58" height="58"><div><strong>Γ.Α.Σ. «Ο ΑΡΧΕΛΑΟΣ»</strong><small>ΚΑΤΕΡΙΝΗ · 1956—2026</small></div></div><div class="arch-footer-rule"></div><div class="arch-footer-columns"><section><h2>ΨΗΦΙΑΚΟ ΜΟΥΣΕΙΟ</h2><a href="/history.html">Η ιστορία</a><a href="/70-stigmes.html">70 Στιγμές</a></section><section><h2>ΟΙ ΑΝΘΡΩΠΟΙ</h2><a href="/hall-of-fame.html">Hall of Fame</a><a href="/stories.html">Ιστορίες</a><a href="/interviews.html">Οι Φωνές</a><a href="/board.html">Διοίκηση</a></section><section><h2>Ο ΣΥΛΛΟΓΟΣ</h2><a href="/index.html">Αρχική</a><a href="/tmimata.html">Αθλήματα</a><a href="/contact.html">Επικοινωνία</a></section></div><div class="arch-footer-community"><div><strong>Η ιστορία του Αρχέλαου συνεχίζεται.</strong><p>Κρατήστε τις αγαπημένες σας στιγμές ή βοηθήστε μας να διασώσουμε μια ακόμη.</p></div><div class="arch-footer-ctas"></div></div><div class="arch-footer-social" aria-label="Επίσημοι σύνδεσμοι"></div><div class="arch-footer-bottom"><span>Γ.Α.Σ. Αρχέλαος Κατερίνης · Από το 1956</span><span>Αθλητισμός · Παιδεία · Συμμετοχή</span></div></div>';
   const ctas=footer.querySelector('.arch-footer-ctas');
-  iconLink(ctas,pages[11],'heart','arch-footer-cta','Αγαπημένα');
-  iconLink(ctas,pages[12],'plus','arch-footer-cta arch-footer-cta-primary','Συνεισφέρω');
+  iconLink(ctas,pages[12],'heart','arch-footer-cta','Αγαπημένα');
+  iconLink(ctas,pages[13],'plus','arch-footer-cta arch-footer-cta-primary','Συνεισφέρω');
   const social=footer.querySelector('.arch-footer-social');
   for(const [label,icon,url] of [
     ['Facebook','facebook','https://www.facebook.com/oarxelaos'],
