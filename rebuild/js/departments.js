@@ -30,7 +30,6 @@ async function init(){
 
   const deep=location.hash.match(/^#sport-(.+)$/)?.[1];
   if(deep){const card=document.getElementById('sport-'+deep);if(card){card.scrollIntoView({block:'center'});card.focus({preventScroll:true})}}
- }catch(err){console.error('Department archive:',err);cards.forEach(c=>{c.disabled=true})}
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
