@@ -13,7 +13,7 @@ function resultSet(){
  return S.items.filter(x=>(!S.person||(x.personIds||[]).includes(S.person))&&(!q||hay(x).includes(q)));
 }
 function showCards(){
- const list=resultSet(),counter=$('count');counter.textContent=tr(list.length+' από '+S.items.length+' τεκμήρια',list.length+' of '+S.items.length+' records');
+ const featured=['d22','press-karipidis-kosmidis-2019','press-moschi-2021'];const list=resultSet().sort((a,b)=>{const ia=featured.indexOf(a.id),ib=featured.indexOf(b.id);return (ia<0?999:ia)-(ib<0?999:ib)}),counter=$('count');counter.textContent=tr(list.length+' από '+S.items.length+' τεκμήρια',list.length+' of '+S.items.length+' records');
  const params=new URLSearchParams(location.search);if(params.has('person')||params.has('q')){const all=document.createElement('a');all.href='interviews.html';all.textContent=tr('Προβολή όλων','View all');counter.append(all)}
  const frag=document.createDocumentFragment();
  list.forEach(x=>{
