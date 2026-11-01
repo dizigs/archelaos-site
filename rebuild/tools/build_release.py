@@ -191,6 +191,13 @@ def make_release() -> None:
     copytree(STAGE / "source-profiles", OUTPUT / "people")
     for name in ("css", "js", "data"):
         copytree(STAGE / name, OUTPUT / "assets" / "site" / name)
+    # Rewrite preview-only asset URLs in the generated JavaScript copies.
+    # Staged preview files remain untouched; production QA rejects any missed URL.
+    for script_path in (OUTPUT / "assets" / "site" / "js").rglob("*.js"):
+        script = script_path.read_text(encoding="utf-8")
+        for folder in ("data", "js", "css", "images"):
+            script = script.replace(f"/rebuild/{folder}/", f"/assets/site/{folder}/")
+        script_path.write_text(script, encoding="utf-8")
     copytree(STAGE / "images", OUTPUT / "assets" / "site" / "images")
     # The old public JSON endpoint must reflect exactly the same edited people
     # as the new Hall of Fame; otherwise stale corrections remain discoverable.
