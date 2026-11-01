@@ -163,8 +163,8 @@ def verify() -> None:
         local = DIST / path
         assert local.is_file(), "Missing published article photo: " + article["id"]
         start = local.read_bytes()[:16]
-        valid = (start.startswith(b"\\xff\\xd8\\xff") or
-                 start.startswith(b"\\x89PNG\\r\\n\\x1a\\n") or
+        valid = (start.startswith(bytes.fromhex("ffd8ff")) or
+                 start.startswith(bytes.fromhex("89504e470d0a1a0a")) or
                  start.startswith(b"RIFF") and start[8:12] == b"WEBP")
         assert valid, "Unreadable article image format: " + article["id"]
     published_records = json.loads((DIST / "hall-of-fame-people.json").read_text(encoding="utf-8"))
