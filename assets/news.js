@@ -99,7 +99,10 @@ function renderPagination(pageCount){
 }
 function draw(){
  const q=norm(state.query.trim());
- const items=state.items.filter(x=>(state.category==='all'||x.category===state.category)&&(!q||(window.ArchelaosSportSearch?window.ArchelaosSportSearch.sportMatch([x.title,x.summary,x.sport,x.source,...(x.body||[])].join(' '),q):norm([x.title,x.summary,x.sport,x.source,...(x.body||[])].join(' ')).includes(q)))).sort((a,b)=>b.date.localeCompare(a.date));
+ const lead=state.items.find(i=>i.featured)||state.items[0];
+ const showLead=state.category==='all'&&!q;
+ $('an-feature').hidden=!showLead;
+ const items=state.items.filter(x=>(!showLead||x.id!==lead?.id)&&(state.category==='all'||x.category===state.category)&&(!q||(window.ArchelaosSportSearch?window.ArchelaosSportSearch.sportMatch([x.title,x.summary,x.sport,x.source,...(x.body||[])].join(' '),q):norm([x.title,x.summary,x.sport,x.source,...(x.body||[])].join(' ')).includes(q)))).sort((a,b)=>b.date.localeCompare(a.date));
  const pageCount=Math.max(1,Math.ceil(items.length/PAGE_SIZE));
  state.page=Math.min(Math.max(1,state.page),pageCount);
  const visible=items.slice((state.page-1)*PAGE_SIZE,state.page*PAGE_SIZE);
