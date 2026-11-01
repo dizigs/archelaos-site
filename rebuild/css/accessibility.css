@@ -1,0 +1,66 @@
+/* Central accessibility refinements from automated WCAG 2.2 A/AA reviews.
+   Shared across all screen sizes, independent of breakpoint-specific layouts. */
+/* WCAG audit corrections on pale backgrounds; darker gold text retains identity. */
+.new-today .new-eyebrow{color:#635026}
+.h-new-directory .h-new-eyebrow{color:#645027}
+:is(.mu-collections,.mu-explore,.mu-exhibits,.mu-archive,.mu-sports) .mu-label{color:#635025}
+.ac-section .av-kicker{color:#635026}
+.arch-favorite-toggle,.arch-close,.arch-menu-open{min-width:44px;min-height:44px}
+
+/* Second WCAG color-contrast pass: editorial gold on light and dark canvases. */
+.new-today h2 em{color:#6b5021}
+.h-new-archive-label{color:#655026}
+.mu-archive-item span,.mu-sport-item span{color:#685124}
+.ac-process .av-kicker{color:#ebd5a1}
+.ac-guide-section .av-kicker{color:#655027}
+
+/* Third contrast pass: remaining light-background editorial labels and links. */
+:is(.new-about,.new-departments,.new-get-involved,.new-philosophy) .new-eyebrow,
+.new-board-card .new-eyebrow{color:#625023}
+.new-about .new-underline-link{color:#624e24}
+.ac-contact h2 em{color:#685020}
+.ac-contact small{color:#475e4a}
+.ac-contact .av-kicker{color:#635026}
+.mu-press-item span{color:#edd5a2}
+
+/* Final small-caption fixes discovered during representative WCAG checks. */
+.new-philosophy small{color:#49604b}
+.new-philosophy-date{color:#604a22}
+
+/* WCAG 2.2 AA follow-up, validated by release axe browser tests.
+   On paper use deep antique gold; on forest green use pale gold. */
+#voice-note,.voice-source-note{color:#3b523d!important}
+.rm-progress,.rm-progress>span,.rm-progress>strong{color:#614a25!important}
+.rm-featured-kicker,.rm-featured-item>span:first-child{color:#674e25!important}
+.rs-heading>span,#rs-count,.rs-note p{color:#455d49!important}
+.bd-eyebrow{color:#665027!important}
+.ct-hero .ct-label{color:#f1dba9!important}
+.ct-details .ct-label,.ct-locations .ct-label,.ct-quote blockquote{color:#604a25!important}
+.ct-quote figcaption{color:#405944!important}
+#sponsor-why .sp-kicker,.sp-values article>span{color:#69502b!important}
+.dp-eyebrow{color:#624c27!important}
+.rt-content .rt-eyebrow,.rt-heading-years{color:#674e29!important}
+.rt-note{color:#405846!important}
+.sr-input-wrap label{color:#584521!important}
+body .arch-footer-cta-primary,body .arch-footer-cta-primary .arch-action-name{
+ color:#103b27!important
+}
+body .arch-footer-cta-primary .arch-action-icon{color:#103b27!important}
+body.asn-museum-layout #cards .meta,
+body.asn-museum-layout #cards .meta span,
+body.asn-museum-layout #cards .year,
+body.asn-museum-layout #cards .foot,
+body.asn-museum-layout #cards .foot span{color:#5d4928!important;opacity:1}
+
+/* Correct remaining light-surface contrasts found by the 32-viewport audit. */
+.ct-hero .ct-hero-content > .ct-label{color:#57401c!important}
+#sponsor-impact .sp-section-intro > .sp-kicker,
+#sponsor-options .sp-section-intro > .sp-kicker,
+.sp-section-intro h2 em{color:#5e4522!important}
+.sp-note{color:#354e3a!important}
+body.asn-museum-layout main .note{color:#354d3a!important}
+.arch-footer a.arch-footer-cta-primary{background:#fff9e8!important;color:#102b1e!important;border:2px solid #fff9e8!important}
+.arch-footer a.arch-footer-cta-primary .arch-action-name{color:#102b1e!important;opacity:1!important}
+.arch-header a.arch-action-favorites,
+.arch-header a.arch-action-favorites .arch-action-name{color:#ffffff!important;opacity:1!important}
+.av-skip{min-height:44px!important;min-width:44px!important;padding:13px 16px!important;box-sizing:border-box}

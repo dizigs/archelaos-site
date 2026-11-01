@@ -1,0 +1,28 @@
+{
+  "locale": "en",
+  "scope": "navigation_footer_interface_only",
+  "review_status": "draft",
+  "strings": {
+    "home": "Home",
+    "museum": "Digital Museum",
+    "moments": "70 Moments",
+    "hall": "Hall of Fame",
+    "stories": "Stories",
+    "about": "About the Club",
+    "sports": "Sports",
+    "board": "Board",
+    "sponsors": "Sponsors",
+    "contact": "Contact",
+    "search": "Search",
+    "favorites": "Favorites",
+    "contribute": "Contribute",
+    "archive": "Archive",
+    "club": "The Club",
+    "contribution": "Contribute to the Archive",
+    "menu": "Menu",
+    "close": "Close",
+    "facebook": "Facebook",
+    "youtube": "YouTube",
+    "wikipedia": "Wikipedia"
+  }
+}

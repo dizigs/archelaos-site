@@ -1,0 +1,864 @@
+{
+  "schema_version": 1,
+  "classification": "publicly sourced research; unpublished on website",
+  "collection": "Γ.Α.Σ. Αρχέλαος — μητρώο ιστορικών γεγονότων",
+  "created_on": "2026-10-31",
+  "source_registry": [
+    {
+      "id": "greek-handball-cup-record",
+      "provider": "Ομοσπονδία Χειροσφαιρίσεως Ελλάδος",
+      "kind": "official_federation",
+      "title": "Κυπελλούχοι Ελλάδας — αποτελέσματα τελικών",
+      "url": "https://www.handball.org.gr/competitions/all-time-cup-winners",
+      "checked_on": "2026-10-31"
+    },
+    {
+      "id": "greek-handball-youth-record",
+      "provider": "Ομοσπονδία Χειροσφαιρίσεως Ελλάδος",
+      "kind": "official_federation",
+      "title": "Πρωταθλητές Ελλάδας — τμήματα υποδομής",
+      "url": "https://www.handball.org.gr/competitions/all-time-champions",
+      "checked_on": "2026-10-31"
+    },
+    {
+      "id": "ehf-club-history",
+      "provider": "European Handball Federation",
+      "kind": "official_federation",
+      "title": "GAS Arhelaos Katerini — European competition history",
+      "url": "https://www.eurohandball.com/en/club/CmCSb3ajGs-g6yjwaSRTVQ/GASArhelaosKaterini/",
+      "checked_on": "2026-10-31"
+    },
+    {
+      "id": "katerinisport-first-a1",
+      "provider": "KateriniSport",
+      "kind": "regional_historical_reporting",
+      "title": "Ο Αρχέλαος Κατερίνης την περίοδο 1983–84 στην Α΄ Εθνική για πρώτη φορά",
+      "url": "https://katerinisport.gr/%CE%BF-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CE%BA%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82-%CF%80%CF%81%CE%B9%CE%BD-42-%CF%87%CF%81%CF%8C%CE%BD%CE%B9%CE%B1-1983-84-%CF%83%CF%84/",
+      "checked_on": "2026-10-31"
+    },
+    {
+      "id": "sportfm-cup-history",
+      "provider": "ΣΠΟΡ FM",
+      "kind": "historical_sports_reporting",
+      "title": "Η ιστορία του Κυπέλλου Ανδρών Χάντμπολ",
+      "url": "https://www.sport-fm.gr/article/sports/handball/i-istoria-tou-kupellou-andrwn-xadmpol/3343812",
+      "checked_on": "2026-10-31"
+    },
+    {
+      "id": "municipality-2022-club-tribute",
+      "provider": "Δήμος Κατερίνης",
+      "kind": "official_municipality",
+      "title": "Αικατερίνεια: βραδιά τιμής του Αρχέλαου",
+      "url": "https://katerini.gr/?p=30090",
+      "checked_on": "2026-10-31"
+    },
+    {
+      "id": "municipality-2023-club-board",
+      "provider": "Δήμος Κατερίνης",
+      "kind": "official_municipality",
+      "title": "Συνάντηση νέου Δ.Σ. Γ.Α.Σ. Αρχέλαος με τον Δήμαρχο Κατερίνης",
+      "url": "https://katerini.gr/?p=32197",
+      "checked_on": "2026-10-31"
+    },
+    {
+      "id": "municipality-2026-archery-championship",
+      "provider": "Δήμος Κατερίνης",
+      "kind": "official_municipality",
+      "title": "Πρωταθλητής Ελλάδος στην Τοξοβολία ο ΓΑΣ Αρχέλαος Κατερίνης",
+      "url": "https://katerini.gr/?p=69956",
+      "checked_on": "2026-10-31"
+    },
+    {
+      "id": "segas-2019-indoor-200m",
+      "provider": "ΣΕΓΑΣ",
+      "kind": "official_federation",
+      "title": "33ο Πανελλήνιο Πρωτάθλημα: Η Κωνσταντινίδου τη νίκη στα 200 μέτρα",
+      "url": "https://www.segas.gr/6462-33o-panellinio-protathlima-i-konstantinidou-ti-niki-sta-200-metra/",
+      "checked_on": "2026-10-31"
+    },
+    {
+      "id": "segas-2025-indoor-60h",
+      "provider": "ΣΕΓΑΣ",
+      "kind": "official_federation",
+      "title": "Πανελλήνιο κλειστού 2025: δεύτερη στα 60 μ. εμπόδια η Κατερίνα Ρέχα",
+      "url": "https://www.segas.gr/panellinio-kleistoy-25-evdomos-panelli/",
+      "checked_on": "2026-10-31"
+    }
+  ],
+  "events": [
+    {
+      "id": "arc-handball-top-flight-1983-84",
+      "event_type": "first_participation",
+      "sport": "handball",
+      "title": "Πρώτη συμμετοχή στην Α΄ Εθνική χάντμπολ (1983–84)",
+      "summary": "Μετά την κατάκτηση του βόρειου ομίλου της Β΄ Εθνικής το 1982–83, ο Αρχέλαος συμμετείχε για πρώτη φορά στην Α΄ Εθνική την περίοδο 1983–84.",
+      "temporal": {
+        "precision": "season",
+        "season": "1983–1984"
+      },
+      "verification": "source_checked",
+      "source_ids": [
+        "katerinisport-first-a1"
+      ],
+      "associations": {
+        "moment_ids": [
+          44
+        ],
+        "people": [
+          {
+            "person_id": "arch-803dd3926e77",
+            "name": "Δημήτρης Σκούφας",
+            "role": "προπονητής",
+            "source_id": "katerinisport-first-a1",
+            "evidence": "Ονομαστική αναφορά στην ομάδα 1983–84 στο ιστορικό φωτογραφικό αφιέρωμα"
+          },
+          {
+            "person_id": "arch-178813c8e013",
+            "name": "Σωκράτης Σκούφας",
+            "role": "αθλητής",
+            "source_id": "katerinisport-first-a1",
+            "evidence": "Ονομαστική αναφορά στην ομάδα 1983–84 στο ιστορικό φωτογραφικό αφιέρωμα"
+          },
+          {
+            "person_id": "arch-a371d2068ced",
+            "name": "Λευτέρης Ελευθεριάδης",
+            "role": "αθλητής",
+            "source_id": "katerinisport-first-a1",
+            "evidence": "Ονομαστική αναφορά στην ομάδα 1983–84 στο ιστορικό φωτογραφικό αφιέρωμα"
+          },
+          {
+            "person_id": "arch-3c81755ecad8",
+            "name": "Διονύσης Αναγνωστόπουλος",
+            "role": "αθλητής",
+            "source_id": "katerinisport-first-a1",
+            "evidence": "Ονομαστική αναφορά στην ομάδα 1983–84 στο ιστορικό φωτογραφικό αφιέρωμα"
+          }
+        ]
+      }
+    },
+    {
+      "id": "arc-handball-cup-final-1984",
+      "event_type": "cup_final",
+      "sport": "handball",
+      "title": "Φιναλίστ Κυπέλλου Ελλάδας Ανδρών χάντμπολ το 1984",
+      "summary": "Στον τελικό της 23ης Ιουνίου 1984, ο Αρχέλαος ηττήθηκε από τον Βυζαντινό ΑΟ με 21–19.",
+      "temporal": {
+        "precision": "day",
+        "date": "1984-06-23"
+      },
+      "verification": "source_checked",
+      "source_ids": [
+        "greek-handball-cup-record",
+        "sportfm-cup-history"
+      ],
+      "associations": {
+        "moment_ids": [
+          45
+        ],
+        "people": []
+      },
+      "match": {
+        "home": "Βυζαντινός ΑΟ",
+        "away": "ΓΑΣ Αρχέλαος Κατερίνης",
+        "home_score": 21,
+        "away_score": 19
+      }
+    },
+    {
+      "id": "arc-handball-cup-final-1990",
+      "event_type": "cup_final",
+      "sport": "handball",
+      "title": "Πρώτο Κύπελλο Ελλάδας Ανδρών χάντμπολ",
+      "summary": "Στις 2 Ιουνίου 1990 ο Αρχέλαος νίκησε τον Δούκα με 27–21 στον τελικό και κατέκτησε το Κύπελλο Ελλάδας.",
+      "temporal": {
+        "precision": "day",
+        "date": "1990-06-02"
+      },
+      "verification": "source_checked",
+      "source_ids": [
+        "greek-handball-cup-record",
+        "sportfm-cup-history"
+      ],
+      "associations": {
+        "moment_ids": [
+          53
+        ],
+        "people": []
+      },
+      "match": {
+        "home": "ΑΣΕ Δούκας",
+        "away": "ΓΑΣ Αρχέλαος Κατερίνης",
+        "home_score": 21,
+        "away_score": 27
+      }
+    },
+    {
+      "id": "arc-handball-cup-final-1993",
+      "event_type": "cup_final",
+      "sport": "handball",
+      "title": "Τελικός Κυπέλλου Ελλάδας Ανδρών χάντμπολ το 1993",
+      "summary": "Στις 5 Απριλίου 1993 ο Ιωνικός επικράτησε του Αρχελάου με 34–33 στον τελικό.",
+      "temporal": {
+        "precision": "day",
+        "date": "1993-04-05"
+      },
+      "verification": "source_checked",
+      "source_ids": [
+        "greek-handball-cup-record",
+        "sportfm-cup-history"
+      ],
+      "associations": {
+        "moment_ids": [],
+        "people": []
+      },
+      "match": {
+        "home": "ΓΑΣ Αρχέλαος Κατερίνης",
+        "away": "Ιωνικός Νέας Φιλαδέλφειας",
+        "home_score": 33,
+        "away_score": 34
+      }
+    },
+    {
+      "id": "arc-handball-cup-final-1994",
+      "event_type": "cup_final",
+      "sport": "handball",
+      "title": "Δεύτερο Κύπελλο Ελλάδας Ανδρών χάντμπολ",
+      "summary": "Στις 8 Ιουνίου 1994 ο Αρχέλαος νίκησε τον Ιωνικό Νέας Φιλαδέλφειας με 27–25 στον τελικό.",
+      "temporal": {
+        "precision": "day",
+        "date": "1994-06-08"
+      },
+      "verification": "source_checked",
+      "source_ids": [
+        "greek-handball-cup-record",
+        "sportfm-cup-history"
+      ],
+      "associations": {
+        "moment_ids": [
+          62
+        ],
+        "people": []
+      },
+      "match": {
+        "home": "ΓΑΣ Αρχέλαος Κατερίνης",
+        "away": "Ιωνικός Νέας Φιλαδέλφειας",
+        "home_score": 27,
+        "away_score": 25
+      }
+    },
+    {
+      "id": "arc-handball-borec-away-1994",
+      "event_type": "european_match",
+      "sport": "handball",
+      "title": "Borec–Αρχέλαος 22–13 (Κύπελλο Κυπελλούχων)",
+      "summary": "Ο Αρχέλαος ηττήθηκε εκτός έδρας με 22–13 από την Borec Titov Veles στον πρώτο αγώνα της φάσης των 32.",
+      "temporal": {
+        "precision": "day",
+        "date": "1994-10-08"
+      },
+      "verification": "source_checked",
+      "source_ids": [
+        "ehf-club-history"
+      ],
+      "associations": {
+        "moment_ids": [
+          63
+        ],
+        "people": []
+      },
+      "match": {
+        "home": "Borec Titov Veles",
+        "away": "ΓΑΣ Αρχέλαος Κατερίνης",
+        "home_score": 22,
+        "away_score": 13
+      }
+    },
+    {
+      "id": "arc-handball-borec-home-1994",
+      "event_type": "european_match",
+      "sport": "handball",
+      "title": "Αρχέλαος–Borec 22–18 (Κύπελλο Κυπελλούχων)",
+      "summary": "Ο Αρχέλαος νίκησε με 22–18 στον επαναληπτικό· δεν προκρίθηκε, καθώς το συνολικό σκορ ήταν 35–40.",
+      "temporal": {
+        "precision": "day",
+        "date": "1994-10-15"
+      },
+      "verification": "source_checked",
+      "source_ids": [
+        "ehf-club-history"
+      ],
+      "associations": {
+        "moment_ids": [
+          63
+        ],
+        "people": []
+      },
+      "match": {
+        "home": "ΓΑΣ Αρχέλαος Κατερίνης",
+        "away": "Borec Titov Veles",
+        "home_score": 22,
+        "away_score": 18
+      }
+    },
+    {
+      "id": "arc-handball-mamuli-home-1995",
+      "event_type": "european_match",
+      "sport": "handball",
+      "title": "Αρχέλαος–HC Mamuli Tbilisi 35–27 (Κύπελλο EHF)",
+      "summary": "Ο Αρχέλαος επικράτησε 35–27 στον πρώτο από τους δύο αγώνες της φάσης των 32 του Κυπέλλου EHF.",
+      "temporal": {
+        "precision": "day",
+        "date": "1995-10-14"
+      },
+      "verification": "source_checked",
+      "source_ids": [
+        "ehf-club-history"
+      ],
+      "associations": {
+        "moment_ids": [],
+        "people": []
+      },
+      "match": {
+        "home": "ΓΑΣ Αρχέλαος Κατερίνης",
+        "away": "HC Mamuli Tbilisi",
+        "home_score": 35,
+        "away_score": 27
+      }
+    },
+    {
+      "id": "arc-handball-mamuli-away-1995",
+      "event_type": "european_match",
+      "sport": "handball",
+      "title": "HC Mamuli Tbilisi–Αρχέλαος 26–34 (Κύπελλο EHF)",
+      "summary": "Ο Αρχέλαος νίκησε 34–26 στον δεύτερο αγώνα της φάσης των 32 του Κυπέλλου EHF.",
+      "temporal": {
+        "precision": "day",
+        "date": "1995-10-15"
+      },
+      "verification": "source_checked",
+      "source_ids": [
+        "ehf-club-history"
+      ],
+      "associations": {
+        "moment_ids": [],
+        "people": []
+      },
+      "match": {
+        "home": "HC Mamuli Tbilisi",
+        "away": "ΓΑΣ Αρχέλαος Κατερίνης",
+        "home_score": 26,
+        "away_score": 34
+      }
+    },
+    {
+      "id": "arc-handball-veszprem-home-1996",
+      "event_type": "european_match",
+      "sport": "handball",
+      "title": "Αρχέλαος–Fotex Veszprém 19–30",
+      "summary": "Ο Αρχέλαος ηττήθηκε 19–30 από τη Fotex Veszprém στο Κύπελλο Κυπελλούχων 1996–97.",
+      "temporal": {
+        "precision": "day",
+        "date": "1996-10-18"
+      },
+      "verification": "source_checked",
+      "source_ids": [
+        "ehf-club-history"
+      ],
+      "associations": {
+        "moment_ids": [],
+        "people": []
+      },
+      "match": {
+        "home": "ΓΑΣ Αρχέλαος Κατερίνης",
+        "away": "Fotex Veszprém SE",
+        "home_score": 19,
+        "away_score": 30
+      }
+    },
+    {
+      "id": "arc-handball-veszprem-away-1996",
+      "event_type": "european_match",
+      "sport": "handball",
+      "title": "Fotex Veszprém–Αρχέλαος 28–22",
+      "summary": "Ο Αρχέλαος ηττήθηκε 28–22 στη ρεβάνς του Κυπέλλου Κυπελλούχων 1996–97.",
+      "temporal": {
+        "precision": "day",
+        "date": "1996-10-20"
+      },
+      "verification": "source_checked",
+      "source_ids": [
+        "ehf-club-history"
+      ],
+      "associations": {
+        "moment_ids": [],
+        "people": []
+      },
+      "match": {
+        "home": "Fotex Veszprém SE",
+        "away": "ΓΑΣ Αρχέλαος Κατερίνης",
+        "home_score": 28,
+        "away_score": 22
+      }
+    },
+    {
+      "id": "arc-handball-flensburg-away-2000",
+      "event_type": "european_match",
+      "sport": "handball",
+      "title": "SG Flensburg-Handewitt–Αρχέλαος 35–18",
+      "summary": "Ο Αρχέλαος ηττήθηκε στη Γερμανία με 35–18 στο Κύπελλο Κυπελλούχων.",
+      "temporal": {
+        "precision": "day",
+        "date": "2000-11-11"
+      },
+      "verification": "source_checked",
+      "source_ids": [
+        "ehf-club-history"
+      ],
+      "associations": {
+        "moment_ids": [],
+        "people": []
+      },
+      "match": {
+        "home": "SG Flensburg-Handewitt",
+        "away": "ΓΑΣ Αρχέλαος Κατερίνης",
+        "home_score": 35,
+        "away_score": 18
+      }
+    },
+    {
+      "id": "arc-handball-flensburg-return-2000",
+      "event_type": "european_match",
+      "sport": "handball",
+      "title": "Αρχέλαος–SG Flensburg-Handewitt 21–35",
+      "summary": "Στον δεύτερο αγώνα με τη SG Flensburg-Handewitt ο Αρχέλαος ηττήθηκε με 21–35.",
+      "temporal": {
+        "precision": "day",
+        "date": "2000-11-12"
+      },
+      "verification": "source_checked",
+      "source_ids": [
+        "ehf-club-history"
+      ],
+      "associations": {
+        "moment_ids": [],
+        "people": []
+      },
+      "match": {
+        "home": "ΓΑΣ Αρχέλαος Κατερίνης",
+        "away": "SG Flensburg-Handewitt",
+        "home_score": 21,
+        "away_score": 35
+      }
+    },
+    {
+      "id": "arc-handball-youth-titles-1994-95",
+      "event_type": "youth_title",
+      "sport": "handball",
+      "title": "Πρωταθλητής Ελλάδας Παίδων και Μίνι (1994–95)",
+      "summary": "Στους επίσημους πίνακες της περιόδου 1994–95 ο Αρχέλαος καταγράφεται πρωταθλητής Ελλάδας στις κατηγορίες Παίδων και Μίνι.",
+      "temporal": {
+        "precision": "season",
+        "season": "1994–1995"
+      },
+      "verification": "source_checked",
+      "source_ids": [
+        "greek-handball-youth-record"
+      ],
+      "associations": {
+        "moment_ids": [],
+        "people": []
+      }
+    },
+    {
+      "id": "arc-multisport-honours-2022",
+      "event_type": "club_honours",
+      "sport": "multisport",
+      "sports": [
+        "handball",
+        "track",
+        "archery",
+        "shooting",
+        "gymnastics",
+        "volleyball",
+        "wrestling",
+        "swimming",
+        "basketball"
+      ],
+      "title": "Τιμητική εκδήλωση για την ιστορική πορεία του Αρχέλαου",
+      "summary": "Σύμφωνα με το επίσημο δελτίο Τύπου του Δήμου Κατερίνης, σε εκδήλωση αφιερωμένη στην πορεία του συλλόγου τιμήθηκαν πρόσωπα από τον στίβο, την καλαθοσφαίριση, το βόλεϊ, την ενόργανη, το χάντμπολ, τη σκοποβολή, την πάλη, την κολύμβηση και την τοξοβολία.",
+      "temporal": {
+        "precision": "year",
+        "year": 2022
+      },
+      "verification": "source_checked",
+      "source_ids": [
+        "municipality-2022-club-tribute"
+      ],
+      "associations": {
+        "moment_ids": [],
+        "people": [
+          {
+            "person_id": "arch-999730e06982",
+            "name": "Σταματία Κυπαρίσση",
+            "role": "τιμώμενη για το βόλεϊ",
+            "source_id": "municipality-2022-club-tribute",
+            "evidence": "Το επίσημο δελτίο Τύπου του Δήμου την κατονομάζει στην τιμητική εκδήλωση ως εκπρόσωπο του βόλεϊ."
+          },
+          {
+            "person_id": "arch-6aa13d0c3e0a",
+            "name": "Μαρία Φάκα",
+            "role": "τιμώμενη για τη σκοποβολή",
+            "source_id": "municipality-2022-club-tribute",
+            "evidence": "Το επίσημο δελτίο Τύπου του Δήμου την κατονομάζει ως τιμώμενη για τη σκοποβολή."
+          },
+          {
+            "person_id": "arch-3c52a3f2a994",
+            "name": "Ευαγγελία Σαλτσίδου",
+            "role": "τιμώμενη για την κολύμβηση",
+            "source_id": "municipality-2022-club-tribute",
+            "evidence": "Το επίσημο δελτίο Τύπου του Δήμου την κατονομάζει ως τιμώμενη για την κολύμβηση."
+          },
+          {
+            "person_id": "arch-f6a4e2956785",
+            "name": "Θεόδωρος Σφήκας",
+            "role": "τιμώμενος για την καλαθοσφαίριση",
+            "source_id": "municipality-2022-club-tribute",
+            "evidence": "Το επίσημο δελτίο Τύπου του Δήμου τον κατονομάζει ως τιμώμενο για την καλαθοσφαίριση."
+          }
+        ]
+      }
+    },
+    {
+      "id": "arc-multisport-board-meeting-2023",
+      "event_type": "governance",
+      "sport": "multisport",
+      "sports": [
+        "handball",
+        "track",
+        "archery",
+        "shooting",
+        "gymnastics",
+        "volleyball",
+        "wrestling",
+        "swimming"
+      ],
+      "title": "Συνάντηση διοίκησης και εφόρων του Αρχέλαου με τον Δήμο",
+      "summary": "Σύμφωνα με το δελτίο Τύπου του Δήμου Κατερίνης της 24ης Φεβρουαρίου 2023, πραγματοποιήθηκε συνάντηση για ζητήματα αθλητικών υποδομών και λειτουργίας των τμημάτων. Η ανακοίνωση κατονομάζει εφόρους χειροσφαίρισης, στίβου, τοξοβολίας, σκοποβολής, γυμναστικής, πετοσφαίρισης, πάλης και κολύμβησης.",
+      "temporal": {
+        "precision": "year",
+        "year": 2023
+      },
+      "verification": "source_checked",
+      "source_ids": [
+        "municipality-2023-club-board"
+      ],
+      "associations": {
+        "moment_ids": [],
+        "people": []
+      }
+    },
+    {
+      "id": "arc-archery-national-championship-2026",
+      "event_type": "championship",
+      "sport": "archery",
+      "sports": [
+        "archery"
+      ],
+      "title": "Πρώτη θέση στη γενική βαθμολογία Πανελληνίου Τοξοβολίας Α/Χ 2026",
+      "summary": "Σύμφωνα με επίσημη ανακοίνωση του Δήμου Κατερίνης στις 23 Ιουνίου 2026, ο ΓΑΣ Αρχέλαος κατέλαβε την πρώτη θέση στη γενική βαθμολογία του Πανελληνίου Πρωταθλήματος Τοξοβολίας Α/Χ στη Φλώρινα. Η ίδια ανακοίνωση αναφέρει αργυρό μετάλλιο του Χάρη Ιακωβίδη, χάλκινο του Βαγγέλη Χαρίση και πέμπτη θέση του Βαγγέλη Μαρινόπουλου.",
+      "temporal": {
+        "precision": "year",
+        "year": 2026
+      },
+      "verification": "source_checked",
+      "source_ids": [
+        "municipality-2026-archery-championship"
+      ],
+      "associations": {
+        "moment_ids": [],
+        "people": []
+      }
+    },
+    {
+      "id": "arc-track-indoor-200m-2019",
+      "event_type": "track_result",
+      "sport": "track",
+      "sports": [
+        "track"
+      ],
+      "title": "Νίκη αθλήτριας του Αρχέλαου στα 200 μ. κλειστού στίβου",
+      "summary": "Ο ΣΕΓΑΣ αναφέρει ότι η Στέλλα Κωνσταντινίδου, αθλήτρια του Αρχέλαου, νίκησε στα 200 μ. στο Πανελλήνιο Πρωτάθλημα κλειστού στίβου, με επίδοση 25.28.",
+      "temporal": {
+        "precision": "day",
+        "date": "2019-02-10"
+      },
+      "verification": "source_checked",
+      "source_ids": [
+        "segas-2019-indoor-200m"
+      ],
+      "associations": {
+        "moment_ids": [],
+        "people": []
+      }
+    },
+    {
+      "id": "arc-track-indoor-60m-hurdles-2025",
+      "event_type": "track_result",
+      "sport": "track",
+      "sports": [
+        "track"
+      ],
+      "title": "Δεύτερη θέση στα 60 μ. εμπόδια στο Πανελλήνιο κλειστού 2025",
+      "summary": "Ο ΣΕΓΑΣ καταγράφει τη δεύτερη θέση της Κατερίνας Ρέχα (Αρχέλαος Κατερίνης) στα 60 μ. εμπόδια με επίδοση 8.42, στο Πανελλήνιο κλειστού στίβου 2025.",
+      "temporal": {
+        "precision": "year",
+        "year": 2025
+      },
+      "verification": "source_checked",
+      "source_ids": [
+        "segas-2025-indoor-60h"
+      ],
+      "associations": {
+        "moment_ids": [],
+        "people": []
+      }
+    }
+  ],
+  "review_flags": [
+    {
+      "id": "review-handball-1984-cup-score",
+      "moment_id": 45,
+      "issue": "Το κείμενο της στιγμής αναφέρει σκορ 18–24 απέναντι στον ΒΑΟ. Οι πίνακες της ομοσπονδίας και ο ΣΠΟΡ FM δίνουν 21–19.",
+      "source_ids": [
+        "greek-handball-cup-record",
+        "sportfm-cup-history"
+      ],
+      "status": "requires_human_review",
+      "suggestion": "Επαλήθευση πρακτικού/αποκόμματος πριν από διόρθωση της 70ής συλλογής."
+    },
+    {
+      "id": "review-handball-borec-1994-qualification",
+      "moment_id": 63,
+      "issue": "Η στιγμή ισχυρίζεται ότι ο Αρχέλαος απέκλεισε την Borec το 1994. EHF: 13–22 και 22–18, σύνολο 35–40, χωρίς πρόκριση.",
+      "source_ids": [
+        "ehf-club-history"
+      ],
+      "status": "requires_human_review",
+      "suggestion": "Να ελεγχθεί η πλήρης περιγραφή της συγκεκριμένης σεζόν."
+    },
+    {
+      "id": "review-handball-veszprem-season",
+      "moment_id": 63,
+      "issue": "Η στιγμή συνδέει τη Veszprém με την περίοδο 1994–95. Η EHF καταγράφει τους αγώνες στις 18 και 20 Οκτωβρίου 1996, δηλαδή 1996–97.",
+      "source_ids": [
+        "ehf-club-history"
+      ],
+      "status": "requires_human_review",
+      "suggestion": "Αποσαφήνιση των δύο διαφορετικών ευρωπαϊκών περιόδων."
+    },
+    {
+      "id": "review-handball-top-flight-promotion-year",
+      "moment_id": 44,
+      "issue": "Η στιγμή περιγράφει άνοδο στην Α΄ Εθνική την περίοδο 1983–84. Δημοσίευμα ιστορικού αφιερώματος αναφέρει άνοδο το 1982–83 και πρώτη συμμετοχή στην Α΄ το 1983–84.",
+      "source_ids": [
+        "katerinisport-first-a1"
+      ],
+      "status": "requires_human_review",
+      "suggestion": "Διαχωρισμός χρονιάς ανόδου από χρονιά πρώτης συμμετοχής."
+    }
+  ],
+  "policies": {
+    "web_search_only_on_demand": true,
+    "news_scraping": false,
+    "automatic_publication": false,
+    "person_links": "Only explicit source mention + existing unique Hall of Fame ID; no inference from names alone",
+    "source_review": "New discoveries enter as draft; editor checks direct evidence; conflicts remain review_flags until resolved",
+    "all_departments": true,
+    "strict_evidence_only": true,
+    "do_not_autolink_names": true,
+    "candidate_queues_never_published": true,
+    "no_auto_write_to_biographies": true
+  },
+  "department_registry": [
+    {
+      "id": "handball",
+      "label": "Χειροσφαίριση",
+      "status": "current_department",
+      "source": "rebuild/data/home.json for current; historically represented basketball in archive"
+    },
+    {
+      "id": "track",
+      "label": "Στίβος",
+      "status": "current_department",
+      "source": "rebuild/data/home.json for current; historically represented basketball in archive"
+    },
+    {
+      "id": "archery",
+      "label": "Τοξοβολία",
+      "status": "current_department",
+      "source": "rebuild/data/home.json for current; historically represented basketball in archive"
+    },
+    {
+      "id": "shooting",
+      "label": "Σκοποβολή",
+      "status": "current_department",
+      "source": "rebuild/data/home.json for current; historically represented basketball in archive"
+    },
+    {
+      "id": "gymnastics",
+      "label": "Ενόργανη Γυμναστική",
+      "status": "current_department",
+      "source": "rebuild/data/home.json for current; historically represented basketball in archive"
+    },
+    {
+      "id": "volleyball",
+      "label": "Πετοσφαίριση",
+      "status": "current_department",
+      "source": "rebuild/data/home.json for current; historically represented basketball in archive"
+    },
+    {
+      "id": "wrestling",
+      "label": "Πάλη",
+      "status": "current_department",
+      "source": "rebuild/data/home.json for current; historically represented basketball in archive"
+    },
+    {
+      "id": "swimming",
+      "label": "Κολύμβηση",
+      "status": "current_department",
+      "source": "rebuild/data/home.json for current; historically represented basketball in archive"
+    },
+    {
+      "id": "basketball",
+      "label": "Ιστορική Καλαθοσφαίριση",
+      "status": "historical_department",
+      "source": "rebuild/data/home.json for current; historically represented basketball in archive"
+    }
+  ],
+  "research_queue": [
+    {
+      "id": "track-identity-konstantinidou",
+      "sport": "track",
+      "status": "needs_identity_evidence",
+      "event_id": "arc-track-indoor-200m-2019",
+      "issue": "Η ΣΕΓΑΣ αναφέρει «Στέλλα Κωνσταντινίδου», αλλά δεν υπάρχει ακριβής αντιστοίχιση πλήρους ονόματος στο Hall of Fame.",
+      "source_ids": [
+        "segas-2019-indoor-200m"
+      ],
+      "required_evidence": "Επιβεβαιωμένο αναγνωριστικό προσώπου ή ακριβής ιστορική ονομαστική τεκμηρίωση."
+    },
+    {
+      "id": "track-identity-recha",
+      "sport": "track",
+      "status": "needs_identity_evidence",
+      "event_id": "arc-track-indoor-60m-hurdles-2025",
+      "issue": "Η Κατερίνα Ρέχα εμφανίζεται στον ΣΕΓΑΣ, όχι όμως με ακριβή αντιστοίχιση στην υπάρχουσα βάση Hall of Fame.",
+      "source_ids": [
+        "segas-2025-indoor-60h"
+      ],
+      "required_evidence": "Ελεγμένο προφίλ/επίσημη καταχώριση και επιμελητική ταυτοποίηση."
+    },
+    {
+      "id": "archery-identity-iakovidis",
+      "sport": "archery",
+      "status": "needs_identity_evidence",
+      "event_id": "arc-archery-national-championship-2026",
+      "issue": "Η πηγή χρησιμοποιεί την κλιτή μορφή «Χάρη Ιακωβίδη» και το Hall of Fame «Χάρης Ιακωβίδης». Δεν ενεργοποιείται αυτόματος συσχετισμός.",
+      "source_ids": [
+        "municipality-2026-archery-championship"
+      ],
+      "required_evidence": "Επιβεβαίωση ταύτισης από επίσημο αποτέλεσμα ή εγκεκριμένο αρχείο."
+    },
+    {
+      "id": "archery-identity-charisis",
+      "sport": "archery",
+      "status": "needs_identity_evidence",
+      "event_id": "arc-archery-national-championship-2026",
+      "issue": "Η πηγή χρησιμοποιεί «Βαγγέλη Χαρίση» ενώ το Hall of Fame έχει «Ευάγγελος Χαρίσης». Η αντιστοίχιση δεν θεωρείται βέβαιη.",
+      "source_ids": [
+        "municipality-2026-archery-championship"
+      ],
+      "required_evidence": "Ονομαστική ταύτιση από πρωτογενές αποτέλεσμα της ομοσπονδίας ή εγκεκριμένο αρχείο."
+    },
+    {
+      "id": "gap-shooting-sport-specific",
+      "sport": "shooting",
+      "status": "needs_sport_specific_source",
+      "issue": "Υπάρχει δημόσια δημοτική καταγραφή συμμετοχής σε συλλογικές ιστορικές δραστηριότητες/τιμητική εκδήλωση, αλλά δεν καταχωρίστηκε ακόμη ανεξάρτητο, ελεγμένο αγωνιστικό γεγονός για το τμήμα.",
+      "source_ids": [
+        "municipality-2022-club-tribute"
+      ],
+      "required_evidence": "Πρωτογενές αποτέλεσμα ομοσπονδίας, πρωτότυπο πρακτικό με δημόσια ασφαλή παραπομπή ή ταυτοποιημένη ιστορική δημοσίευση."
+    },
+    {
+      "id": "gap-gymnastics-sport-specific",
+      "sport": "gymnastics",
+      "status": "needs_sport_specific_source",
+      "issue": "Υπάρχει δημόσια δημοτική καταγραφή συμμετοχής σε συλλογικές ιστορικές δραστηριότητες/τιμητική εκδήλωση, αλλά δεν καταχωρίστηκε ακόμη ανεξάρτητο, ελεγμένο αγωνιστικό γεγονός για το τμήμα.",
+      "source_ids": [
+        "municipality-2022-club-tribute"
+      ],
+      "required_evidence": "Πρωτογενές αποτέλεσμα ομοσπονδίας, πρωτότυπο πρακτικό με δημόσια ασφαλή παραπομπή ή ταυτοποιημένη ιστορική δημοσίευση."
+    },
+    {
+      "id": "gap-volleyball-sport-specific",
+      "sport": "volleyball",
+      "status": "needs_sport_specific_source",
+      "issue": "Υπάρχει δημόσια δημοτική καταγραφή συμμετοχής σε συλλογικές ιστορικές δραστηριότητες/τιμητική εκδήλωση, αλλά δεν καταχωρίστηκε ακόμη ανεξάρτητο, ελεγμένο αγωνιστικό γεγονός για το τμήμα.",
+      "source_ids": [
+        "municipality-2022-club-tribute"
+      ],
+      "required_evidence": "Πρωτογενές αποτέλεσμα ομοσπονδίας, πρωτότυπο πρακτικό με δημόσια ασφαλή παραπομπή ή ταυτοποιημένη ιστορική δημοσίευση."
+    },
+    {
+      "id": "gap-wrestling-sport-specific",
+      "sport": "wrestling",
+      "status": "needs_sport_specific_source",
+      "issue": "Υπάρχει δημόσια δημοτική καταγραφή συμμετοχής σε συλλογικές ιστορικές δραστηριότητες/τιμητική εκδήλωση, αλλά δεν καταχωρίστηκε ακόμη ανεξάρτητο, ελεγμένο αγωνιστικό γεγονός για το τμήμα.",
+      "source_ids": [
+        "municipality-2022-club-tribute"
+      ],
+      "required_evidence": "Πρωτογενές αποτέλεσμα ομοσπονδίας, πρωτότυπο πρακτικό με δημόσια ασφαλή παραπομπή ή ταυτοποιημένη ιστορική δημοσίευση."
+    },
+    {
+      "id": "gap-swimming-sport-specific",
+      "sport": "swimming",
+      "status": "needs_sport_specific_source",
+      "issue": "Υπάρχει δημόσια δημοτική καταγραφή συμμετοχής σε συλλογικές ιστορικές δραστηριότητες/τιμητική εκδήλωση, αλλά δεν καταχωρίστηκε ακόμη ανεξάρτητο, ελεγμένο αγωνιστικό γεγονός για το τμήμα.",
+      "source_ids": [
+        "municipality-2022-club-tribute"
+      ],
+      "required_evidence": "Πρωτογενές αποτέλεσμα ομοσπονδίας, πρωτότυπο πρακτικό με δημόσια ασφαλή παραπομπή ή ταυτοποιημένη ιστορική δημοσίευση."
+    },
+    {
+      "id": "gap-basketball-sport-specific",
+      "sport": "basketball",
+      "status": "needs_sport_specific_source",
+      "issue": "Υπάρχει δημόσια δημοτική καταγραφή συμμετοχής σε συλλογικές ιστορικές δραστηριότητες/τιμητική εκδήλωση, αλλά δεν καταχωρίστηκε ακόμη ανεξάρτητο, ελεγμένο αγωνιστικό γεγονός για το τμήμα.",
+      "source_ids": [
+        "municipality-2022-club-tribute"
+      ],
+      "required_evidence": "Πρωτογενές αποτέλεσμα ομοσπονδίας, πρωτότυπο πρακτικό με δημόσια ασφαλή παραπομπή ή ταυτοποιημένη ιστορική δημοσίευση."
+    },
+    {
+      "id": "historical-cup-1984-conflict",
+      "sport": "handball",
+      "status": "needs_source_reconciliation",
+      "issue": "Η 70ή συλλογή έχει σκορ 1984 που διαφέρει από το επίσημο αποτέλεσμα της ΟΧΕ.",
+      "source_ids": [
+        "greek-handball-cup-record"
+      ],
+      "required_evidence": "Διασταύρωση και έλεγχος εγκεκριμένου κειμένου της στιγμής #45 πριν από αλλαγή."
+    },
+    {
+      "id": "historical-borec-1994-conflict",
+      "sport": "handball",
+      "status": "needs_source_reconciliation",
+      "issue": "Οι 70 Στιγμές περιγράφουν πρόκριση μετά τους αγώνες με την Borec, ενώ η EHF καταγράφει αποκλεισμό.",
+      "source_ids": [
+        "ehf-club-history"
+      ],
+      "required_evidence": "Έλεγχος πλήρων αποτελεσμάτων EHF και εγκεκριμένου κειμένου #63 πριν από αλλαγή."
+    }
+  ]
+}

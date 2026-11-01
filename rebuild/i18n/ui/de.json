@@ -1,0 +1,28 @@
+{
+  "locale": "de",
+  "scope": "navigation_footer_interface_only",
+  "review_status": "draft",
+  "strings": {
+    "home": "Startseite",
+    "museum": "Digitales Museum",
+    "moments": "70 Momente",
+    "hall": "Hall of Fame",
+    "stories": "Geschichten",
+    "about": "Über den Verein",
+    "sports": "Sportarten",
+    "board": "Vorstand",
+    "sponsors": "Sponsoren",
+    "contact": "Kontakt",
+    "search": "Suche",
+    "favorites": "Favoriten",
+    "contribute": "Mitwirken",
+    "archive": "Archiv",
+    "club": "Der Verein",
+    "contribution": "Zum Archiv beitragen",
+    "menu": "Menü",
+    "close": "Schließen",
+    "facebook": "Facebook",
+    "youtube": "YouTube",
+    "wikipedia": "Wikipedia"
+  }
+}

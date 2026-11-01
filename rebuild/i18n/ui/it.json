@@ -1,0 +1,28 @@
+{
+  "locale": "it",
+  "scope": "navigation_footer_interface_only",
+  "review_status": "draft",
+  "strings": {
+    "home": "Home",
+    "museum": "Museo digitale",
+    "moments": "70 momenti",
+    "hall": "Hall of Fame",
+    "stories": "Storie",
+    "about": "Il club",
+    "sports": "Sport",
+    "board": "Direttivo",
+    "sponsors": "Sponsor",
+    "contact": "Contatti",
+    "search": "Cerca",
+    "favorites": "Preferiti",
+    "contribute": "Contribuisci",
+    "archive": "Archivio",
+    "club": "Il club",
+    "contribution": "Contribuisci all'archivio",
+    "menu": "Menu",
+    "close": "Chiudi",
+    "facebook": "Facebook",
+    "youtube": "YouTube",
+    "wikipedia": "Wikipedia"
+  }
+}

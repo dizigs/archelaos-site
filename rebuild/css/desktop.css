@@ -1,0 +1,20 @@
+/* DESKTOP: >=1440px. Elegant motion limited to the capable fine-pointer layout. */
+:root{--arch-content-width:1220px}
+.arch-header-inner{max-width:1660px;padding-inline:32px}
+.arch-nav{gap:5px}
+.arch-header-actions{gap:10px}
+.arch-action{padding-inline:14px}
+.arch-footer-inner{max-width:1220px}
+.arch-card{min-height:260px}
+.ac-guide-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
+ @keyframes arch-hero-breathe{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(0,-9px,0)}}
+ @keyframes arch-gold-shift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+ .new-logo-seal{animation:arch-hero-breathe 9s ease-in-out infinite;will-change:transform}
+ .new-anniversary-number{background-size:180% 180%;animation:arch-gold-shift 14s ease-in-out infinite}
+ .arch-card,.av-card,.ac-tile{transition:transform .36s cubic-bezier(.2,.8,.2,1),box-shadow .36s,border-color .36s}
+ .arch-card:hover,.av-card:hover,.ac-tile:hover{transform:translateY(-5px);box-shadow:0 22px 45px rgba(4,47,29,.15);border-color:#b79c63}
+ .arch-action,.arch-footer-cta,.arch-footer-social a{transition:background-color .24s,border-color .24s,transform .24s,box-shadow .24s}
+ .arch-action:hover,.arch-footer-cta:hover,.arch-footer-social a:hover{transform:translateY(-2px)}
+}
+@media(prefers-reduced-motion:reduce){.new-logo-seal,.new-anniversary-number{animation:none!important;will-change:auto}}

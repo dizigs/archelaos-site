@@ -1,0 +1,171 @@
+/* Digital Museum reconstructed from verified October backup editorial styles. */
+.mu-skip{position:fixed;top:-80px;left:10px;background:#fff;color:#073d2a;padding:10px;z-index:1800}.mu-skip:focus{top:12px}
+.mu-entrance{background:radial-gradient(ellipse at 77% 20%,#1c573d,#073d2a 68%,#042e20);color:#fff9e8;padding:120px 0 135px;text-align:center;position:relative;overflow:hidden}
+.mu-entrance:before{content:"1956";position:absolute;bottom:-.24em;left:0;font:400 clamp(150px,30vw,450px) Georgia,serif;color:#ffffff07}
+.mu-entrance>.arch-container{position:relative;z-index:1}
+.mu-entrance-kicker{font-size:12px;font-weight:800;color:#d6be81;letter-spacing:.22em}
+.mu-entrance h1{font:400 clamp(46px,7vw,94px)/1.07 Georgia,serif;letter-spacing:-.04em;max-width:950px;margin:25px auto}
+.mu-entrance h1 em{color:#e4c98d}
+.mu-divider{display:flex;justify-content:center;align-items:center;gap:19px;color:#c7a65e}
+.mu-divider span{width:65px;height:1px;background:#c7a65e}
+.mu-entrance p:not(.mu-entrance-kicker){max-width:720px;margin:25px auto 30px;color:#e2e9e2;font-size:17px;line-height:1.85}
+.mu-cta{display:inline-flex;text-decoration:none;color:#073d2a;background:#eddbaf;border-radius:13px;padding:14px 23px;font-size:14px;font-weight:800}
+.mu-collections,.mu-explore,.mu-exhibits,.mu-press,.mu-archive,.mu-sports{padding:clamp(65px,8vw,110px) 0}
+.mu-collections{background:#f8f6ef}
+.mu-explore{background:#efe9dc}
+.mu-exhibits{background:#f8f6ef}
+.mu-press{background:#073d2a;color:#fffaf0}
+.mu-archive{background:#f8f6ef}
+.mu-sports{background:#f1ecdf}
+.mu-label{font-size:11px;font-weight:800;letter-spacing:.17em;color:#94773d;margin:0 0 16px}
+.mu-press .mu-label{color:#d7bd83}
+.mu-collections h2,.mu-explore h2,.mu-exhibits h2,.mu-press h2,.mu-archive h2,.mu-sports h2{font:400 clamp(37px,5vw,64px)/1.12 Georgia,serif;letter-spacing:-.04em;color:#073d2a;max-width:940px;margin:0 0 20px}
+.mu-press h2{color:#fff7e9}
+.mu-desc{max-width:860px;color:#546e59;font-size:16px;line-height:1.85;margin-bottom:36px}
+.mu-press .mu-desc{color:#dce7da}
+.mu-collections .arch-cards{grid-template-columns:repeat(3,minmax(0,1fr))}
+.mu-nav-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.mu-nav-card{display:flex;flex-direction:column;gap:15px;position:relative;min-height:225px;padding:25px;background:linear-gradient(132deg,#fffefa,#f2e8d6);border:1px solid #d1be9a;border-radius:22px;text-decoration:none;color:#073d2a}
+.mu-nav-card span{color:#9b8047;font:600 22px Georgia,serif}
+.mu-nav-card strong{margin:auto 0 0;font:400 clamp(25px,2.7vw,33px) Georgia,serif}
+.mu-nav-card small{color:#597362}
+.mu-nav-card b{position:absolute;top:23px;right:25px;color:#94773d}
+.mu-exhibit-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.mu-exhibit{display:flex;flex-direction:column;text-align:left;position:relative;min-height:290px;padding:26px 28px;border:1px solid #d5c29f;border-radius:23px;background:linear-gradient(136deg,#fffdf6,#eee2cf);color:#073d2a;overflow:hidden}
+.mu-exhibit:nth-child(2){background:linear-gradient(136deg,#0a4e37,#073d2a);color:#fffaf0}
+.mu-exhibit:after{content:attr(data-year);position:absolute;right:10px;bottom:-.2em;font:400 135px Georgia,serif;color:#bba36f20;pointer-events:none}
+.mu-exhibit>span{position:relative;z-index:1;font:600 25px Georgia,serif;color:#a3874e}
+.mu-exhibit strong{position:relative;z-index:1;font:400 30px/1.2 Georgia,serif;margin:auto 0 10px}
+.mu-exhibit small{position:relative;z-index:1;color:inherit;opacity:.8;line-height:1.7}
+.mu-press-grid,.mu-history-grid,.mu-sports-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px}
+.mu-history-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.mu-press-item,.mu-archive-item,.mu-sport-item{display:flex;flex-direction:column;position:relative;justify-content:center;text-align:left;padding:25px 28px;min-height:150px;background:#fffaf0;border:1px solid #d8c59f;border-radius:18px;color:#073d2a}
+.mu-press-item{background:#0a4834;border-color:#a88d55;color:#fffaf0}
+.mu-press-item span,.mu-archive-item span,.mu-sport-item span{color:#a78b52;font:600 18px Georgia,serif}
+.mu-press-item span{color:#d6bd81}
+.mu-press-item strong,.mu-archive-item strong,.mu-sport-item strong{font:400 clamp(22px,2.5vw,30px)/1.2 Georgia,serif;margin:9px 0}
+.mu-press-item b,.mu-archive-item b,.mu-sport-item b{position:absolute;top:19px;right:22px;color:#be9d5b;font-size:22px}
+.mu-press-item:hover{background:#155b41}
+.mu-archive-item:hover,.mu-sport-item:hover{background:#fffefb}
+.mu-sport-item{min-height:195px;background:linear-gradient(130deg,#fffefa,#f2eadb)}
+.mu-contribute{padding:70px 0 85px;background:#073d2a;color:#fffaf0;text-align:center}
+.mu-contribute h2{font:400 clamp(34px,5vw,54px) Georgia,serif}
+.mu-contribute p{color:#dce8db}
+.mu-contribute a{display:inline-block;background:#e9d5a5;color:#073d2a;text-decoration:none;padding:13px 22px;border-radius:12px;font-weight:800;margin-top:20px}
+.arch-dialog .mu-article{color:#294d38}
+.arch-dialog .mu-article h2,.arch-dialog .mu-article h3,.arch-dialog .mu-article h4{font-family:Georgia,serif;color:#073d2a;font-weight:500;margin:1.35em 0 .55em}
+.arch-dialog .mu-article h2{font-size:29px}.arch-dialog .mu-article h3{font-size:24px}.arch-dialog .mu-article h4{font-size:20px}
+.arch-dialog .mu-article p,.arch-dialog .mu-article li{line-height:1.85}
+.arch-dialog .mu-article a{color:#8b6b2e;text-decoration:underline;overflow-wrap:anywhere}
+.arch-dialog .mu-article img{max-width:100%;height:auto}
+.arch-dialog .mu-article table{border-collapse:collapse;max-width:100%;display:block;overflow:auto}
+.arch-dialog .mu-article th,.arch-dialog .mu-article td{border:1px solid #d3c6a5;padding:8px}
+.arch-dialog .mu-article blockquote{border-left:2px solid #c7a65e;margin:25px 0;padding:9px 18px;color:#967139;font-style:italic}
+@media(max-width:920px){.mu-collections .arch-cards,.mu-nav-grid,.mu-history-grid,.mu-exhibit-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){.mu-collections .arch-cards,.mu-nav-grid,.mu-history-grid,.mu-exhibit-grid,.mu-press-grid,.mu-sports-grid{grid-template-columns:1fr}.mu-entrance{padding:85px 0 105px}.mu-entrance h1{font-size:clamp(41px,10vw,63px)}}
+
+/* Backup hero height and typography reference. */
+.mu-entrance{padding:83px 0 76px!important}
+.mu-entrance h1{font-weight:600!important}
+.mu-entrance h1 em{font-weight:400}
+@media(max-width:700px){.mu-entrance{padding:68px 0 75px!important}}
+
+/* Biography references are distinguished by weight, not an underline. */
+.arch-dialog .mu-article a:is([href*="/people/"],[href*="hall-of-fame.html?person="]){font-weight:650;color:inherit;text-decoration:none}
+.arch-dialog .mu-article a:is([href*="/people/"],[href*="hall-of-fame.html?person="]):hover{color:#0b6045}
+
+
+/* One full-width destination instead of a second sports directory. */
+.mu-sports{padding:clamp(40px,5vw,68px) 0}
+.mu-sports-link{
+ position:relative;isolation:isolate;overflow:hidden;
+ display:flex;align-items:center;min-height:176px;width:100%;
+ padding:clamp(28px,4.2vw,48px);border-radius:22px;
+ text-decoration:none;color:#073d2a;
+ background:linear-gradient(115deg,#fffdf6 0%,#f3ead9 70%,#e5d8bf 100%);
+ border:1px solid #cdb887;box-shadow:0 12px 30px #17331c0b;
+ transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease
+}
+.mu-sports-link::after{
+ content:"";position:absolute;right:clamp(-50px,-2vw,-12px);top:50%;
+ width:clamp(190px,25vw,310px);aspect-ratio:1;
+ background:url("/archelaos-logo-gold.png") center / contain no-repeat;
+ opacity:.14;filter:blur(1.7px) saturate(.65);
+ transform:translateY(-50%);pointer-events:none;z-index:-1;
+}
+.mu-sports-link::before{
+ content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+ background:linear-gradient(90deg,rgba(255,253,246,.92) 0%,rgba(255,253,246,.48) 66%,rgba(255,253,246,0) 100%);
+}
+.mu-sports-link:hover{border-color:#a88a49;box-shadow:0 14px 36px #17331c20;transform:translateY(-2px)}
+.mu-sports-link:focus-visible{outline:3px solid #cba75b;outline-offset:5px}
+.mu-sports-link-copy{position:relative;z-index:1;display:flex;flex-direction:column;align-items:flex-start;gap:9px;max-width:min(100%,680px)}
+.mu-sports-link-kicker{font-size:10px;font-weight:850;letter-spacing:.16em;color:#947239}
+.mu-sports-link strong{display:block;font:400 clamp(29px,4vw,49px)/1.12 Georgia,serif;letter-spacing:-.035em}
+.mu-sports-link-description{color:#536953;font-size:14px;line-height:1.65}
+@media(max-width:640px){
+ .mu-sports{padding:34px 0}
+ .mu-sports-link{min-height:0;padding:26px 23px;border-radius:16px}
+ .mu-sports-link::after{width:175px;right:-46px;opacity:.095;filter:blur(2.3px)}
+ .mu-sports-link::before{background:linear-gradient(90deg,#fffdf6e8 0%,#fffdf6a1 100%)}
+ .mu-sports-link strong{font-size:clamp(27px,7vw,36px)}
+ .mu-sports-link-description{font-size:12px}
+}
+@media(prefers-reduced-motion:reduce){.mu-sports-link{transition:none}.mu-sports-link:hover{transform:none}}
+
+
+/* On-demand guided museum tour; small coachmark, never an automatic popup. */
+.mu-tour{
+ position:fixed;top:auto;left:auto;right:clamp(15px,3.5vw,56px);bottom:clamp(15px,3.5vw,46px);
+ z-index:2900;margin:0;width:min(440px,calc(100vw - 30px));max-width:none;max-height:min(78vh,540px);
+ overflow:auto;box-sizing:border-box;padding:24px 26px 22px;
+ border-radius:19px;border:1px solid #ccb277;
+ color:#073d2a;background:#fffbf0;box-shadow:0 18px 72px #061a1390;
+}
+.mu-tour:not([open]){display:none}
+.mu-tour-top{display:flex;align-items:start;justify-content:space-between;gap:15px}
+.mu-tour-brand{color:#9a783d;font:800 9px/1.5 Inter,system-ui,sans-serif;letter-spacing:.12em}
+.mu-tour-close{width:36px;height:36px;flex:none;display:grid;place-items:center;border:1px solid #d8c39b;border-radius:9px;background:#f0e6d1;color:#073d2a;font-size:23px;line-height:1;cursor:pointer}
+.mu-tour-count{margin:13px 0 11px;color:#967138;font:800 11px Inter,system-ui,sans-serif;letter-spacing:.13em}
+.mu-tour-progress{display:flex;gap:6px;margin-bottom:16px}
+.mu-tour-dot{flex:1;height:3px;border-radius:6px;background:#ddd0b5}
+.mu-tour-dot.is-active{background:#b38d45}
+.mu-tour-title{margin:0 0 10px;color:#073d2a;font:400 clamp(25px,3.5vw,32px)/1.17 Georgia,serif}
+.mu-tour-desc{margin:0;color:#456451;font-size:13px;line-height:1.75}
+.mu-tour-actions{display:flex;align-items:center;gap:10px;margin-top:23px;flex-wrap:wrap}
+.mu-tour-actions button{font:750 12px/1.3 Inter,system-ui,sans-serif;min-height:40px;border-radius:9px;cursor:pointer;padding:10px 12px}
+.mu-tour-next{border:1px solid #073d2a;background:#073d2a;color:#fffbf0}
+.mu-tour-back{border:1px solid #c8b991;background:transparent;color:#073d2a}
+.mu-tour-back:disabled{opacity:.38;cursor:default}
+.mu-tour-skip{border:0;background:transparent;color:#876c38;margin-right:auto}
+.mu-tour button:focus-visible{outline:2px solid #b58d43;outline-offset:3px}
+.mu-tour-focus{outline:3px solid #d5ae64;outline-offset:8px;border-radius:7px;position:relative;z-index:2;box-shadow:0 0 0 9px #d5ae6425;transition:box-shadow .2s ease}
+@media(max-width:650px){
+ .mu-tour{right:12px;left:12px;bottom:12px;width:auto;padding:17px 18px 16px;max-height:52vh;border-radius:15px;box-shadow:0 12px 40px #061a13a6}
+ .mu-tour-desc{font-size:12px;line-height:1.55}
+ .mu-tour-title{font-size:25px}
+ .mu-tour-actions{margin-top:13px}
+}
+@media(prefers-reduced-motion:reduce){.mu-tour-focus{transition:none}}
+
+/* Single editorial link to the interviews archive, not a duplicate Collections tile. */
+.mu-interviews{padding:22px 0 48px;background:#f8f6ef}
+.mu-interviews-card{position:relative;isolation:isolate;display:flex;align-items:center;min-height:315px;
+ overflow:hidden;padding:clamp(26px,5vw,58px);border-radius:23px;border:1px solid #bca16c;
+ color:#fff5de;background:#0a3d2c;text-decoration:none;box-shadow:0 16px 38px #073d2a22}
+.mu-interviews-card::before{content:"";position:absolute;inset:-8%;z-index:-2;
+ background:repeating-linear-gradient(0deg,transparent 0,transparent 23px,#ddd2ab19 24px),
+ radial-gradient(circle at 87% 48%,#cfb0783b,transparent 45%);transform:rotate(-3deg);opacity:.85}
+.mu-interviews-card::after{content:"";position:absolute;inset:0;z-index:-1;
+ background:linear-gradient(90deg,#052a1eee 5%,#063e2add 52%,#063b2a55 100%)}
+.mu-interviews-copy{display:flex;flex-direction:column;align-items:start;gap:15px;max-width:660px}
+.mu-interviews-kicker{font-size:11px;font-weight:850;letter-spacing:.16em;color:#e1c68e}
+.mu-interviews-copy strong{font:500 clamp(39px,5vw,63px)/1.1 Georgia,serif;letter-spacing:-.035em}
+.mu-interviews-description{font-size:clamp(14px,1.5vw,17px);line-height:1.8;color:#e4e9dd}
+.mu-interviews-action{margin-top:5px;padding:11px 16px;border:1px solid #d1b77b;border-radius:9px;
+ font-weight:750;font-size:13px;color:#f2dbab}
+.mu-interviews-ornament{position:absolute;right:8%;top:-3%;font:normal clamp(240px,30vw,420px) Georgia,serif;
+ opacity:.14;pointer-events:none}
+.mu-interviews-card:hover{box-shadow:0 22px 45px #073d2a40}
+.mu-interviews-card:focus-visible{outline:3px solid #c7a65e;outline-offset:4px}
+@media(max-width:650px){.mu-interviews-card{min-height:260px}.mu-interviews-ornament{right:-5%;opacity:.07}}

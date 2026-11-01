@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "default_language": "el",
+  "language_switcher_enabled": false,
+  "activation_policy": "manual_after_full_content_and_browser_QA",
+  "ui_schema": "nav-v1",
+  "languages": [
+    {
+      "code": "el",
+      "native_name": "Ελληνικά",
+      "status": "live",
+      "ui": "ui/el.json",
+      "content": "original-greek-pages"
+    },
+    {
+      "code": "en",
+      "native_name": "English",
+      "status": "draft",
+      "ui": "ui/en.json",
+      "content": "content/en",
+      "notes": "Existing English bios/moments exported, some biographies abridged, museum partly bilingual"
+    },
+    {
+      "code": "de",
+      "native_name": "Deutsch",
+      "status": "draft",
+      "ui": "ui/de.json",
+      "content": null,
+      "notes": "Navigation/interface strings only; content not translated"
+    },
+    {
+      "code": "fr",
+      "native_name": "Français",
+      "status": "draft",
+      "ui": "ui/fr.json",
+      "content": null,
+      "notes": "Navigation/interface strings only; content not translated"
+    },
+    {
+      "code": "es",
+      "native_name": "Español",
+      "status": "draft",
+      "ui": "ui/es.json",
+      "content": null,
+      "notes": "Navigation/interface strings only; content not translated"
+    },
+    {
+      "code": "it",
+      "native_name": "Italiano",
+      "status": "draft",
+      "ui": "ui/it.json",
+      "content": null,
+      "notes": "Navigation/interface strings only; content not translated"
+    }
+  ]
+}
