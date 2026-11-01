@@ -182,6 +182,17 @@ def verify() -> None:
     for asset in (DIST / "news.html", DIST / "assets/news.js", DIST / "assets/home-news.js"):
         content = asset.read_text(encoding="utf-8")
         assert not any(arrow in content for arrow in ("↗", "➜", "→")), "News arrows unexpectedly restored: " + asset.name
+    # News UX regression checks: all cards are links and no redundant buttons.
+    news_js=(DIST / "assets/news.js").read_text(encoding="utf-8")
+    home_js=(DIST / "assets/home-news.js").read_text(encoding="utf-8")
+    news_css=(DIST / "assets/news.css").read_text(encoding="utf-8")
+    assert "articleLink(x,'an-card-hit')" in news_js, "News cards lost their whole-card links"
+    assert "articleLink(x,'an-feature-hit')" in news_js, "Featured news card lost its whole-card link"
+    assert ".an-card-hit,.an-feature-hit" in news_css, "Whole-card news link styling missing"
+    assert all(text not in news_js for text in ("Διάβασε περισσότερα", "Δες την είδηση")), "Redundant news card buttons restored"
+    assert 'class="ahn-more"' in home_js and 'id="ahn-grid"' in home_js, "Homepage All News CTA missing"
+    assert home_js.index('id="ahn-grid"') < home_js.index('class="ahn-more"'), "Homepage All News CTA not placed after the cards"
+    assert "Διαβάστε την είδηση" not in home_js, "Redundant homepage card caption restored"
     # News media contract: never publish a photo URL that points to a missing
     # or invalid asset; and protect the modal against the former detached-image bug.
     media_js = (DIST / "assets/news.js").read_text(encoding="utf-8")
