@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "source_policy": "Public RSS/Atom and owner-confirmed social accounts only. No scraping, login, cookies or automatic publication.",
+  "accounts": [
+    {
+      "platform": "facebook",
+      "url": "https://www.facebook.com/oarxelaos",
+      "mode": "manual-review-until-Meta-permission",
+      "active": false
+    },
+    {
+      "platform": "youtube",
+      "url": "https://www.youtube.com/@GASArchelaosKaterinis",
+      "mode": "requires-verified-UC-channel-id-to-enable-RSS",
+      "active": false
+    }
+  ],
+  "feeds": [
+    {
+      "id": "google-news-archelaos",
+      "type": "news",
+      "active": true,
+      "url": "https://news.google.com/rss/search?q=%22%CE%91%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82%20%CE%9A%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82%22&hl=el&gl=GR&ceid=GR:el"
+    },
+    {
+      "id": "google-news-gas",
+      "type": "news",
+      "active": true,
+      "url": "https://news.google.com/rss/search?q=%22%CE%93%CE%91%CE%A3%20%CE%91%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82%22&hl=el&gl=GR&ceid=GR:el"
+    }
+  ],
+  "review_required": true,
+  "publishing_disabled": true
+}

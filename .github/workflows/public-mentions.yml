@@ -1,0 +1,31 @@
+name: Public press and social discovery
+on:
+  schedule:
+    - cron: '41 7 * * 2,5'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: public-mentions
+  cancel-in-progress: false
+jobs:
+  public-monitor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify no-scraping and review-only boundaries
+        run: python rebuild/tests/public_mentions.py
+      - name: Collect public article and video-feed mentions
+        run: python rebuild/tools/public_mentions.py --output public-mentions-report.json
+      - name: Preserve editorial candidates (public links, no private documents)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: public-mentions-review
+          path: public-mentions-report.json
+          retention-days: 14
+          if-no-files-found: warn
