@@ -197,6 +197,9 @@ def make_release() -> None:
         script = script_path.read_text(encoding="utf-8")
         for folder in ("data", "js", "css", "images"):
             script = script.replace(f"/rebuild/{folder}/", f"/assets/site/{folder}/")
+        # The preview path prefix may also occur in pathname checks, not just asset URLs.
+        # In dist these checks are unnecessary because the release is never served under /rebuild/.
+        script = script.replace("/rebuild/", "/assets/site/")
         script_path.write_text(script, encoding="utf-8")
     copytree(STAGE / "images", OUTPUT / "assets" / "site" / "images")
     # The old public JSON endpoint must reflect exactly the same edited people
