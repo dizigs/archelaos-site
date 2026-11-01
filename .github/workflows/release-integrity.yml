@@ -20,5 +20,7 @@ jobs:
       - name: Verify JavaScript syntax
         run: |
           find dist/assets/site/js -name '*.js' -print0 | xargs -0 -n1 node --check
+      - name: Verify AI Worker JavaScript syntax
+        run: node --check --input-type=module < rebuild/ai/worker.js
       - name: Verify generated HTML and data
         run: python rebuild/tools/verify_release.py
