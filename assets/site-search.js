@@ -6,7 +6,7 @@ const L=(a,b)=>en()?b:a;
 const norm=s=>String(s||'').toLocaleLowerCase('el').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/ς/g,'σ').replace(/\s+/g,' ').trim();
 const labels={person:['ΠΡΟΣΩΠΟ · HALL OF FAME','PERSON · HALL OF FAME'],interview:['ΣΥΝΕΝΤΕΥΞΗ / ΔΗΛΩΣΗ','INTERVIEW / STATEMENT'],moment:['ΙΣΤΟΡΙΚΟ ΓΕΓΟΝΟΣ','HISTORICAL MOMENT'],match:['RETRO MATCH','RETRO MATCH'],news:['ΝΕΑ & ΔΡΑΣΗ','NEWS & ACTIVITY'],page:['ΣΥΛΛΟΓΗ','COLLECTION']};
 function rank(x,q){const t=norm(x.title),s=norm(x.summary),k=norm(x.keywords);
- const text=t+' '+s+' '+k;const terms=q.split(' ').filter(Boolean);if(!terms.every(word=>text.includes(word)))return 99;
+ const text=t+' '+s+' '+k;const terms=q.split(' ').filter(Boolean);const sport=window.ArchelaosSportSearch;if(!terms.every(word=>sport?sport.matches(text,word):text.includes(word)))return 99;
  if(t===q)return 0;if(t.startsWith(q))return 1;if(t.includes(q))return 2;if(s.includes(q))return 3;return 4}
 function search(){
  const value=field.value.trim(),q=norm(value);if(q.length<2){list.replaceChildren();more.style.display='none';count.textContent=L('Αναζήτησε με τουλάχιστον δύο χαρακτήρες.','Search with at least two characters.');const url=new URL(location.href);if(url.searchParams.has('q')){url.searchParams.delete('q');history.replaceState(null,'',url)}return}
