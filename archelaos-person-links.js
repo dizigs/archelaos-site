@@ -62,7 +62,9 @@ function ensureModal(){if(modal)return modal;
  modal.innerHTML='<div class="arch-person-inner"><div class="arch-person-top"><span class="arch-person-kicker">ΑΡΧΕΛΑΟΣ · HALL OF FAME</span><button class="arch-person-close" type="button" aria-label="Κλείσιμο / Close">×</button></div><div class="arch-person-monogram" aria-hidden="true"></div><div class="arch-person-role"></div><h2 class="arch-person-name"></h2><p class="arch-person-biography"></p></div>';
  document.body.append(modal);modal.querySelector('.arch-person-close').addEventListener('click',()=>modal.close());modal.addEventListener('click',e=>{if(e.target===modal)modal.close()});modal.addEventListener('close',()=>prevFocus?.focus?.({preventScroll:true}));return modal;
 }
-async function show(id){const d=ensureModal();prevFocus=document.activeElement;const lang=document.body.classList.contains('lang-en')||document.documentElement.lang==='en'?'en':'el';
+async function show(id){
+ if(window.ArchelaosBio?.__shared){const ok=await window.ArchelaosBio.open(id);if(ok)return;}
+ const d=ensureModal();prevFocus=document.activeElement;const lang=document.body.classList.contains('lang-en')||document.documentElement.lang==='en'?'en':'el';
  try{if(!state.people){const r=await fetch(DATA_URL,{cache:'no-cache'});if(!r.ok)throw new Error('HTTP '+r.status);state.people=(await r.json()).people}
   const p=state.people.find(x=>x.id===id);if(!p)throw new Error('No matching record');
   d.querySelector('.arch-person-monogram').textContent=(lang==='en'?(p.name_en||p.name):p.name).charAt(0);
