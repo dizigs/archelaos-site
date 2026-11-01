@@ -23,11 +23,63 @@ const init=()=>{
  }
 
  const root=document.querySelector('.new-slideshow');if(!root)return;
-const slides=[...root.querySelectorAll('.new-slide')],name=document.querySelector('#new-slide-title'),count=document.querySelector('#new-slide-count');let index=0;
-const show=n=>{index=(n+slides.length)%slides.length;slides.forEach((s,i)=>{const active=i===index;s.classList.toggle('active',active);s.setAttribute('aria-hidden',String(!active))});const label=slides[index].querySelector('img')?.alt||'';name.textContent=label;count.textContent=String(index+1).padStart(2,'0')+' / '+String(slides.length).padStart(2,'0')+' · '+label};
-document.querySelector('#new-slide-prev')?.addEventListener('click',()=>show(index-1));
-document.querySelector('#new-slide-next')?.addEventListener('click',()=>show(index+1));
-show(0);
+ const slides=[...root.querySelectorAll('.new-slide')];
+ const name=document.querySelector('#new-slide-title');
+ const count=document.querySelector('#new-slide-count');
+ const prev=document.querySelector('#new-slide-prev');
+ const next=document.querySelector('#new-slide-next');
+ const toggle=document.querySelector('#new-slide-toggle');
+ if(!slides.length||!name||!count)return;
+
+ const DURATION=6000;
+ const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
+ let index=0,timer=null,paused=false,hovering=false;
+
+ function show(n){
+  index=(n+slides.length)%slides.length;
+  slides.forEach((slide,i)=>{
+   const active=i===index;
+   slide.classList.toggle('active',active);
+   slide.setAttribute('aria-hidden',String(!active));
+  });
+  const label=slides[index].querySelector('img')?.alt||'';
+  name.textContent=label;
+  count.textContent=String(index+1).padStart(2,'0')+' / '+String(slides.length).padStart(2,'0')+' · '+label;
+ }
+ function syncToggle(){
+  if(!toggle)return;
+  toggle.textContent=paused?'▶':'Ⅱ';
+  toggle.setAttribute('aria-label',paused?'Συνέχιση αυτόματης εναλλαγής':'Παύση αυτόματης εναλλαγής');
+  toggle.setAttribute('title',paused?'Συνέχιση slideshow':'Παύση slideshow');
+  toggle.setAttribute('aria-pressed',String(paused));
+ }
+ function clearTimer(){
+  if(timer!==null){window.clearTimeout(timer);timer=null;}
+ }
+ function schedule(){
+  clearTimer();
+  if(paused||hovering||document.hidden||reduced.matches||slides.length<2)return;
+  timer=window.setTimeout(()=>{
+   timer=null;
+   show(index+1);
+   schedule();
+  },DURATION);
+ }
+ function manuallyMove(delta){show(index+delta);schedule();}
+ prev?.addEventListener('click',()=>manuallyMove(-1));
+ next?.addEventListener('click',()=>manuallyMove(1));
+ toggle?.addEventListener('click',()=>{
+  paused=!paused;
+  syncToggle();
+  schedule();
+ });
+ root.addEventListener('mouseenter',()=>{hovering=true;clearTimer();});
+ root.addEventListener('mouseleave',()=>{hovering=false;schedule();});
+ document.addEventListener('visibilitychange',schedule);
+ reduced.addEventListener?.('change',schedule);
+ show(0);
+ syncToggle();
+ schedule();
 };
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
