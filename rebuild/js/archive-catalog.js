@@ -3,7 +3,7 @@
    Cached once per page, no external services, no user data or stored biographies. */
 (function(){'use strict';
 let pending=null;
-const NAMES=['people','moments','stories','home','museum'];
+const NAMES=['people','moments','stories','home','museum','interviews'];
 const normalize=text=>String(text||'').normalize('NFD')
   .replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('el').replace(/\s+/g,' ').trim();
 const urlFor=(type,id,entity)=>{
@@ -13,6 +13,7 @@ const urlFor=(type,id,entity)=>{
   moment:'/70-stigmes.html#moment-'+value,
   story:'/stories.html#story-'+value,
   exhibit:'/history.html#archive-'+value,
+  interview:'/interviews.html?record='+value,
   photo:'/index.html#sport-photo-'+encodeURIComponent(String(entity?.key||''))
  };
  return routes[type]||null;
@@ -22,7 +23,8 @@ const LABELS=Object.freeze({
  moment:'70 ΣΤΙΓΜΕΣ · ΙΣΤΟΡΙΚΟ ΑΡΧΕΙΟ',
  story:'ΑΦΗΓΗΣΕΙΣ · ΙΣΤΟΡΙΕΣ',
  photo:'ΦΩΤΟΓΡΑΦΙΕΣ · ΑΘΛΗΜΑΤΑ',
- exhibit:'ΨΗΦΙΑΚΟ ΜΟΥΣΕΙΟ · ΕΚΘΕΜΑΤΑ'
+ exhibit:'ΨΗΦΙΑΚΟ ΜΟΥΣΕΙΟ · ΕΚΘΕΜΑΤΑ',
+ interview:'ΟΙ ΦΩΝΕΣ · ΣΥΝΕΝΤΕΥΞΕΙΣ & ΔΗΛΩΣΕΙΣ'
 });
 function plainText(html){
  const template=document.createElement('template');
@@ -30,14 +32,14 @@ function plainText(html){
  return (template.content.textContent||'').replace(/\s+/g,' ').trim();
 }
 async function create(){
- const [people,moments,stories,home,museum]=await Promise.all(NAMES.map(async name=>{
+ const [people,moments,stories,home,museum,interviews]=await Promise.all(NAMES.map(async name=>{
   const response=await fetch('/rebuild/data/'+name+'.json');
   if(!response.ok)throw Error('Archive '+name+' HTTP '+response.status);
   return response.json();
  }));
  if(people.people?.length<682||moments.moments?.length!==70||
   stories.stories?.length<21||home.sports?.length<8||
-  museum.articles?.length<14||museum.press?.length<10)
+  museum.articles?.length<14||museum.press?.length<10||interviews.items?.length<25)
    throw Error('Incomplete canonical sports archive');
  const records=[],byType=new Map();
  function add(type,id,title,subtitle,body,year,entity,secondary=''){
@@ -64,6 +66,8 @@ async function create(){
    'exhibit',a.id,a.title,'Ψηφιακό Μουσείο',
    plainText(a.html),a.period||a.year||'',a
  );
+ for(const v of interviews.items)add('interview',v.id,v.name.split(' (')[0],v.event,
+   [v.context,v.quote,...(v.qa||[]).map(q=>q.question+' '+q.answer)].join(' '),v.year,v,v.source);
  return Object.freeze({
   records:Object.freeze(records),
   get:(type,id)=>byType.get(String(type))?.get(String(id))||null,
