@@ -76,6 +76,10 @@ def main():
     for item in data["items"]:
         url=item.get("sourceUrl")
         if not url or not url.startswith("https://"): continue
+        # Reusing a third-party photograph requires an explicit recorded licence/permission.
+        # Merely finding a public image URL does not grant republication rights.
+        if item.get("imageReuseAllowed") is not True:
+            continue
         # Never overwrite vetted archive photos or the supplied Meteora photo.
         if item.get("image","").startswith("images/news/"): continue
         if item.get("id")=="wrestling-meteora-international-2026": continue
