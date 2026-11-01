@@ -17,7 +17,18 @@ async function main(){
  const {default:worker}=await import('data:text/javascript;charset=utf-8,'+encodeURIComponent(raw));
  const oldFetch=global.fetch;
  let dataCalls=0;
- global.fetch=async url=>{
+ let azureCalls=0;
+ global.fetch=async (url,options)=>{
+  if(String(url).endsWith('/openai/v1/chat/completions')){
+   azureCalls++;
+   assert.equal(url,'https://school-archive.openai.azure.com/openai/v1/chat/completions');
+   assert.equal(options.method,'POST');
+   assert.equal(options.headers['api-key'],'test-secret-not-real');
+   const request=JSON.parse(options.body);
+   assert.equal(request.model,'archive-safe');
+   assert.equal(request.max_completion_tokens,400);
+   return {ok:true,json:async()=>({choices:[{message:{content:'Azure σύντομη τεκμηρίωση. [1]'}}]})};
+  }
   dataCalls++;
   const name=String(url).split('/').pop();
   assert.ok(name in assets,'unexpected source '+url);
@@ -64,7 +75,23 @@ async function main(){
   const throttled=await worker.fetch(req(),{...env,AI_LIMITER:{limit:async()=>({success:false})}});
   assert.equal(throttled.status,429);
   assert.equal(invocations,2);
-  console.log('AI SEARCH WORKER OK: disabled-by-default, Origin, no secret access, quota & sources');
+  // Alternate Azure adapter uses same D1+IP quota and never reaches a public browser.
+  consumed=0;
+  const azureEnv={...env,AI_PROVIDER:'azure',AI:null,AI_MODEL:null,
+    AZURE_OPENAI_ENDPOINT:'https://school-archive.openai.azure.com',
+    AZURE_MODEL_DEPLOYMENT:'archive-safe',
+    AZURE_OPENAI_API_KEY:'test-secret-not-real'};
+  const azureResponse=await worker.fetch(req(),azureEnv);
+  assert.equal(azureResponse.status,200);
+  const azureBody=await azureResponse.json();
+  assert.match(azureBody.answer,/Azure/);
+  assert.equal(azureBody.sources[0].url,result.sources[0].url);
+  assert.equal(azureCalls,1);
+  consumed=0;
+  const unsafe=await worker.fetch(req(),{...azureEnv,AZURE_OPENAI_ENDPOINT:'https://attacker.example'});
+  assert.equal(unsafe.status,503);
+  assert.equal(azureCalls,1,'invalid Azure endpoints cannot receive prompts or credentials');
+  console.log('AI SEARCH WORKER OK: disabled, Origin, quota, Cloudflare/Azure, and cited sources');
  }finally{global.fetch=oldFetch}
 }
 main().catch(e=>{console.error(e);process.exitCode=1});
