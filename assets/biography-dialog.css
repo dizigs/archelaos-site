@@ -15,3 +15,5 @@
 .arc-bio-close:focus-visible{outline:3px solid #b59149;outline-offset:3px}
 .arc-bio-dialog h2{padding-inline-end:32px}
 @media(max-width:600px){.arc-bio-close{inset-block-start:12px;inset-inline-end:12px;width:42px;height:42px}}
+
+.arc-bio-heart{position:absolute;right:72px;top:16px;z-index:5}.arc-bio-heart .arch-favorite-toggle{min-width:42px}.arc-bio-inner h2{padding-right:94px}
