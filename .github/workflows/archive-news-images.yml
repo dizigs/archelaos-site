@@ -1,0 +1,44 @@
+name: Archive original news photographs
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'tools/import_news_images.py'
+      - '.github/workflows/archive-news-images.yml'
+      - 'news.json'
+permissions:
+  contents: write
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install image processing dependency
+        run: python -m pip install pillow
+      - name: Import actual article featured images
+        run: python tools/import_news_images.py
+      - name: Validate article image paths
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          data=json.loads(Path('news.json').read_text('utf-8'))
+          for item in data['items']:
+              if item.get('image','').startswith('images/news/'):
+                  assert Path(item['image']).is_file(), item['id']
+          PY
+      - name: Commit acquired photographs and updated article mapping
+        run: |
+          git config user.name "archelaos-archive-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add news.json images/news
+          if ! git diff --cached --quiet; then
+            git commit -m "Archive verified original article photographs for news"
+            git push
+          fi
