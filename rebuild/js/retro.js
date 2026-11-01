@@ -31,7 +31,7 @@ function retroReport(record){
 function show(){
  const record=matches.find(m=>m.year===active);if(!record)return;
  $('#rt-years').querySelectorAll('button').forEach(b=>{
-  const yes=Number(b.dataset.year)===active;b.setAttribute('aria-selected',String(yes));b.tabIndex=yes?0:-1;
+  const yes=Number(b.dataset.year)===active;b.setAttribute('aria-pressed',String(yes));b.tabIndex=yes?0:-1;
  });
  const stage=$('#rt-stage');stage.replaceChildren();
  const article=el('article','rt-match'),board=el('div','rt-scoreboard');
