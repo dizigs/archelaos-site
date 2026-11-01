@@ -29,7 +29,7 @@ async function init(){
  }catch(err){console.error('Department profiles:',err);for(const card of cards){card.addEventListener('click',()=>window.ArchelaosUI.openDialog({title:card.querySelector('.dp-title')?.textContent||'Αθλητικό τμήμα',contentNode:buildProfile(card,null),closeLabel:'Κλείσιμο παρουσίασης'}))}}
 
   const deep=location.hash.match(/^#sport-(.+)$/)?.[1];
-  if(deep){const card=document.getElementById('sport-'+deep);if(card){card.scrollIntoView({block:'center'});card.focus({preventScroll:true})}}
+  if(deep){const card=document.getElementById('sport-'+deep);if(card){card.scrollIntoView({block:'center'});card.focus({preventScroll:true});card.click()}}
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
