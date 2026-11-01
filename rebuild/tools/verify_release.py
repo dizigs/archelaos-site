@@ -255,7 +255,9 @@ def verify() -> None:
     # full-list filtering before slicing. Avoid accidental regression to 37 cards.
     assert "PAGE_SIZE=18" in news_js, "News pagination size changed"
     assert "x.id!==lead?.id" in news_js, "Highlighted article duplicated in the news grid"
-    assert "items.slice((state.page-1)*PAGE_SIZE,state.page*PAGE_SIZE)" in news_js, "News pagination not applied"
+    assert "const offset=showLead?Math.max(0,(state.page-1)*PAGE_SIZE-1):(state.page-1)*PAGE_SIZE;" in news_js, "News pagination offset missing"
+    assert "const limit=showLead&&state.page===1?PAGE_SIZE-1:PAGE_SIZE;" in news_js, "Featured news must count among first eighteen"
+    assert "items.slice(offset,offset+limit)" in news_js, "News pagination slicing missing"
     assert "renderPagination(pageCount)" in news_js, "News page-number links not rendered"
     assert "window.addEventListener('popstate'" in news_js, "News page history navigation missing"
     assert 'id="an-pagination"' in (DIST/"news.html").read_text(encoding="utf-8"), "News pagination nav missing"
