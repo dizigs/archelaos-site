@@ -4,6 +4,8 @@ on:
   push:
     paths:
       - 'tools/import_news_images.py'
+      - 'tools/link_uploaded_news_images.py'
+      - 'images/news/**'
       - '.github/workflows/archive-news-images.yml'
       - 'news.json'
 concurrency:
@@ -36,6 +38,8 @@ jobs:
           html='<meta property="og:image" content="/images/nea/LOGOS/ON_LIGHT_-_COMBO_x1.png">'
           assert candidates(page,html)==[], 'Federation logo incorrectly accepted as article photo'
           PY
+      - name: Link manually uploaded event photographs to matching news IDs
+        run: python tools/link_uploaded_news_images.py
       - name: Import original event photos from verified source articles
         run: |
           python tools/import_news_images.py | tee /tmp/news-photo-import.log
