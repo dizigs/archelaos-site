@@ -424,3 +424,11 @@ def make_release() -> None:
 
 if __name__ == "__main__":
     make_release()
+    # Cloudflare runs this build script; do not leave a publishable dist on QA failure.
+    try:
+        from verify_release import verify
+        verify()
+    except Exception:
+        if OUTPUT.exists():
+            rmtree(OUTPUT)
+        raise
