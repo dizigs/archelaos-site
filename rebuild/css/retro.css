@@ -14,7 +14,7 @@
 .rt-content h2{font:400 clamp(37px,5vw,64px)/1.1 Georgia,serif;color:#073d2a;letter-spacing:-.04em;margin:15px 0 35px}
 .rt-year-tabs{display:flex;gap:11px;flex-wrap:wrap;margin-bottom:26px}
 .rt-year-tabs button{min-height:53px;min-width:112px;padding:11px 18px;border:1px solid #bca472;border-radius:12px;background:#fffdf7;color:#073d2a;font:700 22px Georgia,serif}
-.rt-year-tabs button[aria-selected="true"]{background:#073d2a;color:#e9d4a2;border-color:#c7a65e}
+.rt-year-tabs button[aria-pressed="true"]{background:#073d2a;color:#e9d4a2;border-color:#c7a65e}
 .rt-match{border:1px solid #d0be99;border-radius:25px;background:#fffdf8;box-shadow:0 14px 35px #073d2a12;overflow:hidden}
 .rt-scoreboard{padding:clamp(27px,5vw,55px);text-align:center;background:radial-gradient(ellipse at 77% 4%,#1c5539,#073d2a 67%);color:#fff7e6}
 .rt-final-label{font-size:11px;font-weight:800;color:#dec58a;letter-spacing:.16em}
