@@ -63,7 +63,8 @@ function init(){
       const payload=new FormData(form);
       payload.set('consent','true');
       payload.set('publicNameConsent',data.get('topic')==='archive'&&nameConsent.checked?'true':'false');
-      payload.set('publicName',data.get('topic')==='archive'&&nameConsent.checked?(creditName.value.trim()||String(data.get('name')||'')):'');
+      payload.set('publicCreditName',data.get('topic')==='archive'&&nameConsent.checked?(creditName.value.trim()||String(data.get('name')||'')):'');
+      payload.delete('publicName');
       payload.delete('attachments');
       attachments.forEach(file=>payload.append('attachments',file,file.name));
       status.textContent='Αποστολή μηνύματος…';
