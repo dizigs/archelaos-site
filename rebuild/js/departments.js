@@ -9,13 +9,30 @@ async function init(){
    img.addEventListener('error',fallback,{once:true});if(img.complete&&img.naturalWidth===0)fallback();}
   if(keys[index]&&window.ArchelaosFavorites){photo.id='sport-photo-'+keys[index];photo.append(window.ArchelaosFavorites.button('photo','sport-'+keys[index]));}
  });
+ // This public JSON is the single source for both the displayed hours and
+ // the recurring subscribed ICS feeds produced during the Cloudflare build.
+ let trainingSchedule={departments:{}};
+ try{
+  const response=await fetch('/rebuild/data/training-schedule.json',{cache:'no-store'});
+  if(response.ok)trainingSchedule=await response.json();
+ }catch(error){console.warn('Training schedule temporarily unavailable',error)}
+ const weekdays={MO:'Δευτέρα',TU:'Τρίτη',WE:'Τετάρτη',TH:'Πέμπτη',FR:'Παρασκευή',SA:'Σάββατο',SU:'Κυριακή'};
+ function scheduleValue(key,kind){
+  const sessions=(trainingSchedule.departments?.[key]?.sessions||[]).filter(x=>x.id===kind);
+  if(!sessions.length)return null;
+  return sessions.map(item=>{
+   const days=item.days||[];
+   const dayText=days.join(',')==='MO,TU,WE,TH,FR'?'Δευτέρα–Παρασκευή':days.map(day=>weekdays[day]||day).join(', ');
+   return dayText+', '+item.starts+'–'+item.ends;
+  }).join(' · ');
+ }
  const cards=[...document.querySelectorAll('[data-dp-open]')];
  const photos={handball:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaOFUCWatPwP-EycFiHffCCMk_Kz1ScNWPtg7znhR3mQ&s=10',track:'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=1200&q=80',archery:'/images/archery-outdoor-youth.webp',shooting:'/images/skopovoli-archelaos-team.jpg',volleyball:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIex8YMFGm7cLdQvLNvrQ4fdkg45xPl68ULVxGERNXOw&s=10',gymnastics:'/images/enorgani-slideshow-edafos.jpg',wrestling:'/images/wrestling-action.webp',swimming:'https://images.unsplash.com/photo-1530549387789-4c1017266635?auto=format&fit=crop&w=1200&q=80',basketball:'https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=1200&q=80'};
  const fieldNames=['Ακαδημίες','Προπονήσεις','Εγκαταστάσεις','Προπονητές'];
  // Verified details only for the archery department; all other profiles remain unchanged.
  const archeryFields=[
-  {text:'Δευτέρα–Παρασκευή, 18:00–20:00'},
-  {text:'Δευτέρα, Τετάρτη, Παρασκευή, 19:00–22:00'},
+  null,
+  null,
   {text:'Κλειστό γυμναστήριο τοξοβολίας · Τέρμα Πλάτωνος, Κατερίνη',href:'https://maps.app.goo.gl/jQ4cV5SKJV4hAJqH7',external:true,title:'Προβολή εγκατάστασης στον χάρτη'},
   {text:'Ιωάννης Χαρίσης',href:'/hall-of-fame.html?person=arch-44ef21dfb9b7',title:'Προβολή βιογραφικού στο Hall of Fame'}
  ];
@@ -59,10 +76,31 @@ async function init(){
    root.append(hero);
   }
   const intro=document.createElement('div');intro.className='dp-profile-intro';const eyebrow=document.createElement('p');eyebrow.className='dp-profile-eyebrow';eyebrow.textContent='ΤΟ ΤΜΗΜΑ ΣΗΜΕΡΑ';const description=document.createElement('p');description.textContent=key==='archery'?'Το τμήμα τοξοβολίας λειτουργεί με το παρακάτω πρόγραμμα προπονήσεων.':'Οι πληροφορίες για τη λειτουργία του τμήματος θα ενημερωθούν σύντομα, μόλις επιβεβαιωθούν.';intro.append(eyebrow,description);root.append(intro);
-  if(key!=='inactive-depts'){const grid=document.createElement('div');grid.className='dp-profile-info';for(const [index,label] of fieldNames.entries()){const box=document.createElement('div');box.className='dp-profile-field';const name=document.createElement('strong');name.textContent=label;const detail=key==='archery'?archeryFields[index]:null;const value=document.createElement(detail?.href?'a':'span');value.textContent=detail?.text||'Θα ενημερωθεί σύντομα';if(detail?.href){value.className='dp-profile-value-link';value.href=detail.href;if(detail.title)value.title=detail.title;if(detail.external){value.target='_blank';value.rel='noopener noreferrer'}}box.append(name,value);grid.append(box)}root.append(grid)}
+  if(key!=='inactive-depts'){const grid=document.createElement('div');grid.className='dp-profile-info';for(const [index,label] of fieldNames.entries()){const box=document.createElement('div');box.className='dp-profile-field';const name=document.createElement('strong');name.textContent=label;const detail=index<2?(scheduleValue(key,index===0?'academies':'training')?{text:scheduleValue(key,index===0?'academies':'training')}:null):(key==='archery'?archeryFields[index]:null);const value=document.createElement(detail?.href?'a':'span');value.textContent=detail?.text||'Θα ενημερωθεί σύντομα';if(detail?.href){value.className='dp-profile-value-link';value.href=detail.href;if(detail.title)value.title=detail.title;if(detail.external){value.target='_blank';value.rel='noopener noreferrer'}}box.append(name,value);grid.append(box)}root.append(grid)}
   const actions=document.createElement('div');actions.className='dp-profile-actions';
   if(record){const history=document.createElement('button');history.type='button';history.className='dp-profile-history';history.textContent='Η ιστορία του τμήματος';history.addEventListener('click',()=>window.ArchelaosUI.openDialog({title:record.title,subtitle:record.period||'',contentNode:window.ArchelaosArchive.fragment(record.html),favorite:{type:'page',id:'department-'+key},closeLabel:'Κλείσιμο ιστορικού'}));actions.append(history)}
   if(key!=='inactive-depts'){const official=document.createElement(key==='archery'?'a':'span');official.className='dp-profile-official';if(key==='archery'){official.href='https://archery.archelaos.club';official.target='_blank';official.rel='noopener noreferrer';official.textContent='Επίσημη σελίδα · archery.archelaos.club'}else official.textContent='Επίσημη σελίδα τμήματος · Θα προστεθεί σύντομα';actions.append(official)}
+  const publishedSessions=trainingSchedule.departments?.[key]?.sessions||[];
+  if(publishedSessions.length&&!location.pathname.startsWith('/rebuild/')){
+   const url='https://archelaos.club/calendar/training/'+encodeURIComponent(key)+'.ics';
+   const subscribe=document.createElement('a');subscribe.className='dp-profile-calendar';
+   subscribe.href='webcal://archelaos.club/calendar/training/'+encodeURIComponent(key)+'.ics';
+   subscribe.textContent='Προσθήκη προπονήσεων στο ημερολόγιο';
+   subscribe.setAttribute('aria-label','Συνδρομή στο ημερολόγιο προπονήσεων · '+(record?.title||key));
+   actions.append(subscribe);
+   const copy=document.createElement('button');copy.type='button';copy.className='dp-profile-calendar-copy';
+   copy.textContent='Αντιγραφή συνδέσμου ICS';
+   copy.addEventListener('click',async()=>{
+    try{
+     if(!navigator.clipboard?.writeText)throw Error('Clipboard unavailable');
+     await navigator.clipboard.writeText(url);copy.textContent='Ο σύνδεσμος αντιγράφηκε';
+    }catch(error){window.prompt('Για Google Calendar → Άλλα ημερολόγια → Από URL, αντιγράψτε:',url)}
+   });
+   actions.append(copy);
+   const note=document.createElement('p');note.className='dp-profile-calendar-note';
+   note.textContent='Συνδρομή με αυτόματες ενημερώσεις · Για Google Calendar χρησιμοποιήστε «Από URL». Ο συγχρονισμός εξαρτάται από την εφαρμογή σας.';
+   actions.append(note);
+  }
   root.append(actions);return root;
  }
  try{
