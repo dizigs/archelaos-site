@@ -356,107 +356,105 @@
 .new-departments-intro .new-eyebrow{color:#684c21}
 
 
-/* PROMOTION 2026: sports participation takes precedence over club chronology. */
+/* SPORTS PROMOTION — editorial, high-impact feature without a photo collage. */
 .new-departments-intro{
- position:relative;isolation:isolate;overflow:hidden;
- padding:clamp(84px,9vw,146px) 0;
- min-height:clamp(530px,53vw,760px);
- background:radial-gradient(circle at 9% 17%,#fbf7e9 0%,#f5f0e2 42%,#ede5d4 100%);
- border-block:1px solid #d9caaa;
+  position:relative;isolation:isolate;overflow:hidden;
+  min-height:clamp(490px,44vw,660px);
+  padding:clamp(72px,8vw,122px) 0;
+  background:radial-gradient(ellipse at 77% 45%,#14543b 0%,#093d2b 52%,#05291e 100%);
+  color:#fbf4e6;border-block:1px solid #b29255;
 }
-.new-departments-intro:before{
- content:"";position:absolute;pointer-events:none;z-index:-1;right:-10%;bottom:-42%;
- width:min(65vw,790px);aspect-ratio:1;border:1px solid #ab8b4938;border-radius:50%;
- box-shadow:0 0 0 40px #d6bd8020,0 0 0 100px #d6bd8010;
+.new-departments-intro::before{
+  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:linear-gradient(105deg,rgba(1,25,17,.48),transparent 73%),
+  repeating-linear-gradient(0deg,transparent 0 76px,rgba(211,184,116,.045) 77px 78px);
 }
-.new-departments-intro-inner{
- display:grid;grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);
- align-items:center;justify-content:initial;gap:clamp(35px,5.8vw,90px);
+.new-departments-intro .new-departments-intro-inner{
+  display:grid;grid-template-columns:minmax(0,1.17fr) minmax(0,.83fr);
+  gap:clamp(28px,5vw,82px);align-items:center;
 }
-.new-departments-intro-copy{min-width:0;position:relative;z-index:2}
+.new-departments-intro .new-departments-intro-copy{position:relative;z-index:2;min-width:0}
 .new-departments-intro .new-eyebrow{
- display:inline-block;margin:0 0 24px;color:#75552a;
- font-size:clamp(10px,1vw,12px);font-weight:850;letter-spacing:.18em;
+  display:block;margin:0 0 25px;
+  color:#ebc57f;font-size:clamp(11px,1vw,13px);
+  letter-spacing:.19em;font-weight:850;
 }
 .new-departments-intro h2{
- max-width:650px;margin:0 0 30px;
- font:500 clamp(45px,5.2vw,83px)/1.04 Georgia,serif;
- letter-spacing:-.047em;color:#073d2a;text-wrap:balance;
+  max-width:820px;margin:0 0 29px;
+  font:500 clamp(54px,5.7vw,91px)/1.025 Georgia,serif;
+  letter-spacing:-.047em;text-wrap:balance;
+  color:#fff9eb;
 }
-.new-departments-intro h2 em{font-style:italic;color:#a17c3b}
+.new-departments-intro h2 em{display:inline;color:#efca87;font-style:italic}
 .new-departments-intro p.new-promo-lead{
- font-size:clamp(17px,1.55vw,21px);line-height:1.66;
- color:#365343;max-width:580px;margin:0 0 25px;
+  max-width:600px;margin:0 0 36px;
+  font-size:clamp(17px,1.55vw,21px);line-height:1.75;
+  font-weight:450;color:#f2e9d6;
 }
-.new-departments-intro p.new-promo-sports{
- font-size:clamp(12px,1.1vw,14px);font-weight:650;line-height:1.95;
- max-width:590px;color:#48614d;margin:0 0 32px;
+.new-departments-intro .new-departments-intro-cta{
+  display:inline-flex;align-items:center;justify-content:center;gap:28px;
+  min-height:65px;width:max-content;max-width:100%;
+  padding:17px 29px;border:1.5px solid #e1bf78;border-radius:12px;
+  background:#efd7a5;color:#083a29;
+  font-size:16px;font-weight:850;line-height:1.28;text-decoration:none;
+  box-shadow:0 12px 31px rgba(0,0,0,.18);
+  transition:transform .23s ease,background .23s ease,box-shadow .23s ease;
 }
-.new-promo-sports span{color:#b18e4c;margin-inline:5px}
-.new-promo-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.new-departments-intro .new-departments-intro-cta,
-.new-departments-intro .new-promo-contact{
- display:inline-flex;align-items:center;justify-content:center;gap:17px;
- min-height:58px;padding:16px 21px;border:1px solid #b59051;border-radius:11px;
- font-weight:800;font-size:14px;line-height:1.3;text-decoration:none;
- transition:background .2s ease,color .2s ease,transform .2s ease;
+.new-departments-intro .new-departments-intro-cta span{font-size:22px;font-weight:500;line-height:1}
+.new-departments-intro .new-departments-intro-cta:hover{
+  background:#fff2d4;transform:translateY(-3px);box-shadow:0 18px 35px rgba(0,0,0,.22);
 }
-.new-departments-intro .new-departments-intro-cta{background:#073d2a;color:#fff5df;box-shadow:0 12px 25px #052e1e25}
-.new-departments-intro .new-promo-contact{background:#fffcf5;color:#073d2a}
-.new-departments-intro .new-departments-intro-cta:hover{background:#135a3d;transform:translateY(-2px)}
-.new-departments-intro .new-promo-contact:hover{background:#eedfc2;transform:translateY(-2px)}
-.new-departments-intro .new-departments-intro-cta:focus-visible,
-.new-departments-intro .new-promo-contact:focus-visible{outline:3px solid #a77a27;outline-offset:4px}
-.new-promo-photos{
- position:relative;display:grid;grid-template-columns:1.3fr .75fr;
- grid-template-rows:repeat(2,minmax(0,1fr));gap:11px;
- width:100%;height:clamp(390px,43vw,610px);
- min-width:0;filter:drop-shadow(0 22px 28px #123d2920);
+.new-departments-intro .new-departments-intro-cta:focus-visible{
+  outline:3px solid #fff3b7;outline-offset:5px;
 }
-.new-promo-photo{position:relative;margin:0;min-width:0;min-height:0;overflow:hidden;background:#073d2a;border:5px solid #fffdf6;border-radius:6px}
-.new-promo-photo-main{grid-area:1 / 1 / 3 / 2;border-radius:18px 5px 5px 18px}
-.new-promo-photo-archery{grid-area:1 / 2 / 2 / 3;border-radius:5px 18px 5px 5px}
-.new-promo-photo-gym{grid-area:2 / 2 / 3 / 3;border-radius:5px 5px 18px 5px}
-.new-promo-photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:center;transition:transform .6s ease}
-.new-promo-photo-main img{object-position:52% center}
-.new-promo-photo:after{content:"";position:absolute;inset:38% 0 0;background:linear-gradient(transparent,#001c11aa);pointer-events:none}
-.new-promo-photo figcaption{
- position:absolute;left:14px;right:10px;bottom:17px;z-index:1;
- font-size:clamp(10px,1.1vw,12px);font-weight:850;letter-spacing:.1em;
- color:#fff7df;text-shadow:0 1px 7px #000;
+.new-promo-art{
+  position:relative;isolation:isolate;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  width:100%;height:clamp(360px,34vw,490px);min-width:0;
+  border:1px solid rgba(220,184,111,.52);border-radius:30px;
+  background:radial-gradient(ellipse at 45% 44%,rgba(215,185,118,.12),transparent 70%);
+  box-shadow:inset 0 0 0 12px rgba(239,213,157,.022),0 23px 55px rgba(0,20,12,.14);
 }
-.new-promo-photo-main figcaption{left:21px;bottom:23px;font-size:15px}
-.new-promo-photo figcaption span{display:block;font-size:11px;letter-spacing:.03em;font-weight:500;margin-top:5px}
-.new-promo-photo-seal{
- position:absolute;z-index:3;right:-17px;bottom:-24px;
- width:115px;height:115px;border-radius:50%;
- border:5px solid #f8f1df;display:flex;align-items:center;justify-content:center;
- flex-direction:column;background:#073d2a;color:#eed8a2;
- font:500 39px/.94 Georgia,serif;box-shadow:0 8px 24px #001b1140;
+.new-promo-art:before,.new-promo-art:after{
+  content:"";pointer-events:none;position:absolute;border-radius:50%;
+  border:1px solid rgba(228,194,131,.17);
 }
-.new-promo-photo-seal small{font:800 10px/1.2 system-ui,sans-serif;letter-spacing:.07em;margin-top:8px}
-@media(hover:hover){.new-promo-photo:hover img{transform:scale(1.035)}}
+.new-promo-art:before{width:82%;aspect-ratio:1}
+.new-promo-art:after{width:63%;aspect-ratio:1}
+.new-promo-art-label,.new-promo-art-bottom{
+  position:relative;z-index:1;color:#ead49d;font-size:clamp(10px,.95vw,12px);
+  letter-spacing:.19em;font-weight:850;text-align:center;
+}
+.new-promo-art-label{margin-bottom:19px}
+.new-promo-art-number{
+  position:relative;z-index:1;display:block;
+  font:500 clamp(143px,17vw,280px)/.91 Georgia,serif;
+  letter-spacing:-.105em;padding-right:.12em;
+  color:#e4c58a;text-shadow:0 18px 38px #001c132b;
+}
+.new-promo-art-bottom{margin-top:17px;letter-spacing:.14em}
+.new-promo-art-bottom span{padding-inline:5px;color:#fff6e4}
 @media(max-width:1023px){
- .new-departments-intro{padding:75px 0;min-height:0}
- .new-departments-intro-inner{grid-template-columns:1fr;gap:36px}
- .new-departments-intro h2{max-width:700px;font-size:clamp(44px,7.5vw,70px)}
- .new-promo-photos{height:clamp(375px,60vw,520px)}
+ .new-departments-intro{min-height:0}
+ .new-departments-intro .new-departments-intro-inner{grid-template-columns:minmax(0,1fr) minmax(0,.6fr);gap:24px}
+ .new-departments-intro h2{font-size:clamp(48px,5.7vw,74px)}
+ .new-promo-art{height:360px}
+ .new-promo-art-number{font-size:clamp(116px,15vw,190px)}
 }
 @media(max-width:740px){
- .new-departments-intro{padding:65px 0 83px}
- .new-departments-intro-inner{align-items:stretch}
- .new-departments-intro .new-eyebrow{margin-bottom:16px}
- .new-departments-intro h2{font-size:clamp(40px,10vw,61px);margin-bottom:22px}
- .new-departments-intro p.new-promo-lead{font-size:17px}
- .new-promo-actions{flex-direction:column;align-items:stretch}
- .new-departments-intro .new-departments-intro-cta,
- .new-departments-intro .new-promo-contact{width:100%;min-height:56px}
- .new-promo-photos{height:clamp(285px,86vw,425px);gap:7px}
- .new-promo-photo{border-width:3px}
- .new-promo-photo-seal{width:80px;height:80px;right:-8px;bottom:-24px;font-size:29px;border-width:3px}
- .new-promo-photo-seal small{font-size:7px}
+ .new-departments-intro{padding:72px 0 77px}
+ .new-departments-intro .new-departments-intro-inner{grid-template-columns:1fr;gap:37px}
+ .new-departments-intro .new-eyebrow{margin-bottom:18px}
+ .new-departments-intro h2{font-size:clamp(48px,11.5vw,68px);margin-bottom:21px}
+ .new-departments-intro p.new-promo-lead{font-size:17px;margin-bottom:29px}
+ .new-departments-intro .new-departments-intro-cta{width:100%;justify-content:space-between;min-height:60px}
+ .new-promo-art{height:210px;border-radius:20px}
+ .new-promo-art:before,.new-promo-art:after{display:none}
+ .new-promo-art-label{margin-bottom:5px}
+ .new-promo-art-number{font-size:113px}
+ .new-promo-art-bottom{margin-top:7px}
 }
 @media(prefers-reduced-motion:reduce){
- .new-promo-photo img,.new-departments-intro .new-departments-intro-cta,
- .new-departments-intro .new-promo-contact{transition:none}
+ .new-departments-intro .new-departments-intro-cta{transition:none}
+ .new-departments-intro .new-departments-intro-cta:hover{transform:none}
 }
