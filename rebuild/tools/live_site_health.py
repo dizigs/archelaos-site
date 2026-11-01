@@ -41,7 +41,7 @@ def fetch(base: str, route: str) -> tuple[bytes, dict]:
                 landed = urlsplit(response.geturl())
                 wanted = urlsplit(base)
                 if landed.scheme != wanted.scheme or landed.netloc != wanted.netloc:
-                    raise RuntimeError("Unexpected redirect outside verified site")
+                    raise RuntimeError("Unexpected redirect outside verified site: "+landed.scheme+"://"+landed.netloc+landed.path[:80])
                 if response.status != 200:
                     raise RuntimeError(f"HTTP {response.status}")
                 data = response.read(MAX_BODY + 1)
