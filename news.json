@@ -438,6 +438,26 @@
       "imageSourceUrl": "https://odelalis.gr/wp-content/uploads/2026/02/agones_tokosvolias_agios_spiridonas-3.jpg"
     },
     {
+      "id": "archery-olympic-support-charisis-feb-2026",
+      "date": "2026-02-11",
+      "sport": "Τοξοβολία",
+      "category": "achievements",
+      "title": "Ο Ευάγγελος Χαρίσης στο πρόγραμμα στήριξης αθλητών της ΕΟΕ για το 2028",
+      "summary": "Επιλέχθηκε στο πρόγραμμα «Υιοθετήστε έναν Αθλητή» της Ελληνικής Ολυμπιακής Επιτροπής.",
+      "body": [
+        "Τον Φεβρουάριο 2026 ανακοινώθηκε η ένταξη του Ευάγγελου Χαρίση, αθλητή τοξοβολίας του Γ.Α.Σ. Αρχέλαος Κατερίνης, στο πρόγραμμα «Υιοθετήστε έναν Αθλητή» της Ελληνικής Ολυμπιακής Επιτροπής.",
+        "Το πρόγραμμα υποστηρίζει την προετοιμασία επιλεγμένων αθλητών για τους Ολυμπιακούς Αγώνες του Λος Άντζελες το 2028. Η επιλογή αποτελεί διάκριση υποστήριξης και όχι επιβεβαίωση πρόκρισης στους Ολυμπιακούς Αγώνες."
+      ],
+      "source": "Ολύμπιο Βήμα · 11/02/2026",
+      "sourceUrl": "https://olympiobima.gr/archelaos-katerinis-ston-dromo-gia-to-los-antzeles-2028-o-evangelos-charisis/",
+      "personIds": [
+        "arch-955a386f547f"
+      ],
+      "image": "https://olympiobima.gr/wp-content/uploads/2026/02/arxelaos-katerinis-17511.webp",
+      "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2026/02/arxelaos-katerinis-17511.webp",
+      "imageNote": "Φωτογραφία αρχικού άρθρου · Ολύμπιο Βήμα · 11/02/2026"
+    },
+    {
       "id": "handball-archelaos-kyklopes-30-23-feb-2026",
       "date": "2026-02-09",
       "category": "achievements",
@@ -551,6 +571,26 @@
       ],
       "featured": false,
       "imageSourceUrl": "https://pieriasocial.gr/wp-content/uploads/2025/11/1111111111111111111-2-768x277.jpg"
+    },
+    {
+      "id": "handball-voreas-archelaos-20-36-nov-2025",
+      "date": "2025-11-17",
+      "sport": "Χάντμπολ",
+      "category": "matches",
+      "title": "Εκτός έδρας νίκη 36–20 του Αρχέλαου επί του Βορέα Αλεξανδρούπολης",
+      "summary": "Με νεαρή σύνθεση και πολλές συμμετοχές από τις ακαδημίες στο πρωτάθλημα Β΄ Εθνικής.",
+      "body": [
+        "Ο Αρχέλαος Κατερίνης νίκησε εκτός έδρας τον Βορέα Αλεξανδρούπολης με 36–20, στη 3η αγωνιστική του 2ου ομίλου της Β΄ Εθνικής χάντμπολ, στις 16 Νοεμβρίου 2025.",
+        "Το ημίχρονο ολοκληρώθηκε με 19–9 υπέρ του Αρχέλαου. Πρώτοι σκόρερ ήταν ο Δημήτρης Σιώκας και ο Χρυσικός, με δέκα τέρματα ο καθένας. Το προπονητικό επιτελείο αξιοποίησε αρκετούς νεαρούς παίκτες."
+      ],
+      "source": "Ολύμπιο Βήμα · 17/11/2025",
+      "sourceUrl": "https://olympiobima.gr/voreas-alexandroupolis-archelaos-katerinis-20-36-ekpliktiki-emfanisi-topo-sta-niata/",
+      "personIds": [
+        "arch-dimitris-siokas-handball-2026"
+      ],
+      "image": "https://olympiobima.gr/wp-content/uploads/2025/11/voreas-alexandroypolis-arxelaos-katerinis-55747.webp",
+      "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2025/11/voreas-alexandroypolis-arxelaos-katerinis-55747.webp",
+      "imageNote": "Φωτογραφία αρχικού άρθρου · Ολύμπιο Βήμα · 17/11/2025"
     },
     {
       "id": "archery-cyprus-2025",
@@ -791,6 +831,29 @@
       "image": "https://olympiobima.gr/wp-content/uploads/2024/12/3-xrysa-metallia-protathlites-arxelaoy-93756.webp",
       "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2024/12/3-xrysa-metallia-protathlites-arxelaoy-93756.webp",
       "imageNote": "Φωτογραφία αντίστοιχης αρχικής δημοσίευσης · Ολύμπιο Βήμα · 10/12/2024"
+    },
+    {
+      "id": "archery-amyntaio-youth-national-dec-2024",
+      "date": "2024-12-10",
+      "sport": "Τοξοβολία",
+      "category": "achievements",
+      "title": "Τέσσερα μετάλλια για την τοξοβολία μικρών κατηγοριών στο Αμύνταιο",
+      "summary": "Δύο χρυσά, ένα ασημένιο και ένα χάλκινο στο Πανελλήνιο Τοξοβολίας.",
+      "body": [
+        "Στο Πανελλήνιο Πρωτάθλημα Τοξοβολίας Μικρών Κατηγοριών στο Αμύνταιο το 2024, ο Αρχέλαος Κατερίνης κατέκτησε δύο χρυσά, ένα ασημένιο και ένα χάλκινο μετάλλιο.",
+        "Χρυσά κατέκτησαν η Νεφέλη Ζαππίδου στις Παγκορασίδες Β΄ Ολυμπιακού Τόξου και ο Ζήσης Γαλάνης στους Παμπαίδες Β΄. Ασημένιο κατέκτησε ο Γεώργιος Ζαππίδης στους Παίδες και χάλκινο η Ελισάβετ Στεργιοπούλου στις Παγκορασίδες Α΄.",
+        "Στο ίδιο δημοσίευμα αναφέρονται και αθλητές του Ενιπέα Λιτοχώρου, των οποίων οι επιδόσεις δεν προσμετρώνται στον Αρχέλαο."
+      ],
+      "source": "Ολύμπιο Βήμα · 10/12/2024",
+      "sourceUrl": "https://olympiobima.gr/gas-archelaos-katerinis-synecheia-epitychion-gia-to-tmima-toxovolias/",
+      "personIds": [
+        "arch-baba93550267",
+        "arch-77461943b4f2",
+        "arch-44ef21dfb9b7"
+      ],
+      "image": "https://olympiobima.gr/wp-content/uploads/2024/12/gas-arxelaos-katerinis-synexeia-epityxion-74219.webp",
+      "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2024/12/gas-arxelaos-katerinis-synexeia-epityxion-74219.webp",
+      "imageNote": "Φωτογραφία αρχικού άρθρου · Ολύμπιο Βήμα · 10/12/2024"
     },
     {
       "id": "handball-volos-2024",
@@ -1362,6 +1425,30 @@
       "imageNote": "Φωτογραφία αρχικού δημοσιεύματος · Ολύμπιο Βήμα · 19/06/2023"
     },
     {
+      "id": "gymnastics-thessaloniki-regional-may-2023",
+      "date": "2023-05-30",
+      "sport": "Ενόργανη Γυμναστική",
+      "category": "achievements",
+      "title": "Πρωτιές και ομαδικό ασημένιο για την ενόργανη στη Θεσσαλονίκη",
+      "summary": "Διακρίσεις παμπαίδων και δεύτερη θέση παγκορασίδων στην Α΄ φάση Β΄ Περιφέρειας.",
+      "body": [
+        "Στους αγώνες Α΄ φάσης ενόργανης Παμπαίδων–Παγκορασίδων Β΄ Περιφέρειας στη Θεσσαλονίκη τον Μάιο του 2023, ο Τρύφων Κραγιόπουλος κατέκτησε πρώτες θέσεις στο σύνθετο ατομικό και στα περισσότερα όργανα της κατηγορίας του.",
+        "Ο Ιωάννης Καραδήμος και άλλοι αθλητές κατέκτησαν επίσης ατομικές διακρίσεις, ενώ η ομάδα Παγκορασίδων Α΄ κατέλαβε τη δεύτερη θέση στο σύνθετο ομαδικό με 159,000 βαθμούς. Συμμετείχαν η Ευαγγελία-Γεωργία Κωστίκου, η Φανή Τσαλού, η Μαρία Κεσενλή, η Ιωάννα Παπαχατζή, η Παναγιώτα Λάιου και η Κατερίνα Λαμπίρη."
+      ],
+      "source": "Ολύμπιο Βήμα · 30/05/2023",
+      "sourceUrl": "https://olympiobima.gr/gas-archelaos-katerinis-ekpliktiki-emfanisi-megales-diakriseis-stin-thessaloniki/",
+      "personIds": [
+        "arch-1325e4551e91",
+        "arch-510626a0ca62",
+        "arch-1ea85d87584a",
+        "arch-2ec2798d39bb",
+        "arch-gymnastics-9814252c"
+      ],
+      "image": "https://olympiobima.gr/wp-content/uploads/2023/05/gas-archelaos-katerinis-50834.webp",
+      "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2023/05/gas-archelaos-katerinis-50834.webp",
+      "imageNote": "Φωτογραφία αρχικού άρθρου · Ολύμπιο Βήμα · 30/05/2023"
+    },
+    {
       "id": "gymnastics-national-lavrio-may-2023",
       "date": "2023-05-17",
       "sport": "Ενόργανη Γυμναστική",
@@ -1410,6 +1497,24 @@
       "image": "https://olympiobima.gr/wp-content/uploads/2023/05/pali-gas-archelaos-52473.webp",
       "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2023/05/pali-gas-archelaos-52473.webp",
       "imageNote": "Αρχική φωτογραφία του αντίστοιχου δημοσιεύματος."
+    },
+    {
+      "id": "handball-kyklopes-archelaos-38-29-may-2023",
+      "date": "2023-05-02",
+      "sport": "Χάντμπολ",
+      "category": "matches",
+      "title": "Κύκλωπες Αλεξανδρούπολης – Αρχέλαος 38–29 στην αυλαία της Α2",
+      "summary": "Ο Αρχέλαος ολοκλήρωσε το πρωτάθλημα με συμμετοχές πολλών νεαρών παικτών.",
+      "body": [
+        "Στην τελευταία, 22η αγωνιστική του 2ου ομίλου της Α2 Ανδρών χάντμπολ, ο Αρχέλαος ηττήθηκε στην Αλεξανδρούπολη με 38–29 από τους Κύκλωπες.",
+        "Η ομάδα της Κατερίνης είχε ήδη εξασφαλίσει την παραμονή της και έδωσε ευκαιρίες σε νεαρούς αθλητές. Το πρώτο ημίχρονο ολοκληρώθηκε με σκορ 22–19."
+      ],
+      "source": "Ολύμπιο Βήμα · 02/05/2023",
+      "sourceUrl": "https://olympiobima.gr/as-kyklopes-alexandroypolis-gas-archelaos-katerinis-38-29-topo-sta-quot-niata-quot-archelaoy/",
+      "personIds": [],
+      "image": "https://olympiobima.gr/wp-content/uploads/2023/05/as-kyklopes-alexandroypolis-73821.webp",
+      "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2023/05/as-kyklopes-alexandroypolis-73821.webp",
+      "imageNote": "Φωτογραφία αρχικού άρθρου · Ολύμπιο Βήμα · 02/05/2023"
     },
     {
       "id": "wrestling-mouzaki-youth-medals-apr-2023",
