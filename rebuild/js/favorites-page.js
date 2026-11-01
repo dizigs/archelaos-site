@@ -6,6 +6,12 @@ let data,filter='all';
 async function openSaved(record){
  const item=record.entity, type=record.type, ui=window.ArchelaosUI;
  if(!ui)throw Error('Popup system unavailable');
+ // Preserve the full original interviews/statements popup and its sticky
+ // heart by opening the canonical record view, instead of a shortened duplicate.
+ if(type==='interview'){
+  location.assign(route(record.url));
+  return;
+ }
  if(type==='person'){
   if(!window.ArchelaosBio?.show(item))throw Error('Biography viewer unavailable');
   return;
@@ -95,7 +101,7 @@ function render(){
  for(const item of shown){const block=card(item);if(block){fragment.append(block);count++}}
  if(!count){
   const empty=el('div','av-empty');empty.append(el('h2','','Η συλλογή σας περιμένει.'));
-  empty.append(el('p','','Αποθηκεύστε πρόσωπα, στιγμές και ιστορίες με το σύμβολο ♡.'));
+  empty.append(el('p','','Αποθηκεύστε πρόσωπα, στιγμές, ιστορίες και συνεντεύξεις με το σύμβολο ♡.'));
   const a=el('a','av-primary-link','Εξερευνήστε το αρχείο');a.href=route('/search.html');empty.append(a);fragment.append(empty);
  }
  grid.replaceChildren(fragment);

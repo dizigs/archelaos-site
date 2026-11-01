@@ -41,6 +41,10 @@ function open(id){
   inner+='</div></section>';
  }
  $('detail').innerHTML=inner;
+ const slot=$('interview-favorite-slot');
+ if(slot){slot.replaceChildren();
+  if(window.ArchelaosFavorites)slot.append(window.ArchelaosFavorites.button('interview',x.id,'interview-header-favorite'));
+ }
  const dlg=$('dialog');if(!dlg.open)dlg.showModal();$('close').focus();
  const url=new URL(location.href);url.searchParams.set('record',id);history.replaceState(null,'',url);
 }

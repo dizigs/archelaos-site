@@ -57,6 +57,16 @@ footer{text-align:center;font-size:12px;color:#758273;padding:35px 15px;border-t
  .links{gap:6px}.links a{width:100%;padding:10px 12px;font-size:12px}.note{padding:13px 15px;font-size:11px}
 }
 @media(max-width:350px){.card{grid-template-columns:68px minmax(0,1fr);padding:11px 12px;column-gap:10px}.card .year{font-size:26px}.card h3{font-size:15px}}
+
+/* Interview/statement favorite lives in the sticky dark-green dialog header. */
+.dialog-top>span{min-width:0;overflow-wrap:anywhere}
+.dialog-actions{display:flex;align-items:center;justify-content:flex-end;gap:9px;flex:none}
+.interview-favorite-slot{display:inline-flex;align-items:center}
+.dialog-top .interview-header-favorite{min-width:42px;min-height:42px;padding:2px 8px;border-radius:9px;border:1px solid #d4b778;background:transparent;color:#f4e1bd;font:400 27px/1 Georgia,serif;display:inline-grid;place-items:center}
+.dialog-top .interview-header-favorite:hover{background:#ffffff13;box-shadow:0 0 0 1px #d4b77840}
+.dialog-top .interview-header-favorite[aria-pressed="true"]{background:#e7d5a2;color:#073d2a;border-color:#e7d5a2}
+.dialog-top .interview-header-favorite:focus-visible{outline:3px solid #f7e5af;outline-offset:2px}
+@media(max-width:420px){.dialog-top{gap:8px}.dialog-top>span{font-size:9px;letter-spacing:.08em}.dialog-actions{gap:7px}}
 </style><link rel="stylesheet" href="/rebuild/css/tokens.css"><link rel="stylesheet" href="/rebuild/css/components.css"><link rel="stylesheet" href="/rebuild/css/collection.css"><link rel="stylesheet" href="/rebuild/css/motion.css"><link rel="stylesheet" href="/rebuild/css/viewports.css"><script defer src="/rebuild/js/shell.js"></script><script defer src="/rebuild/js/favorites.js"></script><script defer src="/rebuild/js/motion.js"></script></head><body class="asn-museum-layout">
 <section class="hero"><div class="wrap"><span class="kicker" data-el="ΨΗΦΙΑΚΟ ΜΟΥΣΕΙΟ · ΜΑΡΤΥΡΙΕΣ" data-en="DIGITAL MUSEUM · ORAL HISTORY">ΨΗΦΙΑΚΟ ΜΟΥΣΕΙΟ · ΜΑΡΤΥΡΙΕΣ</span>
 <h1><span data-el="Οι Φωνές" data-en="Voices of">Οι Φωνές</span><br><span data-el="του Αρχέλαου." data-en="Archelaos.">του Αρχέλαου.</span></h1>
@@ -67,5 +77,5 @@ footer{text-align:center;font-size:12px;color:#758273;padding:35px 15px;border-t
 <div class="count" id="count" role="status" aria-live="polite">Φόρτωση συλλογής…</div><div class="cards" id="cards"></div>
 <p class="note" data-el="Το αρχείο διακρίνει τις πλήρεις συνεντεύξεις από τις σύντομες δηλώσεις και τα δημοσιογραφικά ρεπορτάζ. Οι πληροφορίες τεκμηρίωσης προέρχονται από την καταγραφή των αρχειακών αποκομμάτων. Όπου οι καταγραφές διαφωνούν, σημειώνεται η εκκρεμότητα." data-en="The archive distinguishes full interviews, short statements and press reports. Context is drawn from archival clippings; unresolved discrepancies are marked.">Το αρχείο διακρίνει τις πλήρεις συνεντεύξεις από τις σύντομες δηλώσεις και τα δημοσιογραφικά ρεπορτάζ. Οι πληροφορίες τεκμηρίωσης προέρχονται από την καταγραφή των αρχειακών αποκομμάτων. Όπου οι καταγραφές διαφωνούν, σημειώνεται η εκκρεμότητα.</p>
 </div></main>
-<dialog id="dialog" class="dialog" aria-label="Ιστορική συνέντευξη"><div class="dialog-inner"><div class="dialog-top"><span data-el="ΟΙ ΦΩΝΕΣ ΤΟΥ ΑΡΧΕΛΑΟΥ" data-en="VOICES OF ARCHELAOS">ΟΙ ΦΩΝΕΣ ΤΟΥ ΑΡΧΕΛΑΟΥ</span><button type="button" class="close" id="close" aria-label="Κλείσιμο">×</button></div><article id="detail" class="detail"></article></div></dialog>
+<dialog id="dialog" class="dialog" aria-label="Ιστορική συνέντευξη"><div class="dialog-inner"><div class="dialog-top"><span data-el="ΟΙ ΦΩΝΕΣ ΤΟΥ ΑΡΧΕΛΑΟΥ" data-en="VOICES OF ARCHELAOS">ΟΙ ΦΩΝΕΣ ΤΟΥ ΑΡΧΕΛΑΟΥ</span><div class="dialog-actions"><span id="interview-favorite-slot" class="interview-favorite-slot"></span><button type="button" class="close" id="close" aria-label="Κλείσιμο">×</button></div></div><article id="detail" class="detail"></article></div></dialog>
 <script defer src="/rebuild/js/interviews.js?v=20261101-cache-fix-2"></script></body></html>

@@ -81,7 +81,7 @@ function card(item){
  if(item.excerpt)a.append(make('span','sr-card-excerpt',item.excerpt));
  if(item.year)a.append(make('small','sr-card-year',item.year));
 
- const wrap=make('div','sr-card-wrap');wrap.append(a);if(!['interview','department','fixture'].includes(item.type)&&window.ArchelaosFavorites?.button)wrap.append(window.ArchelaosFavorites.button(item.type,item.id));return wrap;
+ const wrap=make('div','sr-card-wrap');wrap.append(a);if(!['department','fixture'].includes(item.type)&&window.ArchelaosFavorites?.button)wrap.append(window.ArchelaosFavorites.button(item.type,item.id));return wrap;
 }
 function render(){
  if(!state.ready)return;

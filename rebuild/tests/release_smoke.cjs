@@ -129,9 +129,27 @@ async function verify(){
     if(tag==='interviews'){
       const interviewCount=JSON.parse(require('node:fs').readFileSync(path.join(__dirname,'..','data','interviews.json'),'utf8')).items.length;
       await page.waitForFunction(expected=>document.querySelectorAll('#cards .card').length===expected,interviewCount,{timeout:12000});
-      await page.locator('#cards .card').first().click();
+      for(const record of ['q1','d1']){
+       await page.locator('#cards .card[data-id="'+record+'"]').click();
+       const modal=page.locator('#dialog[open]');
+       await modal.waitFor();
+       const heart=modal.locator('#interview-favorite-slot .interview-header-favorite');
+       await heart.waitFor();
+       if(await heart.getAttribute('data-favorite-id')!==record||
+          await heart.getAttribute('aria-pressed')!=='false')
+        throw Error('Missing or incorrect interview/statement favorite heart');
+       await heart.click();
+       if(await heart.getAttribute('aria-pressed')!=='true')
+        throw Error('Interview/statement favorite did not toggle');
+       await page.keyboard.press('Escape');
+       await page.locator('#dialog').waitFor({state:'hidden'});
+      }
+      await page.reload({waitUntil:'domcontentloaded'});
+      await page.locator('#cards .card[data-id="q1"]').click();
       await page.locator('#dialog[open]').waitFor();
-      await page.keyboard.press('Escape');
+      if(await page.locator('#interview-favorite-slot .interview-header-favorite').getAttribute('aria-pressed')!=='true')
+       throw Error('Interview favorite not restored across reload');
+      await page.locator('#close').click();
       await page.locator('#dialog').waitFor({state:'hidden'});
     }
     if(tag==='search'){
@@ -164,6 +182,21 @@ async function verify(){
      if(await page.locator('#sr-results .sr-card').count()===0)throw Error('Person search filter returns no results');
     }
     if(tag==='favorites'){
+     // Both a full interview and a short statement must reach Favorites.
+     await page.locator('.av-card').first().waitFor({timeout:9000});
+     if(await page.locator('[data-av-filter="interview"]').count()!==1)
+      throw Error('Favorites does not offer Voices filter');
+     await page.locator('[data-av-filter="interview"]').click();
+     if(await page.locator('.av-card').count()!==2)
+      throw Error('Saved interview and statement were not shown in collection');
+     const saved=await page.locator('.av-card .arch-favorite-toggle').all();
+     if(saved.length!==2)throw Error('Saved voice records lack favorite controls');
+     await page.locator('.av-card-hit').first().click();
+     await page.locator('#dialog[open]').waitFor({timeout:9000});
+     if(await page.locator('#interview-favorite-slot .interview-header-favorite').getAttribute('aria-pressed')!=='true')
+      throw Error('Opening a saved voice did not restore its favorite state');
+     await page.locator('#close').click();
+     await page.goto(ROOT+'/favorites.html',{waitUntil:'domcontentloaded'});
      // The search scenario bookmarked a museum exhibit earlier in this same browser.
      // Reset only test-owned favorites before verifying a new empty collection.
      await page.evaluate(()=>window.ArchelaosFavorites.clear());
