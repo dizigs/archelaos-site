@@ -147,3 +147,25 @@
  .mu-tour-actions{margin-top:13px}
 }
 @media(prefers-reduced-motion:reduce){.mu-tour-focus{transition:none}}
+
+/* Single editorial link to the interviews archive, not a duplicate Collections tile. */
+.mu-interviews{padding:22px 0 48px;background:#f8f6ef}
+.mu-interviews-card{position:relative;isolation:isolate;display:flex;align-items:center;min-height:315px;
+ overflow:hidden;padding:clamp(26px,5vw,58px);border-radius:23px;border:1px solid #bca16c;
+ color:#fff5de;background:#0a3d2c;text-decoration:none;box-shadow:0 16px 38px #073d2a22}
+.mu-interviews-card::before{content:"";position:absolute;inset:-8%;z-index:-2;
+ background:repeating-linear-gradient(0deg,transparent 0,transparent 23px,#ddd2ab19 24px),
+ radial-gradient(circle at 87% 48%,#cfb0783b,transparent 45%);transform:rotate(-3deg);opacity:.85}
+.mu-interviews-card::after{content:"";position:absolute;inset:0;z-index:-1;
+ background:linear-gradient(90deg,#052a1eee 5%,#063e2add 52%,#063b2a55 100%)}
+.mu-interviews-copy{display:flex;flex-direction:column;align-items:start;gap:15px;max-width:660px}
+.mu-interviews-kicker{font-size:11px;font-weight:850;letter-spacing:.16em;color:#e1c68e}
+.mu-interviews-copy strong{font:500 clamp(39px,5vw,63px)/1.1 Georgia,serif;letter-spacing:-.035em}
+.mu-interviews-description{font-size:clamp(14px,1.5vw,17px);line-height:1.8;color:#e4e9dd}
+.mu-interviews-action{margin-top:5px;padding:11px 16px;border:1px solid #d1b77b;border-radius:9px;
+ font-weight:750;font-size:13px;color:#f2dbab}
+.mu-interviews-ornament{position:absolute;right:8%;top:-3%;font:normal clamp(240px,30vw,420px) Georgia,serif;
+ opacity:.14;pointer-events:none}
+.mu-interviews-card:hover{box-shadow:0 22px 45px #073d2a40}
+.mu-interviews-card:focus-visible{outline:3px solid #c7a65e;outline-offset:4px}
+@media(max-width:650px){.mu-interviews-card{min-height:260px}.mu-interviews-ornament{right:-5%;opacity:.07}}
