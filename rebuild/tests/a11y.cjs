@@ -40,6 +40,10 @@ async function test(){
      await page.locator('#arch-a11y-panel[open]').waitFor();
      await page.keyboard.press('Escape');
      await page.locator('#arch-a11y-panel').waitFor({state:'hidden'});
+     // A native dialog fires its close event asynchronously after it becomes
+     // hidden; wait for intentional focus restoration before testing Enter on
+     // the next toolbar control, or the late close handler can steal focus.
+     await page.waitForFunction(()=>document.activeElement===document.querySelector('.arch-a11y-launch'),null,{timeout:3000});
      if(await trigger.getAttribute('aria-expanded')!=='false')fail(where,'Accessibility dialog ARIA state did not reset');
      if(await page.locator('main').count()!==1)fail(where,'Main landmark not unique');
      if(await page.locator('h1').count()!==1)fail(where,'Primary heading not unique');
