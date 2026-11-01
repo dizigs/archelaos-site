@@ -1,12 +1,17 @@
 /* Canonical in-place Hall of Fame popups on every page. */
 (()=>{'use strict';
 if(window.ArchelaosBio?.__shared)return;
-let collection=null, loading=null, dialog=null, previous=null, generation=0;
+let collection=null, loading=null, dialog=null, previous=null, generation=0, newsLoading=null;
 const load=()=>{
  if(collection)return Promise.resolve({people:collection});
  if(!loading)loading=fetch('/hall-of-fame-people.json',{cache:'no-cache'}).then(r=>{if(!r.ok)throw Error('Hall of Fame data unavailable: '+r.status);return r.json()}).then(d=>{if(!Array.isArray(d.people))throw Error('Invalid Hall collection');collection=d.people;return d}).catch(e=>{loading=null;throw e});
  return loading;
 };
+// News records are the canonical source of relations; avoid duplicating links in biographies.
+const relatedNews=()=>newsLoading??=fetch('/news.json',{cache:'no-cache'})
+ .then(r=>{if(!r.ok)throw Error('News unavailable');return r.json()})
+ .then(d=>Array.isArray(d.items)?d.items:[])
+ .catch(()=>{newsLoading=null;return []});
 const el=(tag,cls,txt)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e};
 const isEn=()=>document.documentElement.lang==='en';
 const tr=(a,b)=>isEn()?b:a;
@@ -40,6 +45,22 @@ async function open(id){
   if(Array.isArray(p.refs))p.refs.forEach(ref=>{
    if(!/^https:\/\//.test(ref.url||''))return;
    const a=el('a','',ref.label||'Πηγή');a.href=ref.url;a.target='_blank';a.rel='noopener noreferrer';box.append(a);
+  });
+  // Add direct links to published news related to this exact person ID.
+  void relatedNews().then(items=>{
+   if(token!==generation||!modal.isConnected)return;
+   const matches=items.filter(x=>!x.unverified&&Array.isArray(x.personIds)&&x.personIds.includes(p.id))
+     .sort((a,b)=>String(b.date||'').localeCompare(String(a.date||'')));
+   if(!matches.length)return;
+   const title=el('strong','arch-bio-related-title','Σχετικές ειδήσεις');
+   title.style.cssText='width:100%;color:#80662f;font-size:12px;letter-spacing:.08em';
+   box.append(title);
+   for(const item of matches){
+    const a=el('a','arch-bio-news-link',item.title||'Δείτε την είδηση');
+    a.href='/news.html?article='+encodeURIComponent(item.id);
+    a.title='Άνοιγμα είδησης — '+(item.date||'');
+    box.append(a);
+   }
   });
   if(!modal.open)modal.showModal();
   modal.querySelector('.arch-bio-scroll').scrollTop=0;
