@@ -34,6 +34,7 @@ STATIC_ROOT = (
     "favicon.ico", "favicon-180.png", "favicon-192.png", "favicon-512.png",
     "archelaos-history-events.json", "archelaos-person-index.json",
     "archelaos-person-links.js", "hall-of-fame-people.json",
+    "interviews.json",  # Public interview archive; required by interviews.html
 )
 COMMON_FOLDERS = ("assets", "images")
 
