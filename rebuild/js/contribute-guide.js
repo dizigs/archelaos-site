@@ -156,6 +156,8 @@ async function sendSecure(){
   payload.set('message',draft().body);
   payload.set('archiveLink',clean($('archive-link').value));
   payload.set('consent','true');
+  payload.set('publicNameConsent',credit().requested?'true':'false');
+  payload.set('publicCreditName',credit().displayName);
   for(const file of files)payload.append('attachments',file,file.name);
   status.textContent='Αποστολή προς το ιστορικό αρχείο…';
   try{
