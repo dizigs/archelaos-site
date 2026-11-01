@@ -72,6 +72,13 @@ def inspect():
     assert source_stories["count"] == len(stories), "story count metadata does not match entries"
     assert len({s["title"].casefold() for s in stories}) == len(stories), "duplicate story titles"
     museum = json.loads((REBUILD/"data/museum.json").read_text(encoding="utf-8"))
+    foundation = next(a for a in museum["articles"] if a["id"] == "intro")
+    colours = next(a for a in museum["articles"] if a["id"] == "colors-1968")
+    assert "29 Απριλίου 1956" in foundation["html"] and "27 Ιουνίου 1968" not in foundation["html"], "1956 founding article contains duplicated 1968 text"
+    assert "27 Ιουνίου 1968" in colours["html"] and "Καθορίζονται οριστικώς" in colours["html"], "1968 colours article missing original second paragraph or archive quote"
+    assert "η αυτούσια διατύπωση δεν έχει επαληθευτεί" in colours["html"], "Archive quotation provenance disclosure missing"
+    assert "colors-1968" in (REBUILD/"js/museum.js").read_text(encoding="utf-8"), "Museum exhibit points to wrong record"
+    assert len({a["id"] for a in museum["articles"]}) == len(museum["articles"]), "Duplicate Museum exhibit identifier"
     assert len(museum["articles"]) >= 14, "original 14 museum articles missing"
     assert len({a["id"] for a in museum["articles"]}) == len(museum["articles"]), "duplicate museum article IDs"
     assert len(museum["press"]) == 10, "10 press archive entries mismatch"
