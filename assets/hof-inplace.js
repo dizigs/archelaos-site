@@ -63,5 +63,5 @@ document.addEventListener('click',e=>{
  const id=personId(a);if(!id)return;
  e.preventDefault();e.stopPropagation();void open(id);
 },true);
-window.ArchelaosBio=Object.assign(window.ArchelaosBio||{},{load,open,__shared:true});
+window.ArchelaosBio=Object.freeze({...window.ArchelaosBio,load,open,__shared:true});
 })();
