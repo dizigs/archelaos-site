@@ -199,6 +199,12 @@ def verify() -> None:
             assert all(row.get("question") and row.get("answer") for row in record["qa"]), (
                 "Empty interview question/answer: " + record["id"]
             )
+    from hashlib import sha256
+    expected_version = sha256((DIST / "assets/site/js/interviews.js").read_bytes()).hexdigest()[:12]
+    interview_html = (DIST / "interviews.html").read_text(encoding="utf-8")
+    assert f"/assets/site/js/interviews.js?v={expected_version}" in interview_html, (
+        "Interview script is not fingerprinted to match its deployed content"
+    )
     interview_js = (DIST / "assets/site/js/interviews.js").read_text(encoding="utf-8")
     assert "/assets/site/data/interviews.json" in interview_js, (
         "Interview page does not request its deployed dataset"
