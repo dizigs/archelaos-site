@@ -20,7 +20,8 @@ export default {
   if(question.length<4||question.length>300)return reply({error:'Question must contain 4–300 characters'},400);
   const terms=norm(question).split(/[^\p{L}\p{N}]+/u).filter(w=>w.length>=4&&!['ποιοι','ποιες','ποια','στον','στην','ειναι','απο','αυτο','αρχέλαου','αρχελαου'].includes(w));
   if(!terms.length)return reply({error:'Use a more specific question'},400);
-  const base=new URL(request.url).origin;
+  const base=env.PUBLIC_SITE_ORIGIN||'https://archelaos.club';
+  if(!/^https:\/\/archelaos\.club$/.test(base))return reply({error:'Invalid archive origin'},503);
   const sources=[
    {path:'/assets/site/data/people.json',key:'people',map:p=>({title:p.name,text:[p.role,p.bio].join(' '),url:'/hall-of-fame.html?person='+encodeURIComponent(p.id)})},
    {path:'/assets/site/data/interviews.json',key:'items',map:p=>({title:p.name,text:[p.context,p.quote,...(p.qa||[]).map(q=>q.question+' '+q.answer)].join(' '),url:'/interviews.html?record='+encodeURIComponent(p.id)})},
