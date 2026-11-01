@@ -150,7 +150,7 @@
 .arch-fav-count{font-size:10px;border-radius:999px;display:inline-grid;place-items:center;min-width:19px;min-height:19px;padding:0 4px;background:#efdab0;color:#123925}
 .arch-fav-count[hidden]{display:none!important}
 .arch-nav-search{display:inline-flex;gap:6px;align-items:center}
-.arch-menu-dialog:not([open]),.arch-dialog:not([open]){display:none!important}
+.arch-menu-dialog:not([open]){display:none!important}
 dialog.arch-menu-dialog[open]{position:fixed!important;inset:0 0 0 auto!important;top:0!important;bottom:0!important;left:auto!important;right:0!important;margin:0!important;width:min(430px,100vw)!important;height:100dvh!important;max-height:100dvh!important;overflow:hidden!important;z-index:1500}
 .arch-menu-quick{display:grid;gap:9px;padding:0 2px 12px}
 .arch-mobile-action{display:flex;align-items:center;gap:12px;min-height:54px;padding:14px 16px;border-radius:12px;border:1px solid #d5bf90;background:#fffdf6;color:#073d2a;font-weight:800;text-decoration:none}
@@ -380,3 +380,45 @@ body.arch-a11y-calm *,body.arch-a11y-calm *::before,body.arch-a11y-calm *::after
 @media(max-width:650px){.facility-museum .fm-items{grid-template-columns:1fr}.facility-museum .fm-milestones{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(prefers-reduced-motion:no-preference){.facility-museum .fm-section{transition:border-color .2s,transform .2s}.facility-museum .fm-section:hover{border-color:#c7a65e;transform:translateY(-2px)}}
 
+
+
+/* Shared museum popup motion: native top-layer dialog, including news,
+   biographies, museum stories and interviews. No JS closing delay required. */
+@supports (transition-behavior:allow-discrete){
+  dialog:is(.arch-dialog,.an-dialog,.arch-bio-global,#dialog,.arch-a11y-panel){
+    opacity:0;
+    filter:blur(6px);
+    transform:translateY(12px) scale(.985);
+    transition:opacity .27s ease,filter .27s ease,
+      transform .27s cubic-bezier(.2,.75,.25,1),
+      display .27s allow-discrete,overlay .27s allow-discrete;
+  }
+  dialog:is(.arch-dialog,.an-dialog,.arch-bio-global,#dialog,.arch-a11y-panel)[open]{
+    opacity:1;
+    filter:blur(0);
+    transform:translateY(0) scale(1);
+  }
+  dialog:is(.arch-dialog,.an-dialog,.arch-bio-global,#dialog,.arch-a11y-panel)::backdrop{
+    opacity:0;
+    transition:opacity .27s ease,
+      display .27s allow-discrete,overlay .27s allow-discrete;
+  }
+  dialog:is(.arch-dialog,.an-dialog,.arch-bio-global,#dialog,.arch-a11y-panel)[open]::backdrop{opacity:1}
+  @starting-style{
+    dialog:is(.arch-dialog,.an-dialog,.arch-bio-global,#dialog,.arch-a11y-panel)[open]{
+      opacity:0;
+      filter:blur(6px);
+      transform:translateY(12px) scale(.985);
+    }
+    dialog:is(.arch-dialog,.an-dialog,.arch-bio-global,#dialog,.arch-a11y-panel)[open]::backdrop{opacity:0}
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  dialog:is(.arch-dialog,.an-dialog,.arch-bio-global,#dialog,.arch-a11y-panel),
+  dialog:is(.arch-dialog,.an-dialog,.arch-bio-global,#dialog,.arch-a11y-panel)::backdrop{
+    transition:none!important;
+    filter:none!important;
+    transform:none!important;
+    opacity:1!important;
+  }
+}
