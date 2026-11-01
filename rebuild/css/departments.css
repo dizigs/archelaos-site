@@ -257,6 +257,9 @@ body .dp-content .dp-grid .dp-card .dp-year,body .dp-content .dp-grid .dp-card .
 .arch-dialog-body .dp-profile-history:hover{background:#13573c}
 .arch-dialog-body .dp-profile-history:focus-visible{outline:3px solid #b89955;outline-offset:3px}
 .arch-dialog-body .dp-profile-official{display:inline-flex;align-items:center;border:1px solid #d8c7a2;border-radius:11px;padding:13px 16px;color:#736a55;background:#f8f4eb;font-size:12px;font-weight:650}
+.arch-dialog-body a.dp-profile-official,.arch-dialog-body a.dp-profile-official:hover,.arch-dialog-body a.dp-profile-official:visited{text-decoration:none!important;color:#15533b;cursor:pointer}
+.arch-dialog-body a.dp-profile-official:hover{border-color:#b89955;background:#f3eddc}
+.arch-dialog-body a.dp-profile-official:focus-visible{outline:3px solid #b89955;outline-offset:3px}
 @media(max-width:580px){.arch-dialog-body .dp-profile-info{grid-template-columns:1fr 1fr;gap:9px}.arch-dialog-body .dp-profile-field{padding:12px}.arch-dialog-body .dp-profile-photo{height:185px}.arch-dialog-body .dp-profile-actions{flex-direction:column}.arch-dialog-body .dp-profile-history,.arch-dialog-body .dp-profile-official{width:100%;justify-content:center;text-align:center}}
 
 /* Mobile department dialog: keep all information tiles visible and scrollable. */
