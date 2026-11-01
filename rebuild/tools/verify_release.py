@@ -149,6 +149,24 @@ def verify() -> None:
         assert all(pid in ids for pid in article.get("personIds", [])), "News links to missing Hall biography: " + article["id"]
         if article.get("image") and not article["image"].startswith(("https://", "http://")):
             assert (DIST / article["image"]).is_file(), "Missing news image: " + article["image"]
+    # News media contract: never publish a photo URL that points to a missing
+    # or invalid asset; and protect the modal against the former detached-image bug.
+    media_js = (DIST / "assets/news.js").read_text(encoding="utf-8")
+    assert "const fig=media(x,'an-cover')" in media_js, "News modal must mount its live image element"
+    assert "const fig=document.createElement('figure')" not in media_js, "Detached news cover figure regression"
+    assert "img.src='/'+path" in media_js, "News images must use absolute site-root URLs"
+    assert "an-cover" in media_js and "an-feature-media" in media_js
+    for article in news["items"]:
+        path = article.get("image", "")
+        if not path or path == "assets/archelaos-crest.png":
+            continue
+        local = DIST / path
+        assert local.is_file(), "Missing published article photo: " + article["id"]
+        start = local.read_bytes()[:16]
+        valid = (start.startswith(b"\\xff\\xd8\\xff") or
+                 start.startswith(b"\\x89PNG\\r\\n\\x1a\\n") or
+                 start.startswith(b"RIFF") and start[8:12] == b"WEBP")
+        assert valid, "Unreadable article image format: " + article["id"]
     published_records = json.loads((DIST / "hall-of-fame-people.json").read_text(encoding="utf-8"))
     rows = published_records if isinstance(published_records, list) else published_records["people"]
     record = next(row for row in rows if row["id"] == pid)
