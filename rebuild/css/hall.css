@@ -22,7 +22,6 @@
 .h-new-directory-heading{display:flex;align-items:end;justify-content:space-between;gap:20px}
 .h-new-eyebrow{display:block;color:#98783c;font-size:11px;font-weight:850;letter-spacing:.15em}
 .h-new-directory-heading h2{font:400 clamp(36px,5vw,59px)/1.15 Georgia,serif;color:#073d2a;letter-spacing:-.035em;margin:12px 0 0}
-.h-new-language button{padding:10px 16px;border-radius:12px;background:#073d2a;border:1px solid #c7a65e;color:#fff5e2;font-weight:800}
 .h-new-intro{max-width:900px;line-height:1.85;color:#4d6453;margin:22px 0 31px}
 .h-new-filters{padding:28px;background:linear-gradient(130deg,#fffcf7,#f3eddf);border:1px solid #d5c8a9;border-radius:20px;box-shadow:0 14px 35px rgba(7,61,42,.06)}
 .h-new-filter-top{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(220px,.8fr) auto;gap:14px;align-items:end}
