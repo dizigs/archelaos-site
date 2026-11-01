@@ -852,6 +852,10 @@ textarea:focus-visible,select:focus-visible {
 /* Keep the History quick-navigation legible too. */
 
 
+
+/* Current department information, distinct from archival history */
+#departments .sport-current-info{margin:14px 0 16px;padding:12px 14px;border:1px solid rgba(173,137,69,.35);border-radius:12px;background:#f8f3e8;color:#194b38;font-size:.86rem;line-height:1.6}
+#departments .sport-current-info strong{color:#86662b;font-weight:800}
 </style>
 <style id="menu-contrast-final">
 /* FINAL CONSISTENT MENU: high-specificity dark-mode colors on BOTH pages.
@@ -3191,7 +3195,7 @@ html.arch-safe-boot body *:not(svg):not(path){
 <div class="reveal-text text-center max-w-3xl mx-auto mb-10 heritage-section-heading heritage-centered">
 <span class="inline-block px-4 py-1.5 rounded-full bg-white/95 text-archelaos-deepgreen font-black text-xs uppercase tracking-wider mb-3 shadow-sm border border-white" data-i18n="dept_tag">Αθλητισμός για όλους</span>
 <div aria-hidden="true" class="heritage-section-eyebrow"><span data-lang="el">02 / ΑΘΛΗΤΙΚΑ ΤΜΗΜΑΤΑ</span><span data-lang="en">02 / SPORTS DEPARTMENTS</span></div><h2 class="text-3xl sm:text-5xl font-black font-heading text-archelaos-deepgreen" data-i18n="dept_title">Τα Αγωνιστικά Τμήματά μας</h2>
-<p class="mt-3 text-archelaos-deepgreen/85 font-semibold text-base" data-i18n="dept_sub">Γνωρίστε τα αθλήματά μας και ανακαλύψτε την ιστορία κάθε τμήματος.</p>
+<p class="mt-3 text-archelaos-deepgreen/85 font-semibold text-base" data-i18n="dept_sub">Γνωρίστε τα αθλήματα, τη σημερινή δραστηριότητα και την ιστορία των τμημάτων μας.</p>
 </div>
 <!-- Grid Τμημάτων (με data-category σε κάθε κάρτα) -->
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6" id="departmentsGrid">
@@ -3204,6 +3208,7 @@ html.arch-safe-boot body *:not(svg):not(path){
 <h3 class="editorial-sport-title"><span data-i18n="dept_1_title">Χάντμπολ</span></h3>
 <p class="editorial-sport-description"><span data-lang="el">Το χάντμπολ παίζεται με επτά παίκτες ανά ομάδα. Συνδυάζει πάσες, γρήγορες επιθέσεις και σουτ προς την εστία.</span><span data-lang="en">Handball is played by teams of seven, combining passing, fast attacks and shots on goal.</span></p>
 <div class="editorial-sport-divider"></div>
+<div class="sport-current-info" aria-label="Πληροφορίες τμήματος"><span data-lang="el">Προπονήσεις, ακαδημίες, υπεύθυνοι και εγγραφές: <strong>θα ενημερωθούν σύντομα.</strong></span><span data-lang="en">Training, academies, contacts and enrollment: <strong>details coming soon.</strong></span></div>
 <div class="editorial-sport-actions">
 <button aria-label="Χάντμπολ — ιστορικό / history" class="editorial-sport-history" onclick="openDeptHistoryModal('handball')" type="button"><i aria-hidden="true" class="fa-regular fa-clock"></i> <span data-i18n="btn_dept_history">Ιστορικό</span></button>
 <button class="editorial-sport-join sport-join-action" onclick="openRegistrationModal('Χάντμπολ')" type="button"><span data-lang="el">Πληροφορίες εγγραφής</span><span data-lang="en">Ask about joining</span><i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square"></i></button>
@@ -3219,6 +3224,7 @@ html.arch-safe-boot body *:not(svg):not(path){
 <h3 class="editorial-sport-title"><span data-i18n="dept_2_title">Στίβος</span></h3>
 <p class="editorial-sport-description"><span data-lang="el">Ο στίβος περιλαμβάνει δρόμους ταχύτητας και αντοχής, άλματα και ρίψεις, με στόχο την ατομική επίδοση.</span><span data-lang="en">Athletics includes running, jumping and throwing events, with a focus on individual performance.</span></p>
 <div class="editorial-sport-divider"></div>
+<div class="sport-current-info" aria-label="Πληροφορίες τμήματος"><span data-lang="el">Προπονήσεις, ακαδημίες, υπεύθυνοι και εγγραφές: <strong>θα ενημερωθούν σύντομα.</strong></span><span data-lang="en">Training, academies, contacts and enrollment: <strong>details coming soon.</strong></span></div>
 <div class="editorial-sport-actions">
 <button aria-label="Στίβος — ιστορικό / history" class="editorial-sport-history" onclick="openDeptHistoryModal('track')" type="button"><i aria-hidden="true" class="fa-regular fa-clock"></i> <span data-i18n="btn_dept_history">Ιστορικό</span></button>
 <button class="editorial-sport-join sport-join-action" onclick="openRegistrationModal('Στίβος')" type="button"><span data-lang="el">Πληροφορίες εγγραφής</span><span data-lang="en">Ask about joining</span><i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square"></i></button>
@@ -3234,6 +3240,7 @@ html.arch-safe-boot body *:not(svg):not(path){
 <h3 class="editorial-sport-title"><span data-i18n="dept_3_title">Τοξοβολία</span></h3>
 <p class="editorial-sport-description"><span data-lang="el">Στην τοξοβολία, οι αθλητές στοχεύουν με τόξο σε καθορισμένη απόσταση, καλλιεργώντας ακρίβεια και αυτοσυγκέντρωση.</span><span data-lang="en">In archery, athletes shoot arrows at a target from set distances, developing accuracy and concentration.</span></p>
 <div class="editorial-sport-divider"></div>
+<div class="sport-current-info" aria-label="Πληροφορίες τμήματος"><span data-lang="el">Προπονήσεις, ακαδημίες, υπεύθυνοι και εγγραφές: <strong>θα ενημερωθούν σύντομα.</strong></span><span data-lang="en">Training, academies, contacts and enrollment: <strong>details coming soon.</strong></span></div>
 <div class="editorial-sport-actions">
 <button aria-label="Τοξοβολία — ιστορικό / history" class="editorial-sport-history" onclick="openDeptHistoryModal('archery')" type="button"><i aria-hidden="true" class="fa-regular fa-clock"></i> <span data-i18n="btn_dept_history">Ιστορικό</span></button>
 <button class="editorial-sport-join sport-join-action" onclick="openRegistrationModal('Τοξοβολία')" type="button"><span data-lang="el">Πληροφορίες εγγραφής</span><span data-lang="en">Ask about joining</span><i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square"></i></button>
@@ -3249,6 +3256,7 @@ html.arch-safe-boot body *:not(svg):not(path){
 <h3 class="editorial-sport-title"><span data-i18n="dept_4_title">Σκοποβολή</span></h3>
 <p class="editorial-sport-description"><span data-lang="el">Η αθλητική σκοποβολή απαιτεί σταθερότητα, τεχνικό έλεγχο και ακρίβεια στην εκτέλεση κάθε βολής.</span><span data-lang="en">Sport shooting requires steadiness, technical control and accuracy in every shot.</span></p>
 <div class="editorial-sport-divider"></div>
+<div class="sport-current-info" aria-label="Πληροφορίες τμήματος"><span data-lang="el">Προπονήσεις, ακαδημίες, υπεύθυνοι και εγγραφές: <strong>θα ενημερωθούν σύντομα.</strong></span><span data-lang="en">Training, academies, contacts and enrollment: <strong>details coming soon.</strong></span></div>
 <div class="editorial-sport-actions">
 <button aria-label="Σκοποβολή — ιστορικό / history" class="editorial-sport-history" onclick="openDeptHistoryModal('shooting')" type="button"><i aria-hidden="true" class="fa-regular fa-clock"></i> <span data-i18n="btn_dept_history">Ιστορικό</span></button>
 <button class="editorial-sport-join sport-join-action" onclick="openRegistrationModal('Σκοποβολή')" type="button"><span data-lang="el">Πληροφορίες εγγραφής</span><span data-lang="en">Ask about joining</span><i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square"></i></button>
@@ -3264,6 +3272,7 @@ html.arch-safe-boot body *:not(svg):not(path){
 <h3 class="editorial-sport-title"><span data-i18n="dept_5_title">Ενόργανη Γυμναστική</span></h3>
 <p class="editorial-sport-description"><span data-lang="el">Η ενόργανη συνδυάζει δύναμη, ευλυγισία και ισορροπία σε όργανα όπως το έδαφος, οι κρίκοι και οι δοκοί.</span><span data-lang="en">Artistic gymnastics combines strength, flexibility and balance on apparatus such as floor, rings and beams.</span></p>
 <div class="editorial-sport-divider"></div>
+<div class="sport-current-info" aria-label="Πληροφορίες τμήματος"><span data-lang="el">Προπονήσεις, ακαδημίες, υπεύθυνοι και εγγραφές: <strong>θα ενημερωθούν σύντομα.</strong></span><span data-lang="en">Training, academies, contacts and enrollment: <strong>details coming soon.</strong></span></div>
 <div class="editorial-sport-actions">
 <button aria-label="Ενόργανη Γυμναστική — ιστορικό / history" class="editorial-sport-history" onclick="openDeptHistoryModal('gymnastics')" type="button"><i aria-hidden="true" class="fa-regular fa-clock"></i> <span data-i18n="btn_dept_history">Ιστορικό</span></button>
 <button class="editorial-sport-join sport-join-action" onclick="openRegistrationModal('Ενόργανη Γυμναστική')" type="button"><span data-lang="el">Πληροφορίες εγγραφής</span><span data-lang="en">Ask about joining</span><i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square"></i></button>
@@ -3279,6 +3288,7 @@ html.arch-safe-boot body *:not(svg):not(path){
 <h3 class="editorial-sport-title"><span data-i18n="dept_6_title">Βόλεϊ</span></h3>
 <p class="editorial-sport-description"><span data-lang="el">Στο βόλεϊ, δύο ομάδες προσπαθούν να περάσουν την μπάλα πάνω από το φιλέ, με συνεργασία, υποδοχή και επίθεση.</span><span data-lang="en">In volleyball, two teams play the ball over a net through coordinated passing, setting and attacking.</span></p>
 <div class="editorial-sport-divider"></div>
+<div class="sport-current-info" aria-label="Πληροφορίες τμήματος"><span data-lang="el">Προπονήσεις, ακαδημίες, υπεύθυνοι και εγγραφές: <strong>θα ενημερωθούν σύντομα.</strong></span><span data-lang="en">Training, academies, contacts and enrollment: <strong>details coming soon.</strong></span></div>
 <div class="editorial-sport-actions">
 <button aria-label="Βόλεϊ — ιστορικό / history" class="editorial-sport-history" onclick="openDeptHistoryModal('volleyball')" type="button"><i aria-hidden="true" class="fa-regular fa-clock"></i> <span data-i18n="btn_dept_history">Ιστορικό</span></button>
 <button class="editorial-sport-join sport-join-action" onclick="openRegistrationModal('Βόλεϊ')" type="button"><span data-lang="el">Πληροφορίες εγγραφής</span><span data-lang="en">Ask about joining</span><i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square"></i></button>
@@ -3294,6 +3304,7 @@ html.arch-safe-boot body *:not(svg):not(path){
 <h3 class="editorial-sport-title"><span data-i18n="dept_7_title">Πάλη</span></h3>
 <p class="editorial-sport-description"><span data-lang="el">Η πάλη είναι άθλημα αναμέτρησης στο ταπί, όπου η τεχνική, η ισορροπία και ο έλεγχος του αντιπάλου έχουν πρωταγωνιστικό ρόλο.</span><span data-lang="en">Wrestling is a mat-based combat sport where technique, balance and opponent control are essential.</span></p>
 <div class="editorial-sport-divider"></div>
+<div class="sport-current-info" aria-label="Πληροφορίες τμήματος"><span data-lang="el">Προπονήσεις, ακαδημίες, υπεύθυνοι και εγγραφές: <strong>θα ενημερωθούν σύντομα.</strong></span><span data-lang="en">Training, academies, contacts and enrollment: <strong>details coming soon.</strong></span></div>
 <div class="editorial-sport-actions">
 <button aria-label="Πάλη — ιστορικό / history" class="editorial-sport-history" onclick="openDeptHistoryModal('wrestling')" type="button"><i aria-hidden="true" class="fa-regular fa-clock"></i> <span data-i18n="btn_dept_history">Ιστορικό</span></button>
 <button class="editorial-sport-join sport-join-action" onclick="openRegistrationModal('Πάλη')" type="button"><span data-lang="el">Πληροφορίες εγγραφής</span><span data-lang="en">Ask about joining</span><i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square"></i></button>
@@ -3309,6 +3320,7 @@ html.arch-safe-boot body *:not(svg):not(path){
 <h3 class="editorial-sport-title"><span data-i18n="dept_8_title">Κολύμβηση</span></h3>
 <p class="editorial-sport-description"><span data-lang="el">Η κολύμβηση περιλαμβάνει διαφορετικά στυλ και αγωνίσματα αποστάσεων, με έμφαση στην τεχνική και την αντοχή.</span><span data-lang="en">Swimming includes different strokes and race distances, emphasizing technique and endurance.</span></p>
 <div class="editorial-sport-divider"></div>
+<div class="sport-current-info" aria-label="Πληροφορίες τμήματος"><span data-lang="el">Προπονήσεις, ακαδημίες, υπεύθυνοι και εγγραφές: <strong>θα ενημερωθούν σύντομα.</strong></span><span data-lang="en">Training, academies, contacts and enrollment: <strong>details coming soon.</strong></span></div>
 <div class="editorial-sport-actions">
 <button aria-label="Κολύμβηση — ιστορικό / history" class="editorial-sport-history" onclick="openDeptHistoryModal('swimming')" type="button"><i aria-hidden="true" class="fa-regular fa-clock"></i> <span data-i18n="btn_dept_history">Ιστορικό</span></button>
 <button class="editorial-sport-join sport-join-action" onclick="openRegistrationModal('Κολύμβηση')" type="button"><span data-lang="el">Πληροφορίες εγγραφής</span><span data-lang="en">Ask about joining</span><i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square"></i></button>
