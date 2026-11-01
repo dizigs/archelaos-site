@@ -50,7 +50,7 @@ function render(){
 async function init(){
  $('#rs-search').addEventListener('input',e=>{s.search=e.target.value;render()});
  try{
-  const r=await fetch('/rebuild/data/stories.json');if(!r.ok)throw Error('Stories HTTP '+r.status);
+  const r=await fetch('/assets/site/data/stories.json',{cache:'no-store'});if(!r.ok)throw Error('Stories HTTP '+r.status);
   const data=await r.json();if(!Array.isArray(data.stories)||data.stories.length<21)throw Error('Invalid stories archive');
   s.stories=data.stories;render();
   const id=Number(location.hash.match(/^#story-(\d+)$/)?.[1]);
