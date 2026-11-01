@@ -250,7 +250,7 @@ body .dp-content .dp-grid .dp-card .dp-year,body .dp-content .dp-grid .dp-card .
 .arch-dialog-body .dp-profile-field strong{font-size:14px;color:#16432f}
 .arch-dialog-body .dp-profile-field span{font-size:13px;color:#796c53}
 .arch-dialog-body .dp-profile-field .dp-profile-value-link{display:inline-block;width:fit-content;max-width:100%;font-size:13px;line-height:1.65;color:#15533b;font-weight:650;text-decoration:none;overflow-wrap:anywhere}
-.arch-dialog-body .dp-profile-field .dp-profile-value-link:hover{text-decoration:underline;text-underline-offset:3px}
+.arch-dialog-body .dp-profile-field .dp-profile-value-link:hover{text-decoration:none!important}
 .arch-dialog-body .dp-profile-field .dp-profile-value-link:focus-visible{outline:3px solid #b89955;outline-offset:3px;border-radius:3px}
 .arch-dialog-body .dp-profile-actions{display:flex;flex-wrap:wrap;gap:12px;border-top:1px solid #e0d3b8;padding-top:21px}
 .arch-dialog-body .dp-profile-history{appearance:none;cursor:pointer;border:1px solid #073d2a;background:#073d2a;color:#fff5dd;border-radius:11px;padding:13px 19px;font-weight:750;font-size:13px}
