@@ -207,6 +207,9 @@ def make_release() -> None:
         copy2(ROOT / filename, OUTPUT / filename)
     for folder in COMMON_FOLDERS:
         copytree(ROOT / folder, OUTPUT / folder)
+    # Publish the live news page and its JSON feed alongside the core museum pages.
+    for filename in ("news.html", "news.json"):
+        copy2(ROOT / filename, OUTPUT / filename)
     # Use the reviewed, full-format 682-profile source; the live root has a
     # different legacy HTML layout and must not be overwritten to build dist.
     copytree(STAGE / "source-profiles", OUTPUT / "people")
