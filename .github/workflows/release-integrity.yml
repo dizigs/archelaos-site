@@ -22,5 +22,9 @@ jobs:
           find dist/assets/site/js -name '*.js' -print0 | xargs -0 -n1 node --check
       - name: Verify AI Worker JavaScript syntax
         run: node --check --input-type=module < rebuild/ai/worker.js
+      - name: Test offline AI request limits and citation safety
+        run: node rebuild/tests/ai_worker.cjs
+      - name: Verify public-feed intake without network or scraping
+        run: python rebuild/tests/public_mentions.py
       - name: Verify generated HTML and data
         run: python rebuild/tools/verify_release.py

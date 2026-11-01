@@ -196,6 +196,8 @@ jobs:
           python -m http.server 8766 --bind 127.0.0.1 --directory dist > /tmp/archelaos-dist.log 2>&1 &
       - name: Test real release routes, forms and popups
         run: node rebuild/tests/release_smoke.cjs
+      - name: Test optional inline AI search without any real model request
+        run: node rebuild/tests/ai_search_browser.cjs
       - name: Audit mobile overflow, popup accessibility and internal links
         run: node rebuild/tests/quality.cjs
       - name: Audit WCAG 2.2 A/AA, keyboard and navigation semantics
