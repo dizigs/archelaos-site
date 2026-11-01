@@ -1,6 +1,6 @@
 {
   "version": "v1.6",
-  "count": 683,
+  "count": 703,
   "people": [
     {
       "name": "Νίκος Τσινόπουλος",
@@ -7089,6 +7089,326 @@
       ],
       "id": "arch-dimitris-siokas-handball-2026",
       "period": "2026"
+    },
+    {
+      "name": "Βασιλική Κουφογιάννη",
+      "name_en": "Vasiliki Koufogianni",
+      "role": "Αθλητής/Αθλήτρια · Σκοποβολή",
+      "role_en": "Athlete · Shooting",
+      "category": "athlete",
+      "bio": "Εκπροσώπησε τον Γ.Α.Σ. Αρχέλαος Κατερίνης στο τμήμα σκοποβολή, με 1η θέση στο πιστόλι νεανίδων με 566 βαθμούς στους Πανελλήνιους Αγώνες Σκοποβολής εφήβων–νεανίδων στον Βύρωνα (26–27 Απριλίου 2024).",
+      "bio_en": "Represented GAS Archelaos Katerinis in shooting, achieving first place in girls’ pistol with 566 points at the national youth shooting competition in Vyronas (26–27 April 2024).",
+      "refs": [
+        {
+          "label": "Δημοσιευμένα αγωνιστικά αποτελέσματα Αρχέλαου · 2024",
+          "url": "https://www.pierianews.gr/2024/04/30/me-epitychies-epestrepse-i-skopovoli-tou-gas-archelaos-katerinis-foto/"
+        }
+      ],
+      "id": "arch-vasiliki-koufogianni-shoot"
+    },
+    {
+      "name": "Κωνσταντίνος Σεϊτανίδης",
+      "name_en": "Konstantinos Seitanidis",
+      "role": "Αθλητής/Αθλήτρια · Σκοποβολή",
+      "role_en": "Athlete · Shooting",
+      "category": "athlete",
+      "bio": "Εκπροσώπησε τον Γ.Α.Σ. Αρχέλαος Κατερίνης στο τμήμα σκοποβολή, με 5η θέση στο τουφέκι εφήβων με 597,6 βαθμούς στους Πανελλήνιους Αγώνες Σκοποβολής εφήβων–νεανίδων στον Βύρωνα (26–27 Απριλίου 2024).",
+      "bio_en": "Represented GAS Archelaos Katerinis in shooting, achieving fifth place in boys’ rifle with 597.6 points at the national youth shooting competition in Vyronas (26–27 April 2024).",
+      "refs": [
+        {
+          "label": "Δημοσιευμένα αγωνιστικά αποτελέσματα Αρχέλαου · 2024",
+          "url": "https://www.pierianews.gr/2024/04/30/me-epitychies-epestrepse-i-skopovoli-tou-gas-archelaos-katerinis-foto/"
+        }
+      ],
+      "id": "arch-konstantinos-seitanidis-shoot"
+    },
+    {
+      "name": "Βανέσα-Χαρούλα Χόγκας",
+      "name_en": "Vanesa-Charoula Hogkas",
+      "role": "Αθλητής/Αθλήτρια · Σκοποβολή",
+      "role_en": "Athlete · Shooting",
+      "category": "athlete",
+      "bio": "Εκπροσώπησε τον Γ.Α.Σ. Αρχέλαος Κατερίνης στο τμήμα σκοποβολή, με 7η θέση στο τουφέκι νεανίδων και 8η θέση στο μικτό τουφέκι με τον Κωνσταντίνο Σεϊτανίδη στους Πανελλήνιους Αγώνες Σκοποβολής εφήβων–νεανίδων στον Βύρωνα (26–27 Απριλίου 2024).",
+      "bio_en": "Represented GAS Archelaos Katerinis in shooting, achieving seventh place in girls’ rifle and eighth in mixed rifle with Konstantinos Seitanidis at the national youth shooting competition in Vyronas (26–27 April 2024).",
+      "refs": [
+        {
+          "label": "Δημοσιευμένα αγωνιστικά αποτελέσματα Αρχέλαου · 2024",
+          "url": "https://www.pierianews.gr/2024/04/30/me-epitychies-epestrepse-i-skopovoli-tou-gas-archelaos-katerinis-foto/"
+        }
+      ],
+      "id": "arch-vanesa-charoula-hogkas-shoot"
+    },
+    {
+      "name": "Σοφία Τόπτσα",
+      "name_en": "Sofia Toptsa",
+      "role": "Αθλητής/Αθλήτρια · Σκοποβολή",
+      "role_en": "Athlete · Shooting",
+      "category": "athlete",
+      "bio": "Εκπροσώπησε τον Γ.Α.Σ. Αρχέλαος Κατερίνης στο τμήμα σκοποβολή, με 12η θέση στο τουφέκι νεανίδων στους Πανελλήνιους Αγώνες Σκοποβολής εφήβων–νεανίδων στον Βύρωνα (26–27 Απριλίου 2024).",
+      "bio_en": "Represented GAS Archelaos Katerinis in shooting, achieving twelfth place in girls’ rifle at the national youth shooting competition in Vyronas (26–27 April 2024).",
+      "refs": [
+        {
+          "label": "Δημοσιευμένα αγωνιστικά αποτελέσματα Αρχέλαου · 2024",
+          "url": "https://www.pierianews.gr/2024/04/30/me-epitychies-epestrepse-i-skopovoli-tou-gas-archelaos-katerinis-foto/"
+        }
+      ],
+      "id": "arch-sofia-toptsa-shoot"
+    },
+    {
+      "name": "Βασίλειος Γρηγορόπουλος",
+      "name_en": "Vasileios Grigoropoulos",
+      "role": "Αθλητής/Αθλήτρια · Σκοποβολή",
+      "role_en": "Athlete · Shooting",
+      "category": "athlete",
+      "bio": "Εκπροσώπησε τον Γ.Α.Σ. Αρχέλαος Κατερίνης στο τμήμα σκοποβολή, με συμμετοχή στο ατομικό και στο ομαδικό πιστόλι εφήβων στους Πανελλήνιους Αγώνες Σκοποβολής εφήβων–νεανίδων στον Βύρωνα (26–27 Απριλίου 2024).",
+      "bio_en": "Represented GAS Archelaos Katerinis in shooting, achieving participation in boys’ individual and team pistol events at the national youth shooting competition in Vyronas (26–27 April 2024).",
+      "refs": [
+        {
+          "label": "Δημοσιευμένα αγωνιστικά αποτελέσματα Αρχέλαου · 2024",
+          "url": "https://www.pierianews.gr/2024/04/30/me-epitychies-epestrepse-i-skopovoli-tou-gas-archelaos-katerinis-foto/"
+        }
+      ],
+      "id": "arch-vasileios-grigoropoulos-shoot"
+    },
+    {
+      "name": "Δημήτριος Τσιμπώνης",
+      "name_en": "Dimitrios Tsimponis",
+      "role": "Αθλητής/Αθλήτρια · Σκοποβολή",
+      "role_en": "Athlete · Shooting",
+      "category": "athlete",
+      "bio": "Εκπροσώπησε τον Γ.Α.Σ. Αρχέλαος Κατερίνης στο τμήμα σκοποβολή, με συμμετοχή στο ατομικό και στο ομαδικό πιστόλι εφήβων στους Πανελλήνιους Αγώνες Σκοποβολής εφήβων–νεανίδων στον Βύρωνα (26–27 Απριλίου 2024).",
+      "bio_en": "Represented GAS Archelaos Katerinis in shooting, achieving participation in boys’ individual and team pistol events at the national youth shooting competition in Vyronas (26–27 April 2024).",
+      "refs": [
+        {
+          "label": "Δημοσιευμένα αγωνιστικά αποτελέσματα Αρχέλαου · 2024",
+          "url": "https://www.pierianews.gr/2024/04/30/me-epitychies-epestrepse-i-skopovoli-tou-gas-archelaos-katerinis-foto/"
+        }
+      ],
+      "id": "arch-dimitrios-tsimponis-shoot"
+    },
+    {
+      "name": "Δημήτριος Κουφογιάννης",
+      "name_en": "Dimitrios Koufogiannis",
+      "role": "Αθλητής/Αθλήτρια · Σκοποβολή",
+      "role_en": "Athlete · Shooting",
+      "category": "athlete",
+      "bio": "Εκπροσώπησε τον Γ.Α.Σ. Αρχέλαος Κατερίνης στο τμήμα σκοποβολή, με συμμετοχή στο πιστόλι εφήβων και 8η θέση στο μικτό πιστόλι με τη Βασιλική Κουφογιάννη στους Πανελλήνιους Αγώνες Σκοποβολής εφήβων–νεανίδων στον Βύρωνα (26–27 Απριλίου 2024).",
+      "bio_en": "Represented GAS Archelaos Katerinis in shooting, achieving participation in boys’ pistol and eighth place in mixed pistol with Vasiliki Koufogianni at the national youth shooting competition in Vyronas (26–27 April 2024).",
+      "refs": [
+        {
+          "label": "Δημοσιευμένα αγωνιστικά αποτελέσματα Αρχέλαου · 2024",
+          "url": "https://www.pierianews.gr/2024/04/30/me-epitychies-epestrepse-i-skopovoli-tou-gas-archelaos-katerinis-foto/"
+        }
+      ],
+      "id": "arch-dimitrios-koufogiannis-shoot"
+    },
+    {
+      "name": "Κωνσταντίνος Σκλιάς",
+      "name_en": "Konstantinos Sklias",
+      "role": "Αθλητής/Αθλήτρια · Πάλη",
+      "role_en": "Athlete · Wrestling",
+      "category": "athlete",
+      "bio": "Εκπροσώπησε τον Γ.Α.Σ. Αρχέλαος Κατερίνης στο τμήμα πάλη, με ασημένιο μετάλλιο στο διεθνές τουρνουά πάλης στο Βουκουρέστι (17–19 Νοεμβρίου 2023).",
+      "bio_en": "Represented GAS Archelaos Katerinis in wrestling, achieving a silver medal at the international wrestling tournament in Bucharest (17–19 November 2023).",
+      "refs": [
+        {
+          "label": "Δημοσιευμένα αγωνιστικά αποτελέσματα Αρχέλαου · 2023",
+          "url": "https://eptanews.gr/epikairotita/me-polla-metallia-kai-polytimes-empeiries-epestrepse-apo-to-voykoyresti-to-tmima-palis-toy-gas-archelaos-katerinis/"
+        }
+      ],
+      "id": "arch-konstantinos-sklias-wrest23"
+    },
+    {
+      "name": "Βαγγέλης Κορδονούλης",
+      "name_en": "Vangelis Kordonoulis",
+      "role": "Αθλητής/Αθλήτρια · Πάλη",
+      "role_en": "Athlete · Wrestling",
+      "category": "athlete",
+      "bio": "Εκπροσώπησε τον Γ.Α.Σ. Αρχέλαος Κατερίνης στο τμήμα πάλη, με χάλκινο μετάλλιο στο Πανελλήνιο Πρωτάθλημα U15 στη Λάρισα στις 9 Μαρτίου 2024.",
+      "bio_en": "Represented GAS Archelaos Katerinis in wrestling, achieving a bronze medal at the Greek national U15 championship in Larissa on 9 March 2024.",
+      "refs": [
+        {
+          "label": "Δημοσιευμένα αγωνιστικά αποτελέσματα Αρχέλαου · 2024",
+          "url": "https://eptanews.gr/epikairotita/gas-archelaos-katerinis-4-metallia-sto-panellinio-protathlima-palis/amp/"
+        }
+      ],
+      "id": "arch-vangelis-kordonoulis-wrest24"
+    },
+    {
+      "name": "Αριστοτέλης Ναβροζίδης",
+      "name_en": "Aristotelis Navrozidis",
+      "role": "Αθλητής/Αθλήτρια · Πάλη",
+      "role_en": "Athlete · Wrestling",
+      "category": "athlete",
+      "bio": "Εκπροσώπησε τον Γ.Α.Σ. Αρχέλαος Κατερίνης στο τμήμα πάλη, με χάλκινο μετάλλιο στο Πανελλήνιο Πρωτάθλημα U15 στη Λάρισα στις 9 Μαρτίου 2024.",
+      "bio_en": "Represented GAS Archelaos Katerinis in wrestling, achieving a bronze medal at the Greek national U15 championship in Larissa on 9 March 2024.",
+      "refs": [
+        {
+          "label": "Δημοσιευμένα αγωνιστικά αποτελέσματα Αρχέλαου · 2024",
+          "url": "https://eptanews.gr/epikairotita/gas-archelaos-katerinis-4-metallia-sto-panellinio-protathlima-palis/amp/"
+        }
+      ],
+      "id": "arch-aristotelis-navrozidis-wrest24"
+    },
+    {
+      "name": "Παυλίνα Χαριτίδου",
+      "name_en": "Pavlina Charitidou",
+      "role": "Αθλητής/Αθλήτρια · Τοξοβολία",
+      "role_en": "Athlete · Archery",
+      "category": "athlete",
+      "bio": "Εκπροσώπησε τον Γ.Α.Σ. Αρχέλαος Κατερίνης στο τμήμα τοξοβολία, με 1η θέση στο μικτό ομαδικό U21 με τον Ευάγγελο Χαρίση και 1η θέση στο ομαδικό γυναικών U21 στο Κύπελλο Ελλάδας Τοξοβολίας στον Βόλο (19–20 Οκτωβρίου 2024).",
+      "bio_en": "Represented GAS Archelaos Katerinis in archery, achieving first place in the U21 mixed team with Evangelos Charisis and first place in the U21 women’s team at the 2024 Greek Archery Cup in Volos (19–20 October).",
+      "refs": [
+        {
+          "label": "Δημοσιευμένα αγωνιστικά αποτελέσματα Αρχέλαου · 2024",
+          "url": "https://pieriasocial.gr/?p=93206"
+        }
+      ],
+      "id": "arch-pavlina-charitidou-arch"
+    },
+    {
+      "name": "Θεοφανία Καραλή",
+      "name_en": "Theofania Karali",
+      "role": "Αθλητής/Αθλήτρια · Τοξοβολία",
+      "role_en": "Athlete · Archery",
+      "category": "athlete",
+      "bio": "Εκπροσώπησε τον Γ.Α.Σ. Αρχέλαος Κατερίνης στο τμήμα τοξοβολία, με 1η θέση στο ομαδικό γυναικών U21 στο Κύπελλο Ελλάδας Τοξοβολίας στον Βόλο (19–20 Οκτωβρίου 2024).",
+      "bio_en": "Represented GAS Archelaos Katerinis in archery, achieving first place in the U21 women’s team at the 2024 Greek Archery Cup in Volos (19–20 October).",
+      "refs": [
+        {
+          "label": "Δημοσιευμένα αγωνιστικά αποτελέσματα Αρχέλαου · 2024",
+          "url": "https://pieriasocial.gr/?p=93206"
+        }
+      ],
+      "id": "arch-theofania-karali-arch"
+    },
+    {
+      "name": "Κασσιανή Κοκτσίδου",
+      "name_en": "Kassiani Koktsidou",
+      "role": "Αθλητής/Αθλήτρια · Τοξοβολία",
+      "role_en": "Athlete · Archery",
+      "category": "athlete",
+      "bio": "Εκπροσώπησε τον Γ.Α.Σ. Αρχέλαος Κατερίνης στο τμήμα τοξοβολία, με 1η θέση στο ομαδικό γυναικών U21 στο Κύπελλο Ελλάδας Τοξοβολίας στον Βόλο (19–20 Οκτωβρίου 2024).",
+      "bio_en": "Represented GAS Archelaos Katerinis in archery, achieving first place in the U21 women’s team at the 2024 Greek Archery Cup in Volos (19–20 October).",
+      "refs": [
+        {
+          "label": "Δημοσιευμένα αγωνιστικά αποτελέσματα Αρχέλαου · 2024",
+          "url": "https://pieriasocial.gr/?p=93206"
+        }
+      ],
+      "id": "arch-kassiani-koktsidou-arch"
+    },
+    {
+      "name": "Αικατερίνη Γιαννακού",
+      "name_en": "Aikaterini Giannakou",
+      "role": "Αθλητής/Αθλήτρια · Τοξοβολία",
+      "role_en": "Athlete · Archery",
+      "category": "athlete",
+      "bio": "Εκπροσώπησε τον Γ.Α.Σ. Αρχέλαος Κατερίνης στο τμήμα τοξοβολία, με 2η θέση στο μικτό ομαδικό U18 με τον Κωνσταντίνο Χαρίση στο Κύπελλο Ελλάδας Τοξοβολίας στον Βόλο (19–20 Οκτωβρίου 2024).",
+      "bio_en": "Represented GAS Archelaos Katerinis in archery, achieving second place in the U18 mixed team with Konstantinos Charisis at the 2024 Greek Archery Cup in Volos (19–20 October).",
+      "refs": [
+        {
+          "label": "Δημοσιευμένα αγωνιστικά αποτελέσματα Αρχέλαου · 2024",
+          "url": "https://pieriasocial.gr/?p=93206"
+        }
+      ],
+      "id": "arch-aikaterini-giannakou-arch"
+    },
+    {
+      "name": "Κωνσταντίνος Χαρίσης",
+      "name_en": "Konstantinos Charisis",
+      "role": "Αθλητής/Αθλήτρια · Τοξοβολία",
+      "role_en": "Athlete · Archery",
+      "category": "athlete",
+      "bio": "Εκπροσώπησε τον Γ.Α.Σ. Αρχέλαος Κατερίνης στο τμήμα τοξοβολία, με 2η θέση στο μικτό ομαδικό U18 με την Αικατερίνη Γιαννακού στο Κύπελλο Ελλάδας Τοξοβολίας στον Βόλο (19–20 Οκτωβρίου 2024).",
+      "bio_en": "Represented GAS Archelaos Katerinis in archery, achieving second place in the U18 mixed team with Aikaterini Giannakou at the 2024 Greek Archery Cup in Volos (19–20 October).",
+      "refs": [
+        {
+          "label": "Δημοσιευμένα αγωνιστικά αποτελέσματα Αρχέλαου · 2024",
+          "url": "https://pieriasocial.gr/?p=93206"
+        }
+      ],
+      "id": "arch-konstantinos-charisis-arch"
+    },
+    {
+      "name": "Έκτορας Διαμαντίδης",
+      "name_en": "Ektoras Diamantidis",
+      "role": "Αθλητής/Αθλήτρια · Τοξοβολία",
+      "role_en": "Athlete · Archery",
+      "category": "athlete",
+      "bio": "Εκπροσώπησε τον Γ.Α.Σ. Αρχέλαος Κατερίνης στο τμήμα τοξοβολία, με 9η θέση στο Κύπελλο Ελλάδας Τοξοβολίας στον Βόλο (19–20 Οκτωβρίου 2024).",
+      "bio_en": "Represented GAS Archelaos Katerinis in archery, achieving ninth place at the 2024 Greek Archery Cup in Volos (19–20 October).",
+      "refs": [
+        {
+          "label": "Δημοσιευμένα αγωνιστικά αποτελέσματα Αρχέλαου · 2024",
+          "url": "https://pieriasocial.gr/?p=93206"
+        }
+      ],
+      "id": "arch-ektoras-diamantidis-arch"
+    },
+    {
+      "name": "Λουκάς Ζινίσα",
+      "name_en": "Loukas Zinisa",
+      "role": "Αθλητής/Αθλήτρια · Πάλη",
+      "role_en": "Athlete · Wrestling",
+      "category": "athlete",
+      "bio": "Εκπροσώπησε τον Γ.Α.Σ. Αρχέλαος Κατερίνης στο τμήμα πάλη, με χρυσό μετάλλιο στα 43 κιλά στο Πανελλήνιο Πρωτάθλημα Πάλης U11–U13 στην Καρδίτσα (22–23 Νοεμβρίου 2025).",
+      "bio_en": "Represented GAS Archelaos Katerinis in wrestling, achieving gold at 43 kg at the national U11–U13 wrestling championship in Karditsa (22–23 November 2025).",
+      "refs": [
+        {
+          "label": "Δημοσιευμένα αγωνιστικά αποτελέσματα Αρχέλαου · 2025",
+          "url": "https://ns1.ufight.gr/wrestling/23770-4-xrysa-metallia-kai-1-argyro-oi-athlites-kai-athlitries-tou-arxelaou-katerinhs-sto-panellhnio-protathlima-palhs-pampaidon-pagkorasidon"
+        }
+      ],
+      "id": "arch-loukas-zinisa-wrest25"
+    },
+    {
+      "name": "Δημήτριος Τρίγκας",
+      "name_en": "Dimitrios Trigkas",
+      "role": "Αθλητής/Αθλήτρια · Πάλη",
+      "role_en": "Athlete · Wrestling",
+      "category": "athlete",
+      "bio": "Εκπροσώπησε τον Γ.Α.Σ. Αρχέλαος Κατερίνης στο τμήμα πάλη, με χρυσό μετάλλιο στα 43 κιλά στο Πανελλήνιο Πρωτάθλημα Πάλης U11–U13 στην Καρδίτσα (22–23 Νοεμβρίου 2025).",
+      "bio_en": "Represented GAS Archelaos Katerinis in wrestling, achieving gold at 43 kg at the national U11–U13 wrestling championship in Karditsa (22–23 November 2025).",
+      "refs": [
+        {
+          "label": "Δημοσιευμένα αγωνιστικά αποτελέσματα Αρχέλαου · 2025",
+          "url": "https://ns1.ufight.gr/wrestling/23770-4-xrysa-metallia-kai-1-argyro-oi-athlites-kai-athlitries-tou-arxelaou-katerinhs-sto-panellhnio-protathlima-palhs-pampaidon-pagkorasidon"
+        }
+      ],
+      "id": "arch-dimitrios-trigkas-wrest25"
+    },
+    {
+      "name": "Χαρά Μαυρίδου",
+      "name_en": "Chara Mavridou",
+      "role": "Αθλητής/Αθλήτρια · Πάλη",
+      "role_en": "Athlete · Wrestling",
+      "category": "athlete",
+      "bio": "Εκπροσώπησε τον Γ.Α.Σ. Αρχέλαος Κατερίνης στο τμήμα πάλη, με χρυσό μετάλλιο στα 32 κιλά στο Πανελλήνιο Πρωτάθλημα Πάλης U11–U13 στην Καρδίτσα (22–23 Νοεμβρίου 2025).",
+      "bio_en": "Represented GAS Archelaos Katerinis in wrestling, achieving gold at 32 kg at the national U11–U13 wrestling championship in Karditsa (22–23 November 2025).",
+      "refs": [
+        {
+          "label": "Δημοσιευμένα αγωνιστικά αποτελέσματα Αρχέλαου · 2025",
+          "url": "https://ns1.ufight.gr/wrestling/23770-4-xrysa-metallia-kai-1-argyro-oi-athlites-kai-athlitries-tou-arxelaou-katerinhs-sto-panellhnio-protathlima-palhs-pampaidon-pagkorasidon"
+        }
+      ],
+      "id": "arch-chara-mavridou-wrest25"
+    },
+    {
+      "name": "Μαρία Μαστορογιάννη",
+      "name_en": "Maria Mastorogianni",
+      "role": "Αθλητής/Αθλήτρια · Πάλη",
+      "role_en": "Athlete · Wrestling",
+      "category": "athlete",
+      "bio": "Εκπροσώπησε τον Γ.Α.Σ. Αρχέλαος Κατερίνης στο τμήμα πάλη, με χρυσό μετάλλιο στα 52 κιλά στο Πανελλήνιο Πρωτάθλημα Πάλης U11–U13 στην Καρδίτσα (22–23 Νοεμβρίου 2025).",
+      "bio_en": "Represented GAS Archelaos Katerinis in wrestling, achieving gold at 52 kg at the national U11–U13 wrestling championship in Karditsa (22–23 November 2025).",
+      "refs": [
+        {
+          "label": "Δημοσιευμένα αγωνιστικά αποτελέσματα Αρχέλαου · 2025",
+          "url": "https://ns1.ufight.gr/wrestling/23770-4-xrysa-metallia-kai-1-argyro-oi-athlites-kai-athlitries-tou-arxelaou-katerinhs-sto-panellhnio-protathlima-palhs-pampaidon-pagkorasidon"
+        }
+      ],
+      "id": "arch-maria-mastorogianni-wrest25"
     }
   ]
 }

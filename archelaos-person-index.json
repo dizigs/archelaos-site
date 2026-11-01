@@ -5622,5 +5622,165 @@
       "Σιώκας Δημήτρης",
       "Dimitris Siokas"
     ]
+  },
+  {
+    "id": "arch-vasiliki-koufogianni-shoot",
+    "name": "Βασιλική Κουφογιάννη",
+    "name_en": "Vasiliki Koufogianni",
+    "names": [
+      "Βασιλική Κουφογιάννη"
+    ]
+  },
+  {
+    "id": "arch-konstantinos-seitanidis-shoot",
+    "name": "Κωνσταντίνος Σεϊτανίδης",
+    "name_en": "Konstantinos Seitanidis",
+    "names": [
+      "Κωνσταντίνος Σεϊτανίδης"
+    ]
+  },
+  {
+    "id": "arch-vanesa-charoula-hogkas-shoot",
+    "name": "Βανέσα-Χαρούλα Χόγκας",
+    "name_en": "Vanesa-Charoula Hogkas",
+    "names": [
+      "Βανέσα-Χαρούλα Χόγκας"
+    ]
+  },
+  {
+    "id": "arch-sofia-toptsa-shoot",
+    "name": "Σοφία Τόπτσα",
+    "name_en": "Sofia Toptsa",
+    "names": [
+      "Σοφία Τόπτσα"
+    ]
+  },
+  {
+    "id": "arch-vasileios-grigoropoulos-shoot",
+    "name": "Βασίλειος Γρηγορόπουλος",
+    "name_en": "Vasileios Grigoropoulos",
+    "names": [
+      "Βασίλειος Γρηγορόπουλος"
+    ]
+  },
+  {
+    "id": "arch-dimitrios-tsimponis-shoot",
+    "name": "Δημήτριος Τσιμπώνης",
+    "name_en": "Dimitrios Tsimponis",
+    "names": [
+      "Δημήτριος Τσιμπώνης"
+    ]
+  },
+  {
+    "id": "arch-dimitrios-koufogiannis-shoot",
+    "name": "Δημήτριος Κουφογιάννης",
+    "name_en": "Dimitrios Koufogiannis",
+    "names": [
+      "Δημήτριος Κουφογιάννης"
+    ]
+  },
+  {
+    "id": "arch-konstantinos-sklias-wrest23",
+    "name": "Κωνσταντίνος Σκλιάς",
+    "name_en": "Konstantinos Sklias",
+    "names": [
+      "Κωνσταντίνος Σκλιάς"
+    ]
+  },
+  {
+    "id": "arch-vangelis-kordonoulis-wrest24",
+    "name": "Βαγγέλης Κορδονούλης",
+    "name_en": "Vangelis Kordonoulis",
+    "names": [
+      "Βαγγέλης Κορδονούλης"
+    ]
+  },
+  {
+    "id": "arch-aristotelis-navrozidis-wrest24",
+    "name": "Αριστοτέλης Ναβροζίδης",
+    "name_en": "Aristotelis Navrozidis",
+    "names": [
+      "Αριστοτέλης Ναβροζίδης"
+    ]
+  },
+  {
+    "id": "arch-pavlina-charitidou-arch",
+    "name": "Παυλίνα Χαριτίδου",
+    "name_en": "Pavlina Charitidou",
+    "names": [
+      "Παυλίνα Χαριτίδου"
+    ]
+  },
+  {
+    "id": "arch-theofania-karali-arch",
+    "name": "Θεοφανία Καραλή",
+    "name_en": "Theofania Karali",
+    "names": [
+      "Θεοφανία Καραλή"
+    ]
+  },
+  {
+    "id": "arch-kassiani-koktsidou-arch",
+    "name": "Κασσιανή Κοκτσίδου",
+    "name_en": "Kassiani Koktsidou",
+    "names": [
+      "Κασσιανή Κοκτσίδου"
+    ]
+  },
+  {
+    "id": "arch-aikaterini-giannakou-arch",
+    "name": "Αικατερίνη Γιαννακού",
+    "name_en": "Aikaterini Giannakou",
+    "names": [
+      "Αικατερίνη Γιαννακού"
+    ]
+  },
+  {
+    "id": "arch-konstantinos-charisis-arch",
+    "name": "Κωνσταντίνος Χαρίσης",
+    "name_en": "Konstantinos Charisis",
+    "names": [
+      "Κωνσταντίνος Χαρίσης"
+    ]
+  },
+  {
+    "id": "arch-ektoras-diamantidis-arch",
+    "name": "Έκτορας Διαμαντίδης",
+    "name_en": "Ektoras Diamantidis",
+    "names": [
+      "Έκτορας Διαμαντίδης"
+    ]
+  },
+  {
+    "id": "arch-loukas-zinisa-wrest25",
+    "name": "Λουκάς Ζινίσα",
+    "name_en": "Loukas Zinisa",
+    "names": [
+      "Λουκάς Ζινίσα"
+    ]
+  },
+  {
+    "id": "arch-dimitrios-trigkas-wrest25",
+    "name": "Δημήτριος Τρίγκας",
+    "name_en": "Dimitrios Trigkas",
+    "names": [
+      "Δημήτριος Τρίγκας"
+    ]
+  },
+  {
+    "id": "arch-chara-mavridou-wrest25",
+    "name": "Χαρά Μαυρίδου",
+    "name_en": "Chara Mavridou",
+    "names": [
+      "Χαρά Μαυρίδου"
+    ]
+  },
+  {
+    "id": "arch-maria-mastorogianni-wrest25",
+    "name": "Μαρία Μαστορογιάννη",
+    "name_en": "Maria Mastorogianni",
+    "names": [
+      "Μαρία Μαστορογιάννη"
+    ]
   }
 ]

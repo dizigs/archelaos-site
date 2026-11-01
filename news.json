@@ -161,7 +161,8 @@
       "personIds": [
         "arch-957a876e770d",
         "arch-e49a8c140396",
-        "arch-e87fdf323137"
+        "arch-e87fdf323137",
+        "arch-konstantinos-sklias-wrest23"
       ]
     },
     {
@@ -207,13 +208,22 @@
       "title": "Πρωτιά της Βασιλικής Κουφογιάννη στο Πανελλήνιο Σκοποβολής",
       "summary": "Πρώτη στο πιστόλι νεανίδων με 566 βαθμούς στο σκοπευτήριο Βύρωνα.",
       "body": [
-        "Στις 26–27 Απριλίου 2024 ο Αρχέλαος συμμετείχε με επτά αθλητές στους πανελλήνιους αγώνες σκοποβολής. Η Βασιλική Κουφογιάννη κατέκτησε την πρώτη θέση στο πιστόλι νεανίδων με 566 και ο Κωνσταντίνος Σεϊτανίδης την πέμπτη θέση στο τουφέκι εφήβων."
+        "Στις 26–27 Απριλίου 2024 ο Αρχέλαος συμμετείχε με επτά αθλητές στους πανελλήνιους αγώνες σκοποβολής. Η Βασιλική Κουφογιάννη κατέκτησε την πρώτη θέση στο πιστόλι νεανίδων με 566 και ο Κωνσταντίνος Σεϊτανίδης την πέμπτη θέση στο τουφέκι εφήβων.",
+        "Στην ίδια αποστολή διακρίθηκαν επίσης η Βανέσα-Χαρούλα Χόγκας (7η στο τουφέκι νεανίδων, 8η στο μικτό), η Σοφία Τόπτσα (12η στο τουφέκι νεανίδων), καθώς και οι Βασίλειος Γρηγορόπουλος, Δημήτριος Τσιμπώνης και Δημήτριος Κουφογιάννης με συμμετοχές στο πιστόλι εφήβων. Η Βασιλική και ο Δημήτριος Κουφογιάννης κατέλαβαν την 8η θέση στο μικτό πιστόλι."
       ],
       "source": "Pieria News · 30/04/2024",
       "sourceUrl": "https://www.pierianews.gr/2024/04/30/me-epitychies-epestrepse-i-skopovoli-tou-gas-archelaos-katerinis-foto/",
       "image": "images/skopovoli-archelaos-athlete.webp",
       "imageNote": "Φωτογραφία αρχείου του τμήματος — όχι φωτογραφία του συγκεκριμένου γεγονότος.",
-      "personIds": []
+      "personIds": [
+        "arch-vasiliki-koufogianni-shoot",
+        "arch-konstantinos-seitanidis-shoot",
+        "arch-vanesa-charoula-hogkas-shoot",
+        "arch-sofia-toptsa-shoot",
+        "arch-vasileios-grigoropoulos-shoot",
+        "arch-dimitrios-tsimponis-shoot",
+        "arch-dimitrios-koufogiannis-shoot"
+      ]
     },
     {
       "id": "wrestling-mayor-2024",
@@ -241,14 +251,21 @@
       "title": "Πρωτιές του Αρχέλαου στο Κύπελλο Ελλάδας Τοξοβολίας",
       "summary": "Ατομικές και ομαδικές διακρίσεις στον Βόλο.",
       "body": [
-        "Στο Κύπελλο Ελλάδας 2024 (19–20 Οκτωβρίου) ο Ευάγγελος Χαρίσης κατέκτησε την πρώτη θέση στο Ολυμπιακό Τόξο U21. Ο Αρχέλαος πήρε ακόμη δύο πρωτιές σε μικτό και ομαδικό U21."
+        "Στο Κύπελλο Ελλάδας 2024 (19–20 Οκτωβρίου) ο Ευάγγελος Χαρίσης κατέκτησε την πρώτη θέση στο Ολυμπιακό Τόξο U21. Ο Αρχέλαος πήρε ακόμη δύο πρωτιές σε μικτό και ομαδικό U21.",
+        "Στο Κύπελλο του 2024 το γυναικείο U21 με Παυλίνα Χαριτίδου, Θεοφανία Καραλή και Κασσιανή Κοκτσίδου κατέλαβε την 1η θέση. Η Αικατερίνη Γιαννακού και ο Κωνσταντίνος Χαρίσης κατέκτησαν τη 2η θέση στο μικτό U18, ενώ ο Έκτορας Διαμαντίδης κατέλαβε την 9η θέση."
       ],
       "source": "Pieria Social · 22/10/2024",
       "sourceUrl": "https://pieriasocial.gr/?p=93206",
       "image": "images/archery-outdoor-youth.webp",
       "imageNote": "Φωτογραφία αρχείου του τμήματος — όχι φωτογραφία του συγκεκριμένου γεγονότος.",
       "personIds": [
-        "arch-955a386f547f"
+        "arch-955a386f547f",
+        "arch-pavlina-charitidou-arch",
+        "arch-theofania-karali-arch",
+        "arch-kassiani-koktsidou-arch",
+        "arch-aikaterini-giannakou-arch",
+        "arch-konstantinos-charisis-arch",
+        "arch-ektoras-diamantidis-arch"
       ]
     },
     {
@@ -336,7 +353,9 @@
       "imageNote": "Φωτογραφία αρχείου πάλης του Αρχέλαου, όχι της συγκεκριμένης διοργάνωσης.",
       "personIds": [
         "arch-2616694d9908",
-        "arch-b48656c62600"
+        "arch-b48656c62600",
+        "arch-vangelis-kordonoulis-wrest24",
+        "arch-aristotelis-navrozidis-wrest24"
       ]
     },
     {
@@ -413,6 +432,28 @@
       "imageNote": "Φωτογραφία αρχείου του τμήματος χειροσφαίρισης.",
       "personIds": [
         "arch-dimitris-siokas-handball-2026"
+      ]
+    },
+    {
+      "id": "wrestling-u11-u13-karditsa-2025",
+      "date": "2025-11-25",
+      "category": "achievements",
+      "sport": "Πάλη",
+      "title": "Πέντε μετάλλια για την πάλη U11–U13 στην Καρδίτσα",
+      "summary": "Τέσσερα χρυσά και ένα ασημένιο για τους νεαρούς αθλητές του Αρχέλαου στο Πανελλήνιο Πρωτάθλημα.",
+      "body": [
+        "Στους πανελλήνιους αγώνες πάλης U11–U13 στην Καρδίτσα (22–23 Νοεμβρίου 2025), χρυσά μετάλλια κατέκτησαν ο Λουκάς Ζινίσα και ο Δημήτριος Τρίγκας στα 43 κιλά, η Χαρά Μαυρίδου στα 32 κιλά και η Μαρία Μαστορογιάννη στα 52 κιλά. Η Ειρήνη Τζότζου κατέκτησε ασημένιο στα 47 κιλά."
+      ],
+      "source": "Ufight · 25/11/2025",
+      "sourceUrl": "https://ns1.ufight.gr/wrestling/23770-4-xrysa-metallia-kai-1-argyro-oi-athlites-kai-athlitries-tou-arxelaou-katerinhs-sto-panellhnio-protathlima-palhs-pampaidon-pagkorasidon",
+      "image": "images/wrestling-action.webp",
+      "imageNote": "Φωτογραφία αρχείου του τμήματος πάλης, όχι της συγκεκριμένης διοργάνωσης.",
+      "personIds": [
+        "arch-loukas-zinisa-wrest25",
+        "arch-dimitrios-trigkas-wrest25",
+        "arch-chara-mavridou-wrest25",
+        "arch-maria-mastorogianni-wrest25",
+        "arch-5bc0ec7ec6e0"
       ]
     }
   ]
