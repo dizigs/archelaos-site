@@ -123,7 +123,7 @@ main{padding:60px 0 80px}
  .an-card,.an-feature-card{transition:none}
 }
 
-/* Article pagination: nineteen cards per page; large mobile-friendly controls. */
+/* Article pagination: eighteen cards per page; large mobile-friendly controls. */
 .an-pagination[hidden]{display:none!important}
 .an-pagination{margin:32px auto 44px;display:flex;flex-direction:column;gap:12px;align-items:center;justify-content:center}
 .an-page-controls{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:9px}
@@ -136,3 +136,6 @@ main{padding:60px 0 80px}
 .an-section-heading{scroll-margin-top:110px}
 @media(max-width:580px){.an-page-controls{gap:7px}.an-page-link{min-width:44px;min-height:44px;padding:9px 12px}.an-page-link.is-navigation{font-size:12px}.an-pagination{margin:25px auto 35px}}
 @media(prefers-reduced-motion:reduce){.an-page-link{transition:none}}
+
+/* Hide the featured tile while text search or category filters are active. */
+#an-feature[hidden]{display:none!important}
