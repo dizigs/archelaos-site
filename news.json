@@ -685,6 +685,26 @@
       "image": "https://media.pieriasocial.gr/2025/03/11111111111111111-10.jpg"
     },
     {
+      "id": "track-recha-indoor-national-silver-2025",
+      "date": "2025-03-11",
+      "sport": "Στίβος",
+      "category": "achievements",
+      "title": "Ασημένιο της Κατερίνας Ρέχα στα 60 μ. εμπόδια στο Πανελλήνιο Κλειστού Στίβου",
+      "summary": "Δεύτερη πανελληνιονίκης με νέο ατομικό ρεκόρ 8,42 δευτερολέπτων.",
+      "body": [
+        "Η Κατερίνα Ρέχα του Γ.Α.Σ. Αρχέλαος Κατερίνης κατέκτησε τη δεύτερη θέση στα 60 μέτρα με εμπόδια στο 39ο Πανελλήνιο Πρωτάθλημα Κλειστού Στίβου, που διεξήχθη στο ΣΕΦ στις 23 Φεβρουαρίου 2025.",
+        "Η αθλήτρια σημείωσε νέο ατομικό ρεκόρ με 8,42 δευτερόλεπτα. Ο σύλλογος συνεχάρη επίσης τον προπονητή της Νίκο Μαντζόλη."
+      ],
+      "source": "Ολύμπιο Βήμα · 11/03/2025",
+      "sourceUrl": "https://olympiobima.gr/archelaos-katerinis-sygcharitirio-minyma-stin-athlitria-mas-katerina-recha/",
+      "personIds": [
+        "arch-ccaf623e428b"
+      ],
+      "image": "https://olympiobima.gr/wp-content/uploads/2025/03/ΡΕΧΑ-ΜΑΝΤΖΟΛΗΣ_1240_983.webp",
+      "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2025/03/ΡΕΧΑ-ΜΑΝΤΖΟΛΗΣ_1240_983.webp",
+      "imageNote": "Αρχικό δημοσίευμα: Ολύμπιο Βήμα · 11/03/2025"
+    },
+    {
       "id": "wrestling-zagreb-team-first-dec-2024",
       "date": "2024-12-17",
       "category": "achievements",
@@ -1421,6 +1441,24 @@
       "imageSourceUrl": "https://odialogos.gr/wp-content/uploads/2023/02/στίβος-Αρχέλαος-1.jpeg",
       "image": "https://odialogos.gr/wp-content/uploads/2023/02/στίβος-Αρχέλαος-1.jpeg",
       "imageNote": "Φωτογραφία της αρχικής δημοσίευσης · Ο Διάλογος · 22/02/2023"
+    },
+    {
+      "id": "handball-kilkis-archelaos-33-14-feb-2023",
+      "date": "2023-02-06",
+      "sport": "Χάντμπολ",
+      "category": "matches",
+      "title": "ΓΑΣ Κιλκίς – Αρχέλαος 33–14 για την Α2 χάντμπολ",
+      "summary": "Αναμέτρηση της 12ης αγωνιστικής του δεύτερου ομίλου της Α2 Ανδρών.",
+      "body": [
+        "Ο Αρχέλαος ηττήθηκε με 33–14 από τον ΓΑΣ Κιλκίς στο Δημοτικό Αθλητικό Κέντρο Κιλκίς, στη 12η αγωνιστική του 2ου ομίλου της Α2 Ανδρών.",
+        "Το ημίχρονο ολοκληρώθηκε με 14–8. Η ομάδα του Κιλκίς διεύρυνε τη διαφορά στο δεύτερο μέρος, φτάνοντας στο τελικό 33–14."
+      ],
+      "source": "Ολύμπιο Βήμα · 06/02/2023",
+      "sourceUrl": "https://olympiobima.gr/gas-kilkis-gas-archelaos-katerinis-33-14-anamenomeni-itta/",
+      "personIds": [],
+      "image": "https://olympiobima.gr/wp-content/uploads/2023/02/ΓΑΣ-Κιλκίς-–-ΓΑΣ-Αρχέλαος-Κατερίνης-33-14-Αναμενόμενη-ήττα-11857.jpg",
+      "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2023/02/ΓΑΣ-Κιλκίς-–-ΓΑΣ-Αρχέλαος-Κατερίνης-33-14-Αναμενόμενη-ήττα-11857.jpg",
+      "imageNote": "Αρχικό δημοσίευμα: Ολύμπιο Βήμα · 06/02/2023"
     },
     {
       "id": "gym-2022-horizon",
