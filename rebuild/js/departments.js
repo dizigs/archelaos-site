@@ -68,7 +68,7 @@ async function init(){
  try{
   const r=await fetch('/rebuild/data/museum.json');if(!r.ok)throw Error('HTTP '+r.status);
   const data=await r.json();const byId=new Map((data.articles||[]).map(a=>[a.id,a]));
-  for(const card of cards){const key=card.dataset.dpOpen,record=byId.get(key),historic=['basketball','inactive-depts'].includes(key);card.addEventListener('click',()=>window.ArchelaosUI.openDialog({title:record?.title||card.querySelector('.dp-title')?.textContent||'Αθλητικό τμήμα',subtitle:historic?'Γ.Α.Σ. ΑΡΧΕΛΑΟΣ · ΙΣΤΟΡΙΚΑ ΤΜΗΜΑΤΑ':'Γ.Α.Σ. ΑΡΧΕΛΑΟΣ · ΑΘΛΗΤΙΚΑ ΤΜΗΜΑΤΑ',contentNode:historic&&record?window.ArchelaosArchive.fragment(record.html):buildProfile(card,record),closeLabel:historic?'Κλείσιμο ιστορικού':'Κλείσιμο παρουσίασης'}))}
+  for(const card of cards){const key=card.dataset.dpOpen,record=byId.get(key),historic=['basketball','fin-swimming','inactive-depts'].includes(key);card.addEventListener('click',()=>window.ArchelaosUI.openDialog({title:record?.title||card.querySelector('.dp-title')?.textContent||'Αθλητικό τμήμα',subtitle:historic?'Γ.Α.Σ. ΑΡΧΕΛΑΟΣ · ΙΣΤΟΡΙΚΑ ΤΜΗΜΑΤΑ':'Γ.Α.Σ. ΑΡΧΕΛΑΟΣ · ΑΘΛΗΤΙΚΑ ΤΜΗΜΑΤΑ',contentNode:historic&&record?window.ArchelaosArchive.fragment(record.html):buildProfile(card,record),closeLabel:historic?'Κλείσιμο ιστορικού':'Κλείσιμο παρουσίασης'}))}
  }catch(err){console.error('Department profiles:',err);for(const card of cards){card.addEventListener('click',()=>window.ArchelaosUI.openDialog({title:card.querySelector('.dp-title')?.textContent||'Αθλητικό τμήμα',contentNode:buildProfile(card,null),closeLabel:'Κλείσιμο παρουσίασης'}))}}
 
   const deep=location.hash.match(/^#sport-(.+)$/)?.[1];
