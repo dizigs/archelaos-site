@@ -23,7 +23,7 @@ import re
 ROOT = Path(__file__).resolve().parents[2]
 STAGE = ROOT / "rebuild"
 OUTPUT = ROOT / "dist"
-SITE = "https://archelaos.club"
+SITE = "https://www.archelaos.club"
 IMAGE = f"{SITE}/social-preview.jpg"
 
 METADATA = json.loads((STAGE / "seo" / "metadata.json").read_text(encoding="utf-8"))
@@ -302,6 +302,10 @@ def make_release() -> None:
 
     for profile in profiles:
         html_text = profile.read_text(encoding="utf-8")
+        # The public apex redirects to www. Generated profile metadata must
+        # use the same canonical host as the 14 core pages and sitemap.
+        # Original archival HTML in source-profiles remains untouched.
+        html_text = html_text.replace("https://archelaos.club/", SITE + "/")
         # Standalone profiles have a legacy header and footer in their HTML.
         # Keep the entire biographical article, but avoid two headers/footers
         # when the shared shell injects the site-wide components at runtime.
@@ -420,7 +424,7 @@ def make_release() -> None:
         sitemap_index(["pages.xml", "people.xml"]), encoding="utf-8"
     )
     (OUTPUT / "robots.txt").write_text(
-        "User-agent: *\nAllow: /\nSitemap: https://archelaos.club/sitemap.xml\n",
+        "User-agent: *\nAllow: /\nSitemap: " + SITE + "/sitemap.xml\n",
         encoding="utf-8"
     )
     copy2(ROOT / "_redirects", OUTPUT / "_redirects")

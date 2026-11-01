@@ -62,6 +62,7 @@ async function main(){
   assert.equal(noQuota.status,503);
   assert.equal(dataCalls,0,'no archive or model requests while disabled/unconfigured');
   assert.equal((await worker.fetch(req(question,'https://malicious.example'),env)).status,403);
+  assert.equal((await worker.fetch(req(question,'https://www.archelaos.club'),{...env,AI_ENABLED:'false'})).status,503);
   assert.equal((await worker.fetch(req('abc'),env)).status,400);
   const first=await worker.fetch(req(),env);
   assert.equal(first.status,200);

@@ -29,7 +29,7 @@ async function verify(){
     if(await page.locator('.arch-a11y-launch').count()!==1)throw Error(name+': accessibility missing or duplicated');
     if(await page.locator('.arch-back-to-top').count()!==1)throw Error(name+': back-to-top missing');
     const canonical=await page.locator('link[rel="canonical"]').getAttribute('href');
-    if(!canonical?.startsWith('https://archelaos.club/'))throw Error(name+': missing canonical');
+    if(!canonical?.startsWith('https://www.archelaos.club/'))throw Error(name+': missing canonical');
     const robots=await page.locator('meta[name=robots]').getAttribute('content');
     if(robots.includes('noindex') && !['search.html','favorites.html'].includes(name))throw Error(name+': release is noindex');
     if(['search.html','favorites.html'].includes(name)&&!robots.includes('noindex'))throw Error('Private collection or search should be noindex');

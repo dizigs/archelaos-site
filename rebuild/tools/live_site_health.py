@@ -82,13 +82,18 @@ def audit(base: str) -> dict:
     if home is None:
         return report
     if home_headers.get("x-monitor-redirect-target"):
-        report["warnings"].append("Apex redirects to https://"+home_headers["x-monitor-redirect-target"]+"/; check canonical and Google indexing")
+        report.setdefault("notes", []).append("Apex correctly redirects to https://"+home_headers["x-monitor-redirect-target"]+"/")
     for route in PAGES:
         body, headers = (home, home_headers) if route == "/" else check(route)
         if body is None:
             continue
         html = body.decode("utf-8", errors="replace")
         pages[route] = html
+        # A canonical pointing to a redirecting apex is an SEO conflict.
+        # Keep this a warning to avoid publishing a false site outage.
+        canonical = "https://www.archelaos.club" + route
+        if f'<link rel="canonical" href="{canonical}">' not in html:
+            report["warnings"].append(f"{route}: canonical does not match final www host")
         if "<main" not in html.lower():
             report["errors"].append(f"{route}: missing main element")
         if route == "/search.html":

@@ -66,3 +66,12 @@ worker prompts ή logs. Δεν γίνεται αυτόματο publish.
 ασφαλές server-side API. Περιέχει παραπομπές σε δημοσιευμένα
 πρόσωπα, γεγονότα, ιστορίες και τεκμήρια. Αν δεν επαρκούν οι
 πηγές ή το όριο έχει εξαντληθεί, τα κανονικά αποτελέσματα μένουν.
+
+## Canonical domain — production finding (2026-11-01)
+Το ζωντανό `https://archelaos.club/` ανακατευθύνει πραγματικά στο
+`https://www.archelaos.club/` (διαπιστώθηκε από GitHub Actions).
+Οι 14 βασικές σελίδες, οι 682 δημόσιες βιογραφίες, το sitemap και το robots
+χρησιμοποιούν επομένως το **τελικό www ως canonical**. Οι αρχικές
+ιστορικές HTML πηγές δεν μεταβάλλονται. Κρατάμε το apex redirect ως έχει·
+**δεν** αλλάζουμε DNS ή ρυθμίσεις Cloudflare από τον κώδικα.
+Επιβεβαίωση μετά το Cloudflare deployment με live monitoring και Google Search Console.

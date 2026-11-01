@@ -87,7 +87,7 @@ export default {
  async fetch(request,env){
   if(request.method!=='POST')return reply({error:'POST required'},405);
   if(env.AI_ENABLED!=='true')return reply({error:'AI disabled'},503);
-  if(request.headers.get('Origin')!=='https://archelaos.club')return reply({error:'Invalid origin'},403);
+  if(!['https://archelaos.club','https://www.archelaos.club'].includes(request.headers.get('Origin')))return reply({error:'Invalid origin'},403);
   if(!request.headers.get('content-type')?.toLowerCase().startsWith('application/json'))return reply({error:'JSON required'},415);
   if(!env.AI_LIMITER||!env.AI_QUOTA_DB)return reply({error:'AI safety bindings incomplete'},503);
   const provider=env.AI_PROVIDER||'cloudflare';
@@ -103,7 +103,7 @@ export default {
   const question=String(body?.question||'').trim();
   if(question.length<4||question.length>300)return reply({error:'Question must contain 4–300 characters'},400);
   let selected;
-  try{selected=await evidence(question,'https://archelaos.club')}
+  try{selected=await evidence(question,'https://www.archelaos.club')}
   catch{return reply({error:'Published archive unavailable'},503)}
   if(!selected.length)return reply({answer:'Δεν εντοπίστηκαν επαρκή τεκμήρια στο δημοσιευμένο αρχείο.',sources:[]});
   try{
