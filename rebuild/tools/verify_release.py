@@ -280,6 +280,16 @@ def verify() -> None:
         valid = (start.startswith(bytes.fromhex("ffd8ff")) or
                  start.startswith(bytes.fromhex("89504e470d0a1a0a")) or
                  start.startswith(b"RIFF") and start[8:12] == b"WEBP")
+        if not valid and local.suffix.lower() == ".svg":
+            # Original, locally bundled editorial vector art is an image too.
+            # Validate XML structure and a drawable SVG root rather than magic bytes.
+            from xml.etree import ElementTree as ET
+            try:
+                svg_root = ET.parse(local).getroot()
+                valid = (svg_root.tag == "{http://www.w3.org/2000/svg}svg"
+                         and bool(svg_root.get("viewBox")))
+            except ET.ParseError:
+                valid = False
         assert valid, "Unreadable article image format: " + article["id"]
     published_records = json.loads((DIST / "hall-of-fame-people.json").read_text(encoding="utf-8"))
     rows = published_records if isinstance(published_records, list) else published_records["people"]
