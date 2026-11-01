@@ -418,6 +418,26 @@
       "imageKind": "archive"
     },
     {
+      "id": "handball-drama-archelaos-28-29-feb-2026",
+      "date": "2026-02-16",
+      "sport": "Χάντμπολ",
+      "category": "matches",
+      "title": "Νίκη 29–28 του Αρχέλαου στην έδρα της Γ.Ε. Δράμας",
+      "summary": "Με πολλές απουσίες αλλά με σταθερό προβάδισμα, ο Αρχέλαος πήρε σημαντική εκτός έδρας νίκη.",
+      "body": [
+        "Στη 12η αγωνιστική του 2ου ομίλου της Β΄ Εθνικής χάντμπολ, ο Αρχέλαος Κατερίνης νίκησε εκτός έδρας τη Γ.Ε. Δράμας με 29–28 στις 15 Φεβρουαρίου 2026.",
+        "Παρά τις απουσίες, η ομάδα της Κατερίνης προηγήθηκε με 17–14 στο ημίχρονο. Ο Δημήτρης Σιώκας σημείωσε εννέα τέρματα, ο Χρυσικός έξι και ο Τοπαλίδης πέντε."
+      ],
+      "source": "Ολύμπιο Βήμα · 16/02/2026",
+      "sourceUrl": "https://olympiobima.gr/g-e-dramas-archelaos-katerinis-28-29-dikaii-niki-para-tis-elleipseis/",
+      "personIds": [
+        "arch-dimitris-siokas-handball-2026"
+      ],
+      "image": "https://olympiobima.gr/wp-content/uploads/2026/02/g.e-dramas-archelaos-katerinis-22615.webp",
+      "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2026/02/g.e-dramas-archelaos-katerinis-22615.webp",
+      "imageNote": "Φωτογραφία αρχικού δημοσιεύματος · Ολύμπιο Βήμα · 16/02/2026"
+    },
+    {
       "id": "archery-olympus-series-agios-spyridonas-feb-2026",
       "date": "2026-02-11",
       "category": "achievements",
@@ -1255,6 +1275,24 @@
       "imageSourceUrl": "https://i1.wp.com/eptanews.gr/wp-content/uploads/2024/04/%CE%B3%CF%85%CE%BC%CE%BD%CE%B1%CF%83%CF%84%CE%B9%CE%BA%CE%AE.jpeg?fit=764%2C1200&ssl=1"
     },
     {
+      "id": "handball-feronas-archelaos-35-31-apr-2024",
+      "date": "2024-04-01",
+      "sport": "Χάντμπολ",
+      "category": "matches",
+      "title": "Φέρωνας Βέροιας – Αρχέλαος 35–31 στην Α2 χάντμπολ",
+      "summary": "Αναμέτρηση της τελευταίας αγωνιστικής της κανονικής διάρκειας στην Α2 Ανδρών.",
+      "body": [
+        "Ο Φέρωνας Βέροιας επικράτησε του Αρχέλαου Κατερίνης με 35–31 στο ΔΑΚ «Δημήτριος Βικέλας», ολοκληρώνοντας την κανονική περίοδο της Α2 ανδρών και παίρνοντας την πρόκριση στα πλέι οφ.",
+        "Το ημίχρονο ολοκληρώθηκε 21–16. Για τον Αρχέλαο αγωνίστηκαν μεταξύ άλλων οι Ράντος, Μαυρόπουλος, Φιλίππου, Χαραλαμπίδης και Σιώκας."
+      ],
+      "source": "Ολύμπιο Βήμα · 01/04/2024",
+      "sourceUrl": "https://olympiobima.gr/nikise-kai-prokrithike-sta-plei-of-o-feronas-feronas-veroias-archelaos-katerinis-35-31/",
+      "personIds": [],
+      "image": "https://olympiobima.gr/wp-content/uploads/2024/04/nikise-prokrithike-sta-plei-of-43067.webp",
+      "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2024/04/nikise-prokrithike-sta-plei-of-43067.webp",
+      "imageNote": "Φωτογραφία αρχικού δημοσιεύματος · Ολύμπιο Βήμα · 01/04/2024"
+    },
+    {
       "id": "wrestling-u15-larisa-2024",
       "date": "2024-03-11",
       "category": "achievements",
@@ -1732,6 +1770,24 @@
       "image": "https://media.pieriasocial.gr/2022/09/ΣΚΟΠΟΒΟΛΗ.jpg",
       "imageSourceUrl": "https://media.pieriasocial.gr/2022/09/ΣΚΟΠΟΒΟΛΗ.jpg",
       "imageNote": "Φωτογραφία αρχικού δημοσιεύματος · Pieria Social · 18/09/2022"
+    },
+    {
+      "id": "wrestling-petkos-world-team-sofia-aug-2022",
+      "date": "2022-08-18",
+      "sport": "Πάλη",
+      "category": "club",
+      "title": "Ο Γιάννης Πέτκος με την Εθνική στο Παγκόσμιο Πρωτάθλημα Πάλης Εφήβων",
+      "summary": "Συμμετοχή του αθλητή του Αρχέλαου στην αποστολή της Εθνικής ομάδας στη Σόφια.",
+      "body": [
+        "Ο Ιωάννης Πέτκος του Γ.Α.Σ. Αρχέλαος Κατερίνης βρέθηκε στη Σόφια της Βουλγαρίας τον Αύγουστο 2022 με την Εθνική ομάδα για το Παγκόσμιο Πρωτάθλημα Πάλης Εφήβων.",
+        "Σύμφωνα με την ανακοίνωση, τον αθλητή συνόδευε ο προπονητής Σάββας Τσεντίδης. Δεν αναφέρεται τελικό αγωνιστικό αποτέλεσμα στο συγκεκριμένο δημοσίευμα."
+      ],
+      "source": "Ολύμπιο Βήμα · 18/08/2022",
+      "sourceUrl": "https://olympiobima.gr/archelaos-katerinis-sti-sofia-gia-to-pagkosmio-protathlima-palis-efivon-me-tin-ethniki-omada-palis-o-giannis-petkos/",
+      "personIds": [
+        "arch-6a4b08bec058",
+        "arch-af9470c5745f"
+      ]
     },
     {
       "id": "archery-u18-athens-national-results-july-2022",
