@@ -59,8 +59,12 @@ def candidates(page_url, html, vetted=None):
         if parts.scheme!="https" or not parts.hostname or full in seen: continue
         seen.add(full)
         path=parts.path.lower()
-        if re.search(r"(?:logo|favicon|placeholder|default-image|no-image|social-preview|avatar|sprite|widget|banner|icon|gravatar)",path): continue
-        if re.search(r"(?:\\.svg|\\.gif|\\.ico)(?:$|[?])",full,re.I): continue
+        # Source pages may use a large, perfectly valid PNG/JPEG as a site logo.
+        # Such branding must NEVER be mistaken for an event photograph.
+        if re.search(r"(?:logo|logos|on_light|combo|federation-mark|favicon|placeholder|default-image|no-image|social-preview|avatar|sprite|widget|banner|icon|gravatar|sponsor|emblem|brand)",path,re.I): continue
+        if parts.hostname in ("www.handball.org.gr","handball.org.gr") and "/images/nea/ethnikes-omades/" not in path:
+            continue
+        if re.search(r"[.](?:svg|gif|ico)(?:$|[?])",full,re.I): continue
         bonus=(15 if "/uploads/" in path or "/images/" in path else 0)
         if any(t in alt.lower() for t in ("αρχέλα","τοξοβ","πάλ","εθνικ","handball","wrestling","archery")): bonus+=8
         ranked.append((base+bonus,full))
