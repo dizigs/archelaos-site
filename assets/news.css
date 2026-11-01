@@ -110,3 +110,15 @@ main{padding:60px 0 80px}
  .an-detail h2{font-size:clamp(25px,7vw,33px)}
  .an-dialog-heart,.an-close{width:40px;height:40px;min-width:40px}
 }
+
+/* Whole news cards are the link; the separate favorite remains operable. */
+.an-card,.an-feature-card{position:relative;cursor:pointer}
+.an-card-hit,.an-feature-hit{position:absolute;inset:0;z-index:1;display:block;border-radius:inherit}
+.an-card-hit:focus-visible,.an-feature-hit:focus-visible{outline:3px solid #aa853e;outline-offset:-5px}
+.an-card:focus-within,.an-feature-card:focus-within{box-shadow:0 0 0 2px #b18c45,0 18px 37px #092e1e24}
+.an-feature-card:hover{box-shadow:0 20px 52px #06271b2e}
+.an-card-foot{justify-content:flex-end;border-top:0;padding-top:0;margin-top:auto}
+.an-card-foot>*{position:relative;z-index:2}
+@media(prefers-reduced-motion:reduce){
+ .an-card,.an-feature-card{transition:none}
+}
