@@ -59,3 +59,12 @@
 .rs-heading{margin-top:30px}
 @media(max-width:850px){.rs-hero:after{width:140px;height:140px;font-size:70px;right:3%;top:25%;opacity:.4}}
 @media(max-width:600px){.rs-hero{padding:42px 0 54px!important;min-height:0}.rs-hero:after{right:-15%;top:38%}.rs-hero h1{font-size:clamp(42px,9vw,57px)}}
+
+
+/* Keep reconstructed dialogue visually distinct from archival quotations. */
+.arch-dialog-body .rs-dialogue-note{
+ display:block;margin:16px 0 2px;
+ font:750 10px/1.5 Inter,system-ui,sans-serif;
+ letter-spacing:.065em;color:#816b47;
+}
+.arch-dialog-body .rs-dialogue-note + .arch-dialog-quote{margin-top:5px}
