@@ -92,6 +92,12 @@
   new MutationObserver(sync).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
   new MutationObserver(sync).observe(document.body,{attributes:true,attributeFilter:['class']});
  }
+ // Ensure the header favorites counter is available on every route, including Search.
+ if(!window.ArchelaosFavorites&&!document.querySelector('script[src*="favorites.js"]')){
+  const favoriteScript=document.createElement('script');
+  favoriteScript.src='assets/favorites.js?v=20261101-header-count';
+  favoriteScript.defer=true;document.head.append(favoriteScript);
+ }
  window.addEventListener('pageshow',sync);window.addEventListener('resize',()=>{if(innerWidth>1170&&drawerOpen)setOpen(false)});
  sync();
 })();
