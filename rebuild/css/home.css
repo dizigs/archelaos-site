@@ -400,7 +400,6 @@
   box-shadow:0 12px 31px rgba(0,0,0,.18);
   transition:transform .23s ease,background .23s ease,box-shadow .23s ease;
 }
-.new-departments-intro .new-departments-intro-cta span{font-size:22px;font-weight:500;line-height:1}
 .new-departments-intro .new-departments-intro-cta:hover{
   background:#fff2d4;transform:translateY(-3px);box-shadow:0 18px 35px rgba(0,0,0,.22);
 }
@@ -457,4 +456,17 @@
 @media(prefers-reduced-motion:reduce){
  .new-departments-intro .new-departments-intro-cta{transition:none}
  .new-departments-intro .new-departments-intro-cta:hover{transform:none}
+}
+
+/* Autoplay control sits alongside the two manual slideshow arrows. */
+.new-slide-buttons #new-slide-toggle{
+ font:700 19px/1 Inter,system-ui,sans-serif;
+ display:grid;place-items:center;
+}
+@media(max-width:600px){
+ .new-slide-buttons{gap:6px;flex-shrink:0}
+ .new-slide-buttons button{width:38px;height:38px;min-width:38px}
+ .new-slide-buttons #new-slide-toggle{font-size:17px}
+ .new-slide-bottom > div:first-child{min-width:0}
+ .new-slide-bottom h3{font-size:clamp(24px,6.3vw,35px)}
 }
