@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" role="img" aria-labelledby="t d">
+<title id="t">Αρχέλαος Κατερίνης — Χάντμπολ</title><desc id="d">Πράσινη και χρυσή αθλητική εικονογράφηση με μπάλα χάντμπολ και τέρμα. Εικαστικό αρχείου, όχι φωτογραφία αγώνα.</desc>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#052719"/><stop offset=".56" stop-color="#0a543a"/><stop offset="1" stop-color="#041e19"/></linearGradient>
+<linearGradient id="gold" x1="0" y1="0" x2="1" y2=".65"><stop stop-color="#fff0a7"/><stop offset=".4" stop-color="#d8b76a"/><stop offset="1" stop-color="#916628"/></linearGradient>
+<radialGradient id="ball" cx=".35" cy=".27" r=".85"><stop stop-color="#f5eee2"/><stop offset=".44" stop-color="#bec8ca"/><stop offset=".8" stop-color="#506c79"/><stop offset="1" stop-color="#0c2938"/></radialGradient>
+<linearGradient id="floor" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ad7b35" stop-opacity=".04"/><stop offset="1" stop-color="#d5a253" stop-opacity=".45"/></linearGradient>
+<filter id="blur"><feGaussianBlur stdDeviation="15"/></filter><filter id="shadow"><feDropShadow dx="0" dy="19" stdDeviation="20" flood-color="#00150f" flood-opacity=".68"/></filter>
+<pattern id="mesh" width="37" height="33" patternUnits="userSpaceOnUse"><path d="M0 0L37 33M37 0L0 33" fill="none" stroke="#f1eee0" stroke-opacity=".25" stroke-width="1.5"/></pattern>
+</defs>
+<rect width="1200" height="750" fill="url(#bg)"/>
+<path d="M0 635C260 495 393 477 606 550C819 620 1017 458 1200 385V750H0Z" fill="#0c3429"/>
+<path d="M-50 580C194 438 290 190 510-65" fill="none" stroke="url(#gold)" stroke-width="30" opacity=".92"/>
+<path d="M-25 630C215 481 345 263 573-38" fill="none" stroke="#d9b569" stroke-width="4" opacity=".88"/>
+<path d="M-60 708C223 548 354 315 636-31" fill="none" stroke="#f2dc9a" stroke-width="2" opacity=".44"/>
+<ellipse cx="940" cy="510" rx="360" ry="200" fill="#dbaf64" opacity=".09" filter="url(#blur)"/>
+<g opacity=".9" transform="translate(690 147)"><rect x="0" y="0" width="420" height="390" rx="8" fill="none" stroke="#ead9b9" stroke-width="21"/><rect x="12" y="18" width="395" height="355" fill="url(#mesh)" opacity=".7"/><path d="M4 0V390M417 0V390" stroke="#d14d48" stroke-width="9" stroke-dasharray="37 44"/></g>
+<path d="M580 654Q850 595 1230 658" fill="none" stroke="#f3d5a2" stroke-width="11" opacity=".44"/><rect y="639" width="1200" height="111" fill="url(#floor)"/>
+<g filter="url(#shadow)"><circle cx="485" cy="526" r="190" fill="url(#ball)" stroke="#f2e8d3" stroke-width="5"/>
+<g stroke="#1b3a48" stroke-width="12" fill="none" opacity=".9"><path d="M418 394L524 382L599 454L561 567L457 600L364 522Z"/><path d="M418 394L369 350M524 382L572 361M599 454L670 444M561 567L615 651M457 600L437 709M364 522L306 545"/><path d="M418 394L457 462L599 454M457 462L457 600"/></g>
+<path d="M345 431Q410 350 483 350" fill="none" stroke="#fff" stroke-width="13" opacity=".35" stroke-linecap="round"/></g>
+<g fill="none" stroke="url(#gold)" stroke-width="3"><circle cx="194" cy="160" r="114"/><circle cx="194" cy="160" r="101"/></g>
+<text x="194" y="141" fill="#eed28a" font-family="Georgia,serif" font-size="29" text-anchor="middle" letter-spacing="3">ΑΡΧΕΛΑΟΣ</text><path d="M136 169H252" stroke="#d7b46a" stroke-width="2"/><text x="194" y="199" fill="#f7e5ba" font-family="Georgia,serif" font-size="36" text-anchor="middle">1956</text>
+<text x="1093" y="87" fill="#f6e7bd" font-family="Georgia,serif" font-size="25" text-anchor="end" letter-spacing="6">Γ.Α.Σ. «Ο ΑΡΧΕΛΑΟΣ»</text>
+<text x="1093" y="124" fill="#d2b16e" font-family="Arial,sans-serif" font-size="18" text-anchor="end" letter-spacing="7">ΚΑΤΕΡΙΝΗ</text>
+</svg>
