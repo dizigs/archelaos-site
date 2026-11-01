@@ -66,6 +66,13 @@ def inspect():
     historic = departments_html.split('data-dp-open="inactive-depts"',1)[1].split('</button>',1)[0]
     assert 'class="dp-watermark"' in historic and 'class="dp-silhouette"' not in historic, "Historical card must show a year, not a sports pictogram"
     assert "filter:blur(" not in departments_css.split("/* Nine high-clarity professional sports pictograms.",1)[-1], "Sports pictograms must remain crisp"
+    contribution=(REBUILD/"contribute.html").read_text(encoding="utf-8")
+    contribution_js=(REBUILD/"js/contribute-guide.js").read_text(encoding="utf-8")
+    for selector in ("ac-attachments", "ac-archive-link", "ac-sender-email", "ac-private-consent", "ac-guide-send"):
+        assert f'id="{selector}"' in contribution, f"Missing contribution transfer field: {selector}"
+    for api_contract in ("'/api/contact'", "'archive'", "'consent','true'", "form.append('attachments'"):
+        assert api_contract in contribution_js or api_contract.replace("form.append('attachments'", "payload.append('attachments'") in contribution_js, f"Contribution backend contract missing: {api_contract}"
+    assert "Η online φόρμα και το ασφαλές upload δεν έχουν ενεργοποιηθεί ακόμη" not in contribution, "Obsolete contribution notice returned"
     # Responsive CSS must stay modular, and every declared import must exist.
     viewport_css = (REBUILD/"css/viewports.css").read_text(encoding="utf-8")
     for name in ("mobile.css", "tablet.css", "laptop.css", "desktop.css", "accessibility.css"):
