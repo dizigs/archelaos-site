@@ -107,6 +107,11 @@
   border:0;
   background:transparent;
 }
+.arch-archive-content figure:has(>blockquote){
+  background:#f3ecdd;border:1px solid #e4d6b9;border-radius:16px;padding:20px 24px;margin-top:22px
+}
+.arch-archive-content figure > blockquote{color:#624a25;font-size:clamp(18px,2vw,22px);line-height:1.75;margin:0 0 12px}
+.arch-archive-content figure > figcaption{color:#435748;line-height:1.55;font-size:12px}
 .arch-archive-content :is(strong,b){color:#214936;font-weight:750}
 .arch-archive-content :is(img,video,iframe){max-width:100%;height:auto;object-fit:contain}
 .arch-archive-content figure{max-width:100%}
