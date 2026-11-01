@@ -5,7 +5,7 @@ const norm=x=>String(x??'').toLocaleLowerCase('el').normalize('NFD').replace(/[\
 const en=()=>document.documentElement.lang==='en'||document.body.classList.contains('lang-en');
 const tr=(el,english)=>en()?english:el;
 const kinds={interview:['Συνέντευξη','Interview'],statement:['Δήλωση','Statement'],report:['Δημοσιογραφικό ρεπορτάζ','Press report']};
-const sports={handball:['Χάντμπολ','Handball'],gymnastics:['Ενόργανη','Gymnastics'],track:['Στίβος','Athletics'],volleyball:['Βόλεϊ','Volleyball'],basketball:['Μπάσκετ','Basketball'],administration:['Διοίκηση','Administration']};
+const sports={handball:['Χάντμπολ','Handball'],gymnastics:['Ενόργανη','Gymnastics'],track:['Στίβος','Athletics'],volleyball:['Βόλεϊ','Volleyball'],basketball:['Μπάσκετ','Basketball'],shooting:['Σκοποβολή','Shooting'],administration:['Διοίκηση','Administration']};
 let lastFocus=null;
 const hay=x=>norm([x.name,x.event,x.context,x.source,x.quote,(x.qa||[]).map(v=>v.question+' '+v.answer).join(' ')].join(' '));
 function resultSet(){
@@ -32,7 +32,7 @@ function open(id){
  if(x.qa){inner+='<section class="qa"><h3>'+tr('Η συνέντευξη','The interview')+'</h3>';x.qa.forEach((v,i)=>{inner+='<div class="qa-row"><p class="question">'+(i+1)+'. '+esc(v.question)+'</p><p class="answer">'+esc(v.answer)+'</p></div>'});inner+='</section>'}
  else if(x.quote)inner+='<blockquote class="quote">'+esc(x.quote)+'</blockquote>';
  inner+='<section class="source"><h3>'+tr('Πηγή & τεκμηρίωση','Source & provenance')+'</h3><p>'+esc(x.source)+'</p></section>';
- if(x.sourceUrl&&/^https:\/\//.test(x.sourceUrl)){inner+='<p class="source"><a href="'+esc(x.sourceUrl)+'" target="_blank" rel="noopener noreferrer">'+tr('Διαβάστε ολόκληρη τη συνέντευξη στην αρχική πηγή','Read the full original interview')+'</a></p>';}
+ if(x.sourceUrl&&/^https:\/\//.test(x.sourceUrl)){inner+='<p class="source"><a href="'+esc(x.sourceUrl)+'" target="_blank" rel="noopener noreferrer">'+tr('Αυθεντική δημοσίευση · Άνοιγμα στην αρχική πηγή ↗','Original publication · Open source ↗')+'</a></p>';}
  if(x.needsReview)inner+='<div class="warning">'+tr('Ορισμένες συμπληρωματικές λεπτομέρειες του γεγονότος χρειάζονται διασταύρωση με το πρωτότυπο απόκομμα.','Some contextual details need verification against the original clipping.')+'</div>';
  if((x.relatedPeople&&x.relatedPeople.length)||(x.eventLinks&&x.eventLinks.length)){
   inner+='<section class="source"><h3>'+tr('Συνδεδεμένα τεκμήρια & πρόσωπα','Related archive records & people')+'</h3><div class="links">';
