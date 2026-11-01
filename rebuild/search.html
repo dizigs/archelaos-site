@@ -42,6 +42,14 @@
 <button type="button" data-sr-filter="exhibit" aria-pressed="false">Εκθέματα</button>
 <button type="button" data-sr-filter="interview" aria-pressed="false">Οι Φωνές</button>
 </div>
+<!-- Optional source-grounded answer, part of search, never a chat window.
+     Enabled only after server bindings, cost gates and approval are configured. -->
+<section id="sr-ai" class="sr-ai" data-enabled="false" aria-labelledby="sr-ai-title" hidden>
+  <div class="sr-ai-top"><div><p class="sr-ai-eyebrow">ΕΡΕΥΝΑ ΑΡΧΕΙΟΥ</p><h2 id="sr-ai-title">Τεκμηριωμένη σύνοψη</h2></div>
+  <button id="sr-ai-run" type="button">Σύνθεση απάντησης</button></div>
+  <p class="sr-ai-hint">Μία σύντομη απάντηση με παραπομπές από τις δημοσιευμένες πηγές του Αρχέλαου. Η αναζήτηση λειτουργεί ανεξάρτητα.</p>
+  <div id="sr-ai-output" class="sr-ai-output" role="status" aria-live="polite"></div>
+</section>
 <div id="sr-results" class="sr-results" aria-label="Αποτελέσματα αναζήτησης"></div>
 <div class="sr-more" id="sr-more" hidden><button id="sr-more-button" type="button">Περισσότερα αποτελέσματα</button></div>
 </div></section>
