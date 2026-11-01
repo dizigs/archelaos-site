@@ -183,6 +183,13 @@ def verify() -> None:
         f"Interview archive out of sync: missing={set(source_ids)-set(published_ids)}, "
         f"extra={set(published_ids)-set(source_ids)}"
     )
+    source_by_id = {record["id"]: record for record in source_interviews["items"]}
+    published_by_id = {record["id"]: record for record in published_interviews["items"]}
+    for record_id, original in source_by_id.items():
+        deployed = published_by_id[record_id]
+        assert deployed == original, (
+            f"Interview content differs between source and production: {record_id}"
+        )
     for record in published_interviews["items"]:
         assert record.get("kind") in ("interview", "statement", "report"), (
             "Unknown interview record type: " + record["id"]
