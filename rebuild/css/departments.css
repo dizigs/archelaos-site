@@ -230,3 +230,9 @@ body .dp-content .dp-grid .dp-card .dp-current-status strong{color:#785520!impor
 body .dp-content .dp-grid .dp-card .dp-history-hint{z-index:10!important;position:relative!important;display:block!important;opacity:1!important;visibility:visible!important;padding:7px 12px!important;border-radius:9px!important;font:700 13px/1.5 Inter,Arial,sans-serif!important;text-shadow:none!important}
 body .dp-content .dp-grid .dp-card.dp-green .dp-history-hint{color:#ffe5a9!important;background:#063020d9!important}
 body .dp-content .dp-grid .dp-card.dp-cream .dp-history-hint{color:#06432c!important;background:#fff9e8e8!important}
+
+/* Sports index: title-only centered cards. */
+body .dp-content .dp-grid .dp-card{display:flex!important;align-items:center!important;justify-content:center!important;text-align:center!important;gap:0!important;min-height:245px!important;padding:28px!important}
+body .dp-content .dp-grid .dp-card .dp-title{position:relative!important;z-index:5!important;display:block!important;max-width:95%!important;margin:auto!important;text-align:center!important;text-wrap:balance!important;font:500 clamp(30px,3.3vw,47px)/1.15 Georgia,serif!important}
+body .dp-content .dp-grid .dp-card .dp-year,body .dp-content .dp-grid .dp-card .dp-description,body .dp-content .dp-grid .dp-card .dp-current-status,body .dp-content .dp-grid .dp-card .dp-history-hint,body .dp-content .dp-grid .dp-card .dp-watermark{display:none!important}
+@media(max-width:720px){body .dp-content .dp-grid .dp-card{min-height:205px!important;padding:24px!important}}
