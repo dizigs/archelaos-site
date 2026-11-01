@@ -41,6 +41,7 @@ function open(id){
   inner+='</div></section>';
  }
  $('detail').innerHTML=inner;
+ const fav=window.ArchelaosFavorites;if(fav){let bar=$('dialog').querySelector('.dialog-top');if(bar){bar.querySelector('.interview-favorite')?.remove();const button=fav.button('interview',x.id,'interview-favorite',{title:x.name,href:'interviews.html?record='+encodeURIComponent(x.id),summary:x.event});bar.insertBefore(button,$('close'));}}
  const dlg=$('dialog');if(!dlg.open)dlg.showModal();$('close').focus();
  const url=new URL(location.href);url.searchParams.set('record',id);history.replaceState(null,'',url);
 }
