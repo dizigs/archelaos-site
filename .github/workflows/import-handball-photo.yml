@@ -1,0 +1,43 @@
+name: Import verified handball photograph
+on:
+  push:
+    paths:
+      - '.github/workflows/import-handball-photo.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  save-photo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Retrieve the original uploaded photo from its published source
+        shell: bash
+        env:
+          PHOTO_URL: https://www.anexartitos.gr/wp-content/uploads/2025/11/Handball-%CE%9C%CE%93%CE%A3-%CE%A0%CE%B1%CE%BD%CF%83%CE%B5%CF%81%CF%81%CE%B1%CF%8A%CE%BA%CF%8C%CF%82-%CE%91%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-37-30-3503.jpg
+        run: |
+          python - <<'PY'
+          import os, pathlib, urllib.request
+          url = os.environ["PHOTO_URL"]
+          req = urllib.request.Request(url, headers={"User-Agent":"Mozilla/5.0 (compatible; Archelaos-site-asset-sync/1.0)"})
+          with urllib.request.urlopen(req, timeout=30) as response:
+              data = response.read(4000000)
+          if len(data) < 10000 or not data.startswith(bytes.fromhex("ffd8ff")):
+              raise SystemExit("Image download was not a valid JPEG")
+          path = pathlib.Path("images/handball-archelaos-panserraikos-2025.jpg")
+          path.parent.mkdir(exist_ok=True)
+          path.write_bytes(data)
+          print(f"Verified JPG: {path}, {len(data)} bytes")
+          PY
+      - name: Commit local image so the site no longer hotlinks the source
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add images/handball-archelaos-panserraikos-2025.jpg
+          if git diff --staged --quiet; then
+            echo "Image is already synchronized."
+          else
+            git commit -m "Add local handball match photograph"
+            git push origin HEAD:main
+          fi
