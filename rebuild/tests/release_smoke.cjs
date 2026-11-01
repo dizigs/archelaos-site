@@ -83,6 +83,32 @@ async function verify(){
         await historical.locator('.dp-watermark').count()!==0||
         await historical.locator('.dp-silhouette').count()!==0)
       throw Error('Historical departments must keep the approved title-only design');
+     // Regression: department details were invisible or clipped on phones.
+     await page.locator('.dp-card[data-dp-open="archery"]').click();
+     const detail=page.locator('dialog.arch-dialog[open]');
+     await detail.waitFor({timeout:8000});
+     const fields=detail.locator('.dp-profile-field');
+     if(await fields.count()!==4)throw Error('Department details must show all four information tiles');
+     const details=await detail.evaluate(el=>{
+       const body=el.querySelector('.arch-dialog-body');
+       const tiles=[...el.querySelectorAll('.dp-profile-field')];
+       return {width:el.getBoundingClientRect().width,viewport:innerWidth,
+         columns:getComputedStyle(el.querySelector('.dp-profile-info')).gridTemplateColumns.split(' ').length,
+         bodyScroll:getComputedStyle(body).overflowY,
+         hidden:tiles.some(n=>getComputedStyle(n).display==='none'||getComputedStyle(n).visibility==='hidden')};
+     });
+     if(details.hidden||details.width>details.viewport+2)throw Error('Department tiles hidden or modal wider than screen');
+     if(view.width<=767&&(details.columns!==1||details.bodyScroll!=='auto'))
+      throw Error('Mobile department details must use one column and scrollable dialog');
+     await fields.last().scrollIntoViewIfNeeded();
+     const historyButton=detail.locator('.dp-profile-history');
+     if(await historyButton.textContent()!=='Η ιστορία του τμήματος')
+      throw Error('Department history button must not include a decorative arrow');
+     await historyButton.click();
+     if(!await detail.locator('#arch-dialog-title').textContent())
+      throw Error('Department history popup did not open');
+     await detail.locator('.arch-close').click();
+     await detail.waitFor({state:'hidden'});
     }
     if(tag==='retro')await page.locator('.rt-scoreboard').first().waitFor();
     if(tag==='home'){
