@@ -255,3 +255,15 @@ body .dp-content .dp-grid .dp-card .dp-year,body .dp-content .dp-grid .dp-card .
 .arch-dialog-body .dp-profile-history:focus-visible{outline:3px solid #b89955;outline-offset:3px}
 .arch-dialog-body .dp-profile-official{display:inline-flex;align-items:center;border:1px solid #d8c7a2;border-radius:11px;padding:13px 16px;color:#736a55;background:#f8f4eb;font-size:12px;font-weight:650}
 @media(max-width:580px){.arch-dialog-body .dp-profile-info{grid-template-columns:1fr 1fr;gap:9px}.arch-dialog-body .dp-profile-field{padding:12px}.arch-dialog-body .dp-profile-photo{height:185px}.arch-dialog-body .dp-profile-actions{flex-direction:column}.arch-dialog-body .dp-profile-history,.arch-dialog-body .dp-profile-official{width:100%;justify-content:center;text-align:center}}
+
+/* Mobile department dialog: keep all information tiles visible and scrollable. */
+@media(max-width:767px){
+ .arch-dialog:has(.dp-profile){width:calc(100vw - 16px);max-width:620px;max-height:92dvh}
+ .arch-dialog:has(.dp-profile) .arch-dialog-panel{min-height:0;max-height:92dvh;overflow:hidden}
+ .arch-dialog:has(.dp-profile) .arch-dialog-body{display:block;flex:1 1 auto;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:16px 16px 26px}
+ .arch-dialog-body .dp-profile{display:block;min-width:0;max-width:100%}
+ .arch-dialog-body .dp-profile-info{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:11px!important;margin:16px 0 24px!important;visibility:visible!important;opacity:1!important}
+ .arch-dialog-body .dp-profile-field{display:flex!important;min-width:0;visibility:visible!important;opacity:1!important;padding:15px!important}
+ .arch-dialog-body .dp-profile-field strong,.arch-dialog-body .dp-profile-field span{display:block!important;overflow-wrap:anywhere}
+ .arch-dialog-body .dp-profile-actions{padding-bottom:12px}
+}
