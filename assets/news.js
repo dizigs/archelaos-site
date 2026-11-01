@@ -16,10 +16,18 @@ function media(x,cls){
  let original=false;
  try{const u=new URL(path);original=u.protocol==='https:'&&!!u.hostname&&!u.username&&!u.password}catch(_){}
  const empty=()=>{
-   b.classList.remove('is-emblem');b.classList.add('is-unillustrated');b.replaceChildren();
-   const line=document.createElement('span');line.className='an-no-photo';
-   line.textContent=t('ΑΡΧΕΙΟ ΑΡΧΕΛΑΟΥ','ARCHELAOS ARCHIVE');
-   b.append(line);
+   // Club-owned welcome artwork is the editorial fallback when no valid article image exists.
+   b.classList.remove('is-emblem','is-unillustrated');b.classList.add('is-welcome-fallback');b.replaceChildren();
+   const art=document.createElement('img');
+   art.src='/archelaos-welcome.png';
+   art.alt=t('Εικαστικό του Αρχέλαου — όχι φωτογραφία της είδησης','Archelaos artwork — not an article photograph');
+   art.loading='lazy';art.decoding='async';
+   art.addEventListener('error',()=>{
+     b.classList.add('is-unillustrated');b.replaceChildren();
+     const line=document.createElement('span');line.className='an-no-photo';
+     line.textContent=t('ΑΡΧΕΙΟ ΑΡΧΕΛΑΟΥ','ARCHELAOS ARCHIVE');b.append(line);
+   },{once:true});
+   b.append(art);
  };
  if(!local&&!original){empty();return b}
  const img=document.createElement('img');img.src=original?path:'/'+path;img.alt=x.imageNote||x.title;
