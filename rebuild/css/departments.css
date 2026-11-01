@@ -213,3 +213,13 @@
  .dp-grid .dp-card:not([data-dp-open="inactive-depts"]){transition:none}
  .dp-grid .dp-card:not([data-dp-open="inactive-depts"]):hover{transform:none}
 }
+
+/* Department information awaiting verification; historical archive remains accessible. */
+.dp-grid .dp-card:not([data-dp-open="inactive-depts"]){min-height:310px;padding-bottom:30px;gap:11px}
+.dp-grid .dp-current-status,.dp-grid .dp-history-hint{position:relative;z-index:3;display:block;text-align:center;line-height:1.5}
+.dp-grid .dp-current-status{margin-top:7px;padding:10px 15px;border:1px solid #b89c68;border-radius:12px;background:#fff9eced;color:#214734;font:500 12px/1.65 Inter,sans-serif;max-width:95%}
+.dp-grid .dp-current-status strong{display:block;font-weight:800;color:#8b662a;font-size:13px}
+.dp-grid .dp-history-hint{font:700 12px/1.5 Inter,sans-serif;letter-spacing:.02em;text-decoration:none}
+.dp-grid .dp-green .dp-history-hint{color:#f3e0b7}
+.dp-grid .dp-cream .dp-history-hint{color:#28543b}
+@media(max-width:650px){.dp-grid .dp-card:not([data-dp-open="inactive-depts"]){min-height:290px;padding-bottom:25px}}
