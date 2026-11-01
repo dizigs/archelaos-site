@@ -146,3 +146,7 @@ main{padding:60px 0 80px}
 .is-heritage-crest::after{content:"";position:absolute;inset:17%;border:1px solid rgba(199,166,94,.20);border-radius:50%;pointer-events:none}
 .an-card-media.is-heritage-crest img,.an-feature-media.is-heritage-crest img,.an-detail .an-cover.is-heritage-crest img{position:relative;z-index:1;width:65%;height:85%;max-height:260px;object-fit:contain;filter:drop-shadow(0 9px 22px rgba(0,0,0,.38));transform:scale(1.18);background:transparent}
 .an-feature-media.is-heritage-crest img{max-height:340px}
+
+/* Center the heritage crest precisely within all news media sizes. */
+.an-card-media.is-heritage-crest,.an-feature-media.is-heritage-crest,.an-detail .an-cover.is-heritage-crest{display:grid!important;place-items:center!important;padding:0!important}
+.an-card-media.is-heritage-crest img,.an-feature-media.is-heritage-crest img,.an-detail .an-cover.is-heritage-crest img{display:block!important;position:relative!important;inset:auto!important;margin:0 auto!important;padding:0!important;max-width:75%!important;width:75%!important;max-height:82%!important;height:82%!important;object-fit:contain!important;object-position:center!important;transform:scale(1.12)!important}
