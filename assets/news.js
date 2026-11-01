@@ -29,7 +29,7 @@ function card(x){
  return el;
 }
 function draw(){
- const q=norm(state.query.trim());const items=state.items.filter(x=>(state.category==='all'||x.category===state.category)&&(!q||norm([x.title,x.summary,x.sport,x.source,...(x.body||[])].join(' ')).includes(q))).sort((a,b)=>b.date.localeCompare(a.date));
+ const q=norm(state.query.trim());const items=state.items.filter(x=>(state.category==='all'||x.category===state.category)&&(!q||(window.ArchelaosSportSearch?window.ArchelaosSportSearch.sportMatch([x.title,x.summary,x.sport,x.source,...(x.body||[])].join(' '),q):norm([x.title,x.summary,x.sport,x.source,...(x.body||[])].join(' ')).includes(q)))).sort((a,b)=>b.date.localeCompare(a.date));
  const frag=document.createDocumentFragment();for(const x of items)frag.append(card(x));
  if(!items.length){const p=document.createElement('p');p.className='an-empty';p.textContent=t('Δεν βρέθηκαν δημοσιεύσεις.','No matching news found.');frag.append(p)}
  $('an-grid').replaceChildren(frag);$('an-count').textContent=t(items.length+' δημοσιεύσεις',items.length+' posts');
