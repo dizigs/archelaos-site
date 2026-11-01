@@ -1093,7 +1093,9 @@
       "source": "Οδηγός Πιερίας · 01/11/2021",
       "sourceUrl": "https://odigos-pierias.gr/4-%CE%BC%CE%B5%CF%84%CE%AC%CE%BB%CE%BB%CE%B9%CE%B1-%CE%BF%CE%B9-%CF%80%CF%81%CF%89%CF%84%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%AD%CF%82-%CF%84%CE%BF%CF%85-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%85/",
       "personIds": [
-        "arch-ba8233d165aa"
+        "arch-6a4b08bec058",
+        "arch-ba8233d165aa",
+        "arch-96ddd7ba9e4d"
       ]
     },
     {
@@ -1128,7 +1130,13 @@
         "Η ομάδα συγκέντρωσε 68 βαθμούς, μπροστά από τον ΔΑΣ Ζεφυρίου και τον ΠΑΟΚ, πετυχαίνοντας τη δεύτερη συνεχόμενη κορυφή της σύμφωνα με τα δημοσιεύματα."
       ],
       "source": "Onsports / Pieria Social · 28/06/2021",
-      "sourceUrl": "https://www.onsports.gr/spor/story/734086/pali-protathlitis-paidon-stin-ellinoromaiki-o-arxelaos-katerinis"
+      "sourceUrl": "https://www.onsports.gr/spor/story/734086/pali-protathlitis-paidon-stin-ellinoromaiki-o-arxelaos-katerinis",
+      "personIds": [
+        "arch-73968afa517e",
+        "arch-ba8233d165aa",
+        "arch-96ddd7ba9e4d",
+        "arch-74c0ecf6103f"
+      ]
     },
     {
       "id": "archery-olympus-series-june-2020",
@@ -1196,7 +1204,10 @@
         "Στη γιορτή της ενόργανης παρευρέθηκαν διακεκριμένοι αθλητές, μεταξύ των οποίων ο Λευτέρης Πετρούνιας, ο Βλάσης Μάρας, ο Βασίλης Τσολακίδης και η Βαρβάρα Φίλιου, μαζί με προπονητές, εκπροσώπους φορέων και αθλητές του συλλόγου."
       ],
       "source": "Καστανιά Πιερίας News · 27/02/2019",
-      "sourceUrl": "https://kastania-pierias.blogspot.com/2019/02/blog-post_248.html?m=0"
+      "sourceUrl": "https://kastania-pierias.blogspot.com/2019/02/blog-post_248.html?m=0",
+      "personIds": [
+        "arch-ec55ccba275f"
+      ]
     }
   ]
 }
