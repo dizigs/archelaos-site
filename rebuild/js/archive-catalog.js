@@ -64,7 +64,13 @@ async function create(){
    m.body.join(' '),m.year,m,[m.title_en,...m.body_en].join(' '));
  stories.stories.forEach((s,i)=>add('story',i+1,s.title,s.sport,
    s.lead+' '+s.text,s.year,s));
- for(const s of home.sports)add('department',s.key,s.name,'Αθλητικό τμήμα',s.description,'',s);
+ const sportArticles=new Map((museum.articles||[]).map(a=>[a.id,a]));
+ for(const sport of home.sports){
+  const article=sportArticles.get(sport.key);
+  add('department',sport.key,sport.name,'Αθλητικό τμήμα',
+   [sport.description,article?.title,plainText(article?.html)].filter(Boolean).join(' '),
+   article?.period||'',sport);
+ }
  for(const game of schedule.matches||[]){
   if(game.approval?.status!=='owner_approved')continue;
   const sport=game.sport==='volleyball'?'Βόλεϊ':game.sport==='handball'?'Χάντμπολ':game.sport;
