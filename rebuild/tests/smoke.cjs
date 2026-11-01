@@ -32,7 +32,8 @@ async function run(){
       await page.locator('.av-empty').waitFor();
     }
     if(name==='contribute'){
-      if(await page.locator('input[type=file],form').count())throw Error('Unexpected unfinished upload form');
+      if(await page.locator('#ac-attachments[type="file"][multiple]').count()!==1||await page.locator('#ac-archive-link[type="url"]').count()!==1)
+       throw Error('Archive contribution must support attachments and Google Drive URLs');
       const email=await page.locator('#ac-guide-email').getAttribute('href');
       if(!email?.startsWith('mailto:'))throw Error('Missing archive contact');
     }
