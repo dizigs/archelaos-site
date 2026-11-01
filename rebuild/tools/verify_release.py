@@ -187,7 +187,7 @@ def verify() -> None:
     media_js = (DIST / "assets/news.js").read_text(encoding="utf-8")
     assert "const fig=media(x,'an-cover')" in media_js, "News modal must mount its live image element"
     assert "const fig=document.createElement('figure')" not in media_js, "Detached news cover figure regression"
-    assert "img.src='/'+path" in media_js, "News images must use absolute site-root URLs"
+    assert "img.src=original?path:'/'+path" in media_js, "News images must support absolute original URLs and local archives"
     assert "an-cover" in media_js and "an-feature-media" in media_js
     for article in news["items"]:
         path = article.get("image", "")
