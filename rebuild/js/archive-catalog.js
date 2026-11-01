@@ -15,7 +15,7 @@ const urlFor=(type,id,entity)=>{
   exhibit:'/history.html#archive-'+value,
   interview:'/interviews.html?record='+value,
   department:'/tmimata.html#sport-'+value,
-  fixture:'/index.html#upcoming-matches',
+  fixture:'/index.html?fixture='+value+'#upcoming-matches',
   photo:'/index.html#sport-photo-'+encodeURIComponent(String(entity?.key||''))
  };
  return routes[type]||null;
