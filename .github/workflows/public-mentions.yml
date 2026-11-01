@@ -1,5 +1,11 @@
 name: Public press and social discovery
 on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/public-mentions.yml'
+      - 'rebuild/tools/public_mentions.py'
+      - 'rebuild/research/public-mentions-sources.json'
   schedule:
     - cron: '41 7 * * 2,5'
   workflow_dispatch:
