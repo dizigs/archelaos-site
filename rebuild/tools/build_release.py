@@ -447,6 +447,8 @@ def make_release() -> None:
         "\n/*.html\n  Cache-Control: no-cache, max-age=0, must-revalidate\n"
         "\n/assets/site/js/*\n  Cache-Control: no-cache, max-age=0, must-revalidate\n"
         "\n/assets/site/data/*\n  Cache-Control: no-store\n"
+        "\n/news.json\n  Cache-Control: no-store\n"
+        "\n/hall-of-fame-people.json\n  Cache-Control: no-store\n"
         "\n/images/*\n  Cache-Control: public, max-age=604800\n"
         "\n/calendar.ics\n  Cache-Control: public, max-age=0, must-revalidate\n",
         encoding="utf-8"
