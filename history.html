@@ -3130,7 +3130,7 @@ html body #museum-history #history-archive .museum-sport-access-panel .v61-sport
   margin-top:24px!important;gap:clamp(12px,1.6vw,22px)!important;
 }
 @media(max-width:640px){html body #museum-history #history-archive .museum-sport-access-panel{padding:24px 18px!important;margin-block:28px!important}}
-</style></head>
+</style><link rel="stylesheet" href="/assets/favorites.css"></head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow arch-gold-page" data-arch-people-page="history">
 <!-- ANIMATED CONTOUR WAVES -->
 <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-75">
@@ -7386,5 +7386,5 @@ function render(){
 fetch('interviews.json').then(r=>r.ok?r.json():Promise.reject()).then(x=>{rows=x.items||[];render()}).catch(()=>{});
 input.addEventListener('input',render);
 })();
-</script></body>
+</script><script src="/assets/favorites.js" defer></script><script src="/assets/favorite-dialogs.js" defer></script></body>
 </html>
