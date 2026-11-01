@@ -11,8 +11,20 @@ function init(){
   const topic=form.querySelector('#ct-topic'),sportWrap=form.querySelector('#ct-sport-wrap'),sport=form.querySelector('#ct-sport');
   topic.value=alias[query]||'';
   const archiveExtra=form.querySelector('#ct-archive-extra');
-  const sync=()=>{const sportTopic=topic.value==='sport';sportWrap.hidden=!sportTopic;sport.required=sportTopic;if(!sportTopic)sport.value='';archiveExtra.hidden=topic.value!=='archive'};
-  topic.addEventListener('change',sync);sync();
+  const creditChoice=form.querySelector('#ct-credit-choice');
+  const nameConsent=form.querySelector('#ct-credit-consent');
+  const creditWrap=form.querySelector('#ct-credit-name-wrap');
+  const creditName=form.querySelector('#ct-credit-name');
+  const syncCredit=()=>{creditWrap.hidden=!nameConsent.checked;if(!nameConsent.checked)creditName.value=''};
+  const sync=()=>{
+   const sportTopic=topic.value==='sport',isContribution=topic.value==='archive';
+   sportWrap.hidden=!sportTopic;sport.required=sportTopic;if(!sportTopic)sport.value='';
+   archiveExtra.hidden=!isContribution;creditChoice.hidden=!isContribution;
+   if(!isContribution){nameConsent.checked=false;creditName.value=''}
+   syncCredit();
+  };
+  topic.addEventListener('change',sync);
+  nameConsent.addEventListener('change',syncCredit);sync();
   if(topic.value==='sport' && [...sport.options].some(o=>o.value===requestedSport))sport.value=requestedSport;
 
   form.addEventListener('submit',async event=>{
@@ -26,6 +38,10 @@ function init(){
     'Θέμα: '+(subjectMap[data.get('topic')]||data.get('topic')),
     ...(data.get('sport')?['Άθλημα: '+data.get('sport')]:[]),
     ...(data.get('archiveLink')?['Σύνδεσμος Google Drive: '+data.get('archiveLink')]:[]),
+    ...(data.get('topic')==='archive' ? [
+      'Δημόσια αναφορά ονόματος: '+(nameConsent.checked?'ΝΑΙ — επιτρέπεται η αναφορά εφόσον δημοσιευτεί η συνεισφορά':'ΟΧΙ — καμία δημόσια αναφορά'),
+      ...(nameConsent.checked?['Όνομα δημόσιας αναφοράς: '+(creditName.value.trim()||String(data.get('name')||''))]:[])
+    ]:[]),
     '',String(data.get('message')||'')
    ];
    const emailUrl='mailto:info@archelaos.club?subject='+encodeURIComponent(
@@ -46,6 +62,8 @@ function init(){
      if(capability?.ready){
       const payload=new FormData(form);
       payload.set('consent','true');
+      payload.set('publicNameConsent',data.get('topic')==='archive'&&nameConsent.checked?'true':'false');
+      payload.set('publicName',data.get('topic')==='archive'&&nameConsent.checked?(creditName.value.trim()||String(data.get('name')||'')):'');
       payload.delete('attachments');
       attachments.forEach(file=>payload.append('attachments',file,file.name));
       status.textContent='Αποστολή μηνύματος…';
