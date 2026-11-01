@@ -10,7 +10,7 @@ if(allProfiles.length!==682)throw Error('Expected all 682 profiles before access
 const routes=['index.html','history.html','hall-of-fame.html','70-stigmes.html',
  'stories.html','board.html','contact.html','sponsors.html','tmimata.html',
  'retro-matches.html','search.html','favorites.html','contribute.html',
- '404.html','people/'+allProfiles[0]];
+ 'interviews.html','404.html','people/'+allProfiles[0]];
 // Full route coverage at representative mobile + desktop widths; geometric QA
 // independently tests six responsive widths.
 const viewports=[{width:390,height:844},{width:1280,height:800}];
