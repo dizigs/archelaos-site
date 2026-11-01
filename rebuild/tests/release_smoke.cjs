@@ -37,7 +37,21 @@ async function verify(){
     if(stageRefs)throw Error(name+': staging asset leaked');
     if(tag==='hall')await page.waitForFunction(()=>document.querySelector('#hall-count')?.textContent.includes('682'));
     if(tag==='moments')await page.locator('.rm-moment').first().waitFor();
-    if(tag==='museum')await page.locator('.mu-sports-link').first().waitFor();
+    if(tag==='museum'){
+     await page.locator('.mu-sports-link').first().waitFor();
+     const modal=page.locator('dialog.arch-dialog');
+     await page.locator('.mu-exhibit[data-year="1956"]').click();
+     await modal.locator('.arch-dialog-body').waitFor();
+     const founding=await modal.locator('.arch-dialog-body').innerText();
+     if(!founding.includes('29 Απριλίου 1956')||founding.includes('27 Ιουνίου 1968'))
+      throw Error('1956 Museum popup must show only the founding paragraph');
+     await modal.locator('.arch-close').click();
+     await page.locator('.mu-exhibit[data-year="1968"]').click();
+     const colours=await modal.locator('.arch-dialog-body').innerText();
+     if(!colours.includes('27 Ιουνίου 1968')||!colours.includes('Καθορίζονται οριστικώς')||colours.includes('29 Απριλίου 1956'))
+      throw Error('1968 Museum popup must show only the club colours and historical quotation');
+     await modal.locator('.arch-close').click();
+    }
     if(tag==='stories')await page.locator('.rs-card').first().waitFor();
     if(tag==='board')await page.locator('.bd-member').first().waitFor();
     if(tag==='board'){
