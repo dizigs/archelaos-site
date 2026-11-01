@@ -14,7 +14,7 @@ function media(x,cls){
  const path=String(x.image||'');
  const local=/^(?:images|assets)\/[a-zA-Z0-9._/-]+\.(?:webp|jpg|jpeg|png)$/.test(path);
  let original=false;
- try{const u=new URL(path);original=u.protocol==='https:'&&['i0.wp.com','i1.wp.com','i2.wp.com','i3.wp.com','pieriasocial.gr','www.handball.org.gr','www.palmare.gr','www.pierianews.gr','odelalis.gr','pieria24.gr','odialogos.gr','www.odialogos.gr','katerini.gr','www.katerini.gr'].includes(u.hostname)}catch(_){}
+ try{const u=new URL(path);original=u.protocol==='https:'&&!!u.hostname&&!u.username&&!u.password}catch(_){}
  const empty=()=>{
    b.classList.remove('is-emblem');b.classList.add('is-unillustrated');b.replaceChildren();
    const line=document.createElement('span');line.className='an-no-photo';
