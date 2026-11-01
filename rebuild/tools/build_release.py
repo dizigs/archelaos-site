@@ -430,6 +430,18 @@ def make_release() -> None:
     for fixture in validate_matches(match_data):
         item = {**match_data, "matches": [fixture]}
         (individual / (fixture["id"] + ".ics")).write_bytes(make_ical(item).encode("utf-8"))
+    # Regenerate stable subscription URLs from the SAME weekly training JSON
+    # that sports popups use. Subscribed users receive future published changes
+    # on their calendar app's refresh schedule.
+    from build_training_schedule import calendar as training_ical, validate as validate_training
+    training_data = json.loads((STAGE / "data" / "training-schedule.json").read_text(encoding="utf-8"))
+    training_groups = validate_training(training_data)
+    training_dir = OUTPUT / "calendar" / "training"
+    training_dir.mkdir(parents=True, exist_ok=True)
+    (training_dir / "all.ics").write_bytes(training_ical(training_data).encode("utf-8"))
+    for key, details in training_groups.items():
+        if details["sessions"]:
+            (training_dir / (key + ".ics")).write_bytes(training_ical(training_data, key).encode("utf-8"))
     (OUTPUT / "sitemaps").mkdir()
     (OUTPUT / "sitemaps" / "pages.xml").write_text(
         sitemap_xml([entry["path"] for entry in pages if entry.get("indexable", True)]), encoding="utf-8"
@@ -462,6 +474,7 @@ def make_release() -> None:
         "\n/hall-of-fame-people.json\n  Cache-Control: no-store\n"
         "\n/images/*\n  Cache-Control: public, max-age=604800\n"
         "\n/calendar.ics\n  Cache-Control: public, max-age=0, must-revalidate\n",
+        "\n/calendar/training/*\n  Content-Type: text/calendar; charset=utf-8\n  Cache-Control: no-store, max-age=0\n",
         encoding="utf-8"
     )
     (OUTPUT / "site.webmanifest").write_text(js_data({
