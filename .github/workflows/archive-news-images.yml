@@ -6,6 +6,9 @@ on:
       - 'tools/import_news_images.py'
       - '.github/workflows/archive-news-images.yml'
       - 'news.json'
+concurrency:
+  group: archelaos-news-photo-archive
+  cancel-in-progress: true
 permissions:
   contents: write
 jobs:
