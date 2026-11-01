@@ -470,8 +470,8 @@ def make_release() -> None:
     # including all 682 people profiles and the 404 page. This prevents a split
     # between cached mobile styles and fresh desktop HTML after deployment.
     static_ref = re.compile(
-        r'(?P<quote>["\\x27])(?P<asset>/assets/site/(?:css|js)/'
-        r'[A-Za-z0-9._/-]+\\.(?:css|js))(?:[?][^"\\x27]*)?(?P=quote)'
+        r'(?P<quote>["\x27])(?P<asset>/assets/site/(?:css|js)/'
+        r'[A-Za-z0-9._/-]+\.(?:css|js))(?:[?][^"\x27]*)?(?P=quote)'
     )
     fingerprints = {}
     for page in OUTPUT.rglob("*.html"):
