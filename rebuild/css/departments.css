@@ -119,62 +119,68 @@
   text-wrap:pretty;
 }
 
-/* ARCHÉLAOS | Picture-led sports atlas, matching the six-card editorial concept.
-   Nine photo/sport cards; historic departments are a tenth, date-only card. */
+/* ARCHÉLAOS | Classic cream-and-forest archive cards with gently blurred sports photography.
+   The entire card remains a native button. There are NO nested action labels.
+   Only the tenth, historical-departments card keeps its date watermark. */
 .dp-content{position:relative;isolation:isolate;overflow:hidden;background:radial-gradient(ellipse at 9% 4%,#faf2e2,#f8f6ef 70%);padding:clamp(56px,7vw,89px) 0}
-.dp-content::before{content:"";position:absolute;left:-92px;top:28px;width:355px;height:355px;background:url("/archelaos-logo-gold.png") center/contain no-repeat;opacity:.085;pointer-events:none}
+.dp-content::before{content:"";position:absolute;left:-92px;top:28px;width:355px;height:355px;background:url("/archelaos-logo-gold.png") center/contain no-repeat;opacity:.07;pointer-events:none}
 .dp-content>.arch-container{position:relative;z-index:1}
 .dp-content .dp-eyebrow{letter-spacing:.26em;color:#6e5227}
 .dp-content h2{font:500 clamp(40px,5.35vw,70px)/1.08 Georgia,serif;margin-bottom:14px}
 .dp-content .dp-desc{margin-bottom:35px;color:#35483a;font-size:clamp(15px,1.4vw,18px)}
-.dp-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
-.dp-card:not([data-dp-open="inactive-depts"]){
+.dp-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.dp-grid .dp-card:not([data-dp-open="inactive-depts"]){
  --dp-photo:none;
- isolation:isolate;box-sizing:border-box;position:relative;
- min-height:225px;padding:29px 24px 29px 119px;gap:14px;
- display:flex;align-items:flex-start;justify-content:center;
- text-align:left;color:#073d2a;background:#f9f2e4;
- border:2px solid #b88b3c;border-radius:22px;
- box-shadow:0 14px 27px #002b171c, inset 0 0 0 2px #fffaf2;
- overflow:hidden;
+ position:relative;isolation:isolate;overflow:hidden;
+ box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;
+ gap:12px;min-height:270px;padding:62px 27px 34px;text-align:center;
+ border:1.5px solid #c3a56a;border-radius:23px;
+ box-shadow:0 12px 30px #14391e18;
+ transition:transform .2s ease,box-shadow .2s ease;
 }
-.dp-card:not([data-dp-open="inactive-depts"])::before{
- content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
- background-image:
-  linear-gradient(90deg,#faf2e3 0%,#faf2e3 28%,#faf2e3f2 45%,#faf2e38a 63%,#0b452d3d 100%),
-  var(--dp-photo);
- background-repeat:no-repeat;background-position:center,center right;background-size:cover;
- filter:grayscale(.58) sepia(.16) saturate(.69);
+.dp-grid .dp-card.dp-cream:not([data-dp-open="inactive-depts"]){
+ background:#f7f0e2;color:#073d2a;
 }
-.dp-card:not([data-dp-open="inactive-depts"]):hover::before{filter:grayscale(.38) sepia(.12) saturate(.82)}
-.dp-card:not([data-dp-open="inactive-depts"]) .dp-year{display:none}
-.dp-card:not([data-dp-open="inactive-depts"]) .dp-title{
- position:relative;z-index:2;max-width:min(100%,350px);
- margin:0;color:#073d2a;font:500 clamp(24px,2.3vw,33px)/1.14 Georgia,serif;
- text-align:left;text-wrap:balance;
+.dp-grid .dp-card.dp-green:not([data-dp-open="inactive-depts"]){
+ background:#093e2d;color:#fcf4e4;
 }
-.dp-card:not([data-dp-open="inactive-depts"]) .dp-silhouette{
- position:absolute;z-index:2;left:25px;right:auto;top:50%;bottom:auto;
- width:75px;height:92px;opacity:1;background:#083e2d;
- transform:translateY(-50%);filter:none!important;
- transition:transform .2s ease;
+.dp-grid .dp-card:not([data-dp-open="inactive-depts"])::before{
+ content:"";position:absolute;inset:-9px;z-index:0;pointer-events:none;
+ background-image:var(--dp-photo);background-position:center;background-size:cover;
+ filter:blur(5px) grayscale(.48) sepia(.25) saturate(.72);opacity:.25;
 }
-.dp-card:not([data-dp-open="inactive-depts"]):hover .dp-silhouette{
- transform:translateY(-50%) scale(1.055);opacity:1;filter:none!important;
+.dp-grid .dp-card.dp-green:not([data-dp-open="inactive-depts"])::before{opacity:.20;filter:blur(5px) grayscale(.45) sepia(.14)}
+.dp-grid .dp-card:not([data-dp-open="inactive-depts"])::after{
+ content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+ background:linear-gradient(125deg,#f7f0e2dc,#f7f0e2b5);
 }
-.dp-card:not([data-dp-open="inactive-depts"]) .dp-description{
- position:absolute!important;width:1px;height:1px;overflow:hidden;
- padding:0;border:0;white-space:nowrap;clip-path:inset(50%);
+.dp-grid .dp-card.dp-green:not([data-dp-open="inactive-depts"])::after{
+ background:linear-gradient(125deg,#073d2acf,#073d2ab0);
 }
-.dp-card .dp-cta{
- position:relative;z-index:2;display:inline-flex;align-items:center;justify-content:center;
- min-height:39px;padding:8px 18px;gap:9px;border-radius:99px;
- border:1px solid #c4a15d;background:#073d2a;color:#f8e6b8;
- font:750 13px/1.2 Inter,system-ui,sans-serif;
- box-shadow:0 4px 11px #073d2a30;white-space:nowrap;
+.dp-grid .dp-card:not([data-dp-open="inactive-depts"]) > :is(.dp-year,.dp-title,.dp-description){position:relative;z-index:2}
+.dp-grid .dp-card:not([data-dp-open="inactive-depts"]) .dp-year{
+ display:block;position:absolute;top:24px;left:26px;right:auto;
+ color:#8e7138;font:600 clamp(19px,2vw,23px) Georgia,serif;
 }
-.dp-card .dp-cta span{font-size:20px;line-height:.6}
-.dp-card:not([data-dp-open="inactive-depts"]):focus-visible{outline:3px solid #9c6f25;outline-offset:4px}
+.dp-grid .dp-card.dp-green:not([data-dp-open="inactive-depts"]) .dp-year{color:#e5c791}
+.dp-grid .dp-card:not([data-dp-open="inactive-depts"]) .dp-title{
+ max-width:95%;margin:0;text-align:center;text-wrap:balance;
+ font:500 clamp(28px,3.05vw,42px)/1.14 Georgia,serif;
+ color:inherit;
+}
+.dp-grid .dp-card:not([data-dp-open="inactive-depts"]) .dp-description{
+ display:block;width:auto;height:auto;overflow:visible;clip-path:none;
+ max-width:520px;white-space:normal;font-size:13px;line-height:1.65;
+ text-align:center;color:#506857;
+}
+.dp-grid .dp-card.dp-green:not([data-dp-open="inactive-depts"]) .dp-description{color:#d6e5d9}
+.dp-grid .dp-card:not([data-dp-open="inactive-depts"]) .dp-silhouette{display:none!important}
+.dp-grid .dp-card:not([data-dp-open="inactive-depts"]):hover{
+ transform:translateY(-3px);box-shadow:0 18px 38px #14391e24;
+}
+.dp-grid .dp-card:not([data-dp-open="inactive-depts"]):focus-visible{
+ outline:3px solid #ad833e;outline-offset:4px;
+}
 .dp-card[data-dp-open="handball"]{--dp-photo:url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaOFUCWatPwP-EycFiHffCCMk_Kz1ScNWPtg7znhR3mQ&s=10")}
 .dp-card[data-dp-open="track"]{--dp-photo:url("https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=1200&q=80")}
 .dp-card[data-dp-open="archery"]{--dp-photo:url("/images/archery-outdoor-youth.webp")}
@@ -184,32 +190,27 @@
 .dp-card[data-dp-open="wrestling"]{--dp-photo:url("/images/wrestling-action.webp")}
 .dp-card[data-dp-open="swimming"]{--dp-photo:url("https://images.unsplash.com/photo-1530549387789-4c1017266635?auto=format&fit=crop&w=1200&q=80")}
 .dp-card[data-dp-open="basketball"]{--dp-photo:url("https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=1200&q=80")}
-.dp-card[data-dp-open="inactive-depts"]{
- position:relative;min-height:225px;border:2px solid #b88b3c;
- border-radius:22px;box-shadow:0 14px 27px #002b171c;
+.dp-grid .dp-card[data-dp-open="inactive-depts"]{
+ position:relative;min-height:270px;border:1.5px solid #c3a56a;
+ border-radius:23px;box-shadow:0 12px 30px #14391e18;
  background:linear-gradient(135deg,#0d5039,#063a28);
 }
-.dp-card[data-dp-open="inactive-depts"] .dp-title{color:#f9efda}
-.dp-card[data-dp-open="inactive-depts"] .dp-description{color:#e2e9dc}
-.dp-card[data-dp-open="inactive-depts"] .dp-watermark{display:block}
-.dp-card[data-dp-open="inactive-depts"] .dp-silhouette{display:none!important}
+.dp-grid .dp-card[data-dp-open="inactive-depts"] .dp-title{color:#f9efda}
+.dp-grid .dp-card[data-dp-open="inactive-depts"] .dp-description{color:#e2e9dc}
+.dp-grid .dp-card[data-dp-open="inactive-depts"] .dp-watermark{display:block}
+.dp-grid .dp-card[data-dp-open="inactive-depts"] .dp-silhouette{display:none!important}
 .dp-bottom{justify-content:center}
-@media(max-width:960px){
- .dp-card:not([data-dp-open="inactive-depts"]){padding-left:98px;min-height:215px}
- .dp-card:not([data-dp-open="inactive-depts"]) .dp-silhouette{left:17px;width:65px;height:80px}
-}
 @media(max-width:720px){
  .dp-grid{grid-template-columns:1fr;gap:16px}
- .dp-card:not([data-dp-open="inactive-depts"]){padding:24px 20px 24px 100px;min-height:205px}
- .dp-card:not([data-dp-open="inactive-depts"]) .dp-silhouette{left:18px;width:67px;height:85px}
- .dp-card:not([data-dp-open="inactive-depts"]) .dp-title{font-size:clamp(25px,6.3vw,33px)}
- .dp-card:not([data-dp-open="inactive-depts"])::before{
-  background-image:linear-gradient(90deg,#faf2e3 0%,#faf2e3 24%,#faf2e3ed 53%,#faf2e3a1 72%,#0b452d45 100%),var(--dp-photo)}
+ .dp-grid .dp-card:not([data-dp-open="inactive-depts"]),
+ .dp-grid .dp-card[data-dp-open="inactive-depts"]{min-height:225px}
+ .dp-grid .dp-card:not([data-dp-open="inactive-depts"]){padding:58px 20px 24px}
+ .dp-grid .dp-card:not([data-dp-open="inactive-depts"]) .dp-title{
+  font-size:clamp(27px,7vw,38px)
+ }
+ .dp-grid .dp-card:not([data-dp-open="inactive-depts"]) .dp-description{font-size:12px}
 }
-@media(max-width:390px){
- .dp-card:not([data-dp-open="inactive-depts"]){padding-left:86px;min-height:215px}
- .dp-card:not([data-dp-open="inactive-depts"]) .dp-silhouette{left:14px;width:57px;height:70px}
- .dp-card:not([data-dp-open="inactive-depts"]) .dp-title{font-size:24px}
- .dp-card .dp-cta{font-size:12px;padding:8px 13px}
+@media(prefers-reduced-motion:reduce){
+ .dp-grid .dp-card:not([data-dp-open="inactive-depts"]){transition:none}
+ .dp-grid .dp-card:not([data-dp-open="inactive-depts"]):hover{transform:none}
 }
-@media(prefers-reduced-motion:reduce){.dp-card:not([data-dp-open="inactive-depts"]) .dp-silhouette{transition:none}}
