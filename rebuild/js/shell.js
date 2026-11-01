@@ -2,15 +2,15 @@
 (function(){
 'use strict';
 const pages=[
-  ['index.html','Αρχική'],['history.html','Ψηφιακό Μουσείο'],
+  ['index.html','Αρχική'],['news.html','Νέα & Δράση'],['history.html','Ψηφιακό Μουσείο'],
   ['70-stigmes.html','70 Στιγμές'],['hall-of-fame.html','Hall of Fame'],
   ['stories.html','Ιστορίες'],['index.html#about','Ο Σύλλογος'],
   ['tmimata.html','Τμήματα'],['board.html','Διοίκηση'],
   ['sponsors.html','Χορηγίες'],['contact.html','Επικοινωνία'],['search.html','Αναζήτηση'],['favorites.html','Αγαπημένα'],['contribute.html','Συνεισφορά Αρχείου'],['interviews.html','Φωνές του Αρχέλαου']
 ];
-const groups=[['Αρχείο',[2,3,4,13]],['Ο Σύλλογος',[5,6,7,8,9]]];
+const groups=[['Αρχείο',[3,4,5,14]],['Ο Σύλλογος',[6,7,8,9,10]]];
 const path=(location.pathname.split('/').pop()||'index.html').toLowerCase();
-const COMPLETED=new Set(['index.html','history.html','hall-of-fame.html','70-stigmes.html','stories.html','board.html','contact.html','sponsors.html','tmimata.html','retro-matches.html','search.html','favorites.html','contribute.html','interviews.html']);
+const COMPLETED=new Set(['index.html','news.html','history.html','hall-of-fame.html','70-stigmes.html','stories.html','board.html','contact.html','sponsors.html','tmimata.html','retro-matches.html','search.html','favorites.html','contribute.html','interviews.html']);
 const stageUrl=(href)=>{
  if(!location.pathname.startsWith('/rebuild/'))return href;
  try{
@@ -66,16 +66,16 @@ function renderHeader(){
   const sub=document.createElement('span');sub.className='arch-brand-sub';sub.textContent='ΚΑΤΕΡΙΝΗ · 1956—2026';
   lines.append(title,sub);brand.append(crest,lines);inner.append(brand);
   const nav=document.createElement('nav');nav.className='arch-nav';nav.setAttribute('aria-label','Κύρια πλοήγηση');
-  addLink(nav,pages[0]);addLink(nav,pages[1]);
+  addLink(nav,pages[0]);addLink(nav,pages[1]);addLink(nav,pages[2]);
   for(const group of groups){
     const details=document.createElement('details');const sum=document.createElement('summary');sum.textContent=group[0];
     const panel=document.createElement('div');panel.className='arch-dropdown';
     group[1].forEach(i=>addLink(panel,pages[i]));details.append(sum,panel);nav.append(details);
   }
-  iconLink(nav,pages[10],'search','arch-nav-search','Αναζήτηση');inner.append(nav);
+  iconLink(nav,pages[11],'search','arch-nav-search','Αναζήτηση');inner.append(nav);
   const actions=document.createElement('div');actions.className='arch-header-actions';
-  iconLink(actions,pages[11],'heart','arch-action arch-action-favorites','Αγαπημένα');
-  iconLink(actions,pages[12],'plus','arch-action arch-action-contribute','Συνεισφέρω');
+  iconLink(actions,pages[12],'heart','arch-action arch-action-favorites','Αγαπημένα');
+  iconLink(actions,pages[13],'plus','arch-action arch-action-contribute','Συνεισφέρω');
   // Reserved for any number of approved languages; hidden until publication is enabled.
   const desktopLanguageSlot=document.createElement('div');desktopLanguageSlot.className='arch-language-slot';desktopLanguageSlot.dataset.i18nSlot='desktop';desktopLanguageSlot.hidden=true;
   actions.append(desktopLanguageSlot);inner.append(actions);
@@ -88,12 +88,12 @@ function renderHeader(){
   head.append(name,close);drawer.append(head);
   const content=document.createElement('div');content.className='arch-menu-content';
   const quick=document.createElement('div');quick.className='arch-menu-quick';quick.setAttribute('aria-label','Γρήγορη πρόσβαση');
-  iconLink(quick,pages[11],'heart','arch-mobile-action arch-mobile-favorites','Τα αγαπημένα μου');
-  iconLink(quick,pages[12],'plus','arch-mobile-action arch-mobile-contribute','Συνεισφορά αρχείου');
+  iconLink(quick,pages[12],'heart','arch-mobile-action arch-mobile-favorites','Τα αγαπημένα μου');
+  iconLink(quick,pages[13],'plus','arch-mobile-action arch-mobile-contribute','Συνεισφορά αρχείου');
   content.append(quick);
   const mobileLanguageSlot=document.createElement('div');mobileLanguageSlot.className='arch-language-slot arch-language-slot-mobile';mobileLanguageSlot.dataset.i18nSlot='mobile';mobileLanguageSlot.hidden=true;
   content.append(mobileLanguageSlot);
-  for(const group of [['Εξερεύνηση',[0,1,2,3,4,10,13]],['Ο Σύλλογος',[5,6,7,8,9]]]){
+  for(const group of [['Εξερεύνηση',[0,1,2,3,4,5,11,14]],['Ο Σύλλογος',[6,7,8,9,10]]]){
     const caption=document.createElement('div');caption.className='arch-menu-group';caption.textContent=group[0];content.append(caption);
     group[1].forEach(i=>{addLink(content,pages[i],'arch-mobile-link')});
   }
