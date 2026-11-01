@@ -38,7 +38,8 @@ function populate(data){
   const b=$el('button','mu-exhibit');b.type='button';b.setAttribute('data-year',year);
   b.append($el('span','',year),$el('strong','',title),$el('small','',desc));b.addEventListener('click',()=>open(id));exhibitsRoot.append(b);
  }
- for(const p of data.press){records.set(p.id,p);$('#mu-press-grid').append(makeButton({id:p.id,title:p.title,period:p.year},'mu-press-item'))}
+ // Preserve historical press records for bookmarked deep links, without a duplicate Museum grid.
+ for(const p of data.press){records.set(p.id,p)}
  for(const id of ['intro','dioikisi','egkatastaseis','diia']){
   const record=records.get(id);if(record)$('#mu-history-grid').append(makeButton(record,'mu-archive-item'));
  }
