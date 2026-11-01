@@ -169,3 +169,28 @@
 .mu-interviews-card:hover{box-shadow:0 22px 45px #073d2a40}
 .mu-interviews-card:focus-visible{outline:3px solid #c7a65e;outline-offset:4px}
 @media(max-width:650px){.mu-interviews-card{min-height:260px}.mu-interviews-ornament{right:-5%;opacity:.07}}
+
+/* Five curated historical exhibits in one uninterrupted gallery:
+   three cards on the first row and two wider cards on the second. */
+.mu-explore .mu-nav-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+#museum-exhibits .mu-exhibit-grid{grid-template-columns:repeat(6,minmax(0,1fr));gap:20px}
+#museum-exhibits .mu-exhibit{grid-column:span 2;min-width:0;min-height:286px;transition:box-shadow .2s ease,transform .2s ease}
+#museum-exhibits .mu-exhibit:nth-child(n+4){grid-column:span 3;min-height:255px}
+#museum-exhibits .mu-exhibit:nth-child(4){background:linear-gradient(135deg,#094c37,#073d2a);color:#fffaf0}
+#museum-exhibits .mu-exhibit::after{content:attr(data-ghost);font-size:clamp(75px,9vw,120px);right:10px;bottom:-.12em;color:#c1a46a26}
+#museum-exhibits .mu-exhibit:nth-child(4)::after{color:#f4deb31b}
+#museum-exhibits .mu-exhibit:nth-child(2)>span,#museum-exhibits .mu-exhibit:nth-child(4)>span{color:#f2d49b}
+#museum-exhibits .mu-exhibit strong{font-size:clamp(26px,2.45vw,34px);line-height:1.16;overflow-wrap:break-word}
+#museum-exhibits .mu-exhibit:hover{transform:translateY(-3px);box-shadow:0 16px 35px #073d2a22}
+#museum-exhibits .mu-exhibit:focus-visible{outline:3px solid #b6924a;outline-offset:4px}
+@media(max-width:900px){
+ #museum-exhibits .mu-exhibit-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #museum-exhibits .mu-exhibit,#museum-exhibits .mu-exhibit:nth-child(n+4){grid-column:span 1}
+}
+@media(max-width:620px){
+ .mu-explore .mu-nav-grid,#museum-exhibits .mu-exhibit-grid{grid-template-columns:1fr}
+ #museum-exhibits .mu-exhibit,#museum-exhibits .mu-exhibit:nth-child(n+4){grid-column:span 1;min-height:200px;padding:24px}
+ #museum-exhibits .mu-exhibit strong{font-size:clamp(25px,7vw,32px)}
+ #museum-exhibits .mu-exhibit::after{font-size:100px}
+}
+@media(prefers-reduced-motion:reduce){#museum-exhibits .mu-exhibit{transition:none}#museum-exhibits .mu-exhibit:hover{transform:none}}
