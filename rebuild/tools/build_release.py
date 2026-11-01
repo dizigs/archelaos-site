@@ -117,6 +117,17 @@ def create_page(entry: dict) -> None:
     raw = raw.replace("/rebuild/js/", "/assets/site/js/")
     raw = raw.replace("/rebuild/data/", "/assets/site/data/")
     raw = raw.replace("/rebuild/images/", "/assets/site/images/")
+    # Mobile and desktop share this page. Fingerprint department assets so
+    # phones cannot keep stale CSS/JS after a successful Cloudflare deploy.
+    if entry["file"] == "tmimata.html":
+        for asset in ("css/departments.css", "js/departments.js", "css/viewports.css"):
+            digest = sha256((OUTPUT / "assets/site" / asset).read_bytes()).hexdigest()[:12]
+            asset_url = "/assets/site/" + asset
+            raw = re.sub(
+                r'(' + re.escape(asset_url) + r')(?:\\?[^"\\x27]*)?',
+                lambda match, digest=digest: match.group(1) + "?v=" + digest,
+                raw,
+            )
     # Content-address the interview script on every release to defeat stale browser JS.
     if entry["file"] == "interviews.html":
         script_path = OUTPUT / "assets/site/js/interviews.js"
