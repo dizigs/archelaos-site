@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - rebuild/clean-foundation
+      - main
     paths:
       - 'rebuild/**'
       - '.github/workflows/rebuild-check.yml'
