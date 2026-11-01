@@ -9,7 +9,7 @@ export default {
   if(request.method!=='POST')return reply({error:'POST required'},405);
   if(!env.AI||!env.AI_LIMITER||!env.AI_MODEL)return reply({error:'AI service not configured'},503);
   const origin=request.headers.get('Origin');
-  if(origin && origin!==new URL(request.url).origin)return reply({error:'Invalid origin'},403);
+  if(origin && origin!== 'https://archelaos.club')return reply({error:'Invalid origin'},403);
   const ip=request.headers.get('CF-Connecting-IP');
   if(!ip)return reply({error:'Rate limiting unavailable'},503);
   const allowed=await env.AI_LIMITER.limit({key:ip});
@@ -36,7 +36,7 @@ export default {
     for(const row of data[source.key]||[]){
      if(source.filter&&!source.filter(row))continue;
      const doc=source.map(row),hay=norm(doc.title+' '+doc.text);
-     const score=terms.reduce((sum,term)=>sum+(hay.includes(term)?1:0),0);
+     const score=terms.reduce((sum,term)=>sum+(hay.includes(term)?1:0),0) + (terms.some(t=>norm(doc.title).includes(t))?2:0);
      if(score)docs.push({...doc,score});
     }
    }
