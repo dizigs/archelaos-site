@@ -10,10 +10,26 @@ const categories={achievements:['ΔΙΑΚΡΙΣΕΙΣ','ACHIEVEMENTS'],activitie
 const link=(href,label)=>{const a=document.createElement('a');a.href=href;a.textContent=label;return a};
 const label=x=>(categories[x.category]||['ΑΡΧΕΛΑΟΣ','ARCHELAOS'])[en()?1:0];
 function media(x,cls){
- const b=document.createElement('div');b.className=cls+(x.image?.includes('crest')?' is-emblem':'');
- if(x.image&&/^(?:images|assets)\/[a-zA-Z0-9._/-]+\.(?:webp|jpg|jpeg|png)$/.test(x.image)){
-  const img=document.createElement('img');img.src=x.image;img.alt=x.imageNote||x.title;img.loading='lazy';img.decoding='async';img.addEventListener('error',()=>{img.remove();b.classList.add('is-emblem');const alt=document.createElement('img');alt.src='assets/archelaos-crest.png';alt.alt='Έμβλημα Αρχέλαου';b.append(alt)},{once:true});b.append(img)
- }else{b.classList.add('is-emblem');const img=document.createElement('img');img.src='assets/archelaos-crest.png';img.alt='Έμβλημα Αρχέλαου';b.append(img)}
+ const b=document.createElement('div');b.className=cls;
+ const path=String(x.image||'');
+ const valid=/^(?:images|assets)\/[a-zA-Z0-9._/-]+\.(?:webp|jpg|jpeg|png)$/.test(path);
+ const emblem=()=>{b.classList.add('is-emblem');b.replaceChildren();const alt=document.createElement('img');alt.src='/assets/archelaos-crest.png';alt.alt='Έμβλημα Αρχέλαου';b.append(alt)};
+ if(!valid){emblem();return b}
+ if(path.includes('archelaos-crest')){emblem();return b}
+ const img=document.createElement('img');
+ img.src='/'+path;
+ img.alt=x.imageNote||x.title;
+ img.loading=cls==='an-feature-media'?'eager':'lazy';
+ img.decoding='async';
+ img.addEventListener('error',()=>{
+   // A failed Cloudflare image should not silently become the crest if the
+   // corresponding archived photograph is available in the GitHub repository.
+   if(!img.dataset.archiveFallback){
+     img.dataset.archiveFallback='1';
+     img.src='https://raw.githubusercontent.com/dizigs/archelaos-site/main/'+path;
+   }else emblem();
+ });
+ b.append(img);
  return b;
 }
 function info(x){return {title:x.title,summary:x.summary,href:'news.html?article='+encodeURIComponent(x.id)}}
@@ -76,7 +92,7 @@ dialog.addEventListener('close',()=>{active=null;const url=new URL(location.href
 $('an-search').addEventListener('input',e=>{state.query=e.target.value;draw()});
 document.querySelectorAll('.an-filter').forEach(b=>b.addEventListener('click',()=>{state.category=b.dataset.category;document.querySelectorAll('.an-filter').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));draw()}));
 document.addEventListener('archelaos:favorites-change',()=>{if(active){let b=$('an-dialog-heart'),on=window.ArchelaosFavorites.has('news',active.id);b.setAttribute('aria-pressed',String(on));b.querySelector('span').textContent=on?'♥':'♡'}});
-fetch('news.json',{cache:'no-store'}).then(r=>r.ok?r.json():Promise.reject(Error('HTTP '+r.status))).then(data=>{
+fetch('/news.json?rev=20261101-photo-archive',{cache:'no-store'}).then(r=>r.ok?r.json():Promise.reject(Error('HTTP '+r.status))).then(data=>{
  if(!Array.isArray(data.items))throw Error('Bad news index');state.items=data.items.filter(x=>x&&x.id&&x.title&&x.date&&!x.unverified).sort((a,b)=>b.date.localeCompare(a.date));
  $('an-total').textContent=state.items.length+' ΔΗΜΟΣΙΕΥΣΕΙΣ';featured();draw();const id=new URLSearchParams(location.search).get('article');if(id)show(id);
 }).catch(e=>{console.error('News loading:',e);$('an-count').textContent='Οι ειδήσεις δεν είναι προσωρινά διαθέσιμες.'});
