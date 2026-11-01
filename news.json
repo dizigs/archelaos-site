@@ -711,6 +711,28 @@
       "image": "https://www.pierianews.gr/wp-content/uploads/2024/12/pal6.jpg"
     },
     {
+      "id": "wrestling-pleven-bulgaria-dec-2024",
+      "date": "2024-12-10",
+      "sport": "Πάλη",
+      "category": "achievements",
+      "title": "Τρία χρυσά και δεύτερη ομαδική θέση στο Πλέβεν Βουλγαρίας",
+      "summary": "Οι αθλητές του Αρχέλαου κατέκτησαν τρία χρυσά στο διεθνές τουρνουά πάλης.",
+      "body": [
+        "Στο διεθνές τουρνουά πάλης στο Πλέβεν της Βουλγαρίας, τον Δεκέμβριο 2024, ο Αρχέλαος κατέλαβε τη δεύτερη θέση στην ομαδική κατάταξη.",
+        "Χρυσά μετάλλια κατέκτησαν οι Νίκος Ζινίσα, Παύλος Τσεντίδης και Γρηγόρης Ευθυμιάδης. Πέμπτοι κατετάγησαν οι Ταξιάρχης Λιάκος, Νίκος Μαυρίδης και Αχιλλέας Γιασιράνης, έβδομος ο Ευάγγελος Κορδονούλης και όγδοος ο Αριστοτέλης Ναβροζίδης."
+      ],
+      "source": "Ολύμπιο Βήμα · 10/12/2024",
+      "sourceUrl": "https://olympiobima.gr/3-chrysa-metallia-oi-protathlites-tou-archelaou-katerinis-sto-pleven-tis-voulgarias/",
+      "personIds": [
+        "arch-b48656c62600",
+        "arch-be8668380721",
+        "arch-aristotelis-navrozidis-wrest24"
+      ],
+      "image": "https://olympiobima.gr/wp-content/uploads/2024/12/3-xrysa-metallia-protathlites-arxelaoy-93756.webp",
+      "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2024/12/3-xrysa-metallia-protathlites-arxelaoy-93756.webp",
+      "imageNote": "Φωτογραφία αντίστοιχης αρχικής δημοσίευσης · Ολύμπιο Βήμα · 10/12/2024"
+    },
+    {
       "id": "handball-volos-2024",
       "date": "2024-11-25",
       "sport": "Χειροσφαίριση",
@@ -887,6 +909,46 @@
       "imageSourceUrl": "https://i2.wp.com/eptanews.gr/wp-content/uploads/2024/05/%CE%93%CE%A5%CE%9C%CE%9D%CE%91%CE%A3%CE%A4%CE%99%CE%9A%CE%97_34-copy.jpg?fit=733%2C235&ssl=1",
       "imageNote": "Φωτογραφία από το αντίστοιχο δημοσίευμα του Eptanews για τις παγκορασίδες του Αρχέλαου στη Μίκρα, 31/05/2024.",
       "imageKind": "article"
+    },
+    {
+      "id": "wrestling-u15-european-bronze-loutraki-2024",
+      "date": "2024-05-19",
+      "sport": "Πάλη",
+      "category": "achievements",
+      "title": "Χάλκινο του Νίκου Ζινίσα στο Ευρωπαϊκό Πρωτάθλημα Πάλης U15",
+      "summary": "Στο τρίτο σκαλί του βάθρου στο Λουτράκι ο αθλητής του Αρχέλαου.",
+      "body": [
+        "Ο Νίκος Ζινίσα του Γ.Α.Σ. Αρχέλαος Κατερίνης κατέκτησε χάλκινο μετάλλιο στο Ευρωπαϊκό Πρωτάθλημα Πάλης U15 στο Λουτράκι τον Μάιο 2024, αγωνιζόμενος με την Εθνική ομάδα.",
+        "Στη διοργάνωση συμμετείχε και ο Παύλος Τσεντίδης του Αρχέλαου, χωρίς να κατακτήσει μετάλλιο."
+      ],
+      "source": "Ολύμπιο Βήμα · 19/05/2024",
+      "sourceUrl": "https://olympiobima.gr/archelaos-katerinis-chalkino-metallio-o-nikos-zinisa-sto-panevropaiko-protathlima-palis-u15/",
+      "personIds": [
+        "arch-b48656c62600"
+      ],
+      "image": "https://olympiobima.gr/wp-content/uploads/2024/05/arxelaos-katerinis-xalkino-metallio-o-80559.webp",
+      "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2024/05/arxelaos-katerinis-xalkino-metallio-o-80559.webp",
+      "imageNote": "Φωτογραφία αντίστοιχης αρχικής δημοσίευσης · Ολύμπιο Βήμα · 19/05/2024"
+    },
+    {
+      "id": "gymnastics-valvi-beam-final-may-2024",
+      "date": "2024-05-19",
+      "sport": "Ενόργανη Γυμναστική",
+      "category": "achievements",
+      "title": "Έκτη στη δοκό η Ερμιόνη Βάλβη στο Πανελλήνιο Ενόργανης",
+      "summary": "Πρόκριση στον τελικό της δοκού και έκτη θέση για την αθλήτρια του Αρχέλαου.",
+      "body": [
+        "Η Ερμιόνη Βάλβη εκπροσώπησε τον Γ.Α.Σ. Αρχέλαος Κατερίνης στο Πανελλήνιο Πρωτάθλημα Ενόργανης Γυμναστικής Α΄–Β΄ Κατηγορίας, στις 11–12 Μαΐου 2024, στην αίθουσα «Ιωάννης Μελισσανίδης» της Θεσσαλονίκης.",
+        "Η αθλήτρια προκρίθηκε στον τελικό της δοκού και κατέλαβε την έκτη θέση. Την αποστολή πλαισίωσαν ο Φώτιος Παρθενίδης και οι προπονητές Βασίλειος Καλπακίδης και Φανή Γκιουσόγλου."
+      ],
+      "source": "Ολύμπιο Βήμα · 19/05/2024",
+      "sourceUrl": "https://olympiobima.gr/ston-teliko-i-valvi-tou-gas-archelaos-katerinis/",
+      "personIds": [
+        "arch-9bba434ae7e7"
+      ],
+      "image": "https://olympiobima.gr/wp-content/uploads/2024/05/ston-teliko-valvi-gas-arxelaos-26190.webp",
+      "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2024/05/ston-teliko-valvi-gas-arxelaos-26190.webp",
+      "imageNote": "Φωτογραφία αντίστοιχης αρχικής δημοσίευσης · Ολύμπιο Βήμα · 19/05/2024"
     },
     {
       "id": "shooting-2024-vyronas",
@@ -1147,6 +1209,29 @@
       "image": "https://olympiobima.gr/wp-content/uploads/2023/09/sarose-metallia-toxovolia-gas-archelaos-91776.webp",
       "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2023/09/sarose-metallia-toxovolia-gas-archelaos-91776.webp",
       "imageNote": "Φωτογραφία αρχικού δημοσιεύματος · Ολύμπιο Βήμα · 25/09/2023"
+    },
+    {
+      "id": "wrestling-world-istanbul-squad-july-2023",
+      "date": "2023-07-29",
+      "sport": "Πάλη",
+      "category": "club",
+      "title": "Τέσσερις παλαιστές του Αρχέλαου στην αποστολή για το Παγκόσμιο στην Κωνσταντινούπολη",
+      "summary": "Σωκράτης Κωνσταντινίδης, Λευτέρης και Δημήτρης Παππάς και Θανάσης Ευθυμιάδης στην Εθνική αποστολή.",
+      "body": [
+        "Στις 29 Ιουλίου 2023 ανακοινώθηκε η αναχώρηση τεσσάρων πρωταθλητών Ελλάδας του Αρχέλαου για την Κωνσταντινούπολη, όπου επρόκειτο να συμμετάσχουν με την Εθνική ομάδα στο Παγκόσμιο Πρωτάθλημα Πάλης από τις 31 Ιουλίου έως τις 6 Αυγούστου.",
+        "Οι αθλητές ήταν ο Σωκράτης Κωνσταντινίδης, ο Λευτέρης Παππάς, ο Δημήτρης Παππάς και ο Θανάσης Ευθυμιάδης. Το δημοσίευμα αφορά τη συμμετοχή στην αποστολή και δεν τεκμηριώνει αποτέλεσμα στο Παγκόσμιο."
+      ],
+      "source": "Ολύμπιο Βήμα · 29/07/2023",
+      "sourceUrl": "https://olympiobima.gr/archelaos-katerinis-stin-konstantinoupoli-gia-to-pagkosmio-protathlima-palis-oi-4-chrysoi-protathlites-ellados/",
+      "personIds": [
+        "arch-73968afa517e",
+        "arch-e49a8c140396",
+        "arch-e87fdf323137",
+        "arch-ba8233d165aa"
+      ],
+      "image": "https://olympiobima.gr/wp-content/uploads/2023/07/archelaos-katerinis-stin-konstantinoypoli-pagkosmio-38126.webp",
+      "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2023/07/archelaos-katerinis-stin-konstantinoypoli-pagkosmio-38126.webp",
+      "imageNote": "Φωτογραφία αντίστοιχης αρχικής δημοσίευσης · Ολύμπιο Βήμα · 29/07/2023"
     },
     {
       "id": "gymnastics-alexandroupoli-u10-u8-june-2023",
