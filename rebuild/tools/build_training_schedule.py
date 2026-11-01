@@ -12,7 +12,7 @@ from build_match_schedule import ics_escape, fold
 
 DAYS = ("MO", "TU", "WE", "TH", "FR", "SA", "SU")
 TOKEN = re.compile(r"^[a-z][a-z0-9-]{1,49}$")
-CLOCK = re.compile(r"^(?:[01]\\d|2[0-3]):[0-5]\\d$")
+CLOCK = re.compile(r"^(?:[01]\d|2[0-3]):[0-5]\d$")
 
 
 def validate(data: dict) -> dict:
@@ -107,4 +107,4 @@ def calendar(data: dict, department: str | None = None) -> str:
                 lines.append("LOCATION:" + ics_escape(session["location"]))
             lines.append("END:VEVENT")
     lines.append("END:VCALENDAR")
-    return "\\r\\n".join(part for line in lines for part in fold(line)) + "\\r\\n"
+    return "\r\n".join(part for line in lines for part in fold(line)) + "\r\n"
