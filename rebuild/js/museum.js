@@ -9,7 +9,9 @@ const C=[
 const exhibits=[
  ['1956','Η αρχή μιας διαδρομής','29 Απριλίου 1956 — η ίδρυση του συλλόγου στην Κατερίνη.','intro'],
  ['1968','Τα χρώματα της ταυτότητας','27 Ιουνίου 1968 — καθιέρωση του πράσινου και του κίτρινου.','colors-1968'],
- ['1957','Η γέννηση των «Δίιων»','Οι πρώτοι αγώνες «Δίια» στην Κατερίνη.','diia']
+ ['1957','Η γέννηση των «Δίιων»','Οι πρώτοι αγώνες «Δίια» στην Κατερίνη.','diia'],
+ ['1956—2026','Διοικητική Ιστορία','Τα διοικητικά συμβούλια, οι πρόεδροι και οι σταθμοί της πορείας του συλλόγου.','dioikisi','ΔΣ'],
+ ['ΙΣΤΟΡΙΚΟ ΑΡΧΕΙΟ','Αθλητικές Εγκαταστάσεις','Οι αθλητικοί χώροι που φιλοξένησαν τις προπονήσεις και τους αγώνες του Αρχέλαου.','egkatastaseis','Α']
 ];
 const sports=['handball','track','archery','shooting','gymnastics','volleyball','wrestling','swimming','basketball','inactive-depts'];
 const $el=(tag,cls,text)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=text;return n};
@@ -34,19 +36,16 @@ function populate(data){
  const collections=$('#mu-collection-cards');
  C.forEach(x=>collections.append(window.ArchelaosUI.card(x)));
  const exhibitsRoot=$('#mu-exhibit-cards');
- for(const [year,title,desc,id] of exhibits){
-  const b=$el('button','mu-exhibit');b.type='button';b.setAttribute('data-year',year);
-  b.append($el('span','',year),$el('strong','',title),$el('small','',desc));b.addEventListener('click',()=>open(id));exhibitsRoot.append(b);
+ for(const [year,title,desc,id,ghost=year] of exhibits){
+  if(!records.has(id))throw Error('Missing museum exhibit: '+id);
+  const b=$el('button','mu-exhibit');b.type='button';
+  b.dataset.year=year;b.dataset.ghost=ghost;
+  b.append($el('span','',year),$el('strong','',title),$el('small','',desc));
+  b.addEventListener('click',()=>open(id));exhibitsRoot.append(b);
  }
- // Preserve historical press records for bookmarked deep links, without a duplicate Museum grid.
- for(const p of data.press){records.set(p.id,p)}
- for(const id of ['intro','dioikisi','egkatastaseis','diia']){
-  const record=records.get(id);if(record)$('#mu-history-grid').append(makeButton(record,'mu-archive-item'));
- }
- for(const [id,record] of records){
-  if(sports.includes(id)||['intro','dioikisi','egkatastaseis','diia'].includes(id))continue;
-  if(!id.startsWith('arch-press-'))$('#mu-history-grid').append(makeButton(record,'mu-archive-item'));
- }
+ // Retain every historical record for search, favorites and bookmarked deep links;
+ // only the five curated exhibits belong on this Museum page.
+ for(const p of data.press)records.set(p.id,p);
  window.ArchelaosMotion?.observe(document);
 }
 async function init(){
@@ -59,7 +58,7 @@ async function init(){
   const archiveId=location.hash.startsWith('#archive-')?
     decodeURIComponent(location.hash.slice('#archive-'.length)):null;
   if(archiveId&&records.has(archiveId))open(archiveId);
- }catch(err){console.error('Museum data:',err);$('#mu-history-grid').textContent='Αδυναμία φόρτωσης ιστορικού αρχείου.'}
+ }catch(err){console.error('Museum data:',err);$('#mu-exhibit-cards').textContent='Αδυναμία φόρτωσης ιστορικού αρχείου.'}
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
