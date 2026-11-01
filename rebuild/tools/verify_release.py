@@ -80,6 +80,11 @@ def verify() -> None:
             if url.path in ("/history-events.html", "/history-events"):
                 continue
             raise AssertionError(f"Broken internal link in {entry['file']}: {link}")
+    museum_page=(DIST/"history.html").read_text(encoding="utf-8")
+    assert museum_page.count('class="mu-interviews"') == 1, "Expected one interviews feature in the published Museum"
+    assert museum_page.count('href="/interviews.html"') == 1, "Expected one link to interviews in Museum content"
+    assert "Δέκα φωνές από τις εφημερίδες" not in museum_page, "Retired press grid leaked into release"
+    assert 'id="archive-voices"' not in museum_page and 'id="arch-press-voices"' not in museum_page, "Retired Voices collection leaked into release"
     assert len(canonical_set) == sum(e.get("indexable", True) for e in main), "Duplicate indexable canonicals"
     sitemap = ET.parse(DIST / "sitemap.xml")
     submaps = [node.text for node in sitemap.findall(".//s:loc", NS)]
