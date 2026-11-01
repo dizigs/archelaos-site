@@ -151,6 +151,9 @@ def verify() -> None:
     # those expected version queries; the source must otherwise remain unchanged.
     src_news = (ROOT / "news.html").read_text(encoding="utf-8")
     built_news = (DIST / "news.html").read_text(encoding="utf-8")
+    assert '/assets/site/js/shell.js' in built_news, "News uses the wrong navigation system"
+    assert '/assets/navigation.js' not in built_news, "Legacy News navigation must not appear"
+    assert 'fonts.googleapis.com/css2?family=Inter' in built_news, "News navigation font not loaded"
     shared_ref = re.compile(
         r'(/assets/site/(?:css|js)/[A-Za-z0-9._/-]+[.](?:css|js))(?:[?]v=[a-f0-9]{12})?'
     )
@@ -299,6 +302,22 @@ def verify() -> None:
         individual = (DIST/"calendar/events"/(fixture["id"]+".ics"))
         assert individual.is_file(), "Missing personal-calendar file for " + fixture["id"]
         assert individual.read_bytes()==make_ical({**fixtures_data,"matches":[fixture]}).encode("utf-8")
+
+    # The training calendar is a live subscription generated from the same
+    # canonical public JSON used by the department popups (not a one-off ICS).
+    from build_training_schedule import calendar as training_ical, validate as validate_training
+    training_data = json.loads((ROOT / "rebuild/data/training-schedule.json").read_text(encoding="utf-8"))
+    training_groups = validate_training(training_data)
+    assert training_groups, "Missing canonical training schedule"
+    assert (DIST/"assets/site/data/training-schedule.json").is_file(), "Training data not published"
+    assert json.loads((DIST/"assets/site/data/training-schedule.json").read_text(encoding="utf-8")) == training_data
+    feed_dir = DIST / "calendar/training"
+    assert (feed_dir/"all.ics").read_bytes() == training_ical(training_data).encode("utf-8"), "All-sports training subscription out of sync"
+    for key, department in training_groups.items():
+        if department["sessions"]:
+            assert (feed_dir/(key+".ics")).read_bytes() == training_ical(training_data,key).encode("utf-8"), "Department training subscription out of sync: "+key
+    assert "webcal://archelaos.club/calendar/training/" in (DIST/"assets/site/js/departments.js").read_text(encoding="utf-8")
+    assert "Content-Type: text/calendar" in headers, "Subscribed ICS content type not set"
 
     graph = json.loads((DIST / "assets/site/data/approved-event-graph.json").read_text(encoding="utf-8"))
     assert graph["publication_scope"] == "approved_only"
