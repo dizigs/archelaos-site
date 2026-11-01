@@ -26,3 +26,28 @@
 /* Final small-caption fixes discovered during representative WCAG checks. */
 .new-philosophy small{color:#49604b}
 .new-philosophy-date{color:#604a22}
+
+/* WCAG 2.2 AA follow-up, validated by release axe browser tests.
+   On paper use deep antique gold; on forest green use pale gold. */
+#voice-note,.voice-source-note{color:#3b523d!important}
+.rm-progress,.rm-progress>span,.rm-progress>strong{color:#614a25!important}
+.rm-featured-kicker,.rm-featured-item>span:first-child{color:#674e25!important}
+.rs-heading>span,#rs-count,.rs-note p{color:#455d49!important}
+.bd-eyebrow{color:#665027!important}
+.ct-hero .ct-label{color:#f1dba9!important}
+.ct-details .ct-label,.ct-locations .ct-label,.ct-quote blockquote{color:#604a25!important}
+.ct-quote figcaption{color:#405944!important}
+#sponsor-why .sp-kicker,.sp-values article>span{color:#69502b!important}
+.dp-eyebrow{color:#624c27!important}
+.rt-content .rt-eyebrow,.rt-heading-years{color:#674e29!important}
+.rt-note{color:#405846!important}
+.sr-input-wrap label{color:#584521!important}
+body .arch-footer-cta-primary,body .arch-footer-cta-primary .arch-action-name{
+ color:#103b27!important
+}
+body .arch-footer-cta-primary .arch-action-icon{color:#103b27!important}
+body.asn-museum-layout #cards .meta,
+body.asn-museum-layout #cards .meta span,
+body.asn-museum-layout #cards .year,
+body.asn-museum-layout #cards .foot,
+body.asn-museum-layout #cards .foot span{color:#5d4928!important;opacity:1}
