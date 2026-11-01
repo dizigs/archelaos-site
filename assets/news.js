@@ -1,6 +1,6 @@
 /* News reader: source-led items, shareable deep links, locally saved favorites. */
 (()=>{'use strict';
-const $=id=>document.getElementById(id),state={items:[],category:'all',query:''};
+const $=id=>document.getElementById(id),PAGE_SIZE=19,state={items:[],category:'all',query:'',page:Math.max(1,Number.parseInt(new URLSearchParams(location.search).get('page')||'1',10)||1)};
 const en=()=>document.documentElement.lang==='en';
 const t=(a,b)=>en()?b:a;
 const norm=s=>String(s||'').toLocaleLowerCase('el').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/ς/g,'σ');
@@ -55,11 +55,60 @@ function card(x){
  el.append(m,content,articleLink(x,'an-card-hit'));
  return el;
 }
+function pageUrl(page){
+ const url=new URL(location.href);
+ url.searchParams.delete('article');
+ if(page===1)url.searchParams.delete('page');
+ else url.searchParams.set('page',String(page));
+ return url.pathname+url.search+url.hash;
+}
+function setPage(page,updateHistory=true){
+ if(page===state.page)return;
+ state.page=page;
+ if(updateHistory)history.pushState(null,'',pageUrl(page));
+ draw();
+ const heading=document.querySelector('.an-section-heading');
+ if(heading)heading.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
+ $('an-count').focus({preventScroll:true});
+}
+function renderPagination(pageCount){
+ const nav=$('an-pagination');
+ nav.replaceChildren();
+ nav.hidden=pageCount<=1;
+ if(pageCount<=1)return;
+ const row=document.createElement('div');row.className='an-page-controls';
+ const action=(label,page,active=false,disabled=false,kind='number')=>{
+  const a=document.createElement('a');a.href=pageUrl(page);
+  a.className='an-page-link'+(active?' is-current':'')+(kind==='navigation'?' is-navigation':'');
+  a.textContent=label;
+  if(active)a.setAttribute('aria-current','page');
+  if(disabled){a.setAttribute('aria-disabled','true');a.tabIndex=-1}
+  else a.addEventListener('click',e=>{
+   if(e.button!==0||e.ctrlKey||e.metaKey||e.shiftKey||e.altKey)return;
+   e.preventDefault();setPage(page);
+  });
+  row.append(a);
+ };
+ action(t('Προηγούμενη','Previous'),Math.max(1,state.page-1),false,state.page===1,'navigation');
+ for(let n=1;n<=pageCount;n++)action(String(n),n,n===state.page);
+ action(t('Επόμενη','Next'),Math.min(pageCount,state.page+1),false,state.page===pageCount,'navigation');
+ nav.append(row);
+ const caption=document.createElement('p');caption.className='an-page-caption';
+ caption.textContent=t('Σελίδα ','Page ')+state.page+' / '+pageCount;
+ nav.append(caption);
+}
 function draw(){
- const q=norm(state.query.trim());const items=state.items.filter(x=>(state.category==='all'||x.category===state.category)&&(!q||(window.ArchelaosSportSearch?window.ArchelaosSportSearch.sportMatch([x.title,x.summary,x.sport,x.source,...(x.body||[])].join(' '),q):norm([x.title,x.summary,x.sport,x.source,...(x.body||[])].join(' ')).includes(q)))).sort((a,b)=>b.date.localeCompare(a.date));
- const frag=document.createDocumentFragment();for(const x of items)frag.append(card(x));
+ const q=norm(state.query.trim());
+ const items=state.items.filter(x=>(state.category==='all'||x.category===state.category)&&(!q||(window.ArchelaosSportSearch?window.ArchelaosSportSearch.sportMatch([x.title,x.summary,x.sport,x.source,...(x.body||[])].join(' '),q):norm([x.title,x.summary,x.sport,x.source,...(x.body||[])].join(' ')).includes(q)))).sort((a,b)=>b.date.localeCompare(a.date));
+ const pageCount=Math.max(1,Math.ceil(items.length/PAGE_SIZE));
+ state.page=Math.min(Math.max(1,state.page),pageCount);
+ const visible=items.slice((state.page-1)*PAGE_SIZE,state.page*PAGE_SIZE);
+ const frag=document.createDocumentFragment();for(const x of visible)frag.append(card(x));
  if(!items.length){const p=document.createElement('p');p.className='an-empty';p.textContent=t('Δεν βρέθηκαν δημοσιεύσεις.','No matching news found.');frag.append(p)}
- $('an-grid').replaceChildren(frag);$('an-count').textContent=t(items.length+' δημοσιεύσεις',items.length+' posts');
+ $('an-grid').replaceChildren(frag);
+ const shown=items.length?((state.page-1)*PAGE_SIZE+1)+'–'+((state.page-1)*PAGE_SIZE+visible.length):'0';
+ $('an-count').textContent=t('Εμφάνιση ','Showing ')+shown+' / '+items.length+t(' ειδήσεις',' stories');
+ renderPagination(pageCount);
 }
 function featured(){
  const x=state.items.find(i=>i.featured)||state.items[0];if(!x)return;
@@ -98,8 +147,9 @@ $('an-dialog-heart').addEventListener('click',()=>{if(!active||!window.Archelaos
 $('an-close').addEventListener('click',()=>dialog.close());
 dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});
 dialog.addEventListener('close',()=>{active=null;const url=new URL(location.href);url.searchParams.delete('article');history.replaceState(null,'',url);if(lastFocus?.isConnected)lastFocus.focus({preventScroll:true})});
-$('an-search').addEventListener('input',e=>{state.query=e.target.value;draw()});
-document.querySelectorAll('.an-filter').forEach(b=>b.addEventListener('click',()=>{state.category=b.dataset.category;document.querySelectorAll('.an-filter').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));draw()}));
+$('an-search').addEventListener('input',e=>{state.query=e.target.value;state.page=1;history.replaceState(null,'',pageUrl(1));draw()});
+document.querySelectorAll('.an-filter').forEach(b=>b.addEventListener('click',()=>{state.category=b.dataset.category;state.page=1;history.replaceState(null,'',pageUrl(1));document.querySelectorAll('.an-filter').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));draw()}));
+window.addEventListener('popstate',()=>{state.page=Math.max(1,Number.parseInt(new URLSearchParams(location.search).get('page')||'1',10)||1);draw();const id=new URLSearchParams(location.search).get('article');if(id&&id!==active?.id)show(id)});
 document.addEventListener('archelaos:favorites-change',()=>{if(active){let b=$('an-dialog-heart'),on=window.ArchelaosFavorites.has('news',active.id);b.setAttribute('aria-pressed',String(on));b.querySelector('span').textContent=on?'♥':'♡'}});
 fetch('/news.json?rev=20261101-photo-archive',{cache:'no-store'}).then(r=>r.ok?r.json():Promise.reject(Error('HTTP '+r.status))).then(data=>{
  if(!Array.isArray(data.items))throw Error('Bad news index');state.items=data.items.filter(x=>x&&x.id&&x.title&&x.date&&!x.unverified).sort((a,b)=>b.date.localeCompare(a.date));
