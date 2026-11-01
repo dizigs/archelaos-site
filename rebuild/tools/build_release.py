@@ -12,6 +12,7 @@ The generated dist/ is intentionally untracked. Publish ONLY after owner approva
 from __future__ import annotations
 
 from html import escape, escape as html_escape, unescape as html_unescape
+from hashlib import sha256
 from pathlib import Path
 from shutil import copy2, copytree, rmtree
 from urllib.parse import urlparse
@@ -116,6 +117,15 @@ def create_page(entry: dict) -> None:
     raw = raw.replace("/rebuild/js/", "/assets/site/js/")
     raw = raw.replace("/rebuild/data/", "/assets/site/data/")
     raw = raw.replace("/rebuild/images/", "/assets/site/images/")
+    # Content-address the interview script on every release to defeat stale browser JS.
+    if entry["file"] == "interviews.html":
+        script_path = OUTPUT / "assets/site/js/interviews.js"
+        fingerprint = sha256(script_path.read_bytes()).hexdigest()[:12]
+        raw = re.sub(
+            r'(/assets/site/js/interviews\.js)(?:\?[^"\x27]*)?',
+            lambda match: match.group(1) + "?v=" + fingerprint,
+            raw,
+        )
     if re.search(r'<link\b[^>]*rel=["\x27]canonical', raw, re.I):
         raise ValueError(f"Staged file has unexpected canonical: {entry['file']}")
     head = "\n".join([
