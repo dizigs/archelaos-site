@@ -33,7 +33,7 @@ const init=()=>{
 
  const DURATION=6000;
  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
- let index=0,timer=null,paused=false,hovering=false;
+ let index=0,timer=null,paused=false;
 
  function show(n){
   index=(n+slides.length)%slides.length;
@@ -58,7 +58,7 @@ const init=()=>{
  }
  function schedule(){
   clearTimer();
-  if(paused||hovering||document.hidden||reduced.matches||slides.length<2)return;
+  if(paused||document.hidden||reduced.matches||slides.length<2)return;
   timer=window.setTimeout(()=>{
    timer=null;
    show(index+1);
@@ -73,8 +73,6 @@ const init=()=>{
   syncToggle();
   schedule();
  });
- root.addEventListener('mouseenter',()=>{hovering=true;clearTimer();});
- root.addEventListener('mouseleave',()=>{hovering=false;schedule();});
  document.addEventListener('visibilitychange',schedule);
  reduced.addEventListener?.('change',schedule);
  show(0);
