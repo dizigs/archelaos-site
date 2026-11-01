@@ -644,6 +644,27 @@
       "image": "https://www.pierianews.gr/wp-content/uploads/2025/04/gas8.jpg"
     },
     {
+      "id": "club-board-elections-apr-2025",
+      "date": "2025-04-04",
+      "sport": "",
+      "category": "club",
+      "title": "Το νέο Διοικητικό Συμβούλιο του ΓΑΣ Αρχέλαος μετά τις αρχαιρεσίες 2025",
+      "summary": "Συγκρότηση σε σώμα του Δ.Σ. και κατανομή αρμοδιοτήτων στα τμήματα του συλλόγου.",
+      "body": [
+        "Μετά τις αρχαιρεσίες της 30ής Μαρτίου 2025 συγκροτήθηκε σε σώμα το νέο Διοικητικό Συμβούλιο του Γ.Α.Σ. Αρχέλαος Κατερίνης.",
+        "Πρόεδρος ανέλαβε ο Αλκίνοος Τασόπουλος, Α΄ Αντιπρόεδρος ο Χαράλαμπος Σαββίδης, Β΄ Αντιπρόεδρος ο Παναγιώτης Διαμαντόπουλος, Γενικός Γραμματέας ο Αθανάσιος Μαυροειδής και Ταμίας ο Παύλος Συμεωνίδης.",
+        "Κατανεμήθηκαν επίσης οι εφορείες των τμημάτων ενόργανης, βόλεϊ, κολύμβησης, πάλης, σκοποβολής, στίβου, τοξοβολίας και χειροσφαίρισης."
+      ],
+      "source": "Ολύμπιο Βήμα · 04/04/2025",
+      "sourceUrl": "https://olympiobima.gr/archelaos-katerinis-to-neo-dioikitiko-symvoulio-tou-gas/",
+      "personIds": [
+        "arch-61d8d097f601"
+      ],
+      "image": "https://olympiobima.gr/wp-content/uploads/2025/04/arxelaos-katerinis-to-neo-dioikitiko-24005.webp",
+      "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2025/04/arxelaos-katerinis-to-neo-dioikitiko-24005.webp",
+      "imageNote": "Φωτογραφία αρχικής δημοσίευσης · Ολύμπιο Βήμα · 04/04/2025"
+    },
+    {
       "id": "gym-2025-team",
       "date": "2025-04-01",
       "sport": "Ενόργανη Γυμναστική",
@@ -798,6 +819,26 @@
       ],
       "featured": false,
       "imageSourceUrl": "https://media.pieriasocial.gr/2024/10/111111111111111111111111-2.jpg"
+    },
+    {
+      "id": "track-season-blessing-sept-2024",
+      "date": "2024-09-26",
+      "sport": "Στίβος",
+      "category": "club",
+      "title": "Αγιασμός και έναρξη της αγωνιστικής χρονιάς 2024–25 για το τμήμα στίβου",
+      "summary": "Συνάντηση ακαδημιών, προπονητών και διοίκησης στο Α΄ ΔΑΚ Κατερίνης.",
+      "body": [
+        "Στο Α΄ ΔΑΚ Κατερίνης πραγματοποιήθηκε ο ετήσιος αγιασμός του τμήματος στίβου του Αρχέλαου, ενόψει της περιόδου 2024–25.",
+        "Παρευρέθηκαν ο μητροπολίτης Κίτρους Γεώργιος, ο πρόεδρος Αλκίνοος Τασόπουλος, ο έφορος στίβου Μιχάλης Κανταρτζής, προπονητές, αθλητές των ακαδημιών και του αγωνιστικού τμήματος και οικογένειές τους."
+      ],
+      "source": "Ολύμπιο Βήμα · 26/09/2024",
+      "sourceUrl": "https://olympiobima.gr/gas-archelaos-katerinis-o-agiasmos-tou-tmimatos-stivou/",
+      "personIds": [
+        "arch-61d8d097f601"
+      ],
+      "image": "https://olympiobima.gr/wp-content/uploads/2024/09/gas-arxelaos-katerinis-agiasmos-tmimatos-46617.webp",
+      "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2024/09/gas-arxelaos-katerinis-agiasmos-tmimatos-46617.webp",
+      "imageNote": "Φωτογραφία αρχικής δημοσίευσης · Ολύμπιο Βήμα · 26/09/2024"
     },
     {
       "id": "archery-region-visit-aug-2024",
@@ -1550,6 +1591,26 @@
       "imageNote": "Φωτογραφία από το αντίστοιχο δημοσίευμα της πηγής"
     },
     {
+      "id": "track-natsiopoulou-u23-gold-june-2022",
+      "date": "2022-06-26",
+      "sport": "Στίβος",
+      "category": "achievements",
+      "title": "Χρυσό της Κατερίνας Νατσιοπούλου στα 400 μ. του Πανελληνίου Κ23",
+      "summary": "Πρώτη στην κατηγορία Κ23 με ατομικό ρεκόρ 56,34 δευτερολέπτων.",
+      "body": [
+        "Στο Πανελλήνιο Πρωτάθλημα Ανδρών–Γυναικών και Κ23 τον Ιούνιο 2022, η Κατερίνα Νατσιοπούλου του Αρχέλαου κατέκτησε την πρώτη θέση στα 400 μέτρα της κατηγορίας Κ23 με χρόνο 56,34 δευτερολέπτων, σημειώνοντας ατομικό ρεκόρ.",
+        "Η αθλήτρια κατετάγη ένατη στην κατηγορία Γυναικών. Στη διοργάνωση συμμετείχε επίσης η Σοφία Κωνσταντινίδου στα 100 μέτρα. Ο σύλλογος συνεχάρη τον προπονητή Νίκο Μαντζόλη."
+      ],
+      "source": "Ολύμπιο Βήμα · 26/06/2022",
+      "sourceUrl": "https://olympiobima.gr/gas-archelaos-katerinis-chryso-metallio-gia-tin-katerina-natsiopoyloy/",
+      "personIds": [
+        "arch-ccaf623e428b"
+      ],
+      "image": "https://olympiobima.gr/wp-content/uploads/2022/06/ΓΑΣ-Αρχέλαος-Κατερίνης-Χρυσό-μετάλλιο-για-την-Κατερίνα-Νατσιοπούλου-41643.jpg",
+      "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2022/06/ΓΑΣ-Αρχέλαος-Κατερίνης-Χρυσό-μετάλλιο-για-την-Κατερίνα-Νατσιοπούλου-41643.jpg",
+      "imageNote": "Φωτογραφία αρχικής δημοσίευσης · Ολύμπιο Βήμα · 26/06/2022"
+    },
+    {
       "id": "club-wrestling-shooting-school-visit-may-2022",
       "date": "2022-05-22",
       "sport": "Πάλη",
@@ -1633,6 +1694,26 @@
         "arch-6a4b08bec058",
         "arch-96ddd7ba9e4d"
       ]
+    },
+    {
+      "id": "track-school-silver-volos-apr-2022",
+      "date": "2022-04-14",
+      "sport": "Στίβος",
+      "category": "achievements",
+      "title": "Δύο ασημένια για αθλήτριες του Αρχέλαου στους Πανελλήνιους Σχολικούς Αγώνες",
+      "summary": "Η Σοφία Κωνσταντινίδου στα 100 μ. και η Κατερίνα Νατσιοπούλου στα 400 μ. κατέκτησαν δεύτερες θέσεις.",
+      "body": [
+        "Στην τελική φάση των Πανελλήνιων Σχολικών Αγώνων Στίβου Λυκείων Ελλάδας–Κύπρου στον Βόλο, τον Απρίλιο του 2022, η Σοφία Κωνσταντινίδου κατέκτησε τη δεύτερη θέση στα 100 μ. με 12,60 δευτερόλεπτα, εκπροσωπώντας τα Εκπαιδευτήρια Πλάτων.",
+        "Η Κατερίνα Νατσιοπούλου, μαθήτρια του 1ου ΓΕΛ Κατερίνης, κατέκτησε τη δεύτερη θέση στα 400 μ. με 58,57 δευτερόλεπτα. Προπονητής τους ήταν ο Νίκος Μαντζόλης."
+      ],
+      "source": "Ολύμπιο Βήμα · 14/04/2022",
+      "sourceUrl": "https://olympiobima.gr/g-a-s-archelaos-katerinis-stivos-sygcharitiria-stis-athlitries-mas-sofia-konstantinidoy-kai-katerina-natsiopoyloy/",
+      "personIds": [
+        "arch-ccaf623e428b"
+      ],
+      "image": "https://olympiobima.gr/wp-content/uploads/2022/04/G.A.S-Archelaos-Katerinis-Stibos-84891.jpg",
+      "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2022/04/G.A.S-Archelaos-Katerinis-Stibos-84891.jpg",
+      "imageNote": "Φωτογραφία αρχικής δημοσίευσης · Ολύμπιο Βήμα · 14/04/2022"
     },
     {
       "id": "wrestling-u15-team-champions-april-2022",
