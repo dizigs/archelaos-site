@@ -4360,7 +4360,7 @@ tabs.forEach((t,i)=>{t.addEventListener('click',()=>activate(t.dataset.rmYear));
 const hash=location.hash.match(/^#match-(1990|1993|1994|1996)$/);if(hash)activate(hash[1]);
 function checkLanguage(){document.documentElement.lang=document.body.classList.contains('lang-en')?'en':(document.documentElement.lang==='en'?'en':'el')}
 new MutationObserver(checkLanguage).observe(document.body,{attributes:true,attributeFilter:['class']});
-})();</script><script defer="" src="archelaos-person-links.js"></script><script id="retro-1976-reveal">
+})();</script><script defer="" src="archelaos-person-links.js?v=20261101-inline"></script><script id="retro-1976-reveal">
 (()=>{const quote=document.querySelector('#retroRoot .rm-1976-quote');if(!quote)return;
 if(!('IntersectionObserver' in window)||window.matchMedia('(prefers-reduced-motion: reduce)').matches){return;}
 quote.classList.add('rm-1976-motion');const io=new IntersectionObserver(entries=>{for(const e of entries)if(e.isIntersecting){e.target.classList.add('rm-1976-visible');io.unobserve(e.target);}}, {threshold:.14});io.observe(quote);
