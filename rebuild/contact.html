@@ -54,10 +54,16 @@
 <label id="ct-sport-wrap" hidden>Ποιο άθλημα σας ενδιαφέρει; *<select name="sport" id="ct-sport">
 <option value="">Επιλέξτε άθλημα</option><option value="handball">Χάντμπολ</option><option value="track">Στίβος</option><option value="archery">Τοξοβολία</option><option value="shooting">Σκοποβολή</option><option value="gymnastics">Ενόργανη Γυμναστική</option><option value="wrestling">Πάλη</option><option value="volleyball">Βόλεϊ</option><option value="swimming">Κολύμβηση</option>
 </select></label>
+<div id="ct-archive-extra" hidden>
+<label>Σύνδεσμος αρχείου Google Drive (προαιρετικό)
+<input type="url" name="archiveLink" id="ct-archive-link" maxlength="2048" placeholder="https://drive.google.com/..."></label>
+<label>Συνημμένα αρχεία (προαιρετικά, έως 5 · συνολικά 15 MB)
+<input type="file" id="ct-attachments" name="attachments" multiple accept=".jpg,.jpeg,.png,.webp,.gif,.heic,.heif,.pdf,.doc,.docx,.txt"></label>
+</div>
 <label>Το μήνυμά σας *<textarea name="message" maxlength="5000" minlength="10" rows="5" placeholder="Γράψτε το μήνυμά σας..." required></textarea></label>
 <label class="ct-consent"><input type="checkbox" required><span>Συμφωνώ να χρησιμοποιηθούν τα στοιχεία μου μόνο για απάντηση στο αίτημά μου.</span></label>
-<p class="ct-form-note" role="status" aria-live="polite">Η αποστολή ανοίγει το πρόγραμμα email σας. Τα συνημμένα δεν υποστηρίζονται χωρίς ασφαλή υπηρεσία υποβολής.</p>
-<button class="ct-submit" type="submit">Συνέχεια στο email</button>
+<p class="ct-form-note" role="status" aria-live="polite">Όταν η ασφαλής αποστολή είναι διαθέσιμη, το μήνυμα στέλνεται απευθείας. Διαφορετικά μπορείτε να συνεχίσετε μέσω του προγράμματος email.</p>
+<button class="ct-submit" type="submit">Αποστολή μηνύματος</button>
 </form>
 </template>
 </body></html>
