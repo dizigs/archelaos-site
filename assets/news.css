@@ -122,3 +122,17 @@ main{padding:60px 0 80px}
 @media(prefers-reduced-motion:reduce){
  .an-card,.an-feature-card{transition:none}
 }
+
+/* Article pagination: nineteen cards per page; large mobile-friendly controls. */
+.an-pagination[hidden]{display:none!important}
+.an-pagination{margin:32px auto 44px;display:flex;flex-direction:column;gap:12px;align-items:center;justify-content:center}
+.an-page-controls{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:9px}
+.an-page-link{display:inline-flex;min-width:45px;min-height:45px;align-items:center;justify-content:center;border:1px solid #c7b37b;border-radius:11px;padding:10px 15px;background:#fffdf7;color:#124b34;text-decoration:none!important;font-weight:800;font-size:14px;line-height:1.25;transition:background .15s,border-color .15s}
+.an-page-link:hover{background:#eee6d0;border-color:#a8894d}
+.an-page-link.is-current{background:#073d2a;border-color:#073d2a;color:#fff8df}
+.an-page-link[aria-disabled=true]{opacity:.35;pointer-events:none}
+.an-page-link:focus-visible{outline:3px solid #bb9349;outline-offset:3px}
+.an-page-caption{font-size:12px;color:#637668;margin:0}
+.an-section-heading{scroll-margin-top:110px}
+@media(max-width:580px){.an-page-controls{gap:7px}.an-page-link{min-width:44px;min-height:44px;padding:9px 12px}.an-page-link.is-navigation{font-size:12px}.an-pagination{margin:25px auto 35px}}
+@media(prefers-reduced-motion:reduce){.an-page-link{transition:none}}
