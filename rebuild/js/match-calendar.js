@@ -101,7 +101,17 @@ function card(item,index){
  menu.append(links);bottom.append(menu);a.append(bottom);return a;
 }
 function render(){
- const visible=upcoming(),root=$('#fx-list');if(!root)return;
+ const root=$('#fx-list');if(!root)return;
+ const requested=new URLSearchParams(location.search).get('fixture');
+ const exact=requested&&fixtures.find(x=>x.id===requested);
+ if(exact){
+  root.replaceChildren(card(exact,0));root.hidden=false;
+  $('#fx-empty').hidden=true;
+  $('#fx-status').textContent='Ο αγώνας που επιλέξατε από την αναζήτηση · εγκεκριμένη αρχειακή καταχώριση.';
+  $('#fx-download').hidden=true;$('#fx-subscribe').hidden=true;
+  return;
+ }
+ const visible=upcoming();
  root.replaceChildren(...visible.slice(0,6).map(card));
  $('#fx-empty').hidden=visible.length>0;
  root.hidden=!visible.length;
