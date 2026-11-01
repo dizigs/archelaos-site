@@ -39,16 +39,25 @@ def main():
     for item in data["items"]:
         url=item.get("sourceUrl")
         if not url or not url.startswith("https://"): continue
-        # Keep directly supplied and previously confirmed event photographs.
+        # Never overwrite vetted archive photos or the supplied Meteora photo.
         if item.get("image","").startswith("images/news/"): continue
+        if item.get("id")=="wrestling-meteora-international-2026": continue
+        # If the source has no confirmed picture, never reuse the department
+        # slideshow or import a newspaper's generic social preview.
+        if not item.get("image") and not item.get("imageSourceUrl"): continue
         try:
-            html=fetch(url,2500000).decode("utf-8","replace")
-            meta=Metadata();meta.feed(html)
-            candidate=urljoin(url,meta.og_image or "")
+            vetted=item.get("imageSourceUrl")
+            if vetted:
+                candidate=vetted
+            else:
+                html=fetch(url,2500000).decode("utf-8","replace")
+                meta=Metadata();meta.feed(html)
+                if not meta.og_image: raise ValueError("No article photo metadata")
+                candidate=urljoin(url,meta.og_image)
             path=urlsplit(candidate).path.lower()
-            if not meta.og_image or re.search(r"(?:logo|favicon|placeholder|default-image|no-image|social-preview|avatar)",path):
-                raise ValueError("No suitable article image")
-            raw=fetch(candidate)
+            if re.search(r"(?:logo|favicon|placeholder|default-image|no-image|social-preview|avatar)",path):
+                raise ValueError("Generic image not suitable for article")
+            try:\n                raw=fetch(candidate)\n            except Exception:\n                # WordPress proxy occasionally blocks fetches: retry its origin URL.\n                parts=urlsplit(candidate)\n                if not parts.hostname or not parts.hostname.endswith(".wp.com"):\n                    raise\n                origin="https://"+parts.path.lstrip("/")\n                raw=fetch(origin)
             with Image.open(io.BytesIO(raw)) as original:
                 im=ImageOps.exif_transpose(original)
                 if im.width<400 or im.height<250: raise ValueError("Featured image too small")
