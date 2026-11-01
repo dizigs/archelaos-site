@@ -4,7 +4,7 @@ let data=[],found=[],limit=30;
 const en=()=>document.documentElement.lang==='en'||document.body.classList.contains('lang-en');
 const L=(a,b)=>en()?b:a;
 const norm=s=>String(s||'').toLocaleLowerCase('el').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/ς/g,'σ').replace(/\s+/g,' ').trim();
-const labels={person:['ΠΡΟΣΩΠΟ · HALL OF FAME','PERSON · HALL OF FAME'],interview:['ΣΥΝΕΝΤΕΥΞΗ / ΔΗΛΩΣΗ','INTERVIEW / STATEMENT'],moment:['ΙΣΤΟΡΙΚΟ ΓΕΓΟΝΟΣ','HISTORICAL MOMENT'],match:['RETRO MATCH','RETRO MATCH'],page:['ΣΥΛΛΟΓΗ','COLLECTION']};
+const labels={person:['ΠΡΟΣΩΠΟ · HALL OF FAME','PERSON · HALL OF FAME'],interview:['ΣΥΝΕΝΤΕΥΞΗ / ΔΗΛΩΣΗ','INTERVIEW / STATEMENT'],moment:['ΙΣΤΟΡΙΚΟ ΓΕΓΟΝΟΣ','HISTORICAL MOMENT'],match:['RETRO MATCH','RETRO MATCH'],news:['ΝΕΑ & ΔΡΑΣΗ','NEWS & ACTIVITY'],page:['ΣΥΛΛΟΓΗ','COLLECTION']};
 function rank(x,q){const t=norm(x.title),s=norm(x.summary),k=norm(x.keywords);
  const text=t+' '+s+' '+k;const terms=q.split(' ').filter(Boolean);if(!terms.every(word=>text.includes(word)))return 99;
  if(t===q)return 0;if(t.startsWith(q))return 1;if(t.includes(q))return 2;if(s.includes(q))return 3;return 4}
@@ -26,8 +26,8 @@ function draw(){
  more.style.display=limit<found.length?'block':'none'
 }
 field.addEventListener('input',search);more.addEventListener('click',()=>{limit+=30;draw()});
-fetch('search-index.json',{cache:'no-cache'}).then(r=>r.ok?r.json():Promise.reject()).then(d=>{
- if(!Array.isArray(d.records))throw Error('Bad index');data=d.records;
+Promise.all([fetch('search-index.json',{cache:'no-cache'}).then(r=>r.ok?r.json():Promise.reject()),fetch('news.json',{cache:'no-cache'}).then(r=>r.ok?r.json():{items:[]})]).then(([d,news])=>{
+ if(!Array.isArray(d.records))throw Error('Bad index');data=d.records.concat((news.items||[]).filter(x=>!x.unverified).map(x=>({type:'news',title:x.title,summary:x.summary,year:x.date.slice(0,4),href:'news.html?article='+encodeURIComponent(x.id),keywords:[x.sport,x.source,...(x.body||[])].join(' ')})));
  const q=new URLSearchParams(location.search).get('q');if(q)field.value=q;search();
 }).catch(()=>{count.textContent=L('Η αναζήτηση δεν είναι προσωρινά διαθέσιμη.','Search is temporarily unavailable.')});
 new MutationObserver(()=>{
