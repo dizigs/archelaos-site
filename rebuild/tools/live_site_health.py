@@ -2,6 +2,7 @@
 """Read-only live deployment monitor. Standard library only; no credentials or writes to site."""
 from __future__ import annotations
 import argparse
+from hashlib import sha256
 import json
 import re
 import sys
@@ -148,11 +149,38 @@ def audit(base: str) -> dict:
                 json.loads(body)
             except ValueError:
                 report["errors"].append("Invalid webmanifest JSON")
+    # Verify that the actual served JS/CSS bytes match the hashes in HTML.
+    # This catches the mobile-vs-desktop stale cache problem after deployment.
+    seen_assets = set()
     for page in ("/search.html", "/tmimata.html"):
         html = pages.get(page, "")
         assets = re.findall(r'["\x27](/assets/site/(?:css|js)/[\w./-]+\.(?:css|js)(?:\?v=[a-f0-9]{12})?)["\x27]', html)
         for asset in assets:
-            check(asset)
+            if asset in seen_assets:
+                continue
+            seen_assets.add(asset)
+            body, _ = check(asset)
+            if body is None:
+                continue
+            parsed = urlsplit(asset)
+            if re.fullmatch(r"v=[a-f0-9]{12}", parsed.query):
+                version = parsed.query[2:]
+                if sha256(body).hexdigest()[:12] != version:
+                    report["errors"].append("Published asset fingerprint mismatch: " + parsed.path)
+            else:
+                report["warnings"].append("Published asset without hash: " + parsed.path)
+            if parsed.path == "/assets/site/css/viewports.css":
+                styles = re.findall(r'url\(["\x27]?\./(mobile|tablet|laptop|desktop|accessibility)\.css\?v=([a-f0-9]{12})', body.decode("utf-8", errors="replace"))
+                if {name for name, _ in styles} != {"mobile", "tablet", "laptop", "desktop", "accessibility"}:
+                    report["errors"].append("Responsive CSS imports missing or not versioned")
+                for name, expected in styles:
+                    css_path = f"/assets/site/css/{name}.css?v={expected}"
+                    if css_path in seen_assets:
+                        continue
+                    seen_assets.add(css_path)
+                    css, _ = check(css_path)
+                    if css is not None and sha256(css).hexdigest()[:12] != expected:
+                        report["errors"].append("Responsive CSS fingerprint mismatch: " + name)
     return report
 
 
