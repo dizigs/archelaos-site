@@ -40,7 +40,6 @@ function renderControls(){
   const yes=b.dataset.category===state.category;b.classList.toggle('selected',yes);b.setAttribute('aria-pressed',String(yes));
  });
  document.querySelectorAll('[data-el][data-en]').forEach(node=>node.textContent=node.getAttribute(isEn()?'data-en':'data-el'));
- $('#hall-language').textContent=isEn()?'EN / GR':'GR / EN';
  $('#hall-search').placeholder=tr('Όνομα ή άθλημα…','Name or sport…');
  document.documentElement.lang=state.lang;
  renderAlpha();
@@ -86,15 +85,9 @@ function render(){
  paginate(data);
  window.ArchelaosMotion?.observe(document);
 }
-function setLanguage(lang){
- state.lang=lang;
- try{localStorage.setItem('archelaos_lang',lang)}catch(_){}
- state.page=1;state.letter='all';render();
- document.dispatchEvent(new CustomEvent('archelaos:language-change',{detail:{lang}}));
-}
 async function init(){
- try{state.lang=localStorage.getItem('archelaos_lang')==='en'?'en':'el'}catch(_){}
- $('#hall-language').addEventListener('click',()=>setLanguage(isEn()?'el':'en'));
+ // The site-wide language selector is not published; keep the directory in Greek.
+ state.lang='el';
  $('#hall-search').addEventListener('input',()=>{state.page=1;render()});
  $('#hall-sport').addEventListener('change',e=>{state.sport=e.target.value;state.page=1;render()});
  $('#hall-reset').addEventListener('click',()=>{
