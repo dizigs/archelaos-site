@@ -21,7 +21,43 @@ async function init(){
  ];
  function buildProfile(card,record){
   const key=card.dataset.dpOpen,root=document.createElement('div');root.className='dp-profile';
-  if(photos[key]){const hero=document.createElement('div');hero.className='dp-profile-photo';hero.dataset.sport=key;const img=document.createElement('img');img.src=photos[key];img.alt=key==='shooting'?'Αθλητές του Αρχέλαου σε προπόνηση σκοποβολής':'Φωτογραφία τμήματος: '+(record?.title||card.querySelector('.dp-title')?.textContent||'');img.loading='lazy';img.addEventListener('error',()=>{hero.classList.add('dp-profile-photo-fallback');img.remove()},{once:true});hero.append(img);root.append(hero)}
+  if(photos[key]){
+   const hero=document.createElement('div');hero.className='dp-profile-photo';hero.dataset.sport=key;
+   const shots=key==='shooting'?
+    [{src:'/images/skopovoli-archelaos-team.jpg',alt:'Ομαδική προπόνηση σκοποβολής του Αρχέλαου'},
+     {src:'/images/skopovoli-archelaos-athlete.webp',alt:'Αθλήτρια του Αρχέλαου σε προπόνηση σκοποβολής'}]:
+    [{src:photos[key],alt:'Φωτογραφία τμήματος: '+(record?.title||card.querySelector('.dp-title')?.textContent||'')}];
+   const slides=[],dots=[];let current=0;
+   const showSlide=index=>{
+    current=index;
+    slides.forEach((img,i)=>{img.classList.toggle('is-active',i===current);img.setAttribute('aria-hidden',String(i!==current))});
+    dots.forEach((button,i)=>button.setAttribute('aria-pressed',String(i===current)));
+   };
+   shots.forEach((shot,i)=>{
+    const img=document.createElement('img');img.className='dp-profile-slide'+(i===0?' is-active':'');
+    img.src=shot.src;img.alt=shot.alt;img.loading=i===0?'eager':'lazy';img.decoding='async';
+    img.setAttribute('aria-hidden',String(i!==0));
+    img.addEventListener('error',()=>{if(shots.length===1){hero.classList.add('dp-profile-photo-fallback');img.remove()}else{img.classList.add('dp-profile-slide-unavailable');if(i===current)showSlide((current+1)%shots.length)}},{once:true});
+    slides.push(img);hero.append(img);
+   });
+   if(shots.length>1){
+    hero.classList.add('dp-profile-slideshow');
+    const controls=document.createElement('div');controls.className='dp-profile-slide-dots';controls.setAttribute('role','group');controls.setAttribute('aria-label','Φωτογραφίες σκοποβολής');
+    shots.forEach((shot,i)=>{const button=document.createElement('button');button.type='button';button.className='dp-profile-slide-dot';button.setAttribute('aria-label','Φωτογραφία '+(i+1)+' από '+shots.length);button.setAttribute('aria-pressed',String(i===0));button.addEventListener('click',()=>showSlide(i));dots.push(button);controls.append(button)});
+    hero.append(controls);
+    document.addEventListener('archelaos:dialog-open',event=>{
+     const dialog=event.detail?.dialog;if(!dialog?.contains(hero))return;
+     if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+     const timer=setInterval(()=>{
+      if(!hero.isConnected){clearInterval(timer);return}
+      if(document.hidden||hero.matches(':hover')||hero.contains(document.activeElement))return;
+      showSlide((current+1)%slides.length);
+     },5500);
+     dialog.addEventListener('close',()=>clearInterval(timer),{once:true});
+    },{once:true});
+   }
+   root.append(hero);
+  }
   const intro=document.createElement('div');intro.className='dp-profile-intro';const eyebrow=document.createElement('p');eyebrow.className='dp-profile-eyebrow';eyebrow.textContent='ΤΟ ΤΜΗΜΑ ΣΗΜΕΡΑ';const description=document.createElement('p');description.textContent=key==='archery'?'Το τμήμα τοξοβολίας λειτουργεί με το παρακάτω πρόγραμμα προπονήσεων.':'Οι πληροφορίες για τη λειτουργία του τμήματος θα ενημερωθούν σύντομα, μόλις επιβεβαιωθούν.';intro.append(eyebrow,description);root.append(intro);
   if(key!=='inactive-depts'){const grid=document.createElement('div');grid.className='dp-profile-info';for(const [index,label] of fieldNames.entries()){const box=document.createElement('div');box.className='dp-profile-field';const name=document.createElement('strong');name.textContent=label;const detail=key==='archery'?archeryFields[index]:null;const value=document.createElement(detail?.href?'a':'span');value.textContent=detail?.text||'Θα ενημερωθεί σύντομα';if(detail?.href){value.className='dp-profile-value-link';value.href=detail.href;if(detail.title)value.title=detail.title;if(detail.external){value.target='_blank';value.rel='noopener noreferrer'}}box.append(name,value);grid.append(box)}root.append(grid)}
   const actions=document.createElement('div');actions.className='dp-profile-actions';
