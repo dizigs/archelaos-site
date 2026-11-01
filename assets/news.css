@@ -79,3 +79,34 @@ main{padding:60px 0 80px}
 .an-feature-media.is-unillustrated,.an-card-media.is-unillustrated,.an-detail .an-cover.is-unillustrated{background:linear-gradient(140deg,#ede9de,#f8f6ee);display:flex;align-items:center;justify-content:center;min-height:220px;border:1px solid #dcd5c5;color:#8d7440}
 .an-detail .an-cover.is-unillustrated{min-height:160px}
 .an-no-photo{font:700 12px/1.5 Inter,system-ui,sans-serif;letter-spacing:.18em;text-align:center;padding:25px;max-width:90%}
+
+/* Shared archival popup aesthetic: Stories, Interviews and News use the same paper/gold system. */
+.an-dialog{width:min(760px,calc(100vw - 24px));max-width:none;max-height:min(88dvh,850px);
+ padding:0;border:1px solid #cbb77f;border-radius:20px;background:#fbf8ee;color:#173c2b;
+ box-shadow:0 28px 90px #001e1590;overflow:hidden}
+.an-dialog::backdrop{background:rgba(0,28,18,.75)}
+.an-dialog-inner{display:flex;flex-direction:column;max-height:min(88dvh,850px);
+ background:#fbf8ee;border:0;border-radius:20px;box-shadow:none;overflow-y:auto;scrollbar-width:thin}
+.an-dialog-bar{background:#fbf8ee;color:#94753c;border-bottom:1px solid #e3d9c3;
+ border-radius:0;padding:19px 24px 14px;letter-spacing:.13em;font-size:11px}
+.an-dialog-heart,.an-close{background:#fbf8ee;color:#0b4731;border:1px solid #cbb77f;
+ border-radius:10px;min-width:42px;width:42px;height:42px;display:grid;place-items:center}
+.an-dialog-heart:hover,.an-close:hover{background:#eee4cf}
+.an-detail{padding:22px 27px 31px;overflow-wrap:anywhere}
+.an-detail .an-meta{margin-bottom:12px;font-size:11px}
+.an-detail h2{font:500 clamp(26px,4vw,36px)/1.22 Georgia,serif;letter-spacing:-.015em;
+ color:#073d2a;margin:0 0 21px}
+.an-detail .an-cover{margin:0 0 20px;max-width:100%}
+.an-detail .an-cover img{height:auto;max-height:385px;min-height:170px;object-fit:contain;
+ background:#eeeadd}
+.an-detail .an-summary{font-size:16px;line-height:1.75}
+.an-detail p{font-size:14px;line-height:1.85}
+.an-source{border-top:1px solid #e3d9c3;margin-top:25px;padding-top:19px}
+@media(max-width:620px){
+ .an-dialog{width:calc(100vw - 16px);max-height:calc(100dvh - 20px);border-radius:17px}
+ .an-dialog-inner{max-height:calc(100dvh - 22px);border-radius:16px}
+ .an-dialog-bar{padding:12px 14px;gap:8px}
+ .an-detail{padding:18px 17px 25px}
+ .an-detail h2{font-size:clamp(25px,7vw,33px)}
+ .an-dialog-heart,.an-close{width:40px;height:40px;min-width:40px}
+}
