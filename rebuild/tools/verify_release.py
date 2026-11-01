@@ -80,6 +80,13 @@ def verify() -> None:
             if url.path in ("/history-events.html", "/history-events"):
                 continue
             raise AssertionError(f"Broken internal link in {entry['file']}: {link}")
+    museum_records=json.loads((DIST/"assets/site/data/museum.json").read_text(encoding="utf-8"))["articles"]
+    foundation=next(a for a in museum_records if a["id"]=="intro")
+    colours=next(a for a in museum_records if a["id"]=="colors-1968")
+    assert "27 Ιουνίου 1968" not in foundation["html"], "Foundation popup repeats colours article"
+    assert "Καθορίζονται οριστικώς" in colours["html"], "Colour quote missing in published Museum"
+    exhibit_script=(DIST/"assets/site/js/museum.js").read_text(encoding="utf-8")
+    assert "'colors-1968'" in exhibit_script, "Second Museum exhibit incorrectly uses introduction"
     museum_page=(DIST/"history.html").read_text(encoding="utf-8")
     assert museum_page.count('class="mu-interviews"') == 1, "Expected one interviews feature in the published Museum"
     assert museum_page.count('href="/interviews.html"') == 1, "Expected one link to interviews in Museum content"
