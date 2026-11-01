@@ -57,7 +57,15 @@ def main():
             path=urlsplit(candidate).path.lower()
             if re.search(r"(?:logo|favicon|placeholder|default-image|no-image|social-preview|avatar)",path):
                 raise ValueError("Generic image not suitable for article")
-            try:\n                raw=fetch(candidate)\n            except Exception:\n                # WordPress proxy occasionally blocks fetches: retry its origin URL.\n                parts=urlsplit(candidate)\n                if not parts.hostname or not parts.hostname.endswith(".wp.com"):\n                    raise\n                origin="https://"+parts.path.lstrip("/")\n                raw=fetch(origin)
+            try:
+                raw=fetch(candidate)
+            except Exception:
+                # WordPress proxy occasionally blocks image requests.
+                parts=urlsplit(candidate)
+                if not parts.hostname or not parts.hostname.endswith(".wp.com"):
+                    raise
+                origin="https://"+parts.path.lstrip("/")
+                raw=fetch(origin)
             with Image.open(io.BytesIO(raw)) as original:
                 im=ImageOps.exif_transpose(original)
                 if im.width<400 or im.height<250: raise ValueError("Featured image too small")
