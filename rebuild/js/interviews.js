@@ -27,7 +27,8 @@ function showCards(){
 function open(id){
  const x=S.items.find(v=>v.id===id);if(!x)return;
  lastFocus=document.activeElement;
- let inner='<div class="detail-year">'+esc(x.year)+'</div><div class="sub">'+esc(tr(...kinds[x.kind]))+' · '+esc(tr(...sports[x.sport]))+'</div><h2>'+esc(x.name)+'</h2><p class="event">'+esc(x.event)+'</p>';
+ if($('interview-dialog-title'))$('interview-dialog-title').textContent=x.name;
+ let inner='<div class="detail-year">'+esc(x.year)+'</div><div class="sub">'+esc(tr(...kinds[x.kind]))+' · '+esc(tr(...sports[x.sport]))+'</div><p class="event">'+esc(x.event)+'</p>';
  if(x.context)inner+='<section class="context"><h3>'+tr('Ιστορικό πλαίσιο','Historical context')+'</h3><p>'+esc(x.context)+'</p></section>';
  if(x.qa){inner+='<section class="qa"><h3>'+tr('Η συνέντευξη','The interview')+'</h3>';x.qa.forEach((v,i)=>{inner+='<div class="qa-row"><p class="question">'+(i+1)+'. '+esc(v.question)+'</p><p class="answer">'+esc(v.answer)+'</p></div>'});inner+='</section>'}
  else if(x.quote)inner+='<blockquote class="quote">'+esc(x.quote)+'</blockquote>';
