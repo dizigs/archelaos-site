@@ -13,7 +13,15 @@ fetch('/news.json?rev=20261101-photo-archive',{cache:'no-store'}).then(r=>{if(!r
   const card=document.createElement('article');card.className='ahn-card';
   const a=document.createElement('a');a.href='/news.html?article='+encodeURIComponent(x.id);a.className='ahn-card-link';
   const media=document.createElement('div');media.className='ahn-media'+(/crest/.test(x.image||'')?' ahn-emblem':'');
-  if(x.image&&/^(images|assets)\/[a-zA-Z0-9._/-]+\.(webp|jpg|jpeg|png)$/.test(x.image)){const image=document.createElement('img');image.src='/'+x.image;image.alt=x.imageNote||x.sport||'';image.loading='lazy';image.decoding='async';image.addEventListener('error',()=>{if(!image.dataset.archiveFallback){image.dataset.archiveFallback='1';image.src='https://raw.githubusercontent.com/dizigs/archelaos-site/main/'+x.image}else{image.src='/assets/archelaos-crest.png';media.classList.add('ahn-emblem')} });media.append(image)}
+  const local=!!x.image&&/^(?:images|assets)\/[a-zA-Z0-9._/-]+\.(?:webp|jpg|jpeg|png)$/.test(x.image);
+  let external=false;try{const u=new URL(x.image);external=u.protocol==='https:'&&['i0.wp.com','i1.wp.com','i2.wp.com','i3.wp.com','pieriasocial.gr','www.handball.org.gr'].includes(u.hostname)}catch(_){}
+  if(local||external){
+   const image=document.createElement('img');image.src=external?x.image:'/'+x.image;image.alt=x.imageNote||x.sport||'';image.loading='lazy';image.decoding='async';
+   image.addEventListener('error',()=>{
+    if(local&&!image.dataset.archiveFallback){image.dataset.archiveFallback='1';image.src='https://raw.githubusercontent.com/dizigs/archelaos-site/main/'+x.image}
+    else{image.remove();media.classList.add('ahn-unillustrated');media.textContent='ΑΡΧΕΙΟ ΑΡΧΕΛΑΟΥ'}
+   });media.append(image);
+  }else{media.classList.add('ahn-unillustrated');media.textContent='ΑΡΧΕΙΟ ΑΡΧΕΛΑΟΥ'}
   const body=document.createElement('div');body.className='ahn-content';
   const meta=document.createElement('span');meta.className='ahn-meta';meta.textContent=[x.sport,date(x.date)].filter(Boolean).join(' · ');
   const title=document.createElement('h3');title.textContent=x.title;const desc=document.createElement('p');desc.textContent=x.summary||'';
