@@ -3111,6 +3111,25 @@ html body #museum-history #history-archive .v61-sport-card[aria-pressed="true"] 
  #archive-voices .arch-voices-entry-action{width:100%;justify-content:space-between}
 }
 @media(prefers-reduced-motion:reduce){#archive-voices .arch-voices-entry-card{transition:none}#archive-voices .arch-voices-entry-card:hover{transform:none}}
+
+/* Emphasize the museum's core sports-history collection */
+html body #museum-history #history-archive .museum-sport-access-panel{
+  position:relative;isolation:isolate;
+  padding:clamp(28px,4vw,52px)!important;
+  margin-block:clamp(30px,5vw,64px)!important;
+  border:1px solid rgba(173,134,61,.55)!important;
+  border-radius:26px!important;
+  background:linear-gradient(125deg,#fffdf7 0%,#f5efdf 100%)!important;
+  box-shadow:0 22px 55px rgba(7,51,36,.12)!important;
+}
+html body #museum-history #history-archive .museum-sport-access-panel h3{
+  font-size:clamp(1.8rem,3.1vw,2.85rem)!important;
+  line-height:1.14!important;
+}
+html body #museum-history #history-archive .museum-sport-access-panel .v61-sport-grid{
+  margin-top:24px!important;gap:clamp(12px,1.6vw,22px)!important;
+}
+@media(max-width:640px){html body #museum-history #history-archive .museum-sport-access-panel{padding:24px 18px!important;margin-block:28px!important}}
 </style></head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow arch-gold-page" data-arch-people-page="history">
 <!-- ANIMATED CONTOUR WAVES -->
