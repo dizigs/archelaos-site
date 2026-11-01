@@ -283,7 +283,6 @@ def verify() -> None:
         if not valid and local.suffix.lower() == ".svg":
             # Original, locally bundled editorial vector art is an image too.
             # Validate XML structure and a drawable SVG root rather than magic bytes.
-            from xml.etree import ElementTree as ET
             try:
                 svg_root = ET.parse(local).getroot()
                 valid = (svg_root.tag == "{http://www.w3.org/2000/svg}svg"
