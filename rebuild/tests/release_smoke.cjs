@@ -8,7 +8,7 @@ const files=[
  ['index.html','home'],['history.html','museum'],['hall-of-fame.html','hall'],
  ['70-stigmes.html','moments'],['stories.html','stories'],['board.html','board'],
  ['contact.html','contact'],['sponsors.html','sponsors'],
- ['tmimata.html','departments'],['retro-matches.html','retro'],['search.html','search'],['favorites.html','favorites'],['contribute.html','contribute']
+ ['tmimata.html','departments'],['retro-matches.html','retro'],['search.html','search'],['favorites.html','favorites'],['contribute.html','contribute'],['interviews.html','interviews']
 ];
 async function verify(){
  mkdirSync(DEST,{recursive:true});
@@ -65,6 +65,13 @@ async function verify(){
        throw Error('Matchday sport filter not responding');
      await page.locator('#new-slide-next').click();
      await page.waitForFunction(()=>document.querySelector('#new-slide-title')?.textContent.includes('Στίβος'));
+    }
+    if(tag==='interviews'){
+      await page.waitForFunction(()=>document.querySelectorAll('#cards .card').length===25,null,{timeout:12000});
+      await page.locator('#cards .card').first().click();
+      await page.locator('#dialog[open]').waitFor();
+      await page.keyboard.press('Escape');
+      await page.locator('#dialog').waitFor({state:'hidden'});
     }
     if(tag==='search'){
      const catalog=await page.evaluate(async()=>{
