@@ -214,7 +214,40 @@ async function verify(){
      const contextualMail=decodeURIComponent(await page.locator('#ac-guide-email').getAttribute('href'));
      if(!contextualMail.includes('request-archery-historical-records'))
        throw Error('Evidence request ID missing from real email draft');
-     if(await page.locator('form,input[type="file"]').count())throw Error('Unexpected premature submission/upload');
+     if(await page.locator('#ac-attachments[type="file"][multiple]').count()!==1||
+        await page.locator('#ac-archive-link[type="url"]').count()!==1)
+        throw Error('Contribution guide must offer attachments and Drive URL');
+     // Intercept the endpoint: test secure multipart delivery without actually emailing anyone.
+     let postedContribution='';
+     await page.route('**/api/contact',async route=>{
+      const request=route.request();
+      if(request.method()==='GET'){
+       await route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({ready:true,attachments:true})});
+      }else if(request.method()==='POST'){
+       postedContribution=request.postData()||'';
+       await route.fulfill({status:200,contentType:'application/json',body:'{"ok":true}'});
+      }else await route.fulfill({status:405});
+     });
+     await page.locator('#ac-sender-email').fill('archive-tester@example.org');
+     await page.locator('#ac-archive-link').fill('https://drive.google.com/drive/folders/test');
+     await page.locator('#ac-details').fill('Ιστορική φωτογραφία με πλήρη στοιχεία τεκμηρίωσης');
+     await page.locator('#ac-attachments').setInputFiles({
+      name:'historical-source.txt',mimeType:'text/plain',
+      buffer:Buffer.from('Archive evidence for automated browser test')
+     });
+     await page.locator('#ac-guide-send').click();
+     if(!/συγκατάθεσή/.test(await page.locator('#ac-guide-status').textContent()))
+      throw Error('Secure contribution must require independent private-contact consent');
+     await page.locator('#ac-private-consent').check();
+     await page.locator('#ac-guide-send').click();
+     await page.waitForFunction(()=>document.querySelector('#ac-guide-status')?.textContent.includes('στάλθηκε επιτυχώς'),null,{timeout:12000});
+     if(!postedContribution.includes('name="topic"')||!postedContribution.includes('archive')||
+        !postedContribution.includes('historical-source.txt')||
+        !postedContribution.includes('drive.google.com/drive/folders/test')||
+        !postedContribution.includes('archive-tester@example.org')||
+        !postedContribution.includes('name="consent"'))
+      throw Error('Secure archive submission dropped metadata, attachment, Drive URL or consent');
+     await page.unroute('**/api/contact');
      const email=await page.locator('.ac-email').getAttribute('href');
      if(!email?.startsWith('mailto:info@archelaos.club?subject='))throw Error('Contribution contact email missing');
      await page.locator('#ac-type').selectOption({label:'Αγώνας ή αποτέλεσμα'});
