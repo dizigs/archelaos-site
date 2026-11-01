@@ -1044,6 +1044,30 @@
       "imageSourceUrl": "https://i2.wp.com/eptanews.gr/wp-content/uploads/2024/03/%CE%93%CE%91%CE%A3-%CE%91%CE%A1%CE%A7%CE%95%CE%9B%CE%91%CE%9F%CE%A3-%CE%9A%CE%91%CE%A4%CE%95%CE%A1%CE%99%CE%9D%CE%97%CE%A3-%CE%A4%CE%9C%CE%97%CE%9C%CE%91-%CE%A0%CE%91%CE%9B%CE%97%CE%A3-5.jpg?fit=843%2C580&ssl=1"
     },
     {
+      "id": "wrestling-vaο-moraitis-palaska-dec-2023",
+      "date": "2023-12-04",
+      "sport": "Πάλη",
+      "category": "achievements",
+      "title": "Έξι μετάλλια για τον Αρχέλαο στο τουρνουά πάλης «Μωραΐτης–Παλάσκα»",
+      "summary": "Τέσσερα χρυσά και δύο ασημένια για την αποστολή στο πανελλήνιο τουρνουά του ΒΑΟ.",
+      "body": [
+        "Στο 1ο Πανελλήνιο Τουρνουά Πάλης «Μωραΐτης–Παλάσκα», που διοργάνωσε ο ΒΑΟ στις 3 Δεκεμβρίου 2023, ο Αρχέλαος συμμετείχε με δέκα αθλητές και μία αθλήτρια.",
+        "Χρυσά μετάλλια κατέκτησαν η Ιωάννα Ξενίδου, ο Θανάσης Ευθυμιάδης, ο Γρηγόρης Ευθυμιάδης και ο Νίκος Ζινίσα. Ασημένια κατέκτησαν ο Σωκράτης Κωνσταντινίδης και ο Παύλος Τσεντίδης."
+      ],
+      "source": "Ολύμπιο Βήμα · 04/12/2023",
+      "sourceUrl": "https://olympiobima.gr/gas-archelaos-katerinis-gemisan-tis-aposkeves-tous-me-metallia-oi-protathlites-tou-stin-pali/",
+      "personIds": [
+        "arch-957a876e770d",
+        "arch-ba8233d165aa",
+        "arch-be8668380721",
+        "arch-73968afa517e",
+        "arch-b48656c62600"
+      ],
+      "image": "https://olympiobima.gr/wp-content/uploads/2023/12/gas-archelaos-katerinis-gemisan-tis-29267.webp",
+      "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2023/12/gas-archelaos-katerinis-gemisan-tis-29267.webp",
+      "imageNote": "Αρχική φωτογραφία του αντίστοιχου δημοσιεύματος."
+    },
+    {
       "id": "wrestling-2023-bucharest",
       "date": "2023-11-21",
       "sport": "Πάλη",
@@ -1065,6 +1089,52 @@
       ],
       "featured": false,
       "imageSourceUrl": "https://i0.wp.com/eptanews.gr/wp-content/uploads/2023/11/%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CF%80%CE%AC%CE%BB%CE%B7.jpeg?fit=1200%2C659&ssl=1"
+    },
+    {
+      "id": "wrestling-prosotsani-u11-u13-nov-2023",
+      "date": "2023-11-19",
+      "sport": "Πάλη",
+      "category": "achievements",
+      "title": "Δύο χρυσά και ένα ασημένιο για τους μικρούς παλαιστές στην Προσοτσάνη",
+      "summary": "Διακρίσεις U11 και U13 για πέντε αθλητές του Αρχέλαου στην Προσοτσάνη.",
+      "body": [
+        "Στο Πανελλήνιο Πρωτάθλημα Πάλης U11–U13 στην Προσοτσάνη Δράμας, στις 18–19 Νοεμβρίου 2023, ο Αρχέλαος συμμετείχε με πέντε αθλητές στην ελληνορωμαϊκή πάλη.",
+        "Στην U13 ο Νίκος Ζινίσα του Κωνσταντίνου κατέκτησε χρυσό στα 43 κιλά και ο Αριστοτέλης Ναβροζίδης ασημένιο στα 38 κιλά. Στην U11 ο Νίκος Ζινίσα του Σάββα κατέκτησε χρυσό στα 43 κιλά. Ο Λουκάς Ζινίσα και ο Ταξιάρχης Λιάκος κατέλαβαν την πέμπτη θέση στις κατηγορίες τους.",
+        "Οι δύο αθλητές που ονομάζονται Νίκος Ζινίσα διακρίνονται ρητά στην πηγή με διαφορετικό πατρώνυμο και δεν συγχωνεύονται σε ένα πρόσωπο."
+      ],
+      "source": "Ολύμπιο Βήμα · 19/11/2023",
+      "sourceUrl": "https://olympiobima.gr/archelaos-katerinis-elampsan-oi-pitsirikades-stin-pali/",
+      "personIds": [
+        "arch-aristotelis-navrozidis-wrest24",
+        "arch-loukas-zinisa-wrest25"
+      ],
+      "image": "https://olympiobima.gr/wp-content/uploads/2023/11/archelaos-katerinis-elampsan-pitsirikades-pali-73212.webp",
+      "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2023/11/archelaos-katerinis-elampsan-pitsirikades-pali-73212.webp",
+      "imageNote": "Αρχική φωτογραφία του αντίστοιχου δημοσιεύματος."
+    },
+    {
+      "id": "wrestling-balkan-sidirokastro-may-2023",
+      "date": "2023-05-08",
+      "sport": "Πάλη",
+      "category": "achievements",
+      "title": "Έξι μετάλλια για αθλητές του Αρχέλαου στο Βαλκανικό Πάλης 2023",
+      "summary": "Τρία χρυσά, ένα ασημένιο και δύο χάλκινα για τους παλαιστές του συλλόγου με την Εθνική ομάδα.",
+      "body": [
+        "Στο Βαλκανικό Πρωτάθλημα Πάλης που διεξήχθη στο Σιδηρόκαστρο Σερρών στις 5–7 Μαΐου 2023, οι αθλητές του Γ.Α.Σ. Αρχέλαος Κατερίνης κατέκτησαν συνολικά έξι μετάλλια με τα χρώματα της Εθνικής ομάδας.",
+        "Στην κατηγορία U15 η Ιωάννα Ξενίδου κατέκτησε χρυσό, ο Δημήτρης Σουλής ασημένιο και ο Νίκος Ζινίσα χάλκινο. Στην U17 χρυσά κατέκτησαν ο Σωκράτης Κωνσταντινίδης και ο Δημήτρης Παππάς και χάλκινο ο Θανάσης Ευθυμιάδης. Ο σύλλογος είχε πολυμελή συμμετοχή στη διοργάνωση."
+      ],
+      "source": "Ολύμπιο Βήμα · 08/05/2023",
+      "sourceUrl": "https://olympiobima.gr/pali-gas-archelaos-katerinis-dieprepse-valkaniko-protathlima-palis/",
+      "personIds": [
+        "arch-957a876e770d",
+        "arch-f3d93442851f",
+        "arch-73968afa517e",
+        "arch-e87fdf323137",
+        "arch-ba8233d165aa"
+      ],
+      "image": "https://olympiobima.gr/wp-content/uploads/2023/05/pali-gas-archelaos-52473.webp",
+      "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2023/05/pali-gas-archelaos-52473.webp",
+      "imageNote": "Αρχική φωτογραφία του αντίστοιχου δημοσιεύματος."
     },
     {
       "id": "wrestling-mouzaki-youth-medals-apr-2023",
