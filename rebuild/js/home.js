@@ -25,11 +25,13 @@ const init=()=>{
  const root=document.querySelector('.new-slideshow');if(!root)return;
  const slides=[...root.querySelectorAll('.new-slide')];
  const name=document.querySelector('#new-slide-title');
+ const titleLink=document.querySelector('#new-slide-link');
+ const sportKeys=['handball','track','archery','shooting','gymnastics','wrestling','volleyball','swimming'];
  const count=document.querySelector('#new-slide-count');
  const prev=document.querySelector('#new-slide-prev');
  const next=document.querySelector('#new-slide-next');
  const toggle=document.querySelector('#new-slide-toggle');
- if(!slides.length||!name||!count)return;
+ if(!slides.length||!name||!titleLink||!count)return;
 
  const DURATION=6000;
  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -43,7 +45,9 @@ const init=()=>{
    slide.setAttribute('aria-hidden',String(!active));
   });
   const label=slides[index].querySelector('img')?.alt||'';
-  name.textContent=label;
+  titleLink.textContent=label;
+  titleLink.href='/tmimata#sport-'+sportKeys[index];
+  titleLink.setAttribute('aria-label','Πληροφορίες τμήματος: '+label);
   count.textContent=String(index+1).padStart(2,'0')+' / '+String(slides.length).padStart(2,'0')+' · '+label;
  }
  function syncToggle(){
