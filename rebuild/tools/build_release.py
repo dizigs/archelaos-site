@@ -405,6 +405,13 @@ def make_release() -> None:
     actual = {path.name for path in profile_files}
     if expected != actual:
         raise RuntimeError(f"Profile file mismatch: missing={len(expected-actual)} extra={len(actual-expected)}")
+    # The Hall listing and biography modal must use the current reviewed master file,
+    # not the older 682-person profile snapshot used for standalone archive pages.
+    master_people = json.loads((ROOT / "hall-of-fame-people.json").read_text(encoding="utf-8"))
+    if master_people.get("count") != len(master_people.get("people", [])):
+        raise RuntimeError("Hall of Fame master data count mismatch")
+    copy2(ROOT / "hall-of-fame-people.json", OUTPUT / "assets" / "site" / "data" / "people.json")
+    copy2(ROOT / "hall-of-fame-people.json", OUTPUT / "hall-of-fame-people.json")
 
     from build_match_schedule import calendar as make_ical, validate as validate_matches
     match_data = json.loads((STAGE / "data" / "match-schedule.json").read_text(encoding="utf-8"))
