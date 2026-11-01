@@ -3,6 +3,20 @@
 const $=q=>document.querySelector(q),el=(tag,cls,text)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=text;return n};
 const route=path=>window.ArchelaosRoutes?.toStage(path)||path;
 let data,filter='all';
+const departmentNames={handball:'Χάντμπολ',track:'Στίβος',archery:'Τοξοβολία',shooting:'Σκοποβολή',gymnastics:'Ενόργανη Γυμναστική',volleyball:'Βόλεϊ',wrestling:'Πάλη',swimming:'Κολύμβηση',basketball:'Καλαθοσφαίριση','fin-swimming':'Ιστορία κολύμβησης','inactive-depts':'Ιστορικά τμήματα'};
+function fallbackSaved(saved){
+ const {type,id}=saved;
+ if(type==='page'&&id.startsWith('department-')){
+  const key=id.slice('department-'.length),title=departmentNames[key];
+  if(!title)return null;
+  return {type,id,title,kindLabel:'ΑΘΛΗΤΙΚΟ ΤΜΗΜΑ',subtitle:'Πληροφορίες και ιστορία τμήματος',year:'',url:'/tmimata.html#sport-'+key,entity:{}};
+ }
+ if(!['news','view','match','page'].includes(type))return null;
+ let metadata={};
+ try{metadata=JSON.parse(localStorage.getItem('archelaos:favorites:metadata:v1')||'{}')[type+':'+id]||{}}catch(e){}
+ const title=metadata.title||id.replace(/[-_]/g,' '),url=type==='news'?'/news.html?article='+encodeURIComponent(id):type==='match'?'/retro-matches.html':type==='view'?'/history.html':'/index.html';
+ return {type,id,title,kindLabel:type==='news'?'ΝΕΑ & ΔΡΑΣΗ':'ΑΠΟΘΗΚΕΥΜΕΝΟ',subtitle:metadata.summary||'Αποθηκευμένο από τον Αρχέλαο',year:'',url,entity:{}};
+}
 async function openSaved(record){
  const item=record.entity, type=record.type, ui=window.ArchelaosUI;
  if(!ui)throw Error('Popup system unavailable');
@@ -12,6 +26,7 @@ async function openSaved(record){
   location.assign(route(record.url));
   return;
  }
+ if(['news','page','match','view'].includes(type)){location.assign(route(record.url));return;}
  if(type==='person'){
   if(!window.ArchelaosBio?.show(item))throw Error('Biography viewer unavailable');
   return;
@@ -63,7 +78,7 @@ async function openSaved(record){
  }
 }
 function card(saved){
- const record=data.get(saved.type,saved.id);if(!record)return null;
+ const record=data.get(saved.type,saved.id)||fallbackSaved(saved);if(!record)return null;
  const item=record.entity;
  const article=el('article','av-card');
  const hit=el('button','av-card-hit');hit.type='button';
