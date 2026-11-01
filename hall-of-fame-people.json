@@ -1,6 +1,6 @@
 {
   "version": "v1.6",
-  "count": 682,
+  "count": 683,
   "people": [
     {
       "name": "Νίκος Τσινόπουλος",
@@ -443,14 +443,18 @@
       "name": "Σταματία Κυπαρίσση",
       "name_en": "Stamatia Kyparissi",
       "role": "Αθλήτρια · Πετοσφαίριση",
-      "role_en": "Athlete",
+      "role_en": "Athlete · Volleyball",
       "category": "athlete",
-      "bio": "Ξεκίνησε από τις ακαδημίες πετοσφαίρισης του Αρχελάου Κατερίνης, αναδεικνύοντας το πλούσιο ταλέντο της. Εξελίχθηκε σε βασική ακραία της Εθνικής Ομάδας Πετοσφαίρισης Γυναικών, αγωνιζόμενη στην κορυφαία κατηγορία της Ελλάδας και στο εξωτερικό, κατακτώντας τίτλους και αποτελώντας την πιο επιτυχημένη πρέσβειρα του κατερινιώτικου βόλεϊ. Τιμήθηκε από τον Αρχέλαο στην επετειακή εκδήλωση του 2022.\n\nΗ προσφορά της επισημάνθηκε στην επετειακή εκδήλωση του Αρχελάου το 2022, όπου τιμήθηκε ως κορυφαία εκπρόσωπος του τμήματος πετοσφαίρισης.",
-      "bio_en": "Stamatia Kyparissi developed at Archelaos before becoming a standout wing spiker for the Greek Women's National Volleyball Team, representing the club's volleyball excellence.\n\nIn 2022, the club's anniversary commemoration recognised her as a leading historical representative of Archelaos volleyball.",
+      "bio": "Η Σταματία Κυπαρίσση ξεκίνησε την αγωνιστική πορεία της στην πετοσφαίριση του Γ.Α.Σ. Αρχέλαος Κατερίνης, όπου αγωνίστηκε από το 2015 έως το 2018, σύμφωνα με το επίσημο βιογραφικό του Παναθηναϊκού. Στη συνέχεια αγωνίστηκε στον ΠΑΟΚ, στην Κάποσβαρ της Ουγγαρίας, στη Δρέσδη της Γερμανίας και στην ΑΕΚ. Με τον ΠΑΟΚ κατέκτησε το Κύπελλο Ελλάδας το 2021 και δύο πανελλήνιους τίτλους Κ20, ενώ με τη Δρέσδη κατέκτησε το Κύπελλο Γερμανίας το 2025. Τον Ιούνιο του 2026 ανακοινώθηκε η ένταξή της στον Παναθηναϊκό.\n\nΟ Αρχέλαος την τίμησε στην επετειακή εκδήλωση του 2022 για την αθλητική πορεία της.",
+      "bio_en": "Stamatia Kyparissi began her volleyball career at GAS Archelaos Katerinis, playing for the club from 2015 to 2018, as documented by Panathinaikos. She then played for PAOK, Kaposvár in Hungary, Dresdner SC in Germany, and AEK. With PAOK, she won the 2021 Greek Cup and two Greek under-20 titles; with Dresden she won the 2025 German Cup. In June 2026, Panathinaikos announced her signing.\n\nArchelaos honoured her sporting career at its 2022 anniversary event.",
       "refs": [
         {
           "label": "Οδηγός Πιερίας · Τιμηθέντες επετειακής εκδήλωσης 2022",
           "url": "https://odigos-pierias.gr/%CE%B7-%CF%83%CF%85%CE%B3%CE%BA%CE%AF%CE%BD%CE%B7%CF%83%CE%B7-%CF%83%CF%84%CE%B7-%CE%B2%CF%81%CE%B1%CE%B4%CE%B9%CE%AC-%CE%B1%CE%BD%CE%B1%CE%BC%CE%BD%CE%AE%CF%83%CE%B5%CF%89%CE%BD-%CE%BA%CE%B1%CE%B9/"
+        },
+        {
+          "label": "Παναθηναϊκός Α.Ο. · Επίσημη ανακοίνωση, 25/06/2026",
+          "url": "https://www.pao1908.com/nea/ston-panathinaiko-i-stamatia-kyparissi/"
         }
       ],
       "id": "arch-999730e06982"
@@ -7064,6 +7068,27 @@
       "bio": "2η Πανελληνιονίκης στο αεροβόλο τουφέκι νεανίδων (370/400) και 1η νικήτρια στο ομαδικό αεροβόλου τουφεκίου γυναικών στους Α΄ Διασυλλογικούς Αγώνες.",
       "bio_en": "Μαρία Γκαβοτάσιου was active in the shooting section of Archelaos Katerini during 1993–1995. Contemporary press records document their participation and sporting results.",
       "id": "arch-ef20440153fa"
+    },
+    {
+      "name": "Δημήτρης Σιώκας",
+      "name_en": "Dimitris Siokas",
+      "role": "Αθλητής · Χειροσφαίριση",
+      "role_en": "Athlete · Handball",
+      "category": "athlete",
+      "bio": "Χειροσφαιριστής του Γ.Α.Σ. Αρχέλαος Κατερίνης, με συμμετοχές στα τμήματα εφήβων και ανδρών. Τον Απρίλιο του 2026 συμπεριλήφθηκε στην αποστολή της Εθνικής Εφήβων για τους 22ους Μεσογειακούς Αγώνες Χειροσφαίρισης, που διεξήχθησαν στη Σαμορίν της Σλοβακίας (13–18 Απριλίου 2026).\n\nΤον Αύγουστο του 2026 συμπεριλήφθηκε επίσης στην αποστολή της Εθνικής Εφήβων για το EHF Championship I, στα Σκόπια (3–9 Αυγούστου 2026).",
+      "bio_en": "Handball player for GAS Archelaos Katerinis, representing its youth and senior teams. In April 2026 he was selected for the Greek youth national team at the 22nd Mediterranean Handball Championship, held in Šamorín, Slovakia (13–18 April 2026).\n\nIn August 2026 he was also named to Greece's youth national squad for the EHF Championship I, held in Skopje (3–9 August 2026).",
+      "refs": [
+        {
+          "label": "ΟΧΕ · Εθνική Εφήβων στη Σλοβακία, 11/04/2026",
+          "url": "https://www.handball.org.gr/ethnikes-katigories/efivon/5421-petaei-gia-slovakia-i-ethniki-efivon"
+        },
+        {
+          "label": "ΟΧΕ · Εθνική Εφήβων στα Σκόπια, 01/08/2026",
+          "url": "https://www.handball.org.gr/ethnikes-katigories/efivon/5521-uro"
+        }
+      ],
+      "id": "arch-dimitris-siokas-handball-2026",
+      "period": "2026"
     }
   ]
 }
