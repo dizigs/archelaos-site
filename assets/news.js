@@ -65,7 +65,7 @@ function show(id){
  if(x.imageNote){const c=document.createElement('figcaption');c.textContent=x.imageNote;fig.append(c)}
  const h=document.createElement('h2');h.id='an-dialog-title';h.textContent=x.title;
  const lead=document.createElement('p');lead.className='an-summary';lead.textContent=x.summary;
- detail.append(fig,meta(x),h,lead);
+ detail.append(meta(x),h,fig,lead);
  for(const text of x.body||[]){const p=document.createElement('p');p.textContent=text;detail.append(p)}
  const source=document.createElement('div');source.className='an-source';source.textContent=t('Πηγή: ','Source: ')+x.source;const links=document.createElement('div');links.className='an-links';
  if(x.sourceUrl&&/^https:\/\//.test(x.sourceUrl)){const a=link(x.sourceUrl,t('Αρχικό δημοσίευμα','Original article'));a.target='_blank';a.rel='noopener noreferrer';links.append(a)}
