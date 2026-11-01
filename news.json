@@ -895,6 +895,30 @@
       "imageKind": "archive"
     },
     {
+      "id": "gymnastics-horizon-cup-2024-team-medals",
+      "date": "2024-11-12",
+      "sport": "Ενόργανη Γυμναστική",
+      "category": "achievements",
+      "title": "Μετάλλια της ενόργανης του Αρχέλαου στο Horizon Cup 2024",
+      "summary": "Χρυσό στη δοκό και χάλκινο στο σύνθετο της Θεοδώρας Αμεξιζίδου, με έβδομη ομαδική θέση.",
+      "body": [
+        "Στο 5ο διεθνές Horizon Cup ενόργανης γυμναστικής στη Μίκρα Θεσσαλονίκης, στις 9–10 Νοεμβρίου 2024, ο Αρχέλαος συμμετείχε για πρώτη φορά και κατέλαβε την έβδομη θέση στην ομαδική κατάταξη με 116,500 βαθμούς.",
+        "Η Θεοδώρα Αμεξιζίδου κατέκτησε το χρυσό στη δοκό και το χάλκινο στο σύνθετο ατομικό. Η Φανή Τσαλού ήταν τρίτη στη δοκό. Αγωνίστηκαν επίσης οι Νικολέτα Τσαρουχά, Καλλιόπη Γεωργαντά, Γεωργία Κωστίκου και Ερμιόνη Βάλβη."
+      ],
+      "source": "Ο Ντελάλης · 12/11/2024",
+      "sourceUrl": "https://odelalis.gr/epitychies-kai-metallia-gia-to-tmima-enorganis-gymnastikis-tou-gas-archelaos-katerinis/",
+      "personIds": [
+        "arch-f02298025e5c",
+        "arch-e9fc7408640c",
+        "arch-8d1a258f0b09",
+        "arch-1ea85d87584a",
+        "arch-9bba434ae7e7"
+      ],
+      "image": "https://odelalis.gr/wp-content/uploads/2024/11/gas_arxelaos_gimnastiki-1.jpg",
+      "imageSourceUrl": "https://odelalis.gr/wp-content/uploads/2024/11/gas_arxelaos_gimnastiki-1.jpg",
+      "imageNote": "Αρχική φωτογραφία δημοσιεύματος · Ο Ντελάλης · 12/11/2024"
+    },
+    {
       "id": "archery-cup-2024",
       "date": "2024-10-22",
       "sport": "Τοξοβολία",
@@ -1319,6 +1343,26 @@
       "imageSourceUrl": "https://i1.wp.com/eptanews.gr/wp-content/uploads/2024/04/%CE%B3%CF%85%CE%BC%CE%BD%CE%B1%CF%83%CF%84%CE%B9%CE%BA%CE%AE.jpeg?fit=764%2C1200&ssl=1"
     },
     {
+      "id": "wrestling-xenidou-u17-national-gold-apr-2024",
+      "date": "2024-04-09",
+      "sport": "Πάλη",
+      "category": "achievements",
+      "title": "Πρωταθλήτρια Ελλάδας U17 η Ιωάννα Ξενίδου στην Καλαμπάκα",
+      "summary": "Χρυσό μετάλλιο κορασίδων και τρίτη ομαδική θέση για τον Αρχέλαο.",
+      "body": [
+        "Η Ιωάννα Ξενίδου του Γ.Α.Σ. Αρχέλαος Κατερίνης κατέκτησε την πρώτη θέση στο Πανελλήνιο Πρωτάθλημα Πάλης U17 Κορασίδων στην Καλαμπάκα τον Απρίλιο 2024.",
+        "Στη δεύτερη ημέρα των αγώνων ο σύλλογος κατέκτησε επίσης την τρίτη θέση στην ομαδική κατάταξη του Πανελληνίου Πρωταθλήματος U17."
+      ],
+      "source": "Ο Ντελάλης · 09/04/2024",
+      "sourceUrl": "https://odelalis.gr/protathlitria-elladas-i-ioanna-xenidou-tou-gas-archelaou-katerinis/",
+      "personIds": [
+        "arch-957a876e770d"
+      ],
+      "image": "https://odelalis.gr/wp-content/uploads/2024/04/savvas_ksenidou_pali.jpg",
+      "imageSourceUrl": "https://odelalis.gr/wp-content/uploads/2024/04/savvas_ksenidou_pali.jpg",
+      "imageNote": "Αρχική φωτογραφία δημοσιεύματος · Ο Ντελάλης · 09/04/2024"
+    },
+    {
       "id": "handball-feronas-archelaos-35-31-apr-2024",
       "date": "2024-04-01",
       "sport": "Χάντμπολ",
@@ -1706,6 +1750,27 @@
       "imageSourceUrl": "https://i0.wp.com/eptanews.gr/wp-content/uploads/2023/04/-%CE%91%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CE%9A%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82-e1680593162690.jpeg?fit=1240%2C720&ssl=1"
     },
     {
+      "id": "shooting-moschi-olympic-qualification-mar-2023",
+      "date": "2023-03-11",
+      "sport": "Σκοποβολή",
+      "category": "achievements",
+      "title": "Η Χριστίνα Μόσχη εξασφάλισε πρόκριση στους Ολυμπιακούς Αγώνες 2024",
+      "summary": "Τέταρτη στο Ευρωπαϊκό Πρωτάθλημα του Ταλίν και πρόκριση στο Παρίσι.",
+      "body": [
+        "Η Χριστίνα Μόσχη, αθλήτρια σκοποβολής που ο σύλλογος ανέφερε ως μέλος του, κατέλαβε την τέταρτη θέση στο Ευρωπαϊκό Πρωτάθλημα στο Ταλίν της Εσθονίας και εξασφάλισε πρόκριση στους Ολυμπιακούς Αγώνες του Παρισιού 2024.",
+        "Ο Αρχέλαος συνεχάρη την αθλήτρια, τον προπονητή της Τάσο Κορακάκη και τον πρώτο προπονητή της Γεώργιο Γραμμενόπουλο."
+      ],
+      "source": "Ο Ντελάλης · 11/03/2023",
+      "sourceUrl": "https://odelalis.gr/sygcharitirio-minyma-toy-gas-archelaos-katerinis-stin-christina-moschi/",
+      "personIds": [
+        "arch-87ea05ce738a",
+        "arch-7a5f32f6367b"
+      ],
+      "image": "https://odelalis.gr/wp-content/uploads/2023/03/skopovoli-35.jpg",
+      "imageSourceUrl": "https://odelalis.gr/wp-content/uploads/2023/03/skopovoli-35.jpg",
+      "imageNote": "Αρχική φωτογραφία δημοσιεύματος · Ο Ντελάλης · 11/03/2023"
+    },
+    {
       "id": "club-municipal-visit-2023",
       "date": "2023-02-24",
       "category": "club",
@@ -1938,6 +2003,29 @@
       "image": "https://olympiobima.gr/wp-content/uploads/2022/06/ΓΑΣ-Αρχέλαος-Κατερίνης-Χρυσό-μετάλλιο-για-την-Κατερίνα-Νατσιοπούλου-41643.jpg",
       "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2022/06/ΓΑΣ-Αρχέλαος-Κατερίνης-Χρυσό-μετάλλιο-για-την-Κατερίνα-Νατσιοπούλου-41643.jpg",
       "imageNote": "Φωτογραφία αρχικής δημοσίευσης · Ολύμπιο Βήμα · 26/06/2022"
+    },
+    {
+      "id": "gymnastics-alexandroupoli-final-jun-2022",
+      "date": "2022-06-17",
+      "sport": "Ενόργανη Γυμναστική",
+      "category": "achievements",
+      "title": "Μετάλλια στην τελική φάση ενόργανης παμπαίδων–παγκορασίδων το 2022",
+      "summary": "Πρωτιές στα όργανα και ασημένιο ομαδικό Παγκορασίδων Β΄ στην Αλεξανδρούπολη.",
+      "body": [
+        "Στην τελική φάση της Δ΄ Κατηγορίας Παμπαίδων–Παγκορασίδων στην Αλεξανδρούπολη τον Ιούνιο 2022, ο Τρύφων Κραγιόπουλος κέρδισε την πρώτη θέση στο σύνθετο ατομικό και στα έξι όργανα.",
+        "Η ομάδα Παγκορασίδων Β΄ με Κατερίνα Λαμπίρη, Μαρία Κεσενλή, Παναγιώτα Λάιου, Χριστίνα Παπαβασιλείου και Ιωάννα Παπαχατζή κατέκτησε ασημένιο στο ομαδικό με 158,750 βαθμούς. Στις Παγκορασίδες Α΄, η Θεοδώρα Αμεξιζίδου και η Φανή Τσαλού κατέκτησαν ατομικά μετάλλια."
+      ],
+      "source": "Ο Ντελάλης · 17/06/2022",
+      "sourceUrl": "https://odelalis.gr/epitychies-ton-pampaidon-amp-pagkorasidon-toy-gas-archelaos-katerinis-sto-panellinio-protathlima-enorganis-gymnastikis-stin-alexandroypoli/",
+      "personIds": [
+        "arch-1325e4551e91",
+        "arch-2ec2798d39bb",
+        "arch-gymnastics-9814252c",
+        "arch-f02298025e5c"
+      ],
+      "image": "https://odelalis.gr/wp-content/uploads/2022/06/gasarxelaos.jpg",
+      "imageSourceUrl": "https://odelalis.gr/wp-content/uploads/2022/06/gasarxelaos.jpg",
+      "imageNote": "Αρχική φωτογραφία δημοσιεύματος · Ο Ντελάλης · 17/06/2022"
     },
     {
       "id": "track-world-gymnasiade-balkan-june-2022",
