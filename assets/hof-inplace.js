@@ -61,7 +61,7 @@ document.addEventListener('click',e=>{
  const a=e.target.closest?.('a[href],button[data-arch-bio-id]');if(!a)return;
  if(e.defaultPrevented||e.button!==0||e.ctrlKey||e.metaKey||e.shiftKey||e.altKey||a.target==='_blank'||a.hasAttribute('download'))return;
  const id=personId(a);if(!id)return;
- e.preventDefault();void open(id);
-});
+ e.preventDefault();e.stopPropagation();void open(id);
+},true);
 window.ArchelaosBio=Object.assign(window.ArchelaosBio||{},{load,open,__shared:true});
 })();
