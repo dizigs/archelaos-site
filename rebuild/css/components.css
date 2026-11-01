@@ -289,3 +289,68 @@ body.arch-a11y-calm *,body.arch-a11y-calm *::before,body.arch-a11y-calm *::after
  .arch-a11y-launch svg,.arch-back-to-top svg{width:26px;height:26px}
  .arch-a11y-panel{max-height:calc(100dvh - 24px);overflow:auto}
 }
+
+/* Historical presidents table: consistent columns, readable rows, no old Tailwind dependencies. */
+.arch-dialog-body .arch-presidents-table,
+.arch-archive-content .arch-presidents-table{
+ display:table!important;table-layout:fixed;width:100%;min-width:0;
+ max-width:100%;margin:18px 0 24px;border-collapse:separate;border-spacing:0;
+ border:1px solid #ddcfad;border-radius:14px;overflow:hidden;
+ background:#fffdf7;font:400 13px/1.65 Inter,system-ui,sans-serif;
+ box-shadow:0 10px 26px #0a382016;
+}
+.arch-presidents-table thead{display:table-header-group}
+.arch-presidents-table tbody{display:table-row-group}
+.arch-presidents-table tr{display:table-row}
+.arch-presidents-table thead tr{background:#073d2a;color:#f4e9d0}
+.arch-presidents-table th,.arch-presidents-table td{
+ display:table-cell!important;visibility:visible!important;
+ padding:15px 13px;vertical-align:top;text-align:left;
+ border-bottom:1px solid #e9e0cf;overflow-wrap:anywhere;
+ white-space:normal!important;line-height:1.6
+}
+.arch-presidents-table thead th{
+ color:#f5e7bf;background:#073d2a;font:800 11px/1.5 Inter,system-ui,sans-serif;
+ letter-spacing:.025em;text-transform:uppercase;border-bottom:2px solid #ba9d62
+}
+.arch-presidents-table th:first-child,.arch-presidents-table td:first-child{width:18%;font-weight:800;color:#916f34;font-variant-numeric:tabular-nums}
+.arch-presidents-table thead th:first-child{color:#f5e7bf}
+.arch-presidents-table th:nth-child(2),.arch-presidents-table td:nth-child(2){width:30%}
+.arch-presidents-table th:nth-child(3),.arch-presidents-table td:nth-child(3){width:52%}
+.arch-presidents-table tbody tr:nth-child(even){background:#f3efe5}
+.arch-presidents-table tbody tr:hover{background:#eee5d0}
+.arch-presidents-table tbody tr:last-child td{border-bottom:0}
+.arch-presidents-table a.president-bio-link{
+ color:#073d2a!important;font-weight:800;text-decoration:none!important;
+ border:0!important;line-height:1.45
+}
+.arch-presidents-table a.president-bio-link:hover{color:#967238!important;text-decoration:none!important}
+.arch-presidents-table a.president-bio-link:focus-visible{outline:2px solid #b5934b;outline-offset:3px}
+.arch-presidents-table [data-lang="en"]{display:none!important}
+@media(max-width:700px){
+ .arch-dialog-body .arch-presidents-table,.arch-archive-content .arch-presidents-table{
+  display:block!important;width:100%;max-width:100%;border:0;border-radius:0;
+  background:transparent;box-shadow:none;margin:20px 0;
+ }
+ .arch-presidents-table thead{display:none!important}
+ .arch-presidents-table tbody{display:grid!important;grid-template-columns:minmax(0,1fr);gap:13px}
+ .arch-presidents-table tbody tr{
+  display:grid!important;grid-template-columns:minmax(0,1fr)!important;
+  background:#fffdf7!important;padding:16px 17px;border:1px solid #ded0ad;
+  border-radius:13px;box-shadow:0 4px 14px #06382012;gap:8px;
+ }
+ .arch-presidents-table tbody td{
+  display:block!important;width:auto!important;max-width:100%;padding:0!important;
+  border:0!important;color:#294638
+ }
+ .arch-presidents-table tbody td::before{
+  display:block;content:"";font-size:10px;letter-spacing:.085em;font-weight:800;
+  color:#9d7b3c;margin-bottom:3px
+ }
+ .arch-presidents-table tbody td:first-child{font-size:14px;color:#8c692e}
+ .arch-presidents-table tbody td:first-child::before{content:"ΘΗΤΕΙΑ"}
+ .arch-presidents-table tbody td:nth-child(2){font-size:17px}
+ .arch-presidents-table tbody td:nth-child(2)::before{content:"ΠΡΟΕΔΡΟΣ"}
+ .arch-presidents-table tbody td:nth-child(3){font-size:13px;line-height:1.73;margin-top:2px;padding-top:10px!important;border-top:1px solid #e8ddc7!important}
+ .arch-presidents-table tbody td:nth-child(3)::before{content:"ΙΣΤΟΡΙΚΟΙ ΣΤΑΘΜΟΙ"}
+}
