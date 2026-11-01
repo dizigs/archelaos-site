@@ -2,8 +2,8 @@
 (()=>{'use strict';if(document.getElementById('archelaos-home-news'))return;
 const date=d=>new Intl.DateTimeFormat('el-GR',{day:'numeric',month:'short',year:'numeric'}).format(new Date(d+'T12:00:00'));
 const section=document.createElement('section');section.className='ahn-section';section.id='archelaos-home-news';section.setAttribute('aria-labelledby','ahn-heading');
-section.innerHTML='<div class="ahn-container"><div class="ahn-heading"><div><p class="ahn-kicker">Η ΖΩΗ ΤΟΥ ΣΥΛΛΟΓΟΥ</p><h2 id="ahn-heading">Τελευταία από τον Αρχέλαο</h2><p class="ahn-subtitle">Η ιστορία συνεχίζεται, κάθε μέρα.</p></div><a class="ahn-all" href="/news.html">Όλα τα νέα </a></div><div class="ahn-grid" id="ahn-grid"></div></div>';
-const anchor=document.getElementById('about')||document.getElementById('join-history');const footer=document.querySelector('footer:not(#arch-global-footer)')||document.getElementById('arch-global-footer');if(anchor)anchor.before(section);else if(footer)footer.before(section);else document.body.append(section);
+section.innerHTML='<div class="ahn-container"><div class="ahn-heading"><div><p class="ahn-kicker">Ο ΑΡΧΕΛΑΟΣ ΣΗΜΕΡΑ · ΑΓΩΝΕΣ, ΔΙΑΚΡΙΣΕΙΣ, ΑΝΘΡΩΠΟΙ</p><h2 id="ahn-heading">Η ιστορία γράφεται <em>σήμερα.</em></h2><p class="ahn-subtitle">Η αγωνιστική δράση και οι άνθρωποι του συλλόγου, με εικόνες και αποτελέσματα.</p></div><a class="ahn-all" href="/news.html">Όλα τα νέα </a></div><div class="ahn-grid" id="ahn-grid"></div></div>';
+const anchor=document.getElementById('anniversary70')||document.getElementById('about')||document.getElementById('join-history');const footer=document.querySelector('footer:not(#arch-global-footer)')||document.getElementById('arch-global-footer');if(anchor)anchor.before(section);else if(footer)footer.before(section);else document.body.append(section);
 const grid=section.querySelector('#ahn-grid');
 fetch('/news.json?rev=20261101-photo-archive',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('No news');return r.json()}).then(data=>{
  const recent=(data.items||[]).filter(x=>x&&!x.unverified&&x.id&&x.title&&x.date).sort((a,b)=>b.date.localeCompare(a.date)).slice(0,3);
@@ -23,6 +23,7 @@ fetch('/news.json?rev=20261101-photo-archive',{cache:'no-store'}).then(r=>{if(!r
    });media.append(image);
   }else{media.classList.add('ahn-unillustrated');media.textContent='ΑΡΧΕΙΟ ΑΡΧΕΛΑΟΥ'}
   const body=document.createElement('div');body.className='ahn-content';
+  if(x===recent[0]){const lead=document.createElement('span');lead.className='ahn-lead-label';lead.textContent='ΠΙΟ ΠΡΟΣΦΑΤΗ ΕΙΔΗΣΗ';body.append(lead);}
   const meta=document.createElement('span');meta.className='ahn-meta';meta.textContent=[x.sport,date(x.date)].filter(Boolean).join(' · ');
   const title=document.createElement('h3');title.textContent=x.title;const desc=document.createElement('p');desc.textContent=x.summary||'';
   const arrow=document.createElement('span');arrow.className='ahn-arrow';arrow.textContent='Διαβάστε την είδηση';
