@@ -60,3 +60,17 @@
 .ct-hero-card-green>i{color:#ddeddc}.ct-hero-card-cream>i{color:#073d2a}
 .ct-hero-card:hover{transform:translateY(-2px);box-shadow:0 20px 44px #073d2a26}
 @media(max-width:700px){.ct-hero{min-height:0;padding:35px 0 65px}.ct-hero-cards{grid-template-columns:1fr}.ct-hero-card{min-height:260px}.ct-hero h1{font-size:clamp(40px,9vw,58px)}}
+
+/* Contribution credit: optional, explicit, visible only for archive topic. */
+.ct-credit-choice[hidden],#ct-credit-name-wrap[hidden]{display:none!important}
+.ct-credit-choice{display:grid;gap:12px;padding:20px 18px;
+ border:1px solid #d5bf92;border-radius:14px;background:#f7f1e2}
+.ct-credit-choice>strong{font:500 20px/1.3 Georgia,serif;color:#073d2a}
+.ct-credit-check{display:flex!important;flex-direction:row;gap:12px!important;
+ align-items:flex-start!important;font:500 14px/1.65 Inter,system-ui,sans-serif!important;
+ cursor:pointer;color:#254c37}
+.ct-credit-check input{width:21px;height:21px;min-width:21px;flex:none;
+ margin:2px 0 0;accent-color:#073d2a}
+.ct-credit-choice small{font:400 12px/1.6 Inter,system-ui,sans-serif;color:#627264}
+#ct-credit-name-wrap{display:grid;gap:7px;font-size:13px;color:#254d38}
+@media(max-width:600px){.ct-credit-choice{padding:17px 14px}}
