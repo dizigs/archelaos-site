@@ -64,7 +64,8 @@ def inspect():
         assert svg.count("<path") >= 1 and "Apache License 2.0" in svg, f"Sports pictogram not migrated: {sport}"
     assert 'data-dp-open="inactive-depts"' in departments_html, "Historical departments card missing"
     historic = departments_html.split('data-dp-open="inactive-depts"',1)[1].split('</button>',1)[0]
-    assert 'class="dp-watermark"' in historic and 'class="dp-silhouette"' not in historic, "Historical card must show a year, not a sports pictogram"
+    assert 'class="dp-title"' in historic and 'class="dp-silhouette"' not in historic, "Historical card must keep title-only design without a sports pictogram"
+    assert 'class="dp-watermark"' not in historic, "Retired historical watermark reintroduced"
     assert "filter:blur(4px)" in departments_css, "Classic sports cards should use 4px photo blur"
     assert ".dp-silhouette{display:none!important}" in departments_css, "Sports pictograms should be hidden in classic photo cards"
     assert 'class="dp-cta"' not in departments_html, "Sport cards must be entirely clickable, without CTA text"
