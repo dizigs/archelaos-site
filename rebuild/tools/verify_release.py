@@ -2,6 +2,8 @@
 """Read-only checks for the generated dist/ directory."""
 from html.parser import HTMLParser
 from html import escape
+from shutil import which
+import subprocess
 from pathlib import Path
 from urllib.parse import urlsplit
 from xml.etree import ElementTree as ET
@@ -206,6 +208,31 @@ def verify() -> None:
         assert '/assets/hof-inplace.js' in public_page, "In-place HOF biographies not loaded: " + entry["file"]
     assert 'favorite:{type:\'page\',id:\'department-\'' in (DIST/"assets/site/js/departments.js").read_text(encoding="utf-8"), "Department detail popups lost favorites"
     assert "'page'" in (DIST/"assets/site/js/favorites.js").read_text(encoding="utf-8"), "Saved department favorites unsupported"
+    # Catch malformed JavaScript before a browser receives it. Some builders
+    # contain Python but no Node; in that case issue a diagnostic rather than
+    # blocking a valid static site for a missing optional tool.
+    node = which("node")
+    if node:
+        critical_scripts = (
+            "assets/hof-inplace.js", "assets/news.js", "assets/home-news.js",
+            "assets/site/js/biographies.js", "assets/site/js/components.js",
+            "assets/site/js/archive-catalog.js", "assets/site/js/archive.js",
+            "assets/site/js/departments.js", "assets/site/js/favorites.js",
+            "assets/site/js/favorites-page.js", "assets/site/js/search.js",
+        )
+        for script_name in critical_scripts:
+            candidate = DIST / script_name
+            assert candidate.is_file(), "Missing JavaScript dependency: " + script_name
+            check = subprocess.run([node, "--check", str(candidate)],
+                                   capture_output=True, text=True, timeout=20)
+            assert check.returncode == 0, "JavaScript syntax error in " + script_name + ": " + check.stderr[-1300:]
+    else:
+        print("[QA WARNING] Node.js not installed; JavaScript syntax preflight skipped")
+    facility = next(a for a in museum_records if a["id"] == "egkatastaseis")
+    for fact in ("30 Ιουνίου 1957", "Εξειδικευμένοι Χώροι Προπόνησης",
+                 "Γεωργάκη Ολυμπίου 1"):
+        assert fact in facility["html"], "Museum facilities history out of sync: " + fact
+    assert ".facility-museum .fm-section" in (DIST/"assets/site/css/components.css").read_text(encoding="utf-8"), "Museum facilities styles not published"
     # News card, article and home-news links have no decorative arrows.
     for asset in (DIST / "news.html", DIST / "assets/news.js", DIST / "assets/home-news.js"):
         content = asset.read_text(encoding="utf-8")
