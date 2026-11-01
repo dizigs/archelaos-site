@@ -8,8 +8,8 @@ from urllib.request import Request, urlopen
 from urllib.error import HTTPError, URLError
 
 TOKEN = os.environ.get("CLOUDFLARE_API_TOKEN", "").strip()
-ACCOUNT = os.environ.get("CLOUDFLARE_ACCOUNT_ID", "898359728b3dfe8c3a3f56e3d19eecd1").strip()
-PROJECT = os.environ.get("CLOUDFLARE_PAGES_PROJECT", "archelaos-site").strip()
+ACCOUNT = (os.environ.get("CLOUDFLARE_ACCOUNT_ID") or "898359728b3dfe8c3a3f56e3d19eecd1").strip()
+PROJECT = (os.environ.get("CLOUDFLARE_PAGES_PROJECT") or "archelaos-site").strip()
 API = "https://api.cloudflare.com/client/v4"
 
 def api(path):
