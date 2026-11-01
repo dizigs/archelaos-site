@@ -12,7 +12,7 @@ const label=x=>(categories[x.category]||['ΑΡΧΕΛΑΟΣ','ARCHELAOS'])[en()?1
 function media(x,cls){
  const b=document.createElement(cls==='an-cover'?'figure':'div');b.className=cls;
  const path=String(x.image||'');
- const local=/^(?:images|assets)\/[a-zA-Z0-9._/-]+\.(?:webp|jpg|jpeg|png)$/.test(path);
+ const local=/^(?:(?:images|assets)\/[a-zA-Z0-9._/-]+|archelaos-logo-gold)\.(?:webp|jpg|jpeg|png)$/.test(path);
  let original=false;
  try{const u=new URL(path);original=u.protocol==='https:'&&!!u.hostname&&!u.username&&!u.password}catch(_){}
  const empty=()=>{
@@ -29,6 +29,7 @@ function media(x,cls){
      img.dataset.archiveFallback='1';img.src='https://raw.githubusercontent.com/dizigs/archelaos-site/main/'+path;
    }else empty();
  });
+ if(path==='archelaos-logo-gold.png') b.classList.add('is-heritage-crest');
  b.append(img);return b;
 }
 function info(x){return {title:x.title,summary:x.summary,href:'news.html?article='+encodeURIComponent(x.id)}}
