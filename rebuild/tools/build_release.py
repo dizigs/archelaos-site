@@ -35,7 +35,7 @@ STATIC_ROOT = (
     "archelaos-history-events.json", "archelaos-person-index.json",
     "archelaos-person-links.js", "hall-of-fame-people.json",
 )
-COMMON_FOLDERS = ("assets", "images", "people")
+COMMON_FOLDERS = ("assets", "images")
 
 
 def js_data(data: object) -> str:
@@ -185,6 +185,9 @@ def make_release() -> None:
         copy2(ROOT / filename, OUTPUT / filename)
     for folder in COMMON_FOLDERS:
         copytree(ROOT / folder, OUTPUT / folder)
+    # Use the reviewed, full-format 682-profile source; the live root has a
+    # different legacy HTML layout and must not be overwritten to build dist.
+    copytree(STAGE / "source-profiles", OUTPUT / "people")
     for name in ("css", "js", "data"):
         copytree(STAGE / name, OUTPUT / "assets" / "site" / name)
     copytree(STAGE / "images", OUTPUT / "assets" / "site" / "images")
