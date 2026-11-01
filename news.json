@@ -21,7 +21,10 @@
         "arch-dimitris-siokas-handball-2026",
         "arch-handball-348992f5"
       ],
-      "featured": true
+      "featured": true,
+      "image": "https://www.palmare.gr/wp-content/uploads/2026/11/26-TAIM.jpg",
+      "imageSourceUrl": "https://www.palmare.gr/wp-content/uploads/2026/11/26-TAIM.jpg",
+      "imageNote": "Φωτογραφία από το αντίστοιχο δημοσίευμα της πηγής · Palmare · 01/11/2026"
     },
     {
       "id": "wrestling-meteora-international-2026",
@@ -169,15 +172,16 @@
         "Ο Νίκος Ζινίσα κατέκτησε το χρυσό μετάλλιο στα 55 κιλά και ο Παύλος Τσεντίδης το χρυσό στα 60 κιλά. Η ελληνική αποστολή τερμάτισε πρώτη στη γενική ομαδική κατάταξη.",
         "Στην αποστολή αναφέρονται ως προπονητικοί συνοδοί ο Σάββας Τσεντίδης και η Λία Νικολάου. Μετά τη διοργάνωση προβλεπόταν κοινή προετοιμασία με ομάδες του εξωτερικού ενόψει του Παγκοσμίου U17."
       ],
-      "image": "",
-      "imageNote": "Η αυθεντική φωτογραφία αναζητείται από το δημοσίευμα· δεν χρησιμοποιείται φωτογραφία άλλου γεγονότος.",
+      "image": "https://www.pierianews.gr/wp-content/uploads/2026/07/arch3.jpg",
+      "imageNote": "Φωτογραφία από το αντίστοιχο δημοσίευμα της πηγής · Pieria News · 19/07/2026",
       "source": "Pieria News · 19/07/2026",
       "sourceUrl": "https://www.pierianews.gr/2026/07/19/diethnes-tournoua-palis-darko-nisavic-chryses-diakriseis-gia-tous-protathlites-tou-archelaou-katerinis-sti-servia/",
       "personIds": [
         "arch-2616694d9908",
         "arch-b48656c62600"
       ],
-      "featured": false
+      "featured": false,
+      "imageSourceUrl": "https://www.pierianews.gr/wp-content/uploads/2026/07/arch3.jpg"
     },
     {
       "id": "volleyball-kyparissi-panathinaikos-2026",
@@ -255,8 +259,8 @@
         "Ο Δημήτρης Παππάς και ο Λευτέρης Παππάς κατέκτησαν χρυσά μετάλλια. Ο Σωκράτης Κωνσταντινίδης και ο Παύλος Τσεντίδης κατέκτησαν χάλκινα, ενώ ο Μενέλαος Βούλγαρης και ο Αποστόλης Διμολιός κατέλαβαν την πέμπτη θέση.",
         "Το δημοσίευμα αναφέρει τους προπονητές Σάββα Τσεντίδη, Κώστα Τάμο και Κώστα Ζινίσα."
       ],
-      "image": "",
-      "imageNote": "Η αυθεντική φωτογραφία αναζητείται από το δημοσίευμα· δεν χρησιμοποιείται φωτογραφία άλλου γεγονότος.",
+      "image": "https://www.pierianews.gr/wp-content/uploads/2026/04/arch1.jpg",
+      "imageNote": "Φωτογραφία από το αντίστοιχο δημοσίευμα της πηγής · Pieria News · 07/04/2026",
       "source": "Pieria News · 07/04/2026",
       "sourceUrl": "https://www.pierianews.gr/2026/04/07/archelaos-katerinis-tmima-palis-defteri-kalyteri-omada-stin-ellada/",
       "personIds": [
@@ -266,7 +270,8 @@
         "arch-b48656c62600",
         "arch-8c9cbe4897f0"
       ],
-      "featured": false
+      "featured": false,
+      "imageSourceUrl": "https://www.pierianews.gr/wp-content/uploads/2026/04/arch1.jpg"
     },
     {
       "id": "gymnastics-u18-regional-team-gold-2026",
@@ -387,12 +392,13 @@
         "Στη διοργάνωση συμμετείχαν, μεταξύ άλλων, τοξότες του Γ.Α.Σ. Αρχέλαος Κατερίνης και αθλητές άλλων σωματείων σε Ολυμπιακό, Σύνθετο και Barebow τόξο, στις αγωνιστικές και μικρές ηλικιακές κατηγορίες.",
         "Τους αγώνες τίμησε με την παρουσία της η Ολυμπιονίκης Ευαγγελία Ψαρρά, ενώ παρευρέθηκαν στελέχη της τοπικής αυτοδιοίκησης και της Ελληνικής Ομοσπονδίας Τοξοβολίας. Το δημοσίευμα δεν παρέχει ονομαστικές διακρίσεις του Αρχέλαου και δεν αποδίδονται ανύπαρκτα μετάλλια."
       ],
-      "image": "",
-      "imageNote": "Η αυθεντική φωτογραφία αναζητείται από το δημοσίευμα· δεν χρησιμοποιείται φωτογραφία άλλου γεγονότος.",
+      "image": "https://odelalis.gr/wp-content/uploads/2026/02/agones_tokosvolias_agios_spiridonas-3.jpg",
+      "imageNote": "Φωτογραφία από το αντίστοιχο δημοσίευμα της πηγής · Ο Ντελάλης · 11/02/2026",
       "source": "Ο Ντελάλης · 11/02/2026",
       "sourceUrl": "https://odelalis.gr/ag-spyridonas-oloklirothikan-o-agonas-toxovolias-olympus-archery-series/",
       "personIds": [],
-      "featured": false
+      "featured": false,
+      "imageSourceUrl": "https://odelalis.gr/wp-content/uploads/2026/02/agones_tokosvolias_agios_spiridonas-3.jpg"
     },
     {
       "id": "handball-archelaos-kyklopes-30-23-feb-2026",
@@ -427,14 +433,18 @@
         "Μετά το αρχικό 8–6, ο Αρχέλαος ανέβασε ρυθμό και ολοκλήρωσε το πρώτο μέρος με 22–9. Το 45ο λεπτό βρήκε τη διαφορά στο 32–15 και ο αγώνας ολοκληρώθηκε με 41–20.",
         "Ο Σιώκας σημείωσε 13 γκολ, ο Χρυσικός έξι και ο Α.Β. Κουστιανής πέντε. Ο σύλλογος χρησιμοποίησε και νεαρούς αθλητές στην αναμέτρηση."
       ],
-      "image": "",
-      "imageNote": "Η αυθεντική φωτογραφία αναζητείται από το δημοσίευμα· δεν χρησιμοποιείται φωτογραφία άλλου γεγονότος.",
-      "source": "KateriniSport · 01/02/2026",
-      "sourceUrl": "https://katerinisport.gr/%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CE%BA%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82-%CE%B2%CE%BF%CF%81%CE%AD%CE%B1%CF%82-%CE%B1%CE%BB%CE%B5%CE%BE%CE%B1%CE%BD%CE%B4%CF%81%CE%BF/",
+      "image": "https://www.palmare.gr/wp-content/uploads/2026/01/26-ARChEL-1024x321.jpg",
+      "imageNote": "Φωτογραφία του Αρχέλαου από το δημοσίευμα του Palmare για τη νίκη επί του Βορέα.",
+      "source": "Palmare · 31/01/2026, KateriniSport · 01/02/2026",
+      "sourceUrl": "https://www.palmare.gr/o-archelaos-epiase-stin-2i-thesi-tin-prosotsani-2/",
       "personIds": [
         "arch-dimitris-siokas-handball-2026"
       ],
-      "featured": false
+      "featured": false,
+      "imageSourceUrl": "https://www.palmare.gr/wp-content/uploads/2026/01/26-ARChEL-1024x321.jpg",
+      "additionalSources": [
+        "https://katerinisport.gr/%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CE%BA%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82-%CE%B2%CE%BF%CF%81%CE%AD%CE%B1%CF%82-%CE%B1%CE%BB%CE%B5%CE%BE%CE%B1%CE%BD%CE%B4%CF%81%CE%BF/"
+      ]
     },
     {
       "id": "handball-prosotsani-archelaos-38-27-jan-2026",
