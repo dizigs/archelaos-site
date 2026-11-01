@@ -40,14 +40,21 @@ def fetch(base: str, route: str) -> tuple[bytes, dict]:
             with urlopen(req, timeout=8) as response:
                 landed = urlsplit(response.geturl())
                 wanted = urlsplit(base)
-                if landed.scheme != wanted.scheme or landed.netloc != wanted.netloc:
+                official_redirect = (
+                    wanted.scheme == "https" and wanted.netloc == "archelaos.club"
+                    and landed.scheme == "https" and landed.netloc == "www.archelaos.club"
+                )
+                if not official_redirect and (landed.scheme != wanted.scheme or landed.netloc != wanted.netloc):
                     raise RuntimeError("Unexpected redirect outside verified site: "+landed.scheme+"://"+landed.netloc+landed.path[:80])
                 if response.status != 200:
                     raise RuntimeError(f"HTTP {response.status}")
                 data = response.read(MAX_BODY + 1)
                 if len(data) > MAX_BODY:
                     raise RuntimeError("Response exceeds 12 MiB")
-                return data, {k.casefold(): v for k, v in response.headers.items()}
+                headers = {k.casefold(): v for k, v in response.headers.items()}
+                if official_redirect:
+                    headers["x-monitor-redirect-target"] = landed.netloc
+                return data, headers
         except (HTTPError, URLError, TimeoutError, RuntimeError) as error:
             last = error
             if attempt == 0:
@@ -74,6 +81,8 @@ def audit(base: str) -> dict:
     home, home_headers = check("/")
     if home is None:
         return report
+    if home_headers.get("x-monitor-redirect-target"):
+        report["warnings"].append("Apex redirects to https://"+home_headers["x-monitor-redirect-target"]+"/; check canonical and Google indexing")
     for route in PAGES:
         body, headers = (home, home_headers) if route == "/" else check(route)
         if body is None:
