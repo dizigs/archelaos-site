@@ -3080,6 +3080,12 @@ main p,main li,article p,article li{line-height:1.72;}
 <input type="url" id="archDriveLink" name="archiveLink" inputmode="url" autocomplete="off" maxlength="2048" placeholder="https://drive.google.com/drive/folders/..." aria-describedby="archDriveLinkHelp"/>
 <small id="archDriveLinkHelp" data-contact-el="Για πολλές φωτογραφίες ή μεγάλα βίντεο, επικολλήστε εδώ τον σύνδεσμο του φακέλου σας στο Google Drive. Δεν χρειάζεται να δώσετε δικαίωμα επεξεργασίας στον σύλλογο· μπορεί να ζητήσουμε άδεια προβολής." data-contact-en="For many photos or large videos, paste a link to your own Google Drive folder. No editing access is needed; we may request permission to view it.">Για πολλές φωτογραφίες ή μεγάλα βίντεο, επικολλήστε εδώ τον σύνδεσμο του φακέλου σας στο Google Drive. Δεν χρειάζεται να δώσετε δικαίωμα επεξεργασίας στον σύλλογο· μπορεί να ζητήσουμε άδεια προβολής.</small>
 </label></div></div>
+<div class="arch-conditional arch-public-credit-choice" hidden id="archPublicCreditWrap" role="group" aria-labelledby="archPublicCreditTitle">
+<h3 id="archPublicCreditTitle" data-contact-el="Δημόσια αναφορά της συνεισφοράς" data-contact-en="Public acknowledgement of your contribution">Δημόσια αναφορά της συνεισφοράς</h3>
+<label class="arch-consent arch-credit-checkbox" for="archPublicCreditConsent"><input id="archPublicCreditConsent" type="checkbox" name="publicNameConsent" value="yes" autocomplete="off"/><span data-contact-el="Επιθυμώ να εμφανίζεται το όνομά μου, αν δημοσιευτεί υλικό από τη συνεισφορά μου." data-contact-en="I would like my name to be credited if material from my contribution is published.">Επιθυμώ να εμφανίζεται το όνομά μου, αν δημοσιευτεί υλικό από τη συνεισφορά μου.</span></label>
+<label id="archPublicCreditNameWrap" hidden for="archPublicCreditName"><span data-contact-el="Όνομα δημόσιας αναφοράς (προαιρετικό)" data-contact-en="Public credit name (optional)">Όνομα δημόσιας αναφοράς (προαιρετικό)</span><input id="archPublicCreditName" name="publicCreditName" type="text" maxlength="90" autocomplete="off" placeholder="Αφήστε κενό για το ονοματεπώνυμό σας"/></label>
+<small data-contact-el="Χωρίς το τικ δεν δημοσιεύουμε το όνομά σας. Το υλικό και οι άδειες ελέγχονται ξεχωριστά." data-contact-en="Without this tick, we will not publicly show your name. Material and permissions are reviewed separately.">Χωρίς το τικ δεν δημοσιεύουμε το όνομά σας. Το υλικό και οι άδειες ελέγχονται ξεχωριστά.</small>
+</div>
 <label class="arch-consent"><input required="" type="checkbox"/><span data-contact-el="Συμφωνώ να χρησιμοποιηθούν τα στοιχεία μου μόνο για απάντηση στο αίτημά μου." data-contact-en="I agree to the use of my details solely to respond to my request.">Συμφωνώ να χρησιμοποιηθούν τα στοιχεία μου μόνο για απάντηση στο αίτημά μου.</span></label><p aria-live="polite" class="arch-form-note" data-contact-el="Τα μηνύματα και τα συνημμένα του ιστορικού αρχείου αποστέλλονται απευθείας στον αρμόδιο υπεύθυνο." data-contact-en="Messages and historical archive attachments are sent directly to the relevant team." id="archFormStatus" role="status">Τα μηνύματα και τα συνημμένα του ιστορικού αρχείου αποστέλλονται απευθείας στον αρμόδιο υπεύθυνο.</p><button class="arch-submit" data-contact-el="Συνέχεια στο email ↗" data-contact-en="Continue in email ↗" type="submit">Συνέχεια στο email ↗</button></form></div></div><footer aria-label="Γ.Α.Σ. Ο Αρχέλαος — footer" class="heritage-footer arch-footer-signature">
 <div class="heritage-footer-inner">
 <div class="heritage-footer-top">
@@ -3197,13 +3203,22 @@ main p,main li,article p,article li{line-height:1.72;}
    new MutationObserver(update).observe(document.body,{attributes:true,attributeFilter:['class']});
  }
 })();
-</script><script id="arch-anniversary-lang-sync">/* Language control is handled exclusively by arch-v17-lang below. */</script><script id="arch-v11-contact-modal">(function(){
-const modal=document.getElementById('archContactModal');const dialog=modal.querySelector('[role=dialog]');const form=document.getElementById('archContactForm');const topic=document.getElementById('archTopic');const sport=document.getElementById('archSport');const sw=document.getElementById('archSportWrap'),fw=document.getElementById('archFileWrap'),files=document.getElementById('archFiles');let previous=null;
+</script><script id="arch-anniversary-lang-sync">/* Language control is handled exclusively by arch-v17-lang below. */</script><style id="arch-credit-choice-css">
+#archContactModal #archPublicCreditWrap[hidden],#archContactModal #archPublicCreditNameWrap[hidden]{display:none!important}
+#archContactModal .arch-public-credit-choice{margin:16px 0;padding:18px 19px;background:#f5f0e4;border:1px solid #dacaa2;border-radius:13px;color:#173d2a}
+#archContactModal .arch-public-credit-choice h3{font:600 20px/1.3 Georgia,serif;margin:0 0 11px;color:#073d2a}
+#archContactModal .arch-public-credit-choice .arch-credit-checkbox{display:flex!important;flex-direction:row!important;align-items:flex-start;gap:12px;font-size:14px;line-height:1.65;font-weight:600;cursor:pointer;margin-bottom:9px}
+#archContactModal .arch-public-credit-choice input[type="checkbox"]{appearance:auto!important;display:block!important;flex:0 0 20px;width:20px!important;height:20px!important;min-height:20px!important;margin:3px 0 0!important;accent-color:#0c563b}
+#archContactModal .arch-public-credit-choice #archPublicCreditNameWrap{margin:12px 0;display:flex;flex-direction:column;gap:7px;font-size:13px;font-weight:700}
+#archContactModal .arch-public-credit-choice #archPublicCreditName{border:1px solid #c6cbbd;border-radius:10px;padding:11px 13px;color:#173d2a;background:white;font:inherit}
+#archContactModal .arch-public-credit-choice small{display:block;color:#536757;font-size:12px;line-height:1.65}
+</style><script id="arch-v11-contact-modal">(function(){
+const modal=document.getElementById('archContactModal');const dialog=modal.querySelector('[role=dialog]');const form=document.getElementById('archContactForm');const topic=document.getElementById('archTopic');const sport=document.getElementById('archSport');const sw=document.getElementById('archSportWrap'),fw=document.getElementById('archFileWrap'),files=document.getElementById('archFiles'),creditWrap=document.getElementById('archPublicCreditWrap'),creditConsent=document.getElementById('archPublicCreditConsent'),creditNameWrap=document.getElementById('archPublicCreditNameWrap'),creditName=document.getElementById('archPublicCreditName');let previous=null;
 function currentLanguage(){return document.documentElement.lang==='en'||document.body.classList.contains('lang-en')?'en':'el'}
-function refresh(){sw.hidden=topic.value!=='sport';fw.hidden=topic.value!=='archive';sport.required=!sw.hidden;files.disabled=fw.hidden;}
+function refresh(){sw.hidden=topic.value!=='sport';fw.hidden=topic.value!=='archive';sport.required=!sw.hidden;files.disabled=fw.hidden;creditWrap.hidden=topic.value!=='archive';if(creditWrap.hidden){creditConsent.checked=false;creditName.value='';}creditConsent.disabled=creditWrap.hidden;creditNameWrap.hidden=creditWrap.hidden||!creditConsent.checked;creditName.disabled=creditNameWrap.hidden;if(creditName.disabled)creditName.value='';}
 function openModal(subject){previous=document.activeElement;modal.hidden=false;document.body.style.overflow='hidden';if(subject){topic.value=({sponsor:'sponsorship',athlete:'sport',history:'archive'}[subject]||subject);if(!topic.value)topic.value='general'}refresh();history.replaceState(null,'','#contact-form');setTimeout(()=>dialog.querySelector('[data-close-contact]').focus(),10)}
 function closeModal(){modal.hidden=true;document.body.style.overflow='';if(previous&&previous.focus)previous.focus();if(location.hash==='#contact-form')history.replaceState(null,'',location.pathname+location.search)}
-document.querySelectorAll('[data-open-contact]').forEach(b=>b.addEventListener('click',()=>openModal()));modal.querySelector('[data-close-contact]').addEventListener('click',closeModal);modal.addEventListener('click',e=>{if(e.target===modal)closeModal()});document.addEventListener('keydown',e=>{if(modal.hidden)return;if(e.key==='Escape')closeModal();if(e.key==='Tab'){const f=[...modal.querySelectorAll('button,input,select,textarea')].filter(el=>!el.disabled&&el.getClientRects().length);if(!f.length)return;if(e.shiftKey&&document.activeElement===f[0]){e.preventDefault();f.at(-1).focus()}else if(!e.shiftKey&&document.activeElement===f.at(-1)){e.preventDefault();f[0].focus()}}});topic.addEventListener('change',refresh);
+document.querySelectorAll('[data-open-contact]').forEach(b=>b.addEventListener('click',()=>openModal()));modal.querySelector('[data-close-contact]').addEventListener('click',closeModal);modal.addEventListener('click',e=>{if(e.target===modal)closeModal()});document.addEventListener('keydown',e=>{if(modal.hidden)return;if(e.key==='Escape')closeModal();if(e.key==='Tab'){const f=[...modal.querySelectorAll('button,input,select,textarea')].filter(el=>!el.disabled&&el.getClientRects().length);if(!f.length)return;if(e.shiftKey&&document.activeElement===f[0]){e.preventDefault();f.at(-1).focus()}else if(!e.shiftKey&&document.activeElement===f.at(-1)){e.preventDefault();f[0].focus()}}});topic.addEventListener('change',refresh);creditConsent.addEventListener('change',refresh);
 const qs=new URLSearchParams(location.search);const incoming=qs.get('topic');if(incoming){topic.value=({sponsor:'sponsorship',sponsorship:'sponsorship',athlete:'sport',sport:'sport',volunteer:'volunteer',archive:'archive',history:'archive',general:'general'}[incoming]||incoming);refresh()}if(location.hash==='#contact-form')openModal(topic.value);window.addEventListener('hashchange',()=>{if(location.hash==='#contact-form'&&modal.hidden)openModal(topic.value)});
 const submitButton=form.querySelector('.arch-submit');
 const fileFeedback=document.getElementById('archFileFeedback');
@@ -3215,7 +3230,7 @@ function fallbackMailto(values,lang,status){
  const subject=topic.options[topic.selectedIndex].text;
  const lines=[String(values.get('message')||''),'','Ονοματεπώνυμο / Name: '+values.get('name'),'Email: '+values.get('email'),'Τηλέφωνο / Phone: '+(values.get('phone')||'—')];
  if(topic.value==='sport')lines.push('Άθλημα / Sport: '+sport.options[sport.selectedIndex].text);
- if(values.get('archiveLink'))lines.push('Σύνδεσμος Google Drive: '+values.get('archiveLink'));
+ if(values.get('archiveLink'))lines.push('Σύνδεσμος Google Drive: '+values.get('archiveLink'));if(topic.value==='archive'){const yes=values.get('publicNameConsent')==='yes';lines.push('Δημόσια αναφορά ονόματος: '+(yes?'ΝΑΙ':'ΟΧΙ'));if(yes)lines.push('Όνομα δημόσιας αναφοράς: '+(String(values.get('publicCreditName')||'').trim()||values.get('name')));}
  location.href='mailto:'+recipient()+'?subject='+encodeURIComponent('Αρχέλαος — '+subject)+'&body='+encodeURIComponent(lines.join('\n'));
  status.textContent=lang==='en'?'Your email app should open; please complete sending there.':'Θα ανοίξει η εφαρμογή email· ολοκληρώστε την αποστολή εκεί.';
 }
@@ -3260,7 +3275,7 @@ form.addEventListener('submit',async e=>{
   const options={method:'POST'};
   if(selected.length){
    const payload=new FormData();
-   for(const key of ['name','email','phone','topic','sport','message','website','archiveLink'])payload.append(key,String(values.get(key)||''));
+   for(const key of ['name','email','phone','topic','sport','message','website','archiveLink'])payload.append(key,String(values.get(key)||''));payload.append('publicNameConsent',topic.value==='archive'&&values.get('publicNameConsent')==='yes'?'true':'false');payload.append('publicCreditName',topic.value==='archive'&&values.get('publicNameConsent')==='yes'?String(values.get('publicCreditName')||'').trim():'');
    payload.append('consent','true');
    for(const file of selected)payload.append('attachments',file,file.name);
    options.body=payload;
@@ -3269,7 +3284,7 @@ form.addEventListener('submit',async e=>{
    options.body=JSON.stringify({
     name:String(values.get('name')||''),email:String(values.get('email')||''),phone:String(values.get('phone')||''),
     topic:String(values.get('topic')||''),sport:String(values.get('sport')||''),
-    message:String(values.get('message')||''),website:String(values.get('website')||''),archiveLink:String(values.get('archiveLink')||''),consent:true
+    message:String(values.get('message')||''),website:String(values.get('website')||''),archiveLink:String(values.get('archiveLink')||''),publicNameConsent:topic.value==='archive'&&values.get('publicNameConsent')==='yes',publicCreditName:topic.value==='archive'&&values.get('publicNameConsent')==='yes'?String(values.get('publicCreditName')||'').trim():'',consent:true
    });
   }
   const response=await fetch('/api/contact',options);
