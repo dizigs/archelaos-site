@@ -188,7 +188,7 @@ function renderSiteTools(){
  backTop.type='button';backTop.className='arch-back-to-top';backTop.hidden=true;
  backTop.setAttribute('aria-label','Επιστροφή στην κορυφή');
  backTop.setAttribute('title','Επιστροφή στην κορυφή');
- backTop.innerHTML='<span aria-hidden="true">↑</span>';
+ backTop.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m12 19V5M5 12l7-7 7 7"/></svg>';
  document.body.append(launch,panel,backTop);
  const defaults={size:100,contrast:false,links:false,calm:false};
  let settings={...defaults};
