@@ -12,14 +12,14 @@ const label=x=>(categories[x.category]||['ΑΡΧΕΛΑΟΣ','ARCHELAOS'])[en()?1
 function media(x,cls){
  const b=document.createElement(cls==='an-cover'?'figure':'div');b.className=cls;
  const path=String(x.image||'');
- const local=/^(?:(?:images|assets)\/[a-zA-Z0-9._/-]+|archelaos-logo-gold|archelaos-welcome)\.(?:webp|jpg|jpeg|png)$/.test(path);
+ const local=/^(?:(?:images|assets)\/[a-zA-Z0-9._/-]+|archelaos-logo-gold|archelaos-welcome)\.(?:webp|jpg|jpeg|png|svg)$/.test(path);
  let original=false;
  try{const u=new URL(path);original=u.protocol==='https:'&&!!u.hostname&&!u.username&&!u.password}catch(_){}
  const empty=()=>{
    // Club-owned welcome artwork is the editorial fallback when no valid article image exists.
    b.classList.remove('is-emblem','is-unillustrated');b.classList.add('is-welcome-fallback');b.replaceChildren();
    const art=document.createElement('img');
-   art.src='/archelaos-welcome.png';
+   art.src='/images/archelaos-news-handball.svg';
    art.alt=t('Εικαστικό του Αρχέλαου — όχι φωτογραφία της είδησης','Archelaos artwork — not an article photograph');
    art.loading='lazy';art.decoding='async';
    art.addEventListener('error',()=>{
