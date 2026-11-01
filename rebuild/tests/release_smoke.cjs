@@ -79,8 +79,10 @@ async function verify(){
      if(sports.length!==9||sports.some(x=>!x.background.includes('url(')||!x.blur.includes('blur(')||x.icon!=='none'||!x.clickable||x.label.includes('Δείτε την ιστορία')))
       throw Error('Nine sport history cards must be clickable with blurred photos and no repeated CTA');
      const historical=page.locator('.dp-card[data-dp-open="inactive-depts"]');
-     if(await historical.locator('.dp-watermark').count()!==1||await historical.locator('.dp-silhouette').count()!==0)
-      throw Error('Historical departments must keep date watermark only');
+     if(await historical.locator('.dp-title').count()!==1||
+        await historical.locator('.dp-watermark').count()!==0||
+        await historical.locator('.dp-silhouette').count()!==0)
+      throw Error('Historical departments must keep the approved title-only design');
     }
     if(tag==='retro')await page.locator('.rt-scoreboard').first().waitFor();
     if(tag==='home'){
