@@ -3144,7 +3144,7 @@ html body #museum-history #history-archive .museum-sport-access-panel .v61-sport
 #historyArchiveContent #dioikisi table td,#historyArchiveContent #dioikisi table th{padding:12px 10px!important;vertical-align:top;line-height:1.55;letter-spacing:normal}
 @media(max-width:767px){#historyArchiveContent #dioikisi table th:nth-child(1),#historyArchiveContent #dioikisi table td:nth-child(1){width:27%!important}#historyArchiveContent #dioikisi table th:nth-child(2),#historyArchiveContent #dioikisi table td:nth-child(2){width:49%!important}#historyArchiveContent #dioikisi table th:nth-child(4),#historyArchiveContent #dioikisi table td:nth-child(4){width:24%!important}#historyArchiveContent #dioikisi table td,#historyArchiveContent #dioikisi table th{padding:10px 7px!important}}
 </style>
-</head>
+<style id="arch-dept-heart-placement">#deptHistoryModal .modal-header .arch-dept-favorite{position:relative!important;flex:0 0 42px!important;z-index:3!important;margin-left:auto!important;margin-right:8px!important;align-self:center!important}#deptHistoryModal .modal-header .arch-dept-favorite+.modal-close-btn{flex:0 0 auto!important}@media(max-width:540px){#deptHistoryModal .modal-header{gap:8px!important}#deptHistoryModal .modal-header .arch-dept-favorite{margin-right:0!important}}</style></head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow arch-gold-page" data-arch-people-page="history">
 <!-- ANIMATED CONTOUR WAVES -->
 <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-75">
@@ -6331,6 +6331,19 @@ html body #museum-history #history-archive .museum-sport-access-panel .v61-sport
         const info = deptHistories[deptKey];
         if (!info) return;
 
+        // Department popup favorites belong to the department, not to HOF profiles.
+        if (window.ArchelaosFavorites) {
+          const header = deptHistoryModal.querySelector('.modal-header');
+          const closeButton = header?.querySelector('.modal-close-btn');
+          header?.querySelector('.arch-dept-favorite')?.remove();
+          const heart = window.ArchelaosFavorites.button(
+            'page', 'department-' + deptKey, 'arch-dept-favorite',
+            {title: 'Αθλητικό Τμήμα · ' + info.title_el,
+             summary: info.highlight_el || 'Πληροφορίες και ιστορία του τμήματος',
+             href: 'index.html?department=' + encodeURIComponent(deptKey) + '#departments'}
+          );
+          if (closeButton) closeButton.before(heart); else header?.append(heart);
+        }
         deptModalTitle.textContent = currentLang === 'en' ? info.title_en : info.title_el;
         deptModalHighlightText.textContent = currentLang === 'en' ? info.highlight_en : info.highlight_el;
         deptModalText.innerHTML = currentLang === 'en' ? info.text_en : info.text_el;
@@ -6351,6 +6364,12 @@ html body #museum-history #history-archive .museum-sport-access-panel .v61-sport
         };
         deptHistoryModal.classList.add('is-open');
         document.body.style.overflow = 'hidden';
+      }
+
+      // Saved department links reopen the information panel on the same page.
+      const savedDepartment = new URLSearchParams(location.search).get('department');
+      if (savedDepartment && Object.prototype.hasOwnProperty.call(deptHistories,savedDepartment)) {
+        setTimeout(() => openDeptHistoryModal(savedDepartment), 0);
       }
 
       function closeDeptHistoryModal() {
