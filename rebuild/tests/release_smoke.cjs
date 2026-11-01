@@ -63,7 +63,22 @@ async function verify(){
      await dialog.locator('.arch-close').click();
      await dialog.waitFor({state:'hidden'});
     }
-    if(tag==='departments')await page.locator('.dp-card').first().waitFor();
+    if(tag==='departments'){
+     await page.locator('.dp-card').first().waitFor();
+     if(await page.locator('.dp-card').count()!==10)throw Error('Expected exactly 9 sports and 1 historical card');
+     const sports=await page.evaluate(()=>{
+      return [...document.querySelectorAll('.dp-card[data-dp-open]:not([data-dp-open="inactive-depts"])')].map(card=>{
+       const pic=card.querySelector('.dp-silhouette');
+       const style=getComputedStyle(pic);
+       return {sport:card.dataset.dpOpen,mask:style.webkitMaskImage||style.maskImage,opacity:parseFloat(style.opacity),filter:style.filter};
+      });
+     });
+     if(sports.length!==9||sports.some(x=>!x.mask.includes('.svg')||x.opacity<.15||x.filter!=='none'))
+      throw Error('Nine sports pictograms must be crisp and visible');
+     const historical=page.locator('.dp-card[data-dp-open="inactive-depts"]');
+     if(await historical.locator('.dp-watermark').count()!==1||await historical.locator('.dp-silhouette').count()!==0)
+      throw Error('Historical departments must keep date watermark only');
+    }
     if(tag==='retro')await page.locator('.rt-scoreboard').first().waitFor();
     if(tag==='home'){
      // Real reviewed data: upcoming ONLY, both departments, no away games.
