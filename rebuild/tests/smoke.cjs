@@ -15,7 +15,7 @@ async function run(){
    const page=await browser.newPage({viewport:size});
    const errors=[];
    page.on('pageerror',err=>errors.push(err.message));
-   for(const [url,name] of [['index.html','home'],['hall-of-fame.html','hall'],['70-stigmes.html','moments'],['stories.html','stories'],['history.html','museum'],['board.html','board'],['contact.html','contact'],['sponsors.html','sponsors'],['tmimata.html','departments'],['retro-matches.html','retro'],['search.html','search'],['favorites.html','favorites'],['contribute.html','contribute']]){
+   for(const [url,name] of [['index.html','home'],['hall-of-fame.html','hall'],['70-stigmes.html','moments'],['stories.html','stories'],['history.html','museum'],['board.html','board'],['contact.html','contact'],['sponsors.html','sponsors'],['tmimata.html','departments'],['retro-matches.html','retro'],['search.html','search'],['favorites.html','favorites'],['contribute.html','contribute'],['interviews.html','interviews']]){
     await page.goto(ROOT+'/rebuild/'+url,{waitUntil:'domcontentloaded'});
     await page.locator('.arch-header').waitFor();
     await page.locator('.arch-footer').waitFor();
