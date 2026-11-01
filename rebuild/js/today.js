@@ -4,9 +4,10 @@ async function init(){
  const title=document.querySelector('#new-today-title'),link=document.querySelector('#new-today-link');
  if(!title||!link)return;
  try{
+  const base=location.pathname.startsWith('/rebuild/')?'/rebuild/data/':'/assets/site/data/';
   const [calendarResponse,momentResponse]=await Promise.all([
-   fetch('/assets/site/data/on-this-day.json',{cache:'no-store'}),
-   fetch('/assets/site/data/moments.json',{cache:'no-store'})
+   fetch(base+'on-this-day.json',{cache:'no-store'}),
+   fetch(base+'moments.json',{cache:'no-store'})
   ]);
   if(!calendarResponse.ok||!momentResponse.ok)throw Error('Archive unavailable');
   const calendar=await calendarResponse.json(),archive=await momentResponse.json();
