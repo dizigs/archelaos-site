@@ -13,7 +13,14 @@ function read(story,index){
  });
  const dlg=document.querySelector('.arch-dialog');
  dlg?.querySelectorAll('.arch-dialog-body p').forEach(p=>{
-  const t=p.textContent.trim();if(/^[«“"]/.test(t))p.classList.add('arch-dialog-quote');
+  const t=p.textContent.trim();
+  if(/^[«“"]/.test(t)){
+   p.classList.add('arch-dialog-quote');
+   const note=document.createElement('small');
+   note.className='rs-dialogue-note';
+   note.textContent='Αφηγηματική αναπαράσταση · όχι αυτούσια μαρτυρία';
+   p.before(note);
+  }
  });
  history.replaceState(null,'','#story-'+(index+1));
 }
