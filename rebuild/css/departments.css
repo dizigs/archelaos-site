@@ -68,25 +68,35 @@
 @media(max-width:550px){.dp-sport-gallery .new-sport-grid{grid-template-columns:1fr}.dp-sport-gallery .new-sport-photo{height:180px}.dp-sport-gallery .new-sport-body{padding:14px 16px 17px}}
 
 
-/* Nine sporting watermarks replace dates ONLY on active/historical sport cards.
-   The separate 'Ιστορικά τμήματα' card retains its original date watermark. */
+/* Nine high-clarity professional sports pictograms. Only the tenth historical card keeps its date watermark. */
 .dp-card .dp-silhouette{
- position:absolute;right:-15px;bottom:-37px;width:min(60%,260px);height:230px;
- background-position:right bottom;background-repeat:no-repeat;background-size:contain;
- opacity:.105;filter:blur(2.1px);pointer-events:none;z-index:0;
- transition:opacity .3s ease,filter .3s ease,transform .3s ease;
+ position:absolute;z-index:0;right:4%;top:52%;bottom:auto;
+ width:clamp(165px,37%,250px);height:80%;pointer-events:none;
+ background-color:#10523b;opacity:.23;
+ -webkit-mask-image:var(--dp-sport-icon);mask-image:var(--dp-sport-icon);
+ -webkit-mask-size:contain;mask-size:contain;
+ -webkit-mask-position:center;mask-position:center;
+ -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;
+ transform:translateY(-50%);
+ transition:opacity .23s ease,transform .23s ease;
 }
-.dp-green .dp-silhouette{filter:blur(2.3px) brightness(0) invert(1);opacity:.09}
-.dp-card:hover .dp-silhouette{opacity:.17;filter:blur(1.1px);transform:scale(1.035)}
-.dp-green:hover .dp-silhouette{opacity:.15;filter:blur(1.2px) brightness(0) invert(1)}
-.dp-card[data-dp-open="handball"] .dp-silhouette{background-image:url("../images/sport-silhouettes/handball.svg")}
-.dp-card[data-dp-open="track"] .dp-silhouette{background-image:url("../images/sport-silhouettes/track.svg")}
-.dp-card[data-dp-open="archery"] .dp-silhouette{background-image:url("../images/sport-silhouettes/archery.svg")}
-.dp-card[data-dp-open="shooting"] .dp-silhouette{background-image:url("../images/sport-silhouettes/shooting.svg")}
-.dp-card[data-dp-open="gymnastics"] .dp-silhouette{background-image:url("../images/sport-silhouettes/gymnastics.svg")}
-.dp-card[data-dp-open="volleyball"] .dp-silhouette{background-image:url("../images/sport-silhouettes/volleyball.svg")}
-.dp-card[data-dp-open="wrestling"] .dp-silhouette{background-image:url("../images/sport-silhouettes/wrestling.svg")}
-.dp-card[data-dp-open="swimming"] .dp-silhouette{background-image:url("../images/sport-silhouettes/swimming.svg")}
-.dp-card[data-dp-open="basketball"] .dp-silhouette{background-image:url("../images/sport-silhouettes/basketball.svg")}
-@media(max-width:650px){.dp-card .dp-silhouette{right:-25px;bottom:-30px;width:190px;height:195px;opacity:.08}}
+.dp-green .dp-silhouette{background-color:#e6cb91;opacity:.34}
+.dp-cream:hover .dp-silhouette{opacity:.32;transform:translateY(-50%) scale(1.035)}
+.dp-green:hover .dp-silhouette{opacity:.46;transform:translateY(-50%) scale(1.035)}
+.dp-card[data-dp-open="handball"]{--dp-sport-icon:url("../images/sport-silhouettes/handball.svg")}
+.dp-card[data-dp-open="track"]{--dp-sport-icon:url("../images/sport-silhouettes/track.svg")}
+.dp-card[data-dp-open="archery"]{--dp-sport-icon:url("../images/sport-silhouettes/archery.svg")}
+.dp-card[data-dp-open="shooting"]{--dp-sport-icon:url("../images/sport-silhouettes/shooting.svg")}
+.dp-card[data-dp-open="gymnastics"]{--dp-sport-icon:url("../images/sport-silhouettes/gymnastics.svg")}
+.dp-card[data-dp-open="volleyball"]{--dp-sport-icon:url("../images/sport-silhouettes/volleyball.svg")}
+.dp-card[data-dp-open="wrestling"]{--dp-sport-icon:url("../images/sport-silhouettes/wrestling.svg")}
+.dp-card[data-dp-open="swimming"]{--dp-sport-icon:url("../images/sport-silhouettes/swimming.svg")}
+.dp-card[data-dp-open="basketball"]{--dp-sport-icon:url("../images/sport-silhouettes/basketball.svg")}
+.dp-card[data-dp-open="inactive-depts"] .dp-silhouette{display:none!important}
+.dp-card[data-dp-open="inactive-depts"] .dp-watermark{display:block}
+@media(max-width:650px){
+ .dp-card .dp-silhouette{right:1%;width:45%;height:80%;opacity:.16}
+ .dp-green .dp-silhouette{opacity:.28}
+}
 @media(prefers-reduced-motion:reduce){.dp-card .dp-silhouette{transition:none!important}}
+
