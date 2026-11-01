@@ -17,7 +17,7 @@ fetch('/news.json?rev=20261101-photo-archive',{cache:'no-store'}).then(r=>{if(!r
   const body=document.createElement('div');body.className='ahn-content';
   const meta=document.createElement('span');meta.className='ahn-meta';meta.textContent=[x.sport,date(x.date)].filter(Boolean).join(' · ');
   const title=document.createElement('h3');title.textContent=x.title;const desc=document.createElement('p');desc.textContent=x.summary||'';
-  const arrow=document.createElement('span');arrow.className='ahn-arrow';arrow.textContent='Διαβάστε την είδηση ↗';
+  const arrow=document.createElement('span');arrow.className='ahn-arrow';arrow.textContent='Διαβάστε την είδηση';
   body.append(meta,title,desc,arrow);a.append(media,body);card.append(a);frag.append(card)
  }grid.replaceChildren(frag);
 }).catch(()=>{section.remove()});
