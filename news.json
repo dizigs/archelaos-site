@@ -3,6 +3,32 @@
   "updated": "2026-11-01",
   "items": [
     {
+      "id": "wrestling-meteora-international-2026",
+      "date": "2026-11-01",
+      "category": "achievements",
+      "sport": "Πάλη",
+      "title": "Πέντε μετάλλια για τον Αρχέλαο στο 8ο Meteora International Wrestling Tournament",
+      "summary": "Τέσσερα χρυσά και ένα χάλκινο μετάλλιο για τους αθλητές της πάλης, μαζί με αξιόλογες εμφανίσεις μικρών αθλητών.",
+      "body": [
+        "Με τέσσερα χρυσά και ένα χάλκινο μετάλλιο ολοκλήρωσε ο Αρχέλαος Κατερίνης τη συμμετοχή του στο 8ο Meteora International Wrestling Tournament, σύμφωνα με την ανακοίνωση του τμήματος πάλης που δημοσιεύτηκε την 1η Νοεμβρίου 2026.",
+        "Ο Νίκος Ζινίσα κατέκτησε δύο χρυσά μετάλλια, στα 60 κιλά U17 και στα 57 κιλά U15. Χρυσά μετάλλια κατέκτησαν επίσης ο Λουκάς Ζινίσα (44 κιλά U13) και ο Δημήτρης Γρίγκας (48 κιλά U13). Ο Ένερι Χασανλάρι κατέκτησε χάλκινο μετάλλιο στα 80 κιλά U17.",
+        "Στη διοργάνωση συμμετείχαν επίσης οι Ταξιάρχης Λιακός, Κυριάκος Τσεντίδης και Σταύρος Τσακίρης, πραγματοποιώντας πολύ καλές εμφανίσεις. Συγχαρητήρια σε όλα τα παιδιά και στους προπονητές Σάββα Τσεντίδη, Κώστα Τάμο και Κώστα Ζινίσα."
+      ],
+      "image": "assets/archelaos-crest.png",
+      "imageNote": "Προσωρινά το έμβλημα του συλλόγου, μέχρι να ανέβει η φωτογραφία της διοργάνωσης στο αποθετήριο.",
+      "source": "Επίσημη ανάρτηση «Αρχέλαος Παλαιστικός», 01/11/2026",
+      "personIds": [
+        "arch-2616694d9908",
+        "arch-loukas-zinisa-wrest25",
+        "arch-64dbf198bfd6",
+        "arch-bdcef56af524",
+        "arch-wrest-dimitris-grigkas",
+        "arch-wrest-taxiarhis-liakos",
+        "arch-wrest-stavros-tsakiris"
+      ],
+      "featured": true
+    },
+    {
       "id": "wrestling-balkan-2026",
       "date": "2026-10-05",
       "category": "achievements",
@@ -22,7 +48,7 @@
         "arch-957a876e770d",
         "arch-b48656c62600"
       ],
-      "featured": true
+      "featured": false
     },
     {
       "id": "katerini-run-70-years-2026",
@@ -42,7 +68,8 @@
       "personIds": [
         "arch-85fcb478d724",
         "arch-d401b272f36b"
-      ]
+      ],
+      "featured": false
     },
     {
       "id": "new-president-2026",
@@ -61,7 +88,8 @@
       "sourceUrl": "https://www.pierianews.gr/2026/09/22/o-panagiotis-diamantopoulos-neos-proedros-tou-gas-archelaos/",
       "personIds": [
         "arch-85fcb478d724"
-      ]
+      ],
+      "featured": false
     },
     {
       "id": "archery-teachers-2026",
@@ -81,7 +109,8 @@
       "personIds": [
         "arch-44ef21dfb9b7",
         "arch-6212ba5ea7f1"
-      ]
+      ],
+      "featured": false
     },
     {
       "id": "archery-national-title-2026",
@@ -103,7 +132,8 @@
         "arch-955a386f547f",
         "arch-44ef21dfb9b7",
         "arch-6212ba5ea7f1"
-      ]
+      ],
+      "featured": false
     },
     {
       "id": "gym-2022-horizon",
@@ -121,7 +151,8 @@
       "imageNote": "Φωτογραφία αρχείου του τμήματος — όχι φωτογραφία του συγκεκριμένου γεγονότος.",
       "personIds": [
         "arch-e6b31b31c3a9"
-      ]
+      ],
+      "featured": false
     },
     {
       "id": "gym-2023-mikra",
@@ -142,7 +173,8 @@
         "arch-e9fc7408640c",
         "arch-f02298025e5c",
         "arch-8d1a258f0b09"
-      ]
+      ],
+      "featured": false
     },
     {
       "id": "wrestling-2023-bucharest",
@@ -163,7 +195,8 @@
         "arch-e49a8c140396",
         "arch-e87fdf323137",
         "arch-konstantinos-sklias-wrest23"
-      ]
+      ],
+      "featured": false
     },
     {
       "id": "archery-olympus-2024",
@@ -179,7 +212,8 @@
       "sourceUrl": "https://pieriasocial.gr/?p=83786",
       "image": "images/archery-outdoor-youth.webp",
       "imageNote": "Φωτογραφία αρχείου του τμήματος — όχι φωτογραφία του συγκεκριμένου γεγονότος.",
-      "personIds": []
+      "personIds": [],
+      "featured": false
     },
     {
       "id": "gym-2024-mikra",
@@ -198,7 +232,8 @@
       "personIds": [
         "arch-e9fc7408640c",
         "arch-8d1a258f0b09"
-      ]
+      ],
+      "featured": false
     },
     {
       "id": "shooting-2024-vyronas",
@@ -223,7 +258,8 @@
         "arch-vasileios-grigoropoulos-shoot",
         "arch-dimitrios-tsimponis-shoot",
         "arch-dimitrios-koufogiannis-shoot"
-      ]
+      ],
+      "featured": false
     },
     {
       "id": "wrestling-mayor-2024",
@@ -241,7 +277,8 @@
       "imageNote": "Φωτογραφία αρχείου του τμήματος — όχι φωτογραφία του συγκεκριμένου γεγονότος.",
       "personIds": [
         "arch-4b6d75d0faa2"
-      ]
+      ],
+      "featured": false
     },
     {
       "id": "archery-cup-2024",
@@ -266,7 +303,8 @@
         "arch-aikaterini-giannakou-arch",
         "arch-konstantinos-charisis-arch",
         "arch-ektoras-diamantidis-arch"
-      ]
+      ],
+      "featured": false
     },
     {
       "id": "handball-volos-2024",
@@ -282,7 +320,8 @@
       "sourceUrl": "https://magnesianews.gr/athlitismos/alla-athlimata/chirosferisi/proti-niki-gia-to-volos-handball-club-stin-a2-andron.html",
       "image": "images/handball-archelaos-panserraikos-2025.jpg",
       "imageNote": "Φωτογραφία αρχείου του τμήματος — όχι φωτογραφία του συγκεκριμένου γεγονότος.",
-      "personIds": []
+      "personIds": [],
+      "featured": false
     },
     {
       "id": "gym-2025-team",
@@ -300,7 +339,8 @@
       "imageNote": "Φωτογραφία αρχείου του τμήματος — όχι φωτογραφία του συγκεκριμένου γεγονότος.",
       "personIds": [
         "arch-f02298025e5c"
-      ]
+      ],
+      "featured": false
     },
     {
       "id": "archery-cyprus-2025",
@@ -318,7 +358,8 @@
       "imageNote": "Φωτογραφία αρχείου του τμήματος — όχι φωτογραφία του συγκεκριμένου γεγονότος.",
       "personIds": [
         "arch-955a386f547f"
-      ]
+      ],
+      "featured": false
     },
     {
       "id": "archery-youth-2025",
@@ -334,7 +375,8 @@
       "sourceUrl": "https://pieriasocial.gr/?tag=%CF%84%CE%BF%CE%BE%CE%BF%CE%B2%CE%BF%CE%BB%CE%AF%CE%B1",
       "image": "images/archery-outdoor-youth.webp",
       "imageNote": "Φωτογραφία αρχείου του τμήματος — όχι φωτογραφία του συγκεκριμένου γεγονότος.",
-      "personIds": []
+      "personIds": [],
+      "featured": false
     },
     {
       "id": "wrestling-u15-larisa-2024",
@@ -356,7 +398,8 @@
         "arch-b48656c62600",
         "arch-vangelis-kordonoulis-wrest24",
         "arch-aristotelis-navrozidis-wrest24"
-      ]
+      ],
+      "featured": false
     },
     {
       "id": "club-municipal-visit-2023",
@@ -377,7 +420,8 @@
         "arch-61d8d097f601",
         "arch-5b13574568d5",
         "arch-bc7079f252cc"
-      ]
+      ],
+      "featured": false
     },
     {
       "id": "volleyball-kyparissi-panathinaikos-2026",
@@ -396,7 +440,8 @@
       "imageNote": "Έμβλημα του Αρχέλαου, όχι φωτογραφία της ανακοίνωσης.",
       "personIds": [
         "arch-999730e06982"
-      ]
+      ],
+      "featured": false
     },
     {
       "id": "handball-siokas-mediterranean-2026",
@@ -414,7 +459,8 @@
       "imageNote": "Φωτογραφία αρχείου του τμήματος χειροσφαίρισης, όχι της αποστολής.",
       "personIds": [
         "arch-dimitris-siokas-handball-2026"
-      ]
+      ],
+      "featured": false
     },
     {
       "id": "handball-siokas-ehf-2026",
@@ -432,7 +478,8 @@
       "imageNote": "Φωτογραφία αρχείου του τμήματος χειροσφαίρισης.",
       "personIds": [
         "arch-dimitris-siokas-handball-2026"
-      ]
+      ],
+      "featured": false
     },
     {
       "id": "wrestling-u11-u13-karditsa-2025",
@@ -454,7 +501,8 @@
         "arch-chara-mavridou-wrest25",
         "arch-maria-mastorogianni-wrest25",
         "arch-5bc0ec7ec6e0"
-      ]
+      ],
+      "featured": false
     }
   ]
 }
