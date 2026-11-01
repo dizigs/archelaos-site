@@ -101,7 +101,8 @@ async function verify(){
      await page.waitForFunction(()=>document.querySelector('#new-slide-title')?.textContent.includes('Στίβος'));
     }
     if(tag==='interviews'){
-      await page.waitForFunction(()=>document.querySelectorAll('#cards .card').length===25,null,{timeout:12000});
+      const interviewCount=JSON.parse(require('node:fs').readFileSync(path.join(__dirname,'..','data','interviews.json'),'utf8')).items.length;
+      await page.waitForFunction(expected=>document.querySelectorAll('#cards .card').length===expected,interviewCount,{timeout:12000});
       await page.locator('#cards .card').first().click();
       await page.locator('#dialog[open]').waitFor();
       await page.keyboard.press('Escape');
