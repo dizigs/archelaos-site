@@ -193,6 +193,14 @@ def verify() -> None:
     assert 'class="ahn-more"' in home_js and 'id="ahn-grid"' in home_js, "Homepage All News CTA missing"
     assert home_js.index('id="ahn-grid"') < home_js.index('class="ahn-more"'), "Homepage All News CTA not placed after the cards"
     assert "Διαβάστε την είδηση" not in home_js, "Redundant homepage card caption restored"
+    # Pagination is always in groups of nineteen, with a shareable URL and
+    # full-list filtering before slicing. Avoid accidental regression to 37 cards.
+    assert "PAGE_SIZE=19" in news_js, "News pagination size changed"
+    assert "items.slice((state.page-1)*PAGE_SIZE,state.page*PAGE_SIZE)" in news_js, "News pagination not applied"
+    assert "renderPagination(pageCount)" in news_js, "News page-number links not rendered"
+    assert "window.addEventListener('popstate'" in news_js, "News page history navigation missing"
+    assert 'id="an-pagination"' in (DIST/"news.html").read_text(encoding="utf-8"), "News pagination nav missing"
+    assert ".an-pagination[hidden]" in news_css and ".an-page-link" in news_css, "News pagination styles missing"
     # News media contract: never publish a photo URL that points to a missing
     # or invalid asset; and protect the modal against the former detached-image bug.
     media_js = (DIST / "assets/news.js").read_text(encoding="utf-8")
