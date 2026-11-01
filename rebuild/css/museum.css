@@ -217,3 +217,23 @@
 .mu-retro-link:hover .mu-retro-title{text-decoration:underline;text-underline-offset:5px}
 .mu-retro-link:focus-visible{outline:3px solid #e3c78d;outline-offset:7px}
 @media(max-width:650px){.mu-retro-reference{padding:30px 0}.mu-retro-link{gap:10px}.mu-retro-years{white-space:normal}}
+
+/* Visible archival clipping: paper surface and print remain legible through a soft blur. */
+.mu-interviews-card .mu-interviews-newspaper{
+ z-index:1;right:3%;bottom:-23%;width:37%;height:96%;box-sizing:border-box;
+ opacity:.78;filter:blur(2.5px);transform:rotate(-11deg);
+ background:linear-gradient(140deg,#f2e4bf 0%,#d7c49b 65%,#c1a979 100%);
+ border:7px solid #e9d6ae;border-radius:2px;
+ box-shadow:0 6px 30px #061d1670,0 0 35px #e7d4a83b;
+ padding:22px 20px;gap:12px;
+}
+.mu-interviews-card .mu-interviews-paper-head{font:800 clamp(22px,2.6vw,39px)/1.1 Georgia,serif;color:#20382c;text-align:center}
+.mu-interviews-card .mu-interviews-paper-rule{flex:none;height:7px;border-top:3px solid #314438;border-bottom:1px solid #314438}
+.mu-interviews-card .mu-interviews-paper-lines{
+ width:95%;min-height:90px;flex:1;opacity:.75;
+ background:repeating-linear-gradient(to bottom,#36483b 0 2px,transparent 2px 13px);
+ background-size:46% 100%;background-repeat:repeat-x;
+ border-top:12px solid #34473a;
+}
+.mu-interviews-card .mu-interviews-copy{z-index:3}
+@media(max-width:700px){.mu-interviews-card .mu-interviews-newspaper{right:-22%;bottom:-15%;width:64%;height:77%;opacity:.4;filter:blur(3px);padding:12px}}
