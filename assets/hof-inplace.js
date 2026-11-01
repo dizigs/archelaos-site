@@ -50,7 +50,7 @@ async function open(id){
 function personId(a){
  if(a.dataset.archBioId)return a.dataset.archBioId;
  const href=a.getAttribute('href')||'';
- if(!/hall-of-fame\.html\?person=|\/people\/arch-[^/]+\.html/.test(href))return null;
+ if(!/hall-of-fame\.html\?person=|(?:^|\/)people\/arch-[^/]+\.html/.test(href))return null;
  try{
   const url=new URL(href,location.href);if(url.origin!==location.origin)return null;
   if(/hall-of-fame\.html$/.test(url.pathname))return url.searchParams.get('person');
