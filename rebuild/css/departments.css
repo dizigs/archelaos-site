@@ -293,3 +293,38 @@ body .dp-content .dp-grid .dp-card .dp-year,body .dp-content .dp-grid .dp-card .
 .arch-dialog-body .dp-profile-slide-dot[aria-pressed="true"]{background:#fff4d6}
 .arch-dialog-body .dp-profile-slide-dot:focus-visible{outline:2px solid #fff4d6;outline-offset:3px}
 @media(prefers-reduced-motion:reduce){.arch-dialog-body .dp-profile-photo .dp-profile-slide{transition:none}}
+
+/* Live subscribed trainings: one calendar URL per active sporting department. */
+.arch-dialog-body .dp-profile-calendar,
+.arch-dialog-body .dp-profile-calendar-copy{
+ display:inline-flex;align-items:center;justify-content:center;min-height:44px;
+ padding:12px 17px;border-radius:11px;cursor:pointer;
+ font:750 13px/1.4 Inter,system-ui,sans-serif;text-align:center;
+ text-decoration:none!important;transition:background .18s,border-color .18s;
+}
+.arch-dialog-body .dp-profile-calendar{
+ border:1px solid #073d2a;background:#073d2a;color:#fff8e8!important;
+}
+.arch-dialog-body .dp-profile-calendar:hover{
+ border-color:#16593d;background:#16593d;color:#fff8e8!important;
+ text-decoration:none!important;
+}
+.arch-dialog-body .dp-profile-calendar-copy{
+ border:1px solid #cbb77f;background:#f8f1e3;color:#19513b;
+}
+.arch-dialog-body .dp-profile-calendar-copy:hover{background:#efe3cb;border-color:#a58a51}
+.arch-dialog-body .dp-profile-calendar-note{
+ flex:1 0 100%;font:400 12px/1.6 Inter,system-ui,sans-serif;
+ color:#657465;margin:0!important;padding:0 2px;
+}
+.arch-dialog-body :is(.dp-profile-calendar,.dp-profile-calendar-copy):focus-visible{
+ outline:3px solid #b89955;outline-offset:3px;
+}
+@media(max-width:580px){
+ .arch-dialog-body .dp-profile-calendar,
+ .arch-dialog-body .dp-profile-calendar-copy{width:100%}
+}
+@media(prefers-reduced-motion:reduce){
+ .arch-dialog-body .dp-profile-calendar,
+ .arch-dialog-body .dp-profile-calendar-copy{transition:none}
+}
