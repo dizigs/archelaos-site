@@ -21,11 +21,14 @@ function fragment(raw){
   // historical presidents table and linked Hall of Fame biographies.
   const presidentsTable=node.tagName==='TABLE'&&node.classList.contains('arch-presidents-table');
   const presidentLink=node.tagName==='A'&&node.classList.contains('president-bio-link');
+  // Retain only reviewed facility exhibit classes; strip all other archived styling.
+  const facilityClasses=[...node.classList].filter(name=>name==='facility-museum'||/^fm-[a-z0-9-]+$/.test(name));
   for(const attr of [...node.attributes]){
    if(['href','src','alt','title','colspan','rowspan'].includes(attr.name))continue;
    node.removeAttribute(attr.name);
   }
   if(presidentsTable)node.classList.add('arch-presidents-table');
+  if(facilityClasses.length)node.classList.add(...facilityClasses);
   if(presidentLink)node.classList.add('president-bio-link');
   if(node.tagName==='A'){
    let href=node.getAttribute('href')||'';
