@@ -922,6 +922,29 @@
       "imageSourceUrl": "https://media.pieriasocial.gr/2024/10/111111111111111111111111-2.jpg"
     },
     {
+      "id": "wrestling-balkan-skopje-oct-2024",
+      "date": "2024-10-12",
+      "sport": "Πάλη",
+      "category": "achievements",
+      "title": "Ένα χρυσό και δύο χάλκινα του Αρχέλαου στο Βαλκανικό Πάλης 2024",
+      "summary": "Χρυσό της Ιωάννας Ξενίδου και χάλκινα των Δημήτρη Παππά και Παύλου Τσεντίδη.",
+      "body": [
+        "Στο Βαλκανικό Πρωτάθλημα Πάλης των κατηγοριών U15, U17 και U20 στα Σκόπια, στις 3–6 Οκτωβρίου 2024, πέντε αθλητές του Αρχέλαου συμμετείχαν με την Εθνική ομάδα.",
+        "Η Ιωάννα Ξενίδου κατέκτησε χρυσό, ο Δημήτρης Παππάς και ο Παύλος Τσεντίδης χάλκινα μετάλλια. Οι Νίκος Ζινίσα και Δημήτρης Σουλής συμμετείχαν επίσης, χωρίς να κατακτήσουν μετάλλιο."
+      ],
+      "source": "Ο Ντελάλης · 12/10/2024",
+      "sourceUrl": "https://odelalis.gr/ena-chryso-kai-dyo-chalkina-metallia-gia-tin-pali-tou-gas-archelaos-katerinis/",
+      "personIds": [
+        "arch-957a876e770d",
+        "arch-e87fdf323137",
+        "arch-b48656c62600",
+        "arch-f3d93442851f"
+      ],
+      "image": "https://odelalis.gr/wp-content/uploads/2024/10/gas_arxelaos_pali_metalia-3.jpg",
+      "imageSourceUrl": "https://odelalis.gr/wp-content/uploads/2024/10/gas_arxelaos_pali_metalia-3.jpg",
+      "imageNote": "Φωτογραφία αρχικού δημοσιεύματος · Ο Ντελάλης · 12/10/2024"
+    },
+    {
       "id": "track-season-blessing-sept-2024",
       "date": "2024-09-26",
       "sport": "Στίβος",
@@ -1092,6 +1115,27 @@
       "imageSourceUrl": "https://i2.wp.com/eptanews.gr/wp-content/uploads/2024/05/%CE%93%CE%A5%CE%9C%CE%9D%CE%91%CE%A3%CE%A4%CE%99%CE%9A%CE%97_34-copy.jpg?fit=733%2C235&ssl=1",
       "imageNote": "Φωτογραφία από το αντίστοιχο δημοσίευμα του Eptanews για τις παγκορασίδες του Αρχέλαου στη Μίκρα, 31/05/2024.",
       "imageKind": "article"
+    },
+    {
+      "id": "track-zachariadeia-two-medals-may-2024",
+      "date": "2024-05-20",
+      "sport": "Στίβος",
+      "category": "achievements",
+      "title": "Χρυσό και ασημένιο για τον Αρχέλαο στα «Ζαχαριάδεια 2024»",
+      "summary": "Πρώτη η Άννα Χατζηπουργάνη, δεύτερη η Κατερίνα Νατσιοπούλου στη Θεσσαλονίκη.",
+      "body": [
+        "Στους αγώνες στίβου «Ζαχαριάδεια 2024» του Ηρακλή Θεσσαλονίκης η Άννα Χατζηπουργάνη κατέκτησε την πρώτη θέση με χρόνο 62,86 δευτερόλεπτα και η Κατερίνα Νατσιοπούλου τη δεύτερη με 63,40 δευτερόλεπτα, σύμφωνα με το δημοσίευμα της 20ής Μαΐου 2024.",
+        "Στην αποστολή του Γ.Α.Σ. Αρχέλαος συμμετείχαν επίσης αθλητές και αθλήτριες μικρότερων ηλικιών. Η πηγή δεν διευκρινίζει στο συγκεκριμένο κείμενο το αγώνισμα των δύο χρόνων."
+      ],
+      "source": "Ο Ντελάλης · 20/05/2024",
+      "sourceUrl": "https://odelalis.gr/gas-archelaos-1-chryso-kai-1-argyro-metallio-sta-zachariadeia-2024/",
+      "personIds": [
+        "arch-68fef0f68151",
+        "arch-katerina-natsiopoulou-track22"
+      ],
+      "image": "https://odelalis.gr/wp-content/uploads/2024/05/ΑΡΧΕΛΑΟΣ-ΣΤΙΒΟΣ-1.jpg",
+      "imageSourceUrl": "https://odelalis.gr/wp-content/uploads/2024/05/ΑΡΧΕΛΑΟΣ-ΣΤΙΒΟΣ-1.jpg",
+      "imageNote": "Φωτογραφία αρχικού δημοσιεύματος · Ο Ντελάλης · 20/05/2024"
     },
     {
       "id": "wrestling-u15-european-bronze-loutraki-2024",
@@ -1463,6 +1507,46 @@
       "imageNote": "Φωτογραφία αρχικού δημοσιεύματος · Ολύμπιο Βήμα · 19/06/2023"
     },
     {
+      "id": "club-65th-anniversary-album-contract-jun-2023",
+      "date": "2023-06-19",
+      "sport": "",
+      "category": "club",
+      "title": "Σύμβαση για την έκδοση ιστορικού λευκώματος 65 χρόνων του Αρχέλαου",
+      "summary": "Η Περιφερειακή Ενότητα Πιερίας στήριξε την προετοιμασία ιστορικής έκδοσης για τον σύλλογο.",
+      "body": [
+        "Τον Ιούνιο 2023 υπογράφηκε σύμβαση για την έκδοση λευκώματος αφιερωμένου στα 65 χρόνια δράσης και προσφοράς του Γ.Α.Σ. Αρχέλαος Κατερίνης.",
+        "Στην υπογραφή συμμετείχαν η αντιπεριφερειάρχης Πιερίας Σοφία Μαυρίδου και ο πρόεδρος του συλλόγου Αλκίνοος Τασόπουλος. Το δημοσίευμα επιβεβαιώνει την υπογραφή της σύμβασης, όχι την ολοκλήρωση της έκδοσης."
+      ],
+      "source": "Ο Ντελάλης · 19/06/2023",
+      "sourceUrl": "https://odelalis.gr/ypografike-i-symvasi-gia-tin-ekdosi-toy-leykomatos-gia-ta-65-chronia-drasis-kai-prosforas-toy-gas-archelaoy-katerinis/",
+      "personIds": [
+        "arch-61d8d097f601"
+      ],
+      "image": "https://odelalis.gr/wp-content/uploads/2023/06/gasarxelaos.jpg",
+      "imageSourceUrl": "https://odelalis.gr/wp-content/uploads/2023/06/gasarxelaos.jpg",
+      "imageNote": "Φωτογραφία αρχικού δημοσιεύματος · Ο Ντελάλης · 19/06/2023"
+    },
+    {
+      "id": "track-u16-eleftheroupoli-jun-2023",
+      "date": "2023-06-19",
+      "sport": "Στίβος",
+      "category": "achievements",
+      "title": "Όγδοη η σκυταλοδρομία Κ16 του Αρχέλαου στην Ελευθερούπολη",
+      "summary": "Νεανικές συμμετοχές και ατομικά ρεκόρ στο Πανελλήνιο Κ16.",
+      "body": [
+        "Στο Πανελλήνιο Πρωτάθλημα Στίβου Κ16 στην Ελευθερούπολη, τον Ιούνιο 2023, η γυναικεία σκυταλοδρομία 4×80 μ. του Αρχέλαου με Παπαγιάννη, Κεραμιδά, Παπαοικονόμου και Χατζηπουργάνη κατέκτησε την όγδοη θέση.",
+        "Ο Κωνσταντίνος Καπασακαλίδης και η Μάρα Τατιανή πέτυχαν νέα ατομικά ρεκόρ στα 150 μέτρα."
+      ],
+      "source": "Ο Ντελάλης · 19/06/2023",
+      "sourceUrl": "https://odelalis.gr/gas-archelaos-katerinis-ta-kalytera-den-echoyn-erthei-akoma/",
+      "personIds": [
+        "arch-86658a431e03"
+      ],
+      "image": "https://odelalis.gr/wp-content/uploads/2023/06/stivos-arxelaos.jpg",
+      "imageSourceUrl": "https://odelalis.gr/wp-content/uploads/2023/06/stivos-arxelaos.jpg",
+      "imageNote": "Φωτογραφία αρχικού δημοσιεύματος · Ο Ντελάλης · 19/06/2023"
+    },
+    {
       "id": "gymnastics-thessaloniki-regional-may-2023",
       "date": "2023-05-30",
       "sport": "Ενόργανη Γυμναστική",
@@ -1790,6 +1874,28 @@
       ]
     },
     {
+      "id": "track-women-top20-u20-serres-jul-2022",
+      "date": "2022-07-12",
+      "sport": "Στίβος",
+      "category": "achievements",
+      "title": "Στην πρώτη εικοσάδα της Ελλάδας ο γυναικείος στίβος του Αρχέλαου",
+      "summary": "Χρυσό της Κατερίνας Νατσιοπούλου στα 400 μ. Κ20 και τέσσερις τελικοί στις Σέρρες.",
+      "body": [
+        "Στο Πανελλήνιο Πρωτάθλημα Στίβου Κ20 στις Σέρρες τον Ιούλιο του 2022, ο Αρχέλαος κατετάγη 20ός στη συνολική βαθμολογία γυναικών ανάμεσα σε περισσότερους από 100 συλλόγους.",
+        "Η Κατερίνα Νατσιοπούλου κατέκτησε χρυσό στα 400 μ. με 56,91 δευτερόλεπτα. Η Σοφία Κωνσταντινίδου ήταν έβδομη στα 100 μ. και 14η στα 200 μ., ενώ η σκυταλοδρομία 4×100 μ. των Σταγκίδου, Πανιώρη, Μαυρίδου και Μπιζιώτα κατέλαβε την όγδοη θέση."
+      ],
+      "source": "Ο Ντελάλης · 12/07/2022",
+      "sourceUrl": "https://odelalis.gr/stoys-20-protoys-syllogoys-stis-gynaikes-i-omada-stivoy-toy-gas-archelaos-katerinis-se-synolo-100-kai-pleon-syllogon-stin-ellada/",
+      "personIds": [
+        "arch-katerina-natsiopoulou-track22",
+        "arch-sofia-konstantinidou-track22",
+        "arch-afroditi-biziota-track23"
+      ],
+      "image": "https://odelalis.gr/wp-content/uploads/2022/06/gasarxelaos.jpg",
+      "imageSourceUrl": "https://odelalis.gr/wp-content/uploads/2022/06/gasarxelaos.jpg",
+      "imageNote": "Φωτογραφία αρχικού δημοσιεύματος · Ο Ντελάλης · 12/07/2022"
+    },
+    {
       "id": "archery-u18-athens-national-results-july-2022",
       "date": "2022-07-07",
       "category": "achievements",
@@ -1853,6 +1959,24 @@
       "image": "https://odelalis.gr/wp-content/uploads/2022/06/gasarxelaos-natsiopoulou-konstantinidou.jpg",
       "imageSourceUrl": "https://odelalis.gr/wp-content/uploads/2022/06/gasarxelaos-natsiopoulou-konstantinidou.jpg",
       "imageNote": "Εικόνα αρχικού δημοσιεύματος · Ο Ντελάλης · 16/06/2022"
+    },
+    {
+      "id": "volleyball-mini-tournament-jun-2022",
+      "date": "2022-06-09",
+      "sport": "Βόλεϊ",
+      "category": "club",
+      "title": "Περίπου 200 παιδιά στο 4ο τουρνουά Μίνι Βόλεϊ του Αρχέλαου",
+      "summary": "Μια γιορτή πετοσφαίρισης στην Κατερίνη με 16 γήπεδα και ομάδες από την Κεντρική Μακεδονία.",
+      "body": [
+        "Με τη συμμετοχή περίπου 200 μικρών αθλητών και αθλητριών πραγματοποιήθηκε στην Κατερίνη το 4ο τουρνουά «Μίνι Βόλεϊ», που συνδιοργάνωσαν τα τμήματα πετοσφαίρισης του Γ.Α.Σ. Αρχέλαος και του Σ.Φ.Κ. Πιερικός, σε συνεργασία με την ΕΣΠΕΜ.",
+        "Στον χώρο πάνω από την υπογειοποίηση της εθνικής οδού Κατερίνης–Θεσσαλονίκης στήθηκαν 16 γήπεδα. Η διοργάνωση αποτέλεσε γιορτή για τη λήξη της αγωνιστικής χρονιάς 2021–22."
+      ],
+      "source": "Ο Ντελάλης · 09/06/2022",
+      "sourceUrl": "https://odelalis.gr/me-megali-epitychia-stefthike-to-4o-toyrnoya-mini-volei-toy-gas-archelaos-katerinis/",
+      "personIds": [],
+      "image": "https://odelalis.gr/wp-content/uploads/2022/06/arxelaosvolleyball-5.jpg",
+      "imageSourceUrl": "https://odelalis.gr/wp-content/uploads/2022/06/arxelaosvolleyball-5.jpg",
+      "imageNote": "Φωτογραφία αρχικού δημοσιεύματος · Ο Ντελάλης · 09/06/2022"
     },
     {
       "id": "gymnastics-regional-first-phase-may-2022",
