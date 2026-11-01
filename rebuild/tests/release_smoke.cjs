@@ -8,7 +8,7 @@ const files=[
  ['index.html','home'],['history.html','museum'],['hall-of-fame.html','hall'],
  ['70-stigmes.html','moments'],['stories.html','stories'],['board.html','board'],
  ['contact.html','contact'],['sponsors.html','sponsors'],
- ['tmimata.html','departments'],['retro-matches.html','retro'],['search.html','search'],['favorites.html','favorites'],['contribute.html','contribute'],['interviews.html','interviews']
+ ['tmimata.html','departments'],['retro-matches.html','retro'],['interviews.html','interviews'],['search.html','search'],['favorites.html','favorites'],['contribute.html','contribute']
 ];
 async function verify(){
  mkdirSync(DEST,{recursive:true});
