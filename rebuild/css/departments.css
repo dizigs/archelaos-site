@@ -130,7 +130,6 @@
 .dp-content .dp-desc{margin-bottom:35px;color:#35483a;font-size:clamp(15px,1.4vw,18px)}
 .dp-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
 .dp-grid .dp-card:not([data-dp-open="inactive-depts"]){
- --dp-photo:none;
  position:relative;isolation:isolate;overflow:hidden;
  box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;
  gap:12px;min-height:270px;padding:62px 27px 34px;text-align:center;
