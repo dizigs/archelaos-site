@@ -14,7 +14,7 @@ fetch('/news.json?rev=20261101-photo-archive',{cache:'no-store'}).then(r=>{if(!r
   const a=document.createElement('a');a.href='/news.html?article='+encodeURIComponent(x.id);a.className='ahn-card-link';
   const media=document.createElement('div');media.className='ahn-media'+(/crest/.test(x.image||'')?' ahn-emblem':'');
   const local=!!x.image&&/^(?:images|assets)\/[a-zA-Z0-9._/-]+\.(?:webp|jpg|jpeg|png)$/.test(x.image);
-  let external=false;try{const u=new URL(x.image);external=u.protocol==='https:'&&['i0.wp.com','i1.wp.com','i2.wp.com','i3.wp.com','pieriasocial.gr','www.handball.org.gr','www.palmare.gr','www.pierianews.gr','odelalis.gr','pieria24.gr'].includes(u.hostname)}catch(_){}
+  let external=false;try{const u=new URL(x.image);external=u.protocol==='https:'&&!!u.hostname&&!u.username&&!u.password}catch(_){}
   if(local||external){
    const image=document.createElement('img');image.src=external?x.image:'/'+x.image;image.alt=x.imageNote||x.sport||'';image.loading='lazy';image.decoding='async';
    image.addEventListener('error',()=>{
