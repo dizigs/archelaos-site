@@ -44,6 +44,15 @@ def inspect():
         parser = Assets(path)
         parser.feed(source)
         assert not parser.missing, "\n".join(parser.missing)
+    museum_html=(REBUILD/"history.html").read_text(encoding="utf-8")
+    assert museum_html.count('class="mu-interviews"') == 1, "The Museum must have one Voices feature"
+    assert museum_html.count('href="/interviews.html"') == 1, "The Museum interviews link must be unique"
+    for old in ('id="archive-voices"', 'id="arch-press-voices"', 'id="mu-press-grid"', 'Δέκα φωνές από τις εφημερίδες'):
+        assert old not in museum_html, "Duplicate Voices section returned: " + old
+    museum_tour=(REBUILD/"js/museum-tour.js").read_text(encoding="utf-8")
+    assert "museum-interviews" in museum_tour and "arch-press-voices" not in museum_tour, "The Museum tour must point to the single Voices card"
+    museum_js=(REBUILD/"js/museum.js").read_text(encoding="utf-8")
+    assert "mu-press-grid" not in museum_js, "Unused press grid binder remains"
     # Responsive CSS must stay modular, and every declared import must exist.
     viewport_css = (REBUILD/"css/viewports.css").read_text(encoding="utf-8")
     for name in ("mobile.css", "tablet.css", "laptop.css", "desktop.css", "accessibility.css"):
