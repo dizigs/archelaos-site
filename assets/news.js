@@ -55,7 +55,13 @@ function show(id){
  for(const text of x.body||[]){const p=document.createElement('p');p.textContent=text;detail.append(p)}
  const source=document.createElement('div');source.className='an-source';source.textContent=t('Πηγή: ','Source: ')+x.source;const links=document.createElement('div');links.className='an-links';
  if(x.sourceUrl&&/^https:\/\//.test(x.sourceUrl)){const a=link(x.sourceUrl,t('Αρχικό δημοσίευμα ↗','Original article ↗'));a.target='_blank';a.rel='noopener noreferrer';links.append(a)}
- for(const id of x.personIds||[]){const a=link('people/'+id+'.html',t('Σχετικό βιογραφικό ↗','Related biography ↗'));a.dataset.personId=id;links.append(a)}
+ for(const id of x.personIds||[]){const a=link('hall-of-fame.html?person='+encodeURIComponent(id),'');a.dataset.personId=id;a.dataset.personName='true';links.append(a)}
+ if(links.querySelector('[data-person-name]')){
+  fetch('hall-of-fame-people.json',{cache:'no-store'}).then(r=>r.ok?r.json():Promise.reject(Error('Hall data unavailable'))).then(data=>{
+   const names=new Map((data.people||[]).map(p=>[p.id,p.name]));
+   links.querySelectorAll('[data-person-name]').forEach(a=>{a.textContent=names.get(a.dataset.personId)||t('Βιογραφικό','Biography')});
+  }).catch(()=>{links.querySelectorAll('[data-person-name]').forEach(a=>{a.textContent=t('Βιογραφικό','Biography')})});
+ }
  source.append(links);detail.append(source);
  const b=$('an-dialog-heart'),favorites=window.ArchelaosFavorites;const saved=favorites?.has('news',x.id);
  b.dataset.favoriteKind='news';b.dataset.favoriteId=x.id;b.querySelector('span').textContent=saved?'♥':'♡';b.setAttribute('aria-pressed',String(!!saved));b.setAttribute('aria-label',saved?'Αφαίρεση από τα αγαπημένα':'Αποθήκευση στα αγαπημένα');
