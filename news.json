@@ -104,6 +104,220 @@
         "arch-44ef21dfb9b7",
         "arch-6212ba5ea7f1"
       ]
+    },
+    {
+      "id": "gym-2022-horizon",
+      "date": "2022-11-15",
+      "sport": "Ενόργανη Γυμναστική",
+      "category": "achievements",
+      "title": "Διεθνείς διακρίσεις του Άγγελου Παρούση στο Horizon Cup",
+      "summary": "Πρώτες θέσεις στις ασκήσεις εδάφους και στους κρίκους στο διεθνές τουρνουά.",
+      "body": [
+        "Στο διεθνές Horizon Cup (12–13 Νοεμβρίου 2022) ο Άγγελος Παρούσης του Αρχέλαου κατέκτησε πρωτιές σε έδαφος και κρίκους, καθώς και τέσσερα ακόμη μετάλλια σε όργανα και σύνθετο ατομικό."
+      ],
+      "source": "Eptanews · 15/11/2022",
+      "sourceUrl": "https://eptanews.gr/athlitismos/mia-chronia-epitychies-gia-tin-enorgani-gymnastiki-toy-gas-archelaos-katerinis/",
+      "image": "images/enorgani-slideshow-edafos.jpg",
+      "imageNote": "Φωτογραφία αρχείου του τμήματος — όχι φωτογραφία του συγκεκριμένου γεγονότος.",
+      "personIds": [
+        "arch-e6b31b31c3a9"
+      ]
+    },
+    {
+      "id": "gym-2023-mikra",
+      "date": "2023-04-04",
+      "sport": "Ενόργανη Γυμναστική",
+      "category": "achievements",
+      "title": "Ασημένιο ομαδικό για τις κορασίδες του Αρχέλαου στη Μίκρα",
+      "summary": "Δεύτερη θέση στην Α΄ φάση της Β΄ Περιφέρειας με 177,550 βαθμούς.",
+      "body": [
+        "Στην Α΄ φάση της Β΄ Περιφέρειας στο Εθνικό Γυμναστήριο Μίκρας (1 Απριλίου 2023), η ομάδα κορασίδων του Αρχέλαου κατέκτησε τη δεύτερη θέση στο σύνθετο ομαδικό με βαθμολογία 177,550."
+      ],
+      "source": "Eptanews · 04/04/2023",
+      "sourceUrl": "https://eptanews.gr/athlitismos/enorgani-gymnastiki-synecheia-epitychion-gia-ton-gas-archelao/",
+      "image": "images/enorgani-slideshow-edafos.jpg",
+      "imageNote": "Φωτογραφία αρχείου του τμήματος — όχι φωτογραφία του συγκεκριμένου γεγονότος.",
+      "personIds": [
+        "arch-25923c326d62",
+        "arch-e9fc7408640c",
+        "arch-f02298025e5c",
+        "arch-8d1a258f0b09"
+      ]
+    },
+    {
+      "id": "wrestling-2023-bucharest",
+      "date": "2023-11-21",
+      "sport": "Πάλη",
+      "category": "achievements",
+      "title": "Τέσσερα μετάλλια για την πάλη του Αρχέλαου στο Βουκουρέστι",
+      "summary": "Τρία χρυσά και ένα ασημένιο στο διεθνές τουρνουά της Ρουμανίας.",
+      "body": [
+        "Στη διοργάνωση του Βουκουρεστίου (17–19 Νοεμβρίου 2023), η Ιωάννα Ξενίδου, ο Λευτέρης Παππάς και ο Δημήτρης Παππάς κατέκτησαν χρυσά μετάλλια και ο Κωνσταντίνος Σκλιάς ασημένιο."
+      ],
+      "source": "Eptanews · 21/11/2023",
+      "sourceUrl": "https://eptanews.gr/epikairotita/me-polla-metallia-kai-polytimes-empeiries-epestrepse-apo-to-voykoyresti-to-tmima-palis-toy-gas-archelaos-katerinis/",
+      "image": "images/wrestling-action.webp",
+      "imageNote": "Φωτογραφία αρχείου του τμήματος — όχι φωτογραφία του συγκεκριμένου γεγονότος.",
+      "personIds": [
+        "arch-957a876e770d",
+        "arch-e49a8c140396",
+        "arch-e87fdf323137"
+      ]
+    },
+    {
+      "id": "archery-olympus-2024",
+      "date": "2024-04-17",
+      "sport": "Τοξοβολία",
+      "category": "activities",
+      "title": "Διήμερο αγώνων τοξοβολίας Olympus Archery Series στην Κατερίνη",
+      "summary": "Διοργάνωση σε συνεργασία με την Ελληνική Ομοσπονδία Τοξοβολίας.",
+      "body": [
+        "Στις 13–14 Απριλίου 2024 ο Αρχέλαος συνδιοργάνωσε με την Ελληνική Ομοσπονδία Τοξοβολίας πανελλήνιο αγώνα Β΄ κατηγορίας και αγώνα Α΄ κατηγορίας με διαδικασία πρόκρισης για την Εθνική Ομάδα."
+      ],
+      "source": "Pieria Social · 17/04/2024",
+      "sourceUrl": "https://pieriasocial.gr/?p=83786",
+      "image": "images/archery-outdoor-youth.webp",
+      "imageNote": "Φωτογραφία αρχείου του τμήματος — όχι φωτογραφία του συγκεκριμένου γεγονότος.",
+      "personIds": []
+    },
+    {
+      "id": "gym-2024-mikra",
+      "date": "2024-04-09",
+      "sport": "Ενόργανη Γυμναστική",
+      "category": "achievements",
+      "title": "Χάλκινο ομαδικό και ατομικά μετάλλια στη Μίκρα",
+      "summary": "Χρυσό στις ασκήσεις εδάφους για τη Νικολέτα Τσαρουχά.",
+      "body": [
+        "Στη Μίκρα (30 Μαρτίου 2024) οι κορασίδες του Αρχέλαου κατέκτησαν χάλκινο στο σύνθετο ομαδικό. Η Νικολέτα Τσαρουχά πήρε το χρυσό στις ασκήσεις εδάφους και η Καλλιόπη Γεωργαντά το χάλκινο στη δοκό ισορροπίας."
+      ],
+      "source": "Eptanews · 09/04/2024",
+      "sourceUrl": "https://eptanews.gr/athlitismos/epitychies-kai-metallia-gia-tin-enorgani-toy-gas-archelaos-katerinis/",
+      "image": "images/enorgani-slideshow-edafos.jpg",
+      "imageNote": "Φωτογραφία αρχείου του τμήματος — όχι φωτογραφία του συγκεκριμένου γεγονότος.",
+      "personIds": [
+        "arch-e9fc7408640c",
+        "arch-8d1a258f0b09"
+      ]
+    },
+    {
+      "id": "shooting-2024-vyronas",
+      "date": "2024-04-30",
+      "sport": "Σκοποβολή",
+      "category": "achievements",
+      "title": "Πρωτιά της Βασιλικής Κουφογιάννη στο Πανελλήνιο Σκοποβολής",
+      "summary": "Πρώτη στο πιστόλι νεανίδων με 566 βαθμούς στο σκοπευτήριο Βύρωνα.",
+      "body": [
+        "Στις 26–27 Απριλίου 2024 ο Αρχέλαος συμμετείχε με επτά αθλητές στους πανελλήνιους αγώνες σκοποβολής. Η Βασιλική Κουφογιάννη κατέκτησε την πρώτη θέση στο πιστόλι νεανίδων με 566 και ο Κωνσταντίνος Σεϊτανίδης την πέμπτη θέση στο τουφέκι εφήβων."
+      ],
+      "source": "Pieria News · 30/04/2024",
+      "sourceUrl": "https://www.pierianews.gr/2024/04/30/me-epitychies-epestrepse-i-skopovoli-tou-gas-archelaos-katerinis-foto/",
+      "image": "images/skopovoli-archelaos-athlete.webp",
+      "imageNote": "Φωτογραφία αρχείου του τμήματος — όχι φωτογραφία του συγκεκριμένου γεγονότος.",
+      "personIds": []
+    },
+    {
+      "id": "wrestling-mayor-2024",
+      "date": "2024-08-02",
+      "sport": "Πάλη",
+      "category": "club",
+      "title": "Ο Δήμος Κατερίνης τίμησε το παλαιστικό τμήμα",
+      "summary": "Υποδοχή αθλητών με διακρίσεις στο Δημαρχείο Κατερίνης.",
+      "body": [
+        "Στις 2 Αυγούστου 2024 ο δήμαρχος Κατερίνης υποδέχθηκε αθλητές της ελληνορωμαϊκής και ελευθέρας πάλης του Αρχέλαου. Τους συνόδευσαν ο έφορος Κυριάκος Κωνσταντινίδης και οι προπονητές Σάββας Τσεντίδης, Κώστας Τάμος και Κώστας Ζίνισα."
+      ],
+      "source": "Pieria Social · 02/08/2024",
+      "sourceUrl": "https://pieriasocial.gr/?p=88797",
+      "image": "images/wrestling-action.webp",
+      "imageNote": "Φωτογραφία αρχείου του τμήματος — όχι φωτογραφία του συγκεκριμένου γεγονότος.",
+      "personIds": [
+        "arch-4b6d75d0faa2"
+      ]
+    },
+    {
+      "id": "archery-cup-2024",
+      "date": "2024-10-22",
+      "sport": "Τοξοβολία",
+      "category": "achievements",
+      "title": "Πρωτιές του Αρχέλαου στο Κύπελλο Ελλάδας Τοξοβολίας",
+      "summary": "Ατομικές και ομαδικές διακρίσεις στον Βόλο.",
+      "body": [
+        "Στο Κύπελλο Ελλάδας 2024 (19–20 Οκτωβρίου) ο Ευάγγελος Χαρίσης κατέκτησε την πρώτη θέση στο Ολυμπιακό Τόξο U21. Ο Αρχέλαος πήρε ακόμη δύο πρωτιές σε μικτό και ομαδικό U21."
+      ],
+      "source": "Pieria Social · 22/10/2024",
+      "sourceUrl": "https://pieriasocial.gr/?p=93206",
+      "image": "images/archery-outdoor-youth.webp",
+      "imageNote": "Φωτογραφία αρχείου του τμήματος — όχι φωτογραφία του συγκεκριμένου γεγονότος.",
+      "personIds": [
+        "arch-955a386f547f"
+      ]
+    },
+    {
+      "id": "handball-volos-2024",
+      "date": "2024-11-25",
+      "sport": "Χειροσφαίριση",
+      "category": "activities",
+      "title": "Αγωνιστική αναμέτρηση του Αρχέλαου στον Βόλο",
+      "summary": "Ο Αρχέλαος γνώρισε εκτός έδρας ήττα με 24–20 στην Α2 ανδρών.",
+      "body": [
+        "Σε αγώνα της Α2 ανδρών ο Αρχέλαος ηττήθηκε από το Volos Handball Club με 24–20. Η ομάδα της Κατερίνης είχε προηγηθεί στο ημίχρονο με 12–9."
+      ],
+      "source": "Magnesia News · 25/11/2024",
+      "sourceUrl": "https://magnesianews.gr/athlitismos/alla-athlimata/chirosferisi/proti-niki-gia-to-volos-handball-club-stin-a2-andron.html",
+      "image": "images/handball-archelaos-panserraikos-2025.jpg",
+      "imageNote": "Φωτογραφία αρχείου του τμήματος — όχι φωτογραφία του συγκεκριμένου γεγονότος.",
+      "personIds": []
+    },
+    {
+      "id": "gym-2025-team",
+      "date": "2025-04-01",
+      "sport": "Ενόργανη Γυμναστική",
+      "category": "achievements",
+      "title": "Ασημένιο και χάλκινο ομαδικό στην ενόργανη του Αρχέλαου",
+      "summary": "Η Θεοδώρα Αμεξιζίδου με τρεις ατομικές πρωτιές.",
+      "body": [
+        "Σε αγώνες της Β΄ Περιφέρειας το 2025 η ομάδα κορασίδων πήρε ασημένιο στο σύνθετο ομαδικό με 186,450 βαθμούς και η ομάδα νεανίδων χάλκινο. Η Θεοδώρα Αμεξιζίδου πρώτευσε στο σύνθετο ατομικό, στο άλμα και στις ασκήσεις εδάφους."
+      ],
+      "source": "Ο Διάλογος · 01/04/2025",
+      "sourceUrl": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/%CF%80%CE%BF%CE%BB%CF%8D-%CE%BA%CE%B1%CE%BB%CE%AD%CF%82-%CE%B5%CF%80%CE%B9%CE%B4%CF%8C%CF%83%CE%B5%CE%B9%CF%82-%CE%B1%CF%80%CF%8C-%CF%84%CE%BF-%CF%84%CE%BC%CE%AE%CE%BC%CE%B1-e%CE%BD%CF%8C%CF%81%CE%B3/",
+      "image": "images/enorgani-slideshow-edafos.jpg",
+      "imageNote": "Φωτογραφία αρχείου του τμήματος — όχι φωτογραφία του συγκεκριμένου γεγονότος.",
+      "personIds": [
+        "arch-f02298025e5c"
+      ]
+    },
+    {
+      "id": "archery-cyprus-2025",
+      "date": "2025-11-04",
+      "sport": "Τοξοβολία",
+      "category": "achievements",
+      "title": "Διπλή διάκριση του Ευάγγελου Χαρίση στην Κύπρο",
+      "summary": "Παρουσία στην Εθνική Ομάδα, στο Aphrodite Mediterranean Cup.",
+      "body": [
+        "Στο 9ο Aphrodite Mediterranean Cup (30 Οκτωβρίου–2 Νοεμβρίου 2025) στην Πύλα Λάρνακας, ο Ευάγγελος Χαρίσης συμμετείχε με την Εθνική Ομάδα στην κατηγορία Recurve U21 και καταγράφηκαν δύο διακρίσεις, σύμφωνα με το σχετικό δημοσίευμα."
+      ],
+      "source": "Pieria Social · 04/11/2025",
+      "sourceUrl": "https://pieriasocial.gr/?p=114647",
+      "image": "images/archery-outdoor-youth.webp",
+      "imageNote": "Φωτογραφία αρχείου του τμήματος — όχι φωτογραφία του συγκεκριμένου γεγονότος.",
+      "personIds": [
+        "arch-955a386f547f"
+      ]
+    },
+    {
+      "id": "archery-youth-2025",
+      "date": "2025-11-17",
+      "sport": "Τοξοβολία",
+      "category": "achievements",
+      "title": "Διακρίσεις νέων τοξοτών στο Πανελλήνιο Μικρών Κατηγοριών",
+      "summary": "Διπλή διάκριση για τον Αρχέλαο στο Μαυρομμάτι.",
+      "body": [
+        "Στο Πανελλήνιο Πρωτάθλημα Μικρών Κατηγοριών στο Μαυρομμάτι ο Αρχέλαος κατέγραψε διπλή διάκριση. Το δημοσίευμα της 17ης Νοεμβρίου 2025 αναφέρεται στη Στεργιοπούλου και τον Γαλάνη και στη συμβολή του προπονητή Ιωάννη Χαρίση."
+      ],
+      "source": "Pieria Social · 17/11/2025",
+      "sourceUrl": "https://pieriasocial.gr/?tag=%CF%84%CE%BF%CE%BE%CE%BF%CE%B2%CE%BF%CE%BB%CE%AF%CE%B1",
+      "image": "images/archery-outdoor-youth.webp",
+      "imageNote": "Φωτογραφία αρχείου του τμήματος — όχι φωτογραφία του συγκεκριμένου γεγονότος.",
+      "personIds": []
     }
   ]
 }
