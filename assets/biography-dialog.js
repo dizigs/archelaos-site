@@ -11,7 +11,7 @@ const create=()=>{
  if(dlg)return dlg;
  dlg=document.createElement('dialog');dlg.className='arc-bio-dialog';
  dlg.setAttribute('aria-labelledby','arc-bio-name');
- dlg.innerHTML='<div class="arc-bio-inner"><button class="arc-bio-close" type="button" aria-label="Close">×</button><div class="arc-bio-role"></div><h2 id="arc-bio-name"></h2><div class="arc-bio-text"></div><div class="arc-bio-sources"></div></div>';
+ dlg.innerHTML='<div class="arc-bio-inner"><div class="arc-bio-heart"></div><button class="arc-bio-close" type="button" aria-label="Close">×</button><div class="arc-bio-role"></div><h2 id="arc-bio-name"></h2><div class="arc-bio-text"></div><div class="arc-bio-sources"></div></div>';
  document.body.append(dlg);dlg.querySelector('.arc-bio-close').addEventListener('click',()=>dlg.close());
  dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close()});return dlg;
 };
@@ -21,6 +21,7 @@ const render=p=>{
  d.querySelector('.arc-bio-role').textContent=t(p.role,p.role_en);
  d.querySelector('#arc-bio-name').textContent=t(p.name,p.name_en);
  d.querySelector('.arc-bio-text').textContent=t(p.bio,p.bio_en);
+ const favorite=d.querySelector('.arc-bio-heart');favorite.replaceChildren();if(window.ArchelaosFavorites)favorite.append(window.ArchelaosFavorites.button('person',p.id,'', {title:p.name,href:'people/'+p.id+'.html',summary:p.role}));
  const sources=d.querySelector('.arc-bio-sources');sources.replaceChildren();
  const refs=(p.refs||[]).filter(x=>{try{return ['https:','http:'].includes(new URL(x.url).protocol)}catch{return false}});
  if(refs.length){const label=document.createElement('strong');label.textContent=en?'Sources':'Πηγές';sources.append(label);for(const ref of refs){const a=document.createElement('a');a.href=ref.url;a.rel='noopener noreferrer';a.target='_blank';a.textContent=ref.label||ref.url;sources.append(a)}}
