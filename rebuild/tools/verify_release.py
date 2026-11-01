@@ -159,6 +159,29 @@ def verify() -> None:
         assert all(pid in ids for pid in article.get("personIds", [])), "News links to missing Hall biography: " + article["id"]
         if article.get("image") and not article["image"].startswith(("https://", "http://")):
             assert (DIST / article["image"]).is_file(), "Missing news image: " + article["image"]
+    # Permanent editorial rule: a news story must never recycle a department
+    # slideshow, an unrelated match photo or the club crest as event evidence.
+    slideshow_images = {
+        "images/enorgani-slideshow-edafos.jpg",
+        "images/wrestling-action.webp",
+        "images/archery-indoor-archelaos.webp",
+        "images/archery-outdoor-youth.webp",
+        "images/handball-archelaos-panserraikos-2025.jpg",
+        "assets/archelaos-crest.png",
+    }
+    for article in news["items"]:
+        photo = article.get("image", "") or ""
+        assert photo not in slideshow_images, "Recycled slideshow photo in News: " + article["id"]
+        if photo.startswith("https://"):
+            assert photo == article.get("imageSourceUrl"), "Original remote news photo lacks source trace"
+            assert urlsplit(photo).hostname in {
+                "i0.wp.com", "i1.wp.com", "i2.wp.com", "i3.wp.com",
+                "pieriasocial.gr", "www.handball.org.gr",
+            }, "Unreviewed remote news photograph: " + article["id"]
+    # News card, article and home-news links have no decorative arrows.
+    for asset in (DIST / "news.html", DIST / "assets/news.js", DIST / "assets/home-news.js"):
+        content = asset.read_text(encoding="utf-8")
+        assert not any(arrow in content for arrow in ("↗", "➜", "→")), "News arrows unexpectedly restored: " + asset.name
     # News media contract: never publish a photo URL that points to a missing
     # or invalid asset; and protect the modal against the former detached-image bug.
     media_js = (DIST / "assets/news.js").read_text(encoding="utf-8")
