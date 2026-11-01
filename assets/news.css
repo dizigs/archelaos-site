@@ -139,3 +139,10 @@ main{padding:60px 0 80px}
 
 /* Hide the featured tile while text search or category filters are active. */
 #an-feature[hidden]{display:none!important}
+
+/* Heritage crest illustration for articles without an event photograph. */
+.an-card-media.is-heritage-crest,.an-feature-media.is-heritage-crest,.an-detail .an-cover.is-heritage-crest{background:radial-gradient(ellipse at 50% 35%,#13593e 0%,#073d2b 45%,#022518 100%);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;isolation:isolate}
+.is-heritage-crest::before{content:"";position:absolute;inset:8%;border:1px solid rgba(199,166,94,.48);border-radius:50%;pointer-events:none}
+.is-heritage-crest::after{content:"";position:absolute;inset:17%;border:1px solid rgba(199,166,94,.20);border-radius:50%;pointer-events:none}
+.an-card-media.is-heritage-crest img,.an-feature-media.is-heritage-crest img,.an-detail .an-cover.is-heritage-crest img{position:relative;z-index:1;width:65%;height:85%;max-height:260px;object-fit:contain;filter:drop-shadow(0 9px 22px rgba(0,0,0,.38));transform:scale(1.18);background:transparent}
+.an-feature-media.is-heritage-crest img{max-height:340px}
