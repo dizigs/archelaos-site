@@ -1,0 +1,29 @@
+name: Live site health
+on:
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: live-health
+  cancel-in-progress: false
+jobs:
+  public-health:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check published site without credentials
+        run: python rebuild/tools/live_site_health.py --json live-health-report.json
+      - name: Retain public technical health report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: live-health-report
+          path: live-health-report.json
+          retention-days: 14
+          if-no-files-found: warn

@@ -1,0 +1,29 @@
+name: Weekly public archive snapshot
+on:
+  schedule:
+    - cron: '43 3 * * 0'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify complete archive release
+        run: python rebuild/tools/build_release.py
+      - name: Record public database hashes and counts
+        run: python rebuild/tools/public_snapshot.py
+      - name: Preserve restore-ready public data (no private Drive)
+        uses: actions/upload-artifact@v4
+        with:
+          name: public-archive-snapshot
+          path: |
+            dist/assets/site/data/
+            public-archive-manifest.json
+          retention-days: 30
+          if-no-files-found: error
