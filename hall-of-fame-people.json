@@ -1,6 +1,6 @@
 {
   "version": "v1.6",
-  "count": 719,
+  "count": 724,
   "people": [
     {
       "name": "Νίκος Τσινόπουλος",
@@ -7747,6 +7747,56 @@
         }
       ],
       "id": "arch-handball-348992f5"
+    },
+    {
+      "name": "Κατερίνα Νατσιοπούλου",
+      "name_en": "Katerina Natsiopoulou",
+      "role": "Αθλήτρια · Στίβος",
+      "role_en": "Athlete · Athletics",
+      "category": "athlete",
+      "bio": "Αθλήτρια στίβου του Γ.Α.Σ. Αρχέλαος Κατερίνης. Το 2022 κατέκτησε ασημένιο μετάλλιο στα 400 μ. των Πανελληνίων Σχολικών Αγώνων και χρυσό στην κατηγορία Κ23 στα 400 μ. με επίδοση 56,34 δευτ. Το 2023 κατέλαβε την τέταρτη θέση στα 400 μ. γυναικών του Πανελληνίου Κλειστού Στίβου με ατομικό ρεκόρ 56,61 δευτ.",
+      "bio_en": "Archelaos Katerinis track athlete who won U23 400m gold in 2022 and finished fourth in the 2023 national indoor women's 400m.",
+      "id": "arch-katerina-natsiopoulou-track22"
+    },
+    {
+      "name": "Σοφία Κωνσταντινίδου",
+      "name_en": "Sofia Konstantinidou",
+      "role": "Αθλήτρια · Στίβος",
+      "role_en": "Athlete · Athletics",
+      "category": "athlete",
+      "bio": "Αθλήτρια στίβου του Γ.Α.Σ. Αρχέλαος Κατερίνης. Κατέκτησε το ασημένιο μετάλλιο στα 100 μ. στους Πανελλήνιους Σχολικούς Αγώνες Στίβου Λυκείων Ελλάδας–Κύπρου στον Βόλο το 2022, με επίδοση 12,60 δευτ. Συμμετείχε επίσης στο Πανελλήνιο Πρωτάθλημα Ανδρών–Γυναικών το 2022.",
+      "bio_en": "Archelaos athlete; second in the 100m at the 2022 Greek-Cypriot national school championships.",
+      "id": "arch-sofia-konstantinidou-track22"
+    },
+    {
+      "name": "Αφροδίτη Μπιζιώτα",
+      "name_en": "Afroditi Biziota",
+      "role": "Αθλήτρια · Στίβος",
+      "role_en": "Athlete · Athletics",
+      "category": "athlete",
+      "bio": "Νεαρή αθλήτρια στίβου του Γ.Α.Σ. Αρχέλαος Κατερίνης. Συμμετείχε στο 37ο Πανελλήνιο Πρωτάθλημα Κλειστού Στίβου το 2023 και σημείωσε ατομικό ρεκόρ 8,16 δευτ. στα 60 μέτρα γυναικών.",
+      "bio_en": "Archelaos athletics representative at the 2023 national indoor championship, recording a 60m personal best of 8.16 seconds.",
+      "id": "arch-afroditi-biziota-track23"
+    },
+    {
+      "name": "Μιχαέλα Σύρμαλη",
+      "name_en": "Michaela Syrmali",
+      "role": "Αθλήτρια · Πάλη",
+      "role_en": "Athlete · Wrestling",
+      "category": "athlete",
+      "bio": "Αθλήτρια πάλης του Γ.Α.Σ. Αρχέλαος Κατερίνης. Κατέκτησε την τρίτη θέση και χάλκινο μετάλλιο στο Πανελλήνιο Πρωτάθλημα Πάλης στο Κιλκίς στις 8 Μαρτίου 2020.",
+      "bio_en": "Archelaos wrestler; bronze medallist at the national wrestling championship in Kilkis on 8 March 2020.",
+      "id": "arch-michaela-syrmali-wrest20"
+    },
+    {
+      "name": "Θοδωρής Τσιλιγγιρίδης",
+      "name_en": "Thodoris Tsiliggiridis",
+      "role": "Αθλητής · Πάλη",
+      "role_en": "Athlete · Wrestling",
+      "category": "athlete",
+      "bio": "Αθλητής πάλης του Γ.Α.Σ. Αρχέλαος Κατερίνης. Κατέλαβε την πέμπτη θέση στο Πανελλήνιο Πρωτάθλημα Πάλης στο Κιλκίς τον Μάρτιο του 2020.",
+      "bio_en": "Archelaos wrestler; fifth at the national wrestling championship in Kilkis in March 2020.",
+      "id": "arch-thodoris-tsiliggiridis-wrest20"
     }
   ]
 }
