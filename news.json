@@ -810,6 +810,24 @@
       "imageSourceUrl": "https://media.pieriasocial.gr/2024/08/1-2024-08-02T111120.118.jpg"
     },
     {
+      "id": "track-u16-national-eleftheroupoli-jul-2024",
+      "date": "2024-07-15",
+      "sport": "Στίβος",
+      "category": "achievements",
+      "title": "Χάλκινο της Αλεξάνδρας Παπαγιάννη στο Πανελλήνιο Στίβου Κ16",
+      "summary": "Τρίτη στα 80 μ. εμπόδια στην Ελευθερούπολη Καβάλας με 12,07 δευτερόλεπτα.",
+      "body": [
+        "Στο Πανελλήνιο Πρωτάθλημα Στίβου Κ16, που διεξήχθη στην Ελευθερούπολη Καβάλας στις 13–14 Ιουλίου 2024, η Αλεξάνδρα Παπαγιάννη του Γ.Α.Σ. Αρχέλαος Κατερίνης κατέκτησε το χάλκινο μετάλλιο στα 80 μ. εμπόδια με χρόνο 12,07 δευτερολέπτων.",
+        "Ο σύλλογος συμμετείχε με 14 αθλητές και αθλήτριες, καταγράφοντας ακόμη πρώτες θέσεις σε προκριματικές σειρές και προσωπικά ρεκόρ."
+      ],
+      "source": "Pieria Social · 15/07/2024",
+      "sourceUrl": "https://pieriasocial.gr/?p=87892",
+      "personIds": [
+        "arch-2082f3abced0"
+      ],
+      "imageSourceUrl": "https://media.pieriasocial.gr/2024/07/2222222222222222222.jpg"
+    },
+    {
       "id": "track-academy-summer-celebration-2024",
       "date": "2024-06-28",
       "sport": "Στίβος",
@@ -1178,6 +1196,29 @@
       "imageSourceUrl": "https://i0.wp.com/eptanews.gr/wp-content/uploads/2022/11/Screenshot-2022-11-15-131426.jpg?fit=976%2C630&ssl=1"
     },
     {
+      "id": "archery-florina-cup-team-silver-sep-2022",
+      "date": "2022-09-27",
+      "sport": "Τοξοβολία",
+      "category": "achievements",
+      "title": "Δύο δεύτερες θέσεις για την τοξοβολία του Αρχέλαου στο Κύπελλο Ελλάδας στη Φλώρινα",
+      "summary": "Ομαδικό και μικτό ασημένιο U18 στο Κύπελλο Ελλάδας Τοξοβολίας 2022.",
+      "body": [
+        "Στις 17–18 Σεπτεμβρίου 2022, στο ΔΑΚ Φλώρινας, ο Γ.Α.Σ. Αρχέλαος συμμετείχε με επτά αθλητές και αθλήτριες στο Κύπελλο Ελλάδας Τοξοβολίας, το οποίο επηρεάστηκε από έντονες βροχοπτώσεις και ανέμους.",
+        "Στο ομαδικό Ανδρών U18 Ολυμπιακού Τόξου τη δεύτερη θέση κατέκτησαν οι Ευάγγελος Χαρίσης, Αθανάσιος Δημόπουλος και Κωνσταντίνος Χαρίσης. Στο μικτό U18 δεύτεροι κατετάγησαν η Παυλίνα Χαριτίδου και ο Ευάγγελος Χαρίσης.",
+        "Στο μικτό Ανδρών–Γυναικών Ολυμπιακού Τόξου οι Ελένη Μητσιάκη και Ιωάννης Χαρίσης κατέλαβαν την τέταρτη θέση. Ο Ιωάννης Χαρίσης αγωνίστηκε επίσης στο ατομικό Ανδρών."
+      ],
+      "source": "Ολύμπιο Βήμα · 27/09/2022",
+      "sourceUrl": "https://olympiobima.gr/sto-kypello-ellados-stin-florina-to-tmima-toxovolias-toy-gas-archelaos-katerinis/",
+      "personIds": [
+        "arch-955a386f547f",
+        "arch-9d63723c6ec9",
+        "arch-konstantinos-charisis-arch",
+        "arch-pavlina-charitidou-arch",
+        "arch-44ef21dfb9b7"
+      ],
+      "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2022/09/Στο-Κύπελλο-Ελλάδος-στην-Φλώρινα-το-τμήμα-τοξοβολίας-του-ΓΑΣ-Αρχέλαος-Κατερίνης-36785.jpg"
+    },
+    {
       "id": "archery-u18-athens-national-results-july-2022",
       "date": "2022-07-07",
       "category": "achievements",
@@ -1218,6 +1259,27 @@
       ],
       "imageSourceUrl": "https://i1.wp.com/eptanews.gr/wp-content/uploads/2022/05/IMG-0bbec2cda8c04b07a9ed7052e53aca9a-V.jpg?fit=1600%2C1200&ssl=1",
       "imageNote": "Φωτογραφία από το αντίστοιχο δημοσίευμα της πηγής"
+    },
+    {
+      "id": "wrestling-school-trikala-bronze-may-2022",
+      "date": "2022-05-14",
+      "sport": "Πάλη",
+      "category": "achievements",
+      "title": "Τρία χάλκινα μετάλλια για αθλητές του Αρχέλαου στους Πανελλήνιους Σχολικούς Αγώνες",
+      "summary": "Τρεις τρίτες θέσεις και μία πέμπτη στους σχολικούς αγώνες πάλης στα Τρίκαλα.",
+      "body": [
+        "Στους Πανελλήνιους Σχολικούς Αγώνες Πάλης που διεξήχθησαν στα Τρίκαλα στις 13 Μαΐου 2022 συμμετείχαν τέσσερις αθλητές του Γ.Α.Σ. Αρχέλαος Κατερίνης.",
+        "Ο Θανάσης Ευθυμιάδης, ο Λευτέρης Παππάς και ο Μένιος Βούλγαρης κατέκτησαν χάλκινα μετάλλια. Ο Στέφανος Οικονομίδης κατέλαβε την πέμπτη θέση. Την αποστολή συνόδευσε ο προπονητής Σάββας Τσεντίδης."
+      ],
+      "source": "Ολύμπιο Βήμα · 14/05/2022",
+      "sourceUrl": "https://olympiobima.gr/archelaos-katerinis-3-chalkina-metallia-oi-athlites-toy-stoys-panellinioys-scholikoys-agones-sta-trikala/",
+      "personIds": [
+        "arch-ba8233d165aa",
+        "arch-e49a8c140396",
+        "arch-8c9cbe4897f0",
+        "arch-32f943eae9a0"
+      ],
+      "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2022/05/Archelaos-Katerinis-3-Chalkina-metallia-oi-athlites-tou-stous-Panellinious-scholikous-agones-sta-Trikala-42245.jpg"
     },
     {
       "id": "wrestling-u17-serres-third-apr-2022",
