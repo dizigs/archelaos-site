@@ -1,0 +1,15 @@
+/* TABLET: 768–1023px. Comfortable two-column reading and touch controls. */
+:root{--arch-nav-height:78px}
+.arch-header-inner{padding-inline:20px;gap:14px}
+.arch-brand-title{font-size:18px}
+.arch-nav{display:none!important}
+.arch-menu-open{display:flex}
+.arch-header-actions{margin-left:auto}
+.arch-action{min-height:46px;padding-inline:14px}
+.arch-menu-dialog[open]{width:min(460px,86vw)!important;right:0!important;left:auto!important}
+.arch-cards,.av-grid,.ac-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.ac-steps{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.arch-card--wide{grid-column:auto}
+.arch-footer-columns{gap:24px}
+.arch-footer-community{align-items:flex-start}
+.ac-guide-grid{grid-template-columns:repeat(2,minmax(0,1fr))}

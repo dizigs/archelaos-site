@@ -1,0 +1,146 @@
+{
+  "source": "backup/pre-v3-restore-2026-10-31",
+  "sports": [
+    {
+      "index": "01",
+      "key": "handball",
+      "name": "Χάντμπολ",
+      "description": "Το χάντμπολ παίζεται με επτά παίκτες ανά ομάδα. Συνδυάζει πάσες, γρήγορες επιθέσεις και σουτ προς την εστία.",
+      "photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaOFUCWatPwP-EycFiHffCCMk_Kz1ScNWPtg7znhR3mQ&s=10"
+    },
+    {
+      "index": "02",
+      "key": "track",
+      "name": "Στίβος",
+      "description": "Ο στίβος περιλαμβάνει δρόμους ταχύτητας και αντοχής, άλματα και ρίψεις, με στόχο την ατομική επίδοση.",
+      "photo": "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=1200&q=80"
+    },
+    {
+      "index": "03",
+      "key": "archery",
+      "name": "Τοξοβολία",
+      "description": "Στην τοξοβολία, οι αθλητές στοχεύουν με τόξο σε καθορισμένη απόσταση, καλλιεργώντας ακρίβεια και αυτοσυγκέντρωση.",
+      "photo": "/images/archery-outdoor-youth.webp"
+    },
+    {
+      "index": "04",
+      "key": "shooting",
+      "name": "Σκοποβολή",
+      "description": "Η αθλητική σκοποβολή απαιτεί σταθερότητα, τεχνικό έλεγχο και ακρίβεια στην εκτέλεση κάθε βολής.",
+      "photo": "https://0501.nccdn.net/4_2/000/000/048/0a6/ISSF.jpg"
+    },
+    {
+      "index": "05",
+      "key": "gymnastics",
+      "name": "Ενόργανη Γυμναστική",
+      "description": "Η ενόργανη συνδυάζει δύναμη, ευλυγισία και ισορροπία σε όργανα όπως το έδαφος, οι κρίκοι και οι δοκοί.",
+      "photo": "/images/enorgani-card-krikoi.jpg"
+    },
+    {
+      "index": "06",
+      "key": "volleyball",
+      "name": "Βόλεϊ",
+      "description": "Στο βόλεϊ, δύο ομάδες προσπαθούν να περάσουν την μπάλα πάνω από το φιλέ, με συνεργασία, υποδοχή και επίθεση.",
+      "photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIex8YMFGm7cLdQvLNvrQ4fdkg45xPl68ULVxGERNXOw&s=10"
+    },
+    {
+      "index": "07",
+      "key": "wrestling",
+      "name": "Πάλη",
+      "description": "Η πάλη είναι άθλημα αναμέτρησης στο ταπί, όπου η τεχνική, η ισορροπία και ο έλεγχος του αντιπάλου έχουν πρωταγωνιστικό ρόλο.",
+      "photo": "/images/wrestling-action.webp"
+    },
+    {
+      "index": "08",
+      "key": "swimming",
+      "name": "Κολύμβηση",
+      "description": "Η κολύμβηση περιλαμβάνει διαφορετικά στυλ και αγωνίσματα αποστάσεων, με έμφαση στην τεχνική και την αντοχή.",
+      "photo": "https://images.unsplash.com/photo-1530549387789-4c1017266635?auto=format&fit=crop&w=1200&q=80"
+    }
+  ],
+  "slides": [
+    {
+      "name": "Χάντμπολ",
+      "photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaOFUCWatPwP-EycFiHffCCMk_Kz1ScNWPtg7znhR3mQ&s=10"
+    },
+    {
+      "name": "Στίβος",
+      "photo": "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=1200&q=80"
+    },
+    {
+      "name": "Τοξοβολία",
+      "photo": "/images/archery-indoor-archelaos.webp"
+    },
+    {
+      "name": "Αγωνιστική Σκοποβολή",
+      "photo": "https://0501.nccdn.net/4_2/000/000/048/0a6/ISSF.jpg"
+    },
+    {
+      "name": "Ενόργανη Γυμναστική",
+      "photo": "/images/enorgani-slideshow-edafos.jpg"
+    },
+    {
+      "name": "Πάλη",
+      "photo": "/images/wrestling-victory.webp"
+    },
+    {
+      "name": "Βόλεϊ",
+      "photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIex8YMFGm7cLdQvLNvrQ4fdkg45xPl68ULVxGERNXOw&s=10"
+    },
+    {
+      "name": "Αγωνιστική Κολύμβηση",
+      "photo": "https://images.unsplash.com/photo-1530549387789-4c1017266635?auto=format&fit=crop&w=1200&q=80"
+    }
+  ],
+  "years": [
+    [
+      "1956",
+      "Η αρχή",
+      "29 Απριλίου · Ίδρυση του συλλόγου",
+      "history.html#history-archive"
+    ],
+    [
+      "1968",
+      "Η ταυτότητά μας",
+      "27 Ιουνίου · Πράσινο και κίτρινο",
+      "history.html#history-archive"
+    ],
+    [
+      "1956–2026",
+      "70 χρόνια πορείας",
+      "Αθλητισμός · Παιδεία · Κοινωνία",
+      "70-stigmes.html"
+    ]
+  ],
+  "values": [
+    [
+      "Ήθος",
+      "Σεβασμός, συνέπεια και ευγενής άμιλλα σε κάθε προσπάθεια."
+    ],
+    [
+      "Ενότητα",
+      "Διαφορετικά αθλήματα, κοινό πνεύμα και δύναμη στην ομάδα."
+    ],
+    [
+      "Προσπάθεια",
+      "Καθημερινή εξέλιξη, επιμονή και αγάπη για τον αθλητισμό."
+    ]
+  ],
+  "involvement": [
+    [
+      "Γίνε αθλητής",
+      "Βρες το άθλημα που σου ταιριάζει και ξεκίνα τη δική σου διαδρομή στον Αρχέλαο.",
+      "contact.html?topic=athlete"
+    ],
+    [
+      "Γίνε εθελοντής",
+      "Πρόσφερε χρόνο, ιδέες και ενέργεια στις δράσεις και τις εκδηλώσεις του συλλόγου.",
+      "contact.html?topic=volunteer"
+    ],
+    [
+      "Στήριξε τον σύλλογο",
+      "Γίνε συνοδοιπόρος μέσα από μια χορηγία, συνεργασία ή άλλη μορφή υποστήριξης.",
+      "sponsors.html"
+    ]
+  ]
+}

@@ -1,0 +1,15 @@
+/* A one-time anniversary welcome, composited with transforms/opacity only. */
+.arch-welcome{position:fixed;inset:0;z-index:3200;display:grid;place-items:center;background:radial-gradient(circle at 50% 42%,#175239 0%,#073d2a 55%,#03291d 100%);color:#f5e6bd;text-align:center;opacity:1;transition:opacity .34s ease,visibility .34s ease;visibility:visible}
+.arch-welcome[hidden]{display:none!important}
+.arch-welcome.is-leaving{opacity:0;visibility:hidden;pointer-events:none}
+.arch-welcome-inner{position:relative;display:flex;flex-direction:column;align-items:center;gap:13px;padding:30px}
+.arch-welcome-ring{display:grid;place-items:center;width:min(52vw,236px);height:min(52vw,236px);border-radius:50%;position:relative;border:1px solid #d5b56682;background:radial-gradient(circle,#194a36,#063523 75%);box-shadow:0 0 0 8px #d4af5a0b,0 0 48px #d8b46733}
+.arch-welcome-ring::before{content:"";position:absolute;inset:-10px;border:1px solid #dfc47f55;border-radius:50%;animation:arch-welcome-halo 1.5s ease-in-out infinite alternate}
+.arch-welcome-ring::after{content:"";position:absolute;inset:-21px;border:1px solid #e0bc6950;border-radius:50%;opacity:.6}
+.arch-welcome-ring img{width:73%;height:73%;object-fit:contain;filter:drop-shadow(0 0 8px #dab96c4d)}
+.arch-welcome-years{font:400 clamp(19px,3.2vw,29px)/1.2 Georgia,serif;letter-spacing:.2em;color:#d9ba75;margin-top:15px}
+.arch-welcome-title{font:400 clamp(26px,4.5vw,44px)/1.2 Georgia,serif;letter-spacing:-.035em;margin:0;color:#f5ecd6}
+.arch-welcome-sub{font:700 10px/1.5 system-ui,sans-serif;letter-spacing:.28em;color:#e0c98d}
+@keyframes arch-welcome-halo{from{transform:scale(.98);opacity:.65}to{transform:scale(1.06);opacity:1}}
+@media(max-width:650px){.arch-welcome-ring{width:min(54vw,172px);height:min(54vw,172px)}.arch-welcome-years{font-size:21px}.arch-welcome-title{font-size:29px}}
+@media(prefers-reduced-motion:reduce){.arch-welcome,.arch-welcome-ring::before{animation:none!important;transition:none!important}}

@@ -1,0 +1,28 @@
+{
+  "locale": "es",
+  "scope": "navigation_footer_interface_only",
+  "review_status": "draft",
+  "strings": {
+    "home": "Inicio",
+    "museum": "Museo digital",
+    "moments": "70 momentos",
+    "hall": "Salón de la Fama",
+    "stories": "Historias",
+    "about": "El club",
+    "sports": "Deportes",
+    "board": "Directiva",
+    "sponsors": "Patrocinadores",
+    "contact": "Contacto",
+    "search": "Buscar",
+    "favorites": "Favoritos",
+    "contribute": "Contribuir",
+    "archive": "Archivo",
+    "club": "El club",
+    "contribution": "Contribuir al archivo",
+    "menu": "Menú",
+    "close": "Cerrar",
+    "facebook": "Facebook",
+    "youtube": "YouTube",
+    "wikipedia": "Wikipedia"
+  }
+}

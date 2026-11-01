@@ -1,0 +1,245 @@
+name: Rebuild validation
+on:
+  push:
+    branches:
+      - rebuild/clean-foundation
+    paths:
+      - 'rebuild/**'
+      - '.github/workflows/rebuild-check.yml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'rebuild/**'
+      - 'functions/**'
+      - '.github/workflows/rebuild-check.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Keep only the latest candidate running on this isolated rebuild branch.
+# Prevent overlapping screenshot runs from testing already superseded commits.
+concurrency:
+  group: rebuild-validation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  integrity:
+    name: HTML, data and JavaScript integrity
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '22'
+          package-manager-cache: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.12'
+      - name: Validate content, images and internal file references
+        run: python rebuild/tests/check.py
+      - name: Verify reviewed archive intake is dry-run, private and idempotent
+        run: python rebuild/tests/ingestion.py
+      - name: Inventory local images, large assets and external hotlinks
+        run: python rebuild/tools/media_inventory.py --json rebuild/test-artifacts/media-inventory.json
+      - name: Save media inventory
+        if: always()
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        with:
+          name: archelaos-media-inventory
+          path: rebuild/test-artifacts/media-inventory.json
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Verify safe editorial quick corrections and source references
+        run: python rebuild/tests/editorial_tools.py
+      - name: Validate unified maintenance toolbox commands
+        run: |
+          python rebuild/tools/toolbox.py --help
+          python rebuild/tools/toolbox.py find "Χαράλαμπος Σαββίδης" --json > /tmp/archelaos-toolbox-search.json
+          python rebuild/tools/toolbox.py health
+      - name: Verify unpublished translations and stable language dictionaries
+        run: python rebuild/tools/audit_translations.py
+      - name: Check all rebuilt JavaScript syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          find rebuild/js -maxdepth 1 -type f -name '*.js' -print0 | while IFS= read -r -d '' file; do
+            node --check "$file"
+          done
+      - name: Fetch live main read-only for editorial drift detection
+        run: git fetch --no-tags --depth=1 origin main:refs/remotes/origin/main
+      - name: Compare live historical records with future rebuild
+        run: python rebuild/tools/live_sync_audit.py --strict-reviewed --json rebuild/test-artifacts/live-sync-report.json
+      - name: Preserve live-vs-rebuild editorial drift report
+        if: always()
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        with:
+          name: archelaos-live-sync-review
+          path: rebuild/test-artifacts/live-sync-report.json
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Audit Greek/English editorial consistency without changing content
+        run: python rebuild/tools/editorial_audit.py --json rebuild/test-artifacts/editorial-report.json --strict
+      - name: Save editorial review suggestions
+        if: always()
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        with:
+          name: archelaos-editorial-review
+          path: rebuild/test-artifacts/editorial-report.json
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Suggest archive cross-links without altering biographies
+        run: |
+          python rebuild/tests/archive_opportunities.py
+          python rebuild/tools/archive_opportunities.py --json rebuild/test-artifacts/archive-connections.json
+      - name: Save proposed archive associations for human review
+        if: always()
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        with:
+          name: archelaos-archive-connections-review
+          path: rebuild/test-artifacts/archive-connections.json
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Check neutral public evidence requests and safe contribution prompts
+        run: python rebuild/tests/verification_requests.py
+      - name: Validate hidden research event register and source-backed biographies
+        run: |
+          python rebuild/tests/verified_events.py
+          python rebuild/tools/validate_verified_events.py --json rebuild/test-artifacts/verified-events-report.json
+      - name: Generate cross-department unverified evidence queue
+        run: python rebuild/tools/review_unverified_events.py --json rebuild/test-artifacts/unverified-events.json
+      - name: Preserve human-review list of unverified claims
+        if: always()
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        with:
+          name: archelaos-unverified-claims-review
+          path: rebuild/test-artifacts/unverified-events.json
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Preserve historical event research integrity report
+        if: always()
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        with:
+          name: archelaos-historical-events-research
+          path: rebuild/test-artifacts/verified-events-report.json
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Test publication-gated reciprocal events and biographies
+        run: |
+          python rebuild/tests/event_graph.py
+          python rebuild/tools/build_event_graph.py
+      - name: Produce non-binding editor recommendations and numbered owner queue
+        run: |
+          python rebuild/tests/event_triage.py
+          python rebuild/tools/event_triage.py
+      - name: Save owner review list and recommendations
+        if: always()
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        with:
+          name: archelaos-owner-event-review
+          path: |
+            rebuild/test-artifacts/event-review-queue.json
+            rebuild/test-artifacts/event-review-queue.md
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Validate owner-only final approval and block conflicting research
+        run: python rebuild/tests/event_decisions.py
+      - name: Test disabled-by-default visitor proposal API and security boundaries
+        run: node rebuild/tests/archive_suggestions_api.cjs
+      - name: Validate read-only editorial approval-board prototype
+        run: python rebuild/tests/review_board.py
+      - name: Test imported Google/Apple/Outlook calendars and approved public fixtures
+        run: |
+          python rebuild/tests/match_calendar_import.py
+          python rebuild/tests/match_schedule.py
+          python rebuild/tools/build_match_schedule.py
+      - name: Ensure all rebuild HTML pages are unpublished previews
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f rebuild/index.html
+          for page in rebuild/*.html; do
+            grep -qi 'noindex' "$page" || { echo "Missing noindex in $page"; exit 1; }
+          done
+
+  browser:
+    name: Chromium desktop and mobile
+    runs-on: ubuntu-latest
+    needs: integrity
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '22'
+          package-manager-cache: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.12'
+      - name: Install isolated browser test dependencies
+        run: |
+          npm install --no-save --ignore-scripts playwright@1.58.0 axe-core@4.10.3
+          npx playwright install --with-deps chromium
+      - name: Start local preview server
+        run: |
+          python -m http.server 8765 --bind 127.0.0.1 > /tmp/archelaos-server.log 2>&1 &
+      - name: Check interactive pages, menus, dialogs and forms
+        run: node rebuild/tests/smoke.cjs
+      - name: Inspect the internal owner review board on mobile and desktop
+        run: node rebuild/tests/editor_board_browser.cjs
+      - name: Assemble future release locally
+        run: python rebuild/tools/build_release.py
+      - name: Serve release candidate for browser tests
+        run: |
+          python -m http.server 8766 --bind 127.0.0.1 --directory dist > /tmp/archelaos-dist.log 2>&1 &
+      - name: Test real release routes, forms and popups
+        run: node rebuild/tests/release_smoke.cjs
+      - name: Audit mobile overflow, popup accessibility and internal links
+        run: node rebuild/tests/quality.cjs
+      - name: Audit WCAG 2.2 A/AA, keyboard and navigation semantics
+        run: node rebuild/tests/a11y.cjs
+      - name: Capture backup-versus-rebuild reference views
+        if: always()
+        run: node rebuild/tests/visual.cjs
+      - name: Preserve screenshots for final approval
+        if: always()
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        with:
+          name: archelaos-rebuild-browser-proof
+          path: rebuild/test-artifacts/
+          if-no-files-found: warn
+          retention-days: 14
+
+  release-build:
+    name: Assemble and validate future Cloudflare release
+    runs-on: ubuntu-latest
+    needs: integrity
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.12'
+      - name: Build organized static output
+        run: python rebuild/tools/build_release.py
+      - name: Check sitemap, metadata, canonical and 682 profiles
+        run: python rebuild/tools/verify_release.py
+      - name: Prove the risk scanner detects injected failures
+        run: python rebuild/tests/preflight_regression.py
+      - name: Scan ALL generated pages for pre-deployment risk
+        run: python rebuild/tools/preflight.py --strict --json rebuild/test-artifacts/preflight.json
+      - name: Preserve security, links and cache preflight audit
+        if: always()
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        with:
+          name: archelaos-preflight-risk-report
+          path: rebuild/test-artifacts/preflight.json
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Preserve release candidate without deployment
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        with:
+          name: archelaos-release-candidate
+          path: dist/
+          retention-days: 7

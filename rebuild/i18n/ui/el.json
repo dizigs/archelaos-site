@@ -1,0 +1,28 @@
+{
+  "locale": "el",
+  "scope": "navigation_footer_interface_only",
+  "review_status": "source",
+  "strings": {
+    "home": "Αρχική",
+    "museum": "Ψηφιακό Μουσείο",
+    "moments": "70 Στιγμές",
+    "hall": "Hall of Fame",
+    "stories": "Ιστορίες",
+    "about": "Ο Σύλλογος",
+    "sports": "Αθλήματα",
+    "board": "Διοίκηση",
+    "sponsors": "Χορηγίες",
+    "contact": "Επικοινωνία",
+    "search": "Αναζήτηση",
+    "favorites": "Αγαπημένα",
+    "contribute": "Συνεισφέρω",
+    "archive": "Αρχείο",
+    "club": "Ο Σύλλογος",
+    "contribution": "Συνεισφορά αρχείου",
+    "menu": "Μενού",
+    "close": "Κλείσιμο",
+    "facebook": "Facebook",
+    "youtube": "YouTube",
+    "wikipedia": "Wikipedia"
+  }
+}
