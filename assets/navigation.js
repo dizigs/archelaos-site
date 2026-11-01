@@ -92,6 +92,11 @@
   new MutationObserver(sync).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
   new MutationObserver(sync).observe(document.body,{attributes:true,attributeFilter:['class']});
  }
+ // Favorites badge requires styling even on routes without popup hearts.
+ if(!document.querySelector('link[href*="favorites.css"]')){
+  const favoriteStyles=document.createElement('link');favoriteStyles.rel='stylesheet';
+  favoriteStyles.href='assets/favorites.css?v=20261101-header-count';document.head.append(favoriteStyles);
+ }
  // Ensure the header favorites counter is available on every route, including Search.
  if(!window.ArchelaosFavorites&&!document.querySelector('script[src*="favorites.js"]')){
   const favoriteScript=document.createElement('script');
