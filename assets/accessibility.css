@@ -1,0 +1,165 @@
+
+
+/* ARCHELAOS ACCESSIBILITY SUITE v1.2 — scoped interface + opt-in presentation enhancements.
+   Core semantics, contrast and keyboard support must also be audited independently. */
+:root { --arch-a11y-font-scale:1; --arch-a11y-line:1.65; --arch-a11y-letter:0em; --arch-a11y-word:0em; }
+html.arch-a11y-scale { font-size:calc(16px * var(--arch-a11y-font-scale)) !important; }
+html.arch-a11y-scale body { font-size:1rem; }
+html.arch-a11y-readable body, html.arch-a11y-readable button, html.arch-a11y-readable input,
+html.arch-a11y-readable select, html.arch-a11y-readable textarea {font-family:Arial,Helvetica,sans-serif !important;}
+html.arch-a11y-spacing body :is(p,li,blockquote,figcaption,dd,dt),
+html.arch-a11y-spacing body :is(h1,h2,h3,h4,h5,h6) {
+ line-height:var(--arch-a11y-line) !important; letter-spacing:var(--arch-a11y-letter) !important; word-spacing:var(--arch-a11y-word) !important;
+}
+html.arch-a11y-left :is(p,li,blockquote,figcaption,dd,dt) { text-align:left !important; }
+html.arch-a11y-links body a:not(#arch-a11y-launch):not(.arch-a11y-skip) {text-decoration:underline !important;text-decoration-thickness:2px !important;text-underline-offset:.18em !important;}
+html.arch-a11y-link-highlight body a:not(#arch-a11y-launch):not(.arch-a11y-skip) {outline:2px solid #dcae32 !important;outline-offset:2px !important;}
+html.arch-a11y-headings body :is(h1,h2,h3,h4,h5,h6) {outline:2px solid #dcae32 !important;outline-offset:4px !important;}
+html.arch-a11y-big-targets body :is(button,a,input,select,textarea,[role="button"]):not(.arch-a11y-skip):not(.arch-a11y-small) {min-height:44px;}
+html.arch-a11y-big-targets body :is(button,a,[role="button"]):not(.arch-a11y-skip):not(.arch-a11y-small) {padding-top:max(.45rem, 8px);padding-bottom:max(.45rem, 8px);}
+html.arch-a11y-cursor, html.arch-a11y-cursor body, html.arch-a11y-cursor body * {cursor:crosshair !important;}
+html.arch-a11y-grayscale body > :not(#arch-a11y-root):not(.arch-a11y-skip) {filter:grayscale(1) !important;}
+html.arch-a11y-low-saturation body > :not(#arch-a11y-root):not(.arch-a11y-skip) {filter:saturate(.35) !important;}
+/* Accessible foreground themes override historical background images but don't remove content. */
+html.arch-a11y-contrast-dark body {background:#000 !important;color:#fff !important;}
+html.arch-a11y-contrast-light body {background:#fff !important;color:#121212 !important;}
+html.arch-a11y-contrast-dark body :is(section,article,main,aside,header,footer,nav,.glass-section,.card,.modal-box):not(#arch-a11y-root):not(.arch-a11y-ui) {background-color:#000 !important;background-image:none !important;color:#fff !important;border-color:#fff !important;box-shadow:none !important;}
+html.arch-a11y-contrast-light body :is(section,article,main,aside,header,footer,nav,.glass-section,.card,.modal-box):not(#arch-a11y-root):not(.arch-a11y-ui) {background-color:#fff !important;background-image:none !important;color:#121212 !important;border-color:#121212 !important;box-shadow:none !important;}
+html.arch-a11y-contrast-dark body :is(h1,h2,h3,h4,h5,h6,p,li,small,span,strong,em,dt,dd,label):not(.arch-a11y-ui *) {color:#fff !important;text-shadow:none !important;}
+html.arch-a11y-contrast-light body :is(h1,h2,h3,h4,h5,h6,p,li,small,span,strong,em,dt,dd,label):not(.arch-a11y-ui *) {color:#121212 !important;text-shadow:none !important;}
+html.arch-a11y-contrast-dark body a:not(.arch-a11y-ui *),html.arch-a11y-contrast-dark body a :is(span,strong,small):not(.arch-a11y-ui *) {color:#ffdf5b !important;}
+html.arch-a11y-contrast-light body a:not(.arch-a11y-ui *),html.arch-a11y-contrast-light body a :is(span,strong,small):not(.arch-a11y-ui *) {color:#0645ad !important;}
+html.arch-a11y-contrast-dark body :is(input,textarea,select,button):not(.arch-a11y-ui *) {background:#111 !important;color:#fff !important;border:2px solid #fff !important;}
+html.arch-a11y-contrast-light body :is(input,textarea,select,button):not(.arch-a11y-ui *) {background:#fff !important;color:#000 !important;border:2px solid #111 !important;}
+html.arch-a11y-contrast-dark body :is(img,svg,video,canvas):not(.arch-a11y-ui *) ,html.arch-a11y-contrast-light body :is(img,svg,video,canvas):not(.arch-a11y-ui *) {filter:none !important;}
+html.arch-a11y-no-motion *,html.arch-a11y-no-motion *::before,html.arch-a11y-no-motion *::after {
+ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important;}
+html.arch-a11y-no-motion .arch-polish-reveal,html.arch-a11y-no-motion [class*="reveal"],html.arch-a11y-no-motion .arch-whisper {opacity:1 !important;transform:none !important;visibility:visible !important;}
+html.arch-a11y-simple header:not(.arch-a11y-ui), html.arch-a11y-simple footer:not(.arch-a11y-ui),
+html.arch-a11y-simple .arch-whisper,html.arch-a11y-simple .arch-decorative,
+html.arch-a11y-simple body > .pointer-events-none {display:none !important;}
+html.arch-a11y-simple :is(main,section,article) {max-width:100% !important;}
+html.arch-a11y-simple main {max-width:900px !important;margin:auto !important;padding:24px !important;}
+html.arch-a11y-simple main :is(p,li) {max-width:75ch !important;}
+html.arch-a11y-simple #arch-a11y-root {display:block !important;}
+html.arch-a11y-simple #arch-a11y-launch {position:fixed !important;}
+/* Built-in keyboard access improvements, present even with every user preference turned off. */
+.arch-a11y-skip {position:fixed;z-index:2147483645;top:-100px;left:12px;background:#fff;color:#073d2a;padding:12px 18px;border:3px solid #073d2a;border-radius:8px;font:700 17px/1.3 Arial,sans-serif;text-decoration:underline;}
+.arch-a11y-skip:focus {top:12px;}
+html:focus-within {scroll-padding-top:96px;}
+:focus-visible {outline:3px solid #e4b541 !important;outline-offset:4px !important;}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto !important;} .arch-polish-reveal,[class*="reveal"]{animation:none !important;transition:none !important;opacity:1 !important;transform:none !important;}}
+@media(forced-colors:active){:focus-visible{outline:3px solid Highlight !important;}#arch-a11y-launch{forced-color-adjust:auto;}}
+/* All assistant UI is encapsulated under one root, insulated from legacy Tailwind and CSS. */
+#arch-a11y-root {font-family:Arial,Helvetica,sans-serif !important;letter-spacing:normal !important;word-spacing:normal !important;line-height:1.45 !important;color:#15241d !important; font-size:16px !important;}
+#arch-a11y-root *,#arch-a11y-root *::before,#arch-a11y-root *::after {box-sizing:border-box;}
+#arch-a11y-launch {position:fixed;z-index:2147483600;bottom:22px;left:20px;display:flex;align-items:center;gap:9px;justify-content:center;min-width:58px;min-height:58px;padding:11px 16px;border:2px solid #e5c674;border-radius:999px;background:#073d2a;color:#fff;box-shadow:0 6px 22px #0005;font:700 14px/1.2 Arial,sans-serif;cursor:pointer;}
+#arch-a11y-launch svg {width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:2;flex-shrink:0;}
+#arch-a11y-launch:hover {background:#16533d;}
+#arch-a11y-panel {border:0;border-radius:17px;padding:0 !important;width:min(95vw,700px);max-height:min(90vh,850px);overflow:auto;overscroll-behavior:contain;color:#15241d;background:#f9f8f3;box-shadow:0 24px 80px #0008;position:fixed;inset:0;margin:auto;}
+#arch-a11y-panel::backdrop {background:#001a13bd;backdrop-filter:blur(3px);}
+#arch-a11y-panel .arch-a11y-head {position:sticky;top:0;z-index:2;background:#073d2a;padding:18px 20px;color:#fff;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;}
+#arch-a11y-panel h2 {font:700 22px/1.25 Arial,sans-serif;margin:0;color:#fff !important;}
+#arch-a11y-panel .arch-a11y-sub {font-size:13px;color:#e6d7b0;margin:4px 0 0;}
+#arch-a11y-panel .arch-a11y-close {display:grid;place-items:center;min-width:44px;min-height:44px;background:#fff;color:#073d2a;border:0;border-radius:9px;font-size:25px;cursor:pointer;}
+#arch-a11y-panel .arch-a11y-content {padding:19px 20px 24px;}
+#arch-a11y-panel .arch-a11y-note {font-size:13px;color:#334c40;line-height:1.5;margin:0 0 13px;}
+#arch-a11y-panel fieldset {margin:0 0 15px;border:1px solid #ced7cf;border-radius:12px;padding:12px 14px 14px;min-width:0;}
+#arch-a11y-panel legend {font-size:15px;font-weight:800;padding:0 7px;color:#073d2a;}
+#arch-a11y-panel .arch-a11y-grid {display:grid;grid-template-columns:1fr 1fr;gap:11px 16px;}
+#arch-a11y-panel label {display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600;color:#15241d;min-height:34px;cursor:pointer;}
+#arch-a11y-panel input[type=checkbox] {width:20px;height:20px;accent-color:#073d2a;flex-shrink:0;cursor:pointer;}
+#arch-a11y-panel input[type=range] {width:100%;min-height:30px;accent-color:#073d2a;cursor:pointer;}
+#arch-a11y-panel select {border:1px solid #718878;border-radius:8px;background:#fff;color:#15241d;padding:10px;min-height:44px;font:inherit;width:100%;}
+#arch-a11y-panel .arch-a11y-range {display:flex;justify-content:space-between;align-items:baseline;margin-top:8px;font-weight:700;font-size:14px;}
+#arch-a11y-panel output {font-variant-numeric:tabular-nums;}
+#arch-a11y-panel .arch-a11y-actions {display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;}
+#arch-a11y-panel button.arch-a11y-action {min-height:42px;padding:9px 12px;border:1px solid #496c59;border-radius:9px;background:#fff;color:#073d2a;font:700 13px/1.25 Arial,sans-serif;cursor:pointer;}
+#arch-a11y-panel button.arch-a11y-action:hover {background:#e7f0e8;}
+#arch-a11y-panel button.arch-a11y-action.arch-a11y-primary {background:#073d2a;color:#fff;}
+#arch-a11y-panel button.arch-a11y-action:disabled {opacity:.52;cursor:not-allowed;}
+#arch-a11y-panel .arch-a11y-status {padding:8px 10px;min-height:36px;color:#17452e;font-size:13px;}
+#arch-a11y-panel .arch-a11y-tools-list {list-style:none;padding:0;margin:10px 0;display:grid;gap:7px;max-height:240px;overflow:auto;}
+#arch-a11y-panel .arch-a11y-tools-list li {border:1px solid #d8dfd9;border-radius:8px;background:#fff;padding:8px 10px;}
+#arch-a11y-panel .arch-a11y-tools-list a {color:#073d2a;line-height:1.5;font-size:14px;text-decoration:underline;}
+#arch-a11y-panel .arch-a11y-muted {font-size:12px;color:#486151;margin:10px 0 0;}
+#arch-a11y-guide {display:none;position:fixed;pointer-events:none;z-index:2147483500;left:0;right:0;top:45vh;height:40px;background:#fff0a52e;border-top:2px solid #c6922b;border-bottom:2px solid #c6922b;}
+html.arch-a11y-reading-guide #arch-a11y-guide {display:block;}
+html.arch-a11y-contrast-dark #arch-a11y-guide {background:#fffa7b36;border-color:#ffea38;}
+@media(max-width:560px){#arch-a11y-launch{bottom:12px;left:12px;padding:10px 12px;min-height:52px;min-width:52px;}#arch-a11y-launch span{display:none;}#arch-a11y-panel .arch-a11y-content{padding:14px;}#arch-a11y-panel .arch-a11y-grid{grid-template-columns:1fr;gap:6px;}#arch-a11y-panel .arch-a11y-head{padding:14px;}}
+@media print {#arch-a11y-root,.arch-a11y-skip,#arch-a11y-guide{display:none !important;} body{background:#fff !important;color:#000 !important;}}
+
+/* A real navigation remains available when users hide the normal header. */
+#arch-a11y-easy-nav {display:none;}
+html.arch-a11y-simple #arch-a11y-easy-nav {display:block;position:relative;z-index:20;background:#073d2a;color:#fff;padding:16px max(18px,calc((100% - 1040px)/2));font:600 16px/1.5 Arial,Helvetica,sans-serif;}
+#arch-a11y-easy-nav strong {display:block;color:#e5c674;font-size:18px;margin-bottom:12px;}
+#arch-a11y-easy-nav .arch-a11y-easy-links {display:flex;flex-wrap:wrap;gap:8px;}
+#arch-a11y-easy-nav a {display:inline-block;color:#fff;background:#16513c;text-decoration:underline;padding:10px 14px;border-radius:8px;border:1px solid #bba468;min-height:44px;}
+#arch-a11y-easy-nav a[aria-current="page"] {background:#efddae;color:#073d2a;font-weight:800;}
+html.arch-a11y-contrast-light #arch-a11y-easy-nav,html.arch-a11y-contrast-dark #arch-a11y-easy-nav {background:#111 !important;}
+@media(max-width:560px){html.arch-a11y-simple #arch-a11y-easy-nav{padding:14px 16px;}#arch-a11y-easy-nav .arch-a11y-easy-links{display:grid;grid-template-columns:1fr 1fr;}#arch-a11y-easy-nav a{font-size:14px;padding:10px;}}
+
+
+/* ARCHELAOS v1.2 — compact accessibility launcher, expands on hover / keyboard focus.
+   Full accessible name stays on the button while the visual label is collapsed. */
+#arch-a11y-launch {
+  width:58px;min-width:58px;max-width:58px;
+  padding:11px 14px;gap:0;justify-content:flex-start;
+  white-space:nowrap;overflow:hidden;
+  transition:width .25s ease,max-width .25s ease,background-color .2s ease;
+}
+#arch-a11y-launch > svg {width:26px;height:26px;flex:0 0 26px;}
+#arch-a11y-launch > span {
+  display:inline-block;max-width:0;opacity:0;overflow:hidden;
+  white-space:nowrap;visibility:hidden;
+  transition:max-width .25s ease,opacity .18s ease,visibility .18s ease;
+}
+@media (min-width:1024px) {
+  #arch-a11y-launch:focus-visible {width:210px;max-width:210px;gap:9px;}
+  #arch-a11y-launch:focus-visible > span {max-width:160px;opacity:1;visibility:visible;}
+}
+@media (min-width:1024px) and (hover:hover) {
+  #arch-a11y-launch:hover {width:210px;max-width:210px;gap:9px;}
+  #arch-a11y-launch:hover > span {max-width:160px;opacity:1;visibility:visible;}
+}
+@media (max-width:560px) {
+  #arch-a11y-launch {width:54px;min-width:54px;max-width:54px;padding:10px 12px;}
+  #arch-a11y-launch > span {display:none;}
+}
+@media (prefers-reduced-motion:reduce) {
+  #arch-a11y-launch,#arch-a11y-launch > span {transition:none !important;}
+}
+/* Keep every existing scroll-to-top button desktop-only.
+   Width restriction covers phones/small tablets; pointer query covers wide touch tablets. */
+@media (max-width:1023px), (hover:none) and (pointer:coarse) {
+  #archPolishTop,.arch-polish-top,#backToTopBtn {
+    display:none !important;visibility:hidden !important;pointer-events:none !important;
+  }
+}
+
+
+/* ARCHELAOS ACCESSIBILITY + DESKTOP TOP — SELF-CONTAINED FIX v1.3 */
+#arch-a11y-root {display:block !important;visibility:visible !important;opacity:1 !important;position:static !important;}
+#arch-a11y-root #arch-a11y-launch {position:fixed !important;z-index:2147483600 !important;display:flex !important;opacity:1 !important;visibility:visible !important;left:18px;bottom:20px;right:auto;top:auto; width:58px;min-width:58px;max-width:58px;min-height:58px;max-height:58px;padding:0 14px;align-items:center;justify-content:flex-start;gap:0;color:#fff !important;background:#073d2a !important;border:2px solid #c7a65e !important;border-radius:999px;box-shadow:0 9px 24px #001b1470;overflow:hidden;white-space:nowrap;cursor:pointer;transition:width .22s ease,max-width .22s ease,background .18s ease;}
+#arch-a11y-root #arch-a11y-launch > svg {display:block !important;flex:none !important;width:26px !important;height:26px !important;stroke:#fff !important;fill:none !important;stroke-width:2 !important;}
+#arch-a11y-root #arch-a11y-launch > span {display:inline-block;max-width:0;overflow:hidden;opacity:0;visibility:hidden;white-space:nowrap;color:#fff !important;transition:max-width .22s ease,opacity .22s ease;}
+@media(min-width:1024px) {
+ #arch-a11y-root #arch-a11y-launch:focus-visible {width:212px !important;max-width:212px !important;gap:10px;}
+ #arch-a11y-root #arch-a11y-launch:focus-visible > span {max-width:165px;opacity:1;visibility:visible;}
+}
+@media(min-width:1024px) and (hover:hover) and (pointer:fine) {
+ #arch-a11y-root #arch-a11y-launch:hover {width:212px !important;max-width:212px !important;gap:10px;background:#15533b !important;}
+ #arch-a11y-root #arch-a11y-launch:hover > span {max-width:165px;opacity:1;visibility:visible;}
+}
+@media(max-width:1023px) {
+ #arch-a11y-root #arch-a11y-launch {left:12px;bottom:14px;width:54px !important;min-width:54px;max-width:54px !important;min-height:54px;max-height:54px;padding:0 12px;}
+ #arch-a11y-root #arch-a11y-launch > span {display:none !important;}
+}
+/* All scroll-to-top buttons hidden on touch devices and under desktop breakpoint */
+@media(max-width:1023px), (hover:none) and (pointer:coarse) {
+ #archPolishTop,.arch-polish-top,#backToTopBtn,.arch-site-back-top {display:none !important; visibility:hidden !important;opacity:0 !important;pointer-events:none !important;}
+}
+/* Extra desktop scroll-to-top consistency, including sponsors */
+.arch-polish-top:focus-visible {outline:3px solid #f6d68f !important;outline-offset:4px !important;}
+@media(prefers-reduced-motion:reduce){#arch-a11y-root #arch-a11y-launch,#arch-a11y-root #arch-a11y-launch > span{transition:none !important;}}
+
