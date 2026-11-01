@@ -143,7 +143,17 @@ def verify() -> None:
     assert len(names) == len(set(names)), "Duplicate Hall names and roles"
     news = json.loads((DIST / "news.json").read_text(encoding="utf-8"))
     assert news == json.loads((ROOT / "news.json").read_text(encoding="utf-8")), "News feed out of sync"
-    assert (DIST / "news.html").read_bytes() == (ROOT / "news.html").read_bytes(), "News page out of sync"
+    # The release pipeline deliberately fingerprints shared CSS/JS references in
+    # every HTML file. Compare NEWS source and output after normalizing *only*
+    # those expected version queries; the source must otherwise remain unchanged.
+    src_news = (ROOT / "news.html").read_text(encoding="utf-8")
+    built_news = (DIST / "news.html").read_text(encoding="utf-8")
+    shared_ref = re.compile(
+        r'(/assets/site/(?:css|js)/[A-Za-z0-9._/-]+\\.(?:css|js))(?:\\?v=[a-f0-9]{12})?'
+    )
+    strip_version = lambda html: shared_ref.sub(lambda match: match.group(1), html)
+    assert strip_version(built_news) == strip_version(src_news), "News page differs beyond expected CSS/JS cache versions"
+
     for article in news["items"]:
         assert article.get("id") and article.get("title") and article.get("date"), "Invalid news item"
         assert all(pid in ids for pid in article.get("personIds", [])), "News links to missing Hall biography: " + article["id"]
