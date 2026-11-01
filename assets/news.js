@@ -10,7 +10,7 @@ const categories={achievements:['ΔΙΑΚΡΙΣΕΙΣ','ACHIEVEMENTS'],activitie
 const link=(href,label)=>{const a=document.createElement('a');a.href=href;a.textContent=label;return a};
 const label=x=>(categories[x.category]||['ΑΡΧΕΛΑΟΣ','ARCHELAOS'])[en()?1:0];
 function media(x,cls){
- const b=document.createElement('div');b.className=cls;
+ const b=document.createElement(cls==='an-cover'?'figure':'div');b.className=cls;
  const path=String(x.image||'');
  const valid=/^(?:images|assets)\/[a-zA-Z0-9._/-]+\.(?:webp|jpg|jpeg|png)$/.test(path);
  const emblem=()=>{b.classList.add('is-emblem');b.replaceChildren();const alt=document.createElement('img');alt.src='/assets/archelaos-crest.png';alt.alt='Έμβλημα Αρχέλαου';b.append(alt)};
@@ -62,8 +62,7 @@ let closing=false;
 function show(id){
  const x=state.items.find(i=>i.id===id);if(!x)return;active=x;lastFocus=document.activeElement;
  const detail=$('an-detail');detail.replaceChildren();
- const m=media(x,'an-cover');const fig=document.createElement('figure');fig.className=m.className;
- while(m.firstChild)fig.append(m.firstChild);
+ const fig=media(x,'an-cover');
  if(x.imageNote){const c=document.createElement('figcaption');c.textContent=x.imageNote;fig.append(c)}
  const h=document.createElement('h2');h.id='an-dialog-title';h.textContent=x.title;
  const lead=document.createElement('p');lead.className='an-summary';lead.textContent=x.summary;
@@ -73,7 +72,7 @@ function show(id){
  if(x.sourceUrl&&/^https:\/\//.test(x.sourceUrl)){const a=link(x.sourceUrl,t('Αρχικό δημοσίευμα ↗','Original article ↗'));a.target='_blank';a.rel='noopener noreferrer';links.append(a)}
  for(const id of x.personIds||[]){const a=link('hall-of-fame.html?person='+encodeURIComponent(id),'');a.dataset.personId=id;a.dataset.personName='true';links.append(a)}
  if(links.querySelector('[data-person-name]')){
-  fetch('hall-of-fame-people.json',{cache:'no-store'}).then(r=>r.ok?r.json():Promise.reject(Error('Hall data unavailable'))).then(data=>{
+  fetch('/hall-of-fame-people.json',{cache:'no-store'}).then(r=>r.ok?r.json():Promise.reject(Error('Hall data unavailable'))).then(data=>{
    const names=new Map((data.people||[]).map(p=>[p.id,p.name]));
    links.querySelectorAll('[data-person-name]').forEach(a=>{a.textContent=names.get(a.dataset.personId)||t('Βιογραφικό','Biography')});
   }).catch(()=>{links.querySelectorAll('[data-person-name]').forEach(a=>{a.textContent=t('Βιογραφικό','Biography')})});
