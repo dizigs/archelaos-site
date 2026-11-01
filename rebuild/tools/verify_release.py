@@ -176,7 +176,7 @@ def verify() -> None:
             assert photo == article.get("imageSourceUrl"), "Original remote news photo lacks source trace"
             assert urlsplit(photo).hostname in {
                 "i0.wp.com", "i1.wp.com", "i2.wp.com", "i3.wp.com",
-                "pieriasocial.gr", "www.handball.org.gr", "www.palmare.gr",
+                "pieriasocial.gr", "www.handball.org.gr", "www.palmare.gr", "www.pierianews.gr", "odelalis.gr",
             }, "Unreviewed remote news photograph: " + article["id"]
     # News card, article and home-news links have no decorative arrows.
     for asset in (DIST / "news.html", DIST / "assets/news.js", DIST / "assets/home-news.js"):
