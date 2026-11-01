@@ -368,6 +368,46 @@ def verify() -> None:
         "Interview page does not request its deployed dataset"
     )
 
+    # Interactive overlays, historical department names and contribution credit.
+    # Second native modal must remain on the News page and return focus to the
+    # open article rather than navigating the reader to Hall of Fame.
+    deployed_news_html = (DIST / "news.html").read_text(encoding="utf-8")
+    assert "/assets/site/js/biographies.js" in deployed_news_html, "News biography loader missing"
+    assert "/assets/site/js/components.js" in deployed_news_html, "News native dialog component missing"
+    assert "window.ArchelaosBio.open(a.dataset.personId)" in news_js, (
+        "Hall of Fame links in News no longer open in place"
+    )
+    assert "aria-haspopup','dialog" in news_js, "News biography links lost dialog semantics"
+
+    department_html = (DIST / "tmimata.html").read_text(encoding="utf-8")
+    assert '<span class="dp-title">Στίβος</span>' in department_html
+    assert '<span class="dp-title">Κολύμβηση</span>' in department_html
+    assert 'data-dp-open="fin-swimming"' in department_html, (
+        "Technical swimming no longer appears among historical departments"
+    )
+    department_data = json.loads((DIST / "assets/site/data/museum.json").read_text(encoding="utf-8"))
+    assert any(a["id"] == "fin-swimming" for a in department_data["articles"]), (
+        "Technical swimming historical source disappeared"
+    )
+    components_css = (DIST / "assets/site/css/components.css").read_text(encoding="utf-8")
+    archive_js = (DIST / "assets/site/js/archive.js").read_text(encoding="utf-8")
+    assert ".arch-presidents-table" in components_css, "Historical presidencies table not styled"
+    assert "if(presidentsTable)node.classList.add('arch-presidents-table')" in archive_js, (
+        "HTML sanitizer strips the historical table layout marker"
+    )
+
+    contact_html = (DIST / "contact.html").read_text(encoding="utf-8")
+    contact_js = (DIST / "assets/site/js/contact.js").read_text(encoding="utf-8")
+    contribution_js = (DIST / "assets/site/js/contribute-guide.js").read_text(encoding="utf-8")
+    backend_js = (ROOT / "functions/api/contact.js").read_text(encoding="utf-8")
+    assert 'id="ct-credit-consent"' in contact_html
+    assert "creditChoice.hidden=!isContribution" in contact_js
+    assert "payload.set('publicCreditName'" in contact_js
+    assert "payload.set('publicNameConsent'" in contribution_js
+    assert 'form.get("publicNameConsent") === "true"' in backend_js, (
+        "Backend no longer records public-name consent"
+    )
+
     print(f"RELEASE QA OK: {len(main)} core pages + {len(loc_people)} indexed profiles.")
     print("Canonicals, robots, structured data, two sitemaps, redirects and local paths verified.")
 
