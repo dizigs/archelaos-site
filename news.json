@@ -543,7 +543,9 @@
       "sourceUrl": "https://pieriasocial.gr/?p=115463",
       "image": "images/news/archery-youth-2025.jpg",
       "imageNote": "Φωτογραφία από το αρχικό δημοσίευμα: Pieria Social · 17/11/2025",
-      "personIds": [],
+      "personIds": [
+        "arch-77461943b4f2"
+      ],
       "featured": false,
       "imageSourceUrl": "https://pieriasocial.gr/wp-content/uploads/2025/11/1111111111111111111-2-768x277.jpg"
     },
@@ -582,7 +584,11 @@
       "sourceUrl": "https://katerini.gr/?p=58477",
       "image": "https://katerini.gr/wp-content/uploads/2025/09/%CE%B5%CE%B9%CE%BA%CF%8C%CE%BD%CE%B1_Viber_2025-09-01_14-20-54-283.jpg",
       "imageSourceUrl": "https://katerini.gr/wp-content/uploads/2025/09/%CE%B5%CE%B9%CE%BA%CF%8C%CE%BD%CE%B1_Viber_2025-09-01_14-20-54-283.jpg",
-      "imageNote": "Φωτογραφία από το αντίστοιχο δημοσίευμα της πηγής"
+      "imageNote": "Φωτογραφία από το αντίστοιχο δημοσίευμα της πηγής",
+      "personIds": [
+        "arch-7e1b65c90287",
+        "arch-cf2ee36e3353"
+      ]
     },
     {
       "id": "wrestling-u20-serres-champions-apr-2025",
@@ -1150,7 +1156,11 @@
       "sourceUrl": "https://odigos-pierias.gr/3%CE%BF%CF%82-%CE%BF-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CE%BA%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82-%CF%83%CF%84%CE%BF-%CF%80%CE%B1%CE%BD%CE%B5%CE%BB%CE%BB%CE%AE%CE%BD%CE%B9/",
       "image": "https://odigos-pierias.gr/wp-content/uploads/2022/04/5-800x600-1-800x600-1.jpg",
       "imageSourceUrl": "https://odigos-pierias.gr/wp-content/uploads/2022/04/5-800x600-1-800x600-1.jpg",
-      "imageNote": "Φωτογραφία από το αντίστοιχο δημοσίευμα της πηγής · Οδηγός Πιερίας · 17/04/2022"
+      "imageNote": "Φωτογραφία από το αντίστοιχο δημοσίευμα της πηγής · Οδηγός Πιερίας · 17/04/2022",
+      "personIds": [
+        "arch-6a4b08bec058",
+        "arch-96ddd7ba9e4d"
+      ]
     },
     {
       "id": "wrestling-u15-team-champions-april-2022",
