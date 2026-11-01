@@ -127,8 +127,8 @@
         "Ο Γ.Α.Σ. Αρχέλαος κατέκτησε την πρώτη θέση στη γενική βαθμολογία του Πανελληνίου Πρωταθλήματος Τοξοβολίας Ανοιχτού Χώρου 2026 στη Φλώρινα, σύμφωνα με το συγχαρητήριο μήνυμα του Δήμου Κατερίνης.",
         "Ο Χάρης Ιακωβίδης κατέλαβε τη δεύτερη θέση, ο Βαγγέλης Χαρίσης την τρίτη και ο Βαγγέλης Μαρινόπουλος την πέμπτη. Ο Δήμος συνεχάρη επίσης τον προπονητή Ιωάννη Χαρίση και τον έφορο Δημήτριο Γαλάνη."
       ],
-      "image": "",
-      "imageNote": "Δεν έχει τεκμηριωθεί διαθέσιμη φωτογραφία της συγκεκριμένης είδησης.",
+      "image": "images/news/archery-national-title-2026.jpg",
+      "imageNote": "Φωτογραφία από το αρχικό δημοσίευμα: Δήμος Κατερίνης · 23/06/2026",
       "source": "Δήμος Κατερίνης · 23/06/2026",
       "sourceUrl": "https://katerini.gr/?p=69956",
       "personIds": [
@@ -137,7 +137,8 @@
         "arch-44ef21dfb9b7",
         "arch-6212ba5ea7f1"
       ],
-      "featured": false
+      "featured": false,
+      "imageSourceUrl": "https://katerini.gr/wp-content/uploads/2026/06/katerini-protathlitis-elladas-toxovolia-o-96252.webp"
     },
     {
       "id": "gym-2022-horizon",
@@ -473,12 +474,13 @@
       ],
       "source": "Ομοσπονδία Χειροσφαιρίσεως Ελλάδος · 11/04/2026",
       "sourceUrl": "https://www.handball.org.gr/ethnikes-katigories/efivon/5421-petaei-gia-slovakia-i-ethniki-efivon",
-      "image": "",
-      "imageNote": "Δεν έχει τεκμηριωθεί διαθέσιμη φωτογραφία της συγκεκριμένης είδησης.",
+      "image": "images/news/handball-siokas-mediterranean-2026.jpg",
+      "imageNote": "Φωτογραφία από το αρχικό δημοσίευμα: Ομοσπονδία Χειροσφαιρίσεως Ελλάδος · 11/04/2026",
       "personIds": [
         "arch-dimitris-siokas-handball-2026"
       ],
-      "featured": false
+      "featured": false,
+      "imageSourceUrl": "https://www.handball.org.gr/media/yootheme/cache/71/ON_LIGHT_-_COMBO_x1-71e06b7f.png"
     },
     {
       "id": "handball-siokas-ehf-2026",
