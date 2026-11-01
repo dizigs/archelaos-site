@@ -23,7 +23,7 @@ async function init(){
   root.append(actions);return root;
  }
  try{
-  const r=await fetch('/assets/site/data/museum.json');if(!r.ok)throw Error('HTTP '+r.status);
+  const r=await fetch('/rebuild/data/museum.json');if(!r.ok)throw Error('HTTP '+r.status);
   const data=await r.json();const byId=new Map((data.articles||[]).map(a=>[a.id,a]));
   for(const card of cards){const record=byId.get(card.dataset.dpOpen);card.addEventListener('click',()=>window.ArchelaosUI.openDialog({title:record?.title||card.querySelector('.dp-title')?.textContent||'Αθλητικό τμήμα',subtitle:'Γ.Α.Σ. ΑΡΧΕΛΑΟΣ · ΑΘΛΗΤΙΚΑ ΤΜΗΜΑΤΑ',contentNode:buildProfile(card,record),closeLabel:'Κλείσιμο παρουσίασης'}))}
  }catch(err){console.error('Department profiles:',err);for(const card of cards){card.addEventListener('click',()=>window.ArchelaosUI.openDialog({title:card.querySelector('.dp-title')?.textContent||'Αθλητικό τμήμα',contentNode:buildProfile(card,null),closeLabel:'Κλείσιμο παρουσίασης'}))}}
