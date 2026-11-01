@@ -57,3 +57,18 @@
 .ac-credit-choice .ac-guide-help{display:block;margin:13px 0 0;line-height:1.65}
 .ac-credit-choice :focus-visible{outline:3px solid #a48947;outline-offset:2px}
 @media(max-width:660px){.ac-credit-choice{padding:16px}}
+
+/* Shared archive-transfer controls: same secure attachment/Drive capability as Contact. */
+.ac-archive-transfer{margin-top:6px;padding:23px;border:1px solid #c4ac78;border-radius:17px;background:linear-gradient(135deg,#fbf6e9,#f4eddf)}
+.ac-archive-transfer h4{margin:0 0 10px;color:#073d2a;font:500 clamp(22px,3vw,29px)/1.25 Georgia,serif}
+.ac-archive-transfer label:not(:first-child){margin-top:10px}
+.ac-archive-transfer input[type=file]{padding:12px;background:#fffefb;cursor:pointer}
+.ac-archive-transfer input[type=file]::file-selector-button{background:#073d2a;color:#fff7e8;border:1px solid #073d2a;border-radius:8px;padding:8px 12px;margin-right:13px;font:750 12px Inter,system-ui,sans-serif;cursor:pointer}
+.ac-private-consent{display:flex;align-items:flex-start;gap:12px;max-width:960px;margin-top:22px;color:#234632;font-size:13px;line-height:1.65;font-weight:650}
+.ac-private-consent input{flex:none;width:20px;height:20px;accent-color:#0a5a3c;margin-top:2px}
+.ac-guide-send{border:1px solid #073d2a;border-radius:11px;background:#073d2a;color:#fff9e9;font-weight:800;min-width:200px;cursor:pointer}
+.ac-guide-send:hover{background:#12523b}
+.ac-guide-send:disabled{opacity:.7;cursor:wait}
+.ac-guide-send:focus-visible,.ac-private-consent input:focus-visible{outline:3px solid #b8954b;outline-offset:3px}
+#ac-guide-status{line-height:1.65;min-height:1.6em}
+@media(max-width:650px){.ac-archive-transfer{padding:18px}.ac-archive-transfer input[type=file]{font-size:12px}}
