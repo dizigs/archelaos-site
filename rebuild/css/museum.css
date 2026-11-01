@@ -237,3 +237,11 @@
 }
 .mu-interviews-card .mu-interviews-copy{z-index:3}
 @media(max-width:700px){.mu-interviews-card .mu-interviews-newspaper{right:-22%;bottom:-15%;width:64%;height:77%;opacity:.4;filter:blur(3px);padding:12px}}
+
+/* Quiet editorial divider between the museum exhibits and the oral-history archive. */
+.mu-history-divider{max-width:1100px;margin:40px auto 12px;padding:22px 24px;display:flex;align-items:center;justify-content:center;gap:26px;color:#184b38;text-align:center}
+.mu-history-divider-line{height:1px;flex:1;min-width:25px;max-width:210px;background:linear-gradient(90deg,transparent,#b99856,transparent)}
+.mu-history-divider p{max-width:610px;margin:0;font:italic 500 clamp(18px,2.1vw,26px)/1.5 Georgia,serif}
+.mu-interviews-card .mu-interviews-newspaper{display:none!important}
+.mu-interviews-card,.mu-interviews-card:hover,.mu-interviews-card:focus,.mu-interviews-card:visited,.mu-interviews-card strong,.mu-interviews-card:hover strong,.mu-retro-link,.mu-retro-link:hover,.mu-retro-link:hover .mu-retro-title{text-decoration:none!important}
+@media(max-width:650px){.mu-history-divider{margin:20px 14px 0;padding:18px 4px;gap:12px}.mu-history-divider p{font-size:18px}.mu-history-divider-line{min-width:12px}}
