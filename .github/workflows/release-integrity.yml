@@ -1,0 +1,24 @@
+name: Release integrity
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Build and verify complete release
+        run: python rebuild/tools/build_release.py
+      - name: Verify JavaScript syntax
+        run: |
+          find dist/assets/site/js -name '*.js' -print0 | xargs -0 -n1 node --check
+      - name: Verify generated HTML and data
+        run: python rebuild/tools/verify_release.py
