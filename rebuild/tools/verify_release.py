@@ -165,6 +165,38 @@ def verify() -> None:
         for person in event["people"]:
             assert event["id"] in graph["by_person"][person["id"]], "Missing reciprocal person link"
 
+    # Regression checks: staged JS must never request preview-only URLs.
+    for script_path in (DIST / "assets/site/js").rglob("*.js"):
+        script_text = script_path.read_text(encoding="utf-8")
+        assert "/rebuild/" not in script_text, f"Preview-only URL in deployed JS: {script_path.name}"
+
+    # All interview records must reach the production data source unchanged.
+    source_interviews = json.loads((ROOT / "interviews.json").read_text(encoding="utf-8"))
+    published_interviews = json.loads(
+        (DIST / "assets/site/data/interviews.json").read_text(encoding="utf-8")
+    )
+    source_ids = [record["id"] for record in source_interviews["items"]]
+    published_ids = [record["id"] for record in published_interviews["items"]]
+    assert len(source_ids) == len(set(source_ids)), "Duplicate interview IDs in root source"
+    assert len(published_ids) == len(set(published_ids)), "Duplicate published interview IDs"
+    assert set(source_ids) == set(published_ids), (
+        f"Interview archive out of sync: missing={set(source_ids)-set(published_ids)}, "
+        f"extra={set(published_ids)-set(source_ids)}"
+    )
+    for record in published_interviews["items"]:
+        assert record.get("kind") in ("interview", "statement", "report"), (
+            "Unknown interview record type: " + record["id"]
+        )
+        assert record.get("id") and record.get("name"), "Incomplete interview record"
+        if record.get("qa"):
+            assert all(row.get("question") and row.get("answer") for row in record["qa"]), (
+                "Empty interview question/answer: " + record["id"]
+            )
+    interview_js = (DIST / "assets/site/js/interviews.js").read_text(encoding="utf-8")
+    assert "/assets/site/data/interviews.json" in interview_js, (
+        "Interview page does not request its deployed dataset"
+    )
+
     print(f"RELEASE QA OK: {len(main)} core pages + {len(loc_people)} indexed profiles.")
     print("Canonicals, robots, structured data, two sitemaps, redirects and local paths verified.")
 
