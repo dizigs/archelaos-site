@@ -14,15 +14,15 @@ async function init(){
  const fieldNames=['Ακαδημίες','Προπονήσεις','Εγκαταστάσεις','Προπονητές'];
  // Verified details only for the archery department; all other profiles remain unchanged.
  const archeryFields=[
-  {text:'Αρχάριοι · Δευτέρα–Παρασκευή, 18:00–20:00'},
-  {text:'Προχωρημένοι · Δευτέρα, Τετάρτη, Παρασκευή, 19:00–22:00'},
+  {text:'Δευτέρα–Παρασκευή, 18:00–20:00'},
+  {text:'Δευτέρα, Τετάρτη, Παρασκευή, 19:00–22:00'},
   {text:'Κλειστό γυμναστήριο τοξοβολίας · Τέρμα Πλάτωνος, Κατερίνη',href:'https://maps.app.goo.gl/jQ4cV5SKJV4hAJqH7',external:true,title:'Προβολή εγκατάστασης στον χάρτη'},
   {text:'Ιωάννης Χαρίσης',href:'/hall-of-fame.html?person=arch-44ef21dfb9b7',title:'Προβολή βιογραφικού στο Hall of Fame'}
  ];
  function buildProfile(card,record){
   const key=card.dataset.dpOpen,root=document.createElement('div');root.className='dp-profile';
   if(photos[key]){const hero=document.createElement('div');hero.className='dp-profile-photo';const img=document.createElement('img');img.src=photos[key];img.alt='Φωτογραφία τμήματος: '+(record?.title||card.querySelector('.dp-title')?.textContent||'');img.loading='lazy';img.addEventListener('error',()=>{hero.classList.add('dp-profile-photo-fallback');img.remove()},{once:true});hero.append(img);root.append(hero)}
-  const intro=document.createElement('div');intro.className='dp-profile-intro';const eyebrow=document.createElement('p');eyebrow.className='dp-profile-eyebrow';eyebrow.textContent='ΤΟ ΤΜΗΜΑ ΣΗΜΕΡΑ';const description=document.createElement('p');description.textContent=key==='archery'?'Το τμήμα τοξοβολίας προσφέρει προπονήσεις για αρχάριους και προχωρημένους.':'Οι πληροφορίες για τη λειτουργία του τμήματος θα ενημερωθούν σύντομα, μόλις επιβεβαιωθούν.';intro.append(eyebrow,description);root.append(intro);
+  const intro=document.createElement('div');intro.className='dp-profile-intro';const eyebrow=document.createElement('p');eyebrow.className='dp-profile-eyebrow';eyebrow.textContent='ΤΟ ΤΜΗΜΑ ΣΗΜΕΡΑ';const description=document.createElement('p');description.textContent=key==='archery'?'Το τμήμα τοξοβολίας λειτουργεί με το παρακάτω πρόγραμμα προπονήσεων.':'Οι πληροφορίες για τη λειτουργία του τμήματος θα ενημερωθούν σύντομα, μόλις επιβεβαιωθούν.';intro.append(eyebrow,description);root.append(intro);
   if(key!=='inactive-depts'){const grid=document.createElement('div');grid.className='dp-profile-info';for(const [index,label] of fieldNames.entries()){const box=document.createElement('div');box.className='dp-profile-field';const name=document.createElement('strong');name.textContent=label;const detail=key==='archery'?archeryFields[index]:null;const value=document.createElement(detail?.href?'a':'span');value.textContent=detail?.text||'Θα ενημερωθεί σύντομα';if(detail?.href){value.className='dp-profile-value-link';value.href=detail.href;if(detail.title)value.title=detail.title;if(detail.external){value.target='_blank';value.rel='noopener noreferrer'}}box.append(name,value);grid.append(box)}root.append(grid)}
   const actions=document.createElement('div');actions.className='dp-profile-actions';
   if(record){const history=document.createElement('button');history.type='button';history.className='dp-profile-history';history.textContent='Η ιστορία του τμήματος';history.addEventListener('click',()=>window.ArchelaosUI.openDialog({title:record.title,subtitle:record.period||'',contentNode:window.ArchelaosArchive.fragment(record.html),closeLabel:'Κλείσιμο ιστορικού'}));actions.append(history)}
