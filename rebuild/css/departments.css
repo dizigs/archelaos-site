@@ -100,3 +100,21 @@
 }
 @media(prefers-reduced-motion:reduce){.dp-card .dp-silhouette{transition:none!important}}
 
+
+/* Center the complete sports-history introduction consistently with the approved design. */
+.dp-content > .arch-container > .dp-eyebrow,
+.dp-content > .arch-container > h2,
+.dp-content > .arch-container > .dp-desc,
+.dp-sport-gallery > .arch-container > .dp-eyebrow,
+.dp-sport-gallery > .arch-container > h2,
+.dp-sport-gallery > .arch-container > .dp-desc {
+  text-align:center;
+  margin-left:auto;
+  margin-right:auto;
+}
+.dp-content > .arch-container > .dp-desc,
+.dp-sport-gallery > .arch-container > .dp-desc {
+  width:min(100%,760px);
+  max-width:760px;
+  text-wrap:pretty;
+}
