@@ -26,6 +26,66 @@ async function init(){
    return dayText+', '+item.starts+'–'+item.ends;
   }).join(' · ');
  }
+
+ // News articles are the canonical records for recent sport-specific timeline events.
+ // Historical museum research retains its separate editor-approved event graph.
+ let newsTimelinePromise=null;
+ const sportNames={
+  handball:['χαντμπολ','χειροσφαιριση'],track:['στιβος'],
+  archery:['τοξοβολια'],shooting:['σκοποβολη'],
+  gymnastics:['ενοργανη γυμναστικη'],volleyball:['βολει','πετοσφαιριση'],
+  wrestling:['παλη'],swimming:['κολυμβηση'],basketball:['καλαθοσφαιριση']
+ };
+ const plain=s=>String(s||'').toLocaleLowerCase('el').normalize('NFD').replace(/\p{M}/gu,'').replace(/ς/g,'σ');
+ function appendNewsTimeline(root,key){
+  if(!sportNames[key])return;
+  if(!newsTimelinePromise)newsTimelinePromise=fetch('/news.json',{cache:'no-cache'})
+   .then(r=>{if(!r.ok)throw Error('News timeline unavailable: '+r.status);return r.json()})
+   .then(d=>Array.isArray(d.items)?d.items:[])
+   .catch(err=>{newsTimelinePromise=null;throw err});
+  void newsTimelinePromise.then(async items=>{
+   if(!root.isConnected)return;
+   // Biography labels are optional; never stall the sourced event timeline.
+   const people=await Promise.race([
+    Promise.resolve(window.ArchelaosBio?.load?.()).catch(()=>null),
+    new Promise(resolve=>setTimeout(()=>resolve(null),2500))
+   ]);
+   const personNames=new Map((people?.people||[]).map(p=>[p.id,p.name]));
+   if(!root.isConnected)return;
+   const seen=new Set(),names=sportNames[key];
+   const events=items.filter(x=>!x.unverified&&typeof x.eventDate==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(x.eventDate)
+    &&Number.isFinite(Date.parse(x.eventDate+'T12:00:00'))&&x.sourceUrl?.startsWith('https://')
+    &&names.includes(plain(x.sport)))
+    .sort((a,b)=>String(b.eventDate).localeCompare(String(a.eventDate)))
+    .filter(x=>{const id=x.eventId||'news-'+x.id;if(seen.has(id))return false;seen.add(id);return true;})
+    .slice(0,12);
+   if(!events.length)return;
+   const section=document.createElement('section');section.className='dp-news-timeline';
+   section.setAttribute('aria-label','Τεκμηριωμένα γεγονότα από τις ειδήσεις');
+   const heading=document.createElement('h3');heading.textContent='Γεγονότα από τις ειδήσεις';section.append(heading);
+   const list=document.createElement('ol');list.className='dp-news-event-list';
+   for(const x of events){
+    const item=document.createElement('li');item.className='dp-news-event';
+    const date=document.createElement('time');date.dateTime=x.eventDate;
+    date.textContent=new Intl.DateTimeFormat('el-GR',{day:'numeric',month:'long',year:'numeric'}).format(new Date(x.eventDate+'T12:00:00'));
+    const article=document.createElement('a');article.href='/news.html?article='+encodeURIComponent(x.id);article.textContent=x.title;
+    const source=document.createElement('a');source.href=x.sourceUrl;source.target='_blank';source.rel='noopener noreferrer';source.textContent='Πηγή';
+    item.append(date,article,source);
+    if(Array.isArray(x.personIds)&&x.personIds.length){
+     const persons=document.createElement('div');persons.className='dp-news-persons';
+     for(const id of [...new Set(x.personIds)]){
+      const person=document.createElement('a');person.href='/hall-of-fame.html?person='+encodeURIComponent(id);
+      person.dataset.archBioId=id;person.textContent=personNames.get(id)||'Hall of Fame';person.setAttribute('aria-label','Άνοιγμα βιογραφικού Hall of Fame: '+person.textContent);
+      persons.append(person);
+     }
+     item.append(persons);
+    }
+    list.append(item);
+   }
+   section.append(list);root.append(section);
+  }).catch(err=>console.warn('Department news timeline:',err));
+ }
+
  const cards=[...document.querySelectorAll('[data-dp-open]')];
  const photos={handball:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaOFUCWatPwP-EycFiHffCCMk_Kz1ScNWPtg7znhR3mQ&s=10',track:'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=1200&q=80',archery:'/images/archery-outdoor-youth.webp',shooting:'/images/skopovoli-archelaos-team.jpg',volleyball:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIex8YMFGm7cLdQvLNvrQ4fdkg45xPl68ULVxGERNXOw&s=10',gymnastics:'/images/enorgani-slideshow-edafos.jpg',wrestling:'/images/wrestling-action.webp',swimming:'https://images.unsplash.com/photo-1530549387789-4c1017266635?auto=format&fit=crop&w=1200&q=80',basketball:'https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=1200&q=80'};
  const fieldNames=['Ακαδημίες','Προπονήσεις','Εγκαταστάσεις','Προπονητές'];
@@ -101,7 +161,7 @@ async function init(){
    note.textContent='Συνδρομή με αυτόματες ενημερώσεις · Για Google Calendar χρησιμοποιήστε «Από URL». Ο συγχρονισμός εξαρτάται από την εφαρμογή σας.';
    actions.append(note);
   }
-  root.append(actions);return root;
+  root.append(actions);appendNewsTimeline(root,key);return root;
  }
  try{
   const r=await fetch('/rebuild/data/museum.json');if(!r.ok)throw Error('HTTP '+r.status);

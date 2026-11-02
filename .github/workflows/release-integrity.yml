@@ -21,6 +21,16 @@ jobs:
           python rebuild/tools/guard_html_escaped_text.py
       - name: Inject a synthetic visible bug and prove exact safe self-repair
         run: python -m unittest discover -s rebuild/tests -p 'fault_injection_self_heal_test.py' -v
+      - name: Test news photo self-heal and local image integrity
+        run: |
+          python -m pip install --only-binary=:all: pillow==13.0.0
+          python -m unittest discover -s rebuild/tests -p news_photo_self_heal_test.py -v
+      - name: Validate news-to-biography-to-event links and safe repair rules
+        run: |
+          python -m unittest discover -s rebuild/tests -p news_pipeline_self_heal_test.py -v
+          python rebuild/tools/news_pipeline_self_heal.py
+          python -m unittest discover -s rebuild/tests -p news_media_candidates_test.py -v
+          python rebuild/tools/build_news_media_candidates.py
       - name: Build and verify complete release
         run: python rebuild/tools/build_release.py
       - name: Recheck generated public HTML for escaped text

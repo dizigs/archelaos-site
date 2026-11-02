@@ -342,3 +342,16 @@ body .dp-content .dp-grid .dp-card .dp-year,body .dp-content .dp-grid .dp-card .
     }
   }
 }
+
+/* Source-backed recent event timeline generated from the canonical news feed. */
+.arch-dialog-body .dp-news-timeline{margin:24px 0 0;padding:20px;background:#fbf7ee;border:1px solid #d9c89f;border-radius:17px}
+.arch-dialog-body .dp-news-timeline h3{margin:0 0 16px;font:700 21px/1.4 Georgia,serif;color:#073d2a}
+.arch-dialog-body .dp-news-event-list{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.arch-dialog-body .dp-news-event{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;border-left:3px solid #c2a463;padding:12px;background:#fffdfa;border-radius:8px}
+.arch-dialog-body .dp-news-event time{display:block;flex:0 0 100%;font:700 12px/1.4 Inter,system-ui,sans-serif;color:#81682c}
+.arch-dialog-body .dp-news-event>a:first-of-type{font:700 15px/1.5 Inter,system-ui,sans-serif;color:#073d2a;text-decoration:none}
+.arch-dialog-body .dp-news-event>a:nth-of-type(2){font:600 12px/1.5 Inter,system-ui,sans-serif;color:#80662f}
+.arch-dialog-body .dp-news-persons{display:flex;flex:0 0 100%;gap:7px;flex-wrap:wrap}
+.arch-dialog-body .dp-news-persons a{display:inline-flex;align-items:center;min-height:44px;border:1px solid #d0bd94;border-radius:9px;padding:8px 12px;background:#f5ead5;color:#073d2a;font:650 12px/1.3 Inter,system-ui,sans-serif;text-decoration:none}
+.arch-dialog-body .dp-news-persons a:hover{background:#e7d6b3}
+.arch-dialog-body .dp-news-timeline a:focus-visible{outline:3px solid #aa8646;outline-offset:2px}
