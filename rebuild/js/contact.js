@@ -1,4 +1,4 @@
-/* Contact form is intentionally mailto-based, matching the existing website behavior. */
+/* Secure Pages Function first; mailto fallback only when sending is unavailable. */
 (function(){'use strict';
 function init(){
  const template=document.querySelector('#ct-form-template');
@@ -44,7 +44,7 @@ function init(){
     ]:[]),
     '',String(data.get('message')||'')
    ];
-   const emailUrl='mailto:info@archelaos.club?subject='+encodeURIComponent(
+   const emailUrl='mailto:contact@archelaos.club?subject='+encodeURIComponent(
     'Γ.Α.Σ. Αρχέλαος — '+(subjectMap[data.get('topic')]||'Επικοινωνία'))+'&body='+encodeURIComponent(lines.join('\n'));
    const status=form.querySelector('.ct-form-note'),submit=form.querySelector('.ct-submit');
    const attachments=[...form.querySelector('#ct-attachments').files];
