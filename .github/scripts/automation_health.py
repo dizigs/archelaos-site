@@ -92,8 +92,10 @@ def run_evidence(run):
             ("id", "status", "conclusion", "created_at", "head_sha", "html_url", "event")}
 
 
-def scheduled_state(run, now, max_age_hours):
+def scheduled_state(run, now, max_age_hours, first_run_deadline=None):
     if run is None:
+        if first_run_deadline and now <= stamp(first_run_deadline):
+            return "awaiting_first_schedule"
         return "missing"
     age = (now - stamp(run.get("created_at"))).total_seconds() / 3600
     if age < -0.1:
@@ -139,6 +141,8 @@ def validate_policy(root, policy):
         if (item.get("cron") != found[path] or isinstance(hours, bool)
                 or not isinstance(hours, (int, float)) or not 0 < hours <= 24 * 31):
             raise EvidenceError(f"Invalid/drifted schedule policy: {path}")
+        if "first_run_deadline_utc" in item:
+            stamp(item["first_run_deadline_utc"])
 
 
 def build_report(api, root, policy, now):
@@ -185,7 +189,9 @@ def build_report(api, root, policy, now):
             expected = policy["scheduled_workflows"][path]
             row["latest_scheduled"] = run_evidence(scheduled)
             row["max_age_hours"] = expected["max_age_hours"]
-            row["state"] = scheduled_state(scheduled, now, expected["max_age_hours"])
+            row["first_run_deadline_utc"] = expected.get("first_run_deadline_utc")
+            row["state"] = scheduled_state(scheduled, now, expected["max_age_hours"],
+                                           expected.get("first_run_deadline_utc"))
         elif latest:
             row["state"] = scheduled_state(latest, now, float("inf"))
         else:
@@ -201,8 +207,8 @@ def build_report(api, root, policy, now):
         if path not in paths:
             rows.append({"path": path, "name": path, "state": "missing_workflow"})
     attention = [row["path"] for row in rows
-                 if row["state"] not in {"healthy", "running", "not_observed"}]
-    pending = any(row["state"] in {"running", "not_observed"} for row in rows)
+                 if row["state"] not in {"healthy", "running", "not_observed", "awaiting_first_schedule"}]
+    pending = any(row["state"] in {"running", "not_observed", "awaiting_first_schedule"} for row in rows)
     return {"schema_version": 1, "generated_utc": now.isoformat(), "default_branch": branch,
             "ok": not attention, "attention": attention, "workflows": rows,
             "assessment": "attention" if attention else "incomplete" if pending else "verified",
@@ -224,6 +230,7 @@ def markdown(report):
         if row.get("error"):
             lines.append(f"| {clean(row['error'])} | unknown | — | — |")
     lines += ["", "Running is not a pass. Missing/stale/disabled/failed/unknown evidence needs attention.",
+              "Awaiting-first-schedule is incomplete evidence before a fixed startup deadline, not a pass.",
               "No automatic repair, retries, PRs, source publication or deployment is performed."]
     if report.get("error"):
         lines += ["", "Evidence unavailable: " + clean(report["error"])]

@@ -5,19 +5,22 @@
       "cron": [
         "43 5 * * *"
       ],
-      "max_age_hours": 36
+      "max_age_hours": 36,
+      "first_run_deadline_utc": "2026-11-03T17:43:00Z"
     },
     ".github/workflows/axe-accessibility.yml": {
       "cron": [
         "53 5 * * 4"
       ],
-      "max_age_hours": 192
+      "max_age_hours": 192,
+      "first_run_deadline_utc": "2026-11-06T05:53:00Z"
     },
     ".github/workflows/clarity-daily-export.yml": {
       "cron": [
         "13 7 * * *"
       ],
-      "max_age_hours": 36
+      "max_age_hours": 36,
+      "first_run_deadline_utc": "2026-11-03T19:13:00Z"
     },
     ".github/workflows/cloudflare-pages-status.yml": {
       "cron": [
@@ -29,25 +32,29 @@
       "cron": [
         "29 5 * * 1"
       ],
-      "max_age_hours": 192
+      "max_age_hours": 192,
+      "first_run_deadline_utc": "2026-11-10T05:29:00Z"
     },
     ".github/workflows/google-analytics-aggregate.yml": {
       "cron": [
         "39 7 * * *"
       ],
-      "max_age_hours": 36
+      "max_age_hours": 36,
+      "first_run_deadline_utc": "2026-11-03T19:39:00Z"
     },
     ".github/workflows/hof-name-audit.yml": {
       "cron": [
         "21 6 * * *"
       ],
-      "max_age_hours": 36
+      "max_age_hours": 36,
+      "first_run_deadline_utc": "2026-11-03T18:21:00Z"
     },
     ".github/workflows/links.yml": {
       "cron": [
         "17 4 * * *"
       ],
-      "max_age_hours": 36
+      "max_age_hours": 36,
+      "first_run_deadline_utc": "2026-11-03T16:17:00Z"
     },
     ".github/workflows/live-health.yml": {
       "cron": [
@@ -65,19 +72,22 @@
       "cron": [
         "37 6 * * *"
       ],
-      "max_age_hours": 36
+      "max_age_hours": 36,
+      "first_run_deadline_utc": "2026-11-03T18:37:00Z"
     },
     ".github/workflows/public-mentions.yml": {
       "cron": [
         "41 7 * * 2,5"
       ],
-      "max_age_hours": 108
+      "max_age_hours": 108,
+      "first_run_deadline_utc": "2026-11-03T19:41:00Z"
     },
     ".github/workflows/scorecard-free.yml": {
       "cron": [
         "37 6 * * 3"
       ],
-      "max_age_hours": 192
+      "max_age_hours": 192,
+      "first_run_deadline_utc": "2026-11-05T06:37:00Z"
     },
     ".github/workflows/site-watch-and-repair.yml": {
       "cron": [
@@ -89,19 +99,22 @@
       "cron": [
         "31 5 * * 6"
       ],
-      "max_age_hours": 192
+      "max_age_hours": 192,
+      "first_run_deadline_utc": "2026-11-08T05:31:00Z"
     },
     ".github/workflows/visitor-experience.yml": {
       "cron": [
         "19 5 * * 2"
       ],
-      "max_age_hours": 192
+      "max_age_hours": 192,
+      "first_run_deadline_utc": "2026-11-04T05:19:00Z"
     },
     ".github/workflows/weekly-public-snapshot.yml": {
       "cron": [
         "43 3 * * 0"
       ],
-      "max_age_hours": 192
+      "max_age_hours": 192,
+      "first_run_deadline_utc": "2026-11-09T03:43:00Z"
     }
   }
 }
