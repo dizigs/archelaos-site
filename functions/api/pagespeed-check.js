@@ -41,7 +41,7 @@ export async function onRequestGet({ request, env }) {
   // from multiplying Google API requests or allowing external target scans.
   const canonical = SITE + PAGES[page];
   const cacheKey = new Request(
-    `${SITE}/api/pagespeed-check?v=6&page=${encodeURIComponent(page)}&device=${device}`,
+    `${SITE}/api/pagespeed-check?v=7&page=${encodeURIComponent(page)}&device=${device}`,
     { method: "GET" }
   );
   const cache = caches.default;
