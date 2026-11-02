@@ -280,7 +280,7 @@ function initOptionalAnalytics(){
  #arch-analytics-consent button:hover{transform:translateY(-2px);box-shadow:0 6px 16px #0b392b26}
  #arch-analytics-consent button:focus-visible,#arch-analytics-consent a:focus-visible,#arch-analytics-settings:focus-visible{outline:3px solid #bc9650;outline-offset:3px}
  #arch-analytics-settings{transition:transform .2s ease,box-shadow .2s ease;box-shadow:0 5px 18px #113f2b1c}
- #arch-analytics-settings:hover{transform:translateY(-2px)}
+ #arch-analytics-settings:hover{transform:translateY(-2px);text-decoration:none!important}
  @media(max-width:600px){#arch-analytics-consent{bottom:12px!important;left:10px!important;right:10px!important;padding:18px!important;border-radius:16px!important}#arch-analytics-consent .arch-consent-buttons{display:grid!important;grid-template-columns:1fr 1fr;gap:8px!important}#arch-analytics-consent .arch-consent-buttons a{grid-column:1/-1;text-align:center}}
  @media(prefers-reduced-motion:reduce){#arch-analytics-consent,#arch-analytics-consent button,#arch-analytics-settings{transition:none!important;animation:none!important}}
  `;
@@ -299,7 +299,7 @@ function initOptionalAnalytics(){
  const more=document.createElement('a');more.href='/privacy.html';more.textContent='Πολιτική απορρήτου';more.style.cssText='padding:9px 2px;color:#15452f;text-underline-offset:3px';
  controls.append(reject,accept,more);panel.append(title,description,controls);
  const settings=document.createElement('button');settings.id='arch-analytics-settings';settings.type='button';settings.textContent='Ρυθμίσεις στατιστικών';settings.setAttribute('aria-label','Αλλαγή επιλογής στατιστικών');
- settings.style.cssText='display:inline;background:none;border:0;color:inherit;font:inherit;text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:2px 4px;';
+ settings.style.cssText='display:inline;background:none;border:0;color:inherit;font:inherit;text-decoration:none;cursor:pointer;padding:2px 4px;';
  const select=value=>{
   write(value);
   panel.dataset.closed='true';
