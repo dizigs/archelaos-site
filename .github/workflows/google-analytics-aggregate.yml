@@ -3,12 +3,31 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '39 7 * * *'
+  pull_request:
+    paths:
+      - '.github/workflows/google-analytics-aggregate.yml'
+      - '.github/scripts/analytics_auto_triage.py'
+      - '.github/tests/test_analytics_auto_triage.py'
 permissions:
   contents: read
-  id-token: write
-  issues: write
 jobs:
+  offline-tests:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+      - run: python -m unittest discover -s .github/tests -p test_analytics_auto_triage.py -v
   report:
+    permissions:
+      contents: read
+      id-token: write
+      issues: write
     if: github.repository == 'dizigs/archelaos-site' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 10
