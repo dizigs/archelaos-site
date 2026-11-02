@@ -89,7 +89,6 @@ def repair(items,people):
 if __name__=="__main__":
     ap=argparse.ArgumentParser()
     ap.add_argument("--apply-safe",action="store_true")
-    ap.add_argument("--report",default="rebuild/test-artifacts/news-pipeline-incidents.json")
     args=ap.parse_args()
     data=json.loads((ROOT/"news.json").read_text("utf-8"))
     people=json.loads((ROOT/"hall-of-fame-people.json").read_text("utf-8"))["people"]
@@ -97,7 +96,9 @@ if __name__=="__main__":
     if fixed:(ROOT/"news.json").write_text(json.dumps(data,ensure_ascii=False,indent=2)+"\n","utf-8")
     incidents=check(data["items"],people)
     report={"schema_version":1,"checked_articles":len(data["items"]),"fixed":fixed,"incidents":incidents}
-    p=Path(args.report);p.parent.mkdir(parents=True,exist_ok=True)
+    # Fixed, repository-local output: never allow CLI-supplied filesystem paths.
+    p=ROOT/"rebuild/test-artifacts/news-pipeline-incidents.json"
+    p.parent.mkdir(parents=True,exist_ok=True)
     p.write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n","utf-8")
     blockers=[e for e in incidents if e["level"] in ("error","repairable")]
     print("News pipeline:",len(data["items"]),"articles,",len(incidents),"findings,",len(fixed),"repairs,",len(blockers),"blockers")
