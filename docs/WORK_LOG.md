@@ -138,6 +138,24 @@
 - **AUTOMATION UPDATED:** Στα υπάρχοντα schedules «Έλεγχος site & αρχείου Drive» και «Συνεισφορές & ωριαίο self-heal» προστέθηκε ρητή παρακολούθηση του νέου υποφακέλου για καινούρια/τροποποιημένα αρχειακά τεκμήρια. Πρόκειται για επιτυχή αλλαγή scheduled instructions, όχι τεκμήριο ότι έχει ήδη εκτελεστεί η επόμενη βαθιά έρευνα ή δημοσίευση.
 - **UI regression FIXED_IN_PR:** Στο κοινό popup ακυρώνεται προηγούμενη ασύγχρονη φόρτωση συνδέσεων όταν αλλάζει η τρέχουσα εγγραφή. Commit [`b5697d13`](https://github.com/dizigs/archelaos-site/commit/b5697d13fac868352911b9a2c0118bd28a3a7053). Τελικό CI απαιτείται πριν από merge.
 
+## PR #48: αμφίδρομη δημόσια διασύνδεση — VERIFIED LIVE / 2026-11-02
+
+- **MERGED:** [PR #48](https://github.com/dizigs/archelaos-site/pull/48), squash commit [`936178196d6926fcf61dc5473483e22ba3c8b852`](https://github.com/dizigs/archelaos-site/commit/936178196d6926fcf61dc5473483e22ba3c8b852) στο `main`. GitHub αναφέρει `merged=true`, `state=closed`.
+- **FINAL CI:** `Release integrity`, `Lighthouse CI`, `Rebuild validation`, `JavaScript syntax guard`, `ESLint`, `Site release QA`, `Hall of Fame news crosscheck`, `Validate website`, `Internal news event ledger` = **success** στο head `3fce236fce92cc4a18c5888be264eae553b1c745`. `Validate ImgBot-only changes` = `skipped` (αναμενόμενο). Τα 3 jobs του Rebuild validation (HTML/data, Chromium desktop/mobile, release assembly) = success. SonarCloud PR Quality Gate = success· CodeRabbit review threads **4/4 resolved** μετά τις τεκμηριωμένες επιδιορθώσεις χρωματικής αντίθεσης WCAG, ετικετών γλώσσας, relation keys και μοναδικών ζευγών.
+- **CLOUDFLARE PRODUCTION:** Deployment `56f3ba20-1eb2-4665-a257-97921e10719f`, `production`, SHA `93617819`, `deploy.status=success`. Πραγματικό τέλος logs: `Success: Assets published!`, `Success: Your site was deployed!`.
+- **PUBLIC LIVE:** Fresh public HTTP 200 για `https://archelaos.club/assets/site/data/archive-relationships.json` (schema `explicit_public_references_only`, περιλαμβάνει event/people σχέσεις Κροατίας), `/assets/archive-links.js` και `/news.html`. Δεν δηλώνεται ειδικό click-by-click user test πέρα από τα επιτυχή Chromium CI.
+- **SCOPE:** Ενσωματώθηκε μηχανισμός αμφίδρομων **συνδέσμων από ρητές ήδη υπάρχουσες αναφορές**. Αυτό **δεν** αποτελεί ακόμη πλήρως αυτοματοποιημένη εγγραφή νέων facts στο βασικό JSON βιογραφικών/ιστορικών γεγονότων ή σύστημα thumbs up/down.
+
+### Αποθήκευση πηγών ChatGPT — οριστικός προορισμός και διόρθωση
+
+- **PROBLEM DETECTED:** Αρχικά καταχωρίστηκε φάκελος ChatGPT και οκτασέλιδη παράγωγη σύνθεση NotebookLM κάτω από ομώνυμο **προσωπικό** φάκελο και όχι στο πραγματικό Κοινόχρηστο Drive.
+- **CORRECTION VERIFIED:** Με `Google Drive list_drives` εντοπίστηκε το πραγματικό «ΓΑΣ Αρχέλαος | Ψηφιακό Μουσείο». Δημιουργήθηκε οριστικός υποφάκελος κάτω από «05 · Ευρετήριο και τεκμηρίωση» και αντιγράφηκε το PDF. Metadata/readback επιβεβαίωσε `drive_id`, ακριβή γονικό φάκελο, `application/pdf`, 248081 bytes και παρουσία στον κατάλογο. Οι **δικές μας προσωρινές αντιγραφές** PDF και προσωπικού φακέλου διαγράφηκαν μετά την επιβεβαίωση, χωρίς αλλαγή σε παλαιά πρωτότυπα.
+- **SCHEDULES:** Τα δύο ήδη ενεργά scheduled jobs `Έλεγχος site & αρχείου Drive` και `Συνεισφορές & ωριαίο self-heal` ενημερώθηκαν με τον οριστικό Shared Drive υποφάκελο και επιβεβαιώθηκε με δεύτερη ανάγνωση ότι τα παλιά IDs δεν εμφανίζονται πλέον. Ενημέρωση prompt **δεν** ισοδυναμεί με πραγματική ολοκλήρωση εκτέλεσης/εισαγωγής νέων ειδήσεων.
+- **SOURCE PROVENANCE:** Το NotebookLM PDF είναι **σύνθεση από αρχειακά έγγραφα**, όχι ανεξάρτητη πρωτογενής δημοσίευση. Η ημερομηνία 28/07/1994 που αναφέρει για την επίδοση μήκους 8,36 μ. του Κώστα Κουκοδήμου συγκρούεται με την τεκμηριωμένη 05/06/1994. Ελέγχθηκε δημοσίως με Σύλλογο Ελλήνων Ολυμπιονικών και άρθρο της εφημερίδας `ΤΑ ΝΕΑ` (1999). Παραμένει η 05/06/1994 στο υπάρχον βιογραφικό. Το υπόλοιπο σαφές υλικό παραμένει αξιοποιήσιμο με δική του προέλευση.
+- **PRIVACY:** Ιδιωτικά links και Drive IDs, προσωπικά στοιχεία υποβολών και πρωτότυπα αρχεία δεν καταχωρίζονται στο δημόσιο GitHub log.
+
+**Επόμενα ξεχωριστά θέματα:** Ολοκλήρωση του μηχανισμού εγγραφής νέων τεκμηριωμένων γεγονότων/βιογραφικών, τα ανοικτά περιστατικά GitHub/Cloudflare [#43](https://github.com/dizigs/archelaos-site/issues/43), [#44](https://github.com/dizigs/archelaos-site/issues/44), και το αποτυχημένο SonarCloud main Quality Gate [#47](https://github.com/dizigs/archelaos-site/issues/47). Καμία από αυτές τις εκκρεμότητες δεν δηλώνεται επιλυμένη από το PR #48.
+
 ## Σημείο συνέχισης
 
 1. Διαβάζουμε αυτό το log **και** την τρέχουσα κατάσταση PR #42 / workflow runs.
