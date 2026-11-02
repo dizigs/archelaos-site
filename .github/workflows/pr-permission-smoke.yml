@@ -1,0 +1,40 @@
+name: GitHub Actions PR permission smoke test
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/pr-permission-smoke.yml'
+permissions:
+  contents: write
+  pull-requests: write
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Create and close a disposable PR, without merging
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          test_branch="automation/pr-permission-smoke-${GITHUB_RUN_ID}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$test_branch"
+          mkdir -p .github/automation-probes
+          printf 'Disposable permission probe run: %s\n' "$GITHUB_RUN_ID" > .github/automation-probes/pr-permission-smoke.txt
+          git add .github/automation-probes/pr-permission-smoke.txt
+          git commit -m "test: disposable Actions PR permission check"
+          git push origin "$test_branch"
+          cleanup() {
+            git push origin --delete "$test_branch" || true
+          }
+          trap cleanup EXIT
+          pr_url="$(gh pr create --base main --head "$test_branch" --title "TEST: disposable GitHub Actions PR permission check" --body "Automated permissions test only. No website changes. This PR will be closed, never merged.")"
+          echo "Created PR: $pr_url"
+          gh pr close "$pr_url" --comment "Permission test completed; intentionally not merged."
+          echo "PASS: GitHub Actions can create and close pull requests."
