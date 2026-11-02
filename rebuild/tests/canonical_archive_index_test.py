@@ -87,5 +87,36 @@ class ArchiveIndexTests(unittest.TestCase):
         self.assertEqual(result["stats"]["approved_event_count"], 0)
 
 
+    def test_cross_section_reverse_links_keep_review_gate(self):
+        events, news, people = fixtures()
+        collections = {
+            "interview": {"items": [
+                {"id": "i1", "name": "Συνέντευξη", "personIds": ["p1"],
+                 "needsReview": False},
+                {"id": "i2", "name": "Σε έλεγχο", "personIds": ["p2"],
+                 "needsReview": True},
+            ]},
+            "story": {"stories": [
+                {"title": "Αφήγηση", "relatedPeople": ["p2"]},
+            ]},
+            "moment": {"moments": [
+                {"id": 1, "title": "Ιστορική στιγμή", "personIds": ["p1"]},
+            ]},
+            "museum": {"articles": [
+                {"id": "m1", "title": "Μουσείο", "relatedPeople": ["p2"]},
+            ]},
+        }
+        result = build_index(events, news, people, collections)
+        self.assertIn("interview:i1", result["person_to_archive_records"]["p1"])
+        self.assertNotIn("interview:i2", result["archive_record_to_people"])
+        self.assertIn("moment:1", result["person_to_archive_records"]["p1"])
+        self.assertIn("museum:m1", result["person_to_archive_records"]["p2"])
+        stories = [ref for ref in result["person_to_archive_records"]["p2"]
+                   if ref.startswith("story:")]
+        self.assertEqual(len(stories), 1)
+        self.assertTrue(result["archive_record_to_people"][stories[0]]["provisional_record_id"])
+        self.assertFalse(result["archive_record_to_people"][stories[0]]["publishable"])
+
+
 if __name__ == "__main__":
     unittest.main()
