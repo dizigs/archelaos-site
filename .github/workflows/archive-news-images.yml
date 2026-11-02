@@ -51,10 +51,10 @@ jobs:
       - name: Import original event photos from verified source articles
         run: |
           python tools/import_news_images.py | tee /tmp/news-photo-import.log
-          echo '### News photo archive results' >> "$GITHUB_STEP_SUMMARY"
-          echo '\`\`\`' >> "$GITHUB_STEP_SUMMARY"
-          cat /tmp/news-photo-import.log >> "$GITHUB_STEP_SUMMARY"
-          echo '\`\`\`' >> "$GITHUB_STEP_SUMMARY"
+          {
+            printf '%s\n' '### News photo archive results' ''
+            sed 's/^/    /' /tmp/news-photo-import.log
+          } >> "$GITHUB_STEP_SUMMARY"
       - name: Validate referenced images before publishing
         run: |
           python - <<'PY'
