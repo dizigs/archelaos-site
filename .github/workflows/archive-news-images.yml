@@ -28,7 +28,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Install image processing dependency
-        run: python -m pip install --only-binary=:all: pillow==13.0.0
+        run: 'python -m pip install --only-binary=:all: pillow==13.0.0'
       - name: Verify importer and prevent logo regressions
         run: |
           python -m py_compile tools/import_news_images.py
