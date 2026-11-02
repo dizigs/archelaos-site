@@ -49,6 +49,28 @@
 
 **Δημοσίευση:** Το PR #42 δεν έχει συγχωνευτεί στο `main`· η νέα είδηση για το Central European Cup στην Κροατία **δεν έχει ακόμη επιβεβαιωθεί στο live**. Πριν από merge χρειάζεται επανέλεγχος των checks στο νεότερο head και των ουσιαστικών review comments.
 
+## Συστηματική επιδιόρθωση PR #42 — 2026-11-02 (συνέχεια)
+
+**Κανόνας:** Κάθε σφάλμα καταχωρίζεται με πραγματική ένδειξη, διόρθωση, commit, επαλήθευση και υπόλοιπο. «DONE_IN_PR» δεν σημαίνει «DEPLOYED».
+
+| Τεκμηριωμένο σφάλμα / κίνδυνος | Επιδιόρθωση & αποδεικτικό commit | Κατάσταση |
+|---|---|---|
+| Χαλασμένη τοπική φωτογραφία μπορούσε να αντικατασταθεί με άλλη εικόνα της σελίδας αντί με την τεκμηριωμένη | Περιορισμός επισκευής στη δηλωμένη `imageSourceUrl`, απαίτηση HTTPS hostname και ξεχωριστή testable συνάρτηση: [18c93f0](https://github.com/dizigs/archelaos-site/commit/18c93f0cacf244ff8c7970deb8c4764325080fca), [c7eabf7](https://github.com/dizigs/archelaos-site/commit/c7eabf7266d3038d1e578cc4847fe1ac7559bfab), [fd43fc9](https://github.com/dizigs/archelaos-site/commit/fd43fc9ac24806f60882530ee33ad7554850d64a) | DONE_IN_PR / τελικός CI σε εξέλιξη |
+| Οι αναφορές περιστατικών χάνονταν όταν απέτυχε το βήμα παραγωγής artifact | `if: always()` στο artifact upload: [b050765](https://github.com/dizigs/archelaos-site/commit/b050765e4870219e666331cef71fad07bb2358f7) | DONE_IN_PR |
+| Η εύρεση παλιού issue περιοριζόταν στα 200 τελευταία και μπορούσε να δημιουργήσει διπλό | Αναζήτηση με fingerprint και έλεγχος ακριβούς τίτλου: [b050765](https://github.com/dizigs/archelaos-site/commit/b050765e4870219e666331cef71fad07bb2358f7) | DONE_IN_PR |
+| Ο προέλεγχος μπορούσε να καταρρεύσει σε άκυρα IDs, αριθμητικό sourceUrl, `https://` χωρίς hostname, λάθος μορφή eventDate ή μη-string photo | Αμυντικοί έλεγχοι, σαφή incident codes, και έλεγχος κενού τίτλου: [7e34732](https://github.com/dizigs/archelaos-site/commit/7e34732b2b65c81c63ab7692f7c362174d934e04), [a3546c7](https://github.com/dizigs/archelaos-site/commit/a3546c71245775c53c80f491cf49afa4e729a151), tests [823af00](https://github.com/dizigs/archelaos-site/commit/823af00617d4bce8fe745ec9c562cfa15672bbe5) | DONE_IN_PR / τελικός CI σε εξέλιξη |
+| Αποκομμένα αποκόμματα Τύπου δεν εμφανίζονταν στα Αγαπημένα | Αντιστοίχιση παλιού τύπου `interview` με `press` facet: [a6add1f](https://github.com/dizigs/archelaos-site/commit/a6add1f2c178c3218208774de70a23287c19b4a4) | DONE_IN_PR |
+| Αργή φόρτωση βιογραφικών έκρυβε timeline· άκυρη ημερομηνία μπορούσε να σταματήσει όλα τα γεγονότα | Περιορισμένο 2,5 s wait και έγκυρα eventDate: [5dc3523](https://github.com/dizigs/archelaos-site/commit/5dc3523e22da7b481062be5c8df30ace97c365d5), [963643f](https://github.com/dizigs/archelaos-site/commit/963643f5055b71977f6908d83c82d644189cb7d9) | DONE_IN_PR |
+| Συνέντευξη σε τοξοβολία/άλλο άθλημα εμφανιζόταν ως «Διοίκηση» και links σε παλιές συνεντεύξεις ήταν κενά | Αντιστοίχιση αθλήματος από ελληνικό `sport`, redirect του deep-link σε υπάρχον αρχείο: [f81c59f](https://github.com/dizigs/archelaos-site/commit/f81c59f21027867acb7bc48ab714dd9a1f253aa5) | DONE_IN_PR |
+| **Σφάλμα κατά τη δική μας επιδιόρθωση:** σε Python/JavaScript πέρασαν κυριολεκτικές ακολουθίες `\\n` αντί για κανονικές αλλαγές γραμμής. Θα έσπαγαν τη σύνταξη. | Αποκατάσταση πραγματικών αλλαγών γραμμής και regex, πρόσθετα tests: [c7eabf7](https://github.com/dizigs/archelaos-site/commit/c7eabf7266d3038d1e578cc4847fe1ac7559bfab), [963643f](https://github.com/dizigs/archelaos-site/commit/963643f5055b71977f6908d83c82d644189cb7d9), [fd43fc9](https://github.com/dizigs/archelaos-site/commit/fd43fc9ac24806f60882530ee33ad7554850d64a) | FIXED_IN_PR / CI επί νεότερου head απαιτείται |
+| CodeRabbit review threads | Εξετάστηκαν οι 16 αρχικές παρατηρήσεις και follow-up για ήδη υπάρχουσα συνέντευξη· απομένει επανέλεγχος και τυπική επίλυση thread ανά commit | VERIFY / REVIEW |
+| Ένταξη στο live | Δεν έχει γίνει merge κατά τη στιγμή αυτής της καταχώρισης. Η είδηση για την Κροατία παραμένει στο PR. | OPEN / NOT_DEPLOYED |
+
+### Επαλήθευση αυτής της φάσης
+- Στο head `fd43fc9`: **Validate website: success, ESLint: success, Internal news event ledger: success, Hall of Fame news crosscheck: success**. Άλλοι έλεγχοι ήταν ακόμα `pending` / `in_progress` κατά τον έλεγχο.
+- Κάθε νέα αλλαγή επανεκκινεί checks· οριστικό αποτέλεσμα μόνο από το τελικό head και από production deploy logs.
+- Χωριστά issues [#43](https://github.com/dizigs/archelaos-site/issues/43) και [#44](https://github.com/dizigs/archelaos-site/issues/44) παραμένουν ανοιχτά μέχρι ανεξάρτητη τεκμηρίωση επίλυσης.
+
 ## Σημείο συνέχισης
 
 1. Διαβάζουμε αυτό το log **και** την τρέχουσα κατάσταση PR #42 / workflow runs.
