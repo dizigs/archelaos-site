@@ -21,8 +21,9 @@ PAGES = (
 )
 ROOT = Path(__file__).resolve().parents[2]
 CANONICAL_PEOPLE_COUNT = len(json.loads((ROOT / "hall-of-fame-people.json").read_text(encoding="utf-8"))["people"])
+CANONICAL_NEWS_COUNT = len(json.loads((ROOT / "news.json").read_text(encoding="utf-8"))["items"])
 DATA = {
-    "/news.json": ("items", 1),
+    "/news.json": ("items", CANONICAL_NEWS_COUNT),
     "/hall-of-fame-people.json": ("people", CANONICAL_PEOPLE_COUNT),
     "/assets/site/data/people.json": ("people", CANONICAL_PEOPLE_COUNT),
     "/assets/site/data/moments.json": ("moments", 70),
@@ -130,6 +131,8 @@ def audit(base: str) -> dict:
             if not isinstance(records, list) or len(records) < minimum:
                 raise ValueError(f"{key} count below {minimum}")
             report["counts"][key] = len(records)
+            if route == "/news.json":
+                report["counts"]["news_articles"] = len(records)
             data[key] = records
         except (ValueError, TypeError, KeyError) as error:
             report["errors"].append(f"{route}: invalid archive ({error})")
