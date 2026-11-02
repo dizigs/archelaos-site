@@ -1,3 +1,10 @@
+## Ασφαλές ιδιωτικό intake / προέλευση συνεισφορών — 2026-11-02
+
+- **STARTED:** Ανασκόπηση του ανοικτού Draft [PR #37](https://github.com/dizigs/archelaos-site/pull/37). Περιέχει πολλαπλές ξεπερασμένες αλλαγές σε κεντρικό build/UI που θα συγκρούονταν με τα πρόσφατα PR #48–#51. Δεν το συγχωνεύουμε αυτούσιο.
+- **INCREMENTAL IMPLEMENTATION:** Εξαγωγή αποκλειστικά των offline Python intake / match / queue modules και των δοκιμών τους από το #37, χωρίς ιδιωτικά δεδομένα ή αλλαγές στο live UI. Gitignored `.archive-intake/`, SHA-256 idempotency, διακριτές revisions, ασφαλής ανάγνωση DOCX, ρητό PDF pending και canonical matching.
+- **CI:** Νέο read-only, SHA-pinned, path-triggered workflow. Χωρίς cron ή secrets· οι δοκιμές χρησιμοποιούν μόνο dummy αρχεία. Δεν ισχυριζόμαστε ότι Gmail/Drive poller ή αυτοδημοσίευση είναι ήδη ενεργά από αυτά τα scripts.
+- **NEXT:** Πλήρες CI, διορθώσεις των πραγματικών αποτυχιών (αν υπάρξουν), τελικό PR+merge+production logs, στη συνέχεια σχεδιασμός χωριστού ιδιωτικού collector με πραγματική σύνδεση στο Drive χωρίς διαρροή ευαίσθητων πηγών.
+
 # Archelaos — Operational work log / Ημερολόγιο εργασιών
 
 > Ενεργό αρχείο εργασίας, **όχι λίστα «να φτιάξουμε αργότερα logs»**.  
