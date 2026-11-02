@@ -56,11 +56,31 @@ def fake_fetch(base, route):
 with patch.object(m, "fetch", fake_fetch):
     report = m.audit("https://archelaos.club")
 assert not report["errors"], report
+assert m.CANONICAL_PEOPLE_COUNT >= 760 and m.CANONICAL_NEWS_COUNT >= 117, "Do not regress proven production archive floors"
 assert report["counts"]["people"] == m.CANONICAL_PEOPLE_COUNT and report["counts"]["moments"] == 70
 assert "/search.html" in report["checked"] and "/news.html" in report["checked"]
 assert "/news.json" in report["checked"] and "/hall-of-fame-people.json" in report["checked"]
 assert report["counts"]["news_articles"] == m.CANONICAL_NEWS_COUNT
 assert len(report["checked"]) >= 25
+
+
+def missing_news_controls(base, route):
+    if route == "/news.html":
+        return html.replace(b'<input id="an-search"><div id="an-grid"></div>', b""), {}
+    return fake_fetch(base, route)
+
+with patch.object(m, "fetch", missing_news_controls):
+    invalid_news = m.audit("https://archelaos.club")
+assert "News controls missing" in invalid_news["errors"], invalid_news
+
+def truncated_news(base, route):
+    if route == "/news.json":
+        return json.dumps({"items": [{} for _ in range(m.CANONICAL_NEWS_COUNT - 1)]}).encode(), {}
+    return fake_fetch(base, route)
+
+with patch.object(m, "fetch", truncated_news):
+    short_news = m.audit("https://archelaos.club")
+assert any("items count below" in error for error in short_news["errors"]), short_news
 
 def corrupt_mobile(base, route):
     if route == "/assets/site/css/mobile.css?v=" + css_hashes["mobile"]:
