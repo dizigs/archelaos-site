@@ -65,7 +65,7 @@ async function verify(){
     }
     if(tag==='departments'){
      await page.locator('.dp-card').first().waitFor();
-     if(await page.locator('.dp-card').count()!==10)throw Error('Expected exactly 9 sports and 1 historical card');
+     if(await page.locator('.dp-card').count()!==11)throw Error('Expected exactly 10 sports and 1 historical card');
      const sports=await page.evaluate(()=>{
       return [...document.querySelectorAll('.dp-card[data-dp-open]:not([data-dp-open="inactive-depts"])')].map(card=>({
        sport:card.dataset.dpOpen,
@@ -76,8 +76,8 @@ async function verify(){
        label:card.textContent||''
       }));
      });
-     if(sports.length!==9||sports.some(x=>!x.background.includes('url(')||!x.blur.includes('blur(')||x.icon!=='none'||!x.clickable||x.label.includes('Δείτε την ιστορία')))
-      throw Error('Nine sport history cards must be clickable with blurred photos and no repeated CTA');
+     if(sports.length!==10||sports.some(x=>!x.background.includes('url(')||!x.blur.includes('blur(')||x.icon!=='none'||!x.clickable||x.label.includes('Δείτε την ιστορία')))
+      throw Error('Sport history cards must be clickable with blurred photos and no repeated CTA');
      const historical=page.locator('.dp-card[data-dp-open="inactive-depts"]');
      if(await historical.locator('.dp-title').count()!==1||
         await historical.locator('.dp-watermark').count()!==0||
