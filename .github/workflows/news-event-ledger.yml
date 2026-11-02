@@ -35,6 +35,7 @@ jobs:
           python rebuild/tools/build_news_event_candidates.py
           python rebuild/tools/build_news_media_candidates.py
       - name: Preserve internal review report
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: internal-news-event-candidates
@@ -58,7 +59,7 @@ jobs:
           jq -r '.incidents[] | select(.level=="error" or .level=="repairable") | [.fingerprint,.code,.article_id,.detail] | @tsv' "$file" |
           while IFS=$'\t' read -r fingerprint code article detail; do
             title="[news-pipeline:$fingerprint] $code"
-            existing="$(gh issue list --repo "$REPO" --state all --limit 200 --json number,title |
+            existing="$(gh issue list --repo "$REPO" --state all --search "$fingerprint in:title" --limit 100 --json number,title |
               jq -r --arg t "$title" '.[] | select(.title==$t) | .number' | head -1)"
             note="Detected in $RUN_LINK; article: $article; signature: $code; $detail. Review sources. Never blindly auto-edit identities or published facts."
             if [ -n "$existing" ]; then
