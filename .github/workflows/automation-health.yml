@@ -1,0 +1,59 @@
+name: Automation schedule health evidence
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/**'
+      - '.github/scripts/automation_health.py'
+      - '.github/tests/test_automation_health.py'
+      - '.github/automation-health-policy.json'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/automation-health.yml'
+      - '.github/scripts/automation_health.py'
+      - '.github/tests/test_automation_health.py'
+      - '.github/automation-health-policy.json'
+  schedule:
+    - cron: '11 */6 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: automation-health-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  evidence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+      - name: Test missing, stale, disabled and unavailable evidence offline
+        run: python -m unittest discover -s .github/tests -p test_automation_health.py -v
+      - name: Report actual default-branch schedule evidence (no writes or retries)
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python .github/scripts/automation_health.py
+      - name: Publish readable evidence to run summary
+        if: always() && github.event_name != 'pull_request'
+        shell: bash
+        run: |
+          if [ -f rebuild/test-artifacts/automation-health/automation-health-summary.md ]; then
+            cat rebuild/test-artifacts/automation-health/automation-health-summary.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Retain technical evidence only
+        if: always() && github.event_name != 'pull_request'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: automation-health-evidence
+          path: |
+            rebuild/test-artifacts/automation-health/automation-health-report.json
+            rebuild/test-artifacts/automation-health/automation-health-summary.md
+          retention-days: 14
+          if-no-files-found: warn
