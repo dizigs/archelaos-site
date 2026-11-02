@@ -17,7 +17,8 @@ jobs:
         with:
           ref: main
           persist-credentials: true
-      - name: Create and close a disposable PR, without merging
+      - name: Create a disposable PR, without merging
+        id: probe
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -31,13 +32,31 @@ jobs:
           git add .github/automation-probes/pr-permission-smoke.txt
           git commit -m "test: disposable Actions PR permission check"
           git push origin "$test_branch"
-          cleanup() {
-            git push origin --delete "$test_branch" || true
-          }
-          trap cleanup EXIT
           pr_url="$(gh pr create --base main --head "$test_branch" --title "TEST: disposable GitHub Actions PR permission check" --body "Automated permissions test only. No website changes. This PR will be closed, never merged.")"
           echo "Created PR: $pr_url"
-          gh pr close "$pr_url" --comment "Permission test completed; intentionally not merged."
-          git push origin --delete "$test_branch"
-          trap - EXIT
-          echo "PASS: GitHub Actions can create and close pull requests."
+      - name: Close disposable PR and delete test branch
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PROBE_OUTCOME: ${{ steps.probe.outcome }}
+        run: |
+          set -euo pipefail
+          test_branch="automation/pr-permission-smoke-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          # The query must succeed, or cleanup status is unknown.
+          gh pr list --head "$test_branch" --state open --json url --jq '.[].url' > /tmp/archelaos-probe-prs.txt
+          while IFS= read -r pr_url; do
+            if [ -n "$pr_url" ]; then
+              gh pr close "$pr_url" --comment "Permission probe cleanup; intentionally not merged."
+            fi
+          done < /tmp/archelaos-probe-prs.txt
+          remote_status=0
+          git ls-remote --exit-code --heads origin "$test_branch" >/dev/null || remote_status=$?
+          if [ "$remote_status" -eq 0 ]; then
+            git push origin --delete "$test_branch"
+          elif [ "$remote_status" -ne 2 ]; then
+            echo "Cannot verify remote branch (git ls-remote exit $remote_status)." >&2
+            exit "$remote_status"
+          fi
+          if [ "$PROBE_OUTCOME" = "success" ]; then
+            echo "PASS: GitHub Actions can create and close pull requests."
+          fi
