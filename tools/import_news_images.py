@@ -69,6 +69,27 @@ def candidates(page_url, html, vetted=None):
         if any(t in alt.lower() for t in ("αρχέλα","τοξοβ","πάλ","εθνικ","handball","wrestling","archery")): bonus+=8
         ranked.append((base+bonus,full))
     return [u for _,u in sorted(ranked,reverse=True)[:24]]
+def needs_archive(item, root=ROOT):
+    """Archive new/remote/missing/broken images only where reuse is explicitly allowed."""
+    if item.get("imageReuseAllowed") is not True:
+        return False
+    photo=item.get("image") or ""
+    if not photo.startswith("images/news/"):
+        return True
+    if not re.fullmatch(r"images/news/[A-Za-z0-9._-]+\\.(?:jpe?g|png|webp)",photo):
+        return True
+    path=root/photo
+    if not path.is_file():
+        return True
+    try:
+        with Image.open(path) as im:
+            im.verify()
+            if im.width < 400 or im.height < 250:
+                return True
+    except (OSError,ValueError):
+        return True
+    return False
+
 def main():
     data=json.loads(INDEX.read_text("utf-8"))
     DEST.mkdir(parents=True,exist_ok=True)
@@ -80,12 +101,12 @@ def main():
         # Merely finding a public image URL does not grant republication rights.
         if item.get("imageReuseAllowed") is not True:
             continue
-        # Never overwrite vetted archive photos or the supplied Meteora photo.
-        if item.get("image","").startswith("images/news/"): continue
+        # Preserve valid local photos; safely repair missing/corrupted archive photos.
+        if not needs_archive(item): continue
         if item.get("id")=="wrestling-meteora-international-2026": continue
         # If the source has no confirmed picture, never reuse the department
         # slideshow or import a newspaper's generic social preview.
-        # Empty articles are eligible for rechecking; this previously skipped all three.
+        # Empty and damaged photos are eligible only with explicit reuse permission.
         try:
             html=fetch(url,3500000).decode("utf-8","replace")
             source_images=candidates(url,html,item.get("imageSourceUrl"))
