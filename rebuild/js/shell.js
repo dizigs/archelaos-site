@@ -269,7 +269,10 @@ function initOptionalAnalytics(){
   write(value);
   panel.hidden=true;
   if(value==='accepted')loadClarity();
-  else if(typeof window.clarity==='function')window.clarity('consentv2',{ad_Storage:'denied',analytics_Storage:'denied'});
+  else if(window.__archelaosClarityLoaded){
+   window.clarity('consentv2',{ad_Storage:'denied',analytics_Storage:'denied'});
+   window.location.reload(); // Remove the tracker from the current page after withdrawal.
+  }
  };
  accept.addEventListener('click',()=>select('accepted'));
  reject.addEventListener('click',()=>select('rejected'));
