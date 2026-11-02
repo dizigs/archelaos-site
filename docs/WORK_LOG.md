@@ -1,3 +1,9 @@
+### PR #52 — SonarCloud detected unsafe JSON path / 2026-11-02
+
+- **DETECTED (failed security check):** SonarCloud PR #52 `Quality Gate failed`, `C Security Rating on New Code`. One High security finding at `rebuild/tools/intake_contributions.py:42`: potential `read_json(path)` path traversal from a malformed CLI path. Finding: https://sonarcloud.io/project/issues?pullRequest=52&open=AaGduh3YPkI5f9IHs3rc&id=dizigs_archelaos-site . Other CI (private intake, syntax, release, actionlint) had passed; **PR was not merged**.
+- **FIX PREPARED:** `read_json` now takes mandatory `within` trusted root, resolves the file (including symlink targets), enforces membership, `.json` suffix and regular-file existence before reading. CLI envelope is restricted to `.archive-intake/incoming`; receipts, private research/matches and public catalogs use their exact respective whitelisted base directories. Internal callers updated, not merely suppressing Sonar.
+- **REGRESSION TEST PREPARED:** Reject reading a JSON outside the allowed directory, including a symlink pointed outside; preserve correct reading of internal JSON. Re-run SonarCloud Quality Gate, private intake CI and full release QA before merge. Do not mark corrected until actual check success.
+
 ## Ασφαλές ιδιωτικό intake / προέλευση συνεισφορών — 2026-11-02
 
 - **STARTED:** Ανασκόπηση του ανοικτού Draft [PR #37](https://github.com/dizigs/archelaos-site/pull/37). Περιέχει πολλαπλές ξεπερασμένες αλλαγές σε κεντρικό build/UI που θα συγκρούονταν με τα πρόσφατα PR #48–#51. Δεν το συγχωνεύουμε αυτούσιο.

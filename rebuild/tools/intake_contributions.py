@@ -38,10 +38,18 @@ def digest(value: bytes) -> str:
     return hashlib.sha256(value).hexdigest()
 
 
-def read_json(path: Path):
-    data = json.loads(path.read_text(encoding="utf-8"))
+def read_json(path: Path, *, within: Path):
+    """Read JSON only from an explicitly trusted subtree; reject symlinks/traversal."""
+    if not isinstance(path, Path) or not isinstance(within, Path):
+        raise ValueError("Expected paths")
+    root = within.resolve()
+    target = path.resolve()
+    if (not target.is_relative_to(root) or target.suffix.casefold() != ".json"
+            or not target.is_file()):
+        raise ValueError("JSON path outside the explicitly allowed directory")
+    data = json.loads(target.read_text(encoding="utf-8"))
     if not isinstance(data, dict):
-        raise ValueError("The envelope must be a JSON object")
+        raise ValueError("JSON document must be an object")
     return data
 
 
@@ -144,7 +152,7 @@ def intake_lock(workspace: Path):
 
 def _receipts(workspace: Path):
     for path in (workspace / "receipts").glob("*.json"):
-        item = read_json(path)
+        item = read_json(path, within=workspace / "receipts")
         if item.get("privacy") == "internal_only":
             yield item
 
@@ -227,7 +235,7 @@ def main():
     args = parser.parse_args()
     if not args.envelope.resolve().is_relative_to(PRIVATE_DIR.resolve()):
         parser.error("Envelope must live inside private .archive-intake/")
-    result = ingest(read_json(args.envelope), PRIVATE_DIR)
+    result = ingest(read_json(args.envelope, within=PRIVATE_DIR / "incoming"), PRIVATE_DIR)
     print(json.dumps(result, ensure_ascii=False))
 
 
