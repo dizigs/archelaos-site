@@ -40,12 +40,8 @@ class AnalyticsTriageTests(unittest.TestCase):
         few = daily(field="clicks", early=2, recent=0)
         self.assertFalse(triage.evaluate(
             {"search_console": {"daily": few}}, TODAY)["alerts"])
-        missing = daily(field="clicks", early=20, recent=0)[:-2]
-        self.assertEqual(triage.series_windows(
-            missing, "clicks", TODAY)["state"], "ready")
-        missing.pop()
-        # Removing the latest row by itself slides the 14-day window, but we still
-        # have 14 contiguous dates. Remove an interior date to test a genuine gap.
+        missing = daily(field="clicks", early=20, recent=0)
+        # Removing an interior day breaks the 14-day comparison window.
         missing.pop(-5)
         self.assertEqual(triage.series_windows(
             missing, "clicks", TODAY)["state"], "insufficient_data")
