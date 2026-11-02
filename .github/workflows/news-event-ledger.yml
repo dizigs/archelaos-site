@@ -1,0 +1,32 @@
+name: Internal news event ledger
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '37 6 * * *'
+  push:
+    branches: [main]
+    paths: ['news.json', 'hall-of-fame-people.json', 'rebuild/tools/build_news_event_candidates.py', 'rebuild/tests/news_event_ledger.py', '.github/workflows/news-event-ledger.yml']
+  pull_request:
+    branches: [main]
+    paths: ['news.json', 'hall-of-fame-people.json', 'rebuild/tools/build_news_event_candidates.py', 'rebuild/tests/news_event_ledger.py', '.github/workflows/news-event-ledger.yml']
+permissions:
+  contents: read
+jobs:
+  validate-event-candidates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test grouping and integrity
+        run: python -m unittest discover -s rebuild/tests -p news_event_ledger.py
+      - name: Build internal event candidates
+        run: python rebuild/tools/build_news_event_candidates.py
+      - name: Preserve internal review report
+        uses: actions/upload-artifact@v4
+        with:
+          name: internal-news-event-candidates
+          path: rebuild/test-artifacts/news-event-candidates.json
+          retention-days: 14
