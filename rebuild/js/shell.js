@@ -284,7 +284,7 @@ function initOptionalAnalytics(){
  const more=document.createElement('a');more.href='/privacy.html';more.textContent='Πολιτική απορρήτου';more.style.cssText='padding:9px 2px;color:#15452f;text-underline-offset:3px';
  controls.append(reject,accept,more);panel.append(title,description,controls);
  const settings=document.createElement('button');settings.type='button';settings.textContent='Ρυθμίσεις στατιστικών';settings.setAttribute('aria-label','Αλλαγή επιλογής στατιστικών');
- settings.style.cssText='position:fixed;z-index:2147482999;bottom:12px;left:12px;padding:7px 12px;border:1px solid #b69a58;border-radius:9px;background:#f3ead6;color:#173d2c;font:12px system-ui;cursor:pointer';
+ settings.style.cssText='display:inline;background:none;border:0;color:inherit;font:inherit;text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:2px 4px;';
  const select=value=>{
   write(value);
   panel.hidden=true;
@@ -297,7 +297,9 @@ function initOptionalAnalytics(){
  accept.addEventListener('click',()=>select('accepted'));
  reject.addEventListener('click',()=>select('rejected'));
  settings.addEventListener('click',()=>{panel.hidden=false;reject.focus()});
- document.body.append(settings,panel);
+ const footerLegal=document.querySelector('.arch-footer-legal');
+ if(footerLegal){const sep=document.createElement('span');sep.textContent=' · ';sep.setAttribute('aria-hidden','true');footerLegal.append(sep,settings);}
+ document.body.append(panel);
  const current=read();panel.hidden=current==='accepted'||current==='rejected';
  if(current==='accepted'){loadGoogleAnalytics();loadClarity();}
 }
