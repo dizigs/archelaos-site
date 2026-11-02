@@ -8,6 +8,15 @@ on:
     paths:
       - 'news.json'
       - 'hall-of-fame-people.json'
+      - '.github/scripts/hof_name_audit.py'
+      - '.github/workflows/hof-name-audit.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'news.json'
+      - 'hall-of-fame-people.json'
+      - '.github/scripts/hof_name_audit.py'
+      - '.github/workflows/hof-name-audit.yml'
 permissions:
   contents: read
 jobs:
