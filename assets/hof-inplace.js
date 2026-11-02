@@ -56,6 +56,13 @@ async function open(id){
    title.style.cssText='width:100%;color:#80662f;font-size:12px;letter-spacing:.08em';
    box.append(title);
    for(const item of matches){
+    // Facts are sourced per canonical person ID; never infer a result from a mere name mention.
+    const fact=item.personFacts?.[p.id];
+    if(typeof fact==='string'&&fact.trim()&&/^https:\/\//.test(item.sourceUrl||'')){
+     const note=el('p','arch-bio-sourced-fact',fact);
+     note.style.cssText='flex:0 0 100%;font-size:13px;line-height:1.6;margin:8px 0 0;color:#344c3d';
+     box.append(note);
+    }
     const a=el('a','arch-bio-news-link',item.title||'Δείτε την είδηση');
     a.href='/news.html?article='+encodeURIComponent(item.id);
     a.title='Άνοιγμα είδησης — '+(item.date||'');
