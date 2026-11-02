@@ -156,6 +156,22 @@
 
 **Επόμενα ξεχωριστά θέματα:** Ολοκλήρωση του μηχανισμού εγγραφής νέων τεκμηριωμένων γεγονότων/βιογραφικών, τα ανοικτά περιστατικά GitHub/Cloudflare [#43](https://github.com/dizigs/archelaos-site/issues/43), [#44](https://github.com/dizigs/archelaos-site/issues/44), και το αποτυχημένο SonarCloud main Quality Gate [#47](https://github.com/dizigs/archelaos-site/issues/47). Καμία από αυτές τις εκκρεμότητες δεν δηλώνεται επιλυμένη από το PR #48.
 
+## SonarCloud main Quality Gate — έξι συγκεκριμένα ζητήματα / 2026-11-02
+
+**STARTED:** Το SonarCloud στο main είχε `Quality Gate failed — C Security Rating on New Code (required A)`. Δεν θεωρούμε το πράσινο PR Sonar check απόδειξη ότι επιλύθηκαν οι παλαιότερες επισημάνσεις στο main. Η ζωντανή λίστα `OPEN,CONFIRMED` / new code εμφάνισε 6 ευρήματα σε 3 GitHub Actions workflows. Καταχωρίστηκαν μαζί με Sonar finding IDs στο [Issue #47](https://github.com/dizigs/archelaos-site/issues/47).
+
+| Ευρεθέν πρόβλημα | Διόρθωση στο branch | Απόδειξη / κατάσταση |
+|---|---|---|
+| `google-analytics-aggregate.yml:19`: floating `google-github-actions/auth@v2`, High | Πλήρες commit SHA από το επίσημο GitHub tag ref: `c200f3691d83b41bf9bbd8638997a462592937ed` | `9991224` / IN_PR |
+| `google-analytics-aggregate.yml:27`: pip μπορεί να εκτελέσει source setup scripts | `python -m pip install --only-binary=:all:` με ήδη pinned packages | `9991224` / IN_PR |
+| `eslint-guard.yml:22`: `npx` εγκαθιστά/εκτελεί on-demand scripts | `npm install --no-save --no-package-lock --ignore-scripts eslint@9.39.1` και τοπικό `./node_modules/.bin/eslint` | `d3a9ce6` / IN_PR |
+| `live-site-guard.yml:23`: npm εγκατάσταση με lifecycle scripts | Προσθήκη `--ignore-scripts` και `--no-package-lock`, διατήρηση pinned `playwright@1.56.1` | `4ee5223` / IN_PR |
+| `live-site-guard.yml:24`: δυνατότητα `npx` για on-demand εγκατάσταση | Άμεση εκτέλεση ήδη εγκατεστημένου `./node_modules/.bin/playwright` | `4ee5223` / IN_PR |
+| `live-site-guard.yml:24`: μη δηλωμένη exact version στο `npx` | Ενιαία, ρητή τοπική `playwright@1.56.1` | `4ee5223` / IN_PR |
+| Κίνδυνος παλινδρόμησης σε επόμενη αλλαγή workflow | Νέα offline tests: `rebuild/tests/security_workflows_test.py`, ενσωμάτωση στο `Release integrity` CI | `e761ee4` / `678addc` / CI PENDING |
+
+**Έλεγχοι που απαιτούνται πριν το merge:** πραγματικά νέα tests, GitHub JavaScript syntax + ESLint, SonarCloud PR Quality Gate, Release integrity, Lighthouse και Cloudflare preview. Μετά το merge απαιτείται **νέο SonarCloud check στο `main`** και πραγματικό Cloudflare production log πριν δηλωθεί διορθωμένο ή δημοσιευμένο. Δε γίνονται suppressions, acceptances ή χαλάρωση του quality gate.
+
 ## Σημείο συνέχισης
 
 1. Διαβάζουμε αυτό το log **και** την τρέχουσα κατάσταση PR #42 / workflow runs.
