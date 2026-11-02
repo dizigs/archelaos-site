@@ -172,6 +172,14 @@
 
 **Έλεγχοι που απαιτούνται πριν το merge:** πραγματικά νέα tests, GitHub JavaScript syntax + ESLint, SonarCloud PR Quality Gate, Release integrity, Lighthouse και Cloudflare preview. Μετά το merge απαιτείται **νέο SonarCloud check στο `main`** και πραγματικό Cloudflare production log πριν δηλωθεί διορθωμένο ή δημοσιευμένο. Δε γίνονται suppressions, acceptances ή χαλάρωση του quality gate.
 
+## Workflow safety follow-up #8 / #44 / actionlint — 2026-11-02
+
+- **STARTED:** Reviewed open PR #8 vs current `main` and issue #44. PR #8 is stale: would delete the active scheduled photo-import trigger, downgrade previously pinned Pillow and remove its photo-recovery regression tests. **Do not merge PR #8 verbatim.**
+- **FIX PREPARED:** Branch `ci/guard-archive-workflows-and-actionlint-20261102`, commit `93c84dc1`, adds only `jobs.archive.if: github.ref == 'refs/heads/main'` to current `.github/workflows/archive-news-images.yml`. Retains the `schedule`, `workflow_dispatch`, main-only `push`, exact Pillow version and all current tests. This makes even manual runs on non-main branches skip the write-enabled job.
+- **PREVENTIVE CHECK PREPARED:** Commit `0c0881bb`, new `.github/workflows/actionlint-guard.yml`: a read-only, SHA-pinned checkout/setup-go job runs versioned `actionlint@v1.7.11` on workflow PRs and main pushes. **No extra periodic schedule** and no token write permissions.
+- **KNOWN INCIDENT #44:** Original pre-job failures on feature branches cannot be retroactively assigned a root cause without workflow validation annotations. This change prevents one hazardous trigger, and actionlint catches workflow syntax problems going forward. It is **not yet evidence that issue #44 has been definitively reproduced/resolved**.
+- **NEXT:** Run actual CI, inspect failed actionlint lines and repair any reported syntax faults, confirm branch protection, merge only passing PR, verify Cloudflare production logs, and close or mark PR #8 superseded with reason. Log all incidents and fix SHA.
+
 ## Σημείο συνέχισης
 
 1. Διαβάζουμε αυτό το log **και** την τρέχουσα κατάσταση PR #42 / workflow runs.
