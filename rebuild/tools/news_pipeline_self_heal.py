@@ -5,6 +5,7 @@ from datetime import date
 from hashlib import sha256
 import json
 from pathlib import Path
+from urllib.parse import urlsplit
 ROOT=Path(__file__).resolve().parents[2]
 ARCHIVE_KINDS={"interview","statement","press_clipping"}
 
@@ -14,12 +15,19 @@ def check(items,people,root=ROOT):
         key=sha256((code+"|"+aid).encode()).hexdigest()[:16]
         out.append(dict(code=code,article_id=aid,level=level,fingerprint=key,detail=detail))
     for item in items:
-        aid=str(item.get("id") or "(empty)")
+        raw_id=item.get("id")
+        aid=raw_id if isinstance(raw_id,str) and raw_id.strip() else "(empty)"
+        if aid=="(empty)": finding("MISSING_NEWS_ID",aid,"error","Missing non-empty news ID")
         if aid in seen: finding("DUPLICATE_NEWS_ID",aid,"error","Repeated article ID")
         seen.add(aid)
-        url=item.get("sourceUrl") or ""
+        raw_url=item.get("sourceUrl")
+        url=raw_url if isinstance(raw_url,str) else ""
+        if raw_url is not None and not isinstance(raw_url,str):
+            finding("BAD_SOURCE",aid,"error","Source URL must be a string")
         if url:
-            if not url.startswith("https://"): finding("BAD_SOURCE",aid,"error","Source is not HTTPS")
+            parsed=urlsplit(url)
+            if parsed.scheme!="https" or not parsed.hostname or parsed.username or parsed.password:
+                finding("BAD_SOURCE",aid,"error","Source requires valid HTTPS hostname")
             key=url.split("#")[0].rstrip("/")
             if key in urls: finding("DUPLICATE_SOURCE",aid,"error","Same source as "+urls[key])
             urls[key]=aid
@@ -53,10 +61,15 @@ def check(items,people,root=ROOT):
         events[eid]=item.get("sport")
         eventdate=item.get("eventDate")
         if eventdate:
-            try: date.fromisoformat(eventdate)
+            try:
+                if not isinstance(eventdate,str) or date.fromisoformat(eventdate).isoformat()!=eventdate:
+                    raise ValueError("Date must be YYYY-MM-DD")
             except (ValueError,TypeError): finding("BAD_EVENT_DATE",aid,"error","Invalid YYYY-MM-DD date")
             if not url: finding("EVENT_WITHOUT_SOURCE",aid,"error","Dated event lacks source")
-        photo=item.get("image") or ""
+        raw_photo=item.get("image")
+        photo=raw_photo if isinstance(raw_photo,str) else ""
+        if raw_photo is not None and not isinstance(raw_photo,str):
+            finding("BAD_PHOTO",aid,"error","Photo path must be a string")
         if photo.startswith("images/news/"):
             path=root/photo
             if ".." in Path(photo).parts or not path.is_file():
