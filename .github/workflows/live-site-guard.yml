@@ -1,0 +1,52 @@
+name: Live site guard
+on:
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+  issues: write
+jobs:
+  check:
+    if: github.repository == 'dizigs/archelaos-site'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser test tools
+        run: |
+          npm install --no-save playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Validate live website
+        id: health
+        continue-on-error: true
+        run: node .github/scripts/live_site_guard.cjs
+      - name: Create or update one incident issue
+        if: steps.health.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          existing=$(gh issue list --state open --search "Live site guard alert in:title" --json number --jq '.[0].number // empty')
+          if [ -z "$existing" ]; then
+            gh issue create --title "Live site guard alert" --body "Automated checks detected a problem on archelaos.club. Review workflow logs: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }} . No automatic production changes were made."
+          else
+            gh issue comment "$existing" --body "Checks are still failing: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          fi
+      - name: Close incident once recovered
+        if: steps.health.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          existing=$(gh issue list --state open --search "Live site guard alert in:title" --json number --jq '.[0].number // empty')
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body "Automated live-site checks have recovered: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            gh issue close "$existing"
+          fi
+      - name: Fail the check when site is unhealthy
+        if: steps.health.outcome == 'failure'
+        run: exit 1
