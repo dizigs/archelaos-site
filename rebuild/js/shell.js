@@ -236,6 +236,49 @@ function renderSiteTools(){
  updateBackTop();
 }
 
-function ready(){renderHeader();renderFooter();renderSiteTools();routePreviewLinks();updateFavoriteCounts()}
+
+/* Optional Microsoft Clarity: never load before explicit analytics consent. */
+function initOptionalAnalytics(){
+ const key='archelaos-analytics-consent-v1';
+ const read=()=>{try{return localStorage.getItem(key)}catch(_){return null}};
+ const write=value=>{try{localStorage.setItem(key,value)}catch(_){}};
+ function loadClarity(){
+  if(window.__archelaosClarityLoaded)return;
+  window.__archelaosClarityLoaded=true;
+  window.clarity=window.clarity||function(){(window.clarity.q=window.clarity.q||[]).push(arguments)};
+  window.clarity('consentv2',{ad_Storage:'denied',analytics_Storage:'granted'});
+  const script=document.createElement('script');script.async=true;
+  script.src='https://www.clarity.ms/tag/z79wwgm3p8';
+  document.head.append(script);
+ }
+ const panel=document.createElement('aside');
+ panel.id='arch-analytics-consent';
+ panel.setAttribute('aria-label','Επιλογές στατιστικών περιήγησης');
+ panel.style.cssText='position:fixed;z-index:2147483000;bottom:16px;left:16px;right:16px;max-width:520px;margin:auto;background:#f7f1df;color:#173d2c;border:1px solid #a98b50;border-radius:14px;padding:18px;box-shadow:0 8px 32px #0003;font:15px/1.5 system-ui,sans-serif';
+ const title=document.createElement('strong');title.textContent='Στατιστικά περιήγησης';
+ const description=document.createElement('p');description.textContent='Με την επιλογή σας μπορούμε να βελτιώνουμε την εμπειρία χρήσης μέσω Microsoft Clarity. Η αποδοχή είναι προαιρετική και δεν επηρεάζει την περιήγηση.';
+ description.style.margin='8px 0 12px';
+ const controls=document.createElement('div');controls.style.cssText='display:flex;gap:10px;flex-wrap:wrap';
+ const accept=document.createElement('button');accept.type='button';accept.textContent='Αποδοχή';accept.style.cssText='padding:9px 15px;border-radius:8px;border:1px solid #15452f;background:#15452f;color:white;cursor:pointer';
+ const reject=document.createElement('button');reject.type='button';reject.textContent='Απόρριψη';reject.style.cssText='padding:9px 15px;border-radius:8px;border:1px solid #15452f;background:transparent;color:#15452f;cursor:pointer';
+ const more=document.createElement('a');more.href='/privacy.html';more.textContent='Πολιτική απορρήτου';more.style.cssText='padding:9px 2px;color:#15452f';
+ controls.append(reject,accept,more);panel.append(title,description,controls);
+ const settings=document.createElement('button');settings.type='button';settings.textContent='Ρυθμίσεις στατιστικών';settings.setAttribute('aria-label','Αλλαγή επιλογής στατιστικών');
+ settings.style.cssText='position:fixed;z-index:2147482999;bottom:14px;left:14px;padding:6px 10px;border:1px solid #a98b50;border-radius:8px;background:#f7f1df;color:#173d2c;font:12px system-ui;cursor:pointer';
+ const select=value=>{
+  write(value);
+  panel.hidden=true;
+  if(value==='accepted')loadClarity();
+  else if(typeof window.clarity==='function')window.clarity('consentv2',{ad_Storage:'denied',analytics_Storage:'denied'});
+ };
+ accept.addEventListener('click',()=>select('accepted'));
+ reject.addEventListener('click',()=>select('rejected'));
+ settings.addEventListener('click',()=>{panel.hidden=false;reject.focus()});
+ document.body.append(settings,panel);
+ const current=read();panel.hidden=current==='accepted'||current==='rejected';
+ if(current==='accepted')loadClarity();
+}
+
+function ready(){renderHeader();renderFooter();renderSiteTools();routePreviewLinks();updateFavoriteCounts();initOptionalAnalytics()}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',ready,{once:true});else ready();
 })();
