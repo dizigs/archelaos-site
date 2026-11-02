@@ -401,7 +401,26 @@ def make_release() -> None:
         )
     viewport_css.write_text(viewport_text, encoding="utf-8")
 
+    # Keep public Hall SEO counts in sync with the reviewed master on every build.
+    # Historic standalone biography pages (682) are a separate archive.
+    people_source = json.loads((ROOT / "hall-of-fame-people.json").read_text(encoding="utf-8"))
+    hall_total = len(people_source["people"])
+    if people_source.get("count") != hall_total:
+        raise RuntimeError("Hall of Fame master data count mismatch")
     pages = METADATA["pages"]
+    hall_page = next((entry for entry in pages if entry["file"] == "hall-of-fame.html"), None)
+    if hall_page is None:
+        raise RuntimeError("Hall of Fame SEO metadata missing")
+    for key, marker in (("title", " Πρόσωπα του Αρχέλαου"), ("description", " πρόσωπα του Γ.Α.Σ.")):
+        new_value, replacements = re.subn(
+            r"\\b[0-9]+(?=" + re.escape(marker) + r")",
+            str(hall_total),
+            hall_page[key],
+            count=1,
+        )
+        if replacements != 1:
+            raise RuntimeError("Hall of Fame SEO total not found: " + key)
+        hall_page[key] = new_value
     for entry in pages:
         create_page(entry)
     profile_files = sorted((OUTPUT / "people").glob("*.html"))
