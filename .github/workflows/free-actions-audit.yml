@@ -26,7 +26,7 @@ jobs:
       - name: Install actionlint
         run: go install github.com/rhysd/actionlint/cmd/actionlint@v1.7.11
       - name: Validate all GitHub workflows
-        run: "$(go env GOPATH)/bin/actionlint" -color
+        run: '$(go env GOPATH)/bin/actionlint -color'
   zizmor:
     runs-on: ubuntu-latest
     timeout-minutes: 12
