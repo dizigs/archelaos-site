@@ -424,7 +424,7 @@ def make_release() -> None:
     homepage = OUTPUT / "index.html"
     home_html = homepage.read_text(encoding="utf-8")
     home_html, count_matches = re.subn(
-        r'(<span id="new-people-total">)\\d+(</span>)',
+        r'(<span id="new-people-total">)\d+(</span>)',
         lambda match: match.group(1) + str(len(master_people["people"])) + match.group(2),
         home_html,
     )
