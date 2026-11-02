@@ -4,8 +4,8 @@ const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const norm=x=>String(x??'').toLocaleLowerCase('el').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/ς/g,'σ');
 const en=()=>document.documentElement.lang==='en'||document.body.classList.contains('lang-en');
 const tr=(el,english)=>en()?english:el;
-const kinds={interview:['Συνέντευξη','Interview'],statement:['Δήλωση','Statement'],report:['Δημοσιογραφικό ρεπορτάζ','Press report']};
-const sports={handball:['Χάντμπολ','Handball'],gymnastics:['Ενόργανη','Gymnastics'],track:['Στίβος','Athletics'],volleyball:['Βόλεϊ','Volleyball'],basketball:['Μπάσκετ','Basketball'],shooting:['Σκοποβολή','Shooting'],administration:['Διοίκηση','Administration']};
+const kinds={interview:['Συνέντευξη','Interview'],statement:['Δήλωση','Statement'],report:['Δημοσιογραφικό ρεπορτάζ','Press report'],clipping:['Απόκομμα Τύπου','Press clipping']};
+const sports={handball:['Χάντμπολ','Handball'],gymnastics:['Ενόργανη','Gymnastics'],track:['Στίβος','Athletics'],volleyball:['Βόλεϊ','Volleyball'],basketball:['Μπάσκετ','Basketball'],archery:['Τοξοβολία','Archery'],wrestling:['Πάλη','Wrestling'],shooting:['Σκοποβολή','Shooting'],administration:['Διοίκηση','Administration']};
 let lastFocus=null;
 const hay=x=>norm([x.name,x.event,x.context,x.source,x.quote,(x.qa||[]).map(v=>v.question+' '+v.answer).join(' ')].join(' '));
 
@@ -13,23 +13,32 @@ const hay=x=>norm([x.name,x.event,x.context,x.source,x.quote,(x.qa||[]).map(v=>v
    It is not copied into interviews.json and never upgraded by keyword guesses. */
 function fromNews(item){
  const kinds=Array.isArray(item.archiveKinds)?item.archiveKinds:[];
- const kind=kinds.includes('interview')?'interview':kinds.includes('statement')?'statement':null;
- if(!kind||item.unverified||!item.id||!item.intervieweeName||
-    !/^https:\/\//.test(item.sourceUrl||''))return null;
- return {id:'news-'+item.id,kind,name:item.intervieweeName,
-   event:item.title,context:item.summary||'',year:String(item.eventDate||item.date||'').slice(0,4),
-   period:item.date,source:item.source||'Δημοσιευμένη είδηση',sourceUrl:item.sourceUrl,
+ if(item.unverified||!item.id||!item.title||!/^https:\/\//.test(item.sourceUrl||''))return [];
+ const base={event:item.title,context:item.summary||'',
+   year:String(item.eventDate||item.date||'').slice(0,4),period:item.date,
+   source:item.source||'Δημοσιευμένη είδηση',sourceUrl:item.sourceUrl,
    sport:item.interviewSport||item.sportSlug||'administration',
-   personIds:Array.isArray(item.personIds)?item.personIds:[],
-   newsArticleId:item.id};
+   personIds:Array.isArray(item.personIds)?item.personIds:[],newsArticleId:item.id};
+ const records=[];
+ const voice=kinds.includes('interview')?'interview':kinds.includes('statement')?'statement':null;
+ if(voice&&item.intervieweeName)
+   records.push({...base,id:'news-'+item.id,kind:voice,name:item.intervieweeName});
+ if(kinds.includes('press_clipping'))
+   records.push({...base,id:'press-news-'+item.id,kind:'clipping',name:item.source||'Απόκομμα Τύπου'});
+ return records;
 }
 
 function resultSet(){
- const q=norm(new URLSearchParams(location.search).get('q')||'');
- return S.items.filter(x=>(!S.person||(x.personIds||[]).includes(S.person))&&(!q||hay(x).includes(q)));
+ const params=new URLSearchParams(location.search);
+ const q=norm(params.get('q')||'');
+ const view=params.get('kind');
+ return S.items.filter(x=>(!S.person||(x.personIds||[]).includes(S.person))
+   &&(view!=='press'||x.kind==='clipping')
+   &&(view!=='interview'||x.kind!=='clipping')
+   &&(!q||hay(x).includes(q)));
 }
 function showCards(){
- const list=resultSet(),counter=$('count');counter.textContent=tr(list.length+' από '+S.items.length+' τεκμήρια',list.length+' of '+S.items.length+' records');
+ const list=resultSet(),counter=$('count');counter.textContent=tr(list.length+' τεκμήρια',''+list.length+' records');
  const params=new URLSearchParams(location.search);if(params.has('person')||params.has('q')){const all=document.createElement('a');all.href='interviews.html';all.textContent=tr('Προβολή όλων','View all');counter.append(all)}
  const frag=document.createDocumentFragment();
  list.forEach(x=>{
@@ -78,8 +87,8 @@ Promise.all([
  const legacyIds=new Set(d.items.map(x=>x.id));
  const knownArticles=new Set(d.items.map(x=>x.newsArticleId).filter(Boolean));
  const derived=(Array.isArray(news.items)?news.items:[])
-  .map(fromNews).filter(Boolean)
-  .filter(x=>!legacyIds.has(x.id)&&!knownArticles.has(x.newsArticleId));
+  .flatMap(fromNews)
+  .filter(x=>!legacyIds.has(x.id)&&(x.kind==='clipping'||!knownArticles.has(x.newsArticleId)));
  S.items=[...d.items,...derived];$('totalBadge').textContent=S.items.length+' '+tr('ΤΕΚΜΗΡΙΑ','RECORDS');
  const q=new URLSearchParams(location.search);S.person=q.get('person');S.record=q.get('record');
  showCards();

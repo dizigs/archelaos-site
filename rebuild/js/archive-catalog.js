@@ -14,6 +14,7 @@ const urlFor=(type,id,entity)=>{
   story:'/stories.html#story-'+value,
   exhibit:'/history.html#archive-'+value,
   interview:'/interviews.html?record='+value,
+  press:'/interviews.html?kind=press&record='+value,
   news:'/news.html?article='+value,
   department:'/tmimata.html#sport-'+value,
   fixture:'/index.html?fixture='+value+'#upcoming-matches',
@@ -28,6 +29,7 @@ const LABELS=Object.freeze({
  photo:'ΦΩΤΟΓΡΑΦΙΕΣ · ΑΘΛΗΜΑΤΑ',
  exhibit:'ΨΗΦΙΑΚΟ ΜΟΥΣΕΙΟ · ΕΚΘΕΜΑΤΑ',
  interview:'ΟΙ ΦΩΝΕΣ · ΣΥΝΕΝΤΕΥΞΕΙΣ & ΔΗΛΩΣΕΙΣ',
+ press:'ΑΡΧΕΙΟ ΤΥΠΟΥ · ΑΠΟΚΟΜΜΑΤΑ',
  news:'ΝΕΑ & ΔΡΑΣΗ',
  department:'ΑΘΛΗΤΙΚΑ ΤΜΗΜΑΤΑ',
  fixture:'ΗΜΕΡΟΛΟΓΙΟ · ΑΓΩΝΕΣ'
@@ -100,6 +102,21 @@ async function create(){
  }
  for(const v of interviews.items)add('interview',v.id,v.name.split(' (')[0],v.event,
    [v.context,v.quote,...(v.qa||[]).map(q=>q.question+' '+q.answer)].join(' '),v.year,v,v.source);
+ // One reviewed news article may appear in several archive facets, each linking
+ // back to the canonical news ID. Never infer classifications from keywords.
+ const linkedInterviews=new Set(interviews.items.map(v=>v.newsArticleId).filter(Boolean));
+ for(const item of (Array.isArray(news.items)?news.items:[])){
+  const kinds=Array.isArray(item.archiveKinds)?item.archiveKinds:[];
+  if(item.unverified||!item.id||!item.title||!item.date||
+     !/^https:\/\//.test(item.sourceUrl||''))continue;
+  if((kinds.includes('interview')||kinds.includes('statement'))&&
+     item.intervieweeName&&!linkedInterviews.has(item.id))
+   add('interview','news-'+item.id,item.intervieweeName,item.title,
+     item.summary,item.date.slice(0,4),item,item.source);
+  if(kinds.includes('press_clipping'))
+   add('press','press-news-'+item.id,item.title,item.source||'Απόκομμα Τύπου',
+     item.summary,item.date.slice(0,4),item);
+ }
  return Object.freeze({
   records:Object.freeze(records),
   get:(type,id)=>byType.get(String(type))?.get(String(id))||null,
