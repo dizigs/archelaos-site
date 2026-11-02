@@ -68,7 +68,7 @@
     },
     {
       "id": "VISIBLE_HTML_ESCAPED_WHITESPACE",
-      "status": "fix_in_pull_request",
+      "status": "fixed_in_production_with_regression_gate",
       "observed_affected_pages": 1,
       "observed_literal_text_nodes": 2,
       "first_observed": "2026-11-02",
@@ -80,13 +80,28 @@
     },
     {
       "id": "A11Y_STALE_HALL_COUNT",
-      "status": "fix_in_pull_request",
+      "status": "fixed_in_production_with_live_760_person_floor",
       "observed_confirmed_source_occurrences": 1,
       "first_observed": "2026-11-02",
       "last_observed": "2026-11-02",
       "signature": "Expected all 682 profiles before accessibility audit",
       "cause": "A11y test enforces historic 682-profile snapshot while current canonical Hall count is 760",
       "prevention": "Derive count and exact IDs from current hall-of-fame-people.json rather than hardcoded total."
+    },
+    {
+      "id": "CLOUDFLARE_ASSET_PUBLISH_INTERNAL",
+      "status": "transient_platform_error_unresolved_watch",
+      "observed_failed_deployments": 1,
+      "first_observed": "2026-11-02",
+      "last_observed": "2026-11-02",
+      "signature": "Failed: an internal error occurred; Failed to publish assets",
+      "cause": "Cloudflare Pages internal asset publication error after build phase (provider-origin error, not a verified source-code failure)",
+      "prevention": "Track unique deployment IDs, compare with subsequent builds of the same branch, inspect build logs before attempting any code change; do not retry indefinitely",
+      "observed_deployment_ids": [
+        "b4d74924-b136-4674-a748-8ebda5b43064"
+      ],
+      "example_deployment_id": "b4d74924-b136-4674-a748-8ebda5b43064",
+      "notes": "Later preview deployments on the same branch succeeded. Keep separate from missing Hall profiles and Python build failures."
     }
   ],
   "pending_actions": [
@@ -95,5 +110,18 @@
     "Track log signatures over time with unique deployment IDs and avoid duplicate counting.",
     "Keep Firecrawl functional browser checks and Cloudflare API deployments separate; HTTP 200 alone is not a runtime/browser pass.",
     "Ensure fresh evidence is appended to the ledger when an error recurs instead of overwriting old history."
-  ]
+  ],
+  "confirmed_production_release": {
+    "branch": "main",
+    "commit": "34606c381aae3c44d64911951390069bceaa7b78",
+    "cloudflare_deployment_id": "b59d8046-1fdc-42da-aa36-7693964288d9",
+    "status": "success",
+    "confirmed_on": "2026-11-02",
+    "public_site_news_literal_escapes": "not_detected",
+    "public_hall_people": 760,
+    "public_news_articles": 117,
+    "ci_release_integrity": "success",
+    "ci_rebuild_validation": "success",
+    "ci_lighthouse": "success"
+  }
 }
