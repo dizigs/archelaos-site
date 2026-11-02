@@ -15,7 +15,11 @@ import re
 
 ROOT = Path(__file__).resolve().parents[2]
 ALLOWLIST = ("news.html",)
-ESCAPED_BETWEEN_TAGS = re.compile(r"(?<=>)[ \t]*(?:\\n|\\r|\\t)+[ \t]*(?=<)")
+ESCAPED_BETWEEN_TAGS = re.compile(
+    r"(<(script|style)\\b[^>]*>.*?</\\2\\s*>)"
+    r"|(?<=>)[ \\t]*(?:\\\\n|\\\\r|\\\\t)+[ \\t]*(?=<)",
+    re.IGNORECASE | re.DOTALL,
+)
 
 
 def repair_news_head(raw: str) -> tuple[str, int]:
@@ -23,7 +27,16 @@ def repair_news_head(raw: str) -> tuple[str, int]:
         raise ValueError("Unexpected news head markup; refusing repair")
     opening, remainder = raw.split("<head>", 1)
     head, body = remainder.split("</head>", 1)
-    cleaned, count = ESCAPED_BETWEEN_TAGS.subn("\n", head)
+    count = 0
+
+    def replace(match: re.Match[str]) -> str:
+        nonlocal count
+        if match.group(1):
+            return match.group(0)
+        count += 1
+        return "\n"
+
+    cleaned = ESCAPED_BETWEEN_TAGS.sub(replace, head)
     return opening + "<head>" + cleaned + "</head>" + body, count
 
 
