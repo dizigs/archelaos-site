@@ -1,0 +1,56 @@
+name: Free visitor experience browser audit
+on:
+  pull_request:
+    paths:
+      - 'rebuild/**'
+      - 'assets/**'
+      - 'images/**'
+      - '.github/workflows/visitor-experience.yml'
+      - '.github/scripts/visitor_smoke.cjs'
+  push:
+    branches: [main]
+    paths:
+      - 'rebuild/**'
+      - 'assets/**'
+      - 'images/**'
+      - '.github/workflows/visitor-experience.yml'
+      - '.github/scripts/visitor_smoke.cjs'
+  schedule:
+    - cron: '19 5 * * 2'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Build validated public site locally
+        run: |
+          python rebuild/tools/build_release.py
+          python rebuild/tools/verify_release.py
+      - name: Install free Playwright browser
+        run: |
+          npm install --no-save --no-package-lock playwright
+          npx playwright install chromium --with-deps
+      - name: Check desktop and mobile browsing without touching production
+        run: |
+          python -m http.server 8765 --bind 127.0.0.1 --directory dist >/tmp/visitor-server.log 2>&1 &
+          node .github/scripts/visitor_smoke.cjs
+      - name: Keep UX report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: archelaos-visitor-smoke
+          path: browser-smoke-report.json
+          retention-days: 14
+          if-no-files-found: warn
