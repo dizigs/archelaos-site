@@ -20,8 +20,12 @@ PAGES = (
     "/favorites.html", "/contribute.html", "/interviews.html", "/news.html",
 )
 ROOT = Path(__file__).resolve().parents[2]
-CANONICAL_PEOPLE_COUNT = 682  # Last confirmed historic minimum; new records may await deploy
-CANONICAL_NEWS_COUNT = 1  # Liveness minimum; avoid false alarm while main deploys
+# Last independently confirmed production archive sizes (2026-11-02).
+# These are publication floors, NOT checkout-derived expectations: proposed new
+# records do not make the live monitor fail before the Pages deploy finishes.
+# Advance the floors only after checking a successful production deployment.
+CANONICAL_PEOPLE_COUNT = 760
+CANONICAL_NEWS_COUNT = 117
 DATA = {
     "/news.json": ("items", CANONICAL_NEWS_COUNT),
     "/hall-of-fame-people.json": ("people", CANONICAL_PEOPLE_COUNT),
