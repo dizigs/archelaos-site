@@ -31,6 +31,14 @@ class ContributionPipelineTests(unittest.TestCase):
         self.assertEqual(output["research_leads"][0]["verification_status"], "pending")
         self.assertIn("1994", output["research_leads"][0]["dates"])
 
+    def test_offline_research_query_never_copies_private_sentence(self):
+        sentence = "Αγώνας 1994 με ιδιωτικό τηλέφωνο 6999999999 και email witness@example.com."
+        lead = extract.analyze(sentence)["research_leads"][0]
+        self.assertIn("1994", lead["search_query"])
+        self.assertNotIn("6999999999", lead["search_query"])
+        self.assertNotIn("witness@example.com", lead["search_query"])
+        self.assertNotIn("ιδιωτικό", lead["search_query"].casefold())
+
     def test_external_query_does_not_include_private_excerpt(self):
         lead = {"excerpt": "Ο Αρχέλαος στο χάντμπολ το 1994. Ιδιωτικό τηλέφωνο 6999999999 και email test@example.com.",
                 "dates": ["1994"]}
