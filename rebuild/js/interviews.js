@@ -8,6 +8,22 @@ const kinds={interview:['Συνέντευξη','Interview'],statement:['Δήλω
 const sports={handball:['Χάντμπολ','Handball'],gymnastics:['Ενόργανη','Gymnastics'],track:['Στίβος','Athletics'],volleyball:['Βόλεϊ','Volleyball'],basketball:['Μπάσκετ','Basketball'],shooting:['Σκοποβολή','Shooting'],administration:['Διοίκηση','Administration']};
 let lastFocus=null;
 const hay=x=>norm([x.name,x.event,x.context,x.source,x.quote,(x.qa||[]).map(v=>v.question+' '+v.answer).join(' ')].join(' '));
+
+/* A classified news article is displayed here through its canonical article ID.
+   It is not copied into interviews.json and never upgraded by keyword guesses. */
+function fromNews(item){
+ const kinds=Array.isArray(item.archiveKinds)?item.archiveKinds:[];
+ const kind=kinds.includes('interview')?'interview':kinds.includes('statement')?'statement':null;
+ if(!kind||item.unverified||!item.id||!item.intervieweeName||
+    !/^https:\/\//.test(item.sourceUrl||''))return null;
+ return {id:'news-'+item.id,kind,name:item.intervieweeName,
+   event:item.title,context:item.summary||'',year:String(item.eventDate||item.date||'').slice(0,4),
+   period:item.date,source:item.source||'Δημοσιευμένη είδηση',sourceUrl:item.sourceUrl,
+   sport:item.interviewSport||item.sportSlug||'administration',
+   personIds:Array.isArray(item.personIds)?item.personIds:[],
+   newsArticleId:item.id};
+}
+
 function resultSet(){
  const q=norm(new URLSearchParams(location.search).get('q')||'');
  return S.items.filter(x=>(!S.person||(x.personIds||[]).includes(S.person))&&(!q||hay(x).includes(q)));
@@ -34,6 +50,7 @@ function open(id){
  else if(x.quote)inner+='<blockquote class="quote">'+esc(x.quote)+'</blockquote>';
  inner+='<section class="source"><h3>'+tr('Πηγή & τεκμηρίωση','Source & provenance')+'</h3><p>'+esc(x.source)+'</p></section>';
  if(x.sourceUrl&&/^https:\/\//.test(x.sourceUrl)){inner+='<p class="source"><a href="'+esc(x.sourceUrl)+'" target="_blank" rel="noopener noreferrer">'+tr('Αυθεντική δημοσίευση · Άνοιγμα στην αρχική πηγή ↗','Original publication · Open source ↗')+'</a></p>';}
+ if(x.newsArticleId){inner+='<p class="source"><a href="/news.html?article='+encodeURIComponent(x.newsArticleId)+'">'+tr('Διάβασε την είδηση στα Νέα','Read the original news entry')+'</a></p>';}
  if(x.needsReview)inner+='<div class="warning">'+tr('Ορισμένες συμπληρωματικές λεπτομέρειες του γεγονότος χρειάζονται διασταύρωση με το πρωτότυπο απόκομμα.','Some contextual details need verification against the original clipping.')+'</div>';
  if((x.relatedPeople&&x.relatedPeople.length)||(x.eventLinks&&x.eventLinks.length)){
   inner+='<section class="source"><h3>'+tr('Συνδεδεμένα τεκμήρια & πρόσωπα','Related archive records & people')+'</h3><div class="links">';
@@ -52,9 +69,18 @@ function open(id){
 $('close').addEventListener('click',()=>$('dialog').close());
 $('dialog').addEventListener('click',e=>{if(e.target===$('dialog'))$('dialog').close()});
 $('dialog').addEventListener('close',()=>{lastFocus?.focus?.({preventScroll:true});const url=new URL(location.href);url.searchParams.delete('record');history.replaceState(null,'',url)});
-fetch('/rebuild/data/interviews.json',{cache:'no-store'}).then(r=>r.ok?r.json():Promise.reject(Error('HTTP '+r.status))).then(d=>{
+Promise.all([
+ fetch('/rebuild/data/interviews.json',{cache:'no-store'}).then(r=>r.ok?r.json():Promise.reject(Error('HTTP '+r.status))),
+ fetch('/news.json',{cache:'no-store'}).then(r=>r.ok?r.json():Promise.reject(Error('News HTTP '+r.status)))
+  .catch(err=>{console.warn('News interview index unavailable',err);return {items:[]};})
+]).then(([d,news])=>{
  if(!Array.isArray(d.items))throw Error('Bad dataset');
- S.items=d.items;$('totalBadge').textContent=S.items.length+' '+tr('ΤΕΚΜΗΡΙΑ','RECORDS');
+ const legacyIds=new Set(d.items.map(x=>x.id));
+ const knownArticles=new Set(d.items.map(x=>x.newsArticleId).filter(Boolean));
+ const derived=(Array.isArray(news.items)?news.items:[])
+  .map(fromNews).filter(Boolean)
+  .filter(x=>!legacyIds.has(x.id)&&!knownArticles.has(x.newsArticleId));
+ S.items=[...d.items,...derived];$('totalBadge').textContent=S.items.length+' '+tr('ΤΕΚΜΗΡΙΑ','RECORDS');
  const q=new URLSearchParams(location.search);S.person=q.get('person');S.record=q.get('record');
  showCards();
  if(S.record&&S.items.some(x=>x.id===S.record))open(S.record);
