@@ -93,3 +93,32 @@ Local execution used Playwright **1.58.0** and installed system **Chromium 154.0
 | Whitespace check | **PASS** |
 
 Local execution again used Playwright 1.58.0/system Chromium 154 through the external helper, without committing browser paths or dependency changes. Reports remain gitignored under `rebuild/test-artifacts/`; expected failing screenshots were retained separately under `/tmp/archelaos-stability-baseline-images` so they cannot be mistaken for final failures. No PR or deployment was performed. Remote CI and production/other-browser confirmation remain pending the ChatGPT-created PR.
+
+
+## Site stability follow-up — 2026-11-03 — Delayed biographies and interview focus
+
+**Branch:** `codex/site-stability-audit`. **Corrective commit:** [`289c71b304bda37a7cfa3fab59d5fb6c04558b1c`](https://github.com/dizigs/archelaos-site/commit/289c71b304bda37a7cfa3fab59d5fb6c04558b1c) (`fix(ui): cancel stale biographies and preserve interview focus`). No historical data, CSS, private sources, main or Draft #37 changes.
+
+| Confirmed problem | Cause and actual reproduction | Scoped correction in 289c71b | Actual test result |
+| --- | --- | --- | --- |
+| A delayed biography appears after the visitor dismisses its parent interview | Hold the real public Hall catalog response, open interview q1 and select its biography, dismiss the interview, then release the response. The biography unexpectedly opens, locks the background and takes focus. The loader only checked whether another biography request superseded it. | Capture the originating control and its open parent before awaiting data. Discard the opening if the control was detached or the parent was dismissed; preserve the existing latest-request guard and shared data cache. The click handler passes its actual link explicitly, including on devices that do not focus links on click. | Before correction, `dismiss-pending-biography` fails at 320, 390, 768 and 1365 px. Final tests pass all four, using close buttons and Escape, with no delayed popup/scroll lock and a successful intentional second opening. |
+| A delayed biography from the previous interview appears over a different interview | While the same catalog response is held, close q1 and open q2 before releasing it. The shared parent dialog is open again, but the clicked q1 link belongs to replaced content. | The disconnected-origin check rejects the stale q1 opening even though the reused parent is open for q2. | Before correction, `replace-pending-biography` fails at all four widths. Final tests keep q2 open, preserve its scroll lock/focus and do not open the stale biography. |
+| Closing an interview loses focus instead of returning to its card | A browser probe confirmed focus fell to the body after closing. A separate regression opening/closing real interview cards fails at all four widths. The body-class observer called `sync()` for every class change, so native-dialog scroll locking rebuilt the card list and detached `lastFocus`. This was exposed after suppressing the delayed popup. | Filter body-class observations to changes in the existing `lang-en` flag, retaining language updates while avoiding card replacement on unrelated scroll-lock changes. | Four targeted pre-fix focus cases fail. Final `interview-focus-restoration` cases pass for q1 and q2 at all four widths; delayed-request tests also preserve card/current-dialog focus. |
+
+**Reproduction evidence:** three separate targeted reports each contain **4 cases / 4 expected failures**, recorded before the corresponding correction. They are local regression evidence, not a claim that an unmodified main ran the final 41-case suite. Reports are retained as `/tmp/archelaos-pending-biography-baseline.json`, `/tmp/archelaos-replaced-biography-baseline.json` and `/tmp/archelaos-interview-focus-baseline.json`. The controlled response gate uses the actual built public catalog; it simulates latency without arbitrary sleep or a production write.
+
+**Final verified results after both corrections:**
+
+| Check | Actual result |
+| --- | --- |
+| Strict Playwright stability suite | **41/41 pass; 72 page/viewports; 608 card surfaces; zero failures** |
+| Release build and independent verification | **PASS — 15 principal pages, 760 indexed profiles** |
+| Node syntax, all tracked JS/CJS/MJS sources | **PASS — 70 scripts** |
+| ESLint, existing config over rebuild | **PASS** |
+| Existing release smoke | **PASS — desktop/mobile and profile route** |
+| Existing responsive quality audit | **PASS — 84 page/viewports, 23 internal destinations, zero warnings/errors** |
+| Whitespace check | **PASS** |
+
+Execution used the same external Playwright/system Chromium helper documented above and a local dist server on 8796 through `SITE_STABILITY_BASE_URL`. No browser paths or dependency changes were committed. Final `rebuild/test-artifacts/site-stability/report.json` was independently checked for 41 passing cases; only successful biography screenshots remain in that directory. Failing screenshots are preserved separately under `/tmp/archelaos-pending-biography-baseline-images/`. Remote CI, other browser engines/physical devices and production deployment remain unverified.
+
+**Overnight handoff:** commit `8caebcf` first published the nine ordered ChatGPT work packets in the existing `docs/AUTOMATION_PLAN.md`, including deliverables, existing approvals, exact BLOCKED handling, required-check protection, privacy and ownership boundaries. The checkpoint is now READY for the next session. This is a prepared work queue; no separate ChatGPT session or scheduler was started. Delivery is a normal commit/push to the audit branch; PR creation stays with ChatGPT as requested.
