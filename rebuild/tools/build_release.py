@@ -324,6 +324,12 @@ def make_release() -> None:
         return (source[:match.start(2)] + html_escape(after, quote=False)
                 + source[match.end(2):])
 
+    # Public news is linked to the same canonical person IDs used by the Hall modal.
+    news_items = json.loads((ROOT / "news.json").read_text(encoding="utf-8"))["items"]
+    canonical_people = {p["id"]: p for p in current_master["people"]}
+    swimming_2026_id = "swimming-national-17-athletes-106-points-aug-2026"
+    swimming_2026 = next((item for item in news_items if item["id"] == swimming_2026_id), None)
+
     for profile in profiles:
         html_text = profile.read_text(encoding="utf-8")
         # The public apex redirects to www. Generated profile metadata must
@@ -370,6 +376,40 @@ def make_release() -> None:
                     html_text, count=1)
         for lang in ("el", "en"):
             html_text = include_addenda(html_text, verified_addenda.get(profile.stem, []), lang, profile.stem)
+        # Preserve richer archival biographies while including the latest sourced
+        # 2026 swimming result in the eight pre-existing public profile pages.
+        if (swimming_2026 and profile.stem in swimming_2026.get("personIds", [])
+                and profile.stem in revised_people):
+            person = canonical_people[profile.stem]
+            for lang, key in (("el", "bio"), ("en", "bio_en")):
+                fact = person.get(key, "").split("\n\n")[-1]
+                if "2026" not in fact:
+                    continue
+                section = (r'(<section\\b[^>]*data-profile-language="' + lang
+                           + r'"[^>]*>.*?<div class="bio">)(.*?)(</div>)')
+                def add_fact(match):
+                    if html_escape(fact, quote=False) in match.group(2):
+                        return match.group(0)
+                    return match.group(1) + match.group(2) + "\n\n" + html_escape(fact, quote=False) + match.group(3)
+                html_text, added = re.subn(section, add_fact, html_text, count=1, flags=re.S)
+                if added != 1:
+                    raise ValueError("Cannot add verified 2026 swimming result: " + profile.stem)
+        # Standalone biographies, like the Hall popup, link directly to the
+        # one canonical news article per event rather than to the news landing page.
+        linked = sorted(
+            (item for item in news_items
+             if profile.stem in item.get("personIds", []) and not item.get("unverified")),
+            key=lambda item: item.get("date", ""), reverse=True
+        )[:8]
+        if linked:
+            links = '<section class="profile-related-news"><h2>Σχετικές ειδήσεις</h2><ul>' + ''.join(
+                '<li><a href="/news.html?article=' + html_escape(item["id"], quote=True) + '">' +
+                html_escape(item["title"]) + '</a></li>' for item in linked
+            ) + '</ul></section>'
+            marker = '<div class="profile-actions">' if '<div class="profile-actions">' in html_text else '<a class="return"'
+            if marker not in html_text:
+                raise ValueError("No insertion point for profile news links: " + profile.stem)
+            html_text = html_text.replace(marker, links + marker, 1)
         for old in ("/assets/navigation.css", "/assets/footer.css", "/assets/accessibility.css"):
             html_text = html_text.replace(f'<link rel="stylesheet" href="{old}">', "")
         for old in ("/assets/navigation.js", "/assets/footer.js", "/assets/accessibility.js"):
