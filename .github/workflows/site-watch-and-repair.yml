@@ -52,7 +52,7 @@ jobs:
           retention-days: 14
 
       - name: Create or refresh ONE site incident issue
-        if: steps.live.outcome == 'failure' || steps.escapes.outcome == 'failure'
+        if: always() && (steps.live.outcome == 'failure' || steps.escapes.outcome == 'failure')
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
@@ -63,7 +63,7 @@ jobs:
         run: |
           set -euo pipefail
           title="Site QA: automated monitor alert"
-          number=$(gh issue list --repo "$REPO" --state open --limit 100 --json number,title \
+          number=$(gh issue list --repo "$REPO" --state open --limit 100 --search 'in:title "Site QA: automated monitor alert"' --json number,title \
             --jq '.[] | select(.title == "Site QA: automated monitor alert") | .number' | head -1)
           note="Automated public-site checks failed on run $RUN_LINK. Live health: $LIVE_FAILED. Escaped HTML: $ESCAPES_FAILED. See logs and 14-day report artifact. Do not auto-publish an unknown fix."
           if [ -n "$number" ]; then
