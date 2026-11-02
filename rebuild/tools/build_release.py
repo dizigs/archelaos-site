@@ -347,7 +347,7 @@ def make_release() -> None:
         # and social metadata after the visible Greek biography is cleaned.
         before = former_people.get(profile.stem, {}).get("bio", "")
         after = revised_people.get(profile.stem, {}).get("bio", "")
-        if before != after:
+        if profile.stem in revised_people and before != after:
             def adjust_person_schema(match):
                 try:
                     schema = json.loads(match.group(2))
