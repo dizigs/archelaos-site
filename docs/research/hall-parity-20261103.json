@@ -1,0 +1,890 @@
+{
+  "schema_version": 1,
+  "scope": "Read-only comparison of two public JSON source files on a frozen Git commit; not a historical truth/identity audit.",
+  "snapshot_commit": "74b6bcb3cc95a6160fb27f298d12f094a2679631",
+  "sources": [
+    {
+      "path": "hall-of-fame-people.json",
+      "git_blob_sha": "bcba90e6f5792085eefb3eef02b6d7bb675e6022",
+      "role": "canonical_public_master"
+    },
+    {
+      "path": "rebuild/data/people.json",
+      "git_blob_sha": "5ce58ef04a7f58fae76980888ad269a4722451c4",
+      "role": "older_rebuild_snapshot"
+    }
+  ],
+  "counts": {
+    "canonical": 760,
+    "older_snapshot": 682,
+    "canonical_only": 78,
+    "snapshot_only": 0,
+    "shared_profiles_with_differences": 60,
+    "differences_by_field": {
+      "bio": 57,
+      "refs": 25,
+      "bio_en": 32,
+      "role_en": 2,
+      "name": 1,
+      "name_en": 1,
+      "role": 1
+    }
+  },
+  "canonical_only": [
+    {
+      "id": "arch-dimitris-siokas-handball-2026",
+      "name": "Δημήτρης Σιώκας"
+    },
+    {
+      "id": "arch-vasiliki-koufogianni-shoot",
+      "name": "Βασιλική Κουφογιάννη"
+    },
+    {
+      "id": "arch-konstantinos-seitanidis-shoot",
+      "name": "Κωνσταντίνος Σεϊτανίδης"
+    },
+    {
+      "id": "arch-vanesa-charoula-hogkas-shoot",
+      "name": "Βανέσα-Χαρούλα Χόγκας"
+    },
+    {
+      "id": "arch-sofia-toptsa-shoot",
+      "name": "Σοφία Τόπτσα"
+    },
+    {
+      "id": "arch-vasileios-grigoropoulos-shoot",
+      "name": "Βασίλειος Γρηγορόπουλος"
+    },
+    {
+      "id": "arch-dimitrios-tsimponis-shoot",
+      "name": "Δημήτριος Τσιμπώνης"
+    },
+    {
+      "id": "arch-dimitrios-koufogiannis-shoot",
+      "name": "Δημήτριος Κουφογιάννης"
+    },
+    {
+      "id": "arch-konstantinos-sklias-wrest23",
+      "name": "Κωνσταντίνος Σκλιάς"
+    },
+    {
+      "id": "arch-vangelis-kordonoulis-wrest24",
+      "name": "Βαγγέλης Κορδονούλης"
+    },
+    {
+      "id": "arch-aristotelis-navrozidis-wrest24",
+      "name": "Αριστοτέλης Ναβροζίδης"
+    },
+    {
+      "id": "arch-pavlina-charitidou-arch",
+      "name": "Παυλίνα Χαριτίδου"
+    },
+    {
+      "id": "arch-theofania-karali-arch",
+      "name": "Θεοφανία Καραλή"
+    },
+    {
+      "id": "arch-kassiani-koktsidou-arch",
+      "name": "Κασσιανή Κοκτσίδου"
+    },
+    {
+      "id": "arch-aikaterini-giannakou-arch",
+      "name": "Αικατερίνη Γιαννακού"
+    },
+    {
+      "id": "arch-konstantinos-charisis-arch",
+      "name": "Κωνσταντίνος Χαρίσης"
+    },
+    {
+      "id": "arch-ektoras-diamantidis-arch",
+      "name": "Έκτορας Διαμαντίδης"
+    },
+    {
+      "id": "arch-loukas-zinisa-wrest25",
+      "name": "Λουκάς Ζινίσα"
+    },
+    {
+      "id": "arch-dimitrios-trigkas-wrest25",
+      "name": "Δημήτριος Τρίγκας"
+    },
+    {
+      "id": "arch-chara-mavridou-wrest25",
+      "name": "Χαρά Μαυρίδου"
+    },
+    {
+      "id": "arch-maria-mastorogianni-wrest25",
+      "name": "Μαρία Μαστορογιάννη"
+    },
+    {
+      "id": "arch-wrest-dimitris-grigkas",
+      "name": "Δημήτρης Γρίγκας"
+    },
+    {
+      "id": "arch-wrest-taxiarhis-liakos",
+      "name": "Ταξιάρχης Λιακός"
+    },
+    {
+      "id": "arch-wrest-stavros-tsakiris",
+      "name": "Σταύρος Τσακίρης"
+    },
+    {
+      "id": "arch-gymnastics-9814252c",
+      "name": "Ιωάννα Παπαχατζή"
+    },
+    {
+      "id": "arch-gymnastics-f2e4a89b",
+      "name": "Παναγιώτα Λαΐου"
+    },
+    {
+      "id": "arch-gymnastics-3e72e3a0",
+      "name": "Δήμητρα Γκόλτσιου"
+    },
+    {
+      "id": "arch-gymnastics-ffd29998",
+      "name": "Ανδρομάχη Κωστοπούλου"
+    },
+    {
+      "id": "arch-gymnastics-ab00d538",
+      "name": "Ιόλη Σταυρίνα Μιχαήλογλου"
+    },
+    {
+      "id": "arch-gymnastics-b15100a6",
+      "name": "Δήμητρα Σάρλα"
+    },
+    {
+      "id": "arch-gymnastics-3d90ff4c",
+      "name": "Αναστασία Γαλανού"
+    },
+    {
+      "id": "arch-gymnastics-4835eaab",
+      "name": "Βασιλική Νεφέλη Λιόλιου"
+    },
+    {
+      "id": "arch-gymnastics-d8ee376a",
+      "name": "Σουλτάνα Δαλάκα"
+    },
+    {
+      "id": "arch-archery-52bc1f27",
+      "name": "Ανδρέας Παπαδόπουλος"
+    },
+    {
+      "id": "arch-archery-5e69a556",
+      "name": "Καλλιόπη Μαγκατσά"
+    },
+    {
+      "id": "arch-archery-9acd2e41",
+      "name": "Αθανάσιος Μπατσίλας"
+    },
+    {
+      "id": "arch-handball-348992f5",
+      "name": "Μάγδα Χοτοκουρίδου"
+    },
+    {
+      "id": "arch-katerina-natsiopoulou-track22",
+      "name": "Κατερίνα Νατσιοπούλου"
+    },
+    {
+      "id": "arch-sofia-konstantinidou-track22",
+      "name": "Σοφία Κωνσταντινίδου"
+    },
+    {
+      "id": "arch-afroditi-biziota-track23",
+      "name": "Αφροδίτη Μπιζιώτα"
+    },
+    {
+      "id": "arch-michaela-syrmali-wrest20",
+      "name": "Μιχαέλα Σύρμαλη"
+    },
+    {
+      "id": "arch-thodoris-tsiliggiridis-wrest20",
+      "name": "Θοδωρής Τσιλιγγιρίδης"
+    },
+    {
+      "id": "arch-apostolis-dimolios-wrestling-2026",
+      "name": "Αποστόλης Διμολιός"
+    },
+    {
+      "id": "arch-fani-gkiousoglou-gym-2025",
+      "name": "Φανή Γκιούσογλου"
+    },
+    {
+      "id": "arch-swim-2026-andreas-anastasiadis",
+      "name": "Ανδρέας Αναστασιάδης"
+    },
+    {
+      "id": "arch-swim-2026-katerina-tsiniani",
+      "name": "Κατερίνα Τσινιάνη"
+    },
+    {
+      "id": "arch-swim-2026-katerina-popoti",
+      "name": "Κατερίνα Ποπότη"
+    },
+    {
+      "id": "arch-swim-2026-giorgos-kryos",
+      "name": "Γιώργος Κρύος"
+    },
+    {
+      "id": "arch-swim-2026-nikolas-kryos",
+      "name": "Νικόλας Κρύος"
+    },
+    {
+      "id": "arch-swim-2026-pavlos-bampoulis",
+      "name": "Παύλος Μπαμπούλης"
+    },
+    {
+      "id": "arch-swim-2026-konstantinos-stefanis",
+      "name": "Κωνσταντίνος Στεφανής"
+    },
+    {
+      "id": "arch-swim-2026-fayi-dimitriadou",
+      "name": "Φαίη Δημητριάδου"
+    },
+    {
+      "id": "arch-swim-2026-eleni-kotidou",
+      "name": "Ελένη Κωτίδου"
+    },
+    {
+      "id": "arch-archery-contrib-20261102-01",
+      "name": "Κωνσταντίνος Σιδηρόπουλος"
+    },
+    {
+      "id": "arch-archery-contrib-20261102-02",
+      "name": "Αθανάσιος Αλεξούλης"
+    },
+    {
+      "id": "arch-archery-contrib-20261102-03",
+      "name": "Αθανάσιος Μυλοβιανός"
+    },
+    {
+      "id": "arch-archery-contrib-20261102-04",
+      "name": "Σοφία-Νεφέλη Μηλιώρη"
+    },
+    {
+      "id": "arch-archery-contrib-20261102-05",
+      "name": "Ανέστης Δαμκάουτης"
+    },
+    {
+      "id": "arch-archery-contrib-20261102-06",
+      "name": "Αντώνιος Λούλας"
+    },
+    {
+      "id": "arch-archery-contrib-20261102-07",
+      "name": "Αθανάσιος Κοσμίδης"
+    },
+    {
+      "id": "arch-archery-contrib-20261102-08",
+      "name": "Χρήστος Καϊμάκαμης"
+    },
+    {
+      "id": "arch-archery-contrib-20261102-09",
+      "name": "Χριστόφορος Κόκκαλης"
+    },
+    {
+      "id": "arch-archery-result-20261102-01",
+      "name": "Σοφία-Θεοδώρα Χαλκιοπούλου-Δασκαλάκη"
+    },
+    {
+      "id": "arch-archery-result-20261102-02",
+      "name": "Βασίλειος-Ιωάννης Ζαρωτιάδης"
+    },
+    {
+      "id": "arch-archery-result-20261102-03",
+      "name": "Γεώργιος Ζαππίδης"
+    },
+    {
+      "id": "arch-archery-result-20261102-04",
+      "name": "Νεφέλη Ζαππίδου"
+    },
+    {
+      "id": "arch-archery-result-20261102-05",
+      "name": "Ρόδη Αναστασία Ποτουρίδου"
+    },
+    {
+      "id": "arch-archery-result-20261102-06",
+      "name": "Μαρία-Μαρκέλλα Καϊκλή"
+    },
+    {
+      "id": "arch-archery-result-20261102-07",
+      "name": "Άννα Κούζα"
+    },
+    {
+      "id": "arch-archery-result-20261102-08",
+      "name": "Νικόλαος Θεοδώρου"
+    },
+    {
+      "id": "arch-archery-result-20261102-09",
+      "name": "Ιπποκράτης Βέργας"
+    },
+    {
+      "id": "arch-archery-result-20261102-10",
+      "name": "Αντώνιος Γραμμένος"
+    },
+    {
+      "id": "arch-archery-result-20261102-11",
+      "name": "Διονύσιος Θεοδωρίδης"
+    },
+    {
+      "id": "arch-archery-result-20261102-12",
+      "name": "Θεόδωρος Καλογιαννίδης"
+    },
+    {
+      "id": "arch-archery-result-20261102-13",
+      "name": "Φαίδρα Τσοκανάρα"
+    },
+    {
+      "id": "arch-archery-result-20261102-14",
+      "name": "Δημήτριος Αναβαίνης"
+    },
+    {
+      "id": "arch-archery-result-20261102-15",
+      "name": "Νικόλαος Νταμπώσης"
+    },
+    {
+      "id": "arch-archery-konstantinos-samakovlis-2018",
+      "name": "Κωνσταντίνος Σαμακοβλής"
+    }
+  ],
+  "snapshot_only": [],
+  "shared_id_differences": [
+    {
+      "id": "arch-ec55ccba275f",
+      "canonical_name": "Θεόδωρος Διαμαντόπουλος",
+      "legacy_name": "Θεόδωρος Διαμαντόπουλος",
+      "changed_fields": [
+        "bio"
+      ]
+    },
+    {
+      "id": "arch-85fcb478d724",
+      "canonical_name": "Παναγιώτης Διαμαντόπουλος",
+      "legacy_name": "Παναγιώτης Διαμαντόπουλος",
+      "changed_fields": [
+        "bio"
+      ]
+    },
+    {
+      "id": "arch-d25677ab9f72",
+      "canonical_name": "Αντώνης Παπαδημητρίου",
+      "legacy_name": "Αντώνης Παπαδημητρίου",
+      "changed_fields": [
+        "bio"
+      ]
+    },
+    {
+      "id": "arch-7653fcf042c0",
+      "canonical_name": "Κατερίνα Δαλάκα",
+      "legacy_name": "Κατερίνα Δαλάκα",
+      "changed_fields": [
+        "bio"
+      ]
+    },
+    {
+      "id": "arch-61d8d097f601",
+      "canonical_name": "Αλκίνοος Τασόπουλος",
+      "legacy_name": "Αλκίνοος Τασόπουλος",
+      "changed_fields": [
+        "bio"
+      ]
+    },
+    {
+      "id": "arch-cf55874ef67a",
+      "canonical_name": "Νικόλαος Ζαμάνης",
+      "legacy_name": "Νικόλαος Ζαμάνης",
+      "changed_fields": [
+        "bio"
+      ]
+    },
+    {
+      "id": "arch-af9470c5745f",
+      "canonical_name": "Σάββας Τσεντίδης",
+      "legacy_name": "Σάββας Τσεντίδης",
+      "changed_fields": [
+        "bio",
+        "refs"
+      ]
+    },
+    {
+      "id": "arch-6a4b08bec058",
+      "canonical_name": "Ιωάννης Πέτκος",
+      "legacy_name": "Ιωάννης Πέτκος",
+      "changed_fields": [
+        "bio"
+      ]
+    },
+    {
+      "id": "arch-74c0ecf6103f",
+      "canonical_name": "Ελευθέριος Χαριτίδης",
+      "legacy_name": "Ελευθέριος Χαριτίδης",
+      "changed_fields": [
+        "bio"
+      ]
+    },
+    {
+      "id": "arch-73968afa517e",
+      "canonical_name": "Σωκράτης Κωνσταντινίδης",
+      "legacy_name": "Σωκράτης Κωνσταντινίδης",
+      "changed_fields": [
+        "bio"
+      ]
+    },
+    {
+      "id": "arch-georgios-athanas-athletics-board-2026",
+      "canonical_name": "Γεώργιος Αθανασίου",
+      "legacy_name": "Γεώργιος Αθανασίου",
+      "changed_fields": [
+        "bio",
+        "bio_en"
+      ]
+    },
+    {
+      "id": "arch-96ddd7ba9e4d",
+      "canonical_name": "Γεώργιος Μιχαηλίδης",
+      "legacy_name": "Γεώργιος Μιχαηλίδης",
+      "changed_fields": [
+        "bio"
+      ]
+    },
+    {
+      "id": "arch-ba8233d165aa",
+      "canonical_name": "Θανάσης Ευθυμιάδης",
+      "legacy_name": "Θανάσης Ευθυμιάδης",
+      "changed_fields": [
+        "bio"
+      ]
+    },
+    {
+      "id": "arch-999730e06982",
+      "canonical_name": "Σταματία Κυπαρίσση",
+      "legacy_name": "Σταματία Κυπαρίσση",
+      "changed_fields": [
+        "role_en",
+        "bio",
+        "bio_en",
+        "refs"
+      ]
+    },
+    {
+      "id": "arch-f56820c52e55",
+      "canonical_name": "Χρήστος Λιμπανοβνός",
+      "legacy_name": "Χρήστος Λυμπανοβνός",
+      "changed_fields": [
+        "name",
+        "name_en",
+        "role",
+        "role_en",
+        "bio",
+        "bio_en",
+        "refs"
+      ]
+    },
+    {
+      "id": "arch-955a386f547f",
+      "canonical_name": "Ευάγγελος Χαρίσης",
+      "legacy_name": "Ευάγγελος Χαρίσης",
+      "changed_fields": [
+        "bio"
+      ]
+    },
+    {
+      "id": "arch-f6152b60c43f",
+      "canonical_name": "Βαγγέλης Μαρινόπουλος",
+      "legacy_name": "Βαγγέλης Μαρινόπουλος",
+      "changed_fields": [
+        "bio",
+        "refs"
+      ]
+    },
+    {
+      "id": "arch-44ef21dfb9b7",
+      "canonical_name": "Ιωάννης (Γιάννης) Χαρίσης",
+      "legacy_name": "Ιωάννης (Γιάννης) Χαρίσης",
+      "changed_fields": [
+        "bio",
+        "bio_en"
+      ]
+    },
+    {
+      "id": "arch-b1e10ae2cfc0",
+      "canonical_name": "Κωνσταντίνος Μυρωτής",
+      "legacy_name": "Κωνσταντίνος Μυρωτής",
+      "changed_fields": [
+        "bio",
+        "bio_en"
+      ]
+    },
+    {
+      "id": "arch-4c82271a2365",
+      "canonical_name": "Γεώργιος Ευθυμίου",
+      "legacy_name": "Γεώργιος Ευθυμίου",
+      "changed_fields": [
+        "bio"
+      ]
+    },
+    {
+      "id": "arch-56dd134e165f",
+      "canonical_name": "Τάκης Παρασκευόπουλος",
+      "legacy_name": "Τάκης Παρασκευόπουλος",
+      "changed_fields": [
+        "bio"
+      ]
+    },
+    {
+      "id": "arch-f3d93442851f",
+      "canonical_name": "Δημήτρης Σουλής",
+      "legacy_name": "Δημήτρης Σουλής",
+      "changed_fields": [
+        "bio"
+      ]
+    },
+    {
+      "id": "arch-bc7079f252cc",
+      "canonical_name": "Χαράλαμπος Σαββίδης",
+      "legacy_name": "Χαράλαμπος Σαββίδης",
+      "changed_fields": [
+        "bio"
+      ]
+    },
+    {
+      "id": "arch-e6b31b31c3a9",
+      "canonical_name": "Άγγελος Παρούσης",
+      "legacy_name": "Άγγελος Παρούσης",
+      "changed_fields": [
+        "bio"
+      ]
+    },
+    {
+      "id": "arch-e9fc7408640c",
+      "canonical_name": "Νικολέτα Τσαρουχά",
+      "legacy_name": "Νικολέτα Τσαρουχά",
+      "changed_fields": [
+        "bio",
+        "bio_en",
+        "refs"
+      ]
+    },
+    {
+      "id": "arch-8d1a258f0b09",
+      "canonical_name": "Καλλιόπη Γεωργαντά",
+      "legacy_name": "Καλλιόπη Γεωργαντά",
+      "changed_fields": [
+        "bio",
+        "bio_en",
+        "refs"
+      ]
+    },
+    {
+      "id": "arch-f02298025e5c",
+      "canonical_name": "Θεοδώρα Αμεξιζίδου",
+      "legacy_name": "Θεοδώρα Αμεξιζίδου",
+      "changed_fields": [
+        "bio",
+        "bio_en",
+        "refs"
+      ]
+    },
+    {
+      "id": "arch-25923c326d62",
+      "canonical_name": "Λαμπριανή Σωτηρίου",
+      "legacy_name": "Λαμπριανή Σωτηρίου",
+      "changed_fields": [
+        "bio",
+        "bio_en",
+        "refs"
+      ]
+    },
+    {
+      "id": "arch-2616694d9908",
+      "canonical_name": "Νίκος Ζινίσα",
+      "legacy_name": "Νίκος Ζινίσα",
+      "changed_fields": [
+        "bio",
+        "bio_en",
+        "refs"
+      ]
+    },
+    {
+      "id": "arch-b48656c62600",
+      "canonical_name": "Παύλος Τσεντίδης",
+      "legacy_name": "Παύλος Τσεντίδης",
+      "changed_fields": [
+        "bio"
+      ]
+    },
+    {
+      "id": "arch-be8668380721",
+      "canonical_name": "Γρηγόρης Ευθυμιάδης",
+      "legacy_name": "Γρηγόρης Ευθυμιάδης",
+      "changed_fields": [
+        "bio"
+      ]
+    },
+    {
+      "id": "arch-5d94f0c76851",
+      "canonical_name": "Αθανασία Κατσαντώνη",
+      "legacy_name": "Αθανασία Κατσαντώνη",
+      "changed_fields": [
+        "refs"
+      ]
+    },
+    {
+      "id": "arch-2ec2798d39bb",
+      "canonical_name": "Μαρία Κεσενλή",
+      "legacy_name": "Μαρία Κεσενλή",
+      "changed_fields": [
+        "bio",
+        "bio_en",
+        "refs"
+      ]
+    },
+    {
+      "id": "arch-bde5b8a0f677",
+      "canonical_name": "Φανή Τσάλου",
+      "legacy_name": "Φανή Τσάλου",
+      "changed_fields": [
+        "bio",
+        "bio_en",
+        "refs"
+      ]
+    },
+    {
+      "id": "arch-1be1256bf733",
+      "canonical_name": "Κωνσταντίνος Σαββουλίδης",
+      "legacy_name": "Κωνσταντίνος Σαββουλίδης",
+      "changed_fields": [
+        "refs"
+      ]
+    },
+    {
+      "id": "arch-292b7871cf5b",
+      "canonical_name": "Καλλιάνθη Γκιμπή",
+      "legacy_name": "Καλλιάνθη Γκιμπή",
+      "changed_fields": [
+        "bio",
+        "bio_en",
+        "refs"
+      ]
+    },
+    {
+      "id": "arch-cc84a40c4504",
+      "canonical_name": "Δήμητρα Δαμπολιά",
+      "legacy_name": "Δήμητρα Δαμπολιά",
+      "changed_fields": [
+        "bio",
+        "bio_en",
+        "refs"
+      ]
+    },
+    {
+      "id": "arch-39914cf713cf",
+      "canonical_name": "Ευστάθιος Δαμπολιάς",
+      "legacy_name": "Ευστάθιος Δαμπολιάς",
+      "changed_fields": [
+        "bio",
+        "bio_en",
+        "refs"
+      ]
+    },
+    {
+      "id": "arch-edb75edd624b",
+      "canonical_name": "Εμμανουήλ Ζάρας",
+      "legacy_name": "Εμμανουήλ Ζάρας",
+      "changed_fields": [
+        "bio",
+        "bio_en"
+      ]
+    },
+    {
+      "id": "arch-c51b66db9180",
+      "canonical_name": "Κωνσταντίνος Ζάρας",
+      "legacy_name": "Κωνσταντίνος Ζάρας",
+      "changed_fields": [
+        "bio",
+        "bio_en"
+      ]
+    },
+    {
+      "id": "arch-db2ed4303837",
+      "canonical_name": "Αλέξανδρος Κατσικάκης",
+      "legacy_name": "Αλέξανδρος Κατσικάκης",
+      "changed_fields": [
+        "bio"
+      ]
+    },
+    {
+      "id": "arch-23f5b3ca37c0",
+      "canonical_name": "Μιχάλης Κουκλής",
+      "legacy_name": "Μιχάλης Κουκλής",
+      "changed_fields": [
+        "bio"
+      ]
+    },
+    {
+      "id": "arch-534d52034523",
+      "canonical_name": "Βαγγέλης Λάιος",
+      "legacy_name": "Βαγγέλης Λάιος",
+      "changed_fields": [
+        "bio",
+        "bio_en",
+        "refs"
+      ]
+    },
+    {
+      "id": "arch-fbf9bcb00de7",
+      "canonical_name": "Χριστίνα Μαυρίδου",
+      "legacy_name": "Χριστίνα Μαυρίδου",
+      "changed_fields": [
+        "bio",
+        "bio_en",
+        "refs"
+      ]
+    },
+    {
+      "id": "arch-7d2d2d8bf363",
+      "canonical_name": "Άγγελος Νικολαΐδης",
+      "legacy_name": "Άγγελος Νικολαΐδης",
+      "changed_fields": [
+        "bio",
+        "bio_en",
+        "refs"
+      ]
+    },
+    {
+      "id": "arch-5de1e130d776",
+      "canonical_name": "Μαρκέλα Παπαζήση",
+      "legacy_name": "Μαρκέλα Παπαζήση",
+      "changed_fields": [
+        "bio",
+        "bio_en",
+        "refs"
+      ]
+    },
+    {
+      "id": "arch-ae0647a0c701",
+      "canonical_name": "Γεώργιος Πόδας",
+      "legacy_name": "Γεώργιος Πόδας",
+      "changed_fields": [
+        "bio",
+        "bio_en",
+        "refs"
+      ]
+    },
+    {
+      "id": "arch-3c99e241b6d5",
+      "canonical_name": "Απόστολος Σαμαλής",
+      "legacy_name": "Απόστολος Σαμαλής",
+      "changed_fields": [
+        "bio"
+      ]
+    },
+    {
+      "id": "arch-cf53c375664e",
+      "canonical_name": "Ιωάννης-Μάριος Τερζόγλου",
+      "legacy_name": "Ιωάννης-Μάριος Τερζόγλου",
+      "changed_fields": [
+        "bio",
+        "bio_en",
+        "refs"
+      ]
+    },
+    {
+      "id": "arch-3fe6e9ae9b29",
+      "canonical_name": "Χρήστος Τορτοπίδης",
+      "legacy_name": "Χρήστος Τορτοπίδης",
+      "changed_fields": [
+        "bio",
+        "bio_en"
+      ]
+    },
+    {
+      "id": "arch-bdcef56af524",
+      "canonical_name": "Κυριάκος Τσεντίδης",
+      "legacy_name": "Κυριάκος Τσεντίδης",
+      "changed_fields": [
+        "bio",
+        "bio_en"
+      ]
+    },
+    {
+      "id": "arch-64dbf198bfd6",
+      "canonical_name": "Ένερι Χασανλάρι",
+      "legacy_name": "Ένερι Χασανλάρι",
+      "changed_fields": [
+        "bio",
+        "bio_en"
+      ]
+    },
+    {
+      "id": "arch-64ee11fec8d6",
+      "canonical_name": "Αικατερίνη Χατζηβασιλείου",
+      "legacy_name": "Αικατερίνη Χατζηβασιλείου",
+      "changed_fields": [
+        "bio",
+        "bio_en",
+        "refs"
+      ]
+    },
+    {
+      "id": "arch-510626a0ca62",
+      "canonical_name": "Ιωάννης Καραδήμος",
+      "legacy_name": "Ιωάννης Καραδήμος",
+      "changed_fields": [
+        "bio",
+        "bio_en"
+      ]
+    },
+    {
+      "id": "arch-af5bad82fe57",
+      "canonical_name": "Θεόδωρος Πασαχίδης",
+      "legacy_name": "Θεόδωρος Πασαχίδης",
+      "changed_fields": [
+        "bio"
+      ]
+    },
+    {
+      "id": "arch-baba93550267",
+      "canonical_name": "Ζήσης Γαλάνης",
+      "legacy_name": "Ζήσης Γαλάνης",
+      "changed_fields": [
+        "bio",
+        "bio_en",
+        "refs"
+      ]
+    },
+    {
+      "id": "arch-77461943b4f2",
+      "canonical_name": "Ελισάβετ Στεργιοπούλου",
+      "legacy_name": "Ελισάβετ Στεργιοπούλου",
+      "changed_fields": [
+        "refs"
+      ]
+    },
+    {
+      "id": "arch-660b315e89cf",
+      "canonical_name": "Στέφανος Παυλίδης",
+      "legacy_name": "Στέφανος Παυλίδης",
+      "changed_fields": [
+        "bio",
+        "bio_en"
+      ]
+    },
+    {
+      "id": "arch-7a113e11ae86",
+      "canonical_name": "Βασίλης (Βασίλειος) Ευκαρπίδης",
+      "legacy_name": "Βασίλης (Βασίλειος) Ευκαρπίδης",
+      "changed_fields": [
+        "bio",
+        "bio_en"
+      ]
+    },
+    {
+      "id": "arch-73fcffd7e0b7",
+      "canonical_name": "Γιώργος Καρατζούλας (Γκαρατζούλιας)",
+      "legacy_name": "Γιώργος Καρατζούλας (Γκαρατζούλιας)",
+      "changed_fields": [
+        "bio",
+        "bio_en"
+      ]
+    }
+  ],
+  "safeguards": "Do not overwrite canonical data, rewrite rich biographies or auto-merge identity variants based on these differences; verify provenance per person. Private source records are not included."
+}
