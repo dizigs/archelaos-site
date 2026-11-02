@@ -63,18 +63,34 @@
 | Αργή φόρτωση βιογραφικών έκρυβε timeline· άκυρη ημερομηνία μπορούσε να σταματήσει όλα τα γεγονότα | Περιορισμένο 2,5 s wait και έγκυρα eventDate: [5dc3523](https://github.com/dizigs/archelaos-site/commit/5dc3523e22da7b481062be5c8df30ace97c365d5), [963643f](https://github.com/dizigs/archelaos-site/commit/963643f5055b71977f6908d83c82d644189cb7d9) | DONE_IN_PR |
 | Συνέντευξη σε τοξοβολία/άλλο άθλημα εμφανιζόταν ως «Διοίκηση» και links σε παλιές συνεντεύξεις ήταν κενά | Αντιστοίχιση αθλήματος από ελληνικό `sport`, redirect του deep-link σε υπάρχον αρχείο: [f81c59f](https://github.com/dizigs/archelaos-site/commit/f81c59f21027867acb7bc48ab714dd9a1f253aa5) | DONE_IN_PR |
 | **Σφάλμα κατά τη δική μας επιδιόρθωση:** σε Python/JavaScript πέρασαν κυριολεκτικές ακολουθίες `\\n` αντί για κανονικές αλλαγές γραμμής. Θα έσπαγαν τη σύνταξη. | Αποκατάσταση πραγματικών αλλαγών γραμμής και regex, πρόσθετα tests: [c7eabf7](https://github.com/dizigs/archelaos-site/commit/c7eabf7266d3038d1e578cc4847fe1ac7559bfab), [963643f](https://github.com/dizigs/archelaos-site/commit/963643f5055b71977f6908d83c82d644189cb7d9), [fd43fc9](https://github.com/dizigs/archelaos-site/commit/fd43fc9ac24806f60882530ee33ad7554850d64a) | FIXED_IN_PR / CI επί νεότερου head απαιτείται |
-| CodeRabbit review threads | Εξετάστηκαν οι 16 αρχικές παρατηρήσεις και follow-up για ήδη υπάρχουσα συνέντευξη· απομένει επανέλεγχος και τυπική επίλυση thread ανά commit | VERIFY / REVIEW |
-| Ένταξη στο live | Δεν έχει γίνει merge κατά τη στιγμή αυτής της καταχώρισης. Η είδηση για την Κροατία παραμένει στο PR. | OPEN / NOT_DEPLOYED |
+| CodeRabbit review threads | GitHub review threads: 16/16 resolved. Follow-up legacy interview alias implemented in `f81c59f`. | **VERIFIED_RESOLVED** |
+| Ένταξη στο live | [PR #42](https://github.com/dizigs/archelaos-site/pull/42) merged: [`70d9de4`](https://github.com/dizigs/archelaos-site/commit/70d9de47f70df541711c30b06918559b89504673). Cloudflare production `aa4439ee-27a0-4b3c-b487-b29d4327fa56` success; live news.json, article and JPEG HTTP 200. | **MERGED / VERIFIED_LIVE** |
 
 ### Επαλήθευση αυτής της φάσης
 - Στο head `fd43fc9`: **Validate website: success, ESLint: success, Internal news event ledger: success, Hall of Fame news crosscheck: success**. Άλλοι έλεγχοι ήταν ακόμα `pending` / `in_progress` κατά τον έλεγχο.
 - Κάθε νέα αλλαγή επανεκκινεί checks· οριστικό αποτέλεσμα μόνο από το τελικό head και από production deploy logs.
 - Χωριστά issues [#43](https://github.com/dizigs/archelaos-site/issues/43) και [#44](https://github.com/dizigs/archelaos-site/issues/44) παραμένουν ανοιχτά μέχρι ανεξάρτητη τεκμηρίωση επίλυσης.
 
+## PR #42 — VERIFIED LIVE / Τελικό αρχείο αποκατάστασης · 2026-11-02
+
+**Κλείσιμο:** [PR #42](https://github.com/dizigs/archelaos-site/pull/42) συγχωνεύτηκε στο `main`, squash commit [`70d9de47`](https://github.com/dizigs/archelaos-site/commit/70d9de47f70df541711c30b06918559b89504673). GitHub `merged: true` και `state: closed`.
+
+**Έλεγχοι στο head `a341782c`:** `Validate website`, `JavaScript syntax guard`, `ESLint`, `Release integrity`, `Site release QA`, `Internal news event ledger`, `Hall of Fame news crosscheck`, `Lighthouse CI`, `Rebuild validation` = **success**. Μόνον `Validate ImgBot-only changes` = `skipped` (αναμενόμενο). Τα jobs του rebuild, συμπεριλαμβανομένου Chromium desktop/mobile, WCAG 2.2 A/AA, επιβεβαιώθηκαν **success**. Όλα τα 16 CodeRabbit review threads = resolved.
+
+**Cloudflare production:** Deployment `aa4439ee-27a0-4b3c-b487-b29d4327fa56`, `environment=production`, `main`, SHA `70d9de47f70df541711c30b06918559b89504673`, `deploy.status=success`. Πραγματικό τέλος logs: `Success: Assets published!`, `Success: Your site was deployed!`.
+
+**Δημόσια επαλήθευση:** `https://archelaos.club/news.json` HTTP 200 και 118 ειδήσεις, ανάμεσά τους `archery-central-european-cup-novi-marof-2025`. HTTP 200 στην `/news.html?article=archery-central-european-cup-novi-marof-2025` και στη φωτογραφία `/images/news/archery-central-european-cup-novi-marof-2025.jpg` (`image/jpeg`). Η επιβεβαίωση έγινε με φρέσκια δημόσια ανάκτηση (`maxAge=0`), όχι από το preview.
+
+**Διόρθωση με καταγεγραμμένο regression:** Προσωρινό σφάλμα Python/JavaScript λόγω κυριολεκτικών `\\n` στο source (Cloudflare preview log: `SyntaxError: missing ) after argument list` σε `departments.js`). Αντιμετωπίστηκε με commits [`c7eabf7`](https://github.com/dizigs/archelaos-site/commit/c7eabf7266d3038d1e578cc4847fe1ac7559bfab) και [`963643f`](https://github.com/dizigs/archelaos-site/commit/963643f5055b71977f6908d83c82d644189cb7d9). Επιτυχές preview `8124269a-4575-4da4-b725-a61775c8113d`, επιτυχή τελικά CI και production. Το σφάλμα **δεν διαγράφηκε** από το ιστορικό.
+
+**Χωριστά ανοιχτά θέματα:** [#43](https://github.com/dizigs/archelaos-site/issues/43) (Cloudflare intermittent asset publishing), [#44](https://github.com/dizigs/archelaos-site/issues/44) (GitHub Actions no-jobs) **δεν θεωρούνται επιλυμένα** από το επιτυχές PR #42. Το στιγμιότυπο χρήστη του SonarCloud εμφάνιζε `Quality Gate failed: C Security Rating on New Code (required A)` σε διαφορετικό main check· απαιτεί ξεχωριστή διερεύνηση πριν χαρακτηριστεί resolved.
+
+**Μόνιμος κανόνας:** Κάθε σφάλμα/ανίχνευση/διόρθωση καταχωρίζεται εδώ ή σε αντίστοιχο tracked Issue/PR με commit, κατάσταση και πραγματική επαλήθευση. Η έλλειψη τελικού ελέγχου σημειώνεται ως pending, ποτέ ως completed.
+
 ## Σημείο συνέχισης
 
 1. Διαβάζουμε αυτό το log **και** την τρέχουσα κατάσταση PR #42 / workflow runs.
-2. Επιβεβαιώνουμε GitHub CI στο commit `45589ad` ή νεότερο. Εξετάζουμε τα `classification_suggestions` του εσωτερικού artifact· δεν δημοσιεύονται ούτε εφαρμόζονται αυτόματα χωρίς έλεγχο πηγής/ομιλητή.
+2. Το PR #42 ολοκληρώθηκε και επιβεβαιώθηκε LIVE. Τα επόμενα θέματα είναι ανεξάρτητα: Issues #43/#44, και διερεύνηση SonarCloud quality gate. Οι εσωτερικές προτάσεις `classification_suggestions` εξακολουθούν να απαιτούν έλεγχο πηγής/ομιλητή.
 3. Ελέγχουμε πραγματικά logs του ωριαίου/ημερήσιου self-heal και ολοκληρώνουμε event ID/hidden pages audit.
 4. Καταγράφουμε κάθε πρόοδο/μπλοκάρισμα εδώ, με commit ή issue/run link. Merge μόνο με επαληθευμένα checks — όχι επειδή γράφτηκε «έτοιμο» στο log.
 
