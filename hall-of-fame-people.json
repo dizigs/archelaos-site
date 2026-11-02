@@ -1,6 +1,6 @@
 {
   "version": "v1.6",
-  "count": 724,
+  "count": 725,
   "people": [
     {
       "name": "Νίκος Τσινόπουλος",
@@ -7797,6 +7797,19 @@
       "bio": "Αθλητής πάλης του Γ.Α.Σ. Αρχέλαος Κατερίνης. Κατέλαβε την πέμπτη θέση στο Πανελλήνιο Πρωτάθλημα Πάλης στο Κιλκίς τον Μάρτιο του 2020.",
       "bio_en": "Archelaos wrestler; fifth at the national wrestling championship in Kilkis in March 2020.",
       "id": "arch-thodoris-tsiliggiridis-wrest20"
+    },
+    {
+      "id": "arch-apostolis-dimolios-wrestling-2026",
+      "name": "Αποστόλης Διμολιός",
+      "role": "Αθλητής · Πάλη",
+      "category": "athlete",
+      "bio": "Αθλητής του τμήματος πάλης του Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης. Κατέλαβε την 5η θέση στο Πανελλήνιο Πρωτάθλημα Εφήβων U20 στις Σέρρες, στις 5 Απριλίου 2026, συμβάλλοντας στη 2η θέση του συλλόγου στην ομαδική κατάταξη.",
+      "refs": [
+        {
+          "label": "Pieria News · 07/04/2026",
+          "url": "https://www.pierianews.gr/2026/04/07/archelaos-katerinis-tmima-palis-defteri-kalyteri-omada-stin-ellada/"
+        }
+      ]
     }
   ]
 }
