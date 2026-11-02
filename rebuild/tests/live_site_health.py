@@ -56,8 +56,9 @@ def fake_fetch(base, route):
 with patch.object(m, "fetch", fake_fetch):
     report = m.audit("https://archelaos.club")
 assert not report["errors"], report
-assert report["counts"]["people"] == 682 and report["counts"]["moments"] == 70
-assert "/search.html" in report["checked"]
+assert report["counts"]["people"] == m.CANONICAL_PEOPLE_COUNT and report["counts"]["moments"] == 70
+assert "/search.html" in report["checked"] and "/news.html" in report["checked"]
+assert "/news.json" in report["checked"] and "/hall-of-fame-people.json" in report["checked"]
 assert len(report["checked"]) >= 25
 
 def corrupt_mobile(base, route):
@@ -78,7 +79,7 @@ def truncated(base, route):
     return fake_fetch(base, route)
 with patch.object(m, "fetch", truncated):
     result = m.audit("https://archelaos.club")
-assert any("people count below 682" in error for error in result["errors"]), result
+assert any(f"people count below {m.CANONICAL_PEOPLE_COUNT}" in error for error in result["errors"]), result
 
 class R:
     status = 200
