@@ -17,7 +17,7 @@ function fromNews(item){
  const base={event:item.title,context:item.summary||'',
    year:String(item.eventDate||item.date||'').slice(0,4),period:item.date,
    source:item.source||'Δημοσιευμένη είδηση',sourceUrl:item.sourceUrl,
-   sport:item.interviewSport||item.sportSlug||'administration',
+   sport:item.interviewSport||item.sportSlug||Object.entries(sports).find(([,labels])=>labels.some(label=>norm(label)===norm(item.sport)))?.[0]||'administration',
    personIds:Array.isArray(item.personIds)?item.personIds:[],newsArticleId:item.id};
  const records=[];
  const voice=kinds.includes('interview')?'interview':kinds.includes('statement')?'statement':null;
@@ -92,7 +92,12 @@ Promise.all([
  S.items=[...d.items,...derived];$('totalBadge').textContent=S.items.length+' '+tr('ΤΕΚΜΗΡΙΑ','RECORDS');
  const q=new URLSearchParams(location.search);S.person=q.get('person');S.record=q.get('record');
  showCards();
- if(S.record&&S.items.some(x=>x.id===S.record))open(S.record);
+ if(S.record){
+  // Curated interviews supersede generated duplicates, not their deep links.
+  const target=S.items.find(x=>x.id===S.record)||(S.record.startsWith('news-')
+   ?S.items.find(x=>x.newsArticleId===S.record.slice(5)&&x.kind!=='clipping'):null);
+  if(target)open(target.id);
+ }
 }).catch(()=>{$('count').textContent=tr('Το αρχείο δεν είναι προσωρινά διαθέσιμο.','Archive currently unavailable.')});
 function sync(){document.querySelectorAll('[data-el][data-en]').forEach(e=>e.textContent=e.getAttribute(en()?'data-en':'data-el'));if(S.items.length){$('totalBadge').textContent=S.items.length+' '+tr('ΤΕΚΜΗΡΙΑ','RECORDS');showCards()}}
 new MutationObserver(sync).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
