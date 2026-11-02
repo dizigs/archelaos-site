@@ -146,3 +146,11 @@ python rebuild/tools/process_private_inbox.py
 
 ## 6. Επόμενο τεχνικό ορόσημο
 Πρώτα idempotent ingestion Gmail + Drive + admin files με ιδιωτικό receipt και εξαγωγή κειμένου. Δεύτερο κεντρικό registry events/persons/articles/sources, τρίτο μονάδα web corroboration και photo rights, τέταρτο automatic low-risk commit/release σε preview, τέλος guarded production autopublish και ειδοποίηση μόνο σε exceptions.
+
+## PR #37 — Self-heal διαγνωστικά και μικρές διορθώσεις (2026-11-02, τελευταίος κύκλος)
+- **Ασφάλεια**: GitHub Actions offline test checkout με `persist-credentials: false` (commit `7631af0`).
+- **Προστασία ιδιωτικότητας**: το offline `contribution_research.py` δεν τοποθετεί πλέον ιδιωτικές προτάσεις, ονόματα μαρτύρων, τηλέφωνα ή emails στα προτεινόμενα `search_query` (commits `96f17e0`, διορθωτικό `0c2e24b`, δοκιμή `c30290e`). Τα αποσπάσματα παραμένουν μόνο στο ιδιωτικό lead JSON.
+- **Διαχωρισμός σωματείων**: η εξωτερική αναζήτηση βάζει σε ουρά `affiliation_review_required` αναφορές μπάσκετ/ΣΦΚ Πιερικός Αρχέλαος χωρίς αυτόματη απόδοση στον Γ.Α.Σ. (commits `232606b`, `8209e5d`). Δεν θεωρείται απόδειξη ότι κάθε ασαφής αναφορά ανήκει σε άλλο σωματείο.
+- **Εμφάνιση**: διατηρήθηκαν οι σύνδεσμοι του footer χωρίς υπογράμμιση (commit `95278ec`).
+- **Εμπόδιο CI**: το draft PR επιστρέφει `mergeable_state=dirty` λόγω απόκλισης από το main. Οι νέοι commits **δεν έχουν ακόμη ανεξάρτητα επαληθευμένους πλήρεις PR Actions ελέγχους**. Πρέπει να γίνει ασφαλής συγχρονισμός κώδικα και δοκιμή, όχι παράκαμψη της προστασίας.
+- **Όρια λειτουργίας**: το offline intake δεν είναι πραγματικός Gmail/Drive collector, PDF extraction παραμένει pending, η Firecrawl ζωντανή χρήση δεν έχει ενεργοποιηθεί, οι προτάσεις είναι `publishable=false`. Καμία αυτόματη δημοσίευση ή έγκριση ιστορικών ισχυρισμών δεν υλοποιήθηκε με αυτά τα commits.
