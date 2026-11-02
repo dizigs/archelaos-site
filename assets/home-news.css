@@ -20,7 +20,7 @@
 .ahn-card:first-child .ahn-content{padding:29px 30px 27px;gap:14px}
 .ahn-card:first-child .ahn-content h3{font-size:clamp(27px,2.8vw,38px);line-height:1.15}
 .ahn-card:first-child .ahn-content p{font-size:15px;line-height:1.7}
-.ahn-lead-label{display:inline-block;align-self:flex-start;color:#92723c;font-size:10px;letter-spacing:.14em;font-weight:850}
+.ahn-lead-label{display:inline-block;align-self:flex-start;color:#82602e;font-size:10px;letter-spacing:.14em;font-weight:850}
 .ahn-card:not(:first-child) .ahn-card-link{flex-direction:row;align-items:stretch}
 .ahn-card:not(:first-child) .ahn-media{flex:0 0 39%;width:39%;min-height:220px;aspect-ratio:auto}
 .ahn-card:not(:first-child) .ahn-content{padding:22px 23px;gap:10px}
