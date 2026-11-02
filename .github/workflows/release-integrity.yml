@@ -19,6 +19,8 @@ jobs:
         run: |
           python -m unittest discover -s rebuild/tests -p 'guard_html_escaped_text_test.py' -v
           python rebuild/tools/guard_html_escaped_text.py
+      - name: Inject a synthetic visible bug and prove exact safe self-repair
+        run: python -m unittest discover -s rebuild/tests -p 'fault_injection_self_heal_test.py' -v
       - name: Build and verify complete release
         run: python rebuild/tools/build_release.py
       - name: Recheck generated public HTML for escaped text
