@@ -1,0 +1,22 @@
+name: ESLint JavaScript quality
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  lint:
+    name: ESLint JavaScript quality
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Lint project JS
+        run: npx --yes --package=eslint@9.39.1 eslint --config eslint.config.mjs rebuild
