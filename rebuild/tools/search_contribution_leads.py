@@ -22,6 +22,12 @@ EVENTS = ("κύπελλο", "πρωτάθλημα", "εκδήλωση", "αγώ�
 
 def safe_query(lead):
     excerpt = str(lead.get("excerpt", "")).casefold()
+    # Basketball belongs to a merged/separate club context. Never attribute
+    # these discovery leads to G.A.S. Archelaos or send automatic searches.
+    if any(token in excerpt for token in (
+            "μπάσκετ", "μπασκετ", "καλαθοσφαίριση", "καλαθοσφαιριση",
+            "σφκ", "πιερικός αρχέλαος", "πιερικος αρχελαος")):
+        return None
     years = re.findall(r"\b(?:19|20)\d{2}\b", " ".join(map(str, lead.get("dates", []))))[:2]
     terms = [s for s in SPORTS if s in excerpt][:1] + [s for s in EVENTS if s in excerpt][:1]
     return " ".join(["ΓΑΣ Αρχέλαος Κατερίνης", *years, *terms])
@@ -65,6 +71,12 @@ def main():
     output = []
     for lead in source.get("research_leads", [])[:max(0, min(args.max_leads, 40))]:
         query = safe_query(lead)
+        if query is None:
+            output.append({"lead_id": lead.get("id"), "query": None, "sources": [],
+                           "verification_status": "affiliation_review_required",
+                           "editor_approval_status": "pending",
+                           "reason": "merged_basketball_not_assumed_gas"})
+            continue
         try:
             hits = search(query, key)
             output.append({"lead_id": lead["id"], "query": query,
