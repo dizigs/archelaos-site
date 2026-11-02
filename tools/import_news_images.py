@@ -109,7 +109,7 @@ def main():
         # Empty and damaged photos are eligible only with explicit reuse permission.
         try:
             html=fetch(url,3500000).decode("utf-8","replace")
-            source_images=candidates(url,html,item.get("imageSourceUrl"))
+            # Never substitute another article image for a damaged local photo.\n            # Without recorded provenance, request editorial review instead.\n            old_photo=item.get("image") or ""\n            recorded=item.get("imageSourceUrl")\n            if isinstance(old_photo,str) and old_photo.startswith("images/news/"):\n                if not isinstance(recorded,str) or not recorded.startswith("https://"):\n                    raise ValueError("Local archive repair needs a recorded HTTPS imageSourceUrl")\n                source_images=[recorded]\n            else:\n                source_images=candidates(url,html,recorded)
             if not source_images:
                 raise ValueError("No credible article image candidates")
             best=None
