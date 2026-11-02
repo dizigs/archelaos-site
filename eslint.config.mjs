@@ -22,7 +22,6 @@ export default [
     },
     rules: {
       "no-unsafe-finally": "error",
-      "no-constant-assign": "error",
       "no-compare-neg-zero": "error",
       "no-dupe-args": "error",
       "no-dupe-class-members": "error",
