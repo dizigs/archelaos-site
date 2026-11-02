@@ -19,8 +19,11 @@ PAGES = (
     "/sponsors.html", "/retro-matches.html", "/search.html",
     "/favorites.html", "/contribute.html", "/interviews.html",
 )
+# Follow the current canonical Hall, not the frozen 682-profile rebuild snapshot.
+ROOT = Path(__file__).resolve().parents[2]
+CANONICAL_PEOPLE_COUNT = len(json.loads((ROOT / "hall-of-fame-people.json").read_text(encoding="utf-8"))["people"])
 DATA = {
-    "/assets/site/data/people.json": ("people", 682),
+    "/assets/site/data/people.json": ("people", CANONICAL_PEOPLE_COUNT),
     "/assets/site/data/moments.json": ("moments", 70),
     "/assets/site/data/stories.json": ("stories", 21),
     "/assets/site/data/interviews.json": ("items", 28),
