@@ -413,7 +413,7 @@ def make_release() -> None:
         raise RuntimeError("Hall of Fame SEO metadata missing")
     for key, marker in (("title", " Πρόσωπα του Αρχέλαου"), ("description", " πρόσωπα του Γ.Α.Σ.")):
         new_value, replacements = re.subn(
-            r"\\b[0-9]+(?=" + re.escape(marker) + r")",
+            r"\b[0-9]+(?=" + re.escape(marker) + r")",
             str(hall_total),
             hall_page[key],
             count=1,
