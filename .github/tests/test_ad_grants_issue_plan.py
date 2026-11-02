@@ -38,6 +38,11 @@ class IssueSafety(unittest.TestCase):
     def test_closed_issue_reopens_instead_of_duplicate(self):
         self.assertEqual(mod.plan(report(), [issue(state="closed")])["actions"][0]["action"], "would_reopen")
 
+    def test_malformed_issue_metadata_cannot_copy_raw_values_into_public_plan(self):
+        for item in (issue(number="synthetic-private-value"), issue(number=True), issue(number=0), issue(state="unknown")):
+            with self.subTest(item=item), self.assertRaises(ValueError):
+                mod.plan(report(), [item])
+
     def test_foreign_markers_and_pull_requests_do_not_spoof_owned_issue(self):
         existing = [issue(author="untrusted-fixture"), {**issue(), "pull_request":{"url":"unused"}}]
         self.assertEqual(mod.plan(report(), existing)["actions"][0]["action"], "would_create")

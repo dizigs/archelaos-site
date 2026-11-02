@@ -30,6 +30,10 @@ def plan(report, existing):
             or report.get("policy_status") != "current-policy-review-required"
             or not isinstance(report.get("findings"), list) or not isinstance(existing, list)):
         raise ValueError("Unsupported dry-run report or inventory")
+    for issue in existing:
+        if (not isinstance(issue, dict) or type(issue.get("number")) is not int
+                or issue["number"] < 1 or issue.get("state") not in ("open", "closed")):
+            raise ValueError("Invalid Issue metadata; no raw identifier may enter a public plan")
     findings = {}
     for item in report["findings"]:
         if (set(item) != {"code", "count"} or item["code"] not in CODES

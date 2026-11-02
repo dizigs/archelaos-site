@@ -26,13 +26,14 @@ test_complete_pagination_uses_all_states (test_ad_grants_issue_plan.IssueSafety.
 test_foreign_markers_and_pull_requests_do_not_spoof_owned_issue (test_ad_grants_issue_plan.IssueSafety.test_foreign_markers_and_pull_requests_do_not_spoof_owned_issue) ... ok
 test_inventory_failure_or_truncation_cannot_create_partial_plan (test_ad_grants_issue_plan.IssueSafety.test_inventory_failure_or_truncation_cannot_create_partial_plan) ... ok
 test_live_source_still_cannot_publish (test_ad_grants_issue_plan.IssueSafety.test_live_source_still_cannot_publish) ... ok
+test_malformed_issue_metadata_cannot_copy_raw_values_into_public_plan (test_ad_grants_issue_plan.IssueSafety.test_malformed_issue_metadata_cannot_copy_raw_values_into_public_plan) ... ok
 test_no_raw_values_or_unrecognized_findings_enter_public_payload (test_ad_grants_issue_plan.IssueSafety.test_no_raw_values_or_unrecognized_findings_enter_public_payload) ... ok
 test_open_issue_is_idempotent (test_ad_grants_issue_plan.IssueSafety.test_open_issue_is_idempotent) ... ok
 test_synthetic_pipeline_second_run_creates_no_duplicates (test_ad_grants_issue_plan.IssueSafety.test_synthetic_pipeline_second_run_creates_no_duplicates) ... ok
 test_synthetic_plan_is_never_publishable (test_ad_grants_issue_plan.IssueSafety.test_synthetic_plan_is_never_publishable) ... ok
 
 ----------------------------------------------------------------------
-Ran 9 tests in 0.001s
+Ran 10 tests in 0.001s
 
 OK
 

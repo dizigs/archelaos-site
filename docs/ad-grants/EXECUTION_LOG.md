@@ -8,6 +8,10 @@ Ads branch `codex/ad-grants-dry-run` starts at latest fetched main
 Implementation commit: `9673c853c1df5f772d5df3c1131800739bea388d`.
 Follow-up validation treats fractional quality scores as unavailable rather than
 misclassifying them as policy failures; the executed regression covers this.
+The final Issue inventory boundary also rejects non-numeric/boolean/non-positive
+issue numbers and unknown states. Its negative regression first reproduced four
+failing subcases (including a synthetic raw string appearing as an Issue number),
+then passed after validation was added. No real private input was used or published.
 No direct main push, merge, external activation or production tag change.
 
 GitHub API successfully read #66, open PRs, their files, check outputs and Actions
@@ -57,7 +61,7 @@ No second scheduled workflow was added, and no #67 file was modified.
 | Command/check | Observed result |
 | --- | --- |
 | `node --test rebuild/ads/tests/core.test.cjs` | **10/10 pass**, zero skips/failures |
-| `python -m unittest discover -s .github/tests -p test_ad_grants_issue_plan.py -v` | **9/9 pass** |
+| `python -m unittest discover -s .github/tests -p test_ad_grants_issue_plan.py -v` | **10/10 pass** |
 | `python rebuild/tests/security_workflows_test.py` | **3/3 existing regressions pass** |
 | `node rebuild/ads/build_preview.cjs` + `node --check` on its output | **PASS**, inert bundle in ignored test-artifacts |
 | `python .github/scripts/ad_grants_issue_plan.py --fixture` | **PASS**; six hypothetical plans from synthetic findings; `can_publish: false` |
