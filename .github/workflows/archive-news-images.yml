@@ -2,6 +2,7 @@ name: Archive original news photographs
 on:
   workflow_dispatch:
   push:
+    branches: [main]
     paths:
       - 'tools/import_news_images.py'
       - 'tools/link_uploaded_news_images.py'
@@ -15,6 +16,7 @@ permissions:
   contents: write
 jobs:
   archive:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 12
     steps:
