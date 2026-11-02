@@ -15,13 +15,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          ref: main
           persist-credentials: true
       - name: Create and close a disposable PR, without merging
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          test_branch="automation/pr-permission-smoke-${GITHUB_RUN_ID}"
+          test_branch="automation/pr-permission-smoke-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git switch -c "$test_branch"
@@ -37,4 +38,6 @@ jobs:
           pr_url="$(gh pr create --base main --head "$test_branch" --title "TEST: disposable GitHub Actions PR permission check" --body "Automated permissions test only. No website changes. This PR will be closed, never merged.")"
           echo "Created PR: $pr_url"
           gh pr close "$pr_url" --comment "Permission test completed; intentionally not merged."
+          git push origin --delete "$test_branch"
+          trap - EXIT
           echo "PASS: GitHub Actions can create and close pull requests."
