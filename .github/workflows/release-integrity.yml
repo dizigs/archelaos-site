@@ -35,6 +35,8 @@ jobs:
         run: python -m unittest discover -s rebuild/tests -p archive_relationships_test.py -v
       - name: Guard against SonarCloud workflow supply-chain regressions
         run: python -m unittest discover -s rebuild/tests -p security_workflows_test.py -v
+      - name: Ensure repair automation stops when PR lookup fails
+        run: python -m unittest discover -s rebuild/tests -p repair_pr_lookup_test.py -v
       - name: Build and verify complete release
         run: python rebuild/tools/build_release.py
       - name: Recheck generated public HTML for escaped text

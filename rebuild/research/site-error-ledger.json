@@ -123,5 +123,26 @@
     "ci_release_integrity": "success",
     "ci_rebuild_validation": "success",
     "ci_lighthouse": "success"
-  }
+  },
+  "local_validation_incidents": [
+    {
+      "fingerprint": "REPAIR_PR_LOOKUP_FAILURE_CONTINUES_WRITE",
+      "scope": "offline workflow reproduction; not a production observation",
+      "run_id": null,
+      "date": "2026-11-02",
+      "affected_workflows": [
+        "archive-news-images.yml",
+        "site-watch-and-repair.yml"
+      ],
+      "cause": "PR lookup runs in an if pipeline, which suppresses errexit; API failure is mistaken for no existing PR.",
+      "fix": "Assign successful lookup output before condition; stop on failure before Git writes.",
+      "before": "Two simulated API failures reproduced continuation toward push/PR creation.",
+      "after": "Three tests across both workflows pass: API error stops; existing PR stops; confirmed empty result allows proposal.",
+      "evidence": [
+        "rebuild/test-artifacts/repair-pr-lookup-before.log",
+        "rebuild/test-artifacts/repair-pr-lookup-after.log"
+      ],
+      "status": "fixed_locally_pending_PR_and_CI"
+    }
+  ]
 }
