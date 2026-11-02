@@ -298,7 +298,9 @@
         "arch-b48656c62600",
         "arch-8c9cbe4897f0",
         "arch-apostolis-dimolios-wrestling-2026",
-        "arch-af9470c5745f"
+        "arch-af9470c5745f",
+        "arch-8934f50fbeed",
+        "arch-a3b57d586132"
       ],
       "featured": false,
       "imageSourceUrl": "https://www.pierianews.gr/wp-content/uploads/2026/04/arch1.jpg"
@@ -420,7 +422,8 @@
       "source": "KateriniSport · 02/03/2026",
       "sourceUrl": "https://katerinisport.gr/%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CF%86%CE%BF%CE%AF%CE%BD%CE%B9%CE%BA%CE%B1%CF%82-%CE%B4%CF%81%CE%AC%CE%BC%CE%B1%CF%82-38-24/",
       "personIds": [
-        "arch-dimitris-siokas-handball-2026"
+        "arch-dimitris-siokas-handball-2026",
+        "arch-handball-348992f5"
       ],
       "featured": false,
       "imageKind": "archive"
@@ -1003,7 +1006,8 @@
       "imageNote": "Αρχική φωτογραφία του σχετικού δημοσιεύματος",
       "personIds": [
         "arch-pavlina-charitidou-arch",
-        "arch-955a386f547f"
+        "arch-955a386f547f",
+        "arch-44ef21dfb9b7"
       ]
     },
     {
@@ -1712,7 +1716,9 @@
         "arch-gymnastics-3e72e3a0",
         "arch-gymnastics-ab00d538",
         "arch-gymnastics-d8ee376a",
-        "arch-gymnastics-b15100a6"
+        "arch-gymnastics-b15100a6",
+        "arch-bde5b8a0f677",
+        "arch-gymnastics-f2e4a89b"
       ],
       "image": "https://olympiobima.gr/wp-content/uploads/2023/06/gas-archelaos-katerinis-aylaia-enorgani-42131.webp",
       "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2023/06/gas-archelaos-katerinis-aylaia-enorgani-42131.webp",
