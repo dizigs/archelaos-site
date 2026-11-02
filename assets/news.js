@@ -166,6 +166,7 @@ function show(id){
   }).catch(()=>{links.querySelectorAll('[data-person-name]').forEach(a=>{a.textContent=t('Βιογραφικό','Biography')})});
  }
  source.append(links);detail.append(source);
+ void window.ArchelaosLinks?.append(detail,'news',x.id,{limit:8,excludeKinds:['person']});
  const b=$('an-dialog-heart'),favorites=window.ArchelaosFavorites;const saved=favorites?.has('news',x.id);
  b.dataset.favoriteKind='news';b.dataset.favoriteId=x.id;b.querySelector('span').textContent=saved?'♥':'♡';b.setAttribute('aria-pressed',String(!!saved));b.setAttribute('aria-label',saved?'Αφαίρεση από τα αγαπημένα':'Αποθήκευση στα αγαπημένα');
  const dialog=$('an-dialog');if(!dialog.open)dialog.showModal();$('an-close').focus();
