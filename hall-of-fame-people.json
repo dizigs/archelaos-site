@@ -485,12 +485,16 @@
       "role": "Πρώην αθλητής · Προπονητής ενόργανης",
       "role_en": "Former athlete · Gymnastics coach",
       "category": "athlete",
-      "bio": "Διεθνής αθλητής της ενόργανης γυμναστικής με πανελλήνιες και διεθνείς διακρίσεις, ανέλαβε επικεφαλής προπονητής του αγωνιστικού τμήματος αγοριών του Αρχελάου κατά την αναδιοργάνωση του 2021. Υπό την καθοδήγησή του ο Άγγελος Παρούσης κατέκτησε χρυσά μετάλλια στο διεθνές Horizon Cup (2022) και τρία χάλκινα μετάλλια στο Πανελλήνιο Πρωτάθλημα Παίδων (2023).\n\nΣτην επετειακή εκδήλωση του 2022 τιμήθηκε ως σημαντικός εκπρόσωπος της ιστορίας της ενόργανης γυμναστικής του Αρχελάου.",
+      "bio": "Διεθνής αθλητής της ενόργανης γυμναστικής με πανελλήνιες και διεθνείς διακρίσεις, ανέλαβε επικεφαλής προπονητής του αγωνιστικού τμήματος αγοριών του Αρχελάου κατά την αναδιοργάνωση του 2021. Υπό την καθοδήγησή του ο Άγγελος Παρούσης κατέκτησε χρυσά μετάλλια στο διεθνές Horizon Cup (2022) και τρία χάλκινα μετάλλια στο Πανελλήνιο Πρωτάθλημα Παίδων (2023).\n\nΣτην επετειακή εκδήλωση του 2022 τιμήθηκε ως σημαντικός εκπρόσωπος της ιστορίας της ενόργανης γυμναστικής του Αρχελάου.\n\nΣτη γιορτή ενόργανης γυμναστικής της Β΄ Περιφέρειας (14–15 Ιουνίου 2025) αναφέρεται στο προπονητικό επιτελείο της αποστολής του Αρχέλαου, που συμμετείχε με 96 παιδιά και αναδείχθηκε πολυπληθέστερη ομάδα.",
       "bio_en": "Former international gymnast Christos Limpanovnos took charge of Archelaos's boys' gymnastics in 2021, coaching Angelos Parousis to international Horizon Cup gold and national medals.\n\nThe club's 2022 commemorative celebration honoured him as a prominent representative of its artistic gymnastics history.",
       "refs": [
         {
           "label": "Οδηγός Πιερίας · Τιμηθέντες επετειακής εκδήλωσης 2022",
           "url": "https://odigos-pierias.gr/%CE%B7-%CF%83%CF%85%CE%B3%CE%BA%CE%AF%CE%BD%CE%B7%CF%83%CE%B7-%CF%83%CF%84%CE%B7-%CE%B2%CF%81%CE%B1%CE%B4%CE%B9%CE%AC-%CE%B1%CE%BD%CE%B1%CE%BC%CE%BD%CE%AE%CF%83%CE%B5%CF%89%CE%BD-%CE%BA%CE%B1%CE%B9/"
+        },
+        {
+          "label": "Ο Ντελάλης · Γιορτή ενόργανης Β΄ Περιφέρειας, Ιούνιος 2025",
+          "url": "https://odelalis.gr/o-gas-archelaos-katerinis-sti-giorti-enorganis-gymnastikis-tis-v-perifereias/"
         }
       ],
       "id": "arch-f56820c52e55"
@@ -7828,19 +7832,6 @@
         {
           "label": "Pieria News · 07/04/2026",
           "url": "https://www.pierianews.gr/2026/04/07/archelaos-katerinis-tmima-palis-defteri-kalyteri-omada-stin-ellada/"
-        }
-      ]
-    },
-    {
-      "id": "arch-christos-limpanovnos-gym-2025",
-      "name": "Χρήστος Λιμπανόβνος",
-      "role": "Προπονητικό επιτελείο · Ενόργανη",
-      "category": "coach",
-      "bio": "Αναφέρεται ονομαστικά στο προπονητικό επιτελείο ενόργανης γυμναστικής του Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης στη γιορτή της Β΄ Περιφέρειας, στη Μίκρα Θεσσαλονίκης, στις 14–15 Ιουνίου 2025. Ο σύλλογος συμμετείχε με 96 παιδιά και βραβεύτηκε ως η πολυπληθέστερη ομάδα της διοργάνωσης.",
-      "refs": [
-        {
-          "label": "Ο Ντελάλης · Γιορτή ενόργανης Β΄ Περιφέρειας, Ιούνιος 2025",
-          "url": "https://odelalis.gr/o-gas-archelaos-katerinis-sti-giorti-enorganis-gymnastikis-tis-v-perifereias/"
         }
       ]
     },
