@@ -22,7 +22,32 @@
       "cause": "Hall canonical IDs were added without matching standalone HTML on the same commit",
       "prevention": "Require a complete canonical person-ID-to-profile-file reconciliation before build and release. Never hardcode old profile counts.",
       "example_commit": "825cca44fbb68f4f5b535fb2a0a1229acbd15d78",
-      "example_deployment_id": "ab32e604-934e-45b2-866b-7c2b66ed8419"
+      "example_deployment_id": "ab32e604-934e-45b2-866b-7c2b66ed8419",
+      "observed_deployment_ids": [
+        "ab32e604-934e-45b2-866b-7c2b66ed8419",
+        "b70086e8-2a08-403e-888e-373039e351b2",
+        "6ca59351-4863-4ea9-95d9-bf972e2664d7",
+        "4eec2f03-a4e0-426b-ad73-f4bfa3edfd23",
+        "2b156571-6c76-47b3-ab78-be0090ef94cd",
+        "537c69ba-16d8-413a-9aa9-f946117b5986",
+        "60cf5a7f-472a-41df-a7f6-64accd1afc87",
+        "f36cc3d1-dd9d-4786-9292-60676d2c1409",
+        "a8d06a2a-288a-422f-a1fa-0edec41d076e",
+        "4ef9ace5-3570-4c1f-bacd-6b29d2cf6978",
+        "bc39b4af-b421-4085-9d95-50e4f1a4f5be",
+        "df8cd2f8-1b88-4fdf-bc22-e7e1c9cca17f",
+        "2cdb2624-ef4e-4dc5-bbac-a9806b6fe028",
+        "57e5c098-fc59-4dd8-b7fb-b2ed7950167c",
+        "7df70b67-83fb-4a11-9862-909b48c15a4f",
+        "797c66f2-2297-4c59-8ff0-83916a34d383",
+        "e4cc8f22-44b4-4047-8a85-02c427a6ba65",
+        "a5b79c32-865a-4649-9543-9ee30786f961",
+        "4017da9f-2e63-4894-8da8-5b48e125234c",
+        "0444afc6-1fe0-4373-9db8-c816c802fb9e",
+        "b0a8fbe3-a5ac-44aa-8e98-5ab56e85558d",
+        "ad95faea-e836-406a-81d1-fe32d5dc1077",
+        "6aa62730-872f-4fad-be5a-4c2bb78d431f"
+      ]
     },
     {
       "id": "DEPLOY_SWIM_BIO_MARKER",
@@ -34,7 +59,12 @@
       "cause": "Release enrichment assumed a fixed bilingual legacy biography markup that did not match a new canonical profile",
       "prevention": "Enrich by canonical person ID using format-aware sync; preserve historical profile bodies and fail early in CI for unsupported markup.",
       "example_commit": "38da18b0003a8a9bf251d68237a7b42961af926b",
-      "example_deployment_id": "31f0102f-aa80-44dd-8b68-865acc16a201"
+      "example_deployment_id": "31f0102f-aa80-44dd-8b68-865acc16a201",
+      "observed_deployment_ids": [
+        "31f0102f-aa80-44dd-8b68-865acc16a201",
+        "3a6c92f5-daff-4294-8bd1-d76aedf4aebc",
+        "13c9542d-914d-4bac-af9a-bab1b797fe93"
+      ]
     },
     {
       "id": "VISIBLE_HTML_ESCAPED_WHITESPACE",
