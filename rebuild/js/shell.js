@@ -238,7 +238,8 @@ function renderSiteTools(){
   const reduced=settings.calm||window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   window.scrollTo({top:0,behavior:reduced?'auto':'smooth'});
  });
- window.addEventListener('scroll',updateBackTop,{passive:true});\n window.addEventListener('resize',updateBackTop,{passive:true});
+ window.addEventListener('scroll',updateBackTop,{passive:true});
+ window.addEventListener('resize',updateBackTop,{passive:true});
  updateBackTop();
 }
 
