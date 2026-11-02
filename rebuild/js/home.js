@@ -46,7 +46,7 @@ const init=()=>{
   });
   const label=slides[index].querySelector('img')?.alt||'';
   titleLink.textContent=label;
-  titleLink.href='/tmimata#sport-'+sportKeys[index];
+  titleLink.href='/tmimata.html#sport-'+sportKeys[index];
   titleLink.setAttribute('aria-label','Πληροφορίες τμήματος: '+label);
   count.textContent=String(index+1).padStart(2,'0')+' / '+String(slides.length).padStart(2,'0')+' · '+label;
  }
