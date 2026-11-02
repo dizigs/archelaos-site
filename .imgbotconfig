@@ -1,0 +1,14 @@
+{
+  "schedule": "daily",
+  "aggressiveCompression": false,
+  "compressWiki": false,
+  "minKBReduced": 10,
+  "ignoredFiles": [
+    "rebuild/research/*",
+    "rebuild/source-profiles/*",
+    "backup/*",
+    "backups/*"
+  ],
+  "prTitle": "ImgBot: lossless image optimization",
+  "prBody": "Lossless optimization of site imagery. Historical archive originals should remain untouched. Verify image-only and production QA checks before merging.\n\n{optimization_ratio}\n\n{optimization_details}"
+}
