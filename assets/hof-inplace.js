@@ -40,11 +40,14 @@ function ensure(){
  dialog.addEventListener('close',()=>{if(previous?.isConnected)previous.focus({preventScroll:true})});
  return dialog;
 }
-async function open(id){
+async function open(id,origin=document.activeElement){
  if(!id)return false;
  const token=++generation;
+ const parent=origin?.closest?.('dialog[open]');
  try{
-  const d=await load();if(token!==generation)return false;
+  const d=await load();
+  // A slow response must not reopen a dismissed or replaced parent record.
+  if(token!==generation||(origin&&!origin.isConnected)||(parent&&!parent.open))return false;
   const p=d.people.find(x=>x.id===id);if(!p)return false;
   const modal=ensure();previous=document.activeElement;
   modal.querySelector('.arch-bio-role').textContent=tr(p.role||'',p.role_en||p.role||'');
@@ -100,7 +103,7 @@ document.addEventListener('click',e=>{
  const a=e.target.closest?.('a[href],button[data-arch-bio-id]');if(!a)return;
  if(e.defaultPrevented||e.button!==0||e.ctrlKey||e.metaKey||e.shiftKey||e.altKey||a.target==='_blank'||a.hasAttribute('download'))return;
  const id=personId(a);if(!id)return;
- e.preventDefault();e.stopPropagation();void open(id);
+ e.preventDefault();e.stopPropagation();void open(id,a);
 },true);
 window.ArchelaosBio=Object.freeze({...window.ArchelaosBio,load,open,__shared:true});
 })();

@@ -211,6 +211,69 @@ async function main() {
           }
         }
       });
+      await run(browser, 'interview-focus-restoration', view, async page => {
+        await visit(page, 'interviews.html');
+        for (const id of ['q1', 'q2']) {
+          const card = page.locator('#cards .card[data-id="' + id + '"]');
+          await card.click();
+          await page.locator('#dialog[open]').waitFor();
+          await page.locator('#close').click();
+          await closed(page, '#dialog');
+          await page.waitForFunction(record => document.activeElement?.matches(
+            '#cards .card[data-id="' + record + '"]'), id, {timeout:2000});
+        }
+      });
+      for (const action of ['dismiss', 'replace']) await run(browser, action + '-pending-biography', view, async page => {
+        // Hold the actual public catalog until the visitor dismisses its parent.
+        // A controlled gate reproduces a slow connection without timing guesses.
+        const catalog = readFileSync(path.join(__dirname, '..', '..', 'dist', 'hall-of-fame-people.json'), 'utf8');
+        let release;
+        const gate = new Promise(resolve => { release = resolve; });
+        await page.route('**/hall-of-fame-people.json', async route => {
+          await gate;
+          await route.fulfill({status:200, contentType:'application/json', body:catalog});
+        });
+        try {
+          await visit(page, 'interviews.html');
+          const card = page.locator('#cards .card[data-id="q1"]');
+          await card.click();
+          const interview = page.locator('#dialog[open]');
+          await interview.waitFor();
+          const requested = page.waitForRequest('**/hall-of-fame-people.json', {timeout:5000});
+          await interview.locator('a[href*="hall-of-fame.html?person="]').first().click();
+          await requested;
+          if (view.width === 320 || view.width === 768) await interview.locator('#close').click();
+          else await page.keyboard.press('Escape');
+          await closed(page, '#dialog');
+          const nextCard = page.locator('#cards .card[data-id="q2"]');
+          if (action === 'replace') {
+            await nextCard.click();
+            await interview.waitFor();
+          }
+          release();
+          await page.evaluate(async () => { await window.ArchelaosBio.load(); });
+          assert.equal(await page.locator('dialog.arch-bio-global[open]').count(), 0,
+            'Delayed biography reopened after its parent was ' + (action === 'replace' ? 'replaced' : 'dismissed'));
+          assert.equal(await page.evaluate(() => document.body.classList.contains('arch-dialog-open')), action === 'replace',
+            'Cancelled biography changed the current page/dialog scroll lock');
+          if (action === 'replace') {
+            assert.equal(new URL(page.url()).searchParams.get('record'), 'q2');
+            assert.equal(await interview.locator('#close').evaluate(node => document.activeElement === node), true,
+              'Stale biography stole focus from the new interview');
+            await interview.locator('#close').click();
+            await closed(page, '#dialog');
+          }
+          assert.equal(await (action === 'replace' ? nextCard : card)
+            .evaluate(node => document.activeElement === node), true, 'Cancelled biography stole restored card focus');
+          // Loading is still usable: an intentional second opening must work.
+          await card.click();
+          await interview.locator('a[href*="hall-of-fame.html?person="]').first().click();
+          await page.locator('dialog.arch-bio-global[open]').waitFor();
+          await page.locator('.arch-bio-close').click();
+          await interview.locator('#close').click();
+          await closed(page, '#dialog');
+        } finally { release(); }
+      });
       await run(browser, 'nested-biography-scroll-lock', view, async page => {
         await visit(page, 'interviews.html');
         await page.locator('#cards .card[data-id="q1"]').click();
