@@ -1,6 +1,8 @@
 name: Archive original news photographs
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '43 5 * * *'
   push:
     paths:
       - 'tools/import_news_images.py'
@@ -80,6 +82,11 @@ jobs:
             exit 0
           fi
           branch="automation/news-photo-archive"
+          if gh pr list --head "$branch" --base main --state open --json number --jq '.[0].number // empty' | grep -q .; then
+            echo "An archive PR is already open; leave it for validation and merge before proposing more changes."
+            exit 0
+          fi
+          git fetch origin "$branch" 2>/dev/null || true
           git switch -c "$branch"
           git commit -m "Archive verified original article photographs for news"
           git push --force-with-lease origin "$branch"
