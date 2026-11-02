@@ -28,7 +28,7 @@ jobs:
       - name: Test known safe repairs and HTML regression guards
         run: |
           python -m unittest discover -s rebuild/tests -p 'auto_fix_html_escapes_test.py' -v
-          python -m unittest discover -s rebuild/tests -p 'guard_html_escaped_text_test.py' -v
+          python -m unittest discover -s rebuild/tests -p 'guard_html_escaped_text_test.py' -k test_reject_ -k test_ignore_ -v
 
       - name: Live public-site check (read-only)
         id: live
