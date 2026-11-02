@@ -1,6 +1,7 @@
 # Κεντρικό πλάνο αυτοματισμού και παράδοσης
 
-Μοναδικό σημείο προτεραιοτήτων για `dizigs/archelaos-site`. Ενημέρωση: 2 Νοεμβρίου 2026 (Europe/Athens).
+Μοναδικό σημείο προτεραιοτήτων για `dizigs/archelaos-site`.
+Το `T` σημαίνει Task («εργασία»): π.χ. T17 = Εργασία 17. Ενημέρωση: 2 Νοεμβρίου 2026 (Europe/Athens).
 Το `WORK_LOG.md` κρατά τα αποδεικτικά κάθε εκτέλεσης· εδώ κρατάμε τις εργασίες και τη σειρά τους.
 **Ο πλήρης αυτοματισμός δεν έχει ακόμη επιβεβαιωθεί από άκρο σε άκρο.**
 
@@ -53,7 +54,7 @@
 | T14 / P2 | Snapshots, link/media QA και αποκατάσταση | Επιβεβαίωση εβδομαδιαίων artifacts/retention και δοκιμή restore· έλεγχος cron εκτελέσεων | Ανακτήσιμο δημόσιο snapshot με hashes· ξεχωριστή ιδιωτική πολιτική backup για πηγές |
 | T15 / P2 | Analytics/SEO αναφορές σε σταθερή λειτουργία | Έλεγχος επόμενων scheduled Google/Clarity exports, freshness, schemas και retention χωρίς δημοσίευση προσωπικών metrics | Πρόσφατες πραγματικές αναφορές, ασφαλής αποτυχία σε expired credentials και σαφές alert |
 | T16 / P3 | Προαιρετικό AI/nonprofit εργαλεία | Μόνο εφόσον λυθούν πρόσβαση, bindings, διαθέσιμο quota και πραγματικό συνολικό όριο κόστους | Δοκιμασμένο fallback/kill switch· καμία ενεργοποίηση πληρωμών ως παρενέργεια της συντήρησης |
-| T17 / P1 / IN PR | Έξι credential-persistence warnings διορθώνονται στον κλάδο `fix/read-only-checkout-credentials` | Έλεγχος remote annotations· έπειτα dependency lockfiles και ξεχωριστή αναβάθμιση deprecated runtime Actions | Καμία απόκρυψη ευρημάτων· διατήρηση εξουσιοδότησης write-enabled repair jobs, τεκμηριωμένο καθαρό scan πριν γίνει blocking |
+| T17 / P1 / IN PR | 13 checkout defaults σε 11 workflows διορθώνονται στον κλάδο `fix/read-only-checkout-credentials` | Έλεγχος remote annotations· έπειτα dependency lockfiles και ξεχωριστή αναβάθμιση deprecated runtime Actions | Καμία απόκρυψη ευρημάτων· διατήρηση εξουσιοδότησης write-enabled repair jobs, τεκμηριωμένο καθαρό scan πριν γίνει blocking |
 
 ## Ακριβή εμπόδια πρόσβασης
 
