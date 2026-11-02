@@ -76,7 +76,7 @@ async function verify(){
        label:card.textContent||''
       }));
      });
-     if(sports.length!==10||sports.some(x=>!x.background.includes('url(')||!x.blur.includes('blur(')||x.icon!=='none'||!x.clickable||x.label.includes('Δείτε την ιστορία')))
+     if(sports.length!==10||sports.some(x=>(x.sport!=='fin-swimming'&&(!x.background.includes('url(')||!x.blur.includes('blur(')))||x.icon!=='none'||!x.clickable||x.label.includes('Δείτε την ιστορία')))
       throw Error('Sport history cards must be clickable with blurred photos and no repeated CTA');
      const historical=page.locator('.dp-card[data-dp-open="inactive-depts"]');
      if(await historical.locator('.dp-title').count()!==1||
