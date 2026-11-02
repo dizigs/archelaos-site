@@ -15,8 +15,14 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Guard against visible literal escaped newlines and tabs
+        run: |
+          python -m unittest discover -s rebuild/tests -p 'guard_html_escaped_text_test.py' -v
+          python rebuild/tools/guard_html_escaped_text.py
       - name: Build and verify complete release
         run: python rebuild/tools/build_release.py
+      - name: Recheck generated public HTML for escaped text
+        run: python rebuild/tools/guard_html_escaped_text.py --dist
       - name: Verify JavaScript syntax
         run: |
           find dist/assets/site/js -name '*.js' -print0 | xargs -0 -n1 node --check

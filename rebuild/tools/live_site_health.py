@@ -17,10 +17,19 @@ PAGES = (
     "/", "/history.html", "/hall-of-fame.html", "/70-stigmes.html",
     "/stories.html", "/tmimata.html", "/board.html", "/contact.html",
     "/sponsors.html", "/retro-matches.html", "/search.html",
-    "/favorites.html", "/contribute.html", "/interviews.html",
+    "/favorites.html", "/contribute.html", "/interviews.html", "/news.html",
 )
+ROOT = Path(__file__).resolve().parents[2]
+# Last independently confirmed production archive sizes (2026-11-02).
+# These are publication floors, NOT checkout-derived expectations: proposed new
+# records do not make the live monitor fail before the Pages deploy finishes.
+# Advance the floors only after checking a successful production deployment.
+CANONICAL_PEOPLE_COUNT = 760
+CANONICAL_NEWS_COUNT = 117
 DATA = {
-    "/assets/site/data/people.json": ("people", 682),
+    "/news.json": ("items", CANONICAL_NEWS_COUNT),
+    "/hall-of-fame-people.json": ("people", CANONICAL_PEOPLE_COUNT),
+    "/assets/site/data/people.json": ("people", CANONICAL_PEOPLE_COUNT),
     "/assets/site/data/moments.json": ("moments", 70),
     "/assets/site/data/stories.json": ("stories", 21),
     "/assets/site/data/interviews.json": ("items", 28),
@@ -97,6 +106,9 @@ def audit(base: str) -> dict:
             report["warnings"].append(f"{route}: canonical does not match final www host")
         if "<main" not in html.lower():
             report["errors"].append(f"{route}: missing main element")
+        if route == "/news.html":
+            if 'id="an-grid"' not in html or 'id="an-search"' not in html:
+                report["errors"].append("News controls missing")
         if route == "/search.html":
             if 'id="sr-query"' not in html or 'id="sr-results"' not in html:
                 report["errors"].append("Search controls missing")
@@ -123,6 +135,8 @@ def audit(base: str) -> dict:
             if not isinstance(records, list) or len(records) < minimum:
                 raise ValueError(f"{key} count below {minimum}")
             report["counts"][key] = len(records)
+            if route == "/news.json":
+                report["counts"]["news_articles"] = len(records)
             data[key] = records
         except (ValueError, TypeError, KeyError) as error:
             report["errors"].append(f"{route}: invalid archive ({error})")

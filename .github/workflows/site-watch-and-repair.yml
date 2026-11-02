@@ -1,0 +1,121 @@
+name: Site watch and safe repair
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 */6 * * *'
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: site-watch-and-repair
+  cancel-in-progress: false
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Test known safe repairs and HTML regression guards
+        run: |
+          python -m unittest discover -s rebuild/tests -p 'auto_fix_html_escapes_test.py' -v
+          python -m unittest discover -s rebuild/tests -p 'guard_html_escaped_text_test.py' -k test_reject_ -k test_ignore_ -v
+
+      - name: Live public-site check (read-only)
+        id: live
+        continue-on-error: true
+        run: |
+          mkdir -p rebuild/test-artifacts
+          python rebuild/tools/live_site_health.py --json rebuild/test-artifacts/live-site-health.json
+
+      - name: Detect literal escaped UI text in source
+        id: escapes
+        continue-on-error: true
+        run: python rebuild/tools/guard_html_escaped_text.py
+
+      - name: Keep reports in restricted GitHub Actions artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-watch-${{ github.run_id }}
+          path: rebuild/test-artifacts/live-site-health.json
+          if-no-files-found: ignore
+          retention-days: 14
+
+      - name: Create or refresh ONE site incident issue
+        if: always() && (steps.live.outcome == 'failure' || steps.escapes.outcome == 'failure')
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          RUN_LINK: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          LIVE_FAILED: ${{ steps.live.outcome }}
+          ESCAPES_FAILED: ${{ steps.escapes.outcome }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title="Site QA: automated monitor alert"
+          number=$(gh issue list --repo "$REPO" --state open --limit 100 --search 'in:title "Site QA: automated monitor alert"' --json number,title \
+            --jq '.[] | select(.title == "Site QA: automated monitor alert") | .number' | head -1)
+          note="Automated public-site checks failed on run $RUN_LINK. Live health: $LIVE_FAILED. Escaped HTML: $ESCAPES_FAILED. See logs and 14-day report artifact. Do not auto-publish an unknown fix."
+          if [ -n "$number" ]; then
+            gh issue comment "$number" --repo "$REPO" --body "$note"
+          else
+            gh issue create --repo "$REPO" --title "$title" --body "$note"
+          fi
+
+      - name: Prepare a scoped known-fix patch (no direct main commits)
+        id: fix
+        shell: bash
+        run: |
+          set -euo pipefail
+          python rebuild/tools/auto_fix_html_escapes.py --apply
+          if git diff --quiet -- news.html; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if [ "$(git diff --name-only | wc -l)" -ne 1 ] || [ "$(git diff --name-only)" != "news.html" ]; then
+            echo "Unsafe auto-patch: changed unexpected files" >&2
+            exit 1
+          fi
+          python rebuild/tools/guard_html_escaped_text.py
+          python rebuild/tools/build_release.py
+          python rebuild/tools/guard_html_escaped_text.py --dist
+          python rebuild/tools/verify_release.py
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Open CI-gated repair pull request instead of touching production
+        if: steps.fix.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if gh pr list --repo "$REPO" --state open --limit 100 --json title \
+              --jq '.[].title' | grep -Fxq 'auto-heal: remove visible escaped whitespace in news.html'; then
+            echo "A repair PR already exists; not creating a duplicate."
+            exit 0
+          fi
+          branch="bot/repair-html-escapes-$GITHUB_RUN_ID"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git checkout -b "$branch"
+          git add -- news.html
+          git commit -m "fix(news): auto-repair escaped whitespace between head tags"
+          git push origin "$branch"
+          gh pr create --repo "$REPO" --base main --head "$branch" \
+            --title 'auto-heal: remove visible escaped whitespace in news.html' \
+            --body 'Automated, allowlisted repair only. No production write. Requires all release/integrity/a11y checks and merge rules. Source and dist regression guards verified. Logs in originating GitHub Actions run.'
+
+      - name: Fail monitoring run if live site still has unknown issues
+        if: steps.live.outcome == 'failure' || (steps.escapes.outcome == 'failure' && steps.fix.outputs.changed != 'true')
+        run: exit 1
