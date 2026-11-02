@@ -2,15 +2,8 @@ name: Lighthouse CI - website quality
 
 on:
   workflow_dispatch:
+  # Required PR check: do not filter by file paths or status stays pending.
   pull_request:
-    paths:
-      - '.github/workflows/lighthouse-ci.yml'
-      - '.lighthouserc.cjs'
-      - 'rebuild/**'
-      - 'assets/**'
-      - 'images/**'
-      - 'news.json'
-      - 'hall-of-fame-people.json'
   push:
     branches: [main]
     paths:

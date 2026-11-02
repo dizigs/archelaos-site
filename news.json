@@ -299,7 +299,9 @@
         "arch-f6152b60c43f"
       ],
       "featured": false,
-      "imageSourceUrl": "https://katerini.gr/wp-content/uploads/2026/06/katerini-protathlitis-elladas-toxovolia-o-96252.webp"
+      "imageSourceUrl": "https://katerini.gr/wp-content/uploads/2026/06/katerini-protathlitis-elladas-toxovolia-o-96252.webp",
+      "eventId": "archery-national-outdoor-florina-2026",
+      "eventDate": "2026-06-20"
     },
     {
       "id": "handball-siokas-mediterranean-2026",
@@ -739,6 +741,74 @@
       "imageNote": "Φωτογραφία από το αντίστοιχο αρχικό δημοσίευμα · KateriniSport · 05/08/2025"
     },
     {
+      "id": "archery-national-oaka-team-title-2025",
+      "date": "2025-07-07",
+      "eventDate": "2025-07-05",
+      "eventId": "archery-national-outdoor-oaka-2025",
+      "category": "achievements",
+      "sport": "Τοξοβολία",
+      "title": "Πρωταθλητής Ελλάδας στην τοξοβολία ο Αρχέλαος στο ΟΑΚΑ",
+      "summary": "Στο Πανελλήνιο Πρωτάθλημα Ανοιχτού Χώρου της 5ης Ιουλίου 2025, ο Αρχέλαος κατέκτησε τον ομαδικό τίτλο Ανδρών στο Ολυμπιακό Τόξο και ατομικό χρυσό με τον Ευάγγελο Χαρίση.",
+      "body": [
+        "Στο Εθνικό Προπονητήριο του ΟΑΚΑ, στις 5 Ιουλίου 2025, ο Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης κατέκτησε την πρώτη θέση στο Ομαδικό Ανδρών Ολυμπιακού Τόξου στο Πανελλήνιο Πρωτάθλημα Ανοιχτού Χώρου 2025. Στην ομάδα συμμετείχαν οι Ευάγγελος Χαρίσης, Χαράλαμπος Ιακωβίδης και Ευάγγελος Μαρινόπουλος.",
+        "Ο Ευάγγελος Χαρίσης κατέκτησε επίσης την πρώτη θέση στο Ατομικό Ανδρών. Στον γύρο κατάταξης ο Χαράλαμπος Ιακωβίδης τερμάτισε πρώτος και ο Ευάγγελος Χαρίσης δεύτερος, σύμφωνα με το δημοσίευμα του «Ντελάλη».",
+        "Η διοργάνωση επιβεβαιώνεται και από τη δημοσίευση των επίσημων αποτελεσμάτων της Ελληνικής Ομοσπονδίας Τοξοβολίας στις 8 Ιουλίου 2025. Η ημερομηνία της παρούσας είδησης είναι η 7η Ιουλίου 2025, ενώ το γεγονός πραγματοποιήθηκε στις 5 Ιουλίου."
+      ],
+      "source": "Ο Ντελάλης · 07/07/2025",
+      "sourceUrl": "https://odelalis.gr/protathlitis-ellados-stin-toxovolia-o-archelaos-katerinis/",
+      "personIds": [
+        "arch-955a386f547f",
+        "arch-b231605f5def",
+        "arch-f6152b60c43f",
+        "arch-44ef21dfb9b7"
+      ]
+    },
+    {
+      "id": "archery-central-european-cup-novi-marof-2025",
+      "date": "2025-06-23",
+      "category": "achievements",
+      "sport": "Τοξοβολία",
+      "title": "Ο Αρχέλαος στο Central European Cup 2025 στην Κροατία",
+      "summary": "Διεθνής παρουσία στο Novi Marof, με τρεις συμμετοχές του συλλόγου και τέταρτη θέση για τον Ευάγγελο Χαρίση στους Ολυμπιακούς Γύρους U21.",
+      "body": [
+        "Ο Γ.Α.Σ. Αρχέλαος Κατερίνης συμμετείχε στον δεύτερο αγώνα του Central European Cup 2025, που διεξήχθη στις 21 Ιουνίου στο Novi Marof της Κροατίας. Η αποστολή αγωνίστηκε στη διοργάνωση τοξοβολίας που φιλοξένησε ο σύλλογος SK Grebengradski Streličari.",
+        "Στο Ολυμπιακό τόξο U21, ο Ευάγγελος Χαρίσης κατέλαβε την τρίτη θέση στον γύρο κατάταξης και την τέταρτη μετά τους αγώνες αποκλεισμού. Στην κατηγορία U18, ο Κωνσταντίνος Χαρίσης ήταν 14ος στην κατάταξη και αποκλείστηκε στη φάση των 1/8.",
+        "Στους άνδρες, ο Δημήτριος Γαλάνης κατατάχθηκε 31ος και ολοκλήρωσε την πορεία του στους γύρους αποκλεισμού στη φάση των 1/16. Την ομάδα καθοδήγησε ο προπονητής Ιωάννης Χαρίσης.",
+        "Τα αποτελέσματα και η παρουσία της αποστολής καταγράφονται στο δελτίο Τύπου του συλλόγου που δημοσιεύτηκε στις 23 Ιουνίου 2025 από τον Ντελάλη, το Ολύμπιο Βήμα και το PieriaSport."
+      ],
+      "source": "Ο Ντελάλης · 23/06/2025",
+      "sourceUrl": "https://odelalis.gr/apo-tin-katerini-stin-kroatia-toxovolia-me-ypografi-archelaou-sto-central-european-cup-2025/",
+      "additionalSources": [
+        {
+          "label": "PieriaSport · Ιούνιος 2025",
+          "url": "https://pieriasportsite.blogspot.com/2025/06/central-european-cup-2025.html"
+        },
+        {
+          "label": "Ολύμπιο Βήμα · 23/06/2025",
+          "url": "https://olympiobima.gr/apo-tin-katerini-stin-kroatia-toxovolia-me-ypografi-archelaou-kai-istorikes-epidoseis-sto-central-european-cup-2025/"
+        }
+      ],
+      "personIds": [
+        "arch-955a386f547f",
+        "arch-konstantinos-charisis-arch",
+        "arch-6212ba5ea7f1",
+        "arch-44ef21dfb9b7"
+      ],
+      "featured": false,
+      "image": "images/news/archery-central-european-cup-novi-marof-2025.jpg",
+      "imageSourceUrl": "https://odelalis.gr/wp-content/uploads/2025/06/katerini_kroatia_toxovolia-1.jpg",
+      "imageNote": "Φωτογραφία από το συγκεκριμένο δημοσίευμα του Ντελάλη, Central European Cup 2025.",
+      "imageReuseAllowed": true,
+      "eventId": "central-european-cup-novi-marof-2025",
+      "eventDate": "2025-06-21",
+      "personFacts": {
+        "arch-955a386f547f": "Στο Central European Cup στο Novi Marof (21/06/2025), τρίτος στην κατάταξη και τέταρτος στους αγώνες αποκλεισμού του Ολυμπιακού τόξου U21.",
+        "arch-konstantinos-charisis-arch": "Στο Central European Cup στο Novi Marof (21/06/2025), 14ος στον γύρο κατάταξης U18 και συμμετοχή έως τη φάση των 1/8.",
+        "arch-6212ba5ea7f1": "Στο Central European Cup στο Novi Marof (21/06/2025), 31ος στον γύρο κατάταξης ανδρών και συμμετοχή έως τη φάση των 1/16.",
+        "arch-44ef21dfb9b7": "Προπονητής της αποστολής τοξοβολίας του Γ.Α.Σ. Αρχέλαος στο Central European Cup, Novi Marof (21/06/2025)."
+      }
+    },
+    {
       "id": "gymnastics-2025-festival-largest-team",
       "date": "2025-06-19",
       "sport": "Ενόργανη Γυμναστική",
@@ -780,7 +850,8 @@
       "personIds": [],
       "image": "https://katerini.gr/wp-content/uploads/2025/05/2025-05-05_17-40-04-978.jpg",
       "imageSourceUrl": "https://katerini.gr/wp-content/uploads/2025/05/2025-05-05_17-40-04-978.jpg",
-      "imageNote": "Φωτογραφία από το αντίστοιχο αρχικό δημοσίευμα · Δήμος Κατερίνης · 05/05/2025"
+      "imageNote": "Φωτογραφία από το αντίστοιχο αρχικό δημοσίευμα · Δήμος Κατερίνης · 05/05/2025",
+      "eventId": "archery-national-evaluation-nea-chrani-2025"
     },
     {
       "id": "wrestling-u20-serres-champions-apr-2025",
@@ -1095,7 +1166,9 @@
         "arch-ektoras-diamantidis-arch"
       ],
       "featured": false,
-      "imageSourceUrl": "https://media.pieriasocial.gr/2024/10/111111111111111111111111-2.jpg"
+      "imageSourceUrl": "https://media.pieriasocial.gr/2024/10/111111111111111111111111-2.jpg",
+      "eventId": "archery-cup-volos-2024",
+      "eventDate": "2024-10-19"
     },
     {
       "id": "wrestling-balkan-skopje-oct-2024",
@@ -1459,7 +1532,9 @@
       "imageNote": "Φωτογραφία από το αρχικό δημοσίευμα: Pieria Social · 17/04/2024",
       "personIds": [],
       "featured": false,
-      "imageSourceUrl": "https://media.pieriasocial.gr/2024/04/1111111111111111-1.jpg"
+      "imageSourceUrl": "https://media.pieriasocial.gr/2024/04/1111111111111111-1.jpg",
+      "eventId": "archery-olympus-nea-chrani-2024",
+      "eventDate": "2024-04-13"
     },
     {
       "id": "track-u18-kilkis-medals-apr-2024",
@@ -2502,7 +2577,8 @@
         "arch-ba8233d165aa",
         "arch-96ddd7ba9e4d"
       ],
-      "image": "archelaos-logo-gold.png"
+      "image": "",
+      "imageNote": "Εικαστικό του Αρχέλαου — δεν υπάρχει επιβεβαιωμένη φωτογραφία της διοργάνωσης."
     },
     {
       "id": "wrestling-xenidou-bronze-oct-2021",

@@ -1,0 +1,30 @@
+name: Clarity daily private aggregate report
+on:
+  schedule:
+    - cron: '13 7 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Read Clarity summary with repository secret
+        env:
+          CLARITY_API_TOKEN: ${{ secrets.CLARITY_API_TOKEN }}
+        run: python .github/scripts/clarity_export.py
+      - name: Keep summary for 14 days (never publish to site)
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: clarity-private-aggregate-report
+          path: clarity-aggregate-report.json
+          retention-days: 14
+          if-no-files-found: error

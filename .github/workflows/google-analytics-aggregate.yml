@@ -1,0 +1,37 @@
+name: Google Search and GA4 daily aggregate
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '39 7 * * *'
+permissions:
+  contents: read
+  id-token: write
+jobs:
+  report:
+    if: github.repository == 'dizigs/archelaos-site' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Federate Google identity, no JSON key
+        uses: google-github-actions/auth@c200f3691d83b41bf9bbd8638997a462592937ed # v2
+        with:
+          workload_identity_provider: 'projects/651273323006/locations/global/workloadIdentityPools/archelaos-github/providers/github-actions'
+          service_account: 'archelaos-analytics-automation@melodic-voice-484306-n7.iam.gserviceaccount.com'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install minimal authentication client
+        run: |
+          python -m pip install --only-binary=:all: 'google-auth==2.35.0' 'requests==2.32.3'
+      - name: Export daily aggregate data
+        run: python .github/scripts/google_aggregate.py
+      - name: Keep report private to Actions for 14 days
+        uses: actions/upload-artifact@v4
+        with:
+          name: google-search-ga4-private-report
+          path: google-analytics-aggregate.json
+          retention-days: 14
+          if-no-files-found: error

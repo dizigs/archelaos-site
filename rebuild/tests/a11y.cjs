@@ -1,12 +1,18 @@
 /* Static release accessibility QA: automated audit + keyboard/landmark checks.
  * axe cannot replace human screen-reader and assistive-technology verification. */
 const {chromium}=require('playwright');
-const {mkdirSync,writeFileSync,readdirSync}=require('node:fs');
+const {mkdirSync,writeFileSync,readdirSync,readFileSync}=require('node:fs');
 const path=require('node:path');
 const BASE='http://127.0.0.1:8766';
 const OUTPUT=path.join(__dirname,'..','test-artifacts','accessibility');
 const allProfiles=readdirSync(path.join(__dirname,'..','..','dist','people')).filter(x=>x.startsWith('arch-')&&x.endsWith('.html'));
-if(allProfiles.length!==682)throw Error('Expected all 682 profiles before accessibility audit');
+const hall=JSON.parse(readFileSync(path.join(__dirname,'..','..','hall-of-fame-people.json'),'utf8'));
+const personIds=hall.people.map(p=>p.id);
+const unique=new Set(personIds);
+if(hall.count!==personIds.length || unique.size!==personIds.length ||
+   allProfiles.length!==personIds.length ||
+   allProfiles.some(filename=>!unique.has(filename.slice(0,-5))))
+  throw Error('Published profiles must match every canonical Hall of Fame ID, count and file');
 const routes=['index.html','history.html','hall-of-fame.html','70-stigmes.html',
  'stories.html','board.html','contact.html','sponsors.html','tmimata.html',
  'retro-matches.html','search.html','favorites.html','contribute.html',

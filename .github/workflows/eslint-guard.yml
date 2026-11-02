@@ -1,0 +1,24 @@
+name: ESLint JavaScript quality
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  lint:
+    name: ESLint JavaScript quality
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install exact ESLint without lifecycle scripts
+        run: npm install --no-save --no-package-lock --ignore-scripts eslint@9.39.1
+      - name: Lint project JS
+        run: ./node_modules/.bin/eslint --config eslint.config.mjs rebuild

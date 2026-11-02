@@ -1,0 +1,35 @@
+name: JavaScript syntax guard
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  js-syntax:
+    name: JavaScript syntax (all site scripts)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Fail on any invalid JavaScript syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          count=0
+          while IFS= read -r -d '' file; do
+            echo "Syntax checking: $file"
+            node --check "$file"
+            count=$((count+1))
+          done < <(find rebuild -type f \( -name '*.js' -o -name '*.cjs' -o -name '*.mjs' \) -print0)
+          if [ "$count" -eq 0 ]; then
+            echo "No JavaScript files found; refusing false success"
+            exit 1
+          fi
+          echo "Checked $count JavaScript files"

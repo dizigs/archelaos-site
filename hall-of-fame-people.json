@@ -1,6 +1,6 @@
 {
   "version": "v1.6",
-  "count": 735,
+  "count": 760,
   "people": [
     {
       "name": "Νίκος Τσινόπουλος",
@@ -585,12 +585,20 @@
       "role": "Αθλητής · Τοξοβολία",
       "role_en": "Athlete",
       "category": "athlete",
-      "bio": "Μέλος της χρυσής τριάδας του Αρχελάου (μαζί με Ε. Χαρίση και Χ. Ιακωβίδη) που κατέκτησε το Πρωτάθλημα Ελλάδας Ομαδικού Ανδρών το 2025 και το 2026, καθώς και τα Κύπελλα Ελλάδας 2024 και 2026. Τερμάτισε 5ος στο Ατομικό Ανδρών στη Φλώρινα το 2026.\n\nΣτην ανακοίνωση του Δήμου Κατερίνης για το Πανελλήνιο Πρωτάθλημα Τοξοβολίας της Φλώρινας (23 Ιουνίου 2026) αναφέρεται η 5η ατομική θέση του.",
+      "bio": "Ο Βαγγέλης (Ευάγγελος) Μαρινόπουλος είναι αθλητής τοξοβολίας του Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης στο Ολυμπιακό Τόξο. Στο Κύπελλο Ελλάδας στον Βόλο (19–20 Οκτωβρίου 2024) κατέλαβε τη 15η θέση στην κατάταξη Ανδρών.\n\nΉταν μέλος της ομάδας ανδρών του Αρχέλαου που κατέκτησε το Πανελλήνιο Πρωτάθλημα Ομαδικού το 2025 και το 2026. Στο Πανελλήνιο Πρωτάθλημα στη Φλώρινα (Ιούνιος 2026) κατέλαβε την 5η θέση στο Ατομικό Ανδρών.",
       "bio_en": "Vangelis Marinopoulos won consecutive Greek recurve team titles with Archelaos (2025, 2026) and finished 5th individually at the 2026 national championships.\n\nThe Municipality of Katerini's 23 June 2026 announcement reports his fifth-place individual finish at the national archery championships in Florina.",
       "refs": [
         {
           "label": "Δήμος Κατερίνης · Τοξοβολία, Πανελλήνιο 2026",
           "url": "https://katerini.gr/?p=69956"
+        },
+        {
+          "label": "Γραφείο Τύπου Γ.Α.Σ. Αρχέλαος · Κύπελλο 2024",
+          "url": "https://pieriasocial.gr/?p=93206"
+        },
+        {
+          "label": "Ελληνική Ομοσπονδία Τοξοβολίας · Κύπελλο 2024",
+          "url": "https://www.archery.org.gr/telika-apotelesmata-agona-kypelloy-ellados-2024-volos-19-amp-20-oktovrioy-2024/"
         }
       ],
       "id": "arch-f6152b60c43f"
@@ -3682,7 +3690,7 @@
       "role": "Αθλητής · Τοξοβολία",
       "role_en": "Archer · Archery",
       "category": "athlete",
-      "bio": "Αναφέρεται στην ιστορική καταγραφή της τοξοβολίας του Αρχελάου ανάμεσα στους αθλητές που συνέβαλαν στην πορεία του τμήματος. Η πηγή πιστοποιεί τη σύνδεσή του με την αγωνιστική ιστορία, αλλά δεν αναφέρει εξατομικευμένο αποτέλεσμα ή ημερομηνία διάκρισης.",
+      "bio": "Αναφέρεται στην ιστορική καταγραφή της τοξοβολίας του Αρχελάου ανάμεσα στους αθλητές που συνέβαλαν στην πορεία του τμήματος. Η πηγή πιστοποιεί τη σύνδεσή του με την αγωνιστική ιστορία, αλλά δεν αναφέρει εξατομικευμένο αποτέλεσμα ή ημερομηνία διάκρισης.\n\nΑναφέρεται επίσης πρώτη θέση στη Β΄ κατηγορία Barebow Ανδρών και άνοδος στην Α΄, σύμφωνα με την ιστορική αναφορά τοξοβολίας του τμήματος.",
       "bio_en": "Theodoros Pasachidis is named among the archers in the historical account of Archelaos’s archery department. The record confirms his association with the club but does not identify an individual competitive result.",
       "id": "arch-af5bad82fe57"
     },
@@ -3702,7 +3710,7 @@
       "role": "Αθλητής · Τοξοβολία",
       "role_en": "Archer · Archery",
       "category": "athlete",
-      "bio": "Αθλητής τοξοβολίας του Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης, με προπονητή τον Ιωάννη Χαρίση. Το 2024 κατέκτησε το ασημένιο μετάλλιο (2η θέση) στην κατηγορία Παίδων του Ολυμπιακού Τόξου σε πανελλήνια διοργάνωση. Το 2025 κατέκτησε το χάλκινο μετάλλιο (3η θέση) στο Πανελλήνιο Πρωτάθλημα Τοξοβολίας U15 και Μικρών Ηλικιακών Κατηγοριών, στο Μαυρομμάτι Βοιωτίας. Συμμετέχει επίσης σε περιφερειακούς και αναπτυξιακούς αγώνες κλειστού και ανοικτού χώρου, εκπροσωπώντας τη νέα γενιά αθλητών του συλλόγου.\n\nΠεριλαμβανόταν στην αποστολή τοξοβολίας του Γ.Α.Σ. Αρχέλαος Κατερίνης στο Πανελλήνιο Πρωτάθλημα Κλειστού Χώρου U18 στη Λιβαδειά (28 Φεβρουαρίου – 1 Μαρτίου 2026). Ο σύλλογος κατέκτησε την 3η θέση στο ομαδικό εφήβων· το δημοσίευμα δεν προσδιορίζει ποια από τα έξι μέλη της αποστολής αγωνίστηκαν στο συγκεκριμένο ομαδικό.",
+      "bio": "Αθλητής τοξοβολίας του Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης, με προπονητή τον Ιωάννη Χαρίση. Το 2024 κατέκτησε το ασημένιο μετάλλιο (2η θέση) στην κατηγορία Παίδων του Ολυμπιακού Τόξου σε πανελλήνια διοργάνωση. Το 2025 κατέκτησε το χάλκινο μετάλλιο (3η θέση) στο Πανελλήνιο Πρωτάθλημα Τοξοβολίας U15 και Μικρών Ηλικιακών Κατηγοριών, στο Μαυρομμάτι Βοιωτίας. Συμμετέχει επίσης σε περιφερειακούς και αναπτυξιακούς αγώνες κλειστού και ανοικτού χώρου, εκπροσωπώντας τη νέα γενιά αθλητών του συλλόγου.\n\nΠεριλαμβανόταν στην αποστολή τοξοβολίας του Γ.Α.Σ. Αρχέλαος Κατερίνης στο Πανελλήνιο Πρωτάθλημα Κλειστού Χώρου U18 στη Λιβαδειά (28 Φεβρουαρίου – 1 Μαρτίου 2026). Ο σύλλογος κατέκτησε την 3η θέση στο ομαδικό εφήβων· το δημοσίευμα δεν προσδιορίζει ποια από τα έξι μέλη της αποστολής αγωνίστηκαν στο συγκεκριμένο ομαδικό.\n\nΗ ιστορική αναφορά τοξοβολίας του τμήματος καταγράφει επιπλέον πρωτιές στην κατηγορία U15 Παίδων στα 15 μ. και 18 μ.",
       "bio_en": "An Archelaos Katerini archer coached by Ioannis Charisis. In 2024 he won silver (second place) in the Boys' Olympic recurve category at a national competition. In 2025 he earned bronze (third place) at the Panhellenic U15 and Younger Age Categories Archery Championships in Mavrommati, Boeotia. He also competes in regional and youth indoor and outdoor events, representing the club's next generation of archers.\n\nNamed in GAS Archelaos Katerinis's archery delegation at the Greek Indoor U18 Championships in Livadeia (28 February – 1 March 2026). The club placed third in the boys' team event; the report does not identify which of the six delegation members competed in that team event.",
       "id": "arch-baba93550267",
       "refs": [
@@ -3718,8 +3726,8 @@
       "role": "Αθλήτρια · Τοξοβολία",
       "role_en": "Archer · Archery",
       "category": "athlete",
-      "bio": "Περιλαμβάνεται στην ιστορική καταγραφή της τοξοβολίας του Αρχελάου ως αθλήτρια που διακρίθηκε στις αναπτυξιακές κατηγορίες το 2024. Η διαθέσιμη έρευνα δεν προσδιορίζει το ακριβές αγώνισμα ή την τελική θέση της.\n\nΠεριλαμβανόταν στην αποστολή τοξοβολίας του Γ.Α.Σ. Αρχέλαος Κατερίνης στο Πανελλήνιο Πρωτάθλημα Κλειστού Χώρου U18 στη Λιβαδειά (28 Φεβρουαρίου – 1 Μαρτίου 2026). Ο σύλλογος κατέκτησε την 3η θέση στο ομαδικό εφήβων· το δημοσίευμα δεν προσδιορίζει ποια από τα έξι μέλη της αποστολής αγωνίστηκαν στο συγκεκριμένο ομαδικό.",
-      "bio_en": "Elisavet Stergiopoulou is recorded among Archelaos’s youth archers who achieved notable results in 2024. The available research does not identify her exact event or final placing.\n\nNamed in GAS Archelaos Katerinis's archery delegation at the Greek Indoor U18 Championships in Livadeia (28 February – 1 March 2026). The club placed third in the boys' team event; the report does not identify which of the six delegation members competed in that team event.",
+      "bio": "Στις 13 Οκτωβρίου 2024 στη Νέα Χράνη κατέλαβε τη 2η θέση στις Πανκορασίδες (Ολυμπιακό Τόξο, 15 μ.) με 648 βαθμούς (318 + 330), σύμφωνα με το αρχειακό μητρώο τοξοβολίας του συλλόγου (σ. 3, παραπομπή «0001-0500.pdf»).\n\nΠεριλαμβανόταν στην αποστολή τοξοβολίας του Γ.Α.Σ. Αρχέλαος Κατερίνης στο Πανελλήνιο Πρωτάθλημα Κλειστού Χώρου U18 στη Λιβαδειά (28 Φεβρουαρίου – 1 Μαρτίου 2026). Ο σύλλογος κατέκτησε την 3η θέση στο ομαδικό εφήβων· το δημοσίευμα δεν προσδιορίζει ποια από τα έξι μέλη της αποστολής αγωνίστηκαν στο συγκεκριμένο ομαδικό.",
+      "bio_en": "On 13 October 2024 in Nea Chrani, she placed second in the girls’ 15 m recurve category, scoring 648 points (318 + 330), according to the club’s archived archery results register (p. 3, citing “0001-0500.pdf”).\n\nNamed in GAS Archelaos Katerinis's archery delegation at the Greek Indoor U18 Championships in Livadeia (28 February – 1 March 2026). The club placed third in the boys' team event; the report does not identify which of the six delegation members competed in that team event.",
       "id": "arch-77461943b4f2",
       "refs": [
         {
@@ -7416,7 +7424,7 @@
       "role": "Αθλητής/Αθλήτρια · Τοξοβολία",
       "role_en": "Athlete · Archery",
       "category": "athlete",
-      "bio": "Εκπροσώπησε τον Γ.Α.Σ. Αρχέλαος Κατερίνης στο τμήμα τοξοβολία, με 1η θέση στο μικτό ομαδικό U21 με τον Ευάγγελο Χαρίση και 1η θέση στο ομαδικό γυναικών U21 στο Κύπελλο Ελλάδας Τοξοβολίας στον Βόλο (19–20 Οκτωβρίου 2024).\n\nΤον Νοέμβριο 2024 συμπεριλήφθηκε στην ελληνική αποστολή U21 Ολυμπιακού τόξου για το Balkan Indoor Championship και το Montenegro Grand Prix στο Herceg Novi, μαζί με τον Ευάγγελο Χαρίση.",
+      "bio": "Εκπροσώπησε τον Γ.Α.Σ. Αρχέλαος Κατερίνης στο τμήμα τοξοβολία, με 1η θέση στο μικτό ομαδικό U21 με τον Ευάγγελο Χαρίση και 1η θέση στο ομαδικό γυναικών U21 στο Κύπελλο Ελλάδας Τοξοβολίας στον Βόλο (19–20 Οκτωβρίου 2024).\n\nΤον Νοέμβριο 2024 συμπεριλήφθηκε στην ελληνική αποστολή U21 Ολυμπιακού τόξου για το Balkan Indoor Championship και το Montenegro Grand Prix στο Herceg Novi, μαζί με τον Ευάγγελο Χαρίση.\n\nΗ ιστορική αναφορά του τμήματος καταγράφει επίσης δεύτερη θέση στα 30 μ. και πρώτη θέση Πανκορασίδων στα 18 μ.",
       "bio_en": "Represented GAS Archelaos Katerinis in archery, achieving first place in the U21 mixed team with Evangelos Charisis and first place in the U21 women’s team at the 2024 Greek Archery Cup in Volos (19–20 October).",
       "refs": [
         {
@@ -7448,7 +7456,7 @@
       "role": "Αθλητής/Αθλήτρια · Τοξοβολία",
       "role_en": "Athlete · Archery",
       "category": "athlete",
-      "bio": "Εκπροσώπησε τον Γ.Α.Σ. Αρχέλαος Κατερίνης στο τμήμα τοξοβολία, με 1η θέση στο ομαδικό γυναικών U21 στο Κύπελλο Ελλάδας Τοξοβολίας στον Βόλο (19–20 Οκτωβρίου 2024).",
+      "bio": "Εκπροσώπησε τον Γ.Α.Σ. Αρχέλαος Κατερίνης στο τμήμα τοξοβολία, με 1η θέση στο ομαδικό γυναικών U21 στο Κύπελλο Ελλάδας Τοξοβολίας στον Βόλο (19–20 Οκτωβρίου 2024).\n\nΗ ιστορική αναφορά του τμήματος καταγράφει επίσης τρίτη θέση στα 30 μ. και πρώτη θέση στην κατηγορία U18 Α΄ στα 18 μ.",
       "bio_en": "Represented GAS Archelaos Katerinis in archery, achieving first place in the U21 women’s team at the 2024 Greek Archery Cup in Volos (19–20 October).",
       "refs": [
         {
@@ -7464,7 +7472,7 @@
       "role": "Αθλητής/Αθλήτρια · Τοξοβολία",
       "role_en": "Athlete · Archery",
       "category": "athlete",
-      "bio": "Εκπροσώπησε τον Γ.Α.Σ. Αρχέλαος Κατερίνης στο τμήμα τοξοβολία, με 2η θέση στο μικτό ομαδικό U18 με τον Κωνσταντίνο Χαρίση στο Κύπελλο Ελλάδας Τοξοβολίας στον Βόλο (19–20 Οκτωβρίου 2024).",
+      "bio": "Εκπροσώπησε τον Γ.Α.Σ. Αρχέλαος Κατερίνης στο τμήμα τοξοβολία, με 2η θέση στο μικτό ομαδικό U18 με τον Κωνσταντίνο Χαρίση στο Κύπελλο Ελλάδας Τοξοβολίας στον Βόλο (19–20 Οκτωβρίου 2024).\n\nΗ ιστορική αναφορά του τμήματος καταγράφει επίσης πρώτη θέση στην κατηγορία U21 Γυναικών Β΄ με επίδοση 399 βαθμών.",
       "bio_en": "Represented GAS Archelaos Katerinis in archery, achieving second place in the U18 mixed team with Konstantinos Charisis at the 2024 Greek Archery Cup in Volos (19–20 October).",
       "refs": [
         {
@@ -7790,7 +7798,7 @@
       "role": "Αθλητής/Αθλήτρια · Τοξοβολία",
       "role_en": "Athlete · Archery",
       "category": "athlete",
-      "bio": "Περιλαμβανόταν στην αποστολή τοξοβολίας του Γ.Α.Σ. Αρχέλαος Κατερίνης στο Πανελλήνιο Πρωτάθλημα Κλειστού Χώρου U18 στη Λιβαδειά (28 Φεβρουαρίου – 1 Μαρτίου 2026). Ο σύλλογος κατέκτησε την 3η θέση στο ομαδικό εφήβων· το δημοσίευμα δεν προσδιορίζει ποια από τα έξι μέλη της αποστολής αγωνίστηκαν στο συγκεκριμένο ομαδικό.",
+      "bio": "Περιλαμβανόταν στην αποστολή τοξοβολίας του Γ.Α.Σ. Αρχέλαος Κατερίνης στο Πανελλήνιο Πρωτάθλημα Κλειστού Χώρου U18 στη Λιβαδειά (28 Φεβρουαρίου – 1 Μαρτίου 2026). Ο σύλλογος κατέκτησε την 3η θέση στο ομαδικό εφήβων· το δημοσίευμα δεν προσδιορίζει ποια από τα έξι μέλη της αποστολής αγωνίστηκαν στο συγκεκριμένο ομαδικό.\n\nΗ ιστορική αναφορά τοξοβολίας του τμήματος καταγράφει ακόμη τρίτη θέση σε αναπτυξιακό αγώνα U21 το 2024, με επίδοση 236 βαθμών.",
       "bio_en": "Named in GAS Archelaos Katerinis's archery delegation at the Greek Indoor U18 Championships in Livadeia (28 February – 1 March 2026). The club placed third in the boys' team event; the report does not identify which of the six delegation members competed in that team event.",
       "refs": [
         {
@@ -8045,6 +8053,257 @@
           "url": "https://katerinisport.gr/4-%CF%83%CF%85%CE%BC%CE%BC%CE%B5%CF%84%CE%BF%CF%87%CE%AD%CF%82-%CF%83%CE%B5-%CF%84%CE%B5%CE%BB%CE%B9%CE%BA%CE%BF%CF%8D%CF%82-13-%CF%80%CE%BB%CE%B1%CF%83%CE%B1%CF%81%CE%AF%CF%83%CE%BC%CE%B1%CF%84/"
         }
       ]
+    },
+    {
+      "id": "arch-archery-contrib-20261102-01",
+      "name": "Κωνσταντίνος Σιδηρόπουλος",
+      "name_en": "Konstantinos Sidiropoulos",
+      "role": "Αθλητής/Αθλήτρια · Τοξοβολία",
+      "role_en": "Athlete · Archery",
+      "category": "athlete",
+      "bio": "Αθλητής τοξοβολίας του Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης. Έχει συμμετάσχει με την Εθνική Ομάδα Νέων στο European Youth Cup, σύμφωνα με την ιστορική αναφορά του τμήματος.",
+      "bio_en": "Archery athlete of GAS Archelaos Katerinis. Recorded in the club's internal archery report."
+    },
+    {
+      "id": "arch-archery-contrib-20261102-02",
+      "name": "Αθανάσιος Αλεξούλης",
+      "name_en": "Athanasios Alexoulis",
+      "role": "Αθλητής/Αθλήτρια · Τοξοβολία",
+      "role_en": "Athlete · Archery",
+      "category": "athlete",
+      "bio": "Αθλητής τοξοβολίας του Αρχέλαου στην κατηγορία Barebow Ανδρών. Καταγράφεται επίδοση 494 βαθμών και πρώτη θέση στα 50 μ. το 2026, σύμφωνα με την αναφορά του τμήματος.",
+      "bio_en": "Archery athlete of GAS Archelaos Katerinis. Recorded in the club's internal archery report."
+    },
+    {
+      "id": "arch-archery-contrib-20261102-03",
+      "name": "Αθανάσιος Μυλοβιανός",
+      "name_en": "Athanasios Mylovianos",
+      "role": "Αθλητής/Αθλήτρια · Τοξοβολία",
+      "role_en": "Athlete · Archery",
+      "category": "athlete",
+      "bio": "Αθλητής τοξοβολίας του Αρχέλαου στις κατηγορίες U21 και Ανδρών, στο ολυμπιακό τόξο. Η αναφορά του τμήματος καταγράφει δεύτερη θέση σε αναπτυξιακό αγώνα 30 μ. και πρώτη θέση στην κατηγορία U21 Β΄.",
+      "bio_en": "Archery athlete of GAS Archelaos Katerinis. Recorded in the club's internal archery report."
+    },
+    {
+      "id": "arch-archery-contrib-20261102-04",
+      "name": "Σοφία-Νεφέλη Μηλιώρη",
+      "name_en": "Sofia-Nefeli Miliori",
+      "role": "Αθλητής/Αθλήτρια · Τοξοβολία",
+      "role_en": "Athlete · Archery",
+      "category": "athlete",
+      "bio": "Αθλήτρια τοξοβολίας του Αρχέλαου στην κατηγορία Κορασίδων, στο ολυμπιακό τόξο. Η αναφορά του τμήματος καταγράφει επίδοση 582 βαθμών και τέταρτη θέση στα 30 μ.",
+      "bio_en": "Archery athlete of GAS Archelaos Katerinis. Recorded in the club's internal archery report."
+    },
+    {
+      "id": "arch-archery-contrib-20261102-05",
+      "name": "Ανέστης Δαμκάουτης",
+      "name_en": "Anestis Damkaoutis",
+      "role": "Αθλητής/Αθλήτρια · Τοξοβολία",
+      "role_en": "Athlete · Archery",
+      "category": "athlete",
+      "bio": "Αθλητής τοξοβολίας του Αρχέλαου στην κατηγορία Παίδων. Η αναφορά του τμήματος καταγράφει πρώτη θέση στα 30 μ. με επίδοση 569 βαθμών.",
+      "bio_en": "Archery athlete of GAS Archelaos Katerinis. Recorded in the club's internal archery report."
+    },
+    {
+      "id": "arch-archery-contrib-20261102-06",
+      "name": "Αντώνιος Λούλας",
+      "name_en": "Antonios Loulas",
+      "role": "Αθλητής/Αθλήτρια · Τοξοβολία",
+      "role_en": "Athlete · Archery",
+      "category": "athlete",
+      "bio": "Αθλητής τοξοβολίας του Αρχέλαου στην κατηγορία Παίδων. Η αναφορά του τμήματος καταγράφει δεύτερη θέση στα 30 μ. με επίδοση 516 βαθμών.",
+      "bio_en": "Archery athlete of GAS Archelaos Katerinis. Recorded in the club's internal archery report."
+    },
+    {
+      "id": "arch-archery-contrib-20261102-07",
+      "name": "Αθανάσιος Κοσμίδης",
+      "name_en": "Athanasios Kosmidis",
+      "role": "Αθλητής/Αθλήτρια · Τοξοβολία",
+      "role_en": "Athlete · Archery",
+      "category": "athlete",
+      "bio": "Αθλητής του Αρχέλαου που καταγράφεται στην ιστορική αναφορά του τμήματος τοξοβολίας για το 2026, με συμμετοχή σε αγώνες πεδίου και Barebow. Δεν αποδίδεται συγκεκριμένος τίτλος χωρίς λεπτομερέστερο αποτέλεσμα.",
+      "bio_en": "Archery athlete of GAS Archelaos Katerinis. Recorded in the club's internal archery report."
+    },
+    {
+      "id": "arch-archery-contrib-20261102-08",
+      "name": "Χρήστος Καϊμάκαμης",
+      "name_en": "Christos Kaimakamis",
+      "role": "Αθλητής/Αθλήτρια · Τοξοβολία",
+      "role_en": "Athlete · Archery",
+      "category": "athlete",
+      "bio": "Αθλητής τοξοβολίας του Αρχέλαου στην κατηγορία Compound Ανδρών Β΄. Η αναφορά του τμήματος καταγράφει δεύτερη θέση στην κατηγορία και επίδοση 445 βαθμών.",
+      "bio_en": "Archery athlete of GAS Archelaos Katerinis. Recorded in the club's internal archery report."
+    },
+    {
+      "id": "arch-archery-contrib-20261102-09",
+      "name": "Χριστόφορος Κόκκαλης",
+      "name_en": "Christoforos Kokkalis",
+      "role": "Αθλητής/Αθλήτρια · Τοξοβολία",
+      "role_en": "Athlete · Archery",
+      "category": "athlete",
+      "bio": "Αθλητής τοξοβολίας του Αρχέλαου στην κατηγορία Παίδων. Η αναφορά του τμήματος καταγράφει τρίτη θέση στο Olympus Archery Series του 2024.",
+      "bio_en": "Archery athlete of GAS Archelaos Katerinis. Recorded in the club's internal archery report."
+    },
+    {
+      "id": "arch-archery-result-20261102-01",
+      "name": "Σοφία-Θεοδώρα Χαλκιοπούλου-Δασκαλάκη",
+      "name_en": "Sofia-Theodora Chalkiopoulou-Daskalaki",
+      "role": "Αθλητής/Αθλήτρια · Τοξοβολία",
+      "role_en": "Athlete · Archery",
+      "category": "athlete",
+      "bio": "Αθλήτρια τοξοβολίας καταγεγραμμένη στο μητρώο αποτελεσμάτων του Γ.Α.Σ. Αρχέλαος Κατερίνης. Αναφέρεται στην κατηγορία Recurve Γυναικών με επίδοση 517 βαθμών σε αγώνα ανοιχτού χώρου.",
+      "bio_en": "Archery athlete included in the club's archived results register."
+    },
+    {
+      "id": "arch-archery-result-20261102-02",
+      "name": "Βασίλειος-Ιωάννης Ζαρωτιάδης",
+      "name_en": "Vasileios-Ioannis Zarotiadis",
+      "role": "Αθλητής/Αθλήτρια · Τοξοβολία",
+      "role_en": "Athlete · Archery",
+      "category": "athlete",
+      "bio": "Αθλητής τοξοβολίας του Γ.Α.Σ. Αρχέλαος Κατερίνης. Στις 13 Οκτωβρίου 2024 στη Νέα Χράνη καταγράφεται τρίτη θέση σε μικρή κατηγορία Ολυμπιακού Τόξου, με επίδοση 569 βαθμών.",
+      "bio_en": "Archery athlete included in the club's archived results register."
+    },
+    {
+      "id": "arch-archery-result-20261102-03",
+      "name": "Γεώργιος Ζαππίδης",
+      "name_en": "Georgios Zappidis",
+      "role": "Αθλητής/Αθλήτρια · Τοξοβολία",
+      "role_en": "Athlete · Archery",
+      "category": "athlete",
+      "bio": "Αθλητής τοξοβολίας του Αρχέλαου στην κατηγορία Παίδων. Στον αγώνα της Νέας Χράνης στις 13 Οκτωβρίου 2024 καταγράφεται δεύτερη θέση στα 20 μ. με επίδοση 640 βαθμών.",
+      "bio_en": "Archery athlete included in the club's archived results register."
+    },
+    {
+      "id": "arch-archery-result-20261102-04",
+      "name": "Νεφέλη Ζαππίδου",
+      "name_en": "Nefeli Zappidou",
+      "role": "Αθλητής/Αθλήτρια · Τοξοβολία",
+      "role_en": "Athlete · Archery",
+      "category": "athlete",
+      "bio": "Αθλήτρια τοξοβολίας του Αρχέλαου στην κατηγορία Πανκορασίδων Β΄. Στον αγώνα της Νέας Χράνης στις 13 Οκτωβρίου 2024 καταγράφεται πρώτη θέση στα 10 μ. με επίδοση 608 βαθμών.",
+      "bio_en": "Archery athlete included in the club's archived results register."
+    },
+    {
+      "id": "arch-archery-result-20261102-05",
+      "name": "Ρόδη Αναστασία Ποτουρίδου",
+      "name_en": "Rodi Anastasia Potouridou",
+      "role": "Αθλητής/Αθλήτρια · Τοξοβολία",
+      "role_en": "Athlete · Archery",
+      "category": "athlete",
+      "bio": "Αθλήτρια τοξοβολίας του Αρχέλαου στην κατηγορία Πανκορασίδων Β΄. Στον αγώνα της Νέας Χράνης στις 13 Οκτωβρίου 2024 καταγράφεται δεύτερη θέση στα 10 μ. με επίδοση 425 βαθμών.",
+      "bio_en": "Archery athlete included in the club's archived results register."
+    },
+    {
+      "id": "arch-archery-result-20261102-06",
+      "name": "Μαρία-Μαρκέλλα Καϊκλή",
+      "name_en": "Maria-Markella Kaikli",
+      "role": "Αθλητής/Αθλήτρια · Τοξοβολία",
+      "role_en": "Athlete · Archery",
+      "category": "athlete",
+      "bio": "Αθλήτρια τοξοβολίας του Αρχέλαου στην κατηγορία U18 Νεανίδων. Στην ιστορική αναφορά αποτελεσμάτων καταγράφεται δεύτερη θέση στα 25 μ. με επίδοση 576 βαθμών και συμμετοχή στο Olympus Archery Series του 2024.",
+      "bio_en": "Archery athlete included in the club's archived results register."
+    },
+    {
+      "id": "arch-archery-result-20261102-07",
+      "name": "Άννα Κούζα",
+      "name_en": "Anna Kouza",
+      "role": "Αθλητής/Αθλήτρια · Τοξοβολία",
+      "role_en": "Athlete · Archery",
+      "category": "athlete",
+      "bio": "Αθλήτρια τοξοβολίας του Αρχέλαου στις Πανκορασίδες. Στον αγώνα της Νέας Χράνης στις 13 Οκτωβρίου 2024 καταγράφεται τρίτη θέση στα 15 μ. με επίδοση 637 βαθμών.",
+      "bio_en": "Archery athlete included in the club's archived results register."
+    },
+    {
+      "id": "arch-archery-result-20261102-08",
+      "name": "Νικόλαος Θεοδώρου",
+      "name_en": "Nikolaos Theodorou",
+      "role": "Αθλητής/Αθλήτρια · Τοξοβολία",
+      "role_en": "Athlete · Archery",
+      "category": "athlete",
+      "bio": "Αθλητής τοξοβολίας καταγεγραμμένος στο μητρώο αποτελεσμάτων του Αρχέλαου. Αναφέρεται στην κατηγορία Recurve Ανδρών με τρίτη θέση και επίδοση 551 βαθμών σε αγώνα ανοιχτού χώρου.",
+      "bio_en": "Archery athlete included in the club's archived results register."
+    },
+    {
+      "id": "arch-archery-result-20261102-09",
+      "name": "Ιπποκράτης Βέργας",
+      "name_en": "Ippokratis Vergas",
+      "role": "Αθλητής/Αθλήτρια · Τοξοβολία",
+      "role_en": "Athlete · Archery",
+      "category": "athlete",
+      "bio": "Αθλητής τοξοβολίας καταγεγραμμένος στο μητρώο αποτελεσμάτων του Αρχέλαου. Αναφέρεται στην κατηγορία Recurve Ανδρών με τέταρτη θέση και επίδοση 534 βαθμών σε αγώνα ανοιχτού χώρου.",
+      "bio_en": "Archery athlete included in the club's archived results register."
+    },
+    {
+      "id": "arch-archery-result-20261102-10",
+      "name": "Αντώνιος Γραμμένος",
+      "name_en": "Antonios Grammenos",
+      "role": "Αθλητής/Αθλήτρια · Τοξοβολία",
+      "role_en": "Athlete · Archery",
+      "category": "athlete",
+      "bio": "Αθλητής τοξοβολίας του Αρχέλαου στην κατηγορία Recurve Ανδρών. Στην ιστορική αναφορά αποτελεσμάτων καταγράφεται έκτη θέση με επίδοση 493 βαθμών στον αγώνα του Λιτοχώρου στις 13 Φεβρουαρίου 2022.",
+      "bio_en": "Archery athlete included in the club's archived results register."
+    },
+    {
+      "id": "arch-archery-result-20261102-11",
+      "name": "Διονύσιος Θεοδωρίδης",
+      "name_en": "Dionysios Theodoridis",
+      "role": "Αθλητής/Αθλήτρια · Τοξοβολία",
+      "role_en": "Athlete · Archery",
+      "category": "athlete",
+      "bio": "Αθλητής τοξοβολίας καταγεγραμμένος στο μητρώο αποτελεσμάτων του Αρχέλαου. Αναφέρεται στην κατηγορία Recurve Ανδρών με πέμπτη θέση και επίδοση 475 βαθμών σε αγώνα ανοιχτού χώρου.",
+      "bio_en": "Archery athlete included in the club's archived results register."
+    },
+    {
+      "id": "arch-archery-result-20261102-12",
+      "name": "Θεόδωρος Καλογιαννίδης",
+      "name_en": "Theodoros Kalogiannidis",
+      "role": "Αθλητής/Αθλήτρια · Τοξοβολία",
+      "role_en": "Athlete · Archery",
+      "category": "athlete",
+      "bio": "Αθλητής τοξοβολίας καταγεγραμμένος στο μητρώο αποτελεσμάτων του Αρχέλαου. Αναφέρεται στην κατηγορία Recurve Ανδρών με πέμπτη θέση και επίδοση 462 βαθμών σε αγώνα ανοιχτού χώρου.",
+      "bio_en": "Archery athlete included in the club's archived results register."
+    },
+    {
+      "id": "arch-archery-result-20261102-13",
+      "name": "Φαίδρα Τσοκανάρα",
+      "name_en": "Faidra Tsokanara",
+      "role": "Αθλητής/Αθλήτρια · Τοξοβολία",
+      "role_en": "Athlete · Archery",
+      "category": "athlete",
+      "bio": "Αθλήτρια τοξοβολίας του Αρχέλαου στην κατηγορία Νεανίδων. Στο Olympus Archery Series της Νέας Χράνης, στις 13–14 Απριλίου 2024, καταγράφεται τέταρτη θέση.",
+      "bio_en": "Archery athlete included in the club's archived results register."
+    },
+    {
+      "id": "arch-archery-result-20261102-14",
+      "name": "Δημήτριος Αναβαίνης",
+      "name_en": "Dimitrios Anavainis",
+      "role": "Αθλητής/Αθλήτρια · Τοξοβολία",
+      "role_en": "Athlete · Archery",
+      "category": "athlete",
+      "bio": "Αθλητής τοξοβολίας καταγεγραμμένος στο μητρώο αποτελεσμάτων του Αρχέλαου. Αναφέρονται συμμετοχές σε αγώνες ανοιχτού χώρου και επιδόσεις 393 και 269 βαθμών.",
+      "bio_en": "Archery athlete included in the club's archived results register."
+    },
+    {
+      "id": "arch-archery-result-20261102-15",
+      "name": "Νικόλαος Νταμπώσης",
+      "name_en": "Nikolaos Ntampōsis",
+      "role": "Αθλητής/Αθλήτρια · Τοξοβολία",
+      "role_en": "Athlete · Archery",
+      "category": "athlete",
+      "bio": "Αθλητής τοξοβολίας καταγεγραμμένος στο μητρώο αποτελεσμάτων του Αρχέλαου. Αναφέρεται στην κατηγορία Recurve Ανδρών με επίδοση 314 βαθμών σε αγώνα ανοιχτού χώρου.",
+      "bio_en": "Archery athlete included in the club's archived results register."
+    },
+    {
+      "id": "arch-archery-konstantinos-samakovlis-2018",
+      "name": "Κωνσταντίνος Σαμακοβλής",
+      "name_en": "Konstantinos Samakovlis",
+      "role": "Αθλητής · Τοξοβολία",
+      "role_en": "Athlete · Archery",
+      "category": "athlete",
+      "bio": "Ο Κωνσταντίνος Σαμακοβλής καταγράφεται ως αθλητής τοξοβολίας του Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης στις επίσημες επετηρίδες της Ελληνικής Ομοσπονδίας Τοξοβολίας για το 2016 και το 2018. Στο Ολυμπιακό Τόξο (Recurve), η επετηρίδα του 2018 περιλαμβάνει επίδοσή του 560 βαθμών.",
+      "bio_en": "Archery competitor for G.A.S. Archelaos Katerinis, recorded in the Greek Archery Federation's official 2016 and 2018 annual results; the 2018 record includes a recurve score of 560 points.",
+      "period": "2016–2018"
     }
   ]
 }
