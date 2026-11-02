@@ -6,6 +6,7 @@ from hashlib import sha256
 import json
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
+ARCHIVE_KINDS={"interview","statement","press_clipping"}
 
 def check(items,people,root=ROOT):
     known={p["id"] for p in people}; seen=set(); urls={}; events={}; out=[]
@@ -33,6 +34,19 @@ def check(items,people,root=ROOT):
         facts=item.get("personFacts") or {}
         if not isinstance(facts,dict) or any(p not in links or not isinstance(f,str) or not f.strip() for p,f in facts.items()) or (facts and not url):
             finding("BAD_PROFILE_FACT",aid,"error","Unlinked or unsourced biography fact")
+        kinds=item.get("archiveKinds",[])
+        if not isinstance(kinds,list) or any(not isinstance(k,str) or k not in ARCHIVE_KINDS for k in kinds):
+            finding("BAD_ARCHIVE_KIND",aid,"error","Unknown or malformed archive classification")
+            kinds=[]
+        if len(kinds)!=len(set(kinds)):
+            finding("REPEATED_ARCHIVE_KIND",aid,"repairable","Duplicate canonical archive classification")
+        if kinds and (item.get("unverified") or not url.startswith("https://")):
+            finding("UNVERIFIED_ARCHIVE_SOURCE",aid,"error","Archive classification requires verified HTTPS source")
+        if ("interview" in kinds or "statement" in kinds) and not str(item.get("intervieweeName") or "").strip():
+            finding("MISSING_INTERVIEWEE",aid,"error","Interview or statement needs the named speaker")
+        speaker=item.get("intervieweePersonId")
+        if speaker and (speaker not in known or speaker not in links):
+            finding("INVALID_INTERVIEWEE_LINK",aid,"error","Speaker ID must be a linked canonical Hall person")
         eid=item.get("eventId") or "news-"+aid
         if eid in events and events[eid]!=item.get("sport"):
             finding("EVENT_SPORT_CONFLICT",aid,"error","Same event in two sports")
@@ -56,10 +70,19 @@ def repair(items,people):
     changed=[]
     for row in items:
         ids=row.get("personIds")
-        if not isinstance(ids,list) or any(not isinstance(p,str) or p not in known for p in ids):continue
-        unique=list(dict.fromkeys(ids))
-        if len(unique)<len(ids):
-            row["personIds"]=unique
+        changed_row=False
+        if isinstance(ids,list) and all(isinstance(p,str) and p in known for p in ids):
+            unique=list(dict.fromkeys(ids))
+            if len(unique)<len(ids):
+                row["personIds"]=unique
+                changed_row=True
+        kinds=row.get("archiveKinds")
+        if isinstance(kinds,list) and all(isinstance(k,str) and k in ARCHIVE_KINDS for k in kinds):
+            unique_kinds=list(dict.fromkeys(kinds))
+            if len(unique_kinds)<len(kinds):
+                row["archiveKinds"]=unique_kinds
+                changed_row=True
+        if changed_row:
             changed.append(row["id"])
     return changed
 

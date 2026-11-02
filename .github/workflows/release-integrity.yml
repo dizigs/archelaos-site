@@ -29,6 +29,8 @@ jobs:
         run: |
           python -m unittest discover -s rebuild/tests -p news_pipeline_self_heal_test.py -v
           python rebuild/tools/news_pipeline_self_heal.py
+          python -m unittest discover -s rebuild/tests -p news_media_candidates_test.py -v
+          python rebuild/tools/build_news_media_candidates.py
       - name: Build and verify complete release
         run: python rebuild/tools/build_release.py
       - name: Recheck generated public HTML for escaped text

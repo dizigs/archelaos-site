@@ -5,10 +5,10 @@ on:
     - cron: '37 6 * * *'
   push:
     branches: [main]
-    paths: ['news.json', 'hall-of-fame-people.json', 'rebuild/tools/build_news_event_candidates.py', 'rebuild/tests/news_event_ledger.py', '.github/workflows/news-event-ledger.yml']
+    paths: ['news.json', 'hall-of-fame-people.json', 'rebuild/tools/build_news_event_candidates.py', 'rebuild/tests/news_event_ledger.py', 'rebuild/tools/build_news_media_candidates.py', 'rebuild/tests/news_media_candidates_test.py', '.github/workflows/news-event-ledger.yml']
   pull_request:
     branches: [main]
-    paths: ['news.json', 'hall-of-fame-people.json', 'rebuild/tools/build_news_event_candidates.py', 'rebuild/tests/news_event_ledger.py', '.github/workflows/news-event-ledger.yml']
+    paths: ['news.json', 'hall-of-fame-people.json', 'rebuild/tools/build_news_event_candidates.py', 'rebuild/tests/news_event_ledger.py', 'rebuild/tools/build_news_media_candidates.py', 'rebuild/tests/news_media_candidates_test.py', '.github/workflows/news-event-ledger.yml']
 permissions:
   contents: read
   issues: write
@@ -28,15 +28,19 @@ jobs:
         continue-on-error: true
         run: |
           python -m unittest discover -s rebuild/tests -p news_pipeline_self_heal_test.py -v
+          python -m unittest discover -s rebuild/tests -p news_media_candidates_test.py -v
           python rebuild/tools/news_pipeline_self_heal.py
       - name: Build internal event candidates
-        run: python rebuild/tools/build_news_event_candidates.py
+        run: |
+          python rebuild/tools/build_news_event_candidates.py
+          python rebuild/tools/build_news_media_candidates.py
       - name: Preserve internal review report
         uses: actions/upload-artifact@v4
         with:
           name: internal-news-event-candidates
           path: |
             rebuild/test-artifacts/news-event-candidates.json
+            rebuild/test-artifacts/news-media-candidates.json
             rebuild/test-artifacts/news-pipeline-incidents.json
 
           retention-days: 14
