@@ -46,7 +46,10 @@ function openDialog(data){
  if(!wasOpen)lastFocus=document.activeElement;
  const role=dlg.querySelector('.arch-dialog-role');role.textContent=data.subtitle||'';role.hidden=!data.subtitle;
  dlg.querySelector('h2').textContent=data.title||'';
- const body=dlg.querySelector('.arch-dialog-body');body.replaceChildren();
+ const body=dlg.querySelector('.arch-dialog-body');
+ // Invalidate a prior asynchronous related-links lookup on dialog reuse.
+ delete body.dataset.archiveRequest;
+ body.replaceChildren();
  const lines=Array.isArray(data.paragraphs)?data.paragraphs:[data.body||''];
  if(data.contentNode)body.append(data.contentNode);
  else for(const line of lines){
