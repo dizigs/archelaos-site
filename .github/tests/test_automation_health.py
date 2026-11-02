@@ -160,6 +160,45 @@ class AutomationHealthTests(unittest.TestCase):
             with self.assertRaisesRegex(health.EvidenceError, "incomplete"):
                 api.workflows()
 
+    def test_cli_cannot_choose_arbitrary_write_paths(self):
+        for option in ("--output", "--summary"):
+            with self.subTest(option=option), patch("sys.argv", ["automation_health", option, "../../target"]):
+                with self.assertRaises(SystemExit) as caught:
+                    health.main()
+                self.assertEqual(caught.exception.code, 2)
+
+    def test_report_directory_symlink_cannot_escape_repository(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp) / "repo"
+            outside = Path(tmp) / "outside"
+            root.mkdir()
+            outside.mkdir()
+            (root / "rebuild").symlink_to(outside, target_is_directory=True)
+            with patch.object(health, "ROOT", root), self.assertRaises(OSError):
+                health.write_report("automation-health-report.json", "safe")
+            self.assertEqual(list(outside.iterdir()), [])
+
+    def test_report_symlinks_and_hardlinks_do_not_overwrite_other_files(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            target = root / "important.txt"
+            target.write_text("unchanged")
+            report = root.joinpath(*health.REPORT_PARTS, "automation-health-report.json")
+            report.parent.mkdir(parents=True)
+            for link_type in ("symlink", "hardlink"):
+                with self.subTest(link_type=link_type):
+                    if report.exists():
+                        report.unlink()
+                    if link_type == "symlink":
+                        report.symlink_to(target)
+                    else:
+                        report.hardlink_to(target)
+                    with patch.object(health, "ROOT", root):
+                        health.write_report("automation-health-report.json", "new report")
+                    self.assertEqual(target.read_text(), "unchanged")
+                    self.assertEqual(report.read_text(), "new report")
+                    self.assertFalse(report.is_symlink())
+
 
 if __name__ == "__main__":
     unittest.main()

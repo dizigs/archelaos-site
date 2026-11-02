@@ -6,12 +6,14 @@ import json
 import os
 from pathlib import Path
 import re
+import secrets
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parents[2]
 SELF = ".github/workflows/automation-health.yml"
+REPORT_PARTS = ("rebuild", "test-artifacts", "automation-health")
 
 
 class EvidenceError(Exception):
@@ -227,11 +229,41 @@ def markdown(report):
     return "\n".join(lines) + "\n"
 
 
+def write_report(name, content):
+    """Write only fixed report names below an anchored, non-symlink directory."""
+    if name not in {"automation-health-report.json", "automation-health-summary.md"}:
+        raise EvidenceError("Unsupported report name")
+    directory = os.open(ROOT, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
+    try:
+        for component in REPORT_PARTS:
+            try:
+                os.mkdir(component, mode=0o700, dir_fd=directory)
+            except FileExistsError:
+                pass
+            child = os.open(component, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW,
+                            dir_fd=directory)
+            os.close(directory)
+            directory = child
+        temporary = ".report-" + secrets.token_hex(16)
+        descriptor = os.open(temporary, os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW,
+                             0o600, dir_fd=directory)
+        try:
+            with os.fdopen(descriptor, "w", encoding="utf-8") as output:
+                output.write(content)
+            # Replace rather than follow any pre-existing report symlink/hardlink.
+            os.replace(temporary, name, src_dir_fd=directory, dst_dir_fd=directory)
+        finally:
+            try:
+                os.unlink(temporary, dir_fd=directory)
+            except FileNotFoundError:
+                pass
+    finally:
+        os.close(directory)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--repository", default=os.getenv("GITHUB_REPOSITORY", "dizigs/archelaos-site"))
-    parser.add_argument("--output", type=Path, default=Path("automation-health-report.json"))
-    parser.add_argument("--summary", type=Path, default=Path("automation-health-summary.md"))
     args = parser.parse_args()
     now = datetime.now(timezone.utc)
     try:
@@ -242,8 +274,12 @@ def main():
         error = str(exc) if isinstance(exc, EvidenceError) else "Invalid local policy or API metadata"
         report = {"schema_version": 1, "generated_utc": now.isoformat(), "ok": False,
                   "workflows": [], "attention": ["evidence_unavailable"], "error": error}
-    args.output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
-    args.summary.write_text(markdown(report))
+    try:
+        write_report("automation-health-report.json", json.dumps(report, ensure_ascii=False, indent=2) + "\n")
+        write_report("automation-health-summary.md", markdown(report))
+    except OSError:
+        print("Cannot safely write fixed report directory; no alternate path attempted.")
+        return 1
     print(f"Automation health: {len(report['workflows'])} workflows, {len(report['attention'])} need attention.")
     return 0 if report["ok"] else 1
 

@@ -44,8 +44,8 @@ jobs:
         if: always() && github.event_name != 'pull_request'
         shell: bash
         run: |
-          if [ -f automation-health-summary.md ]; then
-            cat automation-health-summary.md >> "$GITHUB_STEP_SUMMARY"
+          if [ -f rebuild/test-artifacts/automation-health/automation-health-summary.md ]; then
+            cat rebuild/test-artifacts/automation-health/automation-health-summary.md >> "$GITHUB_STEP_SUMMARY"
           fi
       - name: Retain technical evidence only
         if: always() && github.event_name != 'pull_request'
@@ -53,7 +53,7 @@ jobs:
         with:
           name: automation-health-evidence
           path: |
-            automation-health-report.json
-            automation-health-summary.md
+            rebuild/test-artifacts/automation-health/automation-health-report.json
+            rebuild/test-artifacts/automation-health/automation-health-summary.md
           retention-days: 14
           if-no-files-found: warn

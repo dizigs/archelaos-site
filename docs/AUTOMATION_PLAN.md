@@ -87,5 +87,7 @@
 
 ```sh
 python -m unittest discover -s .github/tests -p test_automation_health.py -v
-python .github/scripts/automation_health.py --output /tmp/automation-health-report.json --summary /tmp/automation-health-summary.md
+python .github/scripts/automation_health.py
 ```
+
+Τα reports γράφονται μόνο στα σταθερά ονόματα κάτω από `rebuild/test-artifacts/automation-health/` (gitignored). Δεν επιτρέπονται CLI output paths. Ο writer δεν ακολουθεί symlinks στα directories και αντικαθιστά ατομικά τα report files, χωρίς να μεταβάλλει targets προϋπάρχοντος symlink/hardlink.
