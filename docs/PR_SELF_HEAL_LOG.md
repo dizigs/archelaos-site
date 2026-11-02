@@ -12,6 +12,8 @@ Scope: dizigs/archelaos-site. Record only evidenced failures, reproducible cause
 
 - Merge blocked (HTTP 405), despite successful required checks on `ed0070c`: GitHub reported `mergeable_state=behind`, and ruleset `26357426` enforces `strict_required_status_checks_policy=true`. Synchronized the PR head with latest main `0878345` using GitHub-generated merge commit `5d01c14` (parents verified, fast-forward update with expected old head). Do not disable branch protection. A fresh checks run is required on the updated head.
 
+- CodeRabbit review findings (4 unresolved threads): preserve full axe `incomplete` array (commit `198f2bd`), add axe script and direct source pages to PR/push path triggers, and wait for HTTP server readiness before scanning (commit `54cd02a`); the earlier YAML quoting finding was already addressed by `05d368f`. Review threads must be resolved after verifying the changes to satisfy branch rules.
+
 ## PR #10 — Visitor smoke / sitespeed
 - Failure: initial merge attempt rejected by repository rule with two required status checks pending. Required names: `JavaScript syntax (all site scripts)` and `ESLint JavaScript quality`.
 - Cause: required checks were not present on the original PR head; a refreshed PR head `377d048` triggered both checks. Verified: both checks passed on run set for head `377d048`.
