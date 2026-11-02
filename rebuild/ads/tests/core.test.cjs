@@ -53,6 +53,8 @@ test('unknown quality and zero/malformed impressions cannot pass as healthy metr
   input.months[0].impressions = 0;
   input.months[1].clicks = 2000;
   assert.deepEqual(core.audit(input).findings, [{code:'KEYWORD_QUALITY_UNAVAILABLE', count:1}, {code:'CTR_DATA_UNAVAILABLE', count:2}]);
+  input.keywords[0].quality = 1.5;
+  assert.deepEqual(core.audit(input).findings, [{code:'KEYWORD_QUALITY_UNAVAILABLE', count:1}, {code:'CTR_DATA_UNAVAILABLE', count:2}]);
   assert.throws(() => core.audit({...input, source_kind:'untrusted'}));
   assert.throws(() => core.audit({schema_version:1}));
 });

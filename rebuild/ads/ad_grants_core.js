@@ -37,8 +37,8 @@ const ArchelaosAdGrants = (() => {
     }
     const exceptions = new Set(['αρχελαοσ', 'archelaos']);
     for (const keyword of snapshot.keywords) {
-      if (Number.isFinite(keyword.quality) && keyword.quality > 0 && keyword.quality < 3) counts.KEYWORD_LOW_QUALITY++;
-      if (!Number.isFinite(keyword.quality) || keyword.quality <= 0 || keyword.quality > 10) counts.KEYWORD_QUALITY_UNAVAILABLE++;
+      if (Number.isInteger(keyword.quality) && keyword.quality > 0 && keyword.quality < 3) counts.KEYWORD_LOW_QUALITY++;
+      if (!Number.isInteger(keyword.quality) || keyword.quality <= 0 || keyword.quality > 10) counts.KEYWORD_QUALITY_UNAVAILABLE++;
       const text = normalize(keyword.text);
       if (text && !/\s/.test(text) && !exceptions.has(text)) counts.KEYWORD_SINGLE_WORD++;
     }

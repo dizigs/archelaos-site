@@ -6,6 +6,8 @@ Repository `dizigs/archelaos-site`, managed environment `archelaos-site` reused.
 Ads branch `codex/ad-grants-dry-run` starts at latest fetched main
 `74b6bcb3cc95a6160fb27f298d12f094a2679631`.
 Implementation commit: `9673c853c1df5f772d5df3c1131800739bea388d`.
+Follow-up validation treats fractional quality scores as unavailable rather than
+misclassifying them as policy failures; the executed regression covers this.
 No direct main push, merge, external activation or production tag change.
 
 GitHub API successfully read #66, open PRs, their files, check outputs and Actions
