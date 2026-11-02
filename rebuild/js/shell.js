@@ -225,14 +225,20 @@ function renderSiteTools(){
  panel.querySelectorAll('[data-arch-a11y-toggle]').forEach(button=>
   button.addEventListener('click',()=>{const key=button.dataset.archA11yToggle;settings[key]=!settings[key];apply();saveSettings()}));
  panel.querySelector('.arch-a11y-reset').addEventListener('click',()=>{settings={...defaults};apply();try{localStorage.removeItem('archelaos-accessibility-v1')}catch(_){}});
- const updateBackTop=()=>{backTop.hidden=window.scrollY<320};
+ const updateBackTop=()=>{
+  const mobile=window.matchMedia('(max-width: 767px)').matches;
+  const doc=document.documentElement;
+  const remaining=doc.scrollHeight-(window.scrollY+window.innerHeight);
+  const scrollable=doc.scrollHeight>window.innerHeight+400;
+  backTop.hidden=mobile||!scrollable||remaining>Math.max(450,window.innerHeight*0.6);
+ };
  backTop.addEventListener('click',()=>{
   const brand=document.querySelector('.arch-brand');
   if(brand)brand.focus({preventScroll:true});
   const reduced=settings.calm||window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   window.scrollTo({top:0,behavior:reduced?'auto':'smooth'});
  });
- window.addEventListener('scroll',updateBackTop,{passive:true});
+ window.addEventListener('scroll',updateBackTop,{passive:true});\n window.addEventListener('resize',updateBackTop,{passive:true});
  updateBackTop();
 }
 
