@@ -45,11 +45,16 @@ async function init(){
    .catch(err=>{newsTimelinePromise=null;throw err});
   void newsTimelinePromise.then(async items=>{
    if(!root.isConnected)return;
-   // Biography labels are optional; never stall the sourced event timeline.\n   const people=await Promise.race([\n    Promise.resolve(window.ArchelaosBio?.load?.()).catch(()=>null),\n    new Promise(resolve=>setTimeout(()=>resolve(null),2500))\n   ]);
+   // Biography labels are optional; never stall the sourced event timeline.
+   const people=await Promise.race([
+    Promise.resolve(window.ArchelaosBio?.load?.()).catch(()=>null),
+    new Promise(resolve=>setTimeout(()=>resolve(null),2500))
+   ]);
    const personNames=new Map((people?.people||[]).map(p=>[p.id,p.name]));
    if(!root.isConnected)return;
    const seen=new Set(),names=sportNames[key];
-   const events=items.filter(x=>!x.unverified&&typeof x.eventDate==='string'&&/^\\d{4}-\\d{2}-\\d{2}$/.test(x.eventDate)\n    &&Number.isFinite(Date.parse(x.eventDate+'T12:00:00'))&&x.sourceUrl?.startsWith('https://')
+   const events=items.filter(x=>!x.unverified&&typeof x.eventDate==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(x.eventDate)
+    &&Number.isFinite(Date.parse(x.eventDate+'T12:00:00'))&&x.sourceUrl?.startsWith('https://')
     &&names.includes(plain(x.sport)))
     .sort((a,b)=>String(b.eventDate).localeCompare(String(a.eventDate)))
     .filter(x=>{const id=x.eventId||'news-'+x.id;if(seen.has(id))return false;seen.add(id);return true;})
