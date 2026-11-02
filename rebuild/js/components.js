@@ -68,8 +68,9 @@ function openDialog(data){
  dlg.querySelector('.arch-close').setAttribute('aria-label',data.closeLabel||'Κλείσιμο παραθύρου');
  if(!wasOpen)dlg.showModal();
  document.body.classList.add('arch-dialog-open');dlg.querySelector('.arch-close').focus();
- if(data.favorite?.type&&data.favorite?.id)
-  void window.ArchelaosLinks?.append(body,data.favorite.type,data.favorite.id,{limit:8});
+ const relation=data.relation||data.favorite;
+ if(relation?.type&&relation?.id)
+  void window.ArchelaosLinks?.append(body,relation.type,relation.id,{limit:8});
  document.dispatchEvent(new CustomEvent('archelaos:dialog-open',{detail:{dialog:dlg}}));
 }
 window.ArchelaosUI=Object.freeze({card,openDialog});
