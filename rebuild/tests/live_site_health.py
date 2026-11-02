@@ -27,7 +27,7 @@ html = (
     '<!doctype html><html><head><link rel="stylesheet" href="/assets/site/css/viewports.css?v=' + viewhash + '">'
     '<script defer src="/assets/site/js/shell.js?v=' + shellhash + '"></script></head>'
     '<body><main><div data-dp-open="archery"></div>'
-    '<input id="sr-query"><div id="sr-results"></div></main></body></html>'
+    '<input id="sr-query"><div id="sr-results"></div><input id="an-search"><div id="an-grid"></div></main></body></html>'
 ).encode()
 datasets = {
     name: {key: [{"id": f"arch-{i:012x}"} for i in range(minimum)]
@@ -59,6 +59,7 @@ assert not report["errors"], report
 assert report["counts"]["people"] == m.CANONICAL_PEOPLE_COUNT and report["counts"]["moments"] == 70
 assert "/search.html" in report["checked"] and "/news.html" in report["checked"]
 assert "/news.json" in report["checked"] and "/hall-of-fame-people.json" in report["checked"]
+assert report["counts"]["news_articles"] == m.CANONICAL_NEWS_COUNT
 assert len(report["checked"]) >= 25
 
 def corrupt_mobile(base, route):
