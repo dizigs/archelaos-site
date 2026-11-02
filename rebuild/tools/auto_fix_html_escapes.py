@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Scoped auto-repair for a known recurring site defect.
+"""Scoped auto-repair for known inter-tag HTML whitespace defects site-wide.
 
 Only normalize literal escaped whitespace *between HTML tags* in the
-allowlisted news.html <head>. Never touch JS, attributes, prose, user content,
+allowlisted public page <head> sections. Never touch JS, attributes, prose, user content,
 public JSON, event records or any other path. The release guard remains the
 authority: if an unknown escaped string is present, CI must fail rather than
 mutate the site.
@@ -12,9 +12,16 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 import re
+import json
 
 ROOT = Path(__file__).resolve().parents[2]
-ALLOWLIST = ("news.html",)
+# Explicit, reviewed HTML page list from the public release manifest. Never auto-edit
+# user content, people profiles, archives, private inboxes, or arbitrary files.
+STAGED_PAGES = tuple(entry["file"] for entry in json.loads(
+    (ROOT / "rebuild/seo/metadata.json").read_text(encoding="utf-8"))["pages"])
+if not all(re.fullmatch(r"[a-z0-9][a-z0-9-]*[.]html", name) for name in STAGED_PAGES):
+    raise ValueError("Unsafe HTML page in site manifest")
+ALLOWLIST = ("news.html",) + tuple("rebuild/" + name for name in STAGED_PAGES)
 ESCAPED_BETWEEN_TAGS = re.compile(
     r"(<(script|style)\b[^>]*>.*?</\2\s*>)"
     r"|(?<=>)[ \t]*(?:\\n|\\r|\\t)+[ \t]*(?=<)",
@@ -41,8 +48,8 @@ def repair_news_head(raw: str) -> tuple[str, int]:
 
 
 def repair(path: Path, apply: bool = False) -> int:
-    if path.resolve() != (ROOT / "news.html").resolve():
-        raise ValueError("Auto-fix restricted to allowlisted news.html")
+    if not path.is_file() or path.resolve() not in {(ROOT / name).resolve() for name in ALLOWLIST}:
+        raise ValueError("Auto-fix restricted to allowlisted public HTML pages")
     source = path.read_text(encoding="utf-8")
     output, count = repair_news_head(source)
     if apply and count:
