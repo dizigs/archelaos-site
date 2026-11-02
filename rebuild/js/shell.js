@@ -289,7 +289,7 @@ function initOptionalAnalytics(){
  panel.id='arch-analytics-consent';
  panel.setAttribute('aria-label','Επιλογές στατιστικών περιήγησης');
  panel.setAttribute('role','region');
- panel.style.cssText='position:fixed;z-index:2147483000;bottom:clamp(12px,3vw,24px);left:12px;right:12px;max-width:540px;margin:auto;background:#f3ead6;color:#123e2b;border:1px solid #b69a58;border-radius:18px;padding:clamp(16px,3vw,24px);box-shadow:0 12px 36px #102a2240;font:15px/1.6 system-ui,sans-serif';
+ panel.style.cssText='position:fixed;z-index:2147483000;bottom:clamp(12px,3vw,24px);left:12px;right:12px;max-width:680px;margin:auto;background:#f3ead6;color:#123e2b;border:1px solid #b69a58;border-radius:18px;padding:clamp(16px,3vw,24px);box-shadow:0 12px 36px #102a2240;font:15px/1.6 system-ui,sans-serif';
  const title=document.createElement('strong');title.textContent='Η εμπειρία σας στον Αρχέλαο';title.style.cssText='display:block;font:700 21px/1.3 Georgia,serif;color:#9a7937';
  const description=document.createElement('p');description.textContent='Με την επιλογή σας ενεργοποιούνται τα Google Analytics 4 και Microsoft Clarity για τη βελτίωση της εμπειρίας χρήσης. Η αποδοχή είναι προαιρετική και δεν επηρεάζει την περιήγηση.';
  description.style.margin='8px 0 12px';
