@@ -79,6 +79,14 @@ python rebuild/tools/process_private_inbox.py
 - [ ] Επαληθευμένη έρευνα πραγματικών πηγών ανά γεγονός, κεντρικός canonical event ledger, αμφίδρομη προβολή και προστατευμένο pipeline αλλαγών με CI, backup, rollback, alerts.
 - [ ] Πραγματικό E2E με έγκυρη συνεισφορά και διασφαλίσεις για ιδιωτικότητα, αναδημοσίευση και ομώνυμα. Το PR παραμένει draft μέχρι να είναι ασφαλές να ενωθεί.
 
+## Πρόοδος κοινού ευρετηρίου γεγονότων — 2026-11-02
+
+- [x] `rebuild/tools/build_canonical_archive_index.py`: φτιάχνει **μη δημοσιευόμενο** κοινό index με Event ↔ Article ↔ Person, reverse lookup, `timeline_cards` με τίτλο/ημερομηνία και `popup_only`, αυστηρά από ρητά canonical IDs. Αποτελέσματα μόνο σε `rebuild/test-artifacts/` (gitignored).
+- [x] Καταγράφονται `excluded_event_ids`, `unresolved_event_references`, `unresolved_person_references` και ίδιες `sourceUrl` προς έλεγχο διπλοεγγραφών. Ίδιος τίτλος, ημερομηνία ή άθλημα **δεν** ισοδυναμεί με το ίδιο ιστορικό γεγονός.
+- [x] `canonical_archive_index_test.py` + πραγματικό preview build στο workflow. Το GitHub Actions run 41457319016 ολοκληρώθηκε με **success** για όλα τα tests/preview build, μαζί με private intake/queue.
+- [ ] **Εκκρεμεί** η τελική ενιαία πηγή αλήθειας (canonical editable ledger) και η ασφαλής δημοσίευσή της στο site. Κατά τον έλεγχο 19 εγγραφές `rebuild/research/historical-events.json` έχουν `verification: source_checked` χωρίς `editorial_status: approved`. Ο μηχανισμός ΔΕΝ τις εμφανίζει αυτόματα ως εγκεκριμένες· χρειάζεται ελεγχόμενος κανόνας μετάβασης που να διαχωρίζει τεκμηρίωση, διαφωνίες και ιδιωτικότητα. Το χρονολόγιο από αυτό το index θα έχει μέχρι τότε μηδενικές εγκεκριμένες καρτέλες· αυτό δεν είναι σφάλμα παραγωγής.
+- [ ] Επόμενο πρακτικό βήμα: collector με ιδιωτικό persistent storage, πραγματικός έλεγχος πηγών/δικαιωμάτων, συντάκτης που ενημερώνει canonical ID και όλες τις προβολές, guarded preview→production CI. Δεν υπάρχει ακόμη automatic production release από τις συνεισφορές.
+
 ## Σε αναμονή από τον διαχειριστή — να μη χαθεί
 - [ ] **Firecrawl API / κλειδί και ρύθμιση secret**: αναβλήθηκε ρητά από τον χρήστη για αργότερα. ΠΟΤΕ κλειδί σε πηγαίο κώδικα/αρχεία markdown. Πρώτα εξετάζονται και μηχανισμοί αναζήτησης χωρίς επιπλέον πληρωμένο API.
 - [ ] Επικύρωση πολιτικής συναίνεσης/δικαιωμάτων όταν υλικό συνεισφοράς χρησιμοποιείται για δημόσια δημοσίευση ή εξωτερική αναζήτηση.
