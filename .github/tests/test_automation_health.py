@@ -44,13 +44,13 @@ class FakeGitHub:
 
 
 class AutomationHealthTests(unittest.TestCase):
-    def report(self, api, cron="17 */6 * * *"):
+    def report(self, api, cron="17 */6 * * *", policy=None):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             p = root / PATH
             p.parent.mkdir(parents=True)
             p.write_text(f"on:\n  schedule:\n    - cron: '{cron}'\n")
-            return health.build_report(api, root, POLICY, NOW)
+            return health.build_report(api, root, policy or POLICY, NOW)
 
     def test_recent_manual_success_does_not_hide_missing_schedule(self):
         api = FakeGitHub(latest=run())
@@ -63,6 +63,36 @@ class AutomationHealthTests(unittest.TestCase):
         report = self.report(FakeGitHub(scheduled=run(age=10), latest=run()))
         self.assertEqual(report["workflows"][0]["state"], "stale")
         self.assertFalse(report["ok"])
+
+    def test_first_schedule_wait_expires_at_fixed_deadline(self):
+        for offset, state, ok in ((1, "awaiting_first_schedule", True), (-1, "missing", False)):
+            with self.subTest(offset=offset):
+                policy = json.loads(json.dumps(POLICY))
+                policy["scheduled_workflows"][PATH]["first_run_deadline_utc"] = (
+                    NOW + timedelta(hours=offset)).isoformat()
+                report = self.report(FakeGitHub(latest=run()), policy=policy)
+                self.assertEqual(report["workflows"][0]["state"], state)
+                self.assertEqual(report["ok"], ok)
+                if ok:
+                    self.assertEqual(report["assessment"], "incomplete")
+
+    def test_startup_deadline_never_hides_real_schedule_failure_or_staleness(self):
+        policy = json.loads(json.dumps(POLICY))
+        policy["scheduled_workflows"][PATH]["first_run_deadline_utc"] = (
+            NOW + timedelta(hours=24)).isoformat()
+        for scheduled, state in ((run(conclusion="failure"), "failed"), (run(age=10), "stale")):
+            with self.subTest(state=state):
+                report = self.report(FakeGitHub(scheduled=scheduled), policy=policy)
+                self.assertFalse(report["ok"])
+                self.assertEqual(report["workflows"][0]["state"], state)
+
+    def test_startup_deadline_requires_timezone_and_valid_timestamp(self):
+        for value in ("not-a-date", "2026-11-03T12:00:00", None):
+            with self.subTest(value=value):
+                policy = json.loads(json.dumps(POLICY))
+                policy["scheduled_workflows"][PATH]["first_run_deadline_utc"] = value
+                with self.assertRaises(health.EvidenceError):
+                    self.report(FakeGitHub(), policy=policy)
 
     def test_successful_schedule_does_not_hide_new_main_failure(self):
         report = self.report(FakeGitHub(scheduled=run(), latest=run(conclusion="failure")))
