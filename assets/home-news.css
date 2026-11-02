@@ -61,3 +61,8 @@
  .ahn-more{margin-top:25px}
  .ahn-more .ahn-all{width:100%;min-height:56px;font-size:16px}
 }
+
+/* Reserve the news grid before async cards arrive: no shift of the 70-year section. */
+.ahn-grid:empty{min-height:610px}
+@media(max-width:960px){.ahn-grid:empty{min-height:1040px}}
+@media(max-width:620px){.ahn-grid:empty{min-height:1420px}}
