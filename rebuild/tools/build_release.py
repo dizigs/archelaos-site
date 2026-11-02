@@ -247,13 +247,12 @@ def make_release() -> None:
     copytree(STAGE / "images", OUTPUT / "assets" / "site" / "images")
     # The old public JSON endpoint must reflect exactly the same edited people
     # as the new Hall of Fame; otherwise stale corrections remain discoverable.
-    copy2(STAGE / "data" / "people.json", OUTPUT / "hall-of-fame-people.json")
+    copy2(ROOT / "hall-of-fame-people.json", OUTPUT / "hall-of-fame-people.json")
     # Only independently approved, conflict-free relations may enter public data.
     # Never copy research source, review queue or owner-only information to dist.
     from build_event_graph import compile_graph
     event_research = json.loads((STAGE / "research" / "historical-events.json").read_text(encoding="utf-8"))
-    owner_graph = compile_graph(event_research,
-        json.loads((STAGE / "data" / "people.json").read_text(encoding="utf-8"))["people"])
+    owner_graph = compile_graph(event_research, current_master["people"])
     editorially_approved = sum(e.get("editorial_status") == "approved"
                               for e in event_research["events"])
     if len(owner_graph["events"]) != editorially_approved:
@@ -299,9 +298,8 @@ def make_release() -> None:
     # Only update the old bio when it is the EXACT original index text; leave a
     # richer independent profile untouched rather than risking deletion.
     former_people = {p["id"]: p for p in json.loads(
-        (ROOT / "hall-of-fame-people.json").read_text(encoding="utf-8"))["people"]}
-    revised_people = {p["id"]: p for p in json.loads(
         (STAGE / "data" / "people.json").read_text(encoding="utf-8"))["people"]}
+    revised_people = {p["id"]: p for p in current_master["people"]}
 
     def sync_edited_bio(source: str, person_id: str, lang: str) -> str:
         key = "bio" if lang == "el" else "bio_en"
