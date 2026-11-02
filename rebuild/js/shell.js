@@ -59,7 +59,7 @@ function renderHeader(){
   if(document.querySelector('.arch-header'))return;
   const header=document.createElement('header');header.className='arch-header';
   const inner=document.createElement('div');inner.className='arch-header-inner';
-  const brand=document.createElement('a');brand.className='arch-brand';brand.href=hrefFor(pages[0]);brand.setAttribute('aria-label','Αρχική - Γ.Α.Σ. Ο Αρχέλαος');
+  const brand=document.createElement('a');brand.className='arch-brand';brand.href=hrefFor(pages[0]); // Use the visible brand text as its accessible name.
   const crest=document.createElement('img');crest.src='/assets/archelaos-crest.png';crest.alt='';crest.width=52;crest.height=52;
   const lines=document.createElement('span');lines.className='arch-brand-lines';
   const title=document.createElement('span');title.className='arch-brand-title';title.textContent='Γ.Α.Σ. «Ο ΑΡΧΕΛΑΟΣ»';
