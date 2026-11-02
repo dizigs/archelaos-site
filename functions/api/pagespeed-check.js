@@ -41,7 +41,7 @@ export async function onRequestGet({ request, env }) {
   // from multiplying Google API requests or allowing external target scans.
   const canonical = SITE + PAGES[page];
   const cacheKey = new Request(
-    `${SITE}/api/pagespeed-check?v=5&page=${encodeURIComponent(page)}&device=${device}`,
+    `${SITE}/api/pagespeed-check?v=6&page=${encodeURIComponent(page)}&device=${device}`,
     { method: "GET" }
   );
   const cache = caches.default;
@@ -123,6 +123,21 @@ export async function onRequestGet({ request, env }) {
       savingsMs: typeof audit.numericValue === "number" ? audit.numericValue : null
     };
   }
+  const accessibilityFindings = (lighthouse.categories?.accessibility?.auditRefs || [])
+    .filter(ref => typeof audits[ref.id]?.score === "number" && audits[ref.id].score < 1)
+    .slice(0, 12)
+    .map(ref => {
+      const audit = audits[ref.id];
+      const first = audit.details?.items?.[0];
+      const node = first?.node || first?.items?.[0]?.node;
+      return {
+        id: ref.id,
+        title: audit.title || ref.id,
+        score: audit.score,
+        selector: (node?.selector || "").slice(0, 250),
+        snippet: (node?.snippet || "").slice(0, 280)
+      };
+    });
   const result = reply({
     ok: true,
     page,
@@ -133,6 +148,7 @@ export async function onRequestGet({ request, env }) {
     scores,
     labMetrics,
     diagnosis,
+    accessibilityFindings,
     lcpInsightDetails: JSON.stringify(audits["lcp-breakdown-insight"]?.details || null).slice(0, 3800),
     lcpDiscoveryDetails: JSON.stringify(audits["lcp-discovery-insight"]?.details || null).slice(0, 1800),
     fieldDataAvailable: Boolean(report.loadingExperience?.metrics && Object.keys(report.loadingExperience.metrics).length)
