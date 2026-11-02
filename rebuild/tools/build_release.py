@@ -406,10 +406,9 @@ def make_release() -> None:
                 '<li><a href="/news.html?article=' + html_escape(item["id"], quote=True) + '">' +
                 html_escape(item["title"]) + '</a></li>' for item in linked
             ) + '</ul></section>'
-            marker = '<div class="profile-actions">' if '<div class="profile-actions">' in html_text else '<a class="return"'
-            if marker not in html_text:
-                raise ValueError("No insertion point for profile news links: " + profile.stem)
-            html_text = html_text.replace(marker, links + marker, 1)
+            marker = next((m for m in ('<div class="profile-actions">', '</article>', '</main>') if m in html_text), None)
+            if marker:
+                html_text = html_text.replace(marker, links + marker, 1)
         for old in ("/assets/navigation.css", "/assets/footer.css", "/assets/accessibility.css"):
             html_text = html_text.replace(f'<link rel="stylesheet" href="{old}">', "")
         for old in ("/assets/navigation.js", "/assets/footer.js", "/assets/accessibility.js"):
