@@ -377,7 +377,10 @@ def make_release() -> None:
         # Preserve richer archival biographies while including the latest sourced
         # 2026 swimming result in the eight pre-existing public profile pages.
         if (swimming_2026 and profile.stem in swimming_2026.get("personIds", [])
-                and profile.stem in revised_people):
+                and profile.stem in former_people and profile.stem in revised_people):
+            # Legacy archive pages use data-profile-language sections. Newly
+            # created canonical profile pages already contain their current bio
+            # and have a different HTML structure, so never append there.
             person = canonical_people[profile.stem]
             for lang, key in (("el", "bio"), ("en", "bio_en")):
                 fact = person.get(key, "").split("\n\n")[-1]
