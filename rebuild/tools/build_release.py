@@ -385,7 +385,7 @@ def make_release() -> None:
                 fact = person.get(key, "").split("\n\n")[-1]
                 if "2026" not in fact:
                     continue
-                section = (r'(<section\\b[^>]*data-profile-language="' + lang
+                section = (r'(<section\b[^>]*data-profile-language="' + lang
                            + r'"[^>]*>.*?<div class="bio">)(.*?)(</div>)')
                 def add_fact(match):
                     if html_escape(fact, quote=False) in match.group(2):
