@@ -16,8 +16,8 @@ import re
 ROOT = Path(__file__).resolve().parents[2]
 ALLOWLIST = ("news.html",)
 ESCAPED_BETWEEN_TAGS = re.compile(
-    r"(<(script|style)\\b[^>]*>.*?</\\2\\s*>)"
-    r"|(?<=>)[ \\t]*(?:\\\\n|\\\\r|\\\\t)+[ \\t]*(?=<)",
+    r"(<(script|style)\b[^>]*>.*?</\2\s*>)"
+    r"|(?<=>)[ \t]*(?:\\n|\\r|\\t)+[ \t]*(?=<)",
     re.IGNORECASE | re.DOTALL,
 )
 
