@@ -1,0 +1,39 @@
+name: Hall of Fame news crosscheck
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '21 6 * * *'
+  push:
+    branches: [main]
+    paths:
+      - 'news.json'
+      - 'hall-of-fame-people.json'
+permissions:
+  contents: read
+jobs:
+  crosscheck:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Analyze news and biography references
+        run: python .github/scripts/hof_name_audit.py
+      - name: Save review-only report
+        uses: actions/upload-artifact@v4
+        with:
+          name: hof-name-audit
+          path: hof-name-audit.json
+          retention-days: 14
+      - name: Reject broken personIds references
+        run: |
+          python - <<'PY'
+          import json
+          data=json.load(open('hof-name-audit.json'))
+          if data['broken_person_references']:
+              raise SystemExit('News references missing Hall of Fame IDs; inspect hof-name-audit artifact')
+          PY
