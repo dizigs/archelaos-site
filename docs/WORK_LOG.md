@@ -102,6 +102,17 @@
 
 **Επόμενο:** Δημιουργία PR, πραγματικά tests και διόρθωση κάθε εντοπισμένου regression με νέο commit εδώ. Ούτε merge ούτε επιτυχές production υπονοούνται από την ύπαρξη commit.
 
+## GitHub PR #43–#48: έλεγχοι ασφαλείας και διαδοχική ολοκλήρωση — 2026-11-02
+
+- **Issue #43 · OPEN/MONITOR:** Παλαιότερες Cloudflare provider αποτυχίες στο στάδιο `deploy/assets` παρά επιτυχές build. Νεότερα previews `d1c38034`, `d553451a` και production #45 πέτυχαν, **όχι απόδειξη επιδιόρθωσης της παλιάς ασταθούς αιτίας**. Ένα ενδιάμεσο #48 failure `b51eec77` οφείλεται σε **σπασμένο static asset link** και δεν πρέπει να συγχέεται με την αρχική provider βλάβη. Το link αποκαταστάθηκε στα επόμενα commits και επιβεβαιώθηκε επιτυχές preview.
+- **Issue #44 · OPEN ROOT CAUSE:** Τρεις αποτυχίες GitHub Actions χωρίς jobs στις μη κύριες branches. Έγινε προληπτική αποκατάσταση trigger μέσω [PR #45](https://github.com/dizigs/archelaos-site/pull/45): push εκτέλεση μόνο στο `main`. Παραμένει άγνωστο γιατί ο παλιός workflow scheduler απέτυχε.
+- **PR #45 · MERGED:** Αρχική branch έκδοση ήταν ξεπερασμένη και θα αναιρούσε προηγούμενες επιδιορθώσεις φωτογραφιών· η `.github/workflows/archive-news-images.yml` αποκαταστάθηκε από τρέχον `main` με μόνη αλλαγή το `push.branches: main`. Commit `68e3e135`. Κατόπιν το merge μπλοκαρίστηκε (**GitHub HTTP 405: 2 of 2 required status checks expected**), επειδή η branch ήταν behind του protected main (strict policy). Το ακριβές ruleset GitHub `26357426` απαιτεί `JavaScript syntax (all site scripts)` και `ESLint JavaScript quality`. Δημιουργήθηκε fast-forward merge commit `a539478c` με δύο γονείς (feature + current main), διατηρώντας τα διορθωμένα περιεχόμενα. Όλα τα required checks, SonarCloud, Lighthouse, Cloudflare Preview και Release Integrity **success**. Squash merge στο `main`: [`ce7db057`](https://github.com/dizigs/archelaos-site/commit/ce7db057e5c8cd7837e4940f6db5b8be14ccce41). Cloudflare production `e868d5e0-3f56-4119-8f9a-06a4c4be0e62`: `success` status, logs να ελεγχθούν ξεχωριστά.
+- **PR #48 · IN_PROGRESS:** Νέο δημόσιο reciprocal graph, UI συνδέσμων, ελεγκτές παραπομπών, tests και logs. Συνδέθηκε επιπλέον το ειδικό custom popup των Φωνών μέσω [`68e6c26`](https://github.com/dizigs/archelaos-site/commit/68e6c26ecd680082222e870a25d4fa5d9d365be1). Τα CI του νέου head απαιτούν επανέλεγχο και συγχρονισμό με `main` μετά το #45.
+- **NotebookLM / Shared Drive · RESEARCH:** Παραλήφθηκε 8σέλιδο παράγωγο μητρώο μεταλλίων, επιτυχιών και σκορ (πηγές: έγγραφα στο ίδιο ιστορικό Drive). Δεν είναι ξεχωριστή πρωτογενής πηγή. Εντοπίστηκαν στα περιεχόμενα του Drive τα πρωτότυπα έγγραφα για Κύπελλο Χάντμπολ, Titov Veles, Τοξοβολία/ΕΦΟΤ, Σκοποβολή/ΣΚΟΕ και τα αριθμημένα αποκόμματα Τύπου. **Δεν έχουν ακόμη επαληθευτεί μία προς μία οι επιδόσεις με το πρωτότυπο**, ούτε δημοσιεύτηκαν αυτόματα ιστορικές εγγραφές από τη σύνθεση. Η σελίδα καλαθοσφαίρισης του παραγώγου απαιτεί ιδιαίτερη διάκριση ΓΑΣ vs. συγχωνευμένου ΣΦΚ.
+- **Issue #47 · OPEN:** SonarCloud main Quality Gate screenshot (Security C) απαιτεί πρωτογενή issue-level ευρήματα. Το SonarCloud Quality Gate για PR #45 και #48 **success** δεν αρκεί για να χαρακτηριστεί κλειστό το παλαιότερο main θέμα.
+
+**Κανόνας:** Κρατούμε ακόμη και τα προσωρινά σφάλματα με πραγματικό commit, URL, διόρθωση και τελικό έλεγχο. Ούτε status success preview ούτε βήμα build ισοδυναμούν με production επιτυχία χωρίς deployment logs.
+
 ## Σημείο συνέχισης
 
 1. Διαβάζουμε αυτό το log **και** την τρέχουσα κατάσταση PR #42 / workflow runs.
