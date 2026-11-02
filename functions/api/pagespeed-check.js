@@ -97,6 +97,32 @@ export async function onRequestGet({ request, env }) {
       numericValue: audits[id].numericValue ?? null
     };
   }
+  // Small diagnostic summary for identifying actual LCP bottlenecks.
+  const diagnosis = {};
+  for (const id of [
+    "largest-contentful-paint-element",
+    "lcp-discovery-insight",
+    "lcp-breakdown-insight",
+    "render-blocking-resources",
+    "font-display-insight",
+    "image-delivery-insight"
+  ]) {
+    const audit = audits[id];
+    if (!audit) continue;
+    const first = audit.details?.items?.[0];
+    const node = first?.node || first?.items?.find?.(entry => entry.node)?.node;
+    diagnosis[id] = {
+      title: audit.title || null,
+      displayValue: audit.displayValue || null,
+      description: (audit.description || "").slice(0,320),
+      firstElement: node ? {
+        selector: (node.selector || "").slice(0,220),
+        snippet: (node.snippet || "").slice(0,260)
+      } : null,
+      firstUrl: typeof first?.url === "string" ? first.url.slice(0,280) : null,
+      savingsMs: typeof audit.numericValue === "number" ? audit.numericValue : null
+    };
+  }
   const result = reply({
     ok: true,
     page,
@@ -106,6 +132,7 @@ export async function onRequestGet({ request, env }) {
     measuredAt: report.analysisUTCTimestamp || new Date().toISOString(),
     scores,
     labMetrics,
+    diagnosis,
     fieldDataAvailable: Boolean(report.loadingExperience?.metrics && Object.keys(report.loadingExperience.metrics).length)
   }, 200, CACHE_SECONDS);
   try { await cache.put(cacheKey, result.clone()); } catch { /* Cache is best-effort. */ }
