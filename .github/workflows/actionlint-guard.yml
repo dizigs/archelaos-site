@@ -1,0 +1,31 @@
+name: Validate GitHub Actions workflows (actionlint)
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/**'
+      - '.github/workflows/actionlint-guard.yml'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  actionlint:
+    name: Static Actions syntax
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Checkout without persisted credentials
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Install Go
+        uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff # v5
+        with:
+          go-version: 'stable'
+      - name: Install versioned actionlint
+        run: go install github.com/rhysd/actionlint/cmd/actionlint@v1.7.11
+      - name: Check all workflows (no secrets or site changes)
+        run: '"$(go env GOPATH)/bin/actionlint" -color'
