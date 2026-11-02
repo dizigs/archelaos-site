@@ -1,0 +1,48 @@
+name: Verify offline private contribution intake
+on:
+  pull_request:
+    paths:
+      - 'rebuild/tools/contribution_research.py'
+      - 'rebuild/tools/intake_contributions.py'
+      - 'rebuild/tools/match_contribution_records.py'
+      - 'rebuild/tools/process_private_inbox.py'
+      - 'rebuild/tests/private_intake_test.py'
+      - 'rebuild/tests/private_queue_test.py'
+      - '.github/workflows/private-intake-tests.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'rebuild/tools/contribution_research.py'
+      - 'rebuild/tools/intake_contributions.py'
+      - 'rebuild/tools/match_contribution_records.py'
+      - 'rebuild/tools/process_private_inbox.py'
+      - 'rebuild/tests/private_intake_test.py'
+      - 'rebuild/tests/private_queue_test.py'
+      - '.github/workflows/private-intake-tests.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  private-intake:
+    name: Offline intake privacy and idempotency
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Checkout without persisted credentials
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Install Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+      - name: Compile private intake pipeline modules
+        run: python -m py_compile rebuild/tools/contribution_research.py rebuild/tools/intake_contributions.py rebuild/tools/match_contribution_records.py rebuild/tools/process_private_inbox.py
+      - name: Verify private receipts, hashes and document extraction
+        run: python -m unittest discover -s rebuild/tests -p private_intake_test.py -v
+      - name: Verify private queue idempotency and archival matching
+        run: python -m unittest discover -s rebuild/tests -p private_queue_test.py -v
+      - name: Assert private workspace cannot be committed
+        run: |
+          grep -q '^\.archive-intake/$' .gitignore
+          test ! -e .archive-intake
