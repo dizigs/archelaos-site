@@ -10,7 +10,7 @@ spec.loader.exec_module(mod)
 
 def main():
     data=json.loads((ROOT/"research/historical-events.json").read_text(encoding="utf-8"))
-    people=json.loads((ROOT/"data/people.json").read_text(encoding="utf-8"))["people"]
+    people=json.loads((ROOT.parent/"hall-of-fame-people.json").read_text(encoding="utf-8"))["people"]
     research=copy.deepcopy(data)
     for e in research["events"]:e.pop("editorial_status",None)
     baseline=mod.compile_graph(research,people)
