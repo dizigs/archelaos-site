@@ -427,3 +427,6 @@ body.arch-a11y-calm *,body.arch-a11y-calm *::before,body.arch-a11y-calm *::after
 .arch-footer-bottom.arch-footer-legal{margin-top:16px;padding-top:12px;border-top:1px solid rgba(255,255,255,.11);display:block;color:#b8c4b7;font:500 10px/1.6 Inter,system-ui,sans-serif;letter-spacing:.01em;text-align:center;overflow-wrap:anywhere}
 .arch-footer-legal span{padding-inline:5px;color:#bea465}
 @media(max-width:620px){.arch-footer-bottom.arch-footer-legal{font-size:9px;padding-inline:4px;line-height:1.6}}
+
+.arch-footer-legal .arch-privacy-link,.arch-footer-legal .arch-privacy-link:hover,.arch-footer-legal .arch-privacy-link:visited{color:inherit;text-decoration:none!important}
+.arch-footer-legal .arch-privacy-link:focus-visible{outline:2px solid #cfb571;outline-offset:3px;border-radius:2px}
