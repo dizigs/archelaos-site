@@ -25,9 +25,12 @@ class LiteralEscapesTests(unittest.TestCase):
             '<html><head><script>const message="line\\nnext";</script>'
             '<style>p::before{content:"one\\ntwo"}</style></head>'
             '<body><pre>Example: \\n</pre><code>\\t</code>'
-            '<textarea>\\n</textarea><p>Line one\nLine two</p></body></html>'
+            '<p>Line one\nLine two</p></body></html>'
         )
         self.assertEqual(guard.find_visible_escapes(safe), [])
+
+    def test_reject_textarea_escaped_newline(self):
+        self.assertEqual(len(guard.find_visible_escapes('<textarea>\\n</textarea>')), 1)
 
     def test_reject_escaped_tab_and_return(self):
         bad = '<body><p>text\\tword</p><p>text\\rword</p></body>'
