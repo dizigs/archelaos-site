@@ -117,16 +117,29 @@ def candidate_matches(lead, records, kind):
     return sorted(found, key=lambda x: (-x["strength"], str(x["id"])))[:8]
 
 
+def name_occurs(name_tokens, text_tokens):
+    """Allow the common Greek nominative -ς to accusative ending change only."""
+    if not name_tokens or len(text_tokens) < len(name_tokens):
+        return False
+    for offset in range(len(text_tokens) - len(name_tokens) + 1):
+        actual = text_tokens[offset:offset + len(name_tokens)]
+        if all(a == b or (b.endswith("σ") and a == b[:-1])
+               for a, b in zip(actual, name_tokens)):
+            return True
+    return False
+
+
 def person_candidates(excerpt, people):
-    haystack = " " + " ".join(words(excerpt)) + " "
+    text_tokens = words(excerpt)
     groups = {}
     for p in people:
         if not isinstance(p, dict) or not p.get("id") or not p.get("name"):
             continue
-        name = " ".join(words(p["name"]))
-        if len(name.split()) < 2 or len(name) < 8:
+        name_tokens = words(p["name"])
+        name = " ".join(name_tokens)
+        if len(name_tokens) < 2 or len(name) < 8:
             continue
-        if " " + name + " " in haystack:
+        if name_occurs(name_tokens, text_tokens):
             groups.setdefault(name, []).append({"id": p["id"], "name": p["name"]})
     return [
         {"candidates": matches, "status": (
