@@ -13,7 +13,7 @@ const AxeBuilder = require('@axe-core/playwright').default;
       try {
         await page.goto('http://127.0.0.1:8765' + path, { waitUntil: 'domcontentloaded', timeout: 30000 });
         const result = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).analyze();
-        reports.push({ path, violations: result.violations, passes: result.passes.length, incomplete: result.incomplete.length });
+        reports.push({ path, violations: result.violations, passes: result.passes.length, incomplete: result.incomplete });
         console.log(path + ': ' + result.violations.length + ' axe violations; report-only');
       } finally { await context.close(); }
     }
