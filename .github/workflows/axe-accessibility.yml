@@ -5,12 +5,18 @@ on:
       - 'rebuild/**'
       - 'assets/**'
       - '.github/workflows/axe-accessibility.yml'
+      - '.github/scripts/axe_audit.cjs'
+      - 'news.html'
+      - 'hall-of-fame.html'
   push:
     branches: [main]
     paths:
       - 'rebuild/**'
       - 'assets/**'
       - '.github/workflows/axe-accessibility.yml'
+      - '.github/scripts/axe_audit.cjs'
+      - 'news.html'
+      - 'hall-of-fame.html'
   schedule:
     - cron: '53 5 * * 4'
   workflow_dispatch:
@@ -43,6 +49,7 @@ jobs:
         run: |
           set -euo pipefail
           python -m http.server 8765 --bind 127.0.0.1 --directory dist >/tmp/axe-server.log 2>&1 &
+          timeout 30 bash -c 'until curl -fsS http://127.0.0.1:8765/ >/dev/null; do sleep 0.2; done'
           node .github/scripts/axe_audit.cjs
       - name: Preserve accessibility findings
         if: always()
