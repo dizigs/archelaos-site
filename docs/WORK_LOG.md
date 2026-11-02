@@ -383,3 +383,12 @@
 4. Καταγράφουμε κάθε πρόοδο/μπλοκάρισμα εδώ, με commit ή issue/run link. Merge μόνο με επαληθευμένα checks — όχι επειδή γράφτηκε «έτοιμο» στο log.
 
 **Προσοχή:** Ένα GitHub αρχείο δεν γράφεται αυτόματα από μόνο του όταν κλείνει μια συνομιλία. Η ενημέρωση γίνεται με πραγματικές commits σε κάθε συνεδρία εργασιών ή με ξεχωριστό, επαληθευμένα εγκατεστημένο workflow. Δεν δηλώνουμε αυτοματοποιημένη επιμονή χωρίς τέτοιο workflow.
+
+
+## Sourced biography update — 2026-11-02 (archery register)
+
+- **STARTED / SOURCE:** Read the already archived 5-page club archery results register. Page 3 records an identifiable 13 October 2024 Nea Chrani result for Ελισάβετ Στεργιοπούλου: girls' recurve 15 m, 2nd place, 648 points (318+330), citing archival source “0001-0500.pdf”. The record is a private archived compilation; neither its original bytes nor private Drive identifiers are committed to GitHub.
+- **CHECKED:** Existing person ID `arch-77461943b4f2` found; no second profile was created. Preserve separate 2026 delegation wording and do not incorrectly attribute the team's medal to that person.
+- **IMPLEMENTED IN BRANCH:** Targeted Greek/English biography changes in `hall-of-fame-people.json`, `rebuild/data/people.json` and the corresponding `rebuild/source-profiles/arch-77461943b4f2.html` source page. Metadata and Person JSON-LD were updated to avoid the obsolete “exact event unknown” assertion.
+- **CONSTRAINT:** Main root Hall registry has **760** people, while the rebuild working registry currently contains **682**. This branch preserves both counts; normalizing the two catalogs needs a separate guarded audit, not a wholesale replacement hidden in a biography edit.
+- **STATUS: IN_PR / UNVERIFIED FOR PUBLICATION.** Require source-data and release tests, browser checks, GitHub required checks, Cloudflare preview and production logs after a protected merge. This item is a manual pilot, **not** proof that the real private Gmail/Shared Drive collector in [Issue #55](https://github.com/dizigs/archelaos-site/issues/55) is functional.
