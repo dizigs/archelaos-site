@@ -419,6 +419,19 @@ def make_release() -> None:
         raise RuntimeError("Hall of Fame master data count mismatch")
     copy2(ROOT / "hall-of-fame-people.json", OUTPUT / "assets" / "site" / "data" / "people.json")
     copy2(ROOT / "hall-of-fame-people.json", OUTPUT / "hall-of-fame-people.json")
+    # Render the public Hall of Fame count in the HTML before JavaScript runs.
+    # Avoid a flash of the old archive total on refresh and in crawlers.
+    homepage = OUTPUT / "index.html"
+    home_html = homepage.read_text(encoding="utf-8")
+    home_html, count_matches = re.subn(
+        r'(<span id="new-people-total">)\\d+(</span>)',
+        lambda match: match.group(1) + str(len(master_people["people"])) + match.group(2),
+        home_html,
+    )
+    if count_matches != 1:
+        raise RuntimeError("Expected one homepage Hall of Fame count")
+    homepage.write_text(home_html, encoding="utf-8")
+
 
     from build_match_schedule import calendar as make_ical, validate as validate_matches
     match_data = json.loads((STAGE / "data" / "match-schedule.json").read_text(encoding="utf-8"))
