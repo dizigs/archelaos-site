@@ -1,0 +1,83 @@
+name: Lighthouse CI - website quality
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - '.github/workflows/lighthouse-ci.yml'
+      - '.lighthouserc.cjs'
+      - 'rebuild/**'
+      - 'assets/**'
+      - 'images/**'
+      - 'news.json'
+      - 'hall-of-fame-people.json'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/lighthouse-ci.yml'
+      - '.lighthouserc.cjs'
+      - 'rebuild/**'
+      - 'assets/**'
+      - 'images/**'
+      - 'news.json'
+      - 'hall-of-fame-people.json'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lighthouse-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lighthouse:
+    name: Lighthouse CI mobile audit
+    # Secrets must never be passed into CI running arbitrary fork PR code.
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out repository with Git history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Build and validate static production output
+        run: |
+          python3 rebuild/tools/build_release.py
+          python3 rebuild/tools/verify_release.py
+
+      - name: Confirm Lighthouse GitHub App secret is available
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+        run: |
+          if [ -z "$LHCI_GITHUB_APP_TOKEN" ]; then
+            echo "::error::Add LHCI_GITHUB_APP_TOKEN under repository Settings > Secrets and variables > Actions"
+            exit 1
+          fi
+          echo "Lighthouse GitHub App secret configured."
+
+      - name: Install pinned Lighthouse CI CLI
+        run: npm install --global '@lhci/cli@0.15.x'
+
+      - name: Audit home, departments and news and post results to GitHub
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+          LHCI_BUILD_CONTEXT__CURRENT_BRANCH: ${{ github.head_ref || github.ref_name }}
+        run: lhci autorun --config=.lighthouserc.cjs
+
+      - name: Preserve local Lighthouse reports for 14 days
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: archelaos-lighthouse-reports
+          path: .lighthouseci/
+          include-hidden-files: true
+          if-no-files-found: ignore
+          retention-days: 14
