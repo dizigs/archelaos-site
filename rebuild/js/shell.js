@@ -270,6 +270,21 @@ function initOptionalAnalytics(){
   script.src='https://www.clarity.ms/tag/z79wwgm3p8';
   document.head.append(script);
  }
+ const style=document.createElement('style');
+ style.textContent=`
+ #arch-analytics-consent{overflow:hidden;isolation:isolate;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:linear-gradient(140deg,#faf4e8f5,#eee0c7f5)!important;border:1px solid #bf9f5e!important;box-shadow:0 20px 64px #062b214d,0 2px 10px #b89b6533!important;transition:opacity .28s ease,transform .42s cubic-bezier(.2,.75,.2,1),visibility .28s}
+ #arch-analytics-consent:before{content:'';position:absolute;inset:0 0 auto;height:3px;background:linear-gradient(90deg,#0d5039,#c5a45b,#0d5039);pointer-events:none}
+ #arch-analytics-consent[data-closed="true"]{opacity:0;transform:translateY(26px) scale(.975);visibility:hidden;pointer-events:none}
+ #arch-analytics-consent[data-closed="false"]{opacity:1;transform:translateY(0) scale(1);visibility:visible}
+ #arch-analytics-consent button{transition:transform .2s ease,box-shadow .2s ease,background-color .2s ease}
+ #arch-analytics-consent button:hover{transform:translateY(-2px);box-shadow:0 6px 16px #0b392b26}
+ #arch-analytics-consent button:focus-visible,#arch-analytics-consent a:focus-visible,#arch-analytics-settings:focus-visible{outline:3px solid #bc9650;outline-offset:3px}
+ #arch-analytics-settings{transition:transform .2s ease,box-shadow .2s ease;box-shadow:0 5px 18px #113f2b1c}
+ #arch-analytics-settings:hover{transform:translateY(-2px)}
+ @media(max-width:600px){#arch-analytics-consent{bottom:12px!important;left:10px!important;right:10px!important;padding:18px!important;border-radius:16px!important}#arch-analytics-consent .arch-consent-buttons{display:grid!important;grid-template-columns:1fr 1fr;gap:8px!important}#arch-analytics-consent .arch-consent-buttons a{grid-column:1/-1;text-align:center}}
+ @media(prefers-reduced-motion:reduce){#arch-analytics-consent,#arch-analytics-consent button,#arch-analytics-settings{transition:none!important;animation:none!important}}
+ `;
+ document.head.append(style);
  const panel=document.createElement('aside');
  panel.id='arch-analytics-consent';
  panel.setAttribute('aria-label','Επιλογές στατιστικών περιήγησης');
@@ -278,16 +293,16 @@ function initOptionalAnalytics(){
  const title=document.createElement('strong');title.textContent='Η εμπειρία σας στον Αρχέλαο';title.style.cssText='display:block;font:700 21px/1.3 Georgia,serif;color:#9a7937';
  const description=document.createElement('p');description.textContent='Με την επιλογή σας ενεργοποιούνται τα Google Analytics 4 και Microsoft Clarity για τη βελτίωση της εμπειρίας χρήσης. Η αποδοχή είναι προαιρετική και δεν επηρεάζει την περιήγηση.';
  description.style.margin='8px 0 12px';
- const controls=document.createElement('div');controls.style.cssText='display:flex;gap:10px;flex-wrap:wrap';
+ const controls=document.createElement('div');controls.className='arch-consent-buttons';controls.style.cssText='display:flex;gap:10px;flex-wrap:wrap';
  const accept=document.createElement('button');accept.type='button';accept.textContent='Αποδοχή';accept.style.cssText='padding:9px 15px;border-radius:9px;border:1px solid #15452f;background:#15452f;color:white;cursor:pointer;font-weight:700;min-height:44px';
  const reject=document.createElement('button');reject.type='button';reject.textContent='Απόρριψη';reject.style.cssText='padding:9px 15px;border-radius:9px;border:1px solid #15452f;background:transparent;color:#15452f;cursor:pointer;font-weight:700;min-height:44px';
  const more=document.createElement('a');more.href='/privacy.html';more.textContent='Πολιτική απορρήτου';more.style.cssText='padding:9px 2px;color:#15452f;text-underline-offset:3px';
  controls.append(reject,accept,more);panel.append(title,description,controls);
- const settings=document.createElement('button');settings.type='button';settings.textContent='Ρυθμίσεις στατιστικών';settings.setAttribute('aria-label','Αλλαγή επιλογής στατιστικών');
+ const settings=document.createElement('button');settings.id='arch-analytics-settings';settings.type='button';settings.textContent='Ρυθμίσεις στατιστικών';settings.setAttribute('aria-label','Αλλαγή επιλογής στατιστικών');
  settings.style.cssText='position:fixed;z-index:2147482999;bottom:12px;left:12px;padding:7px 12px;border:1px solid #b69a58;border-radius:9px;background:#f3ead6;color:#173d2c;font:12px system-ui;cursor:pointer';
  const select=value=>{
   write(value);
-  panel.hidden=true;
+  panel.dataset.closed='true';
   if(value==='accepted'){loadGoogleAnalytics();loadClarity();}
   else if(window.__archelaosClarityLoaded||window.__archelaosGaLoaded){
    if(typeof window.clarity==='function')window.clarity('consentv2',{ad_Storage:'denied',analytics_Storage:'denied'});
@@ -296,9 +311,10 @@ function initOptionalAnalytics(){
  };
  accept.addEventListener('click',()=>select('accepted'));
  reject.addEventListener('click',()=>select('rejected'));
- settings.addEventListener('click',()=>{panel.hidden=false;reject.focus()});
+ settings.addEventListener('click',()=>{panel.hidden=false;panel.dataset.closed='false';reject.focus()});
  document.body.append(settings,panel);
  const current=read();panel.hidden=current==='accepted'||current==='rejected';
+ panel.dataset.closed=panel.hidden?'true':'false';
  if(current==='accepted'){loadGoogleAnalytics();loadClarity();}
 }
 
