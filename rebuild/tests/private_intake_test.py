@@ -70,7 +70,13 @@ class PrivateIntakeTests(unittest.TestCase):
         receipt = json.loads((self.workspace / "receipts" / (two["receipt_id"] + ".json")).read_text())
         self.assertEqual(receipt["supersedes"], one["receipt_id"])
         self.assertNotEqual(one["receipt_id"], two["receipt_id"])
-        self.assertEqual(len(list((self.workspace / "receipts").glob("*.json"))), 2)
+        self.assertEqual(receipt["source_sequence"], 2)
+        third = self.source(b"Third version", revision="v3")
+        three = ingest(third, self.workspace)
+        third_receipt = json.loads((self.workspace / "receipts" / (three["receipt_id"] + ".json")).read_text())
+        self.assertEqual(third_receipt["supersedes"], two["receipt_id"])
+        self.assertEqual(third_receipt["source_sequence"], 3)
+        self.assertEqual(len(list((self.workspace / "receipts").glob("*.json"))), 3)
 
     def test_same_revision_different_content_is_rejected(self):
         old = self.source(b"Before")
