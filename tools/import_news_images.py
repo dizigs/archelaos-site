@@ -76,7 +76,7 @@ def needs_archive(item, root=ROOT):
     photo=item.get("image") or ""
     if not photo.startswith("images/news/"):
         return True
-    if not re.fullmatch(r"images/news/[A-Za-z0-9._-]+\\.(?:jpe?g|png|webp)",photo):
+    if not re.fullmatch(r"images/news/[A-Za-z0-9._-]+\.(?:jpe?g|png|webp)",photo):
         return True
     path=root/photo
     if not path.is_file():
