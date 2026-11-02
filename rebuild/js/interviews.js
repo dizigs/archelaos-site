@@ -68,6 +68,8 @@ function open(id){
   inner+='</div></section>';
  }
  $('detail').innerHTML=inner;
+ // Connect this custom Voices dialog to the same source-backed public archive graph.
+ void window.ArchelaosLinks?.append($('detail'),'interview',x.id,{limit:8});
  const slot=$('interview-favorite-slot');
  if(slot){slot.replaceChildren();
   if(window.ArchelaosFavorites)slot.append(window.ArchelaosFavorites.button('interview',x.id,'interview-header-favorite'));

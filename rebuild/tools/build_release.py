@@ -168,8 +168,16 @@ def create_page(entry: dict) -> None:
         r'<meta\b(?=[^>]*\bname=["\x27]description["\x27])[^>]*>',
         meta_tag("description", entry["description"]), raw, count=1, flags=re.I
     )
+    link_style = '<link rel="stylesheet" href="/assets/archive-links.css">'
+    if link_style not in raw:
+        raw = raw.replace("</head>", link_style + "\n</head>", 1)
     # One biography popup contract on every generated museum/search/department page.
     # The central HOF JSON remains the only source of biographical text.
+    # Shared related-content script is generated on every museum route.
+    # News is copied verbatim from root news.html and includes it directly.
+    related_script = '<script defer src="/assets/archive-links.js"></script>'
+    if related_script not in raw:
+        raw = raw.replace("</body>", related_script + "\n</body>", 1)
     biography_script = '<script defer src="/assets/hof-inplace.js"></script>'
     if biography_script not in raw:
         if raw.count("</body>") != 1:
@@ -260,6 +268,13 @@ def make_release() -> None:
         raise ValueError("An approved event is still blocked by identity or historical review")
     (OUTPUT / "assets" / "site" / "data" / "approved-event-graph.json").write_text(
         js_data(owner_graph) + "\n", encoding="utf-8")
+    # One public, reciprocal graph across news, biographies, stories, Voices,
+    # moments, departments and archived event identities. Do not ship Drive
+    # originals, unapproved research queues or inferred person matches.
+    from build_archive_relationships import generate as generate_archive_links
+    link_graph = generate_archive_links()
+    (OUTPUT / "assets" / "site" / "data" / "archive-relationships.json").write_text(
+        js_data(link_graph) + "\n", encoding="utf-8")
     # Keep all 682 historic profile URLs/Person metadata, but replace the old
     # per-profile navbar/footer with the shared site-wide shell in the generated release.
     # Source backup profiles remain completely untouched.

@@ -87,6 +87,57 @@
 
 **Μόνιμος κανόνας:** Κάθε σφάλμα/ανίχνευση/διόρθωση καταχωρίζεται εδώ ή σε αντίστοιχο tracked Issue/PR με commit, κατάσταση και πραγματική επαλήθευση. Η έλλειψη τελικού ελέγχου σημειώνεται ως pending, ποτέ ως completed.
 
+## Ενοποιημένες συνδέσεις δημόσιου αρχείου — 2026-11-02
+
+**Αίτημα:** Όλες οι τεκμηριωμένες δημόσιες πληροφορίες να διασυνδέονται με όλα τα συναφή πρόσωπα, ειδήσεις, χρονολόγια, τμήματα, ιστορίες, συνεντεύξεις και μουσειακά εκθέματα. Όχι αυθαίρετα συμπεράσματα ή διπλές εγγραφές. Υλικό Google Drive παραμένει ιδιωτικό μέχρι να γίνει κατάλληλη δημόσια ασφαλής αξιοποίηση.
+
+| Ώρα/στάδιο | Τεκμηριωμένη εργασία και αιτία | Κατάσταση/επαλήθευση |
+|---|---|---|
+| STARTED | Έλεγχος public canonical sources `hall-of-fame-people.json` (760), `news.json` (118), `archelaos-history-events.json` (100), 70 Στιγμές, 21 Ιστορίες, 28 συνεντεύξεις και 26 εκθέματα. Έλεγχος ρητών personIds / story eventIds: **0 dangling IDs** στο ελεγχθέν σύνολο. | **CHECKED** |
+| IMPLEMENTED | Δημιουργία `rebuild/tools/build_archive_relationships.py` με ένα δημόσιο γράφημα σταθερών IDs και αμφίδρομες ακμές `by_node`, χωρίς αναζήτηση ιδιωτικών δεδομένων, εικαστική ταυτοποίηση ή δεύτερο άρθρο ανά γεγονός. | **IN_PR / CI PENDING** |
+| IMPLEMENTED | Ενσωμάτωση στο `rebuild/tools/build_release.py`, με `assets/site/data/archive-relationships.json` στο `dist` και τελικό έλεγχο αμφιδρομίας στο `verify_release.py`. | **IN_PR / CI PENDING** |
+| IMPLEMENTED | `assets/archive-links.js` + `.css`: σύνδεσμοι σε cards/popups χωρίς διακοσμητικά βελάκια ή underline. Προστέθηκαν hooks στο κοινό popup, Hall of Fame και popup ειδήσεων. | **IN_PR / BROWSER QA PENDING** |
+| IMPLEMENTED | Python tests για graph, αμφίδρομες συνδέσεις, τέσσερα πρόσωπα / ένα event Κροατίας, παλιά historical relationships, αποτυχία σε άκυρο ID, αποκλεισμό `unverified` from public linkage. Συνδέθηκαν με release CI και `news-event-ledger` CI. | **IN_PR / CI PENDING** |
+| OPEN SEPARATE | SonarCloud `Quality Gate failed: C Security Rating on New Code`, περιγράφεται στο [Issue #47](https://github.com/dizigs/archelaos-site/issues/47). Χωρίς πρόσβαση στα line-level findings, δεν δηλώνεται επιλυμένο. | **OPEN** |
+
+**Επόμενο:** Δημιουργία PR, πραγματικά tests και διόρθωση κάθε εντοπισμένου regression με νέο commit εδώ. Ούτε merge ούτε επιτυχές production υπονοούνται από την ύπαρξη commit.
+
+## GitHub PR #43–#48: έλεγχοι ασφαλείας και διαδοχική ολοκλήρωση — 2026-11-02
+
+- **Issue #43 · OPEN/MONITOR:** Παλαιότερες Cloudflare provider αποτυχίες στο στάδιο `deploy/assets` παρά επιτυχές build. Νεότερα previews `d1c38034`, `d553451a` και production #45 πέτυχαν, **όχι απόδειξη επιδιόρθωσης της παλιάς ασταθούς αιτίας**. Ένα ενδιάμεσο #48 failure `b51eec77` οφείλεται σε **σπασμένο static asset link** και δεν πρέπει να συγχέεται με την αρχική provider βλάβη. Το link αποκαταστάθηκε στα επόμενα commits και επιβεβαιώθηκε επιτυχές preview.
+- **Issue #44 · OPEN ROOT CAUSE:** Τρεις αποτυχίες GitHub Actions χωρίς jobs στις μη κύριες branches. Έγινε προληπτική αποκατάσταση trigger μέσω [PR #45](https://github.com/dizigs/archelaos-site/pull/45): push εκτέλεση μόνο στο `main`. Παραμένει άγνωστο γιατί ο παλιός workflow scheduler απέτυχε.
+- **PR #45 · MERGED:** Αρχική branch έκδοση ήταν ξεπερασμένη και θα αναιρούσε προηγούμενες επιδιορθώσεις φωτογραφιών· η `.github/workflows/archive-news-images.yml` αποκαταστάθηκε από τρέχον `main` με μόνη αλλαγή το `push.branches: main`. Commit `68e3e135`. Κατόπιν το merge μπλοκαρίστηκε (**GitHub HTTP 405: 2 of 2 required status checks expected**), επειδή η branch ήταν behind του protected main (strict policy). Το ακριβές ruleset GitHub `26357426` απαιτεί `JavaScript syntax (all site scripts)` και `ESLint JavaScript quality`. Δημιουργήθηκε fast-forward merge commit `a539478c` με δύο γονείς (feature + current main), διατηρώντας τα διορθωμένα περιεχόμενα. Όλα τα required checks, SonarCloud, Lighthouse, Cloudflare Preview και Release Integrity **success**. Squash merge στο `main`: [`ce7db057`](https://github.com/dizigs/archelaos-site/commit/ce7db057e5c8cd7837e4940f6db5b8be14ccce41). Cloudflare production `e868d5e0-3f56-4119-8f9a-06a4c4be0e62`: **success**, πραγματικά logs `Success: Assets published!` / `Success: Your site was deployed!`.
+- **PR #48 · IN_PROGRESS:** Νέο δημόσιο reciprocal graph, UI συνδέσμων, ελεγκτές παραπομπών, tests και logs. Συνδέθηκε επιπλέον το ειδικό custom popup των Φωνών μέσω [`68e6c26`](https://github.com/dizigs/archelaos-site/commit/68e6c26ecd680082222e870a25d4fa5d9d365be1). Τα CI του νέου head απαιτούν επανέλεγχο και συγχρονισμό με `main` μετά το #45.
+- **NotebookLM / Shared Drive · RESEARCH:** Παραλήφθηκε 8σέλιδο παράγωγο μητρώο μεταλλίων, επιτυχιών και σκορ (πηγές: έγγραφα στο ίδιο ιστορικό Drive). Δεν είναι ξεχωριστή πρωτογενής πηγή. Εντοπίστηκαν στα περιεχόμενα του Drive τα πρωτότυπα έγγραφα για Κύπελλο Χάντμπολ, Titov Veles, Τοξοβολία/ΕΦΟΤ, Σκοποβολή/ΣΚΟΕ και τα αριθμημένα αποκόμματα Τύπου. **Δεν έχουν ακόμη επαληθευτεί μία προς μία οι επιδόσεις με το πρωτότυπο**, ούτε δημοσιεύτηκαν αυτόματα ιστορικές εγγραφές από τη σύνθεση. Η σελίδα καλαθοσφαίρισης του παραγώγου απαιτεί ιδιαίτερη διάκριση ΓΑΣ vs. συγχωνευμένου ΣΦΚ.
+- **Issue #47 · OPEN:** SonarCloud main Quality Gate screenshot (Security C) απαιτεί πρωτογενή issue-level ευρήματα. Το SonarCloud Quality Gate για PR #45 και #48 **success** δεν αρκεί για να χαρακτηριστεί κλειστό το παλαιότερο main θέμα.
+
+**Κανόνας:** Κρατούμε ακόμη και τα προσωρινά σφάλματα με πραγματικό commit, URL, διόρθωση και τελικό έλεγχο. Ούτε status success preview ούτε βήμα build ισοδυναμούν με production επιτυχία χωρίς deployment logs.
+
+## PR #48 — CodeRabbit review / τελικές επιδιορθώσεις (2026-11-02)
+
+| Παρατήρηση / βλάβη | Διόρθωση | Κατάσταση |
+|---|---|---|
+| Χαμηλή αντίθεση στην ετικέτα τύπου αρχείου έναντι ανοιχτόχρωμου card/hover | `assets/archive-links.css`: σκούρο χρυσό `#6f5a2a`, commit `d8c5f07` | FIXED_IN_PR / QA pending |
+| Ελληνικές ετικέτες ακόμη και όταν `document.lang=en` | `assets/archive-links.js`: κατάλληλες label/aria ετικέτες, commit `a039870`; δεν επανέρχεται toggle γλώσσας | FIXED_IN_PR / QA pending |
+| Οι κάρτες αθλητικών τμημάτων χρησιμοποιούσαν favourite key `page:department-...` αντί του canonical `department:key` | Ξεχωριστό `relation` ID χωρίς αλλαγή στα Αγαπημένα, commits `24aa899` / `c0adc34` | FIXED_IN_PR / browser QA pending |
+| Τα ίδια δύο στοιχεία με διαφορετικές σχέσεις παρήγαν διπλές αμφίδρομες ακμές | `build_archive_relationships.py`: μία ακμή ανά ταξινομημένο ζεύγος κόμβων + regression test, commits `5c6a482` / `65035ea` | FIXED_IN_PR / CI pending |
+
+**Σημείωση:** Δεν είναι εντολή να καταργηθεί CodeRabbit security/quality check. Τα σχόλια επιλύονται μόνο μετά από θετική επαλήθευση των συγκεκριμένων αλλαγών στο τελικό head. Χωρίς ολοκληρωμένα required checks δεν γίνεται merge.
+
+## Αρχειακή τεκμηρίωση — οριστική οδηγία και αυτοματισμοί · 2026-11-02
+
+- **Οδηγία διαχειριστή:** Όσα αποτελέσματα, ονόματα, συμμετοχές, ημερομηνίες και γεγονότα είναι καθαρά αναγνώσιμα στα αρχειακά κείμενα θεωρούνται επαρκώς τεκμηριωμένα για εμπλουτισμό, χωρίς αίτημα ξεχωριστής έγκρισης ή υποχρεωτική αναζήτηση δεύτερης ανεξάρτητης πηγής. Η πηγή/σελίδα και ο χαρακτήρας του τεκμηρίου (πρωτότυπο έναντι NotebookLM σύνθεσης) διατηρούνται. Ειδικές αντιφάσεις, αβέβαιες ταυτότητες, προσωπικά δεδομένα και διαχωρισμός συγχωνευμένου μπάσκετ παραμένουν οριοθετημένες εκκρεμότητες και δεν μπλοκάρουν άλλα σαφή στοιχεία.
+- **UPDATED AND READ-BACK:** Οι τρεις ενεργοί αυτοματισμοί `Νέα & ανάπτυξη Αρχέλαου`, `Έλεγχος site & αρχείου Drive`, `Συνεισφορές & ωριαίο self-heal` ενημερώθηκαν επιτυχώς με ρητό κανόνα `ΡΗΤΟΣ ΚΑΝΟΝΑΣ ΑΡΧΕΙΑΚΗΣ ΤΕΚΜΗΡΙΩΣΗΣ`. Αντίστοιχες τελευταίες επιτυχημένες ενημερώσεις: 2026-11-02 18:22:12, 18:22:16, 18:22:21 UTC.
+- **NO CLAIM OF DATA IMPORT:** Η ενημέρωση του prompt δεν ισοδυναμεί με νέα καταχώριση στο δημόσιο μητρώο. Οι αλλαγές στο site απαιτούν ξεχωριστά commits, tests, merge και production logs. Οι ιδιωτικές πηγές Drive δεν δημοσιεύονται αυτούσιες χωρίς νόμιμη βάση.
+
+## Πηγές από συνομιλίες / ασφαλής αρχειοθέτηση — 2026-11-02
+
+- **STARTED → COMPLETED:** Δημιουργήθηκε μέσα στον ιδιωτικό κύριο φάκελο του ΓΑΣ στο Google Drive υποφάκελος «Πηγές από ChatGPT — Τεκμήρια & συνθέσεις». Ελέγχθηκε ότι ο στόχος είναι ο σωστός γονικός φάκελος και ότι η μεταφόρτωση επιστρέφει εκεί.
+- **ARCHIVED & READ-BACK VERIFIED:** Το PDF που υπέβαλε ο χρήστης, οκτασέλιδη σύνθεση του NotebookLM με κατάλογο μεταλλίων/διακρίσεων/σκορ, αποθηκεύτηκε ως νέο τεκμήριο. Έγινε αναζήτηση στον φάκελο και επαλήθευση τύπου PDF, μεγέθους και γονικού φακέλου. **Το NotebookLM δεν λογίζεται δεύτερη ανεξάρτητη πηγή** απέναντι στις πρωτογενείς αρχειακές σελίδες.
+- **DEDUPED:** Προϋπάρχον πρωτότυπο από τον ίδιο ιστορικό χώρο Google Drive δεν αντιγράφηκε ξανά. Στιγμιότυπα GitHub/Cloudflare checks δεν καταχωρίστηκαν ως αθλητικές/ιστορικές πηγές. Ιδιωτικά URLs/IDs και στοιχεία τρίτων δεν προστίθενται στο δημόσιο log.
+- **AUTOMATION UPDATED:** Στα υπάρχοντα schedules «Έλεγχος site & αρχείου Drive» και «Συνεισφορές & ωριαίο self-heal» προστέθηκε ρητή παρακολούθηση του νέου υποφακέλου για καινούρια/τροποποιημένα αρχειακά τεκμήρια. Πρόκειται για επιτυχή αλλαγή scheduled instructions, όχι τεκμήριο ότι έχει ήδη εκτελεστεί η επόμενη βαθιά έρευνα ή δημοσίευση.
+- **UI regression FIXED_IN_PR:** Στο κοινό popup ακυρώνεται προηγούμενη ασύγχρονη φόρτωση συνδέσεων όταν αλλάζει η τρέχουσα εγγραφή. Commit [`b5697d13`](https://github.com/dizigs/archelaos-site/commit/b5697d13fac868352911b9a2c0118bd28a3a7053). Τελικό CI απαιτείται πριν από merge.
+
 ## Σημείο συνέχισης
 
 1. Διαβάζουμε αυτό το log **και** την τρέχουσα κατάσταση PR #42 / workflow runs.
