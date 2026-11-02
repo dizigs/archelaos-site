@@ -36,7 +36,7 @@ def analyze(text):
                 continue
             seen.add(key)
             dates = DATE.findall(sentence)
-            query = "Αρχέλαος Κατερίνης " + " ".join(dates[:2]) + " " + sentence[:160]
+            # Never place private sentence text or identities into even a suggested search query.\n            query = "ΓΑΣ Αρχέλαος Κατερίνης " + " ".join(dates[:2])
             leads.append({"id": key, "excerpt": sentence[:1000], "dates": dates,
                           "scores": SCORE.findall(sentence), "search_query": query.strip(),
                           "verification_status": "pending", "editor_approval_status": "pending"})
