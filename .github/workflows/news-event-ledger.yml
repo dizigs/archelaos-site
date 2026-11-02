@@ -11,6 +11,7 @@ on:
     paths: ['news.json', 'hall-of-fame-people.json', 'rebuild/tools/build_news_event_candidates.py', 'rebuild/tests/news_event_ledger.py', '.github/workflows/news-event-ledger.yml']
 permissions:
   contents: read
+  issues: write
 jobs:
   validate-event-candidates:
     runs-on: ubuntu-latest
@@ -22,11 +23,47 @@ jobs:
           python-version: '3.12'
       - name: Test grouping and integrity
         run: python -m unittest discover -s rebuild/tests -p news_event_ledger.py
+      - name: Audit news, biography links, event dates and photos
+        id: pipeline
+        continue-on-error: true
+        run: |
+          python -m unittest discover -s rebuild/tests -p news_pipeline_self_heal_test.py -v
+          python rebuild/tools/news_pipeline_self_heal.py
       - name: Build internal event candidates
         run: python rebuild/tools/build_news_event_candidates.py
       - name: Preserve internal review report
         uses: actions/upload-artifact@v4
         with:
           name: internal-news-event-candidates
-          path: rebuild/test-artifacts/news-event-candidates.json
+          path: |
+            rebuild/test-artifacts/news-event-candidates.json
+            rebuild/test-artifacts/news-pipeline-incidents.json
+
           retention-days: 14
+      - name: Preserve unresolved incidents as permanent GitHub Issues
+        if: always() && github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          RUN_LINK: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          file="rebuild/test-artifacts/news-pipeline-incidents.json"
+          if [ ! -f "$file" ]; then exit 0; fi
+          jq -r '.incidents[] | select(.level=="error" or .level=="repairable") | [.fingerprint,.code,.article_id,.detail] | @tsv' "$file" |
+          while IFS=$'\t' read -r fingerprint code article detail; do
+            title="[news-pipeline:$fingerprint] $code"
+            existing="$(gh issue list --repo "$REPO" --state all --limit 200 --json number,title |
+              jq -r --arg t "$title" '.[] | select(.title==$t) | .number' | head -1)"
+            note="Detected in $RUN_LINK; article: $article; signature: $code; $detail. Review sources. Never blindly auto-edit identities or published facts."
+            if [ -n "$existing" ]; then
+              gh issue reopen "$existing" --repo "$REPO" 2>/dev/null || true
+              gh issue comment "$existing" --repo "$REPO" --body "$note"
+            else
+              gh issue create --repo "$REPO" --title "$title" --body "$note"
+            fi
+          done
+      - name: Fail if unresolved high-risk news pipeline faults remain
+        if: steps.pipeline.outcome == 'failure'
+        run: exit 1
