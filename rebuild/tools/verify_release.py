@@ -105,7 +105,8 @@ def verify() -> None:
     loc_pages = [e.text for e in pages.findall(".//s:loc", NS)]
     loc_people = [e.text for e in profiles.findall(".//s:loc", NS)]
     assert set(loc_pages) == canonical_set and len(loc_pages) == len(canonical_set)
-    assert len(loc_people) == len(set(loc_people)) == 682
+    current_total = len(json.loads((ROOT / "hall-of-fame-people.json").read_text(encoding="utf-8"))["people"])
+    assert len(loc_people) == len(set(loc_people)) == current_total
     addenda = json.loads((ROOT/"rebuild"/"data"/"people-addenda.json").read_text(encoding="utf-8"))["entries"]
     for pid, additions in addenda.items():
         output = (DIST / "people" / (pid + ".html")).read_text(encoding="utf-8")
@@ -127,7 +128,7 @@ def verify() -> None:
     shared_script=(DIST/"assets/site/js/shell.js").read_text(encoding="utf-8")
     for signature in ('function renderFooter()', 'function renderSiteTools()', "'arch-a11y-launch'", "'arch-back-to-top'", "'arch-a11y-panel'"):
         assert signature in shared_script, "Missing shared feature: " + signature
-    assert len(list((DIST/"people").glob("arch-*.html"))) == 682
+    assert len(list((DIST/"people").glob("arch-*.html"))) == current_total
 
     # Prevent legacy profile copies from reintroducing an incorrect presidential attribution.
     pid = "arch-61d8d097f601"

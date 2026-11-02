@@ -220,6 +220,18 @@ def make_release() -> None:
     # Use the reviewed, full-format 682-profile source; the live root has a
     # different legacy HTML layout and must not be overwritten to build dist.
     copytree(STAGE / "source-profiles", OUTPUT / "people")
+    # Keep the 682 rich archival pages and publish every additional canonical
+    # Hall of Fame profile from the root master, including new youth athletes.
+    current_master = json.loads((ROOT / "hall-of-fame-people.json").read_text(encoding="utf-8"))
+    current_master_ids = {person["id"] for person in current_master["people"]}
+    for person_id in sorted(current_master_ids):
+        target = OUTPUT / "people" / (person_id + ".html")
+        if target.exists():
+            continue
+        source = ROOT / "people" / (person_id + ".html")
+        if not source.is_file():
+            raise FileNotFoundError("Missing canonical Hall profile: " + person_id)
+        copy2(source, target)
     for name in ("css", "js", "data"):
         copytree(STAGE / name, OUTPUT / "assets" / "site" / name)
     # Rewrite preview-only asset URLs in the generated JavaScript copies.
@@ -293,6 +305,8 @@ def make_release() -> None:
 
     def sync_edited_bio(source: str, person_id: str, lang: str) -> str:
         key = "bio" if lang == "el" else "bio_en"
+        if person_id not in former_people or person_id not in revised_people:
+            return source
         before = former_people[person_id].get(key, "")
         after = revised_people[person_id].get(key, "")
         if before == after:
@@ -331,8 +345,8 @@ def make_release() -> None:
             html_text = sync_edited_bio(html_text, profile.stem, lang)
         # Avoid leaving obsolete editorial correction text in Person JSON-LD
         # and social metadata after the visible Greek biography is cleaned.
-        before = former_people[profile.stem].get("bio", "")
-        after = revised_people[profile.stem].get("bio", "")
+        before = former_people.get(profile.stem, {}).get("bio", "")
+        after = revised_people.get(profile.stem, {}).get("bio", "")
         if before != after:
             def adjust_person_schema(match):
                 try:
@@ -424,10 +438,9 @@ def make_release() -> None:
     for entry in pages:
         create_page(entry)
     profile_files = sorted((OUTPUT / "people").glob("*.html"))
-    if len(profile_files) != 682:
-        raise RuntimeError(f"Expected 682 standalone profiles; found {len(profile_files)}")
-    people_data = json.loads((OUTPUT / "assets" / "site" / "data" / "people.json").read_text(encoding="utf-8"))
-    expected = {person["id"] + ".html" for person in people_data["people"]}
+    if len(profile_files) != len(current_master_ids):
+        raise RuntimeError(f"Expected {len(current_master_ids)} standalone profiles; found {len(profile_files)}")
+    expected = {person_id + ".html" for person_id in current_master_ids}
     actual = {path.name for path in profile_files}
     if expected != actual:
         raise RuntimeError(f"Profile file mismatch: missing={len(expected-actual)} extra={len(actual-expected)}")
