@@ -90,6 +90,16 @@ def needs_archive(item, root=ROOT):
         return True
     return False
 
+def repair_candidates(item, page_url, html):
+    """Only the recorded source may replace an existing local archive photo."""
+    old_photo=item.get("image") or ""
+    recorded=item.get("imageSourceUrl")
+    if isinstance(old_photo,str) and old_photo.startswith("images/news/"):
+        if not isinstance(recorded,str) or not recorded.startswith("https://") or not urlsplit(recorded).hostname:
+            raise ValueError("Local archive repair needs a recorded HTTPS imageSourceUrl")
+        return [recorded]
+    return candidates(page_url,html,recorded)
+
 def main():
     data=json.loads(INDEX.read_text("utf-8"))
     DEST.mkdir(parents=True,exist_ok=True)
@@ -109,7 +119,7 @@ def main():
         # Empty and damaged photos are eligible only with explicit reuse permission.
         try:
             html=fetch(url,3500000).decode("utf-8","replace")
-            # Never substitute another article image for a damaged local photo.\n            # Without recorded provenance, request editorial review instead.\n            old_photo=item.get("image") or ""\n            recorded=item.get("imageSourceUrl")\n            if isinstance(old_photo,str) and old_photo.startswith("images/news/"):\n                if not isinstance(recorded,str) or not recorded.startswith("https://"):\n                    raise ValueError("Local archive repair needs a recorded HTTPS imageSourceUrl")\n                source_images=[recorded]\n            else:\n                source_images=candidates(url,html,recorded)
+            source_images=repair_candidates(item,url,html)
             if not source_images:
                 raise ValueError("No credible article image candidates")
             best=None
