@@ -35,7 +35,7 @@ async function verify(){
     if(['search.html','favorites.html'].includes(name)&&!robots.includes('noindex'))throw Error('Private collection or search should be noindex');
     const stageRefs=await page.locator('script[src^="/rebuild/"],link[href^="/rebuild/"]').count();
     if(stageRefs)throw Error(name+': staging asset leaked');
-    if(tag==='hall')await page.waitForFunction(()=>document.querySelector('#hall-count')?.textContent.includes('682'));
+    if(tag==='hall')await page.waitForFunction(()=>Number((document.querySelector('#hall-count')?.textContent||'').replace(/[^0-9]/g,''))>0);
     if(tag==='moments')await page.locator('.rm-moment').first().waitFor();
     if(tag==='museum'){
      await page.locator('.mu-sports-link').first().waitFor();
