@@ -10,6 +10,8 @@ Scope: dizigs/archelaos-site. Record only evidenced failures, reproducible cause
 - Prevention: keep actionlint mandatory for changes to workflows and explicit contexts for axe; never treat report-only accessibility findings as deployment failure.
 - Merge state: waiting for full checks and GitHub branch protection.
 
+- Merge blocked (HTTP 405), despite successful required checks on `ed0070c`: GitHub reported `mergeable_state=behind`, and ruleset `26357426` enforces `strict_required_status_checks_policy=true`. Synchronized the PR head with latest main `0878345` using GitHub-generated merge commit `5d01c14` (parents verified, fast-forward update with expected old head). Do not disable branch protection. A fresh checks run is required on the updated head.
+
 ## PR #10 — Visitor smoke / sitespeed
 - Failure: initial merge attempt rejected by repository rule with two required status checks pending. Required names: `JavaScript syntax (all site scripts)` and `ESLint JavaScript quality`.
 - Cause: required checks were not present on the original PR head; a refreshed PR head `377d048` triggered both checks. Verified: both checks passed on run set for head `377d048`.
