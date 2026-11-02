@@ -366,7 +366,7 @@ async function verify(){
       await page.locator('.arch-a11y-close').click();
       if(await page.locator('body[data-arch-a11y-size="100"]').count()!==1)
         throw Error('Accessibility preferences did not reset');
-      await page.evaluate(()=>window.scrollTo({top:700,behavior:'auto'}));
+      await page.evaluate(()=>window.scrollTo({top:document.documentElement.scrollHeight,behavior:'auto'}));
       await page.locator('.arch-back-to-top:visible').waitFor({timeout:5000});
       await page.locator('.arch-back-to-top').click();
       await page.waitForFunction(()=>window.scrollY<8,null,{timeout:9000});
