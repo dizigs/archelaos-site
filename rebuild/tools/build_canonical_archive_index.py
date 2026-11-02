@@ -13,6 +13,7 @@ import json
 from pathlib import Path
 
 from build_event_graph import compile_graph
+from build_archive_links import link_proposals
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT = ROOT / "test-artifacts/canonical-archive-index.json"
@@ -32,7 +33,7 @@ def _unique_records(records: list[dict], kind: str) -> dict:
     return output
 
 
-def build_index(events: dict, news: dict, hall: dict) -> dict:
+def build_index(events: dict, news: dict, hall: dict, collections: dict | None = None) -> dict:
     people = _unique_records(hall.get("people", []), "person")
     articles = _unique_records(news.get("items", []), "news article")
     event_rows = _unique_records(events.get("events", []), "historical event")
@@ -112,6 +113,7 @@ def build_index(events: dict, news: dict, hall: dict) -> dict:
         str(x["date_label"] or ""), x["event_id"]
     ))
     excluded = sorted(set(event_rows) - set(approved_by_id))
+    archive_links = link_proposals(hall, {"news": news, **(collections or {})})
     source_collisions = [{
         "url": url, "article_ids": sorted(ids),
     } for url, ids in sorted(duplicate_source_urls.items()) if len(ids) > 1]
@@ -126,6 +128,9 @@ def build_index(events: dict, news: dict, hall: dict) -> dict:
         "article_to_events": article_events,
         "event_to_articles": {e: sorted(a) for e, a in sorted(event_articles.items())},
         "timeline_cards": timeline,
+        "archive_record_to_people": archive_links["people_by_record"],
+        "person_to_archive_records": archive_links["records_by_person"],
+        "unresolved_archive_person_ids": archive_links["missing_canonical_ids"],
         "excluded_event_ids": excluded,
         "unresolved_person_references": sorted(
             unresolved_people, key=lambda v: (v["article_id"], v["person_id"])),
@@ -153,7 +158,11 @@ def main():
         return json.loads((ROOT.parent / relative).read_text(encoding="utf-8"))
     payload = build_index(
         load("rebuild/research/historical-events.json"),
-        load("news.json"), load("hall-of-fame-people.json")
+        load("news.json"), load("hall-of-fame-people.json"),
+        {"interview": load("rebuild/data/interviews.json"),
+         "story": load("rebuild/data/stories.json"),
+         "moment": load("rebuild/data/moments.json"),
+         "museum": load("rebuild/data/museum.json")}
     )
     destination.parent.mkdir(parents=True, exist_ok=True)
     destination.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
