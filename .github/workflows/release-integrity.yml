@@ -33,6 +33,8 @@ jobs:
           python rebuild/tools/build_news_media_candidates.py
       - name: Validate canonical reciprocal public archive relationships
         run: python -m unittest discover -s rebuild/tests -p archive_relationships_test.py -v
+      - name: Guard against SonarCloud workflow supply-chain regressions
+        run: python -m unittest discover -s rebuild/tests -p security_workflows_test.py -v
       - name: Build and verify complete release
         run: python rebuild/tools/build_release.py
       - name: Recheck generated public HTML for escaped text
