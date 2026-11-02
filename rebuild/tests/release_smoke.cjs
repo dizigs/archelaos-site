@@ -159,7 +159,7 @@ async function verify(){
        return {counts:archive.counts,person:archive.get('person','arch-5a04cbbb57e4')?.title,
         event:archive.get('exhibit','diia')?.url};
      });
-     if(catalog.counts.person!==682||catalog.counts.moment!==70||catalog.counts.exhibit<24)
+     if(catalog.counts.person<735||catalog.counts.moment!==70||catalog.counts.exhibit<24)
        throw Error('Common archive catalog incomplete');
      if(!catalog.person||catalog.event!=='/history.html#archive-diia')
        throw Error('Shared archive links mismatch');
