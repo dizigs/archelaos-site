@@ -123,22 +123,5 @@
     "ci_release_integrity": "success",
     "ci_rebuild_validation": "success",
     "ci_lighthouse": "success"
-  },
-  "pr_incidents": [
-    {
-      "fingerprint": "PR37_INTAKE_JSON_PATH_TRAVERSAL",
-      "pr": 37,
-      "observed_head": "8209e5df50e1282c640c9278d2befce274c0ee56",
-      "check_run_id": 125544284547,
-      "actions_run_id": null,
-      "evidence_url": "https://github.com/dizigs/archelaos-site/pull/37/checks?check_run_id=125544284547",
-      "signature": "Path Traversal via faulty LLM-supplied CLI arguments in intake_contributions.read_json()",
-      "source_line": 42,
-      "cause": "Draft branch retained old unbounded JSON reader; main already has trusted-root, extension, file and resolved symlink checks.",
-      "fix": "Merge current main into the existing PR branch; retain hardened intake reader, scoped callers and security regression test.",
-      "validation": "11 private-intake tests passed, including valid internal JSON and rejection of external/symlink paths. 14 contribution, 4 queue and 6 canonical-index tests passed. Build, release verification, ESLint and strict preflight passed.",
-      "status": "fixed_locally_remote_security_gate_pending",
-      "scope": "PR check failure, not a new production incident"
-    }
-  ]
+  }
 }
