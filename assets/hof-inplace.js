@@ -69,6 +69,7 @@ async function open(id){
     box.append(a);
    }
   });
+  void window.ArchelaosLinks?.append(box,'person',p.id,{limit:8,excludeKinds:['news']});
   if(!modal.open)modal.showModal();
   modal.querySelector('.arch-bio-scroll').scrollTop=0;
   modal.querySelector('.arch-bio-close').focus({preventScroll:true});
