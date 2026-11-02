@@ -14,3 +14,17 @@ pull_request_rules:
     actions:
       merge:
         method: squash
+  - name: Merge only automated archive photos after all website tests pass
+    conditions:
+      - base = main
+      - head = automation/news-photo-archive
+      - author = github-actions[bot]
+      - -draft
+      - "files ~= ^(news\\.json$|images/news/)"
+      - "-files ~= ^(?!news\\.json$|images/news/)"
+      - "check-success = @github-actions/JavaScript syntax (all site scripts)"
+      - "check-success = @github-actions/ESLint JavaScript quality"
+      - "check-success = @github-actions/Validate production build"
+    actions:
+      merge:
+        method: squash
