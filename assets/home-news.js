@@ -6,7 +6,7 @@ const section=existing||document.createElement('section');if(!existing){section.
 if(!existing)section.innerHTML='<div class="ahn-container"><div class="ahn-heading"><div><p class="ahn-kicker">Ο ΑΡΧΕΛΑΟΣ ΣΗΜΕΡΑ · ΑΓΩΝΕΣ, ΔΙΑΚΡΙΣΕΙΣ, ΑΝΘΡΩΠΟΙ</p><h2 id="ahn-heading">Η ιστορία γράφεται <em>σήμερα.</em></h2><p class="ahn-subtitle">Η αγωνιστική δράση και οι άνθρωποι του συλλόγου, με εικόνες και αποτελέσματα.</p></div></div><div class="ahn-grid" id="ahn-grid"></div><div class="ahn-more"><a class="ahn-all" href="/news.html">Όλα τα νέα</a></div></div>';
 const anchor=document.getElementById('anniversary70')||document.getElementById('about')||document.getElementById('join-history');const footer=document.querySelector('footer:not(#arch-global-footer)')||document.getElementById('arch-global-footer');if(!existing){if(anchor)anchor.before(section);else if(footer)footer.before(section);else document.body.append(section);}
 const grid=section.querySelector('#ahn-grid');
-fetch('/news.json?rev=20261101-photo-archive',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('No news');return r.json()}).then(data=>{
+fetch('/news.json?rev=20261101-photo-archive',{cache:'no-store',priority:'low'}).then(r=>{if(!r.ok)throw Error('No news');return r.json()}).then(data=>{
  const recent=(data.items||[]).filter(x=>x&&!x.unverified&&x.id&&x.title&&x.date).sort((a,b)=>b.date.localeCompare(a.date)).slice(0,3);
  if(!recent.length){section.remove();return}
  const frag=document.createDocumentFragment();
@@ -17,7 +17,7 @@ fetch('/news.json?rev=20261101-photo-archive',{cache:'no-store'}).then(r=>{if(!r
   const local=!!x.image&&/^(?:images|assets)\/[a-zA-Z0-9._/-]+\.(?:webp|jpg|jpeg|png)$/.test(x.image);
   let external=false;try{const u=new URL(x.image);external=u.protocol==='https:'&&!!u.hostname&&!u.username&&!u.password}catch(_){}
   if(local||external){
-   const image=document.createElement('img');image.src=external?x.image:'/'+x.image;image.alt=x.imageNote||x.sport||'';image.loading='lazy';image.decoding='async';
+   const image=document.createElement('img');image.src=external?x.image:'/'+x.image;image.alt=x.imageNote||x.sport||'';image.loading='lazy';image.decoding='async';image.fetchPriority='low';
    image.addEventListener('error',()=>{
     if(local&&!image.dataset.archiveFallback){image.dataset.archiveFallback='1';image.src='https://raw.githubusercontent.com/dizigs/archelaos-site/main/'+x.image}
     else{image.remove();media.classList.add('ahn-unillustrated');media.textContent='ΑΡΧΕΙΟ ΑΡΧΕΛΑΟΥ'}
