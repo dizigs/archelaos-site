@@ -1,0 +1,74 @@
+name: Archelaos link health
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Daily, outside peak GitHub Actions start times (UTC).
+    - cron: '17 4 * * *'
+  push:
+    paths:
+      - '.github/workflows/links.yml'
+      - '.github/scripts/prepare_link_audit.py'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: archelaos-link-health-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  link-health:
+    name: Public pages and archive source URLs
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out archive
+        uses: actions/checkout@v4
+
+      - name: Build and verify the published site
+        run: |
+          python rebuild/tools/build_release.py
+          python rebuild/tools/verify_release.py
+          python .github/scripts/prepare_link_audit.py
+
+      - name: Restore polite checker cache
+        uses: actions/cache@v4
+        with:
+          path: .lycheecache
+          key: lychee-${{ runner.os }}-${{ github.run_id }}
+          restore-keys: |
+            lychee-${{ runner.os }}-
+
+      - name: Check site and historical source links
+        uses: lycheeverse/lychee-action@v2.9.0
+        id: lychee
+        with:
+          # 403 and 429 are commonly anti-bot and rate-limit responses:
+          # these are NOT evidence that a source article was deleted.
+          args: >-
+            --root-dir "${{ github.workspace }}/dist"
+            --cache --max-cache-age 2d --no-progress
+            --max-concurrency 6 --host-concurrency 2
+            --timeout 18 --max-retries 1
+            --accept '100..=103,200..=299,403,429'
+            './dist/*.html'
+            './lychee-inputs/archive-links.md'
+          fail: false
+          jobSummary: true
+          output: lychee/out.md
+
+      - name: Flag findings without altering published content
+        if: steps.lychee.outputs.exit_code != '0'
+        run: |
+          echo "::warning::Broken links or unavailable sources detected. Review the Lychee job summary and artifact. Historical records are unchanged."
+
+      - name: Save a downloadable report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: archelaos-links-report
+          path: lychee/out.md
+          if-no-files-found: warn
+          retention-days: 14
