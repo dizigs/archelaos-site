@@ -1,3 +1,9 @@
+## SonarCloud after PR #51 — actionlint dependency lock regression (2026-11-02)
+
+- **INCIDENT:** GitHub CI/actionlint for PR #51 and Cloudflare production were successful; however the subsequent **main** SonarCloud scan found **1 new Medium Security issue**, causing `Quality Gate failed`: `.github/workflows/actionlint-guard.yml:29` used `go install ...@v1.7.11` without explicit `go.mod/go.sum` dependency-lock enforcement. Finding https://sonarcloud.io/project/issues?open=AaGdtZKK-wJaCmcKf5js&id=dizigs_archelaos-site . Filed [Issue #53](https://github.com/dizigs/archelaos-site/issues/53). Previous Issue #47 (six old findings) remains separately closed.
+- **FIX PREPARED:** Fetch upstream `rhysd/actionlint` tag `v1.7.11` and **verify the exact immutable commit** `393031adb9afb225ee52ae2ccd7a5af5525e03e8` before executing its code. Run upstream `go mod verify` and `go build -mod=readonly` using its versioned `go.mod` and `go.sum`. Pin Go runtime to `1.27.3`; remove the unsafe `go install ...@version` path. No loosening of Sonar, no additional cron.
+- **RETEST REQUIRED:** PR actionlint and all required CI, official PR Sonar, protected merge, **main Sonar Quality Gate / zero open new-code findings**, real Cloudflare production logs. Mark #53 resolved only after verification.
+
 # Archelaos — Operational work log / Ημερολόγιο εργασιών
 
 > Ενεργό αρχείο εργασίας, **όχι λίστα «να φτιάξουμε αργότερα logs»**.  
