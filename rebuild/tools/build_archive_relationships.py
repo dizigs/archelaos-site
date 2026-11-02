@@ -47,9 +47,9 @@ def compile_graph(*,people,news,moments,stories,interviews,museum,home,history):
             raise ValueError(f"Unknown relationship {a} ↔ {b}")
         if a==b:return
         ends=tuple(sorted([a,b]))
-        # Each pair is one relationship; preserve a representative exact provenance type.
-        key=ends+(relation,)
-        edges[key]={"a":a,"b":b,"relation":relation}
+        # One canonical relation per pair; retain first direct provenance.
+        if ends not in edges:
+            edges[ends]={"a":a,"b":b,"relation":relation}
     def link_person(source,pid,relation):
         target="person:"+str(pid)
         if target not in nodes: raise ValueError("Unknown person ID: "+str(pid))
