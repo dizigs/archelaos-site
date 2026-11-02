@@ -103,6 +103,59 @@ class ContributionPipelineTests(unittest.TestCase):
                       "title": "Αρχέλαος Κατερίνης", "summary": "Εκδήλωση."}]
         self.assertEqual(match.candidate_matches(lead, unrelated, "news"), [])
 
+
+    def test_interviews_and_all_archive_sections_are_matching_inputs(self):
+        leads = {"privacy": "internal_only", "research_leads": [
+            {"id": "i", "excerpt": "Το 1993 ο Χρήστος Ελευθερούδης μίλησε για την ιστορική ευρωπαϊκή αποστολή στο Τίτο Βέλες.", "dates": ["1993"], "scores": []},
+            {"id": "s", "excerpt": "Το 1994 οι άστεγοι Κυπελλούχοι αγωνίζονταν χωρίς κλειστό γήπεδο.", "dates": ["1994"], "scores": []},
+            {"id": "m", "excerpt": "Η ίδρυση του συλλόγου έγινε το 1956 από τον Γεώργιο Ευθυμίου.", "dates": ["1956"], "scores": []},
+            {"id": "a", "excerpt": "Το 1968 καθιερώθηκαν τα πράσινα και κίτρινα χρώματα της ταυτότητας.", "dates": ["1968"], "scores": []},
+        ]}
+        collections = {
+            "interview": {"items": [
+                {"id": "q1", "name": "Χρήστος Ελευθερούδης",
+                 "event": "Ιστορική ευρωπαϊκή αποστολή στο Τίτο Βέλες",
+                 "year": "1993",
+                 "qa": [{"question": "Απόρρητο απόσπασμα;", "answer": "Αυθαίρετη πληροφορία"}]},
+            ]},
+            "story": {"stories": [
+                {"title": "Οι άστεγοι Κυπελλούχοι", "year": "1994",
+                 "sport": "Χειροσφαίριση", "lead": "Χωρίς κλειστό γήπεδο"},
+            ]},
+            "moment": {"moments": [
+                {"id": 1, "year": "1956", "title": "Η ίδρυση του συλλόγου",
+                 "body": ["Ο Γεώργιος Ευθυμίου υπέγραψε το καταστατικό."]},
+            ]},
+            "museum": {"articles": [
+                {"id": "colors", "title": "Τα χρώματα της ταυτότητας",
+                 "period": "1968", "html": "<p>Πράσινα και κίτρινα χρώματα</p>"},
+            ]},
+        }
+        result = match.reconcile(leads, {"items": []}, {"events": []},
+                                 {"people": []}, collections)
+        i, s, m, a = result["matches"]
+        self.assertEqual(i["interview_candidates"][0]["id"], "q1")
+        self.assertTrue(s["story_candidates"][0]["id"].startswith("story-title-"))
+        self.assertTrue(s["story_candidates"][0]["internal_provisional_id"])
+        self.assertEqual(m["moment_candidates"][0]["id"], 1)
+        self.assertEqual(a["museum_candidates"][0]["id"], "colors")
+        self.assertTrue(all(not x["publishable"] for x in result["matches"]))
+        self.assertNotIn("Αυθαίρετη πληροφορία", str(result))
+        self.assertNotIn("Απόρρητο απόσπασμα", str(result))
+
+    def test_interview_quotes_are_not_treated_as_verified_event_facts(self):
+        records = match.normalize_collection(
+            {"items": [{"id": "q", "name": "Απόστολος Παπαδόπουλος",
+                        "event": "Συνέντευξη για τον ευρωπαϊκό αγώνα το 1993",
+                        "year": "1993",
+                        "qa": [{"question": "Ποιος νίκησε;",
+                                "answer": "Δοκιμαστική επινόηση για απόκρυψη"}]}]},
+            "interview")
+        self.assertNotIn("Δοκιμαστική επινόηση", str(records))
+        self.assertEqual(match.candidate_matches(
+            {"excerpt": "Δοκιμαστική επινόηση για απόκρυψη το 1993.",
+             "dates": ["1993"], "scores": []}, records, "interview"), [])
+
     def test_private_schema_required(self):
         with self.assertRaises(ValueError):
             match.reconcile({"research_leads": []}, {"items": []},
