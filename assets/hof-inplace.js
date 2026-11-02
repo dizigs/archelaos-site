@@ -2,6 +2,15 @@
 (()=>{'use strict';
 if(window.ArchelaosBio?.__shared)return;
 let collection=null, loading=null, dialog=null, previous=null, generation=0, newsLoading=null;
+function syncDialogScroll(){
+ document.body.classList.toggle('arch-dialog-open',Boolean(document.querySelector('dialog[open]')));
+}
+// Run after individual close/cancel handlers so a nested biography cannot unlock
+// its still-open parent, or leave the page locked after that parent closes.
+for(const event of ['toggle','close','cancel'])document.addEventListener(event,e=>{
+ if(e.target.matches?.('dialog'))queueMicrotask(syncDialogScroll);
+},true);
+syncDialogScroll();
 const load=()=>{
  if(collection)return Promise.resolve({people:collection});
  if(!loading)loading=fetch('/hall-of-fame-people.json',{cache:'no-cache'}).then(r=>{if(!r.ok)throw Error('Hall of Fame data unavailable: '+r.status);return r.json()}).then(d=>{if(!Array.isArray(d.people))throw Error('Invalid Hall collection');collection=d.people;return d}).catch(e=>{loading=null;throw e});
@@ -71,6 +80,7 @@ async function open(id){
   });
   void window.ArchelaosLinks?.append(box,'person',p.id,{limit:8,excludeKinds:['news']});
   if(!modal.open)modal.showModal();
+  syncDialogScroll();
   modal.querySelector('.arch-bio-scroll').scrollTop=0;
   modal.querySelector('.arch-bio-close').focus({preventScroll:true});
   return true;

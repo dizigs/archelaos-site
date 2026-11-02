@@ -34,7 +34,7 @@ function create(){
  dialog.addEventListener('click',event=>{if(event.target===dialog)dialog.close()});
  dialog.addEventListener('close',()=>{
   document.body.classList.remove('arch-dialog-open');
-  if(lastFocus?.isConnected)lastFocus.focus();lastFocus=null;
+  if(lastFocus?.isConnected)lastFocus.focus({preventScroll:true});lastFocus=null;
  });return dialog;
 }
 function openDialog(data){
@@ -70,7 +70,9 @@ function openDialog(data){
   slot.append(window.ArchelaosFavorites.button(data.favorite.type,data.favorite.id,'arch-dialog-favorite'));
  dlg.querySelector('.arch-close').setAttribute('aria-label',data.closeLabel||'Κλείσιμο παραθύρου');
  if(!wasOpen)dlg.showModal();
- document.body.classList.add('arch-dialog-open');dlg.querySelector('.arch-close').focus();
+ document.body.classList.add('arch-dialog-open');dlg.querySelector('.arch-close').focus({preventScroll:true});
+ // Reusing this DOM for another record must not inherit the previous reading position.
+ body.scrollTop=0;
  const relation=data.relation||data.favorite;
  if(relation?.type&&relation?.id)
   void window.ArchelaosLinks?.append(body,relation.type,relation.id,{limit:8});
