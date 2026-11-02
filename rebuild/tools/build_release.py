@@ -82,7 +82,7 @@ def structured_data(entry: dict, url: str) -> str:
                 "logo": SITE + "/archelaos-logo-gold.png",
                 "image": IMAGE,
                 "foundingDate": "1956-04-29",
-                "email": "info@archelaos.club",
+                "email": "contact@archelaos.club",
                 "telephone": "+30-23510-28611",
                 "address": {
                     "@type": "PostalAddress", "addressLocality": "Κατερίνη",
