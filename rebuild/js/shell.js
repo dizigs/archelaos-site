@@ -239,6 +239,7 @@ function renderSiteTools(){
 
 /* Optional Microsoft Clarity: never load before explicit analytics consent. */
 function initOptionalAnalytics(){
+ if(!['archelaos.club','www.archelaos.club'].includes(location.hostname))return;
  const key='archelaos-analytics-consent-v1';
  const read=()=>{try{return localStorage.getItem(key)}catch(_){return null}};
  const write=value=>{try{localStorage.setItem(key,value)}catch(_){}};
@@ -265,17 +266,18 @@ function initOptionalAnalytics(){
  const panel=document.createElement('aside');
  panel.id='arch-analytics-consent';
  panel.setAttribute('aria-label','Επιλογές στατιστικών περιήγησης');
- panel.style.cssText='position:fixed;z-index:2147483000;bottom:16px;left:16px;right:16px;max-width:520px;margin:auto;background:#f7f1df;color:#173d2c;border:1px solid #a98b50;border-radius:14px;padding:18px;box-shadow:0 8px 32px #0003;font:15px/1.5 system-ui,sans-serif';
- const title=document.createElement('strong');title.textContent='Στατιστικά περιήγησης';
+ panel.setAttribute('role','region');
+ panel.style.cssText='position:fixed;z-index:2147483000;bottom:clamp(12px,3vw,24px);left:12px;right:12px;max-width:540px;margin:auto;background:#f3ead6;color:#123e2b;border:1px solid #b69a58;border-radius:18px;padding:clamp(16px,3vw,24px);box-shadow:0 12px 36px #102a2240;font:15px/1.6 system-ui,sans-serif';
+ const title=document.createElement('strong');title.textContent='Η εμπειρία σας στον Αρχέλαο';title.style.cssText='display:block;font:700 21px/1.3 Georgia,serif;color:#9a7937';
  const description=document.createElement('p');description.textContent='Με την επιλογή σας ενεργοποιούνται τα Google Analytics 4 και Microsoft Clarity για τη βελτίωση της εμπειρίας χρήσης. Η αποδοχή είναι προαιρετική και δεν επηρεάζει την περιήγηση.';
  description.style.margin='8px 0 12px';
  const controls=document.createElement('div');controls.style.cssText='display:flex;gap:10px;flex-wrap:wrap';
- const accept=document.createElement('button');accept.type='button';accept.textContent='Αποδοχή';accept.style.cssText='padding:9px 15px;border-radius:8px;border:1px solid #15452f;background:#15452f;color:white;cursor:pointer';
- const reject=document.createElement('button');reject.type='button';reject.textContent='Απόρριψη';reject.style.cssText='padding:9px 15px;border-radius:8px;border:1px solid #15452f;background:transparent;color:#15452f;cursor:pointer';
- const more=document.createElement('a');more.href='/privacy.html';more.textContent='Πολιτική απορρήτου';more.style.cssText='padding:9px 2px;color:#15452f';
+ const accept=document.createElement('button');accept.type='button';accept.textContent='Αποδοχή';accept.style.cssText='padding:9px 15px;border-radius:9px;border:1px solid #15452f;background:#15452f;color:white;cursor:pointer;font-weight:700;min-height:44px';
+ const reject=document.createElement('button');reject.type='button';reject.textContent='Απόρριψη';reject.style.cssText='padding:9px 15px;border-radius:9px;border:1px solid #15452f;background:transparent;color:#15452f;cursor:pointer;font-weight:700;min-height:44px';
+ const more=document.createElement('a');more.href='/privacy.html';more.textContent='Πολιτική απορρήτου';more.style.cssText='padding:9px 2px;color:#15452f;text-underline-offset:3px';
  controls.append(reject,accept,more);panel.append(title,description,controls);
  const settings=document.createElement('button');settings.type='button';settings.textContent='Ρυθμίσεις στατιστικών';settings.setAttribute('aria-label','Αλλαγή επιλογής στατιστικών');
- settings.style.cssText='position:fixed;z-index:2147482999;bottom:14px;left:14px;padding:6px 10px;border:1px solid #a98b50;border-radius:8px;background:#f7f1df;color:#173d2c;font:12px system-ui;cursor:pointer';
+ settings.style.cssText='position:fixed;z-index:2147482999;bottom:12px;left:12px;padding:7px 12px;border:1px solid #b69a58;border-radius:9px;background:#f3ead6;color:#173d2c;font:12px system-ui;cursor:pointer';
  const select=value=>{
   write(value);
   panel.hidden=true;
