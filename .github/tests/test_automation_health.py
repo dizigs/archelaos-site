@@ -1,8 +1,10 @@
 """Missing schedule evidence must not be mistaken for a passing workflow."""
 from datetime import datetime, timedelta, timezone
+from contextlib import redirect_stdout
 import importlib.util
 import io
 import json
+import os
 from pathlib import Path
 import tempfile
 import unittest
@@ -198,6 +200,31 @@ class AutomationHealthTests(unittest.TestCase):
                     self.assertEqual(target.read_text(), "unchanged")
                     self.assertEqual(report.read_text(), "new report")
                     self.assertFalse(report.is_symlink())
+
+    def test_actions_notice_preserves_actual_counts(self):
+        report = {"generated_utc": NOW.isoformat(), "ok": False, "attention": ["a", "b"],
+                  "workflows": [{"path": "a", "state": "failed"},
+                                {"path": "b", "state": "stale"},
+                                {"path": "c", "state": "healthy"}]}
+        output = io.StringIO()
+        with patch.object(health, "build_report", return_value=report), \
+                patch.object(health, "write_report"), \
+                patch.dict(os.environ, {"GITHUB_ACTIONS": "true"}), \
+                patch("sys.argv", ["automation_health"]), redirect_stdout(output):
+            self.assertEqual(health.main(), 1)
+        self.assertIn("::notice title=Automation health evidence::total=3; attention=2; "
+                      "failed=1; healthy=1; stale=1", output.getvalue())
+
+    def test_actions_notice_marks_unavailable_without_disclosing_error_text(self):
+        output = io.StringIO()
+        with patch.object(health, "build_report", side_effect=health.EvidenceError("sensitive-fixture")), \
+                patch.object(health, "write_report"), \
+                patch.dict(os.environ, {"GITHUB_ACTIONS": "true"}), \
+                patch("sys.argv", ["automation_health"]), redirect_stdout(output):
+            self.assertEqual(health.main(), 1)
+        self.assertIn("::notice title=Automation health evidence::total=0; attention=1; "
+                      "evidence=unavailable;", output.getvalue())
+        self.assertNotIn("sensitive-fixture", output.getvalue())
 
 
 if __name__ == "__main__":

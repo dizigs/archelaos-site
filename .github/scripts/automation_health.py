@@ -286,7 +286,8 @@ def main():
         counts = Counter(row["state"] for row in report["workflows"])
         details = "; ".join(f"{state}={count}" for state, count in sorted(counts.items()))
         print("::notice title=Automation health evidence::"
-              f"total={len(report['workflows'])}; attention={len(report['attention'])}; " + details)
+              f"total={len(report['workflows'])}; attention={len(report['attention'])}; "
+              + ("evidence=unavailable; " if report.get("error") else "") + details)
     return 0 if report["ok"] else 1
 
 
