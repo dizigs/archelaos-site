@@ -28,6 +28,8 @@ class ArchiveRelationshipTests(unittest.TestCase):
         graph=module.compile_graph(**self.data)
         self.assertGreaterEqual(graph["counts"]["nodes"],1000)
         self.assertEqual(graph["counts"]["edges"],len(graph["edges"]))
+        pairs=[tuple(sorted((e["a"],e["b"]))) for e in graph["edges"]]
+        self.assertEqual(len(pairs),len(set(pairs)),"Duplicate canonical linked-record pairs")
         for edge in graph["edges"]:
             a,b=edge["a"],edge["b"]
             self.assertIn({"key":b,"relation":edge["relation"]},graph["by_node"][a])
