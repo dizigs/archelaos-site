@@ -328,3 +328,17 @@ body .dp-content .dp-grid .dp-card .dp-year,body .dp-content .dp-grid .dp-card .
  .arch-dialog-body .dp-profile-calendar,
  .arch-dialog-body .dp-profile-calendar-copy{transition:none}
 }
+
+/* Mobile rendering: defer only below-viewport cards; keep the visible hero and active cards painted immediately. */
+@supports (content-visibility: auto) {
+  @media (max-width: 650px) {
+    .dp-grid > .dp-card {
+      content-visibility: auto;
+      contain-intrinsic-size: auto 225px;
+    }
+    .dp-historical {
+      content-visibility: auto;
+      contain-intrinsic-size: auto 900px;
+    }
+  }
+}
