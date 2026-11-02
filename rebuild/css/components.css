@@ -422,3 +422,8 @@ body.arch-a11y-calm *,body.arch-a11y-calm *::before,body.arch-a11y-calm *::after
     opacity:1!important;
   }
 }
+
+/* Legal identity: restrained final line of the shared footer. */
+.arch-footer-legal{margin-top:13px;padding-top:12px;border-top:1px solid rgba(255,255,255,.11);color:#b8c4b7;font:500 10px/1.8 Inter,system-ui,sans-serif;letter-spacing:.025em;text-align:center;overflow-wrap:anywhere}
+.arch-footer-legal span{padding-inline:5px;color:#bea465}
+@media(max-width:620px){.arch-footer-legal{font-size:10px;padding-inline:5px;line-height:1.9}}
