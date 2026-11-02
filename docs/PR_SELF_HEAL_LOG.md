@@ -65,3 +65,31 @@ Run a server for `dist/` on port 8766, then `node rebuild/tests/site_stability.c
 Local execution used Playwright **1.58.0** and installed system **Chromium 154.0.8037.57**, selected through the external `/workspace/onboarding/system-chromium.cjs` helper and `NODE_PATH`; no machine-specific browser path or dependencies were committed. The new suite blocks external resources for deterministic local UI checks. Its title checks inspect actual clipping boundaries, avoiding false positives from visible font-ink overhang; native close-state assertions wait for asynchronous aria updates.
 
 **Delivery:** branch commit/push only, as requested. No PR creation, main push, merge, rule bypass or deployment. GitHub required checks, the CI browser binary, other browser engines/physical devices and production behavior remain to be verified when ChatGPT opens the PR and after a protected deployment. Final corrected local tests have zero failures; the 12 baseline failures are intentional reproduction evidence, not unresolved corrected-build failures.
+
+
+## Site stability follow-up — 2026-11-03 — News reader
+
+**Branch:** `codex/site-stability-audit`; continued from audited head `f7a07fa`, without changing main, Draft #37, public historical data or private sources.
+
+**Fix commit:** [`08f62ca8327c0ff865fdd05118d40fc9eb49f837`](https://github.com/dizigs/archelaos-site/commit/08f62ca8327c0ff865fdd05118d40fc9eb49f837) (`fix(ui): reset news reader position between articles`).
+
+- **Confirmed failure:** Open an article in `/news.html`, scroll its reader to the bottom, close it, then open another article. The second article starts partway down instead of at its heading. The initial real-UI probe measured retained offsets of 497 px (390 px viewport), 413 px (768 px), and 426 px (1365 px). A deterministic regression using two long, verified-public article records reproduced the same defect at all four audited sizes; its desktop offset was 232 px instead of zero.
+- **Cause:** `assets/news.js` reuses `.an-dialog-inner`, replacing article contents without resetting this separate scroll container. The sticky close toolbar remains visible, so focusing its button does not restore the article's beginning. The earlier shared `arch-dialog-body` correction did not cover this independent news reader.
+- **Solution:** After opening/rendering the selected article, reset `.an-dialog-inner.scrollTop` to zero and focus the close control with `preventScroll`. The comment about biography nesting now reflects the shared native-dialog scroll-lock lifecycle. No content, markup, styling or historical facts changed.
+- **Regression:** Added `news-scroll-reset` to `site_stability.cjs` at 320, 390, 768 and 1365 px. Fixtures are selected from two long public articles in the actual built news JSON, so newer short announcements cannot silently remove scroll coverage. The test uses the real news search and article links, checks the new record starts at zero, checks background scroll locking, and closes with Escape. A case selector supports focused debugging; an empty selection fails rather than reporting false success.
+- **Test infrastructure:** Release smoke and responsive quality accept the same optional `SITE_STABILITY_BASE_URL`, preserving the original 8766 default. Local continuation used an isolated server on 8786 after the old local preview endpoint stopped responding. This is a test-server setup detail, not a production-site failure or a change to CI defaults.
+
+**Actual results:**
+
+| Check | Result |
+| --- | --- |
+| New targeted regression against the unchanged reader | 4 cases, 4 expected failures |
+| Final full stability suite | **29/29 pass; 72 page/viewports; 608 card surfaces; zero failures** |
+| Build and independent release verify | **PASS — 15 principal pages, 760 indexed profiles** |
+| Syntax, all tracked JS/CJS/MJS source | **PASS — 70 scripts** |
+| ESLint, existing config and rebuild scope | **PASS** |
+| Existing release smoke, including search/favorites/profile flows | **PASS — desktop/mobile and profile route** |
+| Existing responsive quality audit | **PASS — 84 page/viewports, 23 internal destinations, zero warnings/errors** |
+| Whitespace check | **PASS** |
+
+Local execution again used Playwright 1.58.0/system Chromium 154 through the external helper, without committing browser paths or dependency changes. Reports remain gitignored under `rebuild/test-artifacts/`; expected failing screenshots were retained separately under `/tmp/archelaos-stability-baseline-images` so they cannot be mistaken for final failures. No PR or deployment was performed. Remote CI and production/other-browser confirmation remain pending the ChatGPT-created PR.
