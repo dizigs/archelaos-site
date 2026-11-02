@@ -380,6 +380,14 @@ def verify() -> None:
             "Published viewport CSS imports a stale " + breakpoint + " stylesheet"
         )
 
+    # Homepage slideshow buttons must lead to real department anchors.
+    home_js = (DIST / "assets/site/js/home.js").read_text(encoding="utf-8")
+    assert "titleLink.href='/tmimata.html#sport-'+sportKeys[index]" in home_js, "Slideshow uses a noncanonical department URL"
+    sport_keys_match = re.search(r"const sportKeys=\\[([^\\]]+)\\]", home_js)
+    assert sport_keys_match, "Homepage slideshow sports configuration missing"
+    departments_html = (DIST / "tmimata.html").read_text(encoding="utf-8")
+    for sport_key in re.findall(r"'([^']+)'", sport_keys_match.group(1)):
+        assert 'id="sport-' + sport_key + '"' in departments_html, "Missing slideshow target for " + sport_key
     # Search must expose the approved match calendar and department cards.
     catalog_js = (DIST / "assets/site/js/archive-catalog.js").read_text(encoding="utf-8")
     search_html = (DIST / "search.html").read_text(encoding="utf-8")
