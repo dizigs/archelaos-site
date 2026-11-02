@@ -18,6 +18,8 @@ def check(items,people,root=ROOT):
         raw_id=item.get("id")
         aid=raw_id if isinstance(raw_id,str) and raw_id.strip() else "(empty)"
         if aid=="(empty)": finding("MISSING_NEWS_ID",aid,"error","Missing non-empty news ID")
+        if not isinstance(item.get("title"),str) or not item["title"].strip():
+            finding("MISSING_NEWS_TITLE",aid,"error","Missing non-empty article title")
         if aid in seen: finding("DUPLICATE_NEWS_ID",aid,"error","Repeated article ID")
         seen.add(aid)
         raw_url=item.get("sourceUrl")
