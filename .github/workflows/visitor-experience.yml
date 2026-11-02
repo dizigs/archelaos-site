@@ -1,4 +1,6 @@
 name: Free visitor experience browser audit
+# Run browser smoke checks on every site change; mandatory JS and ESLint
+# checks are separate workflows and must also report on the PR head.
 on:
   pull_request:
     paths:
