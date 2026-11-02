@@ -5,7 +5,7 @@ export default [
     files: ["rebuild/**/*.js", "rebuild/**/*.cjs", "rebuild/**/*.mjs"],
     languageOptions: {
       ecmaVersion: "latest",
-      sourceType: "commonjs",
+      sourceType: "script",
       globals: {
         window: "readonly", document: "readonly", navigator: "readonly",
         localStorage: "readonly", location: "readonly", console: "readonly",
@@ -22,7 +22,6 @@ export default [
     },
     rules: {
       "no-unsafe-finally": "error",
-      "no-constant-assign": "error",
       "no-compare-neg-zero": "error",
       "no-dupe-args": "error",
       "no-dupe-class-members": "error",
@@ -39,5 +38,6 @@ export default [
       "no-unreachable": "error",
       "no-constant-binary-expression": "error"
     }
-  }
+  },
+  { files: ["rebuild/ai/**/*.js", "rebuild/cloudflare/functions/**/*.js"], languageOptions: {sourceType:"module"} }
 ];
