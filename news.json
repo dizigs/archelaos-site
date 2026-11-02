@@ -299,7 +299,9 @@
         "arch-f6152b60c43f"
       ],
       "featured": false,
-      "imageSourceUrl": "https://katerini.gr/wp-content/uploads/2026/06/katerini-protathlitis-elladas-toxovolia-o-96252.webp"
+      "imageSourceUrl": "https://katerini.gr/wp-content/uploads/2026/06/katerini-protathlitis-elladas-toxovolia-o-96252.webp",
+      "eventId": "archery-national-outdoor-florina-2026",
+      "eventDate": "2026-06-20"
     },
     {
       "id": "handball-siokas-mediterranean-2026",
@@ -803,7 +805,8 @@
       "personIds": [],
       "image": "https://katerini.gr/wp-content/uploads/2025/05/2025-05-05_17-40-04-978.jpg",
       "imageSourceUrl": "https://katerini.gr/wp-content/uploads/2025/05/2025-05-05_17-40-04-978.jpg",
-      "imageNote": "Φωτογραφία από το αντίστοιχο αρχικό δημοσίευμα · Δήμος Κατερίνης · 05/05/2025"
+      "imageNote": "Φωτογραφία από το αντίστοιχο αρχικό δημοσίευμα · Δήμος Κατερίνης · 05/05/2025",
+      "eventId": "archery-national-evaluation-nea-chrani-2025"
     },
     {
       "id": "wrestling-u20-serres-champions-apr-2025",
@@ -1118,7 +1121,9 @@
         "arch-ektoras-diamantidis-arch"
       ],
       "featured": false,
-      "imageSourceUrl": "https://media.pieriasocial.gr/2024/10/111111111111111111111111-2.jpg"
+      "imageSourceUrl": "https://media.pieriasocial.gr/2024/10/111111111111111111111111-2.jpg",
+      "eventId": "archery-cup-volos-2024",
+      "eventDate": "2024-10-19"
     },
     {
       "id": "wrestling-balkan-skopje-oct-2024",
@@ -1482,7 +1487,9 @@
       "imageNote": "Φωτογραφία από το αρχικό δημοσίευμα: Pieria Social · 17/04/2024",
       "personIds": [],
       "featured": false,
-      "imageSourceUrl": "https://media.pieriasocial.gr/2024/04/1111111111111111-1.jpg"
+      "imageSourceUrl": "https://media.pieriasocial.gr/2024/04/1111111111111111-1.jpg",
+      "eventId": "archery-olympus-nea-chrani-2024",
+      "eventDate": "2024-04-13"
     },
     {
       "id": "track-u18-kilkis-medals-apr-2024",
