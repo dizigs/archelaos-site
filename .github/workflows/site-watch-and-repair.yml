@@ -29,6 +29,7 @@ jobs:
         run: |
           python -m unittest discover -s rebuild/tests -p 'auto_fix_html_escapes_test.py' -v
           python -m unittest discover -s rebuild/tests -p 'fault_injection_self_heal_test.py' -v
+          python -m unittest discover -s rebuild/tests -p 'repair_pr_lookup_test.py' -v
           python -m unittest discover -s rebuild/tests -p 'guard_html_escaped_text_test.py' -k test_reject_ -k test_ignore_ -v
 
       - name: Live public-site check (read-only)
@@ -101,8 +102,11 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if gh pr list --repo "$REPO" --state open --limit 100 --json title \
-              --jq '.[].title' | grep -Fxq 'auto-heal: remove visible escaped whitespace in news.html'; then
+          existing="$(gh pr list --repo "$REPO" --base main --state open --limit 100 \
+              --search 'in:title "auto-heal: remove visible escaped whitespace in news.html"' \
+              --json number,title \
+              --jq '.[] | select(.title == "auto-heal: remove visible escaped whitespace in news.html") | .number')"
+          if [ -n "$existing" ]; then
             echo "A repair PR already exists; not creating a duplicate."
             exit 0
           fi
