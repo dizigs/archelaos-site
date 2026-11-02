@@ -56,7 +56,8 @@ def inspect():
     departments_html = (REBUILD/"tmimata.html").read_text(encoding="utf-8")
     departments_css = (REBUILD/"css/departments.css").read_text(encoding="utf-8")
     sports = ("handball","track","archery","shooting","gymnastics","volleyball","wrestling","swimming","basketball")
-    assert departments_html.count('class="dp-card ') == 10, "Expected exactly nine sport cards and one historical card"
+    assert departments_html.count('class="dp-card ') == 11, "Expected eight active sport cards, basketball and fin-swimming history cards, plus one historical overview card"
+    assert 'data-dp-open="fin-swimming"' in departments_html, "Fin-swimming historical department card missing"
     for sport in sports:
         assert f'data-dp-open="{sport}"' in departments_html, f"Missing sport card: {sport}"
         assert f'[data-dp-open="{sport}"]' in departments_css, f"Missing icon assignment: {sport}"
