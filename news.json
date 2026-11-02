@@ -199,7 +199,8 @@
       "sourceUrl": "https://www.pierianews.gr/2026/07/19/diethnes-tournoua-palis-darko-nisavic-chryses-diakriseis-gia-tous-protathlites-tou-archelaou-katerinis-sti-servia/",
       "personIds": [
         "arch-2616694d9908",
-        "arch-b48656c62600"
+        "arch-b48656c62600",
+        "arch-af9470c5745f"
       ],
       "featured": false,
       "imageSourceUrl": "https://www.pierianews.gr/wp-content/uploads/2026/07/arch3.jpg"
@@ -244,7 +245,8 @@
         "arch-b231605f5def",
         "arch-955a386f547f",
         "arch-44ef21dfb9b7",
-        "arch-6212ba5ea7f1"
+        "arch-6212ba5ea7f1",
+        "arch-f6152b60c43f"
       ],
       "featured": false,
       "imageSourceUrl": "https://katerini.gr/wp-content/uploads/2026/06/katerini-protathlitis-elladas-toxovolia-o-96252.webp"
@@ -731,7 +733,11 @@
         "arch-e87fdf323137",
         "arch-ba8233d165aa",
         "arch-73968afa517e",
-        "arch-8c9cbe4897f0"
+        "arch-8c9cbe4897f0",
+        "arch-af9470c5745f",
+        "arch-8934f50fbeed",
+        "arch-a3b57d586132",
+        "arch-8c8c23ba82e6"
       ],
       "imageNote": "Φωτογραφία από το αντίστοιχο δημοσίευμα της πηγής"
     },
@@ -776,7 +782,11 @@
       "source": "Ολύμπιο Βήμα · 04/04/2025",
       "sourceUrl": "https://olympiobima.gr/archelaos-katerinis-to-neo-dioikitiko-symvoulio-tou-gas/",
       "personIds": [
-        "arch-61d8d097f601"
+        "arch-61d8d097f601",
+        "arch-85fcb478d724",
+        "arch-bc7079f252cc",
+        "arch-5b13574568d5",
+        "arch-a75476a583e3"
       ],
       "image": "https://olympiobima.gr/wp-content/uploads/2025/04/arxelaos-katerinis-to-neo-dioikitiko-24005.webp",
       "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2025/04/arxelaos-katerinis-to-neo-dioikitiko-24005.webp",
@@ -816,7 +826,13 @@
       "source": "Pieria Social · 23/03/2025",
       "sourceUrl": "https://pieriasocial.gr/?p=100588",
       "personIds": [
-        "arch-c6dd24b37324"
+        "arch-c6dd24b37324",
+        "arch-2616694d9908",
+        "arch-bb54ccd4df17",
+        "arch-cdc99b2b3af3",
+        "arch-7e12ae009786",
+        "arch-538dbd2d58dc",
+        "arch-449576656c19"
       ],
       "featured": false,
       "imageSourceUrl": "https://media.pieriasocial.gr/2025/03/11111111111111111-10.jpg",
@@ -863,7 +879,8 @@
         "arch-f3d93442851f",
         "arch-8c8c23ba82e6",
         "arch-64dbf198bfd6",
-        "arch-aristotelis-navrozidis-wrest24"
+        "arch-aristotelis-navrozidis-wrest24",
+        "arch-vangelis-kordonoulis-wrest24"
       ],
       "featured": false,
       "imageSourceUrl": "https://www.pierianews.gr/wp-content/uploads/2024/12/pal6.jpg",
@@ -886,7 +903,10 @@
       "personIds": [
         "arch-b48656c62600",
         "arch-be8668380721",
-        "arch-aristotelis-navrozidis-wrest24"
+        "arch-aristotelis-navrozidis-wrest24",
+        "arch-8c8c23ba82e6",
+        "arch-2616694d9908",
+        "arch-wrest-taxiarhis-liakos"
       ],
       "image": "https://olympiobima.gr/wp-content/uploads/2024/12/3-xrysa-metallia-protathlites-arxelaoy-93756.webp",
       "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2024/12/3-xrysa-metallia-protathlites-arxelaoy-93756.webp",
@@ -952,7 +972,8 @@
         "arch-e9fc7408640c",
         "arch-8d1a258f0b09",
         "arch-1ea85d87584a",
-        "arch-9bba434ae7e7"
+        "arch-9bba434ae7e7",
+        "arch-bde5b8a0f677"
       ],
       "image": "https://odelalis.gr/wp-content/uploads/2024/11/gas_arxelaos_gimnastiki-1.jpg",
       "imageSourceUrl": "https://odelalis.gr/wp-content/uploads/2024/11/gas_arxelaos_gimnastiki-1.jpg",
@@ -975,7 +996,8 @@
       "imageSourceUrl": "https://eptanews.gr/wp-content/uploads/2024/11/%CE%A4%CE%9F%CE%9E%CE%9F%CE%92%CE%9F%CE%9B%CE%99%CE%91-1.jpg",
       "imageNote": "Αρχική φωτογραφία του σχετικού δημοσιεύματος",
       "personIds": [
-        "arch-pavlina-charitidou-arch"
+        "arch-pavlina-charitidou-arch",
+        "arch-955a386f547f"
       ]
     },
     {
@@ -1022,7 +1044,8 @@
         "arch-957a876e770d",
         "arch-e87fdf323137",
         "arch-b48656c62600",
-        "arch-f3d93442851f"
+        "arch-f3d93442851f",
+        "arch-2616694d9908"
       ],
       "image": "https://odelalis.gr/wp-content/uploads/2024/10/gas_arxelaos_pali_metalia-3.jpg",
       "imageSourceUrl": "https://odelalis.gr/wp-content/uploads/2024/10/gas_arxelaos_pali_metalia-3.jpg",
@@ -1042,7 +1065,8 @@
       "source": "Ολύμπιο Βήμα · 26/09/2024",
       "sourceUrl": "https://olympiobima.gr/gas-archelaos-katerinis-o-agiasmos-tou-tmimatos-stivou/",
       "personIds": [
-        "arch-61d8d097f601"
+        "arch-61d8d097f601",
+        "arch-8e2988bbabf5"
       ],
       "image": "https://olympiobima.gr/wp-content/uploads/2024/09/gas-arxelaos-katerinis-agiasmos-tmimatos-46617.webp",
       "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2024/09/gas-arxelaos-katerinis-agiasmos-tmimatos-46617.webp",
@@ -1121,7 +1145,10 @@
       "image": "images/news/wrestling-mayor-2024.jpg",
       "imageNote": "Φωτογραφία από το αρχικό δημοσίευμα: Pieria Social · 02/08/2024",
       "personIds": [
-        "arch-4b6d75d0faa2"
+        "arch-4b6d75d0faa2",
+        "arch-af9470c5745f",
+        "arch-8934f50fbeed",
+        "arch-a3b57d586132"
       ],
       "featured": false,
       "imageSourceUrl": "https://media.pieriasocial.gr/2024/08/1-2024-08-02T111120.118.jpg"
@@ -1235,7 +1262,8 @@
       "source": "Ολύμπιο Βήμα · 19/05/2024",
       "sourceUrl": "https://olympiobima.gr/archelaos-katerinis-chalkino-metallio-o-nikos-zinisa-sto-panevropaiko-protathlima-palis-u15/",
       "personIds": [
-        "arch-b48656c62600"
+        "arch-b48656c62600",
+        "arch-2616694d9908"
       ],
       "image": "https://olympiobima.gr/wp-content/uploads/2024/05/arxelaos-katerinis-xalkino-metallio-o-80559.webp",
       "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2024/05/arxelaos-katerinis-xalkino-metallio-o-80559.webp",
@@ -1255,7 +1283,9 @@
       "source": "Ολύμπιο Βήμα · 19/05/2024",
       "sourceUrl": "https://olympiobima.gr/ston-teliko-i-valvi-tou-gas-archelaos-katerinis/",
       "personIds": [
-        "arch-9bba434ae7e7"
+        "arch-9bba434ae7e7",
+        "arch-c5eb6d18a17a",
+        "arch-4aaa2b869d44"
       ],
       "image": "https://olympiobima.gr/wp-content/uploads/2024/05/ston-teliko-valvi-gas-arxelaos-26190.webp",
       "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2024/05/ston-teliko-valvi-gas-arxelaos-26190.webp",
@@ -1375,7 +1405,10 @@
       "sourceUrl": "https://www.kapa-news.gr/2024/04/18_16.html",
       "personIds": [
         "arch-ec8773207161",
-        "arch-d9a3d58d6432"
+        "arch-d9a3d58d6432",
+        "arch-a6a1796f3d5c",
+        "arch-67ae020ca998",
+        "arch-4a961d27ca2d"
       ],
       "image": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhTjxHtlmuNiV3cHSocfBpzS1-5IP3FkrTbiHHdpdOcA68P03olk_B7UaHtPmPbhnSjgXti28_7T-HbngD0zl3I-lwuDCaZOGaaopDKXcQJ6f1jeUm8KWGzdNHswZIBhxoq0avCCo2Useo9qSySiN4tYk2Qs_AK5buvm6wtgCc2KcPDNAmy5tdgHG0TEBEF/s16000/%CE%91%CE%A1%CE%A7%CE%95%CE%9B%CE%91%CE%9F%CE%A3%20%CE%A3%CE%A4%CE%99%CE%92%CE%9F%CE%A3.jpg",
       "imageSourceUrl": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhTjxHtlmuNiV3cHSocfBpzS1-5IP3FkrTbiHHdpdOcA68P03olk_B7UaHtPmPbhnSjgXti28_7T-HbngD0zl3I-lwuDCaZOGaaopDKXcQJ6f1jeUm8KWGzdNHswZIBhxoq0avCCo2Useo9qSySiN4tYk2Qs_AK5buvm6wtgCc2KcPDNAmy5tdgHG0TEBEF/s16000/%CE%91%CE%A1%CE%A7%CE%95%CE%9B%CE%91%CE%9F%CE%A3%20%CE%A3%CE%A4%CE%99%CE%92%CE%9F%CE%A3.jpg",
@@ -1497,7 +1530,13 @@
       ],
       "source": "Eptanews · 05/03/2024",
       "sourceUrl": "https://eptanews.gr/athlitismos/4-metallia-oi-athlites-toy-archelaoy-katerinis-sto-veligradi/",
-      "personIds": [],
+      "personIds": [
+        "arch-af9470c5745f",
+        "arch-f3d93442851f",
+        "arch-b48656c62600",
+        "arch-be8668380721",
+        "arch-vangelis-kordonoulis-wrest24"
+      ],
       "image": "https://eptanews.gr/wp-content/uploads/2024/03/%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CF%80%CE%AC%CE%BB%CE%B7-1-1.jpeg",
       "imageSourceUrl": "https://eptanews.gr/wp-content/uploads/2024/03/%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CF%80%CE%AC%CE%BB%CE%B7-1-1.jpeg",
       "imageNote": "Φωτογραφία από το αντίστοιχο αρχικό δημοσίευμα · Eptanews · 05/03/2024"
@@ -1516,7 +1555,8 @@
       "source": "Eptanews · 04/03/2024",
       "sourceUrl": "https://eptanews.gr/epikairotita/axios-protathlitis-elladas-o-giannis-petkos-toy-archelaoy-katerinis/",
       "personIds": [
-        "arch-6a4b08bec058"
+        "arch-6a4b08bec058",
+        "arch-ba8233d165aa"
       ],
       "image": "https://eptanews.gr/wp-content/uploads/2024/03/pali-1.jpeg",
       "imageSourceUrl": "https://eptanews.gr/wp-content/uploads/2024/03/pali-1.jpeg",
@@ -1540,7 +1580,8 @@
         "arch-ba8233d165aa",
         "arch-be8668380721",
         "arch-73968afa517e",
-        "arch-b48656c62600"
+        "arch-b48656c62600",
+        "arch-2616694d9908"
       ],
       "image": "https://olympiobima.gr/wp-content/uploads/2023/12/gas-archelaos-katerinis-gemisan-tis-29267.webp",
       "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2023/12/gas-archelaos-katerinis-gemisan-tis-29267.webp",
@@ -1585,7 +1626,9 @@
       "sourceUrl": "https://olympiobima.gr/archelaos-katerinis-elampsan-oi-pitsirikades-stin-pali/",
       "personIds": [
         "arch-aristotelis-navrozidis-wrest24",
-        "arch-loukas-zinisa-wrest25"
+        "arch-loukas-zinisa-wrest25",
+        "arch-2616694d9908",
+        "arch-wrest-taxiarhis-liakos"
       ],
       "image": "https://olympiobima.gr/wp-content/uploads/2023/11/archelaos-katerinis-elampsan-pitsirikades-pali-73212.webp",
       "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2023/11/archelaos-katerinis-elampsan-pitsirikades-pali-73212.webp",
@@ -1662,7 +1705,8 @@
         "arch-fbf9bcb00de7",
         "arch-gymnastics-3e72e3a0",
         "arch-gymnastics-ab00d538",
-        "arch-gymnastics-d8ee376a"
+        "arch-gymnastics-d8ee376a",
+        "arch-gymnastics-b15100a6"
       ],
       "image": "https://olympiobima.gr/wp-content/uploads/2023/06/gas-archelaos-katerinis-aylaia-enorgani-42131.webp",
       "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2023/06/gas-archelaos-katerinis-aylaia-enorgani-42131.webp",
@@ -1726,7 +1770,9 @@
         "arch-510626a0ca62",
         "arch-1ea85d87584a",
         "arch-2ec2798d39bb",
-        "arch-gymnastics-9814252c"
+        "arch-gymnastics-9814252c",
+        "arch-bde5b8a0f677",
+        "arch-gymnastics-f2e4a89b"
       ],
       "image": "https://olympiobima.gr/wp-content/uploads/2023/05/gas-archelaos-katerinis-50834.webp",
       "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2023/05/gas-archelaos-katerinis-50834.webp",
@@ -1776,7 +1822,8 @@
         "arch-f3d93442851f",
         "arch-73968afa517e",
         "arch-e87fdf323137",
-        "arch-ba8233d165aa"
+        "arch-ba8233d165aa",
+        "arch-2616694d9908"
       ],
       "image": "https://olympiobima.gr/wp-content/uploads/2023/05/pali-gas-archelaos-52473.webp",
       "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2023/05/pali-gas-archelaos-52473.webp",
@@ -2098,7 +2145,8 @@
       "personIds": [
         "arch-955a386f547f",
         "arch-pavlina-charitidou-arch",
-        "arch-konstantinos-charisis-arch"
+        "arch-konstantinos-charisis-arch",
+        "arch-kassiani-koktsidou-arch"
       ],
       "imageSourceUrl": "https://odialogos.gr/wp-content/uploads/2022/07/%CF%84%CE%BF%CE%BE%CE%BF%CE%B2%CE%BF%CE%BB%CE%AF%CE%B1-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-6.jpg",
       "imageNote": "Φωτογραφία από το αντίστοιχο δημοσίευμα της πηγής"
@@ -2142,7 +2190,9 @@
         "arch-1325e4551e91",
         "arch-2ec2798d39bb",
         "arch-gymnastics-9814252c",
-        "arch-f02298025e5c"
+        "arch-f02298025e5c",
+        "arch-bde5b8a0f677",
+        "arch-gymnastics-f2e4a89b"
       ],
       "image": "https://odelalis.gr/wp-content/uploads/2022/06/gasarxelaos.jpg",
       "imageSourceUrl": "https://odelalis.gr/wp-content/uploads/2022/06/gasarxelaos.jpg",
@@ -2210,7 +2260,9 @@
         "arch-gymnastics-9814252c",
         "arch-1325e4551e91",
         "arch-510626a0ca62",
-        "arch-1be1256bf733"
+        "arch-1be1256bf733",
+        "arch-bde5b8a0f677",
+        "arch-gymnastics-f2e4a89b"
       ],
       "image": "https://odelalis.gr/wp-content/uploads/2022/05/archelaos-katerinis-2.jpg",
       "imageSourceUrl": "https://odelalis.gr/wp-content/uploads/2022/05/archelaos-katerinis-2.jpg",
@@ -2252,7 +2304,8 @@
       "sourceUrl": "https://eptanews.gr/athlitismos/elampse-me-tis-epidoseis-to-tmima-gymnastikis-toy-gas-archelaos-katerinis-sto-panellinio-protathlima-paidon-korasidon-3-chrysa-metallia-kai-ena-argyro-kai-spoydaies-emfaniseis-ton-athliton-trion-toy/",
       "image": "https://i1.wp.com/eptanews.gr/wp-content/uploads/2022/05/IMG-0bbec2cda8c04b07a9ed7052e53aca9a-V.jpg?fit=1600%2C1200&ssl=1",
       "personIds": [
-        "arch-e6b31b31c3a9"
+        "arch-e6b31b31c3a9",
+        "arch-22234effaf98"
       ],
       "imageSourceUrl": "https://i1.wp.com/eptanews.gr/wp-content/uploads/2022/05/IMG-0bbec2cda8c04b07a9ed7052e53aca9a-V.jpg?fit=1600%2C1200&ssl=1",
       "imageNote": "Φωτογραφία από το αντίστοιχο δημοσίευμα της πηγής"
@@ -2274,7 +2327,8 @@
         "arch-ba8233d165aa",
         "arch-e49a8c140396",
         "arch-8c9cbe4897f0",
-        "arch-32f943eae9a0"
+        "arch-32f943eae9a0",
+        "arch-af9470c5745f"
       ],
       "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2022/05/Archelaos-Katerinis-3-Chalkina-metallia-oi-athlites-tou-stous-Panellinious-scholikous-agones-sta-Trikala-42245.jpg",
       "image": "https://olympiobima.gr/wp-content/uploads/2022/05/Archelaos-Katerinis-3-Chalkina-metallia-oi-athlites-tou-stous-Panellinious-scholikous-agones-sta-Trikala-42245.jpg",
@@ -2343,7 +2397,9 @@
         "arch-ba8233d165aa",
         "arch-e87fdf323137",
         "arch-c9649834c98e",
-        "arch-32f943eae9a0"
+        "arch-32f943eae9a0",
+        "arch-af9470c5745f",
+        "arch-8934f50fbeed"
       ],
       "imageSourceUrl": "https://pieriasocial.gr/wp-content/uploads/2022/04/11111111111-1024x768.jpg",
       "imageNote": "Φωτογραφία από το αντίστοιχο δημοσίευμα της πηγής"
@@ -2507,7 +2563,13 @@
       "sourceUrl": "https://pieriasocial.gr/?p=4160",
       "image": "https://i0.wp.com/live.staticflickr.com/65535/40904265053_860db73294_b.jpg?resize=938%2C626&ssl=1",
       "personIds": [
-        "arch-73968afa517e"
+        "arch-73968afa517e",
+        "arch-61d8d097f601",
+        "arch-2010dac2d75a",
+        "arch-cf55874ef67a",
+        "arch-39d3d90c7e59",
+        "arch-6a4b08bec058",
+        "arch-74c0ecf6103f"
       ],
       "imageSourceUrl": "https://i0.wp.com/live.staticflickr.com/65535/40904265053_860db73294_b.jpg?resize=938%2C626&ssl=1",
       "imageNote": "Φωτογραφία από το αντίστοιχο δημοσίευμα της πηγής"
