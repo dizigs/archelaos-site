@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "mode": "dry-run",
+  "source_kind": "synthetic-fixture",
+  "policy_status": "current-policy-review-required",
+  "findings": [
+    {
+      "code": "AD_DISAPPROVED",
+      "count": 1
+    },
+    {
+      "code": "URL_BROKEN",
+      "count": 1
+    },
+    {
+      "code": "URL_UNCHECKED",
+      "count": 1
+    },
+    {
+      "code": "KEYWORD_LOW_QUALITY",
+      "count": 1
+    },
+    {
+      "code": "KEYWORD_SINGLE_WORD",
+      "count": 1
+    },
+    {
+      "code": "CTR_BELOW_TARGET",
+      "count": 2
+    }
+  ]
+}
