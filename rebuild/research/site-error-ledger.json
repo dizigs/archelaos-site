@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "description": "Cumulative fingerprints of verified production/preview issues. Sample window and repeated deployments are counted, not assumed to represent independent incidents. New evidence appended only by verified diagnostic runs.",
+  "last_updated": "2026-11-02",
+  "observation_window": {
+    "source": "Cloudflare Pages deployment API and per-deployment build logs",
+    "scanned_most_recent_deployments": 125,
+    "successful": 77,
+    "failed": 26,
+    "skipped": 17,
+    "idle": 5,
+    "failed_deployments_with_logs": 26
+  },
+  "categories": [
+    {
+      "id": "DEPLOY_PROFILE_MISSING",
+      "status": "historical_fixed_requires_regression_gate",
+      "observed_failed_deployments": 23,
+      "first_observed": "2026-11-02",
+      "last_observed": "2026-11-02",
+      "signature": "FileNotFoundError: Missing canonical Hall profile:",
+      "cause": "Hall canonical IDs were added without matching standalone HTML on the same commit",
+      "prevention": "Require a complete canonical person-ID-to-profile-file reconciliation before build and release. Never hardcode old profile counts.",
+      "example_commit": "825cca44fbb68f4f5b535fb2a0a1229acbd15d78",
+      "example_deployment_id": "ab32e604-934e-45b2-866b-7c2b66ed8419"
+    },
+    {
+      "id": "DEPLOY_SWIM_BIO_MARKER",
+      "status": "historical_fixed_requires_regression_gate",
+      "observed_failed_deployments": 3,
+      "first_observed": "2026-11-02",
+      "last_observed": "2026-11-02",
+      "signature": "ValueError: Cannot add verified 2026 swimming result:",
+      "cause": "Release enrichment assumed a fixed bilingual legacy biography markup that did not match a new canonical profile",
+      "prevention": "Enrich by canonical person ID using format-aware sync; preserve historical profile bodies and fail early in CI for unsupported markup.",
+      "example_commit": "38da18b0003a8a9bf251d68237a7b42961af926b",
+      "example_deployment_id": "31f0102f-aa80-44dd-8b68-865acc16a201"
+    },
+    {
+      "id": "VISIBLE_HTML_ESCAPED_WHITESPACE",
+      "status": "fix_in_pull_request",
+      "observed_affected_pages": 1,
+      "observed_literal_text_nodes": 2,
+      "first_observed": "2026-11-02",
+      "last_observed": "2026-11-02",
+      "signature": "Literal backslash-n in visible HTML text node",
+      "cause": "HTML source contains literal JavaScript-style escaped newlines between link elements",
+      "prevention": "Check visible text nodes in source AND generated dist, block release and offer allowlisted patch before CI merge.",
+      "affected_source": "news.html"
+    },
+    {
+      "id": "A11Y_STALE_HALL_COUNT",
+      "status": "fix_in_pull_request",
+      "observed_confirmed_source_occurrences": 1,
+      "first_observed": "2026-11-02",
+      "last_observed": "2026-11-02",
+      "signature": "Expected all 682 profiles before accessibility audit",
+      "cause": "A11y test enforces historic 682-profile snapshot while current canonical Hall count is 760",
+      "prevention": "Derive count and exact IDs from current hall-of-fame-people.json rather than hardcoded total."
+    }
+  ],
+  "pending_actions": [
+    "Activate recurring site smoke checks from GitHub Actions after merging the fix PR.",
+    "Implement safe known-fix PR workflow, no direct main commits.",
+    "Track log signatures over time with unique deployment IDs and avoid duplicate counting.",
+    "Keep Firecrawl functional browser checks and Cloudflare API deployments separate; HTTP 200 alone is not a runtime/browser pass.",
+    "Ensure fresh evidence is appended to the ledger when an error recurs instead of overwriting old history."
+  ]
+}
