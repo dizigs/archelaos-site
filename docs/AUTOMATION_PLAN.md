@@ -39,7 +39,7 @@
 | --- | --- | --- | --- |
 | T01 / P0 / DONE | #59: ασφαλής διακοπή repair μετά από API failure — merged | Διατήρηση regression guard | Head `bbaef83`: required checks, Release integrity, πλήρες Rebuild/Chromium pass· merge `165beb9` |
 | T02 / P0 | Main Sonar gate αποτυγχάνει, παρότι PR gates περνούν | Λήψη συγκεκριμένων Sonar issue IDs/rules/files μέσω εξουσιοδοτημένης σύνδεσης· στοχευμένο PR | Main gate ≥ A μετά τη διόρθωση, χωρίς suppression/χαλάρωση |
-| T03 / P0 | Zizmor έχει πραγματικά failure annotations πίσω από πράσινο baseline job | SHA-pin και τις 66 floating αναφορές σε 24 workflows· κλάδος `fix/pin-annotated-actions` | Remote actionlint pass και απουσία unpinned-uses annotations στον τελικό επανέλεγχο· υπόλοιπα warnings καταγράφονται ξεχωριστά |
+| T03 / P0 | #60: 66 SHA pins έτοιμα· στο head `30ff443` δεν υπάρχουν πλέον unpinned-uses annotations | Ολοκλήρωση CI τελικού head του #60 | Remote actionlint pass, required checks και προστατευμένο merge· τα εναπομείναντα warnings καλύπτονται από T17 |
 | T04 / P0 | Περιορισμένη ορατότητα admin settings και αναλυτικών logs | Κανονική ρύθμιση δικτύου/permission από εξουσιοδοτημένο διαχειριστή, εφόσον απαιτηθεί | Προσβάσιμα endpoints που χρειάζονται, χωρίς έκθεση token· έως τότε metadata/annotations και σαφές unknown |
 | T05 / P1 | Ενιαία παρακολούθηση αυτοματισμών / απουσία schedule run | Read-only αναφορά ανά workflow: latest run, latest scheduled run, failure, freshness, disabled/unknown· σταδιακή προσθήκη βάσει πραγματικών cron | Αναγνωρίζει και workflow που δεν εκτελέστηκε, όχι μόνο failed runs· δεν δημιουργεί δεύτερα ίδια schedules |
 | T06 / P1 | Deployment και αποκατάσταση | Έλεγχος Cloudflare Git integration main → build_release.py → dist, production SHA, δημόσια URLs και διαθέσιμο προηγούμενο deployment | Δοκιμασμένη αλυσίδα PR → protected merge → πραγματικό production deployment → live QA· τεκμηριωμένο rollback |
@@ -53,6 +53,7 @@
 | T14 / P2 | Snapshots, link/media QA και αποκατάσταση | Επιβεβαίωση εβδομαδιαίων artifacts/retention και δοκιμή restore· έλεγχος cron εκτελέσεων | Ανακτήσιμο δημόσιο snapshot με hashes· ξεχωριστή ιδιωτική πολιτική backup για πηγές |
 | T15 / P2 | Analytics/SEO αναφορές σε σταθερή λειτουργία | Έλεγχος επόμενων scheduled Google/Clarity exports, freshness, schemas και retention χωρίς δημοσίευση προσωπικών metrics | Πρόσφατες πραγματικές αναφορές, ασφαλής αποτυχία σε expired credentials και σαφές alert |
 | T16 / P3 | Προαιρετικό AI/nonprofit εργαλεία | Μόνο εφόσον λυθούν πρόσβαση, bindings, διαθέσιμο quota και πραγματικό συνολικό όριο κόστους | Δοκιμασμένο fallback/kill switch· καμία ενεργοποίηση πληρωμών ως παρενέργεια της συντήρησης |
+| T17 / P1 | Υπόλοιπα baseline warnings του security scanner | Αφαίρεση περιττού credential persistence στα read-only jobs, ελεγχόμενα dependency lockfiles και ξεχωριστή αναβάθμιση deprecated runtime Actions | Καμία απόκρυψη ευρημάτων· διατήρηση εξουσιοδότησης write-enabled repair jobs, τεκμηριωμένο καθαρό scan πριν γίνει blocking |
 
 ## Ακριβή εμπόδια πρόσβασης
 
