@@ -4,6 +4,8 @@ on:
   schedule:
     - cron: '43 5 * * *'
   push:
+    branches:
+      - main
     paths:
       - 'tools/import_news_images.py'
       - 'tools/link_uploaded_news_images.py'
