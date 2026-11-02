@@ -15,7 +15,7 @@ module.exports = {
       settings: {
         chromeFlags: '--no-sandbox --disable-dev-shm-usage',
         throttlingMethod: 'simulate',
-        preset: 'mobile',
+        // Lighthouse defaults to a mobile profile. 'mobile' is not a valid preset.
       },
     },
     assert: {
