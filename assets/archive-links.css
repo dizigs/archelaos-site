@@ -4,6 +4,6 @@
 .arch-archive-link{display:flex;flex-direction:column;gap:5px;padding:12px 14px;min-height:60px;border:1px solid #decda7;border-radius:12px;background:#fff9ed;color:#143f2c;text-decoration:none!important;font:inherit;transition:background .16s,border-color .16s}
 .arch-archive-link:hover{background:#f5ead1;border-color:#bd9b58;text-decoration:none!important}
 .arch-archive-link:focus-visible{outline:3px solid #b99348;outline-offset:2px}
-.arch-archive-link-kind{font:700 10px/1.3 Inter,system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#91753d}
+.arch-archive-link-kind{font:700 10px/1.3 Inter,system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#6f5a2a}
 .arch-archive-link-title{font:600 13px/1.45 Inter,system-ui,sans-serif;overflow-wrap:anywhere}
 @media(prefers-reduced-motion:reduce){.arch-archive-link{transition:none}}
