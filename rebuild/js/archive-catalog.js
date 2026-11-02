@@ -119,7 +119,7 @@ async function create(){
  }
  return Object.freeze({
   records:Object.freeze(records),
-  get:(type,id)=>byType.get(String(type))?.get(String(id))||null,
+  get:(type,id)=>byType.get(String(type))?.get(String(id))||(type==='interview'?byType.get('press')?.get(String(id)):null)||null,
   counts:Object.freeze(Object.fromEntries([...byType].map(([type,items])=>[type,items.size]))),
   normalize,urlFor,labels:LABELS
  });
