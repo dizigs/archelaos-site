@@ -252,13 +252,13 @@ def verify() -> None:
     assert 'class="ahn-more"' in home_js and 'id="ahn-grid"' in home_js, "Homepage All News CTA missing"
     assert home_js.index('id="ahn-grid"') < home_js.index('class="ahn-more"'), "Homepage All News CTA not placed after the cards"
     assert "Διαβάστε την είδηση" not in home_js, "Redundant homepage card caption restored"
-    # Pagination is always in groups of eighteen, with a shareable URL and
-    # full-list filtering before slicing. Avoid accidental regression to 37 cards.
+    # Eighteen regular cards per page PLUS one distinct featured card on page 1.
+    # Filtering still applies before slicing and the featured story is not duplicated.
     assert "PAGE_SIZE=18" in news_js, "News pagination size changed"
     assert "x.id!==lead?.id" in news_js, "Highlighted article duplicated in the news grid"
-    assert "const offset=showLead?Math.max(0,(state.page-1)*PAGE_SIZE-1):(state.page-1)*PAGE_SIZE;" in news_js, "News pagination offset missing"
-    assert "const limit=showLead&&state.page===1?PAGE_SIZE-1:PAGE_SIZE;" in news_js, "Featured news must count among first eighteen"
-    assert "items.slice(offset,offset+limit)" in news_js, "News pagination slicing missing"
+    assert "const pageCount=Math.max(1,Math.ceil(items.length/PAGE_SIZE));" in news_js, "Featured news must be separate from eighteen regular cards"
+    assert "const offset=(state.page-1)*PAGE_SIZE;" in news_js, "News pagination offset missing"
+    assert "items.slice(offset,offset+PAGE_SIZE)" in news_js, "Expected eighteen regular news cards per page"
     assert "renderPagination(pageCount)" in news_js, "News page-number links not rendered"
     assert "window.addEventListener('popstate'" in news_js, "News page history navigation missing"
     assert 'id="an-pagination"' in (DIST/"news.html").read_text(encoding="utf-8"), "News pagination nav missing"
@@ -270,6 +270,9 @@ def verify() -> None:
     assert "const fig=document.createElement('figure')" not in media_js, "Detached news cover figure regression"
     assert "img.src=original?path:'/'+path" in media_js, "News images must support absolute original URLs and local archives"
     assert "an-cover" in media_js and "an-feature-media" in media_js
+    assert "art.src=handball?" in media_js, "News fallback must distinguish handball from other sports"
+    assert (DIST/"archelaos-welcome.png").is_file(), "Missing general club editorial fallback"
+    assert (DIST/"images/archelaos-news-handball.svg").is_file(), "Missing handball editorial fallback"
     for article in news["items"]:
         path = article.get("image", "")
         if not path or path == "assets/archelaos-crest.png" or path.startswith("https://"):
