@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Read-only GitHub Actions evidence. Never downloads logs, secrets or artifacts."""
 import argparse
+from collections import Counter
 from datetime import datetime, timezone
 import json
 import os
@@ -281,6 +282,11 @@ def main():
         print("Cannot safely write fixed report directory; no alternate path attempted.")
         return 1
     print(f"Automation health: {len(report['workflows'])} workflows, {len(report['attention'])} need attention.")
+    if os.getenv("GITHUB_ACTIONS") == "true":
+        counts = Counter(row["state"] for row in report["workflows"])
+        details = "; ".join(f"{state}={count}" for state, count in sorted(counts.items()))
+        print("::notice title=Automation health evidence::"
+              f"total={len(report['workflows'])}; attention={len(report['attention'])}; " + details)
     return 0 if report["ok"] else 1
 
 
