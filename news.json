@@ -798,7 +798,15 @@
       "image": "images/news/archery-central-european-cup-novi-marof-2025.jpg",
       "imageSourceUrl": "https://odelalis.gr/wp-content/uploads/2025/06/katerini_kroatia_toxovolia-1.jpg",
       "imageNote": "Φωτογραφία από το συγκεκριμένο δημοσίευμα του Ντελάλη, Central European Cup 2025.",
-      "imageReuseAllowed": true
+      "imageReuseAllowed": true,
+      "eventId": "central-european-cup-novi-marof-2025",
+      "eventDate": "2025-06-21",
+      "personFacts": {
+        "arch-955a386f547f": "Στο Central European Cup στο Novi Marof (21/06/2025), τρίτος στην κατάταξη και τέταρτος στους αγώνες αποκλεισμού του Ολυμπιακού τόξου U21.",
+        "arch-konstantinos-charisis-arch": "Στο Central European Cup στο Novi Marof (21/06/2025), 14ος στον γύρο κατάταξης U18 και συμμετοχή έως τη φάση των 1/8.",
+        "arch-6212ba5ea7f1": "Στο Central European Cup στο Novi Marof (21/06/2025), 31ος στον γύρο κατάταξης ανδρών και συμμετοχή έως τη φάση των 1/16.",
+        "arch-44ef21dfb9b7": "Προπονητής της αποστολής τοξοβολίας του Γ.Α.Σ. Αρχέλαος στο Central European Cup, Novi Marof (21/06/2025)."
+      }
     },
     {
       "id": "gymnastics-2025-festival-largest-team",
