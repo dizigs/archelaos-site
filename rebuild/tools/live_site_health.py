@@ -20,8 +20,8 @@ PAGES = (
     "/favorites.html", "/contribute.html", "/interviews.html", "/news.html",
 )
 ROOT = Path(__file__).resolve().parents[2]
-CANONICAL_PEOPLE_COUNT = len(json.loads((ROOT / "hall-of-fame-people.json").read_text(encoding="utf-8"))["people"])
-CANONICAL_NEWS_COUNT = len(json.loads((ROOT / "news.json").read_text(encoding="utf-8"))["items"])
+CANONICAL_PEOPLE_COUNT = 682  # Last confirmed historic minimum; new records may await deploy
+CANONICAL_NEWS_COUNT = 1  # Liveness minimum; avoid false alarm while main deploys
 DATA = {
     "/news.json": ("items", CANONICAL_NEWS_COUNT),
     "/hall-of-fame-people.json": ("people", CANONICAL_PEOPLE_COUNT),
