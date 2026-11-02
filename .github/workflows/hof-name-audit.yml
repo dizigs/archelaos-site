@@ -10,13 +10,9 @@ on:
       - 'hall-of-fame-people.json'
       - '.github/scripts/hof_name_audit.py'
       - '.github/workflows/hof-name-audit.yml'
+  # This required check must be scheduled for every PR, regardless of changed paths.
   pull_request:
     branches: [main]
-    paths:
-      - 'news.json'
-      - 'hall-of-fame-people.json'
-      - '.github/scripts/hof_name_audit.py'
-      - '.github/workflows/hof-name-audit.yml'
 permissions:
   contents: read
 jobs:
