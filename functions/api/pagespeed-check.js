@@ -41,7 +41,7 @@ export async function onRequestGet({ request, env }) {
   // from multiplying Google API requests or allowing external target scans.
   const canonical = SITE + PAGES[page];
   const cacheKey = new Request(
-    `${SITE}/api/pagespeed-check?v=2&page=${encodeURIComponent(page)}&device=${device}`,
+    `${SITE}/api/pagespeed-check?v=3&page=${encodeURIComponent(page)}&device=${device}`,
     { method: "GET" }
   );
   const cache = caches.default;
@@ -133,6 +133,8 @@ export async function onRequestGet({ request, env }) {
     scores,
     labMetrics,
     diagnosis,
+    lcpInsightDetails: JSON.stringify(audits["lcp-breakdown-insight"]?.details || null).slice(0, 3800),
+    lcpDiscoveryDetails: JSON.stringify(audits["lcp-discovery-insight"]?.details || null).slice(0, 1800),
     fieldDataAvailable: Boolean(report.loadingExperience?.metrics && Object.keys(report.loadingExperience.metrics).length)
   }, 200, CACHE_SECONDS);
   try { await cache.put(cacheKey, result.clone()); } catch { /* Cache is best-effort. */ }
