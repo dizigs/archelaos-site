@@ -24,8 +24,18 @@ jobs:
       - name: Install Go
         uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff # v5
         with:
-          go-version: 'stable'
-      - name: Install versioned actionlint
-        run: go install github.com/rhysd/actionlint/cmd/actionlint@v1.7.11
+          go-version: '1.27.3'
+      - name: Build commit-verified actionlint using locked module dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          src="$RUNNER_TEMP/actionlint-src"
+          git clone --depth=1 --branch v1.7.11 --quiet https://github.com/rhysd/actionlint.git "$src"
+          test "$(git -C "$src" rev-parse HEAD)" = "393031adb9afb225ee52ae2ccd7a5af5525e03e8"
+          (
+            cd "$src"
+            go mod verify
+            go build -mod=readonly -o "$RUNNER_TEMP/actionlint" ./cmd/actionlint
+          )
       - name: Check all workflows (no secrets or site changes)
-        run: '"$(go env GOPATH)/bin/actionlint" -color'
+        run: '"$RUNNER_TEMP/actionlint" -color'
