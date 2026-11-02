@@ -145,6 +145,19 @@ def verify() -> None:
     assert len(ids) == len(set(ids)), "Duplicate Hall person identifiers"
     names = [(p["name"].strip().casefold(), p.get("role", "").strip().casefold()) for p in hall["people"]]
     assert len(names) == len(set(names)), "Duplicate Hall names and roles"
+    # A single traceable graph must connect every publicly named person/event
+    # to its canonical record in both directions. No private intake data leaks.
+    relationships = json.loads((DIST / "assets/site/data/archive-relationships.json").read_text(encoding="utf-8"))
+    from build_archive_relationships import generate as expected_relationships
+    assert relationships == expected_relationships(), "Public archive links differ from canonical source graph"
+    assert relationships["counts"]["nodes"] >= 1000, "Incomplete archive link index"
+    for edge in relationships["edges"]:
+        a, b = edge["a"], edge["b"]
+        assert a in relationships["nodes"] and b in relationships["nodes"], "Dangling linked record"
+        assert {"key":b,"relation":edge["relation"]} in relationships["by_node"][a], "Missing reverse link A"
+        assert {"key":a,"relation":edge["relation"]} in relationships["by_node"][b], "Missing reverse link B"
+    assert (DIST / "assets/archive-links.js").is_file(), "Missing archive link popup renderer"
+    assert (DIST / "assets/archive-links.css").is_file(), "Missing archive link styles"
     news = json.loads((DIST / "news.json").read_text(encoding="utf-8"))
     assert news == json.loads((ROOT / "news.json").read_text(encoding="utf-8")), "News feed out of sync"
     # The release pipeline deliberately fingerprints shared CSS/JS references in
