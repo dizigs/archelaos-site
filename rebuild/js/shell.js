@@ -207,7 +207,7 @@ function renderSiteTools(){
    panel.querySelector('[data-arch-a11y-toggle="'+key+'"]').setAttribute('aria-pressed',String(settings[key]));
   }
   size.value=String(settings.size);
-  try{localStorage.setItem('archelaos-accessibility-v1',JSON.stringify(settings))}catch(_){}
+
  }
  apply();
  launch.addEventListener('click',()=>{
@@ -220,10 +220,11 @@ function renderSiteTools(){
   launch.setAttribute('aria-expanded','false');launch.focus({preventScroll:true});
  });
  panel.addEventListener('cancel',()=>launch.setAttribute('aria-expanded','false'));
- size.addEventListener('change',()=>{settings.size=Number(size.value);apply()});
+ function saveSettings(){try{localStorage.setItem('archelaos-accessibility-v1',JSON.stringify(settings))}catch(_){}}
+ size.addEventListener('change',()=>{settings.size=Number(size.value);apply();saveSettings()});
  panel.querySelectorAll('[data-arch-a11y-toggle]').forEach(button=>
-  button.addEventListener('click',()=>{const key=button.dataset.archA11yToggle;settings[key]=!settings[key];apply()}));
- panel.querySelector('.arch-a11y-reset').addEventListener('click',()=>{settings={...defaults};apply()});
+  button.addEventListener('click',()=>{const key=button.dataset.archA11yToggle;settings[key]=!settings[key];apply();saveSettings()}));
+ panel.querySelector('.arch-a11y-reset').addEventListener('click',()=>{settings={...defaults};apply();try{localStorage.removeItem('archelaos-accessibility-v1')}catch(_){}});
  const updateBackTop=()=>{backTop.hidden=window.scrollY<320};
  backTop.addEventListener('click',()=>{
   const brand=document.querySelector('.arch-brand');
