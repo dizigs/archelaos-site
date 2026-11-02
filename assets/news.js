@@ -146,7 +146,19 @@ function show(id){
  for(const text of x.body||[]){const p=document.createElement('p');p.textContent=text;detail.append(p)}
  const source=document.createElement('div');source.className='an-source';source.textContent=t('Πηγή: ','Source: ')+x.source;const links=document.createElement('div');links.className='an-links';
  if(x.sourceUrl&&/^https:\/\//.test(x.sourceUrl)){const a=link(x.sourceUrl,t('Αρχικό δημοσίευμα','Original article'));a.target='_blank';a.rel='noopener noreferrer';links.append(a)}
+ for(const s of x.additionalSources||[]){if(s&&typeof s.url==='string'&&/^https:\/\//.test(s.url)){const a=link(s.url,s.label||t('Επιπλέον πηγή','Additional source'));a.target='_blank';a.rel='noopener noreferrer';links.append(a)}}
  for(const id of x.personIds||[]){const a=link('/hall-of-fame.html?person='+encodeURIComponent(id),'');a.dataset.personId=id;a.dataset.personName='true';a.setAttribute('aria-haspopup','dialog');a.setAttribute('title',t('Άνοιγμα βιογραφικού εδώ, πάνω από την είδηση','Open biography here over the article'));links.append(a)}
+ const kinds=Array.isArray(x.archiveKinds)?x.archiveKinds:[];
+ if(!x.unverified&&x.sourceUrl?.startsWith('https://')){
+  if((kinds.includes('interview')||kinds.includes('statement'))&&x.intervieweeName){
+   links.append(link('/interviews.html?record='+encodeURIComponent('news-'+x.id),
+     t('Συνέντευξη ή δήλωση · Αρχείο Φωνών','Interview / statement · Voices archive')));
+  }
+  if(kinds.includes('press_clipping')){
+   links.append(link('/interviews.html?kind=press&record='+encodeURIComponent('press-news-'+x.id),
+     t('Απόκομμα Τύπου · Αρχείο','Press clipping · Archive')));
+  }
+ }
  if(links.querySelector('[data-person-name]')){
   window.ArchelaosBio.load().then(data=>{
    const names=new Map(data.people.map(p=>[p.id,p.name]));
@@ -154,6 +166,7 @@ function show(id){
   }).catch(()=>{links.querySelectorAll('[data-person-name]').forEach(a=>{a.textContent=t('Βιογραφικό','Biography')})});
  }
  source.append(links);detail.append(source);
+ void window.ArchelaosLinks?.append(detail,'news',x.id,{limit:8,excludeKinds:['person']});
  const b=$('an-dialog-heart'),favorites=window.ArchelaosFavorites;const saved=favorites?.has('news',x.id);
  b.dataset.favoriteKind='news';b.dataset.favoriteId=x.id;b.querySelector('span').textContent=saved?'♥':'♡';b.setAttribute('aria-pressed',String(!!saved));b.setAttribute('aria-label',saved?'Αφαίρεση από τα αγαπημένα':'Αποθήκευση στα αγαπημένα');
  const dialog=$('an-dialog');if(!dialog.open)dialog.showModal();$('an-close').focus();

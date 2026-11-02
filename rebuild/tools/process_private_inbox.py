@@ -27,7 +27,7 @@ PUBLIC_CATALOG_PATHS = {
 
 
 def load_catalogs(base: Path = ROOT):
-    return {key: read_json(base / relative) for key, relative in PUBLIC_CATALOG_PATHS.items()}
+    return {key: read_json(base / relative, within=base) for key, relative in PUBLIC_CATALOG_PATHS.items()}
 
 
 def canonical_digest(catalogs: dict) -> str:
@@ -44,7 +44,7 @@ def run_queue(workspace: Path, catalogs: dict):
     with intake_lock(workspace):
         for file in sorted((workspace / "receipts").glob("*.json")):
             try:
-                receipt = read_json(file)
+                receipt = read_json(file, within=workspace / "receipts")
                 receipt_id = receipt["receipt_id"]
                 if (receipt.get("privacy") != "internal_only"
                         or receipt.get("publishable") is not False
@@ -57,14 +57,14 @@ def run_queue(workspace: Path, catalogs: dict):
                     counts["skipped"] += 1
                     continue
                 source = workspace / "research" / (receipt_id + ".json")
-                lead_data = read_json(source)
+                lead_data = read_json(source, within=workspace / "research")
                 if lead_data.get("privacy") != "internal_only":
                     raise ValueError("Not a private lead document")
                 # Reconcile again if either contribution leads OR public archives change.
                 lead_sha = hashlib.sha256(source.read_bytes()).hexdigest()
                 target = workspace / "matches" / (receipt_id + ".json")
                 if target.exists():
-                    previous = read_json(target)
+                    previous = read_json(target, within=workspace / "matches")
                     if (previous.get("catalog_sha256") == stamp
                             and previous.get("leads_sha256") == lead_sha
                             and previous.get("privacy") == "internal_only"

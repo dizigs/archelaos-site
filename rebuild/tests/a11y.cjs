@@ -4,25 +4,15 @@ const {chromium}=require('playwright');
 const {mkdirSync,writeFileSync,readdirSync,readFileSync}=require('node:fs');
 const path=require('node:path');
 const BASE='http://127.0.0.1:8766';
-const ROOT=path.join(__dirname,'..','..');
 const OUTPUT=path.join(__dirname,'..','test-artifacts','accessibility');
-// The canonical Hall of Fame grows over time: don't freeze its size at the
-// original 682 archival pages. Check every built profile by stable person ID.
-const master=JSON.parse(readFileSync(path.join(ROOT,'hall-of-fame-people.json'),'utf8'));
-const expectedIds=master.people.map(person=>person.id);
-if(master.count!==expectedIds.length||new Set(expectedIds).size!==expectedIds.length)
-  throw Error('Canonical Hall of Fame count or person IDs are inconsistent');
-const allProfiles=readdirSync(path.join(ROOT,'dist','people'))
-  .filter(x=>x.startsWith('arch-')&&x.endsWith('.html'));
-const actualIds=new Set(allProfiles.map(file=>file.slice(0,-5)));
-const expectedSet=new Set(expectedIds);
-const missing=expectedIds.filter(id=>!actualIds.has(id));
-const unexpected=[...actualIds].filter(id=>!expectedSet.has(id));
-if(missing.length||unexpected.length||allProfiles.length!==expectedIds.length)
-  throw Error('Built Hall of Fame profiles differ from canonical master: expected '
-    +expectedIds.length+', found '+allProfiles.length
-    +'; missing='+missing.slice(0,10).join(',')
-    +'; unexpected='+unexpected.slice(0,10).join(','));
+const allProfiles=readdirSync(path.join(__dirname,'..','..','dist','people')).filter(x=>x.startsWith('arch-')&&x.endsWith('.html'));
+const hall=JSON.parse(readFileSync(path.join(__dirname,'..','..','hall-of-fame-people.json'),'utf8'));
+const personIds=hall.people.map(p=>p.id);
+const unique=new Set(personIds);
+if(hall.count!==personIds.length || unique.size!==personIds.length ||
+   allProfiles.length!==personIds.length ||
+   allProfiles.some(filename=>!unique.has(filename.slice(0,-5))))
+  throw Error('Published profiles must match every canonical Hall of Fame ID, count and file');
 const routes=['index.html','history.html','hall-of-fame.html','70-stigmes.html',
  'stories.html','board.html','contact.html','sponsors.html','tmimata.html',
  'retro-matches.html','search.html','favorites.html','contribute.html',

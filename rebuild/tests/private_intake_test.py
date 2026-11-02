@@ -9,7 +9,7 @@ import zipfile
 
 TOOLS = Path(__file__).resolve().parents[1] / "tools"
 sys.path.insert(0, str(TOOLS))
-from intake_contributions import ingest, inside_private, MAX_FILE_BYTES
+from intake_contributions import ingest, inside_private, read_json, MAX_FILE_BYTES
 
 
 class PrivateIntakeTests(unittest.TestCase):
@@ -95,6 +95,23 @@ class PrivateIntakeTests(unittest.TestCase):
             ingest(record, self.workspace)
         with self.assertRaises(ValueError):
             inside_private(self.workspace, "/etc/passwd")
+
+    def test_json_reader_requires_known_root_and_rejects_symlink_escape(self):
+        allowed = self.workspace / "incoming"
+        legitimate = allowed / "valid.json"
+        legitimate.write_text('{"status":"private"}', encoding="utf-8")
+        self.assertEqual(read_json(legitimate, within=allowed)["status"], "private")
+        with tempfile.TemporaryDirectory() as outside:
+            external = Path(outside) / "sensitive.json"
+            external.write_text('{"private":"never-read"}', encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "outside"):
+                read_json(external, within=allowed)
+            redirect = allowed / "redirect.json"
+            redirect.symlink_to(external)
+            with self.assertRaisesRegex(ValueError, "outside"):
+                read_json(redirect, within=allowed)
+        with self.assertRaises(ValueError):
+            read_json(legitimate.with_suffix(".txt"), within=allowed)
 
     def test_pdf_is_not_falsely_treated_as_extracted(self):
         pdf = self.source(b"%PDF-1.7\nfake-test-pdf", name="scan.pdf")
