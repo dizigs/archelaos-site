@@ -154,3 +154,6 @@ python rebuild/tools/process_private_inbox.py
 - **Εμφάνιση**: διατηρήθηκαν οι σύνδεσμοι του footer χωρίς υπογράμμιση (commit `95278ec`).
 - **Εμπόδιο CI**: το draft PR επιστρέφει `mergeable_state=dirty` λόγω απόκλισης από το main. Οι νέοι commits **δεν έχουν ακόμη ανεξάρτητα επαληθευμένους πλήρεις PR Actions ελέγχους**. Πρέπει να γίνει ασφαλής συγχρονισμός κώδικα και δοκιμή, όχι παράκαμψη της προστασίας.
 - **Όρια λειτουργίας**: το offline intake δεν είναι πραγματικός Gmail/Drive collector, PDF extraction παραμένει pending, η Firecrawl ζωντανή χρήση δεν έχει ενεργοποιηθεί, οι προτάσεις είναι `publishable=false`. Καμία αυτόματη δημοσίευση ή έγκριση ιστορικών ισχυρισμών δεν υλοποιήθηκε με αυτά τα commits.
+
+### Updated verification checkpoint
+The earlier `mergeable_state=dirty` note predates merge commit `7b48c04` into this existing PR branch. Seven conflicts were resolved while retaining current main security/QA. SonarCloud check `125547113309` at `ab96524` now passes with zero new issues; Release integrity `41523978439`, contribution tests `41523978822`, private intake `41523978866` and other checks listed in `docs/WORK_LOG.md` passed. Rebuild `41523978691` was still running at observation. Required policy/reviews remain unverified; keep Draft, no merge or production deployment claim. This does not activate Gmail/Drive or external research.
