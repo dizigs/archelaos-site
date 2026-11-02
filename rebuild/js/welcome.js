@@ -17,8 +17,8 @@
   root.append(inner);document.body.append(root);
   let done=false,timer;
   const close=()=>{if(done)return;done=true;clearTimeout(timer);root.classList.add('is-leaving');root.addEventListener('transitionend',()=>root.remove(),{once:true});setTimeout(()=>root.remove(),500)};
-  // A uniform three-second welcome on mobile, tablet and desktop.
-  timer=setTimeout(close,3000);
+  // Keep the visual welcome but release LCP-sensitive content promptly.
+  timer=setTimeout(close,950);
  };
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
