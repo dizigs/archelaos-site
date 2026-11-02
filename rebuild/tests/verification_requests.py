@@ -27,7 +27,7 @@ def validate(data):
     content=(ROOT/"contribute.html").read_text(encoding="utf-8")
     assert 'id="archive-verification"' in content and "Προς <em>τεκμηρίωση" in content
     assert "/rebuild/js/verification-requests.js" in content
-    assert "mailto:info@archelaos.club" in content
+    assert "mailto:contact@archelaos.club" in content
     print("PUBLIC EVIDENCE REQUESTS OK:",len(ids),"neutral, source-seeking requests across all departments")
 
 if __name__=="__main__":
