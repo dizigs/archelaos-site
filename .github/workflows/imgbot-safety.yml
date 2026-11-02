@@ -1,0 +1,54 @@
+name: Validate ImgBot-only changes
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, ready_for_review]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  images-only:
+    name: ImgBot image-only validation
+    # A skipped job is NOT a success gate for Mergify; all non-ImgBot PRs
+    # remain ineligible for the automation.
+    if: github.event.pull_request.user.login == 'imgbot[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Verify only existing, display-image files were modified
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+          gh api --paginate "repos/${GITHUB_REPOSITORY}/pulls/${PR_NUMBER}/files?per_page=100" --jq '.[] | [.filename, .status] | @tsv' > "${RUNNER_TEMP}/imgbot-files.tsv"
+          python3 - <<'PY'
+          import os
+          import re
+          from pathlib import Path
+
+          allowed = re.compile(
+              r'^(?:'
+              r'(?:images|assets|rebuild/images|rebuild/assets)/[A-Za-z0-9._/-]+\.(?:png|jpe?g|webp|gif)'
+              r'|(?:archelaos-logo-(?:gold|green)|archelaos-welcome|favicon-(?:180|192|512))\.png'
+              r'|social-preview\.jpg'
+              r')$',
+              re.IGNORECASE
+          )
+          entries = []
+          for line in (Path(os.environ["RUNNER_TEMP"]) / "imgbot-files.tsv").read_text().splitlines():
+              fields = line.split("\t")
+              if len(fields) != 2:
+                  raise SystemExit("Invalid pull request file entry")
+              entries.append(fields)
+          if not entries:
+              raise SystemExit("No changed image files: refusing automatic merge")
+          bad = [(path, status) for path, status in entries
+                 if status != "modified" or not allowed.fullmatch(path)]
+          if bad:
+              print("Unsafe non-image, deleted, renamed, or added files:", bad[:20])
+              raise SystemExit(1)
+          print(f"PASS: {len(entries)} existing, display-image file(s) modified; no deletions or code changes.")
+          PY
