@@ -23,6 +23,12 @@ class SelfHealTests(unittest.TestCase):
         self.assertEqual(n, 0)
         self.assertEqual(again, fixed)
 
+    def test_preserve_intertag_escape_inside_inline_script(self):
+        raw = '<head><script>const s = ">\\n<";</script></head>'
+        fixed, count = m.repair_news_head(raw)
+        self.assertEqual(count, 0)
+        self.assertEqual(fixed, raw)
+
     def test_refuse_unrecognized_markup(self):
         with self.assertRaises(ValueError):
             m.repair_news_head('<body>News</body>')
