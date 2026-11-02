@@ -7,6 +7,8 @@ on:
       - 'rebuild/tools/draft_contribution_research.py'
       - 'rebuild/tools/match_contribution_records.py'
       - 'rebuild/tools/build_archive_links.py'
+      - 'rebuild/tools/intake_contributions.py'
+      - 'rebuild/tests/private_intake_test.py'
       - 'news.json'
       - 'hall-of-fame-people.json'
       - 'rebuild/data/interviews.json'
@@ -28,8 +30,10 @@ jobs:
         with:
           python-version: '3.12'
       - name: Compile modules
-        run: python -m py_compile rebuild/tools/contribution_research.py rebuild/tools/search_contribution_leads.py rebuild/tools/draft_contribution_research.py rebuild/tools/match_contribution_records.py rebuild/tools/build_archive_links.py
+        run: python -m py_compile rebuild/tools/contribution_research.py rebuild/tools/search_contribution_leads.py rebuild/tools/draft_contribution_research.py rebuild/tools/match_contribution_records.py rebuild/tools/build_archive_links.py rebuild/tools/intake_contributions.py
       - name: Run offline regression tests
         run: python -m unittest discover -s rebuild/tests -p contribution_pipeline_test.py -v
+      - name: Run private intake and idempotency regression tests
+        run: python -m unittest discover -s rebuild/tests -p private_intake_test.py -v
       - name: Build reciprocal archive link proposals (not published)
         run: python rebuild/tools/build_archive_links.py
