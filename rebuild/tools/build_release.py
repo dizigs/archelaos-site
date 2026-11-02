@@ -168,6 +168,9 @@ def create_page(entry: dict) -> None:
         r'<meta\b(?=[^>]*\bname=["\x27]description["\x27])[^>]*>',
         meta_tag("description", entry["description"]), raw, count=1, flags=re.I
     )
+    link_style = '<link rel="stylesheet" href="/assets/archive-links.css">'
+    if link_style not in raw:
+        raw = raw.replace("</head>", link_style + "\n</head>", 1)
     # One biography popup contract on every generated museum/search/department page.
     # The central HOF JSON remains the only source of biographical text.
     # Shared related-content script is generated on every museum route.
