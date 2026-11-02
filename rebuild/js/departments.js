@@ -36,18 +36,21 @@ async function init(){
   gymnastics:['ενοργανη γυμναστικη'],volleyball:['βολει','πετοσφαιριση'],
   wrestling:['παλη'],swimming:['κολυμβηση'],basketball:['καλαθοσφαιριση']
  };
- const plain=s=>String(s||'').toLocaleLowerCase('el').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').replace(/ς/g,'σ');
+ const plain=s=>String(s||'').toLocaleLowerCase('el').normalize('NFD').replace(/\p{M}/gu,'').replace(/ς/g,'σ');
  function appendNewsTimeline(root,key){
   if(!sportNames[key])return;
   if(!newsTimelinePromise)newsTimelinePromise=fetch('/news.json',{cache:'no-cache'})
    .then(r=>{if(!r.ok)throw Error('News timeline unavailable: '+r.status);return r.json()})
    .then(d=>Array.isArray(d.items)?d.items:[])
    .catch(err=>{newsTimelinePromise=null;throw err});
-  void newsTimelinePromise.then(items=>{
+  void newsTimelinePromise.then(async items=>{
+   if(!root.isConnected)return;
+   const people=await window.ArchelaosBio?.load?.().catch(()=>null);
+   const personNames=new Map((people?.people||[]).map(p=>[p.id,p.name]));
    if(!root.isConnected)return;
    const seen=new Set(),names=sportNames[key];
    const events=items.filter(x=>!x.unverified&&x.eventDate&&x.sourceUrl?.startsWith('https://')
-    &&names.includes(plain(x.sport))&&Array.isArray(x.personIds))
+    &&names.includes(plain(x.sport)))
     .sort((a,b)=>String(b.eventDate).localeCompare(String(a.eventDate)))
     .filter(x=>{const id=x.eventId||'news-'+x.id;if(seen.has(id))return false;seen.add(id);return true;})
     .slice(0,12);
@@ -63,11 +66,11 @@ async function init(){
     const article=document.createElement('a');article.href='/news.html?article='+encodeURIComponent(x.id);article.textContent=x.title;
     const source=document.createElement('a');source.href=x.sourceUrl;source.target='_blank';source.rel='noopener noreferrer';source.textContent='Πηγή';
     item.append(date,article,source);
-    if(x.personIds.length){
+    if(Array.isArray(x.personIds)&&x.personIds.length){
      const persons=document.createElement('div');persons.className='dp-news-persons';
      for(const id of [...new Set(x.personIds)]){
       const person=document.createElement('a');person.href='/hall-of-fame.html?person='+encodeURIComponent(id);
-      person.dataset.archBioId=id;person.textContent='Hall of Fame';person.setAttribute('aria-label','Άνοιγμα βιογραφικού Hall of Fame');
+      person.dataset.archBioId=id;person.textContent=personNames.get(id)||'Hall of Fame';person.setAttribute('aria-label','Άνοιγμα βιογραφικού Hall of Fame: '+person.textContent);
       persons.append(person);
      }
      item.append(persons);
