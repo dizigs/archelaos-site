@@ -5,6 +5,7 @@ on:
       - 'rebuild/tools/contribution_research.py'
       - 'rebuild/tools/search_contribution_leads.py'
       - 'rebuild/tools/draft_contribution_research.py'
+      - 'rebuild/tools/match_contribution_records.py'
       - 'rebuild/tests/contribution_pipeline_test.py'
       - '.github/workflows/contribution-research-tests.yml'
   workflow_dispatch:
@@ -20,6 +21,6 @@ jobs:
         with:
           python-version: '3.12'
       - name: Compile modules
-        run: python -m py_compile rebuild/tools/contribution_research.py rebuild/tools/search_contribution_leads.py rebuild/tools/draft_contribution_research.py
+        run: python -m py_compile rebuild/tools/contribution_research.py rebuild/tools/search_contribution_leads.py rebuild/tools/draft_contribution_research.py rebuild/tools/match_contribution_records.py
       - name: Run offline regression tests
         run: python -m unittest discover -s rebuild/tests -p contribution_pipeline_test.py -v
