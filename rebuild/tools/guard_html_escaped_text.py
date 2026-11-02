@@ -14,7 +14,7 @@ from pathlib import Path
 import sys
 
 ROOT = Path(__file__).resolve().parents[2]
-IGNORED_TAGS = {"script", "style", "code", "pre", "textarea", "template", "noscript"}
+IGNORED_TAGS = {"script", "style", "code", "pre", "template"}
 ESCAPES = (r"\n", r"\r", r"\t")
 
 
