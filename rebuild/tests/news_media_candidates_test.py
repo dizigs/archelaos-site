@@ -34,11 +34,56 @@ class MediaFacetTests(unittest.TestCase):
             module.candidates([dict(self.row,archiveKinds=["interview"],intervieweePersonId="p2")],self.people)
     def test_no_keyword_auto_classification(self):
         row=dict(self.row,title="Συνέντευξη προέδρου στην εφημερίδα")
-        self.assertFalse(module.candidates([row],self.people)["interviews"])
+        result=module.candidates([row],self.people)
+        self.assertFalse(result["interviews"])
+        self.assertEqual(len(result["classification_suggestions"]),1)
+        self.assertFalse(result["classification_suggestions"][0]["auto_publish"])
     def test_duplicate_facet_safe_repair(self):
         row=dict(self.row,archiveKinds=["interview","interview","press_clipping"])
         from news_pipeline_self_heal import repair
         self.assertEqual(repair([row],self.people),["article-1"])
         self.assertEqual(row["archiveKinds"],["interview","press_clipping"])
+
+    def test_explicit_interview_title_review_only(self):
+        row=dict(self.row,title="Συνέντευξη: Ο προπονητής μιλά για την ομάδα")
+        result=module.candidates([row],self.people)
+        self.assertEqual(result["schema_version"],2)
+        self.assertEqual(result["classification_suggestions"][0]["proposed_kind"],"interview")
+        self.assertEqual(result["classification_suggestions"][0]["editorial_status"],"needs_review")
+        self.assertTrue(result["classification_suggestions"][0]["speaker_needs_verification"])
+        self.assertEqual(result["interviews"],[])
+        self.assertEqual(row.get("archiveKinds"),None)
+
+    def test_press_clipping_title_review_only(self):
+        row=dict(self.row,title="Απόκομμα Τύπου: Αρχέλαος 1994")
+        result=module.candidates([row],self.people)
+        self.assertEqual([s["proposed_kind"] for s in result["classification_suggestions"]],["press_clipping"])
+        self.assertFalse(result["press_clippings"])
+
+    def test_no_false_positive_press_conference(self):
+        row=dict(self.row,title="Συνέντευξη Τύπου για το νέο πρωτάθλημα")
+        self.assertFalse(module.candidates([row],self.people)["classification_suggestions"])
+
+    def test_contextual_interview_not_interview_article(self):
+        row=dict(self.row,title="Νέος πρόεδρος του συλλόγου",
+                 summary="Σε σχετική συνέντευξη αναφέρθηκαν οι στόχοι του")
+        self.assertFalse(module.candidates([row],self.people)["classification_suggestions"])
+
+    def test_unverified_or_unsourced_never_suggested(self):
+        row=dict(self.row,title="Συνέντευξη: προπονητής")
+        self.assertFalse(module.candidates([dict(row,unverified=True)],self.people)["classification_suggestions"])
+        self.assertFalse(module.suggest_archive_kinds(dict(row,sourceUrl="")))
+
+    def test_dont_suggest_preapproved_kind(self):
+        row=dict(self.row,title="Συνέντευξη: προπονητής",archiveKinds=["interview"])
+        result=module.candidates([row],self.people)
+        self.assertFalse(result["classification_suggestions"])
+        self.assertEqual(len(result["interviews"]),1)
+
+    def test_explicit_statement_review_only(self):
+        row=dict(self.row,title="Δήλωση: Ο πρόεδρος του Αρχέλαου")
+        result=module.candidates([row],self.people)
+        self.assertEqual([s["proposed_kind"] for s in result["classification_suggestions"]],["statement"])
+        self.assertFalse(result["interviews"])
 
 if __name__=="__main__": unittest.main()
