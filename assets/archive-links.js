@@ -1,6 +1,12 @@
 /* One public relationship index; no heuristic name matching or external data. */
 (function(){'use strict';
 let pending=null;
+const english=()=>document.documentElement.lang==='en';
+const LABEL_EN={
+ news:'News & Activity',person:'Hall of Fame',event:'Event',
+ story:'Story',moment:'70 Moments',interview:'Voices',
+ department:'Department',exhibit:'Digital Museum'
+};
 const LABEL={
  news:'Νέα & Δράση',person:'Hall of Fame',event:'Γεγονός',
  story:'Ιστορία',moment:'70 Στιγμές',interview:'Φωνές',
@@ -44,9 +50,9 @@ async function append(container,kind,id,options={}){
   if(!results.length)return;
   const section=document.createElement('section');
   section.className='arch-archive-relations';
-  section.setAttribute('aria-label','Σχετικές καταχωρίσεις ιστορικού αρχείου');
+  section.setAttribute('aria-label',english()?'Related archive records':'Σχετικές καταχωρίσεις ιστορικού αρχείου');
   const heading=document.createElement('strong');
-  heading.textContent='Σχετικές καταχωρίσεις';
+  heading.textContent=english()?'Related records':'Σχετικές καταχωρίσεις';
   const grid=document.createElement('div');
   grid.className='arch-archive-links-grid';
   const max=Math.max(1,Math.min(12,Number(options.limit)||8));
@@ -56,7 +62,7 @@ async function append(container,kind,id,options={}){
    a.href=node.url;
    const type=document.createElement('span');
    type.className='arch-archive-link-kind';
-   type.textContent=LABEL[node.type]||'Αρχείο';
+   type.textContent=(english()?LABEL_EN:LABEL)[node.type]||(english()?'Record':'Αρχείο');
    const title=document.createElement('span');
    title.className='arch-archive-link-title';
    title.textContent=node.title;
