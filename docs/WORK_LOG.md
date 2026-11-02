@@ -87,6 +87,21 @@
 
 **Μόνιμος κανόνας:** Κάθε σφάλμα/ανίχνευση/διόρθωση καταχωρίζεται εδώ ή σε αντίστοιχο tracked Issue/PR με commit, κατάσταση και πραγματική επαλήθευση. Η έλλειψη τελικού ελέγχου σημειώνεται ως pending, ποτέ ως completed.
 
+## Ενοποιημένες συνδέσεις δημόσιου αρχείου — 2026-11-02
+
+**Αίτημα:** Όλες οι τεκμηριωμένες δημόσιες πληροφορίες να διασυνδέονται με όλα τα συναφή πρόσωπα, ειδήσεις, χρονολόγια, τμήματα, ιστορίες, συνεντεύξεις και μουσειακά εκθέματα. Όχι αυθαίρετα συμπεράσματα ή διπλές εγγραφές. Υλικό Google Drive παραμένει ιδιωτικό μέχρι να γίνει κατάλληλη δημόσια ασφαλής αξιοποίηση.
+
+| Ώρα/στάδιο | Τεκμηριωμένη εργασία και αιτία | Κατάσταση/επαλήθευση |
+|---|---|---|
+| STARTED | Έλεγχος public canonical sources `hall-of-fame-people.json` (760), `news.json` (118), `archelaos-history-events.json` (100), 70 Στιγμές, 21 Ιστορίες, 28 συνεντεύξεις και 26 εκθέματα. Έλεγχος ρητών personIds / story eventIds: **0 dangling IDs** στο ελεγχθέν σύνολο. | **CHECKED** |
+| IMPLEMENTED | Δημιουργία `rebuild/tools/build_archive_relationships.py` με ένα δημόσιο γράφημα σταθερών IDs και αμφίδρομες ακμές `by_node`, χωρίς αναζήτηση ιδιωτικών δεδομένων, εικαστική ταυτοποίηση ή δεύτερο άρθρο ανά γεγονός. | **IN_PR / CI PENDING** |
+| IMPLEMENTED | Ενσωμάτωση στο `rebuild/tools/build_release.py`, με `assets/site/data/archive-relationships.json` στο `dist` και τελικό έλεγχο αμφιδρομίας στο `verify_release.py`. | **IN_PR / CI PENDING** |
+| IMPLEMENTED | `assets/archive-links.js` + `.css`: σύνδεσμοι σε cards/popups χωρίς διακοσμητικά βελάκια ή underline. Προστέθηκαν hooks στο κοινό popup, Hall of Fame και popup ειδήσεων. | **IN_PR / BROWSER QA PENDING** |
+| IMPLEMENTED | Python tests για graph, αμφίδρομες συνδέσεις, τέσσερα πρόσωπα / ένα event Κροατίας, παλιά historical relationships, αποτυχία σε άκυρο ID, αποκλεισμό `unverified` from public linkage. Συνδέθηκαν με release CI και `news-event-ledger` CI. | **IN_PR / CI PENDING** |
+| OPEN SEPARATE | SonarCloud `Quality Gate failed: C Security Rating on New Code`, περιγράφεται στο [Issue #47](https://github.com/dizigs/archelaos-site/issues/47). Χωρίς πρόσβαση στα line-level findings, δεν δηλώνεται επιλυμένο. | **OPEN** |
+
+**Επόμενο:** Δημιουργία PR, πραγματικά tests και διόρθωση κάθε εντοπισμένου regression με νέο commit εδώ. Ούτε merge ούτε επιτυχές production υπονοούνται από την ύπαρξη commit.
+
 ## Σημείο συνέχισης
 
 1. Διαβάζουμε αυτό το log **και** την τρέχουσα κατάσταση PR #42 / workflow runs.
