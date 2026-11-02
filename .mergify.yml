@@ -1,0 +1,16 @@
+# Only lossless-image updates by the official ImgBot account are eligible
+# for automatic merging. All content/code/biography/news PRs stay manual.
+# This will not run until Mergify Workflow Automation is enabled for the repo.
+pull_request_rules:
+  - name: Merge only verified ImgBot image optimizations
+    conditions:
+      - base = main
+      - author = imgbot[bot]
+      - -draft
+      - "check-success = @github-actions/ImgBot image-only validation"
+      - "check-success = @github-actions/Validate production build"
+      - "check-success = @gitguardian/GitGuardian Security Checks"
+      - "check-success = @cloudflare-workers-and-pages/Cloudflare Pages"
+    actions:
+      merge:
+        method: squash
