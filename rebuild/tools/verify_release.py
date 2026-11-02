@@ -383,7 +383,7 @@ def verify() -> None:
     # Homepage slideshow buttons must lead to real department anchors.
     home_js = (DIST / "assets/site/js/home.js").read_text(encoding="utf-8")
     assert "titleLink.href='/tmimata.html#sport-'+sportKeys[index]" in home_js, "Slideshow uses a noncanonical department URL"
-    sport_keys_match = re.search(r"const sportKeys=\\[([^\\]]+)\\]", home_js)
+    sport_keys_match = re.search(r"const sportKeys=\[([^\]]+)\]", home_js)
     assert sport_keys_match, "Homepage slideshow sports configuration missing"
     departments_html = (DIST / "tmimata.html").read_text(encoding="utf-8")
     for sport_key in re.findall(r"'([^']+)'", sport_keys_match.group(1)):
