@@ -31,6 +31,19 @@
 - **2026-11-02 (παρούσα συνεδρία) — DONE_IN_PR:** Δημιουργία του παρόντος ημερολογίου εργασιών στο branch του PR #42. Η τήρηση logs ξεκίνησε με πραγματική καταχώριση και δεν προστέθηκε ως ξεχωριστή εκκρεμότητα.
 - **2026-11-02 (από προηγούμενη συνομιλία) — REPORTED:** νέα σύνδεση ειδήσεων/συνεντεύξεων/αποκομμάτων και αμυντικά tests στο PR #42· επιβεβαίωση ολοκλήρωσης μόνον όπου συνοδεύεται από συγκεκριμένο commit/CI.
 
+
+## Έλεγχος PR #42 — 2026-11-02 (νεότερες διορθώσεις)
+
+| Πρόβλημα / παρατήρηση | Ενέργεια | Commit | Κατάσταση |
+|---|---|---|---|
+| Οι πρόσθετες πηγές (`additionalSources`) της είδησης δεν εμφανίζονταν στον αναγνώστη | Προστέθηκε εμφάνιση συνδέσμων HTTPS με ασφαλές `rel` στο `assets/news.js` | [`fd0b032`](https://github.com/dizigs/archelaos-site/commit/fd0b032360dda0d4ab27940ee5de763697c5b829) | **DONE_IN_PR — CI επανέλεγχος εκκρεμεί** |
+| Έγκυρες τοπικές φωτογραφίες σε υποφακέλους ή με κεφαλαία επέκταση θεωρούνταν λανθασμένα προς αντικατάσταση | Διορθώθηκε το `needs_archive` ώστε να δέχεται ασφαλείς nested paths και case-insensitive extensions | [`609137a`](https://github.com/dizigs/archelaos-site/commit/609137a30c35158125ccd3adda743eef1bfccb20) | **DONE_IN_PR — CI επανέλεγχος εκκρεμεί** |
+| CodeRabbit: μη παρατεθειμένη εντολή εγκατάστασης Pillow στο YAML | Προστέθηκαν εισαγωγικά στο `run` του `archive-news-images.yml` | [`5a55f91`](https://github.com/dizigs/archelaos-site/commit/5a55f91cdb2e730c73260b6820cfefd736230995) | **DONE_IN_PR — CI επανέλεγχος εκκρεμεί** |
+| Υπόλοιπες παρατηρήσεις CodeRabbit στο PR #42 | Εντοπίστηκαν συνολικά 16 ανοιχτά review threads πριν τις παραπάνω αλλαγές· απαιτείται έλεγχος εγκυρότητας και επιδιόρθωση των υπολοίπων | [PR #42](https://github.com/dizigs/archelaos-site/pull/42) | **IN_PROGRESS** |
+| Cloudflare asset publishing / GitHub workflow no-jobs | Τα προηγούμενα failures καταγράφονται χωριστά στα [#43](https://github.com/dizigs/archelaos-site/issues/43) και [#44](https://github.com/dizigs/archelaos-site/issues/44), χωρίς τεκμηριωμένη οριστική λύση | Issues #43 / #44 | **OPEN — όχι αποδεδειγμένα επιλυμένα** |
+
+**Δημοσίευση:** Το PR #42 δεν έχει συγχωνευτεί στο `main`· η νέα είδηση για το Central European Cup στην Κροατία **δεν έχει ακόμη επιβεβαιωθεί στο live**. Πριν από merge χρειάζεται επανέλεγχος των checks στο νεότερο head και των ουσιαστικών review comments.
+
 ## Σημείο συνέχισης
 
 1. Διαβάζουμε αυτό το log **και** την τρέχουσα κατάσταση PR #42 / workflow runs.
