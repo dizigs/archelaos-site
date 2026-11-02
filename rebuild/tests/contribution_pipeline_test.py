@@ -20,6 +20,7 @@ extract = load("contribution_research")
 search = load("search_contribution_leads")
 draft = load("draft_contribution_research")
 match = load("match_contribution_records")
+links = load("build_archive_links")
 
 
 class ContributionPipelineTests(unittest.TestCase):
@@ -155,6 +156,45 @@ class ContributionPipelineTests(unittest.TestCase):
         self.assertEqual(match.candidate_matches(
             {"excerpt": "Δοκιμαστική επινόηση για απόκρυψη το 1993.",
              "dates": ["1993"], "scores": []}, records, "interview"), [])
+
+
+    def test_reverse_links_from_existing_identifiers_only(self):
+        canonical = {"people": [
+            {"id": "p1", "name": "Πρόσωπο Πρώτο"},
+            {"id": "p2", "name": "Πρόσωπο Δεύτερο"}
+        ]}
+        catalogs = {
+            "news": {"items": [
+                {"id": "n1", "title": "Αθλητική είδηση", "personIds": ["p1", "p1"]},
+            ]},
+            "interview": {"items": [
+                {"id": "q1", "name": "Ανεπιβεβαίωτη συνέντευξη",
+                 "needsReview": True, "personIds": ["p1"]},
+                {"id": "q2", "name": "Ελεγμένη ταυτότητα",
+                 "needsReview": False, "personIds": ["p2"],
+                 "relatedPeople": [{"id": "p2", "name": "Πρόσωπο Δεύτερο"}]},
+            ]},
+            "story": {"stories": [
+                {"title": "Μια ιστορική αφήγηση", "relatedPeople": ["p1", "p2", "unknown"]},
+            ]},
+            "moment": {"moments": [{"id": 1, "title": "Η ίδρυση του Αρχέλαου"}]},
+            "museum": {"articles": [{"id": "intro", "title": "Εισαγωγή"}]},
+        }
+        output = links.link_proposals(canonical, catalogs)
+        self.assertEqual(output["record_counts"], {"interview": 1, "news": 1, "story": 1})
+        self.assertNotIn("interview:q1", output["people_by_record"])
+        self.assertIn("interview:q2", output["records_by_person"]["p2"])
+        self.assertIn("news:n1", output["records_by_person"]["p1"])
+        self.assertEqual(output["people_by_record"]["news:n1"]["person_ids"], ["p1"])
+        self.assertEqual(len(output["missing_canonical_ids"]), 1)
+        self.assertFalse(output["people_by_record"]["interview:q2"]["publishable"])
+        self.assertTrue(output["people_by_record"][next(
+            x for x in output["people_by_record"] if x.startswith("story:"))]["provisional_record_id"])
+
+    def test_reverse_link_ids_must_be_unique(self):
+        with self.assertRaises(ValueError):
+            links.link_proposals(
+                {"people": [{"id": "p1"}, {"id": "p1"}]}, {})
 
     def test_private_schema_required(self):
         with self.assertRaises(ValueError):
