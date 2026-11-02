@@ -764,6 +764,51 @@
       ]
     },
     {
+      "id": "archery-central-european-cup-novi-marof-2025",
+      "date": "2025-06-23",
+      "category": "achievements",
+      "sport": "Τοξοβολία",
+      "title": "Ο Αρχέλαος στο Central European Cup 2025 στην Κροατία",
+      "summary": "Διεθνής παρουσία στο Novi Marof, με τρεις συμμετοχές του συλλόγου και τέταρτη θέση για τον Ευάγγελο Χαρίση στους Ολυμπιακούς Γύρους U21.",
+      "body": [
+        "Ο Γ.Α.Σ. Αρχέλαος Κατερίνης συμμετείχε στον δεύτερο αγώνα του Central European Cup 2025, που διεξήχθη στις 21 Ιουνίου στο Novi Marof της Κροατίας. Η αποστολή αγωνίστηκε στη διοργάνωση τοξοβολίας που φιλοξένησε ο σύλλογος SK Grebengradski Streličari.",
+        "Στο Ολυμπιακό τόξο U21, ο Ευάγγελος Χαρίσης κατέλαβε την τρίτη θέση στον γύρο κατάταξης και την τέταρτη μετά τους αγώνες αποκλεισμού. Στην κατηγορία U18, ο Κωνσταντίνος Χαρίσης ήταν 14ος στην κατάταξη και αποκλείστηκε στη φάση των 1/8.",
+        "Στους άνδρες, ο Δημήτριος Γαλάνης κατατάχθηκε 31ος και ολοκλήρωσε την πορεία του στους γύρους αποκλεισμού στη φάση των 1/16. Την ομάδα καθοδήγησε ο προπονητής Ιωάννης Χαρίσης.",
+        "Τα αποτελέσματα και η παρουσία της αποστολής καταγράφονται στο δελτίο Τύπου του συλλόγου που δημοσιεύτηκε στις 23 Ιουνίου 2025 από τον Ντελάλη, το Ολύμπιο Βήμα και το PieriaSport."
+      ],
+      "source": "Ο Ντελάλης · 23/06/2025",
+      "sourceUrl": "https://odelalis.gr/apo-tin-katerini-stin-kroatia-toxovolia-me-ypografi-archelaou-sto-central-european-cup-2025/",
+      "additionalSources": [
+        {
+          "label": "PieriaSport · Ιούνιος 2025",
+          "url": "https://pieriasportsite.blogspot.com/2025/06/central-european-cup-2025.html"
+        },
+        {
+          "label": "Ολύμπιο Βήμα · 23/06/2025",
+          "url": "https://olympiobima.gr/apo-tin-katerini-stin-kroatia-toxovolia-me-ypografi-archelaou-kai-istorikes-epidoseis-sto-central-european-cup-2025/"
+        }
+      ],
+      "personIds": [
+        "arch-955a386f547f",
+        "arch-konstantinos-charisis-arch",
+        "arch-6212ba5ea7f1",
+        "arch-44ef21dfb9b7"
+      ],
+      "featured": false,
+      "image": "images/news/archery-central-european-cup-novi-marof-2025.jpg",
+      "imageSourceUrl": "https://odelalis.gr/wp-content/uploads/2025/06/katerini_kroatia_toxovolia-1.jpg",
+      "imageNote": "Φωτογραφία από το συγκεκριμένο δημοσίευμα του Ντελάλη, Central European Cup 2025.",
+      "imageReuseAllowed": true,
+      "eventId": "central-european-cup-novi-marof-2025",
+      "eventDate": "2025-06-21",
+      "personFacts": {
+        "arch-955a386f547f": "Στο Central European Cup στο Novi Marof (21/06/2025), τρίτος στην κατάταξη και τέταρτος στους αγώνες αποκλεισμού του Ολυμπιακού τόξου U21.",
+        "arch-konstantinos-charisis-arch": "Στο Central European Cup στο Novi Marof (21/06/2025), 14ος στον γύρο κατάταξης U18 και συμμετοχή έως τη φάση των 1/8.",
+        "arch-6212ba5ea7f1": "Στο Central European Cup στο Novi Marof (21/06/2025), 31ος στον γύρο κατάταξης ανδρών και συμμετοχή έως τη φάση των 1/16.",
+        "arch-44ef21dfb9b7": "Προπονητής της αποστολής τοξοβολίας του Γ.Α.Σ. Αρχέλαος στο Central European Cup, Novi Marof (21/06/2025)."
+      }
+    },
+    {
       "id": "gymnastics-2025-festival-largest-team",
       "date": "2025-06-19",
       "sport": "Ενόργανη Γυμναστική",
