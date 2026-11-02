@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           persist-credentials: false
       - name: Federate Google identity, no JSON key
@@ -20,7 +20,7 @@ jobs:
         with:
           workload_identity_provider: 'projects/651273323006/locations/global/workloadIdentityPools/archelaos-github/providers/github-actions'
           service_account: 'archelaos-analytics-automation@melodic-voice-484306-n7.iam.gserviceaccount.com'
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: '3.12'
       - name: Install minimal authentication client
@@ -29,7 +29,7 @@ jobs:
       - name: Export daily aggregate data
         run: python .github/scripts/google_aggregate.py
       - name: Keep report private to Actions for 14 days
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: google-search-ga4-private-report
           path: google-analytics-aggregate.json
