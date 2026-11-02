@@ -1,7 +1,7 @@
 /* Functional regressions against the real dist release. No production writes. */
 'use strict';
 const assert = require('node:assert/strict');
-const {mkdirSync, writeFileSync} = require('node:fs');
+const {mkdirSync, writeFileSync, readFileSync} = require('node:fs');
 const path = require('node:path');
 const {chromium} = require('playwright');
 
@@ -41,6 +41,7 @@ async function closed(page, selector) {
     document.querySelector('.arch-menu-open').getAttribute('aria-expanded') === 'false');
 }
 async function run(browser, name, viewport, test) {
+  if (process.env.SITE_STABILITY_CASE && process.env.SITE_STABILITY_CASE !== name) return;
   const context = await browser.newContext({viewport, reducedMotion:'reduce',
     isMobile:viewport.width < 1024, hasTouch:viewport.width < 1024});
   // Test local UI behavior, not third-party fonts, photos or social services.
@@ -165,6 +166,28 @@ async function main() {
         await page.locator('dialog.arch-dialog[open]').waitFor();
         assert.equal(await body.evaluate(node => node.scrollTop), 0, 'New story retained the previous scroll offset');
       });
+      await run(browser, 'news-scroll-reset', view, async page => {
+        // Recent short announcements must not make this regression disappear.
+        const articles = JSON.parse(readFileSync(path.join(__dirname, '..', '..', 'dist', 'news.json'), 'utf8'))
+          .items.filter(item => !item.unverified && Array.isArray(item.body))
+          .sort((a,b) => b.body.join('').length - a.body.join('').length).slice(0,2);
+        assert.equal(articles.length, 2, 'Expected two real article fixtures');
+        await visit(page, 'news.html');
+        await page.locator('#an-search').fill(articles[0].title);
+        await page.locator('#an-grid .an-card-hit[href="/news.html?article=' + encodeURIComponent(articles[0].id) + '"]').click();
+        const panel = page.locator('#an-dialog .an-dialog-inner');
+        await panel.evaluate(node => node.scrollTop = node.scrollHeight);
+        assert.ok(await panel.evaluate(node => node.scrollTop > 100), 'Fixture article must scroll');
+        await page.locator('#an-close').click();
+        await closed(page, '#an-dialog');
+        await page.locator('#an-search').fill(articles[1].title);
+        await page.locator('#an-grid .an-card-hit[href="/news.html?article=' + encodeURIComponent(articles[1].id) + '"]').click();
+        await page.locator('#an-dialog[open]').waitFor();
+        assert.equal(await panel.evaluate(node => node.scrollTop), 0, 'New article retained the previous reading position');
+        assert.equal(await page.evaluate(() => document.body.classList.contains('arch-dialog-open')), true);
+        await page.keyboard.press('Escape');
+        await closed(page, '#an-dialog');
+      });
       await run(browser, 'hall-and-story-card-actions', view, async page => {
         for (const [route, selector] of [['hall-of-fame.html','.h-new-person'], ['stories.html','.rs-featured-card,.rs-card']]) {
           await visit(page, route);
@@ -248,6 +271,7 @@ async function main() {
     writeFileSync(path.join(OUTPUT, 'report.json'), JSON.stringify(report, null, 2) + '\n');
   }
   const failures = report.cases.filter(test => !test.passed);
+  assert.ok(report.cases.length, 'No stability cases selected');
   console.log('Stability:', report.cases.length, 'cases,', report.routes.length,
     'page/viewports,', report.cards, 'card surfaces,', failures.length, 'failures');
   if (failures.length) process.exitCode = 1;

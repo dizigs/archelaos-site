@@ -169,11 +169,13 @@ function show(id){
  void window.ArchelaosLinks?.append(detail,'news',x.id,{limit:8,excludeKinds:['person']});
  const b=$('an-dialog-heart'),favorites=window.ArchelaosFavorites;const saved=favorites?.has('news',x.id);
  b.dataset.favoriteKind='news';b.dataset.favoriteId=x.id;b.querySelector('span').textContent=saved?'♥':'♡';b.setAttribute('aria-pressed',String(!!saved));b.setAttribute('aria-label',saved?'Αφαίρεση από τα αγαπημένα':'Αποθήκευση στα αγαπημένα');
- const dialog=$('an-dialog');if(!dialog.open)dialog.showModal();$('an-close').focus();
+ const dialog=$('an-dialog');if(!dialog.open)dialog.showModal();$('an-close').focus({preventScroll:true});
+ // This reader is reused: a new article must start at its own heading.
+ dialog.querySelector('.an-dialog-inner').scrollTop=0;
  const url=new URL(location.href);url.searchParams.set('article',x.id);history.replaceState(null,'',url)
 }
 // A second *native* showModal() joins the browser top layer above the news
-// dialog. No z-index hacks, navigation or custom body scroll lock are needed.
+// dialog. The shared biography lifecycle keeps scroll locked until both close.
 $('an-detail').addEventListener('click',async event=>{
  const a=event.target.closest?.('a[data-person-id]');
  if(!a||event.defaultPrevented||event.button!==0||event.ctrlKey||event.metaKey||event.shiftKey||event.altKey||a.target==='_blank')return;
