@@ -182,7 +182,9 @@ def ingest(envelope: dict, workspace: Path):
                     "privacy": "internal_only", "publishable": False}
         same_content = next((r for r in recorded if r.get("content_sha256") == content_hash), None)
         history = [r for r in recorded if r.get("identity_hash") == identity_hash]
-        previous = history[-1]["receipt_id"] if history else None
+        previous_record = max(history, key=lambda r: int(r.get("source_sequence", 0))) if history else None
+        previous = previous_record["receipt_id"] if previous_record else None
+        sequence = int(previous_record.get("source_sequence", 0)) + 1 if previous_record else 1
         status = "duplicate_content" if same_content else "queued"
         text, extraction = (None, "duplicate_content") if same_content else extract(payload, extension)
         if text is not None:
@@ -200,6 +202,7 @@ def ingest(envelope: dict, workspace: Path):
             "source_key": source_key,
             "source": source,
             "revision_sha256": digest(revision.encode()),
+            "source_sequence": sequence,
             "content_sha256": content_hash,
             "size_bytes": len(payload),
             "file_type": extension,
