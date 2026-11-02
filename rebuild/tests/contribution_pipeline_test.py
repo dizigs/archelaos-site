@@ -49,6 +49,11 @@ class ContributionPipelineTests(unittest.TestCase):
         self.assertNotIn("test@example.com", query)
         self.assertNotIn("Ιδιωτικό", query)
 
+    def test_merged_basketball_stays_out_of_external_research(self):
+        lead = {"id": "merged", "excerpt": "ΣΦΚ Πιερικός Αρχέλαος μπάσκετ 2026.",
+                "dates": ["2026"]}
+        self.assertIsNone(search.safe_query(lead))
+
     def test_drafts_remain_unpublished_and_unverified(self):
         leads = {"research_leads": [{"id": "abc", "excerpt": "Δοκιμαστικό ιστορικό γεγονός",
                                      "dates": ["1994"], "scores": []}]}
