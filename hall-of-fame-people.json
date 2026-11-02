@@ -1,6 +1,6 @@
 {
   "version": "v1.6",
-  "count": 726,
+  "count": 735,
   "people": [
     {
       "name": "Νίκος Τσινόπουλος",
@@ -1640,10 +1640,16 @@
       "name_en": "Kallianthi Gkimpi",
       "role": "Αθλητής/Αθλήτρια · Κολύμβηση",
       "role_en": "Athlete · Swimming",
-      "bio": "Εκπροσώπησε τον Αρχέλαο στα 50 μ. ελεύθερο του Πανελληνίου Πρωταθλήματος κολύμβησης του 2025.",
-      "bio_en": "Represented Archelaos in the 50 m freestyle at the 2025 Greek swimming championships.",
+      "bio": "Εκπροσώπησε τον Αρχέλαο στα 50 μ. ελεύθερο του Πανελληνίου Πρωταθλήματος κολύμβησης του 2025.\n\nΣτο Πανελλήνιο Πρωτάθλημα Κολύμβησης 2026 βρέθηκε στην πρώτη δεκαεξάδα αγωνίσματος, σύμφωνα με το δελτίο του τμήματος που δημοσιεύθηκε στις 3 Αυγούστου 2026.",
+      "bio_en": "Represented Archelaos in the 50 m freestyle at the 2025 Greek swimming championships.\n\nPlaced among the top sixteen in an event at the 2026 Greek National Swimming Championship, according to the club's report of 3 August 2026.",
       "category": "athlete",
-      "id": "arch-292b7871cf5b"
+      "id": "arch-292b7871cf5b",
+      "refs": [
+        {
+          "label": "KateriniSport · Δελτίο κολύμβησης, 03/08/2026",
+          "url": "https://katerinisport.gr/4-%CF%83%CF%85%CE%BC%CE%BC%CE%B5%CF%84%CE%BF%CF%87%CE%AD%CF%82-%CF%83%CE%B5-%CF%84%CE%B5%CE%BB%CE%B9%CE%BA%CE%BF%CF%8D%CF%82-13-%CF%80%CE%BB%CE%B1%CF%83%CE%B1%CF%81%CE%AF%CF%83%CE%BC%CE%B1%CF%84/"
+        }
+      ]
     },
     {
       "name": "Δημήτριος Γκόρτσιος",
@@ -1681,20 +1687,32 @@
       "name_en": "Dimitra Dampolia",
       "role": "Αθλητής/Αθλήτρια · Κολύμβηση",
       "role_en": "Athlete · Swimming",
-      "bio": "Εκπροσώπησε τον Αρχέλαο στα 50 μ., 100 μ. και 200 μ. ύπτιο στο Πανελλήνιο Πρωτάθλημα κολύμβησης του 2025.",
-      "bio_en": "Represented Archelaos in the 50 m, 100 m and 200 m backstroke at the 2025 Greek swimming championships.",
+      "bio": "Εκπροσώπησε τον Αρχέλαο στα 50 μ., 100 μ. και 200 μ. ύπτιο στο Πανελλήνιο Πρωτάθλημα κολύμβησης του 2025.\n\nΣτο Πανελλήνιο Πρωτάθλημα Κολύμβησης 2026 σημείωσε νέο ατομικό ρεκόρ, σύμφωνα με το δελτίο του τμήματος που δημοσιεύθηκε στις 3 Αυγούστου 2026.",
+      "bio_en": "Represented Archelaos in the 50 m, 100 m and 200 m backstroke at the 2025 Greek swimming championships.\n\nSet a personal best at the 2026 Greek National Swimming Championship, according to the club's report of 3 August 2026.",
       "category": "athlete",
-      "id": "arch-cc84a40c4504"
+      "id": "arch-cc84a40c4504",
+      "refs": [
+        {
+          "label": "KateriniSport · Δελτίο κολύμβησης, 03/08/2026",
+          "url": "https://katerinisport.gr/4-%CF%83%CF%85%CE%BC%CE%BC%CE%B5%CF%84%CE%BF%CF%87%CE%AD%CF%82-%CF%83%CE%B5-%CF%84%CE%B5%CE%BB%CE%B9%CE%BA%CE%BF%CF%8D%CF%82-13-%CF%80%CE%BB%CE%B1%CF%83%CE%B1%CF%81%CE%AF%CF%83%CE%BC%CE%B1%CF%84/"
+        }
+      ]
     },
     {
       "name": "Ευστάθιος Δαμπολιάς",
       "name_en": "Efstathios Dampolias",
       "role": "Αθλητής/Αθλήτρια · Κολύμβηση",
       "role_en": "Athlete · Swimming",
-      "bio": "Αγωνίστηκε στα 400 μ., 800 μ. και 1.500 μ. ελεύθερο στο Πανελλήνιο Πρωτάθλημα του 2025 και συμμετείχε στην οκτάδα της σκυταλοδρομίας 4×200 μ. ελεύθερο.",
-      "bio_en": "Competed in the 400 m, 800 m and 1,500 m freestyle at the 2025 Greek championships and was part of the 4×200 m freestyle relay squad that finished eighth.",
+      "bio": "Αγωνίστηκε στα 400 μ., 800 μ. και 1.500 μ. ελεύθερο στο Πανελλήνιο Πρωτάθλημα του 2025 και συμμετείχε στην οκτάδα της σκυταλοδρομίας 4×200 μ. ελεύθερο.\n\nΣτο Πανελλήνιο Πρωτάθλημα Κολύμβησης 2026 βρέθηκε στην πρώτη δεκαεξάδα αγωνίσματος, σύμφωνα με το δελτίο του τμήματος που δημοσιεύθηκε στις 3 Αυγούστου 2026.",
+      "bio_en": "Competed in the 400 m, 800 m and 1,500 m freestyle at the 2025 Greek championships and was part of the 4×200 m freestyle relay squad that finished eighth.\n\nPlaced among the top sixteen in an event at the 2026 Greek National Swimming Championship, according to the club's report of 3 August 2026.",
       "category": "athlete",
-      "id": "arch-39914cf713cf"
+      "id": "arch-39914cf713cf",
+      "refs": [
+        {
+          "label": "KateriniSport · Δελτίο κολύμβησης, 03/08/2026",
+          "url": "https://katerinisport.gr/4-%CF%83%CF%85%CE%BC%CE%BC%CE%B5%CF%84%CE%BF%CF%87%CE%AD%CF%82-%CF%83%CE%B5-%CF%84%CE%B5%CE%BB%CE%B9%CE%BA%CE%BF%CF%8D%CF%82-13-%CF%80%CE%BB%CE%B1%CF%83%CE%B1%CF%81%CE%AF%CF%83%CE%BC%CE%B1%CF%84/"
+        }
+      ]
     },
     {
       "name": "Ράνια Δανιηλίδου",
@@ -2172,10 +2190,16 @@
       "name_en": "Vangelis Laios",
       "role": "Αθλητής/Αθλήτρια · Κολύμβηση",
       "role_en": "Athlete · Swimming",
-      "bio": "Εκπροσώπησε τον Αρχέλαο στα 50 μ., 100 μ. και 200 μ. πρόσθιο στην τελική φάση του Πανελληνίου Πρωταθλήματος κολύμβησης 2025.",
-      "bio_en": "Represented Archelaos in the 50 m, 100 m and 200 m breaststroke at the 2025 Greek swimming championships.",
+      "bio": "Εκπροσώπησε τον Αρχέλαο στα 50 μ., 100 μ. και 200 μ. πρόσθιο στην τελική φάση του Πανελληνίου Πρωταθλήματος κολύμβησης 2025.\n\nΣτο Πανελλήνιο Πρωτάθλημα Κολύμβησης 2026 σημείωσε νέο ατομικό ρεκόρ, σύμφωνα με το δελτίο του τμήματος που δημοσιεύθηκε στις 3 Αυγούστου 2026.",
+      "bio_en": "Represented Archelaos in the 50 m, 100 m and 200 m breaststroke at the 2025 Greek swimming championships.\n\nSet a personal best at the 2026 Greek National Swimming Championship, according to the club's report of 3 August 2026.",
       "category": "athlete",
-      "id": "arch-534d52034523"
+      "id": "arch-534d52034523",
+      "refs": [
+        {
+          "label": "KateriniSport · Δελτίο κολύμβησης, 03/08/2026",
+          "url": "https://katerinisport.gr/4-%CF%83%CF%85%CE%BC%CE%BC%CE%B5%CF%84%CE%BF%CF%87%CE%AD%CF%82-%CF%83%CE%B5-%CF%84%CE%B5%CE%BB%CE%B9%CE%BA%CE%BF%CF%8D%CF%82-13-%CF%80%CE%BB%CE%B1%CF%83%CE%B1%CF%81%CE%AF%CF%83%CE%BC%CE%B1%CF%84/"
+        }
+      ]
     },
     {
       "name": "Γεώργιος Λάιος",
@@ -2449,10 +2473,16 @@
       "name_en": "Angelos Nikolaidis",
       "role": "Αθλητής · Κολύμβηση",
       "role_en": "Athlete · Swimming",
-      "bio": "Κατέκτησε δύο ασημένια μετάλλια στα 50 μ. και 100 μ. πρόσθιο και ένα χάλκινο στα 200 μ. πρόσθιο, στο Πανελλήνιο Πρωτάθλημα κολύμβησης του Ιουλίου 2025, στην κατηγορία Παμπαίδων Α΄.",
-      "bio_en": "Won two silvers in the 50 m and 100 m breaststroke and bronze in the 200 m breaststroke at the July 2025 Greek age-group swimming championships.",
+      "bio": "Κατέκτησε δύο ασημένια μετάλλια στα 50 μ. και 100 μ. πρόσθιο και ένα χάλκινο στα 200 μ. πρόσθιο, στο Πανελλήνιο Πρωτάθλημα κολύμβησης του Ιουλίου 2025, στην κατηγορία Παμπαίδων Α΄.\n\nΣτο Πανελλήνιο Πρωτάθλημα Κολύμβησης 2026 προκρίθηκε σε τελικό αγωνίσματος, σύμφωνα με το δελτίο του τμήματος που δημοσιεύθηκε στις 3 Αυγούστου 2026.",
+      "bio_en": "Won two silvers in the 50 m and 100 m breaststroke and bronze in the 200 m breaststroke at the July 2025 Greek age-group swimming championships.\n\nQualified for an event final at the 2026 Greek National Swimming Championship, according to the club's report of 3 August 2026.",
       "category": "athlete",
-      "id": "arch-7d2d2d8bf363"
+      "id": "arch-7d2d2d8bf363",
+      "refs": [
+        {
+          "label": "KateriniSport · Δελτίο κολύμβησης, 03/08/2026",
+          "url": "https://katerinisport.gr/4-%CF%83%CF%85%CE%BC%CE%BC%CE%B5%CF%84%CE%BF%CF%87%CE%AD%CF%82-%CF%83%CE%B5-%CF%84%CE%B5%CE%BB%CE%B9%CE%BA%CE%BF%CF%8D%CF%82-13-%CF%80%CE%BB%CE%B1%CF%83%CE%B1%CF%81%CE%AF%CF%83%CE%BC%CE%B1%CF%84/"
+        }
+      ]
     },
     {
       "name": "Λάμπρος Νικολαΐδης",
@@ -2549,10 +2579,16 @@
       "name_en": "Markela Papazisi",
       "role": "Αθλητής/Αθλήτρια · Κολύμβηση",
       "role_en": "Athlete · Swimming",
-      "bio": "Συμμετείχε στα 50 μ., 100 μ. και 200 μ. ελεύθερο στην τελική φάση του Πανελληνίου Πρωταθλήματος κολύμβησης του 2025.",
-      "bio_en": "Competed in the 50 m, 100 m and 200 m freestyle at the 2025 Greek swimming championships.",
+      "bio": "Συμμετείχε στα 50 μ., 100 μ. και 200 μ. ελεύθερο στην τελική φάση του Πανελληνίου Πρωταθλήματος κολύμβησης του 2025.\n\nΣτο Πανελλήνιο Πρωτάθλημα Κολύμβησης 2026 προκρίθηκε σε τελικό αγωνίσματος, σύμφωνα με το δελτίο του τμήματος που δημοσιεύθηκε στις 3 Αυγούστου 2026.",
+      "bio_en": "Competed in the 50 m, 100 m and 200 m freestyle at the 2025 Greek swimming championships.\n\nQualified for an event final at the 2026 Greek National Swimming Championship, according to the club's report of 3 August 2026.",
       "category": "athlete",
-      "id": "arch-5de1e130d776"
+      "id": "arch-5de1e130d776",
+      "refs": [
+        {
+          "label": "KateriniSport · Δελτίο κολύμβησης, 03/08/2026",
+          "url": "https://katerinisport.gr/4-%CF%83%CF%85%CE%BC%CE%BC%CE%B5%CF%84%CE%BF%CF%87%CE%AD%CF%82-%CF%83%CE%B5-%CF%84%CE%B5%CE%BB%CE%B9%CE%BA%CE%BF%CF%8D%CF%82-13-%CF%80%CE%BB%CE%B1%CF%83%CE%B1%CF%81%CE%AF%CF%83%CE%BC%CE%B1%CF%84/"
+        }
+      ]
     },
     {
       "name": "Εμμανουήλ Παπακώστας",
@@ -2630,10 +2666,16 @@
       "name_en": "Georgios Podas",
       "role": "Αθλητής/Αθλήτρια · Κολύμβηση",
       "role_en": "Athlete · Swimming",
-      "bio": "Συμμετείχε στην ομάδα κολύμβησης του Αρχέλαου στο Πανελλήνιο Πρωτάθλημα 2025, στα αγωνίσματα ελευθέρου και πεταλούδας και στην 4×200 μ. ελεύθερο.",
-      "bio_en": "Represented Archelaos in freestyle and butterfly events and the 4×200 m freestyle relay at the 2025 Greek swimming championships.",
+      "bio": "Συμμετείχε στην ομάδα κολύμβησης του Αρχέλαου στο Πανελλήνιο Πρωτάθλημα 2025, στα αγωνίσματα ελευθέρου και πεταλούδας και στην 4×200 μ. ελεύθερο.\n\nΣτο Πανελλήνιο Πρωτάθλημα Κολύμβησης 2026 βρέθηκε στην πρώτη δεκαεξάδα αγωνίσματος, σύμφωνα με το δελτίο του τμήματος που δημοσιεύθηκε στις 3 Αυγούστου 2026.",
+      "bio_en": "Represented Archelaos in freestyle and butterfly events and the 4×200 m freestyle relay at the 2025 Greek swimming championships.\n\nPlaced among the top sixteen in an event at the 2026 Greek National Swimming Championship, according to the club's report of 3 August 2026.",
       "category": "athlete",
-      "id": "arch-ae0647a0c701"
+      "id": "arch-ae0647a0c701",
+      "refs": [
+        {
+          "label": "KateriniSport · Δελτίο κολύμβησης, 03/08/2026",
+          "url": "https://katerinisport.gr/4-%CF%83%CF%85%CE%BC%CE%BC%CE%B5%CF%84%CE%BF%CF%87%CE%AD%CF%82-%CF%83%CE%B5-%CF%84%CE%B5%CE%BB%CE%B9%CE%BA%CE%BF%CF%8D%CF%82-13-%CF%80%CE%BB%CE%B1%CF%83%CE%B1%CF%81%CE%AF%CF%83%CE%BC%CE%B1%CF%84/"
+        }
+      ]
     },
     {
       "name": "Γεώργιος Πολυχρόνης",
@@ -2790,10 +2832,16 @@
       "name_en": "Ioannis-marios Terzoglou",
       "role": "Αθλητής/Αθλήτρια · Κολύμβηση",
       "role_en": "Athlete · Swimming",
-      "bio": "Αγωνίστηκε στα αγωνίσματα υπτίου στο Πανελλήνιο Πρωτάθλημα του 2025 και ήταν μέλος της μεικτής σκυταλοδρομίας 4×100 μ. που κατέλαβε την ένατη θέση.",
-      "bio_en": "Competed in backstroke events at the 2025 Greek swimming championships and in the 4×100 m medley relay that finished ninth.",
+      "bio": "Αγωνίστηκε στα αγωνίσματα υπτίου στο Πανελλήνιο Πρωτάθλημα του 2025 και ήταν μέλος της μεικτής σκυταλοδρομίας 4×100 μ. που κατέλαβε την ένατη θέση.\n\nΣτο Πανελλήνιο Πρωτάθλημα Κολύμβησης 2026 σημείωσε νέο ατομικό ρεκόρ, σύμφωνα με το δελτίο του τμήματος που δημοσιεύθηκε στις 3 Αυγούστου 2026.",
+      "bio_en": "Competed in backstroke events at the 2025 Greek swimming championships and in the 4×100 m medley relay that finished ninth.\n\nSet a personal best at the 2026 Greek National Swimming Championship, according to the club's report of 3 August 2026.",
       "category": "athlete",
-      "id": "arch-cf53c375664e"
+      "id": "arch-cf53c375664e",
+      "refs": [
+        {
+          "label": "KateriniSport · Δελτίο κολύμβησης, 03/08/2026",
+          "url": "https://katerinisport.gr/4-%CF%83%CF%85%CE%BC%CE%BC%CE%B5%CF%84%CE%BF%CF%87%CE%AD%CF%82-%CF%83%CE%B5-%CF%84%CE%B5%CE%BB%CE%B9%CE%BA%CE%BF%CF%8D%CF%82-13-%CF%80%CE%BB%CE%B1%CF%83%CE%B1%CF%81%CE%AF%CF%83%CE%BC%CE%B1%CF%84/"
+        }
+      ]
     },
     {
       "name": "Αβραάμ Τερζόπουλος",
@@ -7833,7 +7881,10 @@
           "label": "Pieria News · 07/04/2026",
           "url": "https://www.pierianews.gr/2026/04/07/archelaos-katerinis-tmima-palis-defteri-kalyteri-omada-stin-ellada/"
         }
-      ]
+      ],
+      "name_en": "Apostolis Dimolios",
+      "role_en": "Athlete · Wrestling",
+      "bio_en": "Wrestling athlete of GAS Archelaos Katerinis. Finished fifth at the Greek U20 wrestling championship in Serres on 5 April 2026, contributing to the club's second-place team ranking."
     },
     {
       "id": "arch-fani-gkiousoglou-gym-2025",
@@ -7845,6 +7896,153 @@
         {
           "label": "Ο Ντελάλης · Γιορτή ενόργανης Β΄ Περιφέρειας, Ιούνιος 2025",
           "url": "https://odelalis.gr/o-gas-archelaos-katerinis-sti-giorti-enorganis-gymnastikis-tis-v-perifereias/"
+        }
+      ],
+      "name_en": "Fani Gkiousoglou",
+      "role_en": "Coaching staff · Gymnastics",
+      "bio_en": "Member of the GAS Archelaos Katerinis gymnastics coaching staff at the regional festival in Thessaloniki on 14–15 June 2025. The club brought 96 children and was recognised for the largest delegation."
+    },
+    {
+      "id": "arch-swim-2026-andreas-anastasiadis",
+      "name": "Ανδρέας Αναστασιάδης",
+      "name_en": "Andreas Anastasiadis",
+      "role": "Αθλητής/Αθλήτρια · Κολύμβηση",
+      "role_en": "Athlete · Swimming",
+      "category": "athlete",
+      "bio": "Αθλητής/αθλήτρια κολύμβησης του Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης. Στο Πανελλήνιο Πρωτάθλημα Κολύμβησης 2026 προκρίθηκε σε τελικό αγωνίσματος, σύμφωνα με το δελτίο του τμήματος που δημοσιεύθηκε στις 3 Αυγούστου 2026.",
+      "bio_en": "Swimming athlete representing GAS Archelaos Katerinis. Qualified for an event final at the 2026 Greek National Swimming Championship, according to the club's report of 3 August 2026.",
+      "refs": [
+        {
+          "label": "KateriniSport · Δελτίο κολύμβησης, 03/08/2026",
+          "url": "https://katerinisport.gr/4-%CF%83%CF%85%CE%BC%CE%BC%CE%B5%CF%84%CE%BF%CF%87%CE%AD%CF%82-%CF%83%CE%B5-%CF%84%CE%B5%CE%BB%CE%B9%CE%BA%CE%BF%CF%8D%CF%82-13-%CF%80%CE%BB%CE%B1%CF%83%CE%B1%CF%81%CE%AF%CF%83%CE%BC%CE%B1%CF%84/"
+        }
+      ]
+    },
+    {
+      "id": "arch-swim-2026-katerina-tsiniani",
+      "name": "Κατερίνα Τσινιάνη",
+      "name_en": "Katerina Tsiniani",
+      "role": "Αθλητής/Αθλήτρια · Κολύμβηση",
+      "role_en": "Athlete · Swimming",
+      "category": "athlete",
+      "bio": "Αθλητής/αθλήτρια κολύμβησης του Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης. Στο Πανελλήνιο Πρωτάθλημα Κολύμβησης 2026 βρέθηκε στην πρώτη δεκαεξάδα αγωνίσματος, σύμφωνα με το δελτίο του τμήματος που δημοσιεύθηκε στις 3 Αυγούστου 2026.",
+      "bio_en": "Swimming athlete representing GAS Archelaos Katerinis. Placed among the top sixteen in an event at the 2026 Greek National Swimming Championship, according to the club's report of 3 August 2026.",
+      "refs": [
+        {
+          "label": "KateriniSport · Δελτίο κολύμβησης, 03/08/2026",
+          "url": "https://katerinisport.gr/4-%CF%83%CF%85%CE%BC%CE%BC%CE%B5%CF%84%CE%BF%CF%87%CE%AD%CF%82-%CF%83%CE%B5-%CF%84%CE%B5%CE%BB%CE%B9%CE%BA%CE%BF%CF%8D%CF%82-13-%CF%80%CE%BB%CE%B1%CF%83%CE%B1%CF%81%CE%AF%CF%83%CE%BC%CE%B1%CF%84/"
+        }
+      ]
+    },
+    {
+      "id": "arch-swim-2026-katerina-popoti",
+      "name": "Κατερίνα Ποπότη",
+      "name_en": "Katerina Popoti",
+      "role": "Αθλητής/Αθλήτρια · Κολύμβηση",
+      "role_en": "Athlete · Swimming",
+      "category": "athlete",
+      "bio": "Αθλητής/αθλήτρια κολύμβησης του Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης. Στο Πανελλήνιο Πρωτάθλημα Κολύμβησης 2026 βρέθηκε στην πρώτη δεκαεξάδα αγωνίσματος, σύμφωνα με το δελτίο του τμήματος που δημοσιεύθηκε στις 3 Αυγούστου 2026.",
+      "bio_en": "Swimming athlete representing GAS Archelaos Katerinis. Placed among the top sixteen in an event at the 2026 Greek National Swimming Championship, according to the club's report of 3 August 2026.",
+      "refs": [
+        {
+          "label": "KateriniSport · Δελτίο κολύμβησης, 03/08/2026",
+          "url": "https://katerinisport.gr/4-%CF%83%CF%85%CE%BC%CE%BC%CE%B5%CF%84%CE%BF%CF%87%CE%AD%CF%82-%CF%83%CE%B5-%CF%84%CE%B5%CE%BB%CE%B9%CE%BA%CE%BF%CF%8D%CF%82-13-%CF%80%CE%BB%CE%B1%CF%83%CE%B1%CF%81%CE%AF%CF%83%CE%BC%CE%B1%CF%84/"
+        }
+      ]
+    },
+    {
+      "id": "arch-swim-2026-giorgos-kryos",
+      "name": "Γιώργος Κρύος",
+      "name_en": "Giorgos Kryos",
+      "role": "Αθλητής/Αθλήτρια · Κολύμβηση",
+      "role_en": "Athlete · Swimming",
+      "category": "athlete",
+      "bio": "Αθλητής/αθλήτρια κολύμβησης του Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης. Στο Πανελλήνιο Πρωτάθλημα Κολύμβησης 2026 βρέθηκε στην πρώτη δεκαεξάδα αγωνίσματος, σύμφωνα με το δελτίο του τμήματος που δημοσιεύθηκε στις 3 Αυγούστου 2026.",
+      "bio_en": "Swimming athlete representing GAS Archelaos Katerinis. Placed among the top sixteen in an event at the 2026 Greek National Swimming Championship, according to the club's report of 3 August 2026.",
+      "refs": [
+        {
+          "label": "KateriniSport · Δελτίο κολύμβησης, 03/08/2026",
+          "url": "https://katerinisport.gr/4-%CF%83%CF%85%CE%BC%CE%BC%CE%B5%CF%84%CE%BF%CF%87%CE%AD%CF%82-%CF%83%CE%B5-%CF%84%CE%B5%CE%BB%CE%B9%CE%BA%CE%BF%CF%8D%CF%82-13-%CF%80%CE%BB%CE%B1%CF%83%CE%B1%CF%81%CE%AF%CF%83%CE%BC%CE%B1%CF%84/"
+        }
+      ]
+    },
+    {
+      "id": "arch-swim-2026-nikolas-kryos",
+      "name": "Νικόλας Κρύος",
+      "name_en": "Nikolas Kryos",
+      "role": "Αθλητής/Αθλήτρια · Κολύμβηση",
+      "role_en": "Athlete · Swimming",
+      "category": "athlete",
+      "bio": "Αθλητής/αθλήτρια κολύμβησης του Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης. Στο Πανελλήνιο Πρωτάθλημα Κολύμβησης 2026 βρέθηκε στην πρώτη δεκαεξάδα αγωνίσματος, σύμφωνα με το δελτίο του τμήματος που δημοσιεύθηκε στις 3 Αυγούστου 2026.",
+      "bio_en": "Swimming athlete representing GAS Archelaos Katerinis. Placed among the top sixteen in an event at the 2026 Greek National Swimming Championship, according to the club's report of 3 August 2026.",
+      "refs": [
+        {
+          "label": "KateriniSport · Δελτίο κολύμβησης, 03/08/2026",
+          "url": "https://katerinisport.gr/4-%CF%83%CF%85%CE%BC%CE%BC%CE%B5%CF%84%CE%BF%CF%87%CE%AD%CF%82-%CF%83%CE%B5-%CF%84%CE%B5%CE%BB%CE%B9%CE%BA%CE%BF%CF%8D%CF%82-13-%CF%80%CE%BB%CE%B1%CF%83%CE%B1%CF%81%CE%AF%CF%83%CE%BC%CE%B1%CF%84/"
+        }
+      ]
+    },
+    {
+      "id": "arch-swim-2026-pavlos-bampoulis",
+      "name": "Παύλος Μπαμπούλης",
+      "name_en": "Pavlos Bampoulis",
+      "role": "Αθλητής/Αθλήτρια · Κολύμβηση",
+      "role_en": "Athlete · Swimming",
+      "category": "athlete",
+      "bio": "Αθλητής/αθλήτρια κολύμβησης του Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης. Στο Πανελλήνιο Πρωτάθλημα Κολύμβησης 2026 σημείωσε νέο ατομικό ρεκόρ, σύμφωνα με το δελτίο του τμήματος που δημοσιεύθηκε στις 3 Αυγούστου 2026.",
+      "bio_en": "Swimming athlete representing GAS Archelaos Katerinis. Set a personal best at the 2026 Greek National Swimming Championship, according to the club's report of 3 August 2026.",
+      "refs": [
+        {
+          "label": "KateriniSport · Δελτίο κολύμβησης, 03/08/2026",
+          "url": "https://katerinisport.gr/4-%CF%83%CF%85%CE%BC%CE%BC%CE%B5%CF%84%CE%BF%CF%87%CE%AD%CF%82-%CF%83%CE%B5-%CF%84%CE%B5%CE%BB%CE%B9%CE%BA%CE%BF%CF%8D%CF%82-13-%CF%80%CE%BB%CE%B1%CF%83%CE%B1%CF%81%CE%AF%CF%83%CE%BC%CE%B1%CF%84/"
+        }
+      ]
+    },
+    {
+      "id": "arch-swim-2026-konstantinos-stefanis",
+      "name": "Κωνσταντίνος Στεφανής",
+      "name_en": "Konstantinos Stefanis",
+      "role": "Αθλητής/Αθλήτρια · Κολύμβηση",
+      "role_en": "Athlete · Swimming",
+      "category": "athlete",
+      "bio": "Αθλητής/αθλήτρια κολύμβησης του Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης. Στο Πανελλήνιο Πρωτάθλημα Κολύμβησης 2026 σημείωσε νέο ατομικό ρεκόρ, σύμφωνα με το δελτίο του τμήματος που δημοσιεύθηκε στις 3 Αυγούστου 2026.",
+      "bio_en": "Swimming athlete representing GAS Archelaos Katerinis. Set a personal best at the 2026 Greek National Swimming Championship, according to the club's report of 3 August 2026.",
+      "refs": [
+        {
+          "label": "KateriniSport · Δελτίο κολύμβησης, 03/08/2026",
+          "url": "https://katerinisport.gr/4-%CF%83%CF%85%CE%BC%CE%BC%CE%B5%CF%84%CE%BF%CF%87%CE%AD%CF%82-%CF%83%CE%B5-%CF%84%CE%B5%CE%BB%CE%B9%CE%BA%CE%BF%CF%8D%CF%82-13-%CF%80%CE%BB%CE%B1%CF%83%CE%B1%CF%81%CE%AF%CF%83%CE%BC%CE%B1%CF%84/"
+        }
+      ]
+    },
+    {
+      "id": "arch-swim-2026-fayi-dimitriadou",
+      "name": "Φαίη Δημητριάδου",
+      "name_en": "Fayi Dimitriadou",
+      "role": "Αθλητής/Αθλήτρια · Κολύμβηση",
+      "role_en": "Athlete · Swimming",
+      "category": "athlete",
+      "bio": "Αθλητής/αθλήτρια κολύμβησης του Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης. Στο Πανελλήνιο Πρωτάθλημα Κολύμβησης 2026 σημείωσε νέο ατομικό ρεκόρ, σύμφωνα με το δελτίο του τμήματος που δημοσιεύθηκε στις 3 Αυγούστου 2026.",
+      "bio_en": "Swimming athlete representing GAS Archelaos Katerinis. Set a personal best at the 2026 Greek National Swimming Championship, according to the club's report of 3 August 2026.",
+      "refs": [
+        {
+          "label": "KateriniSport · Δελτίο κολύμβησης, 03/08/2026",
+          "url": "https://katerinisport.gr/4-%CF%83%CF%85%CE%BC%CE%BC%CE%B5%CF%84%CE%BF%CF%87%CE%AD%CF%82-%CF%83%CE%B5-%CF%84%CE%B5%CE%BB%CE%B9%CE%BA%CE%BF%CF%8D%CF%82-13-%CF%80%CE%BB%CE%B1%CF%83%CE%B1%CF%81%CE%AF%CF%83%CE%BC%CE%B1%CF%84/"
+        }
+      ]
+    },
+    {
+      "id": "arch-swim-2026-eleni-kotidou",
+      "name": "Ελένη Κωτίδου",
+      "name_en": "Eleni Kotidou",
+      "role": "Αθλητής/Αθλήτρια · Κολύμβηση",
+      "role_en": "Athlete · Swimming",
+      "category": "athlete",
+      "bio": "Αθλητής/αθλήτρια κολύμβησης του Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης. Στο Πανελλήνιο Πρωτάθλημα Κολύμβησης 2026 σημείωσε νέο ατομικό ρεκόρ, σύμφωνα με το δελτίο του τμήματος που δημοσιεύθηκε στις 3 Αυγούστου 2026.",
+      "bio_en": "Swimming athlete representing GAS Archelaos Katerinis. Set a personal best at the 2026 Greek National Swimming Championship, according to the club's report of 3 August 2026.",
+      "refs": [
+        {
+          "label": "KateriniSport · Δελτίο κολύμβησης, 03/08/2026",
+          "url": "https://katerinisport.gr/4-%CF%83%CF%85%CE%BC%CE%BC%CE%B5%CF%84%CE%BF%CF%87%CE%AD%CF%82-%CF%83%CE%B5-%CF%84%CE%B5%CE%BB%CE%B9%CE%BA%CE%BF%CF%8D%CF%82-13-%CF%80%CE%BB%CE%B1%CF%83%CE%B1%CF%81%CE%AF%CF%83%CE%BC%CE%B1%CF%84/"
         }
       ]
     }
