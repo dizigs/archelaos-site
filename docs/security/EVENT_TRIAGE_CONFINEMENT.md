@@ -138,3 +138,11 @@ profiles PASS, Python compilation/diff PASS, both 19-event outputs byte-identica
 and source unchanged. Snapshot/shared primitive now has 12 tests, mentions 10,
 triage 8, Git 4. Captured output follows in the evidence log. New-head remote
 Sonar/CI still needs real verification; no current pass is inferred here.
+
+Remote shared-writer recovery at 6f0984e is now verified: Sonar 125789211671
+PASS / **0.0% duplication**, Rebuild 41597757776 PASS, strict 41597757704 PASS
+with actual 49/49 and a11y 32/0 notices, all required checks complete, zero
+unresolved threads. Main subsequently advanced to `d328e798db3e135acb184cd721593fa9f012ed94`
+through ChatGPT spelling fix #80. This branch imports its data unchanged;
+new combined-head CI/provider verification is required. No gate change or
+code-only pass is treated as main A or production proof.

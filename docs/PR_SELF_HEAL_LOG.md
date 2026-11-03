@@ -363,3 +363,24 @@ archives were unavailable.
   to prior main, source unchanged. Compilation/diff PASS. New-head remote Sonar
   and combined CI remain pending at this log commit; the old failed result is
   not overwritten or retried unchanged.
+
+### Verified shared-writer recovery and new-main synchronization — PR #79
+
+Exact head `6f0984ee16f47f430686829bcfef6dd4e0884e0c` completed all checks
+without failure: actual Sonar **125789211671 PASS**, **0.0% new-code duplication**,
+0 new/accepted issues and 0 hotspots. Full Rebuild
+[41597757776](https://github.com/dizigs/archelaos-site/actions/runs/41597757776)
+and strict [41597757704](https://github.com/dizigs/archelaos-site/actions/runs/41597757704)
+PASS. Strict notices: **49 cases/0 failures, 72 page/viewports, 608 cards**,
+Chromium 145.0.7632.6 / Playwright 1.58.0; a11y **32/0 findings/errors**.
+Required syntax/ESLint, release integrity and remaining checks PASS; no unresolved
+review threads. This verifies correction of the actual 7.6% failure without
+changing the 3% gate. [Actual recovery handoff](https://github.com/dizigs/archelaos-site/issues/71#issuecomment-6598135095).
+
+Before completion, main advanced through ChatGPT's spelling-only #80 to
+`d328e798db3e135acb184cd721593fa9f012ed94`. Its canonical/search/offline/profile
+changes were inspected, imported unchanged, and share no source path with this
+security PR. No name, record ID or historical source was edited by Codex. Fresh
+combined-head CI is required after this synchronization; the previous-head pass
+is not substituted. Actual current-main production logs and full remaining
+Sonar issue context remain pending here.
