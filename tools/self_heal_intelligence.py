@@ -200,7 +200,17 @@ def triage(*, sport, kind, resource, signal, marker=None, report=None, journal=N
     providerbook = taxonomy if taxonomy is not None else _read_reference(TAXONOMY, "READ_ONLY_DIAGNOSTICS")
     cases = local_matches(sport, kind, resource, marker, casebook)
     providers = provider_matches(signal, providerbook)
-    signals = health_signals(report) if report is not None else []
+    if isinstance(report, dict) and report.get("state") in {"READ", "MISSING_OR_INVALID"}:
+        valid_codes = {"UNTRUSTED_REPORT_MESSAGE", "UNKNOWN_PUBLIC_FAILURE"} | {row[0] for row in CLASSIFIERS}
+        incoming = report.get("signals")
+        if not isinstance(incoming, list) or len(incoming) > 16 or any(
+                not isinstance(row, dict) or row.get("code") not in valid_codes
+                or type(row.get("priority")) is not int or row["priority"] not in {0, 1, 2}
+                or row.get("route") not in (None, *ROUTES) for row in incoming):
+            raise ValueError("Untrusted prepared health report")
+        signals = incoming
+    else:
+        signals = health_signals(report) if report is not None else []
     advisories = advisory_mentions(signal, db_path=db_path)
     recurrence = {"phase": "UNKNOWN", "attempts": 0, "occurrences": 0}
     if isinstance(journal, dict):
