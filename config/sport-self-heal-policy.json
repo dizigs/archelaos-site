@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "mode": "observe-and-propose-only",
+  "reuseExistingHealthWorkflows": [
+    "live-health.yml",
+    "automation-health.yml"
+  ],
+  "createNewCron": false,
+  "actions": {
+    "autoAllowed": [
+      "read_public_site",
+      "read_workflow_status",
+      "classify_failure",
+      "save_evidence",
+      "open_or_update_deduplicated_issue",
+      "propose_scoped_draft_pr_with_tests"
+    ],
+    "requireVerifiedChecks": [
+      "merge_reviewed_pr",
+      "release_candidate"
+    ],
+    "manualOrProviderGate": [
+      "modify_dns",
+      "activate_analytics",
+      "change_consent",
+      "publish_production",
+      "rollback_production",
+      "access_private_person_data"
+    ],
+    "alwaysForbidden": [
+      "bypass_branch_protection",
+      "expose_secrets",
+      "auto_merge_athlete_identities",
+      "fabricate_deployment_success"
+    ]
+  },
+  "failureClasses": [
+    "unreachable",
+    "http_error",
+    "broken_asset",
+    "invalid_json",
+    "stale_schedule",
+    "ci_failure",
+    "link_failure",
+    "unknown"
+  ],
+  "limits": {
+    "maxSuggestedChangesPerRun": 3,
+    "maxRepeatedIdenticalAttempts": 1,
+    "cooldownMinutes": 180,
+    "stableDedupKey": [
+      "sportKey",
+      "failureClass",
+      "resource"
+    ]
+  },
+  "requiredEvidence": [
+    "observedAt",
+    "resource",
+    "statusOrError",
+    "sourceRunUrl"
+  ],
+  "notes": "No autonomous expansion or production mutation. Future wired integrations require dry-run and security review; this policy creates no scheduler or active issue writer."
+}
