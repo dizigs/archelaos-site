@@ -23,7 +23,7 @@ def ensure_biography_sections(source: str, canonical_english: str) -> str:
     wrapped in place, with the escaped canonical English text in a hidden
     section. The archival source profiles already have both sections.
     """
-    if re.search(r'data-profile-language\\s*=', source):
+    if 'data-profile-language=' in source:
         return source
     bio = re.search(r'<div class="bio">.*?</div>', source, flags=re.S)
     if not bio:
