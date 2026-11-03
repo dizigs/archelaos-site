@@ -151,3 +151,33 @@ Source/YAML dependency/permission/unchanged-cron checks, **30/30** fault tests a
 and exact final-head checks still require observation. First real provider
 evidence above remains valid for its reported SHA and does not waive this
 security gate. [Finding handoff](https://github.com/dizigs/archelaos-site/issues/71#issuecomment-6601886450).
+
+### Pinned-linter compatibility, observed rather than suppressed
+
+The scanner's self-repository style recommendation suggested `$/` syntax.
+Head `10f471d4664fc0ca3d11e113d1f57fb85dae199b` then failed actual actionlint
+**125878721382** and Static Actions syntax **125878721012** (exit 1). Their
+annotations did not contain the underlying parser error. Local reproduction
+with the exact official **actionlint1.7.11** release, verified against GitHub's
+release SHA256, returned:
+
+```text
+reusable workflow call "$/.github/workflows/cloudflare-pages-status.yml" at "uses" is not following the format "owner/repo/path/to/workflow.yml@ref" nor "./path/to/workflow.yml" [workflow-call]
+```
+
+Correction **3921c361122506e1356bc5d11c41019e400298a7** retains the standard
+`./.github/workflows/cloudflare-pages-status.yml` call supported by the pinned
+linter; local **actionlint exit0**, 30/30 tests PASS. No rule or validation is
+disabled. The nonblocking self-repository recommendation remains visible until
+a separately verified toolchain upgrade supports it. The existing Rebuild
+adhoc-packages warning at line187 predates this change and is still outstanding
+P0 work; no clean-zero-warning claim is made. The failure-level dangerous
+workflow_run trigger is removed, as confirmed by actual corrected-source zizmor
+annotations at check125875932363.
+
+[Exact reproduction](evidence/actionlint-reference-20261103.log). A second actual
+provider run **41623179200**, check **125873805311**, succeeded and exposes all
+five stage states, normalized log hash and HTTP proof in
+[stage details](evidence/deployment-gate-live-stages-20261103.json). Its source
+038bb4f predates the trigger correction; that successful provider observation
+does not override any code-security/linter requirement.

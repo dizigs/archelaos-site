@@ -1,0 +1,11 @@
+Actual local reproduction with official actionlint1.7.11, matching CI;
+release archive SHA256 900919a84f2229bac68ca9cd4103ea297abc35e9689ebb842c6e34a3d1b01b0a.
+Original Go build attempt returned: Go: Unknown option: mod. It was not retried.
+
+Unsupported reference, exact error:
+.github/workflows/rebuild-check.yml:261:11: reusable workflow call "$/.github/workflows/cloudflare-pages-status.yml" at "uses" is not following the format "owner/repo/path/to/workflow.yml@ref" nor "./path/to/workflow.yml". see https://docs.github.com/en/actions/learn-github-actions/reusing-workflows for more details [workflow-call]
+    |
+261 |     uses: $/.github/workflows/cloudflare-pages-status.yml
+    |           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+After restoring supported ./ local reference: actionlint exit 0, no findings.

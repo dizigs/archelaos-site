@@ -442,3 +442,22 @@ or release write. Fresh ownership check before editing the Rebuild workflow
 found no other active PR owner. Local YAML/needs/main-only/read-only/original
 cron checks, 30/30 fault tests and 24/24 observer tests PASS. Actual new-head
 scanner/full CI and post-merge wiring must still be observed.
+
+### PR #101 — exact linter failure and compatible correction
+
+Actual head10f471d failed actionlint125878721382 and Static Actions125878721012.
+Pinned actionlint1.7.11 reproduced: reusable workflow call `$/...` does not match
+`owner/repo/path/to/workflow.yml@ref` or `./path/to/workflow.yml` [workflow-call].
+Annotations exposed exit1 only, so the exact pinned official binary was used
+locally, SHA256 verified from GitHub release metadata. A prior local Go build
+attempt returned `Go: Unknown option: mod`; it was not repeated.
+
+Correction3921c361122506e1356bc5d11c41019e400298a7 restores supported `./` local
+syntax. Actual local actionlint exit0 and 30/30 tests PASS; no linter exclusion.
+The self-repository style recommendation and pre-existing Rebuild adhoc-packages
+warning remain visible; a future toolchain update is a separate task. Actual
+check125875932363 no longer reports the failure-level dangerous trigger.
+[Exact diagnostic evidence](self-heal/evidence/actionlint-reference-20261103.log).
+A second real read-only provider proof, run41623179200/check125873805311, is
+recorded with all stage values and log hash under the dedicated evidence folder.
+No provider/production configuration or required check was changed.
