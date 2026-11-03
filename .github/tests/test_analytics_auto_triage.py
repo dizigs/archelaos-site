@@ -1,5 +1,7 @@
 """Offline regressions for fully automatic, privacy-safe GA4/GSC anomaly triage."""
 import importlib.util
+import io
+import json
 import unittest
 from datetime import date, timedelta
 from pathlib import Path
@@ -70,17 +72,17 @@ class AnalyticsTriageTests(unittest.TestCase):
                                   format_compact=True)}}, TODAY)
         calls = []
 
-        def fake(token, method, path, payload=None):
-            calls.append((method, path, payload))
-            if method == "GET":
+        def fake(token, operation, payload=None, page=None):
+            calls.append((operation, payload, page))
+            if operation == "list":
                 return []
             return {"number": 123}
 
         with patch.object(triage, "api_request", side_effect=fake):
             actions = triage.synchronize("test-token", result)
         self.assertEqual(actions[0]["action"], "opened")
-        self.assertEqual(len([c for c in calls if c[0] == "POST"]), 1)
-        body = calls[-1][2]["body"]
+        self.assertEqual(len([c for c in calls if c[0] == "create"]), 1)
+        body = calls[-1][1]["body"]
         self.assertNotIn("email", body)
         self.assertNotIn("sourceUrl", body)
 
@@ -89,7 +91,7 @@ class AnalyticsTriageTests(unittest.TestCase):
             "search_console": {"daily": daily(field="clicks", early=20, recent=1)}}, TODAY)
         expected_title = triage.PREFIX + " search_console clicks"
         with patch.object(triage, "api_request", return_value=[
-            {"number": 67, "title": expected_title}]) as api:
+            {"number": 67, "node_id": "I_kwDOABCD123", "title": expected_title}]) as api:
             actions = triage.synchronize("test-token", result)
         self.assertEqual(actions, [])
         self.assertEqual(api.call_count, 1)
@@ -97,13 +99,62 @@ class AnalyticsTriageTests(unittest.TestCase):
     def test_closes_only_when_genuine_recovery_is_proven(self):
         rows = daily(field="clicks", early=20, recent=20)
         result = triage.evaluate({"search_console": {"daily": rows}}, TODAY)
-        existing = {"number": 67, "title": triage.PREFIX + " search_console clicks"}
-        def fake(token, method, path, payload=None):
-            return [existing] if method == "GET" else {"number": 67}
+        existing = {"number": 67, "node_id": "I_kwDOABCD123",
+                    "title": triage.PREFIX + " search_console clicks"}
+        def fake(token, operation, payload=None, page=None):
+            if operation == "list":
+                return [existing]
+            return {"data": {"closeIssue": {"issue": {"state": "CLOSED"}}}}
         with patch.object(triage, "api_request", side_effect=fake) as api:
             actions = triage.synchronize("test-token", result)
         self.assertEqual(actions[0]["action"], "closed")
-        self.assertEqual(api.call_args_list[-1].args[1], "PATCH")
+        self.assertEqual(api.call_args_list[-1].args[1], "close")
+        self.assertEqual(api.call_args_list[-1].args[2], {"issueId": "I_kwDOABCD123"})
+
+
+    def test_issue_metadata_does_not_become_a_url_or_path(self):
+        bad = {"number": "../secret", "node_id": "I_kwDOABCD123",
+               "title": triage.PREFIX + " search_console clicks"}
+        with patch.object(triage, "api_request", return_value=[bad]):
+            with self.assertRaises(ValueError):
+                triage.existing_issues("test-token")
+        bad["number"] = 67
+        for node_id in ("../api/admin", "?", "", False, 0, "I_kwDO..%2Fetc"):
+            with self.subTest(node_id=node_id):
+                bad["node_id"] = node_id
+                with patch.object(triage, "api_request", return_value=[bad]):
+                    with self.assertRaises(ValueError):
+                        triage.existing_issues("test-token")
+
+    def test_http_endpoints_are_fixed_and_close_uses_graphql_variables(self):
+        urls = []
+        def fake_urlopen(req, timeout):
+            urls.append((req.full_url, req.get_method(), req.data))
+            if req.full_url == triage.GRAPHQL_ENDPOINT:
+                return io.BytesIO(json.dumps({
+                    "data": {"closeIssue": {"issue": {"state": "CLOSED"}}}
+                }).encode())
+            return io.BytesIO(b"[]")
+
+        with patch.object(triage, "urlopen", side_effect=fake_urlopen):
+            self.assertEqual(triage.api_request("secret", "list", page=1), [])
+            triage.api_request("secret", "close", {"issueId": "I_kwDOABCD123"})
+            with self.assertRaises(ValueError):
+                triage.api_request("secret", "GET", payload={"path": "../private"})
+            with self.assertRaises(ValueError):
+                triage.api_request("secret", "list", page="../private")
+        self.assertEqual([x[0] for x in urls],
+                         [triage.ISSUES_ENDPOINT + "?state=open&per_page=100&page=1",
+                          triage.GRAPHQL_ENDPOINT])
+        variables = json.loads(urls[1][2])
+        self.assertEqual(variables["variables"]["issueId"], "I_kwDOABCD123")
+        self.assertNotIn("I_kwDOABCD123", urls[1][0])
+
+    def test_graphql_close_failure_is_not_a_success(self):
+        with patch.object(triage, "urlopen", return_value=io.BytesIO(
+                b'{"errors":[{"message":"not permitted"}]}')):
+            with self.assertRaises(RuntimeError):
+                triage.api_request("secret", "close", {"issueId": "I_kwDOABCD123"})
 
 
 if __name__ == "__main__":
