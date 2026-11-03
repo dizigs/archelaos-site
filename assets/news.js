@@ -169,7 +169,10 @@ function show(id){
  void window.ArchelaosLinks?.append(detail,'news',x.id,{limit:8,excludeKinds:['person']});
  const b=$('an-dialog-heart'),favorites=window.ArchelaosFavorites;const saved=favorites?.has('news',x.id);
  b.dataset.favoriteKind='news';b.dataset.favoriteId=x.id;b.querySelector('span').textContent=saved?'♥':'♡';b.setAttribute('aria-pressed',String(!!saved));b.setAttribute('aria-label',saved?'Αφαίρεση από τα αγαπημένα':'Αποθήκευση στα αγαπημένα');
- const dialog=$('an-dialog');if(!dialog.open)dialog.showModal();$('an-close').focus({preventScroll:true});
+ const dialog=$('an-dialog');if(!dialog.open)dialog.showModal();
+ // Acquire the lock in the opening task, not a later native toggle event.
+ document.body.classList.add('arch-dialog-open');
+ $('an-close').focus({preventScroll:true});
  // This reader is reused: a new article must start at its own heading.
  dialog.querySelector('.an-dialog-inner').scrollTop=0;
  const url=new URL(location.href);url.searchParams.set('article',x.id);history.replaceState(null,'',url)

@@ -175,6 +175,19 @@ async function main() {
         await page.locator('dialog.arch-dialog[open]').waitFor();
         assert.equal(await body.evaluate(node => node.scrollTop), 0, 'New story retained the previous scroll offset');
       });
+      await run(browser, 'news-immediate-scroll-lock', view, async page => {
+        await visit(page, 'news.html');
+        // Snapshot the actual handler's synchronous result, before queued native
+        // toggle events can conceal an unlocked background on slower engines.
+        const state = await page.locator('#an-grid .an-card-hit').first().evaluate(anchor => {
+          anchor.click();
+          return {open:document.querySelector('#an-dialog').open,
+            locked:document.body.classList.contains('arch-dialog-open')};
+        });
+        assert.deepEqual(state, {open:true, locked:true}, 'News must acquire its scroll lock during opening');
+        await page.keyboard.press('Escape');
+        await closed(page, '#an-dialog');
+      });
       await run(browser, 'news-scroll-reset', view, async page => {
         // Recent short announcements must not make this regression disappear.
         const articles = JSON.parse(readFileSync(path.join(__dirname, '..', '..', 'dist', 'news.json'), 'utf8'))
