@@ -21,3 +21,8 @@
 - Το root Hall πριν από αυτή την αλλαγή έχει 760 εγγραφές έναντι 682 του `rebuild/data/people.json`. Με την παρούσα προσθήκη αναμένονται 762 και 684 αντίστοιχα. **ΑΠΑΓΟΡΕΥΕΤΑΙ merge πριν από την επίλυση canonical parity/Issue #57 και το draft PR #76**.
 - Ελέγξτε `rebuild/tools/build_release.py`, επαναπαράγετε static profiles, search index, sitemap και links, τρέξτε CI και εξασφαλίστε ότι όλοι οι canonical IDs παραμένουν σταθεροί.
 - Μετά το merge απαιτούνται πραγματικά Cloudflare deployment logs και live desktop/mobile επαλήθευση. Η καταχώριση σε PR δεν είναι δημοσίευση.
+
+## Επιπλέον εύρημα της διασταύρωσης αναζήτησης
+- Οι 25 ήδη καταχωρισμένοι αθλητές/αθλήτριες τοξοβολίας με IDs `arch-archery-contrib-20261102-*`, `arch-archery-result-20261102-*` και `arch-archery-konstantinos-samakovlis-2018` έλειπαν από το `search-index.json`, παρότι υπήρχαν ήδη στο canonical Hall με δημοσιευμένες ατομικές σελίδες.
+- Προστέθηκαν **μόνο εγγραφές ευρετηρίου**, χωρίς δημιουργία διπλών βιογραφικών. Το search index πλέον καλύπτει `762` / `762` canonical πρόσωπα στο branch PR #84.
+- Έλεγχος διασυνδέσεων: τα `personIds` στις 118 ειδήσεις και 28 Φωνές, καθώς και τα `relatedPeople` στις 21 Ιστορίες και τα `people` στα 100 ιστορικά γεγονότα δεν είχαν dangling canonical IDs στον ελεγχόμενο κλάδο.
