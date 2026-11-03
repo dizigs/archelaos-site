@@ -5,6 +5,7 @@ let memory=[],persist=true;
 function normalized(type,id){
  type=String(type||'');id=String(id??'');
  if(!TYPES.has(type))return null;
+ if(type==='person'&&id==='arch-fani-gkiousoglou-gym-2025')id='arch-2cb062fabc11';
  if(type==='person'&&!/^arch-[a-z0-9-]{6,90}$/.test(id))return null;
  if(type==='moment'&&!/^(?:[1-9]|[1-6][0-9]|70)$/.test(id))return null;
  if(type==='story'&&!/^[1-9][0-9]{0,3}$/.test(id))return null;

@@ -649,10 +649,17 @@
   },
   {
     "id": "arch-2cb062fabc11",
-    "name": "Φανή Γκιουσόογλου",
-    "name_en": "Fani Gkiousooglou",
+    "name": "Φανή Γκιοούσογλου",
+    "name_en": "Fani Gkioousoglou",
     "names": [
-      "Φανή Γκιουσόογλου"
+      "Φανή Γκιοούσογλου",
+      "Φανή Γκιουσόογλου",
+      "Φανή Γκιούσογλου",
+      "Φανή Γκιουσόγλου",
+      "Φανή Γκιοουσούγλου",
+      "Fani Gkioousoglou",
+      "Fani Gkiousooglou",
+      "Fani Gkiousoglou"
     ]
   },
   {
@@ -5963,15 +5970,6 @@
     "names": [
       "Αποστόλης Διμολιός",
       "Apostolis Dimolios"
-    ]
-  },
-  {
-    "id": "arch-fani-gkiousoglou-gym-2025",
-    "name": "Φανή Γκιούσογλου",
-    "name_en": "Fani Gkiousoglou",
-    "names": [
-      "Φανή Γκιούσογλου",
-      "Fani Gkiousoglou"
     ]
   },
   {
