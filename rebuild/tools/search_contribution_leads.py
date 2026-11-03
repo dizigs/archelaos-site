@@ -7,6 +7,7 @@ Requires FIRECRAWL_API_KEY and explicit --allow-external-search.
 Results are unverified candidates, not publication-ready evidence.
 """
 import argparse
+import ipaddress
 import json
 import os
 import re
@@ -14,6 +15,7 @@ import sys
 import urllib.error
 import urllib.request
 from pathlib import Path
+from urllib.parse import urlsplit
 
 API = "https://api.firecrawl.dev/v1/search"
 SPORTS = ("χάντμπολ", "χειροσφαίριση", "τοξοβολία", "πετοσφαίριση", "βόλεϊ", "πάλη", "στίβος", "μπάσκετ", "καλαθοσφαίριση")
@@ -33,6 +35,28 @@ def safe_query(lead):
     return " ".join(["ΓΑΣ Αρχέλαος Κατερίνης", *years, *terms])
 
 
+def safe_public_source_url(value):
+    """Reject local/private/credential-bearing or non-HTTPS source links."""
+    if not isinstance(value, str) or len(value) > 2048:
+        return False
+    try:
+        parsed = urlsplit(value)
+        hostname = parsed.hostname
+        if parsed.scheme != "https" or not hostname or parsed.username or parsed.password:
+            return False
+        if hostname == "localhost" or hostname.endswith((".localhost", ".local", ".internal")):
+            return False
+        if "." not in hostname:
+            return False
+        try:
+            ip = ipaddress.ip_address(hostname)
+        except ValueError:
+            return True
+        return ip.is_global
+    except ValueError:
+        return False
+
+
 def search(query, api_key, limit=5):
     body = json.dumps({"query": query, "limit": limit}).encode()
     request = urllib.request.Request(API, data=body, headers={
@@ -50,7 +74,7 @@ def search(query, api_key, limit=5):
     return [{"url": r.get("url"), "title": r.get("title", ""),
              "description": str(r.get("description", ""))[:500]}
             for r in results[:limit] if isinstance(r, dict) and
-            isinstance(r.get("url"), str) and r["url"].startswith(("https://", "http://"))]
+            safe_public_source_url(r.get("url"))]
 
 
 def main():
