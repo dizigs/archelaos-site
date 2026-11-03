@@ -1,23 +1,23 @@
 Actual Google Ad Grants handoff checks — 2026-11-03 Europe/Athens. Fixture provenance is synthetic.
 
 Node tests
-✔ no findings means only checked rules pass; policy review is always required (2.948591ms)
-✔ disapprovals, broken URLs, low quality and single words produce public counts (0.60276ms)
-✔ off-site, credentials, queries and redirects remain unchecked; no inferred HTTP result (0.326623ms)
-✔ CTR uses two complete account-local months, including year and leap boundaries (1.571573ms)
-✔ unknown quality and zero/malformed impressions cannot pass as healthy metrics (0.593697ms)
-✔ conversion requires accepted server receipt, consent and dedup; emits no PII (0.299432ms)
-✔ traffic export adapter distinguishes existing metrics from missing conversions and stale evidence (0.494697ms)
-✔ actual preview collector uses only read APIs and approved GET URLs; never logs raw records (1.176847ms)
-✔ draft campaigns have two groups, multiple creatives/sitelinks and bounded RSA copy, with no budgets (0.783222ms)
-✔ committed synthetic example matches the executed audit used by the Issue planner (0.566255ms)
-✔ combined evidence retains provenance, missing conversions and explicit activation blockers (2.450459ms)
-✔ real-input mode cannot consume a synthetic report or fixture clock (0.851986ms)
-✔ stale or nonexistent Ads dates and stale/future analytics cannot produce a handoff (1.570802ms)
-✔ handoff strips raw values and rejects unknown or duplicate findings (0.627858ms)
-✔ empty traffic stays empty and cannot establish real conversions (0.595318ms)
-✔ importable campaigns or budgets cannot enter the dry-run handoff (0.652475ms)
-✔ completion requires a matching, non-publishable Issue plan with all finding codes (0.998728ms)
+✔ no findings means only checked rules pass; policy review is always required (2.158618ms)
+✔ disapprovals, broken URLs, low quality and single words produce public counts (0.41078ms)
+✔ off-site, credentials, queries and redirects remain unchecked; no inferred HTTP result (0.269346ms)
+✔ CTR uses two complete account-local months, including year and leap boundaries (1.301304ms)
+✔ unknown quality and zero/malformed impressions cannot pass as healthy metrics (0.476469ms)
+✔ conversion requires accepted server receipt, consent and dedup; emits no PII (0.181404ms)
+✔ traffic export adapter distinguishes existing metrics from missing conversions and stale evidence (0.301195ms)
+✔ actual preview collector uses only read APIs and approved GET URLs; never logs raw records (0.750954ms)
+✔ draft campaigns have two groups, multiple creatives/sitelinks and bounded RSA copy, with no budgets (0.641258ms)
+✔ committed synthetic example matches the executed audit used by the Issue planner (0.502829ms)
+✔ combined evidence retains provenance, missing conversions and explicit activation blockers (8.292726ms)
+✔ real-input mode cannot consume a synthetic report or fixture clock (0.607356ms)
+✔ stale or nonexistent Ads dates and stale/future analytics cannot produce a handoff (1.429317ms)
+✔ handoff strips raw values and rejects unknown or duplicate findings (0.547897ms)
+✔ empty traffic stays empty and cannot establish real conversions (0.388827ms)
+✔ importable campaigns or budgets cannot enter the dry-run handoff (0.599174ms)
+✔ completion requires a matching, non-publishable Issue plan with all finding codes (0.505403ms)
 ℹ tests 17
 ℹ suites 0
 ℹ pass 17
@@ -25,7 +25,7 @@ Node tests
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 84.01457
+ℹ duration_ms 73.458236
 
 Python tests, including actual shell integration
 test_closed_issue_reopens_instead_of_duplicate (test_ad_grants_issue_plan.IssueSafety.test_closed_issue_reopens_instead_of_duplicate) ... ok
@@ -43,7 +43,7 @@ test_missing_real_inputs_invalidates_previous_fixture_completion (test_ad_grants
 test_stale_analytics_stops_the_entire_pipeline (test_ad_grants_pipeline.Pipeline.test_stale_analytics_stops_the_entire_pipeline) ... ok
 
 ----------------------------------------------------------------------
-Ran 13 tests in 0.572s
+Ran 13 tests in 0.529s
 
 OK
 

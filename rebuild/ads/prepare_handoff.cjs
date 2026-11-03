@@ -22,7 +22,7 @@ function prepare(report, analytics, campaigns, {fixture, now}) {
   if (!fixture && Object.hasOwn(analytics, 'fixture_clock')) throw Error('Fixture clock in real input');
   const used = new Set();
   const findings = report.findings.map(item => {
-    if (Object.keys(item).sort().join(',') !== 'code,count' || !core.codes.includes(item.code) ||
+    if (Object.keys(item).sort((a, b) => a.localeCompare(b)).join(',') !== 'code,count' || !core.codes.includes(item.code) ||
         !Number.isInteger(item.count) || item.count < 1 || item.count > 10000 || used.has(item.code)) {
       throw Error('Invalid finding');
     }

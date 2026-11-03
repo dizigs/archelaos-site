@@ -156,3 +156,16 @@ account setup, successful live landings, consent/backend receipt/conversion QA
 and an authorized Google Ads Preview still require real verification. No live
 advertising activation or production tracking was performed. Follow-up remote
 CI is pending at this log's commit; the PR description records final-head results.
+
+### Sonar follow-up on the handoff addition
+
+On head `3feb88d`, GitHub check `125740341777` failed with **D Reliability
+Rating on New Code, required A**. Its accessible annotations endpoint returned
+one finding at `rebuild/ads/prepare_handoff.cjs:25`, issue
+`AaGf0nBB_1BHaDNpWJHL`: “Provide a compare function that depends on
+String.localeCompare, to reliably sort elements alphabetically.”
+The finding was read through GitHub annotations; no blocked Sonar API retry or
+Actions log archive was needed. The JSON-field validation now supplies an
+explicit `localeCompare` comparator. No suppression, baseline reset or gate
+change was made. The existing 17 Node and 13 Python tests were re-run after the
+correction and passed; final-head Sonar/CI results are recorded on the PR.
