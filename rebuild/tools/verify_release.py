@@ -298,6 +298,7 @@ def verify() -> None:
     # Filtering still applies before slicing and the featured story is not duplicated.
     assert "PAGE_SIZE=19" in news_js, "News pagination size changed"
     assert "x.id!==lead?.id" in news_js, "Highlighted article duplicated in the news grid"
+    assert "const showLead=state.category==='all'&&!q&&!!lead;" in news_js, "Empty news feed must not invent a featured story"
     assert "const total=items.length+(showLead?1:0);" in news_js, "Featured story must count towards page size"
     assert "const pageCount=Math.max(1,Math.ceil(total/PAGE_SIZE));" in news_js, "News pagination must count all visible stories"
     assert "const offset=showLead?Math.max(0,(state.page-1)*PAGE_SIZE-1):(state.page-1)*PAGE_SIZE;" in news_js, "News pagination offset missing"
