@@ -4,9 +4,13 @@ on:
     paths:
       - 'config/sport-sites.json'
       - 'config/sport-data-contract.json'
+      - 'config/sport-launch-readiness.json'
+      - 'config/sport-self-heal-policy.json'
       - 'tools/validate_sport_sites.py'
+      - 'tools/audit_sport_launch.py'
       - 'tools/validate_sport_data_contract.py'
       - 'tests/test_sport_sites_registry.py'
+      - 'tests/test_sport_launch_gates.py'
       - 'tests/test_sport_data_contract.py'
       - 'tests/test_sport_site_preview.py'
       - 'prototypes/sport-site/**'
@@ -28,7 +32,9 @@ jobs:
       - name: Validate schema and safety constraints
         run: |
           python tools/validate_sport_sites.py
+          python tools/audit_sport_launch.py
           python tools/validate_sport_data_contract.py
           python -m unittest discover -s tests -p 'test_sport_sites_registry.py' -v
+          python -m unittest discover -s tests -p 'test_sport_launch_gates.py' -v
           python -m unittest discover -s tests -p 'test_sport_data_contract.py' -v
           python -m unittest discover -s tests -p 'test_sport_site_preview.py' -v
