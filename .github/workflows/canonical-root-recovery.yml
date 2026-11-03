@@ -4,6 +4,9 @@ on:
     paths:
       - 'rebuild/tools/canonical_root_inventory.py'
       - 'rebuild/tests/canonical_root_inventory_test.py'
+      - 'rebuild/tools/canonical_root_snapshot.py'
+      - 'rebuild/tests/canonical_root_snapshot_test.py'
+      - '.github/workflows/weekly-public-snapshot.yml'
       - 'docs/recovery/CANONICAL_ROOT_RECOVERY.md'
       - '.github/workflows/canonical-root-recovery.yml'
   workflow_dispatch:
@@ -34,3 +37,9 @@ jobs:
               print(f"{e['file']}: {e['records']} IDs, sha256={e['sha256'][:12]}...")
           print("READ-ONLY inventory complete; provider restore NOT performed")
           PY
+
+      - name: Exercise staged canonical root backup against real checkout
+        run: |
+          python -m unittest discover -s rebuild/tests -p 'canonical_root_snapshot_test.py' -v
+          python rebuild/tools/canonical_root_snapshot.py --stage
+          python rebuild/tools/canonical_root_snapshot.py --verify
