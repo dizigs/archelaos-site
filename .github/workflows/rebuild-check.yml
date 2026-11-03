@@ -252,3 +252,15 @@ jobs:
           name: archelaos-release-candidate
           path: dist/
           retention-days: 7
+
+  verify-production-deployment:
+    needs: [integrity, browser, release-build]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.repository == 'dizigs/archelaos-site'
+    permissions:
+      contents: read
+    # actionlint 1.7.11 supports ./; adopt $/ after a separate toolchain upgrade.
+    uses: ./.github/workflows/cloudflare-pages-status.yml
+    with:
+      verify_after_rebuild: true
+    secrets:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
