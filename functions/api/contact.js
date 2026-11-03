@@ -1,5 +1,6 @@
 // Cloudflare Pages Function: send contact inquiries via Resend.
 // RESEND_API_KEY must remain an encrypted Pages secret (not browser-visible).
+const TURNSTILE_SITE_KEY = "0x4AAAAAAFoyKwIFuvMbrcAd";
 const RECIPIENTS = Object.freeze({
   general: "contact@archelaos.club",
   sponsorship: "contact@archelaos.club",
@@ -73,8 +74,30 @@ function base64(bytes) {
   }
   return btoa(chunks.join(""));
 }
+// A Turnstile token must be verified on the server; the browser widget alone is not an abuse control.
+async function verifyTurnstile(token, request, secret) {
+  if (typeof token !== "string" || token.length < 1 || token.length > 2048) return false;
+  try {
+    const response = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({ secret, response: token })
+    });
+    if (!response.ok) return false;
+    const result = await response.json();
+    return result?.success === true &&
+      result.hostname === new URL(request.url).hostname &&
+      result.action === "contact";
+  } catch {
+    return false;
+  }
+}
 export function onRequestGet({ env }) {
-  return respond(200, { ok: true, ready: Boolean(env.RESEND_API_KEY), attachments: true });
+  // Do not advertise direct email submission until *both* encrypted secrets exist.
+  return respond(200, {
+    ok: true, ready: Boolean(env.RESEND_API_KEY && env.TURNSTILE_SECRET),
+    attachments: true, turnstileSiteKey: TURNSTILE_SITE_KEY
+  });
 }
 export async function onRequestPost({ request, env }) {
   const origin = request.headers.get("Origin");
@@ -91,10 +114,12 @@ export async function onRequestPost({ request, env }) {
     return respond(413, { ok: false, error: "too_large" });
   }
   let data;
+  let captchaToken;
   let files = [];
   try {
     if (multipart) {
       const form = await request.formData();
+      captchaToken = form.get("cf-turnstile-response");
       data = Object.fromEntries(["name", "email", "phone", "message", "topic", "sport", "website", "archiveLink", "publicCreditName"]
         .map(key => [key, form.get(key)]));
       data.consent = form.get("consent") === "true";
@@ -110,6 +135,7 @@ export async function onRequestPost({ request, env }) {
       const raw = await request.text();
       if (raw.length > 16000) return respond(413, { ok: false, error: "too_large" });
       data = JSON.parse(raw);
+      captchaToken = data?.turnstileToken;
     }
   } catch {
     return respond(400, { ok: false, error: "invalid_request" });
@@ -151,7 +177,12 @@ export async function onRequestPost({ request, env }) {
   if (files.length && topic !== "archive") {
     return respond(400, { ok: false, error: "attachments_not_allowed" });
   }
-  if (!env.RESEND_API_KEY) return respond(503, { ok: false, error: "not_configured" });
+  if (!env.RESEND_API_KEY || !env.TURNSTILE_SECRET) {
+    return respond(503, { ok: false, error: "not_configured" });
+  }
+  if (!await verifyTurnstile(captchaToken, request, env.TURNSTILE_SECRET)) {
+    return respond(403, { ok: false, error: "verification_failed" });
+  }
 
   const attachments = [];
   for (const file of files) {

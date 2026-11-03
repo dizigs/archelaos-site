@@ -15,8 +15,13 @@ import re
 from zipfile import ZipFile, BadZipFile
 from zoneinfo import ZoneInfo
 
-ROOT=Path(__file__).resolve().parents[1]
-REVIEW=ROOT/"test-artifacts"
+try:
+    from .public_snapshot import output_directory, replace_report, validate_reports
+except ImportError:
+    from public_snapshot import output_directory, replace_report, validate_reports
+
+REPORT_NAME="match-calendar-review.json"
+REPORT_CHOICE="rebuild/test-artifacts/"+REPORT_NAME
 ATHENS=ZoneInfo("Europe/Athens")
 MAX_INPUT=5_000_000
 MAX_EVENTS=3000
@@ -160,16 +165,19 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--handball",action="append",type=Path,default=[],metavar="CALENDAR.ICS/ZIP")
     parser.add_argument("--volleyball",action="append",type=Path,default=[],metavar="CALENDAR.ICS/ZIP")
-    parser.add_argument("--out",type=Path,default=REVIEW/"match-calendar-review.json")
+    parser.add_argument("--out",choices=(REPORT_CHOICE,),default=REPORT_CHOICE,
+                        help="Fixed checkout-relative review report; arbitrary paths are rejected")
     args=parser.parse_args()
     if not args.handball and not args.volleyball:
         parser.error("Provide at least one --handball or --volleyball calendar")
-    out=args.out.resolve()
-    if not out.is_relative_to(REVIEW.resolve()) or out.suffix!=".json":
-        parser.error("Review drafts must remain in gitignored rebuild/test-artifacts/")
-    report=import_sources({"handball":args.handball,"volleyball":args.volleyball})
-    out.parent.mkdir(parents=True,exist_ok=True)
-    out.write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+    try:
+        with output_directory(("rebuild","test-artifacts")) as directory:
+            validate_reports(directory,(REPORT_NAME,))
+            report=import_sources({"handball":args.handball,"volleyball":args.volleyball})
+            replace_report(directory,REPORT_NAME,json.dumps(report,ensure_ascii=False,indent=2)+"\n")
+    except (OSError,ValueError,BadZipFile) as error:
+        parser.exit(2,"CALENDAR IMPORT failed ("+type(error).__name__+
+                    "): check the calendar export and fixed review-report location.\n")
     print("CALENDAR IMPORT:",len(report["candidates"]),"events for review;",
           len(report["warnings"]),"potential problems; no matches published.")
     for warning in report["warnings"][:12]:

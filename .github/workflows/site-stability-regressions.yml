@@ -67,6 +67,11 @@ jobs:
           NODE_PATH: ${{ github.workspace }}/rebuild/tests/browser/node_modules
           SITE_STABILITY_BASE_URL: http://127.0.0.1:8766
         run: node rebuild/tests/site_stability.cjs
+      - name: Verify canonical Hall IDs and bilingual biographies on desktop, tablet and mobile
+        env:
+          NODE_PATH: ${{ github.workspace }}/rebuild/tests/browser/node_modules
+          SITE_STABILITY_BASE_URL: http://127.0.0.1:8766
+        run: node rebuild/tests/hof_reconciliation.cjs
       - name: Audit WCAG and keyboard interactions with locked axe
         env:
           NODE_PATH: ${{ github.workspace }}/rebuild/tests/browser/node_modules

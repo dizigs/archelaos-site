@@ -1,0 +1,554 @@
+{
+  "scope": "Generated release only; root and archival source HTML unchanged",
+  "canonical_people": 771,
+  "root_templates_adapted": 91,
+  "english_sections_added": 39,
+  "records": [
+    {
+      "id": "arch-dimitris-siokas-handball-2026",
+      "root_html_sha256": "6efc4043bb31017f577f53fe5d2e62e56d1b7f7be01f766a0eb2e12135edad06",
+      "canonical_english_sha256": "9b35f97732a4dd2a07a8509ac4490ae5076437e51bc637f13ff4087565a5e738",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-vasiliki-koufogianni-shoot",
+      "root_html_sha256": "256ab21bcb791ee76ca8a3a1071e145f514bcf797763480f08f04734dd7111ef",
+      "canonical_english_sha256": "469e5ba25de8ddccf6f7ea0075f4c1575b5671080f82469ff0d34de13c3b6a46",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-konstantinos-seitanidis-shoot",
+      "root_html_sha256": "da9e50ffe3a97ec8926bccc41f3ff53bf1260d75827a35d2be9d29f3704beb11",
+      "canonical_english_sha256": "efe58b30373fbad88b257f1287c00f727448e26097c82e654090d50fdc5d99a2",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-vanesa-charoula-hogkas-shoot",
+      "root_html_sha256": "e867922910e34334e8d0335fa05c7be0393a25c81ec771776b70b090be11e9a0",
+      "canonical_english_sha256": "ab5409cccd999c3f35909dd2a09f20fa0fbc5f30f0177521090214d0085d2889",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-sofia-toptsa-shoot",
+      "root_html_sha256": "e38b236f7d8c6db52f6b680c581886f50bebc47f06303cc9bc3734e54c9892f0",
+      "canonical_english_sha256": "471b8be1a3ce888ad36c7b792a2c1079fa7d38d73226be5acc4e71d89ad85d20",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-vasileios-grigoropoulos-shoot",
+      "root_html_sha256": "dc3ef7807e6d41c25cbe75c9c9519388b3068ddd107b3112fe61a1b31be5d909",
+      "canonical_english_sha256": "7a443eae794117e55525613a20bf5032e790ca387324d144b3931b09223403ba",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-dimitrios-tsimponis-shoot",
+      "root_html_sha256": "e2aa997810e38bd001b303c7841215759f51d13d34848634f30a77c731a48ad8",
+      "canonical_english_sha256": "7a443eae794117e55525613a20bf5032e790ca387324d144b3931b09223403ba",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-dimitrios-koufogiannis-shoot",
+      "root_html_sha256": "be5a6ac9e83226d8c7387dbd582e3aa7ea5ac84e41fb035c9148491dad4f53de",
+      "canonical_english_sha256": "40e8b490040cf7ee2d297a2e7fc69548f080c922782043668ec02f39d72ebfa8",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-konstantinos-sklias-wrest23",
+      "root_html_sha256": "70fafdd267f995ea89d3dd8e32ee9bf2d93481b76e3cd759994624808c6ad483",
+      "canonical_english_sha256": "556bd7dd30d09314f1710f760a172f50631e9fb459cd86c443097d73cd6479f2",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-vangelis-kordonoulis-wrest24",
+      "root_html_sha256": "d737f14f6c5006c88e16b949924b76f2a49111380bbdce4755a0f2cb7fef069f",
+      "canonical_english_sha256": "bf4df8f195297aadafca2968d5d386a3aa245d8ede1c3533cac208f3dda413a2",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-aristotelis-navrozidis-wrest24",
+      "root_html_sha256": "a1b1cf4d9084863f0ea26aafffada1e2383d955899f549787159e8c831e20b4e",
+      "canonical_english_sha256": "bf4df8f195297aadafca2968d5d386a3aa245d8ede1c3533cac208f3dda413a2",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-pavlina-charitidou-arch",
+      "root_html_sha256": "fc02d36ac6e3d49201d91d38f643375b70bcdb40cb472a1651e81143abe82b2b",
+      "canonical_english_sha256": "8d199326c88ed445bb07dbfef9106cddb95d17e076c249b4f16a3f2ee7bd4a4f",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-theofania-karali-arch",
+      "root_html_sha256": "4dae322616b0e3c1317e87ab8a63050929200c58aeb96bda250ad7d48bed637e",
+      "canonical_english_sha256": "c26ba01b91dad06ee2c62e21c4215e47b82294d18a6d55e92b28e5058604403e",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-kassiani-koktsidou-arch",
+      "root_html_sha256": "1a9a4f9e939210d9a829c23a0c8a0ac3e8a66a000cc9f91860754fc9392b7f1d",
+      "canonical_english_sha256": "c26ba01b91dad06ee2c62e21c4215e47b82294d18a6d55e92b28e5058604403e",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-aikaterini-giannakou-arch",
+      "root_html_sha256": "78c4b26a9f313c0b4fe534c8ce78ef6a08858a2a2b4df569bc0305852a83d02b",
+      "canonical_english_sha256": "fbd7c8fc1e50e9835628305259957ac4def68d5b4c2e79849295447cc0a0d4bd",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-konstantinos-charisis-arch",
+      "root_html_sha256": "207e60c91558b1fefa126d5fb29d65ce884ab10a4282b0d5dfc888a6fa7779aa",
+      "canonical_english_sha256": "502677f4de4a5754b5ad658dde3f6c1e4e406854c66d62488cb8f1ca8c56b23d",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-ektoras-diamantidis-arch",
+      "root_html_sha256": "0d3d09029d1fab7dfb30c13779c1403a83bc42ffe11b5ee641ebfb4a1d337f9d",
+      "canonical_english_sha256": "3e88ee6b2910d0bc646694ef7cd065fa0ab30bab849cbf5162fbcc9c9c34a43d",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-loukas-zinisa-wrest25",
+      "root_html_sha256": "6e61e0fbf295a6dce99f3fbf22108d24fa87df30e590043e5e60fae338826d18",
+      "canonical_english_sha256": "cb84a6e49e1b7cde64fa4bc1e1cfef12ecda1bbe496f739a63022bc464efa1c8",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-dimitrios-trigkas-wrest25",
+      "root_html_sha256": "7be7666500ef2e6341289caf6168406d5d9cff863aa24845c01348360eac2bb8",
+      "canonical_english_sha256": "04c482d1bbf4c0dfad53c56a9c906dc5487f1624fabf4210ac4e6a219f317269",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-chara-mavridou-wrest25",
+      "root_html_sha256": "31425f989b21730831188a92bf532326a72a559d8bccf8dd985dd736477365e7",
+      "canonical_english_sha256": "5e910e20518fab9f2dc91e17a8c7e75e9028cbf7a16e85365e77a95657dfe844",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-maria-mastorogianni-wrest25",
+      "root_html_sha256": "31cf9e1929553a9e047810197e0c612a9a3fae33d33d7f68cc43617dfcbd9ee6",
+      "canonical_english_sha256": "da262f75682bb19a3ebe6e3d403fb8438e2bc33dc539c6c4ecdb28a8dc17350c",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-wrest-dimitris-grigkas",
+      "root_html_sha256": "361f6a1c3e802f40428faf383db58ee01e2666eda080b9d24275f9af41c1e0bf",
+      "canonical_english_sha256": "4a93626447b32082cd3b43674efabf2dc0466cb4eb9a6f96fd429c8b1ddc8f99",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-wrest-taxiarhis-liakos",
+      "root_html_sha256": "f61f6c717b12e7a038f102ef5d63e9fe915dbc3564002b398e5c3954d818638a",
+      "canonical_english_sha256": "4238aa3216f03c07dd6c665f7d2d40a5bf416081e20b46f421ead82394a9e9af",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-wrest-stavros-tsakiris",
+      "root_html_sha256": "ae5d31457119533687f30b234fcade12a2eae94fafe53dace0129954d2d98dd4",
+      "canonical_english_sha256": "4238aa3216f03c07dd6c665f7d2d40a5bf416081e20b46f421ead82394a9e9af",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-gymnastics-9814252c",
+      "root_html_sha256": "0b5765bd8aff262f7574ebd768a0a28bc8d11181841ccc44f735bd005a996678",
+      "canonical_english_sha256": "f85ae5732b9e73e5b1da1ae516df5eddbb298f754353692b23385737d0e852ea",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-gymnastics-f2e4a89b",
+      "root_html_sha256": "99961d6ee63aab08e0bfa09eaa7687888e5ca1ee28265ca47f87942c5714f3d1",
+      "canonical_english_sha256": "f85ae5732b9e73e5b1da1ae516df5eddbb298f754353692b23385737d0e852ea",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-gymnastics-3e72e3a0",
+      "root_html_sha256": "8cb6ab9472c7a323bdcd44f5f28e80d17541d4222a0c0470c622f1796e07e70c",
+      "canonical_english_sha256": "f85ae5732b9e73e5b1da1ae516df5eddbb298f754353692b23385737d0e852ea",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-gymnastics-ffd29998",
+      "root_html_sha256": "5f3d67cd61e624508f1c77afc0746c3b0700d30d6c49d2a005b7281d09bdef5d",
+      "canonical_english_sha256": "f85ae5732b9e73e5b1da1ae516df5eddbb298f754353692b23385737d0e852ea",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-gymnastics-ab00d538",
+      "root_html_sha256": "64656eb3469d280c6464028861f957316bc5024c87fe9d85fdcd19c65b5b954a",
+      "canonical_english_sha256": "82495be04cde871fbce7d9dcb732586cf90441c85cbc3d3cc663cda84100e2db",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-gymnastics-b15100a6",
+      "root_html_sha256": "2c03340b8001f42c72591d6028d04cbc228358bdaf6d89018b6dc6bb3a6a9270",
+      "canonical_english_sha256": "82495be04cde871fbce7d9dcb732586cf90441c85cbc3d3cc663cda84100e2db",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-gymnastics-3d90ff4c",
+      "root_html_sha256": "4de8199e0661655970d2d123ee618e8a13f604c76df125a99bc4f0e05f45880f",
+      "canonical_english_sha256": "82495be04cde871fbce7d9dcb732586cf90441c85cbc3d3cc663cda84100e2db",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-gymnastics-4835eaab",
+      "root_html_sha256": "7ba7de3db77e5e96ed5fdc06affb1a64c76759c8677a4939fb7c6df6d5ee4e70",
+      "canonical_english_sha256": "82495be04cde871fbce7d9dcb732586cf90441c85cbc3d3cc663cda84100e2db",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-gymnastics-d8ee376a",
+      "root_html_sha256": "0fb880ad37f0c56d39c093c8e3b2b6c60c7f02780bf28ea5c35f5d32b038f4a0",
+      "canonical_english_sha256": "82495be04cde871fbce7d9dcb732586cf90441c85cbc3d3cc663cda84100e2db",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-archery-52bc1f27",
+      "root_html_sha256": "2325f09cbfeb3e102b3f18b0b42dfab46f99eff93d492f54e0d3a2f29e7888a6",
+      "canonical_english_sha256": "18830e8e951fc26cb96643b2bc240bc2eba0615883d4e2125f88502f4cdabf7f",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-archery-5e69a556",
+      "root_html_sha256": "354d4596d2d20cdc3e8b7b67b745d8a3f974827b0d790f93581cb16938f2140c",
+      "canonical_english_sha256": "18830e8e951fc26cb96643b2bc240bc2eba0615883d4e2125f88502f4cdabf7f",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-archery-9acd2e41",
+      "root_html_sha256": "aaed40d41703f53be225fd12618621926a64f2002bf33c867a769f3b9bb58869",
+      "canonical_english_sha256": "18830e8e951fc26cb96643b2bc240bc2eba0615883d4e2125f88502f4cdabf7f",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-handball-348992f5",
+      "root_html_sha256": "e1e04654de759d1dfbcc5a0335d6711e0f8669b60969765ff467966c01fa5de4",
+      "canonical_english_sha256": "a9fd8a75157a9c0163674e0454e0d83edc7b73fb7e7e47c89a350413438fb196",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-katerina-natsiopoulou-track22",
+      "root_html_sha256": "7f72635dcf717eaa1f5be70fb484fc080b56a7a5887a0e282052509dc6768066",
+      "canonical_english_sha256": "b844ecf6dc58d974c5699addf481b7318e6020077f6008ce79e928d429e92722",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-sofia-konstantinidou-track22",
+      "root_html_sha256": "4e7e7817780432ee276168a5b47f62a9226015a53a0f270d8171fca98c814edd",
+      "canonical_english_sha256": "65f243dcd0e69b7bd026017a27b3a0602381a850cbbc436379f4fffefd385f51",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-afroditi-biziota-track23",
+      "root_html_sha256": "319ae6e7b97c6cfac8e21b20a9a9d417d059931fdd67d86d3f3b8c85f16c6a17",
+      "canonical_english_sha256": "d53c904778f22a48314544b9912bebf4c88d90846fc6feec5d9457739a600b0e",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-michaela-syrmali-wrest20",
+      "root_html_sha256": "ae74fdfd2a5f066e4c9be674689a5bdbe5cb8e73b3fc21bf30eae36a14f56a1a",
+      "canonical_english_sha256": "94b9f1ca06e7bf22b3d58adb6ad59f6e459f050977facd66965e5250c379d26c",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-thodoris-tsiliggiridis-wrest20",
+      "root_html_sha256": "9d51a03cc8a2c3272bcd33bd32ae43316192e59d87770da0522ac027b3ccf2d8",
+      "canonical_english_sha256": "b40aa486278d261b98366143be22a12d81f5d70802b901d5ca748b1b321ce87c",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-apostolis-dimolios-wrestling-2026",
+      "root_html_sha256": "f9dc3990c0d9b9ba2c3b0436b2b5f136c26ebd3a3586bb082f37fd8d8d309289",
+      "canonical_english_sha256": "439edfcd333110e682685fc6316e7de898b609138d5c76822882380ebc80d47f",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-swim-2026-andreas-anastasiadis",
+      "root_html_sha256": "edbe73eea8c4c3af02b47a89fb9d288bde6976aeb3720f64f3de631548d3a52d",
+      "canonical_english_sha256": "b177d0ddebb0f2c8d8725fbaeac7ca3ba8075e8831f73de0a11dc444875d05b4",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-swim-2026-katerina-tsiniani",
+      "root_html_sha256": "2ef84b74c94cbabd73e4d0c1a61d7d39b57f44d0bbde53ada5ccd76aaba7b320",
+      "canonical_english_sha256": "5401f994f2104a6d0c57a9f8fb76174bc7aebfa71dc55b2d4ceb95f6b5b3ab3f",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-swim-2026-katerina-popoti",
+      "root_html_sha256": "1ddb94c59ac39ee919bec1c506a3fa0b83f31690e1f59795ec84ad99b9939ec0",
+      "canonical_english_sha256": "5401f994f2104a6d0c57a9f8fb76174bc7aebfa71dc55b2d4ceb95f6b5b3ab3f",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-swim-2026-giorgos-kryos",
+      "root_html_sha256": "4ebd3b138c713b3d48455b8c6971770a41b3247aae7ac34494d9e01d1c74ebba",
+      "canonical_english_sha256": "5401f994f2104a6d0c57a9f8fb76174bc7aebfa71dc55b2d4ceb95f6b5b3ab3f",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-swim-2026-nikolas-kryos",
+      "root_html_sha256": "8ba47a91e1ebc8f11dd64bcb45c537d06048f648c046071cd95ab024286ee719",
+      "canonical_english_sha256": "5401f994f2104a6d0c57a9f8fb76174bc7aebfa71dc55b2d4ceb95f6b5b3ab3f",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-swim-2026-pavlos-bampoulis",
+      "root_html_sha256": "f4137950eb5fbd8837651b225ca3fd689ddc4df5e10e80ed324833d640ea0e23",
+      "canonical_english_sha256": "fd3796d3c14e6e0b773cc2d336bada28665e3fb0441665242534967ef9a71e7b",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-swim-2026-konstantinos-stefanis",
+      "root_html_sha256": "9c960a2dfdc4b12752ad2390630c59d4a4c241c40767e1c18fbb79cf67b8afd3",
+      "canonical_english_sha256": "fd3796d3c14e6e0b773cc2d336bada28665e3fb0441665242534967ef9a71e7b",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-swim-2026-fayi-dimitriadou",
+      "root_html_sha256": "b360c64e74f3151e856187581241dbffeadd43cf7d2c735d0fe6c6bdc3dc4407",
+      "canonical_english_sha256": "fd3796d3c14e6e0b773cc2d336bada28665e3fb0441665242534967ef9a71e7b",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-swim-2026-eleni-kotidou",
+      "root_html_sha256": "26006431917992bf7d593011e1aa084e7b4034dc75122e9cf35a5e5c193781ea",
+      "canonical_english_sha256": "fd3796d3c14e6e0b773cc2d336bada28665e3fb0441665242534967ef9a71e7b",
+      "english_section_added": false
+    },
+    {
+      "id": "arch-archery-contrib-20261102-01",
+      "root_html_sha256": "03a89208b3740a87cedde849af5df54654e282fee47c3e8e4c53e6b198106838",
+      "canonical_english_sha256": "9f636b36ed3e717324d939f7712486f24bbcfafd08162c16e100ac98e233e561",
+      "english_section_added": true
+    },
+    {
+      "id": "arch-archery-contrib-20261102-02",
+      "root_html_sha256": "7e961fe72d29309e1b8e7ae0b9f51fb3ffac3e7dd970a99479717b7471906b8a",
+      "canonical_english_sha256": "9f636b36ed3e717324d939f7712486f24bbcfafd08162c16e100ac98e233e561",
+      "english_section_added": true
+    },
+    {
+      "id": "arch-archery-contrib-20261102-03",
+      "root_html_sha256": "1c1385a45c4337ee88d46a9191981de0b685b8081d4a618756a2c8624e700cc7",
+      "canonical_english_sha256": "9f636b36ed3e717324d939f7712486f24bbcfafd08162c16e100ac98e233e561",
+      "english_section_added": true
+    },
+    {
+      "id": "arch-archery-contrib-20261102-04",
+      "root_html_sha256": "dc0c8be81ec80597b05b97473f602bb6cda6fb0e28b4237e2c0213f8bada6aef",
+      "canonical_english_sha256": "9f636b36ed3e717324d939f7712486f24bbcfafd08162c16e100ac98e233e561",
+      "english_section_added": true
+    },
+    {
+      "id": "arch-archery-contrib-20261102-05",
+      "root_html_sha256": "2871fcf9bb248333408cffdbfd617b988bfeae95c8597325c78770733e30eecd",
+      "canonical_english_sha256": "9f636b36ed3e717324d939f7712486f24bbcfafd08162c16e100ac98e233e561",
+      "english_section_added": true
+    },
+    {
+      "id": "arch-archery-contrib-20261102-06",
+      "root_html_sha256": "115c3424c087512dd47ff66ac888850a641c13a5275de5735038baacae582662",
+      "canonical_english_sha256": "9f636b36ed3e717324d939f7712486f24bbcfafd08162c16e100ac98e233e561",
+      "english_section_added": true
+    },
+    {
+      "id": "arch-archery-contrib-20261102-07",
+      "root_html_sha256": "506fd2225a2a7ef7d8fc7048aebcbafcb6a697858ae558ee2055f0936bc52ed6",
+      "canonical_english_sha256": "9f636b36ed3e717324d939f7712486f24bbcfafd08162c16e100ac98e233e561",
+      "english_section_added": true
+    },
+    {
+      "id": "arch-archery-contrib-20261102-08",
+      "root_html_sha256": "43e8b1a93afa841ae3b1908bdbe022626faa3d876695417dd46d3224f0a935b4",
+      "canonical_english_sha256": "9f636b36ed3e717324d939f7712486f24bbcfafd08162c16e100ac98e233e561",
+      "english_section_added": true
+    },
+    {
+      "id": "arch-archery-contrib-20261102-09",
+      "root_html_sha256": "7d1e7c6707082c6d309ea3ed8a15803e327c0d03c121e9649d6d8e0aedde8b12",
+      "canonical_english_sha256": "9f636b36ed3e717324d939f7712486f24bbcfafd08162c16e100ac98e233e561",
+      "english_section_added": true
+    },
+    {
+      "id": "arch-archery-result-20261102-01",
+      "root_html_sha256": "00b1352e5552870937dc583e27d61de1028e6ed887029c402c363312ab496e0f",
+      "canonical_english_sha256": "93b32e91c16af4445cb4cf324561e25689efac2d29bd7c50aed316042a6fcf91",
+      "english_section_added": true
+    },
+    {
+      "id": "arch-archery-result-20261102-02",
+      "root_html_sha256": "26d6acd5d11c47b57bf69bd348e4612733f40adf4020aa487de903b5ebb36d51",
+      "canonical_english_sha256": "93b32e91c16af4445cb4cf324561e25689efac2d29bd7c50aed316042a6fcf91",
+      "english_section_added": true
+    },
+    {
+      "id": "arch-archery-result-20261102-03",
+      "root_html_sha256": "783dd26c9dfcd1406b33dfc4a2f73c287cfa1a3fb00fe8e22cbc6fc307c6d382",
+      "canonical_english_sha256": "93b32e91c16af4445cb4cf324561e25689efac2d29bd7c50aed316042a6fcf91",
+      "english_section_added": true
+    },
+    {
+      "id": "arch-archery-result-20261102-04",
+      "root_html_sha256": "1792bf51247c1f898d0a2be9479071f0b797a747e56fced848905df402aa57c9",
+      "canonical_english_sha256": "93b32e91c16af4445cb4cf324561e25689efac2d29bd7c50aed316042a6fcf91",
+      "english_section_added": true
+    },
+    {
+      "id": "arch-archery-result-20261102-05",
+      "root_html_sha256": "6a043b3bfebc89fae0fc69db741f7df2f1b7dc13fa1a32a95af2b70e2288bd4c",
+      "canonical_english_sha256": "93b32e91c16af4445cb4cf324561e25689efac2d29bd7c50aed316042a6fcf91",
+      "english_section_added": true
+    },
+    {
+      "id": "arch-archery-result-20261102-06",
+      "root_html_sha256": "f101d6ae6827bbad0eb7aa5cbfc584de9e5c497c431887e67b145006a00fa1a0",
+      "canonical_english_sha256": "93b32e91c16af4445cb4cf324561e25689efac2d29bd7c50aed316042a6fcf91",
+      "english_section_added": true
+    },
+    {
+      "id": "arch-archery-result-20261102-07",
+      "root_html_sha256": "523cbad02508c8517bea4f4df5814f53f067c9493373ce7c9896e282b02599c8",
+      "canonical_english_sha256": "93b32e91c16af4445cb4cf324561e25689efac2d29bd7c50aed316042a6fcf91",
+      "english_section_added": true
+    },
+    {
+      "id": "arch-archery-result-20261102-08",
+      "root_html_sha256": "7dbe9f0ea2e37d8b69a0577890abfcffc30bf9c29e98711a9679c27036f7d515",
+      "canonical_english_sha256": "93b32e91c16af4445cb4cf324561e25689efac2d29bd7c50aed316042a6fcf91",
+      "english_section_added": true
+    },
+    {
+      "id": "arch-archery-result-20261102-09",
+      "root_html_sha256": "65b56a014ff35f42685673b738c11eb5e36c663ef91195ad27d57dd784ab3e84",
+      "canonical_english_sha256": "93b32e91c16af4445cb4cf324561e25689efac2d29bd7c50aed316042a6fcf91",
+      "english_section_added": true
+    },
+    {
+      "id": "arch-archery-result-20261102-10",
+      "root_html_sha256": "c24dd3acc08fc62e99e9c9a9c12847e62d8f4313f93298366541e377b908cbab",
+      "canonical_english_sha256": "93b32e91c16af4445cb4cf324561e25689efac2d29bd7c50aed316042a6fcf91",
+      "english_section_added": true
+    },
+    {
+      "id": "arch-archery-result-20261102-11",
+      "root_html_sha256": "e311e29eac999ddab0783dbaf6a649ec156721efb2a19bc5b105755cef1ee0d3",
+      "canonical_english_sha256": "93b32e91c16af4445cb4cf324561e25689efac2d29bd7c50aed316042a6fcf91",
+      "english_section_added": true
+    },
+    {
+      "id": "arch-archery-result-20261102-12",
+      "root_html_sha256": "33a81489e1398a261b614b10babd88340cc55ec2d2ccdfd365ef345e08e6f6e6",
+      "canonical_english_sha256": "93b32e91c16af4445cb4cf324561e25689efac2d29bd7c50aed316042a6fcf91",
+      "english_section_added": true
+    },
+    {
+      "id": "arch-archery-result-20261102-13",
+      "root_html_sha256": "237e81eb028c11d2a38e0bf9c54f2c6f23eeb97f9f9b2b174a38a81a07f45e62",
+      "canonical_english_sha256": "93b32e91c16af4445cb4cf324561e25689efac2d29bd7c50aed316042a6fcf91",
+      "english_section_added": true
+    },
+    {
+      "id": "arch-archery-result-20261102-14",
+      "root_html_sha256": "2d3503dd823a47b06450518842fd2aac2169bad7a648d863fc220c5db709ef89",
+      "canonical_english_sha256": "93b32e91c16af4445cb4cf324561e25689efac2d29bd7c50aed316042a6fcf91",
+      "english_section_added": true
+    },
+    {
+      "id": "arch-archery-result-20261102-15",
+      "root_html_sha256": "8c795cfa4ee400515129c01a235776ae34e7fce904c645780ad7b77118017ec3",
+      "canonical_english_sha256": "93b32e91c16af4445cb4cf324561e25689efac2d29bd7c50aed316042a6fcf91",
+      "english_section_added": true
+    },
+    {
+      "id": "arch-archery-konstantinos-samakovlis-2018",
+      "root_html_sha256": "850ca3c60f33dce5b0e43a92cb5537dd8e97a510e6e9765c345a2e803247aff2",
+      "canonical_english_sha256": "c75c549c8e2d70259c1abc906e6abee358519c2d9869c35f3a4719e76cac6435",
+      "english_section_added": true
+    },
+    {
+      "id": "arch-konstantinos-sarris-volleyball",
+      "root_html_sha256": "f9d5a9a61be42f4de0d048b4ba4fa8249b8646e85f40fb9eebd4ab1f424b9825",
+      "canonical_english_sha256": "e31a119156b6bb62b948fe6ed55077199888332087ae9d6dc1e8ec9b771a4238",
+      "english_section_added": true
+    },
+    {
+      "id": "arch-vasilis-d-noulezas-handball",
+      "root_html_sha256": "b63ca71c877daff5faea65defdd37c75b9e2d578ee069c6e0db77ffb0cf3c2e7",
+      "canonical_english_sha256": "6e79d771ff3184b7873632870712631f4df3fed23e7a6f8a3dbe23ce2f9f6c3b",
+      "english_section_added": true
+    },
+    {
+      "id": "arch-platon-chotokouridis-basketball",
+      "root_html_sha256": "22604f8867b5b051adec526a504aedd194fd4ccdab0831131885145a5eda5769",
+      "canonical_english_sha256": "9192004c8d9173e59c1e1f2d0921da6e82b5c01b437f4d812ecbc671c9612da0",
+      "english_section_added": true
+    },
+    {
+      "id": "arch-dimitrios-loulas-archery-officer-2015",
+      "root_html_sha256": "416e96473a841b0c9f44c5679af2c6ad7f5141ccf076d1292bdd0d784fe19d5b",
+      "canonical_english_sha256": "762d89f92e93169ad5e205e6bf689aec9c7de197cac8dd183a5a7c31694eabc6",
+      "english_section_added": true
+    },
+    {
+      "id": "arch-katerina-lampiri-gymnastics-2022",
+      "root_html_sha256": "85f06c17cae1498d90e66f0aa94d0a1ff87838a2f0262a53f683a9cff64eff55",
+      "canonical_english_sha256": "a014905df0de458b138faf8eed16660dd581c44ba86f97fb4a017b7ce6cd42e0",
+      "english_section_added": true
+    },
+    {
+      "id": "arch-christina-papavasileiou-gymnastics-2022",
+      "root_html_sha256": "69f4a67ab61f31e5538b4711333ad4bd20eee63b7ba456262307a83f6994c30a",
+      "canonical_english_sha256": "21b1af70a3a974429622a38e9ed89476328b4e08bd025186f91c5b57b173a5d2",
+      "english_section_added": true
+    },
+    {
+      "id": "arch-paschalis-iliatzikis-wrestling-2022",
+      "root_html_sha256": "7af3b2494c7c2eea45fdb4489fc01a6e3ce42d596016fc6d51a9b26ee748ad6e",
+      "canonical_english_sha256": "a92b18b018c1bd722a328f50716c78986d993b5d275477ad44a58f3a650c309a",
+      "english_section_added": true
+    },
+    {
+      "id": "arch-savvas-charitidis-wrestling-2021",
+      "root_html_sha256": "ade984cc2b0ac8eb2c38b6fc1dbef6f5f3d46e0e625def34ad66879941d82896",
+      "canonical_english_sha256": "2386046419e92564a0dd68b0cc66888d8d2abbb00df6447d879f418f956fda9a",
+      "english_section_added": true
+    },
+    {
+      "id": "arch-alexis-papadopoulos-wrestling-2022",
+      "root_html_sha256": "9b4ad0a0a2b27a2e987c9932a017fe999e3584af5134ab4d8087f7ab624b95a3",
+      "canonical_english_sha256": "71f9b6c4160ad919529075182c609b205435baf5fd46dd284be2bb7d1bf7f85a",
+      "english_section_added": true
+    },
+    {
+      "id": "arch-eleni-mitsiaki-archery-2022",
+      "root_html_sha256": "1a574810794181b148e7393a1777edba166d1116d4db0069733b733ee9f1ada1",
+      "canonical_english_sha256": "4cb956008ee2140b4abbb7bef995a85c2a0c6977eb3e6ec3d92e68337b7e0bee",
+      "english_section_added": true
+    },
+    {
+      "id": "arch-achilleas-giassiranis-wrestling-2024",
+      "root_html_sha256": "727b5d21da16b7a0142dadf926a2a77b84c8a43efab355815edcfa051b90d039",
+      "canonical_english_sha256": "7f6eee957030348e833b316dbf6f8563299de10417a44ebfba2f1453cc02c00b",
+      "english_section_added": true
+    },
+    {
+      "id": "arch-kyriaki-parasidou-gymnastics-2022",
+      "root_html_sha256": "9a6d21c5c389b7d6d234d71ad6eb333085a3585d8142da9d01eb04f8504a5230",
+      "canonical_english_sha256": "73b46200049c40f686a0abcfd8bbb9e0c9905c872d75e40da7b879867933bebd",
+      "english_section_added": true
+    },
+    {
+      "id": "arch-christos-karasavvidis-gymnastics-2022",
+      "root_html_sha256": "125924cfd9ce692758159f89efb7fa719b524c3b05b6954a2dfac0dcbbfb445a",
+      "canonical_english_sha256": "ec4f6b4dbf3ac003111bb32c5ade67daad7e4bb136048289b40fcab00389493f",
+      "english_section_added": true
+    },
+    {
+      "id": "arch-ioannis-goutsos-gymnastics-2022",
+      "root_html_sha256": "4423f054206287d04bbbf5d2a836316906fec4d4d5630485061d3e3b55e86349",
+      "canonical_english_sha256": "617940d925acca3460961431f89155f22717905854c3918680853dc289306c5b",
+      "english_section_added": true
+    }
+  ]
+}
