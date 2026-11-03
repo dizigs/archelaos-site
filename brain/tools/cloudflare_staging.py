@@ -1,0 +1,87 @@
+"""Narrow staging inventory/deployment helper; never mutates plans, DNS or main."""
+import argparse
+import json
+import os
+import re
+import urllib.error
+import urllib.request
+
+SCRIPT = "archelaos-brain-staging"
+BASE = "https://api.cloudflare.com/client/v4"
+
+
+class NoRedirect(urllib.request.HTTPRedirectHandler):
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        return None
+
+
+class Cloudflare:
+    def __init__(self):
+        self.account = (os.environ.get("CLOUDFLARE_ACCOUNT_ID") or "898359728b3dfe8c3a3f56e3d19eecd1").strip()
+        self.token = os.environ.get("CLOUDFLARE_API_TOKEN", "").strip()
+        if not re.fullmatch(r"[0-9a-f]{32}", self.account) or not self.token:
+            raise ValueError("Existing Cloudflare account/token binding unavailable")
+        self.opener = urllib.request.build_opener(NoRedirect())
+
+    def get(self, suffix):
+        if suffix not in {"workers/account-settings", "workers/subdomain", "subscriptions",
+                          "workers/durable_objects/namespaces", "workers/scripts/" + SCRIPT}:
+            raise ValueError("Read endpoint outside compiled readiness allowlist")
+        endpoint = BASE + "/accounts/" + self.account + "/" + suffix
+        request = urllib.request.Request(endpoint, headers={"Authorization": "Bearer " + self.token})
+        try:
+            with self.opener.open(request, timeout=20) as response:
+                raw = response.read(2 * 1024 * 1024 + 1)
+                if len(raw) > 2 * 1024 * 1024: raise ValueError("Readiness response too large")
+                data = json.loads(raw)
+                return {"endpoint": endpoint, "httpStatus": response.status,
+                        "success": data.get("success") is True, "result": data.get("result")}
+        except urllib.error.HTTPError as error:
+            # No raw response/headers/token/provider messages are published.
+            return {"endpoint": endpoint, "httpStatus": error.code, "success": False,
+                    "errorClass": "provider_http", "retryPerformed": False}
+        except urllib.error.URLError:
+            return {"endpoint": endpoint, "httpStatus": None, "success": False,
+                    "errorClass": "network_transport", "retryPerformed": False}
+
+
+def inventory(client):
+    endpoints = ("workers/account-settings", "workers/subdomain", "subscriptions",
+                 "workers/durable_objects/namespaces", "workers/scripts/" + SCRIPT)
+    evidence = []
+    plan = "UNVERIFIED"
+    for suffix in endpoints:
+        response = client.get(suffix)
+        result = response.pop("result", None)
+        if suffix == "subscriptions" and response["success"] and isinstance(result, list):
+            # Only plan labels: never subscription identifiers, payment data or prices.
+            labels = [str((row.get("rate_plan") or {}).get("public_name", "")) for row in result]
+            response["planLabels"] = labels
+            if any("workers" in label.casefold() and "free" in label.casefold() for label in labels):
+                plan = "WORKERS_FREE_CONFIRMED"
+        if suffix == "workers/subdomain" and response["success"] and isinstance(result, dict):
+            response["registeredWorkersSubdomain"] = bool(result.get("subdomain"))
+        if suffix == "workers/durable_objects/namespaces" and response["success"] and isinstance(result, list):
+            response["namespaceCount"] = len(result)
+        if suffix == "workers/scripts/" + SCRIPT:
+            response["existingStagingScript"] = response["success"]
+        evidence.append(response)
+    return {"stage": "READ_ONLY_INVENTORY", "script": SCRIPT, "billingPlan": plan,
+            "evidence": evidence, "resourceMutationPerformed": False, "aiProviderCalls": 0,
+            "status": "READINESS_RECORDED", "deploymentVerified": False}
+
+
+def emit(report):
+    encoded = json.dumps(report, sort_keys=True, separators=(",", ":"))
+    print(encoded)
+    print("::notice title=Brain staging evidence::" + encoded.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A"))
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--action", choices=("inventory",), required=True)
+    parser.parse_args()
+    emit(inventory(Cloudflare()))
+
+
+if __name__ == "__main__": main()
