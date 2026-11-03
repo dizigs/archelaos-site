@@ -1,6 +1,6 @@
 {
   "version": "v1.6",
-  "count": 682,
+  "count": 680,
   "people": [
     {
       "name": "Νίκος Τσινόπουλος",
@@ -2909,10 +2909,10 @@
     {
       "name": "Ευρώπη Υφαντίδου",
       "name_en": "Evropi Yfantidou",
-      "role": "Σκοποβολή · Αθλήτρια / Προπονήτρια",
-      "role_en": "Shooting · Athlete / Coach",
-      "bio": "Πρωταθλήτρια σκοποβολής στο αεροβόλο και πυροβόλο τουφέκι γυναικών, με πανελλήνια πρωτιά στο αεροβόλο τουφέκι. Συμμετείχε με την Εθνική Ομάδα σε βαλκανικές και ευρωπαϊκές διοργανώσεις της περιόδου 1993–1994. Στη συνέχεια ασχολήθηκε με την προπονητική και την εκπαίδευση αθλητών στις ακαδημίες σκοποβολής του Αρχελάου.",
-      "bio_en": "Greek women’s air-rifle champion and national-team shooter who competed internationally in 1993–1994 and later supported shooting training at Archelaos.",
+      "role": "Σκοποβολή & Τοξοβολία · Αθλήτρια / Προπονήτρια",
+      "role_en": "Shooting & Archery · Athlete / Coach",
+      "bio": "Πρωταθλήτρια σκοποβολής στο αεροβόλο και πυροβόλο τουφέκι γυναικών, με πανελλήνια πρωτιά στο αεροβόλο τουφέκι. Συμμετείχε με την Εθνική Ομάδα σε βαλκανικές και ευρωπαϊκές διοργανώσεις της περιόδου 1993–1994. Στη συνέχεια ασχολήθηκε με την προπονητική και την εκπαίδευση αθλητών στις ακαδημίες σκοποβολής του Αρχελάου.\n\nΣύμφωνα με την επετειακή έκδοση «Γ.Α.Σ. Ο Αρχέλαος Κατερίνης — 40 Χρόνια» (1996), το όνομά της αναφέρεται και στις πρώτες αγωνιστικές συμμετοχές του νεοσύστατου τμήματος τοξοβολίας το 1993. Η παρουσία της συνδέει ιστορικά τη σκοποβολή με την τοξοβολία, την οργάνωση της οποίας ανέλαβαν ο Κώστας Μυρωτής και ο Ανάργυρος Καπετανάκης.",
+      "bio_en": "Greek women’s air-rifle champion and national-team shooter who competed internationally in 1993–1994 and later supported shooting training at Archelaos.\n\nThe club's 1996 fortieth-anniversary history also records her among the first athletes involved in its archery section in 1993, linking the early shooting and archery programmes associated with Kostas Myrotis and Anargyros Kapetanakis.",
       "category": "sport",
       "id": "arch-e5015691e985",
       "period": "1991–2005"
@@ -4126,14 +4126,21 @@
       "id": "arch-5f8ba04e9875"
     },
     {
-      "name": "Ηλίας Μαρνέρη",
-      "name_en": "Elias Marnere",
-      "role": "Κολύμβηση · Αθλητής/Αθλήτρια",
+      "name": "Ηλίας Μαρνέρης",
+      "name_en": "Ilias Marneris",
+      "role": "Κολύμβηση · Αθλητής",
       "role_en": "Swimming · Athlete",
       "category": "athlete",
-      "bio": "Αθλητής/αθλήτρια των αναπτυξιακών τμημάτων κολύμβησης του Αρχελάου τη δεκαετία του 1990, σε αγωνίσματα πεταλούδας, υπτίου και ελευθέρου.",
-      "bio_en": "Development-squad swimmer for Archelaos in the 1990s, in butterfly, backstroke and freestyle events.",
-      "id": "arch-82df0f64b81d"
+      "bio": "Ο Ηλίας Μαρνέρης αγωνίστηκε στα αναπτυξιακά τμήματα κολύμβησης του Γ.Α.Σ. Αρχέλαος τη δεκαετία του 1990, με συμμετοχές σε ύπτιο, ελεύθερο και πεταλούδα. Σε αγώνες ηλικίας 10–11 ετών καταγράφεται ως 2ος στα 50 μ. ύπτιο (50.00) και 3ος στα 100 μ. ελεύθερο (1:37.40). Το ακριβές έτος και το επίπεδο των αγώνων χρειάζονται επαλήθευση από το αρχικό φύλλο αποτελεσμάτων.",
+      "bio_en": "Ilias Marneris competed for Archelaos Katerinis in age-group swimming in the 1990s, in backstroke, freestyle and butterfly. Historical records list a second-place finish in the 50 m backstroke (50.00) and third place in the 100 m freestyle (1:37.40) in the ages 10–11 category; the event date and level still need confirmation.",
+      "id": "arch-82df0f64b81d",
+      "name_aliases": [
+        "Ηλίας Μαρνέρη",
+        "Ηλίας Μαρνέρης"
+      ],
+      "merged_from_ids": [
+        "arch-22eae49bbbc0"
+      ]
     },
     {
       "name": "Λία Σαλτείδου",
@@ -4214,16 +4221,6 @@
       "bio": "Τοξότης της εφηβικής ομάδας του Αρχελάου που κατέλαβε τη 2η ομαδική θέση στους Α΄ Διασυλλογικούς Αγώνες Πιερίας το 1994.",
       "bio_en": "Junior Archelaos archer; the team placed second in the 1994 inaugural Pieria interclub event.",
       "id": "arch-d0db4554f5a0"
-    },
-    {
-      "name": "Μιλτιάδης Αντωνάτος",
-      "name_en": "Miltiades Antonatos",
-      "role": "Τοξοβολία · Αθλητής/Αθλήτρια",
-      "role_en": "Archery · Athlete",
-      "category": "athlete",
-      "bio": "Τοξότης της εφηβικής ομάδας του Αρχελάου που κατέλαβε τη 2η ομαδική θέση στους Α΄ Διασυλλογικούς Αγώνες Πιερίας το 1994.",
-      "bio_en": "Junior Archelaos archer; the team placed second in the 1994 inaugural Pieria interclub event.",
-      "id": "arch-bdac478e7ea3"
     },
     {
       "name": "Γρηγόρης Τσακνάκης",
@@ -5996,14 +5993,21 @@
       "id": "arch-d52769c9e607"
     },
     {
-      "name": "Μίλτος Αντωνάτος",
-      "name_en": "Μίλτος Αντωνάτος",
-      "role": "Τοξοβολία · Ομαδικό εφήβων (1994)",
-      "role_en": "Archery · Junior team (1994)",
+      "name": "Μιλτιάδης (Μίλτος) Αντωνάτος",
+      "name_en": "Miltiades (Miltos) Antonatos",
+      "role": "Τοξοβολία · Αθλητής, εφηβική ομάδα (1994)",
+      "role_en": "Archery · Junior athlete (1994)",
       "category": "athlete",
-      "bio": "Αγωνίστηκε με την εφηβική ομάδα τοξοβολίας του Αρχέλαου που κατέλαβε τη δεύτερη θέση στο Πανελλήνιο Πρωτάθλημα Ομαδικού το 1994, σύμφωνα με το ιστορικό μητρώο. Η διάκριση αυτή ανήκει στις πρώτες καταγεγραμμένες ομαδικές επιτυχίες του τμήματος και συνδέει το όνομά του με την αρχική ανάπτυξη της τοξοβολίας στον σύλλογο.",
-      "bio_en": "According to the historical register, he competed on Archelaos’s junior archery team that placed second in the national team championship in 1994. This result is among the section’s earliest recorded team achievements and links his name to the first years of archery at the club.",
-      "id": "arch-7f975b16bebf"
+      "bio": "Ο Μιλτιάδης («Μίλτος») Αντωνάτος συμμετείχε στην εφηβική ομάδα τοξοβολίας του Γ.Α.Σ. Αρχέλαος το 1994. Το επετειακό βιβλίο «40 Χρόνια» (1996) καταγράφει δεύτερη ομαδική θέση σε αγώνες της εποχής. Η ακριβής κατάταξη της διοργάνωσης ως πανελλήνιας ή διασυλλογικής δεν έχει επιβεβαιωθεί με φύλλο της ομοσπονδίας.",
+      "bio_en": "Miltiades (“Miltos”) Antonatos represented Archelaos Katerinis in junior archery in 1994. The club's 1996 fortieth-anniversary history records a second-place team finish. Whether the result was at national-championship or interclub level remains unconfirmed by an official competition sheet.",
+      "id": "arch-7f975b16bebf",
+      "name_aliases": [
+        "Μίλτος Αντωνάτος",
+        "Μιλτιάδης Αντωνάτος"
+      ],
+      "merged_from_ids": [
+        "arch-bdac478e7ea3"
+      ]
     },
     {
       "name": "Ιωάννης Απατσίδης",
@@ -6754,16 +6758,6 @@
       "bio": "2ος νικητής στα 100μ. ύπτιο και 3ος στα 50μ. ύπτιο και 50μ. πεταλούδα στα «Β΄ Ιπποκράτεια 94».",
       "bio_en": "Αριστείδης Λιακόπουλος was active in the swimming section of Archelaos Katerini during 1994–1995. Contemporary press records document their participation and sporting results.",
       "id": "arch-bb8825077e6b"
-    },
-    {
-      "name": "Ηλίας Μαρνέρης",
-      "name_en": "Ηλίας Μαρνέρης",
-      "role": "Κολύμβηση · Αθλητής/Αθλήτρια",
-      "role_en": "Swimming",
-      "category": "athlete",
-      "bio": "2ος νικητής στα 50μ. ύπτιο (50.00) και 3ος στα 100μ. ελεύθερο (1.37.40) στις κατηγορίες 10–11 ετών.",
-      "bio_en": "Ηλίας Μαρνέρης was active in the swimming section of Archelaos Katerini during 1994–1995. Contemporary press records document their participation and sporting results.",
-      "id": "arch-22eae49bbbc0"
     },
     {
       "name": "Μαρία Διαμαντοπούλου",
