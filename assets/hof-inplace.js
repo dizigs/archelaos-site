@@ -42,6 +42,7 @@ function ensure(){
 }
 async function open(id,origin=document.activeElement){
  if(!id)return false;
+ id=window.ArchelaosFavorites?.canonicalPersonId?.(id)||id;
  const token=++generation;
  const parent=origin?.closest?.('dialog[open]');
  try{
