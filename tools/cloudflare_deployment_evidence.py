@@ -72,6 +72,35 @@ def commit_of(deployment):
     return metadata.get("commit_hash"), metadata.get("branch")
 
 
+def deployment_metadata(deployment, project):
+    """Preserve the existing report fields using bounded public provider metadata."""
+    commit, _ = commit_of(deployment)
+    if not isinstance(commit, str) or not SHA.fullmatch(commit):
+        raise ValueError("Invalid provider metadata commit")
+    stage = deployment.get("latest_stage") or {}
+    if not isinstance(stage, dict):
+        raise ValueError("Unexpected latest-stage metadata")
+    url = deployment.get("url")
+    try:
+        parsed = urlsplit(url) if isinstance(url, str) else None
+        trusted_url = (parsed and parsed.scheme == "https" and not parsed.username and not parsed.password
+                       and parsed.port is None and not parsed.query and not parsed.fragment
+                       and (parsed.hostname == project + ".pages.dev" or re.fullmatch(
+                           r"[a-z0-9-]{1,63}\." + re.escape(project) + r"\.pages\.dev", parsed.hostname or "")))
+    except ValueError:
+        trusted_url = False
+    identifier = deployment.get("id")
+    environment = deployment.get("environment")
+    stage_name, stage_status = stage.get("name"), stage.get("status")
+    known_statuses = {"success", "failure", "active", "idle", "queued", "canceled", "cancelled"}
+    return {"id": identifier if isinstance(identifier, str) and UUID.fullmatch(identifier) else None,
+            "created_on": timestamp(deployment.get("created_on")).isoformat(),
+            "environment": environment if environment in ("production", "preview") else "UNKNOWN",
+            "latest_stage": stage_name if isinstance(stage_name, str) and stage_name in STAGES else "UNKNOWN",
+            "status": stage_status if isinstance(stage_status, str) and stage_status in known_statuses else "UNKNOWN",
+            "url": url if trusted_url else None, "commit_hash": commit}
+
+
 def timestamp(value):
     if not isinstance(value, str):
         raise ValueError("Provider timestamp missing")

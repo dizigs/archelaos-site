@@ -166,6 +166,17 @@ class DeploymentEvidence(unittest.TestCase):
             with self.subTest(url=url): self.assertFalse(m.official_url(url))
         self.assertTrue(m.official_url("https://www.archelaos.club/"))
 
+    def test_legacy_metadata_fields_remain_available_and_signed_urls_are_omitted(self):
+        item = deployment(); item.update(url="https://abcd.archelaos-site.pages.dev/", latest_stage={"name": "deploy", "status": "success"})
+        result = m.deployment_metadata(item, "archelaos-site")
+        self.assertEqual(set(result), {"id", "created_on", "environment", "latest_stage", "status", "url", "commit_hash"})
+        self.assertEqual(result["url"], item["url"])
+        item["latest_stage"]["status"] = "active"
+        self.assertEqual(m.deployment_metadata(item, "archelaos-site")["status"], "active")
+        item["url"] += "?token=synthetic-private-query"
+        self.assertIsNone(m.deployment_metadata(item, "archelaos-site")["url"])
+        self.assertNotIn("synthetic-private-query", json.dumps(m.deployment_metadata(item, "archelaos-site")))
+
 
 class CollectorBoundary(unittest.TestCase):
     def setUp(self):

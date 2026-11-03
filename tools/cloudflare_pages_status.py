@@ -9,7 +9,7 @@ import sys
 from urllib.error import HTTPError, URLError
 from urllib.request import HTTPRedirectHandler, Request, build_opener
 
-from cloudflare_deployment_evidence import verify_deployment, commit_of, SHA
+from cloudflare_deployment_evidence import verify_deployment, deployment_metadata, SHA
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
@@ -114,11 +114,7 @@ def main():
             for item in deployments[:10]:
                 if not isinstance(item, dict):
                     raise ValueError("Invalid deployment record")
-                commit, _ = commit_of(item)
-                if isinstance(commit, str) and SHA.fullmatch(commit):
-                    environment = item.get("environment")
-                    report["deployments"].append({"commit_hash": commit,
-                                                   "environment": environment if environment in ("production", "preview") else "UNKNOWN"})
+                report["deployments"].append(deployment_metadata(item, PROJECT))
             report["verification"] = verify_deployment(deployments, api, ACCOUNT, PROJECT, expected)
             if report["verification"]["status"] == "VERIFIED" and current_main() != expected:
                 report["verification"].update(status="NOT_VERIFIED", reason="main_advanced_during_verification")
