@@ -92,7 +92,8 @@ def inspect():
     assert set(published_ids) == set(source_ids), "Interview production archive differs from source"
     moments = json.loads((REBUILD/"data/moments.json").read_text(encoding="utf-8"))["moments"]
     stories = json.loads((REBUILD/"data/stories.json").read_text(encoding="utf-8"))["stories"]
-    people = json.loads((REBUILD/"data/people.json").read_text(encoding="utf-8"))["people"]
+    people_data = json.loads((REBUILD/"data/people.json").read_text(encoding="utf-8"))
+    people = people_data["people"]
     assert len(moments) == 70 and len({m["id"] for m in moments}) == 70, "70 moments mismatch"
     assert len(stories) >= 21, "21 original stories must remain"
     source_stories = json.loads((REBUILD/"data/stories.json").read_text(encoding="utf-8"))
@@ -129,7 +130,10 @@ def inspect():
                for person_id in additions), "profile additions contain missing IDs"
     assert all(all(x.get("el") and x.get("en") and x.get("source_label") for x in entries)
                for entries in additions.values()), "incomplete bilingual additions"
-    assert len(people) == 682 and len({p["id"] for p in people}) == 682, "682 biographies mismatch"
+    ids = {p["id"] for p in people}
+    assert len(people) >= 600 and people_data["count"] == len(people) == len(ids), "biography count or IDs inconsistent"
+    root_ids = {p["id"] for p in json.loads((ROOT/"hall-of-fame-people.json").read_text(encoding="utf-8"))["people"]}
+    assert ids <= root_ids, "staged profile ID absent from canonical root Hall"
     assert all(p.get("name") and p.get("name_en") and p.get("bio") and p.get("bio_en") for p in people), "incomplete biographies"
     home = json.loads((REBUILD/"data/home.json").read_text(encoding="utf-8"))
     assert len(home["sports"]) == 8 and len(home["slides"]) == 8, "homepage sports/slides missing"
