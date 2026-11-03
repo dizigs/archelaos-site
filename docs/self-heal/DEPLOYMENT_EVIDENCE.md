@@ -101,3 +101,29 @@ GitHub administration and direct Sonar routes were not repeated unchanged. No
 Sheets connector is available; the private Live Sheet is NOT UPDATED here.
 #71 remains the authorized handoff/reconciliation inbox. Full ecosystem readiness
 and main Security A remain separate uncompleted goals.
+
+## Real provider execution — first successful attestation
+
+The existing workflow was actually dispatched at verifier head
+`96393c2b6db78b77ed18f556eadf1bac750c35c7`:
+[41622405981](https://github.com/dizigs/archelaos-site/actions/runs/41622405981),
+check/job **125871159545 SUCCESS**. The configured Actions identity successfully
+read the provider and log endpoints; no permission expansion was made.
+
+Verified production main **65f7e34ea692436d16ddeac395a9a1dbcc7fd3d8**, deployment
+**60cc4e0e-9eb4-4bc7-a7f1-b85a8d283a56**. Actual sanitized provider milestones:
+`Assets published!` at 2026-11-03T10:47:46.572313Z, and `Your site was deployed!`
+at 2026-11-03T10:47:47.671656Z. Independent official HTTP check: **200**, final
+https://www.archelaos.club/, **23,060 bytes**, body SHA256
+`3da97671b3b0c275b2b549fc4666c5f994776d3e25b7e79506d637ef3a6a837f`.
+The code accepted all five required stages before returning VERIFIED. Notice
+output is further extended to expose their individual states and log-response
+hash directly, avoiding inaccessible archives.
+
+[Sanitized actual annotation](evidence/deployment-gate-live-20261103.json),
+[handoff](https://github.com/dizigs/archelaos-site/issues/71#issuecomment-6601802224).
+This verifies the reported production main, **not deployment of the unmerged
+verifier branch**. It is HTTP/static-landmark evidence, not a browser/all-route
+audit. PR Sonar125871130588 PASS; main65f7e34 Sonar125870971530 still C/FAILURE.
+Full final-head checks and master controller/draft-repair demonstration remain
+open; this component success does not close #66 or the master assignment.

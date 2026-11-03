@@ -409,3 +409,20 @@ results on starting main `0b19941dbf668dc7ca0670fc31d164fd2adc5060`; synthetic
 run are next. [Contract and remaining work](self-heal/DEPLOYMENT_EVIDENCE.md);
 [actual local output](self-heal/evidence/deployment-gate-local-20261103.log).
 [Started checkpoint](https://github.com/dizigs/archelaos-site/issues/71#issuecomment-6601163597).
+
+### Actual production evidence from the new read-only gate — PR #101
+
+Existing workflow **41622405981**, code head **96393c2b6db78b77ed18f556eadf1bac750c35c7**,
+job/check **125871159545 SUCCESS**. It actually verified main
+**65f7e34ea692436d16ddeac395a9a1dbcc7fd3d8**, production deployment
+**60cc4e0e-9eb4-4bc7-a7f1-b85a8d283a56**, required stages and actual terminal
+provider logs (`Assets published!` / `Your site was deployed!`,
+2026-11-03T10:47:46.572313Z / 10:47:47.671656Z), followed by official HTTP **200**
+and static main/shell landmarks. Full sanitized proof is committed under
+[self-heal evidence](self-heal/evidence/deployment-gate-live-20261103.json).
+No synthetic result or preview was substituted; no provider configuration changed.
+The report's production commit differs intentionally from the unmerged verifier
+source commit. Main Sonar125870971530 remains C/FAILURE, PR Sonar125871130588 PASS.
+Notice observability is extended to include stage states and normalized log hash;
+new final-head CI and actual read-only dispatch will validate that changed source.
+Controller/real fault-to-deduplicated-repair-PR acceptance is still subsequent work.

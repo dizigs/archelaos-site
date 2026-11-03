@@ -127,9 +127,10 @@ def main():
     write_report(report)
     evidence = report["verification"]
     notice = {key: evidence.get(key) for key in
-              ("status", "reason", "expectedCommit", "observedCommit", "deploymentId", "access")}
+              ("status", "reason", "expectedCommit", "observedCommit", "deploymentId", "environment", "stages", "access")}
     if "buildLogs" in evidence:
         notice["buildLogMilestones"] = evidence["buildLogs"]["milestones"]
+        notice["normalizedLogSha256"] = evidence["buildLogs"]["normalizedLogSha256"]
     if "httpHealth" in evidence:
         notice["httpHealth"] = evidence["httpHealth"]
     message = json.dumps(notice, ensure_ascii=True).replace("%", "%25")
