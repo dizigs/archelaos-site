@@ -22,7 +22,7 @@ for lang in langs:
     if lang["code"]!="el": assert lang["status"]!="live"
 people=load(DATA/"people.json")["people"]
 en=load(I18N/"content"/"en"/"people.json")["people"]
-assert len(en)==len(people)==682
+assert len(en)==len(people) and len(en)>0, "staged English drafts must track the staged legacy archive"
 assert [p["id"] for p in en]==[p["id"] for p in people]
 # Correct source of temporary presidential duties after Alkinoos Tasopoulos.
 alkinoos=next(p for p in people if p["id"]=="arch-61d8d097f601")
@@ -44,4 +44,4 @@ source_stories=load(DATA/"stories.json")["stories"]
 assert summaries["fully_translated"] is False and len(summaries["stories"])==len(source_stories)==21
 assert all(row["body_en"] is None and row["title_en"] and row["lead_en"] for row in summaries["stories"])
 assert [row["id"] for row in summaries["stories"]]==list(range(1,22))
-print("I18N OK:",len(langs),"prepared locales; 682 English biography drafts; 70 English moments; switch OFF")
+print("I18N OK:",len(langs),"prepared locales;", len(en), "staged English biography drafts; 70 English moments; switch OFF")
