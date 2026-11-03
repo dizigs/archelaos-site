@@ -17,9 +17,9 @@
     "archery": {
       "gates": {
         "brand_approved": {
-          "status": "verified",
-          "checkedAt": "2026-11-03",
-          "evidenceUrl": "https://github.com/dizigs/archelaos-site/pull/90"
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
         },
         "dns_routed": {
           "status": "not-checked",
