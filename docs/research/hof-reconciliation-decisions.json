@@ -20,16 +20,16 @@
     },
     "arch-3fe6e9ae9b29": {
       "bio": {
-        "classification": "QUALIFIED_CONFLICT",
+        "classification": "QUALIFIED_ARCHIVE",
         "legacy_sha256": "128653c5e16d2bd3ae04cffa930aaf827130e1a2c685dcf730ee02356a42524a",
-        "canonical_sha256": "ada8d18265b99e7f3df297a931ef65d74910fa2f637db1357cc9181fba8af0c5",
-        "evidence": "Common participation, 1994 and 74 kg restored in both languages. Both first/second-place claims retained as disputed, matching the independently preserved bilingual source-profiles page. Original competition results remain unavailable."
+        "canonical_sha256": "ce247bfb0735d7fa5a436d229873e55283be59ac2f63df59b878d421514b4d4d",
+        "evidence": "Club-authorized public editorial correction on 2026-11-03. Original archival records preserved; disputed 1994 ranking, historical wrestling placements and national-team starting status remain in private fact-check. Federation or municipality evidence and club confirmation recorded separately."
       },
       "bio_en": {
-        "classification": "QUALIFIED_CONFLICT",
+        "classification": "QUALIFIED_ARCHIVE",
         "legacy_sha256": "b6520191240b91b2576ca966442ac2796128ff3b289160b351d487354fb1ce3d",
-        "canonical_sha256": "ec870579d7bdae66301ff14524acc30f52e8e159f87fbabf31cc11083698153b",
-        "evidence": "Common participation, 1994 and 74 kg restored in both languages. Both first/second-place claims retained as disputed, matching the independently preserved bilingual source-profiles page. Original competition results remain unavailable."
+        "canonical_sha256": "7e0e60988a805561af112a51f5ad00a20be7d6f69dc088c140bf3c2d60879181",
+        "evidence": "Club-authorized public editorial correction on 2026-11-03. Original archival records preserved; disputed 1994 ranking, historical wrestling placements and national-team starting status remain in private fact-check. Federation or municipality evidence and club confirmation recorded separately."
       }
     },
     "arch-44ef21dfb9b7": {
@@ -64,22 +64,28 @@
       "bio": {
         "classification": "BLOCKED_SOURCE",
         "legacy_sha256": "8303a6af48c202725b81b0641abd5c6194e05ccce3c62a18e6040162edce149b",
-        "canonical_sha256": "3529143f78b7a24b4af843addf796a888438bb60d6a0fe4301ec27536162bac1",
-        "evidence": "Canonical retains sourced career dates, clubs, titles and the 2022 honour once. Legacy adds a starting national-team/wing-player claim and an evaluative ambassador description. Starting status/position cannot be confirmed from the available approved news item; no unsupported claim restored. Existing bilingual source-profiles preserved. Ref: news.json volleyball-kyparissi-panathinaikos-2026 / official PAO announcement URL."
+        "canonical_sha256": "5d180a62a8da7257c9479ef9b5e1a86bb33519f62ad6ff763bc97ef383f359cb",
+        "evidence": "Club-authorized public editorial correction on 2026-11-03. Original archival records preserved; disputed 1994 ranking, historical wrestling placements and national-team starting status remain in private fact-check. Federation or municipality evidence and club confirmation recorded separately."
       },
       "bio_en": {
         "classification": "BLOCKED_SOURCE",
         "legacy_sha256": "6ae2e46e811a228aaae7305ced03aa7597d97d70f096e4f7d3f24875c6bab178",
-        "canonical_sha256": "c43b9afd2ae81751a1e6e83999be40134acec468f3429687914cb41f5f4f5435",
-        "evidence": "Canonical retains sourced career dates, clubs, titles and the 2022 honour once. Legacy adds a starting national-team/wing-player claim and an evaluative ambassador description. Starting status/position cannot be confirmed from the available approved news item; no unsupported claim restored. Existing bilingual source-profiles preserved. Ref: news.json volleyball-kyparissi-panathinaikos-2026 / official PAO announcement URL."
+        "canonical_sha256": "f584644978e5836db8a72ffcc08f3e0b35bd06fc54934acd7c6def084766ef8e",
+        "evidence": "Club-authorized public editorial correction on 2026-11-03. Original archival records preserved; disputed 1994 ranking, historical wrestling placements and national-team starting status remain in private fact-check. Federation or municipality evidence and club confirmation recorded separately."
       }
     },
     "arch-af9470c5745f": {
       "bio": {
         "classification": "BLOCKED_SOURCE",
         "legacy_sha256": "2029e3bf36fa61da8c4e875a5b822059de90c4d1d99a48fa965dae96f8232661",
-        "canonical_sha256": "968d04b6c54e261dd10faed0fb9ed86d218ce8ece8f52436a745df85fcd9d178",
-        "evidence": "Canonical retains 1994 second junior/fifth senior places, youth coaching and Soulis world silver, with richer 2019–2026 chronology. Legacy specifies 88/115 kg and U15 coaching in 2024–25; exact weights/years are not corroborated by approved news records. U15 title in April 2022 is a distinct documented event. Preserve archive; original 1994 results/2024–25 roster needed."
+        "canonical_sha256": "b429cd5d7c5848f7ea40ad4c3d412b5aec47efee08ca093aca5f80beaddce056",
+        "evidence": "Club-authorized public editorial correction on 2026-11-03. Original archival records preserved; disputed 1994 ranking, historical wrestling placements and national-team starting status remain in private fact-check. Federation or municipality evidence and club confirmation recorded separately."
+      },
+      "bio_en": {
+        "legacy_sha256": "f461daad7e20a31559dc7b82fee5563e4715a385d19876e2d6d0653dff05b855",
+        "canonical_sha256": "f668183b99da325c8dea659971fae47d586146a1e3e20d769cf19564d5709d4a",
+        "classification": "BLOCKED_SOURCE",
+        "evidence": "Club-authorized public editorial correction on 2026-11-03. Original archival records preserved; disputed 1994 ranking, historical wrestling placements and national-team starting status remain in private fact-check. Federation or municipality evidence and club confirmation recorded separately."
       }
     },
     "arch-b48656c62600": {
@@ -106,10 +112,16 @@
     },
     "arch-f6152b60c43f": {
       "bio": {
-        "classification": "BLOCKED_SOURCE",
+        "classification": "QUALIFIED_ARCHIVE",
         "legacy_sha256": "f6d3f92a99c296582435b87d0263feec21e0f75d776933f4b6d2841f2a54b8c4",
-        "canonical_sha256": "da0da7f1dbe6f1472ada625112b42497d129fc1485f68b2e84bf6f850c103e61",
-        "evidence": "The 5 July 2025 OAKA winning trio is restored in EL/EN and cited from already approved news.json archery-national-oaka-team-title-2025 (O Delalis 7 July 2025). Individual 15th at the 2024 Cup, 2025/26 team titles and 2026 fifth place preserved. Legacy team Cup wins in 2024/26 and exact 2026 trio need original results; no inference from the separate 2024 individual placing. Full original profile/snapshot preserved."
+        "canonical_sha256": "001ba6af36b81439ecf450b81b994901fa50c1f81dd9076bbd5627962703a762",
+        "evidence": "Club-authorized public editorial correction on 2026-11-03. Original archival records preserved; disputed 1994 ranking, historical wrestling placements and national-team starting status remain in private fact-check. Federation or municipality evidence and club confirmation recorded separately."
+      },
+      "bio_en": {
+        "legacy_sha256": "fdc7721c0ec5d860e53034dbe5a1ad7ef88cfaf43882986eb58c0d4cccc8861d",
+        "canonical_sha256": "b35d6af177a97c14d7ccd3ac1cde6d3a9ef67b74e3153c92d5f2d6f7d5ce39c4",
+        "classification": "QUALIFIED_ARCHIVE",
+        "evidence": "Club-authorized public editorial correction on 2026-11-03. Original archival records preserved; disputed 1994 ranking, historical wrestling placements and national-team starting status remain in private fact-check. Federation or municipality evidence and club confirmation recorded separately."
       }
     }
   }
