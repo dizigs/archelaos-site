@@ -1,0 +1,177 @@
+{
+  "version": 1,
+  "canonicalSite": "https://archelaos.club",
+  "canonicalPeoplePath": "/hall-of-fame-people.json",
+  "canonicalMuseumPath": "/history.html",
+  "notes": "Planning registry only; no DNS, production, or analytics account changes. Each department site owns present-day operating content; historical canon stays at archelaos.club.",
+  "departments": [
+    {
+      "key": "archery",
+      "name": "Τοξοβολία",
+      "hostname": "archery.archelaos.club",
+      "state": "existing-rebuild-planned",
+      "theme": {
+        "primary": "#07582F",
+        "accent": "#FFC400",
+        "background": "#F8F5ED"
+      },
+      "historyUrl": "https://archelaos.club/tmimata.html#sport-archery",
+      "peopleUrl": "https://archelaos.club/hall-of-fame.html",
+      "data": {
+        "results": "velos-pilot",
+        "athleteCrosswalk": "review-required"
+      },
+      "analytics": {
+        "siteSection": "archery",
+        "propertyMode": "shared-proposed"
+      }
+    },
+    {
+      "key": "wrestling",
+      "name": "Πάλη",
+      "hostname": "wrestling.archelaos.club",
+      "state": "planned",
+      "theme": {
+        "primary": "#07582F",
+        "accent": "#FFC400",
+        "background": "#F8F5ED"
+      },
+      "historyUrl": "https://archelaos.club/tmimata.html#sport-wrestling",
+      "peopleUrl": "https://archelaos.club/hall-of-fame.html",
+      "data": {
+        "results": null,
+        "athleteCrosswalk": "review-required"
+      },
+      "analytics": {
+        "siteSection": "wrestling",
+        "propertyMode": "shared-proposed"
+      }
+    },
+    {
+      "key": "handball",
+      "name": "Χάντμπολ",
+      "hostname": "handball.archelaos.club",
+      "state": "candidate",
+      "theme": {
+        "primary": "#07582F",
+        "accent": "#FFC400",
+        "background": "#F8F5ED"
+      },
+      "historyUrl": "https://archelaos.club/tmimata.html#sport-handball",
+      "peopleUrl": "https://archelaos.club/hall-of-fame.html",
+      "data": {
+        "results": null,
+        "athleteCrosswalk": "review-required"
+      },
+      "analytics": {
+        "siteSection": "handball",
+        "propertyMode": "shared-proposed"
+      }
+    },
+    {
+      "key": "track",
+      "name": "Στίβος",
+      "hostname": "track.archelaos.club",
+      "state": "candidate",
+      "theme": {
+        "primary": "#07582F",
+        "accent": "#FFC400",
+        "background": "#F8F5ED"
+      },
+      "historyUrl": "https://archelaos.club/tmimata.html#sport-track",
+      "peopleUrl": "https://archelaos.club/hall-of-fame.html",
+      "data": {
+        "results": null,
+        "athleteCrosswalk": "review-required"
+      },
+      "analytics": {
+        "siteSection": "track",
+        "propertyMode": "shared-proposed"
+      }
+    },
+    {
+      "key": "gymnastics",
+      "name": "Ενόργανη Γυμναστική",
+      "hostname": "gymnastics.archelaos.club",
+      "state": "candidate",
+      "theme": {
+        "primary": "#07582F",
+        "accent": "#FFC400",
+        "background": "#F8F5ED"
+      },
+      "historyUrl": "https://archelaos.club/tmimata.html#sport-gymnastics",
+      "peopleUrl": "https://archelaos.club/hall-of-fame.html",
+      "data": {
+        "results": null,
+        "athleteCrosswalk": "review-required"
+      },
+      "analytics": {
+        "siteSection": "gymnastics",
+        "propertyMode": "shared-proposed"
+      }
+    },
+    {
+      "key": "shooting",
+      "name": "Σκοποβολή",
+      "hostname": "shooting.archelaos.club",
+      "state": "candidate",
+      "theme": {
+        "primary": "#07582F",
+        "accent": "#FFC400",
+        "background": "#F8F5ED"
+      },
+      "historyUrl": "https://archelaos.club/tmimata.html#sport-shooting",
+      "peopleUrl": "https://archelaos.club/hall-of-fame.html",
+      "data": {
+        "results": null,
+        "athleteCrosswalk": "review-required"
+      },
+      "analytics": {
+        "siteSection": "shooting",
+        "propertyMode": "shared-proposed"
+      }
+    },
+    {
+      "key": "volleyball",
+      "name": "Βόλεϊ",
+      "hostname": "volleyball.archelaos.club",
+      "state": "candidate",
+      "theme": {
+        "primary": "#07582F",
+        "accent": "#FFC400",
+        "background": "#F8F5ED"
+      },
+      "historyUrl": "https://archelaos.club/tmimata.html#sport-volleyball",
+      "peopleUrl": "https://archelaos.club/hall-of-fame.html",
+      "data": {
+        "results": null,
+        "athleteCrosswalk": "review-required"
+      },
+      "analytics": {
+        "siteSection": "volleyball",
+        "propertyMode": "shared-proposed"
+      }
+    },
+    {
+      "key": "swimming",
+      "name": "Κολύμβηση",
+      "hostname": "swimming.archelaos.club",
+      "state": "candidate",
+      "theme": {
+        "primary": "#07582F",
+        "accent": "#FFC400",
+        "background": "#F8F5ED"
+      },
+      "historyUrl": "https://archelaos.club/tmimata.html#sport-swimming",
+      "peopleUrl": "https://archelaos.club/hall-of-fame.html",
+      "data": {
+        "results": null,
+        "athleteCrosswalk": "review-required"
+      },
+      "analytics": {
+        "siteSection": "swimming",
+        "propertyMode": "shared-proposed"
+      }
+    }
+  ]
+}
