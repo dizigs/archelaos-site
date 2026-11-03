@@ -25,7 +25,7 @@ def sample_pr(number=82, state="open", merged=False, draft=False):
 
 class TrackerEventTests(TestCase):
     def test_public_pr_record(self):
-        record = module.build_record("pull_request_target", sample_pr())
+        record = module.build_record("pull_request", sample_pr())
         self.assertEqual(record["task_id"], "PR-82")
         self.assertIn("[TRACKER-EVENT]", record["body"])
         self.assertIn("Fix stories archive note", record["body"])
@@ -34,9 +34,9 @@ class TrackerEventTests(TestCase):
 
     def test_pr_states(self):
         self.assertIn("— merged", module.build_record(
-            "pull_request_target", sample_pr(state="closed", merged=True))["body"])
+            "pull_request", sample_pr(state="closed", merged=True))["body"])
         self.assertIn("— draft", module.build_record(
-            "pull_request_target", sample_pr(draft=True))["body"])
+            "pull_request", sample_pr(draft=True))["body"])
 
     def test_issue_record_and_no_self_loop(self):
         event = {"action": "closed", "issue": {"number": 67, "state": "closed",
@@ -54,10 +54,10 @@ class TrackerEventTests(TestCase):
         payload = sample_pr()
         payload["pull_request"]["html_url"] = "https://example.org/foo"
         with self.assertRaises(ValueError):
-            module.build_record("pull_request_target", payload)
+            module.build_record("pull_request", payload)
 
     def test_comment_creation_and_idempotent_update(self):
-        record = module.build_record("pull_request_target", sample_pr())
+        record = module.build_record("pull_request", sample_pr())
         with mock.patch.object(module, "api_request", side_effect=[
             [], {"id": 123}]) as call:
             self.assertEqual(module.upsert_comment("token", record), "created")
