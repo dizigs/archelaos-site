@@ -54,6 +54,22 @@ class ContributionPipelineTests(unittest.TestCase):
                 "dates": ["2026"]}
         self.assertIsNone(search.safe_query(lead))
 
+    def test_search_rejects_unsafe_source_urls(self):
+        self.assertTrue(search.safe_public_source_url("https://example.org/article"))
+        for url in (
+            "http://example.org/article",
+            "https://localhost/private",
+            "https://127.0.0.1/private",
+            "https://10.0.0.1/internal",
+            "https://169.254.169.254/latest/meta-data",
+            "https://user:password@example.org/article",
+            "file:///etc/passwd",
+            "https://intranet.local/file",
+            "https://singlehost/page",
+        ):
+            with self.subTest(url=url):
+                self.assertFalse(search.safe_public_source_url(url))
+
     def test_drafts_remain_unpublished_and_unverified(self):
         leads = {"research_leads": [{"id": "abc", "excerpt": "Δοκιμαστικό ιστορικό γεγονός",
                                      "dates": ["1994"], "scores": []}]}
