@@ -9,11 +9,12 @@ The controller reads that policy at an immutable reviewed commit if main does no
 contain it, validates it and enforces additional compiled ceilings. It neither
 executes unmerged prototype code nor creates another policy or cron schedule.
 
-The initial integration is an **isolated manual Actions drill** in the existing
-`site-watch-and-repair.yml` workflow. The existing main monitoring implementation
-remains active while the replacement adapter is verified. Full production
-controller activation is a separate remaining integration step; do not describe
-this draft as a fully deployed autonomous system.
+The existing `site-watch-and-repair.yml` workflow now contains a bounded main
+adapter and an **isolated manual Actions drill**. Its schedule is unchanged.
+The former shell issue/branch publisher is replaced, rather than duplicated.
+Full production controller activation remains gated by review and normal protected
+merge; do not describe an unmerged draft as deployed. The main observer keeps a
+failed health check red even when it successfully proposes a repair.
 
 ## Durable decisions
 
@@ -36,7 +37,10 @@ permissions, an already configured runtime identity may reconcile the same teste
 candidate once under a changed authority. It must recheck source bytes, candidate
 bytes, remote guard, PR ownership and existing PRs; it cannot repeat the repair.
 There is no merge, deployment, arbitrary ref update or permissions API in the
-publisher. Main cannot be a mutation target.
+publisher. Main cannot be a mutation target. Writer jobs need job-scoped Actions
+write solely to dispatch four compiled existing CI workflows on generated repair
+refs; repository settings, ACLs and secrets are never changed. PR regression jobs
+retain contents-read only and checkout never persists credentials.
 
 ## Actual drill
 
@@ -66,9 +70,14 @@ python tools/self_heal_fixture.py --source-commit FULL_SHA \
   --resume-issue INCIDENT_NUMBER
 ```
 
-GitHub-token-created refs/PRs may not trigger further CI automatically. Such a PR
-remains Draft until the exact head has actual required CI evidence. Never treat
-an offline guard as proof of the complete browser/release suite.
+GitHub-token-created refs/PRs may not trigger further CI automatically. The CI
+adapter explicitly dispatches the existing required syntax/ESLint, Rebuild and
+release-integrity workflows after rereading the exact Draft PR head and candidate
+hash. It adopts already existing exact-head manual runs instead of duplicating
+them. A durable reservation precedes each dispatch; any failure/unknown outcome
+stops the sequence and requires reconciliation, without automatic retry. Dispatch
+acceptance never means the tests passed. The PR remains Draft until exact-head CI
+is actually observed; an offline guard is not the complete browser/release suite.
 
 ## Checks and remaining work
 
@@ -79,8 +88,14 @@ durable JSON reload, API failures, source confinement and draft-only publication
 Network writes are tested separately by the controlled Actions drill; offline
 fakes are not represented as GitHub integration evidence.
 
-Remaining gates: real staged run and deduplicated Draft PR, exact-head CI, replacement
-of the legacy main adapter without duplicate issues/PRs, foundation review, normal
-protected merge, then exact-production-SHA verification using #101's real
-Cloudflare stage/log/HTTP gate. Security Rating A on main remains independent #66.
+Actual drill: [run41632129693](https://github.com/dizigs/archelaos-site/actions/runs/41632129693)
+created Issue106 and Draft107 against the isolated staging ref. Real guard exit
+1/findings1 became exit0/findings0; one repair and zero replay writes. Sanitized
+provider annotation is preserved in `evidence/central-fixture-20261103.json`.
+Draft107 changes only the fixture file and must never be merged into main.
+
+Remaining gates: final exact-head CI/review of this controller, foundation review,
+normal protected merge, then the main observer's real run and exact-production-SHA
+verification using #101's already merged Cloudflare stage/log/HTTP gate.
+Security Rating A on main remains independent #66.
 No department launch, advertising activation or automatic merge is enabled.

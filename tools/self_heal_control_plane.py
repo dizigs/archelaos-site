@@ -260,7 +260,7 @@ def process_incident(observation, policy, sport_keys, store, repair, publisher, 
         store.create(state)
     else:
         state = checked_state(loaded, observation)
-    if state["phase"] in {"DRAFT_PR_PROPOSED", "VERIFIED", "ESCALATED"}:
+    if state["phase"] in {"DRAFT_PR_PROPOSED", "ESCALATED"}:
         return result(state, "SUPPRESSED", "incident_already_handled")
     if state["phase"] in {"REPAIR_RESERVED", "TESTED", "PUBLISH_BLOCKED"}:
         return result(state, "BLOCKED", "reconcile_interrupted_or_blocked_attempt_first")

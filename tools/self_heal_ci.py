@@ -70,6 +70,7 @@ def main():
     if not re.fullmatch(r"[0-9a-f]{12}", args.fingerprint): raise ValueError("Invalid fingerprint")
     client = GitHub()
     result = dispatch_checks(client, IncidentStore(client, known_container=args.issue), args.fingerprint)
+    result["apiWriteAttempts"] = client.write_attempts
     print(json.dumps(result, sort_keys=True))
 
 

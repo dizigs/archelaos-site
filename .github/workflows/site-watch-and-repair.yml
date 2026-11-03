@@ -18,7 +18,7 @@ concurrency:
 
 jobs:
   controller-regression:
-    if: github.event_name == 'pull_request'
+    if: github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && github.ref != 'refs/heads/main' && !startsWith(github.ref, 'refs/heads/codex/self-heal-staging-'))
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:

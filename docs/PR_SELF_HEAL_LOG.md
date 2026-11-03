@@ -461,3 +461,59 @@ check125875932363 no longer reports the failure-level dangerous trigger.
 A second real read-only provider proof, run41623179200/check125873805311, is
 recorded with all stage values and log hash under the dedicated evidence folder.
 No provider/production configuration or required check was changed.
+# 2026-11-03 — central-site durable controller and real repair drill (#105)
+
+- Scope: central site now; reusable department hooks only. No department pages,
+  subdomains, DNS, identity/history edits, advertising or consent activation.
+- Problem: the existing shell monitor had within-run PR lookup but no persistent
+  reservation/cooldown journal, and could mark a source check recovered merely
+  because a repair PR was proposed. GitHub-token PR creation also does not assure
+  that required Actions checks run.
+- Solution: controller/GitHub journal/isolated fixture in commits
+  `0a7e0258e1f5d4d182ec590436c3897468b2546f`,
+  `7cdb4cb50a9e1aecf37f88768a1daff2e1d813a5`,
+  `6242e105d81925cfb16c2055a75dc0e9f717fb5d`; existing main monitor replacement and
+  durable once-only dispatch/adoption of four existing CI workflows in
+  `7c8a6d6e791ae497b738d98a031fe4cc6ba51405`. No new cron. A failed health observation
+  stays failed while a draft repair is pending. Unknown faults only get diagnosis.
+- Real acceptance run: [41632129693](https://github.com/dizigs/archelaos-site/actions/runs/41632129693),
+  source `cbc0770e89c7963270ab6f5f5004e1212303e1da`, check125904077757 SUCCESS.
+  One injected escaped newline, independent guard exit1/findings1 before;
+  exit0/findings0 after, exact baseline restored, idempotent. One repair, Issue106,
+  Draft107 head `108d0a821a03f7a7fd61934efc7b7e8425c43dd6`. Fresh durable-journal
+  replay SUPPRESSED, zero write attempts. Actual evidence:
+  `docs/self-heal/evidence/central-fixture-20261103.json`.
+- Independent second Actions run41633605768/check125909156657 also SUCCESS:
+  reloaded the actual GitHub journal, reused Draft107, zero repair executions and
+  zero API write attempts across the entire run. Captured separately in
+  `docs/self-heal/evidence/central-fixture-cross-run-20261103.json`.
+- Existing exact-head #107 syntax/ESLint, release integrity and Rebuild including
+  Chromium desktop/mobile checks were actually dispatched and all10 observed
+  check runs completed without failure. The new dispatcher adopted those four
+  existing workflow runs rather than launching duplicates. A subsequent replay
+  leaves the dispatch journal unchanged. Fixture107 remains Draft, never main.
+- Isolation: Draft107 targets `codex/self-heal-staging-central-news-20261103`,
+  changes only `self-heal-fixtures/news-head.html`, and must never be merged into
+  main. It is not an outage or production deployment.
+- Actual failure: #105 source400d7fb Sonar check125904119179 reported Reliability C,
+  four annotations: three structured guard-comparison conditions and one identical
+  expression assertion. `65955ef` replaced those conditions with explicit exit-code
+  checks and tested canonical policy key ordering. Corrected source Sonar passed;
+  no exclusions, threshold edits or retries of unchanged failed calls.
+- Regression coverage: 51 controller/backend/CI/main-adapter tests plus4 existing
+  PR-lookup tests, 4 existing allowlisted-fixer tests, 2 real-source fault injection
+  tests and30 provider tests pass locally. Build/verify15 pages/763 profiles,
+  source/dist HTML guard and pinned actionlint1.7.11 pass. Exact final-source remote
+  CI remains a review gate and is tracked in #105 and #71; dispatch is never logged
+  as a passed test.
+- Provider component #101 was normally squash-merged as
+  `4ffe67fe607c7aa26169f5b20a7a559923870ad9`, without bypass/direct push. Actual
+  post-merge Rebuild41632395881 succeeded including Chromium desktop/mobile and
+  reused provider gate125907387507. Deployment87480969-f2fb-423e-98e1-208918e7c83f
+  matches that exact main; all five stages successful; real terminal provider log
+  `Your site was deployed!` at12:03:24.003438UTC and separate official-root HTTP200.
+  Sanitized proof: `docs/self-heal/evidence/deployment-post-merge-20261103.json`.
+  This verifies that main, not deployment of unmerged #105 or fixture107.
+- Remaining P0: main4ffe67f Sonar125905680141 still Security C required A (#66).
+  Controller main activation, final CI/review and independent post-merge observer
+  verification remain gates. No authorized Live Sheet connector: NOT UPDATED.
