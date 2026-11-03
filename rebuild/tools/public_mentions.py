@@ -12,7 +12,6 @@ import json
 import os
 from pathlib import Path
 import re
-import secrets
 import stat
 import sys
 from contextlib import contextmanager
@@ -21,9 +20,9 @@ from urllib.request import Request, urlopen
 from xml.etree import ElementTree as ET
 from html import unescape
 if __package__:
-    from .public_snapshot import output_directory
+    from .public_snapshot import output_directory, replace_report, validate_reports
 else:
-    from public_snapshot import output_directory
+    from public_snapshot import output_directory, replace_report, validate_reports
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT = ROOT / "research" / "public-mentions-sources.json"
@@ -169,12 +168,7 @@ def report_destination(choice):
         raise ValueError("Public report destination is not allowlisted")
     parts, name = REPORT_OUTPUTS[choice]
     with output_directory(parts) as directory:
-        try:
-            existing = os.stat(name, dir_fd=directory, follow_symlinks=False)
-        except FileNotFoundError:
-            existing = None
-        if existing and (not stat.S_ISREG(existing.st_mode) or existing.st_nlink != 1):
-            raise ValueError("Public report must be an ordinary, non-linked file")
+        validate_reports(directory, (name,))
         yield directory, name
 
 
@@ -182,21 +176,7 @@ def write_report(report, directory, name):
     if name not in ("public-mentions.json", "public-mentions-report.json"):
         raise ValueError("Public report filename is not allowlisted")
     payload = json.dumps(report, ensure_ascii=False, indent=2) + "\n"
-    temporary = ".public-mentions-" + secrets.token_hex(12) + ".tmp"
-    descriptor = os.open(temporary, os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW,
-                         0o600, dir_fd=directory)
-    try:
-        with os.fdopen(descriptor, "w", encoding="utf-8") as stream:
-            stream.write(payload)
-            stream.flush()
-            os.fsync(stream.fileno())
-        os.replace(temporary, name, src_dir_fd=directory, dst_dir_fd=directory)
-        os.fsync(directory)
-    finally:
-        try:
-            os.unlink(temporary, dir_fd=directory)
-        except FileNotFoundError:
-            pass
+    replace_report(directory, name, payload)
 
 
 def main() -> int:

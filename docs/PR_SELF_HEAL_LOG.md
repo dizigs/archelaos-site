@@ -274,3 +274,113 @@ The actual current-main Sonar check `125768928878` on `9127d45` is **FAILURE**,
 `C Security Rating on New Code (required ≥ A)`, zero annotations. PR success
 from another head is not substituted for this result. No gate changes, generic
 exclusions or repeated blocked provider calls were made.
+
+## P0 #66 — mergeable CLI security evidence — 2026-11-03
+
+These are confirmed defects reproduced in disposable public-only fixtures, not
+claims of a production exploit. Logs retain the initial failures and retests.
+
+| Confirmed failure / cause | Corrective source commit | Actual recovery and integration | Detailed evidence |
+| --- | --- | --- | --- |
+| Public mentions accepted arbitrary registry/report paths; following output links could overwrite an outside sentinel. | `171e31c9eb815d1ac9d3ef5031c6581f7ad05433`: reviewed registry, bounded single-link input, closed output choices, held no-follow parent and atomic report replacement. | Focused 10/10 and combined Git/snapshot/mentions 24/24 PASS. Exact PR head `e627a58` passed full CI, including managed Chromium 145 strict 49/49 and a11y 32/0. Normal protected #77 merge: main `a60a840775b853eae5d11750eaa4576adaeff83c`, 2026-11-03T07:26:56Z. | [Cause and compatibility](security/PUBLIC_MENTIONS_CONFINEMENT.md), [actual failed/corrected output](security/evidence/public-mentions-20261103.log). |
+| Advisory event reports trusted a symlinked report root after resolving it; hardlinked destinations overwrote outside fixtures. An invalid second destination could leave JSON already replaced. | `10d7f47ca3d9b9136adad9024d54ad3c916c3e5a`: fixed JSON/Markdown slots, both entries checked before any write, descriptor-anchored atomic replacement per file. | Focused 8/8 PASS; after including merged #77, combined triage/mentions/snapshot/Git **32/32 PASS**. Both actual 19-event reports are byte-identical to prior main and source checksum unchanged. Existing owner-decision tests PASS. #79 remains unmerged pending latest-head checks/provider integration eligibility at this entry. | [Cause and contract](security/EVENT_TRIAGE_CONFINEMENT.md), [actual failed/corrected output](security/evidence/event-triage-20261103.log). |
+
+The triage baseline's 8 methods / 10 failing assertions include the new closed
+choice/cwd and validate-before-write contract; it is not ten distinct exploits.
+Atomic replacement is per report, not a two-file transaction on arbitrary later
+I/O failure. Advisory assessment, owner decisions and historical data are
+unchanged. No workflow edit, extra schedule, secret or suppression was added.
+
+Combined logs contain Git's expected `fatal: Needed a single revision` from the
+negative invalid-ref fixture. The unittest result is PASS; that intentional
+rejection is not a new runtime failure or an automatic repair trigger.
+
+Current main `a60a840` Sonar check **125785270406 FAILURE** remains distinct
+from successful PR checks. Main A/full P0 completion is **not** claimed. Actual
+production provider logs for this new main remain **NOT VERIFIED** here; the
+previous ChatGPT report for f250757 does not establish a60a840's deployment.
+[Merge and exact verification handoff](https://github.com/dizigs/archelaos-site/issues/71#issuecomment-6597920659).
+
+### Access errors: retain the endpoint and responsible layer
+
+The following GitHub administration requests were previously observed returning
+HTTP 403 with **`Resource not accessible by integration`**:
+
+- `GET https://api.github.com/repos/dizigs/archelaos-site/branches/main/protection`
+- `GET https://api.github.com/repos/dizigs/archelaos-site/actions/permissions`
+- `GET https://api.github.com/repos/dizigs/archelaos-site/actions/permissions/workflow`
+- `GET https://api.github.com/repos/dizigs/archelaos-site/actions/secrets`
+- `GET https://api.github.com/repos/dizigs/archelaos-site/actions/variables`
+
+These were authenticated GitHub API responses indicating insufficient integration
+permissions for those endpoints. They do not establish a network failure or a
+general authentication failure. Normal repository API reads, checks/annotations,
+branch pushes, comments and protected PR merges now succeed in this session.
+The failing administration requests were not repeated under unchanged conditions;
+their current administrative scopes are not independently revalidated here. No
+secret values were requested or published. Effective branch rules were read from
+the accessible `/repos/dizigs/archelaos-site/rules/branches/main` endpoint.
+
+The previously attempted direct Sonar request
+`GET https://sonarcloud.io/api/qualitygates/project_status?projectKey=dizigs_archelaos-site&branch=main`
+failed with **`curl: (56) CONNECT tunnel failed, response 403`** at the network
+proxy, before an authenticated Sonar application response. The host is outside
+the managed allowlist; this is network access evidence, not a Sonar credential
+or GitHub permission diagnosis. No unchanged retry, proxy bypass or gate
+weakening was used. Current GitHub Sonar check summaries remain accessible but
+do not provide a fresh full issue inventory.
+
+The artifact redirect and managed-browser download errors are documented above:
+artifact `GET /repos/dizigs/archelaos-site/actions/artifacts/13208516877/zip`
+passed GitHub authorization then failed at the blob destination; the separate
+CDN HTTP 403 lacks final-layer headers and its responsible layer remains UNKNOWN.
+Signed URLs, credentials and private data are excluded. Per-case annotations and
+aggregate notices supplied the real failing case and final counts when detailed
+archives were unavailable.
+
+### PR #79 — actual duplication gate failure and shared implementation
+
+- Failed head `0171e0814b2e7f7b370bf1d30708db22c5abe425`, Sonar check
+  `125786409534`: **`7.6% Duplication on New Code (required ≤ 3%)`**, zero
+  annotations. This occurred after including merged #77; the former #79 head's
+  pass did not establish a pass on this new base. Repeated atomic-writer code
+  was present in snapshot, mentions and triage; detailed provider block locations
+  were not accessible, so no exact duplicate-line map is claimed.
+- Corrective commit `aad0651f4ca17a5c17a87d879f9f6a8c0cf15c61` removes the
+  three copies in favor of one bounded `validate_reports`/`replace_report`
+  primitive beside the existing no-follow descriptor helper. Every caller keeps
+  its own closed CLI choices and fixed directory mapping. The shared writer
+  itself rejects every name outside the five reviewed report filenames.
+- Fresh ownership checks confirmed the now-merged #72/#77 files had no other
+  active PR owner before this refactor. No workflow, threshold, exclusion,
+  baseline or historical data changes. This is a real implementation reduction,
+  not a suppression.
+- Actual local recovery: **34/34 security tests PASS** (triage 8, mentions 10,
+  snapshot/shared writer 12, Git 4). The suite retains actual interrupted-write
+  cleanup and parent-swap tests, plus two new shared filename/approved-slot tests.
+  All three integrated self-tests and owner-decision QA PASS; build/independent
+  verify 15 pages/760 profiles PASS. Both real 19-event reports remain byte-identical
+  to prior main, source unchanged. Compilation/diff PASS. New-head remote Sonar
+  and combined CI remain pending at this log commit; the old failed result is
+  not overwritten or retried unchanged.
+
+### Verified shared-writer recovery and new-main synchronization — PR #79
+
+Exact head `6f0984ee16f47f430686829bcfef6dd4e0884e0c` completed all checks
+without failure: actual Sonar **125789211671 PASS**, **0.0% new-code duplication**,
+0 new/accepted issues and 0 hotspots. Full Rebuild
+[41597757776](https://github.com/dizigs/archelaos-site/actions/runs/41597757776)
+and strict [41597757704](https://github.com/dizigs/archelaos-site/actions/runs/41597757704)
+PASS. Strict notices: **49 cases/0 failures, 72 page/viewports, 608 cards**,
+Chromium 145.0.7632.6 / Playwright 1.58.0; a11y **32/0 findings/errors**.
+Required syntax/ESLint, release integrity and remaining checks PASS; no unresolved
+review threads. This verifies correction of the actual 7.6% failure without
+changing the 3% gate. [Actual recovery handoff](https://github.com/dizigs/archelaos-site/issues/71#issuecomment-6598135095).
+
+Before completion, main advanced through ChatGPT's spelling-only #80 to
+`d328e798db3e135acb184cd721593fa9f012ed94`. Its canonical/search/offline/profile
+changes were inspected, imported unchanged, and share no source path with this
+security PR. No name, record ID or historical source was edited by Codex. Fresh
+combined-head CI is required after this synchronization; the previous-head pass
+is not substituted. Actual current-main production logs and full remaining
+Sonar issue context remain pending here.

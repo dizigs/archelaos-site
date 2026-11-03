@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Suggestions are non-binding; contradictions cannot become approved by scoring."""
-import copy,importlib.util,json
+import copy,importlib.util,json,sys,unittest
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
+sys.path.insert(0,str(ROOT/"tools"))
 spec=importlib.util.spec_from_file_location("triage",ROOT/"tools/event_triage.py")
 assert spec and spec.loader
 mod=importlib.util.module_from_spec(spec);spec.loader.exec_module(mod)
@@ -19,5 +20,11 @@ def main():
     revised["source_registry"][0]["url"]="https://example.org/changed"
     assert mod.fingerprint(revised)!=mod.fingerprint(data)
     assert "Εσωτερική λίστα" in mod.markdown(r)
+    security_spec=importlib.util.spec_from_file_location("triage_security",Path(__file__).with_name("event_triage_security_test.py"))
+    assert security_spec and security_spec.loader
+    security=importlib.util.module_from_spec(security_spec);security_spec.loader.exec_module(security)
+    result=unittest.TextTestRunner(verbosity=2).run(unittest.defaultTestLoader.loadTestsFromTestCase(security.TriageSecurity))
+    if not result.wasSuccessful():
+        raise SystemExit(1)
     print("EVENT TRIAGE QA OK: stable IDs, source fingerprint, warnings, owner-only decision.")
 if __name__=="__main__":main()
