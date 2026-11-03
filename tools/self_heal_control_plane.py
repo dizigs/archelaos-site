@@ -89,6 +89,7 @@ class Observation:
     source_commit: str
     source_signature: str
     scope: str
+    status_or_error: str = "failure_observed"
 
     @property
     def fingerprint(self):
@@ -101,6 +102,8 @@ class Observation:
                        (self.sport, self.kind, self.resource, self.source_run, self.source_commit,
                         self.source_signature, self.scope))):
             raise ValueError("Invalid typed observation or clock")
+        if not isinstance(self.status_or_error, str) or not 1 <= len(self.status_or_error) <= 160:
+            raise ValueError("Missing bounded observation status")
         if self.sport not in sport_keys or self.kind not in policy.failure_classes:
             raise ValueError("Unregistered sport or failure class")
         if self.scope not in {"public", "preview", "fixture"} or not isinstance(self.resource, str) or len(self.resource) > 512:
@@ -180,13 +183,16 @@ def initial_state(observation):
             "occurrences": 1, "seenRuns": [observation.source_run], "lastObservedAt": observation.observed_at,
             "publicationContexts": [],
             "sourceRunUrl": observation.source_run, "sourceCommit": observation.source_commit,
+            "statusOrError": observation.status_or_error,
             "productionVerified": False}
 
 
 def result(state, action, reason):
-    return {"fingerprint": state["fingerprint"], "action": action, "reason": reason,
+    report = {"fingerprint": state["fingerprint"], "action": action, "reason": reason,
             "phase": state["phase"], "attempts": state["attempts"],
             "pr": state.get("pr"), "productionVerified": state.get("productionVerified") is True}
+    if "accessFailure" in state: report["accessFailure"] = state["accessFailure"]
+    return report
 
 
 def repair_branch(fingerprint, signature):
@@ -221,6 +227,7 @@ def publish_tested(observation, state, patch, store, publisher, context):
                 and evidence.get("message") in {"Resource not accessible by integration",
                     "GitHub Actions is not permitted to create or approve pull requests", "Bad credentials",
                     "Not Found", "Reference already exists", "unclassified API failure",
+                    "network proxy connection rejected; GitHub response not reached",
                     "request timed out; outcome unknown, no retry"}):
             state["accessFailure"] = evidence
         store.save(state)

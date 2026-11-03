@@ -51,6 +51,14 @@ class ApiBoundary(unittest.TestCase):
         self.assertEqual(command.call_count, 1)
         self.assertEqual((client.write_attempts, client.writes), (1, 0))
 
+    def test_network_proxy_rejection_is_not_mislabelled_github_permissions(self):
+        client = gh.GitHub()
+        with patch.object(gh.subprocess, "run", return_value=SimpleNamespace(returncode=1, stdout="",
+                stderr="CONNECT tunnel failed, response 403")) as command, self.assertRaises(gh.AccessFailure) as caught:
+            client.request(gh.API + "/issues?state=all")
+        self.assertIn("GitHub response not reached", caught.exception.evidence["message"])
+        self.assertEqual(command.call_count, 1)
+
     def test_pagination_budget_cannot_hide_a_possible_existing_issue(self):
         class FullPages(gh.GitHub):
             def request(self, *args, **kwargs): return [{"number": index} for index in range(100)]
@@ -65,6 +73,8 @@ class JournalClient:
     def request(self, path, method="GET", data=None, **kwargs):
         self.calls.append((method, path))
         if method == "GET" and path == gh.API: return {"full_name": gh.REPO, "owner": self.owner}
+        if method == "GET" and "/issues/" in path:
+            return next(row for row in self.issues if path.endswith("/" + str(row["number"])))
         if method == "POST" and path.endswith("/issues"):
             row = {"number": 110, **copy.deepcopy(data), "user": self.owner}; self.issues.append(row); return row
         if method == "POST" and path.endswith("/comments"):
@@ -108,6 +118,21 @@ class Journal(unittest.TestCase):
         store.create(state)
         self.assertEqual(len(client.issues), 1)
         self.assertIn(("POST", gh.API + "/issues/111/comments"), client.calls)
+
+    def test_two_failure_classes_share_new_aggregate_without_list_index_visibility(self):
+        client = JournalClient(); store = gh.IncidentStore(client, aggregate=True)
+        first = core.initial_state(observation())
+        self.assertIsNone(store.load(first["fingerprint"])); store.create(first)
+        from dataclasses import replace
+        second = core.initial_state(replace(observation(), kind="unknown"))
+        original_pages = client.pages
+        def indexed(path, max_pages=5):
+            if "/comments" not in path: return []
+            return original_pages(path, max_pages)
+        client.pages = indexed
+        self.assertIsNone(store.load(second["fingerprint"])); store.create(second)
+        self.assertEqual(len(client.issues), 1)
+        self.assertEqual(store.containers[first["fingerprint"]], store.containers[second["fingerprint"]])
 
 
 class TreeAndRef(unittest.TestCase):

@@ -17,6 +17,7 @@ STATE_MARKER = "archelaos-self-heal-state:v1:"
 FIXTURE_BRANCH = re.compile(r"codex/self-heal-staging-[a-z0-9-]{1,60}")
 SAFE_PATHS = {"self-heal-fixtures/news-head.html", "news.html"}
 READ_PATHS = SAFE_PATHS | {"config/sport-self-heal-policy.json"}
+CI_WORKFLOWS = ("javascript-syntax-guard.yml", "eslint-guard.yml", "rebuild-check.yml", "release-integrity.yml")
 
 
 class AccessFailure(RuntimeError):
@@ -37,16 +38,21 @@ class GitHub:
         route = path.split("?", 1)[0]
         if method == "POST":
             allowed = {API + suffix for suffix in ("/issues", "/pulls", "/git/blobs", "/git/trees", "/git/commits", "/git/refs")}
+            ci_routes = {API + "/actions/workflows/" + name + "/dispatches" for name in CI_WORKFLOWS}
+            allowed.update(ci_routes)
             if route not in allowed and not re.fullmatch(re.escape(API) + r"/issues/[0-9]+/comments", route):
                 raise ValueError("Mutation endpoint outside the compiled allowlist")
             if not isinstance(data, dict): raise ValueError("Structured mutation body required")
+            if route in ci_routes and (set(data) != {"ref"} or not re.fullmatch(
+                    r"bot/self-heal/[0-9a-f]{12}-[0-9a-f]{12}", data.get("ref", ""))):
+                raise ValueError("CI dispatch is limited to generated repair refs")
             if route == API + "/git/refs" and not re.fullmatch(
                     r"refs/heads/(?:bot/self-heal/[0-9a-f]{12}-[0-9a-f]{12}|codex/self-heal-staging-[a-z0-9-]{1,60})", data.get("ref", "")):
                 raise ValueError("Main and arbitrary ref creation are forbidden")
             if route == API + "/pulls" and (data.get("draft") is not True or
                     data.get("base") != "main" and not FIXTURE_BRANCH.fullmatch(data.get("base", ""))):
                 raise ValueError("Only scoped draft PRs may be proposed")
-        elif not (route == API or any(route.startswith(API + prefix) for prefix in
+        elif not (route in {API, API + "/actions/runs"} or any(route.startswith(API + prefix) for prefix in
                     ("/issues", "/pulls", "/git/", "/actions/runs/", "/compare/", "/commits/", "/rules/branches/"))):
             raise ValueError("Read endpoint outside the compiled metadata allowlist")
         if self.requests >= self.max_requests:
@@ -69,6 +75,10 @@ class GitHub:
             messages = ("Resource not accessible by integration", "GitHub Actions is not permitted to create or approve pull requests",
                         "Bad credentials", "Not Found", "Reference already exists")
             known = next((msg for msg in messages if msg in result.stderr), "unclassified API failure")
+            # A proxy CONNECT rejection is not a GitHub permissions response.
+            if any(marker in result.stderr.casefold() for marker in
+                   ("connect tunnel failed", "tunnel connection failed", "proxyconnect tcp")):
+                known = "network proxy connection rejected; GitHub response not reached"
             raise AccessFailure(method, path, status, known)
         if len(result.stdout.encode()) > 6 * 1024 * 1024:
             raise ValueError("API response outside bounds")
@@ -92,6 +102,7 @@ class IncidentStore:
         if known_container is not None and (type(known_container) is not int or known_container < 1):
             raise ValueError("Invalid known incident container")
         self.known_container = known_container
+        self.aggregate_container = None
 
     def trusted(self, user):
         if self.owner_id is None:
@@ -106,8 +117,9 @@ class IncidentStore:
     def marker(key): return "<!-- " + STATE_MARKER + key + " -->"
 
     def load(self, key):
-        issues = ([self.client.request(API + f"/issues/{self.known_container}")]
-                  if self.known_container is not None else self.client.pages(API + "/issues?state=all"))
+        known = self.known_container or self.aggregate_container
+        issues = ([self.client.request(API + f"/issues/{known}")]
+                  if known is not None else self.client.pages(API + "/issues?state=all"))
         candidates = [row for row in issues if "pull_request" not in row and
                       (self.marker(key) in (row.get("body") or "") or
                        self.aggregate and row.get("title") == "Site QA: automated monitor alert")]
@@ -119,6 +131,7 @@ class IncidentStore:
         number = issue.get("number")
         if type(number) is not int or number < 1: raise ValueError("Invalid incident ID")
         self.containers[key] = number
+        if self.aggregate: self.aggregate_container = number
         comments = self.client.pages(API + f"/issues/{number}/comments", max_pages=3)
         state = None
         for comment in comments:
@@ -143,6 +156,7 @@ class IncidentStore:
             issue = self.client.request(API + "/issues", "POST", {"title": title, "body": body})
             if type(issue.get("number")) is not int: raise ValueError("No incident created")
             self.containers[key] = issue["number"]
+            if self.aggregate: self.aggregate_container = issue["number"]
         self.save(state)
 
     def save(self, state):
@@ -239,6 +253,11 @@ class DraftPublisher:
         base_commit = branch_head(self.client, self.base)
         original = tree_file(self.client, base_commit, patch.path)
         if original["sha"] != self.expected_source: raise RuntimeError("Source changed before proposal")
+        # A failed/ambiguous PR lookup must stop before even creating a branch.
+        pulls = self.client.pages(API + "/pulls?" + urlencode({"state": "all", "head": "dizigs:" + branch}))
+        if len(pulls) > 1: raise RuntimeError("Ambiguous existing repair PRs")
+        if pulls and (pulls[0].get("state") != "open" or pulls[0].get("draft") is not True):
+            raise RuntimeError("Existing repair requires review reconciliation; no duplicate")
         candidate = branch_head(self.client, branch, missing_ok=True)
         if candidate is None:
             candidate = create_changed_ref(self.client, base_commit, patch.path, patch.content, branch,
@@ -249,12 +268,8 @@ class DraftPublisher:
         comparison = self.client.request(API + "/compare/" + base_commit + "..." + candidate)
         if [row.get("filename") for row in comparison.get("files", [])] != [patch.path]:
             raise ValueError("Candidate contains unrelated changes")
-        pulls = self.client.pages(API + "/pulls?" + urlencode({"state": "all", "head": "dizigs:" + branch}))
-        if len(pulls) > 1: raise RuntimeError("Ambiguous existing repair PRs")
         if pulls:
             pull = pulls[0]
-            if pull.get("state") != "open" or pull.get("draft") is not True:
-                raise RuntimeError("Existing repair requires review reconciliation; no duplicate")
         else:
             body = ("Controlled, allowlisted repair with independent before/after regression checks.\n\n"
                     "Source run: " + observation.source_run + "\nSource commit: " + observation.source_commit +
@@ -262,7 +277,8 @@ class DraftPublisher:
                     "\nOnly changed path: " + patch.path + "\nCandidate commit: " + candidate +
                     "\n\nFixture PRs target an isolated staging branch, not production. "
                     "No identities/history/DNS/consent changes or automatic merge. Required CI/review remain gates.")
-            pull = self.client.request(API + "/pulls", "POST", {"title": "self-heal fixture: tested news-head whitespace repair",
+            title = "self-heal fixture: tested news-head whitespace repair" if self.base != "main" else "auto-heal: tested news-head whitespace repair"
+            pull = self.client.request(API + "/pulls", "POST", {"title": title,
                 "head": branch, "base": self.base, "body": body, "draft": True})
         if ((pull.get("head") or {}).get("sha") != candidate
                 or (pull.get("head") or {}).get("ref") != branch

@@ -120,7 +120,8 @@ def run_fixture(client, branch, commit, run_id, resume_issue=None):
     case = branch.removeprefix("codex/self-heal-staging-")
     now = datetime.now(timezone.utc)
     item = Observation("club", "ci_failure", "https://archelaos.club/__self-heal-fixture__/" + case + "/news-head.html",
-                       now.isoformat(), run_url, commit, source_signature(source["content"], data), "fixture")
+                       now.isoformat(), run_url, commit, source_signature(source["content"], data), "fixture",
+                       "Injected HTML_ESCAPED_TEXT; independent guard exit 1")
     own_branch = repair_branch(item.fingerprint, item.source_signature)
     assert_no_other_pr_owner(client, PATH, own_branch)
     store = IncidentStore(client, known_container=resume_issue)
@@ -145,6 +146,10 @@ def run_fixture(client, branch, commit, run_id, resume_issue=None):
     else:
         outcome = process_incident(item, policy, {"club"}, store, repair, publisher, now)
     issue = store.containers[item.fingerprint]
+    ci = None
+    if outcome["action"] == "DRAFT_PR_PROPOSED":
+        from self_heal_ci import dispatch_checks
+        ci = dispatch_checks(client, IncidentStore(client, known_container=issue), item.fingerprint)
     state = IncidentStore(client, known_container=issue).load(item.fingerprint)
     before_replay = client.write_attempts
     replay = process_incident(item, policy, {"club"}, IncidentStore(client, known_container=issue),
@@ -154,6 +159,7 @@ def run_fixture(client, branch, commit, run_id, resume_issue=None):
         raise RuntimeError("Replay attempted a repeated repair or API write")
     report = {"result": outcome, "replay": replay, "replayWriteAttempts": replay_writes,
               "repairExecutions": len(calls), "tests": evidence, "policyCommit": policy_commit,
+              "ci": ci,
               "sourceRun": run_url, "sourceCommit": commit,
               "incident": "https://github.com/" + REPO + "/issues/" + str(issue),
               "apiRequests": client.requests, "apiWriteAttempts": client.write_attempts,
