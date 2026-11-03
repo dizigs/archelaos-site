@@ -12,6 +12,14 @@ from hof_biography import normalized
 
 ROOT = Path(__file__).resolve().parents[2]
 FIELDS = ("name", "bio", "bio_en")
+REVIEW_CLASSIFICATIONS = frozenset({
+    "LEGACY_TEXT_RETAINED",
+    "SEMANTICALLY_RETAINED",
+    "QUALIFIED_CONFLICT",
+    "QUALIFIED_ARCHIVE",
+    "SPELLING_CORRECTION",
+    "BLOCKED_SOURCE",
+})
 DECISIONS = ROOT / "docs/research/hof-reconciliation-decisions.json"
 REPORT = ROOT / "docs/research/hof-canonical-reconciliation-20261103.json"
 
@@ -47,7 +55,9 @@ def reconcile(canonical: dict, legacy: dict, decisions: dict) -> dict:
                 raise ValueError("Stale manual review: " + pid + "/" + field)
             classification = "LEGACY_TEXT_RETAINED" if normalized(before) in normalized(after) else "UNREVIEWED"
             if review:
-                classification = review["classification"]
+                classification = review.get("classification")
+                if classification not in REVIEW_CLASSIFICATIONS:
+                    raise ValueError("Unknown manual classification: " + pid + "/" + field)
             fields.append({"field": field, "classification": classification,
                            "legacy_sha256": digest(before), "canonical_sha256": digest(after),
                            **({"evidence": review["evidence"]} if review else {})})
