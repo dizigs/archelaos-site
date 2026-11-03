@@ -1,0 +1,43 @@
+name: Brain core runtime and security regressions
+on:
+  pull_request:
+    paths:
+      - 'brain/**'
+      - '.github/workflows/brain-core.yml'
+      - '.github/workflows/cloudflare-pages-status.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'brain/**'
+      - '.github/workflows/brain-core.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  runtime:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    env:
+      WRANGLER_SEND_METRICS: 'false'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.12'
+      - name: Install exact locked packages without lifecycle scripts
+        run: npm ci --prefix brain --ignore-scripts --no-audit --no-fund
+      - name: Validate syntax and provider readiness evidence guards
+        run: |
+          npm run syntax --prefix brain
+          python -m unittest discover -s brain/test -p '*_test.py' -v
+      - name: Exercise actual workerd SQLite, alarms, restart, dedupe, DLQ and budget concurrency
+        run: npm test --prefix brain
+      - name: Compile staging-only Worker without deployment or credentials
+        working-directory: brain
+        run: ./node_modules/.bin/wrangler deploy --dry-run --outdir "$RUNNER_TEMP/brain-bundle"

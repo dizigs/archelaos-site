@@ -20,18 +20,20 @@ export function validateEvent(event, sourceType, now = Date.now()) {
   const time = Date.parse(event.receivedAt);
   if (!Number.isFinite(time) || time > now + 300000 || time < now - 7 * 86400000) throw new Rejected('STALE_EVENT', 422);
   const payload = event.payload;
-  if (!payload || typeof payload !== 'object' || Array.isArray(payload) || Object.keys(payload).sort().join(',') !== 'blobSha256,mimeType,sizeBytes' || !HEX.test(payload.blobSha256) || !MIME.has(payload.mimeType) || !Number.isSafeInteger(payload.sizeBytes) || payload.sizeBytes < 1 || payload.sizeBytes > 50 * 1024 * 1024) throw new Rejected('INVALID_METADATA', 422);
+  if (!payload || typeof payload !== 'object' || Array.isArray(payload) || Object.keys(payload).length !== 3 || !['blobSha256', 'mimeType', 'sizeBytes'].every(key => Object.hasOwn(payload, key)) || !HEX.test(payload.blobSha256) || !MIME.has(payload.mimeType) || !Number.isSafeInteger(payload.sizeBytes) || payload.sizeBytes < 1 || payload.sizeBytes > 50 * 1024 * 1024) throw new Rejected('INVALID_METADATA', 422);
   return { ...event, payload: { blobSha256: payload.blobSha256, mimeType: payload.mimeType, sizeBytes: payload.sizeBytes } };
 }
 export async function authenticate(request, env, raw, now = Date.now()) {
   const timestamp = request.headers.get('x-archelaos-timestamp') || '';
   const signature = request.headers.get('x-archelaos-signature') || '';
-  if (request.headers.get('x-archelaos-key-id') !== 'staging-v1' || !/^\d{10}$/.test(timestamp) || !HEX.test(signature) || Math.abs(now - Number(timestamp) * 1000) > 300000 || typeof env.STAGING_INTAKE_KEY !== 'string' || env.STAGING_INTAKE_KEY.length < 43) throw new Rejected('UNAUTHORIZED', 401);
-  const key = await crypto.subtle.importKey('raw', encoder.encode(env.STAGING_INTAKE_KEY), { name: 'HMAC', hash: 'SHA-256' }, false, ['verify']);
+  const identity = request.headers.get('x-archelaos-key-id');
+  const secret = identity === 'staging-v1' ? env.STAGING_INTAKE_KEY : identity === 'operator-v1' ? env.STAGING_OPERATOR_KEY : null;
+  if (!/^\d{10}$/.test(timestamp) || !HEX.test(signature) || Math.abs(now - Number(timestamp) * 1000) > 300000 || typeof secret !== 'string' || secret.length < 43) throw new Rejected('UNAUTHORIZED', 401);
+  const key = await crypto.subtle.importKey('raw', encoder.encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['verify']);
   const message = request.method + '\n' + new URL(request.url).pathname + '\n' + timestamp + '\n' + raw;
   const bytes = Uint8Array.from(signature.match(/../g), pair => Number.parseInt(pair, 16));
   if (!await crypto.subtle.verify('HMAC', key, bytes, encoder.encode(message))) throw new Rejected('UNAUTHORIZED', 401);
-  return 'staging';
+  return identity === 'operator-v1' ? 'operator' : 'staging';
 }
 export async function boundedBody(request) {
   if (request.headers.get('content-length') && Number(request.headers.get('content-length')) > 4096) throw new Rejected('BODY_TOO_LARGE', 413);
