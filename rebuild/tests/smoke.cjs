@@ -33,6 +33,18 @@ async function run(){
       if(!await page.locator('.av-card').first().textContent())throw Error('Favorite did not show');
       await page.locator('.av-card .arch-favorite-toggle').click();
       await page.locator('.av-empty').waitFor();
+      // A favorite saved before two verified identity mergers must still resolve.
+      const migrated=await page.evaluate(()=>{
+       const f=window.ArchelaosFavorites;
+       f.toggle('person','arch-bdac478e7ea3');
+       f.toggle('person','arch-22eae49bbbc0');
+       const ids=f.get().filter(x=>x.type==='person').map(x=>x.id).sort((a,b)=>a.localeCompare(b));
+       f.toggle('person','arch-bdac478e7ea3');
+       f.toggle('person','arch-22eae49bbbc0');
+       return ids;
+      });
+      if(migrated.join(',')!==['arch-7f975b16bebf','arch-82df0f64b81d'].sort((a,b)=>a.localeCompare(b)).join(','))
+       throw Error('Historic person favorites did not migrate: '+JSON.stringify(migrated));
     }
     if(name==='contribute'){
       if(await page.locator('#ac-attachments[type="file"][multiple]').count()!==1||await page.locator('#ac-archive-link[type="url"]').count()!==1)
@@ -124,6 +136,13 @@ async function run(){
      await page.locator('dialog.arch-dialog[open]').waitFor({timeout:8000});
      await page.locator('dialog.arch-dialog .arch-close').click();
      if(await page.locator('dialog.arch-dialog[open]').count())throw Error(name+': dialog did not close');
+    }
+    if(name==='hall'){
+     await page.goto(ROOT+'/rebuild/hall-of-fame.html?person=arch-bdac478e7ea3',{waitUntil:'domcontentloaded'});
+     await page.locator('dialog.arch-dialog[open]').waitFor({timeout:8000});
+     const mergedBio=await page.locator('dialog.arch-dialog[open]').textContent();
+     if(!mergedBio?.includes('Αντωνάτος'))throw Error('Old Hall deep link failed to resolve to canonical profile');
+     await page.locator('dialog.arch-dialog .arch-close').click();
     }
     if(size.width<500){
      await page.locator('.arch-menu-open').click();

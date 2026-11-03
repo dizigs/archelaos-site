@@ -35,6 +35,7 @@ STATIC_ROOT = (
     "favicon.ico", "favicon-180.png", "favicon-192.png", "favicon-512.png",
     "archelaos-history-events.json", "archelaos-person-index.json",
     "archelaos-person-links.js", "hall-of-fame-people.json",
+    "hall-of-fame-person-aliases.json",
     "interviews.json",  # Public interview archive; required by interviews.html
 )
 COMMON_FOLDERS = ("assets", "images")
@@ -232,6 +233,12 @@ def make_release() -> None:
     # Hall of Fame profile from the root master, including new youth athletes.
     current_master = json.loads((ROOT / "hall-of-fame-people.json").read_text(encoding="utf-8"))
     current_master_ids = {person["id"] for person in current_master["people"]}
+    aliases = json.loads((ROOT / "hall-of-fame-person-aliases.json").read_text(encoding="utf-8"))["aliases"]
+    if (set(aliases) & current_master_ids) or not set(aliases.values()).issubset(current_master_ids):
+        raise ValueError("Hall aliases point to missing canonical IDs or preserve retired IDs")
+    # Retired HTML stays in repository history but never becomes a duplicate public page.
+    for retired_id in aliases:
+        (OUTPUT / "people" / (retired_id + ".html")).unlink(missing_ok=True)
     for person_id in sorted(current_master_ids):
         target = OUTPUT / "people" / (person_id + ".html")
         if target.exists():
