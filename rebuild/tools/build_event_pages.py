@@ -73,8 +73,8 @@ def render(root: Path, output: Path) -> list[str]:
 <link rel="stylesheet" href="/assets/site/css/tokens.css">
 <link rel="stylesheet" href="/assets/site/css/components.css">
 <link rel="stylesheet" href="/assets/site/css/viewports.css">
-<link rel="stylesheet" href="/assets/site/css/event-pages.css">
-<script defer src="/assets/site/js/shell.js"></script>
+<link rel="stylesheet" href="/assets/site/css/event-pages.css"><link rel="stylesheet" href="/assets/site/css/support-footer.css">
+<script defer src="/assets/site/js/shell.js"></script><script defer src="/assets/site/js/support-footer.js"></script>
 <script defer src="/assets/site/js/favorites.js"></script>
 <script defer src="/assets/site/js/motion.js"></script>
 <script type="application/ld+json">{schema}</script>
@@ -94,8 +94,8 @@ def render(root: Path, output: Path) -> list[str]:
     listing = '''<!doctype html><html lang="el"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">''' + (
         f'<title>Πλήρες Χρονολόγιο | Γ.Α.Σ. Αρχέλαος</title><link rel="canonical" href="{SITE}/events/index.html">') + '''
 <link rel="stylesheet" href="/assets/site/css/tokens.css"><link rel="stylesheet" href="/assets/site/css/components.css">
-<link rel="stylesheet" href="/assets/site/css/viewports.css"><link rel="stylesheet" href="/assets/site/css/event-pages.css">
-<script defer src="/assets/site/js/shell.js"></script></head><body class="event-page">
+<link rel="stylesheet" href="/assets/site/css/viewports.css"><link rel="stylesheet" href="/assets/site/css/event-pages.css"><link rel="stylesheet" href="/assets/site/css/support-footer.css">
+<script defer src="/assets/site/js/shell.js"></script><script defer src="/assets/site/js/support-footer.js"></script></head><body class="event-page">
 <main id="main-content" class="event-main"><nav class="event-crumb" aria-label="Διαδρομή"><a href="/history.html">Ψηφιακό Μουσείο</a></nav>
 <section class="event-article"><p class="event-category">Από το 1956 έως σήμερα</p><h1>Πλήρες Ιστορικό Χρονολόγιο</h1>
 <p>Ιστορικά γεγονότα από το τεκμηριωμένο αρχείο του Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης.</p><ol class="event-index">''' + "".join(links) + '''</ol></section></main></body></html>'''
