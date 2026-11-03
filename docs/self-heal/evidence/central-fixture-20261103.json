@@ -1,0 +1,56 @@
+{
+  "accessFailure": null,
+  "apiRequests": 58,
+  "apiWriteAttempts": 10,
+  "automaticMergePerformed": false,
+  "futureDepartmentSitesCreated": 0,
+  "incident": "https://github.com/dizigs/archelaos-site/issues/106",
+  "policyCommit": "d59363d333f9837da0c16e3fc776146fd89bbefa",
+  "productionVerified": false,
+  "repairExecutions": 1,
+  "replay": {
+    "action": "SUPPRESSED",
+    "attempts": 1,
+    "fingerprint": "a565becdbc07",
+    "phase": "DRAFT_PR_PROPOSED",
+    "pr": {
+      "branch": "bot/self-heal/a565becdbc07-71a20512333a",
+      "commit": "108d0a821a03f7a7fd61934efc7b7e8425c43dd6",
+      "draft": true,
+      "number": 107,
+      "url": "https://github.com/dizigs/archelaos-site/pull/107"
+    },
+    "productionVerified": false,
+    "reason": "incident_already_handled"
+  },
+  "replayWriteAttempts": 0,
+  "result": {
+    "action": "DRAFT_PR_PROPOSED",
+    "attempts": 1,
+    "fingerprint": "a565becdbc07",
+    "phase": "DRAFT_PR_PROPOSED",
+    "pr": {
+      "branch": "bot/self-heal/a565becdbc07-71a20512333a",
+      "commit": "108d0a821a03f7a7fd61934efc7b7e8425c43dd6",
+      "draft": true,
+      "number": 107,
+      "url": "https://github.com/dizigs/archelaos-site/pull/107"
+    },
+    "productionVerified": false,
+    "reason": "tested_repair_waiting_for_review"
+  },
+  "sourceCommit": "cbc0770e89c7963270ab6f5f5004e1212303e1da",
+  "sourceRun": "https://github.com/dizigs/archelaos-site/actions/runs/41632129693",
+  "tests": {
+    "after": {
+      "exitCode": 0,
+      "findings": 0
+    },
+    "before": {
+      "exitCode": 1,
+      "findings": 1
+    },
+    "changes": 1,
+    "idempotent": true
+  }
+}
