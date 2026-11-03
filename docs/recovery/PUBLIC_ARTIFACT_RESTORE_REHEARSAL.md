@@ -1,6 +1,6 @@
 # Public archive artifact recovery rehearsal (read-only)
 
-This branch adds an **offline verifier**, not a backup replacement or production restore.
+This branch adds an **offline verifier**, not a backup replacement or production restore. It also CI-tests a ZIP assembled from the current **genuine generated release files**, unlike the synthetic corruption fixtures. Neither is evidence that a remotely retained GitHub artifact can be downloaded.
 
 ## Existing verified code path
 - `.github/workflows/weekly-public-snapshot.yml` is scheduled Sundays 03:43 UTC and uses `upload-artifact` with `retention-days: 30`.
@@ -16,7 +16,7 @@ python rebuild/tools/public_restore_audit.py /path/to/downloaded/public-archive-
 python -m unittest discover -s rebuild/tests -p 'public_restore_audit_test.py' -v
 ```
 
-The tool verifies **only** the expected manifest + ten public JSON files, validates file sizes, SHA-256 and record counts, and rejects duplicate/unexpected entries, symlinks, traversal and large files. It performs **no extraction and no network or production write**.
+In the PR-only CI, `build_release.py` and `public_snapshot.py` are run first, then `public_restore_built_release_test.py` packages their actual on-disk output into a temporary ZIP and checks it through the same validator. **This validates packaging/readback against the live repo checkout, not the GitHub artifact service**.\n\nThe tool verifies **only** the expected manifest + ten public JSON files, validates file sizes, SHA-256 and record counts, and rejects duplicate/unexpected entries, symlinks, traversal and large files. It performs **no extraction and no network or production write**.
 
 An offline PASS means the artifact bytes are internally consistent. It does **not** prove:
 - remote artifact is present, accessible after thirty days or stored off GitHub;
