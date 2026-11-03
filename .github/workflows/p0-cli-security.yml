@@ -4,6 +4,20 @@ on:
     paths:
       - 'rebuild/tools/live_sync_audit.py'
       - 'rebuild/tests/live_sync_security_test.py'
+      - 'rebuild/tools/import_match_calendar.py'
+      - 'rebuild/tools/public_snapshot.py'
+      - 'rebuild/tests/calendar_output_security_test.py'
+      - 'rebuild/tests/match_calendar_import.py'
+      - '.github/workflows/p0-cli-security.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'rebuild/tools/live_sync_audit.py'
+      - 'rebuild/tests/live_sync_security_test.py'
+      - 'rebuild/tools/import_match_calendar.py'
+      - 'rebuild/tools/public_snapshot.py'
+      - 'rebuild/tests/calendar_output_security_test.py'
+      - 'rebuild/tests/match_calendar_import.py'
       - '.github/workflows/p0-cli-security.yml'
   workflow_dispatch:
 permissions:
@@ -21,3 +35,7 @@ jobs:
           python-version: '3.12'
       - name: Exercise real Git boundary in disposable fixtures
         run: python rebuild/tests/live_sync_security_test.py
+      - name: Exercise calendar report links, directory swaps and review-only imports
+        run: |
+          python -m unittest discover -s rebuild/tests -p calendar_output_security_test.py -v
+          python rebuild/tests/match_calendar_import.py

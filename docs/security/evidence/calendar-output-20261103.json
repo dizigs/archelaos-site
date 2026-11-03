@@ -1,0 +1,82 @@
+{
+  "checked_at": "2026-11-03T19:00:53.139711+00:00",
+  "base_main": "0108750507241c4bb5f942457c78788ec6f7e0a8",
+  "scope": "Synthetic disposable fixtures only; no real calendar/private files/network/publication",
+  "baseline_suite": {
+    "methods": 11,
+    "failed_assertions_including_subcases": 10,
+    "note": "Not ten distinct vulnerabilities: includes new fixed-choice, permissions and bounded-error contracts."
+  },
+  "corrected_suite": {
+    "calendar_security_methods": 11,
+    "all_security_methods": 45,
+    "calendar_ics_zip_functional": "PASS",
+    "build_release": "PASS",
+    "hall_regressions": 36
+  },
+  "fresh_sonar_inventory": {
+    "status": "BLOCKED_NETWORK",
+    "endpoint": "https://sonarcloud.io/api/issues/search?componentKeys=dizigs_archelaos-site&branch=main&inNewCodePeriod=true&resolved=false&types=VULNERABILITY&ps=100",
+    "error": "curl: (56) CONNECT tunnel failed, response 403",
+    "origin_http_status": "000",
+    "proxy": "envoy, CONNECT HTTP 403",
+    "current_finding_count": null
+  },
+  "observations": [
+    {
+      "version": "baseline",
+      "case": "ordinary",
+      "exit_code": 0,
+      "outside_sentinel_unchanged": true,
+      "candidates": 1,
+      "publication": "never_without_owner_review",
+      "report_sha256": "406c921ecf29d141b9904b8b4c1cf8b0328a79288413fa2900b4d2982bd306c0"
+    },
+    {
+      "version": "baseline",
+      "case": "symlinked_root",
+      "exit_code": 0,
+      "outside_sentinel_unchanged": false
+    },
+    {
+      "version": "baseline",
+      "case": "hardlinked_report",
+      "exit_code": 0,
+      "outside_sentinel_unchanged": false
+    },
+    {
+      "version": "baseline",
+      "case": "inside_destination_symlink",
+      "exit_code": 0,
+      "outside_sentinel_unchanged": false
+    },
+    {
+      "version": "corrected",
+      "case": "ordinary",
+      "exit_code": 0,
+      "outside_sentinel_unchanged": true,
+      "candidates": 1,
+      "publication": "never_without_owner_review",
+      "report_sha256": "406c921ecf29d141b9904b8b4c1cf8b0328a79288413fa2900b4d2982bd306c0"
+    },
+    {
+      "version": "corrected",
+      "case": "symlinked_root",
+      "exit_code": 2,
+      "outside_sentinel_unchanged": true
+    },
+    {
+      "version": "corrected",
+      "case": "hardlinked_report",
+      "exit_code": 2,
+      "outside_sentinel_unchanged": true
+    },
+    {
+      "version": "corrected",
+      "case": "inside_destination_symlink",
+      "exit_code": 2,
+      "outside_sentinel_unchanged": true
+    }
+  ],
+  "ordinary_report_bytes_identical": true
+}
