@@ -105,9 +105,13 @@ def api_request(token, operation, payload=None, page=None):
         if (page is not None or not isinstance(payload, dict)
                 or set(payload) != {"issueId"}):
             raise ValueError("Invalid issue close request")
+        node_id = payload["issueId"]
+        if (not isinstance(node_id, str)
+                or not re.fullmatch(r"[A-Za-z0-9_\\-=]{8,256}", node_id)):
+            raise ValueError("Unsafe GitHub GraphQL issue ID")
         url = GRAPHQL_ENDPOINT
         method = "POST"
-        payload = {"query": CLOSE_ISSUE_MUTATION, "variables": payload}
+        payload = {"query": CLOSE_ISSUE_MUTATION, "variables": {"issueId": node_id}}
     else:
         raise ValueError("Unsupported GitHub API operation")
 
