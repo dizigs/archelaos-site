@@ -121,7 +121,7 @@ def verify() -> None:
         assert "<footer" not in text.lower(), "Duplicated legacy footer in " + file.name
         assert '/assets/site/css/components.css' in text, "Shared controls CSS missing: " + file.name
 
-    # All public routes (13 pages, 682 biographies and 404) must share one
+    # All public routes (core pages, canonical biographies and 404) must share one
     # footer, accessibility trigger and return-to-top implementation.
     not_found=(DIST/"404.html").read_text(encoding="utf-8")
     assert '/assets/site/js/shell.js' in not_found and '/assets/site/css/components.css' in not_found, "404 is missing site-wide tools"
@@ -140,9 +140,26 @@ def verify() -> None:
     hall = json.loads((DIST / "hall-of-fame-people.json").read_text(encoding="utf-8"))
     modal = json.loads((DIST / "assets/site/data/people.json").read_text(encoding="utf-8"))
     assert hall == master == modal, "Hall of Fame release differs from canonical master"
+    for js_path in ("biographies.js", "archive-catalog.js", "home.js"):
+        code = (DIST / "assets/site/js" / js_path).read_text(encoding="utf-8")
+        assert "/hall-of-fame-people.json" in code, "Legacy Hall feed in " + js_path
     assert hall["count"] == len(hall["people"]), "Hall count inconsistent"
+    assert f'<strong id="hall-total">{hall["count"]}</strong>' in (DIST/"hall-of-fame.html").read_text(encoding="utf-8"), "Hall hero has stale profile count"
+    assert f'<span id="new-people-total">{hall["count"]}</span>' in (DIST/"index.html").read_text(encoding="utf-8"), "Homepage has stale profile count"
     ids = [person["id"] for person in hall["people"]]
     assert len(ids) == len(set(ids)), "Duplicate Hall person identifiers"
+    # Identity correction: two historical spellings refer to one coach.
+    fani_id = "arch-2cb062fabc11"
+    retired_fani_id = "arch-fani-gkiousoglou-gym-2025"
+    fani = [person for person in hall["people"] if person["id"] == fani_id]
+    assert len(fani) == 1 and fani[0]["name"] == "Φανή Γκιοούσογλου", "Fani identity/spelling regressed"
+    assert retired_fani_id not in ids, "Duplicate Fani Hall identity returned"
+    assert "2024" in fani[0]["bio"] and "2025" in fani[0]["bio"], "Merged Fani biography lost historical coverage"
+    assert (DIST / "people" / (fani_id + ".html")).is_file(), "Canonical Fani profile missing"
+    assert not (DIST / "people" / (retired_fani_id + ".html")).exists(), "Retired Fani profile incorrectly republished"
+    redirects = (DIST / "_redirects").read_text(encoding="utf-8")
+    assert f"/people/{retired_fani_id}.html /people/{fani_id}.html 301" in redirects, "Fani legacy URL redirect missing"
+
     names = [(p["name"].strip().casefold(), p.get("role", "").strip().casefold()) for p in hall["people"]]
     assert len(names) == len(set(names)), "Duplicate Hall names and roles"
     # A single traceable graph must connect every publicly named person/event

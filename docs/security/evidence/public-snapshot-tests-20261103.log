@@ -1,0 +1,65 @@
+Executed public snapshot confinement checks — 2026-11-03 Europe/Athens. Disposable public-only fixtures.
+
+Snapshot security suite
+test_allowlisted_artifact_output (__main__.SnapshotSecurity.test_allowlisted_artifact_output) ... ok
+test_default_output_preserves_public_manifest_contract (__main__.SnapshotSecurity.test_default_output_preserves_public_manifest_contract) ... ok
+test_destination_hardlink_cannot_overwrite_outside_inode (__main__.SnapshotSecurity.test_destination_hardlink_cannot_overwrite_outside_inode) ... ok
+test_destination_symlink_cannot_overwrite_outside_file (__main__.SnapshotSecurity.test_destination_symlink_cannot_overwrite_outside_file) ... ok
+test_directory_destination_is_rejected (__main__.SnapshotSecurity.test_directory_destination_is_rejected) ... ok
+test_missing_artifact_directory_is_created_within_checkout (__main__.SnapshotSecurity.test_missing_artifact_directory_is_created_within_checkout) ... ok
+test_parent_swap_during_write_cannot_redirect_replace (__main__.SnapshotSecurity.test_parent_swap_during_write_cannot_redirect_replace) ... ok
+test_parent_symlink_cannot_redirect_artifact_write (__main__.SnapshotSecurity.test_parent_symlink_cannot_redirect_artifact_write) ... ok
+test_partial_write_preserves_previous_manifest_and_removes_temporary (__main__.SnapshotSecurity.test_partial_write_preserves_previous_manifest_and_removes_temporary) ... ok
+test_traversal_and_unapproved_outputs_cannot_write (__main__.SnapshotSecurity.test_traversal_and_unapproved_outputs_cannot_write) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.496s
+
+OK
+
+Combined existing/new CLI security tests
+test_missing_commit_is_failure (live_sync_security_test.GitBoundary.test_missing_commit_is_failure) ... fatal: Needed a single revision
+ok
+test_output_option_cannot_write_a_file (live_sync_security_test.GitBoundary.test_output_option_cannot_write_a_file) ... ok
+test_read_main_and_exact_commit (live_sync_security_test.GitBoundary.test_read_main_and_exact_commit) ... ok
+test_reject_options_revision_expressions_and_unapproved_paths (live_sync_security_test.GitBoundary.test_reject_options_revision_expressions_and_unapproved_paths) ... ok
+test_allowlisted_artifact_output (public_snapshot_security_test.SnapshotSecurity.test_allowlisted_artifact_output) ... ok
+test_default_output_preserves_public_manifest_contract (public_snapshot_security_test.SnapshotSecurity.test_default_output_preserves_public_manifest_contract) ... ok
+test_destination_hardlink_cannot_overwrite_outside_inode (public_snapshot_security_test.SnapshotSecurity.test_destination_hardlink_cannot_overwrite_outside_inode) ... ok
+test_destination_symlink_cannot_overwrite_outside_file (public_snapshot_security_test.SnapshotSecurity.test_destination_symlink_cannot_overwrite_outside_file) ... ok
+test_directory_destination_is_rejected (public_snapshot_security_test.SnapshotSecurity.test_directory_destination_is_rejected) ... ok
+test_missing_artifact_directory_is_created_within_checkout (public_snapshot_security_test.SnapshotSecurity.test_missing_artifact_directory_is_created_within_checkout) ... ok
+test_parent_swap_during_write_cannot_redirect_replace (public_snapshot_security_test.SnapshotSecurity.test_parent_swap_during_write_cannot_redirect_replace) ... ok
+test_parent_symlink_cannot_redirect_artifact_write (public_snapshot_security_test.SnapshotSecurity.test_parent_symlink_cannot_redirect_artifact_write) ... ok
+test_partial_write_preserves_previous_manifest_and_removes_temporary (public_snapshot_security_test.SnapshotSecurity.test_partial_write_preserves_previous_manifest_and_removes_temporary) ... ok
+test_traversal_and_unapproved_outputs_cannot_write (public_snapshot_security_test.SnapshotSecurity.test_traversal_and_unapproved_outputs_cannot_write) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.463s
+
+OK
+
+Real release inventory and integrated security suite
+test_allowlisted_artifact_output (snapshot_security_checks.SnapshotSecurity.test_allowlisted_artifact_output) ... ok
+test_default_output_preserves_public_manifest_contract (snapshot_security_checks.SnapshotSecurity.test_default_output_preserves_public_manifest_contract) ... ok
+test_destination_hardlink_cannot_overwrite_outside_inode (snapshot_security_checks.SnapshotSecurity.test_destination_hardlink_cannot_overwrite_outside_inode) ... ok
+test_destination_symlink_cannot_overwrite_outside_file (snapshot_security_checks.SnapshotSecurity.test_destination_symlink_cannot_overwrite_outside_file) ... ok
+test_directory_destination_is_rejected (snapshot_security_checks.SnapshotSecurity.test_directory_destination_is_rejected) ... ok
+test_missing_artifact_directory_is_created_within_checkout (snapshot_security_checks.SnapshotSecurity.test_missing_artifact_directory_is_created_within_checkout) ... ok
+test_parent_swap_during_write_cannot_redirect_replace (snapshot_security_checks.SnapshotSecurity.test_parent_swap_during_write_cannot_redirect_replace) ... ok
+test_parent_symlink_cannot_redirect_artifact_write (snapshot_security_checks.SnapshotSecurity.test_parent_symlink_cannot_redirect_artifact_write) ... ok
+test_partial_write_preserves_previous_manifest_and_removes_temporary (snapshot_security_checks.SnapshotSecurity.test_partial_write_preserves_previous_manifest_and_removes_temporary) ... ok
+test_traversal_and_unapproved_outputs_cannot_write (snapshot_security_checks.SnapshotSecurity.test_traversal_and_unapproved_outputs_cannot_write) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.389s
+
+OK
+PUBLIC SNAPSHOT SELF-TEST OK: 10 public JSON datasets, SHA-256 and no private files.
+
+Independent release verification
+RELEASE QA OK: 15 core pages + 760 indexed profiles.
+Canonicals, robots, structured data, two sitemaps, redirects and local paths verified.
+
+Actual artifact CLI output
+PUBLIC SNAPSHOT: 10 datasets inventoried; no private sources.

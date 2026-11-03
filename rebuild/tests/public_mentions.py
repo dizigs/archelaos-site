@@ -3,8 +3,11 @@
 import importlib.util
 from io import BytesIO
 import json
+import sys
+import unittest
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
+sys.path.insert(0,str(ROOT/"tools"))
 spec=importlib.util.spec_from_file_location("mentions",ROOT/"tools/public_mentions.py")
 m=importlib.util.module_from_spec(spec)
 spec.loader.exec_module(m)
@@ -43,3 +46,10 @@ report=m.collect({"schema_version":1,"publishing_disabled":True,
 assert report["candidate_count"]==1 and not report["warnings"]
 assert all(x["status"]=="candidate_unverified" for x in report["candidates"])
 print("PUBLIC SOCIAL/PRESS MONITOR OK: RSS, Atom, URL whitelist, human-only publication.")
+security_spec=importlib.util.spec_from_file_location("mentions_security_checks",ROOT/"tests/public_mentions_security_test.py")
+security=importlib.util.module_from_spec(security_spec)
+security_spec.loader.exec_module(security)
+suite=unittest.defaultTestLoader.loadTestsFromTestCase(security.MentionsSecurity)
+assert suite.countTestCases(),"No public-mentions security tests selected"
+if not unittest.TextTestRunner(verbosity=2).run(suite).wasSuccessful():
+    raise SystemExit(1)
