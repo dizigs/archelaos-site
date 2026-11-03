@@ -4,6 +4,7 @@ from pathlib import Path
 import re
 import sys
 import unittest
+from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
@@ -48,6 +49,30 @@ class SelfHealCatalogTest(unittest.TestCase):
                 self.assertEqual(repair["mode"], "NO_AUTOMATIC_REPAIR")
                 self.assertIsNone(repair["implementation"])
                 self.assertIsNone(item["approvedTarget"])
+
+    def test_global_reference_manifest_is_large_read_only_and_license_aware(self):
+        registry = json.loads((ROOT / "docs/self-heal/external-knowledge-sources.json").read_text(encoding="utf-8"))
+        self.assertEqual(registry["schemaVersion"], 1)
+        self.assertEqual(registry["activation"], "REGISTERED_READ_ONLY")
+        self.assertTrue(registry["defaultFetchPolicy"]["noNewCron"])
+        self.assertTrue(registry["defaultFetchPolicy"]["noNewPaidService"])
+        self.assertTrue(registry["defaultFetchPolicy"]["neverRunRemoteCode"])
+        sources = registry["sources"]
+        self.assertGreaterEqual(len(sources), 8)
+        self.assertEqual(len({s["id"] for s in sources}), len(sources))
+        self.assertTrue(any(s["id"] == "OSV-BULK" and s["bulkExport"] and s["incrementalManifest"] for s in sources))
+        self.assertTrue(any(s["id"] == "GITHUB-GHSA" and s["lookupApi"] for s in sources))
+        for source in sources:
+            self.assertTrue(source["registered"])
+            self.assertFalse(source["locallyImported"])
+            self.assertIn(source["executionPolicy"], {"NEVER_RUN_DATA_AS_CODE", "REFERENCE_NOT_REPAIR", "LINK_ONLY_NO_EXECUTION"})
+            self.assertTrue(source["rights"].strip())
+            self.assertTrue(source["futureImport"].strip())
+            for key in ("homepage", "officialDocs", "bulkExport", "incrementalManifest", "lookupApi"):
+                if source.get(key):
+                    url = urlsplit(source[key])
+                    self.assertEqual(url.scheme, "https")
+                    self.assertTrue(url.hostname and url.hostname != "localhost")
 
     def test_existing_workflow_uses_one_hourly_schedule_without_new_job(self):
         source = (ROOT / ".github/workflows/site-watch-and-repair.yml").read_text(encoding="utf-8")
