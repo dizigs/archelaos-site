@@ -1,0 +1,35 @@
+{
+  "scope": "real read-only provider observation; verifier itself unmerged",
+  "verifierCommit": "96393c2b6db78b77ed18f556eadf1bac750c35c7",
+  "sourceRunUrl": "https://github.com/dizigs/archelaos-site/actions/runs/41622405981",
+  "checkId": 125871159545,
+  "observed": {
+    "status": "VERIFIED",
+    "reason": "exact_commit_stages_real_logs_and_http",
+    "expectedCommit": "65f7e34ea692436d16ddeac395a9a1dbcc7fd3d8",
+    "observedCommit": "65f7e34ea692436d16ddeac395a9a1dbcc7fd3d8",
+    "deploymentId": "60cc4e0e-9eb4-4bc7-a7f1-b85a8d283a56",
+    "access": null,
+    "buildLogMilestones": [
+      {
+        "message": "Assets published!",
+        "observedAt": "2026-11-03T10:47:46.572313+00:00"
+      },
+      {
+        "message": "Your site was deployed!",
+        "observedAt": "2026-11-03T10:47:47.671656+00:00"
+      }
+    ],
+    "httpHealth": {
+      "healthy": true,
+      "status": 200,
+      "url": "https://www.archelaos.club/",
+      "endpoint": null,
+      "bytes": 23060,
+      "htmlSha256": "3da97671b3b0c275b2b549fc4666c5f994776d3e25b7e79506d637ef3a6a837f",
+      "scope": "HTTP and static page landmarks only; no browser interaction claim",
+      "errorClass": null,
+      "responseLayer": null
+    }
+  }
+}
