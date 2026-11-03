@@ -374,7 +374,7 @@ def make_release() -> None:
                            + r'"[^>]*>.*?<div class="bio">)(.*?)(</div>)')
                 html_text, changed = re.subn(
                     section,
-                    lambda match: match.group(1) + html_escape(canonical_bio, quote=False) + match.group(3),
+                    lambda match: match.group(1) + html_escape(canonical_bio) + match.group(3),
                     html_text, count=1, flags=re.S)
                 if changed != 1:
                     raise ValueError("Missing reviewed biography: " + profile.stem + "/" + lang)
