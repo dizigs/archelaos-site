@@ -6,16 +6,16 @@
     "canonical": 771,
     "historical": 680,
     "shared": 680,
-    "divergent_people": 57,
-    "divergent_fields": 91,
+    "divergent_people": 56,
+    "divergent_fields": 89,
     "fields": {
-      "bio": 57,
-      "bio_en": 33,
+      "bio": 56,
+      "bio_en": 32,
       "name": 1
     },
     "classifications": {
       "BLOCKED_SOURCE": 4,
-      "LEGACY_TEXT_RETAINED": 77,
+      "LEGACY_TEXT_RETAINED": 75,
       "QUALIFIED_ARCHIVE": 2,
       "QUALIFIED_CONFLICT": 2,
       "SEMANTICALLY_RETAINED": 4,
@@ -998,24 +998,6 @@
           "classification": "LEGACY_TEXT_RETAINED",
           "legacy_sha256": "3483974ebce10efe4120a3a0d9040e6411894b6465c1c336458bca67459b929b",
           "canonical_sha256": "d37f6f368f5c9c7a02210759f04220c9cfb75194c0c3b29956c8bd4022b0338e"
-        }
-      ]
-    },
-    {
-      "id": "arch-georgios-athanas-athletics-board-2026",
-      "name": "Γεώργιος Αθανασίου",
-      "fields": [
-        {
-          "field": "bio",
-          "classification": "LEGACY_TEXT_RETAINED",
-          "legacy_sha256": "179ccf9a7c404957fbb920f1521f10cb4b92b12861de08decfb742fc000f97bd",
-          "canonical_sha256": "ff016edd4b97346d7c416e50127785daa419385cf2fab568e2e17e91f4e9e549"
-        },
-        {
-          "field": "bio_en",
-          "classification": "LEGACY_TEXT_RETAINED",
-          "legacy_sha256": "f06db9a3358abb50b1472da8a8e20a0c4e4b206887d460b8673b01e257f457bc",
-          "canonical_sha256": "6afa4d549951a5d5ee0fa3b4bc4af7203a656612d59b85a5440b2e810206f23e"
         }
       ]
     }
