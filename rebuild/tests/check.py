@@ -92,8 +92,10 @@ def inspect():
     assert set(published_ids) == set(source_ids), "Interview production archive differs from source"
     moments = json.loads((REBUILD/"data/moments.json").read_text(encoding="utf-8"))["moments"]
     stories = json.loads((REBUILD/"data/stories.json").read_text(encoding="utf-8"))["stories"]
-    people_data = json.loads((REBUILD/"data/people.json").read_text(encoding="utf-8"))
-    people = people_data["people"]
+    people = json.loads((REBUILD/"data/people.json").read_text(encoding="utf-8"))["people"]
+    # Staged pages must always use the canonical public Hall, never a legacy snapshot.
+    for rel in ("js/biographies.js", "js/archive-catalog.js", "js/home.js"):
+        assert "/hall-of-fame-people.json" in (REBUILD/rel).read_text(encoding="utf-8"), "Legacy Hall feed in " + rel
     assert len(moments) == 70 and len({m["id"] for m in moments}) == 70, "70 moments mismatch"
     assert len(stories) >= 21, "21 original stories must remain"
     source_stories = json.loads((REBUILD/"data/stories.json").read_text(encoding="utf-8"))
@@ -130,10 +132,17 @@ def inspect():
                for person_id in additions), "profile additions contain missing IDs"
     assert all(all(x.get("el") and x.get("en") and x.get("source_label") for x in entries)
                for entries in additions.values()), "incomplete bilingual additions"
-    ids = {p["id"] for p in people}
-    assert len(people) >= 600 and people_data["count"] == len(people) == len(ids), "biography count or IDs inconsistent"
-    root_ids = {p["id"] for p in json.loads((ROOT/"hall-of-fame-people.json").read_text(encoding="utf-8"))["people"]}
-    assert ids <= root_ids, "staged profile ID absent from canonical root Hall"
+    # This staged dataset is only a legacy source for rich profile templates.
+    # It must never impose a frozen public Hall count on the canonical master.
+    master = json.loads((ROOT/"hall-of-fame-people.json").read_text(encoding="utf-8"))
+    master_people = master["people"]
+    master_ids = [p["id"] for p in master_people]
+    staged_ids = [p["id"] for p in people]
+    assert master.get("count") == len(master_people), "canonical Hall count metadata mismatch"
+    assert len(master_ids) == len(set(master_ids)), "duplicate canonical Hall person IDs"
+    assert len(staged_ids) == len(set(staged_ids)), "duplicate staged profile IDs"
+    assert set(staged_ids).issubset(master_ids), "legacy profile ID absent from canonical Hall"
+    assert len(master_ids) >= len(staged_ids), "canonical Hall must not lose staged profiles"
     assert all(p.get("name") and p.get("name_en") and p.get("bio") and p.get("bio_en") for p in people), "incomplete biographies"
     home = json.loads((REBUILD/"data/home.json").read_text(encoding="utf-8"))
     assert len(home["sports"]) == 8 and len(home["slides"]) == 8, "homepage sports/slides missing"
