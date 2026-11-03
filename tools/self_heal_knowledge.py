@@ -229,6 +229,74 @@ def download_bulk_archive(ecosystem, destination, opener=urllib.request.urlopen)
         raise KnowledgeError("OSV download empty or too short")
     return {"sourceUrl": url, "compressedBytes": count}
 
+
+def parse_utc(value):
+    if not isinstance(value, str) or len(value) > 64:
+        raise KnowledgeError("Invalid OSV delta time")
+    try:
+        instant = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError as exc:
+        raise KnowledgeError("Invalid OSV delta time") from exc
+    if instant.tzinfo is None:
+        raise KnowledgeError("Delta timestamps must be timezone-aware")
+    return instant.astimezone(timezone.utc)
+
+
+def recent_changed_ids(since, until, max_records=200, opener=urllib.request.urlopen):
+    """Read the sorted official modified_id.csv only as far as necessary."""
+    beginning, ending = parse_utc(since), parse_utc(until)
+    if beginning >= ending or not 1 <= max_records <= 500:
+        raise KnowledgeError("Invalid or oversized delta interval")
+    url = GCS_BUCKET + "/modified_id.csv"
+    request = urllib.request.Request(url, headers={
+        "User-Agent": "Archelaos-knowledge/1.0 (+https://archelaos.club)"})
+    keys, seen, prev, total = [], set(), None, 0
+    with opener(request, timeout=30) as response:
+        if response.geturl() != url:
+            raise KnowledgeError("Unexpected delta index redirect")
+        for raw in response:
+            total += len(raw)
+            if total > 32 * 1024 * 1024 or len(raw) > 1024:
+                raise KnowledgeError("Delta index exceeds read limit")
+            try:
+                timestamp, location = raw.decode("utf-8").strip().split(",", 1)
+            except (UnicodeError, ValueError) as exc:
+                raise KnowledgeError("Malformed OSV delta entry") from exc
+            current = parse_utc(timestamp)
+            if prev is not None and current > prev:
+                raise KnowledgeError("OSV delta index is not reverse chronological")
+            prev = current
+            if current <= beginning:
+                break
+            if current > ending:
+                continue
+            bits = location.split("/")
+            advisory = bits[-1]
+            if len(bits) < 2 or not ID.fullmatch(advisory) or any(x in {"", ".", ".."} for x in bits):
+                raise KnowledgeError("Malformed OSV delta ID path")
+            if advisory not in seen:
+                keys.append(advisory)
+                seen.add(advisory)
+            if len(keys) > max_records:
+                raise KnowledgeError("Delta interval too large; use smaller time window")
+    return keys
+
+
+def refresh_delta(con, since, until, *, max_records=200,
+                  opener=urllib.request.urlopen, transport=None):
+    """Fetch complete bounded delta before changing database; no retries."""
+    keys = recent_changed_ids(since, until, max_records, opener)
+    transport = transport or _request_json
+    rows = [transport("/v1/vulns/" + advisory) for advisory in keys]
+    with con:
+        updated = sum(bool(upsert(con, row)) for row in rows)
+        con.execute("INSERT OR REPLACE INTO metadata(key,value) VALUES (?,?)",
+                    ("last_delta_window", json.dumps({"since": since, "until": until,
+                                                      "records": len(keys)}, sort_keys=True)))
+    return {"window": {"since": since, "until": until}, "changedIds": len(keys),
+            "updated": updated, "sourceUrl": GCS_BUCKET + "/modified_id.csv"}
+
+
 def _request_json(path, payload=None):
     """Fixed OSV endpoint and bounded response; no arbitrary remote URL or retries."""
     if not re.fullmatch(r"/v1/(query|vulns/[A-Za-z0-9._-]{1,110})", path):
@@ -347,6 +415,11 @@ def main(argv=None):
     bulk = commands.add_parser("bootstrap", help="Download and import approved OSV bulk ZIP, manually and explicitly")
     bulk.add_argument("--ecosystem", choices=sorted(ALLOWED_ARCHIVES), default="all")
     bulk.add_argument("--allow-network", action="store_true")
+    delta = commands.add_parser("refresh", help="Ingest bounded changes from the official OSV modified_id.csv")
+    delta.add_argument("--since", required=True, help="Exclusive UTC start (ISO 8601)")
+    delta.add_argument("--until", required=True, help="Inclusive UTC end (ISO 8601)")
+    delta.add_argument("--max-records", type=int, default=200)
+    delta.add_argument("--allow-network", action="store_true")
     b = commands.add_parser("lookup", help="Explicit opt-in network query for one exact package version")
     b.add_argument("ecosystem"); b.add_argument("package"); b.add_argument("version")
     b.add_argument("--allow-network", action="store_true")
@@ -384,6 +457,10 @@ def main(argv=None):
                 con.commit()
             finally:
                 path.unlink(missing_ok=True)
+        elif args.command == "refresh":
+            if not args.allow_network:
+                parser.error("OSV delta refresh requires explicit --allow-network")
+            report = refresh_delta(con, args.since, args.until, max_records=args.max_records)
         elif args.command == "lookup":
             if not args.allow_network:
                 parser.error("OSV lookup requires explicit --allow-network")
