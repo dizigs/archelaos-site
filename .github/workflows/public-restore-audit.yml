@@ -4,6 +4,7 @@ on:
     paths:
       - 'rebuild/tools/public_restore_audit.py'
       - 'rebuild/tests/public_restore_audit_test.py'
+      - 'rebuild/tests/public_restore_built_release_test.py'
       - 'docs/recovery/PUBLIC_ARTIFACT_RESTORE_REHEARSAL.md'
       - '.github/workflows/public-restore-audit.yml'
   workflow_dispatch:
@@ -12,7 +13,7 @@ permissions:
 jobs:
   fixture-rehearsal:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
@@ -24,3 +25,9 @@ jobs:
         run: |
           python -m unittest discover -s rebuild/tests -p 'public_restore_audit_test.py' -v
           python -m py_compile rebuild/tools/public_restore_audit.py
+      - name: Generate actual release and public snapshot locally
+        run: |
+          python rebuild/tools/build_release.py
+          python rebuild/tools/public_snapshot.py
+      - name: Prove the actual built archive can be read back
+        run: python -m unittest discover -s rebuild/tests -p 'public_restore_built_release_test.py' -v
