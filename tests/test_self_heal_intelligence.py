@@ -79,7 +79,8 @@ class Intelligence(unittest.TestCase):
             "News controls missing",
             "News controls missing",
         ]})
-        self.assertEqual(signals[0]["code"], "UNTRUSTED_REPORT_MESSAGE")
+        self.assertEqual({row["code"] for row in signals},
+                         {"UNTRUSTED_REPORT_MESSAGE", "BROKEN_FUNCTIONALITY"})
         self.assertEqual(len(signals), 2)
         self.assertNotIn("abcSECRETPRIVATE", json.dumps(signals))
         self.assertNotIn("token=", json.dumps(signals))
