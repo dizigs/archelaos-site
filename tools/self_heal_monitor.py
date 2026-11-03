@@ -3,7 +3,9 @@ import argparse
 from datetime import datetime, timezone
 from hashlib import sha256
 import json
+import sqlite3
 
+from self_heal_intelligence import triage_monitor_observation, read_live_report
 from self_heal_control_plane import Observation, process_incident, repair_branch
 from self_heal_fixture import load_policy, source_signature, tested_patch, verify_fixed
 from self_heal_github import (API, REPO, GitHub, IncidentStore, DraftPublisher,
@@ -25,6 +27,20 @@ def validate_main_run(client, run_id, commit):
     return "https://github.com/" + REPO + "/actions/runs/" + run_id
 
 
+def add_intelligence(observation, incident_result, health_report=None):
+    """Diagnosis cannot overwrite the underlying red health check or repair gate."""
+    try:
+        analysis = triage_monitor_observation(observation, incident_result,
+                                              report=health_report)
+    except (ValueError, OSError, sqlite3.Error, ImportError, KeyError):
+        analysis = {"status": "KNOWLEDGE_UNAVAILABLE", "productionRecoveryVerified": False,
+                    "automaticMergeAuthorized": False, "decision": "INVESTIGATE_UNVERIFIED_FAILURE"}
+    if health_report is not None:
+        analysis["healthReportState"] = health_report["state"]
+    incident_result["intelligence"] = analysis
+    return incident_result
+
+
 def observe(client, commit, run_id, live, escapes):
     if live not in {"success", "failure"} or escapes not in {"success", "failure"}:
         raise ValueError("Incomplete monitoring cannot report healthy")
@@ -40,7 +56,9 @@ def observe(client, commit, run_id, live, escapes):
         observation = Observation("club", "unknown", "https://archelaos.club/", now.isoformat(),
                                   run, commit, sha256(b"live_site_health_failed").hexdigest(), "public",
                                   "Existing live_site_health check failed; details in source workflow report")
-        results.append(process_incident(observation, policy, {"club"}, store, None, None, now))
+        health_report = read_live_report()
+        result = process_incident(observation, policy, {"club"}, store, None, None, now)
+        results.append(add_intelligence(observation, result, health_report))
     if escapes == "failure":
         original = tree_file(client, commit, "news.html")
         signature = source_signature(original["content"], data)
@@ -74,7 +92,7 @@ def observe(client, commit, run_id, live, escapes):
         if result["action"] == "DRAFT_PR_PROPOSED":
             from self_heal_ci import dispatch_checks
             result["ci"] = dispatch_checks(client, store, observation.fingerprint)
-        results.append(result)
+        results.append(add_intelligence(observation, result))
     return {"status": "ISSUES_REMAIN_OPEN", "sourceRun": run, "policyCommit": policy_commit,
             "results": results, "productionVerified": False, "automaticMergePerformed": False}
 
