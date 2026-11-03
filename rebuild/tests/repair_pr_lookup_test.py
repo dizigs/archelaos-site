@@ -5,11 +5,16 @@ import subprocess
 import tempfile
 import textwrap
 import unittest
+from unittest.mock import patch
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "tools"))
+import self_heal_github as github
+import self_heal_control_plane as controller
 
 ROOT = Path(__file__).resolve().parents[2]
 STEPS = (
     ("archive-news-images.yml", "Propose photo updates in a pull request"),
-    ("site-watch-and-repair.yml", "Open CI-gated repair pull request instead of touching production"),
 )
 
 
@@ -26,6 +31,27 @@ def shell_step(filename, name):
 
 
 class RepairPullRequestLookupTests(unittest.TestCase):
+    def test_controller_api_lookup_failure_stops_before_git_object_or_ref_creation(self):
+        class Client:
+            writes = 0
+            def pages(self, path):
+                raise github.AccessFailure("GET", path, 403, "Resource not accessible by integration")
+            def request(self, path, method="GET", data=None):
+                if method == "POST": self.writes += 1
+                raise AssertionError("No mutation may follow the failed lookup")
+        client = Client()
+        observation = controller.Observation("club", "ci_failure", "https://archelaos.club/news.html",
+            "2026-11-03T12:00:00+00:00", "https://github.com/dizigs/archelaos-site/actions/runs/123",
+            "a" * 40, "b" * 64, "public")
+        candidate = controller.TestedPatch("news.html", "fixed source", "c" * 64, "b" * 64, 1, True)
+        publisher = github.DraftPublisher(client, "main", "d" * 40, lambda _: None)
+        with patch.object(github, "assert_no_other_pr_owner"), patch.object(github, "branch_head", return_value="a" * 40), \
+                patch.object(github, "tree_file", return_value={"sha": "d" * 40}), \
+                patch.object(github, "create_changed_ref") as create, self.assertRaises(github.AccessFailure):
+            publisher.propose(observation, candidate)
+        create.assert_not_called()
+        self.assertEqual(client.writes, 0)
+
     def execute(self, filename, name, lookup):
         with tempfile.TemporaryDirectory() as tmp:
             base = Path(tmp)
