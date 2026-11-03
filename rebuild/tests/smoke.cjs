@@ -38,12 +38,12 @@ async function run(){
        const f=window.ArchelaosFavorites;
        f.toggle('person','arch-bdac478e7ea3');
        f.toggle('person','arch-22eae49bbbc0');
-       const ids=f.get().filter(x=>x.type==='person').map(x=>x.id).sort();
+       const ids=f.get().filter(x=>x.type==='person').map(x=>x.id).sort((a,b)=>a.localeCompare(b));
        f.toggle('person','arch-bdac478e7ea3');
        f.toggle('person','arch-22eae49bbbc0');
        return ids;
       });
-      if(migrated.join(',')!==['arch-7f975b16bebf','arch-82df0f64b81d'].sort().join(','))
+      if(migrated.join(',')!==['arch-7f975b16bebf','arch-82df0f64b81d'].sort((a,b)=>a.localeCompare(b)).join(','))
        throw Error('Historic person favorites did not migrate: '+JSON.stringify(migrated));
     }
     if(name==='contribute'){
