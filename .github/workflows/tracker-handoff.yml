@@ -1,15 +1,10 @@
 name: Mirror PR and issue lifecycle to task handoff inbox
 
 # No schedule and no direct changes to website, main, or private Google Sheet.
-# pull_request_target is safe here: only execute our default-branch code,
-# never checkout or run untrusted PR-head files.
+# Only same-repository PR events may write to the handoff issue.
+# Never checkout or run code from the PR head. Fork PRs are read-only/skipped.
 on:
   pull_request:
-    paths:
-      - '.github/workflows/tracker-handoff.yml'
-      - '.github/scripts/tracker_handoff_event.py'
-      - '.github/tests/test_tracker_handoff_event.py'
-  pull_request_target:
     types: [opened, edited, synchronize, reopened, ready_for_review, converted_to_draft, closed]
   issues:
     types: [opened, edited, reopened, closed]
@@ -34,7 +29,7 @@ jobs:
         run: python3 -m unittest discover -s .github/tests -p test_tracker_handoff_event.py -v
 
   mirror:
-    if: github.event_name == 'issues' || github.event_name == 'pull_request_target'
+    if: github.event_name == 'issues' || (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository)
     runs-on: ubuntu-latest
     timeout-minutes: 5
     permissions:
