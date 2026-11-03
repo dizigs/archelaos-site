@@ -1,6 +1,6 @@
 {
   "version": "v1.6",
-  "count": 762,
+  "count": 763,
   "people": [
     {
       "name": "Νίκος Τσινόπουλος",
@@ -8344,6 +8344,27 @@
         {
           "label": "Εφημερίδα «Ημερησία» · 20/01/2006 · αρχειακή καταχώριση d10",
           "url": "https://archelaos.club/interviews.html?record=d10"
+        }
+      ]
+    },
+    {
+      "id": "arch-platon-chotokouridis-basketball",
+      "name": "Πλάτων Χοτοκουρίδης",
+      "name_en": "Platon Chotokouridis",
+      "role": "Ιστορική καλαθοσφαίριση · Αθλητής και προπονητής",
+      "role_en": "Historical basketball · Athlete and coach",
+      "category": "athlete",
+      "period": "1983–1984",
+      "bio": "Ο Πλάτων Χοτοκουρίδης καταγράφεται στο επίσημο στατιστικό αρχείο της Ελληνικής Ομοσπονδίας Καλαθοσφαίρισης ως αθλητής του Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης στο Κύπελλο Ανδρών την περίοδο 1983–1984. Στους καταγεγραμμένους αγώνες με τον Φίλιππο Βέροιας (8 Φεβρουαρίου 1984) και τον Έσπερο (22 Φεβρουαρίου 1984) σημείωσε 25 και 13 πόντους αντίστοιχα.\n\nΤο ιστορικό της καλαθοσφαίρισης στο Ψηφιακό Μουσείο του συλλόγου τον περιλαμβάνει επίσης στον κατάλογο ιστορικών προπονητών, χωρίς να ορίζει ακριβή περίοδο για αυτή την ιδιότητα. Οι παραπάνω αναφορές αφορούν την παλαιότερη ιστορία του Γ.Α.Σ. Αρχέλαος, όχι τις μεταγενέστερες επιτυχίες άλλου ή συγχωνευμένου σωματείου.",
+      "bio_en": "The official archives of the Hellenic Basketball Federation list Platon Chotokouridis as a player for G.A.S. Archelaos Katerinis in the 1983–84 Greek Men's Cup. He scored 25 points against Filippos Verias on 8 February 1984 and 13 against Esperos on 22 February 1984.\n\nThe club's Digital Museum also names him among the historical basketball coaches, without stating an exact coaching period. These references concern the original G.A.S. Archelaos club and do not attribute later results of any merged or separate team to it.",
+      "refs": [
+        {
+          "label": "Ελληνική Ομοσπονδία Καλαθοσφαίρισης · Στατιστικό αρχείο 1983–84",
+          "url": "https://stats.basket.gr/archive/playerdetails/id/C7B25353-9189-402E-9994-3205D463A339/champ/EBF2AC37-1DB1-4B53-A885-D62D39127068/period/443B649D-90D4-4C45-8A14-9F5684C79370"
+        },
+        {
+          "label": "Ψηφιακό Μουσείο Γ.Α.Σ. Αρχέλαος · Ιστορικό καλαθοσφαίρισης",
+          "url": "https://archelaos.club/history.html#sport-basketball"
         }
       ]
     }
