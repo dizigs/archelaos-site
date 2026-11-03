@@ -8,8 +8,14 @@ on:
       - 'docs/recovery/PUBLIC_ARTIFACT_RESTORE_REHEARSAL.md'
       - '.github/workflows/public-restore-audit.yml'
   workflow_dispatch:
+    inputs:
+      snapshot_run_id:
+        description: 'Optional successful weekly snapshot run ID (empty = latest successful run)'
+        required: false
+        type: string
 permissions:
   contents: read
+  actions: read
 jobs:
   fixture-rehearsal:
     runs-on: ubuntu-latest
@@ -31,3 +37,79 @@ jobs:
           python rebuild/tools/public_snapshot.py
       - name: Prove the actual built archive can be read back
         run: python -m unittest discover -s rebuild/tests -p 'public_restore_built_release_test.py' -v
+
+  provider-artifact-rehearsal:
+    # Manual only; never add a new cron, mutate production, or download private files.
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+      - name: Read actual successful weekly run and its public artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REQUESTED_RUN_ID: ${{ inputs.snapshot_run_id }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          repo="$GITHUB_REPOSITORY"
+          run_id="$REQUESTED_RUN_ID"
+          if [ -z "$run_id" ]; then
+            run_id="$(gh api "repos/$repo/actions/workflows/weekly-public-snapshot.yml/runs?status=success&per_page=20" --jq '.workflow_runs | map(select(.event == "schedule" or .event == "workflow_dispatch")) | .[0].id // empty')"
+          fi
+          if ! [[ "$run_id" =~ ^[0-9]{1,20}$ ]]; then
+            echo "No valid successful weekly snapshot run ID found" >&2
+            exit 1
+          fi
+          gh api "repos/$repo/actions/runs/$run_id" > "$RUNNER_TEMP/source-run.json"
+          jq -e '.status == "completed" and .conclusion == "success" and .head_branch == "main" and (.event == "schedule" or .event == "workflow_dispatch") and (.path | endswith("weekly-public-snapshot.yml"))' "$RUNNER_TEMP/source-run.json" >/dev/null
+          gh api "repos/$repo/actions/runs/$run_id/artifacts" > "$RUNNER_TEMP/source-artifacts.json"
+          count="$(jq '[.artifacts[] | select(.name == "public-archive-snapshot" and .expired == false)] | length' "$RUNNER_TEMP/source-artifacts.json")"
+          if [ "$count" != "1" ]; then
+            echo "Expected exactly one unexpired public archive artifact" >&2
+            exit 1
+          fi
+          artifact_id="$(jq -r '.artifacts[] | select(.name == "public-archive-snapshot" and .expired == false) | .id' "$RUNNER_TEMP/source-artifacts.json")"
+          max_bytes=$((60 * 1024 * 1024))
+          size="$(jq -r '.artifacts[] | select(.name == "public-archive-snapshot" and .expired == false) | .size_in_bytes' "$RUNNER_TEMP/source-artifacts.json")"
+          if ! [[ "$artifact_id" =~ ^[0-9]{1,20}$ && "$size" =~ ^[0-9]{1,12}$ ]] || [ "$size" -gt "$max_bytes" ]; then
+            echo "Unexpected artifact identity/size" >&2
+            exit 1
+          fi
+          curl --fail --silent --show-error --location --max-time 60 --retry 0 \
+            --header "Authorization: Bearer $GH_TOKEN" \
+            --header "Accept: application/vnd.github+json" \
+            --header "X-GitHub-Api-Version: 2022-11-28" \
+            "$GITHUB_API_URL/repos/$repo/actions/artifacts/$artifact_id/zip" \
+            --output "$RUNNER_TEMP/public-archive-snapshot.zip"
+          python rebuild/tools/public_restore_audit.py "$RUNNER_TEMP/public-archive-snapshot.zip" > "$RUNNER_TEMP/restore-verification.json"
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          base=Path(os.environ["RUNNER_TEMP"])
+          source=json.loads((base/"source-run.json").read_text())
+          report=json.loads((base/"restore-verification.json").read_text())
+          if report["commit"] != source["head_sha"]:
+              raise SystemExit("Artifact manifest commit does not match source GitHub run SHA")
+          summary=(f"### Stored public snapshot: verified\\n"
+                   f"- Workflow run: {source['html_url']}\\n"
+                   f"- Commit SHA: {source['head_sha']}\\n"
+                   f"- Files verified: {report['dataFilesVerified']}\\n"
+                   "- Scope: public JSON artifact only; no production restore or private archive\\n")
+          with open(os.environ["GITHUB_STEP_SUMMARY"],"a",encoding="utf-8") as f:
+              f.write(summary.replace("\\n","\n"))
+          print("PASS: actual stored GitHub artifact verified against its source run commit")
+          PY
+      - name: Retain evidence report (not the backup ZIP)
+        if: success()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: public-restore-readback-evidence
+          path: ${{ runner.temp }}/restore-verification.json
+          retention-days: 14
+          if-no-files-found: error
