@@ -58,6 +58,13 @@ async function run(browser, name, viewport, test) {
   } catch (error) {
     report.cases.push({name, width:viewport.width, passed:false, error:error.message});
     console.error('FAIL', viewport.width, name, error.message);
+    if (process.env.GITHUB_ACTIONS === 'true') {
+      // JSON escapes line breaks; escape % as well so page/fixture text cannot
+      // inject workflow commands. Expose the actual case without log archives.
+      const detail = JSON.stringify({width:viewport.width, case:name,
+        browser:report.browserVersion, error:String(error.message).slice(0,1200)}).replace(/%/g, '%25');
+      console.error('::error file=rebuild/tests/site_stability.cjs,title=Site stability regression::' + detail);
+    }
     await page.screenshot({path:path.join(OUTPUT, viewport.width + '-' + name + '.png')}).catch(() => {});
   } finally { await context.close(); }
 }

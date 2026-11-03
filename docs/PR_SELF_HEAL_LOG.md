@@ -175,3 +175,27 @@ Remote CI/review is pending at this log commit. PR creation and exact-head
 results are delivered as `[CODEX-HANDOFF]` comments to Issue #71. Production
 Cloudflare deployment/build logs are **NOT VERIFIED**; local/preview success
 does not establish a live deployment. No merge is claimed here.
+
+### First strict CI result and diagnostic access — PR #74
+
+Head `f316db0105c1f1fb0552bf49064b1bdbd508b0e5`, run `41587132055`,
+job/check `125755157873`: install, locked Chromium, build and server readiness
+PASS; the strict regression step FAILS with exit 1; the later axe step is skipped.
+GitHub annotations expose only the exit code and Ubuntu migration notice. Local
+Chromium 154 passes do not substitute for this failed CI browser run. The actual
+failing case is not yet known and no product cause is inferred.
+
+The retained public regression artifact is ID `13208516877`, 1,230,437 bytes.
+One request to `GET /repos/dizigs/archelaos-site/actions/artifacts/13208516877/zip`
+followed GitHub's authorized redirect but was blocked with `Forbidden` at
+`productionresultssa1.blob.core.windows.net`, a destination outside the current
+network policy. This is the redirected download route, not a missing GitHub
+PR/read permission. The signed URL was not published and the failed request was
+not retried. Detailed log archives have the previously recorded network limit.
+
+The harness now emits bounded per-case failure annotations (case, width, actual
+browser version, assertion text), escaping percent signs and JSON line breaks.
+This is a diagnostic change, not a claimed UI fix; it allows the next changed-head
+CI to identify the actual assertion through the accessible check-annotations API.
+All existing assertions/failure exits remain in place. `TEST_FAILED` was delivered
+to #71 at https://github.com/dizigs/archelaos-site/issues/71#issuecomment-6596709335.
