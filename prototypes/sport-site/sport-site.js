@@ -8,6 +8,7 @@ const variants={
 const selected=new URLSearchParams(window.location.search).get('sport')||'archery';
 const key=Object.hasOwn(variants,selected)?selected:'archery';
 const data=variants[key];
+document.documentElement.dataset.previewSport=key;
 const title=document.getElementById('sport-title');
 const lead=document.getElementById('hero-lead');
 const about=document.getElementById('about-text');
