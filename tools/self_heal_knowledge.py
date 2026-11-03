@@ -398,6 +398,51 @@ def inspect(con, advisory_id):
                       [*r[:5], json.loads(r[5]), json.loads(r[6]), *r[7:]])) for r in row]
 
 
+
+def diagnose(con, message):
+    """Fuse reviewed local symptoms, official provider codes and OSV evidence.
+
+    This is diagnosis only. Neither search results nor docs can enable a repair.
+    """
+    if not isinstance(message, str) or not 2 <= len(message) <= 400:
+        raise KnowledgeError("Invalid diagnostic message length")
+    cases = json.loads((ROOT / "docs/self-heal/error-solution-catalog.json").read_text(encoding="utf-8"))
+    providers = json.loads((ROOT / "docs/self-heal/provider-error-taxonomy.json").read_text(encoding="utf-8"))
+    if (cases.get("mode") != "REVIEWED_REFERENCE_ONLY" or
+            providers.get("mode") != "READ_ONLY_DIAGNOSTICS"):
+        raise KnowledgeError("Knowledge reference policy is not trusted")
+    words = set(re.findall(r"[A-Za-z0-9_]{2,60}", message.lower()))
+    known = []
+    for entry in cases.get("entries", []):
+        hay = " ".join(str(entry.get(k) or "") for k in
+                       ("code", "signal", "diagnosis", "knownCause", "resource")).lower()
+        overlap = len(words & set(re.findall(r"[A-Za-z0-9_]{2,60}", hay)))
+        if overlap >= 2 or (entry.get("code") or "").lower() in message.lower():
+            known.append({"code": entry["code"], "status": entry["status"],
+                          "evidence": entry.get("evidence"), "source": "reviewed_local_catalog",
+                          "score": overlap})
+    known.sort(key=lambda x: (-x["score"], x["code"]))
+    text = message.lower()
+    provider = None
+    if "cloudflare" in text or "cf-" in text:
+        provider = "cloudflare"
+    elif "github" in text or "gh-" in text:
+        provider = "github"
+    found_codes = set(re.findall(r"(?<![0-9])[0-9]{3,4}(?![0-9])", message))
+    matches = [dict(entry) for entry in providers.get("entries", [])
+               if provider and entry["provider"] == provider and
+               entry["code"].split("-")[-1] in found_codes]
+    try:
+        relevant = search(con, message, limit=8)
+    except KnowledgeError:
+        relevant = []
+    return {"status": "DIAGNOSE_ONLY", "runtimeRepairAuthority": False,
+            "knownLocalCases": known[:5], "providerEvidence": matches,
+            "osvEvidence": relevant, "osvRecordsIndexed": stats(con)["records"],
+            "sourcesAreUntrustedReferenceData": True}
+
+
+
 def stats(con):
     count, active = con.execute("SELECT COUNT(*), COUNT(*) FILTER (WHERE withdrawn IS NULL) FROM advisories").fetchone()
     return {"records": count, "active": active,
@@ -425,6 +470,8 @@ def main(argv=None):
     b.add_argument("--allow-network", action="store_true")
     c = commands.add_parser("search", help="Search the local indexed OSV corpus, no network")
     c.add_argument("terms"); c.add_argument("--limit", type=int, default=15)
+    diag = commands.add_parser("diagnose", help="Read-only suggestion from verified catalog, provider codes and indexed OSV")
+    diag.add_argument("message")
     d = commands.add_parser("inspect", help="Display local evidence for exact OSV ID or alias")
     d.add_argument("id")
     commands.add_parser("stats")
@@ -467,6 +514,8 @@ def main(argv=None):
             report = lookup_package(con, args.ecosystem, args.package, args.version)
         elif args.command == "search":
             report = {"results": search(con, args.terms, args.limit)}
+        elif args.command == "diagnose":
+            report = diagnose(con, args.message)
         elif args.command == "inspect":
             report = {"results": inspect(con, args.id)}
         else:
