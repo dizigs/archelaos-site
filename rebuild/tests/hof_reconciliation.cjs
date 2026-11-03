@@ -10,6 +10,13 @@ const samples = ['arch-3fe6e9ae9b29', 'arch-f6152b60c43f', 'arch-f56820c52e55',
   'arch-konstantinos-sarris-volleyball'];
 const normalized = value => value.replace(/\s+/g, ' ').trim();
 
+async function visitProfile(page, id) {
+  const response = await page.goto(base + '/people/' + id + '.html');
+  assert.ok(response, id + ': profile navigation must return an HTTP response');
+  assert.equal(response.status(), 200, id + ': standalone profile must return HTTP 200');
+  await page.locator('.arch-header').waitFor();
+}
+
 async function main() {
   const browser = await chromium.launch({ headless: true });
   let checks = 0;
@@ -46,10 +53,9 @@ async function main() {
         await globalDialog.waitFor();
         assert.ok(normalized(await globalDialog.innerText()).includes(normalized(person.bio_en)), id + ': global English biography');
         await globalDialog.locator('.arch-bio-close').click();
-        const profileResponse = await page.goto(base + '/people/' + id + '.html');
-        assert.ok(profileResponse, id + ': standalone response exists');
-        assert.equal(profileResponse.status(), 200, id + ': standalone profile route');
-        await page.locator('.arch-header').waitFor();
+        await visitProfile(page, id);
+        assert.ok(normalized(await page.locator('[data-profile-language="en"] .bio').textContent()),
+          id + ': standalone English biography must exist');
         if (id === 'arch-3fe6e9ae9b29') {
           assert.ok((await page.locator('section[data-profile-language="en"]').textContent()).includes('remains unresolved'));
           assert.ok((await page.locator('main').innerText()).includes('προς διασταύρωση'));
@@ -68,6 +74,17 @@ async function main() {
       });
       assert.deepEqual(actual.sort((a, b) => a.localeCompare(b)),
         master.people.map(row => row.id).sort((a, b) => a.localeCompare(b)));
+      // A 404 can still have the shared header. Prove status validation catches
+      // it instead of accepting a complete-looking error page as a biography.
+      const missingId = samples[3];
+      await page.route(base + '/people/' + missingId + '.html', route => route.fulfill({
+        status: 404, contentType: 'text/html',
+        body: '<!doctype html><html><body><header class="arch-header">Shared header</header><main>Not found</main></body></html>'
+      }));
+      await assert.rejects(() => visitProfile(page, missingId), {
+        name: 'AssertionError', message: /standalone profile must return HTTP 200/
+      });
+      checks += 1;
       assert.deepEqual(errors, [], 'Uncaught browser exceptions');
       checks += 1;
       await page.close();

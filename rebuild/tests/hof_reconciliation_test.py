@@ -12,8 +12,8 @@ from xml.etree import ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "rebuild/tools"))
-from hof_biography import correct_name, ensure_biography_sections, normalized, sync_biography
-from hof_reconcile import current_report, digest, indexed, reconcile
+from hof_biography import correct_name, include_addenda, normalized, ensure_biography_sections, sync_biography
+from hof_reconcile import REVIEW_CLASSIFICATIONS, current_report, digest, indexed, reconcile
 from build_event_graph import compile_graph
 import build_event_graph
 
@@ -50,11 +50,49 @@ class LosslessProjectionTests(unittest.TestCase):
         self.assertEqual(sync_biography(page("Ιστορία"), "", "el"), page("Ιστορία"))
         self.assertEqual(sync_biography(page(""), "Νέο", "el"), page(""))
 
+    def test_missing_required_language_fails_with_profile_context(self):
+        for language in ("el", "en"):
+            with self.subTest(language=language), self.assertRaisesRegex(
+                    ValueError, "Missing " + language + " biography section in arch-test"):
+                sync_biography("<main>No biography</main>", "Required text", language, profile_id="arch-test")
+
+    def test_missing_optional_empty_language_is_unchanged(self):
+        self.assertEqual(sync_biography("<main>Archive</main>", "", "en"), "<main>Archive</main>")
+
+    def test_legacy_root_template_gains_existing_canonical_english(self):
+        person = {"id": "arch-test", "bio_en": "Club's athlete <safe>."}
+        result = ensure_biography_sections('<main><div class="bio">Αρχικό τεκμήριο.</div><a>Return</a></main>', person["bio_en"], profile_id=person["id"])
+        self.assertIn('<div class="bio">Αρχικό τεκμήριο.</div>', result)
+        self.assertIn('data-profile-language="en"', result)
+        self.assertIn(escape(person["bio_en"]), result)
+        self.assertNotIn("<safe>", result)
+        self.assertEqual(ensure_biography_sections(result, person["bio_en"], profile_id=person["id"]), result)
+
+    def test_legacy_root_template_preserves_richer_english_and_greek(self):
+        original = '<div class="bio">Πλήρες τεκμήριο.</div><section lang="en"><div class="bio">Independent rich English.</div></section>'
+        result = ensure_biography_sections(original, "Short summary.", profile_id="arch-test")
+        self.assertIn("Independent rich English.", result)
+        self.assertIn("Πλήρες τεκμήριο.", result)
+        self.assertNotIn("Short summary.", result)
+        self.assertIn('data-profile-language="en"', result)
+        self.assertEqual(result.count('data-profile-language="en"'), 1)
+        self.assertEqual(result.count('lang="en"'), 1)
+
+    def test_damaged_typed_or_unknown_root_profile_is_not_silently_repaired(self):
+        person = {"id": "arch-test", "bio_en": "English"}
+        typed = page("Greek")
+        self.assertEqual(ensure_biography_sections(typed, person["bio_en"], profile_id=person["id"]), typed)
+        with self.assertRaisesRegex(ValueError, "Missing en"):
+            sync_biography(ensure_biography_sections(typed, person["bio_en"], profile_id=person["id"]), person["bio_en"], "en")
+        with self.assertRaisesRegex(ValueError, "Unsectioned profile.*arch-test"):
+            ensure_biography_sections("<main>No biography</main>", person["bio_en"], profile_id=person["id"])
+
     def test_missing_nonempty_canonical_biography_fails_closed(self):
         greek_only = page("Greek profile")
         with self.assertRaisesRegex(ValueError, "Missing en biography section"):
             sync_biography(greek_only, "English canonical biography", "en")
         self.assertEqual(sync_biography(greek_only, "", "en"), greek_only)
+
 
     def test_generated_root_only_profile_gains_hidden_english_without_source_loss(self):
         source = ('<main><article><div class="bio">Παλαιό τεκμήριο &amp; συνέχεια.</div>'
@@ -69,6 +107,18 @@ class LosslessProjectionTests(unittest.TestCase):
         self.assertEqual(sync_biography(generated, "Brief newer summary", "el"), generated)
         with self.assertRaisesRegex(ValueError, "Unsectioned profile has no biography div"):
             ensure_biography_sections("<article>Missing biography</article>", "English")
+
+
+    def test_unknown_manual_classification_fails_closed(self):
+        master = {"count": 1, "people": [{"id": "p", "name": "N", "bio": "New"}]}
+        archive = {"count": 1, "people": [{"id": "p", "name": "N", "bio": "Old"}]}
+        review = {"p": {"bio": {"legacy_sha256": digest("Old"),
+                                 "canonical_sha256": digest("New"),
+                                 "classification": "QUALIFIED_CONFLCT",
+                                 "evidence": "Typo must not be accepted"}}}
+        with self.assertRaisesRegex(ValueError, "Unknown manual classification"):
+            reconcile(master, archive, review)
+
 
     def test_repeated_build_projection_is_idempotent(self):
         result = sync_biography(page("Old."), "Old.\n\nNew.", "el")
@@ -100,15 +150,23 @@ class LosslessProjectionTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Stale manual review"):
             reconcile(a, b, decisions)
 
-    def test_unknown_manual_classification_fails_closed(self):
-        master = {"count": 1, "people": [{"id": "p", "name": "N", "bio": "New"}]}
-        archive = {"count": 1, "people": [{"id": "p", "name": "N", "bio": "Old"}]}
-        review = {"p": {"bio": {"legacy_sha256": digest("Old"),
-                                 "canonical_sha256": digest("New"),
-                                 "classification": "QUALIFIED_CONFLCT",
-                                 "evidence": "Typo must not be accepted"}}}
-        with self.assertRaisesRegex(ValueError, "Unknown manual classification"):
-            reconcile(master, archive, review)
+    def test_unknown_manual_categories_are_rejected_even_with_matching_hashes(self):
+        a = {"count": 1, "people": [{"id": "p", "bio": "New", "name": "N"}]}
+        b = {"count": 1, "people": [{"id": "p", "bio": "Old", "name": "N"}]}
+        for category in ["QUALIFIED_CONFLCT", "APPROVED", "", None, [], {}]:
+            with self.subTest(category=category):
+                review = {"legacy_sha256": digest("Old"), "canonical_sha256": digest("New"),
+                          "classification": category, "evidence": "Review"}
+                with self.assertRaisesRegex(ValueError, "Unknown manual classification: p/bio"):
+                    reconcile(a, b, {"p": {"bio": review}})
+
+    def test_documented_categories_remain_valid(self):
+        a = {"count": 1, "people": [{"id": "p", "bio": "New", "name": "N"}]}
+        b = {"count": 1, "people": [{"id": "p", "bio": "Old", "name": "N"}]}
+        for category in REVIEW_CLASSIFICATIONS:
+            review = {"legacy_sha256": digest("Old"), "canonical_sha256": digest("New"),
+                      "classification": category, "evidence": "Review"}
+            self.assertEqual(reconcile(a, b, {"p": {"bio": review}})["counts"]["classifications"], {category: 1})
 
     def test_new_canonical_id_is_usable_by_approved_event_graph(self):
         people = [{"id": f"p{n}", "name": f"Person {n}"} for n in range(683)]
@@ -130,6 +188,50 @@ class LosslessProjectionTests(unittest.TestCase):
             with patch.object(build_event_graph, "ROOT", stage), patch.object(sys, "argv", ["build_event_graph.py", "--json", str(output)]):
                 build_event_graph.main()
             self.assertEqual(json.loads(output.read_text())["by_event"], {"e": ["p682"]})
+
+
+class AddendaTests(unittest.TestCase):
+    def test_nested_addenda_keep_the_longer_fact_in_either_input_order(self):
+        short = {"en": "A sourced fact.", "source_label": "Short source"}
+        long = {"en": "A sourced fact. Additional verified detail.", "source_label": "Long source"}
+        for rows in ([short, long], [long, short]):
+            result = include_addenda(page("Archive.", "en"), rows, "en", "arch-test")
+            self.assertEqual(normalized(result).count(short["en"]), 1)
+            self.assertIn(long["en"], result)
+            self.assertIn(short["source_label"], result)
+            self.assertIn(long["source_label"], result)
+            self.assertEqual(include_addenda(result, rows, "en", "arch-test"), result)
+
+    def test_repeated_rows_and_overlapping_paragraphs_are_appended_once(self):
+        rows = [{"el": "Πρώτη παράγραφος.", "source_label": "A"},
+                {"el": "Πρώτη παράγραφος.\n\nΔεύτερη παράγραφος.", "source_label": "B"},
+                {"el": "  Δεύτερη   παράγραφος.  ", "source_label": "B"}]
+        result = include_addenda(page("Αρχείο."), rows, "el", "arch-test")
+        for paragraph in ["Πρώτη παράγραφος.", "Δεύτερη παράγραφος."]:
+            self.assertEqual(normalized(result).count(paragraph), 1)
+        self.assertEqual(include_addenda(result, rows, "el", "arch-test"), result)
+        self.assertEqual(result.count('class="profile-addenda-source"'), 1)
+
+    def test_successive_batches_retain_facts_and_distinct_source_labels(self):
+        first = [{"en": "Club's first fact.", "source_label": "Source 10"}]
+        second = [{"en": "Club's first fact.\n\nSecond fact.", "source_label": "Source 1"}]
+        result = include_addenda(page("Archive.", "en"), first, "en", "arch-test")
+        result = include_addenda(result, second, "en", "arch-test")
+        self.assertEqual(normalized(result).count("Club's first fact."), 1)
+        self.assertEqual(normalized(result).count("Second fact."), 1)
+        self.assertIn("Sources: Source 10 · Source 1", result)
+        self.assertEqual(include_addenda(result, second, "en", "arch-test"), result)
+
+    def test_existing_entities_and_spelling_do_not_duplicate_a_fact(self):
+        rows = [{"en": "Christos Limpanovnos & the club.", "source_label": "Public <source>"}]
+        result = include_addenda(page("Christos Lympanovnos & the club.", "en"), rows, "en", "arch-test")
+        self.assertEqual(normalized(result).count("Christos Limpanovnos & the club."), 1)
+        self.assertIn("Public &lt;source&gt;", result)
+        self.assertNotIn("<source>", result)
+
+    def test_missing_addendum_section_fails_with_context(self):
+        with self.assertRaisesRegex(ValueError, "Missing en.*arch-test"):
+            include_addenda(page("Greek"), [{"en": "Fact.", "source_label": "A"}], "en", "arch-test")
 
 
 class RepositoryReconciliationTests(unittest.TestCase):
@@ -192,6 +294,7 @@ class RepositoryReconciliationTests(unittest.TestCase):
         self.assertEqual(normalized(english[1]), normalized(self.people[pid]["bio_en"]))
         self.assertIn('data-profile-language="en" hidden', output)
 
+
     def test_release_never_reverts_to_archival_summary(self):
         for pid, person in self.people.items():
             source = ROOT / "rebuild/source-profiles" / (pid + ".html")
@@ -219,6 +322,23 @@ class RepositoryReconciliationTests(unittest.TestCase):
                                     + r'"[^>]*>.*?<div class="bio">(.*?)</div>', output, re.S)[1]
                 for row in rows:
                     self.assertEqual(normalized(section).count(normalized(row[lang])), 1, pid + "/" + lang)
+
+    def test_every_required_language_is_present_in_every_generated_profile(self):
+        for pid, person in self.people.items():
+            output = (ROOT / "dist/people" / (pid + ".html")).read_text()
+            for lang, key in [("el", "bio"), ("en", "bio_en")]:
+                if not normalized(person.get(key, "")):
+                    continue
+                section = re.search(r'<section\b[^>]*data-profile-language="' + lang
+                                    + r'"[^>]*>.*?<div class="bio">(.*?)</div>', output, re.S)
+                self.assertIsNotNone(section, pid + "/" + lang)
+                self.assertTrue(normalized(section[1]), pid + "/" + lang + " empty")
+                if lang == "en":
+                    self.assertEqual(len(re.findall(r'<section\b[^>]*\blang="en"', output)), 1, pid + " duplicate English")
+                if not (ROOT / "rebuild/source-profiles" / (pid + ".html")).is_file():
+                    original = (ROOT / "people" / (pid + ".html")).read_text()
+                    if lang == "en" and '<section lang="en"' not in original:
+                        self.assertEqual(normalized(section[1]), normalized(person[key]), pid)
 
 
 if __name__ == "__main__":

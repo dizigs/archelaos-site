@@ -123,3 +123,12 @@ Every divergent person is listed below; field hashes and the manual evidence not
 ## Next
 
 Keep Issue #57 open until the listed original-result/roster claims are resolved and the protected PR is reviewed. Merge only with current required checks and no owner conflicts. After any authorized merge, verify the exact main deployment with real Cloudflare logs and repeat public readback. A green local build or PR check does not establish production deployment.
+
+
+## Final review / post-merge technical follow-up
+
+PR #119 was merged by ChatGPT at `d5e475d42c20f5b5ad144f90d81287a244c03e2c` while the final validation was running. Its three review fixes are retained. An independent production readback then confirmed duplicate English sections on a sampled page; the merged adapter reproduces this on 52 profiles. The follow-up preserves existing English prose, scopes the legacy root layout once and adds only the 39 missing English sections. Original root/archive files and all canonical IDs/content stay intact.
+
+Functional follow-up: `f073151bacf6a7f6fd01e7a7aa3fa98a6347b410`. Validation is now **36 reconciliation tests and 18 real-browser cases**, including a deliberate HTTP 404 with a shared header, complete language coverage across all 771 profiles, malformed classification rejection, nested/overlapping addenda, repeated-batch idempotence and citation preservation. The 49 stability and 32 accessibility page/viewports and full release smoke also pass.
+
+The existing main Sonar C rating is recorded separately under #66; it also existed before #119. No gate was changed. Final exact-head CI, protected merge and Cloudflare-log evidence: [permanent completion record](https://github.com/dizigs/archelaos-site/issues/71#issuecomment-6612059604). No production success for the follow-up is claimed before that record is verified. The four original-source research cases above remain open.

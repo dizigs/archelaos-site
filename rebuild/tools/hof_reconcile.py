@@ -56,7 +56,7 @@ def reconcile(canonical: dict, legacy: dict, decisions: dict) -> dict:
             classification = "LEGACY_TEXT_RETAINED" if normalized(before) in normalized(after) else "UNREVIEWED"
             if review:
                 classification = review.get("classification")
-                if classification not in REVIEW_CLASSIFICATIONS:
+                if not isinstance(classification, str) or classification not in REVIEW_CLASSIFICATIONS:
                     raise ValueError("Unknown manual classification: " + pid + "/" + field)
             fields.append({"field": field, "classification": classification,
                            "legacy_sha256": digest(before), "canonical_sha256": digest(after),

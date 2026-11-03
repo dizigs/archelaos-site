@@ -20,7 +20,7 @@ from xml.etree import ElementTree as ET
 import json
 import re
 
-from hof_biography import correct_name, ensure_biography_sections, normalized, sync_biography
+from hof_biography import correct_name, include_addenda, normalized, ensure_biography_sections, sync_biography
 
 ROOT = Path(__file__).resolve().parents[2]
 STAGE = ROOT / "rebuild"
@@ -234,7 +234,8 @@ def make_release() -> None:
     # Keep the rich archival template pages and publish every additional canonical
     # Hall of Fame profile from the root master, including new youth athletes.
     current_master = json.loads((ROOT / "hall-of-fame-people.json").read_text(encoding="utf-8"))
-    current_master_ids = {person["id"] for person in current_master["people"]}
+    canonical_people = {person["id"]: person for person in current_master["people"]}
+    current_master_ids = set(canonical_people)
     aliases = json.loads((ROOT / "hall-of-fame-person-aliases.json").read_text(encoding="utf-8"))["aliases"]
     if (set(aliases) & current_master_ids) or not set(aliases.values()).issubset(current_master_ids):
         raise ValueError("Hall aliases point to missing canonical IDs or preserve retired IDs")
@@ -248,7 +249,9 @@ def make_release() -> None:
         source = ROOT / "people" / (person_id + ".html")
         if not source.is_file():
             raise FileNotFoundError("Missing canonical Hall profile: " + person_id)
-        copy2(source, target)
+        target.write_text(ensure_biography_sections(source.read_text(encoding="utf-8"),
+                                              canonical_people[person_id].get("bio_en", ""),
+                                              profile_id=person_id), encoding="utf-8")
     for name in ("css", "js", "data"):
         copytree(STAGE / name, OUTPUT / "assets" / "site" / name)
     # Rewrite preview-only asset URLs in the generated JavaScript copies.
@@ -297,46 +300,8 @@ def make_release() -> None:
     if set(verified_addenda) - all_ids:
         raise ValueError("Biographical additions reference missing canonical profile IDs")
 
-    def include_addenda(source: str, additions: list[dict], language: str, profile_id: str) -> str:
-        if not additions:
-            return source
-        # A single scoped legacy biography section, no replacement of historical facts.
-        regex = (r'(<section\b[^>]*data-profile-language="' + language
-                 + r'"[^>]*>.*?<div class="bio">)(.*?)(</div>)')
-        def expand(match):
-            original = normalized(match.group(2))
-            chosen = []
-            for row in additions:
-                candidate = row[language]
-                normalized_candidate = normalized(candidate)
-                if not normalized_candidate or normalized_candidate in original:
-                    continue
-                # Keep a longer verified addendum once, regardless of input order.
-                if any(normalized_candidate in normalized(previous) for previous in chosen):
-                    continue
-                chosen = [previous for previous in chosen
-                          if normalized(previous) not in normalized_candidate]
-                chosen.append(candidate)
-            paragraphs = [html_escape(candidate) for candidate in chosen]
-            bibliography = " · ".join(dict.fromkeys(
-                html_escape(row["source_label"]) for row in additions
-            ))
-            # pre-line renders double newlines as actual paragraph breaks.
-            return (match.group(1) + match.group(2)
-                    + "\n\n" + "\n\n".join(paragraphs)
-                    + match.group(3)
-                    + '<p class="profile-addenda-source">'
-                    + ("Πηγές" if language == "el" else "Sources")
-                    + ": " + bibliography + "</p>")
-        updated, count = re.subn(regex, expand, source, count=1, flags=re.S)
-        if count != 1:
-            raise ValueError("Cannot locate " + language + " biography in " + profile_id)
-        return updated
-
-
     # Root data is authoritative. Independent archival prose is preserved unless
     # it is literally contained in the newer canonical biography (Issue #57).
-    canonical_people = {p["id"]: p for p in current_master["people"]}
     archival_by_id = {p["id"]: p for p in json.loads(
         (STAGE / "data" / "people.json").read_text(encoding="utf-8"))["people"]}
 
@@ -378,13 +343,9 @@ def make_release() -> None:
             html_text, count=1, flags=re.I|re.S)
         if old_header != old_footer:
             raise ValueError('Unpaired legacy profile header/footer: ' + profile.name)
-        # New root-only profiles predate bilingual archival page templates.
-        # Normalize their generated HTML, never the original source in Git.
-        html_text = ensure_biography_sections(
-            html_text, canonical_people[profile.stem].get("bio_en", ""))
         for lang in ("el", "en"):
             html_text = sync_biography(html_text, canonical_people[profile.stem].get(
-                "bio" if lang == "el" else "bio_en", ""), lang)
+                "bio" if lang == "el" else "bio_en", ""), lang, profile_id=profile.stem)
         # Avoid leaving obsolete editorial correction text in Person JSON-LD
         # and social metadata after the visible Greek biography is cleaned.
         before = archival_by_id.get(profile.stem, {}).get("bio", "")
