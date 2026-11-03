@@ -45,7 +45,7 @@ async function create(){
   if(!response.ok)throw Error('Archive '+name+' HTTP '+response.status);
   return response.json();
  }));
- if(people.people?.length<682||moments.moments?.length!==70||
+ if(!Number.isInteger(people.count)||people.people?.length!==people.count||people.count<1||moments.moments?.length!==70||
   stories.stories?.length<21||home.sports?.length<8||
   museum.articles?.length<14||museum.press?.length<10||interviews.items?.length<25)
    throw Error('Incomplete canonical sports archive');
