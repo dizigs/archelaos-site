@@ -23,6 +23,10 @@ class PreviewTests(unittest.TestCase):
         self.assertIn('https://archelaos.club/tmimata.html#sport-archery',self.html)
         self.assertIn('https://archelaos.club/hall-of-fame.html',self.html)
         self.assertIn('https://archelaos.club/tmimata.html#sport-wrestling',self.js)
+    def test_other_sports_are_neutral_not_archery_branded(self):
+        self.assertIn('data-preview-sport="wrestling"', self.css)
+        self.assertIn("document.documentElement.dataset.previewSport=key", self.js)
+
     def test_minimal_design_and_accessibility(self):
         self.assertIn('#ffcf20',self.css.lower())
         self.assertIn('prefers-reduced-motion',self.css)
