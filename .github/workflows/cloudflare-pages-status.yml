@@ -5,7 +5,7 @@ on:
       brain_stage:
         description: Explicit isolated brain staging operation; no schedule change
         type: choice
-        options: [none, inventory]
+        options: [none, inventory, pages-auth-baseline]
         default: none
   workflow_call:
     inputs:
@@ -45,7 +45,7 @@ concurrency:
 
 jobs:
   brain-staging:
-    if: github.repository == 'dizigs/archelaos-site' && github.event_name == 'workflow_dispatch' && inputs.brain_stage == 'inventory'
+    if: github.repository == 'dizigs/archelaos-site' && github.event_name == 'workflow_dispatch' && (inputs.brain_stage == 'inventory' || inputs.brain_stage == 'pages-auth-baseline')
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -59,7 +59,8 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
-        run: python brain/tools/cloudflare_staging.py --action inventory
+          BRAIN_ACTION: ${{ inputs.brain_stage }}
+        run: python brain/tools/cloudflare_staging.py --action "$BRAIN_ACTION"
   offline-test:
     if: (github.event_name == 'pull_request' || github.event_name == 'push') && inputs.verify_after_rebuild != true
     runs-on: ubuntu-latest

@@ -1,0 +1,14 @@
+{
+  "name": "archelaos-brain-core",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test --test-concurrency=1 test/*.test.mjs",
+    "syntax": "node --check src/worker.mjs && node --check src/contract.mjs && node --check src/budget.mjs"
+  },
+  "devDependencies": {
+    "miniflare": "4.20260730.0",
+    "wrangler": "4.157.0"
+  }
+}

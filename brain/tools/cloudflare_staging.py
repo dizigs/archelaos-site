@@ -25,7 +25,8 @@ class Cloudflare:
 
     def get(self, suffix):
         if suffix not in {"workers/account-settings", "workers/subdomain", "subscriptions",
-                          "workers/durable_objects/namespaces", "workers/scripts/" + SCRIPT}:
+                          "workers/durable_objects/namespaces", "workers/scripts/" + SCRIPT,
+                          "pages/projects/archelaos-site"}:
             raise ValueError("Read endpoint outside compiled readiness allowlist")
         endpoint = BASE + "/accounts/" + self.account + "/" + suffix
         request = urllib.request.Request(endpoint, headers={"Authorization": "Bearer " + self.token})
@@ -38,8 +39,15 @@ class Cloudflare:
                         "success": data.get("success") is True, "result": data.get("result")}
         except urllib.error.HTTPError as error:
             # No raw response/headers/token/provider messages are published.
+            codes = []
+            try:
+                rejected = json.loads(error.read(65536))
+                for row in rejected.get("errors", []):
+                    if type(row.get("code")) is int: codes.append(row["code"])
+            except (ValueError, OSError):
+                pass
             return {"endpoint": endpoint, "httpStatus": error.code, "success": False,
-                    "errorClass": "provider_http", "retryPerformed": False}
+                    "errorClass": "provider_http", "providerErrorCodes": codes, "retryPerformed": False}
         except urllib.error.URLError:
             return {"endpoint": endpoint, "httpStatus": None, "success": False,
                     "errorClass": "network_transport", "retryPerformed": False}
@@ -68,7 +76,9 @@ def inventory(client):
         evidence.append(response)
     return {"stage": "READ_ONLY_INVENTORY", "script": SCRIPT, "billingPlan": plan,
             "evidence": evidence, "resourceMutationPerformed": False, "aiProviderCalls": 0,
-            "status": "READINESS_RECORDED", "deploymentVerified": False}
+            "status": "READY_FOR_REVIEW" if plan == "WORKERS_FREE_CONFIRMED" and
+                      all(row["success"] for row in evidence[:-1]) else "BLOCKED",
+            "deploymentVerified": False}
 
 
 def emit(report):
@@ -79,9 +89,16 @@ def emit(report):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--action", choices=("inventory",), required=True)
-    parser.parse_args()
-    emit(inventory(Cloudflare()))
+    parser.add_argument("--action", choices=("inventory", "pages-auth-baseline"), required=True)
+    args = parser.parse_args()
+    client = Cloudflare()
+    if args.action == "inventory":
+        emit(inventory(client))
+    else:
+        result = client.get("pages/projects/archelaos-site")
+        result.pop("result", None)
+        emit({"stage": "PAGES_AUTH_BASELINE_ONLY", "evidence": [result],
+              "resourceMutationPerformed": False, "deploymentVerified": False})
 
 
 if __name__ == "__main__": main()
