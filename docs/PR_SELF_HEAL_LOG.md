@@ -384,3 +384,136 @@ security PR. No name, record ID or historical source was edited by Codex. Fresh
 combined-head CI is required after this synchronization; the previous-head pass
 is not substituted. Actual current-main production logs and full remaining
 Sonar issue context remain pending here.
+
+## Multisport master self-heal — deployment evidence gate — 2026-11-03
+
+Owner Codex; independent of Draft #90's registry/policy/preview files. Existing
+collector supplies metadata only; a green inventory job does not establish
+production SHA, terminal build logs or public HTTP health. Implementation
+`44ae87c47ccfae4f75c2f68a10877be0eef0fb9f`, compatibility
+`d160f7392b9c05e9239fa49b16c03110e444e143`, adds the fail-closed read-only
+verification gate to the same Cloudflare workflow and original cron. No new
+schedule, DNS/service configuration, secret or access-permission change.
+
+Actual offline fault injection verifies rejection of preview/old success, wrong
+SHA, incomplete stages, missing terminal logs, later failure, unhealthy HTTP,
+forbidden redirects, missing credentials and unsafe report links. Exact access
+endpoints/layers are retained; arbitrary response messages, raw build logs, tokens
+and signed queries are not. Shared atomic writer reused; legacy report field
+names preserved. No main A, deployment or full self-heal success claimed yet.
+
+Actual tests: **30/30** new tests, **34/34** existing CLI security, **24/24** observer,
+build/verify **15 pages / 763 profiles**, syntax/YAML/diff PASS. These are local
+results on starting main `0b19941dbf668dc7ca0670fc31d164fd2adc5060`; synthetic
+403s are not real access observations. Remote CI and a real existing-workflow
+run are next. [Contract and remaining work](self-heal/DEPLOYMENT_EVIDENCE.md);
+[actual local output](self-heal/evidence/deployment-gate-local-20261103.log).
+[Started checkpoint](https://github.com/dizigs/archelaos-site/issues/71#issuecomment-6601163597).
+
+### Actual production evidence from the new read-only gate — PR #101
+
+Existing workflow **41622405981**, code head **96393c2b6db78b77ed18f556eadf1bac750c35c7**,
+job/check **125871159545 SUCCESS**. It actually verified main
+**65f7e34ea692436d16ddeac395a9a1dbcc7fd3d8**, production deployment
+**60cc4e0e-9eb4-4bc7-a7f1-b85a8d283a56**, required stages and actual terminal
+provider logs (`Assets published!` / `Your site was deployed!`,
+2026-11-03T10:47:46.572313Z / 10:47:47.671656Z), followed by official HTTP **200**
+and static main/shell landmarks. Full sanitized proof is committed under
+[self-heal evidence](self-heal/evidence/deployment-gate-live-20261103.json).
+No synthetic result or preview was substituted; no provider configuration changed.
+The report's production commit differs intentionally from the unmerged verifier
+source commit. Main Sonar125870971530 remains C/FAILURE, PR Sonar125871130588 PASS.
+Notice observability is extended to include stage states and normalized log hash;
+new final-head CI and actual read-only dispatch will validate that changed source.
+Controller/real fault-to-deduplicated-repair-PR acceptance is still subsequent work.
+
+### PR #101 — scanner finding despite successful job, corrected without suppression
+
+Actual zizmor **125870780098** reports failure-level **dangerous-triggers** at
+cloudflare-pages-status.yml:11 for workflow_run, although the enclosing existing
+scanner job concludes success. Recorded TEST_FAILED in
+[Issue #71](https://github.com/dizigs/archelaos-site/issues/71#issuecomment-6601886450);
+real provider proof does not waive a code-security finding.
+
+Correction **cfb555f3631cf39c5a4d54772d5b035858043de2** removes that trigger and
+uses a local reusable verifier after all three existing Rebuild jobs, only on
+protected-main pushes. No permission expansion, new scheduler, scanner exception
+or release write. Fresh ownership check before editing the Rebuild workflow
+found no other active PR owner. Local YAML/needs/main-only/read-only/original
+cron checks, 30/30 fault tests and 24/24 observer tests PASS. Actual new-head
+scanner/full CI and post-merge wiring must still be observed.
+
+### PR #101 — exact linter failure and compatible correction
+
+Actual head10f471d failed actionlint125878721382 and Static Actions125878721012.
+Pinned actionlint1.7.11 reproduced: reusable workflow call `$/...` does not match
+`owner/repo/path/to/workflow.yml@ref` or `./path/to/workflow.yml` [workflow-call].
+Annotations exposed exit1 only, so the exact pinned official binary was used
+locally, SHA256 verified from GitHub release metadata. A prior local Go build
+attempt returned `Go: Unknown option: mod`; it was not repeated.
+
+Correction3921c361122506e1356bc5d11c41019e400298a7 restores supported `./` local
+syntax. Actual local actionlint exit0 and 30/30 tests PASS; no linter exclusion.
+The self-repository style recommendation and pre-existing Rebuild adhoc-packages
+warning remain visible; a future toolchain update is a separate task. Actual
+check125875932363 no longer reports the failure-level dangerous trigger.
+[Exact diagnostic evidence](self-heal/evidence/actionlint-reference-20261103.log).
+A second real read-only provider proof, run41623179200/check125873805311, is
+recorded with all stage values and log hash under the dedicated evidence folder.
+No provider/production configuration or required check was changed.
+# 2026-11-03 — central-site durable controller and real repair drill (#105)
+
+- Scope: central site now; reusable department hooks only. No department pages,
+  subdomains, DNS, identity/history edits, advertising or consent activation.
+- Problem: the existing shell monitor had within-run PR lookup but no persistent
+  reservation/cooldown journal, and could mark a source check recovered merely
+  because a repair PR was proposed. GitHub-token PR creation also does not assure
+  that required Actions checks run.
+- Solution: controller/GitHub journal/isolated fixture in commits
+  `0a7e0258e1f5d4d182ec590436c3897468b2546f`,
+  `7cdb4cb50a9e1aecf37f88768a1daff2e1d813a5`,
+  `6242e105d81925cfb16c2055a75dc0e9f717fb5d`; existing main monitor replacement and
+  durable once-only dispatch/adoption of four existing CI workflows in
+  `7c8a6d6e791ae497b738d98a031fe4cc6ba51405`. No new cron. A failed health observation
+  stays failed while a draft repair is pending. Unknown faults only get diagnosis.
+- Real acceptance run: [41632129693](https://github.com/dizigs/archelaos-site/actions/runs/41632129693),
+  source `cbc0770e89c7963270ab6f5f5004e1212303e1da`, check125904077757 SUCCESS.
+  One injected escaped newline, independent guard exit1/findings1 before;
+  exit0/findings0 after, exact baseline restored, idempotent. One repair, Issue106,
+  Draft107 head `108d0a821a03f7a7fd61934efc7b7e8425c43dd6`. Fresh durable-journal
+  replay SUPPRESSED, zero write attempts. Actual evidence:
+  `docs/self-heal/evidence/central-fixture-20261103.json`.
+- Independent second Actions run41633605768/check125909156657 also SUCCESS:
+  reloaded the actual GitHub journal, reused Draft107, zero repair executions and
+  zero API write attempts across the entire run. Captured separately in
+  `docs/self-heal/evidence/central-fixture-cross-run-20261103.json`.
+- Existing exact-head #107 syntax/ESLint, release integrity and Rebuild including
+  Chromium desktop/mobile checks were actually dispatched and all10 observed
+  check runs completed without failure. The new dispatcher adopted those four
+  existing workflow runs rather than launching duplicates. A subsequent replay
+  leaves the dispatch journal unchanged. Fixture107 remains Draft, never main.
+- Isolation: Draft107 targets `codex/self-heal-staging-central-news-20261103`,
+  changes only `self-heal-fixtures/news-head.html`, and must never be merged into
+  main. It is not an outage or production deployment.
+- Actual failure: #105 source400d7fb Sonar check125904119179 reported Reliability C,
+  four annotations: three structured guard-comparison conditions and one identical
+  expression assertion. `65955ef` replaced those conditions with explicit exit-code
+  checks and tested canonical policy key ordering. Corrected source Sonar passed;
+  no exclusions, threshold edits or retries of unchanged failed calls.
+- Regression coverage: 51 controller/backend/CI/main-adapter tests plus4 existing
+  PR-lookup tests, 4 existing allowlisted-fixer tests, 2 real-source fault injection
+  tests and30 provider tests pass locally. Build/verify15 pages/763 profiles,
+  source/dist HTML guard and pinned actionlint1.7.11 pass. Exact final-source remote
+  CI remains a review gate and is tracked in #105 and #71; dispatch is never logged
+  as a passed test.
+- Provider component #101 was normally squash-merged as
+  `4ffe67fe607c7aa26169f5b20a7a559923870ad9`, without bypass/direct push. Actual
+  post-merge Rebuild41632395881 succeeded including Chromium desktop/mobile and
+  reused provider gate125907387507. Deployment87480969-f2fb-423e-98e1-208918e7c83f
+  matches that exact main; all five stages successful; real terminal provider log
+  `Your site was deployed!` at12:03:24.003438UTC and separate official-root HTTP200.
+  Sanitized proof: `docs/self-heal/evidence/deployment-post-merge-20261103.json`.
+  This verifies that main, not deployment of unmerged #105 or fixture107.
+- Remaining P0: main4ffe67f Sonar125905680141 still Security C required A (#66).
+  Controller main activation, final CI/review and independent post-merge observer
+  verification remain gates. No authorized Live Sheet connector: NOT UPDATED.

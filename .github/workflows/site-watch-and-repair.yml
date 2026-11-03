@@ -2,31 +2,81 @@ name: Site watch and safe repair
 on:
   workflow_dispatch:
   schedule:
-    - cron: '17 */6 * * *'
+    # Reuse the existing self-heal schedule: once per hour at :17 UTC.
+    - cron: '17 * * * *'
+  pull_request:
+    paths:
+      - 'tools/self_heal_*.py'
+      - 'tests/test_self_heal_*.py'
+      - '.github/workflows/site-watch-and-repair.yml'
 
 permissions:
-  contents: write
-  pull-requests: write
-  issues: write
+  contents: read
 
 concurrency:
   group: site-watch-and-repair
   cancel-in-progress: false
 
 jobs:
-  monitor:
+  controller-regression:
+    if: github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && github.ref != 'refs/heads/main' && !startsWith(github.ref, 'refs/heads/codex/self-heal-staging-'))
     runs-on: ubuntu-latest
-    timeout-minutes: 18
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
-          persist-credentials: true
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+      - run: python -m unittest discover -s tests -p 'test_self_heal_*.py' -v
+
+  controlled-fixture:
+    if: github.event_name == 'workflow_dispatch' && startsWith(github.ref, 'refs/heads/codex/self-heal-staging-')
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      actions: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+      - name: Verify bounded controller and API regressions
+        run: python -m unittest discover -s tests -p 'test_self_heal_*.py' -v
+      - name: Isolated central-site fault to tested deduplicated draft PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_SHA: ${{ github.sha }}
+          SOURCE_BRANCH: ${{ github.ref_name }}
+          SOURCE_RUN: ${{ github.run_id }}
+        run: python tools/self_heal_fixture.py --source-commit "$SOURCE_SHA" --branch "$SOURCE_BRANCH" --run-id "$SOURCE_RUN"
+
+  monitor:
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+      actions: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: '3.12'
 
       - name: Test known safe repairs and HTML regression guards
         run: |
+          python -m unittest discover -s tests -p 'test_self_heal_*.py' -v
           python -m unittest discover -s rebuild/tests -p 'auto_fix_html_escapes_test.py' -v
           python -m unittest discover -s rebuild/tests -p 'fault_injection_self_heal_test.py' -v
           python -m unittest discover -s rebuild/tests -p 'repair_pr_lookup_test.py' -v
@@ -53,74 +103,16 @@ jobs:
           if-no-files-found: ignore
           retention-days: 14
 
-      - name: Create or refresh ONE site incident issue
+      - name: Persist bounded incident decisions and propose only tested draft repairs
         if: always() && (steps.live.outcome == 'failure' || steps.escapes.outcome == 'failure')
         env:
           GH_TOKEN: ${{ github.token }}
-          REPO: ${{ github.repository }}
-          RUN_LINK: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
-          LIVE_FAILED: ${{ steps.live.outcome }}
-          ESCAPES_FAILED: ${{ steps.escapes.outcome }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          title="Site QA: automated monitor alert"
-          number=$(gh issue list --repo "$REPO" --state open --limit 100 --search 'in:title "Site QA: automated monitor alert"' --json number,title \
-            --jq '.[] | select(.title == "Site QA: automated monitor alert") | .number' | head -1)
-          note="Automated public-site checks failed on run $RUN_LINK. Live health: $LIVE_FAILED. Escaped HTML: $ESCAPES_FAILED. See logs and 14-day report artifact. Do not auto-publish an unknown fix."
-          if [ -n "$number" ]; then
-            gh issue comment "$number" --repo "$REPO" --body "$note"
-          else
-            gh issue create --repo "$REPO" --title "$title" --body "$note"
-          fi
+          SOURCE_SHA: ${{ github.sha }}
+          SOURCE_RUN: ${{ github.run_id }}
+          LIVE_OUTCOME: ${{ steps.live.outcome }}
+          ESCAPES_OUTCOME: ${{ steps.escapes.outcome }}
+        run: python tools/self_heal_monitor.py --source-commit "$SOURCE_SHA" --run-id "$SOURCE_RUN" --live "$LIVE_OUTCOME" --escapes "$ESCAPES_OUTCOME"
 
-      - name: Prepare a scoped known-fix patch (no direct main commits)
-        id: fix
-        shell: bash
-        run: |
-          set -euo pipefail
-          python rebuild/tools/auto_fix_html_escapes.py --apply
-          if git diff --quiet -- news.html; then
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-          if [ "$(git diff --name-only | wc -l)" -ne 1 ] || [ "$(git diff --name-only)" != "news.html" ]; then
-            echo "Unsafe auto-patch: changed unexpected files" >&2
-            exit 1
-          fi
-          python rebuild/tools/guard_html_escaped_text.py
-          python rebuild/tools/build_release.py
-          python rebuild/tools/guard_html_escaped_text.py --dist
-          python rebuild/tools/verify_release.py
-          echo "changed=true" >> "$GITHUB_OUTPUT"
-
-      - name: Open CI-gated repair pull request instead of touching production
-        if: steps.fix.outputs.changed == 'true'
-        env:
-          GH_TOKEN: ${{ github.token }}
-          REPO: ${{ github.repository }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          existing="$(gh pr list --repo "$REPO" --base main --state open --limit 100 \
-              --search 'in:title "auto-heal: remove visible escaped whitespace in news.html"' \
-              --json number,title \
-              --jq '.[] | select(.title == "auto-heal: remove visible escaped whitespace in news.html") | .number')"
-          if [ -n "$existing" ]; then
-            echo "A repair PR already exists; not creating a duplicate."
-            exit 0
-          fi
-          branch="bot/repair-html-escapes-$GITHUB_RUN_ID"
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git checkout -b "$branch"
-          git add -- news.html
-          git commit -m "fix(news): auto-repair escaped whitespace between head tags"
-          git push origin "$branch"
-          gh pr create --repo "$REPO" --base main --head "$branch" \
-            --title 'auto-heal: remove visible escaped whitespace in news.html' \
-            --body 'Automated, allowlisted repair only. No production write. Requires all release/integrity/a11y checks and merge rules. Source and dist regression guards verified. Logs in originating GitHub Actions run.'
-
-      - name: Fail monitoring run if live site still has unknown issues
-        if: steps.live.outcome == 'failure' || (steps.escapes.outcome == 'failure' && steps.fix.outputs.changed != 'true')
+      - name: Keep monitoring failed until actual health is restored
+        if: always() && (steps.live.outcome != 'success' || steps.escapes.outcome != 'success')
         run: exit 1

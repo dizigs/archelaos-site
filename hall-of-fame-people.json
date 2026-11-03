@@ -1,6 +1,6 @@
 {
   "version": "v1.6",
-  "count": 763,
+  "count": 771,
   "people": [
     {
       "name": "Νίκος Τσινόπουλος",
@@ -3061,10 +3061,10 @@
     {
       "name": "Ευρώπη Υφαντίδου",
       "name_en": "Evropi Yfantidou",
-      "role": "Σκοποβολή · Αθλήτρια / Προπονήτρια",
-      "role_en": "Shooting · Athlete / Coach",
-      "bio": "Πρωταθλήτρια σκοποβολής στο αεροβόλο και πυροβόλο τουφέκι γυναικών, με πανελλήνια πρωτιά στο αεροβόλο τουφέκι. Συμμετείχε με την Εθνική Ομάδα σε βαλκανικές και ευρωπαϊκές διοργανώσεις της περιόδου 1993–1994. Στη συνέχεια ασχολήθηκε με την προπονητική και την εκπαίδευση αθλητών στις ακαδημίες σκοποβολής του Αρχελάου.",
-      "bio_en": "Greek women’s air-rifle champion and national-team shooter who competed internationally in 1993–1994 and later supported shooting training at Archelaos.",
+      "role": "Σκοποβολή & Τοξοβολία · Αθλήτρια / Προπονήτρια",
+      "role_en": "Shooting & Archery · Athlete / Coach",
+      "bio": "Πρωταθλήτρια σκοποβολής στο αεροβόλο και πυροβόλο τουφέκι γυναικών, με πανελλήνια πρωτιά στο αεροβόλο τουφέκι. Συμμετείχε με την Εθνική Ομάδα σε βαλκανικές και ευρωπαϊκές διοργανώσεις της περιόδου 1993–1994. Στη συνέχεια ασχολήθηκε με την προπονητική και την εκπαίδευση αθλητών στις ακαδημίες σκοποβολής του Αρχελάου.\n\nΣύμφωνα με την επετειακή έκδοση «Γ.Α.Σ. Ο Αρχέλαος Κατερίνης — 40 Χρόνια» (1996), το όνομά της αναφέρεται και στις πρώτες αγωνιστικές συμμετοχές του νεοσύστατου τμήματος τοξοβολίας το 1993. Η παρουσία της συνδέει ιστορικά τη σκοποβολή με την τοξοβολία, την οργάνωση της οποίας ανέλαβαν ο Κώστας Μυρωτής και ο Ανάργυρος Καπετανάκης.",
+      "bio_en": "Greek women’s air-rifle champion and national-team shooter who competed internationally in 1993–1994 and later supported shooting training at Archelaos.\n\nThe club's 1996 fortieth-anniversary history also records her among the first athletes involved in its archery section in 1993, linking the early shooting and archery programmes associated with Kostas Myrotis and Anargyros Kapetanakis.",
       "category": "sport",
       "id": "arch-e5015691e985",
       "period": "1991–2005"
@@ -4296,14 +4296,21 @@
       "id": "arch-5f8ba04e9875"
     },
     {
-      "name": "Ηλίας Μαρνέρη",
-      "name_en": "Elias Marnere",
-      "role": "Κολύμβηση · Αθλητής/Αθλήτρια",
+      "name": "Ηλίας Μαρνέρης",
+      "name_en": "Ilias Marneris",
+      "role": "Κολύμβηση · Αθλητής",
       "role_en": "Swimming · Athlete",
       "category": "athlete",
-      "bio": "Αθλητής/αθλήτρια των αναπτυξιακών τμημάτων κολύμβησης του Αρχελάου τη δεκαετία του 1990, σε αγωνίσματα πεταλούδας, υπτίου και ελευθέρου.",
-      "bio_en": "Development-squad swimmer for Archelaos in the 1990s, in butterfly, backstroke and freestyle events.",
-      "id": "arch-82df0f64b81d"
+      "bio": "Ο Ηλίας Μαρνέρης αγωνίστηκε στα αναπτυξιακά τμήματα κολύμβησης του Γ.Α.Σ. Αρχέλαος τη δεκαετία του 1990, με συμμετοχές σε ύπτιο, ελεύθερο και πεταλούδα. Σε αγώνες ηλικίας 10–11 ετών καταγράφεται ως 2ος στα 50 μ. ύπτιο (50.00) και 3ος στα 100 μ. ελεύθερο (1:37.40). Το ακριβές έτος και το επίπεδο των αγώνων χρειάζονται επαλήθευση από το αρχικό φύλλο αποτελεσμάτων.",
+      "bio_en": "Ilias Marneris competed for Archelaos Katerinis in age-group swimming in the 1990s, in backstroke, freestyle and butterfly. Historical records list a second-place finish in the 50 m backstroke (50.00) and third place in the 100 m freestyle (1:37.40) in the ages 10–11 category; the event date and level still need confirmation.",
+      "id": "arch-82df0f64b81d",
+      "name_aliases": [
+        "Ηλίας Μαρνέρη",
+        "Ηλίας Μαρνέρης"
+      ],
+      "merged_from_ids": [
+        "arch-22eae49bbbc0"
+      ]
     },
     {
       "name": "Λία Σαλτείδου",
@@ -4384,16 +4391,6 @@
       "bio": "Τοξότης της εφηβικής ομάδας του Αρχελάου που κατέλαβε τη 2η ομαδική θέση στους Α΄ Διασυλλογικούς Αγώνες Πιερίας το 1994.",
       "bio_en": "Junior Archelaos archer; the team placed second in the 1994 inaugural Pieria interclub event.",
       "id": "arch-d0db4554f5a0"
-    },
-    {
-      "name": "Μιλτιάδης Αντωνάτος",
-      "name_en": "Miltiades Antonatos",
-      "role": "Τοξοβολία · Αθλητής/Αθλήτρια",
-      "role_en": "Archery · Athlete",
-      "category": "athlete",
-      "bio": "Τοξότης της εφηβικής ομάδας του Αρχελάου που κατέλαβε τη 2η ομαδική θέση στους Α΄ Διασυλλογικούς Αγώνες Πιερίας το 1994.",
-      "bio_en": "Junior Archelaos archer; the team placed second in the 1994 inaugural Pieria interclub event.",
-      "id": "arch-bdac478e7ea3"
     },
     {
       "name": "Γρηγόρης Τσακνάκης",
@@ -6166,14 +6163,21 @@
       "id": "arch-d52769c9e607"
     },
     {
-      "name": "Μίλτος Αντωνάτος",
-      "name_en": "Μίλτος Αντωνάτος",
-      "role": "Τοξοβολία · Ομαδικό εφήβων (1994)",
-      "role_en": "Archery · Junior team (1994)",
+      "name": "Μιλτιάδης (Μίλτος) Αντωνάτος",
+      "name_en": "Miltiades (Miltos) Antonatos",
+      "role": "Τοξοβολία · Αθλητής, εφηβική ομάδα (1994)",
+      "role_en": "Archery · Junior athlete (1994)",
       "category": "athlete",
-      "bio": "Αγωνίστηκε με την εφηβική ομάδα τοξοβολίας του Αρχέλαου που κατέλαβε τη δεύτερη θέση στο Πανελλήνιο Πρωτάθλημα Ομαδικού το 1994, σύμφωνα με το ιστορικό μητρώο. Η διάκριση αυτή ανήκει στις πρώτες καταγεγραμμένες ομαδικές επιτυχίες του τμήματος και συνδέει το όνομά του με την αρχική ανάπτυξη της τοξοβολίας στον σύλλογο.",
-      "bio_en": "According to the historical register, he competed on Archelaos’s junior archery team that placed second in the national team championship in 1994. This result is among the section’s earliest recorded team achievements and links his name to the first years of archery at the club.",
-      "id": "arch-7f975b16bebf"
+      "bio": "Ο Μιλτιάδης («Μίλτος») Αντωνάτος συμμετείχε στην εφηβική ομάδα τοξοβολίας του Γ.Α.Σ. Αρχέλαος το 1994. Το επετειακό βιβλίο «40 Χρόνια» (1996) καταγράφει δεύτερη ομαδική θέση σε αγώνες της εποχής. Η ακριβής κατάταξη της διοργάνωσης ως πανελλήνιας ή διασυλλογικής δεν έχει επιβεβαιωθεί με φύλλο της ομοσπονδίας.",
+      "bio_en": "Miltiades (“Miltos”) Antonatos represented Archelaos Katerinis in junior archery in 1994. The club's 1996 fortieth-anniversary history records a second-place team finish. Whether the result was at national-championship or interclub level remains unconfirmed by an official competition sheet.",
+      "id": "arch-7f975b16bebf",
+      "name_aliases": [
+        "Μίλτος Αντωνάτος",
+        "Μιλτιάδης Αντωνάτος"
+      ],
+      "merged_from_ids": [
+        "arch-bdac478e7ea3"
+      ]
     },
     {
       "name": "Ιωάννης Απατσίδης",
@@ -6924,16 +6928,6 @@
       "bio": "2ος νικητής στα 100μ. ύπτιο και 3ος στα 50μ. ύπτιο και 50μ. πεταλούδα στα «Β΄ Ιπποκράτεια 94».",
       "bio_en": "Αριστείδης Λιακόπουλος was active in the swimming section of Archelaos Katerini during 1994–1995. Contemporary press records document their participation and sporting results.",
       "id": "arch-bb8825077e6b"
-    },
-    {
-      "name": "Ηλίας Μαρνέρης",
-      "name_en": "Ηλίας Μαρνέρης",
-      "role": "Κολύμβηση · Αθλητής/Αθλήτρια",
-      "role_en": "Swimming",
-      "category": "athlete",
-      "bio": "2ος νικητής στα 50μ. ύπτιο (50.00) και 3ος στα 100μ. ελεύθερο (1.37.40) στις κατηγορίες 10–11 ετών.",
-      "bio_en": "Ηλίας Μαρνέρης was active in the swimming section of Archelaos Katerini during 1994–1995. Contemporary press records document their participation and sporting results.",
-      "id": "arch-22eae49bbbc0"
     },
     {
       "name": "Μαρία Διαμαντοπούλου",
@@ -8368,6 +8362,186 @@
       "period": "2015–2019",
       "bio": "Στις 12 Οκτωβρίου 2015, κατά την ανασυγκρότηση του Διοικητικού Συμβουλίου του Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης, ο Δημήτριος Λούλας ανέλαβε καθήκοντα Εφόρου Τοξοβολίας. Η ανάθεση καταγράφεται ρητά στο Πρακτικό Δ.Σ. αρ. 30 της ίδιας ημερομηνίας, στη διοικητική περίοδο που ακολούθησε τις αρχαιρεσίες της 10ης Μαρτίου 2014.\n\nΣύμφωνα με τη συμπληρωματική διοικητική μαρτυρία που επιβεβαιώθηκε από εν ενεργεία αντιπρόεδρο του συλλόγου στις 3 Νοεμβρίου 2026, υπηρέτησε ως Ταμίας του Γ.Α.Σ. Αρχέλαος κατά τα έτη 2016–2017 και συμμετείχε στη διοικητική δραστηριότητα έως το 2019. Η ίδια μαρτυρία συνδέει τη συμβολή του με την ανάπτυξη της τοξοβολίας, την προβολή του αθλήματος στα σχολεία, τη μέριμνα για εγκαταστάσεις και εξοπλισμό, και την εκπροσώπηση σε ομοσπονδιακές διαδικασίες. Οι επιμέρους πράξεις και ημερομηνίες αυτών των δράσεων δεν προκύπτουν από την πρώτη σελίδα του Πρακτικού 30 και διατηρούνται ως μαρτυρία προς αρχειακή διασταύρωση.\n\nΠηγές: Πρακτικό Δ.Σ. αρ. 30, 12/10/2015 (πρωτογενές τεκμήριο του αρχείου του συλλόγου, πρώτη σελίδα)· επιβεβαίωση εν ενεργεία αντιπροέδρου, 03/11/2026.",
       "bio_en": "According to Board Minute No. 30 of 12 October 2015, Dimitrios Loulas was appointed head of the archery section following a reorganisation of the 2014-elected board. A serving vice-president of the club additionally confirmed on 3 November 2026 that Loulas served as club treasurer during 2016–2017 and remained involved in the board's work until 2019. Other activities, including school outreach, facilities and federation representation, are recorded as corroborating testimony rather than independently dated by the supplied page."
+    },
+    {
+      "id": "arch-katerina-lampiri-gymnastics-2022",
+      "name": "Κατερίνα Λαμπίρη",
+      "name_en": "Katerina Lampiri",
+      "role": "Αθλητής/Αθλήτρια · Ενόργανη",
+      "role_en": "Athlete · Artistic gymnastics",
+      "category": "athlete",
+      "bio": "Το 2022 συμμετείχε στην ομάδα Παγκορασίδων Β΄ του Αρχέλαου που κατέκτησε χάλκινο ομαδικό στην Α΄ φάση της Δ΄ Κατηγορίας στη Μίκρα και ασημένιο στην τελική φάση στην Αλεξανδρούπολη. Καταγράφεται επίσης σε διακρίσεις των ομάδων του συλλόγου το 2023.",
+      "bio_en": "Part of the Archelaos girls' artistic gymnastics team that earned team bronze in the opening stage and silver in the final stage in 2022; also featured in the club's 2023 results.",
+      "refs": [
+        {
+          "label": "Χρυσό και χάλκινο ομαδικό για τις παγκορασίδες στη Μίκρα το 2022 · 2022-05-29",
+          "url": "https://odelalis.gr/sarose-ta-metallia-to-tmima-gymnastikis-toy-gas-archelaos-katerinis/"
+        },
+        {
+          "label": "Μετάλλια στην τελική φάση ενόργανης παμπαίδων–παγκορασίδων το 2022 · 2022-06-17",
+          "url": "https://odelalis.gr/epitychies-ton-pampaidon-amp-pagkorasidon-toy-gas-archelaos-katerinis-sto-panellinio-protathlima-enorganis-gymnastikis-stin-alexandroypoli/"
+        },
+        {
+          "label": "Πρωτιές και ομαδικό ασημένιο για την ενόργανη στη Θεσσαλονίκη · 2023-05-30",
+          "url": "https://olympiobima.gr/gas-archelaos-katerinis-ekpliktiki-emfanisi-megales-diakriseis-stin-thessaloniki/"
+        }
+      ]
+    },
+    {
+      "id": "arch-christina-papavasileiou-gymnastics-2022",
+      "name": "Χριστίνα Παπαβασιλείου",
+      "name_en": "Christina Papavasileiou",
+      "role": "Αθλητής/Αθλήτρια · Ενόργανη",
+      "role_en": "Athlete · Artistic gymnastics",
+      "category": "athlete",
+      "bio": "Μέλος της ομάδας Παγκορασίδων Β΄ του Γ.Α.Σ. Αρχέλαος που κατέκτησε την τρίτη θέση στην Α΄ φάση της Δ΄ Κατηγορίας στη Μίκρα και τη δεύτερη στην τελική φάση στην Αλεξανδρούπολη τον Ιούνιο 2022 (158,750 βαθμοί).",
+      "bio_en": "Member of the Archelaos girls' artistic gymnastics team that finished third in the opening stage and second in the final stage in June 2022.",
+      "refs": [
+        {
+          "label": "Χρυσό και χάλκινο ομαδικό για τις παγκορασίδες στη Μίκρα το 2022 · 2022-05-29",
+          "url": "https://odelalis.gr/sarose-ta-metallia-to-tmima-gymnastikis-toy-gas-archelaos-katerinis/"
+        },
+        {
+          "label": "Μετάλλια στην τελική φάση ενόργανης παμπαίδων–παγκορασίδων το 2022 · 2022-06-17",
+          "url": "https://odelalis.gr/epitychies-ton-pampaidon-amp-pagkorasidon-toy-gas-archelaos-katerinis-sto-panellinio-protathlima-enorganis-gymnastikis-stin-alexandroypoli/"
+        }
+      ]
+    },
+    {
+      "id": "arch-paschalis-iliatzikis-wrestling-2022",
+      "name": "Πασχάλης Ηλιατζίκης",
+      "name_en": "Paschalis Iliatzikis",
+      "role": "Αθλητής/Αθλήτρια · Πάλη",
+      "role_en": "Athlete · Wrestling",
+      "category": "athlete",
+      "bio": "Αθλητής πάλης του Αρχέλαου Κατερίνης με χάλκινο μετάλλιο στο Πανελλήνιο Εφήβων στις Σέρρες τον Απρίλιο 2022 και νέο χάλκινο στο Πανελλήνιο Εφήβων στο Μουζάκι Καρδίτσας τον Απρίλιο 2023.",
+      "bio_en": "Archelaos wrestler who won national youth bronze medals in Serres in April 2022 and in Mouzaki, Karditsa, in April 2023.",
+      "refs": [
+        {
+          "label": "Τρίτος ο Αρχέλαος στο Πανελλήνιο Πάλης Εφήβων του 2022 · 2022-04-17",
+          "url": "https://odigos-pierias.gr/3%CE%BF%CF%82-%CE%BF-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CE%BA%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82-%CF%83%CF%84%CE%BF-%CF%80%CE%B1%CE%BD%CE%B5%CE%BB%CE%BB%CE%AE%CE%BD%CE%B9/"
+        },
+        {
+          "label": "Τρία μετάλλια στην πάλη Εφήβων στο Μουζάκι Καρδίτσας · 2023-04-24",
+          "url": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/3-%CE%BC%CE%B5%CF%84%CE%AC%CE%BB%CE%BB%CE%B9%CE%B1-%CE%B3%CE%B9%CE%B1-%CF%84%CE%BF%CF%85%CF%82-%CE%AD%CF%86%CE%B7%CE%B2%CE%BF%CF%85%CF%82-%CF%84%CE%BF%CF%85-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF/"
+        }
+      ]
+    },
+    {
+      "id": "arch-savvas-charitidis-wrestling-2021",
+      "name": "Σάββας Χαριτίδης",
+      "name_en": "Savvas Charitidis",
+      "role": "Αθλητής/Αθλήτρια · Πάλη",
+      "role_en": "Athlete · Wrestling",
+      "category": "athlete",
+      "bio": "Αθλητής πάλης του Αρχέλαου. Κατέκτησε χάλκινο μετάλλιο στους Μεσογειακούς Αγώνες Παίδων στην Ξάνθη τον Οκτώβριο 2021 και ασημένιο στο Πανελλήνιο Εφήβων στο Μουζάκι Καρδίτσας τον Απρίλιο 2023.",
+      "bio_en": "Archelaos wrestler who earned bronze in Xanthi in 2021 and silver at the national youth championship in Mouzaki in April 2023.",
+      "refs": [
+        {
+          "label": "Τέσσερα μετάλλια για τον Αρχέλαο στους Βαλκανικούς και Μεσογειακούς Αγώνες · 2021-11-01",
+          "url": "https://odigos-pierias.gr/4-%CE%BC%CE%B5%CF%84%CE%AC%CE%BB%CE%BB%CE%B9%CE%B1-%CE%BF%CE%B9-%CF%80%CF%81%CF%89%CF%84%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%AD%CF%82-%CF%84%CE%BF%CF%85-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%85/"
+        },
+        {
+          "label": "Τρία μετάλλια στην πάλη Εφήβων στο Μουζάκι Καρδίτσας · 2023-04-24",
+          "url": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/3-%CE%BC%CE%B5%CF%84%CE%AC%CE%BB%CE%BB%CE%B9%CE%B1-%CE%B3%CE%B9%CE%B1-%CF%84%CE%BF%CF%85%CF%82-%CE%AD%CF%86%CE%B7%CE%B2%CE%BF%CF%85%CF%82-%CF%84%CE%BF%CF%85-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF/"
+        }
+      ]
+    },
+    {
+      "id": "arch-alexis-papadopoulos-wrestling-2022",
+      "name": "Αλέξης Παπαδόπουλος",
+      "name_en": "Alexis Papadopoulos",
+      "role": "Αθλητής/Αθλήτρια · Πάλη",
+      "role_en": "Athlete · Wrestling",
+      "category": "athlete",
+      "bio": "Αθλητής πάλης του Αρχέλαου που κατέκτησε ασημένιο μετάλλιο στο Πανελλήνιο Πρωτάθλημα Εφήβων στις Σέρρες στις 16 Απριλίου 2022, με τον σύλλογο να κατακτά την τρίτη ομαδική θέση.",
+      "bio_en": "Archelaos wrestler who won silver at the national youth championship held in Serres in April 2022.",
+      "refs": [
+        {
+          "label": "Τρίτος ο Αρχέλαος στο Πανελλήνιο Πάλης Εφήβων του 2022 · 2022-04-17",
+          "url": "https://odigos-pierias.gr/3%CE%BF%CF%82-%CE%BF-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CE%BA%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82-%CF%83%CF%84%CE%BF-%CF%80%CE%B1%CE%BD%CE%B5%CE%BB%CE%BB%CE%AE%CE%BD%CE%B9/"
+        }
+      ]
+    },
+    {
+      "id": "arch-eleni-mitsiaki-archery-2022",
+      "name": "Ελένη Μητσιάκη",
+      "name_en": "Eleni Mitsiaki",
+      "role": "Αθλητής/Αθλήτρια · Τοξοβολία",
+      "role_en": "Athlete · Archery",
+      "category": "athlete",
+      "bio": "Αθλήτρια τοξοβολίας του Γ.Α.Σ. Αρχέλαος. Στο Κύπελλο Ελλάδας στη Φλώρινα στις 17–18 Σεπτεμβρίου 2022, κατέλαβε την τέταρτη θέση στο μικτό Ανδρών–Γυναικών Ολυμπιακού Τόξου μαζί με τον Ιωάννη Χαρίση.",
+      "bio_en": "Archelaos archer who placed fourth in the mixed Olympic recurve team event alongside Ioannis Charisis at the Greek Cup in Florina in September 2022.",
+      "refs": [
+        {
+          "label": "Δύο δεύτερες θέσεις για την τοξοβολία του Αρχέλαου στο Κύπελλο Ελλάδας στη Φλώρινα · 2022-09-27",
+          "url": "https://olympiobima.gr/sto-kypello-ellados-stin-florina-to-tmima-toxovolias-toy-gas-archelaos-katerinis/"
+        }
+      ]
+    },
+    {
+      "id": "arch-achilleas-giassiranis-wrestling-2024",
+      "name": "Αχιλλέας Γιασιράνης",
+      "name_en": "Achilleas Giassiranis",
+      "role": "Αθλητής/Αθλήτρια · Πάλη",
+      "role_en": "Athlete · Wrestling",
+      "category": "athlete",
+      "bio": "Αθλητής πάλης του Αρχέλαου που κατέλαβε την πέμπτη θέση στην κατηγορία του στο διεθνές τουρνουά του Πλέβεν Βουλγαρίας, τον Δεκέμβριο 2024, όπου ο σύλλογος αναδείχθηκε δεύτερος στην ομαδική κατάταξη.",
+      "bio_en": "Archelaos wrestler who finished fifth in his category at the international wrestling tournament in Pleven, Bulgaria, in December 2024.",
+      "refs": [
+        {
+          "label": "Τρία χρυσά και δεύτερη ομαδική θέση στο Πλέβεν Βουλγαρίας · 2024-12-10",
+          "url": "https://olympiobima.gr/3-chrysa-metallia-oi-protathlites-tou-archelaou-katerinis-sto-pleven-tis-voulgarias/"
+        }
+      ]
+    },
+    {
+      "id": "arch-kyriaki-parasidou-gymnastics-2022",
+      "name": "Κυριακή Παρασίδου",
+      "name_en": "Kyriaki Parasidou",
+      "role": "Αθλητής/Αθλήτρια · Ενόργανη",
+      "role_en": "Athlete · Artistic gymnastics",
+      "category": "athlete",
+      "bio": "Αθλήτρια ενόργανης του Αρχέλαου. Συμμετείχε στην ομάδα Παγκορασίδων Α΄ που κατέκτησε την πρώτη θέση στο σύνθετο ομαδικό με 143,650 βαθμούς στην Α΄ φάση της Δ΄ Κατηγορίας στη Μίκρα, στις 21–22 Μαΐου 2022.",
+      "bio_en": "Member of the Archelaos girls' gymnastics team that placed first in the team all-around at the opening stage in Mikra in May 2022.",
+      "refs": [
+        {
+          "label": "Χρυσό και χάλκινο ομαδικό για τις παγκορασίδες στη Μίκρα το 2022 · 2022-05-29",
+          "url": "https://odelalis.gr/sarose-ta-metallia-to-tmima-gymnastikis-toy-gas-archelaos-katerinis/"
+        }
+      ]
+    },
+    {
+      "id": "arch-christos-karasavvidis-gymnastics-2022",
+      "name": "Χρήστος Καρασαββίδης",
+      "name_en": "Christos Karasavvidis",
+      "role": "Αθλητής/Αθλήτρια · Ενόργανη",
+      "role_en": "Athlete · Artistic gymnastics",
+      "category": "athlete",
+      "bio": "Αθλητής ενόργανης γυμναστικής του Αρχέλαου. Αναφέρεται μεταξύ των παμπαίδων με αγωνιστικές διακρίσεις στην Α΄ φάση της Δ΄ Κατηγορίας στη Μίκρα Θεσσαλονίκης, τον Μάιο 2022. Η συγκεκριμένη πηγή δεν αναφέρει ακριβή θέση ή όργανο.",
+      "bio_en": "Archelaos youth gymnast named among participants at the first-stage event in Mikra, Thessaloniki, in May 2022; no individual ranking is stated.",
+      "refs": [
+        {
+          "label": "Χρυσό και χάλκινο ομαδικό για τις παγκορασίδες στη Μίκρα το 2022 · 2022-05-29",
+          "url": "https://odelalis.gr/sarose-ta-metallia-to-tmima-gymnastikis-toy-gas-archelaos-katerinis/"
+        }
+      ]
+    },
+    {
+      "id": "arch-ioannis-goutsos-gymnastics-2022",
+      "name": "Ιωάννης Γκούτζος",
+      "name_en": "Ioannis Goutsos",
+      "role": "Αθλητής/Αθλήτρια · Ενόργανη",
+      "role_en": "Athlete · Artistic gymnastics",
+      "category": "athlete",
+      "bio": "Αθλητής ενόργανης γυμναστικής του Αρχέλαου. Αναφέρεται μεταξύ των παμπαίδων με αγωνιστική παρουσία και διακρίσεις στην Α΄ φάση της Δ΄ Κατηγορίας στη Μίκρα Θεσσαλονίκης, τον Μάιο 2022, χωρίς ειδικότερη ατομική θέση στο δημοσίευμα.",
+      "bio_en": "Archelaos youth gymnast mentioned among competitors at the first-stage event in Mikra, Thessaloniki, in May 2022, without a specified individual placement.",
+      "refs": [
+        {
+          "label": "Χρυσό και χάλκινο ομαδικό για τις παγκορασίδες στη Μίκρα το 2022 · 2022-05-29",
+          "url": "https://odelalis.gr/sarose-ta-metallia-to-tmima-gymnastikis-toy-gas-archelaos-katerinis/"
+        }
+      ]
     }
   ]
 }

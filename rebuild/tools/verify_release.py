@@ -159,6 +159,16 @@ def verify() -> None:
     hall = json.loads((DIST / "hall-of-fame-people.json").read_text(encoding="utf-8"))
     modal = json.loads((DIST / "assets/site/data/people.json").read_text(encoding="utf-8"))
     assert hall == master == modal, "Hall of Fame release differs from canonical master"
+    aliases = json.loads((ROOT/"hall-of-fame-person-aliases.json").read_text(encoding="utf-8"))["aliases"]
+    assert json.loads((DIST/"hall-of-fame-person-aliases.json").read_text(encoding="utf-8"))["aliases"] == aliases
+    canonical_ids = {p["id"] for p in master["people"]}
+    redirects = (DIST/"_redirects").read_text(encoding="utf-8")
+    favorites_code = (DIST/"assets/site/js/favorites.js").read_text(encoding="utf-8")
+    for old_id, current_id in aliases.items():
+        assert old_id not in canonical_ids and current_id in canonical_ids, "Broken Hall identity migration"
+        assert not (DIST/"people"/(old_id+".html")).exists(), "Duplicate retired Hall profile still public"
+        assert f"/people/{old_id}.html /people/{current_id}.html 301" in redirects, "Missing permanent historical profile redirect"
+        assert old_id in favorites_code and current_id in favorites_code, "Old favorite identity not migrated"
     for js_path in ("biographies.js", "archive-catalog.js", "home.js"):
         code = (DIST / "assets/site/js" / js_path).read_text(encoding="utf-8")
         assert "/hall-of-fame-people.json" in code, "Legacy Hall feed in " + js_path

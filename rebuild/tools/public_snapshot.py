@@ -18,7 +18,7 @@ OUTPUT_NAME = "public-archive-manifest.json"
 # Values, never user paths, determine the directory opened beneath this checkout.
 OUTPUTS = {OUTPUT_NAME: (), "rebuild/test-artifacts/" + OUTPUT_NAME: ("rebuild", "test-artifacts")}
 APPROVED_REPORT_NAMES = (OUTPUT_NAME, "public-mentions.json", "public-mentions-report.json",
-                         "event-review-queue.json", "event-review-queue.md")
+                         "event-review-queue.json", "event-review-queue.md", "cloudflare-pages-status.json")
 
 
 def manifest() -> dict:
