@@ -570,6 +570,9 @@ def make_release() -> None:
     for key, details in training_groups.items():
         if details["sessions"]:
             (training_dir / (key + ".ics")).write_bytes(training_ical(training_data, key).encode("utf-8"))
+    # Create one canonical URL for every reviewed historic timeline event.
+    from build_event_pages import render as build_event_pages
+    event_paths = build_event_pages(ROOT, OUTPUT)
     (OUTPUT / "sitemaps").mkdir()
     (OUTPUT / "sitemaps" / "pages.xml").write_text(
         sitemap_xml([entry["path"] for entry in pages if entry.get("indexable", True)]), encoding="utf-8"
@@ -577,8 +580,11 @@ def make_release() -> None:
     (OUTPUT / "sitemaps" / "people.xml").write_text(
         sitemap_xml(["/people/" + file.name for file in profile_files]), encoding="utf-8"
     )
+    (OUTPUT / "sitemaps" / "events.xml").write_text(
+        sitemap_xml(event_paths), encoding="utf-8"
+    )
     (OUTPUT / "sitemap.xml").write_text(
-        sitemap_index(["pages.xml", "people.xml"]), encoding="utf-8"
+        sitemap_index(["pages.xml", "people.xml", "events.xml"]), encoding="utf-8"
     )
     (OUTPUT / "robots.txt").write_text(
         "User-agent: *\nAllow: /\nSitemap: " + SITE + "/sitemap.xml\n",

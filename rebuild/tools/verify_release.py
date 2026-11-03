@@ -98,13 +98,25 @@ def verify() -> None:
     assert len(canonical_set) == sum(e.get("indexable", True) for e in main), "Duplicate indexable canonicals"
     sitemap = ET.parse(DIST / "sitemap.xml")
     submaps = [node.text for node in sitemap.findall(".//s:loc", NS)]
-    expected = [SITE+"/sitemaps/pages.xml", SITE+"/sitemaps/people.xml"]
+    expected = [SITE+"/sitemaps/pages.xml", SITE+"/sitemaps/people.xml", SITE+"/sitemaps/events.xml"]
     assert submaps == expected, submaps
     pages = ET.parse(DIST / "sitemaps" / "pages.xml")
     profiles = ET.parse(DIST / "sitemaps" / "people.xml")
     loc_pages = [e.text for e in pages.findall(".//s:loc", NS)]
     loc_people = [e.text for e in profiles.findall(".//s:loc", NS)]
     assert set(loc_pages) == canonical_set and len(loc_pages) == len(canonical_set)
+    event_master = json.loads((ROOT / "archelaos-history-events.json").read_text(encoding="utf-8"))["events"]
+    event_sitemap = ET.parse(DIST / "sitemaps" / "events.xml")
+    event_urls = [e.text for e in event_sitemap.findall(".//s:loc", NS)]
+    expected_events = {SITE + "/events/index.html"} | {SITE + "/events/" + e["id"] + ".html" for e in event_master}
+    assert set(event_urls) == expected_events and len(event_urls) == len(expected_events), "Timeline sitemap mismatch"
+    for ev in event_master:
+        page = (DIST / "events" / (ev["id"] + ".html"))
+        assert page.is_file(), "Missing timeline event page: " + ev["id"]
+        html = page.read_text(encoding="utf-8")
+        assert "/assets/site/js/shell.js" in html and "/assets/site/css/components.css" in html
+        assert "https://www.archelaos.club/events/" + ev["id"] + ".html" in html
+        assert "<h1>" + escape(ev["title"]) + "</h1>" in html
     current_total = len(json.loads((ROOT / "hall-of-fame-people.json").read_text(encoding="utf-8"))["people"])
     assert len(loc_people) == len(set(loc_people)) == current_total
     addenda = json.loads((ROOT/"rebuild"/"data"/"people-addenda.json").read_text(encoding="utf-8"))["entries"]
