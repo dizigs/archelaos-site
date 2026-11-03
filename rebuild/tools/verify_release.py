@@ -110,11 +110,16 @@ def verify() -> None:
     event_urls = [e.text for e in event_sitemap.findall(".//s:loc", NS)]
     expected_events = {SITE + "/events/index.html"} | {SITE + "/events/" + e["id"] + ".html" for e in event_master}
     assert set(event_urls) == expected_events and len(event_urls) == len(expected_events), "Timeline sitemap mismatch"
+    listing_html = (DIST / "events" / "index.html").read_text(encoding="utf-8")
+    assert listing_html.count("/assets/site/js/support-footer.js") == 1, "Timeline index support script missing"
+    assert listing_html.count("/assets/site/css/support-footer.css") == 1, "Timeline index support CSS missing"
     for ev in event_master:
         page = (DIST / "events" / (ev["id"] + ".html"))
         assert page.is_file(), "Missing timeline event page: " + ev["id"]
         html = page.read_text(encoding="utf-8")
         assert "/assets/site/js/shell.js" in html and "/assets/site/css/components.css" in html
+        assert html.count("/assets/site/js/support-footer.js") == 1, "Event support script missing or duplicated"
+        assert html.count("/assets/site/css/support-footer.css") == 1, "Event support CSS missing or duplicated"
         assert "https://www.archelaos.club/events/" + ev["id"] + ".html" in html
         assert "<h1>" + escape(ev["title"]) + "</h1>" in html
     current_total = len(json.loads((ROOT / "hall-of-fame-people.json").read_text(encoding="utf-8"))["people"])
@@ -132,6 +137,8 @@ def verify() -> None:
         assert "<header" not in text.lower(), "Duplicated legacy header in " + file.name
         assert "<footer" not in text.lower(), "Duplicated legacy footer in " + file.name
         assert '/assets/site/css/components.css' in text, "Shared controls CSS missing: " + file.name
+        assert text.count('/assets/site/css/support-footer.css') == 1, "People support CSS missing or duplicated: " + file.name
+        assert text.count('/assets/site/js/support-footer.js') == 1, "People support script missing or duplicated: " + file.name
 
     # All public routes (core pages, canonical biographies and 404) must share one
     # footer, accessibility trigger and return-to-top implementation.
