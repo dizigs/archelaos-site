@@ -2,7 +2,14 @@ import { digest, HEX } from './contract.mjs';
 
 const TARGETS = new Set(['history', 'hall', 'stories', 'news']);
 const ORGANIZATION = 'gas-archelaos-katerini';
-const unsafeText = (value, maximum = 2000) => typeof value !== 'string' || value.length > maximum || /<\/?script|javascript:|ignore.{0,30}(previous|system|instructions)|system\s*prompt|api[_ -]?key|[\w.+-]+@[\w.-]+\.[a-z]{2,}|\b(?:\+30)?\d{10}\b/i.test(value);
+const unsafeText = (value, maximum = 2000) => {
+  if (typeof value !== 'string' || value.length > maximum) return true;
+  const lower = value.toLowerCase();
+  const instructions = ['<script', '</script', 'javascript:', 'system prompt', 'api_key', 'api key', 'ignore previous', 'ignore system', 'ignore instructions'];
+  // Constant-string checks and fixed-width digits avoid backtracking on hostile
+  // large documents. Ambiguous contact/instruction-like text stays private.
+  return value.includes('@') || instructions.some(marker => lower.includes(marker)) || /\d{10}/.test(value.replace(/[\s()+.-]/g, ''));
+};
 function privateReview(event, reason) { return { status: 'PRIVATE_REVIEW', reason, eventId: event.eventId, correlationId: event.correlationId, publicDrafts: [], aiProviderCalls: 0 }; }
 function publicUrl(value, allowedHosts) {
   try { const url = new URL(value); return url.protocol === 'https:' && !url.username && !url.password && !url.search && !url.hash && allowedHosts.includes(url.hostname) && !/(drive\.google|mail\.google|docs\.google)/.test(url.hostname); }
@@ -23,8 +30,11 @@ export async function enrichDocument(event, dependencies) {
   if (source.publicReleaseApproved !== true) return privateReview(event, 'PUBLIC_RELEASE_NOT_APPROVED');
   if (source.revision !== event.sourceRevision || source.blobSha256 !== event.payload.blobSha256) return privateReview(event, 'SOURCE_REVISION_MISMATCH');
   const document = await dependencies.readApprovedDocument({ sourceId: event.sourceId, revision: event.sourceRevision });
-  if (!document || typeof document.text !== 'string' || new TextEncoder().encode(document.text).length > 65536 || await digest(document.text) !== event.payload.blobSha256) return privateReview(event, 'CONTENT_HASH_OR_SIZE_MISMATCH');
-  if (unsafeText(document.text, 65536)) return privateReview(event, 'UNTRUSTED_INSTRUCTION_OR_PRIVATE_PAYLOAD');
+  const bytes = document?.bytes instanceof Uint8Array ? document.bytes : typeof document?.text === 'string' ? new TextEncoder().encode(document.text) : null;
+  if (!bytes || bytes.length > 1048576 || await digest(bytes) !== event.payload.blobSha256) return privateReview(event, 'CONTENT_HASH_OR_SIZE_MISMATCH');
+  if (event.payload.mimeType && document.mimeType !== event.payload.mimeType) return privateReview(event, 'MIME_CONTENT_MISMATCH');
+  if (document.mimeType === 'application/pdf' && new TextDecoder().decode(bytes.slice(0, 5)) !== '%PDF-') return privateReview(event, 'MIME_CONTENT_MISMATCH');
+  if (typeof document.text === 'string' && unsafeText(document.text, 65536)) return privateReview(event, 'UNTRUSTED_INSTRUCTION_OR_PRIVATE_PAYLOAD');
   const extracted = dependencies.extractApproved ? await dependencies.extractApproved(document) : extractStructuredClaims(document);
   if (extracted?.status !== 'EXTRACTED' || !Array.isArray(extracted.claims) || extracted.claims.length < 1 || extracted.claims.length > 25) return privateReview(event, extracted?.reason || 'EXTRACTION_UNVERIFIABLE');
   const verified = [];

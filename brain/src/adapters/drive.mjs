@@ -5,6 +5,7 @@ import { digest } from '../contract.mjs';
 // The approved changes feed is authoritative; checkpoint only durable delivery.
 export async function handleDriveNotification(notification, config, deps, store, now = Date.now()) {
   enabled(config, deps, ['listChanges', 'readApprovedMetadata', 'enqueue']);
+  if (['channelId', 'resourceId', 'approvedDriveId'].some(key => typeof config[key] !== 'string' || !config[key] || config[key].length > 1024)) throw new AdapterBlocked('DRIVE_SOURCE_CONFIGURATION_REQUIRED');
   const header = new Headers(notification.headers);
   if (header.get('x-goog-channel-id') !== config.channelId || header.get('x-goog-resource-id') !== config.resourceId || !await sameSecret(header.get('x-goog-channel-token'), config.channelToken)) throw new AdapterBlocked('DRIVE_CHANNEL_UNVERIFIED');
   if (!Number.isFinite(config.channelExpiresAt) || config.channelExpiresAt <= now) throw new AdapterBlocked('DRIVE_CHANNEL_EXPIRED');

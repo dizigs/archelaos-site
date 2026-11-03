@@ -1,8 +1,21 @@
 import { AdapterBlocked, boundedPage, deliver, enabled, metadataEvent } from './common.mjs';
 import { digest } from '../contract.mjs';
 
+export function decodeGmailPubSub(rawBody, authorization) {
+  if (typeof rawBody !== 'string' || rawBody.length > 16384 || typeof authorization !== 'string' || !authorization.startsWith('Bearer ')) throw new AdapterBlocked('PUBSUB_ENVELOPE_UNVERIFIED');
+  let body, data;
+  try {
+    body = JSON.parse(rawBody);
+    if (typeof body.message?.data !== 'string' || body.message.data.length > 8192 || !/^[A-Za-z0-9+/]*={0,2}$/.test(body.message.data)) throw new Error('Invalid base64');
+    const bytes = Uint8Array.from(atob(body.message.data), char => char.charCodeAt(0));
+    data = JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(bytes));
+  } catch { throw new AdapterBlocked('PUBSUB_ENVELOPE_UNVERIFIED'); }
+  return { authorization, subscription: body.subscription, data, messageId: body.message.messageId };
+}
+
 export async function handleGmailPush(push, config, deps, store, now = Date.now()) {
   enabled(config, deps, ['verifyOidc', 'listHistory', 'readApprovedMetadata', 'enqueue']);
+  if (['audience', 'serviceAccountEmail', 'mailbox', 'subscription', 'approvedLabelId'].some(key => typeof config[key] !== 'string' || !config[key] || config[key].length > 1024) || !config.audience.startsWith('https://')) throw new AdapterBlocked('GMAIL_SOURCE_CONFIGURATION_REQUIRED');
   const principal = await deps.verifyOidc(push.authorization, { audience: config.audience, serviceAccountEmail: config.serviceAccountEmail });
   if (principal?.verified !== true || principal.audience !== config.audience || principal.email !== config.serviceAccountEmail || principal.emailVerified !== true || !['https://accounts.google.com', 'accounts.google.com'].includes(principal.issuer) || !Number.isFinite(principal.expiresAt) || principal.expiresAt <= now) throw new AdapterBlocked('PUBSUB_OIDC_UNVERIFIED');
   if (push.subscription !== config.subscription || push.data?.emailAddress !== config.mailbox || !/^[0-9]{1,32}$/.test(push.data?.historyId || '')) throw new AdapterBlocked('GMAIL_APPROVED_SCOPE_MISMATCH');

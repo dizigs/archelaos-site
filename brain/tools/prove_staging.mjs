@@ -57,6 +57,6 @@ export async function proveStaging(origin, key, operatorKey, expectedCommit) {
 
 if (process.argv[1]?.endsWith('/prove_staging.mjs')) {
   proveStaging(process.env.BRAIN_ORIGIN, process.env.BRAIN_INTAKE_KEY, process.env.BRAIN_OPERATOR_KEY, process.env.BRAIN_EXPECTED_SHA)
-    .then(result => console.log(JSON.stringify(result)))
+    .then(() => console.log('BRAIN_STAGING_PROOF_PASS'))
     .catch(() => { console.error('BRAIN_STAGING_PROOF_FAILED; inspect redacted job/audit evidence'); process.exitCode = 1; });
 }

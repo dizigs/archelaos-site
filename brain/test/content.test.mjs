@@ -82,3 +82,16 @@ test('publication defaults to dry-run and synthetic publisher cannot be mistaken
   assert.equal((await proposeDraftPullRequest(draft, integration, 'synthetic-test-double')).status, 'SIMULATED_DRAFT_REUSED'); assert.equal(creates, 1);
   await assert.rejects(proposeDraftPullRequest(draft, integration, 'live'));
 });
+test('binary PDF hash is checked before injected extraction; unavailable PDF parser stays private', async () => {
+  const f = fixture('history'); const bytes = new TextEncoder().encode('%PDF-1.4\nsynthetic-binary-fixture');
+  f.source.blobSha256 = hash(bytes); f.event.payload.blobSha256 = hash(bytes); f.event.payload.mimeType = 'application/pdf';
+  f.deps.readApprovedDocument = async () => ({ bytes, mimeType: 'application/pdf' });
+  assert.equal((await enrichDocument(f.event, f.deps)).reason, 'EXTRACTOR_NOT_CONFIGURED');
+  f.deps.extractApproved = async document => { assert.equal(document.bytes.length, bytes.length); return { status: 'EXTRACTED', claims: [{ factId: 'synthetic-fact-001' }] }; };
+  assert.equal((await enrichDocument(f.event, f.deps)).status, 'DRAFT_READY_FOR_REVIEW');
+});
+test('known canonical event proposes an update without creating another news item', async () => {
+  const f = fixture(); f.deps.lookupExistingEvent = async () => ({ id: 'synthetic-event-001' });
+  const draft = (await enrichDocument(f.event, f.deps)).publicDrafts[0];
+  assert.equal(draft.action, 'UPDATE_EXISTING_EVENT'); assert.equal(draft.existingEventId, 'synthetic-event-001');
+});

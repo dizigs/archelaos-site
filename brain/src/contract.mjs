@@ -6,7 +6,7 @@ export const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}
 const TYPES = new Set(['staging', 'drive', 'gmail', 'site', 'github', 'news']);
 const MIME = new Set(['application/pdf', 'image/jpeg', 'image/png', 'text/plain', 'application/json']);
 const encoder = new TextEncoder();
-export const digest = async value => [...new Uint8Array(await crypto.subtle.digest('SHA-256', encoder.encode(value)))].map(b => b.toString(16).padStart(2, '0')).join('');
+export const digest = async value => [...new Uint8Array(await crypto.subtle.digest('SHA-256', value instanceof Uint8Array ? value : encoder.encode(value)))].map(b => b.toString(16).padStart(2, '0')).join('');
 export function reply(body, status = 200) {
   return Response.json(body, { status, headers: { 'cache-control': 'no-store', 'x-content-type-options': 'nosniff' } });
 }

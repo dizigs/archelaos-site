@@ -3,6 +3,7 @@ import { digest, UUID } from '../contract.mjs';
 
 export async function handleGitHubWebhook(request, config, deps, now = Date.now()) {
   enabled(config, deps, ['enqueue']);
+  if (!Number.isSafeInteger(config.repositoryId) || config.repositoryId < 1) throw new AdapterBlocked('GITHUB_REPOSITORY_CONFIGURATION_REQUIRED');
   if (typeof request.rawBody !== 'string' || new TextEncoder().encode(request.rawBody).length > 262144 || !UUID.test(request.deliveryId) || !/^sha256=[0-9a-f]{64}$/.test(request.signature || '') || typeof config.webhookSecret !== 'string' || config.webhookSecret.length < 32) throw new AdapterBlocked('GITHUB_WEBHOOK_UNVERIFIED');
   const key = await crypto.subtle.importKey('raw', new TextEncoder().encode(config.webhookSecret), { name: 'HMAC', hash: 'SHA-256' }, false, ['verify']);
   const signature = Uint8Array.from(request.signature.slice(7).match(/../g), pair => Number.parseInt(pair, 16));
