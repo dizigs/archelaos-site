@@ -6,9 +6,9 @@ const pages=[
   ['70-stigmes.html','70 Στιγμές'],['hall-of-fame.html','Hall of Fame'],
   ['stories.html','Ιστορίες'],['index.html#about','Ο Σύλλογος'],
   ['tmimata.html','Τμήματα'],['board.html','Διοίκηση'],
-  ['sponsors.html','Χορηγίες'],['contact.html','Επικοινωνία'],['search.html','Αναζήτηση'],['favorites.html','Αγαπημένα'],['contribute.html','Συνεισφορά Αρχείου'],['interviews.html','Φωνές του Αρχέλαου']
+  ['sponsors.html','Χορηγίες'],['contact.html','Επικοινωνία'],['search.html','Αναζήτηση'],['favorites.html','Αγαπημένα'],['contribute.html','Συνεισφορά Αρχείου'],['interviews.html','Φωνές του Αρχέλαου'],['events/index.html','Πλήρες Χρονολόγιο']
 ];
-const groups=[['Αρχείο',[3,4,5,14]],['Ο Σύλλογος',[6,7,8,9,10]]];
+const groups=[['Αρχείο',[3,4,5,14,15]],['Ο Σύλλογος',[6,7,8,9,10]]];
 const path=(location.pathname.split('/').pop()||'index.html').toLowerCase();
 const COMPLETED=new Set(['index.html','news.html','history.html','hall-of-fame.html','70-stigmes.html','stories.html','board.html','contact.html','sponsors.html','tmimata.html','retro-matches.html','search.html','favorites.html','contribute.html','interviews.html']);
 const stageUrl=(href)=>{
@@ -93,7 +93,7 @@ function renderHeader(){
   content.append(quick);
   const mobileLanguageSlot=document.createElement('div');mobileLanguageSlot.className='arch-language-slot arch-language-slot-mobile';mobileLanguageSlot.dataset.i18nSlot='mobile';mobileLanguageSlot.hidden=true;
   content.append(mobileLanguageSlot);
-  for(const group of [['Εξερεύνηση',[0,1,2,3,4,5,11,14]],['Ο Σύλλογος',[6,7,8,9,10]]]){
+  for(const group of [['Εξερεύνηση',[0,1,2,3,4,5,11,14,15]],['Ο Σύλλογος',[6,7,8,9,10]]]){
     const caption=document.createElement('div');caption.className='arch-menu-group';caption.textContent=group[0];content.append(caption);
     group[1].forEach(i=>{addLink(content,pages[i],'arch-mobile-link')});
   }
@@ -122,7 +122,7 @@ function renderHeader(){
 function renderFooter(){
   if(document.querySelector('.arch-footer'))return;
   const footer=document.createElement('footer');footer.className='arch-footer';
-  footer.innerHTML='<div class="arch-footer-inner"><div class="arch-footer-top"><img src="/assets/archelaos-crest.png" alt="" loading="lazy" width="58" height="58"><div><strong>Γ.Α.Σ. «Ο ΑΡΧΕΛΑΟΣ»</strong><small>ΚΑΤΕΡΙΝΗ · ΑΠΟ ΤΟ 1956</small></div></div><div class="arch-footer-rule"></div><div class="arch-footer-columns"><section><h2>ΨΗΦΙΑΚΟ ΜΟΥΣΕΙΟ</h2><a href="/history.html">Η ιστορία</a><a href="/70-stigmes.html">70 Στιγμές</a></section><section><h2>ΟΙ ΑΝΘΡΩΠΟΙ</h2><a href="/hall-of-fame.html">Hall of Fame</a><a href="/stories.html">Ιστορίες</a><a href="/interviews.html">Οι Φωνές</a><a href="/board.html">Διοίκηση</a></section><section><h2>Ο ΣΥΛΛΟΓΟΣ</h2><a href="/index.html">Αρχική</a><a href="/tmimata.html">Αθλήματα</a><a href="/contact.html">Επικοινωνία</a></section></div><div class="arch-footer-community"><div><strong>Η ιστορία του Αρχέλαου συνεχίζεται.</strong><p>Κρατήστε τις αγαπημένες σας στιγμές ή βοηθήστε μας να διασώσουμε μια ακόμη.</p></div><div class="arch-footer-ctas"></div></div><div class="arch-footer-social" aria-label="Επίσημοι σύνδεσμοι"></div><div class="arch-footer-bottom arch-footer-legal" aria-label="Στοιχεία σωματείου">ΓΥΜΝΑΣΤΙΚΟΣ ΑΓΩΝΙΣΤΙΚΟΣ ΣΥΛΛΟΓΟΣ «Ο ΑΡΧΕΛΑΟΣ» ΚΑΤΕΡΙΝΗΣ <span aria-hidden="true">·</span> ΑΦΜ 090396096 <span aria-hidden="true">·</span> ΔΟΥ Κατερίνης <span aria-hidden="true">·</span> Κωδικός ΓΓΑ ΙΙ88 <span aria-hidden="true">·</span> <a href="/privacy.html" class="arch-privacy-link">Πολιτική απορρήτου</a></div></div>';
+  footer.innerHTML='<div class="arch-footer-inner"><div class="arch-footer-top"><img src="/assets/archelaos-crest.png" alt="" loading="lazy" width="58" height="58"><div><strong>Γ.Α.Σ. «Ο ΑΡΧΕΛΑΟΣ»</strong><small>ΚΑΤΕΡΙΝΗ · ΑΠΟ ΤΟ 1956</small></div></div><div class="arch-footer-rule"></div><div class="arch-footer-columns"><section><h2>ΨΗΦΙΑΚΟ ΜΟΥΣΕΙΟ</h2><a href="/history.html">Η ιστορία</a><a href="/events/index.html">Πλήρες Χρονολόγιο</a><a href="/70-stigmes.html">70 Στιγμές</a></section><section><h2>ΟΙ ΑΝΘΡΩΠΟΙ</h2><a href="/hall-of-fame.html">Hall of Fame</a><a href="/stories.html">Ιστορίες</a><a href="/interviews.html">Οι Φωνές</a><a href="/board.html">Διοίκηση</a></section><section><h2>Ο ΣΥΛΛΟΓΟΣ</h2><a href="/index.html">Αρχική</a><a href="/tmimata.html">Αθλήματα</a><a href="/contact.html">Επικοινωνία</a></section></div><div class="arch-footer-community"><div><strong>Η ιστορία του Αρχέλαου συνεχίζεται.</strong><p>Κρατήστε τις αγαπημένες σας στιγμές ή βοηθήστε μας να διασώσουμε μια ακόμη.</p></div><div class="arch-footer-ctas"></div></div><div class="arch-footer-social" aria-label="Επίσημοι σύνδεσμοι"></div><div class="arch-footer-bottom arch-footer-legal" aria-label="Στοιχεία σωματείου">ΓΥΜΝΑΣΤΙΚΟΣ ΑΓΩΝΙΣΤΙΚΟΣ ΣΥΛΛΟΓΟΣ «Ο ΑΡΧΕΛΑΟΣ» ΚΑΤΕΡΙΝΗΣ <span aria-hidden="true">·</span> ΑΦΜ 090396096 <span aria-hidden="true">·</span> ΔΟΥ Κατερίνης <span aria-hidden="true">·</span> Κωδικός ΓΓΑ ΙΙ88 <span aria-hidden="true">·</span> <a href="/privacy.html" class="arch-privacy-link">Πολιτική απορρήτου</a></div></div>';
   const ctas=footer.querySelector('.arch-footer-ctas');
   iconLink(ctas,pages[12],'heart','arch-footer-cta','Αγαπημένα');
   iconLink(ctas,pages[13],'plus','arch-footer-cta arch-footer-cta-primary','Συνεισφέρω');
