@@ -110,11 +110,16 @@ def verify() -> None:
     event_urls = [e.text for e in event_sitemap.findall(".//s:loc", NS)]
     expected_events = {SITE + "/events/index.html"} | {SITE + "/events/" + e["id"] + ".html" for e in event_master}
     assert set(event_urls) == expected_events and len(event_urls) == len(expected_events), "Timeline sitemap mismatch"
+    listing_html = (DIST / "events" / "index.html").read_text(encoding="utf-8")
+    assert listing_html.count("/assets/site/js/support-footer.js") == 1, "Timeline index support script missing"
+    assert listing_html.count("/assets/site/css/support-footer.css") == 1, "Timeline index support CSS missing"
     for ev in event_master:
         page = (DIST / "events" / (ev["id"] + ".html"))
         assert page.is_file(), "Missing timeline event page: " + ev["id"]
         html = page.read_text(encoding="utf-8")
         assert "/assets/site/js/shell.js" in html and "/assets/site/css/components.css" in html
+        assert html.count("/assets/site/js/support-footer.js") == 1, "Event support script missing or duplicated"
+        assert html.count("/assets/site/css/support-footer.css") == 1, "Event support CSS missing or duplicated"
         assert "https://www.archelaos.club/events/" + ev["id"] + ".html" in html
         assert "<h1>" + escape(ev["title"]) + "</h1>" in html
     current_total = len(json.loads((ROOT / "hall-of-fame-people.json").read_text(encoding="utf-8"))["people"])
@@ -132,6 +137,8 @@ def verify() -> None:
         assert "<header" not in text.lower(), "Duplicated legacy header in " + file.name
         assert "<footer" not in text.lower(), "Duplicated legacy footer in " + file.name
         assert '/assets/site/css/components.css' in text, "Shared controls CSS missing: " + file.name
+        assert text.count('/assets/site/css/support-footer.css') == 1, "People support CSS missing or duplicated: " + file.name
+        assert text.count('/assets/site/js/support-footer.js') == 1, "People support script missing or duplicated: " + file.name
 
     # All public routes (core pages, canonical biographies and 404) must share one
     # footer, accessibility trigger and return-to-top implementation.
@@ -296,11 +303,15 @@ def verify() -> None:
     assert "Διαβάστε την είδηση" not in home_js, "Redundant homepage card caption restored"
     # Eighteen regular cards per page PLUS one distinct featured card on page 1.
     # Filtering still applies before slicing and the featured story is not duplicated.
-    assert "PAGE_SIZE=18" in news_js, "News pagination size changed"
+    assert "PAGE_SIZE=19" in news_js, "News pagination size changed"
     assert "x.id!==lead?.id" in news_js, "Highlighted article duplicated in the news grid"
-    assert "const pageCount=Math.max(1,Math.ceil(items.length/PAGE_SIZE));" in news_js, "Featured news must be separate from eighteen regular cards"
-    assert "const offset=(state.page-1)*PAGE_SIZE;" in news_js, "News pagination offset missing"
-    assert "items.slice(offset,offset+PAGE_SIZE)" in news_js, "Expected eighteen regular news cards per page"
+    assert "const showLead=state.category==='all'&&!q&&!!lead;" in news_js, "Empty news feed must not invent a featured story"
+    assert "const total=items.length+(showLead?1:0);" in news_js, "Featured story must count towards page size"
+    assert "const pageCount=Math.max(1,Math.ceil(total/PAGE_SIZE));" in news_js, "News pagination must count all visible stories"
+    assert "const offset=showLead?Math.max(0,(state.page-1)*PAGE_SIZE-1):(state.page-1)*PAGE_SIZE;" in news_js, "News pagination offset missing"
+    assert "const pageLimit=showLead&&state.page===1?PAGE_SIZE-1:PAGE_SIZE;" in news_js, "Featured story must leave eighteen regular slots on page one"
+    assert "items.slice(offset,offset+pageLimit)" in news_js, "Expected nineteen news stories per page"
+    assert "const last=Math.min(state.page*PAGE_SIZE,total);" in news_js, "News pagination count must include the featured story"
     assert "renderPagination(pageCount)" in news_js, "News page-number links not rendered"
     assert "window.addEventListener('popstate'" in news_js, "News page history navigation missing"
     assert 'id="an-pagination"' in (DIST/"news.html").read_text(encoding="utf-8"), "News pagination nav missing"
