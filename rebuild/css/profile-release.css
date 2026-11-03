@@ -1,12 +1,28 @@
-/* Unify 682 historical person pages under the new shell without a card redesign. */
-body.person-page{padding-top:var(--arch-nav-height)}
+/* Shared standalone profile shell. Covers old archival and new canonical pages. */
+body.person-page{padding-top:var(--arch-nav-height);overflow-x:clip}
 body.person-page .profile-main{padding-top:clamp(30px,5vw,56px)}
-body.person-page .arch-brand,body.person-page .arch-nav a{color:#fff7e6!important}
-body.person-page .arch-header .arch-dropdown a{color:#073d2a!important}
-body.person-page .arch-menu-dialog a{color:#073d2a!important}
-body.person-page .arch-footer a{color:#f8f6ef!important}
-body.person-page .arch-footer-personal a{color:#e9ce96!important}
 body.person-page .profile-actions>.arch-favorite-toggle{min-width:52px;min-height:52px;font-size:25px}
 body.person-page .profile-card{overflow:hidden}
-body.person-page .arch-footer{font-family:Inter,system-ui,-apple-system,sans-serif}
-@media(max-width:600px){body.person-page .profile-main{padding-top:20px}}
+body.person-page .arch-header-inner{width:100%;max-width:1560px;min-width:0;gap:clamp(8px,1.1vw,18px)}
+body.person-page .arch-brand{flex:0 1 auto;min-width:0;color:#fff8e7;text-decoration:none}
+body.person-page .arch-brand-title{font-size:clamp(15px,1.3vw,20px)}
+body.person-page .arch-nav{min-width:0;flex:0 1 auto}
+body.person-page .arch-nav>a,body.person-page .arch-nav summary{color:#f8f6ef;text-decoration:none}
+body.person-page .arch-header .arch-dropdown a{color:#073d2a;text-decoration:none}
+body.person-page .arch-menu-dialog a{color:#073d2a;text-decoration:none}
+body.person-page .arch-header-actions{margin-left:auto;flex-shrink:0}
+body.person-page :is(.arch-nav a,.arch-nav summary,.arch-menu-open,.arch-menu-dialog a):focus-visible{outline:3px solid #d8b66e;outline-offset:3px}
+body.person-page :is(.arch-nav a,.arch-dropdown a,.arch-footer a):hover{text-decoration:none!important}
+@media(max-width:1450px){body.person-page .arch-nav{display:none!important}body.person-page .arch-menu-open{display:flex!important;flex-shrink:0}}
+@media(max-width:767px){body.person-page .arch-header-inner{padding-inline:10px;gap:7px}body.person-page .arch-brand{flex:1 1 auto}body.person-page .arch-brand-title{font-size:clamp(11px,3.2vw,15px)}body.person-page .arch-menu-dialog[open]{width:min(420px,100vw)!important}body.person-page .profile-main{padding-top:20px}}
+body.person-page .arch-footer{font-family:Inter,system-ui,-apple-system,sans-serif;padding:36px clamp(18px,3vw,38px) 22px}
+body.person-page .arch-footer-inner{max-width:1160px}
+body.person-page .arch-footer-rule{margin:20px 0}
+body.person-page .arch-footer-community{display:none}
+body.person-page .arch-footer-columns{gap:clamp(15px,3vw,38px)}
+body.person-page .arch-footer-columns a,body.person-page .arch-footer-social a{color:#f8f6ef;text-decoration:none!important}
+body.person-page .arch-footer-legal{display:flex;flex-wrap:wrap;justify-content:flex-start;align-items:center;column-gap:8px;row-gap:8px;line-height:1.65;overflow-wrap:anywhere}
+body.person-page .arch-footer-legal .arch-privacy-link{color:#efd69a!important;text-decoration:none!important}
+body.person-page .arch-footer-legal button{color:#efd69a}
+@media(max-width:767px){body.person-page .arch-footer{padding:30px 18px 20px}body.person-page .arch-footer-columns{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}body.person-page .arch-footer-top strong{font-size:18px}body.person-page .arch-footer-legal{font-size:12px}}
+@media(max-width:380px){body.person-page .arch-footer-columns{grid-template-columns:minmax(0,1fr)}}
