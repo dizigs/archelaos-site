@@ -4,7 +4,7 @@
 const {chromium}=require('playwright');
 const {mkdirSync,writeFileSync}=require('node:fs');
 const path=require('node:path');
-const BASE='http://127.0.0.1:8766';
+const BASE=process.env.SITE_STABILITY_BASE_URL||'http://127.0.0.1:8766';
 const routes=[
  'index.html','history.html','hall-of-fame.html','70-stigmes.html',
  'stories.html','board.html','contact.html','sponsors.html',

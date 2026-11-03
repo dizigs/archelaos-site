@@ -103,5 +103,10 @@ Promise.all([
 }).catch(()=>{$('count').textContent=tr('Το αρχείο δεν είναι προσωρινά διαθέσιμο.','Archive currently unavailable.')});
 function sync(){document.querySelectorAll('[data-el][data-en]').forEach(e=>e.textContent=e.getAttribute(en()?'data-en':'data-el'));if(S.items.length){$('totalBadge').textContent=S.items.length+' '+tr('ΤΕΚΜΗΡΙΑ','RECORDS');showCards()}}
 new MutationObserver(sync).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
-new MutationObserver(sync).observe(document.body,{attributes:true,attributeFilter:['class']});
+// Modal scroll locks also change body.class. Rebuilding the cards for those
+// changes detaches the control that should receive focus when its dialog closes.
+new MutationObserver(records=>{
+ const english=document.body.classList.contains('lang-en');
+ if(records.some(record=>(record.oldValue||'').split(/\s+/).includes('lang-en')!==english))sync();
+}).observe(document.body,{attributes:true,attributeFilter:['class'],attributeOldValue:true});
 })();
