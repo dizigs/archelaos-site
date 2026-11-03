@@ -12,7 +12,7 @@ from xml.etree import ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "rebuild/tools"))
-from hof_biography import correct_name, normalized, sync_biography
+from hof_biography import correct_name, ensure_biography_sections, normalized, sync_biography
 from hof_reconcile import current_report, digest, indexed, reconcile
 from build_event_graph import compile_graph
 import build_event_graph
@@ -50,6 +50,26 @@ class LosslessProjectionTests(unittest.TestCase):
         self.assertEqual(sync_biography(page("Ιστορία"), "", "el"), page("Ιστορία"))
         self.assertEqual(sync_biography(page(""), "Νέο", "el"), page(""))
 
+    def test_missing_nonempty_canonical_biography_fails_closed(self):
+        greek_only = page("Greek profile")
+        with self.assertRaisesRegex(ValueError, "Missing en biography section"):
+            sync_biography(greek_only, "English canonical biography", "en")
+        self.assertEqual(sync_biography(greek_only, "", "en"), greek_only)
+
+    def test_generated_root_only_profile_gains_hidden_english_without_source_loss(self):
+        source = ('<main><article><div class="bio">Παλαιό τεκμήριο &amp; συνέχεια.</div>'
+                  '<h2>Πηγές</h2></article></main>')
+        generated = ensure_biography_sections(source, "English & verified.")
+        self.assertIn('<div class="bio">Παλαιό τεκμήριο &amp; συνέχεια.</div>', generated)
+        self.assertIn('data-profile-language="el"', generated)
+        self.assertIn('data-profile-language="en" hidden', generated)
+        self.assertIn('English &amp; verified.', generated)
+        self.assertIn("<h2>Πηγές</h2>", generated)
+        self.assertEqual(ensure_biography_sections(generated, "English & verified."), generated)
+        self.assertEqual(sync_biography(generated, "Brief newer summary", "el"), generated)
+        with self.assertRaisesRegex(ValueError, "Unsectioned profile has no biography div"):
+            ensure_biography_sections("<article>Missing biography</article>", "English")
+
     def test_repeated_build_projection_is_idempotent(self):
         result = sync_biography(page("Old."), "Old.\n\nNew.", "el")
         self.assertEqual(sync_biography(result, "Old.\n\nNew.", "el"), result)
@@ -79,6 +99,16 @@ class LosslessProjectionTests(unittest.TestCase):
         decisions = {"p": {"bio": {"legacy_sha256": digest("Old"), "canonical_sha256": digest("Before edit")}}}
         with self.assertRaisesRegex(ValueError, "Stale manual review"):
             reconcile(a, b, decisions)
+
+    def test_unknown_manual_classification_fails_closed(self):
+        master = {"count": 1, "people": [{"id": "p", "name": "N", "bio": "New"}]}
+        archive = {"count": 1, "people": [{"id": "p", "name": "N", "bio": "Old"}]}
+        review = {"p": {"bio": {"legacy_sha256": digest("Old"),
+                                 "canonical_sha256": digest("New"),
+                                 "classification": "QUALIFIED_CONFLCT",
+                                 "evidence": "Typo must not be accepted"}}}
+        with self.assertRaisesRegex(ValueError, "Unknown manual classification"):
+            reconcile(master, archive, review)
 
     def test_new_canonical_id_is_usable_by_approved_event_graph(self):
         people = [{"id": f"p{n}", "name": f"Person {n}"} for n in range(683)]
@@ -149,6 +179,18 @@ class RepositoryReconciliationTests(unittest.TestCase):
                       for p in search if p.get("type") == "person"}
         for actual in [set(public), index, profiles, sitemap, search_ids]:
             self.assertEqual(actual, expected)
+
+    def test_root_only_generated_english_biography_matches_canonical(self):
+        pid = "arch-archery-contrib-20261102-01"
+        original = (ROOT / "people" / (pid + ".html")).read_text()
+        self.assertNotIn('data-profile-language=', original)
+        output = (ROOT / "dist/people" / (pid + ".html")).read_text()
+        english = re.search(
+            r'<section\\b[^>]*data-profile-language="en"[^>]*>.*?<div class="bio">(.*?)</div>',
+            output, re.S)
+        self.assertIsNotNone(english, "Missing generated English section: " + pid)
+        self.assertEqual(normalized(english[1]), normalized(self.people[pid]["bio_en"]))
+        self.assertIn('data-profile-language="en" hidden', output)
 
     def test_release_never_reverts_to_archival_summary(self):
         for pid, person in self.people.items():
