@@ -225,10 +225,10 @@ def make_release() -> None:
     # Publish the live news page and its JSON feed alongside the core museum pages.
     for filename in ("news.html", "news.json"):
         copy2(ROOT / filename, OUTPUT / filename)
-    # Use the reviewed, full-format 682-profile source; the live root has a
+    # Use the reviewed, full-format historical template source; the live root has a
     # different legacy HTML layout and must not be overwritten to build dist.
     copytree(STAGE / "source-profiles", OUTPUT / "people")
-    # Keep the 682 rich archival pages and publish every additional canonical
+    # Keep the rich archival template pages and publish every additional canonical
     # Hall of Fame profile from the root master, including new youth athletes.
     current_master = json.loads((ROOT / "hall-of-fame-people.json").read_text(encoding="utf-8"))
     current_master_ids = {person["id"] for person in current_master["people"]}
@@ -277,7 +277,7 @@ def make_release() -> None:
     link_graph = generate_archive_links()
     (OUTPUT / "assets" / "site" / "data" / "archive-relationships.json").write_text(
         js_data(link_graph) + "\n", encoding="utf-8")
-    # Keep all 682 historic profile URLs/Person metadata, but replace the old
+    # Keep all historical profile URLs/Person metadata, but replace the old
     # per-profile navbar/footer with the shared site-wide shell in the generated release.
     # Source backup profiles remain completely untouched.
     profiles = sorted((OUTPUT / "people").glob("arch-*.html"))
@@ -501,7 +501,7 @@ def make_release() -> None:
     if expected != actual:
         raise RuntimeError(f"Profile file mismatch: missing={len(expected-actual)} extra={len(actual-expected)}")
     # The Hall listing and biography modal must use the current reviewed master file,
-    # not the older 682-person profile snapshot used for standalone archive pages.
+    # not the legacy template snapshot used for historical standalone pages.
     master_people = json.loads((ROOT / "hall-of-fame-people.json").read_text(encoding="utf-8"))
     if master_people.get("count") != len(master_people.get("people", [])):
         raise RuntimeError("Hall of Fame master data count mismatch")
@@ -512,7 +512,7 @@ def make_release() -> None:
     homepage = OUTPUT / "index.html"
     home_html = homepage.read_text(encoding="utf-8")
     home_html, count_matches = re.subn(
-        r'(<span id="new-people-total">)\d+(</span>)',
+        r'(<span id="new-people-total">)[^<]+(</span>)',
         lambda match: match.group(1) + str(len(master_people["people"])) + match.group(2),
         home_html,
     )
@@ -588,7 +588,7 @@ def make_release() -> None:
         ]
     })+"\n", encoding="utf-8")
     # Error routes receive the same navigation, accessibility controls,
-    # scroll-to-top and footer as the 13 principal pages and 682 profiles.
+    # scroll-to-top and footer as the principal pages and all canonical profiles.
     (OUTPUT / "404.html").write_text(
         '<!doctype html><html lang="el"><head><meta charset="utf-8">'
         '<meta name="viewport" content="width=device-width,initial-scale=1">'
@@ -608,7 +608,7 @@ def make_release() -> None:
         '</main></body></html>', encoding="utf-8"
     )
     # Fingerprint every generated HTML reference to our shared CSS and JS,
-    # including all 682 people profiles and the 404 page. This prevents a split
+    # including all canonical people profiles and the 404 page. This prevents a split
     # between cached mobile styles and fresh desktop HTML after deployment.
     static_ref = re.compile(
         r'(?P<quote>["\x27])(?P<asset>/assets/site/(?:css|js)/'
