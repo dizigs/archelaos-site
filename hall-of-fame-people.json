@@ -585,8 +585,8 @@
       "role": "Αθλητής · Τοξοβολία",
       "role_en": "Athlete",
       "category": "athlete",
-      "bio": "Ο Βαγγέλης (Ευάγγελος) Μαρινόπουλος είναι αθλητής τοξοβολίας του Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης στο Ολυμπιακό Τόξο. Στο Κύπελλο Ελλάδας στον Βόλο (19–20 Οκτωβρίου 2024) κατέλαβε τη 15η θέση στην κατάταξη Ανδρών.\n\nΉταν μέλος της ομάδας ανδρών του Αρχέλαου που κατέκτησε το Πανελλήνιο Πρωτάθλημα Ομαδικού το 2025 και το 2026. Στο Πανελλήνιο Πρωτάθλημα στη Φλώρινα (Ιούνιος 2026) κατέλαβε την 5η θέση στο Ατομικό Ανδρών.",
-      "bio_en": "Vangelis Marinopoulos won consecutive Greek recurve team titles with Archelaos (2025, 2026) and finished 5th individually at the 2026 national championships.\n\nThe Municipality of Katerini's 23 June 2026 announcement reports his fifth-place individual finish at the national archery championships in Florina.",
+      "bio": "Ο Βαγγέλης (Ευάγγελος) Μαρινόπουλος είναι αθλητής τοξοβολίας του Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης στο Ολυμπιακό Τόξο. Στο Κύπελλο Ελλάδας στον Βόλο (19–20 Οκτωβρίου 2024) κατέλαβε τη 15η θέση στην κατάταξη Ανδρών.\n\nΉταν μέλος της ομάδας ανδρών του Αρχέλαου που κατέκτησε το Πανελλήνιο Πρωτάθλημα Ομαδικού το 2025 και το 2026. Στο Πανελλήνιο Πρωτάθλημα στη Φλώρινα (Ιούνιος 2026) κατέλαβε την 5η θέση στο Ατομικό Ανδρών.\n\nΣτο Πανελλήνιο Πρωτάθλημα Ανοιχτού Χώρου στο ΟΑΚΑ (5 Ιουλίου 2025), η πρωταθλήτρια ομάδα Ανδρών Ολυμπιακού Τόξου αποτελούνταν από τους Ευάγγελο Χαρίση, Χαράλαμπο Ιακωβίδη και Ευάγγελο Μαρινόπουλο, σύμφωνα με το δημοσίευμα του «Ντελάλη» της 7ης Ιουλίου 2025.",
+      "bio_en": "Vangelis Marinopoulos won consecutive Greek recurve team titles with Archelaos (2025, 2026) and finished 5th individually at the 2026 national championships.\n\nThe Municipality of Katerini's 23 June 2026 announcement reports his fifth-place individual finish at the national archery championships in Florina.\n\nAt the Greek Outdoor Championships at OAKA on 5 July 2025, the winning men's recurve team consisted of Evangelos Charisis, Charalambos Iakovidis and Evangelos Marinopoulos, as reported by O Delalis on 7 July 2025.",
       "refs": [
         {
           "label": "Δήμος Κατερίνης · Τοξοβολία, Πανελλήνιο 2026",
@@ -599,6 +599,10 @@
         {
           "label": "Ελληνική Ομοσπονδία Τοξοβολίας · Κύπελλο 2024",
           "url": "https://www.archery.org.gr/telika-apotelesmata-agona-kypelloy-ellados-2024-volos-19-amp-20-oktovrioy-2024/"
+        },
+        {
+          "label": "Ο Ντελάλης · Ομαδικό Ανδρών ΟΑΚΑ, 07/07/2025",
+          "url": "https://odelalis.gr/protathlitis-ellados-stin-toxovolia-o-archelaos-katerinis/"
         }
       ],
       "id": "arch-f6152b60c43f"
@@ -2922,8 +2926,8 @@
       "name_en": "Christos Tortopidis",
       "role": "Ελληνορωμαϊκή πάλη · Πανελληνιονίκης",
       "role_en": "Greco-Roman wrestling · National medalist",
-      "bio": "Καταγράφεται ως πρωταθλητής Ελλάδας εφήβων στην πάλη το 1994 στην κατηγορία 74 κιλών.\n\nΝεότερο αρχειακό σημείωμα: Σύμφωνα με το νεότερο αρχειακό σημείωμα, κατέκτησε τη δεύτερη θέση στο Πανελλήνιο Πρωτάθλημα Εφήβων το 1994 και συνέβαλε στη δεύτερη ομαδική θέση του Αρχελάου. Το παλαιότερο λήμμα τον χαρακτήριζε πρωταθλητή Ελλάδας το ίδιο έτος· η ακριβής κατάταξη χρειάζεται διασταύρωση.",
-      "bio_en": "Recorded as a Greek junior wrestling champion in the 74 kg division in 1994.",
+      "bio": "Αθλητής πάλης του Αρχελάου, με συμμετοχή στο Πανελλήνιο Πρωτάθλημα Εφήβων του 1994 στην κατηγορία των 74 κιλών.\n\nΓια την ατομική κατάταξη καταγράφονται αντικρουόμενα στοιχεία: παλαιότερη καταχώριση τον αναφέρει πρωταθλητή Ελλάδας, ενώ νεότερο αρχειακό σημείωμα αναφέρει τη δεύτερη θέση και συμμετοχή του στη δεύτερη ομαδική θέση του Αρχελάου. Η ακριβής ατομική κατάταξη παραμένει προς διασταύρωση με τα αρχικά αποτελέσματα της διοργάνωσης.",
+      "bio_en": "Archelaos wrestler who competed in the 74 kg division at the 1994 Greek Junior National Championships.\n\nThe individual placing is disputed: an earlier entry describes him as Greek junior champion, while a later archival note records second place and a contribution to Archelaos's second-place team finish. The exact individual placing remains unresolved pending the original competition results.",
       "category": "athlete",
       "id": "arch-3fe6e9ae9b29"
     },

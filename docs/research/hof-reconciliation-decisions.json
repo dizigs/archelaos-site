@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "2b0a7a3394ef68c33e938d65ca6d54d947b7fd21",
+  "baseline_counts": {
+    "canonical": 771,
+    "historical": 680,
+    "divergent_people": 57,
+    "bio": 57,
+    "bio_en": 32,
+    "name": 1
+  },
+  "decisions": {
+    "arch-23f5b3ca37c0": {
+      "bio": {
+        "classification": "SEMANTICALLY_RETAINED",
+        "legacy_sha256": "ecd0c0bebbffd68a7e85f42b8484c8bf3930f7a8890760e004d2dce4d6b397e5",
+        "canonical_sha256": "c13b209f5dc6986255e9889484b3df7c92f1730481d86d55c5835e1a161fb70e",
+        "evidence": "Both versions retain 1993 Balkan junior pole-vault victory, 5.05 m and Lefteriotis; canonical addendum explicitly retains Thessaloniki."
+      }
+    },
+    "arch-3fe6e9ae9b29": {
+      "bio": {
+        "classification": "QUALIFIED_CONFLICT",
+        "legacy_sha256": "128653c5e16d2bd3ae04cffa930aaf827130e1a2c685dcf730ee02356a42524a",
+        "canonical_sha256": "ada8d18265b99e7f3df297a931ef65d74910fa2f637db1357cc9181fba8af0c5",
+        "evidence": "Common participation, 1994 and 74 kg restored in both languages. Both first/second-place claims retained as disputed, matching the independently preserved bilingual source-profiles page. Original competition results remain unavailable."
+      },
+      "bio_en": {
+        "classification": "QUALIFIED_CONFLICT",
+        "legacy_sha256": "b6520191240b91b2576ca966442ac2796128ff3b289160b351d487354fb1ce3d",
+        "canonical_sha256": "ec870579d7bdae66301ff14524acc30f52e8e159f87fbabf31cc11083698153b",
+        "evidence": "Common participation, 1994 and 74 kg restored in both languages. Both first/second-place claims retained as disputed, matching the independently preserved bilingual source-profiles page. Original competition results remain unavailable."
+      }
+    },
+    "arch-44ef21dfb9b7": {
+      "bio": {
+        "classification": "SEMANTICALLY_RETAINED",
+        "legacy_sha256": "257ef44183a794eb0985b6d75c368b08d6e42b00afa5afd04086cbfbf9864406",
+        "canonical_sha256": "ae3101508174a678b743dd400a2e0b582f3614dd3bd7dcede9ba39ecb3e66804",
+        "evidence": "Canonical retains the historical text and inserts the qualification that Emmanouil Zaras was a department official, not a competing athlete. No sentence/fact needs restoration."
+      },
+      "bio_en": {
+        "classification": "SEMANTICALLY_RETAINED",
+        "legacy_sha256": "ebd10ba24ca3b326ce732addaec7d24e45cfab666539de973bf78aa19ec6ed62",
+        "canonical_sha256": "a943fb2b0f655bbbe569396b54ceb4d012fb14d3703a60df20ab8539674a6719",
+        "evidence": "Canonical retains the historical text and inserts the qualification that Emmanouil Zaras was a department official, not a competing athlete. No sentence/fact needs restoration."
+      }
+    },
+    "arch-7a113e11ae86": {
+      "bio": {
+        "classification": "QUALIFIED_ARCHIVE",
+        "legacy_sha256": "6ad7858eb382c3e7d7338d4197c5d8c8dde77ee035ed3545b213ffd33ca517a7",
+        "canonical_sha256": "5fb44a09e4baf84b4a521087c78f9b51dac1d0560fdf5a2186289e8d2fca7faa",
+        "evidence": "All dates, roles and donations (2000/1800/1400 euros; total 5200) retained, with an explicit original-minutes verification caveat. Do not remove the caveat or publish private minutes."
+      },
+      "bio_en": {
+        "classification": "QUALIFIED_ARCHIVE",
+        "legacy_sha256": "79225d61418b3df9c7a9cb23ff4e3f4dd6cecb19c73efbae9265770c9c3da24c",
+        "canonical_sha256": "8fb19ddb0f5629f0058f4106114e3fee73b9b0e1def7812ac6991e3eaef4ab43",
+        "evidence": "All dates, roles and donations (2000/1800/1400 euros; total 5200) retained, with an explicit original-minutes verification caveat. Do not remove the caveat or publish private minutes."
+      }
+    },
+    "arch-999730e06982": {
+      "bio": {
+        "classification": "BLOCKED_SOURCE",
+        "legacy_sha256": "8303a6af48c202725b81b0641abd5c6194e05ccce3c62a18e6040162edce149b",
+        "canonical_sha256": "3529143f78b7a24b4af843addf796a888438bb60d6a0fe4301ec27536162bac1",
+        "evidence": "Canonical retains sourced career dates, clubs, titles and the 2022 honour once. Legacy adds a starting national-team/wing-player claim and an evaluative ambassador description. Starting status/position cannot be confirmed from the available approved news item; no unsupported claim restored. Existing bilingual source-profiles preserved. Ref: news.json volleyball-kyparissi-panathinaikos-2026 / official PAO announcement URL."
+      },
+      "bio_en": {
+        "classification": "BLOCKED_SOURCE",
+        "legacy_sha256": "6ae2e46e811a228aaae7305ced03aa7597d97d70f096e4f7d3f24875c6bab178",
+        "canonical_sha256": "c43b9afd2ae81751a1e6e83999be40134acec468f3429687914cb41f5f4f5435",
+        "evidence": "Canonical retains sourced career dates, clubs, titles and the 2022 honour once. Legacy adds a starting national-team/wing-player claim and an evaluative ambassador description. Starting status/position cannot be confirmed from the available approved news item; no unsupported claim restored. Existing bilingual source-profiles preserved. Ref: news.json volleyball-kyparissi-panathinaikos-2026 / official PAO announcement URL."
+      }
+    },
+    "arch-af9470c5745f": {
+      "bio": {
+        "classification": "BLOCKED_SOURCE",
+        "legacy_sha256": "2029e3bf36fa61da8c4e875a5b822059de90c4d1d99a48fa965dae96f8232661",
+        "canonical_sha256": "968d04b6c54e261dd10faed0fb9ed86d218ce8ece8f52436a745df85fcd9d178",
+        "evidence": "Canonical retains 1994 second junior/fifth senior places, youth coaching and Soulis world silver, with richer 2019–2026 chronology. Legacy specifies 88/115 kg and U15 coaching in 2024–25; exact weights/years are not corroborated by approved news records. U15 title in April 2022 is a distinct documented event. Preserve archive; original 1994 results/2024–25 roster needed."
+      }
+    },
+    "arch-b48656c62600": {
+      "bio": {
+        "classification": "SEMANTICALLY_RETAINED",
+        "legacy_sha256": "f304734dc199c39c66731a13600b93bd3bb9e2bfea610051278069025d195f1c",
+        "canonical_sha256": "b55f0b866762a46562bd3c2237977cd4cbe4c32ec750c62a681d477152a16703",
+        "evidence": "The duplicated 2025 Larissa team-silver sentence was consolidated into the opening paragraph; 2026 gold, Darko Nisavic 60 kg first place and Balkan bronze retained."
+      }
+    },
+    "arch-f56820c52e55": {
+      "name": {
+        "classification": "SPELLING_CORRECTION",
+        "legacy_sha256": "0fb6ccdce78c3477c95be5da29892cec7ba94032707d0e42bfd6c134cbe796dd",
+        "canonical_sha256": "4455a2c89f2b4fd707d3d4fd7c27c6c9496d32893ff0af54032169ddf45c4a10",
+        "evidence": "Protect Χρήστος Λιμπανοβνός / Christos Limpanovnos. Historical Λυμπανοβνός / Lympanovnos spellings must not overwrite canonical identity."
+      },
+      "bio_en": {
+        "classification": "SPELLING_CORRECTION",
+        "legacy_sha256": "00063972d4072b8512ec5b58d845c63c371eafa9be92d151145388526d0bbdb0",
+        "canonical_sha256": "f6db147c9cb5286854e25083c5caced6390704644f694e99c776ad6199cd3c55",
+        "evidence": "Protect Χρήστος Λιμπανοβνός / Christos Limpanovnos. Historical Λυμπανοβνός / Lympanovnos spellings must not overwrite canonical identity."
+      }
+    },
+    "arch-f6152b60c43f": {
+      "bio": {
+        "classification": "BLOCKED_SOURCE",
+        "legacy_sha256": "f6d3f92a99c296582435b87d0263feec21e0f75d776933f4b6d2841f2a54b8c4",
+        "canonical_sha256": "da0da7f1dbe6f1472ada625112b42497d129fc1485f68b2e84bf6f850c103e61",
+        "evidence": "The 5 July 2025 OAKA winning trio is restored in EL/EN and cited from already approved news.json archery-national-oaka-team-title-2025 (O Delalis 7 July 2025). Individual 15th at the 2024 Cup, 2025/26 team titles and 2026 fifth place preserved. Legacy team Cup wins in 2024/26 and exact 2026 trio need original results; no inference from the separate 2024 individual placing. Full original profile/snapshot preserved."
+      }
+    }
+  }
+}

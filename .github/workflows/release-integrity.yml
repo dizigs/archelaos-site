@@ -41,6 +41,10 @@ jobs:
         run: python -m unittest discover -s rebuild/tests -p repair_pr_lookup_test.py -v
       - name: Build and verify complete release
         run: python rebuild/tools/build_release.py
+      - name: Reconcile all historical Hall biographies and prevent snapshot truncation
+        run: |
+          python rebuild/tools/hof_reconcile.py --check
+          python -m unittest discover -s rebuild/tests -p hof_reconciliation_test.py -v
       - name: Recheck generated public HTML for escaped text
         run: python rebuild/tools/guard_html_escaped_text.py --dist
       - name: Verify JavaScript syntax
