@@ -32,6 +32,8 @@ jobs:
           python-version: '3.12'
       - name: Install exact locked packages without lifecycle scripts
         run: npm ci --prefix brain --ignore-scripts --no-audit --no-fund
+      - name: Audit runtime dependency advisories without modifying dependencies
+        run: npm audit --prefix brain --omit dev --audit-level high
       - name: Validate syntax and provider readiness evidence guards
         run: |
           npm run syntax --prefix brain
