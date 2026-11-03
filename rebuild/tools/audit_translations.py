@@ -22,6 +22,9 @@ for lang in langs:
     if lang["code"]!="el": assert lang["status"]!="live"
 people=load(DATA/"people.json")["people"]
 en=load(I18N/"content"/"en"/"people.json")["people"]
+canonical=load(ROOT.parent/"hall-of-fame-people.json")
+assert canonical["count"]==len(canonical["people"]), "Canonical public Hall metadata mismatch"
+assert set(p["id"] for p in people).issubset({p["id"] for p in canonical["people"]}), "Staged translation source contains a retired canonical ID"
 assert len(en)==len(people) and len(en)>0, "staged English drafts must track the staged legacy archive"
 assert [p["id"] for p in en]==[p["id"] for p in people]
 # Correct source of temporary presidential duties after Alkinoos Tasopoulos.
