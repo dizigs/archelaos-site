@@ -42,7 +42,9 @@ The fix reuses the directory-descriptor confinement helper already merged in
 to one megabyte both before and during reading. Output validation precedes
 collection. Reports are written to an exclusive mode-0600 temporary file and
 atomically replaced through the held parent descriptor; destination links are
-never opened for writing. Errors exit nonzero without echoing raw supplied paths.
+never opened for writing. Runtime filesystem failures exit nonzero with an error class rather than a
+filesystem traceback; argparse rejects invalid choices with its standard usage
+error (which includes the supplied CLI argument).
 These POSIX operations target existing Linux/Ubuntu CI; Windows is not asserted.
 
 Existing URL allowlists, RSS/Atom parsing, human review, publication-disabled
@@ -96,3 +98,14 @@ log documents the UI errors and their correction. Main Sonar check
 `125777746821` is still FAILURE; no current remaining count is invented.
 Actual production provider logs for that main SHA remain NOT VERIFIED here.
 No second merge is performed while serial post-merge verification is pending.
+
+Main advanced again through ChatGPT footer #78 to
+`f2507575ca52dfac24d01f55381c6aff2c38a869`, included unchanged. At previous
+exact head `8377240607dd43f73e78b3e515c64982d086c1a0` every remote check
+completed without failure: Sonar `125778811620` PASS; strict `125778617375`
+notices confirm 49 cases/0 failures, 72 page/viewports, 608 cards, Chromium
+145.0.7632.6 / Playwright 1.58.0; accessibility 32/0 findings/errors. Required
+syntax/ESLint and Rebuild browser `125778772349` PASS. These remain historical
+results; fresh combined-head CI is required after the new main sync. Main
+f250757 Sonar `125780700256` still fails C required A; actual latest production
+logs are not available here. No second merge is made on that basis.
