@@ -23,3 +23,32 @@ The existing weekly workflow remains untouched. This PR adds no cron, no backup 
 ## Integration with the rest of the site
 
 The canonical person IDs must be matched from documented sources; this scanner only checks for malformed and duplicate IDs, never merges identities. News events, archive events, legacy `rebuild/data` and central public profiles are still verified by their own existing release checks. There is no automatic promotion of 682 legacy staged profiles over current canonical records.
+
+## Weekly backup extension — proposed, not active until protected merge
+
+This PR extends the **existing** `weekly-public-snapshot.yml` job (Sunday 03:43 UTC and manual `workflow_dispatch`) with a **second, separately named artifact**: `canonical-root-public-snapshot`. It carries exactly the three public source registries listed above plus `canonical-root-snapshot-manifest.json`, stamped with the originating `GITHUB_SHA`.
+
+The existing artifact `public-archive-snapshot` remains unchanged, including its ten generated JSON files. We do not mix data sets, change their existing backup format, create a second cron, or copy any private Drive files.
+
+Before GitHub uploads the new artifact, the runner:
+1. validates the three canonical JSON ID lists, duplicate IDs, size limits and Hall declared count;
+2. stages only those public files in a fresh, private-per-run `RUNNER_TEMP/archelaos-public-canonical` directory;
+3. rechecks file SHA-256, sorted ID-set SHA-256 and counts against the fixed manifest;
+4. refuses any extra or missing entry, symbolic link, invalid commit SHA, source mutation or incorrect record count.
+
+The PR-only checks test both synthetic tampering and staging of the **actual repository checkout**. This proves local staging and readback, **not** an artifact surviving GitHub remote storage or a recovered production website.
+
+**First-run requirement:** The public GitHub Actions page for this weekly workflow showed zero historical runs at the time of review (2026-11-03). After merge, the existing workflow must complete a real manual or scheduled run on `main`, and the two artifacts must be retrieved using GitHub's provider API and verified independently. Until that happens, this recovery layer is **configured but not operationally proven**.
+
+Retention remains 30 days for both artifacts. GitHub storage is not an independent offsite backup. Long-term recovery and private archive continuity require separate, access-controlled retention and a genuine isolated restore drill. Avoid assuming RPO/RTO targets have been met.
+
+## Extraction-free ZIP integrity check
+
+For a future downloaded `canonical-root-public-snapshot` GitHub artifact ZIP:
+
+```sh
+python rebuild/tools/canonical_root_zip_audit.py /path/to/canonical-root-public-snapshot.zip \
+  --source-commit <ORIGINATING_GITHUB_WORKFLOW_SHA>
+```
+
+Supply the **40-character SHA verified from the originating successful main-branch GitHub Actions run**. This command never extracts files and fails on traversal, symlinks, duplicate/unknown ZIP entries, oversized/suspicious compression, duplicate JSON keys, SHA/count/ID-set mismatch or wrong source commit. It verifies **only archived bytes**; the provider's retention, access controls and the actual running website still need separate evidence. The PR CI executes the same checker against a ZIP assembled from the actual checkout staging output.
