@@ -1,10 +1,13 @@
 /* Isolated browser checks. Never deploys or mutates production pages. */
 const { chromium } = require('playwright');
-const {mkdirSync}=require('node:fs');
+const {mkdirSync,readFileSync}=require('node:fs');
 const path=require('node:path');
 const ROOT='http://127.0.0.1:8765';
 const output=path.join(__dirname,'..','test-artifacts');
 mkdirSync(output,{recursive:true});
+const hallMaster=JSON.parse(readFileSync(path.join(__dirname,'..','..','hall-of-fame-people.json'),'utf8'));
+const expectedHallCount=hallMaster.people.length;
+if(hallMaster.count!==expectedHallCount)throw Error('Canonical Hall metadata count mismatch');
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
 async function run(){
  let lastError;
@@ -43,7 +46,10 @@ async function run(){
       const href=await firstCollection.getAttribute('href');
       if(!href.startsWith('/rebuild/'))throw Error('Dynamic museum card leaves rebuild: '+href);
     }
-    if(name==='hall')await page.waitForFunction(()=>document.querySelector('#hall-count')?.textContent.includes('682'),{timeout:20000});
+    if(name==='hall')await page.waitForFunction(expected=>
+      document.querySelector('#hall-total')?.textContent===String(expected) &&
+      document.querySelector('#hall-count')?.textContent.startsWith(expected+' από '+expected+' πρόσωπα'),
+      expectedHallCount,{timeout:20000});
     if(name==='moments')await page.locator('.rm-moment').first().waitFor({timeout:20000});
     if(name==='stories')await page.locator('.rs-card').first().waitFor({timeout:20000});
     if(name==='museum')await page.locator('.mu-sports-link').first().waitFor({timeout:20000});
@@ -53,6 +59,7 @@ async function run(){
     if(name==='departments')await page.locator('.dp-card').first().waitFor();
     if(name==='retro')await page.locator('.rt-scoreboard').first().waitFor();
     if(name==='home'){
+     await page.waitForFunction(expected=>document.querySelector('#new-people-total')?.textContent===expected.toLocaleString('el-GR'),expectedHallCount,{timeout:20000});
      await page.waitForFunction(()=>document.querySelector('#fx-status')?.textContent.includes('προγραμματισμένοι'),null,{timeout:10000});
      if(!await page.locator('#fx-download').isHidden()||!await page.locator('#fx-subscribe').isHidden())
        throw Error('Unpublished preview exposes dead calendar download or subscription URLs');
