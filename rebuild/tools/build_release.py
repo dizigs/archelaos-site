@@ -20,7 +20,7 @@ from xml.etree import ElementTree as ET
 import json
 import re
 
-from hof_biography import correct_name, normalized, sync_biography
+from hof_biography import correct_name, ensure_biography_sections, normalized, sync_biography
 
 ROOT = Path(__file__).resolve().parents[2]
 STAGE = ROOT / "rebuild"
@@ -304,8 +304,20 @@ def make_release() -> None:
         regex = (r'(<section\b[^>]*data-profile-language="' + language
                  + r'"[^>]*>.*?<div class="bio">)(.*?)(</div>)')
         def expand(match):
-            paragraphs = [html_escape(row[language]) for row in additions
-                          if normalized(row[language]) not in normalized(match.group(2))]
+            original = normalized(match.group(2))
+            chosen = []
+            for row in additions:
+                candidate = row[language]
+                normalized_candidate = normalized(candidate)
+                if not normalized_candidate or normalized_candidate in original:
+                    continue
+                # Keep a longer verified addendum once, regardless of input order.
+                if any(normalized_candidate in normalized(previous) for previous in chosen):
+                    continue
+                chosen = [previous for previous in chosen
+                          if normalized(previous) not in normalized_candidate]
+                chosen.append(candidate)
+            paragraphs = [html_escape(candidate) for candidate in chosen]
             bibliography = " · ".join(dict.fromkeys(
                 html_escape(row["source_label"]) for row in additions
             ))
@@ -366,6 +378,10 @@ def make_release() -> None:
             html_text, count=1, flags=re.I|re.S)
         if old_header != old_footer:
             raise ValueError('Unpaired legacy profile header/footer: ' + profile.name)
+        # New root-only profiles predate bilingual archival page templates.
+        # Normalize their generated HTML, never the original source in Git.
+        html_text = ensure_biography_sections(
+            html_text, canonical_people[profile.stem].get("bio_en", ""))
         for lang in ("el", "en"):
             html_text = sync_biography(html_text, canonical_people[profile.stem].get(
                 "bio" if lang == "el" else "bio_en", ""), lang)
