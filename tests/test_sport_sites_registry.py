@@ -33,6 +33,20 @@ class SportSiteRegistryTests(unittest.TestCase):
         data["departments"].append(dict(data["departments"][0]))
         self.assertTrue(any("duplicate key" in error for error in validator.validate(data)))
 
+    def test_only_archery_has_an_approved_theme(self):
+        by_key = {d["key"]: d for d in self.source["departments"]}
+        self.assertEqual(by_key["archery"]["themeStatus"], "approved-archery-only")
+        self.assertIsNotNone(by_key["archery"]["theme"])
+        self.assertTrue(all(d["theme"] is None and d["themeStatus"] == "undecided"
+                            for k,d in by_key.items() if k != "archery"))
+
+    def test_unapproved_wrestling_theme_is_rejected(self):
+        data = json.loads(json.dumps(self.source))
+        for d in data["departments"]:
+            if d["key"] == "wrestling":
+                d["theme"] = data["departments"][0]["theme"]
+        self.assertTrue(any("unapproved sport theme" in error for error in validator.validate(data)))
+
     def test_archery_and_wrestling_are_only_planned_not_live_certified(self):
         by_key = {d["key"]: d for d in self.source["departments"]}
         self.assertIn(by_key["archery"]["state"], ("existing-rebuild-planned", "planned"))
