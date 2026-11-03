@@ -101,11 +101,23 @@ function renderHeader(){
   let prior=null;
   btn.addEventListener('click',()=>{if(drawer.open)return;prior=document.activeElement;drawer.showModal();btn.setAttribute('aria-expanded','true');document.body.classList.add('arch-dialog-open');close.focus()});
   close.addEventListener('click',()=>{document.body.classList.remove('arch-dialog-open');drawer.close()});
-  drawer.addEventListener('click',e=>{if(e.target===drawer)drawer.close()});
+  drawer.addEventListener('click',e=>{
+    const link=e.target.closest?.('a[href]');
+    if(e.target===drawer||(link&&!e.defaultPrevented&&e.button===0&&
+      !e.ctrlKey&&!e.metaKey&&!e.altKey&&!e.shiftKey&&link.target!=='_blank')){
+      // A same-page fragment does not reload the shell: close before native navigation.
+      document.body.classList.remove('arch-dialog-open');drawer.close();
+    }
+  });
   drawer.addEventListener('cancel',()=>{btn.setAttribute('aria-expanded','false');document.body.classList.remove('arch-dialog-open')});
- drawer.addEventListener('close',()=>{btn.setAttribute('aria-expanded','false');document.body.classList.remove('arch-dialog-open');if(prior?.isConnected)prior.focus()});
+ drawer.addEventListener('close',()=>{btn.setAttribute('aria-expanded','false');document.body.classList.remove('arch-dialog-open');if(prior?.isConnected)prior.focus({preventScroll:true})});
   document.addEventListener('click',e=>{if(!nav.contains(e.target))nav.querySelectorAll('details[open]').forEach(d=>d.open=false)});
   nav.querySelectorAll('details').forEach(d=>d.addEventListener('toggle',()=>{if(d.open)nav.querySelectorAll('details').forEach(other=>{if(other!==d)other.open=false})}));
+  nav.addEventListener('keydown',e=>{
+    if(e.key!=='Escape')return;
+    const expanded=nav.querySelector('details[open]');if(!expanded)return;
+    expanded.open=false;expanded.querySelector('summary').focus({preventScroll:true});e.preventDefault();
+  });
 }
 function renderFooter(){
   if(document.querySelector('.arch-footer'))return;

@@ -1,0 +1,119 @@
+Executed local site stability correction — 2026-11-03 Europe/Athens. Chromium 154 / Playwright 1.58; not a CI-145 result.
+
+Strict regressions after correction
+PASS 320 navigation-layout-cards
+PASS 320 same-document-menu-link
+PASS 320 story-scroll-reset
+PASS 320 news-immediate-scroll-lock
+PASS 320 news-scroll-reset
+PASS 320 hall-and-story-card-actions
+PASS 320 interview-focus-restoration
+PASS 320 dismiss-pending-biography
+PASS 320 replace-pending-biography
+PASS 320 nested-biography-scroll-lock
+PASS 320 long-biography-title
+PASS 390 navigation-layout-cards
+PASS 390 same-document-menu-link
+PASS 390 story-scroll-reset
+PASS 390 news-immediate-scroll-lock
+PASS 390 news-scroll-reset
+PASS 390 hall-and-story-card-actions
+PASS 390 interview-focus-restoration
+PASS 390 dismiss-pending-biography
+PASS 390 replace-pending-biography
+PASS 390 nested-biography-scroll-lock
+PASS 390 long-biography-title
+PASS 768 navigation-layout-cards
+PASS 768 same-document-menu-link
+PASS 768 story-scroll-reset
+PASS 768 news-immediate-scroll-lock
+PASS 768 news-scroll-reset
+PASS 768 hall-and-story-card-actions
+PASS 768 interview-focus-restoration
+PASS 768 dismiss-pending-biography
+PASS 768 replace-pending-biography
+PASS 768 nested-biography-scroll-lock
+PASS 768 long-biography-title
+PASS 1365 navigation-layout-cards
+PASS 1365 story-scroll-reset
+PASS 1365 news-immediate-scroll-lock
+PASS 1365 news-scroll-reset
+PASS 1365 hall-and-story-card-actions
+PASS 1365 interview-focus-restoration
+PASS 1365 dismiss-pending-biography
+PASS 1365 replace-pending-biography
+PASS 1365 nested-biography-scroll-lock
+PASS 1365 long-biography-title
+PASS 1365 desktop-disclosure-escape
+PASS 1249 drawer-at-laptop-breakpoint
+Stability: 45 cases, 72 page/viewports, 608 card surfaces, 0 failures
+
+Accessibility
+Accessibility audit: 32 page/viewports; 0 axe findings; 0 interaction errors
+
+Release smoke
+Release Chromium smoke checks passed on desktop/mobile and profile route.
+
+Responsive quality
+Quality audit: 84 page/viewports, 23 internal destinations, 0 warnings, 0 errors
+
+Independent release verify
+RELEASE QA OK: 15 core pages + 760 indexed profiles.
+Canonicals, robots, structured data, two sitemaps, redirects and local paths verified.
+
+
+Combined main 9127d45 + review-fix 418714f; actual local Chromium 154, not CI145
+PASS 320 navigation-layout-cards
+PASS 320 same-document-menu-link
+PASS 320 story-scroll-reset
+PASS 320 news-immediate-scroll-lock
+PASS 320 news-scroll-reset
+PASS 320 hall-and-story-card-actions
+PASS 320 interview-focus-restoration
+PASS 320 dismiss-pending-biography
+PASS 320 replace-pending-biography
+PASS 320 news-pending-biography
+PASS 320 nested-biography-scroll-lock
+PASS 320 long-biography-title
+PASS 390 navigation-layout-cards
+PASS 390 same-document-menu-link
+PASS 390 story-scroll-reset
+PASS 390 news-immediate-scroll-lock
+PASS 390 news-scroll-reset
+PASS 390 hall-and-story-card-actions
+PASS 390 interview-focus-restoration
+PASS 390 dismiss-pending-biography
+PASS 390 replace-pending-biography
+PASS 390 news-pending-biography
+PASS 390 nested-biography-scroll-lock
+PASS 390 long-biography-title
+PASS 768 navigation-layout-cards
+PASS 768 same-document-menu-link
+PASS 768 story-scroll-reset
+PASS 768 news-immediate-scroll-lock
+PASS 768 news-scroll-reset
+PASS 768 hall-and-story-card-actions
+PASS 768 interview-focus-restoration
+PASS 768 dismiss-pending-biography
+PASS 768 replace-pending-biography
+PASS 768 news-pending-biography
+PASS 768 nested-biography-scroll-lock
+PASS 768 long-biography-title
+PASS 1365 navigation-layout-cards
+PASS 1365 story-scroll-reset
+PASS 1365 news-immediate-scroll-lock
+PASS 1365 news-scroll-reset
+PASS 1365 hall-and-story-card-actions
+PASS 1365 interview-focus-restoration
+PASS 1365 dismiss-pending-biography
+PASS 1365 replace-pending-biography
+PASS 1365 news-pending-biography
+PASS 1365 nested-biography-scroll-lock
+PASS 1365 long-biography-title
+PASS 1365 desktop-disclosure-escape
+PASS 1249 drawer-at-laptop-breakpoint
+Stability: 49 cases, 72 page/viewports, 608 card surfaces, 0 failures
+
+Accessibility audit: 32 page/viewports; 0 axe findings; 0 interaction errors
+
+Footer node tests: 3/3 PASS. Build/independent verify: 15 pages/760 profiles PASS.

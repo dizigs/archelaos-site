@@ -102,7 +102,7 @@ async function init(){
   state.people=data.people;$('#hall-total').textContent=String(state.people.length);render();
   // Shared search opens the existing Hall of Fame biography dialog, not a second profile page.
   const requested=new URLSearchParams(location.search).get('person');
-  if(requested){const person=state.people.find(p=>p.id===requested);if(person)window.ArchelaosBio.show(person);}
+  if(requested){const canonical=window.ArchelaosFavorites?.canonicalPersonId?.(requested)||requested;const person=state.people.find(p=>p.id===canonical);if(person)window.ArchelaosBio.show(person);}
   const eventRequest=new URLSearchParams(location.search).get('event');
   if(eventRequest&&/^arc-[a-z0-9-]{8,100}$/.test(eventRequest))
    void window.ArchelaosRelated?.openEvent(eventRequest);

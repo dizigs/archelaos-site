@@ -28,7 +28,8 @@ test('every production rebuild page includes the same support assets once', () =
 test('uses first-party UptimeRobot logo and no forbidden Google logo', () => {
   assert.match(source, /https:\/\/uptimerobot\.com\/assets\/images\/uptimerobot-logo-dark\.svg/);
   assert.match(source, /sponsored noopener noreferrer/);
-  assert.match(source, /συμμετέχει στο πρόγραμμα/);
+  assert.match(source, /Με τη στήριξη/);
+  assert.match(source, /Συμμετέχουμε στο/);
   assert.match(source, /https:\/\/www\.google\.com\/nonprofits\//);
   assert.doesNotMatch(source, /google-logo|google\.svg|logo-google/);
   assert.match(styles, /text-decoration:\s*none\s*!important/);
@@ -81,9 +82,11 @@ test('waits for shared shell, mounts once, and has proper link semantics', () =>
   assert.equal(section.id, 'arch-program-support');
   assert.ok(section.attributes['aria-label'].includes('Προγράμματα'));
   const uptimeLink = section.children[0].children[1];
+  assert.equal(section.children[0].children[0].textContent, 'Με τη στήριξη');
   assert.equal(uptimeLink.href, 'https://uptimerobot.com/');
   assert.equal(uptimeLink.rel, 'sponsored noopener noreferrer');
   assert.equal(uptimeLink.children[0].alt, 'UptimeRobot');
+    assert.equal(section.children[1].children[0].text, 'Συμμετέχουμε στο ');
     assert.equal(section.children[1].children[1].textContent, 'Google for Nonprofits');
   } finally {
     if (previous === undefined) delete global.document;

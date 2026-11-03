@@ -1,9 +1,9 @@
-/* All bios use the single historical JSON file from the Oct 31 backup. */
+/* All public and preview biographies load the single canonical Hall of Fame master. */
 (function(){'use strict';
 let cached;
 function load(){
- return cached??=fetch('/rebuild/data/people.json?v=20261101-706',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json()})
-  .then(data=>{if(!Array.isArray(data.people))throw Error('Biography data malformed');return {
+ return cached??=fetch('/hall-of-fame-people.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json()})
+  .then(data=>{if(!Array.isArray(data.people)||!Number.isInteger(data.count)||data.count!==data.people.length||data.count<1)throw Error('Biography data malformed');return {
     people:data.people,byId:new Map(data.people.map(person=>[person.id,person]))
    }}).catch(err=>{cached=undefined;throw err});
 }
@@ -20,7 +20,7 @@ function show(person){
   sourcesLabel:english()?'Sources':'Πηγές'
  });window.ArchelaosRelated?.appendPerson(person.id);return true;
 }
-async function open(id){const data=await load();return show(data.byId.get(id))}
+async function open(id){const data=await load();return show(data.byId.get(window.ArchelaosFavorites?.canonicalPersonId?.(id)||id))}
 function idFromLink(href){
  try{const url=new URL(href,location.href);if(url.origin!==location.origin)return null;
   return url.pathname.match(/^\/people\/(arch-[a-z0-9-]+)\.html$/)?.[1]||null;}

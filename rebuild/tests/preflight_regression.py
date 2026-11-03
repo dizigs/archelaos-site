@@ -61,7 +61,7 @@ def must_find(name, report, kind, severity="errors"):
 
 def main():
     clean = fixture()
-    assert kinds(clean) == {"missing-pages"}, kinds(clean)
+    assert kinds(clean) == {"missing-pages", "hall-profile-parity"}, kinds(clean)
     assert not clean["warnings"], clean["warnings"]
 
     missing = fixture(lambda root: modify_html(

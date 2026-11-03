@@ -15,7 +15,7 @@
     uptime.className = 'arch-program-uptime';
     const eyebrow = document.createElement('span');
     eyebrow.className = 'arch-program-eyebrow';
-    eyebrow.textContent = 'Πρόγραμμα παρακολούθησης διαθεσιμότητας';
+    eyebrow.textContent = 'Με τη στήριξη';
     const sponsor = document.createElement('a');
     sponsor.href = 'https://uptimerobot.com/';
     sponsor.target = '_blank';
@@ -26,15 +26,15 @@
     // Official first-party logo referenced by UptimeRobot's sponsorship page.
     logo.src = 'https://uptimerobot.com/assets/images/uptimerobot-logo-dark.svg';
     logo.alt = 'UptimeRobot';
-    logo.width = 142;
-    logo.height = 34;
+    logo.width = 112;
+    logo.height = 27;
     logo.loading = 'lazy';
     logo.decoding = 'async';
     sponsor.append(logo);
     uptime.append(eyebrow, sponsor);
     const google = document.createElement('p');
     google.className = 'arch-program-google';
-    google.append(document.createTextNode('Ο Γ.Α.Σ. «Ο Αρχέλαος» συμμετέχει στο πρόγραμμα '));
+    google.append(document.createTextNode('Συμμετέχουμε στο '));
     const programme = document.createElement('a');
     programme.href = 'https://www.google.com/nonprofits/';
     programme.target = '_blank';

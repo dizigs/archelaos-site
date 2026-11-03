@@ -4,10 +4,9 @@ const init=()=>{
  // Exact live archive count, not a decorative approximate number.
  const total=document.querySelector('#new-people-total');
  if(total){
-  const url=location.pathname.startsWith('/rebuild/')?'/rebuild/data/people.json':'/assets/site/data/people.json';
-  fetch(url).then(r=>{if(!r.ok)throw Error('people count unavailable');return r.json()})
-   .then(data=>{const count=data.people?.length;if(Number.isInteger(count)&&count>0)total.textContent=count.toLocaleString('el-GR')})
-   .catch(()=>{}); // The verified build-time 682 remains visible if offline.
+  fetch('/hall-of-fame-people.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('people count unavailable');return r.json()})
+   .then(data=>{const count=data.people?.length;if(Number.isInteger(count)&&count>0&&data.count===count)total.textContent=count.toLocaleString('el-GR')})
+   .catch(()=>{}); // Keep a neutral placeholder rather than showing a stale legacy count.
  }
  // Keep image cards polished even if an external host blocks or removes a photo.
  for(const img of document.querySelectorAll('.new-slide img')){

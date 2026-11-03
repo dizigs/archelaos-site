@@ -122,7 +122,24 @@ class SnapshotSecurity(unittest.TestCase):
         with patch.object(module.os, "fdopen", failing_stream), self.assertRaises(OSError):
             module.write_snapshot()
         self.assertEqual(destination.read_text(), self.original)
-        self.assertEqual(list(self.root.glob(".public-snapshot-*.tmp")), [])
+        self.assertEqual(list(self.root.glob(".public-report-*.tmp")), [])
+
+    def test_shared_writer_rejects_unapproved_and_traversal_names(self):
+        module = self.subject()
+        with module.output_directory(()) as directory:
+            for name in ("../outside.json", str(self.outside), "unrelated.json"):
+                with self.subTest(name=name), self.assertRaises(ValueError):
+                    module.replace_report(directory, name, "must not be written")
+        self.assertEqual(self.outside.read_text(), self.original)
+        self.assertFalse((self.root / "unrelated.json").exists())
+
+    def test_shared_writer_supports_each_reviewed_report_slot(self):
+        module = self.subject()
+        with module.output_directory(()) as directory:
+            for name in module.APPROVED_REPORT_NAMES:
+                with self.subTest(name=name):
+                    module.replace_report(directory, name, "synthetic public report\n")
+                    self.assertEqual((self.root / name).read_text(), "synthetic public report\n")
 
     def test_parent_swap_during_write_cannot_redirect_replace(self):
         module = self.subject()

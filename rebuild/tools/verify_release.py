@@ -121,7 +121,7 @@ def verify() -> None:
         assert "<footer" not in text.lower(), "Duplicated legacy footer in " + file.name
         assert '/assets/site/css/components.css' in text, "Shared controls CSS missing: " + file.name
 
-    # All public routes (13 pages, 682 biographies and 404) must share one
+    # All public routes (core pages, canonical biographies and 404) must share one
     # footer, accessibility trigger and return-to-top implementation.
     not_found=(DIST/"404.html").read_text(encoding="utf-8")
     assert '/assets/site/js/shell.js' in not_found and '/assets/site/css/components.css' in not_found, "404 is missing site-wide tools"
@@ -140,7 +140,22 @@ def verify() -> None:
     hall = json.loads((DIST / "hall-of-fame-people.json").read_text(encoding="utf-8"))
     modal = json.loads((DIST / "assets/site/data/people.json").read_text(encoding="utf-8"))
     assert hall == master == modal, "Hall of Fame release differs from canonical master"
+    aliases = json.loads((ROOT/"hall-of-fame-person-aliases.json").read_text(encoding="utf-8"))["aliases"]
+    assert json.loads((DIST/"hall-of-fame-person-aliases.json").read_text(encoding="utf-8"))["aliases"] == aliases
+    canonical_ids = {p["id"] for p in master["people"]}
+    redirects = (DIST/"_redirects").read_text(encoding="utf-8")
+    favorites_code = (DIST/"assets/site/js/favorites.js").read_text(encoding="utf-8")
+    for old_id, current_id in aliases.items():
+        assert old_id not in canonical_ids and current_id in canonical_ids, "Broken Hall identity migration"
+        assert not (DIST/"people"/(old_id+".html")).exists(), "Duplicate retired Hall profile still public"
+        assert f"/people/{old_id}.html /people/{current_id}.html 301" in redirects, "Missing permanent historical profile redirect"
+        assert old_id in favorites_code and current_id in favorites_code, "Old favorite identity not migrated"
+    for js_path in ("biographies.js", "archive-catalog.js", "home.js"):
+        code = (DIST / "assets/site/js" / js_path).read_text(encoding="utf-8")
+        assert "/hall-of-fame-people.json" in code, "Legacy Hall feed in " + js_path
     assert hall["count"] == len(hall["people"]), "Hall count inconsistent"
+    assert f'<strong id="hall-total">{hall["count"]}</strong>' in (DIST/"hall-of-fame.html").read_text(encoding="utf-8"), "Hall hero has stale profile count"
+    assert f'<span id="new-people-total">{hall["count"]}</span>' in (DIST/"index.html").read_text(encoding="utf-8"), "Homepage has stale profile count"
     ids = [person["id"] for person in hall["people"]]
     assert len(ids) == len(set(ids)), "Duplicate Hall person identifiers"
     names = [(p["name"].strip().casefold(), p.get("role", "").strip().casefold()) for p in hall["people"]]

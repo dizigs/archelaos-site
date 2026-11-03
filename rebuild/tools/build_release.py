@@ -35,6 +35,7 @@ STATIC_ROOT = (
     "favicon.ico", "favicon-180.png", "favicon-192.png", "favicon-512.png",
     "archelaos-history-events.json", "archelaos-person-index.json",
     "archelaos-person-links.js", "hall-of-fame-people.json",
+    "hall-of-fame-person-aliases.json",
     "interviews.json",  # Public interview archive; required by interviews.html
 )
 COMMON_FOLDERS = ("assets", "images")
@@ -225,13 +226,19 @@ def make_release() -> None:
     # Publish the live news page and its JSON feed alongside the core museum pages.
     for filename in ("news.html", "news.json"):
         copy2(ROOT / filename, OUTPUT / filename)
-    # Use the reviewed, full-format 682-profile source; the live root has a
+    # Use the reviewed, full-format historical template source; the live root has a
     # different legacy HTML layout and must not be overwritten to build dist.
     copytree(STAGE / "source-profiles", OUTPUT / "people")
-    # Keep the 682 rich archival pages and publish every additional canonical
+    # Keep the rich archival template pages and publish every additional canonical
     # Hall of Fame profile from the root master, including new youth athletes.
     current_master = json.loads((ROOT / "hall-of-fame-people.json").read_text(encoding="utf-8"))
     current_master_ids = {person["id"] for person in current_master["people"]}
+    aliases = json.loads((ROOT / "hall-of-fame-person-aliases.json").read_text(encoding="utf-8"))["aliases"]
+    if (set(aliases) & current_master_ids) or not set(aliases.values()).issubset(current_master_ids):
+        raise ValueError("Hall aliases point to missing canonical IDs or preserve retired IDs")
+    # Retired rich source templates remain in Git history but never produce a duplicate public page.
+    for retired_id in aliases:
+        (OUTPUT / "people" / (retired_id + ".html")).unlink(missing_ok=True)
     for person_id in sorted(current_master_ids):
         target = OUTPUT / "people" / (person_id + ".html")
         if target.exists():
@@ -253,15 +260,17 @@ def make_release() -> None:
         script = script.replace("/rebuild/", "/assets/site/")
         script_path.write_text(script, encoding="utf-8")
     copytree(STAGE / "images", OUTPUT / "assets" / "site" / "images")
-    # The old public JSON endpoint must reflect exactly the same edited people
-    # as the new Hall of Fame; otherwise stale corrections remain discoverable.
-    copy2(STAGE / "data" / "people.json", OUTPUT / "hall-of-fame-people.json")
+    # Always derive the public Hall feed from the canonical root master.
+    # The staged archive is a legacy profile source, never a production feed.
+    copy2(ROOT / "hall-of-fame-people.json", OUTPUT / "hall-of-fame-people.json")
     # Only independently approved, conflict-free relations may enter public data.
     # Never copy research source, review queue or owner-only information to dist.
     from build_event_graph import compile_graph
     event_research = json.loads((STAGE / "research" / "historical-events.json").read_text(encoding="utf-8"))
-    owner_graph = compile_graph(event_research,
-        json.loads((STAGE / "data" / "people.json").read_text(encoding="utf-8"))["people"])
+    # Use the same complete identity set for the event graph and public Hall.
+    # Otherwise added athletes disappear from graph relations while remaining
+    # visible in Hall modals and standalone profile pages.
+    owner_graph = compile_graph(event_research, current_master["people"])
     editorially_approved = sum(e.get("editorial_status") == "approved"
                               for e in event_research["events"])
     if len(owner_graph["events"]) != editorially_approved:
@@ -275,7 +284,7 @@ def make_release() -> None:
     link_graph = generate_archive_links()
     (OUTPUT / "assets" / "site" / "data" / "archive-relationships.json").write_text(
         js_data(link_graph) + "\n", encoding="utf-8")
-    # Keep all 682 historic profile URLs/Person metadata, but replace the old
+    # Keep all historical profile URLs/Person metadata, but replace the old
     # per-profile navbar/footer with the shared site-wide shell in the generated release.
     # Source backup profiles remain completely untouched.
     profiles = sorted((OUTPUT / "people").glob("arch-*.html"))
@@ -470,7 +479,7 @@ def make_release() -> None:
     viewport_css.write_text(viewport_text, encoding="utf-8")
 
     # Keep public Hall SEO counts in sync with the reviewed master on every build.
-    # Historic standalone biography pages (682) are a separate archive.
+    # Historic staged standalone biography templates are a separate archive.
     people_source = json.loads((ROOT / "hall-of-fame-people.json").read_text(encoding="utf-8"))
     hall_total = len(people_source["people"])
     if people_source.get("count") != hall_total:
@@ -499,7 +508,7 @@ def make_release() -> None:
     if expected != actual:
         raise RuntimeError(f"Profile file mismatch: missing={len(expected-actual)} extra={len(actual-expected)}")
     # The Hall listing and biography modal must use the current reviewed master file,
-    # not the older 682-person profile snapshot used for standalone archive pages.
+    # not the legacy template snapshot used for historical standalone pages.
     master_people = json.loads((ROOT / "hall-of-fame-people.json").read_text(encoding="utf-8"))
     if master_people.get("count") != len(master_people.get("people", [])):
         raise RuntimeError("Hall of Fame master data count mismatch")
@@ -510,13 +519,24 @@ def make_release() -> None:
     homepage = OUTPUT / "index.html"
     home_html = homepage.read_text(encoding="utf-8")
     home_html, count_matches = re.subn(
-        r'(<span id="new-people-total">)\d+(</span>)',
+        r'(<span id="new-people-total">)[^<]+(</span>)',
         lambda match: match.group(1) + str(len(master_people["people"])) + match.group(2),
         home_html,
     )
     if count_matches != 1:
         raise RuntimeError("Expected one homepage Hall of Fame count")
     homepage.write_text(home_html, encoding="utf-8")
+    # The visible Hall hero must also be accurate before its dynamic JS loads.
+    hall_html_file = OUTPUT / "hall-of-fame.html"
+    hall_html = hall_html_file.read_text(encoding="utf-8")
+    hall_html, hall_matches = re.subn(
+        r'(<strong id="hall-total">)[^<]*(</strong>)',
+        lambda match: match.group(1) + str(hall_total) + match.group(2),
+        hall_html,
+    )
+    if hall_matches != 1:
+        raise RuntimeError("Expected one Hall hero count placeholder")
+    hall_html_file.write_text(hall_html, encoding="utf-8")
 
 
     from build_match_schedule import calendar as make_ical, validate as validate_matches
@@ -586,7 +606,7 @@ def make_release() -> None:
         ]
     })+"\n", encoding="utf-8")
     # Error routes receive the same navigation, accessibility controls,
-    # scroll-to-top and footer as the 13 principal pages and 682 profiles.
+    # scroll-to-top and footer as the principal pages and all canonical profiles.
     (OUTPUT / "404.html").write_text(
         '<!doctype html><html lang="el"><head><meta charset="utf-8">'
         '<meta name="viewport" content="width=device-width,initial-scale=1">'
@@ -606,7 +626,7 @@ def make_release() -> None:
         '</main></body></html>', encoding="utf-8"
     )
     # Fingerprint every generated HTML reference to our shared CSS and JS,
-    # including all 682 people profiles and the 404 page. This prevents a split
+    # including all canonical people profiles and the 404 page. This prevents a split
     # between cached mobile styles and fresh desktop HTML after deployment.
     static_ref = re.compile(
         r'(?P<quote>["\x27])(?P<asset>/assets/site/(?:css|js)/'

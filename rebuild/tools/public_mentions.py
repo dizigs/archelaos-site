@@ -9,18 +9,31 @@ import argparse
 from datetime import datetime, timezone
 from email.utils import parsedate_to_datetime
 import json
+import os
 from pathlib import Path
 import re
+import stat
 import sys
+from contextlib import contextmanager
 from urllib.parse import urlsplit
 from urllib.request import Request, urlopen
 from xml.etree import ElementTree as ET
 from html import unescape
+if __package__:
+    from .public_snapshot import output_directory, replace_report, validate_reports
+else:
+    from public_snapshot import output_directory, replace_report, validate_reports
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT = ROOT / "research" / "public-mentions-sources.json"
 LIMIT = 1_000_000
 ATOM = "{http://www.w3.org/2005/Atom}"
+CONFIG_CHOICE = "rebuild/research/public-mentions-sources.json"
+DEFAULT_OUTPUT = "rebuild/test-artifacts/public-mentions.json"
+REPORT_OUTPUTS = {
+    DEFAULT_OUTPUT: (("rebuild", "test-artifacts"), "public-mentions.json"),
+    "public-mentions-report.json": ((), "public-mentions-report.json"),
+}
 
 
 def normalize(value: str) -> str:
@@ -129,15 +142,59 @@ def collect(config: dict, opener=urlopen) -> dict:
     }
 
 
+def load_public_registry():
+    with output_directory(("rebuild", "research")) as directory:
+        descriptor = os.open("public-mentions-sources.json", os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK,
+                             dir_fd=directory)
+        try:
+            metadata = os.fstat(descriptor)
+            if not stat.S_ISREG(metadata.st_mode) or metadata.st_nlink != 1 or metadata.st_size > LIMIT:
+                raise ValueError("Public registry must be a bounded ordinary, non-linked file")
+            with os.fdopen(descriptor, "rb", closefd=False) as stream:
+                payload = stream.read(LIMIT + 1)
+            if len(payload) > LIMIT:
+                raise ValueError("Public registry exceeds byte limit")
+            config = json.loads(payload)
+            if not isinstance(config, dict):
+                raise ValueError("Public registry must be an object")
+            return config
+        finally:
+            os.close(descriptor)
+
+
+@contextmanager
+def report_destination(choice):
+    if choice not in REPORT_OUTPUTS:
+        raise ValueError("Public report destination is not allowlisted")
+    parts, name = REPORT_OUTPUTS[choice]
+    with output_directory(parts) as directory:
+        validate_reports(directory, (name,))
+        yield directory, name
+
+
+def write_report(report, directory, name):
+    if name not in ("public-mentions.json", "public-mentions-report.json"):
+        raise ValueError("Public report filename is not allowlisted")
+    payload = json.dumps(report, ensure_ascii=False, indent=2) + "\n"
+    replace_report(directory, name, payload)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--config",type=Path,default=DEFAULT)
-    parser.add_argument("--output",type=Path,default=ROOT/"test-artifacts"/"public-mentions.json")
+    parser.add_argument("--config", choices=(CONFIG_CHOICE,), default=CONFIG_CHOICE,
+                        help="Only the reviewed public source registry is permitted")
+    parser.add_argument("--output", choices=tuple(REPORT_OUTPUTS), default=DEFAULT_OUTPUT,
+                        help="Fixed checkout-relative report location; arbitrary paths are rejected")
     args = parser.parse_args()
-    config = json.loads(args.config.read_text(encoding="utf-8"))
-    report = collect(config)
-    args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+    try:
+        # Validate/anchor the output before collection so rejected paths cause
+        # neither registry reads nor unnecessary external feed requests.
+        with report_destination(args.output) as (directory, name):
+            report = collect(load_public_registry())
+            write_report(report, directory, name)
+    except (OSError, ValueError) as error:
+        parser.exit(2, "PUBLIC MENTIONS failed (" + type(error).__name__ +
+                    "): check the approved registry and fixed report location.\n")
     print("PUBLIC MENTIONS:",report["candidate_count"],"unverified candidates,",
           len(report["warnings"]),"feed warnings; published: 0")
     return 0 if not report["warnings"] else 1

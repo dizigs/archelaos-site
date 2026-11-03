@@ -1,7 +1,7 @@
 {
   "version": 1,
   "as_of": "2026-11-03",
-  "status": "draft_identity_merge_pending_generated_page_reconciliation",
+  "status": "draft_reconciled_against_latest_main_with_alias_redirects_pending_ci",
   "scope": "Two highly likely duplicate pairs; cross-sport biography enrichment for one existing person.",
   "merges": [
     {
@@ -73,6 +73,7 @@
     "Regenerate people/ static SEO pages and rebuild/source-profiles; preserve legacy URL redirects.",
     "Regenerate sitemap and profile index; maintain deep links and favorites under retired IDs.",
     "Re-run UI, SEO, count and CI checks before merge to main.",
-    "No automated merge or production deployment from this draft."
+    "No automated merge or production deployment from this draft.",
+    "Preserve corrected Στροσκίδου spelling from main; verify original rich biography data before removing any source templates."
   ]
 }

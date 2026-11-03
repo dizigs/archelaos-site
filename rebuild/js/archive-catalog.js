@@ -4,6 +4,8 @@
 (function(){'use strict';
 let pending=null;
 const NAMES=['people','moments','stories','home','museum','interviews','match-schedule'];
+// The same canonical Hall identity feed is used by preview, release and individual popups.
+const dataUrl=name=>name==='people'?'/hall-of-fame-people.json':'/rebuild/data/'+name+'.json';
 const normalize=text=>String(text||'').normalize('NFD')
   .replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('el').replace(/\s+/g,' ').trim();
 const urlFor=(type,id,entity)=>{
@@ -41,11 +43,11 @@ function plainText(html){
 }
 async function create(){
  const [people,moments,stories,home,museum,interviews,schedule]=await Promise.all(NAMES.map(async name=>{
-  const response=await fetch('/rebuild/data/'+name+'.json');
+  const response=await fetch(dataUrl(name),{cache:name==='people'?'no-store':'default'});
   if(!response.ok)throw Error('Archive '+name+' HTTP '+response.status);
   return response.json();
  }));
- if(people.people?.length<682||moments.moments?.length!==70||
+ if(!Number.isInteger(people.count)||people.people?.length!==people.count||people.count<1||moments.moments?.length!==70||
   stories.stories?.length<21||home.sports?.length<8||
   museum.articles?.length<14||museum.press?.length<10||interviews.items?.length<25)
    throw Error('Incomplete canonical sports archive');
