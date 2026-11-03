@@ -157,3 +157,23 @@ state-secret changes can disrupt existing authorizations; do not clear AUTH_KV
 or change the trigger as a shortcut. GitHub handoff should use an existing
 repository-scoped credential/App with the minimum supported permissions, not a
 new broad classic token or an assumed Codex API.
+
+## Real metadata probe — 3 November 2026, 23:18 Athens
+
+[Actions run 41720580206](https://github.com/dizigs/archelaos-site/actions/runs/41720580206),
+head `c6306d7324cb62873da31ed4ff2f2985edf11e18`, job/check `126211968100`:
+all 16 offline tests passed; the actual read-only probe exited 1 (**BLOCKED**).
+Its `Automation bridge access evidence` annotation records:
+
+- `GET https://api.cloudflare.com/client/v4/accounts/898359728b3dfe8c3a3f56e3d19eecd1/pages/projects/archelaos-site/deployments?per_page=1`: **HTTP 200**.
+- `GET https://api.cloudflare.com/client/v4/accounts/898359728b3dfe8c3a3f56e3d19eecd1/workers/scripts/archelaos-automation-bridge/settings`: **HTTP 403**, response layer `provider_http`, no structured numeric error codes observed.
+
+The same existing credential reaches Cloudflare and reads Pages, but cannot
+read this Worker's settings. This establishes Workers permission/resource-scope
+denial, distinct from the local proxy CONNECT 403. It does not establish a
+specific missing token policy or that Google credentials are invalid. An
+account administrator must inspect the account/resource scope and grant only
+Workers Scripts Read needed for this audit. No failed call was repeated.
+No secret values, private Google content, configuration mutation or deployment
+were performed. The prior production Pages evidence for main `86c6c1b` is
+separate and does not prove this bridge works.
