@@ -15,7 +15,7 @@
 
 ```bash
 python tools/self_heal_evidence.py /path/to/local-incident.json
-python tools/self_heal_evidence.py /path/to/local-incident.json --journal rebuild/test-artifacts/self-heal/triage.sqlite3
+python tools/self_heal_evidence.py /path/to/local-incident.json --journal
 python -m unittest discover -s tests -p 'test_self_heal_evidence.py' -v
 ```
 
