@@ -248,14 +248,12 @@ class RepositoryReconciliationTests(unittest.TestCase):
     def test_limpanovnos_canonical_identity(self):
         self.assertEqual(self.people["arch-f56820c52e55"]["name"], "Χρήστος Λιμπανοβνός")
 
-    def test_tortopidis_both_languages_keep_conflict_and_neutral_participation(self):
+    def test_tortopidis_public_bio_keeps_podium_without_disputed_rank(self):
         person = self.people["arch-3fe6e9ae9b29"]
-        for key, neutral, caveat in [("bio", "συμμετοχή", "προς διασταύρωση"),
-                                     ("bio_en", "competed", "remains unresolved")]:
-            self.assertIn(neutral, person[key].split("\n\n")[0])
-            self.assertIn(caveat, person[key])
-        self.assertIn("δεύτερη ομαδική", person["bio"])
-        self.assertIn("second-place team", person["bio_en"])
+        self.assertIn("ανέβηκε στο βάθρο", person["bio"])
+        self.assertIn("reached the podium", person["bio_en"])
+        self.assertNotIn("πρωταθλητή Ελλάδας", person["bio"])
+        self.assertNotIn("δεύτερη θέση", person["bio"])
 
     def test_restored_team_roster_has_same_approved_news_evidence(self):
         person = self.people["arch-f6152b60c43f"]
@@ -308,10 +306,39 @@ class RepositoryReconciliationTests(unittest.TestCase):
                 self.assertIsNotNone(after, pid + "/" + lang)
                 if before and normalized(before[1]) and normalized(before[1]) in normalized(person.get(key, "")):
                     self.assertEqual(normalized(after[1]), normalized(person[key]), pid + "/" + lang)
+                elif pid in {"arch-3fe6e9ae9b29", "arch-af9470c5745f",
+                             "arch-999730e06982", "arch-f6152b60c43f"}:
+                    # A club-approved editorial correction overrides legacy public
+                    # text while the original archived source stays unchanged.
+                    self.assertEqual(normalized(after[1]), normalized(person[key]), pid + "/" + lang)
                 elif before:
                     # Archival additions are appended later; the original text
                     # must survive when no lossless substitution is possible.
                     self.assertIn(normalized(before[1]), normalized(after[1]), pid + "/" + lang)
+
+    def test_four_reviewed_profiles_are_consistent_in_public_release(self):
+        targets = ("arch-3fe6e9ae9b29", "arch-af9470c5745f",
+                   "arch-999730e06982", "arch-f6152b60c43f")
+        published_archive = indexed(json.loads(
+            (ROOT / "dist/assets/site/data/people.json").read_text(encoding="utf-8")))
+        for pid in targets:
+            canonical = self.people[pid]
+            public_html = (ROOT / "dist/people" / (pid + ".html")).read_text(encoding="utf-8")
+            for language, key in (("el", "bio"), ("en", "bio_en")):
+                self.assertEqual(normalized(published_archive[pid][key]),
+                                 normalized(canonical[key]), pid + "/published-archive-" + key)
+                match = re.search(r'<section\b[^>]*data-profile-language="' + language
+                                  + r'"[^>]*>.*?<div class="bio">(.*?)</div>', public_html, re.S)
+                self.assertIsNotNone(match, pid + "/" + language)
+                self.assertEqual(normalized(match[1]), normalized(canonical[key]),
+                                 pid + "/profile-" + language)
+        tort = (ROOT / "dist/people/arch-3fe6e9ae9b29.html").read_text()
+        savvas = (ROOT / "dist/people/arch-af9470c5745f.html").read_text()
+        kyparissi = (ROOT / "dist/people/arch-999730e06982.html").read_text()
+        self.assertNotIn("πρωταθλητή Ελλάδας", tort)
+        self.assertNotIn("115 κιλών", savvas)
+        self.assertNotIn("βασική ακραία", kyparissi)
+        self.assertIn("Εθνική Ομάδα Γυναικών", kyparissi)
 
     def test_verified_profile_addenda_are_not_duplicated_by_projection(self):
         additions = json.loads((ROOT / "rebuild/data/people-addenda.json").read_text())["entries"]
