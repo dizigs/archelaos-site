@@ -46,7 +46,9 @@ async function main() {
         await globalDialog.waitFor();
         assert.ok(normalized(await globalDialog.innerText()).includes(normalized(person.bio_en)), id + ': global English biography');
         await globalDialog.locator('.arch-bio-close').click();
-        await page.goto(base + '/people/' + id + '.html');
+        const profileResponse = await page.goto(base + '/people/' + id + '.html');
+        assert.ok(profileResponse, id + ': standalone response exists');
+        assert.equal(profileResponse.status(), 200, id + ': standalone profile route');
         await page.locator('.arch-header').waitFor();
         if (id === 'arch-3fe6e9ae9b29') {
           assert.ok((await page.locator('section[data-profile-language="en"]').textContent()).includes('remains unresolved'));
