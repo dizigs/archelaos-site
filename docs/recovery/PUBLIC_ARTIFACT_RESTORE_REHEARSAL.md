@@ -35,3 +35,11 @@ An offline PASS means the artifact bytes are internally consistent. It does **no
 
 ## Coordination
 No edits to the existing snapshot/health/self-heal workflows or public datasets in this PR. Codex continues to own those active implementation areas; report readiness without marking production success.
+
+## Optional real GitHub artifact readback (available only after workflow lands on default branch)
+
+The PR-only checks prove a built ZIP. A second `workflow_dispatch` job (not scheduled) is prepared to retrieve the latest successful `weekly-public-snapshot.yml` artifact from the **same repository**, or a specified run ID. It validates the exact source workflow, successful main-branch run, artifact name, unexpired status, bounded size, ZIP contents, checksum/counts and equality of the manifest commit SHA to the originating run.
+
+The provider job uses read-only `contents:read` and `actions:read` GitHub token permissions. It leaves the backup ZIP only in the ephemeral GitHub runner, uploads the **JSON verification report only** for 14 days and makes no production/Cloudflare/DNS or backup-store changes. No new cron and no auto-dispatch are introduced.
+
+This provider readback has **not been executed or verified**. A workflow-dispatch input cannot be assumed usable on a draft PR branch before the workflow exists on the default branch. Run it after review/merge, check actual run/job evidence, and still perform a separate isolated full-site restore drill.
