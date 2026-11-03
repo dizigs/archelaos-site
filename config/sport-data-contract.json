@@ -1,0 +1,80 @@
+{
+  "version": 1,
+  "policy": "registry-only-no-production-collection",
+  "canonicalOrigin": "https://archelaos.club",
+  "person": {
+    "canonicalIdField": "personId",
+    "canonicalIdSource": "hall-of-fame-people.json",
+    "externalIdentityKey": [
+      "provider",
+      "externalPlayerId"
+    ],
+    "verificationRequired": true,
+    "automaticNameMatchAllowed": false,
+    "mutateCanonicalProfileAllowed": false
+  },
+  "events": {
+    "canonicalEventIdField": "eventId",
+    "canonicalSource": "archelaos.club",
+    "deduplicateBy": [
+      "eventId"
+    ],
+    "required": [
+      "eventId",
+      "sportKey",
+      "eventDate",
+      "sourceUrl"
+    ],
+    "optional": [
+      "competition",
+      "location",
+      "discipline",
+      "resultSummary",
+      "personIds"
+    ],
+    "publicationRule": "only-verified-public-competition-events",
+    "notes": "No personal, guardian, medical, registration data or inferred minors' identities"
+  },
+  "analytics": {
+    "mode": "proposal-not-active",
+    "requiredContext": [
+      "sport_section",
+      "site_host"
+    ],
+    "allowedEvents": [
+      "sport_contact_click",
+      "sport_schedule_view",
+      "sport_document_download",
+      "sport_event_open",
+      "sport_athlete_open",
+      "sport_history_open"
+    ],
+    "allowedParameters": [
+      "sport_section",
+      "site_host",
+      "link_type",
+      "document_category",
+      "content_type"
+    ],
+    "disallowedParameters": [
+      "name",
+      "personId",
+      "externalPlayerId",
+      "email",
+      "phone",
+      "birthDate",
+      "guardian",
+      "medical",
+      "free_text",
+      "search_term"
+    ],
+    "consentPolicy": "requires-verified-site-consent-and-GA4-tag-configuration",
+    "notes": "Never emit person identifiers or document names to analytics; page location requires separate privacy review"
+  },
+  "urlPolicy": {
+    "history": "central-only",
+    "hall": "central-only",
+    "externalLinks": "https-only",
+    "canonicalHost": "archelaos.club"
+  }
+}
