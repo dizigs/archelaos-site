@@ -26,3 +26,10 @@ Date: 2026-11-03 (Europe/Athens).
 - Completed: isolated source implementation, stylesheet and tests; all production source page include points are present in a dedicated branch.
 - Pending: GitHub PR CI, Cloudflare deployment confirmation, live visual QA and sponsor activation.
 - Blocker/uncertainty: official logo archive download restricted in working environment; first-party image URL is used instead of an invented brand file. The external image remains a dependency.
+
+
+## Verified CI failure and targeted correction (03/11/2026)
+- GitHub workflow `Sponsor footer regression`, run [41586185476](https://github.com/dizigs/archelaos-site/actions/runs/41586185476), job `125752119856`: first head FAILED. Exact cause in job log: `AssertionError: dist/news.html`.
+- The source Node tests **3/3 passed**, `build_release.py` **passed** and `verify_release.py` **passed** before this assertion. The global news page is copied verbatim from root `news.html`, not rebuilt from one of the 15 `rebuild/*.html` pages.
+- Corrected in existing PR, **not** by weakening CI: root `news.html` now references the exact same rebuilt sponsor CSS/JS assets, commit `4aa77d644af8c0a4a398f8193e13cc6816d47ebc`. Expanded regression tests to require this special source, commit `60c6bb576b8531969e86c1794cb16410c544916c`. All other original 15 page links remain unchanged.
+- New CI/head checks are required to pass before readiness or merge; a successful Cloudflare **PR preview** is not a production deployment.
