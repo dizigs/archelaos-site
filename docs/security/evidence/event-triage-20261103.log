@@ -1,0 +1,254 @@
+Actual local results; no provider/production claim.
+
+Correct baseline, synthetic fixtures only
+FF.FFFFFFFF
+======================================================================
+FAIL: test_arbitrary_and_traversal_paths_are_rejected (__main__.TriageSecurity.test_arbitrary_and_traversal_paths_are_rejected) (flag='--json', value='/tmp/tmp24tuvtwm/repo/rebuild/test-artifacts/unrelated.txt')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/archelaos-event-triage-confinement/rebuild/tests/event_triage_security_test.py", line 63, in test_arbitrary_and_traversal_paths_are_rejected
+    self.assertNotEqual(result.returncode, 0)
+AssertionError: 0 == 0
+
+======================================================================
+FAIL: test_arbitrary_and_traversal_paths_are_rejected (__main__.TriageSecurity.test_arbitrary_and_traversal_paths_are_rejected) (flag='--markdown', value='/tmp/tmp24tuvtwm/repo/rebuild/test-artifacts/unrelated.txt')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/archelaos-event-triage-confinement/rebuild/tests/event_triage_security_test.py", line 63, in test_arbitrary_and_traversal_paths_are_rejected
+    self.assertNotEqual(result.returncode, 0)
+AssertionError: 0 == 0
+
+======================================================================
+FAIL: test_destination_symlinks_are_rejected_inside_and_outside (__main__.TriageSecurity.test_destination_symlinks_are_rejected_inside_and_outside) (report='rebuild/test-artifacts/event-review-queue.json', destination=PosixPath('/tmp/tmprqog5_py/repo/rebuild/test-artifacts/unrelated.txt'))
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/archelaos-event-triage-confinement/rebuild/tests/event_triage_security_test.py", line 102, in test_destination_symlinks_are_rejected_inside_and_outside
+    self.assertEqual(destination.read_text(), self.original)
+AssertionError: '{\n  "schema_version": 1,\n  "dataset_fin[163 chars]n}\n' != 'synthetic public sentinel'
++ synthetic public sentinel
+- {
+-   "schema_version": 1,
+-   "dataset_fingerprint": "48de6e36d78eabb6339c7288e9d4e42d05662dd842b80d3385c7149b59c8ba36",
+-   "advisory_only": true,
+-   "owner_decides": true,
+-   "rows": [],
+-   "summary": {}
+- }
+- 
+
+
+======================================================================
+FAIL: test_destination_symlinks_are_rejected_inside_and_outside (__main__.TriageSecurity.test_destination_symlinks_are_rejected_inside_and_outside) (report='rebuild/test-artifacts/event-review-queue.md', destination=PosixPath('/tmp/tmprqog5_py/repo/rebuild/test-artifacts/unrelated.txt'))
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/archelaos-event-triage-confinement/rebuild/tests/event_triage_security_test.py", line 102, in test_destination_symlinks_are_rejected_inside_and_outside
+    self.assertEqual(destination.read_text(), self.original)
+AssertionError: '# Αρχέλαος · Εσωτερική λίστα γεγονότων πρ[368 chars]ο.\n' != 'synthetic public sentinel'
++ synthetic public sentinel
+- # Αρχέλαος · Εσωτερική λίστα γεγονότων προς έλεγχο
+- 
+- Η πρόταση του εργαλείου **δεν αποτελεί επιβεβαίωση**. Την τελική απόφαση τη λαμβάνει ο υπεύθυνος του αρχείου.
+- 
+- Στιγμιότυπο: 48de6e36d78eabb6
+- 
+- | # | Γεγονός | Σύσταση | Πηγές |
+- |---:|---|---|---:|
+- 
+- ## Χρειάζονται επιπλέον στοιχεία
+- 
+- Για αποφάσεις χρησιμοποιούμε τους **σταθερούς κωδικούς ID**· οι αριθμοί ισχύουν μόνο για το συγκεκριμένο στιγμιότυπο.
+- 
+
+
+======================================================================
+FAIL: test_directory_destination_is_rejected (__main__.TriageSecurity.test_directory_destination_is_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/archelaos-event-triage-confinement/rebuild/tests/event_triage_security_test.py", line 118, in test_directory_destination_is_rejected
+    self.assertFalse((self.root / JSON_REPORT).exists())
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_explicit_fixed_choices_match_default_output (__main__.TriageSecurity.test_explicit_fixed_choices_match_default_output)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/archelaos-event-triage-confinement/rebuild/tests/event_triage_security_test.py", line 54, in test_explicit_fixed_choices_match_default_output
+    self.assertEqual(result.returncode, 0, result.stderr)
+AssertionError: 1 != 0 : Reports may only be written into ignored test-artifacts/
+
+
+======================================================================
+FAIL: test_hardlink_destinations_cannot_overwrite_outside (__main__.TriageSecurity.test_hardlink_destinations_cannot_overwrite_outside) (report='rebuild/test-artifacts/event-review-queue.json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/archelaos-event-triage-confinement/rebuild/tests/event_triage_security_test.py", line 88, in test_hardlink_destinations_cannot_overwrite_outside
+    self.assertEqual(self.outside.read_text(), self.original)
+AssertionError: '{\n  "schema_version": 1,\n  "dataset_fin[163 chars]n}\n' != 'synthetic public sentinel'
++ synthetic public sentinel
+- {
+-   "schema_version": 1,
+-   "dataset_fingerprint": "48de6e36d78eabb6339c7288e9d4e42d05662dd842b80d3385c7149b59c8ba36",
+-   "advisory_only": true,
+-   "owner_decides": true,
+-   "rows": [],
+-   "summary": {}
+- }
+- 
+
+
+======================================================================
+FAIL: test_hardlink_destinations_cannot_overwrite_outside (__main__.TriageSecurity.test_hardlink_destinations_cannot_overwrite_outside) (report='rebuild/test-artifacts/event-review-queue.md')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/archelaos-event-triage-confinement/rebuild/tests/event_triage_security_test.py", line 88, in test_hardlink_destinations_cannot_overwrite_outside
+    self.assertEqual(self.outside.read_text(), self.original)
+AssertionError: '# Αρχέλαος · Εσωτερική λίστα γεγονότων πρ[368 chars]ο.\n' != 'synthetic public sentinel'
++ synthetic public sentinel
+- # Αρχέλαος · Εσωτερική λίστα γεγονότων προς έλεγχο
+- 
+- Η πρόταση του εργαλείου **δεν αποτελεί επιβεβαίωση**. Την τελική απόφαση τη λαμβάνει ο υπεύθυνος του αρχείου.
+- 
+- Στιγμιότυπο: 48de6e36d78eabb6
+- 
+- | # | Γεγονός | Σύσταση | Πηγές |
+- |---:|---|---|---:|
+- 
+- ## Χρειάζονται επιπλέον στοιχεία
+- 
+- Για αποφάσεις χρησιμοποιούμε τους **σταθερούς κωδικούς ID**· οι αριθμοί ισχύουν μόνο για το συγκεκριμένο στιγμιότυπο.
+- 
+
+
+======================================================================
+FAIL: test_rejected_second_destination_leaves_first_report_unchanged (__main__.TriageSecurity.test_rejected_second_destination_leaves_first_report_unchanged)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/archelaos-event-triage-confinement/rebuild/tests/event_triage_security_test.py", line 110, in test_rejected_second_destination_leaves_first_report_unchanged
+    self.assertEqual(first.read_text(), self.original)
+AssertionError: '{\n  "schema_version": 1,\n  "dataset_fin[163 chars]n}\n' != 'synthetic public sentinel'
++ synthetic public sentinel
+- {
+-   "schema_version": 1,
+-   "dataset_fingerprint": "48de6e36d78eabb6339c7288e9d4e42d05662dd842b80d3385c7149b59c8ba36",
+-   "advisory_only": true,
+-   "owner_decides": true,
+-   "rows": [],
+-   "summary": {}
+- }
+- 
+
+
+======================================================================
+FAIL: test_symlinked_report_root_cannot_redirect_both_outputs (__main__.TriageSecurity.test_symlinked_report_root_cannot_redirect_both_outputs)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/archelaos-event-triage-confinement/rebuild/tests/event_triage_security_test.py", line 76, in test_symlinked_report_root_cannot_redirect_both_outputs
+    self.assertNotEqual(result.returncode, 0)
+AssertionError: 0 == 0
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.598s
+
+FAILED (failures=10)
+
+
+Corrected confinement
+........
+----------------------------------------------------------------------
+Ran 8 tests in 0.667s
+
+OK
+
+
+Existing triage plus security
+test_arbitrary_and_traversal_paths_are_rejected (triage_security.TriageSecurity.test_arbitrary_and_traversal_paths_are_rejected) ... ok
+test_default_reports_remain_advisory (triage_security.TriageSecurity.test_default_reports_remain_advisory) ... ok
+test_destination_symlinks_are_rejected_inside_and_outside (triage_security.TriageSecurity.test_destination_symlinks_are_rejected_inside_and_outside) ... ok
+test_directory_destination_is_rejected (triage_security.TriageSecurity.test_directory_destination_is_rejected) ... ok
+test_explicit_fixed_choices_match_default_output (triage_security.TriageSecurity.test_explicit_fixed_choices_match_default_output) ... ok
+test_hardlink_destinations_cannot_overwrite_outside (triage_security.TriageSecurity.test_hardlink_destinations_cannot_overwrite_outside) ... ok
+test_rejected_second_destination_leaves_first_report_unchanged (triage_security.TriageSecurity.test_rejected_second_destination_leaves_first_report_unchanged) ... ok
+test_symlinked_report_root_cannot_redirect_both_outputs (triage_security.TriageSecurity.test_symlinked_report_root_cannot_redirect_both_outputs) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.632s
+
+OK
+EVENT TRIAGE QA OK: stable IDs, source fingerprint, warnings, owner-only decision.
+
+
+Owner-decision compatibility
+OWNER DECISION QA OK: no auto approval, stale/blocked/duplicate rejection, dry-run default.
+
+
+Combined 22 security tests
+........fatal: Needed a single revision
+..............
+----------------------------------------------------------------------
+Ran 22 tests in 1.005s
+
+OK
+
+
+Public catalog byte compatibility; no source edits
+EDITORIAL TRIAGE: 19 events; {'hold_for_evidence': 7, 'candidate_for_owner_review': 12} — OWNER DECISION REQUIRED, NO AUTOMATIC APPROVAL.
+BYTE COMPATIBILITY PASS: both real public-catalog reports identical to main; source unchanged.
+
+
+Build
+BUILD OK: 15 principal pages, 760 profiles, two sitemaps, a sitemap index, robots.txt and preserved redirects.
+Output: dist/ — not deployed. Production root was not modified.
+RELEASE QA OK: 15 core pages + 760 indexed profiles.
+Canonicals, robots, structured data, two sitemaps, redirects and local paths verified.
+
+
+Independent verify
+RELEASE QA OK: 15 core pages + 760 indexed profiles.
+Canonicals, robots, structured data, two sitemaps, redirects and local paths verified.
+
+
+Latest main f250757 triage plus security
+test_arbitrary_and_traversal_paths_are_rejected (triage_security.TriageSecurity.test_arbitrary_and_traversal_paths_are_rejected) ... ok
+test_default_reports_remain_advisory (triage_security.TriageSecurity.test_default_reports_remain_advisory) ... ok
+test_destination_symlinks_are_rejected_inside_and_outside (triage_security.TriageSecurity.test_destination_symlinks_are_rejected_inside_and_outside) ... ok
+test_directory_destination_is_rejected (triage_security.TriageSecurity.test_directory_destination_is_rejected) ... ok
+test_explicit_fixed_choices_match_default_output (triage_security.TriageSecurity.test_explicit_fixed_choices_match_default_output) ... ok
+test_hardlink_destinations_cannot_overwrite_outside (triage_security.TriageSecurity.test_hardlink_destinations_cannot_overwrite_outside) ... ok
+test_rejected_second_destination_leaves_first_report_unchanged (triage_security.TriageSecurity.test_rejected_second_destination_leaves_first_report_unchanged) ... ok
+test_symlinked_report_root_cannot_redirect_both_outputs (triage_security.TriageSecurity.test_symlinked_report_root_cannot_redirect_both_outputs) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.657s
+
+OK
+EVENT TRIAGE QA OK: stable IDs, source fingerprint, warnings, owner-only decision.
+
+
+Latest owner-decision QA
+OWNER DECISION QA OK: no auto approval, stale/blocked/duplicate rejection, dry-run default.
+
+
+Latest build
+BUILD OK: 15 principal pages, 760 profiles, two sitemaps, a sitemap index, robots.txt and preserved redirects.
+Output: dist/ — not deployed. Production root was not modified.
+RELEASE QA OK: 15 core pages + 760 indexed profiles.
+Canonicals, robots, structured data, two sitemaps, redirects and local paths verified.
+
+
+Latest independent verify
+RELEASE QA OK: 15 core pages + 760 indexed profiles.
+Canonicals, robots, structured data, two sitemaps, redirects and local paths verified.
+
+
+Latest unchanged-footer tests
+✔ every production rebuild page includes the same support assets once (3.173303ms)
+✔ uses first-party UptimeRobot logo and no forbidden Google logo (0.272692ms)
+✔ waits for shared shell, mounts once, and has proper link semantics (0.88732ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 67.97596
