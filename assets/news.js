@@ -111,7 +111,7 @@ function renderPagination(pageCount){
 function draw(){
  const q=norm(state.query.trim());
  const lead=state.items.find(i=>i.featured)||state.items[0];
- const showLead=state.category==='all'&&!q;
+ const showLead=state.category==='all'&&!q&&!!lead;
  $('an-feature').hidden=!showLead||state.page!==1;
  const items=state.items.filter(x=>(!showLead||x.id!==lead?.id)&&(state.category==='all'||x.category===state.category)&&(!q||(window.ArchelaosSportSearch?window.ArchelaosSportSearch.sportMatch([x.title,x.summary,x.sport,x.source,...(x.body||[])].join(' '),q):norm([x.title,x.summary,x.sport,x.source,...(x.body||[])].join(' ')).includes(q)))).sort((a,b)=>b.date.localeCompare(a.date));
  const total=items.length+(showLead?1:0);
