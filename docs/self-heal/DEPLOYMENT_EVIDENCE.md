@@ -38,10 +38,10 @@ of every release condition, or treat a green PR as Security A on main.
 
 `.github/workflows/cloudflare-pages-status.yml` retains its single original
 `23 */6 * * *` schedule. No scheduler, DNS record, Pages configuration, dependency,
-secret or permission expansion is introduced. After successful main `Rebuild
-validation`, the same workflow also verifies production; its checkout stays on
-the trusted default branch and never checks out the triggering event's head SHA.
-A same-repository/main source filter and `contents: read` remain in force.
+secret or permission expansion is introduced. After all main `Rebuild validation` integrity/browser/release jobs succeed, a
+local reusable-workflow call verifies production. Its caller is restricted to
+same-repository main pushes and passes only the existing provider secret.
+`contents: read` stays in force; it never checks out external event-head code.
 PRs and source pushes run only offline tests, without the provider secret.
 Existing manual dispatch remains available for real read-only validation.
 
@@ -127,3 +127,27 @@ verifier branch**. It is HTTP/static-landmark evidence, not a browser/all-route
 audit. PR Sonar125871130588 PASS; main65f7e34 Sonar125870971530 still C/FAILURE.
 Full final-head checks and master controller/draft-repair demonstration remain
 open; this component success does not close #66 or the master assignment.
+
+## Real scanner finding and corrective wiring
+
+The first integration used `workflow_run`. Actual zizmor annotation
+**125870780098**, cloudflare-pages-status.yml:11, reports failure-level
+**dangerous-triggers**: `use of fundamentally insecure workflow trigger:
+workflow_run is almost always used insecurely`. The scanner job itself was
+successful under the existing repository policy; Codex read the annotations and
+did not treat that green job as a clean scan.
+
+Correction **cfb555f3631cf39c5a4d54772d5b035858043de2** removes workflow_run.
+The existing Rebuild calls the local reusable verifier only on protected-main
+pushes, after `integrity`, `browser` and `release-build` all succeed. The child
+uses a typed boolean input to distinguish this call from ordinary source pushes;
+PRs remain offline only. Existing manual/scheduled read-only operation remains.
+Fresh all-open-PR ownership checks confirmed the Rebuild workflow had no other
+active owner before adding the small caller job. No scanner exception, permission
+expansion, new cron or release operation.
+
+Source/YAML dependency/permission/unchanged-cron checks, **30/30** fault tests and
+**24/24** observer tests PASS after correction. New remote scanner annotations
+and exact final-head checks still require observation. First real provider
+evidence above remains valid for its reported SHA and does not waive this
+security gate. [Finding handoff](https://github.com/dizigs/archelaos-site/issues/71#issuecomment-6601886450).

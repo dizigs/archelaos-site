@@ -426,3 +426,19 @@ source commit. Main Sonar125870971530 remains C/FAILURE, PR Sonar125871130588 PA
 Notice observability is extended to include stage states and normalized log hash;
 new final-head CI and actual read-only dispatch will validate that changed source.
 Controller/real fault-to-deduplicated-repair-PR acceptance is still subsequent work.
+
+### PR #101 — scanner finding despite successful job, corrected without suppression
+
+Actual zizmor **125870780098** reports failure-level **dangerous-triggers** at
+cloudflare-pages-status.yml:11 for workflow_run, although the enclosing existing
+scanner job concludes success. Recorded TEST_FAILED in
+[Issue #71](https://github.com/dizigs/archelaos-site/issues/71#issuecomment-6601886450);
+real provider proof does not waive a code-security finding.
+
+Correction **cfb555f3631cf39c5a4d54772d5b035858043de2** removes that trigger and
+uses a local reusable verifier after all three existing Rebuild jobs, only on
+protected-main pushes. No permission expansion, new scheduler, scanner exception
+or release write. Fresh ownership check before editing the Rebuild workflow
+found no other active PR owner. Local YAML/needs/main-only/read-only/original
+cron checks, 30/30 fault tests and 24/24 observer tests PASS. Actual new-head
+scanner/full CI and post-merge wiring must still be observed.
