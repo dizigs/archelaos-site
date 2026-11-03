@@ -1,0 +1,191 @@
+{
+  "schemaVersion": 1,
+  "created": "2026-11-03",
+  "mode": "READ_ONLY_DIAGNOSTICS",
+  "provenance": {
+    "cloudflare": "https://developers.cloudflare.com/fundamentals/reference/error-responses/",
+    "github": "https://docs.github.com/en/rest/using-the-rest-api/troubleshooting-the-rest-api"
+  },
+  "entries": [
+    {
+      "code": "CF-1000",
+      "provider": "cloudflare",
+      "category": "dns",
+      "diagnosticMeaning": "DNS configuration points to Cloudflare IP instead of valid origin",
+      "safeNextStep": "Check authoritative zone DNS and origin allocation",
+      "sourceUrl": "https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-1xxx-errors/",
+      "status": "DIAGNOSE_ONLY",
+      "executionAllowed": false
+    },
+    {
+      "code": "CF-1015",
+      "provider": "cloudflare",
+      "category": "rate_limit",
+      "diagnosticMeaning": "Cloudflare rate limiting blocks request",
+      "safeNextStep": "Review rate-limit rules and traffic pattern; do not automatically bypass firewall",
+      "sourceUrl": "https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-1xxx-errors/",
+      "status": "DIAGNOSE_ONLY",
+      "executionAllowed": false
+    },
+    {
+      "code": "CF-1016",
+      "provider": "cloudflare",
+      "category": "dns",
+      "diagnosticMeaning": "Cloudflare cannot resolve origin DNS hostname",
+      "safeNextStep": "Verify configured CNAME target and origin hostname",
+      "sourceUrl": "https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-1xxx-errors/",
+      "status": "DIAGNOSE_ONLY",
+      "executionAllowed": false
+    },
+    {
+      "code": "CF-1020",
+      "provider": "cloudflare",
+      "category": "access_denied",
+      "diagnosticMeaning": "Cloudflare WAF rule denies this request",
+      "safeNextStep": "Inspect sanitized Security Events and matched rule; avoid disabling protections automatically",
+      "sourceUrl": "https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-1xxx-errors/",
+      "status": "DIAGNOSE_ONLY",
+      "executionAllowed": false
+    },
+    {
+      "code": "CF-1101",
+      "provider": "cloudflare",
+      "category": "worker",
+      "diagnosticMeaning": "Cloudflare Worker encountered unhandled exception",
+      "safeNextStep": "Inspect authenticated Worker logs for the exact deployed version",
+      "sourceUrl": "https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-1xxx-errors/",
+      "status": "DIAGNOSE_ONLY",
+      "executionAllowed": false
+    },
+    {
+      "code": "CF-1102",
+      "provider": "cloudflare",
+      "category": "worker",
+      "diagnosticMeaning": "Cloudflare Worker exceeded CPU or memory resource limits",
+      "safeNextStep": "Inspect Worker CPU/memory usage and execution traces",
+      "sourceUrl": "https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-1xxx-errors/",
+      "status": "DIAGNOSE_ONLY",
+      "executionAllowed": false
+    },
+    {
+      "code": "CF-520",
+      "provider": "cloudflare",
+      "category": "origin",
+      "diagnosticMeaning": "Unexpected or unparseable origin response",
+      "safeNextStep": "Inspect upstream response, protocol compliance and provider incident status",
+      "sourceUrl": "https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-5xx-errors/error-520/",
+      "status": "DIAGNOSE_ONLY",
+      "executionAllowed": false
+    },
+    {
+      "code": "CF-521",
+      "provider": "cloudflare",
+      "category": "origin",
+      "diagnosticMeaning": "Origin refused the connection",
+      "safeNextStep": "Verify origin is accepting connections; consider firewall rules",
+      "sourceUrl": "https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-5xx-errors/error-521/",
+      "status": "DIAGNOSE_ONLY",
+      "executionAllowed": false
+    },
+    {
+      "code": "CF-522",
+      "provider": "cloudflare",
+      "category": "origin",
+      "diagnosticMeaning": "Connection timeout between Cloudflare and origin",
+      "safeNextStep": "Inspect origin connectivity, network filtering and overload",
+      "sourceUrl": "https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-5xx-errors/error-522/",
+      "status": "DIAGNOSE_ONLY",
+      "executionAllowed": false
+    },
+    {
+      "code": "CF-523",
+      "provider": "cloudflare",
+      "category": "origin",
+      "diagnosticMeaning": "Cloudflare cannot reach the origin",
+      "safeNextStep": "Check origin IP address, DNS propagation and routing",
+      "sourceUrl": "https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-5xx-errors/error-523/",
+      "status": "DIAGNOSE_ONLY",
+      "executionAllowed": false
+    },
+    {
+      "code": "CF-524",
+      "provider": "cloudflare",
+      "category": "origin",
+      "diagnosticMeaning": "Origin accepted connection but timed out before replying",
+      "safeNextStep": "Examine slow origin requests and upstream timeouts",
+      "sourceUrl": "https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-5xx-errors/error-524/",
+      "status": "DIAGNOSE_ONLY",
+      "executionAllowed": false
+    },
+    {
+      "code": "CF-525",
+      "provider": "cloudflare",
+      "category": "ssl",
+      "diagnosticMeaning": "TLS handshake to origin failed",
+      "safeNextStep": "Inspect origin certificate chain, SNI and TLS compatibility; do not disable TLS validation",
+      "sourceUrl": "https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-5xx-errors/error-525/",
+      "status": "DIAGNOSE_ONLY",
+      "executionAllowed": false
+    },
+    {
+      "code": "CF-526",
+      "provider": "cloudflare",
+      "category": "ssl",
+      "diagnosticMeaning": "Cloudflare rejected an invalid origin certificate",
+      "safeNextStep": "Verify certificate validity/hostname and SSL mode; do not lower security mode automatically",
+      "sourceUrl": "https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-5xx-errors/error-526/",
+      "status": "DIAGNOSE_ONLY",
+      "executionAllowed": false
+    },
+    {
+      "code": "GH-401",
+      "provider": "github",
+      "category": "auth",
+      "diagnosticMeaning": "GitHub API authentication failed",
+      "safeNextStep": "Check GitHub App token issuance/expiry and permitted scopes without exposing tokens",
+      "sourceUrl": "https://docs.github.com/en/rest/using-the-rest-api/troubleshooting-the-rest-api",
+      "status": "DIAGNOSE_ONLY",
+      "executionAllowed": false
+    },
+    {
+      "code": "GH-403",
+      "provider": "github",
+      "category": "permission",
+      "diagnosticMeaning": "GitHub API reports forbidden operation or rate limit",
+      "safeNextStep": "Separate token installation permissions from platform rate limiting; preserve exact endpoint and safe error class",
+      "sourceUrl": "https://docs.github.com/en/rest/using-the-rest-api/troubleshooting-the-rest-api",
+      "status": "DIAGNOSE_ONLY",
+      "executionAllowed": false
+    },
+    {
+      "code": "GH-404",
+      "provider": "github",
+      "category": "not_found",
+      "diagnosticMeaning": "GitHub API endpoint or requested resource not found",
+      "safeNextStep": "Verify route, resource identifier and access before treating as absent; private objects may be hidden",
+      "sourceUrl": "https://docs.github.com/en/rest/using-the-rest-api/troubleshooting-the-rest-api",
+      "status": "DIAGNOSE_ONLY",
+      "executionAllowed": false
+    },
+    {
+      "code": "GH-422",
+      "provider": "github",
+      "category": "validation",
+      "diagnosticMeaning": "GitHub API request failed validation or exceeded abuse protection",
+      "safeNextStep": "Inspect sanitized validation fields and check ownership; do not repeat the same write blindly",
+      "sourceUrl": "https://docs.github.com/en/rest/using-the-rest-api/troubleshooting-the-rest-api",
+      "status": "DIAGNOSE_ONLY",
+      "executionAllowed": false
+    },
+    {
+      "code": "GH-429",
+      "provider": "github",
+      "category": "rate_limit",
+      "diagnosticMeaning": "GitHub API rate-limited a request",
+      "safeNextStep": "Honor Retry-After or documented limits, and never create duplicate writes after unknown outcomes",
+      "sourceUrl": "https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api",
+      "status": "DIAGNOSE_ONLY",
+      "executionAllowed": false
+    }
+  ]
+}

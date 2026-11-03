@@ -29,6 +29,19 @@
         "digest"
       ],
       "groupName": "GitHub Actions maintenance"
+    },
+    {
+      "description": "Do not auto-upgrade Python minor runtimes in all GitHub Actions at once; require separate deliberate compatibility work",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "matchDepNames": [
+        "python"
+      ],
+      "matchUpdateTypes": [
+        "minor"
+      ],
+      "enabled": false
     }
   ]
 }

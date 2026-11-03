@@ -1,7 +1,7 @@
 {
   "version": 1,
   "as_of": "2026-11-03",
-  "status": "draft_reconciled_against_latest_main_with_alias_redirects_pending_ci",
+  "status": "reconciled_data_proposed_pending_exact_head_ci",
   "scope": "Two highly likely duplicate pairs; cross-sport biography enrichment for one existing person.",
   "merges": [
     {
@@ -75,5 +75,20 @@
     "Re-run UI, SEO, count and CI checks before merge to main.",
     "No automated merge or production deployment from this draft.",
     "Preserve corrected Στροσκίδου spelling from main; verify original rich biography data before removing any source templates."
-  ]
+  ],
+  "reconciliation": {
+    "baseMainSha": "52b06d524b1494543d128f30cd0595b1a1fda49b",
+    "previousPrSha": "ca1f86ec8a4179e75ea3fe8c0b5d29e997430a24",
+    "hallCountBefore": 773,
+    "hallCountAfter": 771,
+    "legacyCountBefore": 682,
+    "legacyCountAfter": 680,
+    "retiredIds": [
+      "arch-bdac478e7ea3",
+      "arch-22eae49bbbc0"
+    ],
+    "preserved_newProfiles": true,
+    "preserved_Fani_Gkioousoglou": true,
+    "newsEventsUnchanged": true
+  }
 }

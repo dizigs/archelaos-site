@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-11-03",
+  "purpose": "Large external read-only knowledge federation for self-heal diagnosis, not executable repair instructions",
+  "runtimeIntegration": "NOT_CONNECTED",
+  "ingestionPolicy": {
+    "mode": "ON_DEMAND_PLUS_INCREMENTAL",
+    "externalTextTrust": "UNTRUSTED",
+    "executionFromSources": false,
+    "automaticMerge": false,
+    "licenseAndAttributionRequired": true,
+    "saveRawSecrets": false,
+    "bulkStorageInGit": false,
+    "sourceRecordsMustCarry": [
+      "sourceId",
+      "sourceUrl",
+      "retrievedAt",
+      "license",
+      "publishedOrModifiedAt",
+      "product",
+      "version",
+      "confidence",
+      "evidence"
+    ]
+  },
+  "sources": [
+    {
+      "id": "osv",
+      "name": "OSV.dev open source vulnerability database",
+      "category": "vulnerabilities",
+      "official": "https://google.github.io/osv.dev/data/",
+      "api": "https://api.osv.dev/v1/query",
+      "bulk": "https://storage.googleapis.com/osv-vulnerabilities/all.zip",
+      "delta": "https://storage.googleapis.com/osv-vulnerabilities/modified_id.csv",
+      "priority": "high",
+      "use": "Known affected dependency versions and security advisories; full dump or ecosystem partitions available; respect per-source licenses and withdrawn status",
+      "access": "public",
+      "license": "MIXED_BY_ORIGINAL_SOURCE"
+    },
+    {
+      "id": "github-advisories",
+      "name": "GitHub Advisory Database",
+      "category": "vulnerabilities",
+      "official": "https://docs.github.com/en/code-security/how-tos/report-and-fix-vulnerabilities/fix-reported-vulnerabilities/browse-advisory-database",
+      "api": "https://docs.github.com/en/graphql/reference/queries#securityadvisories",
+      "priority": "high",
+      "use": "Reviewed security advisories and affected package versions; de-duplicate by CVE/GHSA/OSV aliases",
+      "access": "public",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "id": "cloudflare-errors",
+      "name": "Cloudflare error responses and troubleshooting",
+      "category": "hosting_network",
+      "official": "https://developers.cloudflare.com/fundamentals/reference/error-responses/",
+      "priority": "high",
+      "use": "Provider error codes and recommended diagnostics; preserve source link and respect documentation terms",
+      "access": "public",
+      "license": "SEE_SOURCE_TERMS"
+    },
+    {
+      "id": "github-actions-docs",
+      "name": "GitHub Actions official docs",
+      "category": "ci_cd",
+      "official": "https://docs.github.com/en/actions",
+      "priority": "high",
+      "use": "Workflows, job failures, permissions, runner issues, scheduling, branch protection",
+      "access": "public",
+      "license": "SEE_SOURCE_TERMS"
+    },
+    {
+      "id": "python-docs",
+      "name": "Python documentation",
+      "category": "language_runtime",
+      "official": "https://docs.python.org/3/",
+      "priority": "high",
+      "use": "Versioned runtime exceptions and standard-library behavior; do not infer fix without local tests",
+      "access": "public",
+      "license": "PSF_LICENSE"
+    },
+    {
+      "id": "mdn",
+      "name": "MDN Web Docs",
+      "category": "frontend",
+      "official": "https://developer.mozilla.org/en-US/",
+      "priority": "high",
+      "use": "Browser JS, HTML, CSS, network and accessibility compatibility",
+      "access": "public",
+      "license": "SEE_PAGE_LICENSE"
+    },
+    {
+      "id": "github-issues",
+      "name": "Relevant upstream GitHub issues and releases",
+      "category": "community_diagnostics",
+      "official": "https://docs.github.com/en/rest/issues/issues",
+      "priority": "medium",
+      "use": "Version-specific regressions and community workarounds; rank below official docs and verified local tests",
+      "access": "public",
+      "license": "SEE_REPOSITORY_LICENSE"
+    },
+    {
+      "id": "stackoverflow",
+      "name": "Stack Overflow Q&A",
+      "category": "community_diagnostics",
+      "official": "https://stackoverflow.com/help/licensing",
+      "priority": "low",
+      "use": "Candidate diagnosis only; do not import full answers without attribution/license compliance; never execute pasted commands",
+      "access": "public",
+      "license": "CC-BY-SA_VERSION_BY_POST"
+    }
+  ]
+}

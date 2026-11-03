@@ -35,7 +35,6 @@ STATIC_ROOT = (
     "favicon.ico", "favicon-180.png", "favicon-192.png", "favicon-512.png",
     "archelaos-history-events.json", "archelaos-person-index.json",
     "archelaos-person-links.js", "hall-of-fame-people.json",
-    "hall-of-fame-person-aliases.json",
     "interviews.json",  # Public interview archive; required by interviews.html
 )
 COMMON_FOLDERS = ("assets", "images")
@@ -233,12 +232,6 @@ def make_release() -> None:
     # Hall of Fame profile from the root master, including new youth athletes.
     current_master = json.loads((ROOT / "hall-of-fame-people.json").read_text(encoding="utf-8"))
     current_master_ids = {person["id"] for person in current_master["people"]}
-    aliases = json.loads((ROOT / "hall-of-fame-person-aliases.json").read_text(encoding="utf-8"))["aliases"]
-    if (set(aliases) & current_master_ids) or not set(aliases.values()).issubset(current_master_ids):
-        raise ValueError("Hall aliases point to missing canonical IDs or preserve retired IDs")
-    # Retired rich source templates remain in Git history but never produce a duplicate public page.
-    for retired_id in aliases:
-        (OUTPUT / "people" / (retired_id + ".html")).unlink(missing_ok=True)
     for person_id in sorted(current_master_ids):
         target = OUTPUT / "people" / (person_id + ".html")
         if target.exists():
@@ -360,6 +353,22 @@ def make_release() -> None:
         # use the same canonical host as the 14 core pages and sitemap.
         # Original archival HTML in source-profiles remains untouched.
         html_text = html_text.replace("https://archelaos.club/", SITE + "/")
+        # Apply the shared profile shell to historical and newly added biographies.
+        def mark_person_page(match):
+            attrs = match.group(1)
+            classes = re.search(r'\bclass=(["\x27])(.*?)\1', attrs, flags=re.I|re.S)
+            if classes:
+                values = classes.group(2).split()
+                if "person-page" not in values:
+                    values.append("person-page")
+                attrs = attrs[:classes.start()] + 'class="' + " ".join(values) + '"' + attrs[classes.end():]
+            else:
+                attrs += ' class="person-page"'
+            return "<body" + attrs + ">"
+        html_text, body_count = re.subn(r'<body([^>]*)>', mark_person_page, html_text, count=1, flags=re.I)
+        if body_count != 1:
+            raise ValueError("Missing profile body: " + profile.name)
+
         # Standalone profiles have a legacy header and footer in their HTML.
         # Keep the entire biographical article, but avoid two headers/footers
         # when the shared shell injects the site-wide components at runtime.
@@ -445,9 +454,11 @@ def make_release() -> None:
             '<link rel="stylesheet" href="/assets/site/css/components.css">',
             '<link rel="stylesheet" href="/assets/site/css/collection.css">',
             '<link rel="stylesheet" href="/assets/site/css/profile-release.css">',
+            '<link rel="stylesheet" href="/assets/site/css/support-footer.css">',
             '<link rel="stylesheet" href="/assets/site/css/viewports.css">',
             '<link rel="stylesheet" href="/assets/site/css/motion.css">',
             '<script defer src="/assets/site/js/shell.js"></script>',
+            '<script defer src="/assets/site/js/support-footer.js"></script>',
             '<script defer src="/assets/site/js/favorites.js"></script>',
             '<script defer src="/assets/site/js/profile-favorite.js"></script>',
             '<script defer src="/assets/site/js/motion.js"></script>',
@@ -561,6 +572,9 @@ def make_release() -> None:
     for key, details in training_groups.items():
         if details["sessions"]:
             (training_dir / (key + ".ics")).write_bytes(training_ical(training_data, key).encode("utf-8"))
+    # Create one canonical URL for every reviewed historic timeline event.
+    from build_event_pages import render as build_event_pages
+    event_paths = build_event_pages(ROOT, OUTPUT)
     (OUTPUT / "sitemaps").mkdir()
     (OUTPUT / "sitemaps" / "pages.xml").write_text(
         sitemap_xml([entry["path"] for entry in pages if entry.get("indexable", True)]), encoding="utf-8"
@@ -568,8 +582,11 @@ def make_release() -> None:
     (OUTPUT / "sitemaps" / "people.xml").write_text(
         sitemap_xml(["/people/" + file.name for file in profile_files]), encoding="utf-8"
     )
+    (OUTPUT / "sitemaps" / "events.xml").write_text(
+        sitemap_xml(event_paths), encoding="utf-8"
+    )
     (OUTPUT / "sitemap.xml").write_text(
-        sitemap_index(["pages.xml", "people.xml"]), encoding="utf-8"
+        sitemap_index(["pages.xml", "people.xml", "events.xml"]), encoding="utf-8"
     )
     (OUTPUT / "robots.txt").write_text(
         "User-agent: *\nAllow: /\nSitemap: " + SITE + "/sitemap.xml\n",

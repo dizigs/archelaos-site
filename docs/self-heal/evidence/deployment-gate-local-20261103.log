@@ -1,0 +1,71 @@
+Executed local evidence; synthetic fault injection is not real provider access.
+
+30 offline provider/collector/transport/CLI tests
+test_collector_requires_complete_evidence_and_writes_sanitized_report (test_cloudflare_deployment_evidence.CollectorBoundary.test_collector_requires_complete_evidence_and_writes_sanitized_report) ... ok
+test_github_permissions_failure_is_distinct_from_cloudflare_access (test_cloudflare_deployment_evidence.CollectorBoundary.test_github_permissions_failure_is_distinct_from_cloudflare_access) ... ok
+test_main_advance_invalidates_previously_valid_evidence (test_cloudflare_deployment_evidence.CollectorBoundary.test_main_advance_invalidates_previously_valid_evidence) ... ok
+test_missing_runtime_credential_causes_no_api_requests (test_cloudflare_deployment_evidence.CollectorBoundary.test_missing_runtime_credential_causes_no_api_requests) ... ok
+test_provider_permission_failure_retains_exact_endpoint_without_retry (test_cloudflare_deployment_evidence.CollectorBoundary.test_provider_permission_failure_retains_exact_endpoint_without_retry) ... ok
+test_unexpected_runtime_error_cannot_dump_arbitrary_secret_like_text (test_cloudflare_deployment_evidence.CollectorBoundary.test_unexpected_runtime_error_cannot_dump_arbitrary_secret_like_text) ... ok
+test_api_failure_is_not_retried (test_cloudflare_deployment_evidence.DeploymentEvidence.test_api_failure_is_not_retried) ... ok
+test_arbitrary_log_lines_and_secret_like_text_are_never_published (test_cloudflare_deployment_evidence.DeploymentEvidence.test_arbitrary_log_lines_and_secret_like_text_are_never_published) ... ok
+test_bad_provider_id_and_timestamp_cause_no_requests (test_cloudflare_deployment_evidence.DeploymentEvidence.test_bad_provider_id_and_timestamp_cause_no_requests) ... ok
+test_deployment_detail_cannot_change_commit_or_environment (test_cloudflare_deployment_evidence.DeploymentEvidence.test_deployment_detail_cannot_change_commit_or_environment) ... ok
+test_error_message_containing_success_words_is_not_terminal_proof (test_cloudflare_deployment_evidence.DeploymentEvidence.test_error_message_containing_success_words_is_not_terminal_proof) ... ok
+test_exact_commit_real_terminal_logs_and_http_are_all_required (test_cloudflare_deployment_evidence.DeploymentEvidence.test_exact_commit_real_terminal_logs_and_http_are_all_required) ... ok
+test_failed_or_missing_stage_is_not_success (test_cloudflare_deployment_evidence.DeploymentEvidence.test_failed_or_missing_stage_is_not_success) ... ok
+test_failure_after_success_message_blocks_verification (test_cloudflare_deployment_evidence.DeploymentEvidence.test_failure_after_success_message_blocks_verification) ... ok
+test_invalid_log_schema_and_missing_data_fail_closed (test_cloudflare_deployment_evidence.DeploymentEvidence.test_invalid_log_schema_and_missing_data_fail_closed) ... ok
+test_legacy_metadata_fields_remain_available_and_signed_urls_are_omitted (test_cloudflare_deployment_evidence.DeploymentEvidence.test_legacy_metadata_fields_remain_available_and_signed_urls_are_omitted) ... ok
+test_metadata_and_assets_published_do_not_substitute_for_terminal_log (test_cloudflare_deployment_evidence.DeploymentEvidence.test_metadata_and_assets_published_do_not_substitute_for_terminal_log) ... ok
+test_newer_wrong_commit_cannot_fall_back_to_old_success (test_cloudflare_deployment_evidence.DeploymentEvidence.test_newer_wrong_commit_cannot_fall_back_to_old_success) ... ok
+test_preview_newer_than_matching_production_does_not_replace_it (test_cloudflare_deployment_evidence.DeploymentEvidence.test_preview_newer_than_matching_production_does_not_replace_it) ... ok
+test_preview_success_cannot_verify_production (test_cloudflare_deployment_evidence.DeploymentEvidence.test_preview_success_cannot_verify_production) ... ok
+test_public_http_failure_or_untrusted_url_blocks_verification (test_cloudflare_deployment_evidence.DeploymentEvidence.test_public_http_failure_or_untrusted_url_blocks_verification) ... ok
+test_public_redirects_are_limited_to_the_known_canonical_hosts (test_cloudflare_deployment_evidence.DeploymentEvidence.test_public_redirects_are_limited_to_the_known_canonical_hosts) ... ok
+test_unsafe_identifiers_and_short_sha_cause_no_requests (test_cloudflare_deployment_evidence.DeploymentEvidence.test_unsafe_identifiers_and_short_sha_cause_no_requests) ... ok
+test_missing_credential_reports_incomplete_at_fixed_checkout_slot (test_cloudflare_deployment_evidence.FixedReportOutput.test_missing_credential_reports_incomplete_at_fixed_checkout_slot) ... ok
+test_report_symlink_cannot_overwrite_outside_fixture (test_cloudflare_deployment_evidence.FixedReportOutput.test_report_symlink_cannot_overwrite_outside_fixture) ... ok
+test_authenticated_provider_redirect_is_never_followed (test_cloudflare_deployment_evidence.ProviderTransport.test_authenticated_provider_redirect_is_never_followed) ... ok
+test_connect_proxy_failure_is_not_reported_as_provider_permissions (test_cloudflare_deployment_evidence.ProviderTransport.test_connect_proxy_failure_is_not_reported_as_provider_permissions) ... ok
+test_github_error_preserves_endpoint_and_known_permissions_message (test_cloudflare_deployment_evidence.ProviderTransport.test_github_error_preserves_endpoint_and_known_permissions_message) ... ok
+test_http_error_codes_and_layer_are_recorded_without_response_message (test_cloudflare_deployment_evidence.ProviderTransport.test_http_error_codes_and_layer_are_recorded_without_response_message) ... ok
+test_public_http_403_retains_site_endpoint_and_does_not_become_api_permissions (test_cloudflare_deployment_evidence.ProviderTransport.test_public_http_403_retains_site_endpoint_and_does_not_become_api_permissions) ... ok
+
+----------------------------------------------------------------------
+Ran 30 tests in 0.134s
+
+OK
+
+
+34 existing CLI security tests; invalid-ref fatal is an expected negative fixture
+........fatal: Needed a single revision
+..........................
+----------------------------------------------------------------------
+Ran 34 tests in 1.754s
+
+OK
+
+
+24 observer tests; argparse rejection is expected negative fixture
+....usage: automation_health [-h] [--repository REPOSITORY]
+automation_health: error: unrecognized arguments: --output ../../target
+usage: automation_health [-h] [--repository REPOSITORY]
+automation_health: error: unrecognized arguments: --summary ../../target
+....................
+----------------------------------------------------------------------
+Ran 24 tests in 0.016s
+
+OK
+
+
+Actual latest-main build
+BUILD OK: 15 principal pages, 763 profiles, two sitemaps, a sitemap index, robots.txt and preserved redirects.
+Output: dist/ — not deployed. Production root was not modified.
+RELEASE QA OK: 15 core pages + 763 indexed profiles.
+Canonicals, robots, structured data, two sitemaps, redirects and local paths verified.
+
+
+Independent release verification
+RELEASE QA OK: 15 core pages + 763 indexed profiles.
+Canonicals, robots, structured data, two sitemaps, redirects and local paths verified.

@@ -1,14 +1,11 @@
 /* Private device-side favorites. Stores IDs only, never visitor identity or content. */
 (function(){'use strict';
 const KEY='archelaos:favorites:v1',MAX=800,TYPES=new Set(['person','moment','story','photo','exhibit','interview','news','view','match','page']);
-// Stable redirects for merged historical identities; preserve saved favorite IDs.
-const PERSON_ALIASES=Object.freeze({"arch-bdac478e7ea3":"arch-7f975b16bebf","arch-22eae49bbbc0":"arch-82df0f64b81d"});
-const canonicalPersonId=id=>PERSON_ALIASES[String(id||'')]||String(id||'');
 let memory=[],persist=true;
 function normalized(type,id){
  type=String(type||'');id=String(id??'');
- if(type==='person')id=canonicalPersonId(id);
  if(!TYPES.has(type))return null;
+ if(type==='person'&&id==='arch-fani-gkiousoglou-gym-2025')id='arch-2cb062fabc11';
  if(type==='person'&&!/^arch-[a-z0-9-]{6,90}$/.test(id))return null;
  if(type==='moment'&&!/^(?:[1-9]|[1-6][0-9]|70)$/.test(id))return null;
  if(type==='story'&&!/^[1-9][0-9]{0,3}$/.test(id))return null;
@@ -73,5 +70,5 @@ function button(type,id,cls=''){
  refresh(b);return b;
 }
 window.addEventListener('storage',e=>{if(e.key===KEY){persist=true;get();notify()}});
-window.ArchelaosFavorites=Object.freeze({get,has,toggle,clear,button,persistent:()=>persist,canonicalPersonId});
+window.ArchelaosFavorites=Object.freeze({get,has,toggle,clear,button,persistent:()=>persist});
 })();

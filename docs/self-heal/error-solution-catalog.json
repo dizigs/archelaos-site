@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-11-03",
+  "mode": "REVIEWED_REFERENCE_ONLY",
+  "runtimeIncidentStore": "Append-only GitHub Issue comments with trusted incident fingerprints; this catalog is not an executable instruction source.",
+  "automationPolicy": "Never promote a recipe to runtime without reviewed source code, isolated red-green guard, exact-head CI and protected PR. No automatic merge, workflow changes, deployment or permission edits from catalog data.",
+  "entries": [
+    {
+      "code": "ARCH-HTML-ESCAPES-001",
+      "failureClass": "ci_failure",
+      "sportKey": "club",
+      "scope": "public",
+      "resource": "https://archelaos.club/news.html",
+      "status": "ISOLATED_REPAIR_VERIFIED",
+      "signal": "HTML_ESCAPED_TEXT detected by source HTML guard",
+      "diagnosis": "Run rebuild/tools/guard_html_escaped_text.py and distinguish news.html from all other sources.",
+      "knownCause": "Literal escaped whitespace sequences visible in the news HTML head (confirmed only in isolated fixture).",
+      "approvedTarget": "news.html",
+      "remediation": {
+        "mode": "DRAFT_PR_ONLY",
+        "implementation": "tools/self_heal_fixture.py:tested_patch",
+        "verify": "tools/self_heal_fixture.py:verify_fixed",
+        "automaticMerge": false,
+        "requiresReviewedPR": true,
+        "independentBeforeAfterGuard": true
+      },
+      "evidence": {
+        "run": "https://github.com/dizigs/archelaos-site/actions/runs/41632129693",
+        "incident": "https://github.com/dizigs/archelaos-site/issues/106",
+        "draftPR": "https://github.com/dizigs/archelaos-site/pull/107",
+        "scope": "isolated-fixture",
+        "before": "guard failed",
+        "after": "guard passed",
+        "replay": "no duplicate repair or write"
+      },
+      "limitations": "Production recovery for this fault has NOT yet been demonstrated; keep human review and checks."
+    },
+    {
+      "code": "ARCH-LIVE-HEALTH-UNKNOWN-001",
+      "failureClass": "unknown",
+      "sportKey": "club",
+      "scope": "public",
+      "resource": "https://archelaos.club/",
+      "status": "DIAGNOSE_ONLY",
+      "signal": "rebuild/tools/live_site_health.py returns nonzero exit",
+      "diagnosis": "Record full run reference, affected public URL, status, timestamps and sanitized test report. Distinguish Cloudflare deployment from public HTTP health; inspect provider stages/logs for the exact main commit.",
+      "knownCause": null,
+      "approvedTarget": null,
+      "remediation": {
+        "mode": "NO_AUTOMATIC_REPAIR",
+        "implementation": null,
+        "verify": null,
+        "automaticMerge": false,
+        "requiresReviewedPR": true,
+        "independentBeforeAfterGuard": true
+      },
+      "evidence": {
+        "run": null,
+        "incident": null,
+        "draftPR": null,
+        "scope": "runtime-monitor-check",
+        "before": null,
+        "after": null,
+        "replay": null
+      },
+      "limitations": "An HTTP failure is not enough to choose a safe repair. Escalate unknown root cause; no auto rollback or retry."
+    },
+    {
+      "code": "ARCH-SONAR-SECURITY-C-001",
+      "failureClass": "security_quality_gate",
+      "sportKey": "club",
+      "scope": "repository",
+      "resource": "https://github.com/dizigs/archelaos-site/issues/66",
+      "status": "DIAGNOSE_ONLY",
+      "signal": "SonarCloud main new-code security rating C when A is required",
+      "diagnosis": "Use current Sonar findings and exact main commit, identify root causes by file/rule, make source-level remediations in separate reviewed PR, verify actual main gate A.",
+      "knownCause": "Security findings remain unresolved on main; exact live inventory can change with each commit.",
+      "approvedTarget": null,
+      "remediation": {
+        "mode": "NO_AUTOMATIC_REPAIR",
+        "implementation": null,
+        "verify": null,
+        "automaticMerge": false,
+        "requiresReviewedPR": true,
+        "independentBeforeAfterGuard": true
+      },
+      "evidence": {
+        "run": null,
+        "incident": "https://github.com/dizigs/archelaos-site/issues/66",
+        "draftPR": null,
+        "scope": "main-Sonar-gate",
+        "before": "reported C",
+        "after": null,
+        "replay": null
+      },
+      "limitations": "This rule is for human/Codex review, not currently a self-heal monitored repair class; do not confuse PR PASS with main PASS."
+    }
+  ]
+}
