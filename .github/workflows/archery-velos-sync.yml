@@ -1,4 +1,4 @@
-name: Archery VEL​​OS results sync
+name: Archery VEL​​OS data sync
 on:
   workflow_dispatch:
   schedule:
@@ -9,36 +9,42 @@ permissions:
 jobs:
   sync:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 7
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Fetch public results for configured matches
+      - name: Fetch public competition catalogue
+        run: python scripts/sync_velos_catalogue.py
+      - name: Fetch selected competition results (bounded)
         run: python scripts/sync_velos_archery.py
-      - name: Record sync result
+      - name: Build candidate athlete index
+        run: python scripts/build_velos_athletes.py
+      - name: Test data importers
+        run: python -m unittest discover -s tests -p 'test_velos_*.py'
+      - name: Record sync summary
         run: |
-          if git diff --quiet -- data/archery/velos-results.json; then
-            echo 'No dataset changes.' >> "$GITHUB_STEP_SUMMARY"
-          else
-            echo 'Dataset changed; opening a review PR.' >> "$GITHUB_STEP_SUMMARY"
-          fi
+          echo 'Archery data sync finished without an HTTP/schema error.' >> "$GITHUB_STEP_SUMMARY"
+          git diff --stat -- data/archery/ >> "$GITHUB_STEP_SUMMARY" || true
       - uses: actions/upload-artifact@v4
         with:
-          name: velos-results-snapshot
-          path: data/archery/velos-results.json
-          if-no-files-found: error
+          name: velos-data-snapshots
+          path: |
+            data/archery/velos-matches.json
+            data/archery/velos-results.json
+            data/archery/velos-athletes.json
           retention-days: 14
-      - name: Propose changes for review
+      - name: Propose dataset changes for review
         uses: peter-evans/create-pull-request@v7
         with:
-          add-paths: data/archery/velos-results.json
-          branch: automation/velos-results
+          add-paths: data/archery/velos-*.json
+          branch: automation/velos-data
           delete-branch: true
-          title: 'data(archery): refresh VEL​​OS results'
-          commit-message: 'data(archery): refresh VEL​​OS results'
+          title: 'data(archery): refresh VEL​​OS data snapshots'
+          commit-message: 'data(archery): refresh VEL​​OS data snapshots'
           body: |
-            Automated, bounded update of publicly accessible GAS Archelaos
-            archery match results. Review source, player attribution, and CI
-            before merge. No automatic Hall of Fame changes.
+            Automatic read-only snapshot of the public competition catalogue,
+            plus limited, explicitly selected GAS Archelaos match results.
+            Review data and source permissions before merging.
+            Does not edit Hall of Fame or publish athlete biographies.
