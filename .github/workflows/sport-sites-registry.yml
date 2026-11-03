@@ -1,0 +1,26 @@
+name: Validate sport-site registry
+on:
+  pull_request:
+    paths:
+      - 'config/sport-sites.json'
+      - 'tools/validate_sport_sites.py'
+      - 'tests/test_sport_sites_registry.py'
+      - '.github/workflows/sport-sites-registry.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate schema and safety constraints
+        run: |
+          python tools/validate_sport_sites.py
+          python -m unittest discover -s tests -p 'test_sport_sites_registry.py' -v
