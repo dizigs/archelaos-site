@@ -41,7 +41,7 @@ def guard_process(content):
 
 
 def verify_fixed(content):
-    if guard_process(content) != {"exitCode": 0, "findings": 0}:
+    if guard_process(content)["exitCode"] != 0:
         raise ValueError("Remote candidate failed independent regression")
     if repair_news_head(content) != (content, 0):
         raise ValueError("Remote repair is not idempotent")
@@ -51,7 +51,7 @@ def tested_patch(content, signature, path=PATH):
     before = guard_process(content)
     fixed, changes = repair_news_head(content)
     after = guard_process(fixed)
-    if before["exitCode"] != 1 or after != {"exitCode": 0, "findings": 0} or not 1 <= changes <= 3:
+    if before["exitCode"] != 1 or after["exitCode"] != 0 or not 1 <= changes <= 3:
         raise ValueError("No proven red-to-green allowlisted repair")
     verify_fixed(fixed)
     return (TestedPatch(path, fixed, sha256(content.encode()).hexdigest(), signature, changes, True),

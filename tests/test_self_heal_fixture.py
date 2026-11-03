@@ -27,8 +27,9 @@ class Fixture(unittest.TestCase):
     def test_remote_candidate_must_pass_real_independent_guard(self):
         with self.assertRaises(ValueError): f.verify_fixed(f.FAULT)
 
-    def test_same_source_and_policy_signature_is_stable_across_run_ids(self):
-        self.assertEqual(f.source_signature(f.FAULT, {"a": 1}), f.source_signature(f.FAULT, {"a": 1}))
+    def test_signature_canonicalizes_policy_key_order_and_detects_changed_conditions(self):
+        self.assertEqual(f.source_signature(f.FAULT, {"a": 1, "b": 2}),
+                         f.source_signature(f.FAULT, {"b": 2, "a": 1}))
         self.assertNotEqual(f.source_signature(f.FAULT, {"a": 1}), f.source_signature(f.FAULT, {"a": 2}))
 
     def test_untrusted_run_or_changed_ref_is_rejected_before_any_write(self):
