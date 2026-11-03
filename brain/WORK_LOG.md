@@ -119,3 +119,9 @@ in an independent package; do not duplicate or edit active self-heal owners.
 
 No second competitive PR, direct main push, actual source/AI call, production
 content change or new paid service was introduced by this work.
+
+## DONE — final independent PDF checkpoint
+
+Source `d77c10c4d5244619b9780f9f3e468f5e4cf219d6`: full frozen local suite64/pass64/fail0/skipped0; Python2 PASS; syntax24 modules PASS. Immutable CI [41669323491](https://github.com/dizigs/archelaos-site/actions/runs/41669323491), check126033130645 emits the same actual64-test summary. Sonar126033797138 PASS. Runtime npm audit reports0 vulnerabilities; the new read-only CI checks runtime dependency advisories without modifying dependencies. Actual PDF six-case suite PASS. Evidence and source-file/lockfile hashes are in `evidence/pdf-source-tests-20261103.json`.
+
+DONE: independently testable core/adapters/content/AI-guard/PDF packages are delivered in the same111. IN_PROGRESS: final documentation-only head CI/review. BLOCKED: real Cloudflare installation/logs, source/tracker permissions and real provider/billing verification only. NEXT: approved staging setup and one-by-one real source integration/rollback, keeping all current automations active. No new failed provider calls, production/secret/billing/DNS writes or competing PR.
