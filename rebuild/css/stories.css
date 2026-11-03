@@ -113,3 +113,21 @@
  .rs-editorial-note{border-color:#795a27;background:#fbf6e9}
  .rs-editorial-content>p:not(.rs-editorial-eyebrow){color:#243a2c}
 }
+
+/* Structural separation: the editorial disclosure is a standalone section
+   between the hero and story cards, never layered under a featured card. */
+.rs-editorial-band{
+ position:relative;display:flow-root;clear:both;z-index:1;
+ background:#f8f6ef;padding:34px 0 10px;
+}
+.rs-editorial-band .rs-editorial-note{
+ display:grid;position:relative;float:none;clear:both;
+ width:100%;max-width:100%;min-height:0;
+ margin:0 auto 25px;box-sizing:border-box;
+}
+.rs-editorial-band+.rs-catalog{position:relative;clear:both;padding-top:20px}
+@media(max-width:650px){
+ .rs-editorial-band{padding:26px 0 5px}
+ .rs-editorial-band .rs-editorial-note{margin-bottom:23px}
+ .rs-editorial-band+.rs-catalog{padding-top:18px}
+}
