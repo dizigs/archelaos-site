@@ -79,3 +79,20 @@ this change are **NOT VERIFIED**.
 Keep this task-specific failure/cause/commit/retest record with its owning PR;
 it can be linked from `docs/PR_SELF_HEAL_LOG.md` once merged, avoiding concurrent
 edits to that shared file in the active stability PR.
+
+## Initial remote CI and latest-main synchronization
+
+At exact head `a5fccb21e9b4f05928dd21abfa634a9e02bc8995`, all remote
+checks finished without failure or pending work. Required syntax
+`125775362850` and ESLint `125775363062` PASS; SonarCloud `125775647241`
+PASS; release integrity `125775362926` PASS; full Rebuild Chromium
+`125775513647` PASS. Neutral/skipped checks are not reported as test passes.
+These are historical exact-head results, not proof of a later head or main A.
+
+Main subsequently advanced through normally merged site-stability #74 to
+`6e2c85c420c540ae2e3e70fba904c0d8d2b4a6c0`. This branch includes that
+main unchanged; new combined-head CI is required. The merged shared self-heal
+log documents the UI errors and their correction. Main Sonar check
+`125777746821` is still FAILURE; no current remaining count is invented.
+Actual production provider logs for that main SHA remain NOT VERIFIED here.
+No second merge is performed while serial post-merge verification is pending.
