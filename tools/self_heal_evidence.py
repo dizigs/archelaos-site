@@ -271,13 +271,15 @@ def main():
     import argparse
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("incident", type=Path, help="Locally supplied incident JSON, never a remote URL")
-    parser.add_argument("--journal", type=Path, help="Optional local append-only SQLite journal")
+    parser.add_argument("--journal", action="store_true", help="Enable the fixed local append-only SQLite journal")
     args = parser.parse_args()
     if args.incident.stat().st_size > 64 * 1024:
         parser.error("Incident exceeds 64 KiB")
     incident = json.loads(args.incident.read_text(encoding="utf-8"))
     if args.journal:
-        with connect_journal(args.journal) as conn:
+        # Never pass an LLM/user-provided CLI path to the SQLite connection.
+        # Journal location is a fixed private build artifact, not a public file.
+        with connect_journal(Path(__file__).resolve().parents[1] / "rebuild" / "test-artifacts" / "self-heal" / "triage.sqlite3") as conn:
             incident["history"] = history_for(conn, fingerprint(incident))
             result = record_incident(conn, incident)
     else:
