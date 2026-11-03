@@ -5,6 +5,10 @@ on:
       - 'rebuild/**'
       - 'assets/hof-inplace.js'
       - 'assets/news.js'
+      - 'news.json'
+      - 'news.html'
+      - 'hall-of-fame-people.json'
+      - 'interviews.json'
       - '.github/workflows/site-stability-regressions.yml'
   push:
     branches: [main]
@@ -12,6 +16,10 @@ on:
       - 'rebuild/**'
       - 'assets/hof-inplace.js'
       - 'assets/news.js'
+      - 'news.json'
+      - 'news.html'
+      - 'hall-of-fame-people.json'
+      - 'interviews.json'
       - '.github/workflows/site-stability-regressions.yml'
   workflow_dispatch:
 permissions:

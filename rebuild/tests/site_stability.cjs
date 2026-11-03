@@ -296,6 +296,44 @@ async function main() {
           await closed(page, '#dialog');
         } finally { release(); }
       });
+      await run(browser, 'news-pending-biography', view, async page => {
+        const articles = JSON.parse(readFileSync(path.join(__dirname, '..', '..', 'dist', 'news.json'), 'utf8'))
+          .items.filter(item => !item.unverified && item.personIds?.length).slice(0,2);
+        assert.equal(articles.length, 2, 'Expected two public articles with person links');
+        const catalog = readFileSync(path.join(__dirname, '..', '..', 'dist', 'hall-of-fame-people.json'), 'utf8');
+        let release;
+        const gate = new Promise(resolve => { release = resolve; });
+        await page.route('**/hall-of-fame-people.json', async route => {
+          await gate;
+          await route.fulfill({status:200, contentType:'application/json', body:catalog});
+        });
+        try {
+          await visit(page, 'news.html');
+          const requested = page.waitForRequest('**/hall-of-fame-people.json', {timeout:5000});
+          await page.locator('#an-search').fill(articles[0].title);
+          await page.locator('#an-grid .an-card-hit[href="/news.html?article=' + encodeURIComponent(articles[0].id) + '"]').click();
+          await requested;
+          const reader = page.locator('#an-dialog[open]');
+          await reader.locator('a[data-person-id]').first().click();
+          await page.locator('#an-close').click();
+          await closed(page, '#an-dialog');
+          await page.locator('#an-search').fill(articles[1].title);
+          await page.locator('#an-grid .an-card-hit[href="/news.html?article=' + encodeURIComponent(articles[1].id) + '"]').click();
+          await reader.waitFor();
+          release();
+          await page.evaluate(async () => { await window.ArchelaosBio.load(); });
+          assert.equal(await page.locator('dialog.arch-bio-global[open]').count(), 0, 'Stale news biography appeared over another article');
+          assert.equal(await reader.locator('#an-dialog-title').innerText(), articles[1].title);
+          assert.equal(await page.evaluate(() => document.body.classList.contains('arch-dialog-open')), true);
+          // The current article's intentional biography link must still work.
+          await reader.locator('a[data-person-id]').first().click();
+          await page.locator('dialog.arch-bio-global[open]').waitFor();
+          await page.locator('.arch-bio-close').click();
+          await page.waitForFunction(() => !document.querySelector('.arch-bio-global').open);
+          await page.locator('#an-close').click();
+          await closed(page, '#an-dialog');
+        } finally { release(); }
+      });
       await run(browser, 'nested-biography-scroll-lock', view, async page => {
         await visit(page, 'interviews.html');
         await page.locator('#cards .card[data-id="q1"]').click();
