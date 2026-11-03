@@ -33,3 +33,9 @@ Date: 2026-11-03 (Europe/Athens).
 - The source Node tests **3/3 passed**, `build_release.py` **passed** and `verify_release.py` **passed** before this assertion. The global news page is copied verbatim from root `news.html`, not rebuilt from one of the 15 `rebuild/*.html` pages.
 - Corrected in existing PR, **not** by weakening CI: root `news.html` now references the exact same rebuilt sponsor CSS/JS assets, commit `4aa77d644af8c0a4a398f8193e13cc6816d47ebc`. Expanded regression tests to require this special source, commit `60c6bb576b8531969e86c1794cb16410c544916c`. All other original 15 page links remain unchanged.
 - New CI/head checks are required to pass before readiness or merge; a successful Cloudflare **PR preview** is not a production deployment.
+
+
+## Second CI + Sonar security correction (03/11/2026)
+- New sponsor CI run [41586439874](https://github.com/dizigs/archelaos-site/actions/runs/41586439874), job 125752926399: source syntax/3 DOM tests PASS; exact build and verifier PASS; final standalone `dist/404.html` assertion FAILED. The error page is not one of the shared-shell/footer pages, so the validation is now strictly scoped to the actual **15 rebuild pages + separately copied news.html**, and watches the news source too. This preserves full coverage of shared-footer routes rather than suppressing real failures.
+- SonarCloud PR #73 showed security issue `AaGf9ZLp6b9gI9yYuTW5` (JavaScript S1523, test-only `vm.runInNewContext`, line 71). Replaced dynamic test code execution with a fixed trusted local module require, commit `d7caae77e678df35f0ed8e7ea56572322e75fb53`. No security baseline reset, suppression or Quality Gate relaxation.
+- Workflow/test correction: `5901f9df7cc0588c6e71dead0d2c36a1a9356bc8`. Must run the PR checks again on the newest head; previous preview and tests are not evidence for the new revision.
