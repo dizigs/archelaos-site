@@ -258,7 +258,8 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.repository == 'dizigs/archelaos-site'
     permissions:
       contents: read
-    uses: $/.github/workflows/cloudflare-pages-status.yml
+    # actionlint 1.7.11 supports ./; adopt $/ after a separate toolchain upgrade.
+    uses: ./.github/workflows/cloudflare-pages-status.yml
     with:
       verify_after_rebuild: true
     secrets:
