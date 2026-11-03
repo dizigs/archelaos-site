@@ -10,5 +10,8 @@
   "devDependencies": {
     "miniflare": "4.20260730.0",
     "wrangler": "4.157.0"
+  },
+  "dependencies": {
+    "unpdf": "2.1.0"
   }
 }

@@ -99,6 +99,16 @@ visible on PR111 and the final handoff in71/108.
 
 ## IN_PROGRESS / NEXT
 
+Additional independent PDF package: pinned `unpdf`2.1.0, actual binary PDF text
+extraction, embedded-script nonexecution, size/page/text bounds and deterministic
+approved-quote mapping. First PDF suite4pass/1fail exposed a fixture/view-box
+privacy limitation: off-page text can be omitted by PDF text extraction. Strengthened
+the source boundary with independent, hash-bound whole-file privacy approval;
+an extractor cannot self-certify the document. Corrected six-case PDF suite PASS,
+including default refusal without that independent approval. Corpus/OCR, encrypted
+or unsupported documents remain PRIVATE_REVIEW. Final combined CI is rechecked
+after this additional package; earlier58-test evidence is retained as a checkpoint.
+
 Final documentation/evidence and exact-head review of111 complete this offline
 delivery stage. After actual access changes, deploy only the reviewed staging
 candidate, execute the prepared HTTP duplicate/retry/DLQ/pause proof, obtain real

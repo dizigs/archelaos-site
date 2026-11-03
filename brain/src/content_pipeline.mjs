@@ -28,6 +28,7 @@ export async function enrichDocument(event, dependencies) {
   const source = await dependencies.lookupSource(event.sourceId);
   if (source?.processingAllowed !== true) return privateReview(event, 'SOURCE_PROCESSING_NOT_AUTHORIZED');
   if (source.publicReleaseApproved !== true) return privateReview(event, 'PUBLIC_RELEASE_NOT_APPROVED');
+  if (event.payload.mimeType === 'application/pdf' && source.privacyReviewVerified !== true) return privateReview(event, 'PDF_PRIVACY_REVIEW_REQUIRED');
   if (source.revision !== event.sourceRevision || source.blobSha256 !== event.payload.blobSha256) return privateReview(event, 'SOURCE_REVISION_MISMATCH');
   const document = await dependencies.readApprovedDocument({ sourceId: event.sourceId, revision: event.sourceRevision });
   const bytes = document?.bytes instanceof Uint8Array ? document.bytes : typeof document?.text === 'string' ? new TextEncoder().encode(document.text) : null;
@@ -35,7 +36,7 @@ export async function enrichDocument(event, dependencies) {
   if (event.payload.mimeType && document.mimeType !== event.payload.mimeType) return privateReview(event, 'MIME_CONTENT_MISMATCH');
   if (document.mimeType === 'application/pdf' && new TextDecoder().decode(bytes.slice(0, 5)) !== '%PDF-') return privateReview(event, 'MIME_CONTENT_MISMATCH');
   if (typeof document.text === 'string' && unsafeText(document.text, 65536)) return privateReview(event, 'UNTRUSTED_INSTRUCTION_OR_PRIVATE_PAYLOAD');
-  const extracted = dependencies.extractApproved ? await dependencies.extractApproved(document) : extractStructuredClaims(document);
+  const extracted = dependencies.extractApproved ? await dependencies.extractApproved({ ...document, sourcePrivacyVerified: source.privacyReviewVerified === true }) : extractStructuredClaims(document);
   if (extracted?.status !== 'EXTRACTED' || !Array.isArray(extracted.claims) || extracted.claims.length < 1 || extracted.claims.length > 25) return privateReview(event, extracted?.reason || 'EXTRACTION_UNVERIFIABLE');
   const verified = [];
   for (const claim of extracted.claims) {

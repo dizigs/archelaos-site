@@ -100,6 +100,15 @@ instructions or an unverified model answer. Existing event IDs are preserved.
 Preview/result phases update one canonical draft; stale previews cannot downgrade
 a result. No existing biographies, news files, pagination or design are edited.
 
+The private PDF text port uses pinned `unpdf` with byte/page/text limits, disabled
+JavaScript/eval, font/CMap/wasm fetching, images and OCR. Actual synthetic PDF bytes
+are parsed in tests, then matched only to independently approved extraction rules.
+Text extraction cannot certify hidden/off-page content, metadata or attachments
+as PII-free: hash-bound `privacyReviewVerified` from the trusted source registry
+is additionally required for PDF claims. Without it, output is PRIVATE_REVIEW.
+The timeout is an event-loop deadline, not a substitute for an isolated host CPU
+limit. This parser is not added to the small deployable intake Worker bundle.
+
 The publisher produces a protected **Draft PR plan** by default. Only an explicitly
 marked synthetic test double can exercise the create/reuse port. `mock://` output
 is simulation, not a GitHub PR. Real content publication is deliberately disabled
@@ -126,6 +135,6 @@ path/account and bounded provider billing are verified; charged AI remains OFF.
 
 Remote Workers/Durable Objects deployment and real provider logs remain BLOCKED;
 see [ACCESS.md](docs/ACCESS.md). Source watch/receipt/webhook permissions, tracker
-connector, real PDF/OCR extraction, live content PR publishing and provider choice
+connector, corpus-specific PDF validation/OCR, live content PR publishing and provider choice
 remain explicit setup/integration gates. No mock/local result closes those gates.
 See [WORK_LOG.md](WORK_LOG.md) for DONE / IN_PROGRESS / BLOCKED / NEXT checkpoints.

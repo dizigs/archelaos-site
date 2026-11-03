@@ -15,6 +15,7 @@ or a mock return value as a successful live source integration.
 | Contributions | Independent committed receipt, consent and clean scan, private review for release; client callback is not authority |
 | GitHub | Raw HMAC and immutable repo scope, technical-only metadata, tampering/repo mismatch rejected |
 | Content | Authorized read, real byte hash, structured/injected PDF extraction boundary, independently approved facts, canonical identity, organization attribution, provenance/date checks, no prompt-instruction authority |
+| Actual PDF text | Real synthetic PDF parsing, nonexecution of embedded scripts, limits/malformed/textless handling, approved exact-quote mapping and independent whole-file privacy approval; no OCR/model/remote call |
 | Canonical output | Four target sections, concurrent SQLite draft dedupe, restart, preview→result updates same draft, stale-preview block, existing-event update plan |
 | Full prepared workflow | Authenticated synthetic Drive wake-up→actual native queue→retained envelope→verified extraction→SQLite draft/work journal→exactly one explicitly mocked PR, concurrent consumers and replay suppressed |
 | AI costs | Shared integer microEUR/month ledger, atomic concurrent multi-provider reservations, 75/90alerts, pricing/model/FX/fees/coverage denial, one-time call claim, settlement, month attribution, timeout reservation hold, alert/storage failure before synthetic call |
