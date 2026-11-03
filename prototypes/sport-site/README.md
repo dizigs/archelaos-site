@@ -2,7 +2,7 @@
 
 Open `index.html?sport=archery` or `index.html?sport=wrestling` in a local static file server. This folder is a **visual starter**, not a deployable site, and has no dependency on other pending PRs.
 
-- Color system: βαθύ πράσινο, φωτεινό κίτρινο, απαλό μπεζ, χωρίς μπλε ή χρυσό.
+- **Only archery** has the approved deep green, vivid yellow and beige palette. Other departments have **no approved palette**. The wrestling preview switches to temporary grayscale solely to demonstrate reusable layout; its colors are not a proposal or branding decision.
 - Minimal responsive layout, large typographic hero and symbolic CSS target illustration. **No fabricated athlete photos, medals or metrics.**
 - Entire feature cards are clickable, no decorative arrows and no hover underlines.
 - History and Hall are outbound links to canonical archelaos.club, never a duplicated local historical database.
