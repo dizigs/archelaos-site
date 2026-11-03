@@ -9,11 +9,22 @@ import argparse
 from collections import Counter
 from hashlib import sha256
 import json
+import os
 from pathlib import Path
+import secrets
+import stat
+
+if __package__:
+    from .public_snapshot import output_directory
+else:
+    from public_snapshot import output_directory
 
 ROOT=Path(__file__).resolve().parents[1]
 SOURCE=ROOT/"research/historical-events.json"
 REPORT_DIR=ROOT/"test-artifacts"
+REPORT_NAMES=("event-review-queue.json","event-review-queue.md")
+JSON_CHOICE="rebuild/test-artifacts/event-review-queue.json"
+MARKDOWN_CHOICE="rebuild/test-artifacts/event-review-queue.md"
 
 def fingerprint(catalog:dict)->str:
     raw=json.dumps(catalog,sort_keys=True,ensure_ascii=False,separators=(",",":"))
@@ -90,21 +101,53 @@ def markdown(report:dict)->str:
     lines.extend(["","Για αποφάσεις χρησιμοποιούμε τους **σταθερούς κωδικούς ID**· οι αριθμοί ισχύουν μόνο για το συγκεκριμένο στιγμιότυπο.",""])
     return "\n".join(lines)
 
+def validate_destinations(directory):
+    # Check both before writing either report. Never follow a destination link.
+    for name in REPORT_NAMES:
+        try:
+            existing=os.stat(name,dir_fd=directory,follow_symlinks=False)
+        except FileNotFoundError:
+            continue
+        if not stat.S_ISREG(existing.st_mode) or existing.st_nlink!=1:
+            raise ValueError("Triage reports must be ordinary, non-linked files")
+
+def write_report(directory,name,payload):
+    if name not in REPORT_NAMES:
+        raise ValueError("Triage report filename is not allowlisted")
+    temporary=".event-triage-"+secrets.token_hex(12)+".tmp"
+    descriptor=os.open(temporary,os.O_WRONLY|os.O_CREAT|os.O_EXCL|os.O_NOFOLLOW,
+                       0o600,dir_fd=directory)
+    try:
+        with os.fdopen(descriptor,"w",encoding="utf-8") as stream:
+            stream.write(payload)
+            stream.flush()
+            os.fsync(stream.fileno())
+        os.replace(temporary,name,src_dir_fd=directory,dst_dir_fd=directory)
+        os.fsync(directory)
+    finally:
+        try:
+            os.unlink(temporary,dir_fd=directory)
+        except FileNotFoundError:
+            pass
+
 def main():
     p=argparse.ArgumentParser(description=__doc__)
-    p.add_argument("--json",type=Path,default=REPORT_DIR/"event-review-queue.json")
-    p.add_argument("--markdown",type=Path,default=REPORT_DIR/"event-review-queue.md")
-    args=p.parse_args()
-    for path in (args.json,args.markdown):
-        dest=path.resolve()
-        if not dest.is_relative_to(REPORT_DIR.resolve()):
-            raise SystemExit("Reports may only be written into ignored test-artifacts/")
-    data=json.loads(SOURCE.read_text(encoding="utf-8"))
-    report=assess(data)
-    args.json.parent.mkdir(parents=True,exist_ok=True)
-    args.markdown.parent.mkdir(parents=True,exist_ok=True)
-    args.json.write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
-    args.markdown.write_text(markdown(report),encoding="utf-8")
+    p.add_argument("--json",choices=(JSON_CHOICE,),default=JSON_CHOICE,
+                   help="Fixed checkout-relative JSON report; arbitrary paths are rejected")
+    p.add_argument("--markdown",choices=(MARKDOWN_CHOICE,),default=MARKDOWN_CHOICE,
+                   help="Fixed checkout-relative Markdown report; arbitrary paths are rejected")
+    p.parse_args()
+    try:
+        with output_directory(("rebuild","test-artifacts")) as directory:
+            validate_destinations(directory)
+            data=json.loads(SOURCE.read_text(encoding="utf-8"))
+            report=assess(data)
+            write_report(directory,"event-review-queue.json",
+                         json.dumps(report,ensure_ascii=False,indent=2)+"\n")
+            write_report(directory,"event-review-queue.md",markdown(report))
+    except (OSError,ValueError) as error:
+        p.exit(2,"EVENT TRIAGE failed ("+type(error).__name__+
+               "): check the public catalog and fixed report locations.\n")
     print("EDITORIAL TRIAGE:",len(report["rows"]),"events;",report["summary"],
           "— OWNER DECISION REQUIRED, NO AUTOMATIC APPROVAL.")
 
