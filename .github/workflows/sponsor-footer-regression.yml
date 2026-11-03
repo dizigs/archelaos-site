@@ -3,6 +3,7 @@ on:
   pull_request:
     paths:
       - 'rebuild/*.html'
+      - 'news.html'
       - 'rebuild/js/support-footer.js'
       - 'rebuild/css/support-footer.css'
       - 'rebuild/tests/support_footer_test.cjs'
@@ -32,11 +33,15 @@ jobs:
           python - <<'PY'
           from pathlib import Path
           root = Path("dist")
-          pages = list(root.glob("*.html"))
+          # Core rebuild pages use the shared shell; news is copied verbatim.
+          # The intentionally standalone error page (404.html) has no footer.
+          names = sorted(p.name for p in Path("rebuild").glob("*.html") if p.name != "preview.html")
+          assert len(names) == 15, names
+          pages = [root / name for name in names] + [root / "news.html"]
           script = "/assets/site/js/support-footer.js"
           stylesheet = "/assets/site/css/support-footer.css"
-          assert len(pages) >= 15, len(pages)
           for page in pages:
+              assert page.is_file(), page
               content = page.read_text(encoding="utf-8")
               assert content.count(script) == 1, page
               assert content.count(stylesheet) == 1, page
