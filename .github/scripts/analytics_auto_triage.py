@@ -4,12 +4,10 @@ import json
 import os
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
-from urllib.error import HTTPError, URLError
-from urllib.parse import urlencode
+import re
 from urllib.request import Request, urlopen
 
 REPORT = Path("google-analytics-aggregate.json")
-RESULT = Path("analytics-auto-triage.json")
 PREFIX = "[analytics:auto]"
 REPO = "dizigs/archelaos-site"
 SOURCES = {
@@ -80,8 +78,39 @@ def evaluate(raw, today=None):
             "note": "Aggregates only; low-volume, incomplete and stale data never trigger traffic-drop issues."}
 
 
-def api_request(token, method, path, payload=None):
-    url = "https://api.github.com/repos/" + REPO + "/" + path
+# These are the ONLY remote endpoints. Issue metadata never becomes part of a URL.
+ISSUES_ENDPOINT = "https://api.github.com/repos/dizigs/archelaos-site/issues"
+GRAPHQL_ENDPOINT = "https://api.github.com/graphql"
+CLOSE_ISSUE_MUTATION = (
+    "mutation CloseAnalyticsIssue($issueId: ID!) { "
+    "closeIssue(input: {issueId: $issueId, stateReason: COMPLETED}) "
+    "{ issue { state } } }"
+)
+
+
+def api_request(token, operation, payload=None, page=None):
+    """Restrict requests to preselected GitHub operations and fixed host paths."""
+    if operation == "list":
+        if type(page) is not int or not 1 <= page <= 10 or payload is not None:
+            raise ValueError("Invalid issue inventory request")
+        url = ISSUES_ENDPOINT + "?state=open&per_page=100&page=" + str(page)
+        method = "GET"
+    elif operation == "create":
+        if (page is not None or not isinstance(payload, dict)
+                or set(payload) != {"title", "body"}):
+            raise ValueError("Invalid issue creation request")
+        url = ISSUES_ENDPOINT
+        method = "POST"
+    elif operation == "close":
+        if (page is not None or not isinstance(payload, dict)
+                or set(payload) != {"issueId"}):
+            raise ValueError("Invalid issue close request")
+        url = GRAPHQL_ENDPOINT
+        method = "POST"
+        payload = {"query": CLOSE_ISSUE_MUTATION, "variables": payload}
+    else:
+        raise ValueError("Unsupported GitHub API operation")
+
     body = json.dumps(payload).encode("utf-8") if payload is not None else None
     headers = {"Accept": "application/vnd.github+json",
                "Authorization": "Bearer " + token,
@@ -90,20 +119,38 @@ def api_request(token, method, path, payload=None):
         headers["Content-Type"] = "application/json"
     request = Request(url, data=body, headers=headers, method=method)
     with urlopen(request, timeout=20) as response:
-        return json.load(response)
+        result = json.load(response)
+    if operation == "close":
+        if (not isinstance(result, dict) or result.get("errors")
+                or result.get("data", {}).get("closeIssue", {}).get("issue", {}).get("state") != "CLOSED"):
+            raise RuntimeError("GitHub GraphQL did not confirm issue closure")
+    return result
 
 
 def existing_issues(token):
     found = {}
+    titles = {PREFIX + " " + source + " " + metric
+              for source, specs in SOURCES.items() for metric, _ in specs}
     for page in range(1, 11):
-        rows = api_request(token, "GET", "issues?" + urlencode(
-            {"state": "open", "per_page": 100, "page": page}))
-        if not isinstance(rows, list):
+        rows = api_request(token, "list", page=page)
+        if not isinstance(rows, list) or len(rows) > 100:
             raise ValueError("Unexpected GitHub issues response")
         for issue in rows:
-            if ("pull_request" not in issue and isinstance(issue.get("title"), str)
-                    and issue["title"].startswith(PREFIX)):
-                found[issue["title"]] = issue["number"]
+            if not isinstance(issue, dict):
+                raise ValueError("Invalid GitHub issue metadata")
+            title = issue.get("title")
+            if "pull_request" in issue or title not in titles:
+                continue
+            # Untrusted issue metadata may be displayed, but may never form a URL,
+            # a filesystem path, a mutation query or a raw HTTP method.
+            number = issue.get("number")
+            node_id = issue.get("node_id")
+            if (type(number) is not int or not 1 <= number <= 2_147_483_647
+                    or not isinstance(node_id, str)
+                    or not re.fullmatch(r"[A-Za-z0-9_\-=]{8,256}", node_id)):
+                raise ValueError("Untrusted analytics issue identifier")
+            if title not in found:
+                found[title] = {"number": number, "node_id": node_id}
         if len(rows) < 100:
             return found
     raise ValueError("Issue pagination limit reached; refusing to create duplicates")
@@ -115,8 +162,8 @@ def synchronize(token, assessment):
     for item in assessment["signals"]:
         name = PREFIX + " " + item["source"] + " " + item["metric"]
         state = item["state"]
-        old_number = issues.get(name)
-        if state == "alert" and old_number is None:
+        old = issues.get(name)
+        if state == "alert" and old is None:
             body = (
                 "Daily automated, **aggregate-only** alert (not a confirmed site outage).\n\n"
                 "Source: **" + item["source"] + "**; metric: **" + item["metric"] + "**.\n"
@@ -127,14 +174,16 @@ def synchronize(token, assessment):
                 "content before acting. No visitor identifiers or search terms are included. "
                 "Never rewrite biographies or enable ads solely from this signal.\n"
             )
-            created = api_request(token, "POST", "issues",
-                                  {"title": name, "body": body})
-            actions.append({"action": "opened", "number": created["number"], "signal": name})
-        elif state == "recovered" and old_number is not None:
-            api_request(token, "PATCH", "issues/" + str(old_number),
-                        {"state": "closed", "state_reason": "completed"})
-            actions.append({"action": "closed", "number": old_number, "signal": name})
+            created = api_request(token, "create", {"title": name, "body": body})
+            number = created.get("number") if isinstance(created, dict) else None
+            if type(number) is not int or not 1 <= number <= 2_147_483_647:
+                raise ValueError("GitHub did not confirm created issue")
+            actions.append({"action": "opened", "number": number, "signal": name})
+        elif state == "recovered" and old is not None:
+            api_request(token, "close", {"issueId": old["node_id"]})
+            actions.append({"action": "closed", "number": old["number"], "signal": name})
     return actions
+
 
 
 def main():
@@ -147,8 +196,6 @@ def main():
     if not token or os.getenv("GITHUB_REPOSITORY") != REPO:
         raise SystemExit("Expected main-repo issue permissions not available")
     assessment["issue_actions"] = synchronize(token, assessment)
-    RESULT.write_text(json.dumps(assessment, ensure_ascii=False, indent=2) + "\n",
-                      encoding="utf-8")
     print("Analytics triage: %s, %d alerts, %d issue state changes." %
           (assessment["status"], len(assessment["alerts"]),
            len(assessment["issue_actions"])))
