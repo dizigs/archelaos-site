@@ -21,6 +21,7 @@ REPAIR_TARGETS.update({("club", "ci_failure", "fixture"): "self-heal-fixtures/ne
                        ("club", "ci_failure", "public"): "news.html"})
 REQUIRED_DENIALS = {"bypass_branch_protection", "expose_secrets", "auto_merge_athlete_identities",
                    "fabricate_deployment_success"}
+PUBLICATION_CONTEXTS = {"github_actions", "runtime_connector"}
 
 
 def instant(value):
@@ -158,11 +159,16 @@ def checked_state(state, observation):
             or any(not isinstance(s, str) or not HEX64.fullmatch(s) for s in signatures)
             or type(state.get("occurrences")) is not int or not 1 <= state["occurrences"] <= 1000
             or not isinstance(state.get("seenRuns"), list) or not 1 <= len(state["seenRuns"]) <= 3
-            or any(not isinstance(run, str) or not RUN.fullmatch(run) for run in state["seenRuns"])):
+            or any(not isinstance(run, str) or not RUN.fullmatch(run) for run in state["seenRuns"])
+            or not isinstance(state.get("publicationContexts"), list)
+            or len(state["publicationContexts"]) > 2
+            or any(context not in PUBLICATION_CONTEXTS for context in state["publicationContexts"])):
         raise ValueError("Invalid persisted counters/phase")
     if state.get("lastAttemptAt") is not None:
         instant(state["lastAttemptAt"])
     instant(state.get("lastObservedAt"))
+    if state.get("pr") is not None:
+        validate_proposal(state["pr"], repair_branch(state["fingerprint"], signatures[-1] if signatures else ""))
     return dict(state, attemptSignatures=list(signatures))
 
 
@@ -172,6 +178,7 @@ def initial_state(observation):
             "resource": observation.resource, "phase": "OBSERVED", "attempts": 0,
             "attemptSignatures": [], "lastAttemptAt": None,
             "occurrences": 1, "seenRuns": [observation.source_run], "lastObservedAt": observation.observed_at,
+            "publicationContexts": [],
             "sourceRunUrl": observation.source_run, "sourceCommit": observation.source_commit,
             "productionVerified": False}
 
@@ -182,7 +189,52 @@ def result(state, action, reason):
             "pr": state.get("pr"), "productionVerified": state.get("productionVerified") is True}
 
 
-def process_incident(observation, policy, sport_keys, store, repair, publisher, now):
+def repair_branch(fingerprint, signature):
+    return "bot/self-heal/" + fingerprint + "-" + signature[:12]
+
+
+def validate_proposal(proposal, expected_branch):
+    if (not isinstance(proposal, dict) or type(proposal.get("number")) is not int or proposal["number"] < 1
+            or proposal.get("draft") is not True or proposal.get("branch") != expected_branch
+            or not isinstance(proposal.get("commit"), str) or not SHA.fullmatch(proposal["commit"])
+            or proposal.get("url") != "https://github.com/dizigs/archelaos-site/pull/" + str(proposal["number"])):
+        raise ValueError("Publisher did not return exact draft PR evidence")
+
+
+def publish_tested(observation, state, patch, store, publisher, context):
+    if context not in PUBLICATION_CONTEXTS:
+        raise ValueError("Unrecognized publication authority")
+    if context in state["publicationContexts"] or len(state["publicationContexts"]) >= 2:
+        return result(state, "BLOCKED", "publication_context_attempt_cap")
+    state["publicationContexts"].append(context)
+    store.save(state)
+    try:
+        proposal = publisher.propose(observation, patch)
+        validate_proposal(proposal, repair_branch(observation.fingerprint, observation.source_signature))
+    except (OSError, ValueError, RuntimeError) as error:
+        state.update(phase="PUBLISH_BLOCKED", errorClass=type(error).__name__)
+        store.save(state)
+        return result(state, "BLOCKED", "publication_failed_no_retry")
+    state.update(phase="DRAFT_PR_PROPOSED", pr=proposal)
+    store.save(state)
+    return result(state, "DRAFT_PR_PROPOSED", "tested_repair_waiting_for_review")
+
+
+def resume_publication(observation, policy, sport_keys, store, patch, publisher, now, context):
+    """Resume a tested candidate under a changed authority; never reapply a repair."""
+    observation.validate(policy, sport_keys, now)
+    state = checked_state(store.load(observation.fingerprint), observation)
+    if state["phase"] not in {"TESTED", "PUBLISH_BLOCKED"}:
+        return result(state, "BLOCKED", "no_interrupted_publication_to_resume")
+    patch.validate(observation, policy)
+    if (patch.after_sha256 != state.get("afterSha256") or patch.before_sha256 != state.get("beforeSha256")
+            or patch.path != state.get("path") or observation.source_signature not in state["attemptSignatures"]):
+        raise ValueError("Resume candidate differs from the durable tested patch")
+    return publish_tested(observation, state, patch, store, publisher, context)
+
+
+def process_incident(observation, policy, sport_keys, store, repair, publisher, now,
+                     publication_context="github_actions"):
     """Caller serializes writers; store failures stop before any repair/publish."""
     observation.validate(policy, sport_keys, now)
     loaded = store.load(observation.fingerprint)
@@ -232,21 +284,7 @@ def process_incident(observation, policy, sport_keys, store, repair, publisher, 
         return result(state, "REPAIR_FAILED", "repair_or_regression_rejected")
     state.update(phase="TESTED", path=patch.path, beforeSha256=patch.before_sha256,
                  afterSha256=patch.after_sha256)
-    store.save(state)
-    try:
-        proposal = publisher.propose(observation, patch)
-        if (not isinstance(proposal, dict) or type(proposal.get("number")) is not int
-                or not isinstance(proposal.get("commit"), str) or not SHA.fullmatch(proposal["commit"])
-                or not isinstance(proposal.get("url"), str)
-                or not re.fullmatch(r"https://github\.com/dizigs/archelaos-site/pull/[0-9]+", proposal["url"])):
-            raise ValueError("Publisher did not return exact draft PR evidence")
-    except (OSError, ValueError, RuntimeError) as error:
-        state.update(phase="PUBLISH_BLOCKED", errorClass=type(error).__name__)
-        store.save(state)
-        return result(state, "BLOCKED", "publication_failed_no_retry")
-    state.update(phase="DRAFT_PR_PROPOSED", pr=proposal)
-    store.save(state)
-    return result(state, "DRAFT_PR_PROPOSED", "tested_repair_waiting_for_review")
+    return publish_tested(observation, state, patch, store, publisher, publication_context)
 
 
 def process_batch(observations, policy, sport_keys, store, repair, publisher, now):

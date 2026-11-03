@@ -46,7 +46,8 @@ class Publisher:
     def __init__(self): self.calls = 0
     def propose(self, observation, patch):
         self.calls += 1
-        return {"number": 123, "url": "https://github.com/dizigs/archelaos-site/pull/123", "commit": "d" * 40}
+        return {"number": 123, "url": "https://github.com/dizigs/archelaos-site/pull/123", "commit": "d" * 40,
+                "draft": True, "branch": m.repair_branch(observation.fingerprint, observation.source_signature)}
 
 
 class Controller(unittest.TestCase):
@@ -148,6 +149,25 @@ class Controller(unittest.TestCase):
         self.assertEqual(self.run_one()["phase"], "PUBLISH_BLOCKED")
         self.assertEqual(self.run_one()["action"], "BLOCKED")
         self.assertEqual(self.publisher.calls, 1)
+
+    def test_changed_publication_authority_can_resume_without_a_second_repair(self):
+        class Denied:
+            def propose(self, item, patch): raise RuntimeError("synthetic GITHUB_TOKEN setting denial")
+        self.publisher = Denied(); self.run_one()
+        state = self.store.load(observation().fingerprint)
+        patch = m.TestedPatch(m.TARGETS["fixture"], "fixed canonical fixture", state["beforeSha256"], "b" * 64, 1, True)
+        publisher = Publisher()
+        blocked = m.resume_publication(observation(), self.policy, KEYS, self.store, patch, publisher, NOW, "github_actions")
+        self.assertEqual(blocked["reason"], "publication_context_attempt_cap")
+        result = m.resume_publication(observation(), self.policy, KEYS, self.store, patch, publisher, NOW, "runtime_connector")
+        self.assertEqual(result["phase"], "DRAFT_PR_PROPOSED")
+        self.assertEqual((self.repairs, result["attempts"], publisher.calls), (1, 1, 1))
+
+    def test_a_publisher_cannot_claim_a_non_draft_or_foreign_pr(self):
+        class Unreviewed:
+            def propose(self, item, patch): return {"number": 1, "url": "https://example.org/", "commit": "d" * 40, "draft": False}
+        self.publisher = Unreviewed()
+        self.assertEqual(self.run_one()["phase"], "PUBLISH_BLOCKED")
 
     def test_lookup_failure_stops_before_repair_or_issue_creation(self):
         class MissingStore(JsonStore):
