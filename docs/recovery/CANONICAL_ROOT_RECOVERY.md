@@ -41,3 +41,14 @@ The PR-only checks test both synthetic tampering and staging of the **actual rep
 **First-run requirement:** The public GitHub Actions page for this weekly workflow showed zero historical runs at the time of review (2026-11-03). After merge, the existing workflow must complete a real manual or scheduled run on `main`, and the two artifacts must be retrieved using GitHub's provider API and verified independently. Until that happens, this recovery layer is **configured but not operationally proven**.
 
 Retention remains 30 days for both artifacts. GitHub storage is not an independent offsite backup. Long-term recovery and private archive continuity require separate, access-controlled retention and a genuine isolated restore drill. Avoid assuming RPO/RTO targets have been met.
+
+## Extraction-free ZIP integrity check
+
+For a future downloaded `canonical-root-public-snapshot` GitHub artifact ZIP:
+
+```sh
+python rebuild/tools/canonical_root_zip_audit.py /path/to/canonical-root-public-snapshot.zip \
+  --source-commit <ORIGINATING_GITHUB_WORKFLOW_SHA>
+```
+
+Supply the **40-character SHA verified from the originating successful main-branch GitHub Actions run**. This command never extracts files and fails on traversal, symlinks, duplicate/unknown ZIP entries, oversized/suspicious compression, duplicate JSON keys, SHA/count/ID-set mismatch or wrong source commit. It verifies **only archived bytes**; the provider's retention, access controls and the actual running website still need separate evidence. The PR CI executes the same checker against a ZIP assembled from the actual checkout staging output.
