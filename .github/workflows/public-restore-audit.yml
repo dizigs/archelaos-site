@@ -67,7 +67,7 @@ jobs:
             exit 1
           fi
           gh api "repos/$repo/actions/runs/$run_id" > "$RUNNER_TEMP/source-run.json"
-          jq -e '.status == "completed" and .conclusion == "success" and .head_branch == "main" and (.event == "schedule" or .event == "workflow_dispatch") and (.path | endswith("weekly-public-snapshot.yml"))' "$RUNNER_TEMP/source-run.json" >/dev/null
+          jq -e '.status == "completed" and .conclusion == "success" and .head_branch == "main" and (.event == "schedule" or .event == "workflow_dispatch") and (.path | split("@")[0] | endswith("weekly-public-snapshot.yml"))' "$RUNNER_TEMP/source-run.json" >/dev/null
           gh api "repos/$repo/actions/runs/$run_id/artifacts" > "$RUNNER_TEMP/source-artifacts.json"
           count="$(jq '[.artifacts[] | select(.name == "public-archive-snapshot" and .expired == false)] | length' "$RUNNER_TEMP/source-artifacts.json")"
           if [ "$count" != "1" ]; then
@@ -87,7 +87,12 @@ jobs:
             --header "X-GitHub-Api-Version: 2022-11-28" \
             "$GITHUB_API_URL/repos/$repo/actions/artifacts/$artifact_id/zip" \
             --output "$RUNNER_TEMP/public-archive-snapshot.zip"
-          python rebuild/tools/public_restore_audit.py "$RUNNER_TEMP/public-archive-snapshot.zip" > "$RUNNER_TEMP/restore-verification.json"
+          source_sha="$(jq -r '.head_sha' "$RUNNER_TEMP/source-run.json")"
+          if ! [[ "$source_sha" =~ ^[a-f0-9]{40}$ ]]; then
+            echo "Invalid source commit SHA" >&2
+            exit 1
+          fi
+          python rebuild/tools/public_restore_audit.py "$RUNNER_TEMP/public-archive-snapshot.zip" --source-commit "$source_sha" > "$RUNNER_TEMP/restore-verification.json"
           python - <<'PY'
           import json,os
           from pathlib import Path
