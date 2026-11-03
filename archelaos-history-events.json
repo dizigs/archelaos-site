@@ -1663,6 +1663,24 @@
       "category_en": "Administration",
       "title_en": "Panagiotis Diamantopoulos Elected President",
       "description_en": "According to the existing biography, Panagiotis Diamantopoulos was elected president of Archelaos on 8 September 2026."
+    },
+    {
+      "id": "board-archery-officer-loulas-2015",
+      "date": "2015-10-12",
+      "date_precision": "day",
+      "display_date": "12 Οκτωβρίου 2015",
+      "category": "Διοίκηση",
+      "category_en": "Administration",
+      "title": "Ανάθεση της Τοξοβολίας στον Δημήτριο Λούλα",
+      "title_en": "Dimitrios Loulas appointed archery officer",
+      "description": "Το Πρακτικό 30ο του Δ.Σ. του Γ.Α.Σ. Αρχέλαος Κατερίνης καταγράφει στις 12 Οκτωβρίου 2015 την ανασυγκρότηση του συμβουλίου και την ανάθεση των καθηκόντων Εφόρου Τοξοβολίας στον Δημήτριο Λούλα.",
+      "description_en": "Board Minute No. 30 records the 12 October 2015 reorganisation and appointment of Dimitrios Loulas as archery officer.",
+      "people": [
+        "arch-dimitrios-loulas-archery-officer-2015"
+      ],
+      "source": "Πρακτικό Δ.Σ. αρ. 30, 12/10/2015 (πρώτη σελίδα, ιδιωτικό ιστορικό αρχείο συλλόγου)",
+      "verification": "primary-club-minute",
+      "editorial_note": "Πρωτογενές έγγραφο προσκομίστηκε στις 03/11/2026. Άλλες δραστηριότητες 2016–2019 τεκμηριώνονται ως διοικητική μαρτυρία και δεν συνάγονται από το ίδιο πρακτικό."
     }
   ]
 }
