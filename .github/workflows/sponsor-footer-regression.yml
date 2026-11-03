@@ -1,0 +1,51 @@
+name: Sponsor footer regression
+on:
+  pull_request:
+    paths:
+      - 'rebuild/*.html'
+      - 'news.html'
+      - 'rebuild/js/support-footer.js'
+      - 'rebuild/css/support-footer.css'
+      - 'rebuild/tests/support_footer_test.cjs'
+      - '.github/workflows/sponsor-footer-regression.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  sponsor-footer-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+      - name: Check syntax and accessible sponsor markup
+        run: |
+          node --check rebuild/js/support-footer.js
+          node --test rebuild/tests/support_footer_test.cjs
+      - name: Build exact Cloudflare release and verify sponsor strip
+        run: |
+          python rebuild/tools/build_release.py
+          python rebuild/tools/verify_release.py
+          python - <<'PY'
+          from pathlib import Path
+          root = Path("dist")
+          # Core rebuild pages use the shared shell; news is copied verbatim.
+          # The intentionally standalone error page (404.html) has no footer.
+          names = sorted(p.name for p in Path("rebuild").glob("*.html") if p.name != "preview.html")
+          assert len(names) == 15, names
+          pages = [root / name for name in names] + [root / "news.html"]
+          script = "/assets/site/js/support-footer.js"
+          stylesheet = "/assets/site/css/support-footer.css"
+          for page in pages:
+              assert page.is_file(), page
+              content = page.read_text(encoding="utf-8")
+              assert content.count(script) == 1, page
+              assert content.count(stylesheet) == 1, page
+          assert (root / "assets/site/js/support-footer.js").is_file()
+          assert (root / "assets/site/css/support-footer.css").is_file()
+          print("Sponsor strip verified in", len(pages), "release pages")
+          PY

@@ -1,0 +1,45 @@
+/* Discreet nonprofit/sponsorship note, scoped to the existing shared footer. */
+footer.arch-footer .arch-program-support {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px 24px; flex-wrap: wrap; padding: 18px 0 5px;
+  margin-top: 18px; border-top: 1px solid rgba(202,171,101,.29);
+  color: #d5ddcf; font-size: 12px; line-height: 1.6;
+}
+footer.arch-footer .arch-program-uptime {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 9px 12px;
+}
+footer.arch-footer .arch-program-eyebrow {
+  font-size: 11px; color: #d8c89a; font-weight: 600;
+}
+footer.arch-footer .arch-program-uptime-link {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 158px; min-height: 44px; padding: 5px 10px;
+  border: 1px solid #c8b67b; border-radius: 9px;
+  background: #f6f0e5; text-decoration: none !important;
+}
+footer.arch-footer .arch-program-uptime-link:hover,
+footer.arch-footer .arch-program-uptime-link:focus-visible {
+  background: #fff9ee; text-decoration: none !important;
+}
+footer.arch-footer .arch-program-uptime-link img {
+  display: block; width: 134px; max-width: 100%;
+  height: 30px; object-fit: contain;
+}
+footer.arch-footer .arch-program-google {
+  margin: 0; max-width: 420px; color: #d5ddcf;
+}
+footer.arch-footer .arch-program-google a {
+  color: #eed89d; font-weight: 650; text-decoration: none !important;
+}
+footer.arch-footer .arch-program-google a:hover {
+  color: #fff2c9; text-decoration: none !important;
+}
+footer.arch-footer .arch-program-support a:focus-visible {
+  outline: 3px solid #e6c16d; outline-offset: 3px;
+}
+@media (max-width: 660px) {
+  footer.arch-footer .arch-program-support {
+    align-items: flex-start; flex-direction: column; gap: 12px;
+  }
+  footer.arch-footer .arch-program-google {max-width: none;}
+}
