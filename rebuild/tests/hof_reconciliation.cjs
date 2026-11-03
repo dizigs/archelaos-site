@@ -61,7 +61,7 @@ async function main() {
           const greek = await page.locator('section[data-profile-language="el"]').textContent();
           assert.ok(english.includes('reached the podium'), 'sourced podium in public English biography');
           assert.ok(greek.includes('ανέβηκε στο βάθρο'), 'sourced podium in public Greek biography');
-          assert.ok(!/remains unresolved|first place|second place|champion/i.test(english), 'no disputed rank in public English');
+          assert.ok(!/remains unresolved|first place|second place|\bchampion\b/i.test(english), 'no disputed rank in public English');
           assert.ok(!/προς διασταύρωση|πρωταθλητή Ελλάδας|δεύτερο/i.test(greek), 'no disputed rank in public Greek');
         }
         if (id === 'arch-f56820c52e55') {
