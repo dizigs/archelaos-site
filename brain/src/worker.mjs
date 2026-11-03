@@ -103,12 +103,14 @@ export class BrainCoordinator extends DurableObject {
       if (!existing) {
         const selected = route(event);
         this.sql.exec('INSERT INTO jobs(id,source,type,correlation,envelope,status,due,created,updated,route,code) VALUES(?,?,?,?,?,?,?,?,?,?,?)', id, event.sourceType, event.eventType, event.correlationId, JSON.stringify(event), 'QUEUED', now, now, now, selected, 'ACCEPTED');
+        if (this.env.TEST_BUDGET === 'true' && this.env.TEST_STOP_BEFORE_RECEIPT_COMMIT === 'true') throw new Error('SYNTHETIC_STOP_BEFORE_RECEIPT_COMMIT');
         this.record({ id, correlation: event.correlationId, attempts: 0 }, 'QUEUED', 'ACCEPTED', now);
       }
       for (const [key, keySignature, keyKind] of keys) this.sql.exec('INSERT OR IGNORE INTO event_keys(key,job_id,signature,kind) VALUES(?,?,?,?)', key, id, keySignature, keyKind);
       const job = [...this.sql.exec('SELECT * FROM jobs WHERE id=?', id)][0];
       return { receiptId: id, correlationId: job.correlation, eventId: event.eventId, dedupeKey: blob, status: job.status, duplicate: Boolean(existing), durable: true };
     });
+    if (this.env.TEST_BUDGET === 'true' && this.env.TEST_STOP_AFTER_RECEIPT_COMMIT === 'true') throw new Error('SYNTHETIC_STOP_AFTER_RECEIPT_COMMIT');
     return reply(result, result.duplicate ? 200 : 202);
   }
   async fetch(request) {
@@ -121,6 +123,13 @@ export class BrainCoordinator extends DurableObject {
       }
       if (url.pathname === '/internal/control' && request.method === 'GET') return reply(this.controlState());
       if (url.pathname === '/internal/control' && request.method === 'POST') return await this.control(await request.json());
+      if (this.env.TEST_BUDGET === 'true' && request.method === 'POST' && url.pathname === '/internal/testing/expire-lease') {
+        const input = await request.json();
+        if (!UUID.test(input.receiptId)) throw new Rejected('INVALID_TEST_RECEIPT', 422);
+        this.sql.exec('UPDATE jobs SET lease_until=? WHERE id=? AND status=?', Date.now() - 1, input.receiptId, 'RUNNING');
+        await this.wake(Date.now() + 10);
+        return reply({ leaseExpiredForSyntheticRecovery: true });
+      }
       if (request.method === 'POST' && url.pathname === '/internal/events') return await this.intake(await request.json());
       if (request.method === 'GET' && url.pathname.startsWith('/internal/tasks/')) {
         const id = url.pathname.slice('/internal/tasks/'.length);
@@ -170,6 +179,7 @@ export class BrainCoordinator extends DurableObject {
         this.record(candidate, 'RUNNING', 'DISPATCH_STARTED', now); return candidate;
       });
       if (!job) break;
+      if (this.env.TEST_BUDGET === 'true' && this.env.TEST_STOP_AFTER_CLAIM === 'true') throw new Error('SYNTHETIC_STOP_AFTER_DURABLE_CLAIM');
       if (this.env.TEST_BUDGET === 'true' && this.env.TEST_PAUSE_WINDOW_MS === '200') await new Promise(resolve => setTimeout(resolve, 200));
       this.ctx.storage.transactionSync(() => {
         if (this.paused(job.source)) {

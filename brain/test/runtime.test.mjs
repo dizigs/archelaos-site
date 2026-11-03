@@ -181,3 +181,28 @@ test('synthetic private fields are rejected without leaking into responses or re
   assert.equal((await response.text()).includes(sentinel), false);
   const state = await (await send('/v1/diagnostics')).json(); assert.deepEqual(state.jobs, []);
 });
+test('stop before receipt commit rolls back rows and never ACKs; redelivery creates one job', async () => {
+  const config = options(); config.bindings.TEST_STOP_BEFORE_RECEIPT_COMMIT = 'true'; await mf.setOptions(config);
+  const input = event(); assert.equal((await send('/v1/events', input)).status, 503);
+  assert.deepEqual((await (await send('/v1/diagnostics')).json()).jobs, []);
+  await mf.dispose(); mf = new Miniflare(options());
+  const response = await send('/v1/events', input); assert.equal(response.status, 202);
+  const receipt = await response.json(); assert.equal((await wait(receipt.receiptId, 'WAITING_REVIEW')).attempts, 1);
+});
+test('stop after commit before ACK survives runtime restart and returns the same durable receipt', async () => {
+  const config = options(); config.bindings.TEST_STOP_AFTER_RECEIPT_COMMIT = 'true'; await mf.setOptions(config);
+  const input = event(); assert.equal((await send('/v1/events', input)).status, 503);
+  const before = await (await send('/v1/diagnostics')).json(); assert.equal(before.jobs.reduce((n, row) => n + row.count, 0), 1);
+  await mf.dispose(); mf = new Miniflare(options());
+  const response = await send('/v1/events', input); assert.equal(response.status, 200); assert.equal((await response.json()).duplicate, true);
+  const after = await (await send('/v1/diagnostics')).json(); assert.equal(after.jobs.reduce((n, row) => n + row.count, 0), 1);
+});
+test('durable claim interruption, restart and lease expiry produce one logical completion', async () => {
+  const config = options(); config.bindings.TEST_STOP_AFTER_CLAIM = 'true'; await mf.setOptions(config);
+  const receipt = await (await send('/v1/events', event())).json(); await wait(receipt.receiptId, 'RUNNING');
+  await mf.dispose(); mf = new Miniflare(options());
+  const namespace = await mf.getDurableObjectNamespace('BRAIN'); const stub = namespace.get(namespace.idFromName('central-v1'));
+  const expired = await stub.fetch('https://internal/internal/testing/expire-lease', { method: 'POST', body: JSON.stringify({ receiptId: receipt.receiptId }) }); assert.equal(expired.status, 200);
+  const completed = await wait(receipt.receiptId, 'WAITING_REVIEW'); assert.equal(completed.attempts, 2);
+  assert.equal(completed.audit.filter(row => row.status === 'WAITING_REVIEW').length, 1);
+});
