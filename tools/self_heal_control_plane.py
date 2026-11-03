@@ -162,7 +162,7 @@ def checked_state(state, observation):
             or any(not isinstance(run, str) or not RUN.fullmatch(run) for run in state["seenRuns"])
             or not isinstance(state.get("publicationContexts"), list)
             or len(state["publicationContexts"]) > 2
-            or any(context not in PUBLICATION_CONTEXTS for context in state["publicationContexts"])):
+            or any(not isinstance(context, str) or context not in PUBLICATION_CONTEXTS for context in state["publicationContexts"])):
         raise ValueError("Invalid persisted counters/phase")
     if state.get("lastAttemptAt") is not None:
         instant(state["lastAttemptAt"])
