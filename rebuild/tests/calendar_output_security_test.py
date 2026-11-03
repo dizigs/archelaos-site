@@ -57,6 +57,14 @@ class CalendarOutputSecurity(unittest.TestCase):
         self.assertTrue(data["candidates"][0]["review_required"])
         self.assertFalse((self.root / "rebuild/data/match-schedule.json").exists())
 
+    def test_existing_schedule_file_is_not_modified(self):
+        schedule = self.root / "rebuild/data/match-schedule.json"
+        schedule.parent.mkdir(parents=True)
+        schedule.write_text(self.sentinel)
+        result = self.run_cli()
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(schedule.read_text(), self.sentinel)
+
     def test_explicit_fixed_choice_is_anchored_from_another_cwd(self):
         result = self.run_cli("--out", CHOICE, cwd=self.workspace)
         self.assertEqual(result.returncode, 0, result.stderr)
@@ -83,6 +91,21 @@ class CalendarOutputSecurity(unittest.TestCase):
         result = self.run_cli()
         self.assertEqual(sentinel.read_text(), self.sentinel)
         self.assertNotEqual(result.returncode, 0)
+
+    def test_symlinked_rebuild_ancestor_is_rejected(self):
+        spec = importlib.util.spec_from_file_location("calendar_snapshot_ancestor", TOOLS / "public_snapshot.py")
+        snapshot = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(snapshot)
+        alternate_root = self.workspace / "alternate-repo"
+        decoy = self.workspace / "outside-decoy"
+        alternate_root.mkdir()
+        decoy.mkdir()
+        (alternate_root / "rebuild").symlink_to(decoy, target_is_directory=True)
+        with patch.object(snapshot, "ROOT", alternate_root):
+            with self.assertRaises(OSError):
+                with snapshot.output_directory(("rebuild", "test-artifacts")):
+                    pass
+        self.assertFalse((decoy / "test-artifacts").exists())
 
     def test_hardlinked_report_cannot_overwrite_an_outside_inode(self):
         os.link(self.outside, self.report)
