@@ -384,3 +384,80 @@ security PR. No name, record ID or historical source was edited by Codex. Fresh
 combined-head CI is required after this synchronization; the previous-head pass
 is not substituted. Actual current-main production logs and full remaining
 Sonar issue context remain pending here.
+
+## Multisport master self-heal — deployment evidence gate — 2026-11-03
+
+Owner Codex; independent of Draft #90's registry/policy/preview files. Existing
+collector supplies metadata only; a green inventory job does not establish
+production SHA, terminal build logs or public HTTP health. Implementation
+`44ae87c47ccfae4f75c2f68a10877be0eef0fb9f`, compatibility
+`d160f7392b9c05e9239fa49b16c03110e444e143`, adds the fail-closed read-only
+verification gate to the same Cloudflare workflow and original cron. No new
+schedule, DNS/service configuration, secret or access-permission change.
+
+Actual offline fault injection verifies rejection of preview/old success, wrong
+SHA, incomplete stages, missing terminal logs, later failure, unhealthy HTTP,
+forbidden redirects, missing credentials and unsafe report links. Exact access
+endpoints/layers are retained; arbitrary response messages, raw build logs, tokens
+and signed queries are not. Shared atomic writer reused; legacy report field
+names preserved. No main A, deployment or full self-heal success claimed yet.
+
+Actual tests: **30/30** new tests, **34/34** existing CLI security, **24/24** observer,
+build/verify **15 pages / 763 profiles**, syntax/YAML/diff PASS. These are local
+results on starting main `0b19941dbf668dc7ca0670fc31d164fd2adc5060`; synthetic
+403s are not real access observations. Remote CI and a real existing-workflow
+run are next. [Contract and remaining work](self-heal/DEPLOYMENT_EVIDENCE.md);
+[actual local output](self-heal/evidence/deployment-gate-local-20261103.log).
+[Started checkpoint](https://github.com/dizigs/archelaos-site/issues/71#issuecomment-6601163597).
+
+### Actual production evidence from the new read-only gate — PR #101
+
+Existing workflow **41622405981**, code head **96393c2b6db78b77ed18f556eadf1bac750c35c7**,
+job/check **125871159545 SUCCESS**. It actually verified main
+**65f7e34ea692436d16ddeac395a9a1dbcc7fd3d8**, production deployment
+**60cc4e0e-9eb4-4bc7-a7f1-b85a8d283a56**, required stages and actual terminal
+provider logs (`Assets published!` / `Your site was deployed!`,
+2026-11-03T10:47:46.572313Z / 10:47:47.671656Z), followed by official HTTP **200**
+and static main/shell landmarks. Full sanitized proof is committed under
+[self-heal evidence](self-heal/evidence/deployment-gate-live-20261103.json).
+No synthetic result or preview was substituted; no provider configuration changed.
+The report's production commit differs intentionally from the unmerged verifier
+source commit. Main Sonar125870971530 remains C/FAILURE, PR Sonar125871130588 PASS.
+Notice observability is extended to include stage states and normalized log hash;
+new final-head CI and actual read-only dispatch will validate that changed source.
+Controller/real fault-to-deduplicated-repair-PR acceptance is still subsequent work.
+
+### PR #101 — scanner finding despite successful job, corrected without suppression
+
+Actual zizmor **125870780098** reports failure-level **dangerous-triggers** at
+cloudflare-pages-status.yml:11 for workflow_run, although the enclosing existing
+scanner job concludes success. Recorded TEST_FAILED in
+[Issue #71](https://github.com/dizigs/archelaos-site/issues/71#issuecomment-6601886450);
+real provider proof does not waive a code-security finding.
+
+Correction **cfb555f3631cf39c5a4d54772d5b035858043de2** removes that trigger and
+uses a local reusable verifier after all three existing Rebuild jobs, only on
+protected-main pushes. No permission expansion, new scheduler, scanner exception
+or release write. Fresh ownership check before editing the Rebuild workflow
+found no other active PR owner. Local YAML/needs/main-only/read-only/original
+cron checks, 30/30 fault tests and 24/24 observer tests PASS. Actual new-head
+scanner/full CI and post-merge wiring must still be observed.
+
+### PR #101 — exact linter failure and compatible correction
+
+Actual head10f471d failed actionlint125878721382 and Static Actions125878721012.
+Pinned actionlint1.7.11 reproduced: reusable workflow call `$/...` does not match
+`owner/repo/path/to/workflow.yml@ref` or `./path/to/workflow.yml` [workflow-call].
+Annotations exposed exit1 only, so the exact pinned official binary was used
+locally, SHA256 verified from GitHub release metadata. A prior local Go build
+attempt returned `Go: Unknown option: mod`; it was not repeated.
+
+Correction3921c361122506e1356bc5d11c41019e400298a7 restores supported `./` local
+syntax. Actual local actionlint exit0 and 30/30 tests PASS; no linter exclusion.
+The self-repository style recommendation and pre-existing Rebuild adhoc-packages
+warning remain visible; a future toolchain update is a separate task. Actual
+check125875932363 no longer reports the failure-level dangerous trigger.
+[Exact diagnostic evidence](self-heal/evidence/actionlint-reference-20261103.log).
+A second real read-only provider proof, run41623179200/check125873805311, is
+recorded with all stage values and log hash under the dedicated evidence folder.
+No provider/production configuration or required check was changed.
