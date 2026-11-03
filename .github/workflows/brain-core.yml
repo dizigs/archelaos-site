@@ -37,7 +37,9 @@ jobs:
           npm run syntax --prefix brain
           python -m unittest discover -s brain/test -p '*_test.py' -v
       - name: Exercise actual workerd SQLite, alarms, restart, dedupe, DLQ and budget concurrency
-        run: npm test --prefix brain
+        run: |
+          npm test --prefix brain | tee "$RUNNER_TEMP/brain-tests.tap"
+          python brain/tools/test_summary.py < "$RUNNER_TEMP/brain-tests.tap"
       - name: Compile staging-only Worker without deployment or credentials
         working-directory: brain
         run: ./node_modules/.bin/wrangler deploy --dry-run --outdir "$RUNNER_TEMP/brain-bundle"

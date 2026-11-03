@@ -1,6 +1,6 @@
 import { DurableObject } from 'cloudflare:workers';
 import { Rejected, UUID, authenticate, boundedBody, digest, reply, route, validateEvent } from './contract.mjs';
-import { reserveBudget, settleBudget } from './budget.mjs';
+import { claimBudgetCall, reserveBudget, settleBudget } from './budget.mjs';
 
 const SCHEMA = [
   'CREATE TABLE IF NOT EXISTS jobs(id TEXT PRIMARY KEY,source TEXT NOT NULL,type TEXT NOT NULL,correlation TEXT NOT NULL,envelope TEXT NOT NULL,status TEXT NOT NULL,attempts INTEGER NOT NULL DEFAULT 0,due INTEGER NOT NULL,lease_until INTEGER NOT NULL DEFAULT 0,created INTEGER NOT NULL,updated INTEGER NOT NULL,route TEXT NOT NULL,code TEXT NOT NULL)',
@@ -9,7 +9,7 @@ const SCHEMA = [
   'CREATE TABLE IF NOT EXISTS audit(id INTEGER PRIMARY KEY AUTOINCREMENT,job_id TEXT NOT NULL,at INTEGER NOT NULL,status TEXT NOT NULL,code TEXT NOT NULL,attempt INTEGER NOT NULL,correlation TEXT NOT NULL)',
   'CREATE TABLE IF NOT EXISTS rate_counters(key TEXT PRIMARY KEY,count INTEGER NOT NULL,expires INTEGER NOT NULL)',
   'CREATE TABLE IF NOT EXISTS ai_months(month TEXT PRIMARY KEY,spent INTEGER NOT NULL,reserved INTEGER NOT NULL)',
-  'CREATE TABLE IF NOT EXISTS ai_reservations(id TEXT PRIMARY KEY,month TEXT NOT NULL,provider TEXT NOT NULL,model TEXT NOT NULL,event_id TEXT NOT NULL,source_revision TEXT NOT NULL,operation TEXT NOT NULL,amount INTEGER NOT NULL,status TEXT NOT NULL,actual INTEGER,UNIQUE(event_id,source_revision,operation))',
+  'CREATE TABLE IF NOT EXISTS ai_reservations(id TEXT PRIMARY KEY,month TEXT NOT NULL,provider TEXT NOT NULL,model TEXT NOT NULL,event_id TEXT NOT NULL,source_revision TEXT NOT NULL,operation TEXT NOT NULL,amount INTEGER NOT NULL,status TEXT NOT NULL,actual INTEGER,call_claimed INTEGER NOT NULL DEFAULT 0,UNIQUE(event_id,source_revision,operation))',
   'CREATE TABLE IF NOT EXISTS ai_alerts(month TEXT NOT NULL,threshold INTEGER NOT NULL,PRIMARY KEY(month,threshold))'
   ,'CREATE TABLE IF NOT EXISTS controls(name TEXT PRIMARY KEY,value INTEGER NOT NULL)'
   ,'CREATE TABLE IF NOT EXISTS control_audit(at INTEGER NOT NULL,code TEXT NOT NULL,revision INTEGER NOT NULL,scope TEXT NOT NULL)'
@@ -138,6 +138,10 @@ export class BrainCoordinator extends DurableObject {
       if (this.env.TEST_BUDGET === 'true' && request.method === 'POST' && url.pathname === '/internal/budget/settle') {
         const input = await request.json();
         return reply(this.ctx.storage.transactionSync(() => settleBudget(this.sql, input.id, input.actualMicroEur)));
+      }
+      if (this.env.TEST_BUDGET === 'true' && request.method === 'POST' && url.pathname === '/internal/budget/claim') {
+        const input = await request.json();
+        return reply(this.ctx.storage.transactionSync(() => claimBudgetCall(this.sql, input.id)));
       }
       return reply({ code: 'NOT_FOUND' }, 404);
     } catch (error) {

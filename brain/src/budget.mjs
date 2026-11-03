@@ -56,3 +56,10 @@ export function settleBudget(sql, id, actualMicroEur) {
   sql.exec('UPDATE ai_reservations SET status=?,actual=? WHERE id=?', 'SETTLED', actualMicroEur, id);
   return { duplicate: false };
 }
+export function claimBudgetCall(sql, id) {
+  if (!HEX.test(id)) throw new Rejected('INVALID_RESERVATION', 422);
+  const row = [...sql.exec('SELECT status,call_claimed FROM ai_reservations WHERE id=?', id)][0];
+  if (!row || row.status !== 'RESERVED' || row.call_claimed) return { authorized: false };
+  sql.exec('UPDATE ai_reservations SET call_claimed=1 WHERE id=?', id);
+  return { authorized: true };
+}

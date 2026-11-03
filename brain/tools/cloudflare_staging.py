@@ -25,7 +25,7 @@ class Cloudflare:
 
     def get(self, suffix):
         if suffix not in {"workers/account-settings", "workers/subdomain", "subscriptions",
-                          "workers/durable_objects/namespaces", "workers/scripts/" + SCRIPT,
+                          "workers/durable_objects/namespaces", "workers/scripts/" + SCRIPT + "/settings",
                           "pages/projects/archelaos-site"}:
             raise ValueError("Read endpoint outside compiled readiness allowlist")
         endpoint = BASE + "/accounts/" + self.account + "/" + suffix
@@ -55,7 +55,7 @@ class Cloudflare:
 
 def inventory(client):
     endpoints = ("workers/account-settings", "workers/subdomain", "subscriptions",
-                 "workers/durable_objects/namespaces", "workers/scripts/" + SCRIPT)
+                 "workers/durable_objects/namespaces", "workers/scripts/" + SCRIPT + "/settings")
     evidence = []
     plan = "UNVERIFIED"
     for suffix in endpoints:
@@ -71,8 +71,8 @@ def inventory(client):
             response["registeredWorkersSubdomain"] = bool(result.get("subdomain"))
         if suffix == "workers/durable_objects/namespaces" and response["success"] and isinstance(result, list):
             response["namespaceCount"] = len(result)
-        if suffix == "workers/scripts/" + SCRIPT:
-            response["existingStagingScript"] = response["success"]
+        if suffix == "workers/scripts/" + SCRIPT + "/settings":
+            response["existingStagingScript"] = True if response["success"] else False if response.get("httpStatus") == 404 else None
         evidence.append(response)
     return {"stage": "READ_ONLY_INVENTORY", "script": SCRIPT, "billingPlan": plan,
             "evidence": evidence, "resourceMutationPerformed": False, "aiProviderCalls": 0,

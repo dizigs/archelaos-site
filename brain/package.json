@@ -4,8 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node --test --test-concurrency=1 test/*.test.mjs",
-    "syntax": "node --check src/worker.mjs && node --check src/contract.mjs && node --check src/budget.mjs"
+    "test": "node --test --test-reporter=tap --test-concurrency=1 test/*.test.mjs",
+    "syntax": "node tools/check_syntax.mjs"
   },
   "devDependencies": {
     "miniflare": "4.20260730.0",
