@@ -1,0 +1,53 @@
+name: Mirror PR and issue lifecycle to task handoff inbox
+
+# No schedule and no direct changes to website, main, or private Google Sheet.
+# pull_request_target is safe here: only execute our default-branch code,
+# never checkout or run untrusted PR-head files.
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/tracker-handoff.yml'
+      - '.github/scripts/tracker_handoff_event.py'
+      - '.github/tests/test_tracker_handoff_event.py'
+  pull_request_target:
+    types: [opened, edited, synchronize, reopened, ready_for_review, converted_to_draft, closed]
+  issues:
+    types: [opened, edited, reopened, closed]
+
+concurrency:
+  group: tracker-handoff-${{ github.event.pull_request.number || github.event.issue.number || github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  offline-test:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Offline tests for idempotent public event records
+        run: python3 -m unittest discover -s .github/tests -p test_tracker_handoff_event.py -v
+
+  mirror:
+    if: github.event_name == 'issues' || github.event_name == 'pull_request_target'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: read
+    steps:
+      - name: Checkout ONLY default-branch trusted code
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: main
+          persist-credentials: false
+      - name: Upsert public PR/issue state to existing handoff issue 71
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 .github/scripts/tracker_handoff_event.py
