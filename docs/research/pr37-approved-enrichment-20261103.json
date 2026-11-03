@@ -1,0 +1,200 @@
+{
+  "scope": "PR #37 — approved-source Hall of Fame/news reconciliation",
+  "date": "2026-11-03",
+  "source": "docs/research/news-to-hof-audit-20261103.json",
+  "publication_gate": "PR CI, protected merge, deployment verification pending",
+  "before": {
+    "hallPeople": 763,
+    "newsItems": 124
+  },
+  "after": {
+    "hallPeople": 773,
+    "newsItems": 124
+  },
+  "newPeople": [
+    {
+      "id": "arch-katerina-lampiri-gymnastics-2022",
+      "name": "Κατερίνα Λαμπίρη",
+      "sport": "Ενόργανη Γυμναστική",
+      "eventIds": [
+        "gymnastics-regional-first-phase-may-2022",
+        "gymnastics-alexandroupoli-final-jun-2022",
+        "gymnastics-thessaloniki-regional-may-2023"
+      ],
+      "sourceUrls": [
+        "https://odelalis.gr/sarose-ta-metallia-to-tmima-gymnastikis-toy-gas-archelaos-katerinis/",
+        "https://odelalis.gr/epitychies-ton-pampaidon-amp-pagkorasidon-toy-gas-archelaos-katerinis-sto-panellinio-protathlima-enorganis-gymnastikis-stin-alexandroypoli/",
+        "https://olympiobima.gr/gas-archelaos-katerinis-ekpliktiki-emfanisi-megales-diakriseis-stin-thessaloniki/"
+      ]
+    },
+    {
+      "id": "arch-christina-papavasileiou-gymnastics-2022",
+      "name": "Χριστίνα Παπαβασιλείου",
+      "sport": "Ενόργανη Γυμναστική",
+      "eventIds": [
+        "gymnastics-regional-first-phase-may-2022",
+        "gymnastics-alexandroupoli-final-jun-2022"
+      ],
+      "sourceUrls": [
+        "https://odelalis.gr/sarose-ta-metallia-to-tmima-gymnastikis-toy-gas-archelaos-katerinis/",
+        "https://odelalis.gr/epitychies-ton-pampaidon-amp-pagkorasidon-toy-gas-archelaos-katerinis-sto-panellinio-protathlima-enorganis-gymnastikis-stin-alexandroypoli/"
+      ]
+    },
+    {
+      "id": "arch-paschalis-iliatzikis-wrestling-2022",
+      "name": "Πασχάλης Ηλιατζίκης",
+      "sport": "Πάλη",
+      "eventIds": [
+        "wrestling-u17-serres-third-apr-2022",
+        "wrestling-mouzaki-youth-medals-apr-2023"
+      ],
+      "sourceUrls": [
+        "https://odigos-pierias.gr/3%CE%BF%CF%82-%CE%BF-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CE%BA%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82-%CF%83%CF%84%CE%BF-%CF%80%CE%B1%CE%BD%CE%B5%CE%BB%CE%BB%CE%AE%CE%BD%CE%B9/",
+        "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/3-%CE%BC%CE%B5%CF%84%CE%AC%CE%BB%CE%BB%CE%B9%CE%B1-%CE%B3%CE%B9%CE%B1-%CF%84%CE%BF%CF%85%CF%82-%CE%AD%CF%86%CE%B7%CE%B2%CE%BF%CF%85%CF%82-%CF%84%CE%BF%CF%85-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF/"
+      ]
+    },
+    {
+      "id": "arch-savvas-charitidis-wrestling-2021",
+      "name": "Σάββας Χαριτίδης",
+      "sport": "Πάλη",
+      "eventIds": [
+        "wrestling-xanthi-four-medals-2021",
+        "wrestling-mouzaki-youth-medals-apr-2023"
+      ],
+      "sourceUrls": [
+        "https://odigos-pierias.gr/4-%CE%BC%CE%B5%CF%84%CE%AC%CE%BB%CE%BB%CE%B9%CE%B1-%CE%BF%CE%B9-%CF%80%CF%81%CF%89%CF%84%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%AD%CF%82-%CF%84%CE%BF%CF%85-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%85/",
+        "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/3-%CE%BC%CE%B5%CF%84%CE%AC%CE%BB%CE%BB%CE%B9%CE%B1-%CE%B3%CE%B9%CE%B1-%CF%84%CE%BF%CF%85%CF%82-%CE%AD%CF%86%CE%B7%CE%B2%CE%BF%CF%85%CF%82-%CF%84%CE%BF%CF%85-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF/"
+      ]
+    },
+    {
+      "id": "arch-alexis-papadopoulos-wrestling-2022",
+      "name": "Αλέξης Παπαδόπουλος",
+      "sport": "Πάλη",
+      "eventIds": [
+        "wrestling-u17-serres-third-apr-2022"
+      ],
+      "sourceUrls": [
+        "https://odigos-pierias.gr/3%CE%BF%CF%82-%CE%BF-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CE%BA%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82-%CF%83%CF%84%CE%BF-%CF%80%CE%B1%CE%BD%CE%B5%CE%BB%CE%BB%CE%AE%CE%BD%CE%B9/"
+      ]
+    },
+    {
+      "id": "arch-eleni-mitsiaki-archery-2022",
+      "name": "Ελένη Μητσιάκη",
+      "sport": "Τοξοβολία",
+      "eventIds": [
+        "archery-florina-cup-team-silver-sep-2022"
+      ],
+      "sourceUrls": [
+        "https://olympiobima.gr/sto-kypello-ellados-stin-florina-to-tmima-toxovolias-toy-gas-archelaos-katerinis/"
+      ]
+    },
+    {
+      "id": "arch-achilleas-giassiranis-wrestling-2024",
+      "name": "Αχιλλέας Γιασιράνης",
+      "sport": "Πάλη",
+      "eventIds": [
+        "wrestling-pleven-bulgaria-dec-2024"
+      ],
+      "sourceUrls": [
+        "https://olympiobima.gr/3-chrysa-metallia-oi-protathlites-tou-archelaou-katerinis-sto-pleven-tis-voulgarias/"
+      ]
+    },
+    {
+      "id": "arch-kyriaki-parasidou-gymnastics-2022",
+      "name": "Κυριακή Παρασίδου",
+      "sport": "Ενόργανη Γυμναστική",
+      "eventIds": [
+        "gymnastics-regional-first-phase-may-2022"
+      ],
+      "sourceUrls": [
+        "https://odelalis.gr/sarose-ta-metallia-to-tmima-gymnastikis-toy-gas-archelaos-katerinis/"
+      ]
+    },
+    {
+      "id": "arch-christos-karasavvidis-gymnastics-2022",
+      "name": "Χρήστος Καρασαββίδης",
+      "sport": "Ενόργανη Γυμναστική",
+      "eventIds": [
+        "gymnastics-regional-first-phase-may-2022"
+      ],
+      "sourceUrls": [
+        "https://odelalis.gr/sarose-ta-metallia-to-tmima-gymnastikis-toy-gas-archelaos-katerinis/"
+      ]
+    },
+    {
+      "id": "arch-ioannis-goutsos-gymnastics-2022",
+      "name": "Ιωάννης Γκούτζος",
+      "sport": "Ενόργανη Γυμναστική",
+      "eventIds": [
+        "gymnastics-regional-first-phase-may-2022"
+      ],
+      "sourceUrls": [
+        "https://odelalis.gr/sarose-ta-metallia-to-tmima-gymnastikis-toy-gas-archelaos-katerinis/"
+      ]
+    }
+  ],
+  "addedNewsPersonLinks": [
+    {
+      "personId": "arch-katerina-lampiri-gymnastics-2022",
+      "eventId": "gymnastics-regional-first-phase-may-2022"
+    },
+    {
+      "personId": "arch-katerina-lampiri-gymnastics-2022",
+      "eventId": "gymnastics-alexandroupoli-final-jun-2022"
+    },
+    {
+      "personId": "arch-katerina-lampiri-gymnastics-2022",
+      "eventId": "gymnastics-thessaloniki-regional-may-2023"
+    },
+    {
+      "personId": "arch-christina-papavasileiou-gymnastics-2022",
+      "eventId": "gymnastics-regional-first-phase-may-2022"
+    },
+    {
+      "personId": "arch-christina-papavasileiou-gymnastics-2022",
+      "eventId": "gymnastics-alexandroupoli-final-jun-2022"
+    },
+    {
+      "personId": "arch-paschalis-iliatzikis-wrestling-2022",
+      "eventId": "wrestling-u17-serres-third-apr-2022"
+    },
+    {
+      "personId": "arch-paschalis-iliatzikis-wrestling-2022",
+      "eventId": "wrestling-mouzaki-youth-medals-apr-2023"
+    },
+    {
+      "personId": "arch-savvas-charitidis-wrestling-2021",
+      "eventId": "wrestling-xanthi-four-medals-2021"
+    },
+    {
+      "personId": "arch-savvas-charitidis-wrestling-2021",
+      "eventId": "wrestling-mouzaki-youth-medals-apr-2023"
+    },
+    {
+      "personId": "arch-alexis-papadopoulos-wrestling-2022",
+      "eventId": "wrestling-u17-serres-third-apr-2022"
+    },
+    {
+      "personId": "arch-eleni-mitsiaki-archery-2022",
+      "eventId": "archery-florina-cup-team-silver-sep-2022"
+    },
+    {
+      "personId": "arch-achilleas-giassiranis-wrestling-2024",
+      "eventId": "wrestling-pleven-bulgaria-dec-2024"
+    },
+    {
+      "personId": "arch-kyriaki-parasidou-gymnastics-2022",
+      "eventId": "gymnastics-regional-first-phase-may-2022"
+    },
+    {
+      "personId": "arch-christos-karasavvidis-gymnastics-2022",
+      "eventId": "gymnastics-regional-first-phase-may-2022"
+    },
+    {
+      "personId": "arch-ioannis-goutsos-gymnastics-2022",
+      "eventId": "gymnastics-regional-first-phase-may-2022"
+    }
+  ],
+  "privacy": "Only public sources and club athlete biographies; no private attachments",
+  "dedupe": "Explicit person id, normalized full-name uniqueness and exact name in published news text"
+}
