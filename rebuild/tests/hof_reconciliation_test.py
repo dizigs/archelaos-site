@@ -186,7 +186,7 @@ class RepositoryReconciliationTests(unittest.TestCase):
         self.assertNotIn('data-profile-language=', original)
         output = (ROOT / "dist/people" / (pid + ".html")).read_text()
         english = re.search(
-            r'<section\\b[^>]*data-profile-language="en"[^>]*>.*?<div class="bio">(.*?)</div>',
+            r'<section\b[^>]*data-profile-language="en"[^>]*>.*?<div class="bio">(.*?)</div>',
             output, re.S)
         self.assertIsNotNone(english, "Missing generated English section: " + pid)
         self.assertEqual(normalized(english[1]), normalized(self.people[pid]["bio_en"]))
