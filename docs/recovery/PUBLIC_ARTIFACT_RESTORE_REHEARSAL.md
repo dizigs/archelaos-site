@@ -43,3 +43,9 @@ The PR-only checks prove a built ZIP. A second `workflow_dispatch` job (not sche
 The provider job uses read-only `contents:read` and `actions:read` GitHub token permissions. It leaves the backup ZIP only in the ephemeral GitHub runner, uploads the **JSON verification report only** for 14 days and makes no production/Cloudflare/DNS or backup-store changes. No new cron and no auto-dispatch are introduced.
 
 This provider readback has **not been executed or verified**. A workflow-dispatch input cannot be assumed usable on a draft PR branch before the workflow exists on the default branch. Run it after review/merge, check actual run/job evidence, and still perform a separate isolated full-site restore drill.
+
+## Provenance hardening (2026-11-03)
+
+A ZIP can have internally matching SHA-256 values while originating from the wrong run. For a **stored** artifact, the provider-readback job now takes the verified GitHub source run `head_sha` and calls `public_restore_audit.py --source-commit <40-hex-sha>`. The verifier rejects a mismatching or missing commit, unexpected manifest fields, malformed digest and archive content outside the public allowlist. Synthetic fixtures remain accepted only in local fixture mode with no `--source-commit` argument.
+
+This is a guard against **run mix-ups and malformed archives**, not an independent cryptographic signature by GitHub, an offsite backup, or successful website rollback.
