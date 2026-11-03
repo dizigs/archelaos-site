@@ -75,5 +75,38 @@ class RestoreAuditTests(unittest.TestCase):
             with self.assertRaisesRegex(audit.VerificationError,"missing"):
                 audit.verify_zip(z)
 
+
+    def test_reject_missing_manifest_commit(self):
+        b=make_zip()
+        clean=BytesIO()
+        with ZipFile(b) as src, ZipFile(clean,"w",ZIP_DEFLATED) as dst:
+            for info in src.infolist():
+                contents=src.read(info.filename)
+                if info.filename=="public-archive-manifest.json":
+                    manifest=json.loads(contents)
+                    manifest.pop("commit")
+                    contents=json.dumps(manifest).encode()
+                dst.writestr(info.filename,contents)
+        clean.seek(0)
+        with ZipFile(clean) as z:
+            with self.assertRaisesRegex(audit.VerificationError,"manifest commit"):
+                audit.verify_zip(z)
+
+    def test_reject_extra_manifest_fields(self):
+        b=make_zip()
+        clean=BytesIO()
+        with ZipFile(b) as src, ZipFile(clean,"w",ZIP_DEFLATED) as dst:
+            for info in src.infolist():
+                contents=src.read(info.filename)
+                if info.filename=="public-archive-manifest.json":
+                    manifest=json.loads(contents)
+                    manifest["files"][0]["external_path"]="private/archive"
+                    contents=json.dumps(manifest).encode()
+                dst.writestr(info.filename,contents)
+        clean.seek(0)
+        with ZipFile(clean) as z:
+            with self.assertRaisesRegex(audit.VerificationError,"manifest row fields"):
+                audit.verify_zip(z)
+
 if __name__=="__main__":
     unittest.main()
