@@ -4,7 +4,8 @@ on:
   schedule:
     - cron: '23 7 * * *'
 permissions:
-  contents: read
+  contents: write
+  pull-requests: write
 jobs:
   sync:
     runs-on: ubuntu-latest
@@ -21,7 +22,7 @@ jobs:
           if git diff --quiet -- data/archery/velos-results.json; then
             echo 'No dataset changes.' >> "$GITHUB_STEP_SUMMARY"
           else
-            echo 'Dataset changed; review the run artifact before importing.' >> "$GITHUB_STEP_SUMMARY"
+            echo 'Dataset changed; opening a review PR.' >> "$GITHUB_STEP_SUMMARY"
           fi
       - uses: actions/upload-artifact@v4
         with:
@@ -29,3 +30,15 @@ jobs:
           path: data/archery/velos-results.json
           if-no-files-found: error
           retention-days: 14
+      - name: Propose changes for review
+        uses: peter-evans/create-pull-request@v7
+        with:
+          add-paths: data/archery/velos-results.json
+          branch: automation/velos-results
+          delete-branch: true
+          title: 'data(archery): refresh VEL​​OS results'
+          commit-message: 'data(archery): refresh VEL​​OS results'
+          body: |
+            Automated, bounded update of publicly accessible GAS Archelaos
+            archery match results. Review source, player attribution, and CI
+            before merge. No automatic Hall of Fame changes.
