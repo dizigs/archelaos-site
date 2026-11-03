@@ -26,7 +26,7 @@ def compact_title(title: str) -> str:
 
 
 def build_record(event_name: str, payload: dict[str, Any]) -> dict[str, str] | None:
-    if event_name == "pull_request_target":
+    if event_name in ("pull_request", "pull_request_target"):
         obj = payload.get("pull_request") or {}
         kind = "PR"
         number = obj.get("number") or payload.get("number")
@@ -62,9 +62,9 @@ def build_record(event_name: str, payload: dict[str, Any]) -> dict[str, str] | N
         f"[TRACKER-EVENT] **{kind}-{number}** — {state}\n\n"
         f"- Public source: {url}\n"
         f"- Title: {json.dumps(title, ensure_ascii=False)}\n"
-        f"- Last GitHub action: \`{action}\`\n"
-        f"- GitHub updated_at (UTC): \`{updated}\`\n"
-        f"- PR head SHA: \`{sha}\`\n"
+        f"- Last GitHub action: `{action}`\n"
+        f"- GitHub updated_at (UTC): `{updated}`\n"
+        f"- PR head SHA: `{sha}`\n"
         f"- Reconciliation: **pending**. The daily ChatGPT audit may upsert this "
         "public event to the private Live Sheet using an authorized connector.\n\n"
         "This is a public GitHub event record, **not** a confirmed Sheet update, "
