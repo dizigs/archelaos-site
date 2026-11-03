@@ -3,7 +3,6 @@
 const {test} = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
-const vm = require('node:vm');
 const path = require('node:path');
 
 const root = path.resolve(__dirname, '..');
@@ -68,7 +67,15 @@ test('waits for shared shell, mounts once, and has proper link semantics', () =>
       listeners.push(callback);
     }
   };
-  vm.runInNewContext(source, {document}, {timeout: 500});
+  const previous = global.document;
+  global.document = document;
+  try {
+    // Fixed local module import (no dynamic evaluation or untrusted code).
+    require('../js/support-footer.js');
+  } finally {
+    if (previous === undefined) delete global.document;
+    else global.document = previous;
+  }
   assert.equal(inner.nodes.length, 1);
   assert.equal(listeners.length, 1);
   listeners[0]();
