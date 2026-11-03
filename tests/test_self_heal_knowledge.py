@@ -134,6 +134,53 @@ class KnowledgeTest(unittest.TestCase):
         with self.assertRaises(kb.KnowledgeError):
             kb.search(self.conn, "!!!")
 
+    def test_bulk_download_rejects_unapproved_ecosystem_before_network(self):
+        calls = []
+        def opener(*args, **kwargs):
+            calls.append((args, kwargs))
+            raise AssertionError("Network should not be called")
+        with self.assertRaises(kb.KnowledgeError):
+            kb.download_bulk_archive("../outside", Path(self.temp.name) / "no.zip", opener)
+        self.assertEqual(calls, [])
+
+    def test_bulk_download_streams_official_fixed_url_with_bounded_output(self):
+        class FakeResponse:
+            def __init__(self, url, data):
+                self.url, self.data, self.position = url, data, 0
+                self.headers = {"Content-Length": str(len(data))}
+            def geturl(self):
+                return self.url
+            def read(self, size):
+                start = self.position
+                self.position += size
+                return self.data[start:self.position]
+            def __enter__(self):
+                return self
+            def __exit__(self, *args):
+                return None
+        paths = []
+        blob = b"ZIPTEST" * 40
+        def opener(request, timeout):
+            self.assertEqual(timeout, 30)
+            paths.append(request.full_url)
+            return FakeResponse(request.full_url, blob)
+        destination = Path(self.temp.name) / "official.zip"
+        result = kb.download_bulk_archive("PyPI", destination, opener)
+        self.assertEqual(result["compressedBytes"], len(blob))
+        self.assertEqual(destination.read_bytes(), blob)
+        self.assertEqual(paths, ["https://storage.googleapis.com/osv-vulnerabilities/PyPI/all.zip"])
+
+    def test_bulk_rejects_redirect_without_writing_archive(self):
+        class Redirect:
+            headers = {}
+            def geturl(self): return "https://unknown.example.com/archive.zip"
+            def __enter__(self): return self
+            def __exit__(self, *args): return None
+        destination = Path(self.temp.name) / "must-not-exist.zip"
+        with self.assertRaises(kb.KnowledgeError):
+            kb.download_bulk_archive("all", destination, lambda *args, **kwargs: Redirect())
+        self.assertFalse(destination.exists())
+
     def test_no_automated_repair_permissions_in_knowledge_tool(self):
         source = (ROOT / "tools/self_heal_knowledge.py").read_text()
         for forbidden in ("subprocess.", "os.system(", "git push", "merge_pull_request", "deploy("):
