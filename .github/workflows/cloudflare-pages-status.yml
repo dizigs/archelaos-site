@@ -1,6 +1,15 @@
 name: Cloudflare Pages deployment status
 on:
   workflow_dispatch:
+  workflow_call:
+    inputs:
+      verify_after_rebuild:
+        type: boolean
+        required: false
+        default: false
+    secrets:
+      CLOUDFLARE_API_TOKEN:
+        required: false
   pull_request:
     paths:
       - 'tools/cloudflare_pages_status.py'
@@ -8,10 +17,7 @@ on:
       - 'tests/test_cloudflare_deployment_evidence.py'
       - 'rebuild/tools/public_snapshot.py'
       - '.github/workflows/cloudflare-pages-status.yml'
-  workflow_run:
-    workflows: ['Rebuild validation']
-    types: [completed]
-    branches: [main]
+      - '.github/workflows/rebuild-check.yml'
   schedule:
     - cron: '23 */6 * * *'
   push:
@@ -22,6 +28,7 @@ on:
       - 'tests/test_cloudflare_deployment_evidence.py'
       - 'rebuild/tools/public_snapshot.py'
       - '.github/workflows/cloudflare-pages-status.yml'
+      - '.github/workflows/rebuild-check.yml'
 
 permissions:
   contents: read
@@ -32,7 +39,7 @@ concurrency:
 
 jobs:
   offline-test:
-    if: github.event_name == 'pull_request' || github.event_name == 'push'
+    if: (github.event_name == 'pull_request' || github.event_name == 'push') && inputs.verify_after_rebuild != true
     runs-on: ubuntu-latest
     timeout-minutes: 3
     steps:
@@ -48,8 +55,8 @@ jobs:
     if: >-
       github.repository == 'dizigs/archelaos-site' &&
       (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' ||
-      (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success' &&
-      github.event.workflow_run.head_repository.full_name == github.repository))
+      (github.event_name == 'push' && github.ref == 'refs/heads/main' &&
+      inputs.verify_after_rebuild == true))
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
