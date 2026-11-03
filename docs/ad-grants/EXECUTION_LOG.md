@@ -112,3 +112,47 @@ The museum primary conversion remains unset. No financial, advertising,
 tracking or Issue-publication activation follows from these passing offline
 tests. No keys, real account IDs, personal data, biographies, news or historical
 records were added or changed.
+
+## Completion follow-up — one-command Ads handoff — 2026-11-03
+
+Scope: Google Ad Grants only, continuing draft #70 from `33b7629`. No work on
+the separate security/research/analytics PRs. Network policy and account-setup
+evidence were unchanged; known failed Google endpoints were not retried.
+
+The separate components now execute through
+`bash rebuild/ads/run_dry_run.sh --fixture`. The runner combines fresh sanitized
+Ads evidence with the existing GA4/GSC format, builds the candidate script, passes
+the validated report to the actual Python Issue planner and finalizes a sanitized
+handoff. Account-local `as_of` is included in the collector's safe JSON output.
+The wrapper has no HTTP, Google write or Issue-publication operation.
+
+Actual results after this follow-up:
+
+- **17/17 Node tests and 13/13 Python tests PASS**. Three new Python integration
+  cases execute the real shell/Node/Python command in disposable workspaces.
+- Complete fixture command **PASS**: `DRY_RUN_COMPLETE`, two draft campaigns,
+  traffic totals still labelled `conversions: unavailable`, six hypothetical
+  Issue creates and `ready_for_live_ads: false`.
+- Repeating the full command with the six matching open Issue markers **PASS**:
+  zero create plans, six already-open matches. No real Issue was created.
+- Real-input command without the required local evidence **fails as expected**:
+  `INCOMPLETE`, activation false. The regression first completes a fixture run,
+  then confirms that missing real evidence cannot retain the old complete status.
+- Stale/future Ads or analytics evidence, synthetic provenance in real mode,
+  missing/mismatched/publishable Issue plans and budgeted/importable campaigns
+  are rejected in the executed tests. Raw extra input values do not enter the
+  public handoff.
+- **75 JavaScript syntax checks, ESLint, Bash syntax, Python compile and workflow
+  YAML/read-only/no-cron checks PASS**.
+- Build and independent release verify **PASS — 15 principal pages, 760 indexed
+  profiles**. No production frontend import or historical data change.
+- File ownership rechecked: no overlap with #37, #65, #67, #68 or #69.
+
+Captured output:
+[`evidence/handoff-tests-20261103.log`](evidence/handoff-tests-20261103.log).
+The synthetic audit/traffic data and fixture clock are explicitly labelled;
+neither is claimed as real Google account evidence. Current policy review,
+account setup, successful live landings, consent/backend receipt/conversion QA
+and an authorized Google Ads Preview still require real verification. No live
+advertising activation or production tracking was performed. Follow-up remote
+CI is pending at this log's commit; the PR description records final-head results.

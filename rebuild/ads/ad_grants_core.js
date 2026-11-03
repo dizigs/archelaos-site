@@ -49,7 +49,7 @@ const ArchelaosAdGrants = (() => {
           row.impressions <= 0 || row.clicks < 0 || row.clicks > row.impressions) counts.CTR_DATA_UNAVAILABLE++;
       else if (row.clicks / row.impressions < 0.05) counts.CTR_BELOW_TARGET++;
     }
-    return {schema_version:1, mode:'dry-run', source_kind:snapshot.source_kind,
+    return {schema_version:1, mode:'dry-run', source_kind:snapshot.source_kind, as_of:snapshot.as_of,
       policy_status:'current-policy-review-required',
       findings:codes.filter(code => counts[code]).map(code => ({code, count:counts[code]}))};
   }

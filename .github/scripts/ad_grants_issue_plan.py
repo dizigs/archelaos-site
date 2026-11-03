@@ -75,10 +75,12 @@ def read_json(name):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--fixture", action="store_true", help="Use committed synthetic evidence only")
+    parser.add_argument("--prepared", action="store_true", help="Read the validated handoff report from its fixed slot")
     args = parser.parse_args()
     # Fixed slots avoid introducing another arbitrary-path CLI while #66 is P0.
     folder = ROOT / "rebuild" / ("ads/fixtures" if args.fixture else "test-artifacts/ad-grants")
-    print(json.dumps(plan(read_json(folder / "audit-report.json"), read_json(folder / "existing-issues.json")), ensure_ascii=False, indent=2))
+    report_folder = ROOT / "rebuild/test-artifacts/ad-grants/handoff" if args.prepared else folder
+    print(json.dumps(plan(read_json(report_folder / "audit-report.json"), read_json(folder / "existing-issues.json")), ensure_ascii=False, indent=2))
 
 
 if __name__ == "__main__":

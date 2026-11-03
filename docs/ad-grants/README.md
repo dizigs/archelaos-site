@@ -5,6 +5,45 @@ No campaign, budget, external service, Ads script schedule, tag or conversion
 action is created or enabled. Nothing in this package can publish Issues or
 change Google Ads. The independent branch starts at main `74b6bcb`.
 
+## Run the complete package
+
+```sh
+bash rebuild/ads/run_dry_run.sh --fixture
+```
+
+This single command validates Ads evidence and the existing GA4/Search Console
+export together, builds/syntax-checks the candidate Ads Script, runs the Python
+Issue planner on the validated report and writes a final handoff. No dependency
+installation, network request, credential or administrative approval is needed
+for this synthetic rehearsal. Output is ignored under
+`rebuild/test-artifacts/ad-grants/handoff/`:
+
+- `audit-report.json`: sanitized finding codes/counts with account-local `as_of`.
+- `issue-plan.json`: hypothetical creates/reopens or already-open matches.
+- `status.json`: `DRY_RUN_COMPLETE` only after every stage succeeds; always
+  `ready_for_live_ads: false`, explicit provenance and outstanding live blockers.
+
+The fixture clock is synthetic and clearly labelled. For a real-evidence dry-run,
+omit `--fixture` and use these existing fixed input slots, without committing them:
+
+| Slot under `rebuild/test-artifacts/ad-grants/` | Required source |
+| --- | --- |
+| `audit-report.json` | Fresh sanitized JSON from the latest candidate Google Ads Script; `source_kind: google-ads-readonly` and `as_of` required |
+| `google-analytics-aggregate.json` | Existing GA4/GSC export JSON, unchanged schema, no fixture clock |
+| `existing-issues.json` | Complete all-state GitHub Issue inventory, following the existing pagination contract |
+
+The runner rejects a synthetic report in real mode, stale/malformed evidence,
+fixture clocks in real input and importable/budgeted campaigns. It resets the
+status to `INCOMPLETE` before validation; missing real inputs cannot retain a
+previous successful fixture status. A failed later stage leaves the handoff
+uncompleted. It does not manufacture inputs or retrieve private reports.
+
+`DRY_RUN_COMPLETE` means the **offline preparation pipeline** completed, not that
+Google approved ads, a real account was tested, or production conversions work.
+The source label is not independent proof of account access. Reusing the already
+existing daily consumer after #67 is ready remains the integration route; no
+second schedule has been added.
+
 ## Start here
 
 1. P0 [#66](https://github.com/dizigs/archelaos-site/issues/66) stays first.
@@ -134,8 +173,8 @@ Runtime input slots are fixed at
 ## Reproduce offline
 
 ```sh
-node --test rebuild/ads/tests/core.test.cjs
-python -m unittest discover -s .github/tests -p test_ad_grants_issue_plan.py -v
+node --test rebuild/ads/tests/*.test.cjs
+python -m unittest discover -s .github/tests -p 'test_ad_grants*.py' -v
 node rebuild/ads/build_preview.cjs
 node --check rebuild/test-artifacts/ad-grants/google-ads-audit.js
 python .github/scripts/ad_grants_issue_plan.py --fixture

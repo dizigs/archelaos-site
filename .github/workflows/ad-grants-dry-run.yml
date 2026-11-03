@@ -5,6 +5,7 @@ on:
       - 'rebuild/ads/**'
       - '.github/scripts/ad_grants_issue_plan.py'
       - '.github/tests/test_ad_grants_issue_plan.py'
+      - '.github/tests/test_ad_grants_pipeline.py'
       - '.github/workflows/ad-grants-dry-run.yml'
   workflow_dispatch:
 permissions:
@@ -24,11 +25,8 @@ jobs:
         with:
           python-version: '3.12'
       - name: Test consent, policy indicators and read-only collector offline
-        run: node --test rebuild/ads/tests/core.test.cjs
+        run: node --test rebuild/ads/tests/*.test.cjs
       - name: Test public-safe Issue dedup without GitHub writes
-        run: python -m unittest discover -s .github/tests -p test_ad_grants_issue_plan.py -v
+        run: python -m unittest discover -s .github/tests -p 'test_ad_grants*.py' -v
       - name: Build inert preview and exercise synthetic Issue planning
-        run: |
-          node rebuild/ads/build_preview.cjs
-          node --check rebuild/test-artifacts/ad-grants/google-ads-audit.js
-          python .github/scripts/ad_grants_issue_plan.py --fixture
+        run: bash rebuild/ads/run_dry_run.sh --fixture
