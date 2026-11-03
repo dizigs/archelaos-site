@@ -3,7 +3,7 @@ import { Rejected, UUID, authenticate, boundedBody, digest, reply, route, valida
 import { reserveBudget, settleBudget } from './budget.mjs';
 
 const SCHEMA = [
-  'CREATE TABLE IF NOT EXISTS jobs(id TEXT PRIMARY KEY,source TEXT NOT NULL,type TEXT NOT NULL,correlation TEXT NOT NULL,status TEXT NOT NULL,attempts INTEGER NOT NULL DEFAULT 0,due INTEGER NOT NULL,lease_until INTEGER NOT NULL DEFAULT 0,created INTEGER NOT NULL,updated INTEGER NOT NULL,route TEXT NOT NULL,code TEXT NOT NULL)',
+  'CREATE TABLE IF NOT EXISTS jobs(id TEXT PRIMARY KEY,source TEXT NOT NULL,type TEXT NOT NULL,correlation TEXT NOT NULL,envelope TEXT NOT NULL,status TEXT NOT NULL,attempts INTEGER NOT NULL DEFAULT 0,due INTEGER NOT NULL,lease_until INTEGER NOT NULL DEFAULT 0,created INTEGER NOT NULL,updated INTEGER NOT NULL,route TEXT NOT NULL,code TEXT NOT NULL)',
   'CREATE INDEX IF NOT EXISTS jobs_due ON jobs(status,due)',
   'CREATE TABLE IF NOT EXISTS event_keys(key TEXT PRIMARY KEY,job_id TEXT NOT NULL,signature TEXT NOT NULL,kind TEXT NOT NULL)',
   'CREATE TABLE IF NOT EXISTS audit(id INTEGER PRIMARY KEY AUTOINCREMENT,job_id TEXT NOT NULL,at INTEGER NOT NULL,status TEXT NOT NULL,code TEXT NOT NULL,attempt INTEGER NOT NULL,correlation TEXT NOT NULL)',
@@ -74,6 +74,7 @@ export class BrainCoordinator extends DurableObject {
   }
   async intake(event) {
     const now = Date.now();
+    event = validateEvent(event, event?.sourceType, now);
     const content = JSON.stringify(event.payload);
     const kind = event.eventType.startsWith('source.file.') ? 'source.file' : event.eventType;
     const prefix = event.sourceType + '|' + event.sourceId + '|' + kind + '|';
@@ -101,7 +102,7 @@ export class BrainCoordinator extends DurableObject {
       const id = existing || crypto.randomUUID();
       if (!existing) {
         const selected = route(event);
-        this.sql.exec('INSERT INTO jobs(id,source,type,correlation,status,due,created,updated,route,code) VALUES(?,?,?,?,?,?,?,?,?,?)', id, event.sourceType, event.eventType, event.correlationId, 'QUEUED', now, now, now, selected, 'ACCEPTED');
+        this.sql.exec('INSERT INTO jobs(id,source,type,correlation,envelope,status,due,created,updated,route,code) VALUES(?,?,?,?,?,?,?,?,?,?,?)', id, event.sourceType, event.eventType, event.correlationId, JSON.stringify(event), 'QUEUED', now, now, now, selected, 'ACCEPTED');
         this.record({ id, correlation: event.correlationId, attempts: 0 }, 'QUEUED', 'ACCEPTED', now);
       }
       for (const [key, keySignature, keyKind] of keys) this.sql.exec('INSERT OR IGNORE INTO event_keys(key,job_id,signature,kind) VALUES(?,?,?,?)', key, id, keySignature, keyKind);
@@ -113,6 +114,11 @@ export class BrainCoordinator extends DurableObject {
   async fetch(request) {
     try {
       const url = new URL(request.url);
+      if (request.method === 'GET' && url.pathname.startsWith('/internal/envelopes/')) {
+        const id = url.pathname.slice('/internal/envelopes/'.length);
+        const row = [...this.sql.exec('SELECT envelope FROM jobs WHERE id=?', id)][0];
+        return row ? reply(JSON.parse(row.envelope)) : reply({ code: 'NOT_FOUND' }, 404);
+      }
       if (url.pathname === '/internal/control' && request.method === 'GET') return reply(this.controlState());
       if (url.pathname === '/internal/control' && request.method === 'POST') return await this.control(await request.json());
       if (request.method === 'POST' && url.pathname === '/internal/events') return await this.intake(await request.json());

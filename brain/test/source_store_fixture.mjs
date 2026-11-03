@@ -6,6 +6,7 @@ import { SqlDraftRegistry } from '../src/content_pipeline.mjs';
 import { handleDriveNotification } from '../src/adapters/drive.mjs';
 import { handleGmailPush } from '../src/adapters/gmail.mjs';
 import { handleContributionReceipt } from '../src/adapters/contributions.mjs';
+import { SqlWorkJournal, processReceipt } from '../src/dispatch_service.mjs';
 export { BrainCoordinator };
 
 export class StoreHarness extends DurableObject {
@@ -13,7 +14,9 @@ export class StoreHarness extends DurableObject {
     super(ctx, env); this.ctx = ctx; this.env = env;
     this.store = new SqlSourceState(ctx.storage, () => Number(this.env.TEST_NOW) || Date.now());
     this.drafts = new SqlDraftRegistry(ctx.storage);
+    this.journal = new SqlWorkJournal(ctx.storage);
     this.ctx.storage.sql.exec('CREATE TABLE IF NOT EXISTS fixture_calls(kind TEXT,cursor TEXT,page_token TEXT)');
+    this.ctx.storage.sql.exec('CREATE TABLE IF NOT EXISTS fixture_publications(id TEXT PRIMARY KEY,reference TEXT NOT NULL)');
   }
   async fetch(request) {
     const input = await request.json(); const path = new URL(request.url).pathname;
@@ -25,6 +28,23 @@ export class StoreHarness extends DurableObject {
       if (path === '/crashed-lease') { this.ctx.storage.sql.exec('UPDATE source_state SET owner=?,expires=? WHERE source=?', 'synthetic-crashed-owner', Number(this.env.TEST_NOW) + 60000, input.key); return Response.json({ persisted: true }); }
       if (path === '/draft') return Response.json(await this.drafts.save(input.draft));
       if (path === '/draft-count') return Response.json([...this.ctx.storage.sql.exec('SELECT COUNT(*) AS count FROM content_drafts')][0]);
+      if (path === '/task') return core.fetch('https://internal/internal/tasks/' + input.receiptId);
+      if (path === '/process') {
+        const ports = {
+          journal: this.journal, drafts: this.drafts,
+          readControls: async () => (await core.fetch('https://internal/internal/control')).json(),
+          readReceipt: async id => (await core.fetch('https://internal/internal/tasks/' + id)).json(),
+          readEnvelope: async id => (await core.fetch('https://internal/internal/envelopes/' + id)).json(),
+          content: { lookupSource: async () => input.source, readApprovedDocument: async () => input.document, lookupApprovedFact: async id => input.facts[id], matchApprovedPerson: async () => input.people || [], lookupExistingEvent: async () => input.existingEvent || null },
+          publisher: { syntheticOnly: true,
+            lookupById: async id => [...this.ctx.storage.sql.exec('SELECT reference FROM fixture_publications WHERE id=?', id)][0] || null,
+            assertNoOtherOwner: async () => { if (input.ownershipConflict) throw new Error('Synthetic existing owner conflict'); },
+            createDraft: async plan => { const reference = 'mock://draft/' + plan.idempotencyKey; this.ctx.storage.sql.exec('INSERT INTO fixture_publications(id,reference) VALUES(?,?)', plan.idempotencyKey, reference); return { draft: true, reference }; }
+          }
+        };
+        return Response.json(await processReceipt(input.receiptId, ports, { sourceType: 'drive', publicationMode: 'synthetic-test-double' }));
+      }
+      if (path === '/pipeline-counts') return Response.json({ drafts: [...this.ctx.storage.sql.exec('SELECT COUNT(*) AS count FROM content_drafts')][0].count, publications: [...this.ctx.storage.sql.exec('SELECT COUNT(*) AS count FROM fixture_publications')][0].count, work: [...this.ctx.storage.sql.exec('SELECT COUNT(*) AS count FROM enrichment_work')][0].count });
       let deliveries = 0;
       const dependencies = {
         enqueue: async event => {

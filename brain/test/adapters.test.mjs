@@ -85,3 +85,15 @@ test('GitHub verifies raw HMAC and repository before emitting technical review m
   await assert.rejects(handleGitHubWebhook({ ...request, rawBody: rawBody + ' ' }, config, deps, now));
   await assert.rejects(handleGitHubWebhook(request, { ...config, repositoryId: 43 }, deps, now)); assert.equal(events.length, 1);
 });
+test('source event through native queue, extraction, SQLite draft and mocked PR is one durable workflow', async () => {
+  await initialize();
+  const text = JSON.stringify({ claims: [{ factId: 'synthetic-fact' }] });
+  const input = drive(); input.metadata = { blobSha256: hash(text), mimeType: 'application/json', sizeBytes: Buffer.byteLength(text) };
+  const received = await (await send('/drive', input)).json(); const receiptId = received.receipts[0].receiptId;
+  for (let attempt = 0; attempt < 60; attempt++) { const task = await (await send('/task', { receiptId })).json(); if (task.status === 'WAITING_REVIEW') break; await new Promise(resolve => setTimeout(resolve, 50)); }
+  const process = { receiptId, source: { processingAllowed: true, publicReleaseApproved: true, revision: hash('r1'), blobSha256: hash(text), allowedPublicHosts: ['synthetic.invalid'] }, document: { text, mimeType: 'application/json' }, facts: { 'synthetic-fact': { verified: true, publicReleaseApproved: true, sourceRevision: hash('r1'), organizationId: 'gas-archelaos-katerini', contentTarget: 'history', text: 'Συνθετικό τεκμηριωμένο γεγονός.', eventDate: '2020-01-01', publishDate: '2020-01-02', phase: 'historical', competitionId: 'synthetic-cup', publicSourceUrl: 'https://synthetic.invalid/evidence', publicSourceLabel: 'Συνθετικό δημόσιο τεκμήριο', observedAt: new Date(now).toISOString() } } };
+  const concurrent = await Promise.all([send('/process', process).then(r => r.json()), send('/process', process).then(r => r.json())]);
+  assert.equal(concurrent.filter(row => row.status === 'DRAFTS_PREPARED_FOR_REVIEW').length, 1);
+  assert.equal((await (await send('/process', process)).json()).status, 'REPLAY_SUPPRESSED');
+  assert.deepEqual(await (await send('/pipeline-counts', {})).json(), { drafts: 1, publications: 1, work: 1 });
+});
