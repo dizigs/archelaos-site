@@ -57,8 +57,12 @@ async function main() {
         assert.ok(normalized(await page.locator('[data-profile-language="en"] .bio').textContent()),
           id + ': standalone English biography must exist');
         if (id === 'arch-3fe6e9ae9b29') {
-          assert.ok((await page.locator('section[data-profile-language="en"]').textContent()).includes('remains unresolved'));
-          assert.ok((await page.locator('main').innerText()).includes('προς διασταύρωση'));
+          const english = await page.locator('section[data-profile-language="en"]').textContent();
+          const greek = await page.locator('section[data-profile-language="el"]').textContent();
+          assert.ok(english.includes('reached the podium'), 'sourced podium in public English biography');
+          assert.ok(greek.includes('ανέβηκε στο βάθρο'), 'sourced podium in public Greek biography');
+          assert.ok(!/remains unresolved|first place|second place|champion/i.test(english), 'no disputed rank in public English');
+          assert.ok(!/προς διασταύρωση|πρωταθλητή Ελλάδας|δεύτερο/i.test(greek), 'no disputed rank in public Greek');
         }
         if (id === 'arch-f56820c52e55') {
           const biography = await page.locator('main').innerText();
