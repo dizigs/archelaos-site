@@ -144,6 +144,8 @@ def verify() -> None:
         code = (DIST / "assets/site/js" / js_path).read_text(encoding="utf-8")
         assert "/hall-of-fame-people.json" in code, "Legacy Hall feed in " + js_path
     assert hall["count"] == len(hall["people"]), "Hall count inconsistent"
+    assert f'<strong id="hall-total">{hall["count"]}</strong>' in (DIST/"hall-of-fame.html").read_text(encoding="utf-8"), "Hall hero has stale profile count"
+    assert f'<span id="new-people-total">{hall["count"]}</span>' in (DIST/"index.html").read_text(encoding="utf-8"), "Homepage has stale profile count"
     ids = [person["id"] for person in hall["people"]]
     assert len(ids) == len(set(ids)), "Duplicate Hall person identifiers"
     names = [(p["name"].strip().casefold(), p.get("role", "").strip().casefold()) for p in hall["people"]]
