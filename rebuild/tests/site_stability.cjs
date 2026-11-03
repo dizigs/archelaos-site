@@ -357,6 +357,9 @@ async function main() {
   }
   const failures = report.cases.filter(test => !test.passed);
   assert.ok(report.cases.length, 'No stability cases selected');
+  if (process.env.GITHUB_ACTIONS === 'true') console.log('::notice title=Site stability results::' +
+    JSON.stringify({cases:report.cases.length, failures:failures.length, pageViewports:report.routes.length,
+      cardSurfaces:report.cards, browser:report.browserVersion, playwright:report.playwrightVersion}).replace(/%/g, '%25'));
   console.log('Stability:', report.cases.length, 'cases,', report.routes.length,
     'page/viewports,', report.cards, 'card surfaces,', failures.length, 'failures');
   if (failures.length) process.exitCode = 1;

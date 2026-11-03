@@ -199,3 +199,46 @@ This is a diagnostic change, not a claimed UI fix; it allows the next changed-he
 CI to identify the actual assertion through the accessible check-annotations API.
 All existing assertions/failure exits remain in place. `TEST_FAILED` was delivered
 to #71 at https://github.com/dizigs/archelaos-site/issues/71#issuecomment-6596709335.
+
+### Actual CI assertion identified and corrected — synchronous news lock
+
+The diagnostic-only changed head `fca75864e6ee46ca7b667ff210cbac250db6e1fe`
+produced an actionable annotation in run `41588056106`, check `125758064763`:
+`news-scroll-reset`, width **768**, browser **145.0.7632.6**, assertion
+`false !== true`. This case's boolean assertion is the news background scroll
+lock. The news controller showed the modal without acquiring that lock itself;
+it depended on the later native `toggle` event and the shared lifecycle listener.
+The local Chromium 154 timing had concealed the gap.
+
+Added `news-immediate-scroll-lock` at four widths. It snapshots the real click
+handler's synchronous result before native event tasks can run, without mocks,
+arbitrary delays or relaxed assertions. Against the unchanged reader it fails
+**4/4** with `{open:true, locked:false}` on the locally available Chromium 154.
+Baseline report: `/tmp/site-stability-news-lock-baseline.json`; failing screenshots
+were moved to `/tmp/site-stability-news-lock-baseline-images/`.
+
+**Corrective commit:** [`720e61fdfaa109e7bc02da079c4067a2f73db54c`](https://github.com/dizigs/archelaos-site/commit/720e61fdfaa109e7bc02da079c4067a2f73db54c).
+`assets/news.js` now adds the shared lock during `show()`, immediately after
+`showModal()` and before focus/scroll reset. Existing shared close/nesting
+synchronization remains. No CSS, content or historical data change.
+
+Actual corrected local results: **45/45 strict cases PASS**, still 72
+page/viewports and 608 cards; **32 accessibility page/viewports, zero findings or
+errors**; release smoke PASS; responsive quality **84 page/viewports, 23 links,
+zero warnings/errors**; build/verify **15 pages/760 profiles PASS**; all **70
+source syntax checks**, ESLint and diff checks PASS. The original CI assertion
+and all earlier checks remain; four stronger cases were added.
+
+Official managed Chromium download was also attempted once at the URL returned
+by the locked Playwright CLI's dry-run:
+`https://cdn.playwright.dev/chrome-for-testing-public/145.0.7632.6/linux64/chrome-headless-shell-linux64.zip`.
+It returned `curl: (22) The requested URL returned error: 403`; headers for the
+final layer were not retained, so no authentication/root-cause claim is made.
+It was not retried. Final Chromium-145 CI validation is still required.
+
+To make final results visible without blocked archives, the harness and the
+existing accessibility audit now emit bounded aggregate notice annotations
+(case/failure/card/page counts and actual browser version; a11y finding/error
+counts). This changes observability, not failure policy. Local captured output
+is in `docs/qa/site-stability-local-20261103.log`. The exact corrected remote-head
+result and remaining production limit are delivered through #71 and PR #74.
