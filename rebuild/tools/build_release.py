@@ -253,15 +253,17 @@ def make_release() -> None:
         script = script.replace("/rebuild/", "/assets/site/")
         script_path.write_text(script, encoding="utf-8")
     copytree(STAGE / "images", OUTPUT / "assets" / "site" / "images")
-    # The old public JSON endpoint must reflect exactly the same edited people
-    # as the new Hall of Fame; otherwise stale corrections remain discoverable.
-    copy2(STAGE / "data" / "people.json", OUTPUT / "hall-of-fame-people.json")
+    # Always derive the public Hall feed from the canonical root master.
+    # The staged archive is a legacy profile source, never a production feed.
+    copy2(ROOT / "hall-of-fame-people.json", OUTPUT / "hall-of-fame-people.json")
     # Only independently approved, conflict-free relations may enter public data.
     # Never copy research source, review queue or owner-only information to dist.
     from build_event_graph import compile_graph
     event_research = json.loads((STAGE / "research" / "historical-events.json").read_text(encoding="utf-8"))
-    owner_graph = compile_graph(event_research,
-        json.loads((STAGE / "data" / "people.json").read_text(encoding="utf-8"))["people"])
+    # Use the same complete identity set for the event graph and public Hall.
+    # Otherwise added athletes disappear from graph relations while remaining
+    # visible in Hall modals and standalone profile pages.
+    owner_graph = compile_graph(event_research, current_master["people"])
     editorially_approved = sum(e.get("editorial_status") == "approved"
                               for e in event_research["events"])
     if len(owner_graph["events"]) != editorially_approved:
@@ -470,7 +472,7 @@ def make_release() -> None:
     viewport_css.write_text(viewport_text, encoding="utf-8")
 
     # Keep public Hall SEO counts in sync with the reviewed master on every build.
-    # Historic standalone biography pages (682) are a separate archive.
+    # Historic staged standalone biography templates are a separate archive.
     people_source = json.loads((ROOT / "hall-of-fame-people.json").read_text(encoding="utf-8"))
     hall_total = len(people_source["people"])
     if people_source.get("count") != hall_total:
