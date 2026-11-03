@@ -50,7 +50,7 @@ def inspect_bridge(request=api, *, account=ACCOUNT, project=PROJECT, token_prese
         "schemaVersion": 1, "worker": WORKER, "status": "BLOCKED",
         "fullIntegrationVerified": False, "productionMutationPerformed": False,
         "workerSecretValuesDisclosed": False, "privateGoogleDataRead": False,
-        "sourceCodeInspected": False, "probes": {},
+        "sourceCodeInspected": False, "tokenPolicyInspected": False, "probes": {},
         "notVerified": ["current public health", "HMAC and signature expiry",
                         "concurrent replay/action idempotency", "Google OAuth scopes and approval",
                         "Apps Script execution and existing trigger", "Gmail/Drive/Sheets flow",
@@ -80,11 +80,14 @@ def inspect_bridge(request=api, *, account=ACCOUNT, project=PROJECT, token_prese
     if worker["status"] != "OBSERVED":
         if network_denial(worker):
             return {**report, "reason": "network_transport_denied"}
-        reason = ("worker_permission_or_resource_scope_denied"
-                  if control["status"] == "OBSERVED" and worker.get("httpStatus") in (401, 403)
-                  and (worker.get("responseLayer") in ("provider_http", "provider_application")
-                       or worker.get("errorCodes"))
-                  else "worker_access_not_verified")
+        origin_response = (worker.get("responseLayer") in ("provider_http", "provider_application")
+                           or worker.get("errorCodes"))
+        if worker.get("httpStatus") == 401 and origin_response:
+            reason = "worker_authentication_rejected"
+        elif control["status"] == "OBSERVED" and worker.get("httpStatus") == 403 and origin_response:
+            reason = "worker_permission_or_resource_scope_denied"
+        else:
+            reason = "worker_access_not_verified"
         return {**report, "reason": reason}
     if not isinstance(settings, dict) or not isinstance(settings.get("bindings"), list):
         worker.update(status="BLOCKED", reason="unexpected_settings_schema")
@@ -109,6 +112,8 @@ def inspect_bridge(request=api, *, account=ACCOUNT, project=PROJECT, token_prese
             "GITHUB_TOKEN", "GH_TOKEN", "GITHUB_APP_ID", "GITHUB_PRIVATE_KEY", "GITHUB_INSTALLATION_ID") for b in bindings),
         "note": "Names/types only. KV presence or a durable binding does not prove correct atomic use. No secret values, KV keys or OAuth tokens are read.",
     }
+    if control["status"] != "OBSERVED":
+        return {**report, "reason": "pages_access_not_verified"}
     report["status"] = ("METADATA_OBSERVED" if all(observed.values()) and all(protected.values())
                         and kv_configured else "INCOMPLETE_CONFIGURATION")
     report["reason"] = "control_plane_only_not_end_to_end_verification"

@@ -41,6 +41,7 @@ class BridgePreflightTests(unittest.TestCase):
         self.assertFalse(report["fullIntegrationVerified"])
         self.assertFalse(report["productionMutationPerformed"])
         self.assertFalse(report["sourceCodeInspected"])
+        self.assertFalse(report["tokenPolicyInspected"])
         self.assertEqual(len(calls), 2)
         self.assertTrue(all(path.startswith("/accounts/" + ACCOUNT) for path in calls))
         self.assertIn("/workers/scripts/" + WORKER + "/settings", calls[1])
@@ -75,6 +76,28 @@ class BridgePreflightTests(unittest.TestCase):
         self.assertEqual(access["responseLayer"], "provider_http")
         self.assertTrue(access["endpoint"].endswith(WORKER + "/settings"))
         self.assertEqual(len(calls), 2)
+
+    def test_worker_401_is_authentication_rejection_not_a_permissions_diagnosis(self):
+        request, calls = self.request(worker=ProviderFailure("/ignored", 401, (), "provider_http"))
+        report = self.inspect(request)
+        self.assertEqual(report["status"], "BLOCKED")
+        self.assertEqual(report["reason"], "worker_authentication_rejected")
+        self.assertEqual(len(calls), 2)
+
+    def test_worker_metadata_cannot_hide_loss_of_existing_pages_access(self):
+        request, calls = self.request(control=ProviderFailure("/ignored", 403, (10000,), "provider_http"))
+        report = self.inspect(request)
+        self.assertEqual(report["status"], "BLOCKED")
+        self.assertEqual(report["reason"], "pages_access_not_verified")
+        self.assertTrue(report["configuration"]["authKvBindingConfigured"])
+        self.assertEqual(len(calls), 2)
+
+    def test_malformed_pages_control_cannot_be_replaced_by_worker_success(self):
+        request, _ = self.request(control={"private": "NEVER_DISCLOSE_SECRET"})
+        report = self.inspect(request)
+        self.assertEqual(report["status"], "BLOCKED")
+        self.assertEqual(report["reason"], "pages_access_not_verified")
+        self.assertNotIn("NEVER_DISCLOSE_SECRET", json.dumps(report))
 
     def test_connect_denial_is_network_and_other_same_host_request_is_skipped(self):
         failure = ProviderFailure("/ignored", 403, (), "transport_connect")

@@ -177,3 +177,54 @@ Workers Scripts Read needed for this audit. No failed call was repeated.
 No secret values, private Google content, configuration mutation or deployment
 were performed. The prior production Pages evidence for main `86c6c1b` is
 separate and does not prove this bridge works.
+
+## Connected-account handoff reconciled — 3 November 2026, 23:38 Athens
+
+The [new authorized ChatGPT handoff](https://github.com/dizigs/archelaos-site/issues/71#issuecomment-6615997329)
+reports a successful settings read of the same account/Worker through its
+Cloudflare connector: AUTH_KV is kv_namespace, the four declared Google/bridge
+bindings are secret_text, compatibility date 2026-11-03. This is attributed
+connector evidence, not a request reexecuted by this Codex session. The reported
+source-download attempt returned no usable source; no HMAC or atomic execution
+claim follows. [Structured evidence](evidence/bridge-access-20261103.json)
+preserves the caller/provenance boundaries for later self-heal log reconciliation.
+
+This is a credential mismatch: connected-account authorization can read the
+resource while the Actions credential cannot. A Super Administrator role does
+not automatically update an already-issued API token. The exact missing policy
+entry is still **not inspected**; the probe now reports `tokenPolicyInspected=false`
+explicitly. This session exposes no Cloudflare/Google connector, token-management
+capability or ready credential binding. It cannot modify an existing token's
+policy or inspect Apps Script merely from its account name. GitHub secret values
+are not fetched, printed, replaced or requested in chat.
+
+The credential owner must inspect the existing Actions token in Cloudflare's
+token management UI: verify account `898359728b3dfe8c3a3f56e3d19eecd1`, applicable
+resource/IP restrictions and **Workers Scripts: Read**, while retaining working
+**Pages: Read** and any existing legitimate usage. Change only the missing read
+scope/resource selection if authorized. Do not replace the stored secret as a
+shortcut. Report that the existing token policy was corrected, without its value;
+only then rerun the existing manual `inspect_bridge=true` job once. Token-policy
+administration is not delegated to the workflow. If correction requires token
+replacement or additional credentials, that remains a separate owner action,
+not performed by this PR.
+
+No new denied live requests were made at this stage: the handoff does not report
+a token-policy correction, and current runtime policy still lacks the Worker
+host. The existing exact-host network draft remains unapplied. A successful
+connected-account read does not remove either of these independent blockers.
+
+The preflight had two independently reproduced diagnostic gaps: provider HTTP401
+was grouped with permission denial, and good Worker metadata could hide a failed
+or malformed Pages control. Three new regression cases failed before the fix;
+**19 bridge + 30 provider tests pass afterward**. HTTP401 now remains an
+authentication rejection; a missing Pages control blocks readiness even with
+complete Worker bindings. No extra endpoint, retry, secret input, permission,
+schedule or production behavior was added.
+
+Safe next checks need the existing live source and manifest, not another bridge:
+a source-reviewed read-only Apps Script diagnostic, actual authorized scopes,
+existing trigger inventory (observe only), and supported read-only connection
+results. Synthetic concurrency/recovery tests must target that implementation
+before email/file mutations are allowed. These connections and Worker deployment
+remain **NOT VERIFIED**; this PR stays draft.
