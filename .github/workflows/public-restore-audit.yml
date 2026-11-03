@@ -67,7 +67,7 @@ jobs:
             exit 1
           fi
           gh api "repos/$repo/actions/runs/$run_id" > "$RUNNER_TEMP/source-run.json"
-          jq -e '.status == "completed" and .conclusion == "success" and .head_branch == "main" and (.event == "schedule" or .event == "workflow_dispatch") and (.path | endswith("weekly-public-snapshot.yml"))' "$RUNNER_TEMP/source-run.json" >/dev/null
+          jq -e '.status == "completed" and .conclusion == "success" and .head_branch == "main" and (.event == "schedule" or .event == "workflow_dispatch") and (.path | split("@")[0] | endswith("weekly-public-snapshot.yml"))' "$RUNNER_TEMP/source-run.json" >/dev/null
           gh api "repos/$repo/actions/runs/$run_id/artifacts" > "$RUNNER_TEMP/source-artifacts.json"
           count="$(jq '[.artifacts[] | select(.name == "public-archive-snapshot" and .expired == false)] | length' "$RUNNER_TEMP/source-artifacts.json")"
           if [ "$count" != "1" ]; then
