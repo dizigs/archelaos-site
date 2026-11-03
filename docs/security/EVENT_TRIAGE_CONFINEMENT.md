@@ -91,3 +91,26 @@ new key, dependency, private data, history edit or Quality Gate change. A PR pas
 will not establish main A. Production logs for this change are **NOT VERIFIED**;
 no second merge is performed while previous exact-commit production verification
 is outstanding. Fresh full Sonar inventory remains requested through #71.
+
+## Initial remote result and integration with #77
+
+Exact initial head `43650698791d71200afcf68430d5a82187c880a9` completed
+remote checks without failure: Sonar `125782321322` PASS; full Rebuild
+[41595610331](https://github.com/dizigs/archelaos-site/actions/runs/41595610331)
+PASS; strict [41595610640](https://github.com/dizigs/archelaos-site/actions/runs/41595610640)
+annotations report 49/49, 72 page/viewports, 608 cards, Chromium 145.0.7632.6 /
+Playwright 1.58.0; accessibility 32/0 findings/errors. This is historical-head
+evidence, not substituted for the new synchronized head.
+
+Included normal #77 main merge `a60a840775b853eae5d11750eaa4576adaeff83c`
+through local merge `2f84756dcfea13f9be3bdec0bd5e2eef50af7c33`. New actual
+combined security tests now **32/32 PASS** (triage 8 + mentions 10 + snapshot 10 +
+Git 4), both integrated entrypoint tests and owner-decision QA PASS; build and
+independent release verify 15 pages/760 profiles PASS. Captured results appended
+to the evidence log. The shared self-heal file now indexes both task-specific
+records after checking that no other active PR owns that file. Git's expected
+invalid-ref rejection in combined output is explicitly identified there.
+
+New main Sonar check `125785270406` still FAILS; #66 stays open. Fresh combined
+PR-head CI/review and actual a60a840 production logs remain pending, so no second
+merge is performed. No workflow, historical-source or other PR-owned file edits.
