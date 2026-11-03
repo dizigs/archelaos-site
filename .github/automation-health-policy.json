@@ -91,9 +91,9 @@
     },
     ".github/workflows/site-watch-and-repair.yml": {
       "cron": [
-        "17 */6 * * *"
+        "17 * * * *"
       ],
-      "max_age_hours": 9
+      "max_age_hours": 4
     },
     ".github/workflows/sitespeed-free.yml": {
       "cron": [
