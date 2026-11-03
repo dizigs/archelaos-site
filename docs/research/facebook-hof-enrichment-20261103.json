@@ -67,23 +67,6 @@
       ],
       "confidence": "high_same_event_same_result",
       "status": "new_candidate_not_published"
-    },
-    {
-      "proposedId": "arch-kostas-tamos-wrestling-coach",
-      "name": "Κώστας Ταμός",
-      "name_en": "Kostas Tamos",
-      "role": "Προπονητής · Πάλη",
-      "role_en": "Coach · Wrestling",
-      "category": "coach",
-      "bio": "Προπονητής του παλαιστικού τμήματος του Γ.Α.Σ. Αρχέλαος Κατερίνης, με τεκμηριωμένη παρουσία σε αγωνιστικές αποστολές. Αναφέρεται μαζί με τον Σάββα Τσεντίδη στη διάκριση του συλλόγου στο Πανελλήνιο Πρωτάθλημα Παμπαίδων στο Ζεφύρι τον Οκτώβριο του 2021 και στην επιτυχία της ομάδας Παίδων το 2022.",
-      "bio_en": "Archelaos wrestling coach documented in national youth competition reports in 2021 and 2022.",
-      "evidence": [
-        "https://eptanews.gr/athlitismos/3os-o-archelaos-katerinis-sto-panellinio-protathlima-palis-pampaidon-poy-diexichthi-sto-zefyri-attikis/",
-        "https://odelalis.gr/protathlitis-elladas-stoys-paides-gia-triti-synechomeni-chronia-o-archelaos-katerinis/",
-        "https://odigos-pierias.gr/%CE%B1%CE%BD%CE%B1%CF%87%CF%89%CF%81%CE%BF%CF%8D%CE%BD-%CE%B3%CE%B9%CE%B1-%CF%84%CE%B7%CE%BD-%CF%80%CF%8C%CE%BB%CE%B7-%CF%84%CE%B7%CF%82-%CE%BE%CE%AC%CE%BD%CE%B8%CE%B7%CF%82-%CE%BF%CE%B9-%CF%80%CF%81/"
-      ],
-      "confidence": "confirmed_public_reports",
-      "status": "new_candidate_not_published"
     }
   ],
   "enrichExisting": [
@@ -182,6 +165,37 @@
       "aliases": [
         "Μένιος Βούλγαρης"
       ]
+    },
+    {
+      "id": "arch-8934f50fbeed",
+      "name": "Κώστας Τάμος",
+      "appendBio": "Προπονητής του παλαιστικού τμήματος του Γ.Α.Σ. Αρχέλαος Κατερίνης, με τεκμηριωμένη παρουσία σε αγωνιστικές αποστολές. Αναφέρεται μαζί με τον Σάββα Τσεντίδη στη διάκριση του συλλόγου στο Πανελλήνιο Πρωτάθλημα Παμπαίδων στο Ζεφύρι τον Οκτώβριο του 2021 και στην επιτυχία της ομάδας Παίδων το 2022.",
+      "sources": [
+        "https://eptanews.gr/athlitismos/3os-o-archelaos-katerinis-sto-panellinio-protathlima-palis-pampaidon-poy-diexichthi-sto-zefyri-attikis/",
+        "https://odelalis.gr/protathlitis-elladas-stoys-paides-gia-triti-synechomeni-chronia-o-archelaos-katerinis/",
+        "https://odigos-pierias.gr/%CE%B1%CE%BD%CE%B1%CF%87%CF%89%CF%81%CE%BF%CF%8D%CE%BD-%CE%B3%CE%B9%CE%B1-%CF%84%CE%B7%CE%BD-%CF%80%CF%8C%CE%BB%CE%B7-%CF%84%CE%B7%CF%82-%CE%BE%CE%AC%CE%BD%CE%B8%CE%B7%CF%82-%CE%BF%CE%B9-%CF%80%CF%81/"
+      ],
+      "aliases": [
+        "Κώστας Ταμός"
+      ]
+    },
+    {
+      "id": "arch-archery-result-20261102-03",
+      "name": "Γεώργιος Ζαππίδης",
+      "appendBio": "Στο Πανελλήνιο Πρωτάθλημα Τοξοβολίας Μικρών Κατηγοριών στο Αμύνταιο το 2024 κατέκτησε ασημένιο μετάλλιο στην κατηγορία Παίδων, εκπροσωπώντας τον Γ.Α.Σ. Αρχέλαος Κατερίνης.",
+      "sources": [
+        "https://olympiobima.gr/gas-archelaos-katerinis-synecheia-epitychion-gia-to-tmima-toxovolias/"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "arch-archery-result-20261102-04",
+      "name": "Νεφέλη Ζαππίδου",
+      "appendBio": "Στο Πανελλήνιο Πρωτάθλημα Τοξοβολίας Μικρών Κατηγοριών στο Αμύνταιο το 2024 κατέκτησε χρυσό μετάλλιο στις Παγκορασίδες Β΄ Ολυμπιακού Τόξου, εκπροσωπώντας τον Γ.Α.Σ. Αρχέλαος Κατερίνης.",
+      "sources": [
+        "https://olympiobima.gr/gas-archelaos-katerinis-synecheia-epitychion-gia-to-tmima-toxovolias/"
+      ],
+      "aliases": []
     }
   ],
   "identityReconciliation": [
@@ -223,6 +237,13 @@
         "arch-georgios-athanas-athletics-board-2026"
       ],
       "status": "HOMONYM_DO_NOT_AUTO_MERGE"
+    },
+    {
+      "sourceName": "Κώστας Ταμός",
+      "canonicalName": "Κώστας Τάμος",
+      "personId": "arch-8934f50fbeed",
+      "status": "EXISTING_PROFILE_CONFIRMED_DO_NOT_DUPLICATE",
+      "note": "Το Hall στο main έχει ήδη ακριβή εγγραφή για τον προπονητή πάλης με οξεία στο «Τάμος». Η παλιά πρόταση νέου προφίλ μετατράπηκε σε εμπλουτισμό."
     }
   ],
   "photoCandidates": [
@@ -264,5 +285,6 @@
     "Update personIds for the new relay profiles after actual IDs are assigned.",
     "Run JSON/schema/test validation, PR CI, duplicate-event checks, linked images checks and deployment logs before claiming live."
   ],
-  "identityConfirmedAt": "2026-11-03"
+  "identityConfirmedAt": "2026-11-03",
+  "correction": "2026-11-03 — Broad news-to-Hall audit: 3 rather than 4 new candidates from the initial Facebook research; Κώστας Τάμος already has canonical profile. 2 existing archery athlete links added from published 2024 news."
 }
