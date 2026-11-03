@@ -39,5 +39,16 @@ export default [
       "no-constant-binary-expression": "error"
     }
   },
+  // Regression policy for Hall identity smoke tests: deterministic String.sort order.
+  // Prevent recurrence of SonarCloud javascript:S2871 (PR #76).
+  {
+    files: ["rebuild/tests/smoke.cjs"],
+    rules: {
+      "no-restricted-syntax": ["error", {
+        selector: "CallExpression[callee.type='MemberExpression'][callee.property.name='sort'][arguments.length=0]",
+        message: "Use an explicit sort comparator, such as (a, b) => a.localeCompare(b), in smoke tests."
+      }]
+    }
+  },
   { files: ["rebuild/ai/**/*.js", "rebuild/cloudflare/functions/**/*.js"], languageOptions: {sourceType:"module"} }
 ];
