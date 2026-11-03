@@ -5,13 +5,14 @@ export function budgetMonth(at) {
   return parts.find(p => p.type === 'year').value + '-' + parts.find(p => p.type === 'month').value;
 }
 export function estimateMicroEur(request, price, now) {
-  if (!price || price.verified !== true || price.boundedBillingVerified !== true || typeof request.model !== 'string' || request.model !== price.model || !['EUR', 'USD'].includes(price.currency) || !HEX.test(price.evidenceSha256) || !/^https:\/\/[a-z0-9.-]+\/[^\s]*$/.test(price.sourceUrl) || !Number.isFinite(Date.parse(price.expiresAt)) || Date.parse(price.expiresAt) <= now) throw new Rejected('PRICING_UNVERIFIED', 409);
-  if (price.currency !== 'EUR' && (price.fxVerified !== true || !HEX.test(price.fxEvidenceSha256) || !Number.isFinite(Date.parse(price.fxEffectiveAt)) || Date.parse(price.fxEffectiveAt) > now || !Number.isFinite(Date.parse(price.fxExpiresAt)) || Date.parse(price.fxExpiresAt) <= now)) throw new Rejected('FX_UNVERIFIED', 409);
+  if (!price || price.verified !== true || price.boundedBillingVerified !== true || typeof request.model !== 'string' || request.model !== price.model || !['EUR', 'USD'].includes(price.currency) || !HEX.test(price.evidenceSha256) || !/^https:\/\/[a-z0-9.-]+\/[^\s]*$/.test(price.sourceUrl) || !Number.isFinite(Date.parse(price.effectiveAt)) || Date.parse(price.effectiveAt) > now || !Number.isFinite(Date.parse(price.expiresAt)) || Date.parse(price.expiresAt) <= now) throw new Rejected('PRICING_UNVERIFIED', 409);
+  if (price.currency !== 'EUR' && (price.fxVerified !== true || !HEX.test(price.fxEvidenceSha256) || !/^https:\/\/[a-z0-9.-]+\/[^\s]*$/.test(price.fxSourceUrl) || !Number.isFinite(Date.parse(price.fxEffectiveAt)) || Date.parse(price.fxEffectiveAt) > now || !Number.isFinite(Date.parse(price.fxExpiresAt)) || Date.parse(price.fxExpiresAt) <= now)) throw new Rejected('FX_UNVERIFIED', 409);
   const values = [request.maxInputTokens, request.maxOutputTokens, price.inputMicroCurrencyPerMillion, price.outputMicroCurrencyPerMillion, price.fxNumerator, price.fxDenominator];
   if (values.some(value => !Number.isSafeInteger(value) || value <= 0 || value > 1000000000)) throw new Rejected('INVALID_COST_BOUND', 422);
+  if (!Number.isSafeInteger(price.fixedMicroCurrency) || price.fixedMicroCurrency < 0 || price.fixedMicroCurrency > 1000000000) throw new Rejected('UNVERIFIED_FIXED_FEES', 422);
   if (price.currency === 'EUR' && price.fxNumerator !== price.fxDenominator) throw new Rejected('INVALID_EUR_CONVERSION', 422);
   // BigInt avoids under-reserving through fractional currency/rounding errors.
-  const numerator = (BigInt(request.maxInputTokens) * BigInt(price.inputMicroCurrencyPerMillion) + BigInt(request.maxOutputTokens) * BigInt(price.outputMicroCurrencyPerMillion)) * BigInt(price.fxNumerator);
+  const numerator = (BigInt(request.maxInputTokens) * BigInt(price.inputMicroCurrencyPerMillion) + BigInt(request.maxOutputTokens) * BigInt(price.outputMicroCurrencyPerMillion) + BigInt(price.fixedMicroCurrency) * 1000000n) * BigInt(price.fxNumerator);
   const denominator = 1000000n * BigInt(price.fxDenominator);
   const cost = (numerator + denominator - 1n) / denominator;
   if (cost < 1n || cost > BigInt(MAX_MONTHLY_MICRO_EUR)) throw new Rejected('BUDGET_INSUFFICIENT', 402);
@@ -26,7 +27,7 @@ export function reserveBudget(sql, request, config, now) {
   const month = budgetMonth(now);
   const old = [...sql.exec('SELECT * FROM ai_reservations WHERE id=?', request.reservationId)][0];
   if (old) {
-    if (old.amount !== amount || old.provider !== request.provider || old.month !== month || old.event_id !== request.eventId || old.source_revision !== request.sourceRevision || old.operation !== request.operation || old.model !== request.model) throw new Rejected('RESERVATION_CONFLICT', 409);
+    if (old.amount !== amount || old.provider !== request.provider || old.month !== month || old.event_id !== request.eventId || old.source_revision !== request.sourceRevision || old.operation !== request.operation || old.model !== request.model || old.price_hash !== config.prices[request.provider].evidenceSha256) throw new Rejected('RESERVATION_CONFLICT', 409);
     return { reservationId: old.id, amountMicroEur: old.amount, duplicate: true, month };
   }
   if ([...sql.exec('SELECT id FROM ai_reservations WHERE event_id=? AND source_revision=? AND operation=?', request.eventId, request.sourceRevision, request.operation)].length) throw new Rejected('EVENT_CHARGE_ATTEMPT_ALREADY_EXISTS', 409);
@@ -36,7 +37,8 @@ export function reserveBudget(sql, request, config, now) {
   // delayed settlements are attributed to the original, immutable charge month.
   const used = ledger.spent + ledger.reserved;
   if (used + amount > cap) throw new Rejected('BUDGET_INSUFFICIENT', 402);
-  sql.exec('INSERT INTO ai_reservations(id,month,provider,model,event_id,source_revision,operation,amount,status) VALUES(?,?,?,?,?,?,?,?,?)', request.reservationId, month, request.provider, request.model, request.eventId, request.sourceRevision, request.operation, amount, 'RESERVED');
+  const price = config.prices[request.provider];
+  sql.exec('INSERT INTO ai_reservations(id,month,provider,model,event_id,source_revision,operation,amount,status,price_hash,currency,fx_hash) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)', request.reservationId, month, request.provider, request.model, request.eventId, request.sourceRevision, request.operation, amount, 'RESERVED', price.evidenceSha256, price.currency, price.currency === 'EUR' ? null : price.fxEvidenceSha256);
   sql.exec('UPDATE ai_months SET reserved=reserved+? WHERE month=?', amount, month);
   const alerts = [];
   for (const threshold of [75, 90]) if ((used + amount) * 100 >= cap * threshold) {

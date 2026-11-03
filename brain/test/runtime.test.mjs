@@ -35,7 +35,7 @@ async function budget(path, input) {
 }
 const NOW = Date.parse('2026-11-03T12:00:00Z');
 function reservation(amount, suffix = 'e', provider = 'cloudflare', now = NOW) {
-  const price = { verified: true, boundedBillingVerified: true, model: 'synthetic-classifier', currency: 'EUR', evidenceSha256: 'f'.repeat(64), sourceUrl: 'https://example.org/synthetic-test-pricing', expiresAt: '2027-01-01T00:00:00Z', inputMicroCurrencyPerMillion: amount - 1, outputMicroCurrencyPerMillion: 1, fxNumerator: 1, fxDenominator: 1 };
+  const price = { verified: true, boundedBillingVerified: true, fixedMicroCurrency: 0, effectiveAt: '2026-01-01T00:00:00Z', model: 'synthetic-classifier', currency: 'EUR', evidenceSha256: 'f'.repeat(64), sourceUrl: 'https://example.org/synthetic-test-pricing', expiresAt: '2027-01-01T00:00:00Z', inputMicroCurrencyPerMillion: amount - 1, outputMicroCurrencyPerMillion: 1, fxNumerator: 1, fxDenominator: 1 };
   const eventId = suffix.repeat(8) + '-' + suffix.repeat(4) + '-4' + suffix.repeat(3) + '-8' + suffix.repeat(3) + '-' + suffix.repeat(12);
   return { now, request: { reservationId: suffix.repeat(64), eventId, sourceRevision: 'c'.repeat(64), operation: 'classify', model: 'synthetic-classifier', provider, maxInputTokens: 1000000, maxOutputTokens: 1 }, config: { coverageConfirmed: true, capMicroEur: 20000000, prices: { [provider]: price } } };
 }
