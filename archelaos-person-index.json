@@ -649,10 +649,17 @@
   },
   {
     "id": "arch-2cb062fabc11",
-    "name": "Φανή Γκιουσόογλου",
-    "name_en": "Fani Gkiousooglou",
+    "name": "Φανή Γκιοούσογλου",
+    "name_en": "Fani Gkioousoglou",
     "names": [
-      "Φανή Γκιουσόογλου"
+      "Φανή Γκιοούσογλου",
+      "Φανή Γκιουσόογλου",
+      "Φανή Γκιούσογλου",
+      "Φανή Γκιουσόγλου",
+      "Φανή Γκιοουσούγλου",
+      "Fani Gkioousoglou",
+      "Fani Gkiousooglou",
+      "Fani Gkiousoglou"
     ]
   },
   {
@@ -4999,10 +5006,10 @@
   },
   {
     "id": "arch-459959b908dd",
-    "name": "Αλεξάνδρα Στροστίδου",
-    "name_en": "Αλεξάνδρα Στροστίδου",
+    "name": "Αλεξάνδρα Στροσκίδου",
+    "name_en": "Αλεξάνδρα Στροσκίδου",
     "names": [
-      "Αλεξάνδρα Στροστίδου"
+      "Αλεξάνδρα Στροσκίδου"
     ]
   },
   {
@@ -5966,15 +5973,6 @@
     ]
   },
   {
-    "id": "arch-fani-gkiousoglou-gym-2025",
-    "name": "Φανή Γκιούσογλου",
-    "name_en": "Fani Gkiousoglou",
-    "names": [
-      "Φανή Γκιούσογλου",
-      "Fani Gkiousoglou"
-    ]
-  },
-  {
     "id": "arch-swim-2026-andreas-anastasiadis",
     "name": "Ανδρέας Αναστασιάδης",
     "name_en": "Andreas Anastasiadis",
@@ -6253,6 +6251,40 @@
     "name_en": "Konstantinos Samakovlis",
     "names": [
       "Κωνσταντίνος Σαμακοβλής"
+    ]
+  },
+  {
+    "id": "arch-konstantinos-sarris-volleyball",
+    "name": "Κώστας Σαρρής",
+    "name_en": "Kostas Sarris",
+    "names": [
+      "Κώστας Σαρρής",
+      "Κωνσταντίνος Σαρρής"
+    ]
+  },
+  {
+    "id": "arch-vasilis-d-noulezas-handball",
+    "name": "Βασίλης Δ. Νουλέζας",
+    "name_en": "Vasilis D. Noulezas",
+    "names": [
+      "Βασίλης Δ. Νουλέζας"
+    ]
+  },
+  {
+    "id": "arch-platon-chotokouridis-basketball",
+    "name": "Πλάτων Χοτοκουρίδης",
+    "name_en": "Platon Chotokouridis",
+    "names": [
+      "Πλάτων Χοτοκουρίδης"
+    ]
+  },
+  {
+    "id": "arch-dimitrios-loulas-archery-officer-2015",
+    "name": "Δημήτριος Λούλας",
+    "name_en": "Dimitrios Loulas",
+    "names": [
+      "Δημήτριος Λούλας",
+      "Δημήτρης Λούλας"
     ]
   }
 ]

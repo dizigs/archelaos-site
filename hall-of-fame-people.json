@@ -1,6 +1,6 @@
 {
   "version": "v1.6",
-  "count": 760,
+  "count": 763,
   "people": [
     {
       "name": "Νίκος Τσινόπουλος",
@@ -975,14 +975,20 @@
       "id": "arch-4aaa2b869d44"
     },
     {
-      "name": "Φανή Γκιουσόογλου",
-      "name_en": "Fani Gkiousooglou",
+      "name": "Φανή Γκιοούσογλου",
+      "name_en": "Fani Gkioousoglou",
       "role": "Προπονήτρια · Ενόργανη",
       "role_en": "Coach",
       "category": "coach",
-      "bio": "Εξειδικευμένη προπονήτρια και χορογράφος του τμήματος ενόργανης γυμναστικής του Αρχελάου. Υπεύθυνη για την καλλιτεχνική έκφραση, την πλαστικότητα και τη χορογραφική αρτιότητα των ασκήσεων εδάφους και της δοκού ισορροπίας, συμβάλλοντας καθοριστικά στην κατάκτηση του χρυσού μεταλλίου εδάφους από τη Νικολέτα Τσαρουχά και του χάλκινου ομαδικού στη Μίκρα (2024).",
-      "bio_en": "Fani Giousooglou serves as coach and choreographer for Archelaos gymnastics, orchestrating the routines that secured national podium finishes and regional floor gold in 2024.",
-      "id": "arch-2cb062fabc11"
+      "bio": "Εξειδικευμένη προπονήτρια και χορογράφος του τμήματος ενόργανης γυμναστικής του Αρχελάου. Υπεύθυνη για την καλλιτεχνική έκφραση, την πλαστικότητα και τη χορογραφική αρτιότητα των ασκήσεων εδάφους και της δοκού ισορροπίας, συμβάλλοντας καθοριστικά στην κατάκτηση του χρυσού μεταλλίου εδάφους από τη Νικολέτα Τσαρουχά και του χάλκινου ομαδικού στη Μίκρα (2024).\n\nΑναφέρεται ονομαστικά στο προπονητικό επιτελείο ενόργανης γυμναστικής του Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης στη γιορτή της Β΄ Περιφέρειας, στη Μίκρα Θεσσαλονίκης, στις 14–15 Ιουνίου 2025. Ο σύλλογος συμμετείχε με 96 παιδιά και βραβεύτηκε ως η πολυπληθέστερη ομάδα της διοργάνωσης.",
+      "bio_en": "Fani Gkioousoglou serves as coach and choreographer for Archelaos gymnastics, supporting artistic expression and choreography on floor and balance beam. Her work was associated with the club's gymnastics achievements in 2024. She was also named as a member of the coaching staff at the second-region gymnastics festival in Thessaloniki on 14–15 June 2025, where Archelaos participated with 96 children and received recognition for the largest delegation.",
+      "id": "arch-2cb062fabc11",
+      "refs": [
+        {
+          "label": "Ο Ντελάλης · Γιορτή ενόργανης Β΄ Περιφέρειας, Ιούνιος 2025",
+          "url": "https://odelalis.gr/o-gas-archelaos-katerinis-sti-giorti-enorganis-gymnastikis-tis-v-perifereias/"
+        }
+      ]
     },
     {
       "name": "Νικολέτα Τσαρουχά",
@@ -6460,13 +6466,13 @@
       "id": "arch-10d2ee63c2f0"
     },
     {
-      "name": "Αλεξάνδρα Στροστίδου",
-      "name_en": "Αλεξάνδρα Στροστίδου",
+      "name": "Αλεξάνδρα Στροσκίδου",
+      "name_en": "Αλεξάνδρα Στροσκίδου",
       "role": "Καλαθοσφαίριση · Καλαθοσφαίριση (Κορασίδων)",
       "role_en": "Basketball",
       "category": "athlete",
       "bio": "Αθλήτρια της ομάδας κορασίδων μπάσκετ του Αρχελάου που εκπροσώπησε τον σύλλογο στην τελική φάση του Πρωταθλήματος Ελλάδας (1996).",
-      "bio_en": "Αλεξάνδρα Στροστίδου was associated with Archelaos Katerini in Basketball during 1996. The club’s historical records document their participation and sporting activity during this period.",
+      "bio_en": "Αλεξάνδρα Στροσκίδου was associated with Archelaos Katerini in Basketball during 1996. The club’s historical records document their participation and sporting activity during this period.",
       "id": "arch-459959b908dd"
     },
     {
@@ -7895,22 +7901,6 @@
       "bio_en": "Wrestling athlete of GAS Archelaos Katerinis. Finished fifth at the Greek U20 wrestling championship in Serres on 5 April 2026, contributing to the club's second-place team ranking."
     },
     {
-      "id": "arch-fani-gkiousoglou-gym-2025",
-      "name": "Φανή Γκιούσογλου",
-      "role": "Προπονητικό επιτελείο · Ενόργανη",
-      "category": "coach",
-      "bio": "Αναφέρεται ονομαστικά στο προπονητικό επιτελείο ενόργανης γυμναστικής του Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης στη γιορτή της Β΄ Περιφέρειας, στη Μίκρα Θεσσαλονίκης, στις 14–15 Ιουνίου 2025. Ο σύλλογος συμμετείχε με 96 παιδιά και βραβεύτηκε ως η πολυπληθέστερη ομάδα της διοργάνωσης.",
-      "refs": [
-        {
-          "label": "Ο Ντελάλης · Γιορτή ενόργανης Β΄ Περιφέρειας, Ιούνιος 2025",
-          "url": "https://odelalis.gr/o-gas-archelaos-katerinis-sti-giorti-enorganis-gymnastikis-tis-v-perifereias/"
-        }
-      ],
-      "name_en": "Fani Gkiousoglou",
-      "role_en": "Coaching staff · Gymnastics",
-      "bio_en": "Member of the GAS Archelaos Katerinis gymnastics coaching staff at the regional festival in Thessaloniki on 14–15 June 2025. The club brought 96 children and was recognised for the largest delegation."
-    },
-    {
       "id": "arch-swim-2026-andreas-anastasiadis",
       "name": "Ανδρέας Αναστασιάδης",
       "name_en": "Andreas Anastasiadis",
@@ -8304,6 +8294,80 @@
       "bio": "Ο Κωνσταντίνος Σαμακοβλής καταγράφεται ως αθλητής τοξοβολίας του Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης στις επίσημες επετηρίδες της Ελληνικής Ομοσπονδίας Τοξοβολίας για το 2016 και το 2018. Στο Ολυμπιακό Τόξο (Recurve), η επετηρίδα του 2018 περιλαμβάνει επίδοσή του 560 βαθμών.",
       "bio_en": "Archery competitor for G.A.S. Archelaos Katerinis, recorded in the Greek Archery Federation's official 2016 and 2018 annual results; the 2018 record includes a recurve score of 560 points.",
       "period": "2016–2018"
+    },
+    {
+      "id": "arch-konstantinos-sarris-volleyball",
+      "name": "Κώστας Σαρρής",
+      "name_en": "Kostas Sarris",
+      "role": "Προπονητής · Πετοσφαίριση",
+      "role_en": "Coach · Volleyball",
+      "category": "sport",
+      "period": "1997–2023",
+      "bio": "Το αρχειακό δημοσίευμα της 25ης Σεπτεμβρίου 1997 καταγράφει τον Κώστα Σαρρή ως προπονητή πετοσφαίρισης, με δήλωσή του για την πρόκριση αναπτυξιακών τμημάτων στις τελικές φάσεις της Κεντρικής Μακεδονίας. Στη δήλωση αναδεικνύει τη σημασία της δουλειάς, της πειθαρχίας και της υπομονής για τη μελλοντική στελέχωση της ανδρικής ομάδας.\n\nΜεταγενέστερα δημοσιεύματα τον αναφέρουν στην προπονητική δραστηριότητα του Σ.Φ.Κ. Πιερικός, ενώ σε παρουσίαση της συνεργασίας Πιερικού–Αρχελάου τον Σεπτέμβριο 2019 καταγράφεται ως υπεύθυνο προπονητών και πρώτο προπονητή των τμημάτων πετοσφαίρισης των δύο συλλόγων. Η συμμετοχή του σε αυτή τη συνεργασία δεν συνεπάγεται ότι αγωνιστικά αποτελέσματα του Πιερικού αποδίδονται αναδρομικά στον Γ.Α.Σ. Αρχέλαο.",
+      "bio_en": "A press clipping dated 25 September 1997 identifies Kostas Sarris as a volleyball coach and records his comments on the progress of youth teams to Central Macedonian finals. He emphasised work, discipline and patience in developing future first-team players.\n\nLater reports document his coaching work with S.F.K. Pierikos. A September 2019 account of the Pierikos–Archelaos volleyball collaboration identifies him as head of coaches and first coach for the two clubs’ volleyball sections. Pierikos results are not attributed to G.A.S. Archelaos merely because of this later collaboration.",
+      "refs": [
+        {
+          "label": "Αρχείο Τύπου Γ.Α.Σ. Αρχέλαος · 25/09/1997 · καταχώριση d19",
+          "url": "https://archelaos.club/interviews.html?record=d19"
+        },
+        {
+          "label": "Kapa News · Ιστορία και υπεύθυνοι συνεργασίας πετοσφαίρισης · 29/09/2019",
+          "url": "https://www.kapa-news.gr/2019/09/volleyball-beach-volley.html"
+        },
+        {
+          "label": "Ο Διάλογος · Προπονητές Πιερικός–Αρχέλαος · 01/02/2023",
+          "url": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%BA%CE%BF%CF%80%CE%AE-%CE%B2%CE%B1%CF%83%CE%B9%CE%BB%CF%8C%CF%80%CE%B9%CF%84%CE%B1%CF%82-%CF%80%CE%B9%CE%B5%CF%81%CE%B9%CE%BA%CF%8C%CF%82-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-volleybal/"
+        }
+      ]
+    },
+    {
+      "id": "arch-vasilis-d-noulezas-handball",
+      "name": "Βασίλης Δ. Νουλέζας",
+      "name_en": "Vasilis D. Noulezas",
+      "role": "Έφορος · Χειροσφαίριση",
+      "role_en": "Handball department official",
+      "category": "admin",
+      "period": "2006",
+      "bio": "Ο Βασίλης Δ. Νουλέζας καταγράφεται ως έφορος του τμήματος χειροσφαίρισης του Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης σε δημόσια τοποθέτηση που δημοσιεύθηκε στην εφημερίδα «Ημερησία» στις 20 Ιανουαρίου 2006. Στην παρέμβασή του αναφέρθηκε στην αυτόνομη πορεία του συλλόγου, στις προοπτικές επιστροφής του χάντμπολ στη μεγάλη κατηγορία και στη σημασία της στήριξης από το πιερικό φίλαθλο κοινό και τη διοίκηση. Η παρούσα καταχώριση περιορίζεται στον τεκμηριωμένο ρόλο του στο τμήμα.",
+      "bio_en": "Vasilis D. Noulezas is recorded as a handball department official of G.A.S. Archelaos Katerinis in a public statement published by the newspaper Imerisia on 20 January 2006. He discussed the club’s independent course, its hopes of returning to the top division, and the importance of support from Pieria fans and club officials. This profile is limited to his documented role in the handball section.",
+      "refs": [
+        {
+          "label": "Εφημερίδα «Ημερησία» · 20/01/2006 · αρχειακή καταχώριση d10",
+          "url": "https://archelaos.club/interviews.html?record=d10"
+        }
+      ]
+    },
+    {
+      "id": "arch-platon-chotokouridis-basketball",
+      "name": "Πλάτων Χοτοκουρίδης",
+      "name_en": "Platon Chotokouridis",
+      "role": "Ιστορική καλαθοσφαίριση · Αθλητής και προπονητής",
+      "role_en": "Historical basketball · Athlete and coach",
+      "category": "athlete",
+      "period": "1983–1984",
+      "bio": "Ο Πλάτων Χοτοκουρίδης καταγράφεται στο επίσημο στατιστικό αρχείο της Ελληνικής Ομοσπονδίας Καλαθοσφαίρισης ως αθλητής του Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης στο Κύπελλο Ανδρών την περίοδο 1983–1984. Στους καταγεγραμμένους αγώνες με τον Φίλιππο Βέροιας (8 Φεβρουαρίου 1984) και τον Έσπερο (22 Φεβρουαρίου 1984) σημείωσε 25 και 13 πόντους αντίστοιχα.\n\nΤο ιστορικό της καλαθοσφαίρισης στο Ψηφιακό Μουσείο του συλλόγου τον περιλαμβάνει επίσης στον κατάλογο ιστορικών προπονητών, χωρίς να ορίζει ακριβή περίοδο για αυτή την ιδιότητα. Οι παραπάνω αναφορές αφορούν την παλαιότερη ιστορία του Γ.Α.Σ. Αρχέλαος, όχι τις μεταγενέστερες επιτυχίες άλλου ή συγχωνευμένου σωματείου.",
+      "bio_en": "The official archives of the Hellenic Basketball Federation list Platon Chotokouridis as a player for G.A.S. Archelaos Katerinis in the 1983–84 Greek Men's Cup. He scored 25 points against Filippos Verias on 8 February 1984 and 13 against Esperos on 22 February 1984.\n\nThe club's Digital Museum also names him among the historical basketball coaches, without stating an exact coaching period. These references concern the original G.A.S. Archelaos club and do not attribute later results of any merged or separate team to it.",
+      "refs": [
+        {
+          "label": "Ελληνική Ομοσπονδία Καλαθοσφαίρισης · Στατιστικό αρχείο 1983–84",
+          "url": "https://stats.basket.gr/archive/playerdetails/id/C7B25353-9189-402E-9994-3205D463A339/champ/EBF2AC37-1DB1-4B53-A885-D62D39127068/period/443B649D-90D4-4C45-8A14-9F5684C79370"
+        },
+        {
+          "label": "Ψηφιακό Μουσείο Γ.Α.Σ. Αρχέλαος · Ιστορικό καλαθοσφαίρισης",
+          "url": "https://archelaos.club/history.html#sport-basketball"
+        }
+      ]
+    },
+    {
+      "id": "arch-dimitrios-loulas-archery-officer-2015",
+      "name": "Δημήτριος Λούλας",
+      "name_en": "Dimitrios Loulas",
+      "role": "Διοίκηση · Έφορος Τοξοβολίας (2015), Ταμίας (2016–2017)",
+      "role_en": "Administration · Archery officer (2015), Treasurer (2016–2017)",
+      "category": "admin",
+      "period": "2015–2019",
+      "bio": "Στις 12 Οκτωβρίου 2015, κατά την ανασυγκρότηση του Διοικητικού Συμβουλίου του Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης, ο Δημήτριος Λούλας ανέλαβε καθήκοντα Εφόρου Τοξοβολίας. Η ανάθεση καταγράφεται ρητά στο Πρακτικό Δ.Σ. αρ. 30 της ίδιας ημερομηνίας, στη διοικητική περίοδο που ακολούθησε τις αρχαιρεσίες της 10ης Μαρτίου 2014.\n\nΣύμφωνα με τη συμπληρωματική διοικητική μαρτυρία που επιβεβαιώθηκε από εν ενεργεία αντιπρόεδρο του συλλόγου στις 3 Νοεμβρίου 2026, υπηρέτησε ως Ταμίας του Γ.Α.Σ. Αρχέλαος κατά τα έτη 2016–2017 και συμμετείχε στη διοικητική δραστηριότητα έως το 2019. Η ίδια μαρτυρία συνδέει τη συμβολή του με την ανάπτυξη της τοξοβολίας, την προβολή του αθλήματος στα σχολεία, τη μέριμνα για εγκαταστάσεις και εξοπλισμό, και την εκπροσώπηση σε ομοσπονδιακές διαδικασίες. Οι επιμέρους πράξεις και ημερομηνίες αυτών των δράσεων δεν προκύπτουν από την πρώτη σελίδα του Πρακτικού 30 και διατηρούνται ως μαρτυρία προς αρχειακή διασταύρωση.\n\nΠηγές: Πρακτικό Δ.Σ. αρ. 30, 12/10/2015 (πρωτογενές τεκμήριο του αρχείου του συλλόγου, πρώτη σελίδα)· επιβεβαίωση εν ενεργεία αντιπροέδρου, 03/11/2026.",
+      "bio_en": "According to Board Minute No. 30 of 12 October 2015, Dimitrios Loulas was appointed head of the archery section following a reorganisation of the 2014-elected board. A serving vice-president of the club additionally confirmed on 3 November 2026 that Loulas served as club treasurer during 2016–2017 and remained involved in the board's work until 2019. Other activities, including school outreach, facilities and federation representation, are recorded as corroborating testimony rather than independently dated by the supplied page."
     }
   ]
 }

@@ -225,10 +225,10 @@ def make_release() -> None:
     # Publish the live news page and its JSON feed alongside the core museum pages.
     for filename in ("news.html", "news.json"):
         copy2(ROOT / filename, OUTPUT / filename)
-    # Use the reviewed, full-format 682-profile source; the live root has a
+    # Use the reviewed, full-format historical template source; the live root has a
     # different legacy HTML layout and must not be overwritten to build dist.
     copytree(STAGE / "source-profiles", OUTPUT / "people")
-    # Keep the 682 rich archival pages and publish every additional canonical
+    # Keep the rich archival template pages and publish every additional canonical
     # Hall of Fame profile from the root master, including new youth athletes.
     current_master = json.loads((ROOT / "hall-of-fame-people.json").read_text(encoding="utf-8"))
     current_master_ids = {person["id"] for person in current_master["people"]}
@@ -253,13 +253,16 @@ def make_release() -> None:
         script = script.replace("/rebuild/", "/assets/site/")
         script_path.write_text(script, encoding="utf-8")
     copytree(STAGE / "images", OUTPUT / "assets" / "site" / "images")
-    # The old public JSON endpoint must reflect exactly the same edited people
-    # as the new Hall of Fame; otherwise stale corrections remain discoverable.
+    # Always derive the public Hall feed from the canonical root master.
+    # The staged archive is a legacy profile source, never a production feed.
     copy2(ROOT / "hall-of-fame-people.json", OUTPUT / "hall-of-fame-people.json")
     # Only independently approved, conflict-free relations may enter public data.
     # Never copy research source, review queue or owner-only information to dist.
     from build_event_graph import compile_graph
     event_research = json.loads((STAGE / "research" / "historical-events.json").read_text(encoding="utf-8"))
+    # Use the same complete identity set for the event graph and public Hall.
+    # Otherwise added athletes disappear from graph relations while remaining
+    # visible in Hall modals and standalone profile pages.
     owner_graph = compile_graph(event_research, current_master["people"])
     editorially_approved = sum(e.get("editorial_status") == "approved"
                               for e in event_research["events"])
@@ -274,7 +277,7 @@ def make_release() -> None:
     link_graph = generate_archive_links()
     (OUTPUT / "assets" / "site" / "data" / "archive-relationships.json").write_text(
         js_data(link_graph) + "\n", encoding="utf-8")
-    # Keep all 682 historic profile URLs/Person metadata, but replace the old
+    # Keep all historical profile URLs/Person metadata, but replace the old
     # per-profile navbar/footer with the shared site-wide shell in the generated release.
     # Source backup profiles remain completely untouched.
     profiles = sorted((OUTPUT / "people").glob("arch-*.html"))
@@ -313,8 +316,9 @@ def make_release() -> None:
     # Only update the old bio when it is the EXACT original index text; leave a
     # richer independent profile untouched rather than risking deletion.
     former_people = {p["id"]: p for p in json.loads(
+        (ROOT / "hall-of-fame-people.json").read_text(encoding="utf-8"))["people"]}
+    revised_people = {p["id"]: p for p in json.loads(
         (STAGE / "data" / "people.json").read_text(encoding="utf-8"))["people"]}
-    revised_people = {p["id"]: p for p in current_master["people"]}
 
     def sync_edited_bio(source: str, person_id: str, lang: str) -> str:
         key = "bio" if lang == "el" else "bio_en"
@@ -349,6 +353,22 @@ def make_release() -> None:
         # use the same canonical host as the 14 core pages and sitemap.
         # Original archival HTML in source-profiles remains untouched.
         html_text = html_text.replace("https://archelaos.club/", SITE + "/")
+        # Apply the shared profile shell to historical and newly added biographies.
+        def mark_person_page(match):
+            attrs = match.group(1)
+            classes = re.search(r'\bclass=(["\x27])(.*?)\1', attrs, flags=re.I|re.S)
+            if classes:
+                values = classes.group(2).split()
+                if "person-page" not in values:
+                    values.append("person-page")
+                attrs = attrs[:classes.start()] + 'class="' + " ".join(values) + '"' + attrs[classes.end():]
+            else:
+                attrs += ' class="person-page"'
+            return "<body" + attrs + ">"
+        html_text, body_count = re.subn(r'<body([^>]*)>', mark_person_page, html_text, count=1, flags=re.I)
+        if body_count != 1:
+            raise ValueError("Missing profile body: " + profile.name)
+
         # Standalone profiles have a legacy header and footer in their HTML.
         # Keep the entire biographical article, but avoid two headers/footers
         # when the shared shell injects the site-wide components at runtime.
@@ -392,8 +412,7 @@ def make_release() -> None:
         # Preserve richer archival biographies while including the latest sourced
         # 2026 swimming result in the eight pre-existing public profile pages.
         if (swimming_2026 and profile.stem in swimming_2026.get("personIds", [])
-                and profile.stem in former_people and profile.stem in revised_people):
-            # Newly created canonical profiles do not use legacy biography sections.
+                and profile.stem in revised_people):
             person = canonical_people[profile.stem]
             for lang, key in (("el", "bio"), ("en", "bio_en")):
                 fact = person.get(key, "").split("\n\n")[-1]
@@ -435,9 +454,11 @@ def make_release() -> None:
             '<link rel="stylesheet" href="/assets/site/css/components.css">',
             '<link rel="stylesheet" href="/assets/site/css/collection.css">',
             '<link rel="stylesheet" href="/assets/site/css/profile-release.css">',
+            '<link rel="stylesheet" href="/assets/site/css/support-footer.css">',
             '<link rel="stylesheet" href="/assets/site/css/viewports.css">',
             '<link rel="stylesheet" href="/assets/site/css/motion.css">',
             '<script defer src="/assets/site/js/shell.js"></script>',
+            '<script defer src="/assets/site/js/support-footer.js"></script>',
             '<script defer src="/assets/site/js/favorites.js"></script>',
             '<script defer src="/assets/site/js/profile-favorite.js"></script>',
             '<script defer src="/assets/site/js/motion.js"></script>',
@@ -469,7 +490,7 @@ def make_release() -> None:
     viewport_css.write_text(viewport_text, encoding="utf-8")
 
     # Keep public Hall SEO counts in sync with the reviewed master on every build.
-    # Historic standalone biography pages (682) are a separate archive.
+    # Historic staged standalone biography templates are a separate archive.
     people_source = json.loads((ROOT / "hall-of-fame-people.json").read_text(encoding="utf-8"))
     hall_total = len(people_source["people"])
     if people_source.get("count") != hall_total:
@@ -498,7 +519,7 @@ def make_release() -> None:
     if expected != actual:
         raise RuntimeError(f"Profile file mismatch: missing={len(expected-actual)} extra={len(actual-expected)}")
     # The Hall listing and biography modal must use the current reviewed master file,
-    # not the older 682-person profile snapshot used for standalone archive pages.
+    # not the legacy template snapshot used for historical standalone pages.
     master_people = json.loads((ROOT / "hall-of-fame-people.json").read_text(encoding="utf-8"))
     if master_people.get("count") != len(master_people.get("people", [])):
         raise RuntimeError("Hall of Fame master data count mismatch")
@@ -509,13 +530,24 @@ def make_release() -> None:
     homepage = OUTPUT / "index.html"
     home_html = homepage.read_text(encoding="utf-8")
     home_html, count_matches = re.subn(
-        r'(<span id="new-people-total">)\d+(</span>)',
+        r'(<span id="new-people-total">)[^<]+(</span>)',
         lambda match: match.group(1) + str(len(master_people["people"])) + match.group(2),
         home_html,
     )
     if count_matches != 1:
         raise RuntimeError("Expected one homepage Hall of Fame count")
     homepage.write_text(home_html, encoding="utf-8")
+    # The visible Hall hero must also be accurate before its dynamic JS loads.
+    hall_html_file = OUTPUT / "hall-of-fame.html"
+    hall_html = hall_html_file.read_text(encoding="utf-8")
+    hall_html, hall_matches = re.subn(
+        r'(<strong id="hall-total">)[^<]*(</strong>)',
+        lambda match: match.group(1) + str(hall_total) + match.group(2),
+        hall_html,
+    )
+    if hall_matches != 1:
+        raise RuntimeError("Expected one Hall hero count placeholder")
+    hall_html_file.write_text(hall_html, encoding="utf-8")
 
 
     from build_match_schedule import calendar as make_ical, validate as validate_matches
@@ -540,6 +572,9 @@ def make_release() -> None:
     for key, details in training_groups.items():
         if details["sessions"]:
             (training_dir / (key + ".ics")).write_bytes(training_ical(training_data, key).encode("utf-8"))
+    # Create one canonical URL for every reviewed historic timeline event.
+    from build_event_pages import render as build_event_pages
+    event_paths = build_event_pages(ROOT, OUTPUT)
     (OUTPUT / "sitemaps").mkdir()
     (OUTPUT / "sitemaps" / "pages.xml").write_text(
         sitemap_xml([entry["path"] for entry in pages if entry.get("indexable", True)]), encoding="utf-8"
@@ -547,8 +582,11 @@ def make_release() -> None:
     (OUTPUT / "sitemaps" / "people.xml").write_text(
         sitemap_xml(["/people/" + file.name for file in profile_files]), encoding="utf-8"
     )
+    (OUTPUT / "sitemaps" / "events.xml").write_text(
+        sitemap_xml(event_paths), encoding="utf-8"
+    )
     (OUTPUT / "sitemap.xml").write_text(
-        sitemap_index(["pages.xml", "people.xml"]), encoding="utf-8"
+        sitemap_index(["pages.xml", "people.xml", "events.xml"]), encoding="utf-8"
     )
     (OUTPUT / "robots.txt").write_text(
         "User-agent: *\nAllow: /\nSitemap: " + SITE + "/sitemap.xml\n",
@@ -585,7 +623,7 @@ def make_release() -> None:
         ]
     })+"\n", encoding="utf-8")
     # Error routes receive the same navigation, accessibility controls,
-    # scroll-to-top and footer as the 13 principal pages and 682 profiles.
+    # scroll-to-top and footer as the principal pages and all canonical profiles.
     (OUTPUT / "404.html").write_text(
         '<!doctype html><html lang="el"><head><meta charset="utf-8">'
         '<meta name="viewport" content="width=device-width,initial-scale=1">'
@@ -605,7 +643,7 @@ def make_release() -> None:
         '</main></body></html>', encoding="utf-8"
     )
     # Fingerprint every generated HTML reference to our shared CSS and JS,
-    # including all 682 people profiles and the 404 page. This prevents a split
+    # including all canonical people profiles and the 404 page. This prevents a split
     # between cached mobile styles and fresh desktop HTML after deployment.
     static_ref = re.compile(
         r'(?P<quote>["\x27])(?P<asset>/assets/site/(?:css|js)/'

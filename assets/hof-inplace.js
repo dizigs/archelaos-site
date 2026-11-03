@@ -2,6 +2,15 @@
 (()=>{'use strict';
 if(window.ArchelaosBio?.__shared)return;
 let collection=null, loading=null, dialog=null, previous=null, generation=0, newsLoading=null;
+function syncDialogScroll(){
+ document.body.classList.toggle('arch-dialog-open',Boolean(document.querySelector('dialog[open]')));
+}
+// Run after individual close/cancel handlers so a nested biography cannot unlock
+// its still-open parent, or leave the page locked after that parent closes.
+for(const event of ['toggle','close','cancel'])document.addEventListener(event,e=>{
+ if(e.target.matches?.('dialog'))queueMicrotask(syncDialogScroll);
+},true);
+syncDialogScroll();
 const load=()=>{
  if(collection)return Promise.resolve({people:collection});
  if(!loading)loading=fetch('/hall-of-fame-people.json',{cache:'no-cache'}).then(r=>{if(!r.ok)throw Error('Hall of Fame data unavailable: '+r.status);return r.json()}).then(d=>{if(!Array.isArray(d.people))throw Error('Invalid Hall collection');collection=d.people;return d}).catch(e=>{loading=null;throw e});
@@ -31,11 +40,14 @@ function ensure(){
  dialog.addEventListener('close',()=>{if(previous?.isConnected)previous.focus({preventScroll:true})});
  return dialog;
 }
-async function open(id){
+async function open(id,origin=document.activeElement){
  if(!id)return false;
  const token=++generation;
+ const parent=origin?.closest?.('dialog[open]');
  try{
-  const d=await load();if(token!==generation)return false;
+  const d=await load();
+  // A slow response must not reopen a dismissed or replaced parent record.
+  if(token!==generation||(origin&&!origin.isConnected)||(parent&&!parent.open))return false;
   const p=d.people.find(x=>x.id===id);if(!p)return false;
   const modal=ensure();previous=document.activeElement;
   modal.querySelector('.arch-bio-role').textContent=tr(p.role||'',p.role_en||p.role||'');
@@ -71,6 +83,7 @@ async function open(id){
   });
   void window.ArchelaosLinks?.append(box,'person',p.id,{limit:8,excludeKinds:['news']});
   if(!modal.open)modal.showModal();
+  syncDialogScroll();
   modal.querySelector('.arch-bio-scroll').scrollTop=0;
   modal.querySelector('.arch-bio-close').focus({preventScroll:true});
   return true;
@@ -90,7 +103,7 @@ document.addEventListener('click',e=>{
  const a=e.target.closest?.('a[href],button[data-arch-bio-id]');if(!a)return;
  if(e.defaultPrevented||e.button!==0||e.ctrlKey||e.metaKey||e.shiftKey||e.altKey||a.target==='_blank'||a.hasAttribute('download'))return;
  const id=personId(a);if(!id)return;
- e.preventDefault();e.stopPropagation();void open(id);
+ e.preventDefault();e.stopPropagation();void open(id,a);
 },true);
 window.ArchelaosBio=Object.freeze({...window.ArchelaosBio,load,open,__shared:true});
 })();

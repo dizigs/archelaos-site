@@ -1,0 +1,9 @@
+{
+  "name": "archelaos-site-stability-tests",
+  "version": "1.0.0",
+  "private": true,
+  "devDependencies": {
+    "playwright": "1.58.0",
+    "axe-core": "4.10.3"
+  }
+}

@@ -31,6 +31,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: '22'
@@ -46,7 +48,7 @@ jobs:
         run: python rebuild/tools/media_inventory.py --json rebuild/test-artifacts/media-inventory.json
       - name: Save media inventory
         if: always()
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: archelaos-media-inventory
           path: rebuild/test-artifacts/media-inventory.json
@@ -74,7 +76,7 @@ jobs:
         run: python rebuild/tools/live_sync_audit.py --strict-reviewed --json rebuild/test-artifacts/live-sync-report.json
       - name: Preserve live-vs-rebuild editorial drift report
         if: always()
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: archelaos-live-sync-review
           path: rebuild/test-artifacts/live-sync-report.json
@@ -84,7 +86,7 @@ jobs:
         run: python rebuild/tools/editorial_audit.py --json rebuild/test-artifacts/editorial-report.json --strict
       - name: Save editorial review suggestions
         if: always()
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: archelaos-editorial-review
           path: rebuild/test-artifacts/editorial-report.json
@@ -96,7 +98,7 @@ jobs:
           python rebuild/tools/archive_opportunities.py --json rebuild/test-artifacts/archive-connections.json
       - name: Save proposed archive associations for human review
         if: always()
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: archelaos-archive-connections-review
           path: rebuild/test-artifacts/archive-connections.json
@@ -112,7 +114,7 @@ jobs:
         run: python rebuild/tools/review_unverified_events.py --json rebuild/test-artifacts/unverified-events.json
       - name: Preserve human-review list of unverified claims
         if: always()
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: archelaos-unverified-claims-review
           path: rebuild/test-artifacts/unverified-events.json
@@ -120,7 +122,7 @@ jobs:
           retention-days: 14
       - name: Preserve historical event research integrity report
         if: always()
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: archelaos-historical-events-research
           path: rebuild/test-artifacts/verified-events-report.json
@@ -136,7 +138,7 @@ jobs:
           python rebuild/tools/event_triage.py
       - name: Save owner review list and recommendations
         if: always()
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: archelaos-owner-event-review
           path: |
@@ -171,6 +173,8 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: '22'
@@ -207,7 +211,7 @@ jobs:
         run: node rebuild/tests/visual.cjs
       - name: Preserve screenshots for final approval
         if: always()
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: archelaos-rebuild-browser-proof
           path: rebuild/test-artifacts/
@@ -221,12 +225,14 @@ jobs:
     timeout-minutes: 12
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: '3.12'
       - name: Build organized static output
         run: python rebuild/tools/build_release.py
-      - name: Check sitemap, metadata, canonical and 682 profiles
+      - name: Check sitemap, metadata and all canonical Hall profiles
         run: python rebuild/tools/verify_release.py
       - name: Prove the risk scanner detects injected failures
         run: python rebuild/tests/preflight_regression.py
@@ -234,15 +240,27 @@ jobs:
         run: python rebuild/tools/preflight.py --strict --json rebuild/test-artifacts/preflight.json
       - name: Preserve security, links and cache preflight audit
         if: always()
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: archelaos-preflight-risk-report
           path: rebuild/test-artifacts/preflight.json
           if-no-files-found: warn
           retention-days: 14
       - name: Preserve release candidate without deployment
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: archelaos-release-candidate
           path: dist/
           retention-days: 7
+
+  verify-production-deployment:
+    needs: [integrity, browser, release-build]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.repository == 'dizigs/archelaos-site'
+    permissions:
+      contents: read
+    # actionlint 1.7.11 supports ./; adopt $/ after a separate toolchain upgrade.
+    uses: ./.github/workflows/cloudflare-pages-status.yml
+    with:
+      verify_after_rebuild: true
+    secrets:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

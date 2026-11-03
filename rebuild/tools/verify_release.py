@@ -98,13 +98,30 @@ def verify() -> None:
     assert len(canonical_set) == sum(e.get("indexable", True) for e in main), "Duplicate indexable canonicals"
     sitemap = ET.parse(DIST / "sitemap.xml")
     submaps = [node.text for node in sitemap.findall(".//s:loc", NS)]
-    expected = [SITE+"/sitemaps/pages.xml", SITE+"/sitemaps/people.xml"]
+    expected = [SITE+"/sitemaps/pages.xml", SITE+"/sitemaps/people.xml", SITE+"/sitemaps/events.xml"]
     assert submaps == expected, submaps
     pages = ET.parse(DIST / "sitemaps" / "pages.xml")
     profiles = ET.parse(DIST / "sitemaps" / "people.xml")
     loc_pages = [e.text for e in pages.findall(".//s:loc", NS)]
     loc_people = [e.text for e in profiles.findall(".//s:loc", NS)]
     assert set(loc_pages) == canonical_set and len(loc_pages) == len(canonical_set)
+    event_master = json.loads((ROOT / "archelaos-history-events.json").read_text(encoding="utf-8"))["events"]
+    event_sitemap = ET.parse(DIST / "sitemaps" / "events.xml")
+    event_urls = [e.text for e in event_sitemap.findall(".//s:loc", NS)]
+    expected_events = {SITE + "/events/index.html"} | {SITE + "/events/" + e["id"] + ".html" for e in event_master}
+    assert set(event_urls) == expected_events and len(event_urls) == len(expected_events), "Timeline sitemap mismatch"
+    listing_html = (DIST / "events" / "index.html").read_text(encoding="utf-8")
+    assert listing_html.count("/assets/site/js/support-footer.js") == 1, "Timeline index support script missing"
+    assert listing_html.count("/assets/site/css/support-footer.css") == 1, "Timeline index support CSS missing"
+    for ev in event_master:
+        page = (DIST / "events" / (ev["id"] + ".html"))
+        assert page.is_file(), "Missing timeline event page: " + ev["id"]
+        html = page.read_text(encoding="utf-8")
+        assert "/assets/site/js/shell.js" in html and "/assets/site/css/components.css" in html
+        assert html.count("/assets/site/js/support-footer.js") == 1, "Event support script missing or duplicated"
+        assert html.count("/assets/site/css/support-footer.css") == 1, "Event support CSS missing or duplicated"
+        assert "https://www.archelaos.club/events/" + ev["id"] + ".html" in html
+        assert "<h1>" + escape(ev["title"]) + "</h1>" in html
     current_total = len(json.loads((ROOT / "hall-of-fame-people.json").read_text(encoding="utf-8"))["people"])
     assert len(loc_people) == len(set(loc_people)) == current_total
     addenda = json.loads((ROOT/"rebuild"/"data"/"people-addenda.json").read_text(encoding="utf-8"))["entries"]
@@ -120,8 +137,10 @@ def verify() -> None:
         assert "<header" not in text.lower(), "Duplicated legacy header in " + file.name
         assert "<footer" not in text.lower(), "Duplicated legacy footer in " + file.name
         assert '/assets/site/css/components.css' in text, "Shared controls CSS missing: " + file.name
+        assert text.count('/assets/site/css/support-footer.css') == 1, "People support CSS missing or duplicated: " + file.name
+        assert text.count('/assets/site/js/support-footer.js') == 1, "People support script missing or duplicated: " + file.name
 
-    # All public routes (13 pages, 682 biographies and 404) must share one
+    # All public routes (core pages, canonical biographies and 404) must share one
     # footer, accessibility trigger and return-to-top implementation.
     not_found=(DIST/"404.html").read_text(encoding="utf-8")
     assert '/assets/site/js/shell.js' in not_found and '/assets/site/css/components.css' in not_found, "404 is missing site-wide tools"
@@ -140,9 +159,26 @@ def verify() -> None:
     hall = json.loads((DIST / "hall-of-fame-people.json").read_text(encoding="utf-8"))
     modal = json.loads((DIST / "assets/site/data/people.json").read_text(encoding="utf-8"))
     assert hall == master == modal, "Hall of Fame release differs from canonical master"
+    for js_path in ("biographies.js", "archive-catalog.js", "home.js"):
+        code = (DIST / "assets/site/js" / js_path).read_text(encoding="utf-8")
+        assert "/hall-of-fame-people.json" in code, "Legacy Hall feed in " + js_path
     assert hall["count"] == len(hall["people"]), "Hall count inconsistent"
+    assert f'<strong id="hall-total">{hall["count"]}</strong>' in (DIST/"hall-of-fame.html").read_text(encoding="utf-8"), "Hall hero has stale profile count"
+    assert f'<span id="new-people-total">{hall["count"]}</span>' in (DIST/"index.html").read_text(encoding="utf-8"), "Homepage has stale profile count"
     ids = [person["id"] for person in hall["people"]]
     assert len(ids) == len(set(ids)), "Duplicate Hall person identifiers"
+    # Identity correction: two historical spellings refer to one coach.
+    fani_id = "arch-2cb062fabc11"
+    retired_fani_id = "arch-fani-gkiousoglou-gym-2025"
+    fani = [person for person in hall["people"] if person["id"] == fani_id]
+    assert len(fani) == 1 and fani[0]["name"] == "Φανή Γκιοούσογλου", "Fani identity/spelling regressed"
+    assert retired_fani_id not in ids, "Duplicate Fani Hall identity returned"
+    assert "2024" in fani[0]["bio"] and "2025" in fani[0]["bio"], "Merged Fani biography lost historical coverage"
+    assert (DIST / "people" / (fani_id + ".html")).is_file(), "Canonical Fani profile missing"
+    assert not (DIST / "people" / (retired_fani_id + ".html")).exists(), "Retired Fani profile incorrectly republished"
+    redirects = (DIST / "_redirects").read_text(encoding="utf-8")
+    assert f"/people/{retired_fani_id}.html /people/{fani_id}.html 301" in redirects, "Fani legacy URL redirect missing"
+
     names = [(p["name"].strip().casefold(), p.get("role", "").strip().casefold()) for p in hall["people"]]
     assert len(names) == len(set(names)), "Duplicate Hall names and roles"
     # A single traceable graph must connect every publicly named person/event
@@ -267,11 +303,15 @@ def verify() -> None:
     assert "Διαβάστε την είδηση" not in home_js, "Redundant homepage card caption restored"
     # Eighteen regular cards per page PLUS one distinct featured card on page 1.
     # Filtering still applies before slicing and the featured story is not duplicated.
-    assert "PAGE_SIZE=18" in news_js, "News pagination size changed"
+    assert "PAGE_SIZE=19" in news_js, "News pagination size changed"
     assert "x.id!==lead?.id" in news_js, "Highlighted article duplicated in the news grid"
-    assert "const pageCount=Math.max(1,Math.ceil(items.length/PAGE_SIZE));" in news_js, "Featured news must be separate from eighteen regular cards"
-    assert "const offset=(state.page-1)*PAGE_SIZE;" in news_js, "News pagination offset missing"
-    assert "items.slice(offset,offset+PAGE_SIZE)" in news_js, "Expected eighteen regular news cards per page"
+    assert "const showLead=state.category==='all'&&!q&&!!lead;" in news_js, "Empty news feed must not invent a featured story"
+    assert "const total=items.length+(showLead?1:0);" in news_js, "Featured story must count towards page size"
+    assert "const pageCount=Math.max(1,Math.ceil(total/PAGE_SIZE));" in news_js, "News pagination must count all visible stories"
+    assert "const offset=showLead?Math.max(0,(state.page-1)*PAGE_SIZE-1):(state.page-1)*PAGE_SIZE;" in news_js, "News pagination offset missing"
+    assert "const pageLimit=showLead&&state.page===1?PAGE_SIZE-1:PAGE_SIZE;" in news_js, "Featured story must leave eighteen regular slots on page one"
+    assert "items.slice(offset,offset+pageLimit)" in news_js, "Expected nineteen news stories per page"
+    assert "const last=Math.min(state.page*PAGE_SIZE,total);" in news_js, "News pagination count must include the featured story"
     assert "renderPagination(pageCount)" in news_js, "News page-number links not rendered"
     assert "window.addEventListener('popstate'" in news_js, "News page history navigation missing"
     assert 'id="an-pagination"' in (DIST/"news.html").read_text(encoding="utf-8"), "News pagination nav missing"

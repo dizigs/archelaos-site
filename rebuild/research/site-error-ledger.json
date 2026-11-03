@@ -123,27 +123,5 @@
     "ci_release_integrity": "success",
     "ci_rebuild_validation": "success",
     "ci_lighthouse": "success"
-  },
-  "pr_check_incidents": [
-    {
-      "fingerprint": "PR37_INTAKE_JSON_PATH_TRAVERSAL",
-      "scope": "PR security check; not production",
-      "pr": 37,
-      "failed_check_run_id": 125544284547,
-      "failed_head": "8209e5df50e1282c640c9278d2befce274c0ee56",
-      "cause": "Old unbounded JSON reader on draft branch; trusted-root security fix already existed on main.",
-      "fix_commit": "7b48c04ae444d53ca01e69a079ff832bd172f121",
-      "resolution": "Merged main into existing PR; preserved hardened reader, scoped callers, symlink/path regression tests and PR privacy improvements.",
-      "verified_check_run_id": 125547113309,
-      "verified_head": "ab9652446808741954d1fd15000ef80579a0c73c",
-      "result": "SonarCloud Quality Gate passed: 0 new issues, 0 security hotspots.",
-      "release_integrity_run_id": 41523978439,
-      "release_integrity_result": "success",
-      "contribution_tests_run_id": 41523978822,
-      "contribution_tests_result": "success",
-      "rebuild_run_id": 41523978691,
-      "rebuild_result_at_observation": "in_progress",
-      "evidence": "https://github.com/dizigs/archelaos-site/pull/37/checks?check_run_id=125547113309"
-    }
-  ]
+  }
 }

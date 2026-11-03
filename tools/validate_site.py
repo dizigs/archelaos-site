@@ -8,7 +8,7 @@ import re
 import sys
 from html.parser import HTMLParser
 from pathlib import Path
-from urllib.parse import unquote, urlsplit
+from urllib.parse import parse_qs, unquote, urlsplit
 from xml.etree import ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -107,6 +107,36 @@ def check_biography_index(index: list, hall: dict) -> None:
         print(f"NOTICE: ambiguous biography name {name!r}; auto-linking skips {len(ids)} matching IDs")
     print(f"Biography index verified: {len(people)} records, {len(ambiguous)} ambiguous name spellings")
 
+def check_public_person_search(search: object, hall: dict) -> None:
+    """Ensure the static search results never resurrect retired Hall identities."""
+    if not isinstance(search, dict) or not isinstance(search.get("records"), list):
+        error("search-index.json: expected object with records list")
+        return
+    canonical = {p["id"]: p for p in hall["people"] if isinstance(p, dict) and p.get("id")}
+    observed = []
+    for pos, row in enumerate(search["records"]):
+        if not isinstance(row, dict) or row.get("type") != "person":
+            continue
+        href = row.get("href")
+        if not isinstance(href, str):
+            error(f"search-index.json: person row {pos} missing href")
+            continue
+        target = urlsplit(href)
+        ids = parse_qs(target.query).get("person", [])
+        if target.path != "hall-of-fame.html" or len(ids) != 1:
+            error(f"search-index.json: invalid person URL at row {pos}")
+            continue
+        person_id = ids[0]
+        observed.append(person_id)
+        record = canonical.get(person_id)
+        if record is None:
+            error(f"search-index.json: retired/unknown Hall person {person_id}")
+        elif row.get("title") != record.get("name"):
+            error(f"search-index.json: stale canonical display name for {person_id}")
+    if len(observed) != len(canonical) or len(observed) != len(set(observed)) or set(observed) != set(canonical):
+        error(f"search-index.json: person IDs not in one-to-one parity with canonical Hall (search={len(observed)}, canonical={len(canonical)})")
+
+
 def check_sitemap() -> None:
     try:
         xml = ET.parse(ROOT / "sitemap.xml")
@@ -162,6 +192,8 @@ def main() -> int:
             if set(index_ids) != canonical_ids:
                 error("archelaos-person-index.json: IDs differ from canonical Hall of Fame records")
             check_biography_index(index, hall)
+    if isinstance(hall, dict) and isinstance(hall.get("people"), list):
+        check_public_person_search(check_json("search-index.json"), hall)
     links_source = (ROOT / "archelaos-person-links.js").read_text(encoding="utf-8")
     if "DATA_URL='hall-of-fame-people.json'" not in links_source:
         error("Biography link script must load the canonical Hall of Fame JSON")

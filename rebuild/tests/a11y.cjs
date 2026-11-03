@@ -3,7 +3,7 @@
 const {chromium}=require('playwright');
 const {mkdirSync,writeFileSync,readdirSync,readFileSync}=require('node:fs');
 const path=require('node:path');
-const BASE='http://127.0.0.1:8766';
+const BASE=process.env.SITE_STABILITY_BASE_URL||'http://127.0.0.1:8766';
 const OUTPUT=path.join(__dirname,'..','test-artifacts','accessibility');
 const allProfiles=readdirSync(path.join(__dirname,'..','..','dist','people')).filter(x=>x.startsWith('arch-')&&x.endsWith('.html'));
 const hall=JSON.parse(readFileSync(path.join(__dirname,'..','..','hall-of-fame-people.json'),'utf8'));
@@ -94,6 +94,8 @@ async function test(){
  writeFileSync(path.join(OUTPUT,'report.json'),JSON.stringify(report,null,2));
  console.log('Accessibility audit:',report.checks.length,'page/viewports;',
    report.violations.length,'axe findings;',report.errors.length,'interaction errors');
+ if(process.env.GITHUB_ACTIONS==='true')console.log('::notice title=Accessibility results::'+
+   JSON.stringify({pageViewports:report.checks.length,violations:report.violations.length,errors:report.errors.length}));
  const serious=report.violations.filter(v=>v.impact==='serious'||v.impact==='critical');
  for(const v of serious.slice(0,20))console.warn('A11Y',v.where,v.impact,v.id,JSON.stringify(v.nodes.map(n=>n.target)));
  for(const e of report.errors)console.error('INTERACTION',e.where,e.message);

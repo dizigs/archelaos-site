@@ -939,14 +939,20 @@
       "id": "arch-4aaa2b869d44"
     },
     {
-      "name": "Φανή Γκιουσόογλου",
-      "name_en": "Fani Gkiousooglou",
+      "name": "Φανή Γκιοούσογλου",
+      "name_en": "Fani Gkioousoglou",
       "role": "Προπονήτρια · Ενόργανη",
       "role_en": "Coach",
       "category": "coach",
-      "bio": "Εξειδικευμένη προπονήτρια και χορογράφος του τμήματος ενόργανης γυμναστικής του Αρχελάου. Υπεύθυνη για την καλλιτεχνική έκφραση, την πλαστικότητα και τη χορογραφική αρτιότητα των ασκήσεων εδάφους και της δοκού ισορροπίας, συμβάλλοντας καθοριστικά στην κατάκτηση του χρυσού μεταλλίου εδάφους από τη Νικολέτα Τσαρουχά και του χάλκινου ομαδικού στη Μίκρα (2024).",
-      "bio_en": "Fani Giousooglou serves as coach and choreographer for Archelaos gymnastics, orchestrating the routines that secured national podium finishes and regional floor gold in 2024.",
-      "id": "arch-2cb062fabc11"
+      "bio": "Εξειδικευμένη προπονήτρια και χορογράφος του τμήματος ενόργανης γυμναστικής του Αρχελάου. Υπεύθυνη για την καλλιτεχνική έκφραση, την πλαστικότητα και τη χορογραφική αρτιότητα των ασκήσεων εδάφους και της δοκού ισορροπίας, συμβάλλοντας καθοριστικά στην κατάκτηση του χρυσού μεταλλίου εδάφους από τη Νικολέτα Τσαρουχά και του χάλκινου ομαδικού στη Μίκρα (2024).\n\nΑναφέρεται ονομαστικά στο προπονητικό επιτελείο ενόργανης γυμναστικής του Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης στη γιορτή της Β΄ Περιφέρειας, στη Μίκρα Θεσσαλονίκης, στις 14–15 Ιουνίου 2025. Ο σύλλογος συμμετείχε με 96 παιδιά και βραβεύτηκε ως η πολυπληθέστερη ομάδα της διοργάνωσης.",
+      "bio_en": "Fani Gkioousoglou serves as coach and choreographer for Archelaos gymnastics, supporting artistic expression and choreography on floor and balance beam. Her work was associated with the club's gymnastics achievements in 2024. She was also named as a member of the coaching staff at the second-region gymnastics festival in Thessaloniki on 14–15 June 2025, where Archelaos participated with 96 children and received recognition for the largest delegation.",
+      "id": "arch-2cb062fabc11",
+      "refs": [
+        {
+          "label": "Ο Ντελάλης · Γιορτή ενόργανης Β΄ Περιφέρειας, Ιούνιος 2025",
+          "url": "https://odelalis.gr/o-gas-archelaos-katerinis-sti-giorti-enorganis-gymnastikis-tis-v-perifereias/"
+        }
+      ]
     },
     {
       "name": "Νικολέτα Τσαρουχά",
@@ -6296,13 +6302,13 @@
       "id": "arch-10d2ee63c2f0"
     },
     {
-      "name": "Αλεξάνδρα Στροστίδου",
-      "name_en": "Αλεξάνδρα Στροστίδου",
+      "name": "Αλεξάνδρα Στροσκίδου",
+      "name_en": "Αλεξάνδρα Στροσκίδου",
       "role": "Καλαθοσφαίριση · Καλαθοσφαίριση (Κορασίδων)",
       "role_en": "Basketball",
       "category": "athlete",
       "bio": "Αθλήτρια της ομάδας κορασίδων μπάσκετ του Αρχελάου που εκπροσώπησε τον σύλλογο στην τελική φάση του Πρωταθλήματος Ελλάδας (1996).",
-      "bio_en": "Αλεξάνδρα Στροστίδου was associated with Archelaos Katerini in Basketball during 1996. The club’s historical records document their participation and sporting activity during this period.",
+      "bio_en": "Αλεξάνδρα Στροσκίδου was associated with Archelaos Katerini in Basketball during 1996. The club’s historical records document their participation and sporting activity during this period.",
       "id": "arch-459959b908dd"
     },
     {
