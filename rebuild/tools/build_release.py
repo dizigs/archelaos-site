@@ -353,6 +353,22 @@ def make_release() -> None:
         # use the same canonical host as the 14 core pages and sitemap.
         # Original archival HTML in source-profiles remains untouched.
         html_text = html_text.replace("https://archelaos.club/", SITE + "/")
+        # Apply the shared profile shell to historical and newly added biographies.
+        def mark_person_page(match):
+            attrs = match.group(1)
+            classes = re.search(r'\bclass=(["\x27])(.*?)\1', attrs, flags=re.I|re.S)
+            if classes:
+                values = classes.group(2).split()
+                if "person-page" not in values:
+                    values.append("person-page")
+                attrs = attrs[:classes.start()] + 'class="' + " ".join(values) + '"' + attrs[classes.end():]
+            else:
+                attrs += ' class="person-page"'
+            return "<body" + attrs + ">"
+        html_text, body_count = re.subn(r'<body([^>]*)>', mark_person_page, html_text, count=1, flags=re.I)
+        if body_count != 1:
+            raise ValueError("Missing profile body: " + profile.name)
+
         # Standalone profiles have a legacy header and footer in their HTML.
         # Keep the entire biographical article, but avoid two headers/footers
         # when the shared shell injects the site-wide components at runtime.
