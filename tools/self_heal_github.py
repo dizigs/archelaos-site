@@ -16,6 +16,7 @@ ACTOR_BOT_ID = 41898282
 STATE_MARKER = "archelaos-self-heal-state:v1:"
 FIXTURE_BRANCH = re.compile(r"codex/self-heal-staging-[a-z0-9-]{1,60}")
 SAFE_PATHS = {"self-heal-fixtures/news-head.html", "news.html"}
+READ_PATHS = SAFE_PATHS | {"config/sport-self-heal-policy.json"}
 
 
 class AccessFailure(RuntimeError):
@@ -86,8 +87,11 @@ class GitHub:
 
 class IncidentStore:
     """Append-only state journal; public comments from other authors are ignored."""
-    def __init__(self, client, aggregate=False):
+    def __init__(self, client, aggregate=False, known_container=None):
         self.client = client; self.aggregate = aggregate; self.containers = {}; self.owner_id = None
+        if known_container is not None and (type(known_container) is not int or known_container < 1):
+            raise ValueError("Invalid known incident container")
+        self.known_container = known_container
 
     def trusted(self, user):
         if self.owner_id is None:
@@ -102,7 +106,8 @@ class IncidentStore:
     def marker(key): return "<!-- " + STATE_MARKER + key + " -->"
 
     def load(self, key):
-        issues = self.client.pages(API + "/issues?state=all")
+        issues = ([self.client.request(API + f"/issues/{self.known_container}")]
+                  if self.known_container is not None else self.client.pages(API + "/issues?state=all"))
         candidates = [row for row in issues if "pull_request" not in row and
                       (self.marker(key) in (row.get("body") or "") or
                        self.aggregate and row.get("title") == "Site QA: automated monitor alert")]
@@ -160,7 +165,7 @@ def branch_head(client, branch, missing_ok=False):
 
 
 def tree_file(client, commit, path, optional=False):
-    if path not in SAFE_PATHS: raise ValueError("Unapproved source path")
+    if path not in READ_PATHS: raise ValueError("Unapproved source path")
     tree = client.request(API + "/git/trees/" + full_sha(commit) + "?recursive=1")
     if tree.get("truncated") is not False or not isinstance(tree.get("tree"), list):
         raise ValueError("Incomplete source tree")

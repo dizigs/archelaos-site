@@ -213,6 +213,16 @@ def publish_tested(observation, state, patch, store, publisher, context):
         validate_proposal(proposal, repair_branch(observation.fingerprint, observation.source_signature))
     except (OSError, ValueError, RuntimeError) as error:
         state.update(phase="PUBLISH_BLOCKED", errorClass=type(error).__name__)
+        evidence = getattr(error, "evidence", None)
+        if (isinstance(evidence, dict) and set(evidence) == {"method", "endpoint", "httpStatus", "message"}
+                and evidence.get("method") in {"GET", "POST"}
+                and isinstance(evidence.get("endpoint"), str)
+                and evidence["endpoint"].startswith("https://api.github.com/repos/dizigs/archelaos-site/")
+                and evidence.get("message") in {"Resource not accessible by integration",
+                    "GitHub Actions is not permitted to create or approve pull requests", "Bad credentials",
+                    "Not Found", "Reference already exists", "unclassified API failure",
+                    "request timed out; outcome unknown, no retry"}):
+            state["accessFailure"] = evidence
         store.save(state)
         return result(state, "BLOCKED", "publication_failed_no_retry")
     state.update(phase="DRAFT_PR_PROPOSED", pr=proposal)

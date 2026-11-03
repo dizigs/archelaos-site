@@ -3,20 +3,67 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '17 */6 * * *'
+  pull_request:
+    paths:
+      - 'tools/self_heal_*.py'
+      - 'tests/test_self_heal_*.py'
+      - '.github/workflows/site-watch-and-repair.yml'
 
 permissions:
-  contents: write
-  pull-requests: write
-  issues: write
+  contents: read
 
 concurrency:
   group: site-watch-and-repair
   cancel-in-progress: false
 
 jobs:
+  controller-regression:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+      - run: python -m unittest discover -s tests -p 'test_self_heal_*.py' -v
+
+  controlled-fixture:
+    if: github.event_name == 'workflow_dispatch' && startsWith(github.ref, 'refs/heads/codex/self-heal-staging-')
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      actions: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+      - name: Verify bounded controller and API regressions
+        run: python -m unittest discover -s tests -p 'test_self_heal_*.py' -v
+      - name: Isolated central-site fault to tested deduplicated draft PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_SHA: ${{ github.sha }}
+          SOURCE_BRANCH: ${{ github.ref_name }}
+          SOURCE_RUN: ${{ github.run_id }}
+        run: python tools/self_heal_fixture.py --source-commit "$SOURCE_SHA" --branch "$SOURCE_BRANCH" --run-id "$SOURCE_RUN"
+
   monitor:
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     timeout-minutes: 18
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
