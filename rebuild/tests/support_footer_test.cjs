@@ -19,6 +19,11 @@ test('every production rebuild page includes the same support assets once', () =
     assert.equal(content.split('/rebuild/js/support-footer.js').length - 1, 1, page);
     assert.equal(content.split('/rebuild/css/support-footer.css').length - 1, 1, page);
   }
+  // News is copied verbatim from the repository root, not from rebuild/*.html.
+  const news = fs.readFileSync(path.resolve(root, '..', 'news.html'), 'utf8');
+  assert.match(news, /\/assets\/site\/js\/shell\.js/);
+  assert.equal(news.split('/assets/site/js/support-footer.js').length - 1, 1);
+  assert.equal(news.split('/assets/site/css/support-footer.css').length - 1, 1);
 });
 
 test('uses first-party UptimeRobot logo and no forbidden Google logo', () => {
