@@ -11,7 +11,7 @@ The generated dist/ is intentionally untracked. Publish ONLY after owner approva
 """
 from __future__ import annotations
 
-from html import escape, escape as html_escape, unescape as html_unescape
+from html import escape, escape as html_escape
 from hashlib import sha256
 from pathlib import Path
 from shutil import copy2, copytree, rmtree
@@ -19,6 +19,8 @@ from urllib.parse import urlparse
 from xml.etree import ElementTree as ET
 import json
 import re
+
+from hof_biography import correct_name, normalized, sync_biography
 
 ROOT = Path(__file__).resolve().parents[2]
 STAGE = ROOT / "rebuild"
@@ -302,7 +304,8 @@ def make_release() -> None:
         regex = (r'(<section\b[^>]*data-profile-language="' + language
                  + r'"[^>]*>.*?<div class="bio">)(.*?)(</div>)')
         def expand(match):
-            paragraphs = [html_escape(row[language]) for row in additions]
+            paragraphs = [html_escape(row[language]) for row in additions
+                          if normalized(row[language]) not in normalized(match.group(2))]
             bibliography = " · ".join(dict.fromkeys(
                 html_escape(row["source_label"]) for row in additions
             ))
@@ -319,43 +322,19 @@ def make_release() -> None:
         return updated
 
 
-    # An edited canonical biography must also appear in its standalone profile.
-    # Only update the old bio when it is the EXACT original index text; leave a
-    # richer independent profile untouched rather than risking deletion.
-    former_people = {p["id"]: p for p in json.loads(
-        (ROOT / "hall-of-fame-people.json").read_text(encoding="utf-8"))["people"]}
-    revised_people = {p["id"]: p for p in json.loads(
+    # Root data is authoritative. Independent archival prose is preserved unless
+    # it is literally contained in the newer canonical biography (Issue #57).
+    canonical_people = {p["id"]: p for p in current_master["people"]}
+    archival_by_id = {p["id"]: p for p in json.loads(
         (STAGE / "data" / "people.json").read_text(encoding="utf-8"))["people"]}
-
-    def sync_edited_bio(source: str, person_id: str, lang: str) -> str:
-        key = "bio" if lang == "el" else "bio_en"
-        if person_id not in former_people or person_id not in revised_people:
-            return source
-        before = former_people[person_id].get(key, "")
-        after = revised_people[person_id].get(key, "")
-        if before == after:
-            return source
-        regex = (r'(<section\b[^>]*data-profile-language="' + lang +
-                 r'"[^>]*>.*?<div class="bio">)(.*?)(</div>)')
-        match = re.search(regex, source, flags=re.S)
-        if not match:
-            raise ValueError("Missing biography section: " + person_id + "/" + lang)
-        normal = lambda value: re.sub(r"\s+", " ", value).strip()
-        if normal(html_unescape(match.group(2))) != normal(before):
-            # Preserve the long-form archival page if it contains richer prose.
-            # Canonical Hall of Fame popup still shows the revised biography.
-            return source
-        return (source[:match.start(2)] + html_escape(after, quote=False)
-                + source[match.end(2):])
 
     # Public news is linked to the same canonical person IDs used by the Hall modal.
     news_items = json.loads((ROOT / "news.json").read_text(encoding="utf-8"))["items"]
-    canonical_people = {p["id"]: p for p in current_master["people"]}
     swimming_2026_id = "swimming-national-17-athletes-106-points-aug-2026"
     swimming_2026 = next((item for item in news_items if item["id"] == swimming_2026_id), None)
 
     for profile in profiles:
-        html_text = profile.read_text(encoding="utf-8")
+        html_text = correct_name(profile.read_text(encoding="utf-8"))
         # The public apex redirects to www. Generated profile metadata must
         # use the same canonical host as the 14 core pages and sitemap.
         # Original archival HTML in source-profiles remains untouched.
@@ -388,12 +367,13 @@ def make_release() -> None:
         if old_header != old_footer:
             raise ValueError('Unpaired legacy profile header/footer: ' + profile.name)
         for lang in ("el", "en"):
-            html_text = sync_edited_bio(html_text, profile.stem, lang)
+            html_text = sync_biography(html_text, canonical_people[profile.stem].get(
+                "bio" if lang == "el" else "bio_en", ""), lang)
         # Avoid leaving obsolete editorial correction text in Person JSON-LD
         # and social metadata after the visible Greek biography is cleaned.
-        before = former_people.get(profile.stem, {}).get("bio", "")
-        after = revised_people.get(profile.stem, {}).get("bio", "")
-        if profile.stem in revised_people and before != after:
+        before = archival_by_id.get(profile.stem, {}).get("bio", "")
+        after = canonical_people.get(profile.stem, {}).get("bio", "")
+        if before and before != after and normalized(before) in normalized(after):
             def adjust_person_schema(match):
                 try:
                     schema = json.loads(match.group(2))
@@ -419,7 +399,7 @@ def make_release() -> None:
         # Preserve richer archival biographies while including the latest sourced
         # 2026 swimming result in the eight pre-existing public profile pages.
         if (swimming_2026 and profile.stem in swimming_2026.get("personIds", [])
-                and profile.stem in revised_people):
+                and profile.stem in archival_by_id):
             person = canonical_people[profile.stem]
             for lang, key in (("el", "bio"), ("en", "bio_en")):
                 fact = person.get(key, "").split("\n\n")[-1]
@@ -428,7 +408,7 @@ def make_release() -> None:
                 section = (r'(<section\b[^>]*data-profile-language="' + lang
                            + r'"[^>]*>.*?<div class="bio">)(.*?)(</div>)')
                 def add_fact(match):
-                    if html_escape(fact, quote=False) in match.group(2):
+                    if normalized(fact) in normalized(match.group(2)):
                         return match.group(0)
                     return match.group(1) + match.group(2) + "\n\n" + html_escape(fact, quote=False) + match.group(3)
                 html_text, added = re.subn(section, add_fact, html_text, count=1, flags=re.S)

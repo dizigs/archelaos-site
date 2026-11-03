@@ -1,0 +1,1024 @@
+{
+  "schema_version": 1,
+  "canonical_source": "hall-of-fame-people.json",
+  "historical_source": "rebuild/data/people.json",
+  "counts": {
+    "canonical": 771,
+    "historical": 680,
+    "shared": 680,
+    "divergent_people": 57,
+    "divergent_fields": 91,
+    "fields": {
+      "bio": 57,
+      "bio_en": 33,
+      "name": 1
+    },
+    "classifications": {
+      "BLOCKED_SOURCE": 4,
+      "LEGACY_TEXT_RETAINED": 77,
+      "QUALIFIED_ARCHIVE": 2,
+      "QUALIFIED_CONFLICT": 2,
+      "SEMANTICALLY_RETAINED": 4,
+      "SPELLING_CORRECTION": 2
+    }
+  },
+  "canonical_only_ids": [
+    "arch-achilleas-giassiranis-wrestling-2024",
+    "arch-afroditi-biziota-track23",
+    "arch-aikaterini-giannakou-arch",
+    "arch-alexis-papadopoulos-wrestling-2022",
+    "arch-apostolis-dimolios-wrestling-2026",
+    "arch-archery-52bc1f27",
+    "arch-archery-5e69a556",
+    "arch-archery-9acd2e41",
+    "arch-archery-contrib-20261102-01",
+    "arch-archery-contrib-20261102-02",
+    "arch-archery-contrib-20261102-03",
+    "arch-archery-contrib-20261102-04",
+    "arch-archery-contrib-20261102-05",
+    "arch-archery-contrib-20261102-06",
+    "arch-archery-contrib-20261102-07",
+    "arch-archery-contrib-20261102-08",
+    "arch-archery-contrib-20261102-09",
+    "arch-archery-konstantinos-samakovlis-2018",
+    "arch-archery-result-20261102-01",
+    "arch-archery-result-20261102-02",
+    "arch-archery-result-20261102-03",
+    "arch-archery-result-20261102-04",
+    "arch-archery-result-20261102-05",
+    "arch-archery-result-20261102-06",
+    "arch-archery-result-20261102-07",
+    "arch-archery-result-20261102-08",
+    "arch-archery-result-20261102-09",
+    "arch-archery-result-20261102-10",
+    "arch-archery-result-20261102-11",
+    "arch-archery-result-20261102-12",
+    "arch-archery-result-20261102-13",
+    "arch-archery-result-20261102-14",
+    "arch-archery-result-20261102-15",
+    "arch-aristotelis-navrozidis-wrest24",
+    "arch-chara-mavridou-wrest25",
+    "arch-christina-papavasileiou-gymnastics-2022",
+    "arch-christos-karasavvidis-gymnastics-2022",
+    "arch-dimitrios-koufogiannis-shoot",
+    "arch-dimitrios-loulas-archery-officer-2015",
+    "arch-dimitrios-trigkas-wrest25",
+    "arch-dimitrios-tsimponis-shoot",
+    "arch-dimitris-siokas-handball-2026",
+    "arch-ektoras-diamantidis-arch",
+    "arch-eleni-mitsiaki-archery-2022",
+    "arch-gymnastics-3d90ff4c",
+    "arch-gymnastics-3e72e3a0",
+    "arch-gymnastics-4835eaab",
+    "arch-gymnastics-9814252c",
+    "arch-gymnastics-ab00d538",
+    "arch-gymnastics-b15100a6",
+    "arch-gymnastics-d8ee376a",
+    "arch-gymnastics-f2e4a89b",
+    "arch-gymnastics-ffd29998",
+    "arch-handball-348992f5",
+    "arch-ioannis-goutsos-gymnastics-2022",
+    "arch-kassiani-koktsidou-arch",
+    "arch-katerina-lampiri-gymnastics-2022",
+    "arch-katerina-natsiopoulou-track22",
+    "arch-konstantinos-charisis-arch",
+    "arch-konstantinos-sarris-volleyball",
+    "arch-konstantinos-seitanidis-shoot",
+    "arch-konstantinos-sklias-wrest23",
+    "arch-kyriaki-parasidou-gymnastics-2022",
+    "arch-loukas-zinisa-wrest25",
+    "arch-maria-mastorogianni-wrest25",
+    "arch-michaela-syrmali-wrest20",
+    "arch-paschalis-iliatzikis-wrestling-2022",
+    "arch-pavlina-charitidou-arch",
+    "arch-platon-chotokouridis-basketball",
+    "arch-savvas-charitidis-wrestling-2021",
+    "arch-sofia-konstantinidou-track22",
+    "arch-sofia-toptsa-shoot",
+    "arch-swim-2026-andreas-anastasiadis",
+    "arch-swim-2026-eleni-kotidou",
+    "arch-swim-2026-fayi-dimitriadou",
+    "arch-swim-2026-giorgos-kryos",
+    "arch-swim-2026-katerina-popoti",
+    "arch-swim-2026-katerina-tsiniani",
+    "arch-swim-2026-konstantinos-stefanis",
+    "arch-swim-2026-nikolas-kryos",
+    "arch-swim-2026-pavlos-bampoulis",
+    "arch-theofania-karali-arch",
+    "arch-thodoris-tsiliggiridis-wrest20",
+    "arch-vanesa-charoula-hogkas-shoot",
+    "arch-vangelis-kordonoulis-wrest24",
+    "arch-vasileios-grigoropoulos-shoot",
+    "arch-vasiliki-koufogianni-shoot",
+    "arch-vasilis-d-noulezas-handball",
+    "arch-wrest-dimitris-grigkas",
+    "arch-wrest-stavros-tsakiris",
+    "arch-wrest-taxiarhis-liakos"
+  ],
+  "historical_only_ids": [],
+  "records": [
+    {
+      "id": "arch-23f5b3ca37c0",
+      "name": "Μιχάλης Κουκλής",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "SEMANTICALLY_RETAINED",
+          "legacy_sha256": "ecd0c0bebbffd68a7e85f42b8484c8bf3930f7a8890760e004d2dce4d6b397e5",
+          "canonical_sha256": "c13b209f5dc6986255e9889484b3df7c92f1730481d86d55c5835e1a161fb70e",
+          "evidence": "Both versions retain 1993 Balkan junior pole-vault victory, 5.05 m and Lefteriotis; canonical addendum explicitly retains Thessaloniki."
+        }
+      ]
+    },
+    {
+      "id": "arch-25923c326d62",
+      "name": "Λαμπριανή Σωτηρίου",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "02d2598d249bb40a1368e508dfb4d31cca41c2d78b0869517fa447b25b500677",
+          "canonical_sha256": "fb8c6e0848ada08f134fc254b88f250eb01083eafcf3aa20809c57415c978d46"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "2be6deaf00ba2df7d0ebbb1adaa087c914232702d62c2d83622f3077ebb666d1",
+          "canonical_sha256": "0c9fa291d34a6a4ca30c4c26cb637b7bc0a2a7a8701abf5b99ee561757c7f743"
+        }
+      ]
+    },
+    {
+      "id": "arch-2616694d9908",
+      "name": "Νίκος Ζινίσα",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "859a1fcc37f5d1e0000efca09b7eca34f0cf8110e1094d85aad0f43f3f206bc7",
+          "canonical_sha256": "9b1877451ca197036279c6926368aebfdc57d055f8b89d33207a1d85cc0f58e1"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "7503561ecca7156b18fbeb93ba13566cfabfa27d764bfc216efd740a49fe5427",
+          "canonical_sha256": "54297d12d2431779d68766fc3bfb88d7f7125e9e104d6bca9b0c076a2bce1713"
+        }
+      ]
+    },
+    {
+      "id": "arch-292b7871cf5b",
+      "name": "Καλλιάνθη Γκιμπή",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "98fa6cb851371a6a5636b1949e038e275162c8fff34838e7bd9feda0972dc15c",
+          "canonical_sha256": "fc415ed279ea659472dfba654d9884c0f45c1229f15f3a75a824c5149ce95320"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "a87d9bd5045bed34d5078d374b49e1187fd707f62e10650293bb650ae3ab7d33",
+          "canonical_sha256": "0164045e0bae054543782c27b8f2cba6b4b774e0dd11302fcb8358eded9324cb"
+        }
+      ]
+    },
+    {
+      "id": "arch-2ec2798d39bb",
+      "name": "Μαρία Κεσενλή",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "4d671874adb0fbf5515fdd6d96fc9ae323c4faedfec8819f840f66ad50dac8e4",
+          "canonical_sha256": "f1d3e178593c4a97e8f17e5cf2efa0a64c033cdb59d43caf81691faa92c844dc"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "fe6643f2f00ebc534f913e7cb34e7ad22dd790dc906460397faf21bf2d248b4b",
+          "canonical_sha256": "f4f711714f0f79be08f8445f39490e3ef7997b7a0023d1f1f6f073ee2aee9268"
+        }
+      ]
+    },
+    {
+      "id": "arch-39914cf713cf",
+      "name": "Ευστάθιος Δαμπολιάς",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "f9e6810cc6f7539d2e3049d0532cc1eeed321dc314a9ade277490625165891b9",
+          "canonical_sha256": "e459028fccb43e60205cd66b6f877e3f79473fbf1d1e43456761690cc09b5860"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "5d1c0e6d72bf23d4368f1ad4700032fd3d5bad75718cdb91dc462438dea9a281",
+          "canonical_sha256": "96ace0087acf26bdcc860180ef23a5e555a47ebf1ba75ccf1243b3740f9a48c8"
+        }
+      ]
+    },
+    {
+      "id": "arch-3c99e241b6d5",
+      "name": "Απόστολος Σαμαλής",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "aed84e1e4d3d4f9d5a293660c069904612c15efc994d7edec24144162347ff6f",
+          "canonical_sha256": "67b892f980c1090521a062b381846289d9f5a7b1ef7fcca7e0d7c54ebecfd287"
+        }
+      ]
+    },
+    {
+      "id": "arch-3fe6e9ae9b29",
+      "name": "Χρήστος Τορτοπίδης",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "QUALIFIED_CONFLICT",
+          "legacy_sha256": "128653c5e16d2bd3ae04cffa930aaf827130e1a2c685dcf730ee02356a42524a",
+          "canonical_sha256": "ada8d18265b99e7f3df297a931ef65d74910fa2f637db1357cc9181fba8af0c5",
+          "evidence": "Common participation, 1994 and 74 kg restored in both languages. Both first/second-place claims retained as disputed, matching the independently preserved bilingual source-profiles page. Original competition results remain unavailable."
+        },
+        {
+          "field": "bio_en",
+          "classification": "QUALIFIED_CONFLICT",
+          "legacy_sha256": "b6520191240b91b2576ca966442ac2796128ff3b289160b351d487354fb1ce3d",
+          "canonical_sha256": "ec870579d7bdae66301ff14524acc30f52e8e159f87fbabf31cc11083698153b",
+          "evidence": "Common participation, 1994 and 74 kg restored in both languages. Both first/second-place claims retained as disputed, matching the independently preserved bilingual source-profiles page. Original competition results remain unavailable."
+        }
+      ]
+    },
+    {
+      "id": "arch-44ef21dfb9b7",
+      "name": "Ιωάννης (Γιάννης) Χαρίσης",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "SEMANTICALLY_RETAINED",
+          "legacy_sha256": "257ef44183a794eb0985b6d75c368b08d6e42b00afa5afd04086cbfbf9864406",
+          "canonical_sha256": "ae3101508174a678b743dd400a2e0b582f3614dd3bd7dcede9ba39ecb3e66804",
+          "evidence": "Canonical retains the historical text and inserts the qualification that Emmanouil Zaras was a department official, not a competing athlete. No sentence/fact needs restoration."
+        },
+        {
+          "field": "bio_en",
+          "classification": "SEMANTICALLY_RETAINED",
+          "legacy_sha256": "ebd10ba24ca3b326ce732addaec7d24e45cfab666539de973bf78aa19ec6ed62",
+          "canonical_sha256": "a943fb2b0f655bbbe569396b54ceb4d012fb14d3703a60df20ab8539674a6719",
+          "evidence": "Canonical retains the historical text and inserts the qualification that Emmanouil Zaras was a department official, not a competing athlete. No sentence/fact needs restoration."
+        }
+      ]
+    },
+    {
+      "id": "arch-4c82271a2365",
+      "name": "Γεώργιος Ευθυμίου",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "d93912d86b646a54cfc1070e18a83488c8bf2fdb3558941fda27335a719544ff",
+          "canonical_sha256": "0fc619e676cfff21ca39fa93dbf4890491f4dbdb68d1dca0011f3fc57e5b8b8f"
+        }
+      ]
+    },
+    {
+      "id": "arch-510626a0ca62",
+      "name": "Ιωάννης Καραδήμος",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "a917fbef69d2f1f59fd2fa75ea7f6b4e2225c3438ec42a4d4982accb43a30458",
+          "canonical_sha256": "51a0d26266f10e793dec83b842aa58300b3044e224338f3b6e37286c61c6834c"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "bdafa4160b14aa5d1453b8e4e8379d39e346d10f7ba8d4f993ec66a8026abf8f",
+          "canonical_sha256": "ce5d881fce27d87b5dece76d7e47b33ce666ea255f9691623e15d614c04731a5"
+        }
+      ]
+    },
+    {
+      "id": "arch-534d52034523",
+      "name": "Βαγγέλης Λάιος",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "38cc3a5e49bce2a23ace0d95f866e6019447be62e332c544df9ea496cc2db001",
+          "canonical_sha256": "331f81f124626c8f5402a1ff37576592214881a1eaa5eb0292bf46ce6cfc2e7c"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "d90d2ba6a1512167a3e5ee58495ac4d2b1739fffea0780a9a472217ee82a809a",
+          "canonical_sha256": "d5ba17f282b0e875c96aea01c8035c366df4c5134284a43ad9470a1725ba0ed9"
+        }
+      ]
+    },
+    {
+      "id": "arch-56dd134e165f",
+      "name": "Τάκης Παρασκευόπουλος",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "e7e8083690aa6976181aa9eb98fa3c10b708ed529689c154d6d36022de494d5e",
+          "canonical_sha256": "cd8f25b218006486ea8c3e5b7c84fc4d398e9bb902a64250fbaf9fbd9026f445"
+        }
+      ]
+    },
+    {
+      "id": "arch-5de1e130d776",
+      "name": "Μαρκέλα Παπαζήση",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "2b4345d680125f745b72452bae76537af404d8f36515a4a4046da5d714b0fc61",
+          "canonical_sha256": "4cc5a95283e66c4ee2a387b8923a18572fe9ee57e2f47105edfd193ac12e30a8"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "9d61cadae21087fbb8c98b11b8061cb1a80c491b4dfcb2562ec48ea953c26bc4",
+          "canonical_sha256": "d6172b8bcbe9ab7327d799eabac00d82d03d285773374a7ec35d03888485c21f"
+        }
+      ]
+    },
+    {
+      "id": "arch-61d8d097f601",
+      "name": "Αλκίνοος Τασόπουλος",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "b98bab03386c187a2743af3e9cc6f21fc37db22d7d2a9922030e1db8e86df224",
+          "canonical_sha256": "3402b2e3486100a87f825d8cbb03a526b8bb2abfd468eebe7b538c7cf4e3a1ba"
+        }
+      ]
+    },
+    {
+      "id": "arch-64dbf198bfd6",
+      "name": "Ένερι Χασανλάρι",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "1ba6529817420b9efa61432de46e5e72e0daca68838c8d57e97b2f426445b122",
+          "canonical_sha256": "f8c11150c6b102cdb02ca69406b8f5148767de1ddbbe83bfafa92cbdea552d90"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "eb564aa0fd0c8fb29fd68807ecdddd8995d2a2fdcbe71bc5e3e17ec2d2e01525",
+          "canonical_sha256": "da50e481a866114638ac5695b7d5c6f830998c374fb77b93f615323389eb6bd8"
+        }
+      ]
+    },
+    {
+      "id": "arch-64ee11fec8d6",
+      "name": "Αικατερίνη Χατζηβασιλείου",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "d953d998fd9a112f9fa3a96eeeee206fddbfa893bae5ddcc2273d315e418ed88",
+          "canonical_sha256": "724ee084f7bfecefbc09caf1d9e3b6a9447f0675a083d86c4edc3d4990ac5c94"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "c6b01bfcc3630480126dbbdbf6a222b45be0d3869b92b1b85fe0072b1768db94",
+          "canonical_sha256": "5226032a82b27226d078e7fd59f4dd31fbbaabf6afd74999191f3fa94d082f3e"
+        }
+      ]
+    },
+    {
+      "id": "arch-660b315e89cf",
+      "name": "Στέφανος Παυλίδης",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "1f460e788bd2004cd42bf2e1306b23c1e275f8d3bcedb92d56172edae62a8e2b",
+          "canonical_sha256": "0bce9a02f25e43a3a60665a5d263407e39dab2b27c27ad6d930acc3ae84d9ede"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "6657cf06daf53b2e48148b766840c836a7b4e914e7f4745e8d314206f01319f9",
+          "canonical_sha256": "586278307d7f605fe1dc5d9f39c106ceb6f224f3915f2ca37ad95be9bdebf7a1"
+        }
+      ]
+    },
+    {
+      "id": "arch-6a4b08bec058",
+      "name": "Ιωάννης Πέτκος",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "29a50df0131780d5960de071d2c6a6d6e54427d41c71c52ab88b91d73e14b691",
+          "canonical_sha256": "7902348e6e680d0e057d404c42d3cc59f6dbdb5fbeb7a4aa4e084fa961ff04dc"
+        }
+      ]
+    },
+    {
+      "id": "arch-73968afa517e",
+      "name": "Σωκράτης Κωνσταντινίδης",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "45b598bb78e9464f2c1d0f31e76abda6980bff5656cd9d4fc47c48121dff5132",
+          "canonical_sha256": "f684f5879b08bb51a6b420df566dc05213f59405cd70e6bd1e7ed28c17e351b6"
+        }
+      ]
+    },
+    {
+      "id": "arch-73fcffd7e0b7",
+      "name": "Γιώργος Καρατζούλας (Γκαρατζούλιας)",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "b3ba4521847a9d5be9ef7775c664732c5e6c65cba7bd6fc44b4aa213f889a1fd",
+          "canonical_sha256": "782b6547aa3cf789ce6778cc1aca071e6e1172647e1fbd29f0f8e56f3d1fa8dd"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "74c8856c61c6709c06a241bd1ddbbaefaaa116a408e70bd4dea1ddd0042f359d",
+          "canonical_sha256": "d8f3d9dbded60fc54d010234efe4bf2cd098801414c824c8f81165cf4c608430"
+        }
+      ]
+    },
+    {
+      "id": "arch-74c0ecf6103f",
+      "name": "Ελευθέριος Χαριτίδης",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "29fed8641101586e436b18fd77aaf2ba3a5b5c576ce9d4dfc5fb6d4b54fceb00",
+          "canonical_sha256": "3168a65c5c22b64bd482075a5ed384ba1c951755a8ab04200c2c8a41bf961dec"
+        }
+      ]
+    },
+    {
+      "id": "arch-7653fcf042c0",
+      "name": "Κατερίνα Δαλάκα",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "3b833eaebcad411a8b464a54ce23e80d8a463c053b0ebbac936bf2a67696bb4b",
+          "canonical_sha256": "120648a4712ff1296876c00e0d22f32ecfdd54a4e457db60dafc0657b4572d50"
+        }
+      ]
+    },
+    {
+      "id": "arch-7a113e11ae86",
+      "name": "Βασίλης (Βασίλειος) Ευκαρπίδης",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "QUALIFIED_ARCHIVE",
+          "legacy_sha256": "6ad7858eb382c3e7d7338d4197c5d8c8dde77ee035ed3545b213ffd33ca517a7",
+          "canonical_sha256": "5fb44a09e4baf84b4a521087c78f9b51dac1d0560fdf5a2186289e8d2fca7faa",
+          "evidence": "All dates, roles and donations (2000/1800/1400 euros; total 5200) retained, with an explicit original-minutes verification caveat. Do not remove the caveat or publish private minutes."
+        },
+        {
+          "field": "bio_en",
+          "classification": "QUALIFIED_ARCHIVE",
+          "legacy_sha256": "79225d61418b3df9c7a9cb23ff4e3f4dd6cecb19c73efbae9265770c9c3da24c",
+          "canonical_sha256": "8fb19ddb0f5629f0058f4106114e3fee73b9b0e1def7812ac6991e3eaef4ab43",
+          "evidence": "All dates, roles and donations (2000/1800/1400 euros; total 5200) retained, with an explicit original-minutes verification caveat. Do not remove the caveat or publish private minutes."
+        }
+      ]
+    },
+    {
+      "id": "arch-7d2d2d8bf363",
+      "name": "Άγγελος Νικολαΐδης",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "b19288bc94e408efd19bbaa5bf5c59ddba6756cbefc592fcf6b0bd5732e9227f",
+          "canonical_sha256": "5e13ac99dca04ea89f0792a1f84d306b22434240ff494592869c855fb1568f18"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "c7dd9b16ff62d4dbd2aceb9440550685c0b8ca016f7213e7f1855bf86d177b4a",
+          "canonical_sha256": "1de4caae7d5160ccb50bac1e691e4a2ad5b88eced5562c72c440af35d59bcef5"
+        }
+      ]
+    },
+    {
+      "id": "arch-85fcb478d724",
+      "name": "Παναγιώτης Διαμαντόπουλος",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "da9d55306bea41b58ecd9fc232db28deca3b3f35b43ab92bc8e7ab2a896117e1",
+          "canonical_sha256": "bf6837356a65f3c266b4d41144f23e4e7525053855f3684eb3e1a730cd13709e"
+        }
+      ]
+    },
+    {
+      "id": "arch-8d1a258f0b09",
+      "name": "Καλλιόπη Γεωργαντά",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "19b899e0612cf07c3bb7be65ab4348f38483a64e73a24bd5f0a23e491449cd79",
+          "canonical_sha256": "f86ff50753f7e452f8b689dca0e90c38d1adb4d05eb37eb7cc32d7f8ad48ac43"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "eb203e10656b6380fdda88147b4c95eeeb69c493f21f046129add05605cbcd94",
+          "canonical_sha256": "327a15fcd42007e22ebc20b7b9554470e3b177d25bbe907c7fdc10fdac1f0b1e"
+        }
+      ]
+    },
+    {
+      "id": "arch-955a386f547f",
+      "name": "Ευάγγελος Χαρίσης",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "7b670c04a83fb2c7b39058693d322db0389bb5021d4f1af23bb72735e2c105ed",
+          "canonical_sha256": "81e6613d532c44a2eeea023e56d8de7678a5d385d61068293549dbe900af364c"
+        }
+      ]
+    },
+    {
+      "id": "arch-96ddd7ba9e4d",
+      "name": "Γεώργιος Μιχαηλίδης",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "0adf0cf5c904f6ada9621c267c03eeac9a6684f3d1810ce965763cc4a35b07fe",
+          "canonical_sha256": "2a08d07f6299249ca6d73a102fdb153f6dd46f5390b2f7da7b5daf864f4d31ce"
+        }
+      ]
+    },
+    {
+      "id": "arch-999730e06982",
+      "name": "Σταματία Κυπαρίσση",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "BLOCKED_SOURCE",
+          "legacy_sha256": "8303a6af48c202725b81b0641abd5c6194e05ccce3c62a18e6040162edce149b",
+          "canonical_sha256": "3529143f78b7a24b4af843addf796a888438bb60d6a0fe4301ec27536162bac1",
+          "evidence": "Canonical retains sourced career dates, clubs, titles and the 2022 honour once. Legacy adds a starting national-team/wing-player claim and an evaluative ambassador description. Starting status/position cannot be confirmed from the available approved news item; no unsupported claim restored. Existing bilingual source-profiles preserved. Ref: news.json volleyball-kyparissi-panathinaikos-2026 / official PAO announcement URL."
+        },
+        {
+          "field": "bio_en",
+          "classification": "BLOCKED_SOURCE",
+          "legacy_sha256": "6ae2e46e811a228aaae7305ced03aa7597d97d70f096e4f7d3f24875c6bab178",
+          "canonical_sha256": "c43b9afd2ae81751a1e6e83999be40134acec468f3429687914cb41f5f4f5435",
+          "evidence": "Canonical retains sourced career dates, clubs, titles and the 2022 honour once. Legacy adds a starting national-team/wing-player claim and an evaluative ambassador description. Starting status/position cannot be confirmed from the available approved news item; no unsupported claim restored. Existing bilingual source-profiles preserved. Ref: news.json volleyball-kyparissi-panathinaikos-2026 / official PAO announcement URL."
+        }
+      ]
+    },
+    {
+      "id": "arch-ae0647a0c701",
+      "name": "Γεώργιος Πόδας",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "1922a0636b788b7619602b2b62b0995e2bcafee541cfd0ee883f8f45b6beace0",
+          "canonical_sha256": "81ebfadb9b88d33a94fc456d9c0666ba1d74f735cbdcf65f28bffc720f621040"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "d3037f84c0826a9acd0e9b72c7a6f6d3ecf5166694c3f5999c5987e05c1bfe21",
+          "canonical_sha256": "0fb05dacf83ec5deec7c8148cec4d0a43fc4788b31873c29c05c2b3e5881b56d"
+        }
+      ]
+    },
+    {
+      "id": "arch-af5bad82fe57",
+      "name": "Θεόδωρος Πασαχίδης",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "4e0b03f36b1a5000332c472d48c3faf47c6b27bd210acce656e969a53f2f680c",
+          "canonical_sha256": "8e9ac2889e7d53a0d3f608ba8401a5592ceaac0c7dd6b4d50f3e964128a58dd2"
+        }
+      ]
+    },
+    {
+      "id": "arch-af9470c5745f",
+      "name": "Σάββας Τσεντίδης",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "BLOCKED_SOURCE",
+          "legacy_sha256": "2029e3bf36fa61da8c4e875a5b822059de90c4d1d99a48fa965dae96f8232661",
+          "canonical_sha256": "968d04b6c54e261dd10faed0fb9ed86d218ce8ece8f52436a745df85fcd9d178",
+          "evidence": "Canonical retains 1994 second junior/fifth senior places, youth coaching and Soulis world silver, with richer 2019–2026 chronology. Legacy specifies 88/115 kg and U15 coaching in 2024–25; exact weights/years are not corroborated by approved news records. U15 title in April 2022 is a distinct documented event. Preserve archive; original 1994 results/2024–25 roster needed."
+        }
+      ]
+    },
+    {
+      "id": "arch-b1e10ae2cfc0",
+      "name": "Κωνσταντίνος Μυρωτής",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "54b1469e75dd9a207df86d5f6c2d609f7ddc379cc6c7f0f9aece46cba82531d5",
+          "canonical_sha256": "2b13f43e223ba48984c9642d9662d9285b2e9e80796e5de31fe615ca6813752f"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "5cc6a3e94eaf64365e6e996e92833b637cfcb42986b714ab909fb1cacfe0c84b",
+          "canonical_sha256": "640967efb6a780805f0116431955df6ca7f367791dfbe0a3aa44e8d639569fe5"
+        }
+      ]
+    },
+    {
+      "id": "arch-b48656c62600",
+      "name": "Παύλος Τσεντίδης",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "SEMANTICALLY_RETAINED",
+          "legacy_sha256": "f304734dc199c39c66731a13600b93bd3bb9e2bfea610051278069025d195f1c",
+          "canonical_sha256": "b55f0b866762a46562bd3c2237977cd4cbe4c32ec750c62a681d477152a16703",
+          "evidence": "The duplicated 2025 Larissa team-silver sentence was consolidated into the opening paragraph; 2026 gold, Darko Nisavic 60 kg first place and Balkan bronze retained."
+        }
+      ]
+    },
+    {
+      "id": "arch-ba8233d165aa",
+      "name": "Θανάσης Ευθυμιάδης",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "f4ad0e0e5d112da73662003407bfc3751802f2d924de4564e983c927e1c6ccba",
+          "canonical_sha256": "36bfc06c4021e8363ceba64fba20298260d09219a562ddd1692b1d87d2371528"
+        }
+      ]
+    },
+    {
+      "id": "arch-baba93550267",
+      "name": "Ζήσης Γαλάνης",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "30a77569db596c46bf06c3d0015707b245a8dedda1799dd8da5a20f3f10a5338",
+          "canonical_sha256": "87d8ba0ea37609ad69a839627c8f78e535e658fb178194d3a1c2567bfdf3f38e"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "1c95e676466fad3b70817257447fa5b036448f15802491f68ac4edd72494927a",
+          "canonical_sha256": "bb1ca357ad322270e02ca00cfcd73df87d80940b11b9831fc12ae7fccc23c7f9"
+        }
+      ]
+    },
+    {
+      "id": "arch-bc7079f252cc",
+      "name": "Χαράλαμπος Σαββίδης",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "debf04b4f0f3b9ab8fc178657811771e17c75a65c42dabbdb26e2f4772670dad",
+          "canonical_sha256": "b8c5cf61a21eb7feb1cfb4b144f64172e2d021a2be641629a24be3caf1bbba65"
+        }
+      ]
+    },
+    {
+      "id": "arch-bdcef56af524",
+      "name": "Κυριάκος Τσεντίδης",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "da9887cfeff08a84621b8783e579420471fcf3b2419cc2b4a9f00cdb016a3ebd",
+          "canonical_sha256": "b14a3c619222f0bc9a2ea6e208fe8ade95095e300bfde13e7e5e4a74ce70b549"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "aa764c72e4c3d41cf5fc3e37674e6b9edde0c84c0890347e549af906778d33db",
+          "canonical_sha256": "615870e9c71ac93a085d689a34a735da15ca63b5c4d325e79f78f12022188420"
+        }
+      ]
+    },
+    {
+      "id": "arch-bde5b8a0f677",
+      "name": "Φανή Τσάλου",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "fd8169eaf7db20d2dd74f18b05c22b109628e327c4ce02ae6392e1d532ba5008",
+          "canonical_sha256": "327a9af431e583ce6ed91a2b6f140ae0a411016a300fef6f09b9e29671723fc1"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "d9acdc4f67bfd096b8a5989991a5dd6f76889f8c4ca9cf11fa8cb1924be13e47",
+          "canonical_sha256": "ec674c74280c48aa5812070686cb8a1c9db61792066cb4b633ed3979a80684a3"
+        }
+      ]
+    },
+    {
+      "id": "arch-be8668380721",
+      "name": "Γρηγόρης Ευθυμιάδης",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "ade562e7da08668dcf0a42c322921681ab693eb5066b0a6dd15482298949fb2e",
+          "canonical_sha256": "7b780b34e5543006794b835de23a834235e6898051d466b67bf0cf5d25e17c2a"
+        }
+      ]
+    },
+    {
+      "id": "arch-c51b66db9180",
+      "name": "Κωνσταντίνος Ζάρας",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "6b4e047b81c88439cb90ddfd9f72277e5869293230dee990baa95fa304a4679b",
+          "canonical_sha256": "02e7c1bd69d5a692deef42d44e04cdabd056a77b8b7c28631755c8aa9e3cd6b6"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "fb02d1d953ccf0cc4d3ca1598607228fb5ec7066fcc7eef312fef44980f7a002",
+          "canonical_sha256": "96b4e61a3251c407cade2148ef22ff293b023629ca82c24cc39abb31010a49da"
+        }
+      ]
+    },
+    {
+      "id": "arch-cc84a40c4504",
+      "name": "Δήμητρα Δαμπολιά",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "f870ef5d12baef2c74efdc20c421578192af6fdff464493703b154da483bfe14",
+          "canonical_sha256": "94f301b5fabae85a7ab2eb8f2e032ab28d50802e6dd71525dd8c57551a27a228"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "99895f0c217cd1f3a54833f62391d1e00d94ec119800782ff6874267efe3a087",
+          "canonical_sha256": "7d5dbb00e7b0c0f21ff955a436fd88ea10c97cd89ddd2b6b6a3c821dd92bf72e"
+        }
+      ]
+    },
+    {
+      "id": "arch-cf53c375664e",
+      "name": "Ιωάννης-Μάριος Τερζόγλου",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "916d4bb98c3b67b709ca6e92ca83c2f5a77fe3256b294115e849bfaba9822f63",
+          "canonical_sha256": "0c4654022a52d84e92b4a7af4e3a3dd7eb6f8017c5b9563d8ccc027b2c2ba479"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "fb4acc4ae6f9471c7b7e6872cbca5675ea43eeb3487102a4630764929bcbcac7",
+          "canonical_sha256": "3340a342477b918b279c1d6f8fc5cce8605fb0130d8909b239fa17dd5ca79240"
+        }
+      ]
+    },
+    {
+      "id": "arch-cf55874ef67a",
+      "name": "Νικόλαος Ζαμάνης",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "982c3ba66eeaa5765d0356ebc8df0ca2de3e7ae484fead19c43193e1ac04e661",
+          "canonical_sha256": "09d6e6278e300cb617c8c227821eb68b8077b101d12ce3f44a59ada304698021"
+        }
+      ]
+    },
+    {
+      "id": "arch-d25677ab9f72",
+      "name": "Αντώνης Παπαδημητρίου",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "73ae34130b0c248d1168f0214e873c75b8f9621091a7ac3165a954846f353060",
+          "canonical_sha256": "e82ad74a63703510e4b114358a5ed144d6b54fc106fc11e1cc10c586c8e6a222"
+        }
+      ]
+    },
+    {
+      "id": "arch-db2ed4303837",
+      "name": "Αλέξανδρος Κατσικάκης",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "b2cde664c8f1f08ef087f0c1fd3ea21d39fc31f928e7a3fe0ef67d1df37dec29",
+          "canonical_sha256": "919447d2ce6d468182d2fc8d8c5eb7d176b124cd58188449158ccdcd98522dbc"
+        }
+      ]
+    },
+    {
+      "id": "arch-e6b31b31c3a9",
+      "name": "Άγγελος Παρούσης",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "3a44aaf44d33f0d30b38bf05f95cb2ba4503ac7bda1ff8f6aa2bba62685ff1e6",
+          "canonical_sha256": "50d5ec01311839538c8c4283316d31fe7431ad592da43d9ecd3b8db2b3089dde"
+        }
+      ]
+    },
+    {
+      "id": "arch-e9fc7408640c",
+      "name": "Νικολέτα Τσαρουχά",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "41a1161d311f122346e61d79b3af79ca8a825e6efe6a817da456192b13125e84",
+          "canonical_sha256": "855bef076839b35f0203d1acd82bfc408eac54c97b07ba4a2c0795c5cba47b0f"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "0d3d572fe80ef215a841d615541df0c322faf06b162540abd67b507fef6725ca",
+          "canonical_sha256": "2016bda004f1db6c55cba6641c8e0300eebdc4de9b513418ec9ffc5ffdc7d2bf"
+        }
+      ]
+    },
+    {
+      "id": "arch-ec55ccba275f",
+      "name": "Θεόδωρος Διαμαντόπουλος",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "b057b1fea07841cdd90f13cda5103e534b1559b05ef73c5734e204a0fd37fe9c",
+          "canonical_sha256": "1e3c0327b4da7dcfe3bb012b0d30d815e1a3b810e79e57b4b70442649e48e08a"
+        }
+      ]
+    },
+    {
+      "id": "arch-edb75edd624b",
+      "name": "Εμμανουήλ Ζάρας",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "ce69452e5092dbaf4578cb41c3b572989a11e79d71e4faceb5264514cbf3d4f6",
+          "canonical_sha256": "45d99b4f9705440f077e5d4f828058f1007460cf623dead149382cfd756675d4"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "b30b97a8f751306fc0684c7d4afdee57d533f318ca52407c94f2aa79556a70dd",
+          "canonical_sha256": "c1f645a9ea83d1aaf5aa225fb3b04e711a28e7c39f2cb0241b4f89661c659514"
+        }
+      ]
+    },
+    {
+      "id": "arch-f02298025e5c",
+      "name": "Θεοδώρα Αμεξιζίδου",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "2e7da219878b67ede1f69bec3e3b4ebbff7f1c3762d2198532a2791d3b18bfe7",
+          "canonical_sha256": "0996e8afcb44ed0dd06f53ab897e9e66f59e322cca5ee55af661ba5ed51c8a24"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "da9b3ad7e7797e5262828020e49cad70ef752f3145155aeb2cd2c6802dc84b6a",
+          "canonical_sha256": "cbdfaa6fcdff677607eef57a8a09edd9561b37056fe01274ace9690cf043202c"
+        }
+      ]
+    },
+    {
+      "id": "arch-f3d93442851f",
+      "name": "Δημήτρης Σουλής",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "d449a9df35248848a4031547312d96a2e566257f1b1d7d30f63c015a76eaf6a1",
+          "canonical_sha256": "4f35c7a71f2891f15f3811c4bbb2ab0be9981ea354d528abdde4227b5c6970c7"
+        }
+      ]
+    },
+    {
+      "id": "arch-f56820c52e55",
+      "name": "Χρήστος Λιμπανοβνός",
+      "fields": [
+        {
+          "field": "name",
+          "classification": "SPELLING_CORRECTION",
+          "legacy_sha256": "0fb6ccdce78c3477c95be5da29892cec7ba94032707d0e42bfd6c134cbe796dd",
+          "canonical_sha256": "4455a2c89f2b4fd707d3d4fd7c27c6c9496d32893ff0af54032169ddf45c4a10",
+          "evidence": "Protect Χρήστος Λιμπανοβνός / Christos Limpanovnos. Historical Λυμπανοβνός / Lympanovnos spellings must not overwrite canonical identity."
+        },
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "7f4f8d13c2c29e3b13114d18ef15a9ea879460a759062ba6e6d1b7c67f96e197",
+          "canonical_sha256": "b7d8f1a9080665d90f0f9adc6d6c8112f4f912cb412c5fe5006e54d05f8928e8"
+        },
+        {
+          "field": "bio_en",
+          "classification": "SPELLING_CORRECTION",
+          "legacy_sha256": "00063972d4072b8512ec5b58d845c63c371eafa9be92d151145388526d0bbdb0",
+          "canonical_sha256": "f6db147c9cb5286854e25083c5caced6390704644f694e99c776ad6199cd3c55",
+          "evidence": "Protect Χρήστος Λιμπανοβνός / Christos Limpanovnos. Historical Λυμπανοβνός / Lympanovnos spellings must not overwrite canonical identity."
+        }
+      ]
+    },
+    {
+      "id": "arch-f6152b60c43f",
+      "name": "Βαγγέλης Μαρινόπουλος",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "BLOCKED_SOURCE",
+          "legacy_sha256": "f6d3f92a99c296582435b87d0263feec21e0f75d776933f4b6d2841f2a54b8c4",
+          "canonical_sha256": "da0da7f1dbe6f1472ada625112b42497d129fc1485f68b2e84bf6f850c103e61",
+          "evidence": "The 5 July 2025 OAKA winning trio is restored in EL/EN and cited from already approved news.json archery-national-oaka-team-title-2025 (O Delalis 7 July 2025). Individual 15th at the 2024 Cup, 2025/26 team titles and 2026 fifth place preserved. Legacy team Cup wins in 2024/26 and exact 2026 trio need original results; no inference from the separate 2024 individual placing. Full original profile/snapshot preserved."
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "fdc7721c0ec5d860e53034dbe5a1ad7ef88cfaf43882986eb58c0d4cccc8861d",
+          "canonical_sha256": "c76765042f93ee39cb77df9b095e704c0d0e5aeb53dd66576e9fbfdf9bbbcd37"
+        }
+      ]
+    },
+    {
+      "id": "arch-fbf9bcb00de7",
+      "name": "Χριστίνα Μαυρίδου",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "31298b5ab469e6c0039288b4c325339fd5f13916770f67b24840050391cd32e8",
+          "canonical_sha256": "fd1858d6625dee093fe6979920a7737a9ec7428113199300599f3db28904fc75"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "3483974ebce10efe4120a3a0d9040e6411894b6465c1c336458bca67459b929b",
+          "canonical_sha256": "d37f6f368f5c9c7a02210759f04220c9cfb75194c0c3b29956c8bd4022b0338e"
+        }
+      ]
+    },
+    {
+      "id": "arch-georgios-athanas-athletics-board-2026",
+      "name": "Γεώργιος Αθανασίου",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "179ccf9a7c404957fbb920f1521f10cb4b92b12861de08decfb742fc000f97bd",
+          "canonical_sha256": "ff016edd4b97346d7c416e50127785daa419385cf2fab568e2e17e91f4e9e549"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "f06db9a3358abb50b1472da8a8e20a0c4e4b206887d460b8673b01e257f457bc",
+          "canonical_sha256": "6afa4d549951a5d5ee0fa3b4bc4af7203a656612d59b85a5440b2e810206f23e"
+        }
+      ]
+    }
+  ],
+  "note": "Intentional differences are not data loss. BLOCKED_SOURCE remains unresolved; original historical records are preserved. Counts are computed, never capped at a snapshot size."
+}
