@@ -29,3 +29,16 @@ jobs:
             public-archive-manifest.json
           retention-days: 30
           if-no-files-found: error
+
+      - name: Stage canonical public root registries (news, Hall, historic events only)
+        run: |
+          python -m unittest discover -s rebuild/tests -p 'canonical_root_snapshot_test.py' -v
+          python rebuild/tools/canonical_root_snapshot.py --stage
+          python rebuild/tools/canonical_root_snapshot.py --verify
+      - name: Preserve source-of-truth public JSON separately (no private Drive)
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: canonical-root-public-snapshot
+          path: ${{ runner.temp }}/archelaos-public-canonical/
+          retention-days: 30
+          if-no-files-found: error
