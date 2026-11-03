@@ -139,8 +139,8 @@ def normalize(record):
         "source_url": "https://osv.dev/vulnerability/" + urllib.parse.quote(advisory_id),
         "summary": summary[:1500], "details": details[:6000],
         "ecosystem_names": " ".join(sorted(set(packages)))[:9000],
-        "affected_json": json.dumps(safe_affected, ensure_ascii=False, separators=(",", ":"))[:120000],
-        "references_json": json.dumps(safe_references, ensure_ascii=False, separators=(",", ":"))[:30000],
+        "affected_json": json.dumps(safe_affected, ensure_ascii=False, separators=(",", ":")),
+        "references_json": json.dumps(safe_references, ensure_ascii=False, separators=(",", ":")),
         "published": published, "modified": modified, "withdrawn": withdrawn,
         "imported_at": utcnow(), "aliases": sorted(set(aliases))
     }
@@ -220,8 +220,10 @@ def _request_json(path, payload=None):
 def lookup_package(con, ecosystem, name, version, transport=_request_json):
     """On-demand vulnerability lookup; update cache only after every API page succeeds."""
     for field, pattern in ((ecosystem, ECOSYSTEM), (name, PACKAGE), (version, VERSION)):
-        if not pattern.fullmatch(field):
+        if not isinstance(field, str) or not pattern.fullmatch(field):
             raise KnowledgeError("Invalid ecosystem, name or version")
+    if any(segment in {"", ".", ".."} for segment in name.split("/")):
+        raise KnowledgeError("Package path contains empty or traversal segment")
     token, tokens, found, calls = None, set(), {}, 0
     for _ in range(12):
         payload = {"package": {"ecosystem": ecosystem, "name": name}, "version": version}
