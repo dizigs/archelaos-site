@@ -72,11 +72,7 @@ test('waits for shared shell, mounts once, and has proper link semantics', () =>
   try {
     // Fixed local module import (no dynamic evaluation or untrusted code).
     require('../js/support-footer.js');
-  } finally {
-    if (previous === undefined) delete global.document;
-    else global.document = previous;
-  }
-  assert.equal(inner.nodes.length, 1);
+    assert.equal(inner.nodes.length, 1);
   assert.equal(listeners.length, 1);
   listeners[0]();
   listeners[0]();
@@ -88,5 +84,9 @@ test('waits for shared shell, mounts once, and has proper link semantics', () =>
   assert.equal(uptimeLink.href, 'https://uptimerobot.com/');
   assert.equal(uptimeLink.rel, 'sponsored noopener noreferrer');
   assert.equal(uptimeLink.children[0].alt, 'UptimeRobot');
-  assert.equal(section.children[1].children[1].textContent, 'Google for Nonprofits');
+    assert.equal(section.children[1].children[1].textContent, 'Google for Nonprofits');
+  } finally {
+    if (previous === undefined) delete global.document;
+    else global.document = previous;
+  }
 });
