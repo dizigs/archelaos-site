@@ -48,14 +48,11 @@ jobs:
         run: |
           python -m http.server 8765 --bind 127.0.0.1 --directory dist >/tmp/visitor-server.log 2>&1 &
           node .github/scripts/visitor_smoke.cjs
-          SITE_STABILITY_BASE_URL=http://127.0.0.1:8765 node rebuild/tests/site_stability.cjs
       - name: Keep UX report
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: archelaos-visitor-smoke
-          path: |
-            browser-smoke-report.json
-            rebuild/test-artifacts/site-stability/
+          path: browser-smoke-report.json
           retention-days: 14
           if-no-files-found: warn

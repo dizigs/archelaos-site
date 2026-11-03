@@ -3,7 +3,7 @@
 const {chromium}=require('playwright');
 const {mkdirSync,writeFileSync,readdirSync,readFileSync}=require('node:fs');
 const path=require('node:path');
-const BASE='http://127.0.0.1:8766';
+const BASE=process.env.SITE_STABILITY_BASE_URL||'http://127.0.0.1:8766';
 const OUTPUT=path.join(__dirname,'..','test-artifacts','accessibility');
 const allProfiles=readdirSync(path.join(__dirname,'..','..','dist','people')).filter(x=>x.startsWith('arch-')&&x.endsWith('.html'));
 const hall=JSON.parse(readFileSync(path.join(__dirname,'..','..','hall-of-fame-people.json'),'utf8'));

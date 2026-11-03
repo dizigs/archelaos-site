@@ -142,6 +142,8 @@ async function navigation(page, view) {
 async function main() {
   mkdirSync(OUTPUT, {recursive:true});
   const browser = await chromium.launch({headless:true});
+  report.browserVersion = browser.version();
+  report.playwrightVersion = require('playwright/package.json').version;
   try {
     for (const view of views) {
       await run(browser, 'navigation-layout-cards', view, page => navigation(page, view));
