@@ -4,7 +4,7 @@
 The draft foundation describes how each sport site could expand safely, **without activating a new site or second scheduler**.
 
 ### Launch gates (fail closed)
-`config/sport-launch-readiness.json` tracks ten release gates per department. All are initially unverified **except the user's selected archery palette**, which is a design decision only, not evidence that the archery site is deployed. `tools/audit_sport_launch.py` is an offline validator, not a network or Cloudflare check.
+`config/sport-launch-readiness.json` tracks ten release gates per department. All release gates begin **unverified**; the approved archery palette is captured separately in the design registry. A GitHub draft PR is not independent evidence of production readiness. `tools/audit_sport_launch.py` is an offline validator, not a network or Cloudflare check.
 
 Required: approved identity, real DNS routing, Cloudflare production SHA+logs, SEO, Search Console, GA4+consent, privacy/security, mobile/a11y, lawful sourced data, and canonical Hall/history links.
 
