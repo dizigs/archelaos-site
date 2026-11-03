@@ -66,7 +66,7 @@ class Intelligence(unittest.TestCase):
             "/news.html: missing main element"
         ]})
         self.assertEqual([x["code"] for x in signals],
-                         ["IDENTITY_INTEGRITY", "PUBLISHED_ASSET_DRIFT", "BROKEN_FUNCTIONALITY"])
+                         ["IDENTITY_INTEGRITY", "BROKEN_FUNCTIONALITY", "PUBLISHED_ASSET_DRIFT"])
         self.assertEqual(signals[0]["priority"], 0)
         risk = evaluate(report={"state": "READ", "signals": signals})
         self.assertEqual(risk["riskPriority"], "P0")
@@ -151,8 +151,10 @@ class Intelligence(unittest.TestCase):
             {"kind": "unapproved"},
         ):
             with self.subTest(kwargs=kwargs), self.assertRaises(ValueError):
-                ai.triage(sport="club", kind="unknown", resource=MAIN,
-                          signal="Public health check failed", **kwargs)
+                args = {"sport": "club", "kind": "unknown", "resource": MAIN,
+                        "signal": "Public health check failed"}
+                args.update(kwargs)
+                ai.triage(**args)
 
     def test_monitor_integration_keeps_incident_red_and_no_extra_repair(self):
         store = JsonStore()
