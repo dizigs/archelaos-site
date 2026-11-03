@@ -64,12 +64,12 @@ class ZipAuditTests(unittest.TestCase):
                 zipaudit.verify_zip(z,"d"*40)
 
     def test_extra_private_file_fails(self):
-        with ZipFile(pack(next(staged()),("private/records.csv",b"secret")) as z:
+        with ZipFile(pack(next(staged()),("private/records.csv",b"secret"))) as z:
             with self.assertRaisesRegex(snapshot.SnapshotError,"unexpected"):
                 zipaudit.verify_zip(z,SHA)
 
     def test_traversal_fails(self):
-        with ZipFile(pack(next(staged()),("../unexpected",b"secret")) as z:
+        with ZipFile(pack(next(staged()),("../unexpected",b"secret"))) as z:
             with self.assertRaisesRegex(snapshot.SnapshotError,"unsafe ZIP path"):
                 zipaudit.verify_zip(z,SHA)
 
