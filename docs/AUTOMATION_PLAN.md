@@ -1,6 +1,7 @@
 # Κεντρικό πλάνο αυτοματισμού και παράδοσης
 
 Μοναδικό σημείο προτεραιοτήτων για `dizigs/archelaos-site`.
+Το [Issue #71](https://github.com/dizigs/archelaos-site/issues/71) είναι το κοινό inbox παραδόσεων και η τρέχουσα πηγή ownership/status. Κάθε ουσιαστικό στάδιο Codex παραδίδεται εκεί με `[CODEX-HANDOFF]`, ακριβές SHA και πραγματικά αποτελέσματα. Δεν δημιουργείται δεύτερο PR ή schedule για την ίδια εργασία.
 Το `T` σημαίνει Task («εργασία»): π.χ. T17 = Εργασία 17. Ενημέρωση: 3 Νοεμβρίου 2026 (Europe/Athens).
 Το `WORK_LOG.md` κρατά τα αποδεικτικά κάθε εκτέλεσης· εδώ κρατάμε τις εργασίες και τη σειρά τους.
 **Ο πλήρης αυτοματισμός δεν έχει ακόμη επιβεβαιωθεί από άκρο σε άκρο.**
@@ -9,7 +10,7 @@
 
 **Στόχος παράδοσης: 07:30 Europe/Athens.** Η σειρά αρκεί για ουσιαστική νυχτερινή εργασία· οι χρόνοι είναι προϋπολογισμοί, όχι εντολή για τεχνητές αναμονές ή άσκοπα commits. Αν ολοκληρωθούν όλα νωρίτερα, γίνεται τελικός έλεγχος και παράδοση.
 
-**Παράδοση κώδικα:** branch `codex/site-stability-audit`, αρχικό νυχτερινό checkpoint `fe8b288`, τελευταία επαληθευμένη διόρθωση `289c71b`. **Codex: READY** — ολοκληρώθηκαν η ακύρωση παλιών αιτημάτων ανοίγματος βιογραφικού και η επιστροφή εστίασης στις συνεντεύξεις. Τελικό local αποτέλεσμα: 41/41 stability cases, build/verify, 70 syntax checks, ESLint, release smoke και quality audit PASS. Λεπτομέρειες στο `docs/PR_SELF_HEAL_LOG.md`. Δεν υπάρχουν πλέον δεσμευμένα αρχεία από αυτή την εργασία Codex· το ChatGPT μπορεί να παραλάβει το τρέχον tip του branch για την εργασία 1. Remote CI και production παραμένουν προς επιβεβαίωση. Κάθε νέα εργασία κώδικα έχει δικό της branch από το τότε main· δεν γίνονται παράλληλες εγγραφές στα ίδια αρχεία ή στο branch του Codex.
+**Παράδοση κώδικα:** branch `codex/site-stability-audit`, αρχικό checkpoint `fe8b288`, λειτουργικές διορθώσεις έως `289c71b`, συγχρονισμός με main `7f89c55` και locked test integration `88529b8`. Owner: **Codex**, με τελική παραλαβή/status μέσω νέου σχολίου στο Issue #71. Τα αρχικά επτά commits διατηρήθηκαν. Local: 41/41 regressions, 32 accessibility page/viewports χωρίς findings/errors, release smoke, 84 responsive page/viewports, 14 CLI security tests, build/verify και syntax/ESLint PASS. Το visitor workflow του #69 έμεινε αμετάβλητο στο τελικό diff· τα νέα tests έχουν ανεξάρτητο PR/main workflow χωρίς cron και πραγματικό npm lockfile. Remote CI και production δεν υποκαθίστανται από αυτά τα local αποτελέσματα. Δεν γίνονται παράλληλες εγγραφές στο branch ή σε αρχεία άλλου owner.
 
 ### Εκτέλεση χωρίς επαναλαμβανόμενες εγκρίσεις
 
@@ -19,7 +20,7 @@
 
 | Σειρά / περίπου | Εργασία | Συγκεκριμένο παραδοτέο και κριτήριο ολοκλήρωσης |
 | --- | --- | --- |
-| 1 / 30–60΄ | Παραλαβή stability branch και PR | Μόνο όταν το checkpoint γίνει READY: ανάγνωση τελικών commits/log, δημιουργία ή ενημέρωση ενός PR για `codex/site-stability-audit`, έλεγχος στο ακριβές τελικό head, διόρθωση πραγματικών review findings. Protected merge μόνο με ολοκληρωμένα checks και λυμένα threads. Αν ACTIVE, προχωράς στο 2 και επιστρέφεις αργότερα. |
+| 1 / 30–60΄ | Παραλαβή stability branch και PR | Ανάγνωση της τελευταίας READY_FOR_REVIEW παράδοσης στο Issue #71 και των πραγματικών commits/logs. Παραλαμβάνεις το ένα υπάρχον PR του `codex/site-stability-audit`· δεν δημιουργείς δεύτερο. Έλεγχος στο ακριβές τελικό head και πραγματικά review findings. Protected merge μόνο με ολοκληρωμένα checks, λυμένα threads και νέα απογραφή main/open PRs. Όσο ο Codex εργάζεται, συνεχίζεις ανεξάρτητη εργασία. |
 | 2 / 30–60΄ | T02: main Sonar gate | Διάβασε τελευταίο main check output/annotations, ξεχώρισε παλιά από τρέχοντα findings και βρες rule/file/line/issue ID. Αναπαραγωγή με ασφαλές fixture και μικρό security PR εφόσον υπάρχει συγκεκριμένη αιτία. Αν annotations είναι κενά και Sonar API απροσπέλαστο, καταγραφή των πραγματικών δεδομένων και BLOCKED· κανένα τυφλό rewrite ή retry loop. Πράσινο PR δεν κλείνει το T02 χωρίς νέο main pass. |
 | 3 / 60–90΄ | T17: επαναλήψιμες dependencies | Διόρθωσε τα υπόλοιπα `adhoc-packages` σε visitor-experience, sitespeed, Rebuild, live-site-guard, Lighthouse, ESLint και axe. Έλεγξε υπάρχουσες εκδόσεις, δημιούργησε πραγματικά manifests/lockfiles με package manager και σύνδεσε τα jobs με deterministic install χωρίς lifecycle scripts όπου επιτρέπεται. Μην επινοείς integrity hashes. Διατήρησε τα SHA pins και `persist-credentials: false`. Ολοκλήρωση με πραγματικά tool/browser runs και σύγκριση νέων scanner annotations. Αν δεν υπάρχει executor, μην προσποιηθείς ότι δημιουργήθηκε έγκυρο lockfile· συνέχισε στο 4. |
 | 4 / 40–60΄ | T06/T07: production, caching, public διαδρομές | Με διαθέσιμη εξουσιοδοτημένη Cloudflare σύνδεση διάβασε πραγματικό production SHA, deployment stage και logs. Έλεγξε read-only τις 15 βασικές διαδρομές, redirects, canonical, sitemap/robots, JS/CSS cache headers και δείγμα προφίλ. Διάκρινε preview, production, provider asset error και δικό μας build failure. Παραδοτέο πίνακας URL/status/SHA/stage και στοχευμένο PR μόνο για τεκμηριωμένη αστοχία. Χωρίς provider πρόσβαση δίνεις μόνο ό,τι αποδεικνύουν HTTP/checks. |

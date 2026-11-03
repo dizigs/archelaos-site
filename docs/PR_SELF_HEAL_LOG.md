@@ -122,3 +122,56 @@ Local execution again used Playwright 1.58.0/system Chromium 154 through the ext
 Execution used the same external Playwright/system Chromium helper documented above and a local dist server on 8796 through `SITE_STABILITY_BASE_URL`. No browser paths or dependency changes were committed. Final `rebuild/test-artifacts/site-stability/report.json` was independently checked for 41 passing cases; only successful biography screenshots remain in that directory. Failing screenshots are preserved separately under `/tmp/archelaos-pending-biography-baseline-images/`. Remote CI, other browser engines/physical devices and production deployment remain unverified.
 
 **Overnight handoff:** commit `8caebcf` first published the nine ordered ChatGPT work packets in the existing `docs/AUTOMATION_PLAN.md`, including deliverables, existing approvals, exact BLOCKED handling, required-check protection, privacy and ownership boundaries. The checkpoint is now READY for the next session. This is a prepared work queue; no separate ChatGPT session or scheduler was started. Delivery is a normal commit/push to the audit branch; PR creation stays with ChatGPT as requested.
+
+
+## Site stability completion / Issue #71 coordination — 2026-11-03
+
+The subsequent user instruction explicitly assigns PR creation to Codex and uses
+Issue #71 for every handoff, superseding the earlier ChatGPT-only PR-creation
+step. The original seven stability commits were preserved. Main was merged
+normally, first at `0e76754` (local merge `9d453a4`), then at actual snapshot
+merge `7f89c55a2b93a368806105325bb5000d5f739a18` (local merge `0d6c665`).
+No main push, history rewrite or change to other PR branches.
+
+**Test-integration commit:** [`88529b8adbe865b62303a4c9f4e6e33b70694511`](https://github.com/dizigs/archelaos-site/commit/88529b8adbe865b62303a4c9f4e6e33b70694511).
+Actual PR-file comparison identified `.github/workflows/visitor-experience.yml`
+as owned by #69. Removed only this branch's earlier additions to that workflow;
+its final diff against main is empty. New regressions run in the separate
+`site-stability-regressions.yml` on PR/main/manual events, with **no cron**.
+Its action SHAs match the existing maintained Rebuild pins; checkout credentials
+are not persisted. `npm ci --ignore-scripts` uses the real generated lockfile
+under `rebuild/tests/browser` (Playwright 1.58.0, axe-core 4.10.3); browser install
+uses the locked local CLI, not ad-hoc npx. The actual regression report records
+the browser and Playwright versions. Accessibility accepts the same optional
+`SITE_STABILITY_BASE_URL` as the other release tests, preserving its 8766 default.
+
+### Executed local results
+
+| Check | Result |
+| --- | --- |
+| Full strict regressions after main sync | **41/41 PASS; 72 page/viewports; 608 card surfaces; zero failures** |
+| Accessibility, WCAG/keyboard/landmarks | **32 page/viewports PASS; zero axe findings; zero interaction errors** |
+| Existing release smoke | **PASS — desktop/mobile and profile route** |
+| Responsive quality | **84 page/viewports, 23 internal destinations; zero warnings/errors** |
+| Latest-main build and independent release verification | **PASS — 15 principal pages, 760 profiles** |
+| Existing/new CLI security tests inherited from main | **14/14 PASS** |
+| Tracked JavaScript syntax + existing ESLint scope | **70 scripts PASS; ESLint PASS** |
+| Workflow YAML/read-only permissions/no-cron and lock install | **PASS** |
+
+Local browser execution used the newly locked Playwright **1.58.0** with system
+Chromium **154.0.8037.57** through an external `/tmp` launcher helper and an
+isolated local dist server on 8896. No machine-specific path was committed.
+axe-core **4.10.3** ran against the actual built release. The later main sync
+contains only the independently tested snapshot security changes; the UI source
+and data exercised by the browser runs are unchanged. Final-head remote CI must
+still re-execute the combined branch with the CI browser binary.
+
+No file overlaps remain with #37/#65/#67/#69/#70 or the new ChatGPT-owned footer
+PR #73. The footer changes are complementary shared-DOM work; new base changes
+still require fresh combined checks before merge. Its HTML/support-footer files
+were not edited. No historical records, news data or private sources changed.
+
+Remote CI/review is pending at this log commit. PR creation and exact-head
+results are delivered as `[CODEX-HANDOFF]` comments to Issue #71. Production
+Cloudflare deployment/build logs are **NOT VERIFIED**; local/preview success
+does not establish a live deployment. No merge is claimed here.
