@@ -42,7 +42,25 @@ jobs:
         with:
           ref: main
           persist-credentials: false
+      - name: Verify trusted tracker is installed on main
+        id: bootstrap
+        shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          PR_MERGED: ${{ github.event.pull_request.merged || 'false' }}
+        run: |
+          set -euo pipefail
+          if [ -f .github/scripts/tracker_handoff_event.py ]; then
+            echo 'ready=true' >> "$GITHUB_OUTPUT"
+          elif [ "$EVENT_NAME" = 'pull_request' ] && [ "$PR_MERGED" != 'true' ]; then
+            echo '::notice::Initial PR has not installed the trusted tracker on main; defer until merge event.'
+            echo 'ready=false' >> "$GITHUB_OUTPUT"
+          else
+            echo '::error::Tracker script missing from trusted main after installation.'
+            exit 1
+          fi
       - name: Upsert public PR/issue state to existing handoff issue 71
+        if: steps.bootstrap.outputs.ready == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: python3 .github/scripts/tracker_handoff_event.py
