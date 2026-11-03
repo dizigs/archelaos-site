@@ -337,3 +337,29 @@ CDN HTTP 403 lacks final-layer headers and its responsible layer remains UNKNOWN
 Signed URLs, credentials and private data are excluded. Per-case annotations and
 aggregate notices supplied the real failing case and final counts when detailed
 archives were unavailable.
+
+### PR #79 — actual duplication gate failure and shared implementation
+
+- Failed head `0171e0814b2e7f7b370bf1d30708db22c5abe425`, Sonar check
+  `125786409534`: **`7.6% Duplication on New Code (required ≤ 3%)`**, zero
+  annotations. This occurred after including merged #77; the former #79 head's
+  pass did not establish a pass on this new base. Repeated atomic-writer code
+  was present in snapshot, mentions and triage; detailed provider block locations
+  were not accessible, so no exact duplicate-line map is claimed.
+- Corrective commit `aad0651f4ca17a5c17a87d879f9f6a8c0cf15c61` removes the
+  three copies in favor of one bounded `validate_reports`/`replace_report`
+  primitive beside the existing no-follow descriptor helper. Every caller keeps
+  its own closed CLI choices and fixed directory mapping. The shared writer
+  itself rejects every name outside the five reviewed report filenames.
+- Fresh ownership checks confirmed the now-merged #72/#77 files had no other
+  active PR owner before this refactor. No workflow, threshold, exclusion,
+  baseline or historical data changes. This is a real implementation reduction,
+  not a suppression.
+- Actual local recovery: **34/34 security tests PASS** (triage 8, mentions 10,
+  snapshot/shared writer 12, Git 4). The suite retains actual interrupted-write
+  cleanup and parent-swap tests, plus two new shared filename/approved-slot tests.
+  All three integrated self-tests and owner-decision QA PASS; build/independent
+  verify 15 pages/760 profiles PASS. Both real 19-event reports remain byte-identical
+  to prior main, source unchanged. Compilation/diff PASS. New-head remote Sonar
+  and combined CI remain pending at this log commit; the old failed result is
+  not overwritten or retried unchanged.

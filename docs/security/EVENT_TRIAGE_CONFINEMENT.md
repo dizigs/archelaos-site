@@ -114,3 +114,27 @@ invalid-ref rejection in combined output is explicitly identified there.
 New main Sonar check `125785270406` still FAILS; #66 stays open. Fresh combined
 PR-head CI/review and actual a60a840 production logs remain pending, so no second
 merge is performed. No workflow, historical-source or other PR-owned file edits.
+
+## Changed-base duplication failure and shared-writer recovery
+
+Head `0171e0814b2e7f7b370bf1d30708db22c5abe425`, check `125786409534`,
+failed the unchanged Quality Gate: **7.6% new-code duplication, maximum 3%**.
+No annotations exposed the exact duplicate blocks. Source inspection found
+repeated atomic-writing logic after including merged #77. Codex recorded
+TEST_FAILED in [#71](https://github.com/dizigs/archelaos-site/issues/71#issuecomment-6598050678),
+checked ownership, then refactored the actual copies instead of changing gates.
+
+Correction `aad0651f4ca17a5c17a87d879f9f6a8c0cf15c61` shares one bounded
+writer and destination validator in public_snapshot.py across snapshot, mentions
+and triage. Driver-specific CLI/directory choices remain closed. The shared
+primitive also validates its five approved names independently; traversal and
+unknown names fail before any write. Existing interrupted-write and parent-swap
+tests remain active, with the temporary-file cleanup assertion updated to the
+shared prefix. No extra module/dependency or workflow was needed.
+
+Actual corrected local results: **34/34 combined security tests**, all three
+integrated entrypoints and owner-decision QA PASS, build/verify 15 pages/760
+profiles PASS, Python compilation/diff PASS, both 19-event outputs byte-identical
+and source unchanged. Snapshot/shared primitive now has 12 tests, mentions 10,
+triage 8, Git 4. Captured output follows in the evidence log. New-head remote
+Sonar/CI still needs real verification; no current pass is inferred here.
