@@ -181,6 +181,75 @@ class KnowledgeTest(unittest.TestCase):
             kb.download_bulk_archive("all", destination, lambda *args, **kwargs: Redirect())
         self.assertFalse(destination.exists())
 
+    def test_read_only_diagnosis_combines_official_provider_and_local_evidence(self):
+        result = kb.diagnose(self.conn, "Cloudflare Error 522 while loading the site")
+        self.assertFalse(result["runtimeRepairAuthority"])
+        self.assertEqual(result["status"], "DIAGNOSE_ONLY")
+        self.assertEqual([x["code"] for x in result["providerEvidence"]], ["CF-522"])
+        self.assertTrue(result["providerEvidence"][0]["sourceUrl"].startswith("https://developers.cloudflare.com/"))
+        unknown = kb.diagnose(self.conn, "HTTP 403")
+        self.assertEqual(unknown["providerEvidence"], [])
+        known = kb.diagnose(self.conn, "HTML_ESCAPED_TEXT in news source")
+        self.assertIn("ARCH-HTML-ESCAPES-001", [x["code"] for x in known["knownLocalCases"]])
+        self.assertFalse(known["runtimeRepairAuthority"])
+
+    def test_provider_taxonomy_contains_no_executable_automatic_fix(self):
+        data = json.loads((ROOT / "docs/self-heal/provider-error-taxonomy.json").read_text())
+        self.assertEqual(data["mode"], "READ_ONLY_DIAGNOSTICS")
+        self.assertGreaterEqual(len(data["entries"]), 15)
+        self.assertEqual(len(set(x["code"] for x in data["entries"])), len(data["entries"]))
+        for item in data["entries"]:
+            self.assertFalse(item["executionAllowed"])
+            self.assertEqual(item["status"], "DIAGNOSE_ONLY")
+            self.assertTrue(item["sourceUrl"].startswith("https://"))
+
+    def test_incremental_osv_window_indexes_only_new_ids_and_aliases(self):
+        lines = [
+            "2026-11-03T10:30:00Z,PyPI/GHSA-aaaa-bbbb-cccc\n",
+            "2026-11-03T10:30:00Z,npm/GHSA-aaaa-bbbb-cccc\n",
+            "2026-11-03T10:20:00Z,PyPI/PYSEC-2026-42\n",
+            "2026-11-03T08:00:00Z,PyPI/OLD-2025-1\n"
+        ]
+        class FakeDelta:
+            def geturl(self): return "https://storage.googleapis.com/osv-vulnerabilities/modified_id.csv"
+            def __iter__(self): return iter([x.encode() for x in lines])
+            def __enter__(self): return self
+            def __exit__(self, *a): return None
+        def opener(req, timeout):
+            self.assertEqual(timeout, 30)
+            self.assertTrue(req.full_url.endswith("modified_id.csv"))
+            return FakeDelta()
+        def transport(path):
+            key = path.rsplit("/", 1)[-1]
+            return record(id=key, summary="Relevant package advisory")
+        report = kb.refresh_delta(self.conn, "2026-11-03T09:00:00Z",
+                                  "2026-11-03T11:00:00Z", opener=opener, transport=transport)
+        self.assertEqual(report["changedIds"], 2)
+        self.assertEqual(report["updated"], 2)
+        self.assertEqual(kb.stats(self.conn)["records"], 2)
+
+    def test_delta_out_of_order_and_unbounded_interval_fail_without_network_mutation(self):
+        class FakeDelta:
+            def __init__(self, entries): self.entries = entries
+            def geturl(self): return "https://storage.googleapis.com/osv-vulnerabilities/modified_id.csv"
+            def __iter__(self): return iter([s.encode() for s in self.entries])
+            def __enter__(self): return self
+            def __exit__(self, *a): return None
+        bad_order = [
+            "2026-11-03T10:00:00Z,PyPI/GHSA-aaaa-bbbb-cccc\n",
+            "2026-11-03T10:10:00Z,PyPI/PYSEC-2026-42\n"
+        ]
+        with self.assertRaises(kb.KnowledgeError):
+            kb.recent_changed_ids("2026-11-03T08:00:00Z", "2026-11-03T11:00:00Z",
+                                  opener=lambda *args, **kwargs: FakeDelta(bad_order))
+        with self.assertRaises(kb.KnowledgeError):
+            kb.recent_changed_ids("2026-11-03T08:00:00Z", "2026-11-03T11:00:00Z",
+                                  max_records=0, opener=lambda *args, **kwargs: FakeDelta([]))
+        with self.assertRaises(kb.KnowledgeError):
+            kb.recent_changed_ids("2026-11-03T11:00:00Z", "2026-11-03T08:00:00Z",
+                                  opener=lambda *args, **kwargs: FakeDelta([]))
+        self.assertEqual(kb.stats(self.conn)["records"], 0)
+
     def test_no_automated_repair_permissions_in_knowledge_tool(self):
         source = (ROOT / "tools/self_heal_knowledge.py").read_text()
         for forbidden in ("subprocess.", "os.system(", "git push", "merge_pull_request", "deploy("):
