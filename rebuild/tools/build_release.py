@@ -27,6 +27,14 @@ STAGE = ROOT / "rebuild"
 OUTPUT = ROOT / "dist"
 SITE = "https://www.archelaos.club"
 IMAGE = f"{SITE}/social-preview.jpg"
+# Four explicit club-reviewed editorial corrections. The independent source
+# files remain unchanged for historical provenance and private fact-check.
+PUBLIC_EDITORIAL_CORRECTION_IDS = frozenset({
+    "arch-3fe6e9ae9b29",
+    "arch-af9470c5745f",
+    "arch-999730e06982",
+    "arch-f6152b60c43f",
+})
 
 METADATA = json.loads((STAGE / "seo" / "metadata.json").read_text(encoding="utf-8"))
 assert METADATA["site_url"] == SITE, "Do not silently change canonical domain."
@@ -254,6 +262,20 @@ def make_release() -> None:
                                               profile_id=person_id), encoding="utf-8")
     for name in ("css", "js", "data"):
         copytree(STAGE / name, OUTPUT / "assets" / "site" / name)
+    # Publish the reviewed text in the legacy public asset copy as well.
+    # The source snapshot remains unchanged in Git.
+    archive_copy = OUTPUT / "assets/site/data/people.json"
+    archive_document = json.loads(archive_copy.read_text(encoding="utf-8"))
+    patched_ids = set()
+    for person in archive_document["people"]:
+        if person["id"] in PUBLIC_EDITORIAL_CORRECTION_IDS:
+            canonical = canonical_people[person["id"]]
+            for field in ("bio", "bio_en"):
+                person[field] = canonical.get(field, "")
+            patched_ids.add(person["id"])
+    if patched_ids != PUBLIC_EDITORIAL_CORRECTION_IDS:
+        raise ValueError("Editorial correction references missing archival profile")
+    archive_copy.write_text(json.dumps(archive_document, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     # Rewrite preview-only asset URLs in the generated JavaScript copies.
     # Staged preview files remain untouched; production QA rejects any missed URL.
     for script_path in (OUTPUT / "assets" / "site" / "js").rglob("*.js"):
@@ -344,13 +366,26 @@ def make_release() -> None:
         if old_header != old_footer:
             raise ValueError('Unpaired legacy profile header/footer: ' + profile.name)
         for lang in ("el", "en"):
-            html_text = sync_biography(html_text, canonical_people[profile.stem].get(
-                "bio" if lang == "el" else "bio_en", ""), lang, profile_id=profile.stem)
+            canonical_bio = canonical_people[profile.stem].get("bio" if lang == "el" else "bio_en", "")
+            if profile.stem in PUBLIC_EDITORIAL_CORRECTION_IDS:
+                # Explicit public correction replaces an obsolete legacy
+                # assertion, without altering the independently archived HTML.
+                section = (r'(<section\b[^>]*data-profile-language="' + lang
+                           + r'"[^>]*>.*?<div class="bio">)(.*?)(</div>)')
+                html_text, changed = re.subn(
+                    section,
+                    lambda match: match.group(1) + html_escape(canonical_bio, quote=False) + match.group(3),
+                    html_text, count=1, flags=re.S)
+                if changed != 1:
+                    raise ValueError("Missing reviewed biography: " + profile.stem + "/" + lang)
+            else:
+                html_text = sync_biography(html_text, canonical_bio, lang, profile_id=profile.stem)
         # Avoid leaving obsolete editorial correction text in Person JSON-LD
         # and social metadata after the visible Greek biography is cleaned.
         before = archival_by_id.get(profile.stem, {}).get("bio", "")
         after = canonical_people.get(profile.stem, {}).get("bio", "")
-        if before and before != after and normalized(before) in normalized(after):
+        if (profile.stem in PUBLIC_EDITORIAL_CORRECTION_IDS
+                or (before and before != after and normalized(before) in normalized(after))):
             def adjust_person_schema(match):
                 try:
                     schema = json.loads(match.group(2))
@@ -358,7 +393,8 @@ def make_release() -> None:
                     return match.group(0)
                 if schema.get("@type") != "Person":
                     return match.group(0)
-                if re.sub(r"\s+", " ", schema.get("description", "")).strip() == re.sub(r"\s+", " ", before).strip():
+                if (profile.stem in PUBLIC_EDITORIAL_CORRECTION_IDS or
+                        re.sub(r"\s+", " ", schema.get("description", "")).strip() == re.sub(r"\s+", " ", before).strip()):
                     schema["description"] = after
                 return match.group(1) + js_data(schema) + match.group(3)
 
