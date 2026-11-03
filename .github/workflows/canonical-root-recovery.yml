@@ -4,6 +4,11 @@ on:
     paths:
       - 'rebuild/tools/canonical_root_inventory.py'
       - 'rebuild/tests/canonical_root_inventory_test.py'
+      - 'rebuild/tools/canonical_root_snapshot.py'
+      - 'rebuild/tests/canonical_root_snapshot_test.py'
+      - 'rebuild/tools/canonical_root_zip_audit.py'
+      - 'rebuild/tests/canonical_root_zip_audit_test.py'
+      - '.github/workflows/weekly-public-snapshot.yml'
       - 'docs/recovery/CANONICAL_ROOT_RECOVERY.md'
       - '.github/workflows/canonical-root-recovery.yml'
   workflow_dispatch:
@@ -34,3 +39,27 @@ jobs:
               print(f"{e['file']}: {e['records']} IDs, sha256={e['sha256'][:12]}...")
           print("READ-ONLY inventory complete; provider restore NOT performed")
           PY
+
+      - name: Exercise staged canonical root backup against real checkout
+        run: |
+          python -m unittest discover -s rebuild/tests -p 'canonical_root_snapshot_test.py' -v
+          python rebuild/tools/canonical_root_snapshot.py --stage
+          python rebuild/tools/canonical_root_snapshot.py --verify
+
+      - name: ZIP safety checks and extraction-free readback
+        run: |
+          python -m unittest discover -s rebuild/tests -p 'canonical_root_zip_audit_test.py' -v
+          python - <<'PY'
+          from pathlib import Path
+          from zipfile import ZipFile, ZIP_DEFLATED
+          import os
+          d = Path(os.environ['RUNNER_TEMP']) / 'archelaos-public-canonical'
+          out = Path(os.environ['RUNNER_TEMP']) / 'canonical-root-zip-rehearsal.zip'
+          with ZipFile(out, 'w', ZIP_DEFLATED) as z:
+              for name in sorted(['news.json', 'hall-of-fame-people.json',
+                                  'archelaos-history-events.json',
+                                  'canonical-root-snapshot-manifest.json']):
+                  z.write(d / name, arcname=name)
+          print('Built local ZIP rehearsal from actual checkout; not a saved GitHub artifact')
+          PY
+          python rebuild/tools/canonical_root_zip_audit.py "$RUNNER_TEMP/canonical-root-zip-rehearsal.zip" --source-commit "$GITHUB_SHA"
