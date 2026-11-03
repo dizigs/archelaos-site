@@ -2,7 +2,7 @@ name: Site watch and safe repair
 on:
   workflow_dispatch:
   schedule:
-    - # Reuse the existing self-heal schedule: once per hour at :17 UTC.
+    # Reuse the existing self-heal schedule: once per hour at :17 UTC.
     - cron: '17 * * * *'
   pull_request:
     paths:
