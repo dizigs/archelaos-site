@@ -9,11 +9,13 @@ The controller reads that policy at an immutable reviewed commit if main does no
 contain it, validates it and enforces additional compiled ceilings. It neither
 executes unmerged prototype code nor creates another policy or cron schedule.
 
-The existing `site-watch-and-repair.yml` workflow now contains a bounded main
-adapter and an **isolated manual Actions drill**. Its schedule is unchanged.
+The existing `site-watch-and-repair.yml` workflow contains the bounded main
+adapter and an **isolated manual Actions drill**. Its schedule is now hourly
+at :17 UTC; this replaces the former six-hour interval without adding a new workflow.
 The former shell issue/branch publisher is replaced, rather than duplicated.
-Full production controller activation remains gated by review and normal protected
-merge; do not describe an unmerged draft as deployed. The main observer keeps a
+The controller source has been merged to protected main and its Cloudflare release
+verified. The hourly cadence change still requires its own protected PR merge,
+and execution of a production monitor run must be checked separately from deployment. The main observer keeps a
 failed health check red even when it successfully proposes a repair.
 
 ## Durable decisions
@@ -94,8 +96,10 @@ created Issue106 and Draft107 against the isolated staging ref. Real guard exit
 provider annotation is preserved in `evidence/central-fixture-20261103.json`.
 Draft107 changes only the fixture file and must never be merged into main.
 
-Remaining gates: final exact-head CI/review of this controller, foundation review,
-normal protected merge, then the main observer's real run and exact-production-SHA
-verification using #101's already merged Cloudflare stage/log/HTTP gate.
+Remaining evidence gate: after merging any cadence change, verify an actual scheduled
+main monitor run by exact Actions ID and check production commit/build logs/HTTP
+with #101's Cloudflare evidence gate. Document the result in the incident journal.
+See `ERROR_SOLUTION_PLAYBOOK.md` for the separate incident database and reviewed
+solution catalog.
 Security Rating A on main remains independent #66.
 No department launch, advertising activation or automatic merge is enabled.
