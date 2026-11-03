@@ -384,3 +384,28 @@ security PR. No name, record ID or historical source was edited by Codex. Fresh
 combined-head CI is required after this synchronization; the previous-head pass
 is not substituted. Actual current-main production logs and full remaining
 Sonar issue context remain pending here.
+
+## Multisport master self-heal — deployment evidence gate — 2026-11-03
+
+Owner Codex; independent of Draft #90's registry/policy/preview files. Existing
+collector supplies metadata only; a green inventory job does not establish
+production SHA, terminal build logs or public HTTP health. Implementation
+`44ae87c47ccfae4f75c2f68a10877be0eef0fb9f`, compatibility
+`d160f7392b9c05e9239fa49b16c03110e444e143`, adds the fail-closed read-only
+verification gate to the same Cloudflare workflow and original cron. No new
+schedule, DNS/service configuration, secret or access-permission change.
+
+Actual offline fault injection verifies rejection of preview/old success, wrong
+SHA, incomplete stages, missing terminal logs, later failure, unhealthy HTTP,
+forbidden redirects, missing credentials and unsafe report links. Exact access
+endpoints/layers are retained; arbitrary response messages, raw build logs, tokens
+and signed queries are not. Shared atomic writer reused; legacy report field
+names preserved. No main A, deployment or full self-heal success claimed yet.
+
+Actual tests: **30/30** new tests, **34/34** existing CLI security, **24/24** observer,
+build/verify **15 pages / 763 profiles**, syntax/YAML/diff PASS. These are local
+results on starting main `0b19941dbf668dc7ca0670fc31d164fd2adc5060`; synthetic
+403s are not real access observations. Remote CI and a real existing-workflow
+run are next. [Contract and remaining work](self-heal/DEPLOYMENT_EVIDENCE.md);
+[actual local output](self-heal/evidence/deployment-gate-local-20261103.log).
+[Started checkpoint](https://github.com/dizigs/archelaos-site/issues/71#issuecomment-6601163597).
