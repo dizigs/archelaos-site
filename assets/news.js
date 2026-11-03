@@ -1,6 +1,6 @@
 /* News reader: source-led items, shareable deep links, locally saved favorites. */
 (()=>{'use strict';
-const $=id=>document.getElementById(id),PAGE_SIZE=18,state={items:[],category:'all',query:'',page:Math.max(1,Number.parseInt(new URLSearchParams(location.search).get('page')||'1',10)||1)};
+const $=id=>document.getElementById(id),PAGE_SIZE=19,state={items:[],category:'all',query:'',page:Math.max(1,Number.parseInt(new URLSearchParams(location.search).get('page')||'1',10)||1)};
 const en=()=>document.documentElement.lang==='en';
 const t=(a,b)=>en()?b:a;
 const norm=s=>String(s||'').toLocaleLowerCase('el').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/ς/g,'σ');
@@ -114,17 +114,20 @@ function draw(){
  const showLead=state.category==='all'&&!q;
  $('an-feature').hidden=!showLead||state.page!==1;
  const items=state.items.filter(x=>(!showLead||x.id!==lead?.id)&&(state.category==='all'||x.category===state.category)&&(!q||(window.ArchelaosSportSearch?window.ArchelaosSportSearch.sportMatch([x.title,x.summary,x.sport,x.source,...(x.body||[])].join(' '),q):norm([x.title,x.summary,x.sport,x.source,...(x.body||[])].join(' ')).includes(q)))).sort((a,b)=>b.date.localeCompare(a.date));
- const pageCount=Math.max(1,Math.ceil(items.length/PAGE_SIZE));
+ const total=items.length+(showLead?1:0);
+ const pageCount=Math.max(1,Math.ceil(total/PAGE_SIZE));
  state.page=Math.min(Math.max(1,state.page),pageCount);
- const offset=(state.page-1)*PAGE_SIZE;
- const visible=items.slice(offset,offset+PAGE_SIZE);
+ // The featured story occupies one of the 19 slots on the first page.
+ const offset=showLead?Math.max(0,(state.page-1)*PAGE_SIZE-1):(state.page-1)*PAGE_SIZE;
+ const pageLimit=showLead&&state.page===1?PAGE_SIZE-1:PAGE_SIZE;
+ const visible=items.slice(offset,offset+pageLimit);
  $('an-feature').hidden=!showLead||state.page!==1;
  const frag=document.createDocumentFragment();for(const x of visible)frag.append(card(x));
  if(!items.length&&!showLead){const p=document.createElement('p');p.className='an-empty';p.textContent=t('Δεν βρέθηκαν δημοσιεύσεις.','No matching news found.');frag.append(p)}
  $('an-grid').replaceChildren(frag);
- const first=items.length?offset+1:0;
- const last=Math.min(offset+visible.length,items.length);
- $('an-count').textContent=t('Εμφάνιση ','Showing ')+first+'–'+last+' / '+items.length+t(' ειδήσεις',' stories')+(showLead&&state.page===1?t(' · +1 προτεινόμενη',' · +1 featured'):'');
+ const first=total?(state.page-1)*PAGE_SIZE+1:0;
+ const last=Math.min(state.page*PAGE_SIZE,total);
+ $('an-count').textContent=t('Εμφάνιση ','Showing ')+first+'–'+last+' / '+total+t(' ειδήσεις',' stories')+(showLead&&state.page===1?t(' · 1 προτεινόμενη',' · 1 featured'):'');
  renderPagination(pageCount);
 }
 function featured(){
