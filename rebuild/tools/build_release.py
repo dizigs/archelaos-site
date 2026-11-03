@@ -519,6 +519,17 @@ def make_release() -> None:
     if count_matches != 1:
         raise RuntimeError("Expected one homepage Hall of Fame count")
     homepage.write_text(home_html, encoding="utf-8")
+    # The visible Hall hero must also be accurate before its dynamic JS loads.
+    hall_html_file = OUTPUT / "hall-of-fame.html"
+    hall_html = hall_html_file.read_text(encoding="utf-8")
+    hall_html, hall_matches = re.subn(
+        r'(<strong id="hall-total">)[^<]*(</strong>)',
+        lambda match: match.group(1) + str(hall_total) + match.group(2),
+        hall_html,
+    )
+    if hall_matches != 1:
+        raise RuntimeError("Expected one Hall hero count placeholder")
+    hall_html_file.write_text(hall_html, encoding="utf-8")
 
 
     from build_match_schedule import calendar as make_ical, validate as validate_matches
