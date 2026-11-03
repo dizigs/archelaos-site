@@ -1,0 +1,31 @@
+name: Archery VEL​​OS results sync
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 7 * * *'
+permissions:
+  contents: read
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Fetch public results for configured matches
+        run: python scripts/sync_velos_archery.py
+      - name: Record sync result
+        run: |
+          if git diff --quiet -- data/archery/velos-results.json; then
+            echo 'No dataset changes.' >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo 'Dataset changed; review the run artifact before importing.' >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: velos-results-snapshot
+          path: data/archery/velos-results.json
+          if-no-files-found: error
+          retention-days: 14
