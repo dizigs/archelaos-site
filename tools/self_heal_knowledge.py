@@ -192,6 +192,43 @@ def ingest_zip(con, zip_path):
     return {"scanned": scanned, "updated": added, "source": OSV_SOURCE}
 
 
+
+# Bulk downloads are explicit, never part of the hourly monitor or scheduled tasks.
+GCS_BUCKET = "https://storage.googleapis.com/osv-vulnerabilities"
+MAX_COMPRESSED = 2 * 1024 * 1024 * 1024
+ALLOWED_ARCHIVES = frozenset({"all", "PyPI", "npm", "GitHub Actions", "Go",
+                              "crates.io", "Maven", "NuGet", "RubyGems", "Debian"})
+
+
+def download_bulk_archive(ecosystem, destination, opener=urllib.request.urlopen):
+    """One fixed official GCS object, bounded bytes, no redirects or automatic retry."""
+    if ecosystem not in ALLOWED_ARCHIVES:
+        raise KnowledgeError("Unapproved OSV archive ecosystem")
+    obj = ("all.zip" if ecosystem == "all" else
+           urllib.parse.quote(ecosystem, safe="") + "/all.zip")
+    url = GCS_BUCKET + "/" + obj
+    request = urllib.request.Request(url, headers={
+        "User-Agent": "Archelaos-knowledge/1.0 (+https://archelaos.club)"})
+    count = 0
+    with opener(request, timeout=30) as response:
+        if response.geturl() != url:
+            raise KnowledgeError("Unexpected OSV archive redirect")
+        header = response.headers.get("Content-Length")
+        if header and (not header.isdecimal() or int(header) > MAX_COMPRESSED):
+            raise KnowledgeError("OSV archive declared size outside bounded limit")
+        with open(destination, "xb") as output:
+            while True:
+                chunk = response.read(65536)
+                if not chunk:
+                    break
+                count += len(chunk)
+                if count > MAX_COMPRESSED:
+                    raise KnowledgeError("OSV archive exceeds download limit")
+                output.write(chunk)
+    if count < 32:
+        raise KnowledgeError("OSV download empty or too short")
+    return {"sourceUrl": url, "compressedBytes": count}
+
 def _request_json(path, payload=None):
     """Fixed OSV endpoint and bounded response; no arbitrary remote URL or retries."""
     if not re.fullmatch(r"/v1/(query|vulns/[A-Za-z0-9._-]{1,110})", path):
@@ -307,6 +344,9 @@ def main(argv=None):
     commands = parser.add_subparsers(dest="command", required=True)
     a = commands.add_parser("import-zip", help="Import local official OSV all.zip or ecosystem ZIP; no download")
     a.add_argument("archive", type=Path)
+    bulk = commands.add_parser("bootstrap", help="Download and import approved OSV bulk ZIP, manually and explicitly")
+    bulk.add_argument("--ecosystem", choices=sorted(ALLOWED_ARCHIVES), default="all")
+    bulk.add_argument("--allow-network", action="store_true")
     b = commands.add_parser("lookup", help="Explicit opt-in network query for one exact package version")
     b.add_argument("ecosystem"); b.add_argument("package"); b.add_argument("version")
     b.add_argument("--allow-network", action="store_true")
@@ -323,8 +363,27 @@ def main(argv=None):
             con.execute("INSERT OR REPLACE INTO metadata(key,value) VALUES ('bulk_status','INCOMPLETE')")
             con.commit()
             report = ingest_zip(con, args.archive)
-            con.execute("INSERT OR REPLACE INTO metadata(key,value) VALUES ('bulk_status','COMPLETE')")
+            con.execute("INSERT OR REPLACE INTO metadata(key,value) VALUES ('bulk_status','ZIP_IMPORT_COMPLETE')")
             con.commit()
+        elif args.command == "bootstrap":
+            if not args.allow_network:
+                parser.error("OSV bootstrap requires explicit --allow-network")
+            # Single temporary archive under an ignored local cache, never in site/dist.
+            import os
+            import tempfile
+            temp = tempfile.NamedTemporaryFile(dir=CACHE_ROOT, suffix=".zip", delete=False)
+            path = Path(temp.name)
+            temp.close()
+            path.unlink()
+            try:
+                info = download_bulk_archive(args.ecosystem, path)
+                con.execute("INSERT OR REPLACE INTO metadata(key,value) VALUES ('bulk_status','INCOMPLETE')")
+                con.commit()
+                report = {**info, **ingest_zip(con, path)}
+                con.execute("INSERT OR REPLACE INTO metadata(key,value) VALUES ('bulk_status','ZIP_IMPORT_COMPLETE')")
+                con.commit()
+            finally:
+                path.unlink(missing_ok=True)
         elif args.command == "lookup":
             if not args.allow_network:
                 parser.error("OSV lookup requires explicit --allow-network")
