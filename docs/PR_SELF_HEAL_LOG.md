@@ -242,3 +242,35 @@ existing accessibility audit now emit bounded aggregate notice annotations
 counts). This changes observability, not failure policy. Local captured output
 is in `docs/qa/site-stability-local-20261103.log`. The exact corrected remote-head
 result and remaining production limit are delivered through #71 and PR #74.
+
+### Verified CI recovery and review follow-up — PR #74
+
+- Failed run: [41588056106](https://github.com/dizigs/archelaos-site/actions/runs/41588056106), check `125758064763`; exact annotation `news-scroll-reset`, width 768, Chromium 145.0.7632.6, `false !== true`. Cause and correction `720e61f` are recorded above.
+- Verified recovery: exact head `6849f97f9d517ec7c43f205ed7a163d216502e5e`, [41589852619](https://github.com/dizigs/archelaos-site/actions/runs/41589852619), check `125763824280` SUCCESS. Accessible notices report **45 cases, zero failures, 72 page/viewports, 608 card surfaces, Chromium 145.0.7632.6 / Playwright 1.58.0**; axe reports **32 page/viewports, zero violations/errors**. Full Rebuild [41589852607](https://github.com/dizigs/archelaos-site/actions/runs/41589852607) and required checks PASS. No log archive retry was needed.
+- Review gate: thread `PRRT_kwDOVW_yv86zAQkJ`, comment `4451579402`, correctly found missing root build-input paths. `build_release.py` consumes `news.json`, `news.html`, `hall-of-fame-people.json` and `interviews.json`; their omission could skip this regression workflow after a data-only change.
+- Corrective commit: [`418714f24f3d461ceb2b60560a05bec1a567aba4`](https://github.com/dizigs/archelaos-site/commit/418714f24f3d461ceb2b60560a05bec1a567aba4) adds all four to both PR/push filters. It also adds four real news-origin delayed-biography cases: dismiss the original news reader, open another article, release the pending catalog, verify no stale biography opens, then verify a new intentional biography click works. No product assertion was weakened.
+- Actual follow-up tests before footer sync: focused new cases **4/4 PASS**, full suite **49/49 PASS**, same 72 page/viewports and 608 cards; YAML filter assertions, syntax/ESLint/diff PASS. This is local Chromium 154 evidence, distinct from the earlier 45-case Chromium-145 CI.
+- Main advanced through ChatGPT-owned #73 to `9127d45974188075e6c1f0fe722e111a4d7dbca0`. Merged unchanged into this branch as `680e32fdb9c949abc9705e8d4470b513cbee9769`; combined browser validation is pending at this log entry. Footer source was not edited. #75/#76 research data remains owned by ChatGPT.
+- Cloudflare: ChatGPT supplied provider evidence for **#73/main 9127d45 only**, deployment `4caf3332-d2dd-40ec-b823-81149ce3e70a`, with final `Success: Your site was deployed!`, via [Issue #71 comment](https://github.com/dizigs/archelaos-site/issues/71#issuecomment-6597244703). Codex did not fetch these provider logs independently. This does **not** verify deployment of the still-unmerged #74.
+
+### Keeping self-heal evidence mergeable
+
+For every newly confirmed failure, append the exact error and endpoint or workflow/run/check ID, affected head, evidence-backed cause (or UNKNOWN), corrective commit, actual retest and remaining blocker here or in a linked task-specific security log. Preserve failed attempts and distinguish local/PR/main/production outcomes. Never include credentials, signed download queries or private data. Changes enter main through the owning normal PR; do not edit another active PR's shared log or claim completion from a green preview.
+
+Related P0 evidence already merged: [CLI option confinement](security/P0_CLI_CONFINEMENT_LOG.md) and [snapshot confinement](security/PUBLIC_SNAPSHOT_CONFINEMENT.md). Separate CLI follow-ups keep their evidence in dedicated files to avoid concurrent edits to this shared log.
+
+### Combined latest-main validation — PR #74
+
+After merging main `9127d45974188075e6c1f0fe722e111a4d7dbca0` (footer #73),
+the actual rebuilt release passes **49/49 strict cases**, **72 page/viewports**,
+**608 card surfaces**, and **32 accessibility page/viewports with zero violations
+or interaction errors**, on local Chromium 154 / Playwright 1.58.0. Build and
+independent verification pass with **15 pages / 760 profiles**. All **3 footer
+regression tests PASS** without modifying ChatGPT's footer source. Captured
+combined output is appended to `docs/qa/site-stability-local-20261103.log`.
+Final-head remote Chromium-145 CI remains required after this push.
+
+The actual current-main Sonar check `125768928878` on `9127d45` is **FAILURE**,
+`C Security Rating on New Code (required ≥ A)`, zero annotations. PR success
+from another head is not substituted for this result. No gate changes, generic
+exclusions or repeated blocked provider calls were made.
