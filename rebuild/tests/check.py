@@ -140,6 +140,11 @@ def inspect():
     staged_ids = [p["id"] for p in people]
     assert master.get("count") == len(master_people), "canonical Hall count metadata mismatch"
     assert len(master_ids) == len(set(master_ids)), "duplicate canonical Hall person IDs"
+    aliases=json.loads((ROOT/"hall-of-fame-person-aliases.json").read_text(encoding="utf-8"))["aliases"]
+    assert not set(aliases).intersection(master_ids) and set(aliases.values()).issubset(master_ids), "Invalid canonical Hall redirects"
+    assert all(f"/people/{old}.html /people/{new}.html 301" in (ROOT/"_redirects").read_text(encoding="utf-8") for old,new in aliases.items()), "Missing retired profile redirect"
+    favorites=(REBUILD/"js/favorites.js").read_text(encoding="utf-8")
+    assert all(old in favorites and new in favorites for old,new in aliases.items()), "Saved favorites cannot migrate old IDs"
     assert len(staged_ids) == len(set(staged_ids)), "duplicate staged profile IDs"
     assert set(staged_ids).issubset(master_ids), "legacy profile ID absent from canonical Hall"
     assert len(master_ids) >= len(staged_ids), "canonical Hall must not lose staged profiles"
