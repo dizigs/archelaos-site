@@ -6,7 +6,7 @@
 This PR introduces a **planning registry and validation contract only**. No DNS records, Cloudflare Pages deployments, analytics tags, tracking cookies, data imports, or changes to HOF/news.
 
 ## Registry
-`config/sport-sites.json` contains proposed hosts, sport keys, safe default theme, and references to canonical history and Hall. Only `archery` is an existing subdomain with a redesign plan; `wrestling` is a planned example, others are candidates **not claims of live sites**.
+`config/sport-sites.json` contains proposed hosts, sport keys, an archery-only approved theme; all other palettes are undecided, and references to canonical history and Hall. Only `archery` has an approved visual identity and is an existing subdomain with a redesign plan; `wrestling` is a planned example, others are candidates **not claims of live sites**.
 
 ## Architecture conventions
 1. Use one stable `sportKey` across websites, calendars, news, analytics, sources, and archive.
