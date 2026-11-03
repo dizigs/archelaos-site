@@ -171,6 +171,17 @@
       "sources": [
         "https://eptanews.gr/athlitismos/3os-o-archelaos-katerinis-sto-panellinio-protathlima-palis-pampaidon-poy-diexichthi-sto-zefyri-attikis/"
       ]
+    },
+    {
+      "id": "arch-8c9cbe4897f0",
+      "name": "Μενέλαος Βούλγαρης",
+      "appendBio": "Ως «Μένιος Βούλγαρης» αναφέρεται μεταξύ των έξι αθλητών του Αρχέλαου που κατέκτησαν την τρίτη ομαδική θέση στο Πανελλήνιο Πρωτάθλημα Πάλης Παμπαίδων στο Ζεφύρι Αττικής τον Οκτώβριο του 2021. Η ταυτοποίηση των ονομάτων «Μένιος» και «Μενέλαος» επιβεβαιώθηκε από εκπρόσωπο του συλλόγου στις 03/11/2026.",
+      "sources": [
+        "https://eptanews.gr/athlitismos/3os-o-archelaos-katerinis-sto-panellinio-protathlima-palis-pampaidon-poy-diexichthi-sto-zefyri-attikis/"
+      ],
+      "aliases": [
+        "Μένιος Βούλγαρης"
+      ]
     }
   ],
   "identityReconciliation": [
@@ -198,11 +209,12 @@
       "sourceName": "Μένιος Βούλγαρης",
       "canonicalName": "Μενέλαος Βούλγαρης",
       "personId": "arch-8c9cbe4897f0",
-      "status": "PENDING_NICKNAME_CONFIRMATION_DO_NOT_AUTO_LINK",
+      "status": "CONFIRMED_BY_CLUB_REPRESENTATIVE_2026-11-03",
       "evidence": [
         "https://eptanews.gr/athlitismos/3os-o-archelaos-katerinis-sto-panellinio-protathlima-palis-pampaidon-poy-diexichthi-sto-zefyri-attikis/",
         "https://odelalis.gr/protathlitis-elladas-stoys-paides-gia-triti-synechomeni-chronia-o-archelaos-katerinis/"
-      ]
+      ],
+      "note": "Ο χρήστης, εκπρόσωπος του Γ.Α.Σ. Αρχέλαος, επιβεβαίωσε ρητά στις 03/11/2026 ότι Μένιος και Μενέλαος Βούλγαρης είναι το ίδιο πρόσωπο. Διατήρηση του ίδιου canonical personId· προσθήκη alias στο κατάλληλο αρχείο κατά τον συντονισμένο εμπλουτισμό Hall."
     },
     {
       "sourceName": "Γιώργος Αθανασίου",
@@ -251,5 +263,6 @@
     "Apply biographies to the authoritative source and regenerate all derived artifacts/links (Hall, people, search, aliases).",
     "Update personIds for the new relay profiles after actual IDs are assigned.",
     "Run JSON/schema/test validation, PR CI, duplicate-event checks, linked images checks and deployment logs before claiming live."
-  ]
+  ],
+  "identityConfirmedAt": "2026-11-03"
 }
