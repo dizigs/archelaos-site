@@ -296,11 +296,14 @@ def verify() -> None:
     assert "Διαβάστε την είδηση" not in home_js, "Redundant homepage card caption restored"
     # Eighteen regular cards per page PLUS one distinct featured card on page 1.
     # Filtering still applies before slicing and the featured story is not duplicated.
-    assert "PAGE_SIZE=18" in news_js, "News pagination size changed"
+    assert "PAGE_SIZE=19" in news_js, "News pagination size changed"
     assert "x.id!==lead?.id" in news_js, "Highlighted article duplicated in the news grid"
-    assert "const pageCount=Math.max(1,Math.ceil(items.length/PAGE_SIZE));" in news_js, "Featured news must be separate from eighteen regular cards"
-    assert "const offset=(state.page-1)*PAGE_SIZE;" in news_js, "News pagination offset missing"
-    assert "items.slice(offset,offset+PAGE_SIZE)" in news_js, "Expected eighteen regular news cards per page"
+    assert "const total=items.length+(showLead?1:0);" in news_js, "Featured story must count towards page size"
+    assert "const pageCount=Math.max(1,Math.ceil(total/PAGE_SIZE));" in news_js, "News pagination must count all visible stories"
+    assert "const offset=showLead?Math.max(0,(state.page-1)*PAGE_SIZE-1):(state.page-1)*PAGE_SIZE;" in news_js, "News pagination offset missing"
+    assert "const pageLimit=showLead&&state.page===1?PAGE_SIZE-1:PAGE_SIZE;" in news_js, "Featured story must leave eighteen regular slots on page one"
+    assert "items.slice(offset,offset+pageLimit)" in news_js, "Expected nineteen news stories per page"
+    assert "const last=Math.min(state.page*PAGE_SIZE,total);" in news_js, "News pagination count must include the featured story"
     assert "renderPagination(pageCount)" in news_js, "News page-number links not rendered"
     assert "window.addEventListener('popstate'" in news_js, "News page history navigation missing"
     assert 'id="an-pagination"' in (DIST/"news.html").read_text(encoding="utf-8"), "News pagination nav missing"
