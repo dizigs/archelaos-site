@@ -107,7 +107,7 @@ def api_request(token, operation, payload=None, page=None):
             raise ValueError("Invalid issue close request")
         node_id = payload["issueId"]
         if (not isinstance(node_id, str)
-                or not re.fullmatch(r"[A-Za-z0-9_\\-=]{8,256}", node_id)):
+                or not re.fullmatch(r"[A-Za-z0-9_=-]{8,256}", node_id)):
             raise ValueError("Unsafe GitHub GraphQL issue ID")
         url = GRAPHQL_ENDPOINT
         method = "POST"
