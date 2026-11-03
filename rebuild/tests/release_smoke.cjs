@@ -2,7 +2,7 @@
 const { chromium }=require('playwright');
 const {mkdirSync,readdirSync}=require('node:fs');
 const path=require('node:path');
-const ROOT='http://127.0.0.1:8766';
+const ROOT=process.env.SITE_STABILITY_BASE_URL||'http://127.0.0.1:8766';
 const DEST=path.join(__dirname,'..','test-artifacts','release');
 const files=[
  ['index.html','home'],['history.html','museum'],['hall-of-fame.html','hall'],
