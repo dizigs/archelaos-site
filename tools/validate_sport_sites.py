@@ -42,10 +42,16 @@ def validate(payload):
             url=urlparse(value)
             if url.scheme!="https" or url.hostname!="archelaos.club" or not url.path:
                 errors.append(f"invalid central {field}: {key}")
-        theme=d.get("theme",{})
-        for field in ("primary","accent","background"):
-            if not isinstance(theme.get(field),str) or not VALID_HEX.fullmatch(theme[field]):
-                errors.append(f"invalid theme {field}: {key}")
+        theme=d.get("theme")
+        if key=="archery":
+            if d.get("themeStatus")!="approved-archery-only" or not isinstance(theme,dict):
+                errors.append("archery must retain its specifically approved theme")
+            else:
+                for field in ("primary","accent","background"):
+                    if not isinstance(theme.get(field),str) or not VALID_HEX.fullmatch(theme[field]):
+                        errors.append(f"invalid archery theme {field}")
+        elif theme is not None or d.get("themeStatus")!="undecided":
+            errors.append(f"unapproved sport theme: {key}")
         analytics=d.get("analytics",{})
         if analytics.get("siteSection")!=key:
             errors.append(f"analytics section mismatch: {key}")
