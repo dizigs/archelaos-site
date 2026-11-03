@@ -93,6 +93,9 @@ def inspect():
     moments = json.loads((REBUILD/"data/moments.json").read_text(encoding="utf-8"))["moments"]
     stories = json.loads((REBUILD/"data/stories.json").read_text(encoding="utf-8"))["stories"]
     people = json.loads((REBUILD/"data/people.json").read_text(encoding="utf-8"))["people"]
+    # Staged pages must always use the canonical public Hall, never a legacy snapshot.
+    for rel in ("js/biographies.js", "js/archive-catalog.js", "js/home.js"):
+        assert "/hall-of-fame-people.json" in (REBUILD/rel).read_text(encoding="utf-8"), "Legacy Hall feed in " + rel
     assert len(moments) == 70 and len({m["id"] for m in moments}) == 70, "70 moments mismatch"
     assert len(stories) >= 21, "21 original stories must remain"
     source_stories = json.loads((REBUILD/"data/stories.json").read_text(encoding="utf-8"))
