@@ -232,7 +232,7 @@ jobs:
           python-version: '3.12'
       - name: Build organized static output
         run: python rebuild/tools/build_release.py
-      - name: Check sitemap, metadata, canonical and 682 profiles
+      - name: Check sitemap, metadata and all canonical Hall profiles
         run: python rebuild/tools/verify_release.py
       - name: Prove the risk scanner detects injected failures
         run: python rebuild/tests/preflight_regression.py

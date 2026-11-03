@@ -1,0 +1,66 @@
+name: Mirror PR and issue lifecycle to task handoff inbox
+
+# No schedule and no direct changes to website, main, or private Google Sheet.
+# Only same-repository PR events may write to the handoff issue.
+# Never checkout or run code from the PR head. Fork PRs are read-only/skipped.
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened, ready_for_review, converted_to_draft, closed]
+  issues:
+    types: [opened, edited, reopened, closed]
+
+concurrency:
+  group: tracker-handoff-${{ github.event.pull_request.number || github.event.issue.number || github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  offline-test:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Offline tests for idempotent public event records
+        run: python3 -m unittest discover -s .github/tests -p test_tracker_handoff_event.py -v
+
+  mirror:
+    if: github.event_name == 'issues' || (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: read
+    steps:
+      - name: Checkout ONLY default-branch trusted code
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: main
+          persist-credentials: false
+      - name: Verify trusted tracker is installed on main
+        id: bootstrap
+        shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          PR_MERGED: ${{ github.event.pull_request.merged || 'false' }}
+        run: |
+          set -euo pipefail
+          if [ -f .github/scripts/tracker_handoff_event.py ]; then
+            echo 'ready=true' >> "$GITHUB_OUTPUT"
+          elif [ "$EVENT_NAME" = 'pull_request' ] && [ "$PR_MERGED" != 'true' ]; then
+            echo '::notice::Initial PR has not installed the trusted tracker on main; defer until merge event.'
+            echo 'ready=false' >> "$GITHUB_OUTPUT"
+          else
+            echo '::error::Tracker script missing from trusted main after installation.'
+            exit 1
+          fi
+      - name: Upsert public PR/issue state to existing handoff issue 71
+        if: steps.bootstrap.outputs.ready == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 .github/scripts/tracker_handoff_event.py
