@@ -68,3 +68,48 @@
  letter-spacing:.065em;color:#816b47;
 }
 .arch-dialog-body .rs-dialogue-note + .arch-dialog-quote{margin-top:5px}
+
+/* Museum editorial note: narrative reconstruction ≠ verbatim historical record. */
+.rs-editorial-note{
+ position:relative;isolation:isolate;display:grid;grid-template-columns:68px minmax(0,1fr);
+ gap:23px;align-items:start;margin:27px 0 34px;padding:30px clamp(23px,3.8vw,45px);
+ border:1px solid #d7c49c;border-radius:22px;
+ background:linear-gradient(112deg,#f9f4e9 0%,#f5ecdb 53%,#eee0c4 100%);
+ box-shadow:0 15px 36px rgba(56,57,32,.07),inset 0 1px 0 #ffffffc9;
+ color:#254532;
+}
+.rs-editorial-note::before{
+ content:"";position:absolute;top:0;left:50%;width:78px;height:3px;
+ transform:translateX(-50%);background:#b18a44;border-radius:0 0 4px 4px;
+}
+.rs-editorial-emblem{
+ display:grid;place-items:center;width:66px;height:66px;border-radius:50%;
+ color:#84652f;border:1px solid #ceba8b;background:#fffaf0;
+ box-shadow:0 5px 14px #695a2b12;
+}
+.rs-editorial-emblem svg{width:38px;height:38px;display:block}
+.rs-editorial-content{min-width:0}
+.rs-editorial-eyebrow{
+ margin:0 0 8px!important;color:#886c36!important;font-size:10px!important;
+ font-weight:800;letter-spacing:.145em;line-height:1.6;
+}
+.rs-editorial-note h3{
+ font:400 clamp(23px,2.6vw,32px)/1.2 Georgia,"Times New Roman",serif;
+ letter-spacing:-.024em;color:#113d2b;margin:0 0 16px;
+}
+.rs-editorial-content>p:not(.rs-editorial-eyebrow){
+ max-width:980px;font-size:14px;line-height:1.88;color:#46594b;margin:0 0 11px;
+}
+.rs-editorial-content>p:last-child{margin-bottom:0}
+.rs-editorial-content strong{color:#244a32;font-weight:750}
+@media(max-width:650px){
+ .rs-editorial-note{grid-template-columns:1fr;gap:14px;margin:22px 0 30px;padding:25px 21px 26px;border-radius:17px}
+ .rs-editorial-emblem{width:50px;height:50px}
+ .rs-editorial-emblem svg{width:30px;height:30px}
+ .rs-editorial-note h3{margin-bottom:12px}
+ .rs-editorial-content>p:not(.rs-editorial-eyebrow){font-size:13px;line-height:1.78}
+}
+@media(prefers-contrast:more){
+ .rs-editorial-note{border-color:#795a27;background:#fbf6e9}
+ .rs-editorial-content>p:not(.rs-editorial-eyebrow){color:#243a2c}
+}
