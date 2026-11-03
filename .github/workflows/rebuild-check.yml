@@ -48,7 +48,7 @@ jobs:
         run: python rebuild/tools/media_inventory.py --json rebuild/test-artifacts/media-inventory.json
       - name: Save media inventory
         if: always()
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: archelaos-media-inventory
           path: rebuild/test-artifacts/media-inventory.json
@@ -76,7 +76,7 @@ jobs:
         run: python rebuild/tools/live_sync_audit.py --strict-reviewed --json rebuild/test-artifacts/live-sync-report.json
       - name: Preserve live-vs-rebuild editorial drift report
         if: always()
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: archelaos-live-sync-review
           path: rebuild/test-artifacts/live-sync-report.json
@@ -86,7 +86,7 @@ jobs:
         run: python rebuild/tools/editorial_audit.py --json rebuild/test-artifacts/editorial-report.json --strict
       - name: Save editorial review suggestions
         if: always()
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: archelaos-editorial-review
           path: rebuild/test-artifacts/editorial-report.json
@@ -98,7 +98,7 @@ jobs:
           python rebuild/tools/archive_opportunities.py --json rebuild/test-artifacts/archive-connections.json
       - name: Save proposed archive associations for human review
         if: always()
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: archelaos-archive-connections-review
           path: rebuild/test-artifacts/archive-connections.json
@@ -114,7 +114,7 @@ jobs:
         run: python rebuild/tools/review_unverified_events.py --json rebuild/test-artifacts/unverified-events.json
       - name: Preserve human-review list of unverified claims
         if: always()
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: archelaos-unverified-claims-review
           path: rebuild/test-artifacts/unverified-events.json
@@ -122,7 +122,7 @@ jobs:
           retention-days: 14
       - name: Preserve historical event research integrity report
         if: always()
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: archelaos-historical-events-research
           path: rebuild/test-artifacts/verified-events-report.json
@@ -138,7 +138,7 @@ jobs:
           python rebuild/tools/event_triage.py
       - name: Save owner review list and recommendations
         if: always()
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: archelaos-owner-event-review
           path: |
@@ -211,7 +211,7 @@ jobs:
         run: node rebuild/tests/visual.cjs
       - name: Preserve screenshots for final approval
         if: always()
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: archelaos-rebuild-browser-proof
           path: rebuild/test-artifacts/
@@ -240,14 +240,14 @@ jobs:
         run: python rebuild/tools/preflight.py --strict --json rebuild/test-artifacts/preflight.json
       - name: Preserve security, links and cache preflight audit
         if: always()
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: archelaos-preflight-risk-report
           path: rebuild/test-artifacts/preflight.json
           if-no-files-found: warn
           retention-days: 14
       - name: Preserve release candidate without deployment
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: archelaos-release-candidate
           path: dist/
