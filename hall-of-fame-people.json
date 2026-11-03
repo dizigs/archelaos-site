@@ -1,6 +1,6 @@
 {
   "version": "v1.6",
-  "count": 760,
+  "count": 762,
   "people": [
     {
       "name": "Νίκος Τσινόπουλος",
@@ -8304,6 +8304,48 @@
       "bio": "Ο Κωνσταντίνος Σαμακοβλής καταγράφεται ως αθλητής τοξοβολίας του Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης στις επίσημες επετηρίδες της Ελληνικής Ομοσπονδίας Τοξοβολίας για το 2016 και το 2018. Στο Ολυμπιακό Τόξο (Recurve), η επετηρίδα του 2018 περιλαμβάνει επίδοσή του 560 βαθμών.",
       "bio_en": "Archery competitor for G.A.S. Archelaos Katerinis, recorded in the Greek Archery Federation's official 2016 and 2018 annual results; the 2018 record includes a recurve score of 560 points.",
       "period": "2016–2018"
+    },
+    {
+      "id": "arch-konstantinos-sarris-volleyball",
+      "name": "Κώστας Σαρρής",
+      "name_en": "Kostas Sarris",
+      "role": "Προπονητής · Πετοσφαίριση",
+      "role_en": "Coach · Volleyball",
+      "category": "sport",
+      "period": "1997–2023",
+      "bio": "Το αρχειακό δημοσίευμα της 25ης Σεπτεμβρίου 1997 καταγράφει τον Κώστα Σαρρή ως προπονητή πετοσφαίρισης, με δήλωσή του για την πρόκριση αναπτυξιακών τμημάτων στις τελικές φάσεις της Κεντρικής Μακεδονίας. Στη δήλωση αναδεικνύει τη σημασία της δουλειάς, της πειθαρχίας και της υπομονής για τη μελλοντική στελέχωση της ανδρικής ομάδας.\n\nΜεταγενέστερα δημοσιεύματα τον αναφέρουν στην προπονητική δραστηριότητα του Σ.Φ.Κ. Πιερικός, ενώ σε παρουσίαση της συνεργασίας Πιερικού–Αρχελάου τον Σεπτέμβριο 2019 καταγράφεται ως υπεύθυνο προπονητών και πρώτο προπονητή των τμημάτων πετοσφαίρισης των δύο συλλόγων. Η συμμετοχή του σε αυτή τη συνεργασία δεν συνεπάγεται ότι αγωνιστικά αποτελέσματα του Πιερικού αποδίδονται αναδρομικά στον Γ.Α.Σ. Αρχέλαο.",
+      "bio_en": "A press clipping dated 25 September 1997 identifies Kostas Sarris as a volleyball coach and records his comments on the progress of youth teams to Central Macedonian finals. He emphasised work, discipline and patience in developing future first-team players.\n\nLater reports document his coaching work with S.F.K. Pierikos. A September 2019 account of the Pierikos–Archelaos volleyball collaboration identifies him as head of coaches and first coach for the two clubs’ volleyball sections. Pierikos results are not attributed to G.A.S. Archelaos merely because of this later collaboration.",
+      "refs": [
+        {
+          "label": "Αρχείο Τύπου Γ.Α.Σ. Αρχέλαος · 25/09/1997 · καταχώριση d19",
+          "url": "https://archelaos.club/interviews.html?record=d19"
+        },
+        {
+          "label": "Kapa News · Ιστορία και υπεύθυνοι συνεργασίας πετοσφαίρισης · 29/09/2019",
+          "url": "https://www.kapa-news.gr/2019/09/volleyball-beach-volley.html"
+        },
+        {
+          "label": "Ο Διάλογος · Προπονητές Πιερικός–Αρχέλαος · 01/02/2023",
+          "url": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%BA%CE%BF%CF%80%CE%AE-%CE%B2%CE%B1%CF%83%CE%B9%CE%BB%CF%8C%CF%80%CE%B9%CF%84%CE%B1%CF%82-%CF%80%CE%B9%CE%B5%CF%81%CE%B9%CE%BA%CF%8C%CF%82-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-volleybal/"
+        }
+      ]
+    },
+    {
+      "id": "arch-vasilis-d-noulezas-handball",
+      "name": "Βασίλης Δ. Νουλέζας",
+      "name_en": "Vasilis D. Noulezas",
+      "role": "Έφορος · Χειροσφαίριση",
+      "role_en": "Handball department official",
+      "category": "admin",
+      "period": "2006",
+      "bio": "Ο Βασίλης Δ. Νουλέζας καταγράφεται ως έφορος του τμήματος χειροσφαίρισης του Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης σε δημόσια τοποθέτηση που δημοσιεύθηκε στην εφημερίδα «Ημερησία» στις 20 Ιανουαρίου 2006. Στην παρέμβασή του αναφέρθηκε στην αυτόνομη πορεία του συλλόγου, στις προοπτικές επιστροφής του χάντμπολ στη μεγάλη κατηγορία και στη σημασία της στήριξης από το πιερικό φίλαθλο κοινό και τη διοίκηση. Η παρούσα καταχώριση περιορίζεται στον τεκμηριωμένο ρόλο του στο τμήμα.",
+      "bio_en": "Vasilis D. Noulezas is recorded as a handball department official of G.A.S. Archelaos Katerinis in a public statement published by the newspaper Imerisia on 20 January 2006. He discussed the club’s independent course, its hopes of returning to the top division, and the importance of support from Pieria fans and club officials. This profile is limited to his documented role in the handball section.",
+      "refs": [
+        {
+          "label": "Εφημερίδα «Ημερησία» · 20/01/2006 · αρχειακή καταχώριση d10",
+          "url": "https://archelaos.club/interviews.html?record=d10"
+        }
+      ]
     }
   ]
 }
