@@ -3,6 +3,7 @@ import { test } from 'node:test';
 import { DatabaseSync } from 'node:sqlite';
 import { parseFinding, classification, FINDING_CODES } from '../src/policy.mjs';
 import { HealerLedger } from '../src/ledger.mjs';
+import { REVIEWED_RECIPES } from '../src/recipes.mjs';
 
 const NOW = Date.parse('2026-11-04T20:35:00Z');
 const good = (overrides = {}) => ({
@@ -82,8 +83,26 @@ test('persistent SQLite ledger stores one observation for repeated delivery', as
   assert.equal(found.status, 'FOUND');
   assert.equal(found.observationCount, 2);
   assert.equal(ledger.status().incidentCount, 1);
+  assert.equal(ledger.status().reviewedRecipeCount, 3);
+  assert.equal(found.reviewedRecipe.id, 'ARCH-HTML-ESCAPES-001');
+  assert.equal(found.reviewedRecipe.executable, false);
+  assert.equal(found.reviewedRecipe.productionVerified, false);
   assert.equal(ledger.status().observationCount, 2);
   assert.equal(db.prepare('SELECT count(*) AS n FROM observations').get().n, 2);
+  db.close();
+});
+
+test('all reviewed catalog entries are inert and match known diagnosis codes', () => {
+  const { ledger, db } = storageFixture();
+  assert.equal(REVIEWED_RECIPES.length, 3);
+  for (const recipe of REVIEWED_RECIPES) {
+    assert.equal(classification(recipe.incidentCode).recipe, recipe.id);
+    const persisted = ledger.reviewedRecipe(recipe.id);
+    assert.equal(persisted.executable, false);
+    assert.equal(persisted.productionVerified, false);
+    assert.equal(persisted.revision, '2026-11-03');
+  }
+  assert.throws(() => ledger.reviewedRecipe('UNTRUSTED-RECIPE'), /UNREVIEWED_RECIPE/);
   db.close();
 });
 
