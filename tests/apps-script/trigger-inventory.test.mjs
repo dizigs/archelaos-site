@@ -3,6 +3,8 @@ import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 import { runInNewContext } from 'node:vm';
+import { applyChanges } from '../../automation/apps-script/files.mjs';
+import { files as originalProjectFiles } from './fixtures.mjs';
 
 const source = readFileSync(new URL('../../automation/apps-script/templates/ArchelaosTriggerInventory.gs', import.meta.url), 'utf8');
 
@@ -71,4 +73,23 @@ test('Apps Script .gs template counts duplicate installed triggers without expos
     assert.deepEqual(Object.keys(t).sort(), ['eventType', 'handler', 'sourceType']);
   }
   assert.equal(x.calls.writes, 0);
+});
+
+test('staged .gs source is accepted as an explicit creation by the existing full-file editor', () => {
+  const before = originalProjectFiles();
+  const after = applyChanges(before, [{
+    name: 'ArchelaosTriggerInventory.gs', source, create: true
+  }]);
+  assert.equal(after.length, before.length + 1);
+  const staged = after.find(x => x.name === 'ArchelaosTriggerInventory' && x.type === 'SERVER_JS');
+  assert.ok(staged);
+  assert.equal(staged.source, source);
+  for (const original of before) {
+    const preserved = after.find(x => x.name === original.name && x.type === original.type);
+    assert.ok(preserved);
+    assert.equal(preserved.source, original.source);
+  }
+  assert.throws(() => applyChanges(after, [{
+    name:'ArchelaosTriggerInventory.gs', source, create: true
+  }]), err => err.code === 'FILE_ALREADY_EXISTS');
 });
