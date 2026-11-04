@@ -16,6 +16,7 @@ export class SqlScriptStore {
       'CREATE TABLE IF NOT EXISTS script_admin_grants(actor TEXT PRIMARY KEY,session TEXT NOT NULL)',
       'CREATE TABLE IF NOT EXISTS script_browser_backup_confirmations(id TEXT PRIMARY KEY, expires INTEGER NOT NULL)',
       'CREATE TABLE IF NOT EXISTS script_operator_probes(id TEXT PRIMARY KEY,status TEXT NOT NULL,expires INTEGER NOT NULL,updated INTEGER NOT NULL,result TEXT)',
+      'CREATE TABLE IF NOT EXISTS script_signed_probes(run_key TEXT PRIMARY KEY, token_hash TEXT NOT NULL, source_sha TEXT NOT NULL, at INTEGER NOT NULL, result TEXT NOT NULL)',
       'CREATE TABLE IF NOT EXISTS script_refresh_claims(id TEXT PRIMARY KEY)',
       'CREATE TABLE IF NOT EXISTS script_audit(id INTEGER PRIMARY KEY AUTOINCREMENT,operation TEXT NOT NULL,code TEXT NOT NULL,at INTEGER NOT NULL)'
     ]) this.sql.exec(statement);
@@ -87,6 +88,35 @@ export class SqlScriptStore {
       const row = [...this.sql.exec('SELECT id FROM script_browser_backup_confirmations WHERE id=? AND expires>?', id, this.clock())][0];
       if (!row) throw new ScriptFault('BACKUP_CONFIRMATION_EXPIRED_OR_REPLAYED', 409);
       this.sql.exec('DELETE FROM script_browser_backup_confirmations WHERE id=?', id);
+    });
+  }
+  // One GitHub OIDC run attempt authorizes exactly ONE read-only readiness
+  // receipt. Atomic uniqueness prevents replay even with a fresh OIDC JWT.
+  // The digest only indexes a signed token; never store the bearer token.
+  recordGithubSignedReadiness(runKey, tokenHash, sourceCommit) {
+    if (typeof runKey !== 'string' || !/^\d{1,20}:[1-9]\d{0,3}$/.test(runKey) ||
+        typeof tokenHash !== 'string' || !/^[0-9a-f]{64}$/.test(tokenHash) ||
+        typeof sourceCommit !== 'string' || !/^[0-9a-f]{40}$/.test(sourceCommit)) {
+      throw new ScriptFault('GITHUB_READONLY_RECEIPT_INVALID', 422);
+    }
+    return this.storage.transactionSync(() => {
+      if ([...this.sql.exec('SELECT 1 FROM script_signed_probes WHERE run_key=?', runKey)].length) {
+        throw new ScriptFault('GITHUB_OIDC_RUN_ALREADY_CONSUMED', 409);
+      }
+      const count = [...this.sql.exec('SELECT COUNT(*) AS n FROM script_signed_probes')][0].n;
+      if (count >= 256) throw new ScriptFault('GITHUB_READONLY_RECEIPT_CAPACITY', 429);
+      const grants = [...this.sql.exec('SELECT COUNT(*) AS n FROM script_admin_grants')][0].n;
+      const backups = [...this.sql.exec('SELECT COUNT(*) AS n FROM script_private_blobs')][0].n;
+      const verified = [...this.sql.exec("SELECT COUNT(*) AS n FROM script_audit WHERE code='BROWSER_ENCRYPTED_BACKUP_VERIFIED'")][0].n;
+      const edits = [...this.sql.exec('SELECT COUNT(*) AS n FROM script_operations')][0].n;
+      const status = grants === 1 && backups >= 1 && verified >= 1 && edits === 0
+        ? 'GITHUB_OIDC_READONLY_PROBE_VERIFIED' : 'GITHUB_OIDC_READONLY_PREREQUISITES_INCOMPLETE';
+      const result = { status, signedExecution: true, readOnly: true,
+        encryptedBackupPresent: backups >= 1, googleEditsPerformed: false, editorEnabled: false };
+      this.sql.exec('INSERT INTO script_signed_probes(run_key,token_hash,source_sha,at,result) VALUES(?,?,?,?,?)',
+        runKey, tokenHash, sourceCommit, this.clock(), JSON.stringify(result));
+      this.audit(crypto.randomUUID(), status);
+      return result;
     });
   }
   // Cloudflare account-authenticated operator probes are inserted only through
