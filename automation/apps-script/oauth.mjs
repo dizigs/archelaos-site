@@ -23,7 +23,7 @@ export async function verifyGoogleIdToken(token, { clientId, nonce, fetchGoogle 
     const parts = token.split('.'); if (parts.length !== 3) throw new Error();
     const header = JSON.parse(new TextDecoder().decode(unbase64url(parts[0])));
     if (header.alg !== 'RS256' || typeof header.kid !== 'string' || header.kid.length > 128 || header.jku || header.jwk || header.x5u || header.crit) throw new Error();
-    const keys = await boundedJson(await fetchGoogle('https://www.googleapis.com/oauth2/v3/certs', { redirect: 'error', signal: AbortSignal.timeout(10000) }), 65536);
+    const keys = await boundedJson(await fetchGoogle('https://www.googleapis.com/oauth2/v3/certs', { redirect: 'manual', signal: AbortSignal.timeout(10000) }), 65536);
     if (!Array.isArray(keys.keys) || keys.keys.length > 20) throw new Error();
     const matching = keys.keys.filter(key => key.kid === header.kid && key.kty === 'RSA' && (!key.alg || key.alg === 'RS256') && (!key.use || key.use === 'sig'));
     if (matching.length !== 1) throw new Error();
@@ -42,7 +42,10 @@ export class ScriptOAuth {
     if (!config || typeof config.clientId !== 'string' || !config.clientId || typeof config.clientSecret !== 'string' || !config.clientSecret || typeof config.expectedAdminEmail !== 'string' || !/^[^\s@]+@[^\s@]+$/.test(config.expectedAdminEmail) || !(cipher instanceof PrivateCipher)) throw new ScriptFault('OAUTH_CONFIGURATION_REQUIRED', 503);
     const origin = new URL(config.origin);
     if (origin.protocol !== 'https:' || origin.hostname !== 'archelaos-automation-bridge.dimitriszgalanis.workers.dev' || origin.port || origin.username || origin.password || origin.pathname !== '/' || origin.search || origin.hash) throw new ScriptFault('EXISTING_BRIDGE_ORIGIN_REQUIRED', 503);
-    Object.assign(this, { config, store, cipher, fetchGoogle, now });
+    Object.assign(this, { config, store, cipher, now });
+    // Workers native fetch rejects non-global receivers. Keep the provider
+    // function detached from this instance and invoke it as a plain function.
+    this.fetchGoogle = (...args) => fetchGoogle(...args);
     this.callbackUrl = origin.origin + '/oauth/callback';
   }
   async begin() {
@@ -57,7 +60,7 @@ export class ScriptOAuth {
   }
   async exchange(body) {
     try {
-      const response = await this.fetchGoogle('https://oauth2.googleapis.com/token', { method: 'POST', redirect: 'error', signal: AbortSignal.timeout(10000), headers: { 'content-type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams({ ...body, client_id: this.config.clientId, client_secret: this.config.clientSecret }).toString() });
+      const response = await this.fetchGoogle('https://oauth2.googleapis.com/token', { method: 'POST', redirect: 'manual', signal: AbortSignal.timeout(10000), headers: { 'content-type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams({ ...body, client_id: this.config.clientId, client_secret: this.config.clientSecret }).toString() });
       return await boundedJson(response, 65536);
     } catch (error) { if (error instanceof ScriptFault) throw error; throw new ScriptFault('GOOGLE_TOKEN_EXCHANGE_UNCERTAIN', 503); }
   }
@@ -109,7 +112,7 @@ export class ScriptOAuth {
       // RFC6749: omitted refresh scope is identical to the original verified
       // grant. A returned narrowed/expanded scope is explicitly revalidated.
       const scopes = token.scope === undefined ? grantedScopes(data.scopes.join(' ')) : grantedScopes(token.scope);
-      const user = await boundedJson(await this.fetchGoogle('https://openidconnect.googleapis.com/v1/userinfo', { redirect: 'error', signal: AbortSignal.timeout(10000), headers: { authorization: 'Bearer ' + token.access_token } }), 32768);
+      const user = await boundedJson(await this.fetchGoogle('https://openidconnect.googleapis.com/v1/userinfo', { redirect: 'manual', signal: AbortSignal.timeout(10000), headers: { authorization: 'Bearer ' + token.access_token } }), 32768);
       const principal = this.admin(user);
       if (principal.sub !== data.principal.sub) throw new ScriptFault('REFRESH_PRINCIPAL_MISMATCH', 403);
       if (token.refresh_token !== undefined && (typeof token.refresh_token !== 'string' || token.refresh_token.length < 16 || token.refresh_token.length > 8192)) throw new ScriptFault('INVALID_REFRESH_ROTATION', 502);
