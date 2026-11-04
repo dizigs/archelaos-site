@@ -102,6 +102,38 @@ is claimed until its status is confirmed.
 Evidence:
 `docs/automation/evidence/pr124-admin-grant-readonly-verifier-20261104.json`.
 
+## Browser link tracking-query compatibility — 2026-11-04
+
+The owner received `UNSUPPORTED_SCRIPT_QUERY` on the read-only
+`/api/apps-script/verify` endpoint. The prior interface refused **every**
+query string; some link surfaces add a benign `utm_source` parameter. The
+actual browser query was not directly observed, so this is a source-grounded,
+consistent diagnosis rather than evidence of a captured request.
+
+A narrow fix allows only up to five unique, short and safe
+`utm_source`/`utm_medium`/`utm_campaign`/`utm_content`/`utm_term`
+parameters **on the browser-only GET verify endpoint**, never on editor APIs.
+All other query names, duplicate or oversized values remain rejected.
+Authorization still requires the Admin's HttpOnly OAuth session, verified Admin
+identity and grant scope. The endpoint still returns only a sanitized project
+verification result without revealing Google source/tokens; live writes stay OFF.
+
+Current production deployment: `cac0985f-dfd4-4a61-a14f-b31ae9b4d1c5`,
+version `5c40f6f3-be4e-4bbf-ad48-fbc36020b6b3`, previous rollback
+version `1b5a504e-66c7-411a-8ac6-e7f774362599`. Cloudflare readback
+verified all ten binding names and ten modules. Fresh external GETs:
+`/health` 200, `/api/apps-script/verify?utm_source=chatgpt.com` without
+cookie 401 (`OAUTH_COOKIE_REQUIRED`),
+`/api/apps-script/verify?code=bogus` 404
+(`UNSUPPORTED_SCRIPT_QUERY`), normal editor content GET 503
+(`EXECUTOR_INTERFACE_UNCONFIGURED`). Read-only SQLite inspection showed one
+grant, one OAuth session, zero operations, zero backups; no SQL rows changed.
+
+**An authenticated browser verification still must be performed by the user**
+in the same browser as the Google Admin OAuth grant; no successful Google API
+getContent is claimed until then. Evidence:
+`docs/automation/evidence/pr124-verifier-utm-allowlist-20261104.json`.
+
 ## Implemented, tested boundaries
 
 - Scoped Admin authorization-code flow: `openid email script.projects`, PKCE-S256,
