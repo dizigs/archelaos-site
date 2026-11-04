@@ -31,10 +31,30 @@
     }
   },
   "dependencyGraph": {
-    "enabled": "NOT_VERIFIED",
-    "codexSbomStatus": 404,
-    "codexCompareStatus": 403,
-    "note": "Endpoint authorization/feature availability not distinguishable yet; real PR Actions verification pending"
+    "enabled": "NOT_VERIFIED_OR_UNAVAILABLE",
+    "actionRun": 41747082111,
+    "checkId": 126302696606,
+    "conclusion": "failure",
+    "exactMessage": "Dependency review is not supported on this repository. Please ensure that Dependency graph is enabled, see https://github.com/dizigs/archelaos-site/settings/security_analysis",
+    "negativeVulnerableDependencyTest": "NOT RUN: graph unavailable; no vulnerable package introduced"
   },
-  "remoteCi": "PENDING"
+  "remoteCi": {
+    "head": "bfcca9ff69a283b10004ca1a5a0f6358730bcb3c",
+    "zizmorCheck": 126302696894,
+    "regularHighGate": "PASS",
+    "fullRegularReport": "8 LOW, scanner exit12; retained annotations",
+    "newAuditorGate": "PENDING, expected ownership blocker67"
+  },
+  "auditorAfter": {
+    "high": 1,
+    "medium": 5,
+    "low": 49,
+    "informational": 34
+  },
+  "auditorOwnershipBlocker": {
+    "pr": 67,
+    "file": ".github/workflows/google-analytics-aggregate.yml",
+    "rule": "excessive-permissions",
+    "scope": "workflow-level id-token: write"
+  }
 }
