@@ -26,6 +26,8 @@ permissions:
   contents: read
 jobs:
   axe:
+    permissions:
+      contents: write # temporary same-repo proof branch only; never merge
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -42,13 +44,44 @@ jobs:
         run: |
           python rebuild/tools/build_release.py
           python rebuild/tools/verify_release.py
-      - name: Generate an isolated performance lock via official npm registry (temporary proof only)
+      - name: Generate and normalize full npm v3 perf lock with official registry integrity
         run: |
           set -euo pipefail
           npm install --package-lock-only --ignore-scripts --no-audit --no-fund --prefix .github/ci-performance-tools
-          node -e 'const p=require("./.github/ci-performance-tools/package-lock.json");const entries=Object.entries(p.packages).filter(([k])=>k);if(p.lockfileVersion!==3||entries.some(([,v])=>!v.integrity)){throw Error("invalid npm v3 lock/integrity")}; console.log("performance lock v3 entries="+Object.keys(p.packages).length+" integrity="+entries.length);'
+          # npm 10 currently materializes foreign optional esbuild platforms as mandatory in first lock.
+          # npm's second offline lock-only normalization prunes those platforms on this Linux runner.
+          npm install --package-lock-only --ignore-scripts --offline --no-audit --no-fund --prefix .github/ci-performance-tools
+          node <<'NODE'
+          const fs=require('fs'), cp=require('child_process');
+          const file='.github/ci-performance-tools/package-lock.json';
+          const j=JSON.parse(fs.readFileSync(file,'utf8'));
+          const tarpath='node_modules/sitespeed.io/node_modules/tar';
+          const zod3path='node_modules/sitespeed.io/node_modules/zod';
+          const tar = j.packages[tarpath];
+          const zod = j.packages['node_modules/zod'];
+          if(j.lockfileVersion!==3||!tar||!zod||tar.version!=='7.5.15'||zod.version!=='4.6.7') throw Error('unexpected npm upstream graph; refuse to patch');
+          const official=JSON.parse(cp.execFileSync('npm',['view','tar@7.5.22','--json'],{encoding:'utf8',maxBuffer:1e7}));
+          if(official.version!=='7.5.22'||!official.dist.integrity.startsWith('sha512-')||!official.dist.tarball.startsWith('https://registry.npmjs.org/tar/-/tar-7.5.22.tgz')) throw Error('bad official tar package');
+          j.packages[tarpath]={...tar,version:official.version,resolved:official.dist.tarball,integrity:official.dist.integrity,dependencies:official.dependencies,engines:official.engines};
+          delete j.packages[zod3path]; // v3 is vulnerable and not used when root v4 override applies
+          fs.writeFileSync(file,JSON.stringify(j,null,2)+'\n');
+          console.log('replaced vulnerable tar with official',official.version,'integrity',official.dist.integrity);
+          NODE
+          npm install --package-lock-only --ignore-scripts --offline --no-audit --no-fund --prefix .github/ci-performance-tools
+          node - <<'NODE'
+          const fs=require('fs');
+          const p=JSON.parse(fs.readFileSync('.github/ci-performance-tools/package-lock.json','utf8'));
+          const all=Object.entries(p.packages);const rest=all.filter(([n])=>n);
+          if(p.lockfileVersion!==3||rest.some(([,x])=>!x.integrity))throw Error('bad npm v3 lock integrity');
+          for(const [n,x] of rest){
+           if(n.endsWith('/zod')&&x.version!=='4.6.7')throw Error('vulnerable zod '+n+'@'+x.version);
+           if(n.endsWith('/tar')&&x.version!=='7.5.22')throw Error('vulnerable tar '+n+'@'+x.version);
+           if(x.os&&!x.os.includes('linux')&&!x.optional)throw Error('foreign platform nonoptional '+n)
+          }
+          console.log('SAFE LOCK npm v3 packages',all.length,'with',rest.length,'integrity entries; tar7.5.22 and zod4.6.7');
+          NODE
           sha256sum .github/ci-performance-tools/package-lock.json
-      - name: Perform real GitHub-hosted performance npm ci and inspect CLI entrypoints
+      - name: Prove actual Linux npm ci, both performance CLI entrypoints and npm high-risk audit
         run: |
           set -euo pipefail
           npm ci --ignore-scripts --no-audit --no-fund --prefix .github/ci-performance-tools
@@ -56,6 +89,23 @@ jobs:
           test -x .github/ci-performance-tools/node_modules/.bin/sitespeed.io
           ./.github/ci-performance-tools/node_modules/.bin/lhci --version
           ./.github/ci-performance-tools/node_modules/.bin/sitespeed.io --version
+          npm audit --audit-level=high --prefix .github/ci-performance-tools --omit=dev
+      - name: Commit verified performance lock to dedicated non-main dependency branch
+        if: github.event_name == 'pull_request' && github.head_ref == 'chatgpt/issue66-performance-lock-gen-proof-20261104' && github.event.pull_request.head.repo.full_name == github.repository
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REPOSITORY" = 'dizigs/archelaos-site'
+          test "$GITHUB_HEAD_REF" = 'chatgpt/issue66-performance-lock-gen-proof-20261104'
+          cp .github/ci-performance-tools/package-lock.json /tmp/issue66-perf-lockfile.json
+          git fetch --no-tags origin refs/heads/chatgpt/issue66-performance-deps-20261104:refs/remotes/origin/issue66-perf-deps
+          git switch -c issue66-perf-deps origin/issue66-perf-deps
+          cp /tmp/issue66-perf-lockfile.json .github/ci-performance-tools/package-lock.json
+          git add .github/ci-performance-tools/package-lock.json
+          git -c user.name='Archelaos CI Proof' -c user.email='admin@archelaos.club' commit -m 'ci(security): commit hosted-verified performance npm v3 lock (#66)'
+          AUTH=$(printf 'x-access-token:%s' "$GITHUB_TOKEN" | base64 -w0)
+          git -c "http.https://github.com/.extraheader=AUTHORIZATION: basic $AUTH" push origin HEAD:refs/heads/chatgpt/issue66-performance-deps-20261104
       - name: Preserve temporary performance lockfile for audited dependency PR
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
