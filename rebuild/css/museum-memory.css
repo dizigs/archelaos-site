@@ -321,6 +321,53 @@
 .memory-faq-intro > p:last-of-type { margin-left:auto; margin-right:auto; }
 .memory-faq-deco { margin-left:auto; margin-right:auto; }
 
+/* Founder quotation: identical type, gold and framing to the original
+   contact-page .ct-quote, with a two-line name/title attribution. */
+.memory-founder-quote {
+  padding:clamp(70px,8vw,115px) 0;
+  background:#f8f6ef;
+}
+.memory-founder-inner {
+  text-align:center;
+}
+.memory-founder-figure {
+  margin:52px 0 0;
+  padding:25px 20px;
+  text-align:center;
+  border-top:1px solid #d3c096;
+  border-bottom:1px solid #d3c096;
+}
+.memory-founder-figure blockquote {
+  font:italic 400 clamp(20px,2.4vw,29px)/1.52 Georgia,serif;
+  color:#604a25;
+  max-width:900px;
+  margin:auto;
+}
+.memory-founder-credit {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:3px;
+  margin-top:24px;
+  color:#405944;
+  font:750 12px/1.55 Inter,sans-serif;
+  letter-spacing:.1em;
+}
+.memory-founder-credit strong {
+  font-weight:750;
+  color:inherit;
+}
+.memory-founder-credit span {
+  font-size:11px;
+  color:inherit;
+  letter-spacing:.045em;
+}
+@media (max-width:640px) {
+  .memory-founder-quote {padding:62px 0}
+  .memory-founder-figure {margin-top:0;padding:24px 8px}
+  .memory-founder-credit {margin-top:24px}
+}
+
 @media (max-width:1050px) {
   .memory-hero-layout {grid-template-columns:1fr 1fr;gap:20px}
   .memory-art-frame {height:470px}
