@@ -14,6 +14,18 @@ class SourceAudit(unittest.TestCase):
         self.assertFalse(report['grantedScopesVerified'])
         self.assertFalse(report['liveOAuthRequestVerified'])
         self.assertNotIn('PRIVATE_SYNTHETIC_SECRET', json.dumps(report))
+    def test_script_api_url_requires_quoted_https_and_exact_host(self):
+        valid = inspect_source(b'const url="https://script.googleapis.com/v1/projects";', 'application/javascript')
+        self.assertTrue(valid['scriptApiOriginLiteralPresent'])
+        for source in (
+            b'const url="https://script.googleapis.com.evil.example/v1";',
+            b'const url="https://evil.example/?next=https://script.googleapis.com/v1";',
+            b'const url="http://script.googleapis.com/v1";',
+            b'// script.googleapis.com',
+        ):
+            with self.subTest(source=source):
+                self.assertFalse(inspect_source(source, 'application/javascript')['scriptApiOriginLiteralPresent'])
+
     def test_multipart_source_metadata_never_exports_names_or_bodies(self):
         payload = b'--fixture\r\nContent-Type: application/javascript\r\nContent-Disposition: form-data; name="private-name.js"\r\n\r\nconst a="PRIVATE_SYNTHETIC_BODY";\r\n--fixture--\r\n'
         report = inspect_source(payload, 'multipart/form-data; boundary=fixture')

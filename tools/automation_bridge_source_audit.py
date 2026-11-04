@@ -6,12 +6,22 @@ import re
 from email import policy
 from email.parser import BytesParser
 from urllib.request import Request
+from urllib.parse import urlsplit
 
 from cloudflare_pages_status import ACCOUNT, API, TOKEN, ProviderFailure, provider_open
 
 WORKER = 'archelaos-automation-bridge'
 MAX_SOURCE = 2 * 1024 * 1024
 
+
+
+def has_exact_script_api_url_literal(source):
+    """Report presence of a quoted HTTPS URL with the exact API host."""
+    for literal in re.findall(r'''["'\x60](https://[^"'\x60\s<>]+)''', source):
+        parsed = urlsplit(literal)
+        if parsed.scheme == 'https' and parsed.netloc == 'script.googleapis.com':
+            return True
+    return False
 
 def inspect_source(payload, content_type):
     if len(payload) > MAX_SOURCE:
@@ -35,7 +45,7 @@ def inspect_source(payload, content_type):
         'moduleCount': len(modules),
         'normalizedModuleSha256': hashlib.sha256(''.join(sorted(hashlib.sha256(m).hexdigest() for m in modules)).encode()).hexdigest(),
         'scriptProjectsLiteralPresent': 'https://www.googleapis.com/auth/script.projects' in source,
-        'scriptApiOriginLiteralPresent': 'script.googleapis.com' in source,
+        'scriptApiOriginLiteralPresent': has_exact_script_api_url_literal(source),
         'knownRouteLiteralsObserved': {route: route in source for route in ('/health', '/auth/start', '/oauth/callback', '/auth/status', '/api/ping', '/api/apps-script/')},
         'sourceBodyExported': False, 'privateGoogleContentRead': False,
         'grantedScopesVerified': False, 'liveOAuthRequestVerified': False,

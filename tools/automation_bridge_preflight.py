@@ -6,7 +6,6 @@ creates triggers, deploys Workers or claims end-to-end integration from metadata
 """
 from __future__ import annotations
 
-import json
 import os
 import re
 import sys
@@ -122,12 +121,15 @@ def inspect_bridge(request=api, *, account=ACCOUNT, project=PROJECT, token_prese
 
 def main():
     report = inspect_bridge()
-    payload = json.dumps(report, ensure_ascii=True, sort_keys=True)
+    # Never print the provider-derived report: even filtered metadata could
+    # contain a future sensitive field. Emit only a fixed status label.
+    verified = report["status"] == "METADATA_OBSERVED"
+    label = "METADATA_OBSERVED" if verified else "METADATA_NOT_VERIFIED"
     if os.environ.get("GITHUB_ACTIONS") == "true":
-        print("::notice title=Automation bridge access evidence::" + payload.replace("%", "%25"))
+        print("::notice title=Automation bridge access evidence::" + label)
     else:
-        print(json.dumps(report, ensure_ascii=True, indent=2, sort_keys=True))
-    return 0 if report["status"] == "METADATA_OBSERVED" else 1
+        print(label)
+    return 0 if verified else 1
 
 
 if __name__ == "__main__":
