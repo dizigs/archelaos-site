@@ -101,3 +101,31 @@ export async function handleUptimeMonitor(request,env){
   return out('UPTIME_ENSURE_ACCEPTED',200,{created,existing:matches.filter(m=>m.found.length).map(m=>m.target),notificationContactConfigured:true});
  }catch(error){const e=String(error?.message||'UPTIME_FAILURE');return out(/^UPTIME_[A-Z0-9_]+$/.test(e)?e:'UPTIME_FAILURE',502)}
 }
+
+/**
+ * GitHub Actions identity bridge. The caller's signed OIDC JWT is checked by
+ * reviewed Worker code (the verifyIdentity callback is never HTTP supplied).
+ * We use the existing private operator secret inside the Worker ONLY.
+ * This route cannot read or return any secret; no external URL/body is used.
+ * The GH workflow provides a single-writer concurrency guard.
+ */
+export async function handleUptimeGithubRequest(request,env,verifyIdentity){
+ const url=new URL(request.url);
+ const mode=url.pathname==='/api/uptimerobot/github-status'?'status':
+  url.pathname==='/api/uptimerobot/github-ensure'?'ensure':null;
+ if(mode===null)return null;
+ if(request.method!=='POST')return out('METHOD_NOT_ALLOWED',405);
+ if(url.search||request.body!==null)return out('INVALID_REQUEST',400);
+ if(!env?.UPTIMEROBOT_OPERATOR_TOKEN||!env?.UPTIMEROBOT_MAIN_API_KEY)return out('UPTIME_NOT_CONFIGURED',503);
+ const header=request.headers.get('authorization')||'';
+ if(!/^Bearer [A-Za-z0-9._-]{200,8192}$/.test(header))return out('GITHUB_OIDC_AUTH_REQUIRED',401);
+ if(typeof verifyIdentity!=='function')return out('GITHUB_OIDC_AUTH_REQUIRED',401);
+ try{await verifyIdentity(header.slice(7))}
+ catch{return out('GITHUB_OIDC_AUTH_REQUIRED',401)}
+ const inner=new Request('https://archelaos.club/api/uptimerobot/'+(mode==='status'?'status':'ensure'),{
+  method:mode==='status'?'GET':'POST',
+  headers:{authorization:'Bearer '+env.UPTIMEROBOT_OPERATOR_TOKEN,...(mode==='ensure'?{'content-type':'application/json'}:{})},
+  ...(mode==='ensure'?{body:JSON.stringify({scope:'core-v1'})}:{})
+ });
+ return handleUptimeMonitor(inner,env);
+}
