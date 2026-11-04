@@ -321,56 +321,52 @@
 .memory-faq-intro > p:last-of-type { margin-left:auto; margin-right:auto; }
 .memory-faq-deco { margin-left:auto; margin-right:auto; }
 
-/* Founder's words — restrained gold typography, no card or left rule. */
+/* Historic quotation — matches the site's existing cream-and-gold quote treatment. */
 .memory-founder-quote {
-  padding:clamp(74px,8vw,112px) 0;
-  background:#f8f4ea;
+  background:#f8f7f2;
+  padding:clamp(44px,5.6vw,72px) 0 clamp(42px,5vw,64px);
+  border-bottom:1px solid #d4c29d;
 }
 .memory-founder-inner {
-  max-width:1120px;
+  max-width:1200px;
   text-align:center;
 }
-.memory-founder-overline {
-  margin:0 0 26px;
-  color:#876936;
-  font:700 11px/1.5 Inter,sans-serif;
-  letter-spacing:.2em;
-}
 .memory-founder-figure {
-  max-width:1010px;
   margin:0 auto;
+  max-width:1140px;
 }
 .memory-founder-figure blockquote {
-  max-width:1010px;
   margin:0 auto;
-  color:#84642d;
-  font:italic 500 clamp(26px,2.75vw,39px)/1.55 var(--memory-serif);
-  letter-spacing:-.012em;
+  max-width:1140px;
+  color:#805822;
+  font:italic 400 clamp(27px,3.05vw,40px)/1.45 Georgia,"Times New Roman",serif;
+  letter-spacing:0;
   text-wrap:pretty;
 }
 .memory-founder-credit {
   display:flex;
   flex-direction:column;
   align-items:center;
-  gap:6px;
-  margin-top:34px;
-  color:#486050;
-  font:500 13px/1.65 Inter,sans-serif;
+  gap:3px;
+  margin:30px 0 0;
+  color:#235038;
+  font:500 14px/1.5 Inter,sans-serif;
 }
 .memory-founder-credit strong {
-  color:#254737;
-  font-weight:700;
+  color:#194832;
+  font:700 16px/1.55 Inter,sans-serif;
 }
-.memory-founder-credit small {
-  color:#54695b;
-  font-size:11px;
-  line-height:1.7;
+.memory-founder-credit span {
+  color:#375e47;
+  font-size:13px;
 }
 @media (max-width:640px) {
-  .memory-founder-quote {padding:65px 0 72px}
-  .memory-founder-overline {margin-bottom:19px;font-size:10px}
-  .memory-founder-figure blockquote {font-size:clamp(24px,6.9vw,31px);line-height:1.5}
-  .memory-founder-credit {margin-top:26px;font-size:12px}
+  .memory-founder-quote {padding:53px 0 49px}
+  .memory-founder-inner {width:calc(100% - 34px)}
+  .memory-founder-figure blockquote {font-size:clamp(24px,6vw,31px);line-height:1.48}
+  .memory-founder-credit {margin-top:25px}
+  .memory-founder-credit strong {font-size:15px}
+  .memory-founder-credit span {font-size:12px}
 }
 
 @media (max-width:1050px) {
