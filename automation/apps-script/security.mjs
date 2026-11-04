@@ -46,6 +46,9 @@ export class PrivateCipher {
   }
 }
 export async function boundedJson(response, max = 3 * 1024 * 1024) {
+  // Cloudflare Workers does not implement redirect: 'error'. Callers use
+  // redirect: 'manual' and refuse 3xx responses before reading any body or URL.
+  if (response.status >= 300 && response.status < 400) throw new ScriptFault('GOOGLE_REDIRECT_REJECTED', 502);
   if (!response.ok) throw new ScriptFault('GOOGLE_HTTP_' + response.status, response.status === 401 || response.status === 403 ? response.status : 502);
   const reader = response.body?.getReader(); if (!reader) throw new ScriptFault('GOOGLE_EMPTY_RESPONSE', 502);
   let size = 0; const parts = [];
