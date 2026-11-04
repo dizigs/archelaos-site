@@ -32,7 +32,7 @@ class CalendarOutputSecurity(unittest.TestCase):
         self.root = self.workspace / "repo"
         self.tools = self.root / "rebuild/tools"
         self.tools.mkdir(parents=True)
-        for name in ("import_match_calendar.py", "public_snapshot.py"):
+        for name in ("import_match_calendar.py", "public_snapshot.py", "secure_import_io.py"):
             shutil.copyfile(TOOLS / name, self.tools / name)
         self.script = self.tools / "import_match_calendar.py"
         self.parent = self.root / "rebuild/test-artifacts"
@@ -156,7 +156,10 @@ class CalendarOutputSecurity(unittest.TestCase):
         spec.loader.exec_module(helper)
         spec = importlib.util.spec_from_file_location("calendar_subject", self.script)
         subject = importlib.util.module_from_spec(spec)
-        with patch.dict(sys.modules, {"public_snapshot": helper}):
+        reader_spec = importlib.util.spec_from_file_location("calendar_input_fixture", self.tools / "secure_import_io.py")
+        reader = importlib.util.module_from_spec(reader_spec)
+        reader_spec.loader.exec_module(reader)
+        with patch.dict(sys.modules, {"public_snapshot": helper, "secure_import_io": reader}):
             spec.loader.exec_module(subject)
         return subject
 
