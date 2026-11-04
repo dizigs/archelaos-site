@@ -7,14 +7,14 @@ const json = (data, status = 200) => Response.json(data, { status, headers });
 export function isAppsScriptRequest(request) {
   const url = new URL(request.url);
   return (request.method === 'GET' && url.pathname === '/auth/start' && url.searchParams.get('purpose') === 'apps-script')
-    || (request.method === 'GET' && url.pathname === '/oauth/callback' && url.searchParams.get('state')?.startsWith('as_'))
+    || (request.method === 'GET' && url.pathname === '/oauth/callback' && /^as_[A-Za-z0-9_-]{43}$/.test(url.searchParams.get('state') || ''))
     || url.pathname.startsWith('/api/apps-script/');
 }
 export function appsScriptExtension({ oauth, authenticateExecutor, editorFor }) {
   return async request => {
     const url = new URL(request.url);
     const scriptStart = request.method === 'GET' && url.pathname === '/auth/start' && url.searchParams.get('purpose') === 'apps-script';
-    const scriptCallback = request.method === 'GET' && url.pathname === '/oauth/callback' && url.searchParams.get('state')?.startsWith('as_');
+    const scriptCallback = request.method === 'GET' && url.pathname === '/oauth/callback' && /^as_[A-Za-z0-9_-]{43}$/.test(url.searchParams.get('state') || '');
     const api = url.pathname.startsWith('/api/apps-script/');
     if (!scriptStart && !scriptCallback && !api) return null;
     try {

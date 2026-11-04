@@ -141,7 +141,7 @@ installation. No additional Worker or paid plan is authorized by this package.
 ## Actual tests
 
 `node --test --test-reporter=tap --test-concurrency=1 tests/apps-script/*.test.mjs`
-currently runs38 cases using actual persistent SQLite, actual AES-GCM/HKDF and
+currently runs39 cases using actual persistent SQLite, actual AES-GCM/HKDF and
 RSA signature validation, and explicitly **synthetic** Google transport, sources,
 accounts and triggers. Covers full-file preservation, backup/rollback, stale and
 concurrent operations, restart/uncertain outcomes, scope/identity rejection,

@@ -33,3 +33,8 @@ test('OAuth redirect helper is ready for existing-Worker mount, not claimed depl
   const route = appsScriptExtension({ oauth: { begin: async () => ({ location: 'https://accounts.google.com/synthetic-only', cookie: 'synthetic-private-cookie' }) } });
   const r = await route(new Request(origin + '/auth/start?purpose=apps-script')); assert.equal(r.status, 302); assert.ok(r.headers.has('set-cookie')); assert.equal(r.headers.get('cache-control'), 'no-store');
 });
+test('legacy opaque OAuth state sharing a short prefix is not intercepted by the new flow', async () => {
+  const route = appsScriptExtension({});
+  const legacyState = 'as_' + 'a'.repeat(40);
+  assert.equal(await route(new Request(origin + '/oauth/callback?state=' + legacyState)), null);
+});

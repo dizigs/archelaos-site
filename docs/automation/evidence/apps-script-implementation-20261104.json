@@ -9,10 +9,10 @@
     "result": "PASS"
   },
   "tests": {
-    "nodeSqliteCryptoAndMockedGoogle": 38,
+    "nodeSqliteCryptoAndMockedGoogle": 39,
     "bridgeAndSourceAuditPython": 23,
     "providerPython": 30,
-    "total": 91,
+    "total": 92,
     "allPass": true
   },
   "realGoogleRead": false,
@@ -46,7 +46,7 @@
     },
     {
       "file": "automation/apps-script/interface.mjs",
-      "sha256": "6f332d4b5d13bd74002aa076ca5a103b5e7e91b68cd48a166869328fb6e97769"
+      "sha256": "92ed7d47dabe4d9e3ca6566dd0aec38238785a790b8753350aa795351f1e5512"
     },
     {
       "file": "automation/apps-script/oauth.mjs",
@@ -68,5 +68,11 @@
     "sonarCheck": 126416519278,
     "gitGuardianCheck": 126416309079,
     "representationChange": "Explicit file/sha256 fields; same public reproducible digest; no suppression or credential rotation"
+  },
+  "legacyRouteGuard": {
+    "prefixCollisionReproduced": true,
+    "fixedUsingCompleteStateShape": true,
+    "before": "one failing regression",
+    "after": "all39 Node tests PASS"
   }
 }
