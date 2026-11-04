@@ -11,6 +11,7 @@ export class SqlScriptStore {
       'CREATE TABLE IF NOT EXISTS script_project_locks(project TEXT PRIMARY KEY,operation TEXT NOT NULL)',
       'CREATE TABLE IF NOT EXISTS script_private_blobs(id TEXT PRIMARY KEY,cipher TEXT NOT NULL)',
       'CREATE TABLE IF NOT EXISTS script_oauth_states(id TEXT PRIMARY KEY,cipher TEXT NOT NULL,expires INTEGER NOT NULL,used INTEGER NOT NULL DEFAULT 0)',
+      'CREATE TABLE IF NOT EXISTS script_oauth_start_rate(bucket INTEGER PRIMARY KEY,count INTEGER NOT NULL)',
       'CREATE TABLE IF NOT EXISTS script_oauth_sessions(id TEXT PRIMARY KEY,cipher TEXT NOT NULL)',
       'CREATE TABLE IF NOT EXISTS script_admin_grants(actor TEXT PRIMARY KEY,session TEXT NOT NULL)',
       'CREATE TABLE IF NOT EXISTS script_refresh_claims(id TEXT PRIMARY KEY)',
@@ -53,7 +54,17 @@ export class SqlScriptStore {
     });
   }
   getPrivate(id) { return [...this.sql.exec('SELECT cipher FROM script_private_blobs WHERE id=?', id)][0]?.cipher; }
-  putState(id, cipher, expires) { this.sql.exec('INSERT INTO script_oauth_states(id,cipher,expires) VALUES(?,?,?)', id, cipher, expires); }
+  putState(id, cipher, expires) {
+    this.storage.transactionSync(() => {
+      const now = this.clock(); const bucket = Math.floor(now / 60000);
+      this.sql.exec('DELETE FROM script_oauth_states WHERE expires<=? OR used=1', now);
+      this.sql.exec('DELETE FROM script_oauth_start_rate WHERE bucket<?', bucket - 1);
+      const rate = [...this.sql.exec('SELECT count FROM script_oauth_start_rate WHERE bucket=?', bucket)][0]?.count || 0;
+      if (rate >= 30 || [...this.sql.exec('SELECT COUNT(*) AS n FROM script_oauth_states')][0].n >= 256) throw new ScriptFault('OAUTH_START_RATE_LIMIT', 429);
+      this.sql.exec('INSERT INTO script_oauth_start_rate(bucket,count) VALUES(?,1) ON CONFLICT(bucket) DO UPDATE SET count=count+1', bucket);
+      this.sql.exec('INSERT INTO script_oauth_states(id,cipher,expires) VALUES(?,?,?)', id, cipher, expires);
+    });
+  }
   peekState(id, now) { return [...this.sql.exec('SELECT cipher FROM script_oauth_states WHERE id=? AND used=0 AND expires>?', id, now)][0]?.cipher; }
   consumeState(id, now) {
     return this.storage.transactionSync(() => {

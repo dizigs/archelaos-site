@@ -124,3 +124,13 @@ test('unconfigured optional extension leaves all existing bridge routes operatio
   const denied = await route(new Request('https://archelaos-automation-bridge.dimitriszgalanis.workers.dev/api/apps-script/content'));
   assert.equal(denied.status, 503); assert.equal((await denied.json()).code, 'ATOMIC_PRIVATE_STORE_REQUIRED');
 });
+
+test('public consent-start admission is bounded atomically without retaining IP/email rate keys', async t => {
+  const f = await loginFixture(t);
+  for (let i = 1; i < 30; i++) await f.oauth.begin();
+  await assert.rejects(f.oauth.begin(), error => error.code === 'OAUTH_START_RATE_LIMIT');
+  assert.equal(f.db.prepare('SELECT COUNT(*) AS n FROM script_oauth_states').get().n, 30);
+  f.state.clock += 600001;
+  await f.oauth.begin();
+  assert.equal(f.db.prepare('SELECT COUNT(*) AS n FROM script_oauth_states').get().n, 1);
+});

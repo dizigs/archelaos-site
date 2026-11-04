@@ -41,7 +41,8 @@ and credentials are not copied into this package.
   write failed or retry it under a new ID. Audit records contain opaque IDs/fixed
   codes/statuses, not source, tokens, email or private project IDs.
 - Hard journal/backup bounds fail closed instead of silently deleting history:
-  1000 operations,64 immutable snapshots,32MiB ciphertext. Archival/retention needs
+  1000 operations,64 immutable snapshots,32MiB ciphertext; OAuth starts30/minute
+  and256 pending states with expired-state cleanup. No IP/email rate keys are kept. Archival/retention needs
   an explicitly reviewed private-storage procedure, not an automatic paid upgrade.
 
 ## Mount contract — existing Worker only, not yet applied
@@ -141,7 +142,7 @@ installation. No additional Worker or paid plan is authorized by this package.
 ## Actual tests
 
 `node --test --test-reporter=tap --test-concurrency=1 tests/apps-script/*.test.mjs`
-currently runs39 cases using actual persistent SQLite, actual AES-GCM/HKDF and
+currently runs40 cases using actual persistent SQLite, actual AES-GCM/HKDF and
 RSA signature validation, and explicitly **synthetic** Google transport, sources,
 accounts and triggers. Covers full-file preservation, backup/rollback, stale and
 concurrent operations, restart/uncertain outcomes, scope/identity rejection,

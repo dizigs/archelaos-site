@@ -630,3 +630,9 @@ Observed commit: `c0cf3fbb690ef5d09bb290c7bf01c1295be96345`. Results below belon
 
 - Added a concrete regression for a legacy opaque43-character OAuth state beginning with as_. Prefix-only routing incorrectly intercepted it; the test failed before correction. Both extension recognition and callback routing now require the COMPLETE new-flow state shape, preserving that legacy callback for the original router. No live source change is claimed; actual mount still requires current-source review.
 - Full Node suite now39PASS; existing Python23+30PASS, total92. Full actionlint/diff PASS. Typed file/sha256 evidence updated with actual current module digests, not credential-like filename assignments. Existing no-cache/auth/encrypted backup/rollback/source audit boundaries remain. Only this specific new concern justified the follow-up; earlier tests/probe evidence retain their original SHAs/counts.
+
+
+### PR124 — bounded OAuth consent admission and final local checkpoint
+
+- The new scoped consent-start endpoint is public in the prepared routing contract. Bound its durable state admission to30starts/minute and256pending states, atomically with expiration/used-state cleanup; no IP/email rate keys or silent credential deletion. An actual SQLite test proves31st-start denial and expired-state recovery. Existing bridge routes are still delegated and no live endpoint was installed.
+- Final local frozen modules:40Node+23bridge/source-auditPython+30providerPython =93PASS. Current typed-digest representation previously passed Sonar126418180460 and GitGuardian126417922877 after own-commit consolidation, with no waiver/suppression. This additional bounded-admission source gets its own exact-head CI before final handoff; no prior pass is relabelled.

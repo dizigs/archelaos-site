@@ -9,10 +9,10 @@
     "result": "PASS"
   },
   "tests": {
-    "nodeSqliteCryptoAndMockedGoogle": 39,
+    "nodeSqliteCryptoAndMockedGoogle": 40,
     "bridgeAndSourceAuditPython": 23,
     "providerPython": 30,
-    "total": 92,
+    "total": 93,
     "allPass": true
   },
   "realGoogleRead": false,
@@ -58,7 +58,7 @@
     },
     {
       "file": "automation/apps-script/store.mjs",
-      "sha256": "20032cbed091357960e5a96c84acb32938ca92b858614022c374f6a32a0539e9"
+      "sha256": "652485ff0c8aabe25d7d88c49bc766767ed4b333fab7a2cd8e73b96f14328e6c"
     }
   ],
   "falseCredentialAlertEvidence": {
@@ -74,5 +74,11 @@
     "fixedUsingCompleteStateShape": true,
     "before": "one failing regression",
     "after": "all39 Node tests PASS"
+  },
+  "oauthAdmission": {
+    "maxStartsPerMinute": 30,
+    "maxPendingStates": 256,
+    "ipOrEmailRateKeysStored": false,
+    "actualAtomicSqliteTest": "PASS"
   }
 }
