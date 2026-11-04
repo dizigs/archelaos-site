@@ -35,7 +35,7 @@ export function fixture(t) {
     content: async () => { state.reads++; await state.onRead?.(state.reads); return { scriptId: projectId, files: structuredClone(state.files) }; },
     update: async next => { state.updates++; if (state.onUpdate) return state.onUpdate(next); state.files = structuredClone(next); return { scriptId: projectId, files: structuredClone(next) }; }
   };
-  const ports = { assertExclusiveWriter: async () => ({ verified: true, projectId, expiresAt: state.clock + 60000 }), readTriggerInventory: async () => ({ verified: true, fingerprint: state.trigger }), reviewChange: async () => true };
+  const ports = { assertExclusiveWriter: async () => ({ verified: true, coversExternalWriters: true, projectId, expiresAt: state.clock + 60000 }), readTriggerInventory: async () => ({ verified: true, completeProjectInventory: true, projectId, fingerprint: state.trigger }), reviewChange: async () => true };
   const policy = { liveWritesEnabled: true };
   const editor = () => new ScriptEditor({ projectId, projectTitle, expectedAdminEmail: admin, store, provider, cipher: cipher(), ports, policy, now: () => state.clock });
   return { state, provider, ports, policy, editor, get store() { return store; }, get db() { return db; }, get storage() { return storage; }, restart() { db.close(); store = open(); } };

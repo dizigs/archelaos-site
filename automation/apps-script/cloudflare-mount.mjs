@@ -1,4 +1,4 @@
-import { configureExistingBridgeScripts } from './configure.mjs';
+import { configureExistingBridgeScripts, configureGithubWriter } from './configure.mjs';
 import { isAppsScriptRequest } from './interface.mjs';
 import { ScriptFault } from './security.mjs';
 import { SqlScriptStore } from './store.mjs';
@@ -58,6 +58,9 @@ export class MuseumScriptCoordinator {
   constructor(state, env, options = {}) {
     this.storage = state?.storage;
     this.verifyGithubIdentity = options.verifyGithubIdentity || verifyGithubProbeToken;
+    // Default has no trusted workflow/digest/safety ports, so remains OFF.
+    // These options are maintainer-owned code, never parsed from HTTP/env JSON.
+    this.writerRoute = configureGithubWriter({ ...options.writer, env, storage: state?.storage });
     this.route = configureExistingBridgeScripts({
       env,
       storage: state?.storage,
@@ -71,6 +74,7 @@ export class MuseumScriptCoordinator {
   async fetch(request) {
     if (!isAppsScriptRequest(request)) return denied('SCRIPT_ROUTE_NOT_FOUND', 404);
     const url = new URL(request.url);
+    if (url.pathname === '/api/apps-script/github-oidc-write') return this.writerRoute(request);
     if (url.pathname === '/api/apps-script/github-oidc-probe') {
       // Outer Worker -> Durable Object forwarding can materialize an empty
       // POST body stream. The body is never interpreted as a command: signed

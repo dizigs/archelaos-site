@@ -305,7 +305,7 @@ installation. No additional Worker or paid plan is authorized by this package.
 ## Actual tests
 
 `node --test --test-reporter=tap --test-concurrency=1 tests/apps-script/*.test.mjs`
-currently runs40 cases using actual persistent SQLite, actual AES-GCM/HKDF and
+currently runs78 cases using actual persistent SQLite, actual AES-GCM/HKDF and
 RSA signature validation, and explicitly **synthetic** Google transport, sources,
 accounts and triggers. Covers full-file preservation, backup/rollback, stale and
 concurrent operations, restart/uncertain outcomes, scope/identity rejection,
@@ -316,3 +316,65 @@ Existing Python provider/bridge guards and the new fixed source-audit helper run
 in the same existing workflow; no extra scheduler is added. Real source audits
 keep code in runner memory and emit only fixed presence flags/module hashes.
 Literal presence does not prove live request semantics, grants or deployment.
+
+
+## Staged signed writer (PR124; NOT deployed or activated)
+
+The separate `/api/apps-script/github-oidc-write` route supports only a fixed,
+comment-only `ArchelaosBridgeSmoke.gs` creation and restoration of the verified
+backup belonging to that signed smoke operation. It cannot accept arbitrary
+source, filenames, project IDs, scopes, provider URLs or caller safety claims.
+The original generic executor remains deny-all. Existing readonly OIDC evidence
+(run41810896964) does not authorize this write surface.
+
+`github-writer.mjs` verifies the distinct audience
+`archelaos.club:apps-script:write:v1`, exact repository ID, GitHub-hosted runner,
+`workflow_dispatch`, main ref, exact writer workflow path and **both** signed
+`sha` and `workflow_sha` equal to a privately configured, reviewed immutable
+workflow commit. No caller may select that approved commit. Changing main
+requires explicit review/re-pinning; a mutable branch name alone is insufficient.
+JWT signature keys stay at the fixed GitHub issuer, with redirects rejected.
+
+The manual-only writer workflow checks out that immutable workflow SHA, grants
+only contents:read/id-token:write in its single job, and passes JSON via an env
+variable, without shell expression interpolation or a new schedule. It has not
+been dispatched: this branch is not the accepted main writer workflow. The
+existing CI executes all writer tests on this PR without Google writes.
+
+Each closed-schema command includes version1, UUIDv4 operationId, create-smoke
+or rollback-smoke action, sourceCommit, expectedBaseHash and expiresAt no more
+than five minutes away. A rollback additionally names restoreOperationId.
+`authorizeCommand({digest,sourceCommit,operationId,action})` is a **trusted server
+port** that must independently approve the SHA256 of the canonical closed-schema
+JSON. A dispatch input, body flag, readonly receipt or ping key is never approval.
+Provisioning/review of that port remains BLOCKED; this package deliberately
+does not introduce a public approval endpoint or an administrative SQL bypass.
+
+Private composition selects exactly one existing encrypted Admin grant, resolves
+its actual verified identity/scopes, and uses the existing editor/backup path.
+SQLite uniquely claims run attempt, token hash and operation before processing;
+duplicates return the saved sanitized receipt or a reconciliation hold, never
+a second PUT. Receipts omit files, backup identifiers, tokens and private project
+metadata. Unknown outcomes remain held across restart. Journal capacity is bounded.
+
+Default `configureGithubWriter` has no approved workflow, digest authorizer or
+safety ports and responds503; `liveWritesEnabled` remains OFF. Even after identity
+configuration, the existing editor requires:
+
+- Independent immutable full-diff review, not a request-body assertion.
+- A trusted lease with verified=true, coversExternalWriters=true, exact private
+  projectId and expiry at least30seconds ahead. A local lock/LockService does not
+  establish external Google IDE/API writer exclusion.
+- A trusted trigger inventory with verified=true, completeProjectInventory=true,
+  exact private projectId and a stable SHA256 fingerprint, before and after PUT.
+  The staged current-account-only template explicitly cannot satisfy this gate.
+- A full private encrypted backup/readback, unchanged base hash, complete original
+  file preservation and Google response/readback verification. Rollback takes a
+  new complete backup and restores only this signed smoke operation's snapshot.
+
+Current runtime lacks a Cloudflare/Google connector or permitted direct provider
+hosts. Real private source review, complete trigger/writer evidence, reviewed
+existing-Worker deployment and actual create/read/restore remain BLOCKED. Do not
+replace these prerequisites with a boolean or present these synthetic tests as
+real Google operations. No secrets, binding, trigger, OAuth scope, DNS, mail or
+billing change was performed by this staged package.

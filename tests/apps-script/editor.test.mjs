@@ -107,7 +107,7 @@ test('trigger changes after update are retained as unresolved, never silently pa
 test('missing trigger observation and rejected review are prewrite failures', async t => {
   const f = fixture(t); const input = change((await f.editor().read(actor)).headHash);
   f.ports.readTriggerInventory = undefined; await assert.rejects(f.editor().edit(actor, input), rejected('TRIGGER_VERIFICATION_UNAVAILABLE'));
-  f.ports.readTriggerInventory = async () => ({ verified: true, fingerprint: 'a'.repeat(64) }); f.ports.reviewChange = async () => false;
+  f.ports.readTriggerInventory = async () => ({ verified: true, completeProjectInventory: true, projectId, fingerprint: 'a'.repeat(64) }); f.ports.reviewChange = async () => false;
   await assert.rejects(f.editor().edit(actor, { ...input, operationId: crypto.randomUUID() }), rejected('IMMUTABLE_DIFF_REVIEW_REQUIRED')); assert.equal(f.state.updates, 0);
 });
 test('manifest/deletion/path traversal/ambiguous creations and oversize content are rejected', () => {

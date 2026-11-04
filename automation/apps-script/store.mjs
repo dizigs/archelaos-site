@@ -17,6 +17,7 @@ export class SqlScriptStore {
       'CREATE TABLE IF NOT EXISTS script_browser_backup_confirmations(id TEXT PRIMARY KEY, expires INTEGER NOT NULL)',
       'CREATE TABLE IF NOT EXISTS script_operator_probes(id TEXT PRIMARY KEY,status TEXT NOT NULL,expires INTEGER NOT NULL,updated INTEGER NOT NULL,result TEXT)',
       'CREATE TABLE IF NOT EXISTS script_signed_probes(run_key TEXT PRIMARY KEY, token_hash TEXT NOT NULL, source_sha TEXT NOT NULL, at INTEGER NOT NULL, result TEXT NOT NULL)',
+      'CREATE TABLE IF NOT EXISTS script_signed_commands(run_key TEXT PRIMARY KEY,token_hash TEXT UNIQUE NOT NULL,operation TEXT UNIQUE NOT NULL,digest TEXT NOT NULL,action TEXT NOT NULL,status TEXT NOT NULL,result TEXT,at INTEGER NOT NULL)',
       'CREATE TABLE IF NOT EXISTS script_refresh_claims(id TEXT PRIMARY KEY)',
       'CREATE TABLE IF NOT EXISTS script_audit(id INTEGER PRIMARY KEY AUTOINCREMENT,operation TEXT NOT NULL,code TEXT NOT NULL,at INTEGER NOT NULL)'
     ]) this.sql.exec(statement);
@@ -151,6 +152,30 @@ export class SqlScriptStore {
   getSession(id) { return [...this.sql.exec('SELECT cipher FROM script_oauth_sessions WHERE id=?', id)][0]?.cipher; }
   bindGrant(actor, session) { this.sql.exec('INSERT INTO script_admin_grants(actor,session) VALUES(?,?) ON CONFLICT(actor) DO UPDATE SET session=excluded.session', actor, session); }
   grantSession(actor) { return [...this.sql.exec('SELECT session FROM script_admin_grants WHERE actor=?', actor)][0]?.session; }
+  singleAdminSession() {
+    const rows = [...this.sql.exec('SELECT session FROM script_admin_grants LIMIT 2')];
+    if (rows.length !== 1) throw new ScriptFault('EXACTLY_ONE_ADMIN_GRANT_REQUIRED', 403);
+    return rows[0].session;
+  }
+  signedCommand(operation) {
+    return [...this.sql.exec('SELECT * FROM script_signed_commands WHERE operation=?', operation)][0];
+  }
+  claimSignedCommand(identity, command, digest) {
+    return this.storage.transactionSync(() => {
+      const prior = this.signedCommand(command.operationId);
+      const run = [...this.sql.exec('SELECT operation FROM script_signed_commands WHERE run_key=? OR token_hash=?', identity.runKey, identity.tokenHash)][0];
+      if (prior && prior.digest !== digest || run && run.operation !== command.operationId) throw new ScriptFault('SIGNED_COMMAND_REPLAY_CONFLICT', 409);
+      if (prior) return { fresh: false, status: prior.status, result: prior.result ? JSON.parse(prior.result) : null };
+      if ([...this.sql.exec('SELECT COUNT(*) AS n FROM script_signed_commands')][0].n >= 256) throw new ScriptFault('SIGNED_COMMAND_CAPACITY', 429);
+      this.sql.exec('INSERT INTO script_signed_commands(run_key,token_hash,operation,digest,action,status,at) VALUES(?,?,?,?,?,?,?)', identity.runKey, identity.tokenHash, command.operationId, digest, command.action, 'ADMITTED', this.clock());
+      this.audit(command.operationId, 'SIGNED_COMMAND_ADMITTED');
+      return { fresh: true };
+    });
+  }
+  finishSignedCommand(operation, result) {
+    this.sql.exec('UPDATE script_signed_commands SET status=?,result=? WHERE operation=?', result.status, JSON.stringify(result), operation);
+    this.audit(operation, 'SIGNED_COMMAND_' + result.status);
+  }
   claimRefresh(id) {
     return this.storage.transactionSync(() => {
       if ([...this.sql.exec('SELECT id FROM script_refresh_claims WHERE id=?', id)].length) throw new ScriptFault('REFRESH_RECONCILIATION_REQUIRED', 423);

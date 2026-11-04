@@ -80,12 +80,12 @@ export class ScriptEditor {
     const lease = await this.ports.assertExclusiveWriter(this.projectId);
     // Google updateContent has no atomic ETag precondition. Our project lock
     // cannot exclude IDE/other-client writers; require a trusted maintenance port.
-    if (lease?.verified !== true || lease.projectId !== this.projectId || lease.expiresAt < this.now() + 30000) throw new ScriptFault('EXTERNAL_WRITER_EXCLUSION_UNVERIFIED', 423);
+    if (lease?.verified !== true || lease.coversExternalWriters !== true || lease.projectId !== this.projectId || lease.expiresAt < this.now() + 30000) throw new ScriptFault('EXTERNAL_WRITER_EXCLUSION_UNVERIFIED', 423);
   }
   async triggers() {
     if (typeof this.ports.readTriggerInventory !== 'function') throw new ScriptFault('TRIGGER_VERIFICATION_UNAVAILABLE', 423);
     const result = await this.ports.readTriggerInventory(this.projectId);
-    if (result?.verified !== true || !hex.test(result.fingerprint)) throw new ScriptFault('TRIGGER_VERIFICATION_UNAVAILABLE', 423);
+    if (result?.verified !== true || result.completeProjectInventory !== true || result.projectId !== this.projectId || !hex.test(result.fingerprint)) throw new ScriptFault('TRIGGER_VERIFICATION_UNAVAILABLE', 423);
     return result.fingerprint;
   }
   async edit(actor, input) {

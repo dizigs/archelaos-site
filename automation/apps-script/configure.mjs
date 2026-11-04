@@ -5,6 +5,7 @@ import { GoogleProjects, ScriptEditor } from './editor.mjs';
 import { normalizeFiles } from './files.mjs';
 import { SCRIPT_SCOPE } from './security.mjs';
 import { appsScriptExtension, isAppsScriptRequest } from './interface.mjs';
+import { githubWriter, verifyGithubWriterToken } from './github-writer.mjs';
 
 // Composition for the EXISTING bridge's approved atomic coordinator context.
 // It is not a Worker entrypoint, deployment command or secret-copy mechanism.
@@ -84,6 +85,43 @@ export function configureExistingBridgeScripts(options) {
       return await extension(request);
     } catch (error) {
       return Response.json({ code: error instanceof ScriptFault ? error.code : 'SCRIPT_CONFIGURATION_UNAVAILABLE' }, { status: error instanceof ScriptFault ? error.status : 503, headers: { 'cache-control': 'no-store', 'x-content-type-options': 'nosniff' } });
+    }
+  };
+}
+
+// Separate signed write surface. A valid read-only JWT or global bridge key
+// does not select an Admin grant or unlock this port. The approved workflow
+// commit and independently reviewed command digest come from server code.
+export function configureGithubWriter({ env, storage, approvedWorkflowCommit, ports = {}, policy = {}, fetchGoogle = fetch, now = Date.now }) {
+  let route;
+  return async request => {
+    if (!approvedWorkflowCommit || typeof ports.authorizeCommand !== 'function') {
+      return Response.json({ code: 'SIGNED_WRITER_PREREQUISITES_UNCONFIGURED' }, { status: 503, headers: { 'cache-control': 'no-store' } });
+    }
+    try {
+      if (!route) {
+        const store = new SqlScriptStore(storage, now);
+        const cipher = new PrivateCipher(env.OAUTH_STATE_SECRET);
+        const oauth = new ScriptOAuth({ config: { clientId: env.GOOGLE_CLIENT_ID, clientSecret: env.GOOGLE_CLIENT_SECRET, expectedAdminEmail: env.APPS_SCRIPT_ADMIN_EMAIL, origin: 'https://archelaos-automation-bridge.dimitriszgalanis.workers.dev' }, store, cipher, fetchGoogle, now });
+        route = githubWriter({ store, now,
+          verifyIdentity: token => verifyGithubWriterToken(token, { approvedWorkflowCommit, now }),
+          authorizeCommand: ports.authorizeCommand,
+          resolveAdmin: async () => {
+            const grant = await oauth.accessId(store.singleAdminSession(), true);
+            return { ...grant.principal, grantedScopes: grant.grantedScopes, rights: ['apps-script:read', 'apps-script:edit'] };
+          },
+          editorFor: async actor => new ScriptEditor({
+            projectId: env.APPS_SCRIPT_PROJECT_ID, projectTitle: env.APPS_SCRIPT_PROJECT_TITLE,
+            expectedAdminEmail: env.APPS_SCRIPT_ADMIN_EMAIL, store, cipher, ports, policy, now,
+            provider: new GoogleProjects({ projectId: env.APPS_SCRIPT_PROJECT_ID,
+              accessToken: async () => (await oauth.accessForPrincipal(actor)).accessToken,
+              fetchGoogle, audit: code => store.audit(crypto.randomUUID(), code) })
+          })
+        });
+      }
+      return await route(request);
+    } catch (error) {
+      return Response.json({ code: error instanceof ScriptFault ? error.code : 'SIGNED_WRITER_UNAVAILABLE' }, { status: error instanceof ScriptFault ? error.status : 503, headers: { 'cache-control': 'no-store' } });
     }
   };
 }
