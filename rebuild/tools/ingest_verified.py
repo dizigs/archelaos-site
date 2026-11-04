@@ -18,6 +18,30 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_DATA = ROOT / "data"
+APPROVED_REVIEW_INTAKE = ROOT.parent / ".archive-intake"
+
+def approved_cli_package(value: Path) -> Path:
+    """Read only a reviewed JSON dropped directly into the local private intake."""
+    root = APPROVED_REVIEW_INTAKE
+    if not root.is_dir() or root.is_symlink():
+        raise ValueError("Private archive intake folder is missing or linked")
+    if value.suffix.lower() != ".json" or value.is_symlink():
+        raise ValueError("Reviewed package must be an unlinked JSON file")
+    file = value.resolve(strict=True)
+    if not file.is_file() or file.parent != root.resolve(strict=True):
+        raise ValueError("Reviewed package must be inside .archive-intake")
+    if file.stat().st_size > 1_000_000:
+        raise ValueError("Reviewed package exceeds 1MB")
+    return file
+
+def approved_cli_data_dir(value: Path) -> Path:
+    """CLI edits only the checked-in staging data; no arbitrary output directories."""
+    if ROOT.is_symlink() or DEFAULT_DATA.is_symlink():
+        raise ValueError("Staging data path must not be a symlink")
+    if not DEFAULT_DATA.is_dir() or value.resolve(strict=True) != DEFAULT_DATA.resolve(strict=True):
+        raise ValueError("Only rebuild/data may be used by the CLI")
+    return DEFAULT_DATA
+
 TYPES = ("stories", "people", "moments", "museum")
 PRIVATE_FIELDS = {
     "drive_id", "file_id", "raw_document", "pdf_bytes", "scan",
@@ -200,6 +224,12 @@ if __name__ == "__main__":
     parser.add_argument("--data-dir", type=Path, default=DEFAULT_DATA)
     parser.add_argument("--apply", action="store_true", help="Modify only staged public JSON; no deployment")
     args = parser.parse_args()
-    for line in run(args.input, args.data_dir, args.apply):
-        print(line)
+    try:
+        package = approved_cli_package(args.input)
+        destination = approved_cli_data_dir(args.data_dir)
+        for line in run(package, destination, args.apply):
+            print(line)
+    except (OSError, ValueError) as error:
+        parser.exit(2, "STAGED INGESTION rejected unsafe or invalid local input (" +
+                    type(error).__name__ + "). No deployment performed.\n")
     print("APPLIED TO STAGED DATA" if args.apply else "DRY RUN — NOTHING MODIFIED")
