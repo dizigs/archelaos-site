@@ -26,7 +26,7 @@ class LegacySRIAndPermissionsTests(unittest.TestCase):
             encoding="utf-8"
         )
         before_jobs, jobs = src.split("\njobs:\n", 1)
-        self.assertIn("\npermissions:\n  contents: read\n", before_jobs)
+        self.assertTrue(before_jobs.endswith("\npermissions:\n  contents: read"), "Top-level read-only permissions missing")
         self.assertNotIn("\n  actions: read\n", before_jobs)
         fixture, manual = jobs.split("\n  provider-artifact-rehearsal:\n", 1)
         self.assertNotIn("actions: read", fixture)
