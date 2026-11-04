@@ -38,3 +38,25 @@ test('legacy opaque OAuth state sharing a short prefix is not intercepted by the
   const legacyState = 'as_' + 'a'.repeat(40);
   assert.equal(await route(new Request(origin + '/oauth/callback?state=' + legacyState)), null);
 });
+
+test('Admin browser-only verification is narrowly gated and does not unlock editor endpoints', async () => {
+  const calls = [];
+  const route = appsScriptExtension({
+    oauth: { access: async cookie => { calls.push(cookie); if (cookie !== '__Host-archelaos-script-session=synthetic') throw Object.assign(new Error('unauthorized'), { code: 'ADMIN_SESSION_REQUIRED', status: 401 }); return { principal: actor, accessToken: 'synthetic-private-token', grantedScopes: actor.grantedScopes }; } },
+    verifyReadOnly: async grant => {
+      assert.equal(grant.accessToken, 'synthetic-private-token');
+      return { status: 'ADMIN_PROJECT_READ_VERIFIED', projectIdentityVerified: true, fileCount: 5, readOnly: true };
+    },
+  });
+  const req = new Request(origin + '/api/apps-script/verify', { headers: { cookie: '__Host-archelaos-script-session=synthetic' } });
+  const response = await route(req);
+  assert.equal(response.status, 200);
+  const body = await response.json();
+  assert.equal(body.status, 'ADMIN_PROJECT_READ_VERIFIED');
+  assert.equal(response.headers.get('cache-control'), 'no-store');
+  assert.equal(body.accessToken, undefined);
+  assert.equal(body.files, undefined);
+  assert.equal((await route(new Request(origin + '/api/apps-script/verify?leak=1'))).status, 404);
+  assert.equal((await route(new Request(origin + '/api/apps-script/content', { headers: { cookie: '__Host-archelaos-script-session=synthetic' } }))).status, 503);
+  assert.deepEqual(calls, ['__Host-archelaos-script-session=synthetic']);
+});
