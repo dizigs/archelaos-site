@@ -713,6 +713,21 @@ Observed commit: `c0cf3fbb690ef5d09bb290c7bf01c1295be96345`. Results below belon
 - NEXT: exact-head127CI then protected merge if all checks/threads/freshness pass; P0 toolbox tests6/fullhealth alreadyPASS in independent source worktree, high calendar/ingest reads next. Continue other independent ready PRs after each fresh-main check. Provider credentials/Sheet still absent; no unchanged denied calls, Google writes/trigger/scope/secret/billing or new Worker/scheduler.
 
 
+### P0 toolbox argument boundary / serial PR review — 2026-11-04T15:45:55.625780+00:00
+
+- Reviewed current main Sonar#66 evidence (c9ec56c snapshot33OPEN,3HIGH/17MEDIUM/13LOW), actual toolbox source and all14 open PR path ownership. No active PR owns toolbox/P0 workflow; new small security branch codex/p0-toolbox-argument-boundary is independent, not a duplicate. Full initial inventory/scope/frozen cases: docs/security/PR_COMPLETION_AUDIT.md.
+- REPRODUCED: five of six targeted boundary/dispatch tests failed before correction; option-like search text was reparsed as a downstream option (exit2). Existing subprocess used argv/no shell, so no claim of reproduced remote shell execution. Fixed approved-script allowlist via in-process runpy, named values as --option=value and positional -- delimiter; restores argv/import path/cwd on child exit/input error. No OS command runner or publication/apply endpoint added.
+- TESTED:6 security regressions PASS, full toolboxhealth (site/content/editorial/translations/media) PASS, Python compile/full actionlint/diff PASS. Existing P0 CI includes new suite, no new schedule. Docs/security/TOOLBOX_ARGUMENT_BOUNDARY.md details scope. Exact new-head hosted CI/Sonar PENDING; no claim mainA. Calendar/ingest input findings remain separate, not closed by this change.
+- MERGE128 VERIFIED: final3c962eb6f74373f462a285bbdd3a7ba5112eac9c, normal squashd8d07cc1b736e1b4a1ce16cf8420111e564b539b after16SUCCESS/2SKIPPED/0threads and strictfreshness. Current source branch updated to that main. Deployment NOT APPLICABLE to workflow-only scope reduction. #127 merge/conflict resolution/CI continues separately, preserving both logs; no other active implementation edits.
+- NOT DEPLOYED: no new Cloudflare/GAS/Ads/Gemini/service/scheduler/billing mutation or secret/scope changes. #124/#136 merged; staged default-off Worker at0% traffic per connected operator, real triggers/external-writer proofs stillblocked. #86 frozen. Sheet unavailable; #71 fallback and per-stage handoffs.
+
+
+### Verified security127 merge checkpoint — 2026-11-04T15:50:08.855323+00:00
+
+- PR127 final1e7b1899bab35d97df62cfedb1185feefc7be857 passed19SUCCESS/2SKIPPED/0FAIL/0PENDING; Dependency Review126682389353, Zizmor126682389479, Sonar126683007364 and GitGuardian126682362995 verified. Protected normal squash merge70e3c8c572632fe4c55c7ddaf1a11a4ec730ec27 independently confirmed. Dependency Graph supported by actual success; old blocked status not reused.
+- Deployment NOT APPLICABLE (CI-only), no Worker/GAS/service action. MainSonarA stillnotverified. Handed off71comment6635163866/PR127comment6635164412. P0toolbox140 updated against this exactnewmain; sole WORK_LOG append conflict preservedbothhistories, no source overwrite. Other active implementation ownership unchanged; next exact-head CI required.
+
+
 ### P0 calendar/verified import input boundary — 2026-11-04T15:56:49.281964+00:00
 
 - Actual #66 findings AaGbWnBeJDrY7EFXJ07b/AaGbWnBnJDrY7EFXJ07j reproduced against current70e3c8c baseline:7 of10 tested input/apply cases fail (links/linked roots/expanded ZIP/parent swap). New helper is independent of active toolbox140; no shared source edit. Existing release-integrity CI receives tests, so no concurrent P0-workflow edit/new schedule.
@@ -720,3 +735,10 @@ Observed commit: `c0cf3fbb690ef5d09bb290c7bf01c1295be96345`. Results below belon
 - TESTED: new11security tests PASS, existing13calendar report confinement tests PASS, functional ICS/ZIP/DST/folding/recurrence/cancellation/duplicate import and verified ingestion approval/privacy/dry-run/idempotency PASS. Existing loader fixtures updated for shared module, no assertion removed. Python compile/actionlint/diff and full build/release checks are required before push; hosted exact-head checks PENDING until observed.
 - Serial merge checkpoint:128 final3c962eb6→d8d07cc and127 final1e7b189→70e3c8c verified protected merges, no bypass; repository log and #71 preserve evidence. Toolbox140 final9ccfcf8 awaits genuine queued CI; no merge or fake pass. Two obsolete140 cancellation attempts returned409 because runs already finished; no cancellation/new failure loop or required-check bypass. Renovate126 bot auto-rebased; stale expected-sha update422 prevented overwriting its new head.
 - NEXT: protected review/CI and actual Sonar main reread; mainA not inferred. Current Cloudflare/Google/Sonar identities unavailable locally, connected operator#71 supplies findings/deployment proof. No new Worker/cron/service/fees, Google code/triggers/OAuth/secrets or frozen86 action; local unfinishedGemini111 untouched.
+
+
+### Protected P0 toolbox merge140 verified — 2026-11-04T16:26:48.892433+00:00
+
+- Final source9ccfcf8e71ca3c4a38eab1cc3d53893b35953fb0 had30SUCCESS/2SKIPPED/1NEUTRAL, nofailure/pending,0unresolvedthreads and strictfreshmain70e3. Sonar126686010694 PASS (0new/accepted issues), CodeQL126686177993/Python126685537728 PASS, GitGuardian/JS/ESLint/browser/accessibility/security/release PASS. CodeRabbitneutral explicitlyrate-limited, not approval; mandatoryreviewcount0.
+- Normal protected squash merge8c9edeb49dacc7d389415f8e76fb6e2594c67ea3 independentlyverified. No bypass/force/mainpush. This fixes toolboxsource boundary, not all#66; mainSonarA and updatedproviderfindings stillmustbeobserved. Deployment NOT VERIFIED; technicalCLI-only source introduces no Worker/GAS/sitecontent activation. Latest publicrelease verification will use existing providerlog gate if available.
+- Updated142 tothisexactnewmain before furthermerge; sole append-onlyWORK_LOG conflict preservedbothhistories. Eleveninput+13calendar-output tests and full771profilebuild/verify PASS atprior142source; rerun relevant combined tests aftermainupdate then newexactheadCI, notoldpass. Sourcehelper/code/testsfrom140 preservedunchanged. No providerkeys/scopes/triggers/Gemini/Ads/frozen86 action.
