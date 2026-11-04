@@ -7,7 +7,11 @@ const TARGETS=[
  ['Hall of Fame','https://archelaos.club/hall-of-fame.html'],
  ['Τμήματα','https://archelaos.club/tmimata.html'],
  ['News JSON','https://archelaos.club/news.json'],
- ['Hall of Fame JSON','https://archelaos.club/hall-of-fame-people.json']
+ ['Hall of Fame JSON','https://archelaos.club/hall-of-fame-people.json'],
+ ['Ψηφιακό Μουσείο','https://archelaos.club/history.html'],
+ ['70 Στιγμές','https://archelaos.club/70-stigmes.html'],
+ ['Πλήρες Χρονολόγιο','https://archelaos.club/events/index.html'],
+ ['Επικοινωνία','https://archelaos.club/contact.html']
 ];
 function out(code,status=200,extra={}){return Response.json({code,...extra},{status,headers:H});}
 async function equalSecret(got,expected){
@@ -51,7 +55,7 @@ export async function handleUptimeMonitor(request,env){
   if(!contact)return out('NO_ACTIVE_EMAIL_ALERT_CONTACT',409,{needed:missing.length});
   const created=[];
   for(const item of missing){
-   const r=await remote(env,'/monitors','POST',{type:'HTTP',url:item.target,friendlyName:'ARCHELAOS | '+item.label,interval:300,timeout:30,assignedAlertContacts:[{alertContactId:Number(contact.id),threshold:0,recurrence:0}]});
+   const r=await remote(env,'/monitors','POST',{type:'HTTP',url:item.target,friendlyName:'ARCHELAOS | '+item.label,interval:300,timeout:30,httpMethodType:'GET',successHttpResponseCodes:['2xx'],assignedAlertContacts:[{alertContactId:Number(contact.id),threshold:0,recurrence:0}]});
    created.push({url:item.target,id:r?.id||r?.data?.id||r?.monitor?.id||null});
   }
   return out('UPTIME_ENSURE_ACCEPTED',200,{created,existing:matches.filter(m=>m.found.length).map(m=>m.target),notificationContactConfigured:true});
