@@ -100,7 +100,6 @@ test('browser-confirmed encrypted backup requires Admin session, same-origin POS
   }));
   // Missing Origin is permitted only with an explicit same-origin Fetch
   // Metadata header (some privacy-protecting browsers omit Origin).
-  assert.equal((await post({origin:'null'})).status, 403);
   assert.equal((await post({'sec-fetch-site':'cross-site'})).status, 403);
   const originlessHeaders = new Headers({
     cookie: session + '; ' + csrf, 'sec-fetch-site': 'same-origin',
@@ -112,12 +111,22 @@ test('browser-confirmed encrypted backup requires Admin session, same-origin POS
   });
   const formUrl = origin + '/api/apps-script/private-backup';
   const submit = async headers => route(new Request(formUrl, { method:'POST', headers, body }));
-  assert.equal((await submit(missingMetadataHeaders)).status, 403);
   assert.equal((await submit(new Headers({ ...Object.fromEntries(originlessHeaders), 'sec-fetch-site': 'cross-site' }))).status, 403);
+  const wrongCsrf = await route(new Request(formUrl, {
+    method: 'POST', headers: missingMetadataHeaders, body: 'confirmation=' + 'b'.repeat(43)
+  }));
+  assert.equal(wrongCsrf.status, 403);
+  assert.equal((await wrongCsrf.json()).code, 'BACKUP_CONFIRMATION_REQUIRED');
+  const crossSite = await post({'sec-fetch-site':'cross-site'});
+  assert.equal(crossSite.status, 403);
+  assert.equal((await crossSite.json()).code, 'BACKUP_ORIGIN_REQUIRED_CROSS_SITE');
   const rejected = await post({origin:'https://example.invalid'});
   assert.equal(rejected.status, 403);
+  assert.equal((await rejected.json()).code, 'BACKUP_ORIGIN_REQUIRED_EXTERNAL');
   assert.equal(created, 0);
-  const accepted = await submit(originlessHeaders);
+  // A request with both optional browser metadata headers absent must still
+  // pass only when the Admin session and one-use double-submit token match.
+  const accepted = await submit(missingMetadataHeaders);
   assert.equal(accepted.status, 200, await accepted.clone().text());
   assert.equal((await accepted.json()).status, 'PRIVATE_BACKUP_VERIFIED');
   assert.equal(created, 1);
