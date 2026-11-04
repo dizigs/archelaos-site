@@ -23,14 +23,14 @@ jobs:
         run: |
           python rebuild/tools/build_release.py
           python rebuild/tools/verify_release.py
-      - name: Install community sitespeed.io
-        run: npm install --no-save --no-package-lock sitespeed.io
+      - name: Install locked local sitespeed.io
+        run: npm ci --ignore-scripts --prefix .github/ci-security-tools
       - name: Collect one-run performance report without deploying
         shell: bash
         run: |
           set -euo pipefail
           python -m http.server 8765 --bind 127.0.0.1 --directory dist >/tmp/sitespeed-server.log 2>&1 &
-          npx sitespeed.io --browsertime.iterations 1 --browsertime.browser chrome --browsertime.chrome.args no-sandbox --outputFolder sitespeed-result http://127.0.0.1:8765/
+          ./.github/ci-security-tools/node_modules/.bin/sitespeed.io --browsertime.iterations 1 --browsertime.browser chrome --browsertime.chrome.args no-sandbox --outputFolder sitespeed-result http://127.0.0.1:8765/
       - name: Preserve speed results
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
