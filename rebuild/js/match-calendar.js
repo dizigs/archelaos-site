@@ -79,6 +79,8 @@ function card(item,index){
  matchup.append(left,create('span','fx-versus','VS'),right);a.append(matchup);
  const bottom=create('div','fx-bottom');
  bottom.append(create('span','fx-venue',item.venue||'Γήπεδο: προς ανακοίνωση'));
+ // Preserve archive detail links, but do not restore calendar actions.
+ if($('#upcoming-matches')?.classList.contains('fx-direct-fixture')){a.append(bottom);return a;}
  // Staging serves fixture data but does not ship the generated /calendar/*.ics.
  // Keep preview controls truthful; release build publishes the real files.
  if(stage()){
@@ -100,15 +102,23 @@ function card(item,index){
    'Για Apple, Outlook ή εισαγωγή στο Google Calendar, χρησιμοποιήστε το αρχείο .ics.'));
  menu.append(links);bottom.append(menu);a.append(bottom);return a;
 }
+const nodeOrNull=()=>$('#upcoming-matches');
 function render(){
  const root=$('#fx-list');if(!root)return;
  const requested=new URLSearchParams(location.search).get('fixture');
  const exact=requested&&fixtures.find(x=>x.id===requested);
+ if(nodeOrNull()?.classList.contains('fx-direct-fixture')&&!exact){
+  root.replaceChildren();root.hidden=true;
+  $('#fx-empty').hidden=false;
+  $('#fx-status').textContent='Δεν βρέθηκε εγκεκριμένη αρχειακή καταχώριση για αυτόν τον αγώνα.';
+  return;
+ }
  if(exact){
   root.replaceChildren(card(exact,0));root.hidden=false;
   $('#fx-empty').hidden=true;
   $('#fx-status').textContent='Ο αγώνας που επιλέξατε από την αναζήτηση · εγκεκριμένη αρχειακή καταχώριση.';
   $('#fx-download').hidden=true;$('#fx-subscribe').hidden=true;
+  if(nodeOrNull()?.classList.contains('fx-direct-fixture'))nodeOrNull().scrollIntoView({block:'start'});
   return;
  }
  const visible=upcoming();
@@ -123,7 +133,28 @@ function render(){
  $('#fx-subscribe').hidden=stage()||!anyUpcoming;
 }
 async function init(){
- const node=$('#upcoming-matches');if(!node)return;
+ // The homepage calendar has been removed. Preserve only explicit archival
+ // fixture deep links from site search without reinstating the calendar section.
+ let node=$('#upcoming-matches');
+ const requested=new URLSearchParams(location.search).get('fixture');
+ if(!node&&requested){
+  const main=$('main');
+  if(!main)return;
+  node=create('section','fx-section fx-direct-fixture');
+  node.id='upcoming-matches';
+  node.setAttribute('aria-label','Αρχειακή καταχώριση αγώνα');
+  const shell=create('div','arch-container fx-shell');
+  const heading=create('h2','','Αρχειακή καταχώριση αγώνα');
+  const status=create('p','fx-status','Ανάκτηση εγκεκριμένης καταχώρισης…');status.id='fx-status';status.setAttribute('aria-live','polite');
+  const list=create('div','fx-cards');list.id='fx-list';
+  const empty=create('p','fx-empty','Ο αγώνας δεν βρέθηκε στο εγκεκριμένο αρχείο.');empty.id='fx-empty';empty.hidden=true;
+  const dl=create('span');dl.id='fx-download';dl.hidden=true;
+  const sub=create('span');sub.id='fx-subscribe';sub.hidden=true;
+  shell.append(heading,status,list,empty,dl,sub);node.append(shell);
+  const about=$('#about');
+  if(about)about.before(node);else main.append(node);
+ }
+ if(!node)return;
  heritage();
  node.querySelectorAll('[data-fixture-venue]').forEach(button=>
   button.addEventListener('click',()=>{
