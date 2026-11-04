@@ -75,3 +75,36 @@ jobs:
           include-hidden-files: true
           if-no-files-found: ignore
           retention-days: 14
+
+  performance-lock-bootstrap:
+    name: Temporary one-time performance lock verification
+    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && github.head_ref == 'security/issue66-performance-lock-proof-20261104'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out isolated verification branch
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Set up Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+      - name: Generate full npm v3 lockfile and verify local CLI tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm install --package-lock-only --ignore-scripts --no-fund --prefix .github/ci-performance-tools
+          node -e "const p=require('./.github/ci-performance-tools/package-lock.json');if(p.lockfileVersion!==3)process.exit(1);for(const [n,v] of Object.entries(p.packages))if(n&&(!v.integrity||!v.integrity.startsWith('sha512-')))throw new Error('Missing integrity: '+n)"
+          npm ci --ignore-scripts --no-fund --prefix .github/ci-performance-tools
+          ./.github/ci-performance-tools/node_modules/.bin/lhci --version
+          ./.github/ci-performance-tools/node_modules/.bin/sitespeed.io --version
+          npm audit --audit-level=high --prefix .github/ci-performance-tools
+      - name: Preserve generated performance lockfile for review
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: archelaos-performance-lock-bootstrap
+          path: .github/ci-performance-tools/package-lock.json
+          retention-days: 3
+          if-no-files-found: warn
