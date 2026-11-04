@@ -2,18 +2,13 @@
   "name": "archelaos-ci-security-tools",
   "version": "1.0.0",
   "private": true,
-  "description": "Isolated reproducible dependencies for existing browser/security audits; not deployed",
+  "description": "Pinned Playwright browser and accessibility CI audit tools; not deployed",
   "engines": {
     "node": "22.x"
   },
   "dependencies": {
     "@axe-core/playwright": "4.14.0",
-    "@lhci/cli": "0.15.1",
     "axe-core": "4.14.0",
-    "playwright": "1.58.0",
-    "sitespeed.io": "42.10.0"
-  },
-  "overrides": {
-    "tar": "7.5.22"
+    "playwright": "1.58.0"
   }
 }
