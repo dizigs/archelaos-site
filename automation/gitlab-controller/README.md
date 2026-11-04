@@ -30,3 +30,8 @@ npx wrangler deploy --dry-run
 Then validate `GET /health`, unauthenticated `POST /issues` returning `404`, and authenticated `POST /issues` with a deliberate **single** test issue only after a secure authorized caller and GitLab token are installed. Never put bearer credentials in command-line logs. No automatic schedule until operations are proven and quotas evaluated.
 
 **Important:** A successful Cloudflare deployment proves only deployment, not GitLab authorization or issue creation. Keep draft PR #131 under review and never direct-push to `main`.
+
+
+## Technical review correction — 2026-11-04
+
+Duplicate reconciliation matches the complete controller-reference line, not a ticket prefix. An existing matching issue must explicitly be confidential; a public/unknown match now blocks with UPSTREAM_PRIVACY_CONFLICT instead of returning a misleading private receipt. Two new regressions reproduce the former bugs; a carriage-return quick-action case is an additional positive safety control (the old multiline check already rejected it). No source change claims atomic deduplication: callers must still serialize ticket requests, and live authorization remains unverified. No deployment or real issue creation performed.

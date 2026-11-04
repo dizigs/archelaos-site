@@ -48,7 +48,7 @@ test('all non-allowlisted routes and HTTP methods are denied',async()=>{
 });
 test('duplicate found: only GET, no new issue',async()=>{
   const seen=[];
-  const f=async(url,opt)=>{seen.push([url,opt.method]);return new Response(JSON.stringify([{iid:1,description:'Controller reference: ARC-CTRL:MIRROR-20261104-0001',web_url:'https://gitlab.com/p/1'}]),{status:200});};
+  const f=async(url,opt)=>{seen.push([url,opt.method]);return new Response(JSON.stringify([{iid:1,description:'Controller reference: ARC-CTRL:MIRROR-20261104-0001',confidential:true,web_url:'https://gitlab.com/p/1'}]),{status:200});};
   const r=await submitIssue(fixed,{GITLAB_CONTROLLER_TOKEN:'token'},f);
   assert.deepEqual(r,{status:'exists',iid:1,url:'https://gitlab.com/p/1'});
   assert.equal(seen.length,1); assert.equal(seen[0][1],'GET');
@@ -78,4 +78,21 @@ test('content-type enforced and excessive body rejected',async()=>{
   assert.equal((await controller.fetch(wrong,{CONTROLLER_COMMAND_KEY:KEY,GITLAB_CONTROLLER_TOKEN:'token'})).status,400);
   const huge=new Request(u,{method:'POST',headers:{authorization:`Bearer ${KEY}`,'content-type':'application/json'},body:'A'.repeat(6000)});
   assert.ok([400,413].includes((await controller.fetch(huge,{CONTROLLER_COMMAND_KEY:KEY,GITLAB_CONTROLLER_TOKEN:'token'})).status));
+});
+
+test('ticket-prefix collision is not an exact existing ticket',async()=>{
+  const calls=[];
+  const f=async(_url,opt)=>{
+    calls.push(opt.method);
+    return Response.json(opt.method==='GET'?[{iid:1,description:'Controller reference: ARC-CTRL:'+fixed.ticketId+'0',confidential:true,web_url:'https://gitlab.com/p/1'}]:{iid:2,web_url:'https://gitlab.com/p/2',confidential:true});
+  };
+  const r=await submitIssue(fixed,{GITLAB_CONTROLLER_TOKEN:'synthetic-token'},f);
+  assert.equal(r.status,'created');assert.deepEqual(calls,['GET','POST']);
+});
+test('carriage-return quick actions cannot bypass the command boundary',()=>{
+  assert.throws(()=>validateIssue({...fixed,description:'Ordinary context\r/label ~production'}),/INVALID_REQUEST/);
+});
+test('an existing public issue cannot be reported as a confidential receipt',async()=>{
+  const f=async()=>Response.json([{iid:1,description:'Controller reference: ARC-CTRL:'+fixed.ticketId,confidential:false,web_url:'https://gitlab.com/p/1'}]);
+  await assert.rejects(submitIssue(fixed,{GITLAB_CONTROLLER_TOKEN:'synthetic-token'},f),/UPSTREAM_PRIVACY_CONFLICT/);
 });

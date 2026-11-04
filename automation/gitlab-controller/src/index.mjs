@@ -100,7 +100,9 @@ export async function submitIssue(input, env, fetcher = fetch) {
   const q = new URLSearchParams({ search: validated.marker, in: 'description', state: 'all', per_page: '100' });
   const existing = await callGitLab(`/issues?${q}`, {method:'GET'}, env.GITLAB_CONTROLLER_TOKEN, fetcher);
   if (!Array.isArray(existing)) throw new Error('UPSTREAM_SCHEMA');
-  const duplicate = existing.find(x => x.description?.includes(validated.marker));
+  const duplicate = existing.find(x => typeof x.description === 'string' &&
+    x.description.split(/\r?\n/).some(line => line === 'Controller reference: ' + validated.marker));
+  if (duplicate && duplicate.confidential !== true) throw new Error('UPSTREAM_PRIVACY_CONFLICT');
   if (duplicate) return { status: 'exists', iid: duplicate.iid, url: duplicate.web_url };
   const created = await callGitLab('/issues', {
     method:'POST',
