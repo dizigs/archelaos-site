@@ -161,7 +161,7 @@ async function run(){
     }
     await page.screenshot({path:path.join(output,name+'-'+size.width+'.png'),fullPage:true,animations:'disabled'});
    }
-   if(errors.length)throw Error('JavaScript: '+errors.join(' | '));
+   if(errors.length)throw Error('Browser console errors: '+errors.join(' | '));
    await page.close();
   }
  }finally{await browser.close()}
