@@ -7,6 +7,8 @@ on:
       - 'rebuild/tools/historical_discovery.py'
       - 'rebuild/tools/historical_ocr.py'
       - 'rebuild/tests/historical_research_test.py'
+      - 'rebuild/tools/notebook_source_bridge.py'
+      - 'rebuild/tests/notebook_source_bridge_test.py'
       - '.github/workflows/historical-archive-research.yml'
   workflow_dispatch:
     inputs:
@@ -41,6 +43,7 @@ jobs:
         run: |
           python rebuild/tools/historical_discovery.py --check-registry
           python -m unittest discover -s rebuild/tests -p historical_research_test.py -v
+          python -m unittest discover -s rebuild/tests -p notebook_source_bridge_test.py -v
       - name: Install Tesseract and official modern Greek training data
         run: |
           sudo apt-get update -qq
