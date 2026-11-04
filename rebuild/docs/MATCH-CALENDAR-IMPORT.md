@@ -16,7 +16,9 @@
 Ο συνεργάτης αναγνωρίζει ποιο αρχείο είναι χάντμπολ και ποιο βόλεϊ, αντί να το συμπεραίνει από τυχαία στοιχεία. Υποστηρίζονται εξαγωγές `.ics` και ZIP με `.ics` από Google Calendar, Apple Calendar ή Outlook.
 
 ```sh
-python rebuild/tools/import_match_calendar.py --handball /path/to/handball.ics --volleyball /path/to/volleyball.zip
+mkdir -p .archive-intake/calendars
+# Place the reviewed .ics/.zip exports in this local, gitignored folder first.
+python rebuild/tools/import_match_calendar.py --handball .archive-intake/calendars/handball.ics --volleyball .archive-intake/calendars/volleyball.zip
 ```
 
 Το προαιρετικό `--out` δέχεται μόνο το σταθερό
@@ -24,8 +26,13 @@ python rebuild/tools/import_match_calendar.py --handball /path/to/handball.ics -
 ανεξάρτητα από τον τρέχοντα φάκελο. Προσαρμοσμένα ονόματα, απόλυτα paths και
 διαδρομές traversal απορρίπτονται. Symlinks/hardlinks στο report ή στον φάκελό
 του απορρίπτονται· η εγγραφή γίνεται ατομικά σε αρχείο με δικαιώματα `0600`.
-Αυτός είναι έλεγχος του output· δεν αλλάζει ακόμη την ανεξάρτητη πολιτική
-ανάγνωσης των ρητά επιλεγμένων αρχείων εισόδου.
+Ο έλεγχος ισχύει επίσης για τα CLI inputs: διαβάζονται μόνο πραγματικά
+αρχεία .ics/.zip απευθείας μέσα στον τοπικό, μη δημοσιευόμενο φάκελο
+`.archive-intake/calendars`. Απορρίπτονται εξωτερικές διαδρομές,
+symlinks και διαδρομές από άλλη θέση. ZIP imports παραμένουν μόνο στη
+μνήμη (χωρίς εξαγωγή αρχείων στον δίσκο), με συνολικό όριο 5 MB σε
+αποσυμπιεσμένα ημερολόγια. Η εσωτερική `import_sources()` διατηρεί
+τον ανεξάρτητο ελεγχόμενο έλεγχο synthetic fixtures.
 
 Η εντολή δημιουργεί αποκλειστικά το **μη δημοσιευόμενο** `rebuild/test-artifacts/match-calendar-review.json`. Δεν μεταβάλλει αυτομάτως το `match-schedule.json`, δεν κάνει push και δεν κάνει deploy. Οι υποψήφιες καταχωρίσεις απαιτούν έλεγχο ως προς ομάδα, έδρα, αντίπαλο, αγωνιστική, κατηγορία, ώρα, γήπεδο, διοργάνωση, αλλαγές, UID και πηγή. Άγνωστα πεδία παραμένουν άγνωστα.
 
