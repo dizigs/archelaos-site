@@ -95,6 +95,28 @@ export function appsScriptExtension({ oauth, authenticateExecutor, editorFor, ve
         if (typeof oauth?.access !== 'function' || typeof verifyReadOnly !== 'function') throw new ScriptFault('PRIVATE_READ_VERIFIER_UNCONFIGURED', 503);
         return json(await verifyReadOnly(await oauth.access(request.headers.get('cookie'))));
       }
+      if (url.pathname === '/api/apps-script/private-backup') {
+        if (request.method !== 'GET' && request.method !== 'POST') throw new ScriptFault('SCRIPT_ROUTE_NOT_FOUND', 404);
+        if (request.method === 'GET' ? !allowedVerificationTracking(url) : Boolean(url.search)) throw new ScriptFault('UNSUPPORTED_SCRIPT_QUERY', 404);
+        if (typeof oauth?.access !== 'function' ||
+            typeof issueBackupConfirmation !== 'function' ||
+            typeof createVerifiedBackup !== 'function') throw new ScriptFault('PRIVATE_BACKUP_UNCONFIGURED', 503);
+        const grant = await oauth.access(request.headers.get('cookie'));
+        if (request.method === 'GET') {
+          return backupConfirmationPage(await issueBackupConfirmation(grant));
+        }
+        if (request.headers.get('origin') !== expectedOrigin ||
+            (request.headers.has('sec-fetch-site') && request.headers.get('sec-fetch-site') !== 'same-origin')) {
+          throw new ScriptFault('BACKUP_ORIGIN_REQUIRED', 403);
+        }
+        const sent = await readConfirmationForm(request);
+        if (!constantEqual(sent, backupConfirmationCookie(request.headers.get('cookie')))) {
+          throw new ScriptFault('BACKUP_CONFIRMATION_REQUIRED', 403);
+        }
+        const result = json(await createVerifiedBackup(grant, sent));
+        result.headers.append('set-cookie', confirmationCookie + '=; Path=/; Secure; HttpOnly; SameSite=Strict; Max-Age=0');
+        return result;
+      }
       // A browser cookie or global ping key alone does NOT grant edit rights.
       // The existing bridge must supply a verified, project-scoped executor port.
       if (typeof authenticateExecutor !== 'function' || typeof editorFor !== 'function') throw new ScriptFault('EXECUTOR_INTERFACE_UNCONFIGURED', 503);
