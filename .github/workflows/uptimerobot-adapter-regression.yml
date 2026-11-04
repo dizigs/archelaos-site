@@ -1,8 +1,11 @@
-name: UptimeRobot adapter regression
+name: Existing Worker adapters regression
 on:
   pull_request:
     paths:
       - 'automation/uptimerobot/**'
+      - 'automation/gitlab-controller/**'
+      - 'automation/gitlab-guardian/**'
+      - 'automation/raisely-bridge/**'
       - '.github/workflows/uptimerobot-adapter-regression.yml'
   workflow_dispatch:
 permissions:
@@ -23,3 +26,10 @@ jobs:
           node --check automation/uptimerobot/monitor-bridge.mjs
           node --check automation/uptimerobot/monitor-bridge.test.mjs
           node --test automation/uptimerobot/monitor-bridge.test.mjs
+      - name: Exercise existing GitLab and Raisely adapters without credentials
+        run: |
+          for directory in automation/gitlab-controller/test automation/gitlab-guardian/test automation/raisely-bridge/test; do
+            if [ -d "$directory" ]; then
+              node --test "$directory"/*.test.mjs
+            fi
+          done
