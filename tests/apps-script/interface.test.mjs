@@ -56,7 +56,15 @@ test('Admin browser-only verification is narrowly gated and does not unlock edit
   assert.equal(response.headers.get('cache-control'), 'no-store');
   assert.equal(body.accessToken, undefined);
   assert.equal(body.files, undefined);
-  assert.equal((await route(new Request(origin + '/api/apps-script/verify?leak=1'))).status, 404);
+  const tracked = await route(new Request(origin + '/api/apps-script/verify?utm_source=chatgpt.com', { headers: { cookie: '__Host-archelaos-script-session=synthetic' } }));
+  assert.equal(tracked.status, 200);
+  assert.equal((await tracked.json()).status, 'ADMIN_PROJECT_READ_VERIFIED');
+  for (const query of ['leak=1', 'code=do-not-copy', 'utm_source=chatgpt.com&utm_source=duplicate', 'utm_source=x'.concat('x'.repeat(180))]) {
+    const refused = await route(new Request(origin + '/api/apps-script/verify?' + query, { headers: { cookie: '__Host-archelaos-script-session=synthetic' } }));
+    assert.equal(refused.status, 404);
+    assert.equal((await refused.json()).code, 'UNSUPPORTED_SCRIPT_QUERY');
+  }
+  assert.equal((await route(new Request(origin + '/api/apps-script/content?utm_source=chatgpt.com', { headers: { cookie: '__Host-archelaos-script-session=synthetic' } }))).status, 503);
   assert.equal((await route(new Request(origin + '/api/apps-script/content', { headers: { cookie: '__Host-archelaos-script-session=synthetic' } }))).status, 503);
-  assert.deepEqual(calls, ['__Host-archelaos-script-session=synthetic']);
+  assert.deepEqual(calls, ['__Host-archelaos-script-session=synthetic', '__Host-archelaos-script-session=synthetic']);
 });
