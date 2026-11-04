@@ -134,6 +134,38 @@ in the same browser as the Google Admin OAuth grant; no successful Google API
 getContent is claimed until then. Evidence:
 `docs/automation/evidence/pr124-verifier-utm-allowlist-20261104.json`.
 
+## Browser backup form Origin compatibility — 2026-11-04
+
+The Admin's actual browser POST to `/api/apps-script/private-backup` returned
+`BACKUP_ORIGIN_REQUIRED` before creating any encrypted backup. Source review
+found a strict check requiring the `Origin` header on every POST, although
+some browsers or privacy modes may omit it. The precise request headers were
+not logged, so the missing-header diagnosis is plausible, not proven.
+
+The corrected POST guard now accepts an omitted Origin **only if**
+`Sec-Fetch-Site: same-origin` proves a same-origin browser form submission.
+An Origin supplied by the client must still match the Worker's exact origin;
+`Origin: null`, cross-origin Fetch Metadata, or absence of both headers
+remain denied. The Admin's encrypted OAuth session, one-use SQLite
+confirmation and matching HttpOnly cookie/form nonce are still required.
+No exception was added to the Google edit interface.
+
+Reviewed source head `7457d51fd65bf023401c0ac14e41745b2500714b`,
+deployed on the existing Worker as Cloudflare deployment
+`a9d5c577-55ee-489e-9789-3bcd205d2d09`, version
+`0570c7f1-c868-45c7-a9d2-ef95c539b1e6`. Previous version
+`6b2185cd-8d03-4b93-bdb7-db7b7cb984c0` remains available.
+Cloudflare readback verified preservation of all 10 module parts and 10
+binding names. Node/SQLite offline CI passed. External HTTP GET checks:
+`/health` 200; anonymous backup GET 401; editor GET 503.
+
+A read-only SQLite check performed before this deployment showed
+**0 encrypted backups, 0 edit operations, 1 Admin grant**, and one
+outstanding browser confirmation; no partial backup was created.
+Authenticated browser POST success is not yet established. Reopen the backup
+page in the *same browser* and click the confirmation again once.
+All Google writes remain OFF.
+
 ## Implemented, tested boundaries
 
 - Scoped Admin authorization-code flow: `openid email script.projects`, PKCE-S256,
