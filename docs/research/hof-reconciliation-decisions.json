@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "2b0a7a3394ef68c33e938d65ca6d54d947b7fd21",
+  "baseline_counts": {
+    "canonical": 771,
+    "historical": 680,
+    "divergent_people": 57,
+    "bio": 57,
+    "bio_en": 32,
+    "name": 1
+  },
+  "decisions": {
+    "arch-23f5b3ca37c0": {
+      "bio": {
+        "classification": "SEMANTICALLY_RETAINED",
+        "legacy_sha256": "ecd0c0bebbffd68a7e85f42b8484c8bf3930f7a8890760e004d2dce4d6b397e5",
+        "canonical_sha256": "c13b209f5dc6986255e9889484b3df7c92f1730481d86d55c5835e1a161fb70e",
+        "evidence": "Both versions retain 1993 Balkan junior pole-vault victory, 5.05 m and Lefteriotis; canonical addendum explicitly retains Thessaloniki."
+      }
+    },
+    "arch-3fe6e9ae9b29": {
+      "bio": {
+        "classification": "QUALIFIED_ARCHIVE",
+        "legacy_sha256": "128653c5e16d2bd3ae04cffa930aaf827130e1a2c685dcf730ee02356a42524a",
+        "canonical_sha256": "ce247bfb0735d7fa5a436d229873e55283be59ac2f63df59b878d421514b4d4d",
+        "evidence": "Club-authorized public editorial correction on 2026-11-03. Original archival records preserved; disputed 1994 ranking, historical wrestling placements and national-team starting status remain in private fact-check. Federation or municipality evidence and club confirmation recorded separately."
+      },
+      "bio_en": {
+        "classification": "QUALIFIED_ARCHIVE",
+        "legacy_sha256": "b6520191240b91b2576ca966442ac2796128ff3b289160b351d487354fb1ce3d",
+        "canonical_sha256": "7e0e60988a805561af112a51f5ad00a20be7d6f69dc088c140bf3c2d60879181",
+        "evidence": "Club-authorized public editorial correction on 2026-11-03. Original archival records preserved; disputed 1994 ranking, historical wrestling placements and national-team starting status remain in private fact-check. Federation or municipality evidence and club confirmation recorded separately."
+      }
+    },
+    "arch-44ef21dfb9b7": {
+      "bio": {
+        "classification": "SEMANTICALLY_RETAINED",
+        "legacy_sha256": "257ef44183a794eb0985b6d75c368b08d6e42b00afa5afd04086cbfbf9864406",
+        "canonical_sha256": "ae3101508174a678b743dd400a2e0b582f3614dd3bd7dcede9ba39ecb3e66804",
+        "evidence": "Canonical retains the historical text and inserts the qualification that Emmanouil Zaras was a department official, not a competing athlete. No sentence/fact needs restoration."
+      },
+      "bio_en": {
+        "classification": "SEMANTICALLY_RETAINED",
+        "legacy_sha256": "ebd10ba24ca3b326ce732addaec7d24e45cfab666539de973bf78aa19ec6ed62",
+        "canonical_sha256": "a943fb2b0f655bbbe569396b54ceb4d012fb14d3703a60df20ab8539674a6719",
+        "evidence": "Canonical retains the historical text and inserts the qualification that Emmanouil Zaras was a department official, not a competing athlete. No sentence/fact needs restoration."
+      }
+    },
+    "arch-7a113e11ae86": {
+      "bio": {
+        "classification": "QUALIFIED_ARCHIVE",
+        "legacy_sha256": "6ad7858eb382c3e7d7338d4197c5d8c8dde77ee035ed3545b213ffd33ca517a7",
+        "canonical_sha256": "5fb44a09e4baf84b4a521087c78f9b51dac1d0560fdf5a2186289e8d2fca7faa",
+        "evidence": "All dates, roles and donations (2000/1800/1400 euros; total 5200) retained, with an explicit original-minutes verification caveat. Do not remove the caveat or publish private minutes."
+      },
+      "bio_en": {
+        "classification": "QUALIFIED_ARCHIVE",
+        "legacy_sha256": "79225d61418b3df9c7a9cb23ff4e3f4dd6cecb19c73efbae9265770c9c3da24c",
+        "canonical_sha256": "8fb19ddb0f5629f0058f4106114e3fee73b9b0e1def7812ac6991e3eaef4ab43",
+        "evidence": "All dates, roles and donations (2000/1800/1400 euros; total 5200) retained, with an explicit original-minutes verification caveat. Do not remove the caveat or publish private minutes."
+      }
+    },
+    "arch-999730e06982": {
+      "bio": {
+        "classification": "BLOCKED_SOURCE",
+        "legacy_sha256": "8303a6af48c202725b81b0641abd5c6194e05ccce3c62a18e6040162edce149b",
+        "canonical_sha256": "5d180a62a8da7257c9479ef9b5e1a86bb33519f62ad6ff763bc97ef383f359cb",
+        "evidence": "Club-authorized public editorial correction on 2026-11-03. Original archival records preserved; disputed 1994 ranking, historical wrestling placements and national-team starting status remain in private fact-check. Federation or municipality evidence and club confirmation recorded separately."
+      },
+      "bio_en": {
+        "classification": "BLOCKED_SOURCE",
+        "legacy_sha256": "6ae2e46e811a228aaae7305ced03aa7597d97d70f096e4f7d3f24875c6bab178",
+        "canonical_sha256": "f584644978e5836db8a72ffcc08f3e0b35bd06fc54934acd7c6def084766ef8e",
+        "evidence": "Club-authorized public editorial correction on 2026-11-03. Original archival records preserved; disputed 1994 ranking, historical wrestling placements and national-team starting status remain in private fact-check. Federation or municipality evidence and club confirmation recorded separately."
+      }
+    },
+    "arch-af9470c5745f": {
+      "bio": {
+        "classification": "BLOCKED_SOURCE",
+        "legacy_sha256": "2029e3bf36fa61da8c4e875a5b822059de90c4d1d99a48fa965dae96f8232661",
+        "canonical_sha256": "b429cd5d7c5848f7ea40ad4c3d412b5aec47efee08ca093aca5f80beaddce056",
+        "evidence": "Club-authorized public editorial correction on 2026-11-03. Original archival records preserved; disputed 1994 ranking, historical wrestling placements and national-team starting status remain in private fact-check. Federation or municipality evidence and club confirmation recorded separately."
+      },
+      "bio_en": {
+        "legacy_sha256": "f461daad7e20a31559dc7b82fee5563e4715a385d19876e2d6d0653dff05b855",
+        "canonical_sha256": "f668183b99da325c8dea659971fae47d586146a1e3e20d769cf19564d5709d4a",
+        "classification": "BLOCKED_SOURCE",
+        "evidence": "Club-authorized public editorial correction on 2026-11-03. Original archival records preserved; disputed 1994 ranking, historical wrestling placements and national-team starting status remain in private fact-check. Federation or municipality evidence and club confirmation recorded separately."
+      }
+    },
+    "arch-b48656c62600": {
+      "bio": {
+        "classification": "SEMANTICALLY_RETAINED",
+        "legacy_sha256": "f304734dc199c39c66731a13600b93bd3bb9e2bfea610051278069025d195f1c",
+        "canonical_sha256": "b55f0b866762a46562bd3c2237977cd4cbe4c32ec750c62a681d477152a16703",
+        "evidence": "The duplicated 2025 Larissa team-silver sentence was consolidated into the opening paragraph; 2026 gold, Darko Nisavic 60 kg first place and Balkan bronze retained."
+      }
+    },
+    "arch-f56820c52e55": {
+      "name": {
+        "classification": "SPELLING_CORRECTION",
+        "legacy_sha256": "0fb6ccdce78c3477c95be5da29892cec7ba94032707d0e42bfd6c134cbe796dd",
+        "canonical_sha256": "4455a2c89f2b4fd707d3d4fd7c27c6c9496d32893ff0af54032169ddf45c4a10",
+        "evidence": "Protect Χρήστος Λιμπανοβνός / Christos Limpanovnos. Historical Λυμπανοβνός / Lympanovnos spellings must not overwrite canonical identity."
+      },
+      "bio_en": {
+        "classification": "SPELLING_CORRECTION",
+        "legacy_sha256": "00063972d4072b8512ec5b58d845c63c371eafa9be92d151145388526d0bbdb0",
+        "canonical_sha256": "f6db147c9cb5286854e25083c5caced6390704644f694e99c776ad6199cd3c55",
+        "evidence": "Protect Χρήστος Λιμπανοβνός / Christos Limpanovnos. Historical Λυμπανοβνός / Lympanovnos spellings must not overwrite canonical identity."
+      }
+    },
+    "arch-f6152b60c43f": {
+      "bio": {
+        "classification": "QUALIFIED_ARCHIVE",
+        "legacy_sha256": "f6d3f92a99c296582435b87d0263feec21e0f75d776933f4b6d2841f2a54b8c4",
+        "canonical_sha256": "001ba6af36b81439ecf450b81b994901fa50c1f81dd9076bbd5627962703a762",
+        "evidence": "Club-authorized public editorial correction on 2026-11-03. Original archival records preserved; disputed 1994 ranking, historical wrestling placements and national-team starting status remain in private fact-check. Federation or municipality evidence and club confirmation recorded separately."
+      },
+      "bio_en": {
+        "legacy_sha256": "fdc7721c0ec5d860e53034dbe5a1ad7ef88cfaf43882986eb58c0d4cccc8861d",
+        "canonical_sha256": "b35d6af177a97c14d7ccd3ac1cde6d3a9ef67b74e3153c92d5f2d6f7d5ce39c4",
+        "classification": "QUALIFIED_ARCHIVE",
+        "evidence": "Club-authorized public editorial correction on 2026-11-03. Original archival records preserved; disputed 1994 ranking, historical wrestling placements and national-team starting status remain in private fact-check. Federation or municipality evidence and club confirmation recorded separately."
+      }
+    }
+  }
+}

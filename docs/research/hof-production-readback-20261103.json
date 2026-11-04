@@ -1,0 +1,93 @@
+{
+  "scope": "READ_ONLY_PRODUCTION_BEFORE_THIS_BRANCH",
+  "deployment_of_branch": "NOT VERIFIED",
+  "requests": [
+    {
+      "path": "/hall-of-fame-people.json",
+      "status": 200,
+      "client": "curl through configured session proxy",
+      "bytes": 790671,
+      "sha256": "6c1ea9a00986debadb28312f02be3ac1f6028b866bff54e511e03193b8deae33",
+      "checked_at": "2026-11-03T17:33:43.527647+00:00",
+      "count": 771
+    },
+    {
+      "path": "/archelaos-person-index.json",
+      "status": 200,
+      "client": "curl through configured session proxy",
+      "bytes": 161461,
+      "sha256": "8ddd1fab0449b2c0b0edbff452463a9ed5d5aa12c20dcf740ebe13c139b8d4b6",
+      "checked_at": "2026-11-03T17:33:44.174446+00:00",
+      "count": 771
+    },
+    {
+      "path": "/sitemaps/people.xml",
+      "status": 200,
+      "client": "curl through configured session proxy",
+      "bytes": 70030,
+      "sha256": "4a7e85aaa9db9c97c927c8f8b9fad35e56876f9f3dc0086985063d5e11b84e7d",
+      "checked_at": "2026-11-03T17:33:44.417799+00:00",
+      "profile_urls": 771
+    },
+    {
+      "path": "/people/arch-f56820c52e55.html",
+      "status": 308,
+      "client": "curl through configured session proxy",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checked_at": "2026-11-03T17:33:44.556085+00:00",
+      "error": "",
+      "redirect_to": "/people/arch-f56820c52e55",
+      "final_status": 200,
+      "final_sha256": "7ac24caddf9b9f59396fc83b3090d35d10ac151077dc403fa80ec03daa5f743b",
+      "final_bytes": 6810,
+      "sample_observations": {
+        "historical_greek_surname_present": true,
+        "historical_english_surname_present": true,
+        "rank_uncertainty_present": false
+      }
+    },
+    {
+      "path": "/people/arch-3fe6e9ae9b29.html",
+      "status": 308,
+      "client": "curl through configured session proxy",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checked_at": "2026-11-03T17:33:45.338611+00:00",
+      "error": "",
+      "redirect_to": "/people/arch-3fe6e9ae9b29",
+      "final_status": 200,
+      "final_sha256": "23c81bd7a82e5ac0322a4316b13ee6d46bf4afc470019c10af9b78e23b360894",
+      "final_bytes": 4903,
+      "sample_observations": {
+        "historical_greek_surname_present": false,
+        "historical_english_surname_present": false,
+        "rank_uncertainty_present": true
+      }
+    },
+    {
+      "path": "/people/arch-f6152b60c43f.html",
+      "status": 308,
+      "client": "curl through configured session proxy",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checked_at": "2026-11-03T17:33:45.446639+00:00",
+      "error": "",
+      "redirect_to": "/people/arch-f6152b60c43f",
+      "final_status": 200,
+      "final_sha256": "d966fce26841993f957923ef64811dacc80070837164747f779c29f21b467eab",
+      "final_bytes": 6181,
+      "sample_observations": {
+        "historical_greek_surname_present": false,
+        "historical_english_surname_present": false,
+        "rank_uncertainty_present": false
+      }
+    }
+  ],
+  "limitations": [
+    "Initial Python urllib requests returned HTTP 403; curl via the configured proxy succeeded. This is not evidence of missing GitHub permissions.",
+    "Profile .html routes return HTTP 308 to extensionless paths, followed explicitly and returning HTTP 200.",
+    "Existing production Limpanovnos standalone profile still uses historical Greek/English spelling while the canonical feed uses the corrected name.",
+    "HTTP readback does not prove the Cloudflare deployment commit or deployment logs."
+  ]
+}

@@ -5,9 +5,11 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
-  issues: write
 jobs:
   check:
+    permissions:
+      contents: read
+      issues: write
     if: github.repository == 'dizigs/archelaos-site'
     runs-on: ubuntu-latest
     timeout-minutes: 15

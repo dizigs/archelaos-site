@@ -1,0 +1,185 @@
+import { ScriptFault } from './security.mjs';
+
+// Uses the existing Worker's future authorized SQLite DO storage port. This
+// module creates no Worker/namespace and cannot make KV get/put atomic.
+export class SqlScriptStore {
+  constructor(storage, clock = Date.now) {
+    if (typeof storage?.transactionSync !== 'function' || typeof storage?.sql?.exec !== 'function') throw new ScriptFault('ATOMIC_PRIVATE_STORE_REQUIRED', 503);
+    this.storage = storage; this.sql = storage.sql; this.clock = clock;
+    for (const statement of [
+      'CREATE TABLE IF NOT EXISTS script_operations(id TEXT PRIMARY KEY,project TEXT NOT NULL,actor TEXT NOT NULL,digest TEXT NOT NULL,status TEXT NOT NULL,backup TEXT,intended TEXT,trigger_hash TEXT,updated INTEGER NOT NULL,result TEXT)',
+      'CREATE TABLE IF NOT EXISTS script_project_locks(project TEXT PRIMARY KEY,operation TEXT NOT NULL)',
+      'CREATE TABLE IF NOT EXISTS script_private_blobs(id TEXT PRIMARY KEY,cipher TEXT NOT NULL)',
+      'CREATE TABLE IF NOT EXISTS script_oauth_states(id TEXT PRIMARY KEY,cipher TEXT NOT NULL,expires INTEGER NOT NULL,used INTEGER NOT NULL DEFAULT 0)',
+      'CREATE TABLE IF NOT EXISTS script_oauth_start_rate(bucket INTEGER PRIMARY KEY,count INTEGER NOT NULL)',
+      'CREATE TABLE IF NOT EXISTS script_oauth_sessions(id TEXT PRIMARY KEY,cipher TEXT NOT NULL)',
+      'CREATE TABLE IF NOT EXISTS script_admin_grants(actor TEXT PRIMARY KEY,session TEXT NOT NULL)',
+      'CREATE TABLE IF NOT EXISTS script_browser_backup_confirmations(id TEXT PRIMARY KEY, expires INTEGER NOT NULL)',
+      'CREATE TABLE IF NOT EXISTS script_operator_probes(id TEXT PRIMARY KEY,status TEXT NOT NULL,expires INTEGER NOT NULL,updated INTEGER NOT NULL,result TEXT)',
+      'CREATE TABLE IF NOT EXISTS script_signed_probes(run_key TEXT PRIMARY KEY, token_hash TEXT NOT NULL, source_sha TEXT NOT NULL, at INTEGER NOT NULL, result TEXT NOT NULL)',
+      'CREATE TABLE IF NOT EXISTS script_signed_commands(run_key TEXT PRIMARY KEY,token_hash TEXT UNIQUE NOT NULL,operation TEXT UNIQUE NOT NULL,digest TEXT NOT NULL,action TEXT NOT NULL,status TEXT NOT NULL,result TEXT,at INTEGER NOT NULL)',
+      'CREATE TABLE IF NOT EXISTS script_refresh_claims(id TEXT PRIMARY KEY)',
+      'CREATE TABLE IF NOT EXISTS script_audit(id INTEGER PRIMARY KEY AUTOINCREMENT,operation TEXT NOT NULL,code TEXT NOT NULL,at INTEGER NOT NULL)'
+    ]) this.sql.exec(statement);
+  }
+  audit(id, code) { this.sql.exec('INSERT INTO script_audit(operation,code,at) VALUES(?,?,?)', id, code, Date.now()); }
+  begin(id, project, actor, digest) {
+    return this.storage.transactionSync(() => {
+      const old = [...this.sql.exec('SELECT * FROM script_operations WHERE id=?', id)][0];
+      if (old) {
+        if (old.project !== project || old.actor !== actor || old.digest !== digest) throw new ScriptFault('OPERATION_ID_CONFLICT');
+        return { fresh: false, status: old.status, result: old.result ? JSON.parse(old.result) : null };
+      }
+      if ([...this.sql.exec('SELECT COUNT(*) AS n FROM script_operations')][0].n >= 1000) throw new ScriptFault('PRIVATE_JOURNAL_CAPACITY_REACHED', 429);
+      if ([...this.sql.exec('SELECT operation FROM script_project_locks WHERE project=?', project)].length) throw new ScriptFault('PROJECT_OPERATION_IN_PROGRESS', 423);
+      this.sql.exec('INSERT INTO script_operations(id,project,actor,digest,status,updated) VALUES(?,?,?,?,?,?)', id, project, actor, digest, 'PREPARING', this.clock());
+      this.sql.exec('INSERT INTO script_project_locks(project,operation) VALUES(?,?)', project, id);
+      this.audit(id, 'PREPARING'); return { fresh: true };
+    });
+  }
+  attachBackup(id, backup) { this.sql.exec('UPDATE script_operations SET backup=? WHERE id=? AND status=?', backup, id, 'PREPARING'); }
+  sent(id, intended, trigger) { this.sql.exec('UPDATE script_operations SET status=?,intended=?,trigger_hash=?,updated=? WHERE id=? AND status=?', 'WRITE_IN_FLIGHT', intended, trigger, this.clock(), id, 'PREPARING'); this.audit(id, 'WRITE_IN_FLIGHT'); }
+  finish(id, result, release = true) {
+    this.storage.transactionSync(() => {
+      this.sql.exec('UPDATE script_operations SET status=?,result=?,updated=? WHERE id=?', result.status, JSON.stringify(result), this.clock(), id);
+      if (release) this.sql.exec('DELETE FROM script_project_locks WHERE operation=?', id);
+      this.audit(id, result.status);
+    });
+  }
+  inspect(id, project, actor) {
+    const row = [...this.sql.exec('SELECT id,status,backup,intended,trigger_hash,updated,result FROM script_operations WHERE id=? AND project=? AND actor=?', id, project, actor)][0];
+    return row ? { operationId: row.id, status: row.status, intendedHash: row.intended, backupId: row.backup, triggerHash: row.trigger_hash, updatedAt: row.updated, result: row.result ? JSON.parse(row.result) : null } : null;
+  }
+  putPrivate(id, cipher) {
+    this.storage.transactionSync(() => {
+      const totals = [...this.sql.exec('SELECT COUNT(*) AS n,COALESCE(SUM(length(cipher)),0) AS bytes FROM script_private_blobs')][0];
+      if (totals.n >= 64 || totals.bytes + cipher.length > 32 * 1024 * 1024) throw new ScriptFault('PRIVATE_BACKUP_CAPACITY_REACHED', 429);
+      this.sql.exec('INSERT INTO script_private_blobs(id,cipher) VALUES(?,?)', id, cipher);
+    });
+  }
+  getPrivate(id) { return [...this.sql.exec('SELECT cipher FROM script_private_blobs WHERE id=?', id)][0]?.cipher; }
+  putState(id, cipher, expires) {
+    this.storage.transactionSync(() => {
+      const now = this.clock(); const bucket = Math.floor(now / 60000);
+      this.sql.exec('DELETE FROM script_oauth_states WHERE expires<=? OR used=1', now);
+      this.sql.exec('DELETE FROM script_oauth_start_rate WHERE bucket<?', bucket - 1);
+      const rate = [...this.sql.exec('SELECT count FROM script_oauth_start_rate WHERE bucket=?', bucket)][0]?.count || 0;
+      if (rate >= 30 || [...this.sql.exec('SELECT COUNT(*) AS n FROM script_oauth_states')][0].n >= 256) throw new ScriptFault('OAUTH_START_RATE_LIMIT', 429);
+      this.sql.exec('INSERT INTO script_oauth_start_rate(bucket,count) VALUES(?,1) ON CONFLICT(bucket) DO UPDATE SET count=count+1', bucket);
+      this.sql.exec('INSERT INTO script_oauth_states(id,cipher,expires) VALUES(?,?,?)', id, cipher, expires);
+    });
+  }
+  peekState(id, now) { return [...this.sql.exec('SELECT cipher FROM script_oauth_states WHERE id=? AND used=0 AND expires>?', id, now)][0]?.cipher; }
+  consumeState(id, now) {
+    return this.storage.transactionSync(() => {
+      const cipher = this.peekState(id, now); if (!cipher) throw new ScriptFault('OAUTH_STATE_EXPIRED_OR_REPLAYED', 401);
+      this.sql.exec('UPDATE script_oauth_states SET used=1,cipher=? WHERE id=?', '', id); return cipher;
+    });
+  }
+  registerBackupConfirmation(id, expires) {
+    this.storage.transactionSync(() => {
+      this.sql.exec('DELETE FROM script_browser_backup_confirmations WHERE expires<=?', this.clock());
+      const n = [...this.sql.exec('SELECT COUNT(*) AS n FROM script_browser_backup_confirmations')][0].n;
+      if (n >= 12) throw new ScriptFault('BACKUP_CONFIRMATION_CAPACITY_REACHED', 429);
+      this.sql.exec('INSERT INTO script_browser_backup_confirmations(id,expires) VALUES(?,?)', id, expires);
+    });
+  }
+  consumeBackupConfirmation(id) {
+    this.storage.transactionSync(() => {
+      const row = [...this.sql.exec('SELECT id FROM script_browser_backup_confirmations WHERE id=? AND expires>?', id, this.clock())][0];
+      if (!row) throw new ScriptFault('BACKUP_CONFIRMATION_EXPIRED_OR_REPLAYED', 409);
+      this.sql.exec('DELETE FROM script_browser_backup_confirmations WHERE id=?', id);
+    });
+  }
+  // One GitHub OIDC run attempt authorizes exactly ONE read-only readiness
+  // receipt. Atomic uniqueness prevents replay even with a fresh OIDC JWT.
+  // The digest only indexes a signed token; never store the bearer token.
+  recordGithubSignedReadiness(runKey, tokenHash, sourceCommit) {
+    if (typeof runKey !== 'string' || !/^\d{1,20}:[1-9]\d{0,3}$/.test(runKey) ||
+        typeof tokenHash !== 'string' || !/^[0-9a-f]{64}$/.test(tokenHash) ||
+        typeof sourceCommit !== 'string' || !/^[0-9a-f]{40}$/.test(sourceCommit)) {
+      throw new ScriptFault('GITHUB_READONLY_RECEIPT_INVALID', 422);
+    }
+    return this.storage.transactionSync(() => {
+      if ([...this.sql.exec('SELECT 1 FROM script_signed_probes WHERE run_key=?', runKey)].length) {
+        throw new ScriptFault('GITHUB_OIDC_RUN_ALREADY_CONSUMED', 409);
+      }
+      const count = [...this.sql.exec('SELECT COUNT(*) AS n FROM script_signed_probes')][0].n;
+      if (count >= 256) throw new ScriptFault('GITHUB_READONLY_RECEIPT_CAPACITY', 429);
+      const grants = [...this.sql.exec('SELECT COUNT(*) AS n FROM script_admin_grants')][0].n;
+      const backups = [...this.sql.exec('SELECT COUNT(*) AS n FROM script_private_blobs')][0].n;
+      const verified = [...this.sql.exec("SELECT COUNT(*) AS n FROM script_audit WHERE code='BROWSER_ENCRYPTED_BACKUP_VERIFIED'")][0].n;
+      const edits = [...this.sql.exec('SELECT COUNT(*) AS n FROM script_operations')][0].n;
+      const status = grants === 1 && backups >= 1 && verified >= 1 && edits === 0
+        ? 'GITHUB_OIDC_READONLY_PROBE_VERIFIED' : 'GITHUB_OIDC_READONLY_PREREQUISITES_INCOMPLETE';
+      const result = { status, signedExecution: true, readOnly: true,
+        encryptedBackupPresent: backups >= 1, googleEditsPerformed: false, editorEnabled: false };
+      this.sql.exec('INSERT INTO script_signed_probes(run_key,token_hash,source_sha,at,result) VALUES(?,?,?,?,?)',
+        runKey, tokenHash, sourceCommit, this.clock(), JSON.stringify(result));
+      this.audit(crypto.randomUUID(), status);
+      return result;
+    });
+  }
+  // Cloudflare account-authenticated operator probes are inserted only through
+  // the private Durable Object SQL administration API, never by HTTP requests.
+  // This intentionally cannot enqueue or run edits, tokens, arbitrary code
+  // or a paid job. A public nudge can only consume an already-admitted probe.
+  claimOperatorProbe() {
+    return this.storage.transactionSync(() => {
+      const row = [...this.sql.exec("SELECT id,expires FROM script_operator_probes WHERE status='QUEUED' ORDER BY updated ASC LIMIT 1")][0];
+      if (!row) return null;
+      const id = row.id;
+      if (typeof id !== 'string' || !/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(id) || row.expires <= this.clock()) {
+        this.sql.exec("UPDATE script_operator_probes SET status='REJECTED',updated=? WHERE id=? AND status='QUEUED'", this.clock(), id);
+        return null;
+      }
+      this.sql.exec("UPDATE script_operator_probes SET status='RUNNING',updated=? WHERE id=? AND status='QUEUED'", this.clock(), id);
+      return id;
+    });
+  }
+  completeOperatorProbe(id) {
+    this.storage.transactionSync(() => {
+      const a = [...this.sql.exec('SELECT COUNT(*) AS n FROM script_admin_grants')][0].n;
+      const b = [...this.sql.exec('SELECT COUNT(*) AS n FROM script_private_blobs')][0].n;
+      const o = [...this.sql.exec('SELECT COUNT(*) AS n FROM script_operations')][0].n;
+      const backed = [...this.sql.exec("SELECT COUNT(*) AS n FROM script_audit WHERE code='BROWSER_ENCRYPTED_BACKUP_VERIFIED'")][0].n;
+      const result = { status: a === 1 && b >= 1 && backed >= 1 && o === 0 ? 'OPERATOR_READONLY_PROBE_VERIFIED' : 'OPERATOR_READONLY_PREREQUISITES_INCOMPLETE', grantCount: a, encryptedBackupPresent: b >= 1, backupAuditPresent: backed >= 1, editOperations: o, googlePutPerformed: false };
+      this.sql.exec("UPDATE script_operator_probes SET status='DONE',result=?,updated=? WHERE id=? AND status='RUNNING'", JSON.stringify(result), this.clock(), id);
+      this.audit(id, result.status);
+    });
+  }
+  putSession(id, cipher) { this.sql.exec('INSERT INTO script_oauth_sessions(id,cipher) VALUES(?,?) ON CONFLICT(id) DO UPDATE SET cipher=excluded.cipher', id, cipher); }
+  getSession(id) { return [...this.sql.exec('SELECT cipher FROM script_oauth_sessions WHERE id=?', id)][0]?.cipher; }
+  bindGrant(actor, session) { this.sql.exec('INSERT INTO script_admin_grants(actor,session) VALUES(?,?) ON CONFLICT(actor) DO UPDATE SET session=excluded.session', actor, session); }
+  grantSession(actor) { return [...this.sql.exec('SELECT session FROM script_admin_grants WHERE actor=?', actor)][0]?.session; }
+  singleAdminSession() {
+    const rows = [...this.sql.exec('SELECT session FROM script_admin_grants LIMIT 2')];
+    if (rows.length !== 1) throw new ScriptFault('EXACTLY_ONE_ADMIN_GRANT_REQUIRED', 403);
+    return rows[0].session;
+  }
+  signedCommand(operation) {
+    return [...this.sql.exec('SELECT * FROM script_signed_commands WHERE operation=?', operation)][0];
+  }
+  claimSignedCommand(identity, command, digest) {
+    return this.storage.transactionSync(() => {
+      const prior = this.signedCommand(command.operationId);
+      const run = [...this.sql.exec('SELECT operation FROM script_signed_commands WHERE run_key=? OR token_hash=?', identity.runKey, identity.tokenHash)][0];
+      if (prior && prior.digest !== digest || run && run.operation !== command.operationId) throw new ScriptFault('SIGNED_COMMAND_REPLAY_CONFLICT', 409);
+      if (prior) return { fresh: false, status: prior.status, result: prior.result ? JSON.parse(prior.result) : null };
+      if ([...this.sql.exec('SELECT COUNT(*) AS n FROM script_signed_commands')][0].n >= 256) throw new ScriptFault('SIGNED_COMMAND_CAPACITY', 429);
+      this.sql.exec('INSERT INTO script_signed_commands(run_key,token_hash,operation,digest,action,status,at) VALUES(?,?,?,?,?,?,?)', identity.runKey, identity.tokenHash, command.operationId, digest, command.action, 'ADMITTED', this.clock());
+      this.audit(command.operationId, 'SIGNED_COMMAND_ADMITTED');
+      return { fresh: true };
+    });
+  }
+  finishSignedCommand(operation, result) {
+    this.sql.exec('UPDATE script_signed_commands SET status=?,result=? WHERE operation=?', result.status, JSON.stringify(result), operation);
+    this.audit(operation, 'SIGNED_COMMAND_' + result.status);
+  }
+  claimRefresh(id) {
+    return this.storage.transactionSync(() => {
+      if ([...this.sql.exec('SELECT id FROM script_refresh_claims WHERE id=?', id)].length) throw new ScriptFault('REFRESH_RECONCILIATION_REQUIRED', 423);
+      this.sql.exec('INSERT INTO script_refresh_claims(id) VALUES(?)', id);
+    });
+  }
+}

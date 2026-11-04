@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "observedDate": "2026-11-04",
+  "component": "archelaos-automation-bridge",
+  "account": "admin@archelaos.club",
+  "cloudflareAccountId": "898359728b3dfe8c3a3f56e3d19eecd1",
+  "sourcePr": 124,
+  "sourceCommit": "ca2acf8e3c5584801b2da3022d1feb7def79d3ca",
+  "deployment": {
+    "id": "b7779fd1-79d5-4e63-a89f-fda6063b8e40",
+    "deployedVersion": "ac855fe8-298b-46aa-bcef-b83bc213731d",
+    "previousVersion": "4ae22d86-a569-4225-8e9b-65d1f22810dd",
+    "moduleParts": 10,
+    "migrationTag": "pr124-apps-script-sqlite-v1",
+    "sqliteDurableObjectClass": "MuseumScriptCoordinator",
+    "namespaceObserved": true,
+    "bindingObserved": true,
+    "originalWorkerModulePreserved": true,
+    "previousKvBindingPreserved": true,
+    "existingSecretBindingNamesPreserved": true,
+    "cloudflareDeploymentGetVerified": true,
+    "cloudflareScriptSettingsGetVerified": true
+  },
+  "publicEndpointChecks": [
+    {
+      "path": "/health",
+      "method": "GET",
+      "httpStatus": 200,
+      "result": "{\"status\":\"ok\",\"service\":\"archelaos-automation-bridge\"}",
+      "transport": "fresh external Firecrawl scrape maxAge=0"
+    },
+    {
+      "path": "/api/apps-script/content",
+      "method": "GET",
+      "httpStatus": 503,
+      "result": "SCRIPT_PRIVATE_CONFIGURATION_REQUIRED",
+      "transport": "fresh external Firecrawl scrape maxAge=0"
+    },
+    {
+      "path": "/api/ping",
+      "method": "GET",
+      "httpStatus": 405,
+      "result": "Method not allowed (legacy POST-only route; no authenticated POST performed)",
+      "transport": "fresh external Firecrawl scrape maxAge=0"
+    }
+  ],
+  "guardrails": {
+    "configuredExactAppsScriptProject": false,
+    "configuredExactAppsScriptAdmin": false,
+    "authorizedExecutorPortConfigured": false,
+    "liveWritesEnabled": false,
+    "adminConsentVerified": false,
+    "googleProjectSourceReadOrMutated": false,
+    "googleTriggerInventoryVerified": false,
+    "chatgptExecutorCallabilityVerified": false,
+    "appsScriptRuntimeOperational": false,
+    "newWorkerCreated": false,
+    "newScheduledTriggerCreated": false,
+    "paidPlanUpgraded": false
+  },
+  "notes": [
+    "Deployment succeeded on the SAME Worker with previous version left available for rollback.",
+    "This is a guarded infrastructure installation; it does not claim usable Apps Script editing or Google OAuth.",
+    "DO source module and deployed private legacy source were composed in-memory inside the authorized Cloudflare account; no private source or credentials are copied into this public evidence.",
+    "Cloudflare Worker Cron inventory observed empty; that is NOT evidence for separate Google Apps Script installable triggers.",
+    "Next: exact private project/Admin bindings, reviewed authenticated executor, current OAuth callback validation, owner consent, read-only Google project verification, independent trigger and writer-exclusion ports before enabling mutations."
+  ]
+}

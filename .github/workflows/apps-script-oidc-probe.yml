@@ -1,0 +1,33 @@
+name: Archelaos Apps Script OIDC probe
+
+on:
+  push:
+    branches:
+      - codex/automation-bridge-integration
+    paths:
+      - automation/apps-script/operator-requests/probe-*.json
+
+permissions:
+  contents: read
+
+jobs:
+  readonly-project-probe:
+    if: github.repository == 'dizigs/archelaos-site'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      id-token: write
+    concurrency:
+      group: archelaos-script-oidc-readonly-${{ github.sha }}
+      cancel-in-progress: false
+    steps:
+      - name: Checkout exact signed-identity source commit
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+          fetch-depth: 2
+      - name: Execute scoped, read-only signed Worker readiness command
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node automation/apps-script/oidc-probe-runner.mjs

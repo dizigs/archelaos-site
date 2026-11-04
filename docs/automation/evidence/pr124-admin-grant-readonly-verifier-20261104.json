@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-04",
+  "sourcePr": 124,
+  "environment": "Existing Cloudflare Worker archelaos-automation-bridge",
+  "userSuppliedOAuthResult": {
+    "status": "ADMIN_SCRIPT_GRANT_VERIFIED",
+    "grantedScopes": [
+      "openid",
+      "https://www.googleapis.com/auth/script.projects",
+      "https://www.googleapis.com/auth/userinfo.email"
+    ]
+  },
+  "durableObjectReadback": {
+    "adminGrantRows": 1,
+    "oauthSessionRows": 1,
+    "googleEditOperationRows": 0,
+    "backupRows": 0,
+    "sqlRowsWrittenByProbe": 0,
+    "sqlQueryReadOnly": true,
+    "actualTokenOrCiphertextRead": false
+  },
+  "codeChange": {
+    "files": [
+      "automation/apps-script/configure.mjs",
+      "automation/apps-script/interface.mjs"
+    ],
+    "tests": [
+      "tests/apps-script/interface.test.mjs",
+      "tests/apps-script/oauth.test.mjs"
+    ],
+    "description": "Browser-only cookie-gated GET /api/apps-script/verify; verify admin and scopes, perform only project metadata and full content GET with exact identity validation, return sanitized success boolean/file count without code, files, credentials or project ID. No trusted executor or write privilege implied."
+  },
+  "sourceHead": "9c145596a95b672ec752c0e7d0286ea49141d535",
+  "deployment": {
+    "id": "14c450f7-b168-4a10-8ffb-0b8be5cbb116",
+    "version": "1b5a504e-66c7-411a-8ac6-e7f774362599",
+    "previousVersion": "c2a77e6b-ab1f-4f56-8dd7-9f239a707902",
+    "sameWorker": true,
+    "moduleCount": 10,
+    "retainedBindings": 10
+  },
+  "httpChecks": [
+    {
+      "route": "GET /health",
+      "status": 200,
+      "meaning": "Legacy health unchanged"
+    },
+    {
+      "route": "GET /api/apps-script/verify",
+      "status": 401,
+      "code": "OAUTH_COOKIE_REQUIRED",
+      "meaning": "Public anonymous requests rejected"
+    },
+    {
+      "route": "GET /api/apps-script/content",
+      "status": 503,
+      "code": "EXECUTOR_INTERFACE_UNCONFIGURED",
+      "meaning": "Executor privileges remain disabled"
+    }
+  ],
+  "acceptancePending": "User-operated GET /api/apps-script/verify using existing Admin session cookie; status ADMIN_PROJECT_READ_VERIFIED not yet observed. This needs actual Admin cookie in the user's own browser and cannot be simulated by the connector.",
+  "impact": {
+    "googleProjectWrites": 0,
+    "existingGoogleTriggersChanged": false,
+    "newCloudflareWorkerCreated": false,
+    "newScheduledTriggersCreated": false,
+    "liveEditorWritesEnabled": false,
+    "oauthTokensOrProjectSourcePublished": false
+  },
+  "caveats": [
+    "SQLite row counts prove stored grant/session records exist, not that the encrypted token is currently valid or accepted by Google.",
+    "Read-only Google transport has not yet returned a verified result; no API read success is claimed.",
+    "No trusted signed executor has been configured; editing remains fail-closed."
+  ]
+}

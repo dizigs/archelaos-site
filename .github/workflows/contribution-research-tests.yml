@@ -1,0 +1,51 @@
+name: Contribution research offline tests
+on:
+  pull_request:
+    paths:
+      - 'rebuild/tools/contribution_research.py'
+      - 'rebuild/tools/search_contribution_leads.py'
+      - 'rebuild/tools/draft_contribution_research.py'
+      - 'rebuild/tools/match_contribution_records.py'
+      - 'rebuild/tools/build_archive_links.py'
+      - 'rebuild/tools/intake_contributions.py'
+      - 'rebuild/tests/private_intake_test.py'
+      - 'rebuild/tools/process_private_inbox.py'
+      - 'rebuild/tests/private_queue_test.py'
+      - 'rebuild/tools/build_canonical_archive_index.py'
+      - 'rebuild/tests/canonical_archive_index_test.py'
+      - 'news.json'
+      - 'hall-of-fame-people.json'
+      - 'rebuild/data/interviews.json'
+      - 'rebuild/data/stories.json'
+      - 'rebuild/data/moments.json'
+      - 'rebuild/data/museum.json'
+      - 'rebuild/tests/contribution_pipeline_test.py'
+      - '.github/workflows/contribution-research-tests.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.12'
+      - name: Compile modules
+        run: python -m py_compile rebuild/tools/contribution_research.py rebuild/tools/search_contribution_leads.py rebuild/tools/draft_contribution_research.py rebuild/tools/match_contribution_records.py rebuild/tools/build_archive_links.py rebuild/tools/intake_contributions.py rebuild/tools/process_private_inbox.py rebuild/tools/build_canonical_archive_index.py
+      - name: Run offline regression tests
+        run: python -m unittest discover -s rebuild/tests -p contribution_pipeline_test.py -v
+      - name: Run private intake and idempotency regression tests
+        run: python -m unittest discover -s rebuild/tests -p private_intake_test.py -v
+      - name: Run private queue and archive reconciliation regression tests
+        run: python -m unittest discover -s rebuild/tests -p private_queue_test.py -v
+      - name: Run canonical archive relationship regression tests
+        run: python -m unittest discover -s rebuild/tests -p canonical_archive_index_test.py -v
+      - name: Build approved-only canonical archive preview (not published)
+        run: python rebuild/tools/build_canonical_archive_index.py
+      - name: Build reciprocal archive link proposals (not published)
+        run: python rebuild/tools/build_archive_links.py

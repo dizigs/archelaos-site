@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "task": "AUTOMATION-BRIDGE-124",
+  "status": "BLOCKED",
+  "recordedAtUtc": "2026-11-03T21:38:46Z",
+  "worker": "archelaos-automation-bridge",
+  "account": "898359728b3dfe8c3a3f56e3d19eecd1",
+  "githubActions": {
+    "source": "https://github.com/dizigs/archelaos-site/actions/runs/41720580206",
+    "annotationCheckId": 126211968100,
+    "head": "c6306d7324cb62873da31ed4ff2f2985edf11e18",
+    "probeRepeatedThisStage": false,
+    "credential": "existing secrets.CLOUDFLARE_API_TOKEN (value not accessed)",
+    "tokenPolicyInspected": false,
+    "observations": [
+      {
+        "method": "GET",
+        "endpoint": "https://api.cloudflare.com/client/v4/accounts/898359728b3dfe8c3a3f56e3d19eecd1/pages/projects/archelaos-site/deployments?per_page=1",
+        "httpStatus": 200
+      },
+      {
+        "method": "GET",
+        "endpoint": "https://api.cloudflare.com/client/v4/accounts/898359728b3dfe8c3a3f56e3d19eecd1/workers/scripts/archelaos-automation-bridge/settings",
+        "httpStatus": 403,
+        "responseLayer": "provider_http",
+        "numericErrorCodes": []
+      }
+    ],
+    "conclusion": "Worker permission/resource scope denied for this credential; exact token policy unknown"
+  },
+  "connectedAccountHandoff": {
+    "source": "https://github.com/dizigs/archelaos-site/issues/71#issuecomment-6615997329",
+    "provenance": "CHATGPT-HANDOFF / AUTOMATION-BRIDGE-124-CLOUDFLARE-ACCESS",
+    "reportedAtUtc": "2026-11-03T21:35:24Z",
+    "independentlyReexecutedByThisSession": false,
+    "workerSettingsRead": "SUCCESS reported by authorized connected-account caller",
+    "bindingsReported": {
+      "AUTH_KV": "kv_namespace",
+      "BRIDGE_API_KEY": "secret_text",
+      "GOOGLE_CLIENT_ID": "secret_text",
+      "GOOGLE_CLIENT_SECRET": "secret_text",
+      "OAUTH_STATE_SECRET": "secret_text"
+    },
+    "compatibilityDateReported": "2026-11-03",
+    "sourceDownloadVerified": false,
+    "doesNotEstablishActionsTokenAccess": true
+  },
+  "localHealth": {
+    "endpoint": "https://archelaos-automation-bridge.dimitriszgalanis.workers.dev/health",
+    "priorError": "curl: (56) CONNECT tunnel failed, response 403",
+    "originHttpStatus": null,
+    "responseLayer": "transport_connect",
+    "proxyServer": "envoy",
+    "runtimePolicyRecheckedThisStage": true,
+    "hostAllowedInCurrentRuntime": false,
+    "requestRepeatedThisStage": false
+  },
+  "notVerified": [
+    "Worker source/version and deployment logs",
+    "Apps Script source/manifest and authorized execution identity",
+    "HMAC/expiry in current live implementation",
+    "concurrent action idempotency/recovery",
+    "current OAuth scopes/grants/verification",
+    "Gmail to Drive/Sheets flow",
+    "Worker to GitHub handoff"
+  ],
+  "externalActionsRequired": [
+    "Credential owner: inspect existing token account/resource policy and Workers Scripts Read, preserving working Pages access; confirm correction before rerun",
+    "Authorized connected-account operator: obtain usable sanitized Worker and Apps Script source/manifest through private authorized access",
+    "Environment owner: apply/publish pending exact-host network draft for direct health access"
+  ],
+  "productionMutationsThisStage": false,
+  "googleContentReadThisStage": false,
+  "secretValuesReadOrReplacedThisStage": false,
+  "triggerChangesThisStage": false
+}

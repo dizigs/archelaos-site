@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-04",
+  "base": "78770a798abcaba7251fa786bc48248c799f9f48",
+  "offlineOnly": true,
+  "scanner": "zizmor1.32.0",
+  "scope": ".github/workflows",
+  "baseline": {
+    "high": 2,
+    "low": 8
+  },
+  "after": {
+    "high": 0,
+    "low": 8
+  },
+  "newSuppressions": 0,
+  "pins": {
+    "dependency-review": {
+      "repository": "actions/dependency-review-action",
+      "tag": "v5.0.0",
+      "commit": "a1d282b36b6f3519aa1f3fc636f609c47dddb294",
+      "verification": "official Git ref plus fetched commit object",
+      "runtime": "node24"
+    },
+    "zizmor": {
+      "repository": "zizmorcore/zizmor-action",
+      "tag": "v0.8.1",
+      "commit": "45d7276c9ca790aabd705e31ca99c6185c3e76dd",
+      "verification": "official Git ref plus exact-commit action.yml/action.sh/hash-lock readback",
+      "runtime": "composite Bash/Python, hash-locked zizmor1.32.0"
+    }
+  },
+  "dependencyGraph": {
+    "enabled": "NOT_VERIFIED_OR_UNAVAILABLE",
+    "actionRun": 41747082111,
+    "checkId": 126302696606,
+    "conclusion": "failure",
+    "exactMessage": "Dependency review is not supported on this repository. Please ensure that Dependency graph is enabled, see https://github.com/dizigs/archelaos-site/settings/security_analysis",
+    "negativeVulnerableDependencyTest": "NOT RUN: graph unavailable; no vulnerable package introduced"
+  },
+  "remoteCi": {
+    "head": "bfcca9ff69a283b10004ca1a5a0f6358730bcb3c",
+    "zizmorCheck": 126302696894,
+    "regularHighGate": "PASS",
+    "fullRegularReport": "8 LOW, scanner exit12; retained annotations",
+    "newAuditorGate": "PENDING, expected ownership blocker67"
+  },
+  "auditorAfter": {
+    "high": 1,
+    "medium": 5,
+    "low": 49,
+    "informational": 34
+  },
+  "auditorOwnershipBlocker": {
+    "pr": 67,
+    "file": ".github/workflows/google-analytics-aggregate.yml",
+    "rule": "excessive-permissions",
+    "scope": "workflow-level id-token: write"
+  },
+  "currentHostedCi": {
+    "head": "7a65a37e1a818d2a322d44f48e38be2727980cd4",
+    "run": 41747627876,
+    "dependencyReviewCheckId": 126304501389,
+    "dependencyReview": "failure: dependency graph unavailable",
+    "zizmorCheckId": 126304500984,
+    "zizmor": "failure: owned PR67 workflow-level id-token write",
+    "actionlintCheckId": 126304500677,
+    "actionlint": "success",
+    "sonarCheckId": 126304703123,
+    "sonar": "success"
+  }
+}

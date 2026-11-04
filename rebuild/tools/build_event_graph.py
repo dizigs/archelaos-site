@@ -56,7 +56,7 @@ def main():
     if not dst.is_relative_to((ROOT/"test-artifacts").resolve()) or dst.suffix!=".json":
         raise SystemExit("Export is restricted to gitignored rebuild/test-artifacts/*.json")
     catalogue=json.loads((ROOT/"research/historical-events.json").read_text(encoding="utf-8"))
-    persons=json.loads((ROOT/"data/people.json").read_text(encoding="utf-8"))["people"]
+    persons=json.loads((ROOT.parent/"hall-of-fame-people.json").read_text(encoding="utf-8"))["people"]
     graph=compile_graph(catalogue,persons)
     dst.parent.mkdir(parents=True,exist_ok=True)
     dst.write_text(json.dumps(graph,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")

@@ -3268,10 +3268,11 @@
   },
   {
     "id": "arch-82df0f64b81d",
-    "name": "Ηλίας Μαρνέρη",
-    "name_en": "Elias Marnere",
+    "name": "Ηλίας Μαρνέρης",
+    "name_en": "Ilias Marneris",
     "names": [
-      "Ηλίας Μαρνέρη"
+      "Ηλίας Μαρνέρη",
+      "Ηλίας Μαρνέρης"
     ]
   },
   {
@@ -3340,14 +3341,6 @@
     "names": [
       "Γεώργιος Ζιώγας",
       "Γιωργος Ζιώγας"
-    ]
-  },
-  {
-    "id": "arch-bdac478e7ea3",
-    "name": "Μιλτιάδης Αντωνάτος",
-    "name_en": "Miltiades Antonatos",
-    "names": [
-      "Μιλτιάδης Αντωνάτος"
     ]
   },
   {
@@ -4766,10 +4759,12 @@
   },
   {
     "id": "arch-7f975b16bebf",
-    "name": "Μίλτος Αντωνάτος",
-    "name_en": "Μίλτος Αντωνάτος",
+    "name": "Μιλτιάδης (Μίλτος) Αντωνάτος",
+    "name_en": "Miltiades (Miltos) Antonatos",
     "names": [
-      "Μίλτος Αντωνάτος"
+      "Μίλτος Αντωνάτος",
+      "Μιλτιάδης Αντωνάτος",
+      "Μιλτιάδης (Μίλτος) Αντωνάτος"
     ]
   },
   {
@@ -5370,14 +5365,6 @@
     "name_en": "Αριστείδης Λιακόπουλος",
     "names": [
       "Αριστείδης Λιακόπουλος"
-    ]
-  },
-  {
-    "id": "arch-22eae49bbbc0",
-    "name": "Ηλίας Μαρνέρης",
-    "name_en": "Ηλίας Μαρνέρης",
-    "names": [
-      "Ηλίας Μαρνέρης"
     ]
   },
   {
@@ -6285,6 +6272,86 @@
     "names": [
       "Δημήτριος Λούλας",
       "Δημήτρης Λούλας"
+    ]
+  },
+  {
+    "id": "arch-katerina-lampiri-gymnastics-2022",
+    "name": "Κατερίνα Λαμπίρη",
+    "name_en": "Katerina Lampiri",
+    "names": [
+      "Κατερίνα Λαμπίρη"
+    ]
+  },
+  {
+    "id": "arch-christina-papavasileiou-gymnastics-2022",
+    "name": "Χριστίνα Παπαβασιλείου",
+    "name_en": "Christina Papavasileiou",
+    "names": [
+      "Χριστίνα Παπαβασιλείου"
+    ]
+  },
+  {
+    "id": "arch-paschalis-iliatzikis-wrestling-2022",
+    "name": "Πασχάλης Ηλιατζίκης",
+    "name_en": "Paschalis Iliatzikis",
+    "names": [
+      "Πασχάλης Ηλιατζίκης"
+    ]
+  },
+  {
+    "id": "arch-savvas-charitidis-wrestling-2021",
+    "name": "Σάββας Χαριτίδης",
+    "name_en": "Savvas Charitidis",
+    "names": [
+      "Σάββας Χαριτίδης"
+    ]
+  },
+  {
+    "id": "arch-alexis-papadopoulos-wrestling-2022",
+    "name": "Αλέξης Παπαδόπουλος",
+    "name_en": "Alexis Papadopoulos",
+    "names": [
+      "Αλέξης Παπαδόπουλος"
+    ]
+  },
+  {
+    "id": "arch-eleni-mitsiaki-archery-2022",
+    "name": "Ελένη Μητσιάκη",
+    "name_en": "Eleni Mitsiaki",
+    "names": [
+      "Ελένη Μητσιάκη"
+    ]
+  },
+  {
+    "id": "arch-achilleas-giassiranis-wrestling-2024",
+    "name": "Αχιλλέας Γιασιράνης",
+    "name_en": "Achilleas Giassiranis",
+    "names": [
+      "Αχιλλέας Γιασιράνης"
+    ]
+  },
+  {
+    "id": "arch-kyriaki-parasidou-gymnastics-2022",
+    "name": "Κυριακή Παρασίδου",
+    "name_en": "Kyriaki Parasidou",
+    "names": [
+      "Κυριακή Παρασίδου"
+    ]
+  },
+  {
+    "id": "arch-christos-karasavvidis-gymnastics-2022",
+    "name": "Χρήστος Καρασαββίδης",
+    "name_en": "Christos Karasavvidis",
+    "names": [
+      "Χρήστος Καρασαββίδης"
+    ]
+  },
+  {
+    "id": "arch-ioannis-goutsos-gymnastics-2022",
+    "name": "Ιωάννης Γκούτζος",
+    "name_en": "Ioannis Goutsos",
+    "names": [
+      "Ιωάννης Γκούτζος"
     ]
   }
 ]
