@@ -11,9 +11,11 @@ on:
     paths: ['news.json', 'hall-of-fame-people.json', 'rebuild/tools/build_news_event_candidates.py', 'rebuild/tests/news_event_ledger.py', 'rebuild/tools/build_news_media_candidates.py', 'rebuild/tests/news_media_candidates_test.py', '.github/workflows/news-event-ledger.yml']
 permissions:
   contents: read
-  issues: write
 jobs:
   validate-event-candidates:
+    permissions:
+      contents: read
+      issues: write
     runs-on: ubuntu-latest
     timeout-minutes: 7
     steps:
