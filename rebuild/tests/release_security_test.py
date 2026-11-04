@@ -81,8 +81,8 @@ class MediaInventoryBoundaryTests(unittest.TestCase):
         )
         result = media_inventory.inventory()
         self.assertEqual(result["scanned"], 5)
-        self.assertEqual(len(result["local_assets"]), 1)
-        self.assertEqual(result["local_assets"][0]["bytes"], len(b"valid-image-content"))
+        self.assertEqual(result["local_assets"], 1)
+        self.assertEqual((self.root / "assets" / "valid.png").stat().st_size, len(b"valid-image-content"))
         self.assertEqual(len(result["missing_local_assets"]), 1)
         self.assertEqual(len(result["external_image_references"]), 3)
         self.assertEqual(
@@ -107,7 +107,7 @@ class MediaInventoryBoundaryTests(unittest.TestCase):
             "/assets/%2F..%2F..%2Fprivate.png",
         )
         result = media_inventory.inventory()
-        self.assertEqual(len(result["local_assets"]), 0)
+        self.assertEqual(result["local_assets"], 0)
         self.assertEqual(len(result["missing_local_assets"]), 4)
         self.assertTrue(
             all(item.get("reason") == "outside_checkout"
@@ -125,7 +125,7 @@ class MediaInventoryBoundaryTests(unittest.TestCase):
             "/assets/internal.png",
         )
         result = media_inventory.inventory()
-        self.assertEqual(len(result["local_assets"]), 3)
+        self.assertEqual(result["local_assets"], 3)
         self.assertEqual(result["missing_local_assets"], [])
 
     def test_strict_local_cli_exits_nonzero_and_json_preserves_diagnostics(self):
@@ -141,7 +141,7 @@ class MediaInventoryBoundaryTests(unittest.TestCase):
         self.assertEqual(raised.exception.code, 1)
         data = json.loads(output.read_text(encoding="utf-8"))
         self.assertEqual(data["missing_local_assets"][0]["reason"], "outside_checkout")
-        self.assertEqual(data["local_assets"], [])
+        self.assertEqual(data["local_assets"], 0)
 
 
 if __name__ == "__main__":
