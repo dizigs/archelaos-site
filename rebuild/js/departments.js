@@ -140,27 +140,6 @@ async function init(){
   const actions=document.createElement('div');actions.className='dp-profile-actions';
   if(record){const history=document.createElement('button');history.type='button';history.className='dp-profile-history';history.textContent='Η ιστορία του τμήματος';history.addEventListener('click',()=>window.ArchelaosUI.openDialog({title:record.title,subtitle:record.period||'',contentNode:window.ArchelaosArchive.fragment(record.html),favorite:{type:'page',id:'department-'+key},relation:{type:'department',id:key},closeLabel:'Κλείσιμο ιστορικού'}));actions.append(history)}
   if(key!=='inactive-depts'){const official=document.createElement(key==='archery'?'a':'span');official.className='dp-profile-official';if(key==='archery'){official.href='https://archery.archelaos.club';official.target='_blank';official.rel='noopener noreferrer';official.textContent='Επίσημη σελίδα · archery.archelaos.club'}else official.textContent='Επίσημη σελίδα τμήματος · Θα προστεθεί σύντομα';actions.append(official)}
-  const publishedSessions=trainingSchedule.departments?.[key]?.sessions||[];
-  if(publishedSessions.length&&!location.pathname.startsWith('/rebuild/')){
-   const url='https://archelaos.club/calendar/training/'+encodeURIComponent(key)+'.ics';
-   const subscribe=document.createElement('a');subscribe.className='dp-profile-calendar';
-   subscribe.href='webcal://archelaos.club/calendar/training/'+encodeURIComponent(key)+'.ics';
-   subscribe.textContent='Προσθήκη προπονήσεων στο ημερολόγιο';
-   subscribe.setAttribute('aria-label','Συνδρομή στο ημερολόγιο προπονήσεων · '+(record?.title||key));
-   actions.append(subscribe);
-   const copy=document.createElement('button');copy.type='button';copy.className='dp-profile-calendar-copy';
-   copy.textContent='Αντιγραφή συνδέσμου ICS';
-   copy.addEventListener('click',async()=>{
-    try{
-     if(!navigator.clipboard?.writeText)throw Error('Clipboard unavailable');
-     await navigator.clipboard.writeText(url);copy.textContent='Ο σύνδεσμος αντιγράφηκε';
-    }catch(error){window.prompt('Για Google Calendar → Άλλα ημερολόγια → Από URL, αντιγράψτε:',url)}
-   });
-   actions.append(copy);
-   const note=document.createElement('p');note.className='dp-profile-calendar-note';
-   note.textContent='Συνδρομή με αυτόματες ενημερώσεις · Για Google Calendar χρησιμοποιήστε «Από URL». Ο συγχρονισμός εξαρτάται από την εφαρμογή σας.';
-   actions.append(note);
-  }
   root.append(actions);appendNewsTimeline(root,key);return root;
  }
  try{

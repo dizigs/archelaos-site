@@ -58,10 +58,23 @@ async function run(){
       const href=await firstCollection.getAttribute('href');
       if(!href.startsWith('/rebuild/'))throw Error('Dynamic museum card leaves rebuild: '+href);
     }
-    if(name==='hall')await page.waitForFunction(expected=>
-      document.querySelector('#hall-total')?.textContent===String(expected) &&
-      document.querySelector('#hall-count')?.textContent.startsWith(expected+' από '+expected+' πρόσωπα'),
-      expectedHallCount,{timeout:20000});
+    if(name==='hall'){
+     try{
+      await page.waitForFunction(expected=>
+       document.querySelector('#hall-total')?.textContent===String(expected) &&
+       document.querySelector('#hall-count')?.textContent.startsWith(expected+' από '+expected+' πρόσωπα'),
+       expectedHallCount,{timeout:20000});
+     }catch(error){
+      const detail=await page.evaluate(()=>({
+       total:document.querySelector('#hall-total')?.textContent,
+       count:document.querySelector('#hall-count')?.textContent,
+       language:document.documentElement.lang,
+       biographyModule:typeof window.ArchelaosBio
+      }));
+      throw Error('Hall preview expectation failed: '+JSON.stringify(detail)+
+       '; errors='+errors.join(' | ')+'; '+error.message);
+     }
+    }
     if(name==='moments')await page.locator('.rm-moment').first().waitFor({timeout:20000});
     if(name==='stories')await page.locator('.rs-card').first().waitFor({timeout:20000});
     if(name==='museum')await page.locator('.mu-sports-link').first().waitFor({timeout:20000});
@@ -72,11 +85,8 @@ async function run(){
     if(name==='retro')await page.locator('.rt-scoreboard').first().waitFor();
     if(name==='home'){
      await page.waitForFunction(expected=>document.querySelector('#new-people-total')?.textContent===expected.toLocaleString('el-GR'),expectedHallCount,{timeout:20000});
-     await page.waitForFunction(()=>document.querySelector('#fx-status')?.textContent.includes('προγραμματισμένοι'),null,{timeout:10000});
-     if(!await page.locator('#fx-download').isHidden()||!await page.locator('#fx-subscribe').isHidden())
-       throw Error('Unpublished preview exposes dead calendar download or subscription URLs');
-     if(await page.locator('.fx-card .fx-calendar-actions a').count())
-       throw Error('Unpublished preview exposes individual calendar files that only exist in dist');
+     if(await page.locator('#upcoming-matches,.fx-card,.fx-calendar-actions,[data-fixture-sport]').count()) throw Error('Removed homepage calendar returned');
+     if(await page.locator('a[href$=".ics"],a[href^="webcal:"]').count()) throw Error('Calendar links returned');
      // Preview-safe links: static links are rewritten on load; dynamic links on focus/click.
      const routed=await page.evaluate(()=>{
        const a=document.createElement('a');a.href='/hall-of-fame.html?person=arch-test#biography';
