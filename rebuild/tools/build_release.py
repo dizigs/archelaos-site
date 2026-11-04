@@ -592,8 +592,7 @@ def make_release() -> None:
         "\n/assets/home-news.css\n  Cache-Control: no-store\n"
         "\n/news.json\n  Cache-Control: no-store\n"
         "\n/hall-of-fame-people.json\n  Cache-Control: no-store\n"
-        "\n/images/*\n  Cache-Control: public, max-age=604800\n"
-
+        "\n/images/*\n  Cache-Control: public, max-age=604800\n",
         encoding="utf-8"
     )
     (OUTPUT / "site.webmanifest").write_text(js_data({
