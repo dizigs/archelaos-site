@@ -7,7 +7,7 @@
     "node": "22.x"
   },
   "dependencies": {
-    "@lhci/cli": "0.15.1",
+    "@lhci/cli": "0.16.0",
     "sitespeed.io": "42.10.0"
   },
   "overrides": {
