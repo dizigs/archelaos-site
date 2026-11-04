@@ -67,7 +67,7 @@ jobs:
             ['node_modules/sitespeed.io/node_modules/tar','tar','7.5.22'],
             ['node_modules/basic-ftp','basic-ftp','6.2.5'],
             ['node_modules/sitespeed.io/node_modules/@tootallnate/once','@tootallnate/once','2.0.1'],
-            ['node_modules/sitespeed.io/node_modules/axios','axios','1.19.1'],
+            ['node_modules/sitespeed.io/node_modules/axios','axios','1.20.0'],
             ['node_modules/sitespeed.io/node_modules/brace-expansion','brace-expansion','1.1.21'],
             ['node_modules/sitespeed.io/node_modules/fast-xml-builder','fast-xml-builder','1.1.7'],
             ['node_modules/sitespeed.io/node_modules/fast-xml-parser','fast-xml-parser','5.6.1'],
@@ -81,14 +81,14 @@ jobs:
             ['node_modules/sitespeed.io/node_modules/ws','ws','7.5.13'],
             ['node_modules/sitespeed.io/node_modules/selenium-webdriver/node_modules/ws','ws','8.22.1']
           ];
-          const metaCache=new Map();let replaced=0;
+          const metaCache=new Map(),metadataErrors=[];let replaced=0;
           for(const [path,name,version] of targets){
            const old=j.packages[path];
            if(!old)throw Error('Expected dependency absent: '+path);
            if(old.version===version)continue;
            const key=name+'@'+version;
            let meta=metaCache.get(key);
-           if(!meta){meta=JSON.parse(cp.execFileSync('npm',['view',key,'--json'],{encoding:'utf8',maxBuffer:1e7}));metaCache.set(key,meta)}
+           if(!meta){try{meta=JSON.parse(cp.execFileSync('npm',['view',key,'--json'],{encoding:'utf8',maxBuffer:1e7,stdio:['ignore','pipe','pipe']}));metaCache.set(key,meta)}catch(e){metadataErrors.push(key);console.error('Missing or inaccessible official version:',key);continue;}}
            if(meta.name!==name||meta.version!==version||!meta.dist?.integrity?.startsWith('sha512-')||!meta.dist.tarball.startsWith('https://registry.npmjs.org/'))throw Error('untrusted metadata '+key);
            const newer={...old,version,resolved:meta.dist.tarball,integrity:meta.dist.integrity};
            for(const field of ['dependencies','optionalDependencies','peerDependencies','peerDependenciesMeta','engines','bin']){
@@ -97,6 +97,7 @@ jobs:
            j.packages[path]=newer;replaced++;
            console.log('Pinned official npm:',path,version);
           }
+          if(metadataErrors.length)throw Error('Official npm versions missing: '+metadataErrors.join(', '));
           if(j.packages['node_modules/zod']?.version!=='4.6.7')throw Error('missing patched zod4');
           delete j.packages['node_modules/sitespeed.io/node_modules/zod'];
           fs.writeFileSync(file,JSON.stringify(j,null,2)+'\n');
