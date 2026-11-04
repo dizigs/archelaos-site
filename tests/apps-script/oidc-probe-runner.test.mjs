@@ -11,7 +11,7 @@ function setup() {
     state.calls.push({ url,options });
     if (url.includes('/commits/')) return Response.json({ sha, parents:[{}],files:state.files });
     if (url.includes('/contents/')) return Response.json(state.payload);
-    if (url.includes('actions.githubusercontent.com')) return Response.json({ value:'x'.repeat(250) });
+    if (new URL(url).hostname === 'run.synthetic.actions.githubusercontent.com') return Response.json({ value:'x'.repeat(250) });
     return Response.json({ status:'GITHUB_OIDC_READONLY_PROBE_VERIFIED',signedExecution:true,readOnly:true,encryptedBackupPresent:true,googleEditsPerformed:false,editorEnabled:false });
   };
   return { env,state,transport };
