@@ -14,6 +14,7 @@ export async function runGuardedAi(request, ports, policy = {}) {
   if (reservation.duplicate) return stopped('EXISTING_CHARGE_ATTEMPT_REQUIRES_RECONCILIATION');
   try {
     for (const threshold of reservation.alerts || []) await ports.alerts.deliverOnce({ id: reservation.month + ':' + threshold, threshold });
+    for (const threshold of reservation.providerAlerts || []) await ports.alerts.deliverOnce({ id: reservation.month + ':openai:' + threshold, provider: 'openai', threshold });
   } catch { return stopped('BUDGET_ALERT_SINK_UNAVAILABLE_RESERVATION_HELD'); }
   const latest = await ports.readControls();
   if (latest.globalPaused || latest.aiPaused || latest.sourcePaused?.[request.sourceType]) return stopped('PAUSED_BEFORE_PROVIDER_RESERVATION_HELD');

@@ -10,6 +10,7 @@ const SCHEMA = [
   'CREATE TABLE IF NOT EXISTS rate_counters(key TEXT PRIMARY KEY,count INTEGER NOT NULL,expires INTEGER NOT NULL)',
   'CREATE TABLE IF NOT EXISTS ai_months(month TEXT PRIMARY KEY,spent INTEGER NOT NULL,reserved INTEGER NOT NULL)',
   'CREATE TABLE IF NOT EXISTS ai_reservations(id TEXT PRIMARY KEY,month TEXT NOT NULL,provider TEXT NOT NULL,model TEXT NOT NULL,event_id TEXT NOT NULL,source_revision TEXT NOT NULL,operation TEXT NOT NULL,amount INTEGER NOT NULL,status TEXT NOT NULL,actual INTEGER,call_claimed INTEGER NOT NULL DEFAULT 0,price_hash TEXT NOT NULL,currency TEXT NOT NULL,fx_hash TEXT,UNIQUE(event_id,source_revision,operation))',
+  'CREATE TABLE IF NOT EXISTS ai_provider_alerts(month TEXT NOT NULL,provider TEXT NOT NULL,threshold INTEGER NOT NULL,PRIMARY KEY(month,provider,threshold))',
   'CREATE TABLE IF NOT EXISTS ai_alerts(month TEXT NOT NULL,threshold INTEGER NOT NULL,PRIMARY KEY(month,threshold))'
   ,'CREATE TABLE IF NOT EXISTS controls(name TEXT PRIMARY KEY,value INTEGER NOT NULL)'
   ,'CREATE TABLE IF NOT EXISTS control_audit(at INTEGER NOT NULL,code TEXT NOT NULL,revision INTEGER NOT NULL,scope TEXT NOT NULL)'

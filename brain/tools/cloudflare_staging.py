@@ -46,8 +46,10 @@ class Cloudflare:
                     if type(row.get("code")) is int: codes.append(row["code"])
             except (ValueError, OSError):
                 pass
+            server = (error.headers.get("Server") or "").lower() if error.headers else ""
+            layer = "provider_http" if server == "cloudflare" else "proxy_http" if server == "envoy" else "UNKNOWN"
             return {"endpoint": endpoint, "httpStatus": error.code, "success": False,
-                    "errorClass": "provider_http", "providerErrorCodes": codes, "retryPerformed": False}
+                    "errorClass": layer, "providerErrorCodes": codes[:8], "retryPerformed": False}
         except urllib.error.URLError:
             return {"endpoint": endpoint, "httpStatus": None, "success": False,
                     "errorClass": "network_transport", "retryPerformed": False}
@@ -81,6 +83,56 @@ def inventory(client):
             "deploymentVerified": False}
 
 
+def staging_readiness(client):
+    """A new read-only token is not a deployment token or proof of free entitlement."""
+    endpoints = ("workers/account-settings", "workers/subdomain",
+                 "workers/durable_objects/namespaces", "workers/scripts/" + SCRIPT + "/settings")
+    evidence = []
+    available = True
+    network_denied = False
+    for suffix in endpoints:
+        if network_denied:
+            evidence.append({"endpoint": BASE + "/accounts/" + client.account + "/" + suffix,
+                             "success": False, "notAttempted": "same_host_network_denial"})
+            available = False
+            continue
+        response = client.get(suffix)
+        result = response.pop("result", None)
+        success = response.get("success") is True
+        absent = response.get("httpStatus") == 404 and response.get("errorClass") == "provider_http"
+        if suffix.endswith("/settings"):
+            response["existingStagingScript"] = True if success else False if absent else None
+            if success:
+                bindings = result.get("bindings") if isinstance(result, dict) else None
+                if not isinstance(bindings, list):
+                    success = False
+                    response["schemaValid"] = False
+                else:
+                    response["brainBindingObserved"] = any(isinstance(b, dict) and b.get("name") == "BRAIN"
+                        and b.get("type") == "durable_object_namespace" and b.get("class_name") == "BrainCoordinator" for b in bindings)
+            available = available and (success or absent)
+        else:
+            valid = isinstance(result, list) if suffix.endswith("namespaces") else isinstance(result, dict)
+            response["schemaValid"] = valid if success else None
+            available = available and success and valid
+            if success and suffix.endswith("namespaces") and valid:
+                response["namespaceCount"] = len(result)
+            if success and suffix.endswith("subdomain") and valid:
+                response["registeredWorkersSubdomain"] = bool(result.get("subdomain"))
+                available = available and response["registeredWorkersSubdomain"]
+        evidence.append(response)
+        network_denied = response.get("errorClass") == "network_transport" or (
+            response.get("errorClass") == "proxy_http" and response.get("httpStatus") == 403)
+    return {"stage": "STAGING_READ_ACCESS_ONLY", "script": SCRIPT,
+            "status": "READ_ACCESS_VERIFIED" if available else "BLOCKED", "evidence": evidence,
+            "readyForDeployment": False, "deploymentVerified": False, "resourceMutationPerformed": False,
+            "existingBridgeTouched": False, "aiProviderCalls": 0,
+            "notVerified": ["Workers Scripts Write for isolated staging", "free-plan SQLite DO entitlement",
+                            "separate staging intake/operator secret provisioning", "remote deployment/version logs",
+                            "runtime health, actual DO execution and synthetic HTTP proof"],
+            "billingPlan": "UNVERIFIED_NO_BILLING_REQUEST", "runtimeVerified": False}
+
+
 def emit(report):
     encoded = json.dumps(report, sort_keys=True, separators=(",", ":"))
     print(encoded)
@@ -89,11 +141,15 @@ def emit(report):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--action", choices=("inventory", "pages-auth-baseline"), required=True)
+    parser.add_argument("--action", choices=("inventory", "pages-auth-baseline", "staging-readiness"), required=True)
     args = parser.parse_args()
     client = Cloudflare()
     if args.action == "inventory":
         emit(inventory(client))
+    elif args.action == "staging-readiness":
+        report = staging_readiness(client)
+        emit(report)
+        return 0 if report["status"] == "READ_ACCESS_VERIFIED" else 1
     else:
         result = client.get("pages/projects/archelaos-site")
         result.pop("result", None)
@@ -101,4 +157,4 @@ def main():
               "resourceMutationPerformed": False, "deploymentVerified": False})
 
 
-if __name__ == "__main__": main()
+if __name__ == "__main__": raise SystemExit(main())

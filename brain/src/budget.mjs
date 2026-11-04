@@ -1,5 +1,6 @@
 import { Rejected, HEX, UUID } from './contract.mjs';
 export const MAX_MONTHLY_MICRO_EUR = 20000000;
+export const MAX_CODEX_MICRO_EUR = 15000000;
 export function budgetMonth(at) {
   const parts = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Athens', year: 'numeric', month: '2-digit' }).formatToParts(new Date(at));
   return parts.find(p => p.type === 'year').value + '-' + parts.find(p => p.type === 'month').value;
@@ -24,6 +25,8 @@ export function reserveBudget(sql, request, config, now) {
   const amount = estimateMicroEur(request, config.prices?.[request.provider], now);
   const cap = config.capMicroEur ?? MAX_MONTHLY_MICRO_EUR;
   if (!Number.isSafeInteger(cap) || cap < 1 || cap > MAX_MONTHLY_MICRO_EUR) throw new Rejected('INVALID_BUDGET_CAP', 422);
+  const codexCap = config.codexCapMicroEur ?? MAX_CODEX_MICRO_EUR;
+  if (!Number.isSafeInteger(codexCap) || codexCap < 1 || codexCap > MAX_CODEX_MICRO_EUR) throw new Rejected('INVALID_CODEX_CAP', 422);
   const month = budgetMonth(now);
   const old = [...sql.exec('SELECT * FROM ai_reservations WHERE id=?', request.reservationId)][0];
   if (old) {
@@ -37,6 +40,11 @@ export function reserveBudget(sql, request, config, now) {
   // delayed settlements are attributed to the original, immutable charge month.
   const used = ledger.spent + ledger.reserved;
   if (used + amount > cap) throw new Rejected('BUDGET_INSUFFICIENT', 402);
+  // All OpenAI use counts conservatively against the Codex allocation.
+  const providerUsed = request.provider === 'openai' ? [...sql.exec(
+    'SELECT COALESCE(SUM(CASE WHEN status=? THEN actual ELSE amount END),0) AS used FROM ai_reservations WHERE month=? AND provider=?',
+    'SETTLED', month, 'openai')][0].used : 0;
+  if (request.provider === 'openai' && providerUsed + amount > codexCap) throw new Rejected('CODEX_BUDGET_INSUFFICIENT', 402);
   const price = config.prices[request.provider];
   sql.exec('INSERT INTO ai_reservations(id,month,provider,model,event_id,source_revision,operation,amount,status,price_hash,currency,fx_hash) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)', request.reservationId, month, request.provider, request.model, request.eventId, request.sourceRevision, request.operation, amount, 'RESERVED', price.evidenceSha256, price.currency, price.currency === 'EUR' ? null : price.fxEvidenceSha256);
   sql.exec('UPDATE ai_months SET reserved=reserved+? WHERE month=?', amount, month);
@@ -45,7 +53,13 @@ export function reserveBudget(sql, request, config, now) {
     const exists = [...sql.exec('SELECT threshold FROM ai_alerts WHERE month=? AND threshold=?', month, threshold)].length;
     if (!exists) { sql.exec('INSERT INTO ai_alerts(month,threshold) VALUES(?,?)', month, threshold); alerts.push(threshold); }
   }
-  return { reservationId: request.reservationId, amountMicroEur: amount, month, alerts, remainingMicroEur: cap - used - amount, duplicate: false };
+  const providerAlerts = [];
+  if (request.provider === 'openai') for (const threshold of [75, 90]) if ((providerUsed + amount) * 100 >= codexCap * threshold) {
+    const exists = [...sql.exec('SELECT threshold FROM ai_provider_alerts WHERE month=? AND provider=? AND threshold=?', month, 'openai', threshold)].length;
+    if (!exists) { sql.exec('INSERT INTO ai_provider_alerts(month,provider,threshold) VALUES(?,?,?)', month, 'openai', threshold); providerAlerts.push(threshold); }
+  }
+  return { reservationId: request.reservationId, amountMicroEur: amount, month, alerts, providerAlerts,
+    remainingMicroEur: cap - used - amount, codexRemainingMicroEur: request.provider === 'openai' ? codexCap - providerUsed - amount : null, duplicate: false };
 }
 export function settleBudget(sql, id, actualMicroEur) {
   const reservation = [...sql.exec('SELECT * FROM ai_reservations WHERE id=?', id)][0];

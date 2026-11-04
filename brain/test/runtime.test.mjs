@@ -206,3 +206,30 @@ test('durable claim interruption, restart and lease expiry produce one logical c
   const completed = await wait(receipt.receiptId, 'WAITING_REVIEW'); assert.equal(completed.attempts, 2);
   assert.equal(completed.audit.filter(row => row.status === 'WAITING_REVIEW').length, 1);
 });
+
+
+test('OpenAI/Codex concurrent reservations stop at EUR15 inside the global EUR20 ledger', async () => {
+  const results = await Promise.all(['a', 'b', 'c'].map(id => budget('reserve', reservation(6000000, id, 'openai'))));
+  assert.equal(results.filter(r => r.status === 200).length, 2);
+  assert.equal(results.filter(r => r.status === 402).length, 1);
+  assert.equal((await budget('reserve', reservation(8000000, 'd', 'azure'))).status, 200);
+  assert.equal((await budget('reserve', reservation(2, 'e', 'cloudflare'))).status, 402);
+});
+test('Codex allocation alert thresholds, settlement and restart preserve the EUR15 ceiling', async () => {
+  const first = await (await budget('reserve', reservation(11250000, 'a', 'openai'))).json();
+  assert.deepEqual(first.providerAlerts, [75]);
+  const second = await (await budget('reserve', reservation(2250000, 'b', 'openai'))).json();
+  assert.deepEqual(second.providerAlerts, [90]);
+  await mf.dispose(); mf = new Miniflare(options());
+  assert.equal((await budget('reserve', reservation(1500001, 'c', 'openai'))).status, 402);
+  assert.equal((await budget('settle', { id: 'a'.repeat(64), actualMicroEur: 10000000 })).status, 200);
+  const last = await (await budget('reserve', reservation(2750000, 'd', 'openai'))).json();
+  assert.deepEqual(last.providerAlerts, []);
+  assert.equal((await budget('reserve', reservation(2, 'e', 'openai'))).status, 402);
+});
+test('caller cannot raise the Codex/OpenAI cap and other providers consume shared headroom', async () => {
+  const raised = reservation(16000000, 'a', 'openai'); raised.config.codexCapMicroEur = 20000000;
+  assert.equal((await budget('reserve', raised)).status, 422);
+  await budget('reserve', reservation(6000000, 'b', 'azure'));
+  assert.equal((await budget('reserve', reservation(15000000, 'c', 'openai'))).status, 402);
+});
