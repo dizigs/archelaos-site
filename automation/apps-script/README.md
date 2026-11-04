@@ -71,6 +71,37 @@ Google Admin OAuth or project-source access. Live Google writes remain OFF, and
 the trusted scoped executor port is still absent. Evidence:
 `docs/automation/evidence/pr124-oauth-exchange-fix-20261104.json`.
 
+## Verified Admin grant and browser-only project read probe — 2026-11-04
+
+The designated Admin's browser callback returned `ADMIN_SCRIPT_GRANT_VERIFIED` with
+`openid`, `https://www.googleapis.com/auth/script.projects`, and
+`https://www.googleapis.com/auth/userinfo.email`. A read-only Cloudflare
+SQLite Durable Object query confirmed **one** grant row, **one** encrypted
+session row, and **zero** Google edit operation or private backup rows. No
+token, cookie, Google source, or ciphertext was exported.
+
+A narrow `GET /api/apps-script/verify` route is deployed on the SAME Worker:
+it requires the existing Admin's `__Host-` session cookie; validates the
+stored Admin identity/scope; calls Google projects.get and getContent **GET
+only**; verifies the exact configured project identity and complete file
+collection; and returns only `status`, boolean checks and `fileCount`.
+It never returns token, project ID, source or private metadata. This route
+does not authorize any editor action or bypass the separate signed executor.
+Any missing/invalid cookie is rejected; all Google writes remain OFF.
+
+Deployed Cloudflare version `1b5a504e-66c7-411a-8ac6-e7f774362599`,
+deployment `14c450f7-b168-4a10-8ffb-0b8be5cbb116`, with previous
+version `c2a77e6b-ab1f-4f56-8dd7-9f239a707902` preserved for rollback.
+External checks: health GET200; anonymous verify GET401
+`OAUTH_COOKIE_REQUIRED`; regular private content GET503
+`EXECUTOR_INTERFACE_UNCONFIGURED`. **A real authenticated Google GET has
+not been exercised yet**: the user must open the verify URL in the same
+browser where Admin consent succeeded. No successful Apps Script source read
+is claimed until its status is confirmed.
+
+Evidence:
+`docs/automation/evidence/pr124-admin-grant-readonly-verifier-20261104.json`.
+
 ## Implemented, tested boundaries
 
 - Scoped Admin authorization-code flow: `openid email script.projects`, PKCE-S256,
