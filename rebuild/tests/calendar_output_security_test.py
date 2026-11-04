@@ -8,6 +8,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from zipfile import ZipFile, ZIP_DEFLATED
 from unittest.mock import patch
 
 TOOLS = Path(__file__).resolve().parents[1] / "tools"
@@ -73,7 +74,7 @@ class CalendarOutputSecurity(unittest.TestCase):
     def test_zip_expansion_total_is_bounded(self):
         # Aggregate ZIP inflation is limited even if every member is below 5MB.
         bundle = self.source.parent / "oversized.zip"
-        with ZipFile(bundle, "w") as z:
+        with ZipFile(bundle, "w", compression=ZIP_DEFLATED) as z:
             z.writestr("a.ics", "A" * 3_000_000)
             z.writestr("b.ics", "B" * 3_000_000)
         result = self.run_cli("--volleyball", str(bundle))
