@@ -12,6 +12,27 @@
   },
   "overrides": {
     "tar": "7.5.22",
-    "zod": "4.6.7"
+    "zod": "4.6.7",
+    "basic-ftp": "6.2.5",
+    "sitespeed.io": {
+      "@tootallnate/once": "2.0.1",
+      "axios": {
+        ".": "1.19.1",
+        "form-data": "4.0.6"
+      },
+      "brace-expansion": "1.1.21",
+      "fast-xml-builder": "1.1.7",
+      "fast-xml-parser": "5.6.1",
+      "form-data": "2.5.6",
+      "jws": "4.0.1",
+      "lodash": "4.18.1",
+      "minimatch": "3.1.5",
+      "node-forge": "1.4.2",
+      "tmp": "0.2.6",
+      "ws": "7.5.13",
+      "selenium-webdriver": {
+        "ws": "8.22.1"
+      }
+    }
   }
 }
