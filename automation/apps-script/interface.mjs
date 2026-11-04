@@ -105,19 +105,26 @@ export function appsScriptExtension({ oauth, authenticateExecutor, editorFor, ve
         if (request.method === 'GET') {
           return backupConfirmationPage(await issueBackupConfirmation(grant));
         }
-        // A browser may omit Origin on a same-origin form POST. In that case
-        // require Sec-Fetch-Site: same-origin. A provided Origin must always
-        // equal the Worker origin; null, cross-site and missing both fail shut.
-        const origin = request.headers.get('origin');
-        const fetchSite = request.headers.get('sec-fetch-site');
-        if ((origin !== null && origin !== expectedOrigin) ||
-            (fetchSite !== null && fetchSite !== 'same-origin') ||
-            (origin === null && fetchSite !== 'same-origin')) {
-          throw new ScriptFault('BACKUP_ORIGIN_REQUIRED', 403);
-        }
+        // The outer Worker/embedded browser may omit both Origin and Fetch
+        // Metadata. Neither header is an authentication credential. The
+        // security proof is the Admin OAuth session plus an unguessable,
+        // server-recorded, expiring single-use nonce matching BOTH the
+        // HttpOnly SameSite=Strict cookie and this form's hidden field.
+        // Validate that independent proof before applying metadata defenses.
         const sent = await readConfirmationForm(request);
         if (!constantEqual(sent, backupConfirmationCookie(request.headers.get('cookie')))) {
           throw new ScriptFault('BACKUP_CONFIRMATION_REQUIRED', 403);
+        }
+        const origin = request.headers.get('origin');
+        const fetchSite = request.headers.get('sec-fetch-site');
+        // Reject observed foreign-origin and cross-site submissions. Null or
+        // missing Origin, and absent/none Fetch Metadata, rely on the strong
+        // cookie + one-time nonce proof (no cross-site JS can read the form).
+        if (origin !== null && origin !== 'null' && origin !== expectedOrigin) {
+          throw new ScriptFault('BACKUP_ORIGIN_REQUIRED_EXTERNAL', 403);
+        }
+        if (fetchSite !== null && !['same-origin', 'none'].includes(fetchSite)) {
+          throw new ScriptFault('BACKUP_ORIGIN_REQUIRED_CROSS_SITE', 403);
         }
         const result = json(await createVerifiedBackup(grant, sent));
         result.headers.append('set-cookie', confirmationCookie + '=; Path=/; Secure; HttpOnly; SameSite=Strict; Max-Age=0');
