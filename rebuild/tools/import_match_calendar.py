@@ -25,6 +25,23 @@ REPORT_CHOICE="rebuild/test-artifacts/"+REPORT_NAME
 ATHENS=ZoneInfo("Europe/Athens")
 MAX_INPUT=5_000_000
 MAX_EVENTS=3000
+# CLI inputs must reside in this local gitignored intake folder.
+# Synthetic/import_sources calls remain independent for offline tests.
+APPROVED_INTAKE = Path(__file__).resolve().parents[2] / ".archive-intake" / "calendars"
+
+def approved_calendar_input(value: Path) -> Path:
+    """Accept only a regular .ics/.zip file directly inside the trusted intake."""
+    if (not APPROVED_INTAKE.is_dir() or APPROVED_INTAKE.is_symlink()
+            or APPROVED_INTAKE.parent.is_symlink()):
+        raise ValueError("Trusted calendar intake directory is missing or linked")
+    if value.suffix.lower() not in {".ics", ".zip"} or value.is_symlink():
+        raise ValueError("Calendar input must be an unlinked .ics/.zip file")
+    trusted_root = APPROVED_INTAKE.resolve(strict=True)
+    candidate = value.resolve(strict=True)
+    if not candidate.is_file() or candidate.parent != trusted_root:
+        raise ValueError("Calendar input must be a direct child of .archive-intake/calendars")
+    return candidate
+
 
 def unescape(value:str)->str:
     return re.sub(r"\\([nN,;\\])",lambda m: "\n" if m[1].lower()=="n" else m[1],value).strip()[:350]
@@ -114,13 +131,22 @@ def load_sources(path:Path):
     with ZipFile(path) as archive:
         infos=[x for x in archive.infolist() if not x.is_dir()]
         if len(infos)>30:raise ValueError("Too many files in calendar ZIP")
+        total_size = 0
         for member in infos:
             pp=PurePosixPath(member.filename)
             if pp.is_absolute() or ".." in pp.parts or "\\" in member.filename:
                 raise ValueError("Unsafe ZIP member path")
             if member.file_size>MAX_INPUT:raise ValueError("Oversized ZIP member")
             if member.filename.lower().endswith(".ics"):
-                result.append((member.filename,archive.read(member)))
+                total_size += member.file_size
+                if total_size > MAX_INPUT:
+                    raise ValueError("Combined ZIP calendars exceed 5MB")
+                # Bounded decompression to memory; never write ZIP members to disk.
+                with archive.open(member) as source:
+                    payload = source.read(MAX_INPUT + 1)
+                if len(payload) > MAX_INPUT:
+                    raise ValueError("ZIP member exceeded its declared limit")
+                result.append((member.filename,payload)
     if not result:raise ValueError("ZIP contains no .ics calendars")
     return result
 
@@ -173,7 +199,10 @@ def main():
     try:
         with output_directory(("rebuild","test-artifacts")) as directory:
             validate_reports(directory,(REPORT_NAME,))
-            report=import_sources({"handball":args.handball,"volleyball":args.volleyball})
+            report=import_sources({
+                "handball":[approved_calendar_input(p) for p in args.handball],
+                "volleyball":[approved_calendar_input(p) for p in args.volleyball]
+            })
             replace_report(directory,REPORT_NAME,json.dumps(report,ensure_ascii=False,indent=2)+"\n")
     except (OSError,ValueError,BadZipFile) as error:
         parser.exit(2,"CALENDAR IMPORT failed ("+type(error).__name__+
