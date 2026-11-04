@@ -36,7 +36,7 @@ jobs:
           # Core rebuild pages use the shared shell; news is copied verbatim.
           # The intentionally standalone error page (404.html) has no footer.
           names = sorted(p.name for p in Path("rebuild").glob("*.html") if p.name != "preview.html")
-          assert len(names) == 15, names
+          assert len(names) >= 15, names  # Includes optional noindex drafts; verify each page below
           pages = [root / name for name in names] + [root / "news.html"]
           script = "/assets/site/js/support-footer.js"
           stylesheet = "/assets/site/css/support-footer.css"

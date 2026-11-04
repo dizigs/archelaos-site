@@ -1,8 +1,6 @@
 name: Free Actions lint and security audit
 on:
   pull_request:
-    paths:
-      - '.github/workflows/**'
   push:
     branches: [main]
     paths:
@@ -20,13 +18,22 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           persist-credentials: false
-      - uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff # v5
-        with:
-          go-version: 'stable'
-      - name: Install actionlint
-        run: go install github.com/rhysd/actionlint/cmd/actionlint@v1.7.11
-      - name: Validate all GitHub workflows
-        run: '"$(go env GOPATH)/bin/actionlint" -color'
+      - name: Verify integrity and provenance of pinned actionlint 1.7.12
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          archive="$RUNNER_TEMP/actionlint_1.7.12_linux_amd64.tar.gz"
+          curl --proto '=https' --tlsv1.2 --fail --location --retry 3 \
+            --output "$archive" \
+            'https://github.com/rhysd/actionlint/releases/download/v1.7.12/actionlint_1.7.12_linux_amd64.tar.gz'
+          printf '%s  %s\n' '8aca8db96f1b94770f1b0d72b6dddcb1ebb8123cb3712530b08cc387b349a3d8' "$archive" | sha256sum --check --status
+          gh attestation verify --repo rhysd/actionlint "$archive"
+          tar -xzf "$archive" -C "$RUNNER_TEMP" actionlint
+          "$RUNNER_TEMP/actionlint" -version
+      - name: Check all workflows (no secrets or site changes)
+        run: '"$RUNNER_TEMP/actionlint" -color'
   zizmor:
     runs-on: ubuntu-latest
     timeout-minutes: 12
@@ -34,11 +41,40 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           persist-credentials: false
-      # Baseline scan of all existing workflows: log/annotate legacy findings without
-      # blocking this PR. Actionlint remains blocking; do not conceal zizmor output.
-      - name: Scan Actions for security findings
+      # Keep every legacy finding visible; the next pass blocks HIGH findings.
+      - name: Report all Actions security findings
         continue-on-error: true
         uses: zizmorcore/zizmor-action@45d7276c9ca790aabd705e31ca99c6185c3e76dd # v0.8.1
         with:
           advanced-security: false
           annotations: true
+          inputs: .github/workflows
+          collect: workflows
+          persona: auditor
+      - name: Block high-severity Actions security findings
+        uses: zizmorcore/zizmor-action@45d7276c9ca790aabd705e31ca99c6185c3e76dd # v0.8.1
+        with:
+          advanced-security: false
+          annotations: true
+          inputs: .github/workflows
+          collect: workflows
+          persona: auditor
+          min-severity: high
+
+  dependency-review:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      # Server-side graph diff only: no checkout or PR-controlled code execution.
+      - name: Reject newly introduced high and critical dependency vulnerabilities
+        uses: actions/dependency-review-action@a1d282b36b6f3519aa1f3fc636f609c47dddb294 # v5.0.0
+        with:
+          fail-on-severity: high
+          fail-on-scopes: runtime, development, unknown
+          vulnerability-check: true
+          license-check: false
+          warn-only: false
+          comment-summary-in-pr: never

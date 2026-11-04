@@ -196,7 +196,10 @@ class CollectorBoundary(unittest.TestCase):
         self.stack.enter_context(patch("builtins.print"))
 
     def api(self, path):
-        if path.endswith("?per_page=10"): return [deployment()]
+        if path.endswith("?env=production&per_page=10"): return [deployment()]
+        if path.endswith("?per_page=10"):
+            # A heavily previewed repo can exhaust a mixed first page.
+            return [{**deployment(), "environment": "preview"} for _ in range(10)]
         if path.endswith("/history/logs"): return {"data": [{"line": "Success: Your site was deployed!"}]}
         return deployment()
 
@@ -205,6 +208,16 @@ class CollectorBoundary(unittest.TestCase):
         self.assertEqual(self.saved[0]["verification"]["status"], "VERIFIED")
         self.assertEqual(self.main_ref.call_count, 2)
         self.assertEqual(self.api_calls.call_count, 3)
+
+    def test_preview_heavy_listing_must_be_production_scoped(self):
+        # A mixed response with ten previews would return no production
+        # despite a real successful production deployment existing.
+        self.assertEqual(status.main(), 0)
+        self.assertEqual(self.saved[0]["verification"]["status"], "VERIFIED")
+        self.assertEqual(
+            self.api_calls.call_args_list[0].args[0],
+            f"/accounts/{ACCOUNT}/pages/projects/archelaos-site/deployments?env=production&per_page=10",
+        )
 
     def test_main_advance_invalidates_previously_valid_evidence(self):
         self.main_ref.side_effect = [COMMIT, "d" * 40]
@@ -218,7 +231,7 @@ class CollectorBoundary(unittest.TestCase):
         self.assertEqual(self.saved[0]["verification"]["reason"], "missing_runtime_credential")
 
     def test_provider_permission_failure_retains_exact_endpoint_without_retry(self):
-        path = f"/accounts/{ACCOUNT}/pages/projects/archelaos-site/deployments?per_page=10"
+        path = f"/accounts/{ACCOUNT}/pages/projects/archelaos-site/deployments?env=production&per_page=10"
         self.api_calls.side_effect = status.ProviderFailure(path, 403, [10000], "provider_http")
         self.assertEqual(status.main(), 1)
         self.assertEqual(self.api_calls.call_count, 1)

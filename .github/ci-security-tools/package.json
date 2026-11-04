@@ -1,0 +1,14 @@
+{
+  "name": "archelaos-ci-security-tools",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Pinned Playwright browser and accessibility CI audit tools; not deployed",
+  "engines": {
+    "node": "22.x"
+  },
+  "dependencies": {
+    "@axe-core/playwright": "4.14.0",
+    "axe-core": "4.14.0",
+    "playwright": "1.58.0"
+  }
+}
