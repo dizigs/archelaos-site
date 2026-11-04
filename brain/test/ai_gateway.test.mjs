@@ -42,3 +42,14 @@ test('ledger unavailable or insufficient balance denies before any provider invo
   const f = await fixture(); f.ports.ledger.reserve = async () => { throw new Error('Synthetic unavailable storage'); };
   await runGuardedAi(f.request, f.ports, f.policy); assert.equal(f.state.calls, 0);
 });
+test('per-source pause blocks the actual sourceType before any provider invocation', async () => {
+  const f = await fixture();
+  f.ports.readControls = async () => ({ globalPaused: false, aiPaused: false, sourcePaused: { staging: true } });
+  await runGuardedAi(f.request, f.ports, f.policy);
+  assert.equal(f.state.calls, 0);
+});
+test('missing source scope cannot bypass a per-source kill switch', async () => {
+  const f = await fixture(); delete f.request.sourceType;
+  assert.equal((await runGuardedAi(f.request, f.ports, f.policy)).reason, 'SOURCE_SCOPE_UNVERIFIED');
+  assert.equal(f.state.calls, 0);
+});

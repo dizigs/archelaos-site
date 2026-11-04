@@ -4,6 +4,7 @@ import { digest } from './contract.mjs';
 // the port contract is exercised with explicitly marked synthetic providers.
 export async function runGuardedAi(request, ports, policy = {}) {
   const stopped = reason => ({ status: 'PENDING_AI_CONFIGURATION_OR_RECONCILIATION', reason, externalProviderCalls: 0 });
+  if (!['staging', 'drive', 'gmail', 'site', 'github', 'news'].includes(request?.sourceType)) return stopped('SOURCE_SCOPE_UNVERIFIED');
   const controls = await ports.readControls();
   if (controls.globalPaused || controls.aiPaused || controls.sourcePaused?.[request.sourceType]) return stopped('AUTOMATION_OR_PAID_AI_PAUSED');
   if (policy.accountCoverageVerified !== true || policy.enabled !== true || request.privateDataApproved !== true) return stopped('COVERAGE_OR_PRIVACY_UNVERIFIED');
