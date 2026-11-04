@@ -135,7 +135,7 @@ test('GitHub OIDC read-only run accepted once, replay blocked, Google edits stay
   f.storage.sql.exec('INSERT INTO script_private_blobs(id,cipher) VALUES(?,?)', crypto.randomUUID(), 'test-cipher');
   f.store.audit(crypto.randomUUID(), 'BROWSER_ENCRYPTED_BACKUP_VERIFIED');
   const request = () => new Request('https://archelaos-automation-bridge.example/api/apps-script/github-oidc-probe', {
-    method:'POST', headers:{ authorization:'Bearer ' + 'x'.repeat(210) }
+    method:'POST', headers:{ authorization:'Bearer ' + 'x'.repeat(210) }, body: ''
   });
   const first = await obj.fetch(request());
   assert.equal(first.status, 200);
