@@ -43,6 +43,23 @@ def walk(obj, origin, output):
                 for i,src in enumerate(p.src):output.append((f"{key}.img[{i}]",src))
             if isinstance(value,(list,dict)):walk(value,key,output)
 
+def contained_asset_path(url_path: str) -> Path | None:
+    """Resolve a site-relative reference without inspecting outside this checkout.
+
+    URL escaping and filesystem symlinks must not turn an image inventory into
+    a probe of arbitrary files on the CI runner or editor's machine.
+    """
+    if not url_path.startswith("/"):
+        return None
+    try:
+        root=ROOT.resolve()
+        candidate=(root/unquote(url_path.lstrip("/"))).resolve()
+        candidate.relative_to(root)
+        return candidate
+    except (ValueError, OSError, RuntimeError):
+        return None
+
+
 def inventory():
     found=[]
     for path in sorted((STAGE/"data").glob("*.json")):
@@ -56,13 +73,17 @@ def inventory():
     local=[]
     for owner,url in found:
         if url.startswith(REMOTE):
+            # An external reference is an inventory finding, not an HTTP request.
             remote.append({"owner":owner,"url":url})
         else:
             parsed=urlparse(url)
             if not parsed.path.startswith("/"):continue
-            target=ROOT/unquote(parsed.path.lstrip("/"))
             record={"owner":owner,"path":parsed.path}
-            if not target.is_file():
+            target=contained_asset_path(parsed.path)
+            if target is None:
+                record["reason"]="outside_checkout"
+                problems.append(record)
+            elif not target.is_file():
                 problems.append(record)
             else:
                 record["bytes"]=target.stat().st_size
