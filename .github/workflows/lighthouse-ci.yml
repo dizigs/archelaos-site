@@ -8,6 +8,7 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/lighthouse-ci.yml'
+      - '.github/ci-performance-tools/**'
       - '.lighthouserc.cjs'
       - 'rebuild/**'
       - 'assets/**'
@@ -57,14 +58,16 @@ jobs:
           fi
           echo "Lighthouse GitHub App secret configured."
 
-      - name: Install pinned Lighthouse CI CLI
-        run: npm install --global '@lhci/cli@0.15.x'
+      - name: Install audited locked Lighthouse CI CLI
+        run: |
+          test -f .github/ci-performance-tools/package-lock.json
+          npm ci --ignore-scripts --prefix .github/ci-performance-tools
 
       - name: Audit home, departments and news and post results to GitHub
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
           LHCI_BUILD_CONTEXT__CURRENT_BRANCH: ${{ github.head_ref || github.ref_name }}
-        run: lhci autorun --config=.lighthouserc.cjs
+        run: ./.github/ci-performance-tools/node_modules/.bin/lhci autorun --config=.lighthouserc.cjs
 
       - name: Preserve local Lighthouse reports for 14 days
         if: always()
