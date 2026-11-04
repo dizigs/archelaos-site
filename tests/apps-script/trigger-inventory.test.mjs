@@ -55,7 +55,7 @@ test('Apps Script .gs template inventories current-account triggers without side
 });
 
 test('Apps Script .gs template rejects unverifiable or oversized inventories without modifying triggers', () => {
-  for (const values of [[trigger('bad handler!')], [trigger('run', 'CUSTOM_UNKNOWN')], Array.from({ length: 513 }, () => trigger('run'))]) {
+  for (const values of [[trigger('bad handler!')], [trigger('run', 'invalid-type')], Array.from({ length: 513 }, () => trigger('run'))]) {
     const x = fixture(values);
     assert.throws(() => x.inspect(), /_UNVERIFIED/);
     assert.equal(x.calls.writes, 0);
