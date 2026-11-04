@@ -68,3 +68,46 @@ test('Admin browser-only verification is narrowly gated and does not unlock edit
   assert.equal((await route(new Request(origin + '/api/apps-script/content', { headers: { cookie: '__Host-archelaos-script-session=synthetic' } }))).status, 503);
   assert.deepEqual(calls, ['__Host-archelaos-script-session=synthetic', '__Host-archelaos-script-session=synthetic']);
 });
+
+test('browser-confirmed encrypted backup requires Admin session, same-origin POST and single-use nonce', async () => {
+  let created = 0;
+  let active = null;
+  const route = appsScriptExtension({
+    oauth: { access: async cookie => {
+      assert.ok(cookie?.includes('__Host-archelaos-script-session=synthetic'));
+      return { principal: actor, grantedScopes: actor.grantedScopes, accessToken: 'synthetic-internal' };
+    } },
+    issueBackupConfirmation: async () => { active = 'a'.repeat(43); return active; },
+    createVerifiedBackup: async (grant, nonce) => {
+      assert.equal(grant.principal.email, actor.email);
+      assert.equal(nonce, active);
+      if (!active) throw new Error('already used');
+      active = null; created++;
+      return { status: 'PRIVATE_BACKUP_VERIFIED', fileCount: 4, encrypted: true, readbackVerified: true };
+    },
+  });
+  const session = '__Host-archelaos-script-session=synthetic';
+  const open = await route(new Request(origin + '/api/apps-script/private-backup?utm_source=chatgpt.com', { headers: { cookie: session } }));
+  assert.equal(open.status, 200);
+  assert.ok((await open.text()).includes('Δημιουργία αντιγράφου'));
+  assert.equal(open.headers.get('cache-control'), 'no-store');
+  assert.ok(open.headers.get('content-security-policy').includes("form-action 'self'"));
+  const csrf = open.headers.get('set-cookie').split(';')[0];
+  const body = 'confirmation=' + 'a'.repeat(43);
+  const post = async (h = {}, data = body) => route(new Request(origin + '/api/apps-script/private-backup', {
+    method: 'POST', headers: { cookie: session + '; ' + csrf, origin, 'sec-fetch-site':'same-origin',
+      'content-type': 'application/x-www-form-urlencoded', ...h }, body: data
+  }));
+  const rejected = await post({origin:'https://example.invalid'});
+  assert.equal(rejected.status, 403);
+  assert.equal(created, 0);
+  const accepted = await post();
+  assert.equal(accepted.status, 200, await accepted.clone().text());
+  assert.equal((await accepted.json()).status, 'PRIVATE_BACKUP_VERIFIED');
+  assert.equal(created, 1);
+  const replay = await post();
+  assert.equal(replay.status, 503);
+  assert.equal(created, 1);
+  assert.equal((await post({}, 'confirmation=bogus')).status, 403);
+  assert.equal((await route(new Request(origin + '/api/apps-script/private-backup?code=not-allowed', {headers:{cookie:session}}))).status, 404);
+});
