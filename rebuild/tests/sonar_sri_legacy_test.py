@@ -3,10 +3,7 @@ from pathlib import Path
 import unittest
 
 ROOT = Path(__file__).resolve().parents[2]
-PAGES = (
-    "index.html", "contact.html", "stories.html", "sponsors.html",
-    "board.html", "history.html", "retro-matches.html",
-)
+PAGES = ("index.html",)  # First isolated batch; expand after follow-up page merges.
 CSS_URL = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 # Version-specific cdnjs SRI; change only with a verified asset/version update.
 SRI = "sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="

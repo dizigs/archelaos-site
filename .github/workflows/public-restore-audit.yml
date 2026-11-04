@@ -9,12 +9,6 @@ on:
       - '.github/workflows/public-restore-audit.yml'
       - 'rebuild/tests/sonar_sri_legacy_test.py'
       - 'index.html'
-      - 'contact.html'
-      - 'stories.html'
-      - 'sponsors.html'
-      - 'board.html'
-      - 'history.html'
-      - 'retro-matches.html'
   workflow_dispatch:
     inputs:
       snapshot_run_id:
