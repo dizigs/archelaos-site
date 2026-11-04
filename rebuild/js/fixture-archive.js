@@ -52,6 +52,7 @@
         (ownClub(entry.home_team) || ownClub(entry.away_team)));
       if (!item) {
         status.textContent = 'Δεν βρέθηκε εγκεκριμένη αρχειακή καταχώριση για αυτόν τον αγώνα.';
+        section.scrollIntoView({block:'start'});
         return;
       }
       const date = item.start_at
