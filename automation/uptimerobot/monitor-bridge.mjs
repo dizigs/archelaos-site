@@ -58,7 +58,10 @@ function publicRouteKey(value){
  try{
   const u=new URL(value);
   if(u.protocol!=='https:'||!['archelaos.club','www.archelaos.club'].includes(u.hostname.toLowerCase())||u.search||u.hash||u.username||u.password||u.port)return '';
-  let path=u.pathname.replace(/\/index\.html$/i,'/').replace(/\.html$/i,'').replace(/\/+$/,'').toLowerCase();
+  let path=u.pathname.toLowerCase();
+  if(path.endsWith('/index.html'))path=path.slice(0,-10);
+  else if(path.endsWith('.html'))path=path.slice(0,-5);
+  while(path.length>1&&path.endsWith('/'))path=path.slice(0,-1);
   if(!path)path='/';
   return path;
  }catch{return ''}
@@ -103,7 +106,7 @@ async function publicMonitorStatus(request,env,url){
      return {label,url:target,present:found.length===1,
       status:found.length===0?'MISSING':found.length>1?'DUPLICATE':states.has(raw)?raw:'UNKNOWN',
       monitorCount:found.length,exactMatches:exact,
-      urlVariants:[...new Set(found.map(m=>m.url))].sort()};
+      urlVariants:[...new Set(found.map(m=>m.url))].sort((a,b)=>a.localeCompare(b))};
     });
     const response=Response.json({
      code:'UPTIME_PUBLIC_STATUS',checkedAt:new Date().toISOString(),
