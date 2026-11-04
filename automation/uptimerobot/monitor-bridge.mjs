@@ -57,7 +57,7 @@ function canon(s){try{const u=new URL(s);u.hash='';return u.href.replace(/\/$/,'
 function publicRouteKey(value){
  try{
   const u=new URL(value);
-  if(u.protocol!=='https:'||!['archelaos.club','www.archelaos.club'].includes(u.hostname.toLowerCase())||u.search)return '';
+  if(u.protocol!=='https:'||!['archelaos.club','www.archelaos.club'].includes(u.hostname.toLowerCase())||u.search||u.hash||u.username||u.password||u.port)return '';
   let path=u.pathname.replace(/\/index\.html$/i,'/').replace(/\.html$/i,'').replace(/\/+$/,'').toLowerCase();
   if(!path)path='/';
   return path;
