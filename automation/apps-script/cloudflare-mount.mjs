@@ -72,8 +72,15 @@ export class MuseumScriptCoordinator {
     if (!isAppsScriptRequest(request)) return denied('SCRIPT_ROUTE_NOT_FOUND', 404);
     const url = new URL(request.url);
     if (url.pathname === '/api/apps-script/github-oidc-probe') {
-      if (request.method !== 'POST' || url.search || request.body !== null) {
+      // Outer Worker -> Durable Object forwarding can materialize an empty
+      // POST body stream. The body is never interpreted as a command: signed
+      // identity claims provide the only authority for this read-only probe.
+      if (request.method !== 'POST' || url.search) {
         return denied('SCRIPT_ROUTE_NOT_FOUND', 404);
+      }
+      const declaredLength = request.headers.get('content-length');
+      if (declaredLength !== null && (!/^\\d{1,3}$/.test(declaredLength) || Number(declaredLength) > 128)) {
+        return denied('GITHUB_OIDC_BODY_NOT_ACCEPTED', 413);
       }
       try {
         const raw = request.headers.get('authorization') || '';
