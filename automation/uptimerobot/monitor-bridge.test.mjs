@@ -236,3 +236,35 @@ test('public summary coalesces in-flight requests on a cold cache',async()=>{
   if(saved===undefined)delete globalThis.caches;else globalThis.caches=saved;
  }
 });
+
+
+test('canonical host and .html variants match; genuine duplicates remain visible',async()=>{
+ const old=globalThis.caches;
+ globalThis.caches={default:{match:async()=>undefined,put:async()=>{}}};
+ globalThis.fetch=async()=>Response.json({nextLink:null,data:[
+  {id:111,url:'https://www.archelaos.club/news',status:'UP'},
+  {id:112,url:'https://archelaos.club/history.html',status:'UP'},
+  {id:113,url:'https://www.archelaos.club/history',status:'UP'},
+  {id:114,url:'https://someone-else.example/news',status:'UP'}
+ ]});
+ try{
+  const r=await handleUptimeMonitor(req('public-status','GET',null,''),env);
+  assert.equal(r.status,200);
+  const text=await r.text(),d=JSON.parse(text);
+  const news=d.targets.find(t=>t.label==='Νέα');
+  const museum=d.targets.find(t=>t.label==='Ψηφιακό Μουσείο');
+  assert.equal(news.status,'UP');
+  assert.equal(news.present,true);
+  assert.equal(news.monitorCount,1);
+  assert.equal(news.exactMatches,0);
+  assert.deepEqual(news.urlVariants,['https://www.archelaos.club/news']);
+  assert.equal(museum.status,'DUPLICATE');
+  assert.equal(museum.monitorCount,2);
+  assert.equal(museum.present,false);
+  for(const val of ['111','112','113','114','someone-else.example']){
+   assert.equal(text.includes(val),false);
+  }
+ }finally{
+  if(old===undefined)delete globalThis.caches;else globalThis.caches=old;
+ }
+});
