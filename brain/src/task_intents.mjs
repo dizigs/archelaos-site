@@ -31,7 +31,7 @@ export function validateTaskIntent(input, now = Date.now()) {
   return {
     schemaVersion: 1, taskId: input.taskId, roadmapIssue: input.roadmapIssue,
     baseCommit: input.baseCommit, taskType: input.taskType,
-    allowedPaths: [...input.allowedPaths].sort(), issuedAt: input.issuedAt,
+    allowedPaths: [...input.allowedPaths].sort((a, b) => a.localeCompare(b)), issuedAt: input.issuedAt,
     expiresAt: input.expiresAt
   };
 }

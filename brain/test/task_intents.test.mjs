@@ -72,7 +72,7 @@ test('signed operator stores a bounded immutable manual-only task and reads it b
   const data = await created.json();
   assert.equal(data.status, 'PENDING_MANUAL_REVIEW');
   assert.deepEqual([data.executorEnabled, data.paidAiCalls, data.githubWrites], [false, 0, 0]);
-  assert.deepEqual(data.allowedPaths, [...input.allowedPaths].sort());
+  assert.deepEqual(data.allowedPaths, [...input.allowedPaths].sort((a, b) => a.localeCompare(b)));
   const fetched = await request('/v1/task-intents/' + input.taskId);
   assert.equal(fetched.status, 200);
   assert.equal((await fetched.json()).baseCommit, input.baseCommit);
