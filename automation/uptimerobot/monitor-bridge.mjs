@@ -66,32 +66,43 @@ function settingsMatch(m,contactId){
 
 // Public, bounded read-only summary of ONLY the eleven pre-existing public
 // site URLs. Never expose arbitrary provider records, IDs, contacts or secrets.
-// Cloudflare's edge cache is mandatory to bound upstream API calls.
+// Cloudflare's edge cache and per-isolate coalescing bound upstream API calls.
+let publicSummaryInFlight=null;
+let publicFailureUntil=0;
 async function publicMonitorStatus(request,env,url){
  if(request.method!=='GET')return out('METHOD_NOT_ALLOWED',405);
  if(url.search)return out('UNSUPPORTED_QUERY',400);
  if(!env?.UPTIMEROBOT_MAIN_API_KEY)return out('UPTIME_NOT_CONFIGURED',503);
  const cache=globalThis.caches?.default;
  if(!cache)return out('UPTIME_CACHE_UNAVAILABLE',503);
- const cacheKey=new Request('https://archelaos.club/api/uptimerobot/public-status');
+ const cacheKey=new Request(request.url);
  try{
   const hit=await cache.match(cacheKey);
   if(hit)return hit;
-  const all=await inventory(env);
-  const states=new Set(['UP','DOWN','LOOKS_DOWN','STARTED','PAUSED']);
-  const targets=TARGETS.map(([label,target])=>{
-   const found=all.filter(m=>canon(m?.url)===canon(target));
-   const raw=found.length===1?String(found[0].status).toUpperCase():'';
-   return {label,url:target,present:found.length===1,
-    status:found.length===0?'MISSING':found.length>1?'DUPLICATE':states.has(raw)?raw:'UNKNOWN'};
-  });
-  const response=Response.json({
-   code:'UPTIME_PUBLIC_STATUS',checkedAt:new Date().toISOString(),
-   expected:TARGETS.length,configured:targets.filter(t=>t.present).length,targets
-  },{headers:{...H,'cache-control':'public, max-age=120, s-maxage=120'}});
-  await cache.put(cacheKey,response.clone());
-  return response;
- }catch{return out('UPTIME_STATUS_UNAVAILABLE',503)}
+  if(Date.now()<publicFailureUntil)return out('UPTIME_STATUS_UNAVAILABLE',503);
+  if(!publicSummaryInFlight){
+   publicSummaryInFlight=(async()=>{
+    const all=await inventory(env);
+    const states=new Set(['UP','DOWN','LOOKS_DOWN','STARTED','PAUSED']);
+    const targets=TARGETS.map(([label,target])=>{
+     const found=all.filter(m=>canon(m?.url)===canon(target));
+     const raw=found.length===1?String(found[0].status).toUpperCase():'';
+     return {label,url:target,present:found.length===1,
+      status:found.length===0?'MISSING':found.length>1?'DUPLICATE':states.has(raw)?raw:'UNKNOWN'};
+    });
+    const response=Response.json({
+     code:'UPTIME_PUBLIC_STATUS',checkedAt:new Date().toISOString(),
+     expected:TARGETS.length,configured:targets.filter(t=>t.present).length,targets
+    },{headers:{...H,'cache-control':'public, max-age=120, s-maxage=120'}});
+    await cache.put(cacheKey,response.clone());
+    return response;
+   })().finally(()=>{publicSummaryInFlight=null});
+  }
+  return (await publicSummaryInFlight).clone();
+ }catch{
+  publicFailureUntil=Date.now()+30000;
+  return out('UPTIME_STATUS_UNAVAILABLE',503);
+ }
 }
 
 export async function handleUptimeMonitor(request,env){
