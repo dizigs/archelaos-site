@@ -285,8 +285,9 @@
 }
 .memory-faq-list details[open] summary span {transform:rotate(45deg);background:#f2ead9}
 .memory-faq-list details p {margin:-3px 30px 24px 0;max-width:680px;color:#4b5a4d;font-size:14px;line-height:1.95}
-.memory-faq-list details a {color:#1c6546;border-bottom:1px solid #c3a162;font-weight:700}
-.memory-faq-list details a:hover {border-bottom-color:#1c6546}
+.memory-faq-list details a {color:#1c6546;border:0;text-decoration:none;font-weight:700}
+.memory-faq-list details a:hover {color:#134e36;border:0;text-decoration:none}
+.memory-faq-list details a:focus-visible {outline:2px solid #a27d41;outline-offset:3px;border-radius:2px}
 
 /* Gentle closing action with no stock visual. */
 .memory-epilogue {position:relative;padding:101px 0 65px;text-align:center;background:#e8dcc8}
