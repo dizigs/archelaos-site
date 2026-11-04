@@ -26,8 +26,9 @@ class LegacySRIAndPermissionsTests(unittest.TestCase):
             encoding="utf-8"
         )
         before_jobs, jobs = src.split("\njobs:\n", 1)
-        self.assertTrue(before_jobs.endswith("\npermissions:\n  contents: read"), "Top-level read-only permissions missing")
-        self.assertNotIn("\n  actions: read\n", before_jobs)
+        self.assertEqual(before_jobs.count("\npermissions:\n"), 1)
+        top_level_permissions = before_jobs.split("\npermissions:\n", 1)[1]
+        self.assertEqual(top_level_permissions, "  contents: read")
         fixture, manual = jobs.split("\n  provider-artifact-rehearsal:\n", 1)
         self.assertNotIn("actions: read", fixture)
         self.assertIn("if: github.event_name == 'workflow_dispatch'", manual)
