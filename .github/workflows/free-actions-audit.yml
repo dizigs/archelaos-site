@@ -18,22 +18,20 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           persist-credentials: false
-      - name: Install Go
-        uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff # v5
-        with:
-          go-version: '1.27.3'
-      - name: Build commit-verified actionlint using locked module dependencies
+      - name: Verify integrity and provenance of pinned actionlint 1.7.12
         shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          src="$RUNNER_TEMP/actionlint-src"
-          git clone --depth=1 --branch v1.7.11 --quiet https://github.com/rhysd/actionlint.git "$src"
-          test "$(git -C "$src" rev-parse HEAD)" = "393031adb9afb225ee52ae2ccd7a5af5525e03e8"
-          (
-            cd "$src"
-            go mod verify
-            go build -mod=readonly -o "$RUNNER_TEMP/actionlint" ./cmd/actionlint
-          )
+          archive="$RUNNER_TEMP/actionlint_1.7.12_linux_amd64.tar.gz"
+          curl --proto '=https' --tlsv1.2 --fail --location --retry 3 \
+            --output "$archive" \
+            'https://github.com/rhysd/actionlint/releases/download/v1.7.12/actionlint_1.7.12_linux_amd64.tar.gz'
+          printf '%s  %s\\n' '8aca8db96f1b94770f1b0d72b6dddcb1ebb8123cb3712530b08cc387b349a3d8' "$archive" | sha256sum --check --status
+          gh attestation verify --repo rhysd/actionlint "$archive"
+          tar -xzf "$archive" -C "$RUNNER_TEMP" actionlint
+          "$RUNNER_TEMP/actionlint" -version
       - name: Check all workflows (no secrets or site changes)
         run: '"$RUNNER_TEMP/actionlint" -color'
   zizmor:
