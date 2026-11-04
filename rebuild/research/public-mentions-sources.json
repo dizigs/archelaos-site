@@ -27,6 +27,66 @@
       "type": "news",
       "active": true,
       "url": "https://news.google.com/rss/search?q=%22%CE%93%CE%91%CE%A3%20%CE%91%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82%22&hl=el&gl=GR&ceid=GR:el"
+    },
+    {
+      "id": "google-news-handball",
+      "type": "news",
+      "active": true,
+      "url": "https://news.google.com/rss/search?q=%22%CE%91%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82%22%20(%CF%87%CE%AC%CE%BD%CF%84%CE%BC%CF%80%CE%BF%CE%BB%20OR%20%CF%87%CE%B5%CE%B9%CF%81%CE%BF%CF%83%CF%86%CE%B1%CE%AF%CF%81%CE%B9%CF%83%CE%B7)&hl=el&gl=GR&ceid=GR:el"
+    },
+    {
+      "id": "google-news-athletics",
+      "type": "news",
+      "active": true,
+      "url": "https://news.google.com/rss/search?q=%22%CE%91%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82%22%20(%CF%83%CF%84%CE%AF%CE%B2%CE%BF%CF%82%20OR%20%22%CE%94%CE%AF%CE%B9%CE%B1%22)&hl=el&gl=GR&ceid=GR:el"
+    },
+    {
+      "id": "google-news-gymnastics",
+      "type": "news",
+      "active": true,
+      "url": "https://news.google.com/rss/search?q=%22%CE%91%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82%22%20(%CE%B5%CE%BD%CF%8C%CF%81%CE%B3%CE%B1%CE%BD%CE%B7%20OR%20%CE%B3%CF%85%CE%BC%CE%BD%CE%B1%CF%83%CF%84%CE%B9%CE%BA%CE%AE)&hl=el&gl=GR&ceid=GR:el"
+    },
+    {
+      "id": "google-news-archery",
+      "type": "news",
+      "active": true,
+      "url": "https://news.google.com/rss/search?q=%22%CE%91%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82%22%20%CF%84%CE%BF%CE%BE%CE%BF%CE%B2%CE%BF%CE%BB%CE%AF%CE%B1&hl=el&gl=GR&ceid=GR:el"
+    },
+    {
+      "id": "google-news-shooting",
+      "type": "news",
+      "active": true,
+      "url": "https://news.google.com/rss/search?q=%22%CE%91%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82%22%20%CF%83%CE%BA%CE%BF%CF%80%CE%BF%CE%B2%CE%BF%CE%BB%CE%AE&hl=el&gl=GR&ceid=GR:el"
+    },
+    {
+      "id": "google-news-wrestling",
+      "type": "news",
+      "active": true,
+      "url": "https://news.google.com/rss/search?q=%22%CE%91%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82%22%20%CF%80%CE%AC%CE%BB%CE%B7&hl=el&gl=GR&ceid=GR:el"
+    },
+    {
+      "id": "google-news-swimming",
+      "type": "news",
+      "active": true,
+      "url": "https://news.google.com/rss/search?q=%22%CE%91%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82%22%20%CE%BA%CE%BF%CE%BB%CF%8D%CE%BC%CE%B2%CE%B7%CF%83%CE%B7&hl=el&gl=GR&ceid=GR:el"
+    },
+    {
+      "id": "google-news-finswimming",
+      "type": "news",
+      "active": true,
+      "url": "https://news.google.com/rss/search?q=%22%CE%91%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82%22%20%22%CF%84%CE%B5%CF%87%CE%BD%CE%B9%CE%BA%CE%AE%20%CE%BA%CE%BF%CE%BB%CF%8D%CE%BC%CE%B2%CE%B7%CF%83%CE%B7%22&hl=el&gl=GR&ceid=GR:el"
+    },
+    {
+      "id": "google-news-volleyball",
+      "type": "news",
+      "active": true,
+      "url": "https://news.google.com/rss/search?q=%22%CE%91%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82%22%20%CE%B2%CF%8C%CE%BB%CE%B5%CF%8A&hl=el&gl=GR&ceid=GR:el"
+    },
+    {
+      "id": "google-news-weightlifting",
+      "type": "news",
+      "active": true,
+      "url": "https://news.google.com/rss/search?q=%22%CE%91%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82%22%20%22%CE%AC%CF%81%CF%83%CE%B7%20%CE%B2%CE%B1%CF%81%CF%8E%CE%BD%22&hl=el&gl=GR&ceid=GR:el"
     }
   ],
   "review_required": true,
