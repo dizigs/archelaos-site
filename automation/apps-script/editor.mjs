@@ -4,14 +4,17 @@ import { applyChanges, contentHash, normalizeFiles } from './files.mjs';
 export class GoogleProjects {
   constructor({ projectId, accessToken, fetchGoogle = fetch, audit = () => {} }) {
     if (typeof projectId !== 'string' || !/^[A-Za-z0-9_-]{20,200}$/.test(projectId) || typeof accessToken !== 'function') throw new ScriptFault('AUTHORIZED_PROJECT_BINDING_REQUIRED', 503);
-    this.projectId = projectId; this.accessToken = accessToken; this.fetchGoogle = fetchGoogle; this.audit = audit; this.syntheticOnly = false;
+    this.projectId = projectId; this.accessToken = accessToken;
+    // Calling ambient Workers fetch as an instance method is an illegal invocation.
+    this.fetchGoogle = (...args) => fetchGoogle(...args);
+    this.audit = audit; this.syntheticOnly = false;
   }
   async call(suffix, files) {
     try {
       const token = await this.accessToken();
       if (typeof token !== 'string' || token.length < 16) throw new ScriptFault('ADMIN_ACCESS_TOKEN_REQUIRED', 401);
       const response = await this.fetchGoogle('https://script.googleapis.com/v1/projects/' + this.projectId + suffix, {
-        method: files ? 'PUT' : 'GET', redirect: 'error', signal: AbortSignal.timeout(10000),
+        method: files ? 'PUT' : 'GET', redirect: 'manual', signal: AbortSignal.timeout(10000),
         headers: { authorization: 'Bearer ' + token, 'content-type': 'application/json' },
         ...(files ? { body: JSON.stringify({ files }) } : {})
       });
