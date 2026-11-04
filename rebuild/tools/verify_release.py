@@ -175,6 +175,17 @@ def verify() -> None:
     assert hall["count"] == len(hall["people"]), "Hall count inconsistent"
     assert f'<strong id="hall-total">{hall["count"]}</strong>' in (DIST/"hall-of-fame.html").read_text(encoding="utf-8"), "Hall hero has stale profile count"
     assert f'<span id="new-people-total">{hall["count"]}</span>' in (DIST/"index.html").read_text(encoding="utf-8"), "Homepage has stale profile count"
+    home_page = (DIST/"index.html").read_text(encoding="utf-8")
+    assert 'id="upcoming-matches"' not in home_page, "Removed homepage calendar section has reappeared"
+    assert 'id="fx-list"' not in home_page, "Upcoming fixture cards remain on homepage"
+    assert 'Το επόμενο κεφάλαιο<br>γράφεται' not in home_page, "Removed upcoming matches heading reappeared"
+    assert 'id="about"' in home_page, "Homepage section removal damaged the next section"
+    # Preserve the legacy search link only for direct, explicitly selected fixture
+    # deep links; the ordinary homepage must not display any fixture/calendar UI.
+    archive_fixture_js = (DIST/"assets/site/js/fixture-archive.js").read_text(encoding="utf-8")
+    assert "fx-direct-fixture" in archive_fixture_js and "new URLSearchParams(location.search).get('fixture')" in archive_fixture_js, "Archived fixture search links must remain reachable"
+    assert "match-calendar.js" not in home_page and "/calendar.ics" not in home_page, "Calendar script still in homepage"
+
     ids = [person["id"] for person in hall["people"]]
     assert len(ids) == len(set(ids)), "Duplicate Hall person identifiers"
     # Identity correction: two historical spellings refer to one coach.
@@ -371,31 +382,20 @@ def verify() -> None:
     assert "Cache-Control: public, max-age=0, must-revalidate" in headers, "Unversioned assets may remain stale"
     assert not (DIST / "rebuild").exists(), "Never publish preview folder"
     assert not (DIST / "research").exists(), "Nonpublished source-checked history must never enter deployment"
-    from build_match_schedule import calendar as make_ical, validate as validate_matches
+    # Public fixture/training facts remain available, but NO calendar exports.
+    from build_match_schedule import validate as validate_matches
+    from build_training_schedule import validate as validate_training
     fixtures_data = json.loads((ROOT/"rebuild/data/match-schedule.json").read_text(encoding="utf-8"))
-    valid_fixtures = validate_matches(fixtures_data)
-    assert len(valid_fixtures)==len(fixtures_data["matches"])
-    assert (DIST/"calendar.ics").read_bytes()==make_ical(fixtures_data).encode("utf-8"), "Published calendar out of sync"
-    for fixture in valid_fixtures:
-        individual = (DIST/"calendar/events"/(fixture["id"]+".ics"))
-        assert individual.is_file(), "Missing personal-calendar file for " + fixture["id"]
-        assert individual.read_bytes()==make_ical({**fixtures_data,"matches":[fixture]}).encode("utf-8")
-
-    # The training calendar is a live subscription generated from the same
-    # canonical public JSON used by the department popups (not a one-off ICS).
-    from build_training_schedule import calendar as training_ical, validate as validate_training
-    training_data = json.loads((ROOT / "rebuild/data/training-schedule.json").read_text(encoding="utf-8"))
-    training_groups = validate_training(training_data)
-    assert training_groups, "Missing canonical training schedule"
-    assert (DIST/"assets/site/data/training-schedule.json").is_file(), "Training data not published"
+    assert len(validate_matches(fixtures_data)) == len(fixtures_data["matches"])
+    training_data = json.loads((ROOT/"rebuild/data/training-schedule.json").read_text(encoding="utf-8"))
+    assert validate_training(training_data), "Training source records missing"
+    assert (DIST/"assets/site/data/training-schedule.json").is_file(), "Training facts missing"
     assert json.loads((DIST/"assets/site/data/training-schedule.json").read_text(encoding="utf-8")) == training_data
-    feed_dir = DIST / "calendar/training"
-    assert (feed_dir/"all.ics").read_bytes() == training_ical(training_data).encode("utf-8"), "All-sports training subscription out of sync"
-    for key, department in training_groups.items():
-        if department["sessions"]:
-            assert (feed_dir/(key+".ics")).read_bytes() == training_ical(training_data,key).encode("utf-8"), "Department training subscription out of sync: "+key
-    assert "webcal://archelaos.club/calendar/training/" in (DIST/"assets/site/js/departments.js").read_text(encoding="utf-8")
-    assert "Content-Type: text/calendar" in headers, "Subscribed ICS content type not set"
+    assert not (DIST/"calendar.ics").exists(), "Match calendars remain published"
+    assert not (DIST/"calendar").exists(), "Calendar directory remains published"
+    assert not list(DIST.rglob("*.ics")), "ICS calendar files remain published"
+    assert "webcal://" not in (DIST/"assets/site/js/departments.js").read_text(encoding="utf-8")
+    assert "/calendar.ics" not in headers, "Removed feed still in headers"
 
     graph = json.loads((DIST / "assets/site/data/approved-event-graph.json").read_text(encoding="utf-8"))
     assert graph["publication_scope"] == "approved_only"
@@ -479,9 +479,9 @@ def verify() -> None:
 
     # Deep links must open the requested department popup or fixture card.
     departments_js = (DIST / "assets/site/js/departments.js").read_text(encoding="utf-8")
-    fixtures_js = (DIST / "assets/site/js/match-calendar.js").read_text(encoding="utf-8")
+    fixtures_js = (DIST / "assets/site/js/fixture-archive.js").read_text(encoding="utf-8")
     assert "card.click()" in departments_js, "Search department link does not open its popup"
-    assert "get('fixture')" in fixtures_js and "card(exact,0)" in fixtures_js, (
+    assert "get('fixture')" in fixtures_js and "data.matches.find" in fixtures_js, (
         "Search fixture deep links do not render the selected match"
     )
     assert "fixture='+value" in catalog_js and "department:'/tmimata.html#sport-'" in catalog_js, (

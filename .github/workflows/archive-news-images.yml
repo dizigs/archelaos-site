@@ -16,10 +16,12 @@ concurrency:
   group: archelaos-news-photo-archive
   cancel-in-progress: true
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
 jobs:
   archive:
+    permissions:
+      contents: write
+      pull-requests: write
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 12

@@ -5,9 +5,11 @@ on:
     - cron: '39 7 * * *'
 permissions:
   contents: read
-  id-token: write
 jobs:
   report:
+    permissions:
+      contents: read
+      id-token: write
     if: github.repository == 'dizigs/archelaos-site' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 10
