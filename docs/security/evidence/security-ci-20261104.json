@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-04",
+  "base": "78770a798abcaba7251fa786bc48248c799f9f48",
+  "offlineOnly": true,
+  "scanner": "zizmor1.32.0",
+  "scope": ".github/workflows",
+  "baseline": {
+    "high": 2,
+    "low": 8
+  },
+  "after": {
+    "high": 0,
+    "low": 8
+  },
+  "newSuppressions": 0,
+  "pins": {
+    "dependency-review": {
+      "repository": "actions/dependency-review-action",
+      "tag": "v5.0.0",
+      "commit": "a1d282b36b6f3519aa1f3fc636f609c47dddb294",
+      "verification": "official Git ref plus fetched commit object",
+      "runtime": "node24"
+    },
+    "zizmor": {
+      "repository": "zizmorcore/zizmor-action",
+      "tag": "v0.8.1",
+      "commit": "45d7276c9ca790aabd705e31ca99c6185c3e76dd",
+      "verification": "official Git ref plus exact-commit action.yml/action.sh/hash-lock readback",
+      "runtime": "composite Bash/Python, hash-locked zizmor1.32.0"
+    }
+  },
+  "dependencyGraph": {
+    "enabled": "NOT_VERIFIED",
+    "codexSbomStatus": 404,
+    "codexCompareStatus": 403,
+    "note": "Endpoint authorization/feature availability not distinguishable yet; real PR Actions verification pending"
+  },
+  "remoteCi": "PENDING"
+}

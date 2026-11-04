@@ -1,8 +1,6 @@
 name: Free Actions lint and security audit
 on:
   pull_request:
-    paths:
-      - '.github/workflows/**'
   push:
     branches: [main]
     paths:
@@ -34,11 +32,38 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           persist-credentials: false
-      # Baseline scan of all existing workflows: log/annotate legacy findings without
-      # blocking this PR. Actionlint remains blocking; do not conceal zizmor output.
-      - name: Scan Actions for security findings
+      # Keep every legacy finding visible; the next pass blocks HIGH findings.
+      - name: Report all Actions security findings
         continue-on-error: true
         uses: zizmorcore/zizmor-action@45d7276c9ca790aabd705e31ca99c6185c3e76dd # v0.8.1
         with:
           advanced-security: false
           annotations: true
+          inputs: .github/workflows
+          collect: workflows
+      - name: Block high-severity Actions security findings
+        uses: zizmorcore/zizmor-action@45d7276c9ca790aabd705e31ca99c6185c3e76dd # v0.8.1
+        with:
+          advanced-security: false
+          annotations: true
+          inputs: .github/workflows
+          collect: workflows
+          min-severity: high
+
+  dependency-review:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      # Server-side graph diff only: no checkout or PR-controlled code execution.
+      - name: Reject newly introduced high and critical dependency vulnerabilities
+        uses: actions/dependency-review-action@a1d282b36b6f3519aa1f3fc636f609c47dddb294 # v5.0.0
+        with:
+          fail-on-severity: high
+          fail-on-scopes: runtime, development, unknown
+          vulnerability-check: true
+          license-check: false
+          warn-only: false
+          comment-summary-in-pr: never
