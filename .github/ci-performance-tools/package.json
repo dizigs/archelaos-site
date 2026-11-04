@@ -28,7 +28,7 @@
       "lodash": "4.18.1",
       "minimatch": "3.1.5",
       "node-forge": "1.4.2",
-      "tmp": "0.2.6",
+      "tmp": "0.2.7",
       "ws": "7.5.13",
       "selenium-webdriver": {
         "ws": "8.22.1"
