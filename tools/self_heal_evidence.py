@@ -162,7 +162,7 @@ def evaluate(incident, *, now=None):
         negative = 1.0 - math.prod(1 - x["weight"] for x in group["contradict"])
         confidence = max(0.0, min(1.0, positive * (1 - negative)))
         corroborated = len({x["kind"] for x in group["support"] if x["weight"] >= 0.65})
-        exact = any(x["exactHead"] and x["kind"] in
+        exact = any(x["exactHead"] and x["weight"] >= 0.65 and x["kind"] in
                     {"exact_ci", "reproduced_test", "deployment_log"} and x["supports"]
                     for x in group["support"])
         contradictory = negative >= 0.5

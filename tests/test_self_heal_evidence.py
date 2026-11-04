@@ -102,6 +102,24 @@ class EvidenceTests(unittest.TestCase):
         result = e.evaluate(incident([evidence("osv_advisory", withdrawn=True)]), now=NOW)
         self.assertEqual(result["rankedHypotheses"][0]["confidence"], 0)
 
+    def test_withdrawn_exact_head_proof_cannot_unlock_reproduction(self):
+        result = e.evaluate(incident([
+            evidence("exact_ci", withdrawn=True),
+            evidence("reviewed_incident", ref="incident://independent"),
+            evidence("provider_documentation", ref="docs://independent"),
+        ]), now=NOW)
+        self.assertFalse(result["rankedHypotheses"][0]["exactHeadReproduction"])
+        self.assertEqual(result["reason"], "NO_EXACT_HEAD_REPRODUCTION")
+
+    def test_stale_exact_head_proof_cannot_unlock_reproduction(self):
+        result = e.evaluate(incident([
+            evidence("exact_ci", at="2026-09-01T12:00:00Z"),
+            evidence("reviewed_incident", ref="incident://independent"),
+            evidence("provider_documentation", ref="docs://independent"),
+        ]), now=NOW)
+        self.assertFalse(result["rankedHypotheses"][0]["exactHeadReproduction"])
+        self.assertEqual(result["reason"], "NO_EXACT_HEAD_REPRODUCTION")
+
     def test_fingerprint_ignores_retry_id_but_scopes_resource(self):
         a = incident(eventId="run-1")
         b = incident(eventId="run-2")

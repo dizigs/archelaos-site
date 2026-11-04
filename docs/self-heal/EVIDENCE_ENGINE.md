@@ -44,3 +44,8 @@ The staging Worker already owns authenticated intake, Durable Object jobs, AI bu
 ## Release boundaries
 
 This PR delivers the evidence engine and adversarial tests only. It does not claim that an AI brain is live, that production incidents are automatically healed, or that any new service is enabled. Deployment verification requires an exact production SHA and Cloudflare logs; self-heal effectiveness additionally requires a real failing incident, a safe candidate, independent before/after test, protected merge and post-deployment verification.
+
+
+## Review correction — 2026-11-04
+
+Withdrawn or stale low-weight exact-head evidence can no longer satisfy exactHeadReproduction merely because its SHA matches. Its effective weight must remain at least0.65, matching the existing independent-source confidence threshold. Two actual red→green regressions cover withdrawn CI and old exact-head CI combined with fresh external/reviewed evidence. Outputs remain diagnostic/review-only, with autoMerge/remoteMutationPerformed/productionVerified false.
