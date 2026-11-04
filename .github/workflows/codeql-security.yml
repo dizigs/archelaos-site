@@ -1,0 +1,61 @@
+name: CodeQL security analysis (free)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '**/*.js'
+      - '**/*.cjs'
+      - '**/*.mjs'
+      - '**/*.ts'
+      - '**/*.tsx'
+      - '**/*.py'
+      - 'functions/**'
+      - '.github/workflows/codeql-security.yml'
+  pull_request:
+    paths:
+      - '**/*.js'
+      - '**/*.cjs'
+      - '**/*.mjs'
+      - '**/*.ts'
+      - '**/*.tsx'
+      - '**/*.py'
+      - 'functions/**'
+      - '.github/workflows/codeql-security.yml'
+  schedule:
+    - cron: '19 4 * * 0'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+  security-events: write
+
+concurrency:
+  group: codeql-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  analyze:
+    name: CodeQL (${{ matrix.language }})
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    strategy:
+      fail-fast: false
+      matrix:
+        language: ['javascript-typescript', 'python']
+    steps:
+      - name: Checkout source with no persisted credentials
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Initialize CodeQL with security-extended queries
+        uses: github/codeql-action/init@1fc58d04a4d4374f921bdac573c3811c240f9c26 # v4
+        with:
+          languages: ${{ matrix.language }}
+          queries: security-extended
+      - name: Analyze source code
+        uses: github/codeql-action/analyze@1fc58d04a4d4374f921bdac573c3811c240f9c26 # v4
+        with:
+          category: '/language:${{ matrix.language }}'
