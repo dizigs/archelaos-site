@@ -42,6 +42,35 @@ created, and no paid-plan upgrade occurred.
 
 Detailed operator evidence: `docs/automation/evidence/pr124-cloudflare-guarded-deployment-20261104.json` and `docs/automation/evidence/pr124-private-script-binding-20261104.json`.
 
+## Google OAuth exchange compatibility repair — 2026-11-04
+
+After the designated Admin attempted consent, the real callback returned
+`GOOGLE_TOKEN_EXCHANGE_UNCERTAIN`. Source review and current Cloudflare docs
+confirmed that Workers does **not** implement `redirect: 'error'`; it throws a
+`TypeError` before the outbound provider call. Native ambient `fetch` also
+rejects invocation with an arbitrary instance receiver. The three private
+Google transport modules were corrected to use `redirect: 'manual'`, explicit
+fail-closed rejection of all 3xx statuses, and receiver-safe fetch closures.
+Synthetic regression tests cover Google token exchange and project transport.
+No redirect is followed or Google token/secret exposed.
+
+Reviewed source head: `48b0dfbd30258ec362286353e45dd1fb3edbad16`.
+Cloudflare deployed the repaired modules to the same Worker as
+deployment `258b87f7-409c-42ff-a11f-48768e7b6aba`, version
+`c2a77e6b-ab1f-4f56-8dd7-9f239a707902`; the previous version
+`d95999ce-f3cc-45f4-b7c5-ae390824d477` is retained for rollback.
+Worker metadata readback verified existing bindings and 10 deployed modules.
+Fresh tests: `GET /health` HTTP 200, unauthenticated content GET HTTP 503
+(`EXECUTOR_INTERFACE_UNCONFIGURED`), synthetic invalid OAuth state HTTP 401
+(`OAUTH_STATE_EXPIRED_OR_REPLAYED`). The prior Google auth-code was consumed
+on the first attempt; **do not replay it**. A new user-driven consent is needed
+to verify the actual Google token exchange and scopes.
+
+This is a verified deployment of the transport **fix**, not verified successful
+Google Admin OAuth or project-source access. Live Google writes remain OFF, and
+the trusted scoped executor port is still absent. Evidence:
+`docs/automation/evidence/pr124-oauth-exchange-fix-20261104.json`.
+
 ## Implemented, tested boundaries
 
 - Scoped Admin authorization-code flow: `openid email script.projects`, PKCE-S256,
