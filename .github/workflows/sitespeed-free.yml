@@ -33,7 +33,11 @@ jobs:
         run: |
           set -euo pipefail
           python -m http.server 8765 --bind 127.0.0.1 --directory dist >/tmp/sitespeed-server.log 2>&1 &
-          ./.github/ci-performance-tools/node_modules/.bin/sitespeed.io --browsertime.iterations 1 --browsertime.browser chrome --browsertime.chrome.args no-sandbox --outputFolder sitespeed-result http://127.0.0.1:8765/
+          CHROME_DRIVER="$(command -v chromedriver || true)"
+          if [ -z "$CHROME_DRIVER" ] && [ -x "${CHROMEWEBDRIVER:-}/chromedriver" ]; then CHROME_DRIVER="$CHROMEWEBDRIVER/chromedriver"; fi
+          if [ -z "$CHROME_DRIVER" ] || [ ! -x "$CHROME_DRIVER" ]; then echo "::error::GitHub runner compatible chromedriver missing"; exit 1; fi
+          "$CHROME_DRIVER" --version
+          ./.github/ci-performance-tools/node_modules/.bin/sitespeed.io --browsertime.iterations 1 --browsertime.browser chrome --browsertime.chrome.args no-sandbox --browsertime.chrome.chromedriverPath "$CHROME_DRIVER" --outputFolder sitespeed-result http://127.0.0.1:8765/
       - name: Preserve speed results
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
