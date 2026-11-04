@@ -12,21 +12,47 @@ Examples:
 from __future__ import annotations
 import argparse
 from pathlib import Path
-import subprocess
+import os
+import runpy
 import sys
 
 ROOT=Path(__file__).resolve().parents[2]
 TOOLS=ROOT/"rebuild/tools"
 TESTS=ROOT/"rebuild/tests"
 CHECKS=(
-    ("Site and content",TESTS/"check.py",()),
-    ("Editorial tools",TESTS/"editorial_tools.py",()),
-    ("Translations",TOOLS/"audit_translations.py",()),
-    ("Media inventory",TOOLS/"media_inventory.py",()),
+    ("Site and content","check",()),
+    ("Editorial tools","editorial",()),
+    ("Translations","translations",()),
+    ("Media inventory","media",()),
 )
-def run(path,args=()):
-    cmd=[sys.executable,str(path),*args]
-    return subprocess.run(cmd,cwd=ROOT,check=False).returncode
+RUNNERS={
+    "check":TESTS/"check.py", "editorial":TESTS/"editorial_tools.py",
+    "translations":TOOLS/"audit_translations.py", "media":TOOLS/"media_inventory.py",
+    "find":TOOLS/"find_references.py", "preview":TOOLS/"quick_edit.py",
+    "draft":TOOLS/"prepare_correction.py",
+}
+
+def run(name,args=()):
+    if name not in RUNNERS:
+        raise ValueError("Unknown fixed toolbox command")
+    path=RUNNERS[name]
+    original_argv,original_path,original_cwd=sys.argv,sys.path,Path.cwd()
+    try:
+        # Only reviewed checkout scripts execute. No OS command/interpreter
+        # argument boundary; user text remains data for the fixed script parser.
+        sys.argv=[str(path),*args]
+        sys.path=[str(path.parent),*original_path]
+        os.chdir(ROOT)
+        runpy.run_path(str(path),run_name="__main__")
+        return 0
+    except SystemExit as error:
+        return error.code if isinstance(error.code,int) else (0 if error.code is None else 1)
+    except (OSError,ValueError):
+        print("TOOLBOX_INPUT_REJECTED",file=sys.stderr)
+        return 2
+    finally:
+        sys.argv,sys.path=original_argv,original_path
+        os.chdir(original_cwd)
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
@@ -59,16 +85,16 @@ def main():
         print("\nALL TOOLBOX HEALTH CHECKS PASSED")
         return 0
     if args.command=="find":
-        return run(TOOLS/"find_references.py",[args.phrase]+(["--json"] if args.json else []))
+        return run("find",(["--json"] if args.json else [])+["--",args.phrase])
     if args.command=="preview":
-        return run(TOOLS/"quick_edit.py",["--manifest",str(args.manifest)])
+        return run("preview",["--manifest="+str(args.manifest)])
     if args.command=="draft":
-        flags=["--person",args.person] if args.person else ["--era",args.era]
-        flags+=["--field",args.field,"--before",args.before,"--after",args.after,
-                "--reason",args.reason]
-        if args.key:flags+=["--key",args.key]
+        flags=["--person="+args.person] if args.person else ["--era="+args.era]
+        flags+=["--field="+args.field,"--before="+args.before,"--after="+args.after,
+                "--reason="+args.reason]
+        if args.key:flags+=["--key="+args.key]
         if args.save:flags+=["--save"]
-        return run(TOOLS/"prepare_correction.py",flags)
+        return run("draft",flags)
     return 2
 
 if __name__=="__main__":sys.exit(main())
