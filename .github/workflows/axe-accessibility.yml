@@ -59,20 +59,48 @@ jobs:
           fi
           npm install --package-lock-only --ignore-scripts --offline --no-audit --no-fund --prefix .github/ci-performance-tools
           node <<'NODE'
-          const fs=require('fs'), cp=require('child_process');
+          const fs=require('fs'),cp=require('child_process');
           const file='.github/ci-performance-tools/package-lock.json';
           const j=JSON.parse(fs.readFileSync(file,'utf8'));
-          const tarpath='node_modules/sitespeed.io/node_modules/tar';
-          const zod3path='node_modules/sitespeed.io/node_modules/zod';
-          const tar = j.packages[tarpath];
-          const zod = j.packages['node_modules/zod'];
-          if(j.lockfileVersion!==3||!tar||!zod||tar.version!=='7.5.15'||zod.version!=='4.6.7') throw Error('unexpected npm upstream graph; refuse to patch');
-          const official=JSON.parse(cp.execFileSync('npm',['view','tar@7.5.22','--json'],{encoding:'utf8',maxBuffer:1e7}));
-          if(official.version!=='7.5.22'||!official.dist.integrity.startsWith('sha512-')||!official.dist.tarball.startsWith('https://registry.npmjs.org/tar/-/tar-7.5.22.tgz')) throw Error('bad official tar package');
-          j.packages[tarpath]={...tar,version:official.version,resolved:official.dist.tarball,integrity:official.dist.integrity,dependencies:official.dependencies,engines:official.engines};
-          delete j.packages[zod3path]; // v3 is vulnerable and not used when root v4 override applies
+          if(j.lockfileVersion!==3)throw Error('unexpected npm lockfile version');
+          const targets=[
+            ['node_modules/sitespeed.io/node_modules/tar','tar','7.5.22'],
+            ['node_modules/basic-ftp','basic-ftp','6.2.5'],
+            ['node_modules/sitespeed.io/node_modules/@tootallnate/once','@tootallnate/once','2.0.1'],
+            ['node_modules/sitespeed.io/node_modules/axios','axios','1.19.1'],
+            ['node_modules/sitespeed.io/node_modules/brace-expansion','brace-expansion','1.1.21'],
+            ['node_modules/sitespeed.io/node_modules/fast-xml-builder','fast-xml-builder','1.1.7'],
+            ['node_modules/sitespeed.io/node_modules/fast-xml-parser','fast-xml-parser','5.6.1'],
+            ['node_modules/sitespeed.io/node_modules/form-data','form-data','2.5.6'],
+            ['node_modules/sitespeed.io/node_modules/axios/node_modules/form-data','form-data','4.0.6'],
+            ['node_modules/sitespeed.io/node_modules/jws','jws','4.0.1'],
+            ['node_modules/sitespeed.io/node_modules/lodash','lodash','4.18.1'],
+            ['node_modules/sitespeed.io/node_modules/minimatch','minimatch','3.1.5'],
+            ['node_modules/sitespeed.io/node_modules/node-forge','node-forge','1.4.2'],
+            ['node_modules/sitespeed.io/node_modules/tmp','tmp','0.2.6'],
+            ['node_modules/sitespeed.io/node_modules/ws','ws','7.5.13'],
+            ['node_modules/sitespeed.io/node_modules/selenium-webdriver/node_modules/ws','ws','8.22.1']
+          ];
+          const metaCache=new Map();let replaced=0;
+          for(const [path,name,version] of targets){
+           const old=j.packages[path];
+           if(!old)throw Error('Expected dependency absent: '+path);
+           if(old.version===version)continue;
+           const key=name+'@'+version;
+           let meta=metaCache.get(key);
+           if(!meta){meta=JSON.parse(cp.execFileSync('npm',['view',key,'--json'],{encoding:'utf8',maxBuffer:1e7}));metaCache.set(key,meta)}
+           if(meta.name!==name||meta.version!==version||!meta.dist?.integrity?.startsWith('sha512-')||!meta.dist.tarball.startsWith('https://registry.npmjs.org/'))throw Error('untrusted metadata '+key);
+           const newer={...old,version,resolved:meta.dist.tarball,integrity:meta.dist.integrity};
+           for(const field of ['dependencies','optionalDependencies','peerDependencies','peerDependenciesMeta','engines','bin']){
+            if(meta[field])newer[field]=meta[field];else delete newer[field];
+           }
+           j.packages[path]=newer;replaced++;
+           console.log('Pinned official npm:',path,version);
+          }
+          if(j.packages['node_modules/zod']?.version!=='4.6.7')throw Error('missing patched zod4');
+          delete j.packages['node_modules/sitespeed.io/node_modules/zod'];
           fs.writeFileSync(file,JSON.stringify(j,null,2)+'\n');
-          console.log('replaced vulnerable tar with official',official.version,'integrity',official.dist.integrity);
+          console.log('Official metadata transitive upgrades:',replaced);
           NODE
           npm install --package-lock-only --ignore-scripts --offline --no-audit --no-fund --prefix .github/ci-performance-tools
           node - <<'NODE'
