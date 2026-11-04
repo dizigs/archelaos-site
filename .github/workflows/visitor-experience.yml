@@ -8,6 +8,7 @@ on:
       - 'assets/**'
       - 'images/**'
       - '.github/workflows/visitor-experience.yml'
+      - '.github/ci-security-tools/**'
       - '.github/scripts/visitor_smoke.cjs'
   push:
     branches: [main]
@@ -16,6 +17,7 @@ on:
       - 'assets/**'
       - 'images/**'
       - '.github/workflows/visitor-experience.yml'
+      - '.github/ci-security-tools/**'
       - '.github/scripts/visitor_smoke.cjs'
   schedule:
     - cron: '19 5 * * 2'
@@ -42,9 +44,12 @@ jobs:
           python rebuild/tools/verify_release.py
       - name: Install free Playwright browser
         run: |
-          npm install --no-save --no-package-lock playwright
-          npx playwright install chromium --with-deps
+          set -euo pipefail
+          npm ci --ignore-scripts --no-audit --no-fund --prefix .github/ci-security-tools
+          ./.github/ci-security-tools/node_modules/.bin/playwright install chromium --with-deps
       - name: Check desktop and mobile browsing without touching production
+        env:
+          NODE_PATH: ${{ github.workspace }}/.github/ci-security-tools/node_modules
         run: |
           python -m http.server 8765 --bind 127.0.0.1 --directory dist >/tmp/visitor-server.log 2>&1 &
           node .github/scripts/visitor_smoke.cjs
