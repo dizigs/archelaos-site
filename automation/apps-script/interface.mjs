@@ -105,8 +105,14 @@ export function appsScriptExtension({ oauth, authenticateExecutor, editorFor, ve
         if (request.method === 'GET') {
           return backupConfirmationPage(await issueBackupConfirmation(grant));
         }
-        if (request.headers.get('origin') !== expectedOrigin ||
-            (request.headers.has('sec-fetch-site') && request.headers.get('sec-fetch-site') !== 'same-origin')) {
+        // A browser may omit Origin on a same-origin form POST. In that case
+        // require Sec-Fetch-Site: same-origin. A provided Origin must always
+        // equal the Worker origin; null, cross-site and missing both fail shut.
+        const origin = request.headers.get('origin');
+        const fetchSite = request.headers.get('sec-fetch-site');
+        if ((origin !== null && origin !== expectedOrigin) ||
+            (fetchSite !== null && fetchSite !== 'same-origin') ||
+            (origin === null && fetchSite !== 'same-origin')) {
           throw new ScriptFault('BACKUP_ORIGIN_REQUIRED', 403);
         }
         const sent = await readConfirmationForm(request);
