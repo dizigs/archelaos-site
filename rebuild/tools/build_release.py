@@ -550,28 +550,12 @@ def make_release() -> None:
     hall_html_file.write_text(hall_html, encoding="utf-8")
 
 
-    from build_match_schedule import calendar as make_ical, validate as validate_matches
-    match_data = json.loads((STAGE / "data" / "match-schedule.json").read_text(encoding="utf-8"))
-    validate_matches(match_data)
-    (OUTPUT / "calendar.ics").write_bytes(make_ical(match_data).encode("utf-8"))
-    # Dedicated, stable URLs for adding JUST one approved match to a personal calendar.
-    individual = OUTPUT / "calendar" / "events"
-    individual.mkdir(parents=True, exist_ok=True)
-    for fixture in validate_matches(match_data):
-        item = {**match_data, "matches": [fixture]}
-        (individual / (fixture["id"] + ".ics")).write_bytes(make_ical(item).encode("utf-8"))
-    # Regenerate stable subscription URLs from the SAME weekly training JSON
-    # that sports popups use. Subscribed users receive future published changes
-    # on their calendar app's refresh schedule.
-    from build_training_schedule import calendar as training_ical, validate as validate_training
-    training_data = json.loads((STAGE / "data" / "training-schedule.json").read_text(encoding="utf-8"))
-    training_groups = validate_training(training_data)
-    training_dir = OUTPUT / "calendar" / "training"
-    training_dir.mkdir(parents=True, exist_ok=True)
-    (training_dir / "all.ics").write_bytes(training_ical(training_data).encode("utf-8"))
-    for key, details in training_groups.items():
-        if details["sessions"]:
-            (training_dir / (key + ".ics")).write_bytes(training_ical(training_data, key).encode("utf-8"))
+    # Preserve approved match/training source records for archive and sports
+    # information, but do NOT generate public iCalendar exports/subscriptions.
+    from build_match_schedule import validate as validate_matches
+    from build_training_schedule import validate as validate_training
+    validate_matches(json.loads((STAGE / "data" / "match-schedule.json").read_text(encoding="utf-8")))
+    validate_training(json.loads((STAGE / "data" / "training-schedule.json").read_text(encoding="utf-8")))
     # Create one canonical URL for every reviewed historic timeline event.
     from build_event_pages import render as build_event_pages
     event_paths = build_event_pages(ROOT, OUTPUT)
