@@ -1,0 +1,29 @@
+{
+  "deploymentPerformed": false,
+  "endpoint": "GET https://api.cloudflare.com/client/v4/accounts/898359728b3dfe8c3a3f56e3d19eecd1/workers/scripts/archelaos-automation-bridge/content/v2",
+  "fullIntegrationVerified": false,
+  "grantedScopesVerified": false,
+  "httpStatus": 200,
+  "knownRouteLiteralsObserved": {
+    "/api/apps-script/": false,
+    "/api/ping": true,
+    "/auth/start": true,
+    "/auth/status": true,
+    "/health": true,
+    "/oauth/callback": true
+  },
+  "liveOAuthRequestVerified": false,
+  "moduleCount": 1,
+  "normalizedModuleSha256": "8c4f49b206b01abc7cfc4a39ec104240ab2f75f73d24ebeb66f07d5cb1384971",
+  "privateGoogleContentRead": false,
+  "scriptApiOriginLiteralPresent": false,
+  "scriptProjectsLiteralPresent": false,
+  "sourceBodyExported": false,
+  "status": "PRIVATE_SOURCE_INSPECTED_METADATA_ONLY",
+  "worker": "archelaos-automation-bridge",
+  "provenance": {
+    "run": "https://github.com/dizigs/archelaos-site/actions/runs/41782278817",
+    "checkId": 126416388861,
+    "head": "9c2f6f2a032c42d19f6f32136e91eb21d00cd143"
+  }
+}

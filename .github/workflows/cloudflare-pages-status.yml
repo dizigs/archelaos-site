@@ -7,6 +7,11 @@ on:
         type: boolean
         required: false
         default: false
+      inspect_bridge_source:
+        description: Inspect existing Worker source in memory; emit only fixed metadata, never source
+        type: boolean
+        required: false
+        default: false
   workflow_call:
     inputs:
       verify_after_rebuild:
@@ -24,6 +29,10 @@ on:
       - 'tools/cloudflare_deployment_evidence.py'
       - 'tests/test_cloudflare_deployment_evidence.py'
       - 'tools/automation_bridge_preflight.py'
+      - 'tools/automation_bridge_source_audit.py'
+      - 'tests/test_automation_bridge_source_audit.py'
+      - 'automation/apps-script/**'
+      - 'tests/apps-script/**'
       - 'tests/test_automation_bridge_preflight.py'
       - 'rebuild/tools/public_snapshot.py'
       - '.github/workflows/cloudflare-pages-status.yml'
@@ -37,6 +46,10 @@ on:
       - 'tools/cloudflare_deployment_evidence.py'
       - 'tests/test_cloudflare_deployment_evidence.py'
       - 'tools/automation_bridge_preflight.py'
+      - 'tools/automation_bridge_source_audit.py'
+      - 'tests/test_automation_bridge_source_audit.py'
+      - 'automation/apps-script/**'
+      - 'tests/apps-script/**'
       - 'tests/test_automation_bridge_preflight.py'
       - 'rebuild/tools/public_snapshot.py'
       - '.github/workflows/cloudflare-pages-status.yml'
@@ -64,12 +77,18 @@ jobs:
       - name: Fault-inject deployment, log, SHA, access and HTTP failures offline
         run: python -m unittest discover -s tests -p test_cloudflare_deployment_evidence.py -v
       - name: Reject false bridge success, secret disclosure and permission confusion offline
-        run: python -m unittest discover -s tests -p test_automation_bridge_preflight.py -v
+        run: python -m unittest discover -s tests -p 'test_automation_bridge_*.py' -v
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Exercise encrypted SQLite script backup, OAuth identity, edits, concurrency and rollback offline
+        run: node --test --test-reporter=tap --test-concurrency=1 tests/apps-script/*.test.mjs
   pages-status:
     if: >-
       github.repository == 'dizigs/archelaos-site' &&
       (github.event_name == 'schedule' ||
-      (github.event_name == 'workflow_dispatch' && inputs.inspect_bridge != true) ||
+      (github.event_name == 'workflow_dispatch' && inputs.inspect_bridge != true && inputs.inspect_bridge_source != true) ||
       (github.event_name == 'push' && github.ref == 'refs/heads/main' &&
       inputs.verify_after_rebuild == true))
     runs-on: ubuntu-latest
@@ -109,7 +128,7 @@ jobs:
     name: Read-only bridge access evidence (not an end-to-end test)
     if: >-
       github.repository == 'dizigs/archelaos-site' &&
-      github.event_name == 'workflow_dispatch' && inputs.inspect_bridge == true
+      github.event_name == 'workflow_dispatch' && (inputs.inspect_bridge == true || inputs.inspect_bridge_source == true)
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -120,10 +139,16 @@ jobs:
         with:
           python-version: '3.12'
       - name: Verify privacy and permission classification before live metadata read
-        run: python -m unittest discover -s tests -p test_automation_bridge_preflight.py -v
+        run: python -m unittest discover -s tests -p 'test_automation_bridge_*.py' -v
       - name: Inspect existing credential access and Worker binding metadata only
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_BRIDGE_READ_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_PAGES_PROJECT: ${{ vars.CLOUDFLARE_PAGES_PROJECT }}
         run: python tools/automation_bridge_preflight.py
+      - name: Inspect private existing Worker code without exporting its body
+        if: inputs.inspect_bridge_source == true
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_BRIDGE_READ_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+        run: python tools/automation_bridge_source_audit.py
