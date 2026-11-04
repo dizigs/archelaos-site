@@ -1,0 +1,49 @@
+name: Isolated healer Worker safety checks
+on:
+  pull_request:
+    paths:
+      - 'automation/self-heal-worker/**'
+      - '.github/workflows/self-heal-worker-ci.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  healer-offline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # pinned setup-node
+        with:
+          node-version: '22'
+      - name: Worker and test source syntax
+        run: |
+          node --check automation/self-heal-worker/src/policy.mjs
+          node --check automation/self-heal-worker/src/ledger.mjs
+          node --check automation/self-heal-worker/src/worker.mjs
+          node --check automation/self-heal-worker/test/healer.test.mjs
+      - name: Test durable SQLite ledger and fail-closed policy
+        run: node --experimental-sqlite --test automation/self-heal-worker/test/*.test.mjs
+      - name: Guard private, unscheduled deployment configuration
+        run: |
+          python3 - <<'PY'
+          import pathlib, tomllib
+          path = pathlib.Path('automation/self-heal-worker/wrangler.toml')
+          content = path.read_text(encoding='utf-8')
+          config = tomllib.loads(content)
+          assert config['name'] == 'archelaos-self-heal'
+          assert config.get('workers_dev') is False
+          assert not config.get('routes')
+          assert not config.get('triggers', {}).get('crons')
+          assert not config.get('services')
+          assert config['durable_objects']['bindings'][0]['name'] == 'HEALER_MEMORY'
+          assert 'HealerMemory' in config['migrations'][0]['new_sqlite_classes']
+          worker = pathlib.Path('automation/self-heal-worker/src/worker.mjs').read_text(encoding='utf-8')
+          assert 'async fetch()' in worker and 'status: 404' in worker
+          assert 'fetch(' not in worker.replace('async fetch()', '')
+          print('Private, no cron, no public route and no outbound network path: PASS')
+          PY
