@@ -38,7 +38,17 @@ const response = await fetch(url, {
   signal: AbortSignal.timeout(20000),
   redirect: 'manual'
 });
-if (response.status !== 200) throw new Error('READONLY_WORKER_COMMAND_REJECTED_HTTP_' + response.status);
+if (response.status !== 200) {
+  // Report only a strict, fixed-shape Worker error code. Never log the signed
+  // bearer token, request URL parameters, source or OAuth session details.
+  const body = await response.text();
+  let code = 'UNSPECIFIED';
+  try {
+    const candidate = JSON.parse(body);
+    if (typeof candidate?.code === 'string' && /^[A-Z_]{3,80}$/.test(candidate.code)) code = candidate.code;
+  } catch {}
+  throw new Error('READONLY_WORKER_COMMAND_REJECTED_HTTP_' + response.status + '_' + code);
+}
 const result = await response.json();
 requireCondition(result.status === 'GITHUB_OIDC_READONLY_PROBE_VERIFIED');
 requireCondition(result.signedExecution === true && result.readOnly === true);
