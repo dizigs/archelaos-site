@@ -1,0 +1,17 @@
+{
+  "name": "archelaos-ci-performance-tools",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Dedicated pinned Lighthouse CI and sitespeed audit tools; not deployed",
+  "engines": {
+    "node": "22.x"
+  },
+  "dependencies": {
+    "@lhci/cli": "0.15.1",
+    "sitespeed.io": "42.10.0"
+  },
+  "overrides": {
+    "tar": "7.5.22",
+    "zod": "4.6.7"
+  }
+}
