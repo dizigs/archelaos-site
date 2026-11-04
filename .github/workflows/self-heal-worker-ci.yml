@@ -23,6 +23,7 @@ jobs:
       - name: Worker and test source syntax
         run: |
           node --check automation/self-heal-worker/src/policy.mjs
+          node --check automation/self-heal-worker/src/recipes.mjs
           node --check automation/self-heal-worker/src/ledger.mjs
           node --check automation/self-heal-worker/src/worker.mjs
           node --check automation/self-heal-worker/test/healer.test.mjs
