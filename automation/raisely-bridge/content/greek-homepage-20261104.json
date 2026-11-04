@@ -1,0 +1,68 @@
+{
+  "project": "ARCHELAOS.CLUB",
+  "campaignPath": "archelaos-katerini",
+  "pagePath": "/",
+  "pageUuid": "d3ad5d22-d830-11f1-8c5e-491aafadefd6",
+  "locale": "el",
+  "design": "option-2-logo-centered-title-below",
+  "colors": {
+    "background": "#F8F6EF",
+    "pine": "#073D2A",
+    "gold": "#C7A65E",
+    "hero": "#00BD62"
+  },
+  "hero": {
+    "imageSource": "User-provided Untitled design (7)(1).png; available as local preview attachment, not yet hosted publicly",
+    "layout": "image above headline; center logo; no overlapping text; crop/zoom subtly; mobile safe",
+    "headline": "Στηρίζουμε τον Αρχέλαο",
+    "subtitle": "Μαζί για τους αθλητές, τις ακαδημίες και την ιστορία μας.",
+    "cta": "Στηρίξτε την προσπάθεια"
+  },
+  "intro": {
+    "title": "Ο Αρχέλαος συνεχίζει με τη δική σας στήριξη",
+    "body": "Από το 1956, ο Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης συνδέει γενιές αθλητών με τον αθλητισμό, το ήθος και την παράδοση. Κάθε προσφορά στηρίζει τη συνέχεια αυτής της διαδρομής."
+  },
+  "benefits": [
+    {
+      "title": "Ακαδημίες & νέα γενιά",
+      "body": "Στηρίζουμε την προσπάθεια των νεότερων αθλητών και τη συμμετοχή σε προπονήσεις και διοργανώσεις.",
+      "image": "https://www.archelaos.club/images/enorgani-slideshow-edafos.jpg",
+      "url": "https://www.archelaos.club/tmimata.html"
+    },
+    {
+      "title": "Αθλητικά τμήματα",
+      "body": "Βοηθάμε τα τμήματα του συλλόγου να συνεχίσουν τη δράση και την παρουσία τους.",
+      "image": "https://www.archelaos.club/images/wrestling-action.webp",
+      "url": "https://www.archelaos.club/tmimata.html"
+    },
+    {
+      "title": "Ψηφιακό Μουσείο",
+      "body": "Φροντίζουμε τη διάσωση και παρουσίαση της ιστορίας και των ανθρώπων του Αρχέλαου.",
+      "image": "https://www.archelaos.club/archelaos-logo-gold.png",
+      "url": "https://www.archelaos.club/history.html"
+    }
+  ],
+  "faq": [
+    {
+      "q": "Πού κατευθύνεται η υποστήριξη;",
+      "a": "Στις ανάγκες και στις δράσεις του Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης, σύμφωνα με τις αποφάσεις του συλλόγου και τη σχετική ενημέρωση."
+    },
+    {
+      "q": "Μπορώ να επιλέξω συγκεκριμένο τμήμα;",
+      "a": "Για στοχευμένη υποστήριξη ενός τμήματος, επικοινωνήστε με τον σύλλογο πριν από την προσφορά."
+    },
+    {
+      "q": "Οι δωρεές είναι φορολογικά εκπιπτόμενες;",
+      "a": "Η τυχόν φορολογική αναγνώριση εξαρτάται από την ισχύουσα νομοθεσία και τα απαραίτητα παραστατικά. Ζητήστε διευκρινίσεις από τον σύλλογο ή τον φοροτεχνικό σας."
+    }
+  ],
+  "safety": {
+    "campaignMode": "TEST",
+    "keepFinancialValuesUntouched": true,
+    "existingDonationsDisabled": true,
+    "noRealPaymentProcessing": true,
+    "noTaxDeductibilityPromise": true
+  },
+  "rollback": "Private Google Doc ARC... Raisely Home Page Backup 2026-11-04 contains original 6-row public Page Builder body; GitHub PR #132 comment 6627865568 has original theme",
+  "publishGate": "Verify page builder published Greek body, design matches user image and accessibility, then verify live page across desktop/mobile before calling DONE."
+}
