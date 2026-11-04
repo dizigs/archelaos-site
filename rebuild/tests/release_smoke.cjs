@@ -112,17 +112,11 @@ async function verify(){
     }
     if(tag==='retro')await page.locator('.rt-scoreboard').first().waitFor();
     if(tag==='home'){
-     // Real reviewed data: upcoming ONLY, both departments, no away games.
-     const schedule=JSON.parse(require('node:fs').readFileSync(path.join(__dirname,'..','data','match-schedule.json'),'utf8'));
-     const athensToday=new Intl.DateTimeFormat('sv-SE',{timeZone:'Europe/Athens',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
-      const upcoming=schedule.matches.filter(x=>x.start_at?Date.parse(x.start_at)>Date.now():x.date>=athensToday).length;
-     await page.waitForFunction(()=>{const s=document.querySelector('#fx-status')?.textContent||'';return s.includes('προγραμματισμένοι')||s.includes('Δεν έχουν ανακοινωθεί')},null,{timeout:12000});
-     if(await page.locator('.fx-card').count()!==Math.min(6,upcoming))throw Error('Incorrect upcoming match count');
-     if(schedule.matches.length!==24||!schedule.matches.some(x=>x.away_team==='ΓΑΣ Αρχέλαος Κατερίνης'))throw Error('Reviewed away fixtures missing');
-     if((await page.locator('#fx-download').isHidden())===Boolean(upcoming))throw Error('Wrong calendar download visibility');
-     await page.locator('[data-fixture-sport="volleyball"]').click();
-     if(await page.locator('[data-fixture-sport="volleyball"]').getAttribute('aria-pressed')!=='true')
-       throw Error('Matchday sport filter not responding');
+     // Homepage upcoming fixtures and all calendar controls are removed.
+      if(await page.locator('#upcoming-matches,.fx-calendar-actions,[data-fixture-sport]').count())
+        throw Error('Removed homepage calendar section returned');
+      if(await page.locator('a[href$=".ics"],a[href^="webcal:"]').count())
+        throw Error('Calendar links remain on the homepage');
      await page.locator('#new-slide-next').click();
      await page.waitForFunction(()=>document.querySelector('#new-slide-title')?.textContent.includes('Στίβος'));
     }
@@ -381,45 +375,23 @@ async function verify(){
    if(pageErrors.length)throw Error('Browser errors: '+pageErrors.join(' | '));
    await page.close();
   }
-  // Fake public schedule delivered ONLY inside the test browser, never committed as real games.
+  // Search-requested fixture deep links remain available WITHOUT any calendar action.
   const fakeSchedule={schema_version:1,approval_policy:'owner_approved_only',display_policy:'home_and_away',timezone:'Europe/Athens',
-    matches:[
-      {id:'fixture-ui-test-001',sport:'handball',home_team:'ΓΑΣ Αρχέλαος',away_team:'Δοκιμαστική Α',
-       start_at:'2099-05-11T18:30:00+03:00',end_at:'2099-05-11T20:30:00+03:00',end_at_verified:true,
-       status:'scheduled',competition:'Δοκιμαστική διοργάνωση',
-       venue:'Δοκιμαστικό γήπεδο',approval:{status:'owner_approved',reviewed_on:'2099-05-01T12:00:00+03:00'}},
-      {id:'fixture-ui-test-002',sport:'volleyball',home_team:'ΓΑΣ Αρχέλαος',away_team:'Δοκιμαστική Β',
-       date:'2099-05-12',kickoff_status:'time_to_be_announced',status:'scheduled',
-       competition:'Δοκιμαστική διοργάνωση',
-       approval:{status:'owner_approved',reviewed_on:'2099-05-01T12:00:00+03:00'}}
-    ]};
+    matches:[{id:'fixture-ui-test-001',sport:'handball',home_team:'ΓΑΣ Αρχέλαος',away_team:'Δοκιμαστική Α',
+      start_at:'2099-05-11T18:30:00+03:00',status:'scheduled',competition:'Δοκιμαστική διοργάνωση',
+      venue:'Δοκιμαστικό γήπεδο',approval:{status:'owner_approved',reviewed_on:'2099-05-01T12:00:00+03:00'}}]};
   const matchPage=await browser.newPage();
   await matchPage.route('**/assets/site/data/match-schedule.json',route=>
-     route.fulfill({status:200,contentType:'application/json',body:JSON.stringify(fakeSchedule)}));
-  await matchPage.goto(ROOT+'/',{waitUntil:'domcontentloaded'});
-  await matchPage.locator('.fx-card').first().waitFor({timeout:12000});
-  if(await matchPage.locator('.fx-card').count()!==2)
-    throw Error('Matchday did not render two approved test fixtures');
-  const firstMatch=matchPage.locator('.fx-card').first();
-  await firstMatch.locator('details summary').click();
-  const ownIcs=await firstMatch.locator('a[download]').getAttribute('href');
-  if(ownIcs!=='/calendar/events/fixture-ui-test-001.ics')
-    throw Error('Single-match calendar link missing or incorrect');
-  const google=await firstMatch.locator('a[href*="calendar.google.com"]').getAttribute('href');
-  const outlook=await firstMatch.locator('a[href*="outlook.live.com"]').getAttribute('href');
-  if(!google.includes('20990511T153000Z')||!google.includes('20990511T173000Z')||!outlook.includes('2099-05-11'))
-    throw Error('Provider calendar event times inaccurate');
-  const second=matchPage.locator('.fx-card').nth(1);
-  await second.locator('details summary').click();
-  if(await second.locator('a[href*="calendar.google.com"]').count())
-    throw Error('A calendar end time was invented for a match without a verified end');
-  if(!(await second.locator('.fx-calendar-note').textContent()).includes('ολοήμερη υπενθύμιση'))
-    throw Error('A date-only fixture must never pretend to have a kickoff hour');
-  if(!(await second.locator('.fx-clock').textContent()).includes('Ώρα προς ανακοίνωση'))
-    throw Error('Unknown kickoff hour displayed incorrectly');
-  await matchPage.locator('[data-fixture-sport="handball"]').click();
+    route.fulfill({status:200,contentType:'application/json',body:JSON.stringify(fakeSchedule)}));
+  await matchPage.goto(ROOT+'/?fixture=fixture-ui-test-001',{waitUntil:'domcontentloaded'});
+  await matchPage.locator('.fx-direct-fixture .fx-card').first().waitFor({timeout:12000});
   if(await matchPage.locator('.fx-card').count()!==1)
-    throw Error('Approved Matchday filter failed');
+    throw Error('Fixture deep link must show exactly one approved archive card');
+  if(await matchPage.locator('a[href$=".ics"],a[href^="webcal:"],.fx-calendar-actions').count())
+    throw Error('Archive deep link must not expose calendar actions');
+  await matchPage.goto(ROOT+'/?fixture=fixture-nonexistent-9999',{waitUntil:'domcontentloaded'});
+  await matchPage.waitForFunction(()=>(document.querySelector('.fx-status')?.textContent||'').includes('Δεν βρέθηκε'),null,{timeout:12000});
+  if(await matchPage.locator('.fx-card').count())throw Error('Unknown fixture appeared in archive');
   await matchPage.close();
 
   // Check the reciprocal UI with a controlled approved graph fixture only.
