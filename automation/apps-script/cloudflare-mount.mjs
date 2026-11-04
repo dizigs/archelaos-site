@@ -1,6 +1,7 @@
 import { configureExistingBridgeScripts } from './configure.mjs';
 import { isAppsScriptRequest } from './interface.mjs';
 import { ScriptFault } from './security.mjs';
+import { SqlScriptStore } from './store.mjs';
 
 // Inert, fail-closed adapter for the EXISTING Worker. Not a Worker entrypoint,
 // migration, deployment, permission grant or invitation to Google consent.
@@ -54,6 +55,7 @@ export function withAppsScriptCoordinator(existingWorker) {
  */
 export class MuseumScriptCoordinator {
   constructor(state, env) {
+    this.storage = state?.storage;
     this.route = configureExistingBridgeScripts({
       env,
       storage: state?.storage,
@@ -66,6 +68,19 @@ export class MuseumScriptCoordinator {
 
   async fetch(request) {
     if (!isAppsScriptRequest(request)) return denied('SCRIPT_ROUTE_NOT_FOUND', 404);
+    const url = new URL(request.url);
+    if (url.pathname === '/api/apps-script/operator-probe') {
+      if (request.method !== 'GET' || url.search) return denied('SCRIPT_ROUTE_NOT_FOUND', 404);
+      try {
+        const store = new SqlScriptStore(this.storage);
+        const id = store.claimOperatorProbe();
+        if (id) store.completeOperatorProbe(id);
+        return Response.json({ status: id ? 'OPERATOR_PROBE_ACCEPTED' : 'OPERATOR_QUEUE_EMPTY', readOnly: true }, { headers: responseHeaders });
+      } catch {
+        // Fail closed, never return SQL, OAuth, ciphertext or private project ID.
+        return denied('OPERATOR_READONLY_PROBE_UNAVAILABLE');
+      }
+    }
     return (await this.route(request)) ?? denied('SCRIPT_ROUTE_NOT_FOUND', 404);
   }
 }
