@@ -10,7 +10,7 @@ export function isAppsScriptRequest(request) {
     || (request.method === 'GET' && url.pathname === '/oauth/callback' && /^as_[A-Za-z0-9_-]{43}$/.test(url.searchParams.get('state') || ''))
     || url.pathname.startsWith('/api/apps-script/');
 }
-export function appsScriptExtension({ oauth, authenticateExecutor, editorFor }) {
+export function appsScriptExtension({ oauth, authenticateExecutor, editorFor, verifyReadOnly }) {
   return async request => {
     const url = new URL(request.url);
     const scriptStart = request.method === 'GET' && url.pathname === '/auth/start' && url.searchParams.get('purpose') === 'apps-script';
@@ -26,6 +26,13 @@ export function appsScriptExtension({ oauth, authenticateExecutor, editorFor }) 
         const result = await oauth.callback({ state: url.searchParams.get('state'), code: url.searchParams.get('code'), cookieHeader: request.headers.get('cookie') });
         const response = json({ status: result.status, grantedScopes: result.grantedScopes });
         response.headers.append('set-cookie', result.cookie); response.headers.append('set-cookie', result.clearStateCookie); return response;
+      }
+      // A verified browser session may read only a sanitized project status. It
+      // NEVER grants access to editor operations or returns Google source/tokens.
+      if (request.method === 'GET' && url.pathname === '/api/apps-script/verify') {
+        if (url.search) throw new ScriptFault('UNSUPPORTED_SCRIPT_QUERY', 404);
+        if (typeof oauth?.access !== 'function' || typeof verifyReadOnly !== 'function') throw new ScriptFault('PRIVATE_READ_VERIFIER_UNCONFIGURED', 503);
+        return json(await verifyReadOnly(await oauth.access(request.headers.get('cookie'))));
       }
       // A browser cookie or global ping key alone does NOT grant edit rights.
       // The existing bridge must supply a verified, project-scoped executor port.
