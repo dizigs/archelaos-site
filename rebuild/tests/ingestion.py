@@ -4,6 +4,7 @@ import copy
 import importlib.util
 import json
 import tempfile
+from unittest.mock import patch
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -74,4 +75,43 @@ with tempfile.TemporaryDirectory() as tmp:
     tool.run(draft,temp,apply=True)
     now=json.loads((temp/"stories.json").read_text(encoding="utf-8"))
     assert len(now["stories"])==len(data["stories"]["stories"])+1
+
+# CLI path boundary: only reviewed, normal JSON directly in the private intake.
+with tempfile.TemporaryDirectory() as tempdir:
+    private = Path(tempdir)
+    intake = private / ".archive-intake"
+    intake.mkdir()
+    staging = private / "staged"
+    staging.mkdir()
+    reviewed = intake / "reviewed.json"
+    reviewed.write_text("{}", encoding="utf-8")
+    outside = private / "outside.json"
+    outside.write_text("{}", encoding="utf-8")
+    nested = intake / "nested"
+    nested.mkdir()
+    deeper = nested / "nested.json"
+    deeper.write_text("{}", encoding="utf-8")
+    linked = intake / "linked.json"
+    linked.symlink_to(outside)
+    with patch.object(tool, "APPROVED_REVIEW_INTAKE", intake), patch.object(tool, "DEFAULT_DATA", staging):
+        assert tool.approved_cli_package(reviewed) == reviewed.resolve()
+        assert tool.approved_cli_data_dir(staging) == staging
+        for unsafe in (outside, deeper, linked):
+            try:
+                tool.approved_cli_package(unsafe)
+                raise AssertionError(f"Untrusted input accepted: {unsafe.name}")
+            except ValueError:
+                pass
+        try:
+            tool.approved_cli_data_dir(private)
+            raise AssertionError("External output directory accepted")
+        except ValueError:
+            pass
+        reviewed.write_bytes(b"Z" * 1_000_001)
+        try:
+            tool.approved_cli_package(reviewed)
+            raise AssertionError("Oversized package accepted")
+        except ValueError:
+            pass
+
 print("STAGED INGESTION OK: validated approvals, duplicate protection, escaped HTML, dry-run and privacy.")
