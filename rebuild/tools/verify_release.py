@@ -83,6 +83,27 @@ def verify() -> None:
             if url.path in ("/history-events.html", "/history-events"):
                 continue
             raise AssertionError(f"Broken internal link in {entry['file']}: {link}")
+    # The memory/FAQ page is a private-preview draft, not yet integrated into
+    # the live Museum navigation or the indexable historical collections.
+    memory = (DIST / "museum-memory.html").read_text(encoding="utf-8")
+    assert '<meta name="robots" content="noindex,follow">' in memory, "FAQ draft must stay unindexed"
+    assert memory.count('<main id="main-content">') == 1, "FAQ draft lost its single main landmark"
+    assert '/assets/site/js/shell.js' in memory, "FAQ draft must reuse global header/footer"
+    assert '/assets/site/js/support-footer.js' in memory, "FAQ draft lost shared sponsor footer"
+    assert '/assets/site/css/museum-memory.css' in memory, "FAQ draft styling not loaded"
+    assert memory.count("<details") == 6 and memory.count("</details>") == 6, "FAQ accordions incomplete"
+    assert '<header' not in memory and '<footer' not in memory, "Page must never duplicate shared shell"
+    assert '<img' not in memory and '<picture' not in memory, "No stock, placeholder or invented archival photographs"
+    assert 'Δεν ισχυριζόμαστε πως γνωρίζουμε' in memory, "Uncertainty/mission explanation missing"
+    assert 'Δεν φτιάξαμε αυτό το Μουσείο επειδή είχαμε όλες τις απαντήσεις' in memory
+    assert 'href="/contribute.html"' in memory and 'href="/history.html"' in memory, "Museum exit paths missing"
+    assert 'href="/museum-memory.html"' not in (DIST / "history.html").read_text(encoding="utf-8"), (
+        "Draft unexpectedly linked from the live Museum"
+    )
+    for draft_sitemap in (DIST / "sitemaps").glob("*.xml"):
+        assert "/museum-memory.html" not in draft_sitemap.read_text(encoding="utf-8"), (
+            "Draft FAQ accidentally added to search engine sitemap"
+        )
     museum_records=json.loads((DIST/"assets/site/data/museum.json").read_text(encoding="utf-8"))["articles"]
     foundation=next(a for a in museum_records if a["id"]=="intro")
     colours=next(a for a in museum_records if a["id"]=="colors-1968")
