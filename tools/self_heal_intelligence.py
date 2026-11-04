@@ -204,7 +204,7 @@ def triage(*, sport, kind, resource, signal, marker=None, report=None, journal=N
         valid_codes = {"UNTRUSTED_REPORT_MESSAGE", "UNKNOWN_PUBLIC_FAILURE"} | {row[0] for row in CLASSIFIERS}
         incoming = report.get("signals")
         if not isinstance(incoming, list) or len(incoming) > 16 or any(
-                not isinstance(row, dict) or row.get("code") not in valid_codes
+                not isinstance(row, dict) or set(row) != {"code", "priority", "route"} or row.get("code") not in valid_codes
                 or type(row.get("priority")) is not int or row["priority"] not in {0, 1, 2}
                 or row.get("route") not in (None, *ROUTES) for row in incoming):
             raise ValueError("Untrusted prepared health report")

@@ -35,7 +35,7 @@ def add_intelligence(observation, incident_result, health_report=None):
     except (ValueError, OSError, sqlite3.Error, ImportError, KeyError):
         analysis = {"status": "KNOWLEDGE_UNAVAILABLE", "productionRecoveryVerified": False,
                     "automaticMergeAuthorized": False, "decision": "INVESTIGATE_UNVERIFIED_FAILURE"}
-    if health_report is not None:
+    if isinstance(health_report, dict) and health_report.get("state") in ("READ", "MISSING_OR_INVALID"):
         analysis["healthReportState"] = health_report["state"]
     incident_result["intelligence"] = analysis
     return incident_result

@@ -96,6 +96,21 @@ class Intelligence(unittest.TestCase):
             with self.subTest(report=report), self.assertRaises(ValueError):
                 evaluate(report=report)
 
+    def test_preclassified_report_cannot_smuggle_private_extra_fields(self):
+        report = {"state": "READ", "signals": [{"code": "ARCHIVE_CORRUPTION", "priority": 1,
+                  "route": "/news.json", "raw_private_message": "synthetic-private-value"}]}
+        with self.assertRaises(ValueError):
+            evaluate(report=report)
+
+    def test_malformed_report_does_not_crash_monitor_fallback(self):
+        observation = Observation("club", "unknown", MAIN, "2026-11-03T10:00:00Z",
+                                  "https://github.com/dizigs/archelaos-site/actions/runs/123",
+                                  COMMIT, "b" * 64, "public", "Public health check failed")
+        result = monitor.add_intelligence(observation, {"phase": "DIAGNOSED"}, [])
+        self.assertEqual(result["phase"], "DIAGNOSED")
+        self.assertEqual(result["intelligence"]["status"], "KNOWLEDGE_UNAVAILABLE")
+        self.assertFalse(result["intelligence"]["productionRecoveryVerified"])
+
     def test_repeated_escalation_uses_prior_incident_memory_but_cannot_authorize_fix(self):
         result = evaluate(journal={"phase": "ESCALATED", "attempts": 3, "occurrences": 5})
         self.assertEqual(result["decision"], "RECONCILE_REPEATED_INCIDENT")
