@@ -1,0 +1,59 @@
+{
+  "date": "2026-11-04",
+  "phase": "GITHUB_ACTIONS_OIDC_TO_CLOUDFLARE_WORKER_READONLY_EXECUTION",
+  "state": "DONE_VERIFIED",
+  "repository": "dizigs/archelaos-site",
+  "sourcePullRequest": 124,
+  "triggerCommit": "99d3088c6cf4fb8199b132d2cb22804cf6b169a5",
+  "githubActions": {
+    "runId": 41810896964,
+    "jobId": 126509580624,
+    "workflow": "Archelaos Apps Script OIDC probe",
+    "event": "push",
+    "conclusion": "success",
+    "fixedLogCode": "GITHUB_OIDC_READONLY_PROBE_VERIFIED"
+  },
+  "cloudflare": {
+    "worker": "archelaos-automation-bridge",
+    "deploymentId": "5f287fa0-cec4-4476-84e4-8a678cc0d64b",
+    "versionId": "7a8817c4-efbd-44c5-953d-66f9f4cdbff0",
+    "rollbackVersion": "1316a3b2-b8a1-45be-a5ae-1d7a772033fd",
+    "moduleCount": 11,
+    "bindingsPreserved": 10
+  },
+  "durableObjectSqliteReadback": {
+    "signedProbeRows": 1,
+    "successfulSignedProbeAuditCount": 1,
+    "encryptedBackupRows": 1,
+    "googleEditOperations": 0,
+    "inspectionRowsWritten": 0,
+    "receipt": {
+      "status": "GITHUB_OIDC_READONLY_PROBE_VERIFIED",
+      "signedExecution": true,
+      "readOnly": true,
+      "encryptedBackupPresent": true,
+      "googleEditsPerformed": false,
+      "editorEnabled": false
+    }
+  },
+  "security": {
+    "issuer": "https://token.actions.githubusercontent.com",
+    "audience": "archelaos.club:apps-script:readonly:v1",
+    "repoBound": true,
+    "branchBound": true,
+    "workflowBound": true,
+    "signatureVerifiedUsingJwks": true,
+    "runIdReplayPrevention": true,
+    "sharedSigningSecretRequired": false,
+    "privateSourceExported": false,
+    "bearerOrOAuthTokensStoredInPublicLogs": false,
+    "editingRightsGranted": false
+  },
+  "blockers": [
+    "The signed workflow is callable through authorized GitHub commits, but currently only admits the narrow read-only readiness operation.",
+    "Signed project-scoped editor authority has not been approved or deployed.",
+    "Complete trigger inventory and independent exclusive-writer lease have not been verified.",
+    "No production Google Apps Script updateContent or rollback has occurred."
+  ],
+  "conclusion": "ChatGPT/GitHub to existing Cloudflare Worker signed command transport verified end-to-end; live Google editing remains deliberately disabled."
+}
