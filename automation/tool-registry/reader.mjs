@@ -78,9 +78,9 @@ export async function makeSignedAssertion(credentials, now = Date.now(), subtle 
   const iat = Math.floor(now / 1000);
   const header = base64url(utf8(JSON.stringify({ alg: 'RS256', typ: 'JWT' })));
   const claim = base64url(utf8(JSON.stringify({ iss: credentials.client_email, scope: DOC_SCOPE, aud: TOKEN_ENDPOINT, iat, exp: iat + 3600 })));
-  const message = \`\${header}.\${claim}\`;
+  const message = `${header}.${claim}`;
   const sig = new Uint8Array(await subtle.sign('RSASSA-PKCS1-v1_5', key, utf8(message)));
-  return \`\${message}.\${base64url(sig)}\`;
+  return `${message}.${base64url(sig)}`;
 }
 
 export function createRegistryReader({ request = fetch, now = () => Date.now() } = {}) {
@@ -108,8 +108,8 @@ export function createRegistryReader({ request = fetch, now = () => Date.now() }
     try { credentials = JSON.parse(env.REGISTRY_GOOGLE_SERVICE_ACCOUNT || ''); }
     catch { reject('REGISTRY_SERVICE_ACCOUNT_MISSING'); }
     const accessToken = await token(credentials);
-    const res = await request(\`\${DOCS_PREFIX}\${env.REGISTRY_DOCUMENT_ID}?includeTabsContent=true\`, {
-      method: 'GET', headers: { authorization: \`Bearer \${accessToken}\`, accept: 'application/json' },
+    const res = await request(`${DOCS_PREFIX}${env.REGISTRY_DOCUMENT_ID}?includeTabsContent=true`, {
+      method: 'GET', headers: { authorization: `Bearer ${accessToken}`, accept: 'application/json' },
     });
     if (!res.ok) reject('REGISTRY_DOCS_READ_FAILED');
     if (Number(res.headers?.get?.('content-length') || 0) > 1_000_000) reject('REGISTRY_DOCS_SIZE_INVALID');
