@@ -1,9 +1,32 @@
 # Existing Automation Bridge — Apps Script editing capability
 
 Implementation package for the existing PR124 and existing
-`archelaos-automation-bridge`. **Not a second Worker, deployed route or proof
-that this ChatGPT session has a callable connector.** Current production source
+`archelaos-automation-bridge`. **No second Worker. A guarded mount is now deployed to the original Worker, but this is NOT proof that Google Apps Script editing or a ChatGPT executor is available.** Current production source
 and credentials are not copied into this package.
+
+
+## Live guarded infrastructure status — 2026-11-04
+
+Cloudflare deployment **b7779fd1-79d5-4e63-a89f-fda6063b8e40** / version
+**ac855fe8-298b-46aa-bcef-b83bc213731d** installed the eight reviewed PR
+modules plus a small entrypoint wrapper alongside the unchanged private legacy
+`worker.js` inside the SAME Worker. SQLite Durable Object migration
+`pr124-apps-script-sqlite-v1` created `MuseumScriptCoordinator` and binding
+`APPS_SCRIPT_COORDINATOR`; the existing KV and all preexisting secret binding
+names were preserved. The prior Worker version remains available for deployment
+rollback. Fresh external GET `/health` HTTP 200; new GET
+`/api/apps-script/content` HTTP 503 with
+`SCRIPT_PRIVATE_CONFIGURATION_REQUIRED` intentionally fails closed.
+
+**Still blocked / not verified:** exact private Script ID and Admin binding;
+reviewed project-scoped executor; actual Google Admin consent, project-source
+read and backup; real trigger inventory and exclusive-writer control; real
+Google updates and rollbacks; ChatGPT executor callability. `liveWritesEnabled`
+is still false. Do not send an OAuth login link before verified private config,
+callback and executor conditions. No Google project was edited, no additional
+Worker or trigger was created and no upgrade to a paid plan was made.
+
+Detailed operator evidence: `docs/automation/evidence/pr124-cloudflare-guarded-deployment-20261104.json`.
 
 ## Implemented, tested boundaries
 
@@ -45,7 +68,7 @@ and credentials are not copied into this package.
   and256 pending states with expired-state cleanup. No IP/email rate keys are kept. Archival/retention needs
   an explicitly reviewed private-storage procedure, not an automatic paid upgrade.
 
-## Mount contract — existing Worker only, not yet applied
+## Mount contract — existing Worker only (guarded infrastructure mounted; activation pending)
 
 `configureExistingBridgeScripts` composes the modules for the existing Worker's
 **authorized private SQLite coordinator context**. Missing optional integration
@@ -59,9 +82,9 @@ live source: existing `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`,
 `APPS_SCRIPT_PROJECT_TITLE`, `APPS_SCRIPT_ADMIN_EMAIL`; verified atomic storage.
 No real account/project identifiers or keys belong in public examples.
 
-The existing authorized source maintainer must inspect/preserve its entrypoint,
-PKCE/state/session/HMAC conventions and mount this extension before the original
-router, delegating `null` responses. Legacy OAuth callbacks remain delegated;
+The guarded deployment imported the current private `worker.js` unchanged and
+wrapped its default fetch handler; the original router receives delegated requests.
+Actual legacy Google OAuth/HMAC execution must still be verified independently. Legacy OAuth callbacks remain delegated;
 new script-flow state uses `as_`. The registered callback remains the existing
 `/oauth/callback`. The scoped login path is `/auth/start?purpose=apps-script`;
 **do not send the owner there until actual deployment and callback verification**.
@@ -74,9 +97,9 @@ verified Admin grant. `editorFor` binds access privately; the supervisor never
 needs to copy browser cookies or Google tokens into a work order.
 
 `policy.liveWritesEnabled` defaults OFF. Trusted review/exclusive-writer/trigger
-ports cannot be enabled by a submitted JSON body. No live versions of those
-ports, authorized deployment identity or ChatGPT connector were available in the
-implementing session. This is **not** a claimed ready-to-use ChatGPT tool.
+ports cannot be enabled by a submitted JSON body. The Cloudflare deployment identity was verified in the connected operator session,
+but those trusted executor/review/writer/trigger ports and any ChatGPT-callable
+executor remain unconfigured and unverified. This is **not** a claimed ready-to-use ChatGPT tool.
 
 ## Narrow HTTP interface after verified mount
 
@@ -90,8 +113,10 @@ implementing session. This is **not** a claimed ready-to-use ChatGPT tool.
 | `POST /api/apps-script/rollback` | `{operationId,expectedBaseHash,backupId}`; full current backup first |
 
 All responses are `no-store`; mutations require JSON and a verified executor.
-The original health, ping and ordinary login routes are not changed by a library
-being present in GitHub. No delete-project, arbitrary-URL or trigger API exists.
+A library merely being present in GitHub does not change legacy routes. The guarded
+mount is now live: a fresh external `/health` GET returned HTTP 200; a legacy
+`/api/ping` GET returned 405 (POST-only). Neither test proves the original HMAC
+or OAuth callback end-to-end. No delete-project, arbitrary-URL or trigger API exists.
 
 ## Concurrency and backup limitations that must remain explicit
 
@@ -117,7 +142,7 @@ DO or equivalent actual atomic private store is required; free-plan entitlement,
 binding/migration and scoped deployment/log permissions must be verified before
 installation. No additional Worker or paid plan is authorized by this package.
 
-## Real rollout acceptance (NOT EXECUTED yet)
+## Real rollout acceptance (only infrastructure stage executed)
 
 1. Obtain authorized existing Worker source/mount and deployment access without
    exporting private code/secrets; audit current deployed version/rollback.
