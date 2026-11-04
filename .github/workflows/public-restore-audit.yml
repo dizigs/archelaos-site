@@ -7,6 +7,14 @@ on:
       - 'rebuild/tests/public_restore_built_release_test.py'
       - 'docs/recovery/PUBLIC_ARTIFACT_RESTORE_REHEARSAL.md'
       - '.github/workflows/public-restore-audit.yml'
+      - 'rebuild/tests/sonar_sri_legacy_test.py'
+      - 'index.html'
+      - 'contact.html'
+      - 'stories.html'
+      - 'sponsors.html'
+      - 'board.html'
+      - 'history.html'
+      - 'retro-matches.html'
   workflow_dispatch:
     inputs:
       snapshot_run_id:
@@ -15,7 +23,6 @@ on:
         type: string
 permissions:
   contents: read
-  actions: read
 jobs:
   fixture-rehearsal:
     runs-on: ubuntu-latest
@@ -30,6 +37,7 @@ jobs:
       - name: Synthetic artifact red-green and archive security checks
         run: |
           python -m unittest discover -s rebuild/tests -p 'public_restore_audit_test.py' -v
+          python -m unittest discover -s rebuild/tests -p 'sonar_sri_legacy_test.py' -v
           python -m py_compile rebuild/tools/public_restore_audit.py
       - name: Generate actual release and public snapshot locally
         run: |
@@ -41,6 +49,9 @@ jobs:
   provider-artifact-rehearsal:
     # Manual only; never add a new cron, mutate production, or download private files.
     if: github.event_name == 'workflow_dispatch'
+    permissions:
+      contents: read
+      actions: read
     runs-on: ubuntu-latest
     timeout-minutes: 8
     steps:
