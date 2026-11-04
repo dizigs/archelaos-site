@@ -5,6 +5,7 @@ on:
       - 'rebuild/**'
       - 'assets/**'
       - '.github/workflows/axe-accessibility.yml'
+      - '.github/ci-security-tools/**'
       - '.github/scripts/axe_audit.cjs'
       - 'news.html'
       - 'hall-of-fame.html'
@@ -14,6 +15,7 @@ on:
       - 'rebuild/**'
       - 'assets/**'
       - '.github/workflows/axe-accessibility.yml'
+      - '.github/ci-security-tools/**'
       - '.github/scripts/axe_audit.cjs'
       - 'news.html'
       - 'hall-of-fame.html'
@@ -42,9 +44,12 @@ jobs:
           python rebuild/tools/verify_release.py
       - name: Install free browser accessibility tools
         run: |
-          npm install --no-save --no-package-lock playwright @axe-core/playwright
-          npx playwright install chromium --with-deps
+          set -euo pipefail
+          npm ci --ignore-scripts --no-audit --no-fund --prefix .github/ci-security-tools
+          ./.github/ci-security-tools/node_modules/.bin/playwright install chromium --with-deps
       - name: Audit home, news and Hall of Fame (report-only)
+        env:
+          NODE_PATH: ${{ github.workspace }}/.github/ci-security-tools/node_modules
         shell: bash
         run: |
           set -euo pipefail
