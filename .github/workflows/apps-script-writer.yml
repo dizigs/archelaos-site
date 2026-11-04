@@ -1,0 +1,36 @@
+name: Archelaos Apps Script bounded writer
+
+# Manual only; inert until reviewed on main AND separately allowed by Worker.
+# A dispatch/input cannot grant private digest approval or enable live writes.
+on:
+  workflow_dispatch:
+    inputs:
+      command:
+        description: Approved closed-schema smoke create/restore command (no source or credentials)
+        required: true
+        type: string
+
+permissions: {}
+
+jobs:
+  bounded-writer:
+    if: github.repository == 'dizigs/archelaos-site' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      id-token: write
+    concurrency:
+      group: archelaos-apps-script-bounded-writer
+      cancel-in-progress: false
+    steps:
+      - name: Checkout exact reviewed workflow source
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ${{ github.workflow_sha }}
+          persist-credentials: false
+      - name: Submit independently approved, bounded command
+        env:
+          SCRIPT_COMMAND: ${{ inputs.command }}
+          GITHUB_WORKFLOW_SHA: ${{ github.workflow_sha }}
+        run: node automation/apps-script/oidc-writer-runner.mjs

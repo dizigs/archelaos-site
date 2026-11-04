@@ -215,5 +215,19 @@
     "actionlintCheckId": 126304500677,
     "actionlint": "success",
     "note": "Annotations can be quota-limited; total89 is the recorded actual local auditor scan, not an inferred hosted annotation count."
+  },
+  "serialCompletion20261104": {
+    "baseMain": "d8d07cc1b736e1b4a1ce16cf8420111e564b539b",
+    "remediationDependencyPR": 128,
+    "command": "zizmor --offline --persona auditor --format json .github/workflows",
+    "diagnostics": 97,
+    "bySeverity": {
+      "Low": 54,
+      "Informational": 37,
+      "Medium": 6
+    },
+    "high": 0,
+    "suppressionsAdded": false,
+    "permissionsBroadened": false
   }
 }

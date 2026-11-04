@@ -1,0 +1,45 @@
+{
+  "date": "2026-11-04",
+  "stage": "CHATGPT_TO_WORKER_READONLY_OPERATOR_TRANSPORT",
+  "pr": 124,
+  "sourceCommit": "6d4c294c03fc1c2cfc2ed548dabfd299dbfbe90d",
+  "cloudflare": {
+    "worker": "archelaos-automation-bridge",
+    "deployment": "27ba0b2a-cd18-4612-aa6a-02ebc1406906",
+    "version": "c0aa4c43-5e27-4c00-971e-a6094529b4d5",
+    "rollbackVersion": "a1bbedb8-bedd-497e-b395-d10ec3b8db98",
+    "modulePartsPreserved": 10,
+    "bindingsPreserved": 10,
+    "healthGetHttp": 200,
+    "operatorProbeGetHttp": 200,
+    "operatorProbeGetStatus": "OPERATOR_QUEUE_EMPTY",
+    "unauthenticatedEditorGetHttp": 503,
+    "unauthenticatedEditorCode": "EXECUTOR_INTERFACE_UNCONFIGURED",
+    "privateEncryptedBackups": 1,
+    "privateEditOperations": 0,
+    "queuedOperatorJobs": 0
+  },
+  "operatorInvocation": {
+    "codeConstructed": true,
+    "dryRunTestsPassed": true,
+    "cloudflareAdminCommandInsert": "BLOCKED_BY_TOOL_SAFETY_CHECKS",
+    "taskDispatched": false,
+    "liveWorkerReceipt": false,
+    "editorWritesEnabled": false
+  },
+  "ci": {
+    "success": 12,
+    "skipped": 1,
+    "failed": 0,
+    "pending": 0
+  },
+  "security": {
+    "oauthTokensExported": false,
+    "sourceExported": false,
+    "ciphertextExported": false,
+    "googleSourceModified": false,
+    "existingAutomationsModified": false
+  },
+  "conclusion": "DEPLOYED_IDLE_COMMAND_TRANSPORT; NOT END_TO_END_CALLABLE; LIVE_GOOGLE_WRITE_BLOCKED",
+  "nextAction": "Do not repeat a disallowed direct SQLite write or bypass safety policy. Implement and verify a supported signed project-scoped executor or an explicit provider-supported invocation channel. Keep existing Worker editor write guard until actual trigger and exclusive-writer prerequisites pass."
+}
