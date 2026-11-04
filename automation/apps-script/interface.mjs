@@ -1,4 +1,4 @@
-import { boundedJson, ScriptFault } from './security.mjs';
+import { boundedJson, constantEqual, ScriptFault } from './security.mjs';
 const headers = { 'cache-control': 'no-store', 'x-content-type-options': 'nosniff', 'referrer-policy': 'no-referrer' };
 const json = (data, status = 200) => Response.json(data, { status, headers });
 
@@ -26,7 +26,52 @@ export function isAppsScriptRequest(request) {
     || (request.method === 'GET' && url.pathname === '/oauth/callback' && /^as_[A-Za-z0-9_-]{43}$/.test(url.searchParams.get('state') || ''))
     || url.pathname.startsWith('/api/apps-script/');
 }
-export function appsScriptExtension({ oauth, authenticateExecutor, editorFor, verifyReadOnly }) {
+const confirmationCookie = '__Host-archelaos-script-backup-confirm';
+const expectedOrigin = 'https://archelaos-automation-bridge.dimitriszgalanis.workers.dev';
+function backupConfirmationCookie(header) {
+  if (typeof header !== 'string' || header.length > 8192) throw new ScriptFault('BACKUP_CONFIRMATION_REQUIRED', 403);
+  const found = header.split(';').map(v => v.trim()).filter(v => v.startsWith(confirmationCookie + '='));
+  if (found.length !== 1) throw new ScriptFault('BACKUP_CONFIRMATION_REQUIRED', 403);
+  const nonce = found[0].slice(confirmationCookie.length + 1);
+  if (!/^[A-Za-z0-9_-]{43}$/.test(nonce)) throw new ScriptFault('BACKUP_CONFIRMATION_REQUIRED', 403);
+  return nonce;
+}
+async function readConfirmationForm(request) {
+  const type = request.headers.get('content-type') || '';
+  if (!/^application\/x-www-form-urlencoded(?:;\s*charset=utf-8)?$/i.test(type)) throw new ScriptFault('BACKUP_CONFIRMATION_FORM_REQUIRED', 415);
+  const announced = Number(request.headers.get('content-length') || 0);
+  if (!Number.isFinite(announced) || announced > 512) throw new ScriptFault('BACKUP_FORM_TOO_LARGE', 413);
+  const reader = request.body?.getReader();
+  if (!reader) throw new ScriptFault('BACKUP_CONFIRMATION_FORM_REQUIRED', 415);
+  let bytesRead = 0;
+  let body = '';
+  const decoder = new TextDecoder();
+  try {
+    for (;;) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      bytesRead += value.byteLength;
+      if (bytesRead > 512) throw new ScriptFault('BACKUP_FORM_TOO_LARGE', 413);
+      body += decoder.decode(value, { stream: true });
+    }
+    body += decoder.decode();
+  } finally { await reader.cancel().catch(() => {}); }
+  const params = new URLSearchParams(body);
+  const values = params.getAll('confirmation');
+  if ([...params.keys()].length !== 1 || values.length !== 1 || !/^[A-Za-z0-9_-]{43}$/.test(values[0])) throw new ScriptFault('BACKUP_CONFIRMATION_REQUIRED', 403);
+  return values[0];
+}
+function backupConfirmationPage(nonce) {
+  const html = '<!doctype html><html lang="el"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ασφαλές αντίγραφο Apps Script</title><main><h1>Ασφαλές αντίγραφο Apps Script</h1><p>Θα δημιουργηθεί κρυπτογραφημένο αντίγραφο στο Cloudflare χωρίς αλλαγές στον κώδικα Google.</p><form method="post" action="/api/apps-script/private-backup"><input type="hidden" name="confirmation" value="' + nonce + '"><button type="submit">Δημιουργία αντιγράφου</button></form></main></html>';
+  return new Response(html, { status: 200, headers: {
+    ...headers,
+    'content-type': 'text/html; charset=utf-8',
+    'content-security-policy': "default-src 'none'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'",
+    'x-frame-options': 'DENY',
+    'set-cookie': confirmationCookie + '=' + nonce + '; Path=/; Secure; HttpOnly; SameSite=Strict; Max-Age=300'
+  } });
+}
+export function appsScriptExtension({ oauth, authenticateExecutor, editorFor, verifyReadOnly, issueBackupConfirmation, createVerifiedBackup }) {
   return async request => {
     const url = new URL(request.url);
     const scriptStart = request.method === 'GET' && url.pathname === '/auth/start' && url.searchParams.get('purpose') === 'apps-script';
