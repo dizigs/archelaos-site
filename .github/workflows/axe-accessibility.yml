@@ -51,6 +51,13 @@ jobs:
           # npm 10 currently materializes foreign optional esbuild platforms as mandatory in first lock.
           # npm's second offline lock-only normalization prunes those platforms on this Linux runner.
           npm install --package-lock-only --ignore-scripts --offline --no-audit --no-fund --prefix .github/ci-performance-tools
+          # Upgrade all transitive packages within pinned compatible ranges. Final npm audit remains a hard gate.
+          if npm audit fix --package-lock-only --ignore-scripts --no-fund --prefix .github/ci-performance-tools; then
+            echo 'npm fixed available advisories within existing dependency ranges'
+          else
+            echo 'npm audit fix could not remediate every advisory; final audit must still pass'
+          fi
+          npm install --package-lock-only --ignore-scripts --offline --no-audit --no-fund --prefix .github/ci-performance-tools
           node <<'NODE'
           const fs=require('fs'), cp=require('child_process');
           const file='.github/ci-performance-tools/package-lock.json';
