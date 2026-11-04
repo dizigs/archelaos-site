@@ -63,6 +63,36 @@ jobs:
           persona: auditor
           min-severity: high
 
+  # TEMPORARY lockfile bootstrap only for this unmerged branch. Removed after
+  # generated lockfile is reviewed and committed. Never writes to main.
+  security-lock-bootstrap:
+    if: github.event_name == 'pull_request' && github.head_ref == 'security/sonar-medium-actions-lockfiles-20261104'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '22'
+          package-manager-cache: false
+      - name: Resolve pinned audit tools without running package scripts
+        working-directory: .github/ci-security-tools
+        run: npm install --package-lock-only --ignore-scripts --no-audit --no-fund --save-exact
+      - name: Check generated lockfile metadata
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s .github/ci-security-tools/package-lock.json
+          node -e 'const p=require("./.github/ci-security-tools/package-lock.json");if(p.lockfileVersion!==3||!p.packages||!p.packages[""])process.exit(1)'
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: archelaos-audit-lock-bootstrap
+          path: .github/ci-security-tools/package-lock.json
+          if-no-files-found: error
+          retention-days: 1
+
   dependency-review:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
