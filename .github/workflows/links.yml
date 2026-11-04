@@ -36,7 +36,7 @@ jobs:
           python .github/scripts/prepare_link_audit.py
 
       - name: Restore polite checker cache
-        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
         with:
           path: .lycheecache
           key: lychee-${{ runner.os }}-${{ github.run_id }}
