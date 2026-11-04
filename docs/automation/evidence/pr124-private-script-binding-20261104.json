@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "observedDate": "2026-11-04",
+  "component": "existing archelaos-automation-bridge",
+  "sourcePr": 124,
+  "identityEvidence": {
+    "provider": "Google Drive metadata via connected Admin account",
+    "titleVerified": true,
+    "mimeType": "application/vnd.google-apps.script",
+    "designatedAdminOwnershipVerified": true,
+    "actualAppsScriptApiContentRead": false,
+    "privateScriptIdNotIncluded": true
+  },
+  "configuration": {
+    "storedPrivatelyInCloudflare": true,
+    "secretNamesAdded": [
+      "APPS_SCRIPT_PROJECT_ID",
+      "APPS_SCRIPT_PROJECT_TITLE",
+      "APPS_SCRIPT_ADMIN_EMAIL"
+    ],
+    "existingBindingsRetained": true,
+    "cloudflarePatchMethod": "PATCH /workers/scripts/{script_name}/secrets-bulk",
+    "cloudflareReadbackVerified": true
+  },
+  "deployment": {
+    "id": "fefbf0ef-0505-4d77-8b37-6c44f51104d7",
+    "version": "d95999ce-f3cc-45f4-b7c5-ae390824d477",
+    "previousVersion": "ac855fe8-298b-46aa-bcef-b83bc213731d"
+  },
+  "liveChecks": [
+    {
+      "endpoint": "GET /health",
+      "httpStatus": 200,
+      "result": "ok"
+    },
+    {
+      "endpoint": "GET /api/apps-script/content",
+      "httpStatus": 503,
+      "result": "EXECUTOR_INTERFACE_UNCONFIGURED"
+    },
+    {
+      "endpoint": "GET /oauth/callback?state=<synthetic-invalid>&code=<invalid>",
+      "httpStatus": 401,
+      "result": "OAUTH_STATE_EXPIRED_OR_REPLAYED"
+    }
+  ],
+  "unverified": [
+    "reviewed signed project-scoped executor port",
+    "real Admin Google OAuth consent and refresh grant",
+    "Google Apps Script projects.get/getContent",
+    "encrypted private backup/readback",
+    "Google installable trigger inventory",
+    "exclusive writer exclusion",
+    "real Google mutation/rollback",
+    "ChatGPT-executor authenticated callability"
+  ],
+  "writesEnabled": false,
+  "googleMutationsPerformed": false,
+  "notes": [
+    "No real Script ID, personal OAuth state/code, source, or credentials are written to GitHub.",
+    "Normal Worker health and guarded route checks were performed against the actual deployed version.",
+    "Negative synthetic callback proves unknown states fail closed, not a successful OAuth handshake.",
+    "Existing Google Workspace automation and installable triggers were not modified."
+  ]
+}
