@@ -157,13 +157,17 @@ jobs:
           python rebuild/tests/match_calendar_import.py
           python rebuild/tests/match_schedule.py
           python rebuild/tools/build_match_schedule.py
-      - name: Ensure all rebuild HTML pages are unpublished previews
+      - name: Verify staged HTML publication and preview robots policies
         shell: bash
         run: |
           set -euo pipefail
           test -f rebuild/index.html
           for page in rebuild/*.html; do
-            grep -qi 'noindex' "$page" || { echo "Missing noindex in $page"; exit 1; }
+            if [[ "$page" == "rebuild/museum-memory.html" ]]; then
+              grep -Fq '<meta name="robots" content="index,follow">' "$page" || { echo "Missing public robots tag in $page"; exit 1; }
+            else
+              grep -qi 'noindex' "$page" || { echo "Missing preview-only noindex in $page"; exit 1; }
+            fi
           done
 
   browser:
