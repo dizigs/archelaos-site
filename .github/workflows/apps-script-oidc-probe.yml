@@ -28,4 +28,6 @@ jobs:
           persist-credentials: false
           fetch-depth: 2
       - name: Execute scoped, read-only signed Worker readiness command
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: node automation/apps-script/oidc-probe-runner.mjs
