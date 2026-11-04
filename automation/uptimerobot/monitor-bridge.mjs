@@ -52,6 +52,18 @@ async function remote(env,path,method='GET',body){
 }
 function items(v){if(Array.isArray(v))return v;if(Array.isArray(v?.data?.items))return v.data.items;if(Array.isArray(v?.data))return v.data;if(Array.isArray(v?.items))return v.items;throw new Error('UPTIME_UNEXPECTED_SHAPE')}
 function canon(s){try{const u=new URL(s);u.hash='';return u.href.replace(/\/$/,'')}catch{return ''}}
+// Compare publicly equivalent routes only for the site's two official hostnames.
+// This avoids treating a canonical redirect (/news.html -> /news) as a missing monitor.
+function publicRouteKey(value){
+ try{
+  const u=new URL(value);
+  if(u.protocol!=='https:'||!['archelaos.club','www.archelaos.club'].includes(u.hostname.toLowerCase())||u.search)return '';
+  let path=u.pathname.replace(/\/index\.html$/i,'/').replace(/\.html$/i,'').replace(/\/+$/,'').toLowerCase();
+  if(!path)path='/';
+  return path;
+ }catch{return ''}
+}
+
 async function inventory(env){const r=await remote(env,'/monitors?limit=200');if(r.nextLink||r.data?.nextLink)throw new Error('UPTIME_PAGINATION_REQUIRED');return items(r)}
 function settingsMatch(m,contactId){
  const codes=m.successHttpResponseCodes;
@@ -85,10 +97,13 @@ async function publicMonitorStatus(request,env,url){
     const all=await inventory(env);
     const states=new Set(['UP','DOWN','LOOKS_DOWN','STARTED','PAUSED']);
     const targets=TARGETS.map(([label,target])=>{
-     const found=all.filter(m=>canon(m?.url)===canon(target));
+     const found=all.filter(m=>publicRouteKey(m?.url)&&publicRouteKey(m?.url)===publicRouteKey(target));
+     const exact=found.filter(m=>canon(m.url)===canon(target)).length;
      const raw=found.length===1?String(found[0].status).toUpperCase():'';
      return {label,url:target,present:found.length===1,
-      status:found.length===0?'MISSING':found.length>1?'DUPLICATE':states.has(raw)?raw:'UNKNOWN'};
+      status:found.length===0?'MISSING':found.length>1?'DUPLICATE':states.has(raw)?raw:'UNKNOWN',
+      monitorCount:found.length,exactMatches:exact,
+      urlVariants:[...new Set(found.map(m=>m.url))].sort()};
     });
     const response=Response.json({
      code:'UPTIME_PUBLIC_STATUS',checkedAt:new Date().toISOString(),
