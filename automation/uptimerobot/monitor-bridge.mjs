@@ -58,7 +58,9 @@ export async function handleUptimeMonitor(request,env){
   const created=[];
   for(const item of missing){
    const r=await remote(env,'/monitors','POST',{type:'HTTP',url:item.target,friendlyName:'ARCHELAOS | '+item.label,interval:300,timeout:30,httpMethodType:'GET',successHttpResponseCodes:['2xx'],assignedAlertContacts:[{alertContactId:Number(contact.id),threshold:0,recurrence:0}]});
-   created.push({url:item.target,id:r?.id||r?.data?.id||r?.monitor?.id||null});
+   const monitorId=Number(r?.id??r?.data?.id??r?.monitor?.id);
+   if(!Number.isSafeInteger(monitorId)||monitorId<=0)throw new Error('UPTIME_INVALID_CREATE_RESPONSE');
+   created.push({url:item.target,id:monitorId});
   }
   return out('UPTIME_ENSURE_ACCEPTED',200,{created,existing:matches.filter(m=>m.found.length).map(m=>m.target),notificationContactConfigured:true});
  }catch(error){const e=String(error?.message||'UPTIME_FAILURE');return out(/^UPTIME_[A-Z0-9_]+$/.test(e)?e:'UPTIME_FAILURE',502)}
