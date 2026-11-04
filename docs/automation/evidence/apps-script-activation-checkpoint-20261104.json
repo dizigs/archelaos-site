@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "status": "BLOCKED",
+  "phase": "FINAL_ACTIVATION_CHECKPOINT",
+  "sourceCommit": "1ad1ab30e4333856dfe6dc025654e202a7ead9f1",
+  "mergedPullRequest": 124,
+  "activationAuthorizedByCurrentUser": true,
+  "sourceOverlay": {
+    "archiveFile": "archelaos-bridge-inert-1ad1ab3.tar",
+    "archiveSha256": "3f680eb9b5d7aebaff1fe2824831734d8a7e0dc9d47737dbe2b74a02d9017269",
+    "moduleCount": 10,
+    "files": [
+      {
+        "path": "automation/apps-script/cloudflare-mount.mjs",
+        "sha256": "f0279f11ff1c5275b9ba7f9abc5cae4e89a2afad26d39d7435969157ce2ac1a3",
+        "bytes": 5743
+      },
+      {
+        "path": "automation/apps-script/configure.mjs",
+        "sha256": "ccb58dc3defe559f8b89ff9eb30e6b889b51bc151bac777a0a15847a286e7504",
+        "bytes": 7903
+      },
+      {
+        "path": "automation/apps-script/editor.mjs",
+        "sha256": "5d48596c2d0972f1f9f01117ca293e36b5a7b2e2123d23c0b66a6a07eefdd5b9",
+        "bytes": 10592
+      },
+      {
+        "path": "automation/apps-script/files.mjs",
+        "sha256": "f53f4edb7af256337a45424c95d2a37d429420286a918b24beb7cb9b87271533",
+        "bytes": 3094
+      },
+      {
+        "path": "automation/apps-script/github-oidc.mjs",
+        "sha256": "9b9f003c7921d0c89317fc3668e5dee1930205d413b98eee223a51d6e5703a2c",
+        "bytes": 4981
+      },
+      {
+        "path": "automation/apps-script/github-writer.mjs",
+        "sha256": "96e9ed3afc3d3ba4860b1afaf88226cdf430f776b045f701762b795d2607ff91",
+        "bytes": 6103
+      },
+      {
+        "path": "automation/apps-script/interface.mjs",
+        "sha256": "33d5532a03db899005e885ed415fe50530b4eb08ad313d77276e38a444dc6170",
+        "bytes": 10881
+      },
+      {
+        "path": "automation/apps-script/oauth.mjs",
+        "sha256": "c8f72c68f7477ad1c9ee4171f6d873dfec3a8d72db6808f5c22c45d21ec0caa2",
+        "bytes": 11874
+      },
+      {
+        "path": "automation/apps-script/security.mjs",
+        "sha256": "1dc35749ea0f3560969533611f3b2fd3b0e64f4ac49f1d5c66ae3a551da1f29d",
+        "bytes": 4298
+      },
+      {
+        "path": "automation/apps-script/store.mjs",
+        "sha256": "5b5b6d4c0168ac626b279c717092638b827f9443c1683ac27945fc962af60afb",
+        "bytes": 14375
+      }
+    ],
+    "standaloneDeployable": false,
+    "privateLegacyEntrypointIncluded": false,
+    "bindingsOrSecretsIncluded": false,
+    "liveWriterArmed": false
+  },
+  "priorOperatorWorkerEvidence": {
+    "attribution": "issue71comment6630249035; not a new provider observation",
+    "worker": "archelaos-automation-bridge",
+    "deploymentId": "5f287fa0-cec4-4476-84e4-8a678cc0d64b",
+    "versionId": "7a8817c4-efbd-44c5-953d-66f9f4cdbff0",
+    "rollbackVersionId": "1316a3b2-b8a1-45be-a5ae-1d7a772033fd",
+    "bindingsReportedPreserved": 10
+  },
+  "actualMainSonar": {
+    "checkId": 126564622741,
+    "conclusion": "failure",
+    "headSha": "1ad1ab30e4333856dfe6dc025654e202a7ead9f1",
+    "url": "https://github.com/dizigs/archelaos-site/runs/126564622741",
+    "failedCondition": "C Security Rating on New Code; required A",
+    "annotationsCount": 0
+  },
+  "existingMainOfflineCI": {
+    "checkId": 126563951093,
+    "runId": 41826935248,
+    "conclusion": "success",
+    "headSha": "1ad1ab30e4333856dfe6dc025654e202a7ead9f1"
+  },
+  "validation": {
+    "archiveFilesMatchImmutableGitCommit": true,
+    "relativeImportClosureComplete": true,
+    "allTenRuntimeModulesSyntaxPass": true,
+    "newGoogleApiTestPerformed": false,
+    "newWorkerDeploymentPerformed": false,
+    "completeTriggerInventoryVerified": false,
+    "externalWriterExclusionVerified": false,
+    "liveCommandAuthorizationConfigured": false,
+    "packagedWriterDefaultReturns503": true,
+    "packagedLegacyRoutePreserved": true
+  },
+  "runtimeAccess": {
+    "observationsCurrent": true,
+    "cloudflareOrGoogleConnectorAvailable": false,
+    "readyCredentialsOrOutboundIdentities": false,
+    "providerHostsAllowed": false,
+    "unchangedDeniedNetworkCallsRetried": false
+  },
+  "blockers": [
+    "no authorized provider connection in this executor",
+    "complete cross-account trigger inventory is not available",
+    "enforceable exclusion of Google IDE and external API writers is not established",
+    "trusted immutable workflow/digest/diff/safety ports remain unconfigured",
+    "main Sonar quality gate failed; exact findings unavailable from zero-annotation check"
+  ],
+  "next": "Authorized connected operator must supply genuine private safety evidence and reviewed same-Worker installation; only then execute one fixed signed smoke create/readback/rollback/readback. Preserve all original data, bindings and backup."
+}

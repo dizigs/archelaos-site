@@ -1,0 +1,94 @@
+{
+  "version": 1,
+  "as_of": "2026-11-03",
+  "status": "reconciled_data_proposed_pending_exact_head_ci",
+  "scope": "Two highly likely duplicate pairs; cross-sport biography enrichment for one existing person.",
+  "merges": [
+    {
+      "canonicalId": "arch-7f975b16bebf",
+      "retiredId": "arch-bdac478e7ea3",
+      "canonicalName": "Μιλτιάδης (Μίλτος) Αντωνάτος",
+      "aliasNames": [
+        "Μίλτος Αντωνάτος",
+        "Μιλτιάδης Αντωνάτος"
+      ],
+      "evidence": "Same junior archery team, same year (1994), same second-place team context; Miltos is a familiar form of Miltiades.",
+      "caveat": "Claim that 1994 competition was a national championship is unverified; do not assert it as fact."
+    },
+    {
+      "canonicalId": "arch-82df0f64b81d",
+      "retiredId": "arch-22eae49bbbc0",
+      "canonicalName": "Ηλίας Μαρνέρης",
+      "aliasNames": [
+        "Ηλίας Μαρνέρη",
+        "Ηλίας Μαρνέρης"
+      ],
+      "evidence": "Exact first name and surname with inflection difference; age-group swimming in the same 1990s period.",
+      "caveat": "Original competition sheet with 50 m/100 m result dates is not yet located."
+    }
+  ],
+  "crossSport": [
+    {
+      "canonicalId": "arch-e5015691e985",
+      "name": "Ευρώπη Υφαντίδου",
+      "sports": [
+        "shooting",
+        "archery"
+      ],
+      "evidence": "Club 1996 anniversary history names Υφαντίδου among early archery participants; user confirms the historical shooting-to-archery overlap.",
+      "note": "Do not create a second Hall profile."
+    }
+  ],
+  "explicitNonMerges": [
+    {
+      "names": [
+        "Γεώργιος Αθανασίου (πάλη)",
+        "Γεώργιος Αθανασίου (ΔΣ/στίβος)"
+      ],
+      "reason": "Source profiles expressly identify separate people"
+    },
+    {
+      "names": [
+        "Νίκος Ζινίσα του Σάββα",
+        "Νίκος Ζινίσα του Κωνσταντίνου"
+      ],
+      "reason": "Explicitly confirmed distinct people; 2025 European U15 gold belongs to the latter"
+    },
+    {
+      "names": [
+        "Κώστας Σαμακοβλής (πάλη 1994)",
+        "Κωνσταντίνος Σαμακοβλής (τοξοβολία 2016–18)"
+      ],
+      "reason": "Different event and sport decades; no individual identity confirmation"
+    },
+    {
+      "names": [
+        "Δημήτριος Τσιγγαρόπουλος (μπάσκετ)",
+        "Δημήτρης Τσιγγαρόπουλος (βόλεϊ)"
+      ],
+      "reason": "Same name variant without overlapping event or biography"
+    }
+  ],
+  "dependencies": [
+    "Regenerate people/ static SEO pages and rebuild/source-profiles; preserve legacy URL redirects.",
+    "Regenerate sitemap and profile index; maintain deep links and favorites under retired IDs.",
+    "Re-run UI, SEO, count and CI checks before merge to main.",
+    "No automated merge or production deployment from this draft.",
+    "Preserve corrected Στροσκίδου spelling from main; verify original rich biography data before removing any source templates."
+  ],
+  "reconciliation": {
+    "baseMainSha": "52b06d524b1494543d128f30cd0595b1a1fda49b",
+    "previousPrSha": "ca1f86ec8a4179e75ea3fe8c0b5d29e997430a24",
+    "hallCountBefore": 773,
+    "hallCountAfter": 771,
+    "legacyCountBefore": 682,
+    "legacyCountAfter": 680,
+    "retiredIds": [
+      "arch-bdac478e7ea3",
+      "arch-22eae49bbbc0"
+    ],
+    "preserved_newProfiles": true,
+    "preserved_Fani_Gkioousoglou": true,
+    "newsEventsUnchanged": true
+  }
+}

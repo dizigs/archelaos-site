@@ -152,7 +152,7 @@
       "id": "arch-georgios-athanas-athletics-board-2026",
       "name": "Georgios Athanasiou",
       "role": "Administration · Board member and athletics department official",
-      "biography": "Member of the current Board of Directors of G.A.S. Archelaos Katerinis and official responsible for the athletics (track and field) department. He is a different person from the wrestler of the same name also listed in the Hall of Fame."
+      "biography": "Member of the current Board of Directors of G.A.S. Archelaos Katerinis and official responsible for the athletics (track and field) department."
     },
     {
       "id": "arch-9a8c13661a43",
@@ -1621,8 +1621,8 @@
     {
       "id": "arch-e5015691e985",
       "name": "Evropi Yfantidou",
-      "role": "Shooting · Athlete / Coach",
-      "biography": "Greek women’s air-rifle champion and national-team shooter who competed internationally in 1993–1994 and later supported shooting training at Archelaos."
+      "role": "Shooting & Archery · Athlete / Coach",
+      "biography": "Greek women’s air-rifle champion and national-team shooter who competed internationally in 1993–1994 and later supported shooting training at Archelaos.\n\nThe club's 1996 fortieth-anniversary history also records her among the first athletes involved in its archery section in 1993, linking the early shooting and archery programmes associated with Kostas Myrotis and Anargyros Kapetanakis."
     },
     {
       "id": "arch-79065f0c08db",
@@ -2346,9 +2346,9 @@
     },
     {
       "id": "arch-82df0f64b81d",
-      "name": "Elias Marnere",
+      "name": "Ilias Marneris",
       "role": "Swimming · Athlete",
-      "biography": "Development-squad swimmer for Archelaos in the 1990s, in butterfly, backstroke and freestyle events."
+      "biography": "Ilias Marneris competed for Archelaos Katerinis in age-group swimming in the 1990s, in backstroke, freestyle and butterfly. Historical records list a second-place finish in the 50 m backstroke (50.00) and third place in the 100 m freestyle (1:37.40) in the ages 10–11 category; the event date and level still need confirmation."
     },
     {
       "id": "arch-1e2e6edb86df",
@@ -2395,12 +2395,6 @@
     {
       "id": "arch-d0db4554f5a0",
       "name": "Georgios Ziogas",
-      "role": "Archery · Athlete",
-      "biography": "Junior Archelaos archer; the team placed second in the 1994 inaugural Pieria interclub event."
-    },
-    {
-      "id": "arch-bdac478e7ea3",
-      "name": "Miltiades Antonatos",
       "role": "Archery · Athlete",
       "biography": "Junior Archelaos archer; the team placed second in the 1994 inaugural Pieria interclub event."
     },
@@ -3456,9 +3450,9 @@
     },
     {
       "id": "arch-7f975b16bebf",
-      "name": "Μίλτος Αντωνάτος",
-      "role": "Archery · Junior team (1994)",
-      "biography": "According to the historical register, he competed on Archelaos’s junior archery team that placed second in the national team championship in 1994. This result is among the section’s earliest recorded team achievements and links his name to the first years of archery at the club."
+      "name": "Miltiades (Miltos) Antonatos",
+      "role": "Archery · Junior athlete (1994)",
+      "biography": "Miltiades (“Miltos”) Antonatos represented Archelaos Katerinis in junior archery in 1994. The club's 1996 fortieth-anniversary history records a second-place team finish. Whether the result was at national-championship or interclub level remains unconfirmed by an official competition sheet."
     },
     {
       "id": "arch-3a6035bb4f86",
@@ -3909,12 +3903,6 @@
       "name": "Αριστείδης Λιακόπουλος",
       "role": "Swimming",
       "biography": "Αριστείδης Λιακόπουλος was active in the swimming section of Archelaos Katerini during 1994–1995. Contemporary press records document their participation and sporting results."
-    },
-    {
-      "id": "arch-22eae49bbbc0",
-      "name": "Ηλίας Μαρνέρης",
-      "role": "Swimming",
-      "biography": "Ηλίας Μαρνέρης was active in the swimming section of Archelaos Katerini during 1994–1995. Contemporary press records document their participation and sporting results."
     },
     {
       "id": "arch-a83f91efc924",

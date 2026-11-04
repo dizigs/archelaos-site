@@ -20,7 +20,7 @@ function show(person){
   sourcesLabel:english()?'Sources':'Πηγές'
  });window.ArchelaosRelated?.appendPerson(person.id);return true;
 }
-async function open(id){const data=await load();return show(data.byId.get(id))}
+async function open(id){const data=await load();return show(data.byId.get(window.ArchelaosFavorites?.canonicalPersonId?.(id)||id))}
 function idFromLink(href){
  try{const url=new URL(href,location.href);if(url.origin!==location.origin)return null;
   return url.pathname.match(/^\/people\/(arch-[a-z0-9-]+)\.html$/)?.[1]||null;}
