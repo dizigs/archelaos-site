@@ -209,3 +209,30 @@ test('public monitor route rejects methods and query before provider call',async
  assert.deepEqual([a.status,b.status,c.status],[405,400,503]);
  assert.equal(calls,0);
 });
+
+test('public summary coalesces in-flight requests on a cold cache',async()=>{
+ const saved=globalThis.caches;
+ let resolveUpstream,requests=0,stored=null;
+ const blocked=new Promise(resolve=>{resolveUpstream=resolve});
+ globalThis.caches={default:{
+  match:async()=>stored?.clone()||undefined,
+  put:async(_key,response)=>{stored=response.clone()}
+ }};
+ globalThis.fetch=async()=>{
+  requests++;
+  await blocked;
+  return Response.json({data:[{id:101,url:targetUrls[0],status:'UP'}],nextLink:null});
+ };
+ try{
+  const requestsInFlight=[1,2,3].map(()=>handleUptimeMonitor(req('public-status','GET',null,''),env));
+  await new Promise(resolve=>setTimeout(resolve,0));
+  assert.equal(requests,1);
+  resolveUpstream();
+  const responses=await Promise.all(requestsInFlight);
+  assert.deepEqual(responses.map(r=>r.status),[200,200,200]);
+  assert.equal(requests,1);
+  assert.deepEqual(await Promise.all(responses.map(r=>r.json())).then(a=>a.map(x=>x.configured)),[1,1,1]);
+ }finally{
+  if(saved===undefined)delete globalThis.caches;else globalThis.caches=saved;
+ }
+});
