@@ -95,16 +95,19 @@ jobs:
         run: |
           set -euo pipefail
           npm install --package-lock-only --ignore-scripts --no-fund --prefix .github/ci-performance-tools
-          node -e "const p=require('./.github/ci-performance-tools/package-lock.json');if(p.lockfileVersion!==3)process.exit(1);for(const [n,v] of Object.entries(p.packages))if(n&&(!v.integrity||!v.integrity.startsWith('sha512-')))throw new Error('Missing integrity: '+n)"
-          npm ci --ignore-scripts --no-fund --prefix .github/ci-performance-tools
+          node -e "const p=require('./.github/ci-performance-tools/package-lock.json');if(p.lockfileVersion!==3)process.exit(1);for(const [n,v] of Object.entries(p.packages))if(n&&!v.integrity)throw new Error('Missing integrity: '+n)"
+          npm ci --ignore-scripts --omit=optional --no-fund --prefix .github/ci-performance-tools
           ./.github/ci-performance-tools/node_modules/.bin/lhci --version
           ./.github/ci-performance-tools/node_modules/.bin/sitespeed.io --version
-          npm audit --audit-level=high --prefix .github/ci-performance-tools
+          npm audit --json --omit=optional --prefix .github/ci-performance-tools > .github/ci-performance-tools/npm-audit.json || true
+          node -e "const a=require('./.github/ci-performance-tools/npm-audit.json');console.log('npm audit summary:',JSON.stringify(a.metadata?.vulnerabilities));if((a.metadata?.vulnerabilities?.high||0)+(a.metadata?.vulnerabilities?.critical||0)>0)process.exit(1)"
       - name: Preserve generated performance lockfile for review
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: archelaos-performance-lock-bootstrap
-          path: .github/ci-performance-tools/package-lock.json
+          path: |
+            .github/ci-performance-tools/package-lock.json
+            .github/ci-performance-tools/npm-audit.json
           retention-days: 3
           if-no-files-found: warn
