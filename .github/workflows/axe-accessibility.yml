@@ -42,6 +42,28 @@ jobs:
         run: |
           python rebuild/tools/build_release.py
           python rebuild/tools/verify_release.py
+      - name: Generate an isolated performance lock via official npm registry (temporary proof only)
+        run: |
+          set -euo pipefail
+          npm install --package-lock-only --ignore-scripts --no-audit --no-fund --prefix .github/ci-performance-tools
+          node -e 'const p=require("./.github/ci-performance-tools/package-lock.json");const entries=Object.entries(p.packages).filter(([k])=>k);if(p.lockfileVersion!==3||entries.some(([,v])=>!v.integrity)){throw Error("invalid npm v3 lock/integrity")}; console.log("performance lock v3 entries="+Object.keys(p.packages).length+" integrity="+entries.length);'
+          sha256sum .github/ci-performance-tools/package-lock.json
+      - name: Perform real GitHub-hosted performance npm ci and inspect CLI entrypoints
+        run: |
+          set -euo pipefail
+          npm ci --ignore-scripts --no-audit --no-fund --prefix .github/ci-performance-tools
+          test -x .github/ci-performance-tools/node_modules/.bin/lhci
+          test -x .github/ci-performance-tools/node_modules/.bin/sitespeed.io
+          ./.github/ci-performance-tools/node_modules/.bin/lhci --version
+          ./.github/ci-performance-tools/node_modules/.bin/sitespeed.io --version
+      - name: Preserve temporary performance lockfile for audited dependency PR
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: issue66-performance-lockfile-proof
+          path: .github/ci-performance-tools/package-lock.json
+          if-no-files-found: warn
+          retention-days: 1
       - name: Install free browser accessibility tools
         run: |
           set -euo pipefail
