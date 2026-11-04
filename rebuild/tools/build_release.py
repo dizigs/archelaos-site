@@ -593,8 +593,7 @@ def make_release() -> None:
         "\n/news.json\n  Cache-Control: no-store\n"
         "\n/hall-of-fame-people.json\n  Cache-Control: no-store\n"
         "\n/images/*\n  Cache-Control: public, max-age=604800\n"
-        "\n/calendar.ics\n  Cache-Control: public, max-age=0, must-revalidate\n"
-        "\n/calendar/training/*\n  Content-Type: text/calendar; charset=utf-8\n  Cache-Control: no-store, max-age=0\n",
+
         encoding="utf-8"
     )
     (OUTPUT / "site.webmanifest").write_text(js_data({
