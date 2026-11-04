@@ -186,3 +186,55 @@ test('new browser-only verification reads real synthetic project metadata/conten
   assert.ok(seen.every(x => x.redirect === 'manual' && x.bearer === 'Bearer synthetic-initial-private-access-token'));
   assert.equal(f.state.updates, 0);
 });
+
+test('realistic offline four-file encrypted backup verifies readback without Google PUT', async t => {
+  const f = await loginFixture(t);
+  const grant = await f.callback();
+  const session = grant.cookie.split(';')[0];
+  const googleCalls = [];
+  const fetchGoogle = async (url, init) => {
+    if (url.startsWith('https://script.googleapis.com/v1/projects/')) {
+      googleCalls.push({ url, method: init.method });
+      if (url.endsWith('/content')) return Response.json({ scriptId: projectId, files: f.state.files });
+      return Response.json({ scriptId: projectId, title: projectTitle });
+    }
+    return f.fetchGoogle(url, init);
+  };
+  const handler = configureExistingBridgeScripts({
+    env: {
+      GOOGLE_CLIENT_ID: f.config.clientId, GOOGLE_CLIENT_SECRET: f.config.clientSecret,
+      OAUTH_STATE_SECRET: 'synthetic-private-storage-key-'.repeat(3),
+      APPS_SCRIPT_PROJECT_ID: projectId, APPS_SCRIPT_PROJECT_TITLE: projectTitle,
+      APPS_SCRIPT_ADMIN_EMAIL: admin
+    }, storage: f.storage, fetchGoogle, now: () => f.state.clock
+  });
+  const origin = f.config.origin;
+  const page = await handler(new Request(origin + '/api/apps-script/private-backup', {headers:{cookie:session}}));
+  assert.equal(page.status, 200, await page.clone().text());
+  assert.equal(f.db.prepare('SELECT COUNT(*) AS n FROM script_private_blobs').get().n, 0);
+  const cookie = page.headers.get('set-cookie').split(';')[0];
+  const nonce = cookie.slice(cookie.indexOf('=') + 1);
+  const body = 'confirmation=' + nonce;
+  const post = () => handler(new Request(origin + '/api/apps-script/private-backup', {
+    method:'POST', headers: {
+      cookie:session+'; '+cookie, origin, 'sec-fetch-site':'same-origin',
+      'content-type':'application/x-www-form-urlencoded'
+    }, body
+  }));
+  const result = await post();
+  assert.equal(result.status, 200, await result.clone().text());
+  const publicSummary = await result.json();
+  assert.deepEqual(publicSummary, {status:'PRIVATE_BACKUP_VERIFIED',fileCount:5,encrypted:true,readbackVerified:true});
+  const stored = f.db.prepare('SELECT id,cipher FROM script_private_blobs').get();
+  assert.ok(stored && !stored.cipher.includes('PRIVATE_SYNTHETIC_SOURCE'));
+  const copy = await cipher().open(stored.cipher, 'script-backup:' + projectId + ':' + stored.id);
+  assert.deepEqual(copy.content.files, f.state.files);
+  assert.equal(copy.files.length, 5);
+  assert.equal(f.state.updates, 0);
+  assert.equal(googleCalls.length, 2);
+  assert.ok(googleCalls.every(call => call.method === 'GET'));
+  assert.equal((await post()).status, 409);
+  assert.equal(f.db.prepare('SELECT COUNT(*) AS n FROM script_private_blobs').get().n, 1);
+  const locked = await handler(new Request(origin + '/api/apps-script/content', {headers:{cookie:session}}));
+  assert.equal(locked.status, 503);
+});
