@@ -38,14 +38,16 @@ export async function handleUptimeMonitor(request,env){
  const status=url.pathname.endsWith('/status');if(request.method!==(status?'GET':'POST'))return out('METHOD_NOT_ALLOWED',405);
  if(!env?.UPTIMEROBOT_MAIN_API_KEY||!env?.UPTIMEROBOT_OPERATOR_TOKEN)return out('UPTIME_NOT_CONFIGURED',503);
  if(!(await equalSecret(request.headers.get('authorization'),env.UPTIMEROBOT_OPERATOR_TOKEN)))return out('UNAUTHORIZED',401);
- try{
-  const all=await inventory(env);
-  const matches=TARGETS.map(([label,target])=>({label,target,found:all.filter(m=>canon(m.url)===canon(target))}));
-  if(status)return out('UPTIME_STATUS',200,{monitorCount:all.length,targets:matches.map(m=>({label:m.label,url:m.target,found:m.found.length,ids:m.found.map(x=>x.id),statuses:m.found.map(x=>x.status)}))});
+ if(!status){
   if(Number(request.headers.get('content-length')||0)>128)return out('INVALID_REQUEST',413);
   const input=await request.text();if(input.length>128)return out('INVALID_REQUEST',413);
   let parsed;try{parsed=JSON.parse(input)}catch{return out('INVALID_REQUEST',400)}
   if(parsed?.scope!=='core-v1'||Object.keys(parsed).length!==1)return out('INVALID_SCOPE',400);
+ }
+ try{
+  const all=await inventory(env);
+  const matches=TARGETS.map(([label,target])=>({label,target,found:all.filter(m=>canon(m.url)===canon(target))}));
+  if(status)return out('UPTIME_STATUS',200,{monitorCount:all.length,targets:matches.map(m=>({label:m.label,url:m.target,found:m.found.length,ids:m.found.map(x=>x.id),statuses:m.found.map(x=>x.status)}))});
   if(matches.some(m=>m.found.length>1))return out('DUPLICATE_EXISTING_MONITORS',409,{duplicates:matches.filter(m=>m.found.length>1).map(m=>m.target)});
   const missing=matches.filter(m=>!m.found.length);
   if(all.length+missing.length>50)return out('MONITOR_PLAN_CAPACITY',409,{existing:all.length,needed:missing.length});
