@@ -53,7 +53,7 @@ export async function handleUptimeMonitor(request,env){
   if(all.length+missing.length>50)return out('MONITOR_PLAN_CAPACITY',409,{existing:all.length,needed:missing.length});
   if(!missing.length)return out('UPTIME_ALREADY_CONFIGURED',200,{created:[],existing:matches.map(m=>m.target)});
   const contacts=items(await remote(env,'/user/alert-contacts'));
-  const contact=contacts.find(c=>String(c?.type).toLowerCase()==='email'&&String(c?.status||'active').toLowerCase()==='active'&&Number.isSafeInteger(Number(c?.id))&&Number(c?.id)>0);
+  const contact=contacts.find(c=>String(c?.type).toLowerCase()==='email'&&String(c?.status).toLowerCase()==='active'&&Number.isSafeInteger(Number(c?.id))&&Number(c?.id)>0);
   if(!contact)return out('NO_ACTIVE_EMAIL_ALERT_CONTACT',409,{needed:missing.length});
   const created=[];
   for(const item of missing){
