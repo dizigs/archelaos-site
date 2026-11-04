@@ -2,6 +2,22 @@ import { boundedJson, ScriptFault } from './security.mjs';
 const headers = { 'cache-control': 'no-store', 'x-content-type-options': 'nosniff', 'referrer-policy': 'no-referrer' };
 const json = (data, status = 200) => Response.json(data, { status, headers });
 
+// Chat and email links may attach harmless marketing parameters. They must
+// never become input to authorization or Google API calls. Only the read-only
+// verification route tolerates a small, strictly bounded tracking allowlist.
+function allowedVerificationTracking(url) {
+  if (!url.search) return true;
+  if (url.search.length > 320) return false;
+  const entries = [...url.searchParams];
+  if (entries.length < 1 || entries.length > 5) return false;
+  const seen = new Set();
+  return entries.every(([key, value]) => {
+    if (!/^utm_(?:source|medium|campaign|content|term)$/.test(key) || seen.has(key) || !/^[A-Za-z0-9._-]{1,128}$/.test(value)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
 // Mount inside the EXISTING Worker. Returning null delegates every original
 // route untouched. No second Worker or unauthenticated edit endpoint is made.
 export function isAppsScriptRequest(request) {
@@ -30,7 +46,7 @@ export function appsScriptExtension({ oauth, authenticateExecutor, editorFor, ve
       // A verified browser session may read only a sanitized project status. It
       // NEVER grants access to editor operations or returns Google source/tokens.
       if (request.method === 'GET' && url.pathname === '/api/apps-script/verify') {
-        if (url.search) throw new ScriptFault('UNSUPPORTED_SCRIPT_QUERY', 404);
+        if (!allowedVerificationTracking(url)) throw new ScriptFault('UNSUPPORTED_SCRIPT_QUERY', 404);
         if (typeof oauth?.access !== 'function' || typeof verifyReadOnly !== 'function') throw new ScriptFault('PRIVATE_READ_VERIFIER_UNCONFIGURED', 503);
         return json(await verifyReadOnly(await oauth.access(request.headers.get('cookie'))));
       }
