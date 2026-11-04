@@ -123,3 +123,33 @@ test('operator SQL task rejects expired work without retries or Google operation
   assert.equal(f.db.prepare('SELECT status FROM script_operator_probes WHERE id=?').get(id).status, 'REJECTED');
   assert.equal(f.db.prepare('SELECT COUNT(*) AS n FROM script_operations').get().n, 0);
 });
+
+test('GitHub OIDC read-only run accepted once, replay blocked, Google edits stay disabled', async t => {
+  const f = fixture(t);
+  const obj = new MuseumScriptCoordinator({ storage: f.storage }, {}, {
+    verifyGithubIdentity: async () => ({
+      runKey: '1234567:1', tokenHash: 'a'.repeat(64), sourceCommit: 'b'.repeat(40)
+    })
+  });
+  f.storage.sql.exec('INSERT INTO script_admin_grants(actor,session) VALUES(?,?)', 'a', 'b');
+  f.storage.sql.exec('INSERT INTO script_private_blobs(id,cipher) VALUES(?,?)', crypto.randomUUID(), 'test-cipher');
+  f.store.audit(crypto.randomUUID(), 'BROWSER_ENCRYPTED_BACKUP_VERIFIED');
+  const request = () => new Request('https://archelaos-automation-bridge.example/api/apps-script/github-oidc-probe', {
+    method:'POST', headers:{ authorization:'Bearer ' + 'x'.repeat(210) }
+  });
+  const first = await obj.fetch(request());
+  assert.equal(first.status, 200);
+  const data = await first.json();
+  assert.equal(data.status, 'GITHUB_OIDC_READONLY_PROBE_VERIFIED');
+  assert.equal(data.googleEditsPerformed, false);
+  assert.equal(data.editorEnabled, false);
+  assert.equal(data.encryptedBackupPresent, true);
+  assert.equal(f.state.updates, 0);
+  assert.equal(f.db.prepare('SELECT COUNT(*) AS n FROM script_operations').get().n, 0);
+  assert.equal(f.db.prepare('SELECT COUNT(*) AS n FROM script_signed_probes').get().n, 1);
+  const again = await obj.fetch(request());
+  assert.equal(again.status, 409);
+  assert.deepEqual(await again.json(), { code:'GITHUB_OIDC_RUN_ALREADY_CONSUMED' });
+  const notSigned = await obj.fetch(new Request('https://archelaos-automation-bridge.example/api/apps-script/github-oidc-probe', { method:'POST' }));
+  assert.equal(notSigned.status, 401);
+});
