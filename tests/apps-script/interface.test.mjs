@@ -98,10 +98,26 @@ test('browser-confirmed encrypted backup requires Admin session, same-origin POS
     method: 'POST', headers: { cookie: session + '; ' + csrf, origin, 'sec-fetch-site':'same-origin',
       'content-type': 'application/x-www-form-urlencoded', ...h }, body: data
   }));
+  // Missing Origin is permitted only with an explicit same-origin Fetch
+  // Metadata header (some privacy-protecting browsers omit Origin).
+  assert.equal((await post({origin:'null'})).status, 403);
+  assert.equal((await post({'sec-fetch-site':'cross-site'})).status, 403);
+  const originlessHeaders = new Headers({
+    cookie: session + '; ' + csrf, 'sec-fetch-site': 'same-origin',
+    'content-type': 'application/x-www-form-urlencoded'
+  });
+  const missingMetadataHeaders = new Headers({
+    cookie: session + '; ' + csrf,
+    'content-type': 'application/x-www-form-urlencoded'
+  });
+  const formUrl = origin + '/api/apps-script/private-backup';
+  const submit = async headers => route(new Request(formUrl, { method:'POST', headers, body }));
+  assert.equal((await submit(missingMetadataHeaders)).status, 403);
+  assert.equal((await submit(new Headers({ ...Object.fromEntries(originlessHeaders), 'sec-fetch-site': 'cross-site' }))).status, 403);
   const rejected = await post({origin:'https://example.invalid'});
   assert.equal(rejected.status, 403);
   assert.equal(created, 0);
-  const accepted = await post();
+  const accepted = await submit(originlessHeaders);
   assert.equal(accepted.status, 200, await accepted.clone().text());
   assert.equal((await accepted.json()).status, 'PRIVATE_BACKUP_VERIFIED');
   assert.equal(created, 1);
