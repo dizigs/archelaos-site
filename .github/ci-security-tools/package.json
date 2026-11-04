@@ -12,5 +12,8 @@
     "axe-core": "4.14.0",
     "playwright": "1.58.0",
     "sitespeed.io": "42.10.0"
+  },
+  "overrides": {
+    "tar": "7.5.22"
   }
 }
