@@ -45,7 +45,7 @@ test('auth and missing operator key fail closed before UptimeRobot',async()=>{
  assert.equal(calls,0);
 });
 test('ensure creates only missing fixed targets with GET/2xx and configured email',async()=>{
- const existing={id:42,url:targetUrls[0],status:'UP',apiKey:'sensitive-never-return'};
+ const existing={id:42,url:targetUrls[0],status:'UP',type:'HTTP',interval:300,httpMethodType:'GET',successHttpResponseCodes:['2xx'],assignedAlertContacts:[{alertContactId:5}],apiKey:'sensitive-never-return'};
  let creates=0;
  globalThis.fetch=async(url,options)=>{
   if(url.includes('/monitors?'))return Response.json({nextLink:null,data:[existing]});
@@ -111,4 +111,56 @@ test('pagination, malformed provider response, and duplicate entries fail safely
 test('unrelated Worker route is untouched',async()=>{
  globalThis.fetch=async()=>{throw Error('SHOULD_NOT_CALL')};
  assert.equal(await handleUptimeMonitor(new Request('https://worker.example/health'),env),null);
+});
+
+test('invalid scope and oversized input stop before any provider call',async()=>{
+ let calls=0;
+ globalThis.fetch=async()=>{calls++;throw Error('NO_REMOTE_ALLOWED')};
+ assert.equal((await handleUptimeMonitor(req('ensure','POST',{scope:'wrong'}),env)).status,400);
+ const huge=new Request('https://worker.example/api/uptimerobot/ensure',{
+  method:'POST',headers:{authorization:'Bearer '+token},body:'x'.repeat(200)
+ });
+ assert.equal((await handleUptimeMonitor(huge,env)).status,413);
+ assert.equal(calls,0);
+});
+test('monitor settings drift blocks writes without mutating existing records',async()=>{
+ let writes=0;
+ globalThis.fetch=async(url,options)=>{
+  if(url.includes('/monitors?'))return Response.json({data:[{id:2,url:targetUrls[0],type:'HTTP',status:'UP',interval:60,httpMethodType:'HEAD',successHttpResponseCodes:['2xx','3xx'],assignedAlertContacts:[]}],nextLink:null});
+  if(url.endsWith('/user/alert-contacts'))return Response.json({data:[{id:5,type:'email',status:'active'}]});
+  if(options?.method==='POST')writes++;
+  throw Error('UNEXPECTED');
+ };
+ const res=await handleUptimeMonitor(req('ensure','POST',{scope:'core-v1'}),env);
+ assert.equal(res.status,409);
+ assert.equal((await res.json()).code,'EXISTING_MONITOR_DRIFT');
+ assert.equal(writes,0);
+});
+test('unverified email and missing created ID fail safely',async()=>{
+ let created=0;
+ globalThis.fetch=async(url,options)=>{
+  if(url.includes('/monitors?'))return Response.json({data:[],nextLink:null});
+  if(url.endsWith('/user/alert-contacts'))return Response.json({data:[{id:5,type:'email'}]});
+  if(options?.method==='POST')created++;
+  throw Error('UNEXPECTED');
+ };
+ const unverified=await handleUptimeMonitor(req('ensure','POST',{scope:'core-v1'}),env);
+ assert.equal(unverified.status,409);
+ assert.equal(created,0);
+ globalThis.fetch=async(url,options)=>{
+  if(url.includes('/monitors?'))return Response.json({data:[],nextLink:null});
+  if(url.endsWith('/user/alert-contacts'))return Response.json({data:[{id:5,type:'email',status:'active'}]});
+  if(url.endsWith('/monitors')&&options.method==='POST'){created++;return Response.json({unexpected:true},{status:201})}
+  throw Error('UNEXPECTED');
+ };
+ const missingId=await handleUptimeMonitor(req('ensure','POST',{scope:'core-v1'}),env);
+ assert.equal(missingId.status,502);
+ assert.equal((await missingId.json()).code,'UPTIME_INVALID_CREATE_RESPONSE');
+ assert.equal(created,1);
+});
+test('provider body exceeding 200 KB is discarded before JSON parse',async()=>{
+ globalThis.fetch=async()=>new Response('x'.repeat(200100),{status:200});
+ const res=await handleUptimeMonitor(req('status'),env);
+ assert.equal(res.status,502);
+ assert.equal((await res.json()).code,'UPTIME_TOO_LARGE');
 });
