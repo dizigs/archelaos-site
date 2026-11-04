@@ -1,0 +1,66 @@
+name: Historical archive metadata and Greek OCR (review only)
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'rebuild/research/historical-source-ledger.json'
+      - 'rebuild/tools/historical_discovery.py'
+      - 'rebuild/tools/historical_ocr.py'
+      - 'rebuild/tests/historical_research_test.py'
+      - '.github/workflows/historical-archive-research.yml'
+  workflow_dispatch:
+    inputs:
+      provider:
+        description: 'Public metadata provider; ocr-test runs only synthetic Greek OCR'
+        type: choice
+        required: true
+        default: ocr-test
+        options: [ocr-test, books, archive]
+      query:
+        description: 'Public metadata query must contain Αρχέλαος / Archelaos'
+        type: string
+        required: false
+        default: 'Αρχέλαος Κατερίνης'
+permissions:
+  contents: read
+concurrency:
+  group: historical-archive-review
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+      - name: Validate historical source IDs and offline API fixtures
+        run: |
+          python rebuild/tools/historical_discovery.py --check-registry
+          python -m unittest discover -s rebuild/tests -p historical_research_test.py -v
+      - name: Install Tesseract and official modern Greek training data
+        run: |
+          sudo apt-get update -qq
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends tesseract-ocr tesseract-ocr-ell fonts-dejavu-core
+          python -m pip install --only-binary=:all: pillow==13.0.0
+          tesseract --list-langs | grep -qx 'ell'
+      - name: Real OCR integration smoke on newly generated synthetic Greek scan
+        run: python rebuild/tools/historical_ocr.py --self-test
+      - name: Search approved public historical metadata only on manual dispatch
+        if: github.event_name == 'workflow_dispatch' && inputs.provider != 'ocr-test'
+        env:
+          HIST_PROVIDER: ${{ inputs.provider }}
+          HIST_QUERY: ${{ inputs.query }}
+        run: |
+          python rebuild/tools/historical_discovery.py --provider "$HIST_PROVIDER" --query "$HIST_QUERY" --max-results 10
+      - name: Preserve review-only metadata candidates (no full scans or OCR text)
+        if: github.event_name == 'workflow_dispatch' && inputs.provider != 'ocr-test'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: historical-metadata-review
+          path: rebuild/test-artifacts/historical-search-review.json
+          retention-days: 14
+          if-no-files-found: warn
