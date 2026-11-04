@@ -56,5 +56,17 @@
     "file": ".github/workflows/google-analytics-aggregate.yml",
     "rule": "excessive-permissions",
     "scope": "workflow-level id-token: write"
+  },
+  "currentHostedCi": {
+    "head": "7a65a37e1a818d2a322d44f48e38be2727980cd4",
+    "run": 41747627876,
+    "dependencyReviewCheckId": 126304501389,
+    "dependencyReview": "failure: dependency graph unavailable",
+    "zizmorCheckId": 126304500984,
+    "zizmor": "failure: owned PR67 workflow-level id-token write",
+    "actionlintCheckId": 126304500677,
+    "actionlint": "success",
+    "sonarCheckId": 126304703123,
+    "sonar": "success"
   }
 }

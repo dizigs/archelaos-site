@@ -3,542 +3,6 @@
   "offlineOnly": true,
   "scanner": "zizmor1.32.0",
   "persona": "auditor",
-  "findings": [
-    {
-      "rule": "concurrency-limits",
-      "severity": "Low",
-      "confidence": "High",
-      "path": ".github/workflows/actionlint-guard.yml"
-    },
-    {
-      "rule": "artipacked",
-      "severity": "Medium",
-      "confidence": "Low",
-      "path": ".github/workflows/archive-news-images.yml"
-    },
-    {
-      "rule": "undocumented-permissions",
-      "severity": "Low",
-      "confidence": "High",
-      "path": ".github/workflows/archive-news-images.yml"
-    },
-    {
-      "rule": "anonymous-definition",
-      "severity": "Informational",
-      "confidence": "High",
-      "path": ".github/workflows/archive-news-images.yml"
-    },
-    {
-      "rule": "undocumented-permissions",
-      "severity": "Low",
-      "confidence": "High",
-      "path": ".github/workflows/automation-health.yml"
-    },
-    {
-      "rule": "anonymous-definition",
-      "severity": "Informational",
-      "confidence": "High",
-      "path": ".github/workflows/automation-health.yml"
-    },
-    {
-      "rule": "anonymous-definition",
-      "severity": "Informational",
-      "confidence": "High",
-      "path": ".github/workflows/axe-accessibility.yml"
-    },
-    {
-      "rule": "concurrency-limits",
-      "severity": "Low",
-      "confidence": "High",
-      "path": ".github/workflows/axe-accessibility.yml"
-    },
-    {
-      "rule": "adhoc-packages",
-      "severity": "Low",
-      "confidence": "High",
-      "path": ".github/workflows/axe-accessibility.yml"
-    },
-    {
-      "rule": "anonymous-definition",
-      "severity": "Informational",
-      "confidence": "High",
-      "path": ".github/workflows/canonical-root-recovery.yml"
-    },
-    {
-      "rule": "concurrency-limits",
-      "severity": "Low",
-      "confidence": "High",
-      "path": ".github/workflows/canonical-root-recovery.yml"
-    },
-    {
-      "rule": "anonymous-definition",
-      "severity": "Informational",
-      "confidence": "High",
-      "path": ".github/workflows/clarity-daily-export.yml"
-    },
-    {
-      "rule": "concurrency-limits",
-      "severity": "Low",
-      "confidence": "High",
-      "path": ".github/workflows/clarity-daily-export.yml"
-    },
-    {
-      "rule": "secrets-outside-env",
-      "severity": "Medium",
-      "confidence": "High",
-      "path": ".github/workflows/clarity-daily-export.yml"
-    },
-    {
-      "rule": "anonymous-definition",
-      "severity": "Informational",
-      "confidence": "High",
-      "path": ".github/workflows/cloudflare-pages-status.yml"
-    },
-    {
-      "rule": "anonymous-definition",
-      "severity": "Informational",
-      "confidence": "High",
-      "path": ".github/workflows/cloudflare-pages-status.yml"
-    },
-    {
-      "rule": "anonymous-definition",
-      "severity": "Informational",
-      "confidence": "High",
-      "path": ".github/workflows/contribution-research-tests.yml"
-    },
-    {
-      "rule": "concurrency-limits",
-      "severity": "Low",
-      "confidence": "High",
-      "path": ".github/workflows/contribution-research-tests.yml"
-    },
-    {
-      "rule": "concurrency-limits",
-      "severity": "Low",
-      "confidence": "High",
-      "path": ".github/workflows/eslint-guard.yml"
-    },
-    {
-      "rule": "adhoc-packages",
-      "severity": "Low",
-      "confidence": "High",
-      "path": ".github/workflows/eslint-guard.yml"
-    },
-    {
-      "rule": "anonymous-definition",
-      "severity": "Informational",
-      "confidence": "High",
-      "path": ".github/workflows/free-actions-audit.yml"
-    },
-    {
-      "rule": "anonymous-definition",
-      "severity": "Informational",
-      "confidence": "High",
-      "path": ".github/workflows/free-actions-audit.yml"
-    },
-    {
-      "rule": "anonymous-definition",
-      "severity": "Informational",
-      "confidence": "High",
-      "path": ".github/workflows/free-actions-audit.yml"
-    },
-    {
-      "rule": "concurrency-limits",
-      "severity": "Low",
-      "confidence": "High",
-      "path": ".github/workflows/free-actions-audit.yml"
-    },
-    {
-      "rule": "excessive-permissions",
-      "severity": "High",
-      "confidence": "High",
-      "path": ".github/workflows/google-analytics-aggregate.yml"
-    },
-    {
-      "rule": "undocumented-permissions",
-      "severity": "Low",
-      "confidence": "High",
-      "path": ".github/workflows/google-analytics-aggregate.yml"
-    },
-    {
-      "rule": "anonymous-definition",
-      "severity": "Informational",
-      "confidence": "High",
-      "path": ".github/workflows/google-analytics-aggregate.yml"
-    },
-    {
-      "rule": "concurrency-limits",
-      "severity": "Low",
-      "confidence": "High",
-      "path": ".github/workflows/google-analytics-aggregate.yml"
-    },
-    {
-      "rule": "anonymous-definition",
-      "severity": "Informational",
-      "confidence": "High",
-      "path": ".github/workflows/hof-name-audit.yml"
-    },
-    {
-      "rule": "concurrency-limits",
-      "severity": "Low",
-      "confidence": "High",
-      "path": ".github/workflows/hof-name-audit.yml"
-    },
-    {
-      "rule": "undocumented-permissions",
-      "severity": "Low",
-      "confidence": "High",
-      "path": ".github/workflows/imgbot-safety.yml"
-    },
-    {
-      "rule": "concurrency-limits",
-      "severity": "Low",
-      "confidence": "High",
-      "path": ".github/workflows/imgbot-safety.yml"
-    },
-    {
-      "rule": "concurrency-limits",
-      "severity": "Low",
-      "confidence": "High",
-      "path": ".github/workflows/javascript-syntax-guard.yml"
-    },
-    {
-      "rule": "secrets-outside-env",
-      "severity": "Medium",
-      "confidence": "High",
-      "path": ".github/workflows/lighthouse-ci.yml"
-    },
-    {
-      "rule": "secrets-outside-env",
-      "severity": "Medium",
-      "confidence": "High",
-      "path": ".github/workflows/lighthouse-ci.yml"
-    },
-    {
-      "rule": "adhoc-packages",
-      "severity": "Low",
-      "confidence": "High",
-      "path": ".github/workflows/lighthouse-ci.yml"
-    },
-    {
-      "rule": "anonymous-definition",
-      "severity": "Informational",
-      "confidence": "High",
-      "path": ".github/workflows/live-health.yml"
-    },
-    {
-      "rule": "template-injection",
-      "severity": "Low",
-      "confidence": "High",
-      "path": ".github/workflows/live-site-guard.yml"
-    },
-    {
-      "rule": "template-injection",
-      "severity": "Low",
-      "confidence": "High",
-      "path": ".github/workflows/live-site-guard.yml"
-    },
-    {
-      "rule": "template-injection",
-      "severity": "Low",
-      "confidence": "High",
-      "path": ".github/workflows/live-site-guard.yml"
-    },
-    {
-      "rule": "template-injection",
-      "severity": "Low",
-      "confidence": "High",
-      "path": ".github/workflows/live-site-guard.yml"
-    },
-    {
-      "rule": "template-injection",
-      "severity": "Low",
-      "confidence": "High",
-      "path": ".github/workflows/live-site-guard.yml"
-    },
-    {
-      "rule": "template-injection",
-      "severity": "Low",
-      "confidence": "High",
-      "path": ".github/workflows/live-site-guard.yml"
-    },
-    {
-      "rule": "undocumented-permissions",
-      "severity": "Low",
-      "confidence": "High",
-      "path": ".github/workflows/live-site-guard.yml"
-    },
-    {
-      "rule": "anonymous-definition",
-      "severity": "Informational",
-      "confidence": "High",
-      "path": ".github/workflows/live-site-guard.yml"
-    },
-    {
-      "rule": "concurrency-limits",
-      "severity": "Low",
-      "confidence": "High",
-      "path": ".github/workflows/live-site-guard.yml"
-    },
-    {
-      "rule": "adhoc-packages",
-      "severity": "Low",
-      "confidence": "High",
-      "path": ".github/workflows/live-site-guard.yml"
-    },
-    {
-      "rule": "undocumented-permissions",
-      "severity": "Low",
-      "confidence": "High",
-      "path": ".github/workflows/news-event-ledger.yml"
-    },
-    {
-      "rule": "anonymous-definition",
-      "severity": "Informational",
-      "confidence": "High",
-      "path": ".github/workflows/news-event-ledger.yml"
-    },
-    {
-      "rule": "concurrency-limits",
-      "severity": "Low",
-      "confidence": "High",
-      "path": ".github/workflows/news-event-ledger.yml"
-    },
-    {
-      "rule": "anonymous-definition",
-      "severity": "Informational",
-      "confidence": "High",
-      "path": ".github/workflows/p0-cli-security.yml"
-    },
-    {
-      "rule": "concurrency-limits",
-      "severity": "Low",
-      "confidence": "High",
-      "path": ".github/workflows/p0-cli-security.yml"
-    },
-    {
-      "rule": "artipacked",
-      "severity": "Medium",
-      "confidence": "Low",
-      "path": ".github/workflows/pr-permission-smoke.yml"
-    },
-    {
-      "rule": "undocumented-permissions",
-      "severity": "Low",
-      "confidence": "High",
-      "path": ".github/workflows/pr-permission-smoke.yml"
-    },
-    {
-      "rule": "anonymous-definition",
-      "severity": "Informational",
-      "confidence": "High",
-      "path": ".github/workflows/pr-permission-smoke.yml"
-    },
-    {
-      "rule": "concurrency-limits",
-      "severity": "Low",
-      "confidence": "High",
-      "path": ".github/workflows/pr-permission-smoke.yml"
-    },
-    {
-      "rule": "concurrency-limits",
-      "severity": "Low",
-      "confidence": "High",
-      "path": ".github/workflows/private-intake-tests.yml"
-    },
-    {
-      "rule": "anonymous-definition",
-      "severity": "Informational",
-      "confidence": "High",
-      "path": ".github/workflows/public-mentions.yml"
-    },
-    {
-      "rule": "undocumented-permissions",
-      "severity": "Low",
-      "confidence": "High",
-      "path": ".github/workflows/public-restore-audit.yml"
-    },
-    {
-      "rule": "anonymous-definition",
-      "severity": "Informational",
-      "confidence": "High",
-      "path": ".github/workflows/public-restore-audit.yml"
-    },
-    {
-      "rule": "anonymous-definition",
-      "severity": "Informational",
-      "confidence": "High",
-      "path": ".github/workflows/public-restore-audit.yml"
-    },
-    {
-      "rule": "concurrency-limits",
-      "severity": "Low",
-      "confidence": "High",
-      "path": ".github/workflows/public-restore-audit.yml"
-    },
-    {
-      "rule": "adhoc-packages",
-      "severity": "Low",
-      "confidence": "High",
-      "path": ".github/workflows/rebuild-check.yml"
-    },
-    {
-      "rule": "self-repository",
-      "severity": "Low",
-      "confidence": "High",
-      "path": ".github/workflows/rebuild-check.yml"
-    },
-    {
-      "rule": "anonymous-definition",
-      "severity": "Informational",
-      "confidence": "High",
-      "path": ".github/workflows/release-integrity.yml"
-    },
-    {
-      "rule": "concurrency-limits",
-      "severity": "Low",
-      "confidence": "High",
-      "path": ".github/workflows/release-integrity.yml"
-    },
-    {
-      "rule": "anonymous-definition",
-      "severity": "Informational",
-      "confidence": "High",
-      "path": ".github/workflows/scorecard-free.yml"
-    },
-    {
-      "rule": "concurrency-limits",
-      "severity": "Low",
-      "confidence": "High",
-      "path": ".github/workflows/scorecard-free.yml"
-    },
-    {
-      "rule": "anonymous-definition",
-      "severity": "Informational",
-      "confidence": "High",
-      "path": ".github/workflows/site-stability-regressions.yml"
-    },
-    {
-      "rule": "undocumented-permissions",
-      "severity": "Low",
-      "confidence": "High",
-      "path": ".github/workflows/site-watch-and-repair.yml"
-    },
-    {
-      "rule": "undocumented-permissions",
-      "severity": "Low",
-      "confidence": "High",
-      "path": ".github/workflows/site-watch-and-repair.yml"
-    },
-    {
-      "rule": "anonymous-definition",
-      "severity": "Informational",
-      "confidence": "High",
-      "path": ".github/workflows/site-watch-and-repair.yml"
-    },
-    {
-      "rule": "anonymous-definition",
-      "severity": "Informational",
-      "confidence": "High",
-      "path": ".github/workflows/site-watch-and-repair.yml"
-    },
-    {
-      "rule": "anonymous-definition",
-      "severity": "Informational",
-      "confidence": "High",
-      "path": ".github/workflows/site-watch-and-repair.yml"
-    },
-    {
-      "rule": "anonymous-definition",
-      "severity": "Informational",
-      "confidence": "High",
-      "path": ".github/workflows/sitespeed-free.yml"
-    },
-    {
-      "rule": "concurrency-limits",
-      "severity": "Low",
-      "confidence": "High",
-      "path": ".github/workflows/sitespeed-free.yml"
-    },
-    {
-      "rule": "adhoc-packages",
-      "severity": "Low",
-      "confidence": "High",
-      "path": ".github/workflows/sitespeed-free.yml"
-    },
-    {
-      "rule": "anonymous-definition",
-      "severity": "Informational",
-      "confidence": "High",
-      "path": ".github/workflows/sponsor-footer-regression.yml"
-    },
-    {
-      "rule": "concurrency-limits",
-      "severity": "Low",
-      "confidence": "High",
-      "path": ".github/workflows/sponsor-footer-regression.yml"
-    },
-    {
-      "rule": "undocumented-permissions",
-      "severity": "Low",
-      "confidence": "High",
-      "path": ".github/workflows/tracker-handoff.yml"
-    },
-    {
-      "rule": "anonymous-definition",
-      "severity": "Informational",
-      "confidence": "High",
-      "path": ".github/workflows/tracker-handoff.yml"
-    },
-    {
-      "rule": "anonymous-definition",
-      "severity": "Informational",
-      "confidence": "High",
-      "path": ".github/workflows/tracker-handoff.yml"
-    },
-    {
-      "rule": "anonymous-definition",
-      "severity": "Informational",
-      "confidence": "High",
-      "path": ".github/workflows/validate-site.yml"
-    },
-    {
-      "rule": "concurrency-limits",
-      "severity": "Low",
-      "confidence": "High",
-      "path": ".github/workflows/validate-site.yml"
-    },
-    {
-      "rule": "anonymous-definition",
-      "severity": "Informational",
-      "confidence": "High",
-      "path": ".github/workflows/visitor-experience.yml"
-    },
-    {
-      "rule": "concurrency-limits",
-      "severity": "Low",
-      "confidence": "High",
-      "path": ".github/workflows/visitor-experience.yml"
-    },
-    {
-      "rule": "adhoc-packages",
-      "severity": "Low",
-      "confidence": "High",
-      "path": ".github/workflows/visitor-experience.yml"
-    },
-    {
-      "rule": "anonymous-definition",
-      "severity": "Informational",
-      "confidence": "High",
-      "path": ".github/workflows/weekly-public-snapshot.yml"
-    },
-    {
-      "rule": "concurrency-limits",
-      "severity": "Low",
-      "confidence": "High",
-      "path": ".github/workflows/weekly-public-snapshot.yml"
-    }
-  ],
   "permissionScopeValidation": [
     {
       "workflow": "archive-news-images.yml",
@@ -590,5 +54,166 @@
       "workflowExecuted": false
     }
   ],
-  "newSuppressions": 0
+  "newSuppressions": 0,
+  "findingGroups": [
+    {
+      "rule": "concurrency-limits",
+      "severity": "Low",
+      "confidence": "High",
+      "count": 24,
+      "paths": [
+        ".github/workflows/actionlint-guard.yml",
+        ".github/workflows/axe-accessibility.yml",
+        ".github/workflows/canonical-root-recovery.yml",
+        ".github/workflows/clarity-daily-export.yml",
+        ".github/workflows/contribution-research-tests.yml",
+        ".github/workflows/eslint-guard.yml",
+        ".github/workflows/free-actions-audit.yml",
+        ".github/workflows/google-analytics-aggregate.yml",
+        ".github/workflows/hof-name-audit.yml",
+        ".github/workflows/imgbot-safety.yml",
+        ".github/workflows/javascript-syntax-guard.yml",
+        ".github/workflows/live-site-guard.yml",
+        ".github/workflows/news-event-ledger.yml",
+        ".github/workflows/p0-cli-security.yml",
+        ".github/workflows/pr-permission-smoke.yml",
+        ".github/workflows/private-intake-tests.yml",
+        ".github/workflows/public-restore-audit.yml",
+        ".github/workflows/release-integrity.yml",
+        ".github/workflows/scorecard-free.yml",
+        ".github/workflows/sitespeed-free.yml",
+        ".github/workflows/sponsor-footer-regression.yml",
+        ".github/workflows/validate-site.yml",
+        ".github/workflows/visitor-experience.yml",
+        ".github/workflows/weekly-public-snapshot.yml"
+      ]
+    },
+    {
+      "rule": "artipacked",
+      "severity": "Medium",
+      "confidence": "Low",
+      "count": 2,
+      "paths": [
+        ".github/workflows/archive-news-images.yml",
+        ".github/workflows/pr-permission-smoke.yml"
+      ]
+    },
+    {
+      "rule": "undocumented-permissions",
+      "severity": "Low",
+      "confidence": "High",
+      "count": 11,
+      "paths": [
+        ".github/workflows/archive-news-images.yml",
+        ".github/workflows/automation-health.yml",
+        ".github/workflows/google-analytics-aggregate.yml",
+        ".github/workflows/imgbot-safety.yml",
+        ".github/workflows/live-site-guard.yml",
+        ".github/workflows/news-event-ledger.yml",
+        ".github/workflows/pr-permission-smoke.yml",
+        ".github/workflows/public-restore-audit.yml",
+        ".github/workflows/site-watch-and-repair.yml",
+        ".github/workflows/tracker-handoff.yml"
+      ]
+    },
+    {
+      "rule": "anonymous-definition",
+      "severity": "Informational",
+      "confidence": "High",
+      "count": 34,
+      "paths": [
+        ".github/workflows/archive-news-images.yml",
+        ".github/workflows/automation-health.yml",
+        ".github/workflows/axe-accessibility.yml",
+        ".github/workflows/canonical-root-recovery.yml",
+        ".github/workflows/clarity-daily-export.yml",
+        ".github/workflows/cloudflare-pages-status.yml",
+        ".github/workflows/contribution-research-tests.yml",
+        ".github/workflows/free-actions-audit.yml",
+        ".github/workflows/google-analytics-aggregate.yml",
+        ".github/workflows/hof-name-audit.yml",
+        ".github/workflows/live-health.yml",
+        ".github/workflows/live-site-guard.yml",
+        ".github/workflows/news-event-ledger.yml",
+        ".github/workflows/p0-cli-security.yml",
+        ".github/workflows/pr-permission-smoke.yml",
+        ".github/workflows/public-mentions.yml",
+        ".github/workflows/public-restore-audit.yml",
+        ".github/workflows/release-integrity.yml",
+        ".github/workflows/scorecard-free.yml",
+        ".github/workflows/site-stability-regressions.yml",
+        ".github/workflows/site-watch-and-repair.yml",
+        ".github/workflows/sitespeed-free.yml",
+        ".github/workflows/sponsor-footer-regression.yml",
+        ".github/workflows/tracker-handoff.yml",
+        ".github/workflows/validate-site.yml",
+        ".github/workflows/visitor-experience.yml",
+        ".github/workflows/weekly-public-snapshot.yml"
+      ]
+    },
+    {
+      "rule": "adhoc-packages",
+      "severity": "Low",
+      "confidence": "High",
+      "count": 7,
+      "paths": [
+        ".github/workflows/axe-accessibility.yml",
+        ".github/workflows/eslint-guard.yml",
+        ".github/workflows/lighthouse-ci.yml",
+        ".github/workflows/live-site-guard.yml",
+        ".github/workflows/rebuild-check.yml",
+        ".github/workflows/sitespeed-free.yml",
+        ".github/workflows/visitor-experience.yml"
+      ]
+    },
+    {
+      "rule": "secrets-outside-env",
+      "severity": "Medium",
+      "confidence": "High",
+      "count": 3,
+      "paths": [
+        ".github/workflows/clarity-daily-export.yml",
+        ".github/workflows/lighthouse-ci.yml"
+      ]
+    },
+    {
+      "rule": "excessive-permissions",
+      "severity": "High",
+      "confidence": "High",
+      "count": 1,
+      "paths": [
+        ".github/workflows/google-analytics-aggregate.yml"
+      ]
+    },
+    {
+      "rule": "template-injection",
+      "severity": "Low",
+      "confidence": "High",
+      "count": 6,
+      "paths": [
+        ".github/workflows/live-site-guard.yml"
+      ]
+    },
+    {
+      "rule": "self-repository",
+      "severity": "Low",
+      "confidence": "High",
+      "count": 1,
+      "paths": [
+        ".github/workflows/rebuild-check.yml"
+      ]
+    }
+  ],
+  "totalFindings": 89,
+  "hostedCi": {
+    "head": "7a65a37e1a818d2a322d44f48e38be2727980cd4",
+    "run": 41747627876,
+    "zizmorCheckId": 126304500984,
+    "result": "failure",
+    "exactHighAnnotation": "google-analytics-aggregate.yml:8: overly broad permissions: id-token: write is overly broad at the workflow level",
+    "sourceOwnerPr": 67,
+    "actionlintCheckId": 126304500677,
+    "actionlint": "success",
+    "note": "Annotations can be quota-limited; total89 is the recorded actual local auditor scan, not an inferred hosted annotation count."
+  }
 }
