@@ -1,6 +1,7 @@
 import { DurableObject } from 'cloudflare:workers';
 import { Rejected, UUID, authenticate, boundedBody, digest, reply, route, validateEvent } from './contract.mjs';
 import { claimBudgetCall, reserveBudget, settleBudget } from './budget.mjs';
+import { readTaskIntent, storeTaskIntent } from './task_intents.mjs';
 
 const SCHEMA = [
   'CREATE TABLE IF NOT EXISTS jobs(id TEXT PRIMARY KEY,source TEXT NOT NULL,type TEXT NOT NULL,correlation TEXT NOT NULL,envelope TEXT NOT NULL,status TEXT NOT NULL,attempts INTEGER NOT NULL DEFAULT 0,due INTEGER NOT NULL,lease_until INTEGER NOT NULL DEFAULT 0,created INTEGER NOT NULL,updated INTEGER NOT NULL,route TEXT NOT NULL,code TEXT NOT NULL)',
@@ -14,6 +15,8 @@ const SCHEMA = [
   'CREATE TABLE IF NOT EXISTS ai_alerts(month TEXT NOT NULL,threshold INTEGER NOT NULL,PRIMARY KEY(month,threshold))'
   ,'CREATE TABLE IF NOT EXISTS controls(name TEXT PRIMARY KEY,value INTEGER NOT NULL)'
   ,'CREATE TABLE IF NOT EXISTS control_audit(at INTEGER NOT NULL,code TEXT NOT NULL,revision INTEGER NOT NULL,scope TEXT NOT NULL)'
+  ,'CREATE TABLE IF NOT EXISTS task_intents(id TEXT PRIMARY KEY,payload TEXT NOT NULL,created INTEGER NOT NULL,expires INTEGER NOT NULL)'
+  ,'CREATE TABLE IF NOT EXISTS task_intent_audit(id TEXT NOT NULL,at INTEGER NOT NULL,code TEXT NOT NULL)'
 ];
 
 export class BrainCoordinator extends DurableObject {
@@ -122,6 +125,15 @@ export class BrainCoordinator extends DurableObject {
         const row = [...this.sql.exec('SELECT envelope FROM jobs WHERE id=?', id)][0];
         return row ? reply(JSON.parse(row.envelope)) : reply({ code: 'NOT_FOUND' }, 404);
       }
+      if (url.pathname === '/internal/task-intents' && request.method === 'POST') {
+        let input; try { input = await request.json(); } catch { throw new Rejected('INVALID_JSON', 422); }
+        const result = this.ctx.storage.transactionSync(() => storeTaskIntent(this.sql, input));
+        return reply(result, result.duplicate ? 200 : 202);
+      }
+      if (request.method === 'GET' && url.pathname.startsWith('/internal/task-intents/')) {
+        const id = url.pathname.slice('/internal/task-intents/'.length);
+        return reply(readTaskIntent(this.sql, id));
+      }
       if (url.pathname === '/internal/control' && request.method === 'GET') return reply(this.controlState());
       if (url.pathname === '/internal/control' && request.method === 'POST') return await this.control(await request.json());
       if (this.env.TEST_BUDGET === 'true' && request.method === 'POST' && url.pathname === '/internal/testing/expire-lease') {
@@ -208,10 +220,23 @@ export default {
       const url = new URL(request.url);
       if (env.ENVIRONMENT !== 'staging' || !/^[0-9a-f]{40}$/.test(env.DEPLOY_SHA || '') || !Number.isFinite(Date.parse(env.STAGING_EXPIRES_AT)) || Date.now() >= Date.parse(env.STAGING_EXPIRES_AT)) throw new Rejected('STAGING_DISABLED_OR_EXPIRED', 503);
       if (request.method === 'GET' && url.pathname === '/healthz' && !url.search) return reply({ service: 'archelaos-brain', environment: 'staging', commit: env.DEPLOY_SHA, aiExecutionEnabled: false });
-      if (url.search || !((['GET', 'POST'].includes(request.method) && url.pathname === '/v1/control') || (request.method === 'POST' && url.pathname === '/v1/events') || (request.method === 'GET' && (url.pathname === '/v1/diagnostics' || UUID.test(url.pathname.slice('/v1/tasks/'.length)) && url.pathname.startsWith('/v1/tasks/'))))) throw new Rejected('NOT_FOUND', 404);
+      if (url.search || !((['GET', 'POST'].includes(request.method) && url.pathname === '/v1/control') ||
+        (request.method === 'POST' && ['/v1/events', '/v1/task-intents'].includes(url.pathname)) ||
+        (request.method === 'GET' && (url.pathname === '/v1/diagnostics' ||
+          (url.pathname.startsWith('/v1/tasks/') && UUID.test(url.pathname.slice('/v1/tasks/'.length))) ||
+          (url.pathname.startsWith('/v1/task-intents/') && UUID.test(url.pathname.slice('/v1/task-intents/'.length))))))) throw new Rejected('NOT_FOUND', 404);
       const raw = await boundedBody(request);
       const source = await authenticate(request, env, raw);
       const coordinator = env.BRAIN.get(env.BRAIN.idFromName('central-v1'));
+      if (url.pathname === '/v1/task-intents' || url.pathname.startsWith('/v1/task-intents/')) {
+        if (source !== 'operator') throw new Rejected('OPERATOR_SCOPE_REQUIRED', 403);
+        if (request.method === 'POST') {
+          if (!/^application\/json(?:;\s*charset=utf-8)?$/i.test(request.headers.get('content-type') || '')) throw new Rejected('JSON_REQUIRED', 415);
+          let input; try { input = JSON.parse(raw); } catch { throw new Rejected('INVALID_JSON', 422); }
+          return await coordinator.fetch('https://brain.internal/internal/task-intents', { method: 'POST', body: JSON.stringify(input) });
+        }
+        return await coordinator.fetch('https://brain.internal' + url.pathname.replace('/v1/', '/internal/'));
+      }
       if (url.pathname === '/v1/control') {
         if (source !== 'operator') throw new Rejected('OPERATOR_SCOPE_REQUIRED', 403);
         if (request.method === 'GET') return await coordinator.fetch('https://brain.internal/internal/control');

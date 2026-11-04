@@ -48,6 +48,22 @@ cannot accept work. A future authorized deployment must inject the exact source
 SHA, a bounded expiry, separate intake/operator keys and verified free-tier
 entitlement. This preparation does not create those credentials or resources.
 
+## Operator-only task intent ledger (no executor enabled)
+
+The `POST /v1/task-intents` and `GET /v1/task-intents/:id` staging routes
+require the distinct authenticated operator HMAC key. They store a canonical,
+immutable SQLite receipt for an issue #71/#108 brain task: UUID, exact 40-hex
+base commit, predefined review task type, bounded expiry and allowlisted
+`brain/**` paths (plus the existing brain CI workflow). Identical replays
+return the same receipt; conflicting reuse, other teams' paths, instructions,
+commands, URLs and extra fields fail closed. Maximum 250 retained intents.
+
+Every receipt remains `PENDING_MANUAL_REVIEW`. It **never** launches Codex,
+spends money, writes GitHub, changes a Worker or starts a schedule. The next
+stage needs an independently approved executor/dispatch contract and the
+same strict EUR20/month budget accounting. This is a synthetic, auditable
+handoff primitive rather than evidence of live AI execution.
+
 ## Implemented boundaries
 
 - Intake: strict4KiB envelope, HMAC-SHA256 over method/path/timestamp/raw body,
