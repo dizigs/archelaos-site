@@ -79,7 +79,7 @@ export class MuseumScriptCoordinator {
         return denied('SCRIPT_ROUTE_NOT_FOUND', 404);
       }
       const declaredLength = request.headers.get('content-length');
-      if (declaredLength !== null && (!/^\\d{1,3}$/.test(declaredLength) || Number(declaredLength) > 128)) {
+      if (declaredLength !== null && (!/^\d{1,3}$/.test(declaredLength) || Number(declaredLength) > 128)) {
         return denied('GITHUB_OIDC_BODY_NOT_ACCEPTED', 413);
       }
       try {
