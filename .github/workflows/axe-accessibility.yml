@@ -103,7 +103,7 @@ jobs:
           fs.writeFileSync(file,JSON.stringify(j,null,2)+'\n');
           console.log('Official metadata transitive upgrades:',replaced);
           NODE
-          npm install --package-lock-only --ignore-scripts --offline --no-audit --no-fund --prefix .github/ci-performance-tools
+          npm install --package-lock-only --ignore-scripts --no-audit --no-fund --prefix .github/ci-performance-tools
           node - <<'NODE'
           const fs=require('fs');
           const p=JSON.parse(fs.readFileSync('.github/ci-performance-tools/package-lock.json','utf8'));
