@@ -713,8 +713,30 @@ Observed commit: `c0cf3fbb690ef5d09bb290c7bf01c1295be96345`. Results below belon
 - NEXT: exact-head127CI then protected merge if all checks/threads/freshness pass; P0 toolbox tests6/fullhealth alreadyPASS in independent source worktree, high calendar/ingest reads next. Continue other independent ready PRs after each fresh-main check. Provider credentials/Sheet still absent; no unchanged denied calls, Google writes/trigger/scope/secret/billing or new Worker/scheduler.
 
 
+### P0 toolbox argument boundary / serial PR review — 2026-11-04T15:45:55.625780+00:00
+
+- Reviewed current main Sonar#66 evidence (c9ec56c snapshot33OPEN,3HIGH/17MEDIUM/13LOW), actual toolbox source and all14 open PR path ownership. No active PR owns toolbox/P0 workflow; new small security branch codex/p0-toolbox-argument-boundary is independent, not a duplicate. Full initial inventory/scope/frozen cases: docs/security/PR_COMPLETION_AUDIT.md.
+- REPRODUCED: five of six targeted boundary/dispatch tests failed before correction; option-like search text was reparsed as a downstream option (exit2). Existing subprocess used argv/no shell, so no claim of reproduced remote shell execution. Fixed approved-script allowlist via in-process runpy, named values as --option=value and positional -- delimiter; restores argv/import path/cwd on child exit/input error. No OS command runner or publication/apply endpoint added.
+- TESTED:6 security regressions PASS, full toolboxhealth (site/content/editorial/translations/media) PASS, Python compile/full actionlint/diff PASS. Existing P0 CI includes new suite, no new schedule. Docs/security/TOOLBOX_ARGUMENT_BOUNDARY.md details scope. Exact new-head hosted CI/Sonar PENDING; no claim mainA. Calendar/ingest input findings remain separate, not closed by this change.
+- MERGE128 VERIFIED: final3c962eb6f74373f462a285bbdd3a7ba5112eac9c, normal squashd8d07cc1b736e1b4a1ce16cf8420111e564b539b after16SUCCESS/2SKIPPED/0threads and strictfreshness. Current source branch updated to that main. Deployment NOT APPLICABLE to workflow-only scope reduction. #127 merge/conflict resolution/CI continues separately, preserving both logs; no other active implementation edits.
+- NOT DEPLOYED: no new Cloudflare/GAS/Ads/Gemini/service/scheduler/billing mutation or secret/scope changes. #124/#136 merged; staged default-off Worker at0% traffic per connected operator, real triggers/external-writer proofs stillblocked. #86 frozen. Sheet unavailable; #71 fallback and per-stage handoffs.
+
+
+### Verified security127 merge checkpoint — 2026-11-04T15:50:08.855323+00:00
+
+- PR127 final1e7b1899bab35d97df62cfedb1185feefc7be857 passed19SUCCESS/2SKIPPED/0FAIL/0PENDING; Dependency Review126682389353, Zizmor126682389479, Sonar126683007364 and GitGuardian126682362995 verified. Protected normal squash merge70e3c8c572632fe4c55c7ddaf1a11a4ec730ec27 independently confirmed. Dependency Graph supported by actual success; old blocked status not reused.
+- Deployment NOT APPLICABLE (CI-only), no Worker/GAS/service action. MainSonarA stillnotverified. Handed off71comment6635163866/PR127comment6635164412. P0toolbox140 updated against this exactnewmain; sole WORK_LOG append conflict preservedbothhistories, no source overwrite. Other active implementation ownership unchanged; next exact-head CI required.
+
+
 ### PR70 offline Ad Grants source review and main synchronization — 2026-11-04T16:13:28.903244+00:00
 
 - Reused existing codex/ad-grants-dry-run/PR70, no duplicate implementation or campaign. Compared all21original paths and owner boundaries; merge current70e3c8c main without conflict, preserve latest771canonical IDs and all main changes. Reviewed existing manual/PR-only contentsread workflow: no cron, real key, account mutation or issue writer activation. Existing historical policy review date remains historical; not claimed reverified today.
 - TESTED at synchronized source:17Node+13Python=30PASS, complete --fixture pipeline PASS with synthetic audit/aggregate/Issue plan. All output is inert/nonpublishable; no Google Ads Scripts install, budget, production tracking or conversion activation. Existing actionlint/diff PASS. New hosted exact-head CI/reviews stillrequired; oldpassedhead not relabelled.
 - Scope eligible for code-only protected review after CI; operational Ads readiness remainsBLOCKED by real account/consent/conversion/Preview prerequisites, never implied by a source merge. No new Worker/scheduler/service or paidcall. Deployment NOT APPLICABLE to offline-only source deliverable. #86 remainsfrozen; P0source140/142 and existing115/116 fixes await genuinequeuedCI,128/127alreadymerged. Sheet unavailable; #71 fallback.
+
+
+### PR70 actual CodeQL input race correction — 2026-11-04T16:37:00.917982+00:00
+
+- New exact-head CodeQL126697701122 atba97685 FAILED with1HIGH, annotation prepare_handoff.cjs:60: file mayhavechanged sincechecked. Actual stat-by-path→read-by-path race, not a suppression or stalealert.
+- Added four descriptor/link/growth tests; three fail before correction. Reader now opensone no-follow/nonblocking descriptor, checksregularfile/singlelink/size, readsatmost1MB+1 fromthatdescriptor, rejects metadatachange/growth andstrictUTF8, closesFDfinally. No path stat/readreopen; no claim of full directory-output jail or Google activation.
+- TESTED21Node+13Python=34PASS; complete synthetic --fixture pipeline PASS, allworkflowactionlint/diff PASS. Normal old17Node tests preserved; additionalpositivecontrolandthree red→green securitycases. Coreoutputstillready_for_live_ads=false; no actualGoogle/APIkey/campaign/budget/consent/trackingscript. Existing main8c9edeb update preservesbothloghistories; finalnewhead CodeQL/Sonar/CIrequired before source merge.

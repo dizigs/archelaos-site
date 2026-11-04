@@ -2,6 +2,8 @@ name: P0 CLI security regressions
 on:
   pull_request:
     paths:
+      - 'rebuild/tools/toolbox.py'
+      - 'rebuild/tests/toolbox_security_test.py'
       - 'rebuild/tools/live_sync_audit.py'
       - 'rebuild/tests/live_sync_security_test.py'
       - 'rebuild/tools/import_match_calendar.py'
@@ -12,6 +14,8 @@ on:
   push:
     branches: [main]
     paths:
+      - 'rebuild/tools/toolbox.py'
+      - 'rebuild/tests/toolbox_security_test.py'
       - 'rebuild/tools/live_sync_audit.py'
       - 'rebuild/tests/live_sync_security_test.py'
       - 'rebuild/tools/import_match_calendar.py'
@@ -39,3 +43,5 @@ jobs:
         run: |
           python -m unittest discover -s rebuild/tests -p calendar_output_security_test.py -v
           python rebuild/tests/match_calendar_import.py
+      - name: Verify fixed toolbox dispatch and literal editorial arguments
+        run: python -m unittest discover -s rebuild/tests -p toolbox_security_test.py -v

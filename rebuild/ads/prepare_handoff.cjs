@@ -55,9 +55,24 @@ function finalize(summary, plan) {
   return {...summary, status:'DRY_RUN_COMPLETE', issue_actions:counts};
 }
 
-function read(name) {
-  if (fs.statSync(name).size > 1_000_000) throw Error('Evidence file exceeds limit');
-  return JSON.parse(fs.readFileSync(name, 'utf8'));
+function readEvidence(name) {
+  const maximum = 1_000_000;
+  const descriptor = fs.openSync(name, fs.constants.O_RDONLY | fs.constants.O_NOFOLLOW | fs.constants.O_NONBLOCK);
+  try {
+    const before = fs.fstatSync(descriptor);
+    if (!before.isFile() || before.nlink !== 1 || before.size > maximum) throw Error('Evidence must be a bounded ordinary file');
+    const buffer = Buffer.alloc(maximum + 1);
+    let size = 0;
+    while (size <= maximum) {
+      const count = fs.readSync(descriptor, buffer, size, maximum + 1 - size, null);
+      if (count === 0) break;
+      size += count;
+    }
+    const after = fs.fstatSync(descriptor);
+    if (size > maximum || size !== before.size || after.size !== before.size || after.nlink !== 1 ||
+        after.mtimeMs !== before.mtimeMs || after.ctimeMs !== before.ctimeMs) throw Error('Evidence changed during bounded read');
+    return JSON.parse(new TextDecoder('utf-8', {fatal:true}).decode(buffer.subarray(0, size)));
+  } finally { fs.closeSync(descriptor); }
 }
 function write(name, value) {
   fs.writeFileSync(path.join(output, name), JSON.stringify(value, null, 2) + '\n');
@@ -68,18 +83,18 @@ function main() {
   const fixture = args.includes('--fixture');
   fs.mkdirSync(output, {recursive:true});
   if (args.includes('--finalize')) {
-    const summary = read(path.join(output, 'status.json'));
+    const summary = readEvidence(path.join(output, 'status.json'));
     if (summary.source_kind !== (fixture ? 'synthetic-fixture' : 'google-ads-readonly')) throw Error('Source mismatch');
-    const done = finalize(summary, read(path.join(output, 'issue-plan.json')));
+    const done = finalize(summary, readEvidence(path.join(output, 'issue-plan.json')));
     write('status.json', done); console.log(JSON.stringify(done, null, 2));
     return;
   }
   write('status.json', {mode:'dry-run', status:'INCOMPLETE', ready_for_live_ads:false});
   const folder = fixture ? path.join(__dirname, 'fixtures') : base;
-  const report = read(path.join(folder, 'audit-report.json'));
-  const analytics = read(path.join(folder, fixture ? 'google-analytics-aggregate.synthetic.json' : 'google-analytics-aggregate.json'));
+  const report = readEvidence(path.join(folder, 'audit-report.json'));
+  const analytics = readEvidence(path.join(folder, fixture ? 'google-analytics-aggregate.synthetic.json' : 'google-analytics-aggregate.json'));
   const now = fixture ? analytics.fixture_clock : new Date().toISOString();
-  const result = prepare(report, analytics, read(path.join(__dirname, 'campaigns.draft.json')), {fixture, now});
+  const result = prepare(report, analytics, readEvidence(path.join(__dirname, 'campaigns.draft.json')), {fixture, now});
   write('audit-report.json', result.audit); write('status.json', result.summary);
 }
 if (require.main === module) {
@@ -91,4 +106,4 @@ if (require.main === module) {
     process.exitCode = 1;
   }
 }
-module.exports = {prepare, finalize};
+module.exports = {prepare, finalize, readEvidence};
