@@ -16,6 +16,8 @@ on:
     secrets:
       CLOUDFLARE_API_TOKEN:
         required: false
+      CLOUDFLARE_BRIDGE_READ_TOKEN:
+        required: false
   pull_request:
     paths:
       - 'tools/cloudflare_pages_status.py'
