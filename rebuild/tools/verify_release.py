@@ -175,6 +175,16 @@ def verify() -> None:
     assert hall["count"] == len(hall["people"]), "Hall count inconsistent"
     assert f'<strong id="hall-total">{hall["count"]}</strong>' in (DIST/"hall-of-fame.html").read_text(encoding="utf-8"), "Hall hero has stale profile count"
     assert f'<span id="new-people-total">{hall["count"]}</span>' in (DIST/"index.html").read_text(encoding="utf-8"), "Homepage has stale profile count"
+    home_page = (DIST/"index.html").read_text(encoding="utf-8")
+    assert 'id="upcoming-matches"' not in home_page, "Removed homepage calendar section has reappeared"
+    assert 'id="fx-list"' not in home_page, "Upcoming fixture cards remain on homepage"
+    assert 'Το επόμενο κεφάλαιο<br>γράφεται' not in home_page, "Removed upcoming matches heading reappeared"
+    assert 'id="about"' in home_page, "Homepage section removal damaged the next section"
+    # Preserve the legacy search link only for direct, explicitly selected fixture
+    # deep links; the ordinary homepage must not display any fixture/calendar UI.
+    archive_fixture_js = (DIST/"assets/site/js/match-calendar.js").read_text(encoding="utf-8")
+    assert "fx-direct-fixture" in archive_fixture_js and "new URLSearchParams(location.search).get('fixture')" in archive_fixture_js, "Archived fixture search links must remain reachable"
+
     ids = [person["id"] for person in hall["people"]]
     assert len(ids) == len(set(ids)), "Duplicate Hall person identifiers"
     # Identity correction: two historical spellings refer to one coach.
