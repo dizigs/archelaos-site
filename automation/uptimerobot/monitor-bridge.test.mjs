@@ -164,3 +164,75 @@ test('provider body exceeding 200 KB is discarded before JSON parse',async()=>{
  assert.equal(res.status,502);
  assert.equal((await res.json()).code,'UPTIME_TOO_LARGE');
 });
+
+
+test('cached public monitor summary reveals no IDs, contacts or secret values',async()=>{
+ const saved=globalThis.caches;
+ let calls=0,stored;
+ globalThis.caches={default:{
+  match:async()=>stored?.clone()||undefined,
+  put:async(_key,value)=>{stored=value.clone()}
+ }};
+ globalThis.fetch=async(_url,options)=>{
+  calls++;
+  assert.equal(options.method,'GET');
+  assert.equal(options.headers.authorization,'Bearer test-only-key');
+  return Response.json({data:[{
+   id:987,url:targetUrls[0],status:'UP',
+   assignedAlertContacts:[{id:77,email:'private@example.org'}],
+   internalKey:'never-display-this'
+  }],nextLink:null});
+ };
+ try{
+  const first=await handleUptimeMonitor(req('public-status','GET',null,''),env);
+  assert.equal(first.status,200);
+  const text=await first.text(),body=JSON.parse(text);
+  assert.equal(body.expected,11);
+  assert.equal(body.configured,1);
+  assert.equal(body.targets[0].status,'UP');
+  assert.equal(body.targets[1].status,'MISSING');
+  for(const sensitive of ['987','private@example.org','never-display-this','test-only-key','alertContactId']){
+   assert.equal(text.includes(sensitive),false);
+  }
+  assert.equal(first.headers.get('cache-control'),'public, max-age=120, s-maxage=120');
+  const second=await handleUptimeMonitor(req('public-status','GET',null,''),env);
+  assert.equal(second.status,200);
+  assert.equal(calls,1);
+ }finally{if(saved===undefined)delete globalThis.caches;else globalThis.caches=saved}
+});
+test('public monitor route rejects methods and query before provider call',async()=>{
+ let calls=0;
+ globalThis.fetch=async()=>{calls++;throw Error('NO_REMOTE')};
+ const a=await handleUptimeMonitor(req('public-status','POST',null,''),env);
+ const b=await handleUptimeMonitor(req('public-status?unexpected=1','GET',null,''),env);
+ const c=await handleUptimeMonitor(req('public-status','GET',null,''),{});
+ assert.deepEqual([a.status,b.status,c.status],[405,400,503]);
+ assert.equal(calls,0);
+});
+
+test('public summary coalesces in-flight requests on a cold cache',async()=>{
+ const saved=globalThis.caches;
+ let resolveUpstream,requests=0,stored=null;
+ const blocked=new Promise(resolve=>{resolveUpstream=resolve});
+ globalThis.caches={default:{
+  match:async()=>stored?.clone()||undefined,
+  put:async(_key,response)=>{stored=response.clone()}
+ }};
+ globalThis.fetch=async()=>{
+  requests++;
+  await blocked;
+  return Response.json({data:[{id:101,url:targetUrls[0],status:'UP'}],nextLink:null});
+ };
+ try{
+  const requestsInFlight=[1,2,3].map(()=>handleUptimeMonitor(req('public-status','GET',null,''),env));
+  await new Promise(resolve=>setTimeout(resolve,0));
+  assert.equal(requests,1);
+  resolveUpstream();
+  const responses=await Promise.all(requestsInFlight);
+  assert.deepEqual(responses.map(r=>r.status),[200,200,200]);
+  assert.equal(requests,1);
+  assert.deepEqual(await Promise.all(responses.map(r=>r.json())).then(a=>a.map(x=>x.configured)),[1,1,1]);
+ }finally{
+  if(saved===undefined)delete globalThis.caches;else globalThis.caches=saved;
+ }
+});
