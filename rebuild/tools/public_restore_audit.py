@@ -8,6 +8,7 @@ it does NOT prove independent storage durability or full website recoverability.
 from __future__ import annotations
 
 import argparse
+import re
 from hashlib import sha256
 import json
 from pathlib import Path, PurePosixPath
@@ -68,6 +69,9 @@ def verify_zip(archive):
         raise VerificationError("invalid manifest JSON") from exc
     if manifest.get("format")!=1 or manifest.get("source")!="public dist archive (never private Google Drive)":
         raise VerificationError("unexpected manifest format/source")
+    commit=manifest.get("commit")
+    if not isinstance(commit,str) or not commit or len(commit)>80:
+        raise VerificationError("missing or invalid manifest commit")
     rows=manifest.get("files")
     if not isinstance(rows,list) or len(rows)!=len(EXPECTED):
         raise VerificationError("expected exactly ten manifest rows")
@@ -76,6 +80,10 @@ def verify_zip(archive):
     for row in rows:
         if not isinstance(row,dict):
             raise VerificationError("invalid manifest row")
+        if set(row)!={"file","sha256","bytes","records"}:
+            raise VerificationError("unexpected manifest row fields")
+        if not isinstance(row["sha256"],str) or re.fullmatch(r"[a-f0-9]{64}",row["sha256"]) is None:
+            raise VerificationError("malformed manifest digest")
         name=row.get("file")
         if name not in EXPECTED or name in seen:
             raise VerificationError("invalid or duplicated manifest filename")
@@ -109,12 +117,16 @@ def verify_zip(archive):
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument("artifact_zip",type=Path,help="previously downloaded GitHub Actions ZIP")
+    parser.add_argument("--source-commit",help="require this exact 40-character source SHA (provider verification)")
     args=parser.parse_args()
     try:
         if args.artifact_zip.stat().st_size > MAX_ARCHIVE_BYTES:
             raise VerificationError("ZIP too large")
         with zipfile.ZipFile(args.artifact_zip) as archive:
             report=verify_zip(archive)
+        if args.source_commit is not None:
+            if re.fullmatch(r"[a-f0-9]{40}",args.source_commit) is None or report["commit"] != args.source_commit:
+                raise VerificationError("source commit does not match verified manifest")
     except (OSError,zipfile.BadZipFile,VerificationError) as exc:
         print(json.dumps({"status":"FAIL","reason":str(exc)[:170]},ensure_ascii=False))
         raise SystemExit(1)
