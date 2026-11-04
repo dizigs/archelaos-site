@@ -14,6 +14,7 @@ export class SqlScriptStore {
       'CREATE TABLE IF NOT EXISTS script_oauth_start_rate(bucket INTEGER PRIMARY KEY,count INTEGER NOT NULL)',
       'CREATE TABLE IF NOT EXISTS script_oauth_sessions(id TEXT PRIMARY KEY,cipher TEXT NOT NULL)',
       'CREATE TABLE IF NOT EXISTS script_admin_grants(actor TEXT PRIMARY KEY,session TEXT NOT NULL)',
+      'CREATE TABLE IF NOT EXISTS script_browser_backup_confirmations(id TEXT PRIMARY KEY, expires INTEGER NOT NULL)',
       'CREATE TABLE IF NOT EXISTS script_refresh_claims(id TEXT PRIMARY KEY)',
       'CREATE TABLE IF NOT EXISTS script_audit(id INTEGER PRIMARY KEY AUTOINCREMENT,operation TEXT NOT NULL,code TEXT NOT NULL,at INTEGER NOT NULL)'
     ]) this.sql.exec(statement);
@@ -70,6 +71,21 @@ export class SqlScriptStore {
     return this.storage.transactionSync(() => {
       const cipher = this.peekState(id, now); if (!cipher) throw new ScriptFault('OAUTH_STATE_EXPIRED_OR_REPLAYED', 401);
       this.sql.exec('UPDATE script_oauth_states SET used=1,cipher=? WHERE id=?', '', id); return cipher;
+    });
+  }
+  registerBackupConfirmation(id, expires) {
+    this.storage.transactionSync(() => {
+      this.sql.exec('DELETE FROM script_browser_backup_confirmations WHERE expires<=?', this.clock());
+      const n = [...this.sql.exec('SELECT COUNT(*) AS n FROM script_browser_backup_confirmations')][0].n;
+      if (n >= 12) throw new ScriptFault('BACKUP_CONFIRMATION_CAPACITY_REACHED', 429);
+      this.sql.exec('INSERT INTO script_browser_backup_confirmations(id,expires) VALUES(?,?)', id, expires);
+    });
+  }
+  consumeBackupConfirmation(id) {
+    this.storage.transactionSync(() => {
+      const row = [...this.sql.exec('SELECT id FROM script_browser_backup_confirmations WHERE id=? AND expires>?', id, this.clock())][0];
+      if (!row) throw new ScriptFault('BACKUP_CONFIRMATION_EXPIRED_OR_REPLAYED', 409);
+      this.sql.exec('DELETE FROM script_browser_backup_confirmations WHERE id=?', id);
     });
   }
   putSession(id, cipher) { this.sql.exec('INSERT INTO script_oauth_sessions(id,cipher) VALUES(?,?) ON CONFLICT(id) DO UPDATE SET cipher=excluded.cipher', id, cipher); }
