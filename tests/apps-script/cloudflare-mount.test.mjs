@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { fixture } from './fixtures.mjs';
 import { withAppsScriptCoordinator, MuseumScriptCoordinator } from '../../automation/apps-script/cloudflare-mount.mjs';
 
 const req = path => new Request('https://archelaos-automation-bridge.example' + path);
@@ -82,4 +83,43 @@ test('Durable Object denies unrelated routes and missing SQLite store', async ()
 
 test('mount refuses absent existing Worker handler', () => {
   assert.throws(() => withAppsScriptCoordinator({}), /EXISTING_WORKER_FETCH_REQUIRED/);
+});
+
+test('Cloudflare-admin queued operator probe runs once without exposing source or permitting editor writes', t => {
+  const f = fixture(t);
+  const obj = new MuseumScriptCoordinator({ storage: f.storage }, {});
+  const id = crypto.randomUUID();
+  f.storage.sql.exec("INSERT INTO script_admin_grants(actor,session) VALUES(?,?)", 'synthetic-admin-hash', 'synthetic-session-hash');
+  f.storage.sql.exec("INSERT INTO script_private_blobs(id,cipher) VALUES(?,?)", crypto.randomUUID(), 'synthetic-private-cipher');
+  f.store.audit(crypto.randomUUID(), 'BROWSER_ENCRYPTED_BACKUP_VERIFIED');
+  f.storage.sql.exec('INSERT INTO script_operator_probes(id,status,expires,updated) VALUES(?,?,?,?)', id, 'QUEUED', f.state.clock + 60000, f.state.clock);
+  return (async () => {
+    const request = () => req('/api/apps-script/operator-probe');
+    const result = await obj.fetch(request());
+    assert.equal(result.status, 200);
+    assert.deepEqual(await result.json(), { status: 'OPERATOR_PROBE_ACCEPTED', readOnly: true });
+    const row = f.db.prepare('SELECT status,result FROM script_operator_probes WHERE id=?').get(id);
+    assert.equal(row.status, 'DONE');
+    const receipt = JSON.parse(row.result);
+    assert.equal(receipt.status, 'OPERATOR_READONLY_PROBE_VERIFIED');
+    assert.equal(receipt.encryptedBackupPresent, true);
+    assert.equal(receipt.editOperations, 0);
+    assert.equal(receipt.googlePutPerformed, false);
+    assert.equal(f.db.prepare('SELECT COUNT(*) AS n FROM script_operations').get().n, 0);
+    const replay = await obj.fetch(request());
+    assert.equal((await replay.json()).status, 'OPERATOR_QUEUE_EMPTY');
+    assert.equal(f.db.prepare("SELECT COUNT(*) AS n FROM script_audit WHERE code='OPERATOR_READONLY_PROBE_VERIFIED'").get().n, 1);
+    assert.equal((await obj.fetch(req('/api/apps-script/operator-probe?code=unexpected'))).status, 404);
+  })();
+});
+
+test('operator SQL task rejects expired work without retries or Google operations', async t => {
+  const f = fixture(t);
+  const obj = new MuseumScriptCoordinator({ storage: f.storage }, {});
+  const id = crypto.randomUUID();
+  f.storage.sql.exec('INSERT INTO script_operator_probes(id,status,expires,updated) VALUES(?,?,?,?)', id, 'QUEUED', f.state.clock - 1, f.state.clock);
+  const response = await obj.fetch(req('/api/apps-script/operator-probe'));
+  assert.equal((await response.json()).status, 'OPERATOR_QUEUE_EMPTY');
+  assert.equal(f.db.prepare('SELECT status FROM script_operator_probes WHERE id=?').get(id).status, 'REJECTED');
+  assert.equal(f.db.prepare('SELECT COUNT(*) AS n FROM script_operations').get().n, 0);
 });
