@@ -18,7 +18,7 @@ async function loginFixture(t, options = {}) {
   const fetchGoogle = async (url, init) => {
     if (url === 'https://www.googleapis.com/oauth2/v3/certs') return Response.json({ keys: [publicKey] });
     if (url === 'https://openidconnect.googleapis.com/v1/userinfo') return Response.json({ sub: state.foreignRefresh ? 'different-sub' : actor.sub, email: admin, email_verified: true });
-    assert.equal(url, 'https://oauth2.googleapis.com/token'); assert.equal(init.redirect, 'error');
+    assert.equal(url, 'https://oauth2.googleapis.com/token'); assert.equal(init.redirect, 'manual');
     const body = new URLSearchParams(init.body); assert.equal(body.get('client_id'), config.clientId); assert.equal(body.get('client_secret'), config.clientSecret);
     if (body.get('grant_type') === 'refresh_token') {
       state.refreshes++; if (state.refreshError) throw new Error('synthetic uncertain refresh');
@@ -133,4 +133,22 @@ test('public consent-start admission is bounded atomically without retaining IP/
   f.state.clock += 600001;
   await f.oauth.begin();
   assert.equal(f.db.prepare('SELECT COUNT(*) AS n FROM script_oauth_states').get().n, 1);
+});
+
+// Regression: Workers rejects redirect: 'error' and native fetch as a method receiver.
+test('Cloudflare-style token fetch uses no instance receiver and refuses redirects', async t => {
+  const f = fixture(t);
+  const seen = [];
+  const fetchGoogle = function(url, init) {
+    assert.equal(this, undefined); // Native Workers fetch requires its global receiver.
+    assert.equal(init.redirect, 'manual');
+    seen.push({ url, method: init.method });
+    return Response.redirect('https://example.invalid/never-follow', 302);
+  };
+  const oauth = new ScriptOAuth({
+    config: { clientId: 'synthetic-client', clientSecret: 'synthetic-secret', expectedAdminEmail: admin, origin: 'https://archelaos-automation-bridge.dimitriszgalanis.workers.dev' },
+    store: f.store, cipher: cipher(), fetchGoogle,
+  });
+  await assert.rejects(oauth.exchange({ grant_type: 'authorization_code', code: 'synthetic-only', code_verifier: 'synthetic-verifier', redirect_uri: 'https://archelaos-automation-bridge.dimitriszgalanis.workers.dev/oauth/callback' }), error => error.code === 'GOOGLE_REDIRECT_REJECTED');
+  assert.deepEqual(seen, [{ url: 'https://oauth2.googleapis.com/token', method: 'POST' }]);
 });
