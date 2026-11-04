@@ -53,6 +53,16 @@ async function remote(env,path,method='GET',body){
 function items(v){if(Array.isArray(v))return v;if(Array.isArray(v?.data?.items))return v.data.items;if(Array.isArray(v?.data))return v.data;if(Array.isArray(v?.items))return v.items;throw new Error('UPTIME_UNEXPECTED_SHAPE')}
 function canon(s){try{const u=new URL(s);u.hash='';return u.href.replace(/\/$/,'')}catch{return ''}}
 async function inventory(env){const r=await remote(env,'/monitors?limit=200');if(r.nextLink||r.data?.nextLink)throw new Error('UPTIME_PAGINATION_REQUIRED');return items(r)}
+function settingsMatch(m,contactId){
+ const codes=m.successHttpResponseCodes;
+ const alerts=Array.isArray(m.assignedAlertContacts)?m.assignedAlertContacts:[];
+ return String(m.type).toUpperCase()==='HTTP'
+  &&Number(m.interval)===300
+  &&String(m.httpMethodType).toUpperCase()==='GET'
+  &&Array.isArray(codes)&&codes.length===1&&codes[0]==='2xx'
+  &&String(m.status).toUpperCase()!=='PAUSED'
+  &&alerts.some(c=>Number(c.alertContactId??c.id??c.alertContact?.id)===contactId);
+}
 export async function handleUptimeMonitor(request,env){
  const url=new URL(request.url);if(url.pathname!=='/api/uptimerobot/status'&&url.pathname!=='/api/uptimerobot/ensure')return null;
  if(url.search)return out('UNSUPPORTED_QUERY',400);
@@ -74,10 +84,13 @@ export async function handleUptimeMonitor(request,env){
   if(matches.some(m=>m.found.length>1))return out('DUPLICATE_EXISTING_MONITORS',409,{duplicates:matches.filter(m=>m.found.length>1).map(m=>m.target)});
   const missing=matches.filter(m=>!m.found.length);
   if(all.length+missing.length>50)return out('MONITOR_PLAN_CAPACITY',409,{existing:all.length,needed:missing.length});
-  if(!missing.length)return out('UPTIME_ALREADY_CONFIGURED',200,{created:[],existing:matches.map(m=>m.target)});
+
   const contacts=items(await remote(env,'/user/alert-contacts'));
   const contact=contacts.find(c=>String(c?.type).toLowerCase()==='email'&&String(c?.status).toLowerCase()==='active'&&Number.isSafeInteger(Number(c?.id))&&Number(c?.id)>0);
   if(!contact)return out('NO_ACTIVE_EMAIL_ALERT_CONTACT',409,{needed:missing.length});
+  const drift=matches.filter(m=>m.found.length===1&&!settingsMatch(m.found[0],Number(contact.id)));
+  if(drift.length)return out('EXISTING_MONITOR_DRIFT',409,{urls:drift.map(m=>m.target)});
+  if(!missing.length)return out('UPTIME_ALREADY_CONFIGURED',200,{created:[],existing:matches.map(m=>m.target)});
   const created=[];
   for(const item of missing){
    const r=await remote(env,'/monitors','POST',{type:'HTTP',url:item.target,friendlyName:'ARCHELAOS | '+item.label,interval:300,timeout:30,httpMethodType:'GET',successHttpResponseCodes:['2xx'],assignedAlertContacts:[{alertContactId:Number(contact.id),threshold:0,recurrence:0}]});
