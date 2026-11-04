@@ -2,6 +2,11 @@ name: Cloudflare Pages deployment status
 on:
   workflow_dispatch:
     inputs:
+      offline_only:
+        description: Run existing offline regression suite only; no provider reads, secrets or deployment
+        type: boolean
+        required: false
+        default: false
       inspect_bridge:
         description: Read-only bridge metadata access probe; never executes Google or bridge actions
         type: boolean
@@ -64,7 +69,10 @@ concurrency:
 
 jobs:
   offline-test:
-    if: (github.event_name == 'pull_request' || github.event_name == 'push') && inputs.verify_after_rebuild != true
+    if: >-
+      (github.event_name == 'pull_request' || github.event_name == 'push' ||
+      (github.event_name == 'workflow_dispatch' && inputs.offline_only == true)) &&
+      inputs.verify_after_rebuild != true
     runs-on: ubuntu-latest
     timeout-minutes: 3
     steps:
@@ -88,7 +96,7 @@ jobs:
     if: >-
       github.repository == 'dizigs/archelaos-site' &&
       (github.event_name == 'schedule' ||
-      (github.event_name == 'workflow_dispatch' && inputs.inspect_bridge != true && inputs.inspect_bridge_source != true) ||
+      (github.event_name == 'workflow_dispatch' && inputs.offline_only != true && inputs.inspect_bridge != true && inputs.inspect_bridge_source != true) ||
       (github.event_name == 'push' && github.ref == 'refs/heads/main' &&
       inputs.verify_after_rebuild == true))
     runs-on: ubuntu-latest
@@ -128,7 +136,7 @@ jobs:
     name: Read-only bridge access evidence (not an end-to-end test)
     if: >-
       github.repository == 'dizigs/archelaos-site' &&
-      github.event_name == 'workflow_dispatch' && (inputs.inspect_bridge == true || inputs.inspect_bridge_source == true)
+      github.event_name == 'workflow_dispatch' && inputs.offline_only != true && (inputs.inspect_bridge == true || inputs.inspect_bridge_source == true)
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
