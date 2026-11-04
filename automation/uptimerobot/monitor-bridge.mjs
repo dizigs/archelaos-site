@@ -61,7 +61,9 @@ export async function handleUptimeMonitor(request,env){
  if(!(await equalSecret(request.headers.get('authorization'),env.UPTIMEROBOT_OPERATOR_TOKEN)))return out('UNAUTHORIZED',401);
  if(!status){
   if(Number(request.headers.get('content-length')||0)>128)return out('INVALID_REQUEST',413);
-  const input=await request.text();if(input.length>128)return out('INVALID_REQUEST',413);
+  let input;
+  try{input=await readCapped(request.body,128,'INVALID_REQUEST_TOO_LARGE')}
+  catch{return out('INVALID_REQUEST',413)}
   let parsed;try{parsed=JSON.parse(input)}catch{return out('INVALID_REQUEST',400)}
   if(parsed?.scope!=='core-v1'||Object.keys(parsed).length!==1)return out('INVALID_SCOPE',400);
  }
