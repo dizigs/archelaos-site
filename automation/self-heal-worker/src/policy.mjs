@@ -13,13 +13,13 @@ const SOURCES = new Set(['site_watch', 'github_actions', 'cloudflare_pages']);
 const HEX40 = /^[a-f0-9]{40}$/;
 const ACTIONS_ID = /^actions:[1-9][0-9]{0,19}$/;
 const DEPLOY_ID = /^pages:[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/;
-const KEYS = ['schemaVersion', 'source', 'repository', 'code', 'resource', 'commit', 'observedAt', 'evidenceId'].sort();
+const KEYS = new Set(['schemaVersion', 'source', 'repository', 'code', 'resource', 'commit', 'observedAt', 'evidenceId']);
 
 export function parseFinding(value, now = Date.now()) {
   if (!value || typeof value !== 'object' || Array.isArray(value) ||
       Object.getPrototypeOf(value) !== Object.prototype ||
-      Object.keys(value).length !== KEYS.length ||
-      Object.keys(value).sort().some((key, i) => key !== KEYS[i]) ||
+      Object.keys(value).length !== KEYS.size ||
+      Object.keys(value).some(key => !KEYS.has(key)) ||
       JSON.stringify(value).length > 1200) throw new TypeError('INVALID_FINDING_ENVELOPE');
   const { schemaVersion, source, repository, code, resource, commit, observedAt, evidenceId } = value;
   if (schemaVersion !== 1 || repository !== REPOSITORY || !SOURCES.has(source) ||
