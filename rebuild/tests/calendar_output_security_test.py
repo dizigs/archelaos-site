@@ -38,7 +38,8 @@ class CalendarOutputSecurity(unittest.TestCase):
         self.parent = self.root / "rebuild/test-artifacts"
         self.parent.mkdir()
         self.report = self.parent / NAME
-        self.source = self.workspace / "synthetic.ics"
+        self.source = self.root / ".archive-intake/calendars/synthetic.ics"
+        self.source.parent.mkdir(parents=True)
         self.source.write_text(ICS)
         self.outside = self.workspace / "outside.json"
         self.sentinel = '{"sentinel":"synthetic public fixture only"}'
@@ -56,6 +57,28 @@ class CalendarOutputSecurity(unittest.TestCase):
         self.assertEqual(len(data["candidates"]), 1)
         self.assertTrue(data["candidates"][0]["review_required"])
         self.assertFalse((self.root / "rebuild/data/match-schedule.json").exists())
+
+    def test_external_and_linked_calendar_inputs_are_rejected(self):
+        outside = self.workspace / "outside.ics"
+        outside.write_text(ICS)
+        invalid = self.run_cli("--volleyball", str(outside))
+        self.assertNotEqual(invalid.returncode, 0)
+        self.assertFalse(self.report.exists())
+        linked = self.source.parent / "linked.ics"
+        linked.symlink_to(outside)
+        invalid_link = self.run_cli("--volleyball", str(linked))
+        self.assertNotEqual(invalid_link.returncode, 0)
+        self.assertFalse(self.report.exists())
+
+    def test_zip_expansion_total_is_bounded(self):
+        # Aggregate ZIP inflation is limited even if every member is below 5MB.
+        bundle = self.source.parent / "oversized.zip"
+        with ZipFile(bundle, "w") as z:
+            z.writestr("a.ics", "A" * 3_000_000)
+            z.writestr("b.ics", "B" * 3_000_000)
+        result = self.run_cli("--volleyball", str(bundle))
+        self.assertNotEqual(result.returncode, 0)
+        self.assertFalse(self.report.exists())
 
     def test_existing_schedule_file_is_not_modified(self):
         schedule = self.root / "rebuild/data/match-schedule.json"
