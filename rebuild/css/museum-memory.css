@@ -321,6 +321,58 @@
 .memory-faq-intro > p:last-of-type { margin-left:auto; margin-right:auto; }
 .memory-faq-deco { margin-left:auto; margin-right:auto; }
 
+/* Founder's words — restrained gold typography, no card or left rule. */
+.memory-founder-quote {
+  padding:clamp(74px,8vw,112px) 0;
+  background:#f8f4ea;
+}
+.memory-founder-inner {
+  max-width:1120px;
+  text-align:center;
+}
+.memory-founder-overline {
+  margin:0 0 26px;
+  color:#876936;
+  font:700 11px/1.5 Inter,sans-serif;
+  letter-spacing:.2em;
+}
+.memory-founder-figure {
+  max-width:1010px;
+  margin:0 auto;
+}
+.memory-founder-figure blockquote {
+  max-width:1010px;
+  margin:0 auto;
+  color:#84642d;
+  font:italic 500 clamp(26px,2.75vw,39px)/1.55 var(--memory-serif);
+  letter-spacing:-.012em;
+  text-wrap:pretty;
+}
+.memory-founder-credit {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+  margin-top:34px;
+  color:#486050;
+  font:500 13px/1.65 Inter,sans-serif;
+}
+.memory-founder-credit strong {
+  color:#254737;
+  font-weight:700;
+}
+.memory-founder-credit small {
+  color:#54695b;
+  font-size:11px;
+  line-height:1.7;
+}
+@media (max-width:640px) {
+  .memory-founder-quote {padding:65px 0 72px}
+  .memory-founder-overline {margin-bottom:19px;font-size:10px}
+  .memory-founder-figure blockquote {font-size:clamp(24px,6.9vw,31px);line-height:1.5}
+  .memory-founder-credit {margin-top:26px;font-size:12px}
+}
+
 @media (max-width:1050px) {
   .memory-hero-layout {grid-template-columns:1fr 1fr;gap:20px}
   .memory-art-frame {height:470px}
