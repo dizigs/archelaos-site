@@ -1,0 +1,11 @@
+# Verified import input boundary / Issue66
+
+Current main findings AaGbWnBeJDrY7EFXJ07b and AaGbWnBnJDrY7EFXJ07j identify calendar/export and reviewed-package file reads. Explicit operator-selected ordinary external exports remain supported; the CLI is not a web/file retrieval API and grants no additional OS authority.
+
+The shared reader walks directories with held O_DIRECTORY/O_NOFOLLOW descriptors, rejects lexical parent traversal, symlink ancestors/leaves, hardlinks, FIFOs/nonregular files, oversize input and changing-in-place metadata. Reads are bounded from the opened descriptor; inputs are never reopened by path. Calendar ZIP parsing uses those bytes with bounded expanded total5MB and at most30files, and retains existing no-extraction/member-path checks. UTF8 reviewed JSON packages are bounded2MiB; staged fixed-name JSON reads are bounded16MiB.
+
+Ingestion holds the same staged directory through read/validation/write. All destination names belong to a six-file allowlist; all names/targets/encoded sizes validate before staging, all replacement files stage before replacement. Each fixed file is replaced atomically via descriptor-relative operations, mode0600; temporary files are cleaned. This is per-file atomicity, not a new crash-transaction guarantee across all six files. Input link rejection and actual descriptor-held parent-swap fixtures prove an attacker cannot redirect imports to a swapped directory. No historical/canonical/Google data is modified by the tests; fixtures are temporary copies only.
+
+Reproduction:7 of10 actual baseline CLI/input/apply cases fail before the boundary; all11new security tests pass after. Existing13calendar output tests and functional ICS/ZIP/DST/recurrence/cancellation/verified ingestion/dry-run/privacy tests pass. Existing release-integrity workflow runs them, no duplicate workflow or schedule. Source loader fixtures include the new shared module; no tests weakened/removed.
+
+Operators must use ordinary exports with one hard link/directories, not linked shortcuts. No arbitrary output filename, remote URL, auto-publication or implicit apply is added. Main Sonar/CodeQL closure must be confirmed by new exact-head/provider analysis; no exception, suppression or baseline change is used to imply A.
