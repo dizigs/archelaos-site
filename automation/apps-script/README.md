@@ -18,15 +18,29 @@ rollback. Fresh external GET `/health` HTTP 200; new GET
 `/api/apps-script/content` HTTP 503 with
 `SCRIPT_PRIVATE_CONFIGURATION_REQUIRED` intentionally fails closed.
 
-**Still blocked / not verified:** exact private Script ID and Admin binding;
-reviewed project-scoped executor; actual Google Admin consent, project-source
-read and backup; real trigger inventory and exclusive-writer control; real
-Google updates and rollbacks; ChatGPT executor callability. `liveWritesEnabled`
-is still false. Do not send an OAuth login link before verified private config,
-callback and executor conditions. No Google project was edited, no additional
-Worker or trigger was created and no upgrade to a paid plan was made.
+**Private project bindings configured (2026-11-04):** The connected
+Admin Google Drive metadata verified the designated Apps Script project
+(MIME `application/vnd.google-apps.script`) and ownership, without exposing the
+Script ID in this repository. `APPS_SCRIPT_PROJECT_ID`,
+`APPS_SCRIPT_PROJECT_TITLE`, and `APPS_SCRIPT_ADMIN_EMAIL` were added as
+Cloudflare secrets by one bulk patch. Version
+`d95999ce-f3cc-45f4-b7c5-ae390824d477`, deployment
+`fefbf0ef-0505-4d77-8b37-6c44f51104d7`. Legacy secrets and bindings were
+retained. External `GET /health` returned 200, protected
+`GET /api/apps-script/content` returned 503
+(`EXECUTOR_INTERFACE_UNCONFIGURED`), and a synthetic invalid state callback
+returned 401 (`OAUTH_STATE_EXPIRED_OR_REPLAYED`). These are guarded runtime
+checks, **not successful Google OAuth or Apps Script API access**.
 
-Detailed operator evidence: `docs/automation/evidence/pr124-cloudflare-guarded-deployment-20261104.json`.
+**Still blocked / not verified:** reviewed project-scoped executor, actual
+Google Admin consent/refresh grant, Google project-source read and backup,
+real trigger inventory, writer exclusion, Google edits and rollback,
+ChatGPT executor callability. `liveWritesEnabled` is still false. Do not issue
+a Google consent URL until the trusted executor/callback prerequisites are
+reviewed. No Google project was edited, no additional Worker or trigger was
+created, and no paid-plan upgrade occurred.
+
+Detailed operator evidence: `docs/automation/evidence/pr124-cloudflare-guarded-deployment-20261104.json` and `docs/automation/evidence/pr124-private-script-binding-20261104.json`.
 
 ## Implemented, tested boundaries
 
