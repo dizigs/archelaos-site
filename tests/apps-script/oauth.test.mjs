@@ -152,3 +152,37 @@ test('Cloudflare-style token fetch uses no instance receiver and refuses redirec
   await assert.rejects(oauth.exchange({ grant_type: 'authorization_code', code: 'synthetic-only', code_verifier: 'synthetic-verifier', redirect_uri: 'https://archelaos-automation-bridge.dimitriszgalanis.workers.dev/oauth/callback' }), error => error.code === 'GOOGLE_REDIRECT_REJECTED');
   assert.deepEqual(seen, [{ url: 'https://oauth2.googleapis.com/token', method: 'POST' }]);
 });
+
+test('new browser-only verification reads real synthetic project metadata/content with grant, not source or writes', async t => {
+  const f = await loginFixture(t);
+  const grant = await f.callback();
+  const cookie = grant.cookie.split(';')[0];
+  const seen = [];
+  const google = async (url, init) => {
+    if (url.startsWith('https://script.googleapis.com/v1/projects/')) {
+      seen.push({ url, method: init.method, redirect: init.redirect, bearer: init.headers.authorization });
+      if (url.endsWith('/content')) return Response.json({ scriptId: projectId, files: f.state.files });
+      return Response.json({ scriptId: projectId, title: projectTitle });
+    }
+    return f.fetchGoogle(url, init);
+  };
+  const route = configureExistingBridgeScripts({
+    env: { GOOGLE_CLIENT_ID: f.config.clientId, GOOGLE_CLIENT_SECRET: f.config.clientSecret,
+      OAUTH_STATE_SECRET: 'synthetic-private-storage-key-'.repeat(3), APPS_SCRIPT_PROJECT_ID: projectId,
+      APPS_SCRIPT_PROJECT_TITLE: projectTitle, APPS_SCRIPT_ADMIN_EMAIL: admin },
+    storage: f.storage, fetchGoogle: google, now: () => f.state.clock,
+  });
+  const target = f.config.origin + '/api/apps-script/verify';
+  const good = await route(new Request(target, { headers: { cookie } }));
+  assert.equal(good.status, 200, await good.clone().text());
+  const summary = await good.json();
+  assert.deepEqual(summary, { status: 'ADMIN_PROJECT_READ_VERIFIED', projectIdentityVerified: true, completeFilesVerified: true, fileCount: 5, readOnly: true });
+  assert.equal(good.headers.get('cache-control'), 'no-store');
+  assert.equal((await route(new Request(target))).status, 401);
+  const blocked = await route(new Request(f.config.origin + '/api/apps-script/content', { headers: { cookie } }));
+  assert.equal(blocked.status, 503); // Signed executor remains unavailable even after Admin consent
+  assert.equal((await blocked.json()).code, 'EXECUTOR_INTERFACE_UNCONFIGURED');
+  assert.deepEqual(seen.map(x => x.method), ['GET', 'GET']);
+  assert.ok(seen.every(x => x.redirect === 'manual' && x.bearer === 'Bearer synthetic-initial-private-access-token'));
+  assert.equal(f.state.updates, 0);
+});
