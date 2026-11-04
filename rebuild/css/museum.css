@@ -10,6 +10,10 @@
 .mu-divider span{width:65px;height:1px;background:#c7a65e}
 .mu-entrance p:not(.mu-entrance-kicker){max-width:720px;margin:25px auto 30px;color:#e2e9e2;font-size:17px;line-height:1.85}
 .mu-cta{display:inline-flex;text-decoration:none;color:#073d2a;background:#eddbaf;border-radius:13px;padding:14px 23px;font-size:14px;font-weight:800}
+.mu-entrance-actions{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:14px}
+.mu-memory-cta{display:inline-flex;align-items:center;justify-content:center;min-height:47px;padding:13px 23px;border:1px solid #e4c98d;border-radius:13px;color:#fff7e5;font-size:14px;font-weight:700;text-align:center;text-decoration:none}
+.mu-memory-cta:hover,.mu-memory-cta:focus-visible{background:#eddbaf;color:#073d2a;text-decoration:none}
+.mu-memory-cta:focus-visible{outline:3px solid #fff7e5;outline-offset:3px}
 .mu-collections,.mu-explore,.mu-exhibits,.mu-press,.mu-archive,.mu-sports{padding:clamp(65px,8vw,110px) 0}
 .mu-collections{background:#f8f6ef}
 .mu-explore{background:#efe9dc}
