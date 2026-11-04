@@ -120,7 +120,7 @@ test('Google transport uses only bound project metadata/content, full PUT and pr
   const provider = new GoogleProjects({ projectId, accessToken: async () => 'synthetic-private-access-token', fetchGoogle: async (url, init) => { requests.push({ url, init }); return Response.json({ scriptId: projectId, files: files() }); } });
   await provider.metadata(); await provider.content(); await provider.update(files());
   assert.equal(requests.length, 3); assert.equal(requests[2].init.method, 'PUT'); assert.deepEqual(JSON.parse(requests[2].init.body).files, files());
-  for (const r of requests) { assert.ok(r.url.startsWith('https://script.googleapis.com/v1/projects/' + projectId)); assert.ok(!r.url.includes('access_token')); assert.equal(r.init.redirect, 'error'); }
+  for (const r of requests) { assert.ok(r.url.startsWith('https://script.googleapis.com/v1/projects/' + projectId)); assert.ok(!r.url.includes('access_token')); assert.equal(r.init.redirect, 'manual'); }
 });
 test('Google HTTP403 is bounded and never automatically retried', async () => {
   let calls = 0; const provider = new GoogleProjects({ projectId, accessToken: async () => 'synthetic-private-access-token', fetchGoogle: async () => { calls++; return new Response('synthetic credential-like error must not escape', { status: 403 }); } });
@@ -133,4 +133,19 @@ test('private backup quota stops writes without deleting or overwriting existing
   const base = await f.editor().read(actor);
   await assert.rejects(f.editor().edit(actor, change(base.headHash)), rejected('PRIVATE_BACKUP_CAPACITY_REACHED'));
   assert.equal(f.state.updates, 0); assert.equal(f.db.prepare('SELECT COUNT(*) AS n FROM script_private_blobs').get().n, 64);
+});
+
+// Regression: a provider redirect cannot send the private Bearer token elsewhere.
+test('Cloudflare-style Google API fetch uses no instance receiver and refuses redirect without retry', async () => {
+  let calls = 0;
+  const fetchGoogle = function(url, init) {
+    assert.equal(this, undefined);
+    assert.equal(init.redirect, 'manual');
+    assert.ok(url.startsWith('https://script.googleapis.com/v1/projects/'));
+    calls++;
+    return Response.redirect('https://example.invalid/never-follow', 307);
+  };
+  const provider = new GoogleProjects({ projectId, accessToken: async () => 'synthetic-private-access-token', fetchGoogle });
+  await assert.rejects(provider.content(), rejected('GOOGLE_REDIRECT_REJECTED'));
+  assert.equal(calls, 1);
 });
