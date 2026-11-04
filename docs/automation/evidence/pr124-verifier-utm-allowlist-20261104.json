@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-04",
+  "case": "User received UNSUPPORTED_SCRIPT_QUERY on browser-only /api/apps-script/verify",
+  "observedRootCause": "In previously deployed interface.mjs, verify route rejected any URL search string before cookie verification. Chat/browser link decorators can append utm_source=chatgpt.com. Exact parameter in user's browser was not independently observed.",
+  "fix": {
+    "sourceCommit": "689ee90b6cdbcf387dfe0bf1e2c48983b5af34b2",
+    "modified": [
+      "automation/apps-script/interface.mjs",
+      "tests/apps-script/interface.test.mjs"
+    ],
+    "behavior": "Only GET /api/apps-script/verify accepts max five unique UTM keys (source, medium, campaign, content, term), bounded valid values and total search length. Other params remain rejected. OAuth session cookie, exact Admin/scopes and Google GET identity validation unchanged. All editor routes remain gated."
+  },
+  "ci": {
+    "workflow": "Cloudflare Pages deployment status",
+    "job": "offline-test",
+    "conclusion": "success",
+    "additionalPassed": 10,
+    "failed": 0,
+    "pendingAtObservation": [
+      "Lighthouse CI - website quality"
+    ]
+  },
+  "cloudflare": {
+    "worker": "archelaos-automation-bridge",
+    "deploymentId": "cac0985f-dfd4-4a61-a14f-b31ae9b4d1c5",
+    "versionId": "5c40f6f3-be4e-4bbf-ad48-fbc36020b6b3",
+    "rollbackVersion": "1b5a504e-66c7-411a-8ac6-e7f774362599",
+    "preservedBindings": 10,
+    "preservedModuleParts": 10
+  },
+  "externalChecks": [
+    {
+      "request": "GET /health",
+      "httpStatus": 200,
+      "response": "ok"
+    },
+    {
+      "request": "GET /api/apps-script/verify?utm_source=chatgpt.com without cookie",
+      "httpStatus": 401,
+      "response": "OAUTH_COOKIE_REQUIRED"
+    },
+    {
+      "request": "GET /api/apps-script/verify?code=bogus without cookie",
+      "httpStatus": 404,
+      "response": "UNSUPPORTED_SCRIPT_QUERY"
+    },
+    {
+      "request": "GET /api/apps-script/content without executor",
+      "httpStatus": 503,
+      "response": "EXECUTOR_INTERFACE_UNCONFIGURED"
+    }
+  ],
+  "sqliteReadOnlyCounts": {
+    "adminGrants": 1,
+    "oauthSessions": 1,
+    "scriptOperations": 0,
+    "privateBackups": 0,
+    "queryRowsWritten": 0
+  },
+  "notYetProven": [
+    "Authenticated browser GET /api/apps-script/verify returns ADMIN_PROJECT_READ_VERIFIED",
+    "Google projects.get/getContent success using saved Admin grant",
+    "Signed scoped executor to support subsequent editor workflows"
+  ],
+  "safety": {
+    "googleMutations": 0,
+    "googleTriggersChanged": false,
+    "liveWritesEnabled": false,
+    "privateCookiesTokensOrSourceCopied": false
+  }
+}

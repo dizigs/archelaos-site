@@ -2,11 +2,12 @@
 """Calendar import must never invent dates, treat recurrence as a single match,
 or automatically publish user-provided events.
 """
-import importlib.util,json
+import importlib.util,json,sys
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from zipfile import ZipFile
 ROOT=Path(__file__).resolve().parents[1]
+sys.path.insert(0,str(ROOT/"tools"))
 spec=importlib.util.spec_from_file_location("match_import",ROOT/"tools/import_match_calendar.py")
 assert spec and spec.loader
 mod=importlib.util.module_from_spec(spec);spec.loader.exec_module(mod)

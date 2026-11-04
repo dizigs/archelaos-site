@@ -7,12 +7,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Bodoni+Moda:wght@500;600&display=optional" rel="stylesheet">
 <link rel="stylesheet" href="/rebuild/css/tokens.css"><link rel="stylesheet" href="/rebuild/css/components.css"><link rel="stylesheet" href="/rebuild/css/home.css?v=20261101-sport-links-v2">
-<script defer src="/rebuild/js/shell.js"></script><script defer src="/rebuild/js/components.js"></script><script defer src="/rebuild/js/home.js?v=20261101-sport-links-v2"></script><script defer src="/rebuild/js/match-calendar.js"></script>
+<script defer src="/rebuild/js/shell.js"></script><script defer src="/rebuild/js/components.js"></script><script defer src="/rebuild/js/home.js?v=20261101-sport-links-v2"></script><script defer src="/rebuild/js/fixture-archive.js"></script>
 <script defer src="/rebuild/js/today.js"></script><link rel="stylesheet" href="/rebuild/css/motion.css"><link rel="stylesheet" href="/rebuild/css/viewports.css">
 <script src="/rebuild/js/motion.js" defer></script>
 <link rel="stylesheet" href="/rebuild/css/collection.css">
 <script defer src="/rebuild/js/favorites.js"></script>
-<link rel="stylesheet" href="/assets/home-news.css?v=20261101-bottom-cta"></head>
+<link rel="stylesheet" href="/assets/home-news.css?v=20261101-bottom-cta"><link rel="stylesheet" href="/rebuild/css/support-footer.css">
+<script defer src="/rebuild/js/support-footer.js"></script>
+</head>
 <body><a class="new-skip" href="#main-content">Μετάβαση στο περιεχόμενο</a>
 <main id="main-content">
 <section class="new-hero" id="home"><div class="arch-container new-hero-grid"><div class="new-hero-copy">
@@ -29,7 +31,7 @@
 <a class="new-milestone" href="/history.html#history-archive"><span>1968</span><strong>Η ταυτότητά μας</strong><small>27 Ιουνίου · Πράσινο και κίτρινο</small></a>
 <a class="new-milestone" href="/70-stigmes.html"><span>1956–2026</span><strong>70 χρόνια πορείας</strong><small>Αθλητισμός · Παιδεία · Κοινωνία</small></a></div><p class="new-gold-label">ΕΞΕΡΕΥΝΗΣΤΕ ΤΟ ΕΠΕΤΕΙΑΚΟ ΑΦΙΕΡΩΜΑ</p><div class="new-anniversary-portal">
 <a href="/70-stigmes.html"><span>70</span><strong>70 Στιγμές</strong><small>Η διαδρομή μας στον χρόνο</small></a>
-<a href="/hall-of-fame.html"><span id="new-people-total">724</span><strong>Οι Άνθρωποι του Αρχέλαου</strong><small>Οι άνθρωποι πίσω από την ιστορία</small></a></div></div></section>
+<a href="/hall-of-fame.html"><span id="new-people-total">—</span><strong>Οι Άνθρωποι του Αρχέλαου</strong><small>Οι άνθρωποι πίσω από την ιστορία</small></a></div></div></section>
 <section class="new-today" id="today-in-history" aria-labelledby="new-today-heading">
 <div class="arch-container"><div class="new-today-grid">
 <div><span class="new-eyebrow">ΑΡΧΕΙΟ ΑΡΧΕΛΑΟΥ · ΚΑΘΗΜΕΡΙΝΗ ΑΝΑΚΑΛΥΨΗ</span><h2 id="new-today-heading">Μια στιγμή από την <em>ιστορία.</em></h2><p>Επιλεγμένο γεγονός από τις 70 Στιγμές του συλλόγου.</p></div>
@@ -37,36 +39,6 @@
 <span class="new-today-date" id="new-today-date">1956—2026</span>
 <strong id="new-today-title">Ανακαλύψτε μια ιστορική στιγμή</strong><span class="new-today-year" id="new-today-year" aria-hidden="true">70</span>
 </a></div></div></section>
-<section class="fx-section" id="upcoming-matches" aria-labelledby="fx-title">
-<div class="arch-container fx-shell">
-  <div class="fx-legacy"><span class="fx-legacy-star" aria-hidden="true">✦</span><span>Γ.Α.Σ. «Ο ΑΡΧΕΛΑΟΣ» · ΚΑΤΕΡΙΝΗ</span><span class="fx-legacy-line" aria-hidden="true"></span><span>EST. 1956</span></div>
-  <div class="fx-heading">
-    <div class="fx-heading-copy"><span class="fx-eyebrow">Η ΕΔΡΑ ΜΑΣ · Η ΙΣΤΟΡΙΑ ΓΡΑΦΕΤΑΙ ΚΑΙ ΣΗΜΕΡΑ</span>
-      <h2 id="fx-title">Το επόμενο κεφάλαιο<br>γράφεται <em>στο γήπεδο.</em></h2>
-      <p>Από το 1956 μέχρι σήμερα, μια μεγάλη αθλητική διαδρομή. Κάθε νέα αναμέτρηση, ακόμη μια στιγμή στην ιστορία του Αρχέλαου. Δείτε αποκλειστικά τους επόμενους <strong>εντός έδρας</strong> αγώνες χάντμπολ ανδρών και βόλεϊ Κ16.</p>
-    </div>
-    <div class="fx-heritage" aria-hidden="true"><span class="fx-heritage-number" id="fx-history-years">70</span><span class="fx-heritage-caption">ΧΡΟΝΙΑ ΙΣΤΟΡΙΑΣ<br><span id="fx-history-range">1956 — 2026</span></span></div>
-  </div>
-  <div class="fx-commandbar">
-    <div class="fx-switch" role="group" aria-label="Επόμενοι αγώνες ανά άθλημα">
-      <button type="button" data-fixture-sport="all" aria-pressed="true">Όλοι οι αγώνες</button>
-      <button type="button" data-fixture-sport="handball" aria-pressed="false">Χάντμπολ</button>
-      <button type="button" data-fixture-sport="volleyball" aria-pressed="false">Βόλεϊ Κ16</button>
-    </div><div class="fx-switch fx-venue-filters" role="group" aria-label="Φίλτρο έδρας"><button type="button" data-fixture-venue="all" aria-pressed="true">Όλες οι έδρες</button><button type="button" data-fixture-venue="home" aria-pressed="false">Εντός</button><button type="button" data-fixture-venue="away" aria-pressed="false">Εκτός</button></div>
-    <div class="fx-calendar-subscribe"><a id="fx-download" class="fx-download" href="/calendar.ics" hidden>Λήψη προγράμματος </a><a id="fx-subscribe" class="fx-download" href="webcal://archelaos.club/calendar.ics" hidden>Συνδρομή στο ημερολόγιο </a></div>
-  </div>
-  <p id="fx-status" class="fx-status" aria-live="polite">Ανάκτηση εγκεκριμένου αγωνιστικού προγράμματος…</p>
-  <div class="fx-cards" id="fx-list"></div>
-  <div class="fx-empty" id="fx-empty" hidden>
-    <div class="fx-empty-mark" aria-hidden="true">1956</div>
-    <div class="fx-empty-copy"><span class="fx-eyebrow">ΤΟ ΤΑΞΙΔΙ ΣΥΝΕΧΙΖΕΤΑΙ</span>
-      <h3>Κάθε μεγάλος αγώνας<br>ξεκινά με μια <em>ημερομηνία.</em></h3>
-      <p>Μόλις επιβεβαιωθεί το επίσημο πρόγραμμα, οι αγώνες θα εμφανίζονται εδώ, με δυνατότητα να προσθέσετε τον καθένα στο δικό σας ημερολόγιο.</p>
-    </div>
-    <span class="fx-empty-seal" aria-hidden="true">Γ.Α.Σ.<br>1956</span>
-  </div>
-  <div class="fx-footnote"><span aria-hidden="true">✦</span><p>Εμφανίζονται εντός και εκτός έδρας αναμετρήσεις από τα προγράμματα χάντμπολ και βόλεϊ Κ16. Για αλλαγές ώρας ή αναβολές ισχύουν οι επίσημες ανακοινώσεις.</p></div>
-</div></section>
 <section class="new-about" id="about"><div class="arch-container new-about-grid">
 <div class="new-slideshow" aria-roledescription="carousel" aria-label="Τα αθλήματα του Αρχέλαου"><div class="new-slides"><figure class="new-slide active" aria-hidden="false"><img src="/images/handball-archelaos-panserraikos-2025.jpg" alt="Χάντμπολ" width="1200" height="800" loading="lazy" decoding="async"></figure>
 <figure class="new-slide" aria-hidden="true"><img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="Στίβος" width="1200" height="800" loading="lazy" decoding="async"></figure>

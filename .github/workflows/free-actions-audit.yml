@@ -1,8 +1,6 @@
 name: Free Actions lint and security audit
 on:
   pull_request:
-    paths:
-      - '.github/workflows/**'
   push:
     branches: [main]
     paths:
@@ -20,13 +18,24 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           persist-credentials: false
-      - uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff # v5
+      - name: Install Go
+        uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff # v5
         with:
-          go-version: 'stable'
-      - name: Install actionlint
-        run: go install github.com/rhysd/actionlint/cmd/actionlint@v1.7.11
-      - name: Validate all GitHub workflows
-        run: '"$(go env GOPATH)/bin/actionlint" -color'
+          go-version: '1.27.3'
+      - name: Build commit-verified actionlint using locked module dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          src="$RUNNER_TEMP/actionlint-src"
+          git clone --depth=1 --branch v1.7.11 --quiet https://github.com/rhysd/actionlint.git "$src"
+          test "$(git -C "$src" rev-parse HEAD)" = "393031adb9afb225ee52ae2ccd7a5af5525e03e8"
+          (
+            cd "$src"
+            go mod verify
+            go build -mod=readonly -o "$RUNNER_TEMP/actionlint" ./cmd/actionlint
+          )
+      - name: Check all workflows (no secrets or site changes)
+        run: '"$RUNNER_TEMP/actionlint" -color'
   zizmor:
     runs-on: ubuntu-latest
     timeout-minutes: 12
@@ -34,11 +43,40 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           persist-credentials: false
-      # Baseline scan of all existing workflows: log/annotate legacy findings without
-      # blocking this PR. Actionlint remains blocking; do not conceal zizmor output.
-      - name: Scan Actions for security findings
+      # Keep every legacy finding visible; the next pass blocks HIGH findings.
+      - name: Report all Actions security findings
         continue-on-error: true
-        uses: zizmorcore/zizmor-action@53290badfa369cb0bf7ad16342cb62c2fa47ac7b # v0.8.0
+        uses: zizmorcore/zizmor-action@45d7276c9ca790aabd705e31ca99c6185c3e76dd # v0.8.1
         with:
           advanced-security: false
           annotations: true
+          inputs: .github/workflows
+          collect: workflows
+          persona: auditor
+      - name: Block high-severity Actions security findings
+        uses: zizmorcore/zizmor-action@45d7276c9ca790aabd705e31ca99c6185c3e76dd # v0.8.1
+        with:
+          advanced-security: false
+          annotations: true
+          inputs: .github/workflows
+          collect: workflows
+          persona: auditor
+          min-severity: high
+
+  dependency-review:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      # Server-side graph diff only: no checkout or PR-controlled code execution.
+      - name: Reject newly introduced high and critical dependency vulnerabilities
+        uses: actions/dependency-review-action@a1d282b36b6f3519aa1f3fc636f609c47dddb294 # v5.0.0
+        with:
+          fail-on-severity: high
+          fail-on-scopes: runtime, development, unknown
+          vulnerability-check: true
+          license-check: false
+          warn-only: false
+          comment-summary-in-pr: never

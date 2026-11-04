@@ -1,0 +1,3367 @@
+{
+  "version": 1,
+  "created": "2026-11-03",
+  "scope": "Every published news.json article (2019–2026), all G.A.S. Archelaos departments",
+  "status": "STAGED_NOT_YET_PUBLISHED_TO_HALL",
+  "baseline": {
+    "newsTotal": 124,
+    "hallTotal": 763,
+    "newsWithPersonLinks": 114,
+    "newsWithoutPersonLinks": 10,
+    "linkedPersonReferences": 440,
+    "distinctExistingPeople": 168,
+    "newsWithoutPersonIds": [
+      "archery-olympus-series-agios-spyridonas-feb-2026",
+      "archery-national-evaluation-nea-chrani-may-2025",
+      "handball-volos-2024",
+      "club-sports-facilities-proposals-aug-2024",
+      "archery-olympus-2024",
+      "pieria-handball-cup-announcement-2024",
+      "handball-kyklopes-archelaos-38-29-may-2023",
+      "handball-kilkis-archelaos-33-14-feb-2023",
+      "volleyball-mini-tournament-jun-2022",
+      "archery-olympus-series-june-2020"
+    ]
+  },
+  "linkCorrectionsPublishedNewsBranch": [
+    {
+      "eventId": "archery-amyntaio-youth-national-dec-2024",
+      "addedIds": [
+        "arch-archery-result-20261102-03",
+        "arch-archery-result-20261102-04"
+      ]
+    }
+  ],
+  "initialResearch": {
+    "path": "docs/research/facebook-hof-enrichment-20261103.json",
+    "newProfiles": [
+      "Δήμητρα Σάββα",
+      "Κωνσταντίνα Μακρίδου",
+      "Στυλιανή (Στέλλα) Κωνσταντινίδου"
+    ],
+    "existingBioUpdates": 14
+  },
+  "newCandidatesFromFullNews": [
+    {
+      "id": "arch-katerina-lampiri-gymnastics-2022",
+      "name": "Κατερίνα Λαμπίρη",
+      "category": "athlete",
+      "sport": "Ενόργανη Γυμναστική",
+      "role": "Αθλητής/Αθλήτρια · Ενόργανη",
+      "bio": "Το 2022 συμμετείχε στην ομάδα Παγκορασίδων Β΄ του Αρχέλαου που κατέκτησε χάλκινο ομαδικό στην Α΄ φάση της Δ΄ Κατηγορίας στη Μίκρα και ασημένιο στην τελική φάση στην Αλεξανδρούπολη. Καταγράφεται επίσης σε διακρίσεις των ομάδων του συλλόγου το 2023.",
+      "sourceEvents": [
+        {
+          "eventId": "gymnastics-regional-first-phase-may-2022",
+          "date": "2022-05-29",
+          "sourceUrl": "https://odelalis.gr/sarose-ta-metallia-to-tmima-gymnastikis-toy-gas-archelaos-katerinis/"
+        },
+        {
+          "eventId": "gymnastics-alexandroupoli-final-jun-2022",
+          "date": "2022-06-17",
+          "sourceUrl": "https://odelalis.gr/epitychies-ton-pampaidon-amp-pagkorasidon-toy-gas-archelaos-katerinis-sto-panellinio-protathlima-enorganis-gymnastikis-stin-alexandroypoli/"
+        },
+        {
+          "eventId": "gymnastics-thessaloniki-regional-may-2023",
+          "date": "2023-05-30",
+          "sourceUrl": "https://olympiobima.gr/gas-archelaos-katerinis-ekpliktiki-emfanisi-megales-diakriseis-stin-thessaloniki/"
+        },
+        {
+          "eventId": "gymnastics-alexandroupoli-u10-u8-june-2023",
+          "date": "2023-06-19",
+          "sourceUrl": "https://olympiobima.gr/gas-archelaos-katerinis-avlaia-kai-gia-tin-enorgani-gymnastiki/"
+        }
+      ],
+      "status": "NEW_PROFILE_CANDIDATE_NOT_PUBLISHED"
+    },
+    {
+      "id": "arch-christina-papavasileiou-gymnastics-2022",
+      "name": "Χριστίνα Παπαβασιλείου",
+      "category": "athlete",
+      "sport": "Ενόργανη Γυμναστική",
+      "role": "Αθλητής/Αθλήτρια · Ενόργανη",
+      "bio": "Μέλος της ομάδας Παγκορασίδων Β΄ του Γ.Α.Σ. Αρχέλαος που κατέκτησε την τρίτη θέση στην Α΄ φάση της Δ΄ Κατηγορίας στη Μίκρα και τη δεύτερη στην τελική φάση στην Αλεξανδρούπολη τον Ιούνιο 2022 (158,750 βαθμοί).",
+      "sourceEvents": [
+        {
+          "eventId": "gymnastics-regional-first-phase-may-2022",
+          "date": "2022-05-29",
+          "sourceUrl": "https://odelalis.gr/sarose-ta-metallia-to-tmima-gymnastikis-toy-gas-archelaos-katerinis/"
+        },
+        {
+          "eventId": "gymnastics-alexandroupoli-final-jun-2022",
+          "date": "2022-06-17",
+          "sourceUrl": "https://odelalis.gr/epitychies-ton-pampaidon-amp-pagkorasidon-toy-gas-archelaos-katerinis-sto-panellinio-protathlima-enorganis-gymnastikis-stin-alexandroypoli/"
+        }
+      ],
+      "status": "NEW_PROFILE_CANDIDATE_NOT_PUBLISHED"
+    },
+    {
+      "id": "arch-paschalis-iliatzikis-wrestling-2022",
+      "name": "Πασχάλης Ηλιατζίκης",
+      "category": "athlete",
+      "sport": "Πάλη",
+      "role": "Αθλητής/Αθλήτρια · Πάλη",
+      "bio": "Αθλητής πάλης του Αρχέλαου Κατερίνης με χάλκινο μετάλλιο στο Πανελλήνιο Εφήβων στις Σέρρες τον Απρίλιο 2022 και νέο χάλκινο στο Πανελλήνιο Εφήβων στο Μουζάκι Καρδίτσας τον Απρίλιο 2023.",
+      "sourceEvents": [
+        {
+          "eventId": "wrestling-u17-serres-third-apr-2022",
+          "date": "2022-04-17",
+          "sourceUrl": "https://odigos-pierias.gr/3%CE%BF%CF%82-%CE%BF-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CE%BA%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82-%CF%83%CF%84%CE%BF-%CF%80%CE%B1%CE%BD%CE%B5%CE%BB%CE%BB%CE%AE%CE%BD%CE%B9/"
+        },
+        {
+          "eventId": "wrestling-mouzaki-youth-medals-apr-2023",
+          "date": "2023-04-24",
+          "sourceUrl": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/3-%CE%BC%CE%B5%CF%84%CE%AC%CE%BB%CE%BB%CE%B9%CE%B1-%CE%B3%CE%B9%CE%B1-%CF%84%CE%BF%CF%85%CF%82-%CE%AD%CF%86%CE%B7%CE%B2%CE%BF%CF%85%CF%82-%CF%84%CE%BF%CF%85-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF/"
+        }
+      ],
+      "status": "NEW_PROFILE_CANDIDATE_NOT_PUBLISHED"
+    },
+    {
+      "id": "arch-savvas-charitidis-wrestling-2021",
+      "name": "Σάββας Χαριτίδης",
+      "category": "athlete",
+      "sport": "Πάλη",
+      "role": "Αθλητής/Αθλήτρια · Πάλη",
+      "bio": "Αθλητής πάλης του Αρχέλαου. Κατέκτησε χάλκινο μετάλλιο στους Μεσογειακούς Αγώνες Παίδων στην Ξάνθη τον Οκτώβριο 2021 και ασημένιο στο Πανελλήνιο Εφήβων στο Μουζάκι Καρδίτσας τον Απρίλιο 2023.",
+      "sourceEvents": [
+        {
+          "eventId": "wrestling-xanthi-four-medals-2021",
+          "date": "2021-11-01",
+          "sourceUrl": "https://odigos-pierias.gr/4-%CE%BC%CE%B5%CF%84%CE%AC%CE%BB%CE%BB%CE%B9%CE%B1-%CE%BF%CE%B9-%CF%80%CF%81%CF%89%CF%84%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%AD%CF%82-%CF%84%CE%BF%CF%85-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%85/"
+        },
+        {
+          "eventId": "wrestling-mouzaki-youth-medals-apr-2023",
+          "date": "2023-04-24",
+          "sourceUrl": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/3-%CE%BC%CE%B5%CF%84%CE%AC%CE%BB%CE%BB%CE%B9%CE%B1-%CE%B3%CE%B9%CE%B1-%CF%84%CE%BF%CF%85%CF%82-%CE%AD%CF%86%CE%B7%CE%B2%CE%BF%CF%85%CF%82-%CF%84%CE%BF%CF%85-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF/"
+        }
+      ],
+      "status": "NEW_PROFILE_CANDIDATE_NOT_PUBLISHED"
+    },
+    {
+      "id": "arch-alexis-papadopoulos-wrestling-2022",
+      "name": "Αλέξης Παπαδόπουλος",
+      "category": "athlete",
+      "sport": "Πάλη",
+      "role": "Αθλητής/Αθλήτρια · Πάλη",
+      "bio": "Αθλητής πάλης του Αρχέλαου που κατέκτησε ασημένιο μετάλλιο στο Πανελλήνιο Πρωτάθλημα Εφήβων στις Σέρρες στις 16 Απριλίου 2022, με τον σύλλογο να κατακτά την τρίτη ομαδική θέση.",
+      "sourceEvents": [
+        {
+          "eventId": "wrestling-u17-serres-third-apr-2022",
+          "date": "2022-04-17",
+          "sourceUrl": "https://odigos-pierias.gr/3%CE%BF%CF%82-%CE%BF-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CE%BA%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82-%CF%83%CF%84%CE%BF-%CF%80%CE%B1%CE%BD%CE%B5%CE%BB%CE%BB%CE%AE%CE%BD%CE%B9/"
+        }
+      ],
+      "status": "NEW_PROFILE_CANDIDATE_NOT_PUBLISHED"
+    },
+    {
+      "id": "arch-eleni-mitsiaki-archery-2022",
+      "name": "Ελένη Μητσιάκη",
+      "category": "athlete",
+      "sport": "Τοξοβολία",
+      "role": "Αθλητής/Αθλήτρια · Τοξοβολία",
+      "bio": "Αθλήτρια τοξοβολίας του Γ.Α.Σ. Αρχέλαος. Στο Κύπελλο Ελλάδας στη Φλώρινα στις 17–18 Σεπτεμβρίου 2022, κατέλαβε την τέταρτη θέση στο μικτό Ανδρών–Γυναικών Ολυμπιακού Τόξου μαζί με τον Ιωάννη Χαρίση.",
+      "sourceEvents": [
+        {
+          "eventId": "archery-florina-cup-team-silver-sep-2022",
+          "date": "2022-09-27",
+          "sourceUrl": "https://olympiobima.gr/sto-kypello-ellados-stin-florina-to-tmima-toxovolias-toy-gas-archelaos-katerinis/"
+        }
+      ],
+      "status": "NEW_PROFILE_CANDIDATE_NOT_PUBLISHED"
+    },
+    {
+      "id": "arch-achilleas-giassiranis-wrestling-2024",
+      "name": "Αχιλλέας Γιασιράνης",
+      "category": "athlete",
+      "sport": "Πάλη",
+      "role": "Αθλητής/Αθλήτρια · Πάλη",
+      "bio": "Αθλητής πάλης του Αρχέλαου που κατέλαβε την πέμπτη θέση στην κατηγορία του στο διεθνές τουρνουά του Πλέβεν Βουλγαρίας, τον Δεκέμβριο 2024, όπου ο σύλλογος αναδείχθηκε δεύτερος στην ομαδική κατάταξη.",
+      "sourceEvents": [
+        {
+          "eventId": "wrestling-pleven-bulgaria-dec-2024",
+          "date": "2024-12-10",
+          "sourceUrl": "https://olympiobima.gr/3-chrysa-metallia-oi-protathlites-tou-archelaou-katerinis-sto-pleven-tis-voulgarias/"
+        }
+      ],
+      "status": "NEW_PROFILE_CANDIDATE_NOT_PUBLISHED"
+    },
+    {
+      "id": "arch-kyriaki-parasidou-gymnastics-2022",
+      "name": "Κυριακή Παρασίδου",
+      "category": "athlete",
+      "sport": "Ενόργανη Γυμναστική",
+      "role": "Αθλητής/Αθλήτρια · Ενόργανη",
+      "bio": "Αθλήτρια ενόργανης του Αρχέλαου. Συμμετείχε στην ομάδα Παγκορασίδων Α΄ που κατέκτησε την πρώτη θέση στο σύνθετο ομαδικό με 143,650 βαθμούς στην Α΄ φάση της Δ΄ Κατηγορίας στη Μίκρα, στις 21–22 Μαΐου 2022.",
+      "sourceEvents": [
+        {
+          "eventId": "gymnastics-regional-first-phase-may-2022",
+          "date": "2022-05-29",
+          "sourceUrl": "https://odelalis.gr/sarose-ta-metallia-to-tmima-gymnastikis-toy-gas-archelaos-katerinis/"
+        }
+      ],
+      "status": "NEW_PROFILE_CANDIDATE_NOT_PUBLISHED"
+    },
+    {
+      "id": "arch-christos-karasavvidis-gymnastics-2022",
+      "name": "Χρήστος Καρασαββίδης",
+      "category": "athlete",
+      "sport": "Ενόργανη Γυμναστική",
+      "role": "Αθλητής/Αθλήτρια · Ενόργανη",
+      "bio": "Αθλητής ενόργανης γυμναστικής του Αρχέλαου. Αναφέρεται μεταξύ των παμπαίδων με αγωνιστικές διακρίσεις στην Α΄ φάση της Δ΄ Κατηγορίας στη Μίκρα Θεσσαλονίκης, τον Μάιο 2022. Η συγκεκριμένη πηγή δεν αναφέρει ακριβή θέση ή όργανο.",
+      "sourceEvents": [
+        {
+          "eventId": "gymnastics-regional-first-phase-may-2022",
+          "date": "2022-05-29",
+          "sourceUrl": "https://odelalis.gr/sarose-ta-metallia-to-tmima-gymnastikis-toy-gas-archelaos-katerinis/"
+        }
+      ],
+      "status": "NEW_PROFILE_CANDIDATE_NOT_PUBLISHED"
+    },
+    {
+      "id": "arch-ioannis-goutsos-gymnastics-2022",
+      "name": "Ιωάννης Γκούτζος",
+      "category": "athlete",
+      "sport": "Ενόργανη Γυμναστική",
+      "role": "Αθλητής/Αθλήτρια · Ενόργανη",
+      "bio": "Αθλητής ενόργανης γυμναστικής του Αρχέλαου. Αναφέρεται μεταξύ των παμπαίδων με αγωνιστική παρουσία και διακρίσεις στην Α΄ φάση της Δ΄ Κατηγορίας στη Μίκρα Θεσσαλονίκης, τον Μάιο 2022, χωρίς ειδικότερη ατομική θέση στο δημοσίευμα.",
+      "sourceEvents": [
+        {
+          "eventId": "gymnastics-regional-first-phase-may-2022",
+          "date": "2022-05-29",
+          "sourceUrl": "https://odelalis.gr/sarose-ta-metallia-to-tmima-gymnastikis-toy-gas-archelaos-katerinis/"
+        }
+      ],
+      "status": "NEW_PROFILE_CANDIDATE_NOT_PUBLISHED"
+    }
+  ],
+  "combinedNewCandidateCount": 13,
+  "unresolvedAndExcluded": [
+    {
+      "eventId": "wrestling-petkos-silver-kilkis-mar-2020",
+      "name": "Νίκος Καστανιώτης",
+      "status": "CHECK_BEFORE_NEW_PROFILE",
+      "reason": "Το Hall έχει Κωνσταντίνο Καστανιώτη από τον στίβο· το κοινό επώνυμο δεν αρκεί για ταύτιση"
+    },
+    {
+      "eventId": "gymnastics-u18-regional-team-gold-2026",
+      "name": "Ερμίνα Βάλβη",
+      "status": "CHECK_NAME_VARIANT",
+      "reason": "Το Hall έχει Ερμιόνη Βάλβη"
+    },
+    {
+      "eventId": "wrestling-u11-u13-karditsa-2025",
+      "name": "Ειρήνη Τζότζου",
+      "status": "CHECK_CROSS_SPORT_IDENTITY",
+      "reason": "Υπάρχει Ειρήνη Τζώτζου στην ενόργανη· χρειάζεται ταυτοποίηση"
+    },
+    {
+      "eventId": "wrestling-u15-team-champions-april-2022",
+      "name": "Γιώργος Αθανασίου",
+      "status": "CHECK_HOMONYM",
+      "reason": "Υπάρχουν δύο διαφορετικές εγγραφές Γεωργίου Αθανασίου"
+    },
+    {
+      "eventId": "wrestling-darko-nisavic-serbia-july-2026",
+      "name": "Λία Νικολάου",
+      "status": "DO_NOT_ASSUME_CLUB_MEMBER",
+      "reason": "Δηλώνεται συνοδός της εθνικής αποστολής, όχι ρητά μέλος Αρχέλαου"
+    },
+    {
+      "eventId": "archery-oaka-u21-u18-medals-sep-2023",
+      "name": "Μιχαέλα Κουτρούλα",
+      "status": "EXCLUDE_OTHER_CLUB",
+      "reason": "Συμμετείχε με τον Ενιπέα Λιτοχώρου"
+    },
+    {
+      "eventId": "track-natsiopoulou-school-400h-gold-may-2023",
+      "name": "Νίκος Μαντζόλης",
+      "status": "CHECK_IDENTITY_BEFORE_BIO_APPEND",
+      "reason": "Το παλιότερο προφίλ ορίζει θητεία 1991–2006· ο προπονητής του 2023 χρειάζεται έλεγχο ταυτοποίησης"
+    }
+  ],
+  "allNewsPersonLinks": [
+    {
+      "personId": "arch-dimitris-siokas-handball-2026",
+      "eventId": "handball-archelaos-kastoria-33-16-2026",
+      "date": "2026-11-01",
+      "sport": "Χάντμπολ",
+      "sourceUrl": "https://www.palmare.gr/me-to-dexi-o-archelaos-katerinis-stin-v%CE%84-ethniki/"
+    },
+    {
+      "personId": "arch-handball-348992f5",
+      "eventId": "handball-archelaos-kastoria-33-16-2026",
+      "date": "2026-11-01",
+      "sport": "Χάντμπολ",
+      "sourceUrl": "https://www.palmare.gr/me-to-dexi-o-archelaos-katerinis-stin-v%CE%84-ethniki/"
+    },
+    {
+      "personId": "arch-e6778f75ce14",
+      "eventId": "handball-archelaos-kastoria-33-16-2026",
+      "date": "2026-11-01",
+      "sport": "Χάντμπολ",
+      "sourceUrl": "https://www.palmare.gr/me-to-dexi-o-archelaos-katerinis-stin-v%CE%84-ethniki/"
+    },
+    {
+      "personId": "arch-e03e05c83e79",
+      "eventId": "handball-archelaos-kastoria-33-16-2026",
+      "date": "2026-11-01",
+      "sport": "Χάντμπολ",
+      "sourceUrl": "https://www.palmare.gr/me-to-dexi-o-archelaos-katerinis-stin-v%CE%84-ethniki/"
+    },
+    {
+      "personId": "arch-2616694d9908",
+      "eventId": "wrestling-meteora-international-2026",
+      "date": "2026-11-01",
+      "sport": "Πάλη"
+    },
+    {
+      "personId": "arch-loukas-zinisa-wrest25",
+      "eventId": "wrestling-meteora-international-2026",
+      "date": "2026-11-01",
+      "sport": "Πάλη"
+    },
+    {
+      "personId": "arch-64dbf198bfd6",
+      "eventId": "wrestling-meteora-international-2026",
+      "date": "2026-11-01",
+      "sport": "Πάλη"
+    },
+    {
+      "personId": "arch-bdcef56af524",
+      "eventId": "wrestling-meteora-international-2026",
+      "date": "2026-11-01",
+      "sport": "Πάλη"
+    },
+    {
+      "personId": "arch-wrest-dimitris-grigkas",
+      "eventId": "wrestling-meteora-international-2026",
+      "date": "2026-11-01",
+      "sport": "Πάλη"
+    },
+    {
+      "personId": "arch-wrest-taxiarhis-liakos",
+      "eventId": "wrestling-meteora-international-2026",
+      "date": "2026-11-01",
+      "sport": "Πάλη"
+    },
+    {
+      "personId": "arch-wrest-stavros-tsakiris",
+      "eventId": "wrestling-meteora-international-2026",
+      "date": "2026-11-01",
+      "sport": "Πάλη"
+    },
+    {
+      "personId": "arch-af9470c5745f",
+      "eventId": "wrestling-meteora-international-2026",
+      "date": "2026-11-01",
+      "sport": "Πάλη"
+    },
+    {
+      "personId": "arch-8934f50fbeed",
+      "eventId": "wrestling-meteora-international-2026",
+      "date": "2026-11-01",
+      "sport": "Πάλη"
+    },
+    {
+      "personId": "arch-a3b57d586132",
+      "eventId": "wrestling-meteora-international-2026",
+      "date": "2026-11-01",
+      "sport": "Πάλη"
+    },
+    {
+      "personId": "arch-85fcb478d724",
+      "eventId": "katerini-run-70-years-2026",
+      "date": "2026-10-11",
+      "sport": "70 χρόνια",
+      "sourceUrl": "https://katerini.gr/?p=73858"
+    },
+    {
+      "personId": "arch-d401b272f36b",
+      "eventId": "katerini-run-70-years-2026",
+      "date": "2026-10-11",
+      "sport": "70 χρόνια",
+      "sourceUrl": "https://katerini.gr/?p=73858"
+    },
+    {
+      "personId": "arch-2616694d9908",
+      "eventId": "wrestling-balkan-2026",
+      "date": "2026-10-05",
+      "sport": "Πάλη",
+      "sourceUrl": "https://pieriasocial.gr/?p=137516"
+    },
+    {
+      "personId": "arch-957a876e770d",
+      "eventId": "wrestling-balkan-2026",
+      "date": "2026-10-05",
+      "sport": "Πάλη",
+      "sourceUrl": "https://pieriasocial.gr/?p=137516"
+    },
+    {
+      "personId": "arch-b48656c62600",
+      "eventId": "wrestling-balkan-2026",
+      "date": "2026-10-05",
+      "sport": "Πάλη",
+      "sourceUrl": "https://pieriasocial.gr/?p=137516"
+    },
+    {
+      "personId": "arch-85fcb478d724",
+      "eventId": "new-president-2026",
+      "date": "2026-09-22",
+      "sport": "Διοίκηση",
+      "sourceUrl": "https://www.pierianews.gr/2026/09/22/o-panagiotis-diamantopoulos-neos-proedros-tou-gas-archelaos/"
+    },
+    {
+      "personId": "arch-61d8d097f601",
+      "eventId": "new-president-2026",
+      "date": "2026-09-22",
+      "sport": "Διοίκηση",
+      "sourceUrl": "https://www.pierianews.gr/2026/09/22/o-panagiotis-diamantopoulos-neos-proedros-tou-gas-archelaos/"
+    },
+    {
+      "personId": "arch-44ef21dfb9b7",
+      "eventId": "archery-teachers-2026",
+      "date": "2026-09-10",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://pieria24.gr/viomatiki-drasi-ston-chortiati-toxovolia-pezoporia-kai-karpa-gia-kathigites/"
+    },
+    {
+      "personId": "arch-6212ba5ea7f1",
+      "eventId": "archery-teachers-2026",
+      "date": "2026-09-10",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://pieria24.gr/viomatiki-drasi-ston-chortiati-toxovolia-pezoporia-kai-karpa-gia-kathigites/"
+    },
+    {
+      "personId": "arch-7d2d2d8bf363",
+      "eventId": "swimming-national-17-athletes-106-points-aug-2026",
+      "date": "2026-08-03",
+      "sport": "Κολύμβηση",
+      "sourceUrl": "https://katerinisport.gr/4-%CF%83%CF%85%CE%BC%CE%BC%CE%B5%CF%84%CE%BF%CF%87%CE%AD%CF%82-%CF%83%CE%B5-%CF%84%CE%B5%CE%BB%CE%B9%CE%BA%CE%BF%CF%8D%CF%82-13-%CF%80%CE%BB%CE%B1%CF%83%CE%B1%CF%81%CE%AF%CF%83%CE%BC%CE%B1%CF%84/"
+    },
+    {
+      "personId": "arch-5de1e130d776",
+      "eventId": "swimming-national-17-athletes-106-points-aug-2026",
+      "date": "2026-08-03",
+      "sport": "Κολύμβηση",
+      "sourceUrl": "https://katerinisport.gr/4-%CF%83%CF%85%CE%BC%CE%BC%CE%B5%CF%84%CE%BF%CF%87%CE%AD%CF%82-%CF%83%CE%B5-%CF%84%CE%B5%CE%BB%CE%B9%CE%BA%CE%BF%CF%8D%CF%82-13-%CF%80%CE%BB%CE%B1%CF%83%CE%B1%CF%81%CE%AF%CF%83%CE%BC%CE%B1%CF%84/"
+    },
+    {
+      "personId": "arch-swim-2026-andreas-anastasiadis",
+      "eventId": "swimming-national-17-athletes-106-points-aug-2026",
+      "date": "2026-08-03",
+      "sport": "Κολύμβηση",
+      "sourceUrl": "https://katerinisport.gr/4-%CF%83%CF%85%CE%BC%CE%BC%CE%B5%CF%84%CE%BF%CF%87%CE%AD%CF%82-%CF%83%CE%B5-%CF%84%CE%B5%CE%BB%CE%B9%CE%BA%CE%BF%CF%8D%CF%82-13-%CF%80%CE%BB%CE%B1%CF%83%CE%B1%CF%81%CE%AF%CF%83%CE%BC%CE%B1%CF%84/"
+    },
+    {
+      "personId": "arch-292b7871cf5b",
+      "eventId": "swimming-national-17-athletes-106-points-aug-2026",
+      "date": "2026-08-03",
+      "sport": "Κολύμβηση",
+      "sourceUrl": "https://katerinisport.gr/4-%CF%83%CF%85%CE%BC%CE%BC%CE%B5%CF%84%CE%BF%CF%87%CE%AD%CF%82-%CF%83%CE%B5-%CF%84%CE%B5%CE%BB%CE%B9%CE%BA%CE%BF%CF%8D%CF%82-13-%CF%80%CE%BB%CE%B1%CF%83%CE%B1%CF%81%CE%AF%CF%83%CE%BC%CE%B1%CF%84/"
+    },
+    {
+      "personId": "arch-swim-2026-katerina-tsiniani",
+      "eventId": "swimming-national-17-athletes-106-points-aug-2026",
+      "date": "2026-08-03",
+      "sport": "Κολύμβηση",
+      "sourceUrl": "https://katerinisport.gr/4-%CF%83%CF%85%CE%BC%CE%BC%CE%B5%CF%84%CE%BF%CF%87%CE%AD%CF%82-%CF%83%CE%B5-%CF%84%CE%B5%CE%BB%CE%B9%CE%BA%CE%BF%CF%8D%CF%82-13-%CF%80%CE%BB%CE%B1%CF%83%CE%B1%CF%81%CE%AF%CF%83%CE%BC%CE%B1%CF%84/"
+    },
+    {
+      "personId": "arch-swim-2026-katerina-popoti",
+      "eventId": "swimming-national-17-athletes-106-points-aug-2026",
+      "date": "2026-08-03",
+      "sport": "Κολύμβηση",
+      "sourceUrl": "https://katerinisport.gr/4-%CF%83%CF%85%CE%BC%CE%BC%CE%B5%CF%84%CE%BF%CF%87%CE%AD%CF%82-%CF%83%CE%B5-%CF%84%CE%B5%CE%BB%CE%B9%CE%BA%CE%BF%CF%8D%CF%82-13-%CF%80%CE%BB%CE%B1%CF%83%CE%B1%CF%81%CE%AF%CF%83%CE%BC%CE%B1%CF%84/"
+    },
+    {
+      "personId": "arch-ae0647a0c701",
+      "eventId": "swimming-national-17-athletes-106-points-aug-2026",
+      "date": "2026-08-03",
+      "sport": "Κολύμβηση",
+      "sourceUrl": "https://katerinisport.gr/4-%CF%83%CF%85%CE%BC%CE%BC%CE%B5%CF%84%CE%BF%CF%87%CE%AD%CF%82-%CF%83%CE%B5-%CF%84%CE%B5%CE%BB%CE%B9%CE%BA%CE%BF%CF%8D%CF%82-13-%CF%80%CE%BB%CE%B1%CF%83%CE%B1%CF%81%CE%AF%CF%83%CE%BC%CE%B1%CF%84/"
+    },
+    {
+      "personId": "arch-39914cf713cf",
+      "eventId": "swimming-national-17-athletes-106-points-aug-2026",
+      "date": "2026-08-03",
+      "sport": "Κολύμβηση",
+      "sourceUrl": "https://katerinisport.gr/4-%CF%83%CF%85%CE%BC%CE%BC%CE%B5%CF%84%CE%BF%CF%87%CE%AD%CF%82-%CF%83%CE%B5-%CF%84%CE%B5%CE%BB%CE%B9%CE%BA%CE%BF%CF%8D%CF%82-13-%CF%80%CE%BB%CE%B1%CF%83%CE%B1%CF%81%CE%AF%CF%83%CE%BC%CE%B1%CF%84/"
+    },
+    {
+      "personId": "arch-swim-2026-giorgos-kryos",
+      "eventId": "swimming-national-17-athletes-106-points-aug-2026",
+      "date": "2026-08-03",
+      "sport": "Κολύμβηση",
+      "sourceUrl": "https://katerinisport.gr/4-%CF%83%CF%85%CE%BC%CE%BC%CE%B5%CF%84%CE%BF%CF%87%CE%AD%CF%82-%CF%83%CE%B5-%CF%84%CE%B5%CE%BB%CE%B9%CE%BA%CE%BF%CF%8D%CF%82-13-%CF%80%CE%BB%CE%B1%CF%83%CE%B1%CF%81%CE%AF%CF%83%CE%BC%CE%B1%CF%84/"
+    },
+    {
+      "personId": "arch-swim-2026-nikolas-kryos",
+      "eventId": "swimming-national-17-athletes-106-points-aug-2026",
+      "date": "2026-08-03",
+      "sport": "Κολύμβηση",
+      "sourceUrl": "https://katerinisport.gr/4-%CF%83%CF%85%CE%BC%CE%BC%CE%B5%CF%84%CE%BF%CF%87%CE%AD%CF%82-%CF%83%CE%B5-%CF%84%CE%B5%CE%BB%CE%B9%CE%BA%CE%BF%CF%8D%CF%82-13-%CF%80%CE%BB%CE%B1%CF%83%CE%B1%CF%81%CE%AF%CF%83%CE%BC%CE%B1%CF%84/"
+    },
+    {
+      "personId": "arch-cf53c375664e",
+      "eventId": "swimming-national-17-athletes-106-points-aug-2026",
+      "date": "2026-08-03",
+      "sport": "Κολύμβηση",
+      "sourceUrl": "https://katerinisport.gr/4-%CF%83%CF%85%CE%BC%CE%BC%CE%B5%CF%84%CE%BF%CF%87%CE%AD%CF%82-%CF%83%CE%B5-%CF%84%CE%B5%CE%BB%CE%B9%CE%BA%CE%BF%CF%8D%CF%82-13-%CF%80%CE%BB%CE%B1%CF%83%CE%B1%CF%81%CE%AF%CF%83%CE%BC%CE%B1%CF%84/"
+    },
+    {
+      "personId": "arch-swim-2026-pavlos-bampoulis",
+      "eventId": "swimming-national-17-athletes-106-points-aug-2026",
+      "date": "2026-08-03",
+      "sport": "Κολύμβηση",
+      "sourceUrl": "https://katerinisport.gr/4-%CF%83%CF%85%CE%BC%CE%BC%CE%B5%CF%84%CE%BF%CF%87%CE%AD%CF%82-%CF%83%CE%B5-%CF%84%CE%B5%CE%BB%CE%B9%CE%BA%CE%BF%CF%8D%CF%82-13-%CF%80%CE%BB%CE%B1%CF%83%CE%B1%CF%81%CE%AF%CF%83%CE%BC%CE%B1%CF%84/"
+    },
+    {
+      "personId": "arch-swim-2026-konstantinos-stefanis",
+      "eventId": "swimming-national-17-athletes-106-points-aug-2026",
+      "date": "2026-08-03",
+      "sport": "Κολύμβηση",
+      "sourceUrl": "https://katerinisport.gr/4-%CF%83%CF%85%CE%BC%CE%BC%CE%B5%CF%84%CE%BF%CF%87%CE%AD%CF%82-%CF%83%CE%B5-%CF%84%CE%B5%CE%BB%CE%B9%CE%BA%CE%BF%CF%8D%CF%82-13-%CF%80%CE%BB%CE%B1%CF%83%CE%B1%CF%81%CE%AF%CF%83%CE%BC%CE%B1%CF%84/"
+    },
+    {
+      "personId": "arch-cc84a40c4504",
+      "eventId": "swimming-national-17-athletes-106-points-aug-2026",
+      "date": "2026-08-03",
+      "sport": "Κολύμβηση",
+      "sourceUrl": "https://katerinisport.gr/4-%CF%83%CF%85%CE%BC%CE%BC%CE%B5%CF%84%CE%BF%CF%87%CE%AD%CF%82-%CF%83%CE%B5-%CF%84%CE%B5%CE%BB%CE%B9%CE%BA%CE%BF%CF%8D%CF%82-13-%CF%80%CE%BB%CE%B1%CF%83%CE%B1%CF%81%CE%AF%CF%83%CE%BC%CE%B1%CF%84/"
+    },
+    {
+      "personId": "arch-534d52034523",
+      "eventId": "swimming-national-17-athletes-106-points-aug-2026",
+      "date": "2026-08-03",
+      "sport": "Κολύμβηση",
+      "sourceUrl": "https://katerinisport.gr/4-%CF%83%CF%85%CE%BC%CE%BC%CE%B5%CF%84%CE%BF%CF%87%CE%AD%CF%82-%CF%83%CE%B5-%CF%84%CE%B5%CE%BB%CE%B9%CE%BA%CE%BF%CF%8D%CF%82-13-%CF%80%CE%BB%CE%B1%CF%83%CE%B1%CF%81%CE%AF%CF%83%CE%BC%CE%B1%CF%84/"
+    },
+    {
+      "personId": "arch-swim-2026-fayi-dimitriadou",
+      "eventId": "swimming-national-17-athletes-106-points-aug-2026",
+      "date": "2026-08-03",
+      "sport": "Κολύμβηση",
+      "sourceUrl": "https://katerinisport.gr/4-%CF%83%CF%85%CE%BC%CE%BC%CE%B5%CF%84%CE%BF%CF%87%CE%AD%CF%82-%CF%83%CE%B5-%CF%84%CE%B5%CE%BB%CE%B9%CE%BA%CE%BF%CF%8D%CF%82-13-%CF%80%CE%BB%CE%B1%CF%83%CE%B1%CF%81%CE%AF%CF%83%CE%BC%CE%B1%CF%84/"
+    },
+    {
+      "personId": "arch-swim-2026-eleni-kotidou",
+      "eventId": "swimming-national-17-athletes-106-points-aug-2026",
+      "date": "2026-08-03",
+      "sport": "Κολύμβηση",
+      "sourceUrl": "https://katerinisport.gr/4-%CF%83%CF%85%CE%BC%CE%BC%CE%B5%CF%84%CE%BF%CF%87%CE%AD%CF%82-%CF%83%CE%B5-%CF%84%CE%B5%CE%BB%CE%B9%CE%BA%CE%BF%CF%8D%CF%82-13-%CF%80%CE%BB%CE%B1%CF%83%CE%B1%CF%81%CE%AF%CF%83%CE%BC%CE%B1%CF%84/"
+    },
+    {
+      "personId": "arch-dimitris-siokas-handball-2026",
+      "eventId": "handball-siokas-ehf-2026",
+      "date": "2026-08-01",
+      "sport": "Χειροσφαίριση",
+      "sourceUrl": "https://www.handball.org.gr/ethnikes-katigories/efivon/5521-uro"
+    },
+    {
+      "personId": "arch-ec55ccba275f",
+      "eventId": "club-dak-theodoros-diamantopoulos-2026",
+      "date": "2026-07-29",
+      "sport": "Διοίκηση",
+      "sourceUrl": "https://www.pierianews.gr/2026/07/29/onomatodosia-kai-dikaiosi-v%CE%84-d-a-k-katerinis-theodoros-diamantopoulos/"
+    },
+    {
+      "personId": "arch-2616694d9908",
+      "eventId": "wrestling-darko-nisavic-serbia-july-2026",
+      "date": "2026-07-19",
+      "sport": "Πάλη",
+      "sourceUrl": "https://www.pierianews.gr/2026/07/19/diethnes-tournoua-palis-darko-nisavic-chryses-diakriseis-gia-tous-protathlites-tou-archelaou-katerinis-sti-servia/"
+    },
+    {
+      "personId": "arch-b48656c62600",
+      "eventId": "wrestling-darko-nisavic-serbia-july-2026",
+      "date": "2026-07-19",
+      "sport": "Πάλη",
+      "sourceUrl": "https://www.pierianews.gr/2026/07/19/diethnes-tournoua-palis-darko-nisavic-chryses-diakriseis-gia-tous-protathlites-tou-archelaou-katerinis-sti-servia/"
+    },
+    {
+      "personId": "arch-af9470c5745f",
+      "eventId": "wrestling-darko-nisavic-serbia-july-2026",
+      "date": "2026-07-19",
+      "sport": "Πάλη",
+      "sourceUrl": "https://www.pierianews.gr/2026/07/19/diethnes-tournoua-palis-darko-nisavic-chryses-diakriseis-gia-tous-protathlites-tou-archelaou-katerinis-sti-servia/"
+    },
+    {
+      "personId": "arch-999730e06982",
+      "eventId": "volleyball-kyparissi-panathinaikos-2026",
+      "date": "2026-06-25",
+      "sport": "Πετοσφαίριση",
+      "sourceUrl": "https://www.pao1908.com/nea/ston-panathinaiko-i-stamatia-kyparissi/"
+    },
+    {
+      "personId": "arch-b231605f5def",
+      "eventId": "archery-national-title-2026",
+      "date": "2026-06-23",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://katerini.gr/?p=69956"
+    },
+    {
+      "personId": "arch-955a386f547f",
+      "eventId": "archery-national-title-2026",
+      "date": "2026-06-23",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://katerini.gr/?p=69956"
+    },
+    {
+      "personId": "arch-44ef21dfb9b7",
+      "eventId": "archery-national-title-2026",
+      "date": "2026-06-23",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://katerini.gr/?p=69956"
+    },
+    {
+      "personId": "arch-6212ba5ea7f1",
+      "eventId": "archery-national-title-2026",
+      "date": "2026-06-23",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://katerini.gr/?p=69956"
+    },
+    {
+      "personId": "arch-f6152b60c43f",
+      "eventId": "archery-national-title-2026",
+      "date": "2026-06-23",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://katerini.gr/?p=69956"
+    },
+    {
+      "personId": "arch-dimitris-siokas-handball-2026",
+      "eventId": "handball-siokas-mediterranean-2026",
+      "date": "2026-04-11",
+      "sport": "Χειροσφαίριση",
+      "sourceUrl": "https://www.handball.org.gr/ethnikes-katigories/efivon/5421-petaei-gia-slovakia-i-ethniki-efivon"
+    },
+    {
+      "personId": "arch-e87fdf323137",
+      "eventId": "wrestling-u20-serres-team-second-april-2026",
+      "date": "2026-04-07",
+      "sport": "Πάλη",
+      "sourceUrl": "https://www.pierianews.gr/2026/04/07/archelaos-katerinis-tmima-palis-defteri-kalyteri-omada-stin-ellada/"
+    },
+    {
+      "personId": "arch-e49a8c140396",
+      "eventId": "wrestling-u20-serres-team-second-april-2026",
+      "date": "2026-04-07",
+      "sport": "Πάλη",
+      "sourceUrl": "https://www.pierianews.gr/2026/04/07/archelaos-katerinis-tmima-palis-defteri-kalyteri-omada-stin-ellada/"
+    },
+    {
+      "personId": "arch-73968afa517e",
+      "eventId": "wrestling-u20-serres-team-second-april-2026",
+      "date": "2026-04-07",
+      "sport": "Πάλη",
+      "sourceUrl": "https://www.pierianews.gr/2026/04/07/archelaos-katerinis-tmima-palis-defteri-kalyteri-omada-stin-ellada/"
+    },
+    {
+      "personId": "arch-b48656c62600",
+      "eventId": "wrestling-u20-serres-team-second-april-2026",
+      "date": "2026-04-07",
+      "sport": "Πάλη",
+      "sourceUrl": "https://www.pierianews.gr/2026/04/07/archelaos-katerinis-tmima-palis-defteri-kalyteri-omada-stin-ellada/"
+    },
+    {
+      "personId": "arch-8c9cbe4897f0",
+      "eventId": "wrestling-u20-serres-team-second-april-2026",
+      "date": "2026-04-07",
+      "sport": "Πάλη",
+      "sourceUrl": "https://www.pierianews.gr/2026/04/07/archelaos-katerinis-tmima-palis-defteri-kalyteri-omada-stin-ellada/"
+    },
+    {
+      "personId": "arch-apostolis-dimolios-wrestling-2026",
+      "eventId": "wrestling-u20-serres-team-second-april-2026",
+      "date": "2026-04-07",
+      "sport": "Πάλη",
+      "sourceUrl": "https://www.pierianews.gr/2026/04/07/archelaos-katerinis-tmima-palis-defteri-kalyteri-omada-stin-ellada/"
+    },
+    {
+      "personId": "arch-af9470c5745f",
+      "eventId": "wrestling-u20-serres-team-second-april-2026",
+      "date": "2026-04-07",
+      "sport": "Πάλη",
+      "sourceUrl": "https://www.pierianews.gr/2026/04/07/archelaos-katerinis-tmima-palis-defteri-kalyteri-omada-stin-ellada/"
+    },
+    {
+      "personId": "arch-8934f50fbeed",
+      "eventId": "wrestling-u20-serres-team-second-april-2026",
+      "date": "2026-04-07",
+      "sport": "Πάλη",
+      "sourceUrl": "https://www.pierianews.gr/2026/04/07/archelaos-katerinis-tmima-palis-defteri-kalyteri-omada-stin-ellada/"
+    },
+    {
+      "personId": "arch-a3b57d586132",
+      "eventId": "wrestling-u20-serres-team-second-april-2026",
+      "date": "2026-04-07",
+      "sport": "Πάλη",
+      "sourceUrl": "https://www.pierianews.gr/2026/04/07/archelaos-katerinis-tmima-palis-defteri-kalyteri-omada-stin-ellada/"
+    },
+    {
+      "personId": "arch-f02298025e5c",
+      "eventId": "gymnastics-u18-regional-team-gold-2026",
+      "date": "2026-04-05",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://pieria24.gr/entyposiaki-paroysia-toy-archelaoy-katerinis-stin-a%CE%84-fasi-enorganis-gymnastikis/"
+    },
+    {
+      "personId": "arch-8d1a258f0b09",
+      "eventId": "gymnastics-u18-regional-team-gold-2026",
+      "date": "2026-04-05",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://pieria24.gr/entyposiaki-paroysia-toy-archelaoy-katerinis-stin-a%CE%84-fasi-enorganis-gymnastikis/"
+    },
+    {
+      "personId": "arch-5d94f0c76851",
+      "eventId": "gymnastics-u18-regional-team-gold-2026",
+      "date": "2026-04-05",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://pieria24.gr/entyposiaki-paroysia-toy-archelaoy-katerinis-stin-a%CE%84-fasi-enorganis-gymnastikis/"
+    },
+    {
+      "personId": "arch-e9fc7408640c",
+      "eventId": "gymnastics-u18-regional-team-gold-2026",
+      "date": "2026-04-05",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://pieria24.gr/entyposiaki-paroysia-toy-archelaoy-katerinis-stin-a%CE%84-fasi-enorganis-gymnastikis/"
+    },
+    {
+      "personId": "arch-2ec2798d39bb",
+      "eventId": "gymnastics-u18-regional-team-gold-2026",
+      "date": "2026-04-05",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://pieria24.gr/entyposiaki-paroysia-toy-archelaoy-katerinis-stin-a%CE%84-fasi-enorganis-gymnastikis/"
+    },
+    {
+      "personId": "arch-bde5b8a0f677",
+      "eventId": "gymnastics-u18-regional-team-gold-2026",
+      "date": "2026-04-05",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://pieria24.gr/entyposiaki-paroysia-toy-archelaoy-katerinis-stin-a%CE%84-fasi-enorganis-gymnastikis/"
+    },
+    {
+      "personId": "arch-1be1256bf733",
+      "eventId": "gymnastics-u18-regional-team-gold-2026",
+      "date": "2026-04-05",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://pieria24.gr/entyposiaki-paroysia-toy-archelaoy-katerinis-stin-a%CE%84-fasi-enorganis-gymnastikis/"
+    },
+    {
+      "personId": "arch-25923c326d62",
+      "eventId": "gymnastics-u18-regional-team-gold-2026",
+      "date": "2026-04-05",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://pieria24.gr/entyposiaki-paroysia-toy-archelaoy-katerinis-stin-a%CE%84-fasi-enorganis-gymnastikis/"
+    },
+    {
+      "personId": "arch-2616694d9908",
+      "eventId": "wrestling-u15-porroia-silver-2026",
+      "date": "2026-03-30",
+      "sport": "Πάλη",
+      "sourceUrl": "https://odelalis.gr/archelaos-katerinis-dipli-epitychia-sto-panellinio-palis-u15/"
+    },
+    {
+      "personId": "arch-loukas-zinisa-wrest25",
+      "eventId": "wrestling-u15-porroia-silver-2026",
+      "date": "2026-03-30",
+      "sport": "Πάλη",
+      "sourceUrl": "https://odelalis.gr/archelaos-katerinis-dipli-epitychia-sto-panellinio-palis-u15/"
+    },
+    {
+      "personId": "arch-dimitris-siokas-handball-2026",
+      "eventId": "handball-youth-qualifier-mikra-march-2026",
+      "date": "2026-03-30",
+      "sport": "Χειροσφαίριση",
+      "sourceUrl": "https://www.palmare.gr/o-alexandros-axioypolis-sto-panellinio-efivon/"
+    },
+    {
+      "personId": "arch-handball-348992f5",
+      "eventId": "handball-youth-qualifier-mikra-march-2026",
+      "date": "2026-03-30",
+      "sport": "Χειροσφαίριση",
+      "sourceUrl": "https://www.palmare.gr/o-alexandros-axioypolis-sto-panellinio-efivon/"
+    },
+    {
+      "personId": "arch-ektoras-diamantidis-arch",
+      "eventId": "archery-u18-indoor-livadeia-2026",
+      "date": "2026-03-03",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://odelalis.gr/archelaos-exairetikes-emfaniseis-sto-protathlima-toxovolias-u18/"
+    },
+    {
+      "personId": "arch-77461943b4f2",
+      "eventId": "archery-u18-indoor-livadeia-2026",
+      "date": "2026-03-03",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://odelalis.gr/archelaos-exairetikes-emfaniseis-sto-protathlima-toxovolias-u18/"
+    },
+    {
+      "personId": "arch-archery-52bc1f27",
+      "eventId": "archery-u18-indoor-livadeia-2026",
+      "date": "2026-03-03",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://odelalis.gr/archelaos-exairetikes-emfaniseis-sto-protathlima-toxovolias-u18/"
+    },
+    {
+      "personId": "arch-archery-5e69a556",
+      "eventId": "archery-u18-indoor-livadeia-2026",
+      "date": "2026-03-03",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://odelalis.gr/archelaos-exairetikes-emfaniseis-sto-protathlima-toxovolias-u18/"
+    },
+    {
+      "personId": "arch-archery-9acd2e41",
+      "eventId": "archery-u18-indoor-livadeia-2026",
+      "date": "2026-03-03",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://odelalis.gr/archelaos-exairetikes-emfaniseis-sto-protathlima-toxovolias-u18/"
+    },
+    {
+      "personId": "arch-baba93550267",
+      "eventId": "archery-u18-indoor-livadeia-2026",
+      "date": "2026-03-03",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://odelalis.gr/archelaos-exairetikes-emfaniseis-sto-protathlima-toxovolias-u18/"
+    },
+    {
+      "personId": "arch-dimitris-siokas-handball-2026",
+      "eventId": "handball-archelaos-foinikas-dramas-38-24-march-2026",
+      "date": "2026-03-02",
+      "sport": "Χάντμπολ",
+      "sourceUrl": "https://katerinisport.gr/%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CF%86%CE%BF%CE%AF%CE%BD%CE%B9%CE%BA%CE%B1%CF%82-%CE%B4%CF%81%CE%AC%CE%BC%CE%B1%CF%82-38-24/"
+    },
+    {
+      "personId": "arch-handball-348992f5",
+      "eventId": "handball-archelaos-foinikas-dramas-38-24-march-2026",
+      "date": "2026-03-02",
+      "sport": "Χάντμπολ",
+      "sourceUrl": "https://katerinisport.gr/%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CF%86%CE%BF%CE%AF%CE%BD%CE%B9%CE%BA%CE%B1%CF%82-%CE%B4%CF%81%CE%AC%CE%BC%CE%B1%CF%82-38-24/"
+    },
+    {
+      "personId": "arch-4b1854067404",
+      "eventId": "handball-archelaos-foinikas-dramas-38-24-march-2026",
+      "date": "2026-03-02",
+      "sport": "Χάντμπολ",
+      "sourceUrl": "https://katerinisport.gr/%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CF%86%CE%BF%CE%AF%CE%BD%CE%B9%CE%BA%CE%B1%CF%82-%CE%B4%CF%81%CE%AC%CE%BC%CE%B1%CF%82-38-24/"
+    },
+    {
+      "personId": "arch-dimitris-siokas-handball-2026",
+      "eventId": "handball-drama-archelaos-28-29-feb-2026",
+      "date": "2026-02-16",
+      "sport": "Χάντμπολ",
+      "sourceUrl": "https://olympiobima.gr/g-e-dramas-archelaos-katerinis-28-29-dikaii-niki-para-tis-elleipseis/"
+    },
+    {
+      "personId": "arch-4b1854067404",
+      "eventId": "handball-drama-archelaos-28-29-feb-2026",
+      "date": "2026-02-16",
+      "sport": "Χάντμπολ",
+      "sourceUrl": "https://olympiobima.gr/g-e-dramas-archelaos-katerinis-28-29-dikaii-niki-para-tis-elleipseis/"
+    },
+    {
+      "personId": "arch-b40b2a81ca0d",
+      "eventId": "handball-drama-archelaos-28-29-feb-2026",
+      "date": "2026-02-16",
+      "sport": "Χάντμπολ",
+      "sourceUrl": "https://olympiobima.gr/g-e-dramas-archelaos-katerinis-28-29-dikaii-niki-para-tis-elleipseis/"
+    },
+    {
+      "personId": "arch-955a386f547f",
+      "eventId": "archery-olympic-support-charisis-feb-2026",
+      "date": "2026-02-11",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://olympiobima.gr/archelaos-katerinis-ston-dromo-gia-to-los-antzeles-2028-o-evangelos-charisis/"
+    },
+    {
+      "personId": "arch-dimitris-siokas-handball-2026",
+      "eventId": "handball-archelaos-kyklopes-30-23-feb-2026",
+      "date": "2026-02-09",
+      "sport": "Χάντμπολ",
+      "sourceUrl": "https://katerinisport.gr/%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CE%BA%CF%8D%CE%BA%CE%BB%CF%89%CF%80%CE%B5%CF%82-%CE%B1%CE%BB%CE%B5%CE%BE%CE%B1%CE%BD%CE%B4/"
+    },
+    {
+      "personId": "arch-46e606c8874f",
+      "eventId": "handball-archelaos-kyklopes-30-23-feb-2026",
+      "date": "2026-02-09",
+      "sport": "Χάντμπολ",
+      "sourceUrl": "https://katerinisport.gr/%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CE%BA%CF%8D%CE%BA%CE%BB%CF%89%CF%80%CE%B5%CF%82-%CE%B1%CE%BB%CE%B5%CE%BE%CE%B1%CE%BD%CE%B4/"
+    },
+    {
+      "personId": "arch-b40b2a81ca0d",
+      "eventId": "handball-archelaos-kyklopes-30-23-feb-2026",
+      "date": "2026-02-09",
+      "sport": "Χάντμπολ",
+      "sourceUrl": "https://katerinisport.gr/%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CE%BA%CF%8D%CE%BA%CE%BB%CF%89%CF%80%CE%B5%CF%82-%CE%B1%CE%BB%CE%B5%CE%BE%CE%B1%CE%BD%CE%B4/"
+    },
+    {
+      "personId": "arch-dimitris-siokas-handball-2026",
+      "eventId": "handball-archelaos-voreas-41-20-feb-2026",
+      "date": "2026-02-01",
+      "sport": "Χάντμπολ",
+      "sourceUrl": "https://www.palmare.gr/o-archelaos-epiase-stin-2i-thesi-tin-prosotsani-2/"
+    },
+    {
+      "personId": "arch-b40b2a81ca0d",
+      "eventId": "handball-archelaos-voreas-41-20-feb-2026",
+      "date": "2026-02-01",
+      "sport": "Χάντμπολ",
+      "sourceUrl": "https://www.palmare.gr/o-archelaos-epiase-stin-2i-thesi-tin-prosotsani-2/"
+    },
+    {
+      "personId": "arch-dimitris-siokas-handball-2026",
+      "eventId": "handball-prosotsani-archelaos-38-27-jan-2026",
+      "date": "2026-01-25",
+      "sport": "Χάντμπολ",
+      "sourceUrl": "https://katerinisport.gr/%CF%80%CF%81%CE%BF%CF%83%CE%BF%CF%84%CF%83%CE%AC%CE%BD%CE%B7-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CE%BA%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82-38-27/"
+    },
+    {
+      "personId": "arch-loukas-zinisa-wrest25",
+      "eventId": "wrestling-u11-u13-karditsa-2025",
+      "date": "2025-11-25",
+      "sport": "Πάλη",
+      "sourceUrl": "https://ns1.ufight.gr/wrestling/23770-4-xrysa-metallia-kai-1-argyro-oi-athlites-kai-athlitries-tou-arxelaou-katerinhs-sto-panellhnio-protathlima-palhs-pampaidon-pagkorasidon"
+    },
+    {
+      "personId": "arch-dimitrios-trigkas-wrest25",
+      "eventId": "wrestling-u11-u13-karditsa-2025",
+      "date": "2025-11-25",
+      "sport": "Πάλη",
+      "sourceUrl": "https://ns1.ufight.gr/wrestling/23770-4-xrysa-metallia-kai-1-argyro-oi-athlites-kai-athlitries-tou-arxelaou-katerinhs-sto-panellhnio-protathlima-palhs-pampaidon-pagkorasidon"
+    },
+    {
+      "personId": "arch-chara-mavridou-wrest25",
+      "eventId": "wrestling-u11-u13-karditsa-2025",
+      "date": "2025-11-25",
+      "sport": "Πάλη",
+      "sourceUrl": "https://ns1.ufight.gr/wrestling/23770-4-xrysa-metallia-kai-1-argyro-oi-athlites-kai-athlitries-tou-arxelaou-katerinhs-sto-panellhnio-protathlima-palhs-pampaidon-pagkorasidon"
+    },
+    {
+      "personId": "arch-maria-mastorogianni-wrest25",
+      "eventId": "wrestling-u11-u13-karditsa-2025",
+      "date": "2025-11-25",
+      "sport": "Πάλη",
+      "sourceUrl": "https://ns1.ufight.gr/wrestling/23770-4-xrysa-metallia-kai-1-argyro-oi-athlites-kai-athlitries-tou-arxelaou-katerinhs-sto-panellhnio-protathlima-palhs-pampaidon-pagkorasidon"
+    },
+    {
+      "personId": "arch-5bc0ec7ec6e0",
+      "eventId": "wrestling-u11-u13-karditsa-2025",
+      "date": "2025-11-25",
+      "sport": "Πάλη",
+      "sourceUrl": "https://ns1.ufight.gr/wrestling/23770-4-xrysa-metallia-kai-1-argyro-oi-athlites-kai-athlitries-tou-arxelaou-katerinhs-sto-panellhnio-protathlima-palhs-pampaidon-pagkorasidon"
+    },
+    {
+      "personId": "arch-77461943b4f2",
+      "eventId": "archery-youth-2025",
+      "date": "2025-11-17",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://pieriasocial.gr/?p=115463"
+    },
+    {
+      "personId": "arch-dimitris-siokas-handball-2026",
+      "eventId": "handball-voreas-archelaos-20-36-nov-2025",
+      "date": "2025-11-17",
+      "sport": "Χάντμπολ",
+      "sourceUrl": "https://olympiobima.gr/voreas-alexandroupolis-archelaos-katerinis-20-36-ekpliktiki-emfanisi-topo-sta-niata/"
+    },
+    {
+      "personId": "arch-b40b2a81ca0d",
+      "eventId": "handball-voreas-archelaos-20-36-nov-2025",
+      "date": "2025-11-17",
+      "sport": "Χάντμπολ",
+      "sourceUrl": "https://olympiobima.gr/voreas-alexandroupolis-archelaos-katerinis-20-36-ekpliktiki-emfanisi-topo-sta-niata/"
+    },
+    {
+      "personId": "arch-955a386f547f",
+      "eventId": "archery-cyprus-2025",
+      "date": "2025-11-04",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://pieriasocial.gr/?p=114647"
+    },
+    {
+      "personId": "arch-7e1b65c90287",
+      "eventId": "swimming-national-medals-city-reception-2025",
+      "date": "2025-09-01",
+      "sport": "Κολύμβηση",
+      "sourceUrl": "https://katerini.gr/?p=58477"
+    },
+    {
+      "personId": "arch-cf2ee36e3353",
+      "eventId": "swimming-national-medals-city-reception-2025",
+      "date": "2025-09-01",
+      "sport": "Κολύμβηση",
+      "sourceUrl": "https://katerini.gr/?p=58477"
+    },
+    {
+      "personId": "arch-8479d12a4a14",
+      "eventId": "reha-bronze-outdoor-hurdles-volos-2025",
+      "date": "2025-08-05",
+      "sport": "Στίβος",
+      "sourceUrl": "https://katerinisport.gr/%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CE%BA%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82-%CF%83%CF%85%CE%B3%CF%87%CE%B1%CF%81%CE%B7%CF%84%CE%AE%CF%81%CE%B9%CE%B1-%CF%83%CE%B5-%CF%81/"
+    },
+    {
+      "personId": "arch-955a386f547f",
+      "eventId": "archery-national-oaka-team-title-2025",
+      "date": "2025-07-07",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://odelalis.gr/protathlitis-ellados-stin-toxovolia-o-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-b231605f5def",
+      "eventId": "archery-national-oaka-team-title-2025",
+      "date": "2025-07-07",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://odelalis.gr/protathlitis-ellados-stin-toxovolia-o-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-f6152b60c43f",
+      "eventId": "archery-national-oaka-team-title-2025",
+      "date": "2025-07-07",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://odelalis.gr/protathlitis-ellados-stin-toxovolia-o-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-44ef21dfb9b7",
+      "eventId": "archery-national-oaka-team-title-2025",
+      "date": "2025-07-07",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://odelalis.gr/protathlitis-ellados-stin-toxovolia-o-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-955a386f547f",
+      "eventId": "archery-central-european-cup-novi-marof-2025",
+      "date": "2025-06-23",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://odelalis.gr/apo-tin-katerini-stin-kroatia-toxovolia-me-ypografi-archelaou-sto-central-european-cup-2025/"
+    },
+    {
+      "personId": "arch-konstantinos-charisis-arch",
+      "eventId": "archery-central-european-cup-novi-marof-2025",
+      "date": "2025-06-23",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://odelalis.gr/apo-tin-katerini-stin-kroatia-toxovolia-me-ypografi-archelaou-sto-central-european-cup-2025/"
+    },
+    {
+      "personId": "arch-6212ba5ea7f1",
+      "eventId": "archery-central-european-cup-novi-marof-2025",
+      "date": "2025-06-23",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://odelalis.gr/apo-tin-katerini-stin-kroatia-toxovolia-me-ypografi-archelaou-sto-central-european-cup-2025/"
+    },
+    {
+      "personId": "arch-44ef21dfb9b7",
+      "eventId": "archery-central-european-cup-novi-marof-2025",
+      "date": "2025-06-23",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://odelalis.gr/apo-tin-katerini-stin-kroatia-toxovolia-me-ypografi-archelaou-sto-central-european-cup-2025/"
+    },
+    {
+      "personId": "arch-c5eb6d18a17a",
+      "eventId": "gymnastics-2025-festival-largest-team",
+      "date": "2025-06-19",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://odelalis.gr/o-gas-archelaos-katerinis-sti-giorti-enorganis-gymnastikis-tis-v-perifereias/"
+    },
+    {
+      "personId": "arch-4aaa2b869d44",
+      "eventId": "gymnastics-2025-festival-largest-team",
+      "date": "2025-06-19",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://odelalis.gr/o-gas-archelaos-katerinis-sti-giorti-enorganis-gymnastikis-tis-v-perifereias/"
+    },
+    {
+      "personId": "arch-f56820c52e55",
+      "eventId": "gymnastics-2025-festival-largest-team",
+      "date": "2025-06-19",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://odelalis.gr/o-gas-archelaos-katerinis-sti-giorti-enorganis-gymnastikis-tis-v-perifereias/"
+    },
+    {
+      "personId": "arch-e7b50e446985",
+      "eventId": "gymnastics-2025-festival-largest-team",
+      "date": "2025-06-19",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://odelalis.gr/o-gas-archelaos-katerinis-sti-giorti-enorganis-gymnastikis-tis-v-perifereias/"
+    },
+    {
+      "personId": "arch-2cb062fabc11",
+      "eventId": "gymnastics-2025-festival-largest-team",
+      "date": "2025-06-19",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://odelalis.gr/o-gas-archelaos-katerinis-sti-giorti-enorganis-gymnastikis-tis-v-perifereias/"
+    },
+    {
+      "personId": "arch-e49a8c140396",
+      "eventId": "wrestling-u20-serres-champions-apr-2025",
+      "date": "2025-04-28",
+      "sport": "Πάλη",
+      "sourceUrl": "https://katerini.gr/?p=54086"
+    },
+    {
+      "personId": "arch-e87fdf323137",
+      "eventId": "wrestling-u20-serres-champions-apr-2025",
+      "date": "2025-04-28",
+      "sport": "Πάλη",
+      "sourceUrl": "https://katerini.gr/?p=54086"
+    },
+    {
+      "personId": "arch-ba8233d165aa",
+      "eventId": "wrestling-u20-serres-champions-apr-2025",
+      "date": "2025-04-28",
+      "sport": "Πάλη",
+      "sourceUrl": "https://katerini.gr/?p=54086"
+    },
+    {
+      "personId": "arch-73968afa517e",
+      "eventId": "wrestling-u20-serres-champions-apr-2025",
+      "date": "2025-04-28",
+      "sport": "Πάλη",
+      "sourceUrl": "https://katerini.gr/?p=54086"
+    },
+    {
+      "personId": "arch-8c9cbe4897f0",
+      "eventId": "wrestling-u20-serres-champions-apr-2025",
+      "date": "2025-04-28",
+      "sport": "Πάλη",
+      "sourceUrl": "https://katerini.gr/?p=54086"
+    },
+    {
+      "personId": "arch-af9470c5745f",
+      "eventId": "wrestling-u20-serres-champions-apr-2025",
+      "date": "2025-04-28",
+      "sport": "Πάλη",
+      "sourceUrl": "https://katerini.gr/?p=54086"
+    },
+    {
+      "personId": "arch-8934f50fbeed",
+      "eventId": "wrestling-u20-serres-champions-apr-2025",
+      "date": "2025-04-28",
+      "sport": "Πάλη",
+      "sourceUrl": "https://katerini.gr/?p=54086"
+    },
+    {
+      "personId": "arch-a3b57d586132",
+      "eventId": "wrestling-u20-serres-champions-apr-2025",
+      "date": "2025-04-28",
+      "sport": "Πάλη",
+      "sourceUrl": "https://katerini.gr/?p=54086"
+    },
+    {
+      "personId": "arch-8c8c23ba82e6",
+      "eventId": "wrestling-u20-serres-champions-apr-2025",
+      "date": "2025-04-28",
+      "sport": "Πάλη",
+      "sourceUrl": "https://katerini.gr/?p=54086"
+    },
+    {
+      "personId": "arch-2616694d9908",
+      "eventId": "wrestling-u17-team-silver-larisa-apr-2025",
+      "date": "2025-04-17",
+      "sport": "Πάλη",
+      "sourceUrl": "https://www.pierianews.gr/2025/04/17/2os-protathlitis-ellados-sto-omadiko-paidon-o-gas-archelaos-katerinis-foto/"
+    },
+    {
+      "personId": "arch-f3d93442851f",
+      "eventId": "wrestling-u17-team-silver-larisa-apr-2025",
+      "date": "2025-04-17",
+      "sport": "Πάλη",
+      "sourceUrl": "https://www.pierianews.gr/2025/04/17/2os-protathlitis-ellados-sto-omadiko-paidon-o-gas-archelaos-katerinis-foto/"
+    },
+    {
+      "personId": "arch-be8668380721",
+      "eventId": "wrestling-u17-team-silver-larisa-apr-2025",
+      "date": "2025-04-17",
+      "sport": "Πάλη",
+      "sourceUrl": "https://www.pierianews.gr/2025/04/17/2os-protathlitis-ellados-sto-omadiko-paidon-o-gas-archelaos-katerinis-foto/"
+    },
+    {
+      "personId": "arch-b48656c62600",
+      "eventId": "wrestling-u17-team-silver-larisa-apr-2025",
+      "date": "2025-04-17",
+      "sport": "Πάλη",
+      "sourceUrl": "https://www.pierianews.gr/2025/04/17/2os-protathlitis-ellados-sto-omadiko-paidon-o-gas-archelaos-katerinis-foto/"
+    },
+    {
+      "personId": "arch-36de21f5268e",
+      "eventId": "wrestling-u17-team-silver-larisa-apr-2025",
+      "date": "2025-04-17",
+      "sport": "Πάλη",
+      "sourceUrl": "https://www.pierianews.gr/2025/04/17/2os-protathlitis-ellados-sto-omadiko-paidon-o-gas-archelaos-katerinis-foto/"
+    },
+    {
+      "personId": "arch-957a876e770d",
+      "eventId": "wrestling-u17-team-silver-larisa-apr-2025",
+      "date": "2025-04-17",
+      "sport": "Πάλη",
+      "sourceUrl": "https://www.pierianews.gr/2025/04/17/2os-protathlitis-ellados-sto-omadiko-paidon-o-gas-archelaos-katerinis-foto/"
+    },
+    {
+      "personId": "arch-61d8d097f601",
+      "eventId": "club-board-elections-apr-2025",
+      "date": "2025-04-04",
+      "sport": "",
+      "sourceUrl": "https://olympiobima.gr/archelaos-katerinis-to-neo-dioikitiko-symvoulio-tou-gas/"
+    },
+    {
+      "personId": "arch-85fcb478d724",
+      "eventId": "club-board-elections-apr-2025",
+      "date": "2025-04-04",
+      "sport": "",
+      "sourceUrl": "https://olympiobima.gr/archelaos-katerinis-to-neo-dioikitiko-symvoulio-tou-gas/"
+    },
+    {
+      "personId": "arch-bc7079f252cc",
+      "eventId": "club-board-elections-apr-2025",
+      "date": "2025-04-04",
+      "sport": "",
+      "sourceUrl": "https://olympiobima.gr/archelaos-katerinis-to-neo-dioikitiko-symvoulio-tou-gas/"
+    },
+    {
+      "personId": "arch-5b13574568d5",
+      "eventId": "club-board-elections-apr-2025",
+      "date": "2025-04-04",
+      "sport": "",
+      "sourceUrl": "https://olympiobima.gr/archelaos-katerinis-to-neo-dioikitiko-symvoulio-tou-gas/"
+    },
+    {
+      "personId": "arch-a75476a583e3",
+      "eventId": "club-board-elections-apr-2025",
+      "date": "2025-04-04",
+      "sport": "",
+      "sourceUrl": "https://olympiobima.gr/archelaos-katerinis-to-neo-dioikitiko-symvoulio-tou-gas/"
+    },
+    {
+      "personId": "arch-f02298025e5c",
+      "eventId": "gym-2025-team",
+      "date": "2025-04-01",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/%CF%80%CE%BF%CE%BB%CF%8D-%CE%BA%CE%B1%CE%BB%CE%AD%CF%82-%CE%B5%CF%80%CE%B9%CE%B4%CF%8C%CF%83%CE%B5%CE%B9%CF%82-%CE%B1%CF%80%CF%8C-%CF%84%CE%BF-%CF%84%CE%BC%CE%AE%CE%BC%CE%B1-e%CE%BD%CF%8C%CF%81%CE%B3/"
+    },
+    {
+      "personId": "arch-c6dd24b37324",
+      "eventId": "wrestling-u15-prosotsani-zinisa-march-2025",
+      "date": "2025-03-23",
+      "sport": "Πάλη",
+      "sourceUrl": "https://pieriasocial.gr/?p=100588"
+    },
+    {
+      "personId": "arch-2616694d9908",
+      "eventId": "wrestling-u15-prosotsani-zinisa-march-2025",
+      "date": "2025-03-23",
+      "sport": "Πάλη",
+      "sourceUrl": "https://pieriasocial.gr/?p=100588"
+    },
+    {
+      "personId": "arch-bb54ccd4df17",
+      "eventId": "wrestling-u15-prosotsani-zinisa-march-2025",
+      "date": "2025-03-23",
+      "sport": "Πάλη",
+      "sourceUrl": "https://pieriasocial.gr/?p=100588"
+    },
+    {
+      "personId": "arch-cdc99b2b3af3",
+      "eventId": "wrestling-u15-prosotsani-zinisa-march-2025",
+      "date": "2025-03-23",
+      "sport": "Πάλη",
+      "sourceUrl": "https://pieriasocial.gr/?p=100588"
+    },
+    {
+      "personId": "arch-7e12ae009786",
+      "eventId": "wrestling-u15-prosotsani-zinisa-march-2025",
+      "date": "2025-03-23",
+      "sport": "Πάλη",
+      "sourceUrl": "https://pieriasocial.gr/?p=100588"
+    },
+    {
+      "personId": "arch-538dbd2d58dc",
+      "eventId": "wrestling-u15-prosotsani-zinisa-march-2025",
+      "date": "2025-03-23",
+      "sport": "Πάλη",
+      "sourceUrl": "https://pieriasocial.gr/?p=100588"
+    },
+    {
+      "personId": "arch-449576656c19",
+      "eventId": "wrestling-u15-prosotsani-zinisa-march-2025",
+      "date": "2025-03-23",
+      "sport": "Πάλη",
+      "sourceUrl": "https://pieriasocial.gr/?p=100588"
+    },
+    {
+      "personId": "arch-8479d12a4a14",
+      "eventId": "track-recha-indoor-national-silver-2025",
+      "date": "2025-03-11",
+      "sport": "Στίβος",
+      "sourceUrl": "https://olympiobima.gr/archelaos-katerinis-sygcharitirio-minyma-stin-athlitria-mas-katerina-recha/"
+    },
+    {
+      "personId": "arch-ccaf623e428b",
+      "eventId": "track-recha-indoor-national-silver-2025",
+      "date": "2025-03-11",
+      "sport": "Στίβος",
+      "sourceUrl": "https://olympiobima.gr/archelaos-katerinis-sygcharitirio-minyma-stin-athlitria-mas-katerina-recha/"
+    },
+    {
+      "personId": "arch-2616694d9908",
+      "eventId": "wrestling-zagreb-team-first-dec-2024",
+      "date": "2024-12-17",
+      "sport": "Πάλη",
+      "sourceUrl": "https://www.pierianews.gr/2024/12/17/1os-o-archelaos-se-tournoua-stin-kroatia/"
+    },
+    {
+      "personId": "arch-b48656c62600",
+      "eventId": "wrestling-zagreb-team-first-dec-2024",
+      "date": "2024-12-17",
+      "sport": "Πάλη",
+      "sourceUrl": "https://www.pierianews.gr/2024/12/17/1os-o-archelaos-se-tournoua-stin-kroatia/"
+    },
+    {
+      "personId": "arch-f3d93442851f",
+      "eventId": "wrestling-zagreb-team-first-dec-2024",
+      "date": "2024-12-17",
+      "sport": "Πάλη",
+      "sourceUrl": "https://www.pierianews.gr/2024/12/17/1os-o-archelaos-se-tournoua-stin-kroatia/"
+    },
+    {
+      "personId": "arch-8c8c23ba82e6",
+      "eventId": "wrestling-zagreb-team-first-dec-2024",
+      "date": "2024-12-17",
+      "sport": "Πάλη",
+      "sourceUrl": "https://www.pierianews.gr/2024/12/17/1os-o-archelaos-se-tournoua-stin-kroatia/"
+    },
+    {
+      "personId": "arch-64dbf198bfd6",
+      "eventId": "wrestling-zagreb-team-first-dec-2024",
+      "date": "2024-12-17",
+      "sport": "Πάλη",
+      "sourceUrl": "https://www.pierianews.gr/2024/12/17/1os-o-archelaos-se-tournoua-stin-kroatia/"
+    },
+    {
+      "personId": "arch-aristotelis-navrozidis-wrest24",
+      "eventId": "wrestling-zagreb-team-first-dec-2024",
+      "date": "2024-12-17",
+      "sport": "Πάλη",
+      "sourceUrl": "https://www.pierianews.gr/2024/12/17/1os-o-archelaos-se-tournoua-stin-kroatia/"
+    },
+    {
+      "personId": "arch-vangelis-kordonoulis-wrest24",
+      "eventId": "wrestling-zagreb-team-first-dec-2024",
+      "date": "2024-12-17",
+      "sport": "Πάλη",
+      "sourceUrl": "https://www.pierianews.gr/2024/12/17/1os-o-archelaos-se-tournoua-stin-kroatia/"
+    },
+    {
+      "personId": "arch-b48656c62600",
+      "eventId": "wrestling-pleven-bulgaria-dec-2024",
+      "date": "2024-12-10",
+      "sport": "Πάλη",
+      "sourceUrl": "https://olympiobima.gr/3-chrysa-metallia-oi-protathlites-tou-archelaou-katerinis-sto-pleven-tis-voulgarias/"
+    },
+    {
+      "personId": "arch-be8668380721",
+      "eventId": "wrestling-pleven-bulgaria-dec-2024",
+      "date": "2024-12-10",
+      "sport": "Πάλη",
+      "sourceUrl": "https://olympiobima.gr/3-chrysa-metallia-oi-protathlites-tou-archelaou-katerinis-sto-pleven-tis-voulgarias/"
+    },
+    {
+      "personId": "arch-aristotelis-navrozidis-wrest24",
+      "eventId": "wrestling-pleven-bulgaria-dec-2024",
+      "date": "2024-12-10",
+      "sport": "Πάλη",
+      "sourceUrl": "https://olympiobima.gr/3-chrysa-metallia-oi-protathlites-tou-archelaou-katerinis-sto-pleven-tis-voulgarias/"
+    },
+    {
+      "personId": "arch-8c8c23ba82e6",
+      "eventId": "wrestling-pleven-bulgaria-dec-2024",
+      "date": "2024-12-10",
+      "sport": "Πάλη",
+      "sourceUrl": "https://olympiobima.gr/3-chrysa-metallia-oi-protathlites-tou-archelaou-katerinis-sto-pleven-tis-voulgarias/"
+    },
+    {
+      "personId": "arch-2616694d9908",
+      "eventId": "wrestling-pleven-bulgaria-dec-2024",
+      "date": "2024-12-10",
+      "sport": "Πάλη",
+      "sourceUrl": "https://olympiobima.gr/3-chrysa-metallia-oi-protathlites-tou-archelaou-katerinis-sto-pleven-tis-voulgarias/"
+    },
+    {
+      "personId": "arch-wrest-taxiarhis-liakos",
+      "eventId": "wrestling-pleven-bulgaria-dec-2024",
+      "date": "2024-12-10",
+      "sport": "Πάλη",
+      "sourceUrl": "https://olympiobima.gr/3-chrysa-metallia-oi-protathlites-tou-archelaou-katerinis-sto-pleven-tis-voulgarias/"
+    },
+    {
+      "personId": "arch-baba93550267",
+      "eventId": "archery-amyntaio-youth-national-dec-2024",
+      "date": "2024-12-10",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://olympiobima.gr/gas-archelaos-katerinis-synecheia-epitychion-gia-to-tmima-toxovolias/"
+    },
+    {
+      "personId": "arch-77461943b4f2",
+      "eventId": "archery-amyntaio-youth-national-dec-2024",
+      "date": "2024-12-10",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://olympiobima.gr/gas-archelaos-katerinis-synecheia-epitychion-gia-to-tmima-toxovolias/"
+    },
+    {
+      "personId": "arch-44ef21dfb9b7",
+      "eventId": "archery-amyntaio-youth-national-dec-2024",
+      "date": "2024-12-10",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://olympiobima.gr/gas-archelaos-katerinis-synecheia-epitychion-gia-to-tmima-toxovolias/"
+    },
+    {
+      "personId": "arch-archery-result-20261102-03",
+      "eventId": "archery-amyntaio-youth-national-dec-2024",
+      "date": "2024-12-10",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://olympiobima.gr/gas-archelaos-katerinis-synecheia-epitychion-gia-to-tmima-toxovolias/"
+    },
+    {
+      "personId": "arch-archery-result-20261102-04",
+      "eventId": "archery-amyntaio-youth-national-dec-2024",
+      "date": "2024-12-10",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://olympiobima.gr/gas-archelaos-katerinis-synecheia-epitychion-gia-to-tmima-toxovolias/"
+    },
+    {
+      "personId": "arch-f02298025e5c",
+      "eventId": "gymnastics-horizon-cup-2024-team-medals",
+      "date": "2024-11-12",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://odelalis.gr/epitychies-kai-metallia-gia-to-tmima-enorganis-gymnastikis-tou-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-e9fc7408640c",
+      "eventId": "gymnastics-horizon-cup-2024-team-medals",
+      "date": "2024-11-12",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://odelalis.gr/epitychies-kai-metallia-gia-to-tmima-enorganis-gymnastikis-tou-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-8d1a258f0b09",
+      "eventId": "gymnastics-horizon-cup-2024-team-medals",
+      "date": "2024-11-12",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://odelalis.gr/epitychies-kai-metallia-gia-to-tmima-enorganis-gymnastikis-tou-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-1ea85d87584a",
+      "eventId": "gymnastics-horizon-cup-2024-team-medals",
+      "date": "2024-11-12",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://odelalis.gr/epitychies-kai-metallia-gia-to-tmima-enorganis-gymnastikis-tou-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-9bba434ae7e7",
+      "eventId": "gymnastics-horizon-cup-2024-team-medals",
+      "date": "2024-11-12",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://odelalis.gr/epitychies-kai-metallia-gia-to-tmima-enorganis-gymnastikis-tou-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-bde5b8a0f677",
+      "eventId": "gymnastics-horizon-cup-2024-team-medals",
+      "date": "2024-11-12",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://odelalis.gr/epitychies-kai-metallia-gia-to-tmima-enorganis-gymnastikis-tou-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-pavlina-charitidou-arch",
+      "eventId": "archery-national-team-charisis-charitidou-nov-2024",
+      "date": "2024-11-07",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://eptanews.gr/athlitismos/stin-ethniki-ellados-athlites-toy-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-955a386f547f",
+      "eventId": "archery-national-team-charisis-charitidou-nov-2024",
+      "date": "2024-11-07",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://eptanews.gr/athlitismos/stin-ethniki-ellados-athlites-toy-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-44ef21dfb9b7",
+      "eventId": "archery-national-team-charisis-charitidou-nov-2024",
+      "date": "2024-11-07",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://eptanews.gr/athlitismos/stin-ethniki-ellados-athlites-toy-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-955a386f547f",
+      "eventId": "archery-cup-2024",
+      "date": "2024-10-22",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://pieriasocial.gr/?p=93206"
+    },
+    {
+      "personId": "arch-pavlina-charitidou-arch",
+      "eventId": "archery-cup-2024",
+      "date": "2024-10-22",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://pieriasocial.gr/?p=93206"
+    },
+    {
+      "personId": "arch-theofania-karali-arch",
+      "eventId": "archery-cup-2024",
+      "date": "2024-10-22",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://pieriasocial.gr/?p=93206"
+    },
+    {
+      "personId": "arch-kassiani-koktsidou-arch",
+      "eventId": "archery-cup-2024",
+      "date": "2024-10-22",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://pieriasocial.gr/?p=93206"
+    },
+    {
+      "personId": "arch-aikaterini-giannakou-arch",
+      "eventId": "archery-cup-2024",
+      "date": "2024-10-22",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://pieriasocial.gr/?p=93206"
+    },
+    {
+      "personId": "arch-konstantinos-charisis-arch",
+      "eventId": "archery-cup-2024",
+      "date": "2024-10-22",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://pieriasocial.gr/?p=93206"
+    },
+    {
+      "personId": "arch-ektoras-diamantidis-arch",
+      "eventId": "archery-cup-2024",
+      "date": "2024-10-22",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://pieriasocial.gr/?p=93206"
+    },
+    {
+      "personId": "arch-957a876e770d",
+      "eventId": "wrestling-balkan-skopje-oct-2024",
+      "date": "2024-10-12",
+      "sport": "Πάλη",
+      "sourceUrl": "https://odelalis.gr/ena-chryso-kai-dyo-chalkina-metallia-gia-tin-pali-tou-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-e87fdf323137",
+      "eventId": "wrestling-balkan-skopje-oct-2024",
+      "date": "2024-10-12",
+      "sport": "Πάλη",
+      "sourceUrl": "https://odelalis.gr/ena-chryso-kai-dyo-chalkina-metallia-gia-tin-pali-tou-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-b48656c62600",
+      "eventId": "wrestling-balkan-skopje-oct-2024",
+      "date": "2024-10-12",
+      "sport": "Πάλη",
+      "sourceUrl": "https://odelalis.gr/ena-chryso-kai-dyo-chalkina-metallia-gia-tin-pali-tou-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-f3d93442851f",
+      "eventId": "wrestling-balkan-skopje-oct-2024",
+      "date": "2024-10-12",
+      "sport": "Πάλη",
+      "sourceUrl": "https://odelalis.gr/ena-chryso-kai-dyo-chalkina-metallia-gia-tin-pali-tou-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-2616694d9908",
+      "eventId": "wrestling-balkan-skopje-oct-2024",
+      "date": "2024-10-12",
+      "sport": "Πάλη",
+      "sourceUrl": "https://odelalis.gr/ena-chryso-kai-dyo-chalkina-metallia-gia-tin-pali-tou-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-61d8d097f601",
+      "eventId": "track-season-blessing-sept-2024",
+      "date": "2024-09-26",
+      "sport": "Στίβος",
+      "sourceUrl": "https://olympiobima.gr/gas-archelaos-katerinis-o-agiasmos-tou-tmimatos-stivou/"
+    },
+    {
+      "personId": "arch-8e2988bbabf5",
+      "eventId": "track-season-blessing-sept-2024",
+      "date": "2024-09-26",
+      "sport": "Στίβος",
+      "sourceUrl": "https://olympiobima.gr/gas-archelaos-katerinis-o-agiasmos-tou-tmimatos-stivou/"
+    },
+    {
+      "personId": "arch-61d8d097f601",
+      "eventId": "archery-region-visit-aug-2024",
+      "date": "2024-08-29",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://www.pierianews.gr/2024/08/29/episkepsi-tis-antiperifereiarchi-pierias-k-sofias-mavridou-sto-gipedo-toxovolias-tou-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-61d8d097f601",
+      "eventId": "club-segas-filis-visit-aug-2024",
+      "date": "2024-08-29",
+      "sport": "Στίβος",
+      "sourceUrl": "https://odelalis.gr/o-ypopsifios-proedros-tou-segas-kostas-filis-sta-grafeia-tou-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-4b6d75d0faa2",
+      "eventId": "wrestling-mayor-2024",
+      "date": "2024-08-02",
+      "sport": "Πάλη",
+      "sourceUrl": "https://pieriasocial.gr/?p=88797"
+    },
+    {
+      "personId": "arch-af9470c5745f",
+      "eventId": "wrestling-mayor-2024",
+      "date": "2024-08-02",
+      "sport": "Πάλη",
+      "sourceUrl": "https://pieriasocial.gr/?p=88797"
+    },
+    {
+      "personId": "arch-8934f50fbeed",
+      "eventId": "wrestling-mayor-2024",
+      "date": "2024-08-02",
+      "sport": "Πάλη",
+      "sourceUrl": "https://pieriasocial.gr/?p=88797"
+    },
+    {
+      "personId": "arch-a3b57d586132",
+      "eventId": "wrestling-mayor-2024",
+      "date": "2024-08-02",
+      "sport": "Πάλη",
+      "sourceUrl": "https://pieriasocial.gr/?p=88797"
+    },
+    {
+      "personId": "arch-2082f3abced0",
+      "eventId": "track-u16-national-eleftheroupoli-jul-2024",
+      "date": "2024-07-15",
+      "sport": "Στίβος",
+      "sourceUrl": "https://pieriasocial.gr/?p=87892"
+    },
+    {
+      "personId": "arch-61d8d097f601",
+      "eventId": "track-academy-summer-celebration-2024",
+      "date": "2024-06-28",
+      "sport": "Στίβος",
+      "sourceUrl": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/%CE%B7-%CE%BA%CE%B1%CE%BB%CE%BF%CE%BA%CE%B1%CE%B9%CF%81%CE%B9%CE%BD%CE%AE-%CE%B3%CE%B9%CE%BF%CF%81%CF%84%CE%AE-%CF%84%CE%BF%CF%85-%CF%84%CE%BC%CE%AE%CE%BC%CE%B1%CF%84%CE%BF%CF%82-%CF%83%CF%84%CE%AF/"
+    },
+    {
+      "personId": "arch-2ec2798d39bb",
+      "eventId": "gymnastics-d-category-regional-mikra-may-2024",
+      "date": "2024-05-31",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://eptanews.gr/epikairotita/ston-rythmo-ton-epitychion-i-enorgani-gymnastiki-toy-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-gymnastics-9814252c",
+      "eventId": "gymnastics-d-category-regional-mikra-may-2024",
+      "date": "2024-05-31",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://eptanews.gr/epikairotita/ston-rythmo-ton-epitychion-i-enorgani-gymnastiki-toy-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-gymnastics-f2e4a89b",
+      "eventId": "gymnastics-d-category-regional-mikra-may-2024",
+      "date": "2024-05-31",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://eptanews.gr/epikairotita/ston-rythmo-ton-epitychion-i-enorgani-gymnastiki-toy-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-gymnastics-3e72e3a0",
+      "eventId": "gymnastics-d-category-regional-mikra-may-2024",
+      "date": "2024-05-31",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://eptanews.gr/epikairotita/ston-rythmo-ton-epitychion-i-enorgani-gymnastiki-toy-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-gymnastics-ffd29998",
+      "eventId": "gymnastics-d-category-regional-mikra-may-2024",
+      "date": "2024-05-31",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://eptanews.gr/epikairotita/ston-rythmo-ton-epitychion-i-enorgani-gymnastiki-toy-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-fbf9bcb00de7",
+      "eventId": "gymnastics-d-category-regional-mikra-may-2024",
+      "date": "2024-05-31",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://eptanews.gr/epikairotita/ston-rythmo-ton-epitychion-i-enorgani-gymnastiki-toy-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-gymnastics-ab00d538",
+      "eventId": "gymnastics-d-category-regional-mikra-may-2024",
+      "date": "2024-05-31",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://eptanews.gr/epikairotita/ston-rythmo-ton-epitychion-i-enorgani-gymnastiki-toy-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-gymnastics-b15100a6",
+      "eventId": "gymnastics-d-category-regional-mikra-may-2024",
+      "date": "2024-05-31",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://eptanews.gr/epikairotita/ston-rythmo-ton-epitychion-i-enorgani-gymnastiki-toy-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-64ee11fec8d6",
+      "eventId": "gymnastics-d-category-regional-mikra-may-2024",
+      "date": "2024-05-31",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://eptanews.gr/epikairotita/ston-rythmo-ton-epitychion-i-enorgani-gymnastiki-toy-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-gymnastics-3d90ff4c",
+      "eventId": "gymnastics-d-category-regional-mikra-may-2024",
+      "date": "2024-05-31",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://eptanews.gr/epikairotita/ston-rythmo-ton-epitychion-i-enorgani-gymnastiki-toy-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-gymnastics-4835eaab",
+      "eventId": "gymnastics-d-category-regional-mikra-may-2024",
+      "date": "2024-05-31",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://eptanews.gr/epikairotita/ston-rythmo-ton-epitychion-i-enorgani-gymnastiki-toy-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-gymnastics-d8ee376a",
+      "eventId": "gymnastics-d-category-regional-mikra-may-2024",
+      "date": "2024-05-31",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://eptanews.gr/epikairotita/ston-rythmo-ton-epitychion-i-enorgani-gymnastiki-toy-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-68fef0f68151",
+      "eventId": "track-zachariadeia-two-medals-may-2024",
+      "date": "2024-05-20",
+      "sport": "Στίβος",
+      "sourceUrl": "https://odelalis.gr/gas-archelaos-1-chryso-kai-1-argyro-metallio-sta-zachariadeia-2024/"
+    },
+    {
+      "personId": "arch-katerina-natsiopoulou-track22",
+      "eventId": "track-zachariadeia-two-medals-may-2024",
+      "date": "2024-05-20",
+      "sport": "Στίβος",
+      "sourceUrl": "https://odelalis.gr/gas-archelaos-1-chryso-kai-1-argyro-metallio-sta-zachariadeia-2024/"
+    },
+    {
+      "personId": "arch-b48656c62600",
+      "eventId": "wrestling-u15-european-bronze-loutraki-2024",
+      "date": "2024-05-19",
+      "sport": "Πάλη",
+      "sourceUrl": "https://olympiobima.gr/archelaos-katerinis-chalkino-metallio-o-nikos-zinisa-sto-panevropaiko-protathlima-palis-u15/"
+    },
+    {
+      "personId": "arch-2616694d9908",
+      "eventId": "wrestling-u15-european-bronze-loutraki-2024",
+      "date": "2024-05-19",
+      "sport": "Πάλη",
+      "sourceUrl": "https://olympiobima.gr/archelaos-katerinis-chalkino-metallio-o-nikos-zinisa-sto-panevropaiko-protathlima-palis-u15/"
+    },
+    {
+      "personId": "arch-9bba434ae7e7",
+      "eventId": "gymnastics-valvi-beam-final-may-2024",
+      "date": "2024-05-19",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://olympiobima.gr/ston-teliko-i-valvi-tou-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-c5eb6d18a17a",
+      "eventId": "gymnastics-valvi-beam-final-may-2024",
+      "date": "2024-05-19",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://olympiobima.gr/ston-teliko-i-valvi-tou-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-4aaa2b869d44",
+      "eventId": "gymnastics-valvi-beam-final-may-2024",
+      "date": "2024-05-19",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://olympiobima.gr/ston-teliko-i-valvi-tou-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-2cb062fabc11",
+      "eventId": "gymnastics-valvi-beam-final-may-2024",
+      "date": "2024-05-19",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://olympiobima.gr/ston-teliko-i-valvi-tou-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-vasiliki-koufogianni-shoot",
+      "eventId": "shooting-2024-vyronas",
+      "date": "2024-04-30",
+      "sport": "Σκοποβολή",
+      "sourceUrl": "https://www.pierianews.gr/2024/04/30/me-epitychies-epestrepse-i-skopovoli-tou-gas-archelaos-katerinis-foto/"
+    },
+    {
+      "personId": "arch-konstantinos-seitanidis-shoot",
+      "eventId": "shooting-2024-vyronas",
+      "date": "2024-04-30",
+      "sport": "Σκοποβολή",
+      "sourceUrl": "https://www.pierianews.gr/2024/04/30/me-epitychies-epestrepse-i-skopovoli-tou-gas-archelaos-katerinis-foto/"
+    },
+    {
+      "personId": "arch-vanesa-charoula-hogkas-shoot",
+      "eventId": "shooting-2024-vyronas",
+      "date": "2024-04-30",
+      "sport": "Σκοποβολή",
+      "sourceUrl": "https://www.pierianews.gr/2024/04/30/me-epitychies-epestrepse-i-skopovoli-tou-gas-archelaos-katerinis-foto/"
+    },
+    {
+      "personId": "arch-sofia-toptsa-shoot",
+      "eventId": "shooting-2024-vyronas",
+      "date": "2024-04-30",
+      "sport": "Σκοποβολή",
+      "sourceUrl": "https://www.pierianews.gr/2024/04/30/me-epitychies-epestrepse-i-skopovoli-tou-gas-archelaos-katerinis-foto/"
+    },
+    {
+      "personId": "arch-vasileios-grigoropoulos-shoot",
+      "eventId": "shooting-2024-vyronas",
+      "date": "2024-04-30",
+      "sport": "Σκοποβολή",
+      "sourceUrl": "https://www.pierianews.gr/2024/04/30/me-epitychies-epestrepse-i-skopovoli-tou-gas-archelaos-katerinis-foto/"
+    },
+    {
+      "personId": "arch-dimitrios-tsimponis-shoot",
+      "eventId": "shooting-2024-vyronas",
+      "date": "2024-04-30",
+      "sport": "Σκοποβολή",
+      "sourceUrl": "https://www.pierianews.gr/2024/04/30/me-epitychies-epestrepse-i-skopovoli-tou-gas-archelaos-katerinis-foto/"
+    },
+    {
+      "personId": "arch-dimitrios-koufogiannis-shoot",
+      "eventId": "shooting-2024-vyronas",
+      "date": "2024-04-30",
+      "sport": "Σκοποβολή",
+      "sourceUrl": "https://www.pierianews.gr/2024/04/30/me-epitychies-epestrepse-i-skopovoli-tou-gas-archelaos-katerinis-foto/"
+    },
+    {
+      "personId": "arch-86658a431e03",
+      "eventId": "track-u16-kilkis-team-apr-2024",
+      "date": "2024-04-26",
+      "sport": "Στίβος",
+      "sourceUrl": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/%CF%80%CE%BF%CE%BB%CF%8D-%CE%BA%CE%B1%CE%BB%CE%AE-%CE%B5%CE%BC%CF%86%CE%AC%CE%BD%CE%B9%CF%83%CE%B7-%CF%84%CE%BF%CF%85-%CF%84%CE%BC%CE%AE%CE%BC%CE%B1%CF%84%CE%BF%CF%82-%CF%83%CF%84%CE%AF%CE%B2%CE%BF/"
+    },
+    {
+      "personId": "arch-92ed87ea2acb",
+      "eventId": "track-u16-kilkis-team-apr-2024",
+      "date": "2024-04-26",
+      "sport": "Στίβος",
+      "sourceUrl": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/%CF%80%CE%BF%CE%BB%CF%8D-%CE%BA%CE%B1%CE%BB%CE%AE-%CE%B5%CE%BC%CF%86%CE%AC%CE%BD%CE%B9%CF%83%CE%B7-%CF%84%CE%BF%CF%85-%CF%84%CE%BC%CE%AE%CE%BC%CE%B1%CF%84%CE%BF%CF%82-%CF%83%CF%84%CE%AF%CE%B2%CE%BF/"
+    },
+    {
+      "personId": "arch-9522437eb7bc",
+      "eventId": "track-u16-kilkis-team-apr-2024",
+      "date": "2024-04-26",
+      "sport": "Στίβος",
+      "sourceUrl": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/%CF%80%CE%BF%CE%BB%CF%8D-%CE%BA%CE%B1%CE%BB%CE%AE-%CE%B5%CE%BC%CF%86%CE%AC%CE%BD%CE%B9%CF%83%CE%B7-%CF%84%CE%BF%CF%85-%CF%84%CE%BC%CE%AE%CE%BC%CE%B1%CF%84%CE%BF%CF%82-%CF%83%CF%84%CE%AF%CE%B2%CE%BF/"
+    },
+    {
+      "personId": "arch-53f4acf32583",
+      "eventId": "track-u16-kilkis-team-apr-2024",
+      "date": "2024-04-26",
+      "sport": "Στίβος",
+      "sourceUrl": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/%CF%80%CE%BF%CE%BB%CF%8D-%CE%BA%CE%B1%CE%BB%CE%AE-%CE%B5%CE%BC%CF%86%CE%AC%CE%BD%CE%B9%CF%83%CE%B7-%CF%84%CE%BF%CF%85-%CF%84%CE%BC%CE%AE%CE%BC%CE%B1%CF%84%CE%BF%CF%82-%CF%83%CF%84%CE%AF%CE%B2%CE%BF/"
+    },
+    {
+      "personId": "arch-c3dbb18f8afd",
+      "eventId": "track-u16-kilkis-team-apr-2024",
+      "date": "2024-04-26",
+      "sport": "Στίβος",
+      "sourceUrl": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/%CF%80%CE%BF%CE%BB%CF%8D-%CE%BA%CE%B1%CE%BB%CE%AE-%CE%B5%CE%BC%CF%86%CE%AC%CE%BD%CE%B9%CF%83%CE%B7-%CF%84%CE%BF%CF%85-%CF%84%CE%BC%CE%AE%CE%BC%CE%B1%CF%84%CE%BF%CF%82-%CF%83%CF%84%CE%AF%CE%B2%CE%BF/"
+    },
+    {
+      "personId": "arch-824fa2e4193e",
+      "eventId": "track-u16-kilkis-team-apr-2024",
+      "date": "2024-04-26",
+      "sport": "Στίβος",
+      "sourceUrl": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/%CF%80%CE%BF%CE%BB%CF%8D-%CE%BA%CE%B1%CE%BB%CE%AE-%CE%B5%CE%BC%CF%86%CE%AC%CE%BD%CE%B9%CF%83%CE%B7-%CF%84%CE%BF%CF%85-%CF%84%CE%BC%CE%AE%CE%BC%CE%B1%CF%84%CE%BF%CF%82-%CF%83%CF%84%CE%AF%CE%B2%CE%BF/"
+    },
+    {
+      "personId": "arch-a6a1796f3d5c",
+      "eventId": "track-u16-kilkis-team-apr-2024",
+      "date": "2024-04-26",
+      "sport": "Στίβος",
+      "sourceUrl": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/%CF%80%CE%BF%CE%BB%CF%8D-%CE%BA%CE%B1%CE%BB%CE%AE-%CE%B5%CE%BC%CF%86%CE%AC%CE%BD%CE%B9%CF%83%CE%B7-%CF%84%CE%BF%CF%85-%CF%84%CE%BC%CE%AE%CE%BC%CE%B1%CF%84%CE%BF%CF%82-%CF%83%CF%84%CE%AF%CE%B2%CE%BF/"
+    },
+    {
+      "personId": "arch-2082f3abced0",
+      "eventId": "track-u16-kilkis-team-apr-2024",
+      "date": "2024-04-26",
+      "sport": "Στίβος",
+      "sourceUrl": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/%CF%80%CE%BF%CE%BB%CF%8D-%CE%BA%CE%B1%CE%BB%CE%AE-%CE%B5%CE%BC%CF%86%CE%AC%CE%BD%CE%B9%CF%83%CE%B7-%CF%84%CE%BF%CF%85-%CF%84%CE%BC%CE%AE%CE%BC%CE%B1%CF%84%CE%BF%CF%82-%CF%83%CF%84%CE%AF%CE%B2%CE%BF/"
+    },
+    {
+      "personId": "arch-af7b9eaec8f6",
+      "eventId": "track-u16-kilkis-team-apr-2024",
+      "date": "2024-04-26",
+      "sport": "Στίβος",
+      "sourceUrl": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/%CF%80%CE%BF%CE%BB%CF%8D-%CE%BA%CE%B1%CE%BB%CE%AE-%CE%B5%CE%BC%CF%86%CE%AC%CE%BD%CE%B9%CF%83%CE%B7-%CF%84%CE%BF%CF%85-%CF%84%CE%BC%CE%AE%CE%BC%CE%B1%CF%84%CE%BF%CF%82-%CF%83%CF%84%CE%AF%CE%B2%CE%BF/"
+    },
+    {
+      "personId": "arch-84866a9d1786",
+      "eventId": "track-u16-kilkis-team-apr-2024",
+      "date": "2024-04-26",
+      "sport": "Στίβος",
+      "sourceUrl": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/%CF%80%CE%BF%CE%BB%CF%8D-%CE%BA%CE%B1%CE%BB%CE%AE-%CE%B5%CE%BC%CF%86%CE%AC%CE%BD%CE%B9%CF%83%CE%B7-%CF%84%CE%BF%CF%85-%CF%84%CE%BC%CE%AE%CE%BC%CE%B1%CF%84%CE%BF%CF%82-%CF%83%CF%84%CE%AF%CE%B2%CE%BF/"
+    },
+    {
+      "personId": "arch-6dac69941f40",
+      "eventId": "track-u16-kilkis-team-apr-2024",
+      "date": "2024-04-26",
+      "sport": "Στίβος",
+      "sourceUrl": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/%CF%80%CE%BF%CE%BB%CF%8D-%CE%BA%CE%B1%CE%BB%CE%AE-%CE%B5%CE%BC%CF%86%CE%AC%CE%BD%CE%B9%CF%83%CE%B7-%CF%84%CE%BF%CF%85-%CF%84%CE%BC%CE%AE%CE%BC%CE%B1%CF%84%CE%BF%CF%82-%CF%83%CF%84%CE%AF%CE%B2%CE%BF/"
+    },
+    {
+      "personId": "arch-e49a8c140396",
+      "eventId": "wrestling-u17-trikala-team-third-2024",
+      "date": "2024-04-21",
+      "sport": "Πάλη",
+      "sourceUrl": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/3%CE%B7-%CE%BA%CE%B1%CE%BB%CF%8D%CF%84%CE%B5%CF%81%CE%B7-%CE%BF%CE%BC%CE%AC%CE%B4%CE%B1-%CF%83%CF%84%CE%B7%CE%BD-%CE%B5%CE%BB%CE%BB%CE%AC%CE%B4%CE%B1-%CE%B7-%CF%80%CE%AC%CE%BB%CE%B7-%CF%84%CE%BF%CF%85/"
+    },
+    {
+      "personId": "arch-ba8233d165aa",
+      "eventId": "wrestling-u17-trikala-team-third-2024",
+      "date": "2024-04-21",
+      "sport": "Πάλη",
+      "sourceUrl": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/3%CE%B7-%CE%BA%CE%B1%CE%BB%CF%8D%CF%84%CE%B5%CF%81%CE%B7-%CE%BF%CE%BC%CE%AC%CE%B4%CE%B1-%CF%83%CF%84%CE%B7%CE%BD-%CE%B5%CE%BB%CE%BB%CE%AC%CE%B4%CE%B1-%CE%B7-%CF%80%CE%AC%CE%BB%CE%B7-%CF%84%CE%BF%CF%85/"
+    },
+    {
+      "personId": "arch-73968afa517e",
+      "eventId": "wrestling-u17-trikala-team-third-2024",
+      "date": "2024-04-21",
+      "sport": "Πάλη",
+      "sourceUrl": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/3%CE%B7-%CE%BA%CE%B1%CE%BB%CF%8D%CF%84%CE%B5%CF%81%CE%B7-%CE%BF%CE%BC%CE%AC%CE%B4%CE%B1-%CF%83%CF%84%CE%B7%CE%BD-%CE%B5%CE%BB%CE%BB%CE%AC%CE%B4%CE%B1-%CE%B7-%CF%80%CE%AC%CE%BB%CE%B7-%CF%84%CE%BF%CF%85/"
+    },
+    {
+      "personId": "arch-e87fdf323137",
+      "eventId": "wrestling-u17-trikala-team-third-2024",
+      "date": "2024-04-21",
+      "sport": "Πάλη",
+      "sourceUrl": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/3%CE%B7-%CE%BA%CE%B1%CE%BB%CF%8D%CF%84%CE%B5%CF%81%CE%B7-%CE%BF%CE%BC%CE%AC%CE%B4%CE%B1-%CF%83%CF%84%CE%B7%CE%BD-%CE%B5%CE%BB%CE%BB%CE%AC%CE%B4%CE%B1-%CE%B7-%CF%80%CE%AC%CE%BB%CE%B7-%CF%84%CE%BF%CF%85/"
+    },
+    {
+      "personId": "arch-ec8773207161",
+      "eventId": "track-u18-kilkis-medals-apr-2024",
+      "date": "2024-04-16",
+      "sport": "Στίβος",
+      "sourceUrl": "https://www.kapa-news.gr/2024/04/18_16.html"
+    },
+    {
+      "personId": "arch-d9a3d58d6432",
+      "eventId": "track-u18-kilkis-medals-apr-2024",
+      "date": "2024-04-16",
+      "sport": "Στίβος",
+      "sourceUrl": "https://www.kapa-news.gr/2024/04/18_16.html"
+    },
+    {
+      "personId": "arch-a6a1796f3d5c",
+      "eventId": "track-u18-kilkis-medals-apr-2024",
+      "date": "2024-04-16",
+      "sport": "Στίβος",
+      "sourceUrl": "https://www.kapa-news.gr/2024/04/18_16.html"
+    },
+    {
+      "personId": "arch-67ae020ca998",
+      "eventId": "track-u18-kilkis-medals-apr-2024",
+      "date": "2024-04-16",
+      "sport": "Στίβος",
+      "sourceUrl": "https://www.kapa-news.gr/2024/04/18_16.html"
+    },
+    {
+      "personId": "arch-4a961d27ca2d",
+      "eventId": "track-u18-kilkis-medals-apr-2024",
+      "date": "2024-04-16",
+      "sport": "Στίβος",
+      "sourceUrl": "https://www.kapa-news.gr/2024/04/18_16.html"
+    },
+    {
+      "personId": "arch-e9fc7408640c",
+      "eventId": "gym-2024-mikra",
+      "date": "2024-04-09",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://eptanews.gr/athlitismos/epitychies-kai-metallia-gia-tin-enorgani-toy-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-8d1a258f0b09",
+      "eventId": "gym-2024-mikra",
+      "date": "2024-04-09",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://eptanews.gr/athlitismos/epitychies-kai-metallia-gia-tin-enorgani-toy-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-957a876e770d",
+      "eventId": "wrestling-xenidou-u17-national-gold-apr-2024",
+      "date": "2024-04-09",
+      "sport": "Πάλη",
+      "sourceUrl": "https://odelalis.gr/protathlitria-elladas-i-ioanna-xenidou-tou-gas-archelaou-katerinis/"
+    },
+    {
+      "personId": "arch-dimitris-siokas-handball-2026",
+      "eventId": "handball-feronas-archelaos-35-31-apr-2024",
+      "date": "2024-04-01",
+      "sport": "Χάντμπολ",
+      "sourceUrl": "https://olympiobima.gr/nikise-kai-prokrithike-sta-plei-of-o-feronas-feronas-veroias-archelaos-katerinis-35-31/"
+    },
+    {
+      "personId": "arch-2616694d9908",
+      "eventId": "wrestling-u15-larisa-2024",
+      "date": "2024-03-11",
+      "sport": "Πάλη",
+      "sourceUrl": "https://eptanews.gr/epikairotita/gas-archelaos-katerinis-4-metallia-sto-panellinio-protathlima-palis/amp/"
+    },
+    {
+      "personId": "arch-b48656c62600",
+      "eventId": "wrestling-u15-larisa-2024",
+      "date": "2024-03-11",
+      "sport": "Πάλη",
+      "sourceUrl": "https://eptanews.gr/epikairotita/gas-archelaos-katerinis-4-metallia-sto-panellinio-protathlima-palis/amp/"
+    },
+    {
+      "personId": "arch-vangelis-kordonoulis-wrest24",
+      "eventId": "wrestling-u15-larisa-2024",
+      "date": "2024-03-11",
+      "sport": "Πάλη",
+      "sourceUrl": "https://eptanews.gr/epikairotita/gas-archelaos-katerinis-4-metallia-sto-panellinio-protathlima-palis/amp/"
+    },
+    {
+      "personId": "arch-aristotelis-navrozidis-wrest24",
+      "eventId": "wrestling-u15-larisa-2024",
+      "date": "2024-03-11",
+      "sport": "Πάλη",
+      "sourceUrl": "https://eptanews.gr/epikairotita/gas-archelaos-katerinis-4-metallia-sto-panellinio-protathlima-palis/amp/"
+    },
+    {
+      "personId": "arch-af9470c5745f",
+      "eventId": "wrestling-belgrade-four-medals-2024",
+      "date": "2024-03-05",
+      "sport": "Πάλη",
+      "sourceUrl": "https://eptanews.gr/athlitismos/4-metallia-oi-athlites-toy-archelaoy-katerinis-sto-veligradi/"
+    },
+    {
+      "personId": "arch-f3d93442851f",
+      "eventId": "wrestling-belgrade-four-medals-2024",
+      "date": "2024-03-05",
+      "sport": "Πάλη",
+      "sourceUrl": "https://eptanews.gr/athlitismos/4-metallia-oi-athlites-toy-archelaoy-katerinis-sto-veligradi/"
+    },
+    {
+      "personId": "arch-b48656c62600",
+      "eventId": "wrestling-belgrade-four-medals-2024",
+      "date": "2024-03-05",
+      "sport": "Πάλη",
+      "sourceUrl": "https://eptanews.gr/athlitismos/4-metallia-oi-athlites-toy-archelaoy-katerinis-sto-veligradi/"
+    },
+    {
+      "personId": "arch-be8668380721",
+      "eventId": "wrestling-belgrade-four-medals-2024",
+      "date": "2024-03-05",
+      "sport": "Πάλη",
+      "sourceUrl": "https://eptanews.gr/athlitismos/4-metallia-oi-athlites-toy-archelaoy-katerinis-sto-veligradi/"
+    },
+    {
+      "personId": "arch-vangelis-kordonoulis-wrest24",
+      "eventId": "wrestling-belgrade-four-medals-2024",
+      "date": "2024-03-05",
+      "sport": "Πάλη",
+      "sourceUrl": "https://eptanews.gr/athlitismos/4-metallia-oi-athlites-toy-archelaoy-katerinis-sto-veligradi/"
+    },
+    {
+      "personId": "arch-6a4b08bec058",
+      "eventId": "wrestling-petkos-gold-evthymiadis-fifth-2024",
+      "date": "2024-03-04",
+      "sport": "Πάλη",
+      "sourceUrl": "https://eptanews.gr/epikairotita/axios-protathlitis-elladas-o-giannis-petkos-toy-archelaoy-katerinis/"
+    },
+    {
+      "personId": "arch-ba8233d165aa",
+      "eventId": "wrestling-petkos-gold-evthymiadis-fifth-2024",
+      "date": "2024-03-04",
+      "sport": "Πάλη",
+      "sourceUrl": "https://eptanews.gr/epikairotita/axios-protathlitis-elladas-o-giannis-petkos-toy-archelaoy-katerinis/"
+    },
+    {
+      "personId": "arch-957a876e770d",
+      "eventId": "wrestling-vao-moraitis-palaska-dec-2023",
+      "date": "2023-12-04",
+      "sport": "Πάλη",
+      "sourceUrl": "https://olympiobima.gr/gas-archelaos-katerinis-gemisan-tis-aposkeves-tous-me-metallia-oi-protathlites-tou-stin-pali/"
+    },
+    {
+      "personId": "arch-ba8233d165aa",
+      "eventId": "wrestling-vao-moraitis-palaska-dec-2023",
+      "date": "2023-12-04",
+      "sport": "Πάλη",
+      "sourceUrl": "https://olympiobima.gr/gas-archelaos-katerinis-gemisan-tis-aposkeves-tous-me-metallia-oi-protathlites-tou-stin-pali/"
+    },
+    {
+      "personId": "arch-be8668380721",
+      "eventId": "wrestling-vao-moraitis-palaska-dec-2023",
+      "date": "2023-12-04",
+      "sport": "Πάλη",
+      "sourceUrl": "https://olympiobima.gr/gas-archelaos-katerinis-gemisan-tis-aposkeves-tous-me-metallia-oi-protathlites-tou-stin-pali/"
+    },
+    {
+      "personId": "arch-73968afa517e",
+      "eventId": "wrestling-vao-moraitis-palaska-dec-2023",
+      "date": "2023-12-04",
+      "sport": "Πάλη",
+      "sourceUrl": "https://olympiobima.gr/gas-archelaos-katerinis-gemisan-tis-aposkeves-tous-me-metallia-oi-protathlites-tou-stin-pali/"
+    },
+    {
+      "personId": "arch-b48656c62600",
+      "eventId": "wrestling-vao-moraitis-palaska-dec-2023",
+      "date": "2023-12-04",
+      "sport": "Πάλη",
+      "sourceUrl": "https://olympiobima.gr/gas-archelaos-katerinis-gemisan-tis-aposkeves-tous-me-metallia-oi-protathlites-tou-stin-pali/"
+    },
+    {
+      "personId": "arch-2616694d9908",
+      "eventId": "wrestling-vao-moraitis-palaska-dec-2023",
+      "date": "2023-12-04",
+      "sport": "Πάλη",
+      "sourceUrl": "https://olympiobima.gr/gas-archelaos-katerinis-gemisan-tis-aposkeves-tous-me-metallia-oi-protathlites-tou-stin-pali/"
+    },
+    {
+      "personId": "arch-957a876e770d",
+      "eventId": "wrestling-2023-bucharest",
+      "date": "2023-11-21",
+      "sport": "Πάλη",
+      "sourceUrl": "https://eptanews.gr/epikairotita/me-polla-metallia-kai-polytimes-empeiries-epestrepse-apo-to-voykoyresti-to-tmima-palis-toy-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-e49a8c140396",
+      "eventId": "wrestling-2023-bucharest",
+      "date": "2023-11-21",
+      "sport": "Πάλη",
+      "sourceUrl": "https://eptanews.gr/epikairotita/me-polla-metallia-kai-polytimes-empeiries-epestrepse-apo-to-voykoyresti-to-tmima-palis-toy-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-e87fdf323137",
+      "eventId": "wrestling-2023-bucharest",
+      "date": "2023-11-21",
+      "sport": "Πάλη",
+      "sourceUrl": "https://eptanews.gr/epikairotita/me-polla-metallia-kai-polytimes-empeiries-epestrepse-apo-to-voykoyresti-to-tmima-palis-toy-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-konstantinos-sklias-wrest23",
+      "eventId": "wrestling-2023-bucharest",
+      "date": "2023-11-21",
+      "sport": "Πάλη",
+      "sourceUrl": "https://eptanews.gr/epikairotita/me-polla-metallia-kai-polytimes-empeiries-epestrepse-apo-to-voykoyresti-to-tmima-palis-toy-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-aristotelis-navrozidis-wrest24",
+      "eventId": "wrestling-prosotsani-u11-u13-nov-2023",
+      "date": "2023-11-19",
+      "sport": "Πάλη",
+      "sourceUrl": "https://olympiobima.gr/archelaos-katerinis-elampsan-oi-pitsirikades-stin-pali/"
+    },
+    {
+      "personId": "arch-loukas-zinisa-wrest25",
+      "eventId": "wrestling-prosotsani-u11-u13-nov-2023",
+      "date": "2023-11-19",
+      "sport": "Πάλη",
+      "sourceUrl": "https://olympiobima.gr/archelaos-katerinis-elampsan-oi-pitsirikades-stin-pali/"
+    },
+    {
+      "personId": "arch-2616694d9908",
+      "eventId": "wrestling-prosotsani-u11-u13-nov-2023",
+      "date": "2023-11-19",
+      "sport": "Πάλη",
+      "sourceUrl": "https://olympiobima.gr/archelaos-katerinis-elampsan-oi-pitsirikades-stin-pali/"
+    },
+    {
+      "personId": "arch-wrest-taxiarhis-liakos",
+      "eventId": "wrestling-prosotsani-u11-u13-nov-2023",
+      "date": "2023-11-19",
+      "sport": "Πάλη",
+      "sourceUrl": "https://olympiobima.gr/archelaos-katerinis-elampsan-oi-pitsirikades-stin-pali/"
+    },
+    {
+      "personId": "arch-955a386f547f",
+      "eventId": "archery-oaka-u21-u18-medals-sep-2023",
+      "date": "2023-09-25",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://olympiobima.gr/sarose-ta-metallia-i-toxovolia-tou-gas-archelaos-katerinis-sto-panellinio-protathlima/"
+    },
+    {
+      "personId": "arch-kassiani-koktsidou-arch",
+      "eventId": "archery-oaka-u21-u18-medals-sep-2023",
+      "date": "2023-09-25",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://olympiobima.gr/sarose-ta-metallia-i-toxovolia-tou-gas-archelaos-katerinis-sto-panellinio-protathlima/"
+    },
+    {
+      "personId": "arch-theofania-karali-arch",
+      "eventId": "archery-oaka-u21-u18-medals-sep-2023",
+      "date": "2023-09-25",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://olympiobima.gr/sarose-ta-metallia-i-toxovolia-tou-gas-archelaos-katerinis-sto-panellinio-protathlima/"
+    },
+    {
+      "personId": "arch-pavlina-charitidou-arch",
+      "eventId": "archery-oaka-u21-u18-medals-sep-2023",
+      "date": "2023-09-25",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://olympiobima.gr/sarose-ta-metallia-i-toxovolia-tou-gas-archelaos-katerinis-sto-panellinio-protathlima/"
+    },
+    {
+      "personId": "arch-konstantinos-charisis-arch",
+      "eventId": "archery-oaka-u21-u18-medals-sep-2023",
+      "date": "2023-09-25",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://olympiobima.gr/sarose-ta-metallia-i-toxovolia-tou-gas-archelaos-katerinis-sto-panellinio-protathlima/"
+    },
+    {
+      "personId": "arch-9d63723c6ec9",
+      "eventId": "archery-oaka-u21-u18-medals-sep-2023",
+      "date": "2023-09-25",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://olympiobima.gr/sarose-ta-metallia-i-toxovolia-tou-gas-archelaos-katerinis-sto-panellinio-protathlima/"
+    },
+    {
+      "personId": "arch-73968afa517e",
+      "eventId": "wrestling-world-istanbul-squad-july-2023",
+      "date": "2023-07-29",
+      "sport": "Πάλη",
+      "sourceUrl": "https://olympiobima.gr/archelaos-katerinis-stin-konstantinoupoli-gia-to-pagkosmio-protathlima-palis-oi-4-chrysoi-protathlites-ellados/"
+    },
+    {
+      "personId": "arch-e49a8c140396",
+      "eventId": "wrestling-world-istanbul-squad-july-2023",
+      "date": "2023-07-29",
+      "sport": "Πάλη",
+      "sourceUrl": "https://olympiobima.gr/archelaos-katerinis-stin-konstantinoupoli-gia-to-pagkosmio-protathlima-palis-oi-4-chrysoi-protathlites-ellados/"
+    },
+    {
+      "personId": "arch-e87fdf323137",
+      "eventId": "wrestling-world-istanbul-squad-july-2023",
+      "date": "2023-07-29",
+      "sport": "Πάλη",
+      "sourceUrl": "https://olympiobima.gr/archelaos-katerinis-stin-konstantinoupoli-gia-to-pagkosmio-protathlima-palis-oi-4-chrysoi-protathlites-ellados/"
+    },
+    {
+      "personId": "arch-ba8233d165aa",
+      "eventId": "wrestling-world-istanbul-squad-july-2023",
+      "date": "2023-07-29",
+      "sport": "Πάλη",
+      "sourceUrl": "https://olympiobima.gr/archelaos-katerinis-stin-konstantinoupoli-gia-to-pagkosmio-protathlima-palis-oi-4-chrysoi-protathlites-ellados/"
+    },
+    {
+      "personId": "arch-1ea85d87584a",
+      "eventId": "gymnastics-alexandroupoli-u10-u8-june-2023",
+      "date": "2023-06-19",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://olympiobima.gr/gas-archelaos-katerinis-avlaia-kai-gia-tin-enorgani-gymnastiki/"
+    },
+    {
+      "personId": "arch-2ec2798d39bb",
+      "eventId": "gymnastics-alexandroupoli-u10-u8-june-2023",
+      "date": "2023-06-19",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://olympiobima.gr/gas-archelaos-katerinis-avlaia-kai-gia-tin-enorgani-gymnastiki/"
+    },
+    {
+      "personId": "arch-gymnastics-9814252c",
+      "eventId": "gymnastics-alexandroupoli-u10-u8-june-2023",
+      "date": "2023-06-19",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://olympiobima.gr/gas-archelaos-katerinis-avlaia-kai-gia-tin-enorgani-gymnastiki/"
+    },
+    {
+      "personId": "arch-gymnastics-ffd29998",
+      "eventId": "gymnastics-alexandroupoli-u10-u8-june-2023",
+      "date": "2023-06-19",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://olympiobima.gr/gas-archelaos-katerinis-avlaia-kai-gia-tin-enorgani-gymnastiki/"
+    },
+    {
+      "personId": "arch-fbf9bcb00de7",
+      "eventId": "gymnastics-alexandroupoli-u10-u8-june-2023",
+      "date": "2023-06-19",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://olympiobima.gr/gas-archelaos-katerinis-avlaia-kai-gia-tin-enorgani-gymnastiki/"
+    },
+    {
+      "personId": "arch-gymnastics-3e72e3a0",
+      "eventId": "gymnastics-alexandroupoli-u10-u8-june-2023",
+      "date": "2023-06-19",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://olympiobima.gr/gas-archelaos-katerinis-avlaia-kai-gia-tin-enorgani-gymnastiki/"
+    },
+    {
+      "personId": "arch-gymnastics-ab00d538",
+      "eventId": "gymnastics-alexandroupoli-u10-u8-june-2023",
+      "date": "2023-06-19",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://olympiobima.gr/gas-archelaos-katerinis-avlaia-kai-gia-tin-enorgani-gymnastiki/"
+    },
+    {
+      "personId": "arch-gymnastics-d8ee376a",
+      "eventId": "gymnastics-alexandroupoli-u10-u8-june-2023",
+      "date": "2023-06-19",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://olympiobima.gr/gas-archelaos-katerinis-avlaia-kai-gia-tin-enorgani-gymnastiki/"
+    },
+    {
+      "personId": "arch-gymnastics-b15100a6",
+      "eventId": "gymnastics-alexandroupoli-u10-u8-june-2023",
+      "date": "2023-06-19",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://olympiobima.gr/gas-archelaos-katerinis-avlaia-kai-gia-tin-enorgani-gymnastiki/"
+    },
+    {
+      "personId": "arch-bde5b8a0f677",
+      "eventId": "gymnastics-alexandroupoli-u10-u8-june-2023",
+      "date": "2023-06-19",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://olympiobima.gr/gas-archelaos-katerinis-avlaia-kai-gia-tin-enorgani-gymnastiki/"
+    },
+    {
+      "personId": "arch-gymnastics-f2e4a89b",
+      "eventId": "gymnastics-alexandroupoli-u10-u8-june-2023",
+      "date": "2023-06-19",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://olympiobima.gr/gas-archelaos-katerinis-avlaia-kai-gia-tin-enorgani-gymnastiki/"
+    },
+    {
+      "personId": "arch-61d8d097f601",
+      "eventId": "club-65th-anniversary-album-contract-jun-2023",
+      "date": "2023-06-19",
+      "sport": "",
+      "sourceUrl": "https://odelalis.gr/ypografike-i-symvasi-gia-tin-ekdosi-toy-leykomatos-gia-ta-65-chronia-drasis-kai-prosforas-toy-gas-archelaoy-katerinis/"
+    },
+    {
+      "personId": "arch-86658a431e03",
+      "eventId": "track-u16-eleftheroupoli-jun-2023",
+      "date": "2023-06-19",
+      "sport": "Στίβος",
+      "sourceUrl": "https://odelalis.gr/gas-archelaos-katerinis-ta-kalytera-den-echoyn-erthei-akoma/"
+    },
+    {
+      "personId": "arch-1325e4551e91",
+      "eventId": "gymnastics-thessaloniki-regional-may-2023",
+      "date": "2023-05-30",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://olympiobima.gr/gas-archelaos-katerinis-ekpliktiki-emfanisi-megales-diakriseis-stin-thessaloniki/"
+    },
+    {
+      "personId": "arch-510626a0ca62",
+      "eventId": "gymnastics-thessaloniki-regional-may-2023",
+      "date": "2023-05-30",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://olympiobima.gr/gas-archelaos-katerinis-ekpliktiki-emfanisi-megales-diakriseis-stin-thessaloniki/"
+    },
+    {
+      "personId": "arch-1ea85d87584a",
+      "eventId": "gymnastics-thessaloniki-regional-may-2023",
+      "date": "2023-05-30",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://olympiobima.gr/gas-archelaos-katerinis-ekpliktiki-emfanisi-megales-diakriseis-stin-thessaloniki/"
+    },
+    {
+      "personId": "arch-2ec2798d39bb",
+      "eventId": "gymnastics-thessaloniki-regional-may-2023",
+      "date": "2023-05-30",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://olympiobima.gr/gas-archelaos-katerinis-ekpliktiki-emfanisi-megales-diakriseis-stin-thessaloniki/"
+    },
+    {
+      "personId": "arch-gymnastics-9814252c",
+      "eventId": "gymnastics-thessaloniki-regional-may-2023",
+      "date": "2023-05-30",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://olympiobima.gr/gas-archelaos-katerinis-ekpliktiki-emfanisi-megales-diakriseis-stin-thessaloniki/"
+    },
+    {
+      "personId": "arch-bde5b8a0f677",
+      "eventId": "gymnastics-thessaloniki-regional-may-2023",
+      "date": "2023-05-30",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://olympiobima.gr/gas-archelaos-katerinis-ekpliktiki-emfanisi-megales-diakriseis-stin-thessaloniki/"
+    },
+    {
+      "personId": "arch-gymnastics-f2e4a89b",
+      "eventId": "gymnastics-thessaloniki-regional-may-2023",
+      "date": "2023-05-30",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://olympiobima.gr/gas-archelaos-katerinis-ekpliktiki-emfanisi-megales-diakriseis-stin-thessaloniki/"
+    },
+    {
+      "personId": "arch-e6b31b31c3a9",
+      "eventId": "gymnastics-national-lavrio-may-2023",
+      "date": "2023-05-17",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://olympiobima.gr/archelaos-katerinis-exairetiki-emfanisi-tin-enorgani-gymnastiki-panellinio-protathlima/"
+    },
+    {
+      "personId": "arch-25923c326d62",
+      "eventId": "gymnastics-national-lavrio-may-2023",
+      "date": "2023-05-17",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://olympiobima.gr/archelaos-katerinis-exairetiki-emfanisi-tin-enorgani-gymnastiki-panellinio-protathlima/"
+    },
+    {
+      "personId": "arch-9bba434ae7e7",
+      "eventId": "gymnastics-national-lavrio-may-2023",
+      "date": "2023-05-17",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://olympiobima.gr/archelaos-katerinis-exairetiki-emfanisi-tin-enorgani-gymnastiki-panellinio-protathlima/"
+    },
+    {
+      "personId": "arch-1bcea370c872",
+      "eventId": "gymnastics-national-lavrio-may-2023",
+      "date": "2023-05-17",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://olympiobima.gr/archelaos-katerinis-exairetiki-emfanisi-tin-enorgani-gymnastiki-panellinio-protathlima/"
+    },
+    {
+      "personId": "arch-e9fc7408640c",
+      "eventId": "gymnastics-national-lavrio-may-2023",
+      "date": "2023-05-17",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://olympiobima.gr/archelaos-katerinis-exairetiki-emfanisi-tin-enorgani-gymnastiki-panellinio-protathlima/"
+    },
+    {
+      "personId": "arch-f02298025e5c",
+      "eventId": "gymnastics-national-lavrio-may-2023",
+      "date": "2023-05-17",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://olympiobima.gr/archelaos-katerinis-exairetiki-emfanisi-tin-enorgani-gymnastiki-panellinio-protathlima/"
+    },
+    {
+      "personId": "arch-8d1a258f0b09",
+      "eventId": "gymnastics-national-lavrio-may-2023",
+      "date": "2023-05-17",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://olympiobima.gr/archelaos-katerinis-exairetiki-emfanisi-tin-enorgani-gymnastiki-panellinio-protathlima/"
+    },
+    {
+      "personId": "arch-957a876e770d",
+      "eventId": "wrestling-balkan-sidirokastro-may-2023",
+      "date": "2023-05-08",
+      "sport": "Πάλη",
+      "sourceUrl": "https://olympiobima.gr/pali-gas-archelaos-katerinis-dieprepse-valkaniko-protathlima-palis/"
+    },
+    {
+      "personId": "arch-f3d93442851f",
+      "eventId": "wrestling-balkan-sidirokastro-may-2023",
+      "date": "2023-05-08",
+      "sport": "Πάλη",
+      "sourceUrl": "https://olympiobima.gr/pali-gas-archelaos-katerinis-dieprepse-valkaniko-protathlima-palis/"
+    },
+    {
+      "personId": "arch-73968afa517e",
+      "eventId": "wrestling-balkan-sidirokastro-may-2023",
+      "date": "2023-05-08",
+      "sport": "Πάλη",
+      "sourceUrl": "https://olympiobima.gr/pali-gas-archelaos-katerinis-dieprepse-valkaniko-protathlima-palis/"
+    },
+    {
+      "personId": "arch-e87fdf323137",
+      "eventId": "wrestling-balkan-sidirokastro-may-2023",
+      "date": "2023-05-08",
+      "sport": "Πάλη",
+      "sourceUrl": "https://olympiobima.gr/pali-gas-archelaos-katerinis-dieprepse-valkaniko-protathlima-palis/"
+    },
+    {
+      "personId": "arch-ba8233d165aa",
+      "eventId": "wrestling-balkan-sidirokastro-may-2023",
+      "date": "2023-05-08",
+      "sport": "Πάλη",
+      "sourceUrl": "https://olympiobima.gr/pali-gas-archelaos-katerinis-dieprepse-valkaniko-protathlima-palis/"
+    },
+    {
+      "personId": "arch-2616694d9908",
+      "eventId": "wrestling-balkan-sidirokastro-may-2023",
+      "date": "2023-05-08",
+      "sport": "Πάλη",
+      "sourceUrl": "https://olympiobima.gr/pali-gas-archelaos-katerinis-dieprepse-valkaniko-protathlima-palis/"
+    },
+    {
+      "personId": "arch-katerina-natsiopoulou-track22",
+      "eventId": "track-natsiopoulou-school-400h-gold-may-2023",
+      "date": "2023-05-05",
+      "sport": "Στίβος",
+      "sourceUrl": "https://pieriasocial.gr/?p=65222"
+    },
+    {
+      "personId": "arch-32f943eae9a0",
+      "eventId": "wrestling-mouzaki-youth-medals-apr-2023",
+      "date": "2023-04-24",
+      "sport": "Πάλη",
+      "sourceUrl": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/3-%CE%BC%CE%B5%CF%84%CE%AC%CE%BB%CE%BB%CE%B9%CE%B1-%CE%B3%CE%B9%CE%B1-%CF%84%CE%BF%CF%85%CF%82-%CE%AD%CF%86%CE%B7%CE%B2%CE%BF%CF%85%CF%82-%CF%84%CE%BF%CF%85-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF/"
+    },
+    {
+      "personId": "arch-73968afa517e",
+      "eventId": "wrestling-u15-karatoula-team-champions-2023",
+      "date": "2023-04-10",
+      "sport": "Πάλη",
+      "sourceUrl": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/1%CE%BF%CF%82-%CE%BF-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CE%BA%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82-%CF%83%CF%84%CE%BF-%CF%80%CE%B1%CE%BD%CE%B5%CE%BB%CE%BB%CE%AE%CE%BD%CE%B9/"
+    },
+    {
+      "personId": "arch-e49a8c140396",
+      "eventId": "wrestling-u15-karatoula-team-champions-2023",
+      "date": "2023-04-10",
+      "sport": "Πάλη",
+      "sourceUrl": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/1%CE%BF%CF%82-%CE%BF-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CE%BA%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82-%CF%83%CF%84%CE%BF-%CF%80%CE%B1%CE%BD%CE%B5%CE%BB%CE%BB%CE%AE%CE%BD%CE%B9/"
+    },
+    {
+      "personId": "arch-e87fdf323137",
+      "eventId": "wrestling-u15-karatoula-team-champions-2023",
+      "date": "2023-04-10",
+      "sport": "Πάλη",
+      "sourceUrl": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/1%CE%BF%CF%82-%CE%BF-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CE%BA%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82-%CF%83%CF%84%CE%BF-%CF%80%CE%B1%CE%BD%CE%B5%CE%BB%CE%BB%CE%AE%CE%BD%CE%B9/"
+    },
+    {
+      "personId": "arch-ba8233d165aa",
+      "eventId": "wrestling-u15-karatoula-team-champions-2023",
+      "date": "2023-04-10",
+      "sport": "Πάλη",
+      "sourceUrl": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/1%CE%BF%CF%82-%CE%BF-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CE%BA%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82-%CF%83%CF%84%CE%BF-%CF%80%CE%B1%CE%BD%CE%B5%CE%BB%CE%BB%CE%AE%CE%BD%CE%B9/"
+    },
+    {
+      "personId": "arch-8c9cbe4897f0",
+      "eventId": "wrestling-u15-karatoula-team-champions-2023",
+      "date": "2023-04-10",
+      "sport": "Πάλη",
+      "sourceUrl": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/1%CE%BF%CF%82-%CE%BF-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CE%BA%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82-%CF%83%CF%84%CE%BF-%CF%80%CE%B1%CE%BD%CE%B5%CE%BB%CE%BB%CE%AE%CE%BD%CE%B9/"
+    },
+    {
+      "personId": "arch-25923c326d62",
+      "eventId": "gym-2023-mikra",
+      "date": "2023-04-04",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://eptanews.gr/athlitismos/enorgani-gymnastiki-synecheia-epitychion-gia-ton-gas-archelao/"
+    },
+    {
+      "personId": "arch-e9fc7408640c",
+      "eventId": "gym-2023-mikra",
+      "date": "2023-04-04",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://eptanews.gr/athlitismos/enorgani-gymnastiki-synecheia-epitychion-gia-ton-gas-archelao/"
+    },
+    {
+      "personId": "arch-f02298025e5c",
+      "eventId": "gym-2023-mikra",
+      "date": "2023-04-04",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://eptanews.gr/athlitismos/enorgani-gymnastiki-synecheia-epitychion-gia-ton-gas-archelao/"
+    },
+    {
+      "personId": "arch-8d1a258f0b09",
+      "eventId": "gym-2023-mikra",
+      "date": "2023-04-04",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://eptanews.gr/athlitismos/enorgani-gymnastiki-synecheia-epitychion-gia-ton-gas-archelao/"
+    },
+    {
+      "personId": "arch-87ea05ce738a",
+      "eventId": "shooting-moschi-olympic-qualification-mar-2023",
+      "date": "2023-03-11",
+      "sport": "Σκοποβολή",
+      "sourceUrl": "https://odelalis.gr/sygcharitirio-minyma-toy-gas-archelaos-katerinis-stin-christina-moschi/"
+    },
+    {
+      "personId": "arch-7a5f32f6367b",
+      "eventId": "shooting-moschi-olympic-qualification-mar-2023",
+      "date": "2023-03-11",
+      "sport": "Σκοποβολή",
+      "sourceUrl": "https://odelalis.gr/sygcharitirio-minyma-toy-gas-archelaos-katerinis-stin-christina-moschi/"
+    },
+    {
+      "personId": "arch-61d8d097f601",
+      "eventId": "club-municipal-visit-2023",
+      "date": "2023-02-24",
+      "sport": "Διοίκηση",
+      "sourceUrl": "https://eptanews.gr/epikairotita/sto-dimarcho-katerinis-to-ds-toy-archelaoy-emprakti-stirixi-se-ola-ta-tmimata-toy-syllogoy/"
+    },
+    {
+      "personId": "arch-5b13574568d5",
+      "eventId": "club-municipal-visit-2023",
+      "date": "2023-02-24",
+      "sport": "Διοίκηση",
+      "sourceUrl": "https://eptanews.gr/epikairotita/sto-dimarcho-katerinis-to-ds-toy-archelaoy-emprakti-stirixi-se-ola-ta-tmimata-toy-syllogoy/"
+    },
+    {
+      "personId": "arch-bc7079f252cc",
+      "eventId": "club-municipal-visit-2023",
+      "date": "2023-02-24",
+      "sport": "Διοίκηση",
+      "sourceUrl": "https://eptanews.gr/epikairotita/sto-dimarcho-katerinis-to-ds-toy-archelaoy-emprakti-stirixi-se-ola-ta-tmimata-toy-syllogoy/"
+    },
+    {
+      "personId": "arch-5abfbe9e285a",
+      "eventId": "club-municipal-visit-2023",
+      "date": "2023-02-24",
+      "sport": "Διοίκηση",
+      "sourceUrl": "https://eptanews.gr/epikairotita/sto-dimarcho-katerinis-to-ds-toy-archelaoy-emprakti-stirixi-se-ola-ta-tmimata-toy-syllogoy/"
+    },
+    {
+      "personId": "arch-ccaf623e428b",
+      "eventId": "track-indoor-national-2023-natsiopoulou-biziota",
+      "date": "2023-02-22",
+      "sport": "Στίβος",
+      "sourceUrl": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/%CF%83%CF%84%CE%BF-37%CE%BF-%CF%80%CE%B1%CE%BD%CE%B5%CE%BB%CE%BB%CE%AE%CE%BD%CE%B9%CE%BF-%CF%80%CF%81%CF%89%CF%84%CE%AC%CE%B8%CE%BB%CE%B7%CE%BC%CE%B1-%CE%BA%CE%BB%CE%B5%CE%B9%CF%83%CF%84%CE%BF%CF%8D/"
+    },
+    {
+      "personId": "arch-katerina-natsiopoulou-track22",
+      "eventId": "track-indoor-national-2023-natsiopoulou-biziota",
+      "date": "2023-02-22",
+      "sport": "Στίβος",
+      "sourceUrl": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/%CF%83%CF%84%CE%BF-37%CE%BF-%CF%80%CE%B1%CE%BD%CE%B5%CE%BB%CE%BB%CE%AE%CE%BD%CE%B9%CE%BF-%CF%80%CF%81%CF%89%CF%84%CE%AC%CE%B8%CE%BB%CE%B7%CE%BC%CE%B1-%CE%BA%CE%BB%CE%B5%CE%B9%CF%83%CF%84%CE%BF%CF%8D/"
+    },
+    {
+      "personId": "arch-afroditi-biziota-track23",
+      "eventId": "track-indoor-national-2023-natsiopoulou-biziota",
+      "date": "2023-02-22",
+      "sport": "Στίβος",
+      "sourceUrl": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/%CF%83%CF%84%CE%BF-37%CE%BF-%CF%80%CE%B1%CE%BD%CE%B5%CE%BB%CE%BB%CE%AE%CE%BD%CE%B9%CE%BF-%CF%80%CF%81%CF%89%CF%84%CE%AC%CE%B8%CE%BB%CE%B7%CE%BC%CE%B1-%CE%BA%CE%BB%CE%B5%CE%B9%CF%83%CF%84%CE%BF%CF%8D/"
+    },
+    {
+      "personId": "arch-8e2988bbabf5",
+      "eventId": "handball-first-aid-supply-dec-2022",
+      "date": "2022-12-31",
+      "sport": "Χάντμπολ",
+      "sourceUrl": "https://odelalis.gr/exoplismeno-farmakeio-apektise-to-tmima-chantmpol-toy-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-e6b31b31c3a9",
+      "eventId": "gym-2022-horizon",
+      "date": "2022-11-15",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://eptanews.gr/athlitismos/mia-chronia-epitychies-gia-tin-enorgani-gymnastiki-toy-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-955a386f547f",
+      "eventId": "archery-florina-cup-team-silver-sep-2022",
+      "date": "2022-09-27",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://olympiobima.gr/sto-kypello-ellados-stin-florina-to-tmima-toxovolias-toy-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-9d63723c6ec9",
+      "eventId": "archery-florina-cup-team-silver-sep-2022",
+      "date": "2022-09-27",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://olympiobima.gr/sto-kypello-ellados-stin-florina-to-tmima-toxovolias-toy-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-konstantinos-charisis-arch",
+      "eventId": "archery-florina-cup-team-silver-sep-2022",
+      "date": "2022-09-27",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://olympiobima.gr/sto-kypello-ellados-stin-florina-to-tmima-toxovolias-toy-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-pavlina-charitidou-arch",
+      "eventId": "archery-florina-cup-team-silver-sep-2022",
+      "date": "2022-09-27",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://olympiobima.gr/sto-kypello-ellados-stin-florina-to-tmima-toxovolias-toy-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-44ef21dfb9b7",
+      "eventId": "archery-florina-cup-team-silver-sep-2022",
+      "date": "2022-09-27",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://olympiobima.gr/sto-kypello-ellados-stin-florina-to-tmima-toxovolias-toy-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-7a5f32f6367b",
+      "eventId": "shooting-training-season-sept-2022",
+      "date": "2022-09-18",
+      "sport": "Σκοποβολή",
+      "sourceUrl": "https://pieriasocial.gr/?p=54912"
+    },
+    {
+      "personId": "arch-e5015691e985",
+      "eventId": "shooting-training-season-sept-2022",
+      "date": "2022-09-18",
+      "sport": "Σκοποβολή",
+      "sourceUrl": "https://pieriasocial.gr/?p=54912"
+    },
+    {
+      "personId": "arch-6a4b08bec058",
+      "eventId": "wrestling-petkos-world-team-sofia-aug-2022",
+      "date": "2022-08-18",
+      "sport": "Πάλη",
+      "sourceUrl": "https://olympiobima.gr/archelaos-katerinis-sti-sofia-gia-to-pagkosmio-protathlima-palis-efivon-me-tin-ethniki-omada-palis-o-giannis-petkos/"
+    },
+    {
+      "personId": "arch-af9470c5745f",
+      "eventId": "wrestling-petkos-world-team-sofia-aug-2022",
+      "date": "2022-08-18",
+      "sport": "Πάλη",
+      "sourceUrl": "https://olympiobima.gr/archelaos-katerinis-sti-sofia-gia-to-pagkosmio-protathlima-palis-efivon-me-tin-ethniki-omada-palis-o-giannis-petkos/"
+    },
+    {
+      "personId": "arch-katerina-natsiopoulou-track22",
+      "eventId": "track-women-top20-u20-serres-jul-2022",
+      "date": "2022-07-12",
+      "sport": "Στίβος",
+      "sourceUrl": "https://odelalis.gr/stoys-20-protoys-syllogoys-stis-gynaikes-i-omada-stivoy-toy-gas-archelaos-katerinis-se-synolo-100-kai-pleon-syllogon-stin-ellada/"
+    },
+    {
+      "personId": "arch-sofia-konstantinidou-track22",
+      "eventId": "track-women-top20-u20-serres-jul-2022",
+      "date": "2022-07-12",
+      "sport": "Στίβος",
+      "sourceUrl": "https://odelalis.gr/stoys-20-protoys-syllogoys-stis-gynaikes-i-omada-stivoy-toy-gas-archelaos-katerinis-se-synolo-100-kai-pleon-syllogon-stin-ellada/"
+    },
+    {
+      "personId": "arch-afroditi-biziota-track23",
+      "eventId": "track-women-top20-u20-serres-jul-2022",
+      "date": "2022-07-12",
+      "sport": "Στίβος",
+      "sourceUrl": "https://odelalis.gr/stoys-20-protoys-syllogoys-stis-gynaikes-i-omada-stivoy-toy-gas-archelaos-katerinis-se-synolo-100-kai-pleon-syllogon-stin-ellada/"
+    },
+    {
+      "personId": "arch-e242f5926fc9",
+      "eventId": "track-women-top20-u20-serres-jul-2022",
+      "date": "2022-07-12",
+      "sport": "Στίβος",
+      "sourceUrl": "https://odelalis.gr/stoys-20-protoys-syllogoys-stis-gynaikes-i-omada-stivoy-toy-gas-archelaos-katerinis-se-synolo-100-kai-pleon-syllogon-stin-ellada/"
+    },
+    {
+      "personId": "arch-955a386f547f",
+      "eventId": "archery-u18-athens-national-results-july-2022",
+      "date": "2022-07-07",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/%CE%B5%CE%BD%CF%84%CF%85%CF%80%CF%89%CF%83%CE%AF%CE%B1%CF%83%CE%B1%CE%BD-%CE%BF%CE%B9-%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%AD%CF%82-%CF%84%CF%81%CE%B9%CE%B5%CF%82-%CF%84%CE%B7%CF%82-t%CE%BF%CE%BE%CE%BF/"
+    },
+    {
+      "personId": "arch-pavlina-charitidou-arch",
+      "eventId": "archery-u18-athens-national-results-july-2022",
+      "date": "2022-07-07",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/%CE%B5%CE%BD%CF%84%CF%85%CF%80%CF%89%CF%83%CE%AF%CE%B1%CF%83%CE%B1%CE%BD-%CE%BF%CE%B9-%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%AD%CF%82-%CF%84%CF%81%CE%B9%CE%B5%CF%82-%CF%84%CE%B7%CF%82-t%CE%BF%CE%BE%CE%BF/"
+    },
+    {
+      "personId": "arch-konstantinos-charisis-arch",
+      "eventId": "archery-u18-athens-national-results-july-2022",
+      "date": "2022-07-07",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/%CE%B5%CE%BD%CF%84%CF%85%CF%80%CF%89%CF%83%CE%AF%CE%B1%CF%83%CE%B1%CE%BD-%CE%BF%CE%B9-%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%AD%CF%82-%CF%84%CF%81%CE%B9%CE%B5%CF%82-%CF%84%CE%B7%CF%82-t%CE%BF%CE%BE%CE%BF/"
+    },
+    {
+      "personId": "arch-kassiani-koktsidou-arch",
+      "eventId": "archery-u18-athens-national-results-july-2022",
+      "date": "2022-07-07",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/%CE%B5%CE%BD%CF%84%CF%85%CF%80%CF%89%CF%83%CE%AF%CE%B1%CF%83%CE%B1%CE%BD-%CE%BF%CE%B9-%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%AD%CF%82-%CF%84%CF%81%CE%B9%CE%B5%CF%82-%CF%84%CE%B7%CF%82-t%CE%BF%CE%BE%CE%BF/"
+    },
+    {
+      "personId": "arch-9d63723c6ec9",
+      "eventId": "archery-u18-athens-national-results-july-2022",
+      "date": "2022-07-07",
+      "sport": "Τοξοβολία",
+      "sourceUrl": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/%CE%B5%CE%BD%CF%84%CF%85%CF%80%CF%89%CF%83%CE%AF%CE%B1%CF%83%CE%B1%CE%BD-%CE%BF%CE%B9-%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%AD%CF%82-%CF%84%CF%81%CE%B9%CE%B5%CF%82-%CF%84%CE%B7%CF%82-t%CE%BF%CE%BE%CE%BF/"
+    },
+    {
+      "personId": "arch-ccaf623e428b",
+      "eventId": "track-natsiopoulou-u23-gold-june-2022",
+      "date": "2022-06-26",
+      "sport": "Στίβος",
+      "sourceUrl": "https://olympiobima.gr/gas-archelaos-katerinis-chryso-metallio-gia-tin-katerina-natsiopoyloy/"
+    },
+    {
+      "personId": "arch-katerina-natsiopoulou-track22",
+      "eventId": "track-natsiopoulou-u23-gold-june-2022",
+      "date": "2022-06-26",
+      "sport": "Στίβος",
+      "sourceUrl": "https://olympiobima.gr/gas-archelaos-katerinis-chryso-metallio-gia-tin-katerina-natsiopoyloy/"
+    },
+    {
+      "personId": "arch-sofia-konstantinidou-track22",
+      "eventId": "track-natsiopoulou-u23-gold-june-2022",
+      "date": "2022-06-26",
+      "sport": "Στίβος",
+      "sourceUrl": "https://olympiobima.gr/gas-archelaos-katerinis-chryso-metallio-gia-tin-katerina-natsiopoyloy/"
+    },
+    {
+      "personId": "arch-1325e4551e91",
+      "eventId": "gymnastics-alexandroupoli-final-jun-2022",
+      "date": "2022-06-17",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://odelalis.gr/epitychies-ton-pampaidon-amp-pagkorasidon-toy-gas-archelaos-katerinis-sto-panellinio-protathlima-enorganis-gymnastikis-stin-alexandroypoli/"
+    },
+    {
+      "personId": "arch-2ec2798d39bb",
+      "eventId": "gymnastics-alexandroupoli-final-jun-2022",
+      "date": "2022-06-17",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://odelalis.gr/epitychies-ton-pampaidon-amp-pagkorasidon-toy-gas-archelaos-katerinis-sto-panellinio-protathlima-enorganis-gymnastikis-stin-alexandroypoli/"
+    },
+    {
+      "personId": "arch-gymnastics-9814252c",
+      "eventId": "gymnastics-alexandroupoli-final-jun-2022",
+      "date": "2022-06-17",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://odelalis.gr/epitychies-ton-pampaidon-amp-pagkorasidon-toy-gas-archelaos-katerinis-sto-panellinio-protathlima-enorganis-gymnastikis-stin-alexandroypoli/"
+    },
+    {
+      "personId": "arch-f02298025e5c",
+      "eventId": "gymnastics-alexandroupoli-final-jun-2022",
+      "date": "2022-06-17",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://odelalis.gr/epitychies-ton-pampaidon-amp-pagkorasidon-toy-gas-archelaos-katerinis-sto-panellinio-protathlima-enorganis-gymnastikis-stin-alexandroypoli/"
+    },
+    {
+      "personId": "arch-bde5b8a0f677",
+      "eventId": "gymnastics-alexandroupoli-final-jun-2022",
+      "date": "2022-06-17",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://odelalis.gr/epitychies-ton-pampaidon-amp-pagkorasidon-toy-gas-archelaos-katerinis-sto-panellinio-protathlima-enorganis-gymnastikis-stin-alexandroypoli/"
+    },
+    {
+      "personId": "arch-gymnastics-f2e4a89b",
+      "eventId": "gymnastics-alexandroupoli-final-jun-2022",
+      "date": "2022-06-17",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://odelalis.gr/epitychies-ton-pampaidon-amp-pagkorasidon-toy-gas-archelaos-katerinis-sto-panellinio-protathlima-enorganis-gymnastikis-stin-alexandroypoli/"
+    },
+    {
+      "personId": "arch-sofia-konstantinidou-track22",
+      "eventId": "track-world-gymnasiade-balkan-june-2022",
+      "date": "2022-06-16",
+      "sport": "Στίβος",
+      "sourceUrl": "https://odelalis.gr/oi-athlitries-stivoy-toy-gas-archelaos-katerinis-poy-kanoyn-gnosti-tin-katerini-se-ellada-kai-eyropi/"
+    },
+    {
+      "personId": "arch-katerina-natsiopoulou-track22",
+      "eventId": "track-world-gymnasiade-balkan-june-2022",
+      "date": "2022-06-16",
+      "sport": "Στίβος",
+      "sourceUrl": "https://odelalis.gr/oi-athlitries-stivoy-toy-gas-archelaos-katerinis-poy-kanoyn-gnosti-tin-katerini-se-ellada-kai-eyropi/"
+    },
+    {
+      "personId": "arch-5bc0ec7ec6e0",
+      "eventId": "gymnastics-regional-first-phase-may-2022",
+      "date": "2022-05-29",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://odelalis.gr/sarose-ta-metallia-to-tmima-gymnastikis-toy-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-f02298025e5c",
+      "eventId": "gymnastics-regional-first-phase-may-2022",
+      "date": "2022-05-29",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://odelalis.gr/sarose-ta-metallia-to-tmima-gymnastikis-toy-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-8d1a258f0b09",
+      "eventId": "gymnastics-regional-first-phase-may-2022",
+      "date": "2022-05-29",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://odelalis.gr/sarose-ta-metallia-to-tmima-gymnastikis-toy-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-1ea85d87584a",
+      "eventId": "gymnastics-regional-first-phase-may-2022",
+      "date": "2022-05-29",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://odelalis.gr/sarose-ta-metallia-to-tmima-gymnastikis-toy-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-2ec2798d39bb",
+      "eventId": "gymnastics-regional-first-phase-may-2022",
+      "date": "2022-05-29",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://odelalis.gr/sarose-ta-metallia-to-tmima-gymnastikis-toy-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-gymnastics-9814252c",
+      "eventId": "gymnastics-regional-first-phase-may-2022",
+      "date": "2022-05-29",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://odelalis.gr/sarose-ta-metallia-to-tmima-gymnastikis-toy-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-1325e4551e91",
+      "eventId": "gymnastics-regional-first-phase-may-2022",
+      "date": "2022-05-29",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://odelalis.gr/sarose-ta-metallia-to-tmima-gymnastikis-toy-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-510626a0ca62",
+      "eventId": "gymnastics-regional-first-phase-may-2022",
+      "date": "2022-05-29",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://odelalis.gr/sarose-ta-metallia-to-tmima-gymnastikis-toy-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-1be1256bf733",
+      "eventId": "gymnastics-regional-first-phase-may-2022",
+      "date": "2022-05-29",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://odelalis.gr/sarose-ta-metallia-to-tmima-gymnastikis-toy-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-bde5b8a0f677",
+      "eventId": "gymnastics-regional-first-phase-may-2022",
+      "date": "2022-05-29",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://odelalis.gr/sarose-ta-metallia-to-tmima-gymnastikis-toy-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-gymnastics-f2e4a89b",
+      "eventId": "gymnastics-regional-first-phase-may-2022",
+      "date": "2022-05-29",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://odelalis.gr/sarose-ta-metallia-to-tmima-gymnastikis-toy-gas-archelaos-katerinis/"
+    },
+    {
+      "personId": "arch-af9470c5745f",
+      "eventId": "club-wrestling-shooting-school-visit-may-2022",
+      "date": "2022-05-22",
+      "sport": "Πάλη",
+      "sourceUrl": "https://pieriasocial.gr/?p=49548"
+    },
+    {
+      "personId": "arch-e5015691e985",
+      "eventId": "club-wrestling-shooting-school-visit-may-2022",
+      "date": "2022-05-22",
+      "sport": "Πάλη",
+      "sourceUrl": "https://pieriasocial.gr/?p=49548"
+    },
+    {
+      "personId": "arch-e6b31b31c3a9",
+      "eventId": "gymnastics-youth-national-medals-may-2022",
+      "date": "2022-05-19",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://eptanews.gr/athlitismos/elampse-me-tis-epidoseis-to-tmima-gymnastikis-toy-gas-archelaos-katerinis-sto-panellinio-protathlima-paidon-korasidon-3-chrysa-metallia-kai-ena-argyro-kai-spoydaies-emfaniseis-ton-athliton-trion-toy/"
+    },
+    {
+      "personId": "arch-22234effaf98",
+      "eventId": "gymnastics-youth-national-medals-may-2022",
+      "date": "2022-05-19",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://eptanews.gr/athlitismos/elampse-me-tis-epidoseis-to-tmima-gymnastikis-toy-gas-archelaos-katerinis-sto-panellinio-protathlima-paidon-korasidon-3-chrysa-metallia-kai-ena-argyro-kai-spoydaies-emfaniseis-ton-athliton-trion-toy/"
+    },
+    {
+      "personId": "arch-f56820c52e55",
+      "eventId": "gymnastics-youth-national-medals-may-2022",
+      "date": "2022-05-19",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://eptanews.gr/athlitismos/elampse-me-tis-epidoseis-to-tmima-gymnastikis-toy-gas-archelaos-katerinis-sto-panellinio-protathlima-paidon-korasidon-3-chrysa-metallia-kai-ena-argyro-kai-spoydaies-emfaniseis-ton-athliton-trion-toy/"
+    },
+    {
+      "personId": "arch-c5eb6d18a17a",
+      "eventId": "gymnastics-youth-national-medals-may-2022",
+      "date": "2022-05-19",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://eptanews.gr/athlitismos/elampse-me-tis-epidoseis-to-tmima-gymnastikis-toy-gas-archelaos-katerinis-sto-panellinio-protathlima-paidon-korasidon-3-chrysa-metallia-kai-ena-argyro-kai-spoydaies-emfaniseis-ton-athliton-trion-toy/"
+    },
+    {
+      "personId": "arch-2cb062fabc11",
+      "eventId": "gymnastics-youth-national-medals-may-2022",
+      "date": "2022-05-19",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://eptanews.gr/athlitismos/elampse-me-tis-epidoseis-to-tmima-gymnastikis-toy-gas-archelaos-katerinis-sto-panellinio-protathlima-paidon-korasidon-3-chrysa-metallia-kai-ena-argyro-kai-spoydaies-emfaniseis-ton-athliton-trion-toy/"
+    },
+    {
+      "personId": "arch-ba8233d165aa",
+      "eventId": "wrestling-school-trikala-bronze-may-2022",
+      "date": "2022-05-14",
+      "sport": "Πάλη",
+      "sourceUrl": "https://olympiobima.gr/archelaos-katerinis-3-chalkina-metallia-oi-athlites-toy-stoys-panellinioys-scholikoys-agones-sta-trikala/"
+    },
+    {
+      "personId": "arch-e49a8c140396",
+      "eventId": "wrestling-school-trikala-bronze-may-2022",
+      "date": "2022-05-14",
+      "sport": "Πάλη",
+      "sourceUrl": "https://olympiobima.gr/archelaos-katerinis-3-chalkina-metallia-oi-athlites-toy-stoys-panellinioys-scholikoys-agones-sta-trikala/"
+    },
+    {
+      "personId": "arch-8c9cbe4897f0",
+      "eventId": "wrestling-school-trikala-bronze-may-2022",
+      "date": "2022-05-14",
+      "sport": "Πάλη",
+      "sourceUrl": "https://olympiobima.gr/archelaos-katerinis-3-chalkina-metallia-oi-athlites-toy-stoys-panellinioys-scholikoys-agones-sta-trikala/"
+    },
+    {
+      "personId": "arch-32f943eae9a0",
+      "eventId": "wrestling-school-trikala-bronze-may-2022",
+      "date": "2022-05-14",
+      "sport": "Πάλη",
+      "sourceUrl": "https://olympiobima.gr/archelaos-katerinis-3-chalkina-metallia-oi-athlites-toy-stoys-panellinioys-scholikoys-agones-sta-trikala/"
+    },
+    {
+      "personId": "arch-af9470c5745f",
+      "eventId": "wrestling-school-trikala-bronze-may-2022",
+      "date": "2022-05-14",
+      "sport": "Πάλη",
+      "sourceUrl": "https://olympiobima.gr/archelaos-katerinis-3-chalkina-metallia-oi-athlites-toy-stoys-panellinioys-scholikoys-agones-sta-trikala/"
+    },
+    {
+      "personId": "arch-6a4b08bec058",
+      "eventId": "wrestling-u17-serres-third-apr-2022",
+      "date": "2022-04-17",
+      "sport": "Πάλη",
+      "sourceUrl": "https://odigos-pierias.gr/3%CE%BF%CF%82-%CE%BF-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CE%BA%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82-%CF%83%CF%84%CE%BF-%CF%80%CE%B1%CE%BD%CE%B5%CE%BB%CE%BB%CE%AE%CE%BD%CE%B9/"
+    },
+    {
+      "personId": "arch-96ddd7ba9e4d",
+      "eventId": "wrestling-u17-serres-third-apr-2022",
+      "date": "2022-04-17",
+      "sport": "Πάλη",
+      "sourceUrl": "https://odigos-pierias.gr/3%CE%BF%CF%82-%CE%BF-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CE%BA%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82-%CF%83%CF%84%CE%BF-%CF%80%CE%B1%CE%BD%CE%B5%CE%BB%CE%BB%CE%AE%CE%BD%CE%B9/"
+    },
+    {
+      "personId": "arch-ccaf623e428b",
+      "eventId": "track-school-silver-volos-apr-2022",
+      "date": "2022-04-14",
+      "sport": "Στίβος",
+      "sourceUrl": "https://olympiobima.gr/g-a-s-archelaos-katerinis-stivos-sygcharitiria-stis-athlitries-mas-sofia-konstantinidoy-kai-katerina-natsiopoyloy/"
+    },
+    {
+      "personId": "arch-katerina-natsiopoulou-track22",
+      "eventId": "track-school-silver-volos-apr-2022",
+      "date": "2022-04-14",
+      "sport": "Στίβος",
+      "sourceUrl": "https://olympiobima.gr/g-a-s-archelaos-katerinis-stivos-sygcharitiria-stis-athlitries-mas-sofia-konstantinidoy-kai-katerina-natsiopoyloy/"
+    },
+    {
+      "personId": "arch-sofia-konstantinidou-track22",
+      "eventId": "track-school-silver-volos-apr-2022",
+      "date": "2022-04-14",
+      "sport": "Στίβος",
+      "sourceUrl": "https://olympiobima.gr/g-a-s-archelaos-katerinis-stivos-sygcharitiria-stis-athlitries-mas-sofia-konstantinidoy-kai-katerina-natsiopoyloy/"
+    },
+    {
+      "personId": "arch-73968afa517e",
+      "eventId": "wrestling-u15-team-champions-april-2022",
+      "date": "2022-04-04",
+      "sport": "Πάλη",
+      "sourceUrl": "https://pieriasocial.gr/?p=47154"
+    },
+    {
+      "personId": "arch-e49a8c140396",
+      "eventId": "wrestling-u15-team-champions-april-2022",
+      "date": "2022-04-04",
+      "sport": "Πάλη",
+      "sourceUrl": "https://pieriasocial.gr/?p=47154"
+    },
+    {
+      "personId": "arch-ba8233d165aa",
+      "eventId": "wrestling-u15-team-champions-april-2022",
+      "date": "2022-04-04",
+      "sport": "Πάλη",
+      "sourceUrl": "https://pieriasocial.gr/?p=47154"
+    },
+    {
+      "personId": "arch-e87fdf323137",
+      "eventId": "wrestling-u15-team-champions-april-2022",
+      "date": "2022-04-04",
+      "sport": "Πάλη",
+      "sourceUrl": "https://pieriasocial.gr/?p=47154"
+    },
+    {
+      "personId": "arch-c9649834c98e",
+      "eventId": "wrestling-u15-team-champions-april-2022",
+      "date": "2022-04-04",
+      "sport": "Πάλη",
+      "sourceUrl": "https://pieriasocial.gr/?p=47154"
+    },
+    {
+      "personId": "arch-32f943eae9a0",
+      "eventId": "wrestling-u15-team-champions-april-2022",
+      "date": "2022-04-04",
+      "sport": "Πάλη",
+      "sourceUrl": "https://pieriasocial.gr/?p=47154"
+    },
+    {
+      "personId": "arch-af9470c5745f",
+      "eventId": "wrestling-u15-team-champions-april-2022",
+      "date": "2022-04-04",
+      "sport": "Πάλη",
+      "sourceUrl": "https://pieriasocial.gr/?p=47154"
+    },
+    {
+      "personId": "arch-8934f50fbeed",
+      "eventId": "wrestling-u15-team-champions-april-2022",
+      "date": "2022-04-04",
+      "sport": "Πάλη",
+      "sourceUrl": "https://pieriasocial.gr/?p=47154"
+    },
+    {
+      "personId": "arch-6a4b08bec058",
+      "eventId": "wrestling-xanthi-four-medals-2021",
+      "date": "2021-11-01",
+      "sport": "Πάλη",
+      "sourceUrl": "https://odigos-pierias.gr/4-%CE%BC%CE%B5%CF%84%CE%AC%CE%BB%CE%BB%CE%B9%CE%B1-%CE%BF%CE%B9-%CF%80%CF%81%CF%89%CF%84%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%AD%CF%82-%CF%84%CE%BF%CF%85-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%85/"
+    },
+    {
+      "personId": "arch-ba8233d165aa",
+      "eventId": "wrestling-xanthi-four-medals-2021",
+      "date": "2021-11-01",
+      "sport": "Πάλη",
+      "sourceUrl": "https://odigos-pierias.gr/4-%CE%BC%CE%B5%CF%84%CE%AC%CE%BB%CE%BB%CE%B9%CE%B1-%CE%BF%CE%B9-%CF%80%CF%81%CF%89%CF%84%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%AD%CF%82-%CF%84%CE%BF%CF%85-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%85/"
+    },
+    {
+      "personId": "arch-96ddd7ba9e4d",
+      "eventId": "wrestling-xanthi-four-medals-2021",
+      "date": "2021-11-01",
+      "sport": "Πάλη",
+      "sourceUrl": "https://odigos-pierias.gr/4-%CE%BC%CE%B5%CF%84%CE%AC%CE%BB%CE%BB%CE%B9%CE%B1-%CE%BF%CE%B9-%CF%80%CF%81%CF%89%CF%84%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%AD%CF%82-%CF%84%CE%BF%CF%85-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%85/"
+    },
+    {
+      "personId": "arch-957a876e770d",
+      "eventId": "wrestling-xenidou-bronze-oct-2021",
+      "date": "2021-10-11",
+      "sport": "Πάλη",
+      "sourceUrl": "https://eptanews.gr/athlitismos/chalkino-metallio-i-pankorasida-toy-archelaoy-katerinis-ioanna-xenidoy-sto-panellinio-protathlima-palis-sto-zefyri-attikis/"
+    },
+    {
+      "personId": "arch-e49a8c140396",
+      "eventId": "wrestling-u13-zefyri-team-third-oct-2021",
+      "date": "2021-10-11",
+      "sport": "Πάλη",
+      "sourceUrl": "https://eptanews.gr/athlitismos/3os-o-archelaos-katerinis-sto-panellinio-protathlima-palis-pampaidon-poy-diexichthi-sto-zefyri-attikis/"
+    },
+    {
+      "personId": "arch-e87fdf323137",
+      "eventId": "wrestling-u13-zefyri-team-third-oct-2021",
+      "date": "2021-10-11",
+      "sport": "Πάλη",
+      "sourceUrl": "https://eptanews.gr/athlitismos/3os-o-archelaos-katerinis-sto-panellinio-protathlima-palis-pampaidon-poy-diexichthi-sto-zefyri-attikis/"
+    },
+    {
+      "personId": "arch-73968afa517e",
+      "eventId": "wrestling-u13-zefyri-team-third-oct-2021",
+      "date": "2021-10-11",
+      "sport": "Πάλη",
+      "sourceUrl": "https://eptanews.gr/athlitismos/3os-o-archelaos-katerinis-sto-panellinio-protathlima-palis-pampaidon-poy-diexichthi-sto-zefyri-attikis/"
+    },
+    {
+      "personId": "arch-ba8233d165aa",
+      "eventId": "wrestling-u13-zefyri-team-third-oct-2021",
+      "date": "2021-10-11",
+      "sport": "Πάλη",
+      "sourceUrl": "https://eptanews.gr/athlitismos/3os-o-archelaos-katerinis-sto-panellinio-protathlima-palis-pampaidon-poy-diexichthi-sto-zefyri-attikis/"
+    },
+    {
+      "personId": "arch-c9649834c98e",
+      "eventId": "wrestling-u13-zefyri-team-third-oct-2021",
+      "date": "2021-10-11",
+      "sport": "Πάλη",
+      "sourceUrl": "https://eptanews.gr/athlitismos/3os-o-archelaos-katerinis-sto-panellinio-protathlima-palis-pampaidon-poy-diexichthi-sto-zefyri-attikis/"
+    },
+    {
+      "personId": "arch-8c9cbe4897f0",
+      "eventId": "wrestling-u13-zefyri-team-third-oct-2021",
+      "date": "2021-10-11",
+      "sport": "Πάλη",
+      "sourceUrl": "https://eptanews.gr/athlitismos/3os-o-archelaos-katerinis-sto-panellinio-protathlima-palis-pampaidon-poy-diexichthi-sto-zefyri-attikis/"
+    },
+    {
+      "personId": "arch-73968afa517e",
+      "eventId": "wrestling-u15-porroia-team-first-2021",
+      "date": "2021-06-28",
+      "sport": "Πάλη",
+      "sourceUrl": "https://www.onsports.gr/spor/story/734086/pali-protathlitis-paidon-stin-ellinoromaiki-o-arxelaos-katerinis"
+    },
+    {
+      "personId": "arch-ba8233d165aa",
+      "eventId": "wrestling-u15-porroia-team-first-2021",
+      "date": "2021-06-28",
+      "sport": "Πάλη",
+      "sourceUrl": "https://www.onsports.gr/spor/story/734086/pali-protathlitis-paidon-stin-ellinoromaiki-o-arxelaos-katerinis"
+    },
+    {
+      "personId": "arch-96ddd7ba9e4d",
+      "eventId": "wrestling-u15-porroia-team-first-2021",
+      "date": "2021-06-28",
+      "sport": "Πάλη",
+      "sourceUrl": "https://www.onsports.gr/spor/story/734086/pali-protathlitis-paidon-stin-ellinoromaiki-o-arxelaos-katerinis"
+    },
+    {
+      "personId": "arch-74c0ecf6103f",
+      "eventId": "wrestling-u15-porroia-team-first-2021",
+      "date": "2021-06-28",
+      "sport": "Πάλη",
+      "sourceUrl": "https://www.onsports.gr/spor/story/734086/pali-protathlitis-paidon-stin-ellinoromaiki-o-arxelaos-katerinis"
+    },
+    {
+      "personId": "arch-68fef0f68151",
+      "eventId": "track-hatzipourgani-u18-record-patra-aug-2020",
+      "date": "2020-08-09",
+      "sport": "Στίβος",
+      "sourceUrl": "https://www.segas.gr/8046-panellinio-protathlima-a-g-peftei-i-avlaia-stin-patra/"
+    },
+    {
+      "personId": "arch-68fef0f68151",
+      "eventId": "track-hatzipourgani-u18-record-ioannina-aug-2020",
+      "date": "2020-08-02",
+      "sport": "Στίβος",
+      "sourceUrl": "https://www.segas.gr/8022-protathlima-k20-2i-imera-pogevma/"
+    },
+    {
+      "personId": "arch-sofia-konstantinidou-track22",
+      "eventId": "track-u18-larisa-two-golds-jul-2020",
+      "date": "2020-07-26",
+      "sport": "Στίβος",
+      "sourceUrl": "https://katerinisport.gr/%CF%80%CE%B1%CE%BD%CE%B5%CE%BB%CE%BB%CE%B7%CE%BD%CE%B9%CE%BF%CE%BD%CE%AF%CE%BA%CE%B7%CF%82-%CE%BF-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CE%BA%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7/"
+    },
+    {
+      "personId": "arch-68fef0f68151",
+      "eventId": "track-u18-larisa-two-golds-jul-2020",
+      "date": "2020-07-26",
+      "sport": "Στίβος",
+      "sourceUrl": "https://katerinisport.gr/%CF%80%CE%B1%CE%BD%CE%B5%CE%BB%CE%BB%CE%B7%CE%BD%CE%B9%CE%BF%CE%BD%CE%AF%CE%BA%CE%B7%CF%82-%CE%BF-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CE%BA%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7/"
+    },
+    {
+      "personId": "arch-68fef0f68151",
+      "eventId": "track-hatzipourgani-interclub-400h-jul-2020",
+      "date": "2020-07-19",
+      "sport": "Στίβος",
+      "sourceUrl": "https://www.gazzetta.gr/other-sports/stivos/article/1496535/hatzipoyrgani-itan-entyposiaki-me-5948-sta-400-m-emp"
+    },
+    {
+      "personId": "arch-sofia-konstantinidou-track22",
+      "eventId": "track-hatzipourgani-interclub-400h-jul-2020",
+      "date": "2020-07-19",
+      "sport": "Στίβος",
+      "sourceUrl": "https://www.gazzetta.gr/other-sports/stivos/article/1496535/hatzipoyrgani-itan-entyposiaki-me-5948-sta-400-m-emp"
+    },
+    {
+      "personId": "arch-michaela-syrmali-wrest20",
+      "eventId": "wrestling-syrmali-bronze-kilkis-mar-2020",
+      "date": "2020-03-08",
+      "sport": "Πάλη",
+      "sourceUrl": "https://odelalis.gr/pali-triti-thesi-kai-chalkino-metallio-apo-tin-michaela-syrmali-toy-archelaoy-katerinis/"
+    },
+    {
+      "personId": "arch-526f13622101",
+      "eventId": "wrestling-syrmali-bronze-kilkis-mar-2020",
+      "date": "2020-03-08",
+      "sport": "Πάλη",
+      "sourceUrl": "https://odelalis.gr/pali-triti-thesi-kai-chalkino-metallio-apo-tin-michaela-syrmali-toy-archelaoy-katerinis/"
+    },
+    {
+      "personId": "arch-6a4b08bec058",
+      "eventId": "wrestling-petkos-silver-kilkis-mar-2020",
+      "date": "2020-03-08",
+      "sport": "Πάλη",
+      "sourceUrl": "https://odelalis.gr/asimenio-metallio-o-giannis-petkos-toy-archelaoy-katerinis-sto-panellinio-protathlima-palis-sto-kilkis/"
+    },
+    {
+      "personId": "arch-thodoris-tsiliggiridis-wrest20",
+      "eventId": "wrestling-petkos-silver-kilkis-mar-2020",
+      "date": "2020-03-08",
+      "sport": "Πάλη",
+      "sourceUrl": "https://odelalis.gr/asimenio-metallio-o-giannis-petkos-toy-archelaoy-katerinis-sto-panellinio-protathlima-palis-sto-kilkis/"
+    },
+    {
+      "personId": "arch-a4f2acd84667",
+      "eventId": "wrestling-petkos-silver-kilkis-mar-2020",
+      "date": "2020-03-08",
+      "sport": "Πάλη",
+      "sourceUrl": "https://odelalis.gr/asimenio-metallio-o-giannis-petkos-toy-archelaoy-katerinis-sto-panellinio-protathlima-palis-sto-kilkis/"
+    },
+    {
+      "personId": "arch-eb30e824d0a2",
+      "eventId": "wrestling-petkos-silver-kilkis-mar-2020",
+      "date": "2020-03-08",
+      "sport": "Πάλη",
+      "sourceUrl": "https://odelalis.gr/asimenio-metallio-o-giannis-petkos-toy-archelaoy-katerinis-sto-panellinio-protathlima-palis-sto-kilkis/"
+    },
+    {
+      "personId": "arch-73968afa517e",
+      "eventId": "wrestling-monaco-camp-nov-2019",
+      "date": "2019-11-02",
+      "sport": "Πάλη",
+      "sourceUrl": "https://eptanews.gr/athlitismos/pali-epestrepsan-oi-protathlites-toy-archelaoy-katerinis-apo-to-prigkipato-toy-monako/"
+    },
+    {
+      "personId": "arch-af9470c5745f",
+      "eventId": "wrestling-monaco-camp-nov-2019",
+      "date": "2019-11-02",
+      "sport": "Πάλη",
+      "sourceUrl": "https://eptanews.gr/athlitismos/pali-epestrepsan-oi-protathlites-toy-archelaoy-katerinis-apo-to-prigkipato-toy-monako/"
+    },
+    {
+      "personId": "arch-96ddd7ba9e4d",
+      "eventId": "wrestling-monaco-camp-nov-2019",
+      "date": "2019-11-02",
+      "sport": "Πάλη",
+      "sourceUrl": "https://eptanews.gr/athlitismos/pali-epestrepsan-oi-protathlites-toy-archelaoy-katerinis-apo-to-prigkipato-toy-monako/"
+    },
+    {
+      "personId": "arch-73968afa517e",
+      "eventId": "wrestling-40-years-katerini-may-2019",
+      "date": "2019-05-18",
+      "sport": "Πάλη",
+      "sourceUrl": "https://pieriasocial.gr/?p=4160"
+    },
+    {
+      "personId": "arch-61d8d097f601",
+      "eventId": "wrestling-40-years-katerini-may-2019",
+      "date": "2019-05-18",
+      "sport": "Πάλη",
+      "sourceUrl": "https://pieriasocial.gr/?p=4160"
+    },
+    {
+      "personId": "arch-2010dac2d75a",
+      "eventId": "wrestling-40-years-katerini-may-2019",
+      "date": "2019-05-18",
+      "sport": "Πάλη",
+      "sourceUrl": "https://pieriasocial.gr/?p=4160"
+    },
+    {
+      "personId": "arch-cf55874ef67a",
+      "eventId": "wrestling-40-years-katerini-may-2019",
+      "date": "2019-05-18",
+      "sport": "Πάλη",
+      "sourceUrl": "https://pieriasocial.gr/?p=4160"
+    },
+    {
+      "personId": "arch-39d3d90c7e59",
+      "eventId": "wrestling-40-years-katerini-may-2019",
+      "date": "2019-05-18",
+      "sport": "Πάλη",
+      "sourceUrl": "https://pieriasocial.gr/?p=4160"
+    },
+    {
+      "personId": "arch-6a4b08bec058",
+      "eventId": "wrestling-40-years-katerini-may-2019",
+      "date": "2019-05-18",
+      "sport": "Πάλη",
+      "sourceUrl": "https://pieriasocial.gr/?p=4160"
+    },
+    {
+      "personId": "arch-74c0ecf6103f",
+      "eventId": "wrestling-40-years-katerini-may-2019",
+      "date": "2019-05-18",
+      "sport": "Πάλη",
+      "sourceUrl": "https://pieriasocial.gr/?p=4160"
+    },
+    {
+      "personId": "arch-96b3308cd1b2",
+      "eventId": "wrestling-40-years-katerini-may-2019",
+      "date": "2019-05-18",
+      "sport": "Πάλη",
+      "sourceUrl": "https://pieriasocial.gr/?p=4160"
+    },
+    {
+      "personId": "arch-ec55ccba275f",
+      "eventId": "gymnastics-renovated-hall-opening-2019",
+      "date": "2019-02-27",
+      "sport": "Ενόργανη Γυμναστική",
+      "sourceUrl": "https://kastania-pierias.blogspot.com/2019/02/blog-post_248.html?m=0"
+    }
+  ],
+  "rules": [
+    "Official department Facebook posts and published local media are accepted factual evidence",
+    "Include young age groups and simple participation without medal requirements",
+    "Do not create profiles for other clubs or unsupported identities",
+    "News personIds must exist in canonical Hall",
+    "Coordinate application of biographies with open PR #76; do not edit same Hall source in concurrent PR",
+    "After adding profiles, link source event IDs in news.json and rebuild search, aliases, profile pages and sitemaps"
+  ],
+  "nextSteps": [
+    "Apply ready biographies to canonical Hall when coordinated with PR #76",
+    "Do not create duplicate Kώστας Τάμος; existing ID arch-8934f50fbeed",
+    "After new Hall IDs exist, back-link them in all cited news records",
+    "Investigate unresolved name variants and cross-sport identities with precise sources"
+  ]
+}

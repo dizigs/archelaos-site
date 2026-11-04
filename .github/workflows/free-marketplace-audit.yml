@@ -1,0 +1,121 @@
+name: Free Marketplace security and content audits
+
+# No extra scheduled jobs: run for relevant changes and allow manual audits.
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/free-marketplace-audit.yml'
+      - '.github/schemas/**'
+      - 'news.json'
+      - 'hall-of-fame-people.json'
+      - 'rebuild/**'
+      - 'index.html'
+      - 'news.html'
+      - 'hall-of-fame.html'
+      - 'assets/**'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/free-marketplace-audit.yml'
+      - '.github/schemas/**'
+      - 'news.json'
+      - 'hall-of-fame-people.json'
+      - 'rebuild/**'
+      - 'index.html'
+      - 'news.html'
+      - 'hall-of-fame.html'
+      - 'assets/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  schema:
+    name: Public archive JSON schemas
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Harden runner (network audit mode)
+        uses: step-security/harden-runner@5ef0c079ce82195b2a36a210272d6b661572d83e # v2.14.2
+        with:
+          egress-policy: audit
+      - name: Checkout without persistent credentials
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Schema Validator - news.json
+        id: news
+        uses: chase-roohms/schema-validator@921649e0a5f054bd8f350d35d698b30e6b46b748 # v1.1.0
+        with:
+          files: news.json
+          schema-file: .github/schemas/news.schema.json
+          output-format: text
+      - name: Refuse a silent news schema failure
+        if: steps.news.outputs.validation-passed != 'true'
+        run: |
+          echo "::error::News schema was not confirmed valid."
+          exit 1
+      - name: Schema Validator - Hall of Fame
+        id: hall
+        uses: chase-roohms/schema-validator@921649e0a5f054bd8f350d35d698b30e6b46b748 # v1.1.0
+        with:
+          files: hall-of-fame-people.json
+          schema-file: .github/schemas/hall-of-fame-people.schema.json
+          output-format: text
+      - name: Refuse a silent Hall of Fame schema failure
+        if: steps.hall.outputs.validation-passed != 'true'
+        run: |
+          echo "::error::Hall of Fame schema was not confirmed valid."
+          exit 1
+
+  html:
+    name: HTML5 validation (baseline report)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Build generated release locally without deploying
+        run: python rebuild/tools/build_release.py
+      - name: Validate generated HTML5 (non-blocking until baseline is triaged)
+        id: html5
+        continue-on-error: true
+        uses: Cyb3r-Jak3/html5validator-action@41633d488eb36e18fd1a95ffc83daf1bf22a75bd # v7.2.0
+        with:
+          root: dist/
+          blacklist: people
+          format: text
+      - name: Surface HTML baseline failures
+        if: steps.html5.outcome == 'failure'
+        run: echo "::warning::HTML5 validator reported findings; inspect validator logs before making a blocking gate."
+
+  trivy:
+    name: Trivy filesystem security report
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Scan repository for critical and high-severity findings
+        uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1 # 0.35.0
+        with:
+          scan-type: fs
+          scan-ref: .
+          scanners: vuln,misconfig
+          severity: HIGH,CRITICAL
+          format: table
+          output: trivy-report.txt
+          exit-code: '0'
+      - name: Preserve security scan results
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: archelaos-trivy-baseline
+          path: trivy-report.txt
+          if-no-files-found: warn
+          retention-days: 14

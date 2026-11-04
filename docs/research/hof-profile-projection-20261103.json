@@ -1,0 +1,405 @@
+{
+  "scope": "Generated release only; source-profiles unchanged",
+  "biography_expansion_counts": {
+    "el": 45,
+    "en": 22,
+    "distinct_ids": 46
+  },
+  "records": [
+    {
+      "id": "arch-ec55ccba275f",
+      "expanded_fields": [
+        "bio"
+      ],
+      "approved_spelling_correction": false,
+      "archival_html_sha256": "f117129ebe4ef264927ea5e7dae36d02a0c24dda7dba472bafae5f23b2384ae0"
+    },
+    {
+      "id": "arch-85fcb478d724",
+      "expanded_fields": [
+        "bio"
+      ],
+      "approved_spelling_correction": false,
+      "archival_html_sha256": "b7502369779db46a4de62cf1afbc1b9ebe90b2a22deab78ea4b5ab73b6859b2e"
+    },
+    {
+      "id": "arch-7653fcf042c0",
+      "expanded_fields": [
+        "bio"
+      ],
+      "approved_spelling_correction": false,
+      "archival_html_sha256": "71cb2b2079e3a1350dc005a7d31ca8f64269261e3d71ab013b473180bb8076e3"
+    },
+    {
+      "id": "arch-61d8d097f601",
+      "expanded_fields": [
+        "bio"
+      ],
+      "approved_spelling_correction": false,
+      "archival_html_sha256": "a7512a9bcb0f40fee40828345df886d297eb99e3b71e0ee40d7d06eae3a4cf5b"
+    },
+    {
+      "id": "arch-6a4b08bec058",
+      "expanded_fields": [
+        "bio"
+      ],
+      "approved_spelling_correction": false,
+      "archival_html_sha256": "24b4818bafc5ea2ca54dabafa8b22e2426f308e49d327e8ab7ed62886cd8b007"
+    },
+    {
+      "id": "arch-74c0ecf6103f",
+      "expanded_fields": [
+        "bio"
+      ],
+      "approved_spelling_correction": false,
+      "archival_html_sha256": "031b76fedb7ebc518918fe9dc8ad1fbbd79692871a78709fbcc261362fea272f"
+    },
+    {
+      "id": "arch-73968afa517e",
+      "expanded_fields": [
+        "bio"
+      ],
+      "approved_spelling_correction": false,
+      "archival_html_sha256": "76a1cd80568e36e26b06974ab65d6c5be86a520f46c8baf8ed7d86b3aa4ecaff"
+    },
+    {
+      "id": "arch-georgios-athanas-athletics-board-2026",
+      "expanded_fields": [
+        "bio",
+        "bio_en"
+      ],
+      "approved_spelling_correction": false,
+      "archival_html_sha256": "a2e53058166c924685b801e22c1fdfe223584fdcf5a094772c8c2c400278a15b"
+    },
+    {
+      "id": "arch-96ddd7ba9e4d",
+      "expanded_fields": [
+        "bio"
+      ],
+      "approved_spelling_correction": false,
+      "archival_html_sha256": "3b710f308f0fa7083022851b04a34d40c866aa81515f4930527cc90110c338df"
+    },
+    {
+      "id": "arch-ba8233d165aa",
+      "expanded_fields": [
+        "bio"
+      ],
+      "approved_spelling_correction": false,
+      "archival_html_sha256": "6f20271ffcac41ff4151bcceb9e5d9f75cd625d5ef8792df502da382228989df"
+    },
+    {
+      "id": "arch-f56820c52e55",
+      "expanded_fields": [
+        "bio"
+      ],
+      "approved_spelling_correction": true,
+      "archival_html_sha256": "75466ce2daf656edb531fab224681479be7e57e0d54673ae014b66bc24d2ef8d"
+    },
+    {
+      "id": "arch-955a386f547f",
+      "expanded_fields": [
+        "bio"
+      ],
+      "approved_spelling_correction": false,
+      "archival_html_sha256": "827319a417363f70b212910b83b03a545d48e15efdd0c851dbee0e01234221b1"
+    },
+    {
+      "id": "arch-f6152b60c43f",
+      "expanded_fields": [
+        "bio_en"
+      ],
+      "approved_spelling_correction": false,
+      "archival_html_sha256": "ed9ba32e88431e2c65246b064f031167feae1e876192fd84d463fc6e603d09b5"
+    },
+    {
+      "id": "arch-b1e10ae2cfc0",
+      "expanded_fields": [
+        "bio"
+      ],
+      "approved_spelling_correction": false,
+      "archival_html_sha256": "3de9bea25494a268da0f840f145d304660cce62fcafebe949cbf0391471a210d"
+    },
+    {
+      "id": "arch-4c82271a2365",
+      "expanded_fields": [
+        "bio"
+      ],
+      "approved_spelling_correction": false,
+      "archival_html_sha256": "02fe8f8d725e77f1ba7a25448ecee580c45331db2c3f410b28ca70115cc24088"
+    },
+    {
+      "id": "arch-56dd134e165f",
+      "expanded_fields": [
+        "bio"
+      ],
+      "approved_spelling_correction": false,
+      "archival_html_sha256": "568e7b95728065033d450ac14376c50a88b18d5e68422210a3384da6f4874f13"
+    },
+    {
+      "id": "arch-bc7079f252cc",
+      "expanded_fields": [
+        "bio"
+      ],
+      "approved_spelling_correction": false,
+      "archival_html_sha256": "44304c1dd513554a8ad9f06a2eed48c294edba6023cddf394b296b41f1187a16"
+    },
+    {
+      "id": "arch-e6b31b31c3a9",
+      "expanded_fields": [],
+      "approved_spelling_correction": true,
+      "archival_html_sha256": "5b8b18755cfe6cd0ae77ac994a8bf9985a180dfc8a5c286ec4995878fda2e63a"
+    },
+    {
+      "id": "arch-e9fc7408640c",
+      "expanded_fields": [
+        "bio"
+      ],
+      "approved_spelling_correction": false,
+      "archival_html_sha256": "7c8a711e932028debcee238f0e0c057b4c46be7abc6a79c2ee71298e3e1b563a"
+    },
+    {
+      "id": "arch-8d1a258f0b09",
+      "expanded_fields": [
+        "bio",
+        "bio_en"
+      ],
+      "approved_spelling_correction": false,
+      "archival_html_sha256": "79b42ead2b671c77cb540d05c13f7e1e02bda897b5505cf2d55c19a2a59cecef"
+    },
+    {
+      "id": "arch-f02298025e5c",
+      "expanded_fields": [
+        "bio",
+        "bio_en"
+      ],
+      "approved_spelling_correction": false,
+      "archival_html_sha256": "2f67a58b243ed5367b2f762dd9e542509ed01c0610f25d1d2f9b976932a5e0a0"
+    },
+    {
+      "id": "arch-25923c326d62",
+      "expanded_fields": [
+        "bio"
+      ],
+      "approved_spelling_correction": false,
+      "archival_html_sha256": "8e813d5351b08cb42ed938cfee5f5d59843e85b61a6b8a1a5403c411e67b5a1c"
+    },
+    {
+      "id": "arch-2616694d9908",
+      "expanded_fields": [
+        "bio",
+        "bio_en"
+      ],
+      "approved_spelling_correction": false,
+      "archival_html_sha256": "a6903befd2a6eb43b3ba32c61b76a1256903faa9459511c8f820564810cf66cf"
+    },
+    {
+      "id": "arch-be8668380721",
+      "expanded_fields": [
+        "bio"
+      ],
+      "approved_spelling_correction": false,
+      "archival_html_sha256": "7b25da2fc425004c08b1aa38e1257c69ec2b383dd2b922d37bc61754c3896eee"
+    },
+    {
+      "id": "arch-2ec2798d39bb",
+      "expanded_fields": [
+        "bio"
+      ],
+      "approved_spelling_correction": false,
+      "archival_html_sha256": "34537ab1bcf4568789ec92367c92df3ee7cbc2c22078c82ac171ab944b45b807"
+    },
+    {
+      "id": "arch-bde5b8a0f677",
+      "expanded_fields": [
+        "bio",
+        "bio_en"
+      ],
+      "approved_spelling_correction": false,
+      "archival_html_sha256": "734fc086bc46d153efaec072f39c9705e17cb1a94eea73789d80191c23e3756f"
+    },
+    {
+      "id": "arch-292b7871cf5b",
+      "expanded_fields": [
+        "bio",
+        "bio_en"
+      ],
+      "approved_spelling_correction": false,
+      "archival_html_sha256": "1183255d636a7087e07826a1def9dd45ea32ba8ae0bdcda96788b9139aeae42e"
+    },
+    {
+      "id": "arch-cc84a40c4504",
+      "expanded_fields": [
+        "bio",
+        "bio_en"
+      ],
+      "approved_spelling_correction": false,
+      "archival_html_sha256": "ff566919a145396cc669f8c71f59750cf457c2b77976a64d0deadfcd2eb89e65"
+    },
+    {
+      "id": "arch-39914cf713cf",
+      "expanded_fields": [
+        "bio",
+        "bio_en"
+      ],
+      "approved_spelling_correction": false,
+      "archival_html_sha256": "d8cf3a86975ca0aa511323e951f3de0dae9b576c875b0d9c1338389ecab97509"
+    },
+    {
+      "id": "arch-c51b66db9180",
+      "expanded_fields": [
+        "bio"
+      ],
+      "approved_spelling_correction": false,
+      "archival_html_sha256": "b951448f97c694ad9feaf04bf0c4cda979e8cce4d5b65086367b07a3a5ffe4dc"
+    },
+    {
+      "id": "arch-db2ed4303837",
+      "expanded_fields": [
+        "bio"
+      ],
+      "approved_spelling_correction": false,
+      "archival_html_sha256": "bb1d7544f4f0e972ffee417f75838b0324d97464d064f7672c91b4f99fd5ffa7"
+    },
+    {
+      "id": "arch-534d52034523",
+      "expanded_fields": [
+        "bio",
+        "bio_en"
+      ],
+      "approved_spelling_correction": false,
+      "archival_html_sha256": "5fe34f1eb5d0eac3f7994fdbbec3ae98d2d7c08141c2d91bade0159d0ecede40"
+    },
+    {
+      "id": "arch-fbf9bcb00de7",
+      "expanded_fields": [
+        "bio",
+        "bio_en"
+      ],
+      "approved_spelling_correction": false,
+      "archival_html_sha256": "f420a1142218a96fce66fe41ab8a1a4c6502da8ec925a87909a5b0b2969aa09c"
+    },
+    {
+      "id": "arch-7d2d2d8bf363",
+      "expanded_fields": [
+        "bio",
+        "bio_en"
+      ],
+      "approved_spelling_correction": false,
+      "archival_html_sha256": "6894fcda928b02c94cebdc958364732ffce6fe573bb65696e7fae2cb6a11f2d9"
+    },
+    {
+      "id": "arch-5de1e130d776",
+      "expanded_fields": [
+        "bio",
+        "bio_en"
+      ],
+      "approved_spelling_correction": false,
+      "archival_html_sha256": "5ddd81f171f3b88878babfbb2dc4ba9cbec80e60ebe8070e20060b1dd5107215"
+    },
+    {
+      "id": "arch-ae0647a0c701",
+      "expanded_fields": [
+        "bio",
+        "bio_en"
+      ],
+      "approved_spelling_correction": false,
+      "archival_html_sha256": "8c8979bbe995d35e8f3ccba28661d1d25824f782be6789fe0863019ca394b6c7"
+    },
+    {
+      "id": "arch-3c99e241b6d5",
+      "expanded_fields": [
+        "bio"
+      ],
+      "approved_spelling_correction": false,
+      "archival_html_sha256": "ccd242f9d72e48159b8f94ea3d9d7809386c938222f30a610f1f64ba8fcc722e"
+    },
+    {
+      "id": "arch-cf53c375664e",
+      "expanded_fields": [
+        "bio",
+        "bio_en"
+      ],
+      "approved_spelling_correction": false,
+      "archival_html_sha256": "8eaa9855d3442204980f5a7e85b0e694e2b5d322d18c8283980f893d25477341"
+    },
+    {
+      "id": "arch-bdcef56af524",
+      "expanded_fields": [
+        "bio",
+        "bio_en"
+      ],
+      "approved_spelling_correction": false,
+      "archival_html_sha256": "5298da0a4c6421dbc07bb8fa8186473ea533cc12adf04fb5756575aa47b63767"
+    },
+    {
+      "id": "arch-64dbf198bfd6",
+      "expanded_fields": [
+        "bio",
+        "bio_en"
+      ],
+      "approved_spelling_correction": false,
+      "archival_html_sha256": "f2788fe81eee7ce7cda028bb1343c678fbc1d128d4b339110341d641f3a7e21b"
+    },
+    {
+      "id": "arch-64ee11fec8d6",
+      "expanded_fields": [
+        "bio",
+        "bio_en"
+      ],
+      "approved_spelling_correction": false,
+      "archival_html_sha256": "888cc693be30c3288a2159d5b2148a086ce2e4b710f9633da1b4e6b7959d15b1"
+    },
+    {
+      "id": "arch-3c81755ecad8",
+      "expanded_fields": [
+        "bio"
+      ],
+      "approved_spelling_correction": false,
+      "archival_html_sha256": "9437b3ee5ff5944fb84bf772d528773092562cbdad02d5af46195a70a300aeb8"
+    },
+    {
+      "id": "arch-af5bad82fe57",
+      "expanded_fields": [
+        "bio"
+      ],
+      "approved_spelling_correction": false,
+      "archival_html_sha256": "e40596ad57486b7573727a1facd18d4a34c87db1e8175ee1b20fccc7aff1c925"
+    },
+    {
+      "id": "arch-baba93550267",
+      "expanded_fields": [
+        "bio",
+        "bio_en"
+      ],
+      "approved_spelling_correction": false,
+      "archival_html_sha256": "8feed77a5a7fe30f9b6c045e6edf759fd23657988b4bbedab0b5f72ca9a4a338"
+    },
+    {
+      "id": "arch-ccaf623e428b",
+      "expanded_fields": [
+        "bio",
+        "bio_en"
+      ],
+      "approved_spelling_correction": false,
+      "archival_html_sha256": "d854267fccc042d3cd6a87e54d6f4575ad8a5bd7d5673e9dced59b8ce1160fdd"
+    },
+    {
+      "id": "arch-ef200dd72711",
+      "expanded_fields": [
+        "bio",
+        "bio_en"
+      ],
+      "approved_spelling_correction": false,
+      "archival_html_sha256": "ca2bdc3801ef25ce67211a2cf8f4aba03eda5e95e30a5b640829190969b67fd7"
+    },
+    {
+      "id": "arch-73fcffd7e0b7",
+      "expanded_fields": [
+        "bio",
+        "bio_en"
+      ],
+      "approved_spelling_correction": false,
+      "archival_html_sha256": "77c6dc5dc0c832a79f6586f7d5d7c28138129b5014db32a4a6bf127367b20e74"
+    }
+  ]
+}

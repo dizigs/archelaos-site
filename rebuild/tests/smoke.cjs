@@ -1,10 +1,13 @@
 /* Isolated browser checks. Never deploys or mutates production pages. */
 const { chromium } = require('playwright');
-const {mkdirSync}=require('node:fs');
+const {mkdirSync,readFileSync}=require('node:fs');
 const path=require('node:path');
 const ROOT='http://127.0.0.1:8765';
 const output=path.join(__dirname,'..','test-artifacts');
 mkdirSync(output,{recursive:true});
+const hallMaster=JSON.parse(readFileSync(path.join(__dirname,'..','..','hall-of-fame-people.json'),'utf8'));
+const expectedHallCount=hallMaster.people.length;
+if(hallMaster.count!==expectedHallCount)throw Error('Canonical Hall metadata count mismatch');
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
 async function run(){
  let lastError;
@@ -30,6 +33,18 @@ async function run(){
       if(!await page.locator('.av-card').first().textContent())throw Error('Favorite did not show');
       await page.locator('.av-card .arch-favorite-toggle').click();
       await page.locator('.av-empty').waitFor();
+      // A favorite saved before two verified identity mergers must still resolve.
+      const migrated=await page.evaluate(()=>{
+       const f=window.ArchelaosFavorites;
+       f.toggle('person','arch-bdac478e7ea3');
+       f.toggle('person','arch-22eae49bbbc0');
+       const ids=f.get().filter(x=>x.type==='person').map(x=>x.id).sort((a,b)=>a.localeCompare(b));
+       f.toggle('person','arch-bdac478e7ea3');
+       f.toggle('person','arch-22eae49bbbc0');
+       return ids;
+      });
+      if(migrated.join(',')!==['arch-7f975b16bebf','arch-82df0f64b81d'].sort((a,b)=>a.localeCompare(b)).join(','))
+       throw Error('Historic person favorites did not migrate: '+JSON.stringify(migrated));
     }
     if(name==='contribute'){
       if(await page.locator('#ac-attachments[type="file"][multiple]').count()!==1||await page.locator('#ac-archive-link[type="url"]').count()!==1)
@@ -43,7 +58,23 @@ async function run(){
       const href=await firstCollection.getAttribute('href');
       if(!href.startsWith('/rebuild/'))throw Error('Dynamic museum card leaves rebuild: '+href);
     }
-    if(name==='hall')await page.waitForFunction(()=>document.querySelector('#hall-count')?.textContent.includes('682'),{timeout:20000});
+    if(name==='hall'){
+     try{
+      await page.waitForFunction(expected=>
+       document.querySelector('#hall-total')?.textContent===String(expected) &&
+       document.querySelector('#hall-count')?.textContent.startsWith(expected+' από '+expected+' πρόσωπα'),
+       expectedHallCount,{timeout:20000});
+     }catch(error){
+      const detail=await page.evaluate(()=>({
+       total:document.querySelector('#hall-total')?.textContent,
+       count:document.querySelector('#hall-count')?.textContent,
+       language:document.documentElement.lang,
+       biographyModule:typeof window.ArchelaosBio
+      }));
+      throw Error('Hall preview expectation failed: '+JSON.stringify(detail)+
+       '; errors='+errors.join(' | ')+'; '+error.message);
+     }
+    }
     if(name==='moments')await page.locator('.rm-moment').first().waitFor({timeout:20000});
     if(name==='stories')await page.locator('.rs-card').first().waitFor({timeout:20000});
     if(name==='museum')await page.locator('.mu-sports-link').first().waitFor({timeout:20000});
@@ -53,11 +84,9 @@ async function run(){
     if(name==='departments')await page.locator('.dp-card').first().waitFor();
     if(name==='retro')await page.locator('.rt-scoreboard').first().waitFor();
     if(name==='home'){
-     await page.waitForFunction(()=>document.querySelector('#fx-status')?.textContent.includes('προγραμματισμένοι'),null,{timeout:10000});
-     if(!await page.locator('#fx-download').isHidden()||!await page.locator('#fx-subscribe').isHidden())
-       throw Error('Unpublished preview exposes dead calendar download or subscription URLs');
-     if(await page.locator('.fx-card .fx-calendar-actions a').count())
-       throw Error('Unpublished preview exposes individual calendar files that only exist in dist');
+     await page.waitForFunction(expected=>document.querySelector('#new-people-total')?.textContent===expected.toLocaleString('el-GR'),expectedHallCount,{timeout:20000});
+     if(await page.locator('#upcoming-matches,.fx-card,.fx-calendar-actions,[data-fixture-sport]').count()) throw Error('Removed homepage calendar returned');
+     if(await page.locator('a[href$=".ics"],a[href^="webcal:"]').count()) throw Error('Calendar links returned');
      // Preview-safe links: static links are rewritten on load; dynamic links on focus/click.
      const routed=await page.evaluate(()=>{
        const a=document.createElement('a');a.href='/hall-of-fame.html?person=arch-test#biography';
@@ -117,6 +146,13 @@ async function run(){
      await page.locator('dialog.arch-dialog[open]').waitFor({timeout:8000});
      await page.locator('dialog.arch-dialog .arch-close').click();
      if(await page.locator('dialog.arch-dialog[open]').count())throw Error(name+': dialog did not close');
+    }
+    if(name==='hall'){
+     await page.goto(ROOT+'/rebuild/hall-of-fame.html?person=arch-bdac478e7ea3',{waitUntil:'domcontentloaded'});
+     await page.locator('dialog.arch-dialog[open]').waitFor({timeout:8000});
+     const mergedBio=await page.locator('dialog.arch-dialog[open]').textContent();
+     if(!mergedBio?.includes('Αντωνάτος'))throw Error('Old Hall deep link failed to resolve to canonical profile');
+     await page.locator('dialog.arch-dialog .arch-close').click();
     }
     if(size.width<500){
      await page.locator('.arch-menu-open').click();

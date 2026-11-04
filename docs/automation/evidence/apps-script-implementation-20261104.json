@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "task": "PR124-APPS-SCRIPT",
+  "status": "IMPLEMENTED_OFFLINE_NOT_DEPLOYED",
+  "priorCiFix": {
+    "commit": "2798af6fc7028f8a66c6593730c072b9cb473b78",
+    "actionlintCheck": 126410342434,
+    "staticSyntaxCheck": 126410341954,
+    "result": "PASS"
+  },
+  "tests": {
+    "nodeSqliteCryptoAndMockedGoogle": 40,
+    "bridgeAndSourceAuditPython": 23,
+    "providerPython": 30,
+    "total": 93,
+    "allPass": true
+  },
+  "realGoogleRead": false,
+  "realGoogleBackup": false,
+  "realGoogleWrite": false,
+  "realRollback": false,
+  "realTriggerVerification": false,
+  "actualAdminGrantedScopesVerified": false,
+  "liveWorkerOAuthRequestChanged": false,
+  "workerDeployed": false,
+  "chatgptCallableInterfaceVerified": false,
+  "consentLinkReady": false,
+  "notes": [
+    "No real credentials/project IDs or private source in fixtures/repository",
+    "No Worker/namespace/trigger/billing/DNS/secret mutation",
+    "Do not request Admin consent until actual corrected Worker is deployed and callback verified",
+    "Required live deployment/source/atomic storage/Google access missing in current runtime"
+  ],
+  "fileDigests": [
+    {
+      "file": "automation/apps-script/configure.mjs",
+      "sha256": "db79ded8961e4baa438951472cfa9baf24c944eecc747056522aa027c2fefb5b"
+    },
+    {
+      "file": "automation/apps-script/editor.mjs",
+      "sha256": "a00d8638824a1d5b86f70a0806eb69975c8ecdc4486b24ed45a14392471c8d0b"
+    },
+    {
+      "file": "automation/apps-script/files.mjs",
+      "sha256": "f53f4edb7af256337a45424c95d2a37d429420286a918b24beb7cb9b87271533"
+    },
+    {
+      "file": "automation/apps-script/interface.mjs",
+      "sha256": "92ed7d47dabe4d9e3ca6566dd0aec38238785a790b8753350aa795351f1e5512"
+    },
+    {
+      "file": "automation/apps-script/oauth.mjs",
+      "sha256": "12d4e465ce2c6508ca1b1983062aa93e0cd2879718d6f4fffccf51e0229dbb5e"
+    },
+    {
+      "file": "automation/apps-script/security.mjs",
+      "sha256": "12677c59729a6f3c5007608b71c8dcaf71075337042e4ce35d883c03ea4f3d08"
+    },
+    {
+      "file": "automation/apps-script/store.mjs",
+      "sha256": "652485ff0c8aabe25d7d88c49bc766767ed4b333fab7a2cd8e73b96f14328e6c"
+    }
+  ],
+  "falseCredentialAlertEvidence": {
+    "fileDigestVerified": true,
+    "actualCredential": false,
+    "incidentId": 39540176,
+    "sonarCheck": 126416519278,
+    "gitGuardianCheck": 126416309079,
+    "representationChange": "Explicit file/sha256 fields; same public reproducible digest; no suppression or credential rotation"
+  },
+  "legacyRouteGuard": {
+    "prefixCollisionReproduced": true,
+    "fixedUsingCompleteStateShape": true,
+    "before": "one failing regression",
+    "after": "all39 Node tests PASS"
+  },
+  "oauthAdmission": {
+    "maxStartsPerMinute": 30,
+    "maxPendingStates": 256,
+    "ipOrEmailRateKeysStored": false,
+    "actualAtomicSqliteTest": "PASS"
+  }
+}

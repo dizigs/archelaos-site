@@ -1,5 +1,18 @@
 /* Secure Pages Function first; mailto fallback only when sending is unavailable. */
 (function(){'use strict';
+let turnstileLoader;
+function loadTurnstile(){
+ if(window.turnstile)return Promise.resolve(window.turnstile);
+ if(!turnstileLoader)turnstileLoader=new Promise((resolve,reject)=>{
+  const script=document.createElement('script');
+  script.src='https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+  script.async=true;
+  script.onload=()=>window.turnstile?resolve(window.turnstile):reject(new Error('Turnstile not available'));
+  script.onerror=()=>reject(new Error('Turnstile could not load'));
+  document.head.appendChild(script);
+ });
+ return turnstileLoader;
+}
 function init(){
  const template=document.querySelector('#ct-form-template');
  const params=new URLSearchParams(location.search);
@@ -26,6 +39,7 @@ function init(){
   topic.addEventListener('change',sync);
   nameConsent.addEventListener('change',syncCredit);sync();
   if(topic.value==='sport' && [...sport.options].some(o=>o.value===requestedSport))sport.value=requestedSport;
+  let widgetId=null,turnstileApi=null,challengeReady;
 
   form.addEventListener('submit',async event=>{
    event.preventDefault();
@@ -57,11 +71,15 @@ function init(){
    try{
     try{
      status.textContent='Έλεγχος ασφαλούς αποστολής…';
-     const probe=await fetch('/api/contact',{cache:'no-store'});
-     const capability=probe.ok?await probe.json():null;
-     if(capability?.ready){
+     if(await challengeReady){
+      const challengeToken=turnstileApi?.getResponse(widgetId);
+      if(!challengeToken){
+       status.textContent='Ολοκληρώστε πρώτα τον έλεγχο ασφαλείας και δοκιμάστε ξανά.';
+       return;
+      }
       const payload=new FormData(form);
       payload.set('consent','true');
+      payload.set('cf-turnstile-response',challengeToken);
       payload.set('publicNameConsent',data.get('topic')==='archive'&&nameConsent.checked?'true':'false');
       payload.set('publicCreditName',data.get('topic')==='archive'&&nameConsent.checked?(creditName.value.trim()||String(data.get('name')||'')):'');
       payload.delete('publicName');
@@ -71,7 +89,12 @@ function init(){
       const response=await fetch('/api/contact',{method:'POST',body:payload});
       if(response.ok){
        status.textContent='Το μήνυμά σας στάλθηκε με επιτυχία.';
-       form.reset();sync();return;
+       form.reset();sync();turnstileApi?.reset(widgetId);return;
+      }
+      if(response.status===403){
+       status.textContent='Ο έλεγχος ασφαλείας έληξε ή απέτυχε. Δοκιμάστε ξανά.';
+       turnstileApi?.reset(widgetId);
+       return;
       }
       if(response.status>=400&&response.status<500){
        status.textContent='Δεν έγινε αποστολή. Ελέγξτε τα στοιχεία και τα συνημμένα.';
@@ -88,6 +111,23 @@ function init(){
    }finally{submit.disabled=false}
   });
   window.ArchelaosUI.openDialog({title:'Στείλτε ένα μήνυμα.',subtitle:'ΜΙΛΗΣΤΕ ΜΑΣ',contentNode:form,closeLabel:'Κλείσιμο φόρμας'});
+  // The form is inserted dynamically, so render Turnstile only after the dialog opens.
+  challengeReady=fetch('/api/contact',{cache:'no-store'}).then(async response=>{
+   const capability=response.ok?await response.json():null;
+   if(!capability?.ready||!capability.turnstileSiteKey)return false;
+   turnstileApi=await loadTurnstile();
+   if(!form.isConnected)return false;
+   widgetId=turnstileApi.render(form.querySelector('.ct-turnstile'),{
+    sitekey:capability.turnstileSiteKey,
+    action:'contact',
+    theme:'auto',
+    'expired-callback':()=>{form.querySelector('.ct-form-note').textContent='Ο έλεγχος ασφαλείας έληξε. Δοκιμάστε ξανά.';}
+   });
+   return widgetId!==undefined;
+  }).catch(()=>{
+   form.querySelector('.ct-form-note').textContent='Η ασφαλής απευθείας αποστολή δεν είναι διαθέσιμη. Μπορείτε να συνεχίσετε μέσω του προγράμματος email.';
+   return false;
+  });
 
  }
  document.querySelectorAll('[data-open-contact]').forEach(btn=>btn.addEventListener('click',open));

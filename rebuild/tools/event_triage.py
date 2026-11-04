@@ -11,9 +11,17 @@ from hashlib import sha256
 import json
 from pathlib import Path
 
+if __package__:
+    from .public_snapshot import output_directory, replace_report, validate_reports
+else:
+    from public_snapshot import output_directory, replace_report, validate_reports
+
 ROOT=Path(__file__).resolve().parents[1]
 SOURCE=ROOT/"research/historical-events.json"
 REPORT_DIR=ROOT/"test-artifacts"
+REPORT_NAMES=("event-review-queue.json","event-review-queue.md")
+JSON_CHOICE="rebuild/test-artifacts/event-review-queue.json"
+MARKDOWN_CHOICE="rebuild/test-artifacts/event-review-queue.md"
 
 def fingerprint(catalog:dict)->str:
     raw=json.dumps(catalog,sort_keys=True,ensure_ascii=False,separators=(",",":"))
@@ -92,19 +100,22 @@ def markdown(report:dict)->str:
 
 def main():
     p=argparse.ArgumentParser(description=__doc__)
-    p.add_argument("--json",type=Path,default=REPORT_DIR/"event-review-queue.json")
-    p.add_argument("--markdown",type=Path,default=REPORT_DIR/"event-review-queue.md")
-    args=p.parse_args()
-    for path in (args.json,args.markdown):
-        dest=path.resolve()
-        if not dest.is_relative_to(REPORT_DIR.resolve()):
-            raise SystemExit("Reports may only be written into ignored test-artifacts/")
-    data=json.loads(SOURCE.read_text(encoding="utf-8"))
-    report=assess(data)
-    args.json.parent.mkdir(parents=True,exist_ok=True)
-    args.markdown.parent.mkdir(parents=True,exist_ok=True)
-    args.json.write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
-    args.markdown.write_text(markdown(report),encoding="utf-8")
+    p.add_argument("--json",choices=(JSON_CHOICE,),default=JSON_CHOICE,
+                   help="Fixed checkout-relative JSON report; arbitrary paths are rejected")
+    p.add_argument("--markdown",choices=(MARKDOWN_CHOICE,),default=MARKDOWN_CHOICE,
+                   help="Fixed checkout-relative Markdown report; arbitrary paths are rejected")
+    p.parse_args()
+    try:
+        with output_directory(("rebuild","test-artifacts")) as directory:
+            validate_reports(directory,REPORT_NAMES)
+            data=json.loads(SOURCE.read_text(encoding="utf-8"))
+            report=assess(data)
+            replace_report(directory,"event-review-queue.json",
+                           json.dumps(report,ensure_ascii=False,indent=2)+"\n")
+            replace_report(directory,"event-review-queue.md",markdown(report))
+    except (OSError,ValueError) as error:
+        p.exit(2,"EVENT TRIAGE failed ("+type(error).__name__+
+               "): check the public catalog and fixed report locations.\n")
     print("EDITORIAL TRIAGE:",len(report["rows"]),"events;",report["summary"],
           "— OWNER DECISION REQUIRED, NO AUTOMATIC APPROVAL.")
 

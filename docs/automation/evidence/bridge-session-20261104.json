@@ -1,0 +1,27 @@
+{
+  "observedAtUtc": "2026-11-04T02:11:50.761432+00:00",
+  "task": "PR-124",
+  "headInspected": "5959e27436bf80234427db9db76222ec860cbd89",
+  "directiveRead": true,
+  "directiveSource": "https://github.com/dizigs/archelaos-site/pull/124",
+  "githubWebReadHttp": 200,
+  "githubApiResult": "POST https://api.github.com/graphql: Forbidden",
+  "bridgeHealthResult": "CONNECT tunnel failed: 403 Forbidden",
+  "bridgeOriginHttpStatus": null,
+  "connectorDiscovery": "No callable Google or Cloudflare tools in this session",
+  "runtimeConfiguredSecrets": [],
+  "runtimeOutboundIdentities": [],
+  "googleApplicationCredentialsVariablePresent": true,
+  "googleAdminOAuthVerified": false,
+  "liveWorkerSourceAvailable": false,
+  "appsScriptSourceBackedUp": false,
+  "liveMutationsPerformed": false,
+  "tests": {
+    "bridgePreflight": 19,
+    "cloudflareProviderTransport": 30,
+    "failures": 0
+  },
+  "networkDraftSaved": true,
+  "networkDraftApplied": false,
+  "next": "Apply network draft and attach authorized existing Cloudflare Worker source/deployment and Admin Google connection; inspect current source before implementing OAuth callback. Do not request Admin reconsent until corrected callback is deployed and tested."
+}

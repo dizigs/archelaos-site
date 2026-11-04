@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-02",
+  "updated": "2026-11-03",
   "items": [
     {
       "id": "handball-archelaos-kastoria-33-16-2026",
@@ -21,9 +21,7 @@
         "arch-dimitris-siokas-handball-2026",
         "arch-handball-348992f5",
         "arch-e6778f75ce14",
-        "arch-e03e05c83e79",
-        "arch-4b1854067404",
-        "arch-b40b2a81ca0d"
+        "arch-e03e05c83e79"
       ],
       "featured": true,
       "image": "https://www.palmare.gr/wp-content/uploads/2026/11/26-TAIM.jpg",
@@ -818,7 +816,7 @@
       "body": [
         "Στη γιορτή Ενόργανης Γυμναστικής της Β΄ Περιφέρειας στη Μίκρα Θεσσαλονίκης στις 14–15 Ιουνίου 2025 συμμετείχαν 31 σύλλογοι και 915 αθλητές και αθλήτριες από 5 έως 14 ετών.",
         "Ο Γ.Α.Σ. Αρχέλαος Κατερίνης συμμετείχε με 96 παιδιά και κατέκτησε το κύπελλο πολυπληθέστερης ομάδας για δεύτερη συνεχόμενη χρονιά, παρουσιάζοντας προγράμματα στα επίπεδα 1–4.",
-        "Στο δημοσιευμένο δελτίο Τύπου αναφέρονται ονομαστικά ως μέλη του προπονητικού επιτελείου οι Φώτιος Παρθενίδης, Βασίλειος Καλπακίδης, Χρήστος Λιμπανόβνος, Βασίλειος Τζώτζος και Φανή Γκιούσογλου."
+        "Στο δημοσιευμένο δελτίο Τύπου αναφέρονται ονομαστικά ως μέλη του προπονητικού επιτελείου οι Φώτιος Παρθενίδης, Βασίλειος Καλπακίδης, Χρήστος Λιμπανόβνος, Βασίλειος Τζώτζος και Φανή Γκιοούσογλου."
       ],
       "source": "Ο Ντελάλης · 19/06/2025",
       "sourceUrl": "https://odelalis.gr/o-gas-archelaos-katerinis-sti-giorti-enorganis-gymnastikis-tis-v-perifereias/",
@@ -827,7 +825,7 @@
         "arch-4aaa2b869d44",
         "arch-f56820c52e55",
         "arch-e7b50e446985",
-        "arch-fani-gkiousoglou-gym-2025"
+        "arch-2cb062fabc11"
       ],
       "image": "https://odelalis.gr/wp-content/uploads/2025/06/enorgani_arxelaos_giorti-5.jpg",
       "imageSourceUrl": "https://odelalis.gr/wp-content/uploads/2025/06/enorgani_arxelaos_giorti-5.jpg",
@@ -1046,7 +1044,8 @@
         "arch-aristotelis-navrozidis-wrest24",
         "arch-8c8c23ba82e6",
         "arch-2616694d9908",
-        "arch-wrest-taxiarhis-liakos"
+        "arch-wrest-taxiarhis-liakos",
+        "arch-achilleas-giassiranis-wrestling-2024"
       ],
       "image": "https://olympiobima.gr/wp-content/uploads/2024/12/3-xrysa-metallia-protathlites-arxelaoy-93756.webp",
       "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2024/12/3-xrysa-metallia-protathlites-arxelaoy-93756.webp",
@@ -1069,7 +1068,9 @@
       "personIds": [
         "arch-baba93550267",
         "arch-77461943b4f2",
-        "arch-44ef21dfb9b7"
+        "arch-44ef21dfb9b7",
+        "arch-archery-result-20261102-03",
+        "arch-archery-result-20261102-04"
       ],
       "image": "https://olympiobima.gr/wp-content/uploads/2024/12/gas-arxelaos-katerinis-synexeia-epityxion-74219.webp",
       "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2024/12/gas-arxelaos-katerinis-synexeia-epityxion-74219.webp",
@@ -1421,7 +1422,7 @@
       "summary": "Πρόκριση στον τελικό της δοκού και έκτη θέση για την αθλήτρια του Αρχέλαου.",
       "body": [
         "Η Ερμιόνη Βάλβη εκπροσώπησε τον Γ.Α.Σ. Αρχέλαος Κατερίνης στο Πανελλήνιο Πρωτάθλημα Ενόργανης Γυμναστικής Α΄–Β΄ Κατηγορίας, στις 11–12 Μαΐου 2024, στην αίθουσα «Ιωάννης Μελισσανίδης» της Θεσσαλονίκης.",
-        "Η αθλήτρια προκρίθηκε στον τελικό της δοκού και κατέλαβε την έκτη θέση. Την αποστολή πλαισίωσαν ο Φώτιος Παρθενίδης και οι προπονητές Βασίλειος Καλπακίδης και Φανή Γκιουσόγλου."
+        "Η αθλήτρια προκρίθηκε στον τελικό της δοκού και κατέλαβε την έκτη θέση. Την αποστολή πλαισίωσαν ο Φώτιος Παρθενίδης και οι προπονητές Βασίλειος Καλπακίδης και Φανή Γκιοούσογλου."
       ],
       "source": "Ολύμπιο Βήμα · 19/05/2024",
       "sourceUrl": "https://olympiobima.gr/ston-teliko-i-valvi-tou-gas-archelaos-katerinis/",
@@ -1429,7 +1430,7 @@
         "arch-9bba434ae7e7",
         "arch-c5eb6d18a17a",
         "arch-4aaa2b869d44",
-        "arch-fani-gkiousoglou-gym-2025"
+        "arch-2cb062fabc11"
       ],
       "image": "https://olympiobima.gr/wp-content/uploads/2024/05/ston-teliko-valvi-gas-arxelaos-26190.webp",
       "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2024/05/ston-teliko-valvi-gas-arxelaos-26190.webp",
@@ -1922,7 +1923,8 @@
         "arch-2ec2798d39bb",
         "arch-gymnastics-9814252c",
         "arch-bde5b8a0f677",
-        "arch-gymnastics-f2e4a89b"
+        "arch-gymnastics-f2e4a89b",
+        "arch-katerina-lampiri-gymnastics-2022"
       ],
       "image": "https://olympiobima.gr/wp-content/uploads/2023/05/gas-archelaos-katerinis-50834.webp",
       "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2023/05/gas-archelaos-katerinis-50834.webp",
@@ -1980,6 +1982,27 @@
       "imageNote": "Αρχική φωτογραφία του αντίστοιχου δημοσιεύματος."
     },
     {
+      "id": "track-natsiopoulou-school-400h-gold-may-2023",
+      "date": "2023-05-05",
+      "sport": "Στίβος",
+      "category": "achievements",
+      "title": "Χρυσό και ατομικό ρεκόρ για την Κατερίνα Νατσιοπούλου στα 400 μ. εμπόδια",
+      "summary": "Η αθλήτρια του Αρχέλαου πρώτευσε στο Πανελλήνιο Σχολικό Πρωτάθλημα στην Ελευθερούπολη με επίδοση 1:02.44.",
+      "body": [
+        "Η Κατερίνα Νατσιοπούλου, αθλήτρια στίβου του Γ.Α.Σ. Αρχέλαος Κατερίνης, κατέκτησε χρυσό μετάλλιο στα 400 μ. με εμπόδια στο Πανελλήνιο Σχολικό Πρωτάθλημα που διεξήχθη στην Ελευθερούπολη Καβάλας, σημειώνοντας ατομικό ρεκόρ 1:02.44, σύμφωνα με δημοσίευμα της 5ης Μαΐου 2023.",
+        "Στη συγκεκριμένη σχολική διοργάνωση εκπροσώπησε το ιδιωτικό Λύκειο «Πλάτων» με τη σχολική ομάδα της Πιερίας, όχι τον Αρχέλαο ως αγωνιζόμενο σωματείο. Προπονητής της στο τμήμα στίβου του Αρχέλαου αναφέρεται ο Νίκος Μαντζόλης."
+      ],
+      "source": "Pieria Social · 05/05/2023",
+      "sourceUrl": "https://pieriasocial.gr/?p=65222",
+      "personIds": [
+        "arch-katerina-natsiopoulou-track22"
+      ],
+      "image": "",
+      "imageCandidateUrl": "https://pieriasocial.gr/wp-content/uploads/2023/05/345043775_1408238946610076_3607211147729277878_n-768x1072.jpg",
+      "photoSourceUrl": "https://pieriasocial.gr/?p=65222",
+      "imageNote": "Υποψήφια φωτογραφία του δημοσιεύματος. Δεν ενεργοποιήθηκε ως εικόνα κάρτας πριν επιβεβαιωθεί η προέλευση/άδεια αναδημοσίευσης."
+    },
+    {
       "id": "handball-kyklopes-archelaos-38-29-may-2023",
       "date": "2023-05-02",
       "sport": "Χάντμπολ",
@@ -2012,7 +2035,9 @@
       "sourceUrl": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/3-%CE%BC%CE%B5%CF%84%CE%AC%CE%BB%CE%BB%CE%B9%CE%B1-%CE%B3%CE%B9%CE%B1-%CF%84%CE%BF%CF%85%CF%82-%CE%AD%CF%86%CE%B7%CE%B2%CE%BF%CF%85%CF%82-%CF%84%CE%BF%CF%85-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF/",
       "image": "https://odialogos.gr/wp-content/uploads/2023/04/%CE%91%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CE%A0%CE%AC%CE%BB%CE%B7-7.jpeg",
       "personIds": [
-        "arch-32f943eae9a0"
+        "arch-32f943eae9a0",
+        "arch-paschalis-iliatzikis-wrestling-2022",
+        "arch-savvas-charitidis-wrestling-2021"
       ],
       "imageSourceUrl": "https://odialogos.gr/wp-content/uploads/2023/04/%CE%91%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CE%A0%CE%AC%CE%BB%CE%B7-7.jpeg",
       "imageNote": "Φωτογραφία από το αντίστοιχο δημοσίευμα της πηγής"
@@ -2209,7 +2234,8 @@
         "arch-9d63723c6ec9",
         "arch-konstantinos-charisis-arch",
         "arch-pavlina-charitidou-arch",
-        "arch-44ef21dfb9b7"
+        "arch-44ef21dfb9b7",
+        "arch-eleni-mitsiaki-archery-2022"
       ],
       "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2022/09/Στο-Κύπελλο-Ελλάδος-στην-Φλώρινα-το-τμήμα-τοξοβολίας-του-ΓΑΣ-Αρχέλαος-Κατερίνης-36785.jpg",
       "image": "https://olympiobima.gr/wp-content/uploads/2022/09/Στο-Κύπελλο-Ελλάδος-στην-Φλώρινα-το-τμήμα-τοξοβολίας-του-ΓΑΣ-Αρχέλαος-Κατερίνης-36785.jpg",
@@ -2345,7 +2371,9 @@
         "arch-gymnastics-9814252c",
         "arch-f02298025e5c",
         "arch-bde5b8a0f677",
-        "arch-gymnastics-f2e4a89b"
+        "arch-gymnastics-f2e4a89b",
+        "arch-katerina-lampiri-gymnastics-2022",
+        "arch-christina-papavasileiou-gymnastics-2022"
       ],
       "image": "https://odelalis.gr/wp-content/uploads/2022/06/gasarxelaos.jpg",
       "imageSourceUrl": "https://odelalis.gr/wp-content/uploads/2022/06/gasarxelaos.jpg",
@@ -2415,7 +2443,12 @@
         "arch-510626a0ca62",
         "arch-1be1256bf733",
         "arch-bde5b8a0f677",
-        "arch-gymnastics-f2e4a89b"
+        "arch-gymnastics-f2e4a89b",
+        "arch-katerina-lampiri-gymnastics-2022",
+        "arch-christina-papavasileiou-gymnastics-2022",
+        "arch-kyriaki-parasidou-gymnastics-2022",
+        "arch-christos-karasavvidis-gymnastics-2022",
+        "arch-ioannis-goutsos-gymnastics-2022"
       ],
       "image": "https://odelalis.gr/wp-content/uploads/2022/05/archelaos-katerinis-2.jpg",
       "imageSourceUrl": "https://odelalis.gr/wp-content/uploads/2022/05/archelaos-katerinis-2.jpg",
@@ -2451,7 +2484,7 @@
       "summary": "Σπουδαία πρώτη παρουσία στο Πανελλήνιο Πρωτάθλημα του 2022 για τα νεότερα παιδιά του Αρχέλαου.",
       "body": [
         "Στο Πανελλήνιο Πρωτάθλημα ενόργανης γυμναστικής Παίδων–Κορασίδων που πραγματοποιήθηκε στις 14–15 Μαΐου 2022 στην Καλλιθέα, οι μικροί αθλητές και αθλήτριες του Αρχέλαου κατέκτησαν τρία χρυσά και ένα ασημένιο μετάλλιο.",
-        "Μεταξύ των συμμετεχόντων ήταν ο Άγγελος Παρούσης, πρώτος στο σύνθετο ατομικό Παίδων, και ο Σταύρος Κυριζόπουλος. Την αποστολή συνόδευσαν οι προπονητές Χρήστος Λιμπάνοβνος, Φώτης Παρθενίδης, Βασίλης Καλπακίδης και Φανή Γκιοουσούγλου."
+        "Μεταξύ των συμμετεχόντων ήταν ο Άγγελος Παρούσης, πρώτος στο σύνθετο ατομικό Παίδων, και ο Σταύρος Κυριζόπουλος. Την αποστολή συνόδευσαν οι προπονητές Χρήστος Λιμπάνοβνος, Φώτης Παρθενίδης, Βασίλης Καλπακίδης και Φανή Γκιοούσογλου."
       ],
       "source": "Επτά Ημέρες · 19/05/2022",
       "sourceUrl": "https://eptanews.gr/athlitismos/elampse-me-tis-epidoseis-to-tmima-gymnastikis-toy-gas-archelaos-katerinis-sto-panellinio-protathlima-paidon-korasidon-3-chrysa-metallia-kai-ena-argyro-kai-spoydaies-emfaniseis-ton-athliton-trion-toy/",
@@ -2460,7 +2493,8 @@
         "arch-e6b31b31c3a9",
         "arch-22234effaf98",
         "arch-f56820c52e55",
-        "arch-c5eb6d18a17a"
+        "arch-c5eb6d18a17a",
+        "arch-2cb062fabc11"
       ],
       "imageSourceUrl": "https://i1.wp.com/eptanews.gr/wp-content/uploads/2022/05/IMG-0bbec2cda8c04b07a9ed7052e53aca9a-V.jpg?fit=1600%2C1200&ssl=1",
       "imageNote": "Φωτογραφία από το αντίστοιχο δημοσίευμα της πηγής"
@@ -2507,7 +2541,9 @@
       "imageNote": "Φωτογραφία από το αντίστοιχο δημοσίευμα της πηγής · Οδηγός Πιερίας · 17/04/2022",
       "personIds": [
         "arch-6a4b08bec058",
-        "arch-96ddd7ba9e4d"
+        "arch-96ddd7ba9e4d",
+        "arch-paschalis-iliatzikis-wrestling-2022",
+        "arch-alexis-papadopoulos-wrestling-2022"
       ]
     },
     {
@@ -2575,7 +2611,8 @@
       "personIds": [
         "arch-6a4b08bec058",
         "arch-ba8233d165aa",
-        "arch-96ddd7ba9e4d"
+        "arch-96ddd7ba9e4d",
+        "arch-savvas-charitidis-wrestling-2021"
       ],
       "image": "",
       "imageNote": "Εικαστικό του Αρχέλαου — δεν υπάρχει επιβεβαιωμένη φωτογραφία της διοργάνωσης."
@@ -2601,6 +2638,33 @@
       "imageNote": "Φωτογραφία από το αντίστοιχο δημοσίευμα της πηγής"
     },
     {
+      "id": "wrestling-u13-zefyri-team-third-oct-2021",
+      "date": "2021-10-11",
+      "sport": "Πάλη",
+      "category": "achievements",
+      "title": "Τρίτος ο Αρχέλαος στο Πανελλήνιο Πάλης Παμπαίδων στο Ζεφύρι",
+      "summary": "Τρίτη ομαδική θέση με έξι αθλητές, ένα χρυσό, δύο ασημένια και ένα χάλκινο μετάλλιο.",
+      "body": [
+        "Στο Πανελλήνιο Πρωτάθλημα Πάλης Παμπαίδων που πραγματοποιήθηκε στις 9 Οκτωβρίου 2021 στο Ζεφύρι Αττικής, ο Αρχέλαος Κατερίνης κατέκτησε την τρίτη θέση στη βαθμολογία των συλλόγων με συμμετοχή έξι αθλητών.",
+        "Χρυσό μετάλλιο κατέκτησε ο Λευτέρης Παππάς, ασημένια οι Δημήτρης Παππάς και Σωκράτης Κωνσταντινίδης και χάλκινο ο Θανάσης Ευθυμιάδης. Στη διοργάνωση συμμετείχαν επίσης ο Μενέλαος («Μένιος») Βούλγαρης και ο Χαράλαμπος Κορδονούλης, με θετική αγωνιστική παρουσία.",
+        "Το τμήμα αναφέρει την προπονητική συμβολή του Σάββα Τσεντίδη και του Κώστα Ταμού. Ορισμένες αναδημοσιεύσεις γράφουν το επώνυμο των δύο Παππά με ένα π· εδώ χρησιμοποιείται η καθιερωμένη γραφή των υφιστάμενων εγγραφών Hall of Fame."
+      ],
+      "source": "Επτά Ημέρες · 11/10/2021",
+      "sourceUrl": "https://eptanews.gr/athlitismos/3os-o-archelaos-katerinis-sto-panellinio-protathlima-palis-pampaidon-poy-diexichthi-sto-zefyri-attikis/",
+      "personIds": [
+        "arch-e49a8c140396",
+        "arch-e87fdf323137",
+        "arch-73968afa517e",
+        "arch-ba8233d165aa",
+        "arch-c9649834c98e",
+        "arch-8c9cbe4897f0"
+      ],
+      "image": "",
+      "imageCandidateUrl": "https://i0.wp.com/eptanews.gr/wp-content/uploads/2021/10/1633797217899.jpeg?fit=834%2C626&ssl=1",
+      "photoSourceUrl": "https://eptanews.gr/athlitismos/3os-o-archelaos-katerinis-sto-panellinio-protathlima-palis-pampaidon-poy-diexichthi-sto-zefyri-attikis/",
+      "imageNote": "Φωτογραφία από δημοσίευμα με αναφορά στο παλαιστικό τμήμα· η αναδημοσίευση εικόνας δεν ενεργοποιήθηκε χωρίς επιβεβαίωση προέλευσης."
+    },
+    {
       "id": "wrestling-u15-porroia-team-first-2021",
       "date": "2021-06-28",
       "category": "achievements",
@@ -2622,6 +2686,91 @@
       "image": "https://cdn.onsmd.gr/img/1280/max/90/2021/06/27/pali.jpg?t=APQX9-XihIE_HW_SiXuvZg",
       "imageSourceUrl": "https://cdn.onsmd.gr/img/1280/max/90/2021/06/27/pali.jpg?t=APQX9-XihIE_HW_SiXuvZg",
       "imageNote": "Φωτογραφία από το αντίστοιχο δημοσίευμα του Onsports · 28/06/2021"
+    },
+    {
+      "id": "track-hatzipourgani-u18-record-patra-aug-2020",
+      "date": "2020-08-09",
+      "sport": "Στίβος",
+      "category": "achievements",
+      "title": "Στα 59.01 το πανελλήνιο ρεκόρ Κ18 της Άννας Χατζηπουργάνη στην Πάτρα",
+      "summary": "Η 17χρονη αθλήτρια του Αρχέλαου βελτίωσε ξανά το πανελλήνιο ρεκόρ Κ18 στα 400 μ. εμπόδια.",
+      "body": [
+        "Στο Πανελλήνιο Πρωτάθλημα στην Πάτρα, στις 9 Αυγούστου 2020, η Άννα Χατζηπουργάνη του Γ.Α.Σ. Αρχέλαος Κατερίνης σημείωσε 59.01 στα 400 μ. με εμπόδια και βελτίωσε το πανελλήνιο ρεκόρ της κατηγορίας Κ18.",
+        "Η επίδοση διαδέχθηκε το 59.17 που είχε πετύχει μία εβδομάδα νωρίτερα στα Ιωάννινα και το 59.48 στους διασυλλογικούς αγώνες της Κατερίνης. Ο ΣΕΓΑΣ διευκρινίζει ότι η αθλήτρια μετείχε στην κατάταξη του πρωταθλήματος Κ23, όχι στη βαθμολογία μεταλλίων της κατηγορίας γυναικών."
+      ],
+      "source": "ΣΕΓΑΣ · 09/08/2020",
+      "sourceUrl": "https://www.segas.gr/8046-panellinio-protathlima-a-g-peftei-i-avlaia-stin-patra/",
+      "personIds": [
+        "arch-68fef0f68151"
+      ],
+      "image": "",
+      "imageCandidateUrl": "https://www.segas.gr/wp-content/uploads/2022/05/hatzipourgani_2020.jpg",
+      "photoSourceUrl": "https://www.segas.gr/8046-panellinio-protathlima-a-g-peftei-i-avlaia-stin-patra/",
+      "imageNote": "Φωτογραφία του ΣΕΓΑΣ με την αθλήτρια· προέλευση/δικαιώματα προς επιβεβαίωση πριν χρησιμοποιηθεί."
+    },
+    {
+      "id": "track-hatzipourgani-u18-record-ioannina-aug-2020",
+      "date": "2020-08-02",
+      "sport": "Στίβος",
+      "category": "achievements",
+      "title": "Νέο πανελλήνιο ρεκόρ Κ18 και χρυσό Κ20 για την Άννα Χατζηπουργάνη",
+      "summary": "Με 59.17 στα 400 μ. εμπόδια στα Ιωάννινα, η αθλήτρια του Αρχέλαου κατέκτησε την πρώτη θέση στο Πανελλήνιο Κ20.",
+      "body": [
+        "Στις 2 Αυγούστου 2020, στο Πανελλήνιο Πρωτάθλημα Κ20 στο στάδιο «Ζωσιμάδες» των Ιωαννίνων, η Άννα Χατζηπουργάνη του Γ.Α.Σ. Αρχέλαος Κατερίνης κατέκτησε το χρυσό μετάλλιο στα 400 μ. με εμπόδια και σημείωσε 59.17.",
+        "Με τον χρόνο αυτό βελτίωσε την κορυφαία επίδοσή της, 59.48, από τους διασυλλογικούς αγώνες της Κατερίνης της 18ης Ιουλίου, θέτοντας νέο πανελλήνιο ρεκόρ Κ18."
+      ],
+      "source": "ΣΕΓΑΣ · 02/08/2020",
+      "sourceUrl": "https://www.segas.gr/8022-protathlima-k20-2i-imera-pogevma/",
+      "personIds": [
+        "arch-68fef0f68151"
+      ],
+      "image": "",
+      "imageCandidateUrl": "https://www.segas.gr/wp-content/uploads/2022/05/hatzipourgani20.jpg",
+      "photoSourceUrl": "https://www.segas.gr/8022-protathlima-k20-2i-imera-pogevma/",
+      "imageNote": "Η σελίδα πιστώνει τη φωτογραφία στην Eurokinissi· μόνο υποψήφια, χωρίς αναδημοσίευση."
+    },
+    {
+      "id": "track-u18-larisa-two-golds-jul-2020",
+      "date": "2020-07-26",
+      "sport": "Στίβος",
+      "category": "achievements",
+      "title": "Δύο χρυσά του Αρχέλαου στο Πανελλήνιο Κ18 στη Λάρισα",
+      "summary": "Πρωταθλήτρια η σκυτάλη 4×400 μ. κοριτσιών με 4:03.73 και χρυσό της Άννας Χατζηπουργάνη στα 400 μ. εμπόδια.",
+      "body": [
+        "Στο Πανελλήνιο Πρωτάθλημα Στίβου Κ18, στις 25–26 Ιουλίου 2020 στο στάδιο Αλκαζάρ της Λάρισας, ο Αρχέλαος Κατερίνης κατέκτησε δύο χρυσά μετάλλια.",
+        "Στον τελικό της σκυταλοδρομίας 4×400 μ. κοριτσιών η τετράδα Σοφία Κωνσταντινίδου, Δήμητρα Σάββα, Κωνσταντίνα Μακρίδου και Άννα Χατζηπουργάνη τερμάτισε πρώτη με 4:03.73, μπροστά από τον Γ.Σ. Σέρρες '93 (4:04.48).",
+        "Η Άννα Χατζηπουργάνη κατέκτησε επιπλέον το χρυσό στα 400 μ. με εμπόδια, με χρόνο 59.76 σύμφωνα με τον ΣΕΓΑΣ. Τα δύο αποτελέσματα αφορούν διαφορετικά αγωνίσματα της ίδιας διοργάνωσης και καταγράφονται μαζί σε μία ιστορική είδηση."
+      ],
+      "source": "KateriniSport / ΣΕΓΑΣ · 26/07/2020",
+      "sourceUrl": "https://katerinisport.gr/%CF%80%CE%B1%CE%BD%CE%B5%CE%BB%CE%BB%CE%B7%CE%BD%CE%B9%CE%BF%CE%BD%CE%AF%CE%BA%CE%B7%CF%82-%CE%BF-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CE%BA%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7/",
+      "personIds": [
+        "arch-sofia-konstantinidou-track22",
+        "arch-68fef0f68151"
+      ],
+      "image": "",
+      "imageCandidateUrl": "https://i0.wp.com/sportsfeed.gr/wp-content/uploads/2020/07/IMG_9264-1-800x533.jpg?resize=800%2C533&ssl=1",
+      "photoSourceUrl": "https://katerinisport.gr/%CF%80%CE%B1%CE%BD%CE%B5%CE%BB%CE%BB%CE%B7%CE%BD%CE%B9%CE%BF%CE%BD%CE%AF%CE%BA%CE%B7%CF%82-%CE%BF-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CE%BA%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7/",
+      "imageNote": "Εικόνα από το ρεπορτάζ της διοργάνωσης, δεν επιβεβαιώθηκε ότι απεικονίζει την τετράδα· μόνο υποψήφια."
+    },
+    {
+      "id": "track-hatzipourgani-interclub-400h-jul-2020",
+      "date": "2020-07-19",
+      "sport": "Στίβος",
+      "category": "achievements",
+      "title": "Με 59.48 η Χατζηπουργάνη στους διασυλλογικούς της Κατερίνης",
+      "summary": "Ισχυρή επίδοση στα 400 μ. εμπόδια Κ18 και σημαντικές συμμετοχές αθλητριών του Αρχέλαου στις 18 Ιουλίου 2020.",
+      "body": [
+        "Στους Διασυλλογικούς Αγώνες της Κατερίνης στις 18 Ιουλίου 2020, η Άννα Χατζηπουργάνη του Αρχέλαου έτρεξε τα 400 μ. με εμπόδια σε 59.48, επίδοση καλύτερη από το προηγούμενο πανελλήνιο ρεκόρ Κ18 που κατείχε. Ο χρόνος αναφέρεται από μεταγενέστερα δημοσιεύματα του ΣΕΓΑΣ ως σημείο αναφοράς πριν από τις νέες επιδόσεις 59.17 και 59.01.",
+        "Στην ίδια αγωνιστική αναφορά καταγράφονται η Στέλλα (Στυλιανή) Κωνσταντινίδου με 56.07 στα 400 μ. και η Σοφία Κωνσταντινίδου με 12.89 στα 100 μ. Η καταχώριση αποτυπώνει τη συμμετοχή αθλητριών του συλλόγου χωρίς να αποδίδει τίτλο πανελλήνιου πρωταθλήματος στους διασυλλογικούς."
+      ],
+      "source": "Gazzetta · 19/07/2020",
+      "sourceUrl": "https://www.gazzetta.gr/other-sports/stivos/article/1496535/hatzipoyrgani-itan-entyposiaki-me-5948-sta-400-m-emp",
+      "personIds": [
+        "arch-68fef0f68151",
+        "arch-sofia-konstantinidou-track22"
+      ],
+      "image": "",
+      "imageNote": "Δεν τεκμηριώθηκε ακόμα εικόνα του συγκεκριμένου αγώνα με δικαίωμα χρήσης."
     },
     {
       "id": "archery-olympus-series-june-2020",

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Offline, read-only pre-deployment risk scanner for the GENERATED dist/ tree.
 
-Scans every page, including all 682 historic profiles. Does not claim to test
+Scans all published pages and the actual canonical Hall profile count. Does not claim to test
 external servers, runtime browser behavior, malware or real user performance.
 Critical problems fail --strict; inherited legacy issues remain visible as
 warnings until reviewed, rather than being silently ignored or mass rewritten.
@@ -73,8 +73,15 @@ def check_release() -> dict:
             {"kind": kind, "file": file, "detail": detail[:240]})
 
     htmls = sorted(DIST.rglob("*.html"))
-    if len(htmls) < 695:
-        issue("error", "missing-pages", "dist/", "Expected 13 core pages plus 682 biographies")
+    master = json.loads((ROOT / "hall-of-fame-people.json").read_text(encoding="utf-8"))
+    expected_ids = {p["id"] for p in master["people"]}
+    if master.get("count") != len(master["people"]) or len(expected_ids) != len(master["people"]):
+        issue("error", "hall-master-invalid", "hall-of-fame-people.json", "Canonical Hall count or IDs are inconsistent")
+    profile_ids = {p.stem for p in (DIST / "people").glob("arch-*.html")}
+    if profile_ids != expected_ids:
+        issue("error", "hall-profile-parity", "people/", f"Missing {len(expected_ids-profile_ids)} canonical profiles; extra {len(profile_ids-expected_ids)}")
+    if len(htmls) < len(CORE) + len(expected_ids) + 1:  # 404 page
+        issue("error", "missing-pages", "dist/", "Generated HTML count below canonical Hall + core pages + 404")
     redirects: dict[str, str] = {}
     redirects_file = DIST / "_redirects"
     if not redirects_file.is_file():

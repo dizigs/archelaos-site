@@ -1,0 +1,229 @@
+Actual local output; public synthetic fixtures; no provider/production claim.
+
+Baseline: 10 methods, 9 failing assertions/subcases
+FF..FFFFFFF
+======================================================================
+FAIL: test_arbitrary_config_cannot_be_read (__main__.MentionsSecurity.test_arbitrary_config_cannot_be_read)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/archelaos-mentions-confinement/rebuild/tests/public_mentions_security_test.py", line 56, in test_arbitrary_config_cannot_be_read
+    self.assertNotEqual(result.returncode, 0)
+AssertionError: 0 == 0
+
+======================================================================
+FAIL: test_arbitrary_output_cannot_overwrite_outside (__main__.MentionsSecurity.test_arbitrary_output_cannot_overwrite_outside)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/archelaos-mentions-confinement/rebuild/tests/public_mentions_security_test.py", line 79, in test_arbitrary_output_cannot_overwrite_outside
+    self.assertEqual(self.outside.read_text(), self.original)
+AssertionError: '{\n  "schema_version": 1,\n  "generated_at[266 chars]n}\n' != '{"sentinel":"synthetic public fixture"}'
++ {"sentinel":"synthetic public fixture"}
+- {
+-   "schema_version": 1,
+-   "generated_at": "2026-11-03T06:42:45.127549+00:00",
+-   "purpose": "Private editorial review of PUBLIC mentions only; no verified achievements or automatic articles",
+-   "accounts_waiting_for_authorized_access": [],
+-   "candidate_count": 0,
+-   "candidates": [],
+-   "warnings": []
+- }
+- 
+
+
+======================================================================
+FAIL: test_hardlink_config_is_rejected (__main__.MentionsSecurity.test_hardlink_config_is_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/archelaos-mentions-confinement/rebuild/tests/public_mentions_security_test.py", line 66, in test_hardlink_config_is_rejected
+    self.assertNotEqual(self.run_cli().returncode, 0)
+AssertionError: 0 == 0
+
+======================================================================
+FAIL: test_registry_byte_limit_is_enforced (__main__.MentionsSecurity.test_registry_byte_limit_is_enforced)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/archelaos-mentions-confinement/rebuild/tests/public_mentions_security_test.py", line 105, in test_registry_byte_limit_is_enforced
+    self.assertNotEqual(self.run_cli().returncode, 0)
+AssertionError: 0 == 0
+
+======================================================================
+FAIL: test_report_parent_cannot_redirect_write (__main__.MentionsSecurity.test_report_parent_cannot_redirect_write)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/archelaos-mentions-confinement/rebuild/tests/public_mentions_security_test.py", line 100, in test_report_parent_cannot_redirect_write
+    self.assertEqual(sentinel.read_text(), self.original)
+AssertionError: '{\n  "schema_version": 1,\n  "generated_at[266 chars]n}\n' != '{"sentinel":"synthetic public fixture"}'
++ {"sentinel":"synthetic public fixture"}
+- {
+-   "schema_version": 1,
+-   "generated_at": "2026-11-03T06:42:45.485254+00:00",
+-   "purpose": "Private editorial review of PUBLIC mentions only; no verified achievements or automatic articles",
+-   "accounts_waiting_for_authorized_access": [],
+-   "candidate_count": 0,
+-   "candidates": [],
+-   "warnings": []
+- }
+- 
+
+
+======================================================================
+FAIL: test_symlink_and_hardlink_reports_are_rejected (__main__.MentionsSecurity.test_symlink_and_hardlink_reports_are_rejected) (kind='symlink')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/archelaos-mentions-confinement/rebuild/tests/public_mentions_security_test.py", line 90, in test_symlink_and_hardlink_reports_are_rejected
+    self.assertEqual(self.outside.read_text(), self.original)
+AssertionError: '{\n  "schema_version": 1,\n  "generated_at[266 chars]n}\n' != '{"sentinel":"synthetic public fixture"}'
++ {"sentinel":"synthetic public fixture"}
+- {
+-   "schema_version": 1,
+-   "generated_at": "2026-11-03T06:42:45.556045+00:00",
+-   "purpose": "Private editorial review of PUBLIC mentions only; no verified achievements or automatic articles",
+-   "accounts_waiting_for_authorized_access": [],
+-   "candidate_count": 0,
+-   "candidates": [],
+-   "warnings": []
+- }
+- 
+
+
+======================================================================
+FAIL: test_symlink_and_hardlink_reports_are_rejected (__main__.MentionsSecurity.test_symlink_and_hardlink_reports_are_rejected) (kind='hardlink')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/archelaos-mentions-confinement/rebuild/tests/public_mentions_security_test.py", line 90, in test_symlink_and_hardlink_reports_are_rejected
+    self.assertEqual(self.outside.read_text(), self.original)
+AssertionError: '{\n  "schema_version": 1,\n  "generated_at[266 chars]n}\n' != '{"sentinel":"synthetic public fixture"}'
++ {"sentinel":"synthetic public fixture"}
+- {
+-   "schema_version": 1,
+-   "generated_at": "2026-11-03T06:42:45.618638+00:00",
+-   "purpose": "Private editorial review of PUBLIC mentions only; no verified achievements or automatic articles",
+-   "accounts_waiting_for_authorized_access": [],
+-   "candidate_count": 0,
+-   "candidates": [],
+-   "warnings": []
+- }
+- 
+
+
+======================================================================
+FAIL: test_symlink_config_is_rejected (__main__.MentionsSecurity.test_symlink_config_is_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/archelaos-mentions-confinement/rebuild/tests/public_mentions_security_test.py", line 61, in test_symlink_config_is_rejected
+    self.assertNotEqual(self.run_cli().returncode, 0)
+AssertionError: 0 == 0
+
+======================================================================
+FAIL: test_symlink_registry_parent_is_rejected (__main__.MentionsSecurity.test_symlink_registry_parent_is_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/archelaos-mentions-confinement/rebuild/tests/public_mentions_security_test.py", line 74, in test_symlink_registry_parent_is_rejected
+    self.assertNotEqual(self.run_cli().returncode, 0)
+AssertionError: 0 == 0
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.774s
+
+FAILED (failures=9)
+
+
+Corrected confinement
+test_arbitrary_config_cannot_be_read (__main__.MentionsSecurity.test_arbitrary_config_cannot_be_read) ... ok
+test_arbitrary_output_cannot_overwrite_outside (__main__.MentionsSecurity.test_arbitrary_output_cannot_overwrite_outside) ... ok
+test_default_registry_and_report (__main__.MentionsSecurity.test_default_registry_and_report) ... ok
+test_existing_workflow_root_report_is_preserved (__main__.MentionsSecurity.test_existing_workflow_root_report_is_preserved) ... ok
+test_hardlink_config_is_rejected (__main__.MentionsSecurity.test_hardlink_config_is_rejected) ... ok
+test_registry_byte_limit_is_enforced (__main__.MentionsSecurity.test_registry_byte_limit_is_enforced) ... ok
+test_report_parent_cannot_redirect_write (__main__.MentionsSecurity.test_report_parent_cannot_redirect_write) ... ok
+test_symlink_and_hardlink_reports_are_rejected (__main__.MentionsSecurity.test_symlink_and_hardlink_reports_are_rejected) ... ok
+test_symlink_config_is_rejected (__main__.MentionsSecurity.test_symlink_config_is_rejected) ... ok
+test_symlink_registry_parent_is_rejected (__main__.MentionsSecurity.test_symlink_registry_parent_is_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.606s
+
+OK
+
+
+Existing integrity plus integrated confinement
+test_arbitrary_config_cannot_be_read (mentions_security_checks.MentionsSecurity.test_arbitrary_config_cannot_be_read) ... ok
+test_arbitrary_output_cannot_overwrite_outside (mentions_security_checks.MentionsSecurity.test_arbitrary_output_cannot_overwrite_outside) ... ok
+test_default_registry_and_report (mentions_security_checks.MentionsSecurity.test_default_registry_and_report) ... ok
+test_existing_workflow_root_report_is_preserved (mentions_security_checks.MentionsSecurity.test_existing_workflow_root_report_is_preserved) ... ok
+test_hardlink_config_is_rejected (mentions_security_checks.MentionsSecurity.test_hardlink_config_is_rejected) ... ok
+test_registry_byte_limit_is_enforced (mentions_security_checks.MentionsSecurity.test_registry_byte_limit_is_enforced) ... ok
+test_report_parent_cannot_redirect_write (mentions_security_checks.MentionsSecurity.test_report_parent_cannot_redirect_write) ... ok
+test_symlink_and_hardlink_reports_are_rejected (mentions_security_checks.MentionsSecurity.test_symlink_and_hardlink_reports_are_rejected) ... ok
+test_symlink_config_is_rejected (mentions_security_checks.MentionsSecurity.test_symlink_config_is_rejected) ... ok
+test_symlink_registry_parent_is_rejected (mentions_security_checks.MentionsSecurity.test_symlink_registry_parent_is_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.601s
+
+OK
+PUBLIC SOCIAL/PRESS MONITOR OK: RSS, Atom, URL whitelist, human-only publication.
+
+
+Combined CLI security
+test_missing_commit_is_failure (live_sync_security_test.GitBoundary.test_missing_commit_is_failure) ... fatal: Needed a single revision
+ok
+test_output_option_cannot_write_a_file (live_sync_security_test.GitBoundary.test_output_option_cannot_write_a_file) ... ok
+test_read_main_and_exact_commit (live_sync_security_test.GitBoundary.test_read_main_and_exact_commit) ... ok
+test_reject_options_revision_expressions_and_unapproved_paths (live_sync_security_test.GitBoundary.test_reject_options_revision_expressions_and_unapproved_paths) ... ok
+test_arbitrary_config_cannot_be_read (public_mentions_security_test.MentionsSecurity.test_arbitrary_config_cannot_be_read) ... ok
+test_arbitrary_output_cannot_overwrite_outside (public_mentions_security_test.MentionsSecurity.test_arbitrary_output_cannot_overwrite_outside) ... ok
+test_default_registry_and_report (public_mentions_security_test.MentionsSecurity.test_default_registry_and_report) ... ok
+test_existing_workflow_root_report_is_preserved (public_mentions_security_test.MentionsSecurity.test_existing_workflow_root_report_is_preserved) ... ok
+test_hardlink_config_is_rejected (public_mentions_security_test.MentionsSecurity.test_hardlink_config_is_rejected) ... ok
+test_registry_byte_limit_is_enforced (public_mentions_security_test.MentionsSecurity.test_registry_byte_limit_is_enforced) ... ok
+test_report_parent_cannot_redirect_write (public_mentions_security_test.MentionsSecurity.test_report_parent_cannot_redirect_write) ... ok
+test_symlink_and_hardlink_reports_are_rejected (public_mentions_security_test.MentionsSecurity.test_symlink_and_hardlink_reports_are_rejected) ... ok
+test_symlink_config_is_rejected (public_mentions_security_test.MentionsSecurity.test_symlink_config_is_rejected) ... ok
+test_symlink_registry_parent_is_rejected (public_mentions_security_test.MentionsSecurity.test_symlink_registry_parent_is_rejected) ... ok
+test_allowlisted_artifact_output (public_snapshot_security_test.SnapshotSecurity.test_allowlisted_artifact_output) ... ok
+test_default_output_preserves_public_manifest_contract (public_snapshot_security_test.SnapshotSecurity.test_default_output_preserves_public_manifest_contract) ... ok
+test_destination_hardlink_cannot_overwrite_outside_inode (public_snapshot_security_test.SnapshotSecurity.test_destination_hardlink_cannot_overwrite_outside_inode) ... ok
+test_destination_symlink_cannot_overwrite_outside_file (public_snapshot_security_test.SnapshotSecurity.test_destination_symlink_cannot_overwrite_outside_file) ... ok
+test_directory_destination_is_rejected (public_snapshot_security_test.SnapshotSecurity.test_directory_destination_is_rejected) ... ok
+test_missing_artifact_directory_is_created_within_checkout (public_snapshot_security_test.SnapshotSecurity.test_missing_artifact_directory_is_created_within_checkout) ... ok
+test_parent_swap_during_write_cannot_redirect_replace (public_snapshot_security_test.SnapshotSecurity.test_parent_swap_during_write_cannot_redirect_replace) ... ok
+test_parent_symlink_cannot_redirect_artifact_write (public_snapshot_security_test.SnapshotSecurity.test_parent_symlink_cannot_redirect_artifact_write) ... ok
+test_partial_write_preserves_previous_manifest_and_removes_temporary (public_snapshot_security_test.SnapshotSecurity.test_partial_write_preserves_previous_manifest_and_removes_temporary) ... ok
+test_traversal_and_unapproved_outputs_cannot_write (public_snapshot_security_test.SnapshotSecurity.test_traversal_and_unapproved_outputs_cannot_write) ... ok
+
+----------------------------------------------------------------------
+Ran 24 tests in 1.070s
+
+OK
+
+
+Build
+BUILD OK: 15 principal pages, 760 profiles, two sitemaps, a sitemap index, robots.txt and preserved redirects.
+Output: dist/ — not deployed. Production root was not modified.
+RELEASE QA OK: 15 core pages + 760 indexed profiles.
+Canonicals, robots, structured data, two sitemaps, redirects and local paths verified.
+
+
+Independent verify
+RELEASE QA OK: 15 core pages + 760 indexed profiles.
+Canonicals, robots, structured data, two sitemaps, redirects and local paths verified.
+
+
+Snapshot compatibility
+test_allowlisted_artifact_output (snapshot_security_checks.SnapshotSecurity.test_allowlisted_artifact_output) ... ok
+test_default_output_preserves_public_manifest_contract (snapshot_security_checks.SnapshotSecurity.test_default_output_preserves_public_manifest_contract) ... ok
+test_destination_hardlink_cannot_overwrite_outside_inode (snapshot_security_checks.SnapshotSecurity.test_destination_hardlink_cannot_overwrite_outside_inode) ... ok
+test_destination_symlink_cannot_overwrite_outside_file (snapshot_security_checks.SnapshotSecurity.test_destination_symlink_cannot_overwrite_outside_file) ... ok
+test_directory_destination_is_rejected (snapshot_security_checks.SnapshotSecurity.test_directory_destination_is_rejected) ... ok
+test_missing_artifact_directory_is_created_within_checkout (snapshot_security_checks.SnapshotSecurity.test_missing_artifact_directory_is_created_within_checkout) ... ok
+test_parent_swap_during_write_cannot_redirect_replace (snapshot_security_checks.SnapshotSecurity.test_parent_swap_during_write_cannot_redirect_replace) ... ok
+test_parent_symlink_cannot_redirect_artifact_write (snapshot_security_checks.SnapshotSecurity.test_parent_symlink_cannot_redirect_artifact_write) ... ok
+test_partial_write_preserves_previous_manifest_and_removes_temporary (snapshot_security_checks.SnapshotSecurity.test_partial_write_preserves_previous_manifest_and_removes_temporary) ... ok
+test_traversal_and_unapproved_outputs_cannot_write (snapshot_security_checks.SnapshotSecurity.test_traversal_and_unapproved_outputs_cannot_write) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.354s
+
+OK
+PUBLIC SNAPSHOT SELF-TEST OK: 10 public JSON datasets, SHA-256 and no private files.

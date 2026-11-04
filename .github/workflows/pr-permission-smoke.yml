@@ -6,10 +6,12 @@ on:
     paths:
       - '.github/workflows/pr-permission-smoke.yml'
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
 jobs:
   probe:
+    permissions:
+      contents: write
+      pull-requests: write
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:

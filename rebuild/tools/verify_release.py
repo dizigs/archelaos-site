@@ -98,13 +98,30 @@ def verify() -> None:
     assert len(canonical_set) == sum(e.get("indexable", True) for e in main), "Duplicate indexable canonicals"
     sitemap = ET.parse(DIST / "sitemap.xml")
     submaps = [node.text for node in sitemap.findall(".//s:loc", NS)]
-    expected = [SITE+"/sitemaps/pages.xml", SITE+"/sitemaps/people.xml"]
+    expected = [SITE+"/sitemaps/pages.xml", SITE+"/sitemaps/people.xml", SITE+"/sitemaps/events.xml"]
     assert submaps == expected, submaps
     pages = ET.parse(DIST / "sitemaps" / "pages.xml")
     profiles = ET.parse(DIST / "sitemaps" / "people.xml")
     loc_pages = [e.text for e in pages.findall(".//s:loc", NS)]
     loc_people = [e.text for e in profiles.findall(".//s:loc", NS)]
     assert set(loc_pages) == canonical_set and len(loc_pages) == len(canonical_set)
+    event_master = json.loads((ROOT / "archelaos-history-events.json").read_text(encoding="utf-8"))["events"]
+    event_sitemap = ET.parse(DIST / "sitemaps" / "events.xml")
+    event_urls = [e.text for e in event_sitemap.findall(".//s:loc", NS)]
+    expected_events = {SITE + "/events/index.html"} | {SITE + "/events/" + e["id"] + ".html" for e in event_master}
+    assert set(event_urls) == expected_events and len(event_urls) == len(expected_events), "Timeline sitemap mismatch"
+    listing_html = (DIST / "events" / "index.html").read_text(encoding="utf-8")
+    assert listing_html.count("/assets/site/js/support-footer.js") == 1, "Timeline index support script missing"
+    assert listing_html.count("/assets/site/css/support-footer.css") == 1, "Timeline index support CSS missing"
+    for ev in event_master:
+        page = (DIST / "events" / (ev["id"] + ".html"))
+        assert page.is_file(), "Missing timeline event page: " + ev["id"]
+        html = page.read_text(encoding="utf-8")
+        assert "/assets/site/js/shell.js" in html and "/assets/site/css/components.css" in html
+        assert html.count("/assets/site/js/support-footer.js") == 1, "Event support script missing or duplicated"
+        assert html.count("/assets/site/css/support-footer.css") == 1, "Event support CSS missing or duplicated"
+        assert "https://www.archelaos.club/events/" + ev["id"] + ".html" in html
+        assert "<h1>" + escape(ev["title"]) + "</h1>" in html
     current_total = len(json.loads((ROOT / "hall-of-fame-people.json").read_text(encoding="utf-8"))["people"])
     assert len(loc_people) == len(set(loc_people)) == current_total
     addenda = json.loads((ROOT/"rebuild"/"data"/"people-addenda.json").read_text(encoding="utf-8"))["entries"]
@@ -120,8 +137,10 @@ def verify() -> None:
         assert "<header" not in text.lower(), "Duplicated legacy header in " + file.name
         assert "<footer" not in text.lower(), "Duplicated legacy footer in " + file.name
         assert '/assets/site/css/components.css' in text, "Shared controls CSS missing: " + file.name
+        assert text.count('/assets/site/css/support-footer.css') == 1, "People support CSS missing or duplicated: " + file.name
+        assert text.count('/assets/site/js/support-footer.js') == 1, "People support script missing or duplicated: " + file.name
 
-    # All public routes (13 pages, 682 biographies and 404) must share one
+    # All public routes (core pages, canonical biographies and 404) must share one
     # footer, accessibility trigger and return-to-top implementation.
     not_found=(DIST/"404.html").read_text(encoding="utf-8")
     assert '/assets/site/js/shell.js' in not_found and '/assets/site/css/components.css' in not_found, "404 is missing site-wide tools"
@@ -140,9 +159,47 @@ def verify() -> None:
     hall = json.loads((DIST / "hall-of-fame-people.json").read_text(encoding="utf-8"))
     modal = json.loads((DIST / "assets/site/data/people.json").read_text(encoding="utf-8"))
     assert hall == master == modal, "Hall of Fame release differs from canonical master"
+    aliases = json.loads((ROOT/"hall-of-fame-person-aliases.json").read_text(encoding="utf-8"))["aliases"]
+    assert json.loads((DIST/"hall-of-fame-person-aliases.json").read_text(encoding="utf-8"))["aliases"] == aliases
+    canonical_ids = {p["id"] for p in master["people"]}
+    redirects = (DIST/"_redirects").read_text(encoding="utf-8")
+    favorites_code = (DIST/"assets/site/js/favorites.js").read_text(encoding="utf-8")
+    for old_id, current_id in aliases.items():
+        assert old_id not in canonical_ids and current_id in canonical_ids, "Broken Hall identity migration"
+        assert not (DIST/"people"/(old_id+".html")).exists(), "Duplicate retired Hall profile still public"
+        assert f"/people/{old_id}.html /people/{current_id}.html 301" in redirects, "Missing permanent historical profile redirect"
+        assert old_id in favorites_code and current_id in favorites_code, "Old favorite identity not migrated"
+    for js_path in ("biographies.js", "archive-catalog.js", "home.js"):
+        code = (DIST / "assets/site/js" / js_path).read_text(encoding="utf-8")
+        assert "/hall-of-fame-people.json" in code, "Legacy Hall feed in " + js_path
     assert hall["count"] == len(hall["people"]), "Hall count inconsistent"
+    assert f'<strong id="hall-total">{hall["count"]}</strong>' in (DIST/"hall-of-fame.html").read_text(encoding="utf-8"), "Hall hero has stale profile count"
+    assert f'<span id="new-people-total">{hall["count"]}</span>' in (DIST/"index.html").read_text(encoding="utf-8"), "Homepage has stale profile count"
+    home_page = (DIST/"index.html").read_text(encoding="utf-8")
+    assert 'id="upcoming-matches"' not in home_page, "Removed homepage calendar section has reappeared"
+    assert 'id="fx-list"' not in home_page, "Upcoming fixture cards remain on homepage"
+    assert 'Το επόμενο κεφάλαιο<br>γράφεται' not in home_page, "Removed upcoming matches heading reappeared"
+    assert 'id="about"' in home_page, "Homepage section removal damaged the next section"
+    # Preserve the legacy search link only for direct, explicitly selected fixture
+    # deep links; the ordinary homepage must not display any fixture/calendar UI.
+    archive_fixture_js = (DIST/"assets/site/js/fixture-archive.js").read_text(encoding="utf-8")
+    assert "fx-direct-fixture" in archive_fixture_js and "new URLSearchParams(location.search).get('fixture')" in archive_fixture_js, "Archived fixture search links must remain reachable"
+    assert "match-calendar.js" not in home_page and "/calendar.ics" not in home_page, "Calendar script still in homepage"
+
     ids = [person["id"] for person in hall["people"]]
     assert len(ids) == len(set(ids)), "Duplicate Hall person identifiers"
+    # Identity correction: two historical spellings refer to one coach.
+    fani_id = "arch-2cb062fabc11"
+    retired_fani_id = "arch-fani-gkiousoglou-gym-2025"
+    fani = [person for person in hall["people"] if person["id"] == fani_id]
+    assert len(fani) == 1 and fani[0]["name"] == "Φανή Γκιοούσογλου", "Fani identity/spelling regressed"
+    assert retired_fani_id not in ids, "Duplicate Fani Hall identity returned"
+    assert "2024" in fani[0]["bio"] and "2025" in fani[0]["bio"], "Merged Fani biography lost historical coverage"
+    assert (DIST / "people" / (fani_id + ".html")).is_file(), "Canonical Fani profile missing"
+    assert not (DIST / "people" / (retired_fani_id + ".html")).exists(), "Retired Fani profile incorrectly republished"
+    redirects = (DIST / "_redirects").read_text(encoding="utf-8")
+    assert f"/people/{retired_fani_id}.html /people/{fani_id}.html 301" in redirects, "Fani legacy URL redirect missing"
+
     names = [(p["name"].strip().casefold(), p.get("role", "").strip().casefold()) for p in hall["people"]]
     assert len(names) == len(set(names)), "Duplicate Hall names and roles"
     # A single traceable graph must connect every publicly named person/event
@@ -267,11 +324,15 @@ def verify() -> None:
     assert "Διαβάστε την είδηση" not in home_js, "Redundant homepage card caption restored"
     # Eighteen regular cards per page PLUS one distinct featured card on page 1.
     # Filtering still applies before slicing and the featured story is not duplicated.
-    assert "PAGE_SIZE=18" in news_js, "News pagination size changed"
+    assert "PAGE_SIZE=19" in news_js, "News pagination size changed"
     assert "x.id!==lead?.id" in news_js, "Highlighted article duplicated in the news grid"
-    assert "const pageCount=Math.max(1,Math.ceil(items.length/PAGE_SIZE));" in news_js, "Featured news must be separate from eighteen regular cards"
-    assert "const offset=(state.page-1)*PAGE_SIZE;" in news_js, "News pagination offset missing"
-    assert "items.slice(offset,offset+PAGE_SIZE)" in news_js, "Expected eighteen regular news cards per page"
+    assert "const showLead=state.category==='all'&&!q&&!!lead;" in news_js, "Empty news feed must not invent a featured story"
+    assert "const total=items.length+(showLead?1:0);" in news_js, "Featured story must count towards page size"
+    assert "const pageCount=Math.max(1,Math.ceil(total/PAGE_SIZE));" in news_js, "News pagination must count all visible stories"
+    assert "const offset=showLead?Math.max(0,(state.page-1)*PAGE_SIZE-1):(state.page-1)*PAGE_SIZE;" in news_js, "News pagination offset missing"
+    assert "const pageLimit=showLead&&state.page===1?PAGE_SIZE-1:PAGE_SIZE;" in news_js, "Featured story must leave eighteen regular slots on page one"
+    assert "items.slice(offset,offset+pageLimit)" in news_js, "Expected nineteen news stories per page"
+    assert "const last=Math.min(state.page*PAGE_SIZE,total);" in news_js, "News pagination count must include the featured story"
     assert "renderPagination(pageCount)" in news_js, "News page-number links not rendered"
     assert "window.addEventListener('popstate'" in news_js, "News page history navigation missing"
     assert 'id="an-pagination"' in (DIST/"news.html").read_text(encoding="utf-8"), "News pagination nav missing"
@@ -321,31 +382,20 @@ def verify() -> None:
     assert "Cache-Control: public, max-age=0, must-revalidate" in headers, "Unversioned assets may remain stale"
     assert not (DIST / "rebuild").exists(), "Never publish preview folder"
     assert not (DIST / "research").exists(), "Nonpublished source-checked history must never enter deployment"
-    from build_match_schedule import calendar as make_ical, validate as validate_matches
+    # Public fixture/training facts remain available, but NO calendar exports.
+    from build_match_schedule import validate as validate_matches
+    from build_training_schedule import validate as validate_training
     fixtures_data = json.loads((ROOT/"rebuild/data/match-schedule.json").read_text(encoding="utf-8"))
-    valid_fixtures = validate_matches(fixtures_data)
-    assert len(valid_fixtures)==len(fixtures_data["matches"])
-    assert (DIST/"calendar.ics").read_bytes()==make_ical(fixtures_data).encode("utf-8"), "Published calendar out of sync"
-    for fixture in valid_fixtures:
-        individual = (DIST/"calendar/events"/(fixture["id"]+".ics"))
-        assert individual.is_file(), "Missing personal-calendar file for " + fixture["id"]
-        assert individual.read_bytes()==make_ical({**fixtures_data,"matches":[fixture]}).encode("utf-8")
-
-    # The training calendar is a live subscription generated from the same
-    # canonical public JSON used by the department popups (not a one-off ICS).
-    from build_training_schedule import calendar as training_ical, validate as validate_training
-    training_data = json.loads((ROOT / "rebuild/data/training-schedule.json").read_text(encoding="utf-8"))
-    training_groups = validate_training(training_data)
-    assert training_groups, "Missing canonical training schedule"
-    assert (DIST/"assets/site/data/training-schedule.json").is_file(), "Training data not published"
+    assert len(validate_matches(fixtures_data)) == len(fixtures_data["matches"])
+    training_data = json.loads((ROOT/"rebuild/data/training-schedule.json").read_text(encoding="utf-8"))
+    assert validate_training(training_data), "Training source records missing"
+    assert (DIST/"assets/site/data/training-schedule.json").is_file(), "Training facts missing"
     assert json.loads((DIST/"assets/site/data/training-schedule.json").read_text(encoding="utf-8")) == training_data
-    feed_dir = DIST / "calendar/training"
-    assert (feed_dir/"all.ics").read_bytes() == training_ical(training_data).encode("utf-8"), "All-sports training subscription out of sync"
-    for key, department in training_groups.items():
-        if department["sessions"]:
-            assert (feed_dir/(key+".ics")).read_bytes() == training_ical(training_data,key).encode("utf-8"), "Department training subscription out of sync: "+key
-    assert "webcal://archelaos.club/calendar/training/" in (DIST/"assets/site/js/departments.js").read_text(encoding="utf-8")
-    assert "Content-Type: text/calendar" in headers, "Subscribed ICS content type not set"
+    assert not (DIST/"calendar.ics").exists(), "Match calendars remain published"
+    assert not (DIST/"calendar").exists(), "Calendar directory remains published"
+    assert not list(DIST.rglob("*.ics")), "ICS calendar files remain published"
+    assert "webcal://" not in (DIST/"assets/site/js/departments.js").read_text(encoding="utf-8")
+    assert "/calendar.ics" not in headers, "Removed feed still in headers"
 
     graph = json.loads((DIST / "assets/site/data/approved-event-graph.json").read_text(encoding="utf-8"))
     assert graph["publication_scope"] == "approved_only"
@@ -429,9 +479,9 @@ def verify() -> None:
 
     # Deep links must open the requested department popup or fixture card.
     departments_js = (DIST / "assets/site/js/departments.js").read_text(encoding="utf-8")
-    fixtures_js = (DIST / "assets/site/js/match-calendar.js").read_text(encoding="utf-8")
+    fixtures_js = (DIST / "assets/site/js/fixture-archive.js").read_text(encoding="utf-8")
     assert "card.click()" in departments_js, "Search department link does not open its popup"
-    assert "get('fixture')" in fixtures_js and "card(exact,0)" in fixtures_js, (
+    assert "get('fixture')" in fixtures_js and "data.matches.find" in fixtures_js, (
         "Search fixture deep links do not render the selected match"
     )
     assert "fixture='+value" in catalog_js and "department:'/tmimata.html#sport-'" in catalog_js, (

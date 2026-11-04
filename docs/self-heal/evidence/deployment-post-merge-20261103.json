@@ -1,0 +1,38 @@
+{
+  "access": null,
+  "buildLogMilestones": [
+    {
+      "message": "Assets published!",
+      "observedAt": "2026-11-03T12:03:22.762147+00:00"
+    },
+    {
+      "message": "Your site was deployed!",
+      "observedAt": "2026-11-03T12:03:24.003438+00:00"
+    }
+  ],
+  "deploymentId": "87480969-f2fb-423e-98e1-208918e7c83f",
+  "environment": "production",
+  "expectedCommit": "4ffe67fe607c7aa26169f5b20a7a559923870ad9",
+  "httpHealth": {
+    "bytes": 23060,
+    "endpoint": null,
+    "errorClass": null,
+    "healthy": true,
+    "htmlSha256": "3da97671b3b0c275b2b549fc4666c5f994776d3e25b7e79506d637ef3a6a837f",
+    "responseLayer": null,
+    "scope": "HTTP and static page landmarks only; no browser interaction claim",
+    "status": 200,
+    "url": "https://www.archelaos.club/"
+  },
+  "normalizedLogSha256": "33478269d763dace4cd6d3b2d3718acca1130a2818f21bf55a51334cb0c463e9",
+  "observedCommit": "4ffe67fe607c7aa26169f5b20a7a559923870ad9",
+  "reason": "exact_commit_stages_real_logs_and_http",
+  "stages": {
+    "build": "success",
+    "clone_repo": "success",
+    "deploy": "success",
+    "initialize": "success",
+    "queued": "success"
+  },
+  "status": "VERIFIED"
+}

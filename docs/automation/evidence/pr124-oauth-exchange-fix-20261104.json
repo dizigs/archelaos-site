@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-04",
+  "source": "User-reported OAuth callback error",
+  "errorCode": "GOOGLE_TOKEN_EXCHANGE_UNCERTAIN",
+  "cause": "Cloudflare Workers does not implement RequestInit.redirect='error'; it throws TypeError before sending provider request. Ambient Workers fetch stored as an instance property also risks Illegal invocation; both fixed.",
+  "confidence": "Known runtime incompatibility verified from official Cloudflare docs; no raw per-request exception log was available, and successful Admin token exchange still requires user-operated retry.",
+  "fixes": {
+    "automation/apps-script/oauth.mjs": [
+      "Google fetch redirect: manual",
+      "receiver-safe fetch wrapper"
+    ],
+    "automation/apps-script/editor.mjs": [
+      "Google fetch redirect: manual",
+      "receiver-safe fetch wrapper"
+    ],
+    "automation/apps-script/security.mjs": [
+      "reject any 3xx before consuming body"
+    ],
+    "tests": [
+      "new synthetic regressions for Google OAuth and projects fetch, strict redirect refusal, single call, safe receiver"
+    ]
+  },
+  "sourceHead": "48b0dfbd30258ec362286353e45dd1fb3edbad16",
+  "cloudflareDeployment": {
+    "id": "258b87f7-409c-42ff-a11f-48768e7b6aba",
+    "version": "c2a77e6b-ab1f-4f56-8dd7-9f239a707902",
+    "previousVersion": "d95999ce-f3cc-45f4-b7c5-ae390824d477",
+    "sameWorker": true,
+    "keptTenModuleParts": true,
+    "keptExistingBindings": true
+  },
+  "tests": [
+    {
+      "target": "GitHub Cloudflare Pages deployment status offline test job",
+      "result": "success"
+    },
+    {
+      "target": "HTTP GET /health",
+      "result": "HTTP 200"
+    },
+    {
+      "target": "unauthenticated HTTP GET /api/apps-script/content",
+      "result": "HTTP 503 EXECUTOR_INTERFACE_UNCONFIGURED"
+    },
+    {
+      "target": "synthetic unrecognized-state Google OAuth callback",
+      "result": "HTTP 401 OAUTH_STATE_EXPIRED_OR_REPLAYED"
+    }
+  ],
+  "remaining": [
+    "User-operated fresh Google Admin OAuth consent/token exchange",
+    "Verified Admin identity + exact Google-granted scopes",
+    "Google projects.get/getContent read-only",
+    "Trusted executor authentication port",
+    "Encrypted backup and trigger check before edits",
+    "Live writes still disabled"
+  ],
+  "sensitiveMaterialLogged": false,
+  "googleMutationPerformed": false,
+  "oldConsentCodeReused": false
+}

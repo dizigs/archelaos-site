@@ -1,0 +1,290 @@
+{
+  "batchId": "archelaos-facebook-2020-2026-hof-20261103",
+  "status": "STAGED_FOR_HOF_IDENTITY_REVIEW",
+  "scope": {
+    "from": "2020-01-01",
+    "to": "2026-11-03",
+    "sports": "όλα τα ενεργά και ιστορικά τμήματα· χωρίς ΣΦΚ Πιερικός Αρχέλαος μπάσκετ"
+  },
+  "relatedIssue": "https://github.com/dizigs/archelaos-site/issues/93",
+  "baseRepository": "dizigs/archelaos-site",
+  "branch": "research/facebook-history-hof-20261103",
+  "publishedHallPeopleSnapshot": 763,
+  "stagedNewsItems": 6,
+  "policies": [
+    "Οι αναρτήσεις επίσημων Facebook τμημάτων τεκμηριώνουν το γεγονός χωρίς απαίτηση δεύτερου ΜΜΕ.",
+    "Το Facebook δεν υποστηρίχθηκε σε άμεσο scrape από Firecrawl: χρησιμοποιήθηκαν ευρετηριασμένες αναρτήσεις και επιπλέον πλήρη άρθρα.",
+    "Μία είδηση ανά πραγματική διοργάνωση/γεγονός, χωρίς αλλαγή ιστορικών IDs.",
+    "Ταυτοποίηση με πλήρες όνομα, άθλημα, εποχή και συγκείμενο· όχι τεκμαιρόμενη ταύτιση συνωνύμων.",
+    "Οι υποψήφιες εικόνες τρίτων παραμένουν imageCandidateUrl· δεν συνεπάγεται ελεύθερη άδεια αναδημοσίευσης.",
+    "Αποφυγή ταυτόχρονης τροποποίησης του hall-of-fame-people.json λόγω ανοικτού PR #76. Μόνο staged source proposals."
+  ],
+  "proposedNewPeople": [
+    {
+      "proposedId": "arch-dimitra-savva-track2020",
+      "name": "Δήμητρα Σάββα",
+      "name_en": "Dimitra Savva",
+      "role": "Αθλήτρια · Στίβος",
+      "role_en": "Athlete · Athletics",
+      "category": "athlete",
+      "bio": "Μέλος της ομάδας στίβου του Γ.Α.Σ. Αρχέλαος Κατερίνης που κατέκτησε το χρυσό μετάλλιο στη σκυταλοδρομία 4×400 μ. κοριτσιών Κ18 στο Πανελλήνιο Πρωτάθλημα της Λάρισας, στις 26 Ιουλίου 2020. Μαζί με τις Σοφία Κωνσταντινίδου, Κωνσταντίνα Μακρίδου και Άννα Χατζηπουργάνη τερμάτισε πρώτη με 4:03.73.",
+      "bio_en": "Member of Archelaos' U18 girls' 4×400 m national champion relay team in Larissa on 26 July 2020 (4:03.73).",
+      "evidence": [
+        "https://katerinisport.gr/%CF%80%CE%B1%CE%BD%CE%B5%CE%BB%CE%BB%CE%B7%CE%BD%CE%B9%CE%BF%CE%BD%CE%AF%CE%BA%CE%B7%CF%82-%CE%BF-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CE%BA%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7/",
+        "https://sportsfeed.gr/panellinio-k18-larisa-2020-livefeed-2i-mera/"
+      ],
+      "confidence": "confirmed_public_results",
+      "status": "new_candidate_not_published"
+    },
+    {
+      "proposedId": "arch-konstantina-makridou-track2020",
+      "name": "Κωνσταντίνα Μακρίδου",
+      "name_en": "Konstantina Makridou",
+      "role": "Αθλήτρια · Στίβος",
+      "role_en": "Athlete · Athletics",
+      "category": "athlete",
+      "bio": "Αθλήτρια στίβου του Γ.Α.Σ. Αρχέλαος Κατερίνης, μέλος της χρυσής ομάδας 4×400 μ. κοριτσιών Κ18 στο Πανελλήνιο Πρωτάθλημα της Λάρισας στις 26 Ιουλίου 2020. Αγωνίστηκε μαζί με τις Σοφία Κωνσταντινίδου, Δήμητρα Σάββα και Άννα Χατζηπουργάνη στην πρώτη θέση με επίδοση 4:03.73.",
+      "bio_en": "Member of Archelaos' U18 girls' 4×400 m national champion relay team in Larissa on 26 July 2020 (4:03.73).",
+      "evidence": [
+        "https://katerinisport.gr/%CF%80%CE%B1%CE%BD%CE%B5%CE%BB%CE%BB%CE%B7%CE%BD%CE%B9%CE%BF%CE%BD%CE%AF%CE%BA%CE%B7%CF%82-%CE%BF-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CE%BA%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7/",
+        "https://sportsfeed.gr/panellinio-k18-larisa-2020-livefeed-2i-mera/"
+      ],
+      "confidence": "confirmed_public_results",
+      "status": "new_candidate_not_published"
+    },
+    {
+      "proposedId": "arch-styliani-konstantinidou-track2020",
+      "name": "Στυλιανή (Στέλλα) Κωνσταντινίδου",
+      "name_en": "Styliani (Stella) Konstantinidou",
+      "role": "Αθλήτρια · Στίβος",
+      "role_en": "Athlete · Athletics",
+      "category": "athlete",
+      "bio": "Αθλήτρια στίβου του Γ.Α.Σ. Αρχέλαος Κατερίνης. Στους Διασυλλογικούς Αγώνες της Κατερίνης στις 18 Ιουλίου 2020 σημείωσε 56.07 στα 400 μ. Το αγωνιστικό ρεπορτάζ χρησιμοποιεί το όνομα «Στέλλα», ενώ στον επίσημο πίνακα αγωνιστικών αποτελεσμάτων αναφέρεται ως «Στυλιανή».",
+      "bio_en": "Archelaos 400 m athlete, recorded at 56.07 in Katerini on 18 July 2020; listed as Styliani in official results and Stella in reporting.",
+      "evidence": [
+        "https://www.gazzetta.gr/other-sports/stivos/article/1496535/hatzipoyrgani-itan-entyposiaki-me-5948-sta-400-m-emp",
+        "https://www.sportime.gr/wp-content/uploads/2020/07/panellinio-protathlima-k20-simmetoches.pdf"
+      ],
+      "confidence": "high_same_event_same_result",
+      "status": "new_candidate_not_published"
+    }
+  ],
+  "enrichExisting": [
+    {
+      "id": "arch-sofia-konstantinidou-track22",
+      "name": "Σοφία Κωνσταντινίδου",
+      "appendBio": "Το 2020 αναδείχθηκε πρωταθλήτρια Ελλάδας Κ18 με τη σκυταλοδρομία 4×400 μ. του Αρχέλαου (4:03.73) στη Λάρισα. Στους διασυλλογικούς αγώνες της Κατερίνης στις 18 Ιουλίου 2020 είχε επίσης επίδοση 12.89 στα 100 μ.",
+      "sources": [
+        "https://katerinisport.gr/%CF%80%CE%B1%CE%BD%CE%B5%CE%BB%CE%BB%CE%B7%CE%BD%CE%B9%CE%BF%CE%BD%CE%AF%CE%BA%CE%B7%CF%82-%CE%BF-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CE%BA%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7/",
+        "https://www.gazzetta.gr/other-sports/stivos/article/1496535/hatzipoyrgani-itan-entyposiaki-me-5948-sta-400-m-emp"
+      ]
+    },
+    {
+      "id": "arch-68fef0f68151",
+      "name": "Άννα Χατζηπουργάνη",
+      "appendBio": "Το 2020 σημείωσε 59.48 στα 400 μ. εμπόδια στους διασυλλογικούς της Κατερίνης (18/7), κατέκτησε δύο χρυσά στο Πανελλήνιο Κ18 στη Λάρισα — ατομικό στα 400 μ. εμπόδια με 59.76 και σκυτάλη 4×400 μ. με 4:03.73 — και βελτίωσε το πανελλήνιο ρεκόρ Κ18 σε 59.17 στα Ιωάννινα (2/8) και 59.01 στην Πάτρα (9/8).",
+      "sources": [
+        "https://www.segas.gr/8022-protathlima-k20-2i-imera-pogevma/",
+        "https://www.segas.gr/8046-panellinio-protathlima-a-g-peftei-i-avlaia-stin-patra/",
+        "https://katerinisport.gr/%CF%80%CE%B1%CE%BD%CE%B5%CE%BB%CE%BB%CE%B7%CE%BD%CE%B9%CE%BF%CE%BD%CE%AF%CE%BA%CE%B7%CF%82-%CE%BF-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CE%BA%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7/"
+      ]
+    },
+    {
+      "id": "arch-e49a8c140396",
+      "name": "Λευτέρης Παππάς",
+      "appendBio": "Τον Οκτώβριο του 2021 κατέκτησε χρυσό μετάλλιο στο Πανελλήνιο Πρωτάθλημα Παμπαίδων στο Ζεφύρι, συνεισφέροντας στην τρίτη ομαδική θέση του Αρχέλαου.",
+      "sources": [
+        "https://eptanews.gr/athlitismos/3os-o-archelaos-katerinis-sto-panellinio-protathlima-palis-pampaidon-poy-diexichthi-sto-zefyri-attikis/",
+        "https://odigos-pierias.gr/%CE%B1%CE%BD%CE%B1%CF%87%CF%89%CF%81%CE%BF%CF%8D%CE%BD-%CE%B3%CE%B9%CE%B1-%CF%84%CE%B7%CE%BD-%CF%80%CF%8C%CE%BB%CE%B7-%CF%84%CE%B7%CF%82-%CE%BE%CE%AC%CE%BD%CE%B8%CE%B7%CF%82-%CE%BF%CE%B9-%CF%80/"
+      ]
+    },
+    {
+      "id": "arch-e87fdf323137",
+      "name": "Δημήτρης Παππάς",
+      "appendBio": "Τον Οκτώβριο του 2021 κατέκτησε ασημένιο μετάλλιο στο Πανελλήνιο Πρωτάθλημα Παμπαίδων στο Ζεφύρι, με τον Αρχέλαο τρίτο στην ομαδική κατάταξη.",
+      "sources": [
+        "https://eptanews.gr/athlitismos/3os-o-archelaos-katerinis-sto-panellinio-protathlima-palis-pampaidon-poy-diexichthi-sto-zefyri-attikis/"
+      ]
+    },
+    {
+      "id": "arch-73968afa517e",
+      "name": "Σωκράτης Κωνσταντινίδης",
+      "appendBio": "Τον Οκτώβριο του 2021 κατέκτησε ασημένιο μετάλλιο στο Πανελλήνιο Πρωτάθλημα Παμπαίδων στο Ζεφύρι.",
+      "sources": [
+        "https://eptanews.gr/athlitismos/3os-o-archelaos-katerinis-sto-panellinio-protathlima-palis-pampaidon-poy-diexichthi-sto-zefyri-attikis/"
+      ]
+    },
+    {
+      "id": "arch-ba8233d165aa",
+      "name": "Θανάσης Ευθυμιάδης",
+      "appendBio": "Τον Οκτώβριο του 2021 κατέκτησε χάλκινο μετάλλιο στο Πανελλήνιο Πρωτάθλημα Παμπαίδων στο Ζεφύρι.",
+      "sources": [
+        "https://eptanews.gr/athlitismos/3os-o-archelaos-katerinis-sto-panellinio-protathlima-palis-pampaidon-poy-diexichthi-sto-zefyri-attikis/"
+      ]
+    },
+    {
+      "id": "arch-c9649834c98e",
+      "name": "Χαράλαμπος Κορδονούλης",
+      "appendBio": "Συμμετείχε στο Πανελλήνιο Πρωτάθλημα Παμπαίδων στο Ζεφύρι τον Οκτώβριο του 2021, όπου η ομάδα του Αρχέλαου αναδείχθηκε τρίτη.",
+      "sources": [
+        "https://eptanews.gr/athlitismos/3os-o-archelaos-katerinis-sto-panellinio-protathlima-palis-pampaidon-poy-diexichthi-sto-zefyri-attikis/"
+      ]
+    },
+    {
+      "id": "arch-katerina-natsiopoulou-track22",
+      "name": "Κατερίνα Νατσιοπούλου",
+      "appendBio": "Στο Πανελλήνιο Σχολικό Πρωτάθλημα στην Ελευθερούπολη το 2023 κατέκτησε χρυσό στα 400 μ. εμπόδια με ατομικό ρεκόρ 1:02.44, εκπροσωπώντας το σχολείο της με τη σχολική ομάδα Πιερίας και έχοντας προπονητή του Αρχέλαου τον Νικόλαο Μαντζόλη.",
+      "sources": [
+        "https://pieriasocial.gr/?p=65222"
+      ]
+    },
+    {
+      "id": "arch-ccaf623e428b",
+      "name": "Νικόλαος Μαντζόλης",
+      "appendBio": "Αναφέρεται ως προπονητής της Άννας Χατζηπουργάνη στα πανελλήνια ρεκόρ Κ18 του 2020 και της Κατερίνας Νατσιοπούλου στο σχολικό χρυσό του 2023.",
+      "sources": [
+        "https://www.segas.gr/8046-panellinio-protathlima-a-g-peftei-i-avlaia-stin-patra/",
+        "https://pieriasocial.gr/?p=65222"
+      ]
+    },
+    {
+      "id": "arch-af9470c5745f",
+      "name": "Σάββας Τσεντίδης",
+      "appendBio": "Συνετέλεσε ως προπονητής στην τρίτη ομαδική θέση του Αρχέλαου στο Πανελλήνιο Παμπαίδων στο Ζεφύρι τον Οκτώβριο του 2021, όπως αναφέρεται στο ρεπορτάζ του τμήματος.",
+      "sources": [
+        "https://eptanews.gr/athlitismos/3os-o-archelaos-katerinis-sto-panellinio-protathlima-palis-pampaidon-poy-diexichthi-sto-zefyri-attikis/"
+      ]
+    },
+    {
+      "id": "arch-8c9cbe4897f0",
+      "name": "Μενέλαος Βούλγαρης",
+      "appendBio": "Ως «Μένιος Βούλγαρης» αναφέρεται μεταξύ των έξι αθλητών του Αρχέλαου που κατέκτησαν την τρίτη ομαδική θέση στο Πανελλήνιο Πρωτάθλημα Πάλης Παμπαίδων στο Ζεφύρι Αττικής τον Οκτώβριο του 2021. Η ταυτοποίηση των ονομάτων «Μένιος» και «Μενέλαος» επιβεβαιώθηκε από εκπρόσωπο του συλλόγου στις 03/11/2026.",
+      "sources": [
+        "https://eptanews.gr/athlitismos/3os-o-archelaos-katerinis-sto-panellinio-protathlima-palis-pampaidon-poy-diexichthi-sto-zefyri-attikis/"
+      ],
+      "aliases": [
+        "Μένιος Βούλγαρης"
+      ]
+    },
+    {
+      "id": "arch-8934f50fbeed",
+      "name": "Κώστας Τάμος",
+      "appendBio": "Προπονητής του παλαιστικού τμήματος του Γ.Α.Σ. Αρχέλαος Κατερίνης, με τεκμηριωμένη παρουσία σε αγωνιστικές αποστολές. Αναφέρεται μαζί με τον Σάββα Τσεντίδη στη διάκριση του συλλόγου στο Πανελλήνιο Πρωτάθλημα Παμπαίδων στο Ζεφύρι τον Οκτώβριο του 2021 και στην επιτυχία της ομάδας Παίδων το 2022.",
+      "sources": [
+        "https://eptanews.gr/athlitismos/3os-o-archelaos-katerinis-sto-panellinio-protathlima-palis-pampaidon-poy-diexichthi-sto-zefyri-attikis/",
+        "https://odelalis.gr/protathlitis-elladas-stoys-paides-gia-triti-synechomeni-chronia-o-archelaos-katerinis/",
+        "https://odigos-pierias.gr/%CE%B1%CE%BD%CE%B1%CF%87%CF%89%CF%81%CE%BF%CF%8D%CE%BD-%CE%B3%CE%B9%CE%B1-%CF%84%CE%B7%CE%BD-%CF%80%CF%8C%CE%BB%CE%B7-%CF%84%CE%B7%CF%82-%CE%BE%CE%AC%CE%BD%CE%B8%CE%B7%CF%82-%CE%BF%CE%B9-%CF%80%CF%81/"
+      ],
+      "aliases": [
+        "Κώστας Ταμός"
+      ]
+    },
+    {
+      "id": "arch-archery-result-20261102-03",
+      "name": "Γεώργιος Ζαππίδης",
+      "appendBio": "Στο Πανελλήνιο Πρωτάθλημα Τοξοβολίας Μικρών Κατηγοριών στο Αμύνταιο το 2024 κατέκτησε ασημένιο μετάλλιο στην κατηγορία Παίδων, εκπροσωπώντας τον Γ.Α.Σ. Αρχέλαος Κατερίνης.",
+      "sources": [
+        "https://olympiobima.gr/gas-archelaos-katerinis-synecheia-epitychion-gia-to-tmima-toxovolias/"
+      ],
+      "aliases": []
+    },
+    {
+      "id": "arch-archery-result-20261102-04",
+      "name": "Νεφέλη Ζαππίδου",
+      "appendBio": "Στο Πανελλήνιο Πρωτάθλημα Τοξοβολίας Μικρών Κατηγοριών στο Αμύνταιο το 2024 κατέκτησε χρυσό μετάλλιο στις Παγκορασίδες Β΄ Ολυμπιακού Τόξου, εκπροσωπώντας τον Γ.Α.Σ. Αρχέλαος Κατερίνης.",
+      "sources": [
+        "https://olympiobima.gr/gas-archelaos-katerinis-synecheia-epitychion-gia-to-tmima-toxovolias/"
+      ],
+      "aliases": []
+    }
+  ],
+  "identityReconciliation": [
+    {
+      "sourceName": "Λευτέρης Παπάς",
+      "canonicalName": "Λευτέρης Παππάς",
+      "personId": "arch-e49a8c140396",
+      "status": "corroborated",
+      "evidence": [
+        "https://eptanews.gr/athlitismos/3os-o-archelaos-katerinis-sto-panellinio-protathlima-palis-pampaidon-poy-diexichthi-sto-zefyri-attikis/",
+        "https://odigos-pierias.gr/%CE%B1%CE%BD%CE%B1%CF%87%CF%89%CF%81%CE%BF%CF%8D%CE%BD-%CE%B3%CE%B9%CE%B1-%CF%84%CE%B7%CE%BD-%CF%80%CF%8C%CE%BB%CE%B7-%CF%84%CE%B7%CF%82-%CE%BE%CE%AC%CE%BD%CE%B8%CE%B7%CF%82-%CE%BF%CE%B9-%CF%80/"
+      ]
+    },
+    {
+      "sourceName": "Δημήτρης Παπάς",
+      "canonicalName": "Δημήτρης Παππάς",
+      "personId": "arch-e87fdf323137",
+      "status": "corroborated",
+      "evidence": [
+        "https://eptanews.gr/athlitismos/3os-o-archelaos-katerinis-sto-panellinio-protathlima-palis-pampaidon-poy-diexichthi-sto-zefyri-attikis/",
+        "https://odigos-pierias.gr/%CE%B1%CE%BD%CE%B1%CF%87%CF%89%CF%81%CE%BF%CF%8D%CE%BD-%CE%B3%CE%B9%CE%B1-%CF%84%CE%B7%CE%BD-%CF%80%CF%8C%CE%BB%CE%B7-%CF%84%CE%B7%CF%82-%CE%BE%CE%AC%CE%BD%CE%B8%CE%B7%CF%82-%CE%BF%CE%B9-%CF%80/"
+      ]
+    },
+    {
+      "sourceName": "Μένιος Βούλγαρης",
+      "canonicalName": "Μενέλαος Βούλγαρης",
+      "personId": "arch-8c9cbe4897f0",
+      "status": "CONFIRMED_BY_CLUB_REPRESENTATIVE_2026-11-03",
+      "evidence": [
+        "https://eptanews.gr/athlitismos/3os-o-archelaos-katerinis-sto-panellinio-protathlima-palis-pampaidon-poy-diexichthi-sto-zefyri-attikis/",
+        "https://odelalis.gr/protathlitis-elladas-stoys-paides-gia-triti-synechomeni-chronia-o-archelaos-katerinis/"
+      ],
+      "note": "Ο χρήστης, εκπρόσωπος του Γ.Α.Σ. Αρχέλαος, επιβεβαίωσε ρητά στις 03/11/2026 ότι Μένιος και Μενέλαος Βούλγαρης είναι το ίδιο πρόσωπο. Διατήρηση του ίδιου canonical personId· προσθήκη alias στο κατάλληλο αρχείο κατά τον συντονισμένο εμπλουτισμό Hall."
+    },
+    {
+      "sourceName": "Γιώργος Αθανασίου",
+      "candidateIds": [
+        "arch-96b3308cd1b2",
+        "arch-georgios-athanas-athletics-board-2026"
+      ],
+      "status": "HOMONYM_DO_NOT_AUTO_MERGE"
+    },
+    {
+      "sourceName": "Κώστας Ταμός",
+      "canonicalName": "Κώστας Τάμος",
+      "personId": "arch-8934f50fbeed",
+      "status": "EXISTING_PROFILE_CONFIRMED_DO_NOT_DUPLICATE",
+      "note": "Το Hall στο main έχει ήδη ακριβή εγγραφή για τον προπονητή πάλης με οξεία στο «Τάμος». Η παλιά πρόταση νέου προφίλ μετατράπηκε σε εμπλουτισμό."
+    }
+  ],
+  "photoCandidates": [
+    {
+      "eventId": "wrestling-u13-zefyri-team-third-oct-2021",
+      "sourceUrl": "https://eptanews.gr/athlitismos/3os-o-archelaos-katerinis-sto-panellinio-protathlima-palis-pampaidon-poy-diexichthi-sto-zefyri-attikis/",
+      "candidateUrl": "https://i0.wp.com/eptanews.gr/wp-content/uploads/2021/10/1633797217899.jpeg?fit=834%2C626&ssl=1",
+      "rights": "needs_club_ownership_confirmation"
+    },
+    {
+      "eventId": "track-hatzipourgani-u18-record-patra-aug-2020",
+      "sourceUrl": "https://www.segas.gr/8046-panellinio-protathlima-a-g-peftei-i-avlaia-stin-patra/",
+      "candidateUrl": "https://www.segas.gr/wp-content/uploads/2022/05/hatzipourgani_2020.jpg",
+      "rights": "third_party_verify"
+    },
+    {
+      "eventId": "track-hatzipourgani-u18-record-ioannina-aug-2020",
+      "sourceUrl": "https://www.segas.gr/8022-protathlima-k20-2i-imera-pogevma/",
+      "candidateUrl": "https://www.segas.gr/wp-content/uploads/2022/05/hatzipourgani20.jpg",
+      "rights": "eurokinissi_credit_do_not_republish_without_right"
+    },
+    {
+      "eventId": "track-u18-larisa-two-golds-jul-2020",
+      "sourceUrl": "https://katerinisport.gr/%CF%80%CE%B1%CE%BD%CE%B5%CE%BB%CE%BB%CE%B7%CE%BD%CE%B9%CE%BF%CE%BD%CE%AF%CE%BA%CE%B7%CF%82-%CE%BF-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CE%BA%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7/",
+      "candidateUrl": "https://i0.wp.com/sportsfeed.gr/wp-content/uploads/2020/07/IMG_9264-1-800x533.jpg?resize=800%2C533&ssl=1",
+      "rights": "verify_photo_depicts_this_event_and_usage"
+    },
+    {
+      "eventId": "track-natsiopoulou-school-400h-gold-may-2023",
+      "sourceUrl": "https://pieriasocial.gr/?p=65222",
+      "candidateUrl": "https://pieriasocial.gr/wp-content/uploads/2023/05/345043775_1408238946610076_3607211147729277878_n-768x1072.jpg",
+      "rights": "needs_club_ownership_confirmation"
+    }
+  ],
+  "executionChecklist": [
+    "Merge/resolve PR #76 first or coordinate edits with its author before touching Hall source/generated files.",
+    "Confirm new candidate IDs against current Hall canonical + alias index at merge time.",
+    "Apply biographies to the authoritative source and regenerate all derived artifacts/links (Hall, people, search, aliases).",
+    "Update personIds for the new relay profiles after actual IDs are assigned.",
+    "Run JSON/schema/test validation, PR CI, duplicate-event checks, linked images checks and deployment logs before claiming live."
+  ],
+  "identityConfirmedAt": "2026-11-03",
+  "correction": "2026-11-03 — Broad news-to-Hall audit: 3 rather than 4 new candidates from the initial Facebook research; Κώστας Τάμος already has canonical profile. 2 existing archery athlete links added from published 2024 news."
+}
