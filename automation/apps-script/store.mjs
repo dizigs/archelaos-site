@@ -15,6 +15,7 @@ export class SqlScriptStore {
       'CREATE TABLE IF NOT EXISTS script_oauth_sessions(id TEXT PRIMARY KEY,cipher TEXT NOT NULL)',
       'CREATE TABLE IF NOT EXISTS script_admin_grants(actor TEXT PRIMARY KEY,session TEXT NOT NULL)',
       'CREATE TABLE IF NOT EXISTS script_browser_backup_confirmations(id TEXT PRIMARY KEY, expires INTEGER NOT NULL)',
+      'CREATE TABLE IF NOT EXISTS script_operator_probes(id TEXT PRIMARY KEY,status TEXT NOT NULL,expires INTEGER NOT NULL,updated INTEGER NOT NULL,result TEXT)',
       'CREATE TABLE IF NOT EXISTS script_refresh_claims(id TEXT PRIMARY KEY)',
       'CREATE TABLE IF NOT EXISTS script_audit(id INTEGER PRIMARY KEY AUTOINCREMENT,operation TEXT NOT NULL,code TEXT NOT NULL,at INTEGER NOT NULL)'
     ]) this.sql.exec(statement);
@@ -86,6 +87,34 @@ export class SqlScriptStore {
       const row = [...this.sql.exec('SELECT id FROM script_browser_backup_confirmations WHERE id=? AND expires>?', id, this.clock())][0];
       if (!row) throw new ScriptFault('BACKUP_CONFIRMATION_EXPIRED_OR_REPLAYED', 409);
       this.sql.exec('DELETE FROM script_browser_backup_confirmations WHERE id=?', id);
+    });
+  }
+  // Cloudflare account-authenticated operator probes are inserted only through
+  // the private Durable Object SQL administration API, never by HTTP requests.
+  // This intentionally cannot enqueue or run edits, tokens, arbitrary code
+  // or a paid job. A public nudge can only consume an already-admitted probe.
+  claimOperatorProbe() {
+    return this.storage.transactionSync(() => {
+      const row = [...this.sql.exec("SELECT id,expires FROM script_operator_probes WHERE status='QUEUED' ORDER BY updated ASC LIMIT 1")][0];
+      if (!row) return null;
+      const id = row.id;
+      if (typeof id !== 'string' || !/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(id) || row.expires <= this.clock()) {
+        this.sql.exec("UPDATE script_operator_probes SET status='REJECTED',updated=? WHERE id=? AND status='QUEUED'", this.clock(), id);
+        return null;
+      }
+      this.sql.exec("UPDATE script_operator_probes SET status='RUNNING',updated=? WHERE id=? AND status='QUEUED'", this.clock(), id);
+      return id;
+    });
+  }
+  completeOperatorProbe(id) {
+    this.storage.transactionSync(() => {
+      const a = [...this.sql.exec('SELECT COUNT(*) AS n FROM script_admin_grants')][0].n;
+      const b = [...this.sql.exec('SELECT COUNT(*) AS n FROM script_private_blobs')][0].n;
+      const o = [...this.sql.exec('SELECT COUNT(*) AS n FROM script_operations')][0].n;
+      const backed = [...this.sql.exec("SELECT COUNT(*) AS n FROM script_audit WHERE code='BROWSER_ENCRYPTED_BACKUP_VERIFIED'")][0].n;
+      const result = { status: a === 1 && b >= 1 && backed >= 1 && o === 0 ? 'OPERATOR_READONLY_PROBE_VERIFIED' : 'OPERATOR_READONLY_PREREQUISITES_INCOMPLETE', grantCount: a, encryptedBackupPresent: b >= 1, backupAuditPresent: backed >= 1, editOperations: o, googlePutPerformed: false };
+      this.sql.exec("UPDATE script_operator_probes SET status='DONE',result=?,updated=? WHERE id=? AND status='RUNNING'", JSON.stringify(result), this.clock(), id);
+      this.audit(id, result.status);
     });
   }
   putSession(id, cipher) { this.sql.exec('INSERT INTO script_oauth_sessions(id,cipher) VALUES(?,?) ON CONFLICT(id) DO UPDATE SET cipher=excluded.cipher', id, cipher); }
