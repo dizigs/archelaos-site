@@ -19,6 +19,27 @@ async function equalSecret(got,expected){
  const e=new TextEncoder(),[a,b]=await Promise.all([crypto.subtle.digest('SHA-256',e.encode(got.slice(7))),crypto.subtle.digest('SHA-256',e.encode(expected))]);
  const A=new Uint8Array(a),B=new Uint8Array(b);let x=0;for(let i=0;i<A.length;i++)x|=A[i]^B[i];return x===0;
 }
+async function readCapped(stream,limit,tooLargeCode){
+ if(!stream)return '';
+ const reader=stream.getReader(),parts=[];
+ let count=0;
+ try{
+  while(true){
+   const {done,value}=await reader.read();
+   if(done)break;
+   count+=value.byteLength;
+   if(count>limit){
+    void reader.cancel().catch(()=>{});
+    throw new Error(tooLargeCode);
+   }
+   parts.push(value);
+  }
+ }finally{reader.releaseLock()}
+ const bytes=new Uint8Array(count);
+ let pos=0;
+ for(const part of parts){bytes.set(part,pos);pos+=part.byteLength}
+ return new TextDecoder('utf-8',{fatal:true}).decode(bytes);
+}
 async function remote(env,path,method='GET',body){
  const timer=AbortSignal.timeout(10000);
  const res=await fetch('https://api.uptimerobot.com/v3'+path,{method,redirect:'manual',signal:timer,
@@ -26,7 +47,7 @@ async function remote(env,path,method='GET',body){
  ...(body?{body:JSON.stringify(body)}:{})});
  if(!res.ok)throw new Error('UPTIME_HTTP_'+res.status);
  if(Number(res.headers.get('content-length')||0)>200000)throw new Error('UPTIME_TOO_LARGE');
- const text=await res.text();if(text.length>200000)throw new Error('UPTIME_TOO_LARGE');
+ const text=await readCapped(res.body,200000,'UPTIME_TOO_LARGE');
  try{return JSON.parse(text)}catch{throw new Error('UPTIME_BAD_JSON')}
 }
 function items(v){if(Array.isArray(v))return v;if(Array.isArray(v?.data?.items))return v.data.items;if(Array.isArray(v?.data))return v.data;if(Array.isArray(v?.items))return v.items;throw new Error('UPTIME_UNEXPECTED_SHAPE')}
