@@ -29,7 +29,7 @@ jobs:
     # Secrets must never be passed into CI running arbitrary fork PR code.
     if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
 
     steps:
       - name: Check out repository with Git history
@@ -69,6 +69,23 @@ jobs:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
           LHCI_BUILD_CONTEXT__CURRENT_BRANCH: ${{ github.head_ref || github.ref_name }}
         run: ./.github/ci-performance-tools/node_modules/.bin/lhci autorun --config=.lighthouserc.cjs
+
+      - name: Prove actual locked sitespeed Chrome run with report (temporary, unmerged)
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m http.server 8765 --bind 127.0.0.1 --directory dist >/tmp/sitespeed-proof-server.log 2>&1 &
+          timeout 30 bash -c 'until curl -fsS http://127.0.0.1:8765/ >/dev/null; do sleep 0.2; done'
+          ./.github/ci-performance-tools/node_modules/.bin/sitespeed.io --browsertime.iterations 1 --browsertime.browser chrome --browsertime.chrome.args no-sandbox --outputFolder sitespeed-result http://127.0.0.1:8765/
+          test -d sitespeed-result
+      - name: Upload temporary sitespeed browser report (never merge this step)
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: issue66-temporary-sitespeed-browser-proof
+          path: sitespeed-result/
+          if-no-files-found: warn
+          retention-days: 1
 
       - name: Preserve local Lighthouse reports for 14 days
         if: always()
