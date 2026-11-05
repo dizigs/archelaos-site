@@ -109,7 +109,7 @@ test('readback fails closed on mismatched correlation, forged state and negative
   const {a}=setup(async()=>Response.json({receiptId:id,correlationId,status:'WAITING_REVIEW',attempts:0}));
   assert.equal((await a.readReceipt(id,correlationId)).correlationId,correlationId);
   await reject(a.readReceipt(id,randomUUID()),'READBACK_UNVERIFIED');
-  await reject(a.readReceipt(id),'INVALID_RECEIPT_ID');
+  await reject(a.readReceipt(id),'INVALID_CORRELATION_ID');
   const {a:bad}=setup(async()=>Response.json({receiptId:id,correlationId,status:'GHOST',attempts:-1}));
   await reject(bad.readReceipt(id,correlationId),'READBACK_UNVERIFIED');
 });
