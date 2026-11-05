@@ -219,3 +219,48 @@ export function executionDiagnostics(storage) {
     activePathLocks: [...storage.sql.exec('SELECT COUNT(*) AS n FROM exec_path_locks')][0].n,
     executorTransportEnabled: false, automaticRetriesEnabled: false };
 }
+
+/**
+ * Optional Brain-issued, MAC-signed compatibility receipt for #213.
+ * Signing is refused unless the Brain has already atomically claimed work.
+ * PR #213 MUST still check the durable receipt and use this single ledger.
+ */
+export async function signIntegrationReceipt(storage, taskId, signingKey, now = Date.now()) {
+  if (typeof signingKey !== 'string' || signingKey.length < 43) {
+    throw new Rejected('EXEC_SIGNING_KEY_UNCONFIGURED', 503);
+  }
+  const row = readRow(storage.sql, taskId), task = JSON.parse(row.payload);
+  if (row.status !== 'CLAIMED' || row.lease_until <= now ||
+      !HEX.test(row.approval_evidence || '')) throw new Rejected('EXEC_DURABLE_CLAIM_REQUIRED', 409);
+  if (!['BUILD_A', 'BUILD_B', 'TESTING'].includes(task.type)) {
+    throw new Rejected('EXEC_UNSUPPORTED_INTEGRATION_ROUTE', 422);
+  }
+  // Match #213's stricter executable-file boundary. We do not issue
+  // executable grants for Brain's own files or the integration team's files.
+  if (task.allowedPaths.some(path =>
+      path.startsWith('brain/') || path.startsWith('.git/') ||
+      path.startsWith('automation/brain-worker-executors/integration/'))) {
+    throw new Rejected('EXEC_INTEGRATION_SCOPE_FORBIDDEN', 403);
+  }
+  const expiresAtMs = Math.min(row.lease_until, Date.parse(task.expiresAt), now + 300_000);
+  if (expiresAtMs <= now) throw new Rejected('EXEC_AUTHORIZATION_EXPIRED', 409);
+  const lane = task.type === 'BUILD_A' ? 'A' : task.type === 'BUILD_B' ? 'B' : null;
+  const envelope = {
+    verified: true, issuer: 'central-brain',
+    audience: 'brain-worker-executors.integration.v1',
+    repository: 'dizigs/archelaos-site', approved: true,
+    receiptId: task.taskId, taskId: task.taskId,
+    commitSha: task.baseCommit,
+    type: task.type === 'TESTING' ? 'testing' : 'build',
+    lane, allowedPaths: task.allowedPaths,
+    scopeDigest: row.fingerprint, expiresAtMs,
+    permissions: { draftOnly: true, merge: false, deploy: false }
+  };
+  const raw = JSON.stringify(envelope);
+  const encoder = new TextEncoder();
+  const key = await crypto.subtle.importKey('raw', encoder.encode(signingKey),
+    { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
+  const signed = await crypto.subtle.sign('HMAC', key, encoder.encode(String(now) + '\n' + raw));
+  const signature = [...new Uint8Array(signed)].map(byte => byte.toString(16).padStart(2, '0')).join('');
+  return { raw, signature, timestampMs: now };
+}
