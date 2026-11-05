@@ -67,7 +67,7 @@ test('receipt readback must match UUID and can verify status',async()=>{
     assert.equal(new URL(req.url).pathname,`/v1/tasks/${id}`);
     assert.equal(req.headers.get('x-archelaos-key-id'),'staging-v1');
     return Response.json({receiptId:id,correlationId,status:'DONE',attempts:1,code:'DETERMINISTIC_ROUTE_COMPLETE'});
-  });assert.equal((await a.readReceipt(id)).status,'DONE');await reject(a.readReceipt('oops'),'INVALID_RECEIPT_ID');
+  });assert.equal((await a.readReceipt(id,correlationId)).status,'DONE');await reject(a.readReceipt('oops',correlationId),'INVALID_RECEIPT_ID');
 });
 test('health verifies exact service identity but never certifies readiness',async()=>{
   const {a}=setup(async()=>Response.json({service:'archelaos-brain',environment:'staging',commit:'a'.repeat(40),aiExecutionEnabled:false}));
@@ -109,6 +109,7 @@ test('readback fails closed on mismatched correlation, forged state and negative
   const {a}=setup(async()=>Response.json({receiptId:id,correlationId,status:'WAITING_REVIEW',attempts:0}));
   assert.equal((await a.readReceipt(id,correlationId)).correlationId,correlationId);
   await reject(a.readReceipt(id,randomUUID()),'READBACK_UNVERIFIED');
+  await reject(a.readReceipt(id),'INVALID_RECEIPT_ID');
   const {a:bad}=setup(async()=>Response.json({receiptId:id,correlationId,status:'GHOST',attempts:-1}));
   await reject(bad.readReceipt(id,correlationId),'READBACK_UNVERIFIED');
 });
