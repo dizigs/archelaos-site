@@ -228,6 +228,13 @@ export async function runIntegration(taskInput, ports, policy = {}, now = Date.n
     }
     const builder = ports.builders?.[task.lane];
     ensure(builder?.verified === true && typeof builder.execute === 'function', 'PROVIDER_ADAPTER_NOT_VERIFIED');
+    // Current #214 and #211 providers reserve/settle INSIDE their adapters.
+    // Calling either beneath this wrapper's own reserve/claim/settle would
+    // double-charge the shared ledger. Permit only an independently audited
+    // no-internal-billing wrapper with an explicit exclusive budget owner.
+    ensure(builder.billingContract === 'central-preclaimed-v1' &&
+      builder.reservesInternally === false && builder.settlesInternally === false,
+      'DOUBLE_RESERVATION_RISK');
     ensure(typeof ports.brain.ledger?.reserve === 'function' &&
       typeof ports.brain.ledger?.settle === 'function' &&
       typeof ports.brain.ledger?.claim === 'function', 'SHARED_LEDGER_PORT_MISSING');
