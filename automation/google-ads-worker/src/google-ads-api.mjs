@@ -59,3 +59,32 @@ export function keywordIdeaRequest(customer,{landing,keywords=[],geoIds=[],langu
       geoTargetConstants:geoIds.map(id=>'geoTargetConstants/'+id),
       keywordPlanNetwork:'GOOGLE_SEARCH',includeAdultKeywords:false,pageSize:50}};
 }
+
+/** Bounded, read-only Keyword Planner call; always gated, never a mutation. */
+export async function readKeywordIdeas(env,seed,{fetcher=fetch}={}) {
+  ok(stagingReady(env) && env?.ADS_KEYWORD_PLANNER_READ_ENABLED==='true',
+    'KEYWORD_PLANNER_DISABLED');
+  const request=keywordIdeaRequest(env.ADS_CUSTOMER_ID,seed);
+  const token=await adsAccessToken(env,fetcher);
+  const response=await fetcher(request.endpoint,{method:'POST',
+    headers:{'content-type':'application/json',authorization:'Bearer '+token,
+      ...(env.ADS_LOGIN_CUSTOMER_ID?{'login-customer-id':env.ADS_LOGIN_CUSTOMER_ID}:{})},
+    body:JSON.stringify(request.body)});
+  const requestId=response.headers?.get('request-id')||null;
+  if(!response.ok) return {ok:false,code:'KEYWORD_PLANNER_REJECTED',status:response.status,
+    requestId,ideas:[],observed:false};
+  const data=await response.json();
+  ok(Array.isArray(data.results)&&data.results.length<=50,'UNSAFE_KEYWORD_RESPONSE');
+  const ideas=data.results.map(item=>{
+    ok(typeof item.text==='string' && item.text.length<=80 &&
+      item.text.trim().split(/\s+/).length>=2,'UNSAFE_KEYWORD_IDEA');
+    const monthly=Number(item.keywordIdeaMetrics?.avgMonthlySearches);
+    ok(Number.isSafeInteger(monthly)&&monthly>=0,'UNSAFE_KEYWORD_METRICS');
+    return {text:item.text,monthlySearches:monthly,
+      competition:['LOW','MEDIUM','HIGH'].includes(item.keywordIdeaMetrics?.competition)?
+        item.keywordIdeaMetrics.competition:'UNKNOWN'};
+  });
+  return {ok:true,source:'GOOGLE_ADS_API_KEYWORD_PLANNER',requestId,
+    customerVerifiedAgainstEnv:true,observed:true,ideas,
+    usedForAutonomousMutations:false};
+}
