@@ -24,7 +24,7 @@ test('tampered signed receipt, invalid signature and expired timestamp are denie
   const k = await crypto.subtle.importKey('raw', enc.encode(key),
     { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
   const bytes = new Uint8Array(await crypto.subtle.sign('HMAC', k,
-    enc.encode(now + '\\n' + raw)));
+    enc.encode(now + '\n' + raw)));
   const signature = [...bytes].map(b => b.toString(16).padStart(2, '0')).join('');
   const signed = { raw, timestampMs: now, signature };
   assert.equal((await m.verifySignedBrainEnvelope(signed, key, now)).taskId, t.taskId);
