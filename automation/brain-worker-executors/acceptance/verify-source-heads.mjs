@@ -1,26 +1,35 @@
-/**
- * One read-only, authenticated GitHub check that source PRs are still at the
- * exact immutable commits we exercised. A moved/closed PR blocks acceptance.
- */
+/** Read-only GitHub proof: merged SHA ancestor of main; open heads exactly pinned. */
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-const pin = JSON.parse(readFileSync(new URL('./sources.json', import.meta.url), 'utf8'));
-const token = process.env.GITHUB_TOKEN;
-if (!token || token.length < 10) throw Error('Read-only GitHub token missing');
-for (const [name, source] of Object.entries(pin.sources)) {
-  const url = 'https://api.github.com/repos/dizigs/archelaos-site/pulls/' + source.pr;
-  const res = await fetch(url, { method: 'GET',
-    headers: { Accept: 'application/vnd.github+json',
-      Authorization: 'Bearer ' + token, 'X-GitHub-Api-Version': '2022-11-28' },
-    signal: AbortSignal.timeout(10000) });
-  if (!res.ok) throw Error('Could not verify source PR #' + source.pr + ': HTTP ' + res.status);
-  const pr = await res.json();
-  assert.equal(pr.state, 'open', 'Source PR closed: #' + source.pr);
-  assert.equal(pr.draft, true, 'Source PR no longer draft: #' + source.pr);
-  assert.equal(pr.head?.repo?.full_name, pin.repository, 'Unexpected source head repo');
-  assert.equal(pr.base?.ref, 'main', 'Unexpected source base branch');
-  assert.equal(pr.head?.sha, source.sha,
-    'Source PR #' + source.pr + ' moved; re-audit and repin before acceptance');
-  console.log('latest source verified: ' + name + ' PR #' + source.pr + ' ' + source.sha);
+const config=JSON.parse(readFileSync(new URL('./sources.json',import.meta.url),'utf8'));
+const token=process.env.GITHUB_TOKEN;
+if(!token||token.length<10)throw Error('Missing read-only GitHub token');
+const base='https://api.github.com/repos/'+config.repository;
+async function get(path){
+  const res=await fetch(base+path,{method:'GET',redirect:'error',
+    headers:{Accept:'application/vnd.github+json',Authorization:'Bearer '+token,
+    'X-GitHub-Api-Version':'2022-11-28'},signal:AbortSignal.timeout(12000)});
+  if(!res.ok)throw Error('GitHub SHA provenance unavailable: HTTP '+res.status);
+  return res.json();
 }
-console.log('PASS: all five live PR head SHAs equal the local immutable checkouts');
+for(const [name,pin] of Object.entries(config.sources)){
+  const p=await get('/pulls/'+pin.pr);
+  assert.equal(p.number,pin.pr);
+  assert.equal(p.base?.ref,pin.base);
+  assert.equal(p.head?.repo?.full_name,config.repository);
+  assert.equal(p.head?.sha,pin.headSha,'Historical PR HEAD mismatch: '+name);
+  if(pin.state==='merged'){
+    assert.equal(p.state,'closed');
+    assert.equal(p.merged,true);
+    assert.ok(typeof p.merged_at==='string');
+    assert.equal(p.merge_commit_sha,pin.sha,'Merge SHA mismatch: '+name);
+    const x=await get('/compare/'+pin.sha+'...main');
+    assert.ok(['identical','ahead'].includes(x.status)&&x.behind_by===0,
+      'Merge commit not in main history: '+name);
+  }else{
+    assert.equal(p.state,'open','Open source merged or closed: '+name);
+    assert.equal(p.merged,false);
+    assert.equal(p.head.sha,pin.sha,'Source head moved: '+name);
+  }
+  console.log('PROVENANCE PASS',name,pin.sha);
+}

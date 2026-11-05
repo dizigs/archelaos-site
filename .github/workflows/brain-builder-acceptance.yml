@@ -8,6 +8,9 @@ on:
 
 permissions:
   contents: read
+  checks: read
+  actions: read
+  pull-requests: read
 
 concurrency:
   group: brain-builder-synthetic-acceptance-${{ github.event.pull_request.number }}
@@ -34,36 +37,43 @@ jobs:
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           repository: dizigs/archelaos-site
-          ref: 6a64701344b3f392d17bc634bc898c5c22cd69db
+          ref: ed1285d1c61aa94de9fb19360ba9d95e12110e92
           path: .acceptance-sources/scaffold
           persist-credentials: false
       - name: Checkout Gemini PR 214 exact SHA
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           repository: dizigs/archelaos-site
-          ref: 2381cacaa4dc3720fb06aa30157617e8205a8488
+          ref: c2ec74fac9845ee3dea948c8da65d62e94e37bed
           path: .acceptance-sources/gemini
           persist-credentials: false
       - name: Checkout Gemma PR 211 exact SHA
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           repository: dizigs/archelaos-site
-          ref: b7dd45d9cf34b1bd0f49106980f0c3f73c18645c
+          ref: 06d9a8d16aebbb4d0c9317d394af54763b3ea647
           path: .acceptance-sources/gemma
           persist-credentials: false
       - name: Checkout Testing PR 212 exact SHA
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           repository: dizigs/archelaos-site
-          ref: 04d8f50502c58b5f1fe7753a2bbde6bea10dc170
+          ref: d0d06f75a3405f1f0e2ab368bc2a774ba8cde084
           path: .acceptance-sources/testing
           persist-credentials: false
       - name: Checkout Coordinator PR 213 exact SHA
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           repository: dizigs/archelaos-site
-          ref: 50fb549842cf803f67c9ddb7b9b13660b6800e51
+          ref: aeffcdaed01239564f1cd586a8021e75bee46b31
           path: .acceptance-sources/integration
+          persist-credentials: false
+      - name: Checkout stacked provenance PR 228 exact SHA
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          repository: dizigs/archelaos-site
+          ref: e8d355c58a069063a76158e82c782f36a377c79b
+          path: .acceptance-sources/provenance
           persist-credentials: false
       - name: Validate exact source pins, read-only
         run: node automation/brain-worker-executors/acceptance/verify-pins.mjs
@@ -78,5 +88,28 @@ jobs:
           node --test .acceptance-sources/gemma/automation/brain-worker-executors/providers/gemma/*.test.mjs
           node --test .acceptance-sources/testing/automation/brain-worker-executors/testing/*.test.mjs
           node --test .acceptance-sources/integration/automation/brain-worker-executors/integration/*.test.mjs
+          node --test .acceptance-sources/provenance/automation/brain-worker-executors/integration/github-readback.test.mjs
       - name: Verify cross-module synthetic end-to-end and fail-closed contracts
         run: node --test automation/brain-worker-executors/acceptance/*.test.mjs
+
+  independent-ci-attestation:
+    if: always() && github.event.pull_request.head.repo.full_name == github.repository
+    needs: synthetic-contracts
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - name: Checkout exact source for immutable CI audit
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - name: Set up Node 22
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+      - name: Read-only actual SHA, workflow run, attempt, jobs, SonarCloud and CodeQL
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          ACCEPTANCE_SHA: ${{ github.event.pull_request.head.sha }}
+          ACCEPTANCE_BRANCH: ${{ github.event.pull_request.head.ref }}
+        run: node automation/brain-worker-executors/acceptance/verify-ci-evidence.mjs

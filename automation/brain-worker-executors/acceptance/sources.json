@@ -1,26 +1,48 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "repository": "dizigs/archelaos-site",
   "sources": {
     "scaffold": {
       "pr": 209,
-      "sha": "6a64701344b3f392d17bc634bc898c5c22cd69db"
+      "sha": "ed1285d1c61aa94de9fb19360ba9d95e12110e92",
+      "headSha": "c8bc9d61f32f35287d7606bfb33ddeb2440fa4e5",
+      "state": "merged",
+      "base": "main"
     },
     "gemini": {
       "pr": 214,
-      "sha": "2381cacaa4dc3720fb06aa30157617e8205a8488"
+      "sha": "c2ec74fac9845ee3dea948c8da65d62e94e37bed",
+      "headSha": "39a50fa9756ae002ed18b3fda9b4f9187eee6803",
+      "state": "merged",
+      "base": "main"
     },
     "gemma": {
       "pr": 211,
-      "sha": "b7dd45d9cf34b1bd0f49106980f0c3f73c18645c"
+      "sha": "06d9a8d16aebbb4d0c9317d394af54763b3ea647",
+      "headSha": "a1028cc11a2cb232f5d1805a91080e0f83f21c40",
+      "state": "merged",
+      "base": "main"
     },
     "testing": {
       "pr": 212,
-      "sha": "04d8f50502c58b5f1fe7753a2bbde6bea10dc170"
+      "sha": "d0d06f75a3405f1f0e2ab368bc2a774ba8cde084",
+      "headSha": "74aa1c684ff89193586fcfb77a83f22711886381",
+      "state": "merged",
+      "base": "main"
     },
     "integration": {
       "pr": 213,
-      "sha": "50fb549842cf803f67c9ddb7b9b13660b6800e51"
+      "sha": "aeffcdaed01239564f1cd586a8021e75bee46b31",
+      "headSha": "aeffcdaed01239564f1cd586a8021e75bee46b31",
+      "state": "open",
+      "base": "main"
+    },
+    "provenance": {
+      "pr": 228,
+      "sha": "e8d355c58a069063a76158e82c782f36a377c79b",
+      "headSha": "e8d355c58a069063a76158e82c782f36a377c79b",
+      "state": "open",
+      "base": "feat/brain-executor-integration-coordinator-20261105"
     }
   }
 }

@@ -1,59 +1,55 @@
-# Cross-PR Builders & Testing Acceptance — review only
+# Independent AI acceptance — PR #217 (review only)
 
-This package intentionally owns **only**
-`automation/brain-worker-executors/acceptance/**` and the new independent
-`.github/workflows/brain-builder-acceptance.yml`. It does not edit the Brain,
-existing dispatcher, provider adapters, Testing executor, other workflows, or
-any source owned by the active PR teams.
+Only `automation/brain-worker-executors/acceptance/**` and
+`.github/workflows/brain-builder-acceptance.yml` are owned here.
 
-## Verified inputs and provenance
-`sources.json` locks the exact GitHub commit SHAs of PR #209 (scaffold),
-#214 (Gemini), #211 (Gemma), #212 (Testing) and #213 (Integration).
-CI checks out these exact SHAs into five separate directories, verifies each
-local Git HEAD, and reads back each current source PR HEAD using read-only
-GitHub API. **Any moved, closed, non-draft or forked source PR fails closed**.
-Update a pin only after reviewing and re-testing the changed source.
+## Pin policy
 
-## Synthetic acceptance
-Run on the GitHub Actions Node 22 runner:
-```bash
-node automation/brain-worker-executors/acceptance/verify-pins.mjs
-node automation/brain-worker-executors/acceptance/verify-source-heads.mjs
-node --test automation/brain-worker-executors/acceptance/*.test.mjs
-```
-The verify scripts require the five pinned checkout directories and the PR
-readback step requires only the standard read-only GitHub Actions token.
-Native source PR test suites are also rerun from their immutable checkouts.
+`sources.json` schema v2 pins the **actual merged commit** on `main`
+for #209/#214/#211/#212 and preserves the original PR head SHA separately.
+The unmerged #213 and stacked #228 use their **exact open head SHA** and
+recorded base branch (#228 is stacked on the #213 branch, not on main).
+All 6 clean checkouts are verified against Git HEAD. Independent authenticated
+read-only GitHub provenance requires a real merge timestamp, exact merge commit
+and `main` ancestry for merged sources, or exact open SHA for unmerged sources.
+A new merge or changed SHA means FAIL until manually re-pinned.
 
-Cross-PR tests import **actual modules**, not copied implementation code. They
-exercise Gemini generateContent mock response parsing, Cloudflare Gemma binding
-mock response parsing, normalization by the independent integration coordinator,
-Brain receipt rejection, immutable SHA and file-scope constraints, pricing
-reservations and receipts, retry/timeout bounds already covered by native
-source tests, the exact GitHub Actions Testing executor with eight mocked
-workflows/jobs, independent run-attempt readback, skipped/missing/wrong-SHA/newer
-failure gates, two concurrent build locks, replay and UNKNOWN leases, and
-central EUR20 monthly hard-cap contracts.
+## Test stages
 
-Mock authorization and prices prove only the interfaces. They do **not**
-verify real account access, provider billing, shared ledger persistence,
-credentials, live GitHub workflow availability, deployed Cloudflare bindings,
-or actual integration with the runtime Brain. Native provider adapters own
-their own reservation/settlement callbacks: the #213 coordinator correctly
-**blocks** their direct nesting to prevent double reservations. An audited,
-single-budget-owner adapter must exist before enabling live routing.
+- `synthetic-contracts`: actual modules from 6 pinned checkouts, each native
+  offline suite, existing cross-PR acceptance, new crash/restart and
+  signed-invalid-envelope tests, and negative CI evidence contracts.
+- `independent-ci-attestation`: live GET-only Github SHA, newest run, attempt,
+  job and CodeQL/SonarCloud checks plus active branch ruleset contexts.
+  Reports a PASS/FAIL blocker matrix in the workflow summary; returns a
+  nonzero exit on any missing/skipped/failed/pending/stale check.
+- **Strict acceptance gate**: eight workflows (including rebuild and axe),
+  even where they are path-filtered. Never waive them. The current main
+  ruleset requires ESLint and JavaScript syntax; those two do not replace the
+  stricter independent gate.
 
-## Safety and release criteria
-- No network calls to Google or Cloudflare AI. No paid inference. GitHub API
-  use is **read-only** and only for verifying PR HEAD provenance.
-- No shells or generated code execution from any model output; no merge,
-  deployment, code writes, auto-created PRs or production settings.
-- Max **2** concurrent builds with scope exclusion and held UNKNOWN leases.
-- One shared **EUR20/month** atomic Brain ledger, never two local ledgers.
-- The eight required CI workflows and their exact jobs must be green at the
-  **same immutable commit SHA**. Skipped, missing, untrusted, duplicates,
-  mismatched repository/run-attempt or failed runs remain blocking.
-- A PASS from mocked synthetic CI does **not** mean live E2E, deploy approval,
-  production readiness or permission to merge.
+## Staging E2E plan — no external billable provider calls
 
-Source PRs are independently owned. Re-pin and re-run after any upstream update.
+1. Run pinned Node22 suites with fake GitHub REST, synthetic Brain signed
+   receipts, in-memory SQLite-shaped storage and injection-only model outputs.
+2. Simulate Brain → Build A/B → Testing → Brain acknowledgement with the #213
+   coordinator and #228 readback, without any real provider credential,
+   dispatched GitHub write or deployed Cloudflare service.
+3. Inject UNKNOWN, restart, lost ack, invalid signature, duplicate task,
+   altered task scopes, overbudget, two-build capacity, missing/stale GitHub
+   runs, jobs and run attempts; assert fail-closed outcomes.
+4. Keep provider transports OFF and leave production unmodified. The result
+   is **mock contract coverage only**, never live staging or production E2E.
+
+## Mandatory blockers before live activation
+
+- Real Brain-scoped signed task-intent / durable receipt readback and private
+  bindings have not been attested.
+- #213 prevents double budget reservations because Gemini/Gemma native adapters
+  have their own reservation/settlement; the single EUR20 ledger must be
+  reconciled and audited by the Integration/Brain owners.
+- #228 provenance bridge is still stacked/unmerged and must be reconciled
+  with the latest #213.
+- No verified GitHub draft writer and end-to-end exact-SHA 8-workflow proof.
+- Provider entitlement, live cost/FX and staging-only Cloudflare binding
+  attestation are missing. No paid calls, merges, forced updates or deploys.
