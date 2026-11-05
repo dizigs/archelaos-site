@@ -170,3 +170,29 @@ test('changed Testing claim between readbacks stays fail-closed',async()=>{
   assert.equal(reads,2);
   assert.deepEqual(m.called,{reserve:0,settle:0,provider:0});
 });
+
+
+test('Build A receipt expiry during second readback blocks completed proposal',async()=>{
+  const t=task(16,'A'),m=mock(t,{receipt:{expiresAtMs:Date.now()+100}});
+  let reads=0;
+  m.ports.brain.readClaim=async()=>{
+    reads++;
+    if(reads===2) await new Promise(resolve=>setTimeout(resolve,180));
+    return claim(t);
+  };
+  const result=await reviewCanonicalTask(t,m.ports,m.options);
+  assert.equal(result.code,'BRAIN_AUTHORIZATION_EXPIRED');
+  assert.equal(reads,2);
+  assert.deepEqual(m.called,{reserve:0,settle:0,provider:0});
+});
+
+test('Testing receipt expiry during GitHub readback blocks green evidence',async()=>{
+  const t=task(17,undefined,'testing'),m=mock(t,{receipt:{expiresAtMs:Date.now()+100}});
+  m.ports.checks.readVerified=async options=>{
+    await new Promise(resolve=>setTimeout(resolve,180));
+    return mock(t).ports.checks.readVerified(options);
+  };
+  const result=await reviewCanonicalTask(t,m.ports,m.options);
+  assert.equal(result.code,'BRAIN_AUTHORIZATION_EXPIRED');
+  assert.deepEqual(m.called,{reserve:0,settle:0,provider:0});
+});

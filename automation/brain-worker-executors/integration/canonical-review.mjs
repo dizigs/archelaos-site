@@ -83,6 +83,9 @@ export async function reviewCanonicalTask(taskInput, ports, options = {}) {
         latest.scopeDigest === prior.scopeDigest &&
         latest.budgetReservationId === prior.budgetReservationId,
         'UNKNOWN_OR_CHANGED_BRAIN_CLAIM');
+      // Claim readback may cross the signed receipt's bounded lease expiry.
+      // Revalidate immediately before returning any review-only decision.
+      confirmBrainReceipt(task, receipt);
       return Object.freeze({ ...proposal, status:'PROPOSAL_REVIEW_ONLY',
         centralLedgerReservationId:prior.budgetReservationId,
         centralLedgerReadback:true, financialSettlementVerified:false,
@@ -102,6 +105,7 @@ export async function reviewCanonicalTask(taskInput, ports, options = {}) {
       latest.autoMergeAllowed === false && latest.budgetReservationId === null &&
       latest.scopeDigest === prior.scopeDigest,
       'UNKNOWN_OR_CHANGED_BRAIN_CLAIM');
+    confirmBrainReceipt(task, receipt);
     return Object.freeze({ status:gate.passed ? 'TESTING_PASSED_REVIEW_ONLY' :
       'TESTING_FAILED_CLOSED', gate, providerCalls:0, ledgerWrites:0,
       draftPrCreated:false, mergeAllowed:false, deployAllowed:false });

@@ -52,6 +52,7 @@ test('attested native pass independently readbacks SHA, run attempt, job IDs and
   assert.ok(evidence.every(c => c.provenanceVerified && c.runAttempt === 2 &&
     c.status === 'completed' && c.conclusion === 'success'));
   assert.ok(p.calls() >= 19);
+  assert.ok(evidence.every(c => c.jobs.every(j => Number.isSafeInteger(j.id))));
 });
 test('missing required workflow never becomes a pass', async () => {
   const f = fixtures(); const removed = f.runs.pop();
@@ -107,6 +108,16 @@ test('native failed state cannot be promoted by independent green GitHub checks'
   const original=f.report();
   f.report=()=>({...original,status:'blocked',checks:original.checks.map((r,i)=>
     i===0?{...r,state:'failed'}:r)});
+  await assert.rejects(port(f).readVerified({repository:REPOSITORY,commitSha:sha}),
+    /GITHUB_PROVENANCE_UNVERIFIED/);
+});
+
+
+test('duplicate GitHub job IDs cannot authenticate distinct required jobs',async()=>{
+  const f=fixtures();
+  const codeqlRunId=f.runs[4].id;
+  assert.equal(f.jobs.get(codeqlRunId).length,2);
+  f.jobs.get(codeqlRunId)[1].id=f.jobs.get(codeqlRunId)[0].id;
   await assert.rejects(port(f).readVerified({repository:REPOSITORY,commitSha:sha}),
     /GITHUB_PROVENANCE_UNVERIFIED/);
 });

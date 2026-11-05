@@ -95,9 +95,12 @@ export function createVerifiedTestingChecksPort({ nativeRunner, token, fetchImpl
           record.conclusion !== (run.conclusion ?? null) ||
           (record.state === 'passed' && (run.status !== 'completed' || run.conclusion !== 'success'))) fail();
       const jobs = await allPages(`/actions/runs/${run.id}/jobs?filter=latest`, 'jobs');
-      if (jobs.some(j => !Number.isSafeInteger(j.id) || j.run_id !== run.id ||
-          j.run_attempt !== run.run_attempt || typeof j.name !== 'string')) fail();
-      const reduced = jobs.map(j => ({ name: j.name, status: j.status, conclusion: j.conclusion }));
+      if (jobs.some(j => !Number.isSafeInteger(j.id) || j.id < 1 ||
+          j.run_id !== run.id || j.run_attempt !== run.run_attempt ||
+          typeof j.name !== 'string') ||
+          new Set(jobs.map(j => j.id)).size !== jobs.length) fail();
+      const reduced = jobs.map(j => ({ id: j.id, name: j.name,
+        status: j.status, conclusion: j.conclusion }));
       const required = REQUIRED_JOBS[name];
       const complete = run.status === 'completed' && run.conclusion === 'success' &&
         jobs.length > 0 && jobs.every(j => j.status === 'completed' && j.conclusion === 'success') &&
