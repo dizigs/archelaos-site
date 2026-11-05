@@ -107,7 +107,7 @@ test('Brain must advertise verified private durable analytics capability',async(
   await assert.rejects(deliverToBrain(prepared,{}),/BRAIN_ANALYTICS_NOT_CONFIGURED/);
   let called=0;
   const port={capabilities:async()=>({version:'old',authenticatedServiceBinding:true,durableSnapshotUpsert:true,receiptSignatureVerification:true}),
-    submitSnapshot:async()=>{called++;}};
+    submitSnapshot:async()=>{called++;},verifyReceipt:async()=>true};
   await assert.rejects(deliverToBrain(prepared,port),/BRAIN_ANALYTICS_CAPABILITY_UNVERIFIED/);
   assert.equal(called,0);
 });
