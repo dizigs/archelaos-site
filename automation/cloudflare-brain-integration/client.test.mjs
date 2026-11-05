@@ -15,8 +15,9 @@ function setup(fetch, overrides={}) { const logs=[]; const a=createBrainWorkerAd
   sourceType:'drive', brainService:{fetch}, intakeKey:KEY, receiptVerificationKey:RECEIPT_KEY, enabled:true, clock:Date.now,
   verifyProvenance:async e=>verified(e), auditSink: async r=>(logs.push(r),true), ...overrides}); return {a,logs}; }
 const signed = (payload, audience='source.receipt.ack.v1', principal='drive-v1', issuedAtMs=Date.now()) => {
-  const envelope={...payload,schemaVersion:1,audience,principal,keyId:'brain-capability-receipts-v1',issuedAtMs};
-  const receiptSignature=createHmac('sha256',RECEIPT_KEY).update(audience+'\\n'+JSON.stringify(envelope)).digest('hex');
+  const {receiptSignature: _previousSignature, ...cleanPayload}=payload;
+  const envelope={...cleanPayload,schemaVersion:1,audience,principal,keyId:'brain-capability-receipts-v1',issuedAtMs};
+  const receiptSignature=createHmac('sha256',RECEIPT_KEY).update(audience+'\n'+JSON.stringify(envelope)).digest('hex');
   return {...envelope,receiptSignature};
 };
 const reply = (e, status=202) => Response.json(signed({receiptId:randomUUID(), correlationId:e.correlationId,
