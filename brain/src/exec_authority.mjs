@@ -163,10 +163,12 @@ export function claimExecutionIntent(storage, input, controls, config, now = Dat
       allowedPaths: task.allowedPaths };
   });
 }
-export function beginExecutionCall(storage, input, now = Date.now()) {
+export function beginExecutionCall(storage, input, controls, now = Date.now()) {
   if (!exact(input, ['taskId', 'owner']) || !UUID.test(input.owner || '')) throw new Rejected('EXEC_INVALID_BEGIN', 422);
   return storage.transactionSync(() => {
     const sql = storage.sql, row = readRow(sql, input.taskId);
+    const task = JSON.parse(row.payload);
+    if (controls?.globalPaused || (BUILD.has(task.type) && controls?.aiPaused)) throw new Rejected('EXEC_PAUSED', 423);
     if (row.status !== 'CLAIMED' || row.owner !== input.owner || row.lease_until <= now) throw new Rejected('EXEC_CLAIM_LOST', 409);
     if (row.budget_id && !claimBudgetCall(sql, row.budget_id).authorized) throw new Rejected('EXEC_BUDGET_CALL_NOT_AUTHORIZED', 409);
     sql.exec('UPDATE exec_intents SET status=?,updated=? WHERE task_id=?', 'IN_FLIGHT', now, input.taskId);
@@ -225,11 +227,12 @@ export function executionDiagnostics(storage) {
  * Signing is refused unless the Brain has already atomically claimed work.
  * PR #213 MUST still check the durable receipt and use this single ledger.
  */
-export async function signIntegrationReceipt(storage, taskId, signingKey, now = Date.now()) {
+export async function signIntegrationReceipt(storage, taskId, signingKey, controls, now = Date.now()) {
   if (typeof signingKey !== 'string' || signingKey.length < 43) {
     throw new Rejected('EXEC_SIGNING_KEY_UNCONFIGURED', 503);
   }
   const row = readRow(storage.sql, taskId), task = JSON.parse(row.payload);
+  if (controls?.globalPaused || (BUILD.has(task.type) && controls?.aiPaused)) throw new Rejected('EXEC_PAUSED', 423);
   if (row.status !== 'CLAIMED' || row.lease_until <= now ||
       !HEX.test(row.approval_evidence || '')) throw new Rejected('EXEC_DURABLE_CLAIM_REQUIRED', 409);
   if (!['BUILD_A', 'BUILD_B', 'TESTING'].includes(task.type)) {
