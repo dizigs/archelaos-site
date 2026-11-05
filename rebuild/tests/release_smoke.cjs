@@ -250,6 +250,24 @@ async function verify(){
      const evidenceLink=await page.locator('.av-verify-card a').getAttribute('href');
      if(!evidenceLink.includes('verification=request-archery-historical-records'))
        throw Error('Evidence card has no stable request ID');
+     // Stub Turnstile and the Pages Function before entering the contribution form.
+     // No real message, credential, captcha request or attachment leaves the test.
+     let postedContribution='';
+     await page.addInitScript(()=>{
+      window.turnstile={
+       render:(container)=>{container.dataset.mockTurnstile='true';return 'offline-widget';},
+       getResponse:()=> 'offline-valid-token',reset:()=>{}
+      };
+     });
+     await page.route('**/api/contact',async route=>{
+      const request=route.request();
+      if(request.method()==='GET'){
+       await route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({ready:true,attachments:true,turnstileSiteKey:'offline-test-site-key'})});
+      }else if(request.method()==='POST'){
+       postedContribution=request.postData()||'';
+       await route.fulfill({status:200,contentType:'application/json',body:'{"ok":true}'});
+      }else await route.fulfill({status:405});
+     });
      await page.goto(ROOT+evidenceLink,{waitUntil:'domcontentloaded'});
      await page.waitForFunction(()=>document.querySelector('#ac-guide-context')?.textContent.includes('Αίτημα προς τεκμηρίωση:'),{timeout:10000});
 
@@ -277,17 +295,6 @@ async function verify(){
      if(await page.locator('#ac-attachments[type="file"][multiple]').count()!==1||
         await page.locator('#ac-archive-link[type="url"]').count()!==1)
         throw Error('Contribution guide must offer attachments and Drive URL');
-     // Intercept the endpoint: test secure multipart delivery without actually emailing anyone.
-     let postedContribution='';
-     await page.route('**/api/contact',async route=>{
-      const request=route.request();
-      if(request.method()==='GET'){
-       await route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({ready:true,attachments:true})});
-      }else if(request.method()==='POST'){
-       postedContribution=request.postData()||'';
-       await route.fulfill({status:200,contentType:'application/json',body:'{"ok":true}'});
-      }else await route.fulfill({status:405});
-     });
      await page.locator('#ac-sender-email').fill('archive-tester@example.org');
      await page.locator('#ac-archive-link').fill('https://drive.google.com/drive/folders/test');
      await page.locator('#ac-details').fill('Ιστορική φωτογραφία με πλήρη στοιχεία τεκμηρίωσης');
@@ -305,8 +312,10 @@ async function verify(){
         !postedContribution.includes('historical-source.txt')||
         !postedContribution.includes('drive.google.com/drive/folders/test')||
         !postedContribution.includes('archive-tester@example.org')||
-        !postedContribution.includes('name="consent"'))
-      throw Error('Secure archive submission dropped metadata, attachment, Drive URL or consent');
+        !postedContribution.includes('name="consent"')||
+        !postedContribution.includes('name="cf-turnstile-response"')||
+        !postedContribution.includes('offline-valid-token'))
+      throw Error('Secure archive submission dropped metadata, attachment, Drive URL, consent or Turnstile proof');
      await page.unroute('**/api/contact');
      const email=await page.locator('.ac-email').getAttribute('href');
      if(!email?.startsWith('mailto:info@archelaos.club?subject='))throw Error('Contribution contact email missing');
@@ -322,9 +331,47 @@ async function verify(){
         throw Error('Unfinished language switch appeared on site');
     }
     if(tag==='contact'){
+     let postedContact='';
+     await page.route('**/api/contact',async route=>{
+      if(route.request().method()==='GET'){
+       await route.fulfill({status:200,contentType:'application/json',body:'{"ready":true,"attachments":true,"turnstileSiteKey":"offline-test-site-key"}'});
+      }else if(route.request().method()==='POST'){
+       postedContact=route.request().postData()||'';
+       await route.fulfill({status:200,contentType:'application/json',body:'{"ok":true}'});
+      }else await route.fulfill({status:405});
+     });
+     await page.evaluate(()=>{
+      window.turnstile={render:()=> 'contact-offline-widget',getResponse:()=> 'offline-valid-token',reset:()=>{}};
+     });
      const link=page.locator('[data-open-contact]').first();
      await link.click();await page.locator('dialog.arch-dialog[open] #ct-topic').waitFor();
+     await page.locator('#ct-topic').selectOption('archive');
+     if(!await page.locator('#ct-archive-type').isVisible()||
+        !await page.locator('#ct-attachments').isVisible()||
+        !await page.locator('#ct-archive-period').isVisible())
+      throw Error('Contact archive dropdown is missing the contribution evidence fields');
+     await page.locator('#ct-topic').selectOption('general');
+     if(await page.locator('#ct-archive-type').isVisible())
+      throw Error('Contact archive metadata must hide for general contact');
+     await page.locator('#ct-topic').selectOption('archive');
+     await page.locator('#ct-archive-type').selectOption('Ιστορική μαρτυρία');
+     await page.locator('#ct-archive-period').fill('1994');
+     await page.locator('#ct-archive-source').fill('Οικογενειακό αρχείο');
+     await page.locator('#ct-form [name="name"]').fill('Offline Archive Tester');
+     await page.locator('#ct-form [name="email"]').fill('test@example.org');
+     await page.locator('#ct-form [name="message"]').fill('Ιστορικό τεκμήριο για το αρχείο.');
+     await page.locator('#ct-attachments').setInputFiles({
+      name:'archive.pdf',mimeType:'application/pdf',buffer:Buffer.from('%PDF-1.7\\nOffline test only')
+     });
+     await page.locator('#ct-form .ct-consent input').check();
+     await page.locator('#ct-form .ct-submit').click();
+     await page.waitForFunction(()=>document.querySelector('.ct-form-note')?.textContent.includes('στάλθηκε με επιτυχία'),null,{timeout:12000});
+     if(!postedContact.includes('archive.pdf')||!postedContact.includes('name="cf-turnstile-response"')||
+        !postedContact.includes('offline-valid-token')||!postedContact.includes('1994')||
+        !postedContact.includes('Οικογενειακό αρχείο'))
+      throw Error('Contact archive delivery lost PDF, Turnstile proof or evidence metadata');
      await page.locator('dialog.arch-dialog .arch-close').click();
+     await page.unroute('**/api/contact');
      await page.goto(ROOT+'/contact.html?topic=athlete&sport=archery',{waitUntil:'domcontentloaded'});
      await page.locator('dialog.arch-dialog[open] #ct-topic').waitFor();
      if(await page.locator('#ct-topic').inputValue()!=='sport'||await page.locator('#ct-sport').inputValue()!=='archery')throw Error('Contact prefill incorrect');

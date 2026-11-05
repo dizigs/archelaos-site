@@ -11,7 +11,7 @@ const styles = fs.readFileSync(path.join(root, 'css/support-footer.css'), 'utf8'
 
 test('every production rebuild page includes the same support assets once', () => {
   const pages = fs.readdirSync(root).filter(name => name.endsWith('.html') && name !== 'preview.html');
-  assert.equal(pages.length, 15);
+  assert.ok(pages.length >= 15, 'Expected all rebuilt pages, including new optional drafts');
   for (const page of pages) {
     const content = fs.readFileSync(path.join(root, page), 'utf8');
     assert.match(content, /\/rebuild\/js\/shell\.js/);

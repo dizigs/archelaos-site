@@ -1,0 +1,77 @@
+{
+  "actualRuntime": {
+    "cancelled": 0,
+    "fail": 0,
+    "pass": 64,
+    "skipped": 0,
+    "tests": 64
+  },
+  "aiExecutionEnabled": false,
+  "ci": {
+    "actualNotice": {
+      "cancelled": 0,
+      "fail": 0,
+      "pass": 64,
+      "skipped": 0,
+      "tests": 64
+    },
+    "run": "https://github.com/dizigs/archelaos-site/actions/runs/41669323491",
+    "runtimeCheck": 126033130645,
+    "sonar": "success",
+    "sonarCheck": 126033797138
+  },
+  "liveSourceConnectionsEnabled": false,
+  "localPdfTests": {
+    "actualPdfBytes": true,
+    "noRemoteAiOrSourceCalls": true,
+    "pass": 6,
+    "tests": 6
+  },
+  "pythonProviderTests": {
+    "pass": 2,
+    "tests": 2
+  },
+  "remoteCloudflareDeploymentVerified": false,
+  "runtimeDependencyAudit": {
+    "critical": 0,
+    "high": 0,
+    "info": 0,
+    "low": 0,
+    "moderate": 0,
+    "total": 0
+  },
+  "sourceCommit": "d77c10c4d5244619b9780f9f3e468f5e4cf219d6",
+  "sourceFileSha256": {
+    "brain/package-lock.json": "b87fbd366dee911a88be1794076509ae0e37066f45d28d8ccd6c448109ff362b",
+    "brain/package.json": "c979d7c1ec79a4bab2dc96c2af64e03bce65509eccef435c16b1cbdbde85ae19",
+    "brain/src/adapters/common.mjs": "54bc50676b08c40a7358cc0634c30c357903e3ac9a2d00f907bc29a8581ad412",
+    "brain/src/adapters/contributions.mjs": "d2338aac1b35d05104ef7845812a3c0c9287e61118d85b18df0ae53a5c7580d2",
+    "brain/src/adapters/drive.mjs": "364c598db929313bfad190a8cf78ec2bd809bf2929e2bb7274c54d03b2ef6d8d",
+    "brain/src/adapters/github.mjs": "a4ff711ab55a1a6d63a7c3c193f46e5f70e2ffd52f4279e229f9c3df8335e93c",
+    "brain/src/adapters/gmail.mjs": "6f3213b49fd490548bdc74257596230ee8384f9a13f4aab74ec3be30bfbccbe0",
+    "brain/src/ai_gateway.mjs": "3563941672a747dce591f3a7e6a8c606597301913b36dc4c0244608cba6bd0e5",
+    "brain/src/budget.mjs": "166ce787df603a577721b849bfdf830a2f391adc897158fa90be9f96c0d065c4",
+    "brain/src/content_pipeline.mjs": "56b2242589b7111708afc5d9e251599df502443a77ab282fd5733af03445eccb",
+    "brain/src/contract.mjs": "fffaf0e36d430f505e44fd72948561747b3e6424ecf9d6ca938e42e0e9cbec6f",
+    "brain/src/dispatch_service.mjs": "f74279975fc7193c6c1341eceae6317417b307238929496a4bc5cad6da381e8c",
+    "brain/src/draft_publisher.mjs": "fda078714a093bcfdfb6c9a54dc39f85bd064f46cebc39af6d95bb8373c0fd79",
+    "brain/src/pdf_extractor.mjs": "c732d9870969dd9d74ac60e1edc345de9eac3c39e978bda015520227c1879d27",
+    "brain/src/source_state.mjs": "278c0d9a154fea50273f6a66df6fe972c77c031227740c20b0eba9dd23def4d7",
+    "brain/src/worker.mjs": "aed642fb2bcffa9451b7e679444887b9dffe1bd710ac33d5da38ab37ad7fa663",
+    "brain/test/adapters.test.mjs": "93d0cc8d8c08e8f0f32a8980091c192d41a12652e563d21fe4d300964746307a",
+    "brain/test/ai_gateway.test.mjs": "6f4411ad6f4fe68cc958fa9873916b7d9620d79fe4b057b354e7b75e1775a392",
+    "brain/test/budget.test.mjs": "7228eb506c464b523422d7ec0f930ba95b9b7d5534e2349687b3eee8731490d8",
+    "brain/test/content.test.mjs": "9b680574e021274551405c03d8ebf05886c7211aa8f70f40b290671cabbe8333",
+    "brain/test/pdf.test.mjs": "3e83a5da6a0bc047c27ede0a2fadfa61d8c90257317aed623e80cc4b7027668c",
+    "brain/test/proof.test.mjs": "c291be7facf5e420dbe0ad82677dd403f34c559d58cbf1bf59849f023f91af80",
+    "brain/test/provider_test.py": "3840b78cc4a22963eb9cc6449a62efbd6d51c12e85296126d51c00d7199463e8",
+    "brain/test/runtime.test.mjs": "308fe0ad80a77c37a4cfbdc90a73a2efdeba8d819f20534b4f3357f08c3131da",
+    "brain/test/source_store_fixture.mjs": "e881db1042c71304ba37616dd7ed6dffbc418526ea531811772836a199b57b6f",
+    "brain/tools/check_syntax.mjs": "f799c122940b2299d9ec3246b7581e7dec851713e03f6ac75bebff7838500244",
+    "brain/tools/cloudflare_staging.py": "00628b091d1302e8fc9244b9a5c141512759e13fde4a3d7eec33ba946faf513e",
+    "brain/tools/prove_staging.mjs": "878656f63a0de183f3e20da2e11fdff69be6e51101a2c83629f484b79ecd98eb",
+    "brain/tools/test_summary.py": "082cb2f28ed5e28d770b6a436d57c1368415660650cfbebfe1fbacc6dbd86f3b",
+    "brain/wrangler.toml": "f5a5d2c5114feb4bbe22a3083f37b1b569efdca4e22c1d8cce0a4e723b187e62"
+  },
+  "syntaxModules": 24
+}

@@ -42,7 +42,7 @@ assert METADATA["site_url"] == SITE, "Do not silently change canonical domain."
 STATIC_ROOT = (
     "archelaos-logo-gold.png", "archelaos-logo-green.png",
     "archelaos-welcome.png", "social-preview.jpg",
-    "favicon.ico", "favicon-180.png", "favicon-192.png", "favicon-512.png",
+    "favicon.ico", "favicon-180.png", "favicon-192.png", "favicon-512.png", "favicon-contrast.svg",
     "archelaos-history-events.json", "archelaos-person-index.json",
     "archelaos-person-links.js", "hall-of-fame-people.json",
     "hall-of-fame-person-aliases.json",
@@ -90,7 +90,7 @@ def structured_data(entry: dict, url: str) -> str:
                 "@type": "SportsOrganization", "@id": org,
                 "name": METADATA["site_name"],
                 "url": SITE + "/",
-                "logo": SITE + "/archelaos-logo-gold.png",
+                "logo": SITE + "/favicon-contrast.svg",
                 "image": IMAGE,
                 "foundingDate": "1956-04-29",
                 "email": "contact@archelaos.club",
@@ -153,6 +153,7 @@ def create_page(entry: dict) -> None:
     head = "\n".join([
         '<meta name="robots" content="' + ('index,follow,max-image-preview:large' if entry.get("indexable", True) else 'noindex,follow') + '">',
         '<link rel="icon" href="/favicon.ico" sizes="any">',
+        '<link rel="icon" href="/favicon-contrast.svg" type="image/svg+xml" sizes="any">',
         '<link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png">',
         '<link rel="manifest" href="/site.webmanifest">',
 
@@ -171,9 +172,15 @@ def create_page(entry: dict) -> None:
         meta_tag("twitter:image", IMAGE),
         structured_data(entry, canonical)
     ])
-    raw, n = re.subn(r"<head>", "<head>\n" + head + "\n", raw, count=1, flags=re.I)
+    # Keep the original UTF-8 declaration inside the first 1024 bytes.
+    # Inserting the SEO head before the charset pushes it past that HTML5 limit.
+    raw, n = re.subn(
+        r'(<meta\s+charset="utf-8"\s*/?>)',
+        lambda match: match.group(1) + "\n" + head + "\n",
+        raw, count=1, flags=re.I,
+    )
     if n != 1:
-        raise ValueError(f"{entry['file']}: could not find HTML head")
+        raise ValueError(f"{entry['file']}: could not find initial UTF-8 charset declaration")
     raw = re.sub(r"<title>.*?</title>", "<title>" + escape(entry["title"]) + "</title>", raw, count=1, flags=re.S|re.I)
     raw = re.sub(
         r'<meta\b(?=[^>]*\bname=["\x27]description["\x27])[^>]*>',
