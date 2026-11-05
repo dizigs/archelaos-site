@@ -35,9 +35,16 @@ function validUrl(s){
   if(typeof s!=='string'||s.length>2048)return false;
   try{
     const u=new URL(s);
-    return u.protocol==='https:'&&!!u.hostname&&!u.username&&!u.password&&
-      !['localhost','127.0.0.1','0.0.0.0'].includes(u.hostname)&&
-      !u.hostname.endsWith('.local');
+    const host=u.hostname.toLowerCase();
+    if(u.protocol!=='https:'||!host||u.username||u.password||u.port||
+      host==='localhost'||host.endsWith('.localhost')||host.endsWith('.local')||
+      host.endsWith('.internal')||host.endsWith('.test')||
+      host.startsWith('[')||host==='::1')return false;
+    // Refuse literal IPv4 addresses, internal services and simple DNS aliases.
+    // The independent verifier MUST ALSO resolve and pin public IPs to protect
+    // against DNS rebinding/redirect SSRF; this filter alone is not sufficient.
+    if(/^[0-9.]+$/.test(host)||!host.includes('.'))return false;
+    return true;
   }catch{return false;}
 }
 export function makePublicDiscoveryQuery(command){
