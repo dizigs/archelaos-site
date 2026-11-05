@@ -1238,7 +1238,12 @@
       "category": "athlete",
       "bio": "Γρήγορο και εκρηκτικό αριστερό εξτρέμ της ομάδας χάντμπολ. Συμμετείχε στις αγωνιστικές περιόδους της Α1 Εθνικής και Handball Premier (2013–2016), δίνοντας πολύτιμες λύσεις στον αιφνιδιασμό και στην πίεση στην πρώτη ζώνη άμυνας.\n\nΕίναι προπονητής χάντμπολ του Γ.Α.Σ. «Αρχέλαος» Κατερίνης.",
       "bio_en": "Thanasis Xonis competed as left wing for Archelaos (2013–2016), bringing speed, fast-break finishing, and perimeter defense to the top-flight squad. He is a handball coach at G.A.S. Archelaos Katerinis.",
-      "refs": [{"label": "Palmare · Τεχνικό επιτελείο χάντμπολ Αρχέλαος", "url": "https://www.palmare.gr/me-to-dexi-o-archelaos-katerinis-stin-v%CE%84-ethniki/"}],
+      "refs": [
+        {
+          "label": "Palmare · Τεχνικό επιτελείο χάντμπολ Αρχέλαος",
+          "url": "https://www.palmare.gr/me-to-dexi-o-archelaos-katerinis-stin-v%CE%84-ethniki/"
+        }
+      ],
       "id": "arch-e6778f75ce14"
     },
     {
