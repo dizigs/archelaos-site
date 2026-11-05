@@ -33,7 +33,7 @@ jobs:
         run: |
           set -euo pipefail
           git fetch --no-tags --depth=1 origin "$BASE_SHA"
-          git diff --name-only "$BASE_SHA" HEAD | while IFS= read -r path; do
+          git diff --no-renames --name-only -z "$BASE_SHA" HEAD | while IFS= read -r -d '' path; do
             case "$path" in
               automation/apps-script-e2e-validation/*|.github/workflows/apps-script-e2e-validation.yml) ;;
               *) echo "::error::Out-of-scope change in Team 2 PR"; exit 1 ;;
