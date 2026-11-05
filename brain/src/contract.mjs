@@ -11,6 +11,10 @@ const SOURCE_EVENTS = Object.freeze({
   github: new Set(['github.ci.failed']),
   news: new Set(['news.search.completed'])
 });
+export function validateSourceEventType(source, eventType) {
+  if (source !== 'staging' && !SOURCE_EVENTS[source]?.has(eventType))
+    throw new Rejected('SOURCE_EVENT_NOT_ALLOWED', 403);
+}
 const MIME = new Set(['application/pdf', 'image/jpeg', 'image/png', 'text/plain', 'application/json']);
 const encoder = new TextEncoder();
 export const digest = async value => [...new Uint8Array(await crypto.subtle.digest('SHA-256', value instanceof Uint8Array ? value : encoder.encode(value)))].map(b => b.toString(16).padStart(2, '0')).join('');
@@ -23,8 +27,7 @@ export function validateEvent(event, sourceType, now = Date.now()) {
   if (event.schemaVersion !== 1 || !UUID.test(event.eventId) || !UUID.test(event.correlationId) || !TYPES.has(event.sourceType) || event.sourceType !== sourceType) throw new Rejected('INVALID_IDENTITY', 422);
   if (!HEX.test(event.sourceId) || !HEX.test(event.sourceRevision)) throw new Rejected('OPAQUE_SOURCE_IDS_REQUIRED', 422);
   if (typeof event.eventType !== 'string' || !/^[a-z][a-z0-9.]{2,63}$/.test(event.eventType)) throw new Rejected('INVALID_EVENT_TYPE', 422);
-  if (event.sourceType !== 'staging' && !SOURCE_EVENTS[event.sourceType]?.has(event.eventType))
-    throw new Rejected('SOURCE_EVENT_NOT_ALLOWED', 403);
+
   if (typeof event.receivedAt !== 'string' || !/^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d(?:\.\d{1,3})?Z$/.test(event.receivedAt)) throw new Rejected('INVALID_EVENT_TIME', 422);
   const time = Date.parse(event.receivedAt);
   if (!Number.isFinite(time) || time > now + 300000 || time < now - 7 * 86400000) throw new Rejected('STALE_EVENT', 422);
