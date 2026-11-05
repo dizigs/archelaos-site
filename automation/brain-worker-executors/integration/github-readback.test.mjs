@@ -32,9 +32,9 @@ function port(f, custom = {}) {
     if (url === base) value = { full_name: REPOSITORY, id: 1 };
     else if (p.endsWith(`/commits/${sha}`)) value = { sha, url: base + `/commits/${sha}` };
     else if (p.endsWith('/actions/runs')) value = { total_count: f.runs.length, workflow_runs: f.runs };
-    else if (p.match(/\\/actions\\/runs\\/\\d+$/)) value = f.runs.find(r => r.id === Number(p.split('/').at(-1)));
+    else if (p.includes('/actions/runs/') && !p.endsWith('/jobs')) value = f.runs.find(r => r.id === Number(p.split('/').at(-1)));
     else if (p.endsWith('/jobs')) {
-      const id = Number(p.match(/\\/actions\\/runs\\/(\\d+)\\/jobs$/)?.[1]);
+      const id = Number(p.split('/').at(-2));
       value = { total_count: f.jobs.get(id)?.length || 0, jobs: f.jobs.get(id) || [] };
     }
     if (!value) throw Error('Unexpected REST path ' + url);
