@@ -82,13 +82,12 @@ test('authorization denies absent permissions, source mismatch and unavailable n
 test('fails closed on untrusted identity, disabled AI, controls, rate and breaker', async () => {
   const f = fake();
   assert.equal((await admitTask({ source: 'github' }, f.ports, policy)).code, 'UNTRUSTED_AUTH_CONTEXT');
-  const ctx = await context();
-  assert.equal((await admitTask(ctx, f.ports, {})).code, 'AI_DISABLED_OR_COVERAGE_UNVERIFIED');
+  assert.equal((await admitTask(await context(), f.ports, {})).code, 'AI_DISABLED_OR_COVERAGE_UNVERIFIED');
   f.pause();
-  assert.equal((await admitTask(ctx, f.ports, policy)).code, 'KILL_SWITCH_OR_CONTROLS_UNAVAILABLE');
-  assert.equal((await admitTask(ctx, fake({ rate: { consume: async () => false } }).ports, policy)).code, 'RATE_LIMITED');
-  assert.equal((await admitTask(ctx, fake({ breaker: { before: async () => false } }).ports, policy)).code, 'CIRCUIT_OPEN');
-  assert.equal((await admitTask(ctx, fake({ readControls: async () => { throw Error('down'); } }).ports, policy)).code, 'KILL_SWITCH_OR_CONTROLS_UNAVAILABLE');
+  assert.equal((await admitTask(await context(), f.ports, policy)).code, 'KILL_SWITCH_OR_CONTROLS_UNAVAILABLE');
+  assert.equal((await admitTask(await context(), fake({ rate: { consume: async () => false } }).ports, policy)).code, 'RATE_LIMITED');
+  assert.equal((await admitTask(await context(), fake({ breaker: { before: async () => false } }).ports, policy)).code, 'CIRCUIT_OPEN');
+  assert.equal((await admitTask(await context(), fake({ readControls: async () => { throw Error('down'); } }).ports, policy)).code, 'KILL_SWITCH_OR_CONTROLS_UNAVAILABLE');
 });
 test('budget alerts precede claim and verified settlement; no double claim', async () => {
   const ctx = await context(), f = fake();
@@ -108,11 +107,11 @@ test('denies on missing alert ACK, duplicate charge, kill switch before claim', 
   assert.equal((await admitTask(ctx, missing.ports, policy)).code, 'ALERT_DELIVERY_UNCONFIRMED');
   assert.equal((await claimAuthorizedCall(ctx, missing.ports)).authorized, false);
   const dup = fake({ ledger: { reserve: async () => ({ duplicate: true }) } });
-  assert.equal((await admitTask(ctx, dup.ports, policy)).code, 'RESERVATION_RECONCILIATION_REQUIRED');
-  const f = fake();
-  await admitTask(ctx, f.ports, policy);
+  assert.equal((await admitTask(await context(), dup.ports, policy)).code, 'RESERVATION_RECONCILIATION_REQUIRED');
+  const fresh = await context(), f = fake();
+  await admitTask(fresh, f.ports, policy);
   f.pause();
-  assert.equal((await claimAuthorizedCall(ctx, f.ports)).authorized, false);
+  assert.equal((await claimAuthorizedCall(fresh, f.ports)).authorized, false);
 });
 test('unknown provider outcome holds reservation and reports breaker failure', async () => {
   const ctx = await context(), f = fake();
