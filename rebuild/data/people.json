@@ -339,9 +339,19 @@
       "role": "Αθλήτρια · Πάλη",
       "role_en": "Athlete",
       "category": "athlete",
-      "bio": "Αθλήτρια της γυναικείας πάλης του Αρχελάου. Ανέβηκε στο βάθρο των νικητριών κατακτώντας την 3η θέση και το χάλκινο μετάλλιο στο Πανελλήνιο Πρωτάθλημα Κορασίδων. Τιμήθηκε στην επέτειο των 40 χρόνων του τμήματος το 2019, ενισχύοντας την αγωνιστική παρουσία των κοριτσιών στα εθνικά πρωταθλήματα.",
-      "bio_en": "Freideriki Paniori captured the bronze medal at the Greek National Cadet Girls' Wrestling Championships, honoured in 2019 as a prominent member of Archelaos's female wrestling squad.",
-      "id": "arch-e242f5926fc9"
+      "bio": "Η Φρειδερίκη Πανιώρη αγωνίστηκε με τον Γ.Α.Σ. «Αρχέλαος» Κατερίνης στην πάλη. Στο Πανελλήνιο Πρωτάθλημα Κορασίδων του 2019 κατέκτησε την 3η θέση στην κατηγορία των 61 κιλών. Στις 17 Μαΐου 2019 τιμήθηκε από τον Δήμο Κατερίνης στην εκδήλωση για τα 40 χρόνια του παλαιστικού τμήματος.",
+      "bio_en": "Freideriki Paniori represented G.A.S. Archelaos Katerinis in wrestling. She placed third in the 61 kg category at the 2019 Greek National Cadet Girls' Championships and was honoured by the Municipality of Katerini at the wrestling section's 40th-anniversary event on 17 May 2019.",
+      "id": "arch-e242f5926fc9",
+      "refs": [
+        {
+          "label": "Πανελλήνιο Πρωτάθλημα Πάλης Κορασίδων · 61 κιλά, 2019",
+          "url": "https://www.zougla.gr/sports/a8limata/pali-efkarpia-ke-olimpi-prota8lites-eladas/"
+        },
+        {
+          "label": "KateriniSport · Τιμητική εκδήλωση πάλης, 17/05/2019",
+          "url": "https://katerinisport.gr/40-%CF%87%CF%81%CF%8C%CE%BD%CE%B9%CE%B1-%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%AE%CF%82-%CE%B4%CE%B9%CE%B1%CE%B4%CF%81%CE%BF%CE%BC%CE%AE%CF%82-%CE%B4%CE%B9%CE%B1%CE%BA%CF%81%CE%AF%CF%83%CE%B5/"
+        }
+      ]
     },
     {
       "name": "Χριστίνα Βούλγαρη",
@@ -1593,10 +1603,20 @@
       "name_en": "Georgios Grammenopoulos",
       "role": "Τεχνική υποστήριξη · Σκοποβολή",
       "role_en": "Technical staff · Shooting",
-      "bio": "Καταγράφεται μεταξύ των ανθρώπων της τεχνικής υποστήριξης του τμήματος σκοποβολής.\n\nΑναφέρεται επίσης ως πολυετής προπονητής της σκοποβολής από το 2003, με καθοδήγηση αγωνιστικών ομάδων αεροβόλων και πυροβόλων όπλων και συμμετοχή σε διεθνείς αγώνες στο Βελιγράδι το 2007. Σύμφωνα με το αρχειακό σημείωμα, ορίστηκε από το Δ.Σ. υπεύθυνος φύλαξης, συντήρησης και ασφάλειας του εξοπλισμού σκοποβολής.",
-      "bio_en": "Recorded among the technical and coaching contributors to the shooting programme.\n\nHistorical notes also record his long-term coaching of the shooting section from 2003, including teams competing with airguns and firearms and an international event in Belgrade in 2007. According to the notes, the board assigned him responsibility for the custody, maintenance and safety of the club’s shooting equipment.",
+      "bio": "Ο Γεώργιος Γραμμενόπουλος έχει προσφέρει στο τμήμα σκοποβολής του Αρχέλαου ως προπονητής και στέλεχος τεχνικής υποστήριξης. Το ιστορικό αρχείο του συλλόγου καταγράφει προπονητική παρουσία από το 2003, συμμετοχή σε διεθνείς αγώνες στο Βελιγράδι το 2007 και αρμοδιότητες φύλαξης, συντήρησης και ασφάλειας του σκοπευτικού εξοπλισμού.\n\nΣε συγχαρητήριο μήνυμα του συλλόγου για την ολυμπιακή πρόκριση της Χριστίνας Μόσχη το 2023 κατονομάζεται ως ο πρώτος προπονητής της. Το 2024 αναφέρεται στο προπονητικό επιτελείο σκοποβολής του Αρχέλαου μαζί με την Ευρώπη Υφαντίδου.",
+      "bio_en": "Georgios Grammenopoulos has served Archelaos Katerinis as a shooting coach and technical contributor. The club's historical archive records coaching work from 2003, participation in an international event in Belgrade in 2007, and responsibilities for the custody, maintenance and safety of shooting equipment.\n\nIn a 2023 club statement about Christina Moschi's Olympic qualification, he is identified as her first coach. A 2024 shooting-section report names him alongside Evropi Yfantidou on the coaching staff.",
       "category": "coach",
-      "id": "arch-7a5f32f6367b"
+      "id": "arch-7a5f32f6367b",
+      "refs": [
+        {
+          "label": "Γ.Α.Σ. Αρχέλαος · Πρώτος προπονητής της Χριστίνας Μόσχη, 2023",
+          "url": "https://odigos-pierias.gr/%CF%83%CF%85%CE%B3%CF%87%CE%B1%CF%81%CE%B7%CF%84%CE%AE%CF%81%CE%B9%CE%BF-%CE%BC%CE%AE%CE%BD%CF%85%CE%BC%CE%B1-%CF%84%CE%BF%CF%85-%CE%B3%CE%B1%CF%83-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-2/"
+        },
+        {
+          "label": "Pieria News · Προπονητές σκοποβολής, Απρίλιος 2024",
+          "url": "https://www.pierianews.gr/2024/04/30/me-epitychies-epestrepse-i-skopovoli-tou-gas-archelaos-katerinis-foto/"
+        }
+      ]
     },
     {
       "name": "Δήμητρα Δαμπολιά",
@@ -2917,11 +2937,17 @@
       "name_en": "Evropi Yfantidou",
       "role": "Σκοποβολή & Τοξοβολία · Αθλήτρια / Προπονήτρια",
       "role_en": "Shooting & Archery · Athlete / Coach",
-      "bio": "Πρωταθλήτρια σκοποβολής στο αεροβόλο και πυροβόλο τουφέκι γυναικών, με πανελλήνια πρωτιά στο αεροβόλο τουφέκι. Συμμετείχε με την Εθνική Ομάδα σε βαλκανικές και ευρωπαϊκές διοργανώσεις της περιόδου 1993–1994. Στη συνέχεια ασχολήθηκε με την προπονητική και την εκπαίδευση αθλητών στις ακαδημίες σκοποβολής του Αρχελάου.\n\nΣύμφωνα με την επετειακή έκδοση «Γ.Α.Σ. Ο Αρχέλαος Κατερίνης — 40 Χρόνια» (1996), το όνομά της αναφέρεται και στις πρώτες αγωνιστικές συμμετοχές του νεοσύστατου τμήματος τοξοβολίας το 1993. Η παρουσία της συνδέει ιστορικά τη σκοποβολή με την τοξοβολία, την οργάνωση της οποίας ανέλαβαν ο Κώστας Μυρωτής και ο Ανάργυρος Καπετανάκης.",
-      "bio_en": "Greek women’s air-rifle champion and national-team shooter who competed internationally in 1993–1994 and later supported shooting training at Archelaos.\n\nThe club's 1996 fortieth-anniversary history also records her among the first athletes involved in its archery section in 1993, linking the early shooting and archery programmes associated with Kostas Myrotis and Anargyros Kapetanakis.",
+      "bio": "Πρωταθλήτρια σκοποβολής στο αεροβόλο και πυροβόλο τουφέκι γυναικών, με πανελλήνια πρωτιά στο αεροβόλο τουφέκι. Συμμετείχε με την Εθνική Ομάδα σε βαλκανικές και ευρωπαϊκές διοργανώσεις της περιόδου 1993–1994. Στη συνέχεια ασχολήθηκε με την προπονητική και την εκπαίδευση αθλητών στις ακαδημίες σκοποβολής του Αρχελάου.\n\nΣύμφωνα με την επετειακή έκδοση «Γ.Α.Σ. Ο Αρχέλαος Κατερίνης — 40 Χρόνια» (1996), το όνομά της αναφέρεται και στις πρώτες αγωνιστικές συμμετοχές του νεοσύστατου τμήματος τοξοβολίας το 1993. Η παρουσία της συνδέει ιστορικά τη σκοποβολή με την τοξοβολία, την οργάνωση της οποίας ανέλαβαν ο Κώστας Μυρωτής και ο Ανάργυρος Καπετανάκης.\n\nΣε δελτίο τύπου του Αρχέλαου για τις επιδόσεις του τμήματος σκοποβολής τον Απρίλιο του 2024 αναφέρεται ονομαστικά ως προπονήτρια, μαζί με τον Γεώργιο Γραμμενόπουλο.",
+      "bio_en": "Greek women’s air-rifle champion and national-team shooter who competed internationally in 1993–1994 and later supported shooting training at Archelaos.\n\nThe club's 1996 fortieth-anniversary history also records her among the first athletes involved in its archery section in 1993, linking the early shooting and archery programmes associated with Kostas Myrotis and Anargyros Kapetanakis.\n\nA club shooting-section report published in April 2024 names her as a coach alongside Georgios Grammenopoulos.",
       "category": "sport",
       "id": "arch-e5015691e985",
-      "period": "1991–2005"
+      "period": "1991–2005",
+      "refs": [
+        {
+          "label": "Pieria News · Προπονήτρια σκοποβολής Αρχέλαου, 30/04/2024",
+          "url": "https://www.pierianews.gr/2024/04/30/me-epitychies-epestrepse-i-skopovoli-tou-gas-archelaos-katerinis-foto/"
+        }
+      ]
     },
     {
       "name": "Ευάγγελος Φλουρής",
@@ -3695,9 +3721,23 @@
       "role": "Αθλήτρια · Σκοποβολή",
       "role_en": "Athlete · Shooting",
       "category": "athlete",
-      "bio": "Πρωταθλήτρια σκοποβολής του Γ.Α.Σ. Αρχέλαος Κατερίνης. Σημείωσε πανελλήνιο ρεκόρ στο Αεροβόλο Πιστόλι 10 μ. με 575/600. Στο Ευρωπαϊκό Πρωτάθλημα Σκοποβολής στο Ταλίν της Εσθονίας (Μάρτιος 2023) κατέκτησε την 4η θέση στον τελικό εξασφαλίζοντας την απευθείας ολυμπιακή πρόκριση. Εκπροσώπησε επάξια την Ελλάδα και τον σύλλογο στους Ολυμπιακούς Αγώνες του Παρισιού το 2024, καταλαμβάνοντας εξαιρετική θέση ανάμεσα στις κορυφαίες σκοπεύτριες του πλανήτη.",
-      "bio_en": "Christina Moschi represented Archelaos and Greece at the Paris 2024 Olympic Games in 10 m air pistol, having finished 4th at the 2023 European Championships in Tallinn with a 575/600 national record.",
-      "id": "arch-87ea05ce738a"
+      "bio": "Η Χριστίνα Μόσχη αγωνίστηκε στη σκοποβολή με τον Γ.Α.Σ. «Αρχέλαος» Κατερίνης. Το 2021 σημείωσε πανελλήνιο ρεκόρ νεανίδων στο αεροβόλο πιστόλι 10 μ. με επίδοση 575/600. Στο Ευρωπαϊκό Πρωτάθλημα του Ταλίν (Μάρτιος 2023) κατέλαβε την 4η θέση και εξασφάλισε ολυμπιακή πρόκριση. Στους Ολυμπιακούς Αγώνες «Παρίσι 2024» κατέλαβε την 29η θέση στον προκριματικό των 10 μ. αεροβόλου πιστολιού γυναικών, με 569/600.",
+      "bio_en": "Christina Moschi represented G.A.S. Archelaos Katerinis in shooting. In 2021 she set a Greek junior women's 10 m air-pistol record of 575/600. She placed fourth at the European Championships in Tallinn in March 2023, earning Olympic qualification. At Paris 2024, she finished 29th in women's 10 m air-pistol qualification with 569/600.",
+      "id": "arch-87ea05ce738a",
+      "refs": [
+        {
+          "label": "ISSF · Παρίσι 2024, 29η θέση στα 10 μ. αεροβόλο πιστόλι",
+          "url": "https://www.issf-sports.org/competitions/results?catId=1&compId=2728&ei=77&eiv=56&view=rsList"
+        },
+        {
+          "label": "Γ.Α.Σ. Αρχέλαος · Συγχαρητήριο για ολυμπιακή πρόκριση, 2023",
+          "url": "https://odigos-pierias.gr/%CF%83%CF%85%CE%B3%CF%87%CE%B1%CF%81%CE%B7%CF%84%CE%AE%CF%81%CE%B9%CE%BF-%CE%BC%CE%AE%CE%BD%CF%85%CE%BC%CE%B1-%CF%84%CE%BF%CF%85-%CE%B3%CE%B1%CF%83-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-2/"
+        },
+        {
+          "label": "ΦΩΣ · Πανελλήνιο ρεκόρ 575/600, 2021",
+          "url": "https://www.fosonline.gr/sports/article/156008/skopovoli-panellinio-rekor-i-mosxi"
+        }
+      ]
     },
     {
       "name": "Θεόδωρος Παπανικολάου",
