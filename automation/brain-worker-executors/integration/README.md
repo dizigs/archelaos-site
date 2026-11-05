@@ -83,7 +83,7 @@ GitGuardian Security Checks and CodeQL marked successful at this exact head.
 Earlier failure evidence belonged to an older revision; review current head
 before merging. The dedicated Gemma Node tests were not run here.
 
-**Test honesty:** 17/17 non-HMAC mock checks across `index.test.mjs` and
+**Test honesty:** 18/18 non-HMAC mock checks across `index.test.mjs` and
 `compat.test.mjs` passed when evaluated against the fetched GitHub source
 using a JS/V8 assertion harness; this is NOT the exact Node `node --test`
 runner. The HMAC/WebCrypto case was not run in that harness, and no real
@@ -105,3 +105,12 @@ verified. The generic repository Actions checks do not substitute for this.
 - Pin modules after reviewed merges; run exact-head Node mock tests and staging
   end-to-end checks with auditable logs. Keep all live toggles OFF until then.
 - No Codex, automatic merge, production deploy or unapproved spend.
+
+The active `runIntegration` path now **hard-rejects** any provider builder
+that lacks `billingContract: 'central-preclaimed-v1'` together with explicit
+`reservesInternally:false` and `settlesInternally:false`, *before* any central
+reservation. Both current native providers own their internal reservations and
+must NOT be wrapped by this path. The guard is verified by an additional mock
+test with zero ledger reservations and zero provider calls; it is not an
+independent audit of a future wrapper. Only the Brain/budget owner can approve
+an adapted single-charge implementation.
