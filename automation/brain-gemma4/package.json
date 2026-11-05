@@ -1,0 +1,11 @@
+{
+  "name": "@archelaos/brain-gemma4-adapter",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "node --check src/classifier.mjs && node --test test/*.test.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
