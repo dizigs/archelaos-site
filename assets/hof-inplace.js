@@ -33,7 +33,7 @@ function ensure(){
  }
  dialog=el('dialog','arch-bio-global');dialog.setAttribute('aria-labelledby','arch-bio-global-title');
  const shell=el('div','arch-bio-scroll'),head=el('div','arch-bio-head'),tag=el('small','', 'ΑΡΧΕΛΑΟΣ · HALL OF FAME'),close=el('button','arch-bio-close','×');
- close.type='button';close.setAttribute('aria-label','Κλείσιμο βιογραφικού');close.addEventListener('click',()=>dialog.close());head.append(tag,close);
+ close.type='button';close.setAttribute('aria-label','Κλείσιμο βιογραφικού');close.addEventListener('click',()=>dialog.close());const actions=el('div','arch-bio-actions');actions.append(close);head.append(tag,actions);
  const content=el('div','arch-bio-content'),role=el('p','arch-bio-role'),title=el('h2','arch-bio-title'),desc=el('p','arch-bio-description'),sources=el('div','arch-bio-sources'),footer=el('div','arch-bio-foot','70 ΧΡΟΝΙΑ · ΜΙΑ ΙΣΤΟΡΙΑ ΠΟΥ ΣΥΝΕΧΙΖΕΤΑΙ');
  title.id='arch-bio-global-title';content.append(role,title,desc,sources,footer);shell.append(head,content);dialog.append(shell);document.body.append(dialog);
  dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});
@@ -53,6 +53,13 @@ async function open(id,origin=document.activeElement){
   const modal=ensure();previous=document.activeElement;
   // Canonical person identity is explicit, not inferred from a changing name/title.
   modal.dataset.correctionKind='person';modal.dataset.correctionId=p.id;
+  // Place the matching favorite heart beside the correction pencil.
+  const actions=modal.querySelector('.arch-bio-actions');
+  actions.querySelector('.arch-bio-inline-favorite')?.remove();
+  if(window.ArchelaosFavorites){
+   const heart=window.ArchelaosFavorites.button('person',p.id,'arch-bio-inline-favorite',{title:p.name,href:'people/'+p.id+'.html',summary:p.role});
+   actions.insertBefore(heart,actions.querySelector('.arch-bio-close'));
+  }
   modal.querySelector('.arch-bio-role').textContent=tr(p.role||'',p.role_en||p.role||'');
   modal.querySelector('.arch-bio-title').textContent=tr(p.name||'',p.name_en||p.name||'');
   modal.querySelector('.arch-bio-description').textContent=tr(p.bio||'',p.bio_en||p.bio||'');
