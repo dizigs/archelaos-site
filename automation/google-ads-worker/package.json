@@ -1,0 +1,10 @@
+{
+  "name": "@archelaos/google-ads-worker",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "plan": "node scripts/offline-preview.cjs",
+    "syntax": "node --check src/contract.mjs && node --check src/google-ads-api.mjs && node --check src/engine.mjs && node --check src/index.mjs && node --check test/worker.test.mjs"
+  }
+}

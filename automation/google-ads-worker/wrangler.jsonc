@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json.schemastore.org/wrangler.json",
+  "name": "archelaos-google-ads",
+  "main": "src/index.mjs",
+  "compatibility_date": "2026-11-05",
+  "workers_dev": false,
+  "preview_urls": false,
+  "vars": {
+    "ADS_STAGING_ENABLED": "false",
+    "ADS_KEYWORD_PLANNER_READ_ENABLED": "false",
+    "ADS_LIVE_ENABLED": "false",
+    "ADS_KILL_SWITCH": "on",
+    "ADS_ACCOUNT_KIND": "UNVERIFIED",
+    "ADS_API_ACCESS_VERIFIED": "false",
+    "ADS_OAUTH_SCOPE_VERIFIED": "false",
+    "ADS_POLICY_REVIEW_VERIFIED": "false",
+    "ADS_STAGING_TEST_RECEIPT_VERIFIED": "false",
+    "ADS_APPROVED_CHANGE_CONTROL": "false"
+  },
+  "observability": {"enabled": false}
+}
