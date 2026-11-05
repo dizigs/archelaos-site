@@ -22,44 +22,44 @@ jobs:
       ACCEPTANCE_SOURCE_DIR: ${{ github.workspace }}/.acceptance-sources
     steps:
       - name: Checkout only the acceptance PR source (no write credentials)
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           persist-credentials: false
       - name: Set up Node 22
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: '22'
       - name: Checkout scaffold PR 209 exact SHA
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           repository: dizigs/archelaos-site
           ref: 6a64701344b3f392d17bc634bc898c5c22cd69db
           path: .acceptance-sources/scaffold
           persist-credentials: false
       - name: Checkout Gemini PR 214 exact SHA
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           repository: dizigs/archelaos-site
           ref: 2381cacaa4dc3720fb06aa30157617e8205a8488
           path: .acceptance-sources/gemini
           persist-credentials: false
       - name: Checkout Gemma PR 211 exact SHA
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           repository: dizigs/archelaos-site
           ref: b7dd45d9cf34b1bd0f49106980f0c3f73c18645c
           path: .acceptance-sources/gemma
           persist-credentials: false
       - name: Checkout Testing PR 212 exact SHA
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           repository: dizigs/archelaos-site
           ref: 04d8f50502c58b5f1fe7753a2bbde6bea10dc170
           path: .acceptance-sources/testing
           persist-credentials: false
       - name: Checkout Coordinator PR 213 exact SHA
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           repository: dizigs/archelaos-site
           ref: 50fb549842cf803f67c9ddb7b9b13660b6800e51
