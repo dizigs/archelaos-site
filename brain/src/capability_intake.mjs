@@ -144,6 +144,10 @@ export function persistAnalyticsSnapshot(storage, validated, bodyDigest, now = D
       'analytics', validated.eventId)][0];
     if (prior) {
       if (prior.body_digest !== bodyDigest) fail('CAPABILITY_IDEMPOTENCY_CONFLICT', 409);
+      const current = [...sql.exec('SELECT metric_revision FROM analytics_snapshots WHERE snapshot_key=?',
+        validated.snapshotKey)][0];
+      if (!current || current.metric_revision !== validated.metricRevision)
+        fail('ANALYTICS_REVISION_SUPERSEDED', 409);
       return { receiptId: prior.receipt_id, eventId: validated.eventId,
         snapshotKey: validated.snapshotKey, metricRevision: validated.metricRevision,
         status: 'DUPLICATE', durable: true };
