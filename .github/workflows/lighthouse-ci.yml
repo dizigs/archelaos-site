@@ -14,6 +14,7 @@ on:
       - 'images/**'
       - 'news.json'
       - 'hall-of-fame-people.json'
+      - '.github/ci-performance-tools/**'
 
 permissions:
   contents: read
@@ -57,14 +58,17 @@ jobs:
           fi
           echo "Lighthouse GitHub App secret configured."
 
-      - name: Install pinned Lighthouse CI CLI
-        run: npm install --global '@lhci/cli@0.15.x'
+      - name: Install locked local Lighthouse CI CLI
+        run: |
+          set -euo pipefail
+          npm ci --ignore-scripts --no-audit --no-fund --prefix .github/ci-performance-tools
+          npm audit --audit-level=high --prefix .github/ci-performance-tools --omit=dev
 
       - name: Audit home, departments and news and post results to GitHub
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
           LHCI_BUILD_CONTEXT__CURRENT_BRANCH: ${{ github.head_ref || github.ref_name }}
-        run: lhci autorun --config=.lighthouserc.cjs
+        run: ./.github/ci-performance-tools/node_modules/.bin/lhci autorun --config=.lighthouserc.cjs
 
       - name: Preserve local Lighthouse reports for 14 days
         if: always()

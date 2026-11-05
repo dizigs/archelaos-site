@@ -74,3 +74,12 @@
 .ct-credit-choice small{font:400 12px/1.6 Inter,system-ui,sans-serif;color:#627264}
 #ct-credit-name-wrap{display:grid;gap:7px;font-size:13px;color:#254d38}
 @media(max-width:600px){.ct-credit-choice{padding:17px 14px}}
+
+
+/* Archive topic uses the same evidence fields as the dedicated contribution page. */
+.ct-form [hidden]{display:none!important}
+#ct-archive-extra{display:grid;gap:18px;padding:20px;border:1px solid #d6c399;border-radius:15px;background:#fbf7ee}
+.ct-archive-intro{margin:0;color:#4e6957;font-size:13px;line-height:1.65}
+.ct-archive-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+.ct-form #ct-attachments{font-size:12px}
+@media(max-width:680px){.ct-archive-grid{grid-template-columns:1fr}#ct-archive-extra{padding:16px}}

@@ -13,8 +13,12 @@ import hashlib
 import html
 import json
 import re
-import tempfile
 from pathlib import Path
+
+try:
+    from .secure_import_io import held_directory, read_export, read_data_file, replace_data_files
+except ImportError:
+    from secure_import_io import held_directory, read_export, read_data_file, replace_data_files
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_DATA = ROOT / "data"
@@ -52,15 +56,20 @@ def reject_private(obj: object) -> None:
 
 
 def read(data_dir: Path) -> dict:
+    with held_directory(data_dir) as directory:
+        return read_held(directory)
+
+
+def read_held(directory) -> dict:
     data = {}
     for name in TYPES:
-        data[name] = json.loads((data_dir / (name + ".json")).read_text(encoding="utf-8"))
-    ledger = data_dir / "import-ledger.json"
-    data["ledger"] = (json.loads(ledger.read_text(encoding="utf-8"))
-                      if ledger.exists() else {"hashes": []})
-    additions = data_dir / "people-addenda.json"
-    data["addenda"] = (json.loads(additions.read_text(encoding="utf-8"))
-                       if additions.exists() else {"entries": {}})
+        data[name] = json.loads(read_data_file(directory, name + ".json"))
+    for key, name, default in [('ledger', 'import-ledger.json', {'hashes': []}),
+                               ('addenda', 'people-addenda.json', {'entries': {}})]:
+        try:
+            data[key] = json.loads(read_data_file(directory, name))
+        except FileNotFoundError:
+            data[key] = default
     return data
 
 
@@ -175,22 +184,17 @@ def merge(package: dict, original: dict) -> tuple[dict, list[str]]:
 
 
 def run(package_path: Path, data_dir: Path, apply: bool) -> list[str]:
-    package = json.loads(package_path.read_text(encoding="utf-8"))
-    original = read(data_dir)
-    updated, messages = merge(package, original)
-    if apply:
-        # Original files are not touched until *every* proposed change passes validation.
-        for key in (*TYPES, "ledger", "addenda"):
-            filename = {"ledger": "import-ledger.json", "addenda": "people-addenda.json"}.get(key, key + ".json")
-            destination = data_dir / filename
-            with tempfile.NamedTemporaryFile(
-                mode="w", encoding="utf-8", dir=data_dir, prefix=".archive-",
-                suffix=".tmp", delete=False
-            ) as tmp:
-                json.dump(updated[key], tmp, ensure_ascii=False, indent=2)
-                tmp.write("\n")
-                temp_path = Path(tmp.name)
-            temp_path.replace(destination)
+    package = json.loads(read_export(package_path, {'.json'}, 2 * 1024 * 1024).decode('utf-8'))
+    with held_directory(data_dir) as directory:
+        original = read_held(directory)
+        updated, messages = merge(package, original)
+        if apply:
+            # Hold the same approved directory through read/validation/write.
+            payloads = {}
+            for key in (*TYPES, "ledger", "addenda"):
+                filename = {"ledger": "import-ledger.json", "addenda": "people-addenda.json"}.get(key, key + ".json")
+                payloads[filename] = json.dumps(updated[key], ensure_ascii=False, indent=2) + '\n'
+            replace_data_files(directory, payloads)
     return messages
 
 
@@ -200,6 +204,9 @@ if __name__ == "__main__":
     parser.add_argument("--data-dir", type=Path, default=DEFAULT_DATA)
     parser.add_argument("--apply", action="store_true", help="Modify only staged public JSON; no deployment")
     args = parser.parse_args()
-    for line in run(args.input, args.data_dir, args.apply):
-        print(line)
-    print("APPLIED TO STAGED DATA" if args.apply else "DRY RUN — NOTHING MODIFIED")
+    try:
+        for line in run(args.input, args.data_dir, args.apply):
+            print(line)
+        print("APPLIED TO STAGED DATA" if args.apply else "DRY RUN — NOTHING MODIFIED")
+    except (OSError, ValueError):
+        parser.exit(2, 'VERIFIED IMPORT REJECTED: invalid or unsafe local input\n')

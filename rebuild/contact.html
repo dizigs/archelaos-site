@@ -57,6 +57,17 @@
 <option value="">Επιλέξτε άθλημα</option><option value="handball">Χάντμπολ</option><option value="track">Στίβος</option><option value="archery">Τοξοβολία</option><option value="shooting">Σκοποβολή</option><option value="gymnastics">Ενόργανη Γυμναστική</option><option value="wrestling">Πάλη</option><option value="volleyball">Βόλεϊ</option><option value="swimming">Κολύμβηση</option>
 </select></label>
 <div id="ct-archive-extra" hidden>
+<p class="ct-archive-intro">Μοιραστείτε τεκμήρια με τις ίδιες πληροφορίες που ζητά η φόρμα Συνεισφοράς του Ψηφιακού Μουσείου.</p>
+<div class="ct-archive-grid">
+<label>Τι είδους υλικό έχετε;
+<select name="archiveType" id="ct-archive-type"><option value="Φωτογραφία">Φωτογραφία</option><option value="Αγώνας ή αποτέλεσμα">Αγώνας ή αποτέλεσμα</option><option value="Βιογραφικό στοιχείο">Βιογραφικό στοιχείο</option><option value="Ιστορική μαρτυρία">Ιστορική μαρτυρία</option><option value="Άλλο τεκμήριο">Άλλο τεκμήριο</option></select></label>
+<label>Άθλημα ή τμήμα
+<select name="archiveSport" id="ct-archive-sport"><option value="">Δεν γνωρίζω / γενικό</option><option>Χάντμπολ</option><option>Στίβος</option><option>Τοξοβολία</option><option>Σκοποβολή</option><option>Ενόργανη γυμναστική</option><option>Βόλεϊ</option><option>Πάλη</option><option>Κολύμβηση</option><option>Άλλο τμήμα</option></select></label>
+<label>Χρονιά ή περίοδος<input name="archivePeriod" id="ct-archive-period" maxlength="65" placeholder="π.χ. 1994 ή δεκαετία 1970"></label>
+<label>Πρόσωπα, ομάδα ή διοργάνωση<input name="archivePersons" id="ct-archive-persons" maxlength="140"></label>
+<label>Προέλευση ή πηγή<input name="archiveSource" id="ct-archive-source" maxlength="160" placeholder="π.χ. εφημερίδα, οικογενειακό αρχείο"></label>
+<label>Δυνατότητα κοινοποίησης<select name="archiveRights" id="ct-archive-rights"><option value="Χρειάζεται διευκρίνιση">Δεν είμαι βέβαιος/η</option><option value="Διαθέτω δικαίωμα κοινοποίησης">Διαθέτω δικαίωμα κοινοποίησης</option><option value="Δεν διαθέτω άδεια δημοσίευσης">Δεν διαθέτω άδεια δημοσίευσης</option></select></label>
+</div>
 <label>Σύνδεσμος αρχείου Google Drive (προαιρετικό)
 <input type="url" name="archiveLink" id="ct-archive-link" maxlength="2048" placeholder="https://drive.google.com/..."></label>
 <label>Συνημμένα αρχεία (προαιρετικά, έως 5 · συνολικά 15 MB)

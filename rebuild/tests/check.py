@@ -38,7 +38,12 @@ def inspect():
     for path in html_pages:
         source = path.read_text(encoding="utf-8")
         assert '/rebuild/css/motion.css' in source and '/rebuild/js/motion.js' in source, f"{path.name}: shared elegant motion missing"
-        assert "noindex" in source, f"{path.name}: missing preview-only noindex"
+        if path.name == "museum-memory.html":
+            assert '<meta name="robots" content="index,follow">' in source, (
+                "Published museum memory page must be indexable"
+            )
+        else:
+            assert "noindex" in source, f"{path.name}: missing preview-only noindex"
         if path.name not in ("preview.html", "contribute.html"):
             assert '/rebuild/css/collection.css' in source and '/rebuild/js/favorites.js' in source, f"{path.name}: shared favorite module missing"
         parser = Assets(path)
