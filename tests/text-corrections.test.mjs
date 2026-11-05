@@ -1,4 +1,4 @@
-import test from 'node:test';
+import test, {after} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {webcrypto} from 'node:crypto';
@@ -18,8 +18,7 @@ const good={record_kind:'person',record_id:'arch-2cb062fabc11',record_title:'Î’Î
 const request=(value,headers={})=>new Request('https://archelaos.club/api/text-corrections',{method:'POST',
  headers:{origin:'https://archelaos.club','content-type':'application/json','cf-connecting-ip':'198.51.100.9',...headers},
  body:typeof value==='string'?value:JSON.stringify(value)});
-try{
- test('GET is disabled by default, no public key or write',()=>{
+test('GET is disabled by default, no public key or write',()=>{
   const res=onRequestGet({env:{}});assert.equal(res.status,200);
  });
  test('strict origin, input type, record and link validation',async()=>{
@@ -64,4 +63,4 @@ try{
   assert.match(frontend,/aria-expanded/);assert.match(frontend,/record_id:id/);
   assert.match(favorites,/correction-suggestions\.js/);
  });
-}finally{globalThis.fetch=originalFetch}
+after(()=>{globalThis.fetch=originalFetch});
