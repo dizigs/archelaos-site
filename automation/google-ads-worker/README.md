@@ -176,3 +176,39 @@ real undo needs operator approval, known exact resource IDs and state checks.
 
 These guards have mocked/offline CI coverage; **no live Google Ads validateOnly,
 readback, Keyword Planner, ads write or rollback has been executed**.
+
+## Existing Google Ads service account — private Google evidence, 2026-11-05
+
+Google sent account-specific confirmation of **Ad Grants activation (2026-11-02)**,
+**Google Ads API Explorer approval (2026-11-05)** and a Google Ads account
+**Standard**-permission service-account user (2026-11-05). The exact customer,
+service identity and GCP project number are retained in the operator's
+**private access registry**, never placed in this public repo. The invitation
+to accept the non-charging billing profile still needs operator confirmation
+in the Google console; an email saying the invitation was sent is not proof
+that it was accepted. Confirm that the approved Explorer GCP project is the
+same GCP project that owns the intended service account, per Google Ads API
+documentation. An approved project number by itself cannot establish a
+service-account-to-project match.
+
+The Worker now supports explicit `ADS_OAUTH_MODE=SERVICE_ACCOUNT` with a
+short-lived, RS256-signed Google OAuth 2.0 JWT:
+- `ADS_SERVICE_ACCOUNT_PROJECT_ID`: verified owner project ID (configure
+  securely; do not infer from an unrelated project number).
+- `ADS_SERVICE_ACCOUNT_CLIENT_EMAIL`: exact Ads-authorized service account.
+- `ADS_SERVICE_ACCOUNT_PRIVATE_KEY_PEM`: **Cloudflare secret only**; use the
+  private key from the existing service account JSON, never its entire JSON in
+  GitHub, a PR, a log or chat. Do not create another key without need.
+- Token endpoint `https://oauth2.googleapis.com/token`, exact Ads scope
+  `https://www.googleapis.com/auth/adwords`, short expiry.
+- No implicit fallback. Alternate previously implemented user-refresh-token
+  flow requires explicit `ADS_OAUTH_MODE=USER_REFRESH_TOKEN` and separately
+  provisioned secrets. Default remains `UNCONFIGURED`, all staging/live
+  gates remain false.
+
+CI exercises synthetic ephemeral RSA keys and mocked token endpoint only.
+No real Google Ads OAuth grant, service-account key, billing state, customer
+query or production access has been tested by the Worker. The operator must
+provision secrets through the Cloudflare secret interface during a separately
+approved **private staging** rollout; do not publish a Worker as a side effect
+of this code change.
