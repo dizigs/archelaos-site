@@ -175,6 +175,7 @@ test('idempotency conflict cannot overwrite earlier claimed mutation',async()=>{
     applied:true})};
   assert.equal((await dispatch(await sign(base),e,ports)).status,'APPLIED');
   assert.equal((await dispatch(await sign(base),e,ports)).receipt.replayed,true);
-  await assert.rejects(()=>dispatch(await sign({...base,operation:{...base.operation,
-    input:{resourceName:'customers/1234567890/campaigns/45'}}}),e,ports),/IDEMPOTENCY_CONFLICT/);
+  const altered=await sign({...base,operation:{...base.operation,
+    input:{resourceName:'customers/1234567890/campaigns/45'}}});
+  await assert.rejects(()=>dispatch(altered,e,ports),/IDEMPOTENCY_CONFLICT/);
 });
