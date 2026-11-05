@@ -1,0 +1,114 @@
+Actual Google Ad Grants handoff checks — 2026-11-03 Europe/Athens. Fixture provenance is synthetic.
+
+Node tests
+✔ no findings means only checked rules pass; policy review is always required (2.158618ms)
+✔ disapprovals, broken URLs, low quality and single words produce public counts (0.41078ms)
+✔ off-site, credentials, queries and redirects remain unchecked; no inferred HTTP result (0.269346ms)
+✔ CTR uses two complete account-local months, including year and leap boundaries (1.301304ms)
+✔ unknown quality and zero/malformed impressions cannot pass as healthy metrics (0.476469ms)
+✔ conversion requires accepted server receipt, consent and dedup; emits no PII (0.181404ms)
+✔ traffic export adapter distinguishes existing metrics from missing conversions and stale evidence (0.301195ms)
+✔ actual preview collector uses only read APIs and approved GET URLs; never logs raw records (0.750954ms)
+✔ draft campaigns have two groups, multiple creatives/sitelinks and bounded RSA copy, with no budgets (0.641258ms)
+✔ committed synthetic example matches the executed audit used by the Issue planner (0.502829ms)
+✔ combined evidence retains provenance, missing conversions and explicit activation blockers (8.292726ms)
+✔ real-input mode cannot consume a synthetic report or fixture clock (0.607356ms)
+✔ stale or nonexistent Ads dates and stale/future analytics cannot produce a handoff (1.429317ms)
+✔ handoff strips raw values and rejects unknown or duplicate findings (0.547897ms)
+✔ empty traffic stays empty and cannot establish real conversions (0.388827ms)
+✔ importable campaigns or budgets cannot enter the dry-run handoff (0.599174ms)
+✔ completion requires a matching, non-publishable Issue plan with all finding codes (0.505403ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 73.458236
+
+Python tests, including actual shell integration
+test_closed_issue_reopens_instead_of_duplicate (test_ad_grants_issue_plan.IssueSafety.test_closed_issue_reopens_instead_of_duplicate) ... ok
+test_complete_pagination_uses_all_states (test_ad_grants_issue_plan.IssueSafety.test_complete_pagination_uses_all_states) ... ok
+test_foreign_markers_and_pull_requests_do_not_spoof_owned_issue (test_ad_grants_issue_plan.IssueSafety.test_foreign_markers_and_pull_requests_do_not_spoof_owned_issue) ... ok
+test_inventory_failure_or_truncation_cannot_create_partial_plan (test_ad_grants_issue_plan.IssueSafety.test_inventory_failure_or_truncation_cannot_create_partial_plan) ... ok
+test_live_source_still_cannot_publish (test_ad_grants_issue_plan.IssueSafety.test_live_source_still_cannot_publish) ... ok
+test_malformed_issue_metadata_cannot_copy_raw_values_into_public_plan (test_ad_grants_issue_plan.IssueSafety.test_malformed_issue_metadata_cannot_copy_raw_values_into_public_plan) ... ok
+test_no_raw_values_or_unrecognized_findings_enter_public_payload (test_ad_grants_issue_plan.IssueSafety.test_no_raw_values_or_unrecognized_findings_enter_public_payload) ... ok
+test_open_issue_is_idempotent (test_ad_grants_issue_plan.IssueSafety.test_open_issue_is_idempotent) ... ok
+test_synthetic_pipeline_second_run_creates_no_duplicates (test_ad_grants_issue_plan.IssueSafety.test_synthetic_pipeline_second_run_creates_no_duplicates) ... ok
+test_synthetic_plan_is_never_publishable (test_ad_grants_issue_plan.IssueSafety.test_synthetic_plan_is_never_publishable) ... ok
+test_full_pipeline_then_repeated_inventory_creates_no_duplicate_plans (test_ad_grants_pipeline.Pipeline.test_full_pipeline_then_repeated_inventory_creates_no_duplicate_plans) ... ok
+test_missing_real_inputs_invalidates_previous_fixture_completion (test_ad_grants_pipeline.Pipeline.test_missing_real_inputs_invalidates_previous_fixture_completion) ... ok
+test_stale_analytics_stops_the_entire_pipeline (test_ad_grants_pipeline.Pipeline.test_stale_analytics_stops_the_entire_pipeline) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.529s
+
+OK
+
+Full fixture pipeline
+Built dry-run preview bundle in ignored test-artifacts; no upload or activation.
+{
+  "schema_version": 1,
+  "mode": "dry-run",
+  "status": "DRY_RUN_COMPLETE",
+  "source_kind": "synthetic-fixture",
+  "assessed_at": "2026-11-03T08:00:00Z",
+  "ready_for_live_ads": false,
+  "campaign_count": 2,
+  "analytics": {
+    "schema_version": 1,
+    "ga4_days": 2,
+    "search_console_days": 2,
+    "conversions": "unavailable",
+    "note": "Existing aggregate has traffic totals, not verified lead events or Ads attribution"
+  },
+  "findings": [
+    {
+      "code": "AD_DISAPPROVED",
+      "count": 1
+    },
+    {
+      "code": "URL_BROKEN",
+      "count": 1
+    },
+    {
+      "code": "URL_UNCHECKED",
+      "count": 1
+    },
+    {
+      "code": "KEYWORD_LOW_QUALITY",
+      "count": 1
+    },
+    {
+      "code": "KEYWORD_SINGLE_WORD",
+      "count": 1
+    },
+    {
+      "code": "CTR_BELOW_TARGET",
+      "count": 2
+    }
+  ],
+  "blockers": [
+    "CURRENT_POLICY_UNVERIFIED",
+    "ACCOUNT_SETUP_UNVERIFIED",
+    "PRODUCTION_LANDINGS_UNVERIFIED",
+    "CONSENT_UNVERIFIED",
+    "REAL_CONVERSIONS_UNVERIFIED",
+    "GOOGLE_ADS_PREVIEW_UNVERIFIED",
+    "UPSTREAM_RELEASE_APPROVAL_REQUIRED"
+  ],
+  "issue_actions": {
+    "would_create": 6,
+    "would_reopen": 0,
+    "already_open": 0
+  }
+}
+
+Missing real evidence — expected nonzero exit
+Ad Grants handoff incomplete: required evidence is missing or invalid; no activation.
+
+Independent release verification
+RELEASE QA OK: 15 core pages + 760 indexed profiles.
+Canonicals, robots, structured data, two sitemaps, redirects and local paths verified.
