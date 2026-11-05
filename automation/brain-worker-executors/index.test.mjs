@@ -1,0 +1,10 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import {validateTaskIntent,evaluateChecks} from "./index.mjs";
+const base={type:"testing",eventId:"task_12345678",commitSha:"a".repeat(40),approved:true};
+test("valid brain-approved task",()=>assert.equal(validateTaskIntent(base).type,"testing"));
+test("rejects unapproved",()=>assert.throws(()=>validateTaskIntent({...base,approved:false})));
+test("rejects production and auto-merge",()=>{assert.throws(()=>validateTaskIntent({...base,production:true}));assert.throws(()=>validateTaskIntent({...base,autoMerge:true}));});
+test("rejects malformed SHA",()=>assert.throws(()=>validateTaskIntent({...base,commitSha:"main"})));
+test("fails closed on missing or skipped CI",()=>{assert.equal(evaluateChecks(["a.yml"],[]).pass,false);assert.equal(evaluateChecks(["a.yml"],[{workflow:"a.yml",conclusion:"skipped"}]).pass,false);});
+test("passes only on explicit success",()=>assert.equal(evaluateChecks(["a.yml"],[{workflow:"a.yml",conclusion:"success"}]).pass,true));
