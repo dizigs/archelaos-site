@@ -83,3 +83,40 @@ test('unapproved event type cannot enter the shared Brain source scope',async()=
   const e=event();e.eventType='news.search.completed';const {a}=setup(async()=>{throw Error('unexpected fetch');});
   await reject(a.submitEvent(e),'EVENT_TYPE_NOT_APPROVED');
 });
+
+test('malformed success acknowledgements are UNKNOWN and never silently untracked', async () => {
+  const e=event();
+  for (const response of [
+    () => new Response('{broken', {status:202,headers:{'content-type':'application/json'}}),
+    () => Response.json({...{receiptId:randomUUID(),correlationId:e.correlationId,
+      eventId:e.eventId,durable:false,duplicate:false,status:'QUEUED'}},{status:202})
+  ]) {
+    const {a,logs}=setup(async()=>response());
+    await reject(a.submitEvent(e),'RECEIPT_UNVERIFIED');
+    assert.equal(logs.length,1);
+    assert.equal(logs[0].result,'UNKNOWN');
+    assert.equal(logs[0].eventId,e.eventId);
+    assert.equal(logs[0].correlationId,e.correlationId);
+  }
+});
+test('Brain WAITING_REVIEW receipt state is part of the live canonical task lifecycle',async()=>{
+  const e=event();
+  const {a}=setup(async()=>Response.json({...await reply(e).json(),status:'WAITING_REVIEW'},{status:202}));
+  assert.equal((await a.submitEvent(e)).status,'WAITING_REVIEW');
+});
+test('readback fails closed on mismatched correlation, forged state and negative attempts',async()=>{
+  const id=randomUUID(),correlationId=randomUUID();
+  const {a}=setup(async()=>Response.json({receiptId:id,correlationId,status:'WAITING_REVIEW',attempts:0}));
+  assert.equal((await a.readReceipt(id,correlationId)).correlationId,correlationId);
+  await reject(a.readReceipt(id,randomUUID()),'READBACK_UNVERIFIED');
+  const {a:bad}=setup(async()=>Response.json({receiptId:id,correlationId,status:'GHOST',attempts:-1}));
+  await reject(bad.readReceipt(id,correlationId),'READBACK_UNVERIFIED');
+});
+test('staging health can pin the known commit and rejects a mismatched release',async()=>{
+  const commit='a'.repeat(40);
+  const health=async()=>Response.json({service:'archelaos-brain',environment:'staging',commit,aiExecutionEnabled:false});
+  const {a}=setup(health,{expectedBrainCommit:commit});
+  assert.equal((await a.probeHealth()).reachable,true);
+  const {a:other}=setup(health,{expectedBrainCommit:'b'.repeat(40)});
+  assert.equal((await other.probeHealth()).code,'HEALTH_IDENTITY_MISMATCH');
+});
