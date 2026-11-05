@@ -56,7 +56,7 @@ export function normalize(item, { query, retrievedAt, endpoint = 'search' } = {}
   const aggregator = unique([...strings(item.provider), ...strings(aggregation.edmProvider)]);
   const year = first(item.year, item.dcDate, proxy.dcDate, proxy.dctermsCreated);
   const canonicalUrl = 'https://www.europeana.eu/en/item' + id;
-  const searchable = [title, ...strings(item.dcDescription), ...strings(item.edmPlaceLabel)].join(' ').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase('el');
+  const searchable = [title, ...strings(item.dcDescription), ...strings(item.edmPlaceLabel)].join(' ').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase('el').replaceAll('ς','σ');
   const signals = ['αρχελαοσ', 'κατερινη', 'πιερια', 'archelaos', 'katerini', 'pieria'].filter(t => searchable.includes(t));
   return {
     schemaVersion: 1, sourceSystem: 'europeana', europeanaId: id,
@@ -81,7 +81,7 @@ export function deduplicate(items) {
 }
 /** Explicitly gated, injected transport: production activation is deliberately unsupported. */
 export function createStagingClient({ enabled = false, projectApproved = false,
-  operatorApproved = false, mode = 'offline', apiKey, fetchImpl, sleep = async () => {},
+  operatorApproved = false, mode = 'offline', apiKey, fetchImpl, sleep = ms => new Promise(resolve => setTimeout(resolve, ms)),
   now = () => Date.now(), cacheTtlMs = 24 * 60 * 60 * 1000 } = {}) {
   if (!(enabled && projectApproved && operatorApproved && mode === 'staging'))
     throw Error('EUROPEANA_DISABLED_OR_NOT_APPROVED');
@@ -105,8 +105,11 @@ export function createStagingClient({ enabled = false, projectApproved = false,
         await sleep(1000); continue;
       }
       if ([429, 500, 502, 503, 504].includes(response.status) && attempt < 2) {
-        const raw = Number(response.headers?.get?.('retry-after'));
-        await sleep(Number.isFinite(raw) && raw >= 0 ? Math.min(raw * 1000, 3000) : 1000);
+        const header = response.headers?.get?.('retry-after');
+        const numeric = header != null && /^\d+(?:\.\d+)?$/.test(header.trim());
+        const raw = numeric ? Number(header) : null;
+        if (header != null && (!numeric || raw > 3)) throw Error('EUROPEANA_BACKOFF_REQUIRED');
+        await sleep(raw === null ? 1000 : raw * 1000);
         continue;
       }
       if (!response.ok) throw Error('EUROPEANA_HTTP_' + response.status);
