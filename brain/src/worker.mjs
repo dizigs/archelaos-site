@@ -2,6 +2,7 @@ import { DurableObject } from 'cloudflare:workers';
 import { Rejected, UUID, authenticate, boundedBody, digest, reply, route, validateEvent } from './contract.mjs';
 import { claimBudgetCall, reserveBudget, settleBudget } from './budget.mjs';
 import { readTaskIntent, storeTaskIntent } from './task_intents.mjs';
+import { EXEC_SCHEMA, submitExecutionIntent, approveExecutionIntent, claimExecutionIntent, beginExecutionCall, finishExecutionIntent, reconcileExecutionIntent, inspectExecutionIntent, executionDiagnostics, recoverExecutionLeases, signIntegrationReceipt } from './exec_authority.mjs';
 
 const SCHEMA = [
   'CREATE TABLE IF NOT EXISTS jobs(id TEXT PRIMARY KEY,source TEXT NOT NULL,type TEXT NOT NULL,correlation TEXT NOT NULL,envelope TEXT NOT NULL,status TEXT NOT NULL,attempts INTEGER NOT NULL DEFAULT 0,due INTEGER NOT NULL,lease_until INTEGER NOT NULL DEFAULT 0,created INTEGER NOT NULL,updated INTEGER NOT NULL,route TEXT NOT NULL,code TEXT NOT NULL)',
@@ -16,7 +17,8 @@ const SCHEMA = [
   ,'CREATE TABLE IF NOT EXISTS controls(name TEXT PRIMARY KEY,value INTEGER NOT NULL)'
   ,'CREATE TABLE IF NOT EXISTS control_audit(at INTEGER NOT NULL,code TEXT NOT NULL,revision INTEGER NOT NULL,scope TEXT NOT NULL)'
   ,'CREATE TABLE IF NOT EXISTS task_intents(id TEXT PRIMARY KEY,payload TEXT NOT NULL,created INTEGER NOT NULL,expires INTEGER NOT NULL)'
-  ,'CREATE TABLE IF NOT EXISTS task_intent_audit(id TEXT NOT NULL,at INTEGER NOT NULL,code TEXT NOT NULL)'
+  ,'CREATE TABLE IF NOT EXISTS task_intent_audit(id TEXT NOT NULL,at INTEGER NOT NULL,code TEXT NOT NULL)',
+  ...EXEC_SCHEMA
 ];
 
 export class BrainCoordinator extends DurableObject {
@@ -125,6 +127,50 @@ export class BrainCoordinator extends DurableObject {
         const row = [...this.sql.exec('SELECT envelope FROM jobs WHERE id=?', id)][0];
         return row ? reply(JSON.parse(row.envelope)) : reply({ code: 'NOT_FOUND' }, 404);
       }
+      if (url.pathname.startsWith('/internal/exec/')) {
+        const synthetic = this.env.TEST_BUDGET === 'true' && this.env.BRAIN_EXECUTION_ADMISSION === 'synthetic';
+        const enabled = synthetic || (this.env.ENVIRONMENT === 'staging' &&
+          this.env.BRAIN_EXECUTION_ADMISSION === 'enabled' && this.env.CENTRAL_LEDGER_VERIFIED === 'true');
+        const path = url.pathname;
+        if (request.method === 'GET' && path === '/internal/exec/diagnostics') return reply(executionDiagnostics(this.ctx.storage));
+        if (request.method === 'GET' && path.startsWith('/internal/exec/intents/'))
+          return reply(inspectExecutionIntent(this.ctx.storage, path.slice('/internal/exec/intents/'.length)));
+        if (request.method === 'GET' && path.startsWith('/internal/exec/authorizations/')) {
+          const synthetic = this.env.TEST_BUDGET === 'true' && this.env.BRAIN_EXECUTION_ADMISSION === 'synthetic';
+          const enabled = synthetic || (this.env.ENVIRONMENT === 'staging' &&
+            this.env.BRAIN_EXECUTION_ADMISSION === 'enabled' && this.env.CENTRAL_LEDGER_VERIFIED === 'true');
+          if (!enabled) throw new Rejected('EXECUTION_ADMISSION_DISABLED', 423);
+          const signControls = this.controlState();
+          if (synthetic) signControls.aiPaused = false;
+          return reply(await signIntegrationReceipt(this.ctx.storage,
+            path.slice('/internal/exec/authorizations/'.length), this.env.BRAIN_EXECUTOR_SIGNING_KEY, signControls));
+        }
+        if (request.method !== 'POST') throw new Rejected('NOT_FOUND', 404);
+        let input; try { input = await request.json(); } catch { throw new Rejected('INVALID_JSON', 422); }
+        if (path === '/internal/exec/intents') return reply(await submitExecutionIntent(this.ctx.storage, input), 202);
+        if (path === '/internal/exec/approvals')
+          return reply(approveExecutionIntent(this.ctx.storage, input, this.controlState()));
+        if (!enabled) throw new Rejected('EXECUTION_ADMISSION_DISABLED', 423);
+        const controls = this.controlState();
+        // Synthetic admission is restricted to explicit test flags; it cannot
+        // unpause the real shared AI budget or dispatch an external provider.
+        if (synthetic) controls.aiPaused = false;
+        let configuration = null;
+        if (this.env.BRAIN_EXECUTION_CONFIG) {
+          try { configuration = JSON.parse(this.env.BRAIN_EXECUTION_CONFIG); }
+          catch { throw new Rejected('EXEC_BUDGET_CONFIG_INVALID', 503); }
+        }
+        if (path === '/internal/exec/claims') {
+          // Alarm before claim commit: a crash after durable lease acquisition
+          // cannot strand work indefinitely without reconciliation.
+          await this.wake(Date.now() + 30_050);
+          return reply(claimExecutionIntent(this.ctx.storage, input, controls, configuration));
+        }
+        if (path === '/internal/exec/begin') return reply(beginExecutionCall(this.ctx.storage, input, controls));
+        if (path === '/internal/exec/complete') return reply(finishExecutionIntent(this.ctx.storage, input));
+        if (path === '/internal/exec/reconcile') return reply(reconcileExecutionIntent(this.ctx.storage, input));
+        throw new Rejected('NOT_FOUND', 404);
+      }
       if (url.pathname === '/internal/task-intents' && request.method === 'POST') {
         let input; try { input = await request.json(); } catch { throw new Rejected('INVALID_JSON', 422); }
         const result = this.ctx.storage.transactionSync(() => storeTaskIntent(this.sql, input));
@@ -136,6 +182,15 @@ export class BrainCoordinator extends DurableObject {
       }
       if (url.pathname === '/internal/control' && request.method === 'GET') return reply(this.controlState());
       if (url.pathname === '/internal/control' && request.method === 'POST') return await this.control(await request.json());
+      if (this.env.TEST_BUDGET === 'true' && this.env.ENVIRONMENT === 'staging' &&
+          request.method === 'POST' && url.pathname === '/internal/testing/expire-exec-lease') {
+        const input = await request.json();
+        if (!UUID.test(input?.taskId || '')) throw new Rejected('INVALID_TEST_TASK', 422);
+        this.sql.exec('UPDATE exec_intents SET lease_until=? WHERE task_id=? AND status=?',
+          Date.now() - 1, input.taskId, 'IN_FLIGHT');
+        await this.wake(Date.now() + 10);
+        return reply({ syntheticLeaseExpired: true });
+      }
       if (this.env.TEST_BUDGET === 'true' && request.method === 'POST' && url.pathname === '/internal/testing/expire-lease') {
         const input = await request.json();
         if (!UUID.test(input.receiptId)) throw new Rejected('INVALID_TEST_RECEIPT', 422);
@@ -174,6 +229,7 @@ export class BrainCoordinator extends DurableObject {
   }
   async alarm() {
     const now = Date.now();
+    this.ctx.storage.transactionSync(() => recoverExecutionLeases(this.ctx.storage, now));
     // Arm crash recovery BEFORE claiming durable jobs. If execution stops after
     // a RUNNING write, another alarm will still reclaim its expired lease.
     await this.wake(now + 30000);
@@ -209,7 +265,9 @@ export class BrainCoordinator extends DurableObject {
       processed += 1;
     }
     const pending = this.controlState().globalPaused ? null : [...this.sql.exec('SELECT MIN(CASE WHEN status=? THEN lease_until ELSE due END) AS due FROM jobs WHERE status IN (?,?,?) AND NOT EXISTS(SELECT 1 FROM controls WHERE name=?||jobs.source AND value=1)', 'RUNNING', 'QUEUED', 'RETRY_WAIT', 'RUNNING', 'source:')][0].due;
-    if (pending !== null) await this.ctx.storage.setAlarm(Math.max(Date.now() + 10, pending));
+    const execPending = [...this.sql.exec("SELECT MIN(lease_until) AS due FROM exec_intents WHERE status IN ('CLAIMED','IN_FLIGHT')")][0].due;
+    const nextDue = [pending, execPending].filter(due => due !== null && due !== undefined);
+    if (nextDue.length) await this.ctx.storage.setAlarm(Math.max(Date.now() + 10, Math.min(...nextDue)));
     else await this.ctx.storage.deleteAlarm();
   }
 }
@@ -220,14 +278,32 @@ export default {
       const url = new URL(request.url);
       if (env.ENVIRONMENT !== 'staging' || !/^[0-9a-f]{40}$/.test(env.DEPLOY_SHA || '') || !Number.isFinite(Date.parse(env.STAGING_EXPIRES_AT)) || Date.now() >= Date.parse(env.STAGING_EXPIRES_AT)) throw new Rejected('STAGING_DISABLED_OR_EXPIRED', 503);
       if (request.method === 'GET' && url.pathname === '/healthz' && !url.search) return reply({ service: 'archelaos-brain', environment: 'staging', commit: env.DEPLOY_SHA, aiExecutionEnabled: false });
-      if (url.search || !((['GET', 'POST'].includes(request.method) && url.pathname === '/v1/control') ||
-        (request.method === 'POST' && ['/v1/events', '/v1/task-intents'].includes(url.pathname)) ||
+      const execPost = request.method === 'POST' &&
+        ['/v1/exec/intents','/v1/exec/approvals','/v1/exec/claims','/v1/exec/begin',
+         '/v1/exec/complete','/v1/exec/reconcile'].includes(url.pathname);
+      const execGet = request.method === 'GET' &&
+        (url.pathname === '/v1/exec/diagnostics' ||
+         (url.pathname.startsWith('/v1/exec/intents/') &&
+          UUID.test(url.pathname.slice('/v1/exec/intents/'.length))) ||
+         (url.pathname.startsWith('/v1/exec/authorizations/') &&
+          UUID.test(url.pathname.slice('/v1/exec/authorizations/'.length))));
+      const existingRoute = ((['GET','POST'].includes(request.method) && url.pathname === '/v1/control') ||
+        (request.method === 'POST' && ['/v1/events','/v1/task-intents'].includes(url.pathname)) ||
         (request.method === 'GET' && (url.pathname === '/v1/diagnostics' ||
           (url.pathname.startsWith('/v1/tasks/') && UUID.test(url.pathname.slice('/v1/tasks/'.length))) ||
-          (url.pathname.startsWith('/v1/task-intents/') && UUID.test(url.pathname.slice('/v1/task-intents/'.length))))))) throw new Rejected('NOT_FOUND', 404);
+          (url.pathname.startsWith('/v1/task-intents/') && UUID.test(url.pathname.slice('/v1/task-intents/'.length))))));
+      if (url.search || !(existingRoute || execPost || execGet)) throw new Rejected('NOT_FOUND', 404);
       const raw = await boundedBody(request);
       const source = await authenticate(request, env, raw);
       const coordinator = env.BRAIN.get(env.BRAIN.idFromName('central-v1'));
+      if (url.pathname.startsWith('/v1/exec/')) {
+        if (source !== 'operator') throw new Rejected('OPERATOR_SCOPE_REQUIRED', 403);
+        const target = 'https://brain.internal/internal' + url.pathname.slice('/v1'.length);
+        if (request.method === 'GET') return await coordinator.fetch(target);
+        if (!/^application\/json(?:;\s*charset=utf-8)?$/i.test(request.headers.get('content-type') || ''))
+          throw new Rejected('JSON_REQUIRED', 415);
+        return await coordinator.fetch(target, { method: 'POST', body: raw });
+      }
       if (url.pathname === '/v1/task-intents' || url.pathname.startsWith('/v1/task-intents/')) {
         if (source !== 'operator') throw new Rejected('OPERATOR_SCOPE_REQUIRED', 403);
         if (request.method === 'POST') {
