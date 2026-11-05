@@ -63,6 +63,20 @@ class ZinisaIdentitySeparationTests(unittest.TestCase):
             self.assertEqual(len(ids), len(set(ids)), article["id"])
             self.assertTrue(set(ids).issubset(self.people), article["id"])
 
+    def test_ambiguous_bare_name_does_not_link_to_either_athlete(self):
+        index = load_json("archelaos-person-index.json")
+        people = [x for x in index if x["id"] in (OLD_ID, NEW_ID)]
+        self.assertEqual(len(people), 2)
+        # The automatic mention linker ingests both the displayed name and
+        # every names[] alias. Bare mentions must not resolve to either person.
+        ambiguous = {"Νίκος Ζινίσα", "Νικόλαος Ζινίσα"}
+        for person in people:
+            self.assertNotIn(person["name"], ambiguous)
+            self.assertTrue(ambiguous.isdisjoint(person.get("names", [])))
+            self.assertTrue(all("του " in alias for alias in person["names"]))
+        self.assertTrue(any("Κωνσταντίνου" in a for a in people[0]["names"]))
+        self.assertTrue(any("Σάββα" in a for a in people[1]["names"]))
+
     def test_indexes_and_sitemap_preserve_old_deep_links(self):
         index = load_json("archelaos-person-index.json")
         search = load_json("search-index.json")["records"]
