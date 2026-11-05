@@ -24,7 +24,12 @@ production writer. It never accepts arbitrary Google-shaped clients for writes.
    associated data. The in-memory backup is NOT durable production storage.
 5. In-memory operation journal supports restart modeling only through an
    explicit synthetic checkpoint; real production durability is the existing
-   PR #124 SQLite Durable Object, not proven by these tests.
+   PR #124 SQLite Durable Object, not proven by these tests. Restored
+   IN_PROGRESS jobs remain blocked unless a separate synthetic liveness probe
+   explicitly confirms their executor has stopped; only then may the journal
+   move to RECONCILIATION_REQUIRED for **read-only** reconciliation. Unknown
+   liveness, probe errors, and live executors leave jobs IN_PROGRESS.
+   Post-write readback errors always HOLD the job rather than leaking IN_PROGRESS.
 6. OAuth here validates test fixture metadata only, not Google's live issuer,
    audience, signature or refresh token; reuse the existing Admin grant from
    PR #124 without requesting an additional OAuth scope.
@@ -48,6 +53,10 @@ Run locally:
 - node automation/apps-script-e2e-validation/live-verification-runner.mjs --live
 
 The last command MUST fail. CI runs on PR and manual dispatch only, no schedule.
+The isolated workflow rejects out-of-scope changes, including both sides of a
+rename via NUL-delimited `git diff --no-renames --name-only -z`. The test suite
+regresses missing lease identities, every post-write readback, abandoned-job
+liveness, exact post-rollback SHA256 equality, and strictly typed Brain fields.
 
 ## BLOCKED before live use
 
