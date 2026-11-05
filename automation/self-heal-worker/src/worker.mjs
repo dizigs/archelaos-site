@@ -1,6 +1,5 @@
 import { DurableObject, WorkerEntrypoint } from 'cloudflare:workers';
 import { HealerLedger } from './ledger.mjs';
-import { parseFinding } from './policy.mjs';
 import { RecoveryLedger, recover as recoverIncident } from './recovery.mjs';
 import { verifySignedRecoveryEvent } from './contract.mjs';
 
