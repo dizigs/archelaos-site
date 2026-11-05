@@ -7,7 +7,7 @@ import {
   computeProjectSha256, createAndVerifyEncryptedBackup, createSignedApproval,
   decryptAndVerifyBackup, detectSha256Drift, readProjectSnapshot, reconcileUncertainJob,
   relayMetadataToCentralBrain, runSmokeWriteAndRollbackLifecycle, sanitizeForLogs,
-  verifyAuthorizedOAuth, createSyntheticGasEnvironment
+  verifyAuthorizedOAuth, createSyntheticGasEnvironment, verifyWritersAndTriggersGuard
 } from './harness.mjs';
 
 const PRINCIPAL='synthetic-owner@example.invalid';
@@ -82,11 +82,21 @@ test('5. arbitrary or missing inventory cannot impersonate cross-account verific
     {holderId:'other',expiresAtMs:expires()}}),C.CONCURRENT_WRITER_ACTIVE);
   assert.equal(env.getPutCalls(),0);
 });
-test('6. changed triggers are rejected without any write',async()=>{
+test('6. stale independent inventory rejects externally changed triggers without write',async()=>{
   const {env,args}=await context();
   env.mutateTriggersExternally([{id:'changed-trigger'}]);
-  await rejectsCode(()=>runSmokeWriteAndRollbackLifecycle(args),C.TRIGGER_MUTATION_FORBIDDEN);
+  await rejectsCode(()=>runSmokeWriteAndRollbackLifecycle(args),C.PROVIDER_INVENTORY_UNVERIFIED);
   assert.equal(env.getPutCalls(),0);
+});
+test('6b. actual baseline-to-current trigger drift reports trigger mutation',async()=>{
+  const {env,base,args}=await context();
+  env.mutateTriggersExternally([{id:'externally-changed'}]);
+  const changed=await readProjectSnapshot(env.client,env.scriptId);
+  assert.throws(()=>verifyWritersAndTriggersGuard({
+    baselineSnapshot:base,currentRemoteSnapshot:changed,
+    activeLease:args.activeLease,actorId:ACTOR,
+    independentInventory:args.independentInventory
+  }),{code:C.TRIGGER_MUTATION_FORBIDDEN});
 });
 test('7. full synthetic smoke/readback/rollback restores baseline and triggers',async()=>{
   const {env,base,args}=await context();
