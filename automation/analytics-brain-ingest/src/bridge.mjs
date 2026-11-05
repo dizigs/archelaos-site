@@ -4,7 +4,7 @@
  * Its trustedLookup port must read GitHub's authoritative run AND artifact,
  * extract the private archive, and hash the *exact* JSON bytes it returns.
  */
-import { buildBrainAnalyticsEvent, digest } from '../../analytics-worker/src/aggregate.mjs';
+import { buildBrainAnalyticsEvent, normalizeReport, digest } from '../../analytics-worker/src/aggregate.mjs';
 
 const SOURCE = Object.freeze({
   google_bundle: {workflow:'Google Search and GA4 daily aggregate', artifact:'google-search-ga4-private-report',
@@ -188,6 +188,73 @@ export async function preparePrivateExport({source,artifactBytes,runId,artifactI
   },events};
 }
 /**
+ * Local structural/integrity preflight only — NOT source authentication.
+ * Independently trusted private GitHub provenance and Brain binding remain
+ * mandatory. Prevent a mutated/fabricated caller batch being handed to the
+ * Brain before any remote side effect or cost-bearing work.
+ */
+async function preflightPreparedBatch(prepared) {
+  const invalid=()=>fail('UNVERIFIED_PREPARED_BATCH');
+  function exact(v,fields) {
+    if(!v||typeof v!=='object'||Array.isArray(v)||
+      Object.keys(v).length!==fields.length||fields.some(f=>!Object.hasOwn(v,f))) invalid();
+  }
+  exact(prepared,['schemaVersion','verified','evidence','events']);
+  if(prepared.schemaVersion!==1||prepared.verified!==true||
+    !Array.isArray(prepared.events)||!prepared.events.length||prepared.events.length>64)invalid();
+  const evidence=prepared.evidence;
+  exact(evidence,['repository','runId','artifactId','runSha','reportDigest','workflow','observedAt']);
+  if(evidence.repository!=='dizigs/archelaos-site'||
+    !Number.isSafeInteger(evidence.runId)||evidence.runId<1||
+    !Number.isSafeInteger(evidence.artifactId)||evidence.artifactId<1||
+    typeof evidence.runSha!=='string'||!COMMIT.test(evidence.runSha)||
+    typeof evidence.reportDigest!=='string'||!SHA.test(evidence.reportDigest)||
+    typeof evidence.observedAt!=='string'||!Number.isFinite(Date.parse(evidence.observedAt))||
+    new Date(evidence.observedAt).toISOString()!==evidence.observedAt)invalid();
+  const seen=new Set();
+  for(const record of prepared.events) {
+    exact(record,['event','snapshotKey','metricRevision']);
+    const event=record.event;
+    exact(event,['schemaVersion','eventId','source','type','sourceRevision','observedAt',
+      'correlationId','payload','privacyStatus','aiRouting','publish']);
+    const payload=event.payload;
+    exact(payload,['schemaVersion','source','reportDigest','period','metrics','suppressedRows',
+      'rawVisitorDataStored','externalAiCalls']);
+    if(event.schemaVersion!==1||event.source!=='analytics'||
+      event.type!=='aggregate_report_ready'||event.sourceRevision!==evidence.reportDigest||
+      event.observedAt!==evidence.observedAt||event.privacyStatus!=='AGGREGATED_ONLY'||
+      event.aiRouting!=='CENTRAL_BRAIN_ONLY'||event.publish!==false||
+      payload.schemaVersion!==1||payload.reportDigest!==evidence.reportDigest||
+      payload.rawVisitorDataStored!==false||payload.externalAiCalls!==0||
+      !Number.isSafeInteger(payload.suppressedRows)||payload.suppressedRows<0||
+      payload.suppressedRows>300||!Array.isArray(payload.metrics)||!payload.metrics.length||
+      payload.metrics.length>300)invalid();
+    const requiredWorkflow=payload.source==='clarity'?SOURCE.clarity.workflow:
+      ['ga4','search_console'].includes(payload.source)?SOURCE.google_bundle.workflow:null;
+    if(!requiredWorkflow||evidence.workflow!==requiredWorkflow)invalid();
+    const raw=[];
+    for(const row of payload.metrics) {
+      exact(row,['pagePath','name','value','sampleSize','confidence']);
+      if(row.confidence!=='AGGREGATE_ONLY_NO_CAUSAL_INFERENCE')invalid();
+      raw.push({pagePath:row.pagePath,name:row.name,value:row.value,sampleSize:row.sampleSize});
+    }
+    let validated;
+    try {validated=normalizeReport({schemaVersion:1,source:payload.source,
+      reportDigest:payload.reportDigest,period:payload.period,metrics:raw});}
+    catch {invalid();}
+    if(JSON.stringify(validated.metrics)!==JSON.stringify(payload.metrics))invalid();
+    const id=await digest('analytics|'+payload.source+'|'+payload.reportDigest+'|'+
+      payload.period.from+'|'+payload.period.to);
+    const snapshotKey=payload.source+'|'+payload.period.from+'|'+payload.period.to;
+    const revision=await digest(JSON.stringify(payload.metrics));
+    if(event.eventId!==id||event.correlationId!==id.slice(0,24)||
+      record.snapshotKey!==snapshotKey||record.metricRevision!==revision||
+      seen.has(snapshotKey))invalid();
+    seen.add(snapshotKey);
+  }
+}
+
+/**
  * Must be backed by a separately verified authenticated Brain Service Binding,
  * a durable source+period UPSERT/replay ledger, independently verified signed
  * receipt AND independently verified durable snapshot readback.
@@ -198,6 +265,7 @@ export async function deliverToBrain(prepared,brainPort){
      typeof brainPort?.capabilities!=='function'||typeof brainPort?.submitSnapshot!=='function'||
      typeof brainPort?.verifyReceipt!=='function'||typeof brainPort?.readbackSnapshot!=='function'||
      typeof brainPort?.verifyReadback!=='function')fail('BRAIN_ANALYTICS_NOT_CONFIGURED');
+  await preflightPreparedBatch(prepared);
   let cap;
   try{cap=await brainPort.capabilities();}
   catch{fail('BRAIN_CAPABILITY_UNAVAILABLE');}
