@@ -55,4 +55,4 @@ The post-#224 Cloudflare recheck and exact cross-owner handoff are in [PRIVATE-C
 
 Test with: node --test automation/cloudflare-brain-integration/binding-plan.test.mjs
 
-Nine deterministic local tests passed (9/9). The existing 18-case client suite and live E2E are not certified by those tests. Do not activate staging while the deployed Brain SHA is diverged, expiry is in 1970, intake secret metadata is absent, and the canonical Brain staging-v1 source identity cannot admit real Drive/Gmail/News events.
+Nine deterministic local tests passed (9/9). At exact PR head 8c437f8e48bd32dac364caf55813b21572c2bfa8, GitHub Actions Cloudflare Brain adapter mock contracts ran 19/19 existing client tests successfully (run 42109705341); the nine new binding-plan tests passed locally and are not yet included in that workflow. Live E2E remains untested. Do not activate staging while the deployed Brain SHA is diverged, expiry is in 1970, intake secret metadata is absent, and the canonical Brain staging-v1 source identity cannot admit real Drive/Gmail/News events.
