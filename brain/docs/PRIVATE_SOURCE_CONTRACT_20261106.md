@@ -77,7 +77,7 @@ The durable global/source kill switch and source rate counter are checked **insi
 Receipt key: private secret \`BRAIN_CAPABILITY_RECEIPT_KEY\`, public stable \`keyId="brain-capability-receipts-v1"\`, response contains \`receiptSignature\` (64 lowercase hex). Brain returns JSON object with stable fields (including \`schemaVersion:1\`, \`audience\`, \`principal\`, \`keyId\`, \`issuedAtMs\`) BEFORE adding \`receiptSignature\`.
 
 **Algorithm:** HMAC-SHA256 with the raw secret UTF-8 bytes over exact UTF-8 bytes:
-\`audience + "\\n" + JSON.stringify(responseObjectWithoutReceiptSignature)\`. Lowercase hex encode 32-byte MAC. The independently trusted verifier MUST check the same keyId, audience, principal, exact request binding (\`receiptId\`, event ID, snapshot key/revision, source), timestamp freshness and duration, and independent readback; a body-signed ACK **alone is not provider provenance**.
+\`audience + "\n" + JSON.stringify(responseObjectWithoutReceiptSignature)\`. Lowercase hex encode 32-byte MAC. The independently trusted verifier MUST check the same keyId, audience, principal, exact request binding (\`receiptId\`, event ID, snapshot key/revision, source), timestamp freshness and duration, and independent readback; a body-signed ACK **alone is not provider provenance**.
 
 Audiences: \`analytics.snapshot.ack.v1\`, \`analytics.snapshot.readback.v1\`, \`apps-script.receipt.readback.v1\`, \`source.receipt.ack.v1\`, \`source.receipt.readback.v1\`.
 The #201 Apps Script ACK stays unchanged and unsigned for strict API compatibility; obtain the **independently signed** source receipt via \`/v1/apps-script/readback\`. Never interpret a naked ACK as complete evidence.
@@ -101,3 +101,5 @@ The #201 Apps Script ACK stays unchanged and unsigned for strict API compatibili
 
 Do NOT pass the raw signed HTTP body to #227 because its \`sendReadOnlyReceipt\` intentionally rejects extra fields. The signed body additionally provides metadata such as \`phase\`, \`evidenceDigest\`, \`schemaVersion\`, \`audience\`, \`principal\`, \`keyId\`, \`issuedAtMs\`, and \`receiptSignature\`. The trusted adapter verifies those values first, then supplies the separate strict projection. \`source=apps_script\`, \`transport=PRIVATE_SERVICE_BINDING\`, \`status=WAITING_REVIEW\` are scoped Brain responses, **not** proof of external Google writer exclusion or trigger inventory.
 
+
+**Byte-level note:** the separator in the expression above is ONE actual line-feed byte (U+000A), **not** the literal two characters backslash and \`n\`. The same is true of the request HMAC method/path/timestamp/body separators. Use \`new TextEncoder().encode(audience + '\n' + JSON.stringify(unsigned))\` in JavaScript.
