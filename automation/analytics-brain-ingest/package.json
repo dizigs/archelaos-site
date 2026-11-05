@@ -1,0 +1,11 @@
+{
+  "name": "archelaos-analytics-brain-ingest",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "engines": {"node": ">=22"},
+  "scripts": {
+    "check": "node --check src/bridge.mjs && node --check src/google-ads.mjs && node --test test/*.test.mjs",
+    "test": "node --test test/*.test.mjs"
+  }
+}
