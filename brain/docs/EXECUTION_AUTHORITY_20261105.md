@@ -50,6 +50,26 @@ Service Bindings. Intents are scoped to 1–12 explicit repository paths and
 one immutable 40-character commit SHA. Path traversal, code commands and
 extra fields fail closed; no auto-merge or production action exists.
 
+## Compatibility with integration PR #213
+Only an already `CLAIMED` BUILD_A, BUILD_B or TESTING task with a live,
+non-expired durable lease and a scope outside protected `brain/**` and
+`automation/brain-worker-executors/integration/**` may receive a signed
+`GET /v1/exec/authorizations/:uuid` readback. Operator HMAC protects the
+endpoint; a *separate* `BRAIN_EXECUTOR_SIGNING_KEY` (minimum 43 characters)
+HMAC-signs the exact `timestampMs + "\\n" + raw` body for PR #213's verifier.
+The returned `issuer`, `audience`, `repository`, `receiptId`, `taskId`,
+`commitSha`, `type`, `lane`, `allowedPaths`, expiry and permissions match
+#213's fail-closed shape. This does **not** install the key, establish a
+Service Binding or bypass PR #213's mandatory independent durable Brain
+readback. No external task can claim that a receipt exists by constructing
+the JSON itself.
+
+The Brain's existing reservation has already been made at claim time.
+An integration executor must reuse that EXACT reservation and must not
+reserve again in its own SQLite ledger or inside a Gemini/Gemma adapter.
+Until #213's billing/coordination ports accept this exclusive authority,
+live execution remains blocked.
+
 ## Operational interlock
 - Default: `BRAIN_EXECUTION_ADMISSION` is absent and claims are **OFF**.
 - Staging-only admission requires `BRAIN_EXECUTION_ADMISSION=enabled`,
