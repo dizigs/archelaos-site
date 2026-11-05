@@ -97,7 +97,6 @@ export async function recover(f, ledger, ports, now = Date.now()) {
   let receipt;
   try { receipt = validateVerifiedReceipt(f, await ports.verifyBrainReceipt(f), now); }
   catch { return blocked('BRAIN_PROOF_UNVERIFIED'); }
-  if (NEVER_AUTO.has(f.code)) return response('HUMAN_REQUIRED', { severity, chainHalted: true, reason: 'NO_AUTOMATED_REMEDIATION' });
   if (REVIEW_CODES.has(f.code) && receipt.builderRoutingAllowed !== true)
     return blocked('BUILDER_ROUTE_NOT_AUTHORIZED');
   if (f.code === PROBE_CODE && receipt.readOnlyProbeAllowed !== true)
@@ -112,7 +111,9 @@ export async function recover(f, ledger, ports, now = Date.now()) {
   });
   let state = 'UNKNOWN', reason = 'UNVERIFIED_OR_UNKNOWN_OUTCOME';
   try {
-    if (REVIEW_CODES.has(f.code)) {
+    if (NEVER_AUTO.has(f.code)) {
+      state = 'HUMAN_REQUIRED'; reason = 'NO_AUTOMATED_REMEDIATION';
+    } else if (REVIEW_CODES.has(f.code)) {
       requireSafe(typeof ports?.routeBuilderReview === 'function', 'BRAIN_ROUTER_MISSING');
       const result = await ports.routeBuilderReview({
         receiptId: receipt.receiptId, repository: REPOSITORY, commit: f.commit,
