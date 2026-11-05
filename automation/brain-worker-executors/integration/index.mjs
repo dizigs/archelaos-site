@@ -48,7 +48,7 @@ export function normalizeIntent(task) {
   return Object.freeze({
     taskId: task.taskId, receiptId: task.receiptId, commitSha: task.commitSha,
     type: task.type, lane: task.type === 'build' ? task.lane : null,
-    paths: Object.freeze([...task.paths].sort())
+    paths: Object.freeze([...task.paths].sort((a, b) => a.localeCompare(b)))
   });
 }
 /**
@@ -67,7 +67,7 @@ export async function verifySignedBrainEnvelope(signed, key, now = Date.now()) {
   const encoder = new TextEncoder();
   const k = await crypto.subtle.importKey('raw', encoder.encode(key),
     { name: 'HMAC', hash: 'SHA-256' }, false, ['verify']);
-  const bytes = Uint8Array.from(signed.signature.match(/../g), p => parseInt(p, 16));
+  const bytes = Uint8Array.from(signed.signature.match(/../g), p => Number.parseInt(p, 16));
   const payload = encoder.encode(String(signed.timestampMs) + '\n' + signed.raw);
   ensure(await crypto.subtle.verify('HMAC', k, bytes, payload), 'BRAIN_SIGNATURE_INVALID');
   let verified;
