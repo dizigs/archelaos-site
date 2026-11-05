@@ -70,7 +70,7 @@ export function validateDraft(draft, evidence={}, month='2026-11') {
     }
   }
   return {schemaVersion:1,source:'pr-70-editorial-draft',sourceRef:'rebuild/ads/campaigns.draft.json',
-    draftMode:true,readyForLive:false,blockers:[...blockers].sort(),
+    draftMode:true,readyForLive:false,blockers:[...blockers].sort((a,b)=>a.localeCompare(b)),
     pages, budget:dailyBudget(draft,month),
     campaigns:draft.campaigns.map(c=>({name:c.name,adGroups:c.ad_groups.map(g=>({
       name:g.name,landing:g.landing,keywords:g.phrase_keywords.map(text=>({text,matchType:'PHRASE',plannerVerified:false})),
