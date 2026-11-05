@@ -33,7 +33,10 @@ function init(){
    const sportTopic=topic.value==='sport',isContribution=topic.value==='archive';
    sportWrap.hidden=!sportTopic;sport.required=sportTopic;if(!sportTopic)sport.value='';
    archiveExtra.hidden=!isContribution;creditChoice.hidden=!isContribution;
-   if(!isContribution){nameConsent.checked=false;creditName.value=''}
+   if(!isContribution){
+    nameConsent.checked=false;creditName.value='';
+    archiveExtra.querySelector('#ct-attachments').value='';
+   }
    syncCredit();
   };
   topic.addEventListener('change',sync);
@@ -46,6 +49,15 @@ function init(){
    if(!form.reportValidity())return;
    const data=new FormData(form);
    const subjectMap={general:'Γενική ερώτηση',sponsorship:'Χορηγίες / Συνεργασίες',sport:'Αθλητικό τμήμα / Εγγραφές',archive:'Συνεισφορά στο Ψηφιακό Αρχείο',volunteer:'Εθελοντισμός',other:'Άλλο θέμα'};
+   const archiveNotes=data.get('topic')==='archive'?[
+    ['Τύπος υλικού',data.get('archiveType')],
+    ['Άθλημα ή τμήμα',data.get('archiveSport')],
+    ['Χρονιά ή περίοδος',data.get('archivePeriod')],
+    ['Πρόσωπα, ομάδα ή διοργάνωση',data.get('archivePersons')],
+    ['Προέλευση ή πηγή',data.get('archiveSource')],
+    ['Δυνατότητα κοινοποίησης',data.get('archiveRights')]
+   ].filter(([,value])=>String(value||'').trim()).map(([label,value])=>label+': '+String(value).trim()):[];
+   const combinedMessage=[...archiveNotes,'',String(data.get('message')||'')].join('\n').trim();
    const lines=[
     'Ονοματεπώνυμο: '+data.get('name'),'Email: '+data.get('email'),
     'Τηλέφωνο: '+(data.get('phone')||'—'),
@@ -56,12 +68,17 @@ function init(){
       'Δημόσια αναφορά ονόματος: '+(nameConsent.checked?'ΝΑΙ — επιτρέπεται η αναφορά εφόσον δημοσιευτεί η συνεισφορά':'ΟΧΙ — καμία δημόσια αναφορά'),
       ...(nameConsent.checked?['Όνομα δημόσιας αναφοράς: '+(creditName.value.trim()||String(data.get('name')||''))]:[])
     ]:[]),
-    '',String(data.get('message')||'')
+    '',combinedMessage
    ];
-   const emailUrl='mailto:contact@archelaos.club?subject='+encodeURIComponent(
+   const emailRecipient=data.get('topic')==='archive'?'history@archelaos.club':data.get('topic')==='sport'?'sports@archelaos.club':'contact@archelaos.club';
+   const emailUrl='mailto:'+emailRecipient+'?subject='+encodeURIComponent(
     'Γ.Α.Σ. Αρχέλαος — '+(subjectMap[data.get('topic')]||'Επικοινωνία'))+'&body='+encodeURIComponent(lines.join('\n'));
    const status=form.querySelector('.ct-form-note'),submit=form.querySelector('.ct-submit');
    const attachments=[...form.querySelector('#ct-attachments').files];
+   if(combinedMessage.length>5000){
+    status.textContent='Η περιγραφή είναι μεγάλη. Συντομεύστε το μήνυμά σας ώστε μαζί με τις πληροφορίες αρχείου να μην υπερβαίνει τους 5.000 χαρακτήρες.';
+    return;
+   }
    if(attachments.length>5||attachments.some(f=>f.size>10*1024*1024)||
       attachments.reduce((sum,f)=>sum+f.size,0)>15*1024*1024){
      status.textContent='Επιλέξτε έως 5 αρχεία (μέχρι 10 MB το καθένα και 15 MB συνολικά).';
@@ -79,6 +96,7 @@ function init(){
       }
       const payload=new FormData(form);
       payload.set('consent','true');
+      payload.set('message',combinedMessage);
       payload.set('cf-turnstile-response',challengeToken);
       payload.set('publicNameConsent',data.get('topic')==='archive'&&nameConsent.checked?'true':'false');
       payload.set('publicCreditName',data.get('topic')==='archive'&&nameConsent.checked?(creditName.value.trim()||String(data.get('name')||'')):'');

@@ -108,7 +108,7 @@ def main():
                 raise ValueError("Invalid configured provider identifiers")
             expected = current_main()
             report["verification"]["expectedCommit"] = expected
-            deployments = api("/accounts/" + ACCOUNT + "/pages/projects/" + PROJECT + "/deployments?per_page=10")
+            deployments = api("/accounts/" + ACCOUNT + "/pages/projects/" + PROJECT + "/deployments?env=production&per_page=10")
             if not isinstance(deployments, list) or len(deployments) > 100:
                 raise ValueError("Invalid deployment listing")
             for item in deployments[:10]:

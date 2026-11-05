@@ -2,6 +2,42 @@
 (function(){
 'use strict';
 let verificationRequest=null;
+let turnstileLoader,turnstileApi=null,widgetId=null,challengeReady;
+function loadTurnstile(){
+ if(window.turnstile)return Promise.resolve(window.turnstile);
+ if(!turnstileLoader)turnstileLoader=new Promise((resolve,reject)=>{
+  const script=document.createElement('script');
+  script.src='https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+  script.async=true;
+  script.onload=()=>window.turnstile?resolve(window.turnstile):reject(new Error('Turnstile unavailable'));
+  script.onerror=()=>reject(new Error('Turnstile failed to load'));
+  document.head.appendChild(script);
+ });
+ return turnstileLoader;
+}
+async function initChallenge(){
+ const host=$('turnstile');
+ try{
+  const response=await fetch('/api/contact',{cache:'no-store'});
+  const capability=response.ok?await response.json():null;
+  if(!capability?.ready||!capability?.turnstileSiteKey){
+   host.textContent='Η απευθείας αποστολή δεν είναι διαθέσιμη. Μπορείτε να επισυνάψετε το αρχείο σε email ή να δώσετε σύνδεσμο Drive.';
+   return false;
+  }
+  turnstileApi=await loadTurnstile();
+  if(!host.isConnected)return false;
+  widgetId=turnstileApi.render(host,{
+   sitekey:capability.turnstileSiteKey,
+   action:'contact',
+   theme:'auto',
+   'expired-callback':()=>{$('guide-status').textContent='Ο έλεγχος ασφαλείας έληξε. Ολοκληρώστε τον ξανά.';}
+  });
+  return widgetId!==undefined;
+ }catch{
+  host.textContent='Η απευθείας αποστολή δεν είναι διαθέσιμη. Χρησιμοποιήστε email ή σύνδεσμο Drive.';
+  return false;
+ }
+}
 const fields=['type','sport','date','persons','details','source','rights'];
 const params=new URLSearchParams(location.search);
 const linkedKind=params.get('kind')||'',linkedId=params.get('id')||'';
@@ -134,18 +170,15 @@ async function sendSecure(){
  submit.disabled=true;
  try{
   status.textContent='Έλεγχος διαθέσιμης ασφαλούς αποστολής…';
-  let ready=false;
-  try{
-   const probe=await fetch('/api/contact',{method:'GET',cache:'no-store'});
-   if(probe.ok){
-    const capability=await probe.json();
-    ready=capability?.ready===true;
-   }
-  }catch(_){/* Not connected to Pages Functions or endpoint temporarily unavailable. */}
-  if(!ready){
+  if(!await challengeReady){
    status.textContent=files.length
     ?'Η ασφαλής αποστολή αρχείων δεν είναι διαθέσιμη. Δεν στάλθηκε τίποτα. Χρησιμοποιήστε το email και επισυνάψτε τα αρχεία από την εφαρμογή σας ή προσθέστε σύνδεσμο Drive.'
     :'Η ασφαλής αποστολή δεν είναι διαθέσιμη. Δεν στάλθηκε τίποτα. Μπορείτε να χρησιμοποιήσετε το προσυμπληρωμένο email.';
+   return;
+  }
+  const challengeToken=turnstileApi?.getResponse(widgetId);
+  if(!challengeToken){
+   status.textContent='Ολοκληρώστε πρώτα τον έλεγχο ασφαλείας και δοκιμάστε ξανά.';
    return;
   }
   const payload=new FormData();
@@ -156,6 +189,7 @@ async function sendSecure(){
   payload.set('message',draft().body);
   payload.set('archiveLink',clean($('archive-link').value));
   payload.set('consent','true');
+  payload.set('cf-turnstile-response',challengeToken);
   payload.set('publicNameConsent',credit().requested?'true':'false');
   payload.set('publicCreditName',credit().displayName);
   for(const file of files)payload.append('attachments',file,file.name);
@@ -165,14 +199,22 @@ async function sendSecure(){
    if(response.ok){
     status.textContent='Η συνεισφορά σας στάλθηκε επιτυχώς στο ιστορικό αρχείο. Ευχαριστούμε!';
     $('attachments').value='';
+    turnstileApi?.reset(widgetId);
     return;
    }
+   if(response.status===403){
+    status.textContent='Ο έλεγχος ασφαλείας έληξε ή απέτυχε. Ολοκληρώστε τον και δοκιμάστε ξανά.';
+    turnstileApi?.reset(widgetId);
+    return;
+   }
+   turnstileApi?.reset(widgetId);
    status.textContent=response.status===413
     ?'Η αποστολή δεν έγινε: τα αρχεία υπερβαίνουν το επιτρεπόμενο μέγεθος. Δοκιμάστε μικρότερα αρχεία ή σύνδεσμο Drive.'
     :response.status>=400&&response.status<500
      ?'Η αποστολή δεν έγινε. Ελέγξτε τα στοιχεία, τα συνημμένα και τον σύνδεσμο Drive.'
      :'Ο διακομιστής δεν ολοκλήρωσε την αποστολή. Δεν υπάρχει επιβεβαίωση παραλαβής· χρησιμοποιήστε email.';
   }catch(_){
+   turnstileApi?.reset(widgetId);
    status.textContent='Δεν επιβεβαιώθηκε η αποστολή λόγω προβλήματος σύνδεσης. Ελέγξτε πριν επαναλάβετε, για να αποφύγετε διπλή αποστολή.';
   }
  }finally{submit.disabled=false}
@@ -214,6 +256,7 @@ function init(){
  updateCredit();
  $('guide-copy').addEventListener('click',copy);
  $('guide-send').addEventListener('click',sendSecure);
+ challengeReady=initChallenge();
  refresh();
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();

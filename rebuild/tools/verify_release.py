@@ -83,6 +83,30 @@ def verify() -> None:
             if url.path in ("/history-events.html", "/history-events"):
                 continue
             raise AssertionError(f"Broken internal link in {entry['file']}: {link}")
+    # The museum memory/FAQ is now a public indexable page, linked from
+    # the Museum hero and from the one shared footer rendered on every page.
+    memory = (DIST / "museum-memory.html").read_text(encoding="utf-8")
+    assert '<meta name="robots" content="index,follow,max-image-preview:large">' in memory, "Museum memory must be indexable"
+    assert memory.count('<main id="main-content">') == 1, "Museum memory lost its main landmark"
+    assert '/assets/site/js/shell.js' in memory, "Museum memory must reuse global header/footer"
+    assert '/assets/site/js/support-footer.js' in memory, "Museum memory lost sponsor footer"
+    assert '/assets/site/css/museum-memory.css' in memory, "Museum memory styling not loaded"
+    assert memory.count("<details") == 6 and memory.count("</details>") == 6, "FAQ accordions incomplete"
+    assert '<header' not in memory and '<footer' not in memory, "Page must not duplicate shared shell"
+    assert '<img' not in memory and '<picture' not in memory, "No stock or invented archival photographs"
+    assert 'Δεν ισχυριζόμαστε πως γνωρίζουμε' in memory, "Mission statement missing"
+    assert 'Δεν φτιάξαμε αυτό το Μουσείο επειδή είχαμε όλες τις απαντήσεις' in memory
+    assert 'href="/contribute.html"' in memory and 'href="/history.html"' in memory, "Museum exit paths missing"
+    assert 'memory-art-seal-dash' in memory and '1956 <span class="memory-art-seal-dash"' in memory, "Book date separator missing"
+    assert 'Προσχέδιο για μελλοντική ένταξη' not in memory, "Draft note leaked into published page"
+    museum_entrance = (DIST / "history.html").read_text(encoding="utf-8").split('id="museum-collections"', 1)[0]
+    assert museum_entrance.count('href="/museum-memory.html"') == 1, "Museum hero must link to memory page"
+    shared_shell = (DIST / "assets/site/js/shell.js").read_text(encoding="utf-8")
+    assert shared_shell.count('<a href="/museum-memory.html">Γιατί δημιουργήσαμε το Μουσείο</a>') == 1, "Shared footer missing memory link"
+    public_sitemaps = list((DIST / "sitemaps").glob("*.xml"))
+    assert any("/museum-memory.html" in f.read_text(encoding="utf-8") for f in public_sitemaps), (
+        "Published museum memory page missing from sitemap"
+    )
     museum_records=json.loads((DIST/"assets/site/data/museum.json").read_text(encoding="utf-8"))["articles"]
     foundation=next(a for a in museum_records if a["id"]=="intro")
     colours=next(a for a in museum_records if a["id"]=="colors-1968")
