@@ -13,7 +13,7 @@ const budget=(amount,resource='1')=>({resourceName:'customers/'+customer+'/campa
 test('real-account guard combines every daily budget and actual USD spend',()=>{
   const snapshot=base();
   const r=assertGrantBudget(snapshot,{kind:'budget',action:'create',
-    input:{amountMicros:50000000}},now);
+    input:{amountMicros:50000000}},Date.now());
   assert.equal(r.accountDailyBudgetUsd,'150.00');
   assert.equal(r.todaySpendUsd,'5.00');
   assert.equal(r.thisMonthSpendUsd,'400.00');
