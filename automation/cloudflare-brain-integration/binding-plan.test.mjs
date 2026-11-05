@@ -4,9 +4,9 @@ import { assessBinding } from './binding-plan.mjs';
 const SHA = 'a'.repeat(40);
 const base = () => ({
   caller: 'archelaos-automation-bridge', callerBindings: [],
-  brainBindings: [{ type: 'durable_object_namespace', name: 'BRAIN' }, {type:'secret_text', name:'STAGING_INTAKE_KEY'}],
+  brainBindings: [{ type: 'durable_object_namespace', name: 'BRAIN', class_name: 'BrainCoordinator' }, {type:'secret_text', name:'STAGING_INTAKE_KEY'}],
   deployedBrainSha: SHA, approvedBrainSha: SHA,
-  stagingExpiresAt: '2026-11-06T00:00:00Z', now: Date.parse('2026-11-05T12:00:00Z'),
+  stagingExpiresAt: '2026-11-05T12:30:00Z', now: Date.parse('2026-11-05T12:00:00Z'),
   scopedIdentityApproved: true, provenanceApproved: true, durableAuditApproved: true, ownerApproved: true
 });
 test('approved callers only; no second Brain or public URL', () => {
@@ -53,4 +53,26 @@ test('valid config is never declared deployed or tested', () => {
 test('Librarian source scope excludes gmail', () => {
   const result=assessBinding({...base(),caller:'archelaos-librarian-staging'});
   assert.deepEqual(result.approvedSources,['drive','news']);
+});
+
+test('canonical BRAIN Durable Object class cannot be substituted', () => {
+  const z=assessBinding({...base(),brainBindings:[
+    {type:'durable_object_namespace',name:'BRAIN',class_name:'OtherLedger'},
+    {type:'secret_text',name:'STAGING_INTAKE_KEY'}
+  ]});
+  assert.ok(z.blockers.includes('CANONICAL_DO_MISSING'));
+  assert.equal(z.status,'BLOCKED');
+});
+test('approval-like strings, numbers and null never satisfy authorization',()=>{
+  for(const fake of ['true',1,{},null]){
+    const z=assessBinding({...base(),scopedIdentityApproved:fake,ownerApproved:fake});
+    assert.ok(z.blockers.includes('SOURCE_IDENTITY_CONTRACT_UNAPPROVED'));
+    assert.ok(z.blockers.includes('EXPLICIT_OWNER_APPROVAL_MISSING'));
+    assert.equal(z.status,'BLOCKED');
+  }
+});
+test('staging expiry must be time-bounded to one hour',()=>{
+  const z=assessBinding({...base(),stagingExpiresAt:'2026-11-06T12:00:00Z'});
+  assert.ok(z.blockers.includes('STAGING_WINDOW_TOO_LONG'));
+  assert.equal(z.status,'BLOCKED');
 });
