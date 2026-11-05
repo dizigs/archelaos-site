@@ -172,3 +172,25 @@ any Brain port. This is structural integrity, **not** authentication of caller,
 original GitHub bytes or Brain cryptographic signatures. An authorized reader,
 independently authenticated/signed Brain binding and durable restart readback
 are still required. Until then Analytics stays disabled.
+
+## Canonical Brain #234 signed receipt compatibility (code only)
+
+The canonical Brain owner has prepared `analytics.aggregate.v1` and a
+versioned `/v1/analytics/readback` endpoint **in draft PR #234**, not the
+merged/deployed Brain. This ingest branch now includes
+`src/brain-signed-receipts.mjs` to independently verify the documented
+`analytics.snapshot.ack.v1` and `analytics.snapshot.readback.v1` HMACs,
+key ID, principal, timestamp, request/evidence digest, immutable revision,
+`isCurrent`, and exact stored fields. A trusted runtime must inject its
+verification secret; there is no token or network endpoint in this package.
+`test/brain-signed-receipts.test.mjs` uses **synthetic signatures** and
+injected fake ports; it does not certify Cloudflare bindings, GitHub
+provenance, durable restart readback or live data delivery.
+
+Cloudflare account read-only inventory on 2026-11-06 found nine deployed
+Workers, **zero Service Bindings**, no deployed Analytics Worker, and an
+expired Brain staging deployment pointing at an older SHA. Even with all
+code tests green, do not enable private capabilities or count Analytics
+as delivered until the Brain owner and Release Captain independently
+verify staging SHA, private-only ingress, HMAC identity, receipt signature,
+source provenance, review and persistent restart readback.
