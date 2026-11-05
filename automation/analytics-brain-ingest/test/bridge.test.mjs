@@ -36,20 +36,27 @@ async function prepare(value=google(),source='google_bundle',custom={}) {
 test('GA4/GSC maps only site-wide daily aggregates; correct digest/provenance',async()=>{
   const prepared=await prepare();
   assert.equal(prepared.verified,true);
-  assert.equal(prepared.events.length,4);
+  assert.equal(prepared.events.length,2); // fully suppressed cohorts are NEVER delivered
   assert.equal(prepared.events[0].event.payload.source,'ga4');
-  assert.equal(prepared.events[2].event.payload.source,'search_console');
+  assert.equal(prepared.events[1].event.payload.source,'search_console');
   assert.equal(prepared.events[0].event.payload.metrics.find(x=>x.name==='sessions').value,41);
-  assert.equal(prepared.events[2].event.payload.metrics.find(x=>x.name==='ctr_pct').value,7/60*100);
-  assert.equal(prepared.events[1].event.payload.metrics.length,0); // <20 active users
-  assert.equal(prepared.events[3].event.payload.metrics.length,0); // <20 impressions
+  assert.equal(prepared.events[1].event.payload.metrics.find(x=>x.name==='ctr_pct').value,7/60*100);
+  assert(prepared.events.every(x=>x.event.payload.metrics.length>0));
   assert(!JSON.stringify(prepared).includes('20261101'));
   assert(!JSON.stringify(prepared).includes('pageViews'));
 });
 test('idempotent event and deterministic snapshot keys for same bytes',async()=>{
   const a=await prepare(),b=await prepare();
   assert.deepEqual(a,b);
-  assert.deepEqual([...new Set(a.events.map(x=>x.snapshotKey))].length,4);
+  assert.deepEqual([...new Set(a.events.map(x=>x.snapshotKey))].length,2);
+});
+test('all suppressed GA4/GSC data must produce no event or Brain handoff',async()=>{
+  const value=google();
+  value.ga4.daily[0].activeUsers=2;
+  value.search_console.daily[0].clicks=0;
+  value.search_console.daily[0].impressions=5;
+  value.search_console.daily[0].ctr=0;
+  await assert.rejects(prepare(value),/NO_VERIFIABLE_AGGREGATE_ROWS/);
 });
 test('Clarity rolls up eligible device sessions, suppressing small device cohorts',async()=>{
   const a=await prepare(clarity(),'clarity');
@@ -123,7 +130,7 @@ test('verified durable receipts only; snapshot UPSERT, never cumulative addition
     },
     verifyReceipt:async()=>true};
   const result=await deliverToBrain(prepared,port);
-  assert.equal(result.delivered,4);
+  assert.equal(result.delivered,2);
   assert(calls.every(x=>x.operation==='UPSERT_NOT_INCREMENT'));
   assert(calls.every(x=>!JSON.stringify(x).includes('private@example.org')));
   const fake={...port,verifyReceipt:async()=>false};
