@@ -105,3 +105,38 @@ GitHub build is **not** Cloudflare deployment or Google Ads authorization.
 **No claim of real API access, Ad Grants eligibility, revenue, live conversion,
 production or completed E2E.** Account registration and setup remain blocked
 until independently verified.
+
+
+## Service Account OAuth adapter (stacked implementation; not live)
+
+A separate follow-up branch adds `service-account-auth.mjs` with WebCrypto RS256 JWT
+bearer grant. It keeps the existing refresh-token adapter for backward compatibility
+and enables neither mode by default. To select it after authorized private staging
+deployment, set `ADS_AUTH_MODE=service_account` and provision the **entire original**
+service-account credential JSON as a Cloudflare **secret** called
+`ADS_SERVICE_ACCOUNT_JSON`. Do **not** place credentials in wrangler `vars`,
+GitHub, issues, CI, commit messages, or a chat. No key is stored by this PR.
+
+The local operator reported successful read-only `listAccessibleCustomers` (HTTP
+200) and GAQL customer lookup via a dedicated Service Account granted Ads access.
+The observed customer description matched the club, status was ENABLED, currency
+USD, testAccount=false, manager=false. These are **operator-reported local
+results**, not independently observed by the Worker. Account is still **not
+proven Ad Grants billing/credit-only**. The actual production principal,
+organization policies, customer currency, grants entitlement and API Explorer
+level require independent authorized verification before any staged or live use.
+
+The adapter signs short-lived JWT assertions without sending the private key over
+the network or logging credentials; it exchanges the assertion only against
+`https://oauth2.googleapis.com/token` with the `adwords` OAuth scope. Tests use
+a generated synthetic key and mocked token endpoint, **never the real key**.
+
+**The shipped Wrangler config retains `ADS_AUTH_MODE=disabled`,
+`ADS_STAGING_ENABLED=false`, `ADS_LIVE_ENABLED=false`, and
+`ADS_KILL_SWITCH=on`.** Signing capability does not authorize an Ads mutation.
+First bring up the private Worker with reviewed D1/bindings and secret provisioning,
+verify a strictly scoped read-only request, and only then evaluate separate approval
+for `validateOnly` operations. No Ads write or deployment is included.
+
+Run `npm run syntax --prefix automation/google-ads-worker` and
+`npm test --prefix automation/google-ads-worker` for offline checks.
