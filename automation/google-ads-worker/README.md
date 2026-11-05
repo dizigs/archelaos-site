@@ -1,8 +1,12 @@
 # Archelaos Google Ad Grants Worker — Issue #216
 
-**Status: CODE PREPARED / OFFLINE ONLY. No Google Ads account, API authorization,
-Grant entitlement, test customer, live mutation, production deploy or spend was
-verified in this PR.** No Codex, cron, Cloudflare publish or Ads write was performed.
+**Status: CODE PREPARED / OFFLINE ONLY.** Private Google notification emails
+confirm Ad Grants activation, Google Ads API Explorer project approval, and
+an Ads service-account user with Standard account access. These emails do NOT
+prove the service account's Google Cloud project number matches the approved
+Explorer project or that the Worker obtained an OAuth bearer token. No Worker
+live API read, test customer, mutation, production deploy or spend was performed.
+No Codex, cron, Cloudflare publish or Ads write was performed.
 
 ## Ownership and dependencies
 
@@ -212,3 +216,19 @@ query or production access has been tested by the Worker. The operator must
 provision secrets through the Cloudflare secret interface during a separately
 approved **private staging** rollout; do not publish a Worker as a side effect
 of this code change.
+
+## Keyword Planner capability is NOT included in Explorer access
+
+Official API access levels documentation explicitly restricts
+`KeywordPlanIdeaService`, `KeywordPlanService` and other planning APIs at
+**Explorer** level. This organization's private confirmation is for Explorer
+(up to 2,880 production operations/day), not Basic. The Worker therefore rejects
+`keyword_ideas_read` unless the operator independently verifies
+`ADS_API_ACCESS_LEVEL=BASIC` or `STANDARD`, in addition to all other
+staging and planning gates. Keep `ADS_KEYWORD_PLANNER_READ_ENABLED=false`
+at Explorer access. An Ads account user's **Standard** access level is
+not the same as the Google Cloud project's **Standard API access**.
+Only the latter (or Basic) unlocks the planning service. This change never
+applies for Basic access automatically and is not an instruction to upgrade.
+
+Reference: https://developers.google.com/google-ads/api/docs/api-policy/access-levels
