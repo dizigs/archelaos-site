@@ -21,7 +21,7 @@ export function estimateMicroEur(request, price, now) {
 }
 export function reserveBudget(sql, request, config, now) {
   if (config.coverageConfirmed !== true) throw new Rejected('PROJECT_AI_COVERAGE_UNVERIFIED', 409);
-  if (!request || !HEX.test(request.reservationId) || !UUID.test(request.eventId) || !HEX.test(request.sourceRevision) || !['classify', 'extract', 'review'].includes(request.operation) || !['cloudflare', 'azure', 'openai'].includes(request.provider)) throw new Rejected('INVALID_RESERVATION', 422);
+  if (!request || !HEX.test(request.reservationId) || !UUID.test(request.eventId) || !HEX.test(request.sourceRevision) || !['classify', 'extract', 'review', 'build'].includes(request.operation) || !['cloudflare', 'azure', 'openai', 'gemini', 'gemma'].includes(request.provider)) throw new Rejected('INVALID_RESERVATION', 422);
   const amount = estimateMicroEur(request, config.prices?.[request.provider], now);
   const cap = config.capMicroEur ?? MAX_MONTHLY_MICRO_EUR;
   if (!Number.isSafeInteger(cap) || cap < 1 || cap > MAX_MONTHLY_MICRO_EUR) throw new Rejected('INVALID_BUDGET_CAP', 422);
