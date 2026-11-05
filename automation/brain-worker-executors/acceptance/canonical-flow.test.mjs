@@ -98,20 +98,31 @@ function brainPorts(t,checks,state){
   },checks,builder:{execute:()=>{state.providerCalls++;throw Error('No provider traffic');}},
     budget:{reserve:()=>{state.ledgerWrites++;throw Error('No ledger writes');}}};
 }
-test('signed Brain -> A/B native proposals -> authenticated Testing -> Brain readback, mock only',async()=>{
+test('signed Brain -> A review, B fail-closed, Testing readback, mock only',async()=>{
   const state={providerCalls:0,ledgerWrites:0,readbacks:0},checks=githubMock();
-  for(const lane of ['A','B']){
-    const t=task(lane==='A'?1:2,lane),ports=brainPorts(t,checks,state);
-    const result=await review.reviewCanonicalTask(t,ports,{
-      mode:'synthetic-review',signingKey:KEY,nativeOutputJSON:JSON.stringify(proposal(t))
-    });
-    assert.equal(result.status,'PROPOSAL_REVIEW_ONLY',JSON.stringify(result));
-    assert.equal(result.centralLedgerReservationId,reserveId(t));
-    assert.equal(result.centralLedgerReadback,true);
-    assert.equal(result.financialSettlementVerified,false);
-    assert.equal(result.draftPrCreated,false);
-    assert.equal(result.mergeAllowed,false);
-  }
+  // Gemini can produce a review-only proposal after mock signed Brain readback.
+  const aTask=task(1,'A');
+  const aResult=await review.reviewCanonicalTask(aTask,brainPorts(aTask,checks,state),{
+    mode:'synthetic-review',signingKey:KEY,nativeOutputJSON:JSON.stringify(proposal(aTask))
+  });
+  assert.equal(aResult.status,'PROPOSAL_REVIEW_ONLY',JSON.stringify(aResult));
+  assert.equal(aResult.centralLedgerReservationId,reserveId(aTask));
+  assert.equal(aResult.centralLedgerReadback,true);
+  assert.equal(aResult.financialSettlementVerified,false);
+  assert.equal(aResult.draftPrCreated,false);
+  assert.equal(aResult.mergeAllowed,false);
+
+  // Current native Gemma output has NO attested commitSha. Do not invent it:
+  // provenance validation must BLOCK B until its upstream owner fixes the contract.
+  const bTask=task(2,'B');
+  const bResult=await review.reviewCanonicalTask(bTask,brainPorts(bTask,checks,state),{
+    mode:'synthetic-review',signingKey:KEY,nativeOutputJSON:JSON.stringify(proposal(bTask))
+  });
+  assert.equal(bResult.status,'BLOCKED',JSON.stringify(bResult));
+  assert.equal(bResult.code,'GEMMA_OUTPUT_CONTRACT_MISMATCH');
+  assert.equal(bResult.providerCalls,0);
+  assert.equal(bResult.ledgerWrites,0);
+  assert.equal(bResult.mergeAllowed,false);
   const t=task(3,undefined,'testing');
   const result=await review.reviewCanonicalTask(t,brainPorts(t,checks,state),{
     mode:'synthetic-review',signingKey:KEY
@@ -120,5 +131,5 @@ test('signed Brain -> A/B native proposals -> authenticated Testing -> Brain rea
   assert.equal(result.gate.passed,true);
   assert.equal(result.gate.runIds.length,8);
   assert.equal(result.mergeAllowed,false);
-  assert.deepEqual(state,{providerCalls:0,ledgerWrites:0,readbacks:6});
+  assert.deepEqual(state,{providerCalls:0,ledgerWrites:0,readbacks:5});
 });
