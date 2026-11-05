@@ -127,7 +127,7 @@ test('current Brain staging-v1 identity cannot authorize a Drive source event (f
   const e=event();
   const {a,logs}=setup(async req=>{
     const raw=await req.text();
-    const source=await authenticate(req,{STAGING_INTAKE_KEY:KEY});
+    const source=await authenticate(req,{STAGING_INTAKE_KEY:KEY},raw);
     assert.equal(source,'staging'); // Current Brain returns this for all staging-v1 callers.
     assert.throws(()=>validateEvent(JSON.parse(raw),source), x=>x?.code==='INVALID_IDENTITY');
     return Response.json({code:'INVALID_IDENTITY'},{status:422});
