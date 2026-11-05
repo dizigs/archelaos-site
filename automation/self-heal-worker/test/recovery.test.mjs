@@ -14,8 +14,13 @@ const verified = (f, overrides = {}) => ({
   issuer: 'central-brain', verified: true, repository: f.repository,
   code: f.code, resource: f.resource, commit: f.commit, evidenceId: f.evidenceId,
   receiptId: RECEIPT_ID, expiresAtMs: NOW + 120000,
-  incidentAuthorized: true, repairWritesAllowed: false, paused: false,
-  builderRoutingAllowed: true, readOnlyProbeAllowed: true, ...overrides
+  source: f.source, bindingScope: 'selfheal.recover', provenanceVerified: true,
+  killSwitchesVerified: true, incidentAuthorized: true, repairWritesAllowed: false,
+  paused: false, builderRoutingAllowed: true, readOnlyProbeAllowed: true,
+  requiredCi: f.code === 'CI_FAILURE'
+    ? { verdict: 'FAILED', required: true, commit: f.commit,
+      evidenceId: f.evidenceId, runAttempt: 1, chainHaltReadback: true } : undefined,
+  ...overrides
 });
 function fixture() {
   const db = new DatabaseSync(':memory:');
@@ -59,7 +64,8 @@ test('verified failed CI halts chain and routes exactly one review-only Brain in
   const ports = { verifyBrainReceipt: async () => verified(f),
     routeBuilderReview: async t => { calls++; assert.deepEqual({ code: t.code, autoMerge: t.autoMerge, deploy: t.deploy, retryBudget: t.retryBudget, reviewOnly: t.reviewOnly },
       { code: 'CI_FAILURE', autoMerge: false, deploy: false, retryBudget: 0, reviewOnly: true });
-      return { accepted: true, receiptId: RECEIPT_ID, reviewOnly: true, verifiedReadback: true }; } };
+      return { accepted: true, receiptId: RECEIPT_ID, reviewOnly: true,
+        verifiedReadback: true, ledgerOwner: 'canonical-brain', requiredCiHaltedReadback: true }; } };
   const one = await recover(f, ledger, ports, NOW);
   assert.equal(one.status, 'ROUTED'); assert.equal(one.chainHalted, true);
   assert.equal(one.autoMergeAllowed, false);
@@ -126,5 +132,76 @@ test('same commit new evidence cannot bypass circuit via fingerprint collision',
   await recover(f, ledger, ports, NOW);
   const conflict = await recover(finding({ source:'site_watch', code:'LIVE_HEALTH_FAILURE', resource:'/news.html', evidenceId:'actions:42022399428' }), ledger, ports, NOW+1000);
   assert.equal(conflict.reason,'RECOVERY_FINGERPRINT_CONFLICT');
+  db.close();
+});
+
+test('required CI halt, missing provenance and emergency pause fail closed before routing', async () => {
+  const { ledger, db } = fixture();
+  const f = finding(); let routed = 0;
+  for (const attrs of [
+    { requiredCi: { verdict: 'SUCCESS', required: true, commit: f.commit,
+      evidenceId: f.evidenceId, runAttempt: 1, chainHaltReadback: true } },
+    { requiredCi: { verdict: 'FAILED', required: true, commit: f.commit,
+      evidenceId: f.evidenceId, runAttempt: 1, chainHaltReadback: false } },
+    { provenanceVerified: false }, { paused: true }, { killSwitchesVerified: false },
+    { bindingScope: 'selfheal.deploy' }, { source: 'site_watch' }
+  ]) {
+    const result = await recover(f, ledger, {
+      verifyBrainReceipt: async () => verified(f, attrs),
+      routeBuilderReview: async () => { routed++; }
+    }, NOW);
+    assert.equal(result.status, 'BLOCKED');
+    assert.equal(result.chainHalted, true);
+  }
+  assert.equal(routed, 0);
+  assert.equal(db.prepare('SELECT count(*) AS n FROM recoveries').get().n, 0);
+  db.close();
+});
+test('renewed valid receipt does not reset durable health circuit', async () => {
+  const { ledger, db } = fixture();
+  const f = finding({ source: 'site_watch', code: 'LIVE_HEALTH_FAILURE', resource: '/news.html' });
+  let nonce = 0, calls = 0;
+  const ports = {
+    verifyBrainReceipt: async () => verified(f, {
+      receiptId: 'b101a6e9-3078-4f7e-8e0a-' + (++nonce).toString(16).padStart(12, '0'),
+      expiresAtMs: NOW + 5 * 60_000
+    }),
+    readOnlyProbe: async () => { calls++; return {
+      verified: true, readOnly: true, resource: '/news.html', health: 'TRANSIENT'
+    }; }
+  };
+  assert.equal((await recover(f, ledger, ports, NOW)).status, 'WAITING');
+  assert.equal((await recover(f, ledger, ports, NOW+30000)).status, 'WAITING');
+  assert.equal((await recover(f, ledger, ports, NOW+150000)).status, 'CIRCUIT_OPEN');
+  assert.equal(calls, 3);
+  db.close();
+});
+test('lost routing readback remains UNKNOWN across Durable Object restart', async () => {
+  const { ledger, db } = fixture();
+  const f = finding(); let routeCalls = 0;
+  const ports = { verifyBrainReceipt: async () => verified(f),
+    routeBuilderReview: async () => { routeCalls++; throw Error('lost response'); } };
+  assert.equal((await recover(f, ledger, ports, NOW)).status, 'UNKNOWN');
+  const restarted = new RecoveryLedger(ledger.storage);
+  assert.equal((await recover(f, restarted, ports, NOW+1000)).status, 'REPLAY_BLOCKED');
+  assert.equal(routeCalls, 1);
+  db.close();
+});
+test('staging SHA drift and unsafe review readback never claim success', async () => {
+  const { ledger, db } = fixture();
+  const f = finding();
+  const wrongSha = await recover(f, ledger, {
+    verifyBrainReceipt: async () => verified(f, { commit: 'f'.repeat(40) })
+  }, NOW);
+  assert.equal(wrongSha.status, 'BLOCKED');
+  const result = await recover(f, ledger, {
+    verifyBrainReceipt: async () => verified(f),
+    routeBuilderReview: async () => ({
+      accepted: true, receiptId: RECEIPT_ID, reviewOnly: true, verifiedReadback: true,
+      ledgerOwner: 'second-ledger', requiredCiHaltedReadback: true
+    })
+  }, NOW);
+  assert.equal(result.status, 'UNKNOWN');
+  assert.equal((await recover(f, ledger, { verifyBrainReceipt: async () => verified(f) }, NOW+1)).status, 'REPLAY_BLOCKED');
   db.close();
 });
