@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   AUDIENCE, REQUIRED_CHECKS, REQUIRED_JOBS, REPOSITORY, IntegrationBlocked, SqlCoordinator,
-  confirmBrainReceipt, evaluateTestingGate, normalizeIntent, runIntegration, safePath,
+  confirmBrainReceipt, evaluateTestingGate, normalizeIntent, runIntegration, runLegacySimulation, safePath,
   verifySignedBrainEnvelope
 } from './index.mjs';
 
@@ -99,7 +99,7 @@ test('caller approved flag cannot bypass authoritative Brain receipt', async () 
     allowedPaths: [gemma] }), /BRAIN_PATH_AUTHORIZATION_MISMATCH/);
   const { ports, state } = portsFor(task, new SqlCoordinator(new FakeStorage()));
   ports.brain.verifyTaskReceipt = async () => ({ ...receipt(task), approved: false });
-  const result = await runIntegration({ ...task, approved: true }, ports, policy);
+  const result = await runLegacySimulation({ ...task, approved: true }, ports, policy);
   assert.equal(result.code, 'BRAIN_AUTHORIZATION_UNVERIFIED');
   assert.equal(state.calls, 0);
 });
@@ -107,7 +107,7 @@ test('caller approved flag cannot bypass authoritative Brain receipt', async () 
 test('defaults OFF and no paid call without explicit attestation', async () => {
   const task = makeTask(1);
   const { ports, state } = portsFor(task, new SqlCoordinator(new FakeStorage()));
-  assert.equal((await runIntegration(task, ports)).code, 'INTEGRATION_DISABLED_OR_UNATTESTED');
+  assert.equal((await runLegacySimulation(task, ports)).code, 'INTEGRATION_DISABLED_OR_UNATTESTED');
   assert.equal(state.reserves, 0);
 });
 
@@ -144,7 +144,7 @@ test('testing failure routes metadata-only CI finding, never auto-repairs', asyn
   const { ports, state } = portsFor(task, new SqlCoordinator(new FakeStorage()));
   ports.checks.readVerified = async () => checks().map((c, i) =>
     i ? c : { ...c, conclusion: 'failure' });
-  const result = await runIntegration(task, ports, policy);
+  const result = await runLegacySimulation(task, ports, policy);
   assert.equal(result.status, 'TESTING_FAILED_CLOSED');
   assert.equal(result.selfHealRouted, true);
   assert.deepEqual(Object.keys(state.routed[0]).sort(), [
@@ -157,7 +157,7 @@ test('testing missing evidence never invents a Self-Heal run ID', async () => {
   const task = makeTask(7, undefined, ['automation/test.mjs'], 'testing');
   const { ports, state } = portsFor(task, new SqlCoordinator(new FakeStorage()));
   ports.checks.readVerified = async () => [];
-  const result = await runIntegration(task, ports, policy);
+  const result = await runLegacySimulation(task, ports, policy);
   assert.equal(result.selfHealRouted, false);
   assert.equal(state.routed.length, 0);
 });
@@ -165,13 +165,13 @@ test('testing missing evidence never invents a Self-Heal run ID', async () => {
 test('verified mock build reserves shared ledger, settles and yields draft-only', async () => {
   const task = makeTask(8);
   const { ports, state } = portsFor(task, new SqlCoordinator(new FakeStorage()));
-  const result = await runIntegration(task, ports, policy);
+  const result = await runLegacySimulation(task, ports, policy);
   assert.equal(result.status, 'BUILD_DRAFT_REQUIRES_TESTING');
   assert.equal(result.mergeAllowed, false);
   assert.equal(state.calls, 1);
   assert.equal(state.reserves, 1);
   assert.equal(state.settlements, 1);
-  assert.equal((await runIntegration(task, ports, policy)).code, 'IDEMPOTENT_REPLAY_COMPLETE');
+  assert.equal((await runLegacySimulation(task, ports, policy)).code, 'IDEMPOTENT_REPLAY_COMPLETE');
   assert.equal(state.calls, 1);
 });
 
@@ -180,9 +180,9 @@ test('provider failure after call holds UNKNOWN and suppresses replay', async ()
   const coordinator = new SqlCoordinator(new FakeStorage());
   const { ports, state } = portsFor(task, coordinator);
   ports.builders.A.execute = async () => { state.calls++; throw Error('synthetic outage'); };
-  assert.equal((await runIntegration(task, ports, policy)).code, 'PORT_FAILURE_OR_OUTCOME_UNKNOWN');
+  assert.equal((await runLegacySimulation(task, ports, policy)).code, 'PORT_FAILURE_OR_OUTCOME_UNKNOWN');
   assert.equal(coordinator.claim(normalizeIntent(task)).state, 'UNKNOWN');
-  assert.equal((await runIntegration(task, ports, policy)).code, 'IDEMPOTENT_REPLAY_BLOCKED');
+  assert.equal((await runLegacySimulation(task, ports, policy)).code, 'IDEMPOTENT_REPLAY_BLOCKED');
   assert.equal(state.calls, 1);
 });
 
@@ -210,7 +210,7 @@ test('skipped or pending check with a real run ID does not fabricate a CI_FAILUR
     const { ports, state } = portsFor(task, new SqlCoordinator(new FakeStorage()));
     ports.checks.readVerified = async () => checks().map((c, i) =>
       i ? c : { ...c, conclusion, status: conclusion ? 'completed' : 'in_progress' });
-    const result = await runIntegration(task, ports, policy);
+    const result = await runLegacySimulation(task, ports, policy);
     assert.equal(result.status, 'TESTING_FAILED_CLOSED');
     assert.equal(result.selfHealRouted, false);
     assert.equal(state.routed.length, 0);
@@ -225,9 +225,18 @@ test('native budget-owning provider cannot be nested beneath a second central re
   ports.builders.A = { ...ports.builders.A,
     billingContract: 'native-provider-budget-v1',
     reservesInternally: true, settlesInternally: true };
-  const result = await runIntegration(task, ports, policy);
+  const result = await runLegacySimulation(task, ports, policy);
   assert.equal(result.code, 'DOUBLE_RESERVATION_RISK');
   assert.equal(state.reserves, 0);
   assert.equal(state.calls, 0);
   assert.equal(result.mergeAllowed, false);
+});
+
+test('public runtime entrypoint never enables legacy mock dispatcher or ledger', async () => {
+  const task = makeTask(50);
+  const { ports, state } = portsFor(task, new SqlCoordinator(new FakeStorage()));
+  const r = await runIntegration(task, ports, policy);
+  assert.equal(r.code, 'CANONICAL_BRAIN_ONLY');
+  assert.equal(state.reserves, 0);
+  assert.equal(state.calls, 0);
 });

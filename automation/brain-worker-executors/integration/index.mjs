@@ -172,7 +172,22 @@ export class SqlCoordinator {
 }
 
 /** All ports are supplied by trusted server-side bindings, never from task JSON. */
-export async function runIntegration(taskInput, ports, policy = {}, now = Date.now()) {
+/**
+ * Public runtime entrypoint: intentionally fail closed.
+ * Brain's #219 Durable Object, not the historical mock coordinator below,
+ * must own ALL admission, file locks and billing before a real executor exists.
+ */
+export function runIntegration() {
+  return { status: 'BLOCKED', code: 'CANONICAL_BRAIN_ONLY', providerCalls: 0,
+    mergeAllowed: false, deployAllowed: false };
+}
+
+/**
+ * Historical OFFLINE mock harness only. Never import into a deployed Worker.
+ * Kept to run old synthetic failure/ledger tests; it is not authoritative
+ * Brain admission, real billing or an executor interface.
+ */
+export async function runLegacySimulation(taskInput, ports, policy = {}, now = Date.now()) {
   const blocked = code => ({ status: 'BLOCKED', code, providerCalls: 0, mergeAllowed: false, deployAllowed: false });
   if (policy.enabled !== true || policy.executionMode !== 'staging-approved' ||
       policy.providersAttested !== true || policy.centralLedgerConfirmed !== true) {
