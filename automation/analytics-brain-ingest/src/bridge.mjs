@@ -151,7 +151,7 @@ export async function preparePrivateExport({source,artifactBytes,runId,artifactI
      !Number.isSafeInteger(artifactId)||artifactId<=0||typeof trustedLookup!=='function')
     fail('UNTRUSTED_PROVIDER_PORT');
   const bytes=bytesOf(artifactBytes);
-  const hash=await digest(bytes);
+  const hash=[...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))].map(b=>b.toString(16).padStart(2,'0')).join('');
   let evidence;
   try { evidence=await trustedLookup({source,runId,artifactId,expectedArtifact:SOURCE[source].artifact});}
   catch {fail('PROVENANCE_LOOKUP_UNAVAILABLE');}
