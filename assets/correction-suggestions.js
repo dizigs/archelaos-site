@@ -18,7 +18,7 @@ function inspect(root){
  if(!title||!kind||!id||!/^[\w.:-]{1,170}$/.test(id))return;
  const key=kind+':'+id,prior=root.querySelector('.arch-correction-action');
  if(prior?.dataset.key===key)return;
- const actions=root.id==='an-dialog'?root.querySelector('.an-dialog-actions'):root.id==='arch-bio-global'?root.querySelector('.arch-bio-head'):root.id==='arc-bio-dialog'?root.querySelector('.arc-bio-heart'):favorite?.parentElement;
+ const actions=root.id==='an-dialog'?root.querySelector('.an-dialog-actions'):root.id==='arch-bio-global'?root.querySelector('.arch-bio-actions'):root.id==='arc-bio-dialog'?root.querySelector('.arc-bio-heart'):favorite?.parentElement;
  if(!actions)return;
  root.querySelectorAll('.arch-correction-action,.arch-correction-panel').forEach(n=>n.remove());
  const host=root.querySelector('.an-dialog-inner,.arch-bio-scroll,.arc-bio-inner,.dialog-inner,.archive-story-panel,.reader,.modal-box,.pbh-dialog-body')||root;
