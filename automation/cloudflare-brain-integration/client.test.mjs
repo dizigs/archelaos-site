@@ -193,3 +193,34 @@ test('synthetic Brain emergency pause rejects intake without a successful receip
   assert.equal(calls,1);
   assert.deepEqual(logs.map(x=>({result:x.result,status:x.status})),[{result:'REJECTED',status:423}]);
 });
+
+
+test('canonical Brain HMAC rejects payload forgery, wrong route, wrong identity and stale replay', async()=>{
+  const {authenticate}=await import('../../brain/src/contract.mjs');
+  const e=event(),raw=JSON.stringify(e);
+  const ts=String(Math.floor(Date.now()/1000)),old=String(Number(ts)-3600);
+  const sign=(path,time,body)=>createHmac('sha256',KEY).update('POST\\n'+path+'\\n'+time+'\\n'+body).digest('hex');
+  const valid=sign('/v1/events',ts,raw);
+  const mk=(path,body,time,sig,keyId='staging-v1')=>new Request('https://brain.internal'+path,{
+    method:'POST',
+    headers:{'x-archelaos-key-id':keyId,'x-archelaos-timestamp':time,'x-archelaos-signature':sig},
+    body
+  });
+  const tampered=raw.replace('source.file.created','source.file.updated');
+  const failures=[
+    [mk('/v1/events',tampered,ts,valid),tampered],
+    [mk('/v1/task-intents',raw,ts,valid),raw],
+    [mk('/v1/events',raw,ts,valid,'operator-v1'),raw],
+    [mk('/v1/events',raw,old,sign('/v1/events',old,raw)),raw]
+  ];
+  for(const [request,body] of failures) {
+    await assert.rejects(authenticate(request,{STAGING_INTAKE_KEY:KEY},body),
+      x=>x?.code==='UNAUTHORIZED' && x?.status===401);
+  }
+});
+test('changing an approved Drive event into another identity never calls the private binding', async()=>{
+  const e=event();e.sourceType='news';let calls=0;
+  const {a}=setup(async()=>{calls++;return reply(e);});
+  await assert.rejects(a.submitEvent(e),x=>x?.code==='INVALID_IDENTITY');
+  assert.equal(calls,0);
+});
