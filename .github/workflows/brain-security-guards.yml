@@ -1,0 +1,32 @@
+name: Brain security guardrails regression
+on:
+  pull_request:
+    paths:
+      - 'automation/brain-security/**'
+      - '.github/workflows/brain-security-guards.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: brain-security-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+jobs:
+  security:
+    name: Security regression tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '22'
+      - name: Validate module syntax
+        run: |
+          node --check automation/brain-security/guardrails.mjs
+          node --check automation/brain-security/sql-security-store.mjs
+          node --check automation/brain-security/brain-ledger-adapter.mjs
+          node --check automation/brain-security/guardrails.test.mjs
+      - name: Security regression tests (synthetic only)
+        run: node --no-warnings --test automation/brain-security/*.test.mjs
