@@ -335,6 +335,11 @@ export default {
         if (env.BRAIN_PRIVATE_CAPABILITIES_ENABLED !== 'true' ||
             env.BRAIN_PRIVATE_SERVICE_BINDINGS_VERIFIED !== 'true')
           throw new Rejected('PRIVATE_CAPABILITY_DISABLED', 423);
+        // Never commit an analytics delivery unless we can sign its receipt.
+        if (capability === 'analytics' &&
+            (typeof env.BRAIN_CAPABILITY_RECEIPT_KEY !== 'string' ||
+             env.BRAIN_CAPABILITY_RECEIPT_KEY.length < 43))
+          throw new Rejected('CAPABILITY_RECEIPT_SIGNING_UNCONFIGURED', 503);
         if (capabilityGet)
           return await coordinator.fetch('https://brain.internal/internal/capabilities/' +
             (capability === 'analytics' ? 'analytics' : 'apps-script'));
