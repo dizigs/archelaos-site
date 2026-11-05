@@ -14,6 +14,7 @@ const POLICY = Object.freeze({
   }
 });
 const HEX40 = /^[a-f0-9]{40}$/;
+const RECEIPT_STATES = new Set(['QUEUED', 'RUNNING', 'WAITING_REVIEW', 'DONE', 'RETRY_WAIT', 'DLQ', 'QUARANTINED']);
 const encode = value => new TextEncoder().encode(value);
 
 export class IntegrationBlocked extends Error {
@@ -54,7 +55,8 @@ async function withDeadline(operation, timeoutMs) {
 }
 
 export function createBrainWorkerAdapter({ workerName, sourceType, brainService, intakeKey,
-  enabled = false, verifyProvenance, auditSink, clock = () => Date.now(), timeoutMs = 3000 }) {
+  enabled = false, verifyProvenance, auditSink, expectedBrainCommit = null,
+  clock = () => Date.now(), timeoutMs = 3000 }) {
   if (!Object.hasOwn(POLICY, workerName) || !Object.hasOwn(POLICY[workerName], sourceType))
     throw new IntegrationBlocked('SOURCE_NOT_APPROVED');
   if (!Number.isSafeInteger(timeoutMs) || timeoutMs < 100 || timeoutMs > 10000)
@@ -117,27 +119,39 @@ export function createBrainWorkerAdapter({ workerName, sourceType, brainService,
     }
     let receipt;
     try { receipt = await limitedJson(response); }
-    catch { throw new IntegrationBlocked('RECEIPT_UNVERIFIED'); }
+    catch {
+      // A malformed acknowledgement does not prove the Brain rejected the event:
+      // preserve event identity for durable manual reconciliation, never retry.
+      await audit({ kind: 'delivery', correlationId: event.correlationId,
+        eventId: event.eventId, result: 'UNKNOWN', code: 'RECEIPT_UNVERIFIED' });
+      throw new IntegrationBlocked('RECEIPT_UNVERIFIED');
+    }
     if (!receipt || !UUID.test(receipt.receiptId || '') ||
       receipt.correlationId !== event.correlationId || receipt.eventId !== event.eventId ||
       receipt.durable !== true || receipt.duplicate !== (response.status === 200) ||
-      !['QUEUED','RUNNING','DONE','RETRY_WAIT','DLQ','QUARANTINED'].includes(receipt.status))
+      !RECEIPT_STATES.has(receipt.status)) {
+      await audit({ kind: 'delivery', correlationId: event.correlationId,
+        eventId: event.eventId, result: 'UNKNOWN', code: 'RECEIPT_UNVERIFIED' });
       throw new IntegrationBlocked('RECEIPT_UNVERIFIED');
+    }
     await audit({ kind: 'delivery', correlationId: event.correlationId,
       eventId: event.eventId, receiptId: receipt.receiptId,
       result: 'PERSISTED', duplicate: receipt.duplicate });
     return { receiptId: receipt.receiptId, correlationId: receipt.correlationId,
       eventId: receipt.eventId, status: receipt.status, duplicate: receipt.duplicate, durable: true };
   }
-  async function readReceipt(receiptId) {
+  async function readReceipt(receiptId, expectedCorrelationId = null) {
     ready(); requireUuid(receiptId);
+    if (expectedCorrelationId !== null) requireUuid(expectedCorrelationId);
     let response;
     try { response = await invoke('GET', `/v1/tasks/${receiptId}`, ''); }
     catch { throw new IntegrationBlocked('READBACK_UNAVAILABLE'); }
     if (response.status !== 200) throw new IntegrationBlocked('READBACK_REJECTED');
     const data = await limitedJson(response);
     if (!data || data.receiptId !== receiptId || !UUID.test(data.correlationId || '') ||
-      !Number.isSafeInteger(data.attempts) || typeof data.status !== 'string')
+      !Number.isSafeInteger(data.attempts) || data.attempts < 0 ||
+      !RECEIPT_STATES.has(data.status) ||
+      (expectedCorrelationId !== null && data.correlationId !== expectedCorrelationId))
       throw new IntegrationBlocked('READBACK_UNVERIFIED');
     await audit({ kind: 'readback', receiptId, correlationId: data.correlationId,
       result: 'VERIFIED', status: data.status });
@@ -152,7 +166,8 @@ export function createBrainWorkerAdapter({ workerName, sourceType, brainService,
       if (response.status !== 200) return { reachable: false, code: `HTTP_${response.status}`, ready: false };
       const body = await limitedJson(response);
       if (body?.service !== 'archelaos-brain' || body.environment !== 'staging' ||
-        !HEX40.test(body.commit || '') || body.aiExecutionEnabled !== false)
+        !HEX40.test(body.commit || '') || body.aiExecutionEnabled !== false ||
+        (expectedBrainCommit !== null && body.commit !== expectedBrainCommit))
         return { reachable: false, code: 'HEALTH_IDENTITY_MISMATCH', ready: false };
       return { reachable: true, code: 'STAGING_HEALTH_ONLY', ready: false, commit: body.commit };
     } catch { return { reachable: false, code: 'HEALTH_UNAVAILABLE', ready: false }; }
