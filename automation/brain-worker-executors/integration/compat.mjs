@@ -23,6 +23,9 @@ const unique = entries => new Set(entries.map(e => e.path)).size === entries.len
  * REVIEW-ONLY suggestion. Brain approval readback is mandatory, but output
  * provenance and ledger settlement MUST be checked independently by the
  * trusted runner. Neither a provider response nor this object is a draft PR.
+ * #211 currently omits commitSha from its output. Build B is deliberately
+ * BLOCKED until its owner supplies an attested exact-SHA result; do not infer
+ * SHA from the untrusted task object.
  */
 export function normalizeNativeProposal(taskInput, receipt, providerOutput, now = Date.now()) {
   const task = normalizeIntent(taskInput);
@@ -52,7 +55,8 @@ export function normalizeNativeProposal(taskInput, receipt, providerOutput, now 
       stop('GEMINI_OUTPUT_CONTRACT_MISMATCH');
   } else if (task.lane === 'B') {
     if (out.status !== 'proposed' || out.modelId !== B_MODEL ||
-        out.eventId !== task.taskId || out.writesPerformed !== false ||
+        out.eventId !== task.taskId || out.commitSha !== task.commitSha ||
+        out.writesPerformed !== false ||
         out.mergeAllowed !== false || out.deployAllowed !== false ||
         !out.proposal || !Array.isArray(out.proposal.files) ||
         !Array.isArray(out.proposal.tests) || !['low','medium','high'].includes(out.proposal.risk))

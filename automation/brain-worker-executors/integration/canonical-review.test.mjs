@@ -33,7 +33,7 @@ const proposal=t=>t.lane==='A'?({
     testNotes:[],risks:[]}
 }):({
   status:'proposed',modelId:'@cf/google/gemma-4-26b-a4b-it',
-  eventId:t.taskId,writesPerformed:false,mergeAllowed:false,deployAllowed:false,
+  eventId:t.taskId,commitSha:sha,writesPerformed:false,mergeAllowed:false,deployAllowed:false,
   proposal:{summary:'Fix',files:[{path:t.paths[0],replacement:'export const x=2;',reason:'Fix'}],
     tests:[],risk:'low'}
 });
@@ -121,4 +121,15 @@ test('passed Testing evidence remains review-only',async()=>{
 test('provider status spoofing cannot claim a merged PR',async()=>{
   const t=task(11),m=mock(t),p=proposal(t);p.status='merged';
   assert.equal((await reviewCanonicalTask(t,m.ports,{...m.options,nativeOutputJSON:JSON.stringify(p)})).code,'GEMINI_OUTPUT_CONTRACT_MISMATCH');
+});
+
+test('Build B without source-SHA-attested native output is blocked before billing',async()=>{
+  const t=task(12,'B','build',[b]),m=mock(t);
+  const output=proposal(t);
+  delete output.commitSha;
+  const r=await reviewCanonicalTask(t,m.ports,{
+    ...m.options,nativeOutputJSON:JSON.stringify(output)
+  });
+  assert.equal(r.code,'GEMMA_OUTPUT_CONTRACT_MISMATCH');
+  assert.deepEqual(m.called,{reserve:0,settle:0,provider:0});
 });

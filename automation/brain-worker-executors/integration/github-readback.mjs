@@ -102,13 +102,14 @@ export function createVerifiedTestingChecksPort({ nativeRunner, token, fetchImpl
       const complete = run.status === 'completed' && run.conclusion === 'success' &&
         jobs.length > 0 && jobs.every(j => j.status === 'completed' && j.conclusion === 'success') &&
         required.every(job => jobs.filter(j => j.name === job).length === 1);
-      if (record.state === 'passed' && !complete) fail();
+      if ((record.state === 'passed') !== complete) fail();
       evidence.push({ workflow: name, repository: REPOSITORY, headSha: commitSha,
         provenanceVerified: true, runId: run.id, runAttempt: run.run_attempt,
         status: run.status, conclusion: run.conclusion, jobs: reduced });
     }
-    if (report.status === 'passed' && evidence.some(e => !e.provenanceVerified ||
-      e.status !== 'completed' || e.conclusion !== 'success' || e.jobs.length === 0)) fail();
+    const allSuccess = evidence.every(e => e.provenanceVerified &&
+      e.status === 'completed' && e.conclusion === 'success' && e.jobs.length > 0);
+    if ((report.status === 'passed') !== allSuccess) fail();
     return evidence;
   } });
 }

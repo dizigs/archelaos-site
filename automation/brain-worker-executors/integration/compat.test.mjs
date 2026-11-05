@@ -28,7 +28,7 @@ const a = t => ({
 });
 const b = t => ({
   status: 'proposed', modelId: '@cf/google/gemma-4-26b-a4b-it',
-  eventId: t.taskId, writesPerformed: false, mergeAllowed: false,
+  eventId: t.taskId, commitSha, writesPerformed: false, mergeAllowed: false,
   deployAllowed: false,
   proposal: { summary: 'Patch', files: [{ path, replacement: 'export const x = 2;', reason: 'Fix' }],
     tests: ['Run tests'], risk: 'low' }
@@ -115,4 +115,14 @@ test('native Testing report blocks skipped, missing, failed and wrong SHA', () =
   assert.throws(() => inspectNativeTestingReport(t, authorized(t), {
     ...good, sha: 'c'.repeat(40)
   }));
+});
+
+test('existing native Gemma response without immutable commit SHA fails closed',()=>{
+  const t=task('B'), nativeOutput=b(t);
+  delete nativeOutput.commitSha;
+  assert.throws(()=>normalizeNativeProposal(t,authorized(t),nativeOutput),
+    /GEMMA_OUTPUT_CONTRACT_MISMATCH/);
+  assert.throws(()=>normalizeNativeProposal(t,authorized(t),{
+    ...b(t),commitSha:'f'.repeat(40)
+  }),/GEMMA_OUTPUT_CONTRACT_MISMATCH/);
 });

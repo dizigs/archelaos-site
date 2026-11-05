@@ -81,7 +81,9 @@ test('wrong attempt and foreign GitHub repository are rejected', async () => {
 });
 test('stale green run cannot override newer failed run', async () => {
   const f = fixtures(); const newer = { ...f.runs[0], id: 300, conclusion: 'failure' };
+  const frozenReport = f.report();
   f.runs.push(newer);
+  f.report = () => frozenReport;
   await assert.rejects(port(f).readVerified({ repository: REPOSITORY, commitSha: sha }), /GITHUB_PROVENANCE_UNVERIFIED/);
 });
 test('bad SHA, different repository and incomplete native report block before trusted handoff', async () => {
@@ -91,4 +93,20 @@ test('bad SHA, different repository and incomplete native report block before tr
   f.report = () => ({ status: 'passed', sha, checks: [] });
   await assert.rejects(p.readVerified({ repository: REPOSITORY, commitSha: sha }));
   assert.equal(p.calls(), 0);
+});
+
+test('native blocked outcome never passes even when GitHub checks are green', async () => {
+  const f=fixtures();
+  const original=f.report();
+  f.report=()=>({...original,status:'blocked'});
+  await assert.rejects(port(f).readVerified({repository:REPOSITORY,commitSha:sha}),
+    /GITHUB_PROVENANCE_UNVERIFIED/);
+});
+test('native failed state cannot be promoted by independent green GitHub checks', async () => {
+  const f=fixtures();
+  const original=f.report();
+  f.report=()=>({...original,status:'blocked',checks:original.checks.map((r,i)=>
+    i===0?{...r,state:'failed'}:r)});
+  await assert.rejects(port(f).readVerified({repository:REPOSITORY,commitSha:sha}),
+    /GITHUB_PROVENANCE_UNVERIFIED/);
 });

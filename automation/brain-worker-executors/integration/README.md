@@ -1,5 +1,8 @@
 # STATUS UPDATE — 2026-11-05 (post #209/#211/#212/#214/#219 merges)
 
+- **Gemma #211 integration is intentionally blocked**: current native Build B result does not include immutable commitSha. Review-only shape acceptance requires exact-SHA attestation; never substitute the caller task SHA. The Gemma owner must extend the output contract separately.
+
+
 **Canonical Brain owns all financial and execution state.** This integration branch has folded in the two GitHub Actions provenance files from stacked PR #228, and adds canonical-review.mjs (read-only). All changes remain confined to integration/**. The branch is not merged, and no inference, Worker deploy, GitHub draft writer or provider-native billing callback is activated.
 
 ## Single-ledger safety boundary
@@ -65,7 +68,7 @@ Review #213 and #228 together: #228 is stacked against an earlier #213 SHA and t
 ## Mock tests
 
 ```sh
-node --test automation/brain-worker-executors/integration/index.test.mjs
+node --test automation/brain-worker-executors/integration/*.test.mjs
 ```
 
 Tests cover invalid paths, forging an approval flag, default-OFF, replay, conflicting payloads, two-build cap, UNKNOWN retention, skipped/missing/wrong-commit checks, metadata-only Self-Heal finding, success in the synthetic ledger, ambiguous provider failure and HMAC tamper/freshness. No actual Gemini, Gemma, paid AI, Cloudflare deployment or GitHub write is invoked by tests.
