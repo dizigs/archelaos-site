@@ -140,8 +140,10 @@ export class BrainCoordinator extends DurableObject {
           const enabled = synthetic || (this.env.ENVIRONMENT === 'staging' &&
             this.env.BRAIN_EXECUTION_ADMISSION === 'enabled' && this.env.CENTRAL_LEDGER_VERIFIED === 'true');
           if (!enabled) throw new Rejected('EXECUTION_ADMISSION_DISABLED', 423);
+          const signControls = this.controlState();
+          if (synthetic) signControls.aiPaused = false;
           return reply(await signIntegrationReceipt(this.ctx.storage,
-            path.slice('/internal/exec/authorizations/'.length), this.env.BRAIN_EXECUTOR_SIGNING_KEY));
+            path.slice('/internal/exec/authorizations/'.length), this.env.BRAIN_EXECUTOR_SIGNING_KEY, signControls));
         }
         if (request.method !== 'POST') throw new Rejected('NOT_FOUND', 404);
         let input; try { input = await request.json(); } catch { throw new Rejected('INVALID_JSON', 422); }
@@ -164,7 +166,7 @@ export class BrainCoordinator extends DurableObject {
           await this.wake(Date.now() + 30_050);
           return reply(claimExecutionIntent(this.ctx.storage, input, controls, configuration));
         }
-        if (path === '/internal/exec/begin') return reply(beginExecutionCall(this.ctx.storage, input));
+        if (path === '/internal/exec/begin') return reply(beginExecutionCall(this.ctx.storage, input, controls));
         if (path === '/internal/exec/complete') return reply(finishExecutionIntent(this.ctx.storage, input));
         if (path === '/internal/exec/reconcile') return reply(reconcileExecutionIntent(this.ctx.storage, input));
         throw new Rejected('NOT_FOUND', 404);
