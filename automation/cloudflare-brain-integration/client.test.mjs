@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createHmac, randomUUID } from 'node:crypto';
 import { createBrainWorkerAdapter, IntegrationBlocked } from './client.mjs';
+import './binding-plan.test.mjs'; // Include binding eligibility negatives in existing PR CI without workflow ownership change.
 const KEY = 'example-staging-not-a-secret-'.repeat(3);
 const sha = x => x.repeat(64);
 const event = () => ({ schemaVersion: 1, eventId: randomUUID(), correlationId: randomUUID(),
@@ -164,7 +165,7 @@ test('restart-safe synthetic Brain receipt keeps one event and durable duplicate
       return Response.json({...stored.get(incoming.eventId),durable:true,duplicate,status:'WAITING_REVIEW'},
         {status:duplicate?200:202});
     }
-    const match=/^\\/v1\\/tasks\\/([0-9a-f-]+)$/.exec(path);
+    const match=path.startsWith('/v1/tasks/') ? [path,path.slice('/v1/tasks/'.length)] : null;
     if(req.method==='GET' && match){
       const receipt=[...stored.values()].find(x=>x.receiptId===match[1]);
       return receipt?Response.json({...receipt,status:'WAITING_REVIEW',attempts:0}):new Response('',{status:404});
