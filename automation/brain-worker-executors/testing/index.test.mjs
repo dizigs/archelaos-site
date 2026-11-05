@@ -114,3 +114,24 @@ test('invalid identity and limits are rejected before network access', async () 
   await assert.rejects(runTestingExecutor(options(api, { limits: { maxPolls: 1000 } })), /invalid maxPolls/);
   assert.equal(api.requests.length, 0);
 });
+test('aborted GitHub request times out and blocks without exposing token', async () => {
+  const fetchImpl = (_url, { signal }) => new Promise((_resolve, reject) => {
+    signal.addEventListener('abort', () => reject(Object.assign(new Error('timeout'), { name: 'AbortError' })), { once: true });
+  });
+  const r = await runTestingExecutor({ repo, sha, token, fetchImpl, limits: { maxPolls: 1, maxRetries: 0, requestTimeoutMs: 1 } });
+  assert.equal(r.status, 'blocked');
+  assert.equal(r.reason, 'GitHub API timeout');
+  assert.ok(!JSON.stringify(r).includes(token));
+});
+test('transient 503 is retried within configured cap', async () => {
+  const api = mockApi(fixture());
+  let attempts = 0;
+  const fetchImpl = (url, init) => (++attempts === 1 ? Promise.resolve(new Response('retry', { status: 503 })) : api.fetchImpl(url, init));
+  const r = await runTestingExecutor(options(api, {
+    fetchImpl,
+    sleep: async () => {},
+    limits: { maxPolls: 1, maxRetries: 1, pollIntervalMs: 0 },
+  }));
+  assert.equal(r.status, 'passed');
+  assert.ok(attempts > api.requests.length);
+});
