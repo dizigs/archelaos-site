@@ -36,4 +36,4 @@ The read-only [binding-plan.mjs](./binding-plan.mjs) proposes a native binding o
 
 ## Execution evidence / status
 
-Nine deterministic offline tests of binding-plan.test.mjs were run locally under Node, **9 passed / 0 failed**. Existing client.test.mjs carries 18 authored mock tests, but these have not been independently re-executed in this task; remote E2E has not been run. No new Worker, database, deployment, secret read, live binding/cron change, main merge, or force-push occurred.
+Nine deterministic offline tests of binding-plan.test.mjs were run locally under Node, **9 passed / 0 failed**. The existing client.test.mjs suite executed at prior PR head 8c437f8e48bd32dac364caf55813b21572c2bfa8 in GitHub Actions (run 42109705341, job 127533705171): 19/19 PASS, 0 FAIL. The new nine binding-plan tests passed locally; not yet run by that CI workflow. This is offline testing, not remote E2E. No new Worker, database, deployment, secret read, live binding/cron change, main merge, or force-push occurred.
