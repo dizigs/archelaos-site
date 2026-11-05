@@ -14,3 +14,7 @@ test('requires central ledger for free quota',()=>assert.equal(decideAI({event,s
 test('unknown cost fails closed',()=>assert.equal(decideAI({event,sourceAllowed:true,containsPersonalData:false,providerVerified:true}).reason,'budget_unknown'));
 test('insufficient budget fails closed',()=>assert.equal(decideAI({event,sourceAllowed:true,containsPersonalData:false,providerVerified:true,estimatedEuro:1,remainingEuro:0.1}).reason,'budget_exhausted'));
 test('estimated paid call cannot run without atomic reservation',()=>assert.equal(decideAI({event,sourceAllowed:true,containsPersonalData:false,providerVerified:true,estimatedEuro:0.1,remainingEuro:10}).reason,'atomic_reservation_required'));
+
+test('rejects impossible calendar date instead of Date normalization',()=>assert.equal(validateEvent({...event,observedAt:'2026-02-30T13:00:00Z'}).reason,'invalid_time'));
+test('rejects impossible clock hour',()=>assert.equal(validateEvent({...event,observedAt:'2026-11-05T25:00:00Z'}).reason,'invalid_time'));
+test('accepts valid millisecond timestamp',()=>assert.equal(validateEvent({...event,observedAt:'2026-11-05T13:00:00.12Z'}).ok,true));
