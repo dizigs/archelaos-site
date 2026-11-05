@@ -3,19 +3,19 @@
   "canonical_source": "hall-of-fame-people.json",
   "historical_source": "rebuild/data/people.json",
   "counts": {
-    "canonical": 772,
+    "canonical": 773,
     "historical": 680,
     "shared": 680,
-    "divergent_people": 56,
-    "divergent_fields": 90,
+    "divergent_people": 62,
+    "divergent_fields": 102,
     "fields": {
-      "bio": 56,
-      "bio_en": 33,
+      "bio": 62,
+      "bio_en": 39,
       "name": 1
     },
     "classifications": {
       "BLOCKED_SOURCE": 4,
-      "LEGACY_TEXT_RETAINED": 72,
+      "LEGACY_TEXT_RETAINED": 84,
       "QUALIFIED_ARCHIVE": 8,
       "SEMANTICALLY_RETAINED": 4,
       "SPELLING_CORRECTION": 2
@@ -56,6 +56,7 @@
     "arch-archery-result-20261102-14",
     "arch-archery-result-20261102-15",
     "arch-aristotelis-navrozidis-wrest24",
+    "arch-bc495c1d2075",
     "arch-chara-mavridou-wrest25",
     "arch-christina-papavasileiou-gymnastics-2022",
     "arch-christos-karasavvidis-gymnastics-2022",
@@ -315,6 +316,24 @@
       ]
     },
     {
+      "id": "arch-5a04cbbb57e4",
+      "name": "Νίκος Τσινόπουλος",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "7f1895931b6e0875de8d24592f49b81e69c34de35bd15a177eacbdac0662eaf0",
+          "canonical_sha256": "d36efe2ea8ec0b5b5e1d07987db6933a954c5d08e689eca221217efeb779512b"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "0eed456d15c0b2a5c152edbb73628d0ddf25cf2555d3659acf08f64922da648e",
+          "canonical_sha256": "507ab4ae1fb54093df59a99f1bb2c132209710706612801f8e6d43d8848b8b02"
+        }
+      ]
+    },
+    {
       "id": "arch-5de1e130d776",
       "name": "Μαρκέλα Παπαζήση",
       "fields": [
@@ -533,6 +552,24 @@
       ]
     },
     {
+      "id": "arch-8e74ac298d2b",
+      "name": "Μιχάλης Σαρηγιαννίδης",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "ca7f98095da5e778bd0c80c2290ef2304bf20b73c09a4963bdb3ab4ad774ef7b",
+          "canonical_sha256": "c8b2485d9f4366ad4af4568196c69306c87cbed553ce685f6e4b8b2e1a1df096"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "1c6e7fa2eb2ea9fcb3ffa158d1a2ffd912ca0416a86cbd9d63906aa09f452261",
+          "canonical_sha256": "24d57b4795a7c1226d058e6a2a4c2e51b81ca0b859a9511955acd2fdf1969446"
+        }
+      ]
+    },
+    {
       "id": "arch-955a386f547f",
       "name": "Ευάγγελος Χαρίσης",
       "fields": [
@@ -573,6 +610,42 @@
           "legacy_sha256": "6ae2e46e811a228aaae7305ced03aa7597d97d70f096e4f7d3f24875c6bab178",
           "canonical_sha256": "f584644978e5836db8a72ffcc08f3e0b35bd06fc54934acd7c6def084766ef8e",
           "evidence": "Club-authorized public editorial correction on 2026-11-03. Original archival records preserved; disputed 1994 ranking, historical wrestling placements and national-team starting status remain in private fact-check. Federation or municipality evidence and club confirmation recorded separately."
+        }
+      ]
+    },
+    {
+      "id": "arch-9a81d12f0720",
+      "name": "Ευστάθιος Ζ. Ζάννας",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "36e596270ca05c449992bd294bf275faa70d6435166427dbb3d3286257b0ad59",
+          "canonical_sha256": "41cacc9e4c9b533543f9bf767e2976a8fa1377e417225150b90eeecb17490f13"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "14dfd1dc24b58024b2e5cc38c517f4188dbc8ad47bd0d065ab4553b02a3099e9",
+          "canonical_sha256": "13276a3e462399ae764c85a58e9f49705ba8e907ae5dacedd062ecad986b7638"
+        }
+      ]
+    },
+    {
+      "id": "arch-9df8fb3c79c3",
+      "name": "Μιχάλης Σαπίδης",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "cf14f446a943dc13fa5fc4b4e2aa25d4498dfb96ac6ddae196b52d7b90d3e221",
+          "canonical_sha256": "2c02c339238727adc0042a6bda8c97ffc65142d72b1b59b49eba70cc11e908aa"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "921ca9903e3705223b5902ad1a30b66e91a7a8d3ff3c0f3490bdab9100773dfc",
+          "canonical_sha256": "4eb64d544ed1d5e3bf1eaf5096dbf1571f6dc1d7b3d18537bba3ab88c6280109"
         }
       ]
     },
@@ -858,6 +931,24 @@
       ]
     },
     {
+      "id": "arch-e355f0a88983",
+      "name": "Χρήστος Ελευθερούδης",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "5d8c4f01cb3bff335c3544ab73d29e3f4b97d5f81544c107d247a6ee26d124dd",
+          "canonical_sha256": "c775485e5edceb9086863e235525904615e06ae2ebb005c0e5a2cc033574a68d"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "9ae98d7e2c5ff8f0874f4c51fe3ebe9739e417a2742f7a04e9f6a16d30426671",
+          "canonical_sha256": "a4313e15c600627989b04a25e6cacc89cd4fc7db2e5a78959480ee4966c6d5a3"
+        }
+      ]
+    },
+    {
       "id": "arch-e6b31b31c3a9",
       "name": "Άγγελος Παρούσης",
       "fields": [
@@ -884,6 +975,24 @@
           "classification": "LEGACY_TEXT_RETAINED",
           "legacy_sha256": "0d3d572fe80ef215a841d615541df0c322faf06b162540abd67b507fef6725ca",
           "canonical_sha256": "2016bda004f1db6c55cba6641c8e0300eebdc4de9b513418ec9ffc5ffdc7d2bf"
+        }
+      ]
+    },
+    {
+      "id": "arch-eb9aa1b43b26",
+      "name": "Δημήτριος Παπαδημητρίου",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "9913e2fe9a9983318d38f5f40c154e0a0d66844d52ff41bbaa142218f1b83325",
+          "canonical_sha256": "57ea22623b665a6a87beb0ac5218ee48d1f95950f4d7f7dbe55d6ec625514822"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "bb84d71e21215960522f4e4757a973b16e124cd41c7a88efcb846efbaf64ee40",
+          "canonical_sha256": "2397e31b13908167878e4d2d95b341b4201c32f2c9c4b7d5aefd87fc721cd5dc"
         }
       ]
     },
