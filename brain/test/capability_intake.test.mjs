@@ -108,6 +108,9 @@ test('private source identities cannot impersonate each other or the operator', 
     assert.equal((await send('/v1/intake/analytics', analytics(), 'analytics-v1', 'bad-key-'.repeat(8))).status, 401);
     assert.equal((await send('/v1/control', {operation: 'pause', scope: 'global',
       expectedRevision: 0}, 'analytics-v1')).status, 403);
+    assert.equal((await send('/v1/diagnostics')).status, 403);
+    assert.equal((await send('/v1/exec/diagnostics', undefined, 'apps-script-v1')).status, 403);
+    assert.equal((await send('/v1/events', analytics().event)).status, 403);
   });
 });
 test('private capabilities remain fail-closed when binding attestations are absent', async () => {
