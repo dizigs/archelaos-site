@@ -4,11 +4,13 @@ import copy
 import importlib.util
 import json
 import tempfile
+import sys
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 spec=importlib.util.spec_from_file_location("ingest",ROOT/"tools/ingest_verified.py")
 tool=importlib.util.module_from_spec(spec)
+sys.path.insert(0,str(ROOT/"tools"))
 spec.loader.exec_module(tool)
 data=tool.read(ROOT/"data")
 original=json.dumps(data,sort_keys=True,ensure_ascii=False)

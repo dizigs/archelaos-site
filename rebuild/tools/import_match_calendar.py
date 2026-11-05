@@ -7,6 +7,7 @@ The output is only a gitignored local draft. Nothing is pushed or published.
 """
 from __future__ import annotations
 import argparse
+from io import BytesIO
 from datetime import datetime,timezone
 from hashlib import sha256
 import json
@@ -17,8 +18,10 @@ from zoneinfo import ZoneInfo
 
 try:
     from .public_snapshot import output_directory, replace_report, validate_reports
+    from .secure_import_io import read_export
 except ImportError:
     from public_snapshot import output_directory, replace_report, validate_reports
+    from secure_import_io import read_export
 
 REPORT_NAME="match-calendar-review.json"
 REPORT_CHOICE="rebuild/test-artifacts/"+REPORT_NAME
@@ -104,23 +107,28 @@ def kickoff(field):
         return None,"invalid_datetime"
 
 def load_sources(path:Path):
-    if not path.is_file():raise FileNotFoundError(path)
-    if path.stat().st_size>MAX_INPUT:raise ValueError("Input exceeds 5MB")
+    blob=read_export(path,{".ics",".zip"},MAX_INPUT)
     suffix=path.suffix.lower()
     if suffix==".ics":
-        return [(path.name,path.read_bytes())]
+        return [(path.name,blob)]
     if suffix!=".zip":raise ValueError("Only .ics and .zip exports are supported")
     result=[]
-    with ZipFile(path) as archive:
+    with ZipFile(BytesIO(blob)) as archive:
         infos=[x for x in archive.infolist() if not x.is_dir()]
         if len(infos)>30:raise ValueError("Too many files in calendar ZIP")
+        expanded=0
         for member in infos:
             pp=PurePosixPath(member.filename)
             if pp.is_absolute() or ".." in pp.parts or "\\" in member.filename:
                 raise ValueError("Unsafe ZIP member path")
             if member.file_size>MAX_INPUT:raise ValueError("Oversized ZIP member")
             if member.filename.lower().endswith(".ics"):
-                result.append((member.filename,archive.read(member)))
+                expanded+=member.file_size
+                if expanded>MAX_INPUT:raise ValueError("Calendar ZIP expanded content exceeds 5MB")
+                with archive.open(member) as stream:
+                    content=stream.read(MAX_INPUT+1)
+                if len(content)>MAX_INPUT:raise ValueError("Oversized expanded calendar")
+                result.append((member.filename,content))
     if not result:raise ValueError("ZIP contains no .ics calendars")
     return result
 

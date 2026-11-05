@@ -38,7 +38,7 @@
 .rs-note{margin:56px 0 24px;background:#f1e9d9;border:1px solid #d9c9aa;border-radius:19px;padding:25px}
 .rs-note strong{font:500 27px Georgia,serif;color:#073d2a}
 .rs-note p{line-height:1.85;color:#667467}
-.rs-contribute{display:flex;justify-content:space-between;gap:20px;align-items:center;padding:35px;background:#073d2a;color:#fffaf0;border:1px solid #c1a56c;border-radius:22px}
+.rs-contribute{display:flex;justify-content:space-between;gap:20px;align-items:center;margin-top:24px;padding:35px;background:#073d2a;color:#fffaf0;border:1px solid #c1a56c;border-radius:22px}
 .rs-contribute span{color:#dac085;letter-spacing:.16em;font-size:11px;font-weight:800}
 .rs-contribute h2{font:400 clamp(28px,4vw,44px) Georgia,serif;margin:11px 0}
 .rs-contribute p{max-width:650px;color:#dbe7df}

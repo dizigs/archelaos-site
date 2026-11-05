@@ -1,0 +1,21 @@
+{
+  "name": "archelaos-brain-core",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test --test-reporter=tap --test-concurrency=1 test/*.test.mjs",
+    "syntax": "node tools/check_syntax.mjs"
+  },
+  "devDependencies": {
+    "miniflare": "4.20260730.0",
+    "wrangler": "4.157.0"
+  },
+  "dependencies": {
+    "unpdf": "2.1.0"
+  },
+  "overrides": {
+    "sharp": "0.35.5",
+    "undici": "7.30.1"
+  }
+}

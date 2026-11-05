@@ -37,6 +37,12 @@ jobs:
         run: python -m unittest discover -s rebuild/tests -p archive_relationships_test.py -v
       - name: Guard against SonarCloud workflow supply-chain regressions
         run: python -m unittest discover -s rebuild/tests -p security_workflows_test.py -v
+      - name: Reject linked imports, expanded ZIP bombs and staged-directory swaps
+        run: |
+          python -m unittest discover -s rebuild/tests -p import_input_security_test.py -v
+          python -m unittest discover -s rebuild/tests -p calendar_output_security_test.py -v
+          python rebuild/tests/ingestion.py
+          python rebuild/tests/match_calendar_import.py
       - name: Ensure repair automation stops when PR lookup fails
         run: python -m unittest discover -s rebuild/tests -p repair_pr_lookup_test.py -v
       - name: Build and verify complete release
