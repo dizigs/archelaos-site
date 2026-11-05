@@ -29,12 +29,13 @@ HMAC-SHA256 request message bytes are \`METHOD + "\n" + pathname + "\n" + epochS
 | \`site-v1\` | \`BRAIN_SITE_INTAKE_KEY\` | \`site\` source event and its own receipt lookup only |
 | \`github-v1\` | \`BRAIN_GITHUB_INTAKE_KEY\` | \`github\` source event and its own receipt lookup only |
 
-The source enum is not used to impersonate other event types. Exact event allowlist:
+The source enum is not used to impersonate other event types. Exact event allowlist (enforced **at authenticated \`/v1/events\`**, not by the shared reusable metadata validator):
 \`drive\`: \`source.file.created\`, \`source.file.updated\`;
-\`gmail\`: \`source.message.received\`;
-\`news\`: \`news.search.completed\`;
-\`site\`: \`site.contribution.received\`;
-\`github\`: \`github.ci.failed\`.
+\`gmail\`: \`source.file.created\` (existing verified legacy adapter) or \`source.message.received\`;
+\`news\`: \`source.file.created\` (existing verified legacy adapter) or \`news.search.completed\`;
+\`site\`: \`source.file.created\` (existing verified legacy adapter) or \`site.contribution.received\`;
+\`github\`: \`source.file.created\` (existing verified legacy adapter) or \`github.ci.failed\`.
+Legacy \`source.file.created\` is never relabeled as a verified CI failure or as a news search result. It routes to SOURCE_REVIEW and requires independently verified source provenance. The existing \`brain/src/adapters/common.mjs\` uses this metadata event for Gmail/site/GitHub; rejecting it inside the public \`validateEvent\` would break actual integrated adapters.
 A generic source key cannot call \`/v1/control\`, \`/v1/exec/**\`, \`/v1/diagnostics\`, any other principal's source receipts, or the Analytics/Apps Script capability. An operator source key cannot spoof a source event. \`staging-v1\` remains confined to \`staging\` and cannot authorize any of the new private identities.
 
 **Gates** (literal exact string \`true\`, all default absent/OFF):
