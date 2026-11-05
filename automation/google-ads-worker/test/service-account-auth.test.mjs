@@ -71,7 +71,7 @@ test('invalid key, token URL, malformed JSON, and malformed JWT material fail cl
   await assert.rejects(() => broken(JSON.stringify({...value,
     private_key: 'NOT_A_PRIVATE_KEY'})), /ADS_SERVICE_ACCOUNT_INVALID/);
   await assert.rejects(() => broken(JSON.stringify({...value,
-    private_key: '-----BEGIN PRIVATE KEY-----\\nZmFrZQ==\\n-----END PRIVATE KEY-----'})),
+    private_key: ['-----BEGIN PRIVATE KEY-----', 'ZmFrZQ==', '-----END PRIVATE KEY-----'].join(String.fromCharCode(10))})),
   /ADS_SERVICE_ACCOUNT_KEY_INVALID/);
 });
 
