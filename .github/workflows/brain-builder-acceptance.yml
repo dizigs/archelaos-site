@@ -6,11 +6,7 @@ on:
       - 'automation/brain-worker-executors/acceptance/**'
       - '.github/workflows/brain-builder-acceptance.yml'
 
-permissions:
-  contents: read
-  checks: read
-  actions: read
-  pull-requests: read
+permissions: {}
 
 concurrency:
   group: brain-builder-synthetic-acceptance-${{ github.event.pull_request.number }}
@@ -18,6 +14,9 @@ concurrency:
 
 jobs:
   synthetic-contracts:
+    permissions:
+      contents: read
+      pull-requests: read
     if: github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     timeout-minutes: 8
@@ -65,7 +64,7 @@ jobs:
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           repository: dizigs/archelaos-site
-          ref: aeffcdaed01239564f1cd586a8021e75bee46b31
+          ref: d98b32f361126a6029c2457d2d55335130c368de
           path: .acceptance-sources/integration
           persist-credentials: false
       - name: Checkout stacked provenance PR 228 exact SHA
@@ -93,6 +92,10 @@ jobs:
         run: node --test automation/brain-worker-executors/acceptance/*.test.mjs
 
   independent-ci-attestation:
+    permissions:
+      contents: read
+      actions: read
+      checks: read
     if: always() && github.event.pull_request.head.repo.full_name == github.repository
     needs: synthetic-contracts
     runs-on: ubuntu-latest
