@@ -14,7 +14,7 @@ function ledger() {
   const db = new DatabaseSync(':memory:');
   const storage = { sql: { exec(sql, ...args) {
     const q = db.prepare(sql);
-    return /^\\s*SELECT\\b/i.test(sql) ? q.all(...args) : (q.run(...args), []);
+    return /^\s*SELECT\b/i.test(sql) ? q.all(...args) : (q.run(...args), []);
   } }, transactionSync(fn) {
     db.exec('BEGIN IMMEDIATE');
     try { const result = fn(); db.exec('COMMIT'); return result; }
@@ -24,7 +24,7 @@ function ledger() {
 }
 async function sign({ payload = JSON.stringify(finding), nonce = 'b'.repeat(32),
   issuedAtMs = NOW, scope = 'selfheal.recover', issuer = 'canonical-brain' } = {}) {
-  const message = [scope, issuer, String(issuedAtMs), nonce, payload].join('\\n');
+  const message = [scope, issuer, String(issuedAtMs), nonce, payload].join('\n');
   const key = await webcrypto.subtle.importKey('raw', new TextEncoder().encode(SECRET),
     { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
   const data = new Uint8Array(await webcrypto.subtle.sign('HMAC', key, new TextEncoder().encode(message)));
@@ -67,7 +67,7 @@ test('nonce capacity and expiry fail closed without accepting unverified writers
   const { db, recovery } = ledger();
   assert.equal(recovery.claimEventNonce('canonical-brain:selfheal.recover', 'a'.repeat(32), NOW+300001, NOW), true);
   assert.equal(recovery.claimEventNonce('canonical-brain:selfheal.recover', 'a'.repeat(32), NOW+300001, NOW), false);
-  assert.equal(recovery.claimEventNonce('canonical-brain:selfheal.recover', 'a'.repeat(32), NOW+300001, NOW+300002), false);
+  assert.throws(() => recovery.claimEventNonce('canonical-brain:selfheal.recover', 'a'.repeat(32), NOW+300001, NOW+300002));
   assert.throws(() => recovery.claimEventNonce('invalid', 'b'.repeat(32), NOW+300001, NOW));
   db.close();
 });
