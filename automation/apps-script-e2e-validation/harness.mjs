@@ -143,7 +143,9 @@ export function decryptAndVerifyBackup(bundle,key){
 // Only synthetic assertions; external IDE/API writers cannot be excluded by local leases.
 export function verifyWritersAndTriggersGuard({baselineSnapshot,currentRemoteSnapshot,
   activeLease,actorId,independentInventory}){
-  if(!activeLease||activeLease.holderId!==actorId||!Number.isFinite(activeLease.expiresAtMs)||
+  if(typeof actorId!=='string'||!actorId.trim()||!activeLease||
+    typeof activeLease.holderId!=='string'||!activeLease.holderId.trim()||
+    activeLease.holderId!==actorId||!Number.isFinite(activeLease.expiresAtMs)||
     activeLease.expiresAtMs<Date.now()+30000)fail(ValidationErrorCodes.CONCURRENT_WRITER_ACTIVE);
   // Detect real trigger drift before reporting stale or incomplete inventory.
   // Either outcome is fail-closed; callers cannot use these hints as authority.
@@ -201,6 +203,19 @@ export class IdempotencyAndRecoveryJournal {
   }
   markHold(key){const j=this.jobs.get(key);if(j)j.status='RECONCILIATION_REQUIRED';}
   markRolledBack(key,hash){const j=this.jobs.get(key);if(j){j.status='ROLLED_BACK';j.hash=hash;}}
+  // Synthetic restart recovery requires an explicit executor-liveness probe.
+  // Neither a checkpoint nor elapsed time proves that a real executor stopped.
+  async recoverAbandonedJob(key,{isExecutorLive}={}){
+    const job=this.jobs.get(key);
+    if(job?.status!=='IN_PROGRESS'||typeof isExecutorLive!=='function')
+      fail(ValidationErrorCodes.RECONCILIATION_REQUIRED);
+    let live;
+    try{live=await isExecutorLive(Object.freeze({idempotencyKey:key,scriptId:job.scriptId}));}
+    catch{fail(ValidationErrorCodes.RECONCILIATION_REQUIRED);}
+    if(live!==false)fail(ValidationErrorCodes.RECONCILIATION_REQUIRED);
+    this.markHold(key);
+    return Object.freeze({status:'RECONCILIATION_REQUIRED',syntheticOnly:true});
+  }
   getJob(key){return this.jobs.get(key)||null;}
   exportSyntheticCheckpoint(){return structuredClone([...this.jobs]);}
   static fromSyntheticCheckpoint(value){const j=new IdempotencyAndRecoveryJournal();
@@ -209,14 +224,16 @@ export class IdempotencyAndRecoveryJournal {
 const mintedClients=new WeakSet();
 export const SMOKE_FILE_NAME='ArchelaosBridgeSmoke';
 export const SMOKE_FILE_SOURCE='// Synthetic test only.\nfunction __archelaosBridgeSmokeCheck() {return "OK";}\n';
-export function createSyntheticGasEnvironment({timeoutAfterSmoke=false,rollbackFails=false}={}){
+export function createSyntheticGasEnvironment({timeoutAfterSmoke=false,rollbackFails=false,
+  failPostWriteReadAt=0}={}){
   const scriptId='synthetic-archelaos-script';
   let files=[{name:'appsscript',type:'JSON',source:'{"timeZone":"Europe/Athens"}'},
     {name:'Main',type:'SERVER_JS',source:'function doPost() {\r\n  return null;\r\n}\r\n'}];
-  let triggers=[{id:'synthetic-trigger',handler:'submit'}],puts=0;
+  let triggers=[{id:'synthetic-trigger',handler:'submit'}],puts=0,postWriteReads=0;
   const client=Object.freeze({
     async getProjectMetadata(id){if(id!==scriptId)throw Error('SYNTHETIC_ONLY');return {title:'Synthetic'};},
     async getProjectContent(id){if(id!==scriptId)throw Error('SYNTHETIC_ONLY');
+      if(puts>0&&++postWriteReads===failPostWriteReadAt)throw Error('SYNTHETIC_READ_FAILURE');
       return {files:structuredClone(files)};},
     async listTriggers(id){if(id!==scriptId)throw Error('SYNTHETIC_ONLY');
       return structuredClone(triggers);},
@@ -262,11 +279,13 @@ export async function runSmokeWriteAndRollbackLifecycle({scriptId,idempotencyKey
   journal.recordPutAttempt(idempotencyKey,'smoke');
   try{await gasClient.updateProjectContent(scriptId,expected);}
   catch{journal.markHold(idempotencyKey);fail(ValidationErrorCodes.RECONCILIATION_REQUIRED);}
-  const smoke=await readProjectSnapshot(gasClient,scriptId);
+  const smoke=await readProjectSnapshot(gasClient,scriptId)
+    .catch(e=>{journal.markHold(idempotencyKey);throw e;});
   if(smoke.projectSha256!==expectedSha||smoke.triggersSha256!==base.triggersSha256){
     journal.markHold(idempotencyKey);fail(ValidationErrorCodes.READBACK_MISMATCH);
   }
-  const recheck=await readProjectSnapshot(gasClient,scriptId);
+  const recheck=await readProjectSnapshot(gasClient,scriptId)
+    .catch(e=>{journal.markHold(idempotencyKey);throw e;});
   if(recheck.projectSha256!==expectedSha||recheck.triggersSha256!==base.triggersSha256){
     journal.markHold(idempotencyKey);fail(ValidationErrorCodes.ROLLBACK_VERIFICATION_FAILED);
   }
@@ -274,7 +293,8 @@ export async function runSmokeWriteAndRollbackLifecycle({scriptId,idempotencyKey
   journal.recordPutAttempt(idempotencyKey,'rollback');
   try{await gasClient.updateProjectContent(scriptId,original.files);}
   catch{journal.markHold(idempotencyKey);fail(ValidationErrorCodes.RECONCILIATION_REQUIRED);}
-  const final=await readProjectSnapshot(gasClient,scriptId);
+  const final=await readProjectSnapshot(gasClient,scriptId)
+    .catch(e=>{journal.markHold(idempotencyKey);throw e;});
   if(final.projectSha256!==base.projectSha256||final.triggersSha256!==base.triggersSha256||
      final.files.some(f=>f.name===SMOKE_FILE_NAME)){
     journal.markHold(idempotencyKey);fail(ValidationErrorCodes.ROLLBACK_VERIFICATION_FAILED);
@@ -307,6 +327,8 @@ export function buildSafeBrainMetadataEnvelope(raw){
   const keys=['eventId','operation','status','baselineSha256','smokeProjectSha256',
     'postRollbackSha256','triggersUnchanged','backupVerified','timestamp'];
   if(!exact(raw,keys)||keys.slice(3,6).some(k=>!hex64(raw[k]))||
+    typeof raw.eventId!=='string'||typeof raw.timestamp!=='string'||
+    raw.postRollbackSha256!==raw.baselineSha256||
     !/^[A-Za-z0-9_-]{8,80}$/.test(raw.eventId)||raw.operation!=='GAS_SYNTHETIC_SMOKE_ROLLBACK'||
     raw.status!=='SYNTHETIC_VERIFIED'||raw.triggersUnchanged!==true||
     raw.backupVerified!==true||!Number.isFinite(Date.parse(raw.timestamp)))
