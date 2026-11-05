@@ -21,10 +21,14 @@ const verified = x => x?.verified === true && x?.origin === 'TRUSTED_PRIVATE_STO
 const sameProject = (x, projectFingerprint) => x?.projectFingerprint === projectFingerprint;
 const digest = x => typeof x === 'string' && HEX.test(x);
 const fresh = (x, now, safetyMs = 0) => Number.isSafeInteger(x?.expiresAt) && x.expiresAt > now + safetyMs;
+// Every runtime observation used for readiness must be recent, not a stale CI fixture.
+const observed = (x, now, maxAgeMs = 300000) => Number.isSafeInteger(x?.observedAtMs) &&
+  x.observedAtMs <= now && x.observedAtMs >= now - maxAgeMs;
 
 /** Read-only status evidence. Never emits source code, IDs, tokens, URLs or approval signatures. */
 export async function inspectIntegration({ projectFingerprint, now = Date.now() }, ports) {
-  if (!digest(projectFingerprint) || !ports || ENTRIES.some(k => typeof ports[k] !== 'function'))
+  if (!digest(projectFingerprint) || !Number.isSafeInteger(now) || !ports ||
+      ENTRIES.some(k => typeof ports[k] !== 'function'))
     stop('PRIVATE_PROJECT_OR_PROBES_REQUIRED');
   let evidence;
   try {
@@ -33,21 +37,23 @@ export async function inspectIntegration({ projectFingerprint, now = Date.now() 
   } catch { return { status: 'BLOCKED', read: 'NOT_VERIFIED', write: 'BLOCKED', brain: 'BLOCKED', blockers: ['PRIVATE_PROBE_UNAVAILABLE'] }; }
   const [control, grant, source, backup, trigger, writer, auth, rollback, brain] = evidence;
   const blockers = [];
-  if (!verified(control) || control.paused !== false || control.liveWritesEnabled !== false) blockers.push('CONTROLS_NOT_SAFE');
+  if (!verified(control) || !observed(control, now) || control.paused !== false ||
+    control.liveWritesEnabled !== false) blockers.push('CONTROLS_NOT_SAFE');
   if (!verified(grant) || !sameProject(grant, projectFingerprint) || !Array.isArray(grant.scopes) ||
     !grant.scopes.includes(REQUIRED_SCOPE) || grant.adminIdentityVerified !== true || !fresh(grant, now))
     blockers.push('ADMIN_SCOPE_NOT_VERIFIED');
   if (!verified(source) || !sameProject(source, projectFingerprint) ||
     !digest(source.sourceHash) || !Number.isInteger(source.fileCount) || source.fileCount < 1 ||
-    source.metadataVerified !== true) blockers.push('SOURCE_NOT_VERIFIED');
+    source.metadataVerified !== true || !observed(source, now)) blockers.push('SOURCE_NOT_VERIFIED');
   const read = blockers.length === 0 ? 'READ_VERIFIED' : 'NOT_VERIFIED';
   if (!verified(backup) || !sameProject(backup, projectFingerprint) ||
     backup.encrypted !== true || backup.readbackVerified !== true ||
-    backup.immutable !== true || !digest(backup.sourceHash) || backup.sourceHash !== source?.sourceHash)
+    backup.immutable !== true || !digest(backup.sourceHash) || backup.sourceHash !== source?.sourceHash ||
+    !observed(backup, now))
     blockers.push('BACKUP_NOT_VERIFIED');
   // Google's Projects API cannot prove installable triggers across accounts.
   if (!verified(trigger) || !sameProject(trigger, projectFingerprint) ||
-    trigger.completeAcrossAccounts !== true || !digest(trigger.fingerprint))
+    trigger.completeAcrossAccounts !== true || !digest(trigger.fingerprint) || !observed(trigger, now))
     blockers.push('TRIGGERS_NOT_VERIFIED');
   // Google updateContent is not CAS; advisory SQLite locking is insufficient.
   if (!verified(writer) || !sameProject(writer, projectFingerprint) ||
@@ -60,11 +66,13 @@ export async function inspectIntegration({ projectFingerprint, now = Date.now() 
     blockers.push('SIGNED_SCOPED_AUTH_NOT_VERIFIED');
   if (!verified(rollback) || !sameProject(rollback, projectFingerprint) ||
     rollback.readbackVerified !== true || rollback.fullManifestPreserved !== true ||
-    rollback.triggerFingerprint !== trigger?.fingerprint || !fresh(rollback, now))
+    rollback.triggerFingerprint !== trigger?.fingerprint ||
+    !digest(rollback.restoredSourceHash) || rollback.restoredSourceHash !== source?.sourceHash ||
+    !observed(rollback, now) || !fresh(rollback, now))
     blockers.push('ROLLBACK_NOT_VERIFIED');
   if (!verified(brain) || brain.transport !== 'PRIVATE_SERVICE_BINDING' ||
     brain.source !== 'apps_script' || brain.status !== 'ACCEPTING' ||
-    brain.authenticated !== true || !digest(brain.deploymentDigest))
+    brain.authenticated !== true || !digest(brain.deploymentDigest) || !observed(brain, now))
     blockers.push('BRAIN_PRIVATE_INTAKE_NOT_VERIFIED');
   const write = blockers.length === 0 ? 'WRITE_READY_NOT_AUTHORIZED' : 'BLOCKED';
   return { status: blockers.length ? 'BLOCKED' : 'ALL_PREFLIGHT_EVIDENCE_PRESENT',
