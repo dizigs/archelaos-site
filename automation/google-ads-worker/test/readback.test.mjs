@@ -4,6 +4,7 @@ import {readBackMutation} from '../src/readback.mjs';
 const env={ADS_STAGING_ENABLED:'true',ADS_ACCOUNT_KIND:'AD_GRANTS',
   ADS_CUSTOMER_ID:'1234567890',ADS_API_ACCESS_VERIFIED:'true',
   ADS_OAUTH_SCOPE_VERIFIED:'true',ADS_CUSTOMER_CURRENCY:'USD',
+    ADS_OAUTH_MODE:'USER_REFRESH_TOKEN',
   ADS_OAUTH_CLIENT_ID:'fake-id',ADS_OAUTH_CLIENT_SECRET:'fake-secret',
   ADS_OAUTH_REFRESH_TOKEN:'fake-refresh'};
 test('actual paused campaign readback requires one exact resource',async()=>{
