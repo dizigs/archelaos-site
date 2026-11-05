@@ -2,8 +2,10 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {reviewOnlyHints} from '../src/review-hints.mjs';
 const report=(date,metrics,source='ga4')=>({schemaVersion:1,source,
-  period:{from:date,to:date},rawVisitorDataStored:false,externalAiCalls:0,
-  metrics:metrics.map(([name,value,sampleSize=100])=>({pagePath:'/',name,value,sampleSize}))});
+  reportDigest:'a'.repeat(64),period:{from:date,to:date},suppressedRows:0,
+  rawVisitorDataStored:false,externalAiCalls:0,
+  metrics:metrics.map(([name,value,sampleSize=100])=>({pagePath:'/',name,value,
+    sampleSize,confidence:'AGGREGATE_ONLY_NO_CAUSAL_INFERENCE'}))});
 test('reports big site-wide volume drops as review-only and no automatic actions',()=>{
   const value=reviewOnlyHints({previous:report('2026-11-01',[['sessions',100]]),
     current:report('2026-11-02',[['sessions',39]])});
@@ -39,4 +41,10 @@ test('rejects personal or page URL detail, low cohorts and mismatched periods',(
     /INVALID_REVIEW_SNAPSHOT/);
   assert.throws(()=>reviewOnlyHints({previous:current,current:earlier}),
     /INVALID_REVIEW_SNAPSHOT/);
+});
+
+test('rejects extra PII-bearing top-level fields before emitting hints',()=>{
+  const previous=report('2026-11-01',[['sessions',100]]);
+  const current={...report('2026-11-02',[['sessions',25]]),userEmail:'not-allowed@example.test'};
+  assert.throws(()=>reviewOnlyHints({previous,current}),/INVALID_REVIEW_SNAPSHOT/);
 });
