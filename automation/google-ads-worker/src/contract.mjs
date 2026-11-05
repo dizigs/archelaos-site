@@ -51,9 +51,11 @@ export function validateDraft(draft, evidence={}, month='2026-11') {
       requireTrue(typeof g.name==='string' && g.name.length>0 && g.name.length<=255,'INVALID_AD_GROUP');
       requireTrue(allowedLanding(g.landing),'UNTRUSTED_LANDING');
       const check=evidence[g.landing];
-      if(!check || check.httpStatus!==200 || check.approved!==true || !Number.isFinite(Date.parse(check.checkedAt)) ||
-          Date.now()-Date.parse(check.checkedAt)>86400000 || Date.parse(check.checkedAt)>Date.now()) blockers.add('LANDING_NOT_VERIFIED');
-      pages.push({url:g.landing,verified:!blockers.has('LANDING_NOT_VERIFIED')});
+      const verified=!!check && check.httpStatus===200 && check.approved===true &&
+        Number.isFinite(Date.parse(check.checkedAt)) &&
+        Date.now()-Date.parse(check.checkedAt)<=86400000 && Date.parse(check.checkedAt)<=Date.now();
+      if(!verified) blockers.add('LANDING_NOT_VERIFIED');
+      pages.push({url:g.landing,verified});
       requireTrue(Array.isArray(g.phrase_keywords) && g.phrase_keywords.length>=2 &&
         g.phrase_keywords.every(k=>typeof k==='string' && k.trim().split(/\s+/).length>=2 &&
           k.length<=80 && !/[<>]/.test(k)) && unique(g.phrase_keywords), 'KEYWORD_POLICY_REVIEW');
@@ -79,9 +81,14 @@ export function validateAnalytics(aggregate) {
   requireTrue(aggregate?.schemaVersion===1 && aggregate.privacyStatus==='AGGREGATED_ONLY' &&
       aggregate.type==='aggregate_report_ready' && aggregate.payload?.rawVisitorDataStored===false,'UNTRUSTED_ANALYTICS');
   const p=aggregate.payload;
+  requireTrue(Object.keys(aggregate).every(k=>['schemaVersion','eventId','source','type','sourceRevision','observedAt','correlationId','payload','privacyStatus','aiRouting','publish'].includes(k)) &&
+    Object.keys(p).every(k=>['schemaVersion','source','reportDigest','period','metrics','suppressedRows','rawVisitorDataStored','externalAiCalls'].includes(k)),
+    'RAW_OR_UNAPPROVED_ANALYTICS');
   requireTrue(typeof p.reportDigest==='string' && /^[a-f0-9]{64}$/.test(p.reportDigest) &&
     Array.isArray(p.metrics) && p.metrics.length<=300,'INVALID_ANALYTICS');
-  requireTrue(p.metrics.every(m=>typeof m.pagePath==='string' && /^\/[a-zA-Z0-9/_\-.]{0,180}$/.test(m.pagePath) &&
+  requireTrue(p.metrics.every(m=>m&&typeof m==='object'&&!Array.isArray(m) &&
+    Object.keys(m).every(k=>['pagePath','name','value','sampleSize','confidence'].includes(k)) &&
+    typeof m.pagePath==='string' && /^\/[a-zA-Z0-9/_\-.]{0,180}$/.test(m.pagePath) &&
     Number.isInteger(m.sampleSize) && m.sampleSize>=20 && Number.isFinite(m.value) && m.value>=0 &&
     ['sessions','users','engaged_sessions','key_events','clicks','impressions','ctr_pct','position','visits','page_views','dead_clicks','rage_clicks','scroll_depth_pct'].includes(m.name)),
     'RAW_OR_UNAPPROVED_ANALYTICS');
@@ -100,7 +107,7 @@ export function descriptor(kind,action,input,customer) {
   let operation;
   if(action==='create') {
     if(kind==='budget'){
-      requireTrue(/^[\w \-]{3,100}$/.test(input.name) && Number.isSafeInteger(input.amountMicros) &&
+      requireTrue(/^[\p{L}\p{N} _-]{3,100}$/u.test(input.name) && Number.isSafeInteger(input.amountMicros) &&
           input.amountMicros>0 && input.amountMicros<=329000000,'UNSAFE_BUDGET');
       operation={create:{name:input.name,amountMicros:String(input.amountMicros),explicitlyShared:false}};
     } else if(kind==='campaign'){
