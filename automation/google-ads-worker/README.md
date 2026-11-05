@@ -105,3 +105,50 @@ GitHub build is **not** Cloudflare deployment or Google Ads authorization.
 **No claim of real API access, Ad Grants eligibility, revenue, live conversion,
 production or completed E2E.** Account registration and setup remain blocked
 until independently verified.
+
+## Additional budget/spend safety gate (stacked follow-up to #223)
+
+The private `budget_audit_read` Brain mode makes **read-only Google Ads GAQL**
+requests for customer metadata, all current campaign budgets, campaign channel
+types, and **actual** current-month and current-day `metrics.cost_micros`.
+It cannot run unless `ADS_STAGING_ENABLED=true`,
+`ADS_BUDGET_AUDIT_READ_ENABLED=true`, and the pre-existing staging gates
+are satisfied. No Google Ads account was queried during offline development.
+The `googleAds:searchStream` adapter uses OAuth from the *Ads-specific* Cloud
+project and returns an aggregate summary, not ad creative or account secrets.
+
+Every future `apply` must re-read the account inventory. The guard rejects:
+non-USD/non-enabled/manager/test account metadata; non-Search campaigns; missing
+or invalid spend observations; non-daily or unresolved budgets; duplicate
+resource names; expired audits; and proposed/observed account-wide daily budgets
+over the more conservative of **$329** or **$10,000/days-in-month**, or observed
+spend exceeding the $329 daily / $10,000 monthly grant limit. New budget
+creates and updates are checked against **all existing budgets**, including
+other campaigns. Newly created campaigns must reference an observed budget.
+These are intentionally conservative safety conditions, not proof that Google
+will spend or charge an exact amount.
+
+Separately from `ADS_ACCOUNT_KIND=AD_GRANTS`, `apply` now requires
+`ADS_GRANTS_ENTITLEMENT_RECEIPT_VERIFIED=true` and
+`ADS_NO_PAYMENT_METHOD_VERIFIED=true` (both default **false**). The operator
+must independently verify the Ad Grants approval/activation for the **exact
+customer ID**, the grant billing profile with no payment method, Google Ads
+OAuth `adwords` scope, and the Google Cloud Ads API **Explorer or higher**
+access for production; Test level applies only to test customers. A non-test
+account that is enabled and denominated in USD does not establish a grant.
+
+The USD Ad Grants spend limits are not interchangeable with the independent
+EUR 20/month AI budget ledger. This Worker makes no AI provider calls. The
+account-wide audit currently guards one isolated mutation at a time; before
+production authorization, the Brain must enforce a single active Ads-account
+writer/lease, verify billing receipts and approval source, and reconcile any
+unknown outcomes. The Ads API read is not a billing guarantee and does not
+prove Google Grant entitlement or that an account cannot later be converted
+into a paid account.
+
+**Remaining blockers:** no independently authorized Google Ads connection
+available to this worker, no real OAuth / Keyword Planner response or Grants
+billing receipt, no approved production landing-page QA, no tested shared
+Brain authorization and account-level writer lease, no readback/undo E2E,
+and no staging D1 resource/deployment. This follow-up remains OFFLINE;
+do not set any of the new switches to true without the corresponding evidence.
