@@ -9,6 +9,7 @@ import { Miniflare } from 'miniflare';
 const OPERATOR = 'synthetic-exec-operator-1111111111111111111111111111111111111';
 const INTAKE = 'synthetic-exec-intake-000000000000000000000000000000000000';
 const DEPLOY_SHA = 'a'.repeat(40);
+const SIGNING_KEY = 'synthetic-brain-to-executor-signing-22222222222222222222222222222222222222';
 const H = 'f'.repeat(64);
 let mf, directory, calls;
 let syntheticMode = true;
@@ -40,6 +41,7 @@ function options() {
       STAGING_INTAKE_KEY: INTAKE, STAGING_OPERATOR_KEY: OPERATOR,
       BRAIN_EXECUTION_ADMISSION: syntheticMode ? 'synthetic' : 'disabled',
       BRAIN_EXECUTION_CONFIG: JSON.stringify(config()), TEST_BUDGET: syntheticMode ? 'true' : 'false',
+      BRAIN_EXECUTOR_SIGNING_KEY: SIGNING_KEY,
       STAGING_SHORT_RETRIES: 'true' } };
 }
 beforeEach(async () => {
@@ -182,4 +184,36 @@ test('expired in-flight lease is durable UNKNOWN, retains the path and reservati
     taskId:a.taskId, outcome:'FAILED', evidenceSha256:H, actualMicroEur: 500
   })).status, 409);
   assert.equal((await call('/v1/exec/claims', {taskId:b.taskId})).status, 200);
+});
+
+test('signed preclaimed compatibility receipt binds exact Brain task and #213 audience', async () => {
+  const a = task('BUILD_A', ['automation/demo/only-this-file.mjs']);
+  await submitAndApprove(a);
+  assert.equal((await call('/v1/exec/authorizations/' + a.taskId)).status, 409);
+  const claimed = await call('/v1/exec/claims', {taskId: a.taskId});
+  assert.equal(claimed.status, 200);
+  const signed = await call('/v1/exec/authorizations/' + a.taskId);
+  assert.equal(signed.status, 200);
+  const {raw, signature, timestampMs} = signed.data;
+  assert.equal(createHmac('sha256', SIGNING_KEY).update(String(timestampMs) + '\n' + raw).digest('hex'), signature);
+  const receipt = JSON.parse(raw);
+  assert.equal(receipt.issuer, 'central-brain');
+  assert.equal(receipt.audience, 'brain-worker-executors.integration.v1');
+  assert.equal(receipt.repository, 'dizigs/archelaos-site');
+  assert.deepEqual([receipt.taskId, receipt.receiptId], [a.taskId, a.taskId]);
+  assert.equal(receipt.type, 'build'); assert.equal(receipt.lane, 'A');
+  assert.equal(receipt.commitSha, a.baseCommit);
+  assert.deepEqual(receipt.allowedPaths, a.allowedPaths);
+  assert.deepEqual(receipt.permissions, {draftOnly:true, merge:false, deploy:false});
+  assert.ok(receipt.expiresAtMs <= claimed.data.leaseUntil);
+  assert.equal((await call('/v1/exec/authorizations/' + a.taskId, undefined, 'staging')).status, 403);
+});
+test('integration receipt refuses privileged Brain source files and unsupported routes', async () => {
+  const a = task('BUILD_A', ['brain/src/worker.mjs']);
+  const b = task('APPS_SCRIPT', ['automation/demo/one.mjs']);
+  await submitAndApprove(a); await submitAndApprove(b);
+  assert.equal((await call('/v1/exec/claims', {taskId:a.taskId})).status, 200);
+  assert.equal((await call('/v1/exec/claims', {taskId:b.taskId})).status, 200);
+  assert.equal((await call('/v1/exec/authorizations/' + a.taskId)).status, 403);
+  assert.equal((await call('/v1/exec/authorizations/' + b.taskId)).status, 422);
 });
