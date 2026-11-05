@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "source_kind": "synthetic-fixture",
+  "as_of": "2026-11-03",
+  "ads": [{"approval": "DISAPPROVED"}],
+  "keywords": [{"text": "άθληση", "quality": 2}, {"text": "Αρχέλαος", "quality": 8}],
+  "urls": [{"url": "https://www.archelaos.club/history.html", "status": 404}, {"url": "https://untrusted.example.invalid/", "status": null}],
+  "months": [{"month": "2026-09", "clicks": 2, "impressions": 100}, {"month": "2026-10", "clicks": 3, "impressions": 100}]
+}
