@@ -56,7 +56,7 @@ export async function onRequestPost({request,env}){
  let page;
  try{page=new URL(sourcePage)}catch{return response(400,{error:'Μη έγκυρη σελίδα.'})}
  if(page.origin!==target.origin||page.username||page.password||page.hash||
-    sourcePage.length>650||!/^\/(?:[a-z0-9-]+\.html|people\/[a-z0-9-]+\.html)$/i.test(page.pathname))
+    sourcePage.length>650||!/^\/(?:[a-z0-9-]+\.html|people\/[a-z0-9-]+\.html)?$/i.test(page.pathname))
   return response(400,{error:'Η σελίδα δεν ανήκει στο αρχείο.'});
  const source=publicUrl(data.public_source_url.trim());
  if(source===null)return response(400,{error:'Μη έγκυρη δημόσια πηγή.'});
