@@ -200,3 +200,18 @@ test('signed Brain envelope detects tampering and freshness', async () => {
   await assert.rejects(() => verifySignedBrainEnvelope(signed, key, timestampMs + 600_000),
     /BRAIN_SIGNATURE_INVALID/);
 });
+
+
+test('skipped or pending check with a real run ID does not fabricate a CI_FAILURE', async () => {
+  for (const conclusion of ['skipped', null]) {
+    const task = makeTask(conclusion === 'skipped' ? 11 : 12, undefined, ['automation/test.mjs'], 'testing');
+    const { ports, state } = portsFor(task, new SqlCoordinator(new FakeStorage()));
+    ports.checks.readVerified = async () => checks().map((c, i) =>
+      i ? c : { ...c, conclusion, status: conclusion ? 'completed' : 'in_progress' });
+    const result = await runIntegration(task, ports, policy);
+    assert.equal(result.status, 'TESTING_FAILED_CLOSED');
+    assert.equal(result.selfHealRouted, false);
+    assert.equal(state.routed.length, 0);
+    assert.equal(result.mergeAllowed, false);
+  }
+});
