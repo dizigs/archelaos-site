@@ -1,7 +1,7 @@
-# Brain owner handoff — `analytics.aggregate.v1` (NOT IMPLEMENTED)
+# Brain owner handoff — `analytics.aggregate.v1` (DRAFT IN #234, RUNTIME OFF)
 
 **Repository:** `dizigs/archelaos-site` · **Analytics owner:** PR #196 → #220 → #230 · **Brain owner:** canonical `brain/**` only.
-**Status:** interface specification; no service binding, no authenticated submit, no deployed analytics intake and no authority to deploy. Do not adapt the existing `/v1/events` metadata intake: at the verified `main` revision it rejects `analytics` and does not support aggregate snapshots.
+**Status:** canonical Brain owner PR #234 now implements the private capability, HMAC-signed ACK, versioned immutable readback and SQLite snapshot ledger as **draft code**. The merged `main` still lacks this intake, and actual Cloudflare staging has no verified Service Binding or active current Brain deployment. This document is the interface handoff, not authorization to deploy. Never substitute the legacy `/v1/events` metadata intake.
 
 ## Existing upstream evidence, not new collection
 
@@ -75,4 +75,12 @@ Uncertain submission, failed signature check or readback mismatch means **STOP a
 - Acceptance requires source privacy/legal review, Brain owner implementation and cryptographic tests, immutable SHA-pinned Actions checks, genuine authenticated private staging submit + signed receipt + durable restart readback, out-of-order/replay/revision tests and explicit human approval. Real existing artifacts and synthetic fixtures must be reported separately.
 - No additional collector, schedule, paid AI provider, production deploy, secret, D1 instance or new Brain. Maintain the single €20/month Brain AI budget and centralized dispatcher.
 
-**Owner request:** implement this capability under `brain/**` in your own branch; provide PR URL, head SHA, binding identity, signed receipt canonicalization, atomic key/revision semantics and independently verified staging readback. Analytics PR #230 must remain OFF until that proof exists.
+**Owner request:** finish review and exact-head CI of #234, reconcile interface semantics without changing the Analytics team's files, and furnish verified Cloudflare private binding identity, signed canonical response + immutable version readback and authorized staging proof. #230 must remain OFF until that proof exists.
+
+## Draft #234 signed interoperability test (synthetic, offline only)
+
+`src/brain-signed-receipts.mjs` independently checks HMAC-SHA256 using an **externally injected** trusted verification key. It validates #234's `keyId=brain-capability-receipts-v1`, analytics principal, source-bound request evidence digest, freshness, exact ACK/readback field sets and the following canonical input: `audience + "\\n" + JSON.stringify(responseWithoutReceiptSignature)`. Supported audiences: `analytics.snapshot.ack.v1` and `analytics.snapshot.readback.v1`. An immutable old version that reports `isCurrent:false` does not count as successful current delivery.
+
+`test/brain-signed-receipts.test.mjs` uses in-memory synthetic signatures and an injected fake port. **This does NOT establish** that the Brain signer, actual private Service Binding, source provenance or Durable Object restart behavior works in Cloudflare. HMAC verification keys are symmetric and must only be injected into a separately trusted environment; the source connector never obtains them from an untrusted response or report. The Brain owner controls secret rotation.
+
+Latest owner contract reference: [`brain/docs/PRIVATE_SOURCE_CONTRACT_20261106.md`](https://github.com/dizigs/archelaos-site/blob/6ecc322076ccef37fb7ca5707a75d750f9f0502e/brain/docs/PRIVATE_SOURCE_CONTRACT_20261106.md). It is a moving draft until a final exact SHA and CI are verified.
