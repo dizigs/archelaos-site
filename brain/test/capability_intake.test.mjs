@@ -235,6 +235,10 @@ test('Drive/Gmail source-scoped HMAC event, route, receipt and readback permissi
     assert.equal(response.status, 202);
     const ack = await response.json();
     assert.equal(ack.durable, true);
+    assert.equal(ack.audience, 'source.receipt.ack.v1');
+    const {receiptSignature: ackSignature, ...ackPayload} = ack;
+    assert.equal(ackSignature, createHmac('sha256', RECEIPT_KEY).update(
+      ack.audience + '\n' + JSON.stringify(ackPayload)).digest('hex'));
     const again = await (await send('/v1/events', ev, 'drive-v1')).json();
     assert.equal(again.receiptId, ack.receiptId);
     const observed = await send('/v1/source-receipts/' + ack.receiptId,
@@ -244,6 +248,11 @@ test('Drive/Gmail source-scoped HMAC event, route, receipt and readback permissi
     assert.equal(scoped.receiptId, ack.receiptId);
     assert.equal(scoped.correlationId, ev.correlationId);
     assert.equal(scoped.durable, true);
+    assert.equal(scoped.audience, 'source.receipt.readback.v1');
+    assert.equal(scoped.principal, 'drive-v1');
+    const {receiptSignature, ...readbackPayload} = scoped;
+    assert.equal(receiptSignature, createHmac('sha256', RECEIPT_KEY).update(
+      scoped.audience + '\n' + JSON.stringify(readbackPayload)).digest('hex'));
     assert.equal((await send('/v1/source-receipts/' + ack.receiptId,
       undefined, 'gmail-v1')).status, 404);
     assert.equal((await send('/v1/diagnostics', undefined, 'drive-v1')).status, 403);
