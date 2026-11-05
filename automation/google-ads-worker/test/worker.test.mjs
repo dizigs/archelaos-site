@@ -74,8 +74,14 @@ test('exact URL allowlist rejects external, URL params and deceptive subdomains'
 });
 test('only paused Search campaigns, ads and structured keywords can be created',()=>{
   const campaign=descriptor('campaign','create',{name:'Αρχέλαος αθλητισμός',
-    campaignBudget:'customers/1234567890/campaignBudgets/42'},'1234567890');
+    campaignBudget:'customers/1234567890/campaignBudgets/42',
+    containsEuPoliticalAdvertising:'DOES_NOT_CONTAIN_EU_POLITICAL_ADVERTISING'},'1234567890');
   assert.equal(campaign.body.operations[0].create.status,'PAUSED');
+  assert.equal(campaign.body.operations[0].create.containsEuPoliticalAdvertising,
+    'DOES_NOT_CONTAIN_EU_POLITICAL_ADVERTISING');
+  assert.throws(()=>descriptor('campaign','create',{name:'Αρχέλαος Κατερίνης',
+    campaignBudget:'customers/1234567890/campaignBudgets/42'},'1234567890'),
+    /EU_POLITICAL_DECLARATION_REQUIRED/);
   assert.equal(campaign.body.operations[0].create.advertisingChannelType,'SEARCH');
   assert.equal(campaign.body.operations[0].create.networkSettings.targetPartnerSearchNetwork,false);
   assert.equal(campaign.body.operations[0].create.networkSettings.targetContentNetwork,false);
@@ -146,7 +152,8 @@ test('validating an Ads mutation calls OAuth once and Google validateOnly once',
   const e={...grant,ADS_OAUTH_CLIENT_ID:'mock',ADS_OAUTH_CLIENT_SECRET:'mock',
     ADS_OAUTH_REFRESH_TOKEN:'mock'};
   const result=await sendAdsOperation(e,{kind:'campaign',action:'create',
-    input:{name:'Αρχέλαος Κατερίνης',campaignBudget:'customers/1234567890/campaignBudgets/2'}},
+    input:{name:'Αρχέλαος Κατερίνης',campaignBudget:'customers/1234567890/campaignBudgets/2',
+      containsEuPoliticalAdvertising:'DOES_NOT_CONTAIN_EU_POLITICAL_ADVERTISING'}},
     {fetcher,validateOnly:true});
   assert.equal(result.applied,false);assert.equal(result.requestId,'mock-google-request-id');
   assert.equal(seen.length,2);
@@ -158,7 +165,8 @@ test('failed or unknown outcome is not auto retried; claim is durable',async()=>
   const db=mockD1();
   const action={mode:'apply',correlationId:corr,
     operation:{kind:'campaign',action:'create',input:{
-      name:'Αρχέλαος Κατερίνης',campaignBudget:'customers/1234567890/campaignBudgets/2'}},
+      name:'Αρχέλαος Κατερίνης',campaignBudget:'customers/1234567890/campaignBudgets/2',
+      containsEuPoliticalAdvertising:'DOES_NOT_CONTAIN_EU_POLITICAL_ADVERTISING'}},
     idempotencyKey:'issue216-idempotency-001',approvalId:'approved-change-216',
     approvalExpiresAt:new Date(Date.now()+60000).toISOString()};
   const e={...live,ADS_D1:db};
