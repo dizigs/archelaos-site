@@ -1,4 +1,5 @@
 import {descriptor, allowedLanding} from './contract.mjs';
+import {serviceAccountAdsToken} from './service-account-auth.mjs';
 const ok=(value,code)=>{if(!value)throw Error(code);};
 export function stagingReady(env) {
   return env?.ADS_STAGING_ENABLED==='true' && env?.ADS_ACCOUNT_KIND==='AD_GRANTS' &&
@@ -13,6 +14,9 @@ export function liveReady(env) {
 }
 /** Tokens are fetched only after all staging entitlement gates; never logged. */
 export async function adsAccessToken(env, fetcher=fetch) {
+  if(env?.ADS_OAUTH_MODE==='SERVICE_ACCOUNT')
+    return serviceAccountAdsToken(env,{fetcher});
+  ok(env?.ADS_OAUTH_MODE==='USER_REFRESH_TOKEN','ADS_AUTH_MODE_NOT_APPROVED');
   ok(typeof env?.ADS_OAUTH_CLIENT_ID==='string' && typeof env?.ADS_OAUTH_CLIENT_SECRET==='string' &&
     typeof env?.ADS_OAUTH_REFRESH_TOKEN==='string','ADS_CREDENTIALS_MISSING');
   const payload=new URLSearchParams({client_id:env.ADS_OAUTH_CLIENT_ID,
