@@ -2,7 +2,7 @@ import { DurableObject } from 'cloudflare:workers';
 import { Rejected, UUID, authenticate, boundedBody, digest, reply, route, validateEvent } from './contract.mjs';
 import { claimBudgetCall, reserveBudget, settleBudget } from './budget.mjs';
 import { readTaskIntent, storeTaskIntent } from './task_intents.mjs';
-import { EXEC_SCHEMA, submitExecutionIntent, approveExecutionIntent, claimExecutionIntent, beginExecutionCall, finishExecutionIntent, reconcileExecutionIntent, inspectExecutionIntent, executionDiagnostics } from './exec_authority.mjs';
+import { EXEC_SCHEMA, submitExecutionIntent, approveExecutionIntent, claimExecutionIntent, beginExecutionCall, finishExecutionIntent, reconcileExecutionIntent, inspectExecutionIntent, executionDiagnostics, recoverExecutionLeases } from './exec_authority.mjs';
 
 const SCHEMA = [
   'CREATE TABLE IF NOT EXISTS jobs(id TEXT PRIMARY KEY,source TEXT NOT NULL,type TEXT NOT NULL,correlation TEXT NOT NULL,envelope TEXT NOT NULL,status TEXT NOT NULL,attempts INTEGER NOT NULL DEFAULT 0,due INTEGER NOT NULL,lease_until INTEGER NOT NULL DEFAULT 0,created INTEGER NOT NULL,updated INTEGER NOT NULL,route TEXT NOT NULL,code TEXT NOT NULL)',
@@ -150,7 +150,12 @@ export class BrainCoordinator extends DurableObject {
           try { configuration = JSON.parse(this.env.BRAIN_EXECUTION_CONFIG); }
           catch { throw new Rejected('EXEC_BUDGET_CONFIG_INVALID', 503); }
         }
-        if (path === '/internal/exec/claims') return reply(claimExecutionIntent(this.ctx.storage, input, controls, configuration));
+        if (path === '/internal/exec/claims') {
+          // Alarm before claim commit: a crash after durable lease acquisition
+          // cannot strand work indefinitely without reconciliation.
+          await this.wake(Date.now() + 30_050);
+          return reply(claimExecutionIntent(this.ctx.storage, input, controls, configuration));
+        }
         if (path === '/internal/exec/begin') return reply(beginExecutionCall(this.ctx.storage, input));
         if (path === '/internal/exec/complete') return reply(finishExecutionIntent(this.ctx.storage, input));
         if (path === '/internal/exec/reconcile') return reply(reconcileExecutionIntent(this.ctx.storage, input));
@@ -205,6 +210,7 @@ export class BrainCoordinator extends DurableObject {
   }
   async alarm() {
     const now = Date.now();
+    this.ctx.storage.transactionSync(() => recoverExecutionLeases(this.ctx.storage, now));
     // Arm crash recovery BEFORE claiming durable jobs. If execution stops after
     // a RUNNING write, another alarm will still reclaim its expired lease.
     await this.wake(now + 30000);
@@ -240,7 +246,9 @@ export class BrainCoordinator extends DurableObject {
       processed += 1;
     }
     const pending = this.controlState().globalPaused ? null : [...this.sql.exec('SELECT MIN(CASE WHEN status=? THEN lease_until ELSE due END) AS due FROM jobs WHERE status IN (?,?,?) AND NOT EXISTS(SELECT 1 FROM controls WHERE name=?||jobs.source AND value=1)', 'RUNNING', 'QUEUED', 'RETRY_WAIT', 'RUNNING', 'source:')][0].due;
-    if (pending !== null) await this.ctx.storage.setAlarm(Math.max(Date.now() + 10, pending));
+    const execPending = [...this.sql.exec("SELECT MIN(lease_until) AS due FROM exec_intents WHERE status IN ('CLAIMED','IN_FLIGHT')")][0].due;
+    const nextDue = [pending, execPending].filter(due => due !== null && due !== undefined);
+    if (nextDue.length) await this.ctx.storage.setAlarm(Math.max(Date.now() + 10, Math.min(...nextDue)));
     else await this.ctx.storage.deleteAlarm();
   }
 }
