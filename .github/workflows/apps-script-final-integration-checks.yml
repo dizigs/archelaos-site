@@ -22,4 +22,5 @@ jobs:
       - name: Static and synthetic fail-closed contract tests (NO SECRETS)
         run: |
           node --check automation/apps-script-final-integration/integration.mjs
-          node --test automation/apps-script-final-integration/integration.test.mjs
+          node --check automation/apps-script-final-integration/merged-contracts.mjs
+          node --test automation/apps-script-final-integration/*.test.mjs
