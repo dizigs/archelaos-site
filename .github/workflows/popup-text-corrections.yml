@@ -1,0 +1,29 @@
+name: Popup text corrections (offline)
+on:
+  pull_request:
+    paths:
+      - 'assets/correction-suggestions.*'
+      - 'assets/favorites.js'
+      - 'assets/hof-inplace.js'
+      - 'functions/api/text-corrections.js'
+      - 'docs/migrations/20261106_text_corrections.sql'
+      - 'tests/text-corrections.test.mjs'
+      - '.github/workflows/popup-text-corrections.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  unit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax and isolated intake checks
+        run: |
+          node --check assets/correction-suggestions.js
+          node --check functions/api/text-corrections.js
+          node --check tests/text-corrections.test.mjs
+          node --test tests/text-corrections.test.mjs
