@@ -15,7 +15,7 @@ export function validateImage(bytes, mimeType) {
   if (!(bytes instanceof Uint8Array) && !(bytes instanceof ArrayBuffer)) {
     throw new TypeError("PHOTO_IMAGE_BYTES_REQUIRED");
   }
-  const data = bytes instanceof Uint8Array ? new Uint8Array(bytes) : new Uint8Array(bytes);
+  const data = new Uint8Array(bytes);
   if (data.byteLength < 12 || data.byteLength > MAX_IMAGE_BYTES) {
     throw new RangeError("PHOTO_IMAGE_SIZE_REJECTED");
   }
