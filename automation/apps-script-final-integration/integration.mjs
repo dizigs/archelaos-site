@@ -37,10 +37,11 @@ export async function inspectIntegration({ projectFingerprint, now = Date.now() 
   } catch { return { status: 'BLOCKED', read: 'NOT_VERIFIED', write: 'BLOCKED', brain: 'BLOCKED', blockers: ['PRIVATE_PROBE_UNAVAILABLE'] }; }
   const [control, grant, source, backup, trigger, writer, auth, rollback, brain] = evidence;
   const blockers = [];
-  if (!verified(control) || !observed(control, now) || control.paused !== false ||
+  if (!verified(control) || !sameProject(control, projectFingerprint) || !observed(control, now) || control.paused !== false ||
     control.liveWritesEnabled !== false) blockers.push('CONTROLS_NOT_SAFE');
   if (!verified(grant) || !sameProject(grant, projectFingerprint) || !Array.isArray(grant.scopes) ||
-    !grant.scopes.includes(REQUIRED_SCOPE) || grant.adminIdentityVerified !== true || !fresh(grant, now))
+    !grant.scopes.includes(REQUIRED_SCOPE) || grant.adminIdentityVerified !== true ||
+    !observed(grant, now) || !fresh(grant, now))
     blockers.push('ADMIN_SCOPE_NOT_VERIFIED');
   if (!verified(source) || !sameProject(source, projectFingerprint) ||
     !digest(source.sourceHash) || !Number.isInteger(source.fileCount) || source.fileCount < 1 ||
@@ -57,12 +58,14 @@ export async function inspectIntegration({ projectFingerprint, now = Date.now() 
     blockers.push('TRIGGERS_NOT_VERIFIED');
   // Google updateContent is not CAS; advisory SQLite locking is insufficient.
   if (!verified(writer) || !sameProject(writer, projectFingerprint) ||
-    writer.coversExternalIdeAndApiWriters !== true || !fresh(writer, now, 30000))
+    writer.coversExternalIdeAndApiWriters !== true || !observed(writer, now) ||
+    !fresh(writer, now, 30000))
     blockers.push('EXTERNAL_WRITERS_NOT_EXCLUDED');
   if (!verified(auth) || !sameProject(auth, projectFingerprint) ||
     auth.independentApproval !== true || auth.projectScoped !== true ||
     auth.signedCommandDigestVerified !== true || auth.selfApproved === true ||
-    !digest(auth.baseSourceHash) || auth.baseSourceHash !== source?.sourceHash || !fresh(auth, now))
+    !digest(auth.baseSourceHash) || auth.baseSourceHash !== source?.sourceHash ||
+    !observed(auth, now) || !fresh(auth, now))
     blockers.push('SIGNED_SCOPED_AUTH_NOT_VERIFIED');
   if (!verified(rollback) || !sameProject(rollback, projectFingerprint) ||
     rollback.readbackVerified !== true || rollback.fullManifestPreserved !== true ||
@@ -71,7 +74,8 @@ export async function inspectIntegration({ projectFingerprint, now = Date.now() 
     !digest(rollback.restoredSourceHash) || rollback.restoredSourceHash !== source?.sourceHash ||
     !observed(rollback, now) || !fresh(rollback, now))
     blockers.push('ROLLBACK_NOT_VERIFIED');
-  if (!verified(brain) || brain.transport !== 'PRIVATE_SERVICE_BINDING' ||
+  if (!verified(brain) || !sameProject(brain, projectFingerprint) ||
+    brain.transport !== 'PRIVATE_SERVICE_BINDING' ||
     brain.source !== 'apps_script' || brain.status !== 'ACCEPTING' ||
     brain.authenticated !== true || !digest(brain.deploymentDigest) || !observed(brain, now))
     blockers.push('BRAIN_PRIVATE_INTAKE_NOT_VERIFIED');
