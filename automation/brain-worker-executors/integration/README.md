@@ -1,3 +1,35 @@
+# STATUS UPDATE — 2026-11-05 (post #209/#211/#212/#214/#219 merges)
+
+**Canonical Brain owns all financial and execution state.** This integration branch has folded in the two GitHub Actions provenance files from stacked PR #228, and adds canonical-review.mjs (read-only). All changes remain confined to integration/**. The branch is not merged, and no inference, Worker deploy, GitHub draft writer or provider-native billing callback is activated.
+
+## Single-ledger safety boundary
+
+- Use only Brain's existing SQLite Durable Object claim, max-two Builders, file/subtree locks, and single EUR20 monthly AI budget ledger. No integration SqlCoordinator, separate dispatcher, native provider-side independent reserve, or parallel budget is authorized for live use.
+- canonical-review.mjs checks Brain HMAC receipt, exact task/scope/hash, durable CLAIMED status, unpaused controls, the ONE budgetReservationId, provider type, and re-reads the claim. Any UNKNOWN or RECONCILE_REQUIRED status blocks and preserves existing Brain reservations and locks.
+- #228 github-readback.mjs is copied at identical Git blob SHAs from PR #228 and provides independently fetched GitHub Actions workflow/run/attempt/job provenance for #212 Testing. Missing, skipped, forged or wrong-SHA required checks cannot become success.
+- Gemini and Gemma adapter outputs, if supplied as untrusted JSON, are normalized only to PROPOSAL_REVIEW_ONLY. No claimed GitHub draft PR, successful CI, actual inference or settled billing is inferred.
+- Older index.mjs runIntegration/SqlCoordinator illustrate the isolated legacy mock contracts and MUST NOT be wired into live Worker routing. No live imports are present. The real single-ledger execution callback/receipt contract needs a separate, reviewed owner handoff.
+
+## Required interfaces from other owners (no cross-ownership edits)
+
+1. Brain owner (#219): authenticated private readSignedReceipt(taskId), readClaim(taskId), readControls(); retain existing atomic claim/begin/complete under the SAME durable ledger and lock namespace. Return scopeDigest, exact allowed paths, budgetReservationId, status, and confirmed billable usage; preserve UNKNOWN until independently reconciled. Prove 2-Builder concurrency and file/subtree exclusions under contention.
+2. Gemini owner (#214): authorizeAttempt and recordAttempt must reuse Brain's ALREADY reserved attempt/one-shot call, never request another cost reservation; second attempt currently conflicts with canonical one-shot admission and must fail closed or receive a distinct approved Brain claim.
+3. Gemma owner (#211): injected budget.reserve must only read back the already committed Brain claim, not create another ledger entry. budget.settle is a trusted Brain completion handoff; unknown upper-bound costs stay reserved, including USD->EUR FX proof.
+4. Testing owner (#212): bind github-readback.mjs to real trusted read-only GitHub REST and #212 native runner with exact SHA/repo/run attempt/job proof. Missing path-filtered workflow results are blockers.
+5. Scaffold/writer owner (#209): only an independently authorized draft-PR writer may turn a proposal into GitHub changes; no writer is present in this branch.
+
+## Tests
+
+Requested direct offline suite: node --test automation/brain-worker-executors/integration/*.test.mjs
+On the pushed integration SHA the existing Brain Build/Testing workflow can succeed while only running automation/brain-worker-executors/*.test.mjs (top-level). That workflow does NOT exercise the integration/*.test.mjs suites. An owner-scoped workflow change or explicitly authorized hosted test is required; never label integration tests hosted PASS without its logs.
+
+## Release gate
+
+Review #213 and #228 together: #228 is stacked against an earlier #213 SHA and the readback files are now already present in #213, so the central coordinator must not merge both independently. Keep all work review-only pending approved adapter contracts, exact-head hosted tests, Sonar/CodeQL, scoped private bindings and staging-only end-to-end proof.
+
+---
+
+## Historical design notes (prior to the above merges)
 # Central Brain → Build / Testing / Self-Heal integration (draft, fail closed)
 
 **Owner:** integration coordinator only. This folder is the **only** changed path in this branch. The module is not imported by the live Brain, does not deploy Cloudflare Workers and does not execute paid AI by itself.
