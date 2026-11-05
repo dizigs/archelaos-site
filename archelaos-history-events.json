@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "description": "Επιλεγμένες συνδέσεις γεγονότων με βιογραφικά. Προέρχονται από ήδη δημοσιευμένες εγγραφές Hall of Fame, όχι από νέα OCR τεκμήρια.",
+  "description": "Επιλεγμένες συνδέσεις ιστορικών γεγονότων με τεκμηριωμένα βιογραφικά, από δημοσιευμένο Hall of Fame και ελεγμένα πρωτογενή έγγραφα. Οι εκτιμώμενες χρονολογίες επισημαίνονται ρητά.",
   "events": [
     {
       "id": "foundation-1956",
@@ -1679,6 +1679,44 @@
       "source": "Πρακτικό Δ.Σ. αρ. 30, 12/10/2015 (πρώτη σελίδα, ιδιωτικό ιστορικό αρχείο συλλόγου)",
       "verification": "primary-club-minute",
       "editorial_note": "Πρωτογενές έγγραφο προσκομίστηκε στις 03/11/2026. Άλλες δραστηριότητες 2016–2019 τεκμηριώνονται ως διοικητική μαρτυρία και δεν συνάγονται από το ίδιο πρακτικό."
+    },
+    {
+      "id": "archive-membership-invitation-1975",
+      "date": "1975-03-15",
+      "date_precision": "day",
+      "display_date": "15 Μαρτίου 1975",
+      "category": "Διοίκηση",
+      "category_en": "Administration",
+      "title": "Πρόσκληση διεύρυνσης των τακτικών μελών του Αρχέλαου",
+      "title_en": "Archelaos calls for wider membership",
+      "description": "Με την υπ’ αριθ. 50 επιστολή της 15ης Μαρτίου 1975, ο Γ.Α.Σ. «Ο Αρχέλαος» προσκαλεί υποστηρικτές να εγγραφούν ως τακτικά μέλη, έπειτα από απόφαση της Γενικής Συνέλευσης της 26ης Ιανουαρίου 1975. Την επιστολή υπογράφουν ο πρόεδρος Νίκος Τσινόπουλος και ο γενικός γραμματέας Ευστάθιος Ζ. Ζάννας. Στο κείμενο ο σύλλογος περιγράφει την ανάπτυξη του στίβου, των αθλοπαιδιών και της ενόργανης γυμναστικής και την επιθυμία συνέχισης των αγώνων «Δίια».",
+      "description_en": "In letter no. 50 dated 15 March 1975, Archelaos invited supporters to become full members following a General Assembly resolution of 26 January 1975. The letter was signed by president Nikos Tsinopoulos and general secretary Efstathios Z. Zannas, and described the club's athletics, ball sports and gymnastics programmes.",
+      "people": [
+        "arch-5a04cbbb57e4",
+        "arch-9a81d12f0720"
+      ],
+      "source": "Πρωτογενής επιστολή Γ.Α.Σ. «Ο Αρχέλαος», 15/03/1975, αρ. πρωτ. 50 (ιδιωτικό ιστορικό αρχείο, σελ. 1)",
+      "verification": "primary-club-document",
+      "editorial_note": "Το έγγραφο επιβεβαιώνει την πρόσκληση και τις υπογραφές, όχι τον αριθμό νέων εγγραφών."
+    },
+    {
+      "id": "archive-multisport-overview-circa-1990",
+      "date": "1990",
+      "date_precision": "year",
+      "display_date": "περί το 1990 (εκτίμηση)",
+      "category": "Ιστορία Τμημάτων",
+      "category_en": "Departments history",
+      "title": "Ιστορική αποτύπωση εννέα αθλητικών τμημάτων του Αρχέλαου",
+      "title_en": "A historical overview records nine Archelaos sports departments",
+      "description": "Σε αχρονολόγητη ενημερωτική παρουσίαση του Διοικητικού Συμβουλίου, που από τα εσωτερικά στοιχεία τοποθετείται περίπου στο 1990, ο Αρχέλαος καταγράφει εννέα αθλητικά τμήματα: στίβο, μπάσκετ, βόλεϊ, ενόργανη γυμναστική, κολύμβηση, χάντμπολ, σκοποβολή, πάλη και άρση βαρών. Κατονομάζει πρόεδρο τον Δημήτριο Παπαδημητρίου και γενικό γραμματέα τον Χρήστο Ελευθερούδη. Η παρουσίαση μνημονεύει την κατάκτηση του Κυπέλλου Ελλάδας χάντμπολ το 1990.",
+      "description_en": "An undated board overview, tentatively placed around 1990 from its internal contents, lists nine sports departments: athletics, basketball, volleyball, artistic gymnastics, swimming, handball, shooting, wrestling and weightlifting. It identifies Dimitrios Papadimitriou as president and Christos Eleftheroudis as general secretary, and mentions the 1990 Greek Handball Cup victory.",
+      "people": [
+        "arch-eb9aa1b43b26",
+        "arch-e355f0a88983"
+      ],
+      "source": "Ενημερωτική παρουσίαση Γ.Α.Σ. «Ο Αρχέλαος» χωρίς εμφανή ημερομηνία (ιδιωτικό ιστορικό αρχείο, σελ. 4–6)",
+      "verification": "primary-club-document-date-estimated",
+      "editorial_note": "ΠΡΟΣΟΧΗ: Η χρονιά 1990 είναι κατά προσέγγιση και όχι πιστοποιημένη ημερομηνία έκδοσης. Οι αριθμοί και τα τμήματα αντιστοιχούν μόνο στην τότε κατάσταση."
     }
   ]
 }

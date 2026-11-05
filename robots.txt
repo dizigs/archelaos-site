@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
 Disallow: /rebuild/
+Disallow: /cdn-cgi/
 Sitemap: https://archelaos.club/sitemap.xml
