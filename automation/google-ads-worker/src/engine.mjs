@@ -2,6 +2,7 @@ import {validateDraft,validateAnalytics,descriptor} from './contract.mjs';
 import {stagingReady,liveReady,sendAdsOperation,keywordIdeaRequest,readKeywordIdeas} from './google-ads-api.mjs';
 import {readAccountBudget,assertGrantBudget} from './budget-guard.mjs';
 import {verifyApprovedLanding} from './landing-guard.mjs';
+import {readBackMutation} from './readback.mjs';
 
 const exact=(object,keys)=>object&&typeof object==='object'&&!Array.isArray(object)&&
   Object.keys(object).every(key=>keys.includes(key));
@@ -133,12 +134,24 @@ export async function dispatch(envelope,env,ports={},now=Date.now()){
   let result,status='NEEDS_RECONCILIATION';
   try{
     result=await (ports.send||sendAdsOperation)(env,action.operation,{validateOnly:false,fetcher:ports.fetch});
-    status=result.ok?'APPLIED':(result.status>=400&&result.status<500?'REJECTED':'NEEDS_RECONCILIATION');
+    status=result.ok?'NEEDS_RECONCILIATION':
+      (result.status>=400&&result.status<500?'REJECTED':'NEEDS_RECONCILIATION');
+    if(result.ok) {
+      // No blind retries: a successful mutate needs readback to be considered applied.
+      try{
+        await (ports.readback||readBackMutation)(env,action.operation,result,{fetcher:ports.fetch});
+        status='APPLIED';
+      }catch{
+        status='NEEDS_RECONCILIATION';
+      }
+    }
   }catch{
     result={ok:false,requestId:null,resourceNames:[],applied:false};
   }
   await durableFinish(env,action,result,status);
   return {status,correlationId:action.correlationId,receipt:{idempotencyKey:action.idempotencyKey,
-      requestId:result.requestId||null,resourceNames:result.resourceNames||[],applied:status==='APPLIED'},
+      requestId:result.requestId||null,resourceNames:result.resourceNames||[],
+      applied:status==='APPLIED',mutationMayHaveOccurred:
+        status==='NEEDS_RECONCILIATION'&&result.ok===true},
     budgetReceipt,landingReceipt,adsMutation:status==='APPLIED',aiCostEur:0};
 }
