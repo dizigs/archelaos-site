@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://archelaos.club/internal-schemas/europeana-research-candidate-v1",
+  "title": "Europeana research candidate (never public content)",
+  "type": "object",
+  "required": [
+    "schemaVersion", "sourceSystem", "europeanaId", "title", "dateLabel",
+    "datePrecision", "type", "originInstitutions", "aggregators", "sourceUrl",
+    "canonicalUrl", "rightsStatements", "rightsReview", "researchQuery",
+    "provenance", "relevance", "clubIdentity", "publicationStatus",
+    "mediaCopyAllowed", "needsHumanReview"
+  ],
+  "properties": {
+    "schemaVersion": {"const": 1},
+    "sourceSystem": {"const": "europeana"},
+    "europeanaId": {"type":"string","pattern":"^/[A-Za-z0-9_-]+/[A-Za-z0-9_.~-]+$"},
+    "title": {"type":["string","null"]},
+    "dateLabel": {"type":["string","null"]},
+    "datePrecision": {"enum":["year","unknown"]},
+    "type": {"type":["string","null"]},
+    "originInstitutions": {"type":"array","items":{"type":"string"}},
+    "aggregators": {"type":"array","items":{"type":"string"}},
+    "sourceUrl": {"type":["string","null"]},
+    "canonicalUrl": {"type":"string","pattern":"^https://www\\.europeana\\.eu/en/item/"},
+    "rightsStatements": {"type":"array","items":{"type":"string"}},
+    "rightsReview": {"enum":["required","missing_rights"]},
+    "researchQuery": {"type":["string","null"]},
+    "provenance": {
+      "type":"object","required":["endpoint","retrievedAt","sourceId"],
+      "properties":{
+        "endpoint":{"enum":["search","record"]},
+        "retrievedAt":{"type":["string","null"]},
+        "sourceId":{"type":"string"}
+      }
+    },
+    "relevance": {
+      "type":"object","required":["assessment","signals","reason"],
+      "properties":{
+        "assessment":{"const":"unreviewed"},
+        "signals":{"type":"array","items":{"type":"string"}},
+        "reason":{"type":"string"}
+      }
+    },
+    "clubIdentity":{"const":"unverified"},
+    "publicationStatus":{"const":"research_only"},
+    "mediaCopyAllowed":{"const":false},
+    "needsHumanReview":{"const":true}
+  }
+}
