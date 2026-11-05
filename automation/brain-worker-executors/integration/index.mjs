@@ -19,7 +19,7 @@ export class IntegrationBlocked extends Error {
 function ensure(condition, code) { if (!condition) throw new IntegrationBlocked(code); }
 export function safePath(p, directory = false) {
   if (typeof p !== 'string' || !SAFE.test(p) || p.startsWith('/') ||
-      p.includes('//') || p.includes('\\') || p.split('/').some(x => x === '.' || x === '..' || x === '') ||
+      p.includes('//') || p.includes('\\') || p.split('/').filter((x, i, arr) => !(directory && i === arr.length - 1)).some(x => x === '.' || x === '..' || x === '') ||
       p.endsWith('/') !== directory) return false;
   return !p.startsWith('.git/') && !p.startsWith('brain/') &&
     !p.startsWith('automation/brain-worker-executors/integration/');
@@ -43,6 +43,31 @@ export function normalizeIntent(task) {
     type: task.type, lane: task.type === 'build' ? task.lane : null,
     paths: Object.freeze([...task.paths].sort())
   });
+}
+/**
+ * Authenticator primitive for the TRUSTED Brain-port implementation. The port
+ * must also read back taskId/receiptId from the Brain's durable receipt store;
+ * a MAC alone never substitutes for approval or source validation.
+ * Secrets are passed through runtime bindings only and are never logged.
+ */
+export async function verifySignedBrainEnvelope(signed, key, now = Date.now()) {
+  ensure(signed && typeof signed.raw === 'string' &&
+    signed.raw.length > 0 && signed.raw.length <= 4096 &&
+    typeof signed.signature === 'string' && /^[0-9a-f]{64}$/.test(signed.signature) &&
+    Number.isSafeInteger(signed.timestampMs) &&
+    Math.abs(now - signed.timestampMs) <= 300_000 &&
+    typeof key === 'string' && key.length >= 43, 'BRAIN_SIGNATURE_INVALID');
+  const encoder = new TextEncoder();
+  const k = await crypto.subtle.importKey('raw', encoder.encode(key),
+    { name: 'HMAC', hash: 'SHA-256' }, false, ['verify']);
+  const bytes = Uint8Array.from(signed.signature.match(/../g), p => parseInt(p, 16));
+  const payload = encoder.encode(String(signed.timestampMs) + '\n' + signed.raw);
+  ensure(await crypto.subtle.verify('HMAC', k, bytes, payload), 'BRAIN_SIGNATURE_INVALID');
+  let verified;
+  try { verified = JSON.parse(signed.raw); } catch { throw new IntegrationBlocked('BRAIN_RECEIPT_INVALID'); }
+  ensure(verified && typeof verified === 'object' && !Array.isArray(verified),
+    'BRAIN_RECEIPT_INVALID');
+  return verified;
 }
 export function confirmBrainReceipt(task, verified, now = Date.now()) {
   ensure(verified?.verified === true && verified?.issuer === 'central-brain' &&
@@ -205,6 +230,10 @@ export async function runIntegration(taskInput, ports, policy = {}, now = Date.n
     ensure(output?.verified === true && output?.commitSha === task.commitSha &&
       output?.draftOnly === true && output?.mergeAllowed === false &&
       output?.deployAllowed === false &&
+      Array.isArray(output.changedFiles) && output.changedFiles.length > 0 &&
+      output.changedFiles.length <= 20 &&
+      output.changedFiles.every(path => safePath(path) && task.paths.some(scope => pathAllowed(path, scope))) &&
+      typeof output.draftRef === 'string' && /^#[1-9][0-9]{0,6}$/.test(output.draftRef) &&
       Number.isSafeInteger(output.actualMicroEur) && output.actualMicroEur >= 0 &&
       output.actualMicroEur <= reservation.amountMicroEur, 'EXECUTOR_OUTPUT_UNVERIFIED');
     const settlement = await ports.brain.ledger.settle(reservation.reservationId, output.actualMicroEur);
