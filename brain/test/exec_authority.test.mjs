@@ -217,3 +217,21 @@ test('integration receipt refuses privileged Brain source files and unsupported 
   assert.equal((await call('/v1/exec/authorizations/' + a.taskId)).status, 403);
   assert.equal((await call('/v1/exec/authorizations/' + b.taskId)).status, 422);
 });
+
+test('emergency global pause blocks new signed handoff and one-shot provider begin', async () => {
+  const a = task('BUILD_A', ['automation/demo/paused-file.mjs']);
+  await submitAndApprove(a);
+  const claim = await call('/v1/exec/claims', {taskId:a.taskId});
+  assert.equal(claim.status, 200);
+  const before = await call('/v1/exec/authorizations/' + a.taskId);
+  assert.equal(before.status, 200);
+  const state = await call('/v1/control');
+  assert.equal(state.data.globalPaused, false);
+  const paused = await call('/v1/control', {
+    operation:'pause', scope:'global', expectedRevision:state.data.revision });
+  assert.equal(paused.status, 200);
+  assert.equal(paused.data.globalPaused, true);
+  assert.equal((await call('/v1/exec/begin', {taskId:a.taskId, owner:claim.data.owner})).status, 423);
+  assert.equal((await call('/v1/exec/authorizations/' + a.taskId)).status, 423);
+  assert.equal((await call('/v1/exec/intents/' + a.taskId)).data.status, 'CLAIMED');
+});
