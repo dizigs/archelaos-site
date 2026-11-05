@@ -1,5 +1,5 @@
 import {validateDraft,validateAnalytics,descriptor} from './contract.mjs';
-import {stagingReady,liveReady,sendAdsOperation,keywordIdeaRequest} from './google-ads-api.mjs';
+import {stagingReady,liveReady,sendAdsOperation,keywordIdeaRequest,readKeywordIdeas} from './google-ads-api.mjs';
 
 const exact=(object,keys)=>object&&typeof object==='object'&&!Array.isArray(object)&&
   Object.keys(object).every(key=>keys.includes(key));
@@ -77,6 +77,9 @@ export async function dispatch(envelope,env,ports={},now=Date.now()){
     return {status:'REQUEST_PREVIEW_ONLY',request:keywordIdeaRequest(env.ADS_CUSTOMER_ID,action.plannerSeed),
       adsMutation:false,aiCostEur:0};
   }
+  if(action.mode==='keyword_ideas_read') return {status:'KEYWORD_PLANNER_READ_ONLY',correlationId:action.correlationId,
+    receipt:await (ports.planner||readKeywordIdeas)(env,action.plannerSeed,{fetcher:ports.fetch}),
+    adsMutation:false,aiCostEur:0};
   raise(['validate_only','apply','rollback_preview'].includes(action.mode),'UNKNOWN_MODE');
   raise(stagingReady(env),'ADS_STAGING_DISABLED');
   const spec=operationShape(action,env);
