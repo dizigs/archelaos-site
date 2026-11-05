@@ -100,7 +100,10 @@ export function appsScriptExtension({ oauth, authenticateExecutor, editorFor, ve
       // No raw code, project ID, tokens, source hash, trigger claims or writer
       // capability are returned. Never accept a caller-selected script project.
       if (url.pathname === '/api/apps-script/inventory') {
-        if (request.method !== 'GET' || url.search) throw new ScriptFault('SCRIPT_ROUTE_NOT_FOUND', 404);
+        // Tracking tags may be appended by chat/email links. Like the existing
+        // read-only verification endpoint, accept ONLY a bounded UTM allowlist.
+        // Never pass parameters to OAuth, inventory, or Google APIs.
+        if (request.method !== 'GET' || !allowedVerificationTracking(url)) throw new ScriptFault('SCRIPT_ROUTE_NOT_FOUND', 404);
         if (typeof oauth?.access !== 'function' || typeof readInventory !== 'function') {
           throw new ScriptFault('PRIVATE_INVENTORY_UNCONFIGURED', 503);
         }
