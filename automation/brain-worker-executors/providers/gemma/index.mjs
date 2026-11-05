@@ -63,7 +63,7 @@ function validateTask(task) {
 function validateProposal(raw, paths) {
   const value = typeof raw === "string" ? JSON.parse(raw) : raw;
   if (!value || typeof value !== "object" || Array.isArray(value) ||
-      Object.keys(value).sort().join(",") !== "files,risk,summary,tests" ||
+      Object.keys(value).sort((a, b) => a.localeCompare(b)).join(",") !== "files,risk,summary,tests" ||
       typeof value.summary !== "string" || value.summary.length > 2000 ||
       !["low", "medium", "high"].includes(value.risk) ||
       !Array.isArray(value.files) || value.files.length > 8 ||
@@ -72,7 +72,7 @@ function validateProposal(raw, paths) {
   const seen = new Set();
   for (const file of value.files) {
     if (!file || typeof file !== "object" || Array.isArray(file) ||
-        Object.keys(file).sort().join(",") !== "path,reason,replacement" ||
+        Object.keys(file).sort((a, b) => a.localeCompare(b)).join(",") !== "path,reason,replacement" ||
         !validPath(file.path) || !paths.includes(file.path) || seen.has(file.path) ||
         typeof file.replacement !== "string" || file.replacement.length === 0 ||
         file.replacement.length > 16000 || typeof file.reason !== "string" ||
