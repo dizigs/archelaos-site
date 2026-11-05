@@ -238,3 +238,56 @@ test('overlapping exports keep stable source/day keys but separate content revis
   assert.notEqual(a.event.eventId,b.event.eventId);
   assert.equal(a.event.payload.source,b.event.payload.source);
 });
+
+
+test('current Brain #234 capability intentionally fails closed before any submit',async()=>{
+  // Exact fields currently returned by brain/src/worker.mjs at #234 HEAD
+  // 47c86ecaa12acf1a4029433c7dd7557653583505.
+  // Missing immutableReceiptReadback means OFF, not optimistic delivery.
+  let submits=0,readbacks=0;
+  const port={
+    capabilities:async()=>({
+      version:'analytics.aggregate.v1',
+      authenticatedServiceBinding:true,
+      durableSnapshotUpsert:true,
+      receiptSignatureVerification:true
+    }),
+    submitSnapshot:async()=>{submits++;throw Error('MUST_NOT_SEND');},
+    verifyReceipt:async()=>true,
+    readbackSnapshot:async()=>{readbacks++;throw Error('NOT_IMPLEMENTED');},
+    verifyReadback:async()=>true
+  };
+  await assert.rejects(deliverToBrain(await prepare(),port),
+    /BRAIN_ANALYTICS_CAPABILITY_UNVERIFIED/);
+  assert.equal(submits,0);
+  assert.equal(readbacks,0);
+});
+
+test('signed ACK alone never substitutes an independently verified immutable readback',async()=>{
+  // Future protocol fixture only: receipt HMAC and immutable readback are
+  // independently verifiable. This is NOT live authenticated staging.
+  let recorded;
+  const port={
+    capabilities:async()=>({
+      version:'analytics.aggregate.v1',
+      authenticatedServiceBinding:true,
+      durableSnapshotUpsert:true,
+      receiptSignatureVerification:true,
+      immutableReceiptReadback:true
+    }),
+    submitSnapshot:async(req)=>{
+      recorded=req;
+      return {eventId:req.event.eventId,snapshotKey:req.snapshotKey,
+        metricRevision:req.metricRevision,status:'ACCEPTED',durable:true,
+        receiptId:'signed-receipt-1234',issuedAtMs:Date.now(),
+        receiptSignature:'a'.repeat(64)};
+    },
+    verifyReceipt:async(ack)=>typeof ack.receiptSignature==='string'&&
+      ack.receiptSignature.length===64,
+    readbackSnapshot:async()=>undefined, // #234 currently has no route.
+    verifyReadback:async()=>true
+  };
+  await assert.rejects(deliverToBrain(await prepare(),port),
+    /UNVERIFIED_BRAIN_READBACK/);
+  assert.equal(recorded.operation,'UPSERT_NOT_INCREMENT');
+});
