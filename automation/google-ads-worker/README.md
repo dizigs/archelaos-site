@@ -232,3 +232,37 @@ Only the latter (or Basic) unlocks the planning service. This change never
 applies for Basic access automatically and is not an instruction to upgrade.
 
 Reference: https://developers.google.com/google-ads/api/docs/api-policy/access-levels
+
+## OAuth adapter integration — #225 + #229 (review-only)
+
+The #229 account-wide GAQL budget/spend guard, landing guard, readback and
+Basic/Standard-only Keyword Planner gate remain unchanged. The #225
+**service account JSON secret** capability is additionally preserved, rather
+than silently replacing #229's existing PEM-secret JWT adapter:
+
+- `ADS_OAUTH_MODE=SERVICE_ACCOUNT_JSON` requires `ADS_SERVICE_ACCOUNT_JSON`
+  as a **Cloudflare secret**, plus separately verified
+  `ADS_SERVICE_ACCOUNT_PROJECT_ID` and
+  `ADS_SERVICE_ACCOUNT_CLIENT_EMAIL`. The JSON `project_id`,
+  `client_email` and token URL must exactly match those pinned values.
+- `ADS_OAUTH_MODE=SERVICE_ACCOUNT` keeps #229's existing
+  `ADS_SERVICE_ACCOUNT_PRIVATE_KEY_PEM` secret and project/email pinning.
+- `ADS_OAUTH_MODE=USER_REFRESH_TOKEN` remains an explicit legacy option.
+  All other modes, including the configured default `UNCONFIGURED`, fail
+  closed. There is **no automatic identity fallback**.
+- OAuth JWT scope is fixed to `https://www.googleapis.com/auth/adwords`,
+  RS256 with short validity. Synthetic tests verify the signature and
+  negative identity cases. No actual service-account credential is committed.
+- No new Cloudflare deployment, secret upload, D1, cron, Ads API request,
+  Brain binding or Google Ads mutation is part of this code integration.
+  `ADS_STAGING_ENABLED=false`, `ADS_LIVE_ENABLED=false`,
+  `ADS_KILL_SWITCH=on` are unchanged in `wrangler.jsonc`.
+
+**Dependency order:** #70 → #223 → #229 → integration PR. #225 must not
+also be merged blindly as its files overlap #229; the JSON-secret behavior
+is carried by this integration branch and should be checked against its
+tests before marking #225 superseded. The current Google API Explorer
+access permits GoogleAdsService reporting but not KeywordPlanIdeaService.
+For any staging read, independently confirm the same approved Google Cloud
+project owns the service account and the exact customer is the nonprofit
+Ad Grants account, not a separate paid Ads account.
