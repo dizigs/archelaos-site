@@ -6,6 +6,7 @@
   "workers_dev": false,
   "preview_urls": false,
   "vars": {
+    "ADS_AUTH_MODE": "disabled",
     "ADS_STAGING_ENABLED": "false",
     "ADS_KEYWORD_PLANNER_READ_ENABLED": "false",
     "ADS_LIVE_ENABLED": "false",
