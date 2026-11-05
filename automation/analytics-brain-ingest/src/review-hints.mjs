@@ -7,6 +7,15 @@ const KNOWN=new Set(['ga4','search_console','clarity','cloudflare_web_analytics'
 const METRICS=new Set(['sessions','users','engaged_sessions','key_events',
   'clicks','impressions','ctr_pct','position','dead_clicks','rage_clicks',
   'scroll_depth_pct','visits','page_views']);
+const EXACT_PAYLOAD=['schemaVersion','source','reportDigest','period','metrics',
+  'suppressedRows','rawVisitorDataStored','externalAiCalls'];
+const EXACT_ROW=['pagePath','name','value','sampleSize','confidence'];
+const ALLOWED={ga4:new Set(['sessions','users','engaged_sessions','key_events']),
+  search_console:new Set(['clicks','impressions','ctr_pct','position']),
+  clarity:new Set(['sessions','dead_clicks','rage_clicks','scroll_depth_pct']),
+  cloudflare_web_analytics:new Set(['visits','page_views'])};
+const exact=(o,keys)=>o&&typeof o==='object'&&!Array.isArray(o)&&
+  Object.keys(o).length===keys.length&&keys.every(k=>Object.hasOwn(o,k));
 const DAY=86400000;
 const fail=()=>{throw Error('INVALID_REVIEW_SNAPSHOT');};
 function parseDay(value) {
@@ -16,15 +25,20 @@ function parseDay(value) {
   return t;
 }
 function approved(payload) {
-  if(!payload||payload.schemaVersion!==1||!KNOWN.has(payload.source)||
+  if(!exact(payload,EXACT_PAYLOAD)||payload.schemaVersion!==1||!KNOWN.has(payload.source)||
+     !/^[a-f0-9]{64}$/.test(payload.reportDigest)||
+     !Number.isSafeInteger(payload.suppressedRows)||payload.suppressedRows<0||
      payload.rawVisitorDataStored!==false||payload.externalAiCalls!==0||
-     !payload.period||!Array.isArray(payload.metrics)||payload.metrics.length>300)
+     !exact(payload.period,['from','to'])||
+     !Array.isArray(payload.metrics)||payload.metrics.length>300)
     fail();
   const from=parseDay(payload.period.from),to=parseDay(payload.period.to);
   if(from>to||to-from>31*DAY)fail();
   const metrics=new Map();
   for(const row of payload.metrics){
-    if(row?.pagePath!=='/'||!METRICS.has(row.name)||
+    if(!exact(row,EXACT_ROW)||row.pagePath!=='/'||!METRICS.has(row.name)||
+       !ALLOWED[payload.source].has(row.name)||
+       row.confidence!=='AGGREGATE_ONLY_NO_CAUSAL_INFERENCE'||
        !Number.isFinite(row.value)||row.value<0||row.value>1e9||
        !Number.isSafeInteger(row.sampleSize)||row.sampleSize<20||
        metrics.has(row.name))fail();
