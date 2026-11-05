@@ -121,3 +121,17 @@ test('staging health can pin the known commit and rejects a mismatched release',
   const {a:other}=setup(health,{expectedBrainCommit:'b'.repeat(40)});
   assert.equal((await other.probeHealth()).code,'HEALTH_IDENTITY_MISMATCH');
 });
+
+test('current Brain staging-v1 identity cannot authorize a Drive source event (fail-closed contract)', async()=>{
+  const { authenticate, validateEvent } = await import('../../brain/src/contract.mjs');
+  const e=event();
+  const {a,logs}=setup(async req=>{
+    const raw=await req.text();
+    const source=await authenticate(req,{STAGING_INTAKE_KEY:KEY});
+    assert.equal(source,'staging'); // Current Brain returns this for all staging-v1 callers.
+    assert.throws(()=>validateEvent(JSON.parse(raw),source), x=>x?.code==='INVALID_IDENTITY');
+    return Response.json({code:'INVALID_IDENTITY'},{status:422});
+  });
+  await reject(a.submitEvent(e),'BRAIN_REJECTED');
+  assert.deepEqual(logs.map(x=>({result:x.result,status:x.status})),[{result:'REJECTED',status:422}]);
+});
