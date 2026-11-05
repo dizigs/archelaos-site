@@ -189,3 +189,52 @@ test('uncertain Brain delivery needs reconciliation rather than blind retry',asy
 test('Google Ads is disabled pending approved reader and actual campaign reporting',()=>{
   assert.throws(()=>validateGoogleAdsContract({}),/GOOGLE_ADS_DISABLED/);
 });
+
+
+test('tampered batches never reach authenticated Brain methods or ledger',async()=>{
+  const prepared=await prepare();
+  let remoteCalls=0;
+  const port={
+    capabilities:async()=>{remoteCalls++;return {version:'analytics.aggregate.v1'};},
+    submitSnapshot:async()=>{remoteCalls++;return {};},
+    verifyReceipt:async()=>{remoteCalls++;return true;},
+    readbackSnapshot:async()=>{remoteCalls++;return {};},
+    verifyReadback:async()=>{remoteCalls++;return true;}
+  };
+  const cases=[
+    p=>{p.events[0].event.payload.visitorId='raw-id';},
+    p=>{p.events[0].event.payload.metrics[0].value=900;},
+    p=>{p.events[0].event.payload.metrics[0].sampleSize=2;},
+    p=>{p.events[0].event.payload.metrics[0].pagePath='/news.html?email=secret';},
+    p=>{p.events[0].event.payload.metrics[0].confidence='PERSON_LEVEL';},
+    p=>{p.events[0].metricRevision='0'.repeat(64);},
+    p=>{p.events[0].snapshotKey='ga4|2026-11-02|2026-11-02';},
+    p=>{p.events[0].event.eventId='f'.repeat(64);},
+    p=>{p.events.push(structuredClone(p.events[0]));},
+    p=>{p.evidence.workflow='unapproved exporter';},
+    p=>{p.evidence.observedAt='2026-11-05T11:00:00+00:00';},
+    p=>{p.evidence.reportDigest='0'.repeat(64);},
+    p=>{p.events[0].event.payload.source='clarity';},
+    p=>{p.events[0].event.publish=true;}
+  ];
+  for(const mutate of cases) {
+    const bad=structuredClone(prepared);
+    mutate(bad);
+    await assert.rejects(deliverToBrain(bad,port),/UNVERIFIED_PREPARED_BATCH/);
+  }
+  assert.equal(remoteCalls,0,'no remote effect on a malformed prepared batch');
+});
+
+test('overlapping exports keep stable source/day keys but separate content revisions',async()=>{
+  const before=await prepare();
+  const newer=google();
+  newer.search_console.daily[0].impressions=100;
+  newer.search_console.daily[0].ctr=7/100;
+  const after=await prepare(newer);
+  const a=before.events.find(x=>x.event.payload.source==='search_console');
+  const b=after.events.find(x=>x.event.payload.source==='search_console');
+  assert.equal(a.snapshotKey,b.snapshotKey);
+  assert.notEqual(a.metricRevision,b.metricRevision);
+  assert.notEqual(a.event.eventId,b.event.eventId);
+  assert.equal(a.event.payload.source,b.event.payload.source);
+});
