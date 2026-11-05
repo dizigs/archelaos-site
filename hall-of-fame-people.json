@@ -20,7 +20,18 @@
       "category": "admin",
       "bio": "Εξελέγη πρόεδρος στις 31 Αυγούστου 2011 (επανεκλογή 2014). Διαχειρίστηκε με υπευθυνότητα την περίοδο της βαθιάς οικονομικής κρίσης, πέτυχε την επιστροφή της ανδρικής ομάδας χάντμπολ στην Α1 Εθνική (2013) και στη Handball Premier (2015–16), επαναπατρίζοντας διεθνείς αθλητές όπως ο Σάββας Καρυπίδης. Στις 20 Νοεμβρίου 2014, επί της προεδρίας του, ο Αρχέλαος μετέφερε τα γραφεία του στο Α΄ ΔΑΚ Κατερίνης (Εθνικού Σταδίου 3Α), σε χώρο που παραχώρησε ο Δήμος Κατερίνης επί δημαρχίας Σάββα Χιονίδη. Έτσι απαλλάχθηκε από δυσβάσταχτα πάγια έξοδα ενοικίου και κοινοχρήστων, σύμφωνα με το Πρακτικό Δ.Σ. αρ. 26 (20/11/2014). Στις 28 Μαΐου 2016 αναβίωσε με τεράστια επιτυχία τους αγώνες στίβου «Δίια εν Ολύμπω 2016» στο Α΄ ΔΑΚ σε συνεργασία με την ΕΑΣ ΣΕΓΑΣ με τη συμμετοχή 200 αθλητών από 30 σωματεία.\n\nΗ ιστορική ανακοίνωση της διοργάνωσης «Δίια εν Ολύμπω 2016» καταγράφει περίπου 200 συμμετοχές από 30 συλλόγους στην αναβίωση των αγώνων στις 28 Μαΐου 2016. Το 2026 το Β΄ Δημοτικό Αθλητικό Κέντρο Κατερίνης έλαβε τιμητικά το όνομά του, με τοποθέτηση σχετικής επιγραφής στις 28 Ιουλίου.",
       "bio_en": "Theodoros Diamantopoulos led Archelaos from 2011 to 2019, securing the handball team's return to the top flight (A1/Handball Premier) and successfully reviving the Dia Games in 2016. Under his presidency, on 20 November 2014 the club moved its offices into premises provided by the Municipality of Katerini at the 1st DAK (3A Ethnikou Stadiou Street), reducing substantial rent and shared-building costs (Board minutes no. 26, 20 November 2014).\n\nThe revived 'Dia en Olympo 2016' athletics meeting on 28 May 2016 brought together approximately 200 athletes from 30 clubs, according to the club's event archive.",
-      "refs": [],
+      "refs": [
+        {
+          "label": "Δήμος Κατερίνης · Τιμητική ονοματοδοσία Β΄ ΔΑΚ, 28/07/2026",
+          "label_en": "Municipality of Katerini · Honorary naming of the 2nd DAK, 28 July 2026",
+          "url": "https://katerini.gr/?p=71060"
+        },
+        {
+          "label": "Pieria News · Ιστορική διαδρομή και ονοματοδοσία, 29/07/2026",
+          "label_en": "Pieria News · Historical background and naming, 29 July 2026",
+          "url": "https://www.pierianews.gr/2026/07/29/onomatodosia-kai-dikaiosi-v%CE%84-d-a-k-katerinis-theodoros-diamantopoulos/"
+        }
+      ],
       "id": "arch-ec55ccba275f"
     },
     {
@@ -493,6 +504,14 @@
         {
           "label": "ΕΟΠΕ · Ντεμπούτο στην Εθνική Γυναικών, 25/05/2019",
           "url": "https://volleyball.gr/silver-european-league-me-to-dexi-i-ethniki-stin-portogalia-ellinikiomospondia-petosfairisis/"
+        },
+        {
+          "label": "ΕΣΠΕΜ · Εθνική Παγκορασίδων, προετοιμασία 2017",
+          "url": "https://www.espem.gr/anartiseis.jsp?id=1030"
+        },
+        {
+          "label": "ΕΣΠΕΜ · Κλήση Εθνικής Κορασίδων, Ιανουάριος 2017",
+          "url": "https://www.espem.gr/anartiseis.jsp?id=988"
         }
       ],
       "id": "arch-999730e06982"
@@ -1126,9 +1145,15 @@
       "role": "Προπονητής · Χάντμπολ",
       "role_en": "Coach",
       "category": "coach",
-      "bio": "Σημείωσε 1 γκολ στον τελικό του 1990 και 5 γκολ στον τελικό του 1994, πανηγυρίζοντας και τα δύο Κύπελλα Ελλάδας. Ως προπονητής (2006–2007 και 2013 μαζί με τον Σωκράτη Σκούφα) οδήγησε τον Αρχέλαο στην ιστορική επιστροφή στην Α1 Εθνική Κατηγορία το 2013.\n\nΩς αθλητής σκόραρε στους νικηφόρους τελικούς Κυπέλλου Ελλάδας του 1990 και του 1994.",
-      "bio_en": "Giorgos Karadimos scored in both Greek Cup finals (1990, 1994) and co-coached Archelaos back to the A1 division in 2013.\n\nAs a player, he scored in both of Archelaos’ victorious Greek Cup finals, in 1990 and 1994.",
-      "id": "arch-7d2841925a78"
+      "bio": "Ως αθλητής πέτυχε ένα γκολ στον νικηφόρο τελικό Κυπέλλου Ελλάδας του 1990 και πέντε γκολ στον τελικό του 1994, κατακτώντας δύο Κύπελλα με τον Αρχέλαο. Ως προπονητής εργάστηκε στο τμήμα χάντμπολ την περίοδο 2006–2007 και, μαζί με τον Σωκράτη Σκούφα, οδήγησε την ομάδα στην άνοδο στην Α1 Εθνική το 2013.",
+      "bio_en": "As a player, Giorgos Karadimos scored once in Archelaos' victorious 1990 Greek Cup final and five times in the victorious 1994 final. He later coached the club in 2006–07 and helped guide its handball team to promotion to the A1 division in 2013 alongside Sokratis Skoufas.",
+      "id": "arch-7d2841925a78",
+      "refs": [
+        {
+          "label": "Handball Chania · Δηλώσεις προπονητή και πορεία ανόδου 2013",
+          "url": "https://handballgsch.blogspot.com/2013/01/2.html"
+        }
+      ]
     },
     {
       "name": "Τάσος Παπαδόπουλος",
@@ -1186,9 +1211,15 @@
       "role": "Αθλητής · Χάντμπολ",
       "role_en": "Athlete",
       "category": "athlete",
-      "bio": "Εγκεφαλικός πλέι μέικερ και βασικός οργανωτής του παιχνιδιού του Αρχελάου στην Α1 Εθνική (2013–2014) και στη Handball Premier (2015–2016). Διακρίθηκε για την εξαιρετική του αντίληψη, τη δημιουργία φάσεων για τους συμπαίκτες του και το καθοριστικό του σκοράρισμα στα κρίσιμα λεπτά των αγώνων.\n\nΣυμπληρωματική αρχειακή αναφορά: Καταγράφεται σε συνθέσεις τμημάτων μίνι ή παίδων του Αρχελάου κατά τη δεκαετία του 1990.",
-      "bio_en": "Panagiotis Samlidis was the primary playmaker and on-court leader for Archelaos handball during its 2013–2016 top-flight tenure, renowned for his court vision, tactical execution, and clutch scoring.\n\nAdditional archival note: Listed in the club’s mini or boys’ handball squads during the 1990s.",
-      "id": "arch-d03d1470eba6"
+      "bio": "Πλέι μέικερ της ανδρικής ομάδας χάντμπολ του Αρχέλαου, με παρουσία στην Α1 Εθνική και στη Handball Premier κατά την περίοδο 2013–2016. Στην πορεία ανόδου του 2013 σημείωσε τέσσερα γκολ στη νίκη 28–21 επί του Δία Πολίχνης.",
+      "bio_en": "Playmaker for Archelaos Katerinis in Greece's top men's handball divisions from 2013 to 2016. During the 2013 promotion campaign he scored four goals in the 28–21 victory over Dias Polichnis.",
+      "id": "arch-d03d1470eba6",
+      "refs": [
+        {
+          "label": "Handball Chania · Αρχέλαος–Δίας Πολίχνης 28–21, 2013",
+          "url": "https://handballgsch.blogspot.com/2013/01/2.html"
+        }
+      ]
     },
     {
       "name": "Νίκος Δράντζιος",
@@ -1206,9 +1237,19 @@
       "role": "Αθλητής · Χάντμπολ",
       "role_en": "Athlete",
       "category": "athlete",
-      "bio": "Αγωνίστηκε στη θέση του δεξιού εξτρέμ στην ανδρική ομάδα του συλλόγου. Με γρήγορη εκτέλεση στις αντεπιθέσεις και αποτελεσματικά τελειώματα από τη δύσκολη δεξιά γωνία, συνέβαλε σημαντικά στις αγωνιστικές επιτυχίες του Αρχελάου στην\n\nΣυμπληρωματική αρχειακή αναφορά: Καταγράφεται σε συνθέσεις τμημάτων μίνι ή παίδων του Αρχελάου κατά τη δεκαετία του 1990.",
-      "bio_en": "Α1 και στη Handball Premier (2013–2016). Vangelis Raptis played as right wing for Archelaos from 2013 to 2016, providing scoring efficiency on counterattacks and reliable perimeter shooting in the national top flight.\n\nAdditional archival note: Listed in the club’s mini or boys’ handball squads during the 1990s.",
-      "id": "arch-bc85ae96e420"
+      "bio": "Αγωνίστηκε ως δεξί εξτρέμ στην ανδρική ομάδα χάντμπολ του Αρχέλαου, στην πορεία ανόδου στην Α1 το 2013 και στη συνέχεια στη μεγάλη κατηγορία. Περιλαμβάνεται στις συνθέσεις των αναμετρήσεων με τον Δία Πολίχνης (28–21) και την ΑΕΚ (29–35) το 2013.",
+      "bio_en": "Right wing for Archelaos Katerinis during the club's promotion to the A1 men's handball division in 2013 and its subsequent top-tier campaign. He was named in the 2013 lineups against Dias Polichnis (28–21) and AEK (29–35).",
+      "id": "arch-bc85ae96e420",
+      "refs": [
+        {
+          "label": "Handball Chania · Αρχέλαος–Δίας Πολίχνης 28–21, 2013",
+          "url": "https://handballgsch.blogspot.com/2013/01/2.html"
+        },
+        {
+          "label": "Handball Chania · Αρχέλαος–ΑΕΚ 29–35, 2013",
+          "url": "https://handballgsch.blogspot.com/2013/09/?m=0"
+        }
+      ]
     },
     {
       "name": "Σπύρος Τριανταφύλλου",
@@ -1243,11 +1284,17 @@
     {
       "name": "Θανάσης Ξώνης",
       "name_en": "Thanasis Xonis",
-      "role": "Αθλητής · Χάντμπολ",
-      "role_en": "Athlete",
+      "role": "Αθλητής · Προπονητής · Χάντμπολ",
+      "role_en": "Athlete · Coach",
       "category": "athlete",
-      "bio": "Γρήγορο και εκρηκτικό αριστερό εξτρέμ της ομάδας χάντμπολ. Συμμετείχε στις αγωνιστικές περιόδους της Α1 Εθνικής και Handball Premier (2013–2016), δίνοντας πολύτιμες λύσεις στον αιφνιδιασμό και στην πίεση στην πρώτη ζώνη άμυνας.",
-      "bio_en": "Thanasis Xonis competed as left wing for Archelaos (2013–2016), bringing speed, fast-break finishing, and perimeter defense to the top-flight squad.",
+      "bio": "Γρήγορο και εκρηκτικό αριστερό εξτρέμ της ομάδας χάντμπολ. Συμμετείχε στις αγωνιστικές περιόδους της Α1 Εθνικής και Handball Premier (2013–2016), δίνοντας πολύτιμες λύσεις στον αιφνιδιασμό και στην πίεση στην πρώτη ζώνη άμυνας.\n\nΕίναι προπονητής χάντμπολ του Γ.Α.Σ. «Αρχέλαος» Κατερίνης.",
+      "bio_en": "Thanasis Xonis competed as left wing for Archelaos (2013–2016), bringing speed, fast-break finishing, and perimeter defense to the top-flight squad. He is a handball coach at G.A.S. Archelaos Katerinis.",
+      "refs": [
+        {
+          "label": "Palmare · Τεχνικό επιτελείο χάντμπολ Αρχέλαος",
+          "url": "https://www.palmare.gr/me-to-dexi-o-archelaos-katerinis-stin-v%CE%84-ethniki/"
+        }
+      ],
       "id": "arch-e6778f75ce14"
     },
     {
@@ -1408,12 +1455,20 @@
       "role": "Αθλήτρια · Πάλη",
       "role_en": "Athlete · Wrestling",
       "category": "athlete",
-      "bio": "Πρωταθλήτρια Ελλάδας U17 το 2025 και συμμετοχή στο Παγκόσμιο Πρωτάθλημα U17 στην Αθήνα. Τον Οκτώβριο του 2026 κατέκτησε το χρυσό μετάλλιο στο Βαλκανικό Πρωτάθλημα Πάλης στην Κοπρίβνιτσα της Κροατίας.\n\nΣτο Πανελλήνιο Πρωτάθλημα U17 στη Λάρισα το 2025 καταγράφεται ως χρυσή πρωταθλήτρια στην κατηγορία Κορασίδων.",
-      "bio_en": "Ioanna Xenidou won the 2025 Greek U17 championship and claimed gold at the 2026 Balkan Wrestling Championships in Koprivnica, Croatia.\n\nShe was reported as a gold medallist in the girls' category at the 2025 Greek U17 wrestling championships in Larissa.",
+      "bio": "Αθλήτρια πάλης του Γ.Α.Σ. «Αρχέλαος» Κατερίνης. Στις 15 Μαΐου 2022 κατέκτησε την πρώτη θέση στο Πανελλήνιο Πρωτάθλημα Παγκορασίδων στα Τρίκαλα, έπειτα από πέντε αγώνες. Τον Οκτώβριο της ίδιας χρονιάς κατέκτησε χρυσό μετάλλιο στο Βαλκανικό Πρωτάθλημα Πάλης στο Βουκουρέστι.\n\nΤο 2025 αναδείχθηκε πρωταθλήτρια Ελλάδας U17 στη Λάρισα και συμμετείχε στο Παγκόσμιο Πρωτάθλημα U17 στην Αθήνα. Τον Οκτώβριο του 2026 κατέκτησε χρυσό μετάλλιο στο Βαλκανικό Πρωτάθλημα στην Κοπρίβνιτσα της Κροατίας.",
+      "bio_en": "Wrestler for G.A.S. Archelaos Katerinis. On 15 May 2022, Ioanna Xenidou won the Greek national girls' wrestling title in Trikala after five bouts. That October, she won gold at the Balkan Wrestling Championships in Bucharest.\n\nShe won the Greek U17 title in Larissa in 2025 and competed at the U17 World Championships in Athens. In October 2026, she won gold at the Balkan championships in Koprivnica, Croatia.",
       "refs": [
         {
           "label": "Ο Διάλογος · Πανελλήνιο U17 Πάλης, 2025",
           "url": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/2%CE%BF%CF%82-%CF%80%CF%81%CF%89%CF%84%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%AE%CF%82-%CE%B5%CE%BB%CE%BB%CE%AC%CE%B4%CE%BF%CF%82-%CF%83%CF%84%CE%BF-%CE%BF%CE%BC%CE%B1%CE%B4%CE%B9%CE%BA%CF%8C-%CF%80%CE%B1/"
+        },
+        {
+          "label": "Pieria Social · Πανελλήνια πρωταθλήτρια Παγκορασίδων, 15/05/2022",
+          "url": "https://pieriasocial.gr/?p=49149"
+        },
+        {
+          "label": "Ο Διάλογος · Χρυσό στο Βαλκανικό Πάλης, 28/10/2022",
+          "url": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/%CF%87%CF%81%CF%85%CF%83%CF%8C-%CE%BC%CE%B5%CF%84%CE%AC%CE%BB%CE%BB%CE%B9%CE%BF-%CE%B7-%CE%B9%CF%89%CE%AC%CE%BD%CE%BD%CE%B1-%CE%BE%CE%B5%CE%BD%CE%AF%CE%B4%CE%BF%CF%85-%CF%84%CE%BF%CF%85-%CE%B1%CF%81/"
         }
       ],
       "id": "arch-957a876e770d"
@@ -2020,10 +2075,20 @@
       "name_en": "Nikos Karagiabas",
       "role": "Αθλητής · Χάντμπολ",
       "role_en": "Athlete · Handball",
-      "bio": "Καταγράφεται στο ρόστερ του Αρχέλαου Κατερίνης για την Α1 χάντμπολ της αγωνιστικής περιόδου 2013–14, στη θέση τερματοφύλακας. Η χρονιά αυτή ακολούθησε την επιστροφή του ιστορικού συλλόγου στην πρώτη εθνική κατηγορία, οκτώ χρόνια μετά την προηγούμενη παρουσία του.",
-      "bio_en": "Named in Archelaos Katerinis’s 2013–14 top-division handball squad as a goalkeeper. The season followed the club’s return to Greece’s highest league after an eight-year absence.",
+      "bio": "Τερματοφύλακας του Αρχέλαου Κατερίνης κατά την άνοδο από την Α2 στην Α1 χάντμπολ το 2013. Συμπεριλαμβάνεται στις συνθέσεις των αναμετρήσεων με τον Δία Πολίχνης (28–21, Α2) και την ΑΕΚ (29–35, Α1), το ίδιο έτος.",
+      "bio_en": "Archelaos Katerinis goalkeeper during the club's promotion from Greece's second-tier A2 handball division to the A1 in 2013. He appeared in team lineups against Dias Polichnis (28–21, A2) and AEK (29–35, A1) that year.",
       "category": "athlete",
-      "id": "arch-45d6ae1d775c"
+      "id": "arch-45d6ae1d775c",
+      "refs": [
+        {
+          "label": "Handball Chania · Αρχέλαος–Δίας Πολίχνης 28–21, 2013",
+          "url": "https://handballgsch.blogspot.com/2013/01/2.html"
+        },
+        {
+          "label": "Handball Chania · Αρχέλαος–ΑΕΚ 29–35, Σεπτέμβριος 2013",
+          "url": "https://handballgsch.blogspot.com/2013/09/?m=0"
+        }
+      ]
     },
     {
       "name": "Αικατερίνη Καραπαναγιωτίδου",
@@ -2140,10 +2205,16 @@
       "name_en": "Babis Koronidis",
       "role": "Αθλητής · Χάντμπολ",
       "role_en": "Athlete · Handball",
-      "bio": "Καταγράφεται στο ρόστερ του Αρχέλαου Κατερίνης για την Α1 χάντμπολ της αγωνιστικής περιόδου 2013–14, στη θέση αριστερός ίντερ. Η χρονιά αυτή ακολούθησε την επιστροφή του ιστορικού συλλόγου στην πρώτη εθνική κατηγορία, οκτώ χρόνια μετά την προηγούμενη παρουσία του.",
-      "bio_en": "Named in Archelaos Katerinis’s 2013–14 top-division handball squad as a left back. The season followed the club’s return to Greece’s highest league after an eight-year absence.",
+      "bio": "Αγωνίστηκε ως αριστερός ίντερ στην ανδρική ομάδα χάντμπολ του Αρχέλαου στην Α1 Εθνική την αγωνιστική περίοδο 2013–14.",
+      "bio_en": "Played as a left back for Archelaos Katerinis in the Greek A1 men's handball division during the 2013–14 season.",
       "category": "athlete",
-      "id": "arch-76af753155e5"
+      "id": "arch-76af753155e5",
+      "refs": [
+        {
+          "label": "Handball Chania · Ρόστερ Α1 Ανδρών 2013–14",
+          "url": "https://handballgsch.blogspot.com/2013/09/1-35.html?m=0"
+        }
+      ]
     },
     {
       "name": "Μαρία Κόσσυβα",
@@ -2170,8 +2241,8 @@
       "name_en": "Epameinondas Kourtis",
       "role": "Προπονητικό επιτελείο · Στίβος",
       "role_en": "Coaching staff · Athletics",
-      "bio": "Καταγράφεται ανάμεσα στα πρόσωπα που στελέχωσαν το προπονητικό δυναμικό του στίβου του Αρχέλαου. Η συμμετοχή του/της ανήκει στην πολύχρονη παράδοση εκπαίδευσης αθλητών του συλλόγου.",
-      "bio_en": "Named among the coaches who worked with Archelaos Katerinis’ athletics programme, part of its longstanding tradition of athlete development.",
+      "bio": "Μέλος του προπονητικού δυναμικού του τμήματος στίβου του Γ.Α.Σ. «Αρχέλαος» Κατερίνης.",
+      "bio_en": "Worked with the coaching staff of the athletics department at G.A.S. Archelaos Katerinis.",
       "category": "coach",
       "id": "arch-dc38c1018a66"
     },
@@ -2190,8 +2261,8 @@
       "name_en": "Maria Kyriaki",
       "role": "Προπονητικό επιτελείο · Στίβος",
       "role_en": "Coaching staff · Athletics",
-      "bio": "Καταγράφεται ανάμεσα στα πρόσωπα που στελέχωσαν το προπονητικό δυναμικό του στίβου του Αρχέλαου. Η συμμετοχή του/της ανήκει στην πολύχρονη παράδοση εκπαίδευσης αθλητών του συλλόγου.",
-      "bio_en": "Named among the coaches who worked with Archelaos Katerinis’ athletics programme, part of its longstanding tradition of athlete development.",
+      "bio": "Μέλος του προπονητικού δυναμικού του τμήματος στίβου του Γ.Α.Σ. «Αρχέλαος» Κατερίνης.",
+      "bio_en": "Worked with the coaching staff of the athletics department at G.A.S. Archelaos Katerinis.",
       "category": "coach",
       "id": "arch-e47279f0f6c2"
     },
@@ -2266,8 +2337,8 @@
       "name_en": "Efi Lapsana",
       "role": "Προπονητικό επιτελείο · Στίβος",
       "role_en": "Coaching staff · Athletics",
-      "bio": "Καταγράφεται ανάμεσα στα πρόσωπα που στελέχωσαν το προπονητικό δυναμικό του στίβου του Αρχέλαου. Η συμμετοχή του/της ανήκει στην πολύχρονη παράδοση εκπαίδευσης αθλητών του συλλόγου.",
-      "bio_en": "Named among the coaches who worked with Archelaos Katerinis’ athletics programme, part of its longstanding tradition of athlete development.",
+      "bio": "Μέλος του προπονητικού δυναμικού του τμήματος στίβου του Γ.Α.Σ. «Αρχέλαος» Κατερίνης.",
+      "bio_en": "Worked with the coaching staff of the athletics department at G.A.S. Archelaos Katerinis.",
       "category": "coach",
       "id": "arch-f52250e524ce"
     },
@@ -2422,10 +2493,20 @@
       "name_en": "Nikos Meitanidis",
       "role": "Αθλητής · Χάντμπολ",
       "role_en": "Athlete · Handball",
-      "bio": "Καταγράφεται στο ρόστερ του Αρχέλαου Κατερίνης για την Α1 χάντμπολ της αγωνιστικής περιόδου 2013–14, στη θέση αριστερός ίντερ. Η χρονιά αυτή ακολούθησε την επιστροφή του ιστορικού συλλόγου στην πρώτη εθνική κατηγορία, οκτώ χρόνια μετά την προηγούμενη παρουσία του.",
-      "bio_en": "Named in Archelaos Katerinis’s 2013–14 top-division handball squad as a left back. The season followed the club’s return to Greece’s highest league after an eight-year absence.",
+      "bio": "Αγωνίστηκε ως αριστερός ίντερ στην ανδρική ομάδα χάντμπολ του Αρχέλαου, στην Α2 και κατόπιν στην Α1 Εθνική. Το 2013 σημείωσε τέσσερα γκολ στη νίκη 28–21 επί του Δία Πολίχνης και ένα γκολ στην αναμέτρηση με την ΑΕΚ (29–35).",
+      "bio_en": "Left back for Archelaos Katerinis in the A2 and later the top-tier A1 handball division. In 2013 he scored four goals against Dias Polichnis (28–21) and one against AEK (29–35).",
       "category": "athlete",
-      "id": "arch-47a821a369e4"
+      "id": "arch-47a821a369e4",
+      "refs": [
+        {
+          "label": "Handball Chania · Αρχέλαος–Δίας Πολίχνης 28–21, 2013",
+          "url": "https://handballgsch.blogspot.com/2013/01/2.html"
+        },
+        {
+          "label": "Handball Chania · Αρχέλαος–ΑΕΚ 29–35, 2013",
+          "url": "https://handballgsch.blogspot.com/2013/09/?m=0"
+        }
+      ]
     },
     {
       "name": "Γιώργος Μελικιάν",
@@ -2472,8 +2553,8 @@
       "name_en": "Viktoria Batala",
       "role": "Προπονητικό επιτελείο · Στίβος",
       "role_en": "Coaching staff · Athletics",
-      "bio": "Καταγράφεται ανάμεσα στα πρόσωπα που στελέχωσαν το προπονητικό δυναμικό του στίβου του Αρχέλαου. Η συμμετοχή του/της ανήκει στην πολύχρονη παράδοση εκπαίδευσης αθλητών του συλλόγου.",
-      "bio_en": "Named among the coaches who worked with Archelaos Katerinis’ athletics programme, part of its longstanding tradition of athlete development.",
+      "bio": "Μέλος του προπονητικού δυναμικού του τμήματος στίβου του Γ.Α.Σ. «Αρχέλαος» Κατερίνης.",
+      "bio_en": "Worked with the coaching staff of the athletics department at G.A.S. Archelaos Katerinis.",
       "category": "coach",
       "id": "arch-cd8d2b2e4d33"
     },
