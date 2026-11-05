@@ -113,8 +113,9 @@ test('Brain must advertise verified private durable analytics capability',async(
   const prepared=await prepare();
   await assert.rejects(deliverToBrain(prepared,{}),/BRAIN_ANALYTICS_NOT_CONFIGURED/);
   let called=0;
-  const port={capabilities:async()=>({version:'old',authenticatedServiceBinding:true,durableSnapshotUpsert:true,receiptSignatureVerification:true}),
-    submitSnapshot:async()=>{called++;},verifyReceipt:async()=>true};
+  const port={capabilities:async()=>({version:'old',authenticatedServiceBinding:true,durableSnapshotUpsert:true,receiptSignatureVerification:true,immutableReceiptReadback:true}),
+    submitSnapshot:async()=>{called++;},verifyReceipt:async()=>true,
+    readbackSnapshot:async()=>({}),verifyReadback:async()=>true};
   await assert.rejects(deliverToBrain(prepared,port),/BRAIN_ANALYTICS_CAPABILITY_UNVERIFIED/);
   assert.equal(called,0);
 });
@@ -122,24 +123,67 @@ test('verified durable receipts only; snapshot UPSERT, never cumulative addition
   const prepared=await prepare();
   const calls=[];
   const port={capabilities:async()=>({version:'analytics.aggregate.v1',
-     authenticatedServiceBinding:true,durableSnapshotUpsert:true,receiptSignatureVerification:true}),
+     authenticatedServiceBinding:true,durableSnapshotUpsert:true,
+     receiptSignatureVerification:true,immutableReceiptReadback:true}),
     submitSnapshot:async(req)=>{
       calls.push(req);
       return {eventId:req.event.eventId,snapshotKey:req.snapshotKey,metricRevision:req.metricRevision,
         status:'ACCEPTED',durable:true,receiptId:'receipt-123456789'};
     },
-    verifyReceipt:async()=>true};
+    verifyReceipt:async()=>true,
+    readbackSnapshot:async({eventId,snapshotKey,receiptId})=>{
+      const req=calls.find(x=>x.event.eventId===eventId&&x.snapshotKey===snapshotKey);
+      return {receiptId,eventId,snapshotKey,metricRevision:req.metricRevision,
+        reportDigest:req.evidence.reportDigest,source:req.event.payload.source,
+        correlationId:req.event.correlationId,durable:true};
+    },
+    verifyReadback:async()=>true};
   const result=await deliverToBrain(prepared,port);
   assert.equal(result.delivered,2);
+  assert(result.receipts.every(x=>x.readbackVerified===true));
   assert(calls.every(x=>x.operation==='UPSERT_NOT_INCREMENT'));
   assert(calls.every(x=>!JSON.stringify(x).includes('private@example.org')));
   const fake={...port,verifyReceipt:async()=>false};
   await assert.rejects(deliverToBrain(prepared,fake),/UNVERIFIED_BRAIN_RECEIPT/);
 });
+test('Brain ACK must have independently signed durable readback of exact snapshot',async()=>{
+  const prepared=await prepare();
+  let current;
+  const port={capabilities:async()=>({version:'analytics.aggregate.v1',
+      authenticatedServiceBinding:true,durableSnapshotUpsert:true,
+      receiptSignatureVerification:true,immutableReceiptReadback:true}),
+    submitSnapshot:async(req)=>{
+      current=req;
+      return {eventId:req.event.eventId,snapshotKey:req.snapshotKey,
+        metricRevision:req.metricRevision,status:'ACCEPTED',durable:true,
+        receiptId:'receipt-123456789'};
+    },
+    verifyReceipt:async()=>true,
+    readbackSnapshot:async()=>({receiptId:'receipt-123456789',
+      eventId:current.event.eventId,snapshotKey:current.snapshotKey,
+      metricRevision:current.metricRevision,
+      reportDigest:current.evidence.reportDigest,
+      source:current.event.payload.source,
+      correlationId:current.event.correlationId,durable:true}),
+    verifyReadback:async()=>true};
+  await assert.rejects(deliverToBrain(prepared,{...port,
+    readbackSnapshot:async()=>{throw Error('connection reset');}}),
+    /BRAIN_READBACK_UNCERTAIN_RECONCILE_REQUIRED/);
+  await assert.rejects(deliverToBrain(prepared,{...port,
+    readbackSnapshot:async()=>({...await port.readbackSnapshot(),reportDigest:'0'.repeat(64)})}),
+    /UNVERIFIED_BRAIN_READBACK/);
+  await assert.rejects(deliverToBrain(prepared,{...port,verifyReadback:async()=>false}),
+    /UNVERIFIED_BRAIN_READBACK/);
+  await assert.rejects(deliverToBrain(prepared,{...port,
+    capabilities:async()=>({...await port.capabilities(),immutableReceiptReadback:false})}),
+    /BRAIN_ANALYTICS_CAPABILITY_UNVERIFIED/);
+});
 test('uncertain Brain delivery needs reconciliation rather than blind retry',async()=>{
   const port={capabilities:async()=>({version:'analytics.aggregate.v1',
-     authenticatedServiceBinding:true,durableSnapshotUpsert:true,receiptSignatureVerification:true}),
-    submitSnapshot:async()=>{throw Error('timeout');},verifyReceipt:async()=>true};
+     authenticatedServiceBinding:true,durableSnapshotUpsert:true,
+     receiptSignatureVerification:true,immutableReceiptReadback:true}),
+    submitSnapshot:async()=>{throw Error('timeout');},verifyReceipt:async()=>true,
+    readbackSnapshot:async()=>({}),verifyReadback:async()=>true};
   await assert.rejects(deliverToBrain(await prepare(),port),/RECONCILE_REQUIRED/);
 });
 test('Google Ads is disabled pending approved reader and actual campaign reporting',()=>{
