@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { appsScriptExtension, isAppsScriptRequest } from '../../automation/apps-script/interface.mjs';
+import { ScriptFault } from '../../automation/apps-script/security.mjs';
 
 const origin='https://archelaos-automation-bridge.dimitriszgalanis.workers.dev';
 const session='__Host-archelaos-script-session=synthetic';
@@ -12,7 +13,7 @@ function fixture(){
   const route=appsScriptExtension({
     oauth:{access:async cookies=>{
       calls.oauth++;
-      if(cookies!==session)throw {code:'ADMIN_SESSION_REQUIRED',status:401};
+      if(cookies!==session)throw new ScriptFault('ADMIN_SESSION_REQUIRED',401);
       return grant;
     }},
     readInventory:async authenticated=>{
@@ -38,10 +39,12 @@ test('browser Admin session can read sanitized source inventory, no source/secre
   assert.equal(data.installableTriggersComplete,false);
   assert.equal(data.externalWriterExclusionVerified,false);
   assert.equal(data.liveWritesEnabled,false);
-  const text=JSON.stringify(data);
-  for(const forbidden of ['SYNTHETIC_INTERNAL_TOKEN','scriptId','projectId','sourceHash',
-    'files','metadata','backups','triggerNames','admin@example.invalid'])
-    assert.equal(text.includes(forbidden),false);
+  const serialized=JSON.stringify(data);
+  for(const forbidden of ['SYNTHETIC_INTERNAL_TOKEN','admin@example.invalid'])
+    assert.equal(serialized.includes(forbidden),false);
+  for(const forbidden of ['scriptId','projectId','sourceHash','files',
+    'backups','triggerNames','adminEmail','oauthToken'])
+    assert.equal(Object.hasOwn(data,forbidden),false);
   assert.equal(calls.oauth,1);assert.equal(calls.read,1);assert.equal(calls.writer,0);
 });
 test('missing or incorrect session fails before private inventory read',async()=>{
