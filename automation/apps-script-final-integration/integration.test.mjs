@@ -6,7 +6,7 @@ const OP = 'c87bf310-5124-48b4-a57c-871c8370d5ce';
 const EVENT = 'd92d79a1-2148-59b8-8f57-ae104d836207';
 const RECEIPT = 'ad48ec51-171c-461e-8e1b-4b14586e9ec8';
 const now = 2000000000000;
-const base = () => ({ verified: true, origin: 'TRUSTED_PRIVATE_STORE', projectFingerprint: H });
+const base = () => ({ verified: true, origin: 'TRUSTED_PRIVATE_STORE', projectFingerprint: H, observedAtMs: now - 2000 });
 function evidence() {
   const e = {
     control: {...base(), paused: false, liveWritesEnabled: false},
@@ -16,7 +16,7 @@ function evidence() {
     trigger: {...base(), completeAcrossAccounts:true, fingerprint:V},
     writer: {...base(), coversExternalIdeAndApiWriters:true, expiresAt:now + 120000},
     auth: {...base(), independentApproval:true, selfApproved:false, projectScoped:true, signedCommandDigestVerified:true, baseSourceHash:T, expiresAt:now + 120000},
-    rollback: {...base(), readbackVerified:true, fullManifestPreserved:true, triggerFingerprint:V, expiresAt:now + 120000},
+    rollback: {...base(), readbackVerified:true, fullManifestPreserved:true, triggerFingerprint:V, restoredSourceHash:T, expiresAt:now + 120000},
     brain: {...base(), transport:'PRIVATE_SERVICE_BINDING', source:'apps_script', status:'ACCEPTING', authenticated:true, deploymentDigest:H}
   };
   const ports = () => Object.fromEntries(Object.entries(e).map(([k,v]) => [({control:'readControls',grant:'readGrantProof',source:'readSourceProof',backup:'readBackupProof',trigger:'readTriggerProof',writer:'readWriterProof',auth:'readAuthorizationProof',rollback:'readRollbackProof',brain:'readBrainProof'})[k], async()=>v]));
@@ -32,6 +32,13 @@ for (const [name, change, code] of [
   ['triggers',e=>e.trigger.completeAcrossAccounts=false,'TRIGGERS_NOT_VERIFIED'],
   ['grant',e=>e.grant.scopes=[],'ADMIN_SCOPE_NOT_VERIFIED'],
   ['backup drift',e=>e.backup.sourceHash=V,'BACKUP_NOT_VERIFIED'],
+  ['source revision changed',e=>e.source.sourceHash=V,'BACKUP_NOT_VERIFIED'],
+  ['stale source',e=>e.source.observedAtMs=now-900000,'SOURCE_NOT_VERIFIED'],
+  ['stale backup',e=>e.backup.observedAtMs=now-900000,'BACKUP_NOT_VERIFIED'],
+  ['stale triggers',e=>e.trigger.observedAtMs=now-900000,'TRIGGERS_NOT_VERIFIED'],
+  ['failed rollback readback',e=>e.rollback.readbackVerified=false,'ROLLBACK_NOT_VERIFIED'],
+  ['rollback restored wrong revision',e=>e.rollback.restoredSourceHash=V,'ROLLBACK_NOT_VERIFIED'],
+  ['stale Brain deployment proof',e=>e.brain.observedAtMs=now-900000,'BRAIN_PRIVATE_INTAKE_NOT_VERIFIED'],
   ['wrong owner',e=>e.auth.projectFingerprint=V,'SIGNED_SCOPED_AUTH_NOT_VERIFIED'],
   ['self approval',e=>e.auth.selfApproved=true,'SIGNED_SCOPED_AUTH_NOT_VERIFIED'],
   ['rollback',e=>e.rollback.triggerFingerprint=H,'ROLLBACK_NOT_VERIFIED'],
