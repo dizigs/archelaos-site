@@ -73,7 +73,7 @@ export function createBrainWorkerAdapter({ workerName, sourceType, brainService,
     const ts = String(Math.floor(clock() / 1000));
     if (!/^\d{10}$/.test(ts)) throw new IntegrationBlocked('INVALID_CLOCK');
     const key = await crypto.subtle.importKey('raw', encode(intakeKey), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
-    const signature = await crypto.subtle.sign('HMAC', key, encode(`${method}\\n${path}\\n${ts}\\n${raw}`));
+    const signature = await crypto.subtle.sign('HMAC', key, encode(`${method}\n${path}\n${ts}\n${raw}`));
     const hex = [...new Uint8Array(signature)].map(b => b.toString(16).padStart(2, '0')).join('');
     return new Request(TARGET + path, { method, headers: {
       'x-archelaos-key-id': 'staging-v1', 'x-archelaos-timestamp': ts,
