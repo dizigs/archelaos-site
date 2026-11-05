@@ -2,7 +2,7 @@ import { DurableObject } from 'cloudflare:workers';
 import { Rejected, UUID, authenticate, boundedBody, digest, reply, route, validateEvent } from './contract.mjs';
 import { claimBudgetCall, reserveBudget, settleBudget } from './budget.mjs';
 import { readTaskIntent, storeTaskIntent } from './task_intents.mjs';
-import { EXEC_SCHEMA, submitExecutionIntent, approveExecutionIntent, claimExecutionIntent, beginExecutionCall, finishExecutionIntent, reconcileExecutionIntent, inspectExecutionIntent, executionDiagnostics, recoverExecutionLeases } from './exec_authority.mjs';
+import { EXEC_SCHEMA, submitExecutionIntent, approveExecutionIntent, claimExecutionIntent, beginExecutionCall, finishExecutionIntent, reconcileExecutionIntent, inspectExecutionIntent, executionDiagnostics, recoverExecutionLeases, signIntegrationReceipt } from './exec_authority.mjs';
 
 const SCHEMA = [
   'CREATE TABLE IF NOT EXISTS jobs(id TEXT PRIMARY KEY,source TEXT NOT NULL,type TEXT NOT NULL,correlation TEXT NOT NULL,envelope TEXT NOT NULL,status TEXT NOT NULL,attempts INTEGER NOT NULL DEFAULT 0,due INTEGER NOT NULL,lease_until INTEGER NOT NULL DEFAULT 0,created INTEGER NOT NULL,updated INTEGER NOT NULL,route TEXT NOT NULL,code TEXT NOT NULL)',
@@ -135,6 +135,14 @@ export class BrainCoordinator extends DurableObject {
         if (request.method === 'GET' && path === '/internal/exec/diagnostics') return reply(executionDiagnostics(this.ctx.storage));
         if (request.method === 'GET' && path.startsWith('/internal/exec/intents/'))
           return reply(inspectExecutionIntent(this.ctx.storage, path.slice('/internal/exec/intents/'.length)));
+        if (request.method === 'GET' && path.startsWith('/internal/exec/authorizations/')) {
+          const synthetic = this.env.TEST_BUDGET === 'true' && this.env.BRAIN_EXECUTION_ADMISSION === 'synthetic';
+          const enabled = synthetic || (this.env.ENVIRONMENT === 'staging' &&
+            this.env.BRAIN_EXECUTION_ADMISSION === 'enabled' && this.env.CENTRAL_LEDGER_VERIFIED === 'true');
+          if (!enabled) throw new Rejected('EXECUTION_ADMISSION_DISABLED', 423);
+          return reply(await signIntegrationReceipt(this.ctx.storage,
+            path.slice('/internal/exec/authorizations/'.length), this.env.BRAIN_EXECUTOR_SIGNING_KEY));
+        }
         if (request.method !== 'POST') throw new Rejected('NOT_FOUND', 404);
         let input; try { input = await request.json(); } catch { throw new Rejected('INVALID_JSON', 422); }
         if (path === '/internal/exec/intents') return reply(await submitExecutionIntent(this.ctx.storage, input), 202);
@@ -274,7 +282,9 @@ export default {
       const execGet = request.method === 'GET' &&
         (url.pathname === '/v1/exec/diagnostics' ||
          (url.pathname.startsWith('/v1/exec/intents/') &&
-          UUID.test(url.pathname.slice('/v1/exec/intents/'.length))));
+          UUID.test(url.pathname.slice('/v1/exec/intents/'.length))) ||
+         (url.pathname.startsWith('/v1/exec/authorizations/') &&
+          UUID.test(url.pathname.slice('/v1/exec/authorizations/'.length))));
       const existingRoute = ((['GET','POST'].includes(request.method) && url.pathname === '/v1/control') ||
         (request.method === 'POST' && ['/v1/events','/v1/task-intents'].includes(url.pathname)) ||
         (request.method === 'GET' && (url.pathname === '/v1/diagnostics' ||
