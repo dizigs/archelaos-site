@@ -62,14 +62,26 @@ async function run() {
   if (!githubToken) throw new Error('GITHUB_TOKEN_NOT_CONFIGURED');
 
   // Do not spend browser quota when the exact-SHA GitHub checks are blocked.
-  const checkData = await readJson(
-    'https://api.github.com/repos/' + REPO + '/commits/' + sha + '/check-runs?per_page=100',
-    { headers: { Authorization: 'Bearer ' + githubToken,
-      Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' } },
-    'GITHUB_CHECKS');
-  if (!Number.isSafeInteger(checkData.total_count) || checkData.total_count > 100 ||
-      !Array.isArray(checkData.check_runs)) throw new Error('INCOMPLETE_GITHUB_CHECKS');
-  const checks = evaluateChecks(checkData.check_runs, sha);
+  // Allow independently scheduled CI workflows to reach a terminal result.
+  // No browser call is made until every required check is successful on
+  // the exact commit; the bounded poll never treats pending/missing as PASS.
+  let checks;
+  for (let attempt = 1; attempt <= 18; attempt++) {
+    const checkData = await readJson(
+      'https://api.github.com/repos/' + REPO + '/commits/' + sha + '/check-runs?per_page=100',
+      { headers: { Authorization: 'Bearer ' + githubToken,
+        Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' } },
+      'GITHUB_CHECKS');
+    if (!Number.isSafeInteger(checkData.total_count) || checkData.total_count > 100 ||
+        !Array.isArray(checkData.check_runs)) throw new Error('INCOMPLETE_GITHUB_CHECKS');
+    checks = evaluateChecks(checkData.check_runs, sha);
+    if (checks.ok) break;
+    const permanentlyFailed = checks.matrix.some(x => x.evidence === 'completed/failure' ||
+      x.evidence === 'completed/cancelled' || x.evidence === 'completed/timed_out' ||
+      x.evidence === 'completed/neutral' || x.evidence === 'completed/skipped');
+    if (permanentlyFailed || attempt === 18) break;
+    await new Promise(resolve => setTimeout(resolve, 10000));
+  }
   process.stdout.write('GitHub exact-SHA checks: ' + JSON.stringify(checks) + '\n');
   if (!checks.ok) throw new Error('EXACT_SHA_CHECKS_BLOCKED');
   if (!/^[a-f0-9]{32}$/.test(account) || !token) {
