@@ -1,5 +1,8 @@
 import {validateDraft,validateAnalytics,descriptor} from './contract.mjs';
 import {stagingReady,liveReady,sendAdsOperation,keywordIdeaRequest,readKeywordIdeas} from './google-ads-api.mjs';
+import {readAccountBudget,assertGrantBudget} from './budget-guard.mjs';
+import {verifyApprovedLanding} from './landing-guard.mjs';
+import {readBackMutation} from './readback.mjs';
 
 const exact=(object,keys)=>object&&typeof object==='object'&&!Array.isArray(object)&&
   Object.keys(object).every(key=>keys.includes(key));
@@ -80,6 +83,12 @@ export async function dispatch(envelope,env,ports={},now=Date.now()){
   if(action.mode==='keyword_ideas_read') return {status:'KEYWORD_PLANNER_READ_ONLY',correlationId:action.correlationId,
     receipt:await (ports.planner||readKeywordIdeas)(env,action.plannerSeed,{fetcher:ports.fetch}),
     adsMutation:false,aiCostEur:0};
+  if(action.mode==='budget_audit_read'){
+    const snapshot=await (ports.budgetAudit||readAccountBudget)(env,{fetcher:ports.fetch});
+    const summary=assertGrantBudget(snapshot,{kind:'audit',action:'read'},Date.now());
+    return {status:'BUDGET_AUDIT_READ_ONLY',correlationId:action.correlationId,
+      receipt:summary,adsMutation:false,aiCostEur:0};
+  }
   raise(['validate_only','apply','rollback_preview'].includes(action.mode),'UNKNOWN_MODE');
   raise(stagingReady(env),'ADS_STAGING_DISABLED');
   const spec=operationShape(action,env);
@@ -96,10 +105,28 @@ export async function dispatch(envelope,env,ports={},now=Date.now()){
       correlationId:action.correlationId,receipt:outcome,adsMutation:false,aiCostEur:0};
   }
   raise(liveReady(env),'ADS_LIVE_DISABLED');
+  // Operational grant status and no-card billing are verified independently of
+  // the USD currency and the public Google Ads customer status.
+  raise(env.ADS_GRANTS_ENTITLEMENT_RECEIPT_VERIFIED==='true' &&
+    env.ADS_NO_PAYMENT_METHOD_VERIFIED==='true' &&
+    env.ADS_BUDGET_AUDIT_READ_ENABLED==='true',
+    'ADS_GRANTS_BILLING_OR_BUDGET_PROOF_MISSING');
   raise(typeof action.approvalId==='string'&&/^[A-Za-z0-9_-]{12,96}$/.test(action.approvalId) &&
     typeof action.approvalExpiresAt==='string'&&Number.isFinite(Date.parse(action.approvalExpiresAt)) &&
     Date.parse(action.approvalExpiresAt)>=now && Date.parse(action.approvalExpiresAt)<=now+86400000,
   'CHANGE_APPROVAL_INVALID');
+  // Re-read real account-wide budgets and spend before claiming ANY mutation.
+  // No fixture or preview value is accepted as proof of account-level capacity.
+  const snapshot=await (ports.budgetAudit||readAccountBudget)(env,{fetcher:ports.fetch});
+  const budgetReceipt=assertGrantBudget(snapshot,action.operation,Date.now());
+  // The signed operator intent must approve the *current page bytes*; a
+  // domain-only allowlist is not sufficient to create an actual RSA.
+  let landingReceipt=null;
+  if(action.operation.kind==='rsa'&&action.operation.action==='create'){
+    landingReceipt=await (ports.checkLanding||verifyApprovedLanding)(
+      action.operation.input.finalUrl,action.operation.input.landingContentSha256,
+      {fetcher:ports.fetch});
+  }
   // New/adapted entities are PAUSED; this adapter never enables serving campaigns.
   const claimed=await durableClaim(env,action,spec,now);
   if(!claimed.claimed)return {status:claimed.receipt.status,correlationId:action.correlationId,
@@ -107,12 +134,24 @@ export async function dispatch(envelope,env,ports={},now=Date.now()){
   let result,status='NEEDS_RECONCILIATION';
   try{
     result=await (ports.send||sendAdsOperation)(env,action.operation,{validateOnly:false,fetcher:ports.fetch});
-    status=result.ok?'APPLIED':(result.status>=400&&result.status<500?'REJECTED':'NEEDS_RECONCILIATION');
+    status=result.ok?'NEEDS_RECONCILIATION':
+      (result.status>=400&&result.status<500?'REJECTED':'NEEDS_RECONCILIATION');
+    if(result.ok) {
+      // No blind retries: a successful mutate needs readback to be considered applied.
+      try{
+        await (ports.readback||readBackMutation)(env,action.operation,result,{fetcher:ports.fetch});
+        status='APPLIED';
+      }catch{
+        status='NEEDS_RECONCILIATION';
+      }
+    }
   }catch{
     result={ok:false,requestId:null,resourceNames:[],applied:false};
   }
   await durableFinish(env,action,result,status);
   return {status,correlationId:action.correlationId,receipt:{idempotencyKey:action.idempotencyKey,
-      requestId:result.requestId||null,resourceNames:result.resourceNames||[],applied:status==='APPLIED'},
-    adsMutation:status==='APPLIED',aiCostEur:0};
+      requestId:result.requestId||null,resourceNames:result.resourceNames||[],
+      applied:status==='APPLIED',mutationMayHaveOccurred:
+        status==='NEEDS_RECONCILIATION'&&result.ok===true},
+    budgetReceipt,landingReceipt,adsMutation:status==='APPLIED',aiCostEur:0};
 }

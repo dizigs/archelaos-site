@@ -16,10 +16,19 @@ const sign=async(action,now=Date.now())=>{
 const corr='issue216-correlation-01';
 const grant={...env,ADS_STAGING_ENABLED:'true',ADS_ACCOUNT_KIND:'AD_GRANTS',
   ADS_CUSTOMER_ID:'1234567890',ADS_API_ACCESS_VERIFIED:'true',
-  ADS_OAUTH_SCOPE_VERIFIED:'true',ADS_CUSTOMER_CURRENCY:'USD'};
+  ADS_OAUTH_SCOPE_VERIFIED:'true',ADS_CUSTOMER_CURRENCY:'USD',
+  ADS_OAUTH_MODE:'USER_REFRESH_TOKEN'};
 const live={...grant,ADS_LIVE_ENABLED:'true',ADS_STAGING_TEST_RECEIPT_VERIFIED:'true',
-  ADS_POLICY_REVIEW_VERIFIED:'true',ADS_KILL_SWITCH:'off',ADS_APPROVED_CHANGE_CONTROL:'true'};
+  ADS_POLICY_REVIEW_VERIFIED:'true',ADS_KILL_SWITCH:'off',ADS_APPROVED_CHANGE_CONTROL:'true',
+  ADS_GRANTS_ENTITLEMENT_RECEIPT_VERIFIED:'true',ADS_NO_PAYMENT_METHOD_VERIFIED:'true',
+  ADS_BUDGET_AUDIT_READ_ENABLED:'true'};
 
+function mockBudgetAudit(){
+  return {source:'GOOGLE_ADS_API_GAQL',customerId:'1234567890',currency:'USD',
+    observedAt:new Date().toISOString(),actualSpendObserved:true,
+    budgets:[{resourceName:'customers/1234567890/campaignBudgets/2',amountMicros:100000000}],
+    spentTodayMicros:0,spentMonthMicros:0};
+}
 function mockD1(){
   const rows=new Map();
   return {rows,prepare(sql){
@@ -66,8 +75,14 @@ test('exact URL allowlist rejects external, URL params and deceptive subdomains'
 });
 test('only paused Search campaigns, ads and structured keywords can be created',()=>{
   const campaign=descriptor('campaign','create',{name:'Αρχέλαος αθλητισμός',
-    campaignBudget:'customers/1234567890/campaignBudgets/42'},'1234567890');
+    campaignBudget:'customers/1234567890/campaignBudgets/42',
+    containsEuPoliticalAdvertising:'DOES_NOT_CONTAIN_EU_POLITICAL_ADVERTISING'},'1234567890');
   assert.equal(campaign.body.operations[0].create.status,'PAUSED');
+  assert.equal(campaign.body.operations[0].create.containsEuPoliticalAdvertising,
+    'DOES_NOT_CONTAIN_EU_POLITICAL_ADVERTISING');
+  assert.throws(()=>descriptor('campaign','create',{name:'Αρχέλαος Κατερίνης',
+    campaignBudget:'customers/1234567890/campaignBudgets/42'},'1234567890'),
+    /EU_POLITICAL_DECLARATION_REQUIRED/);
   assert.equal(campaign.body.operations[0].create.advertisingChannelType,'SEARCH');
   assert.equal(campaign.body.operations[0].create.networkSettings.targetPartnerSearchNetwork,false);
   assert.equal(campaign.body.operations[0].create.networkSettings.targetContentNetwork,false);
@@ -138,7 +153,8 @@ test('validating an Ads mutation calls OAuth once and Google validateOnly once',
   const e={...grant,ADS_OAUTH_CLIENT_ID:'mock',ADS_OAUTH_CLIENT_SECRET:'mock',
     ADS_OAUTH_REFRESH_TOKEN:'mock'};
   const result=await sendAdsOperation(e,{kind:'campaign',action:'create',
-    input:{name:'Αρχέλαος Κατερίνης',campaignBudget:'customers/1234567890/campaignBudgets/2'}},
+    input:{name:'Αρχέλαος Κατερίνης',campaignBudget:'customers/1234567890/campaignBudgets/2',
+      containsEuPoliticalAdvertising:'DOES_NOT_CONTAIN_EU_POLITICAL_ADVERTISING'}},
     {fetcher,validateOnly:true});
   assert.equal(result.applied,false);assert.equal(result.requestId,'mock-google-request-id');
   assert.equal(seen.length,2);
@@ -150,12 +166,13 @@ test('failed or unknown outcome is not auto retried; claim is durable',async()=>
   const db=mockD1();
   const action={mode:'apply',correlationId:corr,
     operation:{kind:'campaign',action:'create',input:{
-      name:'Αρχέλαος Κατερίνης',campaignBudget:'customers/1234567890/campaignBudgets/2'}},
+      name:'Αρχέλαος Κατερίνης',campaignBudget:'customers/1234567890/campaignBudgets/2',
+      containsEuPoliticalAdvertising:'DOES_NOT_CONTAIN_EU_POLITICAL_ADVERTISING'}},
     idempotencyKey:'issue216-idempotency-001',approvalId:'approved-change-216',
     approvalExpiresAt:new Date(Date.now()+60000).toISOString()};
   const e={...live,ADS_D1:db};
   let calls=0;
-  const ports={send:async()=>{calls++;throw Error('network maybe committed')}};
+  const ports={budgetAudit:async()=>mockBudgetAudit(),send:async()=>{calls++;throw Error('network maybe committed')}};
   const signed=await sign(action);
   const first=await dispatch(signed,e,ports);
   assert.equal(first.status,'NEEDS_RECONCILIATION');
@@ -171,7 +188,8 @@ test('idempotency conflict cannot overwrite earlier claimed mutation',async()=>{
       input:{resourceName:'customers/1234567890/campaigns/44'}},
     idempotencyKey:'issue216-idempotency-002',approvalId:'approved-change-216',
     approvalExpiresAt:new Date(Date.now()+60000).toISOString()};
-  const ports={send:async()=>({ok:true,requestId:'mock',resourceNames:[],
+  const ports={budgetAudit:async()=>mockBudgetAudit(),readback:async()=>({verified:true}),
+    send:async()=>({ok:true,requestId:'mock',resourceNames:[],
     applied:true})};
   assert.equal((await dispatch(await sign(base),e,ports)).status,'APPLIED');
   assert.equal((await dispatch(await sign(base),e,ports)).receipt.replayed,true);
@@ -184,6 +202,7 @@ test('Keyword Planner is gated, observes only mock Google response and never mut
   const seed={landing:'https://archelaos.club/history.html',keywords:['ιστορία συλλόγου Κατερίνης'],geoIds:['2300']};
   await assert.rejects(()=>readKeywordIdeas(grant,seed),/KEYWORD_PLANNER_DISABLED/);
   const allowed={...grant,ADS_KEYWORD_PLANNER_READ_ENABLED:'true',
+    ADS_API_ACCESS_LEVEL:'BASIC',
     ADS_OAUTH_CLIENT_ID:'mock-id',ADS_OAUTH_CLIENT_SECRET:'mock-secret',
     ADS_OAUTH_REFRESH_TOKEN:'mock-refresh'};
   const called=[];
@@ -196,6 +215,8 @@ test('Keyword Planner is gated, observes only mock Google response and never mut
         keywordIdeaMetrics:{avgMonthlySearches:120,competition:'LOW'}}]
     })};
   };
+  await assert.rejects(()=>readKeywordIdeas({...allowed,ADS_API_ACCESS_LEVEL:'EXPLORER'},
+    seed,{fetcher}),/KEYWORD_PLANNER_REQUIRES_BASIC_OR_STANDARD/);
   const data=await readKeywordIdeas(allowed,seed,{fetcher});
   assert.equal(data.ok,true);assert.equal(data.observed,true);
   assert.equal(data.ideas[0].monthlySearches,120);

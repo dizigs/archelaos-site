@@ -113,7 +113,12 @@ export function descriptor(kind,action,input,customer) {
     } else if(kind==='campaign'){
       scopedName(customer,'budget',input.campaignBudget);
       requireTrue(typeof input.name==='string' && input.name.length>=3 && input.name.length<=255,'INVALID_NAME');
+      // v26 requires an EU political-ads self-declaration for EU targeting.
+      // Never infer or silently default the operator's declaration.
+      requireTrue(input.containsEuPoliticalAdvertising==='DOES_NOT_CONTAIN_EU_POLITICAL_ADVERTISING',
+        'EU_POLITICAL_DECLARATION_REQUIRED');
       operation={create:{name:input.name,status:'PAUSED',advertisingChannelType:'SEARCH',
+        containsEuPoliticalAdvertising:input.containsEuPoliticalAdvertising,
         campaignBudget:input.campaignBudget,networkSettings:{targetGoogleSearch:true,targetSearchNetwork:false,
           targetContentNetwork:false,targetPartnerSearchNetwork:false},manualCpc:{}}};
     } else if(kind==='adGroup'){
