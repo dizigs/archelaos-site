@@ -56,9 +56,9 @@ test('max 2 pages and no runaway harvesting', async () => {
 test('429 is retried once, honoring bounded retry-after', async () => {
   let calls=0; const waits=[];
   const client=createStagingClient(config({now:()=>0,sleep:async ms=>waits.push(ms),fetchImpl:async()=>{calls++;
-    return calls===1 ? {ok:false,status:429,headers:{get:()=> '30'}}:ok({items:[item]});}}));
+    return calls===1 ? {ok:false,status:429,headers:{get:()=> '2'}}:ok({items:[item]});}}));
   assert.equal((await client.search('Πιερία')).length,1);
-  assert.equal(calls,2); assert.ok(waits.includes(3000));
+  assert.equal(calls,2); assert.ok(waits.includes(2000));
 });
 test('401 stops and never leaks a key in error text', async () => {
   let calls=0;
@@ -76,4 +76,13 @@ test('memory cache prevents duplicate calls within TTL', async () => {
   let calls=0;
   const client=createStagingClient(config({fetchImpl:async()=>{calls++;return ok({items:[item]});}}));
   await client.search('Archelaos'); await client.search('Archelaos');assert.equal(calls,1);
+});
+test('long or date Retry-After fails closed without ignoring provider backoff', async () => {
+  for (const retryAfter of ['30', 'Wed, 21 Oct 2030 07:28:00 GMT']) {
+    let calls=0;
+    const client=createStagingClient(config({fetchImpl:async()=>{calls++;
+      return {ok:false,status:429,headers:{get:()=>retryAfter}};}}));
+    await assert.rejects(client.search('Pieria'),/BACKOFF_REQUIRED/);
+    assert.equal(calls,1);
+  }
 });
