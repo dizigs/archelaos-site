@@ -6,10 +6,10 @@ export function stagingReady(env) {
     env?.ADS_OAUTH_SCOPE_VERIFIED==='true' && env?.ADS_CUSTOMER_CURRENCY==='USD';
 }
 export function liveReady(env) {
-  return stagingReady(env) && env?.ADS_LIVE_ENABLED==='true' &&
+  return Boolean(stagingReady(env) && env?.ADS_LIVE_ENABLED==='true' &&
     env?.ADS_STAGING_TEST_RECEIPT_VERIFIED==='true' &&
     env?.ADS_POLICY_REVIEW_VERIFIED==='true' && env?.ADS_KILL_SWITCH==='off' &&
-    env?.ADS_APPROVED_CHANGE_CONTROL==='true' && env?.ADS_D1;
+    env?.ADS_APPROVED_CHANGE_CONTROL==='true' && env?.ADS_D1);
 }
 /** Tokens are fetched only after all staging entitlement gates; never logged. */
 export async function adsAccessToken(env, fetcher=fetch) {
@@ -28,7 +28,7 @@ export async function adsAccessToken(env, fetcher=fetch) {
 /** Never retry an ambiguous mutation -- server might have committed the first request. */
 export async function sendAdsOperation(env, spec, {fetcher=fetch,validateOnly=true}={}) {
   ok(stagingReady(env),'ADS_STAGING_DISABLED');
-  ok(spec?.customer===env.ADS_CUSTOMER_ID,'ADS_CUSTOMER_MISMATCH');
+  ok(spec && (!Object.hasOwn(spec,'customer') || spec.customer===env.ADS_CUSTOMER_ID),'ADS_CUSTOMER_MISMATCH');
   const safe=descriptor(spec.kind,spec.action,spec.input,env.ADS_CUSTOMER_ID);
   ok(validateOnly || liveReady(env),'ADS_LIVE_DISABLED');
   safe.body.validateOnly=validateOnly;
