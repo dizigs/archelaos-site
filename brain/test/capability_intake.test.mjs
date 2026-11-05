@@ -191,7 +191,19 @@ test('Apps Script opaque receipts are durable, idempotent and never perform Goog
     }, 'apps-script-v1')).json();
     assert.equal(readback.audience, 'apps-script.receipt.readback.v1');
     assert.equal(readback.sourceRevision, app.sourceRevision);
+    assert.equal(readback.source, 'apps_script');
+    assert.equal(readback.transport, 'PRIVATE_SERVICE_BINDING');
     assert.equal(readback.durable, true);
+    const fromOperation = await (await send('/v1/apps-script/readback', {
+      eventId: app.eventId, operationId: app.correlationId
+    }, 'apps-script-v1')).json();
+    assert.equal(fromOperation.receiptId, first.receiptId);
+    // PR #227 consumes a verified 8-field projection, never the raw signed
+    // HTTP receipt including authentication metadata.
+    const proof = Object.fromEntries(['eventId','correlationId','receiptId','source',
+      'sourceRevision','transport','status','durable'].map(k => [k, fromOperation[k]]));
+    assert.equal(Object.keys(proof).length, 8);
+    assert.equal(proof.transport, 'PRIVATE_SERVICE_BINDING');
     const {receiptSignature, ...signed} = readback;
     assert.equal(receiptSignature, createHmac('sha256', RECEIPT_KEY).update(
       readback.audience + '\n' + JSON.stringify(signed)).digest('hex'));
