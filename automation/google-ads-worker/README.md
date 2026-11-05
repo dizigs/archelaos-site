@@ -152,3 +152,27 @@ billing receipt, no approved production landing-page QA, no tested shared
 Brain authorization and account-level writer lease, no readback/undo E2E,
 and no staging D1 resource/deployment. This follow-up remains OFFLINE;
 do not set any of the new switches to true without the corresponding evidence.
+
+## Live RSA landing and post-mutation readback (offline-tested only)
+
+A reviewed, signed Brain `apply` for a responsive search ad now must provide
+`operation.input.landingContentSha256`: the lowercase SHA-256 of the exact
+editorially approved UTF-8 HTML of `operation.input.finalUrl`. Immediately
+before mutation the Worker requests the exact allowlisted HTTPS landing with
+`redirect: manual`; it requires HTTP 200, HTML, substantial body content,
+and an exact SHA-256 match. A changed or inaccessible landing fails closed.
+This enforces byte-level reapproval for the currently published page, not
+historical editorial truth or a claim about what the page says.
+
+A Google Ads mutation API response is not alone enough to mark the D1 receipt
+`APPLIED`. The executor now performs one authenticated, scoped read-only
+`googleAds:search` readback for the exact returned resource. Campaigns, ad
+groups, RSAs and keywords must be **PAUSED**; budgets must have the requested
+exact amount and enabled budget record. Any failed, missing or contradictory
+readback is recorded `NEEDS_RECONCILIATION`, with the possibility that the
+mutation already happened; **no automatic retry or destructive rollback**.
+The existing `rollback_preview` remains a manual proposal only. An eventual
+real undo needs operator approval, known exact resource IDs and state checks.
+
+These guards have mocked/offline CI coverage; **no live Google Ads validateOnly,
+readback, Keyword Planner, ads write or rollback has been executed**.
