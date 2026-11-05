@@ -175,9 +175,13 @@ export async function preparePrivateExport({source,artifactBytes,runId,artifactI
   const events=[];
   for(const report of reports) {
     const event=await buildBrainAnalyticsEvent(report,new Date(evidence.run.completedAt).toISOString());
+    // A fully suppressed cohort is not an Analytics event. Never hand off
+    // an empty GA4/GSC snapshot (even when its source artifact was valid).
+    if (event.payload.metrics.length === 0) continue;
     events.push({event,snapshotKey:report.source+'|'+report.period.from+'|'+report.period.to,
       metricRevision:await digest(JSON.stringify(event.payload.metrics))});
   }
+  if (events.length === 0) fail('NO_VERIFIABLE_AGGREGATE_ROWS');
   return {schemaVersion:1,verified:true,evidence:{
     repository:'dizigs/archelaos-site',runId,artifactId,runSha:evidence.run.headSha,
     reportDigest:hash,workflow:SOURCE[source].workflow,observedAt:new Date(evidence.run.completedAt).toISOString()
