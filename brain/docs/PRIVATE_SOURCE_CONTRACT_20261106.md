@@ -53,7 +53,7 @@ A generic source key cannot call \`/v1/control\`, \`/v1/exec/**\`, \`/v1/diagnos
 | POST \`/v1/analytics/readback\` | analytics-v1 | Exact \`{receiptId,eventId,snapshotKey}\`; signed immutable version metadata including \`isCurrent\` |
 | GET \`/v1/capabilities/apps-script\` | apps-script-v1 | Exact five-field capability in #201; deployed SHA digest refers to the configured Worker, not provider approval |
 | POST \`/v1/intake/apps-script\` | apps-script-v1 | Exact opaque eight-field #201 event. **ACK stays exactly five fields** \`{receiptId,correlationId,status,durable,duplicate}\` |
-| POST \`/v1/apps-script/readback\` | apps-script-v1 | \`{receiptId,eventId,operationId}\`; signed persistent source revision/phase metadata |
+| POST \`/v1/apps-script/readback\` | apps-script-v1 | \`{eventId,operationId}\` for #227 or \`{receiptId,eventId,operationId}\` for explicit lookup; both return a separately signed immutable receipt |
 | POST \`/v1/events\` | drive/gmail/news/site/github-v1 | Legacy canonical 9-field metadata envelope, must match authenticated source and event allowlist; signed HTTP ACK |
 | GET \`/v1/source-receipts/{uuid}\` | same source principal | Source-filtered durable job receipt, signed; reading another source yields 404 |
 
@@ -91,3 +91,12 @@ The #201 Apps Script ACK stays unchanged and unsigned for strict API compatibili
 - **Central release captain:** only designated owner may merge, configure staging/production, change secrets, enable any capability or AI. Required exact-head CI, CodeQL, Sonar and staged credential-free readbacks must pass before any review decision.
 
 **Status matrix:** contract CODE-READY after this PR's exact HEAD hosted gates; RUNTIME-BLOCKED until independent Cloudflare bindings/secrets, current approved staging SHA/expiry, source provenance, privacy approval and actual private signed write→restart→readback. No production deploy, no AI inference or billing permission.
+
+## Exact #227 \`readBrainReceipt\` compatibility
+
+#227's \`readBrainReceipt({operationId,eventId})\` trusted port can call POST \`/v1/apps-script/readback\` with \`{operationId,eventId}\` and independently verify the response HMAC, audience \`apps-script.receipt.readback.v1\`, principal, key ID, timestamp, event ID, operation ID and origin. After verification it MUST project **only** the eight fields required by #227:
+
+\`{eventId,correlationId,receiptId,source,sourceRevision,transport,status,durable}\`.
+
+Do NOT pass the raw signed HTTP body to #227 because its \`sendReadOnlyReceipt\` intentionally rejects extra fields. The signed body additionally provides metadata such as \`phase\`, \`evidenceDigest\`, \`schemaVersion\`, \`audience\`, \`principal\`, \`keyId\`, \`issuedAtMs\`, and \`receiptSignature\`. The trusted adapter verifies those values first, then supplies the separate strict projection. \`source=apps_script\`, \`transport=PRIVATE_SERVICE_BINDING\`, \`status=WAITING_REVIEW\` are scoped Brain responses, **not** proof of external Google writer exclusion or trigger inventory.
+
