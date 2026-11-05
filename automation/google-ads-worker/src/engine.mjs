@@ -83,7 +83,7 @@ export async function dispatch(envelope,env,ports={},now=Date.now()){
     adsMutation:false,aiCostEur:0};
   if(action.mode==='budget_audit_read'){
     const snapshot=await (ports.budgetAudit||readAccountBudget)(env,{fetcher:ports.fetch});
-    const summary=assertGrantBudget(snapshot,{kind:'audit',action:'read'},now);
+    const summary=assertGrantBudget(snapshot,{kind:'audit',action:'read'},Date.now());
     return {status:'BUDGET_AUDIT_READ_ONLY',correlationId:action.correlationId,
       receipt:summary,adsMutation:false,aiCostEur:0};
   }
@@ -116,7 +116,7 @@ export async function dispatch(envelope,env,ports={},now=Date.now()){
   // Re-read real account-wide budgets and spend before claiming ANY mutation.
   // No fixture or preview value is accepted as proof of account-level capacity.
   const snapshot=await (ports.budgetAudit||readAccountBudget)(env,{fetcher:ports.fetch});
-  const budgetReceipt=assertGrantBudget(snapshot,action.operation,now);
+  const budgetReceipt=assertGrantBudget(snapshot,action.operation,Date.now());
   // New/adapted entities are PAUSED; this adapter never enables serving campaigns.
   const claimed=await durableClaim(env,action,spec,now);
   if(!claimed.claimed)return {status:claimed.receipt.status,correlationId:action.correlationId,
