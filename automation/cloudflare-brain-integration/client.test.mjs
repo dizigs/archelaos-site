@@ -199,7 +199,7 @@ test('canonical Brain HMAC rejects payload forgery, wrong route, wrong identity 
   const {authenticate}=await import('../../brain/src/contract.mjs');
   const e=event(),raw=JSON.stringify(e);
   const ts=String(Math.floor(Date.now()/1000)),old=String(Number(ts)-3600);
-  const sign=(path,time,body)=>createHmac('sha256',KEY).update('POST\\n'+path+'\\n'+time+'\\n'+body).digest('hex');
+  const sign=(path,time,body)=>createHmac('sha256',KEY).update('POST\n'+path+'\n'+time+'\n'+body).digest('hex');
   const valid=sign('/v1/events',ts,raw);
   const mk=(path,body,time,sig,keyId='staging-v1')=>new Request('https://brain.internal'+path,{
     method:'POST',
