@@ -47,3 +47,12 @@ Before any enablement the separate Brain and source owners must approve scope, i
 Current canonical `brain/src/contract.mjs` authenticates the sole `staging-v1` key as source `staging`, while `brain/src/worker.mjs` invokes `validateEvent(event, source)` at `POST /v1/events`. Both prepared adapters intentionally send real `event.sourceType` values (`drive`, `gmail`, `news`), so the unmodified Brain returns `INVALID_IDENTITY` (422) after successful shared-HMAC authentication. This mismatch is independent of the missing Service Binding and staging expiry. A Service Binding only provides private reachability; it does not repair this authorization failure.
 
 New scoped contract regression test in `client.test.mjs` exercises the actual canonical Brain `authenticate` and `validateEvent` exports, proving fail-closed rejection. The Brain owner (#219) must design and review dedicated per-worker cryptographic identities and explicit source/event allowlists (without relaxing validation or impersonating `staging`) before even a non-mutating remote test is admitted. The source owner must then implement corresponding caller configuration. **Do not provision a shared staging key to authorize production source identities.** Current adapters remain disabled. Test authored; not yet represented as remotely executed.
+
+
+## Read-only private connectivity release gate (2026-11-05)
+
+The post-#224 Cloudflare recheck and exact cross-owner handoff are in [PRIVATE-CONNECTIVITY-HANDOFF.md](./PRIVATE-CONNECTIVITY-HANDOFF.md). The pure [binding-plan.mjs](./binding-plan.mjs) evaluates proposed native BRAIN_PRIVATE -> archelaos-brain-staging bindings for Automation Bridge and Librarian only. It checks missing inventory, binding conflicts, pinned Brain SHA, staging expiry, DO/secret metadata, signed per-source identity approval, external provenance, durable audit and owner approval. It never performs a Cloudflare API call or marks a Worker CONNECTED or TESTED.
+
+Test with: node --test automation/cloudflare-brain-integration/binding-plan.test.mjs
+
+Nine deterministic local tests passed (9/9). The existing 18-case client suite and live E2E are not certified by those tests. Do not activate staging while the deployed Brain SHA is diverged, expiry is in 1970, intake secret metadata is absent, and the canonical Brain staging-v1 source identity cannot admit real Drive/Gmail/News events.
