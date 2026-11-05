@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {allowedLanding,validateDraft,dailyBudget,validateAnalytics,descriptor,scopedName} from '../src/contract.mjs';
-import {stagingReady,liveReady,sendAdsOperation,keywordIdeaRequest} from '../src/google-ads-api.mjs';
+import {stagingReady,liveReady,sendAdsOperation,keywordIdeaRequest,readKeywordIdeas} from '../src/google-ads-api.mjs';
 import {authenticate,dispatch,signForTestOnly} from '../src/engine.mjs';
 
 const draft=JSON.parse(readFileSync(new URL('../../../rebuild/ads/campaigns.draft.json',import.meta.url),'utf8'));
@@ -178,4 +178,36 @@ test('idempotency conflict cannot overwrite earlier claimed mutation',async()=>{
   const altered=await sign({...base,operation:{...base.operation,
     input:{resourceName:'customers/1234567890/campaigns/45'}}});
   await assert.rejects(()=>dispatch(altered,e,ports),/IDEMPOTENCY_CONFLICT/);
+});
+
+test('Keyword Planner is gated, observes only mock Google response and never mutates ads',async()=>{
+  const seed={landing:'https://archelaos.club/history.html',keywords:['ιστορία συλλόγου Κατερίνης'],geoIds:['2300']};
+  await assert.rejects(()=>readKeywordIdeas(grant,seed),/KEYWORD_PLANNER_DISABLED/);
+  const allowed={...grant,ADS_KEYWORD_PLANNER_READ_ENABLED:'true',
+    ADS_OAUTH_CLIENT_ID:'mock-id',ADS_OAUTH_CLIENT_SECRET:'mock-secret',
+    ADS_OAUTH_REFRESH_TOKEN:'mock-refresh'};
+  const called=[];
+  const fetcher=async(url,options)=>{
+    called.push({url,options});
+    if(url==='https://oauth2.googleapis.com/token')
+      return {ok:true,json:async()=>({access_token:'mock-token'})};
+    return {ok:true,headers:{get:()=> 'mock-planner-req'},json:async()=>({
+      results:[{text:'ιστορία αθλητικού συλλόγου Κατερίνης',
+        keywordIdeaMetrics:{avgMonthlySearches:120,competition:'LOW'}}]
+    })};
+  };
+  const data=await readKeywordIdeas(allowed,seed,{fetcher});
+  assert.equal(data.ok,true);assert.equal(data.observed,true);
+  assert.equal(data.ideas[0].monthlySearches,120);
+  assert.equal(called.length,2);
+  assert.equal(called[1].url.endsWith(':generateKeywordIdeas'),true);
+  assert.equal(data.usedForAutonomousMutations,false);
+  assert.throws(()=>keywordIdeaRequest('1234567890',{...seed,
+    landing:'https://archelaos.club/unapproved.html'}),/INVALID_LANDING/);
+});
+test('foreign customer IDs are rejected even with approved environment',async()=>{
+  await assert.rejects(()=>sendAdsOperation(grant,{customer:'9999999999',kind:'campaign',
+    action:'create',input:{name:'Αρχέλαος αθλητισμός',
+      campaignBudget:'customers/1234567890/campaignBudgets/42'}},
+  {validateOnly:true}),/ADS_CUSTOMER_MISMATCH/);
 });
