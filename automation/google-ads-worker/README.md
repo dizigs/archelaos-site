@@ -50,6 +50,9 @@ Accepted modes:
 - `dry_run`: validated, non-importable PR70 candidate plan, no network.
 - `analytics_preview`: privacy-safe aggregates, review-only suggestions.
 - `keyword_ideas_preview`: schema-only keyword planner request (requires staging).
+- `keyword_ideas_read`: real, read-only KeywordPlanIdeaService request with explicit
+  independently enabled staging + planner-read gates, bounded and sanitized results;
+  not exercised without authorization.
 - `validate_only`: live Google API *validation only* with `validateOnly:true`;
   requires independently confirmed staging API access and OAuth.
 - `apply`: only after every live gate + human-approved signed Brain change ID,
