@@ -52,14 +52,17 @@ function inspect(root){
   if(!config.enabled||!config.siteKey){status.textContent='Η online υποβολή δεν έχει ενεργοποιηθεί ακόμη.';return}
   active=true;status.textContent='Συμπλήρωσε το σχόλιο και τον έλεγχο ασφαλείας.';
   if(widget!==null){refresh();return}
-  try{const t=await turnstile();widget=t.render(challenge,{sitekey:config.siteKey,action:'text_correction',callback:v=>{token=v;refresh()},'expired-callback':()=>{token='';refresh()},'error-callback':()=>{token='';refresh()}})}catch{active=false;status.textContent='Ο έλεγχος ασφαλείας δεν είναι διαθέσιμος.'}
+  try{const t=await turnstile();if(panel.hidden||!b.isConnected)return;widget=t.render(challenge,{sitekey:config.siteKey,action:'text_correction',callback:v=>{token=v;refresh()},'expired-callback':()=>{token='';refresh()},'error-callback':()=>{token='';refresh()}})}catch{active=false;status.textContent='Ο έλεγχος ασφαλείας δεν είναι διαθέσιμος.'}
   refresh();
  });
  form.addEventListener('submit',async e=>{
   e.preventDefault();if(!active||!token||busy||message.value.trim().length<10)return;
   busy=true;refresh();status.textContent='Αποστολή…';
   const excerpt=(root.querySelector('.an-detail,.arch-bio-description,.arc-bio-text,.reader-content,.dialog-body')?.textContent||title).replace(/\s+/g,' ').trim().slice(0,500);
-  const url=new URL(location.href);url.hash='';
+  // Store a canonical record link, not unrelated visitor search parameters.
+  const url=new URL(location.pathname,location.origin);
+  if(kind==='news'){url.pathname='/news.html';url.searchParams.set('article',id)}
+  else if(kind==='person'){url.pathname='/hall-of-fame.html';url.searchParams.set('person',id)}
   try{
    const res=await fetch('/api/text-corrections',{method:'POST',credentials:'same-origin',headers:{'content-type':'application/json'},body:JSON.stringify({record_kind:kind,record_id:id,record_title:title,source_page:url.href,text_excerpt:excerpt,description:message.value.trim(),public_source_url:source.value.trim(),turnstile_token:token})});
    const answer=await res.json();if(!res.ok)throw Error(answer.error||'Η αποστολή απέτυχε.');
