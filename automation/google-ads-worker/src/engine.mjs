@@ -23,7 +23,7 @@ export async function authenticate(envelope,env,now=Date.now()){
   raise(Number.isFinite(t) && Math.abs(now-t)<=5*60*1000,'BRAIN_SIGNATURE_EXPIRED');
   const key=await crypto.subtle.importKey('raw',new TextEncoder().encode(env.ADS_BRAIN_SHARED_SECRET),
     {name:'HMAC',hash:'SHA-256'},false,['verify']);
-  const signature=new Uint8Array(envelope.signature.match(/../g).map(b=>parseInt(b,16)));
+  const signature=new Uint8Array(envelope.signature.match(/../g).map(b=>Number.parseInt(b,16)));
   const data=new TextEncoder().encode(envelope.timestamp+'\n'+envelope.nonce+'\n'+JSON.stringify(envelope.action));
   raise(await crypto.subtle.verify('HMAC',key,signature,data),'BRAIN_SIGNATURE_INVALID');
   raise(exact(envelope.action,['mode','draft','evidence','month','analytics','operation','idempotencyKey',
