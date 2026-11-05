@@ -1640,11 +1640,9 @@
       "category_en": "Wrestling",
       "title": "Βαλκανικός τίτλος του Νίκου Ζινίσα",
       "title_en": "Balkan title for Nikos Zinisas",
-      "description": "Το 2026 αναδείχθηκε Χρυσός Βαλκανιονίκης Ελληνορωμαϊκής Πάλης, επιβεβαιώνοντας την απόλυτη κυριαρχία του στα διεθνή ταπί και τιμώμενος επίσημα από τον Δήμο Κατερίνης.",
-      "description_en": "Balkan title for Nikos Zinisas (2026). The club's archival biographies record this achievement for Nikos Zinisa.",
-      "people": [
-        "arch-2616694d9908"
-      ],
+      "description": "Το 2026 δημοσιεύτηκε διάκριση βαλκανικού τίτλου στην πάλη με την ονομασία «Νίκος Ζινίσα». Η ταυτοποίηση του συγκεκριμένου αθλητή με πατρώνυμο παραμένει σε έλεγχο, καθώς υπάρχουν δύο συνονόματοι αθλητές του Αρχέλαου.",
+      "description_en": "A 2026 Balkan wrestling title was reported for the name 'Nikos Zinisa'. The identity of the wrestler is pending further verification because two Archelaos athletes share the name.",
+      "people": [],
       "source": "hall-of-fame-people.json",
       "source_review_group": "review-0215",
       "verification": "existing-biographies"

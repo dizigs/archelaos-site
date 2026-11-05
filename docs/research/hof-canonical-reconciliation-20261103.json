@@ -3,7 +3,7 @@
   "canonical_source": "hall-of-fame-people.json",
   "historical_source": "rebuild/data/people.json",
   "counts": {
-    "canonical": 771,
+    "canonical": 772,
     "historical": 680,
     "shared": 680,
     "divergent_people": 56,
@@ -15,8 +15,8 @@
     },
     "classifications": {
       "BLOCKED_SOURCE": 4,
-      "LEGACY_TEXT_RETAINED": 74,
-      "QUALIFIED_ARCHIVE": 6,
+      "LEGACY_TEXT_RETAINED": 72,
+      "QUALIFIED_ARCHIVE": 8,
       "SEMANTICALLY_RETAINED": 4,
       "SPELLING_CORRECTION": 2
     }
@@ -88,6 +88,7 @@
     "arch-loukas-zinisa-wrest25",
     "arch-maria-mastorogianni-wrest25",
     "arch-michaela-syrmali-wrest20",
+    "arch-nikos-zinisa-savvas-wrestling",
     "arch-paschalis-iliatzikis-wrestling-2022",
     "arch-pavlina-charitidou-arch",
     "arch-platon-chotokouridis-basketball",
@@ -144,24 +145,6 @@
           "classification": "LEGACY_TEXT_RETAINED",
           "legacy_sha256": "2be6deaf00ba2df7d0ebbb1adaa087c914232702d62c2d83622f3077ebb666d1",
           "canonical_sha256": "0c9fa291d34a6a4ca30c4c26cb637b7bc0a2a7a8701abf5b99ee561757c7f743"
-        }
-      ]
-    },
-    {
-      "id": "arch-2616694d9908",
-      "name": "Νίκος Ζινίσα",
-      "fields": [
-        {
-          "field": "bio",
-          "classification": "LEGACY_TEXT_RETAINED",
-          "legacy_sha256": "859a1fcc37f5d1e0000efca09b7eca34f0cf8110e1094d85aad0f43f3f206bc7",
-          "canonical_sha256": "9b1877451ca197036279c6926368aebfdc57d055f8b89d33207a1d85cc0f58e1"
-        },
-        {
-          "field": "bio_en",
-          "classification": "LEGACY_TEXT_RETAINED",
-          "legacy_sha256": "7503561ecca7156b18fbeb93ba13566cfabfa27d764bfc216efd740a49fe5427",
-          "canonical_sha256": "54297d12d2431779d68766fc3bfb88d7f7125e9e104d6bca9b0c076a2bce1713"
         }
       ]
     },
@@ -590,6 +573,26 @@
           "legacy_sha256": "6ae2e46e811a228aaae7305ced03aa7597d97d70f096e4f7d3f24875c6bab178",
           "canonical_sha256": "f584644978e5836db8a72ffcc08f3e0b35bd06fc54934acd7c6def084766ef8e",
           "evidence": "Club-authorized public editorial correction on 2026-11-03. Original archival records preserved; disputed 1994 ranking, historical wrestling placements and national-team starting status remain in private fact-check. Federation or municipality evidence and club confirmation recorded separately."
+        }
+      ]
+    },
+    {
+      "id": "arch-aaa2527334ce",
+      "name": "Δωροθέα Ποιμενίδου",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "QUALIFIED_ARCHIVE",
+          "legacy_sha256": "faa4dfdcd1704f0c65af7b6ab51db23ff04cd96ad3f133f96c2bd1fc60fdf84d",
+          "canonical_sha256": "0501d7cdc9cdea3db6da2c9460e031432937a07414a185b277b2bbd30d045e88",
+          "evidence": "Διατηρούνται οι τεκμηριωμένες διακρίσεις Ρώμης και Νόβε Μέστο 2025 και η 9η θέση του Παγκοσμίου 2025. Προστίθενται οι τρεις Παραολυμπιακές συμμετοχές και η κατάταξη στο Ευρωπαϊκό 2026 από IPC, ΕΑΟΜ-ΑμεΑ και IANSEO (PR #190)."
+        },
+        {
+          "field": "bio_en",
+          "classification": "QUALIFIED_ARCHIVE",
+          "legacy_sha256": "2cf62774125ea2e725cb5a59c18900ca7573867dabfb50fe87f8d09d97e3a08b",
+          "canonical_sha256": "3b939c914a6a6ccc22abc5c1c5fe9e343ddd4ef5c386b81f83339e5faf349628",
+          "evidence": "Retains the verified 2025 Rome/Nove Mesto Para Cup medals and 2025 World Championships ninth place; expands the account with IPC Paralympic results and the IANSEO 2026 European result (PR #190)."
         }
       ]
     },
