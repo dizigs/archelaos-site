@@ -71,7 +71,7 @@ function backupConfirmationPage(nonce) {
     'set-cookie': confirmationCookie + '=' + nonce + '; Path=/; Secure; HttpOnly; SameSite=Strict; Max-Age=300'
   } });
 }
-export function appsScriptExtension({ oauth, authenticateExecutor, editorFor, verifyReadOnly, issueBackupConfirmation, createVerifiedBackup }) {
+export function appsScriptExtension({ oauth, authenticateExecutor, editorFor, verifyReadOnly, readInventory, issueBackupConfirmation, createVerifiedBackup }) {
   return async request => {
     const url = new URL(request.url);
     const scriptStart = request.method === 'GET' && url.pathname === '/auth/start' && url.searchParams.get('purpose') === 'apps-script';
@@ -94,6 +94,17 @@ export function appsScriptExtension({ oauth, authenticateExecutor, editorFor, ve
         if (!allowedVerificationTracking(url)) throw new ScriptFault('UNSUPPORTED_SCRIPT_QUERY', 404);
         if (typeof oauth?.access !== 'function' || typeof verifyReadOnly !== 'function') throw new ScriptFault('PRIVATE_READ_VERIFIER_UNCONFIGURED', 503);
         return json(await verifyReadOnly(await oauth.access(request.headers.get('cookie'))));
+      }
+      // Strictly browser-Admin-authenticated, read-only Google source inventory.
+      // It persists only sanitized metadata to the EXISTING private SQLite DO.
+      // No raw code, project ID, tokens, source hash, trigger claims or writer
+      // capability are returned. Never accept a caller-selected script project.
+      if (url.pathname === '/api/apps-script/inventory') {
+        if (request.method !== 'GET' || url.search) throw new ScriptFault('SCRIPT_ROUTE_NOT_FOUND', 404);
+        if (typeof oauth?.access !== 'function' || typeof readInventory !== 'function') {
+          throw new ScriptFault('PRIVATE_INVENTORY_UNCONFIGURED', 503);
+        }
+        return json(await readInventory(await oauth.access(request.headers.get('cookie'))));
       }
       if (url.pathname === '/api/apps-script/private-backup') {
         if (request.method !== 'GET' && request.method !== 'POST') throw new ScriptFault('SCRIPT_ROUTE_NOT_FOUND', 404);
