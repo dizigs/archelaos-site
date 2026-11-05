@@ -202,6 +202,7 @@ test('Keyword Planner is gated, observes only mock Google response and never mut
   const seed={landing:'https://archelaos.club/history.html',keywords:['ιστορία συλλόγου Κατερίνης'],geoIds:['2300']};
   await assert.rejects(()=>readKeywordIdeas(grant,seed),/KEYWORD_PLANNER_DISABLED/);
   const allowed={...grant,ADS_KEYWORD_PLANNER_READ_ENABLED:'true',
+    ADS_API_ACCESS_LEVEL:'BASIC',
     ADS_OAUTH_CLIENT_ID:'mock-id',ADS_OAUTH_CLIENT_SECRET:'mock-secret',
     ADS_OAUTH_REFRESH_TOKEN:'mock-refresh'};
   const called=[];
@@ -214,6 +215,8 @@ test('Keyword Planner is gated, observes only mock Google response and never mut
         keywordIdeaMetrics:{avgMonthlySearches:120,competition:'LOW'}}]
     })};
   };
+  await assert.rejects(()=>readKeywordIdeas({...allowed,ADS_API_ACCESS_LEVEL:'EXPLORER'},
+    seed,{fetcher}),/KEYWORD_PLANNER_REQUIRES_BASIC_OR_STANDARD/);
   const data=await readKeywordIdeas(allowed,seed,{fetcher});
   assert.equal(data.ok,true);assert.equal(data.observed,true);
   assert.equal(data.ideas[0].monthlySearches,120);
