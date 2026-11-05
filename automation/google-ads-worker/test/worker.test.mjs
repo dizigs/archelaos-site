@@ -179,7 +179,8 @@ test('idempotency conflict cannot overwrite earlier claimed mutation',async()=>{
       input:{resourceName:'customers/1234567890/campaigns/44'}},
     idempotencyKey:'issue216-idempotency-002',approvalId:'approved-change-216',
     approvalExpiresAt:new Date(Date.now()+60000).toISOString()};
-  const ports={budgetAudit:async()=>mockBudgetAudit(),send:async()=>({ok:true,requestId:'mock',resourceNames:[],
+  const ports={budgetAudit:async()=>mockBudgetAudit(),readback:async()=>({verified:true}),
+    send:async()=>({ok:true,requestId:'mock',resourceNames:[],
     applied:true})};
   assert.equal((await dispatch(await sign(base),e,ports)).status,'APPLIED');
   assert.equal((await dispatch(await sign(base),e,ports)).receipt.replayed,true);
