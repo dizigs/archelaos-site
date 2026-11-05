@@ -27,13 +27,18 @@ export async function authenticate(request, env, raw, now = Date.now()) {
   const timestamp = request.headers.get('x-archelaos-timestamp') || '';
   const signature = request.headers.get('x-archelaos-signature') || '';
   const identity = request.headers.get('x-archelaos-key-id');
-  const secret = identity === 'staging-v1' ? env.STAGING_INTAKE_KEY : identity === 'operator-v1' ? env.STAGING_OPERATOR_KEY : null;
+  const secret = identity === 'staging-v1' ? env.STAGING_INTAKE_KEY :
+    identity === 'operator-v1' ? env.STAGING_OPERATOR_KEY :
+    identity === 'analytics-v1' ? env.BRAIN_ANALYTICS_INTAKE_KEY :
+    identity === 'apps-script-v1' ? env.BRAIN_APPS_SCRIPT_INTAKE_KEY : null;
   if (!/^\d{10}$/.test(timestamp) || !HEX.test(signature) || Math.abs(now - Number(timestamp) * 1000) > 300000 || typeof secret !== 'string' || secret.length < 43) throw new Rejected('UNAUTHORIZED', 401);
   const key = await crypto.subtle.importKey('raw', encoder.encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['verify']);
   const message = request.method + '\n' + new URL(request.url).pathname + '\n' + timestamp + '\n' + raw;
   const bytes = Uint8Array.from(signature.match(/../g), pair => Number.parseInt(pair, 16));
   if (!await crypto.subtle.verify('HMAC', key, bytes, encoder.encode(message))) throw new Rejected('UNAUTHORIZED', 401);
-  return identity === 'operator-v1' ? 'operator' : 'staging';
+  return identity === 'operator-v1' ? 'operator' :
+    identity === 'analytics-v1' ? 'analytics' :
+    identity === 'apps-script-v1' ? 'apps_script' : 'staging';
 }
 export async function boundedBody(request) {
   if (request.headers.get('content-length') && Number(request.headers.get('content-length')) > 4096) throw new Rejected('BODY_TOO_LARGE', 413);
