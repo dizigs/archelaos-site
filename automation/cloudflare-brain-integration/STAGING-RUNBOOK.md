@@ -9,6 +9,7 @@ Owner/scope: `automation/cloudflare-brain-integration/**`. Applies to existing `
 - Four registered Durable Object namespaces: BrainCoordinator, MuseumScriptCoordinator, LibrarianLedger and HealerMemory. D1 list is empty. SQLite Durable Objects do **not** require an independent D1 database.
 - Workers account default usage model is `standard`. Billing subscription lookup returned 403, so the Workers Paid subscription **was not independently verified** by this inventory.
 - `archelaos-librarian-staging`: NEWS_IMPORT_ENABLED, ARCHIVE_IMPORT_ENABLED and DRIVE_LINK_PROBE_ENABLED all `false`.
+- GitHub commit comparison of the deployed Brain SHA `d3d13b605f409bfda6f372742d629fd8eaf12145` against current `main` `bddc3defd78c3a2bd18c7772d4bcc97092cfb5be` returned **diverged** (21 ahead, 24 behind). This staging runtime **must not be treated as a current main build**, even after its expiry and bindings are repaired. A separately reviewed release alignment/redeploy must precede any connectivity test; no deploy is authorized here.
 - Current Brain authentication accepts the shared `staging-v1` HMAC secret; a Cloudflare service binding narrows network reachability, **but neither provides unique per-worker cryptographic authorization under the current Brain contract**. No E2E claim is allowed.
 
 **Decision: BLOCKED.** This repo-only PR cannot safely flip the actual staging settings or establish end-to-end integration without explicitly controlled access to both existing source Worker settings and the Brain owner's approval.
