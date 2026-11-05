@@ -1,0 +1,23 @@
+name: Brain GAS envelope compatibility tests
+on:
+  pull_request:
+    paths:
+      - 'automation/brain-gas-envelope-compat/**'
+      - 'brain/src/contract.mjs'
+      - '.github/workflows/brain-gas-envelope-compat.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  offline-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify canonical GAS compatibility denies unapproved source
+        run: node --test automation/brain-gas-envelope-compat/inspect.test.mjs
