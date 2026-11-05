@@ -6,7 +6,7 @@ Owner: isolated automation/cloudflare-brain-integration/** only. This PR introdu
 
 Import createBrainWorkerAdapter from ./client.mjs. Supply the **existing** Cloudflare service binding to archelaos-brain-staging (not an HTTP URL), an approved staging intake secret, workerName, sourceType, a trusted provenance verifier and a durable audit sink. The constructor is disabled by default and requires explicitly enabled=true before source submission. Only source types and event types accepted by the current canonical Brain contract are supported. It does not create hashes, identities, trigger rules or source events.
 
-The adapter signs METHOD + newline + PATH + newline + seconds + newline + raw JSON with HMAC-SHA256; headers match brain/src/contract.mjs. POST /v1/events requires proven source revision and blob hash, confirms durable 200/202 receipt + matching eventId and correlationId, and writes an audit record. Authenticated GET /v1/tasks/{uuid} checks readback. GET /healthz verifies staging service identity but **never** asserts readiness, entitlement or E2E. Upstream timeout/unknown outcome is audited as UNKNOWN and not retried automatically, since the Brain may already have persisted the event. Preserve event IDs on manual reconciliation.
+The adapter signs METHOD + newline + PATH + newline + seconds + newline + raw JSON with HMAC-SHA256; headers match brain/src/contract.mjs. POST /v1/events requires proven source revision and blob hash, confirms durable 200/202 receipt + matching eventId and correlationId, and writes an audit record. Malformed or mismatched successful acknowledgements are audited as **UNKNOWN**, never blindly retried. Canonical WAITING_REVIEW is an accepted state. Authenticated GET /v1/tasks/{uuid} checks readback and accepts an optional expectedCorrelationId that must match. GET /healthz verifies staging service identity and optionally pins expectedBrainCommit, but **never** asserts readiness, entitlement or E2E. Upstream timeout/unknown outcome is audited as UNKNOWN and not retried automatically, since the Brain may already have persisted the event. Preserve event IDs on manual reconciliation.
 
 The approved source-worker adapters are limited to:
 - archelaos-automation-bridge: Drive source.file.created/updated and Gmail source.message.received;
@@ -21,7 +21,7 @@ From repo root:
     node --check automation/cloudflare-brain-integration/client.mjs
     node --test automation/cloudflare-brain-integration/client.test.mjs
 
-Local mock suite: 14/14 passing (Node 22). Cases cover scope, disabled state, missing binding/key, actual HMAC byte format, 200/202 receipts, forged correlation/durable receipts, provenance, error/audit paths, unknown outcomes, readback, health and event type mapping. These are synthetic tests, not verified remote CI or staging E2E. Cross-folder import is read-only from brain/src/contract.mjs; no changes to the canonical Brain.
+Earlier PR iteration: **14/14 local Node 22 mock tests reportedly passed**. The revised source now contains **18 authored tests**, including four new cases for malformed-success UNKNOWN auditing, WAITING_REVIEW, correlation-bound readback and pinned staging health. The revised suite has not yet been independently executed locally in this session; check exact-head GitHub CI separately. These are synthetic tests, never remote staging E2E. Cross-folder import is read-only from brain/src/contract.mjs; no changes to the canonical Brain.
 
 ## Required handoffs before activation
 
@@ -33,3 +33,9 @@ Local mock suite: 14/14 passing (Node 22). Cases cover scope, disabled state, mi
 6. Other PR-owned scopes (not modified): #209, #213, #212, #211, #214, #201, #196, #194, #131, #132.
 
 See INVENTORY.md for the real 2026-11-05 account evidence and status of all nine Workers.
+
+## Read-only evidence refreshed 2026-11-05
+
+Requeried all 9 existing Worker settings, deployment records, secret-binding **names/types only**, cron registrations, script subdomains, `archelaos.club` routes, custom Worker domains, account DO namespaces and D1 listing. All nine remain DEPLOYED; **0 service bindings, 0 cron, 0 custom Worker domains/routes, 0 D1 databases**. Four DO namespaces are registered. The Brain staging `DEPLOY_SHA` is `d3d13b605f409bfda6f372742d629fd8eaf12145`, but staging is expired since 1970 and its required intake/operator secret binding names are missing. Workers account settings show the `standard` default usage model; the subscription endpoint denied access with 403, so Workers Paid billing entitlement cannot be claimed independently. No Workers AI model call occurred.
+
+Before any enablement the separate Brain and source owners must approve scope, identity, bindings, time-limited staging activation, authoritative provenance, and auditable rollback. See [staging runbook](./STAGING-RUNBOOK.md) and [per-worker evidence](./INVENTORY.md). **No Cloudflare settings have been changed, and no real integration is connected or E2E tested.**
