@@ -24,4 +24,4 @@ jobs:
         with:
           node-version: '22'
       - name: Run executor contract tests
-        run: node --test automation/brain-worker-executors/index.test.mjs
+        run: node --test automation/brain-worker-executors/*.test.mjs
