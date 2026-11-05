@@ -199,7 +199,18 @@ export async function runIntegration(taskInput, ports, policy = {}, now = Date.n
       const gate = evaluateTestingGate(task.commitSha, checks);
       if (!gate.passed) {
         // Only canonical GitHub run ID permits the private Self-Heal contract.
-        const evidenceId = gate.runIds[0];
+        // Missing, skipped or pending checks are NOT a verified CI_FAILURE.
+        // Route only an actual completed failed/cancelled GitHub run whose
+        // repository, exact head SHA, run attempt and source were verified.
+        const failedRun = checks.find(c =>
+          REQUIRED_CHECKS.includes(c?.workflow) &&
+          c.repository === REPOSITORY && c.headSha === task.commitSha &&
+          c.provenanceVerified === true &&
+          Number.isSafeInteger(c.runId) && c.runId > 0 &&
+          Number.isSafeInteger(c.runAttempt) && c.runAttempt > 0 &&
+          c.status === 'completed' &&
+          ['failure', 'cancelled', 'timed_out', 'action_required'].includes(c.conclusion));
+        const evidenceId = failedRun?.runId;
         let routed = false;
         if (evidenceId && typeof ports.healer?.observe === 'function') {
           const finding = {
