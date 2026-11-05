@@ -1,0 +1,29 @@
+name: Photo Archive Worker — private R2 staging contract
+on:
+  pull_request:
+    paths:
+      - 'automation/photo-archive-worker/**'
+      - '.github/workflows/photo-archive-worker-ci.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  node-contracts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout exact PR commit
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax check
+        run: |
+          node --check automation/photo-archive-worker/src/intake.mjs
+          node --check automation/photo-archive-worker/src/index.mjs
+          node --check automation/photo-archive-worker/test/intake.test.mjs
+      - name: Offline private R2 and Brain intent tests
+        run: node --test automation/photo-archive-worker/test/*.test.mjs
