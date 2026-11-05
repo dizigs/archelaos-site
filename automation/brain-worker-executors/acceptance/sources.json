@@ -43,6 +43,13 @@
       "headSha": "e8d355c58a069063a76158e82c782f36a377c79b",
       "state": "open",
       "base": "feat/brain-executor-integration-coordinator-20261105"
+    },
+    "brain": {
+      "pr": 219,
+      "sha": "8f7de8ba14385d762e52c946f6ed140088f863dc",
+      "headSha": "d55d8a5da54938b17878a1b82856038bd6e61cf6",
+      "state": "merged",
+      "base": "main"
     }
   }
 }

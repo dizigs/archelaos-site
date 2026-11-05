@@ -74,12 +74,24 @@ jobs:
           ref: e8d355c58a069063a76158e82c782f36a377c79b
           path: .acceptance-sources/provenance
           persist-credentials: false
+      - name: Checkout canonical Brain PR 219 actual merged SHA
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          repository: dizigs/archelaos-site
+          ref: 8f7de8ba14385d762e52c946f6ed140088f863dc
+          path: .acceptance-sources/brain
+          persist-credentials: false
       - name: Validate exact source pins, read-only
         run: node automation/brain-worker-executors/acceptance/verify-pins.mjs
       - name: Validate source PR heads have not moved, read-only
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: node automation/brain-worker-executors/acceptance/verify-source-heads.mjs
+      - name: Install pinned canonical Brain local simulation tools
+        run: npm ci --prefix .acceptance-sources/brain/brain --ignore-scripts --no-audit --no-fund
+      - name: Validate canonical Brain budget, sqlite leases and recovery in local Miniflare
+        working-directory: .acceptance-sources/brain/brain
+        run: node --test --test-concurrency=1 test/budget.test.mjs test/exec_authority.test.mjs
       - name: Re-run native tests for the pinned source modules (mock-only)
         run: |
           node --test .acceptance-sources/scaffold/automation/brain-worker-executors/*.test.mjs
