@@ -5,10 +5,17 @@
 export const REPOSITORY = 'dizigs/archelaos-site';
 export const AUDIENCE = 'brain-worker-executors.integration.v1';
 export const MONTHLY_CAP_MICRO_EUR = 20_000_000;
-export const REQUIRED_CHECKS = Object.freeze([
-  'rebuild-check.yml', 'axe-accessibility.yml', 'visitor-experience.yml',
-  'lighthouse-ci.yml', 'eslint-guard.yml', 'codeql-security.yml'
-]);
+export const REQUIRED_JOBS = Object.freeze({
+  'rebuild-check.yml': ['HTML, data and JavaScript integrity'],
+  'axe-accessibility.yml': ['axe'],
+  'lighthouse-ci.yml': ['Lighthouse CI mobile audit'],
+  'eslint-guard.yml': ['ESLint JavaScript quality'],
+  'codeql-security.yml': ['CodeQL (javascript-typescript)', 'CodeQL (python)'],
+  'javascript-syntax-guard.yml': ['JavaScript syntax (all site scripts)'],
+  'release-qa.yml': ['Validate production build'],
+  'validate-site.yml': ['verify']
+});
+export const REQUIRED_CHECKS = Object.freeze(Object.keys(REQUIRED_JOBS));
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/;
 const SHA = /^[0-9a-f]{40}$/;
 const SAFE = /^[a-zA-Z0-9_.\/-]{1,180}$/;
@@ -101,8 +108,14 @@ export function evaluateTestingGate(sha, checks) {
       failures.push({ workflow: name, reason: 'UNVERIFIED_PROVENANCE' }); continue;
     }
     evidence.push(c.runId);
-    if (c.status !== 'completed' || c.conclusion !== 'success') {
-      failures.push({ workflow: name, reason: 'NOT_SUCCESS' });
+    const jobs = c.jobs;
+    const requiredJobs = REQUIRED_JOBS[name];
+    if (c.status !== 'completed' || c.conclusion !== 'success' ||
+        !Array.isArray(jobs) || jobs.length === 0 ||
+        jobs.some(job => typeof job?.name !== 'string' ||
+          job.status !== 'completed' || job.conclusion !== 'success') ||
+        requiredJobs.some(jobName => jobs.filter(job => job.name === jobName).length !== 1)) {
+      failures.push({ workflow: name, reason: 'WORKFLOW_OR_REQUIRED_JOB_NOT_SUCCESS' });
     } else successful.push(name);
   }
   return Object.freeze({
