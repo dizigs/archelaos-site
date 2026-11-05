@@ -19,7 +19,7 @@ Main inspected on 2026-11-06: SHA c89823a21efc1fa9f979b17a6567337a498a1969. Defa
 
 **Auth:** Europeana introduced separate Personal and Project keys in 2025. Personal keys are for exploration, **not production**. Project approval remains pending. Use a private X-Api-Key request header, NEVER deprecated wskey in a URL, browser HTML, logs, test results or GitHub. This draft accepts a key only as an injected argument, and never reads process environment variables by itself.
 
-**Rates and costs:** Europeana read APIs are free, but its current Terms reserve the right to limit requests and its Fair Use Policy requires reasonable concurrency. Older FAQ language about unlimited GET must not be treated as a guaranteed quota. No provider-specific approved Project Key rate is verified yet. Internal conservative policy: <=1 request/s, max 20 records/page, max 2 pages/query, maximum 2 attempts, retry 429 and certain 5xx, cap Retry-After to 3s, 24h in-memory cache. This is **our own ceiling**, not a published Europeana quota. No AI, R2, cloud billing, production or bulk harvesting.
+**Rates and costs:** Europeana read APIs are free, but its current Terms reserve the right to limit requests and its Fair Use Policy requires reasonable concurrency. Older FAQ language about unlimited GET must not be treated as a guaranteed quota. No provider-specific approved Project Key rate is verified yet. Internal conservative policy: <=1 request/s, max 20 records/page, max 2 pages/query, maximum 2 attempts, retry 429 and certain 5xx, fail closed (do not retry) when Retry-After exceeds 3s or uses an unparsed date, 24h in-memory cache. This is **our own ceiling**, not a published Europeana quota. No AI, R2, cloud billing, production or bulk harvesting.
 
 **Copyright:** Europeana metadata is CC0. Thumbnails and actual photos/scans/media are governed by item-specific edm:rights/europeana:rights or provider terms. Missing/unknown rights is never permission to reproduce anything. Provide attribution/links to the originating institution and aggregator; honor subsequent takedowns. No media bytes are fetched or copied by this module.
 
@@ -59,7 +59,7 @@ From repository root, after checking out the Draft branch:
     node --check automation/europeana-research/europeana.mjs
     node --test automation/europeana-research/europeana.test.mjs
 
-Uses the Node built-in runner and injected fake transport, no dependencies, no API requests. Covers search seeds, request parameter bounds, IDs, normalization, provenance, fail-closed rights, strict publication defaults, exact dedupe, disabled state, approval gates, pagination caps/cursor repeat, 429 retry delay, 401 fail-closed/no secret in error, malformed response, record-ID mismatch and caching. Locally tested on 2026-11-06: **12/12 PASS**; remote CI is not asserted.
+Uses the Node built-in runner and injected fake transport, no dependencies, no API requests. Covers search seeds, request parameter bounds, IDs, normalization, provenance, fail-closed rights, strict publication defaults, exact dedupe, disabled state, approval gates, pagination caps/cursor repeat, 429 retry delay, 401 fail-closed/no secret in error, malformed response, record-ID mismatch and caching. Locally tested on 2026-11-06: **13/13 PASS**; remote CI is not asserted.
 
 ## 6. Activation after project approval — explicit new gates
 
