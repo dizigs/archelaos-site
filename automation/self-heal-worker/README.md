@@ -1,6 +1,6 @@
 # Archelaos Self-Heal Worker — isolated, private healer
 
-**Status: IMPLEMENTATION IN A SEPARATE PR; NOT DEPLOYED, NOT CONNECTED.**
+**Status (2026-11-05): Cloudflare reports an existing deployment (2026-11-04); this recovery upgrade is DRAFT CODE ONLY, NOT DEPLOYED OR CONNECTED TO BRAIN.**
 
 This package prepares a dedicated `archelaos-self-heal` Cloudflare Worker with its own
 SQLite-backed Durable Object. It keeps diagnostic state separate from the existing
@@ -113,3 +113,80 @@ Sources: `docs/self-heal/GLOBAL_KNOWLEDGE_FEDERATION.md`,
 - **Pending**: exact-head hosted CI, independent Cloudflare deployment/readback,
   authenticated producer, live incident test, durable external knowledge import,
   and safety review of any actual PR publisher. These are not represented as done.
+
+## Bounded recovery upgrade (draft, 2026-11-05)
+
+Branch: `feat/self-heal-bounded-recovery-20261105`. Exclusive scope:
+`automation/self-heal-worker/**`. This is an additive implementation, **not**
+authorization to run self-modifying code, retry failed builds, merge, deploy or
+bypass a protected branch. The initial worker and the Brain #111 were read first;
+open evidence PRs #115 and #116 remain untouched. PR #213 owns the separate
+Brain/executor integration port and must not be edited here.
+
+- `src/recovery.mjs` persists per-commit incident state to a separate
+  `recoveries` table in the existing private SQLite Durable Object; atomic claims
+  and canonical evidence fingerprints reject concurrent or changed replays.
+  Completed, unknown and circuit-open states never silently restart.
+- Fixed severity: **P0** security findings; **P1** CI, public-site health and
+  deployment unverified; **P2** the narrowly reviewed escaped HTML text case.
+- **Required CI failure always halts the current chain**. With an independently
+  verified Brain authorization, it can send only a review-only, zero-retry
+  Builder task intent. No CI auto-rerun, provider charge or code write.
+- **Transient public-site health:** one read-only, verified recheck per
+  invocation, with durable 30-second and 120-second delays. Third transient
+  outcome opens the circuit. A later trusted Brain delivery must trigger a due
+  attempt; this module does not introduce a cron, alarm, busy loop or unverified
+  automatic wake-up. A verified healthy recheck records `RECOVERED` (health
+  observation only, *not* proof of a code fix).
+- **Ambiguous request timeout** is `UNKNOWN`, locked pending operator
+  reconciliation, never retried; security/deployment findings need a human.
+- New private RPCs: `attemptRecovery(finding)` and `recoveryStatus()`.
+  `attemptRecovery` validates the existing strict finding envelope and
+  requires a separately approved private `BRAIN_RECOVERY` Service binding with
+  RPCs `verifySelfHealReceipt`, `routeSelfHealReview`, and
+  `recheckSelfHealHealth`. The first must independently read back its own
+  durable evidence/authorization, enforce pause and verified exact SHA,
+  and return the receipt described in `validateVerifiedReceipt`. The latter
+  two must return independently verified results. The repository does **not**
+  declare or configure that binding. Missing/incompatible binding blocks safely.
+  The Brain team must review this contract; **do not create an unreviewed
+  second Brain or forge a verified receipt.**
+- Recovery state is stored inside the existing `HealerMemory` class, so there
+  is no Worker/Durable Object migration, public API, schedule or extra Worker.
+  All results carry `autoMergeAllowed: false`, `deployAllowed: false`.
+- Local proof: `node --experimental-sqlite --test automation/self-heal-worker/test/*.test.mjs`
+  and `node --check automation/self-heal-worker/src/recovery.mjs`. Actual PR
+  hosted tests and precise-SHA checks must be inspected independently.
+
+### Verified incident evidence, not assumed production root causes
+
+GitHub Actions failures sampled from 2026-11-05:
+- [42036245146](https://github.com/dizigs/archelaos-site/actions/runs/42036245146)
+  and [42003377805](https://github.com/dizigs/archelaos-site/actions/runs/42003377805):
+  Chromium installation failed with `Playwright does not support chromium on ubuntu26.04-x64`.
+  Treat this as a repeatable runner/browser incompatibility, not a network retry.
+- [42022399427](https://github.com/dizigs/archelaos-site/actions/runs/42022399427):
+  failed validation on a missing biography sitemap URL; source fix and exact-SHA
+  tests required, not blind CI reruns.
+- [42037064619](https://github.com/dizigs/archelaos-site/actions/runs/42037064619):
+  separate Apps Script synthetic E2E failure with
+  `PROVIDER_INVENTORY_UNVERIFIED`; human/integration-owner reconciliation.
+- Cloudflare read-only deployment inspection found an
+  `archelaos-self-heal` deployment `f768d2e8-306c-4012-b511-4cb8ce50a1da`
+  dated 2026-11-04 21:25 UTC and a newer Brain-staging deployment dated
+  2026-11-05. Cloudflare observability issue listing returned zero issues;
+  that does **not** prove zero errors. Service-binding connectivity, internal
+  RPC function tests and live Brain receipts are **unverified**.
+
+### Release gates and handoff
+
+1. Exact-head CI and peer review of this PR; verify no conflicts with #115,
+   #116 or the unmerged #213 integration adapter.
+2. Independent Brain owner implements authenticated readback and reviewed
+   `BRAIN_RECOVERY` Service binding, preserving its existing budget and task
+   authorizations. **No caller-provided `verified: true` as authorization.**
+3. Staging-only test: verified failed CI -> chain halt -> one approved
+   review-only Builder intent -> independently verified receipt; transient
+   health -> bounded backoff -> circuit on third attempt; unknown outcome ->
+   human reconciliation. Test restart persistence and exact commit attribution.
+4. No production deploy, auto-merge or required-check override in this PR.

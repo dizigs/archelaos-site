@@ -1,0 +1,79 @@
+{
+  "inventory": {
+    "annotation": {
+      "aiProviderCalls": 0,
+      "billingPlan": "UNVERIFIED",
+      "deploymentVerified": false,
+      "evidence": [
+        {
+          "endpoint": "https://api.cloudflare.com/client/v4/accounts/898359728b3dfe8c3a3f56e3d19eecd1/workers/account-settings",
+          "errorClass": "provider_http",
+          "httpStatus": 403,
+          "retryPerformed": false,
+          "success": false
+        },
+        {
+          "endpoint": "https://api.cloudflare.com/client/v4/accounts/898359728b3dfe8c3a3f56e3d19eecd1/workers/subdomain",
+          "errorClass": "provider_http",
+          "httpStatus": 403,
+          "retryPerformed": false,
+          "success": false
+        },
+        {
+          "endpoint": "https://api.cloudflare.com/client/v4/accounts/898359728b3dfe8c3a3f56e3d19eecd1/subscriptions",
+          "errorClass": "provider_http",
+          "httpStatus": 403,
+          "retryPerformed": false,
+          "success": false
+        },
+        {
+          "endpoint": "https://api.cloudflare.com/client/v4/accounts/898359728b3dfe8c3a3f56e3d19eecd1/workers/durable_objects/namespaces",
+          "errorClass": "provider_http",
+          "httpStatus": 403,
+          "retryPerformed": false,
+          "success": false
+        },
+        {
+          "endpoint": "https://api.cloudflare.com/client/v4/accounts/898359728b3dfe8c3a3f56e3d19eecd1/workers/scripts/archelaos-brain-staging",
+          "errorClass": "provider_http",
+          "existingStagingScript": false,
+          "httpStatus": 403,
+          "retryPerformed": false,
+          "success": false
+        }
+      ],
+      "resourceMutationPerformed": false,
+      "script": "archelaos-brain-staging",
+      "stage": "READ_ONLY_INVENTORY",
+      "status": "READINESS_RECORDED"
+    },
+    "check": 125934579327,
+    "run": 41641089600,
+    "sourceCommit": "f88f770bc6fa853264ce6086a0ef3e726d3658f3"
+  },
+  "newProviderCallsDuringCapture": 0,
+  "observedDate": "2026-11-03",
+  "pagesAuthBaseline": {
+    "annotation": {
+      "deploymentVerified": false,
+      "evidence": [
+        {
+          "endpoint": "https://api.cloudflare.com/client/v4/accounts/898359728b3dfe8c3a3f56e3d19eecd1/pages/projects/archelaos-site",
+          "httpStatus": 200,
+          "success": true
+        }
+      ],
+      "resourceMutationPerformed": false,
+      "stage": "PAGES_AUTH_BASELINE_ONLY"
+    },
+    "check": 125938288627,
+    "run": 41642204232,
+    "sourceCommit": "778f9274ab310a29ac5df7909f3078cad808d207"
+  },
+  "permissionsSchema": {
+    "sha256": "7af6f29deda604aaf0a4d1367c18175b1957f3cc401afabdde783f12263533f2",
+    "source": "https://github.com/cloudflare/api-schemas/blob/main/openapi.json"
+  },
+  "remoteDeploymentVerified": false,
+  "workersExistence": "UNKNOWN_403_IS_NOT_ABSENCE"
+}
