@@ -1,5 +1,5 @@
 import { DurableObject } from 'cloudflare:workers';
-import { Rejected, UUID, authenticate, boundedBody, digest, reply, route, validateEvent } from './contract.mjs';
+import { Rejected, UUID, authenticate, boundedBody, digest, reply, route, validateEvent, validateSourceEventType } from './contract.mjs';
 import { claimBudgetCall, reserveBudget, settleBudget } from './budget.mjs';
 import { readTaskIntent, storeTaskIntent } from './task_intents.mjs';
 import { CAPABILITY_SCHEMA, validateAnalyticsSnapshot, validateAppsScriptEvent, persistAnalyticsSnapshot, persistAppsScriptEvent, readAnalyticsSnapshotReceipt, readAppsScriptReceipt } from './capability_intake.mjs';
@@ -457,6 +457,7 @@ export default {
         let event;
         try { event = JSON.parse(raw); } catch { throw new Rejected('INVALID_JSON', 422); }
         event = validateEvent(event, source);
+        validateSourceEventType(source, event.eventType);
         const response = await coordinator.fetch('https://brain.internal/internal/events',
           { method: 'POST', body: JSON.stringify(event) });
         if (!eventSource || !response.ok) return response;
