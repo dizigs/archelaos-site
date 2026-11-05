@@ -6,7 +6,7 @@ width:42px!important;height:42px!important;min-width:42px!important;flex:0 0 42p
 .arch-correction-action svg{width:23px;height:23px;pointer-events:none}
 .arch-correction-action:hover,.arch-correction-action[aria-expanded=true]{background:#0d4d36!important;color:#fff2d2!important}
 .arch-correction-action:focus-visible,.arch-correction-panel :focus-visible{outline:3px solid #c4a05c!important;outline-offset:2px!important}
-.arc-bio-heart{display:flex!important;gap:7px!important}
+.arc-bio-heart,.arch-bio-actions{display:flex!important;gap:7px!important;align-items:center!important}
 .arch-correction-panel{box-sizing:border-box!important;position:absolute!important;z-index:999!important;top:60px!important;right:12px!important;
 width:min(378px,calc(100% - 24px))!important;max-height:min(65dvh,540px)!important;overflow:auto!important;
 overscroll-behavior:contain!important;border:1px solid #d4bd82!important;border-radius:16px!important;
