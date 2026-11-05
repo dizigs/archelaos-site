@@ -4,6 +4,7 @@ import { createHmac, randomUUID } from 'node:crypto';
 import { createBrainWorkerAdapter, IntegrationBlocked } from './client.mjs';
 import './binding-plan.test.mjs'; // Include binding eligibility negatives in existing PR CI without workflow ownership change.
 const KEY = 'example-staging-not-a-secret-'.repeat(3);
+const RECEIPT_KEY = 'example-receipt-verifier-not-a-secret-'.repeat(3);
 const sha = x => x.repeat(64);
 const event = () => ({ schemaVersion: 1, eventId: randomUUID(), correlationId: randomUUID(),
   sourceType:'drive', sourceId:sha('a'), sourceRevision:sha('b'), eventType:'source.file.created',
@@ -11,10 +12,17 @@ const event = () => ({ schemaVersion: 1, eventId: randomUUID(), correlationId: r
 const verified = e => ({ verified:true, worker:'archelaos-librarian-staging', sourceType:e.sourceType,
   sourceId:e.sourceId, sourceRevision:e.sourceRevision, blobSha256:e.payload.blobSha256 });
 function setup(fetch, overrides={}) { const logs=[]; const a=createBrainWorkerAdapter({workerName:'archelaos-librarian-staging',
-  sourceType:'drive', brainService:{fetch}, intakeKey:KEY, enabled:true, clock:Date.now,
+  sourceType:'drive', brainService:{fetch}, intakeKey:KEY, receiptVerificationKey:RECEIPT_KEY, enabled:true, clock:Date.now,
   verifyProvenance:async e=>verified(e), auditSink: async r=>(logs.push(r),true), ...overrides}); return {a,logs}; }
-const reply = (e, status=202) => Response.json({receiptId:randomUUID(), correlationId:e.correlationId, eventId:e.eventId,
-  durable:true, duplicate:status===200, status:'QUEUED'}, {status});
+const signed = (payload, audience='source.receipt.ack.v1', principal='drive-v1', issuedAtMs=Date.now()) => {
+  const envelope={...payload,schemaVersion:1,audience,principal,keyId:'brain-capability-receipts-v1',issuedAtMs};
+  const receiptSignature=createHmac('sha256',RECEIPT_KEY).update(audience+'\\n'+JSON.stringify(envelope)).digest('hex');
+  return {...envelope,receiptSignature};
+};
+const reply = (e, status=202) => Response.json(signed({receiptId:randomUUID(), correlationId:e.correlationId,
+  eventId:e.eventId,durable:true,duplicate:status===200,status:'QUEUED'}), {status});
+const readback = (receiptId,correlationId,status='DONE',attempts=1) =>
+  Response.json(signed({receiptId,correlationId,status,attempts,code:'DETERMINISTIC_ROUTE_COMPLETE',durable:true},'source.receipt.readback.v1'));
 const reject = (p, code) => assert.rejects(p, x => x instanceof IntegrationBlocked && x.code === code);
 test('no source spoofing; other Workers blocked', () => {
   assert.throws(()=>createBrainWorkerAdapter({workerName:'archelaos-raisely-bridge',sourceType:'drive'}), /SOURCE_NOT_APPROVED/);
@@ -26,6 +34,7 @@ test('disabled by default, even when a binding exists', async()=>{
 test('missing service binding and credentials fail closed', async()=>{
   const {a}=setup(async()=>Response.json({}),{brainService:null});await reject(a.submitEvent(event()),'SERVICE_BINDING_MISSING');
   const {a:b}=setup(async()=>Response.json({}),{intakeKey:null});await reject(b.submitEvent(event()),'BRAIN_INTAKE_KEY_MISSING');
+  const {a:c}=setup(async()=>Response.json({}),{receiptVerificationKey:null});await reject(c.submitEvent(event()),'RECEIPT_VERIFICATION_KEY_MISSING');
 });
 test('real Brain raw body HMAC signature is verifiable; receipt retained', async()=>{
   const e=event();const {a,logs}=setup(async req=>{
@@ -33,17 +42,17 @@ test('real Brain raw body HMAC signature is verifiable; receipt retained', async
     const body=await req.text();assert.deepEqual(JSON.parse(body),e);
     const msg=`POST\n/v1/events\n${req.headers.get('x-archelaos-timestamp')}\n${body}`;
     assert.equal(req.headers.get('x-archelaos-signature'), createHmac('sha256',KEY).update(msg).digest('hex'));
-    assert.equal(req.headers.get('x-archelaos-key-id'),'staging-v1');return reply(e);
+    assert.equal(req.headers.get('x-archelaos-key-id'),'drive-v1');return reply(e);
   });const r=await a.submitEvent(e);assert.equal(r.durable,true);assert.equal(logs[0].correlationId,e.correlationId);
 });
 test('duplicate ack 200 accepted but wrong duplicate rejected',async()=>{
   const e=event();let {a}=setup(async()=>reply(e,200));assert.equal((await a.submitEvent(e)).duplicate,true);
-  ({a}=setup(async()=>Response.json({...await reply(e,202).json(),duplicate:true},{status:202})));
+  ({a}=setup(async()=>Response.json(signed({...await reply(e,202).json(),duplicate:true}),{status:202})));
   await reject(a.submitEvent(e),'RECEIPT_UNVERIFIED');
 });
 test('forged correlation ID and forged durable ack rejected',async()=>{
   const e=event();for(const change of [{correlationId:randomUUID()},{durable:false}]){
-    const {a}=setup(async()=>Response.json({...await reply(e).json(),...change},{status:202}));
+    const {a}=setup(async()=>Response.json(signed({...await reply(e).json(),...change}),{status:202}));
     await reject(a.submitEvent(e),'RECEIPT_UNVERIFIED');
   }
 });
@@ -65,9 +74,9 @@ test('audit outage cannot report success',async()=>{
 });
 test('receipt readback must match UUID and can verify status',async()=>{
   const id=randomUUID(), correlationId=randomUUID();const {a}=setup(async req=>{
-    assert.equal(new URL(req.url).pathname,`/v1/tasks/${id}`);
-    assert.equal(req.headers.get('x-archelaos-key-id'),'staging-v1');
-    return Response.json({receiptId:id,correlationId,status:'DONE',attempts:1,code:'DETERMINISTIC_ROUTE_COMPLETE'});
+    assert.equal(new URL(req.url).pathname,`/v1/source-receipts/${id}`);
+    assert.equal(req.headers.get('x-archelaos-key-id'),'drive-v1');
+    return readback(id,correlationId);
   });assert.equal((await a.readReceipt(id,correlationId)).status,'DONE');await reject(a.readReceipt('oops',correlationId),'INVALID_RECEIPT_ID');
 });
 test('health verifies exact service identity but never certifies readiness',async()=>{
@@ -89,11 +98,11 @@ test('malformed success acknowledgements are UNKNOWN and never silently untracke
   const e=event();
   for (const response of [
     () => new Response('{broken', {status:202,headers:{'content-type':'application/json'}}),
-    () => Response.json({...{receiptId:randomUUID(),correlationId:e.correlationId,
-      eventId:e.eventId,durable:false,duplicate:false,status:'QUEUED'}},{status:202})
+    () => Response.json(signed({receiptId:randomUUID(),correlationId:e.correlationId,
+      eventId:e.eventId,durable:false,duplicate:false,status:'QUEUED'}),{status:202})
   ]) {
     const {a,logs}=setup(async()=>response());
-    await reject(a.submitEvent(e),'RECEIPT_UNVERIFIED');
+    await assert.rejects(a.submitEvent(e), x => x?.code==='RECEIPT_UNVERIFIED' || x?.code==='RECEIPT_SIGNATURE_INVALID');
     assert.equal(logs.length,1);
     assert.equal(logs[0].result,'UNKNOWN');
     assert.equal(logs[0].eventId,e.eventId);
@@ -102,16 +111,16 @@ test('malformed success acknowledgements are UNKNOWN and never silently untracke
 });
 test('Brain WAITING_REVIEW receipt state is part of the live canonical task lifecycle',async()=>{
   const e=event();
-  const {a}=setup(async()=>Response.json({...await reply(e).json(),status:'WAITING_REVIEW'},{status:202}));
+  const {a}=setup(async()=>Response.json(signed({...await reply(e).json(),status:'WAITING_REVIEW'}),{status:202}));
   assert.equal((await a.submitEvent(e)).status,'WAITING_REVIEW');
 });
 test('readback fails closed on mismatched correlation, forged state and negative attempts',async()=>{
   const id=randomUUID(),correlationId=randomUUID();
-  const {a}=setup(async()=>Response.json({receiptId:id,correlationId,status:'WAITING_REVIEW',attempts:0}));
+  const {a}=setup(async()=>readback(id,correlationId,'WAITING_REVIEW',0));
   assert.equal((await a.readReceipt(id,correlationId)).correlationId,correlationId);
   await reject(a.readReceipt(id,randomUUID()),'READBACK_UNVERIFIED');
   await reject(a.readReceipt(id),'INVALID_CORRELATION_ID');
-  const {a:bad}=setup(async()=>Response.json({receiptId:id,correlationId,status:'GHOST',attempts:-1}));
+  const {a:bad}=setup(async()=>readback(id,correlationId,'GHOST',-1));
   await reject(bad.readReceipt(id,correlationId),'READBACK_UNVERIFIED');
 });
 test('staging health can pin the known commit and rejects a mismatched release',async()=>{
@@ -123,18 +132,18 @@ test('staging health can pin the known commit and rejects a mismatched release',
   assert.equal((await other.probeHealth()).code,'HEALTH_IDENTITY_MISMATCH');
 });
 
-test('current Brain staging-v1 identity cannot authorize a Drive source event (fail-closed contract)', async()=>{
-  const { authenticate, validateEvent } = await import('../../brain/src/contract.mjs');
+test('main Brain rejects source-v1 before the reviewed #234 contract is merged (fail-closed)', async()=>{
+  const { authenticate } = await import('../../brain/src/contract.mjs');
   const e=event();
   const {a,logs}=setup(async req=>{
     const raw=await req.text();
-    const source=await authenticate(req,{STAGING_INTAKE_KEY:KEY},raw);
-    assert.equal(source,'staging'); // Current Brain returns this for all staging-v1 callers.
-    assert.throws(()=>validateEvent(JSON.parse(raw),source), x=>x?.code==='INVALID_IDENTITY');
-    return Response.json({code:'INVALID_IDENTITY'},{status:422});
+    assert.equal(req.headers.get('x-archelaos-key-id'),'drive-v1');
+    await assert.rejects(authenticate(req,{STAGING_INTAKE_KEY:KEY},raw),
+      x=>x?.code==='UNAUTHORIZED' && x?.status===401);
+    return Response.json({code:'UNAUTHORIZED'},{status:401});
   });
   await reject(a.submitEvent(e),'BRAIN_REJECTED');
-  assert.deepEqual(logs.map(x=>({result:x.result,status:x.status})),[{result:'REJECTED',status:422}]);
+  assert.deepEqual(logs.map(x=>({result:x.result,status:x.status})),[{result:'REJECTED',status:401}]);
 });
 
 
@@ -162,13 +171,13 @@ test('restart-safe synthetic Brain receipt keeps one event and durable duplicate
       if(!duplicate){ admissions++;stored.set(incoming.eventId,{
         receiptId:randomUUID(),correlationId:incoming.correlationId,eventId:incoming.eventId
       });}
-      return Response.json({...stored.get(incoming.eventId),durable:true,duplicate,status:'WAITING_REVIEW'},
+      return Response.json(signed({...stored.get(incoming.eventId),durable:true,duplicate,status:'WAITING_REVIEW'}),
         {status:duplicate?200:202});
     }
-    const match=path.startsWith('/v1/tasks/') ? [path,path.slice('/v1/tasks/'.length)] : null;
+    const match=path.startsWith('/v1/source-receipts/') ? [path,path.slice('/v1/source-receipts/'.length)] : null;
     if(req.method==='GET' && match){
       const receipt=[...stored.values()].find(x=>x.receiptId===match[1]);
-      return receipt?Response.json({...receipt,status:'WAITING_REVIEW',attempts:0}):new Response('',{status:404});
+      return receipt?readback(receipt.receiptId,receipt.correlationId,'WAITING_REVIEW',0):new Response('',{status:404});
     }
     return new Response('',{status:404});
   };
@@ -223,4 +232,31 @@ test('changing an approved Drive event into another identity never calls the pri
   const {a}=setup(async()=>{calls++;return reply(e);});
   await assert.rejects(a.submitEvent(e),x=>x?.code==='INVALID_IDENTITY');
   assert.equal(calls,0);
+});
+
+test('unsigned forged successful receipt cannot cause success',async()=>{
+  const e=event(),{a,logs}=setup(async()=>Response.json({
+    receiptId:randomUUID(),correlationId:e.correlationId,eventId:e.eventId,durable:true,duplicate:false,status:'QUEUED'
+  },{status:202}));
+  await reject(a.submitEvent(e),'RECEIPT_SIGNATURE_INVALID');
+  assert.equal(logs[0].result,'UNKNOWN');
+});
+test('signed receipt rejects wrong principal, audience, expired issuance and tampering',async()=>{
+  const e=event(),payload={receiptId:randomUUID(),correlationId:e.correlationId,
+    eventId:e.eventId,durable:true,duplicate:false,status:'QUEUED'};
+  for(const signedBody of [
+    signed(payload,'source.receipt.ack.v1','news-v1'),
+    signed(payload,'source.receipt.readback.v1','drive-v1'),
+    signed(payload,'source.receipt.ack.v1','drive-v1',Date.now()-600000),
+    {...signed(payload),eventId:randomUUID()}
+  ]) {
+    const {a}=setup(async()=>Response.json(signedBody,{status:202}));
+    await reject(a.submitEvent(e),'RECEIPT_SIGNATURE_INVALID');
+  }
+});
+test('readback refuses valid signature for a different source receipt audience',async()=>{
+  const id=randomUUID(),corr=randomUUID();
+  const {a}=setup(async()=>Response.json(signed({receiptId:id,correlationId:corr,durable:true,
+    status:'DONE',attempts:1}),{status:200}));
+  await reject(a.readReceipt(id,corr),'READBACK_UNVERIFIED');
 });
