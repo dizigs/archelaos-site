@@ -14,11 +14,18 @@ const SOURCE = Object.freeze({
 });
 const SHA=/^[0-9a-f]{64}$/;
 const COMMIT=/^[0-9a-f]{40}$/;
-const ISO=/^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d(?:\.\d{1,3})?Z$/;
+const ISO=/^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d(?:\.\d{1,6})?(?:Z|\+00:00)$/;
 const DATE=/^\d{4}-\d\d-\d\d$/;
 const MAX_BYTES=256*1024;
 const DAY=86400000;
 function fail(code){throw new Error(code);}
+// GitHub timestamps normally use seconds with Z; Python UTC timestamps use
+// six fractional digits with +00:00. Accept only actual UTC instants.
+function utcTime(value,code) {
+  if(typeof value!=='string'||!ISO.test(value)||!Number.isFinite(Date.parse(value))||
+     new Date(value).toISOString().slice(0,10)!==value.slice(0,10))fail(code);
+  return new Date(value).getTime();
+}
 function object(x,keys,code='UNEXPECTED_FIELDS'){
   if(!x||typeof x!=='object'||Array.isArray(x)||Object.keys(x).some(k=>!keys.includes(k)))fail(code);
 }
@@ -142,8 +149,8 @@ function checkEvidence(e,source,runId,artifactId,hash,now) {
      x.conclusion!=='success'||a.name!==spec.artifact||a.expired!==false||
      !SHA.test(e.verifiedContentSha256)||e.verifiedContentSha256!==hash)
     fail('UNVERIFIED_ARTIFACT_PROVENANCE');
-  if(!ISO.test(x.completedAt)||new Date(x.completedAt).toISOString()!==x.completedAt||
-     Date.parse(x.completedAt)>now+300000||Date.parse(x.completedAt)<now-7*DAY)
+  const completed=utcTime(x.completedAt,'STALE_OR_INVALID_PROVENANCE');
+  if(completed>now+300000||completed<now-7*DAY)
     fail('STALE_OR_INVALID_PROVENANCE');
 }
 export async function preparePrivateExport({source,artifactBytes,runId,artifactId,trustedLookup,now=Date.now()}) {
@@ -160,20 +167,20 @@ export async function preparePrivateExport({source,artifactBytes,runId,artifactI
   try {json=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes));}
   catch {fail('INVALID_AGGREGATE_JSON');}
   const generated=source==='google_bundle'?json?.generated_utc:evidence.run.completedAt;
-  if(!ISO.test(generated)||new Date(generated).toISOString()!==generated||
-     Date.parse(generated)>now+300000||Date.parse(generated)<now-7*DAY)
+  const generatedMs=utcTime(generated,'INVALID_GENERATED_TIMESTAMP');
+  if(generatedMs>now+300000||generatedMs<now-7*DAY)
     fail('INVALID_GENERATED_TIMESTAMP');
   const reports=source==='google_bundle'?rowsForGoogle(json,hash):rowsForClarity(json,hash);
   if(reports.length===0)fail('NO_VERIFIABLE_AGGREGATE_ROWS');
   const events=[];
   for(const report of reports) {
-    const event=await buildBrainAnalyticsEvent(report,evidence.run.completedAt);
+    const event=await buildBrainAnalyticsEvent(report,new Date(evidence.run.completedAt).toISOString());
     events.push({event,snapshotKey:report.source+'|'+report.period.from+'|'+report.period.to,
       metricRevision:await digest(JSON.stringify(event.payload.metrics))});
   }
   return {schemaVersion:1,verified:true,evidence:{
     repository:'dizigs/archelaos-site',runId,artifactId,runSha:evidence.run.headSha,
-    reportDigest:hash,workflow:SOURCE[source].workflow,observedAt:evidence.run.completedAt
+    reportDigest:hash,workflow:SOURCE[source].workflow,observedAt:new Date(evidence.run.completedAt).toISOString()
   },events};
 }
 /**
