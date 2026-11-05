@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-11-05T11:22:24.823202Z",
+  "scope": "isolated inert staging only",
+  "repository": "dizigs/archelaos-site",
+  "pr": 194,
+  "worker": "archelaos-librarian-staging",
+  "deploymentId": "5e2dfa21-5f87-4308-83ea-4df84279f8f4",
+  "versionId": "d291424c-05fd-42df-b5b3-0891339ef658",
+  "verification": {
+    "cloudflareSettingsReadback": true,
+    "cloudflareDeploymentsReadback": true,
+    "subdomainEnabled": false,
+    "previewsEnabled": false,
+    "bindingNames": [
+      "LEDGER",
+      "ARCHIVE_IMPORT_ENABLED",
+      "DRIVE_LINK_PROBE_ENABLED",
+      "NEWS_IMPORT_ENABLED"
+    ],
+    "importFlags": {
+      "ARCHIVE_IMPORT_ENABLED": false,
+      "DRIVE_LINK_PROBE_ENABLED": false,
+      "NEWS_IMPORT_ENABLED": false
+    }
+  },
+  "actualProviderChecks": {
+    "notebookOAuth": false,
+    "notebookCreateSource": false,
+    "notebookSourceActive": false,
+    "driveArchiveReadFromWorker": false,
+    "ocrServiceBinding": false,
+    "publicNewsImport": false
+  },
+  "safety": "No private source IDs, OAuth tokens, PDF bytes or personal metadata included. No active trigger or public route. Do not mark end-to-end integration completed.",
+  "followUpIssue": 193
+}
