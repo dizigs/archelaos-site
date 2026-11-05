@@ -1,6 +1,7 @@
 import {validateDraft,validateAnalytics,descriptor} from './contract.mjs';
 import {stagingReady,liveReady,sendAdsOperation,keywordIdeaRequest,readKeywordIdeas} from './google-ads-api.mjs';
 import {readAccountBudget,assertGrantBudget} from './budget-guard.mjs';
+import {verifyApprovedLanding} from './landing-guard.mjs';
 
 const exact=(object,keys)=>object&&typeof object==='object'&&!Array.isArray(object)&&
   Object.keys(object).every(key=>keys.includes(key));
@@ -117,6 +118,14 @@ export async function dispatch(envelope,env,ports={},now=Date.now()){
   // No fixture or preview value is accepted as proof of account-level capacity.
   const snapshot=await (ports.budgetAudit||readAccountBudget)(env,{fetcher:ports.fetch});
   const budgetReceipt=assertGrantBudget(snapshot,action.operation,Date.now());
+  // The signed operator intent must approve the *current page bytes*; a
+  // domain-only allowlist is not sufficient to create an actual RSA.
+  let landingReceipt=null;
+  if(action.operation.kind==='rsa'&&action.operation.action==='create'){
+    landingReceipt=await (ports.checkLanding||verifyApprovedLanding)(
+      action.operation.input.finalUrl,action.operation.input.landingContentSha256,
+      {fetcher:ports.fetch});
+  }
   // New/adapted entities are PAUSED; this adapter never enables serving campaigns.
   const claimed=await durableClaim(env,action,spec,now);
   if(!claimed.claimed)return {status:claimed.receipt.status,correlationId:action.correlationId,
@@ -131,5 +140,5 @@ export async function dispatch(envelope,env,ports={},now=Date.now()){
   await durableFinish(env,action,result,status);
   return {status,correlationId:action.correlationId,receipt:{idempotencyKey:action.idempotencyKey,
       requestId:result.requestId||null,resourceNames:result.resourceNames||[],applied:status==='APPLIED'},
-    budgetReceipt,adsMutation:status==='APPLIED',aiCostEur:0};
+    budgetReceipt,landingReceipt,adsMutation:status==='APPLIED',aiCostEur:0};
 }
