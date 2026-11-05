@@ -1,6 +1,6 @@
 # ARCHELAOS — The Librarian (staging, separate Worker)
 
-**Status: code-only draft. NOT DEPLOYED. NOT CONNECTED.** Canonical work: [Issue #193](https://github.com/dizigs/archelaos-site/issues/193), Shared Drive collector #55, central brain #108, historical Notebook bridge draft PR #178.
+**Status: isolated staging Worker deployed 2026-11-05; imports disabled. NOT CONNECTED to Google/NotebookLM, NOT LIVE.** Canonical work: [Issue #193](https://github.com/dizigs/archelaos-site/issues/193), Shared Drive collector #55, central brain #108, historical Notebook bridge draft PR #178.
 
 ## Owner-approved architecture
 The Librarian is separate from the central brain. It handles two independently guarded flows:
@@ -24,6 +24,14 @@ The default Worker `fetch()` always returns 404. The Wrangler config declares no
 **Do not describe ingestion as live** until the deployed Worker, private PDF extraction service, approved Notebook OAuth, one real (non-sensitive) archived PDF, one news link, successful Notebook source `ACTIVE` readback, duplicate replay, and Cloudflare deployment logs all pass. File text may require chunking and human review of mixed/unclear pages. Notebook account source limits still apply.
 
 Official API documentation: https://developers.google.com/notebook/docs/sources (in November 2026, only public web/YouTube or inline plain text/Markdown; no Drive URLs or PDF upload). This code deliberately uses text/Markdown for private archival extraction, and public web links for news.
+
+## Actual Cloudflare staging deployment (verified 2026-11-05)
+
+- Worker `archelaos-librarian-staging`, separately uploaded from PR #194 code without changing the central brain or existing bridge.
+- Deployment ID `5e2dfa21-5f87-4308-83ea-4df84279f8f4`, version `d291424c-05fd-42df-b5b3-0891339ef658`, version traffic share 100% (no public route).
+- Cloudflare readback confirms `subdomain.enabled=false`, `previews_enabled=false`, SQLite Durable Object binding `LEDGER`; all three import flags are `false`.
+- No Google OAuth refresh secret, PDF extractor service binding, authorized caller or scheduled trigger installed. This is a deployed **inert runtime**, not any successful Notebook/Drive functional run.
+- See `evidence/staging-20261105.json`. Owner-requested real PDF URL test is still blocked on secure Notebook OAuth availability.
 
 ## Offline checks
 ```bash
