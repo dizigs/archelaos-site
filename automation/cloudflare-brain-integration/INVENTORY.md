@@ -46,6 +46,7 @@ A second Cloudflare REST GET inspection on the `archelaos.club` account confirme
 - Secret **metadata only**: Automation Bridge has 12 `secret_text` bindings; GitLab Controller 2; GitLab Guardian 2; Raisely Bridge 4; the other 5 Workers 0. No secret values read or reproduced here.
 - `archelaos-brain-staging` exact deployed config: `ENVIRONMENT=staging`, `DEPLOY_SHA=d3d13b605f409bfda6f372742d629fd8eaf12145`, `STAGING_EXPIRES_AT=1970-01-01T00:00:00Z`; no `STAGING_INTAKE_KEY` or `STAGING_OPERATOR_KEY` metadata. The staging HTTP entrypoint therefore rejects even its own health endpoint before matching routes. It cannot be used for honest E2E.
 - Librarian flags verified as `false`: `NEWS_IMPORT_ENABLED`, `ARCHIVE_IMPORT_ENABLED` and `DRIVE_LINK_PROBE_ENABLED`.
+- The deployment SHA `d3d13b605f409bfda6f372742d629fd8eaf12145` was resolved as a real GitHub commit, but comparing it to current `main` (`bddc3defd78c3a2bd18c7772d4bcc97092cfb5be`) returned **diverged**, 21 commits ahead and 24 behind. Hence staging release alignment is an **additional blocker**, distinct from its expired setting and absent keys/bindings.
 - Workers account settings returned `default_usage_model=standard`. Account subscription listing returned HTTP 403, so **Workers Paid billing entitlement was not independently confirmed**; no new metered resource was created or invoked.
 - All 9 script cron registrations empty; Workers custom domains and `archelaos.club` Worker routes empty.
 
