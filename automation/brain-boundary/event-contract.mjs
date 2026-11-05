@@ -11,7 +11,7 @@ function validTimestamp(value) {
 }
 export function validateEvent(input) {
   if (!input || typeof input !== 'object' || Array.isArray(input)) return {ok:false,reason:'invalid_object'};
-  if (Object.keys(input).sort().join('|') !== [...KEYS].sort().join('|')) return {ok:false,reason:'invalid_fields'};
+  if (Object.keys(input).length !== KEYS.length || !KEYS.every(key => Object.hasOwn(input, key))) return {ok:false,reason:'invalid_fields'};
   if (![input.eventId,input.sourceRevision,input.correlationId].every(x=>typeof x==='string'&&ID.test(x))) return {ok:false,reason:'invalid_identity'};
   if (![input.source,input.type].every(x=>typeof x==='string'&&KIND.test(x))) return {ok:false,reason:'invalid_kind'};
   if (!validTimestamp(input.observedAt)) return {ok:false,reason:'invalid_time'};
