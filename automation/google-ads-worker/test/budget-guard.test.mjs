@@ -48,6 +48,7 @@ test('reader queries customer, budget inventory, channels and 2 actual cost wind
   const env={ADS_STAGING_ENABLED:'true',ADS_ACCOUNT_KIND:'AD_GRANTS',
     ADS_CUSTOMER_ID:customer,ADS_API_ACCESS_VERIFIED:'true',
     ADS_OAUTH_SCOPE_VERIFIED:'true',ADS_CUSTOMER_CURRENCY:'USD',
+    ADS_OAUTH_MODE:'USER_REFRESH_TOKEN',
     ADS_BUDGET_AUDIT_READ_ENABLED:'true',ADS_OAUTH_CLIENT_ID:'fake-id',
     ADS_OAUTH_CLIENT_SECRET:'fake-secret',ADS_OAUTH_REFRESH_TOKEN:'fake-refresh'};
   const calls=[];
