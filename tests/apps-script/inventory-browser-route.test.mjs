@@ -2,6 +2,10 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { appsScriptExtension, isAppsScriptRequest } from '../../automation/apps-script/interface.mjs';
 import { ScriptFault } from '../../automation/apps-script/security.mjs';
+import { fixture as sqliteFixture, projectId, projectTitle } from './fixtures.mjs';
+import { SQLiteSafetyStore } from '../../automation/apps-script/safety/store.mjs';
+import { AppsScriptInventoryService, AuditLogger } from '../../automation/apps-script/safety/index.mjs';
+
 
 const origin='https://archelaos-automation-bridge.dimitriszgalanis.workers.dev';
 const session='__Host-archelaos-script-session=synthetic';
@@ -94,4 +98,51 @@ test('new route remains strictly project-scoped; legacy endpoints not intercepte
   }));
   assert.equal(write.status,503);
   assert.deepEqual(await write.json(),{code:'EXECUTOR_INTERFACE_UNCONFIGURED'});
+});
+
+test('real SQLite read-only inventory sync stores metadata, not source or Google tokens',async t=>{
+  const f=sqliteFixture(t);
+  let reads=0;
+  const safety=new SQLiteSafetyStore(f.storage);
+  const inventory=new AppsScriptInventoryService({
+    projectId,projectTitle,provider:{
+      metadata:async()=>f.provider.metadata(),
+      content:async()=>{reads++;return f.provider.content();}
+    },store:safety,auditLogger:new AuditLogger({store:safety})
+  });
+  const route=appsScriptExtension({
+    oauth:{access:async cookie=>{
+      if(cookie!==session)throw new ScriptFault('ADMIN_SESSION_REQUIRED',401);
+      return grant;
+    }},
+    readInventory:async g=>{
+      assert.strictEqual(g,grant);
+      const result=await inventory.sync();
+      return {status:'ADMIN_SOURCE_INVENTORY_VERIFIED',readOnly:true,
+        sourceReadVerified:true,metadataSavedPrivately:true,
+        fileCount:result.fileCount,installableTriggersComplete:false,
+        externalWriterExclusionVerified:false,liveWritesEnabled:false};
+    }
+  });
+  const response=await route(new Request(origin+'/api/apps-script/inventory',{headers:{cookie:session}}));
+  assert.equal(response.status,200);
+  const data=await response.json();
+  assert.equal(data.fileCount,f.state.files.length);
+  assert.equal(reads,1);
+  assert.equal(f.state.updates,0);
+  assert.equal(data.installableTriggersComplete,false);
+  assert.equal(data.externalWriterExclusionVerified,false);
+  assert.equal(data.liveWritesEnabled,false);
+  // This is the actual SQLite backing store used in PR #124 synthetic tests.
+  const row=f.db.prepare('SELECT script_id,title,source_hash,file_count,trigger_visibility,entrypoints_json FROM apps_script_inventory').get();
+  assert.equal(row.script_id,projectId);
+  assert.equal(row.title,projectTitle);
+  assert.match(row.source_hash,/^[a-f0-9]{64}$/);
+  assert.equal(row.file_count,data.fileCount);
+  assert.equal(row.trigger_visibility,'NOT_VERIFIED');
+  const audit=f.db.prepare('SELECT event_type,details_json FROM apps_script_audit_log').get();
+  assert.equal(audit.event_type,'INVENTORY_SYNC');
+  const dumped=JSON.stringify({row,audit,data});
+  assert.doesNotMatch(dumped,/PRIVATE_SYNTHETIC_SOURCE|SYNTHETIC_INTERNAL_TOKEN|function syncMuseumContributions/);
+  assert.equal(f.db.prepare('SELECT COUNT(*) AS n FROM script_operations').get().n,0);
 });
