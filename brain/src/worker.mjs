@@ -172,6 +172,15 @@ export class BrainCoordinator extends DurableObject {
       }
       if (url.pathname === '/internal/control' && request.method === 'GET') return reply(this.controlState());
       if (url.pathname === '/internal/control' && request.method === 'POST') return await this.control(await request.json());
+      if (this.env.TEST_BUDGET === 'true' && this.env.ENVIRONMENT === 'staging' &&
+          request.method === 'POST' && url.pathname === '/internal/testing/expire-exec-lease') {
+        const input = await request.json();
+        if (!UUID.test(input?.taskId || '')) throw new Rejected('INVALID_TEST_TASK', 422);
+        this.sql.exec('UPDATE exec_intents SET lease_until=? WHERE task_id=? AND status=?',
+          Date.now() - 1, input.taskId, 'IN_FLIGHT');
+        await this.wake(Date.now() + 10);
+        return reply({ syntheticLeaseExpired: true });
+      }
       if (this.env.TEST_BUDGET === 'true' && request.method === 'POST' && url.pathname === '/internal/testing/expire-lease') {
         const input = await request.json();
         if (!UUID.test(input.receiptId)) throw new Rejected('INVALID_TEST_RECEIPT', 422);
