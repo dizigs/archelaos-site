@@ -65,6 +65,16 @@ export function evaluateCi({sha,branch,runs,checks,jobsByRun,rulesets}){
     pass:matrix.filter(x=>x.result==='PASS').length,
     fail:matrix.filter(x=>x.result==='FAIL').length,matrix};
 }
+/**
+ * Retry only concurrently running checks. Missing workflow evidence and any
+ * terminal neutral/skipped/failure always remain FAIL after every snapshot.
+ */
+export function hasTransientCiEvidence(report){
+  return report.matrix.some(row => row.result==='FAIL' && (
+    (row.scope==='check' && row.reason==='MISSING_EXACT_SHA') ||
+    /^NOT_SUCCESS_(queued|in_progress|requested|waiting|pending)\//.test(row.reason)
+  ));
+}
 async function main(){
   const token=process.env.GITHUB_TOKEN,sha=process.env.ACCEPTANCE_SHA,
     branch=process.env.ACCEPTANCE_BRANCH;
@@ -89,10 +99,7 @@ async function main(){
     }
     throw Error('PAGINATION_CAP');
   }
-  const [runs,checks,ruleIndex]=await Promise.all([
-    pages('/actions/runs?head_sha='+sha,'workflow_runs'),
-    pages('/commits/'+sha+'/check-runs','check_runs'),
-    get('/rulesets')]);
+  const ruleIndex=await get('/rulesets');
   if(!Array.isArray(ruleIndex))throw Error('MISSING_RULESET_INVENTORY');
   const rulesets=[];
   for(const r of ruleIndex.filter(x=>x.enforcement==='active'&&x.target==='branch')){
@@ -100,15 +107,33 @@ async function main(){
     if(full.id!==r.id||full.enforcement!=='active')throw Error('RULESET_CHANGED');
     rulesets.push(full);
   }
-  const jobsByRun={};
-  for(const name of Object.keys(REQUIRED)){
-    const r=runs.filter(x=>x.path==='.github/workflows/'+name&&x.head_sha===sha)
-      .sort((a,b)=>b.id-a.id)[0];
-    if(r?.id)jobsByRun[r.id]=await pages('/actions/runs/'+r.id+'/jobs?filter=latest','jobs');
+  async function snapshot(){
+    const [runs,checks]=await Promise.all([
+      pages('/actions/runs?head_sha='+sha,'workflow_runs'),
+      pages('/commits/'+sha+'/check-runs','check_runs')]);
+    const jobsByRun={};
+    for(const name of Object.keys(REQUIRED)){
+      const r=runs.filter(x=>x.path==='.github/workflows/'+name&&x.head_sha===sha)
+        .sort((a,b)=>b.id-a.id)[0];
+      if(r?.id)jobsByRun[r.id]=await pages('/actions/runs/'+r.id+'/jobs?filter=latest','jobs');
+    }
+    return evaluateCi({sha,branch,runs,checks,jobsByRun,rulesets});
   }
-  const result=evaluateCi({sha,branch,runs,checks,jobsByRun,rulesets});
+  // These workflows launch concurrently; a successful job may still be pending
+  // when independent attestation begins. Retry transient states for <=120s.
+  // No missing/skipped/failed/neutral evidence is ever treated as success.
+  const MAX_ATTEMPTS=13,POLL_MS=10_000;
+  let result,attempts=0;
+  do {
+    attempts++;
+    result=await snapshot();
+    if(result.passed||!hasTransientCiEvidence(result)||attempts===MAX_ATTEMPTS)break;
+    await new Promise(resolve=>setTimeout(resolve,POLL_MS));
+  } while(true);
+
   const rows=['## Independent CI: '+(result.passed?'PASS':'BLOCKED'),'',
-    'SHA: `'+sha+'` — '+result.pass+' PASS / '+result.fail+' FAIL','',
+    'SHA: `'+sha+'` — '+result.pass+' PASS / '+result.fail+' FAIL',
+    'Audit snapshots: '+attempts+' (bounded retries; no gate waivers)','',
     '| Gate | Name | Result | Evidence/blocker |','|---|---|---|---|',
     ...result.matrix.map(x=>'| '+x.scope+' | '+x.name+' | '+x.result+' | '+x.reason+' |'),
     '', 'Mock CI is not a live Brain/provider E2E. No paid calls.'];

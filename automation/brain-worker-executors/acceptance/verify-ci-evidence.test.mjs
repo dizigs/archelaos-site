@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { evaluateCi,REQUIRED } from './verify-ci-evidence.mjs';
+import { evaluateCi,REQUIRED,hasTransientCiEvidence } from './verify-ci-evidence.mjs';
 const sha='a'.repeat(40),branch='test/acceptance',repo='dizigs/archelaos-site';
 function fixture(){
   const runs=[],jobsByRun={},checks=[];
@@ -56,5 +56,41 @@ test('SonarCloud, CodeQL and newly required main ruleset context block',()=>{
     if(mode==='newrule')f.rulesets[0].rules[0].parameters.required_status_checks.push({context:'new-context'});
     if(mode==='oldcheck')f.checks[2].head_sha='b'.repeat(40);
     assert.equal(evaluateCi(f).passed,false,mode);
+  }
+});
+
+test('pending exact-SHA checks can be revisited but never count as PASS',()=>{
+  const f=fixture();
+  f.runs[0].status='in_progress'; f.runs[0].conclusion=null;
+  let report=evaluateCi(f);
+  assert.equal(report.passed,false);
+  assert.equal(hasTransientCiEvidence(report),true);
+  f.runs[0].status='completed'; f.runs[0].conclusion='success';
+  report=evaluateCi(f);
+  assert.equal(report.passed,true);
+  assert.equal(hasTransientCiEvidence(report),false);
+});
+test('missing workflow and terminal neutral/skipped are never retried into PASS',()=>{
+  for(const mode of ['missing-workflow','neutral-workflow','skipped-workflow','neutral-check','missing-check']){
+    const f=fixture();
+    if(mode==='missing-workflow')f.runs.shift();
+    if(mode==='neutral-workflow')f.runs[0].conclusion='neutral';
+    if(mode==='skipped-workflow')f.runs[0].conclusion='skipped';
+    if(mode==='neutral-check')f.checks[0].conclusion='neutral';
+    if(mode==='missing-check')f.checks.shift();
+    const report=evaluateCi(f);
+    assert.equal(report.passed,false,mode);
+    assert.equal(hasTransientCiEvidence(report),mode==='missing-check',mode);
+  }
+});
+test('pending, skipped or wrong-attempt jobs still block regardless of polling',()=>{
+  for(const mode of ['pending','skipped','attempt']){
+    const f=fixture(),j=f.jobsByRun[100][0];
+    if(mode==='pending'){j.status='in_progress';j.conclusion=null;}
+    if(mode==='skipped')j.conclusion='skipped';
+    if(mode==='attempt')j.run_attempt=3;
+    const report=evaluateCi(f);
+    assert.equal(report.passed,false,mode);
+    assert.equal(hasTransientCiEvidence(report),false,mode);
   }
 });
