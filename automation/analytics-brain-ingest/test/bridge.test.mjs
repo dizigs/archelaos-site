@@ -240,10 +240,10 @@ test('overlapping exports keep stable source/day keys but separate content revis
 });
 
 
-test('current Brain #234 capability intentionally fails closed before any submit',async()=>{
-  // Exact fields currently returned by brain/src/worker.mjs at #234 HEAD
-  // 47c86ecaa12acf1a4029433c7dd7557653583505.
-  // Missing immutableReceiptReadback means OFF, not optimistic delivery.
+test('legacy incomplete Brain capability fails closed before any submit',async()=>{
+  // Historical #234 predecessor at 47c86eca lacked immutableReceiptReadback.
+  // The current Brain-owner draft added it; this negative regression verifies
+  // compatibility failures remain fail-closed if a stale Worker is deployed.
   let submits=0,readbacks=0;
   const port={
     capabilities:async()=>({
@@ -284,7 +284,7 @@ test('signed ACK alone never substitutes an independently verified immutable rea
     },
     verifyReceipt:async(ack)=>typeof ack.receiptSignature==='string'&&
       ack.receiptSignature.length===64,
-    readbackSnapshot:async()=>undefined, // #234 currently has no route.
+    readbackSnapshot:async()=>undefined, // Simulates missing/unavailable readback.
     verifyReadback:async()=>true
   };
   await assert.rejects(deliverToBrain(await prepare(),port),
