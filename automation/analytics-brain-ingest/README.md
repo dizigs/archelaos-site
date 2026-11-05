@@ -108,3 +108,49 @@ ack and delivery timeout. These tests establish code behavior, not live E2E.
 \`chatgpt/brain-analytics-contract-20261105\` (#196). Only the two newly
 owned scopes are changed. After #196 is reviewed/merged, rebase or retarget
 this PR to updated \`main\` with verified CI; do not bypass reviews.
+
+
+## Follow-up hardening — real private source inspection (2026-11-05)
+
+The opt-in Node 22 module src/github-artifacts.mjs downloads existing private
+GitHub Actions artifacts with a short-lived caller-provided actions:read token.
+It validates authoritative run/artifact metadata, expiry, archive SHA256,
+single expected JSON member, entry CRC, exact extracted-byte SHA256 and
+freshness. The signed ZIP redirect is host restricted and receives NO
+Authorization header. No scheduler, second export, tracking, secret storage,
+new paid service or public endpoint has been added. The adapter is NOT
+deployed; never import it into Cloudflare Workers.
+
+The original bridge now accepts real Python UTC timestamps ending in +00:00
+with six fractional digits, and GitHub seconds-only Z timestamps. Only
+zero-offset UTC timestamps are permitted.
+
+Real ZIP files from the 2026-11-05 successful Actions runs were inspected
+locally, without writing metric values to source or logs:
+- GA4/GSC artifact 13399354924: GitHub ZIP SHA256
+  c9874c2878b6dc99676774c17e357baef995107016db28fa54ba9a3a4c7ee752;
+  extracted JSON SHA256
+  8dbd1de04c223475366c98ac9fa05db0fd8592aacecd74569d4bfa3abe2d0c61.
+  Schema and generated UTC timestamp verified; 27 GSC days pass the
+  impression-volume gate; zero GA4 days pass the 20-active-user gate.
+- Clarity artifact 13399511832: GitHub ZIP SHA256
+  59260c1ce61bb6c05c3e8906ccf7da7f6b114d0e9f4bea7038fe1f05838cc2a2;
+  extracted JSON SHA256
+  e210155e2864a0801d0989b892e3c4210ac86655041711fd958678bd9406dc2f.
+  Schema verified; zero device cohorts pass the 20-session gate.
+  Clarity output is therefore entirely suppressed (not missing/zero traffic).
+
+GSC impressions are NOT unique visitors; volume suppression is not a GDPR
+anonymity guarantee. These real files were not passed through the deployed
+Brain (none exists for analytics); new adapter tests are synthetic/mock-based.
+The inspection proves genuine artifacts and a real privacy blocker, not E2E.
+
+Review-only, non-causal anomaly hints are implemented in src/review-hints.mjs
+for matching source/site-level aggregate snapshots. They never trigger
+campaign changes, tracking or AI. Clarity rolling-24-hour reports are marked
+as not equivalent to calendar-day snapshots.
+
+Before activation, the Brain owner must supply analytics.aggregate.v1 on an
+authenticated private binding, a durable atomic source/period UPSERT ledger,
+source revision/readback, signed receipts, replay reconciliation, privacy
+approval and a staging E2E test. Until then, deliverToBrain fails closed.
