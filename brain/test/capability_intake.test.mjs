@@ -267,6 +267,13 @@ test('Drive/Gmail source-scoped HMAC event, route, receipt and readback permissi
       scoped.audience + '\n' + JSON.stringify(readbackPayload)).digest('hex'));
     assert.equal((await send('/v1/source-receipts/' + ack.receiptId,
       undefined, 'gmail-v1')).status, 404);
+    const gmailLegacy = legacyEvent('gmail', 'source.file.created');
+    const gmailAck = await send('/v1/events', gmailLegacy, 'gmail-v1');
+    assert.equal(gmailAck.status, 202);
+    const gmailBody = await gmailAck.json();
+    assert.equal(gmailBody.durable, true);
+    assert.equal((await send('/v1/source-receipts/' + gmailBody.receiptId,
+      undefined, 'drive-v1')).status, 404);
     assert.equal((await send('/v1/diagnostics', undefined, 'drive-v1')).status, 403);
     assert.equal((await send('/v1/control', undefined, 'gmail-v1')).status, 403);
     assert.equal((await send('/v1/exec/diagnostics', undefined, 'drive-v1')).status, 403);
