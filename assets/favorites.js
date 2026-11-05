@@ -86,4 +86,9 @@ function button(type,id,cls='',info){const b=document.createElement('button');b.
 function clear(){save([],{})}
 window.addEventListener('storage',e=>{if(e.key===KEY||e.key===MKEY)refreshAll()});
 window.ArchelaosFavorites=Object.freeze({live:true,get,has,toggle,clear,button,meta,persistent:()=>storageOK,canonicalPersonId});
+// Load the shared correction control once alongside favorite hearts.
+if(!document.querySelector('script[data-arch-text-corrections]')){
+ const style=document.createElement('link');style.rel='stylesheet';style.href='/assets/correction-suggestions.css?v=20261106';document.head.append(style);
+ const script=document.createElement('script');script.src='/assets/correction-suggestions.js?v=20261106';script.async=true;script.dataset.archTextCorrections='';document.head.append(script);
+}
 })();
