@@ -1,0 +1,59 @@
+{
+  "aiProviderCalls": 0,
+  "billingPlan": "UNVERIFIED_NO_BILLING_REQUEST",
+  "deploymentVerified": false,
+  "evidence": [
+    {
+      "endpoint": "https://api.cloudflare.com/client/v4/accounts/898359728b3dfe8c3a3f56e3d19eecd1/workers/account-settings",
+      "httpStatus": 200,
+      "schemaValid": true,
+      "success": true
+    },
+    {
+      "endpoint": "https://api.cloudflare.com/client/v4/accounts/898359728b3dfe8c3a3f56e3d19eecd1/workers/subdomain",
+      "httpStatus": 200,
+      "registeredWorkersSubdomain": true,
+      "schemaValid": true,
+      "success": true
+    },
+    {
+      "endpoint": "https://api.cloudflare.com/client/v4/accounts/898359728b3dfe8c3a3f56e3d19eecd1/workers/durable_objects/namespaces",
+      "httpStatus": 200,
+      "namespaceCount": 0,
+      "schemaValid": true,
+      "success": true
+    },
+    {
+      "endpoint": "https://api.cloudflare.com/client/v4/accounts/898359728b3dfe8c3a3f56e3d19eecd1/workers/scripts/archelaos-brain-staging/settings",
+      "errorClass": "provider_http",
+      "existingStagingScript": false,
+      "httpStatus": 404,
+      "providerErrorCodes": [
+        10007
+      ],
+      "retryPerformed": false,
+      "success": false
+    }
+  ],
+  "existingBridgeTouched": false,
+  "notVerified": [
+    "Workers Scripts Write for isolated staging",
+    "free-plan SQLite DO entitlement",
+    "separate staging intake/operator secret provisioning",
+    "remote deployment/version logs",
+    "runtime health, actual DO execution and synthetic HTTP proof"
+  ],
+  "readyForDeployment": false,
+  "resourceMutationPerformed": false,
+  "runtimeVerified": false,
+  "script": "archelaos-brain-staging",
+  "stage": "STAGING_READ_ACCESS_ONLY",
+  "status": "READ_ACCESS_VERIFIED",
+  "provenance": {
+    "run": "https://github.com/dizigs/archelaos-site/actions/runs/41746767910",
+    "checkId": 126301889108,
+    "head": "d6562ab3af0ceeac85013135f2d36f8de5bbed1b",
+    "source": "actual GitHub check annotation Brain staging evidence",
+    "credential": "dedicated preexisting read-token binding; no value read"
+  }
+}

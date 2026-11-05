@@ -1,0 +1,30 @@
+name = "archelaos-brain-staging"
+main = "src/worker.mjs"
+compatibility_date = "2026-07-30"
+workers_dev = true
+preview_urls = false
+
+[limits]
+cpu_ms = 10
+
+[vars]
+ENVIRONMENT = "staging"
+DEPLOY_SHA = "0000000000000000000000000000000000000000"
+STAGING_EXPIRES_AT = "1970-01-01T00:00:00Z"
+STAGING_SHORT_RETRIES = "true"
+
+[[durable_objects.bindings]]
+name = "BRAIN"
+class_name = "BrainCoordinator"
+
+[[migrations]]
+tag = "brain-staging-v1"
+new_sqlite_classes = ["BrainCoordinator"]
+
+[observability]
+enabled = true
+head_sampling_rate = 1.0
+
+[observability.logs]
+enabled = true
+invocation_logs = false
