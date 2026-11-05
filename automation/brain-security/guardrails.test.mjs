@@ -119,6 +119,7 @@ test('unknown provider outcome holds reservation and reports breaker failure', a
   await admitTask(ctx, f.ports, policy);
   await claimAuthorizedCall(ctx, f.ports);
   assert.deepEqual(await recordFailedCall(ctx, f.ports, () => DATE), { recorded: true, reservationHeld: true });
+  assert.deepEqual(await recordFailedCall(ctx, f.ports, () => DATE), { recorded: false });
   assert.deepEqual(f.failures, [['provider:cloudflare', false, DATE]]);
   assert.equal(f.settlements.length, 0);
 });
@@ -135,7 +136,7 @@ function storage() {
   const db = new DatabaseSync(':memory:');
   return { sql: { exec(statement, ...args) {
     const q = db.prepare(statement);
-    return q.reader ? q.all(...args) : (q.run(...args), []);
+    return /^\s*SELECT\b/i.test(statement) ? q.all(...args) : (q.run(...args), []);
   } }, transactionSync(fn) {
     db.exec('BEGIN IMMEDIATE');
     try { const result = fn(); db.exec('COMMIT'); return result; }

@@ -7,6 +7,7 @@ const SOURCE = new Set(['staging', 'drive', 'gmail', 'site', 'github', 'news']);
 const trusted = new WeakSet();
 const admitted = new WeakMap();
 const claimed = new WeakSet();
+const terminalOutcomes = new WeakSet();
 
 export class GuardDenied extends Error {
   constructor(code, status = 403) { super(code); this.name = 'GuardDenied'; this.code = code; this.status = status; }
@@ -155,12 +156,14 @@ export async function claimAuthorizedCall(context, ports) {
 
 export async function settleVerifiedCall(context, ports, evidence, now = Date.now) {
   try { requireTrusted(context); } catch { return { settled: false, code: 'UNTRUSTED_AUTH_CONTEXT' }; }
+  if (terminalOutcomes.has(context)) return { settled: false, code: 'OUTCOME_ALREADY_RECORDED' };
   if (!claimed.has(context) || !admitted.has(context) || evidence?.billingEvidenceVerified !== true ||
       !Number.isSafeInteger(evidence.actualMicroEur) || evidence.actualMicroEur < 0)
     return { settled: false, code: 'USAGE_RECONCILIATION_REQUIRED' };
   try {
     await ports.ledger.settle(admitted.get(context), evidence.actualMicroEur);
     await ports.breaker.record('provider:' + context.charge.provider, true, now());
+    terminalOutcomes.add(context);
     ports.monitor?.record({ status: 'COMPLETED', code: 'USAGE_SETTLED', correlationId: context.correlationId,
       latencyMs: evidence.latencyMs ?? 0 });
     return { settled: true };
@@ -169,9 +172,10 @@ export async function settleVerifiedCall(context, ports, evidence, now = Date.no
 
 export async function recordFailedCall(context, ports, now = Date.now) {
   try { requireTrusted(context); } catch { return { recorded: false }; }
-  if (!claimed.has(context)) return { recorded: false };
+  if (!claimed.has(context) || terminalOutcomes.has(context)) return { recorded: false };
   try {
     await ports.breaker.record('provider:' + context.charge.provider, false, now());
+    terminalOutcomes.add(context);
     ports.monitor?.record({ status: 'FAILED', code: 'PROVIDER_OUTCOME_UNKNOWN', correlationId: context.correlationId });
     // Reservation is deliberately NOT refunded: uncertain provider charges require reconciliation.
     return { recorded: true, reservationHeld: true };
