@@ -18,8 +18,16 @@ const grant={...env,ADS_STAGING_ENABLED:'true',ADS_ACCOUNT_KIND:'AD_GRANTS',
   ADS_CUSTOMER_ID:'1234567890',ADS_API_ACCESS_VERIFIED:'true',
   ADS_OAUTH_SCOPE_VERIFIED:'true',ADS_CUSTOMER_CURRENCY:'USD'};
 const live={...grant,ADS_LIVE_ENABLED:'true',ADS_STAGING_TEST_RECEIPT_VERIFIED:'true',
-  ADS_POLICY_REVIEW_VERIFIED:'true',ADS_KILL_SWITCH:'off',ADS_APPROVED_CHANGE_CONTROL:'true'};
+  ADS_POLICY_REVIEW_VERIFIED:'true',ADS_KILL_SWITCH:'off',ADS_APPROVED_CHANGE_CONTROL:'true',
+  ADS_GRANTS_ENTITLEMENT_RECEIPT_VERIFIED:'true',ADS_NO_PAYMENT_METHOD_VERIFIED:'true',
+  ADS_BUDGET_AUDIT_READ_ENABLED:'true'};
 
+function mockBudgetAudit(){
+  return {source:'GOOGLE_ADS_API_GAQL',customerId:'1234567890',currency:'USD',
+    observedAt:new Date().toISOString(),actualSpendObserved:true,
+    budgets:[{resourceName:'customers/1234567890/campaignBudgets/2',amountMicros:100000000}],
+    spentTodayMicros:0,spentMonthMicros:0};
+}
 function mockD1(){
   const rows=new Map();
   return {rows,prepare(sql){
@@ -155,7 +163,7 @@ test('failed or unknown outcome is not auto retried; claim is durable',async()=>
     approvalExpiresAt:new Date(Date.now()+60000).toISOString()};
   const e={...live,ADS_D1:db};
   let calls=0;
-  const ports={send:async()=>{calls++;throw Error('network maybe committed')}};
+  const ports={budgetAudit:async()=>mockBudgetAudit(),send:async()=>{calls++;throw Error('network maybe committed')}};
   const signed=await sign(action);
   const first=await dispatch(signed,e,ports);
   assert.equal(first.status,'NEEDS_RECONCILIATION');
@@ -171,7 +179,7 @@ test('idempotency conflict cannot overwrite earlier claimed mutation',async()=>{
       input:{resourceName:'customers/1234567890/campaigns/44'}},
     idempotencyKey:'issue216-idempotency-002',approvalId:'approved-change-216',
     approvalExpiresAt:new Date(Date.now()+60000).toISOString()};
-  const ports={send:async()=>({ok:true,requestId:'mock',resourceNames:[],
+  const ports={budgetAudit:async()=>mockBudgetAudit(),send:async()=>({ok:true,requestId:'mock',resourceNames:[],
     applied:true})};
   assert.equal((await dispatch(await sign(base),e,ports)).status,'APPLIED');
   assert.equal((await dispatch(await sign(base),e,ports)).receipt.replayed,true);
