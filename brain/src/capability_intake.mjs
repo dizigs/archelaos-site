@@ -235,17 +235,23 @@ export function readAnalyticsSnapshotReceipt(storage, input) {
 }
 
 export function readAppsScriptReceipt(storage, input) {
-  if (!exact(input, ['receiptId', 'eventId', 'operationId']) ||
-      !UUID.test(input.receiptId || '') || !UUID.test(input.eventId || '') ||
-      !UUID.test(input.operationId || ''))
+  const byReceipt = exact(input, ['receiptId', 'eventId', 'operationId']);
+  const byOperation = exact(input, ['eventId', 'operationId']);
+  if ((!byReceipt && !byOperation) ||
+      (byReceipt && !UUID.test(input.receiptId || '')) ||
+      !UUID.test(input.eventId || '') || !UUID.test(input.operationId || ''))
     fail('APPS_SCRIPT_INVALID_READBACK', 422);
-  const row = [...storage.sql.exec('SELECT * FROM apps_script_receipts WHERE receipt_id=?',
-    input.receiptId)][0];
+  const row = byReceipt ?
+    [...storage.sql.exec('SELECT * FROM apps_script_receipts WHERE receipt_id=?',
+      input.receiptId)][0] :
+    [...storage.sql.exec('SELECT * FROM apps_script_receipts WHERE event_id=? AND operation_id=?',
+      input.eventId, input.operationId)][0];
   if (!row || row.event_id !== input.eventId || row.operation_id !== input.operationId)
     fail('APPS_SCRIPT_RECEIPT_NOT_FOUND', 404);
   return { receiptId: row.receipt_id, eventId: row.event_id,
-    correlationId: row.operation_id, phase: row.phase,
-    sourceRevision: row.source_revision, evidenceDigest: row.evidence_digest,
+    correlationId: row.operation_id, source: 'apps_script',
+    sourceRevision: row.source_revision, transport: 'PRIVATE_SERVICE_BINDING',
+    phase: row.phase, evidenceDigest: row.evidence_digest,
     status: 'WAITING_REVIEW', durable: true };
 }
 
