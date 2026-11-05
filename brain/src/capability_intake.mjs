@@ -51,6 +51,7 @@ function digestUuid(hex) {
 }
 export const CAPABILITY_SCHEMA = [
   "CREATE TABLE IF NOT EXISTS analytics_snapshots(snapshot_key TEXT PRIMARY KEY,metric_revision TEXT NOT NULL,event_id TEXT NOT NULL,observed INTEGER NOT NULL,receipt_id TEXT NOT NULL,report_digest TEXT NOT NULL,aggregate_json TEXT NOT NULL,updated INTEGER NOT NULL)",
+  "CREATE TABLE IF NOT EXISTS analytics_snapshot_versions(receipt_id TEXT PRIMARY KEY,snapshot_key TEXT NOT NULL,event_id TEXT NOT NULL UNIQUE,metric_revision TEXT NOT NULL,source TEXT NOT NULL,correlation_id TEXT NOT NULL,report_digest TEXT NOT NULL,producer_evidence_digest TEXT NOT NULL,run_id INTEGER NOT NULL,artifact_id INTEGER NOT NULL,run_sha TEXT NOT NULL,observed INTEGER NOT NULL,status TEXT NOT NULL,created INTEGER NOT NULL)",
   "CREATE TABLE IF NOT EXISTS capability_deliveries(source TEXT NOT NULL,event_id TEXT NOT NULL,receipt_id TEXT NOT NULL,body_digest TEXT NOT NULL,created INTEGER NOT NULL,PRIMARY KEY(source,event_id))",
   "CREATE TABLE IF NOT EXISTS apps_script_receipts(event_id TEXT PRIMARY KEY,receipt_id TEXT NOT NULL,operation_id TEXT NOT NULL,phase TEXT NOT NULL,source_fingerprint TEXT NOT NULL,source_revision TEXT NOT NULL,evidence_digest TEXT NOT NULL,observed INTEGER NOT NULL,UNIQUE(operation_id,phase))",
   "CREATE TABLE IF NOT EXISTS capability_audit(id INTEGER PRIMARY KEY AUTOINCREMENT,receipt_id TEXT NOT NULL,source TEXT NOT NULL,code TEXT NOT NULL,created INTEGER NOT NULL)"
@@ -110,6 +111,9 @@ export async function validateAnalyticsSnapshot(request, now = Date.now()) {
     fail('ANALYTICS_HASH_MISMATCH', 409);
   return { eventId: event.eventId, snapshotKey: request.snapshotKey,
     metricRevision: request.metricRevision, observed, reportDigest: payload.reportDigest,
+    source: payload.source, correlationId: event.correlationId,
+    producerEvidenceDigest: await digest(JSON.stringify(evidence)),
+    runId: evidence.runId, artifactId: evidence.artifactId, runSha: evidence.runSha,
     aggregate: JSON.stringify({ source: payload.source, period: payload.period,
       metrics: payload.metrics, suppressedRows: payload.suppressedRows }) };
 }
@@ -136,51 +140,122 @@ export async function validateAppsScriptEvent(event, now = Date.now()) {
 }
 
 /** Both capabilities use the existing BrainCoordinator storage and transactionSync. */
-export function persistAnalyticsSnapshot(storage, validated, bodyDigest, now = Date.now()) {
+/**
+ * UPSERT identity is (source, from, to), not an incrementing counter.
+ * Each revision has a distinct immutable receipt; current snapshot points at it.
+ * The optional trusted beforeCommit gate runs WITHIN the same SQLite transaction
+ * as rate limiting, global/source pause and all receipt writes.
+ */
+export function persistAnalyticsSnapshot(storage, validated, bodyDigest,
+  now = Date.now(), beforeCommit) {
   if (typeof storage?.transactionSync !== 'function') fail('DURABLE_STORAGE_REQUIRED', 503);
+  if (!HEX.test(bodyDigest || '') || typeof beforeCommit !== 'function')
+    fail('TRUSTED_CAPABILITY_GATE_REQUIRED', 503);
   return storage.transactionSync(() => {
+    beforeCommit();
     const sql = storage.sql;
     const prior = [...sql.exec('SELECT * FROM capability_deliveries WHERE source=? AND event_id=?',
       'analytics', validated.eventId)][0];
     if (prior) {
       if (prior.body_digest !== bodyDigest) fail('CAPABILITY_IDEMPOTENCY_CONFLICT', 409);
-      const current = [...sql.exec('SELECT metric_revision FROM analytics_snapshots WHERE snapshot_key=?',
+      const current = [...sql.exec('SELECT receipt_id FROM analytics_snapshots WHERE snapshot_key=?',
         validated.snapshotKey)][0];
-      if (!current || current.metric_revision !== validated.metricRevision)
+      if (!current || current.receipt_id !== prior.receipt_id)
         fail('ANALYTICS_REVISION_SUPERSEDED', 409);
       return { receiptId: prior.receipt_id, eventId: validated.eventId,
         snapshotKey: validated.snapshotKey, metricRevision: validated.metricRevision,
-        status: 'DUPLICATE', durable: true };
+        status: 'DUPLICATE', durable: true, producerEvidenceDigest: validated.producerEvidenceDigest,
+        correlationId: validated.correlationId };
     }
-    const old = [...sql.exec('SELECT * FROM analytics_snapshots WHERE snapshot_key=?', validated.snapshotKey)][0];
-    if (old && (validated.observed < old.observed ||
-        (validated.observed === old.observed && validated.metricRevision !== old.metric_revision)))
-      fail('ANALYTICS_STALE_OR_CONFLICTING_REVISION', 409);
-    const total = [...sql.exec('SELECT COUNT(*) AS n FROM capability_deliveries')][0].n;
-    if (total >= 10_000) fail('CAPABILITY_CAPACITY_REACHED', 429);
-    const id = old?.receipt_id || crypto.randomUUID();
-    const status = !old ? 'ACCEPTED' :
-      validated.metricRevision === old.metric_revision ? 'DUPLICATE' : 'UPDATED';
+    const old = [...sql.exec('SELECT * FROM analytics_snapshots WHERE snapshot_key=?',
+      validated.snapshotKey)][0];
+    if (old) {
+      const priorVersion = [...sql.exec(
+        'SELECT * FROM analytics_snapshot_versions WHERE receipt_id=?', old.receipt_id)][0];
+      if (!priorVersion) fail('ANALYTICS_IMMUTABLE_HISTORY_MISSING', 503);
+      // Event time = verified provider workflow completion time, NOT ingest time.
+      // Equal timestamps are deterministically ordered by authoritative run ID.
+      // A newer run with identical metrics is still a NEW provenanced version.
+      if (validated.observed < priorVersion.observed ||
+          (validated.observed === priorVersion.observed &&
+           validated.runId <= priorVersion.run_id))
+        fail('ANALYTICS_STALE_OR_AMBIGUOUS_REVISION', 409);
+    }
+    if ([...sql.exec('SELECT COUNT(*) AS n FROM capability_deliveries')][0].n >= 10_000)
+      fail('CAPABILITY_CAPACITY_REACHED', 429);
+    const id = crypto.randomUUID();
+    const status = old ? 'UPDATED' : 'ACCEPTED';
+    sql.exec('INSERT INTO analytics_snapshot_versions(receipt_id,snapshot_key,event_id,metric_revision,source,correlation_id,report_digest,producer_evidence_digest,run_id,artifact_id,run_sha,observed,status,created) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
+      id, validated.snapshotKey, validated.eventId, validated.metricRevision,
+      validated.source, validated.correlationId, validated.reportDigest,
+      validated.producerEvidenceDigest, validated.runId, validated.artifactId,
+      validated.runSha, validated.observed, status, now);
     if (!old) {
       sql.exec('INSERT INTO analytics_snapshots(snapshot_key,metric_revision,event_id,observed,receipt_id,report_digest,aggregate_json,updated) VALUES(?,?,?,?,?,?,?,?)',
-        validated.snapshotKey, validated.metricRevision, validated.eventId, validated.observed, id,
-        validated.reportDigest, validated.aggregate, now);
-    } else if (validated.observed > old.observed) {
-      sql.exec('UPDATE analytics_snapshots SET metric_revision=?,event_id=?,observed=?,report_digest=?,aggregate_json=?,updated=? WHERE snapshot_key=?',
-        validated.metricRevision, validated.eventId, validated.observed, validated.reportDigest,
-        validated.aggregate, now, validated.snapshotKey);
+        validated.snapshotKey, validated.metricRevision, validated.eventId,
+        validated.observed, id, validated.reportDigest, validated.aggregate, now);
+    } else {
+      sql.exec('UPDATE analytics_snapshots SET metric_revision=?,event_id=?,observed=?,receipt_id=?,report_digest=?,aggregate_json=?,updated=? WHERE snapshot_key=?',
+        validated.metricRevision, validated.eventId, validated.observed, id,
+        validated.reportDigest, validated.aggregate, now, validated.snapshotKey);
     }
     sql.exec('INSERT INTO capability_deliveries(source,event_id,receipt_id,body_digest,created) VALUES(?,?,?,?,?)',
       'analytics', validated.eventId, id, bodyDigest, now);
     sql.exec('INSERT INTO capability_audit(receipt_id,source,code,created) VALUES(?,?,?,?)',
       id, 'analytics', status, now);
     return { receiptId: id, eventId: validated.eventId, snapshotKey: validated.snapshotKey,
-      metricRevision: validated.metricRevision, status, durable: true };
+      metricRevision: validated.metricRevision, status, durable: true,
+      producerEvidenceDigest: validated.producerEvidenceDigest,
+      correlationId: validated.correlationId };
   });
 }
-export function persistAppsScriptEvent(storage, validated, bodyDigest, now = Date.now()) {
+
+/**
+ * Read ONLY immutable revision metadata from the canonical ledger.
+ * A superseded version still exists, but is explicitly marked not-current.
+ */
+export function readAnalyticsSnapshotReceipt(storage, input) {
+  if (!exact(input, ['receiptId', 'eventId', 'snapshotKey']) ||
+      !UUID.test(input.receiptId || '') || !HEX.test(input.eventId || '') ||
+      typeof input.snapshotKey !== 'string' || input.snapshotKey.length > 120)
+    fail('ANALYTICS_INVALID_READBACK', 422);
+  const sql = storage.sql;
+  const row = [...sql.exec('SELECT * FROM analytics_snapshot_versions WHERE receipt_id=?',
+    input.receiptId)][0];
+  if (!row || row.event_id !== input.eventId || row.snapshot_key !== input.snapshotKey)
+    fail('ANALYTICS_RECEIPT_NOT_FOUND', 404);
+  const current = [...sql.exec('SELECT receipt_id FROM analytics_snapshots WHERE snapshot_key=?',
+    row.snapshot_key)][0];
+  if (!current) fail('ANALYTICS_CURRENT_SNAPSHOT_MISSING', 503);
+  return { receiptId: row.receipt_id, eventId: row.event_id,
+    snapshotKey: row.snapshot_key, metricRevision: row.metric_revision,
+    reportDigest: row.report_digest, source: row.source,
+    correlationId: row.correlation_id, producerEvidenceDigest: row.producer_evidence_digest,
+    status: row.status, isCurrent: current.receipt_id === row.receipt_id, durable: true };
+}
+
+export function readAppsScriptReceipt(storage, input) {
+  if (!exact(input, ['receiptId', 'eventId', 'operationId']) ||
+      !UUID.test(input.receiptId || '') || !UUID.test(input.eventId || '') ||
+      !UUID.test(input.operationId || ''))
+    fail('APPS_SCRIPT_INVALID_READBACK', 422);
+  const row = [...storage.sql.exec('SELECT * FROM apps_script_receipts WHERE receipt_id=?',
+    input.receiptId)][0];
+  if (!row || row.event_id !== input.eventId || row.operation_id !== input.operationId)
+    fail('APPS_SCRIPT_RECEIPT_NOT_FOUND', 404);
+  return { receiptId: row.receipt_id, eventId: row.event_id,
+    correlationId: row.operation_id, phase: row.phase,
+    sourceRevision: row.source_revision, evidenceDigest: row.evidence_digest,
+    status: 'WAITING_REVIEW', durable: true };
+}
+
+export function persistAppsScriptEvent(storage, validated, bodyDigest,
+  now = Date.now(), beforeCommit) {
   if (typeof storage?.transactionSync !== 'function') fail('DURABLE_STORAGE_REQUIRED', 503);
+  if (!HEX.test(bodyDigest || '') || typeof beforeCommit !== 'function')
+    fail('TRUSTED_CAPABILITY_GATE_REQUIRED', 503);
   return storage.transactionSync(() => {
+    beforeCommit();
     const sql = storage.sql;
     const prior = [...sql.exec('SELECT * FROM capability_deliveries WHERE source=? AND event_id=?',
       'apps_script', validated.eventId)][0];
