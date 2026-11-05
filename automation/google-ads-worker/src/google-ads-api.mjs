@@ -67,6 +67,10 @@ export function keywordIdeaRequest(customer,{landing,keywords=[],geoIds=[],langu
 export async function readKeywordIdeas(env,seed,{fetcher=fetch}={}) {
   ok(stagingReady(env) && env?.ADS_KEYWORD_PLANNER_READ_ENABLED==='true',
     'KEYWORD_PLANNER_DISABLED');
+  // Google Ads API Explorer (2,880/day) expressly excludes KeywordPlanIdeaService.
+  // The Ads UI may show Planner, but that does not grant the API capability.
+  ok(['BASIC','STANDARD'].includes(env?.ADS_API_ACCESS_LEVEL),
+    'KEYWORD_PLANNER_REQUIRES_BASIC_OR_STANDARD_API_ACCESS');
   const request=keywordIdeaRequest(env.ADS_CUSTOMER_ID,seed);
   const token=await adsAccessToken(env,fetcher);
   const response=await fetcher(request.endpoint,{method:'POST',
