@@ -54,3 +54,16 @@ A new merge or changed SHA means FAIL until manually re-pinned.
 - No verified GitHub draft writer and end-to-end exact-SHA 8-workflow proof.
 - Provider entitlement, live cost/FX and staging-only Cloudflare binding
   attestation are missing. No paid calls, merges, forced updates or deploys.
+
+## Exact-head workflow_dispatch recovery
+
+A narrow `actions:write` job in this *same* workflow executes no PR source
+code and dispatches only the existing `rebuild-check.yml` and
+`axe-accessibility.yml` for PR #217, after an authenticated PR SHA check.
+HTTP 204 is **dispatch accepted**, never a passing CI result; a rejected
+permission fails the job. The attestation remains read-only, retries only
+bounded transient/missing dispatched evidence, verifies exact SHA/run/attempt/
+jobs and fails closed on timeout, neutral, pending or stale evidence. Rebuild
+requires integrity, browser and release jobs. Its production-deployment job
+is explicitly not applicable to workflow_dispatch; a skipped required job
+never counts as PASS.

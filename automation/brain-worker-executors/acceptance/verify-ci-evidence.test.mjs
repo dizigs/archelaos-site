@@ -94,3 +94,25 @@ test('pending, skipped or wrong-attempt jobs still block regardless of polling',
     assert.equal(hasTransientCiEvidence(report),false,mode);
   }
 });
+
+test('rebuild manual run requires Chromium AND release build, not just integrity',()=>{
+  const f=fixture();f.runs[0].event='workflow_dispatch';
+  f.jobsByRun[100].push({id:1100,run_id:100,run_attempt:2,
+    name:'verify-production-deployment',status:'completed',conclusion:'skipped'});
+  assert.equal(evaluateCi(f).passed,true);
+  f.jobsByRun[100].find(j=>j.name==='Chromium desktop and mobile').conclusion='failure';
+  assert.equal(evaluateCi(f).passed,false);
+});
+test('nonapplicable production-only job never excuses another skipped job',()=>{
+  const f=fixture();f.runs[0].event='workflow_dispatch';
+  f.jobsByRun[100].push({id:1100,run_id:100,run_attempt:2,
+    name:'verify-production-deployment',status:'completed',conclusion:'skipped'});
+  f.jobsByRun[100].find(j=>j.name==='Assemble and validate future Cloudflare release').conclusion='skipped';
+  assert.equal(evaluateCi(f).passed,false);
+});
+test('missing workflow after a dispatch may be awaited but cannot PASS',()=>{
+  const f=fixture();f.runs.shift();const report=evaluateCi(f);
+  assert.equal(report.passed,false);
+  assert.equal(hasTransientCiEvidence(report),false);
+  assert.equal(hasTransientCiEvidence(report,true),true);
+});

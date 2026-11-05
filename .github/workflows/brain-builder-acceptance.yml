@@ -64,7 +64,7 @@ jobs:
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           repository: dizigs/archelaos-site
-          ref: e63052d7c0d7d75f4332e6f9c822067b6b0c3d5e
+          ref: 8b7f7b4ef2ee4f01322c18448ec32fe0954810fc
           path: .acceptance-sources/integration
           persist-credentials: false
       - name: Checkout canonical Brain PR 219 actual merged SHA
@@ -95,15 +95,56 @@ jobs:
       - name: Verify cross-module synthetic end-to-end and fail-closed contracts
         run: node --test automation/brain-worker-executors/acceptance/*.test.mjs
 
+  dispatch-required-audits:
+    # Write permission is isolated; this job never checks out PR code.
+    if: github.repository == 'dizigs/archelaos-site' && github.event.pull_request.number == 217 && github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.ref == 'test/brain-builders-cross-pr-acceptance-20261105'
+    permissions:
+      contents: read
+      pull-requests: read
+      actions: write
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Dispatch existing audit workflows for authenticated exact PR head
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          TARGET_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          for workflow in rebuild-check.yml axe-accessibility.yml; do
+            body=$(curl --silent --show-error --fail-with-body --max-time 20 \
+              -H "Authorization: Bearer ${GITHUB_TOKEN}" \
+              -H 'Accept: application/vnd.github+json' \
+              -H 'X-GitHub-Api-Version: 2022-11-28' \
+              'https://api.github.com/repos/dizigs/archelaos-site/pulls/217')
+            test "$(jq -r '.head.repo.full_name' <<< "$body")" = 'dizigs/archelaos-site'
+            test "$(jq -r '.head.ref' <<< "$body")" = 'test/brain-builders-cross-pr-acceptance-20261105'
+            test "$(jq -r '.head.sha' <<< "$body")" = "$TARGET_SHA"
+            code=$(curl --silent --show-error --max-time 20 \
+              --output /tmp/dispatch-response --write-out '%{http_code}' \
+              --request POST \
+              -H "Authorization: Bearer ${GITHUB_TOKEN}" \
+              -H 'Accept: application/vnd.github+json' \
+              -H 'X-GitHub-Api-Version: 2022-11-28' \
+              --data '{"ref":"test/brain-builders-cross-pr-acceptance-20261105"}' \
+              "https://api.github.com/repos/dizigs/archelaos-site/actions/workflows/${workflow}/dispatches")
+            if [[ "$code" != 204 ]]; then
+              echo "::error::${workflow} dispatch was rejected (HTTP ${code})"
+              exit 1
+            fi
+            echo "Accepted dispatch request for ${workflow}; SUCCESS requires exact-SHA readback"
+          done
+
   independent-ci-attestation:
     permissions:
       contents: read
       actions: read
       checks: read
     if: always() && github.event.pull_request.head.repo.full_name == github.repository
-    needs: synthetic-contracts
+    needs: [synthetic-contracts, dispatch-required-audits]
     runs-on: ubuntu-latest
-    timeout-minutes: 6
+    timeout-minutes: 30
     steps:
       - name: Checkout exact source for immutable CI audit
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
@@ -119,4 +160,5 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
           ACCEPTANCE_SHA: ${{ github.event.pull_request.head.sha }}
           ACCEPTANCE_BRANCH: ${{ github.event.pull_request.head.ref }}
+          ACCEPTANCE_DISPATCH_RESULT: ${{ needs.dispatch-required-audits.result }}
         run: node automation/brain-worker-executors/acceptance/verify-ci-evidence.mjs

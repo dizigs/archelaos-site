@@ -3,7 +3,7 @@ import { appendFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 export const REQUIRED=Object.freeze({
-  'rebuild-check.yml':['HTML, data and JavaScript integrity'],
+  'rebuild-check.yml':['HTML, data and JavaScript integrity','Chromium desktop and mobile','Assemble and validate future Cloudflare release'],
   'axe-accessibility.yml':['axe'],
   'lighthouse-ci.yml':['Lighthouse CI mobile audit'],
   'eslint-guard.yml':['ESLint JavaScript quality'],
@@ -33,13 +33,24 @@ export function evaluateCi({sha,branch,runs,checks,jobsByRun,rulesets}){
       add('workflow',name,'FAIL','NOT_SUCCESS_'+r.status+'/'+r.conclusion);continue;
     }
     const jobs=jobsByRun?.[String(r.id)];
-    if(!Array.isArray(jobs)||!jobs.length||
-       jobs.some(j=>j?.run_id!==r.id||j.run_attempt!==r.run_attempt||
-         !Number.isSafeInteger(j.id)||j.status!=='completed'||j.conclusion!=='success')||
-       required.some(n=>jobs.filter(j=>j.name===n).length!==1)){
+    if(!Array.isArray(jobs)||!jobs.length){
       add('workflow',name,'FAIL','REQUIRED_JOB_OR_ATTEMPT_MISMATCH');continue;
     }
-    add('workflow',name,'PASS','run '+r.id+', attempt '+r.run_attempt);
+    // Production deployment intentionally cannot run on workflow_dispatch.
+    // Record that one non-required job as inapplicable, not successful.
+    const notApplicable=jobs.filter(j=>name==='rebuild-check.yml' &&
+      r.event==='workflow_dispatch' && j?.name==='verify-production-deployment' &&
+      j.status==='completed' && j.conclusion==='skipped');
+    const applicable=jobs.filter(j=>!notApplicable.includes(j));
+    if(notApplicable.length>1||!applicable.length||
+       jobs.some(j=>j?.run_id!==r.id||j.run_attempt!==r.run_attempt||
+         !Number.isSafeInteger(j.id))||
+       applicable.some(j=>j.status!=='completed'||j.conclusion!=='success')||
+       required.some(n=>applicable.filter(j=>j.name===n).length!==1)){
+      add('workflow',name,'FAIL','REQUIRED_JOB_OR_ATTEMPT_MISMATCH');continue;
+    }
+    add('workflow',name,'PASS','run '+r.id+', attempt '+r.run_attempt+
+      (notApplicable.length?' (production-only job NOT APPLICABLE)':''));
   }
   const mandated=new Map([['SonarCloud Code Analysis','sonarqubecloud'],
     ['CodeQL','github-advanced-security']]);
@@ -69,9 +80,11 @@ export function evaluateCi({sha,branch,runs,checks,jobsByRun,rulesets}){
  * Retry only concurrently running checks. Missing workflow evidence and any
  * terminal neutral/skipped/failure always remain FAIL after every snapshot.
  */
-export function hasTransientCiEvidence(report){
+export function hasTransientCiEvidence(report,dispatched=false){
   return report.matrix.some(row => row.result==='FAIL' && (
     (row.scope==='check' && row.reason==='MISSING_EXACT_SHA') ||
+    (dispatched && row.scope==='workflow' && row.reason==='MISSING_EXACT_SHA' &&
+      ['rebuild-check.yml','axe-accessibility.yml'].includes(row.name)) ||
     /^NOT_SUCCESS_(queued|in_progress|requested|waiting|pending)\//.test(row.reason)
   ));
 }
@@ -119,21 +132,22 @@ async function main(){
     }
     return evaluateCi({sha,branch,runs,checks,jobsByRun,rulesets});
   }
-  // These workflows launch concurrently; a successful job may still be pending
-  // when independent attestation begins. Retry transient states for <=120s.
-  // No missing/skipped/failed/neutral evidence is ever treated as success.
-  const MAX_ATTEMPTS=13,POLL_MS=10_000;
+  // An accepted workflow_dispatch is NOT evidence of success. Allow a bounded
+  // wait for runs/jobs to materialize and finish; on expiry everything stays FAIL.
+  const dispatched=process.env.ACCEPTANCE_DISPATCH_RESULT==='success';
+  const MAX_ATTEMPTS=dispatched?78:13,POLL_MS=20_000;
   let result,attempts=0;
   do {
     attempts++;
     result=await snapshot();
-    if(result.passed||!hasTransientCiEvidence(result)||attempts===MAX_ATTEMPTS)break;
+    if(result.passed||!hasTransientCiEvidence(result,dispatched)||attempts===MAX_ATTEMPTS)break;
     await new Promise(resolve=>setTimeout(resolve,POLL_MS));
   } while(true);
 
   const rows=['## Independent CI: '+(result.passed?'PASS':'BLOCKED'),'',
     'SHA: `'+sha+'` — '+result.pass+' PASS / '+result.fail+' FAIL',
-    'Audit snapshots: '+attempts+' (bounded retries; no gate waivers)','',
+    'Audit snapshots: '+attempts+' (bounded retries; no gate waivers)',
+    'Dispatch result: '+(dispatched?'accepted request only':'not verified'),'',
     '| Gate | Name | Result | Evidence/blocker |','|---|---|---|---|',
     ...result.matrix.map(x=>'| '+x.scope+' | '+x.name+' | '+x.result+' | '+x.reason+' |'),
     '', 'Mock CI is not a live Brain/provider E2E. No paid calls.'];
