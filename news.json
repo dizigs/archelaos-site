@@ -44,7 +44,6 @@
       "imageNote": "Ομαδική φωτογραφία του τμήματος πάλης του Αρχέλαου από το 8ο Meteora International Wrestling Tournament.",
       "source": "Επίσημη ανάρτηση «Αρχέλαος Παλαιστικός», 01/11/2026",
       "personIds": [
-        "arch-2616694d9908",
         "arch-loukas-zinisa-wrest25",
         "arch-64dbf198bfd6",
         "arch-bdcef56af524",
@@ -102,7 +101,6 @@
       "source": "Pieria Social · 05/10/2026",
       "sourceUrl": "https://pieriasocial.gr/?p=137516",
       "personIds": [
-        "arch-2616694d9908",
         "arch-957a876e770d",
         "arch-b48656c62600"
       ],
@@ -246,7 +244,6 @@
       "source": "Pieria News · 19/07/2026",
       "sourceUrl": "https://www.pierianews.gr/2026/07/19/diethnes-tournoua-palis-darko-nisavic-chryses-diakriseis-gia-tous-protathlites-tou-archelaou-katerinis-sti-servia/",
       "personIds": [
-        "arch-2616694d9908",
         "arch-b48656c62600",
         "arch-af9470c5745f"
       ],
@@ -386,15 +383,15 @@
       "category": "achievements",
       "sport": "Πάλη",
       "title": "Δύο ασημένια μετάλλια για τον Αρχέλαο στο Πανελλήνιο Πάλης U15",
-      "summary": "Ο Νίκος και ο Λουκάς Ζινίσα κατέκτησαν τη 2η θέση στα Πορόια Σερρών στις 22 Μαρτίου 2026.",
+      "summary": "Ασημένια μετάλλια στον Νίκο Ζινίσα του Σάββα και τον Λουκά Ζινίσα στα Πορόια Σερρών.",
       "body": [
-        "Στο Πανελλήνιο Πρωτάθλημα Πάλης U15 στα Πορόια Σερρών στις 22 Μαρτίου 2026, ο Νίκος Ζινίσα και ο Λουκάς Ζινίσα του Αρχέλαου κατέκτησαν από ένα ασημένιο μετάλλιο (2η θέση).",
-        "Το αποτέλεσμα δημοσιεύτηκε στις 30 Μαρτίου 2026 από τον Ντελάλη."
+        "Στο Πανελλήνιο Πρωτάθλημα Πάλης U15 στα Πορόια Σερρών στις 22 Μαρτίου 2026, ο Νίκος Ζινίσα του Σάββα και ο Λουκάς Ζινίσα του Σάββα κατέκτησαν από ένα ασημένιο μετάλλιο (2η θέση).",
+        "Το αποτέλεσμα δημοσιεύτηκε στις 29 Μαρτίου 2026 στο Pieria Social, όπου καταγράφονται ρητά τα πατρώνυμα των δύο αθλητών."
       ],
-      "source": "Ο Ντελάλης · 30/03/2026",
-      "sourceUrl": "https://odelalis.gr/archelaos-katerinis-dipli-epitychia-sto-panellinio-palis-u15/",
+      "source": "Pieria Social · 29/03/2026",
+      "sourceUrl": "https://pieriasocial.gr/?p=124780",
       "personIds": [
-        "arch-2616694d9908",
+        "arch-nikos-zinisa-savvas-wrestling",
         "arch-loukas-zinisa-wrest25"
       ],
       "featured": false,
@@ -893,7 +890,6 @@
       "source": "Pieria News · 17/04/2025",
       "sourceUrl": "https://www.pierianews.gr/2025/04/17/2os-protathlitis-ellados-sto-omadiko-paidon-o-gas-archelaos-katerinis-foto/",
       "personIds": [
-        "arch-2616694d9908",
         "arch-f3d93442851f",
         "arch-be8668380721",
         "arch-b48656c62600",
@@ -970,7 +966,8 @@
         "arch-cdc99b2b3af3",
         "arch-7e12ae009786",
         "arch-538dbd2d58dc",
-        "arch-449576656c19"
+        "arch-449576656c19",
+        "arch-nikos-zinisa-savvas-wrestling"
       ],
       "featured": false,
       "imageSourceUrl": "https://media.pieriasocial.gr/2025/03/11111111111111111-10.jpg",
@@ -1012,7 +1009,6 @@
       "source": "Pieria News · 17/12/2024",
       "sourceUrl": "https://www.pierianews.gr/2024/12/17/1os-o-archelaos-se-tournoua-stin-kroatia/",
       "personIds": [
-        "arch-2616694d9908",
         "arch-b48656c62600",
         "arch-f3d93442851f",
         "arch-8c8c23ba82e6",
@@ -1043,7 +1039,6 @@
         "arch-be8668380721",
         "arch-aristotelis-navrozidis-wrest24",
         "arch-8c8c23ba82e6",
-        "arch-2616694d9908",
         "arch-wrest-taxiarhis-liakos",
         "arch-achilleas-giassiranis-wrestling-2024"
       ],
@@ -1188,8 +1183,7 @@
         "arch-957a876e770d",
         "arch-e87fdf323137",
         "arch-b48656c62600",
-        "arch-f3d93442851f",
-        "arch-2616694d9908"
+        "arch-f3d93442851f"
       ],
       "image": "https://odelalis.gr/wp-content/uploads/2024/10/gas_arxelaos_pali_metalia-3.jpg",
       "imageSourceUrl": "https://odelalis.gr/wp-content/uploads/2024/10/gas_arxelaos_pali_metalia-3.jpg",
@@ -1638,7 +1632,6 @@
       "image": "images/news/wrestling-u15-larisa-2024.jpg",
       "imageNote": "Φωτογραφία από το αρχικό δημοσίευμα: Eptanews · Μάρτιος 2024",
       "personIds": [
-        "arch-2616694d9908",
         "arch-b48656c62600",
         "arch-vangelis-kordonoulis-wrest24",
         "arch-aristotelis-navrozidis-wrest24"
@@ -1729,8 +1722,7 @@
         "arch-ba8233d165aa",
         "arch-be8668380721",
         "arch-73968afa517e",
-        "arch-b48656c62600",
-        "arch-2616694d9908"
+        "arch-b48656c62600"
       ],
       "image": "https://olympiobima.gr/wp-content/uploads/2023/12/gas-archelaos-katerinis-gemisan-tis-29267.webp",
       "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2023/12/gas-archelaos-katerinis-gemisan-tis-29267.webp",
@@ -1777,7 +1769,8 @@
         "arch-aristotelis-navrozidis-wrest24",
         "arch-loukas-zinisa-wrest25",
         "arch-2616694d9908",
-        "arch-wrest-taxiarhis-liakos"
+        "arch-wrest-taxiarhis-liakos",
+        "arch-nikos-zinisa-savvas-wrestling"
       ],
       "image": "https://olympiobima.gr/wp-content/uploads/2023/11/archelaos-katerinis-elampsan-pitsirikades-pali-73212.webp",
       "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2023/11/archelaos-katerinis-elampsan-pitsirikades-pali-73212.webp",
@@ -1974,8 +1967,7 @@
         "arch-f3d93442851f",
         "arch-73968afa517e",
         "arch-e87fdf323137",
-        "arch-ba8233d165aa",
-        "arch-2616694d9908"
+        "arch-ba8233d165aa"
       ],
       "image": "https://olympiobima.gr/wp-content/uploads/2023/05/pali-gas-archelaos-52473.webp",
       "imageSourceUrl": "https://olympiobima.gr/wp-content/uploads/2023/05/pali-gas-archelaos-52473.webp",

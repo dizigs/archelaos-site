@@ -991,7 +991,7 @@
       "summary": "Hall of Fame",
       "year": "",
       "href": "hall-of-fame.html?person=arch-e6778f75ce14",
-      "keywords": "Θανάσης Ξώνης Thanasis Xonis Θανάσης Ξώνης Αθανασιος Ξώνης Αθλητής · Χάντμπολ Athlete"
+      "keywords": "Θανάσης Ξώνης Thanasis Xonis Θανάσης Ξώνης Αθανασιος Ξώνης Αθλητής · Προπονητής · Χάντμπολ Athlete · Coach"
     },
     {
       "type": "person",
@@ -1083,11 +1083,19 @@
     },
     {
       "type": "person",
-      "title": "Νίκος Ζινίσα",
+      "title": "Νίκος Ζινίσα (του Κωνσταντίνου)",
       "summary": "Hall of Fame",
       "year": "",
       "href": "hall-of-fame.html?person=arch-2616694d9908",
-      "keywords": "Νίκος Ζινίσα Nikos Zinisa Νίκος Ζινίσα Νικολαος Ζινίσα Αθλητής · Ελληνορωμαϊκή πάλη Athlete · Greco-Roman wrestling"
+      "keywords": "Νίκος Ζινίσα (του Κωνσταντίνου) Nikos Zinisa (son of Konstantinos) Νίκος Ζινίσα Νικόλαος Ζινίσα του Κωνσταντίνου Αθλητής · Ελληνορωμαϊκή πάλη"
+    },
+    {
+      "type": "person",
+      "title": "Νίκος Ζινίσα (του Σάββα)",
+      "summary": "Hall of Fame",
+      "year": "",
+      "href": "hall-of-fame.html?person=arch-nikos-zinisa-savvas-wrestling",
+      "keywords": "Νίκος Ζινίσα (του Σάββα) Nikos Zinisa (son of Savvas) Νίκος Ζινίσα του Σάββα Αθλητής · Ελληνορωμαϊκή πάλη"
     },
     {
       "type": "person",
