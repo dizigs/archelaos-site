@@ -16,7 +16,7 @@ function evidence() {
     trigger: {...base(), completeAcrossAccounts:true, fingerprint:V},
     writer: {...base(), coversExternalIdeAndApiWriters:true, expiresAt:now + 120000},
     auth: {...base(), independentApproval:true, selfApproved:false, projectScoped:true, signedCommandDigestVerified:true, baseSourceHash:T, expiresAt:now + 120000},
-    rollback: {...base(), readbackVerified:true, fullManifestPreserved:true, triggerFingerprint:V, restoredSourceHash:T, expiresAt:now + 120000},
+    rollback: {...base(), readbackVerified:true, fullManifestPreserved:true, triggerFingerprint:V, restoredSourceHash:T, writeOutcome:'RESTORED_AND_VERIFIED', expiresAt:now + 120000},
     brain: {...base(), transport:'PRIVATE_SERVICE_BINDING', source:'apps_script', status:'ACCEPTING', authenticated:true, deploymentDigest:H}
   };
   const ports = () => Object.fromEntries(Object.entries(e).map(([k,v]) => [({control:'readControls',grant:'readGrantProof',source:'readSourceProof',backup:'readBackupProof',trigger:'readTriggerProof',writer:'readWriterProof',auth:'readAuthorizationProof',rollback:'readRollbackProof',brain:'readBrainProof'})[k], async()=>v]));
@@ -37,6 +37,8 @@ for (const [name, change, code] of [
   ['stale backup',e=>e.backup.observedAtMs=now-900000,'BACKUP_NOT_VERIFIED'],
   ['stale triggers',e=>e.trigger.observedAtMs=now-900000,'TRIGGERS_NOT_VERIFIED'],
   ['failed rollback readback',e=>e.rollback.readbackVerified=false,'ROLLBACK_NOT_VERIFIED'],
+  ['unknown Google write outcome',e=>e.rollback.writeOutcome='UNKNOWN','ROLLBACK_NOT_VERIFIED'],
+  ['failed Google write outcome',e=>e.rollback.writeOutcome='FAILED','ROLLBACK_NOT_VERIFIED'],
   ['rollback restored wrong revision',e=>e.rollback.restoredSourceHash=V,'ROLLBACK_NOT_VERIFIED'],
   ['stale Brain deployment proof',e=>e.brain.observedAtMs=now-900000,'BRAIN_PRIVATE_INTAKE_NOT_VERIFIED'],
   ['wrong owner',e=>e.auth.projectFingerprint=V,'SIGNED_SCOPED_AUTH_NOT_VERIFIED'],
