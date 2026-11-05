@@ -20,8 +20,8 @@ const encode = value => new TextEncoder().encode(value);
 export class IntegrationBlocked extends Error {
   constructor(code) { super(code); this.name = 'IntegrationBlocked'; this.code = code; }
 }
-function requireUuid(value) {
-  if (typeof value !== 'string' || !UUID.test(value)) throw new IntegrationBlocked('INVALID_RECEIPT_ID');
+function requireUuid(value, code = 'INVALID_RECEIPT_ID') {
+  if (typeof value !== 'string' || !UUID.test(value)) throw new IntegrationBlocked(code);
 }
 async function limitedJson(response, max = 2048) {
   const reader = response.body?.getReader();
@@ -141,7 +141,7 @@ export function createBrainWorkerAdapter({ workerName, sourceType, brainService,
       eventId: receipt.eventId, status: receipt.status, duplicate: receipt.duplicate, durable: true };
   }
   async function readReceipt(receiptId, expectedCorrelationId) {
-    ready(); requireUuid(receiptId); requireUuid(expectedCorrelationId);
+    ready(); requireUuid(receiptId); requireUuid(expectedCorrelationId, 'INVALID_CORRELATION_ID');
     let response;
     try { response = await invoke('GET', `/v1/tasks/${receiptId}`, ''); }
     catch { throw new IntegrationBlocked('READBACK_UNAVAILABLE'); }
