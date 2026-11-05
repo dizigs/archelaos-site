@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  AUDIENCE, REQUIRED_CHECKS, REPOSITORY, IntegrationBlocked, SqlCoordinator,
+  AUDIENCE, REQUIRED_CHECKS, REQUIRED_JOBS, REPOSITORY, IntegrationBlocked, SqlCoordinator,
   confirmBrainReceipt, evaluateTestingGate, normalizeIntent, runIntegration, safePath,
   verifySignedBrainEnvelope
 } from './index.mjs';
@@ -50,7 +50,8 @@ class FakeStorage {
 }
 const checks = (commitSha = sha) => REQUIRED_CHECKS.map((workflow, index) => ({
   workflow, repository: REPOSITORY, headSha: commitSha, provenanceVerified: true,
-  runId: 9000 + index, runAttempt: 1, status: 'completed', conclusion: 'success'
+  runId: 9000 + index, runAttempt: 1, status: 'completed', conclusion: 'success',
+  jobs: REQUIRED_JOBS[workflow].map(name => ({ name, status: 'completed', conclusion: 'success' }))
 }));
 function portsFor(task, coordinator, overrides = {}) {
   const state = { calls: 0, reserves: 0, settlements: 0, routed: [] };
@@ -131,6 +132,9 @@ test('testing gate fails closed on missing/skipped, wrong SHA and duplicate repo
   assert.equal(evaluateTestingGate(sha, checks().map((x, i) => i === 1 ? { ...x, conclusion: 'skipped' } : x)).passed, false);
   assert.equal(evaluateTestingGate(sha, checks('b'.repeat(40))).passed, false);
   assert.equal(evaluateTestingGate(sha, [...checks(), checks()[0]]).passed, false);
+  assert.equal(evaluateTestingGate(sha, checks().map((x, i) => i === 1 ? {
+    ...x, jobs: [{ name: 'axe', status: 'completed', conclusion: 'skipped' }]
+  } : x)).passed, false);
 });
 
 test('testing failure routes metadata-only CI finding, never auto-repairs', async () => {
