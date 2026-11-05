@@ -239,6 +239,11 @@ export async function runSmokeWriteAndRollbackLifecycle({scriptId,idempotencyKey
     fail(ValidationErrorCodes.LIVE_WRITE_DISABLED_BY_DEFAULT);
   if(!mintedClients.has(gasClient)||!(journal instanceof IdempotencyAndRecoveryJournal))
     fail(ValidationErrorCodes.SYNTHETIC_CLIENT_REQUIRED);
+  // An unresolved job on this project must block new work even before a new
+  // source read or approval check; a restarted production writer must reconcile.
+  if([...journal.jobs.values()].some(j=>j.scriptId===scriptId&&
+    ['IN_PROGRESS','RECONCILIATION_REQUIRED'].includes(j.status)))
+    fail(ValidationErrorCodes.RECONCILIATION_REQUIRED);
   verifyAuthorizedOAuth(oauthContext,{expectedPrincipal});
   const base=await readProjectSnapshot(gasClient,scriptId);
   verifyIndependentAuthorization({actorId,scriptId,expectedSourceHash:base.projectSha256,
