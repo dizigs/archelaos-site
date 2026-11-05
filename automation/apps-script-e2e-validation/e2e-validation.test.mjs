@@ -1,6 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import crypto from 'node:crypto';
+import {execFileSync} from 'node:child_process';
+import {mkdtempSync,mkdirSync,readFileSync,renameSync,rmSync,writeFileSync} from 'node:fs';
+import {tmpdir} from 'node:os';
+import path from 'node:path';
 import {
   ValidationErrorCodes as C, E2EValidationError, IdempotencyAndRecoveryJournal,
   REQUIRED_GAS_SCOPES, SMOKE_FILE_NAME, buildSafeBrainMetadataEnvelope,
@@ -182,4 +186,106 @@ test('16. duplicate filenames fail source backup validation',async()=>{
   const {env,base}=await context();
   env.mutateExternally([...base.files,base.files[1]]);
   await rejectsCode(()=>readProjectSnapshot(env.client,env.scriptId),C.READBACK_MISMATCH);
+});
+
+test('17. lease guard rejects missing, blank, and mismatched actors and holders',async()=>{
+  const {base,args,env}=await context();
+  const check=(actorId,activeLease)=>verifyWritersAndTriggersGuard({
+    baselineSnapshot:base,currentRemoteSnapshot:base,actorId,activeLease,
+    independentInventory:args.independentInventory
+  });
+  for(const actor of [undefined,null,'','  ',42]){
+    assert.throws(()=>check(actor,{expiresAtMs:expires()}),
+      {code:C.CONCURRENT_WRITER_ACTIVE});
+  }
+  for(const holder of [undefined,null,'','  ',42,'another-writer']){
+    assert.throws(()=>check(ACTOR,{holderId:holder,expiresAtMs:expires()}),
+      {code:C.CONCURRENT_WRITER_ACTIVE});
+  }
+  assert.equal(check(ACTOR,args.activeLease).simulationValidated,true);
+  assert.equal(env.getPutCalls(),0);
+});
+for(const [postWriteReadOrdinal,expectedPuts] of [[1,1],[2,1],[3,2]]){
+  test(`18. thrown post-write read #${postWriteReadOrdinal} holds journal before rethrow`,async()=>{
+    const {env,args,journal}=await context({failPostWriteReadAt:postWriteReadOrdinal});
+    await assert.rejects(()=>runSmokeWriteAndRollbackLifecycle(args),
+      {message:'SYNTHETIC_READ_FAILURE'});
+    assert.equal(journal.getJob(args.idempotencyKey).status,'RECONCILIATION_REQUIRED');
+    assert.equal(env.getPutCalls(),expectedPuts);
+    await rejectsCode(()=>runSmokeWriteAndRollbackLifecycle({
+      ...args,idempotencyKey:'synthetic_job_002'}),C.RECONCILIATION_REQUIRED);
+    const result=await reconcileUncertainJob({idempotencyKey:args.idempotencyKey,
+      gasClient:env.client,journal});
+    assert.equal(result.putAttempts,0);
+    assert.equal(env.getPutCalls(),expectedPuts);
+  });
+}
+test('19. restored IN_PROGRESS requires explicit stopped-executor proof before hold',async()=>{
+  const {base,args,env,journal}=await context();
+  journal.beginJob({idempotencyKey:args.idempotencyKey,scriptId:env.scriptId,
+    baselineSha256:base.projectSha256,expectedSmokeSha256:'b'.repeat(64),
+    backupBundle:createAndVerifyEncryptedBackup(base,BACKUP_KEY)});
+  const recovered=IdempotencyAndRecoveryJournal.fromSyntheticCheckpoint(
+    journal.exportSyntheticCheckpoint());
+  await rejectsCode(()=>recovered.recoverAbandonedJob(args.idempotencyKey),
+    C.RECONCILIATION_REQUIRED);
+  await rejectsCode(()=>recovered.recoverAbandonedJob(args.idempotencyKey,{
+    isExecutorLive:async()=>true}),C.RECONCILIATION_REQUIRED);
+  await rejectsCode(()=>recovered.recoverAbandonedJob(args.idempotencyKey,{
+    isExecutorLive:async()=>{throw Error('unknown-liveness');}}),C.RECONCILIATION_REQUIRED);
+  assert.equal(recovered.getJob(args.idempotencyKey).status,'IN_PROGRESS');
+  const out=await recovered.recoverAbandonedJob(args.idempotencyKey,{
+    isExecutorLive:async({idempotencyKey,scriptId})=>
+      idempotencyKey===args.idempotencyKey&&scriptId===env.scriptId?false:true});
+  assert.equal(out.status,'RECONCILIATION_REQUIRED');
+  assert.equal(recovered.getJob(args.idempotencyKey).status,'RECONCILIATION_REQUIRED');
+  const reconciliation=await reconcileUncertainJob({
+    idempotencyKey:args.idempotencyKey,gasClient:env.client,journal:recovered});
+  assert.equal(reconciliation.status,'ALREADY_CLEAN');
+  assert.equal(env.getPutCalls(),0);
+});
+test('20. verified Brain envelope rejects rollback digest mismatch and coerced types',()=>{
+  const base={eventId:'synthetic-event-01',operation:'GAS_SYNTHETIC_SMOKE_ROLLBACK',
+    status:'SYNTHETIC_VERIFIED',baselineSha256:'a'.repeat(64),
+    smokeProjectSha256:'b'.repeat(64),postRollbackSha256:'a'.repeat(64),
+    triggersUnchanged:true,backupVerified:true,timestamp:'2026-11-05T12:00:00Z'};
+  assert.throws(()=>buildSafeBrainMetadataEnvelope({
+    ...base,postRollbackSha256:'c'.repeat(64)}),{code:C.UNSAFE_BRAIN_PAYLOAD_BLOCKED});
+  assert.throws(()=>buildSafeBrainMetadataEnvelope({
+    ...base,eventId:{accessToken:'leak',toString:()=>base.eventId}}),
+  {code:C.UNSAFE_BRAIN_PAYLOAD_BLOCKED});
+  assert.throws(()=>buildSafeBrainMetadataEnvelope({...base,timestamp:new Date(base.timestamp)}),
+    {code:C.UNSAFE_BRAIN_PAYLOAD_BLOCKED});
+  assert.throws(()=>buildSafeBrainMetadataEnvelope({...base,eventId:null}),
+    {code:C.UNSAFE_BRAIN_PAYLOAD_BLOCKED});
+  assert.equal(buildSafeBrainMetadataEnvelope(base).simulationOnly,true);
+});
+test('21. rename detection catches deleted sources outside the PR ownership boundary',()=>{
+  const dir=mkdtempSync(path.join(tmpdir(),'archelaos-rename-check-'));
+  const git=(...args)=>execFileSync('git',args,{cwd:dir,encoding:'utf8'});
+  try{
+    git('init','-q');
+    mkdirSync(path.join(dir,'.github/workflows'),{recursive:true});
+    mkdirSync(path.join(dir,'automation/apps-script-e2e-validation'),{recursive:true});
+    const oldPath='.github/workflows/outside.yml';
+    const newPath='automation/apps-script-e2e-validation/inside.yml';
+    writeFileSync(path.join(dir,oldPath),Array.from({length:70},
+      (_,i)=>`retained line ${i}\n`).join(''));
+    git('add','.');
+    git('-c','user.name=Synthetic','-c','user.email=synthetic@example.invalid',
+      'commit','-qm','baseline');
+    const base=git('rev-parse','HEAD').trim();
+    renameSync(path.join(dir,oldPath),path.join(dir,newPath));
+    git('add','-A');
+    git('-c','user.name=Synthetic','-c','user.email=synthetic@example.invalid',
+      'commit','-qm','rename');
+    const paths=git('diff','--no-renames','--name-only',base,'HEAD').trim().split('\n');
+    assert.deepEqual(paths,[oldPath,newPath]);
+    const inScope=p=>p.startsWith('automation/apps-script-e2e-validation/')||
+      p==='.github/workflows/apps-script-e2e-validation.yml';
+    assert.equal(paths.every(inScope),false);
+    const workflow=readFileSync(new URL(
+      '../../.github/workflows/apps-script-e2e-validation.yml',import.meta.url),'utf8');
+    assert.match(workflow,/git diff --no-renames --name-only/);
+  }finally{rmSync(dir,{recursive:true,force:true});}
 });
