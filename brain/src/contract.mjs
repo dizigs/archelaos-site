@@ -6,10 +6,13 @@ export const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}
 const TYPES = new Set(['staging', 'drive', 'gmail', 'site', 'github', 'news']);
 const SOURCE_EVENTS = Object.freeze({
   drive: new Set(['source.file.created', 'source.file.updated']),
-  gmail: new Set(['source.message.received']),
-  site: new Set(['site.contribution.received']),
-  github: new Set(['github.ci.failed']),
-  news: new Set(['news.search.completed'])
+  // Existing brain/src/adapters/common.mjs still emits a verified
+  // source.file.created metadata event for several legacy source readers.
+  // This is SOURCE_REVIEW, never a fabricated CI failure or news result.
+  gmail: new Set(['source.file.created', 'source.message.received']),
+  site: new Set(['source.file.created', 'site.contribution.received']),
+  github: new Set(['source.file.created', 'github.ci.failed']),
+  news: new Set(['source.file.created', 'news.search.completed'])
 });
 export function validateSourceEventType(source, eventType) {
   if (source !== 'staging' && !SOURCE_EVENTS[source]?.has(eventType))
