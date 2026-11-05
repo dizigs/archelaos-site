@@ -1,4 +1,4 @@
-import {descriptor} from './contract.mjs';
+import {descriptor, allowedLanding} from './contract.mjs';
 const ok=(value,code)=>{if(!value)throw Error(code);};
 export function stagingReady(env) {
   return env?.ADS_STAGING_ENABLED==='true' && env?.ADS_ACCOUNT_KIND==='AD_GRANTS' &&
@@ -47,8 +47,7 @@ export async function sendAdsOperation(env, spec, {fetcher=fetch,validateOnly=tr
 }
 export function keywordIdeaRequest(customer,{landing,keywords=[],geoIds=[],languageId='1032'}) {
   ok(/^\d{10}$/.test(customer),'INVALID_CUSTOMER');
-  ok(typeof landing==='string'&&/^https:\/\/(?:www\.)?archelaos\.club\/[a-z0-9-]+\.html$/.test(landing),
-    'INVALID_LANDING');
+  ok(allowedLanding(landing),'INVALID_LANDING');
   ok(Array.isArray(keywords)&&keywords.length>=1&&keywords.length<=20&&
     keywords.every(s=>typeof s==='string'&&s.trim().split(/\s+/).length>=2),'INVALID_SEEDS');
   ok(Array.isArray(geoIds)&&geoIds.length>=1&&geoIds.length<=10&&
