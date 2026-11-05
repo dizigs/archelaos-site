@@ -1291,17 +1291,28 @@
       "id": "arch-8479d12a4a14"
     },
     {
-      "name": "Νίκος Ζινίσα",
-      "name_en": "Nikos Zinisa",
+      "name": "Νίκος Ζινίσα (του Κωνσταντίνου)",
+      "name_en": "Nikos Zinisa (son of Konstantinos)",
       "role": "Αθλητής · Ελληνορωμαϊκή πάλη",
       "role_en": "Athlete · Greco-Roman wrestling",
       "category": "athlete",
-      "bio": "Από τα μεγαλύτερα ανερχόμενα ταλέντα της ελληνικής πάλης. Εκπροσωπώντας τον Αρχέλαο και την Εθνική Ομάδα, κατέκτησε το Χρυσό Μετάλλιο στο Ευρωπαϊκό Πρωτάθλημα Πάλης U15 στην Ιταλία (Ιούλιος 2025). Το 2026 αναδείχθηκε Χρυσός Βαλκανιονίκης Ελληνορωμαϊκής Πάλης, επιβεβαιώνοντας την απόλυτη κυριαρχία του στα διεθνή ταπί και τιμώμενος επίσημα από τον Δήμο Κατερίνης.\n\nΣτο Πανελλήνιο Πρωτάθλημα Πάλης U17 στη Λάρισα τον Απρίλιο του 2025 καταγράφεται μεταξύ των χρυσών μεταλλιούχων του Αρχελάου, που αναδείχθηκε 2ος στο ομαδικό Παίδων.",
-      "bio_en": "Nikos Zinisa achieved European glory by winning gold at the 2025 European U15 Wrestling Championships in Italy, followed by a gold medal at the 2026 Balkan Greco-Roman Championships representing Archelaos and Greece.\n\nAt the April 2025 Greek U17 wrestling championships in Larissa, he was listed among Archelaos's gold medallists as the club finished second in the boys' team standings.",
+      "bio": "Ο Νίκος Ζινίσα του Κωνσταντίνου αγωνίζεται στην ελληνορωμαϊκή πάλη με τον Γ.Α.Σ. Αρχέλαος Κατερίνης. Κατέκτησε χρυσό στα 43 κιλά U13 στην Προσοτσάνη (Νοέμβριος 2023) και χρυσό στο Πανελλήνιο U15 στην Προσοτσάνη (Μάρτιος 2025).\n\nΣτο Ευρωπαϊκό Πρωτάθλημα U15 στο Λουτράκι (Μάιος 2024) κατέκτησε χάλκινο μετάλλιο και στο Ευρωπαϊκό U15 στην Ιταλία (Ιούλιος 2025) χρυσό μετάλλιο. Ο Δήμος Κατερίνης επιβεβαιώνει ότι τα δύο ευρωπαϊκά μετάλλια ανήκουν στον ίδιο αθλητή.",
+      "bio_en": "Nikos Zinisa, identified in published results as the son of Konstantinos, represents GAS Archelaos Katerinis in Greco-Roman wrestling. He won U13 gold at 43 kg in Prosotsani (November 2023) and Greek U15 gold in Prosotsani (March 2025).\n\nHe earned bronze at the European U15 Championships in Loutraki (May 2024) and gold at the European U15 Championships in Italy (July 2025). The Municipality of Katerini explicitly confirms that both European medals belong to the same athlete.",
       "refs": [
         {
-          "label": "Ο Διάλογος · Πανελλήνιο U17 Πάλης, 2025",
-          "url": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/2%CE%BF%CF%82-%CF%80%CF%81%CF%89%CF%84%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%AE%CF%82-%CE%B5%CE%BB%CE%BB%CE%AC%CE%B4%CE%BF%CF%82-%CF%83%CF%84%CE%BF-%CE%BF%CE%BC%CE%B1%CE%B4%CE%B9%CE%BA%CF%8C-%CF%80%CE%B1/"
+          "label": "Ολύμπιο Βήμα · Πανελλήνιο U11–U13, 19/11/2023",
+          "label_en": "Olympio Vima · U11–U13 championships, 19 Nov 2023",
+          "url": "https://olympiobima.gr/archelaos-katerinis-elampsan-oi-pitsirikades-stin-pali/"
+        },
+        {
+          "label": "Pieria Social · Πανελλήνιο U15, 23/03/2025",
+          "label_en": "Pieria Social · U15 championships, 23 Mar 2025",
+          "url": "https://pieriasocial.gr/?p=100588"
+        },
+        {
+          "label": "Δήμος Κατερίνης · Ευρωπαϊκά μετάλλια 2024 και 2025",
+          "label_en": "Municipality of Katerini · European medals in 2024 and 2025",
+          "url": "https://katerini.gr/?p=57492"
         }
       ],
       "id": "arch-2616694d9908"
