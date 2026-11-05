@@ -1,0 +1,10 @@
+{
+  "name": "archelaos-brain-testing-executor",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test index.test.mjs",
+    "check": "node --check index.mjs && node --check index.test.mjs"
+  },
+  "engines": { "node": ">=22" }
+}
