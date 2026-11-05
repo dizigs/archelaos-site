@@ -4,13 +4,13 @@ import assert from 'node:assert/strict';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 const dir=process.env.ACCEPTANCE_SOURCE_DIR;
-if(!dir)throw Error('Missing pinned integration and provenance sources');
+if(!dir)throw Error('Missing pinned integration sources');
 const load=(name,file)=>import(pathToFileURL(resolve(dir,name,
   'automation/brain-worker-executors/integration',file)).href);
 const [core,review,readback]=await Promise.all([
   load('integration','index.mjs'),
   load('integration','canonical-review.mjs'),
-  load('provenance','github-readback.mjs')
+  load('integration','github-readback.mjs')
 ]);
 const SHA='a'.repeat(40),SCOPE='d'.repeat(64),KEY='only-a-synthetic-signing-key-for-mock-acceptance-tests';
 const PATH='automation/acceptance-example.mjs';

@@ -8,7 +8,7 @@ if(!root)throw Error('Missing ACCEPTANCE_SOURCE_DIR');
 const config=JSON.parse(readFileSync(new URL('./sources.json',import.meta.url),'utf8'));
 assert.equal(config.schemaVersion,2);
 assert.equal(config.repository,'dizigs/archelaos-site');
-assert.deepEqual(Object.keys(config.sources).sort((a,b)=>a.localeCompare(b)),['brain','gemini','gemma','integration','provenance','scaffold','testing']);
+assert.deepEqual(Object.keys(config.sources).sort((a,b)=>a.localeCompare(b)),['brain','gemini','gemma','integration','scaffold','testing']);
 for(const [name,pin] of Object.entries(config.sources)){
   assert.ok(Number.isSafeInteger(pin.pr)&&pin.pr>0);
   assert.match(pin.sha,/^[a-f0-9]{40}$/);

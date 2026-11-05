@@ -32,17 +32,10 @@
     },
     "integration": {
       "pr": 213,
-      "sha": "d98b32f361126a6029c2457d2d55335130c368de",
-      "headSha": "d98b32f361126a6029c2457d2d55335130c368de",
+      "sha": "e63052d7c0d7d75f4332e6f9c822067b6b0c3d5e",
+      "headSha": "e63052d7c0d7d75f4332e6f9c822067b6b0c3d5e",
       "state": "open",
       "base": "main"
-    },
-    "provenance": {
-      "pr": 228,
-      "sha": "e8d355c58a069063a76158e82c782f36a377c79b",
-      "headSha": "e8d355c58a069063a76158e82c782f36a377c79b",
-      "state": "open",
-      "base": "feat/brain-executor-integration-coordinator-20261105"
     },
     "brain": {
       "pr": 219,

@@ -12,7 +12,7 @@ assert.equal(config.repository,REPOSITORY);
  */
 const PRS=Object.freeze({
   brain:219,
-  scaffold:209,gemini:214,gemma:211,testing:212,integration:213,provenance:228
+  scaffold:209,gemini:214,gemma:211,testing:212,integration:213
 });
 const MERGED=Object.freeze({
   brain:'8f7de8ba14385d762e52c946f6ed140088f863dc',

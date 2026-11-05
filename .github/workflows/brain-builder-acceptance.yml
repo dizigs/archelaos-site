@@ -64,15 +64,8 @@ jobs:
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           repository: dizigs/archelaos-site
-          ref: d98b32f361126a6029c2457d2d55335130c368de
+          ref: e63052d7c0d7d75f4332e6f9c822067b6b0c3d5e
           path: .acceptance-sources/integration
-          persist-credentials: false
-      - name: Checkout stacked provenance PR 228 exact SHA
-        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
-        with:
-          repository: dizigs/archelaos-site
-          ref: e8d355c58a069063a76158e82c782f36a377c79b
-          path: .acceptance-sources/provenance
           persist-credentials: false
       - name: Checkout canonical Brain PR 219 actual merged SHA
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
@@ -99,7 +92,6 @@ jobs:
           node --test .acceptance-sources/gemma/automation/brain-worker-executors/providers/gemma/*.test.mjs
           node --test .acceptance-sources/testing/automation/brain-worker-executors/testing/*.test.mjs
           node --test .acceptance-sources/integration/automation/brain-worker-executors/integration/*.test.mjs
-          node --test .acceptance-sources/provenance/automation/brain-worker-executors/integration/github-readback.test.mjs
       - name: Verify cross-module synthetic end-to-end and fail-closed contracts
         run: node --test automation/brain-worker-executors/acceptance/*.test.mjs
 

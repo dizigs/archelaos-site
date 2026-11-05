@@ -7,8 +7,9 @@ Only `automation/brain-worker-executors/acceptance/**` and
 
 `sources.json` schema v2 pins the **actual merged commit** on `main`
 for #209/#214/#211/#212 and preserves the original PR head SHA separately.
-The unmerged #213 and stacked #228 use their **exact open head SHA** and
-recorded base branch (#228 is stacked on the #213 branch, not on main).
+The unmerged #213 uses its **exact open head SHA**. The closed-without-merge
+#228 is not an accepted or checked-out source: its GitHub readback was
+incorporated into the #213 branch, with additional strict outcome validation.
 All 6 clean checkouts are verified against Git HEAD. Independent authenticated
 read-only GitHub provenance requires a real merge timestamp, exact merge commit
 and `main` ancestry for merged sources, or exact open SHA for unmerged sources.
@@ -33,7 +34,7 @@ A new merge or changed SHA means FAIL until manually re-pinned.
 1. Run pinned Node22 suites with fake GitHub REST, synthetic Brain signed
    receipts, in-memory SQLite-shaped storage and injection-only model outputs.
 2. Simulate Brain → Build A/B → Testing → Brain acknowledgement with the #213
-   coordinator and #228 readback, without any real provider credential,
+   coordinator and its incorporated authenticated GitHub readback, without any real provider credential,
    dispatched GitHub write or deployed Cloudflare service.
 3. Inject UNKNOWN, restart, lost ack, invalid signature, duplicate task,
    altered task scopes, overbudget, two-build capacity, missing/stale GitHub
@@ -48,8 +49,8 @@ A new merge or changed SHA means FAIL until manually re-pinned.
 - #213 prevents double budget reservations because Gemini/Gemma native adapters
   have their own reservation/settlement; the single EUR20 ledger must be
   reconciled and audited by the Integration/Brain owners.
-- #228 provenance bridge is still stacked/unmerged and must be reconciled
-  with the latest #213.
+- #228 was closed without merge; only the #213 integration SHA is canonical
+  for acceptance. Its readback is stricter than the earlier #228 snapshot.
 - No verified GitHub draft writer and end-to-end exact-SHA 8-workflow proof.
 - Provider entitlement, live cost/FX and staging-only Cloudflare binding
   attestation are missing. No paid calls, merges, forced updates or deploys.
