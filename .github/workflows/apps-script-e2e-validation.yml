@@ -17,10 +17,12 @@ jobs:
       ARCHELAOS_LIVE_GAS_WRITE_APPROVED: 'FALSE'
       BRAIN_LIVE_CALLS_ENABLED: 'FALSE'
     steps:
-      - name: Checkout exact event revision
+      - name: Checkout exact PR head revision
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           persist-credentials: false
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - name: Set up Node.js
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
@@ -32,8 +34,10 @@ jobs:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
         run: |
           set -euo pipefail
-          git fetch --no-tags --depth=1 origin "$BASE_SHA"
-          git diff --no-renames --name-only -z "$BASE_SHA" HEAD | while IFS= read -r -d '' path; do
+          git fetch --no-tags origin "$BASE_SHA"
+          COMMON_BASE="$(git merge-base "$BASE_SHA" HEAD)"
+          test -n "$COMMON_BASE"
+          git diff --no-renames --name-only -z "$COMMON_BASE" HEAD | while IFS= read -r -d '' path; do
             case "$path" in
               automation/apps-script-e2e-validation/*|.github/workflows/apps-script-e2e-validation.yml) ;;
               *) echo "::error::Out-of-scope change in Team 2 PR"; exit 1 ;;
