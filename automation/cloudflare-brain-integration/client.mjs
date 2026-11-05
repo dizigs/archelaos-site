@@ -140,9 +140,8 @@ export function createBrainWorkerAdapter({ workerName, sourceType, brainService,
     return { receiptId: receipt.receiptId, correlationId: receipt.correlationId,
       eventId: receipt.eventId, status: receipt.status, duplicate: receipt.duplicate, durable: true };
   }
-  async function readReceipt(receiptId, expectedCorrelationId = null) {
-    ready(); requireUuid(receiptId);
-    if (expectedCorrelationId !== null) requireUuid(expectedCorrelationId);
+  async function readReceipt(receiptId, expectedCorrelationId) {
+    ready(); requireUuid(receiptId); requireUuid(expectedCorrelationId);
     let response;
     try { response = await invoke('GET', `/v1/tasks/${receiptId}`, ''); }
     catch { throw new IntegrationBlocked('READBACK_UNAVAILABLE'); }
@@ -151,7 +150,7 @@ export function createBrainWorkerAdapter({ workerName, sourceType, brainService,
     if (!data || data.receiptId !== receiptId || !UUID.test(data.correlationId || '') ||
       !Number.isSafeInteger(data.attempts) || data.attempts < 0 ||
       !RECEIPT_STATES.has(data.status) ||
-      (expectedCorrelationId !== null && data.correlationId !== expectedCorrelationId))
+      data.correlationId !== expectedCorrelationId)
       throw new IntegrationBlocked('READBACK_UNVERIFIED');
     await audit({ kind: 'readback', receiptId, correlationId: data.correlationId,
       result: 'VERIFIED', status: data.status });
