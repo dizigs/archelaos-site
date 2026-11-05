@@ -172,9 +172,15 @@ def create_page(entry: dict) -> None:
         meta_tag("twitter:image", IMAGE),
         structured_data(entry, canonical)
     ])
-    raw, n = re.subn(r"<head>", "<head>\n" + head + "\n", raw, count=1, flags=re.I)
+    # Keep the original UTF-8 declaration inside the first 1024 bytes.
+    # Inserting the SEO head before the charset pushes it past that HTML5 limit.
+    raw, n = re.subn(
+        r'(<meta\s+charset="utf-8"\s*/?>)',
+        lambda match: match.group(1) + "\n" + head + "\n",
+        raw, count=1, flags=re.I,
+    )
     if n != 1:
-        raise ValueError(f"{entry['file']}: could not find HTML head")
+        raise ValueError(f"{entry['file']}: could not find initial UTF-8 charset declaration")
     raw = re.sub(r"<title>.*?</title>", "<title>" + escape(entry["title"]) + "</title>", raw, count=1, flags=re.S|re.I)
     raw = re.sub(
         r'<meta\b(?=[^>]*\bname=["\x27]description["\x27])[^>]*>',
