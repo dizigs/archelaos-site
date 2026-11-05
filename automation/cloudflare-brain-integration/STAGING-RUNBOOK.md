@@ -34,3 +34,9 @@ Owner/scope: `automation/cloudflare-brain-integration/**`. Applies to existing `
 ## Honest status semantics
 
 `DEPLOYED`: a Cloudflare deployment exists, **not** evidence of connectivity. `CONNECTED`: approved, authenticated transport + real matching durable receipt and readback. `TESTED`: repeatable staging trace for that exact deployment and CI SHA. `BLOCKED`: required trust, binding, or staging gate missing. `DISABLED`: a verified explicit shutdown flag/expiry prevents the Brain integration. These are not mutually exclusive infrastructure facts, but the per-worker report publishes one **Brain integration** state and lists deployment separately.
+
+## Additional hard gate — current Brain cannot authenticate Drive/Gmail/News source identity
+
+2026-11-05 code-level compatibility inspection established that `authenticate()` maps the `staging-v1` HMAC key to logical source `staging`; `POST /v1/events` passes that authenticated source to `validateEvent(event, source)`, which requires equality with `event.sourceType`. Thus the existing `drive`, `gmail`, `news` adapter policies cannot pass real Brain admission even if staging is unexpired, its secret is installed, and a Service Binding is added. Expected rejection: HTTP 422 `INVALID_IDENTITY`. This is **not** an authorization issue to bypass by relabelling source events as `staging`.
+
+Before enabling staging: #219 Brain owner must approve a distinct cryptographic per-caller identity mapping to explicitly allowlisted sources and event types, with replay resistance and receipt readback authorization. #224 adapter owner must match the final contract, preserving true `event.sourceType`. Re-run strict synthetic identity rejection tests and the exact-head CI after both changes. Only then attempt a scoped, deterministic private Worker → Brain → receipt → Worker test in a time-bounded approved staging release. Until then, no remote E2E attempt and no deployment/expiry change.
