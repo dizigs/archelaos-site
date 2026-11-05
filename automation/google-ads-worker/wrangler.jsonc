@@ -7,6 +7,7 @@
   "preview_urls": false,
   "vars": {
     "ADS_STAGING_ENABLED": "false",
+    "ADS_OAUTH_MODE": "UNCONFIGURED",
     "ADS_BUDGET_AUDIT_READ_ENABLED": "false",
     "ADS_GRANTS_ENTITLEMENT_RECEIPT_VERIFIED": "false",
     "ADS_NO_PAYMENT_METHOD_VERIFIED": "false",
