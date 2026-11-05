@@ -46,7 +46,7 @@ function fake(overrides = {}) {
   let paused = false;
   const ports = {
     monitor: createMonitor(s => logs.push(s), () => DATE),
-    readControls: async () => ({ globalPaused: paused, aiPaused: false, sourcePaused: {} }),
+    readControls: async () => ({ globalPaused: paused, aiPaused: false, sourcePaused: { github: false } }),
     rate: { consume: async () => true },
     breaker: { before: async () => true, record: async (...args) => { failures.push(args); } },
     ledger: {
@@ -163,4 +163,16 @@ test('canonical ledger adapter rejects missing storage, unverified coverage and 
   assert.throws(() => createBrainLedgerAdapter(null, {}), /CANONICAL/);
   assert.throws(() => createBrainLedgerAdapter(storage(), { coverageConfirmed: false }), /BUDGET/);
   assert.throws(() => createBrainLedgerAdapter(storage(), { coverageConfirmed: true, capMicroEur: 20000001 }), /BUDGET/);
+});
+
+test('missing source kill-switch coverage and duplicate signed admission fail closed', async () => {
+  const ctx = await context();
+  assert.equal((await admitTask(ctx,
+    fake({ readControls: async () => ({ globalPaused: false, aiPaused: false, sourcePaused: {} }) }).ports,
+    policy)).code, 'KILL_SWITCH_OR_CONTROLS_UNAVAILABLE');
+  // A separate authenticated context demonstrates admission is one-shot even after success.
+  const fresh = await context(), f = fake();
+  assert.equal((await admitTask(fresh, f.ports, policy, () => DATE)).status, 'RESERVED');
+  assert.equal((await admitTask(fresh, f.ports, policy, () => DATE)).code, 'TASK_ADMISSION_REPLAY');
+  assert.equal(f.alerts.length, 2);
 });
