@@ -6,6 +6,8 @@
  */
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/;
 const HEX = /^[0-9a-f]{64}$/;
+const BRAIN_READBACK_FIELDS = ['eventId', 'correlationId', 'receiptId', 'source',
+  'sourceRevision', 'transport', 'status', 'durable'];
 const REQUIRED_SCOPE = 'https://www.googleapis.com/auth/script.projects';
 const ENTRIES = ['readControls', 'readGrantProof', 'readSourceProof', 'readBackupProof',
   'readTriggerProof', 'readWriterProof', 'readAuthorizationProof',
@@ -76,7 +78,7 @@ export async function inspectIntegration({ projectFingerprint, now = Date.now() 
  */
 export async function sendReadOnlyReceipt({ operationId, phase }, ports) {
   if (!UUID.test(operationId ?? '') || !['read', 'backup'].includes(phase)) stop('READ_ONLY_COMMAND_REQUIRED');
-  if (!ports || ['isAuthenticatedPrivateBinding', 'prepareReceipt', 'relayReceipt', 'audit'].some(k => typeof ports[k] !== 'function'))
+  if (!ports || ['isAuthenticatedPrivateBinding', 'prepareReceipt', 'relayReceipt', 'readBrainReceipt', 'audit'].some(k => typeof ports[k] !== 'function'))
     stop('TRUSTED_COMPOSITION_PORTS_REQUIRED');
   const gate = await ports.isAuthenticatedPrivateBinding();
   if (gate?.verified !== true || gate?.source !== 'apps_script' || gate?.scope !== 'metadata-only' ||
@@ -89,13 +91,30 @@ export async function sendReadOnlyReceipt({ operationId, phase }, ports) {
   let delivered;
   try { delivered = await ports.relayReceipt({ operationId }); }
   catch { delivered = { status: 'RECONCILE_REQUIRED' }; }
-  if (!delivered || !['DURABLE_BRAIN_RECEIPT', 'DUPLICATE_CONFIRMED'].includes(delivered.status)) {
-    // No automatic resend or rollback on ambiguous outcomes.
+  const reconcile = async () => {
+    // An uncertain delivery may already exist upstream: hold, never resend.
     try { await ports.audit({ operationId, outcome: 'RECONCILIATION_REQUIRED' }); }
     catch { stop('AUDIT_NOT_DURABLE'); }
-    return { status: 'RECONCILIATION_REQUIRED', sent: false };
-  }
+    return { status: 'RECONCILIATION_REQUIRED', sent: false, brainReadbackVerified: false };
+  };
+  if (!delivered || !['DURABLE_BRAIN_RECEIPT', 'DUPLICATE_CONFIRMED'].includes(delivered.status) ||
+      !UUID.test(delivered.eventId ?? '')) return reconcile();
+  // A relay acknowledgement is not proof of persistence. Query the actual
+  // central Brain's private durable journal through a trusted binding port.
+  let proof;
+  try { proof = await ports.readBrainReceipt({ operationId, eventId: delivered.eventId }); }
+  catch { return reconcile(); }
+  if (!proof || typeof proof !== 'object' || Array.isArray(proof) ||
+      Object.keys(proof).length !== BRAIN_READBACK_FIELDS.length ||
+      !BRAIN_READBACK_FIELDS.every(k => Object.hasOwn(proof, k)) ||
+      proof.eventId !== delivered.eventId || proof.correlationId !== operationId ||
+      !UUID.test(proof.receiptId ?? '') || proof.source !== 'apps_script' ||
+      proof.sourceRevision !== prepared.sourceRevision ||
+      proof.transport !== 'PRIVATE_SERVICE_BINDING' ||
+      !['QUEUED', 'WAITING_REVIEW'].includes(proof.status) ||
+      proof.durable !== true) return reconcile();
   try { await ports.audit({ operationId, outcome: delivered.status }); }
   catch { stop('AUDIT_NOT_DURABLE'); }
-  return { status: delivered.status, sent: delivered.status === 'DURABLE_BRAIN_RECEIPT' };
+  return { status: delivered.status, sent: delivered.status === 'DURABLE_BRAIN_RECEIPT',
+    brainReadbackVerified: true };
 }
