@@ -10,7 +10,7 @@ Evidence source: read-only authenticated Cloudflare REST GET for scripts/setting
 - Staging `DEPLOY_SHA` **setting**: `d3d13b605f409bfda6f372742d629fd8eaf12145` (not independently attested as an image/source hash). GitHub compare to main: **diverged; main ahead 202 / behind 24**, merge base `0ec86ff7bd60ef0328893ec35b80219b85b6d117`. Do not claim runtime matches main.
 - `ENVIRONMENT=staging`; `STAGING_EXPIRES_AT=1970-01-01T00:00:00Z` **still expired**. `STAGING_INTAKE_KEY` and `STAGING_OPERATOR_KEY` absent from *binding metadata*; workers.dev disabled.
 - Actual `BRAIN` binding is type `durable_object_namespace`, class `BrainCoordinator`, namespace `6cd125319d774260aaf1c0444d6442f1`; `AI` is type `ai`. DO-backed SQLite is part of the repository design; **no live SQLite query, idempotency readback, receipt or transaction was exercised**.
-- Cloudflare account has **9** Workers, **4** DO namespaces and **0** independent D1 databases, **0** Worker custom domains, **0** zone Worker routes and **0** registered cron schedules.
+- Cloudflare account has **9** Workers, **4** DO namespaces and **1** independent D1 database (`archelaos-photo-archive`), **0** Worker custom domains, **0** zone Worker routes and **0** registered cron schedules.
 - Cloudflare service-type bindings: **0 across all nine deployed scripts**. Source library `client.mjs` and read-only `binding-plan.mjs` are not deployed bindings.
 
 ## Worker-by-worker matrix — current Cloudflare GET readback
@@ -55,3 +55,18 @@ The above run is pinned to its own tested SHA; after any later documentation or 
 6. Any wrong SHA, 4xx identity mismatch, unknown delivery, forged/absent receipt, failed CI, absent source provenance, unexpected AI/model invocation, unsafe cost or broken rollback immediately yields **STOP / UNKNOWN** and operator-controlled rollback/readback. Do not re-send with a fresh ID on uncertainty.
 
 **Final assessment:** 9/9 deployed; 0/9 native service-bound; 0/9 authenticated-and-receipted; 0/9 proven remote E2E. **Production authorization: NO.** No second Brain, ledger, Worker, trigger or database created.
+
+
+## 2026-11-06T01:27+02:00 — repeated fresh API readback and correction (later than above snapshot)
+
+Cloudflare GET independently reconfirmed nine Worker deployments and current 100% version IDs, all nine script settings, each Worker version list, schedules, subdomains and secret-name metadata. There remain **zero service-type bindings and zero cron triggers** across all nine. There remain **zero Worker custom domains and zero Workers routes on archelaos.club**. Durable Object namespace listing remains four. The Brain staging deployment/version and `DEPLOY_SHA` still match the identifiers above, the expiry is still 1970, the `STAGING_INTAKE_KEY` and `STAGING_OPERATOR_KEY` secret names remain absent, and the three Librarian import/probe flags remain false.
+
+**Corrected D1 inventory:** the current `GET /accounts/{account_id}/d1/database` returns **one** standalone D1 database, `archelaos-photo-archive`. The earlier zero-D1 statement was true at its prior API snapshot but is **not current**. This photo-archive database is **not the canonical Brain Durable Object SQLite ledger**; no D1 reads/writes or schema changes were made. No additional Worker scripts were observed.
+
+`main` remains `c89823a21efc1fa9f979b17a6567337a498a1969`, and deployed Brain `DEPLOY_SHA` remains `d3d13b605f409bfda6f372742d629fd8eaf12145`, **diverged** by GitHub compare (202 commits ahead, 24 behind). The SHA is an existing configuration value, not independent byte-for-byte deployed source attestation.
+
+Source authorization is still **incompatible**: current `main` `brain/src/contract.mjs` resolves `staging-v1` to `staging`; `validateEvent` enforces authenticated source equals event.sourceType. Draft Brain #234 (head `47c86ecaa12acf1a4029433c7dd7557653583505`) introduces identity scopes for `analytics` and `apps_script`, **not** new identity mappings for `drive`, `gmail` or `news`. Neither branch authorizes these adapter sources. No `drive`/ `gmail`/ `news` event can be honestly marked accepted; no remote 422 attempt was sent.
+
+See [OPERATOR-STAGING-ACTIVATION-20261106.md](./OPERATOR-STAGING-ACTIVATION-20261106.md) for the exactly bounded service-binding change plan, approvals, synthetic security gate and remote receipt evidence checklist. The public endpoints, credentials, imports, AI activity and production remain unchanged and disabled.
+
+**Decision on 2026-11-06:** **BLOCKED**. Installed 9/9; native Brain service bindings 0/9; authenticated receipt readbacks 0; staging E2E 0. Existing staging must not be unexpired/redeployed merely to clear this report.
