@@ -29,7 +29,7 @@ async function verifySourceEnvelope(envelope, sourceType, audience, verification
   const { receiptSignature, ...signed } = envelope;
   const bytes = Uint8Array.from(receiptSignature.match(/../g), pair => Number.parseInt(pair, 16));
   const key = await crypto.subtle.importKey('raw', encode(verificationKey), { name: 'HMAC', hash: 'SHA-256' }, false, ['verify']);
-  const message = audience + '\\n' + JSON.stringify(signed);
+  const message = audience + '\n' + JSON.stringify(signed);
   if (!await crypto.subtle.verify('HMAC', key, bytes, encode(message))) {
     throw new IntegrationBlocked('RECEIPT_SIGNATURE_INVALID');
   }
