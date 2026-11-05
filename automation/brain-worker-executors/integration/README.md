@@ -47,3 +47,61 @@ Tests cover invalid paths, forging an approval flag, default-OFF, replay, confli
 5. Review only; preserve manual merge/deploy governance. No Codex, paid provider calls without confirmed budget, auto-merge or production deploy.
 
 **No live proof claimed:** No credential inventory, Cloudflare staging service binding, shared-ledger runtime, adapter-compatibility E2E or provider billing is verified by this PR.
+
+
+## Compatibility handoff (2026-11-05, after provider revisions)
+
+New source-only `compat.mjs` and `compat.test.mjs` are restricted to this
+integration directory. They normalize *actual* outputs from #214 Build A
+(`proposal.changes[].content`, `DRAFT_REVIEW_REQUIRED`) and #211 Build B
+(`proposal.files[].replacement`, `proposed`) into one immutable
+`PROPOSAL_REVIEW_ONLY` record. They require a valid, independently read-back
+Brain approval before accepting the task, check the exact immutable commit SHA,
+model ID, task ID and authorized replacement-file scope and reject forged
+write/merge/deploy claims. They DO NOT create a GitHub PR, attest provider identity
+or confirm financial settlement: `draftPrCreated`, `testsPassed` and
+`ledgerReconciled` remain **false**. Do not treat this as an operational adapter.
+
+The native #212 Testing report returns `{status,sha,checks:[{workflow,runId,
+conclusion,jobs,state}]}`. `inspectNativeTestingReport` can validate these
+fields, but #212 currently does NOT return run-attempt or repository provenance
+evidence in this report. Consequently it returns
+`NEEDS_AUTHORITATIVE_RUN_ATTEMPT_READBACK` for a locally successful report,
+`TESTING_BLOCKED` for failure/missing/skipped, and always keeps
+`testingGatePassed:false`. The independently authenticated GitHub readback
+contract in `evaluateTestingGate` remains mandatory; never synthesize
+`runAttempt` or `provenanceVerified`.
+
+The coordinator now sends `CI_FAILURE` to Self-Heal **only** when a completed
+failed/cancelled required run has an exact-SHA trusted run ID and run attempt.
+Missing, skipped, pending or unauthenticated runs stay blocked without a
+fabricated failure finding. The separate Self-Heal service is still NOT bound.
+
+#211 has advanced to head `b7dd45d9cf34b1bd0f49106980f0c3f73c18645c`.
+A read-only GitHub commit-check inspection observed SonarCloud Code Analysis,
+GitGuardian Security Checks and CodeQL marked successful at this exact head.
+Earlier failure evidence belonged to an older revision; review current head
+before merging. The dedicated Gemma Node tests were not run here.
+
+**Test honesty:** 17/17 non-HMAC mock checks across `index.test.mjs` and
+`compat.test.mjs` passed when evaluated against the fetched GitHub source
+using a JS/V8 assertion harness; this is NOT the exact Node `node --test`
+runner. The HMAC/WebCrypto case was not run in that harness, and no real
+Cloudflare/AI E2E test or hosted integration-specific Node job has been
+verified. The generic repository Actions checks do not substitute for this.
+
+### Remaining owner changes / strict stop conditions
+
+- #111 Brain owner must explicitly authorize Build A/B and Testing task types,
+  paths and trusted durable receipt readback; the current 3 review-only task
+  types cannot grant executor work.
+- Budget owner must unify #214 per-attempt EUR reservations and #211 USD
+  reserve+settle to **one** shared Brain EUR20/month ledger with verified FX,
+  reconciliation and no double charge. **No wrapping these providers in a
+  second reservation**. Missing attestation means no AI inference.
+- #209 executor owner must supply a scoped review-only GitHub draft writer and
+  exact-SHA CI readback/attempts; the integration coordinator cannot forge a
+  draft PR reference from a proposal.
+- Pin modules after reviewed merges; run exact-head Node mock tests and staging
+  end-to-end checks with auditable logs. Keep all live toggles OFF until then.
+- No Codex, automatic merge, production deploy or unapproved spend.
