@@ -65,3 +65,23 @@ A second Cloudflare REST GET inspection on the `archelaos.club` account confirme
 | archelaos-workflow-pilot | DEPLOYED | **BLOCKED** — workflow binding exists, but no Brain launch contract/receipt | No |
 
 **Roll-up:** DEPLOYED 9/9; **CONNECTED 0/9, TESTED E2E 0/9**, integration BLOCKED 8/9 and DISABLED 1/9. `client.mjs` is an **unpublished integration library** with enabled=false as default, not a deployed transport. For activation prerequisites, exact success evidence, stop conditions and rollback refer to [STAGING-RUNBOOK.md](./STAGING-RUNBOOK.md). Never represent CI mock tests as remotely CONNECTED.
+
+## Version IDs revalidated 2026-11-05 — Cloudflare GET only
+
+This is a concrete, non-secret trace of latest deployed **version** and **deployment** IDs (100% allocation at read time). These are Cloudflare release identifiers, **not** verified GitHub commit SHAs for each Worker. Only the Brain exposes a `DEPLOY_SHA` setting, which must not be conflated with Cloudflare version ID.
+
+| Existing Worker | Latest deployment ID | Latest version ID | Deployed? | Native Brain Service Binding? | Authenticated + receipt readback? | Remote E2E? | Integration state |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| archelaos-automation-bridge | `e9da0b1c-99b4-4861-9a94-119732448ff0` | `9445de37-5465-4927-be71-a546359c5b21` | yes | no | no | no | BLOCKED |
+| archelaos-brain-staging | `6d557f57-0f35-4b60-a569-546ee38157d2` | `72d7d145-9ca1-4ad0-814b-afe52ac9da91` | yes | n/a (target) | no | no | DISABLED |
+| archelaos-fundraising-preview | `484034ba-370a-416b-9b84-3f5c0a3df2e0` | `2c4eaadb-3b45-42b2-9442-92d69b21ff93` | yes | no | no | no | BLOCKED |
+| archelaos-gitlab-controller | `05998ad4-f39f-4c89-9765-271c70736821` | `53938cc8-0c8b-4956-8df2-934721711c53` | yes | no | no | no | BLOCKED |
+| archelaos-gitlab-guardian | `7ef87492-74d5-4851-b353-5d11480e9f63` | `2c37f688-4aee-44d1-b829-4dcb33a84c2f` | yes | no | no | no | BLOCKED |
+| archelaos-librarian-staging | `5e2dfa21-5f87-4308-83ea-4df84279f8f4` | `d291424c-05fd-42df-b5b3-0891339ef658` | yes | no | no | no | BLOCKED |
+| archelaos-raisely-bridge | `5014a39c-b019-435b-83b4-c7e47f248711` | `c13362d5-14b2-4ea5-9da4-586d95318ce9` | yes | no | no | no | BLOCKED |
+| archelaos-self-heal | `f768d2e8-306c-4012-b511-4cb8ce50a1da` | `fb8c26ae-f3df-46a2-8e8c-073b24785c27` | yes | no | no | no | BLOCKED |
+| archelaos-workflow-pilot | `3ebd856d-b9e2-4b48-b3d6-424af7c007f8` | `6cacf77c-3894-4f47-96cb-90d981936b69` | yes | no | no | no | BLOCKED |
+
+Current account ID `898359728b3dfe8c3a3f56e3d19eecd1`; zone ID `393d05924628b794e8345e36eab41857`. Four DO namespaces, zero standalone D1 databases, zero Worker routes/domains and zero active cron schedules were independently confirmed. The Brain's own `BRAIN` Durable Object binding is **not** a Service Binding to another Worker. Named secrets were inspected as metadata only; no plaintext credential was retrieved.
+
+**New critical dependency:** current Brain `staging-v1` authentication resolves to `staging` and `validateEvent` rejects `drive`/`gmail`/`news` source identities. See #219 handoff and the additional scoped contract regression test. No staging replay/log evidence exists yet; do not infer authentication or E2E from local mocks.
