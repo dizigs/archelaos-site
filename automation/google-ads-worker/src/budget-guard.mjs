@@ -35,8 +35,9 @@ export async function readAccountBudget(env,{fetcher=fetch}={}){
     requireSafe(Array.isArray(chunks)&&chunks.length<=50,'ADS_BUDGET_AUDIT_INCOMPLETE');
     const rows=[];
     for(const chunk of chunks){
-      requireSafe(Array.isArray(chunk.results)&&!chunk.nextPageToken,'ADS_BUDGET_AUDIT_INCOMPLETE');
-      rows.push(...chunk.results);
+      requireSafe((chunk.results===undefined || Array.isArray(chunk.results)) && !chunk.nextPageToken,
+        'ADS_BUDGET_AUDIT_INCOMPLETE');
+      rows.push(...(chunk.results||[]));
       requireSafe(rows.length<=500,'ADS_BUDGET_AUDIT_TOO_LARGE');
     }
     return rows;
@@ -80,7 +81,7 @@ export function assertGrantBudget(snapshot,operation,now=Date.now()){
     Array.isArray(snapshot.budgets)&&snapshot.budgets.length<=500,
     'ADS_ACCOUNT_BUDGET_UNVERIFIED');
   const age=now-Date.parse(snapshot.observedAt);
-  requireSafe(Number.isFinite(age)&&age>=0&&age<=120000,'ADS_BUDGET_AUDIT_STALE');
+  requireSafe(Number.isFinite(age)&&age>=-1500&&age<=120000,'ADS_BUDGET_AUDIT_STALE');
   const {daysInMonth}=dateParts(now);
   const dailyConservative=Math.min(DAILY_LIMIT,Math.floor(MONTHLY_LIMIT/daysInMonth));
   let total=0;
