@@ -387,6 +387,9 @@ export default {
           throw new Rejected('PRIVATE_EVENT_SOURCE_DISABLED', 423);
         if (!(request.method === 'POST' && url.pathname === '/v1/events') && !sourceReceipt)
           throw new Rejected('SOURCE_SCOPE_REQUIRED', 403);
+        if (typeof env.BRAIN_CAPABILITY_RECEIPT_KEY !== 'string' ||
+            env.BRAIN_CAPABILITY_RECEIPT_KEY.length < 43)
+          throw new Rejected('CAPABILITY_RECEIPT_SIGNING_UNCONFIGURED', 503);
       }
       if (sourceReceipt && !eventSource) throw new Rejected('SOURCE_SCOPE_REQUIRED', 403);
       const coordinator = env.BRAIN.get(env.BRAIN.idFromName('central-v1'));
@@ -419,8 +422,11 @@ export default {
           audience, capability === 'analytics' ? 'analytics-v1' : 'apps-script-v1'));
       }
       if (sourceReceipt) {
-        return await coordinator.fetch('https://brain.internal/internal/source-receipts/' +
+        const response = await coordinator.fetch('https://brain.internal/internal/source-receipts/' +
           url.pathname.slice('/v1/source-receipts/'.length) + '?source=' + source);
+        if (!response.ok) return response;
+        return reply(await signCapabilityReply(await response.json(),
+          env.BRAIN_CAPABILITY_RECEIPT_KEY, 'source.receipt.readback.v1', source + '-v1'));
       }
       if (url.pathname.startsWith('/v1/exec/')) {
         if (source !== 'operator') throw new Rejected('OPERATOR_SCOPE_REQUIRED', 403);
@@ -451,7 +457,12 @@ export default {
         let event;
         try { event = JSON.parse(raw); } catch { throw new Rejected('INVALID_JSON', 422); }
         event = validateEvent(event, source);
-        return await coordinator.fetch('https://brain.internal/internal/events', { method: 'POST', body: JSON.stringify(event) });
+        const response = await coordinator.fetch('https://brain.internal/internal/events',
+          { method: 'POST', body: JSON.stringify(event) });
+        if (!eventSource || !response.ok) return response;
+        return reply(await signCapabilityReply(await response.json(),
+          env.BRAIN_CAPABILITY_RECEIPT_KEY, 'source.receipt.ack.v1', source + '-v1'),
+          response.status);
       }
       const internal = url.pathname.replace('/v1/', '/internal/');
       return await coordinator.fetch('https://brain.internal' + internal);
