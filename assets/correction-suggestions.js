@@ -2,8 +2,8 @@
 (()=>{'use strict';
 if(window.ArchelaosCorrections)return;
 window.ArchelaosCorrections={version:1};
-const ids=['an-dialog','arch-bio-global','arc-bio-dialog','person-dialog','honors-detail-dialog','historyArchiveModal','historyPresidentModal','timelineDetailModal','deptHistoryModal','overlay','archiveStoryModalV56','pbh-dialog'];
-const headings={'an-dialog':'#an-dialog-title','arch-bio-global':'#arch-bio-global-title','arc-bio-dialog':'#arc-bio-name','person-dialog':'#dialog-name','overlay':'#reader-title'};
+const ids=['an-dialog','arch-bio-global','arc-bio-dialog','person-dialog','honors-detail-dialog','historyArchiveModal','historyPresidentModal','timelineDetailModal','deptHistoryModal','overlay','archiveStoryModalV56','pbh-dialog','dialog'];
+const headings={'an-dialog':'#an-dialog-title','arch-bio-global':'#arch-bio-global-title','arc-bio-dialog':'#arc-bio-name','person-dialog':'#dialog-name','overlay':'#reader-title','dialog':'#detail h2'};
 const add=(tag,cls,txt)=>{const x=document.createElement(tag);if(cls)x.className=cls;if(txt!==undefined)x.textContent=txt;return x};
 let availability,tsLoad;
 const enabled=()=>availability??=fetch('/api/text-corrections',{cache:'no-store'}).then(r=>r.ok?r.json():{enabled:false}).catch(()=>({enabled:false}));
