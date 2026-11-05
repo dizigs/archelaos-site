@@ -26,7 +26,7 @@ function inspect(root){
  const b=add('button','arch-correction-action');b.type='button';b.dataset.key=key;b.title='Πρότεινε διόρθωση';b.setAttribute('aria-label','Πρότεινε διόρθωση: '+title);b.setAttribute('aria-expanded','false');
  b.innerHTML='<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v7"/><path d="m14 18 5-5 2 2-5 5-3 1 1-3Z"/><path d="M7 9h10M7 13h5"/></svg>';
  const close=actions.querySelector('.an-close,.arch-bio-close');
- if(close)actions.insertBefore(b,close);else actions.append(b);
+ if(close)actions.insertBefore(b,close);else if(favorite?.parentElement===actions)favorite.after(b);else actions.append(b);
  const panel=add('section','arch-correction-panel');panel.hidden=true;panel.setAttribute('aria-label','Πρόταση διόρθωσης');
  const top=add('div','arch-correction-heading'),name=add('strong','', 'Πρότεινε μια διόρθωση'),x=add('button','arch-correction-dismiss','×');
  x.type='button';x.setAttribute('aria-label','Κλείσιμο πλαισίου');top.append(name,x);
@@ -42,7 +42,7 @@ function inspect(root){
  let token='',active=false,busy=false,widget=null;
  const refresh=()=>{send.disabled=!active||!token||message.value.trim().length<10||busy};
  const hide=()=>{panel.hidden=true;b.setAttribute('aria-expanded','false');b.focus({preventScroll:true})};
- x.addEventListener('click',hide);panel.addEventListener('keydown',e=>{if(e.key==='Escape'){e.stopPropagation();hide()}});
+ x.addEventListener('click',hide);panel.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();e.stopPropagation();hide()}});
  panel.addEventListener('click',e=>e.stopPropagation());message.addEventListener('input',refresh);
  b.addEventListener('click',async e=>{
   e.stopPropagation();if(!panel.hidden){hide();return}
