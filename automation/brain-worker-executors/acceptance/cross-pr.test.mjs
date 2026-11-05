@@ -193,17 +193,19 @@ test('Gemini mock transport -> real provider adapter -> real coordinator proposa
   assert.equal(normalized.mergeAllowed, false);
 });
 
-test('Gemma mock binding -> real provider adapter -> real coordinator proposal contract', async () => {
+test('Gemma native output without an attested SHA is rejected by canonical integration', async () => {
   const t = task('B', 4), fixture = gemmaFixture(t);
   const native = await fixture.executor.run(fixture.nativeTask);
-  const normalized = compat.normalizeNativeProposal(t, receipt(t), native, NOW);
+  // #211 currently omits commitSha. Supplying it from the task would forge
+  // provenance and incorrectly promote an unverified proposal.
+  assert.equal(native.commitSha, undefined);
+  assert.throws(() => compat.normalizeNativeProposal(t, receipt(t), native, NOW),
+    { code: 'GEMMA_OUTPUT_CONTRACT_MISMATCH' });
   assert.equal(fixture.calls.provider, 1);
   assert.equal(fixture.calls.reserves, 1);
   assert.equal(fixture.calls.settlements[0].status, 'consumed');
-  assert.equal(normalized.status, 'PROPOSAL_REVIEW_ONLY');
-  assert.equal(normalized.modelId, b.MODEL_ID);
-  assert.equal(normalized.changes[0].path, PATH);
-  assert.equal(normalized.testsPassed, false);
+  assert.equal(native.writesPerformed, false);
+  assert.equal(native.mergeAllowed, false);
 });
 
 test('unauthorized receipt and out-of-scope provider edits fail closed without writes', async () => {
@@ -283,7 +285,7 @@ test('native testing executor blocks incomplete GitHub pagination', async () => 
   assert.equal(report.status, 'blocked');
 });
 
-test('Brain default OFF and double-reserving native adapters are blocked', async () => {
+test('legacy integration refuses even apparently approved double-reserving native adapters', async () => {
   const t = task('A', 10);
   const counters = { calls: 0, reserves: 0 };
   const port = {
@@ -304,16 +306,16 @@ test('Brain default OFF and double-reserving native adapters are blocked', async
         execute: async () => { counters.calls++; } }
     }
   };
-  assert.equal((await integration.runIntegration(t, port)).code, 'INTEGRATION_DISABLED_OR_UNATTESTED');
+  assert.equal((await integration.runIntegration(t, port)).code, 'CANONICAL_BRAIN_ONLY');
   const result = await integration.runIntegration(t, port, {
     enabled: true, executionMode: 'staging-approved', providersAttested: true, centralLedgerConfirmed: true
   }, NOW);
-  assert.equal(result.code, 'DOUBLE_RESERVATION_RISK');
+  assert.equal(result.code, 'CANONICAL_BRAIN_ONLY');
   assert.equal(counters.calls, 0);
   assert.equal(counters.reserves, 0);
 });
 
-test('mock Brain routes both lanes only with centralized <= EUR20 budget proof', async () => {
+test('unverified positive Brain budget mocks cannot bypass review-only integration', async () => {
   for (const lane of ['A', 'B']) {
     const t = task(lane, lane === 'A' ? 11 : 12);
     const state = { reserves: 0, executes: 0, settles: 0 };
@@ -350,8 +352,9 @@ test('mock Brain routes both lanes only with centralized <= EUR20 budget proof',
       enabled: true, executionMode: 'staging-approved',
       providersAttested: true, centralLedgerConfirmed: true
     }, NOW);
-    assert.equal(result.status, 'BUILD_DRAFT_REQUIRES_TESTING', JSON.stringify(result));
-    assert.deepEqual(state, { reserves: 1, executes: 1, settles: 1 });
+    assert.equal(result.status, 'BLOCKED', JSON.stringify(result));
+    assert.equal(result.code, 'CANONICAL_BRAIN_ONLY');
+    assert.deepEqual(state, { reserves: 0, executes: 0, settles: 0 });
     assert.equal(result.mergeAllowed, false);
     assert.equal(result.deployAllowed, false);
   }
