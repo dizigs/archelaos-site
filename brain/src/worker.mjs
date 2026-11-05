@@ -327,6 +327,10 @@ export default {
         throw new Rejected('NOT_FOUND', 404);
       const raw = await boundedBody(request);
       const source = await authenticate(request, env, raw);
+      // Capability credentials must not read global diagnostics, unrelated
+      // receipts, operator state, or the legacy event and execution APIs.
+      if ((source === 'analytics' || source === 'apps_script') && !capability)
+        throw new Rejected('SOURCE_SCOPE_REQUIRED', 403);
       const coordinator = env.BRAIN.get(env.BRAIN.idFromName('central-v1'));
       if (capability) {
         if (source !== capability) throw new Rejected('SOURCE_SCOPE_REQUIRED', 403);
