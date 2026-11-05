@@ -934,11 +934,20 @@
   },
   {
     "id": "arch-2616694d9908",
-    "name": "Νίκος Ζινίσα",
-    "name_en": "Nikos Zinisa",
+    "name": "Νίκος Ζινίσα (του Κωνσταντίνου)",
+    "name_en": "Nikos Zinisa (son of Konstantinos)",
     "names": [
-      "Νίκος Ζινίσα",
-      "Νικολαος Ζινίσα"
+      "Νίκος Ζινίσα του Κωνσταντίνου",
+      "Νικόλαος Ζινίσα του Κωνσταντίνου"
+    ]
+  },
+  {
+    "id": "arch-nikos-zinisa-savvas-wrestling",
+    "name": "Νίκος Ζινίσα (του Σάββα)",
+    "name_en": "Nikos Zinisa (son of Savvas)",
+    "names": [
+      "Νίκος Ζινίσα του Σάββα",
+      "Νικόλαος Ζινίσα του Σάββα"
     ]
   },
   {

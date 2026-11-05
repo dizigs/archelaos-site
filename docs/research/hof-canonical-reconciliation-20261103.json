@@ -3,19 +3,19 @@
   "canonical_source": "hall-of-fame-people.json",
   "historical_source": "rebuild/data/people.json",
   "counts": {
-    "canonical": 771,
+    "canonical": 772,
     "historical": 680,
     "shared": 680,
-    "divergent_people": 56,
-    "divergent_fields": 90,
+    "divergent_people": 55,
+    "divergent_fields": 88,
     "fields": {
-      "bio": 56,
-      "bio_en": 33,
+      "bio": 55,
+      "bio_en": 32,
       "name": 1
     },
     "classifications": {
       "BLOCKED_SOURCE": 4,
-      "LEGACY_TEXT_RETAINED": 74,
+      "LEGACY_TEXT_RETAINED": 72,
       "QUALIFIED_ARCHIVE": 6,
       "SEMANTICALLY_RETAINED": 4,
       "SPELLING_CORRECTION": 2
@@ -88,6 +88,7 @@
     "arch-loukas-zinisa-wrest25",
     "arch-maria-mastorogianni-wrest25",
     "arch-michaela-syrmali-wrest20",
+    "arch-nikos-zinisa-savvas-wrestling",
     "arch-paschalis-iliatzikis-wrestling-2022",
     "arch-pavlina-charitidou-arch",
     "arch-platon-chotokouridis-basketball",
@@ -144,24 +145,6 @@
           "classification": "LEGACY_TEXT_RETAINED",
           "legacy_sha256": "2be6deaf00ba2df7d0ebbb1adaa087c914232702d62c2d83622f3077ebb666d1",
           "canonical_sha256": "0c9fa291d34a6a4ca30c4c26cb637b7bc0a2a7a8701abf5b99ee561757c7f743"
-        }
-      ]
-    },
-    {
-      "id": "arch-2616694d9908",
-      "name": "Νίκος Ζινίσα",
-      "fields": [
-        {
-          "field": "bio",
-          "classification": "LEGACY_TEXT_RETAINED",
-          "legacy_sha256": "859a1fcc37f5d1e0000efca09b7eca34f0cf8110e1094d85aad0f43f3f206bc7",
-          "canonical_sha256": "9b1877451ca197036279c6926368aebfdc57d055f8b89d33207a1d85cc0f58e1"
-        },
-        {
-          "field": "bio_en",
-          "classification": "LEGACY_TEXT_RETAINED",
-          "legacy_sha256": "7503561ecca7156b18fbeb93ba13566cfabfa27d764bfc216efd740a49fe5427",
-          "canonical_sha256": "54297d12d2431779d68766fc3bfb88d7f7125e9e104d6bca9b0c076a2bce1713"
         }
       ]
     },
