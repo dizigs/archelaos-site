@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "repository": "dizigs/archelaos-site",
+  "sources": {
+    "scaffold": {
+      "pr": 209,
+      "sha": "6a64701344b3f392d17bc634bc898c5c22cd69db"
+    },
+    "gemini": {
+      "pr": 214,
+      "sha": "2381cacaa4dc3720fb06aa30157617e8205a8488"
+    },
+    "gemma": {
+      "pr": 211,
+      "sha": "b7dd45d9cf34b1bd0f49106980f0c3f73c18645c"
+    },
+    "testing": {
+      "pr": 212,
+      "sha": "04d8f50502c58b5f1fe7753a2bbde6bea10dc170"
+    },
+    "integration": {
+      "pr": 213,
+      "sha": "50fb549842cf803f67c9ddb7b9b13660b6800e51"
+    }
+  }
+}
