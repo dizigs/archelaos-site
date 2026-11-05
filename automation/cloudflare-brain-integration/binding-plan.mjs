@@ -40,16 +40,20 @@ export function assessBinding({
       !Number.isFinite(now) || Date.parse(stagingExpiresAt) <= now) {
     blockers.push('STAGING_EXPIRED');
   }
-  if (brain && !brain.some(b => b?.name === 'BRAIN' && b?.type === 'durable_object_namespace')) {
+  if (Number.isFinite(now) && Number.isFinite(Date.parse(stagingExpiresAt || '')) &&
+      Date.parse(stagingExpiresAt) > now + 60 * 60 * 1000) {
+    blockers.push('STAGING_WINDOW_TOO_LONG');
+  }
+  if (brain && !brain.some(b => b?.name === 'BRAIN' && b?.type === 'durable_object_namespace' && b?.class_name === 'BrainCoordinator')) {
     blockers.push('CANONICAL_DO_MISSING');
   }
   if (brain && !brain.some(b => b?.name === 'STAGING_INTAKE_KEY' && b?.type === 'secret_text')) {
     blockers.push('BRAIN_INTAKE_SECRET_ABSENT');
   }
-  if (!scopedIdentityApproved) blockers.push('SOURCE_IDENTITY_CONTRACT_UNAPPROVED');
-  if (!provenanceApproved) blockers.push('SOURCE_PROVENANCE_UNVERIFIED');
-  if (!durableAuditApproved) blockers.push('DURABLE_AUDIT_UNVERIFIED');
-  if (!ownerApproved) blockers.push('EXPLICIT_OWNER_APPROVAL_MISSING');
+  if (scopedIdentityApproved !== true) blockers.push('SOURCE_IDENTITY_CONTRACT_UNAPPROVED');
+  if (provenanceApproved !== true) blockers.push('SOURCE_PROVENANCE_UNVERIFIED');
+  if (durableAuditApproved !== true) blockers.push('DURABLE_AUDIT_UNVERIFIED');
+  if (ownerApproved !== true) blockers.push('EXPLICIT_OWNER_APPROVAL_MISSING');
   const present = current?.some(b => b?.name === NAME && b?.type === 'service' && b?.service === TARGET) || false;
   return Object.freeze({
     caller,
