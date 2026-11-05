@@ -1,0 +1,20 @@
+import {test} from 'node:test';
+import {strict as assert} from 'node:assert';
+import {validateEvent,decideAI} from './event-contract.mjs';
+const event={eventId:'source:1',source:'drive',type:'document.created',sourceRevision:'rev-2',observedAt:'2026-11-05T13:00:00Z',correlationId:'job:1'};
+test('accepts canonical six-field event',()=>assert.equal(validateEvent(event).ok,true));
+test('rejects unknown payload fields to prevent leaking private data',()=>assert.equal(validateEvent({...event,rawEmail:'secret'}).reason,'invalid_fields'));
+test('rejects malformed time',()=>assert.equal(validateEvent({...event,observedAt:'tomorrow'}).reason,'invalid_time'));
+test('rejects malformed source',()=>assert.equal(validateEvent({...event,source:'../../etc'}).reason,'invalid_kind'));
+test('rejects missing id',()=>assert.equal(validateEvent({...event,eventId:''}).reason,'invalid_identity'));
+test('denies unauthorized sources',()=>assert.equal(decideAI({event}).reason,'source_not_authorized'));
+test('denies private data even for verified provider',()=>assert.equal(decideAI({event,sourceAllowed:true,providerVerified:true}).reason,'privacy_not_cleared'));
+test('defers unverified provider',()=>assert.equal(decideAI({event,sourceAllowed:true,containsPersonalData:false}).reason,'provider_not_verified'));
+test('requires central ledger for free quota',()=>assert.equal(decideAI({event,sourceAllowed:true,containsPersonalData:false,providerVerified:true,freeQuotaVerified:true}).action,'eligible_free_only'));
+test('unknown cost fails closed',()=>assert.equal(decideAI({event,sourceAllowed:true,containsPersonalData:false,providerVerified:true}).reason,'budget_unknown'));
+test('insufficient budget fails closed',()=>assert.equal(decideAI({event,sourceAllowed:true,containsPersonalData:false,providerVerified:true,estimatedEuro:1,remainingEuro:0.1}).reason,'budget_exhausted'));
+test('estimated paid call cannot run without atomic reservation',()=>assert.equal(decideAI({event,sourceAllowed:true,containsPersonalData:false,providerVerified:true,estimatedEuro:0.1,remainingEuro:10}).reason,'atomic_reservation_required'));
+
+test('rejects impossible calendar date instead of Date normalization',()=>assert.equal(validateEvent({...event,observedAt:'2026-02-30T13:00:00Z'}).reason,'invalid_time'));
+test('rejects impossible clock hour',()=>assert.equal(validateEvent({...event,observedAt:'2026-11-05T25:00:00Z'}).reason,'invalid_time'));
+test('accepts valid millisecond timestamp',()=>assert.equal(validateEvent({...event,observedAt:'2026-11-05T13:00:00.12Z'}).ok,true));

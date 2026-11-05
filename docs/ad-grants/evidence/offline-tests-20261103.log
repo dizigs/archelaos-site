@@ -1,0 +1,48 @@
+Executed offline checks — 2026-11-03 Europe/Athens. Synthetic fixtures; no live Google calls.
+
+Node tests
+✔ no findings means only checked rules pass; policy review is always required (2.810193ms)
+✔ disapprovals, broken URLs, low quality and single words produce public counts (0.564202ms)
+✔ off-site, credentials, queries and redirects remain unchecked; no inferred HTTP result (0.380254ms)
+✔ CTR uses two complete account-local months, including year and leap boundaries (2.04704ms)
+✔ unknown quality and zero/malformed impressions cannot pass as healthy metrics (0.460545ms)
+✔ conversion requires accepted server receipt, consent and dedup; emits no PII (0.263608ms)
+✔ traffic export adapter distinguishes existing metrics from missing conversions and stale evidence (0.776963ms)
+✔ actual preview collector uses only read APIs and approved GET URLs; never logs raw records (0.957266ms)
+✔ draft campaigns have two groups, multiple creatives/sitelinks and bounded RSA copy, with no budgets (0.831365ms)
+✔ committed synthetic example matches the executed audit used by the Issue planner (0.647027ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 77.547091
+
+Python tests
+test_closed_issue_reopens_instead_of_duplicate (test_ad_grants_issue_plan.IssueSafety.test_closed_issue_reopens_instead_of_duplicate) ... ok
+test_complete_pagination_uses_all_states (test_ad_grants_issue_plan.IssueSafety.test_complete_pagination_uses_all_states) ... ok
+test_foreign_markers_and_pull_requests_do_not_spoof_owned_issue (test_ad_grants_issue_plan.IssueSafety.test_foreign_markers_and_pull_requests_do_not_spoof_owned_issue) ... ok
+test_inventory_failure_or_truncation_cannot_create_partial_plan (test_ad_grants_issue_plan.IssueSafety.test_inventory_failure_or_truncation_cannot_create_partial_plan) ... ok
+test_live_source_still_cannot_publish (test_ad_grants_issue_plan.IssueSafety.test_live_source_still_cannot_publish) ... ok
+test_malformed_issue_metadata_cannot_copy_raw_values_into_public_plan (test_ad_grants_issue_plan.IssueSafety.test_malformed_issue_metadata_cannot_copy_raw_values_into_public_plan) ... ok
+test_no_raw_values_or_unrecognized_findings_enter_public_payload (test_ad_grants_issue_plan.IssueSafety.test_no_raw_values_or_unrecognized_findings_enter_public_payload) ... ok
+test_open_issue_is_idempotent (test_ad_grants_issue_plan.IssueSafety.test_open_issue_is_idempotent) ... ok
+test_synthetic_pipeline_second_run_creates_no_duplicates (test_ad_grants_issue_plan.IssueSafety.test_synthetic_pipeline_second_run_creates_no_duplicates) ... ok
+test_synthetic_plan_is_never_publishable (test_ad_grants_issue_plan.IssueSafety.test_synthetic_plan_is_never_publishable) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.001s
+
+OK
+
+Release build
+BUILD OK: 15 principal pages, 760 profiles, two sitemaps, a sitemap index, robots.txt and preserved redirects.
+Output: dist/ — not deployed. Production root was not modified.
+RELEASE QA OK: 15 core pages + 760 indexed profiles.
+Canonicals, robots, structured data, two sitemaps, redirects and local paths verified.
+
+Independent release verify
+RELEASE QA OK: 15 core pages + 760 indexed profiles.
+Canonicals, robots, structured data, two sitemaps, redirects and local paths verified.
