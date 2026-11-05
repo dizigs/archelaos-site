@@ -67,6 +67,7 @@ export async function inspectIntegration({ projectFingerprint, now = Date.now() 
   if (!verified(rollback) || !sameProject(rollback, projectFingerprint) ||
     rollback.readbackVerified !== true || rollback.fullManifestPreserved !== true ||
     rollback.triggerFingerprint !== trigger?.fingerprint ||
+    rollback.writeOutcome !== 'RESTORED_AND_VERIFIED' ||
     !digest(rollback.restoredSourceHash) || rollback.restoredSourceHash !== source?.sourceHash ||
     !observed(rollback, now) || !fresh(rollback, now))
     blockers.push('ROLLBACK_NOT_VERIFIED');
