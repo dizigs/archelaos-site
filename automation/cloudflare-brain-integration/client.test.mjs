@@ -135,3 +135,60 @@ test('current Brain staging-v1 identity cannot authorize a Drive source event (f
   await reject(a.submitEvent(e),'BRAIN_REJECTED');
   assert.deepEqual(logs.map(x=>({result:x.result,status:x.status})),[{result:'REJECTED',status:422}]);
 });
+
+
+test('transport timeout aborts, records UNKNOWN and never retries the same event', async () => {
+  const e=event();let calls=0,aborted=false;
+  const {a,logs}=setup(req=>{
+    calls++;
+    return new Promise((_,reject) => {
+      req.signal.addEventListener('abort',()=>{aborted=true;reject(Error('aborted'));},{once:true});
+    });
+  },{timeoutMs:100});
+  await reject(a.submitEvent(e),'DELIVERY_OUTCOME_UNKNOWN');
+  assert.equal(calls,1);
+  assert.equal(aborted,true);
+  assert.deepEqual(logs.map(x=>({result:x.result,eventId:x.eventId})),[{result:'UNKNOWN',eventId:e.eventId}]);
+});
+
+test('restart-safe synthetic Brain receipt keeps one event and durable duplicate identity', async () => {
+  const e=event(),stored=new Map();let admissions=0;
+  const privateTransport=async req=>{
+    const path=new URL(req.url).pathname;
+    if(req.method==='POST' && path==='/v1/events') {
+      const incoming=JSON.parse(await req.text());
+      const duplicate=stored.has(incoming.eventId);
+      if(!duplicate){ admissions++;stored.set(incoming.eventId,{
+        receiptId:randomUUID(),correlationId:incoming.correlationId,eventId:incoming.eventId
+      });}
+      return Response.json({...stored.get(incoming.eventId),durable:true,duplicate,status:'WAITING_REVIEW'},
+        {status:duplicate?200:202});
+    }
+    const match=/^\\/v1\\/tasks\\/([0-9a-f-]+)$/.exec(path);
+    if(req.method==='GET' && match){
+      const receipt=[...stored.values()].find(x=>x.receiptId===match[1]);
+      return receipt?Response.json({...receipt,status:'WAITING_REVIEW',attempts:0}):new Response('',{status:404});
+    }
+    return new Response('',{status:404});
+  };
+  const first=setup(privateTransport);
+  const receipt=await first.a.submitEvent(e);
+  const restarted=setup(privateTransport);
+  const again=await restarted.a.submitEvent(e);
+  const verified=await restarted.a.readReceipt(receipt.receiptId,e.correlationId);
+  assert.equal(admissions,1);
+  assert.equal(stored.size,1);
+  assert.equal(receipt.duplicate,false);
+  assert.equal(again.duplicate,true);
+  assert.equal(again.receiptId,receipt.receiptId);
+  assert.equal(verified.receiptId,receipt.receiptId);
+  assert.equal(verified.correlationId,e.correlationId);
+});
+
+test('synthetic Brain emergency pause rejects intake without a successful receipt', async () => {
+  const e=event();let calls=0;
+  const {a,logs}=setup(async()=>{calls++;return Response.json({code:'EMERGENCY_PAUSE'},{status:423});});
+  await reject(a.submitEvent(e),'BRAIN_REJECTED');
+  assert.equal(calls,1);
+  assert.deepEqual(logs.map(x=>({result:x.result,status:x.status})),[{result:'REJECTED',status:423}]);
+});
