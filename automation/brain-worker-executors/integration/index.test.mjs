@@ -68,7 +68,9 @@ function portsFor(task, coordinator, overrides = {}) {
     },
     coordinator, checks: { readVerified: async () => checks() },
     builders: {
-      A: { verified: true, quote: async () => ({ verified: true, modelId: 'mock-model', maxMicroEur: 1000 }),
+      A: { verified: true, billingContract: 'central-preclaimed-v1',
+        reservesInternally: false, settlesInternally: false,
+        quote: async () => ({ verified: true, modelId: 'mock-model', maxMicroEur: 1000 }),
         execute: async () => { state.calls++; return { verified: true, commitSha: sha, draftOnly: true,
           mergeAllowed: false, deployAllowed: false, changedFiles: task.paths.filter(x => !x.endsWith('/')),
           draftRef: '#300', actualMicroEur: 250 }; } }
@@ -214,4 +216,18 @@ test('skipped or pending check with a real run ID does not fabricate a CI_FAILUR
     assert.equal(state.routed.length, 0);
     assert.equal(result.mergeAllowed, false);
   }
+});
+
+
+test('native budget-owning provider cannot be nested beneath a second central reserve', async () => {
+  const task = makeTask(13);
+  const { ports, state } = portsFor(task, new SqlCoordinator(new FakeStorage()));
+  ports.builders.A = { ...ports.builders.A,
+    billingContract: 'native-provider-budget-v1',
+    reservesInternally: true, settlesInternally: true };
+  const result = await runIntegration(task, ports, policy);
+  assert.equal(result.code, 'DOUBLE_RESERVATION_RISK');
+  assert.equal(state.reserves, 0);
+  assert.equal(state.calls, 0);
+  assert.equal(result.mergeAllowed, false);
 });
