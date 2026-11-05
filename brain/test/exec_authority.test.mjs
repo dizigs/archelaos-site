@@ -150,3 +150,36 @@ test('file subtree locks, evidence requirement, no unbounded retries and budget 
   cap = 100; await mf.dispose(); mf = new Miniflare(options());
   assert.equal((await call('/v1/exec/claims', {taskId:c.taskId})).data.code, 'BUDGET_INSUFFICIENT');
 });
+
+test('expired in-flight lease is durable UNKNOWN, retains the path and reservation until proof', async () => {
+  const a = task('BUILD_A', ['brain/src/recovery.mjs']);
+  const b = task('BUILD_B', ['brain/src/recovery.mjs']);
+  await submitAndApprove(a); await submitAndApprove(b);
+  const claimed = await call('/v1/exec/claims', {taskId: a.taskId});
+  assert.equal(claimed.status, 200);
+  assert.equal((await call('/v1/exec/begin', {taskId:a.taskId, owner:claimed.data.owner})).status, 200);
+  const ns = await mf.getDurableObjectNamespace('BRAIN');
+  const stub = ns.get(ns.idFromName('central-v1'));
+  const expired = await stub.fetch('https://brain.internal/internal/testing/expire-exec-lease', {
+    method: 'POST', body: JSON.stringify({taskId: a.taskId})
+  });
+  assert.equal(expired.status, 200);
+  let held;
+  const until = Date.now() + 4_000;
+  do {
+    held = await call('/v1/exec/intents/' + a.taskId);
+    if (held.data.status === 'RECONCILE_REQUIRED') break;
+    await new Promise(resolve => setTimeout(resolve, 30));
+  } while (Date.now() < until);
+  assert.equal(held.data.status, 'RECONCILE_REQUIRED');
+  assert.equal((await call('/v1/exec/claims', {taskId:b.taskId})).data.code, 'EXEC_PATH_LOCKED');
+  await mf.dispose(); mf = new Miniflare(options());
+  assert.equal((await call('/v1/exec/intents/' + a.taskId)).data.status, 'RECONCILE_REQUIRED');
+  assert.equal((await call('/v1/exec/reconcile', {
+    taskId:a.taskId, outcome:'FAILED', evidenceSha256:H, actualMicroEur: 500
+  })).data.status, 'FAILED');
+  assert.equal((await call('/v1/exec/reconcile', {
+    taskId:a.taskId, outcome:'FAILED', evidenceSha256:H, actualMicroEur: 500
+  })).status, 409);
+  assert.equal((await call('/v1/exec/claims', {taskId:b.taskId})).status, 200);
+});
