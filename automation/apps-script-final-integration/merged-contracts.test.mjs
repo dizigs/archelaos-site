@@ -183,9 +183,10 @@ test('unavailable Brain intake capability cannot dispatch', async () => {
     schemaVersion: 1, source: 'github', transport: 'PRIVATE_SERVICE_BINDING',
     status: 'ACCEPTING', deploymentDigest: HASH
   });
-  await assert.rejects(
-    composeMergedReadOnlyHandoff({ operationId: OP, phase: 'read' }, trusted),
-    { code: 'BRAIN_APPSSCRIPT_SOURCE_NOT_READY' }
-  );
+  // #201 throws before dispatch; the outer boundary deliberately turns
+  // unknown relay failures into an audit-backed reconciliation hold.
+  const result = await composeMergedReadOnlyHandoff({ operationId: OP, phase: 'read' }, trusted);
+  assert.equal(result.status, 'RECONCILIATION_REQUIRED');
+  assert.equal(result.sent, false);
   assert.equal(reads.sends, 0);
 });
