@@ -145,14 +145,16 @@ export function verifyWritersAndTriggersGuard({baselineSnapshot,currentRemoteSna
   activeLease,actorId,independentInventory}){
   if(!activeLease||activeLease.holderId!==actorId||!Number.isFinite(activeLease.expiresAtMs)||
     activeLease.expiresAtMs<Date.now()+30000)fail(ValidationErrorCodes.CONCURRENT_WRITER_ACTIVE);
+  // Detect real trigger drift before reporting stale or incomplete inventory.
+  // Either outcome is fail-closed; callers cannot use these hints as authority.
+  if(baselineSnapshot.triggersSha256!==currentRemoteSnapshot.triggersSha256)
+    fail(ValidationErrorCodes.TRIGGER_MUTATION_FORBIDDEN);
   if(!independentInventory||independentInventory.verified!==true||
     independentInventory.completeProjectInventory!==true||
     independentInventory.coversExternalWriters!==true||
     independentInventory.projectId!==baselineSnapshot.scriptId||
     independentInventory.triggerFingerprint!==baselineSnapshot.triggersSha256)
     fail(ValidationErrorCodes.PROVIDER_INVENTORY_UNVERIFIED);
-  if(baselineSnapshot.triggersSha256!==currentRemoteSnapshot.triggersSha256)
-    fail(ValidationErrorCodes.TRIGGER_MUTATION_FORBIDDEN);
   if(baselineSnapshot.scriptId!==currentRemoteSnapshot.scriptId||
     detectSha256Drift(baselineSnapshot,currentRemoteSnapshot).hasDrift)
     fail(ValidationErrorCodes.SHA256_DRIFT_DETECTED);
