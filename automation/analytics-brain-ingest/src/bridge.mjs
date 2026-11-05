@@ -189,18 +189,21 @@ export async function preparePrivateExport({source,artifactBytes,runId,artifactI
 }
 /**
  * Must be backed by a separately verified authenticated Brain Service Binding,
- * a durable source+period UPSERT/replay ledger, and signed receipt verifier.
+ * a durable source+period UPSERT/replay ledger, independently verified signed
+ * receipt AND independently verified durable snapshot readback.
  * The merged Brain currently lacks an analytics v1 capability; default is OFF.
  */
 export async function deliverToBrain(prepared,brainPort){
   if(!prepared?.verified||!Array.isArray(prepared.events)||!prepared.events.length ||
      typeof brainPort?.capabilities!=='function'||typeof brainPort?.submitSnapshot!=='function'||
-     typeof brainPort?.verifyReceipt!=='function')fail('BRAIN_ANALYTICS_NOT_CONFIGURED');
+     typeof brainPort?.verifyReceipt!=='function'||typeof brainPort?.readbackSnapshot!=='function'||
+     typeof brainPort?.verifyReadback!=='function')fail('BRAIN_ANALYTICS_NOT_CONFIGURED');
   let cap;
   try{cap=await brainPort.capabilities();}
   catch{fail('BRAIN_CAPABILITY_UNAVAILABLE');}
   if(cap?.version!=='analytics.aggregate.v1'||cap?.authenticatedServiceBinding!==true||
-     cap?.durableSnapshotUpsert!==true||cap?.receiptSignatureVerification!==true)
+     cap?.durableSnapshotUpsert!==true||cap?.receiptSignatureVerification!==true||
+     cap?.immutableReceiptReadback!==true)
     fail('BRAIN_ANALYTICS_CAPABILITY_UNVERIFIED');
   const receipts=[];
   for(const record of prepared.events){
@@ -217,7 +220,23 @@ export async function deliverToBrain(prepared,brainPort){
     try{valid=await brainPort.verifyReceipt(ack,request)===true;}
     catch{valid=false;}
     if(!valid)fail('UNVERIFIED_BRAIN_RECEIPT');
-    receipts.push({receiptId:ack.receiptId,snapshotKey:ack.snapshotKey,status:ack.status});
+    // An ACK alone does not prove the committed snapshot survived a restart.
+    // Read back from the authoritative Brain store; fail closed on uncertainty.
+    let stored;
+    try {stored=await brainPort.readbackSnapshot({receiptId:ack.receiptId,
+      eventId:record.event.eventId,snapshotKey:record.snapshotKey});}
+    catch {fail('BRAIN_READBACK_UNCERTAIN_RECONCILE_REQUIRED');}
+    if(stored?.receiptId!==ack.receiptId||stored?.eventId!==record.event.eventId||
+       stored?.snapshotKey!==record.snapshotKey||stored?.metricRevision!==record.metricRevision||
+       stored?.reportDigest!==prepared.evidence.reportDigest||
+       stored?.source!==record.event.payload.source||stored?.correlationId!==record.event.correlationId||
+       stored?.durable!==true)fail('UNVERIFIED_BRAIN_READBACK');
+    let readbackValid=false;
+    try {readbackValid=await brainPort.verifyReadback(stored,request,ack)===true;}
+    catch {readbackValid=false;}
+    if(!readbackValid)fail('UNVERIFIED_BRAIN_READBACK');
+    receipts.push({receiptId:ack.receiptId,snapshotKey:ack.snapshotKey,status:ack.status,
+      readbackVerified:true});
   }
   return {delivered:receipts.length,receipts};
 }
