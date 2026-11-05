@@ -10,6 +10,8 @@ import { validateAnalyticsSnapshot, validateAppsScriptEvent } from '../src/capab
 const KEY = 'test-analytics-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
 const APPS_KEY = 'test-appscript-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb';
 const OPERATOR_KEY = 'test-operator-cccccccccccccccccccccccccccccccccccccccccccccccc';
+const DRIVE_KEY = 'test-drive-eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee';
+const GMAIL_KEY = 'test-gmail-ffffffffffffffffffffffffffffffffffffffffffffffff';
 const RECEIPT_KEY = 'test-receipt-dddddddddddddddddddddddddddddddddddddddddddddddd';
 const COMMIT = 'e'.repeat(40);
 const h = s => createHash('sha256').update(s).digest('hex');
@@ -47,10 +49,10 @@ function apps({operationId = randomUUID(), revision = 'b'.repeat(64), phase = 'S
     sourceRevision: revision, observedAt, correlationId: operationId,
     metadata: {sourceFingerprint, evidenceDigest, privacy: 'OPAQUE_AUDIT_ONLY'}};
 }
-async function withBrain(fn, {enabled = true} = {}) {
+async function withBrain(fn, {enabled = true, eventSources = false} = {}) {
   const directory = await mkdtemp(join(tmpdir(), 'brain-capability-'));
   let externalCalls = 0;
-  const mf = new Miniflare({
+  const options = {
     name: 'archelaos-brain-capability-test', modules: true, scriptPath: resolve('src/worker.mjs'),
     compatibilityDate: '2026-07-30',
     outboundService: async () => { externalCalls++; return new Response('BLOCKED', {status: 502}); },
@@ -61,16 +63,21 @@ async function withBrain(fn, {enabled = true} = {}) {
       STAGING_INTAKE_KEY: 'test-staging-000000000000000000000000000000000000000000000000',
       STAGING_OPERATOR_KEY: OPERATOR_KEY, BRAIN_ANALYTICS_INTAKE_KEY: KEY,
       BRAIN_APPS_SCRIPT_INTAKE_KEY: APPS_KEY, BRAIN_CAPABILITY_RECEIPT_KEY: RECEIPT_KEY,
+      BRAIN_DRIVE_INTAKE_KEY: DRIVE_KEY, BRAIN_GMAIL_INTAKE_KEY: GMAIL_KEY,
+      BRAIN_PRIVATE_EVENT_SOURCES_ENABLED: eventSources ? 'true' : 'false',
       BRAIN_PRIVATE_CAPABILITIES_ENABLED: enabled ? 'true' : 'false',
       BRAIN_PRIVATE_SERVICE_BINDINGS_VERIFIED: enabled ? 'true' : 'false',
       STAGING_SHORT_RETRIES: 'true'}
-  });
+  };
+  let mf = new Miniflare(options);
   async function send(path, input, identity = 'analytics-v1', secret) {
     const method = input === undefined ? 'GET' : 'POST';
     const raw = input === undefined ? '' : JSON.stringify(input);
     const timestamp = String(Math.floor(Date.now() / 1000));
     const key = secret ?? (identity === 'analytics-v1' ? KEY :
-      identity === 'apps-script-v1' ? APPS_KEY : OPERATOR_KEY);
+      identity === 'apps-script-v1' ? APPS_KEY :
+      identity === 'drive-v1' ? DRIVE_KEY : identity === 'gmail-v1' ? GMAIL_KEY :
+      OPERATOR_KEY);
     const signature = createHmac('sha256', key).update(method + '\n' + path + '\n' +
       timestamp + '\n' + raw).digest('hex');
     return mf.dispatchFetch('https://brain.test' + path, {
@@ -79,7 +86,8 @@ async function withBrain(fn, {enabled = true} = {}) {
       ...(input === undefined ? {} : {body: raw})
     });
   }
-  try { await fn({send, mf}); }
+  try { await fn({send, get mf() {return mf;},
+    restart: async () => { await mf.dispose(); mf = new Miniflare(options); } }); }
   finally {
     await mf.dispose(); await rm(directory, {recursive: true, force: true});
     assert.equal(externalCalls, 0, 'capability intake must never invoke any external service');
@@ -131,15 +139,36 @@ test('analytics snapshots durable UPSERT not increment with HMAC receipt and rep
     const first = await firstResponse.json();
     assert.equal(first.status, 'ACCEPTED'); assert.equal(first.durable, true);
     assert.equal(first.eventId, report.event.eventId);
-    const {issuedAtMs, receiptSignature, ...unsigned} = first;
+    const {receiptSignature, ...unsigned} = first;
+    assert.equal(first.keyId, 'brain-capability-receipts-v1');
+    assert.equal(first.audience, 'analytics.snapshot.ack.v1');
+    assert.equal(first.principal, 'analytics-v1');
     assert.equal(receiptSignature, createHmac('sha256', RECEIPT_KEY).update(
-      issuedAtMs + '\n' + JSON.stringify(unsigned)).digest('hex'));
+      first.audience + '\n' + JSON.stringify(unsigned)).digest('hex'));
     const repeat = await (await send('/v1/intake/analytics', report)).json();
     assert.equal(repeat.status, 'DUPLICATE'); assert.equal(repeat.receiptId, first.receiptId);
     const updated = analytics({reportDigest: 'b'.repeat(64),
       observedAt: new Date(Date.now() + 1000).toISOString(), value: 43});
     const replacement = await (await send('/v1/intake/analytics', updated)).json();
-    assert.equal(replacement.status, 'UPDATED'); assert.equal(replacement.receiptId, first.receiptId);
+    assert.equal(replacement.status, 'UPDATED');
+    assert.notEqual(replacement.receiptId, first.receiptId);
+    const earlier = await (await send('/v1/analytics/readback', {
+      receiptId: first.receiptId, eventId: report.event.eventId,
+      snapshotKey: report.snapshotKey})).json();
+    assert.equal(earlier.isCurrent, false);
+    assert.equal(earlier.status, 'ACCEPTED');
+    const current = await (await send('/v1/analytics/readback', {
+      receiptId: replacement.receiptId, eventId: updated.event.eventId,
+      snapshotKey: updated.snapshotKey})).json();
+    assert.equal(current.isCurrent, true);
+    assert.equal(current.audience, 'analytics.snapshot.readback.v1');
+    const {receiptSignature: readbackSignature, ...body} = current;
+    assert.equal(readbackSignature, createHmac('sha256', RECEIPT_KEY).update(
+      current.audience + '\n' + JSON.stringify(body)).digest('hex'));
+    assert.equal((await send('/v1/intake/analytics', report)).status, 409);
+    assert.equal((await send('/v1/analytics/readback', {
+      receiptId: replacement.receiptId, eventId: report.event.eventId,
+      snapshotKey: updated.snapshotKey})).status, 404);
     const attempt = await send('/v1/intake/analytics', {...updated, metricRevision: 'f'.repeat(64)});
     assert.equal(attempt.status, 409);
     const state = await (await send('/v1/diagnostics', undefined, 'operator-v1')).json();
@@ -157,6 +186,15 @@ test('Apps Script opaque receipts are durable, idempotent and never perform Goog
     assert.equal(first.status, 'WAITING_REVIEW'); assert.equal(first.duplicate, false);
     const second = await (await send('/v1/intake/apps-script', app, 'apps-script-v1')).json();
     assert.equal(second.duplicate, true); assert.equal(second.receiptId, first.receiptId);
+    const readback = await (await send('/v1/apps-script/readback', {
+      receiptId: first.receiptId, eventId: app.eventId, operationId: app.correlationId
+    }, 'apps-script-v1')).json();
+    assert.equal(readback.audience, 'apps-script.receipt.readback.v1');
+    assert.equal(readback.sourceRevision, app.sourceRevision);
+    assert.equal(readback.durable, true);
+    const {receiptSignature, ...signed} = readback;
+    assert.equal(receiptSignature, createHmac('sha256', RECEIPT_KEY).update(
+      readback.audience + '\n' + JSON.stringify(signed)).digest('hex'));
     const conflicting = apps({operationId: app.correlationId, revision: 'f'.repeat(64)});
     assert.equal((await send('/v1/intake/apps-script', conflicting, 'apps-script-v1')).status, 409);
   });
@@ -170,5 +208,83 @@ test('global/source pause blocks new capability receipts without enabling AI', a
     assert.equal((await send('/v1/intake/apps-script', apps(), 'apps-script-v1')).status, 200);
     const state = await (await send('/v1/control', undefined, 'operator-v1')).json();
     assert.equal(state.aiPaused, true);
+  });
+});
+
+function legacyEvent(sourceType, eventType, updates = {}) {
+  return {schemaVersion: 1, eventId: randomUUID(), sourceType,
+    sourceId: 'a'.repeat(64), sourceRevision: 'b'.repeat(64),
+    receivedAt: new Date().toISOString(), correlationId: randomUUID(),
+    eventType, payload: {blobSha256: 'c'.repeat(64), mimeType: 'application/json',
+      sizeBytes: 42}, ...updates};
+}
+test('source-specific event keys remain OFF without a verified private binding', async () => {
+  await withBrain(async ({send}) => {
+    assert.equal((await send('/v1/events', legacyEvent('drive', 'source.file.created'),
+      'drive-v1')).status, 423);
+  }, {eventSources: false});
+});
+test('Drive/Gmail source-scoped HMAC event, route, receipt and readback permission', async () => {
+  await withBrain(async ({send}) => {
+    assert.equal((await send('/v1/events', legacyEvent('gmail','source.message.received'),
+      'drive-v1')).status, 422);
+    assert.equal((await send('/v1/events', legacyEvent('drive','github.ci.failed'),
+      'drive-v1')).status, 403);
+    const ev = legacyEvent('drive', 'source.file.created');
+    const response = await send('/v1/events', ev, 'drive-v1');
+    assert.equal(response.status, 202);
+    const ack = await response.json();
+    assert.equal(ack.durable, true);
+    const again = await (await send('/v1/events', ev, 'drive-v1')).json();
+    assert.equal(again.receiptId, ack.receiptId);
+    const observed = await send('/v1/source-receipts/' + ack.receiptId,
+      undefined, 'drive-v1');
+    assert.equal(observed.status, 200);
+    const scoped = await observed.json();
+    assert.equal(scoped.receiptId, ack.receiptId);
+    assert.equal(scoped.correlationId, ev.correlationId);
+    assert.equal(scoped.durable, true);
+    assert.equal((await send('/v1/source-receipts/' + ack.receiptId,
+      undefined, 'gmail-v1')).status, 404);
+    assert.equal((await send('/v1/diagnostics', undefined, 'drive-v1')).status, 403);
+    assert.equal((await send('/v1/control', undefined, 'gmail-v1')).status, 403);
+    assert.equal((await send('/v1/exec/diagnostics', undefined, 'drive-v1')).status, 403);
+  }, {eventSources: true});
+});
+test('immutable analytics revision and Apps Script receipt survive the same SQLite DO restart', async () => {
+  await withBrain(async ({send, restart}) => {
+    const report = analytics(), app = apps();
+    const first = await (await send('/v1/intake/analytics', report)).json();
+    const second = await (await send('/v1/intake/apps-script', app, 'apps-script-v1')).json();
+    await restart();
+    const analyticsRead = await (await send('/v1/analytics/readback', {
+      receiptId: first.receiptId, eventId: report.event.eventId,
+      snapshotKey: report.snapshotKey})).json();
+    assert.equal(analyticsRead.isCurrent, true);
+    assert.equal(analyticsRead.durable, true);
+    const appsRead = await (await send('/v1/apps-script/readback', {
+      receiptId: second.receiptId, eventId: app.eventId,
+      operationId: app.correlationId}, 'apps-script-v1')).json();
+    assert.equal(appsRead.status, 'WAITING_REVIEW');
+    assert.equal((await (await send('/v1/intake/analytics', report)).json()).status, 'DUPLICATE');
+    assert.equal((await (await send('/v1/intake/apps-script', app, 'apps-script-v1')).json()).duplicate, true);
+  });
+});
+test('analytics snapshot rejects conflicting/older producer evidence and accepts newer identical metrics', async () => {
+  await withBrain(async ({send}) => {
+    const at = new Date().toISOString();
+    const first = analytics({observedAt: at});
+    const receipt = await (await send('/v1/intake/analytics', first)).json();
+    const sameTime = analytics({observedAt: at, reportDigest: 'f'.repeat(64)});
+    assert.equal((await send('/v1/intake/analytics', sameTime)).status, 409);
+    const older = analytics({observedAt: new Date(Date.now() - 60_000).toISOString(),
+      reportDigest: 'e'.repeat(64)});
+    assert.equal((await send('/v1/intake/analytics', older)).status, 409);
+    const newer = analytics({observedAt: new Date(Date.now() + 1000).toISOString(),
+      reportDigest: 'd'.repeat(64)});
+    const updated = await (await send('/v1/intake/analytics', newer)).json();
+    assert.equal(updated.status, 'UPDATED');
+    assert.equal(updated.metricRevision, receipt.metricRevision);
+    assert.notEqual(updated.receiptId, receipt.receiptId);
   });
 });
