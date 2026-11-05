@@ -22,7 +22,7 @@ export function preparePublicClassification(source){
       !UUID.test(source.eventId)||!HEX.test(source.revisionHash) ||
       !HEX.test(source.sourceHash)||typeof source.text!=='string' ||
       source.text.length<30||source.text.length>2000)bad();
-  if(/[\\x00-\\x08\\x0e-\\x1f]/.test(source.text) ||
+  if([...source.text].some(c => c.charCodeAt(0)<=8 || (c.charCodeAt(0)>=14 && c.charCodeAt(0)<=31)) ||
     /(?:[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}|\+?30[ -]?69\d{8}|\bya29\.|\bGOCSPX-)/i.test(source.text))bad();
   return Object.freeze({...source});
 }
