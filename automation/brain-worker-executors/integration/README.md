@@ -1,3 +1,10 @@
+# STATUS UPDATE — 2026-11-06 (single-ledger exact-reservation hardening)
+
+- Build A review now requires the native `reservationId` to exactly equal the canonical Brain claim's immutable `budgetReservationId`; mismatches are blocked before any provider or ledger call. This validates review metadata only and does **not** authorize Gemini invocation or prove ledger settlement.
+- Build and Testing second readbacks re-verify task ID, base commit, executor, type and no-merge/no-production policy, in addition to scope and reservation identity. Changed/UNKNOWN claims remain blocked.
+- Three focused synthetic Node regression cases were added. The 34/34 GitHub-hosted integration Node tests at #217 were for the **previous** pinned integration SHA `d98b32f361126a6029c2457d2d55335130c368de`; independent acceptance and CI evidence must be regenerated for this new commit. Never reuse those results as exact-head proof.
+- The native Gemma #211 output still has no independently attested `commitSha`; it remains blocked. Brain task intent does not yet authorize production Builders/Testing; no actual Cloudflare E2E is established.
+
 # STATUS UPDATE — 2026-11-05 (post #209/#211/#212/#214/#219 merges)
 
 - **Gemma #211 integration is intentionally blocked**: current native Build B result does not include immutable commitSha. Review-only shape acceptance requires exact-SHA attestation; never substitute the caller task SHA. The Gemma owner must extend the output contract separately.

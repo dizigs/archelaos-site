@@ -133,3 +133,40 @@ test('Build B without source-SHA-attested native output is blocked before billin
   assert.equal(r.code,'GEMMA_OUTPUT_CONTRACT_MISMATCH');
   assert.deepEqual(m.called,{reserve:0,settle:0,provider:0});
 });
+
+
+test('Gemini native reservation must equal the one canonical Brain reservation',async()=>{
+  const t=task(13,'A'),m=mock(t),p=proposal(t);
+  p.reservationId='unrelated-native-reservation';
+  const result=await reviewCanonicalTask(t,m.ports,{
+    ...m.options,nativeOutputJSON:JSON.stringify(p)
+  });
+  assert.equal(result.code,'PROVIDER_BRAIN_RESERVATION_MISMATCH');
+  assert.deepEqual(m.called,{reserve:0,settle:0,provider:0});
+});
+
+test('changed Brain claim between readbacks cannot be promoted to a proposal',async()=>{
+  const t=task(14,'A'),m=mock(t);
+  let reads=0;
+  m.ports.brain.readClaim=async()=>{
+    reads++;
+    return {...claim(t),...(reads===2?{baseCommit:'b'.repeat(40)}:{})};
+  };
+  const result=await reviewCanonicalTask(t,m.ports,m.options);
+  assert.equal(result.code,'UNKNOWN_OR_CHANGED_BRAIN_CLAIM');
+  assert.equal(reads,2);
+  assert.deepEqual(m.called,{reserve:0,settle:0,provider:0});
+});
+
+test('changed Testing claim between readbacks stays fail-closed',async()=>{
+  const t=task(15,undefined,'testing'),m=mock(t);
+  let reads=0;
+  m.ports.brain.readClaim=async()=>{
+    reads++;
+    return {...claim(t),...(reads===2?{autoMergeAllowed:true}:{})};
+  };
+  const result=await reviewCanonicalTask(t,m.ports,m.options);
+  assert.equal(result.code,'UNKNOWN_OR_CHANGED_BRAIN_CLAIM');
+  assert.equal(reads,2);
+  assert.deepEqual(m.called,{reserve:0,settle:0,provider:0});
+});

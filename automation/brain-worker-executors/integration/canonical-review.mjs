@@ -67,9 +67,19 @@ export async function reviewCanonicalTask(taskInput, ports, options = {}) {
       fail(options.nativeOutputJSON !== undefined, 'NATIVE_PROPOSAL_NOT_PROVEN');
       // No provider/ledger invocation: this only validates an UNTRUSTED
       // provider-shaped result against the durable Brain scope.
-      const proposal = normalizeNativeProposal(task, receipt, strictJson(options.nativeOutputJSON));
+      const native = strictJson(options.nativeOutputJSON);
+      // Build A's provider reservation MUST be the already-claimed canonical
+      // Brain reservation, never a second native charge or unrelated grant.
+      if (task.lane === 'A') {
+        fail(native.reservationId === prior.budgetReservationId,
+          'PROVIDER_BRAIN_RESERVATION_MISMATCH');
+      }
+      const proposal = normalizeNativeProposal(task, receipt, native);
       const latest = await ports.brain.readClaim(task.taskId);
-      fail(latest?.status === 'CLAIMED' &&
+      fail(latest?.status === 'CLAIMED' && latest.taskId === prior.taskId &&
+        latest.baseCommit === prior.baseCommit && latest.type === prior.type &&
+        latest.executor === prior.executor && latest.productionAllowed === false &&
+        latest.autoMergeAllowed === false &&
         latest.scopeDigest === prior.scopeDigest &&
         latest.budgetReservationId === prior.budgetReservationId,
         'UNKNOWN_OR_CHANGED_BRAIN_CLAIM');
@@ -86,7 +96,11 @@ export async function reviewCanonicalTask(taskInput, ports, options = {}) {
     });
     const gate = evaluateTestingGate(task.commitSha, checks);
     const latest = await ports.brain.readClaim(task.taskId);
-    fail(latest?.status === 'CLAIMED' && latest.scopeDigest === prior.scopeDigest,
+    fail(latest?.status === 'CLAIMED' && latest.taskId === prior.taskId &&
+      latest.baseCommit === prior.baseCommit && latest.type === prior.type &&
+      latest.executor === prior.executor && latest.productionAllowed === false &&
+      latest.autoMergeAllowed === false && latest.budgetReservationId === null &&
+      latest.scopeDigest === prior.scopeDigest,
       'UNKNOWN_OR_CHANGED_BRAIN_CLAIM');
     return Object.freeze({ status:gate.passed ? 'TESTING_PASSED_REVIEW_ONLY' :
       'TESTING_FAILED_CLOSED', gate, providerCalls:0, ledgerWrites:0,
