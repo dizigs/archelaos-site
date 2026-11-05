@@ -51,6 +51,8 @@ async function open(id,origin=document.activeElement){
   if(token!==generation||(origin&&!origin.isConnected)||(parent&&!parent.open))return false;
   const p=d.people.find(x=>x.id===id);if(!p)return false;
   const modal=ensure();previous=document.activeElement;
+  // Canonical person identity is explicit, not inferred from a changing name/title.
+  modal.dataset.correctionKind='person';modal.dataset.correctionId=p.id;
   modal.querySelector('.arch-bio-role').textContent=tr(p.role||'',p.role_en||p.role||'');
   modal.querySelector('.arch-bio-title').textContent=tr(p.name||'',p.name_en||p.name||'');
   modal.querySelector('.arch-bio-description').textContent=tr(p.bio||'',p.bio_en||p.bio||'');
