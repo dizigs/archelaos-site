@@ -29,7 +29,13 @@ def render(root: Path, output: Path) -> list[str]:
         name = escape(event["title"])
         desc = escape(event["description"])
         category = escape(event.get("category") or "Ιστορία")
-        date = escape(str(event.get("display_date") or event.get("date") or ""))
+        # Human-readable ranges (e.g. 1994–95) are not valid <time> literals.
+        # Preserve their printed text, and explicitly attach the reviewed
+        # canonical start date/year without inventing a precise event day.
+        date_value = str(event.get("date") or "").strip()
+        if not re.fullmatch(r"\d{4}(?:-\d{2}(?:-\d{2})?)?", date_value):
+            raise ValueError("Invalid canonical event date for " + eid)
+        date = escape(str(event.get("display_date") or date_value))
         url = f"{SITE}/events/{eid}.html"
         related = []
         for pid in event.get("people") or []:
@@ -82,14 +88,14 @@ def render(root: Path, output: Path) -> list[str]:
 <main id="main-content" class="event-main">
 <nav aria-label="Διαδρομή" class="event-crumb"><a href="/history.html">Ψηφιακό Μουσείο</a><span aria-hidden="true"> / </span><a href="/events/index.html">Πλήρες Χρονολόγιο</a></nav>
 <article class="event-article"><p class="event-category">{category}</p>
-<time class="event-date">{date}</time><h1>{name}</h1>
+<time class="event-date" datetime="{date_value}">{date}</time><h1>{name}</h1>
 <div class="event-description">{desc}</div>
 {members}{evidence}
 <nav aria-label="Πλοήγηση στα γεγονότα" class="event-prevnext">{prev_link}{next_link}</nav></article>
 </main></body></html>
 '''
         (folder / f"{eid}.html").write_text(html, encoding="utf-8")
-        links.append(f'<li><a href="/events/{escape(eid, quote=True)}.html"><time>{date}</time><span>{name}</span></a></li>')
+        links.append(f'<li><a href="/events/{escape(eid, quote=True)}.html"><time datetime="{date_value}">{date}</time><span>{name}</span></a></li>')
         result.append(f"/events/{eid}.html")
     listing = '''<!doctype html><html lang="el"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">''' + (
         f'<title>Πλήρες Χρονολόγιο | Γ.Α.Σ. Αρχέλαος</title><link rel="canonical" href="{SITE}/events/index.html">') + '''
