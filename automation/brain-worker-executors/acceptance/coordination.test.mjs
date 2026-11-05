@@ -1,6 +1,7 @@
 /**
- * Independent coordinator capacity and budget contract tests.
- * Uses the production SqlCoordinator class with an in-memory SQLite-shaped fake.
+ * Regression tests for the canonical-Brain-only integration boundary.
+ * This module no longer owns SQLite, concurrency, file leases or a ledger.
+ * Positive durable admission proof belongs to the actual Brain staging E2E.
  */
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -10,77 +11,53 @@ import { pathToFileURL } from 'node:url';
 if (!process.env.ACCEPTANCE_SOURCE_DIR) throw Error('Missing pinned sources');
 const file = resolve(process.env.ACCEPTANCE_SOURCE_DIR, 'integration',
   'automation/brain-worker-executors/integration/index.mjs');
-const { SqlCoordinator, normalizeIntent, MONTHLY_CAP_MICRO_EUR, evaluateTestingGate } =
-  await import(pathToFileURL(file).href);
-
+const integration = await import(pathToFileURL(file).href);
 const SHA = 'c'.repeat(40);
 const id = n => '22222222-2222-4222-8222-' + String(n).padStart(12, '0');
-const task = (n, lane, path) => normalizeIntent({
-  taskId: id(n), receiptId: id(900 + n), type: 'build',
-  lane, commitSha: SHA, paths: [path]
-});
-class FakeSql {
-  constructor() { this.rows = new Map(); }
-  exec(query, ...args) {
-    if (query.startsWith('CREATE TABLE')) return [];
-    if (query.startsWith('SELECT fingerprint,state')) {
-      const r = this.rows.get(args[0]); return r ? [r] : [];
-    }
-    if (query.startsWith('SELECT type,scopes')) return [...this.rows.values()]
-      .filter(r => ['CLAIMED', 'UNKNOWN'].includes(r.state)).slice(0, 201);
-    if (query.startsWith('INSERT INTO integration_claims')) {
-      const [task_id, fingerprint, type, state, scopes, created, updated] = args;
-      this.rows.set(task_id, { task_id, fingerprint, type, state, scopes, created, updated });
-      return [];
-    }
-    if (query.startsWith('SELECT state FROM')) {
-      const r = this.rows.get(args[0]); return r ? [r] : [];
-    }
-    if (query.startsWith('UPDATE integration_claims')) {
-      const [state, updated, id] = args;
-      Object.assign(this.rows.get(id), { state, updated });
-      return [];
-    }
-    throw Error('Unexpected SQL in synthetic fixture');
-  }
-}
-class FakeStore {
-  constructor() { this.sql = new FakeSql(); }
-  transactionSync(fn) { return fn(); }
-}
 
-test('at most two concurrent builds; UNKNOWN holds the lease until reconciled', () => {
-  const c = new SqlCoordinator(new FakeStore());
-  const first = task(1, 'A', 'automation/scope-a.mjs');
-  const second = task(2, 'B', 'automation/scope-b.mjs');
-  const third = task(3, 'A', 'automation/scope-c.mjs');
-  assert.equal(c.claim(first).status, 'CLAIMED');
-  assert.equal(c.claim(second).status, 'CLAIMED');
-  assert.throws(() => c.claim(third), /TWO_BUILD_LIMIT_REACHED/);
-  c.finish(first.taskId, 'UNKNOWN');
-  assert.throws(() => c.claim(third), /TWO_BUILD_LIMIT_REACHED/);
-  c.finish(second.taskId, 'COMPLETE');
-  assert.equal(c.claim(third).status, 'CLAIMED');
+test('no competing local dispatcher, coordinator or billable ledger is exported', () => {
+  assert.equal('SqlCoordinator' in integration, false);
+  assert.equal('LocalLedger' in integration, false);
+  let calls = 0;
+  const ports = {
+    brain: { ledger: { reserve: () => { calls++; } } },
+    builders: { A: { execute: () => { calls++; } } }
+  };
+  const result = integration.runIntegration({}, ports, { enabled: true,
+    executionMode: 'staging-approved', centralLedgerConfirmed: true });
+  assert.equal(result.status, 'BLOCKED');
+  assert.equal(result.code, 'CANONICAL_BRAIN_ONLY');
+  assert.equal(result.providerCalls, 0);
+  assert.equal(result.mergeAllowed, false);
+  assert.equal(result.deployAllowed, false);
+  assert.equal(calls, 0);
 });
 
-test('file-scope overlap, replay and idempotency payload mutation fail closed', () => {
-  const c = new SqlCoordinator(new FakeStore());
-  const first = task(4, 'A', 'automation/scope-a.mjs');
-  assert.equal(c.claim(first).status, 'CLAIMED');
-  assert.equal(c.claim(first).status, 'REPLAY_BLOCKED');
-  assert.throws(() => c.claim(task(5, 'B', 'automation/scope-a.mjs')), /FILE_SCOPE_BUSY/);
-  assert.throws(() => c.claim({ ...first, paths: ['automation/changed.mjs'] }),
-    /IDEMPOTENCY_PAYLOAD_CONFLICT/);
-  c.finish(first.taskId, 'COMPLETE');
-  assert.equal(c.claim(first).status, 'REPLAY_COMPLETE');
+test('immutable task scope cannot be silently widened or duplicated', () => {
+  const input = { taskId: id(1), receiptId: id(901), commitSha: SHA,
+    type: 'build', lane: 'A', paths: ['automation/scope-a.mjs'] };
+  const normalized = integration.normalizeIntent(input);
+  assert.equal(Object.isFrozen(normalized), true);
+  assert.equal(Object.isFrozen(normalized.paths), true);
+  assert.throws(() => normalized.paths.push('automation/second.mjs'), TypeError);
+  assert.throws(() => integration.normalizeIntent({
+    ...input, paths: ['automation/scope-a.mjs', 'automation/scope-a.mjs']
+  }), { code: 'INVALID_FILE_SCOPE' });
+  assert.throws(() => integration.normalizeIntent({
+    ...input, production: true
+  }), { code: 'FORBIDDEN_MUTATION' });
+  assert.equal(integration.overlaps('automation/scopes/', 'automation/scopes/file.mjs'), true);
+  assert.equal(integration.overlaps('automation/a.mjs', 'automation/b.mjs'), false);
 });
 
-test('EUR20 ceiling and absent/unauthenticated testing evidence never grant permission', () => {
-  assert.equal(MONTHLY_CAP_MICRO_EUR, 20_000_000);
-  assert.equal(evaluateTestingGate(SHA, []).passed, false);
-  assert.equal(evaluateTestingGate(SHA, [{
-    workflow: 'rebuild-check.yml', headSha: SHA, repository: 'dizigs/archelaos-site',
-    runId: 5, runAttempt: 1, status: 'completed', conclusion: 'success',
+test('EUR20 policy constant does not itself authorize a charge', () => {
+  assert.equal(integration.MONTHLY_CAP_MICRO_EUR, 20_000_000);
+  assert.equal(integration.runIntegration().code, 'CANONICAL_BRAIN_ONLY');
+  assert.equal(integration.evaluateTestingGate(SHA, []).passed, false);
+  assert.equal(integration.evaluateTestingGate(SHA, [{
+    workflow: 'rebuild-check.yml', headSha: SHA,
+    repository: integration.REPOSITORY, runId: 5, runAttempt: 1,
+    status: 'completed', conclusion: 'success',
     provenanceVerified: false, jobs: []
   }]).passed, false);
 });
