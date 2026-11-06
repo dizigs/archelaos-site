@@ -160,3 +160,112 @@ test('real named Worker RPC cannot leak canonical DO or bypass expired staging w
     await rm(directory, { recursive: true, force: true });
   }
 });
+
+
+test('durable SQLite tables and canary rows survive rejected named RPC, replay and restart', async () => {
+  const directory = await mkdtemp(join(tmpdir(), 'brain-rpc-sqlite-invariance-'));
+  let outboundCalls = 0;
+  const build = () => new Miniflare({
+    workers: [
+      {
+        name: 'brain-rpc-boundary-test',
+        modules: true,
+        scriptPath: resolve('src/worker.mjs'),
+        compatibilityDate: '2026-07-30',
+        durableObjects: { BRAIN: { className: 'BrainCoordinator', useSQLite: true } },
+        bindings: {
+          ENVIRONMENT: 'staging',
+          DEPLOY_SHA: 'a'.repeat(40),
+          STAGING_EXPIRES_AT: '1970-01-01T00:00:00Z'
+          // No approval, provider credentials, private HMAC or receipt secrets.
+        }
+      },
+      {
+        name: 'untrusted-recovery-caller',
+        modules: true,
+        script: callerScript,
+        compatibilityDate: '2026-07-30',
+        serviceBindings: {
+          BRAIN_RECOVERY: {
+            name: 'brain-rpc-boundary-test',
+            entrypoint: 'BrainRecoveryPort'
+          }
+        }
+      }
+    ],
+    durableObjectsPersist: directory,
+    outboundService: async () => {
+      outboundCalls++;
+      return new Response('external access prohibited', { status: 503 });
+    }
+  });
+
+  const openStorage = async mf => {
+    const namespace = await mf.getDurableObjectNamespace('BRAIN', 'brain-rpc-boundary-test');
+    const id = namespace.idFromName('central-v1');
+    // Construct the real DO, ensuring its schema and controls have initialized.
+    const response = await namespace.get(id).fetch('https://brain.internal/internal/control');
+    assert.equal(response.status, 200);
+    return await mf.getDurableObjectStorage(id);
+  };
+
+  const snapshot = storage => {
+    const names = [...storage.sql.exec(
+      "SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' ORDER BY name"
+    )].map(row => row.name);
+    assert.ok(names.includes('controls'));
+    assert.ok(names.includes('task_intents'));
+    return names.map(name => {
+      // Table names only come from sqlite_master; disallow quoted identifiers.
+      assert.match(name, /^[A-Za-z_][A-Za-z0-9_]*$/);
+      const rows = [...storage.sql.exec('SELECT * FROM "' + name + '"')]
+        .map(row => JSON.stringify(row, (_key, value) =>
+          typeof value === 'bigint' ? value.toString() : value)).sort();
+      return [name, rows];
+    });
+  };
+
+  let mf = build();
+  try {
+    const storage = await openStorage(mf);
+    // Synthetic durable records make the assertion stronger than counting
+    // empty tables. Neither record belongs to any live account or receipt.
+    storage.sql.exec('INSERT INTO controls(name,value) VALUES(?,?)',
+      'source:rpc_sqlite_canary', 1);
+    storage.sql.exec('INSERT INTO task_intents(id,payload,created,expires) VALUES(?,?,?,?)',
+      'rpc_sqlite_canary', '{"synthetic":true}', 1700000000000, 1800000000000);
+    await storage.sync();
+    const before = snapshot(storage);
+    const alarmBefore = await storage.getAlarm();
+
+    const caller = await mf.getWorker('untrusted-recovery-caller');
+    for (let attempt = 0; attempt < 2; attempt++) {
+      const response = await caller.fetch('https://internal.example.invalid/');
+      assert.equal(response.status, 200);
+      assert.deepEqual(await response.json(), {
+        normalGateDenied: true,
+        reviewDenied: true,
+        healthDenied: true,
+        coordinatorCapabilityExposed: false,
+        leakedControlReadable: false,
+        forgedEvidenceAccepted: false
+      });
+      assert.deepEqual(snapshot(storage), before, 'rejected RPC changed SQLite');
+      assert.equal(await storage.getAlarm(), alarmBefore, 'rejected RPC set an alarm');
+    }
+    assert.equal(outboundCalls, 0);
+    await mf.dispose();
+    mf = null;
+
+    // A fresh workerd instance must read exactly the same persisted SQLite
+    // rows and tables; no deferred mutation may materialize after restart.
+    mf = build();
+    const restarted = await openStorage(mf);
+    assert.deepEqual(snapshot(restarted), before, 'SQLite mutated across restart');
+    assert.equal(await restarted.getAlarm(), alarmBefore);
+    assert.equal(outboundCalls, 0);
+  } finally {
+    if (mf) await mf.dispose();
+    await rm(directory, { recursive: true, force: true });
+  }
+});
