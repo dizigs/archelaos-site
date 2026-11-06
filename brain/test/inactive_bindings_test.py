@@ -52,8 +52,10 @@ class PreservationGuard(unittest.TestCase):
 
     def test_synthetic_complete_inventory_checks_preservation_only(self):
         r = GUARD.assess(configs(), live_fixture(), NOW)
-        self.assertEqual(r["bindingPreservation"], "PASS")
-        self.assertEqual(r["blockers"], [])
+        self.assertEqual(r["offlineBindingComparison"], "PASS")
+        self.assertEqual(r["bindingPreservation"], "NOT_VERIFIED")
+        self.assertEqual(r["inventoryCompleteness"], "NOT_VERIFIED")
+        self.assertIn("AUTHENTICATED_COMPLETE_PROVIDER_INVENTORY_REQUIRED", r["blockers"])
         self.assertFalse(r["uploadAuthorized"])
         self.assertFalse(r["liveConnectivityVerified"])
 
@@ -64,7 +66,7 @@ class PreservationGuard(unittest.TestCase):
             f["workers"][i]["bindings"].append(link)
         # Cloudflare can explicitly report the default entrypoint as "default".
         f["workers"][0]["bindings"][-1]["entrypoint"] = "default"
-        self.assertEqual(GUARD.assess(configs(), f, NOW)["blockers"], [])
+        self.assertEqual(GUARD.assess(configs(), f, NOW)["offlineBindingComparison"], "PASS")
         for patch in ({"entrypoint": "default"}, {"environment": "production"},
                       {"service": "unapproved-brain"}):
             wrong = copy.deepcopy(f)
@@ -92,6 +94,26 @@ class PreservationGuard(unittest.TestCase):
                 c = copy.deepcopy(configs())
                 mutate(c)
                 self.assertEqual(GUARD.assess(c)["configuration"], "BLOCKED")
+
+    def test_unreviewed_kv_secret_shadowing_fails_closed(self):
+        c = configs()
+        c[0]["kv_namespaces"] = [{"binding": "HEALER_EVENT_HMAC_KEY",
+                                   "id": "synthetic-namespace"}]
+        self.assertIn("UNREVIEWED_BINDING_OR_OVERRIDE", GUARD.assess(c)["blockers"])
+        f = live_fixture()
+        f["workers"][0]["bindings"].append({
+            "name": "HEALER_EVENT_HMAC_KEY", "type": "secret_text"})
+        self.assertIn("UNREVIEWED_BINDING_OR_OVERRIDE",
+                      GUARD.assess(c, f, NOW)["blockers"])
+
+    def test_filtered_baseline_inventory_never_attests_completeness(self):
+        f = live_fixture()
+        for w in f["workers"]:
+            w["bindings"] = [b for b in w["bindings"]
+                             if b["type"] in ("durable_object_namespace", "ai")]
+        r = GUARD.assess(configs(), f, NOW)
+        self.assertEqual(r["bindingPreservation"], "NOT_VERIFIED")
+        self.assertIn("AUTHENTICATED_COMPLETE_PROVIDER_INVENTORY_REQUIRED", r["blockers"])
 
     def test_unknown_live_binding_prevents_silent_deletion(self):
         for b in ({"name": "EXTRA_KV", "type": "kv_namespace"},
