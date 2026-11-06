@@ -3,7 +3,8 @@ import { Rejected, UUID, authenticate, boundedBody, digest, reply, route, valida
 import { claimBudgetCall, reserveBudget, settleBudget } from './budget.mjs';
 import { readTaskIntent, storeTaskIntent } from './task_intents.mjs';
 import { SELFHEAL_SCHEMA, validateCiFinding, verifyRequiredCiFromGithub, recordVerifiedCi, storeSelfHealReview, deniedHealthProbe } from './selfheal_recovery.mjs';
-import { SELFHEAL_OUTBOX_SCHEMA, attemptOneSignedSelfHealDelivery } from './selfheal_signed_outbox.mjs';
+import { SELFHEAL_OUTBOX_SCHEMA, attemptOneSignedSelfHealDelivery, reconcileSignedSelfHealDelivery, validateSelfHealDispatchInput } from './selfheal_signed_outbox.mjs';
+import { migrateSignedOutbox } from './selfheal_ack.mjs';
 import { getScopedGitHubReadToken } from './github_app_read_token.mjs';
 import { CAPABILITY_SCHEMA, validateAnalyticsSnapshot, validateAppsScriptEvent, persistAnalyticsSnapshot, persistAppsScriptEvent, readAnalyticsSnapshotReceipt, readAppsScriptReceipt } from './capability_intake.mjs';
 import { EXEC_SCHEMA, submitExecutionIntent, approveExecutionIntent, claimExecutionIntent, beginExecutionCall, finishExecutionIntent, reconcileExecutionIntent, inspectExecutionIntent, executionDiagnostics, recoverExecutionLeases, signIntegrationReceipt } from './exec_authority.mjs';
@@ -49,6 +50,7 @@ export class BrainCoordinator extends DurableObject {
     super(ctx, env); this.ctx = ctx; this.env = env; this.sql = ctx.storage.sql;
     ctx.blockConcurrencyWhile(async () => {
       for (const statement of SCHEMA) this.sql.exec(statement);
+      migrateSignedOutbox(ctx.storage);
       this.sql.exec('INSERT OR IGNORE INTO controls(name,value) VALUES(?,0),(?,1),(?,0)', 'global', 'ai', 'revision');
     });
   }
@@ -235,10 +237,9 @@ export class BrainCoordinator extends DurableObject {
       if (request.method === 'POST' && url.pathname === '/internal/selfheal-dispatch') {
         let input; try { input = await request.json(); }
         catch { throw new Rejected('INVALID_JSON', 422); }
-        if (!input || typeof input !== 'object' || Array.isArray(input) ||
-            Object.keys(input).length !== 1 || !UUID.test(input.receiptId || ''))
-          throw new Rejected('INVALID_SELFHEAL_DISPATCH_REQUEST', 422);
-        return reply(await attemptOneSignedSelfHealDelivery(
+        input = validateSelfHealDispatchInput(input);
+        const operation = input.mode === 'readback' ? reconcileSignedSelfHealDelivery : attemptOneSignedSelfHealDelivery;
+        return reply(await operation(
           this.ctx.storage, this.env, input.receiptId));
       }
       if (url.pathname.startsWith('/internal/exec/')) {
@@ -481,11 +482,9 @@ export default {
         let input;
         try { input = JSON.parse(raw); }
         catch { throw new Rejected('INVALID_JSON', 422); }
-        if (!input || typeof input !== 'object' || Array.isArray(input) ||
-            Object.keys(input).length !== 1 || !UUID.test(input.receiptId || ''))
-          throw new Rejected('INVALID_SELFHEAL_DISPATCH_REQUEST', 422);
+        input = validateSelfHealDispatchInput(input);
         return coordinator.fetch('https://brain.internal/internal/selfheal-dispatch',
-          { method: 'POST', body: JSON.stringify({ receiptId: input.receiptId }) });
+          { method: 'POST', body: JSON.stringify(input) });
       }
       if (sourceReceipt) {
         const response = await coordinator.fetch('https://brain.internal/internal/source-receipts/' +

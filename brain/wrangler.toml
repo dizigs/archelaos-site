@@ -18,6 +18,7 @@ BRAIN_GITHUB_APP_INSTALLATION_ID = "179225349"
 BRAIN_SELFHEAL_RECOVERY_ENABLED = "false"
 BRAIN_SELFHEAL_BINDING_ATTESTED = "false"
 BRAIN_SELFHEAL_DISPATCH_ENABLED = "false"
+BRAIN_SELFHEAL_DURABLE_ACK_ENABLED = "false"
 
 # Existing private service only. Declaring the link does not authorize recovery.
 [[services]]

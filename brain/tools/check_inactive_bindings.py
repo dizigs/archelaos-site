@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[2]
 BRAIN = "archelaos-brain-staging"
 HEALER = "archelaos-self-heal"
 FLAGS = ("BRAIN_SELFHEAL_RECOVERY_ENABLED", "BRAIN_SELFHEAL_BINDING_ATTESTED",
-         "BRAIN_SELFHEAL_DISPATCH_ENABLED")
+         "BRAIN_SELFHEAL_DISPATCH_ENABLED", "BRAIN_SELFHEAL_DURABLE_ACK_ENABLED")
 LINKS = [dict(binding="HEALER", service=HEALER),
          dict(binding="BRAIN_RECOVERY", service=BRAIN, entrypoint="BrainRecoveryPort")]
 
@@ -42,6 +42,10 @@ def check_configs(configs):
                     "observability"}
         if i == 0:
             approved |= {"limits", "vars", "ai"}
+        else:
+            approved |= {"vars"}
+            if c.get("vars") != {"HEALER_DURABLE_ACK_ENABLED": "false"}:
+                errors.append("HEALER_ACK_GATE_CHANGED")
         if set(c) - approved:
             # Reject unreviewed KV/R2/D1/queue bindings, including names that
             # could shadow a metadata-only live secret.
