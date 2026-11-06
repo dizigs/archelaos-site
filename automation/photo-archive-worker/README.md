@@ -47,19 +47,19 @@ Tests: `node --test automation/photo-archive-worker/test/*.test.mjs` or from dir
 
 ## D1 metadata contract v1 — PROPOSED, NOT MIGRATED
 
-Live inventory (2026-11-06): **existing** D1 \`archelaos-photo-archive\` (UUID \`d9fc6684-5454-4c77-8776-7ced97ab1d85\`, jurisdiction \`eu\`) has **zero application tables**. No D1 binding is present in this Worker, no SQL below has been run remotely, and Photo Archive activation remains **OFF**. This SQL is an **offline acceptance contract** for the existing D1, not an auto-executing migration. It must later be converted to a reviewed, versioned D1 migration by its owner, with independent approval.
+Live inventory (2026-11-06): **existing** D1 `archelaos-photo-archive` (UUID `d9fc6684-5454-4c77-8776-7ced97ab1d85`, jurisdiction `eu`) has **zero application tables**. No D1 binding is present in this Worker, no SQL below has been run remotely, and Photo Archive activation remains **OFF**. This SQL is an **offline acceptance contract** for the existing D1, not an auto-executing migration. It must later be converted to a reviewed, versioned D1 migration by its owner, with independent approval.
 
 ### Identity, consistency and ingestion invariants
 
-- **\`photo_id\` is a permanent opaque ID** (example \`ph_550e8400-e29b-41d4-a716-446655440000\`), independent of bytes, filenames, persons or news URLs. Do not reuse or renumber it, including following duplicates, corrections, legal takedowns or deletion. Brain/durable receipt assigns it once; idempotent replays return the same ID. No AI invents canonical person/event IDs.
-- **\`photo_versions\` are append-only**, monotonically numbered per photo. Store the real SHA-256 of each immutable byte snapshot and a private R2 key. Never use a photo ID as an R2 key or silently overwrite an existing version. SHA equality is a duplicate **candidate**, not a reason to merge historical photo IDs.
-- Never promote a photo from \`pending\` to public based on a suggested link, comment, AI label or EXIF. Only an authenticated human review can verify source, copyright/license, privacy basis and (when needed) lawful guardian authorization. \`photo_public_readonly\` is **a schema-only view, not a public endpoint**.
+- **`photo_id` is a permanent opaque ID** (example `ph_550e8400-e29b-41d4-a716-446655440000`), independent of bytes, filenames, persons or news URLs. Do not reuse or renumber it, including following duplicates, corrections, legal takedowns or deletion. Brain/durable receipt assigns it once; idempotent replays return the same ID. No AI invents canonical person/event IDs.
+- **`photo_versions` are append-only**, monotonically numbered per photo. Store the real SHA-256 of each immutable byte snapshot and a private R2 key. Never use a photo ID as an R2 key or silently overwrite an existing version. SHA equality is a duplicate **candidate**, not a reason to merge historical photo IDs.
+- Never promote a photo from `pending` to public based on a suggested link, comment, AI label or EXIF. Only an authenticated human review can verify source, copyright/license, privacy basis and (when needed) lawful guardian authorization. `photo_public_readonly` is **a schema-only view, not a public endpoint**.
 - Latest rights/consent decision takes precedence. A revocation or deletion tombstone instantly hides a previously reviewed publication from the read-only view; a separate audited R2 purge workflow must follow. No automated R2 deletion is authorized in this PR.
 - Transactions must atomically append the version/evidence/moderation/audit/receipt references and enforce optimistic revision checks in the future authorized D1 adapter. On timeout or ambiguous D1/R2 acknowledgement: mark UNKNOWN, quarantine, never repeat a write blindly.
 - Only the canonical Brain may propose private, scoped write intents; never connect an independent scheduler or AI publisher. All metadata and evidence references are private. R2 published variants are separately human-approved, EXIF-cleaned outputs only; no URL is granted by this contract.
 
 <!-- PHOTO_D1_CONTRACT_V1_BEGIN -->
-\`\`\`sql
+```sql
 PRAGMA foreign_keys = ON;
 
 CREATE TABLE photos (
@@ -251,14 +251,14 @@ WHERE p.lifecycle_state='active' AND p.rights_state='verified'
   AND (p.minor_presence='no' OR
     (SELECT e.decision FROM photo_evidence e WHERE e.photo_id=p.photo_id
      AND e.kind='guardian_consent' ORDER BY e.evidence_seq DESC LIMIT 1)='verified');
-\`\`\`
+```
 <!-- PHOTO_D1_CONTRACT_V1_END -->
 
 ### Stable cross-reference and pop-up contract
 
-A future private \`PhotoRef\` is \`{photoId, versionNo, targetKind, targetId, evidenceRef, reviewState}\` with \`targetKind\` in \`news|hall_of_fame|person|historical_event\`. All incoming suggestions start \`suggested\` and **must not auto-update** \`news.json\`, Hall of Fame records, timelines or person indexes. On human verification, resolve \`targetId\` against the canonical stable ID; never match solely by display name. Reject ambiguous targets as UNKNOWN. Photos may link to multiple people/events, and every assertion retains per-link provenance. Pop-ups may later read **only reviewed links** and **eligible publications**, with no editable R2 keys or private submitter data.
+A future private `PhotoRef` is `{photoId, versionNo, targetKind, targetId, evidenceRef, reviewState}` with `targetKind` in `news|hall_of_fame|person|historical_event`. All incoming suggestions start `suggested` and **must not auto-update** `news.json`, Hall of Fame records, timelines or person indexes. On human verification, resolve `targetId` against the canonical stable ID; never match solely by display name. Reject ambiguous targets as UNKNOWN. Photos may link to multiple people/events, and every assertion retains per-link provenance. Pop-ups may later read **only reviewed links** and **eligible publications**, with no editable R2 keys or private submitter data.
 
-Future \`PhotoComment\` / \`PhotoCorrection\` records use immutable IDs, private author references, a pending moderation queue, bounded text, reviewer identity, provenance and an append-only audit event. The visual pop-up can show approved comments and accepted corrections only after the parent photo is publication-eligible. Human corrections append a new claim/version; original evidence and photo IDs never get replaced. Free-text content is untrusted data: render via text nodes, not HTML, and never treat suggestions as agent instructions.
+Future `PhotoComment` / `PhotoCorrection` records use immutable IDs, private author references, a pending moderation queue, bounded text, reviewer identity, provenance and an append-only audit event. The visual pop-up can show approved comments and accepted corrections only after the parent photo is publication-eligible. Human corrections append a new claim/version; original evidence and photo IDs never get replaced. Free-text content is untrusted data: render via text nodes, not HTML, and never treat suggestions as agent instructions.
 
 ### Privacy / retention acceptance matrix
 
@@ -267,8 +267,8 @@ Future \`PhotoComment\` / \`PhotoCorrection\` records use immutable IDs, private
 | Original bytes and R2 key | Pending-only, private, SHA256, immutable version | Never original object | Quarantine, decode/virus checks; separate sanitized variant and human approval |
 | Copyright / licensing | Private source and grant references | Only with latest human-verified copyright grant | Track scope, photographer ownership, attribution, revocation |
 | Identifiable adults | Private metadata with lawful basis review | Only after explicit clearance / applicable lawful basis | GDPR notice, minimization, subject request handling |
-| Minors / teams | \`unknown\` or \`yes\` denies publication by default | Guardian status and verified evidence required for \`yes\` | Child safeguarding review; no facial recognition |
-| EXIF GPS/device/time | Private until reviewed, do not trust claims | Only \`exif_removed=1\` derivative | Remove GPS, thumbnails, device metadata; verify actual encoding |
+| Minors / teams | `unknown` or `yes` denies publication by default | Guardian status and verified evidence required for `yes` | Child safeguarding review; no facial recognition |
+| EXIF GPS/device/time | Private until reviewed, do not trust claims | Only `exif_removed=1` derivative | Remove GPS, thumbnails, device metadata; verify actual encoding |
 | Comments & corrections | Pending, private, untrusted; no automatic person matching | Moderated output only after approved parent | Abuse protection, consent/privacy handling, text escaping |
 | Duplicate image | Digest/perceptual/manual candidate, no silent merge | Never an approval signal | Preserve immutable IDs and both provenance histories |
 | Revocation / deletion | Immutable tombstone ID, audit of limited non-sensitive codes | Excluded immediately from read-only view | Audited R2 purge, backups/caches/derivatives, legal-hold decision and verified deletion |
@@ -278,6 +278,6 @@ No default retention duration is invented. Purge may be blocked by a genuine leg
 
 ### Residency and activation gates (verified 2026-11-06)
 
-\`archelaos-photo-originals\` and \`archelaos-photo-published\` both report **\`location=EEUR\` and \`jurisdiction=default\`**; R2 managed domains are disabled, no custom domains, and lifecycle has only the seven-day abandoned multipart abort rule. There is **no EU jurisdiction guarantee** from the location hint; existing bucket jurisdiction cannot be changed in place. No R2 object list or real-photo content was read. The separate D1 database reports \`jurisdiction=eu\`; these are **not equivalent**. Approve EU-resident replacement buckets only by separate explicitly authorized change after privacy assessment. No new buckets were created here.
+`archelaos-photo-originals` and `archelaos-photo-published` both report **`location=EEUR` and `jurisdiction=default`**; R2 managed domains are disabled, no custom domains, and lifecycle has only the seven-day abandoned multipart abort rule. There is **no EU jurisdiction guarantee** from the location hint; existing bucket jurisdiction cannot be changed in place. No R2 object list or real-photo content was read. The separate D1 database reports `jurisdiction=eu`; these are **not equivalent**. Approve EU-resident replacement buckets only by separate explicitly authorized change after privacy assessment. No new buckets were created here.
 
-**NO-GO gates:** missing approved R2 jurisdiction, no deployed D1 schema or reviewed migration, no canonical Brain verifier/durable receipt and binding, no moderator/rights/consent/legal-basis workflow, no independent authenticated E2E including deletion, no signed production release. \`PHOTO_ARCHIVE_ENABLED\`, \`PHOTO_INTAKE_ENABLED\`, \`PHOTO_EU_REVIEW_APPROVED\`, \`PHOTO_PUBLIC_SUBMISSIONS_ENABLED\`, \`PHOTO_PUBLISH_ENABLED\` all remain \`false\`. No new D1, migrations, Worker deployment, publish endpoint or automatic AI writes.
+**NO-GO gates:** missing approved R2 jurisdiction, no deployed D1 schema or reviewed migration, no canonical Brain verifier/durable receipt and binding, no moderator/rights/consent/legal-basis workflow, no independent authenticated E2E including deletion, no signed production release. `PHOTO_ARCHIVE_ENABLED`, `PHOTO_INTAKE_ENABLED`, `PHOTO_EU_REVIEW_APPROVED`, `PHOTO_PUBLIC_SUBMISSIONS_ENABLED`, `PHOTO_PUBLISH_ENABLED` all remain `false`. No new D1, migrations, Worker deployment, publish endpoint or automatic AI writes.
