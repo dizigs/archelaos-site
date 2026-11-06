@@ -187,7 +187,7 @@ function openGeneric(type,trigger){
 function closeDrawer(){if($("detailsDrawer").hidden)return;$("detailsDrawer").hidden=true;$("drawerBackdrop").hidden=true;document.querySelector(".layout").inert=false;syncMenuA11y();if(drawerTrigger&&document.contains(drawerTrigger)&&!drawerTrigger.closest("[hidden]"))drawerTrigger.focus();else $("main").focus()}
 function setView(view,focusMain=false){
  if(!["overview","network","deployments","operations","security","cost","events"].includes(view))view="overview";
- activeView=view;qs("[data-panel]").forEach(panel=>{panel.hidden=panel.dataset.panel!==view});
+ activeView=view;if(view==="deployments")renderDeployments();qs("[data-panel]").forEach(panel=>{panel.hidden=panel.dataset.panel!==view});
  qs(".nav-link").forEach(a=>{let on=a.dataset.view===view;a.classList.toggle("is-active",on);if(on)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
  const names={overview:"Επισκόπηση",network:"Δίκτυο Workers",deployments:"Deployments",operations:"Εργασίες & CI",security:"Ασφάλεια",cost:"Κόστος AI",events:"Χρονολόγιο"};setText("pageCrumb",names[view]);window.location.hash=view;window.scrollTo({top:0,behavior:"auto"});closeMenu();syncTopologyMotion();if(focusMain)$("main").focus();
 }
@@ -301,7 +301,7 @@ function init(){
  $("scenarioButton").addEventListener("click",()=>setScenario(currentScenario+1));$("exportButton").addEventListener("click",downloadDemo);
  $("pauseButton").addEventListener("click",()=>{if($("pauseButton").disabled)return;paused=!paused;syncTopologyMotion();showToast(paused?"Η κίνηση σταμάτησε — DEMO":"Η κίνηση συνεχίστηκε — DEMO")});
  ["deploySearch","deploySource","deployFilter"].forEach(id=>$(id).addEventListener(id==="deploySearch"?"input":"change",renderDeployments));
- window.setInterval(()=>{if(activeView==="deployments"&&document.visibilityState!=="hidden")renderDeployments()},30000);
+ /* DEMO: refresh deployments only on explicit navigation/filter changes, never while reading or tabbing through rows. */
  ["operationsSearch","operationsFilter"].forEach(id=>$(id).addEventListener(id.endsWith("Filter")?"change":"input",renderTasks));
  ["eventsSearch","eventsFilter"].forEach(id=>$(id).addEventListener(id.endsWith("Filter")?"change":"input",renderEvents));
  $("costSlider").addEventListener("input",e=>updateCost(e.target.value));
