@@ -1,7 +1,7 @@
 name = "archelaos-brain-staging"
 main = "src/worker.mjs"
 compatibility_date = "2026-07-30"
-workers_dev = true
+workers_dev = false
 preview_urls = false
 
 [limits]
