@@ -100,7 +100,14 @@ export function assessSelfHealStagingBindings(input) {
       data.sameSealedHmacVerified !== true) deny('RECOVERY_TRUST_CHAIN_UNVERIFIED');
   if (data.aiDisabledVerified !== true || data.repairWritesDisabledVerified !== true ||
       data.rollbackProved !== true) deny('FAIL_CLOSED_AND_ROLLBACK_UNVERIFIED');
+  // "No public routes" alone does NOT prove privacy: Workers.dev, preview
+  // URLs and custom Worker domains have independent exposure controls.
+  // Unknown/readback-unavailable values also fail closed.
+  if (data.brainWorkersDevEnabled !== false || data.healerWorkersDevEnabled !== false ||
+      data.brainPreviewUrlsEnabled !== false || data.healerPreviewUrlsEnabled !== false)
+    deny('PRIVATE_SUBDOMAIN_AND_PREVIEW_READBACK_UNVERIFIED');
   if (data.brainPublicRoutes !== 0 || data.healerPublicRoutes !== 0 ||
+      data.brainWorkerDomains !== 0 || data.healerWorkerDomains !== 0 ||
       data.brainCronTriggers !== 0 || data.healerCronTriggers !== 0)
     deny('PRIVATE_ONLY_NO_SCHEDULE_INVENTORY_UNVERIFIED');
 
