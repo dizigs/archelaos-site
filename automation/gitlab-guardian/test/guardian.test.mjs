@@ -4,8 +4,8 @@ import guardian, { assess, runAudit } from '../src/index.mjs';
 const SHA = 'a'.repeat(40);
 const NEW_SHA = 'b'.repeat(40);
 const NOW = Date.parse('2026-11-04T08:00:00Z');
-const mirror = { url: 'https://github.com/dizigs/archelaos-site.git', enabled: true, mirror_trigger_builds: false, mirror_overwrites_diverged_branches: false, update_status: 'finished', last_error: null, last_successful_update_at: '2026-11-04T07:55:00Z' };
-const branch = { commit: { id: SHA } };
+const mirror = { url: 'https://github.com/dizigs/archelaos-site.git', mirror_branch_regex:null, only_mirror_protected_branches:null, enabled: true, mirror_trigger_builds: false, mirror_overwrites_diverged_branches: false, update_status: 'finished', last_error: null, last_successful_update_at: '2026-11-04T07:55:00Z' };
+const branch = { name:'main', protected:true, commit: { id: SHA } };
 const commit = { sha: SHA };
 function input(m = mirror, b = branch, c = commit, when = NOW) { return { mirror: m, gitlabBranch: b, githubCommit: c, checkedAt: when }; }
 
@@ -129,4 +129,25 @@ test('upstream failures become UNKNOWN to authorized callers without provider le
   } finally {
     globalThis.fetch=previousFetch;
   }
+});
+
+
+test('only typed GitLab mirror safety flags and exact main branch identity are trusted', () => {
+  for (const value of [undefined, 0, 'false', {}, []]) {
+    assert.throws(() => assess(input({ ...mirror, only_mirror_protected_branches: value })), /INVALID_UPSTREAM_SCHEMA/);
+  }
+  for (const value of [undefined, 0, {}, []]) {
+    assert.throws(() => assess(input({ ...mirror, mirror_branch_regex: value })), /INVALID_UPSTREAM_SCHEMA/);
+  }
+  assert.equal(assess(input({ ...mirror, mirror_branch_regex:'false' })).status, 'alert');
+  assert.throws(() => assess(input(mirror, { ...branch, name:'other' })), /INVALID_UPSTREAM_SCHEMA/);
+  assert.throws(() => assess(input(mirror, { ...branch, name:undefined })), /INVALID_UPSTREAM_SCHEMA/);
+  assert.throws(() => assess(input({ ...mirror, last_successful_update_at:12345 })), /INVALID_UPSTREAM_SCHEMA/);
+});
+
+test('mirror settings explicitly marked unsafe cannot return OK even if branches match', () => {
+  assert.equal(assess(input({ ...mirror, only_mirror_protected_branches:true })).status, 'ok');
+  const branchNotProtected = assess(input({ ...mirror, only_mirror_protected_branches:true }, { ...branch, protected:false }));
+  assert.ok(branchNotProtected.issues.includes('MIRROR_MAIN_BRANCH_FILTERED'));
+  assert.equal(branchNotProtected.status,'alert');
 });
