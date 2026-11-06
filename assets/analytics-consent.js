@@ -86,7 +86,7 @@
     accept.type = 'button';
     accept.textContent = 'Αποδοχή';
     const privacy = document.createElement('a');
-    privacy.href = '/rebuild/privacy.html';
+    privacy.href = '/privacy.html';
     privacy.textContent = 'Πολιτική απορρήτου';
     actions.append(reject, accept, privacy);
     panel.append(heading, description, actions);
