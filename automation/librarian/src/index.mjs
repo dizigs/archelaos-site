@@ -2,7 +2,7 @@
 import { DurableObject, WorkerEntrypoint } from 'cloudflare:workers';
 import { assertFileId, buildArchiveSources, buildNewsSource, createNotebookSource,
   fetchDrivePdf, fetchDriveMetadata, getOAuthAccessToken, sha256, NOTEBOOK_API,
-  approvedPdf, verifyCaller, readLimitedBytes, assertApprovedExtraction } from './core.mjs';
+  approvedPdf, verifyCaller, readLimitedBytes, assertApprovedExtraction, consumeCallerNonce } from './core.mjs';
 
 export class LibrarianLedger extends DurableObject {
   async fetch(request) {
@@ -58,9 +58,7 @@ export default class Librarian extends WorkerEntrypoint {
     await verifyCaller(this.env,authorization,scope,subject);
     // The same signed requestId may be used only once, across Worker restarts.
     // Reservation is atomic in the existing LibrarianLedger, prior to Drive/OCR/network.
-    const nonceKey=await sha256('librarian-auth-v1|'+scope+'|'+authorization.requestId);
-    const reserved=await this.#ledger('/reserve',{key:nonceKey,kind:'auth-replay'});
-    if(!reserved.created)throw Error('CALLER_REPLAY_DETECTED');
+    await consumeCallerNonce((path,payload)=>this.#ledger(path,payload),authorization,scope);
   }
 
   async #submit(key,source,kind){
@@ -87,7 +85,7 @@ export default class Librarian extends WorkerEntrypoint {
     await this.#authorize(authorization,'news',newsId);
     const allowed=(this.env.NEWS_SOURCE_ALLOWED_HOSTS||'').split(',').map(h=>h.trim().toLowerCase()).filter(Boolean);
     if(!allowed.length)throw Error('NEWS_HOST_ALLOWLIST_MISSING');
-    const response=await fetch('https://archelaos.club/news.json',{redirect:'manual',headers:{Accept:'application/json'}});
+    const response=await fetch('https://archelaos.club/news.json',{redirect:'manual',headers:{Accept:'application/json'},signal:AbortSignal.timeout(15000)});
     if(!response.ok || response.status>=300&&response.status<400)throw Error('CANONICAL_NEWS_UNAVAILABLE');
     const data=JSON.parse(new TextDecoder().decode(await readLimitedBytes(response,12000000)));
     const article=(data.items||[]).find(x=>x.id===newsId);
@@ -148,7 +146,7 @@ export default class Librarian extends WorkerEntrypoint {
       throw Error('NOTEBOOK_SOURCE_OUT_OF_SCOPE');
     const token=await getOAuthAccessToken(this.env,'notebook');
     const response=await fetch(NOTEBOOK_API+'/'+sourceName,{redirect:'manual',
-      headers:{Authorization:'Bearer '+token,'x-goog-user-project':this.env.NOTEBOOK_PROJECT_ID}});
+      headers:{Authorization:'Bearer '+token,'x-goog-user-project':this.env.NOTEBOOK_PROJECT_ID},signal:AbortSignal.timeout(12000)});
     if(!response.ok)throw Error('NOTEBOOK_GET_HTTP_'+response.status);
     const data=await response.json();
     return {state:data.state||'UNKNOWN',active:data.state==='ACTIVE'};
