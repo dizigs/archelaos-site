@@ -4,6 +4,7 @@ import { claimBudgetCall, reserveBudget, settleBudget } from './budget.mjs';
 import { readTaskIntent, storeTaskIntent } from './task_intents.mjs';
 import { SELFHEAL_SCHEMA, validateCiFinding, verifyRequiredCiFromGithub, recordVerifiedCi, storeSelfHealReview, deniedHealthProbe } from './selfheal_recovery.mjs';
 import { SELFHEAL_OUTBOX_SCHEMA, attemptOneSignedSelfHealDelivery } from './selfheal_signed_outbox.mjs';
+import { getScopedGitHubReadToken } from './github_app_read_token.mjs';
 import { CAPABILITY_SCHEMA, validateAnalyticsSnapshot, validateAppsScriptEvent, persistAnalyticsSnapshot, persistAppsScriptEvent, readAnalyticsSnapshotReceipt, readAppsScriptReceipt } from './capability_intake.mjs';
 import { EXEC_SCHEMA, submitExecutionIntent, approveExecutionIntent, claimExecutionIntent, beginExecutionCall, finishExecutionIntent, reconcileExecutionIntent, inspectExecutionIntent, executionDiagnostics, recoverExecutionLeases, signIntegrationReceipt } from './exec_authority.mjs';
 
@@ -554,8 +555,10 @@ export class BrainRecoveryPort extends WorkerEntrypoint {
         !/^[a-f0-9]{40}$/.test(pinned || '') ||
         pinned === '0'.repeat(40) || env.DEPLOY_SHA !== pinned ||
         !Number.isFinite(expires) || expires <= now || expires > now + 60 * 60_000 ||
-        typeof env.BRAIN_GITHUB_READ_TOKEN !== 'string' ||
-        env.BRAIN_GITHUB_READ_TOKEN.length < 43 ||
+        String(env.BRAIN_GITHUB_APP_ID) !== '5641216' ||
+        String(env.BRAIN_GITHUB_APP_INSTALLATION_ID) !== '179225349' ||
+        typeof env.BRAIN_GITHUB_APP_PRIVATE_KEY !== 'string' ||
+        env.BRAIN_GITHUB_APP_PRIVATE_KEY.length < 600 ||
         !env.BRAIN || typeof env.BRAIN.get !== 'function') {
       throw new Rejected('SELFHEAL_STAGING_NOT_ATTESTED', 423);
     }
@@ -569,9 +572,10 @@ export class BrainRecoveryPort extends WorkerEntrypoint {
       const validated = validateCiFinding(finding);
       // This is a fresh READ-ONLY GitHub API verification, not a claimed
       // verdict from the caller or a stored unverified webhook payload.
-      const evidence = await verifyRequiredCiFromGithub(validated, {
-        token: this.env.BRAIN_GITHUB_READ_TOKEN
-      });
+      // Fresh short-lived, repo-only installation token, never persisted or logged.
+      // GitHub App must have only actions/checks/metadata READ permissions.
+      const token = await getScopedGitHubReadToken(this.env);
+      const evidence = await verifyRequiredCiFromGithub(validated, { token });
       return await this.coordinator.verifiedSelfHealCi(validated, evidence);
     } catch {
       return {verified:false, code:'SELFHEAL_PROVENANCE_OR_STAGING_UNVERIFIED'};
