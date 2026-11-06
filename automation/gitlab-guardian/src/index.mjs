@@ -79,7 +79,13 @@ export function assess({ mirror, gitlabBranch, githubCommit, checkedAt }) {
       typeof mirror.update_status !== 'string' ||
       typeof mirror.url !== 'string' ||
       !(mirror.last_error === null || typeof mirror.last_error === 'string') ||
+      !(mirror.mirror_branch_regex === null || typeof mirror.mirror_branch_regex === 'string') ||
+      !(mirror.only_mirror_protected_branches === null ||
+        typeof mirror.only_mirror_protected_branches === 'boolean') ||
+      !(mirror.last_successful_update_at === null ||
+        typeof mirror.last_successful_update_at === 'string') ||
       !Number.isFinite(checkedAt) || !gitlabBranch || !githubCommit ||
+      gitlabBranch.name !== 'main' ||
       !/^[a-f0-9]{40}$/.test(gitlabBranch.commit?.id || '') ||
       !/^[a-f0-9]{40}$/.test(githubCommit.sha || '')) throw new Error('INVALID_UPSTREAM_SCHEMA');
   const glSha = gitlabBranch.commit.id;
