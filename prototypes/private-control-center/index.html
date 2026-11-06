@@ -37,6 +37,7 @@
 <header class="topbar">
   <div class="topbar-left"><button type="button" class="icon-button menu-button" id="menuToggle" aria-controls="sidebar" aria-expanded="false" aria-label="Άνοιγμα μενού">☰</button><span class="breadcrumb">ΔΙΑΧΕΙΡΙΣΗ <span class="crumb-sep">/</span> <span id="pageCrumb">Επισκόπηση</span></span></div>
   <div class="topbar-right">
+    <span class="global-demo-label" role="note" aria-label="Στατικό DEMO, χωρίς πραγματικά δεδομένα">DEMO · OFFLINE</span>
     <span class="topbar-time">Στιγμιότυπο επίδειξης · 06/11/2026</span>
     <button type="button" class="icon-button" id="searchShortcut" aria-label="Άνοιγμα αναζήτησης" title="Αναζήτηση (/)" >⌕</button>
     <button type="button" class="icon-button" id="helpButton" aria-label="Βοήθεια συντομεύσεων" title="Συντομεύσεις">?</button>
@@ -65,7 +66,7 @@
       <p class="graph-caption">Τα φωτεινά πακέτα ταξιδεύουν μεταξύ Brain και Workers. Πάτησε κόμβο για λεπτομέρειες. Στον υπολογιστή εμφανίζεται το διάγραμμα· στο κινητό οι συνοπτικές κάρτες.</p>
       <div class="mobile-live-panel" id="mobileLivePanel" aria-label="Συνοπτική εικόνα κινητού, εικονικά δεδομένα">
         <div class="mobile-live-top">
-          <div><span class="mobile-live-kicker"><i aria-hidden="true"></i> LIVE VIEW <span>· DEMO</span></span><h3>Τι συμβαίνει τώρα;</h3></div>
+          <div><span class="mobile-live-kicker"><i aria-hidden="true"></i> SIMULATED <span>· DEMO</span></span><h3>Τι συμβαίνει τώρα;</h3></div>
           <span class="mobile-live-counter" id="mobileEventCounter">Δείγμα 1 / 7</span>
         </div>
         <p class="mobile-live-disclaimer">Δυναμική προσομοίωση. <strong>Όχι σύνδεση παραγωγής.</strong></p>
@@ -100,11 +101,11 @@
           <div class="mobile-live-event-icon" aria-hidden="true">◉</div>
           <div class="mobile-live-event-copy">
             <span>ΤΕΛΕΥΤΑΙΟ ΔΟΚΙΜΑΣΤΙΚΟ ΣΥΜΒΑΝ</span>
-            <p id="mobileEventText">Ένα εικονικό workflow ολοκλήρωσε έλεγχο ιδιωτικότητας.</p>
+            <p id="mobileEventText" aria-live="off">Ένα εικονικό workflow ολοκλήρωσε έλεγχο ιδιωτικότητας.</p>
           </div>
           <button class="mobile-live-next" id="mobileNextEvent" type="button" aria-label="Επόμενο δοκιμαστικό συμβάν" title="Επόμενο δείγμα">↻</button>
         </div>
-        <p class="mobile-live-footer">Αυτόματη εναλλαγή δοκιμαστικών συμβάντων · χωρίς πραγματικά API ή εντολές.</p>
+        <div class="mobile-feed-controls"><button id="mobilePauseEvent" type="button" class="small-button mobile-feed-pause" aria-pressed="false" aria-controls="mobileEventText">Ⅱ Παύση</button><p class="mobile-live-footer">Τοπική εναλλαγή ανά 9 δευτερόλεπτα · χωρίς πραγματικά API ή εντολές. Στη μειωμένη κίνηση μόνο χειροκίνητη εναλλαγή.</p></div>
       </div>
       <div class="diagram-frame" id="diagramFrame"><svg id="topology" class="topology" viewBox="0 0 1000 520" role="group" aria-label="Διαδραστικό διάγραμμα DEMO: ένας κεντρικός Brain με οκτώ Workers και κινούμενα φωτεινά σήματα">
       <defs><linearGradient id="lineGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d6b774" stop-opacity=".75"/><stop offset="1" stop-color="#d6b774" stop-opacity=".12"/></linearGradient><radialGradient id="coreGlow"><stop offset="0" stop-color="#d8b870" stop-opacity=".23"/><stop offset="1" stop-color="#d8b870" stop-opacity="0"/></radialGradient><filter id="dotGlow" x="-200%" y="-200%" width="500%" height="500%"><feGaussianBlur stdDeviation="4"/></filter></defs>
