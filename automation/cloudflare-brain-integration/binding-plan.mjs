@@ -33,6 +33,13 @@ export function assessBinding({
     if (current.some(b => b?.type === 'service' && b?.service === TARGET && b?.name !== NAME)) {
       blockers.push('UNREVIEWED_EXISTING_BRAIN_BINDING');
     }
+    if (CALLERS[caller].includes(selectedSource)) {
+      const hasSecret = name => current.some(b => b?.name === name && b?.type === 'secret_text');
+      if (!hasSecret('BRAIN_' + selectedSource.toUpperCase() + '_INTAKE_KEY'))
+        blockers.push('CALLER_SOURCE_KEY_ABSENT');
+      if (!hasSecret('BRAIN_CAPABILITY_RECEIPT_KEY'))
+        blockers.push('CALLER_RECEIPT_VERIFIER_KEY_ABSENT');
+    }
   }
   if (!SHA.test(deployedBrainSha || '') || !SHA.test(approvedBrainSha || '') || deployedBrainSha !== approvedBrainSha) {
     blockers.push('BRAIN_SHA_NOT_PINNED');
