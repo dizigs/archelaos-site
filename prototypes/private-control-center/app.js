@@ -79,7 +79,7 @@ function renderDiagram(){
    g.append(elementSvg("text",{"text-anchor":"middle",y:"8",class:"node-symbol"},worker.icon));
    const title=elementSvg("text",{y:"57","text-anchor":"middle",class:"node-title"},worker.short);g.append(title);
    const sub=elementSvg("text",{y:"72","text-anchor":"middle",class:"node-sub"},labels[worker.status]||worker.status);g.append(sub);
-   const click=()=>openWorker(worker);g.addEventListener("click",click);g.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();click()}});nodes.append(g);
+   const click=()=>openWorker(worker,g);g.addEventListener("click",click);g.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();click()}});nodes.append(g);
  });
  /* Motion is synchronized at startup and on preference changes. */
 }
@@ -90,7 +90,7 @@ function renderWorkerCards(){
   const icon=document.createElement("span");icon.className="worker-icon";icon.textContent=w.icon;
   const title=document.createElement("strong");title.textContent=w.name;const sub=document.createElement("small");sub.textContent=w.type+" · DEMO";
   const tag=document.createElement("span");tag.className="tag "+(w.status==="success"?"tag-green":w.status==="failed"?"tag-red":"tag-amber");tag.textContent=labels[w.status]||w.status;
-  btn.append(icon,title,sub,tag);btn.addEventListener("click",()=>openWorker(w));grid.append(btn);
+  btn.append(icon,title,sub,tag);btn.addEventListener("click",()=>openWorker(w,btn));grid.append(btn);
  });
 }
 function statusBadge(status){const s=document.createElement("span");s.className="status-chip status-"+status;s.textContent=labels[status]||status;return s}
@@ -179,7 +179,7 @@ function openDetail(title,subtitle,rows,description,trigger){
  const p=document.createElement("div");p.className="detail-callout";p.textContent=description;body.append(p);
  $("detailsDrawer").hidden=false;$("drawerBackdrop").hidden=false;document.querySelector(".layout").inert=true;syncScrollLock();$("closeDetails").focus();
 }
-function openWorker(w){openDetail(w.name,w.type,[["Κατάσταση",labels[w.status]],["Worker ID",w.id],["Πηγή","Synthetic demo fixture"],["Δίκτυο","Brain ↔ "+w.short]],w.detail)}
+function openWorker(w,trigger){openDetail(w.name,w.type,[["Κατάσταση",labels[w.status]],["Worker ID",w.id],["Πηγή","Synthetic demo fixture"],["Δίκτυο","Brain ↔ "+w.short]],w.detail,trigger)}
 function openGeneric(type,trigger){
  if(type==="brain")openDetail("Canonical Brain","CENTRAL COORDINATOR",[["Mode",scenarios[currentScenario].brain],["Locks",String(scenarios[currentScenario].locks)],["Queue",String(scenarios[currentScenario].queue)],["Builders","Max 2"]],"Μοναδικός κεντρικός συντονιστής (επίδειξη). Signed receipts, immutable readback, isolation και quarantine UNKNOWN σε μελλοντική, ασφαλή διασύνδεση.",trigger);
  else openDetail("Cloudflare Pages & Workers","EDGE SERVICES",[["Pages","Ready · DEMO"],["Workers","8 synthetic nodes"],["Service bindings","Simulation only"],["Production API","Disconnected"]],"Αποκλειστικά εικονικές μετρήσεις. Οτιδήποτε σχετικό με πραγματικό deployment χρειάζεται επαλήθευση SHA, logs και readback.",trigger)
@@ -198,6 +198,7 @@ function syncMenuA11y(){
  if(open){sidebar.setAttribute("role","dialog");sidebar.setAttribute("aria-modal","true")}
  else{sidebar.removeAttribute("role");sidebar.removeAttribute("aria-modal")}
  $("menuToggle").setAttribute("aria-expanded",String(open));
+ $("menuToggle").setAttribute("aria-label",open?"Κλείσιμο μενού":"Άνοιγμα μενού");
  $("mobileBackdrop").hidden=!open;
  document.querySelector(".content-shell").inert=open;
  syncScrollLock();
@@ -216,10 +217,11 @@ function updateMobileSummary(){
  setText("mobileAlertsStatus",s.alerts);
  setText("mobileDeployStatus",deployments.filter(d=>d.status==="running").length+" ενεργό");
 }
-function nextMobileEvent(){
+function nextMobileEvent(announce=false){
  mobileEventIndex=(mobileEventIndex+1)%events.length;
  setText("mobileEventText",events[mobileEventIndex].text);
  setText("mobileEventCounter","Δείγμα "+(mobileEventIndex+1)+" / "+events.length);
+ if(announce)setText("mobileEventAnnouncement","DEMO — "+events[mobileEventIndex].text);
 }
 function syncTopologyMotion(){
  const reduceMotion=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -238,7 +240,7 @@ function syncFeedControls(){
  setText("mobilePauseEvent",reduceMotion?"Χωρίς αυτόματη κίνηση":mobileFeedPaused?"▶ Συνέχεια":"Ⅱ Παύση");
 }
 function initMobileFeed(){
- $("mobileNextEvent").addEventListener("click",nextMobileEvent);
+ $("mobileNextEvent").addEventListener("click",()=>nextMobileEvent(true));
  $("mobilePauseEvent").addEventListener("click",()=>{mobileFeedPaused=!mobileFeedPaused;syncFeedControls();showToast(mobileFeedPaused?"Η αυτόματη ροή σταμάτησε — DEMO":"Η αυτόματη ροή συνεχίστηκε — DEMO")});
  updateMobileSummary();
  const viewport=window.matchMedia("(max-width: 1000px)");
@@ -272,7 +274,7 @@ const searchItems=[
 ];
 function searchRender(){
  const q=$("globalSearch").value.trim().toLocaleLowerCase("el"),list=$("globalSearchResults");list.replaceChildren();const entries=searchItems.filter(item=>(item.label+" "+item.type).toLocaleLowerCase("el").includes(q)).slice(0,11);
- entries.forEach(item=>{const b=document.createElement("button");b.type="button";b.className="search-option";b.textContent=item.label;const small=document.createElement("small");small.textContent=item.type+" · DEMO";b.append(small);b.addEventListener("click",()=>{closeSearch();if(item.view)setView(item.view,true);else if(item.worker)openWorker(item.worker);else if(item.deployment)showDeployment(item.deployment);else if(item.task){const t=item.task;openDetail(t.name,t.id,[["Πηγή",t.source],["Κατάσταση",labels[t.status]]],t.detail)}});list.append(b)});
+ entries.forEach(item=>{const b=document.createElement("button");b.type="button";b.className="search-option";b.textContent=item.label;const small=document.createElement("small");small.textContent=item.type+" · DEMO";b.append(small);b.addEventListener("click",()=>{closeSearch();if(item.view)setView(item.view,true);else if(item.worker)openWorker(item.worker,$("searchShortcut"));else if(item.deployment)showDeployment(item.deployment,$("searchShortcut"));else if(item.task){const t=item.task;openDetail(t.name,t.id,[["Πηγή",t.source],["Κατάσταση",labels[t.status]]],t.detail,$("searchShortcut"))}});list.append(b)});
  if(!entries.length){const p=document.createElement("p");p.className="soft-text";p.textContent="Δεν βρέθηκαν αποτελέσματα.";list.append(p)}
 }
 function closeSearch(){if($("searchDialog").open)$("searchDialog").close()}
