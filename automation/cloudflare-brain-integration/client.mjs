@@ -1,6 +1,6 @@
 // Opt-in, source-scoped connector for the EXISTING Brain staging Worker.
 // Integration library only: does not create or deploy a Worker.
-import { validateEvent, UUID } from '../../brain/src/contract.mjs';
+import { validateEvent, UUID, digest } from '../../brain/src/contract.mjs';
 
 const TARGET = 'https://brain.internal'; // Cloudflare service binding, never public fetch.
 const POLICY = Object.freeze({
@@ -155,7 +155,13 @@ export function createBrainWorkerAdapter({ workerName, sourceType, brainService,
         eventId: event.eventId, result: 'UNKNOWN', code: 'RECEIPT_SIGNATURE_INVALID' });
       throw new IntegrationBlocked('RECEIPT_SIGNATURE_INVALID');
     }
+    // #234 commits this immutable content-identity digest in the canonical DO.
+    // A valid MAC alone must not authorize an ACK for a different source blob.
+    const kind = event.eventType.startsWith('source.file.') ? 'source.file' : event.eventType;
+    const dedupeKey = await digest('blob|' + event.sourceType + '|' + event.sourceId + '|' +
+      kind + '|' + event.payload.blobSha256);
     if (!receipt || !UUID.test(receipt.receiptId || '') ||
+      receipt.dedupeKey !== dedupeKey ||
       receipt.correlationId !== event.correlationId || receipt.eventId !== event.eventId ||
       receipt.durable !== true || receipt.duplicate !== (response.status === 200) ||
       !RECEIPT_STATES.has(receipt.status)) {
@@ -164,10 +170,10 @@ export function createBrainWorkerAdapter({ workerName, sourceType, brainService,
       throw new IntegrationBlocked('RECEIPT_UNVERIFIED');
     }
     await audit({ kind: 'delivery', correlationId: event.correlationId,
-      eventId: event.eventId, receiptId: receipt.receiptId,
+      eventId: event.eventId, receiptId: receipt.receiptId, dedupeKey,
       result: 'PERSISTED', duplicate: receipt.duplicate });
     return { receiptId: receipt.receiptId, correlationId: receipt.correlationId,
-      eventId: receipt.eventId, status: receipt.status, duplicate: receipt.duplicate, durable: true };
+      eventId: receipt.eventId, dedupeKey, status: receipt.status, duplicate: receipt.duplicate, durable: true };
   }
   async function readReceipt(receiptId, expectedCorrelationId) {
     ready(); requireUuid(receiptId); requireUuid(expectedCorrelationId, 'INVALID_CORRELATION_ID');
