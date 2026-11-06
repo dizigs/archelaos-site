@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json.schemastore.org/wrangler.json",
+  "name": "archelaos-analytics",
+  "main": "src/index.mjs",
+  "compatibility_date": "2026-11-05",
+  "workers_dev": false,
+  "preview_urls": false,
+  "vars": {
+    "ANALYTICS_ENABLED": "false"
+  },
+  "observability": {
+    "enabled": false
+  }
+}
