@@ -5,6 +5,8 @@ import { GoogleProjects, ScriptEditor } from './editor.mjs';
 import { normalizeFiles } from './files.mjs';
 import { SCRIPT_SCOPE } from './security.mjs';
 import { appsScriptExtension, isAppsScriptRequest } from './interface.mjs';
+import { SQLiteSafetyStore } from './safety/store.mjs';
+import { AppsScriptInventoryService, AuditLogger } from './safety/index.mjs';
 import { githubWriter, verifyGithubWriterToken } from './github-writer.mjs';
 
 // Composition for the EXISTING bridge's approved atomic coordinator context.
@@ -41,6 +43,39 @@ function initializedExtension({ env, storage, authenticateExecutor, ports = {}, 
       const files = normalizeFiles(contents);
       store.audit(crypto.randomUUID(), 'ADMIN_PROJECT_READ_VERIFIED');
       return { status: 'ADMIN_PROJECT_READ_VERIFIED', projectIdentityVerified: true, completeFilesVerified: true, fileCount: files.length, readOnly: true };
+    },
+    readInventory: async grant => {
+      requireGrant(grant);
+      // Reuse the SAME project-scoped OAuth grant and SQLite coordinator.
+      // The safety module does not enumerate all installable triggers or
+      // establish a lock on Google IDE/external API writers.
+      const provider = new GoogleProjects({
+        projectId: env.APPS_SCRIPT_PROJECT_ID,
+        accessToken: async () => grant.accessToken,
+        fetchGoogle,
+        audit: code => store.audit(crypto.randomUUID(), code)
+      });
+      const metadataStore = new SQLiteSafetyStore(storage, now);
+      const inventory = new AppsScriptInventoryService({
+        projectId: env.APPS_SCRIPT_PROJECT_ID,
+        projectTitle: env.APPS_SCRIPT_PROJECT_TITLE,
+        provider,
+        store: metadataStore,
+        auditLogger: new AuditLogger({ store: metadataStore })
+      });
+      const snapshot = await inventory.sync();
+      // Return ONLY non-sensitive proof flags and count. The complete code and
+      // project identity remain inside Google and the private DO respectively.
+      return {
+        status: 'ADMIN_SOURCE_INVENTORY_VERIFIED',
+        readOnly: true,
+        sourceReadVerified: true,
+        metadataSavedPrivately: true,
+        fileCount: snapshot.fileCount,
+        installableTriggersComplete: false,
+        externalWriterExclusionVerified: false,
+        liveWritesEnabled: false
+      };
     },
     issueBackupConfirmation: async grant => {
       requireGrant(grant);
