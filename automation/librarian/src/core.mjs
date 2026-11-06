@@ -180,30 +180,3 @@ export async function fetchDrivePdf(env,fileId,fetchImpl=fetch,approval=null){
     throw Error('PDF_CHANGED_DURING_DOWNLOAD');
   return {meta:{...meta,sha256:hash},body:bytes};
 }
-).test(d.name))throw Error('NOTEBOOK_INVALID_RESPONSE');
-  const check=await fetchImpl(NOTEBOOK_API+'/'+d.name,{method:'GET',headers,redirect:'manual'});
-  if(!check.ok || check.status>=300&&check.status<400)throw Error('NOTEBOOK_READBACK_HTTP_'+check.status);
-  const state=await check.json();
-  return {sourceName:d.name,state:state.state||'PROCESSING',verified:state.state==='ACTIVE'};
-}
-export async function fetchDriveMetadata(env,fileId,fetchImpl=fetch){
-  assertFileId(fileId);
-  if(typeof env.ARCHIVE_DRIVE_ID!=='string'||!env.ARCHIVE_DRIVE_ID)throw Error('ARCHIVE_DRIVE_UNCONFIGURED');
-  const token=await getOAuthAccessToken(env,'drive',fetchImpl);
-  const url='https://www.googleapis.com/drive/v3/files/'+encodeURIComponent(fileId);
-  const headers={Authorization:'Bearer '+token};
-  const r=await fetchImpl(url+'?fields=id,name,mimeType,size,version,driveId&supportsAllDrives=true',{headers,redirect:'manual'});
-  if(!r.ok || r.status>=300&&r.status<400)throw Error('DRIVE_METADATA_HTTP_'+r.status);
-  const m=await r.json();
-  if(m.id!==fileId||m.driveId!==env.ARCHIVE_DRIVE_ID||m.mimeType!=='application/pdf')throw Error('DRIVE_FILE_NOT_APPROVED');
-  if(/(ιατρ|τιμολ|μισθωτ|οικονομ|φορολογ|προσωπ|medical|invoice|bank)/i.test(m.name||''))throw Error('SENSITIVE_PDF_REVIEW_REQUIRED');
-  const size=Number(m.size);
-  if(!Number.isFinite(size)||size<=0||size>60000000)throw Error('DRIVE_FILE_SIZE_UNSUPPORTED');
-  return {meta:{id:fileId,name:m.name,version:String(m.version)},url,headers};
-}
-export async function fetchDrivePdf(env,fileId,fetchImpl=fetch){
-  const {meta,url,headers}=await fetchDriveMetadata(env,fileId,fetchImpl);
-  const r=await fetchImpl(url+'?alt=media&supportsAllDrives=true',{headers,redirect:'manual'});
-  if(!r.ok||!r.body||r.status>=300&&r.status<400)throw Error('DRIVE_DOWNLOAD_HTTP_'+r.status);
-  return {meta,body:r.body};
-}
