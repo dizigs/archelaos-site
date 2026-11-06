@@ -88,8 +88,14 @@ async function callGitLab(path, options, token, fetcher) {
   if (result.status >= 300 && result.status <= 399) throw new Error('UPSTREAM_REDIRECT');
   if (!result.ok) throw new Error('UPSTREAM_HTTP_STATUS');
   if (Number(result.headers.get('content-length') || 0) > UPSTREAM_MAX_BYTES) throw new Error('UPSTREAM_TOO_LARGE');
+  // Never consider an incomplete search page proof that a ticket does not exist.
+  if (options.requireCompleteSearch && result.headers.get('x-next-page'))
+    throw new Error('UPSTREAM_PAGINATION_UNVERIFIED');
   const raw = await readLimited(result.body, UPSTREAM_MAX_BYTES);
-  return JSON.parse(raw);
+  const data = JSON.parse(raw);
+  if (options.requireCompleteSearch && Array.isArray(data) && data.length >= 100)
+    throw new Error('UPSTREAM_PAGINATION_UNVERIFIED');
+  return data;
 }
 
 export async function submitIssue(input, env, fetcher = fetch) {
@@ -98,7 +104,7 @@ export async function submitIssue(input, env, fetcher = fetch) {
   // Reconcile retries by a caller-generated stable ticket ID, before creating any issue.
   // Not an atomic reservation; callers must serialize retries for a single ticket ID.
   const q = new URLSearchParams({ search: validated.marker, in: 'description', state: 'all', per_page: '100' });
-  const existing = await callGitLab(`/issues?${q}`, {method:'GET'}, env.GITLAB_CONTROLLER_TOKEN, fetcher);
+  const existing = await callGitLab(`/issues?${q}`, {method:'GET', requireCompleteSearch:true}, env.GITLAB_CONTROLLER_TOKEN, fetcher);
   if (!Array.isArray(existing)) throw new Error('UPSTREAM_SCHEMA');
   const duplicate = existing.find(x => typeof x.description === 'string' &&
     x.description.split(/\r?\n/).some(line => line === 'Controller reference: ' + validated.marker));
