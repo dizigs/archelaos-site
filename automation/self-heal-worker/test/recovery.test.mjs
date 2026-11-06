@@ -57,6 +57,35 @@ test('untrusted/missing Brain authorization never claims or executes', async () 
   assert.equal(db.prepare('SELECT count(*) as n FROM recoveries').get().n, 0);
   db.close();
 });
+
+test('forged or stale Brain receipt never creates an incident or routes a review', async () => {
+  const { ledger, db } = fixture();
+  const f = finding();
+  let routed = 0;
+  for (const unsafe of [
+    { issuer: 'untrusted-service' }, { verified: false },
+    { expiresAtMs: NOW }, { expiresAtMs: NOW - 1 },
+    { expiresAtMs: NOW + 300_001 },
+    { receiptId: 'untrusted-receipt' },
+    { evidenceId: 'actions:999999' },
+    { incidentAuthorized: false },
+    { requiredCi: { verdict: 'FAILED', required: true,
+      commit: f.commit, evidenceId: f.evidenceId, runAttempt: 0,
+      chainHaltReadback: true } }
+  ]) {
+    const result = await recover(f, ledger, {
+      verifyBrainReceipt: async () => verified(f, unsafe),
+      routeBuilderReview: async () => { routed++; }
+    }, NOW);
+    assert.equal(result.status, 'BLOCKED');
+    assert.equal(result.reason, 'BRAIN_PROOF_UNVERIFIED');
+    assert.equal(result.chainHalted, true);
+  }
+  assert.equal(routed, 0);
+  assert.equal(db.prepare('SELECT count(*) AS n FROM recoveries').get().n, 0);
+  db.close();
+});
+
 test('verified failed CI halts chain and routes exactly one review-only Brain intent', async () => {
   const { ledger, db } = fixture();
   const f = finding();
