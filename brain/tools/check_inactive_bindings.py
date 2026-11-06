@@ -140,8 +140,11 @@ def assess(configs, inventory=None, now=None):
                             b.get("environment") not in (None, "")):
                         errors.append("LIVE_DO_NAMESPACE_OR_TARGET_UNVERIFIED")
                 elif kind == "service":
+                    entrypoint = b.get("entrypoint") or None
+                    if expected["entrypoint"] is None and entrypoint == "default":
+                        entrypoint = None
                     if (b.get("service") != expected["service"] or
-                            (b.get("entrypoint") or None) != expected["entrypoint"] or
+                            entrypoint != expected["entrypoint"] or
                             b.get("environment") not in (None, "")):
                         errors.append("LIVE_SERVICE_TARGET_CONFLICT")
                 elif kind == "plain_text":

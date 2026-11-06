@@ -57,6 +57,21 @@ class PreservationGuard(unittest.TestCase):
         self.assertFalse(r["uploadAuthorized"])
         self.assertFalse(r["liveConnectivityVerified"])
 
+    def test_present_default_and_named_links_match_but_redirects_are_blocked(self):
+        f = live_fixture()
+        for i, c in enumerate(configs()):
+            link = next(b for b in GUARD.declared_bindings(c).values() if b["type"] == "service")
+            f["workers"][i]["bindings"].append(link)
+        # Cloudflare can explicitly report the default entrypoint as "default".
+        f["workers"][0]["bindings"][-1]["entrypoint"] = "default"
+        self.assertEqual(GUARD.assess(configs(), f, NOW)["blockers"], [])
+        for patch in ({"entrypoint": "default"}, {"environment": "production"},
+                      {"service": "unapproved-brain"}):
+            wrong = copy.deepcopy(f)
+            wrong["workers"][1]["bindings"][-1].update(patch)
+            self.assertIn("LIVE_SERVICE_TARGET_CONFLICT",
+                          GUARD.assess(configs(), wrong, NOW)["blockers"])
+
     def test_drop_retype_redirect_activation_or_migration_fails(self):
         for mutate in (
             lambda c: c[0].pop("ai"),
