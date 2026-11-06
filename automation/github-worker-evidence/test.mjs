@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { evaluate, scanTask, GitHubReader } from './index.mjs';
+import { evaluate, scanTask, buildReport, GitHubReader } from './index.mjs';
 const repo = 'dizigs/archelaos-site', sha = 'a'.repeat(40);
 const now = () => new Date().toISOString();
 const task = { id: 'photo', worker: 'photo-staging', issue: 243, pr: 240, repo };
@@ -139,4 +139,47 @@ test('GraphQL mutation calls are forbidden even with a token', async () => {
 test('API client requires token', async () => {
   const reader = new GitHubReader({ repo, token: '' });
   await assert.rejects(reader.issue(243), /TOKEN required/);
+});
+test('main SHA drift blocks an otherwise valid report', async () => {
+  let mainReads = 0;
+  const reader = {
+    repo, get: async () => ({ commit: {
+      sha: ++mainReads === 1 ? 'c'.repeat(40) : 'd'.repeat(40)
+    } }),
+    issue: async () => issue, pull: async () => pull,
+    checkRuns: async () => evidence().checks,
+    statuses: async () => [], threads: async () => [],
+    rules: async () => ['syntax'],
+    ciRunProofs: async () => runProofs()
+  };
+  const report = await buildReport(reader, { repo, tasks: [task] });
+  assert.equal(report.mainStable, false);
+  assert.equal(report.tasks[0].status, 'BLOCKED');
+  assert.ok(report.tasks[0].blockers.includes('MAIN_CHANGED_OR_RECHECK_FAILED'));
+});
+test('missing main readback blocks even if all PR checks pass', async () => {
+  const reader = {
+    repo, get: async () => { throw Error('provider unavailable'); },
+    issue: async () => issue, pull: async () => pull,
+    checkRuns: async () => evidence().checks,
+    statuses: async () => [], threads: async () => [],
+    rules: async () => ['syntax'],
+    ciRunProofs: async () => runProofs()
+  };
+  const report = await buildReport(reader, { repo, tasks: [task] });
+  assert.equal(report.mainSha, null);
+  assert.equal(report.tasks[0].proofStates.ci, 'UNKNOWN');
+  assert.ok(report.tasks[0].blockers.includes('MAIN_SHA_UNVERIFIED'));
+});
+test('same task ID twice is rejected; no duplicate canonical registry entry', async () => {
+  const reader = {
+    repo, get: async () => ({ commit: { sha: 'b'.repeat(40) } })
+  };
+  await assert.rejects(buildReport(reader, { repo, tasks: [task, task] }),
+    /duplicate or invalid task id/);
+});
+test('invalid repository and Issue proof cannot be CODE_READY', () => {
+  const source = evidence();
+  source.pull = { ...pull, head: { ...pull.head, repo: { full_name: 'untrusted/repo' } } };
+  assert.equal(evaluate(source).proofStates.code, 'UNKNOWN');
 });
