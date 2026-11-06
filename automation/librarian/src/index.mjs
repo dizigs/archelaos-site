@@ -2,7 +2,7 @@
 import { DurableObject, WorkerEntrypoint } from 'cloudflare:workers';
 import { assertFileId, buildArchiveSources, buildNewsSource, createNotebookSource,
   fetchDrivePdf, fetchDriveMetadata, getOAuthAccessToken, sha256, NOTEBOOK_API,
-  approvedPdf, verifyCaller } from './core.mjs';
+  approvedPdf, verifyCaller, readLimitedBytes } from './core.mjs';
 
 export class LibrarianLedger extends DurableObject {
   async fetch(request) {
@@ -80,7 +80,7 @@ export default class Librarian extends WorkerEntrypoint {
     if(!allowed.length)throw Error('NEWS_HOST_ALLOWLIST_MISSING');
     const response=await fetch('https://archelaos.club/news.json',{redirect:'manual',headers:{Accept:'application/json'}});
     if(!response.ok || response.status>=300&&response.status<400)throw Error('CANONICAL_NEWS_UNAVAILABLE');
-    const data=await response.json();
+    const data=JSON.parse(new TextDecoder().decode(await readLimitedBytes(response,12000000)));
     const article=(data.items||[]).find(x=>x.id===newsId);
     if(!article)throw Error('NEWS_NOT_PUBLISHED');
     const source=buildNewsSource(article,allowed);
@@ -121,8 +121,7 @@ export default class Librarian extends WorkerEntrypoint {
     if(!response.ok)throw Error('PRIVATE_PDF_EXTRACTION_FAILED');
     const outputBytes=Number(response.headers.get('content-length'));
     if(outputBytes>8000000)throw Error('PRIVATE_OCR_OUTPUT_TOO_LARGE');
-    const raw=await response.text();
-    if(new TextEncoder().encode(raw).length>8000000)throw Error('PRIVATE_OCR_OUTPUT_TOO_LARGE');
+    const raw=new TextDecoder().decode(await readLimitedBytes(response,8000000));
     let result;
     try {result=JSON.parse(raw);}catch{throw Error('INVALID_PRIVATE_OCR_OUTPUT');}
     if(!Array.isArray(result.pages)||result.pages.length>5000 ||
