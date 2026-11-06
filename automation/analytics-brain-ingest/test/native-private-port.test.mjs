@@ -19,7 +19,11 @@ const makePort=(service,opts={})=>createNativeAnalyticsBrainPort({
   env:env(service),expectedBrainCommit:COMMIT,clock:()=>NOW,...opts
 });
 function signed(fields,audience,verifier=RECEIPT_KEY){
-  const unsigned={...fields,schemaVersion:1,audience,principal:'analytics-v1',
+  // Re-sign a changed payload from scratch, without carrying a prior MAC.
+  // This ensures the negative test exercises a VALID signature on wrong data.
+  const cleanFields={...fields};
+  delete cleanFields.receiptSignature;
+  const unsigned={...cleanFields,schemaVersion:1,audience,principal:'analytics-v1',
     keyId:'brain-capability-receipts-v1',issuedAtMs:NOW};
   const receiptSignature=createHmac('sha256',verifier)
     .update(audience+'\n'+JSON.stringify(unsigned)).digest('hex');
