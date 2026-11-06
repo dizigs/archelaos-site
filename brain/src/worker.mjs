@@ -201,7 +201,9 @@ export class BrainCoordinator extends DurableObject {
         catch { throw new Rejected('SOURCE_RECEIPT_CORRUPT', 503); }
         if (stored?.sourceType !== identity || stored.correlationId !== job.correlation)
           throw new Rejected('SOURCE_RECEIPT_CORRUPT', 503);
-        stored = validateEvent(stored, identity);
+        // Readback has no seven-day TTL: immutable historical receipts must
+        // remain verifiable long after their original ingestion time.
+        stored = validateEvent(stored, identity, Date.parse(stored.receivedAt));
         const kind = stored.eventType.startsWith('source.file.') ? 'source.file' : stored.eventType;
         const dedupeKey = await digest('blob|' + identity + '|' + stored.sourceId + '|' +
           kind + '|' + stored.payload.blobSha256);
