@@ -1,0 +1,9 @@
+{
+  "name": "@archelaos/apps-script-brain-relay",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "node --check src/relay.mjs && node --test test/*.test.mjs"
+  },
+  "engines": { "node": ">=22" }
+}

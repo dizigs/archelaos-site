@@ -1,0 +1,68 @@
+name: Apps Script E2E Validation & Safe Rollback (Team 2)
+on:
+  pull_request:
+    paths:
+      - 'automation/apps-script-e2e-validation/**'
+      - '.github/workflows/apps-script-e2e-validation.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  synthetic:
+    name: Strictly synthetic E2E and security tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      ARCHELAOS_E2E_MODE: SIMULATION
+      ARCHELAOS_LIVE_GAS_WRITE_APPROVED: 'FALSE'
+      BRAIN_LIVE_CALLS_ENABLED: 'FALSE'
+    steps:
+      - name: Checkout exact PR head revision
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Set up Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '22'
+      - name: Enforce Team 2 changed-file isolation
+        if: github.event_name == 'pull_request'
+        shell: bash
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          set -euo pipefail
+          git fetch --no-tags origin "$BASE_SHA"
+          COMMON_BASE="$(git merge-base "$BASE_SHA" HEAD)"
+          test -n "$COMMON_BASE"
+          git diff --no-renames --name-only -z "$COMMON_BASE" HEAD | while IFS= read -r -d '' path; do
+            case "$path" in
+              automation/apps-script-e2e-validation/*|.github/workflows/apps-script-e2e-validation.yml) ;;
+              *) echo "::error::Out-of-scope change in Team 2 PR"; exit 1 ;;
+            esac
+          done
+      - name: Node syntax
+        run: |
+          node --check automation/apps-script-e2e-validation/harness.mjs
+          node --check automation/apps-script-e2e-validation/e2e-validation.test.mjs
+          node --check automation/apps-script-e2e-validation/live-verification-runner.mjs
+      - name: Synthetic E2E and security regression suite
+        run: node --test automation/apps-script-e2e-validation/e2e-validation.test.mjs
+      - name: Prove live mode is blocked even with forged approval
+        shell: bash
+        run: |
+          set -euo pipefail
+          node automation/apps-script-e2e-validation/live-verification-runner.mjs > /tmp/gas-safe.json
+          grep -q SYNTHETIC_DRY_RUN_ONLY /tmp/gas-safe.json
+          if node automation/apps-script-e2e-validation/live-verification-runner.mjs --live > /tmp/gas-blocked.log 2>&1; then
+            echo "::error::Unsafe live mode unexpectedly accepted"
+            exit 1
+          fi
+          grep -q LIVE_WRITE_DISABLED_BY_DEFAULT /tmp/gas-blocked.log
+          if ARCHELAOS_LIVE_GAS_WRITE_APPROVED=TRUE_WITH_4EYES_APPROVAL node automation/apps-script-e2e-validation/live-verification-runner.mjs > /tmp/gas-env.log 2>&1; then
+            echo "::error::Forged approval unexpectedly accepted"
+            exit 1
+          fi
+          grep -q LIVE_WRITE_DISABLED_BY_DEFAULT /tmp/gas-env.log

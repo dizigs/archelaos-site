@@ -64,7 +64,7 @@ jobs:
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           repository: dizigs/archelaos-site
-          ref: 8b7f7b4ef2ee4f01322c18448ec32fe0954810fc
+          ref: 42d0474a30bc07b3347a1d2a0955f7b51c61c9fc
           path: .acceptance-sources/integration
           persist-credentials: false
       - name: Checkout canonical Brain PR 219 actual merged SHA
