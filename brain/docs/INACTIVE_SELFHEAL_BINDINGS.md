@@ -76,9 +76,16 @@ missing baseline AI/DOs, secret-to-var conversion, and stale/incomplete input
 fail closed. Explicit zero-SHA / disabled recovery overrides are intentional.
 
 This is an offline comparison, not provider authentication, a universal wrapper
-around arbitrary Wrangler commands, or permission to deploy. Even a complete
-synthetic fixture yielding preservation PASS always returns
-`uploadAuthorized: false` and `liveConnectivityVerified: false`.
+around arbitrary Wrangler commands, or permission to deploy. The offline
+`offlineBindingComparison: PASS` only means the supplied rows match the source;
+`bindingPreservation` and `inventoryCompleteness` remain `NOT_VERIFIED` until
+independent authenticated provider completeness is proven. A baseline-only
+DO/AI filtered inventory is NOT sufficient. The CLI deliberately exits nonzero
+with `AUTHENTICATED_COMPLETE_PROVIDER_INVENTORY_REQUIRED`, even for a consistent
+synthetic fixture. No unknown top-level resource category (such as KV/R2/D1)
+may be added to these Wrangler configs: this prevents collisions with retained
+secret names. `uploadAuthorized: false` and `liveConnectivityVerified: false`
+remain unconditional.
 Keep the inventory and its original namespace IDs for a separate post-upload
 readback; source TOML cannot prove that a remote namespace was preserved.
 
