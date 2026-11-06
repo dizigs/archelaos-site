@@ -7,8 +7,8 @@
 ## Κατάσταση 06/11/2026
 - Source snapshot: 6 JSON files από το τότε `main` (τα source **blob SHAs** καταγράφονται σε κάθε record).
 - Σαρώθηκαν **1034 records** σε 7 συλλογές.
-- Εντοπίστηκαν **508 αναφορές/υποψήφιες αξιώσεις**, όχι 508 μετάλλια.
-- **221** ενδείξεις μεταλλίου, **123** ενδείξεις τίτλου και **164** θέσεις που απαιτούν επιβεβαίωση αν είναι μετάλλια.
+- Εντοπίστηκαν **494 αναφορές/υποψήφιες αξιώσεις**, όχι 508 μετάλλια.
+- **220** ενδείξεις μεταλλίου, **111** ενδείξεις τίτλου και **163** θέσεις που απαιτούν επιβεβαίωση αν είναι μετάλλια.
 - Όλες είναι `pending_human_verification`. Το `verified-achievements.json` παραμένει **κενό σκόπιμα**, μέχρι να επαληθευτούν και να συγχωνευθούν οι επαναλαμβανόμενες αναφορές.
 
 ## Αρχεία
@@ -16,6 +16,10 @@
 - `review-queue.md`: αναγνώσιμος κατάλογος υποψηφίων.
 - `verified-achievements.json`: κενός, αυστηρά μη δημοσιευμένος κατάλογος. Δεν περιλαμβάνει υποθέσεις.
 - `README.md`: σχήμα / κανόνες μεταγενέστερης επιμέλειας.
+
+## Προφανείς αποκλεισμοί κατά τον έλεγχο
+
+Αποκλείστηκαν 14 εύκολα αναγνωρίσιμες μη-διακρίσεις, όπως απλή αναφορά στη διοργάνωση **«Κύπελλο Κυπελλούχων»**, σαφές «δεν κατέκτησε μετάλλιο» ή προσωρινή βαθμολογική θέση. Τα υπόλοιπα αποτελέσματα παραμένουν αποκλειστικά **υποψήφια**, όχι τεκμηριωμένα μετάλλια.
 
 ## Σημαντικοί έλεγχοι πριν από approval
 1. **Μόνο αθλητικό μετάλλιο ή τίτλος**, όχι απλή συμμετοχή, έπαινος, επετειακό μετάλλιο, ρεκόρ, αθλητική άνοδος ή πρόκριση από μόνη της.
@@ -51,12 +55,12 @@
 Ο κανόνας είναι: **source mentions → ιδιωτικό review / dedupe → verified achievement ledger → (μελλοντικά) Τροπαιοθήκη**. Νέα φωτογραφία, μαρτυρία ή είδηση δημιουργεί υποψήφιες συσχετίσεις, όχι αυτόματη απονομή τίτλου. Η δημόσια Τροπαιοθήκη είναι ξεχωριστή μεταγενέστερη εκκρεμότητα.
 
 ### Κάλυψη / provenance
-- `hall-of-fame-people.json`, `people`: 773 records, 193 records με υποψήφιες αναφορές, 247 mentions, blob `5104be75a437ed0fb50da4ebd8fd4d99ec0a8412`
-- `rebuild/research/historical-events.json`, `events`: 19 records, 8 records με υποψήφιες αναφορές, 10 mentions, blob `4a3c2eecb365cfb51856ef9a33b70f975eebfa27`
-- `rebuild/data/moments.json`, `moments`: 70 records, 17 records με υποψήφιες αναφορές, 27 mentions, blob `42923d0f0f2f424f50784388c4b9188947888324`
-- `rebuild/data/stories.json`, `stories`: 21 records, 7 records με υποψήφιες αναφορές, 17 mentions, blob `2f6ed6e0134461761c89ef001ac4b32995e9d296`, 21 entries χωρίς canonical ID (η θέση τους κρατήθηκε ως locator, χωρίς να εφευρεθεί επίσημο ID)
-- `news.json`, `items`: 125 records, 75 records με υποψήφιες αναφορές, 159 mentions, blob `735c70daae8dff63150f4cfa0cc1bee5c0f92ce1`
-- `rebuild/data/museum.json`, `articles`: 16 records, 9 records με υποψήφιες αναφορές, 47 mentions, blob `f12a6226ac6e4fa0eb0d7aa60f227136d88f31f0`
+- `hall-of-fame-people.json`, `people`: 773 records, 192 records με υποψήφιες αναφορές, 245 mentions, blob `5104be75a437ed0fb50da4ebd8fd4d99ec0a8412`
+- `rebuild/research/historical-events.json`, `events`: 19 records, 4 records με υποψήφιες αναφορές, 6 mentions, blob `4a3c2eecb365cfb51856ef9a33b70f975eebfa27`
+- `rebuild/data/moments.json`, `moments`: 70 records, 17 records με υποψήφιες αναφορές, 25 mentions, blob `42923d0f0f2f424f50784388c4b9188947888324`
+- `rebuild/data/stories.json`, `stories`: 21 records, 7 records με υποψήφιες αναφορές, 17 mentions, blob `2f6ed6e0134461761c89ef001ac4b32995e9d296`, 21 εγγραφές χωρίς canonical ID
+- `news.json`, `items`: 125 records, 74 records με υποψήφιες αναφορές, 157 mentions, blob `735c70daae8dff63150f4cfa0cc1bee5c0f92ce1`
+- `rebuild/data/museum.json`, `articles`: 16 records, 9 records με υποψήφιες αναφορές, 43 mentions, blob `f12a6226ac6e4fa0eb0d7aa60f227136d88f31f0`
 - `rebuild/data/museum.json`, `press`: 10 records, 1 records με υποψήφιες αναφορές, 1 mentions, blob `f12a6226ac6e4fa0eb0d7aa60f227136d88f31f0`
 
 ### Όρια αυτοματισμού / accuracy
