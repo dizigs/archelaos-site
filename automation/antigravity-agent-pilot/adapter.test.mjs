@@ -11,7 +11,7 @@ const grant={source:'TRUSTED_BRAIN',chargeSource:'VERIFIED_OPERATOR_PREPAY',
 const reserveAttempt=async()=>({authorized:true,durablyCommitted:true,exactSha:sha,issue:268,id:'r1',maxEuro:4.9});
 const recordAttempt=async()=>({durablyCommitted:true});
 const recordRead=async()=>({durablyCommitted:true});
-const authorizedRead={source:'TRUSTED_BRAIN',interactionId:'int_abc123',durablyCommitted:true};
+const authorizedRead={source:'TRUSTED_BRAIN',interactionId:'v1_QW50aWdyYXZpdHktYmFja2dyb3VuZC10ZXN0',durablyCommitted:true};
 const steps=[{type:'model_output',content:[{type:'text',text:'Review HMAC / UNKNOWN carefully.'}]}];
 let outgoing=[];
 const fetchStart=async(url,opts)=>{
@@ -27,14 +27,14 @@ const fetchStart=async(url,opts)=>{
   assert.equal(body.agent_config.max_total_tokens,60000);
   assert.equal(body.environment.sources.length,1);
   assert.deepEqual(body.tools,[]);
-  return {status:200,json:async()=>({id:'int_abc123',status:'in_progress'})};
+  return {status:200,json:async()=>({id:'v1_QW50aWdyYXZpdHktYmFja2dyb3VuZC10ZXN0',status:'in_progress'})};
 };
 const startArgs=(extra={})=>({job,apiKey:'synthetic-value-123456',enabled:true,
   approvedGrant:grant,reserveAttempt,recordAttempt,fetchImpl:fetchStart,...extra});
-const pollArgs=(extra={})=>({interactionId:'int_abc123',apiKey:'synthetic-value-123456',
+const pollArgs=(extra={})=>({interactionId:'v1_QW50aWdyYXZpdHktYmFja2dyb3VuZC10ZXN0',apiKey:'synthetic-value-123456',
   authorizedRead,recordRead,fetchImpl:async(url,opts)=>{
-    assert.equal(url,ANTIGRAVITY_PILOT.endpoint+'/int_abc123');assert.equal(opts.method,'GET');
-    return {status:200,json:async()=>({id:'int_abc123',status:'completed',steps,usage:{total_tokens:85659}})};
+    assert.equal(url,ANTIGRAVITY_PILOT.endpoint+'/v1_QW50aWdyYXZpdHktYmFja2dyb3VuZC10ZXN0');assert.equal(opts.method,'GET');
+    return {status:200,json:async()=>({id:'v1_QW50aWdyYXZpdHktYmFja2dyb3VuZC10ZXN0',status:'completed',steps,usage:{total_tokens:85659}})};
   },...extra});
 test('DISABLED truly has zero egress',async()=>{let calls=0;const r=await runAntigravityReview({job,fetchImpl:async()=>{calls++}});assert.equal(r.status,'DISABLED');assert.equal(calls,0)});
 test('source scope, exact SHA and secret heuristic',()=>{
@@ -65,7 +65,7 @@ test('authorization must be durably committed and amount bounded',async()=>{
 });
 test('one POST only returns persisted background interaction id',async()=>{
   outgoing=[];const r=await runAntigravityReview(startArgs());
-  assert.equal(r.status,'IN_PROGRESS');assert.equal(r.interactionId,'int_abc123');
+  assert.equal(r.status,'IN_PROGRESS');assert.equal(r.interactionId,'v1_QW50aWdyYXZpdHktYmFja2dyb3VuZC10ZXN0');
   assert.equal(outgoing.length,1);
 });
 test('REST output uses steps, not SDK output_text',async()=>{
@@ -81,14 +81,14 @@ test('poll is GET-only and never starts new billable interaction',async()=>{
   let calls=0;
   const r=await pollAntigravityReview(pollArgs({
     fetchImpl:async(url,opts)=>{calls++;assert.equal(opts.method,'GET');
-      return {status:200,json:async()=>({id:'int_abc123',status:'in_progress'})};}
+      return {status:200,json:async()=>({id:'v1_QW50aWdyYXZpdHktYmFja2dyb3VuZC10ZXN0',status:'in_progress'})};}
   }));
   assert.equal(r.status,'IN_PROGRESS');assert.equal(calls,1);
 });
 test('malformed id or untrusted polling receipt denies egress',async()=>{
   for(const args of [
     {interactionId:'../malicious'},{authorizedRead:{...authorizedRead,durablyCommitted:false}},
-    {authorizedRead:{...authorizedRead,interactionId:'int_other'}}
+    {authorizedRead:{...authorizedRead,interactionId:'v1_QW50aWdyYXZpdHktb3RoZXItaW50ZXJhY3Rpb24'}}
   ]) {
     let calls=0;
     const r=await pollAntigravityReview(pollArgs({...args,fetchImpl:async()=>{calls++}}));
@@ -108,7 +108,7 @@ test('timeout, 500 and bad IDs never trigger another POST',async()=>{
 test('terminal states are not misreported as completed and receipts are mandatory',async()=>{
   for(const status of ['incomplete','failed','cancelled','requires_action']) {
     const r=await pollAntigravityReview(pollArgs({fetchImpl:async()=>({status:200,
-      json:async()=>({id:'int_abc123',status,steps})})}));
+      json:async()=>({id:'v1_QW50aWdyYXZpdHktYmFja2dyb3VuZC10ZXN0',status,steps})})}));
     assert.notEqual(r.status,'DRAFT_REVIEW_REQUIRED');
   }
   const r=await pollAntigravityReview(pollArgs({recordRead:async()=>{throw Error('db')}}));
