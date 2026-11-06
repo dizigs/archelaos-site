@@ -8,7 +8,7 @@ This is a dedicated Cloudflare Worker (`archelaos-gitlab-guardian`) with `GET /h
 - `GET https://gitlab.com/api/v4/projects/88488684/repository/branches/main`
 - `GET https://api.github.com/repos/dizigs/archelaos-site/commits/main`
 
-The audit compares exact SHA, mirror status/error and safety flags (CI trigger, divergent branch overwrites). It does **not** write GitLab issues, merge requests, branches, secrets, GitHub data, or Cloudflare Pages deployments. An occasional SHA mismatch may be normal while GitLab catches up and is classified as attention before becoming an alert after 120 minutes since the last successful mirror.
+The audit pins the configured mirror URL to the canonical GitHub repository (without exposing remote credentials), compares exact SHA, mirror status/error and safety flags (CI trigger, divergent branch overwrites), and refuses unverified branch filters. Missing success history or an unavailable upstream is **UNKNOWN**, never OK. It does **not** write GitLab issues, merge requests, branches, secrets, GitHub data, or Cloudflare Pages deployments. An occasional SHA mismatch may be normal while GitLab catches up and is classified as attention before becoming an alert after 120 minutes since the last successful mirror.
 
 ## Required secrets (never put in Git or chat)
 
@@ -38,6 +38,6 @@ npx wrangler deploy
 - GitLab provider tokens do not pass between the ChatGPT connector and Cloudflare automatically. A separately scoped Worker secret is necessary.
 - Track deployment/version/health evidence and blockers in the canonical project issue. The GitLab program is shown as `EDU` in the customer portal; do not assume that resolves nonprofit entitlement questions.
 
-## State, 2026-11-04
+## State, 2026-11-06
 
-10 local Node tests passed against the checked-in source. A live authenticated GitLab API call and unattended monitoring remain **blocked until a scoped token is installed**. The Worker is deliberately not configured with a cron, and no claim about website deployment follows from installing this worker.
+18 local Node tests passed against the exact checked-in source on Node.js 22. This includes source-URL impersonation, mirror branch filtering, missing success timestamp and provider outage regressions. A live authenticated GitLab API call and unattended monitoring remain **blocked until a scoped token is installed**. The Worker is deliberately not configured with a cron, and no claim about website deployment follows from installing this worker.
