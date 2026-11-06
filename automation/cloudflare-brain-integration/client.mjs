@@ -1,6 +1,6 @@
 // Opt-in, source-scoped connector for the EXISTING Brain staging Worker.
 // Integration library only: does not create or deploy a Worker.
-import { validateEvent, UUID } from '../../brain/src/contract.mjs';
+import { validateEvent, UUID, digest } from '../../brain/src/contract.mjs';
 
 const TARGET = 'https://brain.internal'; // Cloudflare service binding, never public fetch.
 const POLICY = Object.freeze({
@@ -14,6 +14,27 @@ const POLICY = Object.freeze({
   }
 });
 const HEX40 = /^[a-f0-9]{40}$/;
+const HEX64 = /^[a-f0-9]{64}$/;
+const RECEIPT_KEY_ID = 'brain-capability-receipts-v1';
+const SIGNED_AUDIENCES = Object.freeze({ delivery: 'source.receipt.ack.v1', readback: 'source.receipt.readback.v1' });
+async function verifySourceEnvelope(envelope, sourceType, audience, verificationKey, now) {
+  if (!envelope || typeof envelope !== 'object' || Array.isArray(envelope) ||
+      envelope.schemaVersion !== 1 || envelope.audience !== audience ||
+      envelope.principal !== sourceType + '-v1' || envelope.keyId !== RECEIPT_KEY_ID ||
+      !Number.isSafeInteger(envelope.issuedAtMs) ||
+      !Number.isFinite(now) || Math.abs(envelope.issuedAtMs - now) > 300000 ||
+      typeof envelope.receiptSignature !== 'string' || !HEX64.test(envelope.receiptSignature)) {
+    throw new IntegrationBlocked('RECEIPT_SIGNATURE_INVALID');
+  }
+  const { receiptSignature, ...signed } = envelope;
+  const bytes = Uint8Array.from(receiptSignature.match(/../g), pair => Number.parseInt(pair, 16));
+  const key = await crypto.subtle.importKey('raw', encode(verificationKey), { name: 'HMAC', hash: 'SHA-256' }, false, ['verify']);
+  const message = audience + '\n' + JSON.stringify(signed);
+  if (!await crypto.subtle.verify('HMAC', key, bytes, encode(message))) {
+    throw new IntegrationBlocked('RECEIPT_SIGNATURE_INVALID');
+  }
+  return signed;
+}
 const RECEIPT_STATES = new Set(['QUEUED', 'RUNNING', 'WAITING_REVIEW', 'DONE', 'RETRY_WAIT', 'DLQ', 'QUARANTINED']);
 const encode = value => new TextEncoder().encode(value);
 
@@ -54,7 +75,7 @@ async function withDeadline(operation, timeoutMs) {
   } finally { clearTimeout(timer); }
 }
 
-export function createBrainWorkerAdapter({ workerName, sourceType, brainService, intakeKey,
+export function createBrainWorkerAdapter({ workerName, sourceType, brainService, intakeKey, receiptVerificationKey,
   enabled = false, verifyProvenance, auditSink, expectedBrainCommit = null,
   clock = () => Date.now(), timeoutMs = 3000 }) {
   if (!Object.hasOwn(POLICY, workerName) || !Object.hasOwn(POLICY[workerName], sourceType))
@@ -64,10 +85,13 @@ export function createBrainWorkerAdapter({ workerName, sourceType, brainService,
 
   function ready() {
     if (enabled !== true) throw new IntegrationBlocked('INTEGRATION_DISABLED');
+    if (!HEX40.test(expectedBrainCommit || '')) throw new IntegrationBlocked('BRAIN_RELEASE_UNPINNED');
     if (!brainService || typeof brainService.fetch !== 'function')
       throw new IntegrationBlocked('SERVICE_BINDING_MISSING');
     if (typeof intakeKey !== 'string' || intakeKey.length < 43)
       throw new IntegrationBlocked('BRAIN_INTAKE_KEY_MISSING');
+    if (typeof receiptVerificationKey !== 'string' || receiptVerificationKey.length < 43)
+      throw new IntegrationBlocked('RECEIPT_VERIFICATION_KEY_MISSING');
     if (typeof verifyProvenance !== 'function') throw new IntegrationBlocked('PROVENANCE_VERIFIER_MISSING');
     if (typeof auditSink !== 'function') throw new IntegrationBlocked('AUDIT_SINK_MISSING');
   }
@@ -78,7 +102,7 @@ export function createBrainWorkerAdapter({ workerName, sourceType, brainService,
     const signature = await crypto.subtle.sign('HMAC', key, encode(`${method}\n${path}\n${ts}\n${raw}`));
     const hex = [...new Uint8Array(signature)].map(b => b.toString(16).padStart(2, '0')).join('');
     return new Request(TARGET + path, { method, headers: {
-      'x-archelaos-key-id': 'staging-v1', 'x-archelaos-timestamp': ts,
+      'x-archelaos-key-id': sourceType + '-v1', 'x-archelaos-timestamp': ts,
       'x-archelaos-signature': hex, ...(method === 'POST' ? { 'content-type': 'application/json' } : {})
     }, ...(method === 'POST' ? { body: raw } : {}) });
   }
@@ -105,6 +129,8 @@ export function createBrainWorkerAdapter({ workerName, sourceType, brainService,
       throw new IntegrationBlocked('PROVENANCE_UNVERIFIED');
     const raw = JSON.stringify(event);
     if (encode(raw).byteLength > 4096) throw new IntegrationBlocked('BODY_TOO_LARGE');
+    const health = await probeHealth();
+    if (health.reachable !== true) throw new IntegrationBlocked('BRAIN_RELEASE_UNVERIFIED');
     let response;
     try { response = await invoke('POST', '/v1/events', raw); }
     catch (error) {
@@ -126,7 +152,19 @@ export function createBrainWorkerAdapter({ workerName, sourceType, brainService,
         eventId: event.eventId, result: 'UNKNOWN', code: 'RECEIPT_UNVERIFIED' });
       throw new IntegrationBlocked('RECEIPT_UNVERIFIED');
     }
+    try { receipt = await verifySourceEnvelope(receipt, sourceType, SIGNED_AUDIENCES.delivery, receiptVerificationKey, clock()); }
+    catch {
+      await audit({ kind: 'delivery', correlationId: event.correlationId,
+        eventId: event.eventId, result: 'UNKNOWN', code: 'RECEIPT_SIGNATURE_INVALID' });
+      throw new IntegrationBlocked('RECEIPT_SIGNATURE_INVALID');
+    }
+    // #234 commits this immutable content-identity digest in the canonical DO.
+    // A valid MAC alone must not authorize an ACK for a different source blob.
+    const kind = event.eventType.startsWith('source.file.') ? 'source.file' : event.eventType;
+    const dedupeKey = await digest('blob|' + event.sourceType + '|' + event.sourceId + '|' +
+      kind + '|' + event.payload.blobSha256);
     if (!receipt || !UUID.test(receipt.receiptId || '') ||
+      receipt.dedupeKey !== dedupeKey ||
       receipt.correlationId !== event.correlationId || receipt.eventId !== event.eventId ||
       receipt.durable !== true || receipt.duplicate !== (response.status === 200) ||
       !RECEIPT_STATES.has(receipt.status)) {
@@ -135,29 +173,55 @@ export function createBrainWorkerAdapter({ workerName, sourceType, brainService,
       throw new IntegrationBlocked('RECEIPT_UNVERIFIED');
     }
     await audit({ kind: 'delivery', correlationId: event.correlationId,
-      eventId: event.eventId, receiptId: receipt.receiptId,
+      eventId: event.eventId, receiptId: receipt.receiptId, dedupeKey,
       result: 'PERSISTED', duplicate: receipt.duplicate });
     return { receiptId: receipt.receiptId, correlationId: receipt.correlationId,
-      eventId: receipt.eventId, status: receipt.status, duplicate: receipt.duplicate, durable: true };
+      eventId: receipt.eventId, dedupeKey, status: receipt.status, duplicate: receipt.duplicate, durable: true };
   }
-  async function readReceipt(receiptId, expectedCorrelationId) {
+  async function readReceipt(receiptId, expectedCorrelationId, expectedEventId = null, expectedDedupeKey = null) {
     ready(); requireUuid(receiptId); requireUuid(expectedCorrelationId, 'INVALID_CORRELATION_ID');
+    if (expectedEventId !== null) requireUuid(expectedEventId, 'INVALID_EVENT_ID');
+    if (expectedDedupeKey !== null && (typeof expectedDedupeKey !== 'string' ||
+      !HEX64.test(expectedDedupeKey))) throw new IntegrationBlocked('INVALID_DEDUPE_KEY');
+    const health = await probeHealth();
+    if (health.reachable !== true) throw new IntegrationBlocked('BRAIN_RELEASE_UNVERIFIED');
+    const unknown = async code => {
+      await audit({ kind: 'readback', receiptId, correlationId: expectedCorrelationId,
+        result: 'UNKNOWN', code });
+      throw new IntegrationBlocked(code);
+    };
     let response;
-    try { response = await invoke('GET', `/v1/tasks/${receiptId}`, ''); }
-    catch { throw new IntegrationBlocked('READBACK_UNAVAILABLE'); }
-    if (response.status !== 200) throw new IntegrationBlocked('READBACK_REJECTED');
-    const data = await limitedJson(response);
-    if (!data || data.receiptId !== receiptId || !UUID.test(data.correlationId || '') ||
+    try { response = await invoke('GET', `/v1/source-receipts/${receiptId}`, ''); }
+    catch { return unknown('READBACK_UNAVAILABLE'); }
+    if (response.status !== 200) return unknown('READBACK_REJECTED');
+    let data;
+    try {
+      data = await verifySourceEnvelope(await limitedJson(response), sourceType,
+        SIGNED_AUDIENCES.readback, receiptVerificationKey, clock());
+    } catch { return unknown('READBACK_UNVERIFIED'); }
+    // #234 source readback derives immutable eventId/dedupeKey/source from DO SQLite,
+    // verifies blob index consistency and signs those fields. Never accept older
+    // receipt-only readback as independently authenticated immutable provenance.
+    if (!data || data.durable !== true || data.receiptId !== receiptId ||
+      data.source !== sourceType || !UUID.test(data.eventId || '') ||
+      typeof data.dedupeKey !== 'string' || !HEX64.test(data.dedupeKey) ||
+      (expectedEventId !== null && data.eventId !== expectedEventId) ||
+      (expectedDedupeKey !== null && data.dedupeKey !== expectedDedupeKey) ||
+      !UUID.test(data.correlationId || '') ||
       !Number.isSafeInteger(data.attempts) || data.attempts < 0 ||
       !RECEIPT_STATES.has(data.status) ||
       data.correlationId !== expectedCorrelationId)
-      throw new IntegrationBlocked('READBACK_UNVERIFIED');
+      return unknown('READBACK_UNVERIFIED');
     await audit({ kind: 'readback', receiptId, correlationId: data.correlationId,
+      eventId: data.eventId, dedupeKey: data.dedupeKey, sourceType,
       result: 'VERIFIED', status: data.status });
-    return { receiptId, correlationId: data.correlationId, status: data.status,
+    return { receiptId, correlationId: data.correlationId, eventId: data.eventId,
+      dedupeKey: data.dedupeKey, sourceType, status: data.status,
       attempts: data.attempts, code: typeof data.code === 'string' ? data.code : 'UNKNOWN' };
   }
   async function probeHealth() {
+    if (!HEX40.test(expectedBrainCommit || ''))
+      return { reachable: false, code: 'BRAIN_RELEASE_UNPINNED', ready: false };
     if (!brainService || typeof brainService.fetch !== 'function')
       return { reachable: false, code: 'SERVICE_BINDING_MISSING', ready: false };
     try {
@@ -166,7 +230,7 @@ export function createBrainWorkerAdapter({ workerName, sourceType, brainService,
       const body = await limitedJson(response);
       if (body?.service !== 'archelaos-brain' || body.environment !== 'staging' ||
         !HEX40.test(body.commit || '') || body.aiExecutionEnabled !== false ||
-        (expectedBrainCommit !== null && body.commit !== expectedBrainCommit))
+        body.commit !== expectedBrainCommit)
         return { reachable: false, code: 'HEALTH_IDENTITY_MISMATCH', ready: false };
       return { reachable: true, code: 'STAGING_HEALTH_ONLY', ready: false, commit: body.commit };
     } catch { return { reachable: false, code: 'HEALTH_UNAVAILABLE', ready: false }; }
