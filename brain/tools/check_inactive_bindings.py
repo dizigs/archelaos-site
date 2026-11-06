@@ -37,6 +37,15 @@ def check_configs(configs):
             errors.append("RUNTIME_DATE_CHANGED")
         if c.get("workers_dev") is not False or c.get("preview_urls") is not False:
             errors.append("PUBLIC_EXPOSURE_ENABLED")
+        approved = {"name", "main", "compatibility_date", "workers_dev",
+                    "preview_urls", "services", "durable_objects", "migrations",
+                    "observability"}
+        if i == 0:
+            approved |= {"limits", "vars", "ai"}
+        if set(c) - approved:
+            # Reject unreviewed KV/R2/D1/queue bindings, including names that
+            # could shadow a metadata-only live secret.
+            errors.append("UNREVIEWED_BINDING_OR_OVERRIDE")
         if any(key in c for key in ("routes", "route", "triggers", "env", "unsafe")):
             errors.append("UNREVIEWED_EXPOSURE_OR_OVERRIDE")
         if c.get("services") != [LINKS[i]]:
@@ -81,7 +90,10 @@ def assess(configs, inventory=None, now=None):
     errors = check_configs(configs)
     result = {"scope": "OFFLINE_INACTIVE_CONFIG_AND_BINDING_PRESERVATION",
               "configuration": "BLOCKED" if errors else "PASS",
-              "bindingPreservation": "NOT_VERIFIED", "uploadAuthorized": False,
+              "bindingPreservation": "NOT_VERIFIED",
+              "offlineBindingComparison": "NOT_VERIFIED",
+              "inventoryCompleteness": "NOT_VERIFIED",
+              "uploadAuthorized": False,
               "liveConnectivityVerified": False, "blockers": errors}
     if errors:
         return result
@@ -152,8 +164,13 @@ def assess(configs, inventory=None, now=None):
                     if (b["name"] not in (*FLAGS, "DEPLOY_SHA") and
                             b.get("text") != expected["text"]):
                         errors.append("LIVE_VARIABLE_VALUE_CONFLICT")
+    # A self-supplied inventory can be filtered down to DO/AI baseline. It
+    # cannot establish independent authenticated provider completeness.
+    result["offlineBindingComparison"] = "BLOCKED" if errors else "PASS"
+    result["bindingPreservation"] = "BLOCKED" if errors else "NOT_VERIFIED"
+    if not errors:
+        errors.append("AUTHENTICATED_COMPLETE_PROVIDER_INVENTORY_REQUIRED")
     result["blockers"] = sorted(set(errors))
-    result["bindingPreservation"] = "BLOCKED" if errors else "PASS"
     return result
 
 
