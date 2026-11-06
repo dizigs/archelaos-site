@@ -85,6 +85,7 @@ export function createBrainWorkerAdapter({ workerName, sourceType, brainService,
 
   function ready() {
     if (enabled !== true) throw new IntegrationBlocked('INTEGRATION_DISABLED');
+    if (!HEX40.test(expectedBrainCommit || '')) throw new IntegrationBlocked('BRAIN_RELEASE_UNPINNED');
     if (!brainService || typeof brainService.fetch !== 'function')
       throw new IntegrationBlocked('SERVICE_BINDING_MISSING');
     if (typeof intakeKey !== 'string' || intakeKey.length < 43)
@@ -128,6 +129,8 @@ export function createBrainWorkerAdapter({ workerName, sourceType, brainService,
       throw new IntegrationBlocked('PROVENANCE_UNVERIFIED');
     const raw = JSON.stringify(event);
     if (encode(raw).byteLength > 4096) throw new IntegrationBlocked('BODY_TOO_LARGE');
+    const health = await probeHealth();
+    if (health.reachable !== true) throw new IntegrationBlocked('BRAIN_RELEASE_UNVERIFIED');
     let response;
     try { response = await invoke('POST', '/v1/events', raw); }
     catch (error) {
@@ -177,26 +180,35 @@ export function createBrainWorkerAdapter({ workerName, sourceType, brainService,
   }
   async function readReceipt(receiptId, expectedCorrelationId) {
     ready(); requireUuid(receiptId); requireUuid(expectedCorrelationId, 'INVALID_CORRELATION_ID');
+    const health = await probeHealth();
+    if (health.reachable !== true) throw new IntegrationBlocked('BRAIN_RELEASE_UNVERIFIED');
+    const unknown = async code => {
+      await audit({ kind: 'readback', receiptId, correlationId: expectedCorrelationId,
+        result: 'UNKNOWN', code });
+      throw new IntegrationBlocked(code);
+    };
     let response;
     try { response = await invoke('GET', `/v1/source-receipts/${receiptId}`, ''); }
-    catch { throw new IntegrationBlocked('READBACK_UNAVAILABLE'); }
-    if (response.status !== 200) throw new IntegrationBlocked('READBACK_REJECTED');
+    catch { return unknown('READBACK_UNAVAILABLE'); }
+    if (response.status !== 200) return unknown('READBACK_REJECTED');
     let data;
     try {
       data = await verifySourceEnvelope(await limitedJson(response), sourceType,
         SIGNED_AUDIENCES.readback, receiptVerificationKey, clock());
-    } catch { throw new IntegrationBlocked('READBACK_UNVERIFIED'); }
+    } catch { return unknown('READBACK_UNVERIFIED'); }
     if (!data || data.durable !== true || data.receiptId !== receiptId || !UUID.test(data.correlationId || '') ||
       !Number.isSafeInteger(data.attempts) || data.attempts < 0 ||
       !RECEIPT_STATES.has(data.status) ||
       data.correlationId !== expectedCorrelationId)
-      throw new IntegrationBlocked('READBACK_UNVERIFIED');
+      return unknown('READBACK_UNVERIFIED');
     await audit({ kind: 'readback', receiptId, correlationId: data.correlationId,
       result: 'VERIFIED', status: data.status });
     return { receiptId, correlationId: data.correlationId, status: data.status,
       attempts: data.attempts, code: typeof data.code === 'string' ? data.code : 'UNKNOWN' };
   }
   async function probeHealth() {
+    if (!HEX40.test(expectedBrainCommit || ''))
+      return { reachable: false, code: 'BRAIN_RELEASE_UNPINNED', ready: false };
     if (!brainService || typeof brainService.fetch !== 'function')
       return { reachable: false, code: 'SERVICE_BINDING_MISSING', ready: false };
     try {
@@ -205,7 +217,7 @@ export function createBrainWorkerAdapter({ workerName, sourceType, brainService,
       const body = await limitedJson(response);
       if (body?.service !== 'archelaos-brain' || body.environment !== 'staging' ||
         !HEX40.test(body.commit || '') || body.aiExecutionEnabled !== false ||
-        (expectedBrainCommit !== null && body.commit !== expectedBrainCommit))
+        body.commit !== expectedBrainCommit)
         return { reachable: false, code: 'HEALTH_IDENTITY_MISMATCH', ready: false };
       return { reachable: true, code: 'STAGING_HEALTH_ONLY', ready: false, commit: body.commit };
     } catch { return { reachable: false, code: 'HEALTH_UNAVAILABLE', ready: false }; }
