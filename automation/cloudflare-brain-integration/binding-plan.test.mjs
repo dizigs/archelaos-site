@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { assessBinding } from './binding-plan.mjs';
 const SHA = 'a'.repeat(40);
 const base = () => ({
-  caller: 'archelaos-automation-bridge', selectedSource: 'drive', callerBindings: [],
+  caller: 'archelaos-automation-bridge', selectedSource: 'drive', callerBindings: [{type:'secret_text',name:'BRAIN_DRIVE_INTAKE_KEY'},{type:'secret_text',name:'BRAIN_CAPABILITY_RECEIPT_KEY'}],
   brainBindings: [{ type: 'durable_object_namespace', name: 'BRAIN', class_name: 'BrainCoordinator' }, {type:'secret_text', name:'BRAIN_DRIVE_INTAKE_KEY'}, {type:'secret_text', name:'BRAIN_CAPABILITY_RECEIPT_KEY'}],
   deployedBrainSha: SHA, approvedBrainSha: SHA,
   stagingExpiresAt: '2026-11-05T12:30:00Z', now: Date.parse('2026-11-05T12:00:00Z'),
@@ -41,7 +41,7 @@ test('no inventory, durable object or approvals means blocked', () => {
   for(const reason of ['INVENTORY_MISSING','CANONICAL_DO_MISSING','SOURCE_INTAKE_SECRET_ABSENT','SOURCE_IDENTITY_CONTRACT_UNAPPROVED','SOURCE_PROVENANCE_UNVERIFIED','DURABLE_AUDIT_UNVERIFIED','EXPLICIT_OWNER_APPROVAL_MISSING']) assert.ok(result.blockers.includes(reason));
 });
 test('already present exact native binding is merely observed, never CONNECTED',()=>{
-  const result=assessBinding({...base(),callerBindings:[{type:'service',name:'BRAIN_PRIVATE',service:'archelaos-brain-staging'}]});
+  const result=assessBinding({...base(),callerBindings:[...base().callerBindings,{type:'service',name:'BRAIN_PRIVATE',service:'archelaos-brain-staging'}]});
   assert.equal(result.status,'READY_FOR_OWNER_REVIEW');
   assert.equal(result.bindingObserved,true);
   assert.equal(Object.hasOwn(result,'connected'),false);
@@ -97,4 +97,17 @@ test('per-caller requested source must be explicit and allowlisted',()=>{
   assert.ok(assessBinding({...base(),selectedSource:'github'}).blockers.includes('SOURCE_NOT_APPROVED'));
   assert.ok(assessBinding({...base(),selectedSource:null}).blockers.includes('SOURCE_NOT_APPROVED'));
   assert.equal(assessBinding(base()).selectedSource,'drive');
+});
+
+test('source-side HMAC and receipt verifier secrets are both mandatory',()=>{
+  const insufficient=assessBinding({...base(),callerBindings:[]});
+  assert.ok(insufficient.blockers.includes('CALLER_SOURCE_KEY_ABSENT'));
+  assert.ok(insufficient.blockers.includes('CALLER_RECEIPT_VERIFIER_KEY_ABSENT'));
+  assert.equal(insufficient.status,'BLOCKED');
+  const forged=assessBinding({...base(),callerBindings:[
+    {type:'plain_text',name:'BRAIN_DRIVE_INTAKE_KEY'},
+    {type:'kv_namespace',name:'BRAIN_CAPABILITY_RECEIPT_KEY'}]});
+  assert.ok(forged.blockers.includes('CALLER_SOURCE_KEY_ABSENT'));
+  assert.ok(forged.blockers.includes('CALLER_RECEIPT_VERIFIER_KEY_ABSENT'));
+  assert.equal(forged.status,'BLOCKED');
 });
