@@ -30,6 +30,9 @@ function fixture() {
     sameSealedHmacVerified:true,aiDisabledVerified:true,
     repairWritesDisabledVerified:true,rollbackProved:true,
     brainPublicRoutes:0,healerPublicRoutes:0,
+    brainWorkerDomains:0,healerWorkerDomains:0,
+    brainWorkersDevEnabled:false,healerWorkersDevEnabled:false,
+    brainPreviewUrlsEnabled:false,healerPreviewUrlsEnabled:false,
     brainCronTriggers:0,healerCronTriggers:0
   };
 }
@@ -101,4 +104,26 @@ test('no inventory/unknown values fail closed; input objects are not mutated',()
   assert.equal(assessSelfHealStagingBindings({}).status,'BLOCKED');
   assert.equal(assessSelfHealStagingBindings(f).status,'READY_FOR_STAGING_REVIEW');
   assert.equal(JSON.stringify(f),snapshot);
+});
+
+test('public workers.dev, preview URLs, custom domains or unknown exposure never pass review', () => {
+  for (const name of [
+    'brainWorkersDevEnabled','healerWorkersDevEnabled',
+    'brainPreviewUrlsEnabled','healerPreviewUrlsEnabled'
+  ]) {
+    for (const value of [true, undefined, null]) {
+      const f=fixture(); f[name]=value;
+      const result=assessSelfHealStagingBindings(f);
+      assert.equal(result.status,'BLOCKED',name+'='+value);
+      assert.ok(result.blockers.includes('PRIVATE_SUBDOMAIN_AND_PREVIEW_READBACK_UNVERIFIED'));
+    }
+  }
+  for (const name of ['brainWorkerDomains','healerWorkerDomains']) {
+    for (const value of [1, undefined, null]) {
+      const f=fixture(); f[name]=value;
+      const result=assessSelfHealStagingBindings(f);
+      assert.equal(result.status,'BLOCKED',name+'='+value);
+      assert.ok(result.blockers.includes('PRIVATE_ONLY_NO_SCHEDULE_INVENTORY_UNVERIFIED'));
+    }
+  }
 });
