@@ -12,6 +12,14 @@ ENVIRONMENT = "staging"
 DEPLOY_SHA = "0000000000000000000000000000000000000000"
 STAGING_EXPIRES_AT = "1970-01-01T00:00:00Z"
 STAGING_SHORT_RETRIES = "true"
+# Approved public identity only. Never store BRAIN_GITHUB_APP_PRIVATE_KEY here.
+BRAIN_GITHUB_APP_ID = "5641216"
+BRAIN_GITHUB_APP_INSTALLATION_ID = "179225349"
+
+# Preserve the AI binding already on the existing Cloudflare Worker.
+# The binding does not authorize usage: all AI / recovery policy gates remain OFF.
+[ai]
+binding = "AI"
 
 [[durable_objects.bindings]]
 name = "BRAIN"
