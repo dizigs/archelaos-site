@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { readFile, mkdtemp, rm } from 'node:fs/promises';
+import { readFile, mkdtemp, rm, writeFile, unlink } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { Miniflare } from 'miniflare';
@@ -162,22 +162,53 @@ test('real named Worker RPC cannot leak canonical DO or bypass expired staging w
 });
 
 
+
 test('durable SQLite tables and canary rows survive rejected named RPC, replay and restart', async () => {
   const directory = await mkdtemp(join(tmpdir(), 'brain-rpc-sqlite-invariance-'));
+  const scriptPath = resolve('src', '.rpc-sqlite-fixture-' + process.pid + '-' + Date.now() + '.mjs');
   let outboundCalls = 0;
+  // This is an instrumentation of a TEMPORARY COPY, not a production method.
+  // It adds readback exclusively to the local test DO. The real RPC port and
+  // production source are unchanged, and the copied module retains imports.
+  const source = await readFile(resolve('src/worker.mjs'), 'utf8');
+  const marker = 'export class BrainCoordinator extends DurableObject {';
+  assert.equal(source.split(marker).length, 2);
+  const temporaryMethods = [
+    '  async __testSqlCanarySeed() {',
+    "    this.sql.exec('INSERT INTO controls(name,value) VALUES(?,?)', 'source:rpc_sqlite_canary', 1);",
+    "    this.sql.exec('INSERT INTO task_intents(id,payload,created,expires) VALUES(?,?,?,?)',",
+    '      \'rpc_sqlite_canary\', \'{"synthetic":true}\', 1700000000000, 1800000000000);',
+    '    return true;',
+    '  }',
+    '  async __testSqlSnapshot() {',
+    '    const names = [...this.sql.exec(',
+    '      "SELECT name FROM sqlite_master WHERE type=\'table\' AND name NOT LIKE \'sqlite_%\' ORDER BY name"',
+    '    )].map(row => row.name);',
+    '    return names.map(name => {',
+    '      if (!/^[A-Za-z_][A-Za-z0-9_]*$/.test(name)) throw new Error("UNEXPECTED_TABLE_NAME");',
+    '      const rows = [...this.sql.exec(\'SELECT * FROM "\' + name + \'"\')]',
+    '        .map(row => JSON.stringify(row, (_key, value) =>',
+    '          typeof value === "bigint" ? value.toString() : value)).sort();',
+    '      return [name, rows];',
+    '    });',
+    '  }',
+    '  async __testSqlAlarm() { return await this.ctx.storage.getAlarm(); }'
+  ].join('\n');
+  await writeFile(scriptPath, source.replace(marker, marker + '\n' + temporaryMethods + '\n'));
+
   const build = () => new Miniflare({
     workers: [
       {
         name: 'brain-rpc-boundary-test',
         modules: true,
-        scriptPath: resolve('src/worker.mjs'),
+        scriptPath,
         compatibilityDate: '2026-07-30',
         durableObjects: { BRAIN: { className: 'BrainCoordinator', useSQLite: true } },
         bindings: {
           ENVIRONMENT: 'staging',
           DEPLOY_SHA: 'a'.repeat(40),
           STAGING_EXPIRES_AT: '1970-01-01T00:00:00Z'
-          // No approval, provider credentials, private HMAC or receipt secrets.
+          // Deliberately no approval, GitHub App key or HMAC secrets.
         }
       },
       {
@@ -196,47 +227,29 @@ test('durable SQLite tables and canary rows survive rejected named RPC, replay a
     durableObjectsPersist: directory,
     outboundService: async () => {
       outboundCalls++;
-      return new Response('external access prohibited', { status: 503 });
+      return new Response('no external egress', { status: 503 });
     }
   });
 
-  const openStorage = async mf => {
-    const namespace = await mf.getDurableObjectNamespace('BRAIN', 'brain-rpc-boundary-test');
-    const id = namespace.idFromName('central-v1');
-    // Construct the real DO, ensuring its schema and controls have initialized.
-    const response = await namespace.get(id).fetch('https://brain.internal/internal/control');
+  const getStub = async mf => {
+    const ns = await mf.getDurableObjectNamespace('BRAIN', 'brain-rpc-boundary-test');
+    const stub = ns.get(ns.idFromName('central-v1'));
+    const response = await stub.fetch('https://brain.internal/internal/control');
     assert.equal(response.status, 200);
-    return await mf.getDurableObjectStorage(id);
+    return stub;
   };
 
-  const snapshot = storage => {
-    const names = [...storage.sql.exec(
-      "SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' ORDER BY name"
-    )].map(row => row.name);
-    assert.ok(names.includes('controls'));
-    assert.ok(names.includes('task_intents'));
-    return names.map(name => {
-      // Table names only come from sqlite_master; disallow quoted identifiers.
-      assert.match(name, /^[A-Za-z_][A-Za-z0-9_]*$/);
-      const rows = [...storage.sql.exec('SELECT * FROM "' + name + '"')]
-        .map(row => JSON.stringify(row, (_key, value) =>
-          typeof value === 'bigint' ? value.toString() : value)).sort();
-      return [name, rows];
-    });
-  };
-
-  let mf = build();
+  let mf;
   try {
-    const storage = await openStorage(mf);
-    // Synthetic durable records make the assertion stronger than counting
-    // empty tables. Neither record belongs to any live account or receipt.
-    storage.sql.exec('INSERT INTO controls(name,value) VALUES(?,?)',
-      'source:rpc_sqlite_canary', 1);
-    storage.sql.exec('INSERT INTO task_intents(id,payload,created,expires) VALUES(?,?,?,?)',
-      'rpc_sqlite_canary', '{"synthetic":true}', 1700000000000, 1800000000000);
-    await storage.sync();
-    const before = snapshot(storage);
-    const alarmBefore = await storage.getAlarm();
+    mf = build();
+    const stub = await getStub(mf);
+    assert.equal(await stub.__testSqlCanarySeed(), true);
+    const before = await stub.__testSqlSnapshot();
+    assert.ok(before.some(([table, rows]) =>
+      table === 'controls' && rows.some(row => row.includes('rpc_sqlite_canary'))));
+    assert.ok(before.some(([table, rows]) =>
+      table === 'task_intents' && rows.some(row => row.includes('rpc_sqlite_canary'))));
+    const alarmBefore = await stub.__testSqlAlarm();
 
     const caller = await mf.getWorker('untrusted-recovery-caller');
     for (let attempt = 0; attempt < 2; attempt++) {
@@ -250,22 +263,23 @@ test('durable SQLite tables and canary rows survive rejected named RPC, replay a
         leakedControlReadable: false,
         forgedEvidenceAccepted: false
       });
-      assert.deepEqual(snapshot(storage), before, 'rejected RPC changed SQLite');
-      assert.equal(await storage.getAlarm(), alarmBefore, 'rejected RPC set an alarm');
+      assert.deepEqual(await stub.__testSqlSnapshot(), before,
+        'denied named RPC modified durable SQL state');
+      assert.equal(await stub.__testSqlAlarm(), alarmBefore);
     }
     assert.equal(outboundCalls, 0);
     await mf.dispose();
     mf = null;
 
-    // A fresh workerd instance must read exactly the same persisted SQLite
-    // rows and tables; no deferred mutation may materialize after restart.
     mf = build();
-    const restarted = await openStorage(mf);
-    assert.deepEqual(snapshot(restarted), before, 'SQLite mutated across restart');
-    assert.equal(await restarted.getAlarm(), alarmBefore);
+    const restartedStub = await getStub(mf);
+    assert.deepEqual(await restartedStub.__testSqlSnapshot(), before,
+      'durable SQL tables or rows changed after workerd restart');
+    assert.equal(await restartedStub.__testSqlAlarm(), alarmBefore);
     assert.equal(outboundCalls, 0);
   } finally {
     if (mf) await mf.dispose();
+    await unlink(scriptPath);
     await rm(directory, { recursive: true, force: true });
   }
 });
