@@ -112,3 +112,56 @@ This is a **later readback than sections 1–7 above**. The latest checked `main
 - [ ] Operator: expire staging again, revert only approved temporary bindings/secrets/flags through each owner, verify final routes/crons, versions, audit and cost status. Stop on mismatch, unknown write or unapproved cost.
 
 **Live E2E = NOT EXECUTED.** **Code-only readiness = offline tests PASS, but dependent interfaces, source owner wiring, final quality gates and operator approval remain.** **Final decision: BLOCKED / NO-GO for actual staging and production.**
+
+
+## FINAL RELEASE CAPTAIN HANDOFF — main sync, new #234 readback, and operator-approval order (2026-11-06)
+
+This section is newer than the earlier GitHub source snapshots in this document and supersedes them. **DO NOT interpret the offline PASS as live Cloudflare activation approval.**
+
+### Non-destructive synchronization actually applied
+
+- PR #233 originally at `a51a264a76c71b004fa6d950e056c643bc4c59a7` was behind newer `main=c14d64143e46a18ce3268ad25e34f290c3012a10`.
+- Before syncing, GitHub recursive tree comparisons confirmed that **all five original main-owned paths in `automation/cloudflare-brain-integration/**` were unchanged since the prior common base**, and that exactly ten PR changed files belonged inside this ownership. Main and PR changes had no conflicting paths.
+- A merge Git tree was assembled from the **exact main tree** plus the ten existing PR-owned file blobs. Byte-by-byte Git blob SHA comparison of **all 2207 merged files** found **zero violations**: outside this ownership the contents match main; within it, the files match the existing #233 branch.
+- A real merge commit `4a3542af7588ac24c19e39f9ba1d7e9bbdb58c80` was created with parents [old #233 HEAD, `c14d641...`], and the existing branch was advanced using non-force `update_ref` with an exact expected-head lease. No force-push, alternate PR or manual overwrite occurred. GitHub compare confirmed branch **ahead, zero behind**, against the pinned main `c14d641...`.
+- Future main changes require fresh comparison and Release Captain coordination, not repeated force/silent overwrites.
+
+### Newest canonical Brain #234 contract
+
+At last verification, Brain owner PR #234 is **DRAFT**, HEAD `e705b8823f45ee0ed8019740c3445e0143aec4de`, based on `c14d641...`. It preserves source HMAC keys `drive-v1/gmail-v1/news-v1` and signatures `source.receipt.ack.v1` and `source.receipt.readback.v1`. Importantly, the newest Brain worker now verifies its DO SQLite `jobs.envelope`, source identity and `event_keys` blob index **before signing a source readback**. It returns immutable, derived fields:
+
+```json
+{
+  "receiptId": "<UUID>",
+  "correlationId": "<UUID>",
+  "eventId": "<UUID>",
+  "dedupeKey": "<SHA-256 hex>",
+  "source": "drive",
+  "status": "QUEUED",
+  "attempts": 0,
+  "route": "SOURCE_REVIEW",
+  "code": "ACCEPTED",
+  "durable": true
+}
+```
+
+The actual signed reply also contains `schemaVersion`, `audience`, `principal`, `keyId`, `issuedAtMs`, and `receiptSignature`. The object above is illustrative **schema only**, not a real receipt. The latest #233 adapter code now rejects readback without `eventId`, canonical 64-hex `dedupeKey`, or `source` matching the HMAC identity, and optionally enforces explicit expected event/dedupe identifiers from the original signed ACK. It never silently downgrades to the legacy receipt-only route.
+
+This is **source evidence from an unmerged #234 draft**, not an installed Brain version. #234 also remains unapproved for staging release.
+
+### Staging-only operator activation sequence — exact change owners
+
+| Gate | Required readback/action | Authorized approver | Status |
+|---|---|---|---|
+| 0. Code gate | Complete exact HEAD CI, CodeQL, SonarCloud, security, review threads and approved Brain #234 release SHA | Release Captain and Brain owner | PENDING independently verified final HEAD |
+| 1. Snapshot | Freeze Cloudflare version/deployment/secret metadata for Brain + one approved source, DO namespace, bindings, routes, crons, previous flags/expiry | Release Captain/operator | PREPARED ON PAPER |
+| 2. Canonical Brain deployment | Explicit permission to deploy **existing** `archelaos-brain-staging` from approved merged SHA, preserving one `BrainCoordinator` DO and SQLite schema, no new D1/ledger | Brain owner + operator | NOT APPROVED |
+| 3. Scoped secrets | For one source `drive`/ `gmail`/ `news`, arrange matching `BRAIN_<SOURCE>_INTAKE_KEY` secret on Brain + source caller, `BRAIN_CAPABILITY_RECEIPT_KEY` signing on Brain + trusted verifier on caller, never disclose values | Operator and affected source owner | NOT APPROVED; absent in live metadata |
+| 4. Native private binding | Add *only* `{"type":"service","name":"BRAIN_PRIVATE","service":"archelaos-brain-staging"}` to existing `archelaos-automation-bridge` or `archelaos-librarian-staging`; preserve every existing DO/KV/secrets/flags | Source Worker owner + operator | NOT APPROVED; actual bindings 0 |
+| 5. Restricted staging enablement | Confirm target workers.dev disabled, public routes absent, exact deployed SHA provenance, time-bound `STAGING_EXPIRES_AT` ≤60 minutes; only then independently approve `BRAIN_PRIVATE_EVENT_SOURCES_ENABLED` / `BRAIN_PRIVATE_SERVICE_BINDINGS_VERIFIED` and source adapter opt-in | Brain + Security + operator | NOT APPROVED |
+| 6. Real private E2E | Private source binding health (exact SHA/AI OFF) → approved genuine-source fixture → HMAC 202 ACK + immutable dedupe/event IDs → source-scoped signed readback verifying DO SQLite index → same-ID 200 duplicate and actual DO restart → reject forged source/audience/timestamp/replay, timeout/UNKNOWN and kill switches | Source owner + operator + independent acceptance | NOT TESTED |
+| 7. Rollback & readback | Expire staging, turn source/Brain flags OFF, remove only approved temporary bindings/secrets with owner-controlled change, verify versions/routes/crons/DO audit and **0 AI model/provider calls**, preserve UNKNOWN for manual authenticated reconciliation | Release Captain + operator | NOT EXECUTED |
+
+The two allowed candidate callers and identities remain the same as the private binding plan; select only **one** independently provenance-attested source for the first controlled E2E. No public fallback, provider import, scheduled trigger, AI execution or production change is permitted. No deployed receipt/SQLite transaction is claimed in this report.
+
+**Decision:** code-only preparation can pass hosted native contract CI, while staging activation stays **BLOCKED / NO-GO** until the above separately authorized changes and actual E2E proof.
