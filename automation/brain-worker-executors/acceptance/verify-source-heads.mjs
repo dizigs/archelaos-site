@@ -19,7 +19,8 @@ const MERGED=Object.freeze({
   scaffold:'ed1285d1c61aa94de9fb19360ba9d95e12110e92',
   gemini:'c2ec74fac9845ee3dea948c8da65d62e94e37bed',
   gemma:'06d9a8d16aebbb4d0c9317d394af54763b3ea647',
-  testing:'d0d06f75a3405f1f0e2ab368bc2a774ba8cde084'
+  testing:'d0d06f75a3405f1f0e2ab368bc2a774ba8cde084',
+  integration:'c14d64143e46a18ce3268ad25e34f290c3012a10'
 });
 const ROOT='https://api.github.com/repos/dizigs/archelaos-site';
 async function get(path){

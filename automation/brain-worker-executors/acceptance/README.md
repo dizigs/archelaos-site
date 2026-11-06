@@ -7,9 +7,11 @@ Only `automation/brain-worker-executors/acceptance/**` and
 
 `sources.json` schema v2 pins the **actual merged commit** on `main`
 for #209/#214/#211/#212 and preserves the original PR head SHA separately.
-The unmerged #213 uses its **exact open head SHA**. The closed-without-merge
+#213 is now **MERGED**: checkout and provenance use its actual main merge
+commit `c14d64143e46a18ce3268ad25e34f290c3012a10`, retaining the original immutable PR HEAD
+`42d0474a30bc07b3347a1d2a0955f7b51c61c9fc` separately in `headSha`. The closed-without-merge
 #228 is not an accepted or checked-out source: its GitHub readback was
-incorporated into the #213 branch, with additional strict outcome validation.
+incorporated into #213, with additional strict outcome validation.
 All 6 clean checkouts are verified against Git HEAD. Independent authenticated
 read-only GitHub provenance requires a real merge timestamp, exact merge commit
 and `main` ancestry for merged sources, or exact open SHA for unmerged sources.
@@ -49,9 +51,12 @@ A new merge or changed SHA means FAIL until manually re-pinned.
 - #213 prevents double budget reservations because Gemini/Gemma native adapters
   have their own reservation/settlement; the single EUR20 ledger must be
   reconciled and audited by the Integration/Brain owners.
-- #228 was closed without merge; only the #213 integration SHA is canonical
-  for acceptance. Its readback is stricter than the earlier #228 snapshot.
-- No verified GitHub draft writer and end-to-end exact-SHA 8-workflow proof.
+- #228 was closed without merge; only #213's real merged integration commit
+  is canonical for acceptance, with its original head preserved for audit.
+  Its readback is stricter than the earlier #228 snapshot.
+- Exact-SHA 8-workflow CI proof is separately attested by the existing hosted
+  independent gate; it does **not** verify a live GitHub draft writer or
+  Cloudflare/provider staging E2E.
 - Provider entitlement, live cost/FX and staging-only Cloudflare binding
   attestation are missing. No paid calls, merges, forced updates or deploys.
 

@@ -1,4 +1,4 @@
-/** Assert 6 exact clean read-only source checkouts; 4 real merges + 2 open heads. */
+/** Assert 6 exact clean read-only source checkouts at real merged commits. */
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';

@@ -32,9 +32,9 @@
     },
     "integration": {
       "pr": 213,
-      "sha": "42d0474a30bc07b3347a1d2a0955f7b51c61c9fc",
+      "sha": "c14d64143e46a18ce3268ad25e34f290c3012a10",
       "headSha": "42d0474a30bc07b3347a1d2a0955f7b51c61c9fc",
-      "state": "open",
+      "state": "merged",
       "base": "main"
     },
     "brain": {

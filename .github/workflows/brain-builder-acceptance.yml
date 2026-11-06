@@ -60,11 +60,11 @@ jobs:
           ref: d0d06f75a3405f1f0e2ab368bc2a774ba8cde084
           path: .acceptance-sources/testing
           persist-credentials: false
-      - name: Checkout Coordinator PR 213 exact SHA
+      - name: Checkout merged Coordinator PR 213 actual merge SHA
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           repository: dizigs/archelaos-site
-          ref: 42d0474a30bc07b3347a1d2a0955f7b51c61c9fc
+          ref: c14d64143e46a18ce3268ad25e34f290c3012a10
           path: .acceptance-sources/integration
           persist-credentials: false
       - name: Checkout canonical Brain PR 219 actual merged SHA
