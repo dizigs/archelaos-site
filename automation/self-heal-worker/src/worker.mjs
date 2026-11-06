@@ -4,6 +4,13 @@ import { RecoveryLedger, recover as recoverIncident } from './recovery.mjs';
 import { verifySignedRecoveryEvent } from './contract.mjs';
 
 const COORDINATOR = 'archelaos-club';
+
+// Module-private: WorkerEntrypoint public getters are remotely exposed over RPC.
+// Never return a Durable Object stub from the exported HealerService prototype.
+function healerMemory(env) {
+  const id = env.HEALER_MEMORY.idFromName(COORDINATOR);
+  return env.HEALER_MEMORY.get(id);
+}
 export class HealerMemory extends DurableObject {
   constructor(ctx, env) {
     super(ctx, env);
@@ -46,15 +53,11 @@ export class HealerMemory extends DurableObject {
 // Calls are possible only from Workers with an explicitly configured Service binding.
 // No workers.dev hostname, custom route, cron, webhook, GitHub write authority or AI calls.
 export default class HealerService extends WorkerEntrypoint {
-  get memory() {
-    const id = this.env.HEALER_MEMORY.idFromName(COORDINATOR);
-    return this.env.HEALER_MEMORY.get(id);
-  }
-  async observe(finding) { return this.memory.recordFinding(finding); }
-  async diagnose(code, resource) { return this.memory.lookupFinding(code, resource); }
-  async status() { return this.memory.getStatus(); }
-  async recoveryStatus() { return this.memory.getRecoveryStatus(); }
-  async attemptRecovery(finding) { return this.memory.attemptRecovery(finding); }
+  async observe(finding) { return healerMemory(this.env).recordFinding(finding); }
+  async diagnose(code, resource) { return healerMemory(this.env).lookupFinding(code, resource); }
+  async status() { return healerMemory(this.env).getStatus(); }
+  async recoveryStatus() { return healerMemory(this.env).getRecoveryStatus(); }
+  async attemptRecovery(finding) { return healerMemory(this.env).attemptRecovery(finding); }
   async fetch() {
     return new Response('Not found', { status: 404,
       headers: { 'cache-control': 'no-store', 'x-content-type-options': 'nosniff' } });
