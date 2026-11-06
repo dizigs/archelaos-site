@@ -32,6 +32,22 @@ const events=[
 {id:"EV-003",time:"08:32",title:"CI integrity checked",text:"Εικονική επιβεβαίωση απαιτούμενων ελέγχων.",status:"success"},
 {id:"EV-002",time:"08:15",title:"Historical evidence queued",text:"Νέο εικονικό αντικείμενο περιμένει επιμελητή.",status:"blocked"}
 ];
+
+/* Fixed example records. All times below are synthetic; no production endpoints. */
+const demoClockStart=Date.parse("2026-11-06T11:30:00+02:00");
+const demoClockOpened=Date.now();
+const deployments=[
+ {id:"DEMO-DEP-410",name:"Αρχέλαος · Website",source:"Pages",status:"running",start:"2026-11-06T11:29:00+02:00",finish:null,sha:"demo-a01",description:"Εικονική ανάπτυξη του site. Η ώρα λήξης είναι μόνο εκτίμηση βάσει ιστορικών διάρκειών."},
+ {id:"DEMO-DEP-409",name:"Brain · Coordinator",source:"Workers",status:"success",start:"2026-11-06T11:04:00+02:00",finish:"2026-11-06T11:06:20+02:00",sha:"demo-a02",description:"Εικονική επιβεβαιωμένη ολοκλήρωση Worker."},
+ {id:"DEMO-DEP-408",name:"Αρχέλαος · Website",source:"Pages",status:"success",start:"2026-11-06T10:24:00+02:00",finish:"2026-11-06T10:28:00+02:00",sha:"demo-a03",description:"Εικονική επιτυχία ανάπτυξης Pages."},
+ {id:"DEMO-DEP-407",name:"CI · Quality gate",source:"GitHub Actions",status:"failed",start:"2026-11-06T10:02:00+02:00",finish:"2026-11-06T10:04:00+02:00",sha:"demo-a04",description:"Εικονική αποτυχία CI. Δεν αποτελεί επιβεβαίωση πραγματικού deployment."},
+ {id:"DEMO-DEP-406",name:"Αρχέλαος · Website",source:"Pages",status:"success",start:"2026-11-05T18:22:00+02:00",finish:"2026-11-05T18:27:00+02:00",sha:"demo-a05",description:"Εικονική καταχώριση ιστορικού Pages."},
+ {id:"DEMO-DEP-405",name:"Brain · Coordinator",source:"Workers",status:"success",start:"2026-11-05T14:02:00+02:00",finish:"2026-11-05T14:04:00+02:00",sha:"demo-a06",description:"Εικονική καταχώριση Worker."},
+ {id:"DEMO-DEP-404",name:"Αρχέλαος · Website",source:"Pages",status:"success",start:"2026-11-04T10:17:00+02:00",finish:"2026-11-04T10:22:00+02:00",sha:"demo-a07",description:"Εικονική καταχώριση Pages."},
+ {id:"DEMO-DEP-403",name:"CI · Quality gate",source:"GitHub Actions",status:"success",start:"2026-11-04T09:55:00+02:00",finish:"2026-11-04T09:58:00+02:00",sha:"demo-a08",description:"Εικονική επιτυχία CI, όχι απόδειξη παραγωγικού deployment."},
+ {id:"DEMO-DEP-402",name:"Αρχέλαος · Website",source:"Pages",status:"success",start:"2026-11-03T10:17:00+02:00",finish:"2026-11-03T10:23:00+02:00",sha:"demo-a09",description:"Εικονική καταχώριση Pages."},
+ {id:"DEMO-DEP-401",name:"Brain · Coordinator",source:"Workers",status:"success",start:"2026-11-03T10:08:00+02:00",finish:"2026-11-03T10:11:00+02:00",sha:"demo-a10",description:"Εικονική καταχώριση Worker."}
+];
 const labels={success:"Επιτυχία",running:"Σε εκτέλεση",blocked:"Αναμονή",failed:"Αποτυχία",standby:"Standby"};
 const scenarios=[
 {name:"Ομαλή ροή",health:98.6,online:7,queue:12,brain:"STANDBY",locks:2,running:3,unknown:1,alerts:2,spend:6.45},
@@ -71,6 +87,69 @@ function renderWorkerCards(){
  });
 }
 function statusBadge(status){const s=document.createElement("span");s.className="status-chip status-"+status;s.textContent=labels[status]||status;return s}
+
+function demoNow(){return demoClockStart+(Date.now()-demoClockOpened)}
+function dateEl(iso){return iso?new Intl.DateTimeFormat("el-GR",{timeZone:"Europe/Athens",day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit",hour12:false}).format(new Date(iso)):"—"}
+function durationEl(ms){if(!Number.isFinite(ms)||ms<0)return "—";const seconds=Math.floor(ms/1000);const mins=Math.floor(seconds/60);return mins>=60?Math.floor(mins/60)+"ω "+(mins%60)+"λ":mins+"λ "+(seconds%60)+"δ"}
+function durationMean(items){const durations=items.filter(d=>d.status==="success"&&d.finish).map(d=>Date.parse(d.finish)-Date.parse(d.start)).filter(ms=>ms>0);return durations.length?durations.reduce((sum,ms)=>sum+ms,0)/durations.length:null}
+function deploymentEta(d){const avg=durationMean(deployments.filter(other=>other.source===d.source));return avg===null?null:Date.parse(d.start)+avg}
+function deploySourceLabel(value){return value==="Pages"?"Cloudflare Pages":value==="Workers"?"Cloudflare Workers":value}
+function getDeploymentSelection(){
+ const q=$("deploySearch").value.trim().toLocaleLowerCase("el"),status=$("deployFilter").value,source=$("deploySource").value;
+ return deployments.filter(d=>(status==="all"||d.status===status)&&(source==="all"||d.source===source)&&[d.id,d.name,d.source,d.sha,d.description].some(v=>v.toLocaleLowerCase("el").includes(q)));
+}
+function showDeployment(d,trigger){
+ const end=d.finish?dateEl(d.finish):"Δεν έχει ολοκληρωθεί";
+ const eta=d.status==="running"&&deploymentEta(d)!==null?dateEl(new Date(deploymentEta(d)).toISOString())+" (εκτίμηση)":"—";
+ const elapsed=Date.parse(d.finish||new Date(demoNow()).toISOString())-Date.parse(d.start);
+ openDetail(d.name,d.id,[["Πηγή",deploySourceLabel(d.source)],["Κατάσταση",labels[d.status]],["Περιβάλλον","SIMULATED / DEMO"],["SHA",d.sha],["Έναρξη",dateEl(d.start)],["Ολοκλήρωση",end],["Ενδεικτικό ETA",eta],["Διάρκεια",durationEl(elapsed)]],d.description,trigger);
+}
+function renderDeployments(){
+ const selected=getDeploymentSelection(),body=$("deployBody");body.replaceChildren();
+ selected.forEach(d=>{
+   const tr=document.createElement("tr"),primary=document.createElement("td"),name=document.createElement("strong"),ref=document.createElement("small");
+   name.textContent=d.name;ref.textContent=d.id+" · "+d.sha;primary.append(name,ref);
+   const source=document.createElement("td");source.textContent=deploySourceLabel(d.source);
+   const start=document.createElement("td");start.textContent=dateEl(d.start);
+   const end=document.createElement("td");
+   if(d.finish)end.textContent=dateEl(d.finish);
+   else {const eta=deploymentEta(d);end.textContent=eta===null?"Άγνωστο · σε εξέλιξη":"~ "+dateEl(new Date(eta).toISOString())+" · εκτίμηση";}
+   const duration=document.createElement("td");duration.textContent=durationEl((d.finish?Date.parse(d.finish):demoNow())-Date.parse(d.start));
+   const state=document.createElement("td");state.append(statusBadge(d.status));
+   const action=document.createElement("td"),button=document.createElement("button");button.type="button";button.className="table-action";button.textContent="Λεπτομέρειες";button.setAttribute("aria-label","Λεπτομέρειες "+d.id);
+   button.addEventListener("click",()=>showDeployment(d,button));action.append(button);tr.append(primary,source,start,end,duration,state,action);body.append(tr);
+ });
+ $("deployEmpty").hidden=selected.length>0;
+ const from=demoClockStart-7*86400000;
+ const week=deployments.filter(d=>Date.parse(d.start)>=from&&Date.parse(d.start)<=demoClockStart);
+ const running=deployments.filter(d=>d.status==="running");
+ const finished=deployments.filter(d=>d.status!=="running"&&d.finish);
+ const successful=finished.filter(d=>d.status==="success");
+ const mean=durationMean(deployments);
+ setText("deployWeek",week.length);
+ setText("deployActive",running.length);
+ setText("deployAvg",mean===null?"—":durationEl(mean));
+ setText("deployRate",finished.length?Math.round(successful.length/finished.length*100)+"%":"—");
+ setText("deployPeekRunning",running.length);
+ setText("deployPeekWeek",week.length);
+ setText("deployPeekAverage",mean===null?"—":durationEl(mean));
+ const last=finished.slice().sort((a,b)=>Date.parse(b.finish)-Date.parse(a.finish))[0];
+ setText("deployPeekFinish",last?dateEl(last.finish):"—");
+ setText("mobileDeployStatus",running.length+" ενεργό");
+ const allForCadence=deployments.filter(d=>d.status==="success"&&d.source===($("deploySource").value==="all"?"Pages":$("deploySource").value)).slice().sort((a,b)=>Date.parse(a.start)-Date.parse(b.start));
+ const gaps=allForCadence.slice(1).map((d,i)=>Date.parse(d.start)-Date.parse(allForCadence[i].start)).filter(v=>v>0);
+ const chosen=$("deploySource").value==="all"?"Cloudflare Pages (ενδεικτικά)":deploySourceLabel($("deploySource").value);
+ const avgGap=gaps.length?gaps.reduce((a,b)=>a+b,0)/gaps.length:null;
+ setText("deployCadence",chosen+": "+(avgGap===null?"δεν επαρκούν δείγματα για μέσο διάστημα":"μέσο διάστημα μεταξύ επιτυχημένων ξεκινημάτων ~"+durationEl(avgGap))+". Δεν υποκαθιστά επίσημο πρόγραμμα.");
+ const chart=$("deployChart");chart.replaceChildren();
+ const daysFmt=new Intl.DateTimeFormat("el-GR",{timeZone:"Europe/Athens",weekday:"short",day:"numeric",month:"numeric"});
+ const seven=Array.from({length:7},(_,i)=>{const day=demoClockStart-(6-i)*86400000;return {day,start:Date.parse(new Date(day).toISOString().slice(0,10)+"T00:00:00+02:00")};});
+ const sourceFilter=$("deploySource").value;
+ const dayCounts=seven.map(d=>deployments.filter(item=>{const t=Date.parse(item.start);return t>=d.start&&t<d.start+86400000&&(sourceFilter==="all"||item.source===sourceFilter)}).length);
+ const max=Math.max(1,...dayCounts);
+ seven.forEach((d,i)=>{const bar=document.createElement("div");bar.className="deploy-day";const count=document.createElement("strong");count.textContent=String(dayCounts[i]);const track=document.createElement("div");track.className="deploy-day-track";const fill=document.createElement("span");fill.style.height=(Math.max(4,dayCounts[i]/max*100))+"%";if(dayCounts[i]===0)fill.className="is-empty";track.append(fill);const lbl=document.createElement("small");lbl.textContent=daysFmt.format(new Date(d.start));bar.append(count,track,lbl);chart.append(bar)});
+}
+
 function renderTasks(){
  const query=$("operationsSearch").value.trim().toLocaleLowerCase("el"),filter=$("operationsFilter").value,body=$("operationsBody");body.replaceChildren();
  const visible=tasks.filter(t=>(filter==="all"||t.status===filter)&&[t.id,t.name,t.source,t.detail].some(v=>v.toLocaleLowerCase("el").includes(query)));
@@ -100,10 +179,10 @@ function openGeneric(type,trigger){
 }
 function closeDrawer(){if($("detailsDrawer").hidden)return;$("detailsDrawer").hidden=true;$("drawerBackdrop").hidden=true;document.body.classList.remove("no-scroll");if(drawerTrigger&&document.contains(drawerTrigger))drawerTrigger.focus()}
 function setView(view){
- if(!["overview","network","operations","security","cost","events"].includes(view))view="overview";
+ if(!["overview","network","deployments","operations","security","cost","events"].includes(view))view="overview";
  activeView=view;qs("[data-panel]").forEach(panel=>{panel.hidden=panel.dataset.panel!==view});
  qs(".nav-link").forEach(a=>{let on=a.dataset.view===view;a.classList.toggle("is-active",on);if(on)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
- const names={overview:"Επισκόπηση",network:"Δίκτυο Workers",operations:"Εργασίες & CI",security:"Ασφάλεια",cost:"Κόστος AI",events:"Χρονολόγιο"};setText("pageCrumb",names[view]);window.location.hash=view;window.scrollTo({top:0,behavior:"auto"});closeMenu();
+ const names={overview:"Επισκόπηση",network:"Δίκτυο Workers",deployments:"Deployments",operations:"Εργασίες & CI",security:"Ασφάλεια",cost:"Κόστος AI",events:"Χρονολόγιο"};setText("pageCrumb",names[view]);window.location.hash=view;window.scrollTo({top:0,behavior:"auto"});closeMenu();
 }
 function closeMenu(){$("sidebar").classList.remove("open");$("menuToggle").setAttribute("aria-expanded","false");$("mobileBackdrop").hidden=true}
 function updateCost(amount){const spent=Number(amount);setText("costAvailable",Math.max(0,20-spent).toFixed(2).replace(".",",")+" €");setText("costUsed",spent.toFixed(2).replace(".",",")+" €");setText("costSliderLabel",spent.toFixed(2).replace(".",",")+" €");$("costBar").style.width=Math.min(100,spent/20*100)+"%";const warning=$("costWarning");warning.className="warning-inline"+(spent>20?" danger":spent>=16?" warn":"");warning.textContent=spent>20?"● Υπέρβαση ορίου — DEMO":spent>=16?"● Προειδοποίηση: ≥80% ορίου — DEMO":"● Εντός προϋπολογισμού — DEMO"}
@@ -116,6 +195,7 @@ function updateMobileSummary(){
  setText("mobileWorkersStatus",s.online+" / 8");
  setText("mobileQueueStatus",s.queue);
  setText("mobileAlertsStatus",s.alerts);
+ setText("mobileDeployStatus",deployments.filter(d=>d.status==="running").length+" ενεργό");
 }
 function nextMobileEvent(){
  mobileEventIndex=(mobileEventIndex+1)%events.length;
@@ -150,22 +230,23 @@ function setScenario(i,announce=true){
 }
 function showToast(t){const toast=$("toast");toast.textContent=t;toast.hidden=false;window.clearTimeout(toastTimer);toastTimer=window.setTimeout(()=>toast.hidden=true,3300)}
 const searchItems=[
-{label:"Επισκόπηση",type:"Ενότητα",view:"overview"},{label:"Χάρτης Workers",type:"Ενότητα",view:"network"},{label:"GitHub και αυτοματισμοί",type:"Ενότητα",view:"operations"},{label:"Ασφάλεια Self-Heal",type:"Ενότητα",view:"security"},{label:"Κόστος AI",type:"Ενότητα",view:"cost"},{label:"Χρονολόγιο",type:"Ενότητα",view:"events"},
+{label:"Επισκόπηση",type:"Ενότητα",view:"overview"},{label:"Χάρτης Workers",type:"Ενότητα",view:"network"},{label:"Deployments και αναπτύξεις",type:"Ενότητα",view:"deployments"},{label:"GitHub και αυτοματισμοί",type:"Ενότητα",view:"operations"},{label:"Ασφάλεια Self-Heal",type:"Ενότητα",view:"security"},{label:"Κόστος AI",type:"Ενότητα",view:"cost"},{label:"Χρονολόγιο",type:"Ενότητα",view:"events"},
 ...workers.map(w=>({label:w.name,type:"Worker",worker:w})),
-...tasks.map(t=>({label:t.name+" ("+t.id+")",type:"Εργασία",task:t}))
+...tasks.map(t=>({label:t.name+" ("+t.id+")",type:"Εργασία",task:t})),
+...deployments.map(d=>({label:d.name+" ("+d.id+")",type:"Deployment",deployment:d}))
 ];
 function searchRender(){
  const q=$("globalSearch").value.trim().toLocaleLowerCase("el"),list=$("globalSearchResults");list.replaceChildren();const entries=searchItems.filter(item=>(item.label+" "+item.type).toLocaleLowerCase("el").includes(q)).slice(0,11);
- entries.forEach(item=>{const b=document.createElement("button");b.type="button";b.className="search-option";b.textContent=item.label;const small=document.createElement("small");small.textContent=item.type+" · DEMO";b.append(small);b.addEventListener("click",()=>{closeSearch();if(item.view)setView(item.view);else if(item.worker)openWorker(item.worker);else if(item.task){const t=item.task;openDetail(t.name,t.id,[["Πηγή",t.source],["Κατάσταση",labels[t.status]]],t.detail)}});list.append(b)});
+ entries.forEach(item=>{const b=document.createElement("button");b.type="button";b.className="search-option";b.textContent=item.label;const small=document.createElement("small");small.textContent=item.type+" · DEMO";b.append(small);b.addEventListener("click",()=>{closeSearch();if(item.view)setView(item.view);else if(item.worker)openWorker(item.worker);else if(item.deployment)showDeployment(item.deployment);else if(item.task){const t=item.task;openDetail(t.name,t.id,[["Πηγή",t.source],["Κατάσταση",labels[t.status]]],t.detail)}});list.append(b)});
  if(!entries.length){const p=document.createElement("p");p.className="soft-text";p.textContent="Δεν βρέθηκαν αποτελέσματα.";list.append(p)}
 }
 function closeSearch(){if($("searchDialog").open)$("searchDialog").close()}
 function downloadDemo(){
- const payload={_note:"STATIC DEMO ONLY — NO LIVE DATA",generated:"2026-11-06",scenario:scenarios[currentScenario],workers:workers.map(w=>({id:w.id,status:w.status})),tasks,events};
+ const payload={_note:"STATIC DEMO ONLY — NO LIVE DATA",generated:"2026-11-06",scenario:scenarios[currentScenario],workers:workers.map(w=>({id:w.id,status:w.status})),tasks,events,deployments};
  const url=URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:"application/json"}));const a=document.createElement("a");a.href=url;a.download="archelaos-control-center-DEMO.json";document.body.append(a);a.click();a.remove();window.setTimeout(()=>URL.revokeObjectURL(url),1000);showToast("Δημιουργήθηκε τοπικά αρχείο DEMO JSON")
 }
 function init(){
- renderDiagram();renderWorkerCards();renderTasks();renderEvents();setScenario(0,false);initMobileFeed();
+ renderDiagram();renderWorkerCards();renderTasks();renderEvents();renderDeployments();setScenario(0,false);initMobileFeed();
  qs(".nav-link").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();setView(a.dataset.view)}));
  qs("[data-view-button]").forEach(b=>b.addEventListener("click",()=>setView(b.dataset.viewButton)));
  qs("[data-detail]").forEach(b=>b.addEventListener("click",()=>openGeneric(b.dataset.detail,b)));
@@ -175,6 +256,8 @@ function init(){
  $("detailsDrawer").addEventListener("keydown",e=>{if(e.key==="Tab"){const focusable=qs("button:not([disabled])",e.currentTarget);if(focusable.length){e.preventDefault();focusable[0].focus()}}});
  $("scenarioButton").addEventListener("click",()=>setScenario(currentScenario+1));$("exportButton").addEventListener("click",downloadDemo);
  $("pauseButton").addEventListener("click",()=>{paused=!paused;syncTopologyMotion();setText("pauseButton",paused?"▶ Συνέχεια":"Ⅱ Παύση");$("pauseButton").setAttribute("aria-pressed",String(paused));showToast(paused?"Η κίνηση σταμάτησε — DEMO":"Η κίνηση συνεχίστηκε — DEMO")});
+ ["deploySearch","deploySource","deployFilter"].forEach(id=>$(id).addEventListener(id==="deploySearch"?"input":"change",renderDeployments));
+ window.setInterval(()=>{if(activeView==="deployments"&&document.visibilityState!=="hidden")renderDeployments()},30000);
  ["operationsSearch","operationsFilter"].forEach(id=>$(id).addEventListener(id.endsWith("Filter")?"change":"input",renderTasks));
  ["eventsSearch","eventsFilter"].forEach(id=>$(id).addEventListener(id.endsWith("Filter")?"change":"input",renderEvents));
  $("costSlider").addEventListener("input",e=>updateCost(e.target.value));
@@ -188,7 +271,7 @@ function init(){
   if(e.key==="/"&&!typing&&!$("searchDialog").open&&!$("helpDialog").open){e.preventDefault();$("searchDialog").showModal();$("globalSearch").focus();searchRender()}
  });
  window.addEventListener("hashchange",()=>{const view=location.hash.replace("#","");if(view!==activeView)setView(view)});
- const initial=location.hash.replace("#","");setView(["overview","network","operations","security","cost","events"].includes(initial)?initial:"overview");
+ const initial=location.hash.replace("#","");setView(["overview","network","deployments","operations","security","cost","events"].includes(initial)?initial:"overview");
 }
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
 })();
