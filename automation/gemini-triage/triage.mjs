@@ -16,7 +16,7 @@ function validate(article) {
   if (typeof article.sourceUrl !== 'string' || article.sourceUrl.length > 500) throw ERROR('INVALID_PUBLIC_SOURCE_URL');
   let url;
   try { url = new URL(article.sourceUrl); } catch { throw ERROR('INVALID_PUBLIC_SOURCE_URL'); }
-  if (url.protocol !== 'https:' || url.username || url.password || url.hostname === 'localhost' || url.hostname.endsWith('.local') || /^[\d.]+$/.test(url.hostname)) throw ERROR('INVALID_PUBLIC_SOURCE_URL');
+  if (url.protocol !== 'https:' || url.username || url.password || url.hostname === 'localhost' || url.hostname.endsWith('.local') || /^[\d.]+$/.test(url.hostname) || url.hostname.includes(':')) throw ERROR('INVALID_PUBLIC_SOURCE_URL');
   if (article.existingEventHints !== undefined && (!Array.isArray(article.existingEventHints) || article.existingEventHints.length > 5 || article.existingEventHints.some(x => typeof x !== 'string' || x.length > 150))) throw ERROR('INVALID_PUBLIC_NEWS_INPUT');
   return {sourceUrl:article.sourceUrl,title:article.title,excerpt:article.excerpt,existingEventHints:article.existingEventHints??[]};
 }
