@@ -61,7 +61,45 @@
   </section>
   <div class="section-grid section-visible" data-panel="overview">
     <section class="surface col-wide" aria-labelledby="networkTitle"><div class="surface-head"><div><p class="eyebrow">SYSTEM TOPOLOGY · DEMO</p><h2 id="networkTitle">Ζωντανή απεικόνιση <span class="heading-muted">ροής</span></h2></div><div class="surface-tools"><span class="mini-live"><i></i> SIMULATED LIVE</span><button class="small-button" id="pauseButton" type="button" aria-pressed="false">Ⅱ Παύση</button></div></div>
-      <p class="graph-caption">Τα φωτεινά πακέτα ταξιδεύουν μεταξύ Brain και Workers. Πάτησε κόμβο για λεπτομέρειες. Στο κινητό, σύρε οριζόντια τον χάρτη.</p>
+      <p class="graph-caption">Τα φωτεινά πακέτα ταξιδεύουν μεταξύ Brain και Workers. Πάτησε κόμβο για λεπτομέρειες. Στον υπολογιστή εμφανίζεται το διάγραμμα· στο κινητό οι συνοπτικές κάρτες.</p>
+      <div class="mobile-live-panel" id="mobileLivePanel" aria-label="Συνοπτική εικόνα κινητού, εικονικά δεδομένα">
+        <div class="mobile-live-top">
+          <div><span class="mobile-live-kicker"><i aria-hidden="true"></i> LIVE VIEW <span>· DEMO</span></span><h3>Τι συμβαίνει τώρα;</h3></div>
+          <span class="mobile-live-counter" id="mobileEventCounter">Δείγμα 1 / 7</span>
+        </div>
+        <p class="mobile-live-disclaimer">Δυναμική προσομοίωση. <strong>Όχι σύνδεση παραγωγής.</strong></p>
+        <div class="mobile-live-cards">
+          <button class="mobile-live-card" type="button" data-detail="brain" aria-label="Προβολή εικονικής κατάστασης Brain">
+            <span class="mobile-live-card-label"><span aria-hidden="true">✦</span> BRAIN</span>
+            <strong id="mobileBrainStatus">STANDBY</strong>
+            <small>Κεντρικός συντονιστής</small>
+          </button>
+          <button class="mobile-live-card" type="button" data-view-button="network" aria-label="Προβολή Workers">
+            <span class="mobile-live-card-label"><span aria-hidden="true">⬡</span> WORKERS</span>
+            <strong id="mobileWorkersStatus">7 / 8</strong>
+            <small>Εικονικά διαθέσιμοι</small>
+          </button>
+          <button class="mobile-live-card" type="button" data-view-button="operations" aria-label="Προβολή ουράς εργασιών">
+            <span class="mobile-live-card-label"><span aria-hidden="true">≋</span> QUEUE</span>
+            <strong id="mobileQueueStatus">12</strong>
+            <small>Εργασίες στην ουρά</small>
+          </button>
+          <button class="mobile-live-card" type="button" data-view-button="security" aria-label="Προβολή συμβάντων ασφάλειας">
+            <span class="mobile-live-card-label"><span aria-hidden="true">◇</span> SECURITY</span>
+            <strong id="mobileAlertsStatus">2</strong>
+            <small>Εικονικές ειδοποιήσεις</small>
+          </button>
+        </div>
+        <div class="mobile-live-event">
+          <div class="mobile-live-event-icon" aria-hidden="true">◉</div>
+          <div class="mobile-live-event-copy">
+            <span>ΤΕΛΕΥΤΑΙΟ ΔΟΚΙΜΑΣΤΙΚΟ ΣΥΜΒΑΝ</span>
+            <p id="mobileEventText">Ένα εικονικό workflow ολοκλήρωσε έλεγχο ιδιωτικότητας.</p>
+          </div>
+          <button class="mobile-live-next" id="mobileNextEvent" type="button" aria-label="Επόμενο δοκιμαστικό συμβάν" title="Επόμενο δείγμα">↻</button>
+        </div>
+        <p class="mobile-live-footer">Αυτόματη εναλλαγή δοκιμαστικών συμβάντων · χωρίς πραγματικά API ή εντολές.</p>
+      </div>
       <div class="diagram-frame" id="diagramFrame"><svg id="topology" class="topology" viewBox="0 0 1000 520" role="group" aria-label="Διαδραστικό διάγραμμα DEMO: ένας κεντρικός Brain με οκτώ Workers και κινούμενα φωτεινά σήματα">
       <defs><linearGradient id="lineGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d6b774" stop-opacity=".75"/><stop offset="1" stop-color="#d6b774" stop-opacity=".12"/></linearGradient><radialGradient id="coreGlow"><stop offset="0" stop-color="#d8b870" stop-opacity=".23"/><stop offset="1" stop-color="#d8b870" stop-opacity="0"/></radialGradient><filter id="dotGlow" x="-200%" y="-200%" width="500%" height="500%"><feGaussianBlur stdDeviation="4"/></filter></defs>
       <g class="diagram-grid"><path d="M0 65H1000M0 130H1000M0 195H1000M0 260H1000M0 325H1000M0 390H1000M0 455H1000M100 0V520M200 0V520M300 0V520M400 0V520M500 0V520M600 0V520M700 0V520M800 0V520M900 0V520"/></g>
