@@ -283,3 +283,65 @@ test('private Drive-link probe remains permanently disabled in Worker implementa
   assert(!section.includes('createNotebookSource'));
   assert(!section.includes('drive.google.com/file/d/'));
 });
+
+test('real LibrarianLedger stores immutable page provenance and flags exact cross-PDF duplicates',async()=>{
+  const {readFile}=await import('node:fs/promises');
+  const code=await readFile(new URL('../src/index.mjs',import.meta.url),'utf8');
+  const start=code.indexOf('export class LibrarianLedger extends DurableObject {');
+  const end=code.indexOf('\nexport default class Librarian',start);
+  assert(start>=0 && end>start);
+  const classCode=code.slice(start,end).replace('export class ','class ');
+  const Base=class {constructor(ctx,env){this.ctx=ctx;this.env=env;}};
+  const Ledger=new Function('DurableObject',classCode+'\nreturn LibrarianLedger;')(Base);
+  const records=new Map();
+  const storage={
+    get:async key=>records.get(key),
+    transaction:async fn=>fn({
+      get:async key=>records.get(key),
+      put:async (key,value)=>{records.set(key,value);}
+    })
+  };
+  const ledger=new Ledger({storage},{LEDGER_INTERNAL_KEY:'synthetic-ledger-secret'});
+  async function call(path,payload){
+    const resp=await ledger.fetch(new Request('https://private-ledger.local'+path,{
+      method:'POST',
+      headers:{'X-Ledger-Key':'synthetic-ledger-secret','Content-Type':'application/json'},
+      body:JSON.stringify(payload)
+    }));
+    return {status:resp.status,body:await resp.json()};
+  }
+  const provenance={
+    fileIdSha256:'a'.repeat(64),pdfSha256:'b'.repeat(64),
+    extractionSha256:'c'.repeat(64),chunkSha256:'d'.repeat(64),
+    contentSha256:'e'.repeat(64),revision:'7',firstPage:1,lastPage:2
+  };
+  const firstKey='1'.repeat(64),secondKey='2'.repeat(64);
+  const first=await call('/reserve',{key:firstKey,kind:'archive',provenance});
+  assert.equal(first.status,200);
+  assert.equal(first.body.created,true);
+  assert.equal(first.body.duplicateOf,null);
+  const again=await call('/reserve',{key:firstKey,kind:'archive',provenance});
+  assert.equal(again.body.created,false);
+  const second=await call('/reserve',{key:secondKey,kind:'archive',provenance:{
+    ...provenance,fileIdSha256:'f'.repeat(64),pdfSha256:'0'.repeat(64),revision:'11'
+  }});
+  assert.equal(second.body.created,true);
+  assert.equal(second.body.duplicateOf,firstKey);
+  const mark=await call('/record',{key:secondKey,status:'DUPLICATE'});
+  assert.equal(mark.body.ok,true);
+  const read=await call('/get',{key:secondKey});
+  assert.equal(read.body.entry.status,'DUPLICATE');
+  assert.equal(read.body.entry.provenance.firstPage,1);
+  assert.equal(read.body.entry.provenance.lastPage,2);
+  assert.equal(read.body.entry.provenance.contentSha256,provenance.contentSha256);
+  assert.equal(read.body.entry.duplicateOf,firstKey);
+  const bad=await call('/reserve',{key:'3'.repeat(64),kind:'archive',provenance:{
+    ...provenance,revision:'not-decimal'
+  }});
+  assert.equal(bad.status,400);
+  assert.equal(bad.body.error,'INVALID_PROVENANCE');
+  // A duplicate must never be promoted to ACTIVE via the ledger.
+  const invalidPromotion=await call('/record',{key:secondKey,status:'ACTIVE',
+    sourceName:'notebooks/550e8400-e29b-41d4-a716-446655440000/sources/abcd1234'});
+  assert.equal(invalidPromotion.body.ok,false);
+});
