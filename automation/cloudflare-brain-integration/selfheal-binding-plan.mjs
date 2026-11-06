@@ -25,6 +25,9 @@ const strictBinding = (bindings, expected) => {
   if (matched.length !== 1) return 'CONFLICT';
   const b = matched[0];
   if (b.type !== 'service' || b.service !== expected.service) return 'CONFLICT';
+  // Both approved target scripts use their standalone default environment.
+  // An explicit environment can redirect the binding to another deployment.
+  if (b.environment != null && b.environment !== '') return 'CONFLICT';
   if (Object.hasOwn(expected, 'entrypoint')) {
     if (b.entrypoint !== expected.entrypoint) return 'CONFLICT';
   } else if (b.entrypoint != null && b.entrypoint !== 'default') {
