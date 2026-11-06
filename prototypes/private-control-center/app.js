@@ -54,6 +54,12 @@ const scenarios=[
 {name:"Αυξημένος φόρτος",health:96.2,online:8,queue:28,brain:"ACTIVE",locks:2,running:7,unknown:1,alerts:3,spend:12.70},
 {name:"Προστατευμένη αποτυχία",health:89.4,online:6,queue:19,brain:"FAIL-CLOSED",locks:1,running:1,unknown:5,alerts:5,spend:18.25}
 ];
+/* Synthetic per-worker states stay consistent with each scenario's summary. */
+const demoWorkerStates=[
+ ["success","running","success","success","blocked","success","standby","success"],
+ ["success","running","success","running","blocked","success","success","success"],
+ ["standby","running","success","success","blocked","success","standby","success"]
+];
 let activeView="overview",currentScenario=0,drawerTrigger=null,toastTimer=0,paused=false;
 function setText(id,text){const node=$(id);if(node)node.textContent=String(text)}
 function elementSvg(name,attrs={},text){const e=document.createElementNS(svgNS,name);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,String(v)));if(text!==undefined)e.textContent=text;return e}
@@ -247,6 +253,10 @@ function initMobileFeed(){
 
 function setScenario(i,announce=true){
  currentScenario=(i+scenarios.length)%scenarios.length;const s=scenarios[currentScenario];setText("scenarioLabel",s.name);setText("metricHealth",s.health.toFixed(1));setText("metricWorkers",s.online);setText("metricQueue",s.queue);setText("metricSpend",s.spend.toFixed(2));$("metricSpendBar").style.width=Math.min(s.spend/20*100,100)+"%";setText("heroBrain",s.brain+" · DEMO");setText("brainCardStatus",s.brain);setText("locksCount",s.locks);setText("runningCount",s.running);setText("unknownCount",s.unknown);setText("securityAlerts",s.alerts);setText("workerMetricTag",s.online===8?"● Όλοι online":"● "+(8-s.online)+" standby");setText("budgetTag",s.spend>=16?"● Προειδοποίηση":"● Εντός ορίου");$("costSlider").value=String(s.spend);updateCost(s.spend);
+ /* Keep every worker inspector and the topology synchronized with the selected fixture. */
+ const states=demoWorkerStates[currentScenario];
+ workers.forEach((w,index)=>{w.status=states[index]});
+ renderDiagram();renderWorkerCards();syncTopologyMotion();
  updateMobileSummary();
  if(announce)showToast("Σενάριο: "+s.name+" — μόνο DEMO");
 }
