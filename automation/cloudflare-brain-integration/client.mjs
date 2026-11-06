@@ -178,8 +178,11 @@ export function createBrainWorkerAdapter({ workerName, sourceType, brainService,
     return { receiptId: receipt.receiptId, correlationId: receipt.correlationId,
       eventId: receipt.eventId, dedupeKey, status: receipt.status, duplicate: receipt.duplicate, durable: true };
   }
-  async function readReceipt(receiptId, expectedCorrelationId) {
+  async function readReceipt(receiptId, expectedCorrelationId, expectedEventId = null, expectedDedupeKey = null) {
     ready(); requireUuid(receiptId); requireUuid(expectedCorrelationId, 'INVALID_CORRELATION_ID');
+    if (expectedEventId !== null) requireUuid(expectedEventId, 'INVALID_EVENT_ID');
+    if (expectedDedupeKey !== null && (typeof expectedDedupeKey !== 'string' ||
+      !HEX64.test(expectedDedupeKey))) throw new IntegrationBlocked('INVALID_DEDUPE_KEY');
     const health = await probeHealth();
     if (health.reachable !== true) throw new IntegrationBlocked('BRAIN_RELEASE_UNVERIFIED');
     const unknown = async code => {
@@ -196,14 +199,24 @@ export function createBrainWorkerAdapter({ workerName, sourceType, brainService,
       data = await verifySourceEnvelope(await limitedJson(response), sourceType,
         SIGNED_AUDIENCES.readback, receiptVerificationKey, clock());
     } catch { return unknown('READBACK_UNVERIFIED'); }
-    if (!data || data.durable !== true || data.receiptId !== receiptId || !UUID.test(data.correlationId || '') ||
+    // #234 source readback derives immutable eventId/dedupeKey/source from DO SQLite,
+    // verifies blob index consistency and signs those fields. Never accept older
+    // receipt-only readback as independently authenticated immutable provenance.
+    if (!data || data.durable !== true || data.receiptId !== receiptId ||
+      data.source !== sourceType || !UUID.test(data.eventId || '') ||
+      typeof data.dedupeKey !== 'string' || !HEX64.test(data.dedupeKey) ||
+      (expectedEventId !== null && data.eventId !== expectedEventId) ||
+      (expectedDedupeKey !== null && data.dedupeKey !== expectedDedupeKey) ||
+      !UUID.test(data.correlationId || '') ||
       !Number.isSafeInteger(data.attempts) || data.attempts < 0 ||
       !RECEIPT_STATES.has(data.status) ||
       data.correlationId !== expectedCorrelationId)
       return unknown('READBACK_UNVERIFIED');
     await audit({ kind: 'readback', receiptId, correlationId: data.correlationId,
+      eventId: data.eventId, dedupeKey: data.dedupeKey, sourceType,
       result: 'VERIFIED', status: data.status });
-    return { receiptId, correlationId: data.correlationId, status: data.status,
+    return { receiptId, correlationId: data.correlationId, eventId: data.eventId,
+      dedupeKey: data.dedupeKey, sourceType, status: data.status,
       attempts: data.attempts, code: typeof data.code === 'string' ? data.code : 'UNKNOWN' };
   }
   async function probeHealth() {
