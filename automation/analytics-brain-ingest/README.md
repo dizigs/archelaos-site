@@ -1,4 +1,4 @@
-# Analytics → Brain: verified private-export handoff (stacked on PR #196)
+# Analytics → Brain: verified private-export handoff (stacked #196 → #220 → #230)
 
 **Scope owner:** this PR exclusively owns \`automation/analytics-brain-ingest/**\` and
 \`.github/workflows/analytics-brain-ingest-checks.yml\`. It does **not** modify
@@ -13,12 +13,15 @@ site tracking, provider secrets, triggers or any production configuration.
 | GA4 + Google Search Console | \`.github/workflows/google-analytics-aggregate.yml\` | [41995891582](https://github.com/dizigs/archelaos-site/actions/runs/41995891582) | \`google-search-ga4-private-report\` (artifact 13399354924) | Run, export, auth and upload steps SUCCESS; private artifact present |
 | Microsoft Clarity | \`.github/workflows/clarity-daily-export.yml\` | [41994256131](https://github.com/dizigs/archelaos-site/actions/runs/41994256131) | \`clarity-private-aggregate-report\` (artifact 13399511832) | Run, export and upload steps SUCCESS; private artifact present |
 
-Both reports are currently kept privately in Actions for **14 days**. This
-establishes successful exports, **not** complete or nonempty metric data: private
-artifact JSON has not been independently mapped against a representative real
-payload. Synthetic tests use mock data and mock provenance. The original
-GitHub Actions schedules remain the **only** collectors; never create an extra
-cron, Clarity token, GA4 pull or visitor tracker here.
+Both reports are currently kept privately in Actions for **14 days**. Both private ZIPs and extracted JSON bytes were independently checked against
+GitHub's ZIP digests and recorded JSON SHA256 on 2026-11-05. Google JSON
+contains 2 GA4 daily rows (0 qualify at 20 active users) and 28 GSC daily rows
+(27 qualify at 20 impressions); Clarity has 2 device categories (0 qualify at
+20 sessions). These are **aggregate threshold checks**, not permission to infer
+unique visitors, consent, or live Brain delivery. Synthetic tests use mock
+provenance and must not be mislabeled real E2E. The original GitHub Actions
+schedules remain the **only** collectors; never add a second cron, Clarity
+token, GA4 pull or visitor tracker here.
 
 ## Design and requirements
 
@@ -92,10 +95,12 @@ ack and delivery timeout. These tests establish code behavior, not live E2E.
 
 ## Before enabling (BLOCKED)
 
-- [ ] Read one *real* private artifact with approved credentials, verify
-  extraction and parse semantics without putting metrics in PR logs.
-- [ ] Independently implement and test the provider-backed \`trustedLookup\`
-  port. This package deliberately does not embed GitHub secrets or fetch.
+- [x] Read two *real* private Actions artifacts, verifying GitHub ZIP digests,
+  extracted JSON SHA256 and actual exporter schema without metric values in PR
+  logs. This does **not** prove delivery to the disabled Brain.
+- [x] Implement opt-in Node 22 GitHub `actions:read` reader with authoritative
+  metadata, private ZIP readback and independently computed bytes/hash.
+  **Not configured or authorized in a deployed runtime**; no credentials stored.
 - [ ] Brain owner adds an actual private authenticated \`analytics.aggregate.v1\`
   service method and atomic snapshot ledger; contract and receipt signing.
   **Never** post reports to the current \`/v1/events\` generic intake.
@@ -104,7 +109,88 @@ ack and delivery timeout. These tests establish code behavior, not live E2E.
 - [ ] Evaluate Cloudflare Web Analytics read-only capability and authorized
   Google Ads reporting separately. No production deploy until proven.
 
-**Branch relationship:** This is a *stacked draft PR* based on
-\`chatgpt/brain-analytics-contract-20261105\` (#196). Only the two newly
-owned scopes are changed. After #196 is reviewed/merged, rebase or retarget
-this PR to updated \`main\` with verified CI; do not bypass reviews.
+**Branch relationship:** This is the stacked draft chain **#196 → #220 → #230**.
+Keep the dependency order and exact SHA gates during coordinator-only merges.
+Analytics owns only `automation/analytics-worker/**`,
+`automation/analytics-brain-ingest/**` and the respective checks; not `brain/**`
+or the existing exporter sources.
+
+
+## Follow-up hardening — real private source inspection (2026-11-05)
+
+The opt-in Node 22 module src/github-artifacts.mjs downloads existing private
+GitHub Actions artifacts with a short-lived caller-provided actions:read token.
+It validates authoritative run/artifact metadata, expiry, archive SHA256,
+single expected JSON member, entry CRC, exact extracted-byte SHA256 and
+freshness. The signed ZIP redirect is host restricted and receives NO
+Authorization header. No scheduler, second export, tracking, secret storage,
+new paid service or public endpoint has been added. The adapter is NOT
+deployed; never import it into Cloudflare Workers.
+
+The original bridge now accepts real Python UTC timestamps ending in +00:00
+with six fractional digits, and GitHub seconds-only Z timestamps. Only
+zero-offset UTC timestamps are permitted.
+
+Real ZIP files from the 2026-11-05 successful Actions runs were inspected
+locally, without writing metric values to source or logs:
+- GA4/GSC artifact 13399354924: GitHub ZIP SHA256
+  c9874c2878b6dc99676774c17e357baef995107016db28fa54ba9a3a4c7ee752;
+  extracted JSON SHA256
+  8dbd1de04c223475366c98ac9fa05db0fd8592aacecd74569d4bfa3abe2d0c61.
+  Schema and generated UTC timestamp verified; 27 GSC days pass the
+  impression-volume gate; zero GA4 days pass the 20-active-user gate.
+- Clarity artifact 13399511832: GitHub ZIP SHA256
+  59260c1ce61bb6c05c3e8906ccf7da7f6b114d0e9f4bea7038fe1f05838cc2a2;
+  extracted JSON SHA256
+  e210155e2864a0801d0989b892e3c4210ac86655041711fd958678bd9406dc2f.
+  Schema verified; zero device cohorts pass the 20-session gate.
+  Clarity output is therefore entirely suppressed (not missing/zero traffic).
+
+GSC impressions are NOT unique visitors; volume suppression is not a GDPR
+anonymity guarantee. These real files were not passed through the deployed
+Brain (none exists for analytics); new adapter tests are synthetic/mock-based.
+The inspection proves genuine artifacts and a real privacy blocker, not E2E.
+
+Review-only, non-causal anomaly hints are implemented in src/review-hints.mjs
+for matching source/site-level aggregate snapshots. They never trigger
+campaign changes, tracking or AI. Clarity rolling-24-hour reports are marked
+as not equivalent to calendar-day snapshots.
+
+Before activation, the Brain owner must supply analytics.aggregate.v1 on an
+authenticated private binding, a durable atomic source/period UPSERT ledger,
+source revision/readback, signed receipts, replay reconciliation, privacy
+approval and a staging E2E test. Until then, deliverToBrain fails closed.
+
+## Brain owner interface and local integrity gate
+
+[`BRAIN_OWNER_INTERFACE.md`](./BRAIN_OWNER_INTERFACE.md) is the explicit
+`analytics.aggregate.v1` request/receipt/ledger and private-binding handoff.
+The extra `deliverToBrain` preflight checks exact normalized source/day
+records, source/workflow consistency, immutable event ID, metric revision,
+duplicate snapshot keys, restricted rows and canonical UTC **before** invoking
+any Brain port. This is structural integrity, **not** authentication of caller,
+original GitHub bytes or Brain cryptographic signatures. An authorized reader,
+independently authenticated/signed Brain binding and durable restart readback
+are still required. Until then Analytics stays disabled.
+
+## Canonical Brain #234 signed receipt compatibility (code only)
+
+The canonical Brain owner has prepared `analytics.aggregate.v1` and a
+versioned `/v1/analytics/readback` endpoint **in draft PR #234**, not the
+merged/deployed Brain. This ingest branch now includes
+`src/brain-signed-receipts.mjs` to independently verify the documented
+`analytics.snapshot.ack.v1` and `analytics.snapshot.readback.v1` HMACs,
+key ID, principal, timestamp, request/evidence digest, immutable revision,
+`isCurrent`, and exact stored fields. A trusted runtime must inject its
+verification secret; there is no token or network endpoint in this package.
+`test/brain-signed-receipts.test.mjs` uses **synthetic signatures** and
+injected fake ports; it does not certify Cloudflare bindings, GitHub
+provenance, durable restart readback or live data delivery.
+
+Cloudflare account read-only inventory on 2026-11-06 found nine deployed
+Workers, **zero Service Bindings**, no deployed Analytics Worker, and an
+expired Brain staging deployment pointing at an older SHA. Even with all
+code tests green, do not enable private capabilities or count Analytics
+as delivered until the Brain owner and Release Captain independently
+verify staging SHA, private-only ingress, HMAC identity, receipt signature,
+source provenance, review and persistent restart readback.

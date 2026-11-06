@@ -4,7 +4,7 @@
  * Its trustedLookup port must read GitHub's authoritative run AND artifact,
  * extract the private archive, and hash the *exact* JSON bytes it returns.
  */
-import { buildBrainAnalyticsEvent, digest } from '../../analytics-worker/src/aggregate.mjs';
+import { buildBrainAnalyticsEvent, normalizeReport, digest } from '../../analytics-worker/src/aggregate.mjs';
 
 const SOURCE = Object.freeze({
   google_bundle: {workflow:'Google Search and GA4 daily aggregate', artifact:'google-search-ga4-private-report',
@@ -14,11 +14,18 @@ const SOURCE = Object.freeze({
 });
 const SHA=/^[0-9a-f]{64}$/;
 const COMMIT=/^[0-9a-f]{40}$/;
-const ISO=/^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d(?:\.\d{1,3})?Z$/;
+const ISO=/^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d(?:\.\d{1,6})?(?:Z|\+00:00)$/;
 const DATE=/^\d{4}-\d\d-\d\d$/;
 const MAX_BYTES=256*1024;
 const DAY=86400000;
 function fail(code){throw new Error(code);}
+// GitHub timestamps normally use seconds with Z; Python UTC timestamps use
+// six fractional digits with +00:00. Accept only actual UTC instants.
+function utcTime(value,code) {
+  if(typeof value!=='string'||!ISO.test(value)||!Number.isFinite(Date.parse(value))||
+     new Date(value).toISOString().slice(0,10)!==value.slice(0,10))fail(code);
+  return new Date(value).getTime();
+}
 function object(x,keys,code='UNEXPECTED_FIELDS'){
   if(!x||typeof x!=='object'||Array.isArray(x)||Object.keys(x).some(k=>!keys.includes(k)))fail(code);
 }
@@ -142,8 +149,8 @@ function checkEvidence(e,source,runId,artifactId,hash,now) {
      x.conclusion!=='success'||a.name!==spec.artifact||a.expired!==false||
      !SHA.test(e.verifiedContentSha256)||e.verifiedContentSha256!==hash)
     fail('UNVERIFIED_ARTIFACT_PROVENANCE');
-  if(!ISO.test(x.completedAt)||new Date(x.completedAt).toISOString()!==x.completedAt||
-     Date.parse(x.completedAt)>now+300000||Date.parse(x.completedAt)<now-7*DAY)
+  const completed=utcTime(x.completedAt,'STALE_OR_INVALID_PROVENANCE');
+  if(completed>now+300000||completed<now-7*DAY)
     fail('STALE_OR_INVALID_PROVENANCE');
 }
 export async function preparePrivateExport({source,artifactBytes,runId,artifactId,trustedLookup,now=Date.now()}) {
@@ -160,37 +167,116 @@ export async function preparePrivateExport({source,artifactBytes,runId,artifactI
   try {json=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes));}
   catch {fail('INVALID_AGGREGATE_JSON');}
   const generated=source==='google_bundle'?json?.generated_utc:evidence.run.completedAt;
-  if(!ISO.test(generated)||new Date(generated).toISOString()!==generated||
-     Date.parse(generated)>now+300000||Date.parse(generated)<now-7*DAY)
+  const generatedMs=utcTime(generated,'INVALID_GENERATED_TIMESTAMP');
+  if(generatedMs>now+300000||generatedMs<now-7*DAY)
     fail('INVALID_GENERATED_TIMESTAMP');
   const reports=source==='google_bundle'?rowsForGoogle(json,hash):rowsForClarity(json,hash);
   if(reports.length===0)fail('NO_VERIFIABLE_AGGREGATE_ROWS');
   const events=[];
   for(const report of reports) {
-    const event=await buildBrainAnalyticsEvent(report,evidence.run.completedAt);
+    const event=await buildBrainAnalyticsEvent(report,new Date(evidence.run.completedAt).toISOString());
+    // A fully suppressed cohort is not an Analytics event. Never hand off
+    // an empty GA4/GSC snapshot (even when its source artifact was valid).
+    if (event.payload.metrics.length === 0) continue;
     events.push({event,snapshotKey:report.source+'|'+report.period.from+'|'+report.period.to,
       metricRevision:await digest(JSON.stringify(event.payload.metrics))});
   }
+  if (events.length === 0) fail('NO_VERIFIABLE_AGGREGATE_ROWS');
   return {schemaVersion:1,verified:true,evidence:{
     repository:'dizigs/archelaos-site',runId,artifactId,runSha:evidence.run.headSha,
-    reportDigest:hash,workflow:SOURCE[source].workflow,observedAt:evidence.run.completedAt
+    reportDigest:hash,workflow:SOURCE[source].workflow,observedAt:new Date(evidence.run.completedAt).toISOString()
   },events};
 }
 /**
+ * Local structural/integrity preflight only — NOT source authentication.
+ * Independently trusted private GitHub provenance and Brain binding remain
+ * mandatory. Prevent a mutated/fabricated caller batch being handed to the
+ * Brain before any remote side effect or cost-bearing work.
+ */
+async function preflightPreparedBatch(prepared) {
+  const invalid=()=>fail('UNVERIFIED_PREPARED_BATCH');
+  function exact(v,fields) {
+    if(!v||typeof v!=='object'||Array.isArray(v)||
+      Object.keys(v).length!==fields.length||fields.some(f=>!Object.hasOwn(v,f))) invalid();
+  }
+  exact(prepared,['schemaVersion','verified','evidence','events']);
+  if(prepared.schemaVersion!==1||prepared.verified!==true||
+    !Array.isArray(prepared.events)||!prepared.events.length||prepared.events.length>64)invalid();
+  const evidence=prepared.evidence;
+  exact(evidence,['repository','runId','artifactId','runSha','reportDigest','workflow','observedAt']);
+  if(evidence.repository!=='dizigs/archelaos-site'||
+    !Number.isSafeInteger(evidence.runId)||evidence.runId<1||
+    !Number.isSafeInteger(evidence.artifactId)||evidence.artifactId<1||
+    typeof evidence.runSha!=='string'||!COMMIT.test(evidence.runSha)||
+    typeof evidence.reportDigest!=='string'||!SHA.test(evidence.reportDigest)||
+    typeof evidence.observedAt!=='string'||!Number.isFinite(Date.parse(evidence.observedAt))||
+    new Date(evidence.observedAt).toISOString()!==evidence.observedAt)invalid();
+  const seen=new Set();
+  for(const record of prepared.events) {
+    exact(record,['event','snapshotKey','metricRevision']);
+    const event=record.event;
+    exact(event,['schemaVersion','eventId','source','type','sourceRevision','observedAt',
+      'correlationId','payload','privacyStatus','aiRouting','publish']);
+    const payload=event.payload;
+    exact(payload,['schemaVersion','source','reportDigest','period','metrics','suppressedRows',
+      'rawVisitorDataStored','externalAiCalls']);
+    if(event.schemaVersion!==1||event.source!=='analytics'||
+      event.type!=='aggregate_report_ready'||event.sourceRevision!==evidence.reportDigest||
+      event.observedAt!==evidence.observedAt||event.privacyStatus!=='AGGREGATED_ONLY'||
+      event.aiRouting!=='CENTRAL_BRAIN_ONLY'||event.publish!==false||
+      payload.schemaVersion!==1||payload.reportDigest!==evidence.reportDigest||
+      payload.rawVisitorDataStored!==false||payload.externalAiCalls!==0||
+      !Number.isSafeInteger(payload.suppressedRows)||payload.suppressedRows<0||
+      payload.suppressedRows>300||!Array.isArray(payload.metrics)||!payload.metrics.length||
+      payload.metrics.length>300)invalid();
+    const requiredWorkflow=payload.source==='clarity'?SOURCE.clarity.workflow:
+      ['ga4','search_console'].includes(payload.source)?SOURCE.google_bundle.workflow:null;
+    if(!requiredWorkflow||evidence.workflow!==requiredWorkflow)invalid();
+    const raw=[];
+    for(const row of payload.metrics) {
+      exact(row,['pagePath','name','value','sampleSize','confidence']);
+      if(row.pagePath!=='/'||row.confidence!=='AGGREGATE_ONLY_NO_CAUSAL_INFERENCE')invalid();
+      raw.push({pagePath:row.pagePath,name:row.name,value:row.value,sampleSize:row.sampleSize});
+    }
+    let validated;
+    try {validated=normalizeReport({schemaVersion:1,source:payload.source,
+      reportDigest:payload.reportDigest,period:payload.period,metrics:raw});}
+    catch {invalid();}
+    if(JSON.stringify(validated.metrics)!==JSON.stringify(payload.metrics))invalid();
+    const id=await digest('analytics|'+payload.source+'|'+payload.reportDigest+'|'+
+      payload.period.from+'|'+payload.period.to);
+    const snapshotKey=payload.source+'|'+payload.period.from+'|'+payload.period.to;
+    const revision=await digest(JSON.stringify(payload.metrics));
+    if(event.eventId!==id||event.correlationId!==id.slice(0,24)||
+      record.snapshotKey!==snapshotKey||record.metricRevision!==revision||
+      seen.has(snapshotKey))invalid();
+    seen.add(snapshotKey);
+  }
+}
+
+/**
  * Must be backed by a separately verified authenticated Brain Service Binding,
- * a durable source+period UPSERT/replay ledger, and signed receipt verifier.
+ * a durable source+period UPSERT/replay ledger, independently verified signed
+ * receipt AND independently verified durable snapshot readback.
  * The merged Brain currently lacks an analytics v1 capability; default is OFF.
  */
 export async function deliverToBrain(prepared,brainPort){
   if(!prepared?.verified||!Array.isArray(prepared.events)||!prepared.events.length ||
      typeof brainPort?.capabilities!=='function'||typeof brainPort?.submitSnapshot!=='function'||
-     typeof brainPort?.verifyReceipt!=='function')fail('BRAIN_ANALYTICS_NOT_CONFIGURED');
+     typeof brainPort?.verifyReceipt!=='function'||typeof brainPort?.readbackSnapshot!=='function'||
+     typeof brainPort?.verifyReadback!=='function')fail('BRAIN_ANALYTICS_NOT_CONFIGURED');
+  await preflightPreparedBatch(prepared);
   let cap;
   try{cap=await brainPort.capabilities();}
   catch{fail('BRAIN_CAPABILITY_UNAVAILABLE');}
   if(cap?.version!=='analytics.aggregate.v1'||cap?.authenticatedServiceBinding!==true||
-     cap?.durableSnapshotUpsert!==true||cap?.receiptSignatureVerification!==true)
+     cap?.durableSnapshotUpsert!==true||cap?.receiptSignatureVerification!==true||
+     cap?.immutableReceiptReadback!==true)
     fail('BRAIN_ANALYTICS_CAPABILITY_UNVERIFIED');
+  // Bounded readback: after an uncertain committed write, halt and reconcile.
+  const readbackTimeoutMs=brainPort.readbackTimeoutMs??3000;
+  if(!Number.isSafeInteger(readbackTimeoutMs)||readbackTimeoutMs<100||readbackTimeoutMs>10000)
+    fail('INVALID_READBACK_TIMEOUT');
   const receipts=[];
   for(const record of prepared.events){
     const request={schemaVersion:1,event:record.event,snapshotKey:record.snapshotKey,
@@ -206,7 +292,32 @@ export async function deliverToBrain(prepared,brainPort){
     try{valid=await brainPort.verifyReceipt(ack,request)===true;}
     catch{valid=false;}
     if(!valid)fail('UNVERIFIED_BRAIN_RECEIPT');
-    receipts.push({receiptId:ack.receiptId,snapshotKey:ack.snapshotKey,status:ack.status});
+    // An ACK alone does not prove the committed snapshot survived a restart.
+    // Read back from the authoritative Brain store; fail closed on uncertainty.
+    let stored,deadline;
+    const controller=new AbortController();
+    try {
+      stored=await Promise.race([
+        brainPort.readbackSnapshot({receiptId:ack.receiptId,
+          eventId:record.event.eventId,snapshotKey:record.snapshotKey},
+          {signal:controller.signal}),
+        new Promise((_,reject)=>{deadline=setTimeout(()=>{
+          controller.abort();reject(new Error('BRAIN_READBACK_TIMEOUT'));
+        },readbackTimeoutMs);})
+      ]);
+    } catch {fail('BRAIN_READBACK_UNCERTAIN_RECONCILE_REQUIRED');}
+    finally {clearTimeout(deadline);}
+    if(stored?.receiptId!==ack.receiptId||stored?.eventId!==record.event.eventId||
+       stored?.snapshotKey!==record.snapshotKey||stored?.metricRevision!==record.metricRevision||
+       stored?.reportDigest!==prepared.evidence.reportDigest||
+       stored?.source!==record.event.payload.source||stored?.correlationId!==record.event.correlationId||
+       stored?.durable!==true)fail('UNVERIFIED_BRAIN_READBACK');
+    let readbackValid=false;
+    try {readbackValid=await brainPort.verifyReadback(stored,request,ack)===true;}
+    catch {readbackValid=false;}
+    if(!readbackValid)fail('UNVERIFIED_BRAIN_READBACK');
+    receipts.push({receiptId:ack.receiptId,snapshotKey:ack.snapshotKey,status:ack.status,
+      readbackVerified:true});
   }
   return {delivered:receipts.length,receipts};
 }
