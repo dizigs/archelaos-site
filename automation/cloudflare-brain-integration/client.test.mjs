@@ -34,8 +34,11 @@ const signed = (payload, audience='source.receipt.ack.v1', principal='drive-v1',
 };
 const reply = (e, status=202) => Response.json(signed({receiptId:randomUUID(), correlationId:e.correlationId,
   eventId:e.eventId,dedupeKey:dedupeKey(e),durable:true,duplicate:status===200,status:'QUEUED'}), {status});
-const readback = (receiptId,correlationId,status='DONE',attempts=1) =>
-  Response.json(signed({receiptId,correlationId,status,attempts,code:'DETERMINISTIC_ROUTE_COMPLETE',durable:true},'source.receipt.readback.v1'));
+const readback = (receiptId,correlationId,status='DONE',attempts=1,
+  eventId=randomUUID(),dedupeKeyValue='d'.repeat(64),source='drive') =>
+  Response.json(signed({receiptId,correlationId,eventId,dedupeKey:dedupeKeyValue,
+    source,status,attempts,code:'DETERMINISTIC_ROUTE_COMPLETE',durable:true},
+    'source.receipt.readback.v1'));
 const reject = (p, code) => assert.rejects(p, x => x instanceof IntegrationBlocked && x.code === code);
 test('no source spoofing; other Workers blocked', () => {
   assert.throws(()=>createBrainWorkerAdapter({workerName:'archelaos-raisely-bridge',sourceType:'drive'}), /SOURCE_NOT_APPROVED/);
@@ -190,7 +193,7 @@ test('restart-safe synthetic Brain receipt keeps one event and durable duplicate
     const match=path.startsWith('/v1/source-receipts/') ? [path,path.slice('/v1/source-receipts/'.length)] : null;
     if(req.method==='GET' && match){
       const receipt=[...stored.values()].find(x=>x.receiptId===match[1]);
-      return receipt?readback(receipt.receiptId,receipt.correlationId,'WAITING_REVIEW',0):new Response('',{status:404});
+      return receipt?readback(receipt.receiptId,receipt.correlationId,'WAITING_REVIEW',0,receipt.eventId,receipt.dedupeKey):new Response('',{status:404});
     }
     return new Response('',{status:404});
   };
@@ -198,7 +201,7 @@ test('restart-safe synthetic Brain receipt keeps one event and durable duplicate
   const receipt=await first.a.submitEvent(e);
   const restarted=setup(privateTransport);
   const again=await restarted.a.submitEvent(e);
-  const verified=await restarted.a.readReceipt(receipt.receiptId,e.correlationId);
+  const verified=await restarted.a.readReceipt(receipt.receiptId,e.correlationId,e.eventId,dedupeKey(e));
   assert.equal(admissions,1);
   assert.equal(stored.size,1);
   assert.equal(receipt.duplicate,false);
@@ -359,4 +362,40 @@ test('missing signed readback is durably audited as UNKNOWN with immutable recei
   assert.deepEqual(logs.map(r=>({kind:r.kind,receiptId:r.receiptId,correlationId:r.correlationId,
     result:r.result,code:r.code})),[{kind:'readback',receiptId:id,correlationId,
     result:'UNKNOWN',code:'READBACK_REJECTED'}]);
+});
+
+test('new #234 SQLite-derived signed readback must carry canonical source, eventId and dedupeKey',async()=>{
+  const e=event(),receiptId=randomUUID(),hash=dedupeKey(e);
+  const {a}=setup(async()=>readback(receiptId,e.correlationId,'WAITING_REVIEW',0,e.eventId,hash));
+  const result=await a.readReceipt(receiptId,e.correlationId,e.eventId,hash);
+  assert.deepEqual({eventId:result.eventId,dedupeKey:result.dedupeKey,sourceType:result.sourceType},
+    {eventId:e.eventId,dedupeKey:hash,sourceType:'drive'});
+});
+test('readback source, event identity and immutable digest mismatch are rejected even when validly signed',async()=>{
+  const e=event(),receiptId=randomUUID(),hash=dedupeKey(e);
+  const bad=[
+    ['WAITING_REVIEW',0,e.eventId,hash,'news'],
+    ['WAITING_REVIEW',0,randomUUID(),hash,'drive'],
+    ['WAITING_REVIEW',0,e.eventId,'0'.repeat(64),'drive'],
+  ];
+  for(const [state,attempts,id,digest,source] of bad){
+    const {a,logs}=setup(async()=>readback(receiptId,e.correlationId,state,attempts,id,digest,source));
+    await reject(a.readReceipt(receiptId,e.correlationId,e.eventId,hash),'READBACK_UNVERIFIED');
+    assert.equal(logs.at(-1).result,'UNKNOWN');
+  }
+});
+test('legacy signed readback missing immutable SQLite fields is rejected, not downgraded',async()=>{
+  const e=event(),id=randomUUID();
+  const legacy=signed({receiptId:id,correlationId:e.correlationId,status:'QUEUED',
+    durable:true,attempts:0},'source.receipt.readback.v1');
+  const {a,logs}=setup(async()=>Response.json(legacy));
+  await reject(a.readReceipt(id,e.correlationId),'READBACK_UNVERIFIED');
+  assert.equal(logs.at(-1).code,'READBACK_UNVERIFIED');
+});
+test('missing expected original immutable IDs are rejected before network readback',async()=>{
+  const e=event(),receiptId=randomUUID(),visited=[];
+  const {a}=setup(async req=>{visited.push(new URL(req.url).pathname);return readback(receiptId,e.correlationId);});
+  await reject(a.readReceipt(receiptId,e.correlationId,'not-a-uuid'),'INVALID_EVENT_ID');
+  await reject(a.readReceipt(receiptId,e.correlationId,null,'invalid-digest'),'INVALID_DEDUPE_KEY');
+  assert.deepEqual(visited,[]);
 });
