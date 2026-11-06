@@ -108,3 +108,75 @@ test('installation HTTP rejection, network failure and corrupt JSON all fail clo
     now:NOW,fetchImpl:async()=>new Response('not json',{status:201})
   }),/GITHUB_APP_TOKEN_RESPONSE_INVALID/);
 });
+
+
+test('token expires within one hour after elapsed exchange, including boundary',async()=>{
+  async function issue(expireOffsetMs, expectedOk){
+    let tick=0;
+    const clock=()=>[100,6100][Math.min(tick++,1)];
+    const promise=getScopedGitHubReadToken(env(),{
+      now:NOW,clock,
+      fetchImpl:async()=>validResponse({expires_at:new Date(NOW+expireOffsetMs).toISOString()})
+    });
+    if(expectedOk) assert.equal(await promise,'ghs_'+ 't'.repeat(60));
+    else await assert.rejects(promise,/GITHUB_APP_TOKEN_SCOPE_UNVERIFIED/);
+  }
+  await issue(60*60_000+6000,true); // exactly one hour remaining after 6s
+  await issue(60*60_000+6001,false); // even one ms above the maximum is rejected
+  await issue(60_000+6000,false); // less than or equal to 60s remaining fails closed
+});
+
+test('GitHub token response may omit repositories only with independent scoped readback',async()=>{
+  let calls=0;
+  const token=await getScopedGitHubReadToken(env(),{
+    now:NOW,
+    fetchImpl:async(url,options)=>{
+      calls++;
+      if(calls===1){
+        assert.equal(options.method,'POST');
+        return validResponse({repositories:undefined});
+      }
+      assert.equal(url,'https://api.github.com/installation/repositories?per_page=2');
+      assert.equal(options.method,'GET');
+      assert.equal(options.redirect,'error');
+      assert.equal(options.headers.authorization,'Bearer ghs_'+ 't'.repeat(60));
+      return new Response(JSON.stringify({
+        total_count:1,repositories:[{full_name:'dizigs/archelaos-site'}]
+      }),{status:200});
+    }
+  });
+  assert.equal(token,'ghs_'+ 't'.repeat(60));
+  assert.equal(calls,2);
+});
+
+test('missing repository list never bypasses independent scoped readback',async()=>{
+  const scenarios=[
+    {total_count:2,repositories:[{full_name:'dizigs/archelaos-site'}]},
+    {total_count:1,repositories:[{full_name:'another/repository'}]},
+    {total_count:1,repositories:[]},
+    {total_count:1},
+    {}
+  ];
+  for(const inventory of scenarios){
+    let calls=0;
+    await assert.rejects(()=>getScopedGitHubReadToken(env(),{
+      now:NOW,fetchImpl:async()=>{
+        calls++;return calls===1?validResponse({repositories:undefined}):
+          new Response(JSON.stringify(inventory),{status:200});
+      }
+    }),/GITHUB_APP_TOKEN_SCOPE_UNVERIFIED/);
+    assert.equal(calls,2);
+  }
+  await assert.rejects(()=>getScopedGitHubReadToken(env(),{
+    now:NOW,fetchImpl:async(url)=>{
+      if(url.includes('/access_tokens'))return validResponse({repositories:undefined});
+      return new Response('{}',{status:403});
+    }
+  }),/GITHUB_APP_TOKEN_SCOPE_UNVERIFIED/);
+  await assert.rejects(()=>getScopedGitHubReadToken(env(),{
+    now:NOW,fetchImpl:async(url)=>{
+      if(url.includes('/access_tokens'))return validResponse({repositories:undefined});
+      throw Error('network unavailable');
+    }
+  }),/GITHUB_APP_TOKEN_SCOPE_UNVERIFIED/);
+});
