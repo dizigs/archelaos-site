@@ -190,10 +190,27 @@ export class BrainCoordinator extends DurableObject {
         const id = url.pathname.slice('/internal/source-receipts/'.length);
         if (!UUID.test(id)) throw new Rejected('INVALID_RECEIPT', 422);
         if (this.paused(identity)) throw new Rejected('AUTOMATION_PAUSED', 423);
-        const job = [...this.sql.exec('SELECT id,status,attempts,route,code,correlation FROM jobs WHERE id=? AND source=?',
+        const job = [...this.sql.exec('SELECT id,status,attempts,route,code,correlation,envelope FROM jobs WHERE id=? AND source=?',
           id, identity)][0];
         if (!job) throw new Rejected('RECEIPT_NOT_FOUND', 404);
+        // Derive readback identity ONLY from the durable canonical event, not
+        // request headers or a client-submitted digest. Cross-check the event_keys
+        // index so a missing/corrupt receipt cannot be cryptographically attested.
+        let stored;
+        try { stored = JSON.parse(job.envelope); }
+        catch { throw new Rejected('SOURCE_RECEIPT_CORRUPT', 503); }
+        if (stored?.sourceType !== identity || stored.correlationId !== job.correlation)
+          throw new Rejected('SOURCE_RECEIPT_CORRUPT', 503);
+        stored = validateEvent(stored, identity);
+        const kind = stored.eventType.startsWith('source.file.') ? 'source.file' : stored.eventType;
+        const dedupeKey = await digest('blob|' + identity + '|' + stored.sourceId + '|' +
+          kind + '|' + stored.payload.blobSha256);
+        const index = [...this.sql.exec('SELECT job_id FROM event_keys WHERE key=? AND kind=?',
+          dedupeKey, 'blob')][0];
+        if (!index || index.job_id !== job.id)
+          throw new Rejected('SOURCE_RECEIPT_CORRUPT', 503);
         return reply({ receiptId: job.id, correlationId: job.correlation,
+          eventId: stored.eventId, dedupeKey, source: identity,
           status: job.status, attempts: job.attempts, route: job.route,
           code: job.code, durable: true });
       }
