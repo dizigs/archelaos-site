@@ -4,6 +4,7 @@
 // Never retry an UNKNOWN outcome; only independent durable readback can settle it.
 import { Rejected } from './contract.mjs';
 import { validateCiFinding } from './selfheal_recovery.mjs';
+import { prepareDurableCommand, sendDurableCommand, settleDurableReadback } from './selfheal_ack.mjs';
 
 const REPO = 'dizigs/archelaos-site';
 const SHA = /^[a-f0-9]{40}$/;
@@ -13,7 +14,7 @@ const SCOPE = 'selfheal.recover';
 const ISSUER = 'canonical-brain';
 
 export const SELFHEAL_OUTBOX_SCHEMA = Object.freeze([
-  'CREATE TABLE IF NOT EXISTS selfheal_signed_outbox(receipt_id TEXT PRIMARY KEY, nonce TEXT NOT NULL UNIQUE, claimed_at INTEGER NOT NULL, status TEXT NOT NULL CHECK(status = \'UNKNOWN\'))'
+  "CREATE TABLE IF NOT EXISTS selfheal_signed_outbox(receipt_id TEXT PRIMARY KEY,nonce TEXT NOT NULL UNIQUE,claimed_at INTEGER NOT NULL,status TEXT NOT NULL CHECK(status IN ('UNKNOWN','ACKNOWLEDGED')),command_json TEXT,command_digest TEXT,ack_json TEXT,settled_at INTEGER)"
 ]);
 
 const deny = code => { throw new Rejected(code, 423); };
@@ -99,13 +100,37 @@ export async function attemptOneSignedSelfHealDelivery(storage, env, receiptId, 
   const nonce = hex(crypto.getRandomValues(new Uint8Array(16)));
   const finding = claimFromCanonicalLedger(storage, receiptId, now, nonce);
   try {
+    if (env.BRAIN_SELFHEAL_DURABLE_ACK_ENABLED === 'true') {
+      const command = await prepareDurableCommand(storage, receiptId, finding,
+        env.HEALER_EVENT_HMAC_KEY, now, nonce);
+      const ack = await sendDurableCommand(env, command);
+      return await settleDurableReadback(storage, env, receiptId, ack, now);
+    }
     const envelope = await signCanonicalRecoveryFinding(finding,
       env.HEALER_EVENT_HMAC_KEY, now, nonce);
     await env.HEALER.attemptRecovery(envelope);
   } catch {
     return Object.freeze({status:'UNKNOWN',receiptId,needsIndependentReadback:true,
-      safeToRetry:false,code:'HEALER_DELIVERY_UNVERIFIED'});
+      safeToRetry:false,code:env.BRAIN_SELFHEAL_DURABLE_ACK_ENABLED === 'true'
+        ? 'HEALER_ACK_OR_READBACK_UNVERIFIED' : 'HEALER_DELIVERY_UNVERIFIED'});
   }
   return Object.freeze({status:'UNKNOWN',receiptId,needsIndependentReadback:true,
     safeToRetry:false,code:'HEALER_DURABLE_ACK_NOT_ATTESTED'});
+}
+
+// Explicit inspection of a prior UNKNOWN command, never a delivery retry.
+export async function reconcileSignedSelfHealDelivery(storage, env, receiptId, now = Date.now()) {
+  requireStaging(env, now);
+  try { return await settleDurableReadback(storage, env, receiptId, undefined, now); }
+  catch { return Object.freeze({status:'UNKNOWN',receiptId,needsIndependentReadback:true,
+    safeToRetry:false,code:'HEALER_READBACK_UNVERIFIED'}); }
+}
+
+export function validateSelfHealDispatchInput(input) {
+  if (!input || Object.getPrototypeOf(input) !== Object.prototype ||
+      !UUID.test(input.receiptId || '') || !Object.hasOwn(input,'receiptId') ||
+      !(Reflect.ownKeys(input).length === 1 ||
+        (Reflect.ownKeys(input).length === 2 && Object.hasOwn(input,'mode') && input.mode === 'readback')))
+    throw new Rejected('INVALID_SELFHEAL_DISPATCH_REQUEST',422);
+  return input.mode === 'readback' ? {receiptId:input.receiptId,mode:'readback'} : {receiptId:input.receiptId};
 }

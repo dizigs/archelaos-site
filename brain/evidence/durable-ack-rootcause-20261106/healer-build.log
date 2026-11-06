@@ -1,0 +1,14 @@
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+
+ ⛅️ wrangler 4.157.0
+────────────────────
+Total Upload: 34.40 KiB / gzip: 9.12 KiB
+Your Worker has access to the following bindings:
+Binding                                                                         Resource                  
+env.HEALER_MEMORY (HealerMemory)                                                Durable Object            
+env.BRAIN_RECOVERY (archelaos-brain-staging#BrainRecoveryPort)                  Worker                    
+env.HEALER_DURABLE_ACK_ENABLED ("false")                                        Environment Variable      
+
+--dry-run: exiting now.

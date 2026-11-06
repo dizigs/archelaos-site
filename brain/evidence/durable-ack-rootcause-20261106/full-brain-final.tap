@@ -1,0 +1,958 @@
+
+> archelaos-brain-core@0.1.0 test
+> node --test --test-reporter=tap --test-concurrency=1 test/*.test.mjs
+
+TAP version 13
+# Subtest: Drive is fail-closed before authorization or real connector exists
+ok 1 - Drive is fail-closed before authorization or real connector exists
+  ---
+  duration_ms: 153.726703
+  type: 'test'
+  ...
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"945e5463-9281-43e5-a882-f6250bbc4c7d","correlationId":"461241eb-f6a9-5182-8dc3-1e9150d17c9c","status":"QUEUED","code":"ACCEPTED","attempt":0}
+# Subtest: Drive actual SQL cursor advances only after one durable native core receipt
+ok 2 - Drive actual SQL cursor advances only after one durable native core receipt
+  ---
+  duration_ms: 3221.557287
+  type: 'test'
+  ...
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"5773833a-e013-4ec9-8f2f-ac1cc9bc27df","correlationId":"461241eb-f6a9-5182-8dc3-1e9150d17c9c","status":"QUEUED","code":"ACCEPTED","attempt":0}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"5773833a-e013-4ec9-8f2f-ac1cc9bc27df","correlationId":"461241eb-f6a9-5182-8dc3-1e9150d17c9c","status":"RUNNING","code":"DISPATCH_STARTED","attempt":1}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"5773833a-e013-4ec9-8f2f-ac1cc9bc27df","correlationId":"461241eb-f6a9-5182-8dc3-1e9150d17c9c","status":"WAITING_REVIEW","code":"DETERMINISTIC_ROUTE_COMPLETE","attempt":1}
+# Subtest: crash after durable enqueue, runtime restart and replay do not lose or duplicate source work
+ok 3 - crash after durable enqueue, runtime restart and replay do not lose or duplicate source work
+  ---
+  duration_ms: 3283.442419
+  type: 'test'
+  ...
+# Subtest: forged Drive channel, expired watch and foreign shared drive cannot checkpoint or enqueue
+ok 4 - forged Drive channel, expired watch and foreign shared drive cannot checkpoint or enqueue
+  ---
+  duration_ms: 153.286706
+  type: 'test'
+  ...
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"14686ab6-3b89-4dc7-a106-d3718e981af0","correlationId":"461241eb-f6a9-5182-8dc3-1e9150d17c9c","status":"QUEUED","code":"ACCEPTED","attempt":0}
+# Subtest: source lease blocks concurrent processing and recovers after expired crashed owner
+ok 5 - source lease blocks concurrent processing and recovers after expired crashed owner
+  ---
+  duration_ms: 6414.089932
+  type: 'test'
+  ...
+# Subtest: Drive watch sync is not a fabricated file event and raw deletion does not remove content
+ok 6 - Drive watch sync is not a fabricated file event and raw deletion does not remove content
+  ---
+  duration_ms: 3112.596485
+  type: 'test'
+  ...
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"e8a2ce86-ad35-4b0b-8c6e-b95f98ec6c8d","correlationId":"3e5610a5-fd28-57bf-8057-ae3ddc1811bd","status":"QUEUED","code":"ACCEPTED","attempt":0}
+# Subtest: Gmail uses verified OIDC and durable history pagination without treating page token as history ID
+ok 7 - Gmail uses verified OIDC and durable history pagination without treating page token as history ID
+  ---
+  duration_ms: 126.670012
+  type: 'test'
+  ...
+# Subtest: Gmail bad principal, mailbox, label and expired history preserve original checkpoint
+ok 8 - Gmail bad principal, mailbox, label and expired history preserve original checkpoint
+  ---
+  duration_ms: 3122.863697
+  type: 'test'
+  ...
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"4e8d9fc6-8d89-4420-ad94-c8eacd97e800","correlationId":"109bdf3d-0f44-5f26-845c-ccb1e2d2ab87","status":"QUEUED","code":"ACCEPTED","attempt":0}
+# Subtest: contribution requires independent committed backend receipt, consent and clean scan
+ok 9 - contribution requires independent committed backend receipt, consent and clean scan
+  ---
+  duration_ms: 119.221871
+  type: 'test'
+  ...
+# Subtest: GitHub verifies raw HMAC and repository before emitting technical review metadata
+ok 10 - GitHub verifies raw HMAC and repository before emitting technical review metadata
+  ---
+  duration_ms: 3052.868077
+  type: 'test'
+  ...
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"fe7d800e-2a42-45c4-9486-1fac3604f3e7","correlationId":"461241eb-f6a9-5182-8dc3-1e9150d17c9c","status":"QUEUED","code":"ACCEPTED","attempt":0}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"fe7d800e-2a42-45c4-9486-1fac3604f3e7","correlationId":"461241eb-f6a9-5182-8dc3-1e9150d17c9c","status":"RUNNING","code":"DISPATCH_STARTED","attempt":1}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"fe7d800e-2a42-45c4-9486-1fac3604f3e7","correlationId":"461241eb-f6a9-5182-8dc3-1e9150d17c9c","status":"WAITING_REVIEW","code":"DETERMINISTIC_ROUTE_COMPLETE","attempt":1}
+# Subtest: source event through native queue, extraction, SQLite draft and mocked PR is one durable workflow
+ok 11 - source event through native queue, extraction, SQLite draft and mocked PR is one durable workflow
+  ---
+  duration_ms: 3217.517915
+  type: 'test'
+  ...
+# Subtest: default pause, missing account coverage and live mode make zero provider calls
+ok 12 - default pause, missing account coverage and live mode make zero provider calls
+  ---
+  duration_ms: 333.39362
+  type: 'test'
+  ...
+# Subtest: real SQLite reservation precedes one synthetic call and replay cannot call again
+ok 13 - real SQLite reservation precedes one synthetic call and replay cannot call again
+  ---
+  duration_ms: 3316.61572
+  type: 'test'
+  ...
+# Subtest: alert delivery failure retains reservation and prevents the provider request
+ok 14 - alert delivery failure retains reservation and prevents the provider request
+  ---
+  duration_ms: 241.949402
+  type: 'test'
+  ...
+# Subtest: unknown provider outcome is not retried or refunded on replay
+ok 15 - unknown provider outcome is not retried or refunded on replay
+  ---
+  duration_ms: 3254.819103
+  type: 'test'
+  ...
+# Subtest: ledger unavailable or insufficient balance denies before any provider invocation
+ok 16 - ledger unavailable or insufficient balance denies before any provider invocation
+  ---
+  duration_ms: 3212.472789
+  type: 'test'
+  ...
+# Subtest: per-source pause blocks the actual sourceType before any provider invocation
+ok 17 - per-source pause blocks the actual sourceType before any provider invocation
+  ---
+  duration_ms: 3210.124007
+  type: 'test'
+  ...
+# Subtest: missing source scope cannot bypass a per-source kill switch
+ok 18 - missing source scope cannot bypass a per-source kill switch
+  ---
+  duration_ms: 212.779433
+  type: 'test'
+  ...
+# Subtest: fractional USD conversion always rounds upward, never below one microEUR
+ok 19 - fractional USD conversion always rounds upward, never below one microEUR
+  ---
+  duration_ms: 1.093752
+  type: 'test'
+  ...
+# Subtest: unknown currency, unverifiable quote, invalid token bounds fail before reservation
+ok 20 - unknown currency, unverifiable quote, invalid token bounds fail before reservation
+  ---
+  duration_ms: 0.592875
+  type: 'test'
+  ...
+# Subtest: calendar month uses Europe/Athens at winter and daylight-saving boundaries
+ok 21 - calendar month uses Europe/Athens at winter and daylight-saving boundaries
+  ---
+  duration_ms: 13.777727
+  type: 'test'
+  ...
+# Subtest: fixed request fees are reserved with tokens and missing/future fee quotes are denied
+ok 22 - fixed request fees are reserved with tokens and missing/future fee quotes are denied
+  ---
+  duration_ms: 0.279252
+  type: 'test'
+  ...
+# Subtest: private validators accept real \#220/\#201 shapes and reject personal fields and forged digests
+ok 23 - private validators accept real \#220/\#201 shapes and reject personal fields and forged digests
+  ---
+  duration_ms: 8.228688
+  type: 'test'
+  ...
+# Subtest: private principal secrets cannot be reused or shared with the receipt signer
+ok 24 - private principal secrets cannot be reused or shared with the receipt signer
+  ---
+  duration_ms: 3214.468456
+  type: 'test'
+  ...
+# Subtest: capacity windows admit new work after historic completions without deleting receipts
+ok 25 - capacity windows admit new work after historic completions without deleting receipts
+  ---
+  duration_ms: 0.699867
+  type: 'test'
+  ...
+# Subtest: stored receipt corruption maps to a server-side 503
+ok 26 - stored receipt corruption maps to a server-side 503
+  ---
+  duration_ms: 0.505643
+  type: 'test'
+  ...
+# Subtest: private source identities cannot impersonate each other or the operator
+ok 27 - private source identities cannot impersonate each other or the operator
+  ---
+  duration_ms: 134.040278
+  type: 'test'
+  ...
+# Subtest: private capabilities remain fail-closed when binding attestations are absent
+ok 28 - private capabilities remain fail-closed when binding attestations are absent
+  ---
+  duration_ms: 3128.366194
+  type: 'test'
+  ...
+# Subtest: analytics snapshots durable UPSERT not increment with HMAC receipt and replay protection
+ok 29 - analytics snapshots durable UPSERT not increment with HMAC receipt and replay protection
+  ---
+  duration_ms: 146.26554
+  type: 'test'
+  ...
+# Subtest: Apps Script opaque receipts are durable, idempotent and never perform Google writes
+ok 30 - Apps Script opaque receipts are durable, idempotent and never perform Google writes
+  ---
+  duration_ms: 3122.432818
+  type: 'test'
+  ...
+# {"service":"archelaos-brain","commit":"eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee","code":"AUTOMATION_PAUSED","revision":1,"scope":"source:analytics"}
+# Subtest: global/source pause blocks new capability receipts without enabling AI
+ok 31 - global/source pause blocks new capability receipts without enabling AI
+  ---
+  duration_ms: 3118.843541
+  type: 'test'
+  ...
+# Subtest: source-specific event keys remain OFF without a verified private binding
+ok 32 - source-specific event keys remain OFF without a verified private binding
+  ---
+  duration_ms: 3092.441936
+  type: 'test'
+  ...
+# {"service":"archelaos-brain","commit":"eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee","receiptId":"ee2e2ac9-fade-4d5b-9c1b-d9dc3ae31b36","correlationId":"14c0e7b1-4901-491c-a591-f39581f05262","status":"QUEUED","code":"ACCEPTED","attempt":0}
+# {"service":"archelaos-brain","commit":"eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee","receiptId":"da5e7d0d-f0ed-46f8-b3d5-d1e880d186e4","correlationId":"96dc0fe6-6e41-4d92-9dcb-1cce5ace2d61","status":"QUEUED","code":"ACCEPTED","attempt":0}
+# Subtest: Drive/Gmail source-scoped HMAC event, route, receipt and readback permission
+ok 33 - Drive/Gmail source-scoped HMAC event, route, receipt and readback permission
+  ---
+  duration_ms: 144.845591
+  type: 'test'
+  ...
+# Subtest: immutable analytics revision and Apps Script receipt survive the same SQLite DO restart
+ok 34 - immutable analytics revision and Apps Script receipt survive the same SQLite DO restart
+  ---
+  duration_ms: 3249.24361
+  type: 'test'
+  ...
+# Subtest: analytics snapshot rejects conflicting/older producer evidence and accepts newer identical metrics
+ok 35 - analytics snapshot rejects conflicting/older producer evidence and accepts newer identical metrics
+  ---
+  duration_ms: 3120.509444
+  type: 'test'
+  ...
+# {"service":"archelaos-brain","commit":"eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee","receiptId":"2986d29d-99dc-4470-a34e-7fe725be8711","correlationId":"09fa6d58-576c-4c6d-a768-5a91904627ec","status":"QUEUED","code":"ACCEPTED","attempt":0}
+# {"service":"archelaos-brain","commit":"eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee","receiptId":"2986d29d-99dc-4470-a34e-7fe725be8711","correlationId":"09fa6d58-576c-4c6d-a768-5a91904627ec","status":"RUNNING","code":"DISPATCH_STARTED","attempt":1}
+# {"service":"archelaos-brain","commit":"eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee","receiptId":"2986d29d-99dc-4470-a34e-7fe725be8711","correlationId":"09fa6d58-576c-4c6d-a768-5a91904627ec","status":"WAITING_REVIEW","code":"DETERMINISTIC_ROUTE_COMPLETE","attempt":1}
+# Subtest: source readback preserves immutable event and blob key across SQLite restart
+ok 36 - source readback preserves immutable event and blob key across SQLite restart
+  ---
+  duration_ms: 6206.548341
+  type: 'test'
+  ...
+# Subtest: approved source to deterministic extraction, verified fact, section and guarded PR plan
+ok 37 - approved source to deterministic extraction, verified fact, section and guarded PR plan
+  ---
+  duration_ms: 156.767876
+  type: 'test'
+  ...
+# Subtest: private source/release denial happens before reading content or generating public text
+ok 38 - private source/release denial happens before reading content or generating public text
+  ---
+  duration_ms: 3070.684603
+  type: 'test'
+  ...
+# Subtest: hash/revision mismatch, unsupported extraction and fabricated fact stay in PRIVATE_REVIEW
+ok 39 - hash/revision mismatch, unsupported extraction and fabricated fact stay in PRIVATE_REVIEW
+  ---
+  duration_ms: 55.110902
+  type: 'test'
+  ...
+# Subtest: prompt injection and synthetic private text do not enter proposals
+ok 40 - prompt injection and synthetic private text do not enter proposals
+  ---
+  duration_ms: 3062.386866
+  type: 'test'
+  ...
+# Subtest: ambiguous identity and SFK attribution cannot become Hall facts
+ok 41 - ambiguous identity and SFK attribution cannot become Hall facts
+  ---
+  duration_ms: 78.193615
+  type: 'test'
+  ...
+# Subtest: private Google URLs, unknown dates, pre-event results and personal email are withheld
+ok 42 - private Google URLs, unknown dates, pre-event results and personal email are withheld
+  ---
+  duration_ms: 3045.134814
+  type: 'test'
+  ...
+# Subtest: actual SQLite draft registry deduplicates concurrent proposals and persists across restart
+ok 43 - actual SQLite draft registry deduplicates concurrent proposals and persists across restart
+  ---
+  duration_ms: 3417.252805
+  type: 'test'
+  ...
+# Subtest: preview to result updates one SQLite news draft; late preview cannot downgrade result
+ok 44 - preview to result updates one SQLite news draft; late preview cannot downgrade result
+  ---
+  duration_ms: 3147.033049
+  type: 'test'
+  ...
+# Subtest: publication defaults to dry-run and synthetic publisher cannot be mistaken for a real PR
+ok 45 - publication defaults to dry-run and synthetic publisher cannot be mistaken for a real PR
+  ---
+  duration_ms: 3060.289551
+  type: 'test'
+  ...
+# Subtest: binary PDF hash is checked before injected extraction; unavailable PDF parser stays private
+ok 46 - binary PDF hash is checked before injected extraction; unavailable PDF parser stays private
+  ---
+  duration_ms: 46.144346
+  type: 'test'
+  ...
+# Subtest: known canonical event proposes an update without creating another news item
+ok 47 - known canonical event proposes an update without creating another news item
+  ---
+  duration_ms: 3041.528386
+  type: 'test'
+  ...
+# Subtest: operator-only exact task contract, durable receipt and immutable replay
+ok 48 - operator-only exact task contract, durable receipt and immutable replay
+  ---
+  duration_ms: 3375.520501
+  type: 'test'
+  ...
+# Subtest: reject malformed identities, path traversal, extra privileged fields and invalid approvals
+ok 49 - reject malformed identities, path traversal, extra privileged fields and invalid approvals
+  ---
+  duration_ms: 148.437962
+  type: 'test'
+  ...
+# Subtest: not a live executor: claims remain off by default even with approved work
+ok 50 - not a live executor: claims remain off by default even with approved work
+  ---
+  duration_ms: 6144.670361
+  type: 'test'
+  ...
+# Subtest: one shared microEUR ledger and exactly two concurrent builds
+ok 51 - one shared microEUR ledger and exactly two concurrent builds
+  ---
+  duration_ms: 3148.870896
+  type: 'test'
+  ...
+# Subtest: file subtree locks, evidence requirement, no unbounded retries and budget cap
+ok 52 - file subtree locks, evidence requirement, no unbounded retries and budget cap
+  ---
+  duration_ms: 3214.5538
+  type: 'test'
+  ...
+# Subtest: expired in-flight lease is durable UNKNOWN, retains the path and reservation until proof
+ok 53 - expired in-flight lease is durable UNKNOWN, retains the path and reservation until proof
+  ---
+  duration_ms: 3405.384624
+  type: 'test'
+  ...
+# Subtest: signed preclaimed compatibility receipt binds exact Brain task and \#213 audience
+ok 54 - signed preclaimed compatibility receipt binds exact Brain task and \#213 audience
+  ---
+  duration_ms: 134.302455
+  type: 'test'
+  ...
+# Subtest: integration receipt refuses privileged Brain source files and unsupported routes
+ok 55 - integration receipt refuses privileged Brain source files and unsupported routes
+  ---
+  duration_ms: 3128.142195
+  type: 'test'
+  ...
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","code":"AUTOMATION_PAUSED","revision":1,"scope":"global"}
+# Subtest: emergency global pause blocks new signed handoff and one-shot provider begin
+ok 56 - emergency global pause blocks new signed handoff and one-shot provider begin
+  ---
+  duration_ms: 3132.782764
+  type: 'test'
+  ...
+# Subtest: GitHub-issued RSA PRIVATE KEY (PKCS\#1) and PKCS\#8 both sign valid RS256 JWT
+ok 57 - GitHub-issued RSA PRIVATE KEY (PKCS\#1) and PKCS\#8 both sign valid RS256 JWT
+  ---
+  duration_ms: 14.646225
+  type: 'test'
+  ...
+# Subtest: GitHub App creates exactly one single-repository short-lived read-only token
+ok 58 - GitHub App creates exactly one single-repository short-lived read-only token
+  ---
+  duration_ms: 27.441445
+  type: 'test'
+  ...
+# Subtest: wrong app or installation, absent PEM, or malformed private keys deny before any request
+ok 59 - wrong app or installation, absent PEM, or malformed private keys deny before any request
+  ---
+  duration_ms: 2.037847
+  type: 'test'
+  ...
+# Subtest: GitHub 201 is never enough without exact scoped permissions and repository
+ok 60 - GitHub 201 is never enough without exact scoped permissions and repository
+  ---
+  duration_ms: 15.462688
+  type: 'test'
+  ...
+# Subtest: installation HTTP rejection, network failure and corrupt JSON all fail closed
+ok 61 - installation HTTP rejection, network failure and corrupt JSON all fail closed
+  ---
+  duration_ms: 4.056265
+  type: 'test'
+  ...
+# Subtest: token expires within one hour after elapsed exchange, including boundary
+ok 62 - token expires within one hour after elapsed exchange, including boundary
+  ---
+  duration_ms: 3.942793
+  type: 'test'
+  ...
+# Subtest: GitHub token response may omit repositories only with independent scoped readback
+ok 63 - GitHub token response may omit repositories only with independent scoped readback
+  ---
+  duration_ms: 4.614847
+  type: 'test'
+  ...
+# Subtest: missing repository list never bypasses independent scoped readback
+ok 64 - missing repository list never bypasses independent scoped readback
+  ---
+  duration_ms: 14.872362
+  type: 'test'
+  ...
+# Subtest: two existing-service targets fail closed through named Brain RPC; SQLite HMAC replay survives restart
+ok 65 - two existing-service targets fail closed through named Brain RPC; SQLite HMAC replay survives restart
+  ---
+  duration_ms: 3641.868719
+  type: 'test'
+  ...
+# Subtest: actual synthetic PDF bytes extract text without modifying the input or invoking AI
+ok 66 - actual synthetic PDF bytes extract text without modifying the input or invoking AI
+  ---
+  duration_ms: 71.239227
+  type: 'test'
+  ...
+# Subtest: PDF embedded JavaScript is never executed
+ok 67 - PDF embedded JavaScript is never executed
+  ---
+  duration_ms: 4.65592
+  type: 'test'
+  ...
+# Subtest: malformed, oversized and textless PDFs remain private without OCR or paid fallback
+ok 68 - malformed, oversized and textless PDFs remain private without OCR or paid fallback
+  ---
+  duration_ms: 2.947201
+  type: 'test'
+  ...
+# Subtest: real PDF claims require approved exact quotes and privacy checks
+ok 69 - real PDF claims require approved exact quotes and privacy checks
+  ---
+  duration_ms: 6.392552
+  type: 'test'
+  ...
+# Subtest: real PDF extraction feeds independently verified history draft with raw-byte provenance
+ok 70 - real PDF extraction feeds independently verified history draft with raw-byte provenance
+  ---
+  duration_ms: 8.184958
+  type: 'test'
+  ...
+# Subtest: PDF text extraction alone cannot authorize publication of an unreviewed whole file
+ok 71 - PDF text extraction alone cannot authorize publication of an unreviewed whole file
+  ---
+  duration_ms: 0.211169
+  type: 'test'
+  ...
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"01c88145-f3ac-40c0-822d-5a47e3632c48","correlationId":"ca9a9b32-d7ca-4c73-9553-67890dbfe0ad","status":"QUEUED","code":"ACCEPTED","attempt":0}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"01c88145-f3ac-40c0-822d-5a47e3632c48","correlationId":"ca9a9b32-d7ca-4c73-9553-67890dbfe0ad","status":"RUNNING","code":"DISPATCH_STARTED","attempt":1}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"01c88145-f3ac-40c0-822d-5a47e3632c48","correlationId":"ca9a9b32-d7ca-4c73-9553-67890dbfe0ad","status":"WAITING_REVIEW","code":"DETERMINISTIC_ROUTE_COMPLETE","attempt":1}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"dc46566d-4d33-43cc-bf52-451d6412115d","correlationId":"ca9a9b32-d7ca-4c73-9553-67890dbfe0ad","status":"QUEUED","code":"ACCEPTED","attempt":0}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"dc46566d-4d33-43cc-bf52-451d6412115d","correlationId":"ca9a9b32-d7ca-4c73-9553-67890dbfe0ad","status":"RUNNING","code":"DISPATCH_STARTED","attempt":1}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"dc46566d-4d33-43cc-bf52-451d6412115d","correlationId":"ca9a9b32-d7ca-4c73-9553-67890dbfe0ad","status":"RETRY_WAIT","code":"STAGING_INJECTED_FAILURE","attempt":1}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"dc46566d-4d33-43cc-bf52-451d6412115d","correlationId":"ca9a9b32-d7ca-4c73-9553-67890dbfe0ad","status":"RUNNING","code":"DISPATCH_STARTED","attempt":2}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"dc46566d-4d33-43cc-bf52-451d6412115d","correlationId":"ca9a9b32-d7ca-4c73-9553-67890dbfe0ad","status":"WAITING_REVIEW","code":"DETERMINISTIC_ROUTE_COMPLETE","attempt":2}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"cc7821a9-8013-4f43-8b11-7341aea75eea","correlationId":"ca9a9b32-d7ca-4c73-9553-67890dbfe0ad","status":"QUEUED","code":"ACCEPTED","attempt":0}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"cc7821a9-8013-4f43-8b11-7341aea75eea","correlationId":"ca9a9b32-d7ca-4c73-9553-67890dbfe0ad","status":"RUNNING","code":"DISPATCH_STARTED","attempt":1}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"cc7821a9-8013-4f43-8b11-7341aea75eea","correlationId":"ca9a9b32-d7ca-4c73-9553-67890dbfe0ad","status":"RETRY_WAIT","code":"STAGING_INJECTED_FAILURE","attempt":1}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"cc7821a9-8013-4f43-8b11-7341aea75eea","correlationId":"ca9a9b32-d7ca-4c73-9553-67890dbfe0ad","status":"RUNNING","code":"DISPATCH_STARTED","attempt":2}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"cc7821a9-8013-4f43-8b11-7341aea75eea","correlationId":"ca9a9b32-d7ca-4c73-9553-67890dbfe0ad","status":"RETRY_WAIT","code":"STAGING_INJECTED_FAILURE","attempt":2}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"cc7821a9-8013-4f43-8b11-7341aea75eea","correlationId":"ca9a9b32-d7ca-4c73-9553-67890dbfe0ad","status":"RUNNING","code":"DISPATCH_STARTED","attempt":3}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"cc7821a9-8013-4f43-8b11-7341aea75eea","correlationId":"ca9a9b32-d7ca-4c73-9553-67890dbfe0ad","status":"DLQ","code":"STAGING_INJECTED_FAILURE","attempt":3}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"6c8dc78d-5e86-41f8-b37c-41a1ae94e47b","correlationId":"ca9a9b32-d7ca-4c73-9553-67890dbfe0ad","status":"QUEUED","code":"ACCEPTED","attempt":0}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"6c8dc78d-5e86-41f8-b37c-41a1ae94e47b","correlationId":"ca9a9b32-d7ca-4c73-9553-67890dbfe0ad","status":"RUNNING","code":"DISPATCH_STARTED","attempt":1}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"6c8dc78d-5e86-41f8-b37c-41a1ae94e47b","correlationId":"ca9a9b32-d7ca-4c73-9553-67890dbfe0ad","status":"QUARANTINED","code":"NO_APPROVED_ROUTE","attempt":1}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","code":"AUTOMATION_PAUSED","revision":1,"scope":"source:staging"}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","code":"EXPLICIT_HEALTH_CHECKED_RESUME","revision":2,"scope":"source:staging"}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","code":"AUTOMATION_PAUSED","revision":3,"scope":"global"}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","code":"EXPLICIT_HEALTH_CHECKED_RESUME","revision":4,"scope":"global"}
+# Subtest: remote staging proof client passes against actual local HTTP workerd runtime
+ok 72 - remote staging proof client passes against actual local HTTP workerd runtime
+  ---
+  duration_ms: 1792.300144
+  type: 'test'
+  ...
+# Subtest: unauthenticated and expired signatures cannot create receipts
+ok 73 - unauthenticated and expired signatures cannot create receipts
+  ---
+  duration_ms: 3213.09189
+  type: 'test'
+  ...
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"9a4afe35-f88b-4e61-b376-5aca05a4009a","correlationId":"ba564f4c-e617-4781-a425-b8b178109fc6","status":"QUEUED","code":"ACCEPTED","attempt":0}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"9a4afe35-f88b-4e61-b376-5aca05a4009a","correlationId":"ba564f4c-e617-4781-a425-b8b178109fc6","status":"RUNNING","code":"DISPATCH_STARTED","attempt":1}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"9a4afe35-f88b-4e61-b376-5aca05a4009a","correlationId":"ba564f4c-e617-4781-a425-b8b178109fc6","status":"WAITING_REVIEW","code":"DETERMINISTIC_ROUTE_COMPLETE","attempt":1}
+# Subtest: actual SQLite receipt, alarm dispatcher and safe audit reach review
+ok 74 - actual SQLite receipt, alarm dispatcher and safe audit reach review
+  ---
+  duration_ms: 180.899205
+  type: 'test'
+  ...
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"b35d3d32-0898-4ad1-89ef-1450723fa909","correlationId":"c49dbd07-38e5-437f-b7d0-e6db86eaa667","status":"QUEUED","code":"ACCEPTED","attempt":0}
+# Subtest: concurrent identical deliveries create exactly one logical queue job
+ok 75 - concurrent identical deliveries create exactly one logical queue job
+  ---
+  duration_ms: 3142.10321
+  type: 'test'
+  ...
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"c731d0bc-9819-4c8f-a07d-9579618c998a","correlationId":"08120089-6a16-4dc4-ab3d-f5e588aa0073","status":"QUEUED","code":"ACCEPTED","attempt":0}
+# Subtest: new event IDs and revisions for unchanged blob reuse the same receipt
+ok 76 - new event IDs and revisions for unchanged blob reuse the same receipt
+  ---
+  duration_ms: 96.140024
+  type: 'test'
+  ...
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"955c0916-e8a1-45e4-800a-9ac4e14faf37","correlationId":"b863bcb1-a9a5-43b7-80b0-2af8a620a086","status":"QUEUED","code":"ACCEPTED","attempt":0}
+# Subtest: event ID or revision reused for different content is rejected
+ok 77 - event ID or revision reused for different content is rejected
+  ---
+  duration_ms: 3104.524669
+  type: 'test'
+  ...
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"2db81ef3-9891-412d-9495-38de9a570866","correlationId":"01ce0b87-01ea-4ffe-86cf-027654fc21d1","status":"QUEUED","code":"ACCEPTED","attempt":0}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"2db81ef3-9891-412d-9495-38de9a570866","correlationId":"01ce0b87-01ea-4ffe-86cf-027654fc21d1","status":"RUNNING","code":"DISPATCH_STARTED","attempt":1}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"2db81ef3-9891-412d-9495-38de9a570866","correlationId":"01ce0b87-01ea-4ffe-86cf-027654fc21d1","status":"WAITING_REVIEW","code":"DETERMINISTIC_ROUTE_COMPLETE","attempt":1}
+# Subtest: receipt and dedupe survive an actual runtime restart
+ok 78 - receipt and dedupe survive an actual runtime restart
+  ---
+  duration_ms: 6290.563463
+  type: 'test'
+  ...
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"497b32fc-104e-4bd2-b149-959c081988ae","correlationId":"2cdc72dd-061b-4259-b3a0-833d82b5b7fd","status":"QUEUED","code":"ACCEPTED","attempt":0}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"497b32fc-104e-4bd2-b149-959c081988ae","correlationId":"2cdc72dd-061b-4259-b3a0-833d82b5b7fd","status":"RUNNING","code":"DISPATCH_STARTED","attempt":1}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"497b32fc-104e-4bd2-b149-959c081988ae","correlationId":"2cdc72dd-061b-4259-b3a0-833d82b5b7fd","status":"RETRY_WAIT","code":"STAGING_INJECTED_FAILURE","attempt":1}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"497b32fc-104e-4bd2-b149-959c081988ae","correlationId":"2cdc72dd-061b-4259-b3a0-833d82b5b7fd","status":"RUNNING","code":"DISPATCH_STARTED","attempt":2}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"497b32fc-104e-4bd2-b149-959c081988ae","correlationId":"2cdc72dd-061b-4259-b3a0-833d82b5b7fd","status":"WAITING_REVIEW","code":"DETERMINISTIC_ROUTE_COMPLETE","attempt":2}
+# Subtest: one transient failure retries by durable alarm and then stops
+ok 79 - one transient failure retries by durable alarm and then stops
+  ---
+  duration_ms: 389.995575
+  type: 'test'
+  ...
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"3d2ae183-d32e-4def-bac6-d805b6c19c7f","correlationId":"d76aae35-7877-425a-ac1d-ccff4fc7cd14","status":"QUEUED","code":"ACCEPTED","attempt":0}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"3d2ae183-d32e-4def-bac6-d805b6c19c7f","correlationId":"d76aae35-7877-425a-ac1d-ccff4fc7cd14","status":"RUNNING","code":"DISPATCH_STARTED","attempt":1}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"3d2ae183-d32e-4def-bac6-d805b6c19c7f","correlationId":"d76aae35-7877-425a-ac1d-ccff4fc7cd14","status":"RETRY_WAIT","code":"STAGING_INJECTED_FAILURE","attempt":1}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"3d2ae183-d32e-4def-bac6-d805b6c19c7f","correlationId":"d76aae35-7877-425a-ac1d-ccff4fc7cd14","status":"RUNNING","code":"DISPATCH_STARTED","attempt":2}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"3d2ae183-d32e-4def-bac6-d805b6c19c7f","correlationId":"d76aae35-7877-425a-ac1d-ccff4fc7cd14","status":"RETRY_WAIT","code":"STAGING_INJECTED_FAILURE","attempt":2}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"3d2ae183-d32e-4def-bac6-d805b6c19c7f","correlationId":"d76aae35-7877-425a-ac1d-ccff4fc7cd14","status":"RUNNING","code":"DISPATCH_STARTED","attempt":3}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"3d2ae183-d32e-4def-bac6-d805b6c19c7f","correlationId":"d76aae35-7877-425a-ac1d-ccff4fc7cd14","status":"DLQ","code":"STAGING_INJECTED_FAILURE","attempt":3}
+# Subtest: repeated failure reaches DLQ at three attempts without looping
+ok 80 - repeated failure reaches DLQ at three attempts without looping
+  ---
+  duration_ms: 4082.196503
+  type: 'test'
+  ...
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"c0ed04d3-cb76-4840-9d67-b7e2cca4a8ef","correlationId":"e375793e-bfb0-4033-9ff2-2dfbec6d40ca","status":"QUEUED","code":"ACCEPTED","attempt":0}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"c0ed04d3-cb76-4840-9d67-b7e2cca4a8ef","correlationId":"e375793e-bfb0-4033-9ff2-2dfbec6d40ca","status":"RUNNING","code":"DISPATCH_STARTED","attempt":1}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"c0ed04d3-cb76-4840-9d67-b7e2cca4a8ef","correlationId":"e375793e-bfb0-4033-9ff2-2dfbec6d40ca","status":"QUARANTINED","code":"NO_APPROVED_ROUTE","attempt":1}
+# Subtest: unknown event is quarantined without AI or publishing
+ok 81 - unknown event is quarantined without AI or publishing
+  ---
+  duration_ms: 200.236973
+  type: 'test'
+  ...
+# Subtest: private raw source IDs, extra payload, source impersonation and stale events fail closed
+ok 82 - private raw source IDs, extra payload, source impersonation and stale events fail closed
+  ---
+  duration_ms: 3114.149121
+  type: 'test'
+  ...
+# Subtest: query strings, oversized requests, unsigned status and public budget APIs are rejected
+ok 83 - query strings, oversized requests, unsigned status and public budget APIs are rejected
+  ---
+  duration_ms: 2001.884393
+  type: 'test'
+  ...
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"d3d84d32-1183-4228-bde2-a5b2b520919c","correlationId":"4c55bce1-a272-4d7c-953c-2053e7a2d2e7","status":"QUEUED","code":"ACCEPTED","attempt":0}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"d3d84d32-1183-4228-bde2-a5b2b520919c","correlationId":"4c55bce1-a272-4d7c-953c-2053e7a2d2e7","status":"RUNNING","code":"DISPATCH_STARTED","attempt":1}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"d3d84d32-1183-4228-bde2-a5b2b520919c","correlationId":"4c55bce1-a272-4d7c-953c-2053e7a2d2e7","status":"WAITING_REVIEW","code":"DETERMINISTIC_ROUTE_COMPLETE","attempt":1}
+# Subtest: per-source flood limit rejects excess deliveries without adding jobs
+ok 84 - per-source flood limit rejects excess deliveries without adding jobs
+  ---
+  duration_ms: 3236.494561
+  type: 'test'
+  ...
+# Subtest: concurrent AI reservations across providers cannot exceed EUR20
+ok 85 - concurrent AI reservations across providers cannot exceed EUR20
+  ---
+  duration_ms: 298.425145
+  type: 'test'
+  ...
+# Subtest: 75/90 percent alerts fire once and exact remaining limit rejects next call
+ok 86 - 75/90 percent alerts fire once and exact remaining limit rejects next call
+  ---
+  duration_ms: 3276.989291
+  type: 'test'
+  ...
+# Subtest: unknown account coverage, expired pricing and raised cap prevent any reservation
+ok 87 - unknown account coverage, expired pricing and raised cap prevent any reservation
+  ---
+  duration_ms: 236.588098
+  type: 'test'
+  ...
+# Subtest: previous-month reservation is preserved and new month has its own ceiling
+ok 88 - previous-month reservation is preserved and new month has its own ceiling
+  ---
+  duration_ms: 3266.385026
+  type: 'test'
+  ...
+# Subtest: verified actual usage settles once; conflicting/out-of-bound usage remains reserved
+ok 89 - verified actual usage settles once; conflicting/out-of-bound usage remains reserved
+  ---
+  duration_ms: 3315.104426
+  type: 'test'
+  ...
+# Subtest: source credential cannot control global pause or impersonate operator
+ok 90 - source credential cannot control global pause or impersonate operator
+  ---
+  duration_ms: 92.689323
+  type: 'test'
+  ...
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","code":"AUTOMATION_PAUSED","revision":1,"scope":"global"}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","code":"EXPLICIT_HEALTH_CHECKED_RESUME","revision":2,"scope":"global"}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"a6666310-ecaa-40aa-85c3-0582ef12d0a9","correlationId":"5738ffd1-1ee0-401a-85cb-266b5ef664ed","status":"QUEUED","code":"ACCEPTED","attempt":0}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"a6666310-ecaa-40aa-85c3-0582ef12d0a9","correlationId":"5738ffd1-1ee0-401a-85cb-266b5ef664ed","status":"RUNNING","code":"DISPATCH_STARTED","attempt":1}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"a6666310-ecaa-40aa-85c3-0582ef12d0a9","correlationId":"5738ffd1-1ee0-401a-85cb-266b5ef664ed","status":"WAITING_REVIEW","code":"DETERMINISTIC_ROUTE_COMPLETE","attempt":1}
+# Subtest: durable global pause rejects intake and requires current revision plus health to resume
+ok 91 - durable global pause rejects intake and requires current revision plus health to resume
+  ---
+  duration_ms: 3213.417599
+  type: 'test'
+  ...
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","code":"AUTOMATION_PAUSED","revision":1,"scope":"source:staging"}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","code":"EXPLICIT_HEALTH_CHECKED_RESUME","revision":2,"scope":"source:staging"}
+# Subtest: per-source stop preserves unrelated source settings and cannot enable paid AI
+ok 92 - per-source stop preserves unrelated source settings and cannot enable paid AI
+  ---
+  duration_ms: 3104.75058
+  type: 'test'
+  ...
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"d355fb3d-bdba-4634-a66c-4a7482b5827f","correlationId":"85ee5207-4473-41ec-ad99-8488dad572ee","status":"QUEUED","code":"ACCEPTED","attempt":0}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"d355fb3d-bdba-4634-a66c-4a7482b5827f","correlationId":"85ee5207-4473-41ec-ad99-8488dad572ee","status":"RUNNING","code":"DISPATCH_STARTED","attempt":1}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","code":"AUTOMATION_PAUSED","revision":1,"scope":"global"}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"d355fb3d-bdba-4634-a66c-4a7482b5827f","correlationId":"85ee5207-4473-41ec-ad99-8488dad572ee","status":"QUEUED","code":"DISPATCH_PAUSED","attempt":1}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","code":"EXPLICIT_HEALTH_CHECKED_RESUME","revision":2,"scope":"global"}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"d355fb3d-bdba-4634-a66c-4a7482b5827f","correlationId":"85ee5207-4473-41ec-ad99-8488dad572ee","status":"RUNNING","code":"DISPATCH_STARTED","attempt":1}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"d355fb3d-bdba-4634-a66c-4a7482b5827f","correlationId":"85ee5207-4473-41ec-ad99-8488dad572ee","status":"WAITING_REVIEW","code":"DETERMINISTIC_ROUTE_COMPLETE","attempt":1}
+# Subtest: pause during a claimed dispatch preserves the receipt and resumes exactly one effect
+ok 93 - pause during a claimed dispatch preserves the receipt and resumes exactly one effect
+  ---
+  duration_ms: 3801.533427
+  type: 'test'
+  ...
+# Subtest: changing chargeAttempt ID cannot charge the same event/operation twice
+ok 94 - changing chargeAttempt ID cannot charge the same event/operation twice
+  ---
+  duration_ms: 3255.135807
+  type: 'test'
+  ...
+# Subtest: synthetic private fields are rejected without leaking into responses or receipts
+ok 95 - synthetic private fields are rejected without leaking into responses or receipts
+  ---
+  duration_ms: 89.152655
+  type: 'test'
+  ...
+# {"service":"archelaos-brain","code":"INTERNAL_FAILURE","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"ca5fae20-3322-43d4-8261-218e4e134e5e","correlationId":"3ce103f6-9845-442e-ace0-aabecf3ad784","status":"QUEUED","code":"ACCEPTED","attempt":0}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"ca5fae20-3322-43d4-8261-218e4e134e5e","correlationId":"3ce103f6-9845-442e-ace0-aabecf3ad784","status":"RUNNING","code":"DISPATCH_STARTED","attempt":1}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"ca5fae20-3322-43d4-8261-218e4e134e5e","correlationId":"3ce103f6-9845-442e-ace0-aabecf3ad784","status":"WAITING_REVIEW","code":"DETERMINISTIC_ROUTE_COMPLETE","attempt":1}
+# Subtest: stop before receipt commit rolls back rows and never ACKs; redelivery creates one job
+ok 96 - stop before receipt commit rolls back rows and never ACKs; redelivery creates one job
+  ---
+  duration_ms: 9305.252414
+  type: 'test'
+  ...
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"389fb2cc-0f00-42d2-8ef6-9ca93f9f0755","correlationId":"64ee3c0a-2bb6-49e5-ad2d-ab502057ac3e","status":"QUEUED","code":"ACCEPTED","attempt":0}
+# {"service":"archelaos-brain","code":"INTERNAL_FAILURE","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"389fb2cc-0f00-42d2-8ef6-9ca93f9f0755","correlationId":"64ee3c0a-2bb6-49e5-ad2d-ab502057ac3e","status":"RUNNING","code":"DISPATCH_STARTED","attempt":1}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"389fb2cc-0f00-42d2-8ef6-9ca93f9f0755","correlationId":"64ee3c0a-2bb6-49e5-ad2d-ab502057ac3e","status":"WAITING_REVIEW","code":"DETERMINISTIC_ROUTE_COMPLETE","attempt":1}
+# Subtest: stop after commit before ACK survives runtime restart and returns the same durable receipt
+ok 97 - stop after commit before ACK survives runtime restart and returns the same durable receipt
+  ---
+  duration_ms: 3250.702137
+  type: 'test'
+  ...
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"28b72377-1ffa-4bcf-b7cf-d5ccf9a40216","correlationId":"eb5969ec-baa0-4e21-ab9d-ceb34e182db6","status":"QUEUED","code":"ACCEPTED","attempt":0}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"28b72377-1ffa-4bcf-b7cf-d5ccf9a40216","correlationId":"eb5969ec-baa0-4e21-ab9d-ceb34e182db6","status":"RUNNING","code":"DISPATCH_STARTED","attempt":1}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"28b72377-1ffa-4bcf-b7cf-d5ccf9a40216","correlationId":"eb5969ec-baa0-4e21-ab9d-ceb34e182db6","status":"RUNNING","code":"DISPATCH_STARTED","attempt":2}
+# {"service":"archelaos-brain","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","receiptId":"28b72377-1ffa-4bcf-b7cf-d5ccf9a40216","correlationId":"eb5969ec-baa0-4e21-ab9d-ceb34e182db6","status":"WAITING_REVIEW","code":"DETERMINISTIC_ROUTE_COMPLETE","attempt":2}
+# Subtest: durable claim interruption, restart and lease expiry produce one logical completion
+ok 98 - durable claim interruption, restart and lease expiry produce one logical completion
+  ---
+  duration_ms: 9512.874738
+  type: 'test'
+  ...
+# Subtest: OpenAI/Codex concurrent reservations stop at EUR15 inside the global EUR20 ledger
+ok 99 - OpenAI/Codex concurrent reservations stop at EUR15 inside the global EUR20 ledger
+  ---
+  duration_ms: 264.323916
+  type: 'test'
+  ...
+# Subtest: Codex allocation alert thresholds, settlement and restart preserve the EUR15 ceiling
+ok 100 - Codex allocation alert thresholds, settlement and restart preserve the EUR15 ceiling
+  ---
+  duration_ms: 3528.882074
+  type: 'test'
+  ...
+# Subtest: caller cannot raise the Codex/OpenAI cap and other providers consume shared headroom
+ok 101 - caller cannot raise the Codex/OpenAI cap and other providers consume shared headroom
+  ---
+  duration_ms: 3265.427238
+  type: 'test'
+  ...
+# Subtest: outbox transactional migration preserves legacy UNKNOWN rows, is idempotent and rolls back corrupt/unknown schema
+ok 102 - outbox transactional migration preserves legacy UNKNOWN rows, is idempotent and rolls back corrupt/unknown schema
+  ---
+  duration_ms: 4.494987
+  type: 'test'
+  ...
+# Subtest: native durable ACK requires independent stored readback, settles once, survives restart; approved RPC boundaries stay closed
+ok 103 - native durable ACK requires independent stored readback, settles once, survives restart; approved RPC boundaries stay closed
+  ---
+  duration_ms: 3760.973626
+  type: 'test'
+  ...
+# Subtest: native forged/tampered commands, nonce reuse and conflicting command IDs cannot change stored receipts
+ok 104 - native forged/tampered commands, nonce reuse and conflicting command IDs cannot change stored receipts
+  ---
+  duration_ms: 381.072841
+  type: 'test'
+  ...
+# Subtest: native forged_ack remains UNKNOWN without redelivery; later authenticated readback can reconcile
+ok 105 - native forged_ack remains UNKNOWN without redelivery; later authenticated readback can reconcile
+  ---
+  duration_ms: 6557.102185
+  type: 'test'
+  ...
+# Subtest: native bad_readback remains UNKNOWN without redelivery; later authenticated readback can reconcile
+ok 106 - native bad_readback remains UNKNOWN without redelivery; later authenticated readback can reconcile
+  ---
+  duration_ms: 3606.306026
+  type: 'test'
+  ...
+# Subtest: native readback_error remains UNKNOWN without redelivery; later authenticated readback can reconcile
+ok 107 - native readback_error remains UNKNOWN without redelivery; later authenticated readback can reconcile
+  ---
+  duration_ms: 3604.725468
+  type: 'test'
+  ...
+# Subtest: native lost_ack remains UNKNOWN without redelivery; later authenticated readback can reconcile
+ok 108 - native lost_ack remains UNKNOWN without redelivery; later authenticated readback can reconcile
+  ---
+  duration_ms: 6579.077037
+  type: 'test'
+  ...
+# Subtest: native timeout remains UNKNOWN without redelivery; later authenticated readback can reconcile
+ok 109 - native timeout remains UNKNOWN without redelivery; later authenticated readback can reconcile
+  ---
+  duration_ms: 7576.794426
+  type: 'test'
+  ...
+# Subtest: native corrupted durable receipt cannot settle, and replayed readback cannot attest a different command
+ok 110 - native corrupted durable receipt cannot settle, and replayed readback cannot attest a different command
+  ---
+  duration_ms: 6789.788499
+  type: 'test'
+  ...
+# Subtest: native concurrent dispatcher claims once and upgrades pre-existing legacy SQLite without losing UNKNOWN
+ok 111 - native concurrent dispatcher claims once and upgrades pre-existing legacy SQLite without losing UNKNOWN
+  ---
+  duration_ms: 6761.017458
+  type: 'test'
+  ...
+# Subtest: tracked configuration keeps ACK activation, recovery and staging OFF
+ok 112 - tracked configuration keeps ACK activation, recovery and staging OFF
+  ---
+  duration_ms: 1.058688
+  type: 'test'
+  ...
+# Subtest: private recovery dispatch rejects unauthenticated and wrong source principals
+ok 113 - private recovery dispatch rejects unauthenticated and wrong source principals
+  ---
+  duration_ms: 191.700841
+  type: 'test'
+  ...
+# Subtest: github source cannot dispatch when OFF, even with a signed request
+ok 114 - github source cannot dispatch when OFF, even with a signed request
+  ---
+  duration_ms: 3103.034117
+  type: 'test'
+  ...
+# Subtest: with dispatcher enabled, malformed inputs are blocked before canonical DO
+ok 115 - with dispatcher enabled, malformed inputs are blocked before canonical DO
+  ---
+  duration_ms: 3232.496344
+  type: 'test'
+  ...
+# Subtest: valid signed github request still cannot send without original Healer binding and release proofs
+ok 116 - valid signed github request still cannot send without original Healer binding and release proofs
+  ---
+  duration_ms: 3167.348182
+  type: 'test'
+  ...
+# Subtest: expired private source/binding flags fail closed despite a valid caller HMAC
+ok 117 - expired private source/binding flags fail closed despite a valid caller HMAC
+  ---
+  duration_ms: 9422.169784
+  type: 'test'
+  ...
+# Subtest: Healer signature key cannot be reused for source event or operator authentication
+ok 118 - Healer signature key cannot be reused for source event or operator authentication
+  ---
+  duration_ms: 3168.505049
+  type: 'test'
+  ...
+# Subtest: strict Self-Heal metadata scope rejects forged CI and unrelated site findings
+ok 119 - strict Self-Heal metadata scope rejects forged CI and unrelated site findings
+  ---
+  duration_ms: 1.427936
+  type: 'test'
+  ...
+# Subtest: authoritative GitHub GET verifies exact run, branch, ruleset and failed required check
+ok 120 - authoritative GitHub GET verifies exact run, branch, ruleset and failed required check
+  ---
+  duration_ms: 24.780017
+  type: 'test'
+  ...
+# Subtest: no missing credentials, stale run, wrong SHA, unrequired check or truncated inventory is trusted
+ok 121 - no missing credentials, stale run, wrong SHA, unrequired check or truncated inventory is trusted
+  ---
+  duration_ms: 9.070516
+  type: 'test'
+  ...
+# Subtest: only verified required CI evidence creates immutable Brain receipt and HALTS its GitHub source chain
+ok 122 - only verified required CI evidence creates immutable Brain receipt and HALTS its GitHub source chain
+  ---
+  duration_ms: 3.853308
+  type: 'test'
+  ...
+# Subtest: untrusted receipt/readback, emergency pause, wrong-SHA and expired proof never route a review
+ok 123 - untrusted receipt/readback, emergency pause, wrong-SHA and expired proof never route a review
+  ---
+  duration_ms: 1.911676
+  type: 'test'
+  ...
+# Subtest: health probe is NEVER reported as verified from caller-supplied metadata
+ok 124 - health probe is NEVER reported as verified from caller-supplied metadata
+  ---
+  duration_ms: 0.201213
+  type: 'test'
+  ...
+# Subtest: named BrainRecoveryPort exposes exactly three review-only RPC methods and no helper getters
+ok 125 - named BrainRecoveryPort exposes exactly three review-only RPC methods and no helper getters
+  ---
+  duration_ms: 6.025829
+  type: 'test'
+  ...
+# Subtest: real named Worker RPC cannot leak canonical DO or bypass expired staging with forged evidence
+ok 126 - real named Worker RPC cannot leak canonical DO or bypass expired staging with forged evidence
+  ---
+  duration_ms: 3321.970091
+  type: 'test'
+  ...
+# Subtest: durable SQLite tables and canary rows survive rejected named RPC, replay and restart
+ok 127 - durable SQLite tables and canary rows survive rejected named RPC, replay and restart
+  ---
+  duration_ms: 3551.365513
+  type: 'test'
+  ...
+# Subtest: signer interoperates with actual existing Healer HMAC and finding validator
+ok 128 - signer interoperates with actual existing Healer HMAC and finding validator
+  ---
+  duration_ms: 9.118559
+  type: 'test'
+  ...
+# Subtest: single canonical Brain proof sends once; ambiguous ACK never authorizes retry
+ok 129 - single canonical Brain proof sends once; ambiguous ACK never authorizes retry
+  ---
+  duration_ms: 4.525853
+  type: 'test'
+  ...
+# Subtest: network failure is UNKNOWN and does not re-send after a crash or restart
+ok 130 - network failure is UNKNOWN and does not re-send after a crash or restart
+  ---
+  duration_ms: 1.395086
+  type: 'test'
+  ...
+# Subtest: off-by-default staging gate rejects missing binding, old SHA, expired time or key
+ok 131 - off-by-default staging gate rejects missing binding, old SHA, expired time or key
+  ---
+  duration_ms: 3.845296
+  type: 'test'
+  ...
+# Subtest: caller cannot fabricate durable CI evidence or bypass canonical chain halt
+ok 132 - caller cannot fabricate durable CI evidence or bypass canonical chain halt
+  ---
+  duration_ms: 3.265982
+  type: 'test'
+  ...
+# Subtest: Brain staging has no public workers.dev or preview endpoints by default
+ok 133 - Brain staging has no public workers.dev or preview endpoints by default
+  ---
+  duration_ms: 0.908301
+  type: 'test'
+  ...
+# Subtest: Brain staging is expired and unpinned until an operator-reviewed release
+ok 134 - Brain staging is expired and unpinned until an operator-reviewed release
+  ---
+  duration_ms: 0.227754
+  type: 'test'
+  ...
+# Subtest: GitHub App public identifiers are pinned; no private key is stored in Wrangler
+ok 135 - GitHub App public identifiers are pinned; no private key is stored in Wrangler
+  ---
+  duration_ms: 1.041132
+  type: 'test'
+  ...
+# Subtest: original live AI and canonical BrainCoordinator Durable Object bindings are retained
+ok 136 - original live AI and canonical BrainCoordinator Durable Object bindings are retained
+  ---
+  duration_ms: 0.199351
+  type: 'test'
+  ...
+# Subtest: unapproved release stays non-public, expired, with all execution gates OFF
+ok 137 - unapproved release stays non-public, expired, with all execution gates OFF
+  ---
+  duration_ms: 65.651861
+  type: 'test'
+  ...
+# Subtest: signed operator stores a bounded immutable manual-only task and reads it back
+ok 138 - signed operator stores a bounded immutable manual-only task and reads it back
+  ---
+  duration_ms: 252.594232
+  type: 'test'
+  ...
+# Subtest: replays are idempotent, path ordering canonical, altered task identity rejected
+ok 139 - replays are idempotent, path ordering canonical, altered task identity rejected
+  ---
+  duration_ms: 3316.993028
+  type: 'test'
+  ...
+# Subtest: source key cannot create or inspect operator task intents
+ok 140 - source key cannot create or inspect operator task intents
+  ---
+  duration_ms: 3091.606189
+  type: 'test'
+  ...
+# Subtest: reject prompt injection, privileged extra fields, traversal and other team paths
+ok 141 - reject prompt injection, privileged extra fields, traversal and other team paths
+  ---
+  duration_ms: 123.408076
+  type: 'test'
+  ...
+# Subtest: stale or long-lived task intents fail closed; no event jobs created
+ok 142 - stale or long-lived task intents fail closed; no event jobs created
+  ---
+  duration_ms: 3100.589368
+  type: 'test'
+  ...
+1..142
+# tests 142
+# suites 0
+# pass 142
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 313243.493453

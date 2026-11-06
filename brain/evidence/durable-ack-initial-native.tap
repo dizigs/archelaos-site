@@ -1,0 +1,226 @@
+TAP version 13
+# Subtest: outbox transactional migration preserves legacy UNKNOWN rows, is idempotent and rolls back corrupt/unknown schema
+ok 1 - outbox transactional migration preserves legacy UNKNOWN rows, is idempotent and rolls back corrupt/unknown schema
+  ---
+  duration_ms: 4.798113
+  type: 'test'
+  ...
+# Subtest: native durable ACK requires independent stored readback, settles once, survives restart; approved RPC boundaries stay closed
+not ok 2 - native durable ACK requires independent stored readback, settles once, survives restart; approved RPC boundaries stay closed
+  ---
+  duration_ms: 391.712114
+  type: 'test'
+  location: '/workspace/archelaos-durable-ack/brain/test/selfheal_ack.test.mjs:102:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 'UNKNOWN'
+    - 'ACKNOWLEDGED'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'ACKNOWLEDGED'
+  actual: 'UNKNOWN'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///workspace/archelaos-durable-ack/brain/test/selfheal_ack.test.mjs:103:145)
+    process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    async Test.run (node:internal/test_runner/test:1389:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+  ...
+# Subtest: native forged/tampered commands, nonce reuse and conflicting command IDs cannot change stored receipts
+ok 3 - native forged/tampered commands, nonce reuse and conflicting command IDs cannot change stored receipts
+  ---
+  duration_ms: 3301.653368
+  type: 'test'
+  ...
+# Subtest: native forged_ack remains UNKNOWN without redelivery; later authenticated readback can reconcile
+not ok 4 - native forged_ack remains UNKNOWN without redelivery; later authenticated readback can reconcile
+  ---
+  duration_ms: 3548.39602
+  type: 'test'
+  location: '/workspace/archelaos-durable-ack/brain/test/selfheal_ack.test.mjs:118:87'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 'UNKNOWN'
+    - 'ACKNOWLEDGED'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'ACKNOWLEDGED'
+  actual: 'UNKNOWN'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///workspace/archelaos-durable-ack/brain/test/selfheal_ack.test.mjs:120:109)
+    process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    async Test.run (node:internal/test_runner/test:1389:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+  ...
+# Subtest: native bad_readback remains UNKNOWN without redelivery; later authenticated readback can reconcile
+not ok 5 - native bad_readback remains UNKNOWN without redelivery; later authenticated readback can reconcile
+  ---
+  duration_ms: 3523.270393
+  type: 'test'
+  location: '/workspace/archelaos-durable-ack/brain/test/selfheal_ack.test.mjs:118:87'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 'UNKNOWN'
+    - 'ACKNOWLEDGED'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'ACKNOWLEDGED'
+  actual: 'UNKNOWN'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///workspace/archelaos-durable-ack/brain/test/selfheal_ack.test.mjs:120:109)
+    process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    async Test.run (node:internal/test_runner/test:1389:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+  ...
+# Subtest: native readback_error remains UNKNOWN without redelivery; later authenticated readback can reconcile
+not ok 6 - native readback_error remains UNKNOWN without redelivery; later authenticated readback can reconcile
+  ---
+  duration_ms: 6678.532087
+  type: 'test'
+  location: '/workspace/archelaos-durable-ack/brain/test/selfheal_ack.test.mjs:118:87'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 'UNKNOWN'
+    - 'ACKNOWLEDGED'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'ACKNOWLEDGED'
+  actual: 'UNKNOWN'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///workspace/archelaos-durable-ack/brain/test/selfheal_ack.test.mjs:120:109)
+    process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    async Test.run (node:internal/test_runner/test:1389:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+  ...
+# Subtest: native lost_ack remains UNKNOWN without redelivery; later authenticated readback can reconcile
+not ok 7 - native lost_ack remains UNKNOWN without redelivery; later authenticated readback can reconcile
+  ---
+  duration_ms: 3596.643038
+  type: 'test'
+  location: '/workspace/archelaos-durable-ack/brain/test/selfheal_ack.test.mjs:118:87'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 'UNKNOWN'
+    - 'ACKNOWLEDGED'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'ACKNOWLEDGED'
+  actual: 'UNKNOWN'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///workspace/archelaos-durable-ack/brain/test/selfheal_ack.test.mjs:120:109)
+    process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    async Test.run (node:internal/test_runner/test:1389:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+  ...
+# Subtest: native timeout remains UNKNOWN without redelivery; later authenticated readback can reconcile
+not ok 8 - native timeout remains UNKNOWN without redelivery; later authenticated readback can reconcile
+  ---
+  duration_ms: 4609.327793
+  type: 'test'
+  location: '/workspace/archelaos-durable-ack/brain/test/selfheal_ack.test.mjs:118:87'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 'UNKNOWN'
+    - 'ACKNOWLEDGED'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'ACKNOWLEDGED'
+  actual: 'UNKNOWN'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///workspace/archelaos-durable-ack/brain/test/selfheal_ack.test.mjs:120:109)
+    process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    async Test.run (node:internal/test_runner/test:1389:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+  ...
+# Subtest: native corrupted durable receipt cannot settle, and replayed readback cannot attest a different command
+not ok 9 - native corrupted durable receipt cannot settle, and replayed readback cannot attest a different command
+  ---
+  duration_ms: 6875.424263
+  type: 'test'
+  location: '/workspace/archelaos-durable-ack/brain/test/selfheal_ack.test.mjs:123:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 'UNKNOWN'
+    - 'ACKNOWLEDGED'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'ACKNOWLEDGED'
+  actual: 'UNKNOWN'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///workspace/archelaos-durable-ack/brain/test/selfheal_ack.test.mjs:125:173)
+    process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    async Test.run (node:internal/test_runner/test:1389:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+  ...
+# Subtest: native concurrent dispatcher claims once and upgrades pre-existing legacy SQLite without losing UNKNOWN
+not ok 10 - native concurrent dispatcher claims once and upgrades pre-existing legacy SQLite without losing UNKNOWN
+  ---
+  duration_ms: 3286.499739
+  type: 'test'
+  location: '/workspace/archelaos-durable-ack/brain/test/selfheal_ack.test.mjs:127:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    0 !== 1
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///workspace/archelaos-durable-ack/brain/test/selfheal_ack.test.mjs:128:155)
+    process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    async Test.run (node:internal/test_runner/test:1389:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+  ...
+# Subtest: tracked configuration keeps ACK activation, recovery and staging OFF
+ok 11 - tracked configuration keeps ACK activation, recovery and staging OFF
+  ---
+  duration_ms: 2.183717
+  type: 'test'
+  ...
+1..11
+# tests 11
+# suites 0
+# pass 3
+# fail 8
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 37849.993665
