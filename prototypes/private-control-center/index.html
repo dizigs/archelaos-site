@@ -20,6 +20,7 @@
   <nav class="side-nav" aria-label="Ενότητες">
     <a href="#overview" class="nav-link is-active" data-view="overview" aria-current="page"><span class="nav-icon">◈</span> Επισκόπηση <span class="nav-dot"></span></a>
     <a href="#network" class="nav-link" data-view="network"><span class="nav-icon">⬡</span> Δίκτυο Workers</a>
+    <a href="#deployments" class="nav-link" data-view="deployments"><span class="nav-icon">⇧</span> Deployments</a>
     <a href="#operations" class="nav-link" data-view="operations"><span class="nav-icon">▤</span> Εργασίες &amp; CI</a>
     <a href="#security" class="nav-link" data-view="security"><span class="nav-icon">◇</span> Ασφάλεια</a>
     <a href="#cost" class="nav-link" data-view="cost"><span class="nav-icon">◎</span> Κόστος AI</a>
@@ -89,6 +90,11 @@
             <strong id="mobileAlertsStatus">2</strong>
             <small>Εικονικές ειδοποιήσεις</small>
           </button>
+          <button class="mobile-live-card" type="button" data-view-button="deployments" aria-label="Προβολή δοκιμαστικού ιστορικού deployments">
+            <span class="mobile-live-card-label"><span aria-hidden="true">⇧</span> DEPLOYMENTS</span>
+            <strong id="mobileDeployStatus">1 ενεργό</strong>
+            <small>Αναπτύξεις · DEMO</small>
+          </button>
         </div>
         <div class="mobile-live-event">
           <div class="mobile-live-event-icon" aria-hidden="true">◉</div>
@@ -118,8 +124,49 @@
     <article class="surface compact"><div class="surface-head"><div><p class="eyebrow">CLOUDFLARE</p><h2>Pages &amp; Workers</h2></div><span class="header-symbol">◈</span></div><div class="mini-stats"><div><span>Pages</span><b class="green-text">Ready · demo</b></div><div><span>Worker routes</span><b>8</b></div><div><span>Service bindings</span><b>Simulated</b></div></div><div class="small-footnote">Τελευταίο release SHA: <b>demo-7b28</b></div><button class="text-button" data-detail="cloudflare" type="button">Προβολή Cloudflare <span>↗</span></button></article>
     <article class="surface compact"><div class="surface-head"><div><p class="eyebrow">SECURITY WATCH</p><h2>Self-Heal <span class="heading-muted">guard</span></h2></div><span class="header-symbol">♢</span></div><div class="mini-stats"><div><span>Mode</span><b>Review-only</b></div><div><span>Ανοιχτές ειδοποιήσεις</span><b id="securityAlerts">2</b></div><div><span>Kill switches</span><b class="green-text">Ready</b></div></div><div class="small-footnote">Αυτόματες ενέργειες: <b>Απενεργοποιημένες</b></div><button class="text-button" data-view-button="security" type="button">Κέντρο ασφάλειας <span>↗</span></button></article>
   </section>
+
+  <section class="surface deploy-peek section-visible" data-panel="overview" aria-labelledby="deployPeekHeading">
+    <div class="surface-head">
+      <div><p class="eyebrow">DEPLOYMENT WATCH · DEMO</p><h2 id="deployPeekHeading">Αναπτύξεις <span class="heading-muted">με μια ματιά</span></h2></div>
+      <span class="mini-live"><i aria-hidden="true"></i> SIMULATED DATA</span>
+    </div>
+    <div class="deploy-peek-grid">
+      <div><span>Σε εξέλιξη</span><strong id="deployPeekRunning">1</strong></div>
+      <div><span>Τελευταία 7 ημέρες</span><strong id="deployPeekWeek">10</strong></div>
+      <div><span>Μέση διάρκεια επιτυχίας</span><strong id="deployPeekAverage">—</strong></div>
+      <div><span>Τελευταία ολοκλήρωση</span><strong id="deployPeekFinish">—</strong></div>
+    </div>
+    <button class="text-button" data-view-button="deployments" type="button">Άνοιγμα ιστορικού deployments <span>↗</span></button>
+  </section>
   <section class="view-section" data-panel="network" hidden>
     <div class="view-intro"><p class="eyebrow">ORCHESTRATION / DEMO</p><h1>Χάρτης <em>συνεργασίας.</em></h1><p>Οκτώ Workers, ένας Brain. Πάτησε κόμβο στο διάγραμμα της επισκόπησης ή μία κάρτα παρακάτω.</p></div><div class="worker-grid" id="workerGrid"></div>
+  </section>
+
+  <section class="view-section" data-panel="deployments" hidden>
+    <div class="view-intro"><p class="eyebrow">RELEASE HISTORY / DEMO</p><h1>Κάθε deployment, <em>στο φως.</em></h1><p>Πότε ξεκίνησε, πότε ολοκληρώθηκε και πόσο διήρκεσε. Όσα εκτελούνται έχουν μόνο ενδεικτική ώρα λήξης, όχι εγγύηση.</p></div>
+    <p class="deploy-disclaimer">ΣΥΝΘΕΤΙΚΑ ΣΤΟΙΧΕΙΑ · DEMO · ώρα Ελλάδας (Europe/Athens). Καμία ζωντανή σύνδεση με Cloudflare ή GitHub.</p>
+    <div class="deploy-stats">
+      <article class="surface deploy-stat"><small>ΤΕΛΕΥΤΑΙΕΣ 7 ΗΜΕΡΕΣ</small><strong id="deployWeek">—</strong><span>δοκιμαστικά deployments</span></article>
+      <article class="surface deploy-stat"><small>ΣΕ ΕΞΕΛΙΞΗ</small><strong id="deployActive">—</strong><span>δεν έχει επιβεβαιωθεί λήξη</span></article>
+      <article class="surface deploy-stat"><small>ΜΕΣΗ ΔΙΑΡΚΕΙΑ</small><strong id="deployAvg">—</strong><span>επιτυχημένων deployments</span></article>
+      <article class="surface deploy-stat"><small>ΠΟΣΟΣΤΟ ΕΠΙΤΥΧΙΑΣ</small><strong id="deployRate">—</strong><span>ολοκληρωμένων deployments</span></article>
+    </div>
+    <section class="surface deploy-frequency" aria-labelledby="deployFrequencyHeading">
+      <div class="surface-head"><div><p class="eyebrow">FREQUENCY / DEMO</p><h2 id="deployFrequencyHeading">Κάθε πότε γίνονται;</h2></div><span class="pill pill-outline">ΤΕΛΕΥΤΑΙΑ 7 ΗΜΕΡΑ</span></div>
+      <div class="deploy-week-chart" id="deployChart" aria-label="Πλήθος εικονικών deployments ανά ημέρα"></div>
+      <p class="soft-text" id="deployCadence">Μετράμε τις καταγεγραμμένες αναπτύξεις, όχι υποτιθέμενο πρόγραμμα.</p>
+      <p class="deploy-schedule">Επόμενο προγραμματισμένο deployment: <strong>Άγνωστο</strong> — απαιτείται επιβεβαιωμένο schedule από την πηγή.</p>
+    </section>
+    <div class="filter-bar deploy-filters">
+      <label for="deploySearch" class="visually-hidden">Αναζήτηση deployments</label><input id="deploySearch" type="search" placeholder="Αναζήτηση υπηρεσίας, SHA ή ID…">
+      <label for="deploySource" class="visually-hidden">Φίλτρο πηγής</label><select id="deploySource"><option value="all">Όλες οι πηγές</option><option value="Pages">Cloudflare Pages</option><option value="Workers">Cloudflare Workers</option><option value="GitHub Actions">GitHub Actions</option></select>
+      <label for="deployFilter" class="visually-hidden">Φίλτρο κατάστασης</label><select id="deployFilter"><option value="all">Όλες οι καταστάσεις</option><option value="running">Σε εξέλιξη</option><option value="success">Επιτυχία</option><option value="failed">Αποτυχία</option></select>
+    </div>
+    <div class="surface table-surface">
+      <div class="table-wrap"><table><thead><tr><th>Deployment</th><th>Πηγή</th><th>Έναρξη</th><th>Ολοκλήρωση / ETA</th><th>Διάρκεια</th><th>Κατάσταση</th><th><span class="visually-hidden">Λεπτομέρειες</span></th></tr></thead><tbody id="deployBody"></tbody></table></div>
+      <p class="empty-state" id="deployEmpty" hidden>Δεν βρέθηκαν deployments για αυτό το φίλτρο.</p>
+    </div>
+    <p class="soft-text deploy-end-note">Το ETA υπολογίζεται μόνο από παλιότερες επιτυχημένες διάρκειες της ίδιας πηγής· δεν σημαίνει ότι το deployment τελείωσε. Η πραγματική λήξη καταγράφεται μόνο μετά από επιβεβαιωμένο αποτέλεσμα και logs.</p>
   </section>
   <section class="view-section" data-panel="operations" hidden>
     <div class="view-intro"><p class="eyebrow">OPERATIONS / DEMO</p><h1>Η δουλειά <em>σε εξέλιξη.</em></h1><p>Εικονικά GitHub PR, έλεγχοι CI, εκτελέσεις αυτοματισμών και αναμονές.</p></div>
@@ -136,7 +183,7 @@
   <section class="view-section" data-panel="events" hidden>
     <div class="view-intro"><p class="eyebrow">AUDIT TRAIL / DEMO</p><h1>Κάθε συμβάν, <em>ορατό.</em></h1><p>Φίλτρα, αναζήτηση και αναλυτικές πληροφορίες σε εικονικό χρονολόγιο.</p></div><div class="filter-bar"><label for="eventsSearch" class="visually-hidden">Αναζήτηση συμβάντων</label><input id="eventsSearch" type="search" placeholder="Αναζήτηση συμβάντων…"><label for="eventsFilter" class="visually-hidden">Φίλτρο συμβάντων</label><select id="eventsFilter"><option value="all">Όλοι οι τύποι</option><option value="success">Επιτυχία</option><option value="running">Εκτέλεση</option><option value="blocked">Blocked</option><option value="failed">Αποτυχία</option></select></div><div class="surface"><div id="eventsList" class="timeline"></div><p class="empty-state" id="eventsEmpty" hidden>Δεν βρέθηκαν συμβάντα.</p></div>
   </section>
-  <footer class="site-footer"><span>© Γ.Α.Σ. «Αρχέλαος» · Οπτική μακέτα</span><strong>DEMO ONLY · NO PRODUCTION CONNECTIONS</strong><span>Prototype v1.0</span></footer>
+  <footer class="site-footer"><span>© Γ.Α.Σ. «Αρχέλαος» · Οπτική μακέτα</span><strong>DEMO ONLY · NO PRODUCTION CONNECTIONS</strong><span>Prototype v1.1</span></footer>
 </main>
 </div></div>
 <div class="mobile-backdrop" id="mobileBackdrop" hidden></div>
