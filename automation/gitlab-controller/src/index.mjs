@@ -34,15 +34,18 @@ async function readLimited(stream, limit) {
   const reader = stream.getReader();
   const chunks = [];
   let total = 0;
+  let completed = false;
   try {
     while (true) {
       const { value, done } = await reader.read();
-      if (done) break;
+      if (done) { completed = true; break; }
       total += value.byteLength;
       if (total > limit) throw new Error('BODY_TOO_LARGE');
       chunks.push(value);
     }
   } finally {
+    // Release an over-limit or failed upstream stream promptly; do not drain it.
+    if (!completed) await reader.cancel().catch(() => {});
     reader.releaseLock();
   }
   const buffer = new Uint8Array(total);
