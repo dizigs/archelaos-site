@@ -18,8 +18,8 @@
 - Responsive ελληνικό dashboard, dark-green / gold / beige theme.
 - Overview: συνθετική υγεία site, Pages/Workers, Brain status, queue, locks, GitHub / CI, Self-Heal, AI budget 20 €/μήνα.
 - Κινούμενο SVG topology, 8 Workers και ένας Brain, φωτεινά πακέτα που κινούνται πάνω στις γραμμές.
-- Pause/resume animation στον υπολογιστή. **Στο κινητό δεν εμφανίζεται το κινούμενο topology**: αντικαθίσταται από τέσσερα κομψά info boxes (Brain, Workers, queue, ασφάλεια) και μικρή ροή δοκιμαστικών συμβάντων. Τα συμβάντα αλλάζουν τοπικά ανά 9 δευτερόλεπτα ή με πάτημα στο κουμπί επόμενου δείγματος. Καμία πραγματική live telemetry.
-- Αυτόματη μείωση κίνησης μέσω \`prefers-reduced-motion\` και πλήρης παύση της SVG animation στο κινητό ή σε κρυφή καρτέλα.
+- Pause/resume animation όπου το topology χωράει (>1000px). Στα συμπαγή πλάτη (≤1000px) το διάγραμμα κρύβεται και αντικαθίσταται από πέντε κάρτες (Brain, Workers, queue, ασφάλεια, deployments) και demo event feed. Οι εγγραφές αλλάζουν τοπικά ανά 9 δευτερόλεπτα, με κουμπί παύσης/συνέχειας και ξεχωριστό κουμπί χειροκίνητου επόμενου δείγματος. Καμία πραγματική live telemetry.
+- Δυναμική εφαρμογή \`prefers-reduced-motion\`: παύση/επαναξιολόγηση των SVG κινήσεων ακόμη και αν η ρύθμιση αλλάξει ενώ η σελίδα είναι ανοιχτή. Παύση SVG όταν το topology δεν προβάλλεται, σε ανενεργή καρτέλα ή σε compact view. Στο reduced motion απενεργοποιείται και η αυτόματη αλλαγή demo events.
 - Κάθε Worker ανοίγει τοπικό inspector με συνθετικές λεπτομέρειες. Δεν μετατρέπεται σε operator action.
 - Εναλλαγή τριών DEMO σεναρίων (ομαλή ροή / αυξημένος φόρτος / fail-closed).
 - GitHub / εργασίες: λειτουργικά φίλτρα, αναζήτηση, λεπτομέρειες, χωρίς πραγματικά SHA.
@@ -41,6 +41,15 @@
 5. Budget readback από authoritative cost ledger · όριο 20 €/μήνα.
 6. Live ροή με SSE/WebSocket **μόνο μετά από** έλεγχο ασφάλειας, auth και αποτυχία κλειστού τύπου· ο browser δεν εκτελεί εντολές.
 7. WCAG 2.2 AA, real-device tests, CSP, threat model και explicit release approval πριν από οποιαδήποτε παραγωγή.
+
+
+## Browser acceptance / 06-11-2026
+
+- Το mobile drawer navigation κρατά εκτός Tab order τους συνδέσμους όταν είναι κλειστό, απομονώνει το περιεχόμενο όταν ανοίγει, περιορίζει το Tab στο μενού και αποκαθιστά την εστίαση στο κουμπί κλεισίματος/στο κύριο περιεχόμενο μετά από επιλογή ενότητας.
+- Τα modal inspector διατηρούν εστίαση και δεν αφήνουν το υπόβαθρο να λαμβάνει keyboard input.
+- Η καθολική σήμανση **DEMO · OFFLINE** παραμένει ορατή σε desktop και mobile. Δεν αποτελούν παραγωγικά δεδομένα ούτε τα κόστη ούτε οι κατάστασεις.
+- Το browser QA πρέπει να ελέγχει πραγματικά viewports, πληκτρολόγιο, pause feed, αλλαγές reduced-motion κατά τη λειτουργία και μηδενικά outbound network requests. Τα αυτοματοποιημένα site Lighthouse checks από άλλες σελίδες δεν υποκαθιστούν WCAG 2.2 AA audit του παρόντος prototype.
+- Ο κώδικας παραμένει αποκλειστικά μέσα στο παρόν scope, σε draft PR, χωρίς deployment και χωρίς σύνδεση Brain/GitHub/Cloudflare.
 
 ## Scope & release
 
