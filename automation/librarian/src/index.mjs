@@ -1,7 +1,8 @@
 /** ARCHELAOS private Librarian. No public HTTP routes or scheduled processing. */
 import { DurableObject, WorkerEntrypoint } from 'cloudflare:workers';
 import { assertFileId, buildArchiveSources, buildNewsSource, createNotebookSource,
-  fetchDrivePdf, fetchDriveMetadata, getOAuthAccessToken, sha256, NOTEBOOK_API } from './core.mjs';
+  fetchDrivePdf, fetchDriveMetadata, getOAuthAccessToken, sha256, NOTEBOOK_API,
+  approvedPdf, verifyCaller } from './core.mjs';
 
 export class LibrarianLedger extends DurableObject {
   async fetch(request) {
@@ -21,10 +22,16 @@ export class LibrarianLedger extends DurableObject {
       return Response.json(status);
     }
     if(path==='/record'){
+      if(!['SUBMITTED','ACTIVE','UNKNOWN'].includes(data.status) ||
+          (data.sourceName!==undefined && (typeof data.sourceName!=='string' ||
+            !/^notebooks\/[0-9a-fA-F-]{16,80}\/sources\/[A-Za-z0-9-]{8,128}$/.test(data.sourceName))))
+        return Response.json({error:'INVALID_LEDGER_RECORD'},{status:400});
       const status=await this.ctx.storage.transaction(async tx=>{
         const prior=await tx.get(data.key);
-        if(!prior || prior.sourceName && prior.sourceName!==data.sourceName)return {ok:false};
-        await tx.put(data.key,{...prior,status:data.status==='ACTIVE'?'ACTIVE':'SUBMITTED',sourceName:data.sourceName||prior.sourceName});
+        if(!prior || (prior.sourceName && data.sourceName && prior.sourceName!==data.sourceName) ||
+           (prior.status==='ACTIVE' && data.status!=='ACTIVE') ||
+           (data.status==='ACTIVE' && !(data.sourceName||prior.sourceName)))return {ok:false};
+        await tx.put(data.key,{...prior,status:data.status,sourceName:data.sourceName||prior.sourceName});
         return {ok:true};
       });
       return Response.json(status);
@@ -50,36 +57,48 @@ export default class Librarian extends WorkerEntrypoint {
   async #submit(key,source,kind){
     const prior=await this.#ledger('/reserve',{key,kind});
     if(!prior.created)return {status:'SKIPPED_DUPLICATE_OR_PENDING',record:prior.status};
-    // No blind retry: a timeout could have followed successful creation.
-    const result=await createNotebookSource(this.env,source);
-    const updated=await this.#ledger('/record',{key,sourceName:result.sourceName,status:result.state});
+    // Reserve durably before any external write; an ambiguous delivery is UNKNOWN.
+    let result;
+    try { result=await createNotebookSource(this.env,source); }
+    catch {
+      await this.#ledger('/record',{key,status:'UNKNOWN'});
+      throw Error('NOTEBOOK_DELIVERY_UNKNOWN');
+    }
+    const updated=await this.#ledger('/record',{key,sourceName:result.sourceName,
+      status:result.verified?'ACTIVE':'SUBMITTED'});
     if(!updated.ok)throw Error('LEDGER_RECORD_FAILED');
     return {status:result.verified?'ACTIVE':'SUBMITTED',verified:result.verified};
   }
 
   // Existing news collector / central brain signals a canonical published ID.
   // This Worker reads only the PUBLIC news.json, never a caller-provided URL.
-  async importPublishedNews({newsId}){
+  async importPublishedNews({newsId,authorization}){
     if(this.env.NEWS_IMPORT_ENABLED!=='true')throw Error('NEWS_IMPORT_DISABLED');
     if(typeof newsId!=='string'||!/^[\w.-]{3,150}$/.test(newsId))throw Error('INVALID_NEWS_ID');
+    await verifyCaller(this.env,authorization,'news',newsId);
+    const allowed=(this.env.NEWS_SOURCE_ALLOWED_HOSTS||'').split(',').map(h=>h.trim().toLowerCase()).filter(Boolean);
+    if(!allowed.length)throw Error('NEWS_HOST_ALLOWLIST_MISSING');
     const response=await fetch('https://archelaos.club/news.json',{redirect:'manual',headers:{Accept:'application/json'}});
     if(!response.ok || response.status>=300&&response.status<400)throw Error('CANONICAL_NEWS_UNAVAILABLE');
     const data=await response.json();
     const article=(data.items||[]).find(x=>x.id===newsId);
     if(!article)throw Error('NEWS_NOT_PUBLISHED');
-    const source=buildNewsSource(article);
+    const source=buildNewsSource(article,allowed);
     const key=await sha256('news|'+article.id+'|'+source.web_content.url);
     return this.#submit(key,source,'news');
   }
 
   // Explicitly requested one-time test. Google documentation says Drive URLs
   // are unsupported by Notebook CreateSource; record the real status if tried.
-  async probeApprovedDriveLink({fileId}){
+  async probeApprovedDriveLink({fileId,authorization}){
     assertFileId(fileId);
     if(this.env.DRIVE_LINK_PROBE_ENABLED!=='true')throw Error('DRIVE_LINK_PROBE_DISABLED');
     const allow=(this.env.APPROVED_PDF_IDS||'').split(',').map(x=>x.trim()).filter(Boolean);
     if(!allow.includes(fileId))throw Error('PDF_APPROVAL_REQUIRED');
-    await fetchDriveMetadata(this.env,fileId);
+    await verifyCaller(this.env,authorization,'drive',fileId);
+    const approval=approvedPdf(this.env,fileId);
+    const {meta}=await fetchDriveMetadata(this.env,fileId);
+    if(meta.version!==approval.version)throw Error('PDF_REVISION_MISMATCH');
     const key=await sha256('private-drive-link-test|'+fileId);
     return this.#submit(key,{display_name:'ARCHELAOS PRIVATE DRIVE LINK TEST',
       web_content:{url:'https://drive.google.com/file/d/'+fileId+'/view'}},'drive-link-probe');
@@ -88,18 +107,29 @@ export default class Librarian extends WorkerEntrypoint {
   // Requires an APPROVED, separately implemented PRIVATE OCR service.
   // A Worker cannot run a local Tesseract binary; the service binding
   // must return {pages:[{page:1,text:'...'},...]} with no public egress.
-  async importApprovedPdf({fileId}){
+  async importApprovedPdf({fileId,authorization}){
     assertFileId(fileId);
     if(this.env.ARCHIVE_IMPORT_ENABLED!=='true')throw Error('ARCHIVE_IMPORT_DISABLED');
     const allow=(this.env.APPROVED_PDF_IDS||'').split(',').map(x=>x.trim()).filter(Boolean);
     if(!allow.includes(fileId))throw Error('PDF_APPROVAL_REQUIRED');
+    await verifyCaller(this.env,authorization,'drive',fileId);
+    const approval=approvedPdf(this.env,fileId);
     if(!this.env.PDF_EXTRACTOR)throw Error('PDF_EXTRACTOR_NOT_CONFIGURED');
-    const {meta,body}=await fetchDrivePdf(this.env,fileId);
+    const {meta,body}=await fetchDrivePdf(this.env,fileId,fetch,approval);
     const response=await this.env.PDF_EXTRACTOR.fetch(new Request('https://pdf-extractor.internal/extract',{
       method:'POST',body,headers:{'Content-Type':'application/pdf','X-PDF-Mode':'text-then-greek-ocr'},duplex:'half'}));
     if(!response.ok)throw Error('PRIVATE_PDF_EXTRACTION_FAILED');
-    const result=await response.json();
-    if(!Array.isArray(result.pages))throw Error('INVALID_PRIVATE_OCR_OUTPUT');
+    const outputBytes=Number(response.headers.get('content-length'));
+    if(outputBytes>8000000)throw Error('PRIVATE_OCR_OUTPUT_TOO_LARGE');
+    const raw=await response.text();
+    if(new TextEncoder().encode(raw).length>8000000)throw Error('PRIVATE_OCR_OUTPUT_TOO_LARGE');
+    let result;
+    try {result=JSON.parse(raw);}catch{throw Error('INVALID_PRIVATE_OCR_OUTPUT');}
+    if(!Array.isArray(result.pages)||result.pages.length>5000 ||
+        result.sha256!==meta.sha256 || result.revision!==meta.version ||
+        typeof result.engine!=='string' || !result.engine ||
+        result.pages.some(p=>typeof p?.text!=='string' || p.text.length>1000000))
+      throw Error('INVALID_PRIVATE_OCR_OUTPUT');
     const sources=buildArchiveSources(meta,result.pages);
     const receipts=[];
     for(let i=0;i<sources.length;i++){
@@ -110,9 +140,12 @@ export default class Librarian extends WorkerEntrypoint {
     return {status:'ARCHIVE_SUBMISSIONS_CHECKED',totalChunks:sources.length,receipts};
   }
 
-  async checkSource({sourceName}){
+  async checkSource({sourceName,authorization}){
     if(typeof sourceName!=='string'||!/^notebooks\/[0-9a-fA-F-]{16,80}\/sources\/[A-Za-z0-9-]{8,128}$/.test(sourceName))
       throw Error('INVALID_NOTEBOOK_SOURCE');
+    await verifyCaller(this.env,authorization,'review',sourceName);
+    if(!sourceName.startsWith(this.env.NOTEBOOK_NAME+'/sources/'))
+      throw Error('NOTEBOOK_SOURCE_OUT_OF_SCOPE');
     const token=await getOAuthAccessToken(this.env,'notebook');
     const response=await fetch(NOTEBOOK_API+'/'+sourceName,{redirect:'manual',
       headers:{Authorization:'Bearer '+token,'x-goog-user-project':this.env.NOTEBOOK_PROJECT_ID}});
