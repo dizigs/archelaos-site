@@ -1,4 +1,3 @@
-@import url('');
 :root{--bg:#071e19;--bg2:#0b2a23;--panel:#10332a;--panel2:#143a30;--line:rgba(213,192,142,.14);--muted:#9fb6a9;--text:#f0f4e9;--gold:#e0ba74;--goldsoft:#c8a467;--green:#75c9a1;--red:#f2918f;--amber:#e9bd6e;--radius:18px;--shadow:0 18px 55px rgba(0,0,0,.16);font-family:Inter,"Segoe UI",system-ui,-apple-system,sans-serif;color:var(--text);background:var(--bg);color-scheme:dark}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
