@@ -67,7 +67,7 @@ const approvedEntry=(sha)=>({
   fileId:FILE_ID,driveId:ARCHIVE_ID,version:'7',sha256:sha,reviewer:'archive-reviewer',
   rights:'cleared',privacyClass:'non-sensitive',approved:true,expiresAt:'2099-01-01T00:00:00Z'
 });
-const approvalEnv=(sha)=>({ARCHIVE_DRIVE_ID:ARCHIVE_ID,
+const approvalEnv=(sha)=>({ARCHIVE_DRIVE_ID:ARCHIVE_ID,APPROVED_PDF_REVIEWERS:'archive-reviewer',
   APPROVED_PDF_MANIFEST:JSON.stringify([approvedEntry(sha)])});
 
 test('PDF approval requires specific revision, rights, reviewer, expiry and SHA256',()=>{
@@ -79,7 +79,7 @@ test('PDF approval requires specific revision, rights, reviewer, expiry and SHA2
   for(const key of ['rights','privacyClass','reviewer','sha256','version','expiresAt','approved']){
     const entry=approvedEntry(hash);
     entry[key]=key==='approved'?false:'wrong';
-    const env={ARCHIVE_DRIVE_ID:ARCHIVE_ID,APPROVED_PDF_MANIFEST:JSON.stringify([entry])};
+    const env={ARCHIVE_DRIVE_ID:ARCHIVE_ID,APPROVED_PDF_REVIEWERS:'archive-reviewer',APPROVED_PDF_MANIFEST:JSON.stringify([entry])};
     assert.throws(()=>approvedPdf(env,FILE_ID,Date.parse('2026-11-06')),/PDF_APPROVAL_REQUIRED/,key);
   }
   assert.throws(()=>approvedPdf(approvalEnv(hash),FILE_ID,Date.parse('2100-01-01')),/PDF_APPROVAL_REQUIRED/);
