@@ -541,60 +541,62 @@ export default {
 };
 
 
-// Explicitly named RPC entrypoint. A future Self-Heal Service Binding MUST
-// target entrypoint="BrainRecoveryPort"; the default HTTP Worker remains
-// unchanged. No caller gains operator credentials or a new coordinator.
+// Explicitly named RPC entrypoint. Its prototype is a remote security
+// boundary: Cloudflare exposes public methods AND getters via RPC. Keep
+// authorization helpers and coordinator access module-private; NEVER return
+// a Durable Object stub (or another capability) to the bound caller.
+function requireRecoveryStaging(env) {
+  const now = Date.now();
+  const expires = Date.parse(env.STAGING_EXPIRES_AT || '');
+  const pinned = env.BRAIN_SELFHEAL_APPROVED_SHA;
+  if (env.ENVIRONMENT !== 'staging' ||
+      env.BRAIN_SELFHEAL_RECOVERY_ENABLED !== 'true' ||
+      env.BRAIN_SELFHEAL_BINDING_ATTESTED !== 'true' ||
+      !/^[a-f0-9]{40}$/.test(pinned || '') ||
+      pinned === '0'.repeat(40) || env.DEPLOY_SHA !== pinned ||
+      !Number.isFinite(expires) || expires <= now || expires > now + 60 * 60_000 ||
+      String(env.BRAIN_GITHUB_APP_ID) !== '5641216' ||
+      String(env.BRAIN_GITHUB_APP_INSTALLATION_ID) !== '179225349' ||
+      typeof env.BRAIN_GITHUB_APP_PRIVATE_KEY !== 'string' ||
+      env.BRAIN_GITHUB_APP_PRIVATE_KEY.length < 600 ||
+      !env.BRAIN || typeof env.BRAIN.get !== 'function') {
+    throw new Rejected('SELFHEAL_STAGING_NOT_ATTESTED', 423);
+  }
+}
+
+function recoveryCoordinator(env) {
+  return env.BRAIN.get(env.BRAIN.idFromName('central-v1'));
+}
+
+// Only these three review-only methods are remotely callable. Do not add a
+// prototype getter/helper: even "private-looking" names are RPC-visible.
 export class BrainRecoveryPort extends WorkerEntrypoint {
-  requireStaging() {
-    const env = this.env, now = Date.now();
-    const expires = Date.parse(env.STAGING_EXPIRES_AT || '');
-    const pinned = env.BRAIN_SELFHEAL_APPROVED_SHA;
-    if (env.ENVIRONMENT !== 'staging' ||
-        env.BRAIN_SELFHEAL_RECOVERY_ENABLED !== 'true' ||
-        env.BRAIN_SELFHEAL_BINDING_ATTESTED !== 'true' ||
-        !/^[a-f0-9]{40}$/.test(pinned || '') ||
-        pinned === '0'.repeat(40) || env.DEPLOY_SHA !== pinned ||
-        !Number.isFinite(expires) || expires <= now || expires > now + 60 * 60_000 ||
-        String(env.BRAIN_GITHUB_APP_ID) !== '5641216' ||
-        String(env.BRAIN_GITHUB_APP_INSTALLATION_ID) !== '179225349' ||
-        typeof env.BRAIN_GITHUB_APP_PRIVATE_KEY !== 'string' ||
-        env.BRAIN_GITHUB_APP_PRIVATE_KEY.length < 600 ||
-        !env.BRAIN || typeof env.BRAIN.get !== 'function') {
-      throw new Rejected('SELFHEAL_STAGING_NOT_ATTESTED', 423);
-    }
-  }
-  get coordinator() {
-    return this.env.BRAIN.get(this.env.BRAIN.idFromName('central-v1'));
-  }
   async verifySelfHealReceipt(finding) {
     try {
-      this.requireStaging();
+      requireRecoveryStaging(this.env);
       const validated = validateCiFinding(finding);
-      // This is a fresh READ-ONLY GitHub API verification, not a claimed
-      // verdict from the caller or a stored unverified webhook payload.
-      // Fresh short-lived, repo-only installation token, never persisted or logged.
-      // GitHub App must have only actions/checks/metadata READ permissions.
+      // Fresh independent READ-ONLY provider verification is mandatory.
+      // Never trust a caller-supplied verified:true verdict.
       const token = await getScopedGitHubReadToken(this.env);
       const evidence = await verifyRequiredCiFromGithub(validated, { token });
-      return await this.coordinator.verifiedSelfHealCi(validated, evidence);
+      return await recoveryCoordinator(this.env).verifiedSelfHealCi(validated, evidence);
     } catch {
       return {verified:false, code:'SELFHEAL_PROVENANCE_OR_STAGING_UNVERIFIED'};
     }
   }
   async routeSelfHealReview(plan) {
     try {
-      this.requireStaging();
-      // Stores only a durable review receipt. NEVER dispatches a Builder,
-      // grants code-write permissions, deploys, or spends AI budget.
-      return await this.coordinator.routeVerifiedSelfHealReview(plan);
+      requireRecoveryStaging(this.env);
+      // Stores only durable review evidence. No Builder, code write, deploy,
+      // autonomous repair or billable AI call is authorized.
+      return await recoveryCoordinator(this.env).routeVerifiedSelfHealReview(plan);
     } catch {
       return {accepted:false, verifiedReadback:false, reviewOnly:true,
         code:'SELFHEAL_REVIEW_NOT_AUTHORIZED'};
     }
   }
   async recheckSelfHealHealth(probe) {
-    // This existing RPC contract lacks an independently verifiable receiptId.
-    // It cannot honestly claim website health provenance yet.
+    // No trustworthy independent health receipt is available yet.
     return deniedHealthProbe(probe);
   }
 }
