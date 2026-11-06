@@ -4,7 +4,7 @@ import guardian, { assess, runAudit } from '../src/index.mjs';
 const SHA = 'a'.repeat(40);
 const NEW_SHA = 'b'.repeat(40);
 const NOW = Date.parse('2026-11-04T08:00:00Z');
-const mirror = { enabled: true, mirror_trigger_builds: false, mirror_overwrites_diverged_branches: false, update_status: 'finished', last_error: null, last_successful_update_at: '2026-11-04T07:55:00Z' };
+const mirror = { url: 'https://github.com/dizigs/archelaos-site.git', enabled: true, mirror_trigger_builds: false, mirror_overwrites_diverged_branches: false, update_status: 'finished', last_error: null, last_successful_update_at: '2026-11-04T07:55:00Z' };
 const branch = { commit: { id: SHA } };
 const commit = { sha: SHA };
 function input(m = mirror, b = branch, c = commit, when = NOW) { return { mirror: m, gitlabBranch: b, githubCommit: c, checkedAt: when }; }
@@ -44,7 +44,7 @@ test('authorized check fails closed without GitLab token', async () => {
   const key = 'x'.repeat(32);
   const response = await guardian.fetch(new Request('https://guardian.example/check', { headers: { authorization:`Bearer ${key}` }}), { GUARDIAN_CHECK_KEY:key });
   assert.equal(response.status, 503);
-  assert.deepEqual(await response.json(), {status:'not_configured'});
+  assert.deepEqual(await response.json(), {status:'UNKNOWN'});
 });
 test('GitLab API uses only GET and fixed URLs, no token in results', async () => {
   const seen = [];
@@ -85,4 +85,48 @@ test('repeated mirror observations are deterministic and read-only', () => {
   const first = assess(input());
   const second = assess(input());
   assert.deepEqual(first, second);
+});
+
+test('configured pull mirror source is pinned to the exact canonical GitHub repository', () => {
+  const canonical = assess(input({ ...mirror, url:'https://reader:masked@github.com/dizigs/archelaos-site.git' }));
+  assert.equal(canonical.status, 'ok');
+  for (const url of ['https://github.com/dizigs/other.git', 'https://github.com.evil.example/dizigs/archelaos-site.git',
+    'http://github.com/dizigs/archelaos-site.git', 'https://github.com/dizigs/archelaos-site.git?ref=other']) {
+    const r = assess(input({ ...mirror, url }));
+    assert.equal(r.status, 'alert');
+    assert.ok(r.issues.includes('MIRROR_ORIGIN_MISMATCH'));
+    assert.doesNotMatch(JSON.stringify(r), /evil.example|reader:masked/);
+  }
+  assert.equal(assess(input({ ...mirror, url:'git@github.com:dizigs/archelaos-site.git' })).status, 'ok');
+  assert.throws(() => assess(input({ ...mirror, url:undefined })), /INVALID_UPSTREAM_SCHEMA/);
+});
+
+test('missing success timestamp is explicitly UNKNOWN even if HEADs match', () => {
+  const r = assess(input({ ...mirror, last_successful_update_at:null }));
+  assert.equal(r.status, 'UNKNOWN');
+  assert.ok(r.issues.includes('NO_SUCCESSFUL_MIRROR_TIMESTAMP'));
+});
+
+test('unverified mirror branch filtering can never pass as healthy', () => {
+  const filtered = assess(input({ ...mirror, mirror_branch_regex:'release/.*' }));
+  assert.equal(filtered.status, 'alert');
+  assert.ok(filtered.issues.includes('MIRROR_BRANCH_FILTER_UNVERIFIED'));
+  const protectedOnly = assess(input({ ...mirror, only_mirror_protected_branches:true }, { ...branch, protected:false }));
+  assert.ok(protectedOnly.issues.includes('MIRROR_MAIN_BRANCH_FILTERED'));
+  assert.equal(protectedOnly.status, 'alert');
+});
+
+test('upstream failures become UNKNOWN to authorized callers without provider leakage', async () => {
+  // The actual network request is mocked: only the classified 503 result is tested.
+  const key='k'.repeat(32);
+  const previousFetch=globalThis.fetch;
+  globalThis.fetch=async () => new Response('private provider body', {status:503});
+  try {
+    const r=await guardian.fetch(new Request('https://guardian.example/check', {headers:{authorization:'Bearer '+key}}),
+      { GUARDIAN_CHECK_KEY:key, GITLAB_READ_TOKEN:'synthetic-test-token' });
+    assert.equal(r.status,503);
+    assert.deepEqual(await r.json(),{status:'UNKNOWN'});
+  } finally {
+    globalThis.fetch=previousFetch;
+  }
 });
