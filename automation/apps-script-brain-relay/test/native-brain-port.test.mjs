@@ -50,7 +50,12 @@ function mock(event,settings={}){
         status:'WAITING_REVIEW',durable:true,duplicate:false,...(settings.ack||{})});
     }
     if(path==='/v1/apps-script/readback'){
-      assert.deepEqual(JSON.parse(body),{receiptId:RID,eventId:event.eventId,operationId:OP});
+      const observed=JSON.parse(body);
+      const expected={eventId:event.eventId,operationId:OP};
+      // Brain permits a receipt lookup by (eventId, operationId), or one
+      // additionally scoped to an exact receiptId. Reject every other field.
+      if (Object.hasOwn(observed,'receiptId')) expected.receiptId=RID;
+      assert.deepEqual(observed,expected);
       return Response.json(settings.malformed?{arbitrary:true}:sign(event,settings.proof||{},
         settings.signingKey||VERIFIER));
     }
