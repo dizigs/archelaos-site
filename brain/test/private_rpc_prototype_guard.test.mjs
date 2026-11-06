@@ -125,45 +125,39 @@ export default {
   }
 };
 `;
-test('native named Miniflare RPC does not leak five internal capabilities',async()=>{
+async function probeNativeRpc(entrypoint) {
+  // This fixture exercises actual workerd JSRPC. Both clean and leaky cases
+  // share precisely the same detector and transport so the negative control
+  // cannot pass via a different mocked implementation.
   let egress=0;
   const mf=new Miniflare({
     workers:[
       {name:'isolated-private-port',modules:true,script:targetScript,compatibilityDate:'2026-07-30'},
       {name:'isolated-caller',modules:true,script:callerScript,compatibilityDate:'2026-07-30',
-        serviceBindings:{PRIVATE_PORT:{name:'isolated-private-port',entrypoint:'MinimalPort'}}}
+        serviceBindings:{PRIVATE_PORT:{name:'isolated-private-port',entrypoint}}}
     ],
     outboundService:async()=>{egress++;return new Response('DENIED',{status:503})}
   });
   try {
     const caller=await mf.getWorker('isolated-caller');
-    const r=await caller.fetch('https://internal.invalid/');
-    assert.equal(r.status,200);
-    assert.deepEqual(await r.json(),{healthDenied:true,exposed:[]});
-    assert.equal(egress,0);
-  } finally { await mf.dispose(); }
-});
-
-test('native RPC detector flags an intentionally exposed synthetic getter',async()=>{
-  // Negative calibration: the preceding clean test could appear secure if
-  // generic catch{} swallowed all remote property-access failures.
-  let egress=0;
-  const mf=new Miniflare({
-    workers:[
-      {name:'synthetic-leaky-port',modules:true,script:targetScript,compatibilityDate:'2026-07-30'},
-      {name:'synthetic-leak-caller',modules:true,script:callerScript,compatibilityDate:'2026-07-30',
-        serviceBindings:{PRIVATE_PORT:{name:'synthetic-leaky-port',entrypoint:'SyntheticLeakyPort'}}}
-    ],
-    outboundService:async()=>{egress++;return new Response('DENIED',{status:503})}
-  });
-  try {
-    const caller=await mf.getWorker('synthetic-leak-caller');
     const response=await caller.fetch('https://internal.invalid/');
     assert.equal(response.status,200);
     const report=await response.json();
-    assert.equal(report.healthDenied,true);
-    assert.deepEqual(report.exposed,['coordinator'],
-      'detector failed to observe a deliberately exported RPC getter');
     assert.equal(egress,0);
+    return report;
   } finally { await mf.dispose(); }
+}
+
+test('native named Miniflare RPC does not leak five internal capabilities',async()=>{
+  assert.deepEqual(await probeNativeRpc('MinimalPort'),{
+    healthDenied:true,exposed:[]
+  });
+});
+
+test('native RPC detector flags an intentionally exposed synthetic getter',async()=>{
+  // Negative control proves the same real RPC detector fails open neither on
+  // clean ports nor on a deliberate public-prototype capability leak.
+  assert.deepEqual(await probeNativeRpc('SyntheticLeakyPort'),{
+    healthDenied:true,exposed:['coordinator']
+  });
 });
