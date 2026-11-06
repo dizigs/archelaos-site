@@ -44,6 +44,18 @@ test('private signed event validates actual bytes and single-use durable nonce',
   e => e.code === 'RECOVERY_REPLAY_DETECTED');
   db.close();
 });
+test('future-dated signature nonce remains reserved for its full valid replay window', async () => {
+  const { db, recovery } = ledger();
+  const event = await sign({ issuedAtMs: NOW + 300_000, nonce: 'c'.repeat(32) });
+  const nonces = { claim: (...args) => recovery.claimEventNonce(...args) };
+  assert.deepEqual(await verifySignedRecoveryEvent(event, SECRET, nonces, NOW), finding);
+  // A 5-minute nonce TTL based on *receipt time* would incorrectly accept this replay.
+  await assert.rejects(() => verifySignedRecoveryEvent(event, SECRET, nonces, NOW + 300_002),
+    e => e.code === 'RECOVERY_REPLAY_DETECTED');
+  await assert.rejects(() => verifySignedRecoveryEvent(event, SECRET, nonces, NOW + 600_001),
+    e => e.code === 'INVALID_RECOVERY_ENVELOPE');
+  db.close();
+});
 test('unsigned raw finding, altered signed fields, stale and forged events are denied', async () => {
   const { db, recovery } = ledger(), nonces = { claim: (...args) => recovery.claimEventNonce(...args) };
   const signed = await sign();

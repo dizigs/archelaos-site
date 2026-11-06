@@ -41,7 +41,8 @@ export async function verifySignedRecoveryEvent(envelope, secret, nonces, now = 
   try { finding = parseFinding(JSON.parse(envelope.payload), now); }
   catch { deny('INVALID_SIGNED_FINDING'); }
   let claimed;
-  try { claimed = await nonces.claim(ISSUER + ':' + SCOPE, envelope.nonce, now + 300_001, now); }
+  try { claimed = await nonces.claim(ISSUER + ':' + SCOPE, envelope.nonce,
+    Math.max(now, envelope.issuedAtMs) + 300_001, now); }
   catch { deny('RECOVERY_NONCE_STORE_UNAVAILABLE'); }
   if (claimed !== true) deny('RECOVERY_REPLAY_DETECTED');
   return finding;

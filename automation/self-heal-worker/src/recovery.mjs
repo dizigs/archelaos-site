@@ -72,7 +72,7 @@ export class RecoveryLedger {
     requireSafe(issuerScope === 'canonical-brain:selfheal.recover' &&
       typeof nonce === 'string' && /^[0-9a-f]{32}$/.test(nonce) &&
       Number.isSafeInteger(expires) && Number.isSafeInteger(now) &&
-      expires > now && expires - now <= 300_001, 'INVALID_RECOVERY_NONCE');
+      expires > now && expires - now <= 600_001, 'INVALID_RECOVERY_NONCE');
     return this.storage.transactionSync(() => {
       this.sql.exec('DELETE FROM recovery_event_nonces WHERE expires<=?', now);
       const id = issuerScope + ':' + nonce;
