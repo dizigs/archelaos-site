@@ -183,3 +183,19 @@ test('invalid repository and Issue proof cannot be CODE_READY', () => {
   source.pull = { ...pull, head: { ...pull.head, repo: { full_name: 'untrusted/repo' } } };
   assert.equal(evaluate(source).proofStates.code, 'UNKNOWN');
 });
+
+test('path traversal cannot escape the scoped repository API', async () => {
+  const reader = new GitHubReader({ repo, token: 'synthetic' });
+  await assert.rejects(reader.request('/repos/dizigs/archelaos-site/../../otherrepo/branches/main'),
+    /out-of-scope API path/);
+});
+test('missing CI run provider readback fails closed', async () => {
+  const reader = { repo, issue: async () => issue, pull: async () => pull,
+    checkRuns: async () => evidence().checks, statuses: async () => [],
+    rules: async () => ['syntax'], threads: async () => [],
+    ciRunProofs: async () => { throw new Error('synthetic provider mismatch'); }
+  };
+  const result = await scanTask(reader, task);
+  assert.equal(result.status, 'BLOCKED');
+  assert.ok(result.blockers.includes('CI_RUN_JOB_READ_OR_ATTESTATION_FAILED'));
+});
