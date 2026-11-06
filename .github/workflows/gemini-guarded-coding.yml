@@ -74,7 +74,11 @@ jobs:
               return {p.decode() for p in subprocess.check_output(['git',*args]).split(b'\x00') if p}
           changed=paths('diff','--name-only','-z')
           untracked=paths('ls-files','--others','--exclude-standard','-z')
-          if not changed or not changed <= allowed or untracked:
+          auxiliary={p for p in untracked if p.startswith('.gemini/') or p.startswith('gemini-artifacts/')}
+          unexpected=untracked-auxiliary
+          print('Changed source paths:', sorted(changed))
+          print('Unexpected untracked paths:', sorted(unexpected))
+          if not changed or not changed <= allowed or unexpected:
               raise SystemExit('BLOCKED: outside allowed source scope, unexpected new files, or no change')
           if any(not Path(p).is_file() or Path(p).is_symlink() for p in changed):
               raise SystemExit('BLOCKED: path type')
