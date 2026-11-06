@@ -165,7 +165,7 @@ export function createAnalyticsSqlReader({
     busy = true;
     try {
       for (let attempt = 0; attempt <= maxRetries; attempt++) {
-        if (!takeQuota(time)) return unknown('RATE_LIMITED', attempt);
+        if (!takeQuota(time)) return unknown('RATE_LIMITED', Math.max(0, attempt - 1));
         try {
           const response = await withTimeout(binding.query({ query: QUERIES[recipe], params }), timeoutMs);
           return { status: 'OK', ...resultRows(response, limit), retryCount: attempt };
