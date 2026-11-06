@@ -96,3 +96,23 @@ test('an existing public issue cannot be reported as a confidential receipt',asy
   const f=async()=>Response.json([{iid:1,description:'Controller reference: ARC-CTRL:'+fixed.ticketId,confidential:false,web_url:'https://gitlab.com/p/1'}]);
   await assert.rejects(submitIssue(fixed,{GITLAB_CONTROLLER_TOKEN:'synthetic-token'},f),/UPSTREAM_PRIVACY_CONFLICT/);
 });
+
+test('controller refuses partial paginated duplicate search without POST', async () => {
+  const methods=[];
+  const f=async(_url,opt)=>{
+    methods.push(opt.method);
+    return Response.json([{iid:3,description:'unrelated marker'}], {headers:{'x-next-page':'2'}});
+  };
+  await assert.rejects(submitIssue(fixed,{GITLAB_CONTROLLER_TOKEN:'synthetic-token'},f), /UPSTREAM_PAGINATION_UNVERIFIED/);
+  assert.deepEqual(methods,['GET']);
+});
+
+test('controller treats a full search page without pagination metadata as UNKNOWN', async () => {
+  const methods=[];
+  const f=async(_url,opt)=>{
+    methods.push(opt.method);
+    return Response.json(Array.from({length:100},(_,i)=>({iid:i+1,description:'unrelated marker'})));
+  };
+  await assert.rejects(submitIssue(fixed,{GITLAB_CONTROLLER_TOKEN:'synthetic-token'},f), /UPSTREAM_PAGINATION_UNVERIFIED/);
+  assert.deepEqual(methods,['GET']);
+});
