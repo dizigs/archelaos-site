@@ -38,7 +38,13 @@ export class GitHubReader {
     if (path === '/graphql') required(options.body?.query === THREAD_QUERY &&
       typeof options.body.variables?.number === 'number' &&
       !options.body.variables?.query, 'unapproved GraphQL query');
-    required(path === '/graphql' || path.startsWith('/repos/' + this.repo + '/'), 'out-of-scope API path');
+    const prefix = '/repos/' + this.repo + '/';
+    const parsed = new URL('https://api.github.com' + path);
+    required(path === '/graphql' || (path.startsWith(prefix) &&
+      parsed.origin === 'https://api.github.com' &&
+      parsed.pathname.startsWith(prefix) &&
+      !/\\.\\.(?:\\/|$)/.test(decodeURIComponent(path.split('?')[0]))),
+      'out-of-scope API path');
     required(method === 'GET' || path === '/graphql', 'writes forbidden');
     const response = await this.fetcher('https://api.github.com' + path, {
       method,
