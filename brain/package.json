@@ -15,6 +15,9 @@
     "unpdf": "2.1.0"
   },
   "overrides": {
+    "miniflare": {
+      "workerd": "1.20261103.1"
+    },
     "sharp": "0.35.5",
     "undici": "7.30.1"
   }
