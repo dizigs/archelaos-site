@@ -52,7 +52,7 @@ Live inventory (2026-11-06): **existing** D1 `archelaos-photo-archive` (UUID `d9
 ### Identity, consistency and ingestion invariants
 
 - **`photo_id` is a permanent opaque ID** (example `ph_550e8400-e29b-41d4-a716-446655440000`), independent of bytes, filenames, persons or news URLs. Do not reuse or renumber it, including following duplicates, corrections, legal takedowns or deletion. Brain/durable receipt assigns it once; idempotent replays return the same ID. No AI invents canonical person/event IDs.
-- **`photo_versions` are append-only**, monotonically numbered per photo. Store the real SHA-256 of each immutable byte snapshot and a private R2 key. Never use a photo ID as an R2 key or silently overwrite an existing version. SHA equality is a duplicate **candidate**, not a reason to merge historical photo IDs.
+- **`photo_versions` are append-only**, monotonically numbered per photo. Store the real SHA-256 of each immutable byte snapshot and a private R2 key that exactly matches the digest and MIME extension. Never use a photo ID as an R2 key or silently overwrite an existing version. SHA equality is a duplicate **candidate**, not a reason to merge historical photo IDs. Rights and privacy evidence applies to one immutable version; approval for v1 **does not** approve v2.
 - Never promote a photo from `pending` to public based on a suggested link, comment, AI label or EXIF. Only an authenticated human review can verify source, copyright/license, privacy basis and (when needed) lawful guardian authorization. `photo_public_readonly` is **a schema-only view, not a public endpoint**.
 - Latest rights/consent decision takes precedence. A revocation or deletion tombstone instantly hides a previously reviewed publication from the read-only view; a separate audited R2 purge workflow must follow. No automated R2 deletion is authorized in this PR.
 - Transactions must atomically append the version/evidence/moderation/audit/receipt references and enforce optimistic revision checks in the future authorized D1 adapter. On timeout or ambiguous D1/R2 acknowledgement: mark UNKNOWN, quarantine, never repeat a write blindly.
@@ -65,6 +65,7 @@ PRAGMA foreign_keys = ON;
 CREATE TABLE photos (
   photo_id TEXT PRIMARY KEY CHECK (
     length(photo_id) = 39 AND photo_id GLOB 'ph_????????-????-????-????-????????????'
+    AND substr(photo_id,4) NOT GLOB '*[^0123456789abcdef-]*'
   ),
   created_at TEXT NOT NULL,
   lifecycle_state TEXT NOT NULL DEFAULT 'pending'
@@ -89,7 +90,12 @@ CREATE TABLE photo_versions (
   sha256 TEXT NOT NULL CHECK(length(sha256)=64 AND sha256 NOT GLOB '*[^0-9a-f]*'),
   byte_length INTEGER NOT NULL CHECK(byte_length BETWEEN 12 AND 8388608),
   mime_type TEXT NOT NULL CHECK(mime_type IN ('image/jpeg','image/png','image/webp')),
-  original_key TEXT NOT NULL CHECK(original_key LIKE 'pending/sha256/%'),
+  original_key TEXT NOT NULL,
+  CHECK (
+    (mime_type='image/jpeg' AND original_key='pending/sha256/'||sha256||'.jpg') OR
+    (mime_type='image/png' AND original_key='pending/sha256/'||sha256||'.png') OR
+    (mime_type='image/webp' AND original_key='pending/sha256/'||sha256||'.webp')
+  ),
   provenance_ref TEXT NOT NULL,
   exif_state TEXT NOT NULL CHECK(exif_state IN ('unreviewed','stripped','none')),
   created_at TEXT NOT NULL,
@@ -108,15 +114,17 @@ BEGIN SELECT RAISE(ABORT,'PHOTO_VERSION_DELETE_DENIED'); END;
 CREATE TABLE photo_evidence (
   evidence_seq INTEGER PRIMARY KEY AUTOINCREMENT,
   evidence_id TEXT NOT NULL UNIQUE,
-  photo_id TEXT NOT NULL REFERENCES photos(photo_id),
+  photo_id TEXT NOT NULL,
+  version_no INTEGER NOT NULL,
   kind TEXT NOT NULL CHECK(kind IN ('copyright','privacy','guardian_consent','source')),
   decision TEXT NOT NULL CHECK(decision IN ('pending','verified','rejected','revoked')),
   private_evidence_ref TEXT NOT NULL,
   reviewer_ref TEXT,
   created_at TEXT NOT NULL,
+  FOREIGN KEY(photo_id,version_no) REFERENCES photo_versions(photo_id,version_no),
   CHECK(decision != 'verified' OR reviewer_ref IS NOT NULL)
 );
-CREATE INDEX photo_evidence_latest ON photo_evidence(photo_id,kind,evidence_seq DESC);
+CREATE INDEX photo_evidence_latest ON photo_evidence(photo_id,version_no,kind,evidence_seq DESC);
 CREATE TRIGGER photo_evidence_immutable BEFORE UPDATE ON photo_evidence
 BEGIN SELECT RAISE(ABORT,'PHOTO_EVIDENCE_APPEND_ONLY'); END;
 CREATE TRIGGER photo_evidence_never_delete BEFORE DELETE ON photo_evidence
@@ -189,7 +197,7 @@ CREATE TABLE photo_audit (
   photo_id TEXT NOT NULL REFERENCES photos(photo_id),
   event_kind TEXT NOT NULL,
   actor_private_ref TEXT,
-  event_digest TEXT NOT NULL CHECK(length(event_digest)=64),
+  event_digest TEXT NOT NULL CHECK(length(event_digest)=64 AND event_digest NOT GLOB '*[^0-9a-f]*'),
   occurred_at TEXT NOT NULL
 );
 CREATE TRIGGER photo_audit_immutable BEFORE UPDATE ON photo_audit
@@ -219,14 +227,14 @@ WHEN NOT EXISTS (
       OR (p.minor_presence='yes' AND p.guardian_state='verified'))
     AND NOT EXISTS (SELECT 1 FROM photo_tombstones t WHERE t.photo_id=p.photo_id)
     AND (SELECT e.decision FROM photo_evidence e
-         WHERE e.photo_id=p.photo_id AND e.kind='copyright'
+         WHERE e.photo_id=p.photo_id AND e.version_no=NEW.version_no AND e.kind='copyright'
          ORDER BY e.evidence_seq DESC LIMIT 1)='verified'
     AND (SELECT e.decision FROM photo_evidence e
-         WHERE e.photo_id=p.photo_id AND e.kind='privacy'
+         WHERE e.photo_id=p.photo_id AND e.version_no=NEW.version_no AND e.kind='privacy'
          ORDER BY e.evidence_seq DESC LIMIT 1)='verified'
     AND (p.minor_presence='no' OR
          (SELECT e.decision FROM photo_evidence e
-          WHERE e.photo_id=p.photo_id AND e.kind='guardian_consent'
+          WHERE e.photo_id=p.photo_id AND e.version_no=NEW.version_no AND e.kind='guardian_consent'
           ORDER BY e.evidence_seq DESC LIMIT 1)='verified')
 )
 BEGIN SELECT RAISE(ABORT,'PHOTO_PUBLICATION_REVIEW_REQUIRED'); END;
@@ -244,12 +252,12 @@ WHERE p.lifecycle_state='active' AND p.rights_state='verified'
   AND ((p.minor_presence='no' AND p.guardian_state='not_applicable')
     OR (p.minor_presence='yes' AND p.guardian_state='verified'))
   AND NOT EXISTS (SELECT 1 FROM photo_tombstones t WHERE t.photo_id=p.photo_id)
-  AND (SELECT e.decision FROM photo_evidence e WHERE e.photo_id=p.photo_id
+  AND (SELECT e.decision FROM photo_evidence e WHERE e.photo_id=p.photo_id AND e.version_no=pub.version_no
        AND e.kind='copyright' ORDER BY e.evidence_seq DESC LIMIT 1)='verified'
-  AND (SELECT e.decision FROM photo_evidence e WHERE e.photo_id=p.photo_id
+  AND (SELECT e.decision FROM photo_evidence e WHERE e.photo_id=p.photo_id AND e.version_no=pub.version_no
        AND e.kind='privacy' ORDER BY e.evidence_seq DESC LIMIT 1)='verified'
   AND (p.minor_presence='no' OR
-    (SELECT e.decision FROM photo_evidence e WHERE e.photo_id=p.photo_id
+    (SELECT e.decision FROM photo_evidence e WHERE e.photo_id=p.photo_id AND e.version_no=pub.version_no
      AND e.kind='guardian_consent' ORDER BY e.evidence_seq DESC LIMIT 1)='verified');
 ```
 <!-- PHOTO_D1_CONTRACT_V1_END -->
