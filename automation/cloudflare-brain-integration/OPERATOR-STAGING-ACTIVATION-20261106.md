@@ -56,3 +56,12 @@ This proposes two existing Worker **source-side** service bindings, not a second
 **Deployment metadata: PASS (9/9).** **Native private bindings: BLOCKED (0/9).** **Actual private health: NOT TESTED.** **Authenticated durable receipt readback: NOT TESTED.** **Real DO SQLite replay/restart E2E: NOT TESTED.** **Offline mock negative tests: CI evidence tracked per exact PR commit, not remote proof.**
 
 **Final: BLOCKED / NO-GO for staging activation; NO-GO for production.** Only the Release Captain may decide merge after exact-head CI and independent review; Cloudflare/operator approval remains separate from merge.
+
+
+## FINAL PUSH — superseding current #234 contract (2026-11-06; this section overrides older observations)
+
+**New Brain #234 head:** `0920e5e720c10be93c0d5a1c1baf8e0436090f58`. Unlike the earlier head quoted in the historical section, this newer draft **does implement source-scoped `drive-v1`, `gmail-v1`, `news-v1` HMAC identities**, separate secrets `BRAIN_DRIVE_INTAKE_KEY`, `BRAIN_GMAIL_INTAKE_KEY`, `BRAIN_NEWS_INTAKE_KEY`, and source-scoped signed ACK + readback. **It is still NOT merged into `main` or deployed to staging.** Current main snapshot `237863f70fe5af1ecc4a7315741dcfe386e97c36` is also not aligned with staged `DEPLOY_SHA=d3d13b605f409bfda6f372742d629fd8eaf12145`.
+
+The existing #233 adapter is now prepared to send true `sourceType + '-v1'` key IDs (never `staging-v1` aliases); `GET /v1/source-receipts/{receiptId}` replaces the previous `/v1/tasks` operator-only path; a separate `receiptVerificationKey` (expected Brain `BRAIN_CAPABILITY_RECEIPT_KEY`) verifies the HMAC-signed `source.receipt.ack.v1` and `source.receipt.readback.v1` envelopes. The read-only binding eligibility checker requires `selectedSource` plus the exact corresponding `BRAIN_{SOURCE}_INTAKE_KEY` metadata and the shared Brain receipt-signing key metadata, not generic `STAGING_INTAKE_KEY`. All such staging key names are still absent in real Cloudflare GET results.
+
+**Do not use the previous text suggesting #234 lacks Drive/Gmail/News identities as an up-to-date blocker.** The outstanding blockers are: #234 pending review/merge/immutable SHA, no staged source secrets, no native Service Bindings, expired staging, no independently verified E2E or receipts. The complete current version/SHA matrix and operator GO/BLOCKED checklist is [FINAL-STAGING-E2E-READINESS-20261106.md](./FINAL-STAGING-E2E-READINESS-20261106.md). Leave all runtime flags and billing/AI providers OFF until separate operator approvals.
