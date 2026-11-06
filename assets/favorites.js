@@ -86,4 +86,12 @@ function button(type,id,cls='',info){const b=document.createElement('button');b.
 function clear(){save([],{})}
 window.addEventListener('storage',e=>{if(e.key===KEY||e.key===MKEY)refreshAll()});
 window.ArchelaosFavorites=Object.freeze({live:true,get,has,toggle,clear,button,meta,persistent:()=>storageOK,canonicalPersonId});
+
+ // One consent-gated analytics component for every classic page; no tracker loads here.
+ if(!document.querySelector('script[data-archelaos-analytics-loader]')){
+  const analytics=document.createElement('script');
+  analytics.src='/assets/analytics-consent.js?v=20261106-ga4';
+  analytics.dataset.archelaosAnalyticsLoader='true';
+  document.head.append(analytics);
+ }
 })();
