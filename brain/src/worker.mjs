@@ -3,6 +3,7 @@ import { Rejected, UUID, authenticate, boundedBody, digest, reply, route, valida
 import { claimBudgetCall, reserveBudget, settleBudget } from './budget.mjs';
 import { readTaskIntent, storeTaskIntent } from './task_intents.mjs';
 import { SELFHEAL_SCHEMA, validateCiFinding, verifyRequiredCiFromGithub, recordVerifiedCi, storeSelfHealReview, deniedHealthProbe } from './selfheal_recovery.mjs';
+import { SELFHEAL_OUTBOX_SCHEMA, attemptOneSignedSelfHealDelivery } from './selfheal_signed_outbox.mjs';
 import { CAPABILITY_SCHEMA, validateAnalyticsSnapshot, validateAppsScriptEvent, persistAnalyticsSnapshot, persistAppsScriptEvent, readAnalyticsSnapshotReceipt, readAppsScriptReceipt } from './capability_intake.mjs';
 import { EXEC_SCHEMA, submitExecutionIntent, approveExecutionIntent, claimExecutionIntent, beginExecutionCall, finishExecutionIntent, reconcileExecutionIntent, inspectExecutionIntent, executionDiagnostics, recoverExecutionLeases, signIntegrationReceipt } from './exec_authority.mjs';
 
@@ -38,7 +39,8 @@ const SCHEMA = [
   ,'CREATE TABLE IF NOT EXISTS task_intent_audit(id TEXT NOT NULL,at INTEGER NOT NULL,code TEXT NOT NULL)',
   ...EXEC_SCHEMA,
   ...CAPABILITY_SCHEMA,
-  ...SELFHEAL_SCHEMA
+  ...SELFHEAL_SCHEMA,
+  ...SELFHEAL_OUTBOX_SCHEMA
 ];
 
 export class BrainCoordinator extends DurableObject {
@@ -225,6 +227,19 @@ export class BrainCoordinator extends DurableObject {
           status: job.status, attempts: job.attempts, route: job.route,
           code: job.code, durable: true });
       }
+      // Internal-only canonical DO handler. The public-facing default Worker
+      // authenticates github-v1 HMAC BEFORE forwarding the exact receiptId.
+      // This handler remains inert until staging flags, binding and a durable
+      // provider-verified receipt all pass the existing one-shot outbox gate.
+      if (request.method === 'POST' && url.pathname === '/internal/selfheal-dispatch') {
+        let input; try { input = await request.json(); }
+        catch { throw new Rejected('INVALID_JSON', 422); }
+        if (!input || typeof input !== 'object' || Array.isArray(input) ||
+            Object.keys(input).length !== 1 || !UUID.test(input.receiptId || ''))
+          throw new Rejected('INVALID_SELFHEAL_DISPATCH_REQUEST', 422);
+        return reply(await attemptOneSignedSelfHealDelivery(
+          this.ctx.storage, this.env, input.receiptId));
+      }
       if (url.pathname.startsWith('/internal/exec/')) {
         const synthetic = this.env.TEST_BUDGET === 'true' && this.env.BRAIN_EXECUTION_ADMISSION === 'synthetic';
         const enabled = synthetic || (this.env.ENVIRONMENT === 'staging' &&
@@ -392,6 +407,8 @@ export default {
       const capabilityGet = capability && request.method === 'GET' && url.pathname.startsWith('/v1/capabilities/');
       const capabilityPost = capability && request.method === 'POST' &&
         (url.pathname.startsWith('/v1/intake/') || url.pathname.endsWith('/readback'));
+      const selfhealDispatch = request.method === 'POST' &&
+        url.pathname === '/v1/selfheal/dispatch';
       const sourceReceipt = request.method === 'GET' &&
         url.pathname.startsWith('/v1/source-receipts/') &&
         UUID.test(url.pathname.slice('/v1/source-receipts/'.length));
@@ -400,7 +417,7 @@ export default {
         (request.method === 'GET' && (url.pathname === '/v1/diagnostics' ||
           (url.pathname.startsWith('/v1/tasks/') && UUID.test(url.pathname.slice('/v1/tasks/'.length))) ||
           (url.pathname.startsWith('/v1/task-intents/') && UUID.test(url.pathname.slice('/v1/task-intents/'.length))))));
-      if (url.search || !(existingRoute || execPost || execGet || capabilityGet || capabilityPost || sourceReceipt))
+      if (url.search || !(existingRoute || execPost || execGet || capabilityGet || capabilityPost || sourceReceipt || selfhealDispatch))
         throw new Rejected('NOT_FOUND', 404);
       const raw = await boundedBody(request);
       const source = await authenticate(request, env, raw);
@@ -413,7 +430,8 @@ export default {
         if (env.BRAIN_PRIVATE_EVENT_SOURCES_ENABLED !== 'true' ||
             env.BRAIN_PRIVATE_SERVICE_BINDINGS_VERIFIED !== 'true')
           throw new Rejected('PRIVATE_EVENT_SOURCE_DISABLED', 423);
-        if (!(request.method === 'POST' && url.pathname === '/v1/events') && !sourceReceipt)
+        if (!(request.method === 'POST' && url.pathname === '/v1/events') && !sourceReceipt &&
+            !(selfhealDispatch && source === 'github'))
           throw new Rejected('SOURCE_SCOPE_REQUIRED', 403);
         if (typeof env.BRAIN_CAPABILITY_RECEIPT_KEY !== 'string' ||
             env.BRAIN_CAPABILITY_RECEIPT_KEY.length < 43)
@@ -448,6 +466,25 @@ export default {
           'apps-script.receipt.') + (readback ? 'readback.v1' : 'ack.v1');
         return reply(await signCapabilityReply(ack, env.BRAIN_CAPABILITY_RECEIPT_KEY,
           audience, capability === 'analytics' ? 'analytics-v1' : 'apps-script-v1'));
+      }
+      if (selfhealDispatch) {
+        // Existing source-scoped github-v1 HMAC only. The signed request is NOT
+        // the proof of failure: the existing Brain SQLite CI receipt must match.
+        // Other sources, staging, and operator identities have no permission.
+        if (source !== 'github') throw new Rejected('SOURCE_SCOPE_REQUIRED', 403);
+        if (env.BRAIN_SELFHEAL_DISPATCH_ENABLED !== 'true')
+          throw new Rejected('SELFHEAL_DISPATCH_DISABLED', 423);
+        if (!/^application\/json(?:;\s*charset=utf-8)?$/i.test(
+          request.headers.get('content-type') || ''))
+          throw new Rejected('JSON_REQUIRED', 415);
+        let input;
+        try { input = JSON.parse(raw); }
+        catch { throw new Rejected('INVALID_JSON', 422); }
+        if (!input || typeof input !== 'object' || Array.isArray(input) ||
+            Object.keys(input).length !== 1 || !UUID.test(input.receiptId || ''))
+          throw new Rejected('INVALID_SELFHEAL_DISPATCH_REQUEST', 422);
+        return coordinator.fetch('https://brain.internal/internal/selfheal-dispatch',
+          { method: 'POST', body: JSON.stringify({ receiptId: input.receiptId }) });
       }
       if (sourceReceipt) {
         const response = await coordinator.fetch('https://brain.internal/internal/source-receipts/' +

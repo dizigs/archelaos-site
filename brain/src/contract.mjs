@@ -48,7 +48,8 @@ export function assertDistinctPrincipalSecrets(env) {
     env.BRAIN_ANALYTICS_INTAKE_KEY, env.BRAIN_APPS_SCRIPT_INTAKE_KEY,
     env.BRAIN_DRIVE_INTAKE_KEY, env.BRAIN_GMAIL_INTAKE_KEY,
     env.BRAIN_NEWS_INTAKE_KEY, env.BRAIN_SITE_INTAKE_KEY,
-    env.BRAIN_GITHUB_INTAKE_KEY, env.BRAIN_CAPABILITY_RECEIPT_KEY
+    env.BRAIN_GITHUB_INTAKE_KEY, env.BRAIN_CAPABILITY_RECEIPT_KEY,
+    env.HEALER_EVENT_HMAC_KEY
   ].filter(value => typeof value === 'string' && value.length >= 43);
   if (new Set(values).size !== values.length)
     throw new Rejected('PRINCIPAL_SECRET_COLLISION', 503);
