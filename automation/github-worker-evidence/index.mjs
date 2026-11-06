@@ -291,16 +291,32 @@ export async function scanTask(reader, task, timestamp = new Date().toISOString(
 
 export async function buildReport(reader, registry, timestamp = new Date().toISOString()) {
   required(registry?.repo === reader.repo && Array.isArray(registry.tasks), 'registry mismatch');
+  let mainSha = null;
+  try {
+    const branch = await reader.get('/branches/main');
+    if (!SHA.test(branch?.commit?.sha || '')) throw new Error('invalid main SHA');
+    mainSha = branch.commit.sha;
+  } catch {
+    // A missing provider readback must never be silently treated as current main.
+  }
   const seen = new Set();
   const tasks = [];
   for (const task of registry.tasks) {
     required(/^[a-z0-9-]+$/.test(task.id) && !seen.has(task.id), 'duplicate or invalid task id');
     required(typeof task.worker === 'string' && task.worker.length > 0, 'invalid worker label');
     seen.add(task.id);
-    tasks.push(await scanTask(reader, task, timestamp));
+    const result = await scanTask(reader, task, timestamp);
+    result.mainSha = mainSha;
+    if (!mainSha) {
+      result.status = 'BLOCKED';
+      result.proofStates.ci = 'UNKNOWN';
+      result.blockers = unique([...(result.blockers || []), 'MAIN_SHA_UNVERIFIED']);
+    }
+    tasks.push(result);
   }
   return {
-    schemaVersion: 1, generatedAt: timestamp, repo: reader.repo,
+    schemaVersion: 2, generatedAt: timestamp, repo: reader.repo,
+    mainSha, mainShaSource: mainSha ? 'github-api-read-only' : 'UNKNOWN',
     authority: 'GitHub evidence; authoritative expense/execution ledger stays in canonical Brain',
     tasks
   };
