@@ -75,7 +75,7 @@ jobs:
           let result=await response.json().catch(()=>({}));
           const id=typeof result.id==='string'?result.id:'';
           console.log('CREATE_HTTP',response.status,'STATE',result.status??'unknown');
-          if(!response.ok||!/^int_[A-Za-z0-9_-]{3,160}$/.test(id)){
+          if(!response.ok||!/^v1_[A-Za-z0-9_-]{20,512}$/.test(id)){
             record({phase:'CREATE_UNKNOWN_OR_REJECTED',http:response.status,status:result.status??null,at:new Date().toISOString()});
             console.log('CREATE_ERROR',String(result.error?.message||'No valid interaction id').slice(0,450));
             process.exit(2);
