@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { createHmac, randomUUID, createHash } from 'node:crypto';
 import { createBrainWorkerAdapter, IntegrationBlocked } from './client.mjs';
 import './binding-plan.test.mjs'; // Include binding eligibility negatives in existing PR CI without workflow ownership change.
+import './apps-script-readiness.test.mjs'; // Run independent Bridge -> Apps Script private-gate checks in existing CI.
 import './selfheal-binding-plan.test.mjs'; // Exercise Brain ↔ Self-Heal private-only gates in the same exact-head CI.
 const KEY = 'example-staging-not-a-secret-'.repeat(3);
 const RECEIPT_KEY = 'example-receipt-verifier-not-a-secret-'.repeat(3);
