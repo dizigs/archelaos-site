@@ -6,9 +6,6 @@ on:
         description: Small scoped bug in automation/gemini-triage only
         type: string
         required: true
-  push:
-    branches: [chatgpt/gemini-guarded-coding-pilot-20261106]
-    paths: ['.github/workflows/gemini-guarded-coding.yml']
 permissions:
   contents: read
 concurrency:
