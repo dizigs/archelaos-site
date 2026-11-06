@@ -54,6 +54,13 @@ async function readLimited(stream, limit) {
   return new TextDecoder('utf-8', { fatal: true }).decode(buffer);
 }
 
+// GitLab quick actions start at the first non-space character of a line.
+// Scan bounded lines in linear time instead of a backtracking multiline regex.
+function containsGitLabQuickAction(description) {
+  return description.split(/[\r\n\u2028\u2029]/u)
+    .some(line => line.trimStart().startsWith('/'));
+}
+
 export function validateIssue(input) {
   if (!input || typeof input !== 'object' || Array.isArray(input)) throw new Error('INVALID_REQUEST');
   const allowedKeys = ['category', 'title', 'description', 'ticketId'];
@@ -64,7 +71,7 @@ export function validateIssue(input) {
       typeof description !== 'string' || description.length < 6 || description.length > 2500 ||
       typeof ticketId !== 'string' || !/^[A-Z0-9][A-Z0-9_.-]{7,63}$/.test(ticketId) ||
       /[\r\n\x00-\x1F]/.test(title) ||
-      /(^|\n)\s*\//m.test(description)) throw new Error('INVALID_REQUEST');
+      containsGitLabQuickAction(description)) throw new Error('INVALID_REQUEST');
   const marker = `ARC-CTRL:${ticketId}`;
   return {
     title: `${ALLOWED_CATEGORIES[category]} ${title}`,
