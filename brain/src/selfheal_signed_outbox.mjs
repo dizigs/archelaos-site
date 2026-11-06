@@ -3,6 +3,7 @@
 // canonical BrainCoordinator SQLite storage with SELFHEAL_SCHEMA installed.
 // Never retry an UNKNOWN outcome; only independent durable readback can settle it.
 import { Rejected } from './contract.mjs';
+import { validateCiFinding } from './selfheal_recovery.mjs';
 
 const REPO = 'dizigs/archelaos-site';
 const SHA = /^[a-f0-9]{40}$/;
@@ -77,7 +78,8 @@ export async function signCanonicalRecoveryFinding(finding, secret, now, nonce) 
   if (typeof secret !== 'string' || secret.length < 43 ||
       !Number.isSafeInteger(now) || !/^[a-f0-9]{32}$/.test(nonce || ''))
     deny('SIGNED_ENVELOPE_MATERIAL_UNVERIFIED');
-  const payload = JSON.stringify(finding);
+  // Revalidate identity and exact metadata independently before signing.
+  const payload = JSON.stringify(validateCiFinding(finding, now));
   if (new TextEncoder().encode(payload).byteLength > 1200)
     deny('SIGNED_FINDING_TOO_LARGE');
   const data = [SCOPE, ISSUER, String(now), nonce, payload].join('\n');
