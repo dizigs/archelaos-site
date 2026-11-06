@@ -1,0 +1,55 @@
+name: Gemini one-shot HMAC receipt-only code review (temporary)
+on:
+  push:
+    branches:
+      - assistant/gemini-once-hmac-review-20261106
+    paths:
+      - '.github/workflows/gemini-hmac-review-once-20261106.yml'
+permissions:
+  contents: read
+concurrency:
+  group: gemini-hmac-one-shot-20261106
+  cancel-in-progress: false
+jobs:
+  security-review:
+    if: "github.repository == 'dizigs/archelaos-site' && github.event.head_commit.message == 'test(gemini): authorized one-shot HMAC source review'"
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout public source without persisted credentials
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: One bounded Gemini API call, read-only, no retries
+        shell: bash
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          BASE_SHA: f6430dc13ac7c8f16231d2f4833a96cd54a7ee2d
+        run: |
+          set -euo pipefail
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          const key=process.env.GEMINI_API_KEY;
+          if (!key || key.length < 16) {console.error('GEMINI_API_KEY not configured');process.exit(1);}
+          const paths=['brain/src/selfheal_ack.mjs','brain/src/selfheal_signed_outbox.mjs','automation/self-heal-worker/src/durable_ack.mjs','automation/self-heal-worker/src/worker.mjs','brain/wrangler.toml','automation/self-heal-worker/wrangler.toml'];
+          const limits=[11500,11000,8500,5000,2500,1500];
+          const files=paths.map((path,i)=>{const content=fs.readFileSync(path,'utf8');if(/-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----|(?:sk-proj-|github_pat_|ghp_|gho_|AIza[0-9A-Za-z_-]{15,})/.test(content))throw Error('Source redaction gate');return 'PATH: '+path+'\n'+content.slice(0,limits[i]);});
+          const prompt=`Act as an independent defensive security code reviewer of the supplied PUBLIC repository source only. Project: archelaos Brain <-> Self-Heal HMAC durable ACK. Code was merged in PR #265; synthetic HMAC mismatch test pending PR #268; live Cloudflare E2E has NOT been proved. Both running Workers have secret names HEALER_EVENT_HMAC_KEY, but actual values/equality are unknown. All dispatch/recovery/ACK flags OFF, staging expiry 1970. Goal: identify code-specific reasons for UNKNOWN or lack of safe isolated receipt-only staging verification, not enable repair. Find at most FOUR substantiated issues citing file paths/function names/lines if available; prioritize missing/unequal shared keys, HMAC serialization/correlation and gate coupling. Design the smallest isolated private receipt-only negative/positive synthetic staging probe WITHOUT enabling repair, public routes, AI or live recovery. Provide exact pseudocode patch recommendations and THREE offline regression tests. Differentiate proven defects from unknown live configuration. Do not request secrets, claim deployments, run commands, or invent results. Reply in concise plain text, maximum 650 words.\n\n`;
+          const request={contents:[{role:'user',parts:[{text:prompt+files.join('\n\n---\n\n')}]}],generationConfig:{temperature:0.15,maxOutputTokens:2000}};
+          console.log('GEMINI_MODE','ONE_REQUEST_NO_RETRY');console.log('BASE_SHA',process.env.BASE_SHA);console.log('SOURCE_FILE_COUNT',paths.length);console.log('INPUT_CHARACTERS',(prompt+files.join('\n\n---\n\n')).length);
+          let response;try{response=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent',{method:'POST',redirect:'error',signal:AbortSignal.timeout(65000),headers:{'Content-Type':'application/json','x-goog-api-key':key},body:JSON.stringify(request)});}catch(e){console.log('GEMINI_NETWORK_ERROR',e.name);process.exit(2);}
+          let data={};try{data=await response.json();}catch{}
+          console.log('GEMINI_HTTP_STATUS',response.status);
+          if(!response.ok){console.log('GEMINI_PROVIDER_STATUS',String(data.error?.status||'unknown'));process.exit(3);}
+          console.log('GEMINI_USAGE',JSON.stringify({input:data.usageMetadata?.promptTokenCount,output:data.usageMetadata?.candidatesTokenCount,total:data.usageMetadata?.totalTokenCount}));
+          const report=(data.candidates?.[0]?.content?.parts||[]).filter(p=>typeof p.text==='string').map(p=>p.text).join('\n');
+          console.log('GEMINI_FINISH_REASON',data.candidates?.[0]?.finishReason||'unknown');
+          console.log('GEMINI_REPORT_START');console.log(report.slice(0,12000)||'(No candidate text)');console.log('GEMINI_REPORT_END');
+          if(!report)process.exit(4);
+          NODE
+      - name: Assert no tracked-source edits
+        shell: bash
+        run: |
+          git diff --exit-code
