@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createHmac, randomUUID } from 'node:crypto';
+import { createHmac, randomUUID, createHash } from 'node:crypto';
 import { createBrainWorkerAdapter, IntegrationBlocked } from './client.mjs';
 import './binding-plan.test.mjs'; // Include binding eligibility negatives in existing PR CI without workflow ownership change.
 const KEY = 'example-staging-not-a-secret-'.repeat(3);
@@ -9,6 +9,9 @@ const sha = x => x.repeat(64);
 const event = () => ({ schemaVersion: 1, eventId: randomUUID(), correlationId: randomUUID(),
   sourceType:'drive', sourceId:sha('a'), sourceRevision:sha('b'), eventType:'source.file.created',
   receivedAt:new Date().toISOString(), payload: { blobSha256:sha('c'), mimeType:'application/pdf', sizeBytes:120 } });
+const dedupeKey = e => createHash('sha256').update('blob|' + e.sourceType + '|' + e.sourceId +
+  '|' + (e.eventType.startsWith('source.file.') ? 'source.file' : e.eventType) + '|' +
+  e.payload.blobSha256).digest('hex');
 const verified = e => ({ verified:true, worker:'archelaos-librarian-staging', sourceType:e.sourceType,
   sourceId:e.sourceId, sourceRevision:e.sourceRevision, blobSha256:e.payload.blobSha256 });
 function setup(fetch, overrides={}) { const logs=[]; const a=createBrainWorkerAdapter({workerName:'archelaos-librarian-staging',
@@ -21,7 +24,7 @@ const signed = (payload, audience='source.receipt.ack.v1', principal='drive-v1',
   return {...envelope,receiptSignature};
 };
 const reply = (e, status=202) => Response.json(signed({receiptId:randomUUID(), correlationId:e.correlationId,
-  eventId:e.eventId,durable:true,duplicate:status===200,status:'QUEUED'}), {status});
+  eventId:e.eventId,dedupeKey:dedupeKey(e),durable:true,duplicate:status===200,status:'QUEUED'}), {status});
 const readback = (receiptId,correlationId,status='DONE',attempts=1) =>
   Response.json(signed({receiptId,correlationId,status,attempts,code:'DETERMINISTIC_ROUTE_COMPLETE',durable:true},'source.receipt.readback.v1'));
 const reject = (p, code) => assert.rejects(p, x => x instanceof IntegrationBlocked && x.code === code);
@@ -170,7 +173,7 @@ test('restart-safe synthetic Brain receipt keeps one event and durable duplicate
       const incoming=JSON.parse(await req.text());
       const duplicate=stored.has(incoming.eventId);
       if(!duplicate){ admissions++;stored.set(incoming.eventId,{
-        receiptId:randomUUID(),correlationId:incoming.correlationId,eventId:incoming.eventId
+        receiptId:randomUUID(),correlationId:incoming.correlationId,eventId:incoming.eventId,dedupeKey:dedupeKey(incoming)
       });}
       return Response.json(signed({...stored.get(incoming.eventId),durable:true,duplicate,status:'WAITING_REVIEW'}),
         {status:duplicate?200:202});
@@ -260,4 +263,57 @@ test('readback refuses valid signature for a different source receipt audience',
   const {a}=setup(async()=>Response.json(signed({receiptId:id,correlationId:corr,durable:true,
     status:'DONE',attempts:1}),{status:200}));
   await reject(a.readReceipt(id,corr),'READBACK_UNVERIFIED');
+});
+
+test('immutable canonical blob digest is required and cannot be replaced by a valid signature',async()=>{
+  const e=event();
+  const cases=[
+    {dedupeKey:'0'.repeat(64)},
+    {dedupeKey:undefined},
+    {eventId:randomUUID()},
+    {correlationId:randomUUID()}
+  ];
+  for(const patch of cases){
+    const base={receiptId:randomUUID(),correlationId:e.correlationId,eventId:e.eventId,
+      dedupeKey:dedupeKey(e),durable:true,duplicate:false,status:'QUEUED'};
+    const {a,logs}=setup(async()=>Response.json(signed({...base,...patch}),{status:202}));
+    await reject(a.submitEvent(e),'RECEIPT_UNVERIFIED');
+    assert.equal(logs.at(-1).result,'UNKNOWN');
+  }
+});
+test('lost signed receipt after a committed event remains UNKNOWN with original immutable identifiers',async()=>{
+  const e=event(),oldId=e.eventId;
+  let calls=0;const {a,logs}=setup(async()=>{calls++;return new Response('',{status:202});});
+  await reject(a.submitEvent(e),'RECEIPT_UNVERIFIED');
+  assert.equal(calls,1);
+  assert.equal(e.eventId,oldId);
+  assert.deepEqual(logs.map(x=>({eventId:x.eventId,correlationId:x.correlationId,result:x.result})),
+    [{eventId:e.eventId,correlationId:e.correlationId,result:'UNKNOWN'}]);
+});
+test('readback lost after durable ACK does not treat missing evidence as success',async()=>{
+  const e=event(),id=randomUUID();
+  const {a}=setup(async req=>new URL(req.url).pathname==='/v1/events'?
+    Response.json(signed({receiptId:id,correlationId:e.correlationId,eventId:e.eventId,
+      dedupeKey:dedupeKey(e),durable:true,duplicate:false,status:'QUEUED'}),{status:202}):
+    new Response('',{status:404}));
+  const receipt=await a.submitEvent(e);
+  assert.equal(receipt.receiptId,id);
+  await reject(a.readReceipt(id,e.correlationId),'READBACK_REJECTED');
+});
+test('stale Brain private health is not connectivity or staging readiness',async()=>{
+  const oldSha='a'.repeat(40),approvedSha='b'.repeat(40);
+  const {a}=setup(async()=>Response.json({service:'archelaos-brain',environment:'staging',
+    commit:oldSha,aiExecutionEnabled:false}),{expectedBrainCommit:approvedSha});
+  assert.deepEqual(await a.probeHealth(),{reachable:false,code:'HEALTH_IDENTITY_MISMATCH',ready:false});
+});
+test('source-specific key IDs cannot become operator authority',async()=>{
+  const {authenticate}=await import('../../brain/src/contract.mjs');
+  const e=event(),body=JSON.stringify(e),ts=String(Math.floor(Date.now()/1000));
+  const path='/v1/control',signature=createHmac('sha256',KEY).update('POST\n'+path+
+    '\n'+ts+'\n'+body).digest('hex');
+  const request=new Request('https://brain.internal'+path,{method:'POST',headers:{
+    'x-archelaos-key-id':'drive-v1','x-archelaos-timestamp':ts,'x-archelaos-signature':signature
+  },body});
+  // main rejects the identity outright; #234 must additionally forbid scoped operator paths.
+  await assert.rejects(authenticate(request,{STAGING_INTAKE_KEY:KEY},body),x=>x?.code==='UNAUTHORIZED');
 });
