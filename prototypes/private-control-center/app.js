@@ -107,8 +107,45 @@ function setView(view){
 }
 function closeMenu(){$("sidebar").classList.remove("open");$("menuToggle").setAttribute("aria-expanded","false");$("mobileBackdrop").hidden=true}
 function updateCost(amount){const spent=Number(amount);setText("costAvailable",Math.max(0,20-spent).toFixed(2).replace(".",",")+" €");setText("costUsed",spent.toFixed(2).replace(".",",")+" €");setText("costSliderLabel",spent.toFixed(2).replace(".",",")+" €");$("costBar").style.width=Math.min(100,spent/20*100)+"%";const warning=$("costWarning");warning.className="warning-inline"+(spent>20?" danger":spent>=16?" warn":"");warning.textContent=spent>20?"● Υπέρβαση ορίου — DEMO":spent>=16?"● Προειδοποίηση: ≥80% ορίου — DEMO":"● Εντός προϋπολογισμού — DEMO"}
+
+/* DEMO only: mobile live-style summary, fully local and not connected to telemetry. */
+let mobileEventIndex=0;
+function updateMobileSummary(){
+ const s=scenarios[currentScenario];
+ setText("mobileBrainStatus",s.brain);
+ setText("mobileWorkersStatus",s.online+" / 8");
+ setText("mobileQueueStatus",s.queue);
+ setText("mobileAlertsStatus",s.alerts);
+}
+function nextMobileEvent(){
+ mobileEventIndex=(mobileEventIndex+1)%events.length;
+ setText("mobileEventText",events[mobileEventIndex].text);
+ setText("mobileEventCounter","Δείγμα "+(mobileEventIndex+1)+" / "+events.length);
+}
+function syncTopologyMotion(){
+ const reduceMotion=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+ const mobile=window.matchMedia("(max-width: 760px)").matches;
+ const tabHidden=document.visibilityState==="hidden";
+ if(paused||reduceMotion||mobile||tabHidden)$("topology").pauseAnimations();
+ else $("topology").unpauseAnimations();
+}
+function initMobileFeed(){
+ $("mobileNextEvent").addEventListener("click",nextMobileEvent);
+ updateMobileSummary();
+ const viewport=window.matchMedia("(max-width: 760px)");
+ if(typeof viewport.addEventListener==="function")viewport.addEventListener("change",syncTopologyMotion);
+ document.addEventListener("visibilitychange",syncTopologyMotion);
+ syncTopologyMotion();
+ if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){
+   window.setInterval(()=>{
+     if(window.matchMedia("(max-width: 760px)").matches&&document.visibilityState!=="hidden")nextMobileEvent();
+   },9000);
+ }
+}
+
 function setScenario(i,announce=true){
  currentScenario=(i+scenarios.length)%scenarios.length;const s=scenarios[currentScenario];setText("scenarioLabel",s.name);setText("metricHealth",s.health.toFixed(1));setText("metricWorkers",s.online);setText("metricQueue",s.queue);setText("metricSpend",s.spend.toFixed(2));$("metricSpendBar").style.width=Math.min(s.spend/20*100,100)+"%";setText("heroBrain",s.brain+" · DEMO");setText("brainCardStatus",s.brain);setText("locksCount",s.locks);setText("runningCount",s.running);setText("unknownCount",s.unknown);setText("securityAlerts",s.alerts);setText("workerMetricTag",s.online===8?"● Όλοι online":"● "+(8-s.online)+" standby");setText("budgetTag",s.spend>=16?"● Προειδοποίηση":"● Εντός ορίου");$("costSlider").value=String(s.spend);updateCost(s.spend);
+ updateMobileSummary();
  if(announce)showToast("Σενάριο: "+s.name+" — μόνο DEMO");
 }
 function showToast(t){const toast=$("toast");toast.textContent=t;toast.hidden=false;window.clearTimeout(toastTimer);toastTimer=window.setTimeout(()=>toast.hidden=true,3300)}
@@ -128,7 +165,7 @@ function downloadDemo(){
  const url=URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:"application/json"}));const a=document.createElement("a");a.href=url;a.download="archelaos-control-center-DEMO.json";document.body.append(a);a.click();a.remove();window.setTimeout(()=>URL.revokeObjectURL(url),1000);showToast("Δημιουργήθηκε τοπικά αρχείο DEMO JSON")
 }
 function init(){
- renderDiagram();renderWorkerCards();renderTasks();renderEvents();setScenario(0,false);
+ renderDiagram();renderWorkerCards();renderTasks();renderEvents();setScenario(0,false);initMobileFeed();
  qs(".nav-link").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();setView(a.dataset.view)}));
  qs("[data-view-button]").forEach(b=>b.addEventListener("click",()=>setView(b.dataset.viewButton)));
  qs("[data-detail]").forEach(b=>b.addEventListener("click",()=>openGeneric(b.dataset.detail,b)));
@@ -137,7 +174,7 @@ function init(){
  $("closeDetails").addEventListener("click",closeDrawer);$("drawerBackdrop").addEventListener("click",closeDrawer);
  $("detailsDrawer").addEventListener("keydown",e=>{if(e.key==="Tab"){const focusable=qs("button:not([disabled])",e.currentTarget);if(focusable.length){e.preventDefault();focusable[0].focus()}}});
  $("scenarioButton").addEventListener("click",()=>setScenario(currentScenario+1));$("exportButton").addEventListener("click",downloadDemo);
- $("pauseButton").addEventListener("click",()=>{paused=!paused;if(paused)$("topology").pauseAnimations();else $("topology").unpauseAnimations();setText("pauseButton",paused?"▶ Συνέχεια":"Ⅱ Παύση");$("pauseButton").setAttribute("aria-pressed",String(paused));showToast(paused?"Η κίνηση σταμάτησε — DEMO":"Η κίνηση συνεχίστηκε — DEMO")});
+ $("pauseButton").addEventListener("click",()=>{paused=!paused;syncTopologyMotion();setText("pauseButton",paused?"▶ Συνέχεια":"Ⅱ Παύση");$("pauseButton").setAttribute("aria-pressed",String(paused));showToast(paused?"Η κίνηση σταμάτησε — DEMO":"Η κίνηση συνεχίστηκε — DEMO")});
  ["operationsSearch","operationsFilter"].forEach(id=>$(id).addEventListener(id.endsWith("Filter")?"change":"input",renderTasks));
  ["eventsSearch","eventsFilter"].forEach(id=>$(id).addEventListener(id.endsWith("Filter")?"change":"input",renderEvents));
  $("costSlider").addEventListener("input",e=>updateCost(e.target.value));
