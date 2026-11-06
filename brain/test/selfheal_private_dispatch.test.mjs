@@ -101,3 +101,13 @@ test('expired private source/binding flags fail closed despite a valid caller HM
     assert.equal(response.status,423);
   }
 });
+
+test('Healer signature key cannot be reused for source event or operator authentication',async()=>{
+  await mf.setOptions(options({
+    BRAIN_SELFHEAL_DISPATCH_ENABLED:'true',
+    HEALER_EVENT_HMAC_KEY:GITHUB_KEY
+  }));
+  const response=await send(randomUUID());
+  assert.equal(response.status,503);
+  assert.equal((await response.json()).code,'PRINCIPAL_SECRET_COLLISION');
+});
