@@ -17,6 +17,12 @@ on:
       - '.github/workflows/rebuild-check.yml'
       - '.github/ci-security-tools/**'
   workflow_dispatch:
+    inputs:
+      verify_production_deployment:
+        description: 'Read-only exact-main production proof, operator-approved release only; never deploys'
+        type: boolean
+        required: false
+        default: false
 
 permissions:
   contents: read
@@ -267,7 +273,14 @@ jobs:
 
   verify-production-deployment:
     needs: [integrity, browser, release-build]
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.repository == 'dizigs/archelaos-site'
+    # Production verification is independent of code-only main CI. A skipped job is NOT a deployment PASS.
+    # The dedicated Cloudflare Pages status schedule still reports unverified production honestly.
+    # Operator must explicitly dispatch from main with verify_production_deployment=true for a release proof.
+    if: >-
+      github.event_name == 'workflow_dispatch' &&
+      github.ref == 'refs/heads/main' &&
+      github.repository == 'dizigs/archelaos-site' &&
+      inputs.verify_production_deployment == true
     permissions:
       contents: read
     # actionlint 1.7.11 supports ./; adopt $/ after a separate toolchain upgrade.
