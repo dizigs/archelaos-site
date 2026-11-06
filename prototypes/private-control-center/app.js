@@ -74,7 +74,7 @@ function renderDiagram(){
    const sub=elementSvg("text",{y:"72","text-anchor":"middle",class:"node-sub"},labels[worker.status]||worker.status);g.append(sub);
    const click=()=>openWorker(worker);g.addEventListener("click",click);g.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();click()}});nodes.append(g);
  });
- if(window.matchMedia("(prefers-reduced-motion: reduce)").matches){$("topology").pauseAnimations();paused=true;setText("pauseButton","▶ Συνέχεια");$("pauseButton").setAttribute("aria-pressed","true")}
+ /* Motion is synchronized at startup and on preference changes. */
 }
 function renderWorkerCards(){
  const grid=$("workerGrid");grid.replaceChildren();
@@ -170,25 +170,37 @@ function openDetail(title,subtitle,rows,description,trigger){
  drawerTrigger=trigger||document.activeElement;setText("detailsTitle",title);setText("detailsSubtitle",subtitle+" · DEMO");
  const body=$("detailsBody");body.replaceChildren();rows.forEach(([key,value])=>{const row=document.createElement("div");row.className="detail-row";const k=document.createElement("span");k.textContent=key;const v=document.createElement("b");v.textContent=value;row.append(k,v);body.append(row)});
  const p=document.createElement("div");p.className="detail-callout";p.textContent=description;body.append(p);
- $("detailsDrawer").hidden=false;$("drawerBackdrop").hidden=false;document.body.classList.add("no-scroll");$("closeDetails").focus();
+ $("detailsDrawer").hidden=false;$("drawerBackdrop").hidden=false;document.querySelector(".layout").inert=true;syncScrollLock();$("closeDetails").focus();
 }
 function openWorker(w){openDetail(w.name,w.type,[["Κατάσταση",labels[w.status]],["Worker ID",w.id],["Πηγή","Synthetic demo fixture"],["Δίκτυο","Brain ↔ "+w.short]],w.detail)}
 function openGeneric(type,trigger){
  if(type==="brain")openDetail("Canonical Brain","CENTRAL COORDINATOR",[["Mode",scenarios[currentScenario].brain],["Locks",String(scenarios[currentScenario].locks)],["Queue",String(scenarios[currentScenario].queue)],["Builders","Max 2"]],"Μοναδικός κεντρικός συντονιστής (επίδειξη). Signed receipts, immutable readback, isolation και quarantine UNKNOWN σε μελλοντική, ασφαλή διασύνδεση.",trigger);
  else openDetail("Cloudflare Pages & Workers","EDGE SERVICES",[["Pages","Ready · DEMO"],["Workers","8 synthetic nodes"],["Service bindings","Simulation only"],["Production API","Disconnected"]],"Αποκλειστικά εικονικές μετρήσεις. Οτιδήποτε σχετικό με πραγματικό deployment χρειάζεται επαλήθευση SHA, logs και readback.",trigger)
 }
-function closeDrawer(){if($("detailsDrawer").hidden)return;$("detailsDrawer").hidden=true;$("drawerBackdrop").hidden=true;document.body.classList.remove("no-scroll");if(drawerTrigger&&document.contains(drawerTrigger))drawerTrigger.focus()}
-function setView(view){
+function closeDrawer(){if($("detailsDrawer").hidden)return;$("detailsDrawer").hidden=true;$("drawerBackdrop").hidden=true;document.querySelector(".layout").inert=false;syncMenuA11y();if(drawerTrigger&&document.contains(drawerTrigger)&&!drawerTrigger.closest("[hidden]"))drawerTrigger.focus();else $("main").focus()}
+function setView(view,focusMain=false){
  if(!["overview","network","deployments","operations","security","cost","events"].includes(view))view="overview";
  activeView=view;qs("[data-panel]").forEach(panel=>{panel.hidden=panel.dataset.panel!==view});
  qs(".nav-link").forEach(a=>{let on=a.dataset.view===view;a.classList.toggle("is-active",on);if(on)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
- const names={overview:"Επισκόπηση",network:"Δίκτυο Workers",deployments:"Deployments",operations:"Εργασίες & CI",security:"Ασφάλεια",cost:"Κόστος AI",events:"Χρονολόγιο"};setText("pageCrumb",names[view]);window.location.hash=view;window.scrollTo({top:0,behavior:"auto"});closeMenu();
+ const names={overview:"Επισκόπηση",network:"Δίκτυο Workers",deployments:"Deployments",operations:"Εργασίες & CI",security:"Ασφάλεια",cost:"Κόστος AI",events:"Χρονολόγιο"};setText("pageCrumb",names[view]);window.location.hash=view;window.scrollTo({top:0,behavior:"auto"});closeMenu();syncTopologyMotion();if(focusMain)$("main").focus();
 }
-function closeMenu(){$("sidebar").classList.remove("open");$("menuToggle").setAttribute("aria-expanded","false");$("mobileBackdrop").hidden=true}
+function syncScrollLock(){document.body.classList.toggle("no-scroll",!$("detailsDrawer").hidden||$("sidebar").classList.contains("open"))}
+function syncMenuA11y(){
+ const sidebar=$("sidebar"),mobile=window.matchMedia("(max-width: 760px)").matches,open=mobile&&sidebar.classList.contains("open");
+ sidebar.inert=mobile&&!open;
+ if(open){sidebar.setAttribute("role","dialog");sidebar.setAttribute("aria-modal","true")}
+ else{sidebar.removeAttribute("role");sidebar.removeAttribute("aria-modal")}
+ $("menuToggle").setAttribute("aria-expanded",String(open));
+ $("mobileBackdrop").hidden=!open;
+ document.querySelector(".content-shell").inert=open;
+ syncScrollLock();
+}
+function openMenu(){if(!window.matchMedia("(max-width: 760px)").matches)return;$("sidebar").classList.add("open");syncMenuA11y();const first=$("sidebar").querySelector(".nav-link");if(first)first.focus()}
+function closeMenu(restoreFocus=false){const wasOpen=$("sidebar").classList.contains("open");$("sidebar").classList.remove("open");syncMenuA11y();if(restoreFocus&&wasOpen)$("menuToggle").focus()}
 function updateCost(amount){const spent=Number(amount);setText("costAvailable",Math.max(0,20-spent).toFixed(2).replace(".",",")+" €");setText("costUsed",spent.toFixed(2).replace(".",",")+" €");setText("costSliderLabel",spent.toFixed(2).replace(".",",")+" €");$("costBar").style.width=Math.min(100,spent/20*100)+"%";const warning=$("costWarning");warning.className="warning-inline"+(spent>20?" danger":spent>=16?" warn":"");warning.textContent=spent>20?"● Υπέρβαση ορίου — DEMO":spent>=16?"● Προειδοποίηση: ≥80% ορίου — DEMO":"● Εντός προϋπολογισμού — DEMO"}
 
 /* DEMO only: mobile live-style summary, fully local and not connected to telemetry. */
-let mobileEventIndex=0;
+let mobileEventIndex=0,mobileFeedPaused=false;
 function updateMobileSummary(){
  const s=scenarios[currentScenario];
  setText("mobileBrainStatus",s.brain);
@@ -204,23 +216,33 @@ function nextMobileEvent(){
 }
 function syncTopologyMotion(){
  const reduceMotion=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
- const mobile=window.matchMedia("(max-width: 760px)").matches;
+ const compact=window.matchMedia("(max-width: 1000px)").matches;
  const tabHidden=document.visibilityState==="hidden";
- if(paused||reduceMotion||mobile||tabHidden)$("topology").pauseAnimations();
+ if(paused||reduceMotion||compact||tabHidden||activeView!=="overview")$("topology").pauseAnimations();
  else $("topology").unpauseAnimations();
+ const button=$("pauseButton");button.disabled=reduceMotion||compact;
+ button.setAttribute("aria-pressed",String(paused));
+ setText("pauseButton",reduceMotion?"● Χωρίς κίνηση":paused?"▶ Συνέχεια":"Ⅱ Παύση");
+}
+function syncFeedControls(){
+ const reduceMotion=window.matchMedia("(prefers-reduced-motion: reduce)").matches,button=$("mobilePauseEvent");
+ button.disabled=reduceMotion;
+ button.setAttribute("aria-pressed",String(mobileFeedPaused));
+ setText("mobilePauseEvent",reduceMotion?"Χωρίς αυτόματη κίνηση":mobileFeedPaused?"▶ Συνέχεια":"Ⅱ Παύση");
 }
 function initMobileFeed(){
  $("mobileNextEvent").addEventListener("click",nextMobileEvent);
+ $("mobilePauseEvent").addEventListener("click",()=>{mobileFeedPaused=!mobileFeedPaused;syncFeedControls();showToast(mobileFeedPaused?"Η αυτόματη ροή σταμάτησε — DEMO":"Η αυτόματη ροή συνεχίστηκε — DEMO")});
  updateMobileSummary();
- const viewport=window.matchMedia("(max-width: 760px)");
+ const viewport=window.matchMedia("(max-width: 1000px)");
+ const menuViewport=window.matchMedia("(max-width: 760px)");
+ const reduceMotion=window.matchMedia("(prefers-reduced-motion: reduce)");
  if(typeof viewport.addEventListener==="function")viewport.addEventListener("change",syncTopologyMotion);
+ if(typeof menuViewport.addEventListener==="function")menuViewport.addEventListener("change",()=>{if(!menuViewport.matches)$("sidebar").classList.remove("open");syncMenuA11y()});
+ if(typeof reduceMotion.addEventListener==="function")reduceMotion.addEventListener("change",()=>{syncTopologyMotion();syncFeedControls()});
  document.addEventListener("visibilitychange",syncTopologyMotion);
- syncTopologyMotion();
- if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){
-   window.setInterval(()=>{
-     if(window.matchMedia("(max-width: 760px)").matches&&document.visibilityState!=="hidden")nextMobileEvent();
-   },9000);
- }
+ syncTopologyMotion();syncFeedControls();syncMenuA11y();
+ window.setInterval(()=>{if(activeView==="overview"&&viewport.matches&&!mobileFeedPaused&&!reduceMotion.matches&&document.visibilityState!=="hidden")nextMobileEvent()},9000);
 }
 
 function setScenario(i,announce=true){
@@ -247,15 +269,22 @@ function downloadDemo(){
 }
 function init(){
  renderDiagram();renderWorkerCards();renderTasks();renderEvents();renderDeployments();setScenario(0,false);initMobileFeed();
- qs(".nav-link").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();setView(a.dataset.view)}));
- qs("[data-view-button]").forEach(b=>b.addEventListener("click",()=>setView(b.dataset.viewButton)));
+ qs(".nav-link").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();setView(a.dataset.view,true)}));
+ qs("[data-view-button]").forEach(b=>b.addEventListener("click",()=>setView(b.dataset.viewButton,true));
  qs("[data-detail]").forEach(b=>b.addEventListener("click",()=>openGeneric(b.dataset.detail,b)));
- $("menuToggle").addEventListener("click",()=>{const open=!$("sidebar").classList.contains("open");$("sidebar").classList.toggle("open",open);$("menuToggle").setAttribute("aria-expanded",String(open));$("mobileBackdrop").hidden=!open});
- $("mobileBackdrop").addEventListener("click",closeMenu);
+ $("menuToggle").addEventListener("click",()=>$("sidebar").classList.contains("open")?closeMenu(true):openMenu());
+ $("mobileBackdrop").addEventListener("click",()=>closeMenu(true));
+ $("sidebar").addEventListener("keydown",e=>{
+  if(e.key!=="Tab"||!$("sidebar").classList.contains("open"))return;
+  const links=qs(".nav-link",e.currentTarget);if(!links.length)return;
+  if(e.shiftKey&&document.activeElement===links[0]){e.preventDefault();links[links.length-1].focus()}
+  else if(!e.shiftKey&&document.activeElement===links[links.length-1]){e.preventDefault();links[0].focus()}
+ });
+
  $("closeDetails").addEventListener("click",closeDrawer);$("drawerBackdrop").addEventListener("click",closeDrawer);
  $("detailsDrawer").addEventListener("keydown",e=>{if(e.key==="Tab"){const focusable=qs("button:not([disabled])",e.currentTarget);if(focusable.length){e.preventDefault();focusable[0].focus()}}});
  $("scenarioButton").addEventListener("click",()=>setScenario(currentScenario+1));$("exportButton").addEventListener("click",downloadDemo);
- $("pauseButton").addEventListener("click",()=>{paused=!paused;syncTopologyMotion();setText("pauseButton",paused?"▶ Συνέχεια":"Ⅱ Παύση");$("pauseButton").setAttribute("aria-pressed",String(paused));showToast(paused?"Η κίνηση σταμάτησε — DEMO":"Η κίνηση συνεχίστηκε — DEMO")});
+ $("pauseButton").addEventListener("click",()=>{if($("pauseButton").disabled)return;paused=!paused;syncTopologyMotion();showToast(paused?"Η κίνηση σταμάτησε — DEMO":"Η κίνηση συνεχίστηκε — DEMO")});
  ["deploySearch","deploySource","deployFilter"].forEach(id=>$(id).addEventListener(id==="deploySearch"?"input":"change",renderDeployments));
  window.setInterval(()=>{if(activeView==="deployments"&&document.visibilityState!=="hidden")renderDeployments()},30000);
  ["operationsSearch","operationsFilter"].forEach(id=>$(id).addEventListener(id.endsWith("Filter")?"change":"input",renderTasks));
@@ -266,9 +295,9 @@ function init(){
  $("globalSearch").addEventListener("keydown",e=>{if(e.key==="Enter"){const first=$("globalSearchResults").querySelector("button");if(first)first.click()}});
  $("helpButton").addEventListener("click",()=>$("helpDialog").showModal());$("closeHelp").addEventListener("click",()=>$("helpDialog").close());
  document.addEventListener("keydown",e=>{
-  if(e.key==="Escape"){closeDrawer();closeMenu()}
+  if(e.key==="Escape"){closeDrawer();closeMenu(true)}
   const typing=/^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement?.tagName||"")||document.activeElement?.isContentEditable;
-  if(e.key==="/"&&!typing&&!$("searchDialog").open&&!$("helpDialog").open){e.preventDefault();$("searchDialog").showModal();$("globalSearch").focus();searchRender()}
+  if(e.key==="/"&&!typing&&!$("searchDialog").open&&!$("helpDialog").open&&$("detailsDrawer").hidden){e.preventDefault();$("searchDialog").showModal();$("globalSearch").focus();searchRender()}
  });
  window.addEventListener("hashchange",()=>{const view=location.hash.replace("#","");if(view!==activeView)setView(view)});
  const initial=location.hash.replace("#","");setView(["overview","network","deployments","operations","security","cost","events"].includes(initial)?initial:"overview");
