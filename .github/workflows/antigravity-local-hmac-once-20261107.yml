@@ -1,10 +1,13 @@
 name: Antigravity local SDK HMAC one-shot
 on:
-  push:
-    branches:
-      - assistant/antigravity-local-sdk-hmac-20261107
-    paths:
-      - .github/workflows/antigravity-local-hmac-once-20261107.yml
+  # Retired one-shot auto-trigger. Never start a new paid SDK run on push.
+  workflow_dispatch:
+    inputs:
+      authorize_paid:
+        description: 'Explicitly authorize ONE paid local SDK call; default OFF'
+        required: true
+        type: boolean
+        default: false
 permissions:
   contents: read
 concurrency:
@@ -12,7 +15,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   local-review:
-    if: "github.repository == 'dizigs/archelaos-site' && github.event.head_commit.message == 'test(antigravity): one local HMAC acceptance review'"
+    if: "${{ github.repository == 'dizigs/archelaos-site' && github.event_name == 'workflow_dispatch' && inputs.authorize_paid == true }}"
     runs-on: ubuntu-24.04
     timeout-minutes: 24
     steps:
@@ -69,6 +72,8 @@ jobs:
                       answer=await agent.chat(prompt)
                       return await answer.text()
               reply=asyncio.run(asyncio.wait_for(work(),timeout=730))
+              if not reply or not reply.strip():
+                  raise RuntimeError("ANTIGRAVITY_EMPTY_RESPONSE")
               out.joinpath("agent-response.md").write_text(reply[:40000],encoding="utf8")
               out.joinpath("agent-status.json").write_text(json.dumps({"status":"RETURNED","response_length":len(reply),"sdk":"google-antigravity 0.1.23","runner_local":True}),encoding="utf8")
               print("LOCAL_ANTIGRAVITY_STATUS RETURNED",len(reply))
@@ -82,22 +87,30 @@ jobs:
         if: ${{ always() }}
         shell: bash
         run: |
-          set +e
+          set -uo pipefail
           mkdir -p /tmp/antigravity-security
           git status --short > /tmp/antigravity-security/changed-files.txt
           git diff --binary > /tmp/antigravity-security/local.patch
           echo 'CHANGED_FILES:'
           cat /tmp/antigravity-security/changed-files.txt
-          node --test --test-concurrency=1 --test-reporter=tap brain/test/selfheal_ack.test.mjs > /tmp/antigravity-security/ack-native.tap 2>&1
-          echo "ACK_TEST_EXIT $?"
-          npm test --prefix brain > /tmp/antigravity-security/brain-full.tap 2>&1
-          echo "BRAIN_TEST_EXIT $?"
+          # Node tests resolve fixture paths relative to brain/, not repo root.
+          ack_exit=0
+          (cd brain && node --test --test-concurrency=1 --test-reporter=tap test/selfheal_ack.test.mjs) > /tmp/antigravity-security/ack-native.tap 2>&1 || ack_exit=$?
+          echo "$ack_exit" > /tmp/antigravity-security/ack-exit-code.txt
+          echo "ACK_TEST_EXIT $ack_exit"
+          brain_exit=0
+          npm test --prefix brain > /tmp/antigravity-security/brain-full.tap 2>&1 || brain_exit=$?
+          echo "$brain_exit" > /tmp/antigravity-security/brain-exit-code.txt
+          echo "BRAIN_TEST_EXIT $brain_exit"
+          historical_exit=2
           if test -f brain/test/private_hmac_acceptance.test.mjs; then
-           node --test --test-reporter=tap brain/test/private_hmac_acceptance.test.mjs > /tmp/antigravity-security/historical-hmac.tap 2>&1
-           echo "HISTORICAL_TEST_EXIT $?"
+           historical_exit=0
+           (cd brain && node --test --test-reporter=tap test/private_hmac_acceptance.test.mjs) > /tmp/antigravity-security/historical-hmac.tap 2>&1 || historical_exit=$?
+           echo "HISTORICAL_TEST_EXIT $historical_exit"
           else
            echo HISTORICAL_TEST_BLOCKED_NOT_FOUND
           fi
+          echo "$historical_exit" > /tmp/antigravity-security/historical-exit-code.txt
           for f in /tmp/antigravity-security/*.tap; do echo "TAP $(basename "$f")"; grep -E '^# (tests|pass|fail|skipped) ' "$f" | tail -5; done
           echo "PATCH_BYTES $(wc -c </tmp/antigravity-security/local.patch)"
           echo "NO_GIT_PUSH_NO_PR_NO_DEPLOYMENT"
@@ -122,4 +135,16 @@ jobs:
           grep -E '^# (tests|pass|fail) ' /tmp/antigravity-security/ack-native.tap 2>/dev/null || true
           echo 'Full Brain results:'
           grep -E '^# (tests|pass|fail) ' /tmp/antigravity-security/brain-full.tap 2>/dev/null || true
-          echo 'Cloudflare deployed HMAC parity and live connection: UNKNOWN. No GitHub write, PR, merge or deployment.' 
+          echo 'Cloudflare deployed HMAC parity and live connection: UNKNOWN. No GitHub write, PR, merge or deployment.'
+          # Upload of evidence occurs before this final gate; failed/blocked tests MUST fail the job.
+          for name in ack brain historical; do
+            code=$(cat "/tmp/antigravity-security/${name}-exit-code.txt" 2>/dev/null || echo 2)
+            if [ "$code" -ne 0 ]; then
+              echo "::error::${name} security gate failed or blocked (exit $code)"
+              exit 1
+            fi
+          done
+          if [ ! -s /tmp/antigravity-security/agent-response.md ]; then
+            echo '::error::Antigravity agent returned no substantive review'
+            exit 1
+          fi
