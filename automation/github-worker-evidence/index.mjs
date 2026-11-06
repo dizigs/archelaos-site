@@ -214,7 +214,11 @@ export function evaluate({ task, issue, pull, checks, statuses, threads, require
     branch: pull?.head?.ref || null, headSha: sha || null, baseSha: pull?.base?.sha || null,
     status: reasons.length ? 'BLOCKED' : merged ? 'CODE_MERGED' : 'IN_REVIEW',
     proofStates: {
-      code: SHA.test(sha || '') && pull?.number === task.pr ? 'CODE_READY' : 'UNKNOWN',
+      code: SHA.test(sha || '') && pull?.number === task.pr &&
+        issue?.number === task.issue && !issue?.pull_request &&
+        pull?.base?.ref === 'main' && pull?.base?.repo?.full_name === task.repo &&
+        pull?.head?.repo?.full_name === task.repo &&
+        observedRecently(timestamp) ? 'CODE_READY' : 'UNKNOWN',
       ci: reasons.length ? 'UNKNOWN' : 'CI_PASS',
       deployment: 'UNKNOWN', connection: 'UNKNOWN', authentication: 'UNKNOWN'
     },
