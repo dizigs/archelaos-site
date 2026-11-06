@@ -15,6 +15,14 @@ STAGING_SHORT_RETRIES = "true"
 # Approved public identity only. Never store BRAIN_GITHUB_APP_PRIVATE_KEY here.
 BRAIN_GITHUB_APP_ID = "5641216"
 BRAIN_GITHUB_APP_INSTALLATION_ID = "179225349"
+BRAIN_SELFHEAL_RECOVERY_ENABLED = "false"
+BRAIN_SELFHEAL_BINDING_ATTESTED = "false"
+BRAIN_SELFHEAL_DISPATCH_ENABLED = "false"
+
+# Existing private service only. Declaring the link does not authorize recovery.
+[[services]]
+binding = "HEALER"
+service = "archelaos-self-heal"
 
 # Preserve the AI binding already on the existing Cloudflare Worker.
 # The binding does not authorize usage: all AI / recovery policy gates remain OFF.

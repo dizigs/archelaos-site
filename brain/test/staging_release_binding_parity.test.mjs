@@ -27,7 +27,13 @@ test('unapproved release stays non-public, expired, with all execution gates OFF
   assert.match(config,/^DEPLOY_SHA\s*=\s*"0{40}"\s*$/m);
   assert.match(config,/^STAGING_EXPIRES_AT\s*=\s*"1970-01-01T00:00:00Z"\s*$/m);
   assert.doesNotMatch(config,/^BRAIN_SELFHEAL_(?:RECOVERY_ENABLED|BINDING_ATTESTED|DISPATCH_ENABLED)\s*=\s*"true"\s*$/m);
-  assert.doesNotMatch(config,/^\[\[services\]\]/m);
+  // Only the approved existing private service may be declared. Recovery still
+  // needs independent live attestation, an approved SHA and unexpired staging.
+  const links = [...config.matchAll(/^\[\[services\]\]\s*$([\s\S]*?)(?=^\[|$(?![\s\S]))/gm)];
+  assert.equal(links.length, 1);
+  assert.match(links[0][1], /^binding\s*=\s*"HEALER"\s*$/m);
+  assert.match(links[0][1], /^service\s*=\s*"archelaos-self-heal"\s*$/m);
+  assert.doesNotMatch(links[0][1], /^\s*(?:entrypoint|environment)\s*=/m);
   assert.doesNotMatch(config,/^\[\[routes\]\]/m);
   assert.doesNotMatch(config,/^\[triggers\]/m);
 });
