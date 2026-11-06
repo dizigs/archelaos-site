@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { buildArchiveSources,buildNewsSource,safePublicUrl,createNotebookSource,
   fetchDrivePdf,getOAuthAccessToken,MAX_TEXT_BYTES,
-  approvedPdf,verifyCaller,sha256 } from '../src/core.mjs';
+  approvedPdf,verifyCaller,sha256,readLimitedBytes } from '../src/core.mjs';
 
 const env={
   NOTEBOOK_NAME:'notebooks/550e8400-e29b-41d4-a716-446655440000',
@@ -187,4 +187,30 @@ test('Notebook rejects forged source names on provider create readback',async()=
   };
   await assert.rejects(()=>createNotebookSource(env,
     {display_name:'x',text_content:{content:'ok'}},fetchStub),/NOTEBOOK_INVALID_RESPONSE/);
+});
+
+
+test('bounded streaming rejects excess bytes without trusting Content-Length',async()=>{
+  const response=new Response(new Uint8Array(200));
+  await assert.rejects(()=>readLimitedBytes(response,100),/RESPONSE_TOO_LARGE/);
+  const good=await readLimitedBytes(new Response(new Uint8Array([1,2,3])),3);
+  assert.deepEqual([...good],[1,2,3]);
+});
+
+test('Drive revision changing after download is quarantined',async()=>{
+  const pdf=new TextEncoder().encode('%PDF-1.4\n1 0 obj\nendobj\n%%EOF\n');
+  const hash=await sha256(pdf);
+  const env={...approvalEnv(hash),DRIVE_CLIENT_ID:'drive-client-123',
+    DRIVE_CLIENT_SECRET:'drive-secret-123',DRIVE_REFRESH_TOKEN:'drive-refresh-123'};
+  let reads=0;
+  const fetchImpl=async url=>{
+    const u=new URL(url);
+    if(u.hostname==='oauth2.googleapis.com')return Response.json({access_token:'mock-access'});
+    if(u.searchParams.get('alt')==='media')return new Response(pdf);
+    reads++;
+    return Response.json({id:FILE_ID,name:'Archive.pdf',version:reads===1?'7':'8',
+      driveId:ARCHIVE_ID,mimeType:'application/pdf',size:String(pdf.length)});
+  };
+  await assert.rejects(()=>fetchDrivePdf(env,FILE_ID,fetchImpl,approvedPdf(env,FILE_ID)),
+    /PDF_CHANGED_DURING_DOWNLOAD/);
 });
