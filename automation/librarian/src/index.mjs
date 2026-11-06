@@ -17,7 +17,7 @@ export class LibrarianLedger extends DurableObject {
       if(data.kind==='archive' &&
         (!p || !['fileIdSha256','pdfSha256','extractionSha256','chunkSha256','contentSha256']
            .every(field=>typeof p[field]==='string' && /^[a-f0-9]{64}$/.test(p[field])) ||
-         !/^\\d+$/.test(p.revision||'') ||
+         !/^\d+$/.test(p.revision||'') ||
          !Number.isSafeInteger(p.firstPage) || !Number.isSafeInteger(p.lastPage) ||
          p.firstPage<1 || p.lastPage<p.firstPage || p.lastPage>5000))
         return Response.json({error:'INVALID_PROVENANCE'},{status:400});
