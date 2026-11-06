@@ -98,6 +98,19 @@ No provider egress is permitted. Existing tests cover signed byte integrity,
 source isolation, signed receipt readback, UNKNOWN/no automatic retry, RPC
 coordinator denial and unchanged Brain SQLite after denial/restart.
 
+**Remaining source-contract blocker for later activation:** signed source-event
+ACK/readback is not a completed Self-Heal delivery ACK. The current
+`attemptOneSignedSelfHealDelivery` intentionally leaves every delivery in the
+existing canonical outbox as `UNKNOWN`, including a successful RPC response
+(`HEALER_DURABLE_ACK_NOT_ATTESTED`). An independently authenticated, incident-bound
+durable Healer readback and canonical settlement contract is still missing.
+Secrets or a successful binding alone cannot close that gap. Keep UNKNOWN
+non-retryable; do not accept a plain RPC response as proof or create another
+ledger. A separately reviewed follow-up must use the existing ledgers/approved
+RPC boundaries. This blocks operational acceptance, not offline compilation of
+inactive candidates. Independent live health provenance is also unimplemented
+and remains fail-closed.
+
 **Actual inactive-version creation remains BLOCKED** until the existing release
 owners review the exact final code/CI, obtain a fresh complete authenticated
 Cloudflare inventory, pin current rollback versions and namespace IDs, and
