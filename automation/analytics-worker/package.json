@@ -1,0 +1,13 @@
+{
+  "name": "archelaos-analytics-worker",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "check": "node --check src/aggregate.mjs && node --check src/index.mjs && npm test"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
