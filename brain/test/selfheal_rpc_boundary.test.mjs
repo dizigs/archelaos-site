@@ -4,6 +4,7 @@ import { readFile, mkdtemp, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { Miniflare } from 'miniflare';
+import { runInNewContext } from 'node:vm';
 
 // The named BrainRecoveryPort is a security boundary. A class getter is
 // remotely callable through native Worker RPC, even when the HTTP staging
@@ -74,9 +75,29 @@ test('named BrainRecoveryPort exposes exactly three review-only RPC methods and 
   const port = source.split(marker)[1];
   const names = [...port.matchAll(/^  (?:async )?(?:get )?([A-Za-z]\w*)\s*\(/gm)]
     .map(match => match[1]).sort();
-  assert.deepEqual(names, [
+  const allowed = [
     'recheckSelfHealHealth', 'routeSelfHealReview', 'verifySelfHealReceipt'
-  ]);
+  ];
+  assert.deepEqual(names, allowed);
+
+  // Do not rely on a regex for the security boundary: computed properties
+  // like get ['canonical']() evade textual method-name matching. Instantiate
+  // the actual class declaration in an isolated VM (methods are not invoked),
+  // then inspect *all* own keys and accessor descriptors at JavaScript runtime.
+  // The next test also exercises the real named Miniflare RPC service binding.
+  const declaration = source.slice(source.indexOf(marker)).replace(/^export /, '');
+  const prototype = runInNewContext(
+    declaration + '\nBrainRecoveryPort.prototype',
+    { WorkerEntrypoint: class {} }, { timeout: 1000 }
+  );
+  const keys = Reflect.ownKeys(prototype).filter(key => key !== 'constructor');
+  assert.deepEqual(keys.sort(), allowed);
+  for (const key of keys) {
+    const descriptor = Object.getOwnPropertyDescriptor(prototype, key);
+    assert.equal(typeof descriptor.value, 'function', key + ' must be a method');
+    assert.equal(descriptor.get, undefined, key + ' must not be an RPC getter');
+    assert.equal(descriptor.set, undefined, key + ' must not be an RPC setter');
+  }
   assert.doesNotMatch(port, /\bget\s+coordinator\s*\(/);
   assert.doesNotMatch(port, /\bthis\.coordinator\b/);
   assert.doesNotMatch(port, /\bthis\.requireStaging\b/);
