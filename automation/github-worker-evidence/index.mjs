@@ -4,6 +4,22 @@ import { pathToFileURL } from 'node:url';
 // Read-only proof collector. This module never merges, deploys, writes GitHub or calls AI.
 const SHA = /^[0-9a-f]{40}$/i;
 const MAX_PAGES = 5;
+const FRESHNESS_MS = 5 * 60 * 1000;
+const THREAD_QUERY = 'query($owner:String!,$name:String!,$number:Int!,$after:String){repository(owner:$owner,name:$name){pullRequest(number:$number){reviewThreads(first:100,after:$after){nodes{id isResolved}pageInfo{endCursor hasNextPage}}}}}';
+const dateMs = value => typeof value === 'string' ? Date.parse(value) : NaN;
+const observedRecently = value => Number.isFinite(dateMs(value)) &&
+  Math.abs(Date.now() - dateMs(value)) <= FRESHNESS_MS;
+const checkProvenanceValid = (c, sha, now) =>
+  c?.head_sha === sha && Number.isSafeInteger(c.id) && c.id > 0 &&
+  Number.isSafeInteger(c.app?.id) && c.app.id > 0 &&
+  typeof c.name === 'string' && c.name.length > 0 &&
+  Number.isFinite(dateMs(c.started_at)) && dateMs(c.started_at) <= now + FRESHNESS_MS &&
+  (c.status !== 'completed' || (Number.isFinite(dateMs(c.completed_at)) &&
+    dateMs(c.completed_at) >= dateMs(c.started_at) && dateMs(c.completed_at) <= now + FRESHNESS_MS));
+const statusProvenanceValid = (s, sha, now) =>
+  s?.sha === sha && Number.isSafeInteger(s.id) && s.id > 0 &&
+  typeof s.context === 'string' && Number.isFinite(dateMs(s.updated_at)) &&
+  dateMs(s.updated_at) <= now + FRESHNESS_MS;
 function required(value, message) { if (!value) throw new Error(message); return value; }
 function unique(values) { return [...new Set(values)]; }
 function safeNumber(number) { required(Number.isSafeInteger(number) && number > 0, 'invalid issue/PR number'); return number; }
@@ -18,6 +34,10 @@ export class GitHubReader {
   async request(path, options = {}) {
     required(this.token, 'GITHUB_TOKEN required');
     const method = options.body ? 'POST' : 'GET';
+    // A POST to GitHub GraphQL may be a mutation. Only our constant read query is allowed.
+    if (path === '/graphql') required(options.body?.query === THREAD_QUERY &&
+      typeof options.body.variables?.number === 'number' &&
+      !options.body.variables?.query, 'unapproved GraphQL query');
     required(path === '/graphql' || path.startsWith('/repos/' + this.repo + '/'), 'out-of-scope API path');
     required(method === 'GET' || path === '/graphql', 'writes forbidden');
     const response = await this.fetcher('https://api.github.com' + path, {
@@ -69,7 +89,7 @@ export class GitHubReader {
   async threads(number) {
     safeNumber(number);
     const [owner, name] = this.repo.split('/');
-    const query = 'query($owner:String!,$name:String!,$number:Int!,$after:String){repository(owner:$owner,name:$name){pullRequest(number:$number){reviewThreads(first:100,after:$after){nodes{isResolved}pageInfo{endCursor hasNextPage}}}}}';
+    const query = THREAD_QUERY;
     let after = null;
     const all = [];
     for (let i = 0; i < MAX_PAGES; i++) {
@@ -87,22 +107,38 @@ export class GitHubReader {
 export function evaluate({ task, issue, pull, checks, statuses, threads, requiredChecks, timestamp }) {
   const sha = pull?.head?.sha;
   const reasons = [];
+  const now = Date.now();
+  if (!observedRecently(timestamp)) reasons.push('OBSERVATION_STALE_OR_INVALID');
+  if (!/^[a-z0-9-]+$/.test(task?.id || '') || !task?.worker) reasons.push('WORKER_IDENTITY_UNVERIFIED');
+  if (!issue?.assignee?.login) reasons.push('OWNER_UNVERIFIED');
   if (issue?.number !== task.issue || issue.pull_request) reasons.push('ISSUE_ID_OR_TYPE_MISMATCH');
   if (pull?.number !== task.pr || !SHA.test(sha || '')) reasons.push('PR_ID_OR_SHA_MISMATCH');
   if (pull?.base?.ref !== 'main' || pull?.base?.repo?.full_name !== task.repo ||
       pull?.head?.repo?.full_name !== task.repo) reasons.push('REPOSITORY_OR_BASE_MISMATCH');
   if (!Array.isArray(requiredChecks) || !requiredChecks.length) reasons.push('REQUIRED_POLICY_UNVERIFIED');
   if (!Array.isArray(checks) || !Array.isArray(statuses) || !Array.isArray(threads)) reasons.push('INCOMPLETE_PROOF');
-  const currentChecks = (Array.isArray(checks) ? checks : []).filter(c => c.head_sha === sha);
+  const rawChecks = Array.isArray(checks) ? checks : [];
+  if (rawChecks.some(c => !checkProvenanceValid(c, sha, now))) reasons.push('CHECK_PROVENANCE_INVALID');
+  const currentChecks = rawChecks.filter(c => checkProvenanceValid(c, sha, now));
+  const checkIds = new Set();
+  const deduplicatedChecks = currentChecks.filter(c => {
+    if (checkIds.has(c.id)) return false;
+    checkIds.add(c.id); return true;
+  });
   const byName = new Map();
-  for (const check of currentChecks) {
+  for (const check of deduplicatedChecks) {
     const key = check.name + ':' + (check.app?.slug || 'unknown');
     const old = byName.get(key);
     if (!old || Date.parse(check.started_at || '') >= Date.parse(old.started_at || '')) byName.set(key, check);
   }
   const effective = [...byName.values()];
-  const statusesAtHead = (Array.isArray(statuses) ? statuses : []).filter(x => !x.sha || x.sha === sha);
-  if (Array.isArray(statuses) && statusesAtHead.length !== statuses.length) reasons.push('STATUS_SHA_MISMATCH');
+  const rawStatuses = Array.isArray(statuses) ? statuses : [];
+  if (rawStatuses.some(s => !statusProvenanceValid(s, sha, now))) reasons.push('STATUS_PROVENANCE_INVALID');
+  const statusIds = new Set();
+  const statusesAtHead = rawStatuses.filter(x => {
+    if (!statusProvenanceValid(x, sha, now) || statusIds.has(x.id)) return false;
+    statusIds.add(x.id); return true;
+  });
   const requiredResults = [];
   for (const name of Array.isArray(requiredChecks) ? requiredChecks : []) {
     const c = effective.filter(x => x.name === name);
@@ -121,12 +157,39 @@ export function evaluate({ task, issue, pull, checks, statuses, threads, require
   const unresolved = Array.isArray(threads) ? threads.filter(x => x.isResolved !== true).length : null;
   if (unresolved === null || unresolved > 0) reasons.push('UNRESOLVED_OR_UNKNOWN_REVIEWS');
   if (pull?.state === 'closed' && !pull.merged_at) reasons.push('PR_CLOSED_UNMERGED');
+  if (pull?.merged_at && !Number.isFinite(dateMs(pull.merged_at))) reasons.push('MERGED_TIMESTAMP_INVALID');
   const merged = Boolean(pull?.merged_at);
   return {
     taskId: task.id, worker: task.worker, owner: issue?.assignee?.login || null,
     issueUrl: issue?.html_url || null, prUrl: pull?.html_url || null,
     branch: pull?.head?.ref || null, headSha: sha || null, baseSha: pull?.base?.sha || null,
     status: reasons.length ? 'BLOCKED' : merged ? 'CODE_MERGED' : 'IN_REVIEW',
+    proofStates: {
+      code: SHA.test(sha || '') && pull?.number === task.pr ? 'CODE_READY' : 'UNKNOWN',
+      ci: reasons.length ? 'UNKNOWN' : 'CI_PASS',
+      deployment: 'UNKNOWN', connection: 'UNKNOWN', authentication: 'UNKNOWN'
+    },
+    workerIdentity: { registryTaskId: task.id, providerWorkerId: null, identityVerified: false },
+    version: null, commitSha: sha || null, environment: null,
+    evidence: {
+      source: 'github-api-read-only', observedAt: timestamp,
+      exactHeadSha: sha || null,
+      checks: effective.map(c => ({
+        source: 'github-check-runs', checkId: c.id, appId: c.app.id,
+        appSlug: c.app.slug || null, name: c.name, commitSha: c.head_sha,
+        startedAt: c.started_at, completedAt: c.completed_at || null,
+        url: 'https://github.com/' + task.repo + '/runs/' + c.id
+      })),
+      statuses: statusesAtHead.map(s => ({
+        source: 'github-commit-status', statusId: s.id, context: s.context,
+        commitSha: s.sha, updatedAt: s.updated_at,
+        state: s.state
+      })),
+      reviewThreads: {
+        source: 'github-graphql-review-threads', count: threads?.length ?? null,
+        unresolved, observedAt: timestamp
+      }
+    },
     isDraft: pull?.draft ?? null, codeMerged: merged,
     requiredChecks: requiredResults, security, unresolvedReviewThreads: unresolved,
     providerDeployment: 'NOT_VERIFIED', privateBrainReceipt: 'NOT_VERIFIED',
@@ -137,6 +200,11 @@ export function evaluate({ task, issue, pull, checks, statuses, threads, require
 export async function scanTask(reader, task, timestamp = new Date().toISOString()) {
   required(task && Number.isInteger(task.issue) && Number.isInteger(task.pr), 'invalid task');
   const partial = { taskId: task.id, worker: task.worker, status: 'BLOCKED',
+    proofStates: { code: 'UNKNOWN', ci: 'UNKNOWN', deployment: 'UNKNOWN',
+      connection: 'UNKNOWN', authentication: 'UNKNOWN' },
+    workerIdentity: { registryTaskId: task.id, providerWorkerId: null, identityVerified: false },
+    version: null, commitSha: null, environment: null,
+    evidence: { source: 'github-api-read-only', observedAt: timestamp },
     headSha: null, providerDeployment: 'NOT_VERIFIED', privateBrainReceipt: 'NOT_VERIFIED',
     verifiedAt: timestamp };
   try {
@@ -150,7 +218,15 @@ export async function scanTask(reader, task, timestamp = new Date().toISOString(
     const failures = results.flatMap((r, i) => r.status === 'rejected' ? [types[i] + '_READ_FAILED'] : []);
     if (failures.length) return { ...partial, headSha: pull.head.sha,
       prUrl: pull.html_url, issueUrl: issue.html_url, blockers: failures };
-    return evaluate({ task: { ...task, repo: reader.repo }, issue, pull,
+    // Detect head changes between evidence collection and publication (TOCTOU).
+    let freshPull;
+    try { freshPull = await reader.pull(task.pr); }
+    catch { return { ...partial, headSha: pull.head.sha, blockers: ['PR_HEAD_RECHECK_FAILED'] }; }
+    if (freshPull?.head?.sha !== pull.head.sha || freshPull?.merged_at !== pull.merged_at ||
+        freshPull?.state !== pull.state) {
+      return { ...partial, headSha: pull.head.sha, blockers: ['PR_CHANGED_DURING_SCAN'] };
+    }
+    return evaluate({ task: { ...task, repo: reader.repo }, issue, pull: freshPull,
       checks: results[0].value, statuses: results[1].value,
       threads: results[2].value, requiredChecks: results[3].value, timestamp });
   } catch (error) {
@@ -164,6 +240,7 @@ export async function buildReport(reader, registry, timestamp = new Date().toISO
   const tasks = [];
   for (const task of registry.tasks) {
     required(/^[a-z0-9-]+$/.test(task.id) && !seen.has(task.id), 'duplicate or invalid task id');
+    required(typeof task.worker === 'string' && task.worker.length > 0, 'invalid worker label');
     seen.add(task.id);
     tasks.push(await scanTask(reader, task, timestamp));
   }
