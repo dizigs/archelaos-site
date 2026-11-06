@@ -1,8 +1,25 @@
 import { DurableObject } from 'cloudflare:workers';
-import { Rejected, UUID, authenticate, boundedBody, digest, reply, route, validateEvent } from './contract.mjs';
+import { Rejected, UUID, authenticate, boundedBody, digest, reply, route, validateEvent, validateStoredEvent, enforceDurableJobCapacity, validateSourceEventType } from './contract.mjs';
 import { claimBudgetCall, reserveBudget, settleBudget } from './budget.mjs';
 import { readTaskIntent, storeTaskIntent } from './task_intents.mjs';
+import { CAPABILITY_SCHEMA, validateAnalyticsSnapshot, validateAppsScriptEvent, persistAnalyticsSnapshot, persistAppsScriptEvent, readAnalyticsSnapshotReceipt, readAppsScriptReceipt } from './capability_intake.mjs';
 import { EXEC_SCHEMA, submitExecutionIntent, approveExecutionIntent, claimExecutionIntent, beginExecutionCall, finishExecutionIntent, reconcileExecutionIntent, inspectExecutionIntent, executionDiagnostics, recoverExecutionLeases, signIntegrationReceipt } from './exec_authority.mjs';
+
+// HMAC key material is a secret binding; the immutable key identifier is public.
+const CAPABILITY_KEY_ID = 'brain-capability-receipts-v1';
+async function signCapabilityReply(ack, secret, audience, principal) {
+  if (typeof secret !== 'string' || secret.length < 43)
+    throw new Rejected('CAPABILITY_RECEIPT_SIGNING_UNCONFIGURED', 503);
+  const envelope = { ...ack, schemaVersion: 1, audience, principal,
+    keyId: CAPABILITY_KEY_ID, issuedAtMs: Date.now() };
+  const macInput = audience + '\n' + JSON.stringify(envelope);
+  const key = await crypto.subtle.importKey('raw', new TextEncoder().encode(secret),
+    { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
+  const bytes = new Uint8Array(await crypto.subtle.sign('HMAC', key,
+    new TextEncoder().encode(macInput)));
+  const receiptSignature = [...bytes].map(byte => byte.toString(16).padStart(2, '0')).join('');
+  return { ...envelope, receiptSignature };
+}
 
 const SCHEMA = [
   'CREATE TABLE IF NOT EXISTS jobs(id TEXT PRIMARY KEY,source TEXT NOT NULL,type TEXT NOT NULL,correlation TEXT NOT NULL,envelope TEXT NOT NULL,status TEXT NOT NULL,attempts INTEGER NOT NULL DEFAULT 0,due INTEGER NOT NULL,lease_until INTEGER NOT NULL DEFAULT 0,created INTEGER NOT NULL,updated INTEGER NOT NULL,route TEXT NOT NULL,code TEXT NOT NULL)',
@@ -18,7 +35,8 @@ const SCHEMA = [
   ,'CREATE TABLE IF NOT EXISTS control_audit(at INTEGER NOT NULL,code TEXT NOT NULL,revision INTEGER NOT NULL,scope TEXT NOT NULL)'
   ,'CREATE TABLE IF NOT EXISTS task_intents(id TEXT PRIMARY KEY,payload TEXT NOT NULL,created INTEGER NOT NULL,expires INTEGER NOT NULL)'
   ,'CREATE TABLE IF NOT EXISTS task_intent_audit(id TEXT NOT NULL,at INTEGER NOT NULL,code TEXT NOT NULL)',
-  ...EXEC_SCHEMA
+  ...EXEC_SCHEMA,
+  ...CAPABILITY_SCHEMA
 ];
 
 export class BrainCoordinator extends DurableObject {
@@ -39,7 +57,7 @@ export class BrainCoordinator extends DurableObject {
   }
   async control(input) {
     if (!input || !['pause', 'resume'].includes(input.operation) || !['global', 'source', 'ai'].includes(input.scope) || !Number.isSafeInteger(input.expectedRevision)) throw new Rejected('INVALID_CONTROL', 422);
-    if (input.scope === 'source' && !['staging', 'drive', 'gmail', 'site', 'github', 'news'].includes(input.source)) throw new Rejected('INVALID_CONTROL_SOURCE', 422);
+    if (input.scope === 'source' && !['staging', 'drive', 'gmail', 'site', 'github', 'news', 'analytics', 'apps_script'].includes(input.source)) throw new Rejected('INVALID_CONTROL_SOURCE', 422);
     if (input.operation === 'resume' && (input.healthCommit !== this.env.DEPLOY_SHA || input.scope === 'ai')) throw new Rejected('RESUME_HEALTH_OR_AI_COVERAGE_UNVERIFIED', 409);
     if (input.operation === 'resume') await this.wake(Date.now() + 10);
     return this.ctx.storage.transactionSync(() => {
@@ -103,8 +121,7 @@ export class BrainCoordinator extends DurableObject {
         if (row.signature !== expected || existing && existing !== row.job_id) throw new Rejected('IDEMPOTENCY_CONFLICT', 409);
         existing = row.job_id;
       }
-      const counts = [...this.sql.exec('SELECT (SELECT COUNT(*) FROM jobs) AS jobs,(SELECT COUNT(*) FROM event_keys) AS keys')][0];
-      if ((!existing && counts.jobs >= 2000) || counts.keys >= 20000) throw new Rejected('DURABLE_CAPACITY_REACHED', 429);
+      enforceDurableJobCapacity(this.sql, Boolean(existing));
       const id = existing || crypto.randomUUID();
       if (!existing) {
         const selected = route(event);
@@ -126,6 +143,77 @@ export class BrainCoordinator extends DurableObject {
         const id = url.pathname.slice('/internal/envelopes/'.length);
         const row = [...this.sql.exec('SELECT envelope FROM jobs WHERE id=?', id)][0];
         return row ? reply(JSON.parse(row.envelope)) : reply({ code: 'NOT_FOUND' }, 404);
+      }
+      // Private, source-scoped metadata ingress. No event enters the legacy
+      // file queue and neither capability can dispatch AI or external writes.
+      if (request.method === 'GET' && url.pathname === '/internal/capabilities/analytics')
+        return reply({ version: 'analytics.aggregate.v1', authenticatedServiceBinding: true,
+          durableSnapshotUpsert: true, receiptSignatureVerification: true,
+          immutableReceiptReadback: true });
+      if (request.method === 'GET' && url.pathname === '/internal/capabilities/apps-script')
+        return reply({ schemaVersion: 1, source: 'apps_script',
+          transport: 'PRIVATE_SERVICE_BINDING', status: 'ACCEPTING',
+          deploymentDigest: await digest(this.env.DEPLOY_SHA) });
+      if (request.method === 'POST' && url.pathname === '/internal/capability-intake/analytics') {
+        let input; try { input = await request.json(); } catch { throw new Rejected('INVALID_JSON', 422); }
+        const validated = await validateAnalyticsSnapshot(input);
+        const bodyDigest = await digest(JSON.stringify(input)), now = Date.now();
+        return reply(persistAnalyticsSnapshot(this.ctx.storage, validated, bodyDigest, now, () => {
+          if (this.paused('analytics')) throw new Rejected('AUTOMATION_PAUSED', 423);
+          this.limit('analytics', now);
+        }));
+      }
+      if (request.method === 'POST' && url.pathname === '/internal/capability-intake/apps-script') {
+        let input; try { input = await request.json(); } catch { throw new Rejected('INVALID_JSON', 422); }
+        const validated = await validateAppsScriptEvent(input);
+        const bodyDigest = await digest(JSON.stringify(input)), now = Date.now();
+        return reply(persistAppsScriptEvent(this.ctx.storage, validated, bodyDigest, now, () => {
+          if (this.paused('apps_script')) throw new Rejected('AUTOMATION_PAUSED', 423);
+          this.limit('apps_script', now);
+        }));
+      }
+      if (request.method === 'POST' && url.pathname === '/internal/capability-readback/analytics') {
+        let input; try { input = await request.json(); } catch { throw new Rejected('INVALID_JSON', 422); }
+        if (this.paused('analytics')) throw new Rejected('AUTOMATION_PAUSED', 423);
+        return reply(readAnalyticsSnapshotReceipt(this.ctx.storage, input));
+      }
+      if (request.method === 'POST' && url.pathname === '/internal/capability-readback/apps-script') {
+        let input; try { input = await request.json(); } catch { throw new Rejected('INVALID_JSON', 422); }
+        if (this.paused('apps_script')) throw new Rejected('AUTOMATION_PAUSED', 423);
+        return reply(readAppsScriptReceipt(this.ctx.storage, input));
+      }
+      if (request.method === 'GET' && url.pathname.startsWith('/internal/source-receipts/')) {
+        const identity = url.searchParams.get('source');
+        if (!['drive','gmail','site','github','news'].includes(identity))
+          throw new Rejected('SOURCE_SCOPE_REQUIRED', 403);
+        const id = url.pathname.slice('/internal/source-receipts/'.length);
+        if (!UUID.test(id)) throw new Rejected('INVALID_RECEIPT', 422);
+        if (this.paused(identity)) throw new Rejected('AUTOMATION_PAUSED', 423);
+        const job = [...this.sql.exec('SELECT id,status,attempts,route,code,correlation,envelope FROM jobs WHERE id=? AND source=?',
+          id, identity)][0];
+        if (!job) throw new Rejected('RECEIPT_NOT_FOUND', 404);
+        // Derive readback identity ONLY from the durable canonical event, not
+        // request headers or a client-submitted digest. Cross-check the event_keys
+        // index so a missing/corrupt receipt cannot be cryptographically attested.
+        let stored;
+        try { stored = JSON.parse(job.envelope); }
+        catch { throw new Rejected('SOURCE_RECEIPT_CORRUPT', 503); }
+        if (stored?.sourceType !== identity || stored.correlationId !== job.correlation)
+          throw new Rejected('SOURCE_RECEIPT_CORRUPT', 503);
+        // Readback has no seven-day TTL: immutable historical receipts must
+        // remain verifiable long after their original ingestion time.
+        stored = validateStoredEvent(stored, identity);
+        const kind = stored.eventType.startsWith('source.file.') ? 'source.file' : stored.eventType;
+        const dedupeKey = await digest('blob|' + identity + '|' + stored.sourceId + '|' +
+          kind + '|' + stored.payload.blobSha256);
+        const index = [...this.sql.exec('SELECT job_id FROM event_keys WHERE key=? AND kind=?',
+          dedupeKey, 'blob')][0];
+        if (!index || index.job_id !== job.id)
+          throw new Rejected('SOURCE_RECEIPT_CORRUPT', 503);
+        return reply({ receiptId: job.id, correlationId: job.correlation,
+          eventId: stored.eventId, dedupeKey, source: identity,
+          status: job.status, attempts: job.attempts, route: job.route,
+          code: job.code, durable: true });
       }
       if (url.pathname.startsWith('/internal/exec/')) {
         const synthetic = this.env.TEST_BUDGET === 'true' && this.env.BRAIN_EXECUTION_ADMISSION === 'synthetic';
@@ -287,15 +375,77 @@ export default {
           UUID.test(url.pathname.slice('/v1/exec/intents/'.length))) ||
          (url.pathname.startsWith('/v1/exec/authorizations/') &&
           UUID.test(url.pathname.slice('/v1/exec/authorizations/'.length))));
+      const capability = ['/v1/capabilities/analytics', '/v1/intake/analytics',
+        '/v1/analytics/readback'].includes(url.pathname) ? 'analytics' :
+        ['/v1/capabilities/apps-script', '/v1/intake/apps-script',
+          '/v1/apps-script/readback'].includes(url.pathname) ? 'apps_script' : null;
+      const capabilityGet = capability && request.method === 'GET' && url.pathname.startsWith('/v1/capabilities/');
+      const capabilityPost = capability && request.method === 'POST' &&
+        (url.pathname.startsWith('/v1/intake/') || url.pathname.endsWith('/readback'));
+      const sourceReceipt = request.method === 'GET' &&
+        url.pathname.startsWith('/v1/source-receipts/') &&
+        UUID.test(url.pathname.slice('/v1/source-receipts/'.length));
       const existingRoute = ((['GET','POST'].includes(request.method) && url.pathname === '/v1/control') ||
         (request.method === 'POST' && ['/v1/events','/v1/task-intents'].includes(url.pathname)) ||
         (request.method === 'GET' && (url.pathname === '/v1/diagnostics' ||
           (url.pathname.startsWith('/v1/tasks/') && UUID.test(url.pathname.slice('/v1/tasks/'.length))) ||
           (url.pathname.startsWith('/v1/task-intents/') && UUID.test(url.pathname.slice('/v1/task-intents/'.length))))));
-      if (url.search || !(existingRoute || execPost || execGet)) throw new Rejected('NOT_FOUND', 404);
+      if (url.search || !(existingRoute || execPost || execGet || capabilityGet || capabilityPost || sourceReceipt))
+        throw new Rejected('NOT_FOUND', 404);
       const raw = await boundedBody(request);
       const source = await authenticate(request, env, raw);
+      // Capability credentials must not read global diagnostics, unrelated
+      // receipts, operator state, or the legacy event and execution APIs.
+      if ((source === 'analytics' || source === 'apps_script') && !capability)
+        throw new Rejected('SOURCE_SCOPE_REQUIRED', 403);
+      const eventSource = ['drive','gmail','site','github','news'].includes(source);
+      if (eventSource) {
+        if (env.BRAIN_PRIVATE_EVENT_SOURCES_ENABLED !== 'true' ||
+            env.BRAIN_PRIVATE_SERVICE_BINDINGS_VERIFIED !== 'true')
+          throw new Rejected('PRIVATE_EVENT_SOURCE_DISABLED', 423);
+        if (!(request.method === 'POST' && url.pathname === '/v1/events') && !sourceReceipt)
+          throw new Rejected('SOURCE_SCOPE_REQUIRED', 403);
+        if (typeof env.BRAIN_CAPABILITY_RECEIPT_KEY !== 'string' ||
+            env.BRAIN_CAPABILITY_RECEIPT_KEY.length < 43)
+          throw new Rejected('CAPABILITY_RECEIPT_SIGNING_UNCONFIGURED', 503);
+      }
+      if (sourceReceipt && !eventSource) throw new Rejected('SOURCE_SCOPE_REQUIRED', 403);
       const coordinator = env.BRAIN.get(env.BRAIN.idFromName('central-v1'));
+      if (capability) {
+        if (source !== capability) throw new Rejected('SOURCE_SCOPE_REQUIRED', 403);
+        // Operator-attested settings are necessary, not sufficient, proof of
+        // real private Cloudflare bindings. Both flags default OFF.
+        if (env.BRAIN_PRIVATE_CAPABILITIES_ENABLED !== 'true' ||
+            env.BRAIN_PRIVATE_SERVICE_BINDINGS_VERIFIED !== 'true')
+          throw new Rejected('PRIVATE_CAPABILITY_DISABLED', 423);
+        // Require a current key BEFORE any durable write that needs readback.
+        if (typeof env.BRAIN_CAPABILITY_RECEIPT_KEY !== 'string' ||
+            env.BRAIN_CAPABILITY_RECEIPT_KEY.length < 43)
+          throw new Rejected('CAPABILITY_RECEIPT_SIGNING_UNCONFIGURED', 503);
+        if (capabilityGet)
+          return await coordinator.fetch('https://brain.internal/internal/capabilities/' +
+            (capability === 'analytics' ? 'analytics' : 'apps-script'));
+        if (!/^application\/json(?:;\s*charset=utf-8)?$/i.test(request.headers.get('content-type') || ''))
+          throw new Rejected('JSON_REQUIRED', 415);
+        const readback = url.pathname.endsWith('/readback');
+        const destination = 'https://brain.internal/internal/' +
+          (readback ? 'capability-readback/' : 'capability-intake/') +
+          (capability === 'analytics' ? 'analytics' : 'apps-script');
+        const response = await coordinator.fetch(destination, { method: 'POST', body: raw });
+        if (!response.ok || (!readback && capability === 'apps_script')) return response;
+        const ack = await response.json();
+        const audience = (capability === 'analytics' ? 'analytics.snapshot.' :
+          'apps-script.receipt.') + (readback ? 'readback.v1' : 'ack.v1');
+        return reply(await signCapabilityReply(ack, env.BRAIN_CAPABILITY_RECEIPT_KEY,
+          audience, capability === 'analytics' ? 'analytics-v1' : 'apps-script-v1'));
+      }
+      if (sourceReceipt) {
+        const response = await coordinator.fetch('https://brain.internal/internal/source-receipts/' +
+          url.pathname.slice('/v1/source-receipts/'.length) + '?source=' + source);
+        if (!response.ok) return response;
+        return reply(await signCapabilityReply(await response.json(),
+          env.BRAIN_CAPABILITY_RECEIPT_KEY, 'source.receipt.readback.v1', source + '-v1'));
+      }
       if (url.pathname.startsWith('/v1/exec/')) {
         if (source !== 'operator') throw new Rejected('OPERATOR_SCOPE_REQUIRED', 403);
         const target = 'https://brain.internal/internal' + url.pathname.slice('/v1'.length);
@@ -325,7 +475,13 @@ export default {
         let event;
         try { event = JSON.parse(raw); } catch { throw new Rejected('INVALID_JSON', 422); }
         event = validateEvent(event, source);
-        return await coordinator.fetch('https://brain.internal/internal/events', { method: 'POST', body: JSON.stringify(event) });
+        validateSourceEventType(source, event.eventType);
+        const response = await coordinator.fetch('https://brain.internal/internal/events',
+          { method: 'POST', body: JSON.stringify(event) });
+        if (!eventSource || !response.ok) return response;
+        return reply(await signCapabilityReply(await response.json(),
+          env.BRAIN_CAPABILITY_RECEIPT_KEY, 'source.receipt.ack.v1', source + '-v1'),
+          response.status);
       }
       const internal = url.pathname.replace('/v1/', '/internal/');
       return await coordinator.fetch('https://brain.internal' + internal);
