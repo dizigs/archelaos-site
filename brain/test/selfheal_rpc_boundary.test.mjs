@@ -16,21 +16,31 @@ export default {
     const result = {
       normalGateDenied: false,
       reviewDenied: false,
+      healthDenied: false,
       coordinatorCapabilityExposed: false,
       leakedControlReadable: false,
       forgedEvidenceAccepted: false,
     };
     try {
       const verified = await rpc.verifySelfHealReceipt({ verified: true });
-      result.normalGateDenied = verified?.verified === false;
+      result.normalGateDenied = verified?.verified === false &&
+        verified?.code === 'SELFHEAL_PROVENANCE_OR_STAGING_UNVERIFIED';
     } catch {
-      result.normalGateDenied = true;
+      result.normalGateDenied = false;
     }
     try {
       const review = await rpc.routeSelfHealReview({ verified: true });
-      result.reviewDenied = review?.accepted === false;
+      result.reviewDenied = review?.accepted === false &&
+        review?.code === 'SELFHEAL_REVIEW_NOT_AUTHORIZED';
     } catch {
-      result.reviewDenied = true;
+      result.reviewDenied = false;
+    }
+    try {
+      const health = await rpc.recheckSelfHealHealth({ resource: 'test' });
+      result.healthDenied = health?.verified === false &&
+        health?.code === 'SELFHEAL_HEALTH_PROVENANCE_NOT_IMPLEMENTED';
+    } catch {
+      result.healthDenied = false;
     }
 
     // This reproduces the previous getter exposure from the *untrusted*
@@ -118,6 +128,7 @@ test('real named Worker RPC cannot leak canonical DO or bypass expired staging w
     assert.deepEqual(await response.json(), {
       normalGateDenied: true,
       reviewDenied: true,
+      healthDenied: true,
       coordinatorCapabilityExposed: false,
       leakedControlReadable: false,
       forgedEvidenceAccepted: false
