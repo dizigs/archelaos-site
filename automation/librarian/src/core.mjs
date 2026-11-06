@@ -86,10 +86,11 @@ export function approvedPdf(env, fileId, now=Date.now()) {
   try { entries=JSON.parse(env.APPROVED_PDF_MANIFEST||'null'); } catch { throw Error('INVALID_PDF_APPROVAL_MANIFEST'); }
   if(!Array.isArray(entries) || entries.length>100) throw Error('INVALID_PDF_APPROVAL_MANIFEST');
   const a=entries.find(x=>x && x.fileId===fileId);
+  const reviewers=(env.APPROVED_PDF_REVIEWERS||'').split(',').map(x=>x.trim()).filter(Boolean);
   if(!a || a.approved!==true || a.driveId!==env.ARCHIVE_DRIVE_ID ||
       typeof a.version!=='string' || !/^\d+$/.test(a.version) ||
       !SHA256_HEX.test(a.sha256||'') ||
-      typeof a.reviewer!=='string' || a.reviewer.length<3 ||
+      typeof a.reviewer!=='string' || a.reviewer.length<3 || !reviewers.includes(a.reviewer) ||
       a.rights!=='cleared' || a.privacyClass!=='non-sensitive' ||
       typeof a.expiresAt!=='string' || !Number.isFinite(Date.parse(a.expiresAt)) ||
       Date.parse(a.expiresAt)<=now) throw Error('PDF_APPROVAL_REQUIRED');
