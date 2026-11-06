@@ -172,3 +172,24 @@ test('unknown routes, cron triggers, and malformed time do not pass private stag
     assert.ok(result.blockers.includes('BOUNDED_STAGING_EXPIRY_UNVERIFIED'));
   }
 });
+
+test('explicit target environments cannot redirect either private Service Binding', () => {
+  for (const [side, name, blocker] of [
+    ['brainBindings', 'HEALER', 'BRAIN_HEALER_BINDING_CONFLICT'],
+    ['healerBindings', 'BRAIN_RECOVERY', 'HEALER_BRAIN_RECOVERY_BINDING_CONFLICT']
+  ]) {
+    for (const environment of ['staging', 'production', 'preview', 'alternate', 0, true, {}]) {
+      const f=fixture();
+      f[side].find(b => b.name === name).environment = environment;
+      const result=assessSelfHealStagingBindings(f);
+      assert.equal(result.status, 'BLOCKED', side+' environment='+String(environment));
+      assert.ok(result.blockers.includes(blocker), blocker);
+      assert.equal(result.verifiedConnectivity, false);
+    }
+    for (const environment of [null, '']) {
+      const f=fixture();
+      f[side].find(b => b.name === name).environment = environment;
+      assert.equal(assessSelfHealStagingBindings(f).status, 'READY_FOR_STAGING_REVIEW');
+    }
+  }
+});
