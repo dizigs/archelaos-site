@@ -1,0 +1,161 @@
+name: Gemini guarded coding pilot (Draft PR only)
+on:
+  workflow_dispatch:
+    inputs:
+      task:
+        description: Small scoped bug in automation/gemini-triage only
+        type: string
+        required: true
+  push:
+    branches: [chatgpt/gemini-guarded-coding-pilot-20261106]
+    paths: ['.github/workflows/gemini-guarded-coding.yml']
+permissions:
+  contents: read
+concurrency:
+  group: gemini-triage-pilot-${{ github.run_id }}
+  cancel-in-progress: false
+jobs:
+  propose:
+    name: Gemini fix proposal - no GitHub write token
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout current main without persisted credentials
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: main
+          persist-credentials: false
+      - name: Confirm two source files exist
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -z "$(git status --porcelain)"
+          test -f automation/gemini-triage/triage.mjs
+          test -f automation/gemini-triage/triage.test.mjs
+      - name: Gemini proposes change in allowlisted files
+        uses: google-github-actions/run-gemini-cli@f77273f4c914e4bf38440cf36a0369cb64a37489 # v0.1.22
+        env:
+          GEMINI_CLI_TRUST_WORKSPACE: 'true'
+        with:
+          gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
+          gemini_cli_version: '0.67.0'
+          gemini_model: gemini-3.5-flash-lite
+          settings: |
+            {
+              "model": {"maxSessionTurns": 12},
+              "tools": {"core": ["read_file", "read_many_files", "glob", "grep_search", "list_directory", "replace", "write_file"]},
+              "telemetry": {"enabled": false},
+              "privacy": {"usageStatisticsEnabled": false}
+            }
+          prompt: |
+            Work on the REAL checked-out code of dizigs/archelaos-site (not a ZIP).
+            Read and edit ONLY these existing tracked files:
+              automation/gemini-triage/triage.mjs
+              automation/gemini-triage/triage.test.mjs
+            Find one reproducible input-validation or fail-closed bug.
+            Add a focused regression test and the smallest safe JavaScript fix.
+            Do not publish anything, activate network calls, change Workers,
+            bypass Brain authorization, read any other file, add new files,
+            invoke shell/Git/MCP/networks, or attempt to access credentials.
+            If no real bug is verifiable, do not change any file.
+            Explicit operator task:
+            ${{ github.event_name == 'workflow_dispatch' && inputs.task || 'Find and fix one reproducible validation edge case in the offline public-news Gemini triage adapter, with focused test.' }}
+      - name: Exact path guard and offline regression tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import subprocess
+          from pathlib import Path
+          allowed={'automation/gemini-triage/triage.mjs','automation/gemini-triage/triage.test.mjs'}
+          def paths(*args):
+              return {p.decode() for p in subprocess.check_output(['git',*args]).split(b'\x00') if p}
+          changed=paths('diff','--name-only','-z')
+          untracked=paths('ls-files','--others','--exclude-standard','-z')
+          if not changed or not changed <= allowed or untracked:
+              raise SystemExit('BLOCKED: outside allowed source scope, unexpected new files, or no change')
+          if any(not Path(p).is_file() or Path(p).is_symlink() for p in changed):
+              raise SystemExit('BLOCKED: path type')
+          print('PATH GUARD PASS:', ', '.join(sorted(changed)))
+          PY
+          git diff --check
+          node --check automation/gemini-triage/triage.mjs
+          node --check automation/gemini-triage/triage.test.mjs
+          node --test automation/gemini-triage/triage.test.mjs
+          git diff --binary > candidate.patch
+          test "$(wc -c < candidate.patch)" -gt 10
+          test "$(wc -c < candidate.patch)" -lt 20000
+      - name: Upload short-lived patch only
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: gemini-scoped-patch
+          path: candidate.patch
+          if-no-files-found: error
+          retention-days: 3
+  publish:
+    name: Publish guarded Draft PR without Gemini key
+    needs: propose
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout main in separate credentialed job
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: main
+          persist-credentials: true
+      - name: Get only own-run candidate
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: gemini-scoped-patch
+          path: ${{ runner.temp }}/gemini-patch
+      - name: Validate exact patch paths and apply
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          patch=Path('/tmp').exists()
+          import os
+          raw=Path(os.environ['RUNNER_TEMP']+'/gemini-patch/candidate.patch').read_bytes()
+          allowed={b'automation/gemini-triage/triage.mjs',b'automation/gemini-triage/triage.test.mjs'}
+          assert 10<len(raw)<20000 and b'\x00' not in raw
+          hdr=[ln for ln in raw.splitlines() if ln.startswith(b'diff --git ')]
+          assert hdr and len(hdr)<=2
+          for line in hdr:
+              a,b=line[11:].split(b' ',1)
+              assert a.startswith(b'a/') and b.startswith(b'b/') and a[2:]==b[2:] and a[2:] in allowed
+          for forbidden in (b'--- /dev/null',b'+++ /dev/null',b'GIT binary patch',b'new mode ',b'old mode ',b'rename from '):
+              assert forbidden not in raw
+          print('PATCH HEADER GUARD PASS')
+          PY
+          git apply --check --index "$RUNNER_TEMP/gemini-patch/candidate.patch"
+          git apply --index "$RUNNER_TEMP/gemini-patch/candidate.patch"
+          python3 - <<'PY'
+          import subprocess
+          p={x.decode() for x in subprocess.check_output(['git','diff','--cached','--name-only','-z']).split(b'\x00') if x}
+          assert p and p <= {'automation/gemini-triage/triage.mjs','automation/gemini-triage/triage.test.mjs'},p
+          PY
+          git diff --cached --check
+      - name: Commit isolated candidate and open Draft PR
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          branch="gemini/triage-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git switch -c "$branch"
+          git commit -m 'fix(gemini-triage): AI-proposed offline validation regression'
+          git push origin "HEAD:refs/heads/$branch"
+          if ! gh pr create --draft --base main --head "$branch" \
+            --title 'fix(gemini-triage): Gemini candidate - security review required' \
+            --body 'One manual Gemini code-fix proposal on real repository files, validated by exact path guards and offline tests. Human review mandatory. No automatic merge, deployment, production API calls or Brain changes.'; then
+            echo "::warning::Draft PR creation was blocked; candidate branch $branch was pushed."
+            echo "Review candidate branch $branch and open a Draft PR manually." >> "$GITHUB_STEP_SUMMARY"
+          fi
