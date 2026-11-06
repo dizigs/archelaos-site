@@ -127,3 +127,48 @@ test('public workers.dev, preview URLs, custom domains or unknown exposure never
     }
   }
 });
+
+test('duplicate, mistyped or missing secret metadata cannot authorize staging', () => {
+  const scenarios = [
+    [f => {f.brainBindings.push(key('HEALER_EVENT_HMAC_KEY'));}, 'SIGNED_DELIVERY_KEY_METADATA_MISSING'],
+    [f => {f.healerBindings.push(key('HEALER_EVENT_HMAC_KEY'));}, 'SIGNED_DELIVERY_KEY_METADATA_MISSING'],
+    [f => {f.brainBindings.find(b => b.name === 'HEALER_EVENT_HMAC_KEY').type = 'plain_text';}, 'SIGNED_DELIVERY_KEY_METADATA_MISSING'],
+    [f => {f.brainBindings.push(key('BRAIN_GITHUB_READ_TOKEN'));}, 'PROVIDER_EVIDENCE_KEY_METADATA_MISSING'],
+    [f => {f.brainBindings.find(b => b.name === 'BRAIN_GITHUB_READ_TOKEN').type = 'plain_text';}, 'PROVIDER_EVIDENCE_KEY_METADATA_MISSING'],
+    [f => {f.brainBindings.push(env('DEPLOY_SHA', sha));}, 'EXACT_RELEASE_PROVENANCE_UNVERIFIED'],
+    [f => {f.brainBindings.push(env('STAGING_EXPIRES_AT', new Date(NOW + 30000).toISOString()));}, 'BOUNDED_STAGING_EXPIRY_UNVERIFIED'],
+    [f => {f.brainBindings[0].class_name = 'UnexpectedCoordinator';}, 'CANONICAL_BRAIN_DO_UNVERIFIED'],
+    [f => {f.healerBindings[0].class_name = 'UnexpectedMemory';}, 'EXISTING_HEALER_DO_UNVERIFIED']
+  ];
+  for (const [change, expected] of scenarios) {
+    const f = fixture();
+    change(f);
+    const result = assessSelfHealStagingBindings(f);
+    assert.equal(result.status, 'BLOCKED', expected);
+    assert.ok(result.blockers.includes(expected), expected);
+    assert.equal(result.verifiedConnectivity, false);
+    assert.equal(result.automationEnabled, false);
+  }
+});
+
+test('unknown routes, cron triggers, and malformed time do not pass private staging gate', () => {
+  for (const field of [
+    'brainPublicRoutes', 'healerPublicRoutes',
+    'brainCronTriggers', 'healerCronTriggers'
+  ]) {
+    for (const value of [1, null, undefined]) {
+      const f = fixture();
+      f[field] = value;
+      const result = assessSelfHealStagingBindings(f);
+      assert.equal(result.status, 'BLOCKED', field + '=' + value);
+      assert.ok(result.blockers.includes('PRIVATE_ONLY_NO_SCHEDULE_INVENTORY_UNVERIFIED'));
+    }
+  }
+  for (const now of [undefined, null, '2026-11-06T11:00:00Z', NaN, NOW + 0.5]) {
+    const f = fixture();
+    f.now = now;
+    const result = assessSelfHealStagingBindings(f);
+    assert.equal(result.status, 'BLOCKED');
+    assert.ok(result.blockers.includes('BOUNDED_STAGING_EXPIRY_UNVERIFIED'));
+  }
+});
