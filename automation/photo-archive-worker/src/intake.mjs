@@ -15,7 +15,8 @@ export function validateImage(bytes, mimeType) {
   if (!(bytes instanceof Uint8Array) && !(bytes instanceof ArrayBuffer)) {
     throw new TypeError("PHOTO_IMAGE_BYTES_REQUIRED");
   }
-  const data = new Uint8Array(bytes);
+  // Defensive copy: callers must not mutate the hashed bytes while Brain RPC is awaited.
+  const data = Uint8Array.from(new Uint8Array(bytes));
   if (data.byteLength < 12 || data.byteLength > MAX_IMAGE_BYTES) {
     throw new RangeError("PHOTO_IMAGE_SIZE_REJECTED");
   }
@@ -80,7 +81,13 @@ export async function stageOriginal(env, request) {
   const object = await env.PHOTO_ORIGINALS.put(key, data, {
     httpMetadata: { contentType: mimeType },
     customMetadata: { reviewState: "pending", algorithm: "sha256" },
+    // R2 conditional write: content-addressed objects must never be overwritten.
+    onlyIf: { etagDoesNotMatch: "*" },
   });
+  if (object === null) {
+    // Existing key or failed atomic create; no read/overwrite/retry here.
+    throw new Error("PHOTO_R2_OBJECT_EXISTS_RECONCILE");
+  }
   if (!object || object.key !== key) {
     // Write might have completed. Treat as UNKNOWN and do not automatically retry.
     throw new Error("PHOTO_R2_ACK_UNKNOWN");
