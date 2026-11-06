@@ -53,6 +53,15 @@ test('missing service binding and credentials fail closed', async()=>{
   const {a:b}=setup(async()=>Response.json({}),{intakeKey:null});await reject(b.submitEvent(event()),'BRAIN_INTAKE_KEY_MISSING');
   const {a:c}=setup(async()=>Response.json({}),{receiptVerificationKey:null});await reject(c.submitEvent(event()),'RECEIPT_VERIFICATION_KEY_MISSING');
 });
+test('source request and Brain receipt verification keys must be distinct before any RPC', async () => {
+  const e=event();
+  let calls=0;
+  const {a}=setup(async()=>{calls++;return reply(e);},{
+    receiptVerificationKey:KEY
+  });
+  await reject(a.submitEvent(e),'HMAC_TRUST_DOMAINS_NOT_SEPARATED');
+  assert.equal(calls,0);
+});
 test('real Brain raw body HMAC signature is verifiable; receipt retained', async()=>{
   const e=event();const {a,logs}=setup(async req=>{
     assert.equal(new URL(req.url).host,'brain.internal');assert.equal(new URL(req.url).pathname,'/v1/events');
