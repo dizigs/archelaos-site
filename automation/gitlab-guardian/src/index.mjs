@@ -21,6 +21,21 @@ function secureMatch(expected, supplied) {
   return mismatch === 0;
 }
 
+// Validate the *configured* mirror source, not only coincidentally matching SHAs.
+// Parse credentials locally, but never return/log the remote URL or userinfo.
+function isCanonicalMirrorSource(value) {
+  if (value === 'git@github.com:dizigs/archelaos-site.git') return true;
+  if (typeof value !== 'string') return false;
+  try {
+    const remote = new URL(value);
+    return (remote.protocol === 'https:' || (remote.protocol === 'ssh:' && remote.username === 'git')) &&
+      remote.hostname === 'github.com' && !remote.port && !remote.search && !remote.hash &&
+      remote.pathname === '/dizigs/archelaos-site.git';
+  } catch {
+    return false;
+  }
+}
+
 async function readJSON(url, headers, fetcher) {
   // Fixed domains and paths only. No user-supplied URLs, methods, or request body.
   const controller = new AbortController();
@@ -62,6 +77,8 @@ export function assess({ mirror, gitlabBranch, githubCommit, checkedAt }) {
       typeof mirror.mirror_trigger_builds !== 'boolean' ||
       typeof mirror.mirror_overwrites_diverged_branches !== 'boolean' ||
       typeof mirror.update_status !== 'string' ||
+      typeof mirror.url !== 'string' ||
+      !(mirror.last_error === null || typeof mirror.last_error === 'string') ||
       !Number.isFinite(checkedAt) || !gitlabBranch || !githubCommit ||
       !/^[a-f0-9]{40}$/.test(gitlabBranch.commit?.id || '') ||
       !/^[a-f0-9]{40}$/.test(githubCommit.sha || '')) throw new Error('INVALID_UPSTREAM_SCHEMA');
@@ -69,6 +86,10 @@ export function assess({ mirror, gitlabBranch, githubCommit, checkedAt }) {
   const ghSha = githubCommit.sha;
   const issues = [];
   if (mirror.enabled !== true) issues.push('MIRROR_DISABLED');
+  if (!isCanonicalMirrorSource(mirror.url)) issues.push('MIRROR_ORIGIN_MISMATCH');
+  if (mirror.mirror_branch_regex != null) issues.push('MIRROR_BRANCH_FILTER_UNVERIFIED');
+  if (mirror.only_mirror_protected_branches === true && gitlabBranch.protected !== true)
+    issues.push('MIRROR_MAIN_BRANCH_FILTERED');
   if (mirror.mirror_trigger_builds === true) issues.push('UNEXPECTED_MIRROR_PIPELINES');
   if (mirror.mirror_overwrites_diverged_branches === true) issues.push('UNSAFE_BRANCH_OVERWRITE');
   if (['failed', 'canceled'].includes(mirror.update_status)) issues.push('MIRROR_UPDATE_FAILED');
@@ -83,7 +104,7 @@ export function assess({ mirror, gitlabBranch, githubCommit, checkedAt }) {
   const degraded = issues.some(i => i !== 'HEAD_MISMATCH' && i !== 'NO_SUCCESSFUL_MIRROR_TIMESTAMP');
   const criticalMismatch = issues.includes('HEAD_MISMATCH') && (ageMinutes === null || ageMinutes >= 120);
   return {
-    status: degraded || criticalMismatch ? 'alert' : issues.length ? 'attention' : 'ok',
+    status: ageMinutes === null ? 'UNKNOWN' : degraded || criticalMismatch ? 'alert' : issues.length ? 'attention' : 'ok',
     checked_at: new Date(checkedAt).toISOString(),
     github_main_sha: ghSha,
     gitlab_main_sha: glSha,
@@ -117,17 +138,17 @@ export default {
     const bearer = request.headers.get('authorization') || '';
     if (!secureMatch(env?.GUARDIAN_CHECK_KEY, bearer.startsWith('Bearer ') ? bearer.slice(7) : ''))
       return json({ error: 'NOT_FOUND' }, 404);
-    if (!env?.GITLAB_READ_TOKEN) return json({ status: 'not_configured' }, 503);
+    if (!env?.GITLAB_READ_TOKEN) return json({ status: 'UNKNOWN' }, 503);
     try {
       return json(await runAudit(env));
     } catch {
       // Do not leak GitLab private metadata, tokens, or provider body/errors.
-      return json({ status: 'unavailable' }, 503);
+      return json({ status: 'UNKNOWN' }, 503);
     }
   },
   async scheduled(controller, env, ctx) {
     if (!env?.GITLAB_READ_TOKEN) {
-      console.log(JSON.stringify({ kind: 'gitlab_guardian', status: 'not_configured' }));
+      console.log(JSON.stringify({ kind: 'gitlab_guardian', status: 'UNKNOWN' }));
       return;
     }
     ctx.waitUntil(runAudit(env).then(report => {
@@ -135,7 +156,7 @@ export default {
       console.log(JSON.stringify({ kind: 'gitlab_guardian', status: report.status,
         issue_codes: report.issues, checked_at: report.checked_at }));
     }).catch(() => {
-      console.error(JSON.stringify({ kind: 'gitlab_guardian', status: 'unavailable' }));
+      console.error(JSON.stringify({ kind: 'gitlab_guardian', status: 'UNKNOWN' }));
     }));
   },
 };
