@@ -48,3 +48,13 @@ test('rejects extra PII-bearing top-level fields before emitting hints',()=>{
   const current={...report('2026-11-02',[['sessions',25]]),userEmail:'not-allowed@example.test'};
   assert.throws(()=>reviewOnlyHints({previous,current}),/INVALID_REVIEW_SNAPSHOT/);
 });
+
+test('daily review refuses comparisons against a multi-day snapshot',()=>{
+  const previous={...report('2026-11-01',[['sessions',700]]),
+    period:{from:'2026-10-26',to:'2026-11-01'}};
+  const current=report('2026-11-02',[['sessions',100]]);
+  assert.throws(()=>reviewOnlyHints({previous,current}),/INVALID_REVIEW_SNAPSHOT/);
+  const multiCurrent={...current,period:{from:'2026-11-02',to:'2026-11-03'}};
+  assert.throws(()=>reviewOnlyHints({previous:report('2026-11-01',[['sessions',100]]),
+    current:multiCurrent}),/INVALID_REVIEW_SNAPSHOT/);
+});

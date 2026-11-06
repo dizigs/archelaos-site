@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {preparePrivateExport,deliverToBrain} from '../src/bridge.mjs';
 import {validateGoogleAdsContract} from '../src/google-ads.mjs';
+import {digest} from '../../analytics-worker/src/aggregate.mjs';
 
 const now=Date.parse('2026-11-05T12:00:00.000Z');
 const completedAt='2026-11-05T11:00:00.000Z';
@@ -290,4 +291,34 @@ test('signed ACK alone never substitutes an independently verified immutable rea
   await assert.rejects(deliverToBrain(await prepare(),port),
     /UNVERIFIED_BRAIN_READBACK/);
   assert.equal(recorded.operation,'UPSERT_NOT_INCREMENT');
+});
+
+// CodeRabbit 2026-11-06: preflight must reject even recomputed metric digests.
+test('forged non-root metric cannot reach Brain after recalculating revision',async()=>{
+  const prepared=structuredClone(await prepare());
+  const record=prepared.events[0];
+  record.event.payload.metrics[0].pagePath='/news.html';
+  record.metricRevision=await digest(JSON.stringify(record.event.payload.metrics));
+  let remoteCalls=0;
+  const port={capabilities:async()=>{remoteCalls++;return {};},
+    submitSnapshot:async()=>{remoteCalls++;return {};},
+    verifyReceipt:async()=>true,readbackSnapshot:async()=>{},verifyReadback:async()=>true};
+  await assert.rejects(deliverToBrain(prepared,port),/UNVERIFIED_PREPARED_BATCH/);
+  assert.equal(remoteCalls,0);
+});
+
+test('stalled post-commit readback times out and halts remaining submissions',async()=>{
+  const prepared=await prepare();
+  let submissions=0;
+  const port={readbackTimeoutMs:100,
+    capabilities:async()=>({version:'analytics.aggregate.v1',authenticatedServiceBinding:true,
+      durableSnapshotUpsert:true,receiptSignatureVerification:true,immutableReceiptReadback:true}),
+    submitSnapshot:async req=>{submissions++;return {eventId:req.event.eventId,
+      snapshotKey:req.snapshotKey,metricRevision:req.metricRevision,status:'ACCEPTED',
+      durable:true,receiptId:'receipt-123456789'};},
+    verifyReceipt:async()=>true,readbackSnapshot:async()=>new Promise(()=>{}),
+    verifyReadback:async()=>true};
+  await assert.rejects(deliverToBrain(prepared,port),
+    /BRAIN_READBACK_UNCERTAIN_RECONCILE_REQUIRED/);
+  assert.equal(submissions,1,'uncertain first write never triggers second submission');
 });

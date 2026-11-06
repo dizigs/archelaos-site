@@ -235,7 +235,7 @@ async function preflightPreparedBatch(prepared) {
     const raw=[];
     for(const row of payload.metrics) {
       exact(row,['pagePath','name','value','sampleSize','confidence']);
-      if(row.confidence!=='AGGREGATE_ONLY_NO_CAUSAL_INFERENCE')invalid();
+      if(row.pagePath!=='/'||row.confidence!=='AGGREGATE_ONLY_NO_CAUSAL_INFERENCE')invalid();
       raw.push({pagePath:row.pagePath,name:row.name,value:row.value,sampleSize:row.sampleSize});
     }
     let validated;
@@ -273,6 +273,10 @@ export async function deliverToBrain(prepared,brainPort){
      cap?.durableSnapshotUpsert!==true||cap?.receiptSignatureVerification!==true||
      cap?.immutableReceiptReadback!==true)
     fail('BRAIN_ANALYTICS_CAPABILITY_UNVERIFIED');
+  // Bounded readback: after an uncertain committed write, halt and reconcile.
+  const readbackTimeoutMs=brainPort.readbackTimeoutMs??3000;
+  if(!Number.isSafeInteger(readbackTimeoutMs)||readbackTimeoutMs<100||readbackTimeoutMs>10000)
+    fail('INVALID_READBACK_TIMEOUT');
   const receipts=[];
   for(const record of prepared.events){
     const request={schemaVersion:1,event:record.event,snapshotKey:record.snapshotKey,
@@ -290,10 +294,19 @@ export async function deliverToBrain(prepared,brainPort){
     if(!valid)fail('UNVERIFIED_BRAIN_RECEIPT');
     // An ACK alone does not prove the committed snapshot survived a restart.
     // Read back from the authoritative Brain store; fail closed on uncertainty.
-    let stored;
-    try {stored=await brainPort.readbackSnapshot({receiptId:ack.receiptId,
-      eventId:record.event.eventId,snapshotKey:record.snapshotKey});}
-    catch {fail('BRAIN_READBACK_UNCERTAIN_RECONCILE_REQUIRED');}
+    let stored,deadline;
+    const controller=new AbortController();
+    try {
+      stored=await Promise.race([
+        brainPort.readbackSnapshot({receiptId:ack.receiptId,
+          eventId:record.event.eventId,snapshotKey:record.snapshotKey},
+          {signal:controller.signal}),
+        new Promise((_,reject)=>{deadline=setTimeout(()=>{
+          controller.abort();reject(new Error('BRAIN_READBACK_TIMEOUT'));
+        },readbackTimeoutMs);})
+      ]);
+    } catch {fail('BRAIN_READBACK_UNCERTAIN_RECONCILE_REQUIRED');}
+    finally {clearTimeout(deadline);}
     if(stored?.receiptId!==ack.receiptId||stored?.eventId!==record.event.eventId||
        stored?.snapshotKey!==record.snapshotKey||stored?.metricRevision!==record.metricRevision||
        stored?.reportDigest!==prepared.evidence.reportDigest||

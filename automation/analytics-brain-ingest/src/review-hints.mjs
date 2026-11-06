@@ -33,7 +33,7 @@ function approved(payload) {
      !Array.isArray(payload.metrics)||payload.metrics.length>300)
     fail();
   const from=parseDay(payload.period.from),to=parseDay(payload.period.to);
-  if(from>to||to-from>31*DAY)fail();
+  if(from!==to)fail(); // Daily totals must never be compared to multi-day totals.
   const metrics=new Map();
   for(const row of payload.metrics){
     if(!exact(row,EXACT_ROW)||row.pagePath!=='/'||!METRICS.has(row.name)||
