@@ -1,7 +1,8 @@
-import { DurableObject } from 'cloudflare:workers';
+import { DurableObject, WorkerEntrypoint } from 'cloudflare:workers';
 import { Rejected, UUID, authenticate, boundedBody, digest, reply, route, validateEvent, validateStoredEvent, enforceDurableJobCapacity, validateSourceEventType } from './contract.mjs';
 import { claimBudgetCall, reserveBudget, settleBudget } from './budget.mjs';
 import { readTaskIntent, storeTaskIntent } from './task_intents.mjs';
+import { SELFHEAL_SCHEMA, validateCiFinding, verifyRequiredCiFromGithub, recordVerifiedCi, storeSelfHealReview, deniedHealthProbe } from './selfheal_recovery.mjs';
 import { CAPABILITY_SCHEMA, validateAnalyticsSnapshot, validateAppsScriptEvent, persistAnalyticsSnapshot, persistAppsScriptEvent, readAnalyticsSnapshotReceipt, readAppsScriptReceipt } from './capability_intake.mjs';
 import { EXEC_SCHEMA, submitExecutionIntent, approveExecutionIntent, claimExecutionIntent, beginExecutionCall, finishExecutionIntent, reconcileExecutionIntent, inspectExecutionIntent, executionDiagnostics, recoverExecutionLeases, signIntegrationReceipt } from './exec_authority.mjs';
 
@@ -36,7 +37,8 @@ const SCHEMA = [
   ,'CREATE TABLE IF NOT EXISTS task_intents(id TEXT PRIMARY KEY,payload TEXT NOT NULL,created INTEGER NOT NULL,expires INTEGER NOT NULL)'
   ,'CREATE TABLE IF NOT EXISTS task_intent_audit(id TEXT NOT NULL,at INTEGER NOT NULL,code TEXT NOT NULL)',
   ...EXEC_SCHEMA,
-  ...CAPABILITY_SCHEMA
+  ...CAPABILITY_SCHEMA,
+  ...SELFHEAL_SCHEMA
 ];
 
 export class BrainCoordinator extends DurableObject {
@@ -46,6 +48,14 @@ export class BrainCoordinator extends DurableObject {
       for (const statement of SCHEMA) this.sql.exec(statement);
       this.sql.exec('INSERT OR IGNORE INTO controls(name,value) VALUES(?,0),(?,1),(?,0)', 'global', 'ai', 'revision');
     });
+  }
+  // Only the named private BrainRecoveryPort can drive this RPC. The durable
+  // coordinator stores provenance and halts the Brain GitHub chain atomically.
+  async verifiedSelfHealCi(finding, independentlyCheckedEvidence) {
+    return recordVerifiedCi(this.ctx.storage, finding, independentlyCheckedEvidence);
+  }
+  async routeVerifiedSelfHealReview(plan) {
+    return storeSelfHealReview(this.ctx.storage, plan, this.controlState());
   }
   paused(source) {
     return [...this.sql.exec('SELECT value FROM controls WHERE name IN (?,?)', 'global', 'source:' + source)].some(row => row.value === 1);
@@ -491,3 +501,59 @@ export default {
     }
   }
 };
+
+
+// Explicitly named RPC entrypoint. A future Self-Heal Service Binding MUST
+// target entrypoint="BrainRecoveryPort"; the default HTTP Worker remains
+// unchanged. No caller gains operator credentials or a new coordinator.
+export class BrainRecoveryPort extends WorkerEntrypoint {
+  requireStaging() {
+    const env = this.env, now = Date.now();
+    const expires = Date.parse(env.STAGING_EXPIRES_AT || '');
+    const pinned = env.BRAIN_SELFHEAL_APPROVED_SHA;
+    if (env.ENVIRONMENT !== 'staging' ||
+        env.BRAIN_SELFHEAL_RECOVERY_ENABLED !== 'true' ||
+        env.BRAIN_SELFHEAL_BINDING_ATTESTED !== 'true' ||
+        !/^[a-f0-9]{40}$/.test(pinned || '') ||
+        pinned === '0'.repeat(40) || env.DEPLOY_SHA !== pinned ||
+        !Number.isFinite(expires) || expires <= now || expires > now + 60 * 60_000 ||
+        typeof env.BRAIN_GITHUB_READ_TOKEN !== 'string' ||
+        env.BRAIN_GITHUB_READ_TOKEN.length < 43 ||
+        !env.BRAIN || typeof env.BRAIN.get !== 'function') {
+      throw new Rejected('SELFHEAL_STAGING_NOT_ATTESTED', 423);
+    }
+  }
+  get coordinator() {
+    return this.env.BRAIN.get(this.env.BRAIN.idFromName('central-v1'));
+  }
+  async verifySelfHealReceipt(finding) {
+    try {
+      this.requireStaging();
+      const validated = validateCiFinding(finding);
+      // This is a fresh READ-ONLY GitHub API verification, not a claimed
+      // verdict from the caller or a stored unverified webhook payload.
+      const evidence = await verifyRequiredCiFromGithub(validated, {
+        token: this.env.BRAIN_GITHUB_READ_TOKEN
+      });
+      return await this.coordinator.verifiedSelfHealCi(validated, evidence);
+    } catch {
+      return {verified:false, code:'SELFHEAL_PROVENANCE_OR_STAGING_UNVERIFIED'};
+    }
+  }
+  async routeSelfHealReview(plan) {
+    try {
+      this.requireStaging();
+      // Stores only a durable review receipt. NEVER dispatches a Builder,
+      // grants code-write permissions, deploys, or spends AI budget.
+      return await this.coordinator.routeVerifiedSelfHealReview(plan);
+    } catch {
+      return {accepted:false, verifiedReadback:false, reviewOnly:true,
+        code:'SELFHEAL_REVIEW_NOT_AUTHORIZED'};
+    }
+  }
+  async recheckSelfHealHealth(probe) {
+    // This existing RPC contract lacks an independently verifiable receiptId.
+    // It cannot honestly claim website health provenance yet.
+    return deniedHealthProbe(probe);
+  }
+}
