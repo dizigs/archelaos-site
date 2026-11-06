@@ -136,8 +136,10 @@ test('stale/mismatched staging identity is denied before any capability or write
   const {service,calls}=syntheticNativeBinding({
     ack:f.ack,readback:f.readback,identitySha:'d'.repeat(40)
   });
+  // deliverToBrain deliberately maps capability probing errors to its
+  // stable public fail-closed error; it must never attempt a write.
   await assert.rejects(deliverToBrain(f.prepared,makePort(service)),
-    /PRIVATE_BRAIN_RELEASE_MISMATCH/);
+    /BRAIN_CAPABILITY_UNAVAILABLE/);
   assert.deepEqual(calls,['/healthz']);
 });
 test('tampered Brain HMAC ACK is rejected, not called durable success',async()=>{
