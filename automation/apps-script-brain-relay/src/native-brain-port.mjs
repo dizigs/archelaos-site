@@ -130,9 +130,13 @@ export function createNativeAppsScriptBrainPort({
     return Object.fromEntries(PROJECTION.map(p=>[p,body[p]]));
   }
   async function readBrainReceipt(query,expectedEvent=null){
-    if(!query||!UUID.test(query.operationId||'')||!UUID.test(query.eventId||'')||
-      (Object.hasOwn(query,'receiptId')&&!UUID.test(query.receiptId||''))||
-      ![2,3].includes(Object.keys(query).length))
+    // Exact allowlist, not just 2/3 fields: arbitrary project IDs, source
+    // selectors or prototype getters must never enter a trusted RPC query.
+    const required=Object.hasOwn(query||{},'receiptId')?
+      ['receiptId','eventId','operationId']:['eventId','operationId'];
+    if(!exact(query,required)||!UUID.test(query.operationId||'')||
+      !UUID.test(query.eventId||'')||
+      (Object.hasOwn(query,'receiptId')&&!UUID.test(query.receiptId||'')))
       fail('BRAIN_READBACK_REQUEST_INVALID');
     await assertRelease();
     const payload=query.receiptId?
