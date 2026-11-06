@@ -36,6 +36,8 @@ jobs:
           persist-credentials: false
 
       - name: Check Gemini can analyze two real source files
+        env:
+          GEMINI_CLI_TRUST_WORKSPACE: 'true'
         uses: google-github-actions/run-gemini-cli@f77273f4c914e4bf38440cf36a0369cb64a37489 # v0.1.22
         with:
           gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
