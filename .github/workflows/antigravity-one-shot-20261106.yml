@@ -12,7 +12,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   review:
-    if: github.repository == 'dizigs/archelaos-site' && github.event.head_commit.message == 'test(antigravity): one explicitly authorized benefit-backed review'
+    if: "github.repository == 'dizigs/archelaos-site' && github.event.head_commit.message == 'test(antigravity): one explicitly authorized benefit-backed review'"
     runs-on: ubuntu-latest
     timeout-minutes: 5
     permissions:
