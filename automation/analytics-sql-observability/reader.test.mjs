@@ -232,3 +232,15 @@ test('query mutation negative: provider cannot change the fixed SQL recipe', asy
   assert.match(seen[1], /^SELECT /);
   assert.doesNotMatch(seen[1], /DELETE/);
 });
+
+
+test('retry budget exhaustion reports only actual dispatched retries', async () => {
+  let calls = 0;
+  const reader = createAnalyticsSqlReader({ enabled: true, now: () => TIME,
+    maxRetries: 1, retryDelayMs: 25, maxQueriesPerMinute: 1,
+    binding: { async query() { calls++; throw Object.assign(new Error('transient'), { retryable: true }); } },
+  });
+  assert.deepEqual(await reader.httpStatusSummary(),
+    { status: 'UNKNOWN', reason: 'RATE_LIMITED', retryCount: 0 });
+  assert.equal(calls, 1);
+});
