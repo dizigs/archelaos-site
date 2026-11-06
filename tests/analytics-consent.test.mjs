@@ -106,7 +106,7 @@ test('classic site loads canonical consent through shared entrypoints', () => {
   const shell = readFileSync(new URL('../rebuild/js/shell.js', import.meta.url), 'utf8');
   const privacy = readFileSync(new URL('../rebuild/privacy.html', import.meta.url), 'utf8');
   for (const code of [nav, fav, shell]) {
-    assert.match(code, /assets\\/analytics-consent\\.js/);
+    assert.equal(code.includes('/assets/analytics-consent.js'), true);
     assert.match(code, /data-archelaos-analytics-loader/);
   }
   for (const code of [source, nav, fav, shell, privacy]) assert.doesNotMatch(code, /G-WV7C3N770T/);
