@@ -1,0 +1,125 @@
+name: Antigravity local SDK HMAC one-shot
+on:
+  push:
+    branches:
+      - assistant/antigravity-local-sdk-hmac-20261107
+    paths:
+      - .github/workflows/antigravity-local-hmac-once-20261107.yml
+permissions:
+  contents: read
+concurrency:
+  group: archelaos-local-sdk-once-20261107
+  cancel-in-progress: false
+jobs:
+  local-review:
+    if: "github.repository == 'dizigs/archelaos-site' && github.event.head_commit.message == 'test(antigravity): one local HMAC acceptance review'"
+    runs-on: ubuntu-24.04
+    timeout-minutes: 24
+    steps:
+      - name: Checkout exact isolated branch without credentials
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Node 22 for Miniflare and Brain tests
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+      - name: Local SDK install and independent source refs
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/antigravity-security
+          echo "BASE_SHA $(git rev-parse HEAD)"
+          git fetch --no-tags origin '+refs/pull/273/head:refs/remotes/origin/pr273_head' || echo PR273_FETCH_FAILED
+          git fetch --no-tags origin '+refs/heads/assistant/antigravity-active-rpc-sandbox-20261107:refs/remotes/origin/native_ack_evidence' || echo ACK_EVIDENCE_FETCH_FAILED
+          echo "PR273_HEAD $(git rev-parse --verify refs/remotes/origin/pr273_head 2>/dev/null || echo UNKNOWN)"
+          if git cat-file -e '0b8df424^{commit}' 2>/dev/null; then echo HISTORICAL_COMMIT_ACCESSIBLE; else echo HISTORICAL_COMMIT_NOT_ACCESSIBLE; fi
+          git log --all --format='%h %s' -- 'brain/test/private_hmac_acceptance.test.mjs' | head -6 || true
+          python3 -m venv /tmp/antigravity-local-venv
+          /tmp/antigravity-local-venv/bin/python -m pip -q install --disable-pip-version-check 'google-antigravity==0.1.23'
+          npm ci --prefix brain --no-audit --no-fund >/tmp/antigravity-security/npm-ci.log 2>&1
+          echo LOCAL_SDK_READY
+      - name: One billed local agent invocation with explicit SDK budgets
+        shell: bash
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          set -euo pipefail
+          if test -z "${GEMINI_API_KEY:-}"; then echo GEMINI_API_KEY_NOT_CONFIGURED; exit 2; fi
+          /tmp/antigravity-local-venv/bin/python -u - <<'PY'
+          import asyncio, os, pathlib, json
+          from google.antigravity import Agent, LocalAgentConfig, types
+          from google.antigravity.hooks import policy
+          root=pathlib.Path(os.getcwd())
+          out=pathlib.Path("/tmp/antigravity-security")
+          out.mkdir(exist_ok=True)
+          prompt="""Independent LOCAL Antigravity source-code investigation of Brain <-> Self-Heal for dizigs/archelaos-site; Issue #71 and Draft PR #273. NO MERGE, NO DEPLOY, NO LIVE WORKER, NO REAL REPAIR, NO PRODUCTION SECRET ACCESS, NO NETWORK PROVIDER CALL, NO GITHUB MUTATION. Use local checked-out repository. Inspect actual main, current fetched refs/remotes/origin/pr273_head SHA and diff, and CI evidence; do not assume 1474c8a is current. PR #273 is tests, not a production proxy. Keep its branch untouched.
+          Find actual historical private_hmac_acceptance.test.mjs and local Codex commit prefix 0b8df424 by looking in refs/worktrees/artifacts; if unavailable, state historical 10/11 BLOCKED (do not fabricate cause). Separately review branch refs/remotes/origin/native_ack_evidence and its brain/evidence/durable-ack-rootcause-20261106/results.json, which reports a DIFFERENT durable ACK 11/11 native suite PASS and states strict own-key validation was tripped by non-enumerable Symbol.dispose metadata added to workerd RPC records. Verify source and real tests independently; evidence is dated, not itself new success. Focus on actual native workerd RPC HMAC handshake, wrong-key, freshness, nonce/replay, unauthorized methods, cross-source isolation, strict response normalization, durable ACK persistence and stored signed readback across restart. Preserve 159 or current actual Brain tests.
+          Use ONLY synthetic high-entropy secrets; no secret keys, env dump, production resource access. Do not invent methods triggerHeal/getHealthStatus/verifyAuthHandshake or proxy protection absent in source. NEVER weaken security assertions. If a genuinely reproduced bug is identified, local edits limited to brain/src/selfheal_ack.mjs, brain/test/selfheal_ack.test.mjs, automation/self-heal-worker/src/durable_ack.mjs, automation/self-heal-worker/test/rpc_boundary.test.mjs, brain/test/private_hmac_acceptance.test.mjs. Otherwise NO edits. No workflow/Wrangler/config changes. Run tests, record actual pass/fail counts, changed files, exact SHAs, HMAC/ACK acceptance matrix and remaining UNKNOWN. Answer Greek. READY_FOR_REVIEW only for verified local gates; never imply actual Cloudflare HMAC parity or connectivity. Finish with specific evidence, not generic recommendations."""
+          try:
+              config=LocalAgentConfig(
+                workspaces=[str(root)],
+                policies=[policy.allow_all()],
+                budget_config=types.BudgetConfig(max_model_calls=10,max_tool_calls=48,max_total_tokens=90000),
+                system_instructions="You are a security engineer in a credential-limited ephemeral GitHub runner. Only local source edits and synthetic tests. Never print environment variables, secrets or credentials. No git push, gh, deploy, wrangler remote operations or third-party requests."
+              )
+              async def work():
+                  async with Agent(config) as agent:
+                      answer=await agent.chat(prompt)
+                      return await answer.text()
+              reply=asyncio.run(asyncio.wait_for(work(),timeout=730))
+              out.joinpath("agent-response.md").write_text(reply[:40000],encoding="utf8")
+              out.joinpath("agent-status.json").write_text(json.dumps({"status":"RETURNED","response_length":len(reply),"sdk":"google-antigravity 0.1.23","runner_local":True}),encoding="utf8")
+              print("LOCAL_ANTIGRAVITY_STATUS RETURNED",len(reply))
+          except BaseException as exc:
+              kind=type(exc).__name__
+              out.joinpath("agent-status.json").write_text(json.dumps({"status":"FAILED","exception_type":kind}),encoding="utf8")
+              print("LOCAL_ANTIGRAVITY_STATUS FAILED",kind)
+              raise
+          PY
+      - name: Real native ACK and entire Brain tests even on failure
+        if: ${{ always() }}
+        shell: bash
+        run: |
+          set +e
+          mkdir -p /tmp/antigravity-security
+          git status --short > /tmp/antigravity-security/changed-files.txt
+          git diff --binary > /tmp/antigravity-security/local.patch
+          echo 'CHANGED_FILES:'
+          cat /tmp/antigravity-security/changed-files.txt
+          node --test --test-concurrency=1 --test-reporter=tap brain/test/selfheal_ack.test.mjs > /tmp/antigravity-security/ack-native.tap 2>&1
+          echo "ACK_TEST_EXIT $?"
+          npm test --prefix brain > /tmp/antigravity-security/brain-full.tap 2>&1
+          echo "BRAIN_TEST_EXIT $?"
+          if test -f brain/test/private_hmac_acceptance.test.mjs; then
+           node --test --test-reporter=tap brain/test/private_hmac_acceptance.test.mjs > /tmp/antigravity-security/historical-hmac.tap 2>&1
+           echo "HISTORICAL_TEST_EXIT $?"
+          else
+           echo HISTORICAL_TEST_BLOCKED_NOT_FOUND
+          fi
+          for f in /tmp/antigravity-security/*.tap; do echo "TAP $(basename "$f")"; grep -E '^# (tests|pass|fail|skipped) ' "$f" | tail -5; done
+          echo "PATCH_BYTES $(wc -c </tmp/antigravity-security/local.patch)"
+          echo "NO_GIT_PUSH_NO_PR_NO_DEPLOYMENT"
+      - name: Upload isolated report and patch for review
+        if: ${{ always() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: antigravity-local-security-evidence
+          path: /tmp/antigravity-security/
+          if-no-files-found: warn
+          retention-days: 7
+      - name: Truthful CI summary
+        if: ${{ always() }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo '## LOCAL Antigravity HMAC security review (one-shot)'
+          echo "Repository SHA: $(git rev-parse HEAD)"
+          echo 'Agent status:'
+          cat /tmp/antigravity-security/agent-status.json 2>/dev/null || echo NOT_STARTED
+          echo 'Native ACK test results:'
+          grep -E '^# (tests|pass|fail) ' /tmp/antigravity-security/ack-native.tap 2>/dev/null || true
+          echo 'Full Brain results:'
+          grep -E '^# (tests|pass|fail) ' /tmp/antigravity-security/brain-full.tap 2>/dev/null || true
+          echo 'Cloudflare deployed HMAC parity and live connection: UNKNOWN. No GitHub write, PR, merge or deployment.' 
