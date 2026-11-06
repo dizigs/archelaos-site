@@ -14,9 +14,18 @@ const dedupeKey = e => createHash('sha256').update('blob|' + e.sourceType + '|' 
   e.payload.blobSha256).digest('hex');
 const verified = e => ({ verified:true, worker:'archelaos-librarian-staging', sourceType:e.sourceType,
   sourceId:e.sourceId, sourceRevision:e.sourceRevision, blobSha256:e.payload.blobSha256 });
-function setup(fetch, overrides={}) { const logs=[]; const a=createBrainWorkerAdapter({workerName:'archelaos-librarian-staging',
-  sourceType:'drive', brainService:{fetch}, intakeKey:KEY, receiptVerificationKey:RECEIPT_KEY, enabled:true, clock:Date.now,
-  verifyProvenance:async e=>verified(e), auditSink: async r=>(logs.push(r),true), ...overrides}); return {a,logs}; }
+function setup(fetch, overrides={}) {
+  const logs=[], expectedBrainCommit='a'.repeat(40);
+  // Synthetic private binding: health checks never touch an actual Worker.
+  const brainService={fetch:req=>new URL(req.url).pathname==='/healthz' ?
+    Response.json({service:'archelaos-brain',environment:'staging',commit:expectedBrainCommit,
+      aiExecutionEnabled:false}):fetch(req)};
+  const a=createBrainWorkerAdapter({workerName:'archelaos-librarian-staging',
+    sourceType:'drive',brainService,intakeKey:KEY,receiptVerificationKey:RECEIPT_KEY,
+    expectedBrainCommit,enabled:true,clock:Date.now,verifyProvenance:async e=>verified(e),
+    auditSink:async r=>(logs.push(r),true),...overrides});
+  return {a,logs};
+}
 const signed = (payload, audience='source.receipt.ack.v1', principal='drive-v1', issuedAtMs=Date.now()) => {
   const {receiptSignature: _previousSignature, ...cleanPayload}=payload;
   const envelope={...cleanPayload,schemaVersion:1,audience,principal,keyId:'brain-capability-receipts-v1',issuedAtMs};
@@ -84,9 +93,9 @@ test('receipt readback must match UUID and can verify status',async()=>{
   });assert.equal((await a.readReceipt(id,correlationId)).status,'DONE');await reject(a.readReceipt('oops',correlationId),'INVALID_RECEIPT_ID');
 });
 test('health verifies exact service identity but never certifies readiness',async()=>{
-  const {a}=setup(async()=>Response.json({service:'archelaos-brain',environment:'staging',commit:'a'.repeat(40),aiExecutionEnabled:false}));
+  const {a}=setup(async()=>Response.json({service:'archelaos-brain',environment:'staging',commit:'a'.repeat(40),aiExecutionEnabled:false}),{brainService:{fetch:async()=>Response.json({service:'archelaos-brain',environment:'staging',commit:'a'.repeat(40),aiExecutionEnabled:false})}});
   assert.deepEqual(await a.probeHealth(),{reachable:true,code:'STAGING_HEALTH_ONLY',ready:false,commit:'a'.repeat(40)});
-  const {a:b}=setup(async()=>Response.json({service:'fake',environment:'staging',commit:'a'.repeat(40),aiExecutionEnabled:false}));
+  const {a:b}=setup(async()=>Response.json({service:'fake',environment:'staging',commit:'a'.repeat(40),aiExecutionEnabled:false}),{brainService:{fetch:async()=>Response.json({service:'fake',environment:'staging',commit:'a'.repeat(40),aiExecutionEnabled:false})}});
   assert.equal((await b.probeHealth()).reachable,false);
 });
 test('oversized or invalid source envelope rejected before signing',async()=>{
@@ -130,9 +139,9 @@ test('readback fails closed on mismatched correlation, forged state and negative
 test('staging health can pin the known commit and rejects a mismatched release',async()=>{
   const commit='a'.repeat(40);
   const health=async()=>Response.json({service:'archelaos-brain',environment:'staging',commit,aiExecutionEnabled:false});
-  const {a}=setup(health,{expectedBrainCommit:commit});
+  const {a}=setup(health,{expectedBrainCommit:commit,brainService:{fetch:health}});
   assert.equal((await a.probeHealth()).reachable,true);
-  const {a:other}=setup(health,{expectedBrainCommit:'b'.repeat(40)});
+  const {a:other}=setup(health,{expectedBrainCommit:'b'.repeat(40),brainService:{fetch:health}});
   assert.equal((await other.probeHealth()).code,'HEALTH_IDENTITY_MISMATCH');
 });
 
@@ -302,8 +311,9 @@ test('readback lost after durable ACK does not treat missing evidence as success
 });
 test('stale Brain private health is not connectivity or staging readiness',async()=>{
   const oldSha='a'.repeat(40),approvedSha='b'.repeat(40);
-  const {a}=setup(async()=>Response.json({service:'archelaos-brain',environment:'staging',
-    commit:oldSha,aiExecutionEnabled:false}),{expectedBrainCommit:approvedSha});
+  const stale=async()=>Response.json({service:'archelaos-brain',environment:'staging',
+    commit:oldSha,aiExecutionEnabled:false});
+  const {a}=setup(stale,{expectedBrainCommit:approvedSha,brainService:{fetch:stale}});
   assert.deepEqual(await a.probeHealth(),{reachable:false,code:'HEALTH_IDENTITY_MISMATCH',ready:false});
 });
 test('source-specific key IDs cannot become operator authority',async()=>{
@@ -316,4 +326,37 @@ test('source-specific key IDs cannot become operator authority',async()=>{
   },body});
   // main rejects the identity outright; #234 must additionally forbid scoped operator paths.
   await assert.rejects(authenticate(request,{STAGING_INTAKE_KEY:KEY},body),x=>x?.code==='UNAUTHORIZED');
+});
+
+test('delivery refuses unpinned Brain SHA before private network operation',async()=>{
+  const e=event(),seen=[];
+  const {a}=setup(async req=>{seen.push(new URL(req.url).pathname);return reply(e);},
+    {expectedBrainCommit:null});
+  await reject(a.submitEvent(e),'BRAIN_RELEASE_UNPINNED');
+  assert.deepEqual(seen,[]);
+});
+test('delivery and readback reject a stale deployed SHA before event transmission',async()=>{
+  const e=event(),seen=[];
+  const staleService={fetch:async req=>{
+    const path=new URL(req.url).pathname;seen.push(path);
+    if(path==='/healthz') return Response.json({
+      service:'archelaos-brain',environment:'staging',
+      commit:'a'.repeat(40),aiExecutionEnabled:false});
+    throw Error('event must never reach a stale Brain');
+  }};
+  const {a}=setup(async()=>{throw Error('blocked');},
+    {brainService:staleService,expectedBrainCommit:'b'.repeat(40)});
+  await reject(a.submitEvent(e),'BRAIN_RELEASE_UNVERIFIED');
+  await reject(a.readReceipt(randomUUID(),e.correlationId),'BRAIN_RELEASE_UNVERIFIED');
+  assert.deepEqual(seen,['/healthz','/healthz']);
+});
+test('missing signed readback is durably audited as UNKNOWN with immutable receipt identity',async()=>{
+  const id=randomUUID(),correlationId=randomUUID(),logs=[];
+  const {a}=setup(async()=>new Response('',{status:404}),{
+    auditSink:async r=>(logs.push(r),true)
+  });
+  await reject(a.readReceipt(id,correlationId),'READBACK_REJECTED');
+  assert.deepEqual(logs.map(r=>({kind:r.kind,receiptId:r.receiptId,correlationId:r.correlationId,
+    result:r.result,code:r.code})),[{kind:'readback',receiptId:id,correlationId,
+    result:'UNKNOWN',code:'READBACK_REJECTED'}]);
 });
