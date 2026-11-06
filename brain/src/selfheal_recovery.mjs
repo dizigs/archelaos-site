@@ -2,7 +2,7 @@
 // Only the named private BrainRecoveryPort may call the verification path.
 // This module never executes a repair, merges code, deploys, or invokes AI.
 import { Rejected, digest } from './contract.mjs';
-import { parseFinding } from '../../automation/self-heal-worker/src/policy.mjs';
+
 
 const REPO = 'dizigs/archelaos-site';
 const RULESET = 26357426;
@@ -28,14 +28,29 @@ function exact(record, fields) {
 }
 
 export function validateCiFinding(input, now = Date.now()) {
-  let f;
-  try { f = parseFinding(input, now); }
-  catch { reject('SELFHEAL_FINDING_REJECTED', 422); }
-  if (f.code !== 'CI_FAILURE' || f.source !== 'github_actions' ||
-      f.resource !== '/ci' || !/^actions:[1-9][0-9]{0,19}$/.test(f.evidenceId)) {
-    reject('SELFHEAL_EVIDENCE_SCOPE_UNSUPPORTED', 403);
+  // Independently enforce the Self-Heal CI subset inside brain/**.
+  // This self-contained validation is required for workerd's module sandbox:
+  // importing ../../automation outside the Brain root prevents runtime startup.
+  const fields = ['schemaVersion','source','repository','code','resource','commit','observedAt','evidenceId'];
+  if (!exact(input, fields) || input.schemaVersion !== 1 ||
+      input.repository !== REPO || input.source !== 'github_actions' ||
+      input.code !== 'CI_FAILURE' || input.resource !== '/ci' ||
+      !SHA.test(input.commit || '') ||
+      !/^actions:[1-9][0-9]{0,19}$/.test(input.evidenceId || '') ||
+      typeof input.observedAt !== 'string' ||
+      !/^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d(?:\.\d{1,3})?Z$/.test(input.observedAt)) {
+    reject('SELFHEAL_FINDING_REJECTED', 422);
   }
-  return f;
+  const observed = Date.parse(input.observedAt);
+  if (!Number.isSafeInteger(now) || !Number.isFinite(observed) ||
+      observed > now + 5 * MINUTE || observed < now - 7 * 86400_000 ||
+      JSON.stringify(input).length > 1200) {
+    reject('SELFHEAL_FINDING_STALE_OR_UNBOUNDED', 422);
+  }
+  return Object.freeze({
+    schemaVersion:1, source:'github_actions',repository:REPO,code:'CI_FAILURE',
+    resource:'/ci',commit:input.commit,evidenceId:input.evidenceId,observedAt:input.observedAt
+  });
 }
 
 async function githubGet(path, token, fetchImpl) {
