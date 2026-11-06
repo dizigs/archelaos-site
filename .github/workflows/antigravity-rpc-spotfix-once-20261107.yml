@@ -1,0 +1,70 @@
+name: Paid Antigravity one-shot private RPC test diagnosis
+on:
+  push:
+    branches:
+      - assistant/antigravity-paid-rpc-spotfix-20261107
+    paths:
+      - '.github/workflows/antigravity-rpc-spotfix-once-20261107.yml'
+permissions:
+  contents: read
+concurrency:
+  group: antigravity-paid-private-rpc-once-20261107
+  cancel-in-progress: false
+jobs:
+  review-only:
+    if: "github.repository == 'dizigs/archelaos-site' && github.event.head_commit.message == 'test(antigravity): one authorized paid RPC diagnosis'"
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout without persisted Git credentials
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: ONE API attempt with bounded GET polling and provider cancel
+        shell: bash
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          BASE_SHA: edb817f5077caec5a1495be11f0f90ba66d91e02
+        run: |
+          set -euo pipefail
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          const key=process.env.GEMINI_API_KEY;
+          if(!key||key.length<16){console.log('NO_API_KEY');process.exit(2)}
+          const path='.github/workflows/antigravity-rpc-spotfix-once-20261107.yml';
+          const evidence="Issue: independent private HMAC acceptance for Brain <-> Healer. Public exact main is edb817f5077caec5a1495be11f0f90ba66d91e02, but the local Codex checkpoint \"0b8df424d82fa53206846db448a862ee37634076\" is unpublished and unavailable in GitHub. NEVER claim to see that checkpoint.\nOnly failed gate: brain/test/private_hmac_acceptance.test.mjs:116 in local Miniflare, matched SYNTHETIC HMAC RPC case: assert.ok((await f.call({op:'probe'})).every(Boolean)) ; actual false. Probe checks property names [\"env\",\"ctx\",\"nonceStore\",\"coordinator\",\"memory\",\"constructor\",\"__proto__\"] on BOTH private RPC port objects. Which fails UNKNOWN. 11 native tests: 10 passed, 1 failed. Previous assertions in that case passed matching-key synthetic handshake, verified request/response nonces, 1 RPC attempt, 0 recovery actions. Other cases for wrong-key, replay, forged, hostile getter, timeout, missing binding, invalid permit PASS.\nSecurity boundary: no internal RPC capability leaks; strict fail closed. Local JS constructor or __proto__ may be inherited by default; do NOT simply delete names or weaken assertions. Need test EXACTLY own descriptors plus inherited callable/prototype capability traversability, differentiate harmless stub semantics versus actual exported object. Must preserve explicit negative test with injected/leaked own forbidden property and any reachable forbidden capability.\nDesign scope: brain/src/private_hmac_protocol.mjs and brain/src/private_hmac_candidate.mjs exist ONLY in unpublished LOCAL checkpoint, not remote GitHub. No Cloudflare E2E has happened. No secrets, deployment, IDE file writes or production actions.";
+          const prompt="You are Google Antigravity as a focused defensive JavaScript/Cloudflare Workers runtime debugger. THIS IS A SMALL TASK; do not explore the internet or repository. Read only /workspace/failing-gate.txt and use a tiny local JavaScript simulation if needed. Diagnose WHY the original .every(Boolean) can be false for constructor / __proto__, without assuming. Offer a narrow safe patch for a PRIVATE native Miniflare RPC boundary test. Required output FIRST: exact likely mechanism and 1-2 minute local diagnostic with NO capability values logged (only property name, own/inherited, type, descriptor flags). SECOND: exact paste-ready replacement for the assert plus negative-control test showing a fake leaked own env/ctx/nonceStore/coordinator/memory is rejected. Guard even inherited dangerous capability and ensure RPC no unauthorized data transfer. THIRD: when the fix is unsafe/unknown, explicit STOP condition and one local test command. Do not fabricate real file lines beyond known assertion, do not pretend to patch unpublished checkpoint, do not weaken security or touch Cloudflare secrets. Max 500 words, complete answer early.";
+          const headers={'Content-Type':'application/json','x-goog-api-key':key,'Api-Revision':'2026-05-20'};
+          const base='https://generativelanguage.googleapis.com/v1beta/interactions';
+          const payload={agent:'antigravity-preview-09-2026',input:prompt,background:true,store:true,agent_config:{type:'antigravity',max_total_tokens:30000},environment:{type:'remote',sources:[{type:'inline',target:'/workspace/failing-gate.txt',content:evidence}]},tools:[]};
+          const pause=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+          const readText=j=>{const blocks=[];for(const s of (j.steps||[]))for(const p of (s.content||[])){if(p.type==='text'&&typeof p.text==='string'&&s.type==='model_output')blocks.push(p.text)}return blocks.join('\n')};
+          let interactionId=null;
+          try{
+           console.log('MODE ONE_POST_BACKGROUND_READ_ONLY_NO_RETRY');
+           console.log('SOURCE_MAIN_SHA',process.env.BASE_SHA);
+           console.log('MAX_TOTAL_TOKENS_BEST_EFFORT',payload.agent_config.max_total_tokens);
+           const response=await fetch(base,{method:'POST',redirect:'error',signal:AbortSignal.timeout(12000),headers,body:JSON.stringify(payload)});
+           console.log('CREATE_HTTP',response.status);
+           const j=await response.json().catch(()=>({}));
+           if(!response.ok){console.log('CREATE_PROVIDER_STATUS',j.error?.status||'UNKNOWN');process.exit(3)}
+           interactionId=j.id;
+           if(!/^v1_[A-Za-z0-9_-]{20,512}$/.test(interactionId||'')){console.log('NO_VALID_INTERACTION_ID_STOP');process.exit(4)}
+           console.log('INTERACTION_ID',interactionId);
+           let latest=j;
+           const terminal=new Set(['completed','incomplete','failed','cancelled','requires_action']);
+           const deadline=Date.now()+105000;
+           while(!terminal.has(latest.status)&&Date.now()<deadline){await pause(5000);const r=await fetch(base+'/'+encodeURIComponent(interactionId),{method:'GET',redirect:'error',signal:AbortSignal.timeout(9000),headers});console.log('POLL_HTTP',r.status);if(!r.ok)break;const q=await r.json().catch(()=>({}));if(q.id!==interactionId){console.log('POLL_MISMATCH');break}latest=q;console.log('POLL_STATUS',latest.status,'TOTAL_TOKENS',latest.usage?.total_tokens||'UNKNOWN');}
+           if(!terminal.has(latest.status)){
+            console.log('TIME_CAP_REACHED_ATTEMPT_CANCEL');
+            try{const r=await fetch(base+'/'+encodeURIComponent(interactionId)+'/cancel',{method:'POST',redirect:'error',signal:AbortSignal.timeout(9000),headers});console.log('CANCEL_HTTP',r.status);}catch(e){console.log('CANCEL_TRANSPORT_UNKNOWN',e.name)}
+            try{const r=await fetch(base+'/'+encodeURIComponent(interactionId),{method:'GET',redirect:'error',signal:AbortSignal.timeout(9000),headers});if(r.ok)latest=await r.json()}catch{}
+           }
+           console.log('FINAL_STATUS',latest.status||'UNKNOWN');
+           console.log('FINAL_USAGE',JSON.stringify(latest.usage||{}));
+           const result=readText(latest);
+           console.log('REPORT_BEGIN');console.log(result.slice(0,20000)||'(no model_output text)');console.log('REPORT_END');
+          }catch(e){console.log('UNKNOWN_CREATE_OR_POLL_TRANSPORT',e.name);console.log('DO_NOT_RETRY_CREATE');process.exit(5)}
+          NODE
