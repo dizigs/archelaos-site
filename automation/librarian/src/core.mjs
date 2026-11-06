@@ -136,7 +136,9 @@ export async function createNotebookSource(env,source,fetchImpl=fetch){
   const r=await fetchImpl(NOTEBOOK_API+'/'+notebook+'/sources',{method:'POST',headers,body,redirect:'manual'});
   if(!r.ok || r.status>=300&&r.status<400)throw Error('NOTEBOOK_CREATE_HTTP_'+r.status);
   const d=await r.json();
-  if(typeof d.name!=='string'||!new RegExp('^'+notebook.replace(/[.*+?^${}()|[\]\\]/g,'\\  if(typeof d.name!=='string'||!d.name.startsWith(notebook+'/sources/'))throw Error('NOTEBOOK_INVALID_RESPONSE');')+'/sources/[A-Za-z0-9-]{8,128}
+  if(typeof d.name!=='string' || !d.name.startsWith(notebook+'/sources/') ||
+      !/^[A-Za-z0-9-]{8,128}$/.test(d.name.slice((notebook+'/sources/').length)))
+    throw Error('NOTEBOOK_INVALID_RESPONSE');
   const check=await fetchImpl(NOTEBOOK_API+'/'+d.name,{method:'GET',headers,redirect:'manual'});
   if(!check.ok || check.status>=300&&check.status<400)throw Error('NOTEBOOK_READBACK_HTTP_'+check.status);
   const state=await check.json();
