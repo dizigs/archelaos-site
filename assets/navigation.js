@@ -105,4 +105,12 @@
  }
  window.addEventListener('pageshow',sync);window.addEventListener('resize',()=>{if(innerWidth>1170&&drawerOpen)setOpen(false)});
  sync();
+
+ // One consent-gated analytics component for every classic page; no tracker loads here.
+ if(!document.querySelector('script[data-archelaos-analytics-loader]')){
+  const analytics=document.createElement('script');
+  analytics.src='/assets/analytics-consent.js?v=20261106-ga4';
+  analytics.dataset.archelaosAnalyticsLoader='true';
+  document.head.append(analytics);
+ }
 })();
