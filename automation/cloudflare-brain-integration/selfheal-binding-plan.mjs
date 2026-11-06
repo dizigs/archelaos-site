@@ -72,8 +72,15 @@ export function assessSelfHealStagingBindings(input) {
   if (!hasSecret(brain, 'HEALER_EVENT_HMAC_KEY') ||
       !hasSecret(healer, 'HEALER_EVENT_HMAC_KEY'))
     deny('SIGNED_DELIVERY_KEY_METADATA_MISSING');
-  if (!hasSecret(brain, 'BRAIN_GITHUB_READ_TOKEN'))
+  // The GitHub App replaces the legacy long-lived PAT. Identity is bound to
+  // the single repo's approved App/Installation; the PEM must be a true secret.
+  if (!hasSecret(brain, 'BRAIN_GITHUB_APP_PRIVATE_KEY'))
     deny('PROVIDER_EVIDENCE_KEY_METADATA_MISSING');
+  if (plain(brain, 'BRAIN_GITHUB_APP_ID') !== '5641216' ||
+      plain(brain, 'BRAIN_GITHUB_APP_INSTALLATION_ID') !== '179225349')
+    deny('GITHUB_APP_IDENTITY_METADATA_UNVERIFIED');
+  if (brain.some(b => b?.name === 'BRAIN_GITHUB_READ_TOKEN'))
+    deny('LEGACY_GITHUB_PAT_STILL_BOUND');
   if (plain(brain, 'BRAIN_SELFHEAL_RECOVERY_ENABLED') !== 'true' ||
       plain(brain, 'BRAIN_SELFHEAL_BINDING_ATTESTED') !== 'true')
     deny('BRAIN_RECOVERY_GATES_DISABLED');
