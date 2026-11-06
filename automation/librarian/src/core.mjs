@@ -160,13 +160,21 @@ export async function verifyCaller(env, approval, scope, subject, now=Date.now()
     throw Error('CALLER_AUTH_FAILED');
   return true;
 }
+export async function consumeCallerNonce(ledger,authorization,scope){
+  if(typeof ledger!=='function' || !authorization || !['drive','news','review'].includes(scope))
+    throw Error('CALLER_NONCE_INVALID');
+  const key=await sha256('librarian-auth-v1|'+scope+'|'+authorization.requestId);
+  const receipt=await ledger('/reserve',{key,kind:'auth-replay'});
+  if(receipt?.created!==true)throw Error('CALLER_REPLAY_DETECTED');
+  return true;
+}
 export async function getOAuthAccessToken(env,kind,fetchImpl=fetch){
   const p=kind==='drive'?'DRIVE':'NOTEBOOK';
   const id=env[p+'_CLIENT_ID'],secret=env[p+'_CLIENT_SECRET'],refresh=env[p+'_REFRESH_TOKEN'];
   if (![id,secret,refresh].every(x=>typeof x==='string'&&x.length>8)) throw Error(p+'_OAUTH_NOT_CONFIGURED');
   const body=new URLSearchParams({client_id:id,client_secret:secret,refresh_token:refresh,grant_type:'refresh_token'});
   const r=await fetchImpl('https://oauth2.googleapis.com/token',{method:'POST',
-    headers:{'Content-Type':'application/x-www-form-urlencoded'},body,redirect:'manual'});
+    headers:{'Content-Type':'application/x-www-form-urlencoded'},body,redirect:'manual',signal:AbortSignal.timeout(12000)});
   if(!r.ok || r.status>=300&&r.status<400) throw Error(p+'_OAUTH_REFRESH_FAILED_'+r.status);
   const d=await r.json();
   if(typeof d.access_token!=='string'||!d.access_token)throw Error(p+'_OAUTH_TOKEN_MISSING');
@@ -180,13 +188,13 @@ export async function createNotebookSource(env,source,fetchImpl=fetch){
   if(enc.encode(body).length>1000000) throw Error('SOURCE_TOO_LARGE');
   const token=await getOAuthAccessToken(env,'notebook',fetchImpl);
   const headers={Authorization:'Bearer '+token,'x-goog-user-project':project,'Content-Type':'application/json'};
-  const r=await fetchImpl(NOTEBOOK_API+'/'+notebook+'/sources',{method:'POST',headers,body,redirect:'manual'});
+  const r=await fetchImpl(NOTEBOOK_API+'/'+notebook+'/sources',{method:'POST',headers,body,redirect:'manual',signal:AbortSignal.timeout(15000)});
   if(!r.ok || r.status>=300&&r.status<400)throw Error('NOTEBOOK_CREATE_HTTP_'+r.status);
   const d=await r.json();
   if(typeof d.name!=='string' || !d.name.startsWith(notebook+'/sources/') ||
       !/^[A-Za-z0-9-]{8,128}$/.test(d.name.slice((notebook+'/sources/').length)))
     throw Error('NOTEBOOK_INVALID_RESPONSE');
-  const check=await fetchImpl(NOTEBOOK_API+'/'+d.name,{method:'GET',headers,redirect:'manual'});
+  const check=await fetchImpl(NOTEBOOK_API+'/'+d.name,{method:'GET',headers,redirect:'manual',signal:AbortSignal.timeout(12000)});
   if(!check.ok || check.status>=300&&check.status<400)throw Error('NOTEBOOK_READBACK_HTTP_'+check.status);
   const state=await check.json();
   return {sourceName:d.name,state:state.state||'PROCESSING',verified:state.state==='ACTIVE'};
