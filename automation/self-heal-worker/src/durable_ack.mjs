@@ -42,7 +42,18 @@ function claimNonce(sql, scope, nonce, at, now) {
   sql.exec('INSERT INTO recovery_event_nonces(id,expires) VALUES(?,?)',id,Math.max(at,now)+300001);
 }
 
+// Readback challenges use their own replay table and five-minute quota.
+// Never allow readback traffic to consume the legacy recovery-event capacity.
+function claimReadbackNonce(sql, scope, nonce, at, now) {
+  sql.exec('DELETE FROM recovery_readback_nonces WHERE expires<=?',now);
+  const id = scope+':'+nonce;
+  if (rows(sql,'SELECT id FROM recovery_readback_nonces WHERE id=?',id).length ||
+      rows(sql,'SELECT COUNT(*) AS n FROM recovery_readback_nonces')[0].n >= 5000) deny();
+  sql.exec('INSERT INTO recovery_readback_nonces(id,expires) VALUES(?,?)',id,Math.max(at,now)+300001);
+}
+
 export function initializeDurableAck(storage) {
+  storage.sql.exec('CREATE TABLE IF NOT EXISTS recovery_readback_nonces(id TEXT PRIMARY KEY,expires INTEGER NOT NULL)');
   storage.sql.exec('CREATE TABLE IF NOT EXISTS recovery_command_receipts(command_id TEXT PRIMARY KEY,command_digest TEXT NOT NULL,delivery_nonce TEXT NOT NULL UNIQUE,issued_at INTEGER NOT NULL,command_json TEXT NOT NULL,ack_json TEXT NOT NULL)');
 }
 
@@ -93,7 +104,7 @@ export async function readDurableCommand(storage, env, request, now = Date.now()
     const sql=storage.sql;
     const record=rows(sql,'SELECT * FROM recovery_command_receipts WHERE command_id=?',request.commandId)[0];
     if (record && (record.command_digest !== request.commandDigest || record.delivery_nonce !== request.deliveryNonce)) deny();
-    claimNonce(sql,'canonical-brain:selfheal.ack.read.v1',request.nonce,request.issuedAtMs,now);
+    claimReadbackNonce(sql,'canonical-brain:selfheal.ack.read.v1',request.nonce,request.issuedAtMs,now);
     return record;
   });
   const ack=saved ? JSON.parse(saved.ack_json) : null;

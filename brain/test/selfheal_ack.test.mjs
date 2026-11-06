@@ -61,7 +61,7 @@ const brainFixture=String.raw`
  async __ackLegacy(){this.sql.exec('DROP TABLE selfheal_signed_outbox');this.sql.exec("CREATE TABLE selfheal_signed_outbox(receipt_id TEXT PRIMARY KEY,nonce TEXT NOT NULL UNIQUE,claimed_at INTEGER NOT NULL,status TEXT CHECK(status='UNKNOWN'))");this.sql.exec("INSERT INTO selfheal_signed_outbox VALUES('legacy-id','legacy-nonce',123,'UNKNOWN')");return true}
 `;
 const healerFixture=String.raw`
- async __ackState(){return {receipts:[...this.recoveryLedger.sql.exec('SELECT * FROM recovery_command_receipts ORDER BY command_id')],nonces:[...this.recoveryLedger.sql.exec('SELECT * FROM recovery_event_nonces ORDER BY id')],recoveries:[...this.recoveryLedger.sql.exec('SELECT * FROM recoveries')],alarm:await this.ctx.storage.getAlarm()}}
+ async __ackState(){return {receipts:[...this.recoveryLedger.sql.exec('SELECT * FROM recovery_command_receipts ORDER BY command_id')],nonces:[...this.recoveryLedger.sql.exec('SELECT * FROM recovery_event_nonces ORDER BY id')],readbackNonces:[...this.recoveryLedger.sql.exec('SELECT * FROM recovery_readback_nonces ORDER BY id')],recoveries:[...this.recoveryLedger.sql.exec('SELECT * FROM recoveries')],alarm:await this.ctx.storage.getAlarm()}}
  async __ackTamper(id){const row=[...this.recoveryLedger.sql.exec('SELECT ack_json FROM recovery_command_receipts WHERE command_id=?',id)][0];const ack=JSON.parse(row.ack_json);ack.status='RECOVERY_EXECUTED';this.recoveryLedger.sql.exec('UPDATE recovery_command_receipts SET ack_json=? WHERE command_id=?',JSON.stringify(ack),id);return true}
 `;
 const inspector=String.raw`export default {async fetch(req,env){const input=await req.json();
@@ -126,7 +126,12 @@ test('native durable ACK requires independent stored readback, settles once, sur
   assert.ok((await f.inspect({op:'probe'})).every(Boolean));
   const envelope=command(state.brain.outbox[0]);const original=JSON.parse(state.healer.receipts[0].ack_json);
   const duplicates=await Promise.all([f.inspect({op:'command',envelope}),f.inspect({op:'command',envelope})]);assert.deepEqual(duplicates,[original,original]);
+  const eventNonceCount=state.healer.nonces.length;
+  const readbackNonceCount=state.healer.readbackNonces.length;
   const request=readRequest(state.brain.outbox[0]);assert.equal((await f.inspect({op:'read',envelope:request})).status,'FOUND');assert.equal((await f.inspect({op:'read',envelope:request})).denied,true);
+  const afterRead=await f.inspect({op:'state'});
+  assert.equal(afterRead.healer.nonces.length,eventNonceCount,'readback must not exhaust recovery-event capacity');
+  assert.equal(afterRead.healer.readbackNonces.length,readbackNonceCount+1,'readback replay nonce must be isolated');
   await f.restart();assert.equal((await f.dispatch(id,true)).body.status,'ACKNOWLEDGED');state=await f.inspect({op:'state'});assert.equal(state.brain.audit.length,1);assert.equal(state.healer.receipts.length,1);assert.equal((await f.dispatch(id)).body.code,'SIGNED_DISPATCH_ALREADY_CLAIMED');
  }finally{await f.close()}
 });
