@@ -278,7 +278,7 @@ test("News/HOF/person/history links and comments/corrections are unverified unti
 test("audit events and rights evidence are append-only, never silently changed",()=>{
   const db=photo_v1_schema_offline();
   try {
-    createPhoto(db);evidence(db,PA,"copyright","pending");
+    createPhoto(db);addVersion(db);evidence(db,PA,"copyright","pending");
     assert.throws(()=>db.prepare("DELETE FROM photo_evidence").run(),/PHOTO_EVIDENCE_DELETE_DENIED/);
     db.prepare("INSERT INTO photo_audit(audit_id,photo_id,event_kind,event_digest,occurred_at) VALUES (?,?,?,?,?)").run("audit1",PA,"review_created",H1,T);
     assert.throws(()=>db.prepare("UPDATE photo_audit SET event_kind='tamper'").run(),/PHOTO_AUDIT_APPEND_ONLY/);
