@@ -8,7 +8,7 @@ import { validateCiFinding } from './selfheal_recovery.mjs';
 const REPO = 'dizigs/archelaos-site';
 const SHA = /^[a-f0-9]{40}$/;
 const HEX64 = /^[a-f0-9]{64}$/;
-const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{12}$/;
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/;
 const SCOPE = 'selfheal.recover';
 const ISSUER = 'canonical-brain';
 
