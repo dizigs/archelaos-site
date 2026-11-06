@@ -91,14 +91,15 @@ test('valid signed github request still cannot send without original Healer bind
   assert.equal((await response.json()).code,'SELFHEAL_SIGNED_DISPATCH_DISABLED');
 });
 test('expired private source/binding flags fail closed despite a valid caller HMAC',async()=>{
-  for (const patch of [
-    {BRAIN_PRIVATE_EVENT_SOURCES_ENABLED:'false'},
-    {BRAIN_PRIVATE_SERVICE_BINDINGS_VERIFIED:'false'},
-    {BRAIN_CAPABILITY_RECEIPT_KEY:''}
+  for (const [patch, status, code] of [
+    [{BRAIN_PRIVATE_EVENT_SOURCES_ENABLED:'false'},423,'PRIVATE_EVENT_SOURCE_DISABLED'],
+    [{BRAIN_PRIVATE_SERVICE_BINDINGS_VERIFIED:'false'},423,'PRIVATE_EVENT_SOURCE_DISABLED'],
+    [{BRAIN_CAPABILITY_RECEIPT_KEY:''},503,'CAPABILITY_RECEIPT_SIGNING_UNCONFIGURED']
   ]){
     await mf.setOptions(options({...patch,BRAIN_SELFHEAL_DISPATCH_ENABLED:'true'}));
     const response=await send(randomUUID());
-    assert.equal(response.status,423);
+    assert.equal(response.status,status);
+    assert.equal((await response.json()).code,code);
   }
 });
 
