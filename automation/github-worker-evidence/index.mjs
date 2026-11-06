@@ -43,7 +43,7 @@ export class GitHubReader {
     required(path === '/graphql' || (path.startsWith(prefix) &&
       parsed.origin === 'https://api.github.com' &&
       parsed.pathname.startsWith(prefix) &&
-      !/\\.\\.(?:\\/|$)/.test(decodeURIComponent(path.split('?')[0]))),
+      !decodeURIComponent(path.split('?')[0]).split('/').some(segment => segment === '..')),
       'out-of-scope API path');
     required(method === 'GET' || path === '/graphql', 'writes forbidden');
     const response = await this.fetcher('https://api.github.com' + path, {
