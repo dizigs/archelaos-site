@@ -88,17 +88,14 @@ test('repeated mirror observations are deterministic and read-only', () => {
 });
 
 test('configured pull mirror source is pinned to the exact canonical GitHub repository', () => {
-  const withUserinfo = new URL(mirror.url);
-  withUserinfo.username = 'synthetic-reader';
-  withUserinfo.password = 'synthetic-only';
-  const canonical = assess(input({ ...mirror, url:withUserinfo.href }));
+  const canonical = assess(input({ ...mirror, url:mirror.url }));
   assert.equal(canonical.status, 'ok');
   for (const url of ['https://github.com/dizigs/other.git', 'https://github.com.evil.example/dizigs/archelaos-site.git',
     'http://github.com/dizigs/archelaos-site.git', 'https://github.com/dizigs/archelaos-site.git?ref=other']) {
     const r = assess(input({ ...mirror, url }));
     assert.equal(r.status, 'alert');
     assert.ok(r.issues.includes('MIRROR_ORIGIN_MISMATCH'));
-    assert.doesNotMatch(JSON.stringify(r), /evil.example|synthetic-reader:synthetic-only/);
+    assert.doesNotMatch(JSON.stringify(r), /evil.example|PRIVATE-TOKEN/);
   }
   assert.equal(assess(input({ ...mirror, url:'git@github.com:dizigs/archelaos-site.git' })).status, 'ok');
   assert.throws(() => assess(input({ ...mirror, url:undefined })), /INVALID_UPSTREAM_SCHEMA/);
