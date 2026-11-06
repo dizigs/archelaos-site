@@ -116,3 +116,19 @@ test('controller treats a full search page without pagination metadata as UNKNOW
   await assert.rejects(submitIssue(fixed,{GITLAB_CONTROLLER_TOKEN:'synthetic-token'},f), /UPSTREAM_PAGINATION_UNVERIFIED/);
   assert.deepEqual(methods,['GET']);
 });
+
+
+test('oversized upstream stream is cancelled and cannot reach issue creation', async () => {
+  const methods=[];
+  let cancelled=false;
+  const fake=async (_url, options) => {
+    methods.push(options.method);
+    return new Response(new ReadableStream({
+      pull(c) { c.enqueue(new Uint8Array(100_001)); },
+      cancel() { cancelled=true; },
+    }), {status:200});
+  };
+  await assert.rejects(submitIssue(fixed,{GITLAB_CONTROLLER_TOKEN:'synthetic-token'},fake), /BODY_TOO_LARGE/);
+  assert.deepEqual(methods, ['GET']);
+  assert.equal(cancelled,true);
+});
