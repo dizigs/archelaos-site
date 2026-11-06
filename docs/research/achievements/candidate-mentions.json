@@ -14,8 +14,8 @@
       "kind": "person",
       "recordsScanned": 773,
       "recordsWithoutCanonicalId": 0,
-      "recordsWithCandidateMentions": 193,
-      "candidateMentions": 247
+      "recordsWithCandidateMentions": 192,
+      "candidateMentions": 245
     },
     {
       "sourcePath": "rebuild/research/historical-events.json",
@@ -24,8 +24,8 @@
       "kind": "event",
       "recordsScanned": 19,
       "recordsWithoutCanonicalId": 0,
-      "recordsWithCandidateMentions": 8,
-      "candidateMentions": 10
+      "recordsWithCandidateMentions": 4,
+      "candidateMentions": 6
     },
     {
       "sourcePath": "rebuild/data/moments.json",
@@ -35,7 +35,7 @@
       "recordsScanned": 70,
       "recordsWithoutCanonicalId": 0,
       "recordsWithCandidateMentions": 17,
-      "candidateMentions": 27
+      "candidateMentions": 25
     },
     {
       "sourcePath": "rebuild/data/stories.json",
@@ -54,8 +54,8 @@
       "kind": "news",
       "recordsScanned": 125,
       "recordsWithoutCanonicalId": 0,
-      "recordsWithCandidateMentions": 75,
-      "candidateMentions": 159
+      "recordsWithCandidateMentions": 74,
+      "candidateMentions": 157
     },
     {
       "sourcePath": "rebuild/data/museum.json",
@@ -65,7 +65,7 @@
       "recordsScanned": 16,
       "recordsWithoutCanonicalId": 0,
       "recordsWithCandidateMentions": 9,
-      "candidateMentions": 47
+      "candidateMentions": 43
     },
     {
       "sourcePath": "rebuild/data/museum.json",
@@ -82,11 +82,11 @@
     "sources": 6,
     "collections": 7,
     "recordsScanned": 1034,
-    "candidateMentions": 508,
+    "candidateMentions": 494,
     "byClaimType": {
-      "placing": 164,
-      "title": 123,
-      "medal": 221
+      "placing": 163,
+      "title": 111,
+      "medal": 220
     }
   },
   "entries": [
@@ -149,93 +149,6 @@
       "extractionNotes": "Rule-based candidate only; check medal/title, year, affiliation, duplicates, event vs commentary, and sources."
     },
     {
-      "mentionId": "amh-317fde104ea40cb6",
-      "sourceKind": "event",
-      "sourcePath": "rebuild/research/historical-events.json",
-      "sourceBlobSha": "4a3c2eecb365cfb51856ef9a33b70f975eebfa27",
-      "sourceRecordId": "arc-handball-borec-away-1994",
-      "sourceRecordLocator": null,
-      "sourceRecordKey": "arc-handball-borec-away-1994",
-      "sourceField": "title",
-      "sourcePartIndex": 0,
-      "sourceSentenceIndex": 0,
-      "sourceTitle": "Borec–Αρχέλαος 22–13 (Κύπελλο Κυπελλούχων)",
-      "sourceYear": "1994-10-08",
-      "sourceRefs": [
-        {
-          "sourceId": "ehf-club-history",
-          "url": "https://www.eurohandball.com/en/club/CmCSb3ajGs-g6yjwaSRTVQ/GASArhelaosKaterini/"
-        }
-      ],
-      "linkedPersonIds": [],
-      "linkedEventIds": [
-        "arc-handball-borec-away-1994"
-      ],
-      "claimTypeHint": "title",
-      "reviewStatus": "pending_human_verification",
-      "identityAttribution": "requires_review",
-      "excerpt": "Borec–Αρχέλαος 22–13 (Κύπελλο Κυπελλούχων)",
-      "extractionNotes": "Rule-based candidate only; check medal/title, year, affiliation, duplicates, event vs commentary, and sources."
-    },
-    {
-      "mentionId": "amh-aa33988e13a5fbe2",
-      "sourceKind": "event",
-      "sourcePath": "rebuild/research/historical-events.json",
-      "sourceBlobSha": "4a3c2eecb365cfb51856ef9a33b70f975eebfa27",
-      "sourceRecordId": "arc-handball-borec-home-1994",
-      "sourceRecordLocator": null,
-      "sourceRecordKey": "arc-handball-borec-home-1994",
-      "sourceField": "title",
-      "sourcePartIndex": 0,
-      "sourceSentenceIndex": 0,
-      "sourceTitle": "Αρχέλαος–Borec 22–18 (Κύπελλο Κυπελλούχων)",
-      "sourceYear": "1994-10-15",
-      "sourceRefs": [
-        {
-          "sourceId": "ehf-club-history",
-          "url": "https://www.eurohandball.com/en/club/CmCSb3ajGs-g6yjwaSRTVQ/GASArhelaosKaterini/"
-        }
-      ],
-      "linkedPersonIds": [],
-      "linkedEventIds": [
-        "arc-handball-borec-home-1994"
-      ],
-      "claimTypeHint": "title",
-      "reviewStatus": "pending_human_verification",
-      "identityAttribution": "requires_review",
-      "excerpt": "Αρχέλαος–Borec 22–18 (Κύπελλο Κυπελλούχων)",
-      "extractionNotes": "Rule-based candidate only; check medal/title, year, affiliation, duplicates, event vs commentary, and sources."
-    },
-    {
-      "mentionId": "amh-2db9f5d3905ac290",
-      "sourceKind": "event",
-      "sourcePath": "rebuild/research/historical-events.json",
-      "sourceBlobSha": "4a3c2eecb365cfb51856ef9a33b70f975eebfa27",
-      "sourceRecordId": "arc-handball-flensburg-away-2000",
-      "sourceRecordLocator": null,
-      "sourceRecordKey": "arc-handball-flensburg-away-2000",
-      "sourceField": "summary",
-      "sourcePartIndex": 0,
-      "sourceSentenceIndex": 0,
-      "sourceTitle": "SG Flensburg-Handewitt–Αρχέλαος 35–18",
-      "sourceYear": "2000-11-11",
-      "sourceRefs": [
-        {
-          "sourceId": "ehf-club-history",
-          "url": "https://www.eurohandball.com/en/club/CmCSb3ajGs-g6yjwaSRTVQ/GASArhelaosKaterini/"
-        }
-      ],
-      "linkedPersonIds": [],
-      "linkedEventIds": [
-        "arc-handball-flensburg-away-2000"
-      ],
-      "claimTypeHint": "title",
-      "reviewStatus": "pending_human_verification",
-      "identityAttribution": "requires_review",
-      "excerpt": "Ο Αρχέλαος ηττήθηκε στη Γερμανία με 35–18 στο Κύπελλο Κυπελλούχων.",
-      "extractionNotes": "Rule-based candidate only; check medal/title, year, affiliation, duplicates, event vs commentary, and sources."
-    },
-    {
       "mentionId": "amh-20393caf4952c6a2",
       "sourceKind": "event",
       "sourcePath": "rebuild/research/historical-events.json",
@@ -262,35 +175,6 @@
       "reviewStatus": "pending_human_verification",
       "identityAttribution": "requires_review",
       "excerpt": "Ο Αρχέλαος ηττήθηκε 28–22 στη ρεβάνς του Κυπέλλου Κυπελλούχων 1996–97.",
-      "extractionNotes": "Rule-based candidate only; check medal/title, year, affiliation, duplicates, event vs commentary, and sources."
-    },
-    {
-      "mentionId": "amh-a8bdb99a611fafc2",
-      "sourceKind": "event",
-      "sourcePath": "rebuild/research/historical-events.json",
-      "sourceBlobSha": "4a3c2eecb365cfb51856ef9a33b70f975eebfa27",
-      "sourceRecordId": "arc-handball-veszprem-home-1996",
-      "sourceRecordLocator": null,
-      "sourceRecordKey": "arc-handball-veszprem-home-1996",
-      "sourceField": "summary",
-      "sourcePartIndex": 0,
-      "sourceSentenceIndex": 0,
-      "sourceTitle": "Αρχέλαος–Fotex Veszprém 19–30",
-      "sourceYear": "1996-10-18",
-      "sourceRefs": [
-        {
-          "sourceId": "ehf-club-history",
-          "url": "https://www.eurohandball.com/en/club/CmCSb3ajGs-g6yjwaSRTVQ/GASArhelaosKaterini/"
-        }
-      ],
-      "linkedPersonIds": [],
-      "linkedEventIds": [
-        "arc-handball-veszprem-home-1996"
-      ],
-      "claimTypeHint": "title",
-      "reviewStatus": "pending_human_verification",
-      "identityAttribution": "requires_review",
-      "excerpt": "Ο Αρχέλαος ηττήθηκε 19–30 από τη Fotex Veszprém στο Κύπελλο Κυπελλούχων 1996–97.",
       "extractionNotes": "Rule-based candidate only; check medal/title, year, affiliation, duplicates, event vs commentary, and sources."
     },
     {
@@ -601,28 +485,6 @@
       "extractionNotes": "Rule-based candidate only; check medal/title, year, affiliation, duplicates, event vs commentary, and sources."
     },
     {
-      "mentionId": "amh-dd36903a56bca9c6",
-      "sourceKind": "moment",
-      "sourcePath": "rebuild/data/moments.json",
-      "sourceBlobSha": "42923d0f0f2f424f50784388c4b9188947888324",
-      "sourceRecordId": "54",
-      "sourceRecordLocator": null,
-      "sourceRecordKey": "54",
-      "sourceField": "body",
-      "sourcePartIndex": 0,
-      "sourceSentenceIndex": 2,
-      "sourceTitle": "Πρώτη ιστορική έξοδος του συλλόγου στα Κύπελλα Ευρώπης στο χάντμπολ, απέναντι στη Halkbank Ankara.",
-      "sourceYear": "1990",
-      "sourceRefs": [],
-      "linkedPersonIds": [],
-      "linkedEventIds": [],
-      "claimTypeHint": "title",
-      "reviewStatus": "pending_human_verification",
-      "identityAttribution": "requires_review",
-      "excerpt": "Την περίοδο 1990–91 αγωνίζεται στο Κύπελλο Κυπελλούχων Ευρώπης (EHF Cup Winners' Cup) αντιμετωπίζοντας την τουρκική Χάλκμπανκ Άγκυρας (Halkbank Ankara).",
-      "extractionNotes": "Rule-based candidate only; check medal/title, year, affiliation, duplicates, event vs commentary, and sources."
-    },
-    {
       "mentionId": "amh-16f7ee6c6ef24cb8",
       "sourceKind": "moment",
       "sourcePath": "rebuild/data/moments.json",
@@ -840,28 +702,6 @@
       "reviewStatus": "pending_human_verification",
       "identityAttribution": "requires_review",
       "excerpt": "Την περίοδο 1994–95 ο Αρχέλαος πραγματοποιεί την κορυφαία πορεία του στην Α1 Εθνική Χάντμπολ Ανδρών κατακτώντας τη 2η θέση στην Ελλάδα (Δευτεραθλητής).",
-      "extractionNotes": "Rule-based candidate only; check medal/title, year, affiliation, duplicates, event vs commentary, and sources."
-    },
-    {
-      "mentionId": "amh-fd415bb417dfca0a",
-      "sourceKind": "moment",
-      "sourcePath": "rebuild/data/moments.json",
-      "sourceBlobSha": "42923d0f0f2f424f50784388c4b9188947888324",
-      "sourceRecordId": "63",
-      "sourceRecordLocator": null,
-      "sourceRecordKey": "63",
-      "sourceField": "body",
-      "sourcePartIndex": 0,
-      "sourceSentenceIndex": 1,
-      "sourceTitle": "Δευτεραθλητής Ελλάδας στην Α1 χάντμπολ και ευρωπαϊκές αναμετρήσεις με την Borec Titov Veles.",
-      "sourceYear": "1994–95",
-      "sourceRefs": [],
-      "linkedPersonIds": [],
-      "linkedEventIds": [],
-      "claimTypeHint": "title",
-      "reviewStatus": "pending_human_verification",
-      "identityAttribution": "requires_review",
-      "excerpt": "Παράλληλα, στο Κύπελλο Κυπελλούχων Ευρώπης προκρίνεται θριαμβευτικά στον α΄ γύρο αποκλείοντας τη Μπόρετς Τίτοβ Βέλες (νίκη 22–18 στην Κατερίνη στις 15/10/1994) και αντιμετωπίζει στους «16» το ευρωπαϊκό μεγαθήριο Fotex Veszprém.",
       "extractionNotes": "Rule-based candidate only; check medal/title, year, affiliation, duplicates, event vs commentary, and sources."
     },
     {
@@ -1368,94 +1208,6 @@
       "reviewStatus": "pending_human_verification",
       "identityAttribution": "requires_review",
       "excerpt": "Στο Πρωτάθλημα Ελλάδας Ανδρών αναδείχθηκε δευτεραθλητής (2η θέση) την περίοδο 1994–95 και κατέλαβε την 3η θέση τα έτη 1990, 1991 και 1993 .",
-      "extractionNotes": "Rule-based candidate only; check medal/title, year, affiliation, duplicates, event vs commentary, and sources."
-    },
-    {
-      "mentionId": "amh-a774e7826af79704",
-      "sourceKind": "museum",
-      "sourcePath": "rebuild/data/museum.json",
-      "sourceBlobSha": "f12a6226ac6e4fa0eb0d7aa60f227136d88f31f0",
-      "sourceRecordId": "handball",
-      "sourceRecordLocator": null,
-      "sourceRecordKey": "handball",
-      "sourceField": "html",
-      "sourcePartIndex": 0,
-      "sourceSentenceIndex": 33,
-      "sourceTitle": "Χάντμπολ",
-      "sourceYear": null,
-      "sourceRefs": [],
-      "linkedPersonIds": [],
-      "linkedEventIds": [],
-      "claimTypeHint": "title",
-      "reviewStatus": "pending_human_verification",
-      "identityAttribution": "requires_review",
-      "excerpt": "Στο Κύπελλο Κυπελλούχων Ευρώπης 1990–91 απέναντι στην τουρκική Halkbank Ankara.",
-      "extractionNotes": "Rule-based candidate only; check medal/title, year, affiliation, duplicates, event vs commentary, and sources."
-    },
-    {
-      "mentionId": "amh-32a99522f9a08c87",
-      "sourceKind": "museum",
-      "sourcePath": "rebuild/data/museum.json",
-      "sourceBlobSha": "f12a6226ac6e4fa0eb0d7aa60f227136d88f31f0",
-      "sourceRecordId": "handball",
-      "sourceRecordLocator": null,
-      "sourceRecordKey": "handball",
-      "sourceField": "html",
-      "sourcePartIndex": 0,
-      "sourceSentenceIndex": 34,
-      "sourceTitle": "Χάντμπολ",
-      "sourceYear": null,
-      "sourceRefs": [],
-      "linkedPersonIds": [],
-      "linkedEventIds": [],
-      "claimTypeHint": "title",
-      "reviewStatus": "pending_human_verification",
-      "identityAttribution": "requires_review",
-      "excerpt": "Στο Κύπελλο Κυπελλούχων 1993–94 απέναντι στην κροατική RK Umag, όπου μετά την ήττα στην Ίζολα της Σλοβενίας, πέτυχε ιστορική διεθνή νίκη στη ρεβάνς της Νεάπολης με 21–19 στις 3 Οκτωβρίου 1993.",
-      "extractionNotes": "Rule-based candidate only; check medal/title, year, affiliation, duplicates, event vs commentary, and sources."
-    },
-    {
-      "mentionId": "amh-1f2d0c49083b3488",
-      "sourceKind": "museum",
-      "sourcePath": "rebuild/data/museum.json",
-      "sourceBlobSha": "f12a6226ac6e4fa0eb0d7aa60f227136d88f31f0",
-      "sourceRecordId": "handball",
-      "sourceRecordLocator": null,
-      "sourceRecordKey": "handball",
-      "sourceField": "html",
-      "sourcePartIndex": 0,
-      "sourceSentenceIndex": 35,
-      "sourceTitle": "Χάντμπολ",
-      "sourceYear": null,
-      "sourceRefs": [],
-      "linkedPersonIds": [],
-      "linkedEventIds": [],
-      "claimTypeHint": "title",
-      "reviewStatus": "pending_human_verification",
-      "identityAttribution": "requires_review",
-      "excerpt": "Στο Κύπελλο Κυπελλούχων 1994–95 , όπου στον α΄ γύρο απέκλεισε τη σκοπιανή Μπόρετς Τίτοβ Βέλες (νίκη 22–18 στην Κατερίνη στις 15 Οκτωβρίου 1994) και ακολούθως αντιμετώπισε την ουγγρική Fotex Veszprém.",
-      "extractionNotes": "Rule-based candidate only; check medal/title, year, affiliation, duplicates, event vs commentary, and sources."
-    },
-    {
-      "mentionId": "amh-a42da48811cccaef",
-      "sourceKind": "museum",
-      "sourcePath": "rebuild/data/museum.json",
-      "sourceBlobSha": "f12a6226ac6e4fa0eb0d7aa60f227136d88f31f0",
-      "sourceRecordId": "handball",
-      "sourceRecordLocator": null,
-      "sourceRecordKey": "handball",
-      "sourceField": "html",
-      "sourcePartIndex": 0,
-      "sourceSentenceIndex": 36,
-      "sourceTitle": "Χάντμπολ",
-      "sourceYear": null,
-      "sourceRefs": [],
-      "linkedPersonIds": [],
-      "linkedEventIds": [],
-      "claimTypeHint": "title",
-      "reviewStatus": "pending_human_verification",
-      "identityAttribution": "requires_review",
-      "excerpt": "Στο Κύπελλο Πόλεων (City Cup) το 1995–96 απέναντι στην ισπανική BM Granollers και στο Κύπελλο Κυπελλούχων 2000–01 απέναντι στη ΣΠΕ Στροβόλου.",
       "extractionNotes": "Rule-based candidate only; check medal/title, year, affiliation, duplicates, event vs commentary, and sources."
     },
     {
@@ -3503,34 +3255,6 @@
       "extractionNotes": "Rule-based candidate only; check medal/title, year, affiliation, duplicates, event vs commentary, and sources."
     },
     {
-      "mentionId": "amh-5ef1bb67ba78a33f",
-      "sourceKind": "news",
-      "sourcePath": "news.json",
-      "sourceBlobSha": "735c70daae8dff63150f4cfa0cc1bee5c0f92ce1",
-      "sourceRecordId": "handball-prosotsani-archelaos-38-27-jan-2026",
-      "sourceRecordLocator": null,
-      "sourceRecordKey": "handball-prosotsani-archelaos-38-27-jan-2026",
-      "sourceField": "body",
-      "sourcePartIndex": 2,
-      "sourceSentenceIndex": 0,
-      "sourceTitle": "Ήττα 38–27 του Αρχέλαου από την Προσοτσάνη",
-      "sourceYear": "2026-01-25",
-      "sourceRefs": [
-        {
-          "url": "https://katerinisport.gr/%CF%80%CF%81%CE%BF%CF%83%CE%BF%CF%84%CF%83%CE%AC%CE%BD%CE%B7-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CE%BA%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82-38-27/"
-        }
-      ],
-      "linkedPersonIds": [
-        "arch-dimitris-siokas-handball-2026"
-      ],
-      "linkedEventIds": [],
-      "claimTypeHint": "placing",
-      "reviewStatus": "pending_human_verification",
-      "identityAttribution": "requires_review",
-      "excerpt": "Η ήττα είχε βαθμολογικό αντίκτυπο, καθώς ο Αρχέλαος υποχώρησε από τη δεύτερη θέση τη συγκεκριμένη χρονική στιγμή.",
-      "extractionNotes": "Rule-based candidate only; check medal/title, year, affiliation, duplicates, event vs commentary, and sources."
-    },
-    {
       "mentionId": "amh-7c33855276efb26a",
       "sourceKind": "news",
       "sourcePath": "news.json",
@@ -5291,35 +5015,6 @@
       "reviewStatus": "pending_human_verification",
       "identityAttribution": "requires_review",
       "excerpt": "Η Μιχαέλα Σύρμαλη του Αρχέλαου Κατερίνης κατέκτησε την τρίτη θέση στο Πανελλήνιο Πρωτάθλημα Πάλης που διεξήχθη στο Κιλκίς στις 8 Μαρτίου 2020.",
-      "extractionNotes": "Rule-based candidate only; check medal/title, year, affiliation, duplicates, event vs commentary, and sources."
-    },
-    {
-      "mentionId": "amh-c3e61e8a40090e3c",
-      "sourceKind": "news",
-      "sourcePath": "news.json",
-      "sourceBlobSha": "735c70daae8dff63150f4cfa0cc1bee5c0f92ce1",
-      "sourceRecordId": "wrestling-syrmali-bronze-kilkis-mar-2020",
-      "sourceRecordLocator": null,
-      "sourceRecordKey": "wrestling-syrmali-bronze-kilkis-mar-2020",
-      "sourceField": "body",
-      "sourcePartIndex": 1,
-      "sourceSentenceIndex": 0,
-      "sourceTitle": "Χάλκινο της Μιχαέλας Σύρμαλη στο Πανελλήνιο Πρωτάθλημα Πάλης",
-      "sourceYear": "2020-03-08",
-      "sourceRefs": [
-        {
-          "url": "https://odelalis.gr/pali-triti-thesi-kai-chalkino-metallio-apo-tin-michaela-syrmali-toy-archelaoy-katerinis/"
-        }
-      ],
-      "linkedPersonIds": [
-        "arch-michaela-syrmali-wrest20",
-        "arch-526f13622101"
-      ],
-      "linkedEventIds": [],
-      "claimTypeHint": "medal",
-      "reviewStatus": "pending_human_verification",
-      "identityAttribution": "requires_review",
-      "excerpt": "Στη διοργάνωση αγωνίστηκε επίσης η Χριστίνα Βούλγαρη, η οποία προερχόταν από τραυματισμό στο χέρι και δεν κατέκτησε μετάλλιο.",
       "extractionNotes": "Rule-based candidate only; check medal/title, year, affiliation, duplicates, event vs commentary, and sources."
     },
     {
@@ -9429,30 +9124,6 @@
       "extractionNotes": "Rule-based candidate only; check medal/title, year, affiliation, duplicates, event vs commentary, and sources."
     },
     {
-      "mentionId": "amh-3c9d7d32b408534d",
-      "sourceKind": "person",
-      "sourcePath": "hall-of-fame-people.json",
-      "sourceBlobSha": "5104be75a437ed0fb50da4ebd8fd4d99ec0a8412",
-      "sourceRecordId": "arch-803dd3926e77",
-      "sourceRecordLocator": null,
-      "sourceRecordKey": "arch-803dd3926e77",
-      "sourceField": "bio",
-      "sourcePartIndex": 0,
-      "sourceSentenceIndex": 3,
-      "sourceTitle": "Δημήτρης Σκούφας",
-      "sourceYear": null,
-      "sourceRefs": [],
-      "linkedPersonIds": [
-        "arch-803dd3926e77"
-      ],
-      "linkedEventIds": [],
-      "claimTypeHint": "title",
-      "reviewStatus": "pending_human_verification",
-      "identityAttribution": "may_describe_another_person_or_team",
-      "excerpt": "Καθοδήγησε την ομάδα στην παρθενική της ευρωπαϊκή συμμετοχή στο Κύπελλο Κυπελλούχων Ευρώπης 1990–91 απέναντι στη Halkbank Ankara, πετυχαίνοντας την πρώτη ευρωπαϊκή νίκη στην Κατερίνη με 22–17.",
-      "extractionNotes": "Rule-based candidate only; check medal/title, year, affiliation, duplicates, event vs commentary, and sources."
-    },
-    {
       "mentionId": "amh-d0c37df526c81528",
       "sourceKind": "person",
       "sourcePath": "hall-of-fame-people.json",
@@ -12575,39 +12246,6 @@
       "extractionNotes": "Rule-based candidate only; check medal/title, year, affiliation, duplicates, event vs commentary, and sources."
     },
     {
-      "mentionId": "amh-7bf394b762914c96",
-      "sourceKind": "person",
-      "sourcePath": "hall-of-fame-people.json",
-      "sourceBlobSha": "5104be75a437ed0fb50da4ebd8fd4d99ec0a8412",
-      "sourceRecordId": "arch-f3d93442851f",
-      "sourceRecordLocator": null,
-      "sourceRecordKey": "arch-f3d93442851f",
-      "sourceField": "bio",
-      "sourcePartIndex": 0,
-      "sourceSentenceIndex": 1,
-      "sourceTitle": "Δημήτρης Σουλής",
-      "sourceYear": null,
-      "sourceRefs": [
-        {
-          "label": "ΕΡΤ · Παγκόσμιο Πάλης U17, 2025",
-          "url": "https://www.ertnews.gr/athlitismos/asimenio-metallio-o-soulis-sto-pagkosmio-protathlima-palis-u17/"
-        },
-        {
-          "label": "Δήμος Κατερίνης · Υποδοχή Δημήτρη Σουλή, 2025",
-          "url": "https://katerini.gr/?p=58743"
-        }
-      ],
-      "linkedPersonIds": [
-        "arch-f3d93442851f"
-      ],
-      "linkedEventIds": [],
-      "claimTypeHint": "title",
-      "reviewStatus": "pending_human_verification",
-      "identityAttribution": "requires_review",
-      "excerpt": "Μετά από εκπληκτική πορεία, επικράτησε στον ημιτελικό με 9–8 επί του πανίσχυρου Ιρανού πρωταθλητή και ηττήθηκε στις λεπτομέρειες στον τελικό (3–1).",
-      "extractionNotes": "Rule-based candidate only; check medal/title, year, affiliation, duplicates, event vs commentary, and sources."
-    },
-    {
       "mentionId": "amh-c3dc309aec1b5160",
       "sourceKind": "person",
       "sourcePath": "hall-of-fame-people.json",
@@ -14165,5 +13803,11 @@
       "excerpt": "Το παράδοξο είναι σκληρό: η ίδια πόλη που μπορούσε να στείλει παιδιά σε αγώνες και να τα υποδεχθεί με μετάλλια δυσκολευόταν να τους εξασφαλίσει πρόγραμμα προπόνησης.",
       "extractionNotes": "Rule-based candidate only; check medal/title, year, affiliation, duplicates, event vs commentary, and sources."
     }
+  ],
+  "knownExclusionRules": [
+    "competition title 'Κύπελλο Κυπελλούχων' without an independent award is not an achievement",
+    "explicit no-medal language",
+    "temporary league standings",
+    "opponent described as champion"
   ]
 }
