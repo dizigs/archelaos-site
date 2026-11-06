@@ -1,0 +1,12 @@
+{
+  "fixture_clock": "2026-11-03T08:00:00Z",
+  "generated_utc": "2026-11-03T07:40:00Z",
+  "ga4": {
+    "range": {"startDate": "2026-10-04", "endDate": "2026-10-31"},
+    "daily": [{"date": "20261030", "activeUsers": 10, "sessions": 12, "pageViews": 20}, {"date": "20261031", "activeUsers": 12, "sessions": 15, "pageViews": 25}]
+  },
+  "search_console": {
+    "range": {"startDate": "2026-10-04", "endDate": "2026-10-31"},
+    "daily": [{"date": "2026-10-30", "clicks": 2, "impressions": 20, "ctr": 0.1, "position": 5}, {"date": "2026-10-31", "clicks": 3, "impressions": 25, "ctr": 0.12, "position": 4}]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "actualRuntimeSummary": {
+    "cancelled": 0,
+    "fail": 0,
+    "pass": 57,
+    "skipped": 0,
+    "tests": 57
+  },
+  "check": 126019476681,
+  "remoteDeploymentVerified": false,
+  "run": "https://github.com/dizigs/archelaos-site/actions/runs/41665470797",
+  "scope": "GitHub-hosted local workerd/SQLite tests, not remote Cloudflare deployment",
+  "sourceAbbreviation": "5df8861"
+}
