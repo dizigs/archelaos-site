@@ -62,6 +62,10 @@ const brainFixture=String.raw`
 `;
 const healerFixture=String.raw`
  async __ackState(){return {receipts:[...this.recoveryLedger.sql.exec('SELECT * FROM recovery_command_receipts ORDER BY command_id')],nonces:[...this.recoveryLedger.sql.exec('SELECT * FROM recovery_event_nonces ORDER BY id')],readbackNonces:[...this.recoveryLedger.sql.exec('SELECT * FROM recovery_readback_nonces ORDER BY id')],recoveries:[...this.recoveryLedger.sql.exec('SELECT * FROM recoveries')],alarm:await this.ctx.storage.getAlarm()}}
+ async __ackAttempts(){
+  this.recoveryLedger.sql.exec('CREATE TABLE IF NOT EXISTS synthetic_attempt_counter(id INTEGER PRIMARY KEY,count INTEGER NOT NULL)');
+  return [...this.recoveryLedger.sql.exec('SELECT count FROM synthetic_attempt_counter WHERE id=1')][0]?.count ?? 0;
+ }
  async __ackTamper(id){const row=[...this.recoveryLedger.sql.exec('SELECT ack_json FROM recovery_command_receipts WHERE command_id=?',id)][0];const ack=JSON.parse(row.ack_json);ack.status='RECOVERY_EXECUTED';this.recoveryLedger.sql.exec('UPDATE recovery_command_receipts SET ack_json=? WHERE command_id=?',JSON.stringify(ack),id);return true}
 `;
 const inspector=String.raw`export default {async fetch(req,env){const input=await req.json();
@@ -70,6 +74,7 @@ const inspector=String.raw`export default {async fetch(req,env){const input=awai
  if(input.op==='state')return Response.json({brain:await b.__ackState(),healer:await h.__ackState()});
  if(input.op==='legacy')return Response.json(await b.__ackLegacy());
  if(input.op==='tamper')return Response.json(await h.__ackTamper(input.id));
+ if(input.op==='attempts')return Response.json({attempts:await h.__ackAttempts()});
  if(input.op==='command')return Response.json(await env.HEALER.attemptRecovery(input.envelope));
  if(input.op==='read'){try{return Response.json(await env.HEALER.recoveryStatus(input.envelope))}catch{return Response.json({denied:true})}}
  if(input.op==='probe'){const result=[];for(const [port,names] of [[env.HEALER,['memory','env','ctx','healerMemory']],[env.RECOVERY,['coordinator','env','ctx','requireStaging']]])for(const name of names){try{const value=await port[name];result.push(value==null)}catch{result.push(true)}}return Response.json(result)}
@@ -97,7 +102,15 @@ async function fixture(mode='normal',enabled=true,healerKey=KEY){
  const hpath=join(ROOT,'automation/self-heal-worker/src','.ack-healer-'+randomUUID()+'.mjs');
  const bs=await readFile(resolve('src/worker.mjs'),'utf8'),hs=await readFile(join(ROOT,'automation/self-heal-worker/src/worker.mjs'),'utf8');
  await writeFile(bpath,bs.replace('export class BrainCoordinator extends DurableObject {','export class BrainCoordinator extends DurableObject {'+brainFixture));
- await writeFile(hpath,hs.replace('export class HealerMemory extends DurableObject {','export class HealerMemory extends DurableObject {'+healerFixture));
+ // Instrument only this disposable Miniflare copy; count REAL Healer command RPC
+ // entries durably, while the shipped Worker implementation stays unchanged.
+ const attemptNeedle=['  async attemptRecovery(envelope) {','    if (envelope?.schemaVersion === 2) {'].join('\n');
+ assert.equal(hs.split(attemptNeedle).length,2,'Healer method signature must match once');
+ const instrumentedHealer=hs.replace(attemptNeedle,`  async attemptRecovery(envelope) {
+    if (envelope?.schemaVersion === 2) {
+      this.recoveryLedger.sql.exec('CREATE TABLE IF NOT EXISTS synthetic_attempt_counter(id INTEGER PRIMARY KEY,count INTEGER NOT NULL)');
+      this.recoveryLedger.sql.exec('INSERT INTO synthetic_attempt_counter(id,count) VALUES(1,1) ON CONFLICT(id) DO UPDATE SET count=count+1');`);
+ await writeFile(hpath,instrumentedHealer.replace('export class HealerMemory extends DurableObject {','export class HealerMemory extends DurableObject {'+healerFixture));
  let mf,outbound=0;
  const build=(fault)=>new Miniflare({workers:[
   {name:'brain',modules:true,scriptPath:bpath,modulesRoot:resolve('src'),compatibilityDate:'2026-07-30',durableObjects:{BRAIN:{className:'BrainCoordinator',useSQLite:true}},
@@ -161,6 +174,7 @@ test('native HMAC mismatch between Brain and Healer fails closed: UNKNOWN, no re
   await f.inspect({op:'seed',id});
   const first=await f.dispatch(id);
   assert.equal(first.body.status,'UNKNOWN');
+  assert.equal((await f.inspect({op:'attempts'})).attempts,1,'initial dispatch must attempt delivery exactly once');
   let state=await f.inspect({op:'state'});
   assert.equal(state.brain.outbox.length,1);
   assert.equal(state.brain.outbox[0].status,'UNKNOWN');
@@ -168,8 +182,13 @@ test('native HMAC mismatch between Brain and Healer fails closed: UNKNOWN, no re
   assert.equal(state.healer.receipts.length,0);
   assert.equal(state.healer.recoveries.length,0);
   assert.equal((await f.dispatch(id)).body.code,'SIGNED_DISPATCH_ALREADY_CLAIMED');
+  assert.equal((await f.inspect({op:'attempts'})).attempts,1,'repeated dispatch must not reach Healer');
   await f.restart();
+  assert.equal((await f.inspect({op:'attempts'})).attempts,1,'attempt counter must persist across restart');
+  assert.equal((await f.dispatch(id)).body.code,'SIGNED_DISPATCH_ALREADY_CLAIMED');
+  assert.equal((await f.inspect({op:'attempts'})).attempts,1,'post-restart dispatch must not reach Healer');
   assert.equal((await f.dispatch(id,true)).body.status,'UNKNOWN');
+  assert.equal((await f.inspect({op:'attempts'})).attempts,1,'readback must not redeliver command');
   state=await f.inspect({op:'state'});
   assert.equal(state.brain.outbox[0].status,'UNKNOWN');
   assert.equal(state.brain.audit.length,0);

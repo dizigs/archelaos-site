@@ -13,7 +13,7 @@ Status: **code-only QA plan; live authenticated end-to-end test NOT VERIFIED**.
 
 ## Why existing staging cannot be used as an ACK acceptance harness
 
-The existing `requireStaging()` in `brain/src/selfheal_signed_outbox.mjs` requires the **legacy recovery/dispatch/binding-attestation flags** set true, approved pinned SHA, a future expiry ≤ 1 hour and a shared HMAC secret. `automation/self-heal-worker/src/durable_ack.mjs` requires `HEALER_DURABLE_ACK_ENABLED=true`. The existing `/v1/selfheal/dispatch` route also requires source-specific GitHub authorization and durable CI proof; it is **not a synthetic read-only QA endpoint**.
+The existing `requireStaging()` in `brain/src/selfheal_signed_outbox.mjs` requires the **legacy recovery/dispatch/binding-attestation flags** set true, approved pinned SHA, a future expiry ≤ 1 hour and a Brain HMAC key of at least 43 characters. It does **not** establish key equality with Healer. `automation/self-heal-worker/src/durable_ack.mjs` requires `HEALER_DURABLE_ACK_ENABLED=true`. The existing `/v1/selfheal/dispatch` route also requires source-specific GitHub authorization and durable CI proof; it is **not a synthetic read-only QA endpoint**.
 
 **Never turn those legacy recovery permissions ON to force a staging test to pass.** Do not send a fake CI failure to a durable ledger. Avoid public routes, global preview URLs, new dispatch authority, real repair recipes, automatic retries or a second coordinator.
 
@@ -28,6 +28,6 @@ The existing `requireStaging()` in `brain/src/selfheal_signed_outbox.mjs` requir
 
 ## Native regression added in this PR
 
-The `selfheal_ack.test.mjs` fixture now supports independently supplied synthetic Healer and Brain HMAC keys. The new test proves differing synthetic keys yield `UNKNOWN`, no durable ACK, no Healer recovery, no Brain audit settlement, and no second delivery even after restart. This is **local workerd/Miniflare coverage only**; it neither reads actual Cloudflare secret values nor attests production connectivity.
+The `selfheal_ack.test.mjs` fixture accepts an independently supplied synthetic Healer HMAC key while the Brain test key remains fixed to `KEY`. The throwaway Miniflare Healer copy records actual command delivery attempts in persistent synthetic SQLite, with assertions that duplicate dispatches and post-restart readbacks do not redeliver. The new test proves differing synthetic keys yield `UNKNOWN`, no durable ACK, no Healer recovery, no Brain audit settlement, and no second delivery even after restart. This is **local workerd/Miniflare coverage only**; it neither reads actual Cloudflare secret values nor attests production connectivity.
 
 No Worker source code, Wrangler flags, secrets, routes or deployments are modified by this QA-only change.
