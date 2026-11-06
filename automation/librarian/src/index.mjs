@@ -47,7 +47,7 @@ export default class Librarian extends WorkerEntrypoint {
   async #ledger(path,data){
     if(!this.env.LEDGER||!this.env.LEDGER_INTERNAL_KEY)throw Error('LEDGER_NOT_CONFIGURED');
     const stub=this.env.LEDGER.get(this.env.LEDGER.idFromName('private-librarian-ledger-v1'));
-    const r=await stub.fetch(new Request('http://private-ledger.local'+path,{
+    const r=await stub.fetch(new Request('https://private-ledger.local'+path,{
       method:'POST',headers:{'Content-Type':'application/json','X-Ledger-Key':this.env.LEDGER_INTERNAL_KEY},
       body:JSON.stringify(data)}));
     if(!r.ok)throw Error('LEDGER_OPERATION_FAILED');
