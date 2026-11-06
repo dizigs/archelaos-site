@@ -109,7 +109,7 @@ export async function verifyCaller(env, approval, scope, subject, now=Date.now()
     throw Error('CALLER_AUTH_FAILED');
   const message=scope+'\n'+subject+'\n'+approval.requestId+'\n'+approval.timestamp;
   const signingKey=await crypto.subtle.importKey('raw',enc.encode(key),{name:'HMAC',hash:'SHA-256'},false,['verify']);
-  const signature=new Uint8Array((approval.signature.match(/.{2}/g)||[]).map(x=>parseInt(x,16)));
+  const signature=new Uint8Array((approval.signature.match(/.{2}/g)||[]).map(x=>Number.parseInt(x,16)));
   if(!await crypto.subtle.verify('HMAC',signingKey,signature,enc.encode(message)))
     throw Error('CALLER_AUTH_FAILED');
   return true;
