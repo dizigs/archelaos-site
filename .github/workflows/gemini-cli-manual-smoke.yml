@@ -1,0 +1,52 @@
+name: Gemini CLI API connection smoke test (manual, read-only)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: gemini-cli-smoke-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  verify-gemini:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Verify secret exists without printing it
+        shell: bash
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          if [[ -z "$GEMINI_API_KEY" ]]; then
+            echo '::error title=Missing Gemini API secret::Add GEMINI_API_KEY under Settings > Secrets and variables > Actions.'
+            exit 1
+          fi
+          echo 'Gemini API secret is configured (value not displayed).'
+
+      - name: Check out actual repository source (read-only token)
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+
+      - name: Check Gemini API can read real source code
+        uses: google-github-actions/run-gemini-cli@f77273f4c914e4bf38440cf36a0369cb64a37489 # v0.1.22
+        with:
+          gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
+          gemini_model: gemini-3.5-flash-lite
+          prompt: |
+            This is a single, read-only Gemini API smoke test for the actual
+            checked-out GitHub repository, not a ZIP archive.
+            Read only these two tracked files:
+              - .github/workflows/gemini-triage-validation.yml
+              - automation/gemini-triage/README.md
+            Report their paths and explain, in at most 80 words, why the
+            current workflow is an offline test rather than a live API check.
+            Do not edit, execute scripts, disclose secrets, access private
+            materials, perform network operations, or create commits/PRs.
+
+      - name: Ensure tracked source files were not changed
+        shell: bash
+        run: git diff --exit-code
