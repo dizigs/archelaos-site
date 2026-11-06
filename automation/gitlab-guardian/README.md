@@ -40,4 +40,4 @@ npx wrangler deploy
 
 ## State, 2026-11-06
 
-18 local Node tests passed against the exact checked-in source on Node.js 22. This includes source-URL impersonation, mirror branch filtering, missing success timestamp and provider outage regressions. A live authenticated GitLab API call and unattended monitoring remain **blocked until a scoped token is installed**. The Worker is deliberately not configured with a cron, and no claim about website deployment follows from installing this worker.
+20 local Node tests passed against the exact checked-in source on Node.js 22. This includes source-URL impersonation, mirror branch filtering, typed safety fields, exact GitLab main branch identity, missing success timestamp and provider outage regressions. A live authenticated GitLab API call and unattended monitoring remain **blocked until a scoped token is installed**. The Worker is deliberately not configured with a cron, and no claim about website deployment follows from installing this worker.
