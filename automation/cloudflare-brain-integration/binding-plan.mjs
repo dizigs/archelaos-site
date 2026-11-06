@@ -12,7 +12,7 @@ const SHA = /^[a-f0-9]{40}$/;
 const ISO = /^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d(?:\.\d{1,3})?Z$/;
 
 export function assessBinding({
-  caller, callerBindings, brainBindings, deployedBrainSha, approvedBrainSha,
+  caller, selectedSource, callerBindings, brainBindings, deployedBrainSha, approvedBrainSha,
   stagingExpiresAt, now, scopedIdentityApproved = false,
   provenanceApproved = false, durableAuditApproved = false,
   ownerApproved = false
@@ -21,6 +21,7 @@ export function assessBinding({
     return Object.freeze({ caller, status: 'BLOCKED', blockers: Object.freeze(['CALLER_NOT_APPROVED']), proposedBinding: null });
   }
   const blockers = [];
+  if (!CALLERS[caller].includes(selectedSource)) blockers.push('SOURCE_NOT_APPROVED');
   const current = Array.isArray(callerBindings) ? callerBindings : null;
   const brain = Array.isArray(brainBindings) ? brainBindings : null;
   if (!current || !brain) blockers.push('INVENTORY_MISSING');
@@ -47,8 +48,14 @@ export function assessBinding({
   if (brain && !brain.some(b => b?.name === 'BRAIN' && b?.type === 'durable_object_namespace' && b?.class_name === 'BrainCoordinator')) {
     blockers.push('CANONICAL_DO_MISSING');
   }
-  if (brain && !brain.some(b => b?.name === 'STAGING_INTAKE_KEY' && b?.type === 'secret_text')) {
-    blockers.push('BRAIN_INTAKE_SECRET_ABSENT');
+  if (brain && CALLERS[caller].includes(selectedSource) &&
+      !brain.some(b => b?.name === 'BRAIN_' + selectedSource.toUpperCase() + '_INTAKE_KEY' &&
+        b?.type === 'secret_text')) {
+    blockers.push('SOURCE_INTAKE_SECRET_ABSENT');
+  }
+  if (brain && !brain.some(b => b?.name === 'BRAIN_CAPABILITY_RECEIPT_KEY' &&
+      b?.type === 'secret_text')) {
+    blockers.push('RECEIPT_SIGNING_SECRET_ABSENT');
   }
   if (scopedIdentityApproved !== true) blockers.push('SOURCE_IDENTITY_CONTRACT_UNAPPROVED');
   if (provenanceApproved !== true) blockers.push('SOURCE_PROVENANCE_UNVERIFIED');
@@ -61,6 +68,7 @@ export function assessBinding({
     // This describes the intended future config only; never a live connection.
     proposedBinding: Object.freeze({ type: 'service', name: NAME, service: TARGET }),
     bindingObserved: present,
+    selectedSource,
     approvedSources: CALLERS[caller],
     blockers: Object.freeze(blockers)
   });
