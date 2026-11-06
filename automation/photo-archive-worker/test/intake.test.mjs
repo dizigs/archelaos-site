@@ -186,18 +186,18 @@ function addVersion(db,id=PA,v=1,digest=H1) {
   db.prepare("INSERT INTO photo_versions(photo_id,version_no,sha256,byte_length,mime_type,original_key,provenance_ref,exif_state,created_at) VALUES(?,?,?,?,?,?,?,?,?)")
     .run(id,v,digest,13,"image/png","pending/sha256/"+digest+".png","private-ref","unreviewed",T);
 }
-function evidence(db,id,kind,decision,n=1){
-  db.prepare("INSERT INTO photo_evidence(evidence_id,photo_id,kind,decision,private_evidence_ref,reviewer_ref,created_at) VALUES (?,?,?,?,?,?,?)")
-    .run(kind+"_"+id+"_"+n,id,kind,decision,"private-evidence",decision==="verified"?"human-moderator":null,T);
+function evidence(db,id,kind,decision,n=1,version=1){
+  db.prepare("INSERT INTO photo_evidence(evidence_id,photo_id,version_no,kind,decision,private_evidence_ref,reviewer_ref,created_at) VALUES (?,?,?,?,?,?,?,?)")
+    .run(kind+"_"+id+"_"+n+"_"+version,id,version,kind,decision,"private-evidence",decision==="verified"?"human-moderator":null,T);
 }
 function approvedAdult(db,id=PA){
   db.prepare("UPDATE photos SET lifecycle_state='active',rights_state='verified',privacy_state='cleared',minor_presence='no',guardian_state='not_applicable' WHERE photo_id=?").run(id);
   evidence(db,id,"copyright","verified");
   evidence(db,id,"privacy","verified");
 }
-function publish(db,id=PA,exif=1,pk="pub1"){
+function publish(db,id=PA,exif=1,pk="pub1",version=1){
   db.prepare("INSERT INTO photo_publications(publication_id,photo_id,version_no,derivative_key,derivative_sha256,exif_removed,human_review_ref,created_at) VALUES (?,?,?,?,?,?,?,?)")
-    .run(pk,id,1,"published/reviewed/"+pk+".png",H2,exif,"reviewer",T);
+    .run(pk,id,version,"published/reviewed/"+pk+".png",H2,exif,"reviewer",T);
 }
 
 test("D1 v1 SQL schema parses in native SQLite with all expected entity tables",()=>{
@@ -283,5 +283,32 @@ test("audit events and rights evidence are append-only, never silently changed",
     db.prepare("INSERT INTO photo_audit(audit_id,photo_id,event_kind,event_digest,occurred_at) VALUES (?,?,?,?,?)").run("audit1",PA,"review_created",H1,T);
     assert.throws(()=>db.prepare("UPDATE photo_audit SET event_kind='tamper'").run(),/PHOTO_AUDIT_APPEND_ONLY/);
     assert.throws(()=>db.prepare("DELETE FROM photo_audit").run(),/PHOTO_AUDIT_DELETE_DENIED/);
+  }finally{db.close();}
+});
+
+
+test("approved v1 rights cannot approve new v2 pixels without independent evidence",()=>{
+  const db=photo_v1_schema_offline();
+  try{
+    createPhoto(db);addVersion(db);approvedAdult(db);publish(db);
+    addVersion(db,PA,2,H2);
+    assert.throws(()=>publish(db,PA,1,"second_version",2),/PHOTO_PUBLICATION_REVIEW_REQUIRED/);
+    evidence(db,PA,"copyright","verified",2,2);
+    evidence(db,PA,"privacy","verified",2,2);
+    publish(db,PA,1,"second_version",2);
+    assert.equal(db.prepare("SELECT COUNT(*) AS n FROM photo_public_readonly").get().n,2);
+    // If v1's rights are revoked, v2 is not silently revoked or approved.
+    evidence(db,PA,"copyright","revoked",3,1);
+    assert.equal(db.prepare("SELECT COUNT(*) AS n FROM photo_public_readonly").get().n,1);
+  }finally{db.close();}
+});
+
+test("photo identifiers and original object keys reject noncanonical formats",()=>{
+  const db=photo_v1_schema_offline();
+  try{
+    assert.throws(()=>createPhoto(db,"ph_zzzzzzzz-zzzz-zzzz-zzzz-zzzzzzzzzzzz"),/CHECK constraint failed/);
+    createPhoto(db);
+    assert.throws(()=>db.prepare("INSERT INTO photo_versions(photo_id,version_no,sha256,byte_length,mime_type,original_key,provenance_ref,exif_state,created_at) VALUES (?,?,?,?,?,?,?,?,?)")
+      .run(PA,1,H1,13,"image/png","pending/sha256/"+H2+".png","private-ref","unreviewed",T),/CHECK constraint failed/);
   }finally{db.close();}
 });
