@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { buildArchiveSources,buildNewsSource,safePublicUrl,createNotebookSource,
   fetchDrivePdf,getOAuthAccessToken,MAX_TEXT_BYTES,
-  approvedPdf,verifyCaller,sha256,safePublicUrl } from '../src/core.mjs';
+  approvedPdf,verifyCaller,sha256 } from '../src/core.mjs';
 
 const env={
   NOTEBOOK_NAME:'notebooks/550e8400-e29b-41d4-a716-446655440000',
