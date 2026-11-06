@@ -132,3 +132,16 @@ test('oversized upstream stream is cancelled and cannot reach issue creation', a
   assert.deepEqual(methods, ['GET']);
   assert.equal(cancelled,true);
 });
+
+test('quick-action boundary rejects CR, LF and Unicode line separators without regex backtracking', () => {
+  for (const separator of ['\\r', '\\n', '\\r\\n', '\\u2028', '\\u2029']) {
+    const input = JSON.parse('"'+separator+'"');
+    assert.throws(() => validateIssue({...fixed,description:'ordinary context'+input+'  /close'}), /INVALID_REQUEST/);
+  }
+  assert.doesNotThrow(() => validateIssue({...fixed,description:'ordinary context with /slash in middle of line'}));
+});
+
+test('bounded long inputs cannot bypass quick-action rejection', () => {
+  assert.doesNotThrow(() => validateIssue({...fixed,description:' x'.repeat(1200)}));
+  assert.throws(() => validateIssue({...fixed,description:' x'.repeat(1200)+'\\n   /merge'}), /INVALID_REQUEST/);
+});
