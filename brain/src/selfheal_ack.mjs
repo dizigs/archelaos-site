@@ -15,6 +15,39 @@ const hex=b=>[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(
 const body=(o,keys)=>Object.fromEntries(keys.map(k=>[k,o[k]]));
 const exact=(o,keys)=>o && Object.getPrototypeOf(o)===Object.prototype &&
   Reflect.ownKeys(o).length===keys.length+1 && [...keys,'signature'].every(k=>Object.hasOwn(o,k));
+// workerd decorates returned RPC records with a non-enumerable Symbol.dispose.
+// It is transport lifetime metadata, never authenticated protocol data. Keep the
+// exact signed-field whitelist; reject every other symbol/key and all accessors.
+function rpcRecord(value, fields) {
+  if (!value || Object.getPrototypeOf(value) !== Object.prototype) deny();
+  const names = Object.getOwnPropertyNames(value);
+  const expected = [...fields, 'signature'];
+  if (names.length !== expected.length || !expected.every(k => names.includes(k))) deny();
+  const symbols = Object.getOwnPropertySymbols(value);
+  if (symbols.length) {
+    const descriptor = Object.getOwnPropertyDescriptor(value, Symbol.dispose);
+    if (symbols.length !== 1 || symbols[0] !== Symbol.dispose || !descriptor ||
+        descriptor.enumerable || typeof descriptor.value !== 'function' ||
+        descriptor.get !== undefined || descriptor.set !== undefined) deny();
+  }
+  return Object.fromEntries(expected.map(name => {
+    const descriptor = Object.getOwnPropertyDescriptor(value, name);
+    if (!descriptor || !Object.hasOwn(descriptor, 'value') ||
+        descriptor.get !== undefined || descriptor.set !== undefined) deny();
+    return [name, descriptor.value];
+  }));
+}
+export function normalizeAckRpcRecord(value, readback = false) {
+  const result = rpcRecord(value, readback ? REPLY : ACK);
+  if (readback && result.ack !== null) result.ack = rpcRecord(result.ack, ACK);
+  return result;
+}
+function disposeRpcResult(value) {
+  const descriptor = value && Object.getOwnPropertyDescriptor(value, Symbol.dispose);
+  if (descriptor && !descriptor.enumerable && typeof descriptor.value === 'function' &&
+      descriptor.get === undefined && descriptor.set === undefined) descriptor.value.call(value);
+}
+
 async function key(secret){
   if(typeof secret!=='string'||secret.length<43||secret.length>512)deny();
   return crypto.subtle.importKey('raw',bytes(secret),{name:'HMAC',hash:'SHA-256'},false,['sign','verify']);
@@ -81,7 +114,8 @@ async function verifyAck(ack,row,secret,now){
       Math.abs(ack.storedAtMs-row.claimed_at)>300000||ack.storedAtMs>now+300000)deny();
 }
 export async function sendDurableCommand(env,envelope){
-  return bounded(()=>env.HEALER.attemptRecovery(envelope));
+  const raw=await bounded(()=>env.HEALER.attemptRecovery(envelope));
+  try { return normalizeAckRpcRecord(raw); } finally { disposeRpcResult(raw); }
 }
 export async function settleDurableReadback(storage,env,receiptId,immediateAck,now=Date.now()){
   const active=()=>env.BRAIN_SELFHEAL_DURABLE_ACK_ENABLED==='true'&&
@@ -93,7 +127,9 @@ export async function settleDurableReadback(storage,env,receiptId,immediateAck,n
   const nonce=hex(crypto.getRandomValues(new Uint8Array(16)));
   const request=await sign({schemaVersion:1,issuer:'canonical-brain',scope:'selfheal.ack.read.v1',
     commandId:receiptId,commandDigest:row.command_digest,deliveryNonce:row.nonce,issuedAtMs:now,nonce},READ,env.HEALER_EVENT_HMAC_KEY);
-  const response=await bounded(()=>env.HEALER.recoveryStatus(request));
+  const raw=await bounded(()=>env.HEALER.recoveryStatus(request));
+  let response;
+  try { response=normalizeAckRpcRecord(raw,true); } finally { disposeRpcResult(raw); }
   await verify(response,REPLY,env.HEALER_EVENT_HMAC_KEY);
   if(response.schemaVersion!==1||response.issuer!=='archelaos-self-heal'||response.scope!=='selfheal.ack.readback.v1'||
       response.commandId!==receiptId||response.commandDigest!==row.command_digest||response.deliveryNonce!==row.nonce||

@@ -7,7 +7,7 @@ import {join,resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {DatabaseSync} from 'node:sqlite';
 import {Miniflare} from 'miniflare';
-import {migrateSignedOutbox} from '../src/selfheal_ack.mjs';
+import {migrateSignedOutbox,normalizeAckRpcRecord} from '../src/selfheal_ack.mjs';
 
 const ROOT=fileURLToPath(new URL('../../',import.meta.url));
 const KEY='synthetic-ack-receipt-test-only-'.repeat(3);
@@ -20,6 +20,27 @@ function signed(value,fields){return {...value,signature:createHmac('sha256',KEY
 
 function storage(db){return {sql:{exec(q,...params){const s=db.prepare(q);return /^\s*SELECT\b/i.test(q)?s.all(...params):(s.run(...params),[])}},transactionSync(fn){db.exec('BEGIN IMMEDIATE');try{const out=fn();db.exec('COMMIT');return out}catch(e){db.exec('ROLLBACK');throw e}}}}
 test('outbox transactional migration preserves legacy UNKNOWN rows, is idempotent and rolls back corrupt/unknown schema',()=>{
+ // Only workerd's lifetime metadata is normalized; signed application fields
+ // still use the exact whitelist and native HMAC/correlation verification.
+ const ack={schemaVersion:1,issuer:'archelaos-self-heal',scope:'selfheal.ack.v1',
+  commandId:randomUUID(),commandDigest:'a'.repeat(64),deliveryNonce:'b'.repeat(32),
+  storedAtMs:Date.now(),status:'RECEIVED_NOT_EXECUTED',signature:'c'.repeat(64)};
+ let invoked=0;
+ const decorated={...ack};Object.defineProperty(decorated,Symbol.dispose,{value:()=>invoked++});
+ assert.deepEqual(normalizeAckRpcRecord(decorated),ack);assert.equal(invoked,0);
+ const reply={schemaVersion:1,issuer:'archelaos-self-heal',scope:'selfheal.ack.readback.v1',
+  commandId:ack.commandId,commandDigest:ack.commandDigest,deliveryNonce:ack.deliveryNonce,
+  nonce:'d'.repeat(32),issuedAtMs:Date.now(),status:'FOUND',ack:decorated,signature:'e'.repeat(64)};
+ Object.defineProperty(reply,Symbol.dispose,{value:()=>invoked++});
+ assert.deepEqual(normalizeAckRpcRecord(reply,true).ack,ack);assert.equal(invoked,0);
+ for(const mutate of [
+  x=>{x.unexpected=true},x=>{x[Symbol('memory')]=true},
+  x=>Object.defineProperty(x,Symbol.dispose,{value:()=>{},enumerable:true}),
+  x=>Object.defineProperty(x,Symbol.dispose,{get:()=>{invoked++;return ()=>{}}}),
+  x=>Object.defineProperty(x,'status',{get:()=>{invoked++;return 'RECEIVED_NOT_EXECUTED'}}),
+ ]){const specimen={...ack};mutate(specimen);assert.throws(()=>normalizeAckRpcRecord(specimen));}
+ assert.equal(invoked,0);assert.throws(()=>normalizeAckRpcRecord(Object.assign(Object.create({memory:true}),ack)));
+
  for(const corrupt of [false,true]){
   const db=new DatabaseSync(':memory:');db.exec('CREATE TABLE selfheal_signed_outbox(receipt_id TEXT PRIMARY KEY,nonce TEXT UNIQUE,claimed_at INTEGER,status TEXT)');
   db.prepare('INSERT INTO selfheal_signed_outbox VALUES(?,?,?,?)').run('old-receipt','old-nonce',123,corrupt?'CORRUPT':'UNKNOWN');

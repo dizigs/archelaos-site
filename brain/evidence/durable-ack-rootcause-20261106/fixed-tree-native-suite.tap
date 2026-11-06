@@ -1,0 +1,76 @@
+TAP version 13
+# Subtest: outbox transactional migration preserves legacy UNKNOWN rows, is idempotent and rolls back corrupt/unknown schema
+ok 1 - outbox transactional migration preserves legacy UNKNOWN rows, is idempotent and rolls back corrupt/unknown schema
+  ---
+  duration_ms: 3.809855
+  type: 'test'
+  ...
+# Subtest: native durable ACK requires independent stored readback, settles once, survives restart; approved RPC boundaries stay closed
+ok 2 - native durable ACK requires independent stored readback, settles once, survives restart; approved RPC boundaries stay closed
+  ---
+  duration_ms: 3703.033621
+  type: 'test'
+  ...
+# Subtest: native forged/tampered commands, nonce reuse and conflicting command IDs cannot change stored receipts
+ok 3 - native forged/tampered commands, nonce reuse and conflicting command IDs cannot change stored receipts
+  ---
+  duration_ms: 323.582406
+  type: 'test'
+  ...
+# Subtest: native forged_ack remains UNKNOWN without redelivery; later authenticated readback can reconcile
+ok 4 - native forged_ack remains UNKNOWN without redelivery; later authenticated readback can reconcile
+  ---
+  duration_ms: 3552.618925
+  type: 'test'
+  ...
+# Subtest: native bad_readback remains UNKNOWN without redelivery; later authenticated readback can reconcile
+ok 5 - native bad_readback remains UNKNOWN without redelivery; later authenticated readback can reconcile
+  ---
+  duration_ms: 3526.629152
+  type: 'test'
+  ...
+# Subtest: native readback_error remains UNKNOWN without redelivery; later authenticated readback can reconcile
+ok 6 - native readback_error remains UNKNOWN without redelivery; later authenticated readback can reconcile
+  ---
+  duration_ms: 6549.908449
+  type: 'test'
+  ...
+# Subtest: native lost_ack remains UNKNOWN without redelivery; later authenticated readback can reconcile
+ok 7 - native lost_ack remains UNKNOWN without redelivery; later authenticated readback can reconcile
+  ---
+  duration_ms: 3549.621392
+  type: 'test'
+  ...
+# Subtest: native timeout remains UNKNOWN without redelivery; later authenticated readback can reconcile
+ok 8 - native timeout remains UNKNOWN without redelivery; later authenticated readback can reconcile
+  ---
+  duration_ms: 4526.745242
+  type: 'test'
+  ...
+# Subtest: native corrupted durable receipt cannot settle, and replayed readback cannot attest a different command
+ok 9 - native corrupted durable receipt cannot settle, and replayed readback cannot attest a different command
+  ---
+  duration_ms: 6906.886846
+  type: 'test'
+  ...
+# Subtest: native concurrent dispatcher claims once and upgrades pre-existing legacy SQLite without losing UNKNOWN
+ok 10 - native concurrent dispatcher claims once and upgrades pre-existing legacy SQLite without losing UNKNOWN
+  ---
+  duration_ms: 6780.874233
+  type: 'test'
+  ...
+# Subtest: tracked configuration keeps ACK activation, recovery and staging OFF
+ok 11 - tracked configuration keeps ACK activation, recovery and staging OFF
+  ---
+  duration_ms: 1.645225
+  type: 'test'
+  ...
+1..11
+# tests 11
+# suites 0
+# pass 11
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 41271.471463

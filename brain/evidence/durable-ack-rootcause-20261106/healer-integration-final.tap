@@ -1,0 +1,712 @@
+TAP version 13
+# Subtest: approved callers only; no second Brain or public URL
+ok 1 - approved callers only; no second Brain or public URL
+  ---
+  duration_ms: 4.739792
+  type: 'test'
+  ...
+# Subtest: actual expired and missing-key configuration blocks a proposal
+ok 2 - actual expired and missing-key configuration blocks a proposal
+  ---
+  duration_ms: 0.498482
+  type: 'test'
+  ...
+# Subtest: misaligned Brain SHA fails closed
+ok 3 - misaligned Brain SHA fails closed
+  ---
+  duration_ms: 0.341395
+  type: 'test'
+  ...
+# Subtest: no silent overwrite of existing conflicting binding
+ok 4 - no silent overwrite of existing conflicting binding
+  ---
+  duration_ms: 0.20561
+  type: 'test'
+  ...
+# Subtest: unreviewed alias to target is rejected
+ok 5 - unreviewed alias to target is rejected
+  ---
+  duration_ms: 0.179821
+  type: 'test'
+  ...
+# Subtest: no inventory, durable object or approvals means blocked
+ok 6 - no inventory, durable object or approvals means blocked
+  ---
+  duration_ms: 0.203527
+  type: 'test'
+  ...
+# Subtest: already present exact native binding is merely observed, never CONNECTED
+ok 7 - already present exact native binding is merely observed, never CONNECTED
+  ---
+  duration_ms: 0.190758
+  type: 'test'
+  ...
+# Subtest: valid config is never declared deployed or tested
+ok 8 - valid config is never declared deployed or tested
+  ---
+  duration_ms: 0.306742
+  type: 'test'
+  ...
+# Subtest: Librarian source scope excludes gmail
+ok 9 - Librarian source scope excludes gmail
+  ---
+  duration_ms: 0.285981
+  type: 'test'
+  ...
+# Subtest: canonical BRAIN Durable Object class cannot be substituted
+ok 10 - canonical BRAIN Durable Object class cannot be substituted
+  ---
+  duration_ms: 0.308716
+  type: 'test'
+  ...
+# Subtest: approval-like strings, numbers and null never satisfy authorization
+ok 11 - approval-like strings, numbers and null never satisfy authorization
+  ---
+  duration_ms: 0.329207
+  type: 'test'
+  ...
+# Subtest: staging expiry must be time-bounded to one hour
+ok 12 - staging expiry must be time-bounded to one hour
+  ---
+  duration_ms: 0.156316
+  type: 'test'
+  ...
+# Subtest: only exact source HMAC key and independent signed receipt key qualify
+ok 13 - only exact source HMAC key and independent signed receipt key qualify
+  ---
+  duration_ms: 0.215265
+  type: 'test'
+  ...
+# Subtest: per-caller requested source must be explicit and allowlisted
+ok 14 - per-caller requested source must be explicit and allowlisted
+  ---
+  duration_ms: 0.16601
+  type: 'test'
+  ...
+# Subtest: source-side HMAC and receipt verifier secrets are both mandatory
+ok 15 - source-side HMAC and receipt verifier secrets are both mandatory
+  ---
+  duration_ms: 0.231479
+  type: 'test'
+  ...
+# Subtest: approved callers only; no second Brain or public URL
+ok 16 - approved callers only; no second Brain or public URL
+  ---
+  duration_ms: 3.913175
+  type: 'test'
+  ...
+# Subtest: actual expired and missing-key configuration blocks a proposal
+ok 17 - actual expired and missing-key configuration blocks a proposal
+  ---
+  duration_ms: 0.418091
+  type: 'test'
+  ...
+# Subtest: misaligned Brain SHA fails closed
+ok 18 - misaligned Brain SHA fails closed
+  ---
+  duration_ms: 0.186161
+  type: 'test'
+  ...
+# Subtest: no silent overwrite of existing conflicting binding
+ok 19 - no silent overwrite of existing conflicting binding
+  ---
+  duration_ms: 0.188535
+  type: 'test'
+  ...
+# Subtest: unreviewed alias to target is rejected
+ok 20 - unreviewed alias to target is rejected
+  ---
+  duration_ms: 0.17911
+  type: 'test'
+  ...
+# Subtest: no inventory, durable object or approvals means blocked
+ok 21 - no inventory, durable object or approvals means blocked
+  ---
+  duration_ms: 0.212341
+  type: 'test'
+  ...
+# Subtest: already present exact native binding is merely observed, never CONNECTED
+ok 22 - already present exact native binding is merely observed, never CONNECTED
+  ---
+  duration_ms: 0.157548
+  type: 'test'
+  ...
+# Subtest: valid config is never declared deployed or tested
+ok 23 - valid config is never declared deployed or tested
+  ---
+  duration_ms: 0.389257
+  type: 'test'
+  ...
+# Subtest: Librarian source scope excludes gmail
+ok 24 - Librarian source scope excludes gmail
+  ---
+  duration_ms: 0.154904
+  type: 'test'
+  ...
+# Subtest: canonical BRAIN Durable Object class cannot be substituted
+ok 25 - canonical BRAIN Durable Object class cannot be substituted
+  ---
+  duration_ms: 0.200893
+  type: 'test'
+  ...
+# Subtest: approval-like strings, numbers and null never satisfy authorization
+ok 26 - approval-like strings, numbers and null never satisfy authorization
+  ---
+  duration_ms: 0.146411
+  type: 'test'
+  ...
+# Subtest: staging expiry must be time-bounded to one hour
+ok 27 - staging expiry must be time-bounded to one hour
+  ---
+  duration_ms: 0.165289
+  type: 'test'
+  ...
+# Subtest: only exact source HMAC key and independent signed receipt key qualify
+ok 28 - only exact source HMAC key and independent signed receipt key qualify
+  ---
+  duration_ms: 0.110036
+  type: 'test'
+  ...
+# Subtest: per-caller requested source must be explicit and allowlisted
+ok 29 - per-caller requested source must be explicit and allowlisted
+  ---
+  duration_ms: 0.087722
+  type: 'test'
+  ...
+# Subtest: source-side HMAC and receipt verifier secrets are both mandatory
+ok 30 - source-side HMAC and receipt verifier secrets are both mandatory
+  ---
+  duration_ms: 0.096886
+  type: 'test'
+  ...
+# Subtest: observed old Cloudflare settings are hard BLOCKED; no synthetic connected claim
+ok 31 - observed old Cloudflare settings are hard BLOCKED; no synthetic connected claim
+  ---
+  duration_ms: 0.397851
+  type: 'test'
+  ...
+# Subtest: all reviewed metadata still only means READY_FOR_STAGING_REVIEW, not CONNECTED
+ok 32 - all reviewed metadata still only means READY_FOR_STAGING_REVIEW, not CONNECTED
+  ---
+  duration_ms: 0.568087
+  type: 'test'
+  ...
+# Subtest: named entrypoint cannot be omitted or substituted by public fetch default
+ok 33 - named entrypoint cannot be omitted or substituted by public fetch default
+  ---
+  duration_ms: 0.326613
+  type: 'test'
+  ...
+# Subtest: conflicting or duplicated binding names are never treated as proof
+ok 34 - conflicting or duplicated binding names are never treated as proof
+  ---
+  duration_ms: 0.183727
+  type: 'test'
+  ...
+# Subtest: flags alone never override expired staging, wrong SHA or missing proof
+ok 35 - flags alone never override expired staging, wrong SHA or missing proof
+  ---
+  duration_ms: 0.676841
+  type: 'test'
+  ...
+# Subtest: no inventory/unknown values fail closed; input objects are not mutated
+ok 36 - no inventory/unknown values fail closed; input objects are not mutated
+  ---
+  duration_ms: 0.160052
+  type: 'test'
+  ...
+# Subtest: public workers.dev, preview URLs, custom domains or unknown exposure never pass review
+ok 37 - public workers.dev, preview URLs, custom domains or unknown exposure never pass review
+  ---
+  duration_ms: 0.406834
+  type: 'test'
+  ...
+# Subtest: duplicate, mistyped or missing secret metadata cannot authorize staging
+ok 38 - duplicate, mistyped or missing secret metadata cannot authorize staging
+  ---
+  duration_ms: 1.052668
+  type: 'test'
+  ...
+# Subtest: unknown routes, cron triggers, and malformed time do not pass private staging gate
+ok 39 - unknown routes, cron triggers, and malformed time do not pass private staging gate
+  ---
+  duration_ms: 0.636381
+  type: 'test'
+  ...
+# Subtest: explicit target environments cannot redirect either private Service Binding
+ok 40 - explicit target environments cannot redirect either private Service Binding
+  ---
+  duration_ms: 1.635979
+  type: 'test'
+  ...
+# Subtest: legacy PAT alone is never accepted as Github App evidence credential
+ok 41 - legacy PAT alone is never accepted as Github App evidence credential
+  ---
+  duration_ms: 0.28463
+  type: 'test'
+  ...
+# Subtest: no source spoofing; other Workers blocked
+ok 42 - no source spoofing; other Workers blocked
+  ---
+  duration_ms: 3.290474
+  type: 'test'
+  ...
+# Subtest: disabled by default, even when a binding exists
+ok 43 - disabled by default, even when a binding exists
+  ---
+  duration_ms: 1.934609
+  type: 'test'
+  ...
+# Subtest: missing service binding and credentials fail closed
+ok 44 - missing service binding and credentials fail closed
+  ---
+  duration_ms: 0.263277
+  type: 'test'
+  ...
+# Subtest: real Brain raw body HMAC signature is verifiable; receipt retained
+ok 45 - real Brain raw body HMAC signature is verifiable; receipt retained
+  ---
+  duration_ms: 90.720967
+  type: 'test'
+  ...
+# Subtest: duplicate ack 200 accepted but wrong duplicate rejected
+ok 46 - duplicate ack 200 accepted but wrong duplicate rejected
+  ---
+  duration_ms: 5.905652
+  type: 'test'
+  ...
+# Subtest: forged correlation ID and forged durable ack rejected
+ok 47 - forged correlation ID and forged durable ack rejected
+  ---
+  duration_ms: 4.496775
+  type: 'test'
+  ...
+# Subtest: unverified provenance blocks all remote fetches
+ok 48 - unverified provenance blocks all remote fetches
+  ---
+  duration_ms: 0.461727
+  type: 'test'
+  ...
+# Subtest: Brain non-2xx rejects and records status
+ok 49 - Brain non-2xx rejects and records status
+  ---
+  duration_ms: 1.722108
+  type: 'test'
+  ...
+# Subtest: unknown delivery does not retry and produces UNKNOWN audit
+ok 50 - unknown delivery does not retry and produces UNKNOWN audit
+  ---
+  duration_ms: 1.333862
+  type: 'test'
+  ...
+# Subtest: audit outage cannot report success
+ok 51 - audit outage cannot report success
+  ---
+  duration_ms: 1.851855
+  type: 'test'
+  ...
+# Subtest: receipt readback must match UUID and can verify status
+ok 52 - receipt readback must match UUID and can verify status
+  ---
+  duration_ms: 1.735098
+  type: 'test'
+  ...
+# Subtest: health verifies exact service identity but never certifies readiness
+ok 53 - health verifies exact service identity but never certifies readiness
+  ---
+  duration_ms: 0.683501
+  type: 'test'
+  ...
+# Subtest: oversized or invalid source envelope rejected before signing
+ok 54 - oversized or invalid source envelope rejected before signing
+  ---
+  duration_ms: 0.243978
+  type: 'test'
+  ...
+# Subtest: unapproved event type cannot enter the shared Brain source scope
+ok 55 - unapproved event type cannot enter the shared Brain source scope
+  ---
+  duration_ms: 0.19868
+  type: 'test'
+  ...
+# Subtest: malformed success acknowledgements are UNKNOWN and never silently untracked
+ok 56 - malformed success acknowledgements are UNKNOWN and never silently untracked
+  ---
+  duration_ms: 5.195019
+  type: 'test'
+  ...
+# Subtest: Brain WAITING_REVIEW receipt state is part of the live canonical task lifecycle
+ok 57 - Brain WAITING_REVIEW receipt state is part of the live canonical task lifecycle
+  ---
+  duration_ms: 2.058166
+  type: 'test'
+  ...
+# Subtest: readback fails closed on mismatched correlation, forged state and negative attempts
+ok 58 - readback fails closed on mismatched correlation, forged state and negative attempts
+  ---
+  duration_ms: 3.71783
+  type: 'test'
+  ...
+# Subtest: staging health can pin the known commit and rejects a mismatched release
+ok 59 - staging health can pin the known commit and rejects a mismatched release
+  ---
+  duration_ms: 0.999858
+  type: 'test'
+  ...
+# Subtest: main Brain rejects source-v1 before the reviewed \#234 contract is merged (fail-closed)
+ok 60 - main Brain rejects source-v1 before the reviewed \#234 contract is merged (fail-closed)
+  ---
+  duration_ms: 3.471088
+  type: 'test'
+  ...
+# Subtest: transport timeout aborts, records UNKNOWN and never retries the same event
+ok 61 - transport timeout aborts, records UNKNOWN and never retries the same event
+  ---
+  duration_ms: 105.054995
+  type: 'test'
+  ...
+# Subtest: restart-safe synthetic Brain receipt keeps one event and durable duplicate identity
+ok 62 - restart-safe synthetic Brain receipt keeps one event and durable duplicate identity
+  ---
+  duration_ms: 24.916693
+  type: 'test'
+  ...
+# Subtest: synthetic Brain emergency pause rejects intake without a successful receipt
+ok 63 - synthetic Brain emergency pause rejects intake without a successful receipt
+  ---
+  duration_ms: 1.384549
+  type: 'test'
+  ...
+# Subtest: canonical Brain HMAC rejects payload forgery, wrong route, wrong identity and stale replay
+ok 64 - canonical Brain HMAC rejects payload forgery, wrong route, wrong identity and stale replay
+  ---
+  duration_ms: 2.082932
+  type: 'test'
+  ...
+# Subtest: changing an approved Drive event into another identity never calls the private binding
+ok 65 - changing an approved Drive event into another identity never calls the private binding
+  ---
+  duration_ms: 0.238641
+  type: 'test'
+  ...
+# Subtest: unsigned forged successful receipt cannot cause success
+ok 66 - unsigned forged successful receipt cannot cause success
+  ---
+  duration_ms: 4.041603
+  type: 'test'
+  ...
+# Subtest: signed receipt rejects wrong principal, audience, expired issuance and tampering
+ok 67 - signed receipt rejects wrong principal, audience, expired issuance and tampering
+  ---
+  duration_ms: 12.020008
+  type: 'test'
+  ...
+# Subtest: readback refuses valid signature for a different source receipt audience
+ok 68 - readback refuses valid signature for a different source receipt audience
+  ---
+  duration_ms: 4.314871
+  type: 'test'
+  ...
+# Subtest: immutable canonical blob digest is required and cannot be replaced by a valid signature
+ok 69 - immutable canonical blob digest is required and cannot be replaced by a valid signature
+  ---
+  duration_ms: 8.46218
+  type: 'test'
+  ...
+# Subtest: lost signed receipt after a committed event remains UNKNOWN with original immutable identifiers
+ok 70 - lost signed receipt after a committed event remains UNKNOWN with original immutable identifiers
+  ---
+  duration_ms: 1.230106
+  type: 'test'
+  ...
+# Subtest: readback lost after durable ACK does not treat missing evidence as success
+ok 71 - readback lost after durable ACK does not treat missing evidence as success
+  ---
+  duration_ms: 3.553452
+  type: 'test'
+  ...
+# Subtest: stale Brain private health is not connectivity or staging readiness
+ok 72 - stale Brain private health is not connectivity or staging readiness
+  ---
+  duration_ms: 0.446884
+  type: 'test'
+  ...
+# Subtest: source-specific key IDs cannot become operator authority
+ok 73 - source-specific key IDs cannot become operator authority
+  ---
+  duration_ms: 0.467475
+  type: 'test'
+  ...
+# Subtest: delivery refuses unpinned Brain SHA before private network operation
+ok 74 - delivery refuses unpinned Brain SHA before private network operation
+  ---
+  duration_ms: 0.141294
+  type: 'test'
+  ...
+# Subtest: delivery and readback reject a stale deployed SHA before event transmission
+ok 75 - delivery and readback reject a stale deployed SHA before event transmission
+  ---
+  duration_ms: 0.566434
+  type: 'test'
+  ...
+# Subtest: missing signed readback is durably audited as UNKNOWN with immutable receipt identity
+ok 76 - missing signed readback is durably audited as UNKNOWN with immutable receipt identity
+  ---
+  duration_ms: 4.120698
+  type: 'test'
+  ...
+# Subtest: new \#234 SQLite-derived signed readback must carry canonical source, eventId and dedupeKey
+ok 77 - new \#234 SQLite-derived signed readback must carry canonical source, eventId and dedupeKey
+  ---
+  duration_ms: 1.143675
+  type: 'test'
+  ...
+# Subtest: readback source, event identity and immutable digest mismatch are rejected even when validly signed
+ok 78 - readback source, event identity and immutable digest mismatch are rejected even when validly signed
+  ---
+  duration_ms: 4.36037
+  type: 'test'
+  ...
+# Subtest: legacy signed readback missing immutable SQLite fields is rejected, not downgraded
+ok 79 - legacy signed readback missing immutable SQLite fields is rejected, not downgraded
+  ---
+  duration_ms: 2.138818
+  type: 'test'
+  ...
+# Subtest: missing expected original immutable IDs are rejected before network readback
+ok 80 - missing expected original immutable IDs are rejected before network readback
+  ---
+  duration_ms: 0.458993
+  type: 'test'
+  ...
+# Subtest: observed old Cloudflare settings are hard BLOCKED; no synthetic connected claim
+ok 81 - observed old Cloudflare settings are hard BLOCKED; no synthetic connected claim
+  ---
+  duration_ms: 2.045386
+  type: 'test'
+  ...
+# Subtest: all reviewed metadata still only means READY_FOR_STAGING_REVIEW, not CONNECTED
+ok 82 - all reviewed metadata still only means READY_FOR_STAGING_REVIEW, not CONNECTED
+  ---
+  duration_ms: 2.561656
+  type: 'test'
+  ...
+# Subtest: named entrypoint cannot be omitted or substituted by public fetch default
+ok 83 - named entrypoint cannot be omitted or substituted by public fetch default
+  ---
+  duration_ms: 0.41075
+  type: 'test'
+  ...
+# Subtest: conflicting or duplicated binding names are never treated as proof
+ok 84 - conflicting or duplicated binding names are never treated as proof
+  ---
+  duration_ms: 0.737462
+  type: 'test'
+  ...
+# Subtest: flags alone never override expired staging, wrong SHA or missing proof
+ok 85 - flags alone never override expired staging, wrong SHA or missing proof
+  ---
+  duration_ms: 0.834218
+  type: 'test'
+  ...
+# Subtest: no inventory/unknown values fail closed; input objects are not mutated
+ok 86 - no inventory/unknown values fail closed; input objects are not mutated
+  ---
+  duration_ms: 0.29142
+  type: 'test'
+  ...
+# Subtest: public workers.dev, preview URLs, custom domains or unknown exposure never pass review
+ok 87 - public workers.dev, preview URLs, custom domains or unknown exposure never pass review
+  ---
+  duration_ms: 0.654688
+  type: 'test'
+  ...
+# Subtest: duplicate, mistyped or missing secret metadata cannot authorize staging
+ok 88 - duplicate, mistyped or missing secret metadata cannot authorize staging
+  ---
+  duration_ms: 2.911423
+  type: 'test'
+  ...
+# Subtest: unknown routes, cron triggers, and malformed time do not pass private staging gate
+ok 89 - unknown routes, cron triggers, and malformed time do not pass private staging gate
+  ---
+  duration_ms: 0.992327
+  type: 'test'
+  ...
+# Subtest: explicit target environments cannot redirect either private Service Binding
+ok 90 - explicit target environments cannot redirect either private Service Binding
+  ---
+  duration_ms: 1.340803
+  type: 'test'
+  ...
+# Subtest: legacy PAT alone is never accepted as Github App evidence credential
+ok 91 - legacy PAT alone is never accepted as Github App evidence credential
+  ---
+  duration_ms: 0.51713
+  type: 'test'
+  ...
+# Subtest: private signed event validates actual bytes and single-use durable nonce
+ok 92 - private signed event validates actual bytes and single-use durable nonce
+  ---
+  duration_ms: 17.446175
+  type: 'test'
+  ...
+# Subtest: future-dated signature nonce remains reserved for its full valid replay window
+ok 93 - future-dated signature nonce remains reserved for its full valid replay window
+  ---
+  duration_ms: 4.454942
+  type: 'test'
+  ...
+# Subtest: unsigned raw finding, altered signed fields, stale and forged events are denied
+ok 94 - unsigned raw finding, altered signed fields, stale and forged events are denied
+  ---
+  duration_ms: 12.020017
+  type: 'test'
+  ...
+# Subtest: nonce capacity and expiry fail closed without accepting unverified writers
+ok 95 - nonce capacity and expiry fail closed without accepting unverified writers
+  ---
+  duration_ms: 1.165188
+  type: 'test'
+  ...
+# Subtest: strict approved metadata only: unknown fields, raw logs and credentials rejected
+ok 96 - strict approved metadata only: unknown fields, raw logs and credentials rejected
+  ---
+  duration_ms: 5.49388
+  type: 'test'
+  ...
+# Subtest: policy cannot authorize auto merges or repair from metadata alone
+ok 97 - policy cannot authorize auto merges or repair from metadata alone
+  ---
+  duration_ms: 0.381065
+  type: 'test'
+  ...
+# Subtest: persistent SQLite ledger stores one observation for repeated delivery
+ok 98 - persistent SQLite ledger stores one observation for repeated delivery
+  ---
+  duration_ms: 20.61067
+  type: 'test'
+  ...
+# Subtest: all reviewed catalog entries are inert and match known diagnosis codes
+ok 99 - all reviewed catalog entries are inert and match known diagnosis codes
+  ---
+  duration_ms: 0.963994
+  type: 'test'
+  ...
+# Subtest: new deployment evidence is recorded as metadata, never considered repair proof
+ok 100 - new deployment evidence is recorded as metadata, never considered repair proof
+  ---
+  duration_ms: 2.409426
+  type: 'test'
+  ...
+# Subtest: new Evidence ID, same incident: observation count increments but no new incident
+ok 101 - new Evidence ID, same incident: observation count increments but no new incident
+  ---
+  duration_ms: 3.818242
+  type: 'test'
+  ...
+# Subtest: severity is deterministic: security P0, required CI P1, known HTML P2
+ok 102 - severity is deterministic: security P0, required CI P1, known HTML P2
+  ---
+  duration_ms: 3.009922
+  type: 'test'
+  ...
+# Subtest: untrusted/missing Brain authorization never claims or executes
+ok 103 - untrusted/missing Brain authorization never claims or executes
+  ---
+  duration_ms: 1.846226
+  type: 'test'
+  ...
+# Subtest: forged or stale Brain receipt never creates an incident or routes a review
+ok 104 - forged or stale Brain receipt never creates an incident or routes a review
+  ---
+  duration_ms: 0.974731
+  type: 'test'
+  ...
+# Subtest: verified failed CI halts chain and routes exactly one review-only Brain intent
+ok 105 - verified failed CI halts chain and routes exactly one review-only Brain intent
+  ---
+  duration_ms: 12.732753
+  type: 'test'
+  ...
+# Subtest: read-only transient health checks retry with durable backoff and open circuit after 3
+ok 106 - read-only transient health checks retry with durable backoff and open circuit after 3
+  ---
+  duration_ms: 5.333708
+  type: 'test'
+  ...
+# Subtest: verified recovery proof closes incident without any GitHub mutation
+ok 107 - verified recovery proof closes incident without any GitHub mutation
+  ---
+  duration_ms: 1.258018
+  type: 'test'
+  ...
+# Subtest: ambiguous timeout is quarantined, never retried automatically
+ok 108 - ambiguous timeout is quarantined, never retried automatically
+  ---
+  duration_ms: 1.249956
+  type: 'test'
+  ...
+# Subtest: security and unverified deployment require human intervention
+ok 109 - security and unverified deployment require human intervention
+  ---
+  duration_ms: 1.101612
+  type: 'test'
+  ...
+# Subtest: same commit new evidence cannot bypass circuit via fingerprint collision
+ok 110 - same commit new evidence cannot bypass circuit via fingerprint collision
+  ---
+  duration_ms: 1.509808
+  type: 'test'
+  ...
+# Subtest: required CI halt, missing provenance and emergency pause fail closed before routing
+ok 111 - required CI halt, missing provenance and emergency pause fail closed before routing
+  ---
+  duration_ms: 0.870874
+  type: 'test'
+  ...
+# Subtest: renewed valid receipt does not reset durable health circuit
+ok 112 - renewed valid receipt does not reset durable health circuit
+  ---
+  duration_ms: 2.262494
+  type: 'test'
+  ...
+# Subtest: lost routing readback remains UNKNOWN across Durable Object restart
+ok 113 - lost routing readback remains UNKNOWN across Durable Object restart
+  ---
+  duration_ms: 1.501726
+  type: 'test'
+  ...
+# Subtest: staging SHA drift and unsafe review readback never claim success
+ok 114 - staging SHA drift and unsafe review readback never claim success
+  ---
+  duration_ms: 1.302355
+  type: 'test'
+  ...
+# Subtest: default HealerService prototype exposes exactly reviewed methods and no getter, computed or symbol properties
+ok 115 - default HealerService prototype exposes exactly reviewed methods and no getter, computed or symbol properties
+  ---
+  duration_ms: 57.217147
+  type: 'test'
+  ...
+# Subtest: synthetic hostile prototype mutations are caught, including computed getter and symbol
+ok 116 - synthetic hostile prototype mutations are caught, including computed getter and symbol
+  ---
+  duration_ms: 9.472558
+  type: 'test'
+  ...
+# Subtest: approved RPC methods still forward to same canonical Durable Object stub; private helper is not a public RPC
+ok 117 - approved RPC methods still forward to same canonical Durable Object stub; private helper is not a public RPC
+  ---
+  duration_ms: 7.226554
+  type: 'test'
+  ...
+1..117
+# tests 117
+# suites 0
+# pass 117
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 485.599308

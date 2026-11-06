@@ -1,4 +1,73 @@
-# Durable ACK / readback / settlement — STOPPED CHECKPOINT
+# Durable ACK / readback / settlement — local root-cause recovery
+
+**Current status: READY_FOR_INDEPENDENT_REVIEW (LOCAL ONLY). Runtime activation: NO-GO.**
+Recovery starts exclusively from local checkpoint `f70d645af33b7674f00fe514d42010be64bf882d`
+on `codex/selfheal-durable-ack-settlement`. No push, PR, merge, upload or deployment.
+The earlier failed gate is retained below as historical evidence, not the current result.
+
+## Confirmed cause and narrow correction
+
+The original first native assertion was reproduced in an isolated export of f70d645.
+`expectedCommand` succeeds. The valid immediate ACK has nine signed own string fields,
+but workerd also adds one non-enumerable function-valued `Symbol.dispose`. The exact
+`Reflect.ownKeys` count therefore sees ten keys and rejects the record **before HMAC**.
+The signed readback reply has the same transport decoration. This is not a demonstrated
+HMAC, command-correlation, SQLite-persistence or canonical-settlement failure.
+
+Reason-only diagnostics in the isolated temporary copy identify record shape, HMAC,
+correlation, readback RPC, stored ACK authentication and settlement stages. The actual
+before/after TAP is in `../evidence/durable-ack-rootcause-20261106/`. No secrets or payload
+values were logged, and no diagnostic logger/error-code change is shipped in the Worker.
+
+`selfheal_ack.mjs` now normalizes RPC transport metadata before existing authentication.
+It copies only the exact signed own data fields. Unknown string fields/symbols,
+accessors, altered prototypes and enumerable/accessor disposal properties still fail
+closed. Only the observed non-enumerable function-valued native disposal descriptor is
+permitted, then discarded from protocol data; raw RPC resources are explicitly released.
+Outer ACK, readback and nested stored ACK are covered. HMAC verification, command ID,
+digest, nonce/challenge/time correlation, immutable receipts, transactional settlement,
+UNKNOWN on ambiguity and no-redelivery behavior are unchanged. No public RPC method,
+getter, binding, migration tag or secret is added by this recovery.
+
+## Actual recovery gates, in required order
+
+1. Reproduced original assertion: UNKNOWN instead of ACKNOWLEDGED, before HMAC.
+2. Corrected-tree dedicated native suite: **11/11 PASS**, zero failures/skips/cancellations.
+   Existing assertions retained; strict metadata/accessor/prototype mutations added.
+3. Only after that pass: full Brain **142/142 PASS**, Healer/integration **117/117 PASS**,
+   Python **17/17 PASS**, syntax **43 Brain modules + Healer worker/protocol PASS**,
+   production-dependency npm audit **0 vulnerabilities** and both Wrangler4.157.0
+   **dry-run builds PASS**. `git diff --check` PASS. Native tests use real workerd
+   Service Bindings and SQLite, synthetic keys/data and zero permitted provider egress.
+
+Native coverage includes authenticated ACK plus independent stored readback, restart
+persistence, exactly-once settlement/concurrency, legacy UNKNOWN migration, tampering,
+forged ACK, stale/replayed readback, conflicting/duplicate commands, timeout/lost ACK,
+readback error, explicit readback-only reconciliation and no automatic redelivery.
+Full counts, actual TAP and source/bundle/log SHA256 hashes are in the results manifest.
+The original failed TAP remains unchanged in `../evidence/durable-ack-initial-native.tap`.
+An application command initially used an incorrect relative path and failed before
+editing source; its subsequent run still tested the old baseline. It is not the fixed-tree
+gate. The correctly applied tree is identified by hashes and the separate 11/11 TAP.
+
+## Remaining acceptance and operational boundaries
+
+Hosted exact-head CI, CodeQL and SonarCloud for the new local commit are **NOT RUN**:
+this phase forbids push/new PR. Older main/PR results are not reused as new-head evidence.
+Next: independently review this local checkpoint and unchanged security assertions;
+complete separately authorized hosted CI/security gates before any publication decision.
+No runtime readiness is inferred from compilation or local native tests.
+
+All inherited activation/ACK flags remain OFF, expiry1970 and configuration files are
+unchanged relative to f70d645. No Cloudflare API call, upload, version creation, deployment,
+secret/binding change, production write, AI/recovery or autonomous repair activation.
+Fresh authorized live inventory/attestation, namespace/rollback verification and separate
+runtime acceptance remain necessary. Shared-key HMAC authenticates within the trusted
+peer boundary; it does not prove physical durability against a compromised key holder.
+
+---
+
+# Historical stopped checkpoint — f70d645
 
 **Status: TEST_FAILED / BLOCKED. This implementation is incomplete.**
 Base main: a9072b07f981cbfddc22294efdf12015b3c9a552, after merged262/263/264.
