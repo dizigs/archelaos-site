@@ -5,7 +5,8 @@ import { mkdtemp, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { Miniflare } from 'miniflare';
-import { validateAnalyticsSnapshot, validateAppsScriptEvent } from '../src/capability_intake.mjs';
+import { validateAnalyticsSnapshot, validateAppsScriptEvent, enforceCapabilityWindow } from '../src/capability_intake.mjs';
+import { assertDistinctPrincipalSecrets, enforceDurableJobCapacity, validateStoredEvent } from '../src/contract.mjs';
 
 const KEY = 'test-analytics-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
 const APPS_KEY = 'test-appscript-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb';
@@ -49,7 +50,7 @@ function apps({operationId = randomUUID(), revision = 'b'.repeat(64), phase = 'S
     sourceRevision: revision, observedAt, correlationId: operationId,
     metadata: {sourceFingerprint, evidenceDigest, privacy: 'OPAQUE_AUDIT_ONLY'}};
 }
-async function withBrain(fn, {enabled = true, eventSources = false} = {}) {
+async function withBrain(fn, {enabled = true, eventSources = false, bindingOverrides = {}} = {}) {
   const directory = await mkdtemp(join(tmpdir(), 'brain-capability-'));
   let externalCalls = 0;
   const options = {
@@ -67,7 +68,7 @@ async function withBrain(fn, {enabled = true, eventSources = false} = {}) {
       BRAIN_PRIVATE_EVENT_SOURCES_ENABLED: eventSources ? 'true' : 'false',
       BRAIN_PRIVATE_CAPABILITIES_ENABLED: enabled ? 'true' : 'false',
       BRAIN_PRIVATE_SERVICE_BINDINGS_VERIFIED: enabled ? 'true' : 'false',
-      STAGING_SHORT_RETRIES: 'true'}
+      STAGING_SHORT_RETRIES: 'true', ...bindingOverrides}
   };
   let mf = new Miniflare(options);
   async function send(path, input, identity = 'analytics-v1', secret) {
@@ -103,12 +104,62 @@ test('private validators accept real #220/#201 shapes and reject personal fields
   await assert.rejects(validateAnalyticsSnapshot({...report, event: {
     ...report.event, payload: {...report.event.payload, metrics: [{
       ...report.event.payload.metrics[0], sampleSize: 1}]}}}), /ANALYTICS_UNSAFE_MEASUREMENT/);
+  const personalPath = analytics();
+  personalPath.event.payload.metrics[0].pagePath = '/account/2025550199';
+  personalPath.metricRevision = h(JSON.stringify(personalPath.event.payload.metrics));
+  await assert.rejects(validateAnalyticsSnapshot(personalPath), /ANALYTICS_UNSAFE_MEASUREMENT/);
   await assert.rejects(validateAnalyticsSnapshot({...report, metricRevision: 'f'.repeat(64)}), /ANALYTICS_HASH_MISMATCH/);
   await assert.rejects(validateAppsScriptEvent({...app, metadata: {...app.metadata, code: 'source'}}),
     /APPS_SCRIPT_INVALID_EVENT/);
   await assert.rejects(validateAppsScriptEvent({...app, sourceRevision: 'f'.repeat(64)}),
     /APPS_SCRIPT_HASH_MISMATCH/);
 });
+test('private principal secrets cannot be reused or shared with the receipt signer', async () => {
+  assert.throws(() => assertDistinctPrincipalSecrets({
+    BRAIN_DRIVE_INTAKE_KEY: DRIVE_KEY, BRAIN_GMAIL_INTAKE_KEY: DRIVE_KEY
+  }), /PRINCIPAL_SECRET_COLLISION/);
+  assert.throws(() => assertDistinctPrincipalSecrets({
+    BRAIN_ANALYTICS_INTAKE_KEY: KEY, BRAIN_CAPABILITY_RECEIPT_KEY: KEY
+  }), /PRINCIPAL_SECRET_COLLISION/);
+  await withBrain(async ({send}) => {
+    const response = await send('/v1/intake/analytics', analytics());
+    assert.equal(response.status, 503);
+    assert.equal((await response.json()).code, 'PRINCIPAL_SECRET_COLLISION');
+  }, {bindingOverrides: {BRAIN_APPS_SCRIPT_INTAKE_KEY: KEY}});
+});
+test('capacity windows admit new work after historic completions without deleting receipts', () => {
+  const now = Date.UTC(2026, 10, 6);
+  let recent = 9999, cutoff = 0;
+  const deliveries = {exec(statement, since) {
+    assert.match(statement, /WHERE created>=\?/);
+    cutoff = since;
+    return [{n: recent}];
+  }};
+  assert.doesNotThrow(() => enforceCapabilityWindow(deliveries, now));
+  assert.equal(cutoff, now - 30 * 86400000);
+  recent = 10000;
+  assert.throws(() => enforceCapabilityWindow(deliveries, now), /CAPABILITY_CAPACITY_REACHED/);
+
+  let jobs = 1999, keys = 19997;
+  const queue = {exec(statement) {
+    assert.match(statement, /WHERE status IN/);
+    assert.match(statement, /event_keys WHERE job_id IN/);
+    return [{jobs, keys}];
+  }};
+  assert.doesNotThrow(() => enforceDurableJobCapacity(queue, false));
+  jobs = 2000;
+  assert.throws(() => enforceDurableJobCapacity(queue, false), /DURABLE_CAPACITY_REACHED/);
+  assert.doesNotThrow(() => enforceDurableJobCapacity(queue, true));
+  jobs = 1; keys = 19998;
+  assert.throws(() => enforceDurableJobCapacity(queue, false), /DURABLE_CAPACITY_REACHED/);
+});
+test('stored receipt corruption maps to a server-side 503', () => {
+  const damaged = legacyEvent('drive', 'source.file.created');
+  damaged.payload.blobSha256 = 'invalid';
+  assert.throws(() => validateStoredEvent(damaged, 'drive'),
+    e => e.code === 'SOURCE_RECEIPT_CORRUPT' && e.status === 503);
+});
+
 test('private source identities cannot impersonate each other or the operator', async () => {
   await withBrain(async ({send}) => {
     assert.equal((await send('/v1/intake/apps-script', apps())).status, 403);
