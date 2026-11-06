@@ -9,6 +9,27 @@ The Librarian is separate from the central brain. It handles two independently g
 2. **Published news:** `importPublishedNews({newsId})` reads canonical public `https://archelaos.club/news.json`, validates the requested published news ID and imports its public `sourceUrl` via `web_content`. The existing daily research/news publishing mechanism or central brain may call this Worker through **private Cloudflare Service bindings** after independently verifying source events; no second scraper or recurring schedule.
 3. **Owner-requested one-PDF link experiment:** `probeApprovedDriveLink({fileId})` is explicitly gated. Google's public API docs state Drive URLs are unsupported, so HTTP 400 is expected; the actual provider result must be recorded if the test is attempted, without changing file visibility. A prior documentation lookup is *not* a real attempted provider upload.
 
+
+## Code-only security acceptance (2026-11-06)
+
+The private Worker remains **OFF / NOT CONNECTED**. An approved file ID alone is no longer sufficient for OCR ingestion. Staging activation additionally requires:
+
+- APPROVED_PDF_IDS (existing literal allowlist), ARCHIVE_DRIVE_ID and a private APPROVED_PDF_REVIEWERS allowlist.
+- A private APPROVED_PDF_MANIFEST JSON array containing reviewed entries with keys: fileId, driveId, version (Drive version), sha256 (lowercase digest of original PDF bytes), reviewer, rights="cleared", privacyClass="non-sensitive", approved=true and expiresAt (UTC ISO timestamp). An independently auditable signed human approval is still required. A changed file needs renewed review.
+- Separate secret credentials LIBRARIAN_DRIVE_CALLER_KEY, LIBRARIAN_NEWS_CALLER_KEY and LIBRARIAN_REVIEW_CALLER_KEY, each at least 32 characters, and an authorization object with keyId, requestId, timestamp, signature. Key ID: librarian-drive-v1, librarian-news-v1 or librarian-review-v1. Request ID: UUID. Timestamp: Unix milliseconds within five minutes. HMAC-SHA256 lowercase signature covers the exact UTF-8 concatenation of scope, subject, requestId, timestamp separated by newline characters. Signed RPC authentication alone is **not** proof of upstream event provenance. Do not reuse a Brain operator credential.
+- NEWS_SOURCE_ALLOWED_HOSTS, a comma-separated explicit domain allowlist. Published source URLs outside the allowed hosts or their subdomains fail closed; caller-provided arbitrary URLs are not accepted.
+- PDF download rechecks Shared Drive metadata, version, size, PDF signature and the SHA256 digest over actual bytes. Current hard limit: 20 MB per PDF. Larger inputs need independently reviewed streaming ingestion.
+- The private extractor response must include sha256, revision, engine and ordered pages with text. Its output must match the source PDF revision and digest. The extractor requires independent sandboxing, malware checks, timeouts, output caps, Greek OCR validation and restrictions on egress. **An approved extractor is not yet connected.**
+
+### Provenance, permissions and historical claims
+
+- Page numbers, source version and digest travel with the extracted text, explicitly marked UNTRUSTED. Full immutable cross-document provenance (Drive ID, revision, SHA, page offsets, OCR engine, chunk digest), cross-PDF duplicates and revision review receipts are not yet implemented and remain pre-live blockers.
+- PDF text is historical **data**, not trusted AI instructions. Quarantine prompt injection attempts, low-confidence OCR, ambiguous club references and personal/sensitive data. A file name is not an adequate GDPR classifier or evidence of rights/consent.
+- Never attribute another club's medal, victory, title or athlete to Γ.Α.Σ. «Αρχέλαος» without verified person/team, competition, date and independent source evidence. Mixed newspaper reports need human review.
+- No Librarian method writes news.json, Hall of Fame, Stories, timelines or trophy records. Notebook ingestion of *already published* news is not approval to publish a new item; all publication remains a separately approved owner-controlled process.
+- An ambiguous Notebook create outcome remains RESERVED/UNKNOWN for manual reconciliation. No blind retry and no upgrade from an unverified provider ACK. Preserve private minimal audit metadata without PDF text, tokens or sensitive Google identifiers in CI/logs.
+- Release requires SonarCloud Security Rating A, accepted CodeQL, signed source receipt/readback and exact-head CI. A rating of B or an unknown result is BLOCKED. Offline tests do not demonstrate live Cloudflare, Google Drive or Notebook integration.
+
 ## Required private secrets and permissions — NOT yet installed
 - Personal Google account Notebook OAuth with `https://www.googleapis.com/auth/notebook`: `NOTEBOOK_CLIENT_ID`, `NOTEBOOK_CLIENT_SECRET`, `NOTEBOOK_REFRESH_TOKEN`, `NOTEBOOK_NAME`, `NOTEBOOK_PROJECT_ID`.
 - Separately scoped Drive readonly OAuth: `DRIVE_CLIENT_ID`, `DRIVE_CLIENT_SECRET`, `DRIVE_REFRESH_TOKEN`. Configure `ARCHIVE_DRIVE_ID` privately for the **actual** Shared Drive and `APPROVED_PDF_IDS` with only reviewed, non-sensitive files.
@@ -38,4 +59,4 @@ Official API documentation: https://developers.google.com/notebook/docs/sources 
 cd automation/librarian
 npm run check
 ```
-CI uses synthetic fixtures without secrets and runs only on PR/manual triggers. It proves code behavior, **not** real provider connectivity or a Cloudflare deployment.
+CI uses synthetic fixtures without secrets and runs only on PR/manual triggers, checking out and asserting the exact pull-request head SHA. It proves code behavior, **not** real provider connectivity or a Cloudflare deployment.
