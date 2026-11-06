@@ -29,9 +29,27 @@ async function readJSON(url, headers, fetcher) {
     const res = await fetcher(url, { method: 'GET', headers, signal: controller.signal, redirect: 'error' });
     if (!res.ok) throw new Error('UPSTREAM_STATUS');
     const length = Number(res.headers.get('content-length') || 0);
-    if (length > MAX_RESPONSE_BYTES) throw new Error('UPSTREAM_SIZE');
-    const text = await res.text();
-    if (text.length > MAX_RESPONSE_BYTES) throw new Error('UPSTREAM_SIZE');
+    if (!Number.isFinite(length) || length > MAX_RESPONSE_BYTES) throw new Error('UPSTREAM_SIZE');
+    if (!res.body) throw new Error('UPSTREAM_BODY');
+    const reader = res.body.getReader();
+    const chunks = [];
+    let bytes = 0;
+    try {
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        bytes += value.byteLength;
+        if (bytes > MAX_RESPONSE_BYTES) throw new Error('UPSTREAM_SIZE');
+        chunks.push(value);
+      }
+    } finally {
+      if (bytes > MAX_RESPONSE_BYTES) await reader.cancel().catch(() => {});
+      reader.releaseLock();
+    }
+    const decoder = new TextDecoder('utf-8', { fatal: true });
+    let text = '';
+    for (const chunk of chunks) text += decoder.decode(chunk, { stream: true });
+    text += decoder.decode();
     return JSON.parse(text);
   } finally {
     clearTimeout(timer);
@@ -39,7 +57,12 @@ async function readJSON(url, headers, fetcher) {
 }
 
 export function assess({ mirror, gitlabBranch, githubCommit, checkedAt }) {
-  if (!mirror || !gitlabBranch || !githubCommit ||
+  if (!mirror || typeof mirror !== 'object' || Array.isArray(mirror) ||
+      typeof mirror.enabled !== 'boolean' ||
+      typeof mirror.mirror_trigger_builds !== 'boolean' ||
+      typeof mirror.mirror_overwrites_diverged_branches !== 'boolean' ||
+      typeof mirror.update_status !== 'string' ||
+      !Number.isFinite(checkedAt) || !gitlabBranch || !githubCommit ||
       !/^[a-f0-9]{40}$/.test(gitlabBranch.commit?.id || '') ||
       !/^[a-f0-9]{40}$/.test(githubCommit.sha || '')) throw new Error('INVALID_UPSTREAM_SCHEMA');
   const glSha = gitlabBranch.commit.id;
@@ -49,11 +72,14 @@ export function assess({ mirror, gitlabBranch, githubCommit, checkedAt }) {
   if (mirror.mirror_trigger_builds === true) issues.push('UNEXPECTED_MIRROR_PIPELINES');
   if (mirror.mirror_overwrites_diverged_branches === true) issues.push('UNSAFE_BRANCH_OVERWRITE');
   if (['failed', 'canceled'].includes(mirror.update_status)) issues.push('MIRROR_UPDATE_FAILED');
+  else if (!['finished', 'started', 'scheduled', 'pending'].includes(mirror.update_status))
+    issues.push('MIRROR_UPDATE_UNVERIFIED');
   if (mirror.last_error) issues.push('MIRROR_ERROR_RECORDED');
   if (ghSha !== glSha) issues.push('HEAD_MISMATCH');
   const stamp = Date.parse(mirror.last_successful_update_at || '');
   const ageMinutes = Number.isFinite(stamp) ? Math.max(0, Math.round((checkedAt - stamp) / 60_000)) : null;
   if (ageMinutes === null) issues.push('NO_SUCCESSFUL_MIRROR_TIMESTAMP');
+  if (Number.isFinite(stamp) && stamp > checkedAt + 300_000) issues.push('MIRROR_FUTURE_TIMESTAMP');
   const degraded = issues.some(i => i !== 'HEAD_MISMATCH' && i !== 'NO_SUCCESSFUL_MIRROR_TIMESTAMP');
   const criticalMismatch = issues.includes('HEAD_MISMATCH') && (ageMinutes === null || ageMinutes >= 120);
   return {
@@ -105,7 +131,9 @@ export default {
       return;
     }
     ctx.waitUntil(runAudit(env).then(report => {
-      console.log(JSON.stringify({ kind: 'gitlab_guardian', ...report }));
+      // Operational logs contain bounded classification only, never private GitLab SHAs or mirror metadata.
+      console.log(JSON.stringify({ kind: 'gitlab_guardian', status: report.status,
+        issue_codes: report.issues, checked_at: report.checked_at }));
     }).catch(() => {
       console.error(JSON.stringify({ kind: 'gitlab_guardian', status: 'unavailable' }));
     }));
