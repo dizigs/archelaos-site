@@ -91,7 +91,7 @@ export default class extends WorkerEntrypoint {
  }}
 `;
 
-async function fixture(mode='normal',enabled=true){
+async function fixture(mode='normal',enabled=true,healerKey=KEY){
  const directory=await mkdtemp(join(tmpdir(),'brain-ack-native-'));
  const bpath=resolve('src','.ack-brain-'+randomUUID()+'.mjs');
  const hpath=join(ROOT,'automation/self-heal-worker/src','.ack-healer-'+randomUUID()+'.mjs');
@@ -105,7 +105,7 @@ async function fixture(mode='normal',enabled=true){
     BRAIN_SELFHEAL_DISPATCH_ENABLED:'true',BRAIN_SELFHEAL_RECOVERY_ENABLED:'true',BRAIN_SELFHEAL_BINDING_ATTESTED:'true',BRAIN_SELFHEAL_DURABLE_ACK_ENABLED:enabled?'true':'false',
     HEALER_EVENT_HMAC_KEY:KEY,BRAIN_GITHUB_INTAKE_KEY:GITHUB_KEY,BRAIN_CAPABILITY_RECEIPT_KEY:RECEIPT_KEY,BRAIN_PRIVATE_EVENT_SOURCES_ENABLED:'true',BRAIN_PRIVATE_SERVICE_BINDINGS_VERIFIED:'true'},
    serviceBindings:{HEALER:{name:fault==='normal'?'healer':'relay'}}},
-  {name:'healer',modules:true,scriptPath:hpath,modulesRoot:join(ROOT,'automation/self-heal-worker/src'),compatibilityDate:'2026-11-01',durableObjects:{HEALER_MEMORY:{className:'HealerMemory',useSQLite:true}},bindings:{HEALER_EVENT_HMAC_KEY:KEY,HEALER_DURABLE_ACK_ENABLED:enabled?'true':'false'},serviceBindings:{BRAIN_RECOVERY:{name:'brain',entrypoint:'BrainRecoveryPort'}}},
+  {name:'healer',modules:true,scriptPath:hpath,modulesRoot:join(ROOT,'automation/self-heal-worker/src'),compatibilityDate:'2026-11-01',durableObjects:{HEALER_MEMORY:{className:'HealerMemory',useSQLite:true}},bindings:{HEALER_EVENT_HMAC_KEY:healerKey,HEALER_DURABLE_ACK_ENABLED:enabled?'true':'false'},serviceBindings:{BRAIN_RECOVERY:{name:'brain',entrypoint:'BrainRecoveryPort'}}},
   {name:'relay',modules:true,script:relay,compatibilityDate:'2026-11-01',bindings:{MODE:fault},serviceBindings:{PEER:{name:'healer'}}},
   {name:'inspector',modules:true,script:inspector,compatibilityDate:'2026-11-01',durableObjects:{BRAIN:{className:'BrainCoordinator',scriptName:'brain',useSQLite:true},MEMORY:{className:'HealerMemory',scriptName:'healer',useSQLite:true}},serviceBindings:{HEALER:{name:'healer'},RECOVERY:{name:'brain',entrypoint:'BrainRecoveryPort'}}}
  ],durableObjectsPersist:directory,outboundService:async()=>{outbound++;return new Response('NO_EXTERNAL_EGRESS',{status:503})}});
@@ -154,6 +154,30 @@ test('native concurrent dispatcher claims once and upgrades pre-existing legacy 
  const f=await fixture();try{const id=randomUUID();await f.inspect({op:'seed',id});const result=await Promise.all([f.dispatch(id),f.dispatch(id)]);assert.equal(result.filter(r=>r.body.status==='ACKNOWLEDGED').length,1);assert.equal(result.filter(r=>r.body.code==='SIGNED_DISPATCH_ALREADY_CLAIMED').length,1);assert.equal((await f.inspect({op:'state'})).healer.receipts.length,1);}finally{await f.close()}
  const legacy=await fixture();try{await legacy.inspect({op:'legacy'});await legacy.restart();const state=await legacy.inspect({op:'state'});assert.equal(state.brain.outbox[0].receipt_id,'legacy-id');assert.equal(state.brain.outbox[0].status,'UNKNOWN');assert.equal(state.brain.outbox[0].command_json,null);}finally{await legacy.close()}
 });
+test('native HMAC mismatch between Brain and Healer fails closed: UNKNOWN, no receipt, no replay or recovery',async()=>{
+ const f=await fixture('normal',true,'synthetic-mismatched-healer-key-'.repeat(3));
+ try {
+  const id=randomUUID();
+  await f.inspect({op:'seed',id});
+  const first=await f.dispatch(id);
+  assert.equal(first.body.status,'UNKNOWN');
+  let state=await f.inspect({op:'state'});
+  assert.equal(state.brain.outbox.length,1);
+  assert.equal(state.brain.outbox[0].status,'UNKNOWN');
+  assert.equal(state.brain.audit.length,0);
+  assert.equal(state.healer.receipts.length,0);
+  assert.equal(state.healer.recoveries.length,0);
+  assert.equal((await f.dispatch(id)).body.code,'SIGNED_DISPATCH_ALREADY_CLAIMED');
+  await f.restart();
+  assert.equal((await f.dispatch(id,true)).body.status,'UNKNOWN');
+  state=await f.inspect({op:'state'});
+  assert.equal(state.brain.outbox[0].status,'UNKNOWN');
+  assert.equal(state.brain.audit.length,0);
+  assert.equal(state.healer.receipts.length,0);
+  assert.equal(state.healer.recoveries.length,0);
+ } finally { await f.close(); }
+});
+
 test('tracked configuration keeps ACK activation, recovery and staging OFF',async()=>{
  const brain=await readFile(resolve('wrangler.toml'),'utf8');const healer=await readFile(join(ROOT,'automation/self-heal-worker/wrangler.toml'),'utf8');
  assert.match(brain,/^BRAIN_SELFHEAL_DURABLE_ACK_ENABLED = "false"$/m);assert.match(healer,/^HEALER_DURABLE_ACK_ENABLED = "false"$/m);assert.match(brain,/^STAGING_EXPIRES_AT = "1970-01-01T00:00:00Z"$/m);
