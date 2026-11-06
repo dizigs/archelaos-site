@@ -314,9 +314,20 @@ export async function buildReport(reader, registry, timestamp = new Date().toISO
     }
     tasks.push(result);
   }
+  // A main change during a long scan invalidates the snapshot, even if PR heads are stable.
+  let mainStable = false;
+  try {
+    const refreshed = await reader.get('/branches/main');
+    mainStable = Boolean(mainSha && refreshed?.commit?.sha === mainSha);
+  } catch { /* Fail closed on denied or unavailable readback. */ }
+  if (!mainStable) for (const task of tasks) {
+    task.status = 'BLOCKED';
+    task.proofStates.ci = 'UNKNOWN';
+    task.blockers = unique([...(task.blockers || []), 'MAIN_CHANGED_OR_RECHECK_FAILED']);
+  }
   return {
     schemaVersion: 2, generatedAt: timestamp, repo: reader.repo,
-    mainSha, mainShaSource: mainSha ? 'github-api-read-only' : 'UNKNOWN',
+    mainSha, mainStable, mainShaSource: mainStable ? 'github-api-read-only' : 'UNKNOWN',
     authority: 'GitHub evidence; authoritative expense/execution ledger stays in canonical Brain',
     tasks
   };
