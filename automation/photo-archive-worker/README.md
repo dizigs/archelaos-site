@@ -91,14 +91,14 @@ CREATE TABLE photo_versions (
   byte_length INTEGER NOT NULL CHECK(byte_length BETWEEN 12 AND 8388608),
   mime_type TEXT NOT NULL CHECK(mime_type IN ('image/jpeg','image/png','image/webp')),
   original_key TEXT NOT NULL,
+  provenance_ref TEXT NOT NULL,
+  exif_state TEXT NOT NULL CHECK(exif_state IN ('unreviewed','stripped','none')),
+  created_at TEXT NOT NULL,
   CHECK (
     (mime_type='image/jpeg' AND original_key='pending/sha256/'||sha256||'.jpg') OR
     (mime_type='image/png' AND original_key='pending/sha256/'||sha256||'.png') OR
     (mime_type='image/webp' AND original_key='pending/sha256/'||sha256||'.webp')
   ),
-  provenance_ref TEXT NOT NULL,
-  exif_state TEXT NOT NULL CHECK(exif_state IN ('unreviewed','stripped','none')),
-  created_at TEXT NOT NULL,
   PRIMARY KEY(photo_id,version_no)
 );
 CREATE INDEX photo_versions_by_digest ON photo_versions(sha256);
