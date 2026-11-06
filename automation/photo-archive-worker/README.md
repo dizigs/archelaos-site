@@ -268,6 +268,17 @@ A future private `PhotoRef` is `{photoId, versionNo, targetKind, targetId, evide
 
 Future `PhotoComment` / `PhotoCorrection` records use immutable IDs, private author references, a pending moderation queue, bounded text, reviewer identity, provenance and an append-only audit event. The visual pop-up can show approved comments and accepted corrections only after the parent photo is publication-eligible. Human corrections append a new claim/version; original evidence and photo IDs never get replaced. Free-text content is untrusted data: render via text nodes, not HTML, and never treat suggestions as agent instructions.
 
+
+### Proposed Brain read-only envelope (not implemented or connected)
+
+Future private RPC / control-center adapter: `photo.archive.summary.read.v1` (not an endpoint). Caller: the single Canonical Brain via verified private binding and audience-scoped identity. The photo worker **must not independently schedule, repair, publish or call AI**. No new Brain, D1 or R2 resources are authorized. Contract:
+
+- Response envelope: `{schemaVersion:"photo.archive.summary.read.v1",state:"UNKNOWN"|"READY"|"BLOCKED",observedAt,sourceRevision,provenance,counts,incidents,budget}`.
+- `counts` may contain only aggregated `photosPending`, `photosRightsVerified`, `photosPublishedEligible`, `commentsPending`, `correctionsPending`, `duplicateCandidates`, `erasureRequestsOpen`. Missing D1 binding/schema, network error or stale evidence means numeric values **null** and `state:"UNKNOWN"`; never fabricate 0 or healthy/green.
+- `provenance` includes read-only contract version, exact implementation SHA and a trusted observation timestamp; no R2 object keys, names, original filenames, EXIF, private links, raw comments, subject identities, consent evidence or secrets.
+- `incidents` includes bounded counts by severity only, no raw log content. `budget` is supplied only by the existing canonical Brain budget authority; absent = `UNKNOWN`, not free/zero cost.
+- Require per-service access control, private authentication, bounded timeouts, data minimization, rate limiting and signed receipts for later changes. All SQL reads must use allowlisted parameterized queries, no free-form SQL, and private aggregates only. No endpoint or binding is added by this PR.
+
 ### Privacy / retention acceptance matrix
 
 | Data or event | Private intake / D1 | Public eligibility | Required action before activation |
