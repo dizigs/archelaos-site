@@ -190,3 +190,9 @@ GitHub Actions failures sampled from 2026-11-05:
    health -> bounded backoff -> circuit on third attempt; unknown outcome ->
    human reconciliation. Test restart persistence and exact commit attribution.
 4. No production deploy, auto-merge or required-check override in this PR.
+
+## Safe runtime handoff addendum (2026-11-05)
+
+See [SAFE_RUNTIME_HANDOFF.md](SAFE_RUNTIME_HANDOFF.md) for the exact signed private recovery event schema, independent Brain receipt/readback requirements, least-privilege staging activation and emergency rollback. This **supersedes the old unsigned `attemptRecovery(finding)` example**: callers must now supply `attemptRecovery(signedEnvelope)` with authenticated scope `selfheal.recover`, fresh HMAC and durable nonce. Missing `HEALER_EVENT_HMAC_KEY` or `BRAIN_RECOVERY` fails closed. The new SQLite nonce table is in the existing healer DO, not an AI ledger. A valid renewed receipt cannot reset the bounded health circuit; new incident evidence cannot bypass it.
+
+CI halt is now an explicit precondition: the canonical Brain must independently verify the exact failed required check and return durable chain-halt readback before any review-only intent can be routed. No new Worker, public route, auto-fix, provider call, merge or production deployment has been configured by this addendum. The runtime remains **BLOCKED** pending independent service-binding and receipt proof.

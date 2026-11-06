@@ -31,11 +31,23 @@ export function validateVerifiedReceipt(f, receipt, now) {
   requireSafe(receipt?.verified === true && receipt.issuer === 'central-brain' &&
     receipt.repository === REPOSITORY && receipt.commit === f.commit &&
     receipt.evidenceId === f.evidenceId && receipt.code === f.code &&
-    receipt.resource === f.resource && receipt.paused === false &&
+    receipt.resource === f.resource && receipt.source === f.source &&
+    receipt.bindingScope === 'selfheal.recover' &&
+    receipt.provenanceVerified === true && receipt.killSwitchesVerified === true &&
+    receipt.paused === false &&
     receipt.incidentAuthorized === true && receipt.repairWritesAllowed === false &&
     typeof receipt.receiptId === 'string' && /^[0-9a-f-]{36}$/.test(receipt.receiptId) &&
     Number.isSafeInteger(receipt.expiresAtMs) && receipt.expiresAtMs > now &&
     receipt.expiresAtMs <= now + 5 * 60_000, 'BRAIN_PROOF_UNVERIFIED');
+  // A required check's failure must be independently confirmed and the exact
+  // build chain HALTED by Brain before Self-Heal may even request a review.
+  if (f.code === 'CI_FAILURE') {
+    const ci = receipt.requiredCi;
+    requireSafe(ci?.verdict === 'FAILED' && ci.required === true &&
+      ci.commit === f.commit && ci.evidenceId === f.evidenceId &&
+      Number.isSafeInteger(ci.runAttempt) && ci.runAttempt >= 1 &&
+      ci.chainHaltReadback === true, 'REQUIRED_CI_HALT_UNVERIFIED');
+  }
   return receipt;
 }
 async function stableId(f) {
@@ -53,6 +65,23 @@ export class RecoveryLedger {
       severity TEXT NOT NULL, state TEXT NOT NULL, attempt INTEGER NOT NULL,
       next_at INTEGER NOT NULL, last_reason TEXT NOT NULL, updated INTEGER NOT NULL)`);
     this.sql.exec('CREATE INDEX IF NOT EXISTS recoveries_state ON recoveries(state,next_at)');
+    this.sql.exec('CREATE TABLE IF NOT EXISTS recovery_event_nonces (id TEXT PRIMARY KEY, expires INTEGER NOT NULL)');
+  }
+  // Durable single-use HMAC nonces, not an AI budget or independent dispatcher.
+  claimEventNonce(issuerScope, nonce, expires, now) {
+    requireSafe(issuerScope === 'canonical-brain:selfheal.recover' &&
+      typeof nonce === 'string' && /^[0-9a-f]{32}$/.test(nonce) &&
+      Number.isSafeInteger(expires) && Number.isSafeInteger(now) &&
+      expires > now && expires - now <= 600_001, 'INVALID_RECOVERY_NONCE');
+    return this.storage.transactionSync(() => {
+      this.sql.exec('DELETE FROM recovery_event_nonces WHERE expires<=?', now);
+      const id = issuerScope + ':' + nonce;
+      if ([...this.sql.exec('SELECT id FROM recovery_event_nonces WHERE id=?', id)].length) return false;
+      const count = [...this.sql.exec('SELECT COUNT(*) AS n FROM recovery_event_nonces')][0].n;
+      requireSafe(count < 25000, 'RECOVERY_NONCE_CAPACITY_REACHED');
+      this.sql.exec('INSERT INTO recovery_event_nonces(id,expires) VALUES(?,?)', id, expires);
+      return true;
+    });
   }
   read(id) { return [...this.sql.exec('SELECT * FROM recoveries WHERE id=?', id)][0] || null; }
   claim(id, fingerprint, code, severity, now) {
@@ -102,7 +131,9 @@ export async function recover(f, ledger, ports, now = Date.now()) {
   if (f.code === PROBE_CODE && receipt.readOnlyProbeAllowed !== true)
     return blocked('PROBE_NOT_AUTHORIZED');
   const id = await stableId(f);
-  const fingerprint = JSON.stringify([f.code, f.resource, f.commit, f.evidenceId, receipt.receiptId]);
+  // Fresh signed Brain receipts can rotate between a permitted bounded probe.
+  // The *incident evidence* remains immutable; new evidence cannot reset a circuit.
+  const fingerprint = JSON.stringify([f.code, f.resource, f.commit, f.evidenceId, f.source]);
   let claim;
   try { claim = ledger.claim(id, fingerprint, f.code, severity, now); }
   catch (e) { return blocked(outcomeCode(e)); }
@@ -118,10 +149,14 @@ export async function recover(f, ledger, ports, now = Date.now()) {
       const result = await ports.routeBuilderReview({
         receiptId: receipt.receiptId, repository: REPOSITORY, commit: f.commit,
         evidenceId: f.evidenceId, code: f.code, resource: f.resource,
-        reviewOnly: true, autoMerge: false, deploy: false, retryBudget: 0
+        reviewOnly: true, autoMerge: false, deploy: false, retryBudget: 0,
+        ledgerOwner: 'canonical-brain', bindingScope: 'selfheal.recover',
+        requiredCiHalted: f.code === 'CI_FAILURE'
       });
       requireSafe(result?.accepted === true && result?.receiptId === receipt.receiptId &&
-        result?.reviewOnly === true && result?.verifiedReadback === true,
+        result?.reviewOnly === true && result?.verifiedReadback === true &&
+        result?.ledgerOwner === 'canonical-brain' &&
+        (f.code !== 'CI_FAILURE' || result?.requiredCiHaltedReadback === true),
       'BRAIN_ROUTING_UNVERIFIED');
       state = 'ROUTED'; reason = 'BUILDER_REVIEW_REQUESTED';
     } else {

@@ -1,7 +1,7 @@
 import { DurableObject, WorkerEntrypoint } from 'cloudflare:workers';
 import { HealerLedger } from './ledger.mjs';
-import { parseFinding } from './policy.mjs';
 import { RecoveryLedger, recover as recoverIncident } from './recovery.mjs';
+import { verifySignedRecoveryEvent } from './contract.mjs';
 
 const COORDINATOR = 'archelaos-club';
 export class HealerMemory extends DurableObject {
@@ -20,10 +20,19 @@ export class HealerMemory extends DurableObject {
       state: row.state, count: row.count
     })), autoMergeAllowed: false, deployAllowed: false };
   }
-  async attemptRecovery(value) {
-    // Metadata authenticity must be verified against Brain's own durable receipt.
-    // Without the separately approved Brain Service binding, fail closed.
-    const finding = parseFinding(value);
+  async attemptRecovery(envelope) {
+    // Signed canonical-Brain event plus durable replay guard, before any recovery
+    // state claim. A well-shaped plain finding is explicitly NOT authentication.
+    let finding;
+    try {
+      finding = await verifySignedRecoveryEvent(envelope, this.env.HEALER_EVENT_HMAC_KEY,
+        { claim: (...args) => this.recoveryLedger.claimEventNonce(...args) });
+    } catch {
+      return { status: 'BLOCKED', reason: 'RECOVERY_AUTH_REJECTED',
+        chainHalted: true, autoMergeAllowed: false, deployAllowed: false };
+    }
+    // The Brain must separately read back provider evidence, exact SHA, pause,
+    // required CI chain halt and scoped receipt using the approved private binding.
     const brain = this.env.BRAIN_RECOVERY;
     const ports = brain ? {
       verifyBrainReceipt: async f => brain.verifySelfHealReceipt(f),
