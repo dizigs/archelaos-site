@@ -2,6 +2,9 @@ name: Gemini CLI API connection smoke test (manual, read-only)
 
 on:
   workflow_dispatch:
+  push:
+    branches: [chatgpt/gemini-cli-manual-smoke-20261106]
+    paths: ['.github/workflows/gemini-cli-manual-smoke.yml']
 
 permissions:
   contents: read
@@ -11,7 +14,65 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  verify-api-on-isolated-branch:
+    name: Verify Gemini API authentication and one minimal response
+    if: github.event_name == 'push' && github.ref == 'refs/heads/chatgpt/gemini-cli-manual-smoke-20261106'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Probe Gemini API with masked repository secret (no repo checkout)
+        shell: bash
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          set -euo pipefail
+          if [[ -z "${GEMINI_API_KEY}" ]]; then
+            echo '::error title=Gemini secret missing::Repository secret GEMINI_API_KEY is not available.'
+            exit 1
+          fi
+          echo 'Secret available. Checking Gemini API authentication (GET models).'
+          code="$(curl --silent --show-error --output "$RUNNER_TEMP/gemini-models.json" --write-out '%{http_code}' \
+            --connect-timeout 10 --max-time 25 \
+            --header "x-goog-api-key: ${GEMINI_API_KEY}" \
+            'https://generativelanguage.googleapis.com/v1beta/models?pageSize=50')"
+          if [[ "$code" != 200 ]]; then
+            echo "::error title=Gemini API authentication unavailable::GET models returned HTTP $code (no response body printed)."
+            exit 1
+          fi
+          python3 - "$RUNNER_TEMP/gemini-models.json" <<'PY'
+          import json, sys
+          with open(sys.argv[1], encoding='utf-8') as f:
+              data = json.load(f)
+          if not isinstance(data.get("models"), list) or not data["models"]:
+              raise SystemExit("Model listing returned HTTP 200 but no model records")
+          print("Gemini API authentication: PASS. Model records returned:", len(data["models"]))
+          PY
+          echo 'Testing one tiny Gemini response (no repository contents or sensitive data sent).'
+          code="$(curl --silent --show-error --output "$RUNNER_TEMP/gemini-generate.json" --write-out '%{http_code}' \
+            --connect-timeout 10 --max-time 35 \
+            --header "x-goog-api-key: ${GEMINI_API_KEY}" \
+            --header 'Content-Type: application/json' \
+            --data '{"contents":[{"parts":[{"text":"Reply with exactly OK"}]}],"generationConfig":{"maxOutputTokens":30}}' \
+            'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent')"
+          if [[ "$code" != 200 ]]; then
+            echo "::error title=Gemini inference failed::GenerateContent returned HTTP $code. API key authentication succeeded; check model, quota or billing. No response body printed."
+            exit 1
+          fi
+          python3 - "$RUNNER_TEMP/gemini-generate.json" <<'PY'
+          import json, sys
+          with open(sys.argv[1], encoding='utf-8') as f:
+              data = json.load(f)
+          candidates = data.get("candidates") or []
+          if not candidates:
+              raise SystemExit("GenerateContent HTTP 200 had no candidates")
+          parts = ((candidates[0].get("content") or {}).get("parts") or [])
+          if not any(isinstance(p.get("text"), str) and p["text"].strip() for p in parts):
+              raise SystemExit("GenerateContent HTTP 200 had no text")
+          print("Gemini 3.5 Flash-Lite GenerateContent: PASS (output hidden).")
+          PY
+
   verify-gemini:
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
