@@ -12,6 +12,14 @@ This is **not** a generic Site Guardian. The separate `archelaos-gitlab-controll
 - GitLab project **88488684** is a private GitHub pull mirror. At the audit snapshot, GitLab and GitHub `main` both pointed to `746ea65abaca5cff6c5cbe90bb4d0c65ccfbec92`. This is independent connector readback, **not a successful authenticated Guardian /check**. The GitLab project pipeline list returned zero in the requested sample.
 - Canonical Brain #234 and Security/Self-Heal #235 were observed **MERGED**. Cloudflare #233 was observed **CLOSED / NOT MERGED**; do not infer Service Binding readiness from a code-only handoff. #131 is **OPEN / DRAFT**, divergent and hundreds of commits behind main; the Release Captain must reconcile its mixed-scope history without force-push or modifying other owners' files.
 
+## Existing monitoring systems to **reuse**, not duplicate
+
+- **GitHub Live Site Guard**: `.github/workflows/live-site-guard.yml` defines a six-hour UTC schedule (`17 */6 * * *`), validates the public website with Playwright, and maintains a GitHub incident issue upon failure. This is site QA, **not** the GitLab Guardian. The workflow's scheduled presence in source is not proof of its latest run outcome.
+- **GitHub automation-health**: `.github/workflows/automation-health.yml` defines independent six-hour schedule evidence (`11 */6 * * *`), checks stale/missing workflow runs and publishes a report. It must remain the schedule observer; do not add competing Guardian polling for it.
+- **UptimeRobot**: existing `automation/uptimerobot/monitor-bridge.mjs` is an operator-scoped adapter for public-site monitor inventory. It is not a GitLab source and its API/alerts are not silently imported into the Guardian.
+- **Existing self-heal observation**: `tools/self_heal_monitor.py` and the deployed `archelaos-self-heal` Worker already have distinct evidence and recovery boundaries. The Guardian only reports GitLab mirror signals, never selects a patch or repair.
+- **Cloudflare runtime inventory**: exactly nine scripts were re-read, with **zero registered Worker crons**, **zero Service Bindings**, **zero Worker custom domains/routes** for archelaos.club. These counts concern Cloudflare Workers, not GitHub Actions schedules. Brain staging still advertises `STAGING_EXPIRES_AT=1970-01-01T00:00:00Z` and `DEPLOY_SHA=d3d13b605f409bfda6f372742d629fd8eaf12145`; it is not a usable accepted staging target.
+
 ## What the Guardian currently implements
 
 `GET /health` is only **process/liveness** information, not GitLab health. Authenticated `GET /check` reads exactly three fixed upstream GET URLs for GitLab mirror configuration, GitLab main branch and GitHub main commit; it computes mirror-state codes and HEAD mismatch/staleness. Its `scheduled()` exists in source, but no cron is registered.
