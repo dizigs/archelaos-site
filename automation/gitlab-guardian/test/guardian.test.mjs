@@ -63,3 +63,26 @@ test('provider API error fails closed and does not expose body', async () => {
   const fake = async () => new Response('private provider error body', {status:403});
   await assert.rejects(runAudit({GITLAB_READ_TOKEN:'x'},fake,NOW), /UPSTREAM_STATUS/);
 });
+
+test('unknown mirror status never passes as OK', () => {
+  const r = assess(input({ ...mirror, update_status: 'unexpected' }));
+  assert.equal(r.status, 'alert');
+  assert.ok(r.issues.includes('MIRROR_UPDATE_UNVERIFIED'));
+});
+test('missing safety flags and invalid timestamps fail closed', () => {
+  assert.throws(() => assess(input({ ...mirror, mirror_overwrites_diverged_branches: undefined })), /INVALID_UPSTREAM_SCHEMA/);
+  assert.throws(() => assess(input(mirror, branch, commit, NaN)), /INVALID_UPSTREAM_SCHEMA/);
+  const future = assess(input({ ...mirror, last_successful_update_at: '2026-11-05T07:55:00Z' }));
+  assert.equal(future.status, 'alert');
+  assert.ok(future.issues.includes('MIRROR_FUTURE_TIMESTAMP'));
+});
+test('large upstream response is stopped by bytes, not JavaScript characters', async () => {
+  const huge = '€'.repeat(50_000);
+  const fake = async () => new Response(huge);
+  await assert.rejects(runAudit({ GITLAB_READ_TOKEN: 'x' }, fake, NOW), /UPSTREAM_SIZE/);
+});
+test('repeated mirror observations are deterministic and read-only', () => {
+  const first = assess(input());
+  const second = assess(input());
+  assert.deepEqual(first, second);
+});
