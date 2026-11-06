@@ -87,8 +87,7 @@ export async function validateAnalyticsSnapshot(request, now = Date.now()) {
   const seen = new Set();
   for (const metric of payload.metrics) {
     if (!exact(metric, ['pagePath', 'name', 'value', 'sampleSize', 'confidence']) ||
-        typeof metric.pagePath !== 'string' || !/^\/[A-Za-z0-9/_\-.]{0,180}$/.test(metric.pagePath) ||
-        metric.pagePath.includes('//') || metric.pagePath.includes('..') ||
+        metric.pagePath !== '/' ||
         !ANALYTICS_SOURCES[payload.source].has(metric.name) ||
         typeof metric.value !== 'number' || !Number.isFinite(metric.value) || metric.value < 0 ||
         metric.value > (['scroll_depth_pct', 'ctr_pct'].includes(metric.name) ? 100 :
@@ -139,6 +138,17 @@ export async function validateAppsScriptEvent(event, now = Date.now()) {
     sourceRevision: event.sourceRevision, evidenceDigest: event.metadata.evidenceDigest };
 }
 
+/**
+ * Guard a rolling 30-day intake window, not the immutable lifetime receipts.
+ * Historical deliveries remain for replay protection and durable readback.
+ */
+export function enforceCapabilityWindow(sql, now = Date.now()) {
+  const recent = [...sql.exec('SELECT COUNT(*) AS n FROM capability_deliveries WHERE created>=?',
+    now - 30 * DAY)][0]?.n;
+  if (!Number.isSafeInteger(recent)) fail('DURABLE_STORAGE_UNAVAILABLE', 503);
+  if (recent >= 10_000) fail('CAPABILITY_CAPACITY_REACHED', 429);
+}
+
 /** Both capabilities use the existing BrainCoordinator storage and transactionSync. */
 /**
  * UPSERT identity is (source, from, to), not an incrementing counter.
@@ -181,8 +191,7 @@ export function persistAnalyticsSnapshot(storage, validated, bodyDigest,
            validated.runId <= priorVersion.run_id))
         fail('ANALYTICS_STALE_OR_AMBIGUOUS_REVISION', 409);
     }
-    if ([...sql.exec('SELECT COUNT(*) AS n FROM capability_deliveries')][0].n >= 10_000)
-      fail('CAPABILITY_CAPACITY_REACHED', 429);
+    enforceCapabilityWindow(sql, now);
     const id = crypto.randomUUID();
     const status = old ? 'UPDATED' : 'ACCEPTED';
     sql.exec('INSERT INTO analytics_snapshot_versions(receipt_id,snapshot_key,event_id,metric_revision,source,correlation_id,report_digest,producer_evidence_digest,run_id,artifact_id,run_sha,observed,status,created) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
@@ -273,8 +282,7 @@ export function persistAppsScriptEvent(storage, validated, bodyDigest,
     const collision = [...sql.exec('SELECT event_id FROM apps_script_receipts WHERE operation_id=? AND phase=?',
       validated.operationId, validated.phase)][0];
     if (collision) fail('APPS_SCRIPT_OPERATION_CONFLICT', 409);
-    if ([...sql.exec('SELECT COUNT(*) AS n FROM capability_deliveries')][0].n >= 10_000)
-      fail('CAPABILITY_CAPACITY_REACHED', 429);
+    enforceCapabilityWindow(sql, now);
     const id = crypto.randomUUID();
     sql.exec('INSERT INTO apps_script_receipts(event_id,receipt_id,operation_id,phase,source_fingerprint,source_revision,evidence_digest,observed) VALUES(?,?,?,?,?,?,?,?)',
       validated.eventId, id, validated.operationId, validated.phase, validated.sourceFingerprint,

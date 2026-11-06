@@ -60,6 +60,10 @@ A generic source key cannot call \`/v1/control\`, \`/v1/exec/**\`, \`/v1/diagnos
 
 Content-type for POST: \`application/json\` (optionally \`charset=utf-8\`); bounded UTF-8 body <= 4096 bytes, no query. All sources fail closed for missing/bad key, stale timestamp, wrong source, unexpected fields, prohibited PII, paused state, unknown receipt or unavailable storage. Source signed key alone is **NOT** independent proof that its private provider readback was genuine.
 
+## Retention and capacity recovery
+
+The shared capability delivery guard uses a rolling 30-day window, retaining old rows for immutable receipt readback and replay detection. The job capacity guard counts active `QUEUED`, `RETRY_WAIT`, `RUNNING` records and their active event keys, not completed/reviewed historical jobs. All historical jobs and event keys remain durable. SQLite physical space is finite: monitor storage and fail closed on storage errors; never automatically prune receipts.
+
 ## Canonical Analytics SQLite semantics
 
 The existing \`BrainCoordinator\` transaction atomically writes \`analytics_snapshots\` (one CURRENT row per \`source|from|to\`), \`analytics_snapshot_versions\` (append-only distinct receipt per accepted version), \`capability_deliveries\` (idempotency), and \`capability_audit\`. No additive counter, new DO instance, D1, second Brain, or separate economic reservation.

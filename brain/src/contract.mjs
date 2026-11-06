@@ -38,7 +38,24 @@ export function validateEvent(event, sourceType, now = Date.now()) {
   if (!payload || typeof payload !== 'object' || Array.isArray(payload) || Object.keys(payload).length !== 3 || !['blobSha256', 'mimeType', 'sizeBytes'].every(key => Object.hasOwn(payload, key)) || !HEX.test(payload.blobSha256) || !MIME.has(payload.mimeType) || !Number.isSafeInteger(payload.sizeBytes) || payload.sizeBytes < 1 || payload.sizeBytes > 50 * 1024 * 1024) throw new Rejected('INVALID_METADATA', 422);
   return { ...event, payload: { blobSha256: payload.blobSha256, mimeType: payload.mimeType, sizeBytes: payload.sizeBytes } };
 }
+/**
+ * Reject reuse across private source principals and the response receipt signer.
+ * Report only a generic configuration error, never a secret or principal name.
+ */
+export function assertDistinctPrincipalSecrets(env) {
+  const values = [
+    env.STAGING_INTAKE_KEY, env.STAGING_OPERATOR_KEY,
+    env.BRAIN_ANALYTICS_INTAKE_KEY, env.BRAIN_APPS_SCRIPT_INTAKE_KEY,
+    env.BRAIN_DRIVE_INTAKE_KEY, env.BRAIN_GMAIL_INTAKE_KEY,
+    env.BRAIN_NEWS_INTAKE_KEY, env.BRAIN_SITE_INTAKE_KEY,
+    env.BRAIN_GITHUB_INTAKE_KEY, env.BRAIN_CAPABILITY_RECEIPT_KEY
+  ].filter(value => typeof value === 'string' && value.length >= 43);
+  if (new Set(values).size !== values.length)
+    throw new Rejected('PRINCIPAL_SECRET_COLLISION', 503);
+}
+
 export async function authenticate(request, env, raw, now = Date.now()) {
+  assertDistinctPrincipalSecrets(env);
   const timestamp = request.headers.get('x-archelaos-timestamp') || '';
   const signature = request.headers.get('x-archelaos-signature') || '';
   const identity = request.headers.get('x-archelaos-key-id');
@@ -65,6 +82,32 @@ export async function authenticate(request, env, raw, now = Date.now()) {
     identity === 'site-v1' ? 'site' :
     identity === 'github-v1' ? 'github' : 'staging';
 }
+/** Readback validation errors reflect corrupted storage, never fresh client input. */
+export function validateStoredEvent(event, sourceType) {
+  try { return validateEvent(event, sourceType, Date.parse(event?.receivedAt)); }
+  catch (error) {
+    if (error instanceof Rejected) throw new Rejected('SOURCE_RECEIPT_CORRUPT', 503);
+    throw error;
+  }
+}
+
+/**
+ * Reserve job capacity for active execution only. Retain finished/reviewed jobs
+ * and every historical event_key for deduplication and immutable readback.
+ */
+export function enforceDurableJobCapacity(sql, existing) {
+  if (existing) return;
+  const count = [...sql.exec(
+    "SELECT (SELECT COUNT(*) FROM jobs WHERE status IN ('QUEUED','RETRY_WAIT','RUNNING')) AS jobs," +
+    " (SELECT COUNT(*) FROM event_keys WHERE job_id IN" +
+    " (SELECT id FROM jobs WHERE status IN ('QUEUED','RETRY_WAIT','RUNNING'))) AS keys"
+  )][0];
+  if (!count || !Number.isSafeInteger(count.jobs) || !Number.isSafeInteger(count.keys))
+    throw new Rejected('DURABLE_CAPACITY_UNAVAILABLE', 503);
+  if (count.jobs >= 2000 || count.keys + 3 > 20000)
+    throw new Rejected('DURABLE_CAPACITY_REACHED', 429);
+}
+
 export async function boundedBody(request) {
   if (request.headers.get('content-length') && Number(request.headers.get('content-length')) > 4096) throw new Rejected('BODY_TOO_LARGE', 413);
   if (!request.body) return '';

@@ -1,5 +1,5 @@
 import { DurableObject } from 'cloudflare:workers';
-import { Rejected, UUID, authenticate, boundedBody, digest, reply, route, validateEvent, validateSourceEventType } from './contract.mjs';
+import { Rejected, UUID, authenticate, boundedBody, digest, reply, route, validateEvent, validateStoredEvent, enforceDurableJobCapacity, validateSourceEventType } from './contract.mjs';
 import { claimBudgetCall, reserveBudget, settleBudget } from './budget.mjs';
 import { readTaskIntent, storeTaskIntent } from './task_intents.mjs';
 import { CAPABILITY_SCHEMA, validateAnalyticsSnapshot, validateAppsScriptEvent, persistAnalyticsSnapshot, persistAppsScriptEvent, readAnalyticsSnapshotReceipt, readAppsScriptReceipt } from './capability_intake.mjs';
@@ -121,8 +121,7 @@ export class BrainCoordinator extends DurableObject {
         if (row.signature !== expected || existing && existing !== row.job_id) throw new Rejected('IDEMPOTENCY_CONFLICT', 409);
         existing = row.job_id;
       }
-      const counts = [...this.sql.exec('SELECT (SELECT COUNT(*) FROM jobs) AS jobs,(SELECT COUNT(*) FROM event_keys) AS keys')][0];
-      if ((!existing && counts.jobs >= 2000) || counts.keys >= 20000) throw new Rejected('DURABLE_CAPACITY_REACHED', 429);
+      enforceDurableJobCapacity(this.sql, Boolean(existing));
       const id = existing || crypto.randomUUID();
       if (!existing) {
         const selected = route(event);
@@ -203,7 +202,7 @@ export class BrainCoordinator extends DurableObject {
           throw new Rejected('SOURCE_RECEIPT_CORRUPT', 503);
         // Readback has no seven-day TTL: immutable historical receipts must
         // remain verifiable long after their original ingestion time.
-        stored = validateEvent(stored, identity, Date.parse(stored.receivedAt));
+        stored = validateStoredEvent(stored, identity);
         const kind = stored.eventType.startsWith('source.file.') ? 'source.file' : stored.eventType;
         const dedupeKey = await digest('blob|' + identity + '|' + stored.sourceId + '|' +
           kind + '|' + stored.payload.blobSha256);
