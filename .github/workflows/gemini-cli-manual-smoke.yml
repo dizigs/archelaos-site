@@ -1,0 +1,65 @@
+name: Gemini CLI API connection smoke test (manual, read-only)
+
+# This workflow is not scheduled and does not run when a PR is opened.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: gemini-cli-smoke-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  verify-gemini:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Verify secret exists without printing it
+        shell: bash
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          if [[ -z "$GEMINI_API_KEY" ]]; then
+            echo '::error title=Missing Gemini API secret::Add GEMINI_API_KEY under Settings > Secrets and variables > Actions.'
+            exit 1
+          fi
+          echo 'Gemini API secret is configured (value not displayed).'
+
+      - name: Check out actual repository source (read-only token)
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+
+      - name: Check Gemini can analyze two real source files
+        env:
+          GEMINI_CLI_TRUST_WORKSPACE: 'true'
+        uses: google-github-actions/run-gemini-cli@f77273f4c914e4bf38440cf36a0369cb64a37489 # v0.1.22
+        with:
+          gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
+          gemini_cli_version: '0.67.0'
+          gemini_model: gemini-3.5-flash-lite
+          settings: |
+            {
+              "model": {"maxSessionTurns": 6},
+              "tools": {
+                "core": ["read_file", "read_many_files", "glob", "grep_search", "list_directory"]
+              },
+              "telemetry": {"enabled": false},
+              "privacy": {"usageStatisticsEnabled": false}
+            }
+          prompt: |
+            This is a manual, read-only test in a real checkout of the
+            dizigs/archelaos-site GitHub repository, NOT a ZIP archive.
+            Only open these two tracked source files with read-only tools:
+              - .github/workflows/gemini-triage-validation.yml
+              - automation/gemini-triage/README.md
+            Explain in at most 80 words why the workflow is only an offline
+            test. Name both files in your response. Do not access any other
+            files, change files, execute commands, use network tools, access
+            secrets, create commits/PRs or call other agents.
+
+      - name: Ensure tracked source files were not changed
+        shell: bash
+        run: git diff --exit-code
