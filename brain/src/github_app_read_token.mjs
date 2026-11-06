@@ -146,9 +146,9 @@ export async function getScopedGitHubReadToken(config,{
     let inventory;
     try {
       const length=Number(inventoryResponse.headers?.get?.('content-length')||'0');
-      if (length>5000) deny('GITHUB_APP_TOKEN_SCOPE_UNVERIFIED');
+      if (length>100000) deny('GITHUB_APP_TOKEN_SCOPE_UNVERIFIED');
       const raw=await inventoryResponse.text();
-      if (encoder.encode(raw).byteLength>5000) deny('GITHUB_APP_TOKEN_SCOPE_UNVERIFIED');
+      if (encoder.encode(raw).byteLength>100000) deny('GITHUB_APP_TOKEN_SCOPE_UNVERIFIED');
       inventory=JSON.parse(raw);
     } catch { deny('GITHUB_APP_TOKEN_SCOPE_UNVERIFIED'); }
     if (inventory?.total_count!==1 || !Array.isArray(inventory.repositories) ||
