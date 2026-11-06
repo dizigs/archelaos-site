@@ -107,9 +107,9 @@ function setView(view){
 }
 function closeMenu(){$("sidebar").classList.remove("open");$("menuToggle").setAttribute("aria-expanded","false");$("mobileBackdrop").hidden=true}
 function updateCost(amount){const spent=Number(amount);setText("costAvailable",Math.max(0,20-spent).toFixed(2).replace(".",",")+" €");setText("costUsed",spent.toFixed(2).replace(".",",")+" €");setText("costSliderLabel",spent.toFixed(2).replace(".",",")+" €");$("costBar").style.width=Math.min(100,spent/20*100)+"%";const warning=$("costWarning");warning.className="warning-inline"+(spent>20?" danger":spent>=16?" warn":"");warning.textContent=spent>20?"● Υπέρβαση ορίου — DEMO":spent>=16?"● Προειδοποίηση: ≥80% ορίου — DEMO":"● Εντός προϋπολογισμού — DEMO"}
-function setScenario(i){
+function setScenario(i,announce=true){
  currentScenario=(i+scenarios.length)%scenarios.length;const s=scenarios[currentScenario];setText("scenarioLabel",s.name);setText("metricHealth",s.health.toFixed(1));setText("metricWorkers",s.online);setText("metricQueue",s.queue);setText("metricSpend",s.spend.toFixed(2));$("metricSpendBar").style.width=Math.min(s.spend/20*100,100)+"%";setText("heroBrain",s.brain+" · DEMO");setText("brainCardStatus",s.brain);setText("locksCount",s.locks);setText("runningCount",s.running);setText("unknownCount",s.unknown);setText("securityAlerts",s.alerts);setText("workerMetricTag",s.online===8?"● Όλοι online":"● "+(8-s.online)+" standby");setText("budgetTag",s.spend>=16?"● Προειδοποίηση":"● Εντός ορίου");$("costSlider").value=String(s.spend);updateCost(s.spend);
- showToast("Σενάριο: "+s.name+" — μόνο DEMO");
+ if(announce)showToast("Σενάριο: "+s.name+" — μόνο DEMO");
 }
 function showToast(t){const toast=$("toast");toast.textContent=t;toast.hidden=false;window.clearTimeout(toastTimer);toastTimer=window.setTimeout(()=>toast.hidden=true,3300)}
 const searchItems=[
@@ -128,7 +128,7 @@ function downloadDemo(){
  const url=URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:"application/json"}));const a=document.createElement("a");a.href=url;a.download="archelaos-control-center-DEMO.json";document.body.append(a);a.click();a.remove();window.setTimeout(()=>URL.revokeObjectURL(url),1000);showToast("Δημιουργήθηκε τοπικά αρχείο DEMO JSON")
 }
 function init(){
- renderDiagram();renderWorkerCards();renderTasks();renderEvents();setScenario(0);
+ renderDiagram();renderWorkerCards();renderTasks();renderEvents();setScenario(0,false);
  qs(".nav-link").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();setView(a.dataset.view)}));
  qs("[data-view-button]").forEach(b=>b.addEventListener("click",()=>setView(b.dataset.viewButton)));
  qs("[data-detail]").forEach(b=>b.addEventListener("click",()=>openGeneric(b.dataset.detail,b)));
