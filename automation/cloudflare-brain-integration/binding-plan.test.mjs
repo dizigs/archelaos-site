@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { assessBinding } from './binding-plan.mjs';
+import './librarian-news-readiness.test.mjs'; // Scoped, source-only Librarian news -> Brain readiness checks.
 const SHA = 'a'.repeat(40);
 const base = () => ({
   caller: 'archelaos-automation-bridge', selectedSource: 'drive', callerBindings: [{type:'secret_text',name:'BRAIN_DRIVE_INTAKE_KEY'},{type:'secret_text',name:'BRAIN_CAPABILITY_RECEIPT_KEY'}],
