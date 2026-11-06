@@ -1,0 +1,210 @@
+name: Antigravity active code tools - private RPC Draft-only one shot
+on:
+  push:
+    branches:
+      - assistant/antigravity-active-rpc-sandbox-20261107
+    paths:
+      - '.github/workflows/antigravity-active-rpc-once-20261107.yml'
+permissions:
+  contents: read
+concurrency:
+  group: antigravity-active-rpc-20261107
+  cancel-in-progress: false
+jobs:
+  propose:
+    if: "github.repository == 'dizigs/archelaos-site' && github.event.head_commit.message == 'test(antigravity): authorized isolated coding tools no merge'"
+    runs-on: ubuntu-latest
+    timeout-minutes: 16
+    permissions:
+      contents: read
+    steps:
+      - name: Check out exact public base without persisted Git credentials
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: edb817f5077caec5a1495be11f0f90ba66d91e02
+          persist-credentials: false
+      - name: Install Node 24
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '24'
+      - name: ONE paid Antigravity interaction with sandbox code execution and filesystem
+        shell: bash
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          BASE_SHA: edb817f5077caec5a1495be11f0f90ba66d91e02
+        run: |
+          set -euo pipefail
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          const key=process.env.GEMINI_API_KEY;
+          if (!key || key.length<16) {console.log('MISSING_API_KEY');process.exit(2);}
+          const base='https://generativelanguage.googleapis.com/v1beta/interactions';
+          const headers={'Content-Type':'application/json','x-goog-api-key':key,'Api-Revision':'2026-05-20'};
+          const payload={
+           agent:'antigravity-preview-09-2026',
+           input:"You are the PAID Google Antigravity coding agent. You HAVE real code_execution and remote filesystem tools. Use them. This is a WORKING CODE task, not a text-only advisory report.\nPublic repo source is mounted as /workspace/archelaos-site, pinned target source commit edb817f5077caec5a1495be11f0f90ba66d91e02. No private credentials are present. NETWORK IS DISABLED. No GitHub writing/merge/deploy is possible or permitted.\nBackground: Issue #71 describes a Codex PRIVATE HMAC security acceptance candidate at an unpublished LOCAL-only checkpoint 0b8df424d82fa53206846db448a862ee37634076. That checkpoint is NOT in the remote repo, so NEVER pretend it is there or that its 11th failing test was actually fixed. Previous hypothetical failure was a native Miniflare RPC port probe testing env, ctx, nonceStore, coordinator, memory, constructor and __proto__; 10/11 passed locally, one .every(Boolean) assertion failed. JavaScript Object.prototype provides inherited constructor and __proto__, but actual root cause was unproven. Two earlier draft patches from Antigravity contained mistakes (checking a boolean[] as a port, incorrectly rejecting inherited Object.prototype.__proto__ accessor).\nGOAL: Build a NEW, independent, isolated, offline-only PRIVATE HMAC parity/port-boundary acceptance candidate from CURRENT REAL public main source, NOT replace the unavailable Codex checkpoint. Create EXACTLY these three new source files IN /workspace/archelaos-site:\n- brain/src/private_hmac_protocol.mjs\n- brain/src/private_hmac_candidate.mjs\n- brain/test/private_hmac_acceptance.test.mjs\nNo modifications outside these three paths. No other new files. Do not import the candidate in existing Worker entrypoints. No Wrangler config, secrets, routes, service bindings, github code ownership changes, deploy, write tokens or merges.\nImplement a narrow, secure synthetic challenge-response HMAC verifier with domain separated request/response, fresh 256-bit random nonce, session+peer+source-sha/time binding, and strict fail-closed validation/replay prevention. Include a PRIVATE native Miniflare/RPC fixture if feasible by REUSING EXISTING public test patterns; test safe probe of own/inherited properties on both private RPC port surfaces with NO capability leak. Remember Object.prototype.constructor is inherited data; Object.prototype.__proto__ is inherited accessor, so allowing only that verified builtin prototype is not same as allowing arbitrary accessor. Fail-closed under getters/proxy traps/hostile prototypes. DO NOT log sensitive values. Include POSITIVE, WRONG-KEY, REPLAY, FORGED, STALE, MALFORMED, TIMEOUT, WRONG SESSION/PEER, FORBIDDEN OWN/INHERITED CAPABILITY, and NO REPAIR tests (at least 11).\nUse code_execution and filesystem to inspect existing main files (brain/src/selfheal_ack.mjs, brain/test/selfheal_ack.test.mjs, brain/src/worker.mjs, package.json under brain), write actual code, then run what tests you can. Dependencies may be missing due network disabled; if so report exact limitation and still save source files. Keep all work self-contained with NO live HMAC keys or provider API.\nDeliver file content on sandbox disk; do NOT just paste code in your answer. The external trusted runner will retrieve these THREE exact files and run actual Node 24/Miniflare tests with npm ci in a credential-free job. If no safe implementation is possible, stop and explain why rather than weakening assertions. No local or Cloudflare deployment.\nPrint end summary naming modified files, tests actually run, and unknowns. COMPLETE WORK EARLY; do not spend time browsing or planning.",
+           background:true,store:true,
+           agent_config:{type:'antigravity',max_total_tokens:95000},
+           tools:[{type:'code_execution'}],
+           environment:{type:'remote',sources:[{type:'repository',source:'https://github.com/dizigs/archelaos-site',target:'/workspace/archelaos-site'}],network:'disabled'}
+          };
+          const snooze=ms=>new Promise(r=>setTimeout(r,ms));
+          console.log('ONE_POST_ACTIVE_CODE_TOOLS_ONLY_NO_RETRY');
+          console.log('BASE_SHA',process.env.BASE_SHA);
+          console.log('BEST_EFFORT_MAX_TOTAL_TOKENS',payload.agent_config.max_total_tokens);
+          let start;
+          try{start=await fetch(base,{method:'POST',redirect:'error',headers,signal:AbortSignal.timeout(16000),body:JSON.stringify(payload)});}
+          catch(e){console.log('UNKNOWN_CREATE_TRANSPORT',e.name,'NO_RETRY');process.exit(3);}
+          console.log('CREATE_HTTP',start.status);
+          let latest=await start.json().catch(()=>({}));
+          if(!start.ok){console.log('PROVIDER_ERROR',String(latest.error?.status||'unknown'));process.exit(4);}
+          const id=latest.id;
+          if(!/^v1_[A-Za-z0-9_-]{20,512}$/.test(id||'')){console.log('INVALID_INTERACTION_ID_STOP');process.exit(5);}
+          console.log('INTERACTION_ID',id);
+          const terminal=new Set(['completed','incomplete','failed','cancelled','requires_action']);
+          const deadline=Date.now()+330000;
+          while(!terminal.has(latest.status)&&Date.now()<deadline){
+           await snooze(9500);
+           let resp;try{resp=await fetch(base+'/'+encodeURIComponent(id),{method:'GET',redirect:'error',headers,signal:AbortSignal.timeout(11000)});}catch(e){console.log('POLL_TRANSPORT_FAILURE',e.name);break;}
+           if(!resp.ok){console.log('POLL_HTTP',resp.status);break;}
+           const j=await resp.json().catch(()=>({}));
+           if(j.id!==id){console.log('POLL_ID_MISMATCH');break;}
+           latest=j;
+           console.log('PROGRESS',latest.status,'TOTAL_TOKENS',latest.usage?.total_tokens??'unavailable');
+          }
+          if(!terminal.has(latest.status)){
+           console.log('TIME_CAP_ATTEMPT_PROVIDER_CANCEL');
+           try{const r=await fetch(base+'/'+encodeURIComponent(id)+'/cancel',{method:'POST',headers,redirect:'error',signal:AbortSignal.timeout(13000)});console.log('CANCEL_HTTP',r.status);}catch(e){console.log('CANCEL_UNKNOWN',e.name);}
+           try{const r=await fetch(base+'/'+encodeURIComponent(id),{method:'GET',headers,redirect:'error',signal:AbortSignal.timeout(12000)});if(r.ok)latest=await r.json();}catch{}
+          }
+          console.log('FINAL_STATUS',String(latest.status||'unknown'));
+          console.log('FINAL_USAGE',JSON.stringify(latest.usage||{}));
+          console.log('ENVIRONMENT_ID',String(latest.environment_id||'none'));
+          const report=(latest.steps||[]).filter(s=>s.type==='model_output').flatMap(s=>(s.content||[]).filter(p=>p.type==='text'&&typeof p.text==='string').map(p=>p.text)).join('\n');
+          console.log('AGENT_REPORT_BEGIN');console.log(report.slice(0,14000)||'(no final prose)');console.log('AGENT_REPORT_END');
+          if(latest.status!=='completed'){console.log('NOT_COMPLETED_NO_PATCH_PUBLISH');process.exit(6);}
+          const envId=latest.environment_id;
+          if(typeof envId!=='string'||!/^env_[A-Za-z0-9_-]{8,200}$/.test(envId)){console.log('NO_VALID_ENVIRONMENT_ID');process.exit(7);}
+          const url=base.replace('/interactions','/files/environment-'+envId+':download?alt=media');
+          const d=await fetch(url,{method:'GET',headers:{'x-goog-api-key':key},redirect:'follow',signal:AbortSignal.timeout(60000)});
+          console.log('SNAPSHOT_HTTP',d.status);
+          if(!d.ok)process.exit(8);
+          const content=Buffer.from(await d.arrayBuffer());
+          console.log('SNAPSHOT_BYTES',content.length);
+          if(content.length>80000000||content.length<100){console.log('SNAPSHOT_SIZE_BLOCKED');process.exit(9);}
+          fs.writeFileSync('antigravity-env-snapshot.tar',content);
+          NODE
+      - name: Extract ONLY 3 public candidate source files from Google sandbox snapshot
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import tarfile, pathlib,sys
+          expected=[
+          "brain/src/private_hmac_protocol.mjs",
+          "brain/src/private_hmac_candidate.mjs",
+          "brain/test/private_hmac_acceptance.test.mjs"]
+          with tarfile.open("antigravity-env-snapshot.tar","r:*") as tf:
+              members=tf.getmembers()
+              for target in expected:
+                  matches=[m for m in members if m.isfile() and m.name.replace("\\","/").endswith("/archelaos-site/"+target)]
+                  if len(matches)!=1:
+                      print("MISSING_OR_AMBIGUOUS",target,len(matches))
+                      print("SNAPSHOT_CONTENTS_SAMPLE",[m.name for m in members[:20]])
+                      sys.exit(11)
+                  data=tf.extractfile(matches[0]).read()
+                  if len(data)<100 or len(data)>50000 or b"\x00" in data:
+                      print("INVALID_CODE_FILE",target,len(data))
+                      sys.exit(12)
+                  path=pathlib.Path(target)
+                  if path.exists(): 
+                      print("BLOCKED_OVERWRITE",str(path))
+                      sys.exit(13)
+                  path.parent.mkdir(parents=True,exist_ok=True)
+                  path.write_bytes(data)
+                  print("COPIED",target,len(data))
+          PY
+      - name: Run native Miniflare security regression with no write token
+        shell: bash
+        run: |
+          set -euo pipefail
+          git diff --check
+          test "$(git status --porcelain | wc -l)" -eq 3
+          node --check brain/src/private_hmac_protocol.mjs
+          node --check brain/src/private_hmac_candidate.mjs
+          node --check brain/test/private_hmac_acceptance.test.mjs
+          npm ci --prefix brain --ignore-scripts --no-audit --no-fund
+          node --test --test-reporter=tap brain/test/private_hmac_acceptance.test.mjs | tee "$RUNNER_TEMP/antigravity-native.tap"
+          node -e "const fs=require('fs');const s=fs.readFileSync(process.env.RUNNER_TEMP+'/antigravity-native.tap','utf8');const n=/^# tests (\\d+)$/m.exec(s),f=/^# fail (\\d+)$/m.exec(s);if(!n||Number(n[1])<11||!f||Number(f[1])!==0){console.error('INSUFFICIENT_OR_FAILED_NATIVE_TESTS');process.exit(1)}console.log('NATIVE_TEST_GATE',n[1]+'/0 failed')"
+          npm run syntax --prefix brain
+          git add -N brain/src/private_hmac_protocol.mjs brain/src/private_hmac_candidate.mjs brain/test/private_hmac_acceptance.test.mjs
+          git diff --binary -- brain/src/private_hmac_protocol.mjs brain/src/private_hmac_candidate.mjs brain/test/private_hmac_acceptance.test.mjs > candidate.patch
+          test "$(wc -c < candidate.patch)" -gt 800
+          test "$(wc -c < candidate.patch)" -lt 130000
+          echo 'ACTUAL TESTS PASSED - still independent review required' > summary.txt
+      - name: Upload tested patch for separate credentialed job
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: antigravity-private-rpc-scoped-patch
+          path: |
+            candidate.patch
+            summary.txt
+          retention-days: 3
+          if-no-files-found: error
+  publish-draft:
+    needs: propose
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Check out reviewed source in fresh GitHub write-token job (no Gemini secret)
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: main
+          persist-credentials: true
+      - name: Download only same-run validated patch
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: antigravity-private-rpc-scoped-patch
+          path: antigravity-artifact
+      - name: Apply exact allowlisted new-file patch and open DRAFT only
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          p=Path("antigravity-artifact/candidate.patch").read_bytes()
+          allowed={b'brain/src/private_hmac_protocol.mjs',b'brain/src/private_hmac_candidate.mjs',b'brain/test/private_hmac_acceptance.test.mjs'}
+          assert 800<len(p)<130000 and b'\x00' not in p
+          hdr=[x for x in p.splitlines() if x.startswith(b'diff --git ')]
+          assert len(hdr)==3
+          actual=set()
+          for h in hdr:
+              a,b=h[11:].split(b' ',1)
+              assert a.startswith(b'a/') and b.startswith(b'b/') and a[2:]==b[2:]
+              actual.add(a[2:])
+          assert actual==allowed,(actual,allowed)
+          for forbidden in (b'GIT binary patch',b'rename from',b'rename to',b'old mode ',b'new mode ',b'deleted file mode '):assert forbidden not in p
+          print('PUBLISH_PATH_GUARD PASS')
+          PY
+          git apply --check --index antigravity-artifact/candidate.patch
+          git apply --index antigravity-artifact/candidate.patch
+          python3 - <<'PY'
+          import subprocess
+          p={x.decode() for x in subprocess.check_output(['git','diff','--cached','--name-only','-z']).split(b'\0') if x}
+          assert p=={'brain/src/private_hmac_protocol.mjs','brain/src/private_hmac_candidate.mjs','brain/test/private_hmac_acceptance.test.mjs'},p
+          PY
+          git diff --cached --check
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          branch="antigravity/private-hmac-candidate-$GITHUB_RUN_ID"
+          git switch -c "$branch"
+          git commit -m "test(antigravity): isolated HMAC RPC acceptance candidate (draft)"
+          git push origin "HEAD:refs/heads/$branch"
+          gh pr create --draft --base main --head "$branch" \
+           --title "test(antigravity): isolated private HMAC RPC acceptance (Draft, OFF)" \
+           --body "Google Antigravity remote sandbox tool-assisted coding proposal. Three new files only. No active Worker imports, runtime bindings, secrets, deploy or merge. Candidate passed the one-shot read-only job native test gate; exact-head CI/CodeQL/SonarCloud independent review required. Previous Codex unpublished local checkpoint remains separate and was NOT tested or replaced. NO-GO for real HMAC parity or staging."
