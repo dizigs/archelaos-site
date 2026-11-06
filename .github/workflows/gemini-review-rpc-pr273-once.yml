@@ -1,0 +1,50 @@
+name: Gemini independent security review PR273 one-shot
+on:
+  push:
+    branches:
+      - assistant/gemini-rpc-pr273-review-20261107
+    paths:
+      - '.github/workflows/gemini-review-rpc-pr273-once.yml'
+permissions:
+  contents: read
+concurrency:
+  group: gemini-independent-pr273-once
+  cancel-in-progress: false
+jobs:
+  review:
+    if: "github.repository == 'dizigs/archelaos-site' && github.event.head_commit.message == 'test(gemini): authorized one-shot PR273 security review'"
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout exact PR source without credentials
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: d940ddc644f19df39e47de09df5fab68cfbfbdd9
+          persist-credentials: false
+      - name: One Gemini API code review request (no retries)
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          SOURCE_SHA: d940ddc644f19df39e47de09df5fab68cfbfbdd9
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          const key=process.env.GEMINI_API_KEY;if(!key||key.length<16){console.log('GEMINI_KEY_UNAVAILABLE');process.exit(2)}
+          const root='brain/test/';
+          const files=['private_rpc_prototype_guard.test.mjs','selfheal_rpc_boundary.test.mjs'];
+          const source=files.map((file,i)=>'PATH '+root+file+'\n'+fs.readFileSync(root+file,'utf8').slice(0,i===0?11000:12500)).join('\n---\n');
+          if(/-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----|(?:sk-proj-|github_pat_|ghp_|gho_|AIza[0-9A-Za-z_-]{15,})/.test(source)){console.log('SECRET_PATTERN_GATE');process.exit(3)}
+          const prompt="You are a strict independent Cloudflare Miniflare and Node.js 24 JavaScript security regression reviewer. Inspect the ACTUAL provided test content from PR #273 at head d940ddc644f19df39e47de09df5fab68cfbfbdd9 and the existing native RPC boundary test. Do NOT invent code not present.\nFind exact fail/false-positive risks including: whether `Object.prototype.__proto__` inherits accessor; whether `constructor` intrinsic is inherited; whether Miniflare mock target and caller behavior truly tests WorkerEntrypoint real Service Binding; whether attempting rpc[name] has runtime/security issues; whether test's scope claims too much; whether `targetScript` syntax and import work; whether test uses `resolve`/Miniflare appropriately; whether the status shape is reliable; whether an attack via inherited custom prototype/getter/proxy could bypass checks.\nReturn at most six SPECIFIC findings by severity, with path, test name, pinpoint code, a minimal correction suggestion, and whether it is PROVEN from supplied code or NEEDS runtime proof. If no bug, say so, do not fabricate findings.\nGive a crisp acceptance recommendation: GO or NO-GO for merging PR #273 until exact-head native tests, CodeQL, SonarCloud A and review. DO NOT say 11/11 passes for unpublished Codex checkpoint; it is NOT in this repository. No Cloudflare runtime proof.\nRead-only, no write suggestions outside the test, do not access credentials, no deployments, no production AI or recovery rights.";
+          const request={contents:[{role:'user',parts:[{text:prompt+'\n\n'+source}]}],generationConfig:{temperature:0.2,maxOutputTokens:2400}};
+          console.log('ONE_READONLY_GEMINI_REQUEST_NO_RETRY');console.log('SOURCE_SHA',process.env.SOURCE_SHA);console.log('INPUT_CHARACTERS',(prompt+source).length);
+          let response;try{response=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent',{method:'POST',redirect:'error',signal:AbortSignal.timeout(75000),headers:{'Content-Type':'application/json','x-goog-api-key':key},body:JSON.stringify(request)});}catch(e){console.log('GEMINI_NETWORK_ERROR',e.name);process.exit(4)}
+          const j=await response.json().catch(()=>({}));console.log('GEMINI_HTTP',response.status);
+          if(!response.ok){console.log('GEMINI_PROVIDER_STATUS',j.error?.status||'UNKNOWN');process.exit(5)}
+          console.log('GEMINI_USAGE',JSON.stringify(j.usageMetadata||{}));
+          const report=(j.candidates?.[0]?.content?.parts||[]).filter(x=>typeof x.text==='string').map(x=>x.text).join('\n');
+          console.log('GEMINI_FINISH',j.candidates?.[0]?.finishReason||'UNKNOWN');console.log('GEMINI_REPORT_START');console.log(report.slice(0,16000)||'(empty)');console.log('GEMINI_REPORT_END');
+          if(!report)process.exit(6);
+          NODE
