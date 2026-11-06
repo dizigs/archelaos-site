@@ -269,7 +269,7 @@ const searchItems=[
 ];
 function searchRender(){
  const q=$("globalSearch").value.trim().toLocaleLowerCase("el"),list=$("globalSearchResults");list.replaceChildren();const entries=searchItems.filter(item=>(item.label+" "+item.type).toLocaleLowerCase("el").includes(q)).slice(0,11);
- entries.forEach(item=>{const b=document.createElement("button");b.type="button";b.className="search-option";b.textContent=item.label;const small=document.createElement("small");small.textContent=item.type+" · DEMO";b.append(small);b.addEventListener("click",()=>{closeSearch();if(item.view)setView(item.view);else if(item.worker)openWorker(item.worker);else if(item.deployment)showDeployment(item.deployment);else if(item.task){const t=item.task;openDetail(t.name,t.id,[["Πηγή",t.source],["Κατάσταση",labels[t.status]]],t.detail)}});list.append(b)});
+ entries.forEach(item=>{const b=document.createElement("button");b.type="button";b.className="search-option";b.textContent=item.label;const small=document.createElement("small");small.textContent=item.type+" · DEMO";b.append(small);b.addEventListener("click",()=>{closeSearch();if(item.view)setView(item.view,true);else if(item.worker)openWorker(item.worker);else if(item.deployment)showDeployment(item.deployment);else if(item.task){const t=item.task;openDetail(t.name,t.id,[["Πηγή",t.source],["Κατάσταση",labels[t.status]]],t.detail)}});list.append(b)});
  if(!entries.length){const p=document.createElement("p");p.className="soft-text";p.textContent="Δεν βρέθηκαν αποτελέσματα.";list.append(p)}
 }
 function closeSearch(){if($("searchDialog").open)$("searchDialog").close()}
