@@ -72,7 +72,8 @@ export function buildArchiveSources(file,pages,options={}) {
       let seg=rest.slice(0,count).join('');
       while(enc.encode(seg).length>available){count=Math.floor(count*.9);seg=rest.slice(0,count).join('');}
       if(!count) throw Error('PAGE_TOO_LARGE');
-      text+=lead+seg; rawContent+=seg; start??=p.page;end=p.page;
+      text+=lead+seg; rawContent+=(end!==null && end!==p.page?'\n[PAGE_BOUNDARY]\n':'')+seg;
+      start??=p.page;end=p.page;
       rest=rest.slice(count);if(rest.length)emit();
     }
   }
