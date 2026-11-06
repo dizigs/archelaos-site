@@ -80,6 +80,28 @@ export async function sha256(value){
   const result=new Uint8Array(await crypto.subtle.digest('SHA-256',bytes));
   return Array.from(result,b=>b.toString(16).padStart(2,'0')).join('');
 }
+export async function readLimitedBytes(response,maxBytes){
+  if(!Number.isSafeInteger(maxBytes)||maxBytes<=0)throw Error('INVALID_STREAM_LIMIT');
+  const reader=response?.body?.getReader?.();
+  if(!reader)throw Error('RESPONSE_STREAM_REQUIRED');
+  const chunks=[];let total=0;
+  try {
+    while(true){
+      const {done,value}=await reader.read();
+      if(done)break;
+      if(!(value instanceof Uint8Array))throw Error('INVALID_STREAM_CHUNK');
+      total+=value.byteLength;
+      if(total>maxBytes){
+        await reader.cancel().catch(()=>{});
+        throw Error('RESPONSE_TOO_LARGE');
+      }
+      chunks.push(value);
+    }
+  } finally {reader.releaseLock();}
+  const data=new Uint8Array(total);let offset=0;
+  for(const chunk of chunks){data.set(chunk,offset);offset+=chunk.byteLength;}
+  return data;
+}
 export function approvedPdf(env, fileId, now=Date.now()) {
   assertFileId(fileId);
   let entries;
@@ -154,7 +176,8 @@ export async function fetchDriveMetadata(env,fileId,fetchImpl=fetch){
   const r=await fetchImpl(url+'?fields=id,name,mimeType,size,version,driveId,md5Checksum,headRevisionId&supportsAllDrives=true',{headers,redirect:'manual',signal:AbortSignal.timeout(12000)});
   if(!r.ok || r.status>=300&&r.status<400)throw Error('DRIVE_METADATA_HTTP_'+r.status);
   const m=await r.json();
-  if(m.id!==fileId||m.driveId!==env.ARCHIVE_DRIVE_ID||m.mimeType!=='application/pdf')throw Error('DRIVE_FILE_NOT_APPROVED');
+  if(m.id!==fileId||m.driveId!==env.ARCHIVE_DRIVE_ID||m.mimeType!=='application/pdf'||
+      typeof m.name!=='string'||!m.name.trim()||m.name.length>255)throw Error('DRIVE_FILE_NOT_APPROVED');
   if(/(ιατρ|τιμολ|μισθωτ|οικονομ|φορολογ|προσωπ|medical|invoice|bank)/i.test(m.name||''))throw Error('SENSITIVE_PDF_REVIEW_REQUIRED');
   const size=Number(m.size);
   if(!Number.isFinite(size)||size<=0||size>MAX_PDF_BYTES)throw Error('DRIVE_FILE_SIZE_UNSUPPORTED');
@@ -169,7 +192,7 @@ export async function fetchDrivePdf(env,fileId,fetchImpl=fetch,approval=null){
   if(!r.ok||!r.body||r.status>=300&&r.status<400)throw Error('DRIVE_DOWNLOAD_HTTP_'+r.status);
   const claimedSize=Number(r.headers.get('content-length'));
   if(claimedSize>MAX_PDF_BYTES)throw Error('PDF_TOO_LARGE');
-  const bytes=new Uint8Array(await r.arrayBuffer());
+  const bytes=await readLimitedBytes(r,MAX_PDF_BYTES);
   if(bytes.length<8 || bytes.length>MAX_PDF_BYTES || bytes.length!==meta.size)
     throw Error('PDF_SIZE_MISMATCH');
   if(!new TextDecoder().decode(bytes.slice(0,5)).startsWith('%PDF-'))
