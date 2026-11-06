@@ -270,7 +270,7 @@ function downloadDemo(){
 function init(){
  renderDiagram();renderWorkerCards();renderTasks();renderEvents();renderDeployments();setScenario(0,false);initMobileFeed();
  qs(".nav-link").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();setView(a.dataset.view,true)}));
- qs("[data-view-button]").forEach(b=>b.addEventListener("click",()=>setView(b.dataset.viewButton,true));
+ qs("[data-view-button]").forEach(b=>b.addEventListener("click",()=>setView(b.dataset.viewButton,true)));
  qs("[data-detail]").forEach(b=>b.addEventListener("click",()=>openGeneric(b.dataset.detail,b)));
  $("menuToggle").addEventListener("click",()=>$("sidebar").classList.contains("open")?closeMenu(true):openMenu());
  $("mobileBackdrop").addEventListener("click",()=>closeMenu(true));
