@@ -248,23 +248,40 @@ test('Drive/Gmail source-scoped HMAC event, route, receipt and readback permissi
     const ack = await response.json();
     assert.equal(ack.durable, true);
     assert.equal(ack.audience, 'source.receipt.ack.v1');
+    assert.equal(ack.eventId, ev.eventId);
+    assert.equal(ack.principal, 'drive-v1');
+    const kind = 'source.file';
+    const expectedDigest = h('blob|' + ev.sourceType + '|' + ev.sourceId + '|' +
+      kind + '|' + ev.payload.blobSha256);
+    assert.equal(ack.dedupeKey, expectedDigest);
     const {receiptSignature: ackSignature, ...ackPayload} = ack;
     assert.equal(ackSignature, createHmac('sha256', RECEIPT_KEY).update(
       ack.audience + '\n' + JSON.stringify(ackPayload)).digest('hex'));
     const again = await (await send('/v1/events', ev, 'drive-v1')).json();
     assert.equal(again.receiptId, ack.receiptId);
+    assert.equal(again.eventId, ev.eventId);
+    assert.equal(again.correlationId, ev.correlationId);
+    assert.equal(again.dedupeKey, expectedDigest);
+    assert.equal(again.duplicate, true);
     const observed = await send('/v1/source-receipts/' + ack.receiptId,
       undefined, 'drive-v1');
     assert.equal(observed.status, 200);
     const scoped = await observed.json();
     assert.equal(scoped.receiptId, ack.receiptId);
     assert.equal(scoped.correlationId, ev.correlationId);
+    assert.equal(scoped.eventId, ev.eventId);
+    assert.equal(scoped.dedupeKey, expectedDigest);
+    assert.equal(scoped.source, ev.sourceType);
     assert.equal(scoped.durable, true);
     assert.equal(scoped.audience, 'source.receipt.readback.v1');
     assert.equal(scoped.principal, 'drive-v1');
     const {receiptSignature, ...readbackPayload} = scoped;
     assert.equal(receiptSignature, createHmac('sha256', RECEIPT_KEY).update(
       scoped.audience + '\n' + JSON.stringify(readbackPayload)).digest('hex'));
+    const tampered = {...scoped, eventId: randomUUID()};
+    const {receiptSignature: forgedSignature, ...forgedBody} = tampered;
+    assert.notEqual(forgedSignature, createHmac('sha256', RECEIPT_KEY).update(
+      tampered.audience + '\n' + JSON.stringify(forgedBody)).digest('hex'));
     assert.equal((await send('/v1/source-receipts/' + ack.receiptId,
       undefined, 'gmail-v1')).status, 404);
     const gmailLegacy = legacyEvent('gmail', 'source.file.created');
@@ -315,4 +332,36 @@ test('analytics snapshot rejects conflicting/older producer evidence and accepts
     assert.equal(updated.metricRevision, receipt.metricRevision);
     assert.notEqual(updated.receiptId, receipt.receiptId);
   });
+});
+
+test('source readback preserves immutable event and blob key across SQLite restart', async () => {
+  await withBrain(async ({send, restart}) => {
+    const ev = legacyEvent('drive', 'source.file.updated');
+    const firstResponse = await send('/v1/events', ev, 'drive-v1');
+    assert.equal(firstResponse.status, 202);
+    const first = await firstResponse.json();
+    const expectKey = h('blob|drive|' + ev.sourceId + '|source.file|' + ev.payload.blobSha256);
+    assert.equal(first.dedupeKey, expectKey);
+    await restart();
+    const result = await send('/v1/source-receipts/' + first.receiptId,
+      undefined, 'drive-v1');
+    assert.equal(result.status, 200);
+    const readback = await result.json();
+    assert.equal(readback.eventId, ev.eventId);
+    assert.equal(readback.correlationId, ev.correlationId);
+    assert.equal(readback.dedupeKey, first.dedupeKey);
+    assert.equal(readback.source, 'drive');
+    assert.equal(readback.durable, true);
+    assert.equal(readback.principal, 'drive-v1');
+    assert.equal((await send('/v1/source-receipts/' + first.receiptId,
+      undefined, 'gmail-v1')).status, 404);
+    const replayResponse = await send('/v1/events', ev, 'drive-v1');
+    assert.equal(replayResponse.status, 200);
+    const replay = await replayResponse.json();
+    assert.equal(replay.receiptId, first.receiptId);
+    assert.equal(replay.eventId, ev.eventId);
+    assert.equal(replay.dedupeKey, first.dedupeKey);
+    assert.equal(replay.correlationId, ev.correlationId);
+    assert.equal(replay.duplicate, true);
+  }, {eventSources: true});
 });
