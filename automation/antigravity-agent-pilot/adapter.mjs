@@ -65,7 +65,7 @@ export function extractReview(data) {
   }
   return blocks.join('\n').slice(0,20000);
 }
-function idValid(id){return typeof id==='string'&&/^int_[a-zA-Z0-9_-]{3,160}$/.test(id)}
+function idValid(id){return typeof id==='string'&&/^v1_[A-Za-z0-9_-]{20,512}$/.test(id)}
 function permitted({approvedGrant,job}) {
   return approvedGrant?.source==='TRUSTED_BRAIN'&&
     ['VERIFIED_FREE_API_QUOTA','VERIFIED_PROMOTIONAL_API_CREDITS','VERIFIED_OPERATOR_PREPAY'].includes(approvedGrant.chargeSource)&&
