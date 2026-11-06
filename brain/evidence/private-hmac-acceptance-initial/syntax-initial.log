@@ -1,0 +1,5 @@
+
+> archelaos-brain-core@0.1.0 syntax
+> node tools/check_syntax.mjs
+
+Brain module syntax checks passed: 46
