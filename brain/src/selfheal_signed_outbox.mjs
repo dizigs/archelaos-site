@@ -33,7 +33,9 @@ function requireStaging(env, now) {
       !Number.isFinite(exp) || exp <= now || exp > now + 60 * 60_000 ||
       typeof env?.HEALER_EVENT_HMAC_KEY !== 'string' ||
       env.HEALER_EVENT_HMAC_KEY.length < 43 ||
-      typeof env?.HEALER?.attemptRecovery !== 'function')
+      typeof env?.HEALER?.attemptRecovery !== 'function' ||
+      (env.BRAIN_SELFHEAL_DURABLE_ACK_ENABLED === 'true' &&
+       typeof env?.HEALER?.recoveryStatus !== 'function'))
     deny('SELFHEAL_SIGNED_DISPATCH_DISABLED');
 }
 
