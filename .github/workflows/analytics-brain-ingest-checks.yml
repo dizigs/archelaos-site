@@ -1,0 +1,25 @@
+name: Analytics Brain ingest — private contract
+on:
+  pull_request:
+    paths:
+      - 'automation/analytics-brain-ingest/**'
+      - '.github/workflows/analytics-brain-ingest-checks.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout exact PR revision
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Setup Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '22'
+      - name: Validate offline Analytics and Brain contracts
+        working-directory: automation/analytics-brain-ingest
+        run: npm run check
