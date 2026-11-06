@@ -3,8 +3,8 @@ import assert from 'node:assert/strict';
 import { assessBinding } from './binding-plan.mjs';
 const SHA = 'a'.repeat(40);
 const base = () => ({
-  caller: 'archelaos-automation-bridge', callerBindings: [],
-  brainBindings: [{ type: 'durable_object_namespace', name: 'BRAIN', class_name: 'BrainCoordinator' }, {type:'secret_text', name:'STAGING_INTAKE_KEY'}],
+  caller: 'archelaos-automation-bridge', selectedSource: 'drive', callerBindings: [],
+  brainBindings: [{ type: 'durable_object_namespace', name: 'BRAIN', class_name: 'BrainCoordinator' }, {type:'secret_text', name:'BRAIN_DRIVE_INTAKE_KEY'}, {type:'secret_text', name:'BRAIN_CAPABILITY_RECEIPT_KEY'}],
   deployedBrainSha: SHA, approvedBrainSha: SHA,
   stagingExpiresAt: '2026-11-05T12:30:00Z', now: Date.parse('2026-11-05T12:00:00Z'),
   scopedIdentityApproved: true, provenanceApproved: true, durableAuditApproved: true, ownerApproved: true
@@ -18,8 +18,10 @@ test('approved callers only; no second Brain or public URL', () => {
 test('actual expired and missing-key configuration blocks a proposal', () => {
   const result = assessBinding({...base(),brainBindings:[{type:'durable_object_namespace',name:'BRAIN'}],stagingExpiresAt:'1970-01-01T00:00:00Z'});
   assert.equal(result.status,'BLOCKED');
-  assert.ok(result.blockers.includes('BRAIN_INTAKE_SECRET_ABSENT'));
+  assert.ok(result.blockers.includes('SOURCE_INTAKE_SECRET_ABSENT'));
   assert.ok(result.blockers.includes('STAGING_EXPIRED'));
+  assert.ok(result.blockers.includes('RECEIPT_SIGNING_SECRET_ABSENT'));
+
 });
 test('misaligned Brain SHA fails closed', () => {
   assert.ok(assessBinding({...base(), approvedBrainSha:'b'.repeat(40)}).blockers.includes('BRAIN_SHA_NOT_PINNED'));
@@ -36,7 +38,7 @@ test('unreviewed alias to target is rejected',()=>{
 test('no inventory, durable object or approvals means blocked', () => {
   const result=assessBinding({...base(),callerBindings:null,brainBindings:[],scopedIdentityApproved:false,provenanceApproved:false,durableAuditApproved:false,ownerApproved:false});
   assert.equal(result.status,'BLOCKED');
-  for(const reason of ['INVENTORY_MISSING','CANONICAL_DO_MISSING','BRAIN_INTAKE_SECRET_ABSENT','SOURCE_IDENTITY_CONTRACT_UNAPPROVED','SOURCE_PROVENANCE_UNVERIFIED','DURABLE_AUDIT_UNVERIFIED','EXPLICIT_OWNER_APPROVAL_MISSING']) assert.ok(result.blockers.includes(reason));
+  for(const reason of ['INVENTORY_MISSING','CANONICAL_DO_MISSING','SOURCE_INTAKE_SECRET_ABSENT','SOURCE_IDENTITY_CONTRACT_UNAPPROVED','SOURCE_PROVENANCE_UNVERIFIED','DURABLE_AUDIT_UNVERIFIED','EXPLICIT_OWNER_APPROVAL_MISSING']) assert.ok(result.blockers.includes(reason));
 });
 test('already present exact native binding is merely observed, never CONNECTED',()=>{
   const result=assessBinding({...base(),callerBindings:[{type:'service',name:'BRAIN_PRIVATE',service:'archelaos-brain-staging'}]});
@@ -75,4 +77,24 @@ test('staging expiry must be time-bounded to one hour',()=>{
   const z=assessBinding({...base(),stagingExpiresAt:'2026-11-06T12:00:00Z'});
   assert.ok(z.blockers.includes('STAGING_WINDOW_TOO_LONG'));
   assert.equal(z.status,'BLOCKED');
+});
+
+test('only exact source HMAC key and independent signed receipt key qualify',()=>{
+  const wrong=assessBinding({...base(),brainBindings:[
+    {type:'durable_object_namespace',name:'BRAIN',class_name:'BrainCoordinator'},
+    {type:'secret_text',name:'STAGING_INTAKE_KEY'},
+    {type:'secret_text',name:'BRAIN_CAPABILITY_RECEIPT_KEY'}
+  ]});
+  assert.ok(wrong.blockers.includes('SOURCE_INTAKE_SECRET_ABSENT'));
+  assert.equal(wrong.status,'BLOCKED');
+  const missingVerifier=assessBinding({...base(),brainBindings:[
+    {type:'durable_object_namespace',name:'BRAIN',class_name:'BrainCoordinator'},
+    {type:'secret_text',name:'BRAIN_DRIVE_INTAKE_KEY'}
+  ]});
+  assert.ok(missingVerifier.blockers.includes('RECEIPT_SIGNING_SECRET_ABSENT'));
+});
+test('per-caller requested source must be explicit and allowlisted',()=>{
+  assert.ok(assessBinding({...base(),selectedSource:'github'}).blockers.includes('SOURCE_NOT_APPROVED'));
+  assert.ok(assessBinding({...base(),selectedSource:null}).blockers.includes('SOURCE_NOT_APPROVED'));
+  assert.equal(assessBinding(base()).selectedSource,'drive');
 });
