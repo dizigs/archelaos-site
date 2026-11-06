@@ -3,6 +3,9 @@ name: Gemini CLI API connection smoke test (manual, read-only)
 # This workflow is not scheduled and does not run when a PR is opened.
 on:
   workflow_dispatch:
+  push:
+    branches: [chatgpt/gemini-cli-manual-smoke-20261106]
+    paths: ['.github/workflows/gemini-cli-manual-smoke.yml']
 
 permissions:
   contents: read
