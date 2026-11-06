@@ -7,7 +7,7 @@
     "node": ">=22"
   },
   "scripts": {
-    "check": "node --check src/bridge.mjs && node --check src/google-ads.mjs && node --check src/github-artifacts.mjs && node --check src/review-hints.mjs && node --check src/brain-signed-receipts.mjs && node --test test/*.test.mjs",
+    "check": "node --check src/bridge.mjs && node --check src/google-ads.mjs && node --check src/github-artifacts.mjs && node --check src/review-hints.mjs && node --check src/brain-signed-receipts.mjs && node --check src/private-readiness.mjs && node --test test/*.test.mjs",
     "test": "node --test test/*.test.mjs"
   }
 }
