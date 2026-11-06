@@ -13,16 +13,32 @@ export class LibrarianLedger extends DurableObject {
     if(!data||typeof data.key!=='string'||!/^[a-f0-9]{64}$/.test(data.key))
       return Response.json({error:'INVALID_LEDGER_KEY'},{status:400});
     if(path==='/reserve') {
+      const p=data.provenance;
+      if(data.kind==='archive' &&
+        (!p || !['fileIdSha256','pdfSha256','extractionSha256','chunkSha256','contentSha256']
+           .every(field=>typeof p[field]==='string' && /^[a-f0-9]{64}$/.test(p[field])) ||
+         !/^\\d+$/.test(p.revision||'') ||
+         !Number.isSafeInteger(p.firstPage) || !Number.isSafeInteger(p.lastPage) ||
+         p.firstPage<1 || p.lastPage<p.firstPage || p.lastPage>5000))
+        return Response.json({error:'INVALID_PROVENANCE'},{status:400});
       const status=await this.ctx.storage.transaction(async tx=>{
         const prior=await tx.get(data.key);
         if(prior)return {created:false,status:prior.status};
-        await tx.put(data.key,{status:'RESERVED',sourceName:null,kind:data.kind||'unknown'});
-        return {created:true,status:'RESERVED'};
+        let duplicateOf=null;
+        if(data.kind==='archive'){
+          const contentKey='archive-content:'+p.contentSha256;
+          const first=await tx.get(contentKey);
+          duplicateOf=first?.key||null;
+          if(!first)await tx.put(contentKey,{key:data.key,firstPdfSha256:p.pdfSha256});
+        }
+        await tx.put(data.key,{status:'RESERVED',sourceName:null,
+          kind:data.kind||'unknown',provenance:data.kind==='archive'?p:null,duplicateOf});
+        return {created:true,status:'RESERVED',duplicateOf};
       });
       return Response.json(status);
     }
     if(path==='/record'){
-      if(!['SUBMITTED','ACTIVE','UNKNOWN'].includes(data.status) ||
+      if(!['SUBMITTED','ACTIVE','UNKNOWN','DUPLICATE'].includes(data.status) ||
           (data.sourceName!==undefined && (typeof data.sourceName!=='string' ||
             !/^notebooks\/[0-9a-fA-F-]{16,80}\/sources\/[A-Za-z0-9-]{8,128}$/.test(data.sourceName))))
         return Response.json({error:'INVALID_LEDGER_RECORD'},{status:400});
@@ -30,6 +46,7 @@ export class LibrarianLedger extends DurableObject {
         const prior=await tx.get(data.key);
         if(!prior || (prior.sourceName && data.sourceName && prior.sourceName!==data.sourceName) ||
            (prior.status==='ACTIVE' && data.status!=='ACTIVE') ||
+           (prior.status==='DUPLICATE' && data.status!=='DUPLICATE') ||
            (data.status==='ACTIVE' && !(data.sourceName||prior.sourceName)))return {ok:false};
         await tx.put(data.key,{...prior,status:data.status,sourceName:data.sourceName||prior.sourceName});
         return {ok:true};
@@ -61,9 +78,14 @@ export default class Librarian extends WorkerEntrypoint {
     await consumeCallerNonce((path,payload)=>this.#ledger(path,payload),authorization,scope);
   }
 
-  async #submit(key,source,kind){
-    const prior=await this.#ledger('/reserve',{key,kind});
+  async #submit(key,source,kind,provenance=null){
+    const prior=await this.#ledger('/reserve',{key,kind,provenance});
     if(!prior.created)return {status:'SKIPPED_DUPLICATE_OR_PENDING',record:prior.status};
+    if(kind==='archive' && prior.duplicateOf){
+      const record=await this.#ledger('/record',{key,status:'DUPLICATE'});
+      if(!record.ok)throw Error('LEDGER_RECORD_FAILED');
+      return {status:'SKIPPED_DUPLICATE_ARCHIVE_CONTENT',verified:false};
+    }
     // Reserve durably before any external write; an ambiguous delivery is UNKNOWN.
     let result;
     try { result=await createNotebookSource(this.env,source); }
@@ -127,15 +149,22 @@ export default class Librarian extends WorkerEntrypoint {
         typeof result.engine!=='string' || !result.engine ||
         result.pages.some(p=>typeof p?.text!=='string' || p.text.length>1000000))
       throw Error('INVALID_PRIVATE_OCR_OUTPUT');
-    await assertApprovedExtraction(this.env,approval,result);
-    const sources=buildArchiveSources(meta,result.pages);
+    const packages=buildArchiveSources(meta,result.pages,{withProvenance:true});
     const receipts=[];
-    for(let i=0;i<sources.length;i++){
-      const source=sources[i];
-      const key=await sha256('drive|'+meta.id+'|'+meta.version+'|'+i+'|'+await sha256(source.text_content.content));
-      receipts.push(await this.#submit(key,source,'archive'));
+    const reviewed=await assertApprovedExtraction(this.env,approval,result);
+    const fileIdSha256=await sha256('private-drive-file|'+meta.id);
+    for(let i=0;i<packages.length;i++){
+      const packet=packages[i];
+      const source=packet.source;
+      const chunkSha256=await sha256(source.text_content.content);
+      const provenance={fileIdSha256,pdfSha256:meta.sha256,revision:meta.version,
+        extractionSha256:reviewed.sha256,chunkSha256,
+        contentSha256:await sha256(packet.rawContent),
+        firstPage:packet.firstPage,lastPage:packet.lastPage};
+      const key=await sha256('drive|'+meta.id+'|'+meta.version+'|'+i+'|'+chunkSha256);
+      receipts.push(await this.#submit(key,source,'archive',provenance));
     }
-    return {status:'ARCHIVE_SUBMISSIONS_CHECKED',totalChunks:sources.length,receipts};
+    return {status:'ARCHIVE_SUBMISSIONS_CHECKED',totalChunks:packages.length,receipts};
   }
 
   async checkSource({sourceName,authorization}){
