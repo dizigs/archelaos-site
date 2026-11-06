@@ -8,6 +8,7 @@ test('input requires public source and privacy review',()=>{
   assert.equal(preparePublicNews(article).title,article.title);
   assert.throws(()=>preparePublicNews({...article,privacyReviewed:false}),{code:'PUBLIC_SOURCE_OR_PRIVACY_NOT_VERIFIED'});
   assert.throws(()=>preparePublicNews({...article,sourceUrl:'http://127.0.0.1/'}),{code:'INVALID_PUBLIC_SOURCE_URL'});
+  assert.throws(()=>preparePublicNews({...article,sourceUrl:'https://[::1]/'}),{code:'INVALID_PUBLIC_SOURCE_URL'});
   assert.throws(()=>preparePublicNews({...article,arbitraryUrl:'https://evil.example'}),{code:'INVALID_PUBLIC_NEWS_INPUT'});
 });
 test('default OFF never calls network',async()=>{let calls=0;await assert.rejects(()=>runGeminiPublicNewsTriage({...args,fetchGoogle:()=>{calls++;}}),{code:'GEMINI_LIVE_PROVIDER_DISABLED'});assert.equal(calls,0)});
