@@ -19,7 +19,7 @@
   {href:'contact.html',el:'Επικοινωνία',en:'Contact'},
   {href:'news.html',el:'Νέα & Δράση',en:'News & Activity'},
   {href:'favorites.html',el:'Αγαπημένα',en:'Saved'},
-  {href:'full-chronology.html',el:'Πλήρες Χρονολόγιο',en:'Full Timeline'}
+  {href:'full-chronology.html',el:'Η Ιστορία Συνεχίζεται',en:'Living History'}
  ];
  const active=(href)=>href.split('#')[0]===pageName && !href.includes('#');
  const bi=(el,en)=>`<span data-asn-el="${el}" data-asn-en="${en}">${el}</span>`;
