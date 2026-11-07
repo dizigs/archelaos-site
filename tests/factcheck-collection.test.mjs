@@ -127,15 +127,18 @@ test('fast batch saves four anonymous choices once using a single Turnstile toke
  const env={
   TURNSTILE_SECRET:'secret',
   FACTCHECK_DB:{
-   prepare(sql){return {
-    bind(...args){return {
-     async first(){assert.match(sql,/SELECT claim_id/);const row=store.get(args[0]);return row??null;},
-     async run(){throw Error('batch insert should be used');},
-     async insert(){assert.match(sql,/INSERT OR IGNORE/);
-      const [receipt,claim_id,choice,evidence,reference_url]=args;
-      if(store.has(receipt))return {meta:{changes:0}};
-      store.set(receipt,{claim_id,choice,evidence,reference_url});inserted++;return {meta:{changes:1}};}
-    }};},
+   prepare(sql){
+    return {bind(...args){
+     return {
+      async first(){assert.match(sql,/SELECT claim_id/);const row=store.get(args[0]);return row??null;},
+      async run(){throw Error('batch insert should be used');},
+      async insert(){assert.match(sql,/INSERT OR IGNORE/);
+       const [receipt,claim_id,choice,evidence,reference_url]=args;
+       if(store.has(receipt))return {meta:{changes:0}};
+       store.set(receipt,{claim_id,choice,evidence,reference_url});inserted++;return {meta:{changes:1}};}
+     };
+    }};
+   },
    async batch(statements){const results=[];for(const item of statements)results.push(await item.insert());return results;}
   }
  };
