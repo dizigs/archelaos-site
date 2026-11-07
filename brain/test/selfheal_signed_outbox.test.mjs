@@ -3,7 +3,7 @@ import {test} from 'node:test';
 import {DatabaseSync} from 'node:sqlite';
 import {
   SELFHEAL_OUTBOX_SCHEMA, signCanonicalRecoveryFinding,
-  attemptOneSignedSelfHealDelivery
+  attemptOneSignedSelfHealDelivery, reconcileSignedSelfHealDelivery
 } from '../src/selfheal_signed_outbox.mjs';
 import {SELFHEAL_SCHEMA} from '../src/selfheal_recovery.mjs';
 import {verifySignedRecoveryEvent} from '../../automation/self-heal-worker/src/contract.mjs';
@@ -116,6 +116,61 @@ test('off-by-default staging gate rejects missing binding, old SHA, expired time
       /SELFHEAL_SIGNED_DISPATCH_DISABLED/);
     assert.equal(db.prepare('SELECT COUNT(*) AS n FROM selfheal_signed_outbox').get().n,0);
   }
+});
+
+test('durable ACK preflight rejects a missing or non-callable recoveryStatus before claiming an UNKNOWN row',async()=>{
+ for(const readback of [undefined,null,'not-a-function',{}]){
+  const {db,storage,env}=fixture();
+  env.BRAIN_SELFHEAL_DURABLE_ACK_ENABLED='true';
+  let deliveries=0;
+  env.HEALER.attemptRecovery=async()=>{deliveries++;return {status:'NOT_AUTHENTICATED'};};
+  if(readback===undefined) delete env.HEALER.recoveryStatus;
+  else env.HEALER.recoveryStatus=readback;
+  await assert.rejects(
+    ()=>attemptOneSignedSelfHealDelivery(storage,env,RECEIPT,NOW),
+    error=>error?.code==='SELFHEAL_SIGNED_DISPATCH_DISABLED' && error?.status===423
+  );
+  assert.equal(db.prepare('SELECT COUNT(*) AS n FROM selfheal_signed_outbox').get().n,0,
+    'missing private readback RPC must not claim a canonical outbox row');
+  assert.equal(deliveries,0,'no delivery may precede readback-interface attestation');
+  db.close();
+ }
+});
+
+test('explicit readback also rejects an unavailable recoveryStatus without modifying an existing UNKNOWN row',async()=>{
+ const {db,storage,env}=fixture();
+ env.BRAIN_SELFHEAL_DURABLE_ACK_ENABLED='true';
+ db.prepare('INSERT INTO selfheal_signed_outbox(receipt_id,nonce,claimed_at,status) VALUES(?,?,?,?)')
+   .run(RECEIPT,'e'.repeat(32),NOW,'UNKNOWN');
+ await assert.rejects(
+   ()=>reconcileSignedSelfHealDelivery(storage,env,RECEIPT,NOW),
+   error=>error?.code==='SELFHEAL_SIGNED_DISPATCH_DISABLED' && error?.status===423
+ );
+ const row=db.prepare('SELECT status,command_json,ack_json FROM selfheal_signed_outbox WHERE receipt_id=?').get(RECEIPT);
+ assert.deepEqual({...row},{status:'UNKNOWN',command_json:null,ack_json:null});
+ db.close();
+});
+
+test('callable recoveryStatus permits durable preflight but malformed immediate ACK remains fail-closed',async()=>{
+ const {db,storage,env}=fixture();
+ env.BRAIN_SELFHEAL_DURABLE_ACK_ENABLED='true';
+ let deliveries=0,reads=0;
+ env.HEALER.attemptRecovery=async()=>{deliveries++;return {status:'UNSIGNED_SYNTHETIC_REPLY'};};
+ env.HEALER.recoveryStatus=async()=>{reads++;throw Error('SHOULD_NOT_READ_AFTER_INVALID_ACK');};
+ const result=await attemptOneSignedSelfHealDelivery(storage,env,RECEIPT,NOW);
+ assert.equal(result.status,'UNKNOWN');
+ assert.equal(result.code,'HEALER_ACK_OR_READBACK_UNVERIFIED');
+ assert.equal(result.safeToRetry,false);
+ assert.equal(deliveries,1);
+ assert.equal(reads,0);
+ const row=db.prepare('SELECT status,command_json,ack_json FROM selfheal_signed_outbox WHERE receipt_id=?').get(RECEIPT);
+ assert.equal(row.status,'UNKNOWN');
+ assert.equal(typeof row.command_json,'string');
+ assert.equal(row.ack_json,null);
+ await assert.rejects(()=>attemptOneSignedSelfHealDelivery(storage,env,RECEIPT,NOW),
+   /SIGNED_DISPATCH_ALREADY_CLAIMED/);
+ assert.equal(deliveries,1);
+ db.close();
 });
 
 test('caller cannot fabricate durable CI evidence or bypass canonical chain halt',async()=>{
