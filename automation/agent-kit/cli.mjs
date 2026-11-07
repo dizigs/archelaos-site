@@ -68,7 +68,7 @@ export function isSafeEvidence(url, restrictToProject = true) {
       return parsed.hostname === 'github.com' &&
         parsed.pathname.startsWith('/dizigs/archelaos-site/');
     }
-    return ['github.com', 'docs.google.com'].includes(parsed.hostname);
+    return ['github.com', 'docs.google.com', 'developers.google.com', 'developers.cloudflare.com', 'antigravity.google', 'docs.sonarsource.com'].includes(parsed.hostname);
   } catch {
     return false;
   }
