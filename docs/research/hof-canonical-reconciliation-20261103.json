@@ -6,16 +6,16 @@
     "canonical": 774,
     "historical": 680,
     "shared": 680,
-    "divergent_people": 77,
-    "divergent_fields": 133,
+    "divergent_people": 78,
+    "divergent_fields": 135,
     "fields": {
-      "bio": 77,
-      "bio_en": 55,
+      "bio": 78,
+      "bio_en": 56,
       "name": 1
     },
     "classifications": {
       "BLOCKED_SOURCE": 4,
-      "LEGACY_TEXT_RETAINED": 107,
+      "LEGACY_TEXT_RETAINED": 109,
       "QUALIFIED_ARCHIVE": 9,
       "SEMANTICALLY_RETAINED": 11,
       "SPELLING_CORRECTION": 2
@@ -871,6 +871,24 @@
           "classification": "LEGACY_TEXT_RETAINED",
           "legacy_sha256": "921ca9903e3705223b5902ad1a30b66e91a7a8d3ff3c0f3490bdab9100773dfc",
           "canonical_sha256": "4eb64d544ed1d5e3bf1eaf5096dbf1571f6dc1d7b3d18537bba3ab88c6280109"
+        }
+      ]
+    },
+    {
+      "id": "arch-9fbf3dee77af",
+      "name": "Ιωάννης Παπασταθόπουλος",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "ae5df5c4ff7da714d5e8271826d5d174ea1c2820c2cd8e97e64973649c8fc2b2",
+          "canonical_sha256": "7f1417a6082e13e939e2a87f9dc8ce0f14a92e813efb8df894c3c5edd07431d2"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "f6d56566dd10a7c3045a9ddc30c2dcb3fe583cc6b1181dd7af6af7e5ac9da3a6",
+          "canonical_sha256": "3c393ba2123c368cdcb97cd5899bf569b9cd5899634f232d70896bc06807a4ff"
         }
       ]
     },
