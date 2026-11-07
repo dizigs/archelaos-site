@@ -62,5 +62,10 @@ test('GET is disabled by default, no public key or write',()=>{
   assert.match(css,/220ms/);assert.match(css,/prefers-reduced-motion:reduce/);
   assert.match(frontend,/aria-expanded/);assert.match(frontend,/record_id:id/);
   assert.match(favorites,/correction-suggestions\.js/);
+  const rebuilt=await readFile(new URL('../rebuild/js/favorites.js',import.meta.url),'utf8');
+  const globalBiography=await readFile(new URL('../assets/hof-inplace.js',import.meta.url),'utf8');
+  assert.match(rebuilt,/correction-suggestions\\.js/,'production rebuild must load correction UI');
+  assert.match(globalBiography,/dialog\\.id='arch-bio-global'/,'global Hall dialog must have matching stable DOM ID');
+
  });
 after(()=>{globalThis.fetch=originalFetch});
