@@ -136,7 +136,9 @@ async function loadQuestions(){
      obj.items.some(x=>typeof x.publicReview!=='boolean')||
      published.some(x=>typeof x.reviewContext!=='string'||!x.reviewContext.trim()||
        !Array.isArray(x.alternatives)||x.alternatives.length!==2))throw Error('unreviewed_catalog');
-  questions=published;loaded=true;render();
+  if(new Set(published.map(x=>x.displayOrder)).size!==published.length||
+     published.some(x=>!Number.isInteger(x.displayOrder)||x.displayOrder<1))throw Error('invalid_review_order');
+  questions=published.sort((a,b)=>a.displayOrder-b.displayOrder);loaded=true;render();
  }catch{loaded=true;questions=[];render();message('Τα ιστορικά ερωτήματα δεν φορτώθηκαν. Δοκίμασε ξανά αργότερα.');}
 }
 retry.addEventListener('click',()=>{
