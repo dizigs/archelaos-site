@@ -47,6 +47,7 @@ jobs:
         run: npm audit --prefix brain --omit dev --audit-level high
       - name: Validate syntax and provider readiness evidence guards
         run: |
+          python -m py_compile brain/qa/cloudflare_isolated_acceptance.py
           npm run syntax --prefix brain
           python -m unittest discover -s brain/test -p '*_test.py' -v
       - name: Exercise actual workerd SQLite, alarms, restart, dedupe, DLQ and budget concurrency
