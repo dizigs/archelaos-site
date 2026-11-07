@@ -21,3 +21,10 @@ Use the existing Cloudflare Pages deployment, the existing PRIVATE ARCHIVE_DB D1
 Public data never contains visitor submissions or private metadata. Reviewer decisions require human research and historical source verification. No automatic approval or AI-based publication.
 
 Offline test command: node --test tests/text-corrections.test.mjs
+
+## 2026-11-07 — Updated release acceptance
+- User requested activation of popup correction proposals alongside the participatory museum research (PR #296). This PR remains a **separate** correction endpoint, not the 61-item Fact Check intake.
+- Rebased by an ancestry-preserving merge commit onto current main only after checking no overlapping source paths. Independent exact-HEAD CI and safe staging acceptance still required.
+- Data store: dedicated EU-only ARCHIVE_DB with `text_corrections` and `text_correction_rate`, provisioned but no production submissions yet. `ENABLE_TEXT_CORRECTIONS` stays OFF until a proven hosted end-to-end test.
+- Privacy: anonymous proposals without name/email, short-lived secret-salted IP hashes only to rate-limit abuse; reviewer access is restricted. Operator must honor privacy/deletion requests in the site's Policy of Privacy and periodically purge expired rate rows and unnecessary personal data.
+- Rollback: set ENABLE_TEXT_CORRECTIONS=false and redeploy, preserve moderation records; do not delete or publish user content automatically.

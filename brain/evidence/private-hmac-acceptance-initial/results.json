@@ -1,0 +1,39 @@
+{
+  "recordedAt": "2026-11-06T23:23:17.261371+02:00",
+  "baseMain": "e4fe97715acfd4b4f3394345086411b6d8de0534",
+  "branch": "codex/private-hmac-acceptance",
+  "status": "BLOCKED_TEST_FAILED_LOCAL_ONLY",
+  "tests": {
+    "tests": 11,
+    "pass": 10,
+    "fail": 1,
+    "skipped": 0,
+    "cancelled": 0,
+    "durationMs": 27800.238468
+  },
+  "firstFailure": {
+    "file": "brain/test/private_hmac_acceptance.test.mjs",
+    "line": 116,
+    "assertion": "assert.ok((await f.call({op:'probe'})).every(Boolean))",
+    "rootCause": "NOT_CONFIRMED; aggregate boolean RPC visibility probe does not identify the offending property or distinguish local RPC-stub prototype behavior from remote exposure."
+  },
+  "sourceSha256": {
+    "brain/src/private_hmac_protocol.mjs": "05e39f1f208d295c46fb155737905d87aa9773fb08f6f50b96ffde09c423cafb",
+    "brain/src/private_hmac_candidate.mjs": "30a45d09bff684b165eb3e1733592084cff574cbdd4de818663196ad93d1bbc7",
+    "brain/test/private_hmac_acceptance.test.mjs": "712bb93f4f5f67329636078638460559a66aaad69842f1a934d0353105b9eb3e"
+  },
+  "logSha256": {
+    "native-initial.tap": "abef83782433840edeadd5c27123aaf859d2657c14c07941b6c53369148f5cb6",
+    "syntax-initial.log": "991b83e7b99793f60f1d32b3744522685464811fd27f893f3d7588b9162d2396"
+  },
+  "sourceSyntaxModulesPass": 46,
+  "fullRegression": "NOT_RUN_AFTER_GATE_FAILURE",
+  "hostedCI": "NOT_RUN",
+  "CodeQL": "NOT_RUN_FOR_LOCAL_CHECKPOINT",
+  "SonarSecurityRatingA": "NOT_VERIFIED_FOR_LOCAL_CHECKPOINT",
+  "liveCloudflare": "NOT_REQUESTED_NO_READY_IDENTITY_OR_ALLOWED_HOST",
+  "liveKeyParity": "NOT_VERIFIED",
+  "liveChallengeExecuted": false,
+  "activation": "NO-GO; existing flags and expiry unchanged",
+  "pushPRMergeDeployment": false
+}

@@ -3,6 +3,8 @@ on:
   pull_request:
     paths:
       - 'automation/self-heal-worker/**'
+      - 'brain/src/private_hmac_candidate.mjs'
+      - 'brain/src/private_hmac_protocol.mjs'
       - '.github/workflows/self-heal-worker-ci.yml'
   workflow_dispatch:
 
@@ -12,14 +14,64 @@ permissions:
 jobs:
   healer-offline:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 8
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Assert exact source commit for any later compiled bundle
+        env:
+          EXPECTED_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # pinned setup-node
         with:
           node-version: '22'
+      - name: Verify staging deploy secret is configured (boolean only, no token access)
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == 'dizigs/archelaos-site'
+        env:
+          DEPLOY_TOKEN_CONFIGURED: ${{ secrets.CLOUDFLARE_STAGING_DEPLOY_TOKEN != '' }}
+        run: |
+          if [ "$DEPLOY_TOKEN_CONFIGURED" != "true" ]; then
+            echo "Staging deploy secret missing/unavailable to this workflow; no deployment attempted."
+            exit 1
+          fi
+          echo "Staging deploy secret exists in Actions; value, scope and validity not inspected."
+      - name: Probe deployment token on approved Cloudflare Workers (read-only, no secrets logged)
+        if: github.event_name == 'pull_request' && github.event.pull_request.number == 288 && github.event.pull_request.head.repo.full_name == 'dizigs/archelaos-site'
+        env:
+          CLOUDFLARE_STAGING_DEPLOY_TOKEN: ${{ secrets.CLOUDFLARE_STAGING_DEPLOY_TOKEN }}
+        run: |
+          python3 - <<'PY'
+          import json, os, urllib.request, urllib.error
+          token = os.environ.get('CLOUDFLARE_STAGING_DEPLOY_TOKEN', '')
+          if not token:
+              print('CF token probe: BLOCKED (secret missing).')
+              raise SystemExit(1)
+          account = '898359728b3dfe8c3a3f56e3d19eecd1'
+          base = 'https://api.cloudflare.com/client/v4/accounts/' + account + '/workers/scripts/'
+          for name in ('archelaos-brain-staging', 'archelaos-self-heal'):
+              req = urllib.request.Request(base + name + '/settings',
+                  headers={'Authorization': 'Bearer ' + token,'Accept':'application/json'},
+                  method='GET')
+              try:
+                  with urllib.request.urlopen(req, timeout=12) as response:
+                      raw = response.read(262145)
+                      if len(raw) > 262144 or response.status != 200:
+                          raise ValueError('unexpected response size/status')
+                      payload = json.loads(raw)
+                      if payload.get('success') is not True or not isinstance(payload.get('result'), dict):
+                          raise ValueError('provider response failed validation')
+              except urllib.error.HTTPError as err:
+                  server = (err.headers.get('Server') or '').lower() if err.headers else ''
+                  layer = 'provider' if 'cloudflare' in server else 'proxy-or-unknown'
+                  print('CF token probe: BLOCKED for ' + name + ', HTTP ' + str(err.code) + ', layer=' + layer)
+                  raise SystemExit(1) from None
+              except (urllib.error.URLError, ValueError, OSError, TimeoutError):
+                  print('CF token probe: BLOCKED for ' + name + ' (transport or schema).')
+                  raise SystemExit(1) from None
+              print('CF token probe: READ_ONLY_OK for ' + name + ' (writes not verified).')
+          PY
       - name: Worker and test source syntax
         run: |
           node --check automation/self-heal-worker/src/policy.mjs
@@ -29,6 +81,21 @@ jobs:
           node --check automation/self-heal-worker/test/healer.test.mjs
       - name: Test durable SQLite ledger and fail-closed policy
         run: node --experimental-sqlite --test automation/self-heal-worker/test/*.test.mjs
+      - name: Install pinned Wrangler for a credential-free Healer bundle check
+        run: npm ci --prefix brain --ignore-scripts --no-audit --no-fund
+      - name: Compile actual Healer Worker without deployment or credentials
+        env:
+          WRANGLER_SEND_METRICS: 'false'
+        run: |
+          ./brain/node_modules/.bin/wrangler deploy --config automation/self-heal-worker/wrangler.toml --dry-run --outdir "$RUNNER_TEMP/healer-bundle"
+      - name: Preserve exact compiled Healer bundle for staging byte review (no credentials)
+        if: success() && github.event_name == 'pull_request'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: healer-staging-dryrun-${{ github.event.pull_request.head.sha || github.sha }}
+          path: ${{ runner.temp }}/healer-bundle/
+          if-no-files-found: error
+          retention-days: 3
       - name: Guard private, unscheduled deployment configuration
         run: |
           python3 - <<'PY'
@@ -40,9 +107,29 @@ jobs:
           assert config.get('workers_dev') is False
           assert not config.get('routes')
           assert not config.get('triggers', {}).get('crons')
-          assert not config.get('services')
-          assert config['durable_objects']['bindings'][0]['name'] == 'HEALER_MEMORY'
-          assert 'HealerMemory' in config['migrations'][0]['new_sqlite_classes']
+          # Only the reviewed private named port, never a public/default Brain target.
+          assert config.get('services') == [{
+              'binding': 'BRAIN_RECOVERY',
+              'service': 'archelaos-brain-staging',
+              'entrypoint': 'BrainRecoveryPort',
+          }]
+          assert config['durable_objects']['bindings'] == [
+              {'name':'HEALER_MEMORY','class_name':'HealerMemory'},
+              {'name':'HMAC_NONCES','class_name':'PrivateHmacNonceStore'},
+          ]
+          assert config['migrations'][0]['new_sqlite_classes'] == ['HealerMemory']
+          assert config['migrations'][1] == {
+              'tag':'healer-private-hmac-qa-v1',
+              'new_sqlite_classes':['PrivateHmacNonceStore'],
+          }
+          vars = config['vars']
+          assert vars['HEALER_DURABLE_ACK_ENABLED'] == 'false'
+          assert vars['PRIVATE_HMAC_ACCEPTANCE_ISOLATED'] == 'false'
+          assert vars['PRIVATE_HMAC_ACCEPTANCE_ROLE'] == 'healer'
+          assert vars['PRIVATE_HMAC_ACCEPTANCE_SESSION'] == ''
+          assert vars['PRIVATE_HMAC_ACCEPTANCE_APPROVED_SHA'] == '0'*40
+          assert vars['DEPLOY_SHA'] == '0'*40
+          assert vars['PRIVATE_HMAC_ACCEPTANCE_EXPIRES_AT'] == '1970-01-01T00:00:00Z'
           worker = pathlib.Path('automation/self-heal-worker/src/worker.mjs').read_text(encoding='utf-8')
           assert 'async fetch()' in worker and 'status: 404' in worker
           assert 'fetch(' not in worker.replace('async fetch()', '')

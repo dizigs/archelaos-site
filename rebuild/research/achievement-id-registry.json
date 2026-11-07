@@ -1,0 +1,2214 @@
+{
+  "schema_version": 1,
+  "name": "Αρχέλαος — Μητρώο IDs αθλητικών διακρίσεων και αγωνιστικών οροσήμων",
+  "scope": "INTERNAL_ID_INVENTORY_ONLY",
+  "publication_status": "NOT_FOR_PUBLICATION",
+  "purpose": "Preserve existing source record IDs for medals, cups, championships, records, placements and related sporting milestones before any future cross-linking.",
+  "id_policy": "record_ref is a source namespace plus the original immutable source_id, NOT a new canonical event ID. Never infer equivalence between distinct source records.",
+  "linkage_policy": "No new pages, cards, crosslinks, person identities, trophy claims, or event IDs are generated. Only source-explicit person/moment/event/image references are copied.",
+  "caution": "Overlapping records from different collections may describe the same achievement. Treat them as separate source references until factual deduplication; a published article or existing biography is not independent verification.",
+  "sources": [
+    "archelaos-history-events.json",
+    "news.json",
+    "rebuild/data/moments.json",
+    "rebuild/research/historical-events.json",
+    "rebuild/data/retro.json"
+  ],
+  "counts": {
+    "total": 142,
+    "by_source": {
+      "historical_event": 39,
+      "news_article": 71,
+      "moment": 17,
+      "research_event": 11,
+      "retro_match": 4
+    }
+  },
+  "records": [
+    {
+      "record_ref": "historical_event:moment-07-1966",
+      "source_file": "archelaos-history-events.json",
+      "source_id": "moment-07-1966",
+      "category": "placement_or_finalist",
+      "title": "Η γυναικεία ομάδα στίβου κατακτά την 5η θέση στη γενική βαθμολογία του Πανελληνίου Πρωταθλήματος",
+      "period": "1966",
+      "sport": "Στίβος",
+      "source_verification": "published-club-history",
+      "moment_ids": [
+        7
+      ]
+    },
+    {
+      "record_ref": "historical_event:moment-11-1971",
+      "source_file": "archelaos-history-events.json",
+      "source_id": "moment-11-1971",
+      "category": "record",
+      "title": "Το ιστορικό ρεκόρ συλλόγου του αθλητή και μετέπειτα προέδρου Αλκίνοου Τασόπουλου στα 3.000 μ. στιπλ (9:42.2)",
+      "period": "1971",
+      "sport": "Στίβος",
+      "source_verification": "published-club-history",
+      "moment_ids": [
+        11
+      ]
+    },
+    {
+      "record_ref": "historical_event:moment-25-1977",
+      "source_file": "archelaos-history-events.json",
+      "source_id": "moment-25-1977",
+      "category": "promotion_or_qualification",
+      "title": "Άνοδος της ανδρικής ομάδας μπάσκετ στη Β΄ Εθνική Κατηγορία",
+      "period": "1977",
+      "sport": "Καλαθοσφαίριση",
+      "source_verification": "published-club-history",
+      "moment_ids": [
+        25
+      ]
+    },
+    {
+      "record_ref": "historical_event:lazaridou-discus-record-1978",
+      "source_file": "archelaos-history-events.json",
+      "source_id": "lazaridou-discus-record-1978",
+      "category": "record",
+      "title": "Πανελλήνιο ρεκόρ νεανίδων της Ζαΐρας Λαζαρίδου",
+      "period": "1978-05-09",
+      "sport": "Στίβος",
+      "source_verification": "existing-biographies",
+      "person_ids": [
+        "arch-de86490d1101"
+      ]
+    },
+    {
+      "record_ref": "historical_event:javelin-record-1980",
+      "source_file": "archelaos-history-events.json",
+      "source_id": "javelin-record-1980",
+      "category": "record",
+      "title": "Πανελλήνιο ρεκόρ παίδων στα Ι΄ Δίια",
+      "period": "1980-10-11",
+      "sport": "Στίβος",
+      "source_verification": "published-club-history",
+      "person_ids": [
+        "arch-d25677ab9f72"
+      ]
+    },
+    {
+      "record_ref": "historical_event:moment-39-1981",
+      "source_file": "archelaos-history-events.json",
+      "source_id": "moment-39-1981",
+      "category": "international_or_national_selection",
+      "title": "Ο Σωκράτης Σκούφας γίνεται ο πρώτος χειροσφαιριστής του συλλόγου που καλείται στην Εθνική Ομάδα",
+      "period": "1981",
+      "sport": "Χειροσφαίριση",
+      "source_verification": "published-club-history",
+      "moment_ids": [
+        39
+      ],
+      "person_ids": [
+        "arch-178813c8e013"
+      ]
+    },
+    {
+      "record_ref": "historical_event:moment-44-1983",
+      "source_file": "archelaos-history-events.json",
+      "source_id": "moment-44-1983",
+      "category": "promotion_or_qualification",
+      "title": "Ιστορική πρώτη άνοδος της ανδρικής ομάδας χάντμπολ στην Α΄ Εθνική Κατηγορία",
+      "period": "1983",
+      "sport": "Χειροσφαίριση",
+      "source_verification": "published-club-history",
+      "moment_ids": [
+        44
+      ],
+      "fact_check_flags": [
+        "review-handball-top-flight-promotion-year"
+      ]
+    },
+    {
+      "record_ref": "historical_event:moment-45-1984",
+      "source_file": "archelaos-history-events.json",
+      "source_id": "moment-45-1984",
+      "category": "championship_or_title",
+      "title": "Πρωταθλητής Ελλάδας Εφήβων στο χάντμπολ και φιναλίστ στον τελικό του Κυπέλλου Ελλάδας Ανδρών",
+      "period": "1984",
+      "sport": "Χειροσφαίριση",
+      "source_verification": "published-club-history",
+      "moment_ids": [
+        45
+      ],
+      "fact_check_flags": [
+        "review-handball-1984-cup-score"
+      ]
+    },
+    {
+      "record_ref": "historical_event:koukodimos-record-1985",
+      "source_file": "archelaos-history-events.json",
+      "source_id": "koukodimos-record-1985",
+      "category": "record",
+      "title": "Ρεκόρ του Κώστα Κουκοδήμου στα ΙΒ΄ Δίια",
+      "period": "1985-09-21",
+      "sport": "Στίβος",
+      "source_verification": "published-club-history",
+      "person_ids": [
+        "arch-5abfbe9e285a"
+      ]
+    },
+    {
+      "record_ref": "historical_event:poulikidis-european-bronze-1988",
+      "source_file": "archelaos-history-events.json",
+      "source_id": "poulikidis-european-bronze-1988",
+      "category": "medal_or_medals",
+      "title": "Ευρωπαϊκό χάλκινο μετάλλιο του Αλέξιου Πουλικίδη",
+      "period": "1988",
+      "sport": "Πάλη",
+      "source_verification": "published-club-history",
+      "person_ids": [
+        "arch-39d3d90c7e59"
+      ]
+    },
+    {
+      "record_ref": "historical_event:moment-55-1990",
+      "source_file": "archelaos-history-events.json",
+      "source_id": "moment-55-1990",
+      "category": "medal_or_medals",
+      "title": "Ασημένιο μετάλλιο του Νίκου Ζαμάνη στους Παγκόσμιους Αγώνες Πάλης στο Ισραήλ (81 κ.)",
+      "period": "1990",
+      "sport": "Πάλη",
+      "source_verification": "published-club-history",
+      "moment_ids": [
+        55
+      ],
+      "person_ids": [
+        "arch-cf55874ef67a"
+      ]
+    },
+    {
+      "record_ref": "historical_event:handball-cup-1990",
+      "source_file": "archelaos-history-events.json",
+      "source_id": "handball-cup-1990",
+      "category": "cup_winner",
+      "title": "Πρώτο Κύπελλο Ελλάδας στη χειροσφαίριση",
+      "period": "1990-06-02",
+      "sport": "Χειροσφαίριση",
+      "source_verification": "existing-biographies",
+      "person_ids": [
+        "arch-803dd3926e77"
+      ]
+    },
+    {
+      "record_ref": "historical_event:kakalis-gymnastics-medals-1991",
+      "source_file": "archelaos-history-events.json",
+      "source_id": "kakalis-gymnastics-medals-1991",
+      "category": "championship_or_title",
+      "title": "Δύο πανελλήνιοι τίτλοι του Χαρίλαου Κακάλη",
+      "period": "1991",
+      "sport": "Ενόργανη γυμναστική",
+      "source_verification": "existing-biographies",
+      "person_ids": [
+        "arch-fae2ef2c0646"
+      ]
+    },
+    {
+      "record_ref": "historical_event:koukodimos-olympics-1992",
+      "source_file": "archelaos-history-events.json",
+      "source_id": "koukodimos-olympics-1992",
+      "category": "international_or_national_selection",
+      "title": "Έκτη θέση του Κώστα Κουκοδήμου στους Ολυμπιακούς Αγώνες",
+      "period": "1992",
+      "sport": "Στίβος",
+      "source_verification": "existing-biographies",
+      "person_ids": [
+        "arch-5abfbe9e285a"
+      ]
+    },
+    {
+      "record_ref": "historical_event:moment-58-1992",
+      "source_file": "archelaos-history-events.json",
+      "source_id": "moment-58-1992",
+      "category": "placement_or_finalist",
+      "title": "2η θέση στο Πανευρωπαϊκό Σχολικό Πρωτάθλημα στη Γαλλία από την ομάδα στίβου του Αρχέλαου (4ο ΓΕΛ)",
+      "period": "1992",
+      "sport": "Στίβος",
+      "source_verification": "published-club-history",
+      "moment_ids": [
+        58
+      ]
+    },
+    {
+      "record_ref": "historical_event:karatzoulas-triple-jump-1992",
+      "source_file": "archelaos-history-events.json",
+      "source_id": "karatzoulas-triple-jump-1992",
+      "category": "record",
+      "title": "Ρεκόρ συλλόγου του Γιώργου Καρατζούλα στο τριπλούν",
+      "period": "1992-06-07",
+      "sport": "Στίβος",
+      "source_verification": "existing-biographies",
+      "person_ids": [
+        "arch-73fcffd7e0b7"
+      ]
+    },
+    {
+      "record_ref": "historical_event:kouklis-balkan-pole-vault-1993",
+      "source_file": "archelaos-history-events.json",
+      "source_id": "kouklis-balkan-pole-vault-1993",
+      "category": "championship_or_title",
+      "title": "Βαλκανικός τίτλος εφήβων για τον Μιχάλη Κουκλή",
+      "period": "1993",
+      "sport": "Στίβος",
+      "source_verification": "existing-biographies",
+      "person_ids": [
+        "arch-23f5b3ca37c0"
+      ]
+    },
+    {
+      "record_ref": "historical_event:diamantopoulos-hurdles-record-1993",
+      "source_file": "archelaos-history-events.json",
+      "source_id": "diamantopoulos-hurdles-record-1993",
+      "category": "record",
+      "title": "Πανελλήνιο ρεκόρ εμποδίων του Κώστα Διαμαντόπουλου",
+      "period": "1993",
+      "sport": "Στίβος",
+      "source_verification": "existing-biographies",
+      "person_ids": [
+        "arch-5bfc11417f2c"
+      ]
+    },
+    {
+      "record_ref": "historical_event:handball-second-cup-1994",
+      "source_file": "archelaos-history-events.json",
+      "source_id": "handball-second-cup-1994",
+      "category": "cup_winner",
+      "title": "Δεύτερο Κύπελλο Ελλάδας στη χειροσφαίριση",
+      "period": "1994",
+      "sport": "Χειροσφαίριση",
+      "source_verification": "existing-biographies",
+      "person_ids": [
+        "arch-178813c8e013",
+        "arch-e355f0a88983"
+      ]
+    },
+    {
+      "record_ref": "historical_event:archery-junior-team-silver-1994",
+      "source_file": "archelaos-history-events.json",
+      "source_id": "archery-junior-team-silver-1994",
+      "category": "medal_or_medals",
+      "title": "Ασημένια πανελλήνια διάκριση της εφηβικής ομάδας τοξοβολίας",
+      "period": "1994",
+      "sport": "Τοξοβολία",
+      "source_verification": "existing-biographies",
+      "person_ids": [
+        "arch-3a6035bb4f86",
+        "arch-7f975b16bebf"
+      ]
+    },
+    {
+      "record_ref": "historical_event:koukodimos-national-record-1994",
+      "source_file": "archelaos-history-events.json",
+      "source_id": "koukodimos-national-record-1994",
+      "category": "record",
+      "title": "Πανελλήνιο ρεκόρ 8,36 μ. του Κώστα Κουκοδήμου",
+      "period": "1994-06-05",
+      "sport": "Στίβος",
+      "source_verification": "existing-biographies",
+      "person_ids": [
+        "arch-5abfbe9e285a"
+      ]
+    },
+    {
+      "record_ref": "historical_event:moment-64-1995",
+      "source_file": "archelaos-history-events.json",
+      "source_id": "moment-64-1995",
+      "category": "placement_or_finalist",
+      "title": "3η θέση στο Πανελλήνιο Πρωτάθλημα Κορασίδων στο μπάσκετ στην Τρίπολη",
+      "period": "1995",
+      "sport": "Καλαθοσφαίριση",
+      "source_verification": "published-club-history",
+      "moment_ids": [
+        64
+      ]
+    },
+    {
+      "record_ref": "historical_event:stamkopoulou-triple-jump-1995",
+      "source_file": "archelaos-history-events.json",
+      "source_id": "stamkopoulou-triple-jump-1995",
+      "category": "record",
+      "title": "Ρεκόρ συλλόγου της Αγγέλας Σταμκοπούλου στο τριπλούν",
+      "period": "1995-05-27",
+      "sport": "Στίβος",
+      "source_verification": "existing-biographies",
+      "person_ids": [
+        "arch-1f676ccf0dab"
+      ]
+    },
+    {
+      "record_ref": "historical_event:faka-junior-shooting-record-1996",
+      "source_file": "archelaos-history-events.json",
+      "source_id": "faka-junior-shooting-record-1996",
+      "category": "record",
+      "title": "Πανελλήνιο ρεκόρ νεανίδων της Μαρίας Φάκα",
+      "period": "1996",
+      "sport": "Σκοποβολή",
+      "source_verification": "existing-biographies",
+      "person_ids": [
+        "arch-6aa13d0c3e0a"
+      ]
+    },
+    {
+      "record_ref": "historical_event:papasotiriou-pentathlon-record-1996",
+      "source_file": "archelaos-history-events.json",
+      "source_id": "papasotiriou-pentathlon-record-1996",
+      "category": "record",
+      "title": "Πανελλήνιο ρεκόρ πεντάθλου της Αθηνάς Παπασωτηρίου",
+      "period": "1996-02",
+      "sport": "Στίβος",
+      "source_verification": "existing-biographies",
+      "person_ids": [
+        "arch-3e3c931a8dee"
+      ]
+    },
+    {
+      "record_ref": "historical_event:boys-cross-country-silver-1997",
+      "source_file": "archelaos-history-events.json",
+      "source_id": "boys-cross-country-silver-1997",
+      "category": "medal_or_medals",
+      "title": "Ασημένιο μετάλλιο της ομάδας παίδων στον ανώμαλο δρόμο",
+      "period": "1997-02-23",
+      "sport": "Στίβος",
+      "source_verification": "existing-biographies",
+      "person_ids": [
+        "arch-99dd5db67eaf",
+        "arch-cf9a3ad2feb0",
+        "arch-fa8277316f82",
+        "arch-7a5c8ab3160a"
+      ]
+    },
+    {
+      "record_ref": "historical_event:moment-66-2004",
+      "source_file": "archelaos-history-events.json",
+      "source_id": "moment-66-2004",
+      "category": "international_or_national_selection",
+      "title": "Συμμετοχή της πρωταθλήτριας σκοποβολής του Αρχέλαου Μαρίας Φάκα στους Ολυμπιακούς Αγώνες της Αθήνας",
+      "period": "2004",
+      "sport": "Σκοποβολή",
+      "source_verification": "published-club-history",
+      "moment_ids": [
+        66
+      ],
+      "person_ids": [
+        "arch-6aa13d0c3e0a"
+      ]
+    },
+    {
+      "record_ref": "historical_event:archive-0149",
+      "source_file": "archelaos-history-events.json",
+      "source_id": "archive-0149",
+      "category": "medal_or_medals",
+      "title": "Πανελλήνιο χάλκινο του Θεοχάρη Αναστασιάδη",
+      "period": "2019",
+      "sport": "Πάλη",
+      "source_verification": "existing-biographies",
+      "person_ids": [
+        "arch-eb30e824d0a2"
+      ]
+    },
+    {
+      "record_ref": "historical_event:archive-0156",
+      "source_file": "archelaos-history-events.json",
+      "source_id": "archive-0156",
+      "category": "record",
+      "title": "Πανελλήνια ρεκόρ της Άννας Χατζηπουργάνη",
+      "period": "2020",
+      "sport": "Στίβος",
+      "source_verification": "existing-biographies",
+      "person_ids": [
+        "arch-68fef0f68151"
+      ]
+    },
+    {
+      "record_ref": "historical_event:archive-0160",
+      "source_file": "archelaos-history-events.json",
+      "source_id": "archive-0160",
+      "category": "medal_or_medals",
+      "title": "Μετάλλια του Αρχέλαου στην ελληνορωμαϊκή πάλη ανδρών",
+      "period": "2022",
+      "sport": "Πάλη",
+      "source_verification": "existing-biographies",
+      "person_ids": [
+        "arch-3d709819bef5",
+        "arch-7f8c550f1a00",
+        "arch-8971afb30555",
+        "arch-32f943eae9a0",
+        "arch-c9649834c98e"
+      ]
+    },
+    {
+      "record_ref": "historical_event:parousis-horizon-2022",
+      "source_file": "archelaos-history-events.json",
+      "source_id": "parousis-horizon-2022",
+      "category": "medal_or_medals",
+      "title": "Δύο χρυσά μετάλλια του Άγγελου Παρούση στο Horizon Cup",
+      "period": "2022-11",
+      "sport": "Ενόργανη γυμναστική",
+      "source_verification": "existing-biographies",
+      "person_ids": [
+        "arch-e6b31b31c3a9"
+      ]
+    },
+    {
+      "record_ref": "historical_event:archive-0169",
+      "source_file": "archelaos-history-events.json",
+      "source_id": "archive-0169",
+      "category": "medal_or_medals",
+      "title": "Χάλκινο μετάλλιο U21 στο ομαδικό Ολυμπιακού Τόξου",
+      "period": "2023",
+      "sport": "Τοξοβολία",
+      "source_verification": "existing-biographies",
+      "person_ids": [
+        "arch-9d63723c6ec9",
+        "arch-6e4fe6e8f1e9",
+        "arch-955a386f547f"
+      ]
+    },
+    {
+      "record_ref": "historical_event:moment-69-2024",
+      "source_file": "archelaos-history-events.json",
+      "source_id": "moment-69-2024",
+      "category": "medal_or_medals",
+      "title": "Πανελλήνιοι τίτλοι στην τοξοβολία και παγκόσμιο ασημένιο μετάλλιο για τον παλαιστή Δημήτρη Σουλή (U17)",
+      "period": "2024",
+      "sport": "Τοξοβολία",
+      "source_verification": "published-club-history",
+      "moment_ids": [
+        69
+      ]
+    },
+    {
+      "record_ref": "historical_event:archive-0191",
+      "source_file": "archelaos-history-events.json",
+      "source_id": "archive-0191",
+      "category": "medal_or_medals",
+      "title": "Παγκόσμιο ασημένιο U17 του Δημήτρη Σουλή",
+      "period": "2025",
+      "sport": "Πάλη",
+      "source_verification": "existing-biographies",
+      "person_ids": [
+        "arch-f3d93442851f"
+      ]
+    },
+    {
+      "record_ref": "historical_event:archive-0199",
+      "source_file": "archelaos-history-events.json",
+      "source_id": "archive-0199",
+      "category": "medal_or_medals",
+      "title": "Ευρωπαϊκό χρυσό U15 του Νίκου Ζινίσα",
+      "period": "2025",
+      "sport": "Πάλη",
+      "source_verification": "existing-biographies",
+      "person_ids": [
+        "arch-2616694d9908"
+      ]
+    },
+    {
+      "record_ref": "historical_event:archive-0205",
+      "source_file": "archelaos-history-events.json",
+      "source_id": "archive-0205",
+      "category": "medal_or_medals",
+      "title": "Ευρωπαϊκά μετάλλια της Δωροθέας Ποιμενίδου",
+      "period": "2025",
+      "sport": "Τοξοβολία",
+      "source_verification": "existing-biographies",
+      "person_ids": [
+        "arch-aaa2527334ce"
+      ]
+    },
+    {
+      "record_ref": "historical_event:archive-0206",
+      "source_file": "archelaos-history-events.json",
+      "source_id": "archive-0206",
+      "category": "record",
+      "title": "Πανελλήνιο ρεκόρ μικτού ομαδικού U21",
+      "period": "2025",
+      "sport": "Τοξοβολία",
+      "source_verification": "existing-biographies",
+      "person_ids": [
+        "arch-955a386f547f"
+      ]
+    },
+    {
+      "record_ref": "historical_event:archive-0209",
+      "source_file": "archelaos-history-events.json",
+      "source_id": "archive-0209",
+      "category": "championship_or_title",
+      "title": "Βαλκανικός τίτλος της Ιωάννας Ξενίδου",
+      "period": "2026",
+      "sport": "Πάλη",
+      "source_verification": "existing-biographies",
+      "person_ids": [
+        "arch-957a876e770d"
+      ]
+    },
+    {
+      "record_ref": "historical_event:archive-0215",
+      "source_file": "archelaos-history-events.json",
+      "source_id": "archive-0215",
+      "category": "championship_or_title",
+      "title": "Βαλκανικός τίτλος του Νίκου Ζινίσα",
+      "period": "2026",
+      "sport": "Πάλη",
+      "source_verification": "existing-biographies"
+    },
+    {
+      "record_ref": "news_article:wrestling-meteora-international-2026",
+      "source_file": "news.json",
+      "source_id": "wrestling-meteora-international-2026",
+      "category": "medal_or_medals",
+      "title": "Πέντε μετάλλια για τον Αρχέλαο στο 8ο Meteora International Wrestling Tournament",
+      "period": "2026-11-01",
+      "sport": "Πάλη",
+      "person_ids": [
+        "arch-loukas-zinisa-wrest25",
+        "arch-64dbf198bfd6",
+        "arch-bdcef56af524",
+        "arch-wrest-dimitris-grigkas",
+        "arch-wrest-taxiarhis-liakos",
+        "arch-wrest-stavros-tsakiris",
+        "arch-af9470c5745f",
+        "arch-8934f50fbeed",
+        "arch-a3b57d586132"
+      ],
+      "image_path": "images/885227475_2290644591730049_5581594058415033902_n.jpg"
+    },
+    {
+      "record_ref": "news_article:wrestling-balkan-2026",
+      "source_file": "news.json",
+      "source_id": "wrestling-balkan-2026",
+      "category": "medal_or_medals",
+      "title": "Δύο χρυσά και ένα χάλκινο στο Βαλκανικό Πρωτάθλημα Πάλης",
+      "period": "2026-10-05",
+      "sport": "Πάλη",
+      "person_ids": [
+        "arch-957a876e770d",
+        "arch-b48656c62600"
+      ],
+      "source_url": "https://pieriasocial.gr/?p=137516",
+      "image_path": "images/news/wrestling-balkan-2026.jpg"
+    },
+    {
+      "record_ref": "news_article:wrestling-darko-nisavic-serbia-july-2026",
+      "source_file": "news.json",
+      "source_id": "wrestling-darko-nisavic-serbia-july-2026",
+      "category": "medal_or_medals",
+      "title": "Δύο χρυσά για τον Αρχέλαο στο διεθνές τουρνουά «Darko Nisavic» στη Σερβία",
+      "period": "2026-07-19",
+      "sport": "Πάλη",
+      "person_ids": [
+        "arch-b48656c62600",
+        "arch-af9470c5745f"
+      ],
+      "source_url": "https://www.pierianews.gr/2026/07/19/diethnes-tournoua-palis-darko-nisavic-chryses-diakriseis-gia-tous-protathlites-tou-archelaou-katerinis-sti-servia/",
+      "image_path": "https://www.pierianews.gr/wp-content/uploads/2026/07/arch3.jpg"
+    },
+    {
+      "record_ref": "news_article:archery-national-title-2026",
+      "source_file": "news.json",
+      "source_id": "archery-national-title-2026",
+      "category": "championship_or_title",
+      "title": "Πρωτιά του Αρχέλαου στη γενική βαθμολογία του Πανελληνίου Τοξοβολίας",
+      "period": "2026-06-23",
+      "sport": "Τοξοβολία",
+      "event_id": "archery-national-outdoor-florina-2026",
+      "event_date": "2026-06-20",
+      "person_ids": [
+        "arch-b231605f5def",
+        "arch-955a386f547f",
+        "arch-44ef21dfb9b7",
+        "arch-6212ba5ea7f1",
+        "arch-f6152b60c43f"
+      ],
+      "source_url": "https://katerini.gr/?p=69956",
+      "image_path": "images/news/archery-national-title-2026.jpg"
+    },
+    {
+      "record_ref": "news_article:wrestling-u20-serres-team-second-april-2026",
+      "source_file": "news.json",
+      "source_id": "wrestling-u20-serres-team-second-april-2026",
+      "category": "placement_or_finalist",
+      "title": "Δεύτερος στην Ελλάδα ο Αρχέλαος στο Πανελλήνιο Πάλης U20",
+      "period": "2026-04-07",
+      "sport": "Πάλη",
+      "person_ids": [
+        "arch-e87fdf323137",
+        "arch-e49a8c140396",
+        "arch-73968afa517e",
+        "arch-b48656c62600",
+        "arch-8c9cbe4897f0",
+        "arch-apostolis-dimolios-wrestling-2026",
+        "arch-af9470c5745f",
+        "arch-8934f50fbeed",
+        "arch-a3b57d586132"
+      ],
+      "source_url": "https://www.pierianews.gr/2026/04/07/archelaos-katerinis-tmima-palis-defteri-kalyteri-omada-stin-ellada/",
+      "image_path": "https://www.pierianews.gr/wp-content/uploads/2026/04/arch1.jpg"
+    },
+    {
+      "record_ref": "news_article:gymnastics-u18-regional-team-gold-2026",
+      "source_file": "news.json",
+      "source_id": "gymnastics-u18-regional-team-gold-2026",
+      "category": "medal_or_medals",
+      "title": "Χρυσό ομαδικό και ατομικές διακρίσεις στην ενόργανη του Αρχέλαου",
+      "period": "2026-04-05",
+      "sport": "Ενόργανη Γυμναστική",
+      "person_ids": [
+        "arch-f02298025e5c",
+        "arch-8d1a258f0b09",
+        "arch-5d94f0c76851",
+        "arch-e9fc7408640c",
+        "arch-2ec2798d39bb",
+        "arch-bde5b8a0f677",
+        "arch-1be1256bf733",
+        "arch-25923c326d62"
+      ],
+      "source_url": "https://pieria24.gr/entyposiaki-paroysia-toy-archelaoy-katerinis-stin-a%CE%84-fasi-enorganis-gymnastikis/",
+      "image_path": "https://pieria24.gr/wp-content/uploads/2026/04/img_1775419232_873.webp"
+    },
+    {
+      "record_ref": "news_article:wrestling-u15-porroia-silver-2026",
+      "source_file": "news.json",
+      "source_id": "wrestling-u15-porroia-silver-2026",
+      "category": "medal_or_medals",
+      "title": "Δύο ασημένια μετάλλια για τον Αρχέλαο στο Πανελλήνιο Πάλης U15",
+      "period": "2026-03-30",
+      "sport": "Πάλη",
+      "person_ids": [
+        "arch-nikos-zinisa-savvas-wrestling",
+        "arch-loukas-zinisa-wrest25"
+      ],
+      "source_url": "https://pieriasocial.gr/?p=124780",
+      "image_path": "images/news/wrestling-balkan-2026.jpg"
+    },
+    {
+      "record_ref": "news_article:archery-u18-indoor-livadeia-2026",
+      "source_file": "news.json",
+      "source_id": "archery-u18-indoor-livadeia-2026",
+      "category": "medal_or_medals",
+      "title": "Χάλκινο ομαδικό U18 και έξι συμμετοχές στην τοξοβολία του Αρχέλαου",
+      "period": "2026-03-03",
+      "sport": "Τοξοβολία",
+      "person_ids": [
+        "arch-ektoras-diamantidis-arch",
+        "arch-77461943b4f2",
+        "arch-archery-52bc1f27",
+        "arch-archery-5e69a556",
+        "arch-archery-9acd2e41",
+        "arch-baba93550267"
+      ],
+      "source_url": "https://odelalis.gr/archelaos-exairetikes-emfaniseis-sto-protathlima-toxovolias-u18/",
+      "image_path": "https://odelalis.gr/wp-content/uploads/2026/03/arxelaos_toxovolia-1-e1772528778779.jpg"
+    },
+    {
+      "record_ref": "news_article:wrestling-u11-u13-karditsa-2025",
+      "source_file": "news.json",
+      "source_id": "wrestling-u11-u13-karditsa-2025",
+      "category": "medal_or_medals",
+      "title": "Πέντε μετάλλια για την πάλη U11–U13 στην Καρδίτσα",
+      "period": "2025-11-25",
+      "sport": "Πάλη",
+      "person_ids": [
+        "arch-loukas-zinisa-wrest25",
+        "arch-dimitrios-trigkas-wrest25",
+        "arch-chara-mavridou-wrest25",
+        "arch-maria-mastorogianni-wrest25",
+        "arch-5bc0ec7ec6e0"
+      ],
+      "source_url": "https://ns1.ufight.gr/wrestling/23770-4-xrysa-metallia-kai-1-argyro-oi-athlites-kai-athlitries-tou-arxelaou-katerinhs-sto-panellhnio-protathlima-palhs-pampaidon-pagkorasidon",
+      "image_path": "images/news/wrestling-u11-u13-karditsa-2025.jpg"
+    },
+    {
+      "record_ref": "news_article:archery-youth-2025",
+      "source_file": "news.json",
+      "source_id": "archery-youth-2025",
+      "category": "distinctions",
+      "title": "Διακρίσεις νέων τοξοτών στο Πανελλήνιο Μικρών Κατηγοριών",
+      "period": "2025-11-17",
+      "sport": "Τοξοβολία",
+      "person_ids": [
+        "arch-77461943b4f2"
+      ],
+      "source_url": "https://pieriasocial.gr/?p=115463",
+      "image_path": "images/news/archery-youth-2025.jpg"
+    },
+    {
+      "record_ref": "news_article:archery-cyprus-2025",
+      "source_file": "news.json",
+      "source_id": "archery-cyprus-2025",
+      "category": "distinctions",
+      "title": "Διπλή διάκριση του Ευάγγελου Χαρίση στην Κύπρο",
+      "period": "2025-11-04",
+      "sport": "Τοξοβολία",
+      "person_ids": [
+        "arch-955a386f547f"
+      ],
+      "source_url": "https://pieriasocial.gr/?p=114647",
+      "image_path": "images/news/archery-cyprus-2025.jpg"
+    },
+    {
+      "record_ref": "news_article:swimming-national-medals-city-reception-2025",
+      "source_file": "news.json",
+      "source_id": "swimming-national-medals-city-reception-2025",
+      "category": "medal_or_medals",
+      "title": "Τρία μετάλλια και δέκα τελικοί για τους κολυμβητές του Αρχέλαου",
+      "period": "2025-09-01",
+      "sport": "Κολύμβηση",
+      "person_ids": [
+        "arch-7e1b65c90287",
+        "arch-cf2ee36e3353"
+      ],
+      "source_url": "https://katerini.gr/?p=58477",
+      "image_path": "https://katerini.gr/wp-content/uploads/2025/09/%CE%B5%CE%B9%CE%BA%CF%8C%CE%BD%CE%B1_Viber_2025-09-01_14-20-54-283.jpg"
+    },
+    {
+      "record_ref": "news_article:reha-bronze-outdoor-hurdles-volos-2025",
+      "source_file": "news.json",
+      "source_id": "reha-bronze-outdoor-hurdles-volos-2025",
+      "category": "medal_or_medals",
+      "title": "Χάλκινο της Κατερίνας Ρέχα στα 100 μ. εμπόδια στον Βόλο",
+      "period": "2025-08-05",
+      "sport": "Στίβος",
+      "person_ids": [
+        "arch-8479d12a4a14"
+      ],
+      "source_url": "https://katerinisport.gr/%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CE%BA%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82-%CF%83%CF%85%CE%B3%CF%87%CE%B1%CF%81%CE%B7%CF%84%CE%AE%CF%81%CE%B9%CE%B1-%CF%83%CE%B5-%CF%81/",
+      "image_path": "https://katerinisport.gr/wp-content/uploads/2025/08/rexa.webp"
+    },
+    {
+      "record_ref": "news_article:archery-national-oaka-team-title-2025",
+      "source_file": "news.json",
+      "source_id": "archery-national-oaka-team-title-2025",
+      "category": "championship_or_title",
+      "title": "Πρωταθλητής Ελλάδας στην τοξοβολία ο Αρχέλαος στο ΟΑΚΑ",
+      "period": "2025-07-07",
+      "sport": "Τοξοβολία",
+      "event_id": "archery-national-outdoor-oaka-2025",
+      "event_date": "2025-07-05",
+      "person_ids": [
+        "arch-955a386f547f",
+        "arch-b231605f5def",
+        "arch-f6152b60c43f",
+        "arch-44ef21dfb9b7"
+      ],
+      "source_url": "https://odelalis.gr/protathlitis-ellados-stin-toxovolia-o-archelaos-katerinis/"
+    },
+    {
+      "record_ref": "news_article:wrestling-u20-serres-champions-apr-2025",
+      "source_file": "news.json",
+      "source_id": "wrestling-u20-serres-champions-apr-2025",
+      "category": "championship_or_title",
+      "title": "Πρωταθλητής Ελλάδας U20 ο Αρχέλαος στην ελληνορωμαϊκή πάλη",
+      "period": "2025-04-28",
+      "sport": "Πάλη",
+      "person_ids": [
+        "arch-e49a8c140396",
+        "arch-e87fdf323137",
+        "arch-ba8233d165aa",
+        "arch-73968afa517e",
+        "arch-8c9cbe4897f0",
+        "arch-af9470c5745f",
+        "arch-8934f50fbeed",
+        "arch-a3b57d586132",
+        "arch-8c8c23ba82e6"
+      ],
+      "source_url": "https://katerini.gr/?p=54086",
+      "image_path": "https://katerini.gr/wp-content/uploads/2025/04/Viber_2025-04-28_09-19-36-700.jpg"
+    },
+    {
+      "record_ref": "news_article:wrestling-u17-team-silver-larisa-apr-2025",
+      "source_file": "news.json",
+      "source_id": "wrestling-u17-team-silver-larisa-apr-2025",
+      "category": "placement_or_finalist",
+      "title": "Δεύτερος ο Αρχέλαος στο ομαδικό Παίδων U17 στη Λάρισα",
+      "period": "2025-04-17",
+      "sport": "Πάλη",
+      "person_ids": [
+        "arch-f3d93442851f",
+        "arch-be8668380721",
+        "arch-b48656c62600",
+        "arch-36de21f5268e",
+        "arch-957a876e770d"
+      ],
+      "source_url": "https://www.pierianews.gr/2025/04/17/2os-protathlitis-ellados-sto-omadiko-paidon-o-gas-archelaos-katerinis-foto/",
+      "image_path": "https://www.pierianews.gr/wp-content/uploads/2025/04/gas8.jpg"
+    },
+    {
+      "record_ref": "news_article:gym-2025-team",
+      "source_file": "news.json",
+      "source_id": "gym-2025-team",
+      "category": "medal_or_medals",
+      "title": "Ασημένιο και χάλκινο ομαδικό στην ενόργανη του Αρχέλαου",
+      "period": "2025-04-01",
+      "sport": "Ενόργανη Γυμναστική",
+      "person_ids": [
+        "arch-f02298025e5c"
+      ],
+      "source_url": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/%CF%80%CE%BF%CE%BB%CF%8D-%CE%BA%CE%B1%CE%BB%CE%AD%CF%82-%CE%B5%CF%80%CE%B9%CE%B4%CF%8C%CF%83%CE%B5%CE%B9%CF%82-%CE%B1%CF%80%CF%8C-%CF%84%CE%BF-%CF%84%CE%BC%CE%AE%CE%BC%CE%B1-e%CE%BD%CF%8C%CF%81%CE%B3/",
+      "image_path": "images/news/gym-2025-team.jpg"
+    },
+    {
+      "record_ref": "news_article:wrestling-u15-prosotsani-zinisa-march-2025",
+      "source_file": "news.json",
+      "source_id": "wrestling-u15-prosotsani-zinisa-march-2025",
+      "category": "medal_or_medals",
+      "title": "Χρυσό και χάλκινο για δύο αθλητές του Αρχέλαου στο Πανελλήνιο U15",
+      "period": "2025-03-23",
+      "sport": "Πάλη",
+      "person_ids": [
+        "arch-c6dd24b37324",
+        "arch-2616694d9908",
+        "arch-bb54ccd4df17",
+        "arch-cdc99b2b3af3",
+        "arch-7e12ae009786",
+        "arch-538dbd2d58dc",
+        "arch-449576656c19",
+        "arch-nikos-zinisa-savvas-wrestling"
+      ],
+      "source_url": "https://pieriasocial.gr/?p=100588",
+      "image_path": "https://media.pieriasocial.gr/2025/03/11111111111111111-10.jpg"
+    },
+    {
+      "record_ref": "news_article:track-recha-indoor-national-silver-2025",
+      "source_file": "news.json",
+      "source_id": "track-recha-indoor-national-silver-2025",
+      "category": "medal_or_medals",
+      "title": "Ασημένιο της Κατερίνας Ρέχα στα 60 μ. εμπόδια στο Πανελλήνιο Κλειστού Στίβου",
+      "period": "2025-03-11",
+      "sport": "Στίβος",
+      "person_ids": [
+        "arch-8479d12a4a14",
+        "arch-ccaf623e428b"
+      ],
+      "source_url": "https://olympiobima.gr/archelaos-katerinis-sygcharitirio-minyma-stin-athlitria-mas-katerina-recha/",
+      "image_path": "https://olympiobima.gr/wp-content/uploads/2025/03/ΡΕΧΑ-ΜΑΝΤΖΟΛΗΣ_1240_983.webp"
+    },
+    {
+      "record_ref": "news_article:wrestling-pleven-bulgaria-dec-2024",
+      "source_file": "news.json",
+      "source_id": "wrestling-pleven-bulgaria-dec-2024",
+      "category": "medal_or_medals",
+      "title": "Τρία χρυσά και δεύτερη ομαδική θέση στο Πλέβεν Βουλγαρίας",
+      "period": "2024-12-10",
+      "sport": "Πάλη",
+      "person_ids": [
+        "arch-b48656c62600",
+        "arch-be8668380721",
+        "arch-aristotelis-navrozidis-wrest24",
+        "arch-8c8c23ba82e6",
+        "arch-wrest-taxiarhis-liakos",
+        "arch-achilleas-giassiranis-wrestling-2024"
+      ],
+      "source_url": "https://olympiobima.gr/3-chrysa-metallia-oi-protathlites-tou-archelaou-katerinis-sto-pleven-tis-voulgarias/",
+      "image_path": "https://olympiobima.gr/wp-content/uploads/2024/12/3-xrysa-metallia-protathlites-arxelaoy-93756.webp"
+    },
+    {
+      "record_ref": "news_article:archery-amyntaio-youth-national-dec-2024",
+      "source_file": "news.json",
+      "source_id": "archery-amyntaio-youth-national-dec-2024",
+      "category": "medal_or_medals",
+      "title": "Τέσσερα μετάλλια για την τοξοβολία μικρών κατηγοριών στο Αμύνταιο",
+      "period": "2024-12-10",
+      "sport": "Τοξοβολία",
+      "person_ids": [
+        "arch-baba93550267",
+        "arch-77461943b4f2",
+        "arch-44ef21dfb9b7",
+        "arch-archery-result-20261102-03",
+        "arch-archery-result-20261102-04"
+      ],
+      "source_url": "https://olympiobima.gr/gas-archelaos-katerinis-synecheia-epitychion-gia-to-tmima-toxovolias/",
+      "image_path": "https://olympiobima.gr/wp-content/uploads/2024/12/gas-arxelaos-katerinis-synexeia-epityxion-74219.webp"
+    },
+    {
+      "record_ref": "news_article:gymnastics-horizon-cup-2024-team-medals",
+      "source_file": "news.json",
+      "source_id": "gymnastics-horizon-cup-2024-team-medals",
+      "category": "medal_or_medals",
+      "title": "Μετάλλια της ενόργανης του Αρχέλαου στο Horizon Cup 2024",
+      "period": "2024-11-12",
+      "sport": "Ενόργανη Γυμναστική",
+      "person_ids": [
+        "arch-f02298025e5c",
+        "arch-e9fc7408640c",
+        "arch-8d1a258f0b09",
+        "arch-1ea85d87584a",
+        "arch-9bba434ae7e7",
+        "arch-bde5b8a0f677"
+      ],
+      "source_url": "https://odelalis.gr/epitychies-kai-metallia-gia-to-tmima-enorganis-gymnastikis-tou-gas-archelaos-katerinis/",
+      "image_path": "https://odelalis.gr/wp-content/uploads/2024/11/gas_arxelaos_gimnastiki-1.jpg"
+    },
+    {
+      "record_ref": "news_article:wrestling-balkan-skopje-oct-2024",
+      "source_file": "news.json",
+      "source_id": "wrestling-balkan-skopje-oct-2024",
+      "category": "medal_or_medals",
+      "title": "Ένα χρυσό και δύο χάλκινα του Αρχέλαου στο Βαλκανικό Πάλης 2024",
+      "period": "2024-10-12",
+      "sport": "Πάλη",
+      "person_ids": [
+        "arch-957a876e770d",
+        "arch-e87fdf323137",
+        "arch-b48656c62600",
+        "arch-f3d93442851f"
+      ],
+      "source_url": "https://odelalis.gr/ena-chryso-kai-dyo-chalkina-metallia-gia-tin-pali-tou-gas-archelaos-katerinis/",
+      "image_path": "https://odelalis.gr/wp-content/uploads/2024/10/gas_arxelaos_pali_metalia-3.jpg"
+    },
+    {
+      "record_ref": "news_article:track-u16-national-eleftheroupoli-jul-2024",
+      "source_file": "news.json",
+      "source_id": "track-u16-national-eleftheroupoli-jul-2024",
+      "category": "medal_or_medals",
+      "title": "Χάλκινο της Αλεξάνδρας Παπαγιάννη στο Πανελλήνιο Στίβου Κ16",
+      "period": "2024-07-15",
+      "sport": "Στίβος",
+      "person_ids": [
+        "arch-2082f3abced0"
+      ],
+      "source_url": "https://pieriasocial.gr/?p=87892",
+      "image_path": "https://media.pieriasocial.gr/2024/07/2222222222222222222.jpg"
+    },
+    {
+      "record_ref": "news_article:gymnastics-d-category-regional-mikra-may-2024",
+      "source_file": "news.json",
+      "source_id": "gymnastics-d-category-regional-mikra-may-2024",
+      "category": "medal_or_medals",
+      "title": "Χάλκινο και τέταρτη θέση για τις ομάδες παγκορασίδων του Αρχέλαου",
+      "period": "2024-05-31",
+      "sport": "Ενόργανη Γυμναστική",
+      "person_ids": [
+        "arch-2ec2798d39bb",
+        "arch-gymnastics-9814252c",
+        "arch-gymnastics-f2e4a89b",
+        "arch-gymnastics-3e72e3a0",
+        "arch-gymnastics-ffd29998",
+        "arch-fbf9bcb00de7",
+        "arch-gymnastics-ab00d538",
+        "arch-gymnastics-b15100a6",
+        "arch-64ee11fec8d6",
+        "arch-gymnastics-3d90ff4c",
+        "arch-gymnastics-4835eaab",
+        "arch-gymnastics-d8ee376a"
+      ],
+      "source_url": "https://eptanews.gr/epikairotita/ston-rythmo-ton-epitychion-i-enorgani-gymnastiki-toy-gas-archelaos-katerinis/",
+      "image_path": "https://i2.wp.com/eptanews.gr/wp-content/uploads/2024/05/%CE%93%CE%A5%CE%9C%CE%9D%CE%91%CE%A3%CE%A4%CE%99%CE%9A%CE%97_34-copy.jpg?fit=733%2C235&ssl=1"
+    },
+    {
+      "record_ref": "news_article:track-zachariadeia-two-medals-may-2024",
+      "source_file": "news.json",
+      "source_id": "track-zachariadeia-two-medals-may-2024",
+      "category": "medal_or_medals",
+      "title": "Χρυσό και ασημένιο για τον Αρχέλαο στα «Ζαχαριάδεια 2024»",
+      "period": "2024-05-20",
+      "sport": "Στίβος",
+      "person_ids": [
+        "arch-68fef0f68151",
+        "arch-katerina-natsiopoulou-track22"
+      ],
+      "source_url": "https://odelalis.gr/gas-archelaos-1-chryso-kai-1-argyro-metallio-sta-zachariadeia-2024/",
+      "image_path": "https://odelalis.gr/wp-content/uploads/2024/05/ΑΡΧΕΛΑΟΣ-ΣΤΙΒΟΣ-1.jpg"
+    },
+    {
+      "record_ref": "news_article:wrestling-u15-european-bronze-loutraki-2024",
+      "source_file": "news.json",
+      "source_id": "wrestling-u15-european-bronze-loutraki-2024",
+      "category": "medal_or_medals",
+      "title": "Χάλκινο του Νίκου Ζινίσα στο Ευρωπαϊκό Πρωτάθλημα Πάλης U15",
+      "period": "2024-05-19",
+      "sport": "Πάλη",
+      "person_ids": [
+        "arch-b48656c62600",
+        "arch-2616694d9908"
+      ],
+      "source_url": "https://olympiobima.gr/archelaos-katerinis-chalkino-metallio-o-nikos-zinisa-sto-panevropaiko-protathlima-palis-u15/",
+      "image_path": "https://olympiobima.gr/wp-content/uploads/2024/05/arxelaos-katerinis-xalkino-metallio-o-80559.webp"
+    },
+    {
+      "record_ref": "news_article:shooting-2024-vyronas",
+      "source_file": "news.json",
+      "source_id": "shooting-2024-vyronas",
+      "category": "championship_or_title",
+      "title": "Πρωτιά της Βασιλικής Κουφογιάννη στο Πανελλήνιο Σκοποβολής",
+      "period": "2024-04-30",
+      "sport": "Σκοποβολή",
+      "person_ids": [
+        "arch-vasiliki-koufogianni-shoot",
+        "arch-konstantinos-seitanidis-shoot",
+        "arch-vanesa-charoula-hogkas-shoot",
+        "arch-sofia-toptsa-shoot",
+        "arch-vasileios-grigoropoulos-shoot",
+        "arch-dimitrios-tsimponis-shoot",
+        "arch-dimitrios-koufogiannis-shoot"
+      ],
+      "source_url": "https://www.pierianews.gr/2024/04/30/me-epitychies-epestrepse-i-skopovoli-tou-gas-archelaos-katerinis-foto/",
+      "image_path": "images/news/shooting-2024-vyronas.jpg"
+    },
+    {
+      "record_ref": "news_article:track-u16-kilkis-team-apr-2024",
+      "source_file": "news.json",
+      "source_id": "track-u16-kilkis-team-apr-2024",
+      "category": "distinctions",
+      "title": "Πρωτιές και πολλές διακρίσεις για τον Αρχέλαο στον στίβο Κ16 στο Κιλκίς",
+      "period": "2024-04-26",
+      "sport": "Στίβος",
+      "person_ids": [
+        "arch-86658a431e03",
+        "arch-92ed87ea2acb",
+        "arch-9522437eb7bc",
+        "arch-53f4acf32583",
+        "arch-c3dbb18f8afd",
+        "arch-824fa2e4193e",
+        "arch-a6a1796f3d5c",
+        "arch-2082f3abced0",
+        "arch-af7b9eaec8f6",
+        "arch-84866a9d1786",
+        "arch-6dac69941f40"
+      ],
+      "source_url": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/%CF%80%CE%BF%CE%BB%CF%8D-%CE%BA%CE%B1%CE%BB%CE%AE-%CE%B5%CE%BC%CF%86%CE%AC%CE%BD%CE%B9%CF%83%CE%B7-%CF%84%CE%BF%CF%85-%CF%84%CE%BC%CE%AE%CE%BC%CE%B1%CF%84%CE%BF%CF%82-%CF%83%CF%84%CE%AF%CE%B2%CE%BF/",
+      "image_path": "https://odialogos.gr/wp-content/uploads/2024/04/arxelaos-stivos-92.jpg"
+    },
+    {
+      "record_ref": "news_article:wrestling-u17-trikala-team-third-2024",
+      "source_file": "news.json",
+      "source_id": "wrestling-u17-trikala-team-third-2024",
+      "category": "placement_or_finalist",
+      "title": "Τρίτη ομάδα στην Ελλάδα η πάλη του Αρχέλαου στο Πανελλήνιο Εφήβων",
+      "period": "2024-04-21",
+      "sport": "Πάλη",
+      "person_ids": [
+        "arch-e49a8c140396",
+        "arch-ba8233d165aa",
+        "arch-73968afa517e",
+        "arch-e87fdf323137"
+      ],
+      "source_url": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/3%CE%B7-%CE%BA%CE%B1%CE%BB%CF%8D%CF%84%CE%B5%CF%81%CE%B7-%CE%BF%CE%BC%CE%AC%CE%B4%CE%B1-%CF%83%CF%84%CE%B7%CE%BD-%CE%B5%CE%BB%CE%BB%CE%AC%CE%B4%CE%B1-%CE%B7-%CF%80%CE%AC%CE%BB%CE%B7-%CF%84%CE%BF%CF%85/",
+      "image_path": "https://odialogos.gr/wp-content/uploads/2024/04/%CE%91%CE%A1%CE%A7%CE%95%CE%9B%CE%91%CE%9F%CE%A3-%CE%A0%CE%91%CE%9B%CE%97-3.jpg"
+    },
+    {
+      "record_ref": "news_article:track-u18-kilkis-medals-apr-2024",
+      "source_file": "news.json",
+      "source_id": "track-u18-kilkis-medals-apr-2024",
+      "category": "medal_or_medals",
+      "title": "Πολλά μετάλλια στον διασυλλογικό στίβου Κ18 στο Κιλκίς",
+      "period": "2024-04-16",
+      "sport": "Στίβος",
+      "person_ids": [
+        "arch-ec8773207161",
+        "arch-d9a3d58d6432",
+        "arch-a6a1796f3d5c",
+        "arch-67ae020ca998",
+        "arch-4a961d27ca2d"
+      ],
+      "source_url": "https://www.kapa-news.gr/2024/04/18_16.html",
+      "image_path": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhTjxHtlmuNiV3cHSocfBpzS1-5IP3FkrTbiHHdpdOcA68P03olk_B7UaHtPmPbhnSjgXti28_7T-HbngD0zl3I-lwuDCaZOGaaopDKXcQJ6f1jeUm8KWGzdNHswZIBhxoq0avCCo2Useo9qSySiN4tYk2Qs_AK5buvm6wtgCc2KcPDNAmy5tdgHG0TEBEF/s16000/%CE%91%CE%A1%CE%A7%CE%95%CE%9B%CE%91%CE%9F%CE%A3%20%CE%A3%CE%A4%CE%99%CE%92%CE%9F%CE%A3.jpg"
+    },
+    {
+      "record_ref": "news_article:gym-2024-mikra",
+      "source_file": "news.json",
+      "source_id": "gym-2024-mikra",
+      "category": "medal_or_medals",
+      "title": "Χάλκινο ομαδικό και ατομικά μετάλλια στη Μίκρα",
+      "period": "2024-04-09",
+      "sport": "Ενόργανη Γυμναστική",
+      "person_ids": [
+        "arch-e9fc7408640c",
+        "arch-8d1a258f0b09"
+      ],
+      "source_url": "https://eptanews.gr/athlitismos/epitychies-kai-metallia-gia-tin-enorgani-toy-gas-archelaos-katerinis/",
+      "image_path": "images/news/gym-2024-mikra.jpg"
+    },
+    {
+      "record_ref": "news_article:wrestling-xenidou-u17-national-gold-apr-2024",
+      "source_file": "news.json",
+      "source_id": "wrestling-xenidou-u17-national-gold-apr-2024",
+      "category": "championship_or_title",
+      "title": "Πρωταθλήτρια Ελλάδας U17 η Ιωάννα Ξενίδου στην Καλαμπάκα",
+      "period": "2024-04-09",
+      "sport": "Πάλη",
+      "person_ids": [
+        "arch-957a876e770d"
+      ],
+      "source_url": "https://odelalis.gr/protathlitria-elladas-i-ioanna-xenidou-tou-gas-archelaou-katerinis/",
+      "image_path": "https://odelalis.gr/wp-content/uploads/2024/04/savvas_ksenidou_pali.jpg"
+    },
+    {
+      "record_ref": "news_article:wrestling-u15-larisa-2024",
+      "source_file": "news.json",
+      "source_id": "wrestling-u15-larisa-2024",
+      "category": "medal_or_medals",
+      "title": "Τέσσερα μετάλλια στο Πανελλήνιο Πρωτάθλημα Πάλης U15",
+      "period": "2024-03-11",
+      "sport": "Πάλη",
+      "person_ids": [
+        "arch-b48656c62600",
+        "arch-vangelis-kordonoulis-wrest24",
+        "arch-aristotelis-navrozidis-wrest24"
+      ],
+      "source_url": "https://eptanews.gr/epikairotita/gas-archelaos-katerinis-4-metallia-sto-panellinio-protathlima-palis/amp/",
+      "image_path": "images/news/wrestling-u15-larisa-2024.jpg"
+    },
+    {
+      "record_ref": "news_article:wrestling-belgrade-four-medals-2024",
+      "source_file": "news.json",
+      "source_id": "wrestling-belgrade-four-medals-2024",
+      "category": "medal_or_medals",
+      "title": "Τέσσερα μετάλλια για την πάλη του Αρχέλαου στο Βελιγράδι",
+      "period": "2024-03-05",
+      "sport": "Πάλη",
+      "person_ids": [
+        "arch-af9470c5745f",
+        "arch-f3d93442851f",
+        "arch-b48656c62600",
+        "arch-be8668380721",
+        "arch-vangelis-kordonoulis-wrest24"
+      ],
+      "source_url": "https://eptanews.gr/athlitismos/4-metallia-oi-athlites-toy-archelaoy-katerinis-sto-veligradi/",
+      "image_path": "https://eptanews.gr/wp-content/uploads/2024/03/%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CF%80%CE%AC%CE%BB%CE%B7-1-1.jpeg"
+    },
+    {
+      "record_ref": "news_article:wrestling-petkos-gold-evthymiadis-fifth-2024",
+      "source_file": "news.json",
+      "source_id": "wrestling-petkos-gold-evthymiadis-fifth-2024",
+      "category": "championship_or_title",
+      "title": "Πρωταθλητής Ελλάδας ο Γιάννης Πέτκος στην πάλη ανδρών",
+      "period": "2024-03-04",
+      "sport": "Πάλη",
+      "person_ids": [
+        "arch-6a4b08bec058",
+        "arch-ba8233d165aa"
+      ],
+      "source_url": "https://eptanews.gr/epikairotita/axios-protathlitis-elladas-o-giannis-petkos-toy-archelaoy-katerinis/",
+      "image_path": "https://eptanews.gr/wp-content/uploads/2024/03/pali-1.jpeg"
+    },
+    {
+      "record_ref": "news_article:wrestling-vao-moraitis-palaska-dec-2023",
+      "source_file": "news.json",
+      "source_id": "wrestling-vao-moraitis-palaska-dec-2023",
+      "category": "medal_or_medals",
+      "title": "Έξι μετάλλια για τον Αρχέλαο στο τουρνουά πάλης «Μωραΐτης–Παλάσκα»",
+      "period": "2023-12-04",
+      "sport": "Πάλη",
+      "person_ids": [
+        "arch-957a876e770d",
+        "arch-ba8233d165aa",
+        "arch-be8668380721",
+        "arch-73968afa517e",
+        "arch-b48656c62600"
+      ],
+      "source_url": "https://olympiobima.gr/gas-archelaos-katerinis-gemisan-tis-aposkeves-tous-me-metallia-oi-protathlites-tou-stin-pali/",
+      "image_path": "https://olympiobima.gr/wp-content/uploads/2023/12/gas-archelaos-katerinis-gemisan-tis-29267.webp"
+    },
+    {
+      "record_ref": "news_article:wrestling-2023-bucharest",
+      "source_file": "news.json",
+      "source_id": "wrestling-2023-bucharest",
+      "category": "medal_or_medals",
+      "title": "Τέσσερα μετάλλια για την πάλη του Αρχέλαου στο Βουκουρέστι",
+      "period": "2023-11-21",
+      "sport": "Πάλη",
+      "person_ids": [
+        "arch-957a876e770d",
+        "arch-e49a8c140396",
+        "arch-e87fdf323137",
+        "arch-konstantinos-sklias-wrest23"
+      ],
+      "source_url": "https://eptanews.gr/epikairotita/me-polla-metallia-kai-polytimes-empeiries-epestrepse-apo-to-voykoyresti-to-tmima-palis-toy-gas-archelaos-katerinis/",
+      "image_path": "images/news/wrestling-2023-bucharest.jpg"
+    },
+    {
+      "record_ref": "news_article:wrestling-prosotsani-u11-u13-nov-2023",
+      "source_file": "news.json",
+      "source_id": "wrestling-prosotsani-u11-u13-nov-2023",
+      "category": "medal_or_medals",
+      "title": "Δύο χρυσά και ένα ασημένιο για τους μικρούς παλαιστές στην Προσοτσάνη",
+      "period": "2023-11-19",
+      "sport": "Πάλη",
+      "person_ids": [
+        "arch-aristotelis-navrozidis-wrest24",
+        "arch-loukas-zinisa-wrest25",
+        "arch-2616694d9908",
+        "arch-wrest-taxiarhis-liakos",
+        "arch-nikos-zinisa-savvas-wrestling"
+      ],
+      "source_url": "https://olympiobima.gr/archelaos-katerinis-elampsan-oi-pitsirikades-stin-pali/",
+      "image_path": "https://olympiobima.gr/wp-content/uploads/2023/11/archelaos-katerinis-elampsan-pitsirikades-pali-73212.webp"
+    },
+    {
+      "record_ref": "news_article:archery-oaka-u21-u18-medals-sep-2023",
+      "source_file": "news.json",
+      "source_id": "archery-oaka-u21-u18-medals-sep-2023",
+      "category": "medal_or_medals",
+      "title": "Πρωτιές και ομαδικά μετάλλια στην τοξοβολία U21 και U18 στο ΟΑΚΑ",
+      "period": "2023-09-25",
+      "sport": "Τοξοβολία",
+      "person_ids": [
+        "arch-955a386f547f",
+        "arch-kassiani-koktsidou-arch",
+        "arch-theofania-karali-arch",
+        "arch-pavlina-charitidou-arch",
+        "arch-konstantinos-charisis-arch",
+        "arch-9d63723c6ec9"
+      ],
+      "source_url": "https://olympiobima.gr/sarose-ta-metallia-i-toxovolia-tou-gas-archelaos-katerinis-sto-panellinio-protathlima/",
+      "image_path": "https://olympiobima.gr/wp-content/uploads/2023/09/sarose-metallia-toxovolia-gas-archelaos-91776.webp"
+    },
+    {
+      "record_ref": "news_article:gymnastics-alexandroupoli-u10-u8-june-2023",
+      "source_file": "news.json",
+      "source_id": "gymnastics-alexandroupoli-u10-u8-june-2023",
+      "category": "medal_or_medals",
+      "title": "Ασημένιο και χάλκινο ομαδικό στην ενόργανη παγκορασίδων",
+      "period": "2023-06-19",
+      "sport": "Ενόργανη Γυμναστική",
+      "person_ids": [
+        "arch-1ea85d87584a",
+        "arch-2ec2798d39bb",
+        "arch-gymnastics-9814252c",
+        "arch-gymnastics-ffd29998",
+        "arch-fbf9bcb00de7",
+        "arch-gymnastics-3e72e3a0",
+        "arch-gymnastics-ab00d538",
+        "arch-gymnastics-d8ee376a",
+        "arch-gymnastics-b15100a6",
+        "arch-bde5b8a0f677",
+        "arch-gymnastics-f2e4a89b"
+      ],
+      "source_url": "https://olympiobima.gr/gas-archelaos-katerinis-avlaia-kai-gia-tin-enorgani-gymnastiki/",
+      "image_path": "https://olympiobima.gr/wp-content/uploads/2023/06/gas-archelaos-katerinis-aylaia-enorgani-42131.webp"
+    },
+    {
+      "record_ref": "news_article:track-u16-eleftheroupoli-jun-2023",
+      "source_file": "news.json",
+      "source_id": "track-u16-eleftheroupoli-jun-2023",
+      "category": "placement_or_finalist",
+      "title": "Όγδοη η σκυταλοδρομία Κ16 του Αρχέλαου στην Ελευθερούπολη",
+      "period": "2023-06-19",
+      "sport": "Στίβος",
+      "person_ids": [
+        "arch-86658a431e03"
+      ],
+      "source_url": "https://odelalis.gr/gas-archelaos-katerinis-ta-kalytera-den-echoyn-erthei-akoma/",
+      "image_path": "https://odelalis.gr/wp-content/uploads/2023/06/stivos-arxelaos.jpg"
+    },
+    {
+      "record_ref": "news_article:gymnastics-thessaloniki-regional-may-2023",
+      "source_file": "news.json",
+      "source_id": "gymnastics-thessaloniki-regional-may-2023",
+      "category": "medal_or_medals",
+      "title": "Πρωτιές και ομαδικό ασημένιο για την ενόργανη στη Θεσσαλονίκη",
+      "period": "2023-05-30",
+      "sport": "Ενόργανη Γυμναστική",
+      "person_ids": [
+        "arch-1325e4551e91",
+        "arch-510626a0ca62",
+        "arch-1ea85d87584a",
+        "arch-2ec2798d39bb",
+        "arch-gymnastics-9814252c",
+        "arch-bde5b8a0f677",
+        "arch-gymnastics-f2e4a89b",
+        "arch-katerina-lampiri-gymnastics-2022"
+      ],
+      "source_url": "https://olympiobima.gr/gas-archelaos-katerinis-ekpliktiki-emfanisi-megales-diakriseis-stin-thessaloniki/",
+      "image_path": "https://olympiobima.gr/wp-content/uploads/2023/05/gas-archelaos-katerinis-50834.webp"
+    },
+    {
+      "record_ref": "news_article:gymnastics-national-lavrio-may-2023",
+      "source_file": "news.json",
+      "source_id": "gymnastics-national-lavrio-may-2023",
+      "category": "medal_or_medals",
+      "title": "Τρία χάλκινα του Άγγελου Παρούση στο Πανελλήνιο Ενόργανης",
+      "period": "2023-05-17",
+      "sport": "Ενόργανη Γυμναστική",
+      "person_ids": [
+        "arch-e6b31b31c3a9",
+        "arch-25923c326d62",
+        "arch-9bba434ae7e7",
+        "arch-1bcea370c872",
+        "arch-e9fc7408640c",
+        "arch-f02298025e5c",
+        "arch-8d1a258f0b09"
+      ],
+      "source_url": "https://olympiobima.gr/archelaos-katerinis-exairetiki-emfanisi-tin-enorgani-gymnastiki-panellinio-protathlima/",
+      "image_path": "https://olympiobima.gr/wp-content/uploads/2023/05/archelaos-katerinis-exairetiki-26082.webp"
+    },
+    {
+      "record_ref": "news_article:wrestling-balkan-sidirokastro-may-2023",
+      "source_file": "news.json",
+      "source_id": "wrestling-balkan-sidirokastro-may-2023",
+      "category": "medal_or_medals",
+      "title": "Έξι μετάλλια για αθλητές του Αρχέλαου στο Βαλκανικό Πάλης 2023",
+      "period": "2023-05-08",
+      "sport": "Πάλη",
+      "person_ids": [
+        "arch-957a876e770d",
+        "arch-f3d93442851f",
+        "arch-73968afa517e",
+        "arch-e87fdf323137",
+        "arch-ba8233d165aa"
+      ],
+      "source_url": "https://olympiobima.gr/pali-gas-archelaos-katerinis-dieprepse-valkaniko-protathlima-palis/",
+      "image_path": "https://olympiobima.gr/wp-content/uploads/2023/05/pali-gas-archelaos-52473.webp"
+    },
+    {
+      "record_ref": "news_article:track-natsiopoulou-school-400h-gold-may-2023",
+      "source_file": "news.json",
+      "source_id": "track-natsiopoulou-school-400h-gold-may-2023",
+      "category": "record",
+      "title": "Χρυσό και ατομικό ρεκόρ για την Κατερίνα Νατσιοπούλου στα 400 μ. εμπόδια",
+      "period": "2023-05-05",
+      "sport": "Στίβος",
+      "person_ids": [
+        "arch-katerina-natsiopoulou-track22"
+      ],
+      "source_url": "https://pieriasocial.gr/?p=65222"
+    },
+    {
+      "record_ref": "news_article:wrestling-mouzaki-youth-medals-apr-2023",
+      "source_file": "news.json",
+      "source_id": "wrestling-mouzaki-youth-medals-apr-2023",
+      "category": "medal_or_medals",
+      "title": "Τρία μετάλλια στην πάλη Εφήβων στο Μουζάκι Καρδίτσας",
+      "period": "2023-04-24",
+      "sport": "Πάλη",
+      "person_ids": [
+        "arch-32f943eae9a0",
+        "arch-paschalis-iliatzikis-wrestling-2022",
+        "arch-savvas-charitidis-wrestling-2021"
+      ],
+      "source_url": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/3-%CE%BC%CE%B5%CF%84%CE%AC%CE%BB%CE%BB%CE%B9%CE%B1-%CE%B3%CE%B9%CE%B1-%CF%84%CE%BF%CF%85%CF%82-%CE%AD%CF%86%CE%B7%CE%B2%CE%BF%CF%85%CF%82-%CF%84%CE%BF%CF%85-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF/",
+      "image_path": "https://odialogos.gr/wp-content/uploads/2023/04/%CE%91%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CE%A0%CE%AC%CE%BB%CE%B7-7.jpeg"
+    },
+    {
+      "record_ref": "news_article:wrestling-u15-karatoula-team-champions-2023",
+      "source_file": "news.json",
+      "source_id": "wrestling-u15-karatoula-team-champions-2023",
+      "category": "championship_or_title",
+      "title": "Πρωταθλητής Ελλάδας ο Αρχέλαος στο Πανελλήνιο Πάλης Παίδων",
+      "period": "2023-04-10",
+      "sport": "Πάλη",
+      "person_ids": [
+        "arch-73968afa517e",
+        "arch-e49a8c140396",
+        "arch-e87fdf323137",
+        "arch-ba8233d165aa",
+        "arch-8c9cbe4897f0"
+      ],
+      "source_url": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/1%CE%BF%CF%82-%CE%BF-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CE%BA%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82-%CF%83%CF%84%CE%BF-%CF%80%CE%B1%CE%BD%CE%B5%CE%BB%CE%BB%CE%AE%CE%BD%CE%B9/",
+      "image_path": "https://odialogos.gr/wp-content/uploads/2023/04/%CE%91%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CE%A0%CE%AC%CE%BB%CE%B7-7.jpeg"
+    },
+    {
+      "record_ref": "news_article:gym-2023-mikra",
+      "source_file": "news.json",
+      "source_id": "gym-2023-mikra",
+      "category": "medal_or_medals",
+      "title": "Ασημένιο ομαδικό για τις κορασίδες του Αρχέλαου στη Μίκρα",
+      "period": "2023-04-04",
+      "sport": "Ενόργανη Γυμναστική",
+      "person_ids": [
+        "arch-25923c326d62",
+        "arch-e9fc7408640c",
+        "arch-f02298025e5c",
+        "arch-8d1a258f0b09"
+      ],
+      "source_url": "https://eptanews.gr/athlitismos/enorgani-gymnastiki-synecheia-epitychion-gia-ton-gas-archelao/",
+      "image_path": "images/news/gym-2023-mikra.jpg"
+    },
+    {
+      "record_ref": "news_article:track-indoor-national-2023-natsiopoulou-biziota",
+      "source_file": "news.json",
+      "source_id": "track-indoor-national-2023-natsiopoulou-biziota",
+      "category": "record",
+      "title": "Ατομικό ρεκόρ και τέταρτη θέση της Νατσιοπούλου στο Πανελλήνιο Κλειστού Στίβου",
+      "period": "2023-02-22",
+      "sport": "Στίβος",
+      "person_ids": [
+        "arch-ccaf623e428b",
+        "arch-katerina-natsiopoulou-track22",
+        "arch-afroditi-biziota-track23"
+      ],
+      "source_url": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/%CF%83%CF%84%CE%BF-37%CE%BF-%CF%80%CE%B1%CE%BD%CE%B5%CE%BB%CE%BB%CE%AE%CE%BD%CE%B9%CE%BF-%CF%80%CF%81%CF%89%CF%84%CE%AC%CE%B8%CE%BB%CE%B7%CE%BC%CE%B1-%CE%BA%CE%BB%CE%B5%CE%B9%CF%83%CF%84%CE%BF%CF%8D/",
+      "image_path": "https://odialogos.gr/wp-content/uploads/2023/02/στίβος-Αρχέλαος-1.jpeg"
+    },
+    {
+      "record_ref": "news_article:gym-2022-horizon",
+      "source_file": "news.json",
+      "source_id": "gym-2022-horizon",
+      "category": "distinctions",
+      "title": "Διεθνείς διακρίσεις του Άγγελου Παρούση στο Horizon Cup",
+      "period": "2022-11-15",
+      "sport": "Ενόργανη Γυμναστική",
+      "person_ids": [
+        "arch-e6b31b31c3a9"
+      ],
+      "source_url": "https://eptanews.gr/athlitismos/mia-chronia-epitychies-gia-tin-enorgani-gymnastiki-toy-gas-archelaos-katerinis/",
+      "image_path": "images/news/gym-2022-horizon.jpg"
+    },
+    {
+      "record_ref": "news_article:track-women-top20-u20-serres-jul-2022",
+      "source_file": "news.json",
+      "source_id": "track-women-top20-u20-serres-jul-2022",
+      "category": "placement_or_finalist",
+      "title": "Στην πρώτη εικοσάδα της Ελλάδας ο γυναικείος στίβος του Αρχέλαου",
+      "period": "2022-07-12",
+      "sport": "Στίβος",
+      "person_ids": [
+        "arch-katerina-natsiopoulou-track22",
+        "arch-sofia-konstantinidou-track22",
+        "arch-afroditi-biziota-track23",
+        "arch-e242f5926fc9"
+      ],
+      "source_url": "https://odelalis.gr/stoys-20-protoys-syllogoys-stis-gynaikes-i-omada-stivoy-toy-gas-archelaos-katerinis-se-synolo-100-kai-pleon-syllogon-stin-ellada/",
+      "image_path": "https://odelalis.gr/wp-content/uploads/2022/06/gasarxelaos.jpg"
+    },
+    {
+      "record_ref": "news_article:archery-u18-athens-national-results-july-2022",
+      "source_file": "news.json",
+      "source_id": "archery-u18-athens-national-results-july-2022",
+      "category": "medal_or_medals",
+      "title": "Μετάλλια και ατομικές διακρίσεις στο Πανελλήνιο Τοξοβολίας U18",
+      "period": "2022-07-07",
+      "sport": "Τοξοβολία",
+      "person_ids": [
+        "arch-955a386f547f",
+        "arch-pavlina-charitidou-arch",
+        "arch-konstantinos-charisis-arch",
+        "arch-kassiani-koktsidou-arch",
+        "arch-9d63723c6ec9"
+      ],
+      "source_url": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/%CE%B5%CE%BD%CF%84%CF%85%CF%80%CF%89%CF%83%CE%AF%CE%B1%CF%83%CE%B1%CE%BD-%CE%BF%CE%B9-%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%AD%CF%82-%CF%84%CF%81%CE%B9%CE%B5%CF%82-%CF%84%CE%B7%CF%82-t%CE%BF%CE%BE%CE%BF/",
+      "image_path": "https://odialogos.gr/wp-content/uploads/2022/07/%CF%84%CE%BF%CE%BE%CE%BF%CE%B2%CE%BF%CE%BB%CE%AF%CE%B1-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-6.jpg"
+    },
+    {
+      "record_ref": "news_article:track-natsiopoulou-u23-gold-june-2022",
+      "source_file": "news.json",
+      "source_id": "track-natsiopoulou-u23-gold-june-2022",
+      "category": "medal_or_medals",
+      "title": "Χρυσό της Κατερίνας Νατσιοπούλου στα 400 μ. του Πανελληνίου Κ23",
+      "period": "2022-06-26",
+      "sport": "Στίβος",
+      "person_ids": [
+        "arch-ccaf623e428b",
+        "arch-katerina-natsiopoulou-track22",
+        "arch-sofia-konstantinidou-track22"
+      ],
+      "source_url": "https://olympiobima.gr/gas-archelaos-katerinis-chryso-metallio-gia-tin-katerina-natsiopoyloy/",
+      "image_path": "https://olympiobima.gr/wp-content/uploads/2022/06/ΓΑΣ-Αρχέλαος-Κατερίνης-Χρυσό-μετάλλιο-για-την-Κατερίνα-Νατσιοπούλου-41643.jpg"
+    },
+    {
+      "record_ref": "news_article:gymnastics-alexandroupoli-final-jun-2022",
+      "source_file": "news.json",
+      "source_id": "gymnastics-alexandroupoli-final-jun-2022",
+      "category": "medal_or_medals",
+      "title": "Μετάλλια στην τελική φάση ενόργανης παμπαίδων–παγκορασίδων το 2022",
+      "period": "2022-06-17",
+      "sport": "Ενόργανη Γυμναστική",
+      "person_ids": [
+        "arch-1325e4551e91",
+        "arch-2ec2798d39bb",
+        "arch-gymnastics-9814252c",
+        "arch-f02298025e5c",
+        "arch-bde5b8a0f677",
+        "arch-gymnastics-f2e4a89b",
+        "arch-katerina-lampiri-gymnastics-2022",
+        "arch-christina-papavasileiou-gymnastics-2022"
+      ],
+      "source_url": "https://odelalis.gr/epitychies-ton-pampaidon-amp-pagkorasidon-toy-gas-archelaos-katerinis-sto-panellinio-protathlima-enorganis-gymnastikis-stin-alexandroypoli/",
+      "image_path": "https://odelalis.gr/wp-content/uploads/2022/06/gasarxelaos.jpg"
+    },
+    {
+      "record_ref": "news_article:track-world-gymnasiade-balkan-june-2022",
+      "source_file": "news.json",
+      "source_id": "track-world-gymnasiade-balkan-june-2022",
+      "category": "medal_or_medals",
+      "title": "Διεθνείς συμμετοχές και μετάλλιο σκυταλοδρομίας για αθλήτριες του Αρχέλαου",
+      "period": "2022-06-16",
+      "sport": "Στίβος",
+      "person_ids": [
+        "arch-sofia-konstantinidou-track22",
+        "arch-katerina-natsiopoulou-track22"
+      ],
+      "source_url": "https://odelalis.gr/oi-athlitries-stivoy-toy-gas-archelaos-katerinis-poy-kanoyn-gnosti-tin-katerini-se-ellada-kai-eyropi/",
+      "image_path": "https://odelalis.gr/wp-content/uploads/2022/06/gasarxelaos-natsiopoulou-konstantinidou.jpg"
+    },
+    {
+      "record_ref": "news_article:gymnastics-regional-first-phase-may-2022",
+      "source_file": "news.json",
+      "source_id": "gymnastics-regional-first-phase-may-2022",
+      "category": "medal_or_medals",
+      "title": "Χρυσό και χάλκινο ομαδικό για τις παγκορασίδες στη Μίκρα το 2022",
+      "period": "2022-05-29",
+      "sport": "Ενόργανη Γυμναστική",
+      "person_ids": [
+        "arch-5bc0ec7ec6e0",
+        "arch-f02298025e5c",
+        "arch-8d1a258f0b09",
+        "arch-1ea85d87584a",
+        "arch-2ec2798d39bb",
+        "arch-gymnastics-9814252c",
+        "arch-1325e4551e91",
+        "arch-510626a0ca62",
+        "arch-1be1256bf733",
+        "arch-bde5b8a0f677",
+        "arch-gymnastics-f2e4a89b",
+        "arch-katerina-lampiri-gymnastics-2022",
+        "arch-christina-papavasileiou-gymnastics-2022",
+        "arch-kyriaki-parasidou-gymnastics-2022",
+        "arch-christos-karasavvidis-gymnastics-2022",
+        "arch-ioannis-goutsos-gymnastics-2022"
+      ],
+      "source_url": "https://odelalis.gr/sarose-ta-metallia-to-tmima-gymnastikis-toy-gas-archelaos-katerinis/",
+      "image_path": "https://odelalis.gr/wp-content/uploads/2022/05/archelaos-katerinis-2.jpg"
+    },
+    {
+      "record_ref": "news_article:gymnastics-youth-national-medals-may-2022",
+      "source_file": "news.json",
+      "source_id": "gymnastics-youth-national-medals-may-2022",
+      "category": "medal_or_medals",
+      "title": "Τρία χρυσά και ένα ασημένιο στην ενόργανη Παίδων–Κορασίδων",
+      "period": "2022-05-19",
+      "sport": "Ενόργανη Γυμναστική",
+      "person_ids": [
+        "arch-e6b31b31c3a9",
+        "arch-22234effaf98",
+        "arch-f56820c52e55",
+        "arch-c5eb6d18a17a",
+        "arch-2cb062fabc11"
+      ],
+      "source_url": "https://eptanews.gr/athlitismos/elampse-me-tis-epidoseis-to-tmima-gymnastikis-toy-gas-archelaos-katerinis-sto-panellinio-protathlima-paidon-korasidon-3-chrysa-metallia-kai-ena-argyro-kai-spoydaies-emfaniseis-ton-athliton-trion-toy/",
+      "image_path": "https://i1.wp.com/eptanews.gr/wp-content/uploads/2022/05/IMG-0bbec2cda8c04b07a9ed7052e53aca9a-V.jpg?fit=1600%2C1200&ssl=1"
+    },
+    {
+      "record_ref": "news_article:wrestling-school-trikala-bronze-may-2022",
+      "source_file": "news.json",
+      "source_id": "wrestling-school-trikala-bronze-may-2022",
+      "category": "medal_or_medals",
+      "title": "Τρία χάλκινα μετάλλια για αθλητές του Αρχέλαου στους Πανελλήνιους Σχολικούς Αγώνες",
+      "period": "2022-05-14",
+      "sport": "Πάλη",
+      "person_ids": [
+        "arch-ba8233d165aa",
+        "arch-e49a8c140396",
+        "arch-8c9cbe4897f0",
+        "arch-32f943eae9a0",
+        "arch-af9470c5745f"
+      ],
+      "source_url": "https://olympiobima.gr/archelaos-katerinis-3-chalkina-metallia-oi-athlites-toy-stoys-panellinioys-scholikoys-agones-sta-trikala/",
+      "image_path": "https://olympiobima.gr/wp-content/uploads/2022/05/Archelaos-Katerinis-3-Chalkina-metallia-oi-athlites-tou-stous-Panellinious-scholikous-agones-sta-Trikala-42245.jpg"
+    },
+    {
+      "record_ref": "news_article:wrestling-u17-serres-third-apr-2022",
+      "source_file": "news.json",
+      "source_id": "wrestling-u17-serres-third-apr-2022",
+      "category": "placement_or_finalist",
+      "title": "Τρίτος ο Αρχέλαος στο Πανελλήνιο Πάλης Εφήβων του 2022",
+      "period": "2022-04-17",
+      "sport": "Πάλη",
+      "person_ids": [
+        "arch-6a4b08bec058",
+        "arch-96ddd7ba9e4d",
+        "arch-paschalis-iliatzikis-wrestling-2022",
+        "arch-alexis-papadopoulos-wrestling-2022"
+      ],
+      "source_url": "https://odigos-pierias.gr/3%CE%BF%CF%82-%CE%BF-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CE%BA%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82-%CF%83%CF%84%CE%BF-%CF%80%CE%B1%CE%BD%CE%B5%CE%BB%CE%BB%CE%AE%CE%BD%CE%B9/",
+      "image_path": "https://odigos-pierias.gr/wp-content/uploads/2022/04/5-800x600-1-800x600-1.jpg"
+    },
+    {
+      "record_ref": "news_article:track-school-silver-volos-apr-2022",
+      "source_file": "news.json",
+      "source_id": "track-school-silver-volos-apr-2022",
+      "category": "medal_or_medals",
+      "title": "Δύο ασημένια για αθλήτριες του Αρχέλαου στους Πανελλήνιους Σχολικούς Αγώνες",
+      "period": "2022-04-14",
+      "sport": "Στίβος",
+      "person_ids": [
+        "arch-ccaf623e428b",
+        "arch-katerina-natsiopoulou-track22",
+        "arch-sofia-konstantinidou-track22"
+      ],
+      "source_url": "https://olympiobima.gr/g-a-s-archelaos-katerinis-stivos-sygcharitiria-stis-athlitries-mas-sofia-konstantinidoy-kai-katerina-natsiopoyloy/",
+      "image_path": "https://olympiobima.gr/wp-content/uploads/2022/04/G.A.S-Archelaos-Katerinis-Stibos-84891.jpg"
+    },
+    {
+      "record_ref": "news_article:wrestling-u15-team-champions-april-2022",
+      "source_file": "news.json",
+      "source_id": "wrestling-u15-team-champions-april-2022",
+      "category": "championship_or_title",
+      "title": "Πρωταθλητής Ελλάδας στους Παίδες για τρίτη χρονιά ο Αρχέλαος",
+      "period": "2022-04-04",
+      "sport": "Πάλη",
+      "person_ids": [
+        "arch-73968afa517e",
+        "arch-e49a8c140396",
+        "arch-ba8233d165aa",
+        "arch-e87fdf323137",
+        "arch-c9649834c98e",
+        "arch-32f943eae9a0",
+        "arch-af9470c5745f",
+        "arch-8934f50fbeed"
+      ],
+      "source_url": "https://pieriasocial.gr/?p=47154",
+      "image_path": "https://pieriasocial.gr/wp-content/uploads/2022/04/11111111111-1024x768.jpg"
+    },
+    {
+      "record_ref": "news_article:wrestling-xanthi-four-medals-2021",
+      "source_file": "news.json",
+      "source_id": "wrestling-xanthi-four-medals-2021",
+      "category": "medal_or_medals",
+      "title": "Τέσσερα μετάλλια για τον Αρχέλαο στους Βαλκανικούς και Μεσογειακούς Αγώνες",
+      "period": "2021-11-01",
+      "sport": "Πάλη",
+      "person_ids": [
+        "arch-6a4b08bec058",
+        "arch-ba8233d165aa",
+        "arch-96ddd7ba9e4d",
+        "arch-savvas-charitidis-wrestling-2021"
+      ],
+      "source_url": "https://odigos-pierias.gr/4-%CE%BC%CE%B5%CF%84%CE%AC%CE%BB%CE%BB%CE%B9%CE%B1-%CE%BF%CE%B9-%CF%80%CF%81%CF%89%CF%84%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%AD%CF%82-%CF%84%CE%BF%CF%85-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%85/"
+    },
+    {
+      "record_ref": "news_article:wrestling-xenidou-bronze-oct-2021",
+      "source_file": "news.json",
+      "source_id": "wrestling-xenidou-bronze-oct-2021",
+      "category": "medal_or_medals",
+      "title": "Χάλκινο Πανελλήνιο μετάλλιο και πρόκριση για την Ιωάννα Ξενίδου",
+      "period": "2021-10-11",
+      "sport": "Πάλη",
+      "person_ids": [
+        "arch-957a876e770d"
+      ],
+      "source_url": "https://eptanews.gr/athlitismos/chalkino-metallio-i-pankorasida-toy-archelaoy-katerinis-ioanna-xenidoy-sto-panellinio-protathlima-palis-sto-zefyri-attikis/",
+      "image_path": "https://i1.wp.com/eptanews.gr/wp-content/uploads/2021/10/received_458311268828952.jpeg?fit=720%2C960&ssl=1"
+    },
+    {
+      "record_ref": "news_article:wrestling-u13-zefyri-team-third-oct-2021",
+      "source_file": "news.json",
+      "source_id": "wrestling-u13-zefyri-team-third-oct-2021",
+      "category": "placement_or_finalist",
+      "title": "Τρίτος ο Αρχέλαος στο Πανελλήνιο Πάλης Παμπαίδων στο Ζεφύρι",
+      "period": "2021-10-11",
+      "sport": "Πάλη",
+      "person_ids": [
+        "arch-e49a8c140396",
+        "arch-e87fdf323137",
+        "arch-73968afa517e",
+        "arch-ba8233d165aa",
+        "arch-c9649834c98e",
+        "arch-8c9cbe4897f0"
+      ],
+      "source_url": "https://eptanews.gr/athlitismos/3os-o-archelaos-katerinis-sto-panellinio-protathlima-palis-pampaidon-poy-diexichthi-sto-zefyri-attikis/"
+    },
+    {
+      "record_ref": "news_article:wrestling-u15-porroia-team-first-2021",
+      "source_file": "news.json",
+      "source_id": "wrestling-u15-porroia-team-first-2021",
+      "category": "championship_or_title",
+      "title": "Πρωταθλητής Ελλάδας Παίδων ο Αρχέλαος στην ελληνορωμαϊκή πάλη",
+      "period": "2021-06-28",
+      "sport": "Πάλη",
+      "person_ids": [
+        "arch-73968afa517e",
+        "arch-ba8233d165aa",
+        "arch-96ddd7ba9e4d",
+        "arch-74c0ecf6103f"
+      ],
+      "source_url": "https://www.onsports.gr/spor/story/734086/pali-protathlitis-paidon-stin-ellinoromaiki-o-arxelaos-katerinis",
+      "image_path": "https://cdn.onsmd.gr/img/1280/max/90/2021/06/27/pali.jpg?t=APQX9-XihIE_HW_SiXuvZg"
+    },
+    {
+      "record_ref": "news_article:track-hatzipourgani-u18-record-patra-aug-2020",
+      "source_file": "news.json",
+      "source_id": "track-hatzipourgani-u18-record-patra-aug-2020",
+      "category": "record",
+      "title": "Στα 59.01 το πανελλήνιο ρεκόρ Κ18 της Άννας Χατζηπουργάνη στην Πάτρα",
+      "period": "2020-08-09",
+      "sport": "Στίβος",
+      "person_ids": [
+        "arch-68fef0f68151"
+      ],
+      "source_url": "https://www.segas.gr/8046-panellinio-protathlima-a-g-peftei-i-avlaia-stin-patra/"
+    },
+    {
+      "record_ref": "news_article:track-hatzipourgani-u18-record-ioannina-aug-2020",
+      "source_file": "news.json",
+      "source_id": "track-hatzipourgani-u18-record-ioannina-aug-2020",
+      "category": "record",
+      "title": "Νέο πανελλήνιο ρεκόρ Κ18 και χρυσό Κ20 για την Άννα Χατζηπουργάνη",
+      "period": "2020-08-02",
+      "sport": "Στίβος",
+      "person_ids": [
+        "arch-68fef0f68151"
+      ],
+      "source_url": "https://www.segas.gr/8022-protathlima-k20-2i-imera-pogevma/"
+    },
+    {
+      "record_ref": "news_article:track-u18-larisa-two-golds-jul-2020",
+      "source_file": "news.json",
+      "source_id": "track-u18-larisa-two-golds-jul-2020",
+      "category": "medal_or_medals",
+      "title": "Δύο χρυσά του Αρχέλαου στο Πανελλήνιο Κ18 στη Λάρισα",
+      "period": "2020-07-26",
+      "sport": "Στίβος",
+      "person_ids": [
+        "arch-sofia-konstantinidou-track22",
+        "arch-68fef0f68151"
+      ],
+      "source_url": "https://katerinisport.gr/%CF%80%CE%B1%CE%BD%CE%B5%CE%BB%CE%BB%CE%B7%CE%BD%CE%B9%CE%BF%CE%BD%CE%AF%CE%BA%CE%B7%CF%82-%CE%BF-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CE%BA%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7/"
+    },
+    {
+      "record_ref": "news_article:wrestling-syrmali-bronze-kilkis-mar-2020",
+      "source_file": "news.json",
+      "source_id": "wrestling-syrmali-bronze-kilkis-mar-2020",
+      "category": "medal_or_medals",
+      "title": "Χάλκινο της Μιχαέλας Σύρμαλη στο Πανελλήνιο Πρωτάθλημα Πάλης",
+      "period": "2020-03-08",
+      "sport": "Πάλη",
+      "person_ids": [
+        "arch-michaela-syrmali-wrest20",
+        "arch-526f13622101"
+      ],
+      "source_url": "https://odelalis.gr/pali-triti-thesi-kai-chalkino-metallio-apo-tin-michaela-syrmali-toy-archelaoy-katerinis/",
+      "image_path": "https://odelalis.gr/wp-content/uploads/2020/03/αρχέλαος-πάλη-συρμαλη-1.jpeg"
+    },
+    {
+      "record_ref": "news_article:wrestling-petkos-silver-kilkis-mar-2020",
+      "source_file": "news.json",
+      "source_id": "wrestling-petkos-silver-kilkis-mar-2020",
+      "category": "medal_or_medals",
+      "title": "Ασημένιο του Γιάννη Πέτκου στο Πανελλήνιο Πάλης στο Κιλκίς",
+      "period": "2020-03-08",
+      "sport": "Πάλη",
+      "person_ids": [
+        "arch-6a4b08bec058",
+        "arch-thodoris-tsiliggiridis-wrest20",
+        "arch-a4f2acd84667",
+        "arch-eb30e824d0a2"
+      ],
+      "source_url": "https://odelalis.gr/asimenio-metallio-o-giannis-petkos-toy-archelaoy-katerinis-sto-panellinio-protathlima-palis-sto-kilkis/",
+      "image_path": "https://odelalis.gr/wp-content/uploads/2020/03/αρχέλαος-πάλη-πέτκος-1.jpeg"
+    },
+    {
+      "record_ref": "moment:7",
+      "source_file": "rebuild/data/moments.json",
+      "source_id": 7,
+      "category": "placement_or_finalist",
+      "title": "Η γυναικεία ομάδα στίβου κατακτά την 5η θέση στη γενική βαθμολογία του Πανελληνίου Πρωταθλήματος.",
+      "period": "1966",
+      "sport": null,
+      "moment_ids": [
+        7
+      ]
+    },
+    {
+      "record_ref": "moment:11",
+      "source_file": "rebuild/data/moments.json",
+      "source_id": 11,
+      "category": "record",
+      "title": "Το ιστορικό ρεκόρ συλλόγου του αθλητή και μετέπειτα προέδρου Αλκίνοου Τασόπουλου στα 3.000 μ. στιπλ (9:42.2).",
+      "period": "1971",
+      "sport": null,
+      "moment_ids": [
+        11
+      ]
+    },
+    {
+      "record_ref": "moment:25",
+      "source_file": "rebuild/data/moments.json",
+      "source_id": 25,
+      "category": "promotion_or_qualification",
+      "title": "Άνοδος της ανδρικής ομάδας μπάσκετ στη Β΄ Εθνική Κατηγορία.",
+      "period": "1977",
+      "sport": null,
+      "moment_ids": [
+        25
+      ]
+    },
+    {
+      "record_ref": "moment:30",
+      "source_file": "rebuild/data/moments.json",
+      "source_id": 30,
+      "category": "record",
+      "title": "Πανελλήνιο ρεκόρ δισκοβολίας νεανίδων από τη Ζαΐρα Λαζαρίδου (43,80 μ.).",
+      "period": "1978",
+      "sport": null,
+      "moment_ids": [
+        30
+      ]
+    },
+    {
+      "record_ref": "moment:36",
+      "source_file": "rebuild/data/moments.json",
+      "source_id": 36,
+      "category": "record",
+      "title": "Πανελλήνιο ρεκόρ παίδων στον ακοντισμό από τον 17χρονο Αντώνη Παπαδημητρίου στα Ι΄ Δίια (63,02 μ.).",
+      "period": "1980",
+      "sport": null,
+      "moment_ids": [
+        36
+      ]
+    },
+    {
+      "record_ref": "moment:39",
+      "source_file": "rebuild/data/moments.json",
+      "source_id": 39,
+      "category": "international_or_national_selection",
+      "title": "Ο Σωκράτης Σκούφας γίνεται ο πρώτος χειροσφαιριστής του συλλόγου που καλείται στην Εθνική Ομάδα.",
+      "period": "1981",
+      "sport": null,
+      "moment_ids": [
+        39
+      ]
+    },
+    {
+      "record_ref": "moment:44",
+      "source_file": "rebuild/data/moments.json",
+      "source_id": 44,
+      "category": "promotion_or_qualification",
+      "title": "Ιστορική πρώτη άνοδος της ανδρικής ομάδας χάντμπολ στην Α΄ Εθνική Κατηγορία.",
+      "period": "1983–84",
+      "sport": null,
+      "moment_ids": [
+        44
+      ],
+      "fact_check_flags": [
+        "review-handball-top-flight-promotion-year"
+      ]
+    },
+    {
+      "record_ref": "moment:45",
+      "source_file": "rebuild/data/moments.json",
+      "source_id": 45,
+      "category": "championship_or_title",
+      "title": "Πρωταθλητής Ελλάδας Εφήβων στο χάντμπολ και φιναλίστ στον τελικό του Κυπέλλου Ελλάδας Ανδρών.",
+      "period": "1984",
+      "sport": null,
+      "moment_ids": [
+        45
+      ],
+      "fact_check_flags": [
+        "review-handball-1984-cup-score"
+      ]
+    },
+    {
+      "record_ref": "moment:47",
+      "source_file": "rebuild/data/moments.json",
+      "source_id": 47,
+      "category": "record",
+      "title": "Πανελλήνιο ρεκόρ παίδων στο μήκος από τον 16χρονο Κώστα Κουκοδήμο στα ΙΒ΄ Δίια (7,40 μ.).",
+      "period": "1985",
+      "sport": null,
+      "moment_ids": [
+        47
+      ]
+    },
+    {
+      "record_ref": "moment:51",
+      "source_file": "rebuild/data/moments.json",
+      "source_id": 51,
+      "category": "medal_or_medals",
+      "title": "Χάλκινο μετάλλιο του Αλέξιου Πουλικίδη στο Ευρωπαϊκό Πρωτάθλημα Εφήβων στην πάλη (Σμύρνη).",
+      "period": "1988",
+      "sport": null,
+      "moment_ids": [
+        51
+      ]
+    },
+    {
+      "record_ref": "moment:53",
+      "source_file": "rebuild/data/moments.json",
+      "source_id": 53,
+      "category": "cup_winner",
+      "title": "Κυπελλούχος Ελλάδας χάντμπολ ανδρών στο κλειστό του Μετς απέναντι στον Α.Σ.Ε. Δούκα (27–21).",
+      "period": "1990",
+      "sport": null,
+      "moment_ids": [
+        53
+      ]
+    },
+    {
+      "record_ref": "moment:55",
+      "source_file": "rebuild/data/moments.json",
+      "source_id": 55,
+      "category": "medal_or_medals",
+      "title": "Ασημένιο μετάλλιο του Νίκου Ζαμάνη στους Παγκόσμιους Αγώνες Πάλης στο Ισραήλ (81 κ.).",
+      "period": "1990",
+      "sport": null,
+      "moment_ids": [
+        55
+      ]
+    },
+    {
+      "record_ref": "moment:58",
+      "source_file": "rebuild/data/moments.json",
+      "source_id": 58,
+      "category": "placement_or_finalist",
+      "title": "2η θέση στο Πανευρωπαϊκό Σχολικό Πρωτάθλημα στη Γαλλία από την ομάδα στίβου του Αρχέλαου (4ο ΓΕΛ).",
+      "period": "1992",
+      "sport": null,
+      "moment_ids": [
+        58
+      ]
+    },
+    {
+      "record_ref": "moment:62",
+      "source_file": "rebuild/data/moments.json",
+      "source_id": 62,
+      "category": "cup_winner",
+      "title": "Το έπος των «άστεγων» κυπελλούχων: κατάκτηση του 2ου Κυπέλλου Ελλάδας χάντμπολ επί του Ιωνικού Ν.Φ. (27–25).",
+      "period": "1994",
+      "sport": null,
+      "moment_ids": [
+        62
+      ]
+    },
+    {
+      "record_ref": "moment:64",
+      "source_file": "rebuild/data/moments.json",
+      "source_id": 64,
+      "category": "placement_or_finalist",
+      "title": "3η θέση στο Πανελλήνιο Πρωτάθλημα Κορασίδων στο μπάσκετ στην Τρίπολη.",
+      "period": "1995–96",
+      "sport": null,
+      "moment_ids": [
+        64
+      ]
+    },
+    {
+      "record_ref": "moment:66",
+      "source_file": "rebuild/data/moments.json",
+      "source_id": 66,
+      "category": "international_or_national_selection",
+      "title": "Συμμετοχή της πρωταθλήτριας σκοποβολής του Αρχέλαου Μαρίας Φάκα στους Ολυμπιακούς Αγώνες της Αθήνας.",
+      "period": "2004",
+      "sport": null,
+      "moment_ids": [
+        66
+      ]
+    },
+    {
+      "record_ref": "moment:69",
+      "source_file": "rebuild/data/moments.json",
+      "source_id": 69,
+      "category": "medal_or_medals",
+      "title": "Πανελλήνιοι τίτλοι στην τοξοβολία και παγκόσμιο ασημένιο μετάλλιο για τον παλαιστή Δημήτρη Σουλή (U17).",
+      "period": "2024–2026",
+      "sport": null,
+      "moment_ids": [
+        69
+      ]
+    },
+    {
+      "record_ref": "research_event:arc-handball-cup-final-1984",
+      "source_file": "rebuild/research/historical-events.json",
+      "source_id": "arc-handball-cup-final-1984",
+      "category": "placement_or_finalist",
+      "title": "Φιναλίστ Κυπέλλου Ελλάδας Ανδρών χάντμπολ το 1984",
+      "period": "1984-06-23",
+      "sport": "handball",
+      "source_verification": "source_checked",
+      "moment_ids": [
+        45
+      ],
+      "source_ids": [
+        "greek-handball-cup-record",
+        "sportfm-cup-history"
+      ],
+      "fact_check_flags": [
+        "review-handball-1984-cup-score"
+      ]
+    },
+    {
+      "record_ref": "research_event:arc-handball-cup-final-1990",
+      "source_file": "rebuild/research/historical-events.json",
+      "source_id": "arc-handball-cup-final-1990",
+      "category": "cup_winner",
+      "title": "Πρώτο Κύπελλο Ελλάδας Ανδρών χάντμπολ",
+      "period": "1990-06-02",
+      "sport": "handball",
+      "source_verification": "source_checked",
+      "moment_ids": [
+        53
+      ],
+      "source_ids": [
+        "greek-handball-cup-record",
+        "sportfm-cup-history"
+      ]
+    },
+    {
+      "record_ref": "research_event:arc-handball-cup-final-1993",
+      "source_file": "rebuild/research/historical-events.json",
+      "source_id": "arc-handball-cup-final-1993",
+      "category": "competition_result",
+      "title": "Τελικός Κυπέλλου Ελλάδας Ανδρών χάντμπολ το 1993",
+      "period": "1993-04-05",
+      "sport": "handball",
+      "source_verification": "source_checked",
+      "source_ids": [
+        "greek-handball-cup-record",
+        "sportfm-cup-history"
+      ]
+    },
+    {
+      "record_ref": "research_event:arc-handball-cup-final-1994",
+      "source_file": "rebuild/research/historical-events.json",
+      "source_id": "arc-handball-cup-final-1994",
+      "category": "cup_winner",
+      "title": "Δεύτερο Κύπελλο Ελλάδας Ανδρών χάντμπολ",
+      "period": "1994-06-08",
+      "sport": "handball",
+      "source_verification": "source_checked",
+      "moment_ids": [
+        62
+      ],
+      "source_ids": [
+        "greek-handball-cup-record",
+        "sportfm-cup-history"
+      ]
+    },
+    {
+      "record_ref": "research_event:arc-handball-borec-away-1994",
+      "source_file": "rebuild/research/historical-events.json",
+      "source_id": "arc-handball-borec-away-1994",
+      "category": "competition_result",
+      "title": "Borec–Αρχέλαος 22–13 (Κύπελλο Κυπελλούχων)",
+      "period": "1994-10-08",
+      "sport": "handball",
+      "source_verification": "source_checked",
+      "moment_ids": [
+        63
+      ],
+      "source_ids": [
+        "ehf-club-history"
+      ],
+      "fact_check_flags": [
+        "review-handball-borec-1994-qualification",
+        "review-handball-veszprem-season"
+      ]
+    },
+    {
+      "record_ref": "research_event:arc-handball-borec-home-1994",
+      "source_file": "rebuild/research/historical-events.json",
+      "source_id": "arc-handball-borec-home-1994",
+      "category": "competition_result",
+      "title": "Αρχέλαος–Borec 22–18 (Κύπελλο Κυπελλούχων)",
+      "period": "1994-10-15",
+      "sport": "handball",
+      "source_verification": "source_checked",
+      "moment_ids": [
+        63
+      ],
+      "source_ids": [
+        "ehf-club-history"
+      ],
+      "fact_check_flags": [
+        "review-handball-borec-1994-qualification",
+        "review-handball-veszprem-season"
+      ]
+    },
+    {
+      "record_ref": "research_event:arc-handball-mamuli-home-1995",
+      "source_file": "rebuild/research/historical-events.json",
+      "source_id": "arc-handball-mamuli-home-1995",
+      "category": "competition_result",
+      "title": "Αρχέλαος–HC Mamuli Tbilisi 35–27 (Κύπελλο EHF)",
+      "period": "1995-10-14",
+      "sport": "handball",
+      "source_verification": "source_checked",
+      "source_ids": [
+        "ehf-club-history"
+      ]
+    },
+    {
+      "record_ref": "research_event:arc-handball-mamuli-away-1995",
+      "source_file": "rebuild/research/historical-events.json",
+      "source_id": "arc-handball-mamuli-away-1995",
+      "category": "competition_result",
+      "title": "HC Mamuli Tbilisi–Αρχέλαος 26–34 (Κύπελλο EHF)",
+      "period": "1995-10-15",
+      "sport": "handball",
+      "source_verification": "source_checked",
+      "source_ids": [
+        "ehf-club-history"
+      ]
+    },
+    {
+      "record_ref": "research_event:arc-handball-youth-titles-1994-95",
+      "source_file": "rebuild/research/historical-events.json",
+      "source_id": "arc-handball-youth-titles-1994-95",
+      "category": "championship_or_title",
+      "title": "Πρωταθλητής Ελλάδας Παίδων και Μίνι (1994–95)",
+      "period": "1994–1995",
+      "sport": "handball",
+      "source_verification": "source_checked",
+      "source_ids": [
+        "greek-handball-youth-record"
+      ]
+    },
+    {
+      "record_ref": "research_event:arc-archery-national-championship-2026",
+      "source_file": "rebuild/research/historical-events.json",
+      "source_id": "arc-archery-national-championship-2026",
+      "category": "competition_result",
+      "title": "Πρώτη θέση στη γενική βαθμολογία Πανελληνίου Τοξοβολίας Α/Χ 2026",
+      "period": "",
+      "sport": "archery",
+      "source_verification": "source_checked",
+      "source_ids": [
+        "municipality-2026-archery-championship"
+      ]
+    },
+    {
+      "record_ref": "research_event:arc-track-indoor-60m-hurdles-2025",
+      "source_file": "rebuild/research/historical-events.json",
+      "source_id": "arc-track-indoor-60m-hurdles-2025",
+      "category": "placement_or_finalist",
+      "title": "Δεύτερη θέση στα 60 μ. εμπόδια στο Πανελλήνιο κλειστού 2025",
+      "period": "",
+      "sport": "track",
+      "source_verification": "source_checked",
+      "source_ids": [
+        "segas-2025-indoor-60h"
+      ]
+    },
+    {
+      "record_ref": "retro_match:rm-1990",
+      "source_file": "rebuild/data/retro.json",
+      "source_id": "rm-1990",
+      "category": "cup_winner",
+      "title": "Κυπελλούχος",
+      "period": "2 Ιουνίου 1990",
+      "sport": null
+    },
+    {
+      "record_ref": "retro_match:rm-1993",
+      "source_file": "rebuild/data/retro.json",
+      "source_id": "rm-1993",
+      "category": "placement_or_finalist",
+      "title": "Φιναλίστ",
+      "period": "5 Απριλίου 1993",
+      "sport": null
+    },
+    {
+      "record_ref": "retro_match:rm-1994",
+      "source_file": "rebuild/data/retro.json",
+      "source_id": "rm-1994",
+      "category": "cup_winner",
+      "title": "Κυπελλούχος",
+      "period": "8 Ιουνίου 1994",
+      "sport": null
+    },
+    {
+      "record_ref": "retro_match:rm-1996",
+      "source_file": "rebuild/data/retro.json",
+      "source_id": "rm-1996",
+      "category": "placement_or_finalist",
+      "title": "Φιναλίστ",
+      "period": "22 Μαΐου 1996",
+      "sport": null
+    }
+  ]
+}

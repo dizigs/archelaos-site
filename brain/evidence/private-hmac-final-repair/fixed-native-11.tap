@@ -1,0 +1,76 @@
+TAP version 13
+# Subtest: private HMAC domains bind session, revision, nonce, peers and deadline; hostile records never invoke getters
+ok 1 - private HMAC domains bind session, revision, nonce, peers and deadline; hostile records never invoke getters
+  ---
+  duration_ms: 15.000929
+  type: 'test'
+  ...
+# Subtest: private permit fails closed by default, on expiry, role/pin/session mismatch or any existing activation flag
+ok 2 - private permit fails closed by default, on expiry, role/pin/session mismatch or any existing activation flag
+  ---
+  duration_ms: 0.521286
+  type: 'test'
+  ...
+# Subtest: native private binding proves matching synthetic keys with all recovery flags OFF, no public path or RPC internals
+ok 3 - native private binding proves matching synthetic keys with all recovery flags OFF, no public path or RPC internals
+  ---
+  duration_ms: 3634.012031
+  type: 'test'
+  ...
+# Subtest: native different synthetic keys deny before Healer persistence and keep Brain UNKNOWN
+ok 4 - native different synthetic keys deny before Healer persistence and keep Brain UNKNOWN
+  ---
+  duration_ms: 3502.93985
+  type: 'test'
+  ...
+# Subtest: native replay is denied without state/alarm changes before and after restart; concurrent duplicate has one winner
+ok 5 - native replay is denied without state/alarm changes before and after restart; concurrent duplicate has one winner
+  ---
+  duration_ms: 3522.39198
+  type: 'test'
+  ...
+# Subtest: native forged fails closed with no retry or canonical capabilities
+ok 6 - native forged fails closed with no retry or canonical capabilities
+  ---
+  duration_ms: 6564.178761
+  type: 'test'
+  ...
+# Subtest: native timeout fails closed with no retry or canonical capabilities
+ok 7 - native timeout fails closed with no retry or canonical capabilities
+  ---
+  duration_ms: 5069.633172
+  type: 'test'
+  ...
+# Subtest: native missing-binding fails closed with no retry or canonical capabilities
+ok 8 - native missing-binding fails closed with no retry or canonical capabilities
+  ---
+  duration_ms: 3530.821019
+  type: 'test'
+  ...
+# Subtest: native stale response cannot attest a different fresh nonce
+ok 9 - native stale response cannot attest a different fresh nonce
+  ---
+  duration_ms: 274.908447
+  type: 'test'
+  ...
+# Subtest: native forged request cannot mutate replay SQLite and nonce capacity fails closed
+ok 10 - native forged request cannot mutate replay SQLite and nonce capacity fails closed
+  ---
+  duration_ms: 3329.558034
+  type: 'test'
+  ...
+# Subtest: candidate has no imports/wiring into existing Workers and no recovery, network, AI or existing-ledger authority
+ok 11 - candidate has no imports/wiring into existing Workers and no recovery, network, AI or existing-ledger authority
+  ---
+  duration_ms: 2.391039
+  type: 'test'
+  ...
+1..11
+# tests 11
+# suites 0
+# pass 11
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 31420.439399

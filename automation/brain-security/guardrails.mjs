@@ -7,6 +7,7 @@ const SOURCE = new Set(['staging', 'drive', 'gmail', 'site', 'github', 'news']);
 const trusted = new WeakSet();
 const admitted = new WeakMap();
 const claimed = new WeakSet();
+const admissionAttempted = new WeakSet();
 const terminalOutcomes = new WeakSet();
 
 export class GuardDenied extends Error {
@@ -93,7 +94,8 @@ async function controlsHealthy(readControls, source) {
   try {
     const c = await readControls();
     return c && c.globalPaused === false && c.aiPaused === false &&
-      c.sourcePaused && typeof c.sourcePaused === 'object' && c.sourcePaused[source] !== true;
+      c.sourcePaused && typeof c.sourcePaused === 'object' &&
+      Object.hasOwn(c.sourcePaused, source) && c.sourcePaused[source] === false;
   } catch { return false; }
 }
 const stop = (code, monitor, ctx, now, start) => {
@@ -107,6 +109,10 @@ export async function admitTask(context, ports, policy = {}, now = Date.now) {
   try { requireTrusted(context); }
   catch { return stop('UNTRUSTED_AUTH_CONTEXT', ports?.monitor, context, now, start); }
   const denial = code => stop(code, ports?.monitor, context, now, start);
+  // Never re-admit a signed identity after an ambiguous reserve/alert outcome.
+  // A new operation requires a fresh signed event and canonical durable id.
+  if (admissionAttempted.has(context)) return denial('TASK_ADMISSION_REPLAY');
+  admissionAttempted.add(context);
   // Only the Brain's single durable ledger may be injected. No local balances.
   if (policy.enabled !== true || policy.coverageConfirmed !== true || policy.mode !== 'guarded' ||
       policy.monthlyMicroEur !== 20000000) return denial('AI_DISABLED_OR_COVERAGE_UNVERIFIED');

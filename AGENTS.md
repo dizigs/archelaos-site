@@ -1,6 +1,12 @@
 # ARCHELAOS — shared task tracking (ChatGPT, Codex and contributors)
 
-This is the public repository for `https://archelaos.club`. **Before any work**, consult [docs/LIVE_TASK_TRACKING.md](docs/LIVE_TASK_TRACKING.md), [docs/AUTOMATION_PLAN.md](docs/AUTOMATION_PLAN.md), [docs/WORK_LOG.md](docs/WORK_LOG.md) and [GitHub issue #71](https://github.com/dizigs/archelaos-site/issues/71). The live task tracker is a **private, editable Google Sheet** linked from the tracking guide.
+This is the public repository for `https://archelaos.club`. **Before taking on a task**, read [docs/LIVE_TASK_TRACKING.md](docs/LIVE_TASK_TRACKING.md) and the current, relevant owner handoff in [GitHub issue #71](https://github.com/dizigs/archelaos-site/issues/71), then check the **private, editable LIVE Google Sheet** linked in that guide when authorized. Use its task IDs and `LOG` for current ownership/state. Consult [docs/AUTOMATION_PLAN.md](docs/AUTOMATION_PLAN.md), [docs/WORK_LOG.md](docs/WORK_LOG.md), Brain-specific work logs and exact provider/CI evidence **only for the scoped investigation**; do not read or recopy entire historical engineering logs at every startup or treat them as a new task queue.
+
+## One journal, multiple evidence sources
+
+The **private LIVE Google Sheet** referenced in `docs/LIVE_TASK_TRACKING.md` is the **only canonical shared operational task/event journal** (task tabs + `LOG`). `docs/WORK_LOG.md`, `brain/WORK_LOG.md`, historical issue comments, provider logs and the reviewed Self-Heal solution playbook are preserved *source evidence*, not competing active task lists. Issue #71 is the public-safe coordination and ownership channel; do not paste private Sheet rows into public GitHub. Refer to the complete [source-of-truth and single-writer rules](docs/LIVE_TASK_TRACKING.md#one-canonical-operational-journal-7-november-2026) before any update.
+
+The dedicated tool-inventory/audit agent owns independent source-only PRs #280 and #282 with its **own hourly scheduled run**; it remains active while the separate Brain/Self-Heal agent addresses security lifecycle. Avoid touching the same files, branches or PR ownership, but reconcile all progress back to the same canonical Sheet.
 
 ## Mandatory task lifecycle
 1. Identify an existing canonical task (same event/feature/bug); reuse its ID rather than opening a duplicate. New work should be recorded in the Live Sheet by an agent with authorized Sheets access, including tasks that originate in another ChatGPT conversation or a Codex handoff.

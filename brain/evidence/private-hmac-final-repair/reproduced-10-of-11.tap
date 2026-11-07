@@ -1,0 +1,93 @@
+TAP version 13
+# Subtest: private HMAC domains bind session, revision, nonce, peers and deadline; hostile records never invoke getters
+ok 1 - private HMAC domains bind session, revision, nonce, peers and deadline; hostile records never invoke getters
+  ---
+  duration_ms: 16.29984
+  type: 'test'
+  ...
+# Subtest: private permit fails closed by default, on expiry, role/pin/session mismatch or any existing activation flag
+ok 2 - private permit fails closed by default, on expiry, role/pin/session mismatch or any existing activation flag
+  ---
+  duration_ms: 0.622991
+  type: 'test'
+  ...
+# Subtest: native private binding proves matching synthetic keys with all recovery flags OFF, no public path or RPC internals
+not ok 3 - native private binding proves matching synthetic keys with all recovery flags OFF, no public path or RPC internals
+  ---
+  duration_ms: 467.383608
+  type: 'test'
+  location: '/tmp/archelaos-hmac-final-repair/isolated/brain/test/private_hmac_acceptance.test.mjs:109:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      assert.ok((await f.call({op:'probe'})).every(Boolean))
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (file:///tmp/archelaos-hmac-final-repair/isolated/brain/test/private_hmac_acceptance.test.mjs:116:12)
+    process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    async Test.run (node:internal/test_runner/test:1389:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+  ...
+# Subtest: native different synthetic keys deny before Healer persistence and keep Brain UNKNOWN
+ok 4 - native different synthetic keys deny before Healer persistence and keep Brain UNKNOWN
+  ---
+  duration_ms: 3510.131431
+  type: 'test'
+  ...
+# Subtest: native replay is denied without state/alarm changes before and after restart; concurrent duplicate has one winner
+ok 5 - native replay is denied without state/alarm changes before and after restart; concurrent duplicate has one winner
+  ---
+  duration_ms: 3543.244171
+  type: 'test'
+  ...
+# Subtest: native forged fails closed with no retry or canonical capabilities
+ok 6 - native forged fails closed with no retry or canonical capabilities
+  ---
+  duration_ms: 6461.248249
+  type: 'test'
+  ...
+# Subtest: native timeout fails closed with no retry or canonical capabilities
+ok 7 - native timeout fails closed with no retry or canonical capabilities
+  ---
+  duration_ms: 4949.564832
+  type: 'test'
+  ...
+# Subtest: native missing-binding fails closed with no retry or canonical capabilities
+ok 8 - native missing-binding fails closed with no retry or canonical capabilities
+  ---
+  duration_ms: 3454.431311
+  type: 'test'
+  ...
+# Subtest: native stale response cannot attest a different fresh nonce
+ok 9 - native stale response cannot attest a different fresh nonce
+  ---
+  duration_ms: 3229.30422
+  type: 'test'
+  ...
+# Subtest: native forged request cannot mutate replay SQLite and nonce capacity fails closed
+ok 10 - native forged request cannot mutate replay SQLite and nonce capacity fails closed
+  ---
+  duration_ms: 286.425787
+  type: 'test'
+  ...
+# Subtest: candidate has no imports/wiring into existing Workers and no recovery, network, AI or existing-ledger authority
+ok 11 - candidate has no imports/wiring into existing Workers and no recovery, network, AI or existing-ledger authority
+  ---
+  duration_ms: 1.535275
+  type: 'test'
+  ...
+1..11
+# tests 11
+# suites 0
+# pass 10
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 27824.822289

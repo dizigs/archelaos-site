@@ -1,0 +1,58 @@
+/* Museum research participation — scope deliberately limited to #arch-factcheck-promo */
+#arch-factcheck-promo,#arch-factcheck-promo *,.fc-dialog,.fc-dialog *{box-sizing:border-box}
+#arch-factcheck-promo{background:#f7f2e8;padding:clamp(55px,7vw,96px) 20px;color:#0a4030}
+#arch-factcheck-promo .fc-wrap{max-width:1200px;margin:0 auto}
+#arch-factcheck-promo .fc-heading{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(170px,.3fr);gap:18px;align-items:center;padding:clamp(30px,5vw,60px);border-radius:24px;background:radial-gradient(ellipse at 90% 15%,#165840 0%,transparent 58%),linear-gradient(145deg,#073d2a,#052d21);color:#f7f0df;overflow:hidden}
+#arch-factcheck-promo .fc-super,.fc-dialog .fc-super{font:750 11px/1.5 Inter,system-ui,sans-serif;letter-spacing:.16em;color:#e5c280}
+#arch-factcheck-promo h2{font:500 clamp(52px,7vw,84px)/1.07 Georgia,serif;letter-spacing:-.045em;color:#fcf6e9;margin:12px 0 22px}
+#arch-factcheck-promo h2 em{font-weight:400;color:#e4c68e}
+#arch-factcheck-promo .fc-lead{max-width:740px;font:400 clamp(16px,1.9vw,20px)/1.65 Inter,system-ui,sans-serif;color:#f0ebdc;margin:0 0 20px}
+#arch-factcheck-promo .fc-disclaimer{max-width:730px;margin:0;padding:15px 18px;border-left:3px solid #dfc182;background:rgba(250,246,232,.08);font:400 13px/1.6 Inter,system-ui,sans-serif;color:#e6eadf}
+#arch-factcheck-promo .fc-disclaimer strong{color:#fff6e2}
+#arch-factcheck-promo .fc-mark{justify-self:center;display:grid;place-items:center;position:relative;width:min(100%,220px);aspect-ratio:1;border:1px solid rgba(226,190,112,.6);border-radius:50%;color:#e2c184;font:400 125px/1 Georgia,serif}
+#arch-factcheck-promo .fc-mark:before{content:'';position:absolute;inset:13px;border:1px dashed rgba(232,208,162,.3);border-radius:50%}
+#arch-factcheck-promo .fc-mark small{position:absolute;bottom:13%;font:700 10px/1.1 Inter,system-ui,sans-serif;letter-spacing:.1em}
+#arch-factcheck-promo .fc-toolbar{display:grid;grid-template-columns:2fr 1fr;gap:15px;margin-top:32px}
+#arch-factcheck-promo label.fc-search-label,#arch-factcheck-promo label.fc-filter-label{font:700 13px/1.5 Inter,system-ui,sans-serif;display:grid;gap:9px;color:#174b38}
+#arch-factcheck-promo input,#arch-factcheck-promo select{width:100%;min-height:50px;border:1px solid #bfc8b8;border-radius:11px;background:#fffdfa;color:#164b35;padding:12px 15px;font-size:15px;outline-offset:3px}
+#arch-factcheck-promo .fc-bar{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;padding:20px 1px 16px;font:700 12px/1.5 Inter,system-ui,sans-serif;letter-spacing:.04em;color:#496c5a}
+#arch-factcheck-promo .fc-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px}
+#arch-factcheck-promo .fc-card{background:#fffdfa;border:1px solid #e2d9c5;border-radius:17px;padding:24px 25px 23px;box-shadow:0 7px 28px rgba(21,59,39,.045);display:flex;flex-direction:column;min-height:247px;position:relative}
+#arch-factcheck-promo .fc-card::before{content:'';position:absolute;left:24px;right:24px;top:0;height:3px;background:#c5a664;opacity:.7}
+#arch-factcheck-promo .fc-card-top{display:flex;justify-content:space-between;align-items:center;gap:12px;color:#75613b;font:800 11px/1.5 Inter,system-ui,sans-serif;letter-spacing:.085em}
+#arch-factcheck-promo .fc-card-top .fc-category{color:#22583f;letter-spacing:.02em;text-transform:none;text-align:right}
+#arch-factcheck-promo .fc-card-claim{font:500 clamp(18px,2vw,24px)/1.35 Georgia,serif;letter-spacing:-.015em;color:#083c2a;flex:1;margin:22px 0 23px}
+#arch-factcheck-promo .fc-card-choices{display:grid;grid-template-columns:1fr 1fr 1.1fr;gap:7px}
+#arch-factcheck-promo .fc-card-choices button{border:1px solid #a6bdb0;border-radius:9px;min-height:46px;background:#f6f9f4;color:#154a32;font:750 12px/1.2 Inter,system-ui,sans-serif;padding:8px 5px;cursor:pointer}
+#arch-factcheck-promo .fc-card-choices button:hover:not(:disabled){background:#e3eddf;border-color:#477c62}
+#arch-factcheck-promo .fc-card-choices button[disabled]{opacity:.72;cursor:default}
+#arch-factcheck-promo .fc-card-responded{margin:14px 0 0;font:700 12px/1.5 Inter,system-ui,sans-serif;color:#1b694c}
+#arch-factcheck-promo .fc-more{display:block;margin:29px auto 0;padding:13px 23px;background:#073d2a;color:#fff5dd;border:0;border-radius:11px;min-height:50px;font:800 13px Inter,system-ui,sans-serif;cursor:pointer}
+#arch-factcheck-promo .fc-more:hover{background:#12553c}
+#arch-factcheck-promo .fc-under{padding:23px 25px;margin-top:28px;border-radius:15px;background:#eae1cf;font:400 14px/1.65 Inter,system-ui,sans-serif}
+#arch-factcheck-promo .fc-under strong{font-weight:800}
+#arch-factcheck-promo .fc-under p{margin:6px 0 0;color:#345847}
+#arch-factcheck-promo .fc-under a{color:#0d5335;text-decoration:underline;text-underline-offset:3px;font-weight:800}
+#arch-factcheck-promo .fc-error{padding:18px;border:1px solid #b37156;border-radius:10px}
+.fc-dialog{width:min(calc(100% - 28px),620px);max-height:min(94vh,850px);border:1px solid #bca472;border-radius:19px;padding:0;background:#fffdf7;color:#113f2d;box-shadow:0 30px 80px rgba(0,0,0,.25);overflow:auto}
+.fc-dialog::backdrop{background:rgba(2,30,20,.74);backdrop-filter:blur(3px)}
+.fc-dialog form{position:relative;padding:clamp(21px,4vw,39px);font:400 14px/1.6 Inter,system-ui,sans-serif}
+.fc-dialog .fc-super{color:#86682e}
+.fc-dialog h3{font:500 clamp(29px,4vw,39px)/1.2 Georgia,serif;margin:10px 0 17px}
+.fc-dialog .fc-close{position:absolute;right:17px;top:12px;font:400 33px/1 Georgia,serif;border:0;background:none;color:#0c4e35;padding:4px 11px;cursor:pointer}
+.fc-dialog .fc-claim-text{font:500 20px/1.45 Georgia,serif;margin:0 0 15px}
+.fc-dialog .fc-dialog-choice{background:#e7efe7;border-radius:9px;padding:11px 14px;font-weight:750;margin:0 0 18px}
+.fc-dialog .fc-input-label{display:grid;gap:8px;font-weight:750;margin:14px 0}
+.fc-dialog .fc-input-label small{font-weight:400}
+.fc-dialog textarea,.fc-dialog input{display:block;width:100%;padding:12px 14px;border-radius:9px;border:1px solid #a8b9aa;color:#133f2c;background:white;font:400 14px/1.5 Inter,system-ui,sans-serif}
+.fc-dialog .fc-privacy{font-size:12px;color:#54655c}
+.fc-dialog .fc-dialog-actions{display:flex;justify-content:flex-end;gap:12px;flex-wrap:wrap;margin-top:18px}
+.fc-dialog .fc-dialog-actions button{min-height:45px;border-radius:9px;padding:12px 18px;font-weight:800;cursor:pointer}
+.fc-dialog .fc-submit{background:#083e2b;color:white;border:1px solid #083e2b}
+.fc-dialog .fc-cancel{background:#fff;border:1px solid #becbbd;color:#143d2c}
+.fc-dialog .fc-form-status{font-weight:700;color:#894734}
+#arch-factcheck-promo [hidden],.fc-dialog [hidden]{display:none!important}
+#arch-factcheck-promo :is(button,input,select):focus-visible,.fc-dialog :is(button,input,textarea):focus-visible{outline:3px solid #b28b33;outline-offset:3px}
+@media(max-width:780px){#arch-factcheck-promo .fc-heading{grid-template-columns:1fr}#arch-factcheck-promo .fc-mark{position:absolute;width:190px;right:-70px;top:0;opacity:.16;pointer-events:none}#arch-factcheck-promo .fc-heading>div:first-child{position:relative;z-index:1}#arch-factcheck-promo .fc-toolbar{grid-template-columns:1fr}#arch-factcheck-promo .fc-grid{grid-template-columns:1fr}}
+@media(max-width:450px){#arch-factcheck-promo .fc-card{padding:20px 18px}#arch-factcheck-promo .fc-card-claim{margin:17px 0}#arch-factcheck-promo .fc-card-choices button{font-size:11px}}
+@media(prefers-reduced-motion:reduce){#arch-factcheck-promo *,.fc-dialog *{animation:none!important;transition:none!important}}

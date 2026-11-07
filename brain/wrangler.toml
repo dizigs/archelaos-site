@@ -1,7 +1,7 @@
 name = "archelaos-brain-staging"
 main = "src/worker.mjs"
 compatibility_date = "2026-07-30"
-workers_dev = true
+workers_dev = false
 preview_urls = false
 
 [limits]
@@ -12,14 +12,54 @@ ENVIRONMENT = "staging"
 DEPLOY_SHA = "0000000000000000000000000000000000000000"
 STAGING_EXPIRES_AT = "1970-01-01T00:00:00Z"
 STAGING_SHORT_RETRIES = "true"
+# Approved public identity only. Never store BRAIN_GITHUB_APP_PRIVATE_KEY here.
+BRAIN_GITHUB_APP_ID = "5641216"
+BRAIN_GITHUB_APP_INSTALLATION_ID = "179225349"
+BRAIN_SELFHEAL_RECOVERY_ENABLED = "false"
+BRAIN_SELFHEAL_BINDING_ATTESTED = "false"
+BRAIN_SELFHEAL_DISPATCH_ENABLED = "false"
+BRAIN_SELFHEAL_DURABLE_ACK_ENABLED = "false"
+
+# QA-only permit is explicitly disabled; no active session or trusted source SHA.
+PRIVATE_HMAC_ACCEPTANCE_ISOLATED = "false"
+PRIVATE_HMAC_ACCEPTANCE_ROLE = "brain"
+PRIVATE_HMAC_ACCEPTANCE_SESSION = ""
+PRIVATE_HMAC_ACCEPTANCE_APPROVED_SHA = "0000000000000000000000000000000000000000"
+PRIVATE_HMAC_ACCEPTANCE_STARTED_AT = "1970-01-01T00:00:00Z"
+PRIVATE_HMAC_ACCEPTANCE_EXPIRES_AT = "1970-01-01T00:00:00Z"
+
+# Existing private service only. Declaring the link does not authorize recovery.
+[[services]]
+binding = "HEALER"
+service = "archelaos-self-heal"
+
+# Separate named QA RPC; never the default/repair Healer entrypoint.
+[[services]]
+binding = "HMAC_PEER"
+service = "archelaos-self-heal"
+entrypoint = "HealerHmacAcceptancePort"
+
+# Preserve the AI binding already on the existing Cloudflare Worker.
+# The binding does not authorize usage: all AI / recovery policy gates remain OFF.
+[ai]
+binding = "AI"
 
 [[durable_objects.bindings]]
 name = "BRAIN"
 class_name = "BrainCoordinator"
 
+# Distinct empty SQLite namespace; never aliases the canonical BrainCoordinator data.
+[[durable_objects.bindings]]
+name = "HMAC_NONCES"
+class_name = "PrivateHmacNonceStore"
+
 [[migrations]]
 tag = "brain-staging-v1"
 new_sqlite_classes = ["BrainCoordinator"]
+
+[[migrations]]
+tag = "brain-private-hmac-qa-v1"
+new_sqlite_classes = ["PrivateHmacNonceStore"]
 
 [observability]
 enabled = true

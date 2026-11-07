@@ -4,14 +4,40 @@ compatibility_date = "2026-11-01"
 workers_dev = false
 preview_urls = false
 
+[vars]
+HEALER_DURABLE_ACK_ENABLED = "false"
+
+# QA-only permit is explicitly disabled; no active session or trusted source SHA.
+DEPLOY_SHA = "0000000000000000000000000000000000000000"
+PRIVATE_HMAC_ACCEPTANCE_ISOLATED = "false"
+PRIVATE_HMAC_ACCEPTANCE_ROLE = "healer"
+PRIVATE_HMAC_ACCEPTANCE_SESSION = ""
+PRIVATE_HMAC_ACCEPTANCE_APPROVED_SHA = "0000000000000000000000000000000000000000"
+PRIVATE_HMAC_ACCEPTANCE_STARTED_AT = "1970-01-01T00:00:00Z"
+PRIVATE_HMAC_ACCEPTANCE_EXPIRES_AT = "1970-01-01T00:00:00Z"
+
 # Intentionally no triggers, routes, public hostname, AI binding or write tokens.
+[[services]]
+binding = "BRAIN_RECOVERY"
+service = "archelaos-brain-staging"
+entrypoint = "BrainRecoveryPort"
+
 [[durable_objects.bindings]]
 name = "HEALER_MEMORY"
 class_name = "HealerMemory"
 
+# Distinct empty SQLite namespace; never aliases the canonical HealerMemory data.
+[[durable_objects.bindings]]
+name = "HMAC_NONCES"
+class_name = "PrivateHmacNonceStore"
+
 [[migrations]]
 tag = "healer-sqlite-v1"
 new_sqlite_classes = ["HealerMemory"]
+
+[[migrations]]
+tag = "healer-private-hmac-qa-v1"
+new_sqlite_classes = ["PrivateHmacNonceStore"]
 
 [observability]
 enabled = true

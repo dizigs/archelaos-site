@@ -37,3 +37,7 @@ Official docs (checked 2026-11-05): 10M Worker requests/month and 30M CPU ms/mon
 - Reconcile Gemini/Gemma provider pricing, account permissions and budget scope; fail closed until verified.
 - Verify replay, HMAC and real billing/alert sink against a staging-only binding before enabling any provider.
 - Run canonical CI on the exact PR SHA; no staging/live or production claim from mock tests.
+
+## Safe runtime regression addendum (2026-11-05)
+
+`controlsHealthy` now **requires an explicit `sourcePaused[source] === false`** from canonical Brain state; a missing source key is unverified coverage and denies admission. A verified signed task context is **one-shot for admission** even after a failed/ambiguous reservation or alert attempt, so a second call cannot silently reserve again. New attempts require a fresh, authenticated task and the canonical durable ledger's idempotency guarantees. No second budget/ledger, provider connector, runtime integration or Cloudflare binding is added. See `../self-heal-worker/SAFE_RUNTIME_HANDOFF.md` for the staged Self-Heal event/receipt handoff.

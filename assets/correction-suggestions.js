@@ -37,7 +37,7 @@ function inspect(root){
  const challenge=add('div','arch-correction-turnstile'),status=add('p','arch-correction-status');
  status.setAttribute('role','status');status.setAttribute('aria-live','polite');
  const send=add('button','arch-correction-send','Αποστολή πρότασης');send.type='submit';send.disabled=true;
- form.append(label,srcLabel,challenge,status,send,add('small','arch-correction-note','Χωρίς υποχρεωτικό όνομα ή email. Καμία αυτόματη δημοσίευση.'));
+ const privacy=add('small','arch-correction-note','Δεν ζητούμε όνομα ή email. Για αποτροπή κατάχρησης τηρείται προσωρινό αποτύπωμα ασφαλείας. Καμία αυτόματη δημοσίευση. ');const policy=add('a','', 'Πολιτική Απορρήτου');policy.href='/privacy.html';policy.target='_blank';policy.rel='noopener noreferrer';privacy.append(policy);form.append(label,srcLabel,challenge,status,send,privacy);
  panel.append(top,add('p','arch-correction-intro','Η πρότασή σου θα εξεταστεί πριν αλλάξει το ιστορικό κείμενο.'),form);host.append(panel);
  let token='',active=false,busy=false,widget=null;
  const refresh=()=>{send.disabled=!active||!token||message.value.trim().length<10||busy};
