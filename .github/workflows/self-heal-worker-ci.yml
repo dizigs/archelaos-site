@@ -55,8 +55,23 @@ jobs:
               'service': 'archelaos-brain-staging',
               'entrypoint': 'BrainRecoveryPort',
           }]
-          assert config['durable_objects']['bindings'][0]['name'] == 'HEALER_MEMORY'
-          assert 'HealerMemory' in config['migrations'][0]['new_sqlite_classes']
+          assert config['durable_objects']['bindings'] == [
+              {'name':'HEALER_MEMORY','class_name':'HealerMemory'},
+              {'name':'HMAC_NONCES','class_name':'PrivateHmacNonceStore'},
+          ]
+          assert config['migrations'][0]['new_sqlite_classes'] == ['HealerMemory']
+          assert config['migrations'][1] == {
+              'tag':'healer-private-hmac-qa-v1',
+              'new_sqlite_classes':['PrivateHmacNonceStore'],
+          }
+          vars = config['vars']
+          assert vars['HEALER_DURABLE_ACK_ENABLED'] == 'false'
+          assert vars['PRIVATE_HMAC_ACCEPTANCE_ISOLATED'] == 'false'
+          assert vars['PRIVATE_HMAC_ACCEPTANCE_ROLE'] == 'healer'
+          assert vars['PRIVATE_HMAC_ACCEPTANCE_SESSION'] == ''
+          assert vars['PRIVATE_HMAC_ACCEPTANCE_APPROVED_SHA'] == '0'*40
+          assert vars['DEPLOY_SHA'] == '0'*40
+          assert vars['PRIVATE_HMAC_ACCEPTANCE_EXPIRES_AT'] == '1970-01-01T00:00:00Z'
           worker = pathlib.Path('automation/self-heal-worker/src/worker.mjs').read_text(encoding='utf-8')
           assert 'async fetch()' in worker and 'status: 404' in worker
           assert 'fetch(' not in worker.replace('async fetch()', '')
