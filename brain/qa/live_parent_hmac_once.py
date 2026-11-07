@@ -166,11 +166,19 @@ def deploy(name,state,session,start,end):
     if out.exists():deny("PREEXISTING_TEMP_CONFIG")
     temps.append(out)
     out.write_text(permit(p.read_text(),session,start,end))
+    emit("TIMED_CONFIG_VALIDATED_"+("BRAIN" if name==BRAIN else "HEALER"))
     state[name]["attempted"]=True
     save(state)
+    emit("DEPLOY_BEGIN_"+("BRAIN" if name==BRAIN else "HEALER"))
     result=subprocess.run([WRANGLER,"deploy","--config",str(out),"--keep-vars"],
                           cwd=ROOT,capture_output=True,text=True,timeout=90)
-    if result.returncode:deny("TEMPORARY_CONFIG_DEPLOY_FAILED")
+    if result.returncode:
+        # No untrusted stderr, bearer tokens, file contents or CLI output in logs.
+        stderr=result.stderr+result.stdout
+        reason="PROVIDER_HTTP" if "HTTP" in stderr else (
+            "AUTH" if "authentication" in stderr.lower() else (
+            "CONFIG" if "config" in stderr.lower() else "UNKNOWN"))
+        deny("TEMPORARY_DEPLOY_EXIT_"+str(result.returncode)+"_"+reason)
     b,version=inspect(name)
     if version==BASE[name]:deny("PROVIDER_VERSION_NOT_CHANGED")
     state[name]["new_version"]=version
@@ -256,6 +264,11 @@ if __name__=="__main__":
             emit("SOURCE_CONFIG_GUARD_PASS")
         elif sys.argv[1]=="run":run()
         else:recover()
-    except (NoGo,OSError,ValueError,subprocess.TimeoutExpired,subprocess.CalledProcessError):
-        emit("OVERALL_BLOCKED_NO_REPAIR")
+    except NoGo as error:
+        # All NoGo messages originate in the fixed local deny() allowlist.
+        code=str(error)
+        emit("OVERALL_BLOCKED_"+(code if code.startswith("PARENT_HMAC_") and len(code)<100 else "UNEXPECTED"))
+        sys.exit(1)
+    except (OSError,ValueError,subprocess.TimeoutExpired,subprocess.CalledProcessError) as error:
+        emit("OVERALL_BLOCKED_SYSTEM_"+type(error).__name__)
         sys.exit(1)
