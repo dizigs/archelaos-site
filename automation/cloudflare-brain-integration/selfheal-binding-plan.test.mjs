@@ -12,7 +12,9 @@ function fixture() {
     brainBindings: [
       binding('BRAIN','durable_object_namespace',{class_name:'BrainCoordinator'}),
       {...REQUIRED_PRIVATE_LINKS.brainToSelfHeal},
-      key('HEALER_EVENT_HMAC_KEY'), key('BRAIN_GITHUB_READ_TOKEN'),
+      key('HEALER_EVENT_HMAC_KEY'), key('BRAIN_GITHUB_APP_PRIVATE_KEY'),
+      env('BRAIN_GITHUB_APP_ID','5641216'),
+      env('BRAIN_GITHUB_APP_INSTALLATION_ID','179225349'),
       env('ENVIRONMENT','staging'), env('DEPLOY_SHA',sha),
       env('BRAIN_SELFHEAL_APPROVED_SHA',sha),
       env('BRAIN_SELFHEAL_RECOVERY_ENABLED','true'),
@@ -133,8 +135,13 @@ test('duplicate, mistyped or missing secret metadata cannot authorize staging', 
     [f => {f.brainBindings.push(key('HEALER_EVENT_HMAC_KEY'));}, 'SIGNED_DELIVERY_KEY_METADATA_MISSING'],
     [f => {f.healerBindings.push(key('HEALER_EVENT_HMAC_KEY'));}, 'SIGNED_DELIVERY_KEY_METADATA_MISSING'],
     [f => {f.brainBindings.find(b => b.name === 'HEALER_EVENT_HMAC_KEY').type = 'plain_text';}, 'SIGNED_DELIVERY_KEY_METADATA_MISSING'],
-    [f => {f.brainBindings.push(key('BRAIN_GITHUB_READ_TOKEN'));}, 'PROVIDER_EVIDENCE_KEY_METADATA_MISSING'],
-    [f => {f.brainBindings.find(b => b.name === 'BRAIN_GITHUB_READ_TOKEN').type = 'plain_text';}, 'PROVIDER_EVIDENCE_KEY_METADATA_MISSING'],
+    [f => {f.brainBindings.push(key('BRAIN_GITHUB_APP_PRIVATE_KEY'));}, 'PROVIDER_EVIDENCE_KEY_METADATA_MISSING'],
+    [f => {f.brainBindings.find(b => b.name === 'BRAIN_GITHUB_APP_PRIVATE_KEY').type = 'plain_text';}, 'PROVIDER_EVIDENCE_KEY_METADATA_MISSING'],
+    [f => {f.brainBindings.push(key('BRAIN_GITHUB_READ_TOKEN'));}, 'LEGACY_GITHUB_PAT_STILL_BOUND'],
+    [f => {f.brainBindings.find(b => b.name === 'BRAIN_GITHUB_APP_ID').text='0000000';}, 'GITHUB_APP_IDENTITY_METADATA_UNVERIFIED'],
+    [f => {f.brainBindings.find(b => b.name === 'BRAIN_GITHUB_APP_INSTALLATION_ID').text='00000000';}, 'GITHUB_APP_IDENTITY_METADATA_UNVERIFIED'],
+    [f => {f.brainBindings.push(env('BRAIN_GITHUB_APP_ID','5641216'));}, 'GITHUB_APP_IDENTITY_METADATA_UNVERIFIED'],
+    [f => {f.brainBindings.push(env('BRAIN_GITHUB_APP_INSTALLATION_ID','179225349'));}, 'GITHUB_APP_IDENTITY_METADATA_UNVERIFIED'],
     [f => {f.brainBindings.push(env('DEPLOY_SHA', sha));}, 'EXACT_RELEASE_PROVENANCE_UNVERIFIED'],
     [f => {f.brainBindings.push(env('STAGING_EXPIRES_AT', new Date(NOW + 30000).toISOString()));}, 'BOUNDED_STAGING_EXPIRY_UNVERIFIED'],
     [f => {f.brainBindings[0].class_name = 'UnexpectedCoordinator';}, 'CANONICAL_BRAIN_DO_UNVERIFIED'],
@@ -192,4 +199,22 @@ test('explicit target environments cannot redirect either private Service Bindin
       assert.equal(assessSelfHealStagingBindings(f).status, 'READY_FOR_STAGING_REVIEW');
     }
   }
+});
+
+
+test('legacy PAT alone is never accepted as Github App evidence credential',()=>{
+  const f=fixture();
+  f.brainBindings=f.brainBindings.filter(b=>![
+    'BRAIN_GITHUB_APP_PRIVATE_KEY','BRAIN_GITHUB_APP_ID',
+    'BRAIN_GITHUB_APP_INSTALLATION_ID'
+  ].includes(b.name));
+  f.brainBindings.push(key('BRAIN_GITHUB_READ_TOKEN'));
+  const gate=assessSelfHealStagingBindings(f);
+  assert.equal(gate.status,'BLOCKED');
+  assert.ok(gate.blockers.includes('PROVIDER_EVIDENCE_KEY_METADATA_MISSING'));
+  assert.ok(gate.blockers.includes('GITHUB_APP_IDENTITY_METADATA_UNVERIFIED'));
+  assert.ok(gate.blockers.includes('LEGACY_GITHUB_PAT_STILL_BOUND'));
+  assert.equal(gate.verifiedConnectivity,false);
+  assert.equal(gate.e2eProved,false);
+  assert.equal(gate.automationEnabled,false);
 });

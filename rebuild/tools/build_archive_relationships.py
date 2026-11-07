@@ -69,7 +69,7 @@ def compile_graph(*,people,news,moments,stories,interviews,museum,home,history):
     # Legacy event records have no dedicated public event route yet. Retain only
     # explicit relationships. A link is displayed only when the node has a route.
     for x in history:
-        put("event",x["id"],x["title"])
+        put("event",x["id"],x["title"],"/events/"+uri(x["id"])+".html")
     # A canonical event can have several articles. The first publication link is
     # chosen deterministically; no second event is created for multiple sources.
     items=sorted((x for x in news if not x.get("unverified") and x.get("id")),
@@ -124,8 +124,30 @@ def compile_graph(*,people,news,moments,stories,interviews,museum,home,history):
                 connect(node,"department:"+m.group(1),"interview_department")
     for x in history:
         event="event:"+x["id"]
-        for pid in sorted(set(x.get("people") or [])):
+        verified_people=sorted(set(x.get("people") or []))
+        for pid in verified_people:
             link_person(event,pid,"historical_person")
+        # Existing source_moment values are editorial cross-references to the
+        # 70 Moments collection; never infer a match from titles or years.
+        number=x.get("source_moment")
+        if number is not None:
+            moment="moment:"+str(number)
+            if moment not in nodes:
+                raise ValueError("Unknown source moment "+str(number))
+            connect(event,moment,"source_moment")
+    # A historical event may mention people who do not feature in the cited
+    # Moment (e.g. event moment-65-1999). Therefore no inherited identity or
+    # category tags are propagated from event to Moment.
+    # Moment links require their own explicit, reviewed canonical references.
+    for record in moments:
+        moment="moment:"+str(record["id"])
+        for pid in sorted(set(record.get("personIds") or [])):
+            link_person(moment,pid,"moment_person")
+        for department_id in sorted(set(record.get("departmentIds") or [])):
+            department="department:"+str(department_id)
+            if department not in nodes:
+                raise ValueError("Unknown Moment department "+str(department_id))
+            connect(moment,department,"moment_department")
     for a in museum.get("articles",[]):
         if "department:"+str(a["id"]) in nodes:
             connect("exhibit:"+a["id"],"department:"+a["id"],"department_exhibit")

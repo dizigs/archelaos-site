@@ -609,6 +609,44 @@
       "imageKind": "illustration"
     },
     {
+      "id": "handball-archelaos-panserraikos-26-24-jan-2026",
+      "date": "2026-01-17",
+      "category": "achievements",
+      "sport": "Χάντμπολ",
+      "title": "Νίκη 26–24 επί του Πανσερραϊκού για τον Αρχέλαο",
+      "summary": "Η ανδρική ομάδα χάντμπολ νίκησε 26–24 τον Πανσερραϊκό, έπειτα από ισόπαλο 8–8 στο ημίχρονο.",
+      "body": [
+        "Στις 17 Ιανουαρίου 2026, για την 8η αγωνιστική της Β΄ Εθνικής ανδρών, ο Αρχέλαος Κατερίνης επικράτησε 26–24 του Πανσερραϊκού. Το ισόπαλο 8–8 του ημιχρόνου ακολούθησε προβάδισμα 11–8 του Πανσερραϊκού στο 35ο λεπτό. Το ρεπορτάζ του Palmare δημοσιεύτηκε στις 18 Ιανουαρίου.",
+        "Ο Αρχέλαος ανέκτησε το προβάδισμα με 17–16 στο 45ο λεπτό και έφτασε στο 26–24. Το Palmare κατέγραψε έξι τέρματα του Νταρλαγιάννη και πέντε του Γεωργομήτρου, καθώς και την τέταρτη συνεχόμενη νίκη της ομάδας."
+      ],
+      "source": "Palmare · 18/01/2026",
+      "sourceUrl": "https://www.palmare.gr/niki-protias-toy-archelaoy-stin-v%CE%84-ethniki-andron/",
+      "personIds": [],
+      "featured": false,
+      "image": "https://www.palmare.gr/wp-content/uploads/2026/01/26-PANSRK-1024x623.jpg",
+      "imageSourceUrl": "https://www.palmare.gr/wp-content/uploads/2026/01/26-PANSRK-1024x623.jpg",
+      "imageKind": "article_photo"
+    },
+    {
+      "id": "handball-archelaos-apollon-stavroupolis-23-14-jan-2026",
+      "date": "2026-01-10",
+      "category": "achievements",
+      "sport": "Χάντμπολ",
+      "title": "Αρχέλαος – Απόλλων Σταυρούπολης 23–14 στη Β΄ Εθνική",
+      "summary": "Ο Αρχέλαος επικράτησε 23–14 του Απόλλωνα Σταυρούπολης στη Β΄ Εθνική ανδρών, με 8–7 στο ημίχρονο.",
+      "body": [
+        "Στις 10 Ιανουαρίου 2026 ο Αρχέλαος Κατερίνης νίκησε τον Απόλλωνα Σταυρούπολης με 23–14 στη Β΄ Εθνική ανδρών (Β΄ όμιλος, 2ος υποόμιλος). Η ομάδα της Μάγδας Χοτοκουρίδου προηγήθηκε 8–7 στο ημίχρονο και διεύρυνε τη διαφορά στο δεύτερο μέρος.",
+        "Ο Σιώκας σημείωσε οκτώ τέρματα και ο Νταρλαγιάννης τέσσερα, σύμφωνα με το Palmare. Η νίκη έφερε τον Αρχέλαο στη δεύτερη θέση μαζί με την Προσοτσάνη. "
+      ],
+      "source": "Palmare · 10/01/2026",
+      "sourceUrl": "https://www.palmare.gr/o-archelaos-epiase-stin-2i-thesi-tin-prosotsani/",
+      "personIds": [],
+      "featured": false,
+      "image": "https://www.palmare.gr/wp-content/uploads/2026/01/ARChELAOS-26-2.jpg",
+      "imageSourceUrl": "https://www.palmare.gr/wp-content/uploads/2026/01/ARChELAOS-26-2.jpg",
+      "imageKind": "article_photo"
+    },
+    {
       "id": "wrestling-u11-u13-karditsa-2025",
       "date": "2025-11-25",
       "category": "achievements",

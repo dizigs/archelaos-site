@@ -1,0 +1,40 @@
+TAP version 13
+# D_EXPECTED_COMMAND_OK
+# D_ACK_HMAC_OK
+# D_READBACK_RPC_START
+# D_HEALER_READ_REQUEST
+# D_HEALER_READ_AUTH_OK
+# D_HEALER_STORED_ACK_AUTH_OK
+# D_READBACK_RPC_RETURNED
+# D_READBACK_HMAC_OK
+# D_ACK_HMAC_OK
+# D_SETTLEMENT_START
+# D_HEALER_READ_REQUEST
+# D_HEALER_READ_AUTH_OK
+# D_HEALER_STORED_ACK_AUTH_OK
+# D_HEALER_READ_REQUEST
+# D_HEALER_READ_AUTH_OK
+# D_EXPECTED_COMMAND_OK
+# D_READBACK_RPC_START
+# D_HEALER_READ_REQUEST
+# D_HEALER_READ_AUTH_OK
+# D_HEALER_STORED_ACK_AUTH_OK
+# D_READBACK_RPC_RETURNED
+# D_READBACK_HMAC_OK
+# D_ACK_HMAC_OK
+# D_SETTLEMENT_START
+# Subtest: native durable ACK requires independent stored readback, settles once, survives restart; approved RPC boundaries stay closed
+ok 1 - native durable ACK requires independent stored readback, settles once, survives restart; approved RPC boundaries stay closed
+  ---
+  duration_ms: 3760.545707
+  type: 'test'
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 5774.429537

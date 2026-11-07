@@ -1,0 +1,1137 @@
+{
+  "schemaVersion": 1,
+  "scope": "PUBLIC_SAFE_SNAPSHOT_NOT_PRIVATE_LEDGER",
+  "asOf": "2026-11-07",
+  "repository": "dizigs/archelaos-site",
+  "policy": {
+    "authority": "Canonical Brain remains authority for writes, identity, budget and deployment",
+    "maxSharedAIMonthlyEUR": 20,
+    "noSecrets": true,
+    "noAutomaticMerge": true,
+    "noAutomaticDeploy": true,
+    "localLogIsNotCloudSynced": true
+  },
+  "stateDefinitions": {
+    "verified": "Evidence of some real access or execution, not necessarily live end-to-end",
+    "reported": "Recorded in private registry or earlier work, not rechecked in this change",
+    "paused": "Previously trialled but live integration currently disabled",
+    "candidate": "Discovered tool; not installed or authorized"
+  },
+  "tools": [
+    {
+      "id": "adobe-acrobat",
+      "name": "Adobe Acrobat connector",
+      "family": "documents",
+      "state": "reported",
+      "owner": "project-operator",
+      "use": "PDF transform and OCR via existing connector",
+      "access": "refer to private authoritative access registry; do not assume granted write scopes",
+      "budget": "existing-service",
+      "commands": [
+        {
+          "id": "inventory",
+          "run": "node automation/agent-kit/cli.mjs show adobe-acrobat",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site"
+      ]
+    },
+    {
+      "id": "adobe-express",
+      "name": "Adobe Express connector",
+      "family": "design",
+      "state": "reported",
+      "owner": "project-operator",
+      "use": "Design templates and visuals via existing connector",
+      "access": "refer to private authoritative access registry; do not assume granted write scopes",
+      "budget": "existing-service",
+      "commands": [
+        {
+          "id": "inventory",
+          "run": "node automation/agent-kit/cli.mjs show adobe-express",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site"
+      ]
+    },
+    {
+      "id": "antigravity-managed",
+      "name": "Google Antigravity managed agent",
+      "family": "coding-agent",
+      "state": "paused",
+      "owner": "ai-budget-operator",
+      "use": "High-effort Brain/Self-Heal analysis only after billing and security gates",
+      "access": "source-only draft; live Brain linkage disabled",
+      "budget": "metered-unreconciled",
+      "commands": [
+        {
+          "id": "review",
+          "run": "gh pr view 270 --repo dizigs/archelaos-site",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site/pull/270"
+      ]
+    },
+    {
+      "id": "apps-script",
+      "name": "Google Apps Script bridge",
+      "family": "automation",
+      "state": "verified",
+      "owner": "admin-workspace",
+      "use": "Approved project metadata and isolated trigger preparation",
+      "access": "private admin OAuth; writes separately gated",
+      "budget": "existing-service",
+      "commands": [
+        {
+          "id": "review",
+          "run": "gh pr view 203 --repo dizigs/archelaos-site",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site/pull/203"
+      ]
+    },
+    {
+      "id": "atlassian-jira",
+      "name": "Atlassian Jira Social Impact",
+      "family": "project-management",
+      "state": "candidate",
+      "owner": "project-operator",
+      "use": "Nonprofit application pending; not an active connected service",
+      "access": "refer to private authoritative access registry; do not assume granted write scopes",
+      "budget": "not-active",
+      "commands": [
+        {
+          "id": "inventory",
+          "run": "node automation/agent-kit/cli.mjs show atlassian-jira",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site"
+      ]
+    },
+    {
+      "id": "azure-nonprofit",
+      "name": "Microsoft Azure Nonprofit / Azure OpenAI",
+      "family": "cloud",
+      "state": "candidate",
+      "owner": "project-operator",
+      "use": "Potential future nonprofit credits; not activated",
+      "access": "refer to private authoritative access registry; do not assume granted write scopes",
+      "budget": "not-active",
+      "commands": [
+        {
+          "id": "inventory",
+          "run": "node automation/agent-kit/cli.mjs show azure-nonprofit",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site"
+      ]
+    },
+    {
+      "id": "canva",
+      "name": "Canva connector",
+      "family": "design",
+      "state": "reported",
+      "owner": "project-operator",
+      "use": "Design asset creation with existing connector; specific designs not checked",
+      "access": "refer to private authoritative access registry; do not assume granted write scopes",
+      "budget": "existing-service",
+      "commands": [
+        {
+          "id": "inventory",
+          "run": "node automation/agent-kit/cli.mjs show canva",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site"
+      ]
+    },
+    {
+      "id": "ceramic-ai",
+      "name": "Ceramic.ai research adapter",
+      "family": "research",
+      "state": "candidate",
+      "owner": "project-operator",
+      "use": "Source-only discovery adapter; no proven Brain authenticated invocation",
+      "access": "provider and runtime permissions unverified; approved research-only scope",
+      "budget": "metered-unverified",
+      "commands": [
+        {
+          "id": "inventory",
+          "run": "node automation/agent-kit/cli.mjs show ceramic-ai",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site/pull/208"
+      ]
+    },
+    {
+      "id": "chatgpt-automations",
+      "name": "ChatGPT Automations",
+      "family": "automation",
+      "state": "verified",
+      "owner": "project-operator",
+      "use": "Existing scheduled jobs; reuse rather than add duplicate slots",
+      "access": "refer to private authoritative access registry; do not assume granted write scopes",
+      "budget": "existing-service",
+      "commands": [
+        {
+          "id": "inventory",
+          "run": "node automation/agent-kit/cli.mjs show chatgpt-automations",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site"
+      ]
+    },
+    {
+      "id": "claude-nonprofits",
+      "name": "Claude for Nonprofits subscription",
+      "family": "ai-provider",
+      "state": "reported",
+      "owner": "project-operator",
+      "use": "Existing nonprofit Claude access; separately verify API quota and credentials",
+      "access": "provider and runtime permissions unverified; approved research-only scope",
+      "budget": "subscription-not-api-proof",
+      "commands": [
+        {
+          "id": "inventory",
+          "run": "node automation/agent-kit/cli.mjs show claude-nonprofits",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site"
+      ]
+    },
+    {
+      "id": "cloudflare",
+      "name": "Cloudflare Workers + Pages",
+      "family": "runtime",
+      "state": "verified",
+      "owner": "cloud-operator",
+      "use": "Deployments, observability and version evidence; live permissions vary per token",
+      "access": "least privilege; no unapproved deploy",
+      "budget": "paid-workers-plan",
+      "commands": [
+        {
+          "id": "deployments",
+          "run": "npx wrangler deployments list --name <WORKER_NAME>",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site/pull/124"
+      ]
+    },
+    {
+      "id": "cloudflare-d1",
+      "name": "Cloudflare D1",
+      "family": "storage",
+      "state": "reported",
+      "owner": "project-operator",
+      "use": "Existing scoped photo archive metadata database; new schema/permissions must be proven",
+      "access": "provider and runtime permissions unverified; approved research-only scope",
+      "budget": "paid-workers-plan",
+      "commands": [
+        {
+          "id": "inventory",
+          "run": "node automation/agent-kit/cli.mjs show cloudflare-d1",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site/pull/240"
+      ]
+    },
+    {
+      "id": "cloudflare-mcp",
+      "name": "Cloudflare API MCP (managed remote)",
+      "family": "mcp",
+      "state": "candidate",
+      "owner": "agent-operator",
+      "use": "Current managed Cloudflare API MCP endpoint; do not use deprecated product-specific servers for new setup",
+      "access": "read-only cloud token first",
+      "budget": "needs-verification",
+      "commands": [
+        {
+          "id": "endpoint",
+          "run": "https://mcp.cloudflare.com/mcp",
+          "mode": "reference"
+        }
+      ],
+      "evidence": [
+        "https://developers.cloudflare.com/agents/model-context-protocol/cloudflare/servers-for-cloudflare/"
+      ]
+    },
+    {
+      "id": "cloudflare-r2",
+      "name": "Cloudflare R2",
+      "family": "storage",
+      "state": "reported",
+      "owner": "project-operator",
+      "use": "Existing archive buckets; jurisdiction and rights must be individually verified",
+      "access": "provider and runtime permissions unverified; approved research-only scope",
+      "budget": "paid-workers-plan",
+      "commands": [
+        {
+          "id": "inventory",
+          "run": "node automation/agent-kit/cli.mjs show cloudflare-r2",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site/pull/240"
+      ]
+    },
+    {
+      "id": "cloudflare-turnstile",
+      "name": "Cloudflare Turnstile",
+      "family": "security",
+      "state": "reported",
+      "owner": "project-operator",
+      "use": "Bot protection and contact security; settings need explicit check",
+      "access": "refer to private authoritative access registry; do not assume granted write scopes",
+      "budget": "existing-service",
+      "commands": [
+        {
+          "id": "inventory",
+          "run": "node automation/agent-kit/cli.mjs show cloudflare-turnstile",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site"
+      ]
+    },
+    {
+      "id": "cloudflare-workers-ai",
+      "name": "Cloudflare Workers AI / AI Gateway",
+      "family": "ai-provider",
+      "state": "candidate",
+      "owner": "project-operator",
+      "use": "Potential inference and budget routing; no general entitlement verified",
+      "access": "refer to private authoritative access registry; do not assume granted write scopes",
+      "budget": "metered-unverified",
+      "commands": [
+        {
+          "id": "inventory",
+          "run": "node automation/agent-kit/cli.mjs show cloudflare-workers-ai",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site"
+      ]
+    },
+    {
+      "id": "codeql",
+      "name": "GitHub CodeQL",
+      "family": "security",
+      "state": "reported",
+      "owner": "project-operator",
+      "use": "Security analysis CI; outcomes require exact SHA checks",
+      "access": "refer to private authoritative access registry; do not assume granted write scopes",
+      "budget": "existing-ci",
+      "commands": [
+        {
+          "id": "inventory",
+          "run": "node automation/agent-kit/cli.mjs show codeql",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site"
+      ]
+    },
+    {
+      "id": "coderabbit",
+      "name": "CodeRabbit GitHub App",
+      "family": "quality",
+      "state": "reported",
+      "owner": "repo-maintainers",
+      "use": "PR code-review suggestions",
+      "access": "GitHub App scope needs readback",
+      "budget": "needs-verification",
+      "commands": [
+        {
+          "id": "guide",
+          "run": "node automation/agent-kit/cli.mjs show coderabbit",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site"
+      ]
+    },
+    {
+      "id": "europeana",
+      "name": "Europeana archive discovery",
+      "family": "research",
+      "state": "candidate",
+      "owner": "project-operator",
+      "use": "Historical metadata discovery; rights, relevance and publisher rights must be independently verified",
+      "access": "provider and runtime permissions unverified; approved research-only scope",
+      "budget": "needs-verification",
+      "commands": [
+        {
+          "id": "inventory",
+          "run": "node automation/agent-kit/cli.mjs show europeana",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site/pull/241"
+      ]
+    },
+    {
+      "id": "firecrawl-antigravity",
+      "name": "Firecrawl Antigravity plugin",
+      "family": "research",
+      "state": "candidate",
+      "owner": "research-operator",
+      "use": "Public source discovery only; human verification before publishing",
+      "access": "separate API account/credits need checking",
+      "budget": "metered-unverified",
+      "commands": [
+        {
+          "id": "source",
+          "run": "https://github.com/firecrawl/firecrawl-antigravity-plugin",
+          "mode": "reference"
+        }
+      ],
+      "evidence": [
+        "https://github.com/firecrawl/firecrawl-antigravity-plugin"
+      ]
+    },
+    {
+      "id": "firecrawl-connector",
+      "name": "Firecrawl connector",
+      "family": "research",
+      "state": "reported",
+      "owner": "project-operator",
+      "use": "Existing extraction/search plugin; do not duplicate a paid Firecrawl account",
+      "access": "refer to private authoritative access registry; do not assume granted write scopes",
+      "budget": "metered-unverified",
+      "commands": [
+        {
+          "id": "inventory",
+          "run": "node automation/agent-kit/cli.mjs show firecrawl-connector",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site"
+      ]
+    },
+    {
+      "id": "gemini-api",
+      "name": "Google Gemini API",
+      "family": "ai-provider",
+      "state": "verified",
+      "owner": "ai-budget-operator",
+      "use": "Bounded classification and source-only review proposals",
+      "access": "GitHub/Worker secret references only; never log values",
+      "budget": "metered-20eur-shared",
+      "commands": [
+        {
+          "id": "inspect",
+          "run": "node automation/agent-kit/cli.mjs show gemini-api",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site/actions/runs/42284982522"
+      ]
+    },
+    {
+      "id": "gemini-cli",
+      "name": "Gemini CLI GitHub coding pilot",
+      "family": "coding-agent",
+      "state": "verified",
+      "owner": "repo-maintainers",
+      "use": "Manual read-only smoke and scoped patch in Draft PR",
+      "access": "workflow_dispatch; no automatic merge",
+      "budget": "gemini-api-shared",
+      "commands": [
+        {
+          "id": "smoke",
+          "run": "gh workflow run gemini-cli-manual-smoke.yml --repo dizigs/archelaos-site",
+          "mode": "external-call"
+        },
+        {
+          "id": "pilot",
+          "run": "gh workflow view gemini-guarded-coding.yml --repo dizigs/archelaos-site",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site/pull/269"
+      ]
+    },
+    {
+      "id": "gemma-classifier",
+      "name": "Gemma classifier adapter",
+      "family": "ai-provider",
+      "state": "candidate",
+      "owner": "project-operator",
+      "use": "Source-only classification and deduplication; not a connected production Brain model",
+      "access": "provider and runtime permissions unverified; approved research-only scope",
+      "budget": "needs-verification",
+      "commands": [
+        {
+          "id": "inventory",
+          "run": "node automation/agent-kit/cli.mjs show gemma-classifier",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site/pull/206"
+      ]
+    },
+    {
+      "id": "gitguardian",
+      "name": "GitGuardian GitHub App",
+      "family": "security",
+      "state": "reported",
+      "owner": "repo-maintainers",
+      "use": "Secret-scanning incidents and remediation evidence",
+      "access": "no incident auto-close",
+      "budget": "needs-verification",
+      "commands": [
+        {
+          "id": "guide",
+          "run": "node automation/agent-kit/cli.mjs show gitguardian",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site"
+      ]
+    },
+    {
+      "id": "github",
+      "name": "GitHub repository + Actions",
+      "family": "source-control",
+      "state": "verified",
+      "owner": "repo-maintainers",
+      "use": "Canonical source, pull requests, CI and incident evidence",
+      "access": "repo-scoped; reviewer-gated writes",
+      "budget": "existing-service",
+      "commands": [
+        {
+          "id": "checks",
+          "run": "gh pr checks <PR_NUMBER> --repo dizigs/archelaos-site",
+          "mode": "read"
+        },
+        {
+          "id": "workflow",
+          "run": "gh run view <RUN_ID> --repo dizigs/archelaos-site --log",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site"
+      ]
+    },
+    {
+      "id": "github-mcp",
+      "name": "GitHub MCP Server",
+      "family": "mcp",
+      "state": "candidate",
+      "owner": "agent-operator",
+      "use": "Real source/PR/issue tools in compatible MCP clients",
+      "access": "read-only repo-scoped token first",
+      "budget": "needs-verification",
+      "commands": [
+        {
+          "id": "source",
+          "run": "https://github.com/github/github-mcp-server",
+          "mode": "reference"
+        },
+        {
+          "id": "remote-readonly",
+          "run": "https://api.githubcopilot.com/mcp/x/all/readonly",
+          "mode": "reference"
+        }
+      ],
+      "evidence": [
+        "https://github.com/github/github-mcp-server"
+      ]
+    },
+    {
+      "id": "gitlab",
+      "name": "GitLab mirror and Guardian",
+      "family": "source-control",
+      "state": "reported",
+      "owner": "repo-maintainers",
+      "use": "Read-only mirror evidence and security monitoring",
+      "access": "no automatic merge/write authority",
+      "budget": "needs-verification",
+      "commands": [
+        {
+          "id": "guide",
+          "run": "node automation/agent-kit/cli.mjs show gitlab",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site"
+      ]
+    },
+    {
+      "id": "gmail",
+      "name": "Gmail connector",
+      "family": "workspace",
+      "state": "reported",
+      "owner": "project-operator",
+      "use": "Private mailbox workflows; subject to linked-account scope",
+      "access": "refer to private authoritative access registry; do not assume granted write scopes",
+      "budget": "existing-service",
+      "commands": [
+        {
+          "id": "inventory",
+          "run": "node automation/agent-kit/cli.mjs show gmail",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site"
+      ]
+    },
+    {
+      "id": "google-ad-grants",
+      "name": "Google Ad Grants",
+      "family": "marketing",
+      "state": "reported",
+      "owner": "project-operator",
+      "use": "Nonprofit ads, not equivalent to verified Ads API write access",
+      "access": "refer to private authoritative access registry; do not assume granted write scopes",
+      "budget": "separate-nonprofit-benefit",
+      "commands": [
+        {
+          "id": "inventory",
+          "run": "node automation/agent-kit/cli.mjs show google-ad-grants",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site"
+      ]
+    },
+    {
+      "id": "google-ai-pro",
+      "name": "Personal Google AI Pro subscription",
+      "family": "ai-provider",
+      "state": "reported",
+      "owner": "project-operator",
+      "use": "Interactive subscription, distinct from Gemini API quotas",
+      "access": "refer to private authoritative access registry; do not assume granted write scopes",
+      "budget": "existing-subscription",
+      "commands": [
+        {
+          "id": "inventory",
+          "run": "node automation/agent-kit/cli.mjs show google-ai-pro",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site"
+      ]
+    },
+    {
+      "id": "google-books",
+      "name": "Google Books historical metadata",
+      "family": "research",
+      "state": "candidate",
+      "owner": "project-operator",
+      "use": "Metadata candidate for archival research, not authenticated proof of club identity",
+      "access": "provider and runtime permissions unverified; approved research-only scope",
+      "budget": "needs-verification",
+      "commands": [
+        {
+          "id": "inventory",
+          "run": "node automation/agent-kit/cli.mjs show google-books",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site/pull/178"
+      ]
+    },
+    {
+      "id": "google-calendar",
+      "name": "Google Calendar connector",
+      "family": "workspace",
+      "state": "reported",
+      "owner": "project-operator",
+      "use": "Calendar search and approved event updates",
+      "access": "refer to private authoritative access registry; do not assume granted write scopes",
+      "budget": "existing-service",
+      "commands": [
+        {
+          "id": "inventory",
+          "run": "node automation/agent-kit/cli.mjs show google-calendar",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site"
+      ]
+    },
+    {
+      "id": "google-contacts",
+      "name": "Google Contacts connector",
+      "family": "workspace",
+      "state": "reported",
+      "owner": "project-operator",
+      "use": "Contact lookup only when task requires it",
+      "access": "refer to private authoritative access registry; do not assume granted write scopes",
+      "budget": "existing-service",
+      "commands": [
+        {
+          "id": "inventory",
+          "run": "node automation/agent-kit/cli.mjs show google-contacts",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site"
+      ]
+    },
+    {
+      "id": "google-developer-knowledge-mcp",
+      "name": "Google Developer Knowledge MCP",
+      "family": "mcp",
+      "state": "candidate",
+      "owner": "agent-operator",
+      "use": "Official Google developer docs lookup in Antigravity",
+      "access": "separate Google developer project credentials, not reused Gemini key automatically",
+      "budget": "needs-verification",
+      "commands": [
+        {
+          "id": "docs",
+          "run": "https://developers.google.com/knowledge/mcp",
+          "mode": "reference"
+        }
+      ],
+      "evidence": [
+        "https://developers.google.com/knowledge/mcp"
+      ]
+    },
+    {
+      "id": "google-drive",
+      "name": "Google Drive / Docs / Sheets",
+      "family": "workspace",
+      "state": "verified",
+      "owner": "admin-workspace",
+      "use": "Private access registry, task tracker, research and handoffs",
+      "access": "private connector grants; never mirror private contents into public GitHub",
+      "budget": "existing-service",
+      "commands": [
+        {
+          "id": "guide",
+          "run": "node automation/agent-kit/cli.mjs show google-drive",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site/blob/main/docs/LIVE_TASK_TRACKING.md"
+      ]
+    },
+    {
+      "id": "google-search-console",
+      "name": "Google Search Console and PageSpeed",
+      "family": "seo",
+      "state": "reported",
+      "owner": "project-operator",
+      "use": "SEO and Core Web Vitals checks; scopes and API keys may vary",
+      "access": "refer to private authoritative access registry; do not assume granted write scopes",
+      "budget": "needs-verification",
+      "commands": [
+        {
+          "id": "inventory",
+          "run": "node automation/agent-kit/cli.mjs show google-search-console",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site"
+      ]
+    },
+    {
+      "id": "google-workspace-mcp",
+      "name": "Google Workspace hosted MCP servers",
+      "family": "mcp",
+      "state": "candidate",
+      "owner": "admin-workspace",
+      "use": "Antigravity access to Drive/Docs/Sheets/Gmail/Calendar by per-client OAuth; does not inherit ChatGPT grants",
+      "access": "minimum OAuth scopes; do not disclose private archive files",
+      "budget": "needs-verification",
+      "commands": [
+        {
+          "id": "docs",
+          "run": "https://developers.google.com/workspace/guides/configure-mcp-servers",
+          "mode": "reference"
+        }
+      ],
+      "evidence": [
+        "https://developers.google.com/workspace/guides/configure-mcp-servers"
+      ]
+    },
+    {
+      "id": "imgbot",
+      "name": "ImgBot GitHub App",
+      "family": "quality",
+      "state": "reported",
+      "owner": "project-operator",
+      "use": "Image optimization pull requests",
+      "access": "refer to private authoritative access registry; do not assume granted write scopes",
+      "budget": "needs-verification",
+      "commands": [
+        {
+          "id": "inventory",
+          "run": "node automation/agent-kit/cli.mjs show imgbot",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site"
+      ]
+    },
+    {
+      "id": "internet-archive",
+      "name": "Internet Archive historical candidates",
+      "family": "research",
+      "state": "candidate",
+      "owner": "project-operator",
+      "use": "Historical public sources and metadata, no automatic republication",
+      "access": "provider and runtime permissions unverified; approved research-only scope",
+      "budget": "needs-verification",
+      "commands": [
+        {
+          "id": "inventory",
+          "run": "node automation/agent-kit/cli.mjs show internet-archive",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site/pull/178"
+      ]
+    },
+    {
+      "id": "lighthouse-ci",
+      "name": "Lighthouse CI and actionlint",
+      "family": "qa",
+      "state": "reported",
+      "owner": "project-operator",
+      "use": "Performance and workflow validation inside CI",
+      "access": "refer to private authoritative access registry; do not assume granted write scopes",
+      "budget": "existing-ci",
+      "commands": [
+        {
+          "id": "inventory",
+          "run": "node automation/agent-kit/cli.mjs show lighthouse-ci",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site"
+      ]
+    },
+    {
+      "id": "lychee",
+      "name": "Lychee link checker",
+      "family": "quality",
+      "state": "reported",
+      "owner": "project-operator",
+      "use": "Broken-link checks in GitHub CI",
+      "access": "refer to private authoritative access registry; do not assume granted write scopes",
+      "budget": "existing-ci",
+      "commands": [
+        {
+          "id": "inventory",
+          "run": "node automation/agent-kit/cli.mjs show lychee",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site"
+      ]
+    },
+    {
+      "id": "mergify",
+      "name": "Mergify GitHub App",
+      "family": "source-control",
+      "state": "reported",
+      "owner": "project-operator",
+      "use": "Conditional merge automation; do NOT enable auto-merge without explicit review",
+      "access": "refer to private authoritative access registry; do not assume granted write scopes",
+      "budget": "needs-verification",
+      "commands": [
+        {
+          "id": "inventory",
+          "run": "node automation/agent-kit/cli.mjs show mergify",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site"
+      ]
+    },
+    {
+      "id": "microsoft-clarity",
+      "name": "Microsoft Clarity",
+      "family": "analytics",
+      "state": "reported",
+      "owner": "site-operator",
+      "use": "Consent-gated aggregate UX observations",
+      "access": "no personal replay data in public inventory",
+      "budget": "existing-service",
+      "commands": [
+        {
+          "id": "review",
+          "run": "gh workflow view clarity-daily-export.yml --repo dizigs/archelaos-site",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site/blob/main/.github/workflows/clarity-daily-export.yml"
+      ]
+    },
+    {
+      "id": "notebooklm",
+      "name": "NotebookLM research use",
+      "family": "research",
+      "state": "candidate",
+      "owner": "project-operator",
+      "use": "Potential bibliography/notes support; no validated API or OAuth integration",
+      "access": "provider and runtime permissions unverified; approved research-only scope",
+      "budget": "needs-verification",
+      "commands": [
+        {
+          "id": "inventory",
+          "run": "node automation/agent-kit/cli.mjs show notebooklm",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site/pull/194"
+      ]
+    },
+    {
+      "id": "ollama-local",
+      "name": "Ollama local-model runtime",
+      "family": "ai-provider",
+      "state": "candidate",
+      "owner": "project-operator",
+      "use": "Potential local inference for offline agents; host installation and model availability unverified",
+      "access": "provider and runtime permissions unverified; approved research-only scope",
+      "budget": "host-compute",
+      "commands": [
+        {
+          "id": "inventory",
+          "run": "node automation/agent-kit/cli.mjs show ollama-local",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site/pull/270"
+      ]
+    },
+    {
+      "id": "openai-platform",
+      "name": "OpenAI Platform connector",
+      "family": "ai-provider",
+      "state": "reported",
+      "owner": "project-operator",
+      "use": "API key setup tooling only; does not prove active API credits",
+      "access": "refer to private authoritative access registry; do not assume granted write scopes",
+      "budget": "needs-verification",
+      "commands": [
+        {
+          "id": "inventory",
+          "run": "node automation/agent-kit/cli.mjs show openai-platform",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site"
+      ]
+    },
+    {
+      "id": "playwright-cli",
+      "name": "Playwright CLI / agent skills",
+      "family": "qa",
+      "state": "candidate",
+      "owner": "qa-operator",
+      "use": "Real browser checks and accessibility evidence",
+      "access": "local/staging browser; no credentials",
+      "budget": "needs-verification",
+      "commands": [
+        {
+          "id": "source",
+          "run": "https://github.com/microsoft/playwright-cli",
+          "mode": "reference"
+        }
+      ],
+      "evidence": [
+        "https://github.com/microsoft/playwright-cli"
+      ]
+    },
+    {
+      "id": "raisely",
+      "name": "Raisely fundraising bridge",
+      "family": "fundraising",
+      "state": "reported",
+      "owner": "project-operator",
+      "use": "Read-only campaign bridge, no verified donation write/finance authority",
+      "access": "refer to private authoritative access registry; do not assume granted write scopes",
+      "budget": "needs-verification",
+      "commands": [
+        {
+          "id": "inventory",
+          "run": "node automation/agent-kit/cli.mjs show raisely",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site"
+      ]
+    },
+    {
+      "id": "renovate",
+      "name": "Renovate GitHub App",
+      "family": "dependency",
+      "state": "reported",
+      "owner": "repo-maintainers",
+      "use": "Dependency update proposals",
+      "access": "no auto-merge",
+      "budget": "needs-verification",
+      "commands": [
+        {
+          "id": "guide",
+          "run": "node automation/agent-kit/cli.mjs show renovate",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site"
+      ]
+    },
+    {
+      "id": "resend",
+      "name": "Resend mail integration",
+      "family": "messaging",
+      "state": "reported",
+      "owner": "project-operator",
+      "use": "Mail delivery from existing Cloudflare bridge; verify live delivery before claims",
+      "access": "refer to private authoritative access registry; do not assume granted write scopes",
+      "budget": "metered-unverified",
+      "commands": [
+        {
+          "id": "inventory",
+          "run": "node automation/agent-kit/cli.mjs show resend",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site"
+      ]
+    },
+    {
+      "id": "sonarqube",
+      "name": "SonarQube Cloud",
+      "family": "quality",
+      "state": "reported",
+      "owner": "repo-maintainers",
+      "use": "Static quality and security gates",
+      "access": "current provider access not newly verified",
+      "budget": "needs-verification",
+      "commands": [
+        {
+          "id": "guide",
+          "run": "node automation/agent-kit/cli.mjs show sonarqube",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site"
+      ]
+    },
+    {
+      "id": "sonarqube-mcp",
+      "name": "SonarQube MCP Server",
+      "family": "mcp",
+      "state": "candidate",
+      "owner": "agent-operator",
+      "use": "Security findings to coding agents",
+      "access": "read-only and server-scoped",
+      "budget": "needs-verification",
+      "commands": [
+        {
+          "id": "source",
+          "run": "https://github.com/SonarSource/sonarqube-mcp-server",
+          "mode": "reference"
+        }
+      ],
+      "evidence": [
+        "https://github.com/SonarSource/sonarqube-mcp-server"
+      ]
+    },
+    {
+      "id": "uptimerobot",
+      "name": "UptimeRobot",
+      "family": "monitoring",
+      "state": "reported",
+      "owner": "site-operator",
+      "use": "Public availability monitoring",
+      "access": "secret binding only; API validation pending",
+      "budget": "sponsored-service",
+      "commands": [
+        {
+          "id": "guide",
+          "run": "node automation/agent-kit/cli.mjs show uptimerobot",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site/pull/124"
+      ]
+    },
+    {
+      "id": "windsor-ai",
+      "name": "Windsor.ai",
+      "family": "analytics",
+      "state": "reported",
+      "owner": "project-operator",
+      "use": "Trial-connected marketing analytics; actual sources need validation",
+      "access": "refer to private authoritative access registry; do not assume granted write scopes",
+      "budget": "trial-unverified",
+      "commands": [
+        {
+          "id": "inventory",
+          "run": "node automation/agent-kit/cli.mjs show windsor-ai",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site"
+      ]
+    }
+  ]
+}

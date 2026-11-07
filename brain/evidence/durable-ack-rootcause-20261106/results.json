@@ -1,0 +1,65 @@
+{
+  "recordedAt": "2026-11-06T20:46:28.743854+02:00",
+  "baseLocalCommit": "f70d645af33b7674f00fe514d42010be64bf882d",
+  "branch": "codex/selfheal-durable-ack-settlement",
+  "status": "READY_FOR_INDEPENDENT_REVIEW_LOCAL_ONLY",
+  "rootCause": "workerd adds a non-enumerable function-valued Symbol.dispose to RPC records; exact own-key count rejected valid ACK before HMAC. Readback has the same transport metadata.",
+  "fix": "Strict RPC-record normalization copies only exact signed own data fields, rejects unknown keys/symbols/accessors/non-plain prototypes, permits only the verified native disposal descriptor, and releases RPC results. Existing HMAC/correlation/settlement checks remain unchanged.",
+  "diagnostics": "Fixed reason codes and property-type/count booleans only in isolated temporary copy; no diagnostic code in Worker sources.",
+  "tests": {
+    "dedicatedNativeAck": {
+      "tests": 11,
+      "pass": 11,
+      "fail": 0,
+      "skipped": 0
+    },
+    "fullBrain": {
+      "tests": 142,
+      "pass": 142,
+      "fail": 0,
+      "skipped": 0
+    },
+    "healerAndIntegration": {
+      "tests": 117,
+      "pass": 117,
+      "fail": 0,
+      "skipped": 0
+    },
+    "python": {
+      "tests": 17,
+      "pass": 17
+    },
+    "syntax": "43 Brain modules and Healer worker/protocol PASS",
+    "runtimeAuditVulnerabilities": 0,
+    "wranglerDryRuns": "Brain and Healer PASS; no upload"
+  },
+  "sourceSha256": {
+    "brain/src/selfheal_ack.mjs": "4158b8c42dd2754eb5fc18ab735392b7643267e1b55830aa71939dd196b4c28f",
+    "brain/test/selfheal_ack.test.mjs": "6f0e7287de15761c081155e199d8ae448189f457bb41b3589cd61d74f2c9edaa"
+  },
+  "bundleSha256": {
+    "brain-bundle": "f213342da341a6beb499673a456cb61db0b3502ba8fc91adabb64ef099c69628",
+    "healer-bundle": "ff0261a4bce5af77ce4157e0e2781cc98cfcecca18a0f76bbdfc1dae85cdd91f"
+  },
+  "evidenceSha256": {
+    "reproduced-first.tap": "91533373f573d583f0df361f618a1913baf6a86a1defa56f3d18b4c4b82a94ae",
+    "diagnostic-symbol.tap": "b4aab29dbf7a09acc380a36d377c7be541e2efb082a0613a3af61ae8b7e2918b",
+    "diagnostic-normalized.tap": "24e9acff0d35f0ae7556908d6bb95e4f7b7a39161816e3a48db1fa56cb959bcb",
+    "fixed-tree-native-suite.tap": "8bf6ad2ea3514d725decbda6ccb88be02473545e8a455d8caac86f639dd93a84",
+    "full-brain-final.tap": "7dc12a483e58e37ebff1df2a16f06a2f6eb1459d4ae0eb945fa2a00ba96f83d6",
+    "healer-integration-final.tap": "fb0243e1f9f11d33b1f39e68384d9f7c760039b2526f991dc87dfc89b8deaa1d",
+    "python-final.log": "269bb3568575e9e9ab5c390d9994a93bd4211eddac2bf9c9752545f2db10de15",
+    "syntax-final.log": "812531f5de4d9a72048ddd330b681a640905485601a123ccc99272bd8838e43a",
+    "audit-final.log": "6d8c5c8f3d7684adb070417bd608d01ae90aa3dc26a65af03ffda4955f38d9a3",
+    "brain-build.log": "44b90b1b3350b8bf16f831efefd4b634d3585db1ad974bb7ec27f654384e40a6",
+    "healer-build.log": "37960b65f800268e55eb6642461ae414995197c5f1b76d98007e2025cb09ef48"
+  },
+  "notRun": [
+    "hosted exact-head GitHub CI",
+    "CodeQL for new local SHA",
+    "SonarCloud for new local SHA",
+    "remote Cloudflare/runtime activation"
+  ],
+  "runtimeActivation": "NO-GO; all inherited activation flags OFF; expiry1970; configurations unchanged from f70d645",
+  "prohibitedOperationsPerformed": false
+}

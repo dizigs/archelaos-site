@@ -4,7 +4,15 @@ compatibility_date = "2026-11-01"
 workers_dev = false
 preview_urls = false
 
+[vars]
+HEALER_DURABLE_ACK_ENABLED = "false"
+
 # Intentionally no triggers, routes, public hostname, AI binding or write tokens.
+[[services]]
+binding = "BRAIN_RECOVERY"
+service = "archelaos-brain-staging"
+entrypoint = "BrainRecoveryPort"
+
 [[durable_objects.bindings]]
 name = "HEALER_MEMORY"
 class_name = "HealerMemory"

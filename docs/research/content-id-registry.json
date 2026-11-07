@@ -1,0 +1,3009 @@
+{
+  "schemaVersion": 1,
+  "snapshotDate": "2026-11-07",
+  "authority": {
+    "personIds": "hall-of-fame-people.json",
+    "personAliases": "archelaos-person-index.json",
+    "newsIds": "news.json",
+    "historicalEventIds": "archelaos-history-events.json",
+    "futurePhotoArchive": "PR #240 / private D1-R2; not activated here"
+  },
+  "identityNotes": "mediaRefId is SHA-256 of the exact URL/path reference (first 20 hex), NOT a SHA-256 hash of image bytes and NOT an assigned archive photo ID. No rights inference from public availability.",
+  "personIds": [
+    "arch-002669a56832",
+    "arch-00509c738da4",
+    "arch-008051caa95f",
+    "arch-0224585bd8af",
+    "arch-022dbd57b154",
+    "arch-0237100adc50",
+    "arch-02d2cf31ee18",
+    "arch-03b5007e6769",
+    "arch-048e94d8109e",
+    "arch-04dcdc451e7a",
+    "arch-05e64a640373",
+    "arch-07bf5d90c53f",
+    "arch-082985777523",
+    "arch-08bc7b724207",
+    "arch-08dc545654fe",
+    "arch-0901bbb5dbcc",
+    "arch-09d6c28a4871",
+    "arch-0a5d919a8df2",
+    "arch-0bc6fb3c3894",
+    "arch-0c2fbd8f67d5",
+    "arch-0c4ad91b7924",
+    "arch-0c859732b8df",
+    "arch-0c97aeedbea3",
+    "arch-0d05bd7afa12",
+    "arch-0d08a0ebfafe",
+    "arch-0e2e56478e06",
+    "arch-0f96b0409ba9",
+    "arch-0ff05c832dfb",
+    "arch-10b1f232246a",
+    "arch-10d2ee63c2f0",
+    "arch-122363cd419e",
+    "arch-12c1bdf467ac",
+    "arch-131eaca634a6",
+    "arch-1325e4551e91",
+    "arch-14ebe3346d6f",
+    "arch-157bd15a3407",
+    "arch-15d5e64b3df3",
+    "arch-16878a55c8ea",
+    "arch-16ec821442ee",
+    "arch-174bfb8ca561",
+    "arch-176d1b8617f6",
+    "arch-178813c8e013",
+    "arch-18489d2e633a",
+    "arch-19693321f4a8",
+    "arch-1978cdb93754",
+    "arch-19b8a37af03e",
+    "arch-19db95d7191e",
+    "arch-1a19e8c4bc4b",
+    "arch-1a56058f1121",
+    "arch-1ab28213726f",
+    "arch-1b0be86b6ce7",
+    "arch-1babfed35d17",
+    "arch-1bcea370c872",
+    "arch-1be1256bf733",
+    "arch-1c40e80a6b9d",
+    "arch-1da47ddef542",
+    "arch-1dcdd694a152",
+    "arch-1dd6b1ff1ec9",
+    "arch-1e2e6edb86df",
+    "arch-1e3ffb01db2e",
+    "arch-1e9d4e84863c",
+    "arch-1ea85d87584a",
+    "arch-1f018e9612b7",
+    "arch-1f532c0094e5",
+    "arch-1f676ccf0dab",
+    "arch-2010dac2d75a",
+    "arch-202135306030",
+    "arch-20473c2662ce",
+    "arch-206a837bb0cd",
+    "arch-207149c9672e",
+    "arch-2082f3abced0",
+    "arch-20e46bab3230",
+    "arch-2120637eed24",
+    "arch-212d393f5e2d",
+    "arch-214acc6d480f",
+    "arch-21eed8722bc9",
+    "arch-22234effaf98",
+    "arch-232264928712",
+    "arch-23628c3aff5d",
+    "arch-23f5b3ca37c0",
+    "arch-2572ed03cb05",
+    "arch-25923c326d62",
+    "arch-259c41f980b7",
+    "arch-2616694d9908",
+    "arch-2672a628bae1",
+    "arch-2677e2bac337",
+    "arch-26ecaaef4c08",
+    "arch-280394bc1e39",
+    "arch-286750414128",
+    "arch-292b7871cf5b",
+    "arch-2993fa3ba026",
+    "arch-29b991d1f7d7",
+    "arch-2a1d27e1c247",
+    "arch-2a96b276e6a9",
+    "arch-2aab91b8d2dc",
+    "arch-2cb062fabc11",
+    "arch-2cf065fd52ef",
+    "arch-2d080f179ca5",
+    "arch-2d24273b73bf",
+    "arch-2d497ce9d50a",
+    "arch-2dc42f0677d8",
+    "arch-2de1a847dfe8",
+    "arch-2e2a358fe3ca",
+    "arch-2ec2798d39bb",
+    "arch-2fa53787e4c6",
+    "arch-302a8a8e026f",
+    "arch-302aeb74c1dd",
+    "arch-305cecec7519",
+    "arch-30bca09f8fd8",
+    "arch-30fd3fbbc7d6",
+    "arch-3229cbbf0b11",
+    "arch-322cfbabe37a",
+    "arch-3249aed77a3e",
+    "arch-3278b289a54c",
+    "arch-32836c19fc94",
+    "arch-32f943eae9a0",
+    "arch-33b4af3ccfb6",
+    "arch-34025c6c1b6a",
+    "arch-34383bff0226",
+    "arch-347fee403302",
+    "arch-34a630ba6b77",
+    "arch-34afb8c8629a",
+    "arch-34fb3ea60fda",
+    "arch-3566fd5aa2ec",
+    "arch-3594290206cd",
+    "arch-360be579cb73",
+    "arch-361674c109ab",
+    "arch-36de21f5268e",
+    "arch-36f50ff1938b",
+    "arch-370ff8132242",
+    "arch-373bd5b0d3ec",
+    "arch-377dba24a37a",
+    "arch-37d52b70464b",
+    "arch-3842b9202f66",
+    "arch-38cc9adfbaf3",
+    "arch-39914cf713cf",
+    "arch-39a7c43faf2d",
+    "arch-39d3d90c7e59",
+    "arch-3a121d203d25",
+    "arch-3a6035bb4f86",
+    "arch-3abb9cd405b6",
+    "arch-3b5713633915",
+    "arch-3b85ec8130de",
+    "arch-3c1da6af58ef",
+    "arch-3c3a2015e9ea",
+    "arch-3c52a3f2a994",
+    "arch-3c81755ecad8",
+    "arch-3c969b60c405",
+    "arch-3c99e241b6d5",
+    "arch-3ca03a518fd3",
+    "arch-3cd19065fcde",
+    "arch-3ce3587cb386",
+    "arch-3d553fad7e9c",
+    "arch-3d709819bef5",
+    "arch-3d791efb0fae",
+    "arch-3dbbc5c07486",
+    "arch-3deb20f5a7fe",
+    "arch-3e3c931a8dee",
+    "arch-3e3ccf551d74",
+    "arch-3e9ef6299a1b",
+    "arch-3f550606f1c9",
+    "arch-3f5c06689f41",
+    "arch-3fe6e9ae9b29",
+    "arch-41270a7886fa",
+    "arch-427830522d2c",
+    "arch-428524395360",
+    "arch-42cd1e0abe6b",
+    "arch-43b58e942ad0",
+    "arch-440718731caf",
+    "arch-442e15a83b04",
+    "arch-444e437c70c7",
+    "arch-449576656c19",
+    "arch-44aae0ccd23f",
+    "arch-44ef21dfb9b7",
+    "arch-4563a7f9b5e6",
+    "arch-459959b908dd",
+    "arch-45d6ae1d775c",
+    "arch-46af77540cf2",
+    "arch-46e606c8874f",
+    "arch-47a821a369e4",
+    "arch-47cbec50ab05",
+    "arch-4813d759f945",
+    "arch-4949278d1778",
+    "arch-49dacf876cf2",
+    "arch-4a164536737c",
+    "arch-4a961d27ca2d",
+    "arch-4aaa2b869d44",
+    "arch-4b1854067404",
+    "arch-4b6d75d0faa2",
+    "arch-4becf6cab169",
+    "arch-4c434c75ecd3",
+    "arch-4c5bc0612415",
+    "arch-4c761b8befb8",
+    "arch-4c82271a2365",
+    "arch-4cec52c52fac",
+    "arch-4dab6417c992",
+    "arch-4db087226588",
+    "arch-4dd8fb7c0031",
+    "arch-4de70a3ba83c",
+    "arch-4df14b4c05ad",
+    "arch-4e8c32affb3b",
+    "arch-4efd0ba773e5",
+    "arch-4f4612e781dc",
+    "arch-5029f43be7df",
+    "arch-50b2e1c965c8",
+    "arch-510626a0ca62",
+    "arch-511212ba6e94",
+    "arch-51aa579d33c5",
+    "arch-526f13622101",
+    "arch-52f325d51780",
+    "arch-52fcc7b9dfe9",
+    "arch-534d52034523",
+    "arch-538dbd2d58dc",
+    "arch-53f4acf32583",
+    "arch-5403fd6b12e7",
+    "arch-5457a09de994",
+    "arch-54907516a0c8",
+    "arch-54bddad89cae",
+    "arch-55c133481da7",
+    "arch-56159c64e01a",
+    "arch-564324bbacda",
+    "arch-56cc154e4231",
+    "arch-56dd134e165f",
+    "arch-5729149b5b30",
+    "arch-576647fec4c6",
+    "arch-57764a877efa",
+    "arch-58126241ecf6",
+    "arch-5842c49ad848",
+    "arch-5871b536f6e2",
+    "arch-58930b0fec6b",
+    "arch-591c9fcf51df",
+    "arch-59ecab15ac7d",
+    "arch-59ff71dead42",
+    "arch-5a008ae6c88b",
+    "arch-5a04cbbb57e4",
+    "arch-5abfbe9e285a",
+    "arch-5b13574568d5",
+    "arch-5b70f34fccee",
+    "arch-5bc0ec7ec6e0",
+    "arch-5bfc11417f2c",
+    "arch-5c19edc16a14",
+    "arch-5c1d1d5a7f67",
+    "arch-5c30e1b38f77",
+    "arch-5ca9a2bfa935",
+    "arch-5d1275fefddc",
+    "arch-5d430df1050d",
+    "arch-5d535620bab8",
+    "arch-5d8cd484b7bc",
+    "arch-5d94f0c76851",
+    "arch-5de1e130d776",
+    "arch-5e68e257ae71",
+    "arch-5e9be0762155",
+    "arch-5f3d6b9d6b86",
+    "arch-5f8ba04e9875",
+    "arch-5fee6bc003d3",
+    "arch-60ca5978b8ab",
+    "arch-61d8d097f601",
+    "arch-6212ba5ea7f1",
+    "arch-624f4e279a00",
+    "arch-628cb0ee3df0",
+    "arch-62c3cb00ee85",
+    "arch-62cfede8ba81",
+    "arch-641d4ab00bd8",
+    "arch-64606429099c",
+    "arch-6492d3d15360",
+    "arch-64dbf198bfd6",
+    "arch-64ee11fec8d6",
+    "arch-657634da4608",
+    "arch-657ba4017dd8",
+    "arch-658e46578576",
+    "arch-660b315e89cf",
+    "arch-6664fb05c8d6",
+    "arch-6671781a85f4",
+    "arch-66ad095bd70e",
+    "arch-670168c39500",
+    "arch-6721efe1fd09",
+    "arch-6726d1908747",
+    "arch-67ae020ca998",
+    "arch-68fef0f68151",
+    "arch-69e04554b8ac",
+    "arch-6a07a3757f0d",
+    "arch-6a25abf89f39",
+    "arch-6a4b08bec058",
+    "arch-6aa13d0c3e0a",
+    "arch-6d58ec363066",
+    "arch-6dac69941f40",
+    "arch-6e4fe6e8f1e9",
+    "arch-6e75edf6bef4",
+    "arch-6ec4a35780f9",
+    "arch-6ed1808291ce",
+    "arch-6f0a7b43b475",
+    "arch-70df5396c397",
+    "arch-7150bd73dce3",
+    "arch-71822bd9b9b9",
+    "arch-71eb3547e2fc",
+    "arch-732d069ad14b",
+    "arch-7370321344f6",
+    "arch-73968afa517e",
+    "arch-73fa14015bf2",
+    "arch-73fcffd7e0b7",
+    "arch-7474b92d5365",
+    "arch-74932a4e6f42",
+    "arch-74c0ecf6103f",
+    "arch-7653fcf042c0",
+    "arch-76af753155e5",
+    "arch-76d5e1b729ae",
+    "arch-77461943b4f2",
+    "arch-7748331a90c6",
+    "arch-77ccc9730d17",
+    "arch-77da913995f0",
+    "arch-7850915793e3",
+    "arch-7870b7ff283e",
+    "arch-78be144f1d7b",
+    "arch-78cbe4083681",
+    "arch-79065f0c08db",
+    "arch-791b662cc14a",
+    "arch-79db52daa799",
+    "arch-7a113e11ae86",
+    "arch-7a5c8ab3160a",
+    "arch-7a5f32f6367b",
+    "arch-7a9fea193c43",
+    "arch-7bff8614a099",
+    "arch-7c82b0a1d688",
+    "arch-7d2841925a78",
+    "arch-7d2d2d8bf363",
+    "arch-7e12ae009786",
+    "arch-7e1b65c90287",
+    "arch-7e40e6c5f66c",
+    "arch-7ee63cb46f22",
+    "arch-7f4408f69421",
+    "arch-7f865e742264",
+    "arch-7f8c550f1a00",
+    "arch-7f90799edd2f",
+    "arch-7f975b16bebf",
+    "arch-803dd3926e77",
+    "arch-81079ee6d944",
+    "arch-81407244f02f",
+    "arch-817be25a72e6",
+    "arch-81ac19906d5b",
+    "arch-82036a0f8ed7",
+    "arch-820c3a07e0e1",
+    "arch-824fa2e4193e",
+    "arch-826afa2a8ed2",
+    "arch-827ffd4910ec",
+    "arch-82df0f64b81d",
+    "arch-845325422cd7",
+    "arch-8479d12a4a14",
+    "arch-84866a9d1786",
+    "arch-8530ec4abf4a",
+    "arch-854d120e04fb",
+    "arch-8591c7baaa28",
+    "arch-85f8b022a8f1",
+    "arch-85fcb478d724",
+    "arch-85fef636631f",
+    "arch-86199d258263",
+    "arch-86658a431e03",
+    "arch-8666690599ac",
+    "arch-8767235deaf2",
+    "arch-87ea05ce738a",
+    "arch-8934f50fbeed",
+    "arch-8971afb30555",
+    "arch-8974466b2890",
+    "arch-8aa9c34b0e14",
+    "arch-8ad49a7d21c0",
+    "arch-8b9dff8384c7",
+    "arch-8ba7e62a1faf",
+    "arch-8c357b700a2c",
+    "arch-8c8c23ba82e6",
+    "arch-8c9cbe4897f0",
+    "arch-8d06f7bef2a4",
+    "arch-8d1a258f0b09",
+    "arch-8d6a78da6e96",
+    "arch-8e2988bbabf5",
+    "arch-8e4166ccca60",
+    "arch-8e74ac298d2b",
+    "arch-8eb1ac650ef7",
+    "arch-8f7c778be02b",
+    "arch-9075f3719492",
+    "arch-91095567cb77",
+    "arch-9181999fd9c1",
+    "arch-925311e091e3",
+    "arch-92ed87ea2acb",
+    "arch-93a0d57ed2bd",
+    "arch-93a3ba0e59fb",
+    "arch-941b980397d3",
+    "arch-9522437eb7bc",
+    "arch-9527c114772e",
+    "arch-95480f5b65ac",
+    "arch-955a386f547f",
+    "arch-9561837e44eb",
+    "arch-957a876e770d",
+    "arch-95b9b74036d7",
+    "arch-95c573e5c663",
+    "arch-96086968e95b",
+    "arch-96b3308cd1b2",
+    "arch-96ddd7ba9e4d",
+    "arch-9714f1386fb1",
+    "arch-9764b232d7c2",
+    "arch-97b3fd33c033",
+    "arch-9894ba27409d",
+    "arch-999730e06982",
+    "arch-99977ac37125",
+    "arch-99db4cf88130",
+    "arch-99dd5db67eaf",
+    "arch-9a4ea6c19d99",
+    "arch-9a81d12f0720",
+    "arch-9a8c13661a43",
+    "arch-9aa7033496a6",
+    "arch-9b9a43a5bdf6",
+    "arch-9bba434ae7e7",
+    "arch-9be06e52bde7",
+    "arch-9bf28f6a39aa",
+    "arch-9c9dc5b9ceef",
+    "arch-9d63723c6ec9",
+    "arch-9ddaa0cf4be0",
+    "arch-9dde0b4352fe",
+    "arch-9df8fb3c79c3",
+    "arch-9f1ee1721d43",
+    "arch-9f2c2085d8c0",
+    "arch-9f973f7202b8",
+    "arch-9fbf3dee77af",
+    "arch-a00fe399e8ed",
+    "arch-a0ce4a79eef8",
+    "arch-a0cf8bef2f5f",
+    "arch-a167997bad19",
+    "arch-a16e51f457d9",
+    "arch-a1a5fb0cfb09",
+    "arch-a2775cc75551",
+    "arch-a2b2e4b4df43",
+    "arch-a371d2068ced",
+    "arch-a3b57d586132",
+    "arch-a48a8b4bc8a4",
+    "arch-a49d3fe352ba",
+    "arch-a4f2acd84667",
+    "arch-a5dd364960e8",
+    "arch-a667d9959c38",
+    "arch-a67e7e976cc7",
+    "arch-a6a1796f3d5c",
+    "arch-a6b8da17c04d",
+    "arch-a6ee329ae887",
+    "arch-a7372ebfa5c7",
+    "arch-a75476a583e3",
+    "arch-a83f91efc924",
+    "arch-a896c2ea85bf",
+    "arch-a8b682ad7830",
+    "arch-a8cc4d637385",
+    "arch-a8d0aff8cc20",
+    "arch-a9751f0c2843",
+    "arch-a9a11b40801e",
+    "arch-a9b0569c7349",
+    "arch-a9ebd50b1bf3",
+    "arch-aa08e6ade577",
+    "arch-aa3fc19a6cc6",
+    "arch-aa79551bc9a7",
+    "arch-aaa2527334ce",
+    "arch-aaa620737d79",
+    "arch-aaf493695798",
+    "arch-ab316ac45c94",
+    "arch-ab93d09db7ac",
+    "arch-achilleas-giassiranis-wrestling-2024",
+    "arch-achilleas-passiranis-wrestling-2022",
+    "arch-ad18c8cd0612",
+    "arch-ad682a27ed49",
+    "arch-ada5a7ef9421",
+    "arch-adcaede27b46",
+    "arch-ae0647a0c701",
+    "arch-ae216e6da469",
+    "arch-ae3732594ef4",
+    "arch-aea3960dec8a",
+    "arch-af35a83f7946",
+    "arch-af5bad82fe57",
+    "arch-af7ad14d38ba",
+    "arch-af7b9eaec8f6",
+    "arch-af9470c5745f",
+    "arch-afd9d979eaa5",
+    "arch-afroditi-biziota-track23",
+    "arch-aikaterini-giannakou-arch",
+    "arch-alexis-papadopoulos-wrestling-2022",
+    "arch-apostolis-dimolios-wrestling-2026",
+    "arch-archery-52bc1f27",
+    "arch-archery-5e69a556",
+    "arch-archery-9acd2e41",
+    "arch-archery-contrib-20261102-01",
+    "arch-archery-contrib-20261102-02",
+    "arch-archery-contrib-20261102-03",
+    "arch-archery-contrib-20261102-04",
+    "arch-archery-contrib-20261102-05",
+    "arch-archery-contrib-20261102-06",
+    "arch-archery-contrib-20261102-07",
+    "arch-archery-contrib-20261102-08",
+    "arch-archery-contrib-20261102-09",
+    "arch-archery-konstantinos-samakovlis-2018",
+    "arch-archery-result-20261102-01",
+    "arch-archery-result-20261102-02",
+    "arch-archery-result-20261102-03",
+    "arch-archery-result-20261102-04",
+    "arch-archery-result-20261102-05",
+    "arch-archery-result-20261102-06",
+    "arch-archery-result-20261102-07",
+    "arch-archery-result-20261102-08",
+    "arch-archery-result-20261102-09",
+    "arch-archery-result-20261102-10",
+    "arch-archery-result-20261102-11",
+    "arch-archery-result-20261102-12",
+    "arch-archery-result-20261102-13",
+    "arch-archery-result-20261102-14",
+    "arch-archery-result-20261102-15",
+    "arch-aristotelis-navrozidis-wrest24",
+    "arch-b0435e280c67",
+    "arch-b05657e91883",
+    "arch-b08dda91d2f6",
+    "arch-b1e10ae2cfc0",
+    "arch-b21b716908e2",
+    "arch-b231605f5def",
+    "arch-b29896b10c60",
+    "arch-b2a39f5632d8",
+    "arch-b31b517be6f6",
+    "arch-b39f93ebb704",
+    "arch-b3d6c8fe4f5c",
+    "arch-b40b2a81ca0d",
+    "arch-b410fcd575d0",
+    "arch-b4284c4012f0",
+    "arch-b4386463c47c",
+    "arch-b459de79c44b",
+    "arch-b48656c62600",
+    "arch-b4cbc6aa3046",
+    "arch-b4e3d12f3584",
+    "arch-b59c806f120b",
+    "arch-b5a2878fd5e1",
+    "arch-b5a7212d15f6",
+    "arch-b5c64f91bcdd",
+    "arch-b6c687c06b4e",
+    "arch-b89aedba0293",
+    "arch-b90bce6112b7",
+    "arch-b987718bdca7",
+    "arch-ba4d322e822c",
+    "arch-ba8233d165aa",
+    "arch-baba93550267",
+    "arch-badbf299e264",
+    "arch-bb1c07013104",
+    "arch-bb54ccd4df17",
+    "arch-bb8825077e6b",
+    "arch-bbb65e7caf10",
+    "arch-bbc5416e44f0",
+    "arch-bbc555554a97",
+    "arch-bc495c1d2075",
+    "arch-bc7079f252cc",
+    "arch-bc7ec4de7db3",
+    "arch-bc85ae96e420",
+    "arch-bcae6917dd16",
+    "arch-bcfd0e1b14c5",
+    "arch-bd78fad7e1b0",
+    "arch-bdcef56af524",
+    "arch-bde5b8a0f677",
+    "arch-be65562e319a",
+    "arch-be8668380721",
+    "arch-bec5518099cc",
+    "arch-bf0f514c0097",
+    "arch-bf3a3f74d6e8",
+    "arch-bfd644d30e66",
+    "arch-bfd8f88168d9",
+    "arch-c1047f001a24",
+    "arch-c277be1d0995",
+    "arch-c2d9b7a0a29b",
+    "arch-c3dbb18f8afd",
+    "arch-c3e698d59a51",
+    "arch-c40b8343fdc1",
+    "arch-c51b66db9180",
+    "arch-c5687d80b0e5",
+    "arch-c5eb6d18a17a",
+    "arch-c639f22f681d",
+    "arch-c67fa9323e7f",
+    "arch-c6d8a8707cfd",
+    "arch-c6dd24b37324",
+    "arch-c71376255ac4",
+    "arch-c72a2fb59289",
+    "arch-c8e9a71629a9",
+    "arch-c8f11145fbb4",
+    "arch-c9649834c98e",
+    "arch-c982660fad09",
+    "arch-c9ac930568e0",
+    "arch-cc1efed701ce",
+    "arch-cc84a40c4504",
+    "arch-ccaf623e428b",
+    "arch-ccd3a9d5d1f3",
+    "arch-cd8d2b2e4d33",
+    "arch-cdc99b2b3af3",
+    "arch-ce075c629985",
+    "arch-ce5f9b978973",
+    "arch-ce654520f20a",
+    "arch-ce9b36c13edf",
+    "arch-cebb22a27c54",
+    "arch-ceccb0cad9fe",
+    "arch-cf056a28ce3b",
+    "arch-cf2ee36e3353",
+    "arch-cf53c375664e",
+    "arch-cf55874ef67a",
+    "arch-cf5dde66b16c",
+    "arch-cf6d190a4397",
+    "arch-cf9a3ad2feb0",
+    "arch-chara-mavridou-wrest25",
+    "arch-christina-papavasileiou-gymnastics-2022",
+    "arch-christos-karasavvidis-gymnastics-2022",
+    "arch-d015ccd03bc8",
+    "arch-d03d1470eba6",
+    "arch-d042198f3de0",
+    "arch-d04d1c5f6aee",
+    "arch-d0db4554f5a0",
+    "arch-d142043b84f4",
+    "arch-d25677ab9f72",
+    "arch-d2a6b1c37931",
+    "arch-d401b272f36b",
+    "arch-d44a10e67b91",
+    "arch-d498094c25af",
+    "arch-d4d9b4a186d2",
+    "arch-d4db4da6e266",
+    "arch-d4e2f27e35c1",
+    "arch-d4f83b385344",
+    "arch-d52769c9e607",
+    "arch-d5aeae83b210",
+    "arch-d5cefb1949b2",
+    "arch-d6404c6d21c7",
+    "arch-d69963f7377e",
+    "arch-d71e75a5fa86",
+    "arch-d7d8e2c8a05c",
+    "arch-d7eb7a831ee1",
+    "arch-d7ec892c259e",
+    "arch-d8f07d59e06b",
+    "arch-d93fc821b4dd",
+    "arch-d9a3d58d6432",
+    "arch-da32b8d53923",
+    "arch-daf19d2ae4d0",
+    "arch-db2ed4303837",
+    "arch-db8bfef5bd63",
+    "arch-db9431898849",
+    "arch-dc38c1018a66",
+    "arch-dc5556930892",
+    "arch-ddb549fbf33c",
+    "arch-ddeb63bb50e8",
+    "arch-de86490d1101",
+    "arch-def2f993be17",
+    "arch-df43a661c047",
+    "arch-dfb3c465a45c",
+    "arch-dfd943fbdfd7",
+    "arch-dimitrios-koufogiannis-shoot",
+    "arch-dimitrios-loulas-archery-officer-2015",
+    "arch-dimitrios-trigkas-wrest25",
+    "arch-dimitrios-tsimponis-shoot",
+    "arch-dimitris-siokas-handball-2026",
+    "arch-e03e05c83e79",
+    "arch-e0d825eaff0b",
+    "arch-e14498b16a60",
+    "arch-e20e2ac087a5",
+    "arch-e242f5926fc9",
+    "arch-e24bbfb7dc9a",
+    "arch-e355f0a88983",
+    "arch-e427ce8b2777",
+    "arch-e44e8bc4f0df",
+    "arch-e456a0a049c3",
+    "arch-e47279f0f6c2",
+    "arch-e49a8c140396",
+    "arch-e5015691e985",
+    "arch-e53e1a0fe7f7",
+    "arch-e614ee83c1a7",
+    "arch-e6778f75ce14",
+    "arch-e6b31b31c3a9",
+    "arch-e70291073a06",
+    "arch-e7b50e446985",
+    "arch-e82993d25ad7",
+    "arch-e87fdf323137",
+    "arch-e99f6ccb7820",
+    "arch-e9a3df83459e",
+    "arch-e9c0797fdb2a",
+    "arch-e9fc7408640c",
+    "arch-ea19e8b2b544",
+    "arch-eaba43ad9ad4",
+    "arch-eb30e824d0a2",
+    "arch-eb9aa1b43b26",
+    "arch-ec55ccba275f",
+    "arch-ec8773207161",
+    "arch-ed8530d87e9c",
+    "arch-ed9fd01800ea",
+    "arch-edb75edd624b",
+    "arch-edff92ffe21b",
+    "arch-ef200dd72711",
+    "arch-ef20440153fa",
+    "arch-ektoras-diamantidis-arch",
+    "arch-eleni-mitsiaki-archery-2022",
+    "arch-f02298025e5c",
+    "arch-f109bb72c24b",
+    "arch-f1d9d6da3178",
+    "arch-f1ff9a4033f8",
+    "arch-f20e62024af3",
+    "arch-f26868d81a7b",
+    "arch-f2820ec25e49",
+    "arch-f2a0e7338dd0",
+    "arch-f2c43bba0fac",
+    "arch-f3d93442851f",
+    "arch-f3f01ca42648",
+    "arch-f3fd054fc191",
+    "arch-f41ca9fab48f",
+    "arch-f41f83ebce30",
+    "arch-f4baff0848b3",
+    "arch-f52250e524ce",
+    "arch-f56820c52e55",
+    "arch-f5843397955a",
+    "arch-f6142dd3eca1",
+    "arch-f6152b60c43f",
+    "arch-f69c087be5c7",
+    "arch-f6a4e2956785",
+    "arch-f6d757d80854",
+    "arch-f6dac99e5223",
+    "arch-f6ee1bcb2da1",
+    "arch-f701cd1a6d2d",
+    "arch-f920c24a6118",
+    "arch-f94090c9c363",
+    "arch-f9a72f62749a",
+    "arch-fa4082d4f017",
+    "arch-fa8277316f82",
+    "arch-fae2ef2c0646",
+    "arch-fb8fb7dc8f22",
+    "arch-fbdb41269465",
+    "arch-fbf9bcb00de7",
+    "arch-fc7dc02d2e44",
+    "arch-fd83790421b6",
+    "arch-georgios-athanas-athletics-board-2026",
+    "arch-gymnastics-3d90ff4c",
+    "arch-gymnastics-3e72e3a0",
+    "arch-gymnastics-4835eaab",
+    "arch-gymnastics-9814252c",
+    "arch-gymnastics-ab00d538",
+    "arch-gymnastics-b15100a6",
+    "arch-gymnastics-d8ee376a",
+    "arch-gymnastics-f2e4a89b",
+    "arch-gymnastics-ffd29998",
+    "arch-handball-348992f5",
+    "arch-ioannis-goutsos-gymnastics-2022",
+    "arch-kassiani-koktsidou-arch",
+    "arch-katerina-lampiri-gymnastics-2022",
+    "arch-katerina-natsiopoulou-track22",
+    "arch-konstantinos-charisis-arch",
+    "arch-konstantinos-sarris-volleyball",
+    "arch-konstantinos-seitanidis-shoot",
+    "arch-konstantinos-sklias-wrest23",
+    "arch-kyriaki-parasidou-gymnastics-2022",
+    "arch-loukas-zinisa-wrest25",
+    "arch-maria-mastorogianni-wrest25",
+    "arch-michaela-syrmali-wrest20",
+    "arch-nikos-zinisa-savvas-wrestling",
+    "arch-paschalis-iliatzikis-wrestling-2022",
+    "arch-pavlina-charitidou-arch",
+    "arch-platon-chotokouridis-basketball",
+    "arch-savvas-charitidis-wrestling-2021",
+    "arch-sofia-konstantinidou-track22",
+    "arch-sofia-toptsa-shoot",
+    "arch-swim-2026-andreas-anastasiadis",
+    "arch-swim-2026-eleni-kotidou",
+    "arch-swim-2026-fayi-dimitriadou",
+    "arch-swim-2026-giorgos-kryos",
+    "arch-swim-2026-katerina-popoti",
+    "arch-swim-2026-katerina-tsiniani",
+    "arch-swim-2026-konstantinos-stefanis",
+    "arch-swim-2026-nikolas-kryos",
+    "arch-swim-2026-pavlos-bampoulis",
+    "arch-theofania-karali-arch",
+    "arch-thodoris-tsiliggiridis-wrest20",
+    "arch-vanesa-charoula-hogkas-shoot",
+    "arch-vangelis-kordonoulis-wrest24",
+    "arch-vasileios-grigoropoulos-shoot",
+    "arch-vasiliki-koufogianni-shoot",
+    "arch-vasilis-d-noulezas-handball",
+    "arch-wrest-dimitris-grigkas",
+    "arch-wrest-stavros-tsakiris",
+    "arch-wrest-taxiarhis-liakos"
+  ],
+  "newsIds": [
+    "archery-amyntaio-youth-national-dec-2024",
+    "archery-central-european-cup-novi-marof-2025",
+    "archery-cup-2024",
+    "archery-cyprus-2025",
+    "archery-florina-cup-team-silver-sep-2022",
+    "archery-national-evaluation-nea-chrani-may-2025",
+    "archery-national-oaka-team-title-2025",
+    "archery-national-team-charisis-charitidou-nov-2024",
+    "archery-national-title-2026",
+    "archery-oaka-u21-u18-medals-sep-2023",
+    "archery-olympic-support-charisis-feb-2026",
+    "archery-olympus-2024",
+    "archery-olympus-series-agios-spyridonas-feb-2026",
+    "archery-olympus-series-june-2020",
+    "archery-region-visit-aug-2024",
+    "archery-teachers-2026",
+    "archery-u18-athens-national-results-july-2022",
+    "archery-u18-indoor-livadeia-2026",
+    "archery-youth-2025",
+    "club-65th-anniversary-album-contract-jun-2023",
+    "club-board-elections-apr-2025",
+    "club-dak-theodoros-diamantopoulos-2026",
+    "club-municipal-visit-2023",
+    "club-segas-filis-visit-aug-2024",
+    "club-sports-facilities-proposals-aug-2024",
+    "club-wrestling-shooting-school-visit-may-2022",
+    "gym-2022-horizon",
+    "gym-2023-mikra",
+    "gym-2024-mikra",
+    "gym-2025-team",
+    "gymnastics-2025-festival-largest-team",
+    "gymnastics-alexandroupoli-final-jun-2022",
+    "gymnastics-alexandroupoli-u10-u8-june-2023",
+    "gymnastics-d-category-regional-mikra-may-2024",
+    "gymnastics-horizon-cup-2024-team-medals",
+    "gymnastics-national-lavrio-may-2023",
+    "gymnastics-regional-first-phase-may-2022",
+    "gymnastics-renovated-hall-opening-2019",
+    "gymnastics-thessaloniki-regional-may-2023",
+    "gymnastics-u18-regional-team-gold-2026",
+    "gymnastics-valvi-beam-final-may-2024",
+    "gymnastics-youth-honours-nov-2021",
+    "gymnastics-youth-national-medals-may-2022",
+    "handball-archelaos-apollon-stavroupolis-23-14-jan-2026",
+    "handball-archelaos-foinikas-dramas-38-24-march-2026",
+    "handball-archelaos-kastoria-33-16-2026",
+    "handball-archelaos-kyklopes-30-23-feb-2026",
+    "handball-archelaos-panserraikos-26-24-jan-2026",
+    "handball-archelaos-voreas-41-20-feb-2026",
+    "handball-drama-archelaos-28-29-feb-2026",
+    "handball-feronas-archelaos-35-31-apr-2024",
+    "handball-first-aid-supply-dec-2022",
+    "handball-kilkis-archelaos-33-14-feb-2023",
+    "handball-kyklopes-archelaos-38-29-may-2023",
+    "handball-prosotsani-archelaos-38-27-jan-2026",
+    "handball-siokas-ehf-2026",
+    "handball-siokas-mediterranean-2026",
+    "handball-volos-2024",
+    "handball-voreas-archelaos-20-36-nov-2025",
+    "handball-youth-qualifier-mikra-march-2026",
+    "katerini-run-70-years-2026",
+    "new-president-2026",
+    "pieria-handball-cup-announcement-2024",
+    "reha-bronze-outdoor-hurdles-volos-2025",
+    "shooting-2024-vyronas",
+    "shooting-moschi-olympic-qualification-mar-2023",
+    "shooting-training-season-sept-2022",
+    "swimming-national-17-athletes-106-points-aug-2026",
+    "swimming-national-medals-city-reception-2025",
+    "track-academy-summer-celebration-2024",
+    "track-hatzipourgani-interclub-400h-jul-2020",
+    "track-hatzipourgani-u18-record-ioannina-aug-2020",
+    "track-hatzipourgani-u18-record-patra-aug-2020",
+    "track-indoor-national-2023-natsiopoulou-biziota",
+    "track-natsiopoulou-school-400h-gold-may-2023",
+    "track-natsiopoulou-u23-gold-june-2022",
+    "track-recha-indoor-national-silver-2025",
+    "track-school-silver-volos-apr-2022",
+    "track-season-blessing-sept-2024",
+    "track-u16-eleftheroupoli-jun-2023",
+    "track-u16-kilkis-team-apr-2024",
+    "track-u16-national-eleftheroupoli-jul-2024",
+    "track-u18-kilkis-medals-apr-2024",
+    "track-u18-larisa-two-golds-jul-2020",
+    "track-women-top20-u20-serres-jul-2022",
+    "track-world-gymnasiade-balkan-june-2022",
+    "track-zachariadeia-two-medals-may-2024",
+    "volleyball-kyparissi-panathinaikos-2026",
+    "volleyball-mini-tournament-jun-2022",
+    "wrestling-2023-bucharest",
+    "wrestling-40-years-katerini-may-2019",
+    "wrestling-balkan-2026",
+    "wrestling-balkan-sidirokastro-may-2023",
+    "wrestling-balkan-skopje-oct-2024",
+    "wrestling-belgrade-four-medals-2024",
+    "wrestling-darko-nisavic-serbia-july-2026",
+    "wrestling-mayor-2024",
+    "wrestling-meteora-international-2026",
+    "wrestling-monaco-camp-nov-2019",
+    "wrestling-mouzaki-youth-medals-apr-2023",
+    "wrestling-petkos-gold-evthymiadis-fifth-2024",
+    "wrestling-petkos-silver-kilkis-mar-2020",
+    "wrestling-petkos-world-team-sofia-aug-2022",
+    "wrestling-pleven-bulgaria-dec-2024",
+    "wrestling-prosotsani-u11-u13-nov-2023",
+    "wrestling-school-trikala-bronze-may-2022",
+    "wrestling-syrmali-bronze-kilkis-mar-2020",
+    "wrestling-u11-u13-karditsa-2025",
+    "wrestling-u13-zefyri-team-third-oct-2021",
+    "wrestling-u15-european-bronze-loutraki-2024",
+    "wrestling-u15-karatoula-team-champions-2023",
+    "wrestling-u15-larisa-2024",
+    "wrestling-u15-porroia-silver-2026",
+    "wrestling-u15-porroia-team-first-2021",
+    "wrestling-u15-prosotsani-zinisa-march-2025",
+    "wrestling-u15-team-champions-april-2022",
+    "wrestling-u17-serres-third-apr-2022",
+    "wrestling-u17-team-silver-larisa-apr-2025",
+    "wrestling-u17-trikala-team-third-2024",
+    "wrestling-u20-serres-champions-apr-2025",
+    "wrestling-u20-serres-team-second-april-2026",
+    "wrestling-vao-moraitis-palaska-dec-2023",
+    "wrestling-world-istanbul-squad-july-2023",
+    "wrestling-xanthi-four-medals-2021",
+    "wrestling-xenidou-bronze-oct-2021",
+    "wrestling-xenidou-u17-national-gold-apr-2024",
+    "wrestling-zagreb-team-first-dec-2024"
+  ],
+  "historicalEventIds": [
+    "administration-2011",
+    "administration-2026",
+    "archery-formation-1993",
+    "archery-junior-team-silver-1994",
+    "archive-0147",
+    "archive-0148",
+    "archive-0149",
+    "archive-0151",
+    "archive-0156",
+    "archive-0160",
+    "archive-0169",
+    "archive-0172",
+    "archive-0191",
+    "archive-0199",
+    "archive-0205",
+    "archive-0206",
+    "archive-0209",
+    "archive-0215",
+    "archive-membership-invitation-1975",
+    "archive-multisport-overview-circa-1990",
+    "athletics-coach-1964",
+    "basketball-department-1973",
+    "board-archery-officer-loulas-2015",
+    "boys-cross-country-silver-1997",
+    "diamantopoulos-hurdles-record-1993",
+    "dios-dromos-1987",
+    "eleftheroudis-presidency-1993",
+    "faka-junior-shooting-record-1996",
+    "foundation-1956",
+    "gymnastics-1975",
+    "gymnastics-titles-1981-1991",
+    "handball-cup-1990",
+    "handball-first-coach-1978",
+    "handball-second-cup-1994",
+    "javelin-record-1980",
+    "kakalis-gymnastics-medals-1991",
+    "karatzoulas-triple-jump-1992",
+    "katsikakis-vault-title-1991",
+    "kouklis-balkan-pole-vault-1993",
+    "koukodimos-national-record-1994",
+    "koukodimos-olympics-1992",
+    "koukodimos-record-1985",
+    "lazaridou-discus-record-1978",
+    "lefteriotis-pole-vault-title-1991",
+    "moment-02-1957",
+    "moment-03-1957",
+    "moment-04-1957",
+    "moment-05-1959",
+    "moment-07-1966",
+    "moment-08-1967",
+    "moment-09-1968",
+    "moment-10-1970",
+    "moment-11-1971",
+    "moment-12-1973",
+    "moment-14-1973",
+    "moment-15-1974",
+    "moment-16-1974",
+    "moment-18-1975",
+    "moment-19-1975",
+    "moment-20-1976",
+    "moment-21-1976",
+    "moment-22-1976",
+    "moment-23-1977",
+    "moment-24-1977",
+    "moment-25-1977",
+    "moment-26-1977",
+    "moment-28-1978",
+    "moment-29-1978",
+    "moment-31-1979",
+    "moment-32-1979",
+    "moment-34-1980",
+    "moment-35-1980",
+    "moment-37-1981",
+    "moment-39-1981",
+    "moment-40-1981",
+    "moment-42-1982",
+    "moment-43-1983",
+    "moment-44-1983",
+    "moment-45-1984",
+    "moment-46-1985",
+    "moment-48-1985",
+    "moment-49-1986",
+    "moment-52-1989",
+    "moment-54-1990",
+    "moment-55-1990",
+    "moment-56-1991",
+    "moment-58-1992",
+    "moment-61-1993",
+    "moment-63-1994",
+    "moment-64-1995",
+    "moment-65-1999",
+    "moment-66-2004",
+    "moment-67-2008",
+    "moment-69-2024",
+    "papasotiriou-long-jump-1991",
+    "papasotiriou-pentathlon-record-1996",
+    "parousis-horizon-2022",
+    "poulikidis-european-bronze-1988",
+    "samakovlis-wrestling-title-1994",
+    "stamkopoulou-triple-jump-1995",
+    "swimming-training-1981",
+    "telidou-national-call-1997",
+    "wrestling-training-1980"
+  ],
+  "mediaReferences": [
+    {
+      "mediaRefId": "media-ref-01540b756048faac7438",
+      "reference": "images/news/archery-teachers-2026.jpg",
+      "newsIds": [
+        "archery-teachers-2026"
+      ],
+      "referenceFields": [
+        "archery-teachers-2026:image"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-036dec63d199955e3315",
+      "reference": "https://odelalis.gr/wp-content/uploads/2020/03/αρχέλαος-πάλη-συρμαλη-1.jpeg",
+      "newsIds": [
+        "wrestling-syrmali-bronze-kilkis-mar-2020"
+      ],
+      "referenceFields": [
+        "wrestling-syrmali-bronze-kilkis-mar-2020:image",
+        "wrestling-syrmali-bronze-kilkis-mar-2020:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-051bd4447b4ad64a8a7a",
+      "reference": "https://www.pao1908.com/wp-content/uploads/2026/06/25/kyparissiwebsite-e1782386155211.jpg",
+      "newsIds": [
+        "volleyball-kyparissi-panathinaikos-2026"
+      ],
+      "referenceFields": [
+        "volleyball-kyparissi-panathinaikos-2026:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-0741e35c1adeff406d6a",
+      "reference": "https://eptanews.gr/wp-content/uploads/2024/03/cuphandball.jpg",
+      "newsIds": [
+        "pieria-handball-cup-announcement-2024"
+      ],
+      "referenceFields": [
+        "pieria-handball-cup-announcement-2024:image",
+        "pieria-handball-cup-announcement-2024:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-088094f96b99e50983d1",
+      "reference": "https://olympiobima.gr/wp-content/uploads/2022/09/Στο-Κύπελλο-Ελλάδος-στην-Φλώρινα-το-τμήμα-τοξοβολίας-του-ΓΑΣ-Αρχέλαος-Κατερίνης-36785.jpg",
+      "newsIds": [
+        "archery-florina-cup-team-silver-sep-2022"
+      ],
+      "referenceFields": [
+        "archery-florina-cup-team-silver-sep-2022:image",
+        "archery-florina-cup-team-silver-sep-2022:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-0bd590e8f2ddbe839a3f",
+      "reference": "https://olympiobima.gr/wp-content/uploads/2024/04/nikise-prokrithike-sta-plei-of-43067.webp",
+      "newsIds": [
+        "handball-feronas-archelaos-35-31-apr-2024"
+      ],
+      "referenceFields": [
+        "handball-feronas-archelaos-35-31-apr-2024:image",
+        "handball-feronas-archelaos-35-31-apr-2024:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-0d2500458633dce0ca1f",
+      "reference": "https://www.segas.gr/8046-panellinio-protathlima-a-g-peftei-i-avlaia-stin-patra/",
+      "newsIds": [
+        "track-hatzipourgani-u18-record-patra-aug-2020"
+      ],
+      "referenceFields": [
+        "track-hatzipourgani-u18-record-patra-aug-2020:photoSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-0d9d54ada7aa4c3c68a4",
+      "reference": "images/news/handball-siokas-ehf-2026.jpg",
+      "newsIds": [
+        "handball-siokas-ehf-2026",
+        "handball-siokas-mediterranean-2026"
+      ],
+      "referenceFields": [
+        "handball-siokas-ehf-2026:image",
+        "handball-siokas-mediterranean-2026:image"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-10490f55a390dd57384d",
+      "reference": "https://eptanews.gr/wp-content/uploads/2024/11/%CE%A4%CE%9F%CE%9E%CE%9F%CE%92%CE%9F%CE%9B%CE%99%CE%91-1.jpg",
+      "newsIds": [
+        "archery-national-team-charisis-charitidou-nov-2024"
+      ],
+      "referenceFields": [
+        "archery-national-team-charisis-charitidou-nov-2024:image",
+        "archery-national-team-charisis-charitidou-nov-2024:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-10c57d508926c27e008a",
+      "reference": "images/news/new-president-2026.jpg",
+      "newsIds": [
+        "new-president-2026"
+      ],
+      "referenceFields": [
+        "new-president-2026:image"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-111c6875a28e01f70734",
+      "reference": "https://i0.wp.com/sportsfeed.gr/wp-content/uploads/2020/07/IMG_9264-1-800x533.jpg?resize=800%2C533&ssl=1",
+      "newsIds": [
+        "track-u18-larisa-two-golds-jul-2020"
+      ],
+      "referenceFields": [
+        "track-u18-larisa-two-golds-jul-2020:imageCandidateUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-11b1498b84b207ffbf1d",
+      "reference": "https://www.segas.gr/wp-content/uploads/2022/05/hatzipourgani_2020.jpg",
+      "newsIds": [
+        "track-hatzipourgani-u18-record-patra-aug-2020"
+      ],
+      "referenceFields": [
+        "track-hatzipourgani-u18-record-patra-aug-2020:imageCandidateUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-178cfd528f3f8bad0576",
+      "reference": "images/image-591.png",
+      "newsIds": [
+        "handball-youth-qualifier-mikra-march-2026"
+      ],
+      "referenceFields": [
+        "handball-youth-qualifier-mikra-march-2026:image"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-182f8020ec03b12e0c9b",
+      "reference": "https://katerini.gr/wp-content/uploads/2025/09/%CE%B5%CE%B9%CE%BA%CF%8C%CE%BD%CE%B1_Viber_2025-09-01_14-20-54-283.jpg",
+      "newsIds": [
+        "swimming-national-medals-city-reception-2025"
+      ],
+      "referenceFields": [
+        "swimming-national-medals-city-reception-2025:image",
+        "swimming-national-medals-city-reception-2025:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-197a70608add21af2aa0",
+      "reference": "https://odigos-pierias.gr/wp-content/uploads/2022/04/5-800x600-1-800x600-1.jpg",
+      "newsIds": [
+        "wrestling-u17-serres-third-apr-2022"
+      ],
+      "referenceFields": [
+        "wrestling-u17-serres-third-apr-2022:image",
+        "wrestling-u17-serres-third-apr-2022:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-1a6ccdc19af458f9db62",
+      "reference": "https://i0.wp.com/eptanews.gr/wp-content/uploads/2023/04/-%CE%91%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CE%9A%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82-e1680593162690.jpeg?fit=1240%2C720&ssl=1",
+      "newsIds": [
+        "gym-2023-mikra"
+      ],
+      "referenceFields": [
+        "gym-2023-mikra:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-1b87bd2ec488546fed94",
+      "reference": "https://i1.wp.com/eptanews.gr/wp-content/uploads/2021/10/received_458311268828952.jpeg?fit=720%2C960&ssl=1",
+      "newsIds": [
+        "wrestling-xenidou-bronze-oct-2021"
+      ],
+      "referenceFields": [
+        "wrestling-xenidou-bronze-oct-2021:image",
+        "wrestling-xenidou-bronze-oct-2021:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-1de11da82ea2910f8afd",
+      "reference": "https://odelalis.gr/wp-content/uploads/2024/08/ΓΑΣ-ΑΡΧΕΛΑΟΣ-ΚΑΤΕΡΙΝΗΣ.jpg",
+      "newsIds": [
+        "club-segas-filis-visit-aug-2024"
+      ],
+      "referenceFields": [
+        "club-segas-filis-visit-aug-2024:image",
+        "club-segas-filis-visit-aug-2024:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-20543f36be6692a34b0a",
+      "reference": "https://olympiobima.gr/wp-content/uploads/2024/12/gas-arxelaos-katerinis-synexeia-epityxion-74219.webp",
+      "newsIds": [
+        "archery-amyntaio-youth-national-dec-2024"
+      ],
+      "referenceFields": [
+        "archery-amyntaio-youth-national-dec-2024:image",
+        "archery-amyntaio-youth-national-dec-2024:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-21f77e7952a26011aea4",
+      "reference": "https://odelalis.gr/wp-content/uploads/2023/06/stivos-arxelaos.jpg",
+      "newsIds": [
+        "track-u16-eleftheroupoli-jun-2023"
+      ],
+      "referenceFields": [
+        "track-u16-eleftheroupoli-jun-2023:image",
+        "track-u16-eleftheroupoli-jun-2023:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-253262908bc6cdb8bb94",
+      "reference": "https://cdn.onsmd.gr/img/1280/max/90/2021/06/27/pali.jpg?t=APQX9-XihIE_HW_SiXuvZg",
+      "newsIds": [
+        "wrestling-u15-porroia-team-first-2021"
+      ],
+      "referenceFields": [
+        "wrestling-u15-porroia-team-first-2021:image",
+        "wrestling-u15-porroia-team-first-2021:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-2931a6cae793a2b610ab",
+      "reference": "https://www.palmare.gr/wp-content/uploads/2026/11/26-TAIM.jpg",
+      "newsIds": [
+        "handball-archelaos-kastoria-33-16-2026"
+      ],
+      "referenceFields": [
+        "handball-archelaos-kastoria-33-16-2026:image",
+        "handball-archelaos-kastoria-33-16-2026:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-2df3d92f4323aa4dee22",
+      "reference": "https://i1.wp.com/eptanews.gr/wp-content/uploads/2023/02/%CE%9A%CE%BF%CF%85%CE%BA%CE%BF%CE%B4%CE%AE%CE%BC%CE%BF%CF%82-%CE%91%CE%BB%CE%BA%CE%B7%CF%82-%CE%A4%CE%B1%CF%83%CE%BF%CF%80%CE%BF%CF%85%CE%BB%CE%BF%CF%82.jpg?fit=1118%2C876&ssl=1",
+      "newsIds": [
+        "club-municipal-visit-2023"
+      ],
+      "referenceFields": [
+        "club-municipal-visit-2023:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-2e184745f0f7dc8e80fa",
+      "reference": "https://i1.wp.com/eptanews.gr/wp-content/uploads/2024/04/%CE%B3%CF%85%CE%BC%CE%BD%CE%B1%CF%83%CF%84%CE%B9%CE%BA%CE%AE.jpeg?fit=764%2C1200&ssl=1",
+      "newsIds": [
+        "gym-2024-mikra"
+      ],
+      "referenceFields": [
+        "gym-2024-mikra:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-3568784f305174cf6058",
+      "reference": "https://katerinisport.gr/%CF%80%CE%B1%CE%BD%CE%B5%CE%BB%CE%BB%CE%B7%CE%BD%CE%B9%CE%BF%CE%BD%CE%AF%CE%BA%CE%B7%CF%82-%CE%BF-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CE%BA%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7/",
+      "newsIds": [
+        "track-u18-larisa-two-golds-jul-2020"
+      ],
+      "referenceFields": [
+        "track-u18-larisa-two-golds-jul-2020:photoSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-3592d356fc85b33fefe5",
+      "reference": "https://pieriasocial.gr/wp-content/uploads/2022/04/11111111111-1024x768.jpg",
+      "newsIds": [
+        "wrestling-u15-team-champions-april-2022"
+      ],
+      "referenceFields": [
+        "wrestling-u15-team-champions-april-2022:image",
+        "wrestling-u15-team-champions-april-2022:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-35cb9f16b149cb49fcf7",
+      "reference": "https://i0.wp.com/eptanews.gr/wp-content/uploads/2021/10/1633797217899.jpeg?fit=834%2C626&ssl=1",
+      "newsIds": [
+        "wrestling-u13-zefyri-team-third-oct-2021"
+      ],
+      "referenceFields": [
+        "wrestling-u13-zefyri-team-third-oct-2021:imageCandidateUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-36914e7fa43d456dd81b",
+      "reference": "https://odialogos.gr/wp-content/uploads/2022/07/%CF%84%CE%BF%CE%BE%CE%BF%CE%B2%CE%BF%CE%BB%CE%AF%CE%B1-%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-6.jpg",
+      "newsIds": [
+        "archery-u18-athens-national-results-july-2022"
+      ],
+      "referenceFields": [
+        "archery-u18-athens-national-results-july-2022:image",
+        "archery-u18-athens-national-results-july-2022:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-38dc3dd271c993610d12",
+      "reference": "https://odialogos.gr/wp-content/uploads/2025/04/Archelaos-enorgani-02.jpg",
+      "newsIds": [
+        "gym-2025-team"
+      ],
+      "referenceFields": [
+        "gym-2025-team:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-3e292ff47a11b5a12270",
+      "reference": "https://media.pieriasocial.gr/2022/05/αρχέλαος-1-1.jpg",
+      "newsIds": [
+        "club-wrestling-shooting-school-visit-may-2022"
+      ],
+      "referenceFields": [
+        "club-wrestling-shooting-school-visit-may-2022:image",
+        "club-wrestling-shooting-school-visit-may-2022:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-3ff6941f87c845ff3243",
+      "reference": "https://olympiobima.gr/wp-content/uploads/2022/05/Archelaos-Katerinis-3-Chalkina-metallia-oi-athlites-tou-stous-Panellinious-scholikous-agones-sta-Trikala-42245.jpg",
+      "newsIds": [
+        "wrestling-school-trikala-bronze-may-2022"
+      ],
+      "referenceFields": [
+        "wrestling-school-trikala-bronze-may-2022:image",
+        "wrestling-school-trikala-bronze-may-2022:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-4078b6e2377f9d82c8a7",
+      "reference": "https://olympiobima.gr/wp-content/uploads/2025/11/voreas-alexandroypolis-arxelaos-katerinis-55747.webp",
+      "newsIds": [
+        "handball-voreas-archelaos-20-36-nov-2025"
+      ],
+      "referenceFields": [
+        "handball-voreas-archelaos-20-36-nov-2025:image",
+        "handball-voreas-archelaos-20-36-nov-2025:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-412ef5f4245197fab073",
+      "reference": "https://olympiobima.gr/wp-content/uploads/2023/12/gas-archelaos-katerinis-gemisan-tis-29267.webp",
+      "newsIds": [
+        "wrestling-vao-moraitis-palaska-dec-2023"
+      ],
+      "referenceFields": [
+        "wrestling-vao-moraitis-palaska-dec-2023:image",
+        "wrestling-vao-moraitis-palaska-dec-2023:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-4434966ff49d0f9af090",
+      "reference": "images/news/volleyball-kyparissi-panathinaikos-2026.jpg",
+      "newsIds": [
+        "volleyball-kyparissi-panathinaikos-2026"
+      ],
+      "referenceFields": [
+        "volleyball-kyparissi-panathinaikos-2026:image"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-453c3b68f8a849840e3d",
+      "reference": "https://media.pieriasocial.gr/2026/10/1000004237.jpg",
+      "newsIds": [
+        "wrestling-balkan-2026"
+      ],
+      "referenceFields": [
+        "wrestling-balkan-2026:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-45743c42475c5d4f0b96",
+      "reference": "https://odelalis.gr/wp-content/uploads/2025/06/katerini_kroatia_toxovolia-1.jpg",
+      "newsIds": [
+        "archery-central-european-cup-novi-marof-2025"
+      ],
+      "referenceFields": [
+        "archery-central-european-cup-novi-marof-2025:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-45e6fdf2bfbdb035d3a8",
+      "reference": "https://pieriasocial.gr/wp-content/uploads/2025/11/1111111111111111111-2-768x277.jpg",
+      "newsIds": [
+        "archery-youth-2025"
+      ],
+      "referenceFields": [
+        "archery-youth-2025:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-47231d9244609529daaf",
+      "reference": "https://i2.wp.com/eptanews.gr/wp-content/uploads/2024/03/%CE%93%CE%91%CE%A3-%CE%91%CE%A1%CE%A7%CE%95%CE%9B%CE%91%CE%9F%CE%A3-%CE%9A%CE%91%CE%A4%CE%95%CE%A1%CE%99%CE%9D%CE%97%CE%A3-%CE%A4%CE%9C%CE%97%CE%9C%CE%91-%CE%A0%CE%91%CE%9B%CE%97%CE%A3-5.jpg?fit=843%2C580&ssl=1",
+      "newsIds": [
+        "wrestling-u15-larisa-2024"
+      ],
+      "referenceFields": [
+        "wrestling-u15-larisa-2024:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-473b00ef1e26692e83f7",
+      "reference": "https://pieriasocial.gr/?p=65222",
+      "newsIds": [
+        "track-natsiopoulou-school-400h-gold-may-2023"
+      ],
+      "referenceFields": [
+        "track-natsiopoulou-school-400h-gold-may-2023:photoSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-49a05155abec64dcb1de",
+      "reference": "https://i2.wp.com/eptanews.gr/wp-content/uploads/2024/08/LOGO-%CE%91%CE%A1%CE%A7%CE%95%CE%9B%CE%91%CE%9F%CE%A3-%CE%A0%CE%A1%CE%91%CE%A3%CE%99%CE%9D%CE%9F-5.jpg?fit=700%2C467&ssl=1",
+      "newsIds": [
+        "club-sports-facilities-proposals-aug-2024"
+      ],
+      "referenceFields": [
+        "club-sports-facilities-proposals-aug-2024:image",
+        "club-sports-facilities-proposals-aug-2024:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-4be37a751e043ae0545e",
+      "reference": "https://odelalis.gr/wp-content/uploads/2024/05/ΑΡΧΕΛΑΟΣ-ΣΤΙΒΟΣ-1.jpg",
+      "newsIds": [
+        "track-zachariadeia-two-medals-may-2024"
+      ],
+      "referenceFields": [
+        "track-zachariadeia-two-medals-may-2024:image",
+        "track-zachariadeia-two-medals-may-2024:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-4e6c6930b9fbae266977",
+      "reference": "images/news/shooting-2024-vyronas.jpg",
+      "newsIds": [
+        "shooting-2024-vyronas"
+      ],
+      "referenceFields": [
+        "shooting-2024-vyronas:image"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-5335420f7d200b301d14",
+      "reference": "images/news/archery-youth-2025.jpg",
+      "newsIds": [
+        "archery-youth-2025"
+      ],
+      "referenceFields": [
+        "archery-youth-2025:image"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-53e5acd44d248b04414b",
+      "reference": "https://odialogos.gr/wp-content/uploads/2023/04/%CE%91%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CE%A0%CE%AC%CE%BB%CE%B7-7.jpeg",
+      "newsIds": [
+        "wrestling-mouzaki-youth-medals-apr-2023",
+        "wrestling-u15-karatoula-team-champions-2023"
+      ],
+      "referenceFields": [
+        "wrestling-mouzaki-youth-medals-apr-2023:image",
+        "wrestling-mouzaki-youth-medals-apr-2023:imageSourceUrl",
+        "wrestling-u15-karatoula-team-champions-2023:image",
+        "wrestling-u15-karatoula-team-champions-2023:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-5407cc7040e365dc9635",
+      "reference": "https://www.pierianews.gr/wp-content/uploads/2024/12/pal6.jpg",
+      "newsIds": [
+        "wrestling-zagreb-team-first-dec-2024"
+      ],
+      "referenceFields": [
+        "wrestling-zagreb-team-first-dec-2024:image",
+        "wrestling-zagreb-team-first-dec-2024:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-56aa1a13df242ea17dad",
+      "reference": "https://odelalis.gr/wp-content/uploads/2022/12/dimosieysi-3.jpg",
+      "newsIds": [
+        "handball-first-aid-supply-dec-2022"
+      ],
+      "referenceFields": [
+        "handball-first-aid-supply-dec-2022:image",
+        "handball-first-aid-supply-dec-2022:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-57d2ba82f0c260b5003c",
+      "reference": "https://media.pieriasocial.gr/2024/07/2222222222222222222.jpg",
+      "newsIds": [
+        "track-u16-national-eleftheroupoli-jul-2024"
+      ],
+      "referenceFields": [
+        "track-u16-national-eleftheroupoli-jul-2024:image",
+        "track-u16-national-eleftheroupoli-jul-2024:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-57f27eecbde35d366849",
+      "reference": "https://media.pieriasocial.gr/2024/04/1111111111111111-1.jpg",
+      "newsIds": [
+        "archery-olympus-2024"
+      ],
+      "referenceFields": [
+        "archery-olympus-2024:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-5be4f2b097438d29a626",
+      "reference": "https://pieria24.gr/wp-content/uploads/2026/09/img_1789034454_7091.webp",
+      "newsIds": [
+        "archery-teachers-2026"
+      ],
+      "referenceFields": [
+        "archery-teachers-2026:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-5c792370c12409037dcc",
+      "reference": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhTjxHtlmuNiV3cHSocfBpzS1-5IP3FkrTbiHHdpdOcA68P03olk_B7UaHtPmPbhnSjgXti28_7T-HbngD0zl3I-lwuDCaZOGaaopDKXcQJ6f1jeUm8KWGzdNHswZIBhxoq0avCCo2Useo9qSySiN4tYk2Qs_AK5buvm6wtgCc2KcPDNAmy5tdgHG0TEBEF/s16000/%CE%91%CE%A1%CE%A7%CE%95%CE%9B%CE%91%CE%9F%CE%A3%20%CE%A3%CE%A4%CE%99%CE%92%CE%9F%CE%A3.jpg",
+      "newsIds": [
+        "track-u18-kilkis-medals-apr-2024"
+      ],
+      "referenceFields": [
+        "track-u18-kilkis-medals-apr-2024:image",
+        "track-u18-kilkis-medals-apr-2024:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-62b4b4139a2cae26a24f",
+      "reference": "https://olympiobima.gr/wp-content/uploads/2024/05/ston-teliko-valvi-gas-arxelaos-26190.webp",
+      "newsIds": [
+        "gymnastics-valvi-beam-final-may-2024"
+      ],
+      "referenceFields": [
+        "gymnastics-valvi-beam-final-may-2024:image",
+        "gymnastics-valvi-beam-final-may-2024:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-65ef621431d58a8058b8",
+      "reference": "https://odelalis.gr/wp-content/uploads/2024/04/savvas_ksenidou_pali.jpg",
+      "newsIds": [
+        "wrestling-xenidou-u17-national-gold-apr-2024"
+      ],
+      "referenceFields": [
+        "wrestling-xenidou-u17-national-gold-apr-2024:image",
+        "wrestling-xenidou-u17-national-gold-apr-2024:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-685c06fb49a774343b75",
+      "reference": "https://katerinisport.gr/wp-content/uploads/2025/08/rexa.webp",
+      "newsIds": [
+        "reha-bronze-outdoor-hurdles-volos-2025"
+      ],
+      "referenceFields": [
+        "reha-bronze-outdoor-hurdles-volos-2025:image",
+        "reha-bronze-outdoor-hurdles-volos-2025:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-69f750449cf08875ba28",
+      "reference": "images/885227475_2290644591730049_5581594058415033902_n.jpg",
+      "newsIds": [
+        "wrestling-meteora-international-2026"
+      ],
+      "referenceFields": [
+        "wrestling-meteora-international-2026:image"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-6b1892ea8452f93fa95e",
+      "reference": "https://pieria24.gr/wp-content/uploads/2026/04/img_1775419232_873.webp",
+      "newsIds": [
+        "gymnastics-u18-regional-team-gold-2026"
+      ],
+      "referenceFields": [
+        "gymnastics-u18-regional-team-gold-2026:image",
+        "gymnastics-u18-regional-team-gold-2026:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-6bf3ea1965bb2845d82f",
+      "reference": "https://i0.wp.com/katerinisport.gr/wp-content/uploads/2019/11/arxelaos.jpg?resize=946%2C675&ssl=1",
+      "newsIds": [
+        "handball-volos-2024"
+      ],
+      "referenceFields": [
+        "handball-volos-2024:image",
+        "handball-volos-2024:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-6d38a5de863da1ee8656",
+      "reference": "https://www.segas.gr/8022-protathlima-k20-2i-imera-pogevma/",
+      "newsIds": [
+        "track-hatzipourgani-u18-record-ioannina-aug-2020"
+      ],
+      "referenceFields": [
+        "track-hatzipourgani-u18-record-ioannina-aug-2020:photoSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-6d4547c00d70917d3aba",
+      "reference": "https://olympiobima.gr/wp-content/uploads/2024/05/arxelaos-katerinis-xalkino-metallio-o-80559.webp",
+      "newsIds": [
+        "wrestling-u15-european-bronze-loutraki-2024"
+      ],
+      "referenceFields": [
+        "wrestling-u15-european-bronze-loutraki-2024:image",
+        "wrestling-u15-european-bronze-loutraki-2024:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-6ee17568a55d3225bf8f",
+      "reference": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj4ZTSKJi112HjXkqYQcqcUQE75tSRAqVYuGAHRT8hLdtKIQBdREEwm-MJ57htVequNYUb8CdnAQQ7N3x5_a4m6W-xvIha4VZ0PKaktjCFVc5cjoa2xlwgr_PgY8sSnt2sn-3mcGl367uV3/s640/DSC_9520.JPG",
+      "newsIds": [
+        "gymnastics-renovated-hall-opening-2019"
+      ],
+      "referenceFields": [
+        "gymnastics-renovated-hall-opening-2019:image",
+        "gymnastics-renovated-hall-opening-2019:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-6f7f794646bb015be1af",
+      "reference": "https://eptanews.gr/athlitismos/3os-o-archelaos-katerinis-sto-panellinio-protathlima-palis-pampaidon-poy-diexichthi-sto-zefyri-attikis/",
+      "newsIds": [
+        "wrestling-u13-zefyri-team-third-oct-2021"
+      ],
+      "referenceFields": [
+        "wrestling-u13-zefyri-team-third-oct-2021:photoSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-715546b74b0d87de5f12",
+      "reference": "https://olympiobima.gr/wp-content/uploads/2022/08/%CE%9D%CE%AD%CE%B1-%CF%80%CE%B1%CE%B9%CE%B4%CE%AF%CE%B1%CF%84%CF%81%CE%BF%CF%82-%CF%83%CF%84%CE%BF-%CE%9C%CE%B1%CE%BC%CE%AC%CF%84%CF%83%CE%B5%CE%B9%CE%BF-%CE%B7-%CE%91%CE%B8%CE%B7%CE%BD%CE%AC-%CE%A0%CE%B1%CE%B3%CE%BA%CE%B1%CF%81%CE%BB%CE%B9%CF%8E%CF%84%CE%B1-97651.jpg.webp",
+      "newsIds": [
+        "wrestling-petkos-world-team-sofia-aug-2022"
+      ],
+      "referenceFields": [
+        "wrestling-petkos-world-team-sofia-aug-2022:image",
+        "wrestling-petkos-world-team-sofia-aug-2022:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-719d4cc5444808785282",
+      "reference": "https://olympiobima.gr/wp-content/uploads/2023/05/archelaos-katerinis-exairetiki-26082.webp",
+      "newsIds": [
+        "gymnastics-national-lavrio-may-2023"
+      ],
+      "referenceFields": [
+        "gymnastics-national-lavrio-may-2023:image",
+        "gymnastics-national-lavrio-may-2023:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-722456fa2e8fb10f7243",
+      "reference": "https://olympiobima.gr/wp-content/uploads/2023/07/archelaos-katerinis-stin-konstantinoypoli-pagkosmio-38126.webp",
+      "newsIds": [
+        "wrestling-world-istanbul-squad-july-2023"
+      ],
+      "referenceFields": [
+        "wrestling-world-istanbul-squad-july-2023:image",
+        "wrestling-world-istanbul-squad-july-2023:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-72ac25af2bd4abe39f2c",
+      "reference": "https://www.segas.gr/wp-content/uploads/2022/05/hatzipourgani20.jpg",
+      "newsIds": [
+        "track-hatzipourgani-u18-record-ioannina-aug-2020"
+      ],
+      "referenceFields": [
+        "track-hatzipourgani-u18-record-ioannina-aug-2020:imageCandidateUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-75f664c93c4dcd9f78b9",
+      "reference": "https://odelalis.gr/wp-content/uploads/2022/06/gasarxelaos.jpg",
+      "newsIds": [
+        "gymnastics-alexandroupoli-final-jun-2022",
+        "track-women-top20-u20-serres-jul-2022"
+      ],
+      "referenceFields": [
+        "gymnastics-alexandroupoli-final-jun-2022:image",
+        "gymnastics-alexandroupoli-final-jun-2022:imageSourceUrl",
+        "track-women-top20-u20-serres-jul-2022:image",
+        "track-women-top20-u20-serres-jul-2022:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-773b5279b4663019198b",
+      "reference": "https://media.pieriasocial.gr/2025/11/FB_IMG_1762093474789.jpg",
+      "newsIds": [
+        "archery-cyprus-2025"
+      ],
+      "referenceFields": [
+        "archery-cyprus-2025:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-77a71072b05cc27a7832",
+      "reference": "https://olympiobima.gr/wp-content/uploads/2023/05/pali-gas-archelaos-52473.webp",
+      "newsIds": [
+        "wrestling-balkan-sidirokastro-may-2023"
+      ],
+      "referenceFields": [
+        "wrestling-balkan-sidirokastro-may-2023:image",
+        "wrestling-balkan-sidirokastro-may-2023:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-7ea3c1fba0427840e85a",
+      "reference": "https://media.pieriasocial.gr/2024/10/111111111111111111111111-2.jpg",
+      "newsIds": [
+        "archery-cup-2024"
+      ],
+      "referenceFields": [
+        "archery-cup-2024:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-7fbf4f21ed65f82c5977",
+      "reference": "https://www.pierianews.gr/wp-content/uploads/2026/07/sign.jpg",
+      "newsIds": [
+        "club-dak-theodoros-diamantopoulos-2026"
+      ],
+      "referenceFields": [
+        "club-dak-theodoros-diamantopoulos-2026:image",
+        "club-dak-theodoros-diamantopoulos-2026:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-80ea35f02649302a340d",
+      "reference": "https://odelalis.gr/wp-content/uploads/2022/05/archelaos-katerinis-2.jpg",
+      "newsIds": [
+        "gymnastics-regional-first-phase-may-2022"
+      ],
+      "referenceFields": [
+        "gymnastics-regional-first-phase-may-2022:image",
+        "gymnastics-regional-first-phase-may-2022:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-82cb0befed1f9ba908a1",
+      "reference": "https://i2.wp.com/eptanews.gr/wp-content/uploads/2019/11/%CE%91%CE%A1%CE%A7%CE%95%CE%9B%CE%91%CE%9F%CE%A3-%CE%A0%CE%91%CE%9B%CE%97.jpeg?fit=1096%2C640&ssl=1",
+      "newsIds": [
+        "wrestling-monaco-camp-nov-2019"
+      ],
+      "referenceFields": [
+        "wrestling-monaco-camp-nov-2019:image",
+        "wrestling-monaco-camp-nov-2019:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-84ed6b703585e845f0ca",
+      "reference": "https://olympiobima.gr/wp-content/uploads/2023/05/as-kyklopes-alexandroypolis-73821.webp",
+      "newsIds": [
+        "handball-kyklopes-archelaos-38-29-may-2023"
+      ],
+      "referenceFields": [
+        "handball-kyklopes-archelaos-38-29-may-2023:image",
+        "handball-kyklopes-archelaos-38-29-may-2023:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-855560fb0a8b34712538",
+      "reference": "https://www.pierianews.gr/wp-content/uploads/2026/04/arch1.jpg",
+      "newsIds": [
+        "wrestling-u20-serres-team-second-april-2026"
+      ],
+      "referenceFields": [
+        "wrestling-u20-serres-team-second-april-2026:image",
+        "wrestling-u20-serres-team-second-april-2026:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-85ca19b4806019aeb884",
+      "reference": "https://www.pierianews.gr/wp-content/uploads/2026/09/archelaos.jpg",
+      "newsIds": [
+        "new-president-2026"
+      ],
+      "referenceFields": [
+        "new-president-2026:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-8805995ca72a4fc0933f",
+      "reference": "https://odelalis.gr/wp-content/uploads/2026/03/arxelaos_toxovolia-1-e1772528778779.jpg",
+      "newsIds": [
+        "archery-u18-indoor-livadeia-2026"
+      ],
+      "referenceFields": [
+        "archery-u18-indoor-livadeia-2026:image",
+        "archery-u18-indoor-livadeia-2026:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-8c869233bf83ba14ca92",
+      "reference": "images/news/gym-2023-mikra.jpg",
+      "newsIds": [
+        "gym-2023-mikra"
+      ],
+      "referenceFields": [
+        "gym-2023-mikra:image"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-9028419bbbac89f03301",
+      "reference": "https://odelalis.gr/wp-content/uploads/2023/03/skopovoli-35.jpg",
+      "newsIds": [
+        "shooting-moschi-olympic-qualification-mar-2023"
+      ],
+      "referenceFields": [
+        "shooting-moschi-olympic-qualification-mar-2023:image",
+        "shooting-moschi-olympic-qualification-mar-2023:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-9373d602a0cd8f091170",
+      "reference": "https://olympiobima.gr/wp-content/uploads/2023/02/ΓΑΣ-Κιλκίς-–-ΓΑΣ-Αρχέλαος-Κατερίνης-33-14-Αναμενόμενη-ήττα-11857.jpg",
+      "newsIds": [
+        "handball-kilkis-archelaos-33-14-feb-2023"
+      ],
+      "referenceFields": [
+        "handball-kilkis-archelaos-33-14-feb-2023:image",
+        "handball-kilkis-archelaos-33-14-feb-2023:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-947b9fa87e635b33960e",
+      "reference": "images/news/archery-cyprus-2025.jpg",
+      "newsIds": [
+        "archery-cyprus-2025"
+      ],
+      "referenceFields": [
+        "archery-cyprus-2025:image"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-99780c135b37c7a798c1",
+      "reference": "images/arxelaos-handball.webp",
+      "newsIds": [
+        "handball-archelaos-foinikas-dramas-38-24-march-2026"
+      ],
+      "referenceFields": [
+        "handball-archelaos-foinikas-dramas-38-24-march-2026:image"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-9edfe580bbc048ce0d4a",
+      "reference": "https://olympiobima.gr/wp-content/uploads/2022/04/G.A.S-Archelaos-Katerinis-Stibos-84891.jpg",
+      "newsIds": [
+        "track-school-silver-volos-apr-2022"
+      ],
+      "referenceFields": [
+        "track-school-silver-volos-apr-2022:image",
+        "track-school-silver-volos-apr-2022:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-9ef0754b4a9c208e2ca0",
+      "reference": "https://olympiobima.gr/wp-content/uploads/2025/03/ΡΕΧΑ-ΜΑΝΤΖΟΛΗΣ_1240_983.webp",
+      "newsIds": [
+        "track-recha-indoor-national-silver-2025"
+      ],
+      "referenceFields": [
+        "track-recha-indoor-national-silver-2025:image",
+        "track-recha-indoor-national-silver-2025:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-9f8b9628dccd46eecf8d",
+      "reference": "https://media.pieriasocial.gr/2024/08/1-2024-08-02T111120.118.jpg",
+      "newsIds": [
+        "wrestling-mayor-2024"
+      ],
+      "referenceFields": [
+        "wrestling-mayor-2024:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-a009bbec43d612325b6c",
+      "reference": "https://katerini.gr/wp-content/uploads/2025/05/2025-05-05_17-40-04-978.jpg",
+      "newsIds": [
+        "archery-national-evaluation-nea-chrani-may-2025"
+      ],
+      "referenceFields": [
+        "archery-national-evaluation-nea-chrani-may-2025:image",
+        "archery-national-evaluation-nea-chrani-may-2025:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-a10934b6b5ca0b86ac65",
+      "reference": "https://pieriasocial.gr/wp-content/uploads/2023/05/345043775_1408238946610076_3607211147729277878_n-768x1072.jpg",
+      "newsIds": [
+        "track-natsiopoulou-school-400h-gold-may-2023"
+      ],
+      "referenceFields": [
+        "track-natsiopoulou-school-400h-gold-may-2023:imageCandidateUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-a184a8ab77c556c0c17c",
+      "reference": "https://e-ptolemeos.gr/wp-content/uploads/2020/06/toxoklitoi.jpg",
+      "newsIds": [
+        "archery-olympus-series-june-2020"
+      ],
+      "referenceFields": [
+        "archery-olympus-series-june-2020:image",
+        "archery-olympus-series-june-2020:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-a3cc040aa5a3187ef912",
+      "reference": "images/news/wrestling-u11-u13-karditsa-2025.jpg",
+      "newsIds": [
+        "wrestling-u11-u13-karditsa-2025"
+      ],
+      "referenceFields": [
+        "wrestling-u11-u13-karditsa-2025:image"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-a44180278729142c9942",
+      "reference": "https://odelalis.gr/wp-content/uploads/2024/11/gas_arxelaos_gimnastiki-1.jpg",
+      "newsIds": [
+        "gymnastics-horizon-cup-2024-team-medals"
+      ],
+      "referenceFields": [
+        "gymnastics-horizon-cup-2024-team-medals:image",
+        "gymnastics-horizon-cup-2024-team-medals:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-a691322feac9e39df683",
+      "reference": "https://olympiobima.gr/wp-content/uploads/2024/09/gas-arxelaos-katerinis-agiasmos-tmimatos-46617.webp",
+      "newsIds": [
+        "track-season-blessing-sept-2024"
+      ],
+      "referenceFields": [
+        "track-season-blessing-sept-2024:image",
+        "track-season-blessing-sept-2024:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-a7778b2404bdf76ae01e",
+      "reference": "images/news/wrestling-u15-larisa-2024.jpg",
+      "newsIds": [
+        "wrestling-u15-larisa-2024"
+      ],
+      "referenceFields": [
+        "wrestling-u15-larisa-2024:image"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-a9fbba0342a0f8e4b8f3",
+      "reference": "https://eptanews.gr/wp-content/uploads/2024/03/%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CF%80%CE%AC%CE%BB%CE%B7-1-1.jpeg",
+      "newsIds": [
+        "wrestling-belgrade-four-medals-2024"
+      ],
+      "referenceFields": [
+        "wrestling-belgrade-four-medals-2024:image",
+        "wrestling-belgrade-four-medals-2024:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-aa5c620227a19af4d843",
+      "reference": "https://olympiobima.gr/wp-content/uploads/2023/09/sarose-metallia-toxovolia-gas-archelaos-91776.webp",
+      "newsIds": [
+        "archery-oaka-u21-u18-medals-sep-2023"
+      ],
+      "referenceFields": [
+        "archery-oaka-u21-u18-medals-sep-2023:image",
+        "archery-oaka-u21-u18-medals-sep-2023:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-ab0d28aa196e83d37286",
+      "reference": "images/news/club-municipal-visit-2023.jpg",
+      "newsIds": [
+        "club-municipal-visit-2023"
+      ],
+      "referenceFields": [
+        "club-municipal-visit-2023:image"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-abb81b0bfe883c531e21",
+      "reference": "https://www.pierianews.gr/wp-content/uploads/2024/04/skopovoli3.jpg",
+      "newsIds": [
+        "shooting-2024-vyronas"
+      ],
+      "referenceFields": [
+        "shooting-2024-vyronas:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-ae0f5260228137e51725",
+      "reference": "https://odelalis.gr/wp-content/uploads/2022/06/arxelaosvolleyball-5.jpg",
+      "newsIds": [
+        "volleyball-mini-tournament-jun-2022"
+      ],
+      "referenceFields": [
+        "volleyball-mini-tournament-jun-2022:image",
+        "volleyball-mini-tournament-jun-2022:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-b1036ada5f0eb7297be0",
+      "reference": "https://i0.wp.com/live.staticflickr.com/65535/40904265053_860db73294_b.jpg?resize=938%2C626&ssl=1",
+      "newsIds": [
+        "wrestling-40-years-katerini-may-2019"
+      ],
+      "referenceFields": [
+        "wrestling-40-years-katerini-may-2019:image",
+        "wrestling-40-years-katerini-may-2019:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-b12fe0aa9a276168d765",
+      "reference": "https://odelalis.gr/wp-content/uploads/2022/06/gasarxelaos-natsiopoulou-konstantinidou.jpg",
+      "newsIds": [
+        "track-world-gymnasiade-balkan-june-2022"
+      ],
+      "referenceFields": [
+        "track-world-gymnasiade-balkan-june-2022:image",
+        "track-world-gymnasiade-balkan-june-2022:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-b286d6f2a4b264c9b704",
+      "reference": "https://www.palmare.gr/wp-content/uploads/2026/01/26-ARChEL-1024x321.jpg",
+      "newsIds": [
+        "handball-archelaos-voreas-41-20-feb-2026"
+      ],
+      "referenceFields": [
+        "handball-archelaos-voreas-41-20-feb-2026:image",
+        "handball-archelaos-voreas-41-20-feb-2026:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-b4b1e0c8764adb53ab78",
+      "reference": "https://katerini.gr/wp-content/uploads/2026/10/%CE%B2-1-450x600.jpg",
+      "newsIds": [
+        "katerini-run-70-years-2026"
+      ],
+      "referenceFields": [
+        "katerini-run-70-years-2026:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-b721b8c80a5531b07fe0",
+      "reference": "https://www.palmare.gr/wp-content/uploads/2026/01/26-PANSRK-1024x623.jpg",
+      "newsIds": [
+        "handball-archelaos-panserraikos-26-24-jan-2026"
+      ],
+      "referenceFields": [
+        "handball-archelaos-panserraikos-26-24-jan-2026:image",
+        "handball-archelaos-panserraikos-26-24-jan-2026:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-b930b1c90b8002ba7f5b",
+      "reference": "https://olympiobima.gr/wp-content/uploads/2024/12/3-xrysa-metallia-protathlites-arxelaoy-93756.webp",
+      "newsIds": [
+        "wrestling-pleven-bulgaria-dec-2024"
+      ],
+      "referenceFields": [
+        "wrestling-pleven-bulgaria-dec-2024:image",
+        "wrestling-pleven-bulgaria-dec-2024:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-bbc28d498456dc89c455",
+      "reference": "https://i2.wp.com/eptanews.gr/wp-content/uploads/2024/05/%CE%93%CE%A5%CE%9C%CE%9D%CE%91%CE%A3%CE%A4%CE%99%CE%9A%CE%97_34-copy.jpg?fit=733%2C235&ssl=1",
+      "newsIds": [
+        "gymnastics-d-category-regional-mikra-may-2024"
+      ],
+      "referenceFields": [
+        "gymnastics-d-category-regional-mikra-may-2024:image",
+        "gymnastics-d-category-regional-mikra-may-2024:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-bd372f7051a85f69c507",
+      "reference": "images/news/archery-olympus-2024.jpg",
+      "newsIds": [
+        "archery-olympus-2024"
+      ],
+      "referenceFields": [
+        "archery-olympus-2024:image"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-bde2678e89665ee3021f",
+      "reference": "https://www.palmare.gr/wp-content/uploads/2026/01/ARChELAOS-26-2.jpg",
+      "newsIds": [
+        "handball-archelaos-apollon-stavroupolis-23-14-jan-2026"
+      ],
+      "referenceFields": [
+        "handball-archelaos-apollon-stavroupolis-23-14-jan-2026:image",
+        "handball-archelaos-apollon-stavroupolis-23-14-jan-2026:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-be8b90e0419cef5ccb93",
+      "reference": "images/news/wrestling-mayor-2024.jpg",
+      "newsIds": [
+        "wrestling-mayor-2024"
+      ],
+      "referenceFields": [
+        "wrestling-mayor-2024:image"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-c21e223bed5f6b26c89d",
+      "reference": "https://odelalis.gr/wp-content/uploads/2023/06/gasarxelaos.jpg",
+      "newsIds": [
+        "club-65th-anniversary-album-contract-jun-2023"
+      ],
+      "referenceFields": [
+        "club-65th-anniversary-album-contract-jun-2023:image",
+        "club-65th-anniversary-album-contract-jun-2023:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-c3aa8c1ba7a651474685",
+      "reference": "https://odelalis.gr/wp-content/uploads/2026/02/agones_tokosvolias_agios_spiridonas-3.jpg",
+      "newsIds": [
+        "archery-olympus-series-agios-spyridonas-feb-2026"
+      ],
+      "referenceFields": [
+        "archery-olympus-series-agios-spyridonas-feb-2026:image",
+        "archery-olympus-series-agios-spyridonas-feb-2026:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-c47aeb5f62d5d07a991d",
+      "reference": "images/archelaos-news-handball.svg",
+      "newsIds": [
+        "handball-archelaos-kyklopes-30-23-feb-2026",
+        "handball-prosotsani-archelaos-38-27-jan-2026"
+      ],
+      "referenceFields": [
+        "handball-archelaos-kyklopes-30-23-feb-2026:image",
+        "handball-archelaos-kyklopes-30-23-feb-2026:imageSourceUrl",
+        "handball-prosotsani-archelaos-38-27-jan-2026:image",
+        "handball-prosotsani-archelaos-38-27-jan-2026:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-c57cf4a219b9ff9309bb",
+      "reference": "images/news/archery-central-european-cup-novi-marof-2025.jpg",
+      "newsIds": [
+        "archery-central-european-cup-novi-marof-2025"
+      ],
+      "referenceFields": [
+        "archery-central-european-cup-novi-marof-2025:image"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-c586bd2ef5bba341ebb3",
+      "reference": "https://odelalis.gr/wp-content/uploads/2025/06/enorgani_arxelaos_giorti-5.jpg",
+      "newsIds": [
+        "gymnastics-2025-festival-largest-team"
+      ],
+      "referenceFields": [
+        "gymnastics-2025-festival-largest-team:image",
+        "gymnastics-2025-festival-largest-team:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-c7d300eeea93523a23cd",
+      "reference": "https://olympiobima.gr/wp-content/uploads/2023/05/gas-archelaos-katerinis-50834.webp",
+      "newsIds": [
+        "gymnastics-thessaloniki-regional-may-2023"
+      ],
+      "referenceFields": [
+        "gymnastics-thessaloniki-regional-may-2023:image",
+        "gymnastics-thessaloniki-regional-may-2023:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-c92a0fc62ecff1741553",
+      "reference": "https://katerini.gr/wp-content/uploads/2026/06/katerini-protathlitis-elladas-toxovolia-o-96252.webp",
+      "newsIds": [
+        "archery-national-title-2026"
+      ],
+      "referenceFields": [
+        "archery-national-title-2026:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-c93235a38f2808c60fd9",
+      "reference": "images/news/wrestling-2023-bucharest.jpg",
+      "newsIds": [
+        "wrestling-2023-bucharest"
+      ],
+      "referenceFields": [
+        "wrestling-2023-bucharest:image"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-c9a1d794032b2364142b",
+      "reference": "https://i1.wp.com/eptanews.gr/wp-content/uploads/2022/05/IMG-0bbec2cda8c04b07a9ed7052e53aca9a-V.jpg?fit=1600%2C1200&ssl=1",
+      "newsIds": [
+        "gymnastics-youth-national-medals-may-2022"
+      ],
+      "referenceFields": [
+        "gymnastics-youth-national-medals-may-2022:image",
+        "gymnastics-youth-national-medals-may-2022:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-cc280fb32dfb79c2aced",
+      "reference": "https://www.pierianews.gr/wp-content/uploads/2026/07/arch3.jpg",
+      "newsIds": [
+        "wrestling-darko-nisavic-serbia-july-2026"
+      ],
+      "referenceFields": [
+        "wrestling-darko-nisavic-serbia-july-2026:image",
+        "wrestling-darko-nisavic-serbia-july-2026:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-cd17f90bbca7e036daf5",
+      "reference": "https://odialogos.gr/wp-content/uploads/2024/06/ΓΑΣ-ΑΡΧΕΛΑΟΣ-stivos1.jpg",
+      "newsIds": [
+        "track-academy-summer-celebration-2024"
+      ],
+      "referenceFields": [
+        "track-academy-summer-celebration-2024:image",
+        "track-academy-summer-celebration-2024:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-d23324d8c2a8ab2042b8",
+      "reference": "https://www.pierianews.gr/wp-content/uploads/2025/04/gas8.jpg",
+      "newsIds": [
+        "wrestling-u17-team-silver-larisa-apr-2025"
+      ],
+      "referenceFields": [
+        "wrestling-u17-team-silver-larisa-apr-2025:image",
+        "wrestling-u17-team-silver-larisa-apr-2025:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-d2e439965b31dbc23f54",
+      "reference": "images/news/katerini-run-70-years-2026.jpg",
+      "newsIds": [
+        "katerini-run-70-years-2026"
+      ],
+      "referenceFields": [
+        "katerini-run-70-years-2026:image"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-d38ebcfda28c4623059a",
+      "reference": "https://ns1.ufight.gr/images/AsAigeas/arxelaos_katerinis.jpg",
+      "newsIds": [
+        "wrestling-u11-u13-karditsa-2025"
+      ],
+      "referenceFields": [
+        "wrestling-u11-u13-karditsa-2025:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-da495a65256dcb4fab21",
+      "reference": "https://katerini.gr/wp-content/uploads/2025/04/Viber_2025-04-28_09-19-36-700.jpg",
+      "newsIds": [
+        "wrestling-u20-serres-champions-apr-2025"
+      ],
+      "referenceFields": [
+        "wrestling-u20-serres-champions-apr-2025:image",
+        "wrestling-u20-serres-champions-apr-2025:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-dad84e3ad6c47399a4c6",
+      "reference": "images/news/gym-2025-team.jpg",
+      "newsIds": [
+        "gym-2025-team"
+      ],
+      "referenceFields": [
+        "gym-2025-team:image"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-db0c3d1c6bfd55a19456",
+      "reference": "https://odelalis.gr/wp-content/uploads/2020/03/αρχέλαος-πάλη-πέτκος-1.jpeg",
+      "newsIds": [
+        "wrestling-petkos-silver-kilkis-mar-2020"
+      ],
+      "referenceFields": [
+        "wrestling-petkos-silver-kilkis-mar-2020:image",
+        "wrestling-petkos-silver-kilkis-mar-2020:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-dbab4125e2b7d09a2b9a",
+      "reference": "images/news/wrestling-balkan-2026.jpg",
+      "newsIds": [
+        "wrestling-balkan-2026",
+        "wrestling-u15-porroia-silver-2026"
+      ],
+      "referenceFields": [
+        "wrestling-balkan-2026:image",
+        "wrestling-u15-porroia-silver-2026:image"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-dca842aa441ed5e99f5e",
+      "reference": "https://www.handball.org.gr/images/nea/ethnikes-omades/759796333_1747669139809273_3183887674934115329_n.jpg",
+      "newsIds": [
+        "handball-siokas-ehf-2026"
+      ],
+      "referenceFields": [
+        "handball-siokas-ehf-2026:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-dd132711a5a445326fb9",
+      "reference": "https://odialogos.gr/wp-content/uploads/2024/04/%CE%91%CE%A1%CE%A7%CE%95%CE%9B%CE%91%CE%9F%CE%A3-%CE%A0%CE%91%CE%9B%CE%97-3.jpg",
+      "newsIds": [
+        "wrestling-u17-trikala-team-third-2024"
+      ],
+      "referenceFields": [
+        "wrestling-u17-trikala-team-third-2024:image",
+        "wrestling-u17-trikala-team-third-2024:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-e0f25a68c7f98489b974",
+      "reference": "https://media.pieriasocial.gr/2025/03/11111111111111111-10.jpg",
+      "newsIds": [
+        "wrestling-u15-prosotsani-zinisa-march-2025"
+      ],
+      "referenceFields": [
+        "wrestling-u15-prosotsani-zinisa-march-2025:image",
+        "wrestling-u15-prosotsani-zinisa-march-2025:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-e3cdb0f491b7e62e299f",
+      "reference": "https://i0.wp.com/eptanews.gr/wp-content/uploads/2023/11/%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CF%80%CE%AC%CE%BB%CE%B7.jpeg?fit=1200%2C659&ssl=1",
+      "newsIds": [
+        "wrestling-2023-bucharest"
+      ],
+      "referenceFields": [
+        "wrestling-2023-bucharest:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-e480108dd2d9eebdbf63",
+      "reference": "https://odialogos.gr/wp-content/uploads/2023/02/στίβος-Αρχέλαος-1.jpeg",
+      "newsIds": [
+        "track-indoor-national-2023-natsiopoulou-biziota"
+      ],
+      "referenceFields": [
+        "track-indoor-national-2023-natsiopoulou-biziota:image",
+        "track-indoor-national-2023-natsiopoulou-biziota:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-e9cc150f5ec4acfc127b",
+      "reference": "images/news/gym-2022-horizon.jpg",
+      "newsIds": [
+        "gym-2022-horizon"
+      ],
+      "referenceFields": [
+        "gym-2022-horizon:image"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-ea1d3b5e592fd63158b5",
+      "reference": "https://olympiobima.gr/wp-content/uploads/2026/02/g.e-dramas-archelaos-katerinis-22615.webp",
+      "newsIds": [
+        "handball-drama-archelaos-28-29-feb-2026"
+      ],
+      "referenceFields": [
+        "handball-drama-archelaos-28-29-feb-2026:image",
+        "handball-drama-archelaos-28-29-feb-2026:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-ec56ae15409edee62e7f",
+      "reference": "https://olympiobima.gr/wp-content/uploads/2022/06/ΓΑΣ-Αρχέλαος-Κατερίνης-Χρυσό-μετάλλιο-για-την-Κατερίνα-Νατσιοπούλου-41643.jpg",
+      "newsIds": [
+        "track-natsiopoulou-u23-gold-june-2022"
+      ],
+      "referenceFields": [
+        "track-natsiopoulou-u23-gold-june-2022:image",
+        "track-natsiopoulou-u23-gold-june-2022:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-eef0a70f76d5ec39ca2d",
+      "reference": "https://olympiobima.gr/wp-content/uploads/2023/11/archelaos-katerinis-elampsan-pitsirikades-pali-73212.webp",
+      "newsIds": [
+        "wrestling-prosotsani-u11-u13-nov-2023"
+      ],
+      "referenceFields": [
+        "wrestling-prosotsani-u11-u13-nov-2023:image",
+        "wrestling-prosotsani-u11-u13-nov-2023:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-ef7d83e09e242e357d9d",
+      "reference": "https://eptanews.gr/wp-content/uploads/2024/03/pali-1.jpeg",
+      "newsIds": [
+        "wrestling-petkos-gold-evthymiadis-fifth-2024"
+      ],
+      "referenceFields": [
+        "wrestling-petkos-gold-evthymiadis-fifth-2024:image",
+        "wrestling-petkos-gold-evthymiadis-fifth-2024:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-f010d45b31b92af1a9a9",
+      "reference": "https://i0.wp.com/eptanews.gr/wp-content/uploads/2022/11/Screenshot-2022-11-15-131426.jpg?fit=976%2C630&ssl=1",
+      "newsIds": [
+        "gym-2022-horizon"
+      ],
+      "referenceFields": [
+        "gym-2022-horizon:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-f3ca8d54894c19b9baf0",
+      "reference": "https://olympiobima.gr/wp-content/uploads/2023/06/gas-archelaos-katerinis-aylaia-enorgani-42131.webp",
+      "newsIds": [
+        "gymnastics-alexandroupoli-u10-u8-june-2023"
+      ],
+      "referenceFields": [
+        "gymnastics-alexandroupoli-u10-u8-june-2023:image",
+        "gymnastics-alexandroupoli-u10-u8-june-2023:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-f443d07f276ed6f51ae2",
+      "reference": "https://media.pieriasocial.gr/2022/09/ΣΚΟΠΟΒΟΛΗ.jpg",
+      "newsIds": [
+        "shooting-training-season-sept-2022"
+      ],
+      "referenceFields": [
+        "shooting-training-season-sept-2022:image",
+        "shooting-training-season-sept-2022:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-f4c4a1d71ead83583ecc",
+      "reference": "https://odialogos.gr/wp-content/uploads/2024/04/arxelaos-stivos-92.jpg",
+      "newsIds": [
+        "track-u16-kilkis-team-apr-2024"
+      ],
+      "referenceFields": [
+        "track-u16-kilkis-team-apr-2024:image",
+        "track-u16-kilkis-team-apr-2024:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-f553c61788c473888b02",
+      "reference": "https://odelalis.gr/wp-content/uploads/2024/10/gas_arxelaos_pali_metalia-3.jpg",
+      "newsIds": [
+        "wrestling-balkan-skopje-oct-2024"
+      ],
+      "referenceFields": [
+        "wrestling-balkan-skopje-oct-2024:image",
+        "wrestling-balkan-skopje-oct-2024:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-f5cceffe079fbab6c412",
+      "reference": "images/news/archery-cup-2024.jpg",
+      "newsIds": [
+        "archery-cup-2024"
+      ],
+      "referenceFields": [
+        "archery-cup-2024:image"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-f8d019c6a4ccb2ad7a28",
+      "reference": "https://www.pierianews.gr/wp-content/uploads/2024/08/toxovolia1.jpg",
+      "newsIds": [
+        "archery-region-visit-aug-2024"
+      ],
+      "referenceFields": [
+        "archery-region-visit-aug-2024:image",
+        "archery-region-visit-aug-2024:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-f93c1133116c4547a387",
+      "reference": "https://olympiobima.gr/wp-content/uploads/2026/02/arxelaos-katerinis-17511.webp",
+      "newsIds": [
+        "archery-olympic-support-charisis-feb-2026"
+      ],
+      "referenceFields": [
+        "archery-olympic-support-charisis-feb-2026:image",
+        "archery-olympic-support-charisis-feb-2026:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-fd3df07544090fe2efed",
+      "reference": "images/news/gym-2024-mikra.jpg",
+      "newsIds": [
+        "gym-2024-mikra"
+      ],
+      "referenceFields": [
+        "gym-2024-mikra:image"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-fd3feed05fae43972002",
+      "reference": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/%CE%BC%CE%B5-%CF%80%CE%BF%CE%BB%CE%BB%CE%AD%CF%82-%CE%B4%CE%B9%CE%B1%CE%BA%CF%81%CE%AF%CF%83%CE%B5%CE%B9%CF%82-%CE%BA%CE%B1%CE%B9-%CE%B5%CE%BB%CF%80%CE%B9%CE%B4%CE%BF%CF%86%CF%8C%CF%81%CE%BF-%CF%84/",
+      "newsIds": [
+        "gymnastics-youth-honours-nov-2021"
+      ],
+      "referenceFields": [
+        "gymnastics-youth-honours-nov-2021:photoSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-ff59bac489bcfbef7be3",
+      "reference": "https://olympiobima.gr/wp-content/uploads/2025/04/arxelaos-katerinis-to-neo-dioikitiko-24005.webp",
+      "newsIds": [
+        "club-board-elections-apr-2025"
+      ],
+      "referenceFields": [
+        "club-board-elections-apr-2025:image",
+        "club-board-elections-apr-2025:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-ffd059999d5ccd618827",
+      "reference": "images/news/archery-national-title-2026.jpg",
+      "newsIds": [
+        "archery-national-title-2026"
+      ],
+      "referenceFields": [
+        "archery-national-title-2026:image"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    }
+  ]
+}

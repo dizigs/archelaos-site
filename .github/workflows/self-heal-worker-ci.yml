@@ -40,7 +40,12 @@ jobs:
           assert config.get('workers_dev') is False
           assert not config.get('routes')
           assert not config.get('triggers', {}).get('crons')
-          assert not config.get('services')
+          # Only the reviewed private named port, never a public/default Brain target.
+          assert config.get('services') == [{
+              'binding': 'BRAIN_RECOVERY',
+              'service': 'archelaos-brain-staging',
+              'entrypoint': 'BrainRecoveryPort',
+          }]
           assert config['durable_objects']['bindings'][0]['name'] == 'HEALER_MEMORY'
           assert 'HealerMemory' in config['migrations'][0]['new_sqlite_classes']
           worker = pathlib.Path('automation/self-heal-worker/src/worker.mjs').read_text(encoding='utf-8')
