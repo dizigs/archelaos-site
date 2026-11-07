@@ -50,12 +50,13 @@ test('dilemmas show two named alternatives, other questions use true false unkno
  assert.equal(bank.items.find(x=>x.id==='TF021').publicReview,false);
  assert.ok(selected.every(x=>x.reviewContext?.length>40));
  assert.ok(selected.every(x=>x.alternatives?.length===2));
+ assert.deepEqual([...selected].sort((a,b)=>a.displayOrder-b.displayOrder).map(x=>x.id),["TF032","TF047","TF034","TF022","TF014","TF026","TF015","TF041","TF001","TF016","TF017"]);
  const browser=read('assets/fact-check.js');
   assert.ok(browser.includes('position+=1;render(true);'));
   assert.ok(browser.includes('pending.push(answer)'));
   assert.ok(browser.includes('pending.slice(0,4)'));
   assert.ok(browser.includes("const published=obj.items.filter(x=>x.publicReview===true)"));
-  assert.ok(browser.includes("questions=published;"));
+  assert.ok(browser.includes("questions=published.sort((a,b)=>a.displayOrder-b.displayOrder)"));
   assert.ok(browser.includes("const context=make('p','fc-context'"));
   assert.ok(browser.includes('window.turnstile'));
   assert.equal(browser.includes('showModal('),false);
