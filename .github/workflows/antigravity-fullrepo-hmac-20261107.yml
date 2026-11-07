@@ -1,22 +1,22 @@
-name: Antigravity full-repository HMAC repair (isolated sandbox; no deploy)
+name: Antigravity resume retained HMAC investigation (same Google sandbox)
 on:
   push:
     branches:
-      - assistant/antigravity-fullrepo-hmac-20261107
+      - assistant/antigravity-resume-existing-hmac-20261107
     paths:
       - .github/workflows/antigravity-fullrepo-hmac-20261107.yml
       - brain/qa/antigravity_fullrepo_hmac_20261107.mjs
 permissions:
   contents: read
 concurrency:
-  group: archelaos-antigravity-fullrepo-hmac-20261107
+  group: archelaos-antigravity-resume-hmac-20261107
   cancel-in-progress: false
 jobs:
   antigravity:
-    name: Antigravity full Git checkout + autonomous offline repair
-    if: "github.repository == 'dizigs/archelaos-site' && github.event.head_commit.message == 'test(antigravity): full checkout HMAC background run'"
+    name: Antigravity resume original Google environment and produce tested patch
+    if: "github.repository == 'dizigs/archelaos-site' && github.event.head_commit.message == 'ops(antigravity): resume prior HMAC work in same Google environment'"
     runs-on: ubuntu-latest
-    timeout-minutes: 240
+    timeout-minutes: 110
     steps:
       - name: Checkout workflow harness (not the Antigravity sandbox)
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
