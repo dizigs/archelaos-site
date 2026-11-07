@@ -179,6 +179,20 @@
         "canonical_sha256": "935b2afc66a88d6bc0fb0de06eeb89bd7dfba596811bc3c39958f7cd9289ea32",
         "evidence": "SEGAS official U16 result plus Odelalis source confirm bronze 12.07 and +4.9 tailwind; prior inter-club second-place and relay claims retained, not recast as a wind-legal record."
       }
+    },
+    "arch-5abfbe9e285a": {
+      "bio": {
+        "classification": "SEMANTICALLY_RETAINED",
+        "legacy_sha256": "cd36b6118a5ee101ba8e9f93dc7bbcf4297769c00b29f9cbd093ffa8e3d7deef",
+        "canonical_sha256": "1afab253c4222c644ac9948d978ae61383e837e918300618e4dc63fdd8cf7a77",
+        "evidence": "ΣΕΓΑΣ ελέγχθηκε ανεξάρτητα: 6η θέση Ολυμπιακών Βαρκελώνης 1992, επίδοση 8,04 μ. στον τελικό. Το υπάρχον κείμενο διατηρείται νοηματικά, προστίθεται μόνο η διάκριση προκριματικού/τελικού (https://www.segas.gr/afieroma-olympiakoi-agones-1976-1996-ta-mpoy/)."
+      },
+      "bio_en": {
+        "classification": "SEMANTICALLY_RETAINED",
+        "legacy_sha256": "e7c4f6c47abc5f7be9ef21dd31eda32269309c4d7f8b4a32e1065a0b34c0141e",
+        "canonical_sha256": "0ad3b1d1b97ce75cb57900bdc185622ee2343b30eb61f97f85cac2b37111c395",
+        "evidence": "ΣΕΓΑΣ ελέγχθηκε ανεξάρτητα: 6η θέση Ολυμπιακών Βαρκελώνης 1992, επίδοση 8,04 μ. στον τελικό. Το υπάρχον κείμενο διατηρείται νοηματικά, προστίθεται μόνο η διάκριση προκριματικού/τελικού (https://www.segas.gr/afieroma-olympiakoi-agones-1976-1996-ta-mpoy/)."
+      }
     }
   }
 }
