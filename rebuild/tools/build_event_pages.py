@@ -79,10 +79,11 @@ def render(root: Path, output: Path) -> list[str]:
 <link rel="stylesheet" href="/assets/site/css/tokens.css">
 <link rel="stylesheet" href="/assets/site/css/components.css">
 <link rel="stylesheet" href="/assets/site/css/viewports.css">
-<link rel="stylesheet" href="/assets/site/css/event-pages.css"><link rel="stylesheet" href="/assets/site/css/support-footer.css">
+<link rel="stylesheet" href="/assets/site/css/event-pages.css"><link rel="stylesheet" href="/assets/archive-links.css"><link rel="stylesheet" href="/assets/site/css/support-footer.css">
 <script defer src="/assets/site/js/shell.js"></script><script defer src="/assets/site/js/support-footer.js"></script>
 <script defer src="/assets/site/js/favorites.js"></script>
 <script defer src="/assets/site/js/motion.js"></script>
+<script defer src="/assets/archive-links.js"></script>
 <script type="application/ld+json">{schema}</script>
 </head><body class="event-page">
 <main id="main-content" class="event-main">
@@ -91,8 +92,9 @@ def render(root: Path, output: Path) -> list[str]:
 <time class="event-date" datetime="{date_value}">{date}</time><h1>{name}</h1>
 <div class="event-description">{desc}</div>
 {members}{evidence}
+<div id="event-related"></div>
 <nav aria-label="Πλοήγηση στα γεγονότα" class="event-prevnext">{prev_link}{next_link}</nav></article>
-</main></body></html>
+</main><script>document.addEventListener("DOMContentLoaded",()=>{{window.ArchelaosLinks?.append(document.getElementById("event-related"),"event","{eid}",{{limit:12}})}});</script></body></html>
 '''
         (folder / f"{eid}.html").write_text(html, encoding="utf-8")
         links.append(f'<li><a href="/events/{escape(eid, quote=True)}.html"><time datetime="{date_value}">{date}</time><span>{name}</span></a></li>')
