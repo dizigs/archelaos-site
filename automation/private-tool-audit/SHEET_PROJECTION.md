@@ -17,6 +17,35 @@ A trusted, authorized service-side caller must provide these interfaces:
 
 The projector checks source sequence and predecessor hash, looks up every event key, appends only missing rows, then **re-reads every key and receipt hash** before advancing the checkpoint. Duplicate keys, altered hashes, missing events, gaps, failed CAS, invalid metadata or provider read failures stop the cycle **without acknowledging progress**. On a network error **after** an actual append, the next run re-reads and safely avoids re-appending that event.
 
+## Google Sheets v4 adapter — source-only implementation
+
+`google-sheets-adapter.mjs` now supplies the `sheet` interface above using an
+**injected** authenticated Google Sheets v4 client. No credentials, scopes,
+OAuth flows, service account keys, deployment bindings or live calls are in
+this source tree. The trusted owner must provide `client.spreadsheets.get`,
+`client.spreadsheets.values.get` and `client.spreadsheets.values.append`.
+
+The adapter verifies the **existing private** `LOG` sheet's tab ID (default
+1005), expected H/N headers and bounded grid size. For deduplication it
+scans *every used bounded H:N page* and returns all matching source:event IDs
+including duplicates. For writes it accepts only validated 18-column rows,
+uses Google `valueInputOption=RAW` and `insertDataOption=INSERT_ROWS` in
+`'LOG'!A:R`, and fails closed if provider acknowledgement is missing.
+A timeout after a provider commit is **not** treated as failure-free: the
+projector retries with fresh H/N readback before advancing its checkpoint.
+
+Tests `google-sheets-adapter.test.mjs` exercise a strict synthetic provider
+(client API shape and response patterns), wrong tab/schema, malformed keys,
+formula-like cells, duplicate IDs, service failures and a full replay with
+an intentionally lost append acknowledgement. They do **not** verify a
+real Google API token, rate limits, account permissions or actual Sheets
+concurrency. No real Google writes were made by these tests.
+
+Before staging, verify sheet owner/grants, choose an authorized service
+identity and minimum `spreadsheets` scope, prove there is no other writer,
+and perform end-to-end **synthetic** private staging Sheet tests. Do not
+send tokens or private spreadsheet rows to public GitHub logs.
+
 ## Important security limitations
 
 - No automatic ChatGPT message interception, local shell hooks, Gemini/Antigravity producer integrations, Google credential wiring, Worker entrypoint, callback URL or live cron exists.
