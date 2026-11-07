@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { createHmac, randomUUID, createHash } from 'node:crypto';
 import { createBrainWorkerAdapter, IntegrationBlocked } from './client.mjs';
 import './binding-plan.test.mjs'; // Include binding eligibility negatives in existing PR CI without workflow ownership change.
+import './apps-script-readiness.test.mjs'; // Run independent Bridge -> Apps Script private-gate checks in existing CI.
 import './selfheal-binding-plan.test.mjs'; // Exercise Brain ↔ Self-Heal private-only gates in the same exact-head CI.
 const KEY = 'example-staging-not-a-secret-'.repeat(3);
 const RECEIPT_KEY = 'example-receipt-verifier-not-a-secret-'.repeat(3);
@@ -52,6 +53,15 @@ test('missing service binding and credentials fail closed', async()=>{
   const {a}=setup(async()=>Response.json({}),{brainService:null});await reject(a.submitEvent(event()),'SERVICE_BINDING_MISSING');
   const {a:b}=setup(async()=>Response.json({}),{intakeKey:null});await reject(b.submitEvent(event()),'BRAIN_INTAKE_KEY_MISSING');
   const {a:c}=setup(async()=>Response.json({}),{receiptVerificationKey:null});await reject(c.submitEvent(event()),'RECEIPT_VERIFICATION_KEY_MISSING');
+});
+test('source request and Brain receipt verification keys must be distinct before any RPC', async () => {
+  const e=event();
+  let calls=0;
+  const {a}=setup(async()=>{calls++;return reply(e);},{
+    receiptVerificationKey:KEY
+  });
+  await reject(a.submitEvent(e),'HMAC_TRUST_DOMAINS_NOT_SEPARATED');
+  assert.equal(calls,0);
 });
 test('real Brain raw body HMAC signature is verifiable; receipt retained', async()=>{
   const e=event();const {a,logs}=setup(async req=>{

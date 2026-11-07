@@ -92,6 +92,10 @@ export function createBrainWorkerAdapter({ workerName, sourceType, brainService,
       throw new IntegrationBlocked('BRAIN_INTAKE_KEY_MISSING');
     if (typeof receiptVerificationKey !== 'string' || receiptVerificationKey.length < 43)
       throw new IntegrationBlocked('RECEIPT_VERIFICATION_KEY_MISSING');
+    // A request principal must never double as the Brain receipt verifier.
+    // Refuse this unsafe credential configuration before any private RPC.
+    if (intakeKey === receiptVerificationKey)
+      throw new IntegrationBlocked('HMAC_TRUST_DOMAINS_NOT_SEPARATED');
     if (typeof verifyProvenance !== 'function') throw new IntegrationBlocked('PROVENANCE_VERIFIER_MISSING');
     if (typeof auditSink !== 'function') throw new IntegrationBlocked('AUDIT_SINK_MISSING');
   }
