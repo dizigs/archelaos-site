@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {copyFileSync,mkdirSync,mkdtempSync,readFileSync,rmSync,symlinkSync,writeFileSync} from 'node:fs';
+import {copyFileSync,existsSync,mkdirSync,mkdtempSync,readFileSync,rmSync,symlinkSync,writeFileSync} from 'node:fs';
 import {join} from 'node:path';
 import {tmpdir} from 'node:os';
 import {spawnSync} from 'node:child_process';
@@ -96,4 +96,14 @@ test('symlinked Worker gate CLI runs and fails unsafe configuration instead of s
     r=spawnSync(process.execPath,[wrapper],{encoding:'utf8'});assert.equal(r.status,2,r.stderr);
     assert.equal(JSON.parse(r.stdout).sourceConfigGate,'REVIEW_REQUIRED');
   }finally{rmSync(root,{recursive:true,force:true})}
+});
+test('untrusted PATH cannot substitute the TOML interpreter',()=>{
+  const dir=mkdtempSync(join(tmpdir(),'agentkit-path-'));try {
+    const marker=join(dir,'shim-ran');
+    writeFileSync(join(dir,'python3'),'#!'+process.execPath+'\nrequire("node:fs").writeFileSync('+JSON.stringify(marker)+',"SHIM_INVOKED");process.stdout.write("{}");\n',{mode:0o700});
+    const script=`const{inspectRepository}=await import(${JSON.stringify(new URL('./worker-gates.mjs',import.meta.url).href)});const r=inspectRepository();if(r.sourceConfigGate!=='PASS_SAFETY_OFF')process.exit(2);`;
+    const result=spawnSync(process.execPath,['--input-type=module','-e',script],{encoding:'utf8',env:{...process.env,PATH:dir}});
+    assert.equal(existsSync(marker),false,'a PATH-supplied executable must never run');
+    assert.equal(result.status,0,result.stderr);
+  }finally{rmSync(dir,{recursive:true,force:true})}
 });

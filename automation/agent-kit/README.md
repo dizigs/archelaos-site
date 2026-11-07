@@ -50,8 +50,9 @@ Official setup: https://antigravity.google/docs/mcp
 ## CLI, Node 22+, Linux filesystem safety
 
 File-based commands require Linux with `O_NOFOLLOW`, `/proc/self/fd` and
-`/usr/bin/flock`. The Worker source inspector additionally uses Python 3.11+
-standard-library `tomllib` in isolated mode; no package download or provider call.
+`/usr/bin/flock`. The Worker source inspector additionally uses the fixed
+`/usr/bin/python3` interpreter (3.11+) and standard-library `tomllib` in isolated
+mode. An untrusted `PATH` cannot substitute it; no package or provider call.
 Unsupported filesystems/platforms fail closed with `FILESYSTEM_SAFETY_UNAVAILABLE`
 rather than silently following private symlinks. This includes Windows; native
 Windows file inspection is not claimed supported. Pure configuration/registry

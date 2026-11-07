@@ -15,7 +15,7 @@ function read(rel) {return readBoundedFile(join(ROOT,rel),131072);}
 function parseToml(text) {
   if(Buffer.byteLength(text,'utf8')>131072)throw Error('SOURCE_TOO_LARGE');
   // Standard-library parser, isolated from repository modules and PYTHONPATH.
-  const result=spawnSync('python3',['-I','-S','-c',
+  const result=spawnSync('/usr/bin/python3',['-I','-S','-c',
     'import sys,json,tomllib; json.dump(tomllib.loads(sys.stdin.read()),sys.stdout)'],
     {input:text,encoding:'utf8',timeout:5000,maxBuffer:524288});
   if(result.error||result.status!==0)throw Error('TOML_PARSE_FAILED');

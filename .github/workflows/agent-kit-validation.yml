@@ -38,7 +38,7 @@ jobs:
         run: |
           set -euo pipefail
           node --version
-          python3 -I -S -c 'import tomllib'
+          /usr/bin/python3 -I -S -c 'import tomllib'
           test -x /usr/bin/flock
           node --check automation/agent-kit/private-io.mjs
           node --check automation/agent-kit/cli.mjs
