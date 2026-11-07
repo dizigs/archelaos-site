@@ -4,7 +4,7 @@
   "target": "hall-of-fame-people.json",
   "public_snapshot_count": 773,
   "status": "internal_review_only_not_published",
-  "policy": "These people have no exact-name match in the current public Hall JSON at research time. Two DIFFERENT event records per candidate, verified through linked publications. Duplicate, identity, date, and facts must be checked again before public merge. Independent event records do not necessarily mean independent reporting organizations.",
+  "policy": "One clear, event-specific linked source is sufficient for identity, participation or an achievement, including local media republishing club-supplied reports. Independent reporting organizations and second event sources are not required. Validate person identity, affiliation at the event, exact event/date/result and duplicates before public merge.",
   "candidates": [
     {
       "name": "Χαράλαμπος Κορδωνούλης",
@@ -77,18 +77,19 @@
       }
     }
   ],
-  "other_names_pending_second_distinct_event_or_identity_validation": [
+  "source_validation_notes": [
+    "One clearly attributable local report, including reproduced club announcements, is accepted as a single valid source when event facts are explicit; no second source is required.",
+    "Different competitions recorded by ELOP count as different evidence documents, not as independent reporting organizations.",
+    "PDF screenshot tool unavailable due to cache miss at research time; facts supported by indexed extracted ranking text and require provider readback before public publication.",
+    "No claimed public Hall update or production deployment.",
+    "Research rule updated 2026-11-07: source links below article tags, never as image caption; photo and factual provenance must identify relevant article."
+  ],
+  "other_names_pending_identity_or_source_validation": [
     "Παναγιώτης Κουτούπας",
     "Ηλίας Τσιβαλίδης",
     "Κέβιν Χασανλάρι",
     "Άγγελος Γιασσιράνης",
     "Δημοσθένης Κατσιγιάννης",
     "Δημήτρης Σαμπάνης"
-  ],
-  "source_validation_notes": [
-    "Source copies repeating the 2024 GAS Archelaos press release are counted as ONE underlying report.",
-    "Different competitions recorded by ELOP count as different evidence documents, not as independent reporting organizations.",
-    "PDF screenshot tool unavailable due to cache miss at research time; facts supported by indexed extracted ranking text and require provider readback before public publication.",
-    "No claimed public Hall update or production deployment."
   ]
 }
