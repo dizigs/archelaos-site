@@ -32,6 +32,8 @@ jobs:
           node --check automation/private-tool-audit/receiver.test.mjs
           node --check automation/private-tool-audit/sheet-projector.mjs
           node --check automation/private-tool-audit/sheet-projector.test.mjs
+          node --check automation/private-tool-audit/google-sheets-adapter.mjs
+          node --check automation/private-tool-audit/google-sheets-adapter.test.mjs
       - name: Offline SQLite HMAC audit contract tests
         shell: bash
         run: |
@@ -42,3 +44,8 @@ jobs:
         run: |
           set -euo pipefail
           node --test automation/private-tool-audit/sheet-projector.test.mjs
+      - name: Offline Google Sheets adapter and replay tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --test automation/private-tool-audit/google-sheets-adapter.test.mjs
