@@ -33,3 +33,5 @@ Offline test command: node --test tests/text-corrections.test.mjs
 - Dedicated Pages preview limited to this PR's branch, with EU-only `ARCHIVE_DB` preview database and an independent Turnstile widget for `archelaos-site.pages.dev`.
 - Keep `ENABLE_TEXT_CORRECTIONS=false` until preview hostname, protected form submission, D1 receipt readback and privacy/rollback behavior are verified. Only then turn on production, using the same exact-HEAD reviewed code and its own EU D1 binding.
 - Never infer preview success from PR CI alone; capture provider deployment SHA, logs, exact URL and form/readback evidence.
+
+- Preview Cloudflare hostname `feat-popup-text-corrections.archelaos-site.pages.dev` and EU-only D1 schema were confirmed on 07/11/2026; preview submissions enabled for staged tests while production remains disabled. Do not carry preview credentials into production.
