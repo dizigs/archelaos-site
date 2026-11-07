@@ -1,0 +1,35 @@
+/* Harmonizes with the existing favorite hearts and respects reduced motion. */
+.arch-correction-host{position:relative!important}
+.arch-correction-action{display:inline-grid!important;place-items:center!important;box-sizing:border-box!important;
+border:1px solid #c3aa71!important;border-radius:11px!important;background:#fff9e7!important;color:#755a29!important;
+width:42px!important;height:42px!important;min-width:42px!important;flex:0 0 42px!important;padding:9px!important;cursor:pointer!important}
+.arch-correction-action svg{width:23px;height:23px;pointer-events:none}
+.arch-correction-action:hover,.arch-correction-action[aria-expanded=true]{background:#0d4d36!important;color:#fff2d2!important}
+.arch-correction-action:focus-visible,.arch-correction-panel :focus-visible{outline:3px solid #c4a05c!important;outline-offset:2px!important}
+.arc-bio-heart,.arch-bio-actions{display:flex!important;gap:7px!important;align-items:center!important}
+.arch-correction-panel{box-sizing:border-box!important;position:absolute!important;z-index:999!important;top:60px!important;right:12px!important;
+width:min(378px,calc(100% - 24px))!important;max-height:min(65dvh,540px)!important;overflow:auto!important;
+overscroll-behavior:contain!important;border:1px solid #d4bd82!important;border-radius:16px!important;
+background:#fffdf7!important;color:#173c2b!important;padding:18px!important;box-shadow:0 18px 52px #001f1740!important;
+font:14px/1.5 system-ui,sans-serif!important;text-align:left!important;
+animation:arch-correction-reveal 220ms cubic-bezier(.2,.7,.2,1) both}
+.arch-correction-panel[hidden]{display:none!important}
+@keyframes arch-correction-reveal{from{opacity:0;transform:translateY(-9px) scale(.976)}to{opacity:1;transform:translateY(0) scale(1)}}
+.arch-correction-heading{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.arch-correction-heading strong{font:700 17px/1.3 system-ui,sans-serif!important;color:#073d2a!important}
+.arch-correction-dismiss{width:30px;height:30px;flex:none;border:1px solid #dfd0ae!important;border-radius:9px!important;
+background:#f7f0df!important;color:#163d2a!important;font:22px/1 system-ui,sans-serif!important;cursor:pointer!important}
+.arch-correction-intro,.arch-correction-note{font:400 12px/1.5 system-ui,sans-serif!important;color:#596e5e!important;margin:9px 0!important}
+.arch-correction-form{display:flex!important;flex-direction:column!important;gap:10px!important}
+.arch-correction-form label{display:flex!important;flex-direction:column!important;gap:5px!important;color:#254738!important;font:700 12px/1.4 system-ui,sans-serif!important}
+.arch-correction-form textarea,.arch-correction-form input{box-sizing:border-box!important;width:100%!important;border:1px solid #d0d5c8!important;
+border-radius:10px!important;background:white!important;color:#173c2b!important;padding:10px 11px!important;
+font:400 14px/1.5 system-ui,sans-serif!important}
+.arch-correction-form textarea{resize:vertical;min-height:94px}
+.arch-correction-status{min-height:18px;color:#536c58!important;font:400 12px/1.5 system-ui,sans-serif!important;margin:0!important}
+.arch-correction-send{border:0!important;border-radius:10px!important;background:#0d4d36!important;color:#fff8e8!important;
+padding:10px 15px!important;font:750 13px/1.4 system-ui,sans-serif!important;cursor:pointer!important}
+.arch-correction-send:disabled{opacity:.45;cursor:not-allowed}
+@media(max-width:480px){.arch-correction-panel{top:56px!important;right:7px!important;width:calc(100% - 14px)!important;
+max-height:min(62dvh,480px)!important;padding:14px!important}}
+@media(prefers-reduced-motion:reduce){.arch-correction-panel{animation:none!important}}

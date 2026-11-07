@@ -1,0 +1,30 @@
+name: PR242 hosted preview browser QA
+on:
+  push:
+    branches:
+      - 'feat/popup-text-corrections-20261106'
+    paths:
+      - 'rebuild/tests/popup_text_corrections_live.cjs'
+      - '.github/workflows/pr242-preview-browser.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  preview:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+      - name: Install browser test dependencies
+        run: npm ci --prefix rebuild/tests/browser --ignore-scripts
+      - name: Install Chromium runtime
+        run: cd rebuild/tests/browser && ./node_modules/.bin/playwright install --with-deps chromium
+      - name: Test real Cloudflare preview and popup form
+        env:
+          NODE_PATH: ./rebuild/tests/browser/node_modules
+        run: node rebuild/tests/popup_text_corrections_live.cjs
