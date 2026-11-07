@@ -1,0 +1,91 @@
+name: Dormant Healer rollout — operator one-shot
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/selfheal-dormant-healer-once.yml'
+      - 'brain/tools/dormant_healer_release.py'
+
+permissions:
+  contents: read
+
+jobs:
+  one-shot:
+    if: >-
+      github.repository == 'dizigs/archelaos-site' &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.event.pull_request.head.ref == 'assistant/selfheal-dormant-healer-rollout-20261107'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    concurrency:
+      group: archelaos-real-healer-dormant-qa-rollout-20261107
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Authorize exactly one operator-requested commit
+        id: gate
+        env:
+          EXPECTED_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          if [ "$(git log -1 --format=%s)" = 'deploy(staging): one-shot dormant Healer rollout' ]; then
+            echo 'enabled=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'enabled=false' >> "$GITHUB_OUTPUT"
+            echo 'One-shot gate closed; no provider credentials used.'
+          fi
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        if: steps.gate.outputs.enabled == 'true'
+        with:
+          node-version: '24'
+          package-manager-cache: false
+
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        if: steps.gate.outputs.enabled == 'true'
+        with:
+          python-version: '3.12'
+
+      - name: Syntax and locked tools
+        if: steps.gate.outputs.enabled == 'true'
+        run: |
+          python -m py_compile brain/tools/dormant_healer_release.py
+          npm ci --prefix brain --ignore-scripts --no-audit --no-fund
+          node --experimental-sqlite --test automation/self-heal-worker/test/*.test.mjs
+          ./brain/node_modules/.bin/wrangler deploy --config automation/self-heal-worker/wrangler.toml --dry-run --outdir "$RUNNER_TEMP/healer-dormant-dryrun"
+
+      - name: Read-only baseline and OFF-state preflight
+        if: steps.gate.outputs.enabled == 'true'
+        env:
+          EXPECTED_SHA: ${{ github.event.pull_request.head.sha }}
+          CLOUDFLARE_STAGING_DEPLOY_TOKEN: ${{ secrets.CLOUDFLARE_STAGING_DEPLOY_TOKEN }}
+        run: python3 brain/tools/dormant_healer_release.py preflight
+
+      - name: Deploy reviewed Healer code with operational ACK OFF
+        id: rollout
+        if: steps.gate.outputs.enabled == 'true'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_STAGING_DEPLOY_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: '898359728b3dfe8c3a3f56e3d19eecd1'
+          WRANGLER_SEND_METRICS: 'false'
+        run: |
+          echo 'attempted=true' >> "$GITHUB_OUTPUT"
+          ./brain/node_modules/.bin/wrangler deploy --config automation/self-heal-worker/wrangler.toml --keep-vars
+
+      - name: Independently verify the new version, bindings, private namespace and OFF controls
+        id: readback
+        if: steps.rollout.outcome == 'success'
+        env:
+          CLOUDFLARE_STAGING_DEPLOY_TOKEN: ${{ secrets.CLOUDFLARE_STAGING_DEPLOY_TOKEN }}
+        run: python3 brain/tools/dormant_healer_release.py postflight
+
+      - name: Revert to exact previous Healer version on failed or unverified rollout
+        if: always() && steps.rollout.outputs.attempted == 'true' && steps.readback.outcome != 'success'
+        env:
+          CLOUDFLARE_STAGING_DEPLOY_TOKEN: ${{ secrets.CLOUDFLARE_STAGING_DEPLOY_TOKEN }}
+        run: python3 brain/tools/dormant_healer_release.py rollback
