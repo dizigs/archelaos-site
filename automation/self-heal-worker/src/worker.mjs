@@ -71,3 +71,7 @@ export default class HealerService extends WorkerEntrypoint {
       headers: { 'cache-control': 'no-store', 'x-content-type-options': 'nosniff' } });
   }
 }
+
+// Private QA exports only: intentionally unbound until independent source/namespace review.
+// Existing HealerService operations and public 404 boundary remain unchanged.
+export { HealerHmacAcceptancePort, PrivateHmacNonceStore } from '../../../brain/src/private_hmac_candidate.mjs';

@@ -210,10 +210,16 @@ test('native forged request cannot mutate replay SQLite and nonce capacity fails
     assert.equal((await f.call({op:'state'})).healer.rows.length,16);
   } finally {await f.close()}
 });
-test('candidate has no imports/wiring into existing Workers and no recovery, network, AI or existing-ledger authority',async()=>{
+test('candidate remains recovery-free; only exact dormant named exports are present in operational Workers',async()=>{
   const candidate=await readFile(resolve('src/private_hmac_candidate.mjs'),'utf8');
   assert.doesNotMatch(candidate,/\.fetch\s*\(|\bfetch\s*\([^)]*,|\.AI\b|attemptRecovery|settleDurableReadback|BrainCoordinator|HealerMemory|selfheal_signed_outbox/);
   assert.match(candidate,/status:404/);
-  for(const file of ['src/worker.mjs','../automation/self-heal-worker/src/worker.mjs'])
-    assert.doesNotMatch(await readFile(resolve(file),'utf8'),/private_hmac/);
+  for(const [file, approvedExport] of [
+    ['src/worker.mjs',"export { BrainHmacAcceptancePort, PrivateHmacNonceStore } from './private_hmac_candidate.mjs';"],
+    ['../automation/self-heal-worker/src/worker.mjs',"export { HealerHmacAcceptancePort, PrivateHmacNonceStore } from '../../../brain/src/private_hmac_candidate.mjs';"],
+  ]) {
+    const source=await readFile(resolve(file),'utf8');
+    assert.equal(source.split(approvedExport).length,2,'exactly one reviewed HMAC QA named export');
+    assert.doesNotMatch(source.replace(approvedExport,''),/private_hmac/,'no other HMAC wiring in operational Worker');
+  }
 });

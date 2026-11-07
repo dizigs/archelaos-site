@@ -39,7 +39,7 @@ test('two existing-service targets fail closed through named Brain RPC; SQLite H
       {
         name: 'archelaos-self-heal', modules: true,
         scriptPath: fileURLToPath(new URL('../../automation/self-heal-worker/src/worker.mjs', import.meta.url)),
-        modulesRoot: fileURLToPath(new URL('../../automation/self-heal-worker/src/', import.meta.url)),
+        modulesRoot: fileURLToPath(new URL('../../', import.meta.url)), // repo root: shared private HMAC module inside root
         compatibilityDate: '2026-11-01',
         durableObjects: { HEALER_MEMORY: { className: 'HealerMemory', useSQLite: true } },
         bindings: { HEALER_EVENT_HMAC_KEY: KEY },

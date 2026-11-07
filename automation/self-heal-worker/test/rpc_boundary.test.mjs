@@ -13,7 +13,12 @@ const EXPORTED_RPC_METHODS = [
 // Binding acceptance is a separate release gate, not claimed by these tests.
 async function loadHealerService() {
   const source = await readFile(SOURCE_URL, 'utf8');
+  // Strip ONLY the reviewed dormant QA module export from the isolated VM;
+  // the real Worker bundle/native tests must still import the full module.
+  const qaExport = "export { HealerHmacAcceptancePort, PrivateHmacNonceStore } from '../../../brain/src/private_hmac_candidate.mjs';";
+  assert.equal(source.split(qaExport).length, 2, 'only one reviewed QA named export');
   const script = source
+    .replace(qaExport, '')
     .replace(/^import .*;\n/gm, '')
     .replace('export class HealerMemory', 'class HealerMemory')
     .replace('export default class HealerService', 'class HealerService') + '\nHealerService;';

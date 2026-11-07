@@ -17,6 +17,19 @@ FLAGS = ("BRAIN_SELFHEAL_RECOVERY_ENABLED", "BRAIN_SELFHEAL_BINDING_ATTESTED",
          "BRAIN_SELFHEAL_DISPATCH_ENABLED", "BRAIN_SELFHEAL_DURABLE_ACK_ENABLED")
 LINKS = [dict(binding="HEALER", service=HEALER),
          dict(binding="BRAIN_RECOVERY", service=BRAIN, entrypoint="BrainRecoveryPort")]
+# Additional named QA path is not a recovery or default RPC capability.
+QA_PEER = dict(binding="HMAC_PEER", service=HEALER,
+               entrypoint="HealerHmacAcceptancePort")
+QA_NONCES = dict(name="HMAC_NONCES", class_name="PrivateHmacNonceStore")
+
+
+def qa_vars(role):
+    return dict(PRIVATE_HMAC_ACCEPTANCE_ISOLATED="false",
+                PRIVATE_HMAC_ACCEPTANCE_ROLE=role,
+                PRIVATE_HMAC_ACCEPTANCE_SESSION="",
+                PRIVATE_HMAC_ACCEPTANCE_APPROVED_SHA="0" * 40,
+                PRIVATE_HMAC_ACCEPTANCE_STARTED_AT="1970-01-01T00:00:00Z",
+                PRIVATE_HMAC_ACCEPTANCE_EXPIRES_AT="1970-01-01T00:00:00Z")
 
 
 def load_configs():
@@ -44,7 +57,9 @@ def check_configs(configs):
             approved |= {"limits", "vars", "ai"}
         else:
             approved |= {"vars"}
-            if c.get("vars") != {"HEALER_DURABLE_ACK_ENABLED": "false"}:
+            expected_healer_vars = {"HEALER_DURABLE_ACK_ENABLED": "false",
+                                    "DEPLOY_SHA": "0" * 40, **qa_vars("healer")}
+            if c.get("vars") != expected_healer_vars:
                 errors.append("HEALER_ACK_GATE_CHANGED")
         if set(c) - approved:
             # Reject unreviewed KV/R2/D1/queue bindings, including names that
@@ -52,19 +67,34 @@ def check_configs(configs):
             errors.append("UNREVIEWED_BINDING_OR_OVERRIDE")
         if any(key in c for key in ("routes", "route", "triggers", "env", "unsafe")):
             errors.append("UNREVIEWED_EXPOSURE_OR_OVERRIDE")
-        if c.get("services") != [LINKS[i]]:
+        expected_services = [LINKS[i], QA_PEER] if i == 0 else [LINKS[i]]
+        if c.get("services") != expected_services:
             errors.append("SERVICE_SCOPE_CHANGED")
-        if c.get("durable_objects") != {"bindings": [{"name": do_name, "class_name": cls}]}:
+        if c.get("durable_objects") != {
+                "bindings": [{"name": do_name, "class_name": cls}, QA_NONCES]}:
             errors.append("DURABLE_OBJECT_IDENTITY_CHANGED")
-        if c.get("migrations") != [{"tag": tag, "new_sqlite_classes": [cls]}]:
+        expected_migrations = [
+            {"tag": tag, "new_sqlite_classes": [cls]},
+            {"tag": ("brain" if i == 0 else "healer") + "-private-hmac-qa-v1",
+             "new_sqlite_classes": ["PrivateHmacNonceStore"]},
+        ]
+        if c.get("migrations") != expected_migrations:
             errors.append("MIGRATION_HISTORY_CHANGED")
     brain, healer = configs
     if brain.get("ai") != {"binding": "AI"} or "ai" in healer:
         errors.append("AI_BINDING_PARITY_CHANGED")
     v = brain.get("vars", {})
-    if (v.get("ENVIRONMENT") != "staging" or v.get("DEPLOY_SHA") != "0" * 40 or
-            v.get("STAGING_EXPIRES_AT") != "1970-01-01T00:00:00Z" or
-            any(v.get(flag) != "false" for flag in FLAGS)):
+    expected_brain_vars = {
+        "ENVIRONMENT": "staging",
+        "DEPLOY_SHA": "0" * 40,
+        "STAGING_EXPIRES_AT": "1970-01-01T00:00:00Z",
+        "STAGING_SHORT_RETRIES": "true",
+        "BRAIN_GITHUB_APP_ID": "5641216",
+        "BRAIN_GITHUB_APP_INSTALLATION_ID": "179225349",
+        **{flag: "false" for flag in FLAGS},
+        **qa_vars("brain"),
+    }
+    if v != expected_brain_vars:
         errors.append("INACTIVE_GATES_CHANGED")
     if (v.get("BRAIN_GITHUB_APP_ID") != "5641216" or
             v.get("BRAIN_GITHUB_APP_INSTALLATION_ID") != "179225349"):
@@ -121,6 +151,7 @@ def assess(configs, inventory=None, now=None):
             sorted(w.get("name", "") for w in workers) != sorted([BRAIN, HEALER])):
         errors.append("INVENTORY_WORKERS_INCOMPLETE")
     else:
+        qa_namespace_ids = []
         for config in configs:
             worker = next(w for w in workers if w["name"] == config["name"])
             live = worker.get("bindings")
@@ -131,6 +162,16 @@ def assess(configs, inventory=None, now=None):
                 continue
             if len({b["name"] for b in live}) != len(live):
                 errors.append("DUPLICATE_LIVE_BINDING")
+            live_dos = {b["name"]: b.get("namespace_id") for b in live
+                        if b.get("type") == "durable_object_namespace"}
+            if "HMAC_NONCES" in live_dos:
+                qa_id = live_dos["HMAC_NONCES"]
+                if not isinstance(qa_id, str) or not qa_id:
+                    errors.append("QA_NONCE_NAMESPACE_UNVERIFIED")
+                elif any(qa_id == value for name, value in live_dos.items()
+                         if name != "HMAC_NONCES"):
+                    errors.append("QA_NONCE_NAMESPACE_ALIASED")
+                qa_namespace_ids.append(qa_id)
             declared = declared_bindings(config)
             required = {"BRAIN", "AI"} if config["name"] == BRAIN else {"HEALER_MEMORY"}
             if not required.issubset({b["name"] for b in live}):
@@ -168,6 +209,8 @@ def assess(configs, inventory=None, now=None):
                     if (b["name"] not in (*FLAGS, "DEPLOY_SHA") and
                             b.get("text") != expected["text"]):
                         errors.append("LIVE_VARIABLE_VALUE_CONFLICT")
+        if len(qa_namespace_ids) == 2 and qa_namespace_ids[0] == qa_namespace_ids[1]:
+            errors.append("QA_NONCE_CROSS_WORKER_ALIAS")
     # A self-supplied inventory can be filtered down to DO/AI baseline. It
     # cannot establish independent authenticated provider completeness.
     result["offlineBindingComparison"] = "BLOCKED" if errors else "PASS"
