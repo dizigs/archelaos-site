@@ -1,0 +1,295 @@
+{
+  "schemaVersion": 1,
+  "scope": "RESEARCH_REVIEW_ONLY",
+  "reviewDate": "2026-11-07",
+  "origin": "25 short canonical bios crosswalk in PR #295 and separately uploaded 25-page AI-generated reference report",
+  "principle": "An AI PDF reference to a named newspaper or meeting is not inspection of the named original. Club role asserted by canonical Hall is not independently proved by an unrelated homonym result.",
+  "canonicalCount": 774,
+  "pdfRowsMapped": 25,
+  "independentlyVerifiedNewFacts": 1,
+  "unverifiedNewPdfSpecificFacts": 24,
+  "identityConflictPersons": 1,
+  "publicationRule": "No new published historical claim without original dated independent source, matching person and club in correct era; preserve 774 IDs and explicit source provenance.",
+  "records": [
+    {
+      "personId": "arch-dc38c1018a66",
+      "name": "Επαμεινώνδας Κούρτης",
+      "sourcePdfPage": "1–2",
+      "originalSourceToLocate": "Πρωτότυπα φύλλα 1993/1996",
+      "canonicalBioLength": 265,
+      "verifiedNewClaim": true,
+      "claimStatus": "PUBLIC_INTERVIEW_VERIFIED; PDF 1993/1996 SPECIFICS PENDING",
+      "publicEvidence": [
+        {
+          "url": "https://www.tanea.gr/2003/08/08/greece/20-epwthseis-katepina-boggolh/",
+          "supports": "Katerina Voggoli explicitly names Epameinondas Kourtis as her first coach; not proof of athlete club membership or date of original coaching."
+        }
+      ],
+      "requiredNextStep": "Find original 1993 and 1996 coach roster/page to corroborate PDF-specific statements"
+    },
+    {
+      "personId": "arch-e47279f0f6c2",
+      "name": "Μαρία Κυριάκη",
+      "sourcePdfPage": "2",
+      "originalSourceToLocate": "Πρωτότυπα αποτελέσματα 1991 και μητρώο προπονητών",
+      "canonicalBioLength": 85,
+      "verifiedNewClaim": false,
+      "claimStatus": "ORIGINAL_DOCUMENT_NOT_EXAMINED",
+      "publicEvidence": [],
+      "requiredNextStep": "Locate and read specific original dated clipping/roster/minutes, verify identity and club; do not publish PDF-only claims"
+    },
+    {
+      "personId": "arch-f52250e524ce",
+      "name": "Έφη Λαψάνα",
+      "sourcePdfPage": "2–3",
+      "originalSourceToLocate": "Φύλλο Ολύμπιο Βήμα 28/05/1993",
+      "canonicalBioLength": 85,
+      "verifiedNewClaim": false,
+      "claimStatus": "ORIGINAL_DOCUMENT_NOT_EXAMINED",
+      "publicEvidence": [],
+      "requiredNextStep": "Locate and read specific original dated clipping/roster/minutes, verify identity and club; do not publish PDF-only claims"
+    },
+    {
+      "personId": "arch-cd8d2b2e4d33",
+      "name": "Βικτωρία Μπατάλα",
+      "sourcePdfPage": "3",
+      "originalSourceToLocate": "Ονομαστικός τελικός 1991 και μητρώο",
+      "canonicalBioLength": 85,
+      "verifiedNewClaim": false,
+      "claimStatus": "ORIGINAL_DOCUMENT_NOT_EXAMINED",
+      "publicEvidence": [],
+      "requiredNextStep": "Locate and read specific original dated clipping/roster/minutes, verify identity and club; do not publish PDF-only claims"
+    },
+    {
+      "personId": "arch-2fa53787e4c6",
+      "name": "Αθανάσιος Τρυγώνης",
+      "sourcePdfPage": "5",
+      "originalSourceToLocate": "Ολύμπιο Βήμα 1997",
+      "canonicalBioLength": 72,
+      "verifiedNewClaim": false,
+      "claimStatus": "ORIGINAL_DOCUMENT_NOT_EXAMINED",
+      "publicEvidence": [],
+      "requiredNextStep": "Locate and read specific original dated clipping/roster/minutes, verify identity and club; do not publish PDF-only claims"
+    },
+    {
+      "personId": "arch-9561837e44eb",
+      "name": "Δημήτριος Μοιξάκης",
+      "sourcePdfPage": "5",
+      "originalSourceToLocate": "Πρακτικά Δ.Σ. 1990",
+      "canonicalBioLength": 83,
+      "verifiedNewClaim": false,
+      "claimStatus": "ORIGINAL_DOCUMENT_NOT_EXAMINED",
+      "publicEvidence": [],
+      "requiredNextStep": "Locate and read specific original dated clipping/roster/minutes, verify identity and club; do not publish PDF-only claims"
+    },
+    {
+      "personId": "arch-1978cdb93754",
+      "name": "Δημήτριος Μπίντας",
+      "sourcePdfPage": "5",
+      "originalSourceToLocate": "Πρακτικά εφορείας βόλεϊ",
+      "canonicalBioLength": 44,
+      "verifiedNewClaim": false,
+      "claimStatus": "ORIGINAL_DOCUMENT_NOT_EXAMINED",
+      "publicEvidence": [],
+      "requiredNextStep": "Locate and read specific original dated clipping/roster/minutes, verify identity and club; do not publish PDF-only claims"
+    },
+    {
+      "personId": "arch-f26868d81a7b",
+      "name": "Ηλίας Κεσανλής",
+      "sourcePdfPage": "5",
+      "originalSourceToLocate": "Πιερικοί Αντίλαλοι 1991/1992",
+      "canonicalBioLength": 68,
+      "verifiedNewClaim": false,
+      "claimStatus": "ORIGINAL_DOCUMENT_NOT_EXAMINED",
+      "publicEvidence": [],
+      "requiredNextStep": "Locate and read specific original dated clipping/roster/minutes, verify identity and club; do not publish PDF-only claims"
+    },
+    {
+      "personId": "arch-ccd3a9d5d1f3",
+      "name": "Ιωάννης Αθανασιάδης",
+      "sourcePdfPage": "6",
+      "originalSourceToLocate": "Προκηρύξεις 1996/1997",
+      "canonicalBioLength": 95,
+      "verifiedNewClaim": false,
+      "claimStatus": "ORIGINAL_DOCUMENT_NOT_EXAMINED",
+      "publicEvidence": [],
+      "requiredNextStep": "Locate and read specific original dated clipping/roster/minutes, verify identity and club; do not publish PDF-only claims"
+    },
+    {
+      "personId": "arch-9fbf3dee77af",
+      "name": "Ιωάννης Παπασταθόπουλος",
+      "sourcePdfPage": "6",
+      "originalSourceToLocate": "Αρχαιρεσίες 1996",
+      "canonicalBioLength": 74,
+      "verifiedNewClaim": false,
+      "claimStatus": "ORIGINAL_DOCUMENT_NOT_EXAMINED",
+      "publicEvidence": [],
+      "requiredNextStep": "Locate and read specific original dated clipping/roster/minutes, verify identity and club; do not publish PDF-only claims"
+    },
+    {
+      "personId": "arch-76d5e1b729ae",
+      "name": "Νίκος Παπανικολάου",
+      "sourcePdfPage": "6",
+      "originalSourceToLocate": "Ολύμπιο Βήμα 1995",
+      "canonicalBioLength": 50,
+      "verifiedNewClaim": false,
+      "claimStatus": "ORIGINAL_DOCUMENT_NOT_EXAMINED",
+      "publicEvidence": [],
+      "requiredNextStep": "Locate and read specific original dated clipping/roster/minutes, verify identity and club; do not publish PDF-only claims"
+    },
+    {
+      "personId": "arch-8ba7e62a1faf",
+      "name": "Τριαντάφυλλος Τιόκας",
+      "sourcePdfPage": "6",
+      "originalSourceToLocate": "Πρακτικά σκοπευτικού τμήματος",
+      "canonicalBioLength": 60,
+      "verifiedNewClaim": false,
+      "claimStatus": "ORIGINAL_DOCUMENT_NOT_EXAMINED",
+      "publicEvidence": [],
+      "requiredNextStep": "Locate and read specific original dated clipping/roster/minutes, verify identity and club; do not publish PDF-only claims"
+    },
+    {
+      "personId": "arch-157bd15a3407",
+      "name": "Χαράλαμπος Διαμαντίδης",
+      "sourcePdfPage": "6",
+      "originalSourceToLocate": "Υπογεγραμμένη πρόσκληση 1989",
+      "canonicalBioLength": 49,
+      "verifiedNewClaim": false,
+      "claimStatus": "ORIGINAL_DOCUMENT_NOT_EXAMINED",
+      "publicEvidence": [],
+      "requiredNextStep": "Locate and read specific original dated clipping/roster/minutes, verify identity and club; do not publish PDF-only claims"
+    },
+    {
+      "personId": "arch-dfd943fbdfd7",
+      "name": "Αλέκος Καρυπίδης",
+      "sourcePdfPage": "13",
+      "originalSourceToLocate": "Απόφαση ορισμού προπονητή 1980",
+      "canonicalBioLength": 89,
+      "verifiedNewClaim": false,
+      "claimStatus": "ORIGINAL_DOCUMENT_NOT_EXAMINED",
+      "publicEvidence": [],
+      "requiredNextStep": "Locate and read specific original dated clipping/roster/minutes, verify identity and club; do not publish PDF-only claims"
+    },
+    {
+      "personId": "arch-93a0d57ed2bd",
+      "name": "Αναστασία Φυλακτακίδου",
+      "sourcePdfPage": "13",
+      "originalSourceToLocate": "Ονομαστικά φύλλα μπάσκετ",
+      "canonicalBioLength": 93,
+      "verifiedNewClaim": false,
+      "claimStatus": "ORIGINAL_DOCUMENT_NOT_EXAMINED",
+      "publicEvidence": [],
+      "requiredNextStep": "Locate and read specific original dated clipping/roster/minutes, verify identity and club; do not publish PDF-only claims"
+    },
+    {
+      "personId": "arch-a2775cc75551",
+      "name": "Αριστοτέλης Γιαμούζης",
+      "sourcePdfPage": "13",
+      "originalSourceToLocate": "Αγωνιστικές αποστολές κολύμβησης 1994",
+      "canonicalBioLength": 73,
+      "verifiedNewClaim": false,
+      "claimStatus": "ORIGINAL_DOCUMENT_NOT_EXAMINED",
+      "publicEvidence": [],
+      "requiredNextStep": "Locate and read specific original dated clipping/roster/minutes, verify identity and club; do not publish PDF-only claims"
+    },
+    {
+      "personId": "arch-34fb3ea60fda",
+      "name": "Ασπασία Οικονομικού",
+      "sourcePdfPage": "13",
+      "originalSourceToLocate": "Πρακτικά τμήματος γυμναστικής",
+      "canonicalBioLength": 88,
+      "verifiedNewClaim": false,
+      "claimStatus": "ORIGINAL_DOCUMENT_NOT_EXAMINED",
+      "publicEvidence": [],
+      "requiredNextStep": "Locate and read specific original dated clipping/roster/minutes, verify identity and club; do not publish PDF-only claims"
+    },
+    {
+      "personId": "arch-58930b0fec6b",
+      "name": "Δημήτριος Γκόρτσιος",
+      "sourcePdfPage": "14",
+      "originalSourceToLocate": "Μητρώο γυμναστών",
+      "canonicalBioLength": 85,
+      "verifiedNewClaim": false,
+      "claimStatus": "ORIGINAL_DOCUMENT_NOT_EXAMINED",
+      "publicEvidence": [],
+      "requiredNextStep": "Locate and read specific original dated clipping/roster/minutes, verify identity and club; do not publish PDF-only claims"
+    },
+    {
+      "personId": "arch-95b9b74036d7",
+      "name": "Κωνσταντίνος Κουρατίδης",
+      "sourcePdfPage": "14",
+      "originalSourceToLocate": "Φύλλα αγώνα ΟΧΕ",
+      "canonicalBioLength": 77,
+      "verifiedNewClaim": false,
+      "claimStatus": "ORIGINAL_DOCUMENT_NOT_EXAMINED",
+      "publicEvidence": [],
+      "requiredNextStep": "Locate and read specific original dated clipping/roster/minutes, verify identity and club; do not publish PDF-only claims"
+    },
+    {
+      "personId": "arch-2672a628bae1",
+      "name": "Πηνελόπη Ζουρνά",
+      "sourcePdfPage": "14",
+      "originalSourceToLocate": "Μητρώο προπονητριών",
+      "canonicalBioLength": 99,
+      "verifiedNewClaim": false,
+      "claimStatus": "ORIGINAL_DOCUMENT_NOT_EXAMINED",
+      "publicEvidence": [],
+      "requiredNextStep": "Locate and read specific original dated clipping/roster/minutes, verify identity and club; do not publish PDF-only claims"
+    },
+    {
+      "personId": "arch-7748331a90c6",
+      "name": "Σοφία Μπέζα",
+      "sourcePdfPage": "14",
+      "originalSourceToLocate": "Αρχειακή πηγή προπονητικού έργου",
+      "canonicalBioLength": 89,
+      "verifiedNewClaim": false,
+      "claimStatus": "ORIGINAL_DOCUMENT_NOT_EXAMINED",
+      "publicEvidence": [],
+      "requiredNextStep": "Locate and read specific original dated clipping/roster/minutes, verify identity and club; do not publish PDF-only claims"
+    },
+    {
+      "personId": "arch-bcae6917dd16",
+      "name": "Απόστολος Γιαννούλης",
+      "sourcePdfPage": "21",
+      "originalSourceToLocate": "Πρωτότυπα αποτελέσματα κολύμβησης",
+      "canonicalBioLength": 89,
+      "verifiedNewClaim": false,
+      "claimStatus": "ORIGINAL_DOCUMENT_NOT_EXAMINED",
+      "publicEvidence": [],
+      "requiredNextStep": "Locate and read specific original dated clipping/roster/minutes, verify identity and club; do not publish PDF-only claims"
+    },
+    {
+      "personId": "arch-9aa7033496a6",
+      "name": "Αικατερίνη Καραπαναγιωτίδου",
+      "sourcePdfPage": "21",
+      "originalSourceToLocate": "**Διαφωνία μικρού ονόματος** (PDF: Δέσποινα)",
+      "canonicalBioLength": 94,
+      "verifiedNewClaim": false,
+      "claimStatus": "NAME_CONFLICT_BLOCKED",
+      "publicEvidence": [],
+      "requiredNextStep": "Resolve Aikaterini/Despoina from official 1997 swimming result sheet before transferring any performances"
+    },
+    {
+      "personId": "arch-2120637eed24",
+      "name": "Παντελής Λογγινίδης",
+      "sourcePdfPage": "21",
+      "originalSourceToLocate": "Πρωτότυπο αγωνιστικό αποτέλεσμα",
+      "canonicalBioLength": 79,
+      "verifiedNewClaim": false,
+      "claimStatus": "ORIGINAL_DOCUMENT_NOT_EXAMINED",
+      "publicEvidence": [],
+      "requiredNextStep": "Locate and read specific original dated clipping/roster/minutes, verify identity and club; do not publish PDF-only claims"
+    },
+    {
+      "personId": "arch-e9a3df83459e",
+      "name": "Ιωάννης Προβατίδης",
+      "sourcePdfPage": "21",
+      "originalSourceToLocate": "Πρωτότυπο αγωνιστικό αποτέλεσμα",
+      "canonicalBioLength": 91,
+      "verifiedNewClaim": false,
+      "claimStatus": "ORIGINAL_DOCUMENT_NOT_EXAMINED",
+      "publicEvidence": [],
+      "requiredNextStep": "Locate and read specific original dated clipping/roster/minutes, verify identity and club; do not publish PDF-only claims"
+    }
+  ]
+}
