@@ -1,0 +1,25 @@
+name: Ceramic private web discovery contract
+on:
+  pull_request:
+    paths:
+      - 'automation/brain-ceramic/**'
+      - '.github/workflows/brain-ceramic-contract.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout PR revision
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Node runtime
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '22'
+      - name: Contract tests only (no web search billing)
+        run: npm run check
+        working-directory: automation/brain-ceramic

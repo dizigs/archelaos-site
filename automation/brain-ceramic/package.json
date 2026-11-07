@@ -1,0 +1,11 @@
+{
+  "name": "@archelaos/brain-ceramic-discovery",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "node --check src/discovery.mjs && node --test test/*.test.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
