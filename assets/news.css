@@ -163,3 +163,8 @@ main{padding:60px 0 80px}
 
 /* Card metadata must never block the full-card article hit area. */
 .an-card .an-topic-tag,.an-feature-card .an-topic-tag{pointer-events:none;z-index:auto}
+
+/* Article provenance belongs immediately below the tags, never on the image. */
+.an-detail .an-source-under-tags{border:0;margin:-4px 0 17px;padding:0;color:#64735f;font-size:12px;line-height:1.6}
+.an-detail .an-source-under-tags a{color:#15533a;text-underline-offset:3px;overflow-wrap:anywhere}
+.an-detail .an-source-under-tags a:hover{text-decoration:underline}

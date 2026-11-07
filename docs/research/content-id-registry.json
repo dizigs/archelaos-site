@@ -828,9 +828,11 @@
     "gymnastics-valvi-beam-final-may-2024",
     "gymnastics-youth-honours-nov-2021",
     "gymnastics-youth-national-medals-may-2022",
+    "handball-archelaos-apollon-stavroupolis-23-14-jan-2026",
     "handball-archelaos-foinikas-dramas-38-24-march-2026",
     "handball-archelaos-kastoria-33-16-2026",
     "handball-archelaos-kyklopes-30-23-feb-2026",
+    "handball-archelaos-panserraikos-26-24-jan-2026",
     "handball-archelaos-voreas-41-20-feb-2026",
     "handball-drama-archelaos-28-29-feb-2026",
     "handball-feronas-archelaos-35-31-apr-2024",
@@ -2371,6 +2373,20 @@
       "rightsVerified": false
     },
     {
+      "mediaRefId": "media-ref-b721b8c80a5531b07fe0",
+      "reference": "https://www.palmare.gr/wp-content/uploads/2026/01/26-PANSRK-1024x623.jpg",
+      "newsIds": [
+        "handball-archelaos-panserraikos-26-24-jan-2026"
+      ],
+      "referenceFields": [
+        "handball-archelaos-panserraikos-26-24-jan-2026:image",
+        "handball-archelaos-panserraikos-26-24-jan-2026:imageSourceUrl"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
       "mediaRefId": "media-ref-b930b1c90b8002ba7f5b",
       "reference": "https://olympiobima.gr/wp-content/uploads/2024/12/3-xrysa-metallia-protathlites-arxelaoy-93756.webp",
       "newsIds": [
@@ -2406,6 +2422,20 @@
       ],
       "referenceFields": [
         "archery-olympus-2024:image"
+      ],
+      "archivePhotoId": null,
+      "photoSha256": null,
+      "rightsVerified": false
+    },
+    {
+      "mediaRefId": "media-ref-bde2678e89665ee3021f",
+      "reference": "https://www.palmare.gr/wp-content/uploads/2026/01/ARChELAOS-26-2.jpg",
+      "newsIds": [
+        "handball-archelaos-apollon-stavroupolis-23-14-jan-2026"
+      ],
+      "referenceFields": [
+        "handball-archelaos-apollon-stavroupolis-23-14-jan-2026:image",
+        "handball-archelaos-apollon-stavroupolis-23-14-jan-2026:imageSourceUrl"
       ],
       "archivePhotoId": null,
       "photoSha256": null,
