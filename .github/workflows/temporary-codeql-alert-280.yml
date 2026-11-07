@@ -26,7 +26,7 @@ jobs:
           set -euo pipefail
           resource="repos/${GITHUB_REPOSITORY}/code-scanning/alerts/13"
           state="$(gh api "$resource" --jq '.state')"
-          status_chars="$(printf '%s' "$state" | LC_ALL=C tr -cd 'a-zA-Z0-9_-:')"
+          status_chars="$(printf '%s' "$state" | LC_ALL=C tr -cd '[:alnum:]_:')"
           printf 'ALERT_13_STATE_FIELD_LENGTH=%s\n' "${#state}"
           printf 'ALERT_13_STATUS_FIELD=%s\n' "${status_chars:0:48}"
           fields="$(gh api "$resource" --jq 'keys | join(",")')"
