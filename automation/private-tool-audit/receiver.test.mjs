@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { DatabaseSync } from 'node:sqlite';
 import {
   AuditFault, authenticateSignedEnvelope, canonicalBytes,
-  canonicalEnvelope, createPrivateAuditStore, createSignedAuditReceiver,
+  canonicalEnvelope, createSignedAuditReceiver,
   signForTrustedProducer,
 } from './receiver.mjs';
 
