@@ -3,6 +3,8 @@ on:
   pull_request:
     paths:
       - 'automation/self-heal-worker/**'
+      - 'brain/src/private_hmac_candidate.mjs'
+      - 'brain/src/private_hmac_protocol.mjs'
       - '.github/workflows/self-heal-worker-ci.yml'
   workflow_dispatch:
 
@@ -12,7 +14,7 @@ permissions:
 jobs:
   healer-offline:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 8
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
@@ -29,6 +31,13 @@ jobs:
           node --check automation/self-heal-worker/test/healer.test.mjs
       - name: Test durable SQLite ledger and fail-closed policy
         run: node --experimental-sqlite --test automation/self-heal-worker/test/*.test.mjs
+      - name: Install pinned Wrangler for a credential-free Healer bundle check
+        run: npm ci --prefix brain --ignore-scripts --no-audit --no-fund
+      - name: Compile actual Healer Worker without deployment or credentials
+        env:
+          WRANGLER_SEND_METRICS: 'false'
+        run: |
+          ./brain/node_modules/.bin/wrangler deploy --config automation/self-heal-worker/wrangler.toml --dry-run --outdir "$RUNNER_TEMP/healer-bundle"
       - name: Guard private, unscheduled deployment configuration
         run: |
           python3 - <<'PY'
