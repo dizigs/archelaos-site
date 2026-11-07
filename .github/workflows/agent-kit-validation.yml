@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'automation/agent-kit/**'
+      - '.agents/skills/archelaos-tool-registry/**'
       - '.github/workflows/agent-kit-validation.yml'
   workflow_dispatch:
 
@@ -32,6 +33,7 @@ jobs:
           node --check automation/agent-kit/cli.test.mjs
           node --check automation/agent-kit/mcp-doctor.mjs
           node --check automation/agent-kit/mcp-doctor.test.mjs
+          node --check automation/agent-kit/antigravity-skill.test.mjs
       - name: Run offline registry and audit tests
         shell: bash
         run: |
