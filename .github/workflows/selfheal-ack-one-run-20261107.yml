@@ -1,0 +1,43 @@
+name: Self-Heal ACK single isolated integration test
+on:
+  push:
+    branches:
+      - qa/selfheal-ack-one-run-20261107
+    paths:
+      - .github/workflows/selfheal-ack-one-run-20261107.yml
+permissions:
+  contents: read
+concurrency:
+  group: archelaos-single-ack-20261107
+  cancel-in-progress: false
+jobs:
+  one-durable-ack-test:
+    if: ${{ github.repository == 'dizigs/archelaos-site' && github.ref == 'refs/heads/qa/selfheal-ack-one-run-20261107' && github.event.head_commit.message == 'qa(ack): run one isolated durable ACK integration test' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Pin exact branch source, no persisted credentials
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Install Node.js 24
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Install immutable test dependencies without scripts
+        run: npm ci --prefix brain --ignore-scripts --no-audit --no-fund
+      - name: One ACK transaction with restart and independent readback, no real repair
+        working-directory: brain
+        env:
+          WRANGLER_SEND_METRICS: 'false'
+        run: |
+          set -euo pipefail
+          node --experimental-sqlite --test --test-reporter=tap \
+            --test-name-pattern='^native durable ACK requires independent stored readback, settles once, survives restart; approved RPC boundaries stay closed$' \
+            test/selfheal_ack.test.mjs | tee "$RUNNER_TEMP/ack-single.tap"
+          grep -q '^# pass 1$' "$RUNNER_TEMP/ack-single.tap"
+          grep -q '^# fail 0$' "$RUNNER_TEMP/ack-single.tap"
+          echo 'ACK_ONE: NATIVE_DURABLE_ACK_READBACK_PASS'
+          echo 'ACK_ONE: SOURCE_SYNTHETIC_FIXTURE_NO_PRODUCTION_INGEST'
+          echo 'ACK_ONE: NO_CLOUDFLARE_DEPLOY_NO_REPAIR'
