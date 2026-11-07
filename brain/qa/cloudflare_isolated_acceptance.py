@@ -52,7 +52,16 @@ def make(src,original,name,old_peer,new_peer):
     # Isolated QA only: provide an opaque stage code for failure triage.
     c=rep(c,"[vars]","[vars]\nPRIVATE_HMAC_DIAGNOSTIC_ENABLED = \"true\"")
     c=c.replace('service = "'+old_peer+'"','service = "'+new_peer+'"')
-    bootstrap=re.sub(r"(?ms)^\[\[services\]\]\n.*?(?=(?:^\[|\Z))","",c)
+    # Remove entire [[services]] tables without regex ambiguity or backtracking.
+    # The following TOML parse fails closed if any service binding survives.
+    bootstrap_lines=[]
+    in_services=False
+    for line in c.splitlines(keepends=True):
+        if line.startswith("["):
+            in_services=line.rstrip("\r\n")=="[[services]]"
+        if not in_services:
+            bootstrap_lines.append(line)
+    bootstrap="".join(bootstrap_lines)
     if tomllib.loads(bootstrap).get("services"): raise Stop("BOOTSTRAP_HAS_SERVICES")
     folder=ROOT/src.rsplit("/",1)[0]
     bp=folder/("wrangler."+name+".boot.toml")
