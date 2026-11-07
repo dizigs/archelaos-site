@@ -1,0 +1,48 @@
+{
+  "repo": "dizigs/archelaos-site",
+  "notes": "Read-only initial pilot. PR mappings do not assert live Worker deployment.",
+  "tasks": [
+    {
+      "id": "builders",
+      "worker": "brain-builders",
+      "issue": 108,
+      "pr": 213
+    },
+    {
+      "id": "independent-acceptance",
+      "worker": "brain-testing",
+      "issue": 108,
+      "pr": 217
+    },
+    {
+      "id": "canonical-brain",
+      "worker": "archelaos-brain-staging",
+      "issue": 108,
+      "pr": 234
+    },
+    {
+      "id": "private-staging",
+      "worker": "archelaos-brain-staging",
+      "issue": 243,
+      "pr": 233
+    },
+    {
+      "id": "photo-archive",
+      "worker": "archelaos-photo-archive-staging (planned)",
+      "issue": 243,
+      "pr": 240
+    },
+    {
+      "id": "apps-script",
+      "worker": "archelaos-automation-bridge",
+      "issue": 199,
+      "pr": 227
+    },
+    {
+      "id": "analytics",
+      "worker": "analytics-integration (code-only)",
+      "issue": 108,
+      "pr": 220
+    }
+  ]
+}
