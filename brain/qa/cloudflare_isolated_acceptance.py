@@ -102,37 +102,49 @@ def call(sha,session):
     secretsfile.chmod(0o600)
     log=tempfile.TemporaryFile(mode="w+t")
     process=None
+    loopback=urllib.request.build_opener(urllib.request.ProxyHandler({}))
+    phase="STARTING_RUNNER"
+    note("QA_LOCAL_RUNNER_START")
     try:
         process=subprocess.Popen([W,"dev","--config",str(target),"--ip","127.0.0.1","--port","8799"],
                                  cwd=ROOT,env=os.environ,stdout=log,stderr=subprocess.STDOUT)
         url="http://127.0.0.1:8799/__local_private_hmac_qa"
         ready=False
-        for i in range(35):
+        for i in range(60):
             if process.poll() is not None: raise Stop("LOOPBACK_RUNNER_EXITED")
             try:
-                urllib.request.urlopen(urllib.request.Request(url,method="GET"),timeout=1)
+                loopback.open(urllib.request.Request(url,method="GET"),timeout=2)
             except urllib.error.HTTPError as e:
                 if e.code==404: ready=True; break
-            except urllib.error.URLError: pass
+            except (urllib.error.URLError,TimeoutError): pass
             time.sleep(.5)
         if not ready: raise Stop("LOOPBACK_RUNNER_NOT_READY")
+        phase="UNAUTHORIZED_PROBE"
+        note("QA_LOCAL_RUNNER_READY")
         try:
-            urllib.request.urlopen(urllib.request.Request(url,method="POST",headers={"x-operator-capability":"wrong"}),timeout=3)
+            loopback.open(urllib.request.Request(url,method="POST",headers={"x-operator-capability":"wrong"}),timeout=5)
             raise Stop("UNAUTHORIZED_RUNNER_ACCESS")
         except urllib.error.HTTPError as e:
             if e.code!=404: raise Stop("UNAUTHORIZED_WRONG_HTTP")
+        phase="AUTHORIZED_HMAC_RPC"
+        note("QA_LOCAL_UNAUTHORIZED_404")
         req=urllib.request.Request(url,method="POST",headers={"x-operator-capability":cap})
+        note("QA_LIVE_HMAC_RPC_BEGIN")
         try:
-            with urllib.request.urlopen(req,timeout=20) as r:
+            with loopback.open(req,timeout=20) as r:
                 response=r.read(4097)
         except urllib.error.HTTPError as e:
             raise Stop("REMOTE_PRIVATE_RPC_HTTP_"+str(e.code)) from None
+        except (urllib.error.URLError,TimeoutError):
+            raise Stop("REMOTE_PRIVATE_RPC_TIMEOUT_OR_TRANSPORT") from None
         if len(response)>4096: raise Stop("REMOTE_RPC_RESPONSE_OVERSIZED")
         p=json.loads(response)
         if not isinstance(p,dict) or set(p)!={"status","sourceSha","sessionId","challengeDigest","actionsExecuted"} or p["status"]!="KEY_POSSESSION_CONFIRMED" or p["sourceSha"]!=sha or p["sessionId"]!=session or p["actionsExecuted"]!=0 or not re.fullmatch(r"[a-f0-9]{64}",p["challengeDigest"]):
             raise Stop("REMOTE_HMAC_UNVERIFIED")
         note("REAL_CLOUDFLARE_HMAC_PASS SHA="+sha+" actionsExecuted=0")
         note("UNAUTHORIZED_CAPABILITY_DENIED_404")
+    except (TimeoutError,urllib.error.URLError):
+        raise Stop("QA_LOCAL_"+phase+"_TIMEOUT_OR_TRANSPORT") from None
     finally:
         if process:
             process.terminate()
