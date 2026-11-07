@@ -1,0 +1,39 @@
+name: Stop one Antigravity interaction and inspect saved work (never delete)
+on:
+  push:
+    branches: [assistant/antigravity-cancel-inspect-20261107]
+    paths:
+      - .github/workflows/antigravity-cancel-inspect-20261107.yml
+      - brain/qa/antigravity_cancel_inspect_20261107.mjs
+permissions:
+  contents: read
+concurrency:
+  group: archelaos-antigravity-cancel-inspect-20261107
+  cancel-in-progress: false
+jobs:
+  stop:
+    name: Cancel Google interaction and inspect its retained state
+    if: "github.repository == 'dizigs/archelaos-site' && github.event.head_commit.message == 'ops(antigravity): cancel exact background interaction and inspect'"
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout trusted control script
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+          ref: ${{ github.sha }}
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # pinned
+        with:
+          node-version: '24'
+      - name: Cancel exact Google background task; retrieve any existing report
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: node brain/qa/antigravity_cancel_inspect_20261107.mjs
+      - name: Archive safe status and verified output files
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: antigravity-cancel-evidence-${{ github.run_id }}
+          path: ${{ runner.temp }}/antigravity-cancel-evidence/
+          if-no-files-found: warn
+          retention-days: 14
