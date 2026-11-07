@@ -52,7 +52,7 @@ class ArchiveRelationshipTests(unittest.TestCase):
         self.assertIn({"key":"person:arch-803dd3926e77","relation":"story_person"},graph["by_node"]["story:1"])
         self.assertIn({"key":"event:handball-cup-1990","relation":"story_event"},graph["by_node"]["story:1"])
         self.assertIn({"key":"moment:59","relation":"interview_moment"},graph["by_node"]["interview:q1"])
-    def test_existing_event_ids_reach_moment_and_hall_reciprocally(self):
+    def test_explicit_historical_event_to_moment_links(self):
         graph=module.compile_graph(**self.data)
         cross_refs=[record for record in self.data["history"]
                     if record.get("source_moment") is not None]
@@ -64,14 +64,31 @@ class ArchiveRelationshipTests(unittest.TestCase):
                           graph["by_node"][event_key])
             self.assertIn({"key":event_key,"relation":"source_moment"},
                           graph["by_node"][moment_key])
-            for person_id in record["people"]:
-                person_key="person:"+person_id
-                self.assertIn({"key":person_key,"relation":"moment_person"},
-                              graph["by_node"][moment_key])
-                self.assertIn({"key":moment_key,"relation":"moment_person"},
-                              graph["by_node"][person_key])
         self.assertIn({"key":"moment:1","relation":"source_moment"},
                       graph["by_node"]["event:foundation-1956"])
+
+    def test_moment_links_require_their_own_explicit_ids(self):
+        graph=module.compile_graph(**self.data)
+        self.assertIn({"key":"person:arch-4c82271a2365","relation":"moment_person"},
+                      graph["by_node"]["moment:1"])
+        self.assertIn({"key":"department:track","relation":"moment_department"},
+                      graph["by_node"]["moment:8"])
+        # The broader event lists a different person from Moment 65.
+        self.assertNotIn({"key":"person:arch-a8d0aff8cc20","relation":"moment_person"},
+                         graph["by_node"]["moment:65"])
+        # Event 8's category does not override the Moment's actual sport.
+        self.assertNotIn({"key":"department:gymnastics","relation":"moment_department"},
+                         graph["by_node"]["moment:8"])
+
+    def test_reject_unknown_explicit_moment_ids(self):
+        data=copy.deepcopy(self.data)
+        data["moments"][0]["personIds"]=["arch-nonexistent"]
+        with self.assertRaisesRegex(ValueError,"Unknown person"):
+            module.compile_graph(**data)
+        data=copy.deepcopy(self.data)
+        data["moments"][0]["departmentIds"]=["nonexistent"]
+        with self.assertRaisesRegex(ValueError,"Unknown Moment department"):
+            module.compile_graph(**data)
 
     def test_invalid_source_moment_is_not_published(self):
         data=copy.deepcopy(self.data)
