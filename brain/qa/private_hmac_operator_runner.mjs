@@ -2,7 +2,7 @@
 // Designed for "wrangler dev" bound to 127.0.0.1 with a single remote
 // SERVICE binding to BrainHmacAcceptancePort. No recovery/repair permission.
 function denied(){return new Response('Not found',{status:404,headers:{'cache-control':'no-store'}})}
-function unknown(){return Response.json({status:'UNKNOWN',actionsExecuted:0},{headers:{'cache-control':'no-store'}})}
+function unknown(code){return Response.json({status:'UNKNOWN',actionsExecuted:0,...(/^QA_DIAG_[A-Z_]{3,35}$/.test(code||'')?{code}:{})},{headers:{'cache-control':'no-store'}})}
 async function equalCapability(expected,got){
   if(typeof expected!=='string'||expected.length<48||expected.length>256||
      typeof got!=='string'||got.length!==expected.length||got.length>256)return false;
@@ -22,6 +22,7 @@ export default {
       if(!await equalCapability(env.OPERATOR_CAPABILITY,request.headers.get('x-operator-capability')))return denied();
       if(!env.BRAIN_QA||typeof env.BRAIN_QA.runChallenge!=='function')return unknown();
       const result=await env.BRAIN_QA.runChallenge();
+      if(result?.status==='UNKNOWN')return unknown(result.code);
       if(result?.status!=='KEY_POSSESSION_CONFIRMED'||result.actionsExecuted!==0||
         typeof result.sourceSha!=='string'||!/^[a-f0-9]{40}$/.test(result.sourceSha)||
         typeof result.sessionId!=='string'||!/^[a-f0-9-]{36}$/.test(result.sessionId)||

@@ -49,6 +49,8 @@ def make(src,original,name,old_peer,new_peer):
     if o["name"]!=original or o.get("workers_dev") is not False or o.get("preview_urls") is not False or o.get("routes") or o.get("triggers") or o["vars"]["PRIVATE_HMAC_ACCEPTANCE_ISOLATED"]!="false":
         raise Stop("SOURCE_WORKER_NOT_PRIVATE_OFF")
     c=rep(c,'name = "'+original+'"','name = "'+name+'"')
+    # Isolated QA only: provide an opaque stage code for failure triage.
+    c=rep(c,"[vars]","[vars]\nPRIVATE_HMAC_DIAGNOSTIC_ENABLED = \"true\"")
     c=c.replace('service = "'+old_peer+'"','service = "'+new_peer+'"')
     bootstrap=re.sub(r"(?ms)^\[\[services\]\]\n.*?(?=^\[|\Z)","",c)
     if tomllib.loads(bootstrap).get("services"): raise Stop("BOOTSTRAP_HAS_SERVICES")
@@ -139,6 +141,10 @@ def call(sha,session):
             raise Stop("REMOTE_PRIVATE_RPC_TIMEOUT_OR_TRANSPORT") from None
         if len(response)>4096: raise Stop("REMOTE_RPC_RESPONSE_OVERSIZED")
         p=json.loads(response)
+        if isinstance(p,dict) and p.get("status")=="UNKNOWN" and re.fullmatch(r"QA_DIAG_[A-Z_]{3,35}",str(p.get("code",""))):
+            note("LIVE_HMAC_"+p["code"])
+        elif isinstance(p,dict) and p.get("status")=="UNKNOWN":
+            note("LIVE_HMAC_GENERIC_UNKNOWN")
         if not isinstance(p,dict) or set(p)!={"status","sourceSha","sessionId","challengeDigest","actionsExecuted"} or p["status"]!="KEY_POSSESSION_CONFIRMED" or p["sourceSha"]!=sha or p["sessionId"]!=session or p["actionsExecuted"]!=0 or not re.fullmatch(r"[a-f0-9]{64}",p["challengeDigest"]):
             raise Stop("REMOTE_HMAC_UNVERIFIED")
         note("REAL_CLOUDFLARE_HMAC_PASS SHA="+sha+" actionsExecuted=0")
