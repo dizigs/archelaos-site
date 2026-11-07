@@ -1,0 +1,38 @@
+name: PR277 exact-source repository-root ACK verification
+on:
+  push:
+    branches: [assistant/verify-pr277-root-cwd-20261107]
+    paths: [.github/workflows/verify-pr277-root-cwd-20261107.yml]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    env:
+      WRANGLER_SEND_METRICS: 'false'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: bbf5b465159cf15df812565d6ed4a5077ed2514f
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - run: npm ci --prefix brain --ignore-scripts --no-audit --no-fund
+      - name: Verify pinned source and invoke from repository root
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = bbf5b465159cf15df812565d6ed4a5077ed2514f
+          test "$PWD" = "$GITHUB_WORKSPACE"
+          echo "EXACT_SOURCE_SHA=$(git rev-parse HEAD)"
+          echo "EXECUTION_CWD=$PWD"
+          node --test --test-reporter=tap brain/test/selfheal_ack.test.mjs | tee "$RUNNER_TEMP/pr277-root-cwd.tap"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: pr277-root-cwd-evidence
+          path: ${{ runner.temp }}/pr277-root-cwd.tap
+          retention-days: 30
