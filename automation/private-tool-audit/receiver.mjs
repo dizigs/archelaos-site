@@ -170,15 +170,38 @@ function createPrivateAuditStore(storage, { maxPerMinute = 60, maxRecords = 5000
   return Object.freeze({ appendAuthenticated, listAuthorized });
 }
 
+// No global tool-level grants: each authenticated producer must have its own
+// source -> tool -> command policy. Reject legacy Map<tool, Set<command>>.
+function requireSourceScopedPolicy(allowedCommands) {
+  if (!(allowedCommands instanceof Map) || allowedCommands.size === 0) {
+    throw new AuditFault('TRUSTED_POLICY_REQUIRED');
+  }
+  for (const [source, tools] of allowedCommands) {
+    if (typeof source !== 'string' || !ID.test(source) ||
+        !(tools instanceof Map) || tools.size === 0) {
+      throw new AuditFault('TRUSTED_POLICY_REQUIRED');
+    }
+    for (const [tool, commands] of tools) {
+      if (typeof tool !== 'string' || !ID.test(tool) ||
+          !(commands instanceof Set) || commands.size === 0 ||
+          [...commands].some(command => typeof command !== 'string' || !ID.test(command))) {
+        throw new AuditFault('TRUSTED_POLICY_REQUIRED');
+      }
+    }
+  }
+}
+
 export function createSignedAuditReceiver({ storage, secrets, allowedCommands, readerCapability = null, now = () => Date.now(), options = {} }) {
-  if (!(allowedCommands instanceof Map) || allowedCommands.size === 0 ||
-      typeof now !== 'function') throw new AuditFault('TRUSTED_POLICY_REQUIRED');
+  requireSourceScopedPolicy(allowedCommands);
+  if (typeof now !== 'function') throw new AuditFault('TRUSTED_POLICY_REQUIRED');
   const store = createPrivateAuditStore(storage, options);
   return Object.freeze({
     ingest(envelope, signature) {
       const serverAt = now();
       const verified = authenticateSignedEnvelope({ envelope, signature, secrets, now: serverAt });
-      const permitted = allowedCommands.get(verified.record.toolId);
+      const sourcePolicy = allowedCommands.get(verified.source);
+      const permitted = sourcePolicy instanceof Map ?
+        sourcePolicy.get(verified.record.toolId) : undefined;
       if (!(permitted instanceof Set) || !permitted.has(verified.record.commandId)) {
         throw new AuditFault('COMMAND_NOT_ALLOWLISTED');
       }
