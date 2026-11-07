@@ -37,7 +37,7 @@ jobs:
     timeout-minutes: 15
     steps:
       - name: Harden runner (network audit mode)
-        uses: step-security/harden-runner@5ef0c079ce82195b2a36a210272d6b661572d83e # v2.14.2
+        uses: step-security/harden-runner@1d88384fd173af6ecb012dfd0264a306b711241a # v2.22.4
         with:
           egress-policy: audit
       - name: Checkout without persistent credentials
@@ -102,7 +102,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Scan repository for critical and high-severity findings
-        uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1 # 0.35.0
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
         with:
           scan-type: fs
           scan-ref: .
