@@ -52,6 +52,33 @@ class ArchiveRelationshipTests(unittest.TestCase):
         self.assertIn({"key":"person:arch-803dd3926e77","relation":"story_person"},graph["by_node"]["story:1"])
         self.assertIn({"key":"event:handball-cup-1990","relation":"story_event"},graph["by_node"]["story:1"])
         self.assertIn({"key":"moment:59","relation":"interview_moment"},graph["by_node"]["interview:q1"])
+    def test_existing_event_ids_reach_moment_and_hall_reciprocally(self):
+        graph=module.compile_graph(**self.data)
+        cross_refs=[record for record in self.data["history"]
+                    if record.get("source_moment") is not None]
+        self.assertGreaterEqual(len(cross_refs),50)
+        for record in cross_refs:
+            event_key="event:"+record["id"]
+            moment_key="moment:"+str(record["source_moment"])
+            self.assertIn({"key":moment_key,"relation":"source_moment"},
+                          graph["by_node"][event_key])
+            self.assertIn({"key":event_key,"relation":"source_moment"},
+                          graph["by_node"][moment_key])
+            for person_id in record["people"]:
+                person_key="person:"+person_id
+                self.assertIn({"key":person_key,"relation":"moment_person"},
+                              graph["by_node"][moment_key])
+                self.assertIn({"key":moment_key,"relation":"moment_person"},
+                              graph["by_node"][person_key])
+        self.assertIn({"key":"moment:1","relation":"source_moment"},
+                      graph["by_node"]["event:foundation-1956"])
+
+    def test_invalid_source_moment_is_not_published(self):
+        data=copy.deepcopy(self.data)
+        data["history"][0]["source_moment"]=99999
+        with self.assertRaisesRegex(ValueError,"Unknown source moment"):
+            module.compile_graph(**data)
+
     def test_reject_unknown_person_and_event(self):
         data=copy.deepcopy(self.data)
         data["news"][0]["personIds"]=["arch-does-not-exist"]
