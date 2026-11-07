@@ -1,0 +1,104 @@
+name: Dormant Brain rollout — operator one-shot
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/selfheal-dormant-brain-once.yml'
+      - 'brain/tools/dormant_brain_release.py'
+
+permissions:
+  contents: read
+
+jobs:
+  one-shot:
+    if: >-
+      github.repository == 'dizigs/archelaos-site' &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.event.pull_request.head.ref == 'assistant/selfheal-dormant-brain-rollout-20261107'
+    runs-on: ubuntu-latest
+    timeout-minutes: 16
+    concurrency:
+      group: archelaos-real-brain-dormant-qa-rollout-20261107
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Validate OFF config guard without provider credentials
+        run: |
+          python3 -m py_compile brain/tools/dormant_brain_release.py
+          python3 - <<'PY'
+          import importlib.util
+          spec=importlib.util.spec_from_file_location('brain_release', 'brain/tools/dormant_brain_release.py')
+          module=importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(module)
+          module.check_config()
+          print('DORMANT_BRAIN_OFF_SOURCE_GUARD_PASS')
+          PY
+
+      - name: Exact operator one-shot subject gate
+        id: gate
+        env:
+          EXPECTED_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          if [ "$(git log -1 --format=%s)" = 'deploy(staging): one-shot dormant Brain rollout' ]; then
+            echo 'enabled=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'enabled=false' >> "$GITHUB_OUTPUT"
+            echo 'One-shot closed; no Cloudflare credential read.'
+          fi
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        if: steps.gate.outputs.enabled == 'true'
+        with:
+          node-version: '24'
+          package-manager-cache: false
+
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        if: steps.gate.outputs.enabled == 'true'
+        with:
+          python-version: '3.12'
+
+      - name: Exact source native tests and bundle dry-run
+        if: steps.gate.outputs.enabled == 'true'
+        env:
+          WRANGLER_SEND_METRICS: 'false'
+        run: |
+          npm ci --prefix brain --ignore-scripts --no-audit --no-fund
+          npm test --prefix brain
+          ./brain/node_modules/.bin/wrangler deploy --config brain/wrangler.toml --dry-run --outdir "$RUNNER_TEMP/brain-dormant-bundle"
+
+      - name: Verify existing Cloudflare versions, secrets, namespace and five OFF controls
+        if: steps.gate.outputs.enabled == 'true'
+        env:
+          EXPECTED_SHA: ${{ github.event.pull_request.head.sha }}
+          CLOUDFLARE_STAGING_DEPLOY_TOKEN: ${{ secrets.CLOUDFLARE_STAGING_DEPLOY_TOKEN }}
+        run: python3 brain/tools/dormant_brain_release.py preflight
+
+      - name: Deploy dormant Brain source with recovery and ACK disabled
+        id: rollout
+        if: steps.gate.outputs.enabled == 'true'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_STAGING_DEPLOY_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: '898359728b3dfe8c3a3f56e3d19eecd1'
+          WRANGLER_SEND_METRICS: 'false'
+        run: |
+          echo 'attempted=true' >> "$GITHUB_OUTPUT"
+          ./brain/node_modules/.bin/wrangler deploy --config brain/wrangler.toml --keep-vars
+
+      - name: Check Cloudflare exact version, existing secrets, Durable Objects and OFF gates
+        id: readback
+        if: steps.rollout.outcome == 'success'
+        env:
+          CLOUDFLARE_STAGING_DEPLOY_TOKEN: ${{ secrets.CLOUDFLARE_STAGING_DEPLOY_TOKEN }}
+        run: python3 brain/tools/dormant_brain_release.py postflight
+
+      - name: Restore exact previous Brain version if remote readback fails
+        if: always() && steps.rollout.outputs.attempted == 'true' && steps.readback.outcome != 'success'
+        env:
+          CLOUDFLARE_STAGING_DEPLOY_TOKEN: ${{ secrets.CLOUDFLARE_STAGING_DEPLOY_TOKEN }}
+        run: python3 brain/tools/dormant_brain_release.py rollback
