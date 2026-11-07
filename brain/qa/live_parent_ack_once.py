@@ -264,6 +264,24 @@ def restore(state):
             emit("ROLLBACK_"+("BRAIN" if name==BRAIN else "HEALER")+"_BLOCKED")
     return ok
 
+def qa_script(method, payload=None):
+    name="archelaos-parent-ack-one-shot-qa"
+    path=f"https://api.cloudflare.com/client/v4/accounts/{ACCOUNT}/workers/scripts/{name}"
+    headers={"Authorization":"Bearer "+os.environ["CLOUDFLARE_API_TOKEN"],"Accept":"application/json"}
+    req=urllib.request.Request(path,headers=headers,method=method)
+    try:
+        with urllib.request.urlopen(req,timeout=20) as response:
+            body=response.read(262145)
+            if len(body)>262144:deny("QA_API_OVERSIZED")
+            data=json.loads(body)
+            if data.get("success") is not True:deny("QA_API_NON_SUCCESS")
+            return data.get("result")
+    except urllib.error.HTTPError as e:
+        if method=="GET" and e.code==404:return None
+        deny("QA_API_"+str(e.code))
+    except (urllib.error.URLError,TimeoutError):
+        deny("QA_API_UNAVAILABLE")
+
 def probe(session):
     import secrets
     import tempfile
@@ -271,45 +289,51 @@ def probe(session):
     if not re_runid(os.getenv("QA_CI_RUN_ID","")) or not re_sha(os.getenv("QA_CI_SHA","")):
         deny("CI_REFERENCE_INVALID")
     folder=ROOT/"brain/qa"
-    original=folder/"wrangler.parent-ack-operator.toml"
-    local_vars=folder/".dev.vars"
-    if not original.exists() or local_vars.exists():
+    local_config=folder/"wrangler.parent-ack-local-proxy.toml"
+    qa_config=folder/"wrangler.parent-ack-operator.toml"
+    tmp=folder/"wrangler.parent-ack-ephemeral.toml"
+    if not local_config.exists() or not qa_config.exists() or tmp.exists():
         deny("PRIVATE_RUNNER_CONFIG_UNAVAILABLE")
-    # Remote dev mode gives the isolated probe a private binding to the
-    # actual deployed canonical Durable Object; never writes a permanent
-    # QA service or exposes a public route.
-    import secrets
+    if qa_script("GET") is not None:deny("QA_SCRIPT_NAME_ALREADY_CLAIMED")
     capability=secrets.token_urlsafe(48)
-    local_vars.write_text(
-      'QA_OPERATOR_CAPABILITY="'+capability+'"\n'+
-      'QA_CI_RUN_ID="'+os.environ["QA_CI_RUN_ID"]+'"\n'+
-      'QA_CI_SHA="'+os.environ["QA_CI_SHA"]+'"\n'+
-      'QA_EXPECTED_PARENT_SHA="'+SOURCE+'"\n')
-    local_vars.chmod(0o600)
+    vars={"QA_OPERATOR_CAPABILITY":capability,"QA_CI_RUN_ID":os.environ["QA_CI_RUN_ID"],
+          "QA_CI_SHA":os.environ["QA_CI_SHA"],"QA_EXPECTED_PARENT_SHA":SOURCE}
+    tmp.write_text(qa_config.read_text()+"\n[vars]\n"+
+                   "".join(k+" = "+json.dumps(v)+"\n" for k,v in vars.items()))
+    tmp.chmod(0o600)
     log=tempfile.TemporaryFile(mode="w+t")
     process=None
     opener=urllib.request.build_opener(urllib.request.ProxyHandler({}))
     url="http://127.0.0.1:8799/__canonical_ack_one"
+    deployed=False
     try:
-        emit("QA_PRIVATE_REMOTE_RUNNER_START")
-        process=subprocess.Popen([WRANGLER,"dev","--remote","--config",str(original),
-              "--ip","127.0.0.1","--port","8799"],cwd=ROOT,
-              env=os.environ,stdout=log,stderr=subprocess.STDOUT)
+        emit("QA_EPHEMERAL_DEPLOY_BEGIN")
+        result=subprocess.run([WRANGLER,"deploy","--config",str(tmp)],
+                              cwd=ROOT,capture_output=True,text=True,timeout=85)
+        if result.returncode:
+            reason="CONFIG" if "config" in (result.stderr+result.stdout).lower() else "PROVIDER_OR_BINDING"
+            deny("QA_DEPLOY_"+reason)
+        if qa_script("GET") is None:deny("QA_DEPLOY_READBACK_ABSENT")
+        deployed=True
+        emit("QA_EPHEMERAL_DEPLOY_PASS_NO_ROUTE")
+        process=subprocess.Popen([WRANGLER,"dev","--config",str(local_config),
+                     "--ip","127.0.0.1","--port","8799"],cwd=ROOT,env=os.environ,
+                     stdout=log,stderr=subprocess.STDOUT)
         ready=False
         for _ in range(70):
-            if process.poll() is not None:deny("REMOTE_RUNNER_EXITED")
+            if process.poll() is not None:deny("LOCAL_PROXY_EXITED")
             try:
                 opener.open(urllib.request.Request(url,method="GET"),timeout=2)
-                deny("RUNNER_UNEXPECTED_GET_200")
+                deny("LOCAL_PROXY_UNEXPECTED_GET_200")
             except urllib.error.HTTPError as ex:
                 if ex.code==404:ready=True;break
             except (urllib.error.URLError,TimeoutError):pass
             time.sleep(.5)
-        if not ready:deny("REMOTE_RUNNER_NOT_READY")
-        emit("QA_PRIVATE_REMOTE_RUNNER_READY")
+        if not ready:deny("LOCAL_PROXY_NOT_READY")
+        emit("QA_LOCAL_PROXY_READY")
         try:
             opener.open(urllib.request.Request(url,method="POST",data=b'{"op":"run"}',
-                 headers={"content-type":"application/json","x-operator-capability":"wrong"}),timeout=5)
+                 headers={"content-type":"application/json","x-operator-capability":"wrong"}),timeout=6)
             deny("QA_UNAUTHORIZED_ACCESS")
         except urllib.error.HTTPError as ex:
             if ex.code!=404:deny("QA_UNAUTHORIZED_NON_404")
@@ -340,9 +364,7 @@ def probe(session):
                 stage="UNEXPECTED"
             deny("REAL_ACK_"+stage)
         emit("LIVE_CANONICAL_ACK_PASS realProviderCi=true actionsExecuted=0")
-        receipt=result["receiptId"]
-        # A new, separately authenticated readback challenge, no redelivery.
-        reread=call({"op":"readback","receiptId":receipt})
+        reread=call({"op":"readback","receiptId":result["receiptId"]})
         if reread!={"status":"ACKNOWLEDGED","readback":True,"recoveryExecuted":False,"aiCalls":0}:
             deny("INDEPENDENT_READBACK_UNVERIFIED")
         emit("INDEPENDENT_CANONICAL_READBACK_PASS duplicateDispatch=0")
@@ -354,7 +376,16 @@ def probe(session):
                 process.kill()
                 process.wait(timeout=5)
         log.close()
-        local_vars.unlink(missing_ok=True)
+        tmp.unlink(missing_ok=True)
+        # No permanent QA Worker, no route or credential survives the one-shot.
+        try:
+            if qa_script("GET") is not None:
+                qa_script("DELETE")
+                if qa_script("GET") is not None:deny("QA_DELETE_READBACK_FAILED")
+                emit("QA_EPHEMERAL_DELETE_VERIFIED")
+        except Exception:
+            emit("QA_CLEANUP_REQUIRES_INDEPENDENT_FALLBACK")
+            raise
 
 def re_runid(value):
     return isinstance(value,str) and value.isdigit() and value[0]!="0" and len(value)<=20
