@@ -41,7 +41,7 @@ jobs:
         with:
           egress-policy: audit
       - name: Checkout without persistent credentials
-        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           persist-credentials: false
       - name: Schema Validator - news.json
@@ -75,7 +75,7 @@ jobs:
     timeout-minutes: 20
     steps:
       - name: Checkout source
-        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           persist-credentials: false
       - name: Build generated release locally without deploying
@@ -98,7 +98,7 @@ jobs:
     timeout-minutes: 20
     steps:
       - name: Checkout source
-        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           persist-credentials: false
       - name: Scan repository for critical and high-severity findings
