@@ -170,7 +170,7 @@ export function createPrivateAuditStore(storage, { maxPerMinute = 60, maxRecords
   return Object.freeze({ appendAuthenticated, listAuthorized });
 }
 
-export function createSignedAuditReceiver({ storage, secrets, allowedCommands, now = () => Date.now(), options = {} }) {
+export function createSignedAuditReceiver({ storage, secrets, allowedCommands, readerCapability = null, now = () => Date.now(), options = {} }) {
   if (!(allowedCommands instanceof Map) || allowedCommands.size === 0 ||
       typeof now !== 'function') throw new AuditFault('TRUSTED_POLICY_REQUIRED');
   const store = createPrivateAuditStore(storage, options);
@@ -184,8 +184,14 @@ export function createSignedAuditReceiver({ storage, secrets, allowedCommands, n
       }
       return store.appendAuthenticated(verified, serverAt);
     },
-    // This method MUST remain inside a preauthenticated, private service-bound
-    // Admin/Brain caller. It is intentionally not a standalone network API.
-    listAuthorized: store.listAuthorized,
+    // A non-serializable trusted symbol is required for every read, even if
+    // this object is accidentally handed to an untrusted caller. The symbol
+    // must be held only by the preauthenticated Admin/Brain service closure.
+    listAuthorized(grant, query) {
+      if (typeof readerCapability !== 'symbol' || grant !== readerCapability) {
+        throw new AuditFault('READ_NOT_AUTHORIZED');
+      }
+      return store.listAuthorized(query);
+    },
   });
 }
