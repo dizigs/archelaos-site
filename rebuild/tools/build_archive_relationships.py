@@ -69,7 +69,7 @@ def compile_graph(*,people,news,moments,stories,interviews,museum,home,history):
     # Legacy event records have no dedicated public event route yet. Retain only
     # explicit relationships. A link is displayed only when the node has a route.
     for x in history:
-        put("event",x["id"],x["title"])
+        put("event",x["id"],x["title"],"/events/"+uri(x["id"])+".html")
     # A canonical event can have several articles. The first publication link is
     # chosen deterministically; no second event is created for multiple sources.
     items=sorted((x for x in news if not x.get("unverified") and x.get("id")),
