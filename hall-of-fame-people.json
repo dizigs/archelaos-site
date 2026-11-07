@@ -1409,9 +1409,27 @@
       "role": "Αθλήτρια · Στίβος",
       "role_en": "Athlete · Track and field",
       "category": "athlete",
-      "bio": "Κορυφαία εμποδίστρια του σύγχρονου Αρχελάου. Κατέκτησε το χάλκινο μετάλλιο στα 100 μ. με εμπόδια στο Πανελλήνιο Πρωτάθλημα Στίβου Γυναικών 2025 με 13.93, καθώς και τη 2η θέση στα 60 μ. με εμπόδια στο 39ο Πανελλήνιο Πρωτάθλημα Κλειστού Στίβου στο ΣΕΦ (23 Φεβρουαρίου 2025) με ατομικό ρεκόρ 8.42.",
-      "bio_en": "Katerina Reha won bronze at the 2025 Greek Outdoor Championships in the 100 m hurdles (13.93) and silver at the 2025 National Indoor Championships in the 60 m hurdles (8.42).",
-      "id": "arch-8479d12a4a14"
+      "bio": "Η Κατερίνα (Αικατερίνη) Ρέχα εκπροσώπησε τον Γ.Α.Σ. Αρχέλαος Κατερίνης στα αγωνίσματα ταχύτητας με εμπόδια. Στο 39ο Πανελλήνιο Πρωτάθλημα Κλειστού Στίβου στο ΣΕΦ, στις 23 Φεβρουαρίου 2025, κατέκτησε τη δεύτερη θέση στα 60 μ. με εμπόδια με επίδοση 8,42 δευτ., νέο ατομικό ρεκόρ. Στο Πανελλήνιο Πρωτάθλημα Ανοιχτού Στίβου στον Βόλο, στις 2 Αυγούστου 2025, κατέκτησε το χάλκινο μετάλλιο στα 100 μ. με εμπόδια με 13,93 δευτ. Στον προκριματικό του ίδιου αγώνα είχε σημειώσει 13,79 δευτ. Οι διακρίσεις και η ιδιότητά της ως αθλήτριας του Αρχέλαου τεκμηριώνονται από τον ΣΕΓΑΣ και δημοσιεύματα του τοπικού αθλητικού Τύπου.",
+      "bio_en": "Katerina (Aikaterini) Reha represented Archelaos Katerinis in the hurdles. At the 2025 Greek Indoor Championships in Piraeus on 23 February, she won silver in the 60 m hurdles in a personal best of 8.42 seconds. At the Greek Outdoor Championships in Volos on 2 August 2025, she took bronze in the 100 m hurdles in 13.93 seconds, having recorded 13.79 in the heats. These results are confirmed by SEGAS and local sports coverage.",
+      "id": "arch-8479d12a4a14",
+      "refs": [
+        {
+          "label": "ΣΕΓΑΣ · Πανελλήνιο Κλειστού 2025, 23/02/2025",
+          "url": "https://www.segas.gr/panellinio-kleistoy-25-evdomos-panelli/"
+        },
+        {
+          "label": "Ο Διάλογος · Ασημένιο στα 60 μ. εμπόδια, 12/03/2025",
+          "url": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/2%CE%B7-%CF%80%CE%B1%CE%BD%CE%B5%CE%BB%CE%BB%CE%B7%CE%BD%CE%B9%CE%BF%CE%BD%CE%AF%CE%BA%CE%B7%CF%82-%CE%B7-%CE%BA%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B1-%CF%81%CE%AD%CF%87%CE%B1/"
+        },
+        {
+          "label": "ΣΕΓΑΣ · Πανελλήνιο Ανοιχτού στον Βόλο, 02/08/2025",
+          "url": "https://www.segas.gr/stoiximan-panellinio-protathlima-2025-o-doyvalidi/"
+        },
+        {
+          "label": "KateriniSport · Χάλκινο στα 100 μ. εμπόδια, 05/08/2025",
+          "url": "https://katerinisport.gr/%CE%B1%CF%81%CF%87%CE%AD%CE%BB%CE%B1%CE%BF%CF%82-%CE%BA%CE%B1%CF%84%CE%B5%CF%81%CE%AF%CE%BD%CE%B7%CF%82-%CF%83%CF%85%CE%B3%CF%87%CE%B1%CF%81%CE%B7%CF%84%CE%AE%CF%81%CE%B9%CE%B1-%CF%83%CE%B5-%CF%81/"
+        }
+      ]
     },
     {
       "name": "Νίκος Ζινίσα (του Κωνσταντίνου)",
@@ -3287,10 +3305,32 @@
       "name_en": "Anna Chatzipourgani",
       "role": "Αθλητική παρουσία · Στίβος",
       "role_en": "Athletics · Historical participant",
-      "bio": "Κορυφαία εμποδίστρια του Αρχελάου. Το 2020 κατέρριψε διαδοχικά το πανελλήνιο ρεκόρ κορασίδων στα 400 μ. με εμπόδια (59.48 και 59.01). Το 2024 πρώτευσε στα διεθνή «Ζαχαριάδεια», εκπροσωπώντας την Εθνική Ομάδα σε ευρωπαϊκές διοργανώσεις.",
-      "bio_en": "Anna Chatzipourgani broke the Greek U18 400 m hurdles record twice in 2020 (59.48 and 59.01) and won the 2024 Zachariadeia international meeting.",
+      "bio": "Η Άννα Χατζηπουργάνη αγωνίστηκε με τον Γ.Α.Σ. Αρχέλαος Κατερίνης στα 400 μ. με εμπόδια. Ήδη το 2019 πέτυχε πανελλήνιο ρεκόρ Κ18 με 60,37 δευτ. στους αγώνες «Κώστας Χειμωνίδης» στη Θεσσαλονίκη. Το 2020 βελτίωσε τρεις φορές το πανελλήνιο ρεκόρ Κ18: 59,48 δευτ. στους διασυλλογικούς αγώνες της Κατερίνης (18 Ιουλίου), 59,17 δευτ. στο Πανελλήνιο Πρωτάθλημα Κ20 στα Ιωάννινα (2 Αυγούστου) και 59,01 δευτ. στην Πάτρα (9 Αυγούστου). Οι επιδόσεις και η σύνδεσή της με τον Αρχέλαο επιβεβαιώνονται από τον ΣΕΓΑΣ και ανεξάρτητο αθλητικό ρεπορτάζ. Στα «Ζαχαριάδεια 2024» καταγράφεται επίσης νίκη της, σύμφωνα με το δημοσίευμα του Ο Ντελάλης.",
+      "bio_en": "Anna Chatzipourgani represented Archelaos Katerinis in the 400 m hurdles. She set a Greek U18 record of 60.37 seconds in Thessaloniki in 2019. In 2020, she improved the Greek U18 record three times: 59.48 in Katerini on 18 July, 59.17 at the national U20 championships in Ioannina on 2 August, and 59.01 in Patras on 9 August. The progression is documented by the Greek athletics federation SEGAS and independent sports reporting. A local report also records her victory at the 2024 Zachariadeia meeting.",
       "category": "athlete",
-      "id": "arch-68fef0f68151"
+      "id": "arch-68fef0f68151",
+      "refs": [
+        {
+          "label": "ΣΕΓΑΣ · Πανελλήνιο ρεκόρ Κ18, 01/06/2019",
+          "url": "https://www.segas.gr/6818-spoudaia-epidosi-kai-neo-panellinio-rekor-k18-apo-tin-anna-xatzipourgani/"
+        },
+        {
+          "label": "ΣΕΓΑΣ · Ρεκόρ 59,17 στα Ιωάννινα, 02/08/2020",
+          "url": "https://www.segas.gr/8022-protathlima-k20-2i-imera-pogevma/"
+        },
+        {
+          "label": "ΣΕΓΑΣ · Ρεκόρ 59,01 στην Πάτρα, 09/08/2020",
+          "url": "https://www.segas.gr/8046-panellinio-protathlima-a-g-peftei-i-avlaia-stin-patra/"
+        },
+        {
+          "label": "Sport-FM · Ανεξάρτητη κάλυψη 59,17, 02/08/2020",
+          "url": "https://www.sport-fm.gr/article/panellinio-rekor-i-xatzipourgani/4119060"
+        },
+        {
+          "label": "Ο Ντελάλης · Ζαχαριάδεια 2024, 20/05/2024",
+          "url": "https://odelalis.gr/gas-archelaos-1-chryso-kai-1-argyro-metallio-sta-zachariadeia-2024/"
+        }
+      ]
     },
     {
       "name": "Ευάγγελος Χρυσόπουλος",
@@ -3966,9 +4006,23 @@
       "role": "Αθλήτρια · Στίβος (εμπόδια)",
       "role_en": "Athlete · Hurdles",
       "category": "athlete",
-      "bio": "Στους διασυλλογικούς αγώνες στίβου Κ16 το 2024 κατέκτησε τη δεύτερη θέση στα 80 μ. εμπόδια. Ήταν επίσης μέλος της γυναικείας τετράδας 4×80 μ. του Αρχελάου που τερμάτισε στη δεύτερη θέση.",
-      "bio_en": "Alexandra Papagianni finished second in the girls’ 80 m hurdles and was a member of Archelaos’s second-place 4×80 m relay team at the 2024 U16 inter-club athletics meet.",
-      "id": "arch-2082f3abced0"
+      "bio": "Η Αλεξάνδρα Παπαγιάννη, αθλήτρια στίβου του Γ.Α.Σ. Αρχέλαος Κατερίνης, διακρίθηκε στις αναπτυξιακές κατηγορίες των εμποδίων. Στο Πανελλήνιο Πρωτάθλημα Κ16 στην Ελευθερούπολη Καβάλας, στις 14 Ιουλίου 2024, κατέκτησε την τρίτη θέση και το χάλκινο μετάλλιο στα 80 μ. με εμπόδια με επίδοση 12,07 δευτ. Η κούρσα έγινε με ευνοϊκό άνεμο +4,9 μ./δ., επομένως η επίδοση δεν αναφέρεται ως νόμιμο ρεκόρ. Στους διασυλλογικούς Κ16 του 2024 είχε καταλάβει τη δεύτερη θέση στα 80 μ. με εμπόδια και συμμετείχε στη δεύτερη ομάδα σκυταλοδρομίας 4×80 μ. του Αρχέλαου. Η πανελλήνια διάκριση επιβεβαιώνεται από τον ΣΕΓΑΣ και το τοπικό ρεπορτάζ.",
+      "bio_en": "Alexandra Papagianni represented Archelaos Katerinis in youth athletics. She won bronze in the girls' 80 m hurdles at the Greek U16 Championships in Eleftheroupoli on 14 July 2024, clocking 12.07 seconds with a +4.9 m/s tailwind; this must not be represented as a wind-legal record. Earlier in 2024, she placed second in the 80 m hurdles and was part of Archelaos's second-place 4×80 m relay team at an inter-club event. The national medal is confirmed by SEGAS and local reporting.",
+      "id": "arch-2082f3abced0",
+      "refs": [
+        {
+          "label": "ΣΕΓΑΣ · Πανελλήνιο Κ16, 14/07/2024",
+          "url": "https://www.segas.gr/panellinio-k16-o-aeras-pire-ta-rekor-sto/"
+        },
+        {
+          "label": "Ο Ντελάλης · Χάλκινο Παπαγιάννη, 15/07/2024",
+          "url": "https://odelalis.gr/epitychimeni-i-parousia-tou-gas-archelaos-katerinis-sto-panellinio-protathlima-stivou-k16/"
+        },
+        {
+          "label": "Ο Διάλογος · Διασυλλογικοί Κ16, 26/04/2024",
+          "url": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/%CF%80%CE%BF%CE%BB%CF%8D-%CE%BA%CE%B1%CE%BB%CE%AE-%CE%B5%CE%BC%CF%86%CE%AC%CE%BD%CE%B9%CF%83%CE%B7-%CF%84%CE%BF%CF%85-%CF%84%CE%BC%CE%AE%CE%BC%CE%B1%CF%84%CE%BF%CF%82-%CF%83%CF%84%CE%AF%CE%B2%CE%BF/"
+        }
+      ]
     },
     {
       "name": "Βασιλική Παυλίδου",
