@@ -1,0 +1,145 @@
+name: Self-Heal live canonical ACK acceptance (one-shot with rollback)
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/selfheal-parent-ack-once.yml'
+      - 'brain/qa/live_parent_ack_once.py'
+      - 'brain/qa/live_parent_ack_recover.py'
+      - 'brain/qa/parent_ack_operator_worker.mjs'
+      - 'brain/qa/wrangler.parent-ack-operator.toml'
+      - 'brain/qa/parent_ack_local_proxy.mjs'
+      - 'brain/qa/wrangler.parent-ack-local-proxy.toml'
+permissions:
+  contents: read
+  actions: read
+  checks: read
+  pull-requests: read
+concurrency:
+  group: archelaos-parent-ack-one-shot-20261107
+  cancel-in-progress: false
+jobs:
+  actual-parent-ack:
+    if: >-
+      ${{ github.repository == 'dizigs/archelaos-site' &&
+          github.event.pull_request.head.repo.full_name == 'dizigs/archelaos-site' &&
+          github.event.pull_request.head.ref == 'qa/live-canonical-ack-20261107' &&
+          github.event.pull_request.head.sha != '' &&
+          github.event.head_commit == null }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Exact source SHA pin, no persisted credentials
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+      - name: Gate single live run on exact operator subject
+        id: operator
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          if [ "$(git log -1 --format=%s)" = 'qa(live): one-shot canonical durable ACK' ]; then
+            echo 'enabled=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'enabled=false' >> "$GITHUB_OUTPUT"
+          fi
+        env:
+          EXPECTED_SHA: ${{ github.event.pull_request.head.sha }}
+      - name: Set up Python 3.12
+        if: steps.operator.outputs.enabled == 'true'
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.12'
+      - name: Set up Node 24
+        if: steps.operator.outputs.enabled == 'true'
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Static guard and real CI failure readback before enabling any Cloudflare flags
+        if: steps.operator.outputs.enabled == 'true'
+        env:
+          GH_READ_TOKEN: ${{ github.token }}
+          QA_CI_RUN_ID: '42406509198'
+          QA_CI_SHA: 'c620e300886f7c505ae5533ba7d5ccb4771f3d6a'
+        run: |
+          set -euo pipefail
+          python -m py_compile brain/qa/live_parent_ack_once.py brain/qa/live_parent_ack_recover.py
+          node --check brain/qa/parent_ack_operator_worker.mjs
+          node --check brain/qa/parent_ack_local_proxy.mjs
+          python3 - <<'PY'
+          import datetime, json, os, urllib.request
+          runid=os.environ['QA_CI_RUN_ID']; sha=os.environ['QA_CI_SHA']
+          if not runid.isdigit() or runid=='0' or len(sha)!=40 or set(sha)=={'0'}:
+              raise SystemExit('ACK_PRECHECK: EVIDENCE_NOT_PINNED')
+          base='https://api.github.com/repos/dizigs/archelaos-site'
+          def get(path):
+              req=urllib.request.Request(base+path,headers={
+                'Authorization':'Bearer '+os.environ['GH_READ_TOKEN'],
+                'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'})
+              with urllib.request.urlopen(req,timeout=12) as resp:
+                  return json.load(resp)
+          run=get('/actions/runs/'+runid)
+          if run.get('status')!='completed' or run.get('conclusion')!='failure' or run.get('head_sha')!=sha or run.get('event')!='pull_request':
+              raise SystemExit('ACK_PRECHECK: CI_RUN_MISMATCH')
+          updated=datetime.datetime.fromisoformat(run['updated_at'].replace('Z','+00:00'))
+          if (datetime.datetime.now(datetime.timezone.utc)-updated).total_seconds()>1000:
+              raise SystemExit('ACK_PRECHECK: PROVIDER_EVIDENCE_STALE')
+          if not any(p.get('base',{}).get('ref')=='main' and p.get('head',{}).get('sha')==sha for p in run.get('pull_requests',[])):
+              raise SystemExit('ACK_PRECHECK: NOT_MAIN_BASED_PR')
+          checks=get('/commits/'+sha+'/check-runs?per_page=100')
+          matches=[c for c in checks.get('check_runs',[]) if c.get('name') in
+              ('JavaScript syntax (all site scripts)','ESLint JavaScript quality')
+              and c.get('conclusion')=='failure' and c.get('check_suite',{}).get('id')==run.get('check_suite_id')]
+          if len(matches)!=1:
+              raise SystemExit('ACK_PRECHECK: REQUIRED_CI_FAILURE_NOT_CONFIRMED')
+          print('ACK_PRECHECK: GENUINE_REQUIRED_CI_FAILURE_PASS')
+          PY
+          python3 brain/qa/live_parent_ack_once.py config
+      - name: Install locked Wrangler without scripts
+        if: steps.operator.outputs.enabled == 'true'
+        run: npm ci --prefix brain --ignore-scripts --no-audit --no-fund
+      - name: Run one temporarily permitted real deployed-parent ACK proof
+        if: steps.operator.outputs.enabled == 'true'
+        env:
+          GITHUB_HEAD_REF: ${{ github.event.pull_request.head.ref }}
+          EXPECTED_SHA: ${{ github.event.pull_request.head.sha }}
+          OPERATOR_PR: ${{ github.event.pull_request.number }}
+          ACK_TEST_PR: ${{ github.event.pull_request.number }}
+          QA_CI_RUN_ID: '42406509198'
+          QA_CI_SHA: 'c620e300886f7c505ae5533ba7d5ccb4771f3d6a'
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_STAGING_DEPLOY_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: '898359728b3dfe8c3a3f56e3d19eecd1'
+          WRANGLER_SEND_METRICS: 'false'
+        run: python3 brain/qa/live_parent_ack_once.py run
+      - name: Same-runner rollback readback even on failure
+        if: always() && steps.operator.outputs.enabled == 'true'
+        env:
+          GITHUB_HEAD_REF: ${{ github.event.pull_request.head.ref }}
+          EXPECTED_SHA: ${{ github.event.pull_request.head.sha }}
+          OPERATOR_PR: ${{ github.event.pull_request.number }}
+          ACK_TEST_PR: ${{ github.event.pull_request.number }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_STAGING_DEPLOY_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: '898359728b3dfe8c3a3f56e3d19eecd1'
+        run: python3 brain/qa/live_parent_ack_once.py recover
+  independent-provider-rollback:
+    needs: actual-parent-ack
+    if: >-
+      ${{ always() &&
+          github.repository == 'dizigs/archelaos-site' &&
+          github.event.pull_request.head.ref == 'qa/live-canonical-ack-20261107' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+      - name: Independent active-version rollback and exact original baseline readback
+        env:
+          ACK_TEST_PR: ${{ github.event.pull_request.number }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_STAGING_DEPLOY_TOKEN }}
+        run: python3 brain/qa/live_parent_ack_recover.py
