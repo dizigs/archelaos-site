@@ -18,14 +18,33 @@ test('all 61 research dilemmas are listed and have no answers',()=>{
   assert.ok(entry.category.length>1);assert.equal(Object.hasOwn(entry,'answer'),false);}
 });
 
-test('both museum versions embed the same discussion cards and dialog',()=>{
+test('both museum versions render one photo-free research card at a time',()=> {
  for(const path of ['history.html','rebuild/history.html']){
-  const html=read(path);
-  assert.match(html,/id="arch-factcheck-promo"/);
-  assert.match(html,/id="fc-grid"/);
-  assert.match(html,/id="fc-dialog"/);
-  assert.match(html,/\/assets\/fact-check\.js\?v=2/);
+  const html=read(path),section=html.slice(html.indexOf('<section id="arch-factcheck-promo"'),html.indexOf('</section>',html.indexOf('<section id="arch-factcheck-promo"'))+10);
+  assert.match(section,/id="arch-factcheck-promo"/);
+  assert.match(section,/id="fc-grid"/);
+  assert.match(section,/id="fc-progress-fill"/);
+  assert.match(section,/id="fc-save-status"/);
+  assert.match(section,/id="fc-turnstile"/);
+  assert.doesNotMatch(section,/id="fc-dialog"|<img\\b|<picture\\b|<video\\b/);
+  assert.doesNotMatch(section,/Fact <em>Check/);
+  assert.match(html,/\\/assets\\/fact-check\\.js\\?v=3/);
+  assert.match(html,/\\/assets\\/fact-check\\.css\\?v=3/);
  }
+});
+test('dilemmas show two named alternatives, other questions use true false unknown',()=>{
+ const dilemmas=bank.items.filter(x=>x.alternatives);
+ assert.deepEqual(dilemmas.map(x=>x.id),['TF001','TF032','TF055']);
+ for(const question of dilemmas){
+  assert.equal(question.alternatives.length,2);
+  assert.ok(question.alternatives.every(x=>x.length>2));
+ }
+ const browser=read('assets/fact-check.js');
+ assert.match(browser,/position\\+=1;render\\(true\\);/);
+ assert.match(browser,/pending\\.push\\(answer\\)/);
+ assert.match(browser,/pending\\.slice\\(0,4\\)/);
+ assert.match(browser,/window\\.turnstile/);
+ assert.doesNotMatch(browser,/showModal\\(|limit=12|fc-more/);
 });
 
 test('GET only advertises readiness after database schema exists',async()=>{
@@ -76,5 +95,58 @@ test('valid submission writes pending record once; retry with same receipt is id
   const second=await api.onRequestPost({request:request(body()),env});
   assert.equal(second.status,202);assert.equal((await second.json()).duplicate,true);
   assert.equal(writes,2);
+ }finally{globalThis.fetch=originalFetch;}
+});
+
+
+const batchRequest=(answers,extras={})=>request({catalogVersion:1,answers,turnstileToken:'test-valid-token',...extras});
+const batchAnswer=(i,patch={})=>({claimId:'TF'+String(i).padStart(3,'0'),choice:'unknown',
+ receipt:'1fdf0c72-938a-4b8f-8c2f-'+String(i).padStart(12,'0'),evidence:'',referenceUrl:'',...patch});
+test('fast batch rejects malformed input, duplicate claims and unsafe URLs',async()=>{
+ let touched=0;
+ const env={FACTCHECK_DB:{prepare(){touched++;throw Error('unexpected DB access');}},TURNSTILE_SECRET:'secret'};
+ const bad=[
+  [batchAnswer(1),batchAnswer(1,{receipt:'1fdf0c72-938a-4b8f-8c2f-000000000090'})],
+  [batchAnswer(1,{claimId:'TF099'})],
+  [batchAnswer(1,{choice:'option_a'})],
+  [batchAnswer(1,{evidence:'a'.repeat(601)})],
+  [batchAnswer(1,{referenceUrl:'http://invalid.test'})],
+  [batchAnswer(1,{referenceUrl:'https://localhost/path'})],
+  Array.from({length:5},(_,i)=>batchAnswer(i+1))
+ ];
+ for(const answers of bad){
+  const result=await api.onRequestPost({request:batchRequest(answers),env});
+  assert.equal(result.status,400,JSON.stringify(answers));
+ }
+ assert.equal(touched,0);
+});
+test('fast batch saves four anonymous choices once using a single Turnstile token',async()=>{
+ const originalFetch=globalThis.fetch,store=new Map(),answers=Array.from({length:4},(_,i)=>batchAnswer(i+1));
+ let verifications=0,inserted=0;
+ globalThis.fetch=async()=>{verifications++;return Response.json({success:true,hostname:'archelaos.club',action:'fact_check'});};
+ const env={
+  TURNSTILE_SECRET:'secret',
+  FACTCHECK_DB:{
+   prepare(sql){return {
+    bind(...args){return {
+     async first(){assert.match(sql,/SELECT claim_id/);const row=store.get(args[0]);return row??null;},
+     async run(){throw Error('batch insert should be used');},
+     async insert(){assert.match(sql,/INSERT OR IGNORE/);
+      const [receipt,claim_id,choice,evidence,reference_url]=args;
+      if(store.has(receipt))return {meta:{changes:0}};
+      store.set(receipt,{claim_id,choice,evidence,reference_url});inserted++;return {meta:{changes:1}};}
+    }};},
+   async batch(statements){const results=[];for(const item of statements)results.push(await item.insert());return results;}
+  }
+ };
+ try{
+  const first=await api.onRequestPost({request:batchRequest(answers),env});
+  assert.equal(first.status,201);assert.equal((await first.json()).accepted,4);
+  assert.equal(store.size,4);assert.equal(inserted,4);
+  const repeat=await api.onRequestPost({request:batchRequest(answers),env});
+  assert.equal(repeat.status,202);assert.equal((await repeat.json()).duplicate,true);
+  assert.equal(store.size,4);assert.equal(inserted,4);assert.equal(verifications,2);
+  const clash=await api.onRequestPost({request:batchRequest([batchAnswer(1,{choice:'false'})]),env});
+  assert.equal(clash.status,409);assert.equal(store.size,4);
  }finally{globalThis.fetch=originalFetch;}
 });
