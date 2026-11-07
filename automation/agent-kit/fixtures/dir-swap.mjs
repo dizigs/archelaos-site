@@ -1,20 +1,23 @@
-// Static test fixture: no executable source is assembled from inputs.
+// Static isolated regression fixture. All input is fixed test data.
 import fs from 'node:fs';
 import { syncBuiltinESMExports } from 'node:module';
-import { join } from 'node:path';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { run } from './cli.mjs';
 
-const input = JSON.parse(process.argv[3]);
+const home = dirname(fileURLToPath(import.meta.url));
+const args = ['record', 'github', 'checks', 'PASS', '--evidence',
+  'https://github.com/dizigs/archelaos-site/actions/runs/42284982522'];
 const original = fs.openSync;
 let swapped = false;
-fs.openSync = (path, ...args) => {
-  const fd = original(path, ...args);
+fs.openSync = (path, ...options) => {
+  const fd = original(path, ...options);
   if (!swapped && String(path).endsWith('/.private')) {
     swapped = true;
-    fs.renameSync(join(process.argv[2], '.private'), join(process.argv[2], 'held-private'));
-    fs.symlinkSync(join(process.argv[2], 'outside'), join(process.argv[2], '.private'), 'dir');
+    fs.renameSync(join(home, '.private'), join(home, 'held-private'));
+    fs.symlinkSync(join(home, 'outside'), join(home, '.private'), 'dir');
   }
   return fd;
 };
 syncBuiltinESMExports();
-console.log(JSON.stringify(run(input.args)));
+console.log(JSON.stringify(run(args)));
