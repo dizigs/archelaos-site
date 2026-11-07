@@ -3,13 +3,16 @@ import {test} from 'node:test';
 import {createHmac,randomUUID} from 'node:crypto';
 import {readFile,writeFile,mkdtemp,rm,unlink} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
-import {join,resolve} from 'node:path';
+import {join} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {DatabaseSync} from 'node:sqlite';
 import {Miniflare} from 'miniflare';
 import {migrateSignedOutbox,normalizeAckRpcRecord} from '../src/selfheal_ack.mjs';
 
 const ROOT=fileURLToPath(new URL('../../',import.meta.url));
+// Native fixture files must not depend on the CI caller's working directory.
+const BRAIN_ROOT=fileURLToPath(new URL('../',import.meta.url));
+const BRAIN_SRC=join(BRAIN_ROOT,'src');
 const KEY='synthetic-ack-receipt-test-only-'.repeat(3);
 const GITHUB_KEY='synthetic-ack-github-source-'.repeat(3);
 const RECEIPT_KEY='synthetic-ack-capability-signer-'.repeat(3);
@@ -98,9 +101,9 @@ export default class extends WorkerEntrypoint {
 
 async function fixture(mode='normal',enabled=true,healerKey=KEY){
  const directory=await mkdtemp(join(tmpdir(),'brain-ack-native-'));
- const bpath=resolve('src','.ack-brain-'+randomUUID()+'.mjs');
+ const bpath=join(BRAIN_SRC,'.ack-brain-'+randomUUID()+'.mjs');
  const hpath=join(ROOT,'automation/self-heal-worker/src','.ack-healer-'+randomUUID()+'.mjs');
- const bs=await readFile(resolve('src/worker.mjs'),'utf8'),hs=await readFile(join(ROOT,'automation/self-heal-worker/src/worker.mjs'),'utf8');
+ const bs=await readFile(join(BRAIN_SRC,'worker.mjs'),'utf8'),hs=await readFile(join(ROOT,'automation/self-heal-worker/src/worker.mjs'),'utf8');
  await writeFile(bpath,bs.replace('export class BrainCoordinator extends DurableObject {','export class BrainCoordinator extends DurableObject {'+brainFixture));
  // Instrument only this disposable Miniflare copy; count REAL Healer command RPC
  // entries durably, while the shipped Worker implementation stays unchanged.
@@ -113,7 +116,7 @@ async function fixture(mode='normal',enabled=true,healerKey=KEY){
  await writeFile(hpath,instrumentedHealer.replace('export class HealerMemory extends DurableObject {','export class HealerMemory extends DurableObject {'+healerFixture));
  let mf,outbound=0;
  const build=(fault)=>new Miniflare({workers:[
-  {name:'brain',modules:true,scriptPath:bpath,modulesRoot:resolve('src'),compatibilityDate:'2026-07-30',durableObjects:{BRAIN:{className:'BrainCoordinator',useSQLite:true}},
+  {name:'brain',modules:true,scriptPath:bpath,modulesRoot:BRAIN_SRC,compatibilityDate:'2026-07-30',durableObjects:{BRAIN:{className:'BrainCoordinator',useSQLite:true}},
    bindings:{ENVIRONMENT:'staging',DEPLOY_SHA:SHA,STAGING_EXPIRES_AT:new Date(Date.now()+30*60000).toISOString(),BRAIN_SELFHEAL_APPROVED_SHA:SHA,
     BRAIN_SELFHEAL_DISPATCH_ENABLED:'true',BRAIN_SELFHEAL_RECOVERY_ENABLED:'true',BRAIN_SELFHEAL_BINDING_ATTESTED:'true',BRAIN_SELFHEAL_DURABLE_ACK_ENABLED:enabled?'true':'false',
     HEALER_EVENT_HMAC_KEY:KEY,BRAIN_GITHUB_INTAKE_KEY:GITHUB_KEY,BRAIN_CAPABILITY_RECEIPT_KEY:RECEIPT_KEY,BRAIN_PRIVATE_EVENT_SOURCES_ENABLED:'true',BRAIN_PRIVATE_SERVICE_BINDINGS_VERIFIED:'true'},
@@ -198,6 +201,6 @@ test('native HMAC mismatch between Brain and Healer fails closed: UNKNOWN, no re
 });
 
 test('tracked configuration keeps ACK activation, recovery and staging OFF',async()=>{
- const brain=await readFile(resolve('wrangler.toml'),'utf8');const healer=await readFile(join(ROOT,'automation/self-heal-worker/wrangler.toml'),'utf8');
+ const brain=await readFile(join(BRAIN_ROOT,'wrangler.toml'),'utf8');const healer=await readFile(join(ROOT,'automation/self-heal-worker/wrangler.toml'),'utf8');
  assert.match(brain,/^BRAIN_SELFHEAL_DURABLE_ACK_ENABLED = "false"$/m);assert.match(healer,/^HEALER_DURABLE_ACK_ENABLED = "false"$/m);assert.match(brain,/^STAGING_EXPIRES_AT = "1970-01-01T00:00:00Z"$/m);
 });
