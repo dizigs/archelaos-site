@@ -1,0 +1,39 @@
+name: Agent Kit inventory and audit contract
+
+on:
+  pull_request:
+    paths:
+      - 'automation/agent-kit/**'
+      - '.github/workflows/agent-kit-validation.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: agent-kit-validation-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout source without retaining credentials
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Verify syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --version
+          node --check automation/agent-kit/cli.mjs
+          node --check automation/agent-kit/cli.test.mjs
+      - name: Run offline registry and audit tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --test automation/agent-kit/cli.test.mjs
+          node automation/agent-kit/cli.mjs verify
+          node automation/agent-kit/cli.mjs list > /dev/null
