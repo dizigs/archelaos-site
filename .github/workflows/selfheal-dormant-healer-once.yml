@@ -27,6 +27,18 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.event.pull_request.head.sha }}
 
+      - name: Validate dormant Healer guard and OFF source without provider credentials
+        run: |
+          python3 -m py_compile brain/tools/dormant_healer_release.py
+          python3 - <<'PY'
+          import importlib.util
+          spec=importlib.util.spec_from_file_location('healer_guard', 'brain/tools/dormant_healer_release.py')
+          mod=importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(mod)
+          mod.config_guard()
+          print('DORMANT_HEALER_LOCAL_CONFIG_GUARD_PASS')
+          PY
+
       - name: Authorize exactly one operator-requested commit
         id: gate
         env:
