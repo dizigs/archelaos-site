@@ -154,6 +154,57 @@ function featured(){
  const h=document.createElement('h2');h.textContent=x.title;const p=document.createElement('p');p.textContent=x.summary;
  content.append(meta(x),h,p);article.append(m,content,articleLink(x,'an-feature-hit'));$('an-feature').replaceChildren(article);
 }
+let personMentionsPromise=null;
+// Annotation is limited to IDs explicitly attached to the specific news item.
+// Shared aliases with multiple canonical owners are deliberately not linked.
+function linkVerifiedNames(detail,article){
+ const ids=new Set(article.personIds||[]);
+ if(!ids.size)return;
+ personMentionsPromise??=fetch('/archelaos-person-index.json',{cache:'no-cache'})
+   .then(r=>{if(!r.ok)throw Error('People index '+r.status);return r.json()});
+ void personMentionsPromise.then(index=>{
+  if(!Array.isArray(index)||active?.id!==article.id||!detail.isConnected)return;
+  const owner=new Map();
+  for(const person of index){
+   const candidates=[person.name,...(Array.isArray(person.names)?person.names:[])];
+   for(const value of candidates){
+    if(typeof value!=='string')continue;
+    const name=value.trim(),key=name.toLocaleLowerCase('el');
+    if(name.split(/\s+/).length<2||name.length<7)continue;
+    if(owner.has(key)&&owner.get(key)!==person.id)owner.set(key,null);
+    else if(!owner.has(key))owner.set(key,person.id);
+   }
+  }
+  const labels=[...owner].filter(([,id])=>id&&ids.has(id)).sort((a,b)=>b[0].length-a[0].length);
+  const letter=/[\p{L}\p{N}]/u;
+  for(const paragraph of detail.querySelectorAll(':scope > p')){
+   const raw=paragraph.textContent||'',lower=raw.toLocaleLowerCase('el'),hits=[];
+   for(const [name,id] of labels){
+    let from=0,start;
+    while((start=lower.indexOf(name,from))!==-1){
+     const end=start+name.length;
+     if((start===0||!letter.test(raw[start-1]))&&(end===raw.length||!letter.test(raw[end]))){
+      hits.push({start,end,id});
+     }
+     from=end;
+    }
+   }
+   if(!hits.length)continue;
+   hits.sort((a,b)=>a.start-b.start||(b.end-b.start)-(a.end-a.start));
+   const fragment=document.createDocumentFragment();let last=0;
+   for(const hit of hits){
+    if(hit.start<last)continue;
+    fragment.append(document.createTextNode(raw.slice(last,hit.start)));
+    const a=link('/hall-of-fame.html?person='+encodeURIComponent(hit.id),raw.slice(hit.start,hit.end));
+    a.className='an-person-tag';a.dataset.archBioId=hit.id;
+    a.setAttribute('aria-haspopup','dialog');
+    a.title=t('Άνοιγμα βιογραφικού','Open biography');
+    fragment.append(a);last=hit.end;
+   }
+   if(last){fragment.append(document.createTextNode(raw.slice(last)));paragraph.replaceChildren(fragment)}
+  }
+ }).catch(e=>{personMentionsPromise=null;console.warn('News name annotation:',e)});
+}
 let closing=false;
 function show(id){
  const x=state.items.find(i=>i.id===id);if(!x)return;active=x;lastFocus=document.activeElement;
@@ -186,6 +237,7 @@ function show(id){
   }).catch(()=>{links.querySelectorAll('[data-person-name]').forEach(a=>{a.textContent=t('Βιογραφικό','Biography')})});
  }
  source.append(links);detail.append(source);
+ linkVerifiedNames(detail,x);
  void window.ArchelaosLinks?.append(detail,'news',x.id,{limit:8,excludeKinds:['person']});
  const b=$('an-dialog-heart'),favorites=window.ArchelaosFavorites;const saved=favorites?.has('news',x.id);
  b.dataset.favoriteKind='news';b.dataset.favoriteId=x.id;b.querySelector('span').textContent=saved?'♥':'♡';b.setAttribute('aria-pressed',String(!!saved));b.setAttribute('aria-label',saved?'Αφαίρεση από τα αγαπημένα':'Αποθήκευση στα αγαπημένα');
