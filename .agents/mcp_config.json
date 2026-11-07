@@ -11,6 +11,10 @@
     "cloudflare-api": {
       "serverUrl": "https://mcp.cloudflare.com/mcp",
       "disabled": true
+    },
+    "firecrawl-search": {
+      "serverUrl": "https://mcp.firecrawl.dev/v2/mcp-search",
+      "disabled": false
     }
   }
 }
