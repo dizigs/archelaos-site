@@ -17,7 +17,8 @@
       ],
       "source": "hall-of-fame-people.json",
       "verification": "existing-biographies",
-      "editorial_note": "Based on existing published biographies; original archive cross-check pending."
+      "editorial_note": "Based on existing published biographies; original archive cross-check pending.",
+      "source_moment": 1
     },
     {
       "id": "moment-02-1957",
