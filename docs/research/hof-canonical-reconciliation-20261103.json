@@ -6,18 +6,18 @@
     "canonical": 774,
     "historical": 680,
     "shared": 680,
-    "divergent_people": 65,
-    "divergent_fields": 108,
+    "divergent_people": 78,
+    "divergent_fields": 135,
     "fields": {
-      "bio": 65,
-      "bio_en": 42,
+      "bio": 78,
+      "bio_en": 56,
       "name": 1
     },
     "classifications": {
       "BLOCKED_SOURCE": 4,
-      "LEGACY_TEXT_RETAINED": 84,
+      "LEGACY_TEXT_RETAINED": 109,
       "QUALIFIED_ARCHIVE": 9,
-      "SEMANTICALLY_RETAINED": 9,
+      "SEMANTICALLY_RETAINED": 11,
       "SPELLING_CORRECTION": 2
     }
   },
@@ -120,6 +120,42 @@
   "historical_only_ids": [],
   "records": [
     {
+      "id": "arch-157bd15a3407",
+      "name": "Χαράλαμπος Διαμαντίδης",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "7b2e65409fde9f270d2896efe36d0a4182d6406457b7f9736f8fa9a3b32976f3",
+          "canonical_sha256": "14e36dcdf9a67b6951e4dc9a149887813608e064c7e66dfd3198c6121d315904"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "098b9b197d7deb34b32fe404d2479acfe21692ad52c0b76d12924046a55917c5",
+          "canonical_sha256": "70bb73111637b669c26fff83d4898168e497ebf6fcf2f02f4ccd0e9a3f094095"
+        }
+      ]
+    },
+    {
+      "id": "arch-1978cdb93754",
+      "name": "Δημήτριος Μπίντας",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "aa1d840c542bb16262883fbea3e8003fe0e2011bf771b1ef97e25de60bd851fd",
+          "canonical_sha256": "873ec66f6b2ffe92e934c1ce3ffc99f70fc200c7bcbd02b8e81d3d14df0cf86f"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "a4e125582e8db278839776c3ff258b9ee71abeded1fbbc0ce7fb569bc44cfa9e",
+          "canonical_sha256": "6d23fb343c3f8bb5513ddbef4f2cb9603185e0c5f8cec4a6680d1c7ab0dffcd9"
+        }
+      ]
+    },
+    {
       "id": "arch-2082f3abced0",
       "name": "Αλεξάνδρα Παπαγιάννη",
       "fields": [
@@ -136,6 +172,24 @@
           "legacy_sha256": "c7a63de1ee3e0529e2f6215a5c25beadf30730daa013cbc3eb880db79233d810",
           "canonical_sha256": "935b2afc66a88d6bc0fb0de06eeb89bd7dfba596811bc3c39958f7cd9289ea32",
           "evidence": "SEGAS official U16 result plus Odelalis source confirm bronze 12.07 and +4.9 tailwind; prior inter-club second-place and relay claims retained, not recast as a wind-legal record."
+        }
+      ]
+    },
+    {
+      "id": "arch-2120637eed24",
+      "name": "Παντελής Λογγινίδης",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "30fd947a681ed2c3fa6c4586bdd87e22233de5002e006f961b121a5ba922790d",
+          "canonical_sha256": "f817110eeaa1bde4e919cdba6d1f6a31743016e541b17b840a463a55ed5ff81a"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "6c16723e713c3bcb3d382c9e5d8b45c36296a802b11ac6743302f0659804c787",
+          "canonical_sha256": "c4e1c1f3a0294c8ce20017befd4da6861beaa5c7d93092a2ad2786dc2e7aa97e"
         }
       ]
     },
@@ -203,6 +257,24 @@
           "classification": "LEGACY_TEXT_RETAINED",
           "legacy_sha256": "fe6643f2f00ebc534f913e7cb34e7ad22dd790dc906460397faf21bf2d248b4b",
           "canonical_sha256": "f4f711714f0f79be08f8445f39490e3ef7997b7a0023d1f1f6f073ee2aee9268"
+        }
+      ]
+    },
+    {
+      "id": "arch-2fa53787e4c6",
+      "name": "Αθανάσιος Τρυγώνης",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "c102ee98b3d9ce021bf5dfcb2ee7941a33e77319541bf206451b15182832bbb4",
+          "canonical_sha256": "cfb592a8f2535a6d64aaf8bd4afd72c7d9923c72f4f54d4e06b1ad74d33089fc"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "bf5af802fedeaeaddacba9f1e53eacad11526bf389b5d53adc3e40899d57177d",
+          "canonical_sha256": "322fe74248c9c18f5b81806b87f04d737c677f3ef791952e719c57121682f9f2"
         }
       ]
     },
@@ -351,6 +423,26 @@
           "classification": "LEGACY_TEXT_RETAINED",
           "legacy_sha256": "0eed456d15c0b2a5c152edbb73628d0ddf25cf2555d3659acf08f64922da648e",
           "canonical_sha256": "507ab4ae1fb54093df59a99f1bb2c132209710706612801f8e6d43d8848b8b02"
+        }
+      ]
+    },
+    {
+      "id": "arch-5abfbe9e285a",
+      "name": "Κώστας Κουκοδήμος",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "SEMANTICALLY_RETAINED",
+          "legacy_sha256": "cd36b6118a5ee101ba8e9f93dc7bbcf4297769c00b29f9cbd093ffa8e3d7deef",
+          "canonical_sha256": "1afab253c4222c644ac9948d978ae61383e837e918300618e4dc63fdd8cf7a77",
+          "evidence": "ΣΕΓΑΣ ελέγχθηκε ανεξάρτητα: 6η θέση Ολυμπιακών Βαρκελώνης 1992, επίδοση 8,04 μ. στον τελικό. Το υπάρχον κείμενο διατηρείται νοηματικά, προστίθεται μόνο η διάκριση προκριματικού/τελικού (https://www.segas.gr/afieroma-olympiakoi-agones-1976-1996-ta-mpoy/)."
+        },
+        {
+          "field": "bio_en",
+          "classification": "SEMANTICALLY_RETAINED",
+          "legacy_sha256": "e7c4f6c47abc5f7be9ef21dd31eda32269309c4d7f8b4a32e1065a0b34c0141e",
+          "canonical_sha256": "0ad3b1d1b97ce75cb57900bdc185622ee2343b30eb61f97f85cac2b37111c395",
+          "evidence": "ΣΕΓΑΣ ελέγχθηκε ανεξάρτητα: 6η θέση Ολυμπιακών Βαρκελώνης 1992, επίδοση 8,04 μ. στον τελικό. Το υπάρχον κείμενο διατηρείται νοηματικά, προστίθεται μόνο η διάκριση προκριματικού/τελικού (https://www.segas.gr/afieroma-olympiakoi-agones-1976-1996-ta-mpoy/)."
         }
       ]
     },
@@ -525,6 +617,42 @@
       ]
     },
     {
+      "id": "arch-76d5e1b729ae",
+      "name": "Νίκος Παπανικολάου",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "f94e9a739dc3683c161f87453726fa3287fa5f3877c019a9f07189c86cf2e2bf",
+          "canonical_sha256": "c18c775b5654625b3d3a3bf4757366be8421787e7070d85354b2daa2df0264f5"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "d2aef3ae8e7f6c71e33f6d062872db53350badb4077ffb2545c22937d9e4a49e",
+          "canonical_sha256": "db423b1a1f2a784c0dddbb58dc4f59e0e86edde6f0d5ad34b73845d59e8c4ff3"
+        }
+      ]
+    },
+    {
+      "id": "arch-7748331a90c6",
+      "name": "Σοφία Μπέζα",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "c1518308e5a3b33c601a5af14feecd709717a2bc764dc633aaba2a90d875ddc3",
+          "canonical_sha256": "3d5ea66f7c3f5ac5edc3b0a4e48b6301983e09734a557d1c9cf8d965d6514ecc"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "e1baccfa2882374bb2492679dc989bbaeba02a9f3591d7a69cedbb88bd4eafd3",
+          "canonical_sha256": "0fa6c9ad829e3948dad5dfce903dd37263909e8c47f2a2eec79ebbe5b877a0c4"
+        }
+      ]
+    },
+    {
       "id": "arch-7a113e11ae86",
       "name": "Βασίλης (Βασίλειος) Ευκαρπίδης",
       "fields": [
@@ -631,6 +759,24 @@
       ]
     },
     {
+      "id": "arch-93a0d57ed2bd",
+      "name": "Αναστασία Φυλακτακίδου",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "03963908d0a13055d99c7406f9b79ad624b7c4c532812ea7f8c824930ecee0a1",
+          "canonical_sha256": "9652c767dbfe00f230a0c84e9c6caf58ae5027bd3dcc9ca4fb5f60c326f9fdfa"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "265c9632b0c7b620a9eb357f734d1221972da64fb0d9176935db0bc199dc49fd",
+          "canonical_sha256": "924cbecdd8a862ce70fcc0a56ecb8e1b3d408aac7a64504a63b649bd88a9004a"
+        }
+      ]
+    },
+    {
       "id": "arch-955a386f547f",
       "name": "Ευάγγελος Χαρίσης",
       "fields": [
@@ -639,6 +785,24 @@
           "classification": "LEGACY_TEXT_RETAINED",
           "legacy_sha256": "7b670c04a83fb2c7b39058693d322db0389bb5021d4f1af23bb72735e2c105ed",
           "canonical_sha256": "81e6613d532c44a2eeea023e56d8de7678a5d385d61068293549dbe900af364c"
+        }
+      ]
+    },
+    {
+      "id": "arch-95b9b74036d7",
+      "name": "Κωνσταντίνος Κουρατίδης",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "68d2e0048d1780076cbfa971509de94dca6b62901c55a51fefdc4ddb48dc5473",
+          "canonical_sha256": "72d211f613c0eb53bf8cbb08ded899c11161326401b3aaa0176fe6fb11728bbb"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "d42e308d10620ca7c3ebba4e8d55a8ec788b8e1e9fabde388d5cf18b2826cb1e",
+          "canonical_sha256": "4ecec21d89585e7ae663e4b50157c18cd32f7e4c9b69a6dcdff56e4dbfe0a2d0"
         }
       ]
     },
@@ -707,6 +871,42 @@
           "classification": "LEGACY_TEXT_RETAINED",
           "legacy_sha256": "921ca9903e3705223b5902ad1a30b66e91a7a8d3ff3c0f3490bdab9100773dfc",
           "canonical_sha256": "4eb64d544ed1d5e3bf1eaf5096dbf1571f6dc1d7b3d18537bba3ab88c6280109"
+        }
+      ]
+    },
+    {
+      "id": "arch-9fbf3dee77af",
+      "name": "Ιωάννης Παπασταθόπουλος",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "ae5df5c4ff7da714d5e8271826d5d174ea1c2820c2cd8e97e64973649c8fc2b2",
+          "canonical_sha256": "7f1417a6082e13e939e2a87f9dc8ce0f14a92e813efb8df894c3c5edd07431d2"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "f6d56566dd10a7c3045a9ddc30c2dcb3fe583cc6b1181dd7af6af7e5ac9da3a6",
+          "canonical_sha256": "3c393ba2123c368cdcb97cd5899bf569b9cd5899634f232d70896bc06807a4ff"
+        }
+      ]
+    },
+    {
+      "id": "arch-a2775cc75551",
+      "name": "Αριστοτέλης Γιαμούζης",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "c5e651a33506fc9cd224af7b5e78c689c92e9dee7d125c243b6e1a8d6e13fa57",
+          "canonical_sha256": "98dc69aa0e8738f4402ccd87520e03078260f6b9b347a9bf1c58ff9d92115fc9"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "55568637d1039f9e1a817c7698b581b5ede0a178b4bffad3bf12f09571fcc085",
+          "canonical_sha256": "7d9f3af34714e3fae720b5be141182c94eb192874e0dd8a8ddc78de754b855e3"
         }
       ]
     },
@@ -992,6 +1192,24 @@
       ]
     },
     {
+      "id": "arch-dc38c1018a66",
+      "name": "Επαμεινώνδας Κούρτης",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "a1400416b805041cdbd6fa73884688e2ba00e3dff3af59a397e834f885a70bc4",
+          "canonical_sha256": "9a06a42818410655ca37a5b28ed0277cfebdb3b97091dad743b19a1ba63eb3da"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "04c6d07e262c7bae17130c283e443472ad75b6eb791d15e732cba5590dcfb83e",
+          "canonical_sha256": "6d08d2d41f15f29bfb29ba15925e1e31456d4a604174fe93c9ccc378b523e99b"
+        }
+      ]
+    },
+    {
       "id": "arch-e355f0a88983",
       "name": "Χρήστος Ελευθερούδης",
       "fields": [
@@ -1018,6 +1236,24 @@
           "classification": "LEGACY_TEXT_RETAINED",
           "legacy_sha256": "3a44aaf44d33f0d30b38bf05f95cb2ba4503ac7bda1ff8f6aa2bba62685ff1e6",
           "canonical_sha256": "50d5ec01311839538c8c4283316d31fe7431ad592da43d9ecd3b8db2b3089dde"
+        }
+      ]
+    },
+    {
+      "id": "arch-e9a3df83459e",
+      "name": "Ιωάννης Προβατίδης",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "6b930cb21fae10f01d8b8063350c0ba28fc6567af5260e402e173341d95e8b16",
+          "canonical_sha256": "d081c04492279438c675ec9bc0aaebfb577feea247ea919beb02501ed1021493"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "e7a6c20fe9b9fbc78f1f15e68372200cf2334d1daf7dc0201b03cc85250924ff",
+          "canonical_sha256": "b87bce5c2cb50d52cca4b91adf1c4e812d0ff85e3612867df50df0f7534ca0b6"
         }
       ]
     },
@@ -1106,14 +1342,20 @@
       ]
     },
     {
-      "id": "arch-f3d93442851f",
-      "name": "Δημήτρης Σουλής",
+      "id": "arch-f52250e524ce",
+      "name": "Έφη Λαψάνα",
       "fields": [
         {
           "field": "bio",
           "classification": "LEGACY_TEXT_RETAINED",
-          "legacy_sha256": "d449a9df35248848a4031547312d96a2e566257f1b1d7d30f63c015a76eaf6a1",
-          "canonical_sha256": "4f35c7a71f2891f15f3811c4bbb2ab0be9981ea354d528abdde4227b5c6970c7"
+          "legacy_sha256": "a1400416b805041cdbd6fa73884688e2ba00e3dff3af59a397e834f885a70bc4",
+          "canonical_sha256": "42386595f47a33bf4cf6d3d5a34925b6539785a465c46f411ac73b6361f7ce75"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "04c6d07e262c7bae17130c283e443472ad75b6eb791d15e732cba5590dcfb83e",
+          "canonical_sha256": "fdc0f2ed8f4235d0dbfbc44049767b358f0dfa894e895c6ccb7175afb89c91ea"
         }
       ]
     },

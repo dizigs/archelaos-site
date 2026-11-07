@@ -1,0 +1,491 @@
+{
+  "schemaVersion": 1,
+  "scope": "RESEARCH_REVIEW_ONLY",
+  "reviewDate": "2026-11-07",
+  "origin": "25 short canonical bios crosswalk in PR #295 and separately uploaded 25-page AI-generated reference report",
+  "principle": "An AI PDF reference to a named newspaper or meeting is not inspection of the named original. Club role asserted by canonical Hall is not independently proved by an unrelated homonym result.",
+  "canonicalCount": 774,
+  "pdfRowsMapped": 25,
+  "independentlyVerifiedNewFacts": 1,
+  "unverifiedNewPdfSpecificFacts": 12,
+  "identityConflictPersons": 2,
+  "publicationRule": "No new published historical claim without original dated independent source, matching person and club in correct era; preserve 774 IDs and explicit source provenance.",
+  "records": [
+    {
+      "personId": "arch-dc38c1018a66",
+      "name": "Επαμεινώνδας Κούρτης",
+      "sourcePdfPage": "1–2",
+      "originalSourceToLocate": "Πρωτότυπα φύλλα 1993/1996",
+      "canonicalBioLength": 265,
+      "verifiedNewClaim": true,
+      "claimStatus": "PRIMARY_CLUB_PUBLICATION_INSPECTED",
+      "publicEvidence": [
+        {
+          "url": "https://www.tanea.gr/2003/08/08/greece/20-epwthseis-katepina-boggolh/",
+          "supports": "Katerina Voggoli explicitly names Epameinondas Kourtis as her first coach; not proof of athlete club membership or date of original coaching."
+        }
+      ],
+      "requiredNextStep": "Independent corroboration optional for expanded medal/performance assertions; current limited role/participation claim supported by original club publication",
+      "publicationVerified": true,
+      "sourceInspection": {
+        "work": "Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης, 40 χρόνια έντονης αθλητικής δραστηριότητας, Κατερίνη 1996",
+        "printedPages": [
+          28,
+          30
+        ],
+        "sourceType": "Original club-issued printed anniversary report; scanned copy inspected visually",
+        "claim": "Athletics coach Kourtis E. joined 10/11/1992; named in coaching staff 1993–94; original 2003 TA NEA interview also exists"
+      }
+    },
+    {
+      "personId": "arch-e47279f0f6c2",
+      "name": "Μαρία Κυριάκη",
+      "sourcePdfPage": "2",
+      "originalSourceToLocate": "Πρωτότυπα αποτελέσματα 1991 και μητρώο προπονητών",
+      "canonicalBioLength": 85,
+      "verifiedNewClaim": false,
+      "claimStatus": "ATHLETE_INITIAL_MATCH_NOT_COACH_EVIDENCE",
+      "publicEvidence": [],
+      "requiredNextStep": "Original 1996 track roster has 'Κυριακή Μαρ.' for 1988 athlete, but this does not independently verify Maria Kyriaki as coach.",
+      "publicationVerified": false,
+      "archiveReview": {
+        "work": "1996 original club anniversary history",
+        "printedPages": [
+          30
+        ],
+        "note": "Original 1996 track roster has 'Κυριακή Μαρ.' for 1988 athlete, but this does not independently verify Maria Kyriaki as coach."
+      }
+    },
+    {
+      "personId": "arch-f52250e524ce",
+      "name": "Έφη Λαψάνα",
+      "sourcePdfPage": "2–3",
+      "originalSourceToLocate": "Φύλλο Ολύμπιο Βήμα 28/05/1993",
+      "canonicalBioLength": 85,
+      "verifiedNewClaim": true,
+      "claimStatus": "PRIMARY_CLUB_PUBLICATION_INSPECTED",
+      "publicEvidence": [],
+      "requiredNextStep": "Independent corroboration optional for expanded medal/performance assertions; current limited role/participation claim supported by original club publication",
+      "publicationVerified": true,
+      "sourceInspection": {
+        "work": "Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης, 40 χρόνια έντονης αθλητικής δραστηριότητας, Κατερίνη 1996",
+        "printedPages": [
+          28,
+          30
+        ],
+        "sourceType": "Original club-issued printed anniversary report; scanned copy inspected visually",
+        "claim": "Efi Lapsana joined athletics coaching team 10/11/1992; still among seven coaching staff 1993–94"
+      }
+    },
+    {
+      "personId": "arch-cd8d2b2e4d33",
+      "name": "Βικτωρία Μπατάλα",
+      "sourcePdfPage": "3",
+      "originalSourceToLocate": "Ονομαστικός τελικός 1991 και μητρώο",
+      "canonicalBioLength": 85,
+      "verifiedNewClaim": false,
+      "claimStatus": "ORIGINAL_SPECIFIC_SOURCE_PENDING",
+      "publicEvidence": [],
+      "requiredNextStep": "Locate and read specific original dated clipping/roster/minutes, verify identity and club; do not publish PDF-only claims",
+      "publicationVerified": false
+    },
+    {
+      "personId": "arch-2fa53787e4c6",
+      "name": "Αθανάσιος Τρυγώνης",
+      "sourcePdfPage": "5",
+      "originalSourceToLocate": "Ολύμπιο Βήμα 1997",
+      "canonicalBioLength": 72,
+      "verifiedNewClaim": true,
+      "claimStatus": "PRIMARY_CLUB_PUBLICATION_INSPECTED",
+      "publicEvidence": [],
+      "requiredNextStep": "Limited board-office fact independently checked against original published club volume. Broader historical claims need claim-specific sources.",
+      "publicationVerified": true,
+      "sourceInspection": {
+        "work": "Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης, 40 χρόνια έντονης αθλητικής δραστηριότητας, Κατερίνη 1996",
+        "printedPages": [
+          9
+        ],
+        "sourceType": "Original club-issued printed anniversary report; scanned copy visually examined",
+        "claim": "Athanasios Trygonis named in board elected 11/03/1995 as club treasurer AND wrestling ephor; names printed as ΤΡΥΓΩΝΗΣ ΑΘΑΝ."
+      }
+    },
+    {
+      "personId": "arch-9561837e44eb",
+      "name": "Δημήτριος Μοιξάκης",
+      "sourcePdfPage": "5",
+      "originalSourceToLocate": "Πρακτικά Δ.Σ. 1990",
+      "canonicalBioLength": 83,
+      "verifiedNewClaim": false,
+      "claimStatus": "ARCHIVE_NAME_FOUND_ROLE_UNCLEAR",
+      "publicEvidence": [],
+      "requiredNextStep": "Original 1996 wrestling history mentions 'Μοιξάκης Δημ.' in 1991. Attribution to a specific office, and whether report's 1990 date is correct, needs primary minutes.",
+      "publicationVerified": false,
+      "archiveReview": {
+        "work": "1996 original club anniversary history",
+        "printedPages": [
+          85,
+          86
+        ],
+        "note": "Original 1996 wrestling history mentions 'Μοιξάκης Δημ.' in 1991. Attribution to a specific office, and whether report's 1990 date is correct, needs primary minutes."
+      }
+    },
+    {
+      "personId": "arch-1978cdb93754",
+      "name": "Δημήτριος Μπίντας",
+      "sourcePdfPage": "5",
+      "originalSourceToLocate": "Πρακτικά εφορείας βόλεϊ",
+      "canonicalBioLength": 44,
+      "verifiedNewClaim": true,
+      "claimStatus": "PRIMARY_CLUB_PUBLICATION_INSPECTED",
+      "publicEvidence": [],
+      "requiredNextStep": "Independent corroboration optional for expanded medal/performance assertions; current limited role/participation claim supported by original club publication",
+      "publicationVerified": true,
+      "sourceInspection": {
+        "work": "Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης, 40 χρόνια έντονης αθλητικής δραστηριότητας, Κατερίνη 1996",
+        "printedPages": [
+          48
+        ],
+        "sourceType": "Original club-issued printed anniversary report; scanned copy inspected visually",
+        "claim": "Bintas Dim. became second volleyball department ephor in February 1989"
+      }
+    },
+    {
+      "personId": "arch-f26868d81a7b",
+      "name": "Ηλίας Κεσανλής",
+      "sourcePdfPage": "5",
+      "originalSourceToLocate": "Πιερικοί Αντίλαλοι 1991/1992",
+      "canonicalBioLength": 68,
+      "verifiedNewClaim": false,
+      "claimStatus": "ABBREVIATED_ATHLETE_NAME_NEEDS_ID_CHECK",
+      "publicEvidence": [],
+      "requiredNextStep": "Original 1996 shooting team roster mentions 'Κεσανλής Ηλ.' in 1985; cannot automatically equate this athlete with historical administrator Ηλίας Κεσανλής.",
+      "publicationVerified": false,
+      "archiveReview": {
+        "work": "1996 original club anniversary history",
+        "printedPages": [
+          77
+        ],
+        "note": "Original 1996 shooting team roster mentions 'Κεσανλής Ηλ.' in 1985; cannot automatically equate this athlete with historical administrator Ηλίας Κεσανλής."
+      }
+    },
+    {
+      "personId": "arch-ccd3a9d5d1f3",
+      "name": "Ιωάννης Αθανασιάδης",
+      "sourcePdfPage": "6",
+      "originalSourceToLocate": "Προκηρύξεις 1996/1997",
+      "canonicalBioLength": 95,
+      "verifiedNewClaim": false,
+      "claimStatus": "ORIGINAL_SPECIFIC_SOURCE_PENDING",
+      "publicEvidence": [],
+      "requiredNextStep": "Locate and read specific original dated clipping/roster/minutes, verify identity and club; do not publish PDF-only claims",
+      "publicationVerified": false
+    },
+    {
+      "personId": "arch-9fbf3dee77af",
+      "name": "Ιωάννης Παπασταθόπουλος",
+      "sourcePdfPage": "6",
+      "originalSourceToLocate": "Αρχαιρεσίες 1996",
+      "canonicalBioLength": 74,
+      "verifiedNewClaim": true,
+      "claimStatus": "PRIMARY_CLUB_PUBLICATION_INSPECTED_WITH_INITIAL_MATCH",
+      "publicEvidence": [],
+      "requiredNextStep": "For any additional biography claims, locate the full name in the 1987 election minutes; historical role and dates are directly printed in 1996 club volume.",
+      "publicationVerified": true,
+      "sourceInspection": {
+        "work": "Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης, 40 χρόνια έντονης αθλητικής δραστηριότητας, Κατερίνη 1996",
+        "printedPages": [
+          14
+        ],
+        "sourceType": "Original club-issued printed anniversary report; scanned page visually examined",
+        "claim": "Print lists Παπασταθόπουλος Ι. as board second vice-president 27-01-1987 to 28-02-1989; exact surname and role, forename abbreviated."
+      }
+    },
+    {
+      "personId": "arch-76d5e1b729ae",
+      "name": "Νίκος Παπανικολάου",
+      "sourcePdfPage": "6",
+      "originalSourceToLocate": "Ολύμπιο Βήμα 1995",
+      "canonicalBioLength": 50,
+      "verifiedNewClaim": true,
+      "claimStatus": "PRIMARY_CLUB_PUBLICATION_INSPECTED",
+      "publicEvidence": [],
+      "requiredNextStep": "Limited board-office fact independently checked against original published club volume. Broader historical claims need claim-specific sources.",
+      "publicationVerified": true,
+      "sourceInspection": {
+        "work": "Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης, 40 χρόνια έντονης αθλητικής δραστηριότητας, Κατερίνη 1996",
+        "printedPages": [
+          9
+        ],
+        "sourceType": "Original club-issued printed anniversary report; scanned copy visually examined",
+        "claim": "Nikos Papanikolaou named as gymnastics ephor in board elected 11/03/1995; printed as ΠΑΠΑΝΙΚΟΛΑΟΥ ΝΙΚ."
+      }
+    },
+    {
+      "personId": "arch-8ba7e62a1faf",
+      "name": "Τριαντάφυλλος Τιόκας",
+      "sourcePdfPage": "6",
+      "originalSourceToLocate": "Πρακτικά σκοπευτικού τμήματος",
+      "canonicalBioLength": 60,
+      "verifiedNewClaim": false,
+      "claimStatus": "ABBREVIATED_ATHLETE_NAME_NEEDS_ID_CHECK",
+      "publicEvidence": [],
+      "requiredNextStep": "Original 1996 shooting team roster mentions 'Τιόκας Τριανταφ.' among first shooters; potential match to Τριαντάφυλλος Τιόκας, but distinct athlete/official roles need linking evidence.",
+      "publicationVerified": false,
+      "archiveReview": {
+        "work": "1996 original club anniversary history",
+        "printedPages": [
+          76
+        ],
+        "note": "Original 1996 shooting team roster mentions 'Τιόκας Τριανταφ.' among first shooters; potential match to Τριαντάφυλλος Τιόκας, but distinct athlete/official roles need linking evidence."
+      }
+    },
+    {
+      "personId": "arch-157bd15a3407",
+      "name": "Χαράλαμπος Διαμαντίδης",
+      "sourcePdfPage": "6",
+      "originalSourceToLocate": "Υπογεγραμμένη πρόσκληση 1989",
+      "canonicalBioLength": 49,
+      "verifiedNewClaim": true,
+      "claimStatus": "PRIMARY_CLUB_PUBLICATION_INSPECTED",
+      "publicEvidence": [],
+      "requiredNextStep": "Independent corroboration optional for expanded medal/performance assertions; current limited role/participation claim supported by original club publication",
+      "publicationVerified": true,
+      "sourceInspection": {
+        "work": "Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης, 40 χρόνια έντονης αθλητικής δραστηριότητας, Κατερίνη 1996",
+        "printedPages": [
+          93
+        ],
+        "sourceType": "Original club-issued printed anniversary report; scanned copy inspected visually",
+        "claim": "Diamantidis Charalampos named as swimming ephor alongside Theodoros Papanikolaou after February 1989"
+      }
+    },
+    {
+      "personId": "arch-dfd943fbdfd7",
+      "name": "Αλέκος Καρυπίδης",
+      "sourcePdfPage": "13",
+      "originalSourceToLocate": "Απόφαση ορισμού προπονητή 1980",
+      "canonicalBioLength": 89,
+      "verifiedNewClaim": false,
+      "claimStatus": "POSSIBLE_DIFFERENT_PERSON_HOLD",
+      "publicEvidence": [],
+      "requiredNextStep": "Original 1996 wrestling history mentions a 'Καρυπίδης Ν.' in early coaching/activity. This does not verify AI report's Αλέκος Καρυπίδης as first coach in 1980.",
+      "publicationVerified": false,
+      "archiveReview": {
+        "work": "1996 original club anniversary history",
+        "printedPages": [
+          84
+        ],
+        "note": "Original 1996 wrestling history mentions a 'Καρυπίδης Ν.' in early coaching/activity. This does not verify AI report's Αλέκος Καρυπίδης as first coach in 1980."
+      }
+    },
+    {
+      "personId": "arch-93a0d57ed2bd",
+      "name": "Αναστασία Φυλακτακίδου",
+      "sourcePdfPage": "13",
+      "originalSourceToLocate": "Ονομαστικά φύλλα μπάσκετ",
+      "canonicalBioLength": 93,
+      "verifiedNewClaim": true,
+      "claimStatus": "PRIMARY_CLUB_PUBLICATION_INSPECTED",
+      "publicEvidence": [],
+      "requiredNextStep": "Independent corroboration optional for expanded medal/performance assertions; current limited role/participation claim supported by original club publication",
+      "publicationVerified": true,
+      "sourceInspection": {
+        "work": "Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης, 40 χρόνια έντονης αθλητικής δραστηριότητας, Κατερίνη 1996",
+        "printedPages": [
+          62
+        ],
+        "sourceType": "Original club-issued printed anniversary report; scanned copy inspected visually",
+        "claim": "Fylaktakidou Anast. listed among women's basketball players; name abbreviated"
+      }
+    },
+    {
+      "personId": "arch-a2775cc75551",
+      "name": "Αριστοτέλης Γιαμούζης",
+      "sourcePdfPage": "13",
+      "originalSourceToLocate": "Αγωνιστικές αποστολές κολύμβησης 1994",
+      "canonicalBioLength": 73,
+      "verifiedNewClaim": true,
+      "claimStatus": "PRIMARY_CLUB_PUBLICATION_INSPECTED",
+      "publicEvidence": [],
+      "requiredNextStep": "Independent corroboration optional for expanded medal/performance assertions; current limited role/participation claim supported by original club publication",
+      "publicationVerified": true,
+      "sourceInspection": {
+        "work": "Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης, 40 χρόνια έντονης αθλητικής δραστηριότητας, Κατερίνη 1996",
+        "printedPages": [
+          95
+        ],
+        "sourceType": "Original club-issued printed anniversary report; scanned copy inspected visually",
+        "claim": "Giamouzis Arist. listed in 1992–93 swimming coaching effort"
+      }
+    },
+    {
+      "personId": "arch-34fb3ea60fda",
+      "name": "Ασπασία Οικονομικού",
+      "sourcePdfPage": "13",
+      "originalSourceToLocate": "Πρακτικά τμήματος γυμναστικής",
+      "canonicalBioLength": 88,
+      "verifiedNewClaim": false,
+      "claimStatus": "SURNAME_ONLY_IDENTITY_UNCONFIRMED",
+      "publicEvidence": [],
+      "requiredNextStep": "Original 1996 gymnastics history names a coach 'Οικονομικού' beside Sofia Beza but not the forename Ασπασία; do not derive identity from surname alone.",
+      "publicationVerified": false,
+      "archiveReview": {
+        "work": "1996 original club anniversary history",
+        "printedPages": [
+          64
+        ],
+        "note": "Original 1996 gymnastics history names a coach 'Οικονομικού' beside Sofia Beza but not the forename Ασπασία; do not derive identity from surname alone."
+      }
+    },
+    {
+      "personId": "arch-58930b0fec6b",
+      "name": "Δημήτριος Γκόρτσιος",
+      "sourcePdfPage": "14",
+      "originalSourceToLocate": "Μητρώο γυμναστών",
+      "canonicalBioLength": 85,
+      "verifiedNewClaim": false,
+      "claimStatus": "ORIGINAL_SPECIFIC_SOURCE_PENDING",
+      "publicEvidence": [],
+      "requiredNextStep": "Locate and read specific original dated clipping/roster/minutes, verify identity and club; do not publish PDF-only claims",
+      "publicationVerified": false
+    },
+    {
+      "personId": "arch-95b9b74036d7",
+      "name": "Κωνσταντίνος Κουρατίδης",
+      "sourcePdfPage": "14",
+      "originalSourceToLocate": "Φύλλα αγώνα ΟΧΕ",
+      "canonicalBioLength": 77,
+      "verifiedNewClaim": true,
+      "claimStatus": "PRIMARY_CLUB_PUBLICATION_INSPECTED",
+      "publicEvidence": [],
+      "requiredNextStep": "Independent corroboration optional for expanded medal/performance assertions; current limited role/participation claim supported by original club publication",
+      "publicationVerified": true,
+      "sourceInspection": {
+        "work": "Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης, 40 χρόνια έντονης αθλητικής δραστηριότητας, Κατερίνη 1996",
+        "printedPages": [
+          73
+        ],
+        "sourceType": "Original club-issued printed anniversary report; scanned copy inspected visually",
+        "claim": "Kouratidis K. listed as women's handball coach in 1992–93; initial only"
+      }
+    },
+    {
+      "personId": "arch-2672a628bae1",
+      "name": "Πηνελόπη Ζουρνά",
+      "sourcePdfPage": "14",
+      "originalSourceToLocate": "Μητρώο προπονητριών",
+      "canonicalBioLength": 99,
+      "verifiedNewClaim": false,
+      "claimStatus": "CLAIM_REQUIRES_BOARD_MINUTES",
+      "publicEvidence": [],
+      "requiredNextStep": "Club anniversary history separately names 1978 gymnastics instructor Θ. Πασπάλη; does not confirm supplied report's detailed appointment of Penelope Zourna. Needs dated original minutes.",
+      "publicationVerified": false,
+      "archiveReview": {
+        "work": "1996 original club anniversary history",
+        "printedPages": [
+          63,
+          64
+        ],
+        "note": "Club anniversary history separately names 1978 gymnastics instructor Θ. Πασπάλη; does not confirm supplied report's detailed appointment of Penelope Zourna. Needs dated original minutes."
+      }
+    },
+    {
+      "personId": "arch-7748331a90c6",
+      "name": "Σοφία Μπέζα",
+      "sourcePdfPage": "14",
+      "originalSourceToLocate": "Αρχειακή πηγή προπονητικού έργου",
+      "canonicalBioLength": 89,
+      "verifiedNewClaim": true,
+      "claimStatus": "PRIMARY_CLUB_PUBLICATION_INSPECTED",
+      "publicEvidence": [],
+      "requiredNextStep": "Independent corroboration optional for expanded medal/performance assertions; current limited role/participation claim supported by original club publication",
+      "publicationVerified": true,
+      "sourceInspection": {
+        "work": "Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης, 40 χρόνια έντονης αθλητικής δραστηριότητας, Κατερίνη 1996",
+        "printedPages": [
+          64
+        ],
+        "sourceType": "Original club-issued printed anniversary report; scanned copy inspected visually",
+        "claim": "Sofia Beza named as girls gymnastics coach; next period she handled women's department exclusively"
+      }
+    },
+    {
+      "personId": "arch-bcae6917dd16",
+      "name": "Απόστολος Γιαννούλης",
+      "sourcePdfPage": "21",
+      "originalSourceToLocate": "Πρωτότυπα αποτελέσματα κολύμβησης",
+      "canonicalBioLength": 89,
+      "verifiedNewClaim": false,
+      "claimStatus": "ORIGINAL_SPECIFIC_SOURCE_PENDING",
+      "publicEvidence": [],
+      "requiredNextStep": "Locate and read specific original dated clipping/roster/minutes, verify identity and club; do not publish PDF-only claims",
+      "publicationVerified": false
+    },
+    {
+      "personId": "arch-9aa7033496a6",
+      "name": "Αικατερίνη Καραπαναγιωτίδου",
+      "sourcePdfPage": "21",
+      "originalSourceToLocate": "**Διαφωνία μικρού ονόματος** (PDF: Δέσποινα)",
+      "canonicalBioLength": 94,
+      "verifiedNewClaim": false,
+      "claimStatus": "NAME_CONFLICT_HOLD",
+      "publicEvidence": [],
+      "requiredNextStep": "In club anniversary book printed p. 94, athlete listed as 'Καραπαναγιωτίδου Άννα'; later team roster has an abbreviated given name. Supplied AI report calls her Δέσποινα; canonical currently Αικατερίνη. No identity unification or performance attribution without official registry.",
+      "publicationVerified": false,
+      "archiveReview": {
+        "work": "1996 original club anniversary history",
+        "printedPages": [
+          94,
+          97
+        ],
+        "note": "In club anniversary book printed p. 94, athlete listed as 'Καραπαναγιωτίδου Άννα'; later team roster has an abbreviated given name. Supplied AI report calls her Δέσποινα; canonical currently Αικατερίνη. No identity unification or performance attribution without official registry."
+      }
+    },
+    {
+      "personId": "arch-2120637eed24",
+      "name": "Παντελής Λογγινίδης",
+      "sourcePdfPage": "21",
+      "originalSourceToLocate": "Πρωτότυπο αγωνιστικό αποτέλεσμα",
+      "canonicalBioLength": 79,
+      "verifiedNewClaim": true,
+      "claimStatus": "PRIMARY_CLUB_PUBLICATION_INSPECTED",
+      "publicEvidence": [],
+      "requiredNextStep": "Independent corroboration optional for expanded medal/performance assertions; current limited role/participation claim supported by original club publication",
+      "publicationVerified": true,
+      "sourceInspection": {
+        "work": "Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης, 40 χρόνια έντονης αθλητικής δραστηριότητας, Κατερίνη 1996",
+        "printedPages": [
+          98
+        ],
+        "sourceType": "Original club-issued printed anniversary report; scanned copy inspected visually",
+        "claim": "Pantelis Longginidis named among 12-year pre-competition swimmers 1993–94 and highlighted for performances; no individual time specified"
+      }
+    },
+    {
+      "personId": "arch-e9a3df83459e",
+      "name": "Ιωάννης Προβατίδης",
+      "sourcePdfPage": "21",
+      "originalSourceToLocate": "Πρωτότυπο αγωνιστικό αποτέλεσμα",
+      "canonicalBioLength": 91,
+      "verifiedNewClaim": true,
+      "claimStatus": "PRIMARY_CLUB_PUBLICATION_INSPECTED",
+      "publicEvidence": [],
+      "requiredNextStep": "Independent corroboration optional for expanded medal/performance assertions; current limited role/participation claim supported by original club publication",
+      "publicationVerified": true,
+      "sourceInspection": {
+        "work": "Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης, 40 χρόνια έντονης αθλητικής δραστηριότητας, Κατερίνη 1996",
+        "printedPages": [
+          96,
+          97
+        ],
+        "sourceType": "Original club-issued printed anniversary report; scanned copy inspected visually",
+        "claim": "Ioannis Provatidis named in 1993–94 competition roster; explicitly identified at winter meeting"
+      }
+    }
+  ],
+  "primaryClubPublicationCrosschecked": 13,
+  "pendingOriginalSpecificEvidence": 12,
+  "reviewSummary": "13/25 ID-mapped short biographies have source-limited additions grounded in original 1996 club anniversary volume; one also cites an independent TA NEA athlete interview. 12/25 require different original documents or identity disambiguation. Original archive uses initials for a small number of names; do not infer extra historical claims.",
+  "originalClubPublicationVerifiedPersons": 13,
+  "independentThirdPartyVerifiedPersons": 1
+}
