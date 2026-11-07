@@ -30,8 +30,8 @@ installations. No desktop app or OAuth setup is performed by this PR.
 
 The PR includes `.agents/mcp_config.json` for Antigravity. Only the
 GitHub **read-only** MCP endpoint and the public Cloudflare docs MCP are
-pre-enabled. The Cloudflare API MCP remains disabled pending reviewed,
-minimal-scope OAuth, and no credential/token is committed.
+pre-enabled. Both the Cloudflare API and Firecrawl search-only MCP remain
+**disabled** pending reviewed, least-privilege OAuth. No tokens are committed.
 
 This config is available to Antigravity only when this branch is checked out
 (or later merged). No local desktop setting, global profile, client installation,
@@ -56,14 +56,19 @@ Official setup: https://antigravity.google/docs/mcp
     node --test automation/agent-kit/*.test.mjs
     node automation/agent-kit/mcp-doctor.mjs
     node automation/agent-kit/mcp-doctor.mjs --config /path/to/your/mcp_config.json
+    node automation/agent-kit/worker-gates.mjs
 
-The MCP doctor is an **offline** read-only inspector. It prints only two
+The MCP doctor is an **offline** read-only inspector. It checks four
 allowlisted MCP IDs and status: PREPARED_DISABLED, NOT_CONFIGURED,
 ENDPOINT_MISMATCH, or CONFIGURED_UNVERIFIED. It never displays config values,
 secret strings or OAuth credentials; `CONFIGURED_UNVERIFIED` does NOT imply a
 successful installation, authenticated request, provider permissions, or
 runtime availability. The default reads only the committed disabled example;
 the `--config` option checks an explicitly supplied local Antigravity file.
+
+The Worker Gate inspector reads only the actual repository TOML and package
+metadata and never infers authenticated RPC, deployments or CI from source.
+See `CLOUDFLARE_WORKER_TOOLING.md` for the five-stage roadmap and commands.
 
 The commands operation prints registered commands but never runs them. External
 commands may consume credits or trigger workflows; check permission/budget first.
