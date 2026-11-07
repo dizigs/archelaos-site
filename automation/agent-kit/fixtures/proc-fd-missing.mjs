@@ -1,20 +1,27 @@
-// Static test fixture: simulate loss of /proc/self/fd at documented points.
+// Static isolated regression fixture. Test mode comes from a fixed local file.
 import fs from 'node:fs';
 import { syncBuiltinESMExports } from 'node:module';
+import { readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { run } from './cli.mjs';
 
-const input = JSON.parse(process.argv[2]);
+const home = dirname(fileURLToPath(import.meta.url));
+const mode = readFileSync(join(home, 'descriptor-mode.txt'), 'utf8');
+if (!['before-private', 'after-private', 'at-log-open'].includes(mode)) {
+  throw new Error('INVALID_FIXTURE_MODE');
+}
 const original = fs.openSync;
-let unavailable = input.mode === 'before-private';
-fs.openSync = (path, ...args) => {
-  if (input.mode === 'at-log-open' && String(path).endsWith('/activity.jsonl')) unavailable = true;
+let unavailable = mode === 'before-private';
+fs.openSync = (path, ...options) => {
+  if (mode === 'at-log-open' && String(path).endsWith('/activity.jsonl')) unavailable = true;
   if (unavailable && String(path).startsWith('/proc/self/fd/')) {
     const error = new Error('SIMULATED_DESCRIPTOR_PATH_MISSING');
     error.code = 'ENOENT';
     throw error;
   }
-  const fd = original(path, ...args);
-  if (input.mode === 'after-private' && String(path).endsWith('/.private')) unavailable = true;
+  const fd = original(path, ...options);
+  if (mode === 'after-private' && String(path).endsWith('/.private')) unavailable = true;
   return fd;
 };
 syncBuiltinESMExports();
