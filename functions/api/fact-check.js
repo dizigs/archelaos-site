@@ -3,7 +3,7 @@
 const SITEKEY='0x4AAAAAAFoyKwIFuvMbrcAd';
 const json=(status,data)=>new Response(JSON.stringify(data),{status,headers:{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'}});
 export function onRequestGet({env}){return json(200,{ready:Boolean(env.FACTCHECK_DB&&env.TURNSTILE_SECRET),sitekey:SITEKEY});}
-const validClaim=x=>typeof x==='string'&&/^TF0(?:[0-5][0-9]|6[01])$/.test(x);
+const validClaim=x=>typeof x==='string'&&/^TF(?:00[1-9]|0[1-5][0-9]|06[01])$/.test(x);
 const clean=(x,max)=>typeof x==='string'&&x.length<=max?x.replace(/[\u0000-\u001F\u007F]/g,' ').trim():null;
 async function verify(token,request,secret){if(typeof token!=='string'||token.length<1||token.length>2048)return false;try{const r=await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({secret,response:token})});if(!r.ok)return false;const data=await r.json();return data.success===true&&data.hostname===new URL(request.url).hostname&&data.action==='fact_check';}catch{return false;}}
 export async function onRequestPost({request,env}){
