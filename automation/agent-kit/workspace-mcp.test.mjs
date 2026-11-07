@@ -8,12 +8,13 @@ const config = JSON.parse(readFileSync(new URL('../../.agents/mcp_config.json', 
 test('Antigravity workspace MCP config contains only trusted endpoints', () => {
   assert.deepEqual(Object.keys(config), ['mcpServers']);
   assert.deepEqual(Object.keys(config.mcpServers).sort(), [
-    'cloudflare-api', 'cloudflare-docs', 'github-readonly',
+    'cloudflare-api', 'cloudflare-docs', 'firecrawl-search', 'github-readonly',
   ]);
   const expected = {
     'github-readonly': 'https://api.githubcopilot.com/mcp/x/all/readonly',
     'cloudflare-docs': 'https://docs.mcp.cloudflare.com/mcp',
     'cloudflare-api': 'https://mcp.cloudflare.com/mcp',
+    'firecrawl-search': 'https://mcp.firecrawl.dev/v2/mcp-search',
   };
   for (const [name, entry] of Object.entries(config.mcpServers)) {
     assert.equal(entry.serverUrl, expected[name]);
@@ -23,18 +24,22 @@ test('Antigravity workspace MCP config contains only trusted endpoints', () => {
   assert.doesNotMatch(JSON.stringify(config), /AIza[A-Za-z0-9_-]{20,}|gh[pousr]_[A-Za-z0-9_]{20,}|sk-[A-Za-z0-9_-]{20,}|Bearer\s+\S+/);
 });
 
-test('only GitHub readonly and public Cloudflare docs are pre-enabled', () => {
+test('only GitHub readonly and public Cloudflare docs are pre-enabled; private APIs need OAuth', () => {
   assert.equal(config.mcpServers['github-readonly'].disabled, false);
   assert.equal(config.mcpServers['cloudflare-docs'].disabled, false);
   assert.equal(config.mcpServers['cloudflare-api'].disabled, true);
+  assert.equal(config.mcpServers['firecrawl-search'].disabled, true);
   const statuses = inspectMcpConfiguration(config);
   assert.equal(statuses.find(x => x.id === 'github-readonly').status, 'CONFIGURED_UNVERIFIED');
   assert.equal(statuses.find(x => x.id === 'cloudflare-api').status, 'PREPARED_DISABLED');
+  assert.equal(statuses.find(x => x.id === 'cloudflare-docs').status, 'CONFIGURED_UNVERIFIED');
+  assert.equal(statuses.find(x => x.id === 'firecrawl-search').status, 'PREPARED_DISABLED');
   assert.ok(statuses.every(x => !x.authenticated && !x.verified));
 });
 
 test('workspace file cannot authorize merge/deploy or certify provider OAuth', () => {
   assert.equal(config.mcpServers['cloudflare-api'].disabled, true);
+  assert.equal(config.mcpServers['firecrawl-search'].disabled, true);
   assert.equal(config.mcpServers['github-readonly'].serverUrl.endsWith('/readonly'), true);
   assert.equal(Object.hasOwn(config.mcpServers, 'google-workspace'), false);
 });
