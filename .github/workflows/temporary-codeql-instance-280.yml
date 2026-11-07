@@ -1,0 +1,28 @@
+name: Temporary CodeQL PR280 alert instance evidence
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/temporary-codeql-instance-280.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    if: github.event.pull_request.number == 284 && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    permissions:
+      contents: read
+      security-events: read
+    steps:
+      - name: Read only bounded PR280 alert instance state
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          resource="repos/${GITHUB_REPOSITORY}/code-scanning/alerts/13"
+          gh api "$resource/instances?pr=280" --jq '.[] | select(.ref == "refs/pull/280/merge") | "INSTANCE_STATE=\(.state // "null") COMMIT_SHA=\(.commit_sha // "null") LOCATION=\(.location.path // "null"):\(.location.start_line // 0)"'
+          gh api "$resource" --jq '"ROOT_STATE=\(.state // "null") MOST_RECENT_INSTANCE_STATE=\(.most_recent_instance.state // "null") MOST_RECENT_INSTANCE_SHA=\(.most_recent_instance.commit_sha // "null")"'
