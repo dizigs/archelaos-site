@@ -1,0 +1,76 @@
+{
+  "recordedAt": "2026-11-07T07:17:54.948926+02:00",
+  "checkpoint": "0b8df424d82fa53206846db448a862ee37634076",
+  "branch": "codex/private-hmac-acceptance",
+  "observedMain": "edb817f5077caec5a1495be11f0f90ba66d91e02",
+  "status": "LOCAL_GATES_PASS_HOSTED_PENDING",
+  "rootCause": "constructor and __proto__ resolve inherited local Service Binding SDK JavaScript intrinsics; the old blanket null-or-rejected expectation conflated them with remote RPC capabilities. Native name/descriptor/identity diagnostics confirm no private-property leak.",
+  "repair": "Test harness only: exact local SDK identity/descriptor checks, retain remote property denial and every(Boolean), add actual native RpcTarget/computed/inherited-getter negative controls and six hostile local prototype/accessor mutations.",
+  "runtimeModulesUnchanged": true,
+  "dedicatedNative": {
+    "tests": 11,
+    "pass": 11,
+    "fail": 0,
+    "skipped": 0,
+    "cancelled": 0
+  },
+  "fullBrain": {
+    "tests": 154,
+    "pass": 154,
+    "fail": 0,
+    "skipped": 0,
+    "cancelled": 0
+  },
+  "healerIntegrationPass": 117,
+  "pythonPass": 17,
+  "syntaxModulesPass": 46,
+  "runtimeAuditVulnerabilities": 0,
+  "dryRuns": {
+    "brain": {
+      "passed": true,
+      "upload": false,
+      "output": "brain-bundle/worker.js",
+      "sha256": "f213342da341a6beb499673a456cb61db0b3502ba8fc91adabb64ef099c69628"
+    },
+    "healer": {
+      "passed": true,
+      "upload": false,
+      "output": "healer-bundle/worker.js",
+      "sha256": "cd2d2648a2a19c2aa4d3e9f39a74bbd20a1af70d3a4954c0b0d0b08b55fc7688"
+    },
+    "candidate": {
+      "passed": true,
+      "upload": false,
+      "output": "candidate-bundle/private_hmac_candidate.js",
+      "sha256": "11ad5d734c2dc07533f3d696e0db46079416219935b94a6e802ff119b7ae15fd"
+    }
+  },
+  "sourceSha256": {
+    "brain/src/private_hmac_protocol.mjs": "05e39f1f208d295c46fb155737905d87aa9773fb08f6f50b96ffde09c423cafb",
+    "brain/src/private_hmac_candidate.mjs": "30a45d09bff684b165eb3e1733592084cff574cbdd4de818663196ad93d1bbc7",
+    "brain/test/private_hmac_acceptance.test.mjs": "4fb0264c8fccb568338186e9fb685880d16568d20b91614a36d7c55e4a362c4f"
+  },
+  "evidenceSha256": {
+    "audit.log": "6d8c5c8f3d7684adb070417bd608d01ae90aa3dc26a65af03ffda4955f38d9a3",
+    "brain-build.log": "44b90b1b3350b8bf16f831efefd4b634d3585db1ad974bb7ec27f654384e40a6",
+    "candidate-build.log": "b235ea6899f526a2dc004d2a5802f35f47bab6ecb5222ed8cad2ef07738a2249",
+    "fixed-native-11.tap": "8e60148d5cf0904e22d3afaa807ce9b20578d2c377c5d856ea13c4c64623a8f2",
+    "full-brain.tap": "8e420379d003401c0ffd5ba2a4978b56ebe44a91bff4e1e1af4e8af9dc72cbd6",
+    "healer-build.log": "2e39a7ceb384ca456c4c43e9c3e53e9fc75e9dba056e6d850e6e09291e37a26f",
+    "healer-integration.log": "1050be6d30e477d40e1b5aec39862fd8dfe6a04b548b5c1b9cc49c552e1339ff",
+    "property-diagnostic.tap": "32a4d3aa15ac2caa38b276499b54b79b9ef166262d79a563bbfce395b17d69a8",
+    "python.log": "893f13e13e5682da50086f78e8eda11e7efe567d4dec9cfd1c789e00aeeb6b24",
+    "reproduced-10-of-11.tap": "2699c733e027a322d2c5b17c49725d09c4be16bf9877390c5fa9e825767d9dfe",
+    "syntax.log": "991b83e7b99793f60f1d32b3744522685464811fd27f893f3d7588b9162d2396"
+  },
+  "notPerformed": [
+    "paid Antigravity or other AI API",
+    "merge or rebase",
+    "deployment/upload",
+    "live challenge/activation",
+    "real HMAC secret readback",
+    "secret or binding changes",
+    "foreign branch/source changes"
+  ],
+  "liveAcceptance": "NO-GO; separate approval and attested private isolated rollback required"
+}
