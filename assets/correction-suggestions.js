@@ -61,6 +61,8 @@ function inspect(root){
   const excerpt=(root.querySelector('.an-detail,.arch-bio-description,.arc-bio-text,.reader-content,.dialog-body')?.textContent||title).replace(/\s+/g,' ').trim().slice(0,500);
   // Store a canonical record link, not unrelated visitor search parameters.
   const url=new URL(location.pathname,location.origin);
+  // Cloudflare Pages redirects .html routes to extensionless URLs; persist canonical page paths.
+  if(url.pathname!=='/'&&!url.pathname.endsWith('.html')&&!url.pathname.endsWith('/'))url.pathname+='.html';
   if(kind==='news'){url.pathname='/news.html';url.searchParams.set('article',id)}
   else if(kind==='person'){url.pathname='/hall-of-fame.html';url.searchParams.set('person',id)}
   try{
