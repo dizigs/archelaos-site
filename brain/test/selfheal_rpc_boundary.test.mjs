@@ -85,7 +85,13 @@ test('named BrainRecoveryPort exposes exactly three review-only RPC methods and 
   // the actual class declaration in an isolated VM (methods are not invoked),
   // then inspect *all* own keys and accessor descriptors at JavaScript runtime.
   // The next test also exercises the real named Miniflare RPC service binding.
-  const declaration = source.slice(source.indexOf(marker)).replace(/^export /, '');
+  // Include the real BrainRecoveryPort prototype but exclude only the exact
+  // reviewed, dormant named QA re-export from this no-module VM harness.
+  const qaExport = "export { BrainHmacAcceptancePort, PrivateHmacNonceStore } from './private_hmac_candidate.mjs';";
+  assert.equal(source.split(qaExport).length, 2, 'only one reviewed QA named export');
+  const declaration = source.slice(source.indexOf(marker))
+    .replace(qaExport, '')
+    .replace(/^export /, '');
   const prototype = runInNewContext(
     declaration + '\nBrainRecoveryPort.prototype',
     { WorkerEntrypoint: class {} }, { timeout: 1000 }
