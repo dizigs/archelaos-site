@@ -1,0 +1,95 @@
+{
+  "generated_on": "2026-11-05",
+  "repository": "dizigs/archelaos-site",
+  "target": "hall-of-fame-people.json",
+  "public_snapshot_count": 773,
+  "status": "internal_review_only_not_published",
+  "policy": "One clear, event-specific linked source is sufficient for identity, participation or an achievement, including local media republishing club-supplied reports. Independent reporting organizations and second event sources are not required. Validate person identity, affiliation at the event, exact event/date/result and duplicates before public merge.",
+  "candidates": [
+    {
+      "name": "Χαράλαμπος Κορδωνούλης",
+      "name_en": "Charalambos Kordonoulis",
+      "category": "athlete",
+      "role": "Αθλητής · Ελληνορωμαϊκή πάλη",
+      "bio_el": "Αθλητής της ελληνορωμαϊκής πάλης του Γ.Α.Σ. «Αρχέλαος» Κατερίνης. Καταγράφηκε μεταξύ των αθλητών που εκπροσώπησαν τον σύλλογο στο Πανελλήνιο Πρωτάθλημα Εφήβων στα Τρίκαλα τον Απρίλιο του 2024. Στο Πανελλήνιο Πρωτάθλημα Ελληνορωμαϊκής Πάλης U20 στις Σέρρες τον Απρίλιο του 2025 κατέλαβε την 5η θέση στα 72 κιλά, σύμφωνα με την επίσημη κατάταξη της Ελληνικής Ομοσπονδίας Πάλης.",
+      "refs": [
+        {
+          "label": "Ο Διάλογος · Συμμετοχές Αρχέλαου στο Πανελλήνιο Εφήβων, 21/04/2024 (αναδημοσίευση ανακοίνωσης συλλόγου)",
+          "url": "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/3%CE%B7-%CE%BA%CE%B1%CE%BB%CF%8D%CF%84%CE%B5%CF%81%CE%B7-%CE%BF%CE%BC%CE%AC%CE%B4%CE%B1-%CF%83%CF%84%CE%B7%CE%BD-%CE%B5%CE%BB%CE%BB%CE%AC%CE%B4%CE%B1-%CE%B7-%CF%80%CE%AC%CE%BB%CE%B7-%CF%84%CE%BF%CF%85/"
+        },
+        {
+          "label": "ΕΛΟΠ · Πανελλήνιο U20, επίσημη κατάταξη 72 κιλών, 26/04/2025",
+          "url": "https://www.elop.gr/wp-content/uploads/2025/04/U20-SERRES-RANKING.pdf"
+        }
+      ],
+      "checks": {
+        "not_in_public_773": true,
+        "distinct_event_records": 2,
+        "independent_publisher_claim": false
+      }
+    },
+    {
+      "name": "Αχιλλέας Πασσιράνης",
+      "name_en": "Achilleas Passiranis",
+      "category": "athlete",
+      "role": "Αθλητής · Ελληνορωμαϊκή πάλη",
+      "bio_el": "Αθλητής του Γ.Α.Σ. «Αρχέλαος» Κατερίνης στην ελληνορωμαϊκή πάλη. Κατέκτησε την 3η θέση στα 38 κιλά του Πανελληνίου Πρωταθλήματος U15 στα Τρίκαλα τον Μάιο του 2022. Στο Πανελλήνιο Πρωτάθλημα U15 στον Τύρναβο τον Μάρτιο του 2023 καταγράφηκε και πάλι στην 3η θέση της ίδιας κατηγορίας βάρους.",
+      "refs": [
+        {
+          "label": "ΕΛΟΠ · Πανελλήνιο U15 ελληνορωμαϊκής, 15/05/2022",
+          "url": "https://www.elop.gr/%CE%BF-%CF%80%CE%B1%CE%BF%CE%BA-%CF%80%CF%81%CF%89%CF%84%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%AE%CF%82-u15-%CF%83%CF%84%CE%B7%CE%BD-%CE%B5%CE%BB%CE%BB%CE%B7%CE%BD%CE%BF%CF%81%CF%89%CE%BC%CE%B1%CF%8A%CE%BA/"
+        },
+        {
+          "label": "ΕΛΟΠ · Πανελλήνιο U15 ελληνορωμαϊκής, 12/03/2023",
+          "url": "https://www.elop.gr/%CE%BF-%CE%B1%CF%80%CF%83-%CF%84%CF%81%CE%B9%CE%BA%CE%AC%CE%BB%CF%89%CE%BD-%CF%80%CF%81%CF%89%CF%84%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%AE%CF%82-u15-%CF%83%CF%84%CE%B7%CE%BD-%CE%B5%CE%BB%CE%BB%CE%B7/"
+        },
+        {
+          "label": "SPORTSFEED · Ανεξάρτητο αθλητικό μέσο που καταγράφει την κατάταξη του 2022",
+          "url": "https://sportsfeed.gr/o-paok-proteyse-sto-panellinio-paidon-stin-ellinoromaiki/"
+        }
+      ],
+      "checks": {
+        "not_in_public_773": true,
+        "distinct_event_records": 2,
+        "independent_publisher_claim": false
+      }
+    },
+    {
+      "name": "Ευάγγελος Κορδωνούλης",
+      "name_en": "Evangelos Kordonoulis",
+      "category": "athlete",
+      "role": "Αθλητής · Ελληνορωμαϊκή πάλη",
+      "bio_el": "Αθλητής της ελληνορωμαϊκής πάλης του Γ.Α.Σ. «Αρχέλαος» Κατερίνης. Κατέλαβε τη 2η θέση στα 44 κιλά του Πανελληνίου Πρωταθλήματος U15 στον Τύρναβο τον Μάρτιο του 2023. Στην επίσημη κατάταξη του Πανελληνίου Πρωταθλήματος U17 τον Απρίλιο του 2025 καταγράφεται 5ος στα 60 κιλά με τον Αρχέλαο.",
+      "refs": [
+        {
+          "label": "ΕΛΟΠ · Πανελλήνιο U15, 12/03/2023",
+          "url": "https://www.elop.gr/%CE%BF-%CE%B1%CF%80%CF%83-%CF%84%CF%81%CE%B9%CE%BA%CE%AC%CE%BB%CF%89%CE%BD-%CF%80%CF%81%CF%89%CF%84%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%AE%CF%82-u15-%CF%83%CF%84%CE%B7%CE%BD-%CE%B5%CE%BB%CE%BB%CE%B7/"
+        },
+        {
+          "label": "ΕΛΟΠ · Πανελλήνιο U17, επίσημη κατάταξη 60 κιλών, 12/04/2025",
+          "url": "https://www.elop.gr/wp-content/uploads/2025/04/u17-gr-rankings.pdf"
+        }
+      ],
+      "checks": {
+        "not_in_public_773": true,
+        "distinct_event_records": 2,
+        "independent_publisher_claim": false
+      }
+    }
+  ],
+  "source_validation_notes": [
+    "One clearly attributable local report, including reproduced club announcements, is accepted as a single valid source when event facts are explicit; no second source is required.",
+    "Different competitions recorded by ELOP count as different evidence documents, not as independent reporting organizations.",
+    "PDF screenshot tool unavailable due to cache miss at research time; facts supported by indexed extracted ranking text and require provider readback before public publication.",
+    "No claimed public Hall update or production deployment.",
+    "Research rule updated 2026-11-07: source links below article tags, never as image caption; photo and factual provenance must identify relevant article."
+  ],
+  "other_names_pending_identity_or_source_validation": [
+    "Παναγιώτης Κουτούπας",
+    "Ηλίας Τσιβαλίδης",
+    "Κέβιν Χασανλάρι",
+    "Άγγελος Γιασσιράνης",
+    "Δημοσθένης Κατσιγιάννης",
+    "Δημήτρης Σαμπάνης"
+  ]
+}
