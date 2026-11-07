@@ -13,3 +13,13 @@ test('Antigravity workspace tool skill is discoverable and scoped', () => {
   assert.match(text, /Never expose API keys/);
   assert.match(text, /do not merge|Do not merge/i);
 });
+
+test('all three Antigravity workspace skills have valid frontmatter and safe defaults', () => {
+  const names = ['archelaos-tool-registry','archelaos-site-qa','archelaos-source-research'];
+  for (const name of names) {
+    const skill = readFileSync(new URL('../../.agents/skills/' + name + '/SKILL.md', import.meta.url), 'utf8');
+    assert.match(skill, new RegExp('^---\\nname: ' + name + '\\ndescription: [^\\n]+\\n---\\n'));
+    assert.match(skill, /AGENTS\.md/);
+    assert.match(skill, /not|Never|Do not|NO_/i);
+  }
+});
