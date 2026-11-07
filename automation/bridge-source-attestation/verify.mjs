@@ -1,0 +1,116 @@
+/** Offline, read-only integrity gate for a PRIVATE Cloudflare Worker source export.
+ * Never prints or uploads module contents. Does not talk to GitHub/Cloudflare.
+ */
+import {readFile, lstat, realpath} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+import {resolve, relative, sep} from 'node:path';
+import {pathToFileURL} from 'node:url';
+
+const SHA1 = /^[a-f0-9]{40}$/;
+const SHA256 = /^[a-f0-9]{64}$/;
+const SAFE = /^[a-zA-Z0-9._/-]+$/;
+export function gitBlob(bytes) {
+  return createHash('sha1').update('blob '+bytes.length+'\0').update(bytes).digest('hex');
+}
+export function sha256(bytes) {
+  return createHash('sha256').update(bytes).digest('hex');
+}
+function checkedName(name) {
+  if (typeof name !== 'string' || !SAFE.test(name) || name.startsWith('/') ||
+      name.split('/').some(part => part === '..' || part === '.' || part === '')) {
+    throw new Error('UNSAFE_MANIFEST_PATH');
+  }
+  return name;
+}
+async function safeBytes(root, name) {
+  checkedName(name);
+  const base = await realpath(root);
+  const candidate = resolve(base, name);
+  if (relative(base, candidate).startsWith('..' + sep) || candidate === base) {
+    throw new Error('OUTSIDE_PRIVATE_SOURCE_ROOT');
+  }
+  let part = base;
+  for (const segment of name.split('/')) {
+    part = resolve(part, segment);
+    const stat = await lstat(part);
+    if (stat.isSymbolicLink()) throw new Error('SYMLINK_FORBIDDEN');
+  }
+  const stat = await lstat(candidate);
+  if (!stat.isFile() || stat.size > 262144) throw new Error('INVALID_MODULE_FILE');
+  return readFile(candidate);
+}
+export function validateManifest(manifest) {
+  if (manifest?.schema !== 'archelaos.bridge.deployed-source.v1' ||
+      !Array.isArray(manifest.modules) || manifest.modules.length < 1) {
+    throw new Error('INVALID_MANIFEST');
+  }
+  const names = new Set();
+  for (const item of manifest.modules) {
+    checkedName(item.name);
+    if (names.has(item.name) || !SHA1.test(item.git_blob_sha1) ||
+        !SHA256.test(item.sha256) || !Number.isSafeInteger(item.bytes) ||
+        item.bytes < 1 || item.bytes > 262144) throw new Error('INVALID_MANIFEST_ENTRY');
+    names.add(item.name);
+    if (item.repo_path !== null) checkedName(item.repo_path);
+    if (item.repo_blob_sha1 !== null && !SHA1.test(item.repo_blob_sha1))
+      throw new Error('INVALID_REPO_BLOB');
+    if ((item.repo_path === null) !== (item.repo_blob_sha1 === null))
+      throw new Error('INCOMPLETE_REPO_MAPPING');
+  }
+  return manifest;
+}
+export async function verifyPrivate(root, manifest) {
+  validateManifest(manifest);
+  const records = [];
+  for (const item of manifest.modules) {
+    let status;
+    try {
+      const bytes = await safeBytes(root, item.name);
+      status = (bytes.length === item.bytes && sha256(bytes) === item.sha256 &&
+        gitBlob(bytes) === item.git_blob_sha1) ? 'MATCH' : 'CONTENT_MISMATCH';
+    } catch (e) {
+      status = e.code === 'ENOENT' ? 'MISSING' : (e.message || 'READ_FAILURE');
+    }
+    records.push({name:item.name,status});
+  }
+  return {status:records.every(r => r.status === 'MATCH') ? 'ATTESTED_PRIVATE_COPY' : 'BLOCKED', records};
+}
+export async function verifyRepo(root, manifest) {
+  validateManifest(manifest);
+  const records=[];
+  for (const item of manifest.modules) {
+    if (item.repo_path === null) {
+      records.push({name:item.name,status:'NO_PUBLIC_REPO_COUNTERPART'});
+      continue;
+    }
+    let status;
+    try {
+      const bytes = await safeBytes(root, item.repo_path);
+      const blob = gitBlob(bytes);
+      status = blob !== item.repo_blob_sha1 ? 'REPO_BASELINE_CHANGED' :
+        blob === item.git_blob_sha1 ? 'EXACT_DEPLOYED_MATCH' : 'EXPECTED_DEPLOYED_DRIFT';
+    } catch(e) {
+      status = e.code === 'ENOENT' ? 'REPO_FILE_MISSING' : (e.message || 'READ_FAILURE');
+    }
+    records.push({name:item.name,status});
+  }
+  const unexpected=records.some(r => !['EXACT_DEPLOYED_MATCH','EXPECTED_DEPLOYED_DRIFT','NO_PUBLIC_REPO_COUNTERPART'].includes(r.status));
+  const recovered=records.every(r=>r.status==='EXACT_DEPLOYED_MATCH');
+  return {status:unexpected?'UNEXPECTED_REPO_DRIFT':recovered?'MATCH':'SOURCE_RECOVERY_BLOCKED',records};
+}
+if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
+  const [mode,root='.',file=new URL('./manifest.json',import.meta.url).pathname] = process.argv.slice(2);
+  if (!['repo','private'].includes(mode)) {
+    console.error('Usage: node verify.mjs repo|private <repo-root|private-export-root> [manifest.json]');
+    process.exitCode=64;
+  } else {
+    try {
+      const manifest=JSON.parse(await readFile(file,'utf8'));
+      const result=mode==='repo'?await verifyRepo(root,manifest):await verifyPrivate(root,manifest);
+      for(const row of result.records) console.log(row.name+': '+row.status);
+      console.log('RESULT: '+result.status);
+      if (result.status === 'UNEXPECTED_REPO_DRIFT') process.exitCode=3;
+      else if (!['ATTESTED_PRIVATE_COPY','MATCH'].includes(result.status)) process.exitCode=2;
+    } catch(e) {console.error('ATTESTATION_FAILED:',e.message);process.exitCode=3;}
+  }
+}
