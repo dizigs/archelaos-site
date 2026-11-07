@@ -1,6 +1,6 @@
 /* News reader: source-led items, shareable deep links, locally saved favorites. */
 (()=>{'use strict';
-const $=id=>document.getElementById(id),PAGE_SIZE=19,state={items:[],category:'all',query:'',page:Math.max(1,Number.parseInt(new URLSearchParams(location.search).get('page')||'1',10)||1)};
+const $=id=>document.getElementById(id),PAGE_SIZE=19,state={items:[],category:'all',query:'',tag:new URLSearchParams(location.search).get('tag')||'',page:Math.max(1,Number.parseInt(new URLSearchParams(location.search).get('page')||'1',10)||1)};
 const en=()=>document.documentElement.lang==='en';
 const t=(a,b)=>en()?b:a;
 const norm=s=>String(s||'').toLocaleLowerCase('el').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/ς/g,'σ');
@@ -44,7 +44,18 @@ function media(x,cls){
 }
 function info(x){return {title:x.title,summary:x.summary,href:'news.html?article='+encodeURIComponent(x.id)}}
 function heart(x,cls){return window.ArchelaosFavorites?.button('news',x.id,cls,info(x))||document.createElement('span')}
-function meta(x){const m=document.createElement('div');m.className='an-meta';for(const value of [label(x),x.sport,fmt(x.date)]){const s=document.createElement('span');s.textContent=value;m.append(s)}return m}
+function meta(x){
+ const m=document.createElement('div');m.className='an-meta';
+ const cat=document.createElement('span');cat.textContent=label(x);m.append(cat);
+ if(String(x.sport||'').trim()){
+  const a=link('/news.html?tag='+encodeURIComponent(x.sport),x.sport);
+  a.className='an-topic-tag';
+  a.setAttribute('aria-label',t('Δείτε ειδήσεις με tag: ','Browse news tag: ')+x.sport);
+  m.append(a);
+ }
+ const date=document.createElement('span');date.textContent=fmt(x.date);m.append(date);
+ return m;
+}
 function articleLink(x,cls){
  const a=document.createElement('a');
  a.className=cls;
@@ -69,6 +80,7 @@ function card(x){
 function pageUrl(page){
  const url=new URL(location.href);
  url.searchParams.delete('article');
+ if(!state.tag)url.searchParams.delete('tag');
  if(page===1)url.searchParams.delete('page');
  else url.searchParams.set('page',String(page));
  return url.pathname+url.search+url.hash;
@@ -111,9 +123,9 @@ function renderPagination(pageCount){
 function draw(){
  const q=norm(state.query.trim());
  const lead=state.items.find(i=>i.featured)||state.items[0];
- const showLead=state.category==='all'&&!q&&!!lead;
+ const showLead=state.category==='all'&&!q&&!state.tag&&!!lead;
  $('an-feature').hidden=!showLead||state.page!==1;
- const items=state.items.filter(x=>(!showLead||x.id!==lead?.id)&&(state.category==='all'||x.category===state.category)&&(!q||(window.ArchelaosSportSearch?window.ArchelaosSportSearch.sportMatch([x.title,x.summary,x.sport,x.source,...(x.body||[])].join(' '),q):norm([x.title,x.summary,x.sport,x.source,...(x.body||[])].join(' ')).includes(q)))).sort((a,b)=>b.date.localeCompare(a.date));
+ const items=state.items.filter(x=>(!showLead||x.id!==lead?.id)&&(state.category==='all'||x.category===state.category)&&(!state.tag||(window.ArchelaosSportSearch?window.ArchelaosSportSearch.matches(x.sport,state.tag):norm(x.sport)===norm(state.tag)))&&(!q||(window.ArchelaosSportSearch?window.ArchelaosSportSearch.sportMatch([x.title,x.summary,x.sport,x.source,...(x.body||[])].join(' '),q):norm([x.title,x.summary,x.sport,x.source,...(x.body||[])].join(' ')).includes(q)))).sort((a,b)=>b.date.localeCompare(a.date));
  const total=items.length+(showLead?1:0);
  const pageCount=Math.max(1,Math.ceil(total/PAGE_SIZE));
  state.page=Math.min(Math.max(1,state.page),pageCount);
@@ -129,6 +141,11 @@ function draw(){
  const last=Math.min(state.page*PAGE_SIZE,total);
  $('an-count').textContent=t('Εμφάνιση ','Showing ')+first+'–'+last+' / '+total+t(' ειδήσεις',' stories')+(showLead&&state.page===1?t(' · 1 προτεινόμενη',' · 1 featured'):'');
  renderPagination(pageCount);
+ if(state.tag){
+  const clear=link('/news.html',t('Καθαρισμός tag: ','Clear tag: ')+state.tag);
+  clear.className='an-clear-tag';
+  $('an-count').append(' · ',clear);
+ }
 }
 function featured(){
  const x=state.items.find(i=>i.featured)||state.items[0];if(!x)return;
@@ -201,9 +218,9 @@ $('an-dialog-heart').addEventListener('click',()=>{if(!active||!window.Archelaos
 $('an-close').addEventListener('click',()=>dialog.close());
 dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});
 dialog.addEventListener('close',()=>{active=null;const url=new URL(location.href);url.searchParams.delete('article');history.replaceState(null,'',url);if(lastFocus?.isConnected)lastFocus.focus({preventScroll:true})});
-$('an-search').addEventListener('input',e=>{state.query=e.target.value;state.page=1;history.replaceState(null,'',pageUrl(1));draw()});
-document.querySelectorAll('.an-filter').forEach(b=>b.addEventListener('click',()=>{state.category=b.dataset.category;state.page=1;history.replaceState(null,'',pageUrl(1));document.querySelectorAll('.an-filter').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));draw()}));
-window.addEventListener('popstate',()=>{state.page=Math.max(1,Number.parseInt(new URLSearchParams(location.search).get('page')||'1',10)||1);draw();const id=new URLSearchParams(location.search).get('article');if(id&&id!==active?.id)show(id)});
+$('an-search').addEventListener('input',e=>{state.query=e.target.value;state.tag='';state.page=1;history.replaceState(null,'',pageUrl(1));draw()});
+document.querySelectorAll('.an-filter').forEach(b=>b.addEventListener('click',()=>{state.category=b.dataset.category;state.tag='';state.page=1;history.replaceState(null,'',pageUrl(1));document.querySelectorAll('.an-filter').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));draw()}));
+window.addEventListener('popstate',()=>{state.tag=new URLSearchParams(location.search).get('tag')||'';state.page=Math.max(1,Number.parseInt(new URLSearchParams(location.search).get('page')||'1',10)||1);draw();const id=new URLSearchParams(location.search).get('article');if(id&&id!==active?.id)show(id)});
 document.addEventListener('archelaos:favorites-change',()=>{if(active){let b=$('an-dialog-heart'),on=window.ArchelaosFavorites.has('news',active.id);b.setAttribute('aria-pressed',String(on));b.querySelector('span').textContent=on?'♥':'♡'}});
 fetch('/news.json?rev=20261101-archive2019',{cache:'no-store'}).then(r=>r.ok?r.json():Promise.reject(Error('HTTP '+r.status))).then(data=>{
  if(!Array.isArray(data.items))throw Error('Bad news index');state.items=data.items.filter(x=>x&&x.id&&x.title&&x.date&&!x.unverified).sort((a,b)=>b.date.localeCompare(a.date));
