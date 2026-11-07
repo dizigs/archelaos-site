@@ -102,12 +102,18 @@ async function fixture({ wrongKey = false, omitHmacPeer = false } = {}) {
       assert.equal(response.status, 200);
       return response.json();
     },
-    async public404() {
-      for (const name of ['archelaos-brain-staging', 'archelaos-self-heal']) {
+    async publicFailClosed() {
+      // The actual Brain rejects HTTP with 503 before routing when staging is
+      // deliberately expired. Unlike the Healer's default 404 this is expected
+      // and stronger than allowing any public QA route.
+      for (const [name, expectedStatus] of [
+        ['archelaos-brain-staging', 503],
+        ['archelaos-self-heal', 404],
+      ]) {
         const worker = await mf.getWorker(name);
         for (const endpoint of ['/', '/qa', '/selfheal/dispatch']) {
           const response = await worker.fetch('https://local.invalid' + endpoint, { method: 'POST' });
-          assert.equal(response.status, 404, name + ' must have no public QA entrypoint');
+          assert.equal(response.status, expectedStatus, name + ' must remain HTTP fail-closed');
         }
       }
     },
@@ -121,7 +127,7 @@ async function fixture({ wrongKey = false, omitHmacPeer = false } = {}) {
   };
 }
 
-test('operational Brain and Healer modules complete one local private HMAC RPC; no repair and HTTP 404', async () => {
+test('operational Brain and Healer modules complete one local private HMAC RPC; no repair and HTTP denied', async () => {
   const f = await fixture();
   try {
     const reply = await f.run();
@@ -130,7 +136,7 @@ test('operational Brain and Healer modules complete one local private HMAC RPC; 
     assert.equal(reply.actionsExecuted, 0);
     assert.match(reply.challengeDigest, /^[0-9a-f]{64}$/);
     assert.equal(JSON.stringify(reply).includes(KEY), false);
-    await f.public404();
+    await f.publicFailClosed();
   } finally { await f.close(); }
 });
 
@@ -142,7 +148,7 @@ test('actual operational ports refuse wrong HMAC key and missing private QA peer
       assert.deepEqual(reply, {
         status: 'UNKNOWN', code: 'PRIVATE_HMAC_ACCEPTANCE_UNVERIFIED', actionsExecuted: 0,
       });
-      await f.public404();
+      await f.publicFailClosed();
     } finally { await f.close(); }
   }
 });
