@@ -64,21 +64,14 @@ async function main(){
   if(!/^[0-9a-f]{40}$/.test(sha))throw Error('Invalid pinned SHA');
   const input={agent:'antigravity-preview-09-2026',input:prompt,
     environment:'5c2c34e172bbf5022b4d155ec9c5d29f',
-    previous_interaction_id:'v1_ChdLU192YW8zTERxYWV6N0lQLV9LMHNRcxIXS1NfdmFvM0xEcWFlejdJUC1fSzBzUXM',
     agent_config:{type:'antigravity',max_total_tokens:1200000},background:true,store:true};
   const base='https://generativelanguage.googleapis.com/v1beta/interactions';
   note('## Antigravity — full repository local sandbox HMAC repair');
   note('Github live run: '+(process.env.GITHUB_RUN_URL||'N/A'));
   note('Pinned PR #288 source SHA: '+sha);
-  note('Repo source: REAL Git clone /workspace/archelaos-site (not ZIP).');
-  let initial;
-  try { initial=await api(base,'POST',input); }
-  catch(e) {
-    if(!/HTTP 400|HTTP 409|HTTP 412|HTTP 422/.test(String(e))) throw e;
-    note('CANCELLED_CONTEXT_RESUME_UNSUPPORTED: preserving previous environment, retry once without conversation pointer');
-    delete input.previous_interaction_id;
-    initial=await api(base,'POST',input);
-  }
+  note('Repo source: retained existing Google filesystem /workspace/archelaos-site (not recloned).');
+  note('RESUMING_FILESYSTEM_ONLY_FROM_CANCELLED_PARENT');
+  const initial=await api(base,'POST',input);
   if(initial.environment_id !== '5c2c34e172bbf5022b4d155ec9c5d29f') throw Error('RETAINED_ENVIRONMENT_ID_MISMATCH');
   if(typeof initial.id!=='string'||!/^[A-Za-z0-9_-]{5,160}$/.test(initial.id))throw Error('Interaction returned no valid ID');
   metadata.interactionId=initial.id;
