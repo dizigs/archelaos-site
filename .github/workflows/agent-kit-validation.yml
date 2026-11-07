@@ -4,7 +4,7 @@ on:
   pull_request:
     paths:
       - 'automation/agent-kit/**'
-      - '.agents/skills/archelaos-tool-registry/**'
+      - '.agents/skills/archelaos-*/**'
       - '.github/workflows/agent-kit-validation.yml'
   workflow_dispatch:
 
