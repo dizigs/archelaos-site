@@ -5,6 +5,8 @@ on:
     paths:
       - 'archelaos-history-events.json'
       - 'rebuild/data/moments.json'
+      - 'news.json'
+      - 'hall-of-fame-people.json'
       - 'rebuild/tools/build_archive_relationships.py'
       - 'rebuild/tests/archive_relationships_test.py'
       - 'assets/news.js'
