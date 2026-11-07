@@ -9,8 +9,22 @@ export function requireSafeFilesystem() {
   }
 }
 export function heldPath(directory,leaf) {
-  if (!Number.isInteger(directory) || !/^[a-z][a-z.]*$/.test(leaf)) throw new Error('PRIVATE_PATH_INVALID');
+  if (!Number.isInteger(directory) || !['.private','activity.lock','activity.jsonl'].includes(leaf)) throw new Error('PRIVATE_PATH_INVALID');
+  assertDescriptorDirectory(directory);
   return '/proc/self/fd/'+directory+'/'+leaf;
+}
+export function assertDescriptorDirectory(directory) {
+  let probe;
+  try {
+    const expected=fstatSync(directory,{bigint:true});
+    // Follow ONLY this kernel self-descriptor magic link, never a private leaf.
+    // Compare opened inode identity before interpreting any child ENOENT as empty.
+    probe=openSync('/proc/self/fd/'+directory,constants.O_RDONLY|constants.O_DIRECTORY);
+    const actual=fstatSync(probe,{bigint:true});
+    if(!expected.isDirectory()||!actual.isDirectory()||expected.dev!==actual.dev||expected.ino!==actual.ino)
+      throw new Error('DESCRIPTOR_PATHS_UNAVAILABLE');
+  }catch{throw new Error('DESCRIPTOR_PATHS_UNAVAILABLE');}
+  finally{if(probe!==undefined)closeSync(probe);}
 }
 export function assertRegularDescriptor(fd,maxBytes,privateOwner=false) {
   const stat=fstatSync(fd,{bigint:true});
@@ -49,13 +63,19 @@ export function withPrivateDirectory(here,create,operation) {
   try {
     // Directory-relative access through a held Linux descriptor. Never follow
     // .private or re-resolve its parent pathname between validation and use.
-    const path='/proc/self/fd/'+root+'/.private';
+    const path=heldPath(root,'.private');
     if (create) {
       try {mkdirSync(path,{mode:0o700});}
       catch(error){if(error.code!=='EEXIST')throw error;}
     }
     try {directory=openSync(path,constants.O_RDONLY|constants.O_DIRECTORY|constants.O_NOFOLLOW);}
-    catch(error){if(!create&&error.code==='ENOENT')return operation(undefined);throw error;}
+    catch(error){
+      if(!create&&error.code==='ENOENT'){
+        assertDescriptorDirectory(root);
+        return operation(undefined);
+      }
+      throw error;
+    }
     const stat=fstatSync(directory,{bigint:true});
     if (!stat.isDirectory() || stat.uid!==BigInt(process.getuid()) || (stat.mode&0o077n)!==0n)
       throw new Error('PRIVATE_DIRECTORY_PERMISSIONS_UNSAFE');

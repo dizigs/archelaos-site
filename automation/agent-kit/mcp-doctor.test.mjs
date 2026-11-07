@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtempSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
+import { copyFileSync, mkdtempSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { spawnSync } from 'node:child_process';
@@ -74,16 +74,20 @@ test('FIFO config is rejected promptly rather than blocking a private reader',()
 test('unsupported nofollow platform fails before reading even a regular config',()=>{
   const dir=mkdtempSync(join(tmpdir(),'agentkit-platform-'));try {
     const filename=join(dir,'config.json');writeFileSync(filename,'{"mcpServers":{}}');
-    const script=`Object.defineProperty(process,'platform',{value:'win32'});const {inspectFile}=await import(${JSON.stringify(new URL('./mcp-doctor.mjs',import.meta.url).href)});try{inspectFile(process.argv[1]);process.exitCode=0}catch{console.error('FILESYSTEM_SAFETY_UNAVAILABLE');process.exitCode=1}`;
-    const r=spawnSync(process.execPath,['--input-type=module','-e',script,filename],{encoding:'utf8'});
+    for(const name of ['mcp-doctor.mjs','private-io.mjs'])copyFileSync(new URL(name,import.meta.url),join(dir,name));
+    const script="Object.defineProperty(process,'platform',{value:'win32'});const {inspectFile}=await import('./mcp-doctor.mjs');try{inspectFile(process.argv[2]);process.exitCode=0}catch(error){console.error(error.message);process.exitCode=1}";
+    const fixture=join(dir,'platform-fixture.mjs');writeFileSync(fixture,script);
+    const r=spawnSync(process.execPath,[fixture,filename],{encoding:'utf8'});
     assert.equal(r.status,1);assert.match(r.stderr,/FILESYSTEM_SAFETY_UNAVAILABLE/);
   }finally{rmSync(dir,{recursive:true,force:true})}
 });
 test('oversized config fails before an unbounded read',()=>{
   const dir=mkdtempSync(join(tmpdir(),'agentkit-large-'));try {
     const filename=join(dir,'config.json');writeFileSync(filename,' '.repeat(65536)+'{}');
-    const script=`import fs from 'node:fs';import {syncBuiltinESMExports} from 'node:module';const {inspectFile}=await import(${JSON.stringify(new URL('./mcp-doctor.mjs',import.meta.url).href)});fs.readFileSync=()=>{throw Error('UNBOUNDED_READ_USED')};syncBuiltinESMExports();try{inspectFile(process.argv[1]);process.exitCode=2}catch(e){console.error(e.message);process.exitCode=1}`;
-    const r=spawnSync(process.execPath,['--input-type=module','-e',script,filename],{encoding:'utf8'});
+    for(const name of ['mcp-doctor.mjs','private-io.mjs'])copyFileSync(new URL(name,import.meta.url),join(dir,name));
+    const script="import fs from 'node:fs';import {syncBuiltinESMExports} from 'node:module';import {inspectFile} from './mcp-doctor.mjs';fs.readFileSync=()=>{throw Error('UNBOUNDED_READ_USED')};syncBuiltinESMExports();try{inspectFile(process.argv[2]);process.exitCode=2}catch(e){console.error(e.message);process.exitCode=1}";
+    const fixture=join(dir,'large-fixture.mjs');writeFileSync(fixture,script);
+    const r=spawnSync(process.execPath,[fixture,filename],{encoding:'utf8'});
     assert.equal(r.status,1);assert.match(r.stderr,/TOO_LARGE/);assert.doesNotMatch(r.stderr,/UNBOUNDED_READ_USED/);
   }finally{rmSync(dir,{recursive:true,force:true})}
 });

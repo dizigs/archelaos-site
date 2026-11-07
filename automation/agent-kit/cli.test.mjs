@@ -4,7 +4,6 @@ import { copyFileSync, linkSync, mkdirSync, mkdtempSync, readFileSync, rmSync, s
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { spawn, spawnSync } from 'node:child_process';
-import { fileURLToPath, pathToFileURL } from 'node:url';
 import {
   createReceipt, isSafeEvidence, run, validateEvents, validateRegistry,
 } from './cli.mjs';
@@ -202,10 +201,40 @@ test('directory replacement after open cannot redirect an audit append',()=>{
     const outside=join(f.dir,'outside');mkdirSync(outside,{mode:0o700});
     const previous=JSON.stringify(createReceipt({registry,toolId:'github',commandId:'checks',outcome:'PASS',evidence,at:proofTime}))+'\n';
     writeFileSync(join(outside,'activity.jsonl'),previous,{mode:0o600});
-    const script=`import fs from 'node:fs';import{syncBuiltinESMExports}from'node:module';import{join}from'node:path';const{run}=await import(${JSON.stringify(pathToFileURL(join(f.dir,'cli.mjs')).href)});const original=fs.openSync;let swapped=false;fs.openSync=(path,...args)=>{const fd=original(path,...args);if(!swapped&&String(path).endsWith('/.private')){swapped=true;fs.renameSync(join(process.argv[1],'.private'),join(process.argv[1],'held-private'));fs.symlinkSync(join(process.argv[1],'outside'),join(process.argv[1],'.private'),'dir')}return fd};syncBuiltinESMExports();console.log(JSON.stringify(run(${JSON.stringify(f.args)})));`;
-    const result=spawnSync(process.execPath,['--input-type=module','-e',script,f.dir],{encoding:'utf8'});
+    const script=String.raw`import fs from 'node:fs';import{syncBuiltinESMExports}from'node:module';import{join}from'node:path';import{run}from'./cli.mjs';
+      const input=JSON.parse(process.argv[3]);
+      const original=fs.openSync;let swapped=false;
+      fs.openSync=(path,...args)=>{const fd=original(path,...args);if(!swapped&&String(path).endsWith('/.private')){
+        swapped=true;fs.renameSync(join(process.argv[2],'.private'),join(process.argv[2],'held-private'));
+        fs.symlinkSync(join(process.argv[2],'outside'),join(process.argv[2],'.private'),'dir')}return fd};
+      syncBuiltinESMExports();console.log(JSON.stringify(run(input.args)));`;
+    const payload=JSON.stringify({args:f.args}),fixture=join(f.dir,'swap-fixture.mjs');
+    writeFileSync(fixture,script);
+    const result=spawnSync(process.execPath,[fixture,f.dir,payload],{encoding:'utf8'});
     assert.equal(result.status,0,result.stderr);
     assert.equal(readFileSync(join(outside,'activity.jsonl'),'utf8'),previous);
     assert.equal(validateEvents(readFileSync(join(f.dir,'held-private','activity.jsonl'),'utf8'),registry).count,1);
+  }finally{f.close()}
+});
+test('verify cannot report an existing audit log empty when descriptor paths disappear',()=>{
+  const f=isolatedCli();try {
+    assert.equal(f.execute(...f.args).status,0);
+    const log=join(f.dir,'.private','activity.jsonl'),before=readFileSync(log,'utf8');
+    const script=String.raw`import fs from 'node:fs';import{syncBuiltinESMExports}from'node:module';import{run}from'./cli.mjs';
+      const input=JSON.parse(process.argv[2]);
+      const original=fs.openSync;let unavailable=input.mode==='before-private';
+      fs.openSync=(path,...args)=>{if(input.mode==='at-log-open'&&String(path).endsWith('/activity.jsonl'))unavailable=true;
+        if(unavailable&&String(path).startsWith('/proc/self/fd/')){
+        const error=new Error('SIMULATED_DESCRIPTOR_PATH_MISSING');error.code='ENOENT';throw error}
+        const fd=original(path,...args);if(input.mode==='after-private'&&String(path).endsWith('/.private'))unavailable=true;return fd};
+      syncBuiltinESMExports();try{console.log(JSON.stringify(run(['verify'])))}catch(error){console.error(error.message);process.exitCode=1}`;
+    const fixture=join(f.dir,'proc-fixture.mjs');writeFileSync(fixture,script);
+    for(const mode of ['before-private','after-private','at-log-open']) {
+      const payload=JSON.stringify({mode});
+      const r=spawnSync(process.execPath,[fixture,payload],{encoding:'utf8'});
+      assert.equal(r.status,1,'descriptor path failure must not become an empty valid log: '+mode);
+      assert.match(r.stderr,/DESCRIPTOR_PATHS_UNAVAILABLE/);
+      assert.equal(readFileSync(log,'utf8'),before);
+    }
   }finally{f.close()}
 });

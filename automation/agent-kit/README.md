@@ -103,6 +103,9 @@ and record from `.private`/log symlink redirection. Owner-only permissions,
 regular single-link files, bounded reads and metadata consistency checks are
 required; config reads are capped at64KiB and the audit log at8MiB. Valid receipts
 without their final newline retain a separator before the next append.
+Descriptor magic-link availability and inode identity are checked before child
+lookups and again on `ENOENT`. If `/proc/self/fd` is unavailable, verification
+fails as `DESCRIPTOR_PATHS_UNAVAILABLE`; it cannot report a lost log as empty.
 
 A persistent version-marked lock file is protected by a kernel `flock` held
 through the open descriptor. Writers wait at most2seconds and report

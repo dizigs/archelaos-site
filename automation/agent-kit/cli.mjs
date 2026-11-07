@@ -8,7 +8,7 @@ import {spawnSync} from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import {assertRegularDescriptor,heldPath,isMainModule,readBoundedDescriptor,readBoundedFile,withPrivateDirectory} from './private-io.mjs';
+import {assertDescriptorDirectory,assertRegularDescriptor,heldPath,isMainModule,readBoundedDescriptor,readBoundedFile,withPrivateDirectory} from './private-io.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const REGISTRY_PATH = join(HERE, 'registry.json');
@@ -217,7 +217,10 @@ export function run(argv = process.argv.slice(2), registry = loadRegistry()) {
         let log='',descriptor;
         if(directory!==undefined) {
           try {descriptor=openSync(heldPath(directory,'activity.jsonl'),constants.O_RDONLY|constants.O_NOFOLLOW|constants.O_NONBLOCK);}
-          catch(error){if(error.code!=='ENOENT')throw error;}
+          catch(error){
+            if(error.code!=='ENOENT')throw error;
+            assertDescriptorDirectory(directory);
+          }
           if(descriptor!==undefined) {
             try {log=readBoundedDescriptor(descriptor,MAX_LOG_BYTES,true);}
             finally {closeSync(descriptor);}
