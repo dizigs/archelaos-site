@@ -1,13 +1,8 @@
 name: Gemini PR295 Hall source enrichment (advisory only)
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [labeled]
     branches: [main]
-    paths:
-      - '.github/workflows/gemini-pr295-hof-enrichment.yml'
-      - 'docs/research/gemini6-hof-achievement-triage-20261107.md'
-      - 'docs/research/gemini6-external-evidence-20261107.md'
-      - 'docs/research/hof-source-report-addendum-20261107.md'
 
 permissions:
   contents: read
@@ -18,7 +13,7 @@ concurrency:
 
 jobs:
   editorial-research:
-    if: github.event.pull_request.number == 295 && github.event.pull_request.head.repo.full_name == github.repository
+    if: github.event.pull_request.number == 295 && github.event.label.name == 'gemini-hof-api-ready' && github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
