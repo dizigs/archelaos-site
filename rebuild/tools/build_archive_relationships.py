@@ -124,8 +124,22 @@ def compile_graph(*,people,news,moments,stories,interviews,museum,home,history):
                 connect(node,"department:"+m.group(1),"interview_department")
     for x in history:
         event="event:"+x["id"]
-        for pid in sorted(set(x.get("people") or [])):
+        verified_people=sorted(set(x.get("people") or []))
+        for pid in verified_people:
             link_person(event,pid,"historical_person")
+        # Existing source_moment values are editorial cross-references to the
+        # 70 Moments collection; never infer a match from titles or years.
+        number=x.get("source_moment")
+        if number is not None:
+            moment="moment:"+str(number)
+            if moment not in nodes:
+                raise ValueError("Unknown source moment "+str(number))
+            connect(event,moment,"source_moment")
+            for pid in verified_people:
+                connect(moment,"person:"+pid,"moment_person")
+            sport=sport_id(x.get("category"))
+            if sport and "department:"+sport in nodes:
+                connect(moment,"department:"+sport,"moment_department")
     for a in museum.get("articles",[]):
         if "department:"+str(a["id"]) in nodes:
             connect("exhibit:"+a["id"],"department:"+a["id"],"department_exhibit")
