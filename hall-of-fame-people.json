@@ -2305,10 +2305,16 @@
       "name_en": "Epameinondas Kourtis",
       "role": "Προπονητικό επιτελείο · Στίβος",
       "role_en": "Coaching staff · Athletics",
-      "bio": "Μέλος του προπονητικού δυναμικού του τμήματος στίβου του Γ.Α.Σ. «Αρχέλαος» Κατερίνης.",
-      "bio_en": "Worked with the coaching staff of the athletics department at G.A.S. Archelaos Katerinis.",
+      "bio": "Μέλος του προπονητικού δυναμικού του τμήματος στίβου του Γ.Α.Σ. «Αρχέλαος» Κατερίνης.\n\nΣε συνέντευξη στην εφημερίδα «ΤΑ ΝΕΑ» στις 8 Αυγούστου 2003, η πρωταθλήτρια δισκοβολίας Κατερίνα Βόγγολη αναφέρθηκε ονομαστικά στον Επαμεινώνδα Κούρτη ως τον πρώτο προπονητή της.",
+      "bio_en": "Worked with the coaching staff of the athletics department at G.A.S. Archelaos Katerinis.\n\nIn an interview with TA NEA on 8 August 2003, Greek discus champion Katerina Voggoli named Epameinondas Kourtis as her first coach.",
       "category": "coach",
-      "id": "arch-dc38c1018a66"
+      "id": "arch-dc38c1018a66",
+      "refs": [
+        {
+          "label": "ΤΑ ΝΕΑ · Συνέντευξη Κατερίνας Βόγγολη (8/8/2003)",
+          "url": "https://www.tanea.gr/2003/08/08/greece/20-epwthseis-katepina-boggolh/"
+        }
+      ]
     },
     {
       "name": "Ιωάννης Κριζαλιώτης",
