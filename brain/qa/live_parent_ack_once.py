@@ -267,6 +267,7 @@ def restore(state):
 def qa_script(method, payload=None):
     name="archelaos-parent-ack-one-shot-qa"
     path=f"https://api.cloudflare.com/client/v4/accounts/{ACCOUNT}/workers/scripts/{name}"
+    if method=="GET":path+="/settings"
     headers={"Authorization":"Bearer "+os.environ["CLOUDFLARE_API_TOKEN"],"Accept":"application/json"}
     req=urllib.request.Request(path,headers=headers,method=method)
     try:
