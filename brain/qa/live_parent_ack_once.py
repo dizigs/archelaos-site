@@ -327,11 +327,11 @@ def probe(session):
                 deny("QA_REMOTE_TIMEOUT")
         emit("REAL_PROVIDER_CI_VERIFICATION_BEGIN")
         result=call({"op":"run"})
-        if result.get("status")!="ACKNOWLEDGED" or
-           result.get("stage")!="FIRST_ACK_AND_INTERNAL_READBACK" or
-           result.get("providerVerified") is not True or
-           result.get("recoveryExecuted") is not False or
-           result.get("aiCalls")!=0 or not valid_uuid(result.get("receiptId")):
+        if (result.get("status")!="ACKNOWLEDGED" or
+            result.get("stage")!="FIRST_ACK_AND_INTERNAL_READBACK" or
+            result.get("providerVerified") is not True or
+            result.get("recoveryExecuted") is not False or
+            result.get("aiCalls")!=0 or not valid_uuid(result.get("receiptId"))):
             stage=result.get("stage","UNKNOWN")
             if stage not in ("PROVENANCE","PROVENANCE_RPC_EXCEPTION","FIRST_ACK","CONFIG","INPUT","ONE_ATTEMPT_ONLY"):
                 stage="UNEXPECTED"
