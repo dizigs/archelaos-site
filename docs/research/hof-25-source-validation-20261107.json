@@ -7,7 +7,7 @@
   "canonicalCount": 774,
   "pdfRowsMapped": 25,
   "independentlyVerifiedNewFacts": 1,
-  "unverifiedNewPdfSpecificFacts": 13,
+  "unverifiedNewPdfSpecificFacts": 12,
   "identityConflictPersons": 2,
   "publicationRule": "No new published historical claim without original dated independent source, matching person and club in correct era; preserve 774 IDs and explicit source provenance.",
   "records": [
@@ -186,11 +186,19 @@
       "sourcePdfPage": "6",
       "originalSourceToLocate": "Αρχαιρεσίες 1996",
       "canonicalBioLength": 74,
-      "verifiedNewClaim": false,
-      "claimStatus": "ORIGINAL_SPECIFIC_SOURCE_PENDING",
+      "verifiedNewClaim": true,
+      "claimStatus": "PRIMARY_CLUB_PUBLICATION_INSPECTED_WITH_INITIAL_MATCH",
       "publicEvidence": [],
-      "requiredNextStep": "Locate and read specific original dated clipping/roster/minutes, verify identity and club; do not publish PDF-only claims",
-      "publicationVerified": false
+      "requiredNextStep": "For any additional biography claims, locate the full name in the 1987 election minutes; historical role and dates are directly printed in 1996 club volume.",
+      "publicationVerified": true,
+      "sourceInspection": {
+        "work": "Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης, 40 χρόνια έντονης αθλητικής δραστηριότητας, Κατερίνη 1996",
+        "printedPages": [
+          14
+        ],
+        "sourceType": "Original club-issued printed anniversary report; scanned page visually examined",
+        "claim": "Print lists Παπασταθόπουλος Ι. as board second vice-president 27-01-1987 to 28-02-1989; exact surname and role, forename abbreviated."
+      }
     },
     {
       "personId": "arch-76d5e1b729ae",
@@ -475,9 +483,9 @@
       }
     }
   ],
-  "primaryClubPublicationCrosschecked": 12,
-  "pendingOriginalSpecificEvidence": 13,
-  "reviewSummary": "12 of the 25 ID-mapped short biographies now have source-limited additions grounded in scanned pages of the club's original 1996 printed anniversary volume; one also has independent TA NEA interview. The remaining 13 require further original sources or identity disambiguation.",
-  "originalClubPublicationVerifiedPersons": 12,
+  "primaryClubPublicationCrosschecked": 13,
+  "pendingOriginalSpecificEvidence": 12,
+  "reviewSummary": "13/25 ID-mapped short biographies have source-limited additions grounded in original 1996 club anniversary volume; one also cites an independent TA NEA athlete interview. 12/25 require different original documents or identity disambiguation. Original archive uses initials for a small number of names; do not infer extra historical claims.",
+  "originalClubPublicationVerifiedPersons": 13,
   "independentThirdPartyVerifiedPersons": 1
 }
