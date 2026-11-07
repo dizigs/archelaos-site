@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="el">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#08251f">
+<meta name="description" content="Αρχέλαος — ιδιωτικό Control Center, ανεξάρτητο στατικό DEMO.">
+<title>ARCHELAOS · Private Control Center — DEMO</title>
+<link rel="stylesheet" href="./styles.css">
+<script src="./app.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Μετάβαση στο περιεχόμενο</a>
+<div class="background-orb orb-one" aria-hidden="true"></div><div class="background-orb orb-two" aria-hidden="true"></div>
+<div class="layout">
+<aside class="sidebar" id="sidebar" aria-label="Κύρια πλοήγηση">
+  <div class="brand"><div class="brand-seal" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M24 3 43 14v20L24 45 5 34V14L24 3Z"/><path d="M24 10v28M12 20h24M15 31l9-18 9 18"/></svg></div><div><strong>ΑΡΧΕΛΑΟΣ</strong><small>PRIVATE CONTROL CENTER</small></div></div>
+  <div class="sidebar-rule"></div>
+  <p class="section-label">ΚΕΝΤΡΟ ΔΙΟΙΚΗΣΗΣ</p>
+  <nav class="side-nav" aria-label="Ενότητες">
+    <a href="#overview" class="nav-link is-active" data-view="overview" aria-current="page"><span class="nav-icon">◈</span> Επισκόπηση <span class="nav-dot"></span></a>
+    <a href="#network" class="nav-link" data-view="network"><span class="nav-icon">⬡</span> Δίκτυο Workers</a>
+    <a href="#deployments" class="nav-link" data-view="deployments"><span class="nav-icon">⇧</span> Deployments</a>
+    <a href="#operations" class="nav-link" data-view="operations"><span class="nav-icon">▤</span> Εργασίες &amp; CI</a>
+    <a href="#security" class="nav-link" data-view="security"><span class="nav-icon">◇</span> Ασφάλεια</a>
+    <a href="#cost" class="nav-link" data-view="cost"><span class="nav-icon">◎</span> Κόστος AI</a>
+    <a href="#events" class="nav-link" data-view="events"><span class="nav-icon">≋</span> Χρονολόγιο</a>
+  </nav>
+  <div class="sidebar-spacer"></div>
+  <div class="sidebar-note">
+    <span class="tiny-kicker">ΠΕΡΙΒΑΛΛΟΝ</span><strong><span class="demo-dot"></span> DEMO / SANDBOX</strong>
+    <p>Εικονικά στοιχεία. Καμία σύνδεση παραγωγής ή πραγματική εντολή.</p>
+  </div>
+  <div class="sidebar-foot"><span>Γ.Α.Σ. «ΑΡΧΕΛΑΟΣ»</span><span>Κατερίνη · 1956</span></div>
+</aside>
+<div class="content-shell">
+<header class="topbar">
+  <div class="topbar-left"><button type="button" class="icon-button menu-button" id="menuToggle" aria-controls="sidebar" aria-expanded="false" aria-label="Άνοιγμα μενού">☰</button><span class="breadcrumb">ΔΙΑΧΕΙΡΙΣΗ <span class="crumb-sep">/</span> <span id="pageCrumb">Επισκόπηση</span></span></div>
+  <div class="topbar-right">
+    <span class="global-demo-label" role="note" aria-label="Στατικό DEMO, χωρίς πραγματικά δεδομένα">DEMO · OFFLINE</span>
+    <span class="topbar-time">Στιγμιότυπο επίδειξης · 06/11/2026</span>
+    <button type="button" class="icon-button" id="searchShortcut" aria-label="Άνοιγμα αναζήτησης" title="Αναζήτηση (/)" >⌕</button>
+    <button type="button" class="icon-button" id="helpButton" aria-label="Βοήθεια συντομεύσεων" title="Συντομεύσεις">?</button>
+    <span class="avatar" title="Εικονικός λογαριασμός">AC</span>
+  </div>
+</header>
+<main id="main" tabindex="-1">
+  <section class="intro section-visible" data-panel="overview">
+    <div><p class="eyebrow"><span class="eyebrow-line"></span> COMMAND OVERVIEW <span class="accent-star">✦</span> ΕΠΙΔΕΙΞΗ</p><h1>Το κέντρο των <em>πάντων.</em></h1><p class="intro-copy">Μία εικόνα για την υγεία του ιστότοπου, τον Brain, τους Workers και τις εργασίες του Αρχέλαου.</p></div>
+    <div class="intro-actions"><button class="button button-secondary" type="button" id="exportButton">⇩ Εξαγωγή DEMO JSON</button><button class="button button-gold" type="button" id="scenarioButton">✧ Εναλλαγή σεναρίου</button></div>
+  </section>
+  <section class="hero-card section-visible" data-panel="overview" aria-label="Συνολική εικόνα">
+    <div class="hero-copy"><div class="hero-status"><span class="status-pulse"></span> ΕΙΚΟΝΙΚΗ ΛΕΙΤΟΥΡΓΙΑ ΣΥΣΤΗΜΑΤΟΣ <span class="pill pill-outline">DEMO DATA</span></div><h2>Όλα σε έναν <span>παλμό.</span></h2><p>Δες τη ροή των αυτοματισμών με φωτεινά σήματα, εντοπίσε καθυστερήσεις και άνοιξε τα επιμέρους στοιχεία — χωρίς κανένα πραγματικό API.</p>
+      <div class="hero-meta"><div><small>ΚΕΝΤΡΙΚΟΣ BRAIN</small><strong id="heroBrain">Standby · DEMO</strong></div><span class="meta-divider"></span><div><small>ΣΕΝΑΡΙΟ</small><strong id="scenarioLabel">Ομαλή ροή</strong></div></div>
+    </div>
+    <div class="hero-art" aria-hidden="true"><div class="hero-halo h1"></div><div class="hero-halo h2"></div><div class="hero-halo h3"></div><div class="hero-core"><span>◈</span><b>BRAIN</b></div><span class="hero-spark spark-a"></span><span class="hero-spark spark-b"></span><span class="hero-spark spark-c"></span></div>
+  </section>
+  <section class="metrics-grid section-visible" data-panel="overview" aria-label="Συνοπτικοί δείκτες DEMO">
+    <article class="metric"><div class="metric-header"><span>ΥΓΕΙΑ SITE &amp; ΥΠΗΡΕΣΙΩΝ</span><span class="metric-symbol">↗</span></div><div class="metric-value"><strong id="metricHealth">98.6</strong><span>%</span></div><div class="metric-bottom"><span class="tag tag-green" id="healthTag">● DEMO · κανονική</span><small>Εικονική διαθεσιμότητα</small></div></article>
+    <article class="metric"><div class="metric-header"><span>WORKERS ONLINE</span><span class="metric-symbol">⬡</span></div><div class="metric-value"><strong id="metricWorkers">7</strong><span>/ 8</span></div><div class="metric-bottom"><span class="tag tag-green" id="workerMetricTag">● 1 standby</span><small>Εικονική κατάσταση</small></div></article>
+    <article class="metric"><div class="metric-header"><span>ΟΥΡΑ BRAIN</span><span class="metric-symbol">≋</span></div><div class="metric-value"><strong id="metricQueue">12</strong><span> jobs</span></div><div class="metric-bottom"><span class="tag tag-amber">◷ Προσομοίωση</span><small>Max 2 builders · demo</small></div></article>
+    <article class="metric"><div class="metric-header"><span>AI BUDGET</span><span class="metric-symbol">◎</span></div><div class="metric-value"><strong id="metricSpend">6.45</strong><span> €</span></div><div class="progress-track" aria-label="Εικονική χρήση προϋπολογισμού"><span id="metricSpendBar" style="width:32.25%"></span></div><div class="metric-bottom"><span class="tag tag-green" id="budgetTag">Εντός ορίου</span><small>Όριο 20 €/μήνα</small></div></article>
+  </section>
+  <div class="section-grid section-visible" data-panel="overview">
+    <section class="surface col-wide" aria-labelledby="networkTitle"><div class="surface-head"><div><p class="eyebrow">SYSTEM TOPOLOGY · DEMO</p><h2 id="networkTitle">Ζωντανή απεικόνιση <span class="heading-muted">ροής</span></h2></div><div class="surface-tools"><span class="mini-live"><i></i> SIMULATED LIVE</span><button class="small-button" id="pauseButton" type="button" aria-pressed="false">Ⅱ Παύση</button></div></div>
+      <p class="graph-caption">Τα φωτεινά πακέτα ταξιδεύουν μεταξύ Brain και Workers. Πάτησε κόμβο για λεπτομέρειες. Στον υπολογιστή εμφανίζεται το διάγραμμα· στο κινητό οι συνοπτικές κάρτες.</p>
+      <div class="mobile-live-panel" id="mobileLivePanel" aria-label="Συνοπτική εικόνα κινητού, εικονικά δεδομένα">
+        <div class="mobile-live-top">
+          <div><span class="mobile-live-kicker"><i aria-hidden="true"></i> SIMULATED <span>· DEMO</span></span><h3>Τι συμβαίνει τώρα;</h3></div>
+          <span class="mobile-live-counter" id="mobileEventCounter">Δείγμα 1 / 7</span>
+        </div>
+        <p class="mobile-live-disclaimer">Δυναμική προσομοίωση. <strong>Όχι σύνδεση παραγωγής.</strong></p>
+        <div class="mobile-live-cards">
+          <button class="mobile-live-card" type="button" data-detail="brain">
+            <span class="mobile-live-card-label"><span aria-hidden="true">✦</span> BRAIN</span>
+            <strong id="mobileBrainStatus">STANDBY</strong>
+            <small>Κεντρικός συντονιστής</small>
+          </button>
+          <button class="mobile-live-card" type="button" data-view-button="network">
+            <span class="mobile-live-card-label"><span aria-hidden="true">⬡</span> WORKERS</span>
+            <strong id="mobileWorkersStatus">7 / 8</strong>
+            <small>Εικονικά διαθέσιμοι</small>
+          </button>
+          <button class="mobile-live-card" type="button" data-view-button="operations">
+            <span class="mobile-live-card-label"><span aria-hidden="true">≋</span> QUEUE</span>
+            <strong id="mobileQueueStatus">12</strong>
+            <small>Εργασίες στην ουρά</small>
+          </button>
+          <button class="mobile-live-card" type="button" data-view-button="security">
+            <span class="mobile-live-card-label"><span aria-hidden="true">◇</span> SECURITY</span>
+            <strong id="mobileAlertsStatus">2</strong>
+            <small>Εικονικές ειδοποιήσεις</small>
+          </button>
+          <button class="mobile-live-card" type="button" data-view-button="deployments">
+            <span class="mobile-live-card-label"><span aria-hidden="true">⇧</span> DEPLOYMENTS</span>
+            <strong id="mobileDeployStatus">1 ενεργό</strong>
+            <small>Αναπτύξεις · DEMO</small>
+          </button>
+        </div>
+        <div class="mobile-live-event">
+          <div class="mobile-live-event-icon" aria-hidden="true">◉</div>
+          <div class="mobile-live-event-copy">
+            <span>ΤΕΛΕΥΤΑΙΟ ΔΟΚΙΜΑΣΤΙΚΟ ΣΥΜΒΑΝ</span>
+            <p id="mobileEventText" aria-live="off">Ένα εικονικό workflow ολοκλήρωσε έλεγχο ιδιωτικότητας.</p>
+          </div>
+          <button class="mobile-live-next" id="mobileNextEvent" type="button" aria-label="Επόμενο δοκιμαστικό συμβάν" title="Επόμενο δείγμα">↻</button>
+        </div>
+        <p class="visually-hidden" id="mobileEventAnnouncement" role="status" aria-live="polite" aria-atomic="true"></p>
+        <div class="mobile-feed-controls"><button id="mobilePauseEvent" type="button" class="small-button mobile-feed-pause" aria-pressed="false" aria-controls="mobileEventText">Ⅱ Παύση</button><p class="mobile-live-footer">Τοπική εναλλαγή ανά 9 δευτερόλεπτα · χωρίς πραγματικά API ή εντολές. Στη μειωμένη κίνηση μόνο χειροκίνητη εναλλαγή.</p></div>
+      </div>
+      <div class="diagram-frame" id="diagramFrame"><svg id="topology" class="topology" viewBox="0 0 1000 520" role="group" aria-label="Διαδραστικό διάγραμμα DEMO: ένας κεντρικός Brain με οκτώ Workers και κινούμενα φωτεινά σήματα">
+      <defs><linearGradient id="lineGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d6b774" stop-opacity=".75"/><stop offset="1" stop-color="#d6b774" stop-opacity=".12"/></linearGradient><radialGradient id="coreGlow"><stop offset="0" stop-color="#d8b870" stop-opacity=".23"/><stop offset="1" stop-color="#d8b870" stop-opacity="0"/></radialGradient><filter id="dotGlow" x="-200%" y="-200%" width="500%" height="500%"><feGaussianBlur stdDeviation="4"/></filter></defs>
+      <g class="diagram-grid"><path d="M0 65H1000M0 130H1000M0 195H1000M0 260H1000M0 325H1000M0 390H1000M0 455H1000M100 0V520M200 0V520M300 0V520M400 0V520M500 0V520M600 0V520M700 0V520M800 0V520M900 0V520"/></g>
+      <g id="networkLines"></g><g id="networkPackets"></g><circle cx="500" cy="245" r="124" fill="url(#coreGlow)"/><circle cx="500" cy="245" r="82" fill="none" stroke="#af9a62" stroke-opacity=".20" stroke-dasharray="2 11"/><circle cx="500" cy="245" r="52" fill="#153b30" stroke="#c6a565" stroke-width="1.5"/><circle cx="500" cy="245" r="37" fill="#0a271f" stroke="#c6a565" stroke-opacity=".38"/><text x="500" y="240" text-anchor="middle" fill="#edce8b" font-size="26">✦</text><text x="500" y="263" text-anchor="middle" fill="#f0e5ca" font-size="14" font-weight="750" letter-spacing="2">BRAIN</text><g id="networkNodes"></g>
+      </svg></div>
+      <div class="diagram-legend"><span><i class="legend-dot green"></i> Επιτυχία</span><span><i class="legend-dot gold"></i> Εκτελείται</span><span><i class="legend-dot red"></i> Πρόβλημα</span><span><i class="legend-dot gray"></i> Αναμονή</span><span class="diagram-note">Οπτική προσομοίωση · όχι παραγωγή</span></div>
+    </section>
+    <section class="surface col-narrow" aria-labelledby="brainHeading"><div class="surface-head"><div><p class="eyebrow">CENTRAL INTELLIGENCE</p><h2 id="brainHeading">Brain <span class="heading-muted">status</span></h2></div><span class="header-symbol">✧</span></div>
+      <div class="brain-status-card"><div class="brain-ring"><span>✦</span></div><div><small>CANONICAL COORDINATOR</small><strong id="brainCardStatus">STANDBY</strong><span>Μοναδικός Brain · DEMO</span></div></div>
+      <div class="mini-stats"><div><span>Ενεργά locks</span><b id="locksCount">2</b></div><div><span>Running jobs</span><b id="runningCount">3</b></div><div><span>Υποθέσεις UNKNOWN</span><b id="unknownCount">1</b></div><div><span>Builders</span><b>2 max</b></div></div>
+      <button class="text-button" data-detail="brain" type="button">Αναλυτική προβολή Brain <span>↗</span></button>
+    </section>
+  </div>
+  <section class="three-columns section-visible" data-panel="overview">
+    <article class="surface compact"><div class="surface-head"><div><p class="eyebrow">REPOSITORY</p><h2>GitHub <span class="heading-muted">pulse</span></h2></div><span class="header-symbol">⌘</span></div><div class="mini-stats"><div><span>Open Issues</span><b>24</b></div><div><span>Open PR</span><b>8</b></div><div><span>CI checks</span><b class="green-text">17 / 19</b></div></div><div class="small-footnote">Τελευταίο merge: <b>DEMO-217</b> · 09:12</div><button class="text-button" data-view-button="operations" type="button">Προβολή εργασιών <span>↗</span></button></article>
+    <article class="surface compact"><div class="surface-head"><div><p class="eyebrow">CLOUDFLARE</p><h2>Pages &amp; Workers</h2></div><span class="header-symbol">◈</span></div><div class="mini-stats"><div><span>Pages</span><b class="green-text">Ready · demo</b></div><div><span>Worker routes</span><b>8</b></div><div><span>Service bindings</span><b>Simulated</b></div></div><div class="small-footnote">Τελευταίο release SHA: <b>demo-7b28</b></div><button class="text-button" data-detail="cloudflare" type="button">Προβολή Cloudflare <span>↗</span></button></article>
+    <article class="surface compact"><div class="surface-head"><div><p class="eyebrow">SECURITY WATCH</p><h2>Self-Heal <span class="heading-muted">guard</span></h2></div><span class="header-symbol">♢</span></div><div class="mini-stats"><div><span>Mode</span><b>Review-only</b></div><div><span>Ανοιχτές ειδοποιήσεις</span><b id="securityAlerts">2</b></div><div><span>Kill switches</span><b class="green-text">Ready</b></div></div><div class="small-footnote">Αυτόματες ενέργειες: <b>Απενεργοποιημένες</b></div><button class="text-button" data-view-button="security" type="button">Κέντρο ασφάλειας <span>↗</span></button></article>
+  </section>
+
+  <section class="surface deploy-peek section-visible" data-panel="overview" aria-labelledby="deployPeekHeading">
+    <div class="surface-head">
+      <div><p class="eyebrow">DEPLOYMENT WATCH · DEMO</p><h2 id="deployPeekHeading">Αναπτύξεις <span class="heading-muted">με μια ματιά</span></h2></div>
+      <span class="mini-live"><i aria-hidden="true"></i> SIMULATED DATA</span>
+    </div>
+    <div class="deploy-peek-grid">
+      <div><span>Σε εξέλιξη</span><strong id="deployPeekRunning">1</strong></div>
+      <div><span>Τελευταία 7 ημέρες</span><strong id="deployPeekWeek">10</strong></div>
+      <div><span>Μέση διάρκεια επιτυχίας</span><strong id="deployPeekAverage">—</strong></div>
+      <div><span>Τελευταία ολοκλήρωση</span><strong id="deployPeekFinish">—</strong></div>
+    </div>
+    <button class="text-button" data-view-button="deployments" type="button">Άνοιγμα ιστορικού deployments <span>↗</span></button>
+  </section>
+  <section class="view-section" data-panel="network" hidden>
+    <div class="view-intro"><p class="eyebrow">ORCHESTRATION / DEMO</p><h1>Χάρτης <em>συνεργασίας.</em></h1><p>Οκτώ Workers, ένας Brain. Πάτησε κόμβο στο διάγραμμα της επισκόπησης ή μία κάρτα παρακάτω.</p></div><div class="worker-grid" id="workerGrid"></div>
+  </section>
+
+  <section class="view-section" data-panel="deployments" hidden>
+    <div class="view-intro"><p class="eyebrow">RELEASE HISTORY / DEMO</p><h1>Κάθε deployment, <em>στο φως.</em></h1><p>Πότε ξεκίνησε, πότε ολοκληρώθηκε και πόσο διήρκεσε. Όσα εκτελούνται έχουν μόνο ενδεικτική ώρα λήξης, όχι εγγύηση.</p></div>
+    <p class="deploy-disclaimer">ΣΥΝΘΕΤΙΚΑ ΣΤΟΙΧΕΙΑ · DEMO · ώρα Ελλάδας (Europe/Athens). Καμία ζωντανή σύνδεση με Cloudflare ή GitHub.</p>
+    <div class="deploy-stats">
+      <article class="surface deploy-stat"><small>ΤΕΛΕΥΤΑΙΕΣ 7 ΗΜΕΡΕΣ</small><strong id="deployWeek">—</strong><span>δοκιμαστικά deployments</span></article>
+      <article class="surface deploy-stat"><small>ΣΕ ΕΞΕΛΙΞΗ</small><strong id="deployActive">—</strong><span>δεν έχει επιβεβαιωθεί λήξη</span></article>
+      <article class="surface deploy-stat"><small>ΜΕΣΗ ΔΙΑΡΚΕΙΑ</small><strong id="deployAvg">—</strong><span>επιτυχημένων deployments</span></article>
+      <article class="surface deploy-stat"><small>ΠΟΣΟΣΤΟ ΕΠΙΤΥΧΙΑΣ</small><strong id="deployRate">—</strong><span>ολοκληρωμένων deployments</span></article>
+    </div>
+    <section class="surface deploy-frequency" aria-labelledby="deployFrequencyHeading">
+      <div class="surface-head"><div><p class="eyebrow">FREQUENCY / DEMO</p><h2 id="deployFrequencyHeading">Κάθε πότε γίνονται;</h2></div><span class="pill pill-outline">ΤΕΛΕΥΤΑΙΑ 7 ΗΜΕΡΑ</span></div>
+      <div class="deploy-week-chart" id="deployChart" aria-label="Πλήθος εικονικών deployments ανά ημέρα"></div>
+      <p class="soft-text" id="deployCadence">Μετράμε τις καταγεγραμμένες αναπτύξεις, όχι υποτιθέμενο πρόγραμμα.</p>
+      <p class="deploy-schedule">Επόμενο προγραμματισμένο deployment: <strong>Άγνωστο</strong> — απαιτείται επιβεβαιωμένο schedule από την πηγή.</p>
+    </section>
+    <div class="filter-bar deploy-filters">
+      <label for="deploySearch" class="visually-hidden">Αναζήτηση deployments</label><input id="deploySearch" type="search" placeholder="Αναζήτηση υπηρεσίας, SHA ή ID…">
+      <label for="deploySource" class="visually-hidden">Φίλτρο πηγής</label><select id="deploySource"><option value="all">Όλες οι πηγές</option><option value="Pages">Cloudflare Pages</option><option value="Workers">Cloudflare Workers</option><option value="GitHub Actions">GitHub Actions</option></select>
+      <label for="deployFilter" class="visually-hidden">Φίλτρο κατάστασης</label><select id="deployFilter"><option value="all">Όλες οι καταστάσεις</option><option value="running">Σε εξέλιξη</option><option value="success">Επιτυχία</option><option value="failed">Αποτυχία</option></select>
+    </div>
+    <div class="surface table-surface">
+      <div class="table-wrap"><table><thead><tr><th>Deployment</th><th>Πηγή</th><th>Έναρξη</th><th>Ολοκλήρωση / ETA</th><th>Διάρκεια</th><th>Κατάσταση</th><th><span class="visually-hidden">Λεπτομέρειες</span></th></tr></thead><tbody id="deployBody"></tbody></table></div>
+      <p class="empty-state" id="deployEmpty" hidden>Δεν βρέθηκαν deployments για αυτό το φίλτρο.</p>
+    </div>
+    <p class="soft-text deploy-end-note">Το ETA υπολογίζεται μόνο από παλιότερες επιτυχημένες διάρκειες της ίδιας πηγής· δεν σημαίνει ότι το deployment τελείωσε. Η πραγματική λήξη καταγράφεται μόνο μετά από επιβεβαιωμένο αποτέλεσμα και logs.</p>
+  </section>
+  <section class="view-section" data-panel="operations" hidden>
+    <div class="view-intro"><p class="eyebrow">OPERATIONS / DEMO</p><h1>Η δουλειά <em>σε εξέλιξη.</em></h1><p>Εικονικά GitHub PR, έλεγχοι CI, εκτελέσεις αυτοματισμών και αναμονές.</p></div>
+    <div class="filter-bar"><label for="operationsSearch" class="visually-hidden">Αναζήτηση εργασιών</label><input id="operationsSearch" type="search" placeholder="Αναζήτηση σε τίτλους και IDs…"><label for="operationsFilter" class="visually-hidden">Φίλτρο κατάστασης</label><select id="operationsFilter"><option value="all">Όλες οι καταστάσεις</option><option value="success">Επιτυχία</option><option value="running">Εκτέλεση</option><option value="blocked">Blocked</option><option value="failed">Αποτυχία</option></select></div><div class="surface table-surface"><div class="table-wrap"><table><thead><tr><th>Εργασία</th><th>Πηγή</th><th>Κατάσταση</th><th>Χρόνος</th><th><span class="visually-hidden">Λεπτομέρειες</span></th></tr></thead><tbody id="operationsBody"></tbody></table></div><p class="empty-state" id="operationsEmpty" hidden>Δεν βρέθηκαν εργασίες για αυτό το φίλτρο.</p></div>
+  </section>
+  <section class="view-section" data-panel="security" hidden>
+    <div class="view-intro"><p class="eyebrow">TRUST &amp; SAFETY / DEMO</p><h1>Ασφάλεια <em>εξ ορισμού.</em></h1><p>Καμία πραγματική εντολή αποκατάστασης από το προσχέδιο.</p></div>
+    <div class="security-grid"><div class="surface"><p class="eyebrow">SELF-HEAL · SIMULATION</p><h2>Fail-closed προστασία</h2><p class="soft-text">Οι άγνωστες υπογραφές, τα μη επαληθευμένα receipts και τα αποτυχημένα readbacks εμφανίζονται ως UNKNOWN. Δεν ενεργοποιούν recovery.</p><div class="mini-stats"><div><span>Κατάσταση</span><b>Review-only</b></div><div><span>Replay protection</span><b class="green-text">On · demo</b></div><div><span>Manual override</span><b>Disabled</b></div></div></div><div class="surface"><p class="eyebrow">OPEN FINDINGS</p><h2>Εικονικές ειδοποιήσεις</h2><div class="security-item"><span class="severity amber">WARN</span><div><b>Stale deployment receipt</b><small>Αναμονή χειροκίνητης επαλήθευσης</small></div></div><div class="security-item"><span class="severity red">UNKNOWN</span><div><b>Unverified source metadata</b><small>Fail-closed · καμία αυτοματοποιημένη ενέργεια</small></div></div></div></div>
+  </section>
+  <section class="view-section" data-panel="cost" hidden>
+    <div class="view-intro"><p class="eyebrow">COST GOVERNANCE / DEMO</p><h1>Κάθε ευρώ <em>μετράει.</em></h1><p>Μηνιαίο όριο AI 20 €. Όλα τα ποσά και οι τάσεις είναι εικονικά.</p></div>
+    <div class="cost-layout"><div class="surface"><p class="eyebrow">MONTHLY AI ALLOWANCE</p><div class="cost-large"><strong id="costAvailable">13,55 €</strong><span>εικονικά διαθέσιμα</span></div><div class="large-progress"><span id="costBar" style="width:32.25%"></span></div><div class="cost-labels"><span>Χρήση: <b id="costUsed">6,45 €</b></span><span>Όριο: <b>20,00 €</b></span></div><p class="soft-text">Οι πραγματικές χρεώσεις δεν ανακτώνται εδώ. Στην παραγωγή χρειάζεται κεντρικό cost ledger στον Brain και επαληθευμένη προέλευση.</p></div><div class="surface"><p class="eyebrow">DEMO CONTROLS</p><h2>Δοκιμή ορίων</h2><label class="field-label" for="costSlider">Εικονική μηνιαία δαπάνη <b id="costSliderLabel">6,45 €</b></label><input id="costSlider" type="range" min="0" max="24" step=".05" value="6.45"><p class="soft-text">Μετακίνησε τον δείκτη και δοκίμασε πώς εμφανίζεται προειδοποίηση στο όριο 80% και υπέρβαση στα 20 €.</p><div id="costWarning" class="warning-inline">● Εντός προϋπολογισμού · DEMO</div></div></div>
+  </section>
+  <section class="view-section" data-panel="events" hidden>
+    <div class="view-intro"><p class="eyebrow">AUDIT TRAIL / DEMO</p><h1>Κάθε συμβάν, <em>ορατό.</em></h1><p>Φίλτρα, αναζήτηση και αναλυτικές πληροφορίες σε εικονικό χρονολόγιο.</p></div><div class="filter-bar"><label for="eventsSearch" class="visually-hidden">Αναζήτηση συμβάντων</label><input id="eventsSearch" type="search" placeholder="Αναζήτηση συμβάντων…"><label for="eventsFilter" class="visually-hidden">Φίλτρο συμβάντων</label><select id="eventsFilter"><option value="all">Όλοι οι τύποι</option><option value="success">Επιτυχία</option><option value="running">Εκτέλεση</option><option value="blocked">Blocked</option><option value="failed">Αποτυχία</option></select></div><div class="surface"><div id="eventsList" class="timeline"></div><p class="empty-state" id="eventsEmpty" hidden>Δεν βρέθηκαν συμβάντα.</p></div>
+  </section>
+  <footer class="site-footer"><span>© Γ.Α.Σ. «Αρχέλαος» · Οπτική μακέτα</span><strong>DEMO ONLY · NO PRODUCTION CONNECTIONS</strong><span>Prototype v1.1</span></footer>
+</main>
+</div></div>
+<div class="mobile-backdrop" id="mobileBackdrop" hidden></div>
+<div class="drawer-backdrop" id="drawerBackdrop" hidden></div>
+<aside class="details-drawer" id="detailsDrawer" aria-labelledby="detailsTitle" role="dialog" aria-modal="true" hidden>
+  <div class="details-top"><span class="eyebrow">INSPECTOR / DEMO</span><button type="button" id="closeDetails" class="icon-button" aria-label="Κλείσιμο λεπτομερειών">✕</button></div>
+  <h2 id="detailsTitle">Λεπτομέρειες</h2><p id="detailsSubtitle" class="soft-text"></p><div id="detailsBody"></div><p class="drawer-disclaimer">Τα δεδομένα είναι αποκλειστικά εικονικά. Δεν εκτελείται καμία εντολή.</p>
+</aside>
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+<dialog id="searchDialog" class="search-dialog" aria-labelledby="searchDialogTitle"><div class="dialog-header"><h2 id="searchDialogTitle">Γρήγορη αναζήτηση</h2><button type="button" id="closeSearch" class="icon-button" aria-label="Κλείσιμο αναζήτησης">✕</button></div><label for="globalSearch" class="visually-hidden">Αναζήτηση στις ενότητες</label><input id="globalSearch" type="search" placeholder="Πληκτρολόγησε «Brain», «PR», «Worker»…"><div id="globalSearchResults" class="search-results"></div><p class="dialog-hint">↵ Επιλογή · Esc Κλείσιμο · / Αναζήτηση</p></dialog>
+<dialog id="helpDialog" class="search-dialog" aria-labelledby="helpTitle"><div class="dialog-header"><h2 id="helpTitle">Συντομεύσεις</h2><button type="button" id="closeHelp" class="icon-button" aria-label="Κλείσιμο βοήθειας">✕</button></div><p class="soft-text"><kbd>/</kbd> Άνοιγμα αναζήτησης</p><p class="soft-text"><kbd>Esc</kbd> Κλείσιμο παραθύρου</p><p class="soft-text"><kbd>Tab</kbd> Πλοήγηση με πληκτρολόγιο</p><p class="soft-text">Σε προτίμηση μειωμένης κίνησης οι παλμοί παραμένουν στατικοί.</p></dialog>
+</body>
+</html>
