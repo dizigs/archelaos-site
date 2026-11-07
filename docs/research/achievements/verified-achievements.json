@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "status": "FIVE_SOURCE_PAIR_VERIFIED — PRIVATE REVIEW LEDGER / NO PUBLIC TROPHY GALLERY",
-  "description": "Five different Greco-Roman U20 2024 sporting awards, independently cross-checked against the national wrestling federation and the club announcement republished by O Dialogos; one record per award. No gallery or deployment.",
+  "status": "SIX_SOURCE_PAIR_VERIFIED — PRIVATE REVIEW LEDGER / NO PUBLIC TROPHY GALLERY",
+  "description": "Six distinct awards accepted by same-event, same-person two-source review: five U20 Greco-Roman 2024 distinctions and one U15 38kg bronze in 2022. Non-public archival ledger, not a released trophy gallery.",
   "achievements": [
     {
       "achievementId": "ach-wrest-u20-gr-2024-60kg-sokratis-konstantinidis-silver",
@@ -165,6 +165,37 @@
       "editorialStatus": "approved",
       "reviewedAt": "2026-11-07T13:49:22.921Z",
       "reviewedBy": "ChatGPT · two-source historical review"
+    },
+    {
+      "achievementId": "ach-wrest-u15-gr-2022-38kg-achilleas-passiranis-bronze",
+      "awardType": "bronze",
+      "competition": "Πανελλήνιο Πρωτάθλημα Ελληνορωμαϊκής Πάλης U15 2022",
+      "sport": "Πάλη",
+      "discipline": "Ελληνορωμαϊκή πάλη",
+      "category": "U15 · 38 κιλά",
+      "dateOrSeason": "2022-05-15",
+      "recipientType": "individual",
+      "personIds": [
+        "arch-achilleas-passiranis-wrestling-2022"
+      ],
+      "eventIds": [],
+      "photoIds": [],
+      "mentionIds": [],
+      "primarySourceUrls": [
+        "https://www.elop.gr/%CE%BF-%CF%80%CE%B1%CE%BF%CE%BA-%CF%80%CF%81%CF%89%CF%84%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%AE%CF%82-u15-%CF%83%CF%84%CE%B7%CE%BD-%CE%B5%CE%BB%CE%BB%CE%B7%CE%BD%CE%BF%CF%81%CF%89%CE%BC%CE%B1%CF%8A%CE%BA/",
+        "https://sportsfeed.gr/o-paok-proteyse-sto-panellinio-paidon-stin-ellinoromaiki/"
+      ],
+      "sourcePairReview": {
+        "source1": "Ελληνική Ομοσπονδία Πάλης · επίσημος κατάλογος μεταλλιούχων U15 2022",
+        "source2": "SPORTSFEED · ανεξάρτητο αθλητικό ρεπορτάζ, 15/05/2022",
+        "sameEventVerified": true,
+        "affiliationVerified": true,
+        "identityVerified": true,
+        "independentUnderlyingOrganizations": true
+      },
+      "editorialStatus": "approved",
+      "reviewedAt": "2026-11-07T14:09:09.624Z",
+      "reviewedBy": "ChatGPT · same-medal two-source review"
     }
   ]
 }
