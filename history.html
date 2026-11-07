@@ -3144,7 +3144,7 @@ html body #museum-history #history-archive .museum-sport-access-panel .v61-sport
 #historyArchiveContent #dioikisi table td,#historyArchiveContent #dioikisi table th{padding:12px 10px!important;vertical-align:top;line-height:1.55;letter-spacing:normal}
 @media(max-width:767px){#historyArchiveContent #dioikisi table th:nth-child(1),#historyArchiveContent #dioikisi table td:nth-child(1){width:27%!important}#historyArchiveContent #dioikisi table th:nth-child(2),#historyArchiveContent #dioikisi table td:nth-child(2){width:49%!important}#historyArchiveContent #dioikisi table th:nth-child(4),#historyArchiveContent #dioikisi table td:nth-child(4){width:24%!important}#historyArchiveContent #dioikisi table td,#historyArchiveContent #dioikisi table th{padding:10px 7px!important}}
 </style>
-<style id="arch-dept-heart-placement">#deptHistoryModal .modal-header .arch-dept-favorite{position:relative!important;flex:0 0 42px!important;z-index:3!important;margin-left:auto!important;margin-right:8px!important;align-self:center!important}#deptHistoryModal .modal-header .arch-dept-favorite+.modal-close-btn{flex:0 0 auto!important}@media(max-width:540px){#deptHistoryModal .modal-header{gap:8px!important}#deptHistoryModal .modal-header .arch-dept-favorite{margin-right:0!important}}</style><link rel="stylesheet" href="/assets/fact-check.css?v=4">
+<style id="arch-dept-heart-placement">#deptHistoryModal .modal-header .arch-dept-favorite{position:relative!important;flex:0 0 42px!important;z-index:3!important;margin-left:auto!important;margin-right:8px!important;align-self:center!important}#deptHistoryModal .modal-header .arch-dept-favorite+.modal-close-btn{flex:0 0 auto!important}@media(max-width:540px){#deptHistoryModal .modal-header{gap:8px!important}#deptHistoryModal .modal-header .arch-dept-favorite{margin-right:0!important}}</style><link rel="stylesheet" href="/assets/fact-check.css?v=5">
 </head>
 <body class="antialiased selection:bg-archelaos-darkgreen selection:text-archelaos-yellow arch-gold-page" data-arch-people-page="history">
 <!-- ANIMATED CONTOUR WAVES -->
@@ -3224,8 +3224,9 @@ html body #museum-history #history-archive .museum-sport-access-panel .v61-sport
 <div id="fc-grid" class="fc-grid"></div>
 <p id="fc-load-error" class="fc-error" role="status" hidden></p>
 <div class="fc-bottom">
- <div id="fc-security"><div id="fc-turnstile"></div></div>
- <p id="fc-save-status" role="status" aria-live="polite">Ελέγχουμε αν είναι διαθέσιμη η υποβολή απαντήσεων.</p>
+ <button id="fc-send" type="button" hidden>Αποστολή απαντήσεων</button>
+ <div id="fc-security" hidden><div id="fc-turnstile"></div></div>
+ <p id="fc-save-status" role="status" aria-live="polite">Μπορείς να απαντάς χωρίς διακοπές. Θα γίνει ένας έλεγχος κατά την τελική αποστολή.</p>
  <button id="fc-retry" type="button" hidden>Επανάληψη αποστολής</button>
 </div>
 <p class="fc-note">Δεν υπάρχουν βαθμοί, σωστές απαντήσεις ή δημόσια αποτελέσματα. Οι μαρτυρίες εξετάζονται ιδιωτικά πριν αξιοποιηθούν στο αρχείο. <a href="/contact.html?topic=archive">Επικοινωνία με το αρχείο</a>.</p>
@@ -7435,6 +7436,6 @@ function render(){
 fetch('interviews.json').then(r=>r.ok?r.json():Promise.reject()).then(x=>{rows=x.items||[];render()}).catch(()=>{});
 input.addEventListener('input',render);
 })();
-</script><script src="/assets/favorites.js" defer></script><script src="/assets/favorite-dialogs.js" defer></script><script src="/assets/hof-inplace.js?v=20261101-unified" defer></script><script defer src="/assets/fact-check.js?v=4"></script>
+</script><script src="/assets/favorites.js" defer></script><script src="/assets/favorite-dialogs.js" defer></script><script src="/assets/hof-inplace.js?v=20261101-unified" defer></script><script defer src="/assets/fact-check.js?v=5"></script>
 </body>
 </html>

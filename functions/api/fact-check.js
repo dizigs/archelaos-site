@@ -18,7 +18,7 @@ async function boundedJSON(request){
  const chunks=[];let bytes=0;
  try{
   for(;;){const {done,value}=await reader.read();if(done)break;bytes+=value.byteLength;
-   if(bytes>6000){await reader.cancel();return {oversize:true};}
+   if(bytes>32000){await reader.cancel();return {oversize:true};}
    chunks.push(value);
   }
  }finally{try{reader.releaseLock();}catch{}}
@@ -41,15 +41,15 @@ export async function onRequestPost({request,env}){
  const target=new URL(request.url);
  if(target.protocol!=='https:'||request.headers.get('Origin')!==target.origin)return json(403,{ok:false,error:'forbidden'});
  if(!/^application\/json(?:;|$)/i.test(request.headers.get('Content-Type')||''))return json(415,{ok:false,error:'content_type'});
- if(Number(request.headers.get('Content-Length')||0)>6000)return json(413,{ok:false,error:'too_large'});
+ if(Number(request.headers.get('Content-Length')||0)>32000)return json(413,{ok:false,error:'too_large'});
  const data=await boundedJSON(request);
  if(data?.oversize)return json(413,{ok:false,error:'too_large'});
 
- // Fast card flow: a single verified Turnstile token can save up to four
+ // One verified Turnstile token can save an entire visitor session (up to 25)
  // already-selected responses. Existing single-response clients stay compatible.
  if(Array.isArray(data?.answers)){
   const input=data.answers;
-  if(data.catalogVersion!==1||input.length<1||input.length>4||
+  if(data.catalogVersion!==1||input.length<1||input.length>25||
      new Set(input.map(x=>x?.claimId)).size!==input.length||
      new Set(input.map(x=>x?.receipt)).size!==input.length)
    return json(400,{ok:false,error:'invalid_batch'});
@@ -85,7 +85,7 @@ export async function onRequestPost({request,env}){
     }else insert.push(item);
    }
    if(insert.length){
-    // D1 batch is atomic; no per-card round trips and no extra Turnstile challenge per card.
+    // Atomic D1 batch: one visitor submission and exactly one verified Turnstile token.
     const statements=insert.map(item=>env.FACTCHECK_DB.prepare(
      'INSERT OR IGNORE INTO factcheck_responses (receipt,claim_id,choice,evidence,reference_url) VALUES (?,?,?,?,?)'
     ).bind(item.receipt,item.claimId,item.choice,item.evidence,item.referenceUrl));

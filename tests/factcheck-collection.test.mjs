@@ -26,13 +26,15 @@ test('both museum versions render one photo-free research card at a time',()=> {
   assert.match(section,/id="fc-progress-fill"/);
   assert.match(section,/id="fc-save-status"/);
   assert.match(section,/id="fc-turnstile"/);
+  assert.match(section,/id="fc-send"/);
+  assert.match(section,/id="fc-security" hidden/);
    assert.equal(section.includes('id="fc-dialog"'),false);
    assert.equal(section.includes('<img'),false);
    assert.equal(section.includes('<picture'),false);
    assert.equal(section.includes('<video'),false);
   assert.doesNotMatch(section,/Fact <em>Check/);
-   assert.ok(html.includes('/assets/fact-check.js?v=4'));
-   assert.ok(html.includes('/assets/fact-check.css?v=4'));
+   assert.ok(html.includes('/assets/fact-check.js?v=5'));
+   assert.ok(html.includes('/assets/fact-check.css?v=5'));
  }
 });
 test('dilemmas show two named alternatives, other questions use true false unknown',()=>{
@@ -54,7 +56,10 @@ test('dilemmas show two named alternatives, other questions use true false unkno
  const browser=read('assets/fact-check.js');
   assert.ok(browser.includes('position+=1;render(true);'));
   assert.ok(browser.includes('pending.push(answer)'));
-  assert.ok(browser.includes('pending.slice(0,4)'));
+  assert.ok(browser.includes('pending.slice()'));
+  assert.ok(browser.includes('sendButton.addEventListener(\'click\',requestSubmission)'));
+  assert.doesNotMatch(browser,/if\(ready\)ensureSecurity\(\)/);
+  assert.doesNotMatch(browser,/position\+=1;render\(true\);\s*void send\(\)/);
   assert.ok(browser.includes("const published=obj.items.filter(x=>x.publicReview===true)"));
   assert.ok(browser.includes("questions=published.sort((a,b)=>a.displayOrder-b.displayOrder)"));
   assert.ok(browser.includes("const context=make('p','fc-context'"));
@@ -97,8 +102,8 @@ test('invalid IDs, version, receipts and optional field types fail before databa
  assert.equal(writes,0);
 });
 
-test('body without Content-Length is still limited to 6000 bytes',async()=>{
- const r=await api.onRequestPost({request:request(body({evidence:'x'.repeat(6500)})),env:{FACTCHECK_DB:{},TURNSTILE_SECRET:'secret'}});
+test('body without Content-Length is still limited to 32000 bytes',async()=>{
+ const r=await api.onRequestPost({request:request(body({evidence:'x'.repeat(33000)})),env:{FACTCHECK_DB:{},TURNSTILE_SECRET:'secret'}});
  assert.equal(r.status,413);
 });
 
@@ -138,7 +143,7 @@ test('fast batch rejects malformed input, duplicate claims and unsafe URLs',asyn
   [batchAnswer(1,{evidence:'a'.repeat(601)})],
   [batchAnswer(1,{referenceUrl:'http://invalid.test'})],
   [batchAnswer(1,{referenceUrl:'https://localhost/path'})],
-  Array.from({length:5},(_,i)=>batchAnswer(i+1))
+  Array.from({length:26},(_,i)=>batchAnswer(i+1))
  ];
  for(const answers of bad){
   const result=await api.onRequestPost({request:batchRequest(answers),env});
@@ -146,8 +151,8 @@ test('fast batch rejects malformed input, duplicate claims and unsafe URLs',asyn
  }
  assert.equal(touched,0);
 });
-test('fast batch saves four anonymous choices once using a single Turnstile token',async()=>{
- const originalFetch=globalThis.fetch,store=new Map(),answers=Array.from({length:4},(_,i)=>batchAnswer(i+1));
+test('one Turnstile token saves the full visitor session with eleven choices',async()=>{
+ const originalFetch=globalThis.fetch,store=new Map(),answers=Array.from({length:11},(_,i)=>batchAnswer(i+1));
  let verifications=0,inserted=0;
  globalThis.fetch=async()=>{verifications++;return Response.json({success:true,hostname:'archelaos.club',action:'fact_check'});};
  const env={
@@ -170,12 +175,12 @@ test('fast batch saves four anonymous choices once using a single Turnstile toke
  };
  try{
   const first=await api.onRequestPost({request:batchRequest(answers),env});
-  assert.equal(first.status,201);assert.equal((await first.json()).accepted,4);
-  assert.equal(store.size,4);assert.equal(inserted,4);
+  assert.equal(first.status,201);assert.equal((await first.json()).accepted,11);
+  assert.equal(store.size,11);assert.equal(inserted,11);
   const repeat=await api.onRequestPost({request:batchRequest(answers),env});
   assert.equal(repeat.status,202);assert.equal((await repeat.json()).duplicate,true);
-  assert.equal(store.size,4);assert.equal(inserted,4);assert.equal(verifications,2);
+  assert.equal(store.size,11);assert.equal(inserted,11);assert.equal(verifications,2);
   const clash=await api.onRequestPost({request:batchRequest([batchAnswer(1,{choice:'false'})]),env});
-  assert.equal(clash.status,409);assert.equal(store.size,4);
+  assert.equal(clash.status,409);assert.equal(store.size,11);
  }finally{globalThis.fetch=originalFetch;}
 });

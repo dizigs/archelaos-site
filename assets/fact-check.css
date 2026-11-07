@@ -147,3 +147,10 @@
  #arch-factcheck-promo .fc-skip,
  #arch-factcheck-promo .fc-answer{transition:none!important;transform:none!important}
 }
+
+/* Turnstile only appears after the visitor explicitly chooses to submit. */
+#arch-factcheck-promo #fc-send{display:inline-flex;justify-content:center;align-items:center;min-height:48px;margin:4px 0 15px;padding:11px 20px;border:1px solid #d5b775;border-radius:10px;background:#e8d2a0;color:#073d2a;font:800 14px/1.25 system-ui,sans-serif;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.14)}
+#arch-factcheck-promo #fc-send:hover:not(:disabled){background:#f2e0b6}
+#arch-factcheck-promo #fc-send:disabled{opacity:.65;cursor:wait}
+#arch-factcheck-promo #fc-send:focus-visible{outline:3px solid #faf3de;outline-offset:4px}
+#arch-factcheck-promo #fc-security[hidden]{display:none!important}
