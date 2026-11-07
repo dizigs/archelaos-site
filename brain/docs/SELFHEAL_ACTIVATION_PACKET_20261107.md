@@ -1,133 +1,160 @@
-# Brain ↔ Self-Heal — πακέτο προετοιμασίας ενεργοποίησης, 07/11/2026
+# Brain ↔ Self-Heal — προετοιμασία ενεργοποίησης (07/11/2026)
 
-**Κατάσταση: SOURCE-ONLY / PREPARATION. Δεν ενεργοποιεί κανένα εγκατεστημένο Worker.**
-Canonical task: BRAIN-ACK-SETTLEMENT · Συντονισμός: Issue #71.
-Δεν απαιτεί δεύτερο λειτουργικό Brain, queue, ledger ή scheduler.
+**PREPARED / NO LIVE ACTIVATION.** Canonical task: BRAIN-ACK-SETTLEMENT, συντονισμός Issue #71.
+Αυτό το πακέτο δεν κάνει deploy/merge, δεν αλλάζει flags, bindings, secrets ή αποθήκευση.
+Χρησιμοποιεί το υπάρχον πρωτόκολλο· δεν προσθέτει δεύτερο HMAC/ACK σύστημα.
 
-## Τι έχει ήδη τελειώσει
+## 1. Τι είναι ήδη έτοιμο
 
-- Η βασική διόρθωση #278 έχει συγχωνευθεί στο main (8882f9ea...).
-- Source baseline αυτού του πακέτου: a1d7a7fffb335eb1e396b7eccd5935ee3d6f4da6.
-- Το #277 root-CWD native ACK suite πέρασε 12/12 στο πραγματικό run42362714934.
-- Τα #273/#277 είναι συμπληρωματικά tests· δεν ξανανοίγουμε τη βασική διόρθωση.
-- Παραγωγική αυθεντικοποιημένη επικοινωνία/ενεργοποίηση δεν έχει αποδειχθεί.
-- Τα παλιά γενικά operator runbooks και `prove_staging.mjs` δεν είναι αυτός ο έλεγχος:
-  το τελευταίο αφορά general event/control flow και workers.dev/local URL, όχι private selfheal QA.
+- Βασική διόρθωση #278 συγχωνευμένη, source baseline a1d7a7fffb335eb1e396b7eccd5935ee3d6f4da6.
+- `brain/src/private_hmac_candidate.mjs`: BrainHmacAcceptancePort.runChallenge(),
+  HealerHmacAcceptancePort.answerChallenge(), PrivateHmacNonceStore.
+- `brain/src/private_hmac_protocol.mjs`: domain-separated HMAC, ακριβή scalar records,
+  session/SHA/peer/nonce/deadline, χωρίς αποκάλυψη κλειδιού.
+- `brain/test/private_hmac_acceptance.test.mjs`: υπάρχουσες 11 native δοκιμές.
+- `brain/test/selfheal_ack.test.mjs`: πραγματικός production-code ACK/readback έλεγχος,
+  12/12 από repo root στο run42362714934, exact source bbf5b465...
+- Υπάρχον PRIVATE_HMAC_ACCEPTANCE_PROTOCOL.md και ιστορικά evidence διατηρούνται.
+- Τα #273/#277 είναι συμπληρωματικά tests, όχι ξανά η αρχική διόρθωση.
 
-## Πραγματικό κενό και λύση προετοιμασίας
+**Διόρθωση αρχικής προετοιμασίας:** το πρωτόκολλο υπήρχε ήδη στο main.
+Το αρχικό πείραμα αυτού του PR είχε περιττό δεύτερο QA fixture. Αφαιρέθηκε πριν από
+οποιαδήποτε συγχώνευση. Η τελική αλλαγή είναι μόνο planner, regression tests και αυτό
+το συγκεκριμένο πακέτο. Η ιστορική επιτυχία169/169 του πρώτου SHA παραμένει ιστορική,
+όχι αυτόματη απόδειξη του τελικού HEAD.
 
-Το `requireStaging` του πραγματικού outbox ζητά recovery/dispatch/binding flags,
-approved SHA, ενεργό staging παράθυρο και πραγματική αποθηκευμένη CI_FAILURE proof.
-Δεν τα ανοίγουμε για να αποδείξουμε συνθετικά HMAC ή ACK.
+## 2. Το πραγματικό μπλοκάρισμα που επιβεβαιώθηκε
 
-Το νέο `brain/qa/selfheal/` είναι **μη εγκατεστημένο fixture** αποκλειστικά για τα ήδη
-υπάρχοντα απομονωμένα previews. Δεν εισάγεται από `brain/src/worker.mjs` ή το πραγματικό
-Healer. Δεν συνοδεύεται από ενεργό Wrangler deployment configuration.
+Τα δύο υπάρχοντα QA previews διαβάστηκαν ξανά:
+- Brain:204965a6ba624184bfdfccb94794aff8 / archelaos-brain-qa-isolated.
+- Healer:ac43359770de4a058fd77bd4d5257226 / archelaos-healer-qa-isolated.
+- Και τα δύο urls=[], deployed_on=null. Δεν δημιουργήθηκε ή εγκαταστάθηκε κάτι.
 
-| Δοκιμή | Τι αποδεικνύει | Τι δεν αποδεικνύει |
+Όμως η επίσημη Cloudflare τεκμηρίωση λέει ότι Service Binding από preview προς
+άλλον Worker καλεί τον **production/parent Worker**, όχι το αντίστοιχο preview.
+Επομένως το προηγούμενο σχέδιο preview→preview ΔΕΝ είναι εφαρμόσιμο ως ιδιωτική
+διαδρομή. Το environment field δεν αποτελεί τεκμήριο υποστήριξης preview targeting.
+
+Πηγή:
+https://developers.cloudflare.com/workers/previews/resources/#limitations
+https://developers.cloudflare.com/workers/previews/configuration/
+
+Ο νέος offline planner `brain/tools/selfheal_activation_plan.mjs` απορρίπτει ρητά
+`transport:preview-pair`, ακόμη και αν τα υπόλοιπα metadata δηλώνονται επιτυχημένα.
+Δεν παρακάμπτουμε το όριο με public URL ή binding προς ανεπιβεβαίωτο parent endpoint.
+
+## 3. Συγκεκριμένη προτεινόμενη διαδρομή — χωρίς νέο Worker
+
+Επαναχρησιμοποίηση των ήδη υπαρχόντων ΔΥΟ Workers, με ξεχωριστά private named QA
+entrypoints, απομονωμένα nonce namespaces και όλα τα operational flags OFF.
+
+| Στοιχείο | Ακριβής πρόταση | Τρέχουσα κατάσταση |
 |---|---|---|
-| Domain-separated HMAC challenge | Συμφωνία των συγκεκριμένων keys του ζεύγους QA κατά τη δοκιμή | Συμφωνία keys άλλου deployment χωρίς ανεξάρτητη key-lineage attestation |
-| Private RPC + isolated SQLite ACK/readback | Συνθετικό συμβόλαιο, επιμονή μετά restart, μία απόπειρα, UNKNOWN χωρίς redelivery | Εκτέλεση του production dispatch ή πραγματική ανάκτηση |
-| Υπάρχον native production-code suite | Production-code λογική σε workerd/Miniflare | Αυθεντικοποιημένη κλήση μεταξύ εγκατεστημένων live εκδόσεων |
-| Μελλοντικό πραγματικό staging acceptance | Εγκατεστημένο ακριβές code/key/binding ζεύγος και μία νόμιμη ροή | Άδεια αυτόματης επισκευής ή production deployment |
+| Brain named export | υπάρχον BrainHmacAcceptancePort | Δεν εξάγεται από το operational main |
+| Healer named export | υπάρχον HealerHmacAcceptancePort | Δεν εξάγεται από το operational main |
+| Brain HMAC_PEER | service archelaos-self-heal, entrypoint HealerHmacAcceptancePort | Δεν είναι εγκατεστημένο |
+| QA replay storage | HMAC_NONCES / PrivateHmacNonceStore, διακριτό namespace ανά Worker | Χρειάζεται source/migration/namespace review |
+| Ιδιωτικός runner | native binding μόνο προς BrainHmacAcceptancePort, περιορισμένη operator εξουσιοδότηση | Δεν έχει επαληθευτεί διαθέσιμος runner |
+| Κλειδιά | διατήρηση sealed HEALER_EVENT_HMAC_KEY σε κάθε υπάρχον Worker | Δεν διαβάζονται/αντιγράφονται τιμές |
+| Παράθυρο | existing acceptance permit ≤5 λεπτά, challenge≤10s, RPC timeout1500ms | OFF |
 
-**Ακόμη και ACKNOWLEDGED του QA επιστρέφει productionAuthenticated:false και
-recoveryExecuted:false.** Δεν βαφτίζουμε το QA ως CONNECTED.
+### Source change manifest για ανεξάρτητη αξιολόγηση
 
-## Επιτρεπόμενοι στόχοι — διαβασμένοι ξανά 07/11/2026
+Οι αλλαγές αυτές **προτείνονται, δεν εφαρμόζονται από το παρόν PR**:
+1. `brain/src/worker.mjs`: narrow re-export του υπάρχοντος BrainHmacAcceptancePort
+   και PrivateHmacNonceStore από private_hmac_candidate.mjs. Default fetch και
+   BrainCoordinator αμετάβλητα.
+2. `automation/self-heal-worker/src/worker.mjs`: narrow re-export του υπάρχοντος
+   HealerHmacAcceptancePort και της ίδιας isolated-only DO class, με verified bundle
+   import path. Default Healer και recovery methods αμετάβλητα.
+3. Τα δύο υπάρχοντα wrangler.toml: πρόσθετο HMAC_NONCES namespace, ξεχωριστό από
+   canonical BRAIN/HEALER_MEMORY, migration χωρίς διαγραφή/μετονομασία υπαρχουσών
+   κλάσεων. Brain HMAC_PEER στο ακριβές named Healer port. Acceptance permit default
+   disabled/expired· κανένα public route, νέο Worker ή schedule.
+4. Ξεχωριστή runner source/permission αποδοχή. Δεν επαναχρησιμοποιείται άσχετο job
+   ως αυθεντικοποιημένος runner και δεν παρέχεται πρόσβαση σε dispatch/recovery/admin.
+5. Native compatibility tests και compile ΚΑΙ ΤΩΝ ΔΥΟ ακριβών bundles πριν από
+   approval/deployment. Δεν υποκαθίστανται από το παρόν metadata planner.
 
-| Parent Worker | Υπάρχον QA preview | Αμετάβλητο preview ID | Τρέχον baseline |
-|---|---|---|---|
-| archelaos-brain-staging | archelaos-brain-qa-isolated | 204965a6ba624184bfdfccb94794aff8 | urls=[], deployed_on=null |
-| archelaos-self-heal | archelaos-healer-qa-isolated | ac43359770de4a058fd77bd4d5257226 | urls=[], deployed_on=null |
+Αν ο έλεγχος source isolation ή runner δεν περάσει, μένουμε BLOCKED.
+Η προσθήκη private ports αλλάζει εκτελέσιμο κώδικα: δεν καλύπτεται από Pages approval.
 
-Δεν δημιουργήθηκε preview ή deployment από αυτή την προετοιμασία.
-Οι παρακάτω installed baseline εκδόσεις πρέπει να μείνουν αμετάβλητες στη φάση QA:
-- Brain e565910f-bbb4-44f6-b0b5-3463906ce495, deployment bac07481-10c6-4c82-8251-8dfb2ce8a0a6.
-- Healer65b729ea-c5c2-4118-8632-9d37e615d0cb, deployment f4ee7e96-c0dd-43d3-bd0b-8034c2db55c8.
-Επανέλεγχος αυτών ακριβώς πριν και μετά από οποιαδήποτε μελλοντική αλλαγή.
+## 4. Frozen rollback baseline
 
-## Ακριβές συμβόλαιο του μη εγκατεστημένου QA fixture
+| Worker | Version | Deployment |
+|---|---|---|
+| archelaos-brain-staging | e565910f-bbb4-44f6-b0b5-3463906ce495 | bac07481-10c6-4c82-8251-8dfb2ce8a0a6 |
+| archelaos-self-heal |65b729ea-c5c2-4118-8632-9d37e615d0cb | f4ee7e96-c0dd-43d3-bd0b-8034c2db55c8 |
 
-- Κοινό `QA_RUN_ID` UUIDv4, `QA_SOURCE_SHA` ακριβές reviewed SHA, διάρκεια ≤30 λεπτά.
-- Role `brain`/`healer` και ακριβή QA_PREVIEW_ID/QA_PEER_PREVIEW_ID.
-- `QA_ENABLED` επιτρέπεται μόνο στο απομονωμένο preview. Όλα τα ΠΡΑΓΜΑΤΙΚΑ
-  BRAIN_SELFHEAL_* permission flags και HEALER_DURABLE_ACK_ENABLED παραμένουν literal false.
-- `QA_MEMORY`: μόνο ξεχωριστό απομονωμένο QA SQLite namespace. Απαγορεύεται alias σε
-  υπάρχοντα BRAIN/HEALER_MEMORY. Έλεγχος namespace ID από provider inventory πριν deployment.
-- `QA_PEER`: αποκλειστικά το αντίστοιχο QA preview και ακριβές approved version.
-  Η δυνατότητα αυτής της ακριβούς preview-to-preview στόχευσης πρέπει να αποδειχθεί
-  από provider schema/readback· κανένα fallback στον parent Worker ή public URL.
-- Τα BRAIN/HEALER_MEMORY/HEALER/BRAIN_RECOVERY/AI και provider/operator capabilities
-  απαγορεύονται στα QA env. Μόνο QA_MEMORY, scoped QA_PEER, metadata και δύο sealed keys.
-- `HEALER_EVENT_HMAC_KEY`: parity key στο QA, όχι plaintext σε packet/CI/log.
-  `QA_RUNNER_KEY`: διαφορετικό sealed operator key. Καμία αυτόματη αντιγραφή secret.
-  Χωρίς εγκεκριμένη σύνδεση/lineage του QA key προς το πραγματικό key,
-  το αποτέλεσμα αφορά μόνο το QA key και καταγράφεται έτσι.
-- start/status/reconcile απαιτούν φρέσκο exact-schema runner HMAC με 60s freshness και nonce.
-- accept/read δέχονται μόνο domain-separated QA HMAC, ίδιο run/SHA, freshness και αυστηρά πεδία.
-  Παραγωγικά scopes selfheal.command.v1/selfheal.recover δεν γίνονται δεκτά.
-- start αποθηκεύει UNKNOWN/attempts=1 πριν από RPC. Δεύτερο start απορρίπτεται.
-- Αποθήκευση ACK στον παραλήπτη και ανεξάρτητο υπογεγραμμένο readback πριν ACKNOWLEDGED.
-  Lost/forged ACK ή timeout μένει UNKNOWN· reconcile κάνει μόνο read, ποτέ redelivery.
-- 2s όριο αναμονής RPC· ≤32 control/read nonces, ένα challenge/receipt ανά run.
-- HTTP fetch πάντα404. Κανένα alarm, cron, AI, CI mutation, repair ή εξωτερικό fetch.
+Αυτά είναι το πρόσφατα διαβασμένο baseline· επανελέγχονται ακριβώς πριν από μελλοντική
+αλλαγή. Αν διαφέρουν, το change packet θέλει ανανέωση, όχι overwrite αλλαγών άλλου owner.
 
-## Σειρά εκτέλεσης μετά από ανεξάρτητη αποδοχή
+ΟΛΑ πρέπει να παραμείνουν literal false:
+BRAIN_SELFHEAL_RECOVERY_ENABLED, BRAIN_SELFHEAL_BINDING_ATTESTED,
+BRAIN_SELFHEAL_DISPATCH_ENABLED, BRAIN_SELFHEAL_DURABLE_ACK_ENABLED,
+HEALER_DURABLE_ACK_ENABLED. Brain STAGING_EXPIRES_AT=1970-01-01T00:00:00Z.
 
-1. **Freeze:** exact candidate SHA και artifact SHA256, όλα τα required CI/security checks,
-   reviewer, δύο parent versions/deployment IDs, previews/URLs/bindings/DO namespaces.
-2. **Isolation manifest:** εγκρίνουμε ακριβώς τα δύο υπάρχοντα preview IDs, μηδενικά URLs,
-   preview-only namespaces διαφορετικά από τα πραγματικά και σωστό QA_PEER target.
-   Αν ο provider δεν αποδεικνύει αυτή τη στόχευση: BLOCKED, όχι νέο public route.
-3. **Runner/key authority:** δηλωμένη ιδιωτική native-RPC πρόσβαση, scoped sealed runner
-   credential, parity-key provenance και ασφαλής receipt destination. Δεν υπάρχει
-   έτοιμος εξουσιοδοτημένος private cloud runner στο παρόν πακέτο: πρέπει να κατονομαστεί
-   και να ελεγχθεί πριν την πρώτη live κλήση. Δεν παρακάμπτουμε την απουσία του με workers.dev.
-4. **Operator review:** συγκεκριμένο change manifest για preview deployment/bindings/DO/keys,
-   ακριβές ≤30min window και rollback. Αυτή η φάση είναι η πρώτη που αλλάζει Cloudflare,
-   και ΔΕΝ εκτελείται από την προετοιμασία.
-5. **Parity & ACK:** start μία φορά, signed ACK και ανεξάρτητο readback, restart του
-   απομονωμένου runtime χωρίς διαγραφή namespace, reconcile και attempts=1.
-6. **Negatives:** wrong key, bad signature/scope/SHA/run, stale/replay, lost/forged ACK,
-   failed/forged readback, timeout, no redelivery, no capability handles.
-7. **Stop/rollback & readback:** QA off/expiry, αφαίρεση μόνο των συγκεκριμένων νέων
-   preview deployment IDs, προσωρινών QA bindings/keys και μελλοντική ελεγχόμενη
-   διαγραφή μόνο των QA δεδομένων. Τα δύο previews υπήρχαν ήδη: ΔΕΝ διαγράφονται.
-   Parent versions/flags/DO/keys παραμένουν όπως πριν· urls=[]· no egress/AI/repair.
-8. **Χωριστή απόφαση για πραγματικό staging:** μόνο αν περάσουν τα παραπάνω, ο release
-   owner αξιολογεί προώθηση reviewed production-code SHA με flags OFF και νέα
-   βραχύβια εξουσιοδότηση πραγματικού dispatch με γνήσιο επιλέξιμο CI receipt.
-   Καμία εικονική CI_FAILURE εγγραφή στα πραγματικά ledgers. Recovery παραμένει
-   manual-review-only· η αυτόματη επισκευή χρειάζεται δική της αποδοχή.
+## 5. Ακριβής σειρά μέχρι την πραγματική δοκιμή
 
-## Όρια rollback και λήξης
+1. **Code ready:** review και exact-SHA CI/security για το περιορισμένο source manifest
+   των QA exports/configs. Φρέσκια απογραφή versions, byte hashes, routes, DO IDs,
+   flags, logs και secret *names* χωρίς τιμές.
+2. **Dormant code rollout review:** ξεχωριστή operator έγκριση δύο ακριβών bundles,
+   namespaces και rollback. Healer named port πριν από Brain caller binding,
+   permit OFF. Δεν ενεργοποιείται κανένα operational flag.
+3. **Readback:** επαλήθευση exact deployed bytes, named binding target και διαφορετικών
+   QA/canonical namespaces. Namespace aliasing απαγορεύεται ακόμη και αν metadata
+   boolean λέει attested. HTTP παραμένει404· κανένα public fallback.
+4. **Runner permit:** συγκεκριμένος εξουσιοδοτημένος private runner με scoped native
+   binding· session UUID, exact source SHA=DEPLOY_SHA, start/end≤5 λεπτά, role και
+   PRIVATE_HMAC_ACCEPTANCE_ISOLATED=true. Η λέξη ISOLATED περιγράφει το QA code/storage
+   scope, όχι ισχυρισμό ότι πρόκειται για Cloudflare preview.
+5. **Μία challenge κλήση:** runChallenge(undefined), HMAC answer, nonce claims και
+   key-possession verdict. UNKNOWN/timeout δεν επαναλαμβάνεται αυτόματα.
+6. **Αρνητικά:** wrong-key, forged/stale/replay/cross-session, timeout, denied private
+   properties, atomic single winner, restart και actionsExecuted=0.
+   Τα live negatives σχεδιάζονται μόνο στα QA namespaces/ports, όχι με αλλαγή των
+   πραγματικών keys για να δημιουργηθεί σφάλμα.
+7. **Ανάκληση και readback:** acceptance permit OFF/expired, κατάργηση προσωρινών runner
+   και HMAC_PEER bindings όταν προβλέπει το approved manifest, επιβεβαίωση flagsOFF,
+   expiry1970,0AI/provider/repair/CI writes και διατήρηση redacted evidence.
+8. **Μετέπειτα ξεχωριστή durable ACK αποδοχή:** HMAC parity ΔΕΝ είναι production
+   authenticated ACK/settlement. Χρειάζεται review για genuine eligible CI receipt,
+   πραγματικό canonical dispatch/readback/restart και explicit time-bound permission,
+   χωρίς fake CI proofs στα canonical ledgers. Αυτό παραμένει manual-review-only,
+   όχι αυτόματη επισκευή.
 
-- Η λήξη κάνει fail-closed κάθε νέα RPC μέθοδο· ΔΕΝ αποδεικνύει αυτόματη διαγραφή deployment.
-- Ο operator πρέπει να διακόψει/αφαιρέσει τα προσωρινά deployments και να κάνει GET readback.
-- Cloudflare endpoint αναφοράς: DELETE
-  /accounts/{account}/workers/workers/{parent}/previews/{preview}/deployments/{created_deployment_id}.
-  Μόνο μετά από έλεγχο ότι το ID δημιουργήθηκε από αυτό το εγκεκριμένο run.
-- Το baseline των previews είναι μη εγκατεστημένο· ο σωστός rollback στόχος είναι πάλι
-  μηδέν preview deployments, όχι redeploy ή rollback των parent Workers.
-- UNKNOWN διατηρείται ως receipt για αξιολόγηση μέχρι να κλείσει η υπόθεση· δεν ξαναστέλνουμε start.
+## 6. Rollback χωρίς απώλεια αποθήκευσης
 
-## Αναπαραγωγή offline
+Πρώτα ανάκληση permit και temporary runner capability, μετά binding changes,
+και μόνο εφόσον απαιτηθεί επαναφορά των δύο ακριβών approved baseline versions.
+Το version rollback ΔΕΝ αναιρεί DO migrations ή διαγράφει namespaces.
+Δεν διαγράφουμε/αλλάζουμε ποτέ canonical DO IDs, SQLite, OAuth, source keys ή cron.
+Τα isolated QA namespace δεδομένα μένουν σε καθορισμένη retention μέχρι να κλείσει
+το evidence review· cleanup μόνο με τη δική του περιορισμένη εξουσιοδότηση.
+Η λήξη permit κάνει fail-closed νέες κλήσεις· δεν ισχυριζόμαστε αυτόματη αφαίρεση code.
 
-Από checked-out candidate:
+## 7. Παραδοτέο και επαλήθευση
+
+Ο planner δεν έχει fetch/SDK/deployment operation ούτε δέχεται secret values.
+Παράγει μόνο review packet· ακόμη και πλήρης trusted evidence οδηγεί σε
+PREPARED_FOR_OPERATOR_REVIEW, liveActionAuthorized:false.
+Τρέχον πραγματικό αποτέλεσμα: BLOCKED_FOR_LIVE_ACTIVATION, με συγκεκριμένα missing
+ports/source bytes, namespace isolation, runner, binding και rollback review.
+
 ```sh
+node --test brain/test/selfheal_activation_plan.test.mjs
 npm ci --prefix brain --ignore-scripts --no-audit --no-fund
-cd brain
-node --test --test-reporter=tap test/selfheal_qa_isolated.test.mjs
+npm test --prefix brain
 ```
 
-Το υπάρχον brain-core workflow τρέχει το test μαζί με τα άλλα brain tests.
-Δεν προστίθεται workflow ή schedule. Native workerd/SQLite results και CI SHA
-καταγράφονται στο υπάρχον PR και στο ένα ιδιωτικό canonical LOG, χωρίς keys.
+Νέα τοπικά regression tests7/7 PASS. Τα native HMAC11 και production-code ACK12
+παραμένουν τα υπάρχοντα tests, όχι δεύτερο QA πρωτόκολλο.
+Τελικά hosted αποτελέσματα στο νέο HEAD πρέπει να επιβεβαιωθούν χωριστά.
 
 Πηγές:
+- brain/docs/PRIVATE_HMAC_ACCEPTANCE_PROTOCOL.md
 - brain/docs/PRIVATE_STAGING_HMAC_QA_GATE.md
-- brain/src/selfheal_signed_outbox.mjs και selfheal_ack.mjs
-- automation/self-heal-worker/src/durable_ack.mjs
+- brain/src/private_hmac_candidate.mjs και private_hmac_protocol.mjs
+- brain/src/selfheal_signed_outbox.mjs, selfheal_ack.mjs
 - https://developers.cloudflare.com/workers/runtime-apis/bindings/service-bindings/rpc/
-- https://developers.cloudflare.com/durable-objects/api/storage-api/
