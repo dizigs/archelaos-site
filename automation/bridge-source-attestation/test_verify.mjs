@@ -70,3 +70,21 @@ test('expected drift is explicit, never misclassified as a deploy match',async()
   assert.equal(r.status,'SOURCE_RECOVERY_BLOCKED');
   assert.equal(r.records[0].status,'EXPECTED_DEPLOYED_DRIFT');
 }));
+
+test('intermediate symlink cannot bypass handle-bound path verification',async()=>sandbox(async root=>{
+  await mkdir(join(root,'real'));
+  await writeFile(join(root,'real/source.mjs'),source);
+  await writeFile(join(root,'legacy.js'),changed);
+  await symlink(join(root,'real'),join(root,'alias'));
+  const m=manifest();m.modules[0].name='alias/source.mjs';
+  const r=await verifyPrivate(root,m);
+  assert.equal(r.status,'BLOCKED');
+  assert.equal(r.records[0].status,'SYMLINK_FORBIDDEN');
+}));
+test('oversized modules are rejected by bounded descriptor reads',async()=>sandbox(async root=>{
+  await writeFile(join(root,'source.mjs'),Buffer.alloc(262145,97));
+  await writeFile(join(root,'legacy.js'),changed);
+  const r=await verifyPrivate(root,manifest());
+  assert.equal(r.status,'BLOCKED');
+  assert.equal(r.records[0].status,'INVALID_MODULE_FILE');
+}));

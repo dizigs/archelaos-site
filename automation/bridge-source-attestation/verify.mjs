@@ -1,7 +1,8 @@
 /** Offline, read-only integrity gate for a PRIVATE Cloudflare Worker source export.
  * Never prints or uploads module contents. Does not talk to GitHub/Cloudflare.
  */
-import {readFile, lstat, realpath} from 'node:fs/promises';
+import {readFile, open, realpath} from 'node:fs/promises';
+import {constants} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {resolve, relative, sep} from 'node:path';
 import {pathToFileURL} from 'node:url';
@@ -21,20 +22,38 @@ function checkedName(name) {
 }
 async function safeBytes(root, name) {
   checkedName(name);
+  // Offline owner tool runs on Linux. Refuse unsafe platform fallbacks.
+  if (process.platform !== 'linux' || typeof constants.O_NOFOLLOW !== 'number')
+    throw new Error('SECURE_LOCAL_READ_NOT_SUPPORTED');
   const base = await realpath(root);
   const candidate = resolve(base, name);
-  if (relative(base, candidate).startsWith('..' + sep) || candidate === base) {
+  if (relative(base, candidate).startsWith('..' + sep) || candidate === base)
     throw new Error('OUTSIDE_PRIVATE_SOURCE_ROOT');
+  let handle;
+  try {
+    // O_NOFOLLOW prevents final symlink; the file handle pins the opened inode.
+    handle = await open(candidate, constants.O_RDONLY | constants.O_NOFOLLOW);
+    // Resolve the *opened descriptor*, not a raceable pathname. Also detects
+    // intermediate directory symlinks (and rename/unlink races) on Linux.
+    const actual = await realpath('/proc/self/fd/' + handle.fd);
+    if (actual !== candidate) throw new Error('SYMLINK_FORBIDDEN');
+    // Bounded read: never trust a pre-read stat size or allocate arbitrarily.
+    const cap = 262145;
+    const bytes = Buffer.allocUnsafe(cap);
+    let length = 0;
+    while (length < cap) {
+      const {bytesRead} = await handle.read(bytes, length, cap - length, null);
+      if (!bytesRead) break;
+      length += bytesRead;
+    }
+    if (length === cap) throw new Error('INVALID_MODULE_FILE');
+    return bytes.subarray(0, length);
+  } catch (error) {
+    if (error?.code === 'ELOOP') throw new Error('SYMLINK_FORBIDDEN');
+    throw error;
+  } finally {
+    await handle?.close();
   }
-  let part = base;
-  for (const segment of name.split('/')) {
-    part = resolve(part, segment);
-    const stat = await lstat(part);
-    if (stat.isSymbolicLink()) throw new Error('SYMLINK_FORBIDDEN');
-  }
-  const stat = await lstat(candidate);
-  if (!stat.isFile() || stat.size > 262144) throw new Error('INVALID_MODULE_FILE');
-  return readFile(candidate);
 }
 export function validateManifest(manifest) {
   if (manifest?.schema !== 'archelaos.bridge.deployed-source.v1' ||

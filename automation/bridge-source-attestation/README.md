@@ -34,3 +34,7 @@ This is a **CODE/SOURCE RECOVERY TOOL**, not HMAC parity, provider OAuth grant a
 ## Security gate correction (PR #281 follow-up)
 
 The initial verifier used Git's legacy SHA-1 blob algorithm as an integrity decision. Sonar rule javascript:S4790 and CodeQL correctly blocked that design. The verifier now uses **only SHA-256** (including a second, pinned `repo_sha256` for the historic GitHub baseline). Git SHA-1 IDs remain informational source-control object identifiers in the manifest and are **never used for security decisions**. No suppression, alert dismissal or bypass was applied.
+
+## Race-condition security hardening
+
+GitHub CodeQL identified a high-severity time-of-check/time-of-use risk in the original `lstat` → `readFile` path. The Linux-only verifier now opens the actual file once with `O_NOFOLLOW`, verifies the real path of that **opened file descriptor** through `/proc/self/fd`, performs bounded reads on that same descriptor and always closes it. No pre-read pathname `lstat` gate remains. Added negative tests for intermediate symlink traversal and oversize growth (10/10 synthetic local PASS). No CodeQL dismissal or suppression; other platforms fail closed until independently reviewed.
