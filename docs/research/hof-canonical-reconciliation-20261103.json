@@ -6,18 +6,18 @@
     "canonical": 773,
     "historical": 680,
     "shared": 680,
-    "divergent_people": 62,
-    "divergent_fields": 102,
+    "divergent_people": 65,
+    "divergent_fields": 108,
     "fields": {
-      "bio": 62,
-      "bio_en": 39,
+      "bio": 65,
+      "bio_en": 42,
       "name": 1
     },
     "classifications": {
       "BLOCKED_SOURCE": 4,
       "LEGACY_TEXT_RETAINED": 84,
-      "QUALIFIED_ARCHIVE": 8,
-      "SEMANTICALLY_RETAINED": 4,
+      "QUALIFIED_ARCHIVE": 9,
+      "SEMANTICALLY_RETAINED": 9,
       "SPELLING_CORRECTION": 2
     }
   },
@@ -118,6 +118,26 @@
   ],
   "historical_only_ids": [],
   "records": [
+    {
+      "id": "arch-2082f3abced0",
+      "name": "Αλεξάνδρα Παπαγιάννη",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "SEMANTICALLY_RETAINED",
+          "legacy_sha256": "c58bd12bf37d9dbf0d145150c726f9790e3af12ca8c442ce824bada4020f29a7",
+          "canonical_sha256": "756fe3c6a929bcef7c91522d17411d8f9c1370bbec718862484d2fab520eff42",
+          "evidence": "SEGAS official U16 result plus Odelalis source confirm bronze 12.07 and +4.9 tailwind; prior inter-club second-place and relay claims retained, not recast as a wind-legal record."
+        },
+        {
+          "field": "bio_en",
+          "classification": "SEMANTICALLY_RETAINED",
+          "legacy_sha256": "c7a63de1ee3e0529e2f6215a5c25beadf30730daa013cbc3eb880db79233d810",
+          "canonical_sha256": "935b2afc66a88d6bc0fb0de06eeb89bd7dfba596811bc3c39958f7cd9289ea32",
+          "evidence": "SEGAS official U16 result plus Odelalis source confirm bronze 12.07 and +4.9 tailwind; prior inter-club second-place and relay claims retained, not recast as a wind-legal record."
+        }
+      ]
+    },
     {
       "id": "arch-23f5b3ca37c0",
       "name": "Μιχάλης Κουκλής",
@@ -418,6 +438,26 @@
       ]
     },
     {
+      "id": "arch-68fef0f68151",
+      "name": "Άννα Χατζηπουργάνη",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "QUALIFIED_ARCHIVE",
+          "legacy_sha256": "a12350eb57aa8cd55d961ffb2fc48f764138adac8e9e2261455cd8b15cc928c7",
+          "canonical_sha256": "2d51db67061ad49d24ecab0e807e7dd6bbe6ec8e5ddc6b98ff75ec54f3071ec8",
+          "evidence": "Verified SEGAS 2019/2020 plus Sport-FM 2020; 59.48, 59.17 and 59.01 chronology corrected. Historical European-national-team assertion omitted as not independently verified in the reviewed sources; 2024 Zachariadeia retained as explicitly attributed local reporting."
+        },
+        {
+          "field": "bio_en",
+          "classification": "SEMANTICALLY_RETAINED",
+          "legacy_sha256": "215fd344ea088a2b682c9818240a798ded698b1fb60379715a1b0abf3452639b",
+          "canonical_sha256": "27dfa2fd3895032f481c424d905eb0ba70f038ecf09885e1431ce4aba6ab7d65",
+          "evidence": "Verified SEGAS 2019/2020 plus Sport-FM 2020; 59.48, 59.17 and 59.01 chronology corrected. Historical European-national-team assertion omitted as not independently verified in the reviewed sources; 2024 Zachariadeia retained as explicitly attributed local reporting."
+        }
+      ]
+    },
+    {
       "id": "arch-6a4b08bec058",
       "name": "Ιωάννης Πέτκος",
       "fields": [
@@ -518,6 +558,26 @@
           "classification": "LEGACY_TEXT_RETAINED",
           "legacy_sha256": "c7dd9b16ff62d4dbd2aceb9440550685c0b8ca016f7213e7f1855bf86d177b4a",
           "canonical_sha256": "1de4caae7d5160ccb50bac1e691e4a2ad5b88eced5562c72c440af35d59bcef5"
+        }
+      ]
+    },
+    {
+      "id": "arch-8479d12a4a14",
+      "name": "Κατερίνα Ρέχα",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "SEMANTICALLY_RETAINED",
+          "legacy_sha256": "ff6b8dcd400e85ddb6d09c27f9f001c09dfe81d1ca3ca6b4fc293d596988d8fe",
+          "canonical_sha256": "4edd8456cf86acef97493d59f93ec70e8c99e9c642c58e6c86f885d23f0984a9",
+          "evidence": "SEGAS 2025 indoor/outdoor reports plus independent KateriniSport and O Dialogos coverage support unchanged medals and corrected heat/final times; source-backed details expand prior profile."
+        },
+        {
+          "field": "bio_en",
+          "classification": "SEMANTICALLY_RETAINED",
+          "legacy_sha256": "5395f14a166cdbb2a6fa5e30004664f9d687e0a598052324b7a1ad870be16d2b",
+          "canonical_sha256": "1c35b37f2d1ce63b0e39c51ae24b183c7dd27514d00f700fb8cfe2c19c38a846",
+          "evidence": "SEGAS 2025 indoor/outdoor reports plus independent KateriniSport and O Dialogos coverage support unchanged medals and corrected heat/final times; source-backed details expand prior profile."
         }
       ]
     },
