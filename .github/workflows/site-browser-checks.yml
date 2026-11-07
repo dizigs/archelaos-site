@@ -1,0 +1,59 @@
+name: Browser Run + GitHub Checks (opt-in)
+on:
+  pull_request:
+    paths:
+      - 'automation/site-browser-checks/**'
+      - '.github/workflows/site-browser-checks.yml'
+  workflow_dispatch:
+    inputs:
+      target_sha:
+        description: 'Exact 40-character commit SHA to verify; must already have all required checks'
+        required: true
+        type: string
+
+permissions: {}
+
+concurrency:
+  group: site-browser-checks-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  offline-contracts:
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '22'
+          package-manager-cache: false
+      - name: Test fail-closed API contracts without credentials or browser quota
+        run: node --test automation/site-browser-checks/*.test.mjs
+
+  live-readonly-smoke:
+    if: github.event_name == 'workflow_dispatch'
+    needs: offline-contracts
+    permissions:
+      contents: read
+      checks: read
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    env:
+      TARGET_SHA: ${{ inputs.target_sha }}
+      GITHUB_TOKEN: ${{ github.token }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID || '898359728b3dfe8c3a3f56e3d19eecd1' }}
+      CLOUDFLARE_BROWSER_RENDERING_TOKEN: ${{ secrets.CLOUDFLARE_BROWSER_RENDERING_TOKEN }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '22'
+          package-manager-cache: false
+      - name: Read exact SHA checks then take two Cloudflare Browser Run snapshots
+        run: node automation/site-browser-checks/verify.mjs
