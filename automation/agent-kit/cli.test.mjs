@@ -167,7 +167,7 @@ test('kernel lock contention is explicit and process death safely releases the s
     const lock=join(f.dir,'.private','activity.lock'),inode=statSync(lock).ino;
     const fixture=join(f.dir,'lock-holder.mjs');
     copyFileSync(new URL('./fixtures/lock-holder.mjs',import.meta.url),fixture);
-    holder=spawn(process.execPath,[fixture,lock]);
+    holder=spawn(process.execPath,[fixture]);
     await new Promise((resolve,reject)=>{
       holder.stdout.once('data',data=>String(data).includes('LOCK_READY')?resolve():reject(Error('lock fixture failed')));
       holder.once('error',reject);holder.once('exit',()=>reject(Error('lock fixture exited before ready')));
@@ -204,8 +204,7 @@ test('directory replacement after open cannot redirect an audit append',()=>{
     writeFileSync(join(outside,'activity.jsonl'),previous,{mode:0o600});
     const fixture=join(f.dir,'swap-fixture.mjs');
     copyFileSync(new URL('./fixtures/dir-swap.mjs',import.meta.url),fixture);
-    const payload=JSON.stringify({args:f.args});
-    const result=spawnSync(process.execPath,[fixture,f.dir,payload],{encoding:'utf8'});
+    const result=spawnSync(process.execPath,[fixture],{encoding:'utf8'});
     assert.equal(result.status,0,result.stderr);
     assert.equal(readFileSync(join(outside,'activity.jsonl'),'utf8'),previous);
     assert.equal(validateEvents(readFileSync(join(f.dir,'held-private','activity.jsonl'),'utf8'),registry).count,1);
@@ -218,8 +217,8 @@ test('verify cannot report an existing audit log empty when descriptor paths dis
     const fixture=join(f.dir,'proc-fixture.mjs');
     copyFileSync(new URL('./fixtures/proc-fd-missing.mjs',import.meta.url),fixture);
     for(const mode of ['before-private','after-private','at-log-open']) {
-      const payload=JSON.stringify({mode});
-      const r=spawnSync(process.execPath,[fixture,payload],{encoding:'utf8'});
+      writeFileSync(join(f.dir,'descriptor-mode.txt'),mode,{mode:0o600});
+      const r=spawnSync(process.execPath,[fixture],{encoding:'utf8'});
       assert.equal(r.status,1,'descriptor path failure must not become an empty valid log: '+mode);
       assert.match(r.stderr,/DESCRIPTOR_PATHS_UNAVAILABLE/);
       assert.equal(readFileSync(log,'utf8'),before);
