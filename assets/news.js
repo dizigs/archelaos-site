@@ -9,6 +9,19 @@ let lastFocus=null,active=null;
 const categories={achievements:['ΔΙΑΚΡΙΣΕΙΣ','ACHIEVEMENTS'],activities:['ΔΡΑΣΕΙΣ','ACTIVITIES'],club:['ΣΥΛΛΟΓΟΣ','CLUB']};
 const link=(href,label)=>{const a=document.createElement('a');a.href=href;a.textContent=label;return a};
 const label=x=>(categories[x.category]||['ΑΡΧΕΛΑΟΣ','ARCHELAOS'])[en()?1:0];
+// Exact sport taxonomy: prevent Κολύμβηση from matching Τεχνική Κολύμβηση.
+const sameTag=(actual,selected)=>{
+ const sport=window.ArchelaosSportSearch;
+ const a=sport?.normalize? sport.normalize(actual):norm(actual);
+ const b=sport?.normalize? sport.normalize(selected):norm(selected);
+ if(a===b)return true;
+ if(!sport?.variants)return false;
+ return sport.variants(actual).includes(b)&&sport.variants(selected).includes(a);
+};
+const saveNewsHistory=(method,url)=>{
+ const prior=history.state&&typeof history.state==='object'?history.state:{};
+ history[method]({...prior,archNews:{category:state.category,query:state.query,tag:state.tag}},'',url);
+};
 function media(x,cls){
  const b=document.createElement(cls==='an-cover'?'figure':'div');b.className=cls;
  const path=String(x.image||'');
@@ -91,7 +104,7 @@ function pageUrl(page){
 function setPage(page,updateHistory=true){
  if(page===state.page)return;
  state.page=page;
- if(updateHistory)history.pushState(null,'',pageUrl(page));
+ if(updateHistory)saveNewsHistory('pushState',pageUrl(page));
  draw();
  const heading=document.querySelector('.an-section-heading');
  if(heading)heading.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
@@ -128,7 +141,7 @@ function draw(){
  const lead=state.items.find(i=>i.featured)||state.items[0];
  const showLead=state.category==='all'&&!q&&!state.tag&&!!lead;
  $('an-feature').hidden=!showLead||state.page!==1;
- const items=state.items.filter(x=>(!showLead||x.id!==lead?.id)&&(state.category==='all'||x.category===state.category)&&(!state.tag||(window.ArchelaosSportSearch?window.ArchelaosSportSearch.matches(x.sport,state.tag):norm(x.sport)===norm(state.tag)))&&(!q||(window.ArchelaosSportSearch?window.ArchelaosSportSearch.sportMatch([x.title,x.summary,x.sport,x.source,...(x.body||[])].join(' '),q):norm([x.title,x.summary,x.sport,x.source,...(x.body||[])].join(' ')).includes(q)))).sort((a,b)=>b.date.localeCompare(a.date));
+ const items=state.items.filter(x=>(!showLead||x.id!==lead?.id)&&(state.category==='all'||x.category===state.category)&&(!state.tag||sameTag(x.sport,state.tag))&&(!q||(window.ArchelaosSportSearch?window.ArchelaosSportSearch.sportMatch([x.title,x.summary,x.sport,x.source,...(x.body||[])].join(' '),q):norm([x.title,x.summary,x.sport,x.source,...(x.body||[])].join(' ')).includes(q)))).sort((a,b)=>b.date.localeCompare(a.date));
  const total=items.length+(showLead?1:0);
  const pageCount=Math.max(1,Math.ceil(total/PAGE_SIZE));
  state.page=Math.min(Math.max(1,state.page),pageCount);
@@ -250,7 +263,7 @@ function show(id){
  $('an-close').focus({preventScroll:true});
  // This reader is reused: a new article must start at its own heading.
  dialog.querySelector('.an-dialog-inner').scrollTop=0;
- const url=new URL(location.href);url.searchParams.set('article',x.id);history.replaceState(null,'',url)
+ const url=new URL(location.href);url.searchParams.set('article',x.id);saveNewsHistory('replaceState',url)
 }
 // A second *native* showModal() joins the browser top layer above the news
 // dialog. The shared biography lifecycle keeps scroll locked until both close.
@@ -272,10 +285,21 @@ const dialog=$('an-dialog');
 $('an-dialog-heart').addEventListener('click',()=>{if(!active||!window.ArchelaosFavorites)return;window.ArchelaosFavorites.toggle('news',active.id,info(active));$('an-dialog-heart').querySelector('span').textContent=window.ArchelaosFavorites.has('news',active.id)?'♥':'♡'});
 $('an-close').addEventListener('click',()=>dialog.close());
 dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});
-dialog.addEventListener('close',()=>{active=null;const url=new URL(location.href);url.searchParams.delete('article');history.replaceState(null,'',url);if(lastFocus?.isConnected)lastFocus.focus({preventScroll:true})});
-$('an-search').addEventListener('input',e=>{state.query=e.target.value;state.tag='';state.page=1;history.replaceState(null,'',pageUrl(1));draw()});
-document.querySelectorAll('.an-filter').forEach(b=>b.addEventListener('click',()=>{state.category=b.dataset.category;state.tag='';state.page=1;history.replaceState(null,'',pageUrl(1));document.querySelectorAll('.an-filter').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));draw()}));
-window.addEventListener('popstate',()=>{state.tag=new URLSearchParams(location.search).get('tag')||'';state.page=Math.max(1,Number.parseInt(new URLSearchParams(location.search).get('page')||'1',10)||1);draw();const id=new URLSearchParams(location.search).get('article');if(id&&id!==active?.id)show(id)});
+dialog.addEventListener('close',()=>{active=null;const url=new URL(location.href);url.searchParams.delete('article');saveNewsHistory('replaceState',url);if(lastFocus?.isConnected)lastFocus.focus({preventScroll:true})});
+$('an-search').addEventListener('input',e=>{state.query=e.target.value;state.tag='';state.page=1;saveNewsHistory('replaceState',pageUrl(1));draw()});
+document.querySelectorAll('.an-filter').forEach(b=>b.addEventListener('click',()=>{state.category=b.dataset.category;state.tag='';state.page=1;saveNewsHistory('replaceState',pageUrl(1));document.querySelectorAll('.an-filter').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));draw()}));
+window.addEventListener('popstate',()=>{
+ const search=new URLSearchParams(location.search),saved=history.state?.archNews;
+ state.tag=saved?.tag??search.get('tag')??'';
+ state.category=saved?.category??'all';
+ state.query=saved?.query??'';
+ state.page=Math.max(1,Number.parseInt(search.get('page')||'1',10)||1);
+ $('an-search').value=state.query;
+ document.querySelectorAll('.an-filter').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.category===state.category)));
+ draw();
+ const id=search.get('article');if(id&&id!==active?.id)show(id);
+ else if(!id&&dialog.open)dialog.close();
+});
 document.addEventListener('archelaos:favorites-change',()=>{if(active){let b=$('an-dialog-heart'),on=window.ArchelaosFavorites.has('news',active.id);b.setAttribute('aria-pressed',String(on));b.querySelector('span').textContent=on?'♥':'♡'}});
 fetch('/news.json?rev=20261101-archive2019',{cache:'no-store'}).then(r=>r.ok?r.json():Promise.reject(Error('HTTP '+r.status))).then(data=>{
  if(!Array.isArray(data.items))throw Error('Bad news index');state.items=data.items.filter(x=>x&&x.id&&x.title&&x.date&&!x.unverified).sort((a,b)=>b.date.localeCompare(a.date));
