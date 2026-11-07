@@ -108,7 +108,7 @@ export function createGoogleSheetsLogAdapter({ client, spreadsheetId, logSheetId
     // An append timeout can follow a committed write. Throw without cursor ACK:
     // the projecter's next invocation must re-read the entire H/N key space.
     const data = requireResponse(await client.spreadsheets.values.append({
-      ...params, range: "'LOG'!A:R',
+      ...params, range: "'LOG'!A:R",
       valueInputOption: 'RAW', insertDataOption: 'INSERT_ROWS',
       requestBody: { values: rows },
     }));
