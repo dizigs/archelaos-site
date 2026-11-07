@@ -41,7 +41,7 @@ def deploy(path):
                          cwd=ROOT,env=os.environ,capture_output=True,text=True,timeout=90)
     except subprocess.TimeoutExpired: raise Stop("WRANGLER_DEPLOY_TIMEOUT") from None
     if r.returncode!=0:
-        codes=re.findall(r"(?:error code|code)\s*:?\s*(\d{4,6})",r.stdout+r.stderr,re.I)
+        codes=re.findall(r"\b(?:error code|code)(?::[ \t]{0,8}|[ \t]{1,8})([0-9]{4,6})\b",r.stdout+r.stderr,re.I)
         raise Stop("WRANGLER_DEPLOY_FAILED"+("_"+codes[0] if codes else ""))
 def make(src,original,name,old_peer,new_peer):
     c=(ROOT/src).read_text()
@@ -52,7 +52,7 @@ def make(src,original,name,old_peer,new_peer):
     # Isolated QA only: provide an opaque stage code for failure triage.
     c=rep(c,"[vars]","[vars]\nPRIVATE_HMAC_DIAGNOSTIC_ENABLED = \"true\"")
     c=c.replace('service = "'+old_peer+'"','service = "'+new_peer+'"')
-    bootstrap=re.sub(r"(?ms)^\[\[services\]\]\n.*?(?=^\[|\Z)","",c)
+    bootstrap=re.sub(r"(?ms)^\[\[services\]\]\n.*?(?=(?:^\[|\Z))","",c)
     if tomllib.loads(bootstrap).get("services"): raise Stop("BOOTSTRAP_HAS_SERVICES")
     folder=ROOT/src.rsplit("/",1)[0]
     bp=folder/("wrangler."+name+".boot.toml")
