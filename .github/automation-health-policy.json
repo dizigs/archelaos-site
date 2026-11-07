@@ -77,9 +77,9 @@
     },
     ".github/workflows/public-mentions.yml": {
       "cron": [
-        "41 7 * * 2,5"
+        "41 7 * * *"
       ],
-      "max_age_hours": 108,
+      "max_age_hours": 36,
       "first_run_deadline_utc": "2026-11-03T19:41:00Z"
     },
     ".github/workflows/scorecard-free.yml": {

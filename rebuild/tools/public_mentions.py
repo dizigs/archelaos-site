@@ -74,8 +74,16 @@ def date(value: str | None) -> str:
 
 def relevant(title: str, summary: str) -> bool:
     t = normalize(title + " " + summary)
-    return (("αρχελα" in t and any(x in t for x in ("κατεριν", "γασ ", "τοξοβολ", "handball",
-                                                    "χαντμπολ", "βολει", "στιβο", "παλη")))
+    sports = (
+        "τοξοβολ", "handball", "χαντμπολ", "χειροσφαιρ",
+        "βολει", "πετοσφαιρ", "στιβ", "αθλητισ",
+        "παλη", "παλαιστ", "wrestl",
+        "ενοργαν", "γυμνασ", "σκοποβολ", "κολυμβ",
+        "swim", "αρση βαρ", "αρση βαρων",
+    )
+    # Wide discovery is candidate-only. Exact club identity and all reported
+    # sporting achievements need independent verification before publication.
+    return (("αρχελα" in t and any(x in t for x in ("κατεριν", "γασ ", *sports)))
             or "gas archelaos katerinis" in t)
 
 
@@ -137,7 +145,7 @@ def collect(config: dict, opener=urlopen) -> dict:
         "purpose":"Private editorial review of PUBLIC mentions only; no verified achievements or automatic articles",
         "accounts_waiting_for_authorized_access":[a["platform"] for a in config.get("accounts",[]) if not a.get("active")],
         "candidate_count":len(unique),
-        "candidates":list(unique.values())[:80],
+        "candidates":list(unique.values())[:240],
         "warnings":warnings,
     }
 

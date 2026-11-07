@@ -34,6 +34,18 @@ for bad in ["http://news.google.com/rss/search?q=x", "https://evil.com/rss/searc
     assert not m.allowed_feed(bad),bad
 cfg=json.loads((ROOT/"research/public-mentions-sources.json").read_text(encoding="utf-8"))
 assert cfg["publishing_disabled"] and all(not a["active"] for a in cfg["accounts"])
+
+# Ten additional sport-specific Google News feeds retain the strict public allowlist.
+assert len(cfg["feeds"]) == 12, "Expected two existing feeds and ten sport feeds"
+assert len(set(f["id"] for f in cfg["feeds"])) == 12
+assert all(m.allowed_feed(f["url"]) for f in cfg["feeds"] if f["active"])
+for sport in ("χάντμπολ", "στίβος", "ενόργανη", "τοξοβολία",
+              "σκοποβολή", "πάλη", "κολύμβηση", "τεχνική κολύμβηση",
+              "βόλεϊ", "άρση βαρών"):
+    assert m.relevant("Αρχέλαος: " + sport, ""), sport
+assert not m.relevant("Νίκη Αιγινίου: νίκη στο βόλεϊ", "")
+assert not m.relevant("ΣΦΚ Πιερικός Αρχέλαος: μπάσκετ", "")
+
 class FakeResponse:
     def __enter__(self): return self
     def __exit__(self,*args): return False
