@@ -28,3 +28,8 @@ Offline test command: node --test tests/text-corrections.test.mjs
 - Data store: dedicated EU-only ARCHIVE_DB with `text_corrections` and `text_correction_rate`, provisioned but no production submissions yet. `ENABLE_TEXT_CORRECTIONS` stays OFF until a proven hosted end-to-end test.
 - Privacy: anonymous proposals without name/email, short-lived secret-salted IP hashes only to rate-limit abuse; reviewer access is restricted. Operator must honor privacy/deletion requests in the site's Policy of Privacy and periodically purge expired rate rows and unnecessary personal data.
 - Rollback: set ENABLE_TEXT_CORRECTIONS=false and redeploy, preserve moderation records; do not delete or publish user content automatically.
+
+## STAGING SLOT — 2026-11-07
+- Dedicated Pages preview limited to this PR's branch, with EU-only `ARCHIVE_DB` preview database and an independent Turnstile widget for `archelaos-site.pages.dev`.
+- Keep `ENABLE_TEXT_CORRECTIONS=false` until preview hostname, protected form submission, D1 receipt readback and privacy/rollback behavior are verified. Only then turn on production, using the same exact-HEAD reviewed code and its own EU D1 binding.
+- Never infer preview success from PR CI alone; capture provider deployment SHA, logs, exact URL and form/readback evidence.
