@@ -14,7 +14,7 @@ concurrency:
 jobs:
   antigravity:
     name: Antigravity full Git checkout + autonomous offline repair
-    if: github.repository == 'dizigs/archelaos-site' && github.event.head_commit.message == 'test(antigravity): full checkout HMAC background run'
+    if: "github.repository == 'dizigs/archelaos-site' && github.event.head_commit.message == 'test(antigravity): full checkout HMAC background run'"
     runs-on: ubuntu-latest
     timeout-minutes: 240
     steps:
