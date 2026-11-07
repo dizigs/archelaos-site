@@ -16,6 +16,17 @@ function show(item){
   paragraphs:body,sources:[],favorite:{type:'moment',id:item.id},closeLabel:tr('Κλείσιμο ιστορίας','Close story')
  });
 }
+function openLinkedMoment(){
+ const id=Number(location.hash.match(/^#moment-(\d+)$/)?.[1]);
+ if(!Number.isInteger(id))return;
+ const item=state.data.find(row=>row.id===id);
+ if(!item)return;
+ if(state.decade!=='all'){state.decade='all';render()}
+ const card=q('#moment-'+id);
+ card?.scrollIntoView({block:'center',behavior:'auto'});
+ // Deep links should open the actual Moment, not merely scroll to its card.
+ show(item);
+}
 function filters(){
  const root=q('#rm-filters');root.replaceChildren();
  for(const decade of decades){
@@ -79,8 +90,8 @@ async function init(){
   if(!res.ok)throw Error('Moments HTTP '+res.status);
   const json=await res.json();if(!Array.isArray(json.moments)||json.moments.length!==70)throw Error('Invalid moments count');
   state.data=json.moments;apply();
-  const id=Number(location.hash.match(/^#moment-(\d+)$/)?.[1]);
-  if(id>=1&&id<=70){const card=q('#moment-'+id);card?.scrollIntoView({block:'center',behavior:'auto'})}
+  openLinkedMoment();
+  window.addEventListener('hashchange',openLinkedMoment)
  }catch(err){console.error('Archive moments:',err);q('#rm-count').textContent=tr('Αδυναμία φόρτωσης του χρονολογίου.','Could not load the timeline.')}
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
