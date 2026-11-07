@@ -7,6 +7,8 @@ on:
       - 'brain/qa/live_parent_ack_recover.py'
       - 'brain/qa/parent_ack_operator_worker.mjs'
       - 'brain/qa/wrangler.parent-ack-operator.toml'
+      - 'brain/qa/parent_ack_local_proxy.mjs'
+      - 'brain/qa/wrangler.parent-ack-local-proxy.toml'
 permissions:
   contents: read
   actions: read
@@ -66,6 +68,7 @@ jobs:
           set -euo pipefail
           python -m py_compile brain/qa/live_parent_ack_once.py brain/qa/live_parent_ack_recover.py
           node --check brain/qa/parent_ack_operator_worker.mjs
+          node --check brain/qa/parent_ack_local_proxy.mjs
           python3 - <<'PY'
           import datetime, json, os, urllib.request
           runid=os.environ['QA_CI_RUN_ID']; sha=os.environ['QA_CI_SHA']
