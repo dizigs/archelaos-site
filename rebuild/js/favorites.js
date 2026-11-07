@@ -74,4 +74,9 @@ function button(type,id,cls=''){
 }
 window.addEventListener('storage',e=>{if(e.key===KEY){persist=true;get();notify()}});
 window.ArchelaosFavorites=Object.freeze({get,has,toggle,clear,button,persistent:()=>persist,canonicalPersonId});
+// Load the same source-ID correction widget in the rebuilt release as on root pages.
+if(!document.querySelector('script[data-arch-text-corrections]')){
+ const css=document.createElement('link');css.rel='stylesheet';css.href='/assets/correction-suggestions.css?v=20261107';document.head.append(css);
+ const js=document.createElement('script');js.src='/assets/correction-suggestions.js?v=20261107';js.async=true;js.dataset.archTextCorrections='';document.head.append(js);
+}
 })();
