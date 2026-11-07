@@ -91,7 +91,7 @@ export function authenticateSignedEnvelope({ envelope, signature, secrets, now =
 const sha256 = value => createHash('sha256').update(value).digest('hex');
 const first = (sql, query, ...params) => [...sql.exec(query, ...params)][0];
 
-export function createPrivateAuditStore(storage, { maxPerMinute = 60, maxRecords = 500000 } = {}) {
+function createPrivateAuditStore(storage, { maxPerMinute = 60, maxRecords = 500000 } = {}) {
   if (typeof storage?.transactionSync !== 'function' || typeof storage?.sql?.exec !== 'function') {
     throw new AuditFault('SQLITE_DURABLE_STORAGE_REQUIRED');
   }
