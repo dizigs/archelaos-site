@@ -108,5 +108,5 @@ search.addEventListener('input',refilter);filter.addEventListener('change',refil
 more.addEventListener('click',()=>{limit+=12;render()});
 $('fc-close').addEventListener('click',close);$('fc-cancel').addEventListener('click',close);
 $('fc-form').addEventListener('submit',submit);
-catalog();availability();
+void catalog();void availability();
 })();
