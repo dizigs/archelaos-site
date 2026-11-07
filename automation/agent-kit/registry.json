@@ -159,6 +159,26 @@
       ]
     },
     {
+      "id": "ceramic-ai",
+      "name": "Ceramic.ai research adapter",
+      "family": "research",
+      "state": "candidate",
+      "owner": "project-operator",
+      "use": "Source-only discovery adapter; no proven Brain authenticated invocation",
+      "access": "provider and runtime permissions unverified; approved research-only scope",
+      "budget": "metered-unverified",
+      "commands": [
+        {
+          "id": "inventory",
+          "run": "node automation/agent-kit/cli.mjs show ceramic-ai",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site/pull/208"
+      ]
+    },
+    {
       "id": "chatgpt-automations",
       "name": "ChatGPT Automations",
       "family": "automation",
@@ -171,6 +191,26 @@
         {
           "id": "inventory",
           "run": "node automation/agent-kit/cli.mjs show chatgpt-automations",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site"
+      ]
+    },
+    {
+      "id": "claude-nonprofits",
+      "name": "Claude for Nonprofits subscription",
+      "family": "ai-provider",
+      "state": "reported",
+      "owner": "project-operator",
+      "use": "Existing nonprofit Claude access; separately verify API quota and credentials",
+      "access": "provider and runtime permissions unverified; approved research-only scope",
+      "budget": "subscription-not-api-proof",
+      "commands": [
+        {
+          "id": "inventory",
+          "run": "node automation/agent-kit/cli.mjs show claude-nonprofits",
           "mode": "read"
         }
       ],
@@ -199,6 +239,26 @@
       ]
     },
     {
+      "id": "cloudflare-d1",
+      "name": "Cloudflare D1",
+      "family": "storage",
+      "state": "reported",
+      "owner": "project-operator",
+      "use": "Existing scoped photo archive metadata database; new schema/permissions must be proven",
+      "access": "provider and runtime permissions unverified; approved research-only scope",
+      "budget": "paid-workers-plan",
+      "commands": [
+        {
+          "id": "inventory",
+          "run": "node automation/agent-kit/cli.mjs show cloudflare-d1",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site/pull/240"
+      ]
+    },
+    {
       "id": "cloudflare-mcp",
       "name": "Cloudflare API MCP (managed remote)",
       "family": "mcp",
@@ -216,6 +276,26 @@
       ],
       "evidence": [
         "https://developers.cloudflare.com/agents/model-context-protocol/cloudflare/servers-for-cloudflare/"
+      ]
+    },
+    {
+      "id": "cloudflare-r2",
+      "name": "Cloudflare R2",
+      "family": "storage",
+      "state": "reported",
+      "owner": "project-operator",
+      "use": "Existing archive buckets; jurisdiction and rights must be individually verified",
+      "access": "provider and runtime permissions unverified; approved research-only scope",
+      "budget": "paid-workers-plan",
+      "commands": [
+        {
+          "id": "inventory",
+          "run": "node automation/agent-kit/cli.mjs show cloudflare-r2",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site/pull/240"
       ]
     },
     {
@@ -296,6 +376,26 @@
       ],
       "evidence": [
         "https://github.com/dizigs/archelaos-site"
+      ]
+    },
+    {
+      "id": "europeana",
+      "name": "Europeana archive discovery",
+      "family": "research",
+      "state": "candidate",
+      "owner": "project-operator",
+      "use": "Historical metadata discovery; rights, relevance and publisher rights must be independently verified",
+      "access": "provider and runtime permissions unverified; approved research-only scope",
+      "budget": "needs-verification",
+      "commands": [
+        {
+          "id": "inventory",
+          "run": "node automation/agent-kit/cli.mjs show europeana",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site/pull/241"
       ]
     },
     {
@@ -381,6 +481,26 @@
       ],
       "evidence": [
         "https://github.com/dizigs/archelaos-site/pull/269"
+      ]
+    },
+    {
+      "id": "gemma-classifier",
+      "name": "Gemma classifier adapter",
+      "family": "ai-provider",
+      "state": "candidate",
+      "owner": "project-operator",
+      "use": "Source-only classification and deduplication; not a connected production Brain model",
+      "access": "provider and runtime permissions unverified; approved research-only scope",
+      "budget": "needs-verification",
+      "commands": [
+        {
+          "id": "inventory",
+          "run": "node automation/agent-kit/cli.mjs show gemma-classifier",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site/pull/206"
       ]
     },
     {
@@ -534,6 +654,26 @@
       ]
     },
     {
+      "id": "google-books",
+      "name": "Google Books historical metadata",
+      "family": "research",
+      "state": "candidate",
+      "owner": "project-operator",
+      "use": "Metadata candidate for archival research, not authenticated proof of club identity",
+      "access": "provider and runtime permissions unverified; approved research-only scope",
+      "budget": "needs-verification",
+      "commands": [
+        {
+          "id": "inventory",
+          "run": "node automation/agent-kit/cli.mjs show google-books",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site/pull/178"
+      ]
+    },
+    {
       "id": "google-calendar",
       "name": "Google Calendar connector",
       "family": "workspace",
@@ -674,6 +814,26 @@
       ]
     },
     {
+      "id": "internet-archive",
+      "name": "Internet Archive historical candidates",
+      "family": "research",
+      "state": "candidate",
+      "owner": "project-operator",
+      "use": "Historical public sources and metadata, no automatic republication",
+      "access": "provider and runtime permissions unverified; approved research-only scope",
+      "budget": "needs-verification",
+      "commands": [
+        {
+          "id": "inventory",
+          "run": "node automation/agent-kit/cli.mjs show internet-archive",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site/pull/178"
+      ]
+    },
+    {
       "id": "lighthouse-ci",
       "name": "Lighthouse CI and actionlint",
       "family": "qa",
@@ -751,6 +911,46 @@
       ],
       "evidence": [
         "https://github.com/dizigs/archelaos-site/blob/main/.github/workflows/clarity-daily-export.yml"
+      ]
+    },
+    {
+      "id": "notebooklm",
+      "name": "NotebookLM research use",
+      "family": "research",
+      "state": "candidate",
+      "owner": "project-operator",
+      "use": "Potential bibliography/notes support; no validated API or OAuth integration",
+      "access": "provider and runtime permissions unverified; approved research-only scope",
+      "budget": "needs-verification",
+      "commands": [
+        {
+          "id": "inventory",
+          "run": "node automation/agent-kit/cli.mjs show notebooklm",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site/pull/194"
+      ]
+    },
+    {
+      "id": "ollama-local",
+      "name": "Ollama local-model runtime",
+      "family": "ai-provider",
+      "state": "candidate",
+      "owner": "project-operator",
+      "use": "Potential local inference for offline agents; host installation and model availability unverified",
+      "access": "provider and runtime permissions unverified; approved research-only scope",
+      "budget": "host-compute",
+      "commands": [
+        {
+          "id": "inventory",
+          "run": "node automation/agent-kit/cli.mjs show ollama-local",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site/pull/270"
       ]
     },
     {
