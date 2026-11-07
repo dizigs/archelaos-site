@@ -45,6 +45,37 @@ def active(name):
     b={v.get("name"):v for v in bindings if isinstance(v,dict)}
     def text(k):return b.get(k,{}).get("text")
     return version,text
+def qa_cleanup():
+    name="archelaos-parent-ack-one-shot-qa"
+    base=f"https://api.cloudflare.com/client/v4/accounts/{ACCOUNT}/workers/scripts/{name}"
+    token=os.environ.get("CLOUDFLARE_API_TOKEN","")
+    if not token:deny("QA_TOKEN_MISSING")
+    headers={"Authorization":"Bearer "+token,"Accept":"application/json"}
+    def request(method,endpoint):
+        req=urllib.request.Request(base+endpoint,headers=headers,method=method)
+        try:
+            with urllib.request.urlopen(req,timeout=16) as response:
+                raw=response.read(262145)
+                if len(raw)>262144:deny("QA_TOO_LARGE")
+                result=json.loads(raw)
+                if result.get("success") is not True:deny("QA_PROVIDER_ERROR")
+                return result.get("result")
+        except urllib.error.HTTPError as exc:
+            if method=="GET" and exc.code==404:return None
+            deny("QA_HTTP_"+str(exc.code))
+    settings=request("GET","/settings")
+    if settings is None:
+        print("ACK_RECOVERY: QA_WORKER_ALREADY_ABSENT",flush=True)
+        return
+    bindings=settings.get("bindings",[])
+    if not isinstance(bindings,list):deny("QA_BINDING_INVENTORY")
+    vars={v.get("name"):v.get("text") for v in bindings if isinstance(v,dict) and v.get("type")=="plain_text"}
+    if vars.get("QA_EXPECTED_PARENT_SHA")!=SOURCE or vars.get("QA_CI_SHA")!="c620e300886f7c505ae5533ba7d5ccb4771f3d6a" or vars.get("QA_CI_RUN_ID")!="42406509198":
+        deny("UNRECOGNIZED_QA_WORKER_DO_NOT_DELETE")
+    request("DELETE","")
+    if request("GET","/settings") is not None:deny("QA_DELETE_UNVERIFIED")
+    print("ACK_RECOVERY: QA_WORKER_DELETE_VERIFIED",flush=True)
+
 def main():
     if os.getenv("GITHUB_ACTIONS")!="true" or os.getenv("GITHUB_REPOSITORY")!="dizigs/archelaos-site" or not os.getenv("ACK_TEST_PR","").isdigit():
         deny("OPERATOR_CONTEXT")
@@ -68,6 +99,7 @@ def main():
         back,settings=active(name)
         if back!=BASE[name] or settings("DEPLOY_SHA")!="0"*40:deny("ROLLBACK_UNVERIFIED_"+name)
         print("ACK_RECOVERY: ROLLBACK_VERIFIED_"+name,flush=True)
+    qa_cleanup()
     print("ACK_RECOVERY: BOTH_BASELINES_VERIFIED",flush=True)
 if __name__=="__main__":
     try:main()
