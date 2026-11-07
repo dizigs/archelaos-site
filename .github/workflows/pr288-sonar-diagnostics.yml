@@ -1,0 +1,77 @@
+name: PR 288 Sonar diagnostics (read-only, one-shot)
+on:
+  pull_request:
+    types: [synchronize]
+    paths:
+      - '.github/workflows/pr288-sonar-diagnostics.yml'
+permissions:
+  contents: read
+  checks: read
+jobs:
+  inspect:
+    if: github.repository == 'dizigs/archelaos-site' && github.event.pull_request.number == 288 && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - name: Read prior exact Sonar check annotations and public issue details
+        env:
+          GH_READ_TOKEN: ${{ github.token }}
+        shell: python
+        run: |
+          import json, os, urllib.parse, urllib.request, urllib.error
+          repo="dizigs/archelaos-site"
+          check_run=128467220521
+          output=[]
+          def get(url, token=None):
+              headers={"Accept":"application/vnd.github+json" if token else "application/json",
+                       "User-Agent":"archelaos-readonly-qa"}
+              if token:
+                  headers["Authorization"]="Bearer "+token
+                  headers["X-GitHub-Api-Version"]="2022-11-28"
+              req=urllib.request.Request(url,headers=headers,method="GET")
+              with urllib.request.urlopen(req,timeout=14) as resp:
+                  if resp.status != 200:
+                      raise RuntimeError("UNEXPECTED_HTTP_STATUS")
+                  buf=resp.read(100001)
+                  if len(buf)>100000:
+                      raise RuntimeError("OVERSIZED_RESPONSE")
+                  return json.loads(buf)
+          try:
+              url=f"https://api.github.com/repos/{repo}/check-runs/{check_run}/annotations?per_page=100"
+              data=get(url,os.environ["GH_READ_TOKEN"])
+              if not isinstance(data,list):
+                  raise ValueError("INVALID_ANNOTATIONS_SCHEMA")
+              output.append("### Sonar check annotations")
+              output.append("Count: "+str(len(data)))
+              for row in data[:20]:
+                  path=str(row.get("path",""))[:180]
+                  line=str(row.get("start_line",""))[:12]
+                  level=str(row.get("annotation_level",""))[:30]
+                  title=str(row.get("title","")).replace("\n"," ")[:180]
+                  message=str(row.get("message","")).replace("\n"," ")[:350]
+                  output.append(f"- {path}:{line} [{level}] {title}: {message}")
+          except (urllib.error.HTTPError,urllib.error.URLError,ValueError,RuntimeError,KeyError) as err:
+              output.append("GITHUB_ANNOTATION_READ_BLOCKED: "+str(getattr(err,"code",type(err).__name__)))
+          try:
+              query=urllib.parse.urlencode({
+                  "componentKeys":"dizigs_archelaos-site","pullRequest":"288",
+                  "impactSoftwareQualities":"RELIABILITY",
+                  "issueStatuses":"OPEN,CONFIRMED","ps":"100"})
+              data=get("https://sonarcloud.io/api/issues/search?"+query)
+              if not isinstance(data,dict):
+                  raise ValueError("INVALID_SONAR_SCHEMA")
+              issues=data.get("issues",[])
+              output.append("### Sonar API issues")
+              output.append("Total: "+str(data.get("total","UNKNOWN")))
+              for item in issues[:30]:
+                  output.append("- "+str(item.get("component",""))[:180]+":"+str(item.get("line",""))[:12]+
+                                " "+str(item.get("rule",""))[:55]+" "+
+                                str(item.get("message","")).replace("\n"," ")[:330])
+          except (urllib.error.HTTPError,urllib.error.URLError,ValueError,RuntimeError) as err:
+              output.append("SONAR_API_READ_BLOCKED: "+str(getattr(err,"code",type(err).__name__)))
+          report="\n".join(output)+"\n"
+          print(report)
+          with open(os.environ["GITHUB_STEP_SUMMARY"],"a",encoding="utf-8") as f:
+              f.write(report)
+          if any(x.startswith("GITHUB_ANNOTATION_READ_BLOCKED") for x in output) and any(x.startswith("SONAR_API_READ_BLOCKED") for x in output):
+              raise SystemExit(1)
