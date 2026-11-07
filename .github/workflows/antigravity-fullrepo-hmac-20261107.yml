@@ -1,0 +1,42 @@
+name: Antigravity full-repository HMAC repair (isolated sandbox; no deploy)
+on:
+  push:
+    branches:
+      - assistant/antigravity-fullrepo-hmac-20261107
+    paths:
+      - .github/workflows/antigravity-fullrepo-hmac-20261107.yml
+      - brain/qa/antigravity_fullrepo_hmac_20261107.mjs
+permissions:
+  contents: read
+concurrency:
+  group: archelaos-antigravity-fullrepo-hmac-20261107
+  cancel-in-progress: false
+jobs:
+  antigravity:
+    name: Antigravity full Git checkout + autonomous offline repair
+    if: github.repository == 'dizigs/archelaos-site' && github.event.head_commit.message == 'test(antigravity): full checkout HMAC background run'
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - name: Checkout workflow harness (not the Antigravity sandbox)
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+          ref: ${{ github.sha }}
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # pinned
+        with:
+          node-version: '24'
+      - name: Launch real Antigravity on entire Git repository and retain same interaction
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          TARGET_PR_SHA: 95c8ea0c7666f47986c8c9b85e2d3ded1b7c3204
+          GITHUB_RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: node brain/qa/antigravity_fullrepo_hmac_20261107.mjs
+      - name: Preserve source-locked advisory, patch and immutable interaction metadata
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: antigravity-fullrepo-hmac-${{ github.run_id }}
+          path: ${{ runner.temp }}/archelaos-antigravity/
+          if-no-files-found: warn
+          retention-days: 14
