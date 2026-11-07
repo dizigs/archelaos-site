@@ -30,8 +30,15 @@ jobs:
           node --version
           node --check automation/private-tool-audit/receiver.mjs
           node --check automation/private-tool-audit/receiver.test.mjs
+          node --check automation/private-tool-audit/sheet-projector.mjs
+          node --check automation/private-tool-audit/sheet-projector.test.mjs
       - name: Offline SQLite HMAC audit contract tests
         shell: bash
         run: |
           set -euo pipefail
           node --test automation/private-tool-audit/receiver.test.mjs
+      - name: Offline Sheet projection and lost-receipt regression tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --test automation/private-tool-audit/sheet-projector.test.mjs
