@@ -30,3 +30,7 @@ Tests with synthetic-only module files:
 ## Mandatory release boundary
 
 This is a **CODE/SOURCE RECOVERY TOOL**, not HMAC parity, provider OAuth grant attestation, private RPC acceptance, durable ACK, authorized staging, deployment or production approval. Before composing PR #272 into the existing Bridge, its source owner must preserve the 15-module topology, existing `APPS_SCRIPT_COORDINATOR` DO, `AUTH_KV`, OAuth routes and all existing binding names, independently verify actual Google Apps Script receipt provenance, and obtain a separately approved private staging plan and rollback. No new Cloudflare bindings, keys, flags, schedules, deployment or repair are authorized by this evidence.
+
+## Security gate correction (PR #281 follow-up)
+
+The initial verifier used Git's legacy SHA-1 blob algorithm as an integrity decision. Sonar rule javascript:S4790 and CodeQL correctly blocked that design. The verifier now uses **only SHA-256** (including a second, pinned `repo_sha256` for the historic GitHub baseline). Git SHA-1 IDs remain informational source-control object identifiers in the manifest and are **never used for security decisions**. No suppression, alert dismissal or bypass was applied.

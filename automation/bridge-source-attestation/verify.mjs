@@ -9,9 +9,6 @@ import {pathToFileURL} from 'node:url';
 const SHA1 = /^[a-f0-9]{40}$/;
 const SHA256 = /^[a-f0-9]{64}$/;
 const SAFE = /^[a-zA-Z0-9._/-]+$/;
-export function gitBlob(bytes) {
-  return createHash('sha1').update('blob '+bytes.length+'\0').update(bytes).digest('hex');
-}
 export function sha256(bytes) {
   return createHash('sha256').update(bytes).digest('hex');
 }
@@ -54,7 +51,9 @@ export function validateManifest(manifest) {
     if (item.repo_path !== null) checkedName(item.repo_path);
     if (item.repo_blob_sha1 !== null && !SHA1.test(item.repo_blob_sha1))
       throw new Error('INVALID_REPO_BLOB');
-    if ((item.repo_path === null) !== (item.repo_blob_sha1 === null))
+    if ((item.repo_path === null) !== (item.repo_blob_sha1 === null) ||
+        (item.repo_path === null) !== (item.repo_sha256 === null) ||
+        (item.repo_sha256 !== null && !SHA256.test(item.repo_sha256)))
       throw new Error('INCOMPLETE_REPO_MAPPING');
   }
   return manifest;
@@ -66,8 +65,9 @@ export async function verifyPrivate(root, manifest) {
     let status;
     try {
       const bytes = await safeBytes(root, item.name);
-      status = (bytes.length === item.bytes && sha256(bytes) === item.sha256 &&
-        gitBlob(bytes) === item.git_blob_sha1) ? 'MATCH' : 'CONTENT_MISMATCH';
+      // SHA-256 controls all security decisions; Git object SHA-1 is metadata.
+      status = (bytes.length === item.bytes && sha256(bytes) === item.sha256)
+        ? 'MATCH' : 'CONTENT_MISMATCH';
     } catch (e) {
       status = e.code === 'ENOENT' ? 'MISSING' : (e.message || 'READ_FAILURE');
     }
@@ -86,9 +86,10 @@ export async function verifyRepo(root, manifest) {
     let status;
     try {
       const bytes = await safeBytes(root, item.repo_path);
-      const blob = gitBlob(bytes);
-      status = blob !== item.repo_blob_sha1 ? 'REPO_BASELINE_CHANGED' :
-        blob === item.git_blob_sha1 ? 'EXACT_DEPLOYED_MATCH' : 'EXPECTED_DEPLOYED_DRIFT';
+      const hash = sha256(bytes);
+      status = hash !== item.repo_sha256 ? 'REPO_BASELINE_CHANGED' :
+        (hash === item.sha256 && bytes.length === item.bytes)
+          ? 'EXACT_DEPLOYED_MATCH' : 'EXPECTED_DEPLOYED_DRIFT';
     } catch(e) {
       status = e.code === 'ENOENT' ? 'REPO_FILE_MISSING' : (e.message || 'READ_FAILURE');
     }

@@ -3,15 +3,15 @@ import assert from 'node:assert/strict';
 import {mkdtemp, writeFile, mkdir, symlink, rm} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
-import {gitBlob,sha256,validateManifest,verifyPrivate,verifyRepo} from './verify.mjs';
+import {sha256,validateManifest,verifyPrivate,verifyRepo} from './verify.mjs';
 
 const source=Buffer.from('export const safe = 1;\n');
 const changed=Buffer.from('export const safe = 2;\n');
 const manifest=()=>({schema:'archelaos.bridge.deployed-source.v1',modules:[
   {name:'source.mjs',repo_path:'src/source.mjs',bytes:source.length,
-    sha256:sha256(source),git_blob_sha1:gitBlob(source),repo_blob_sha1:gitBlob(source)},
+    sha256:sha256(source),git_blob_sha1:'a'.repeat(40),repo_blob_sha1:'a'.repeat(40),repo_sha256:sha256(source)},
   {name:'legacy.js',repo_path:null,bytes:changed.length,
-    sha256:sha256(changed),git_blob_sha1:gitBlob(changed),repo_blob_sha1:null}
+    sha256:sha256(changed),git_blob_sha1:'b'.repeat(40),repo_blob_sha1:null,repo_sha256:null}
 ]});
 async function sandbox(fn) {
   const root=await mkdtemp(join(tmpdir(),'bridge-attest-'));
@@ -64,7 +64,7 @@ test('manifest traversal, duplicate and invalid digest are denied',()=>{
   assert.throws(()=>validateManifest(h),/INVALID_MANIFEST_ENTRY/);
 });
 test('expected drift is explicit, never misclassified as a deploy match',async()=>sandbox(async root=>{
-  const m=manifest();m.modules[0].repo_blob_sha1=gitBlob(changed);
+  const m=manifest();m.modules[0].repo_sha256=sha256(changed);
   await mkdir(join(root,'src'));await writeFile(join(root,'src/source.mjs'),changed);
   const r=await verifyRepo(root,m);
   assert.equal(r.status,'SOURCE_RECOVERY_BLOCKED');
