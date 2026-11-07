@@ -1,8 +1,10 @@
-# Antigravity / MCP onboarding — staged, disabled
+# Antigravity / MCP onboarding — workspace configuration, OAuth pending
 
 This document is a source-only handoff for the existing Antigravity owner.
-It does not change local Antigravity settings, install MCP servers, grant
-permissions, or prove that any MCP connection is authenticated.
+The PR now contains a project-scoped `.agents/mcp_config.json`; when checked
+out into an Antigravity workspace, the client can discover configured MCP
+endpoints. This does NOT install software on the user's device, grant OAuth
+consent, prove any live MCP connection, or change Cloudflare production.
 
 Official docs:
 - https://antigravity.google/docs/mcp
@@ -11,28 +13,39 @@ Official docs:
 - https://github.com/SonarSource/sonarqube-mcp-server
 - https://developers.google.com/workspace/guides/configure-mcp-servers
 
-## Ready for authorized installation
+## Workspace MCP configuration (added to this PR)
 
-The peer file mcp_config.example.json is intentionally **not** in the active
-workspace .agents/mcp_config.json. Both entries have disabled: true and contain
-NO credentials. This ensures simply merging the PR cannot silently connect
-an AI agent to a sensitive remote service.
+The project-scoped `.agents/mcp_config.json` includes exactly three
+vendor-verified remote endpoints, with **no credentials**:
 
-Antigravity IDE: Agent panel -> MCP Servers -> Manage MCP Servers.
-Antigravity CLI: enter /mcp or edit global ~/.gemini/config/mcp_config.json;
-a checked-out project can use .agents/mcp_config.json as a local config.
-Remote MCP entries use the serverUrl field, not the retired httpUrl key.
-OAuth takes place in the user's local client, not in GitHub Actions.
+- `github-readonly` → `https://api.githubcopilot.com/mcp/x/all/readonly`:
+  `disabled: false`. Read-only GitHub operations only, with runtime OAuth
+  authorization still required on the client. Only authorize the required
+  repository.
+- `cloudflare-docs` → `https://docs.mcp.cloudflare.com/mcp`:
+  `disabled: false`. Public Cloudflare documentation, no account write access.
+- `cloudflare-api` → `https://mcp.cloudflare.com/mcp`:
+  `disabled: true`. Remains OFF until the user completes a reviewed,
+  least-privilege Cloudflare OAuth flow. Start from Minimal/read-only scopes
+  and do not enable deployment permissions or automatic approvals.
 
-The sample provides:
-- github-readonly: GitHub's remote read-only toolset path. Its own
-  read-only mode blocks write tools, but token permissions still matter.
-- cloudflare-api: current Cloudflare API MCP endpoint. Provider toolsets
-  can propose writes, so use only a verified scoped OAuth identity and
-  restrict exposed/approved tools to read-only before enabling.
+**These settings exist ONLY on PR #280 until the branch is actually checked
+out or merged.** No local Antigravity client, desktop profile or global
+configuration was modified by GitHub, and no OAuth handshake was performed.
+An enabled `serverUrl` is CONFIGURED_UNVERIFIED, not CONNECTED or INSTALLED.
 
-Do not copy sample verbatim into an active installation until scopes and
-host runtime are checked; keeping disabled: true is the deliberate default.
+The separate `automation/agent-kit/mcp_config.example.json` remains
+disabled for both GitHub and Cloudflare API so it cannot accidentally be
+pasted into a sensitive global client and appear already authenticated.
+
+Antigravity IDE: Agent panel → MCP Servers → Manage MCP Servers.
+Antigravity CLI: `/mcp`; global config at
+`~/.gemini/config/mcp_config.json`. For this project use
+`.agents/mcp_config.json` and do not commit OAuth tokens.
+Run `node automation/agent-kit/mcp-doctor.mjs --config .agents/mcp_config.json`
+for an offline assessment. Use the live client /mcp panel for actual
+OAuth/server-tool status and then a scoped read-only smoke test.
+See https://antigravity.google/docs/mcp for the supported client setup.
 
 ## Additional MCPs to install through the Antigravity MCP Store
 
