@@ -16,6 +16,16 @@ The private Google Doc remains the human-owned source for access decisions.
 This repository contains a REDACTED projection only. VERIFIED means evidence of
 a specific previous operation, not proof of unrestricted live API access.
 
+## Antigravity workspace skills (discoverable after checkout)
+
+The repository includes three **source-level** workspace skills under
+`.agents/skills/`: `archelaos-tool-registry`, `archelaos-site-qa`, and
+`archelaos-source-research`. Antigravity can discover these when the
+merged/checked-out workspace contains them. They supply safe operating
+instructions for tool selection, browser QA and evidence-first research,
+not live GitHub/Cloudflare MCP authentication, Gemini credits or runtime
+installations. No desktop app or OAuth setup is performed by this PR.
+
 ## CLI, Node 22+
 
     node automation/agent-kit/cli.mjs list
