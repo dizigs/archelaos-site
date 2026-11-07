@@ -1,6 +1,6 @@
 {
   "version": "v1.6",
-  "count": 773,
+  "count": 774,
   "people": [
     {
       "name": "Νίκος Τσινόπουλος",
@@ -8777,6 +8777,30 @@
       "bio": "Η Ανδριάνα Γκολέμα, καθηγήτρια Φυσικής Αγωγής, υπηρέτησε ως προπονήτρια στο τμήμα πετοσφαίρισης του Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης, στις μικρές ηλικιακές κατηγορίες κοριτσιών, από τον Σεπτέμβριο του 1996 έως τον Οκτώβριο του 1999. Η παρουσία της βεβαιώνεται από επίσημο έγγραφο του συλλόγου της 12ης Σεπτεμβρίου 2002 (αρ. πρωτ. 301), το οποίο αναφέρει 15 ώρες προπόνησης την εβδομάδα. Δεν προκύπτουν συγκεκριμένα αγωνιστικά αποτελέσματα από το τεκμήριο.",
       "bio_en": "Andriana Gkolema, a physical education teacher, coached girls in the younger age groups of Archelaos Katerini's volleyball department from September 1996 to October 1999. An official club certificate dated 12 September 2002 (protocol no. 301) records 15 hours of coaching per week. The document does not identify specific competition results.",
       "id": "arch-bc495c1d2075"
+    },
+    {
+      "id": "arch-achilleas-passiranis-wrest22",
+      "name": "Αχιλλέας Πασσιράνης",
+      "name_en": "Achilleas Passiranis",
+      "role": "Αθλητής · Ελληνορωμαϊκή πάλη",
+      "role_en": "Athlete · Greco-Roman wrestling",
+      "category": "athlete",
+      "bio": "Αθλητής της ελληνορωμαϊκής πάλης του Γ.Α.Σ. «Αρχέλαος» Κατερίνης. Στο Πανελλήνιο Πρωτάθλημα U15 στα Τρίκαλα τον Μάιο 2022 κατέλαβε την 3η θέση στα 38 κιλά, όπως καταγράφουν η ΕΛΟΠ και το SPORTSFEED. Τον Μάρτιο 2023 κατέλαβε ξανά την 3η θέση στα 38 κιλά στο Πανελλήνιο U15 στον Τύρναβο.",
+      "bio_en": "Achilleas Passiranis represented Archelaos Katerinis in Greco-Roman wrestling. He placed third at 38 kg at the Greek U15 championships in Trikala in May 2022, as reported by the wrestling federation and SPORTSFEED, and again finished third at 38 kg at the 2023 U15 championships in Tyrnavos.",
+      "refs": [
+        {
+          "label": "ΕΛΟΠ · Επίσημη κατάταξη U15, Μάιος 2022, 38 κιλά",
+          "url": "https://www.elop.gr/%CE%BF-%CF%80%CE%B1%CE%BF%CE%BA-%CF%80%CF%81%CF%89%CF%84%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%AE%CF%82-u15-%CF%83%CF%84%CE%B7%CE%BD-%CE%B5%CE%BB%CE%BB%CE%B7%CE%BD%CE%BF%CF%81%CF%89%CE%BC%CE%B1%CE%8A%CE%BA/"
+        },
+        {
+          "label": "SPORTSFEED · Πανελλήνιο U15, 2022, 38 κιλά",
+          "url": "https://sportsfeed.gr/o-paok-proteyse-sto-panellinio-paidon-stin-ellinoromaiki/"
+        },
+        {
+          "label": "ΕΛΟΠ · Επίσημη κατάταξη U15, Μάρτιος 2023, 38 κιλά",
+          "url": "https://www.elop.gr/%CE%BF-%CE%B1%CF%80%CF%83-%CF%84%CF%81%CE%B9%CE%BA%CE%AC%CE%BB%CF%89%CE%BD-%CF%80%CF%81%CF%89%CF%84%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%AE%CF%82-u15-%CF%83%CF%84%CE%B7%CE%BD-%CE%B5%CE%BB%CE%BB%CE%B7/"
+        }
+      ]
     }
   ]
 }

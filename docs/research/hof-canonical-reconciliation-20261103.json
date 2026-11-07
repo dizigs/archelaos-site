@@ -3,7 +3,7 @@
   "canonical_source": "hall-of-fame-people.json",
   "historical_source": "rebuild/data/people.json",
   "counts": {
-    "canonical": 773,
+    "canonical": 774,
     "historical": 680,
     "shared": 680,
     "divergent_people": 65,
@@ -23,6 +23,7 @@
   },
   "canonical_only_ids": [
     "arch-achilleas-giassiranis-wrestling-2024",
+    "arch-achilleas-passiranis-wrest22",
     "arch-afroditi-biziota-track23",
     "arch-aikaterini-giannakou-arch",
     "arch-alexis-papadopoulos-wrestling-2022",
