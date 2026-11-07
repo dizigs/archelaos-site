@@ -1,6 +1,170 @@
 {
   "schemaVersion": 1,
-  "status": "NOT YET VERIFIED — DO NOT PUBLISH",
-  "description": "Single canonical trophy per verified sports award with many source mentionIds. Populated ONLY after editorial verification and deduplication.",
-  "achievements": []
+  "status": "FIVE_SOURCE_PAIR_VERIFIED — PRIVATE REVIEW LEDGER / NO PUBLIC TROPHY GALLERY",
+  "description": "Five different Greco-Roman U20 2024 sporting awards, independently cross-checked against the national wrestling federation and the club announcement republished by O Dialogos; one record per award. No gallery or deployment.",
+  "achievements": [
+    {
+      "achievementId": "ach-wrest-u20-gr-2024-60kg-sokratis-konstantinidis-silver",
+      "awardType": "silver",
+      "competition": "Πανελλήνιο Πρωτάθλημα Ελληνορωμαϊκής Πάλης U20 2024",
+      "sport": "Πάλη",
+      "discipline": "Ελληνορωμαϊκή πάλη",
+      "category": "U20 · 60 κιλά",
+      "dateOrSeason": "2024-04-20",
+      "recipientType": "individual",
+      "personIds": [
+        "arch-73968afa517e"
+      ],
+      "eventIds": [],
+      "photoIds": [],
+      "mentionIds": [
+        "amh-362a0e198db36759"
+      ],
+      "primarySourceUrls": [
+        "https://www.elop.gr/%CF%80%CF%81%CF%89%CF%84%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%AE%CF%82-%CE%B5%CE%BB%CE%BB%CE%AC%CE%B4%CE%B1%CF%82-%CF%83%CF%84%CE%B7%CE%BD-%CE%B5%CE%BB%CE%BB%CE%B7%CE%BD%CE%BF%CF%81%CF%89%CE%BC%CE%B1-5/",
+        "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/3%CE%B7-%CE%BA%CE%B1%CE%BB%CF%8D%CF%84%CE%B5%CF%81%CE%B7-%CE%BF%CE%BC%CE%AC%CE%B4%CE%B1-%CF%83%CF%84%CE%B7%CE%BD-%CE%B5%CE%BB%CE%BB%CE%AC%CE%B4%CE%B1-%CE%B7-%CF%80%CE%AC%CE%BB%CE%B7-%CF%84%CE%BF%CF%85/"
+      ],
+      "sourcePairReview": {
+        "source1": "Ελληνική Ομοσπονδία Πάλης · επίσημη αγωνιστική κατάταξη",
+        "source2": "ΓΑΣ Αρχέλαος · ανακοίνωση μέσω Ο Διάλογος",
+        "sameEventVerified": true,
+        "affiliationVerified": true,
+        "identityVerified": true,
+        "independentUnderlyingOrganizations": true
+      },
+      "editorialStatus": "approved",
+      "reviewedAt": "2026-11-07T13:49:22.921Z",
+      "reviewedBy": "ChatGPT · two-source historical review"
+    },
+    {
+      "achievementId": "ach-wrest-u20-gr-2024-63kg-thanasis-efthymiadis-gold",
+      "awardType": "gold",
+      "competition": "Πανελλήνιο Πρωτάθλημα Ελληνορωμαϊκής Πάλης U20 2024",
+      "sport": "Πάλη",
+      "discipline": "Ελληνορωμαϊκή πάλη",
+      "category": "U20 · 63 κιλά",
+      "dateOrSeason": "2024-04-20",
+      "recipientType": "individual",
+      "personIds": [
+        "arch-ba8233d165aa"
+      ],
+      "eventIds": [],
+      "photoIds": [],
+      "mentionIds": [
+        "amh-362a0e198db36759"
+      ],
+      "primarySourceUrls": [
+        "https://www.elop.gr/%CF%80%CF%81%CF%89%CF%84%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%AE%CF%82-%CE%B5%CE%BB%CE%BB%CE%AC%CE%B4%CE%B1%CF%82-%CF%83%CF%84%CE%B7%CE%BD-%CE%B5%CE%BB%CE%BB%CE%B7%CE%BD%CE%BF%CF%81%CF%89%CE%BC%CE%B1-5/",
+        "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/3%CE%B7-%CE%BA%CE%B1%CE%BB%CF%8D%CF%84%CE%B5%CF%81%CE%B7-%CE%BF%CE%BC%CE%AC%CE%B4%CE%B1-%CF%83%CF%84%CE%B7%CE%BD-%CE%B5%CE%BB%CE%BB%CE%AC%CE%B4%CE%B1-%CE%B7-%CF%80%CE%AC%CE%BB%CE%B7-%CF%84%CE%BF%CF%85/"
+      ],
+      "sourcePairReview": {
+        "source1": "Ελληνική Ομοσπονδία Πάλης · επίσημη αγωνιστική κατάταξη",
+        "source2": "ΓΑΣ Αρχέλαος · ανακοίνωση μέσω Ο Διάλογος",
+        "sameEventVerified": true,
+        "affiliationVerified": true,
+        "identityVerified": true,
+        "independentUnderlyingOrganizations": true
+      },
+      "editorialStatus": "approved",
+      "reviewedAt": "2026-11-07T13:49:22.921Z",
+      "reviewedBy": "ChatGPT · two-source historical review"
+    },
+    {
+      "achievementId": "ach-wrest-u20-gr-2024-87kg-lefteris-pappas-gold",
+      "awardType": "gold",
+      "competition": "Πανελλήνιο Πρωτάθλημα Ελληνορωμαϊκής Πάλης U20 2024",
+      "sport": "Πάλη",
+      "discipline": "Ελληνορωμαϊκή πάλη",
+      "category": "U20 · 87 κιλά",
+      "dateOrSeason": "2024-04-20",
+      "recipientType": "individual",
+      "personIds": [
+        "arch-e49a8c140396"
+      ],
+      "eventIds": [],
+      "photoIds": [],
+      "mentionIds": [
+        "amh-362a0e198db36759"
+      ],
+      "primarySourceUrls": [
+        "https://www.elop.gr/%CF%80%CF%81%CF%89%CF%84%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%AE%CF%82-%CE%B5%CE%BB%CE%BB%CE%AC%CE%B4%CE%B1%CF%82-%CF%83%CF%84%CE%B7%CE%BD-%CE%B5%CE%BB%CE%BB%CE%B7%CE%BD%CE%BF%CF%81%CF%89%CE%BC%CE%B1-5/",
+        "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/3%CE%B7-%CE%BA%CE%B1%CE%BB%CF%8D%CF%84%CE%B5%CF%81%CE%B7-%CE%BF%CE%BC%CE%AC%CE%B4%CE%B1-%CF%83%CF%84%CE%B7%CE%BD-%CE%B5%CE%BB%CE%BB%CE%AC%CE%B4%CE%B1-%CE%B7-%CF%80%CE%AC%CE%BB%CE%B7-%CF%84%CE%BF%CF%85/"
+      ],
+      "sourcePairReview": {
+        "source1": "Ελληνική Ομοσπονδία Πάλης · επίσημη αγωνιστική κατάταξη",
+        "source2": "ΓΑΣ Αρχέλαος · ανακοίνωση μέσω Ο Διάλογος",
+        "sameEventVerified": true,
+        "affiliationVerified": true,
+        "identityVerified": true,
+        "independentUnderlyingOrganizations": true
+      },
+      "editorialStatus": "approved",
+      "reviewedAt": "2026-11-07T13:49:22.921Z",
+      "reviewedBy": "ChatGPT · two-source historical review"
+    },
+    {
+      "achievementId": "ach-wrest-u20-gr-2024-97kg-dimitris-pappas-silver",
+      "awardType": "silver",
+      "competition": "Πανελλήνιο Πρωτάθλημα Ελληνορωμαϊκής Πάλης U20 2024",
+      "sport": "Πάλη",
+      "discipline": "Ελληνορωμαϊκή πάλη",
+      "category": "U20 · 97 κιλά",
+      "dateOrSeason": "2024-04-20",
+      "recipientType": "individual",
+      "personIds": [
+        "arch-e87fdf323137"
+      ],
+      "eventIds": [],
+      "photoIds": [],
+      "mentionIds": [
+        "amh-362a0e198db36759"
+      ],
+      "primarySourceUrls": [
+        "https://www.elop.gr/%CF%80%CF%81%CF%89%CF%84%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%AE%CF%82-%CE%B5%CE%BB%CE%BB%CE%AC%CE%B4%CE%B1%CF%82-%CF%83%CF%84%CE%B7%CE%BD-%CE%B5%CE%BB%CE%BB%CE%B7%CE%BD%CE%BF%CF%81%CF%89%CE%BC%CE%B1-5/",
+        "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/3%CE%B7-%CE%BA%CE%B1%CE%BB%CF%8D%CF%84%CE%B5%CF%81%CE%B7-%CE%BF%CE%BC%CE%AC%CE%B4%CE%B1-%CF%83%CF%84%CE%B7%CE%BD-%CE%B5%CE%BB%CE%BB%CE%AC%CE%B4%CE%B1-%CE%B7-%CF%80%CE%AC%CE%BB%CE%B7-%CF%84%CE%BF%CF%85/"
+      ],
+      "sourcePairReview": {
+        "source1": "Ελληνική Ομοσπονδία Πάλης · επίσημη αγωνιστική κατάταξη",
+        "source2": "ΓΑΣ Αρχέλαος · ανακοίνωση μέσω Ο Διάλογος",
+        "sameEventVerified": true,
+        "affiliationVerified": true,
+        "identityVerified": true,
+        "independentUnderlyingOrganizations": true
+      },
+      "editorialStatus": "approved",
+      "reviewedAt": "2026-11-07T13:49:22.921Z",
+      "reviewedBy": "ChatGPT · two-source historical review"
+    },
+    {
+      "achievementId": "ach-wrest-u20-gr-2024-team-archelaos-bronze",
+      "awardType": "bronze",
+      "competition": "Πανελλήνιο Πρωτάθλημα Ελληνορωμαϊκής Πάλης U20 2024",
+      "sport": "Πάλη",
+      "discipline": "Ελληνορωμαϊκή πάλη",
+      "category": "U20 · ομαδικό",
+      "dateOrSeason": "2024-04-20",
+      "recipientType": "team",
+      "personIds": [],
+      "eventIds": [],
+      "photoIds": [],
+      "mentionIds": [
+        "amh-362a0e198db36759"
+      ],
+      "primarySourceUrls": [
+        "https://www.elop.gr/%CF%80%CF%81%CF%89%CF%84%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%AE%CF%82-%CE%B5%CE%BB%CE%BB%CE%AC%CE%B4%CE%B1%CF%82-%CF%83%CF%84%CE%B7%CE%BD-%CE%B5%CE%BB%CE%BB%CE%B7%CE%BD%CE%BF%CF%81%CF%89%CE%BC%CE%B1-5/",
+        "https://odialogos.gr/%CF%80%CE%B9%CE%B5%CF%81%CE%AF%CE%B1/%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%B1/3%CE%B7-%CE%BA%CE%B1%CE%BB%CF%8D%CF%84%CE%B5%CF%81%CE%B7-%CE%BF%CE%BC%CE%AC%CE%B4%CE%B1-%CF%83%CF%84%CE%B7%CE%BD-%CE%B5%CE%BB%CE%BB%CE%AC%CE%B4%CE%B1-%CE%B7-%CF%80%CE%AC%CE%BB%CE%B7-%CF%84%CE%BF%CF%85/"
+      ],
+      "sourcePairReview": {
+        "source1": "Ελληνική Ομοσπονδία Πάλης · επίσημη αγωνιστική κατάταξη",
+        "source2": "ΓΑΣ Αρχέλαος · ανακοίνωση μέσω Ο Διάλογος",
+        "sameEventVerified": true,
+        "affiliationVerified": true,
+        "identityVerified": true,
+        "independentUnderlyingOrganizations": true
+      },
+      "editorialStatus": "approved",
+      "reviewedAt": "2026-11-07T13:49:22.921Z",
+      "reviewedBy": "ChatGPT · two-source historical review"
+    }
+  ]
 }
