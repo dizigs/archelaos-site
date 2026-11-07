@@ -1,0 +1,36 @@
+name: GA4 consent and measurement ID verification
+
+on:
+  pull_request:
+    paths:
+      - 'assets/analytics-consent.js'
+      - 'assets/navigation.js'
+      - 'assets/favorites.js'
+      - 'rebuild/js/shell.js'
+      - 'rebuild/privacy.html'
+      - 'tests/analytics-consent.test.mjs'
+      - '.github/workflows/analytics-consent-verification.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  analytics-consent:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - name: Validate JavaScript syntax
+        run: |
+          node --check assets/analytics-consent.js
+          node --check assets/navigation.js
+          node --check assets/favorites.js
+          node --check rebuild/js/shell.js
+      - name: Verify explicit consent and correct GA4 ID
+        run: node --test tests/analytics-consent.test.mjs
