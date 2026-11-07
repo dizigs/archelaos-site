@@ -1,0 +1,44 @@
+name: Codex Agents API source-only contract checks
+
+on:
+  pull_request:
+    paths:
+      - 'automation/brain-codex-agents-api/**'
+      - '.github/workflows/codex-agents-api-validation.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: codex-agents-source-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  offline-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout source without persistent credentials
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Set up Node without npm install
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '22'
+          package-manager-cache: false
+      - name: Verify policy and transport syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --check automation/brain-codex-agents-api/policy.mjs
+          node --check automation/brain-codex-agents-api/transport.mjs
+          node --check automation/brain-codex-agents-api/adapter.test.mjs
+      - name: Run synthetic tests with NO provider access
+        shell: bash
+        env:
+          CODEX_AGENTS_API_DISPATCH_ENABLED: 'false'
+        run: |
+          set -euo pipefail
+          node --test automation/brain-codex-agents-api/*.test.mjs
