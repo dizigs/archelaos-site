@@ -77,6 +77,8 @@ export async function onRequestPost({request,env}){
  try{
   const ipHash=await sha(env.ARCHIVE_RATE_SALT+'|text_correction|'+ip);
   const minute=Math.floor(Date.now()/60000);
+  // Opportunistic retention: delete pseudonymous rate-limit buckets older than 24h.
+  await env.ARCHIVE_DB.prepare('DELETE FROM text_correction_rate WHERE minute<?1').bind(minute-1440).run();
   const rate=await env.ARCHIVE_DB.prepare(
    'INSERT INTO text_correction_rate(ip_hash,minute,hits) VALUES (?1,?2,1) '+
    'ON CONFLICT(ip_hash,minute) DO UPDATE SET hits=hits+1 WHERE hits<5 RETURNING hits'

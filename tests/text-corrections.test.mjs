@@ -9,7 +9,7 @@ let rate=0,insertions=[],verificationAction='text_correction',verificationHost='
 const dedupe=new Set();
 const db={prepare(sql){return {bind(...args){return {
  async first(){assert.match(sql,/text_correction_rate/);rate++;return rate<=5?{hits:rate}:null},
- async run(){assert.match(sql,/text_corrections/);const row={id:args[0],kind:args[1],recordId:args[2],title:args[3],page:args[4],excerpt:args[5],hash:args[6],description:args[7],source:args[8],dedupe:args[9],status:args[10],createdAt:args[11]};insertions.push(row);const duplicate=dedupe.has(row.dedupe);dedupe.add(row.dedupe);return {meta:{changes:duplicate?0:1}}}
+ async run(){if(sql.startsWith('DELETE FROM text_correction_rate'))return {meta:{changes:0}};assert.match(sql,/text_corrections/);const row={id:args[0],kind:args[1],recordId:args[2],title:args[3],page:args[4],excerpt:args[5],hash:args[6],description:args[7],source:args[8],dedupe:args[9],status:args[10],createdAt:args[11]};insertions.push(row);const duplicate=dedupe.has(row.dedupe);dedupe.add(row.dedupe);return {meta:{changes:duplicate?0:1}}}
 }}}}};
 const env={ENABLE_TEXT_CORRECTIONS:'true',ARCHIVE_DB:db,TURNSTILE_SECRET:'fake-secret',ARCHIVE_RATE_SALT:'fake-salt',ARCHIVE_TURNSTILE_HOSTNAME:'archelaos.club',TEXT_CORRECTIONS_SITE_KEY:'test-public-site-key'};
 const originalFetch=globalThis.fetch;

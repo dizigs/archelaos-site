@@ -35,3 +35,8 @@ Offline test command: node --test tests/text-corrections.test.mjs
 - Never infer preview success from PR CI alone; capture provider deployment SHA, logs, exact URL and form/readback evidence.
 
 - Preview Cloudflare hostname `feat-popup-text-corrections.archelaos-site.pages.dev` and EU-only D1 schema were confirmed on 07/11/2026; preview submissions enabled for staged tests while production remains disabled. Do not carry preview credentials into production.
+
+## Private intake retention and data rights
+- Every successful suggestion is durably stored as a **pending** entry in the dedicated EU `ARCHIVE_DB` table. A duplicate is acknowledged without creating a second record; API never marks uncommitted data as accepted.
+- A hash of requester IP salted by the server secret is used only for per-minute abuse throttling; the plaintext IP is not stored. On each accepted validation attempt, buckets older than 24h are purged opportunistically. No automatic public changes.
+- Public privacy notice is in `rebuild/privacy.html` and links from the popup form; authorized owners must review pending entries and handle deletion requests. Anonymous proposals may lack contact identity; search by reference ID or record/card ID.
