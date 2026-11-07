@@ -6,8 +6,8 @@
   "principle": "An AI PDF reference to a named newspaper or meeting is not inspection of the named original. Club role asserted by canonical Hall is not independently proved by an unrelated homonym result.",
   "canonicalCount": 774,
   "pdfRowsMapped": 25,
-  "independentlyVerifiedNewFacts": 10,
-  "unverifiedNewPdfSpecificFacts": 15,
+  "independentlyVerifiedNewFacts": 1,
+  "unverifiedNewPdfSpecificFacts": 13,
   "identityConflictPersons": 2,
   "publicationRule": "No new published historical claim without original dated independent source, matching person and club in correct era; preserve 774 IDs and explicit source provenance.",
   "records": [
@@ -95,11 +95,19 @@
       "sourcePdfPage": "5",
       "originalSourceToLocate": "Ολύμπιο Βήμα 1997",
       "canonicalBioLength": 72,
-      "verifiedNewClaim": false,
-      "claimStatus": "ORIGINAL_SPECIFIC_SOURCE_PENDING",
+      "verifiedNewClaim": true,
+      "claimStatus": "PRIMARY_CLUB_PUBLICATION_INSPECTED",
       "publicEvidence": [],
-      "requiredNextStep": "Locate and read specific original dated clipping/roster/minutes, verify identity and club; do not publish PDF-only claims",
-      "publicationVerified": false
+      "requiredNextStep": "Limited board-office fact independently checked against original published club volume. Broader historical claims need claim-specific sources.",
+      "publicationVerified": true,
+      "sourceInspection": {
+        "work": "Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης, 40 χρόνια έντονης αθλητικής δραστηριότητας, Κατερίνη 1996",
+        "printedPages": [
+          9
+        ],
+        "sourceType": "Original club-issued printed anniversary report; scanned copy visually examined",
+        "claim": "Athanasios Trygonis named in board elected 11/03/1995 as club treasurer AND wrestling ephor; names printed as ΤΡΥΓΩΝΗΣ ΑΘΑΝ."
+      }
     },
     {
       "personId": "arch-9561837e44eb",
@@ -190,11 +198,19 @@
       "sourcePdfPage": "6",
       "originalSourceToLocate": "Ολύμπιο Βήμα 1995",
       "canonicalBioLength": 50,
-      "verifiedNewClaim": false,
-      "claimStatus": "ORIGINAL_SPECIFIC_SOURCE_PENDING",
+      "verifiedNewClaim": true,
+      "claimStatus": "PRIMARY_CLUB_PUBLICATION_INSPECTED",
       "publicEvidence": [],
-      "requiredNextStep": "Locate and read specific original dated clipping/roster/minutes, verify identity and club; do not publish PDF-only claims",
-      "publicationVerified": false
+      "requiredNextStep": "Limited board-office fact independently checked against original published club volume. Broader historical claims need claim-specific sources.",
+      "publicationVerified": true,
+      "sourceInspection": {
+        "work": "Γ.Α.Σ. «Ο Αρχέλαος» Κατερίνης, 40 χρόνια έντονης αθλητικής δραστηριότητας, Κατερίνη 1996",
+        "printedPages": [
+          9
+        ],
+        "sourceType": "Original club-issued printed anniversary report; scanned copy visually examined",
+        "claim": "Nikos Papanikolaou named as gymnastics ephor in board elected 11/03/1995; printed as ΠΑΠΑΝΙΚΟΛΑΟΥ ΝΙΚ."
+      }
     },
     {
       "personId": "arch-8ba7e62a1faf",
@@ -459,7 +475,9 @@
       }
     }
   ],
-  "primaryClubPublicationCrosschecked": 10,
-  "pendingOriginalSpecificEvidence": 15,
-  "reviewSummary": "10/25 have source-limited canonical biographical additions verified against original 1996 printed club anniversary volume, including 1 independently sourced interview; 15/25 require further precise original records. Public bios retain original paragraphs and IDs."
+  "primaryClubPublicationCrosschecked": 12,
+  "pendingOriginalSpecificEvidence": 13,
+  "reviewSummary": "12 of the 25 ID-mapped short biographies now have source-limited additions grounded in scanned pages of the club's original 1996 printed anniversary volume; one also has independent TA NEA interview. The remaining 13 require further original sources or identity disambiguation.",
+  "originalClubPublicationVerifiedPersons": 12,
+  "independentThirdPartyVerifiedPersons": 1
 }
