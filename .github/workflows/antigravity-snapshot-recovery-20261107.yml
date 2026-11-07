@@ -1,0 +1,34 @@
+name: Antigravity previous environment snapshot recovery (READ ONLY)
+on:
+  push:
+    branches:
+      - assistant/antigravity-snapshot-recovery-20261107
+    paths:
+      - .github/workflows/antigravity-snapshot-recovery-20261107.yml
+      - brain/qa/antigravity_snapshot_recovery.py
+permissions:
+  contents: read
+jobs:
+  inspect:
+    name: Recover prior Google environment files without starting agent
+    if: "github.repository == 'dizigs/archelaos-site' && github.event.head_commit.message == 'ops(antigravity): recover read-only environment snapshot'"
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: '95c8ea0c7666f47986c8c9b85e2d3ded1b7c3204'
+          persist-credentials: false
+      - name: Inspect retained environment, no new agent/no write
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: python3 brain/qa/antigravity_snapshot_recovery.py
+      - name: Retain sanitized status and recovered verified diffs
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: antigravity-prior-sandbox-snapshot-status-${{ github.run_id }}
+          path: ${{ runner.temp }}/antigravity-snapshot-recovery/
+          if-no-files-found: warn
+          retention-days: 14
