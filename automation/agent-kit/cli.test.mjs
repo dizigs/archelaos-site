@@ -1,10 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { copyFileSync, mkdtempSync, readFileSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
+import { copyFileSync, linkSync, mkdirSync, mkdtempSync, readFileSync, rmSync, statSync, symlinkSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { spawnSync } from 'node:child_process';
-import { fileURLToPath } from 'node:url';
+import { spawn, spawnSync } from 'node:child_process';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import {
   createReceipt, isSafeEvidence, run, validateEvents, validateRegistry,
 } from './cli.mjs';
@@ -85,6 +85,8 @@ test('record uses same descriptor and never follows a replacement log symlink', 
   try {
     copyFileSync(new URL('./cli.mjs', import.meta.url), join(dir, 'cli.mjs'));
     copyFileSync(new URL('./registry.json', import.meta.url), join(dir, 'registry.json'));
+    try { copyFileSync(new URL('./private-io.mjs', import.meta.url), join(dir, 'private-io.mjs')); }
+    catch (error) { if (error.code !== 'ENOENT') throw error; }
     const execute = (...args) => spawnSync(process.execPath, [join(dir, 'cli.mjs'), ...args], { encoding: 'utf8' });
     const args = ['record', 'github', 'checks', 'PASS', '--evidence',
       'https://github.com/dizigs/archelaos-site/actions/runs/42344875512'];
@@ -109,4 +111,101 @@ test('record uses same descriptor and never follows a replacement log symlink', 
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }
+});
+
+function isolatedCli() {
+  const dir=mkdtempSync(join(tmpdir(),'agent-kit regression '));
+  for(const name of ['cli.mjs','registry.json','private-io.mjs']) {
+    try {copyFileSync(new URL(name,import.meta.url),join(dir,name));}
+    catch(error){if(name!=='private-io.mjs'||error.code!=='ENOENT')throw error;}
+  }
+  return {dir,args:['record','github','checks','PASS','--evidence',evidence],
+    execute(...args){return spawnSync(process.execPath,[join(dir,'cli.mjs'),...args],{encoding:'utf8',timeout:5000})},
+    close(){rmSync(dir,{recursive:true,force:true})}};
+}
+test('null and scalar audit records fail with a stable receipt error',()=>{
+  for(const text of ['null','[]','1','true','"receipt"'])assert.throws(()=>validateEvents(text,registry),/LOG_RECEIPT_INVALID/);
+});
+test('append preserves the accepted final record when its newline is missing',()=>{
+  const f=isolatedCli();try {
+    assert.equal(f.execute(...f.args).status,0);
+    const path=join(f.dir,'.private','activity.jsonl');
+    writeFileSync(path,readFileSync(path,'utf8').trimEnd(),{mode:0o600});
+    assert.equal(f.execute('verify').status,0);
+    const written=f.execute(...f.args);assert.equal(written.status,0,written.stderr);
+    const checked=f.execute('verify');assert.equal(checked.status,0,checked.stderr);
+    assert.equal(JSON.parse(checked.stdout).localLog.count,2);
+  }finally{f.close()}
+});
+test('record and verify reject a redirected private directory without changing the target',()=>{
+  const f=isolatedCli();try {
+    const outside=join(f.dir,'outside');mkdirSync(outside,{mode:0o700});
+    const receipt=createReceipt({registry,toolId:'github',commandId:'checks',outcome:'PASS',evidence});
+    const text=JSON.stringify(receipt)+'\n';writeFileSync(join(outside,'activity.jsonl'),text,{mode:0o600});
+    symlinkSync(outside,join(f.dir,'.private'),'dir');
+    const checked=f.execute('verify'),written=f.execute(...f.args);
+    assert.notEqual(checked.status,0,'verify must not consume receipts from a symlinked directory');
+    assert.notEqual(written.status,0,'record must not append outside its held private directory');
+    assert.equal(readFileSync(join(outside,'activity.jsonl'),'utf8'),text);
+  }finally{f.close()}
+});
+test('concurrent CLI writers serialize one verifiable receipt chain',async()=>{
+  const f=isolatedCli();try {
+    const results=await Promise.all(Array.from({length:8},()=>new Promise((resolve,reject)=>{
+      const child=spawn(process.execPath,[join(f.dir,'cli.mjs'),...f.args]);let error='';
+      child.stderr.on('data',data=>{error+=data});child.on('error',reject);
+      child.on('close',code=>resolve({code,error}));
+    })));
+    for(const r of results)assert.equal(r.code,0,r.error);
+    const checked=f.execute('verify');assert.equal(checked.status,0,checked.stderr);
+    assert.equal(JSON.parse(checked.stdout).localLog.count,8);
+  }finally{f.close()}
+});
+test('kernel lock contention is explicit and process death safely releases the same lock inode',async()=>{
+  const f=isolatedCli();let holder;
+  try {
+    assert.equal(f.execute(...f.args).status,0);
+    const lock=join(f.dir,'.private','activity.lock'),inode=statSync(lock).ino;
+    const script="import{openSync}from'node:fs';import{spawnSync}from'node:child_process';const fd=openSync(process.argv[1],'r+');const r=spawnSync('/usr/bin/flock',['-n','3'],{stdio:['ignore','ignore','pipe',fd]});if(r.status!==0)process.exit(1);console.log('LOCK_READY');setInterval(()=>{},1000);";
+    holder=spawn(process.execPath,['--input-type=module','-e',script,lock]);
+    await new Promise((resolve,reject)=>{
+      holder.stdout.once('data',data=>String(data).includes('LOCK_READY')?resolve():reject(Error('lock fixture failed')));
+      holder.once('error',reject);holder.once('exit',()=>reject(Error('lock fixture exited before ready')));
+    });
+    const blocked=f.execute(...f.args);assert.equal(blocked.status,1);assert.match(blocked.stderr,/AUDIT_LOCK_BUSY/);
+    const exited=new Promise(resolve=>holder.once('close',resolve));holder.kill('SIGKILL');await exited;
+    const written=f.execute(...f.args);assert.equal(written.status,0,written.stderr);
+    assert.equal(statSync(lock).ino,inode,'must never unlink/recreate a lock to recover it');
+    assert.equal(JSON.parse(f.execute('verify').stdout).localLog.count,2);
+  }finally{if(holder?.exitCode===null&&holder?.signalCode===null)holder.kill('SIGKILL');f.close()}
+});
+test('hardlinked receipt files are rejected without modifying either alias',()=>{
+  const f=isolatedCli();try {
+    assert.equal(f.execute(...f.args).status,0);const log=join(f.dir,'.private','activity.jsonl');
+    const before=readFileSync(log,'utf8');linkSync(log,join(f.dir,'outside-alias'));
+    assert.notEqual(f.execute('verify').status,0);assert.notEqual(f.execute(...f.args).status,0);
+    assert.equal(readFileSync(log,'utf8'),before);
+  }finally{f.close()}
+});
+test('unmarked legacy lock is never guessed stale or removed while a writer may own it',()=>{
+  const f=isolatedCli();try {
+    assert.equal(f.execute(...f.args).status,0);
+    const lock=join(f.dir,'.private','activity.lock'),log=join(f.dir,'.private','activity.jsonl');
+    const before=readFileSync(log,'utf8');writeFileSync(lock,'',{mode:0o600});
+    const rejected=f.execute(...f.args);assert.equal(rejected.status,1);
+    assert.match(rejected.stderr,/AUDIT_LOCK_PROTOCOL_UNVERIFIED/);
+    assert.equal(readFileSync(lock,'utf8'),'');assert.equal(readFileSync(log,'utf8'),before);
+  }finally{f.close()}
+});
+test('directory replacement after open cannot redirect an audit append',()=>{
+  const f=isolatedCli();try {
+    const outside=join(f.dir,'outside');mkdirSync(outside,{mode:0o700});
+    const previous=JSON.stringify(createReceipt({registry,toolId:'github',commandId:'checks',outcome:'PASS',evidence,at:proofTime}))+'\n';
+    writeFileSync(join(outside,'activity.jsonl'),previous,{mode:0o600});
+    const script=`import fs from 'node:fs';import{syncBuiltinESMExports}from'node:module';import{join}from'node:path';const{run}=await import(${JSON.stringify(pathToFileURL(join(f.dir,'cli.mjs')).href)});const original=fs.openSync;let swapped=false;fs.openSync=(path,...args)=>{const fd=original(path,...args);if(!swapped&&String(path).endsWith('/.private')){swapped=true;fs.renameSync(join(process.argv[1],'.private'),join(process.argv[1],'held-private'));fs.symlinkSync(join(process.argv[1],'outside'),join(process.argv[1],'.private'),'dir')}return fd};syncBuiltinESMExports();console.log(JSON.stringify(run(${JSON.stringify(f.args)})));`;
+    const result=spawnSync(process.execPath,['--input-type=module','-e',script,f.dir],{encoding:'utf8'});
+    assert.equal(result.status,0,result.stderr);
+    assert.equal(readFileSync(join(outside,'activity.jsonl'),'utf8'),previous);
+    assert.equal(validateEvents(readFileSync(join(f.dir,'held-private','activity.jsonl'),'utf8'),registry).count,1);
+  }finally{f.close()}
 });

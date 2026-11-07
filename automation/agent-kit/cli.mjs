@@ -2,18 +2,18 @@
 // Public-safe tool discovery + private, append-only local command receipt log.
 // This is NOT a cloud event collector or a Brain authorization bypass.
 import {
-  appendFileSync, closeSync, constants, fsyncSync, mkdirSync,
-  openSync, readFileSync, unlinkSync,
+  appendFileSync, closeSync, constants, fsyncSync, openSync,
 } from 'node:fs';
+import {spawnSync} from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { dirname, join, resolve } from 'node:path';
+import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import {assertRegularDescriptor,heldPath,isMainModule,readBoundedDescriptor,readBoundedFile,withPrivateDirectory} from './private-io.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const REGISTRY_PATH = join(HERE, 'registry.json');
-const PRIVATE_DIR = join(HERE, '.private');
-const EVENT_PATH = join(PRIVATE_DIR, 'activity.jsonl');
-const LOCK_PATH = join(PRIVATE_DIR, 'activity.lock');
+const MAX_LOG_BYTES=8*1024*1024;
+const LOCK_PROTOCOL='ARCHELAOS_AGENT_KIT_FLOCK_V1\n';
 const GENESIS = '0'.repeat(64);
 const STATES = new Set(['verified', 'reported', 'paused', 'candidate']);
 const OUTCOMES = new Set(['PASS', 'FAIL', 'BLOCKED', 'UNKNOWN', 'SKIPPED']);
@@ -87,6 +87,7 @@ export function validateEvents(text, registry) {
     if (!line) continue;
     let event;
     try { event = JSON.parse(line); } catch { throw new Error('LOG_PARSE_FAILED'); }
+    if (!event || typeof event!=='object' || Array.isArray(event)) throw new Error('LOG_RECEIPT_INVALID');
     const tool = byId.get(event.toolId);
     if (!tool || !tool.commands.some(command => command.id === event.commandId) ||
         event.v !== 1 || !OUTCOMES.has(event.outcome) ||
@@ -97,8 +98,8 @@ export function validateEvents(text, registry) {
       throw new Error('LOG_RECEIPT_INVALID');
     }
     const { hash, ...withoutHash } = event;
-    if (Object.keys(withoutHash).sort().join(',') !==
-        ['at', 'commandId', 'evidence', 'outcome', 'prevHash', 'ref', 'toolId', 'v'].sort().join(',') ||
+    const fields=['at','commandId','evidence','outcome','prevHash','ref','toolId','v'];
+    if (Object.keys(withoutHash).length!==fields.length || !fields.every(k=>Object.hasOwn(withoutHash,k)) ||
         hash !== eventHash(withoutHash)) {
       throw new Error('LOG_CHAIN_BROKEN');
     }
@@ -132,32 +133,68 @@ function parseOptions(args) {
 function record(registry, args) {
   const [toolId, commandId, outcome, ...optionArgs] = args;
   const options = parseOptions(optionArgs);
-  mkdirSync(PRIVATE_DIR, { recursive: true, mode: 0o700 });
-  // Exclusive local lock prevents two CLI writers from forking the hash chain.
-  const lock = openSync(LOCK_PATH, 'wx', 0o600);
-  try {
-    // Open once with O_NOFOLLOW and retain the same descriptor from read to append.
-    // This removes the exists/read/open TOCTOU window reported by CodeQL.
-    const descriptor = openSync(EVENT_PATH,
-      constants.O_RDWR | constants.O_CREAT | constants.O_APPEND | constants.O_NOFOLLOW, 0o600);
+  return withPrivateDirectory(HERE,true,directory=>{
+    const path=heldPath(directory,'activity.lock');
+    let lock,created=false;
     try {
-      const existing = readFileSync(descriptor, 'utf8');
-      const proof = validateEvents(existing, registry);
-      const receipt = createReceipt({
-        registry, toolId, commandId, outcome, evidence: options['--evidence'],
-        ref: options['--ref'] ?? null, prevHash: proof.lastHash,
-      });
-      appendFileSync(descriptor, JSON.stringify(receipt) + '\n', 'utf8');
-      fsyncSync(descriptor);
-      return { status: 'LOCALLY_RECORDED_NOT_REMOTE_SYNCED', count: proof.count + 1, hash: receipt.hash };
-    } finally { closeSync(descriptor); }
-  } finally {
-    closeSync(lock);
-    unlinkSync(LOCK_PATH);
-  }
+      lock=openSync(path,constants.O_RDWR|constants.O_CREAT|constants.O_EXCL|constants.O_NOFOLLOW|constants.O_NONBLOCK,0o600);
+      created=true;
+    }catch(error){
+      if(error.code!=='EEXIST')throw error;
+      lock=openSync(path,constants.O_RDWR|constants.O_NOFOLLOW|constants.O_NONBLOCK);
+    }
+    try {
+      assertRegularDescriptor(lock,1024,true);
+      if(created){appendFileSync(lock,LOCK_PROTOCOL,'utf8');fsyncSync(lock);}
+      // flock locks this OPEN FILE DESCRIPTION, inherited as child fd3, and
+      // remains held by the parent until close. Death releases it in the kernel.
+      // Never unlink a lock file: doing so can create two independent lock inodes.
+      const acquired=spawnSync('/usr/bin/flock',['-w','2','-E','75','3'],
+        {stdio:['ignore','ignore','pipe',lock],timeout:3000});
+      if(acquired.status===75)throw new Error('AUDIT_LOCK_BUSY');
+      if(acquired.error||acquired.status!==0)throw new Error('AUDIT_LOCK_UNAVAILABLE');
+      // An old wx-only writer does not hold flock. Never treat its unmarked
+      // lock as abandoned. Only a new creator can initialize the protocol.
+      let recognized=false;
+      for(let attempt=0;attempt<50;attempt++) {
+        let marker;
+        try {marker=readBoundedDescriptor(lock,1024,true);}
+        catch(error){
+          if(error.message!=='FILE_CHANGED_DURING_READ')throw error;
+          Atomics.wait(new Int32Array(new SharedArrayBuffer(4)),0,0,5);
+          continue;
+        }
+        if(marker===LOCK_PROTOCOL){recognized=true;break;}
+        if(marker!=='')break;
+        Atomics.wait(new Int32Array(new SharedArrayBuffer(4)),0,0,5);
+      }
+      if(!recognized)throw new Error('AUDIT_LOCK_PROTOCOL_UNVERIFIED');
+      // Read/validate/append/fsync through the SAME nofollow file descriptor.
+      const descriptor = openSync(heldPath(directory,'activity.jsonl'),
+        constants.O_RDWR | constants.O_CREAT | constants.O_APPEND | constants.O_NOFOLLOW | constants.O_NONBLOCK, 0o600);
+      try {
+        const existing = readBoundedDescriptor(descriptor,MAX_LOG_BYTES,true);
+        const proof = validateEvents(existing, registry);
+        const receipt = createReceipt({
+          registry, toolId, commandId, outcome, evidence: options['--evidence'],
+          ref: options['--ref'] ?? null, prevHash: proof.lastHash,
+        });
+        const appended=(existing&&!existing.endsWith('\n')?'\n':'')+JSON.stringify(receipt)+'\n';
+        if(Buffer.byteLength(existing+appended,'utf8')>MAX_LOG_BYTES)throw new Error('FILE_TOO_LARGE');
+        appendFileSync(descriptor, appended, 'utf8');
+        fsyncSync(descriptor);
+        return { status: 'LOCALLY_RECORDED_NOT_REMOTE_SYNCED', count: proof.count + 1, hash: receipt.hash };
+      } finally { closeSync(descriptor); }
+    } finally {closeSync(lock);}
+  });
 }
 
-export function run(argv = process.argv.slice(2), registry = validateRegistry(JSON.parse(readFileSync(REGISTRY_PATH, 'utf8')))) {
+function loadRegistry() {
+  const text=readBoundedFile(REGISTRY_PATH,1024*1024);
+  try {return validateRegistry(JSON.parse(text));}
+  catch {throw new Error('REGISTRY_JSON_OR_SCHEMA_INVALID');}
+}
+export function run(argv = process.argv.slice(2), registry = loadRegistry()) {
   validateRegistry(registry);
   const [command, ...args] = argv;
   switch (command) {
@@ -176,18 +213,18 @@ export function run(argv = process.argv.slice(2), registry = validateRegistry(JS
     }
     case 'verify': {
       if (args.length) throw new Error('USAGE: verify');
-      let log = '';
-      let descriptor;
-      try {
-        descriptor = openSync(EVENT_PATH, constants.O_RDONLY | constants.O_NOFOLLOW);
-      } catch (error) {
-        if (error.code !== 'ENOENT') throw error;
-      }
-      if (descriptor !== undefined) {
-        try { log = readFileSync(descriptor, 'utf8'); }
-        finally { closeSync(descriptor); }
-      }
-      return { registry: 'VALID', localLog: validateEvents(log, registry), logLocation: 'LOCAL_PRIVATE_NOT_SYNCED' };
+      return withPrivateDirectory(HERE,false,directory=>{
+        let log='',descriptor;
+        if(directory!==undefined) {
+          try {descriptor=openSync(heldPath(directory,'activity.jsonl'),constants.O_RDONLY|constants.O_NOFOLLOW|constants.O_NONBLOCK);}
+          catch(error){if(error.code!=='ENOENT')throw error;}
+          if(descriptor!==undefined) {
+            try {log=readBoundedDescriptor(descriptor,MAX_LOG_BYTES,true);}
+            finally {closeSync(descriptor);}
+          }
+        }
+        return { registry: 'VALID', localLog: validateEvents(log, registry), logLocation: 'LOCAL_PRIVATE_NOT_SYNCED' };
+      });
     }
     case 'record':
       return record(registry, args);
@@ -196,7 +233,7 @@ export function run(argv = process.argv.slice(2), registry = validateRegistry(JS
   }
 }
 
-if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+if (isMainModule(import.meta.url)) {
   try {
     console.log(JSON.stringify(run(), null, 2));
   } catch (error) {
