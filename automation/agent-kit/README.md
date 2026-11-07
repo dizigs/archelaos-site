@@ -22,7 +22,17 @@ a specific previous operation, not proof of unrestricted live API access.
     node automation/agent-kit/cli.mjs show gemini-api
     node automation/agent-kit/cli.mjs commands github
     node automation/agent-kit/cli.mjs verify
-    node --test automation/agent-kit/cli.test.mjs
+    node --test automation/agent-kit/*.test.mjs
+    node automation/agent-kit/mcp-doctor.mjs
+    node automation/agent-kit/mcp-doctor.mjs --config /path/to/your/mcp_config.json
+
+The MCP doctor is an **offline** read-only inspector. It prints only two
+allowlisted MCP IDs and status: PREPARED_DISABLED, NOT_CONFIGURED,
+ENDPOINT_MISMATCH, or CONFIGURED_UNVERIFIED. It never displays config values,
+secret strings or OAuth credentials; `CONFIGURED_UNVERIFIED` does NOT imply a
+successful installation, authenticated request, provider permissions, or
+runtime availability. The default reads only the committed disabled example;
+the `--config` option checks an explicitly supplied local Antigravity file.
 
 The commands operation prints registered commands but never runs them. External
 commands may consume credits or trigger workflows; check permission/budget first.
