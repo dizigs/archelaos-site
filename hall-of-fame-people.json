@@ -8785,16 +8785,24 @@
       "role": "Αθλητής · Ελληνορωμαϊκή πάλη",
       "role_en": "Athlete · Greco-Roman wrestling",
       "category": "athlete",
-      "bio": "Αθλητής της ελληνορωμαϊκής πάλης του Γ.Α.Σ. «Αρχέλαος» Κατερίνης. Στο Πανελλήνιο Πρωτάθλημα U15 στα Τρίκαλα, στις 15 Μαΐου 2022, κατέκτησε το χάλκινο μετάλλιο στα 38 κιλά. Η ίδια διάκριση και η συμμετοχή του με τον Αρχέλαο επιβεβαιώνονται τόσο από την επίσημη κατάταξη της Ελληνικής Ομοσπονδίας Πάλης όσο και από το ανεξάρτητο αθλητικό ρεπορτάζ του SPORTSFEED.",
-      "bio_en": "Greco-Roman wrestler for GAS Archelaos Katerinis. On 15 May 2022 he won the bronze medal in the 38 kg division at the Greek national U15 championships in Trikala. His result and club affiliation are corroborated by both the Greek Wrestling Federation's competition report and SPORTSFEED.",
+      "bio": "Αθλητής της ελληνορωμαϊκής πάλης του Γ.Α.Σ. «Αρχέλαος» Κατερίνης. Στο Πανελλήνιο Πρωτάθλημα U15 στα Τρίκαλα, στις 14 Μαΐου 2022, κατέκτησε το χάλκινο μετάλλιο στα 38 κιλά. Η ίδια διάκριση και η συμμετοχή του με τον Αρχέλαο επιβεβαιώνονται τόσο από την επίσημη κατάταξη της Ελληνικής Ομοσπονδίας Πάλης όσο και από το ανεξάρτητο αθλητικό ρεπορτάζ του SPORTSFEED.",
+      "bio_en": "Greco-Roman wrestler for GAS Archelaos Katerinis. On 14 May 2022 he won the bronze medal in the 38 kg division at the Greek national U15 championships in Trikala. His result and club affiliation are corroborated by both the Greek Wrestling Federation's competition report and SPORTSFEED.",
       "refs": [
         {
-          "label": "ΕΛΟΠ · Πανελλήνιο U15, Τρίκαλα, 15/05/2022",
+          "label": "ΕΛΟΠ · Πανελλήνιο U15, δημοσίευση αποτελεσμάτων 15/05/2022",
           "url": "https://www.elop.gr/%CE%BF-%CF%80%CE%B1%CE%BF%CE%BA-%CF%80%CF%81%CF%89%CF%84%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%AE%CF%82-u15-%CF%83%CF%84%CE%B7%CE%BD-%CE%B5%CE%BB%CE%BB%CE%B7%CE%BD%CE%BF%CF%81%CF%89%CE%BC%CE%B1%CF%8A%CE%BA/"
         },
         {
-          "label": "SPORTSFEED · Πανελλήνιο U15, Τρίκαλα, 15/05/2022",
+          "label": "SPORTSFEED · Πανελλήνιο U15, δημοσίευση αποτελεσμάτων 15/05/2022",
           "url": "https://sportsfeed.gr/o-paok-proteyse-sto-panellinio-paidon-stin-ellinoromaiki/"
+        },
+        {
+          "label": "ΕΛΟΠ · προκήρυξη U15 2022, ελληνορωμαϊκή το Σάββατο 14/05/2022 (ημερομηνία αγώνα)",
+          "url": "https://www.elop.gr/wp-content/uploads/2022/03/%CE%A0%CE%A1%CE%9F%CE%9A%CE%97%CE%A1%CE%A5%CE%9E%CE%95%CE%99%CE%A3-%CE%91%CE%93%CE%A9%CE%9D%CE%A9%CE%9D-%CE%95%CE%A4%CE%9F%CE%A5%CE%A3-2022.pdf"
+        },
+        {
+          "label": "Δημοσίευμα για τη διεξαγωγή της ελληνορωμαϊκής στις 14/05/2022 · Pieria Social",
+          "url": "https://pieriasocial.gr/?p=49060"
         }
       ]
     }
