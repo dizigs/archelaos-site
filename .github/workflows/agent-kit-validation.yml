@@ -30,10 +30,13 @@ jobs:
           node --version
           node --check automation/agent-kit/cli.mjs
           node --check automation/agent-kit/cli.test.mjs
+          node --check automation/agent-kit/mcp-doctor.mjs
+          node --check automation/agent-kit/mcp-doctor.test.mjs
       - name: Run offline registry and audit tests
         shell: bash
         run: |
           set -euo pipefail
-          node --test automation/agent-kit/cli.test.mjs
+          node --test automation/agent-kit/*.test.mjs
+          node automation/agent-kit/mcp-doctor.mjs
           node automation/agent-kit/cli.mjs verify
           node automation/agent-kit/cli.mjs list > /dev/null
