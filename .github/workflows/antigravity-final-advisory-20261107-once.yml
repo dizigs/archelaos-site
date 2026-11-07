@@ -29,13 +29,14 @@ jobs:
           const open=await get('/pulls?state=open&per_page=100');
           if(open.length===100)throw Error('Incomplete inventory');
           const docs=[];
+          const safePatch=f=>{const p=f.patch;if(typeof p!=='string')return undefined;if(/-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----|(?:sk-proj-|ghp_|gho_|github_pat_|AIza)[0-9A-Za-z_-]{15,}/i.test(p)){console.log('OMITTED_SENSITIVE_PATTERN_PATCH',f.filename);return undefined;}return p;};
           for(const p of open){
            const pr=await get('/pulls/'+p.number);
            const files=await get('/pulls/'+p.number+'/files?per_page=100');
            const runs=await get('/actions/runs?head_sha='+pr.head.sha+'&per_page=30');
            docs.push({number:p.number,title:p.title,head:pr.head.sha,base:pr.base.sha,mergeable:pr.mergeable,mergeable_state:pr.mergeable_state,draft:p.draft,updated_at:p.updated_at,
            ci:runs.workflow_runs.map(r=>({id:r.id,name:r.name,status:r.status,conclusion:r.conclusion,sha:r.head_sha})),
-           files:files.map(f=>({path:f.filename,status:f.status,patch:pri.has(p.number)?f.patch:undefined,sourceRead:false})),files_complete:files.length<100});
+           files:files.map(f=>({path:f.filename,status:f.status,patch:pri.has(p.number)?safePatch(f):undefined,sourceRead:false})),files_complete:files.length<100});
           }
           const text=JSON.stringify({collected_at:new Date().toISOString(),repository:'public dizigs/archelaos-site',pulls:docs});
           if(text.length>1800000)throw Error('Public snapshot too large; no POST');
