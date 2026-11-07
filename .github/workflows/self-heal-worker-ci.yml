@@ -27,6 +27,16 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # pinned setup-node
         with:
           node-version: '22'
+      - name: Verify staging deploy secret is configured (boolean only, no token access)
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == 'dizigs/archelaos-site'
+        env:
+          DEPLOY_TOKEN_CONFIGURED: ${{ secrets.CLOUDFLARE_STAGING_DEPLOY_TOKEN != '' }}
+        run: |
+          if [ "$DEPLOY_TOKEN_CONFIGURED" != "true" ]; then
+            echo "Staging deploy secret missing/unavailable to this workflow; no deployment attempted."
+            exit 1
+          fi
+          echo "Staging deploy secret exists in Actions; value, scope and validity not inspected."
       - name: Worker and test source syntax
         run: |
           node --check automation/self-heal-worker/src/policy.mjs
