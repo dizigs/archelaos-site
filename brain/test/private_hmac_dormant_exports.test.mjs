@@ -10,8 +10,8 @@ const brainConfig = source('../wrangler.toml');
 const healerConfig = source('../../automation/self-heal-worker/wrangler.toml');
 
 test('named HMAC acceptance classes re-export existing protocol in both Workers', () => {
-  assert.match(brain, /^export \\{ BrainHmacAcceptancePort, PrivateHmacNonceStore \\} from '\\.\\/private_hmac_candidate\\.mjs';$/m);
-  assert.match(healer, /^export \\{ HealerHmacAcceptancePort, PrivateHmacNonceStore \\} from '\\.\\.\\/\\.\\.\\/\\.\\.\\/brain\\/src\\/private_hmac_candidate\\.mjs';$/m);
+  assert.ok(brain.includes("export { BrainHmacAcceptancePort, PrivateHmacNonceStore } from './private_hmac_candidate.mjs';"));
+  assert.ok(healer.includes("export { HealerHmacAcceptancePort, PrivateHmacNonceStore } from '../../../brain/src/private_hmac_candidate.mjs';"));
   assert.match(acceptance, /export class BrainHmacAcceptancePort extends WorkerEntrypoint/);
   assert.match(acceptance, /export class HealerHmacAcceptancePort extends WorkerEntrypoint/);
   assert.match(acceptance, /export class PrivateHmacNonceStore extends DurableObject/);
@@ -28,5 +28,5 @@ test('code-only exports do not install QA bindings, acceptance permit, routes or
     assert.match(c, /^preview_urls = false$/m);
   }
   assert.match(brainConfig, /^STAGING_EXPIRES_AT = "1970-01-01T00:00:00Z"$/m);
-  assert.match(healer, /async fetch\\(\\) \\{/);
+  assert.ok(healer.includes('async fetch() {'));
 });
