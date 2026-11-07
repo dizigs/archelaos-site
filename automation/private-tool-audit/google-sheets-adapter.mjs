@@ -91,10 +91,12 @@ export function createGoogleSheetsLogAdapter({ client, spreadsheetId, logSheetId
         ...params, range: "'LOG'!H" + first + ':N' + end,
         valueRenderOption: 'FORMATTED_VALUE',
       }));
-      if (!Array.isArray(data.values) || data.values.length > end - first + 1) {
+      // Google Sheets legitimately omits values for an entirely blank page.
+      const pageRows = data.values === undefined ? [] : data.values;
+      if (!Array.isArray(pageRows) || pageRows.length > end - first + 1) {
         throw new SheetsAdapterFault('PROVIDER_RESPONSE_INVALID');
       }
-      for (const row of data.values) {
+      for (const row of pageRows) {
         if (!Array.isArray(row)) throw new SheetsAdapterFault('PROVIDER_RESPONSE_INVALID');
         if (!wanted.has(row[0])) continue;
         result.push({ eventKey: row[0], receiptHash: row[6] ?? '' });
