@@ -26,6 +26,27 @@ instructions for tool selection, browser QA and evidence-first research,
 not live GitHub/Cloudflare MCP authentication, Gemini credits or runtime
 installations. No desktop app or OAuth setup is performed by this PR.
 
+## Project-scoped MCP endpoints (OAuth not performed)
+
+The PR includes `.agents/mcp_config.json` for Antigravity. Only the
+GitHub **read-only** MCP endpoint and the public Cloudflare docs MCP are
+pre-enabled. The Cloudflare API MCP remains disabled pending reviewed,
+minimal-scope OAuth, and no credential/token is committed.
+
+This config is available to Antigravity only when this branch is checked out
+(or later merged). No local desktop setting, global profile, client installation,
+OAuth authentication, full provider access or production state is proved by
+the commit alone.
+
+Run the safe preflight:
+
+    node automation/agent-kit/mcp-doctor.mjs --config .agents/mcp_config.json
+
+Then use the Antigravity `/mcp` manager or IDE MCP panel for **real** connection
+and read-only repo/Worker smoke validation. The GitHub/Cloudflare connectors
+available inside ChatGPT are distinct from these Antigravity MCP sessions.
+Official setup: https://antigravity.google/docs/mcp
+
 ## CLI, Node 22+
 
     node automation/agent-kit/cli.mjs list
