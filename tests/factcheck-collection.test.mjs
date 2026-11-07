@@ -31,23 +31,45 @@ test('both museum versions render one photo-free research card at a time',()=> {
    assert.equal(section.includes('<picture'),false);
    assert.equal(section.includes('<video'),false);
   assert.doesNotMatch(section,/Fact <em>Check/);
-   assert.ok(html.includes('/assets/fact-check.js?v=3'));
-   assert.ok(html.includes('/assets/fact-check.css?v=3'));
+   assert.ok(html.includes('/assets/fact-check.js?v=4'));
+   assert.ok(html.includes('/assets/fact-check.css?v=4'));
  }
 });
 test('dilemmas show two named alternatives, other questions use true false unknown',()=>{
  const dilemmas=bank.items.filter(x=>x.alternatives);
- assert.deepEqual(dilemmas.map(x=>x.id),['TF001','TF032','TF055']);
+ assert.deepEqual(dilemmas.map(x=>x.id),["TF001","TF014","TF015","TF016","TF017","TF022","TF026","TF032","TF034","TF041","TF047","TF055"]);
  for(const question of dilemmas){
   assert.equal(question.alternatives.length,2);
   assert.ok(question.alternatives.every(x=>x.length>2));
  }
+ const selected=bank.items.filter(x=>x.publicReview===true);
+ assert.deepEqual(selected.map(x=>x.id),["TF001","TF014","TF015","TF016","TF017","TF022","TF026","TF032","TF034","TF041","TF047"]);
+ assert.equal(selected.length,11);
+ assert.equal(bank.items.filter(x=>x.publicReview===false).length,50);
+ assert.equal(bank.items.find(x=>x.id==='TF055').publicReview,false);
+ assert.equal(bank.items.find(x=>x.id==='TF021').publicReview,false);
+ assert.ok(selected.every(x=>x.reviewContext?.length>40));
+ assert.ok(selected.every(x=>x.alternatives?.length===2));
  const browser=read('assets/fact-check.js');
   assert.ok(browser.includes('position+=1;render(true);'));
   assert.ok(browser.includes('pending.push(answer)'));
   assert.ok(browser.includes('pending.slice(0,4)'));
+  assert.ok(browser.includes("const published=obj.items.filter(x=>x.publicReview===true)"));
+  assert.ok(browser.includes("questions=published;"));
+  assert.ok(browser.includes("const context=make('p','fc-context'"));
   assert.ok(browser.includes('window.turnstile'));
   assert.equal(browser.includes('showModal('),false);
+});
+
+test('museum polish uses club colors and brief accessible motion',()=>{
+ const css=read('assets/fact-check.css');
+ assert.match(css,/#073d2a/);
+ assert.match(css,/#b99750/);
+ assert.match(css,/@keyframes fc-card-reveal/);
+ assert.match(css,/190ms/);
+ assert.match(css,/prefers-reduced-motion:reduce/);
+ assert.match(css,/\.fc-skip:hover/);
+ assert.doesNotMatch(css,/background-image:\s*url\(/);
 });
 
 test('GET only advertises readiness after database schema exists',async()=>{
