@@ -1,12 +1,11 @@
 """Regression: after a rollback, read settings from the active deployment version."""
 import importlib.util
 import os
-import tempfile
 import unittest
 from pathlib import Path
 from unittest import mock
 
-os.environ.setdefault("RUNNER_TEMP", tempfile.gettempdir())
+os.environ.setdefault("RUNNER_TEMP", str(Path.home()))
 MODULE = Path(__file__).resolve().parents[1] / "qa/live_parent_hmac_once.py"
 spec = importlib.util.spec_from_file_location("live_parent_hmac_once", MODULE)
 qa = importlib.util.module_from_spec(spec)
