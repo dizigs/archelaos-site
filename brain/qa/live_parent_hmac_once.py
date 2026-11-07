@@ -50,7 +50,7 @@ def guard_config():
 
 def guard_context():
     if (os.getenv("GITHUB_ACTIONS")!="true" or os.getenv("GITHUB_REPOSITORY")!="dizigs/archelaos-site" or
-        os.getenv("GITHUB_EVENT_NAME")!="pull_request" or os.getenv("OPERATOR_PR")!="__PR__" or
+        os.getenv("GITHUB_EVENT_NAME")!="pull_request" or os.getenv("OPERATOR_PR")!="299" or
         git("rev-parse","HEAD")!=os.getenv("EXPECTED_SHA") or
         git("log","-1","--format=%s")!=SUBJECT or
         not os.getenv("CLOUDFLARE_API_TOKEN")):
