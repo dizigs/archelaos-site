@@ -44,14 +44,17 @@ function media(x,cls){
 }
 function info(x){return {title:x.title,summary:x.summary,href:'news.html?article='+encodeURIComponent(x.id)}}
 function heart(x,cls){return window.ArchelaosFavorites?.button('news',x.id,cls,info(x))||document.createElement('span')}
-function meta(x){
+function meta(x,interactive=false){
  const m=document.createElement('div');m.className='an-meta';
  const cat=document.createElement('span');cat.textContent=label(x);m.append(cat);
  if(String(x.sport||'').trim()){
-  const a=link('/news.html?tag='+encodeURIComponent(x.sport),x.sport);
-  a.className='an-topic-tag';
-  a.setAttribute('aria-label',t('Δείτε ειδήσεις με tag: ','Browse news tag: ')+x.sport);
-  m.append(a);
+  // Card tags are metadata, not competing click targets over the whole-card link.
+  // The same tag becomes a clickable filter inside the article dialog.
+  const tag=interactive?link('/news.html?tag='+encodeURIComponent(x.sport),x.sport):document.createElement('span');
+  tag.className='an-topic-tag';
+  if(!interactive)tag.textContent=x.sport;
+  else tag.setAttribute('aria-label',t('Δείτε ειδήσεις με tag: ','Browse news tag: ')+x.sport);
+  m.append(tag);
  }
  const date=document.createElement('span');date.textContent=fmt(x.date);m.append(date);
  return m;
@@ -213,7 +216,7 @@ function show(id){
  if(x.imageNote){const c=document.createElement('figcaption');c.textContent=x.imageNote;fig.append(c)}
  const h=document.createElement('h2');h.id='an-dialog-title';h.textContent=x.title;
  const lead=document.createElement('p');lead.className='an-summary';lead.textContent=x.summary;
- detail.append(meta(x),h,fig,lead);
+ detail.append(meta(x,true),h,fig,lead);
  for(const text of x.body||[]){const p=document.createElement('p');p.textContent=text;detail.append(p)}
  const source=document.createElement('div');source.className='an-source';source.textContent=t('Πηγή: ','Source: ')+x.source;const links=document.createElement('div');links.className='an-links';
  if(x.sourceUrl&&/^https:\/\//.test(x.sourceUrl)){const a=link(x.sourceUrl,t('Αρχικό δημοσίευμα','Original article'));a.target='_blank';a.rel='noopener noreferrer';links.append(a)}
