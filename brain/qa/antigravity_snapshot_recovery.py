@@ -62,7 +62,7 @@ def main():
                     data=r.read(1024*1024)
                     if not data: break
                     total+=len(data)
-                    if total > 250*1024*1024: raise RuntimeError("SNAPSHOT_TOO_LARGE")
+                    if total > 1500*1024*1024: raise RuntimeError("SNAPSHOT_TOO_LARGE_1_5_GIB")
                     f.write(data)
         except urllib.error.HTTPError as e:
             results["snapshotHttp"] = e.code
