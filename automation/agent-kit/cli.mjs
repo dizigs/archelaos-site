@@ -2,7 +2,7 @@
 // Public-safe tool discovery + private, append-only local command receipt log.
 // This is NOT a cloud event collector or a Brain authorization bypass.
 import {
-  appendFileSync, closeSync, existsSync, fsyncSync, mkdirSync,
+  appendFileSync, closeSync, constants, fsyncSync, mkdirSync,
   openSync, readFileSync, unlinkSync,
 } from 'node:fs';
 import { createHash } from 'node:crypto';
@@ -136,18 +136,21 @@ function record(registry, args) {
   // Exclusive local lock prevents two CLI writers from forking the hash chain.
   const lock = openSync(LOCK_PATH, 'wx', 0o600);
   try {
-    const existing = existsSync(EVENT_PATH) ? readFileSync(EVENT_PATH, 'utf8') : '';
-    const proof = validateEvents(existing, registry);
-    const receipt = createReceipt({
-      registry, toolId, commandId, outcome, evidence: options['--evidence'],
-      ref: options['--ref'] ?? null, prevHash: proof.lastHash,
-    });
-    const descriptor = openSync(EVENT_PATH, 'a', 0o600);
+    // Open once with O_NOFOLLOW and retain the same descriptor from read to append.
+    // This removes the exists/read/open TOCTOU window reported by CodeQL.
+    const descriptor = openSync(EVENT_PATH,
+      constants.O_RDWR | constants.O_CREAT | constants.O_APPEND | constants.O_NOFOLLOW, 0o600);
     try {
+      const existing = readFileSync(descriptor, 'utf8');
+      const proof = validateEvents(existing, registry);
+      const receipt = createReceipt({
+        registry, toolId, commandId, outcome, evidence: options['--evidence'],
+        ref: options['--ref'] ?? null, prevHash: proof.lastHash,
+      });
       appendFileSync(descriptor, JSON.stringify(receipt) + '\n', 'utf8');
       fsyncSync(descriptor);
+      return { status: 'LOCALLY_RECORDED_NOT_REMOTE_SYNCED', count: proof.count + 1, hash: receipt.hash };
     } finally { closeSync(descriptor); }
-    return { status: 'LOCALLY_RECORDED_NOT_REMOTE_SYNCED', count: proof.count + 1, hash: receipt.hash };
   } finally {
     closeSync(lock);
     unlinkSync(LOCK_PATH);
@@ -173,7 +176,17 @@ export function run(argv = process.argv.slice(2), registry = validateRegistry(JS
     }
     case 'verify': {
       if (args.length) throw new Error('USAGE: verify');
-      const log = existsSync(EVENT_PATH) ? readFileSync(EVENT_PATH, 'utf8') : '';
+      let log = '';
+      let descriptor;
+      try {
+        descriptor = openSync(EVENT_PATH, constants.O_RDONLY | constants.O_NOFOLLOW);
+      } catch (error) {
+        if (error.code !== 'ENOENT') throw error;
+      }
+      if (descriptor !== undefined) {
+        try { log = readFileSync(descriptor, 'utf8'); }
+        finally { closeSync(descriptor); }
+      }
       return { registry: 'VALID', localLog: validateEvents(log, registry), logLocation: 'LOCAL_PRIVATE_NOT_SYNCED' };
     }
     case 'record':
