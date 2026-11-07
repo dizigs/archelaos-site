@@ -1,8 +1,11 @@
-// Static test fixture: acquire the same kernel flock inode as the CLI.
+// Static isolated regression fixture. Lock location is derived from this module.
 import { openSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const fd = openSync(process.argv[2], 'r+');
+const lock = join(dirname(fileURLToPath(import.meta.url)), '.private', 'activity.lock');
+const fd = openSync(lock, 'r+');
 const result = spawnSync('/usr/bin/flock', ['-n', '3'], {
   stdio: ['ignore', 'ignore', 'pipe', fd],
 });
