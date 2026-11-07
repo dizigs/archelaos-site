@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {mkdtemp, writeFile, mkdir, symlink, rm} from 'node:fs/promises';
+import {mkdtemp, writeFile, mkdir, symlink, link, rm} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {sha256,validateManifest,verifyPrivate,verifyRepo} from './verify.mjs';
@@ -87,4 +87,13 @@ test('oversized modules are rejected by bounded descriptor reads',async()=>sandb
   const r=await verifyPrivate(root,manifest());
   assert.equal(r.status,'BLOCKED');
   assert.equal(r.records[0].status,'INVALID_MODULE_FILE');
+}));
+
+test('hard-linked or multiply linked source is refused to avoid external inode aliases',async()=>sandbox(async root=>{
+  await writeFile(join(root,'source.mjs'),source);
+  await link(join(root,'source.mjs'),join(root,'shadow.mjs'));
+  await writeFile(join(root,'legacy.js'),changed);
+  const r=await verifyPrivate(root,manifest());
+  assert.equal(r.status,'BLOCKED');
+  assert.equal(r.records[0].status,'NOT_REGULAR_UNIQUE_FILE');
 }));

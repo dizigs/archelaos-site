@@ -1,10 +1,10 @@
 /** Offline, read-only integrity gate for a PRIVATE Cloudflare Worker source export.
  * Never prints or uploads module contents. Does not talk to GitHub/Cloudflare.
  */
-import {readFile, open, realpath} from 'node:fs/promises';
+import {readFile, open} from 'node:fs/promises';
 import {constants} from 'node:fs';
 import {createHash} from 'node:crypto';
-import {resolve, relative, sep} from 'node:path';
+import {resolve} from 'node:path';
 import {pathToFileURL} from 'node:url';
 
 const SHA1 = /^[a-f0-9]{40}$/;
@@ -22,39 +22,47 @@ function checkedName(name) {
 }
 async function safeBytes(root, name) {
   checkedName(name);
-  // Offline owner tool runs on Linux. Refuse unsafe platform fallbacks.
-  if (process.platform !== 'linux' || typeof constants.O_NOFOLLOW !== 'number')
+  // Fail closed and anchor each path component to a kernel-held directory fd.
+  // A pre-check followed by reopening a pathname is vulnerable to swaps.
+  if (process.platform !== 'linux' ||
+      ![constants.O_NOFOLLOW, constants.O_DIRECTORY, constants.O_NONBLOCK].every(Number.isInteger))
     throw new Error('SECURE_LOCAL_READ_NOT_SUPPORTED');
-  const base = await realpath(root);
-  const candidate = resolve(base, name);
-  if (relative(base, candidate).startsWith('..' + sep) || candidate === base)
-    throw new Error('OUTSIDE_PRIVATE_SOURCE_ROOT');
-  let handle;
+  const handles = [];
   try {
-    // O_NOFOLLOW prevents final symlink; the file handle pins the opened inode.
-    handle = await open(candidate, constants.O_RDONLY | constants.O_NOFOLLOW);
-    // Resolve the *opened descriptor*, not a raceable pathname. Also detects
-    // intermediate directory symlinks (and rename/unlink races) on Linux.
-    const actual = await realpath('/proc/self/fd/' + handle.fd);
-    if (actual !== candidate) throw new Error('SYMLINK_FORBIDDEN');
-    // Bounded read: never trust a pre-read stat size or allocate arbitrarily.
-    const cap = 262145;
-    const bytes = Buffer.allocUnsafe(cap);
-    let length = 0;
+    let dir = await open(root, constants.O_RDONLY | constants.O_NOFOLLOW | constants.O_DIRECTORY);
+    handles.push(dir);
+    const parts = name.split('/');
+    for (const part of parts.slice(0, -1)) {
+      dir = await open('/proc/self/fd/' + dir.fd + '/' + part,
+        constants.O_RDONLY | constants.O_NOFOLLOW | constants.O_DIRECTORY);
+      handles.push(dir);
+    }
+    const file = await open('/proc/self/fd/' + dir.fd + '/' + parts.at(-1),
+      constants.O_RDONLY | constants.O_NOFOLLOW | constants.O_NONBLOCK);
+    handles.push(file);
+    const before = await file.stat({bigint:true});
+    if (!before.isFile() || before.nlink !== 1n) throw new Error('NOT_REGULAR_UNIQUE_FILE');
+    if (before.size > 262144n) throw new Error('INVALID_MODULE_FILE');
+    const cap=262145, buffer=Buffer.alloc(cap);
+    let length=0;
     while (length < cap) {
-      const {bytesRead} = await handle.read(bytes, length, cap - length, null);
-      if (!bytesRead) break;
+      const {bytesRead} = await file.read(buffer, length, cap - length, length);
+      if (bytesRead === 0) break;
       length += bytesRead;
     }
     if (length === cap) throw new Error('INVALID_MODULE_FILE');
-    return bytes.subarray(0, length);
+    const after = await file.stat({bigint:true});
+    if (['dev','ino','size','mtimeNs','ctimeNs','nlink'].some(k => before[k] !== after[k]) ||
+        BigInt(length) !== after.size) throw new Error('MODULE_CHANGED_DURING_READ');
+    return buffer.subarray(0, length);
   } catch (error) {
-    if (error?.code === 'ELOOP') throw new Error('SYMLINK_FORBIDDEN');
+    if (error?.code === 'ELOOP' || error?.code === 'ENOTDIR') throw new Error('SYMLINK_FORBIDDEN');
     throw error;
   } finally {
-    await handle?.close();
+    for (const handle of handles.reverse()) await handle.close();
   }
 }
+
 export function validateManifest(manifest) {
   if (manifest?.schema !== 'archelaos.bridge.deployed-source.v1' ||
       !Array.isArray(manifest.modules) || manifest.modules.length < 1) {
