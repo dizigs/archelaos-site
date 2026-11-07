@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 // Safe offline readiness inspection for OPTIONAL user-local Antigravity config.
 // Never make provider requests, report authentication as successful, or print tokens.
-import { constants, openSync, readFileSync, closeSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import {isMainModule,readBoundedFile} from './private-io.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const DEFAULT_FILE = join(HERE, 'mcp_config.example.json');
@@ -18,6 +18,7 @@ const STATUS = Object.freeze({
   configured: 'CONFIGURED_UNVERIFIED',
   absent: 'NOT_CONFIGURED',
   wrong: 'ENDPOINT_MISMATCH',
+  invalid: 'ENTRY_INVALID',
 });
 
 export function inspectMcpConfiguration(rawConfig) {
@@ -36,7 +37,9 @@ export function inspectMcpConfiguration(rawConfig) {
     }
     const endpoint = entry.serverUrl;
     if (endpoint !== expected) return { id, status: STATUS.wrong, authenticated: false, verified: false };
-    const enabled = entry.disabled === false;
+    if(Object.hasOwn(entry,'disabled')&&typeof entry.disabled!=='boolean')
+      return {id,status:STATUS.invalid,authenticated:false,verified:false};
+    const enabled = entry.disabled !== true;
     return {
       id,
       status: enabled ? STATUS.configured : STATUS.disabled,
@@ -47,17 +50,10 @@ export function inspectMcpConfiguration(rawConfig) {
 }
 
 export function inspectFile(filename = DEFAULT_FILE) {
-  let descriptor;
-  try {
-    descriptor = openSync(filename, constants.O_RDONLY | constants.O_NOFOLLOW);
-    const text = readFileSync(descriptor, 'utf8');
-    if (Buffer.byteLength(text, 'utf8') > 65536) throw new Error('MCP_CONFIG_TOO_LARGE');
-    let parsed;
-    try { parsed = JSON.parse(text); } catch { throw new Error('MCP_CONFIG_JSON_INVALID'); }
-    return inspectMcpConfiguration(parsed);
-  } finally {
-    if (descriptor !== undefined) closeSync(descriptor);
-  }
+  const text = readBoundedFile(filename,65536);
+  let parsed;
+  try { parsed = JSON.parse(text); } catch { throw new Error('MCP_CONFIG_JSON_INVALID'); }
+  return inspectMcpConfiguration(parsed);
 }
 
 export function runDoctor(args = process.argv.slice(2)) {
@@ -78,7 +74,7 @@ export function runDoctor(args = process.argv.slice(2)) {
   };
 }
 
-if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+if (isMainModule(import.meta.url)) {
   try { console.log(JSON.stringify(runDoctor(), null, 2)); }
   catch (error) { console.error('MCP_DOCTOR_ERROR:', error.message); process.exitCode = 1; }
 }

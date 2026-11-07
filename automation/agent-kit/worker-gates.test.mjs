@@ -1,6 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import {copyFileSync,mkdirSync,mkdtempSync,readFileSync,rmSync,symlinkSync,writeFileSync} from 'node:fs';
+import {join} from 'node:path';
+import {tmpdir} from 'node:os';
+import {spawnSync} from 'node:child_process';
 import { inspectRepository, inspectSources } from './worker-gates.mjs';
 
 const brain = readFileSync(new URL('../../brain/wrangler.toml', import.meta.url), 'utf8');
@@ -56,4 +59,41 @@ test('source report is metadata-only, no secrets, no raw provider logs', () => {
   const marker = 'SYNTHETIC_SECRET_FOR_TESTS_NEVER_EXPORT';
   const report = inspectSources(brain + '\n# ' + marker, healer, pkg);
   assert.doesNotMatch(JSON.stringify(report), /SYNTHETIC_SECRET_FOR_TESTS_NEVER_EXPORT/);
+});
+
+test('commented, misplaced or redirected binding/migration declarations cannot pass',()=>{
+  for(const changed of [
+    brain.replace('binding = "HEALER"','# binding = "HEALER"'),
+    brain.replace('new_sqlite_classes = ["BrainCoordinator"]','# new_sqlite_classes = ["BrainCoordinator"]'),
+    brain.replace('service = "archelaos-self-heal"','service = "unapproved-worker"'),
+    brain.replace('[[services]]','[[unrelated]]'),
+    brain.replace('class_name = "BrainCoordinator"','class_name = "WrongClass"'),
+    brain.replace('name = "archelaos-brain-staging"','name = "wrong-worker"'),
+    brain.replace('BRAIN_SELFHEAL_BINDING_ATTESTED = "false"','BRAIN_SELFHEAL_BINDING_ATTESTED = "true"'),
+  ])assert.equal(inspectSources(changed,healer,pkg).sourceConfigGate,'REVIEW_REQUIRED');
+  assert.equal(inspectSources(brain,healer.replace('entrypoint = "BrainRecoveryPort"','entrypoint = "default"'),pkg).sourceConfigGate,'REVIEW_REQUIRED');
+});
+test('equivalent single quoted flags, comments and nested array values preserve safe TOML meaning',()=>{
+  const changed=brain.replace('[vars]', '[vars]\nEXAMPLE = [\n [1,2],\n [3,4],\n]\n').replaceAll('= "false"',"= 'false' # still disabled");
+  assert.equal(inspectSources(changed,healer,pkg).sourceConfigGate,'PASS_SAFETY_OFF');
+});
+test('duplicate or malformed TOML cannot masquerade as a safe source gate',()=>{
+  assert.throws(()=>inspectSources(brain+'\n[vars]\nBRAIN_SELFHEAL_DISPATCH_ENABLED="true"\n',healer,pkg),/TOML_PARSE_FAILED/);
+  assert.throws(()=>inspectSources(brain+'\nBROKEN=[',healer,pkg),/TOML_PARSE_FAILED/);
+});
+test('symlinked Worker gate CLI runs and fails unsafe configuration instead of silently succeeding',()=>{
+  const root=mkdtempSync(join(tmpdir(),'agentkit cli with spaces '));try {
+    const kit=join(root,'automation','agent-kit');mkdirSync(kit,{recursive:true});
+    mkdirSync(join(root,'brain'));mkdirSync(join(root,'automation','self-heal-worker'));
+    for(const name of ['worker-gates.mjs','private-io.mjs'])copyFileSync(new URL(name,import.meta.url),join(kit,name));
+    writeFileSync(join(root,'brain','wrangler.toml'),brain);
+    writeFileSync(join(root,'brain','package.json'),pkg);
+    writeFileSync(join(root,'automation','self-heal-worker','wrangler.toml'),healer);
+    const wrapper=join(root,'worker wrapper.mjs');symlinkSync(join(kit,'worker-gates.mjs'),wrapper);
+    let r=spawnSync(process.execPath,[wrapper],{encoding:'utf8'});assert.equal(r.status,0,r.stderr);
+    assert.equal(JSON.parse(r.stdout).sourceConfigGate,'PASS_SAFETY_OFF');
+    writeFileSync(join(root,'brain','wrangler.toml'),brain.replace('BRAIN_SELFHEAL_DISPATCH_ENABLED = "false"','BRAIN_SELFHEAL_DISPATCH_ENABLED = "true"'));
+    r=spawnSync(process.execPath,[wrapper],{encoding:'utf8'});assert.equal(r.status,2,r.stderr);
+    assert.equal(JSON.parse(r.stdout).sourceConfigGate,'REVIEW_REQUIRED');
+  }finally{rmSync(root,{recursive:true,force:true})}
 });

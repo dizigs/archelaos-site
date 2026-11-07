@@ -4,8 +4,12 @@ on:
   pull_request:
     paths:
       - 'automation/agent-kit/**'
+      - '.agents/mcp_config.json'
       - '.agents/skills/archelaos-*/**'
       - '.github/workflows/agent-kit-validation.yml'
+      - 'brain/wrangler.toml'
+      - 'brain/package.json'
+      - 'automation/self-heal-worker/wrangler.toml'
   workflow_dispatch:
 
 permissions:
@@ -24,11 +28,19 @@ jobs:
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           persist-credentials: false
+      - name: Use the supported Node runtime
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '22'
+          package-manager-cache: false
       - name: Verify syntax
         shell: bash
         run: |
           set -euo pipefail
           node --version
+          python3 -I -S -c 'import tomllib'
+          test -x /usr/bin/flock
+          node --check automation/agent-kit/private-io.mjs
           node --check automation/agent-kit/cli.mjs
           node --check automation/agent-kit/cli.test.mjs
           node --check automation/agent-kit/mcp-doctor.mjs

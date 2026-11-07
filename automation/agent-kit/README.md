@@ -47,7 +47,15 @@ and read-only repo/Worker smoke validation. The GitHub/Cloudflare connectors
 available inside ChatGPT are distinct from these Antigravity MCP sessions.
 Official setup: https://antigravity.google/docs/mcp
 
-## CLI, Node 22+
+## CLI, Node 22+, Linux filesystem safety
+
+File-based commands require Linux with `O_NOFOLLOW`, `/proc/self/fd` and
+`/usr/bin/flock`. The Worker source inspector additionally uses Python 3.11+
+standard-library `tomllib` in isolated mode; no package download or provider call.
+Unsupported filesystems/platforms fail closed with `FILESYSTEM_SAFETY_UNAVAILABLE`
+rather than silently following private symlinks. This includes Windows; native
+Windows file inspection is not claimed supported. Pure configuration/registry
+validation functions remain usable without filesystem access.
 
     node automation/agent-kit/cli.mjs list
     node automation/agent-kit/cli.mjs show gemini-api
@@ -60,14 +68,19 @@ Official setup: https://antigravity.google/docs/mcp
 
 The MCP doctor is an **offline** read-only inspector. It checks four
 allowlisted MCP IDs and status: PREPARED_DISABLED, NOT_CONFIGURED,
-ENDPOINT_MISMATCH, or CONFIGURED_UNVERIFIED. It never displays config values,
+ENDPOINT_MISMATCH, ENTRY_INVALID, or CONFIGURED_UNVERIFIED. An omitted `disabled`
+means configured/enabled according to the client default, still UNVERIFIED;
+only explicit boolean `true` means disabled. It never displays config values,
 secret strings or OAuth credentials; `CONFIGURED_UNVERIFIED` does NOT imply a
 successful installation, authenticated request, provider permissions, or
 runtime availability. The default reads only the committed disabled example;
 the `--config` option checks an explicitly supplied local Antigravity file.
 
-The Worker Gate inspector reads only the actual repository TOML and package
-metadata and never infers authenticated RPC, deployments or CI from source.
+The Worker Gate inspector parses actual TOML tables, including comments, quoted
+values and multiline arrays. It checks the exact Worker names, five OFF flags,
+1970 expiry, private service targets/entrypoints and SQLite declarations; comments
+or unrelated tables cannot satisfy those requirements. It reads only repository
+TOML/package metadata and never infers authenticated RPC, deployments or CI.
 See `CLOUDFLARE_WORKER_TOOLING.md` for the five-stage roadmap and commands.
 
 The commands operation prints registered commands but never runs them. External
@@ -84,8 +97,27 @@ Use UNKNOWN for unresolved provider outcomes.
 The tool stores local JSONL in automation/agent-kit/.private/activity.jsonl
 (excluded from Git). Records have time, registered tool/command IDs, outcome,
 a canonical GitHub evidence link, optional SHA, previous SHA-256 and event hash.
-A local lock serializes writers; a disk flush follows append. The verify command
-checks the chain. No API keys, freeform prompts or provider payloads are logged.
+Held directory descriptors and final-component `O_NOFOLLOW` protect both verify
+and record from `.private`/log symlink redirection. Owner-only permissions,
+regular single-link files, bounded reads and metadata consistency checks are
+required; config reads are capped at64KiB and the audit log at8MiB. Valid receipts
+without their final newline retain a separator before the next append.
+
+A persistent version-marked lock file is protected by a kernel `flock` held
+through the open descriptor. Writers wait at most2seconds and report
+`AUDIT_LOCK_BUSY`; process death releases the kernel lock without guessing a
+PID is stale or unlinking another writer's lock. Append still uses the same
+read/validated descriptor and is fsynced before success is returned.
+
+An unmarked legacy wx-only lock or interrupted first-time lock initialization
+fails closed as `AUDIT_LOCK_PROTOCOL_UNVERIFIED`. It is not automatically removed.
+For migration, first stop all old and new writers using that checkout, confirm
+they have exited and back up the private receipts privately; only the operator
+may then remove an unmarked lock and re-run verify/record. Never remove an active
+or version-marked lock to bypass contention. No private backup/log is committed.
+The verify command checks the chain. No API keys, prompts or provider payloads
+are logged. These receipts are technical local evidence; the existing LIVE Sheet
+and Issue71 remain the canonical task/status journal, not this local file.
 
 ## Very important limitations
 
@@ -95,9 +127,11 @@ checks the chain. No API keys, freeform prompts or provider payloads are logged.
 - Existing services and all ChatGPT/Codex sessions ARE NOT automatically
   instrumented. Complete observability needs provider webhooks, explicit
   wrappers or connectors, and verified end-to-end ingestion.
-- For a centrally accessible event history, add a separately authorized
-  private append-only store with server-side auth, timestamps, idempotency,
-  retention, integrity proofs and readback. Do not publish raw private logs.
+- For central technical command receipts, coordinate with the existing Tool
+  Audit work in PR #282: server-side auth, timestamps, idempotency, retention,
+  integrity proofs and readback need separate acceptance. Do not duplicate that
+  pipeline, create another task journal, or publish raw private logs. Task status
+  and operational LOG entries remain in the existing canonical LIVE Sheet.
 - A code-only PR, green unit test and stored secret name DO NOT prove
   successful live connectivity, deployment or API billing.
 

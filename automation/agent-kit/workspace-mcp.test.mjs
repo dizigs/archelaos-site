@@ -43,3 +43,9 @@ test('workspace file cannot authorize merge/deploy or certify provider OAuth', (
   assert.equal(config.mcpServers['github-readonly'].serverUrl.endsWith('/readonly'), true);
   assert.equal(Object.hasOwn(config.mcpServers, 'google-workspace'), false);
 });
+
+test('Agent Kit CI also runs for each configuration input it inspects',()=>{
+  const workflow=readFileSync(new URL('../../.github/workflows/agent-kit-validation.yml',import.meta.url),'utf8');
+  for(const path of ['.agents/mcp_config.json','brain/wrangler.toml','brain/package.json','automation/self-heal-worker/wrangler.toml'])
+    assert.ok(workflow.includes("- '"+path+"'"),path+' must trigger validation');
+});
