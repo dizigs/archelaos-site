@@ -150,3 +150,9 @@ main{padding:60px 0 80px}
 /* Center the heritage crest precisely within all news media sizes. */
 .an-card-media.is-heritage-crest,.an-feature-media.is-heritage-crest,.an-detail .an-cover.is-heritage-crest{display:grid!important;place-items:center!important;padding:0!important}
 .an-card-media.is-heritage-crest img,.an-feature-media.is-heritage-crest img,.an-detail .an-cover.is-heritage-crest img{display:block!important;position:relative!important;inset:auto!important;margin:0 auto!important;padding:0!important;max-width:75%!important;width:75%!important;max-height:82%!important;height:82%!important;object-fit:contain!important;object-position:center!important;transform:scale(1.12)!important}
+
+/* Source-backed topic chips stay usable above whole-card overlays. */
+.an-meta .an-topic-tag{display:inline-flex;align-items:center;position:relative;z-index:2;padding:3px 9px;border:1px solid #bda368;border-radius:999px;background:#f8efdb;color:#214b31;text-decoration:none!important;font-weight:700;line-height:1.4}
+.an-meta .an-topic-tag:hover{background:#e9dcba;text-decoration:none!important}
+.an-meta .an-topic-tag:focus-visible,.an-clear-tag:focus-visible{outline:3px solid #b18c45;outline-offset:3px}
+.an-clear-tag{display:inline-block;margin-inline-start:4px;color:#215b3b;text-decoration:underline;text-underline-offset:3px}
