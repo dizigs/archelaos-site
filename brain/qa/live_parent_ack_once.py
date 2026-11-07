@@ -193,7 +193,6 @@ def permit(text,session,start,end):
         text=text.replace(left,key+' = "'+new+'"')
     if 'name = "archelaos-brain-staging"' in text:
         switches=[
-          ("BRAIN_SELFHEAL_APPROVED_SHA","0"*40,SOURCE),
           ("STAGING_EXPIRES_AT","1970-01-01T00:00:00Z",end),
           *[(key,"false","true") for key in OFF]
         ]
@@ -204,6 +203,10 @@ def permit(text,session,start,end):
         left=key+' = "'+old+'"'
         if text.count(left)!=1:deny("CONFIG_ACK_TOKEN_DRIFT")
         text=text.replace(left,key+' = "'+new+'"')
+    if 'name = "archelaos-brain-staging"' in text:
+        anchor='BRAIN_SELFHEAL_RECOVERY_ENABLED = "true"'
+        if text.count(anchor)!=1:deny("PIN_INSERTION_DRIFT")
+        text=text.replace(anchor,f'BRAIN_SELFHEAL_APPROVED_SHA = "{SOURCE}"\n{anchor}')
     return text
 
 def deploy(name,state,session,start,end):
