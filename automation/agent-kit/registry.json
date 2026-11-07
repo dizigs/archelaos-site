@@ -1,0 +1,412 @@
+{
+  "schemaVersion": 1,
+  "scope": "PUBLIC_SAFE_SNAPSHOT_NOT_PRIVATE_LEDGER",
+  "asOf": "2026-11-07",
+  "repository": "dizigs/archelaos-site",
+  "policy": {
+    "authority": "Canonical Brain remains authority for writes, identity, budget and deployment",
+    "maxSharedAIMonthlyEUR": 20,
+    "noSecrets": true,
+    "noAutomaticMerge": true,
+    "noAutomaticDeploy": true,
+    "localLogIsNotCloudSynced": true
+  },
+  "stateDefinitions": {
+    "verified": "Evidence of some real access or execution, not necessarily live end-to-end",
+    "reported": "Recorded in private registry or earlier work, not rechecked in this change",
+    "paused": "Previously trialled but live integration currently disabled",
+    "candidate": "Discovered tool; not installed or authorized"
+  },
+  "tools": [
+    {
+      "id": "github",
+      "name": "GitHub repository + Actions",
+      "family": "source-control",
+      "state": "verified",
+      "owner": "repo-maintainers",
+      "use": "Canonical source, pull requests, CI and incident evidence",
+      "access": "repo-scoped; reviewer-gated writes",
+      "budget": "existing-service",
+      "commands": [
+        {
+          "id": "checks",
+          "run": "gh pr checks <PR_NUMBER> --repo dizigs/archelaos-site",
+          "mode": "read"
+        },
+        {
+          "id": "workflow",
+          "run": "gh run view <RUN_ID> --repo dizigs/archelaos-site --log",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site"
+      ]
+    },
+    {
+      "id": "cloudflare",
+      "name": "Cloudflare Workers + Pages",
+      "family": "runtime",
+      "state": "verified",
+      "owner": "cloud-operator",
+      "use": "Deployments, observability and version evidence; live permissions vary per token",
+      "access": "least privilege; no unapproved deploy",
+      "budget": "paid-workers-plan",
+      "commands": [
+        {
+          "id": "deployments",
+          "run": "npx wrangler deployments list --name <WORKER_NAME>",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site/pull/124"
+      ]
+    },
+    {
+      "id": "gemini-api",
+      "name": "Google Gemini API",
+      "family": "ai-provider",
+      "state": "verified",
+      "owner": "ai-budget-operator",
+      "use": "Bounded classification and source-only review proposals",
+      "access": "GitHub/Worker secret references only; never log values",
+      "budget": "metered-20eur-shared",
+      "commands": [
+        {
+          "id": "inspect",
+          "run": "node automation/agent-kit/cli.mjs show gemini-api",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site/actions/runs/42284982522"
+      ]
+    },
+    {
+      "id": "gemini-cli",
+      "name": "Gemini CLI GitHub coding pilot",
+      "family": "coding-agent",
+      "state": "verified",
+      "owner": "repo-maintainers",
+      "use": "Manual read-only smoke and scoped patch in Draft PR",
+      "access": "workflow_dispatch; no automatic merge",
+      "budget": "gemini-api-shared",
+      "commands": [
+        {
+          "id": "smoke",
+          "run": "gh workflow run gemini-cli-manual-smoke.yml --repo dizigs/archelaos-site",
+          "mode": "external-call"
+        },
+        {
+          "id": "pilot",
+          "run": "gh workflow view gemini-guarded-coding.yml --repo dizigs/archelaos-site",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site/pull/269"
+      ]
+    },
+    {
+      "id": "antigravity-managed",
+      "name": "Google Antigravity managed agent",
+      "family": "coding-agent",
+      "state": "paused",
+      "owner": "ai-budget-operator",
+      "use": "High-effort Brain/Self-Heal analysis only after billing and security gates",
+      "access": "source-only draft; live Brain linkage disabled",
+      "budget": "metered-unreconciled",
+      "commands": [
+        {
+          "id": "review",
+          "run": "gh pr view 270 --repo dizigs/archelaos-site",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site/pull/270"
+      ]
+    },
+    {
+      "id": "google-drive",
+      "name": "Google Drive / Docs / Sheets",
+      "family": "workspace",
+      "state": "verified",
+      "owner": "admin-workspace",
+      "use": "Private access registry, task tracker, research and handoffs",
+      "access": "private connector grants; never mirror private contents into public GitHub",
+      "budget": "existing-service",
+      "commands": [
+        {
+          "id": "guide",
+          "run": "node automation/agent-kit/cli.mjs show google-drive",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site/blob/main/docs/LIVE_TASK_TRACKING.md"
+      ]
+    },
+    {
+      "id": "apps-script",
+      "name": "Google Apps Script bridge",
+      "family": "automation",
+      "state": "verified",
+      "owner": "admin-workspace",
+      "use": "Approved project metadata and isolated trigger preparation",
+      "access": "private admin OAuth; writes separately gated",
+      "budget": "existing-service",
+      "commands": [
+        {
+          "id": "review",
+          "run": "gh pr view 203 --repo dizigs/archelaos-site",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site/pull/203"
+      ]
+    },
+    {
+      "id": "gitlab",
+      "name": "GitLab mirror and Guardian",
+      "family": "source-control",
+      "state": "reported",
+      "owner": "repo-maintainers",
+      "use": "Read-only mirror evidence and security monitoring",
+      "access": "no automatic merge/write authority",
+      "budget": "needs-verification",
+      "commands": [
+        {
+          "id": "guide",
+          "run": "node automation/agent-kit/cli.mjs show gitlab",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site"
+      ]
+    },
+    {
+      "id": "sonarqube",
+      "name": "SonarQube Cloud",
+      "family": "quality",
+      "state": "reported",
+      "owner": "repo-maintainers",
+      "use": "Static quality and security gates",
+      "access": "current provider access not newly verified",
+      "budget": "needs-verification",
+      "commands": [
+        {
+          "id": "guide",
+          "run": "node automation/agent-kit/cli.mjs show sonarqube",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site"
+      ]
+    },
+    {
+      "id": "coderabbit",
+      "name": "CodeRabbit GitHub App",
+      "family": "quality",
+      "state": "reported",
+      "owner": "repo-maintainers",
+      "use": "PR code-review suggestions",
+      "access": "GitHub App scope needs readback",
+      "budget": "needs-verification",
+      "commands": [
+        {
+          "id": "guide",
+          "run": "node automation/agent-kit/cli.mjs show coderabbit",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site"
+      ]
+    },
+    {
+      "id": "gitguardian",
+      "name": "GitGuardian GitHub App",
+      "family": "security",
+      "state": "reported",
+      "owner": "repo-maintainers",
+      "use": "Secret-scanning incidents and remediation evidence",
+      "access": "no incident auto-close",
+      "budget": "needs-verification",
+      "commands": [
+        {
+          "id": "guide",
+          "run": "node automation/agent-kit/cli.mjs show gitguardian",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site"
+      ]
+    },
+    {
+      "id": "renovate",
+      "name": "Renovate GitHub App",
+      "family": "dependency",
+      "state": "reported",
+      "owner": "repo-maintainers",
+      "use": "Dependency update proposals",
+      "access": "no auto-merge",
+      "budget": "needs-verification",
+      "commands": [
+        {
+          "id": "guide",
+          "run": "node automation/agent-kit/cli.mjs show renovate",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site"
+      ]
+    },
+    {
+      "id": "microsoft-clarity",
+      "name": "Microsoft Clarity",
+      "family": "analytics",
+      "state": "reported",
+      "owner": "site-operator",
+      "use": "Consent-gated aggregate UX observations",
+      "access": "no personal replay data in public inventory",
+      "budget": "existing-service",
+      "commands": [
+        {
+          "id": "review",
+          "run": "gh workflow view clarity-daily-export.yml --repo dizigs/archelaos-site",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site/blob/main/.github/workflows/clarity-daily-export.yml"
+      ]
+    },
+    {
+      "id": "uptimerobot",
+      "name": "UptimeRobot",
+      "family": "monitoring",
+      "state": "reported",
+      "owner": "site-operator",
+      "use": "Public availability monitoring",
+      "access": "secret binding only; API validation pending",
+      "budget": "sponsored-service",
+      "commands": [
+        {
+          "id": "guide",
+          "run": "node automation/agent-kit/cli.mjs show uptimerobot",
+          "mode": "read"
+        }
+      ],
+      "evidence": [
+        "https://github.com/dizigs/archelaos-site/pull/124"
+      ]
+    },
+    {
+      "id": "github-mcp",
+      "name": "GitHub MCP Server",
+      "family": "mcp",
+      "state": "candidate",
+      "owner": "agent-operator",
+      "use": "Real source/PR/issue tools in compatible MCP clients",
+      "access": "read-only repo-scoped token first",
+      "budget": "needs-verification",
+      "commands": [
+        {
+          "id": "source",
+          "run": "https://github.com/github/github-mcp-server",
+          "mode": "reference"
+        }
+      ],
+      "evidence": [
+        "https://github.com/github/github-mcp-server"
+      ]
+    },
+    {
+      "id": "cloudflare-mcp",
+      "name": "Cloudflare MCP Server",
+      "family": "mcp",
+      "state": "candidate",
+      "owner": "agent-operator",
+      "use": "Observability and Worker details to coding agents",
+      "access": "read-only cloud token first",
+      "budget": "needs-verification",
+      "commands": [
+        {
+          "id": "source",
+          "run": "https://github.com/cloudflare/mcp-server-cloudflare",
+          "mode": "reference"
+        }
+      ],
+      "evidence": [
+        "https://github.com/cloudflare/mcp-server-cloudflare"
+      ]
+    },
+    {
+      "id": "sonarqube-mcp",
+      "name": "SonarQube MCP Server",
+      "family": "mcp",
+      "state": "candidate",
+      "owner": "agent-operator",
+      "use": "Security findings to coding agents",
+      "access": "read-only and server-scoped",
+      "budget": "needs-verification",
+      "commands": [
+        {
+          "id": "source",
+          "run": "https://github.com/SonarSource/sonarqube-mcp-server",
+          "mode": "reference"
+        }
+      ],
+      "evidence": [
+        "https://github.com/SonarSource/sonarqube-mcp-server"
+      ]
+    },
+    {
+      "id": "playwright-cli",
+      "name": "Playwright CLI / agent skills",
+      "family": "qa",
+      "state": "candidate",
+      "owner": "qa-operator",
+      "use": "Real browser checks and accessibility evidence",
+      "access": "local/staging browser; no credentials",
+      "budget": "needs-verification",
+      "commands": [
+        {
+          "id": "source",
+          "run": "https://github.com/microsoft/playwright-cli",
+          "mode": "reference"
+        }
+      ],
+      "evidence": [
+        "https://github.com/microsoft/playwright-cli"
+      ]
+    },
+    {
+      "id": "firecrawl-antigravity",
+      "name": "Firecrawl Antigravity plugin",
+      "family": "research",
+      "state": "candidate",
+      "owner": "research-operator",
+      "use": "Public source discovery only; human verification before publishing",
+      "access": "separate API account/credits need checking",
+      "budget": "metered-unverified",
+      "commands": [
+        {
+          "id": "source",
+          "run": "https://github.com/firecrawl/firecrawl-antigravity-plugin",
+          "mode": "reference"
+        }
+      ],
+      "evidence": [
+        "https://github.com/firecrawl/firecrawl-antigravity-plugin"
+      ]
+    }
+  ]
+}
