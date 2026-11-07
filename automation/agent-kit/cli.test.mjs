@@ -66,3 +66,13 @@ test('registry validator rejects duplicates and missing safe policy', () => {
   unsafe.policy.noAutomaticMerge = false;
   assert.throws(() => validateRegistry(unsafe), /REGISTRY_SAFETY_POLICY_MISSING/);
 });
+
+test('Antigravity MCP example is disabled and secret-free', () => {
+  const sample = JSON.parse(readFileSync(new URL('./mcp_config.example.json', import.meta.url), 'utf8'));
+  const entries = Object.values(sample.mcpServers);
+  assert.equal(entries.length, 2);
+  assert.ok(entries.every(entry => entry.disabled === true));
+  assert.ok(entries.every(entry => Object.keys(entry).sort().join(',') === 'disabled,serverUrl'));
+  assert.ok(entries.every(entry => entry.serverUrl.startsWith('https://')));
+  assert.doesNotMatch(JSON.stringify(sample), /Authorization|Bearer |AIza|token|secret/i);
+});
