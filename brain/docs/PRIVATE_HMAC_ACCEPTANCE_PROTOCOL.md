@@ -1,3 +1,92 @@
+# Private HMAC acceptance — RPC test repair
+
+**Current code status: READY_FOR_INDEPENDENT_REVIEW (OFFLINE ONLY). Live activation: NO-GO.**
+
+The original local checkpoint `0b8df424d82fa53206846db448a862ee37634076`
+was recovered unchanged on `codex/private-hmac-acceptance`; the original tests were
+not reconstructed from GitHub. Its historical failed TAP remains preserved below.
+
+## Confirmed cause and safe correction
+
+The exact original native suite reproduced **10/11**, including original line116.
+Name/descriptor-only diagnostics in an isolated archive identified only these
+non-null reads on both Service Bindings:
+
+| Property | Actual descriptor/identity | Correct test requirement |
+| --- | --- | --- |
+| constructor | inherited depth1 data-function of the local SDK stub | Exact descriptor/data/constructor/prototype identity against an independent local Service Binding |
+| __proto__ | inherited depth2 Object.prototype accessor; returns the local stub prototype | Exact intrinsic accessor/prototype identity, no own or prototype shadowing |
+| env, ctx, nonceStore, coordinator, memory | Not local own/inherited properties; RPC access rejects | Continue to require denial on the actual remote boundary |
+
+The earlier aggregate assertion conflated local JavaScript SDK properties with
+remote RPC capabilities. This was a test-harness assumption, not a reproduced
+leaked coordinator or a protocol/HMAC failure. No paid Antigravity was invoked.
+
+Only the existing test harness changes relative to the checkpoint. Both HMAC
+runtime modules remain byte-for-byte identical, as do the real Worker entrypoints,
+Wrangler configs, existing ACK tests, five OFF flags and1970expiry.
+
+The original every(Boolean) assertion remains. Its probe still checks all five
+private names. It additionally verifies the exact SDK prototype/constructor shape
+against an independent binding, rejecting own constructor/prototype overrides,
+accessor constructors and changed prototype chains without invoking malicious
+getters. This is not an unconditional name exemption or an application-data
+prototype allowlist. The existing protocol's hostile input/prototype/getter checks
+and HMAC mismatch/replay/timeout assertions remain unchanged.
+
+Native negative controls prove the detector remains effective: a test-only
+computed getter returns a real harmless RpcTarget, and an inherited remote getter
+returns fixture data. The SAME probe rejects both exposures. Six synthetic local
+shadow/prototype/getter mutations are rejected with getterCalls0. Only safe
+name/own-inherited/descriptor-category diagnostics are retained; no object,
+secret value or capability is printed. These controls are test strings only,
+never imported into either real Worker.
+
+## Verified local gates, in required order
+
+1. Original unchanged checkpoint reproduced10/11; targeted descriptor diagnostics
+   confirm the two local SDK intrinsics. These are expected pre-fix reproductions,
+   not failures of the corrected gate.
+2. Corrected dedicated native suite FIRST: **11/11 PASS**,0fail/skip/cancelled,
+   31420.44ms. Public404 paths, invalid-run rejection and positive restart assertions
+   that were previously unreachable now execute and pass.
+3. Only after11/11: full Brain **154/154 PASS**, Healer/integration
+   **117/117**, Python **17/17**, syntax **46Brain modules +Healer worker/protocol**
+   PASS; runtime audit **0vulnerabilities**; Brain, Healer AND isolated-candidate
+   Wrangler4.157.0 dry-runs PASS. No upload. Native tests use real workerd Service
+   Bindings and SQLite, synthetic keys/data and0provider egress.
+
+Actual before/after TAP, full regression and build logs, runtime module/test hashes
+and local bundle SHA256 hashes are in `../evidence/private-hmac-final-repair/`.
+The initial10/11evidence is unchanged. The candidate dry-run uses a temporary local
+validation config only, not a new tracked namespace/migration/configuration.
+
+Current main observed `edb817f5077caec5a1495be11f0f90ba66d91e02` includes the independent
+#271 preflight fix; this branch preserves the supplied checkpoint ancestry.
+All35open PR file lists are complete and disjoint from our files; #273's prototype
+guard and #277's ACK-CWD fix remain untouched. Exact-head PR CI and its temporary
+GitHub merge-tree must be identified separately from local-source evidence.
+No merge, rebase, foreign-branch change or main push is performed by this repair.
+
+## Remaining separate acceptance
+
+The intended Draft PR is for review of source/tests only. Hosted CI/security
+results and exact SHA are recorded in Issue71/PR after observing them; no prior
+head or PR273 result substitutes for this gate. Numeric SonarA requires actual
+corresponding-revision evidence, not inference from a passing summary. Independent
+review and any strict base-freshness requirement remain release-owner checks.
+
+No live challenge/deployment, real HMAC readback, secrets/bindings mutation, flag
+activation, repair, production write or paid AI invocation is authorized. This
+candidate is still NOT wired into active Workers. Live key equality/communication
+is NOT VERIFIED; Service Bindings alone do not prove it. A later private staging
+acceptance needs separately authorized exact-version/private-binding/isolated
+namespace/rollback attestation and a short-lived private operator permit.
+
+---
+
+# Historical blocked checkpoint — 0b8df424 (6 November 2026)
+
 # Private Brain ↔ Self-Heal HMAC acceptance — blocked local checkpoint
 
 **Status: BLOCKED / TEST_FAILED. Not accepted, not deployed, no live key-parity proof.**

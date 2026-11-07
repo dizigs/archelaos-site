@@ -1,0 +1,22 @@
+test_brain_targets_only_existing_healer_default (inactive_bindings_test.ApprovedBindingContracts.test_brain_targets_only_existing_healer_default) ... ok
+test_healer_targets_only_hardened_named_brain_port (inactive_bindings_test.ApprovedBindingContracts.test_healer_targets_only_hardened_named_brain_port) ... ok
+test_drop_retype_redirect_activation_or_migration_fails (inactive_bindings_test.PreservationGuard.test_drop_retype_redirect_activation_or_migration_fails) ... ok
+test_filtered_baseline_inventory_never_attests_completeness (inactive_bindings_test.PreservationGuard.test_filtered_baseline_inventory_never_attests_completeness) ... ok
+test_missing_baseline_namespace_duplicate_or_redirect_is_blocked (inactive_bindings_test.PreservationGuard.test_missing_baseline_namespace_duplicate_or_redirect_is_blocked) ... ok
+test_present_default_and_named_links_match_but_redirects_are_blocked (inactive_bindings_test.PreservationGuard.test_present_default_and_named_links_match_but_redirects_are_blocked) ... ok
+test_secret_conversion_and_secret_values_are_rejected_without_logging (inactive_bindings_test.PreservationGuard.test_secret_conversion_and_secret_values_are_rejected_without_logging) ... ok
+test_stale_malformed_and_partial_inventory_is_unknown (inactive_bindings_test.PreservationGuard.test_stale_malformed_and_partial_inventory_is_unknown) ... ok
+test_synthetic_complete_inventory_checks_preservation_only (inactive_bindings_test.PreservationGuard.test_synthetic_complete_inventory_checks_preservation_only) ... ok
+test_unknown_live_binding_prevents_silent_deletion (inactive_bindings_test.PreservationGuard.test_unknown_live_binding_prevents_silent_deletion) ... ok
+test_unreviewed_kv_secret_shadowing_fails_closed (inactive_bindings_test.PreservationGuard.test_unreviewed_kv_secret_shadowing_fails_closed) ... ok
+test_valid_source_does_not_claim_live_readiness (inactive_bindings_test.PreservationGuard.test_valid_source_does_not_claim_live_readiness) ... ok
+test_403_metadata_is_blocked_not_deployed_or_retried (provider_test.Inventory.test_403_metadata_is_blocked_not_deployed_or_retried) ... ok
+test_confirmed_free_plan_and_reads_still_do_not_prove_deployment (provider_test.Inventory.test_confirmed_free_plan_and_reads_still_do_not_prove_deployment) ... ok
+test_new_read_token_inventory_does_not_claim_write_billing_or_deployment (provider_test.StagingReadiness.test_new_read_token_inventory_does_not_claim_write_billing_or_deployment) ... ok
+test_provider_403_is_unknown_staging_presence_and_no_retries (provider_test.StagingReadiness.test_provider_403_is_unknown_staging_presence_and_no_retries) ... ok
+test_same_host_network_denial_skips_following_reads (provider_test.StagingReadiness.test_same_host_network_denial_skips_following_reads) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 0.018s
+
+OK

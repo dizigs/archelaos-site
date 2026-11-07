@@ -56,7 +56,33 @@ test('private permit fails closed by default, on expiry, role/pin/session mismat
   ]) assert.throws(()=>acceptanceConfig({...env,...patch},'brain'));
   assert.throws(()=>acceptanceConfig({...bindings('healer'),HEALER_DURABLE_ACK_ENABLED:'true'},'healer'));
 });
-const inspector=String.raw`export default {async fetch(req,env){const x=await req.json();
+const inspector=String.raw`
+// Service bindings are local SDK stubs, not null-prototype remote records.
+// Attest exact inherited SDK intrinsics against an independent binding; never
+// exempt an own property, changed prototype, accessor constructor or RPC value.
+function localIntrinsics(port,reference){
+ const proto=Object.getPrototypeOf(port),baseline=Object.getPrototypeOf(reference);
+ const constructor=proto&&Object.getOwnPropertyDescriptor(proto,'constructor');
+ const common=proto===baseline&&Object.getPrototypeOf(proto)===Object.prototype&&
+  !Object.hasOwn(port,'constructor')&&!Object.hasOwn(port,'__proto__')&&
+  !Object.hasOwn(proto,'__proto__');
+ const constructorOK=common&&constructor&&Object.hasOwn(constructor,'value')&&
+  typeof constructor.value==='function'&&constructor.get===undefined&&constructor.set===undefined&&
+  constructor.value.prototype===proto&&Object.getPrototypeOf(constructor.value)===Function.prototype&&
+  port.constructor===constructor.value;
+ const protoDescriptor=Object.getOwnPropertyDescriptor(Object.prototype,'__proto__');
+ const prototypeOK=common&&protoDescriptor&&typeof protoDescriptor.get==='function'&&
+  typeof protoDescriptor.set==='function'&&!Object.hasOwn(protoDescriptor,'value')&&port.__proto__===proto;
+ return [!!constructorOK,!!prototypeOK];
+}
+async function probePort(port,reference){
+ const checked=[];
+ for(const name of ['env','ctx','nonceStore','coordinator','memory']){
+  try{const result=await port[name];checked.push(result==null)}catch{checked.push(true)}
+ }
+ return [...checked,...localIntrinsics(port,reference)];
+}
+export default {async fetch(req,env){const x=await req.json();
  const brain=env.BRAIN_NONCES.get(env.BRAIN_NONCES.idFromName('private-hmac-acceptance-v1'));
  const healer=env.HEALER_NONCES.get(env.HEALER_NONCES.idFromName('private-hmac-acceptance-v1'));
  if(x.op==='run')return Response.json(await env.BRAIN.runChallenge());
@@ -65,7 +91,18 @@ const inspector=String.raw`export default {async fetch(req,env){const x=await re
  if(x.op==='state')return Response.json({brain:await brain.__testState(),healer:await healer.__testState(),relay:await env.RELAY.inspect()});
  if(x.op==='captured')return Response.json(await env.RELAY.inspect());
  if(x.op==='reserve')return Response.json(await healer.reserve(x.value));
- if(x.op==='probe'){const denied=[];for(const port of [env.BRAIN,env.HEALER])for(const name of ['env','ctx','nonceStore','coordinator','memory','constructor','__proto__']){try{const result=await port[name];denied.push(result==null)}catch{denied.push(true)}}return Response.json(denied)}
+ if(x.op==='probe')return Response.json([...(await probePort(env.BRAIN,env.RELAY)),...(await probePort(env.HEALER,env.RELAY))]);
+ if(x.op==='probe-leaky')return Response.json(await probePort(env.LEAKY,env.RELAY));
+ if(x.op==='probe-mutants'){
+  let getterCalls=0;const proto=Object.getPrototypeOf(env.RELAY),mutants=[];
+  for(const name of ['constructor','__proto__']){
+   const own=Object.create(proto);Object.defineProperty(own,name,{get(){getterCalls++;return {fixtureOnly:true}}});mutants.push(own);
+   const data=Object.create(proto);Object.defineProperty(data,name,{value:{fixtureOnly:true}});mutants.push(data);
+  }
+  mutants.push(Object.create(Object.create(proto)));
+  const inherited=Object.create(proto);Object.defineProperty(inherited,'constructor',{get(){getterCalls++;return ()=>{}}});mutants.push(Object.create(inherited));
+  return Response.json({rejected:mutants.every(port=>!localIntrinsics(port,env.RELAY).every(Boolean)),getterCalls});
+ }
  return new Response('Not found',{status:404});}}`;
 const relay=String.raw`import {WorkerEntrypoint} from 'cloudflare:workers';let count=0,captured,cached;
  export default class extends WorkerEntrypoint {
@@ -78,6 +115,13 @@ const relay=String.raw`import {WorkerEntrypoint} from 'cloudflare:workers';let c
   }
   async inspect(){return {count,request:captured??null}}
  }`;
+// Negative control ONLY: the real probe must catch an inherited remote getter
+// and a computed getter returning an actual (harmless) native RPC capability.
+const leaky=String.raw`import {WorkerEntrypoint,RpcTarget} from 'cloudflare:workers';
+ class FixtureCapability extends RpcTarget{noop(){return true}}
+ class FixtureBase extends WorkerEntrypoint{get memory(){return 'fixture-only'}}
+ export default class extends FixtureBase{get ['coor'+'dinator'](){return new FixtureCapability}}
+`;
 async function fixture(mode='normal') {
   const dir=await mkdtemp(join(tmpdir(),'private-hmac-native-')),session=randomUUID();
   const path=resolve('src','.private-hmac-native-'+randomUUID()+'.mjs');
@@ -94,9 +138,10 @@ async function fixture(mode='normal') {
       durableObjects:{HMAC_NONCES:{className:'PrivateHmacNonceStore',useSQLite:true}}},
     {name:'relay',modules:true,script:relay,compatibilityDate:'2026-11-01',bindings:{MODE:mode},
       serviceBindings:{PEER:{name:'healer',entrypoint:'HealerHmacAcceptancePort'}}},
+    {name:'leaky',modules:true,script:leaky,compatibilityDate:'2026-11-01'},
     {name:'inspector',modules:true,script:inspector,compatibilityDate:'2026-11-01',
       durableObjects:{BRAIN_NONCES:{className:'PrivateHmacNonceStore',scriptName:'brain',useSQLite:true},HEALER_NONCES:{className:'PrivateHmacNonceStore',scriptName:'healer',useSQLite:true}},
-      serviceBindings:{BRAIN:{name:'brain',entrypoint:'BrainHmacAcceptancePort'},HEALER:{name:'healer',entrypoint:'HealerHmacAcceptancePort'},RELAY:{name:'relay'}}}
+      serviceBindings:{BRAIN:{name:'brain',entrypoint:'BrainHmacAcceptancePort'},HEALER:{name:'healer',entrypoint:'HealerHmacAcceptancePort'},RELAY:{name:'relay'},LEAKY:{name:'leaky'}}}
   ],durableObjectsPersist:dir,outboundService:async()=>{egress++;return new Response('DENIED',{status:503})}});
   mf=build();
   return {env:b,
@@ -114,6 +159,10 @@ test('native private binding proves matching synthetic keys with all recovery fl
     assert.equal(state.healer.rows.length,1);assert.equal(state.healer.rows[0].state,'ANSWERED');assert.equal(state.relay.count,1);
     assert.equal(state.brain.alarm,null);assert.equal(state.healer.alarm,null);
     assert.ok((await f.call({op:'probe'})).every(Boolean));await f.publicHttp();
+    const leakyProbe=await f.call({op:'probe-leaky'});
+    assert.equal(leakyProbe[3],false,'computed getter exposing native RpcTarget must fail the probe');
+    assert.equal(leakyProbe[4],false,'inherited remote getter must fail the probe');
+    assert.deepEqual(await f.call({op:'probe-mutants'}),{rejected:true,getterCalls:0});
     assert.equal((await f.call({op:'invalid-run'})).status,'UNKNOWN');
     await f.restart();const persisted=await f.call({op:'state'});assert.deepEqual(persisted.brain,state.brain);assert.deepEqual(persisted.healer,state.healer);
   } finally {await f.close()}
