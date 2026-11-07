@@ -1,0 +1,7 @@
+{
+  "name":"archelaos-raisely-bridge",
+  "main":"src/index.mjs",
+  "compatibility_date":"2026-11-04",
+  "observability":{"enabled":true},
+  "triggers":{"crons":[]}
+}
