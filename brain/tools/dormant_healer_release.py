@@ -16,7 +16,7 @@ HEALER = "archelaos-self-heal"
 BRAIN = "archelaos-brain-staging"
 SUBJECT = "deploy(staging): one-shot dormant Healer rollout"
 ROOT = Path(__file__).resolve().parents[2]
-STATE = Path(os.environ.get("RUNNER_TEMP", "/tmp")) / "archelaos-dormant-healer-baseline.json"
+STATE = Path(os.environ["RUNNER_TEMP"]) / "archelaos-dormant-healer-baseline.json"
 
 
 def require(ok, label):
@@ -146,8 +146,12 @@ def preflight():
     require(memory.get("type") == "durable_object_namespace" and
             memory.get("class_name") == "HealerMemory" and
             memory.get("namespace_id"), "HEALER_CANONICAL_DO_MISSING")
-    STATE.write_text(json.dumps({"oldVersion": version, "canonicalDoId": memory["namespace_id"]}))
-    STATE.chmod(0o600)
+    # Atomic, exclusive creation with mode 0600 (no public-readable window).
+    flags = os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW
+    fd = os.open(STATE, flags, 0o600)
+    with os.fdopen(fd, "w", encoding="utf-8") as private_file:
+        json.dump({"oldVersion": version, "canonicalDoId": memory["namespace_id"]},
+                  private_file)
     print("DORMANT_HEALER_PREDEPLOY_PASS old_version_pinned=true flags_off=true")
 
 
