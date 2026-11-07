@@ -57,8 +57,9 @@ def make(src,original,name,old_peer,new_peer):
     folder=ROOT/src.rsplit("/",1)[0]
     bp=folder/("wrangler."+name+".boot.toml")
     fp=folder/("wrangler."+name+".qa.toml")
-    bp.write_text(bootstrap)
+    # Register before writing, so partially written QA files can be cleaned.
     tempfiles.extend((bp,fp))
+    bp.write_text(bootstrap)
     boot[name]=bp
     return fp,c
 def enabled(c,sha,session,start,end):
@@ -172,12 +173,14 @@ def run():
         secretpath=Path(d)/"private.json"
         secretpath.write_text(json.dumps({"HEALER_EVENT_HMAC_KEY":secrets.token_urlsafe(48)}))
         secretpath.chmod(0o600)
-        plans={
-            B:make("brain/wrangler.toml","archelaos-brain-staging",B,"archelaos-self-heal",H),
-            H:make("automation/self-heal-worker/wrangler.toml","archelaos-self-heal",H,"archelaos-brain-staging",B)
-        }
         success=False
+        primary_failure=False
         try:
+            # Both plans must be covered by the cleanup scope.
+            plans={
+                B:make("brain/wrangler.toml","archelaos-brain-staging",B,"archelaos-self-heal",H),
+                H:make("automation/self-heal-worker/wrangler.toml","archelaos-self-heal",H,"archelaos-brain-staging",B)
+            }
             for n in (H,B):
                 deploy(boot[n])
                 created.add(n)
@@ -198,6 +201,9 @@ def run():
                 raise Stop("PERMIT_EXPIRED_BEFORE_CALL")
             call(sha,session)
             success=True
+        except Exception:
+            primary_failure=True
+            raise
         finally:
             clean=True
             for n in (B,H):
@@ -217,8 +223,16 @@ def run():
                     except Exception:
                         clean=False
                         note("QA_DELETE_"+n+"_BLOCKED")
-            for f in tempfiles: f.unlink(missing_ok=True)
-            if not clean: raise Stop("QA_CLEANUP_INCOMPLETE")
+            for f in tempfiles:
+                try:
+                    f.unlink(missing_ok=True)
+                except OSError:
+                    clean=False
+                    note("QA_TEMPFILE_CLEANUP_BLOCKED")
+            if not clean:
+                note("QA_CLEANUP_INCOMPLETE")
+                if not primary_failure:
+                    raise Stop("QA_CLEANUP_INCOMPLETE")
         if not success: raise Stop("HMAC_NOT_CONFIRMED")
     note("OVERALL_PASS_REAL_CLOUDFLARE_HMAC_AND_CLEANUP")
 if __name__=="__main__":
