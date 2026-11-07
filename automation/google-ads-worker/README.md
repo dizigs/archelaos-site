@@ -1,5 +1,70 @@
 # Archelaos Google Ad Grants Worker — Issue #216
 
+## Post-merge integration audit — 2026-11-05
+
+**Merged base:** PRs #70, #223 and #229. **Closed, NOT merged:** #225.
+Both explicit service-account auth variants are already present in `main`:
+`SERVICE_ACCOUNT` (project-pinned PEM secret) and
+`SERVICE_ACCOUNT_JSON` (project/email-pinned JSON secret). This branch does
+**not** add another OAuth adapter or change Google credentials. The operator's
+HTTP 200 proof from a Chromebook demonstrates an *external account/API path*;
+it is **not** a Worker token, Worker GAQL read, a live Worker connection or proof
+of the Ad Grants billing profile.
+
+This follow-up adds the `brainHandoff` review-only return value to the
+already authenticated private `executeSignedBrainIntent` RPC for
+`analytics_preview` and `budget_audit_read`. The allowlisted payload carries
+aggregate analytics hints or USD budget/spend totals, correlation ID,
+`aiCostEur: 0`, and `deliveryStatus: NOT_SENT_BY_WORKER`. It deliberately
+contains no customer ID, credentials, visitor/session rows, or Ads write.
+The canonical Brain must verify the originating Analytics event independently
+and own any durable delivery receipt; **no service-binding delivery or upstream
+Analytics provenance is claimed by this contract**.
+
+The dispatcher now enforces the staging/permission gates *before* calling
+even an injected mock adapter for `budget_audit_read` or
+`keyword_ideas_read`, and ensures an account-scoped budget audit matches
+the configured customer. The inbound analytics adapter explicitly allowlists
+the `ga4`, `gsc` and `clarity` aggregate producers. Regression tests exercise
+signed Brain -> Ads -> private review handoff, negative scope cases and OFF
+defaults; they use synthetic customer values only.
+
+### Google Ads permissions and evidence matrix
+
+| Capability | Code/test status | Real-world status | Production decision |
+| --- | --- | --- | --- |
+| Service account JWT, fixed `adwords` scope | Offline synthetic RSA/signature tests | Operator HTTP 200; **Worker OAuth not observed** | OFF |
+| GCP API Explorer access | Explicit read/reporting path | Operator/external approval evidence; approved GCP project ↔ service account match not independently read by Worker | Read-capable in principle; not enabled |
+| KeywordPlanIdeaService | Basic/Standard-only gate, including injected ports | Explorer level does **not** grant Planner APIs | **BLOCKED** |
+| GAQL account, account-wide budgets, actual daily/monthly spend | Offline mocked parsing and USD cap checks | No Worker account snapshot or verified Ad Grants billing profile | OFF |
+| `validateOnly` Search mutation | Offline mock exercises `validateOnly:true` | No real validateOnly execution | OFF |
+| PAUSED writes / readback / idempotency | Offline mocked receipts and UNKNOWN reconciliation | No production D1 binding, Brain account-wide writer lease or approved live receipt | **OFF** |
+| Landing-page SHA256 + policy approval | Offline HTTP 200/HTML/digest guards | No operator-approved, production-fresh landing/policy receipt | OFF |
+| Brain/Analytics private handoff | New contract and mock E2E | No independently verified service binding or real delivery/readback | Review-only, not delivered |
+
+**Ledger separation:** Google Ad Grants USD campaign budgets and observed spend
+are reporting-only figures, not a second AI ledger or an allocation of the
+Brain's **EUR 20/month** AI cap. This Worker calls no AI model and reserves
+no AI credits.
+
+**CI boundary:** `.github/workflows/google-ads-worker-checks.yml` already runs
+offline syntax, dry-run planning and Node tests for PRs touching this directory.
+CodeQL runs on PR changes to `*.mjs`. **Exact PR-head checkout** cannot be
+proven with the existing checkout configuration (GitHub's default PR merge
+ref), and modifications to `.github/workflows/**` are outside this agent's
+exclusive file ownership. SonarCloud cannot be marked PASS until an actual
+check for the exact PR head is observed. The central coordinator owns any
+workflow changes and acceptance.
+
+**Not cleared for automation:** billing and grant entitlement for the exact
+account, service account/project identity from the deployed Worker, a real
+read-only GAQL account/budget/spend receipt, editorial/policy landing approval,
+private Brain/Analytics service binding with signed provenance, global
+single-writer lease, exact-head required CI, SonarCloud/CodeQL evidence and
+explicit central authorization. The Worker stays unconfigured and kill-switched;
+no live campaigns, credentials, charges, deployment or merge.
+
+
 **Status: CODE PREPARED / OFFLINE ONLY.** Private Google notification emails
 confirm Ad Grants activation, Google Ads API Explorer project approval, and
 an Ads service-account user with Standard account access. These emails do NOT
@@ -10,11 +75,11 @@ No Codex, cron, Cloudflare publish or Ads write was performed.
 
 ## Ownership and dependencies
 
-- Independent scope: `automation/google-ads-worker/**` and the new PR-only
-  `.github/workflows/google-ads-worker-checks.yml`.
-- Stacked on **draft PR #70** (`codex/ad-grants-dry-run`) so the existing
+- Independent implementation scope: `automation/google-ads-worker/**` only.
+  The pre-existing workflow is owned by the central CI coordinator.
+- Built on the **merged PR #70** editorial drafts; the existing
   `rebuild/ads/ad_grants_core.js` and `campaigns.draft.json` are reused
-  *without any edits*; rebase onto main only after PR #70 is merged or reviewed.
+  *without edits*.
 - Analytics producer: **draft PR #196**, aggregates-only event contract;
   the sender must still verify original producer signature/provenance before
   Brain accepts it. The Ads worker does not ingest raw Clarity/session/PII data.
@@ -80,7 +145,7 @@ An authorized operator must provision an isolated staging D1, explicit service
 binding and secrets, and separately approve a production setup. A successful
 GitHub build is **not** Cloudflare deployment or Google Ads authorization.
 
-## Actual Google Ads prerequisites (all blocked)
+## Actual Google Ads prerequisites (production remains blocked)
 
 1. Verify granted nonprofit status and the exact **Ad Grants** customer ID;
    separately prove the OAuth principal has `https://www.googleapis.com/auth/adwords`
@@ -258,10 +323,9 @@ than silently replacing #229's existing PEM-secret JWT adapter:
   `ADS_STAGING_ENABLED=false`, `ADS_LIVE_ENABLED=false`,
   `ADS_KILL_SWITCH=on` are unchanged in `wrangler.jsonc`.
 
-**Dependency order:** #70 → #223 → #229 → integration PR. #225 must not
-also be merged blindly as its files overlap #229; the JSON-secret behavior
-is carried by this integration branch and should be checked against its
-tests before marking #225 superseded. The current Google API Explorer
+**Merged dependency order:** #70 → #223 → #229. #225 was closed without merge;
+its JSON-secret behavior already exists in the current main and remains offline-tested.
+Do not merge or reintroduce #225 separately. The current Google API Explorer
 access permits GoogleAdsService reporting but not KeywordPlanIdeaService.
 For any staging read, independently confirm the same approved Google Cloud
 project owns the service account and the exact customer is the nonprofit

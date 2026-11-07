@@ -81,6 +81,7 @@ export function validateAnalytics(aggregate) {
   requireTrue(aggregate?.schemaVersion===1 && aggregate.privacyStatus==='AGGREGATED_ONLY' &&
       aggregate.type==='aggregate_report_ready' && aggregate.payload?.rawVisitorDataStored===false,'UNTRUSTED_ANALYTICS');
   const p=aggregate.payload;
+  requireTrue(['ga4','gsc','clarity'].includes(p.source),'UNTRUSTED_ANALYTICS_SOURCE');
   requireTrue(Object.keys(aggregate).every(k=>['schemaVersion','eventId','source','type','sourceRevision','observedAt','correlationId','payload','privacyStatus','aiRouting','publish'].includes(k)) &&
     Object.keys(p).every(k=>['schemaVersion','source','reportDigest','period','metrics','suppressedRows','rawVisitorDataStored','externalAiCalls'].includes(k)),
     'RAW_OR_UNAPPROVED_ANALYTICS');

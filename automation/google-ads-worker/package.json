@@ -5,6 +5,6 @@
   "scripts": {
     "test": "node --test test/*.test.mjs",
     "plan": "node scripts/offline-preview.cjs",
-    "syntax": "node --check src/contract.mjs && node --check src/google-ads-api.mjs && node --check src/service-account-auth.mjs && node --check src/service-account-json.mjs && node --check src/budget-guard.mjs && node --check src/landing-guard.mjs && node --check src/readback.mjs && node --check src/engine.mjs && node --check src/index.mjs && node --check test/worker.test.mjs"
+    "syntax": "node --check src/contract.mjs && node --check src/google-ads-api.mjs && node --check src/service-account-auth.mjs && node --check src/service-account-json.mjs && node --check src/budget-guard.mjs && node --check src/landing-guard.mjs && node --check src/readback.mjs && node --check src/brain-handoff.mjs && node --check src/engine.mjs && node --check src/index.mjs && node --check test/worker.test.mjs && node --check test/brain-handoff.test.mjs"
   }
 }

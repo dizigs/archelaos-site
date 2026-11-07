@@ -3,6 +3,7 @@ import {stagingReady,liveReady,sendAdsOperation,keywordIdeaRequest,readKeywordId
 import {readAccountBudget,assertGrantBudget} from './budget-guard.mjs';
 import {verifyApprovedLanding} from './landing-guard.mjs';
 import {readBackMutation} from './readback.mjs';
+import {makeBrainReviewHandoff} from './brain-handoff.mjs';
 
 const exact=(object,keys)=>object&&typeof object==='object'&&!Array.isArray(object)&&
   Object.keys(object).every(key=>keys.includes(key));
@@ -73,21 +74,38 @@ export async function dispatch(envelope,env,ports={},now=Date.now()){
   if(action.mode==='dry_run') return {status:'OFFLINE_DRY_RUN',correlationId:action.correlationId,
     receipt:validateDraft(action.draft,action.evidence||{},action.month||'2026-11'),
     adsMutation:false,aiCostEur:0};
-  if(action.mode==='analytics_preview') return {status:'REVIEW_ONLY',correlationId:action.correlationId,
-    receipt:validateAnalytics(action.analytics),adsMutation:false,aiCostEur:0};
+  if(action.mode==='analytics_preview') {
+    const receipt=validateAnalytics(action.analytics);
+    return {status:'REVIEW_ONLY',correlationId:action.correlationId,receipt,
+      brainHandoff:makeBrainReviewHandoff('analytics_preview',action.correlationId,receipt),
+      adsMutation:false,aiCostEur:0};
+  }
   if(action.mode==='keyword_ideas_preview') {
     raise(stagingReady(env),'ADS_STAGING_DISABLED');
     return {status:'REQUEST_PREVIEW_ONLY',request:keywordIdeaRequest(env.ADS_CUSTOMER_ID,action.plannerSeed),
       adsMutation:false,aiCostEur:0};
   }
-  if(action.mode==='keyword_ideas_read') return {status:'KEYWORD_PLANNER_READ_ONLY',correlationId:action.correlationId,
-    receipt:await (ports.planner||readKeywordIdeas)(env,action.plannerSeed,{fetcher:ports.fetch}),
-    adsMutation:false,aiCostEur:0};
+  if(action.mode==='keyword_ideas_read') {
+    // Authenticate and authorize before any injected transport/mock can run.
+    raise(stagingReady(env) && env.ADS_KEYWORD_PLANNER_READ_ENABLED==='true',
+      'KEYWORD_PLANNER_DISABLED');
+    raise(['BASIC','STANDARD'].includes(env.ADS_API_ACCESS_LEVEL),
+      'KEYWORD_PLANNER_REQUIRES_BASIC_OR_STANDARD_API_ACCESS');
+    return {status:'KEYWORD_PLANNER_READ_ONLY',correlationId:action.correlationId,
+      receipt:await (ports.planner||readKeywordIdeas)(env,action.plannerSeed,{fetcher:ports.fetch}),
+      adsMutation:false,aiCostEur:0};
+  }
   if(action.mode==='budget_audit_read'){
+    // No injected adapter or synthetic receipt may bypass the read-only gate.
+    raise(stagingReady(env) && env.ADS_BUDGET_AUDIT_READ_ENABLED==='true',
+      'ADS_BUDGET_AUDIT_DISABLED');
     const snapshot=await (ports.budgetAudit||readAccountBudget)(env,{fetcher:ports.fetch});
+    raise(snapshot?.customerId===env.ADS_CUSTOMER_ID,'ADS_BUDGET_CUSTOMER_MISMATCH');
     const summary=assertGrantBudget(snapshot,{kind:'audit',action:'read'},Date.now());
     return {status:'BUDGET_AUDIT_READ_ONLY',correlationId:action.correlationId,
-      receipt:summary,adsMutation:false,aiCostEur:0};
+      receipt:summary,
+      brainHandoff:makeBrainReviewHandoff('budget_audit_read',action.correlationId,summary),
+      adsMutation:false,aiCostEur:0};
   }
   raise(['validate_only','apply','rollback_preview'].includes(action.mode),'UNKNOWN_MODE');
   raise(stagingReady(env),'ADS_STAGING_DISABLED');
@@ -118,6 +136,7 @@ export async function dispatch(envelope,env,ports={},now=Date.now()){
   // Re-read real account-wide budgets and spend before claiming ANY mutation.
   // No fixture or preview value is accepted as proof of account-level capacity.
   const snapshot=await (ports.budgetAudit||readAccountBudget)(env,{fetcher:ports.fetch});
+  raise(snapshot?.customerId===env.ADS_CUSTOMER_ID,'ADS_BUDGET_CUSTOMER_MISMATCH');
   const budgetReceipt=assertGrantBudget(snapshot,action.operation,Date.now());
   // The signed operator intent must approve the *current page bytes*; a
   // domain-only allowlist is not sufficient to create an actual RSA.
