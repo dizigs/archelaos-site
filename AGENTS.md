@@ -1,6 +1,6 @@
 # ARCHELAOS — shared task tracking (ChatGPT, Codex and contributors)
 
-This is the public repository for `https://archelaos.club`. **Before any work**, consult [docs/LIVE_TASK_TRACKING.md](docs/LIVE_TASK_TRACKING.md), [docs/AUTOMATION_PLAN.md](docs/AUTOMATION_PLAN.md), [docs/WORK_LOG.md](docs/WORK_LOG.md) and [GitHub issue #71](https://github.com/dizigs/archelaos-site/issues/71). The live task tracker is a **private, editable Google Sheet** linked from the tracking guide.
+This is the public repository for `https://archelaos.club`. **Before taking on a task**, read [docs/LIVE_TASK_TRACKING.md](docs/LIVE_TASK_TRACKING.md) and the current, relevant owner handoff in [GitHub issue #71](https://github.com/dizigs/archelaos-site/issues/71), then check the **private, editable LIVE Google Sheet** linked in that guide when authorized. Use its task IDs and `LOG` for current ownership/state. Consult [docs/AUTOMATION_PLAN.md](docs/AUTOMATION_PLAN.md), [docs/WORK_LOG.md](docs/WORK_LOG.md), Brain-specific work logs and exact provider/CI evidence **only for the scoped investigation**; do not read or recopy entire historical engineering logs at every startup or treat them as a new task queue.
 
 ## One journal, multiple evidence sources
 
