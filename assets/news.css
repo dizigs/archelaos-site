@@ -160,3 +160,6 @@ main{padding:60px 0 80px}
 /* Exact, source-backed canonical person IDs within article body text. */
 .an-person-tag{color:#215b3b;text-decoration:underline;text-underline-offset:3px;font-weight:700}
 .an-person-tag:focus-visible{outline:3px solid #b18c45;outline-offset:3px}
+
+/* Card metadata must never block the full-card article hit area. */
+.an-card .an-topic-tag,.an-feature-card .an-topic-tag{pointer-events:none;z-index:auto}
