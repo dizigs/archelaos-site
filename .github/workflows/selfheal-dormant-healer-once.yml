@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: read
+  checks: read
 
 jobs:
   one-shot:
@@ -37,6 +38,40 @@ jobs:
           spec.loader.exec_module(mod)
           mod.config_guard()
           print('DORMANT_HEALER_LOCAL_CONFIG_GUARD_PASS')
+          PY
+
+      - name: Diagnose exact Sonar Security findings without credentials
+        env:
+          GH_TOKEN_DIAGNOSTIC: ${{ github.token }}
+        run: |
+          python3 - <<'PY'
+          import json, os, urllib.parse, urllib.request, urllib.error
+          def read(url, token=None):
+              headers={'Accept':'application/vnd.github+json' if token else 'application/json',
+                       'User-Agent':'archelaos-sonar-qa'}
+              if token: headers['Authorization']='Bearer '+token
+              req=urllib.request.Request(url,headers=headers,method='GET')
+              with urllib.request.urlopen(req,timeout=12) as resp:
+                  data=resp.read(100001)
+                  if len(data)>100000: raise ValueError('SIZE_EXCEEDED')
+                  return json.loads(data)
+          try:
+              annotations=read('https://api.github.com/repos/dizigs/archelaos-site/check-runs/128480751379/annotations?per_page=100',os.environ['GH_TOKEN_DIAGNOSTIC'])
+              for a in annotations[:12]:
+                  print('SONAR_GITHUB_ANNOTATION',str(a.get('path',''))[:160],str(a.get('start_line',''))[:14],
+                        str(a.get('message','')).replace('\n',' ')[:300])
+          except (urllib.error.HTTPError,urllib.error.URLError,ValueError):
+              print('SONAR_GITHUB_ANNOTATION_UNAVAILABLE')
+          try:
+              query=urllib.parse.urlencode({'componentKeys':'dizigs_archelaos-site','pullRequest':'297',
+                                             'impactSoftwareQualities':'SECURITY','issueStatuses':'OPEN,CONFIRMED','ps':'100'})
+              response=read('https://sonarcloud.io/api/issues/search?'+query)
+              print('SONAR_SECURITY_ISSUE_COUNT',str(response.get('total','UNKNOWN'))[:10])
+              for a in response.get('issues',[])[:30]:
+                  print('SONAR_ISSUE',str(a.get('component',''))[:170],str(a.get('line',''))[:10],
+                        str(a.get('rule',''))[:50],str(a.get('message','')).replace('\n',' ')[:330])
+          except (urllib.error.HTTPError,urllib.error.URLError,ValueError):
+              print('SONAR_API_ISSUES_UNAVAILABLE')
           PY
 
       - name: Authorize exactly one operator-requested commit
