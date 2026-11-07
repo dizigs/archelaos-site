@@ -28,8 +28,8 @@ test('unapproved release stays non-public, expired, with all execution gates OFF
   assert.match(config,/^DEPLOY_SHA\s*=\s*"0{40}"\s*$/m);
   assert.match(config,/^STAGING_EXPIRES_AT\s*=\s*"1970-01-01T00:00:00Z"\s*$/m);
   assert.doesNotMatch(config,/^BRAIN_SELFHEAL_(?:RECOVERY_ENABLED|BINDING_ATTESTED|DISPATCH_ENABLED)\s*=\s*"true"\s*$/m);
-  // Only the approved existing private service may be declared. Recovery still
-  // needs independent live attestation, an approved SHA and unexpired staging.
+  // Only the approved default Healer and narrow QA named-port links may exist.
+  // Both are private; the QA permit is disabled and the canonical recovery gate stays OFF.
   // Use real TOML parsing: a valid inline-comment header must not be ignored.
   const services = (text) => {
     const p = spawnSync('python3', ['-c',
@@ -38,9 +38,14 @@ test('unapproved release stays non-public, expired, with all execution gates OFF
     assert.equal(p.status, 0, 'TOML parser must succeed');
     return JSON.parse(p.stdout);
   };
-  assert.deepEqual(services(config), [{binding:'HEALER',service:'archelaos-self-heal'}]);
+  assert.deepEqual(services(config), [
+    {binding:'HEALER',service:'archelaos-self-heal'},
+    {binding:'HMAC_PEER',service:'archelaos-self-heal',entrypoint:'HealerHmacAcceptancePort'},
+  ]);
+  assert.match(config, /^PRIVATE_HMAC_ACCEPTANCE_ISOLATED\s*=\s*"false"\s*$/m);
+  assert.match(config, /^PRIVATE_HMAC_ACCEPTANCE_EXPIRES_AT\s*=\s*"1970-01-01T00:00:00Z"\s*$/m);
   const extra = config + '\n[[services]] # legal inline comment\nbinding = "OTHER"\nservice = "other"\n';
-  assert.equal(services(extra).length, 2);
+  assert.equal(services(extra).length, 3);
   assert.doesNotMatch(config,/^\[\[routes\]\]/m);
   assert.doesNotMatch(config,/^\[triggers\]/m);
 });
