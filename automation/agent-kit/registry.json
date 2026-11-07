@@ -200,22 +200,22 @@
     },
     {
       "id": "cloudflare-mcp",
-      "name": "Cloudflare MCP Server",
+      "name": "Cloudflare API MCP (managed remote)",
       "family": "mcp",
       "state": "candidate",
       "owner": "agent-operator",
-      "use": "Observability and Worker details to coding agents",
+      "use": "Current managed Cloudflare API MCP endpoint; do not use deprecated product-specific servers for new setup",
       "access": "read-only cloud token first",
       "budget": "needs-verification",
       "commands": [
         {
-          "id": "source",
-          "run": "https://github.com/cloudflare/mcp-server-cloudflare",
+          "id": "endpoint",
+          "run": "https://mcp.cloudflare.com/mcp",
           "mode": "reference"
         }
       ],
       "evidence": [
-        "https://github.com/cloudflare/mcp-server-cloudflare"
+        "https://developers.cloudflare.com/agents/model-context-protocol/cloudflare/servers-for-cloudflare/"
       ]
     },
     {
@@ -442,6 +442,11 @@
           "id": "source",
           "run": "https://github.com/github/github-mcp-server",
           "mode": "reference"
+        },
+        {
+          "id": "remote-readonly",
+          "run": "https://api.githubcopilot.com/mcp/x/all/readonly",
+          "mode": "reference"
         }
       ],
       "evidence": [
@@ -569,6 +574,26 @@
       ]
     },
     {
+      "id": "google-developer-knowledge-mcp",
+      "name": "Google Developer Knowledge MCP",
+      "family": "mcp",
+      "state": "candidate",
+      "owner": "agent-operator",
+      "use": "Official Google developer docs lookup in Antigravity",
+      "access": "separate Google developer project credentials, not reused Gemini key automatically",
+      "budget": "needs-verification",
+      "commands": [
+        {
+          "id": "docs",
+          "run": "https://developers.google.com/knowledge/mcp",
+          "mode": "reference"
+        }
+      ],
+      "evidence": [
+        "https://developers.google.com/knowledge/mcp"
+      ]
+    },
+    {
       "id": "google-drive",
       "name": "Google Drive / Docs / Sheets",
       "family": "workspace",
@@ -606,6 +631,26 @@
       ],
       "evidence": [
         "https://github.com/dizigs/archelaos-site"
+      ]
+    },
+    {
+      "id": "google-workspace-mcp",
+      "name": "Google Workspace hosted MCP servers",
+      "family": "mcp",
+      "state": "candidate",
+      "owner": "admin-workspace",
+      "use": "Antigravity access to Drive/Docs/Sheets/Gmail/Calendar by per-client OAuth; does not inherit ChatGPT grants",
+      "access": "minimum OAuth scopes; do not disclose private archive files",
+      "budget": "needs-verification",
+      "commands": [
+        {
+          "id": "docs",
+          "run": "https://developers.google.com/workspace/guides/configure-mcp-servers",
+          "mode": "reference"
+        }
+      ],
+      "evidence": [
+        "https://developers.google.com/workspace/guides/configure-mcp-servers"
       ]
     },
     {
