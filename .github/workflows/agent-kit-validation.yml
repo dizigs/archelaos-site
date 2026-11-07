@@ -43,6 +43,9 @@ jobs:
           node --check automation/agent-kit/private-io.mjs
           node --check automation/agent-kit/cli.mjs
           node --check automation/agent-kit/cli.test.mjs
+          node --check automation/agent-kit/fixtures/dir-swap.mjs
+          node --check automation/agent-kit/fixtures/proc-fd-missing.mjs
+          node --check automation/agent-kit/fixtures/lock-holder.mjs
           node --check automation/agent-kit/mcp-doctor.mjs
           node --check automation/agent-kit/mcp-doctor.test.mjs
           node --check automation/agent-kit/antigravity-skill.test.mjs
