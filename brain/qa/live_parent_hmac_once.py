@@ -64,8 +64,17 @@ def guard_context():
     guard_config()
 
 def api(method,name,resource,payload=None):
-    if name not in BASE or resource not in ("settings","schedules","deployments"):
+    version_read=resource.startswith("versions/")
+    if version_read:
+        target=resource[len("versions/"):]
+        try:
+            valid=str(uuid.UUID(target))==target
+        except ValueError:
+            valid=False
+        if method!="GET" or not valid:deny("API_VERSION_SCOPE")
+    elif resource not in ("settings","schedules","deployments"):
         deny("API_RESOURCE_SCOPE")
+    if name not in BASE:deny("API_WORKER_SCOPE")
     uri="https://api.cloudflare.com/client/v4/accounts/"+ACCOUNT+"/workers/scripts/"+name+"/"+resource
     if resource=="deployments" and method=="GET":uri+="?per_page=2"
     headers={"Authorization":"Bearer "+os.environ["CLOUDFLARE_API_TOKEN"],"Accept":"application/json"}
@@ -84,16 +93,24 @@ def api(method,name,resource,payload=None):
     except (urllib.error.URLError,TimeoutError):deny("API_TIMEOUT")
 
 def inspect(name):
-    settings=api("GET",name,"settings")
+    # Script /settings describes latest uploaded version, NOT necessarily
+    # the version serving traffic after POST /deployments rollback.
     deployments=api("GET",name,"deployments")
     schedule=api("GET",name,"schedules")
-    bindings=settings.get("bindings",[])
-    b={v["name"]:v for v in bindings if isinstance(v,dict) and isinstance(v.get("name"),str)}
     d=deployments if isinstance(deployments,list) else deployments.get("deployments",[])
     cron=schedule.get("schedules",[]) if isinstance(schedule,dict) else schedule
-    if (len(b)!=len(bindings) or not d or len(d[0].get("versions",[]))!=1 or
-        d[0]["versions"][0].get("percentage",100)!=100 or cron!=[]):deny("REMOTE_METADATA_DRIFT")
-    return b,d[0]["versions"][0]["version_id"]
+    if not d or len(d[0].get("versions",[]))!=1 or cron!=[]:
+        deny("REMOTE_DEPLOYMENT_DRIFT")
+    active=d[0]["versions"][0]
+    if active.get("percentage")!=100:deny("SPLIT_TRAFFIC")
+    version=active.get("version_id")
+    if not isinstance(version,str):deny("MISSING_ACTIVE_VERSION")
+    settings=api("GET",name,"versions/"+version)
+    bindings=settings.get("resources",{}).get("bindings",[])
+    if not isinstance(bindings,list):deny("VERSION_BINDINGS_NOT_FOUND")
+    b={v["name"]:v for v in bindings if isinstance(v,dict) and isinstance(v.get("name"),str)}
+    if len(b)!=len(bindings):deny("VERSION_BINDINGS_MALFORMED")
+    return b,version
 
 def audit(name,b,old):
     for flag in (OFF if name==BRAIN else ("HEALER_DURABLE_ACK_ENABLED",)):
