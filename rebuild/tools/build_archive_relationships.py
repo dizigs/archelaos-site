@@ -135,11 +135,19 @@ def compile_graph(*,people,news,moments,stories,interviews,museum,home,history):
             if moment not in nodes:
                 raise ValueError("Unknown source moment "+str(number))
             connect(event,moment,"source_moment")
-            for pid in verified_people:
-                connect(moment,"person:"+pid,"moment_person")
-            sport=sport_id(x.get("category"))
-            if sport and "department:"+sport in nodes:
-                connect(moment,"department:"+sport,"moment_department")
+    # A historical event may mention people who do not feature in the cited
+    # Moment (e.g. event moment-65-1999). Therefore no inherited identity or
+    # category tags are propagated from event to Moment.
+    # Moment links require their own explicit, reviewed canonical references.
+    for record in moments:
+        moment="moment:"+str(record["id"])
+        for pid in sorted(set(record.get("personIds") or [])):
+            link_person(moment,pid,"moment_person")
+        for department_id in sorted(set(record.get("departmentIds") or [])):
+            department="department:"+str(department_id)
+            if department not in nodes:
+                raise ValueError("Unknown Moment department "+str(department_id))
+            connect(moment,department,"moment_department")
     for a in museum.get("articles",[]):
         if "department:"+str(a["id"]) in nodes:
             connect("exhibit:"+a["id"],"department:"+a["id"],"department_exhibit")
