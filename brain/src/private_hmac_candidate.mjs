@@ -1,4 +1,4 @@
-// NOT imported by either existing Worker. Isolated preview candidate ONLY.
+// Dormant named QA classes; export alone does not install private runner or acceptance bindings.
 // No recovery imports, canonical DO bindings, HTTP intake, cron, AI or fetch calls.
 import {DurableObject,WorkerEntrypoint} from 'cloudflare:workers';
 import {acceptanceConfig,acceptanceDigest,createAcceptanceChallenge,verifyAcceptanceChallenge,

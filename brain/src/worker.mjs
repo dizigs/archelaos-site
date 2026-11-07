@@ -599,3 +599,7 @@ export class BrainRecoveryPort extends WorkerEntrypoint {
     return deniedHealthProbe(probe);
   }
 }
+
+// Dormant, private-only HMAC acceptance classes; no runner/binding/permit is installed.
+// Never exposes a new HTTP route or grants production Self-Heal capabilities.
+export { BrainHmacAcceptancePort, PrivateHmacNonceStore } from './private_hmac_candidate.mjs';
