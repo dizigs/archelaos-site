@@ -51,6 +51,14 @@ jobs:
       - name: Compile staging-only Worker without deployment or credentials
         working-directory: brain
         run: ./node_modules/.bin/wrangler deploy --dry-run --outdir "$RUNNER_TEMP/brain-bundle"
+      - name: Preserve exact compiled Brain bundle for staging byte review (no credentials)
+        if: success() && github.event_name == 'pull_request'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: brain-staging-dryrun-${{ github.sha }}
+          path: ${{ runner.temp }}/brain-bundle/
+          if-no-files-found: error
+          retention-days: 3
 
   staging-readiness:
     if: github.repository == 'dizigs/archelaos-site' && github.event_name == 'workflow_dispatch' && inputs.staging_readiness == true
