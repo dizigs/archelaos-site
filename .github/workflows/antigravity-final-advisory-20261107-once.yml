@@ -10,7 +10,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   advisory:
-    if: github.repository == 'dizigs/archelaos-site' && github.event.head_commit.message == 'advisory(antigravity): final gates one-shot 20261107'
+    if: "github.repository == 'dizigs/archelaos-site' && github.event.head_commit.message == 'advisory(antigravity): final gates one-shot 20261107'"
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
