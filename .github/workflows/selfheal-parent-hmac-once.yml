@@ -63,6 +63,44 @@ jobs:
               print('SONAR_READ_BLOCKED',str(getattr(error,'code',type(error).__name__)))
           PY
 
+      - name: Dry-run the exact temporary HMAC configs (no Cloudflare credential)
+        env:
+          WRANGLER_SEND_METRICS: 'false'
+        run: |
+          npm ci --prefix brain --ignore-scripts --no-audit --no-fund
+          python3 - <<'PY'
+          import datetime as dt
+          import importlib.util
+          import os
+          import subprocess
+          import uuid
+          from pathlib import Path
+          module=Path('brain/qa/live_parent_hmac_once.py').resolve()
+          spec=importlib.util.spec_from_file_location('parent_hmac',module)
+          qa=importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(qa)
+          session=str(uuid.uuid4())
+          now=dt.datetime.now(dt.timezone.utc)
+          begin=now.strftime('%Y-%m-%dT%H:%M:%SZ')
+          expires=(now+dt.timedelta(seconds=220)).strftime('%Y-%m-%dT%H:%M:%SZ')
+          for name,path in qa.PATHS.items():
+              original=qa.ROOT/path
+              target=original.parent/('wrangler.'+name+'.dryrun-only.toml')
+              try:
+                  target.write_text(qa.permit(original.read_text(),session,begin,expires))
+                  command=[qa.WRANGLER,'deploy','--dry-run','--config',str(target),
+                    '--outdir',str(Path(os.environ['RUNNER_TEMP'])/('dryrun-'+name))]
+                  result=subprocess.run(command,cwd=qa.ROOT,capture_output=True,text=True,timeout=90)
+                  if result.returncode:
+                      print('BOUND_CONFIG_DRYRUN_FAILED',name,'exit',result.returncode)
+                      print('BOUNDED_CLI_ERROR',
+                            (result.stderr or result.stdout)[-1200:].replace('\r','')[:1200])
+                      raise SystemExit(1)
+                  print('BOUND_CONFIG_DRYRUN_PASS',name)
+              finally:
+                  target.unlink(missing_ok=True)
+          PY
+
       - name: Operator-gated exact commit subject
         id: gate
         env:
