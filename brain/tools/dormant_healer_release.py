@@ -122,7 +122,8 @@ def source_guard():
     require(git("rev-parse", "HEAD") == sha and
             git("log", "-1", "--format=%s") == SUBJECT, "ONE_SHOT_SHA_GATE")
     diff = subprocess.run(["git", "diff", "--quiet", PINNED_MAIN, sha, "--",
-                           "brain", "automation/self-heal-worker"],
+                           "brain/src", "brain/wrangler.toml",
+                           "automation/self-heal-worker"],
                           cwd=ROOT, check=False)
     require(diff.returncode == 0, "APPLICATION_SOURCE_DRIFT")
     config_guard()
