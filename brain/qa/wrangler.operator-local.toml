@@ -1,0 +1,20 @@
+# LOCAL-ONLY QA runner. Never "wrangler deploy" this configuration.
+# The runner itself executes on a loopback-only local development process.
+# Only its BRAIN_QA service binding communicates with the deployed Cloudflare
+# BrainHmacAcceptancePort. No public runner, admin/repair binding, cron or DO.
+name = "archelaos-private-qa-runner-local-only"
+main = "private_hmac_operator_runner.mjs"
+compatibility_date = "2026-11-01"
+workers_dev = false
+preview_urls = false
+
+[dev]
+ip = "127.0.0.1"
+port = 8799
+local_protocol = "http"
+
+[[services]]
+binding = "BRAIN_QA"
+service = "archelaos-brain-staging"
+entrypoint = "BrainHmacAcceptancePort"
+remote = true
