@@ -29,6 +29,24 @@ test('one authorized localhost request returns ONLY redacted proof without any H
   assert.equal(calls,1);
   assert.equal(JSON.stringify(proof).includes(CAP),false);
 });
+test('native RPC proof accepts only a nonenumerable Symbol.dispose lifetime method',async()=>{
+  const value={...proof};
+  Object.defineProperty(value,Symbol.dispose,{value(){},enumerable:false});
+  assert.equal(Reflect.ownKeys(value).length,6);
+  const accepted=await runner.fetch(request(),{OPERATOR_CAPABILITY:CAP,BRAIN_QA:{async runChallenge(){return value}}});
+  assert.equal(accepted.status,200);
+  assert.deepEqual(await accepted.json(),proof);
+  const malicious=[
+    Object.assign({...value},{extra:'not-allowed'}),
+    Object.defineProperty({...proof},Symbol('unapproved'),{value(){},enumerable:false}),
+    Object.defineProperty({...proof},Symbol.dispose,{value(){},enumerable:true}),
+  ];
+  for(const result of malicious){
+    const denied=await runner.fetch(request(),{OPERATOR_CAPABILITY:CAP,BRAIN_QA:{async runChallenge(){return result}}});
+    assert.equal(denied.status,200);
+    assert.deepEqual(await denied.json(),{status:'UNKNOWN',actionsExecuted:0});
+  }
+});
 test('loopback, method, exact path and private per-run operator capability are mandatory',async()=>{
   let calls=0;const env={OPERATOR_CAPABILITY:CAP,BRAIN_QA:{async runChallenge(){calls++;return proof}}};
   for(const r of [

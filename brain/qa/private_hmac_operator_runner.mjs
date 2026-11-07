@@ -13,6 +13,25 @@ async function equalCapability(expected,got){
   let diff=0;for(let i=0;i<x.length;i++)diff|=x[i]^y[i];
   return diff===0;
 }
+
+const proofFields=['status','sourceSha','sessionId','challengeDigest','actionsExecuted'];
+function validProofShape(value){
+  // Native workerd RPC scalar replies can carry one nonenumerable Symbol.dispose.
+  // Validate exact own DATA fields and no unexpected capabilities or symbols.
+  if(!value||Object.getPrototypeOf(value)!==Object.prototype)return false;
+  const names=Object.getOwnPropertyNames(value);
+  if(names.length!==proofFields.length||!proofFields.every(k=>names.includes(k)))return false;
+  if(names.some(k=>{
+    const d=Object.getOwnPropertyDescriptor(value,k);
+    return !d||!Object.hasOwn(d,'value')||d.get||d.set;
+  }))return false;
+  const symbols=Object.getOwnPropertySymbols(value);
+  if(!symbols.length)return true;
+  const d=Object.getOwnPropertyDescriptor(value,Symbol.dispose);
+  return symbols.length===1&&symbols[0]===Symbol.dispose&&!!d&&!d.enumerable&&
+    typeof d.value==='function'&&!d.get&&!d.set;
+}
+
 export default {
   async fetch(request,env){
     try {
@@ -27,7 +46,7 @@ export default {
         typeof result.sourceSha!=='string'||!/^[a-f0-9]{40}$/.test(result.sourceSha)||
         typeof result.sessionId!=='string'||!/^[a-f0-9-]{36}$/.test(result.sessionId)||
         typeof result.challengeDigest!=='string'||!/^[a-f0-9]{64}$/.test(result.challengeDigest)||
-        Reflect.ownKeys(result).length!==5)return unknown();
+        !validProofShape(result))return unknown();
       return Response.json({status:'KEY_POSSESSION_CONFIRMED',sourceSha:result.sourceSha,
         sessionId:result.sessionId,challengeDigest:result.challengeDigest,actionsExecuted:0},
         {headers:{'cache-control':'no-store'}});
