@@ -3,22 +3,27 @@
 const root=document.getElementById('arch-factcheck-promo');if(!root)return;
 const $=id=>document.getElementById(id);
 const host=$('fc-grid'),counter=$('fc-count'),progress=$('fc-progress-fill');
-const error=$('fc-load-error'),notice=$('fc-save-status'),security=$('fc-security'),retry=$('fc-retry');
+const error=$('fc-load-error'),notice=$('fc-save-status'),security=$('fc-security'),retry=$('fc-retry'),sendButton=$('fc-send');
 const defaultOptions=[{value:'true',label:'Σωστό'},{value:'false',label:'Λάθος'},{value:'unknown',label:'Δεν γνωρίζω'}];
-let questions=[],position=0,ready=false,sitekey='',widget=null,token='',inFlight=false,paused=false,stored=0,loaded=false;
+let questions=[],position=0,ready=false,sitekey='',widget=null,token='',inFlight=false,paused=false,stored=0,loaded=false,submitting=false;
 const pending=[];
 const make=(tag,cls,value)=>{const el=document.createElement(tag);if(cls)el.className=cls;if(value!==undefined)el.textContent=value;return el;};
 function message(value){error.hidden=!value;if(value)error.textContent=value;}
 function state(){
  root.dataset.collection=ready?'ready':'unavailable';
  const unsaved=pending.length;
- security.hidden=!ready||(loaded&&position>=questions.length&&unsaved===0);
+ security.hidden=!ready||!submitting||unsaved===0;
  retry.hidden=!paused;
+ sendButton.hidden=!ready||!unsaved||paused;
+ sendButton.disabled=submitting||inFlight;
+ sendButton.textContent='Αποστολή '+unsaved+' '+(unsaved===1?'απάντησης':'απαντήσεων');
  if(!ready)notice.textContent='Η αποστολή δεν είναι διαθέσιμη. Δεν καταχωρίζονται απαντήσεις.';
- else if(paused)notice.textContent=unsaved+' απαντήσεις δεν έχουν αποθηκευτεί. Πάτησε «Επανάληψη αποστολής».';
- else if(unsaved)notice.textContent=stored+' αποθηκευμένες · '+unsaved+' σε αναμονή ασφαλούς αποστολής.';
+ else if(paused)notice.textContent=unsaved+' απαντήσεις δεν αποθηκεύτηκαν. Πάτησε «Επανάληψη αποστολής».';
+ else if(inFlight)notice.textContent='Αποστολή '+unsaved+' απαντήσεων για ιδιωτική αξιολόγηση…';
+ else if(submitting)notice.textContent='Ένας έλεγχος ασφαλείας πριν σταλούν οι συγκεντρωμένες απαντήσεις σου.';
+ else if(unsaved)notice.textContent='Έχεις επιλέξει '+unsaved+' απαντήσεις. Δεν έχουν σταλεί ακόμη — πάτησε «Αποστολή» όταν είσαι έτοιμος.';
  else if(stored)notice.textContent=stored+' απαντήσεις αποθηκεύτηκαν ιδιωτικά για έλεγχο.';
- else notice.textContent='Οι απαντήσεις αποθηκεύονται ιδιωτικά, χωρίς βαθμολογία.';
+ else notice.textContent='Επίλεξε όσα διλήμματα θέλεις. Η αποστολή γίνεται συγκεντρωτικά στο τέλος.';
 }
 function focusHeading(){const t=host.querySelector('.fc-question');if(t)t.focus({preventScroll:true});}
 function render(focus=false){
@@ -77,17 +82,16 @@ function choose(item,choice){
  const answer={claimId:item.id,choice,receipt:crypto.randomUUID(),evidence,referenceUrl};
  pending.push(answer);
  position+=1;render(true);
- void send();
 }
 function ensureSecurity(){
  if(!ready)return;
  if(window.turnstile){if(widget===null)try{
   widget=window.turnstile.render('#fc-turnstile',{
    sitekey,action:'fact_check',theme:'light',
-   callback:value=>{token=value;void send();},
+   callback:value=>{if(submitting){token=value;void send();}},
    'expired-callback':()=>{token='';},
    'error-callback':()=>{token='';}
-  });
+  });else window.turnstile.reset(widget);
  }catch{message('Ο έλεγχος ασφαλείας δεν φορτώθηκε. Οι απαντήσεις δεν αποθηκεύονται.');}
   return;}
  if(document.querySelector('script[data-fc-turnstile]'))return;
@@ -98,20 +102,18 @@ function ensureSecurity(){
  document.head.append(script);
 }
 async function send(){
- if(inFlight||paused||!ready||!token||!pending.length)return;
- inFlight=true;const batch=pending.slice(0,4),used=token;token='';state();
+ if(inFlight||paused||!submitting||!ready||!token||!pending.length)return;
+ inFlight=true;const batch=pending.slice(),used=token;token='';state();
  try{
   const response=await fetch('/api/fact-check',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
     catalogVersion:1,turnstileToken:used,answers:batch
   })});
   const body=await response.json().catch(()=>({}));
   if(!response.ok||body.ok!==true||body.accepted!==batch.length)throw Error('unconfirmed');
-  pending.splice(0,batch.length);stored+=batch.length;
- }catch{paused=true;}
- finally{
-  inFlight=false;state();
-  if(!paused&&widget!==null)try{window.turnstile?.reset(widget);}catch{message('Ο έλεγχος ασφαλείας χρειάζεται επαναφόρτωση.');}
- }
+  pending.splice(0,batch.length);stored+=batch.length;submitting=false;
+  if(loaded&&position>=questions.length)render();
+ }catch{paused=true;submitting=false;}
+ finally{inFlight=false;state();}
 }
 async function readiness(){
  try{
@@ -120,7 +122,7 @@ async function readiness(){
   ready=obj?.ready===true&&typeof obj.sitekey==='string'&&obj.sitekey.length>10;
   sitekey=ready?obj.sitekey:'';
  }catch{ready=false;}
- state();if(ready)ensureSecurity();if(loaded)render();
+ state();if(loaded)render();
 }
 async function loadQuestions(){
  try{
@@ -141,11 +143,11 @@ async function loadQuestions(){
   questions=published.sort((a,b)=>a.displayOrder-b.displayOrder);loaded=true;render();
  }catch{loaded=true;questions=[];render();message('Τα ιστορικά ερωτήματα δεν φορτώθηκαν. Δοκίμασε ξανά αργότερα.');}
 }
-retry.addEventListener('click',()=>{
- paused=false;state();
- if(widget!==null){try{window.turnstile?.reset(widget);}catch{message('Δεν είναι διαθέσιμος ο έλεγχος ασφαλείας.');}}
- else ensureSecurity();
- void send();
-});
+function requestSubmission(){
+ if(!ready||!pending.length||inFlight)return;
+ paused=false;submitting=true;token='';state();ensureSecurity();
+}
+sendButton.addEventListener('click',requestSubmission);
+retry.addEventListener('click',requestSubmission);
 void loadQuestions();void readiness();
 })();
