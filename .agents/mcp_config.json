@@ -14,7 +14,7 @@
     },
     "firecrawl-search": {
       "serverUrl": "https://mcp.firecrawl.dev/v2/mcp-search",
-      "disabled": false
+      "disabled": true
     }
   }
 }
