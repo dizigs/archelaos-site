@@ -73,6 +73,8 @@ def main():
         with tarfile.open(f.name, "r:*") as tar:
             members=tar.getmembers()
             results["tarMembers"] = len(members)
+            results["sampleArchivePaths"] = [m.name[:160] for m in members[:22]]
+            results["qaPathExamples"] = [m.name[:160] for m in members if "private_hmac" in m.name or "cloudflare_isolated_acceptance" in m.name][:14]
             results["pathsPresent"] = sorted({p for p in
                 ["antigravity-hmac.patch", "antigravity-report.md", "antigravity-progress.md"]
                 if any(m.name.lstrip("./").endswith("workspace/"+p) for m in members)})
