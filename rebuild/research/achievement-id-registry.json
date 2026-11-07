@@ -2235,7 +2235,14 @@
         "reported_claim_excerpt": "ΑργυρόΜετάλλιο(2οςστηνΕλλάδα)στα200μ. πρόσθιοΠαμπαίδωνΒ΄στοΠανελλήνιοΠρωτάθλημαΟΑΚΑ(9-13/07/1997)μεχρόνο 2:43.82(όριογια3χρόνια),4οςστα400μ.ΜικτήΑτομική(5:26.07),5οςστα100μ. πρόσθιο(1:18.53).1οςστα«Διάκεια'97»καιστα«ΙΓ΄Σβορώνεια1997».",
         "status": "AI_REPORT_ONLY_NEEDS_SOURCE_CHECK",
         "canonical_event_id": null,
-        "publishable": false
+        "publishable": false,
+        "source_review": {
+          "status": "ORIGINAL_SOURCE_NOT_LOCATED",
+          "finding": "Specific date/result in supplied Gemini report not independently verified; seek original federation result or dated press scan and check club/person identity.",
+          "scope": "per-claim, not blanket biography approval",
+          "source_independence": "Official federation/organizer records distinguishable from reprints; scanned club material must be reviewed per page",
+          "review_date": "2026-11-07"
+        }
       },
       {
         "research_row_id": "GM6-P21-B02",
@@ -2248,7 +2255,14 @@
         "reported_claim_excerpt": "3τελικοίστοΠανελλήνιο ΠρωτάθλημαΟΑΚΑ1997(5ηστα50μ.ελ.με29\"09,6ηστα200μ.υπτ.με2:34.17,7ηστα 100μ.υπτ.με1:12.17).ΌριοOPENκαιαπευθείαςσυμμετοχήστοΕθνικόΠρωτάθλημα Γυναικών.1ηστα100μ.ύπτιο(1:11.09)στα«ΙΓ΄Σβορώνεια1997».Συμμετοχήστα «Αλεξάνδρεια",
         "status": "AI_REPORT_ONLY_NEEDS_SOURCE_CHECK",
         "canonical_event_id": null,
-        "publishable": false
+        "publishable": false,
+        "source_review": {
+          "status": "IDENTITY_CONFLICT",
+          "finding": "Gemini calls swimmer Despoina, but canonical Hall arch-9aa7033496a6 is Aikaterini. No primary roster corroboration. Do not rename or link.",
+          "scope": "per-claim, not blanket biography approval",
+          "source_independence": "Official federation/organizer records distinguishable from reprints; scanned club material must be reviewed per page",
+          "review_date": "2026-11-07"
+        }
       },
       {
         "research_row_id": "GM6-P21-B03",
@@ -2261,7 +2275,14 @@
         "reported_claim_excerpt": "ΧρυσόΜετάλλιοστα100μ.πρόσθιοστο ΧειμερινόΠρωτάθλημαΒορείουΕλλάδος(15/02/1992)με1:21.23(ρεκόρπόλεως,όριο OPEN,ένταξηστηνΕθνικήΟμάδα).4ηστα50μ.πρόσθιο(37\"29)και6ηστα200μ. πρόσθιο(2:52.40—κορυφαίοςχρόνοςστηνΕλλάδα)στοΔιεθνέςΜίτινγκΙταλίας (01/",
         "status": "AI_REPORT_ONLY_NEEDS_SOURCE_CHECK",
         "canonical_event_id": null,
-        "publishable": false
+        "publishable": false,
+        "source_review": {
+          "status": "ORIGINAL_SOURCE_NOT_LOCATED",
+          "finding": "Specific date/result in supplied Gemini report not independently verified; seek original federation result or dated press scan and check club/person identity.",
+          "scope": "per-claim, not blanket biography approval",
+          "source_independence": "Official federation/organizer records distinguishable from reprints; scanned club material must be reviewed per page",
+          "review_date": "2026-11-07"
+        }
       },
       {
         "research_row_id": "GM6-P21-B04",
@@ -2274,7 +2295,14 @@
         "reported_claim_excerpt": "1οςσε100μ.και200μ.πρόσθιοστους ΠαμπεριφερειακούςOPENΒόλου(Ιούλιος1992).4οςστα100μ.και200μ.πρόσθιοστο ΟλυμπιακόΚολυμβητήριοΑθηνών(Απρίλιος1992,όριοOPEN).ΠρωταθλητήςΕλλάδας στοΔιασυλλογικό1996με1'05\"03στα100μ.πρόσθιο.",
         "status": "AI_REPORT_ONLY_NEEDS_SOURCE_CHECK",
         "canonical_event_id": null,
-        "publishable": false
+        "publishable": false,
+        "source_review": {
+          "status": "ORIGINAL_SOURCE_NOT_LOCATED",
+          "finding": "Specific date/result in supplied Gemini report not independently verified; seek original federation result or dated press scan and check club/person identity.",
+          "scope": "per-claim, not blanket biography approval",
+          "source_independence": "Official federation/organizer records distinguishable from reprints; scanned club material must be reviewed per page",
+          "review_date": "2026-11-07"
+        }
       },
       {
         "research_row_id": "GM6-P21-B05",
@@ -2287,7 +2315,14 @@
         "reported_claim_excerpt": "1οςστα100μ.ελεύθερο(55\"82)στους ΠαμπεριφερειακούςOPENΒόλου(1992)καιστησυνάντησηΧανίων(10-11/08/1992,50μ. ελ.25\"84).Πανελληνιονίκης1996στα50μ.ελεύθερομε24\"22.",
         "status": "AI_REPORT_ONLY_NEEDS_SOURCE_CHECK",
         "canonical_event_id": null,
-        "publishable": false
+        "publishable": false,
+        "source_review": {
+          "status": "ORIGINAL_SOURCE_NOT_LOCATED",
+          "finding": "Specific date/result in supplied Gemini report not independently verified; seek original federation result or dated press scan and check club/person identity.",
+          "scope": "per-claim, not blanket biography approval",
+          "source_independence": "Official federation/organizer records distinguishable from reprints; scanned club material must be reviewed per page",
+          "review_date": "2026-11-07"
+        }
       },
       {
         "research_row_id": "GM6-P21-B06",
@@ -2300,7 +2335,14 @@
         "reported_claim_excerpt": "1οςστα50μ.ελεύθερο(28\"13)και100μ. ελεύθερο(1:01.66)στα«Ι΄Σβορώνεια1994».11οςστηνΕλλάδαστα100μ.ελεύθεροστο ΠανελλήνιοΠρωτάθλημαΠαμπαίδωνΟΑΚΑ(1993,1:04.92).",
         "status": "AI_REPORT_ONLY_NEEDS_SOURCE_CHECK",
         "canonical_event_id": null,
-        "publishable": false
+        "publishable": false,
+        "source_review": {
+          "status": "ORIGINAL_SOURCE_NOT_LOCATED",
+          "finding": "Specific date/result in supplied Gemini report not independently verified; seek original federation result or dated press scan and check club/person identity.",
+          "scope": "per-claim, not blanket biography approval",
+          "source_independence": "Official federation/organizer records distinguishable from reprints; scanned club material must be reviewed per page",
+          "review_date": "2026-11-07"
+        }
       },
       {
         "research_row_id": "GM6-P21-B07",
@@ -2313,7 +2355,14 @@
         "reported_claim_excerpt": "1οςστα50μ.ελεύθερο(30\"56)και2οςστα 100μ.ελεύθερο(1:05.47,όριο)στα«Ι΄Σβορώνεια1994».2οςστα50μ.ελεύθεροστα«ΙΑ΄ Σβορώνεια1995».2οςστα«Β΄Ιπποκράτεια1994».",
         "status": "AI_REPORT_ONLY_NEEDS_SOURCE_CHECK",
         "canonical_event_id": null,
-        "publishable": false
+        "publishable": false,
+        "source_review": {
+          "status": "ORIGINAL_SOURCE_NOT_LOCATED",
+          "finding": "Specific date/result in supplied Gemini report not independently verified; seek original federation result or dated press scan and check club/person identity.",
+          "scope": "per-claim, not blanket biography approval",
+          "source_independence": "Official federation/organizer records distinguishable from reprints; scanned club material must be reviewed per page",
+          "review_date": "2026-11-07"
+        }
       },
       {
         "research_row_id": "GM6-P21-B08",
@@ -2326,7 +2375,14 @@
         "reported_claim_excerpt": "1οςστα50μ.ελεύθερο(31\"96)στα«ΙΑ΄ Σβορώνεια1995»,1οςστα50μ.και100μ.ελεύθεροστα«Διάκεια'97»Λαμίας,2οςστα 50μ.ελεύθεροστα«ΙΓ΄Σβορώνεια1997»(29\"00).",
         "status": "AI_REPORT_ONLY_NEEDS_SOURCE_CHECK",
         "canonical_event_id": null,
-        "publishable": false
+        "publishable": false,
+        "source_review": {
+          "status": "ORIGINAL_SOURCE_NOT_LOCATED",
+          "finding": "Specific date/result in supplied Gemini report not independently verified; seek original federation result or dated press scan and check club/person identity.",
+          "scope": "per-claim, not blanket biography approval",
+          "source_independence": "Official federation/organizer records distinguishable from reprints; scanned club material must be reviewed per page",
+          "review_date": "2026-11-07"
+        }
       },
       {
         "research_row_id": "GM6-P21-B09",
@@ -2339,7 +2395,14 @@
         "reported_claim_excerpt": "1οςστα50μ.ύπτιοκαι50μ. ελεύθεροστα«Διάκεια'97»Λαμίας,1οςστα50μ.ελεύθερο(30\"57)και50μ.ύπτιο(35\"12) στα«ΙΓ΄Σβορώνεια1997».",
         "status": "AI_REPORT_ONLY_IDENTITY_NOT_LINKED",
         "canonical_event_id": null,
-        "publishable": false
+        "publishable": false,
+        "source_review": {
+          "status": "ORPHAN_SOURCE_ID",
+          "finding": "Synthetic PDF ID arch-10-11-12-kapasakalis is not a canonical Hall ID. Existing Konstantinos Kapasakalidis competes in track (2024), not evidence for the 1997 swimmer Iordanis.",
+          "scope": "per-claim, not blanket biography approval",
+          "source_independence": "Official federation/organizer records distinguishable from reprints; scanned club material must be reviewed per page",
+          "review_date": "2026-11-07"
+        }
       },
       {
         "research_row_id": "GM6-P21-B10",
@@ -2352,7 +2415,14 @@
         "reported_claim_excerpt": "1ηστα50μ.και100μ.ελεύθεροστα«Θ΄ Παπαδοπούλεια1994»,2ηστα200μ.μικτήατομική(2:47.78)και3ηστα50μ.πεταλούδα στα«ΙΓ΄Σβορώνεια1997».1ησε4x50μ.στα«Διάκεια'97».",
         "status": "AI_REPORT_ONLY_NEEDS_SOURCE_CHECK",
         "canonical_event_id": null,
-        "publishable": false
+        "publishable": false,
+        "source_review": {
+          "status": "ORIGINAL_SOURCE_NOT_LOCATED",
+          "finding": "Specific date/result in supplied Gemini report not independently verified; seek original federation result or dated press scan and check club/person identity.",
+          "scope": "per-claim, not blanket biography approval",
+          "source_independence": "Official federation/organizer records distinguishable from reprints; scanned club material must be reviewed per page",
+          "review_date": "2026-11-07"
+        }
       },
       {
         "research_row_id": "GM6-P22-B01",
@@ -2365,7 +2435,17 @@
         "reported_claim_excerpt": "Οθρυλικός«Βούδας»του ελληνικούχάντμπολ.9γκολστοντελικότουΚυπέλλουΕλλάδας1990(Μετς),3γκολστον τελικότου1994(Μίκρα).Πρώτοςπροπονητήςτουγυναικείουτμήματος(1986).",
         "status": "AI_REPORT_ONLY_NEEDS_SOURCE_CHECK",
         "canonical_event_id": null,
-        "publishable": false
+        "publishable": false,
+        "source_review": {
+          "status": "CLAIM_CONFLICT",
+          "finding": "1990 team cup 27-21 is confirmed, but Gemini/current Hall gives Anagnostopoulos nine goals while preserved original clipping interpretation in rebuild/data/retro.json (rm-1990) credits four; no reconciled original match sheet.",
+          "sources": [
+            "https://www.handball.org.gr/competitions/all-time-cup-winners"
+          ],
+          "scope": "per-claim, not blanket biography approval",
+          "source_independence": "Official federation/organizer records distinguishable from reprints; scanned club material must be reviewed per page",
+          "review_date": "2026-11-07"
+        }
       },
       {
         "research_row_id": "GM6-P22-B02",
@@ -2376,7 +2456,18 @@
         "reported_claim_excerpt": "1γκολστοντελικότου1990,πρώτοςσκόρερμε5γκολστον τελικότου1994.8γκολστονθρίαμβοεπίτουπρωτοπόρουΔούκα(29–23)στις 28/11/1994.ΜετέπειταπροπονητήςτηςανδρικήςομάδαςστηνΑ1(2006-2007).",
         "status": "AI_REPORT_ONLY_IDENTITY_NOT_LINKED",
         "canonical_event_id": null,
-        "publishable": false
+        "publishable": false,
+        "source_review": {
+          "status": "EVENT_ONLY_NOT_INDIVIDUAL_STATS",
+          "finding": "Both cup wins 1990 and 1994 verified as club events; the claimed Giorgos Karadimos 1/5-goal allocations and 1994 league game require original scorer sheets.",
+          "sources": [
+            "https://www.handball.org.gr/competitions/all-time-cup-winners"
+          ],
+          "possible_person_id": "arch-7d2841925a78",
+          "scope": "per-claim, not blanket biography approval",
+          "source_independence": "Official federation/organizer records distinguishable from reprints; scanned club material must be reviewed per page",
+          "review_date": "2026-11-07"
+        }
       },
       {
         "research_row_id": "GM6-P22-B03",
@@ -2389,7 +2480,17 @@
         "reported_claim_excerpt": "5γκολστοντελικότου1990,1γκολ στοντελικότου1994,5γκολστο29–23επίτουΔούκα(1994).Επικεφαλήςπροπονητής Α1Ανδρών(1997–1999,6ηθέσηστηνΕλλάδα).",
         "status": "AI_REPORT_ONLY_NEEDS_SOURCE_CHECK",
         "canonical_event_id": null,
-        "publishable": false
+        "publishable": false,
+        "source_review": {
+          "status": "EVENT_ONLY_NOT_INDIVIDUAL_STATS",
+          "finding": "Cup final victory verified; 1990 clipping lists Eleftheriadis five but not an independent digitized score sheet. 1994 individual/coach claims need dedicated evidence.",
+          "sources": [
+            "https://www.handball.org.gr/competitions/all-time-cup-winners"
+          ],
+          "scope": "per-claim, not blanket biography approval",
+          "source_independence": "Official federation/organizer records distinguishable from reprints; scanned club material must be reviewed per page",
+          "review_date": "2026-11-07"
+        }
       },
       {
         "research_row_id": "GM6-P22-B04",
@@ -2402,7 +2503,17 @@
         "reported_claim_excerpt": "5γκολστοντελικότου1994,4γκολστο 29–23επίτουΔούκα(1994).ΒασικότατοστέλεχοςτηςΕθνικήςΟμάδαςΑνδρών.",
         "status": "AI_REPORT_ONLY_NEEDS_SOURCE_CHECK",
         "canonical_event_id": null,
-        "publishable": false
+        "publishable": false,
+        "source_review": {
+          "status": "EVENT_ONLY_NOT_INDIVIDUAL_STATS",
+          "finding": "1994 cup win confirmed; five goals attributed to Darlagiannis are not verified from an independent original score sheet.",
+          "sources": [
+            "https://www.handball.org.gr/competitions/all-time-cup-winners"
+          ],
+          "scope": "per-claim, not blanket biography approval",
+          "source_independence": "Official federation/organizer records distinguishable from reprints; scanned club material must be reviewed per page",
+          "review_date": "2026-11-07"
+        }
       },
       {
         "research_row_id": "GM6-P22-B05",
@@ -2415,7 +2526,17 @@
         "reported_claim_excerpt": "3γκολστοντελικότου1994,διεθνήςπλέι μέικερ.",
         "status": "AI_REPORT_ONLY_NEEDS_SOURCE_CHECK",
         "canonical_event_id": null,
-        "publishable": false
+        "publishable": false,
+        "source_review": {
+          "status": "EVENT_ONLY_NOT_INDIVIDUAL_STATS",
+          "finding": "1994 cup win confirmed; Siama(n)gas three individual goals/international career not verified in independently located source.",
+          "sources": [
+            "https://www.handball.org.gr/competitions/all-time-cup-winners"
+          ],
+          "scope": "per-claim, not blanket biography approval",
+          "source_independence": "Official federation/organizer records distinguishable from reprints; scanned club material must be reviewed per page",
+          "review_date": "2026-11-07"
+        }
       },
       {
         "research_row_id": "GM6-P22-B06",
@@ -2428,7 +2549,17 @@
         "reported_claim_excerpt": "ΤερματοφύλακαςτωνΚυπελλούχων1994, διεθνήςμετηνΕθνικήΕλλάδας.",
         "status": "AI_REPORT_ONLY_NEEDS_SOURCE_CHECK",
         "canonical_event_id": null,
-        "publishable": false
+        "publishable": false,
+        "source_review": {
+          "status": "EVENT_ONLY_NOT_INDIVIDUAL_STATS",
+          "finding": "Club cup win confirmed; goalkeeper's individual appearance and national-team caps not checked in match/roster primary sources.",
+          "sources": [
+            "https://www.handball.org.gr/competitions/all-time-cup-winners"
+          ],
+          "scope": "per-claim, not blanket biography approval",
+          "source_independence": "Official federation/organizer records distinguishable from reprints; scanned club material must be reviewed per page",
+          "review_date": "2026-11-07"
+        }
       },
       {
         "research_row_id": "GM6-P22-B07",
@@ -2442,7 +2573,17 @@
         "reported_claim_excerpt": "Ακρογωνιαίοιλίθοιτηςάμυναςστουςτελικούςτου1990και1994.",
         "status": "AI_REPORT_ONLY_NEEDS_SOURCE_CHECK",
         "canonical_event_id": null,
-        "publishable": false
+        "publishable": false,
+        "source_review": {
+          "status": "EVENT_ONLY_NOT_INDIVIDUAL_STATS",
+          "finding": "Two cup wins confirmed; exact participation and defensive roles of the two Mavropoulos names cannot be inferred from event result.",
+          "sources": [
+            "https://www.handball.org.gr/competitions/all-time-cup-winners"
+          ],
+          "scope": "per-claim, not blanket biography approval",
+          "source_independence": "Official federation/organizer records distinguishable from reprints; scanned club material must be reviewed per page",
+          "review_date": "2026-11-07"
+        }
       },
       {
         "research_row_id": "GM6-P22-B08",
@@ -2455,7 +2596,17 @@
         "reported_claim_excerpt": "3γκολστοντελικότου1990,3γκολστοντελικό του1994,4γκολστο29–23επίτουΔούκα(1994).",
         "status": "AI_REPORT_ONLY_NEEDS_SOURCE_CHECK",
         "canonical_event_id": null,
-        "publishable": false
+        "publishable": false,
+        "source_review": {
+          "status": "EVENT_ONLY_NOT_INDIVIDUAL_STATS",
+          "finding": "Cup titles verified; individual three-goal totals and 1994 Doukas league match need match sheet.",
+          "sources": [
+            "https://www.handball.org.gr/competitions/all-time-cup-winners"
+          ],
+          "scope": "per-claim, not blanket biography approval",
+          "source_independence": "Official federation/organizer records distinguishable from reprints; scanned club material must be reviewed per page",
+          "review_date": "2026-11-07"
+        }
       },
       {
         "research_row_id": "GM6-P22-B09",
@@ -2468,7 +2619,17 @@
         "reported_claim_excerpt": "1γκολστοντελικότου1990,3γκολ στοντελικότου1994. Γ.Καλαθοσφαίριση(Μπάσκετ)",
         "status": "AI_REPORT_ONLY_NEEDS_SOURCE_CHECK",
         "canonical_event_id": null,
-        "publishable": false
+        "publishable": false,
+        "source_review": {
+          "status": "EVENT_ONLY_NOT_INDIVIDUAL_STATS",
+          "finding": "Club cup wins verified; individual scorer one/three goals and 1994 final not independently verified.",
+          "sources": [
+            "https://www.handball.org.gr/competitions/all-time-cup-winners"
+          ],
+          "scope": "per-claim, not blanket biography approval",
+          "source_independence": "Official federation/organizer records distinguishable from reprints; scanned club material must be reviewed per page",
+          "review_date": "2026-11-07"
+        }
       },
       {
         "research_row_id": "GM6-P22-B10",
@@ -2481,7 +2642,14 @@
         "reported_claim_excerpt": "1ησκόρερΠανελληνίουΠρωταθλήματος Κορασίδων1996(Τρίπολη,3ηθέση),1ησκόρερΕθνικήςΝεανίδωνστις«Ολυμπιακές Ημέρες1997»στηΛισσαβώνα(39π.,5τρίποντα).Ιστορικόρεκόρ46πόντωνστηνΑ΄ ΕΚΑΣΚΕΜκατάτηςΚρύαςΒρύσης(118–41)σε25λεπτάσυμμετοχής(Νοέμβριος1997), 4",
         "status": "AI_REPORT_ONLY_NEEDS_SOURCE_CHECK",
         "canonical_event_id": null,
-        "publishable": false
+        "publishable": false,
+        "source_review": {
+          "status": "ORIGINAL_SOURCE_NOT_LOCATED",
+          "finding": "Specific date/result in supplied Gemini report not independently verified; seek original federation result or dated press scan and check club/person identity.",
+          "scope": "per-claim, not blanket biography approval",
+          "source_independence": "Official federation/organizer records distinguishable from reprints; scanned club material must be reviewed per page",
+          "review_date": "2026-11-07"
+        }
       },
       {
         "research_row_id": "GM6-P22-B11",
@@ -2494,7 +2662,14 @@
         "reported_claim_excerpt": "ΚλήσηστηνΕθνικήΚορασίδων(1990). Ακατάρριπτορεκόρ56πόντων(4τρίποντα)στοναγώνανεανίδωνΑρχέλαος–Πιερικός 108–24(19/09/1992).35πόντοιστοΑλεξάνδρειοεπίτουΆρη(79–78,Οκτώβριος1992), 30πόντοιεπίτηςΚομοτηνής(70–63),34πόντοιεπίτουΟλυμπιακούΒόλου(67–6",
         "status": "AI_REPORT_ONLY_NEEDS_SOURCE_CHECK",
         "canonical_event_id": null,
-        "publishable": false
+        "publishable": false,
+        "source_review": {
+          "status": "ORIGINAL_SOURCE_NOT_LOCATED",
+          "finding": "Specific date/result in supplied Gemini report not independently verified; seek original federation result or dated press scan and check club/person identity.",
+          "scope": "per-claim, not blanket biography approval",
+          "source_independence": "Official federation/organizer records distinguishable from reprints; scanned club material must be reviewed per page",
+          "review_date": "2026-11-07"
+        }
       },
       {
         "research_row_id": "GM6-P22-B12",
@@ -2507,7 +2682,14 @@
         "reported_claim_excerpt": "ΗγετικήμορφήστηΒ΄ΕθνικήΓυναικών (1989-1995),«ότανηΜαλεζάπαίζεικαλά,οΑρχέλαοςδενχάνει»(νίκεςεπίΠροποντίδας 69–57,Άρη75–73).",
         "status": "AI_REPORT_ONLY_NEEDS_SOURCE_CHECK",
         "canonical_event_id": null,
-        "publishable": false
+        "publishable": false,
+        "source_review": {
+          "status": "ORIGINAL_SOURCE_NOT_LOCATED",
+          "finding": "Specific date/result in supplied Gemini report not independently verified; seek original federation result or dated press scan and check club/person identity.",
+          "scope": "per-claim, not blanket biography approval",
+          "source_independence": "Official federation/organizer records distinguishable from reprints; scanned club material must be reviewed per page",
+          "review_date": "2026-11-07"
+        }
       },
       {
         "research_row_id": "GM6-P22-B13",
@@ -2518,7 +2700,14 @@
         "reported_claim_excerpt": "Αρχηγόςκαι1οςσκόρερτηςπαιδικήςομάδαςτου1994–95με275 πόντους(13νίκες-1ήττα).",
         "status": "AI_REPORT_ONLY_IDENTITY_NOT_LINKED",
         "canonical_event_id": null,
-        "publishable": false
+        "publishable": false,
+        "source_review": {
+          "status": "IDENTITY_CONFLICT",
+          "finding": "Gemini gives Michalis Pitos for the basketball junior side; Hall has Dimitris Pitos arch-5457a09de994 with different team/period context. No automatic identity resolution.",
+          "scope": "per-claim, not blanket biography approval",
+          "source_independence": "Official federation/organizer records distinguishable from reprints; scanned club material must be reviewed per page",
+          "review_date": "2026-11-07"
+        }
       },
       {
         "research_row_id": "GM6-P22-B14",
@@ -2529,7 +2718,14 @@
         "reported_claim_excerpt": "Πλέιμέικερτουπαιδικού1994–95με175πόντους,15πόντοι στοντελικόπρόκρισηςεπίτηςΓουμένισσας(59–58).",
         "status": "AI_REPORT_ONLY_IDENTITY_NOT_LINKED",
         "canonical_event_id": null,
-        "publishable": false
+        "publishable": false,
+        "source_review": {
+          "status": "ORIGINAL_SOURCE_NOT_LOCATED",
+          "finding": "Specific date/result in supplied Gemini report not independently verified; seek original federation result or dated press scan and check club/person identity.",
+          "scope": "per-claim, not blanket biography approval",
+          "source_independence": "Official federation/organizer records distinguishable from reprints; scanned club material must be reviewed per page",
+          "review_date": "2026-11-07"
+        }
       },
       {
         "research_row_id": "GM6-P22-B15",
@@ -2540,7 +2736,14 @@
         "reported_claim_excerpt": "Σέντερτουπαιδικού1994–95με189πόντουςκαιδεκάδες ριμπάουντ,28πόντοιεπίτηςΓΕΒέροιας(85–58),19πόντοιεπίτηςΓουμένισσας (59–58).",
         "status": "AI_REPORT_ONLY_IDENTITY_NOT_LINKED",
         "canonical_event_id": null,
-        "publishable": false
+        "publishable": false,
+        "source_review": {
+          "status": "ORIGINAL_SOURCE_NOT_LOCATED",
+          "finding": "Specific date/result in supplied Gemini report not independently verified; seek original federation result or dated press scan and check club/person identity.",
+          "scope": "per-claim, not blanket biography approval",
+          "source_independence": "Official federation/organizer records distinguishable from reprints; scanned club material must be reviewed per page",
+          "review_date": "2026-11-07"
+        }
       },
       {
         "research_row_id": "GM6-P23-B01",
@@ -2553,7 +2756,18 @@
         "reported_claim_excerpt": "12χρόνιαπρωταθλητής(1980-1992).2ος Μεσογειονίκης(ΑσημένιοΜετάλλιο)στοέδαφοςστουςΜεσογειακούςΑγώνεςτηςΑθήνας (04/07/1991),1οςσεόλαταόργαναστουςΠαίδες(1983),ΠανελληνιονίκηςΕφήβων (1988)καιΑνδρών(1988,1989,1990),3οςστουςΒαλκανικούς(Πλοέστι,Ριέ",
         "status": "AI_REPORT_ONLY_NEEDS_SOURCE_CHECK",
         "canonical_event_id": null,
-        "publishable": false
+        "publishable": false,
+        "source_review": {
+          "status": "PRIMARY_RESULT_VERIFIED_NAME_CONFLICT",
+          "finding": "1991 Athens Mediterranean Games floor silver 9.550 confirmed by CIJM and Greek Gymnastics Federation under CHARALAMBOS/ΧΑΡΑΛΑΜΠΟΣ Kakalis. PDF and Hall say Χαρίλαος; correct name/ID linkage requires archival identity review. Other 1980s titles not checked.",
+          "sources": [
+            "https://cijm.org.gr/wp-content/uploads/2016/06/JM1991.pdf",
+            "https://www.ego-gymnastics.gr/2017/01/01/%CE%B5%CE%BD%CF%8C%CF%81%CE%B3%CE%B1%CE%BD%CE%B7-%CE%B4%CE%B9%CE%B1%CE%BA%CF%81%CE%AF%CF%83%CE%B5%CE%B9%CF%82-%CE%BA%CE%B1%CF%84%CE%B7%CE%B3-%CE%B1%CE%BD%CE%B4%CF%81%CF%8E%CE%BD/"
+          ],
+          "scope": "per-claim, not blanket biography approval",
+          "source_independence": "Official federation/organizer records distinguishable from reprints; scanned club material must be reviewed per page",
+          "review_date": "2026-11-07"
+        }
       },
       {
         "research_row_id": "GM6-P23-B02",
@@ -2564,7 +2778,18 @@
         "reported_claim_excerpt": "1οςστοδίζυγοκαιάλμαστουςπεριφερειακούς1995,3οςστο μονόζυγοστοΠανελλήνιοΠαίδων1996,ΠρωταθλητήςΕλλάδας(ΧρυσόΜετάλλιο)στο δίζυγοστοΠανελλήνιοΠαίδωνστηνΑταλάντη(28-29/06/1997).",
         "status": "AI_REPORT_ONLY_IDENTITY_NOT_LINKED",
         "canonical_event_id": null,
-        "publishable": false
+        "publishable": false,
+        "source_review": {
+          "status": "LATER_CAREER_SUPPORTED_ORIGINAL_1997_PENDING",
+          "finding": "Independent TA NEA article on 24 Apr 2000 verifies Limpanovnos youth victories in vault 8.350, parallel bars 8.600, horizontal bar 7.900, not PDF's exact 1995–97 claims. Do not backdate 2000 results to 1997.",
+          "sources": [
+            "https://www.tanea.gr/2000/04/24/sports/prwtia-tampakoy/"
+          ],
+          "possible_person_id": "arch-f56820c52e55",
+          "scope": "per-claim, not blanket biography approval",
+          "source_independence": "Official federation/organizer records distinguishable from reprints; scanned club material must be reviewed per page",
+          "review_date": "2026-11-07"
+        }
       },
       {
         "research_row_id": "GM6-P23-B03",
@@ -2575,7 +2800,19 @@
         "reported_claim_excerpt": "ΧρυσόΜετάλλιοστουςΜεσογειακούςΑγώνες1993στηΓαλλία(82 κ.ελληνορωμαϊκής).ΑσημένιοΜετάλλιοστοΠαγκόσμιοΠρωτάθλημαΕφήβων(Ισραήλ 1990),ΧάλκινοστοΕυρωπαϊκόΠαίδων(1988),1οςστουςΝέους(1992).ΈπαθλοΒασίλη ΧατζηγιάννηΠΣΑΤ.",
         "status": "AI_REPORT_ONLY_IDENTITY_NOT_LINKED",
         "canonical_event_id": null,
-        "publishable": false
+        "publishable": false,
+        "source_review": {
+          "status": "PRIMARY_1993_VERIFIED_SECONDARY_1990",
+          "finding": "1993 men's 82 kg Greco-Roman Mediterranean gold confirmed official CIJM; 1990 world youth silver and 1988 European bronze are repeated across 2019 reports of one municipal celebration, not independent primary results.",
+          "sources": [
+            "https://cijm.org.gr/wp-content/uploads/2016/06/JM1993.pdf",
+            "https://katerinisport.gr/40-%CF%87%CF%81%CF%8C%CE%BD%CE%B9%CE%B1-%CE%B1%CE%B8%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%AE%CF%82-%CE%B4%CE%B9%CE%B1%CE%B4%CF%81%CE%BF%CE%BC%CE%AE%CF%82-%CE%B4%CE%B9%CE%B1%CE%BA%CF%81%CE%AF%CF%83%CE%B5/"
+          ],
+          "possible_person_id": "arch-cf55874ef67a",
+          "scope": "per-claim, not blanket biography approval",
+          "source_independence": "Official federation/organizer records distinguishable from reprints; scanned club material must be reviewed per page",
+          "review_date": "2026-11-07"
+        }
       },
       {
         "research_row_id": "GM6-P23-B04",
@@ -2588,7 +2825,14 @@
         "reported_claim_excerpt": "1οςστα52κ.στοΠανελλήνιοΠαίδωνστη Δράμα(22-23/06/1997)με6συνεχόμενεςνίκες,πρόκρισηστοΠαγκόσμιοΠρωτάθλημα στηΒοσνία.1οςστουςΠαμπαίδες(1994).",
         "status": "AI_REPORT_ONLY_NEEDS_SOURCE_CHECK",
         "canonical_event_id": null,
-        "publishable": false
+        "publishable": false,
+        "source_review": {
+          "status": "ORIGINAL_SOURCE_NOT_LOCATED",
+          "finding": "Specific date/result in supplied Gemini report not independently verified; seek original federation result or dated press scan and check club/person identity.",
+          "scope": "per-claim, not blanket biography approval",
+          "source_independence": "Official federation/organizer records distinguishable from reprints; scanned club material must be reviewed per page",
+          "review_date": "2026-11-07"
+        }
       },
       {
         "research_row_id": "GM6-P23-B05",
@@ -2599,7 +2843,20 @@
         "reported_claim_excerpt": "2οςΠαγκόσμιοςΠρωταθλητής(ΑσημένιοΜετάλλιο)στα71κ. ελληνορωμαϊκήςστοΠαγκόσμιοΠρωτάθλημαU17στηνΑθήνα(Ιούλιος2025). Ε.ΚλασικόςΑθλητισμός,Σκοποβολή&Τοξοβολία",
         "status": "AI_REPORT_ONLY_IDENTITY_NOT_LINKED",
         "canonical_event_id": null,
-        "publishable": false
+        "publishable": false,
+        "source_review": {
+          "status": "PRIMARY_AND_INDEPENDENT_VERIFIED",
+          "finding": "2025 Athens U17 World Championships Greco-Roman 71kg silver confirmed UWW athlete results and independent ERT coverage; municipality identifies Archelaos club connection.",
+          "sources": [
+            "https://uww.org/athletes/soulis-dimitrios-panteleimon",
+            "https://www.ertnews.gr/athlitismos/asimenio-metallio-o-soulis-sto-pagkosmio-protathlima-palis-u17/",
+            "https://katerini.gr/?p=58743"
+          ],
+          "possible_person_id": "arch-f3d93442851f",
+          "scope": "per-claim, not blanket biography approval",
+          "source_independence": "Official federation/organizer records distinguishable from reprints; scanned club material must be reviewed per page",
+          "review_date": "2026-11-07"
+        }
       },
       {
         "research_row_id": "GM6-P23-B06",
@@ -2610,7 +2867,19 @@
         "reported_claim_excerpt": "6οςΟλυμπιονίκηςστηΒαρκελώνη(1992,8,22μ.),Χρυσόστους Μεσογειακούς(1991,8,26μ.),Πανελλήνιορεκόρ8,36μ.(Χανιά1994),ΜικτήΕυρώπης (Αβάνα1992),8οςστονκόσμοαπότοAthleticsToday.",
         "status": "AI_REPORT_ONLY_IDENTITY_NOT_LINKED",
         "canonical_event_id": null,
-        "publishable": false
+        "publishable": false,
+        "source_review": {
+          "status": "PRIMARY_VERIFIED_WITH_DETAIL_CORRECTION",
+          "finding": "1992 Barcelona 6th Olympic place correct, but PDF's 8.22m is qualifying performance and final mark was 8.04m; World Athletics confirms 8.36m Chania 05 Jun 1994. Other PDF claims need verification.",
+          "sources": [
+            "https://www.olympedia.org/athletes/70758",
+            "https://worldathletics.org/athletes/greece/konstadinos-koukodimos-14195259"
+          ],
+          "possible_person_id": "arch-5abfbe9e285a",
+          "scope": "per-claim, not blanket biography approval",
+          "source_independence": "Official federation/organizer records distinguishable from reprints; scanned club material must be reviewed per page",
+          "review_date": "2026-11-07"
+        }
       },
       {
         "research_row_id": "GM6-P23-B07",
@@ -2623,7 +2892,14 @@
         "reported_claim_excerpt": "ΠανελλήνιοΡεκόρΠαίδωνστο μήκοςμε7,19μ.(Θεσσαλονίκη,25/01/1994).3οςστοΠανελλήνιοΕφήβων1995(7,14μ.). Μέλοςτηςομάδαςτου4ουΓΕΛπουπήρετη2ηθέσηστηνΕυρώπη(Γαλλία1992).",
         "status": "AI_REPORT_ONLY_NEEDS_SOURCE_CHECK",
         "canonical_event_id": null,
-        "publishable": false
+        "publishable": false,
+        "source_review": {
+          "status": "ORIGINAL_SOURCE_NOT_LOCATED",
+          "finding": "Specific date/result in supplied Gemini report not independently verified; seek original federation result or dated press scan and check club/person identity.",
+          "scope": "per-claim, not blanket biography approval",
+          "source_independence": "Official federation/organizer records distinguishable from reprints; scanned club material must be reviewed per page",
+          "review_date": "2026-11-07"
+        }
       },
       {
         "research_row_id": "GM6-P23-B08",
@@ -2634,7 +2910,14 @@
         "reported_claim_excerpt": "1οςστοάλμαεπίκοντώσταΚΔ΄Δίια1997(5,20μ.),3οςστο ΠανελλήνιοΑνδρώνΟΑΚΑ1997,1οςΒαλκανιονίκηςΕφήβων(5,10μ.).",
         "status": "AI_REPORT_ONLY_IDENTITY_NOT_LINKED",
         "canonical_event_id": null,
-        "publishable": false
+        "publishable": false,
+        "source_review": {
+          "status": "IDENTITY_CONFLICT",
+          "finding": "PDF says Konstantinos Kouklis for 1993/1997 pole vault, but existing Hall has Michalis Kouklis arch-23f5b3ca37c0 for 1993 Balkan title. No person identity transfer or inferred equivalence.",
+          "scope": "per-claim, not blanket biography approval",
+          "source_independence": "Official federation/organizer records distinguishable from reprints; scanned club material must be reviewed per page",
+          "review_date": "2026-11-07"
+        }
       },
       {
         "research_row_id": "GM6-P23-B09",
@@ -2645,7 +2928,17 @@
         "reported_claim_excerpt": "ΟλυμπιονίκηςΑθήνα2004.ΠανελλήνιαΡεκόρΑεροβόλουΤουφεκιού: 388/400(Βουδαπέστη1996),390/400(Κατερίνη,20/11/1996),391/400(Βύρωνας, 29-30/03/1997),395/400.16ηστηνΕυρώπη(1996),1ηστοομαδικόνεανίδωνμε πανελλήνιορεκόρ1136/1200(1995).",
         "status": "AI_REPORT_ONLY_IDENTITY_NOT_LINKED",
         "canonical_event_id": null,
-        "publishable": false
+        "publishable": false,
+        "source_review": {
+          "status": "OLYMPIC_PARTICIPATION_VERIFIED_OLDER_RECORDS_PENDING",
+          "finding": "ISSF reports Maria Faka 33rd place Athens 2004 women's 10m air rifle (388), not an Olympic medal. PDF word Ολυμπιονίκης is ambiguous/misleading; 1995–97 national records not independently checked.",
+          "sources": [
+            "https://www.issf-sports.org/athletes/SHGREW0201197901"
+          ],
+          "scope": "per-claim, not blanket biography approval",
+          "source_independence": "Official federation/organizer records distinguishable from reprints; scanned club material must be reviewed per page",
+          "review_date": "2026-11-07"
+        }
       },
       {
         "research_row_id": "GM6-P23-B10",
@@ -2658,7 +2951,14 @@
         "reported_claim_excerpt": "ΠανελλήνιοΡεκόρΑνδρώνστοαεροβόλο τουφέκιμε586/600(14/12/1989),5οςστουςΒαλκανικούςΟχρίδας(1993,570/600),1ος στοτουφέκιανδρώνστα«Εαρινά1990»(580/600).",
         "status": "AI_REPORT_ONLY_NEEDS_SOURCE_CHECK",
         "canonical_event_id": null,
-        "publishable": false
+        "publishable": false,
+        "source_review": {
+          "status": "ORIGINAL_SOURCE_NOT_LOCATED",
+          "finding": "Specific date/result in supplied Gemini report not independently verified; seek original federation result or dated press scan and check club/person identity.",
+          "scope": "per-claim, not blanket biography approval",
+          "source_independence": "Official federation/organizer records distinguishable from reprints; scanned club material must be reviewed per page",
+          "review_date": "2026-11-07"
+        }
       },
       {
         "research_row_id": "GM6-P23-B11",
@@ -2671,7 +2971,18 @@
         "reported_claim_excerpt": "ΠαραολυμπιονίκηςΤοξοβολίας(Ρίο2016, Τόκιο2020,Παρίσι2024),ευρωπαϊκάμετάλλιαPara-Archery.",
         "status": "AI_REPORT_ONLY_NEEDS_SOURCE_CHECK",
         "canonical_event_id": null,
-        "publishable": false
+        "publishable": false,
+        "source_review": {
+          "status": "PARALYMPIC_PARTICIPATION_VERIFIED_LATER_CLUB_MEDALS",
+          "finding": "IPC confirms Rio 2016, Tokyo 2020 (4th), Paris 2024 participation, no Paralympic medal. Regional government connects her to Archelaos in 2025 and reports silver at Rome 2025 Para-Archery Cup. No inference of Archelaos membership for earlier Games.",
+          "sources": [
+            "https://www.paralympic.org/athletes/dorothea-poimenidou",
+            "https://www.pkm.gov.gr/episkepsi-tis-paraolybioniki-kai-argyris-protathlitrias-sto-evropaiko-kypello-para-toxovolias-sti-romi-dorotheas-poimenidou-stin-antiperifereiarchi-pierias/"
+          ],
+          "scope": "per-claim, not blanket biography approval",
+          "source_independence": "Official federation/organizer records distinguishable from reprints; scanned club material must be reviewed per page",
+          "review_date": "2026-11-07"
+        }
       },
       {
         "research_row_id": "GM6-P23-B12",
@@ -2682,8 +2993,29 @@
         "reported_claim_excerpt": "ΠρωταθλητήςΕλλάδαςΑνοικτούΧώρου2025,κάτοχος πανελληνίουρεκόρU21. .Τεκμηρίωση:ΣΥΝΤΕΛΕΣΤΕΣ(8IDs)&ΤΜΗΜΑΤΑ/ 6 ΛΟΙΠΟΙΡΟΛΟΙ(23IDs)",
         "status": "AI_REPORT_ONLY_IDENTITY_NOT_LINKED",
         "canonical_event_id": null,
-        "publishable": false
+        "publishable": false,
+        "source_review": {
+          "status": "OFFICIAL_TITLE_VERIFIED_U21_RECORD_SCOPE_PENDING",
+          "finding": "Greek Archery Federation 2025 OAKA Olympic recurve men elimination bracket explicitly awards individual GOLD to Evangelos Charisis over Gambierakis 6-0. Qualifying rank was second, not the final champion. Non-federation record list reports U21 MIXED TEAM record (Nasoula–Charisis, 1216, Cyprus 31 Oct 2025), not individual U21 record; federation certification outstanding.",
+          "sources": [
+            "https://www.archery.org.gr/apotelesmata-agona-protathlimatos-a-g-a-ch-2025-olympiakoy-synthetoy-toxoy-o-a-k-a-5-6-ioylioy-2025/",
+            "https://pandaros.gr/panellinia-rekor-toxovolias/",
+            "https://www.archery.org.gr/proponitiko-camp-tis-e-o-t/"
+          ],
+          "possible_person_id": "arch-955a386f547f",
+          "scope": "per-claim, not blanket biography approval",
+          "source_independence": "Official federation/organizer records distinguishable from reprints; scanned club material must be reviewed per page",
+          "review_date": "2026-11-07"
+        }
       }
-    ]
+    ],
+    "external_source_review": {
+      "review_date": "2026-11-07",
+      "total_leads": 37,
+      "original_source_not_located": 16,
+      "claims_with_specific_findings": 21,
+      "policy": "No new canonical event IDs or public biography facts. Source status applies only to finding text; a result need not prove membership at that date.",
+      "original_scans": "Five Drive archival PDF volumes located, 241 scanned pages in total, not individually indexed/transcribed. No PDF original material copied to GitHub."
+    }
   }
 }
