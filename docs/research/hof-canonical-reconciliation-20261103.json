@@ -6,16 +6,16 @@
     "canonical": 774,
     "historical": 680,
     "shared": 680,
-    "divergent_people": 65,
-    "divergent_fields": 109,
+    "divergent_people": 66,
+    "divergent_fields": 111,
     "fields": {
-      "bio": 65,
-      "bio_en": 43,
+      "bio": 66,
+      "bio_en": 44,
       "name": 1
     },
     "classifications": {
       "BLOCKED_SOURCE": 4,
-      "LEGACY_TEXT_RETAINED": 83,
+      "LEGACY_TEXT_RETAINED": 85,
       "QUALIFIED_ARCHIVE": 9,
       "SEMANTICALLY_RETAINED": 11,
       "SPELLING_CORRECTION": 2
@@ -1008,6 +1008,24 @@
           "classification": "LEGACY_TEXT_RETAINED",
           "legacy_sha256": "b2cde664c8f1f08ef087f0c1fd3ea21d39fc31f928e7a3fe0ef67d1df37dec29",
           "canonical_sha256": "919447d2ce6d468182d2fc8d8c5eb7d176b124cd58188449158ccdcd98522dbc"
+        }
+      ]
+    },
+    {
+      "id": "arch-dc38c1018a66",
+      "name": "Επαμεινώνδας Κούρτης",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "a1400416b805041cdbd6fa73884688e2ba00e3dff3af59a397e834f885a70bc4",
+          "canonical_sha256": "3fd953730d78b44a18883b8d54f2e8ea3e02306e941cca7d1786ade8b31399da"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "04c6d07e262c7bae17130c283e443472ad75b6eb791d15e732cba5590dcfb83e",
+          "canonical_sha256": "bd3e4d6ded103d00a9118395f23a49da364ed4ea78e81e1608d9a9821e1b60e6"
         }
       ]
     },
