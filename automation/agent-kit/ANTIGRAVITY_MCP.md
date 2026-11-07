@@ -15,8 +15,8 @@ Official docs:
 
 ## Workspace MCP configuration (added to this PR)
 
-The project-scoped `.agents/mcp_config.json` includes exactly three
-vendor-verified remote endpoints, with **no credentials**:
+The project-scoped `.agents/mcp_config.json` includes exactly four
+reviewed remote endpoint declarations, with **no credentials**:
 
 - `github-readonly` → `https://api.githubcopilot.com/mcp/x/all/readonly`:
   `disabled: false`. Read-only GitHub operations only, with runtime OAuth
@@ -28,6 +28,11 @@ vendor-verified remote endpoints, with **no credentials**:
   `disabled: true`. Remains OFF until the user completes a reviewed,
   least-privilege Cloudflare OAuth flow. Start from Minimal/read-only scopes
   and do not enable deployment permissions or automatic approvals.
+- `firecrawl-search` → `https://mcp.firecrawl.dev/v2/mcp-search`:
+  `disabled: true`. Its dedicated search-only surface requires its own OAuth
+  identity and client consent. Do not confuse this with the limited keyless
+  `https://mcp.firecrawl.dev/v2/mcp` endpoint, which has a different toolset.
+  Never claim keyless authenticated search-only operation without proof.
 
 **These settings exist ONLY on PR #280 until the branch is actually checked
 out or merged.** No local Antigravity client, desktop profile or global
@@ -58,8 +63,9 @@ See https://antigravity.google/docs/mcp for the supported client setup.
 - Google Developer Knowledge: official Google documentation MCP endpoint;
   separately authorize its project/account before connecting.
 - Playwright: local CLI/browser QA, not necessarily a remote MCP endpoint.
-- Firecrawl: public web research only after checking plan, privacy and
-  duplicate data sources; do not put unreviewed scraped text into news.
+- Firecrawl: project-declared search-only MCP is disabled pending OAuth;
+  public web research only after checking plan, privacy and duplicate data
+  sources; do not put unreviewed scraped text into news.
 
 ## Evidence checklist for EACH connection
 
@@ -84,3 +90,6 @@ write permissions and self-healing safety. Existing PR #270 managed
 Antigravity calls remain frozen pending reconciliation of their uncertain
 billed usage. No managed-agent API invocation or new schedule is part
 of this onboarding.
+
+For actual Worker tooling readiness (real paths, pinned Wrangler version,
+local Explorer and five evidence gates), see CLOUDFLARE_WORKER_TOOLING.md.
