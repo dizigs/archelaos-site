@@ -1,6 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { copyFileSync, mkdtempSync, readFileSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import {
   createReceipt, isSafeEvidence, run, validateEvents, validateRegistry,
@@ -75,4 +78,35 @@ test('Antigravity MCP example is disabled and secret-free', () => {
   assert.ok(entries.every(entry => Object.keys(entry).sort().join(',') === 'disabled,serverUrl'));
   assert.ok(entries.every(entry => entry.serverUrl.startsWith('https://')));
   assert.doesNotMatch(JSON.stringify(sample), /Authorization|Bearer |AIza|token|secret/i);
+});
+
+test('record uses same descriptor and never follows a replacement log symlink', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'archelaos-agentkit-test-'));
+  try {
+    copyFileSync(new URL('./cli.mjs', import.meta.url), join(dir, 'cli.mjs'));
+    copyFileSync(new URL('./registry.json', import.meta.url), join(dir, 'registry.json'));
+    const execute = (...args) => spawnSync(process.execPath, [join(dir, 'cli.mjs'), ...args], { encoding: 'utf8' });
+    const args = ['record', 'github', 'checks', 'PASS', '--evidence',
+      'https://github.com/dizigs/archelaos-site/actions/runs/42344875512'];
+    const first = execute(...args);
+    assert.equal(first.status, 0, first.stderr);
+    const second = execute(...args);
+    assert.equal(second.status, 0, second.stderr);
+    const checked = execute('verify');
+    assert.equal(checked.status, 0, checked.stderr);
+    assert.equal(JSON.parse(checked.stdout).localLog.count, 2);
+
+    // Attacker-controlled local symlink must not redirect append into another file.
+    const log = join(dir, '.private', 'activity.jsonl');
+    const target = join(dir, 'outside-file.txt');
+    writeFileSync(target, 'KEEP-INTACT\n');
+    rmSync(log);
+    symlinkSync(target, log);
+    const rejected = execute(...args);
+    assert.notEqual(rejected.status, 0);
+    assert.equal(readFileSync(target, 'utf8'), 'KEEP-INTACT\n');
+    assert.match(rejected.stderr, /ELOOP|symbolic link|AGENT_KIT_ERROR/);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
 });
