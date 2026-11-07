@@ -625,13 +625,7 @@
       "featured": false,
       "image": "https://www.palmare.gr/wp-content/uploads/2026/01/26-PANSRK-1024x623.jpg",
       "imageSourceUrl": "https://www.palmare.gr/wp-content/uploads/2026/01/26-PANSRK-1024x623.jpg",
-      "imageKind": "article_photo",
-      "additionalSources": [
-        {
-          "label": "e-Handball · αγώνας 17/01/2026",
-          "url": "https://www.e-handball.gr/2026/01/18/%CF%84%CE%B1-%CE%B1%CF%80%CE%BF%CF%84%CE%B5%CE%BB%CE%AD%CF%83%CE%BC%CE%B1%CF%84%CE%B1-%CF%84%CE%B7%CF%82-8%CE%B7%CF%82-%CE%B1%CE%B3%CF%89%CE%BD%CE%B9%CF%83%CF%84%CE%B9%CE%BA%CE%AE%CF%82-%CF%84%CE%B7-3/"
-        }
-      ]
+      "imageKind": "article_photo"
     },
     {
       "id": "handball-archelaos-apollon-stavroupolis-23-14-jan-2026",
@@ -642,7 +636,7 @@
       "summary": "Ο Αρχέλαος επικράτησε 23–14 του Απόλλωνα Σταυρούπολης στη Β΄ Εθνική ανδρών, με 8–7 στο ημίχρονο.",
       "body": [
         "Στις 10 Ιανουαρίου 2026 ο Αρχέλαος Κατερίνης νίκησε τον Απόλλωνα Σταυρούπολης με 23–14 στη Β΄ Εθνική ανδρών (Β΄ όμιλος, 2ος υποόμιλος). Η ομάδα της Μάγδας Χοτοκουρίδου προηγήθηκε 8–7 στο ημίχρονο και διεύρυνε τη διαφορά στο δεύτερο μέρος.",
-        "Ο Σιώκας σημείωσε οκτώ τέρματα και ο Νταρλαγιάννης τέσσερα, σύμφωνα με το Palmare. Η νίκη έφερε τον Αρχέλαο στη δεύτερη θέση μαζί με την Προσοτσάνη. Η ημερομηνία και το αποτέλεσμα συμφωνούν και με την αγωνιστική καταγραφή του e-Handball."
+        "Ο Σιώκας σημείωσε οκτώ τέρματα και ο Νταρλαγιάννης τέσσερα, σύμφωνα με το Palmare. Η νίκη έφερε τον Αρχέλαο στη δεύτερη θέση μαζί με την Προσοτσάνη. "
       ],
       "source": "Palmare · 10/01/2026",
       "sourceUrl": "https://www.palmare.gr/o-archelaos-epiase-stin-2i-thesi-tin-prosotsani/",
