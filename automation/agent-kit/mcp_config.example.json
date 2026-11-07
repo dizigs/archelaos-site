@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "github-readonly": {
+      "serverUrl": "https://api.githubcopilot.com/mcp/x/all/readonly",
+      "disabled": true
+    },
+    "cloudflare-api": {
+      "serverUrl": "https://mcp.cloudflare.com/mcp",
+      "disabled": true
+    }
+  }
+}

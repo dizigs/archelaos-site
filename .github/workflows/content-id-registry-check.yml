@@ -1,0 +1,32 @@
+name: Public content ID registry consistency
+on:
+  pull_request:
+    paths:
+      - 'hall-of-fame-people.json'
+      - 'archelaos-person-index.json'
+      - 'news.json'
+      - 'archelaos-history-events.json'
+      - 'docs/research/content-id-registry.json'
+      - 'tools/build_content_id_registry.py'
+      - '.github/workflows/content-id-registry-check.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  id-registry:
+    name: Deterministic person/news/history/media reference ID check
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout without persistent token
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Validate Python syntax and canonical ID snapshot
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m py_compile tools/build_content_id_registry.py
+          python3 tools/build_content_id_registry.py --check

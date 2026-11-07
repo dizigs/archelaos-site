@@ -1,0 +1,73 @@
+name: Gemini archive cross-link advisory (read-only)
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'archelaos-history-events.json'
+      - 'rebuild/data/moments.json'
+      - 'news.json'
+      - 'hall-of-fame-people.json'
+      - 'rebuild/tools/build_archive_relationships.py'
+      - 'rebuild/tests/archive_relationships_test.py'
+      - 'assets/news.js'
+      - '.github/workflows/gemini-archive-advisory.yml'
+permissions:
+  contents: read
+concurrency:
+  group: gemini-archive-advisory-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+jobs:
+  advisory:
+    name: Gemini independent historical cross-link review
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Gemini audits public archive IDs (advisory only)
+        id: gemini_review
+        continue-on-error: true
+        uses: google-github-actions/run-gemini-cli@f77273f4c914e4bf38440cf36a0369cb64a37489 # v0.1.22
+        env:
+          GEMINI_CLI_TRUST_WORKSPACE: 'true'
+        with:
+          gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
+          gemini_cli_version: '0.67.0'
+          gemini_model: gemini-3.5-flash-lite
+          settings: |
+            {
+              "model": {"maxSessionTurns": 24},
+              "tools": {"core": ["read_file", "read_many_files"]},
+              "telemetry": {"enabled": false},
+              "privacy": {"usageStatisticsEnabled": false}
+            }
+          prompt: |
+            Read ONLY these four public files from this repository:
+            archelaos-history-events.json, rebuild/data/moments.json,
+            rebuild/tools/build_archive_relationships.py, and
+            rebuild/tests/archive_relationships_test.py.
+            Use read_file or read_many_files only. Do not call update_topic.
+            Do not use grep_search on file paths. This is an advisory audit
+            of stable IDs, NOT an instruction to edit anything or to publish.
+            Check source_moment ↔ moment.id and news eventId ↔ historical event.id,
+            ambiguous identities, broken links, duplicated facts, and missing
+            explicit references, especially the twenty Moments lacking source_moment.
+            Provide up to twelve actionable findings with exact record IDs,
+            source filenames, verification questions, and confidence level.
+            Distinguish confirmed code bugs from gaps requiring FACT CHECK.
+            Never infer a person from a name alone, assume a news event is the
+            same as an older event without an explicit ID, or suggest deleting
+            canonical records. Do not use network/shell/write tools, secrets,
+            private Drive data, or any unapproved source. Do not modify files.
+            All historically ambiguous proposed edges must remain UNPUBLISHED
+            until independently verified. This result is advisory, not approval.
+      - name: Require a completed Gemini API response
+        if: steps.gemini_review.outcome == 'failure'
+        run: |
+          echo '::error::Gemini advisory did not complete; inspect provider job logs.'
+          exit 1
+      - name: Verify advisory did not modify tracked files
+        if: always()
+        run: git diff --exit-code
