@@ -26,12 +26,11 @@ jobs:
           set -euo pipefail
           resource="repos/${GITHUB_REPOSITORY}/code-scanning/alerts/13"
           state="$(gh api "$resource" --jq '.state')"
-          if [[ "$state" =~ ^[a-z][a-z_-]{0,40}$ ]]; then
-            printf 'ALERT_13_STATE=%s\n' "$state"
-          else
-            echo 'ALERT_STATE_UNEXPECTED_FORMAT'
-            exit 1
-          fi
+          status_chars="$(printf '%s' "$state" | LC_ALL=C tr -cd 'a-zA-Z0-9_-:')"
+          printf 'ALERT_13_STATE_FIELD_LENGTH=%s\n' "${#state}"
+          printf 'ALERT_13_STATUS_FIELD=%s\n' "${status_chars:0:48}"
+          fields="$(gh api "$resource" --jq 'keys | join(",")')"
+          printf 'ALERT_API_FIELD_KEYS=%s\n' "${fields:0:350}"
           instances="$(gh api "$resource/instances?pr=280" --jq 'length')"
           if ! [[ "$instances" =~ ^[0-9]+$ ]]; then
             echo 'ALERT_INSTANCE_COUNT_INVALID'
