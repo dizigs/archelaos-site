@@ -1,0 +1,20 @@
+{
+  "mcpServers": {
+    "github-readonly": {
+      "serverUrl": "https://api.githubcopilot.com/mcp/x/all/readonly",
+      "disabled": false
+    },
+    "cloudflare-docs": {
+      "serverUrl": "https://docs.mcp.cloudflare.com/mcp",
+      "disabled": false
+    },
+    "cloudflare-api": {
+      "serverUrl": "https://mcp.cloudflare.com/mcp",
+      "disabled": true
+    },
+    "firecrawl-search": {
+      "serverUrl": "https://mcp.firecrawl.dev/v2/mcp-search",
+      "disabled": true
+    }
+  }
+}
