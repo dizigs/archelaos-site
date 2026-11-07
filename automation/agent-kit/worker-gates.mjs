@@ -25,14 +25,27 @@ function workerInfo(config,role) {
   const brain=role==='brain',name=brain?'archelaos-brain-staging':'archelaos-self-heal';
   const className=brain?'BrainCoordinator':'HealerMemory',binding=brain?'BRAIN':'HEALER_MEMORY';
   const services=config.services,migrations=config.migrations,objects=config.durable_objects?.bindings;
-  const service=Array.isArray(services)&&services.length===1?services[0]:null;
+  const service=Array.isArray(services)&&services.length===(brain?2:1)?services[0]:null;
+  const qaPeer=brain&&Array.isArray(services)&&services.length===2?services[1]:null;
   const correctService=service&&service.binding===(brain?'HEALER':'BRAIN_RECOVERY')&&
     service.service===(brain?'archelaos-self-heal':'archelaos-brain-staging')&&
     !Object.hasOwn(service,'environment')&&
-    (brain?(service.entrypoint===undefined||service.entrypoint==='default'):service.entrypoint==='BrainRecoveryPort');
-  const correctClass=Array.isArray(objects)&&objects.length===1&&objects[0].name===binding&&
+    (brain?(service.entrypoint===undefined||service.entrypoint==='default'):service.entrypoint==='BrainRecoveryPort')&&
+    (!brain||(qaPeer.binding==='HMAC_PEER'&&qaPeer.service==='archelaos-self-heal'&&
+      qaPeer.entrypoint==='HealerHmacAcceptancePort'&&
+      Object.keys(qaPeer).length===3))&&
+    Object.keys(service).length===(brain?(service.entrypoint===undefined?2:3):3);
+  const correctClass=Array.isArray(objects)&&objects.length===2&&objects[0].name===binding&&
     objects[0].class_name===className&&!Object.hasOwn(objects[0],'script_name')&&
-    Array.isArray(migrations)&&migrations.some(m=>Array.isArray(m.new_sqlite_classes)&&m.new_sqlite_classes.includes(className));
+    Object.keys(objects[0]).length===2&&
+    objects[1].name==='HMAC_NONCES'&&objects[1].class_name==='PrivateHmacNonceStore'&&
+    Object.keys(objects[1]).length===2&&Array.isArray(migrations)&&migrations.length===2&&
+    migrations[0].tag===(brain?'brain-staging-v1':'healer-sqlite-v1')&&
+    JSON.stringify(migrations[0].new_sqlite_classes)==='["'+className+'"]'&&
+    Object.keys(migrations[0]).length===2&&
+    migrations[1].tag===(brain?'brain':'healer')+'-private-hmac-qa-v1'&&
+    JSON.stringify(migrations[1].new_sqlite_classes)==='["PrivateHmacNonceStore"]'&&
+    Object.keys(migrations[1]).length===2;
   return {name:config.name??null,workersDev:config.workers_dev===false?'false':null,
     previewUrls:config.preview_urls===false?'false':null,hasSQLiteClass:!!correctClass,
     hasServiceBinding:!!correctService,observabilityLogs:config.observability?.logs?.enabled===true?'true':null,
@@ -49,6 +62,20 @@ export function inspectSources(brain, healer, pkg) {
   for(const key of flags)if(b.vars?.[key]!=='false')violations.push(key+'_NOT_OFF');
   if(h.vars?.HEALER_DURABLE_ACK_ENABLED!=='false')violations.push('HEALER_DURABLE_ACK_ENABLED_NOT_OFF');
   if(b.vars?.STAGING_EXPIRES_AT!=='1970-01-01T00:00:00Z')violations.push('STAGING_NOT_EXPIRED');
+  for(const [role,config] of [['brain',b],['healer',h]]) {
+    const vars=config.vars||{};
+    const expected={
+      PRIVATE_HMAC_ACCEPTANCE_ISOLATED:'false',
+      PRIVATE_HMAC_ACCEPTANCE_ROLE:role,
+      PRIVATE_HMAC_ACCEPTANCE_SESSION:'',
+      PRIVATE_HMAC_ACCEPTANCE_APPROVED_SHA:'0'.repeat(40),
+      PRIVATE_HMAC_ACCEPTANCE_STARTED_AT:'1970-01-01T00:00:00Z',
+      PRIVATE_HMAC_ACCEPTANCE_EXPIRES_AT:'1970-01-01T00:00:00Z',
+      DEPLOY_SHA:'0'.repeat(40),
+    };
+    if(Object.entries(expected).some(([key,value])=>vars[key]!==value))
+      violations.push(role+'.QA_ACCEPTANCE_PERMIT_NOT_OFF');
+  }
   const brainInfo=workerInfo(b,'brain'),healerInfo=workerInfo(h,'healer');
   for(const [role,info] of [['brain',brainInfo],['healer',healerInfo]]) {
     if(!info.nameMatches)violations.push(role+'.WORKER_NAME_UNVERIFIED');

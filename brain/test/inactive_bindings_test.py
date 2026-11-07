@@ -19,8 +19,11 @@ def configs():
 
 class ApprovedBindingContracts(unittest.TestCase):
     def test_brain_targets_only_existing_healer_default(self):
-        self.assertEqual(configs()[0].get("services"), [{
-            "binding": "HEALER", "service": "archelaos-self-heal"}])
+        self.assertEqual(configs()[0].get("services"), [
+            {"binding": "HEALER", "service": "archelaos-self-heal"},
+            {"binding": "HMAC_PEER", "service": "archelaos-self-heal",
+             "entrypoint": "HealerHmacAcceptancePort"},
+        ])
 
     def test_healer_targets_only_hardened_named_brain_port(self):
         self.assertEqual(configs()[1].get("services"), [{
@@ -36,7 +39,7 @@ def live_fixture():
         bindings = [b for b in bindings if b["type"] != "service"]
         for b in bindings:
             if b["type"] == "durable_object_namespace":
-                b["namespace_id"] = "synthetic-sqlite-namespace"
+                b["namespace_id"] = "synthetic-" + c["name"] + "-" + b["name"]
         bindings.append({"name": "TEST_ONLY_PRIVATE_KEY", "type": "secret_text"})
         workers.append({"name": c["name"], "bindings": bindings})
     return {"capturedAt": NOW.isoformat(), "workers": workers}
@@ -62,10 +65,10 @@ class PreservationGuard(unittest.TestCase):
     def test_present_default_and_named_links_match_but_redirects_are_blocked(self):
         f = live_fixture()
         for i, c in enumerate(configs()):
-            link = next(b for b in GUARD.declared_bindings(c).values() if b["type"] == "service")
-            f["workers"][i]["bindings"].append(link)
+            links = [b for b in GUARD.declared_bindings(c).values() if b["type"] == "service"]
+            f["workers"][i]["bindings"].extend(links)
         # Cloudflare can explicitly report the default entrypoint as "default".
-        f["workers"][0]["bindings"][-1]["entrypoint"] = "default"
+        next(b for b in f["workers"][0]["bindings"] if b["name"] == "HEALER")["entrypoint"] = "default"
         self.assertEqual(GUARD.assess(configs(), f, NOW)["offlineBindingComparison"], "PASS")
         for patch in ({"entrypoint": "default"}, {"environment": "production"},
                       {"service": "unapproved-brain"}):
@@ -81,6 +84,12 @@ class PreservationGuard(unittest.TestCase):
             lambda c: c[0]["services"][0].update(service="other-worker"),
             lambda c: c[0]["services"][0].update(environment="production"),
             lambda c: c[1]["services"].append(dict(c[1]["services"][0])),
+            lambda c: c[0]["services"][1].update(entrypoint="HealerService"),
+            lambda c: c[0]["durable_objects"]["bindings"][1].update(class_name="BrainCoordinator"),
+            lambda c: c[1]["durable_objects"]["bindings"][1].update(name="HEALER_MEMORY"),
+            lambda c: c[1]["migrations"][1].update(deleted_classes=["HealerMemory"]),
+            lambda c: c[0]["vars"].update(PRIVATE_HMAC_ACCEPTANCE_ISOLATED="true"),
+            lambda c: c[1]["vars"].update(PRIVATE_HMAC_ACCEPTANCE_EXPIRES_AT="2099-01-01T00:00:00Z"),
             lambda c: c[0]["vars"].update(STAGING_EXPIRES_AT="2099-01-01T00:00:00Z"),
             lambda c: c[0]["vars"].update(BRAIN_SELFHEAL_RECOVERY_ENABLED="true"),
             lambda c: c[0]["vars"].update(BRAIN_GITHUB_APP_PRIVATE_KEY="synthetic-not-a-key"),
@@ -123,6 +132,20 @@ class PreservationGuard(unittest.TestCase):
             f["workers"][0]["bindings"].append(b)
             self.assertIn("UNDECLARED_OR_RETYPED_LIVE_BINDING",
                           GUARD.assess(configs(), f, NOW)["blockers"])
+
+    def test_qa_namespace_cannot_alias_canonical_or_peer_namespace(self):
+        for worker_index, victim in [(0, "BRAIN"), (1, "HEALER_MEMORY")]:
+            f = live_fixture()
+            w = f["workers"][worker_index]
+            qa = next(b for b in w["bindings"] if b["name"] == "HMAC_NONCES")
+            original = next(b for b in w["bindings"] if b["name"] == victim)
+            qa["namespace_id"] = original["namespace_id"]
+            self.assertIn("QA_NONCE_NAMESPACE_ALIASED", GUARD.assess(configs(), f, NOW)["blockers"])
+        f = live_fixture()
+        first = next(b for b in f["workers"][0]["bindings"] if b["name"] == "HMAC_NONCES")
+        second = next(b for b in f["workers"][1]["bindings"] if b["name"] == "HMAC_NONCES")
+        second["namespace_id"] = first["namespace_id"]
+        self.assertIn("QA_NONCE_CROSS_WORKER_ALIAS", GUARD.assess(configs(), f, NOW)["blockers"])
 
     def test_missing_baseline_namespace_duplicate_or_redirect_is_blocked(self):
         for mutate in (

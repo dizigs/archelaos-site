@@ -71,8 +71,19 @@ test('commented, misplaced or redirected binding/migration declarations cannot p
     brain.replace('class_name = "BrainCoordinator"','class_name = "WrongClass"'),
     brain.replace('name = "archelaos-brain-staging"','name = "wrong-worker"'),
     brain.replace('BRAIN_SELFHEAL_BINDING_ATTESTED = "false"','BRAIN_SELFHEAL_BINDING_ATTESTED = "true"'),
+    brain.replace('entrypoint = "HealerHmacAcceptancePort"','entrypoint = "HealerService"'),
+    brain.replace('name = "HMAC_NONCES"','name = "BRAIN"'),
+    brain.replace('PRIVATE_HMAC_ACCEPTANCE_ISOLATED = "false"','PRIVATE_HMAC_ACCEPTANCE_ISOLATED = "true"'),
+    brain.replace('PRIVATE_HMAC_ACCEPTANCE_SESSION = ""','PRIVATE_HMAC_ACCEPTANCE_SESSION = "synthetic-session"'),
+    brain.replace('new_sqlite_classes = ["PrivateHmacNonceStore"]','deleted_classes = ["BrainCoordinator"]'),
+    brain.replace('binding = "HMAC_PEER"','binding = "HEALER"'),
   ])assert.equal(inspectSources(changed,healer,pkg).sourceConfigGate,'REVIEW_REQUIRED');
   assert.equal(inspectSources(brain,healer.replace('entrypoint = "BrainRecoveryPort"','entrypoint = "default"'),pkg).sourceConfigGate,'REVIEW_REQUIRED');
+  for(const source of [
+    healer.replace('PRIVATE_HMAC_ACCEPTANCE_ISOLATED = "false"','PRIVATE_HMAC_ACCEPTANCE_ISOLATED = "true"'),
+    healer.replace('class_name = "PrivateHmacNonceStore"','class_name = "HealerMemory"'),
+    healer.replace('PRIVATE_HMAC_ACCEPTANCE_EXPIRES_AT = "1970-01-01T00:00:00Z"','PRIVATE_HMAC_ACCEPTANCE_EXPIRES_AT = "2099-01-01T00:00:00Z"'),
+  ]) assert.equal(inspectSources(brain,source,pkg).sourceConfigGate,'REVIEW_REQUIRED');
 });
 test('equivalent single quoted flags, comments and nested array values preserve safe TOML meaning',()=>{
   const changed=brain.replace('[vars]', '[vars]\nEXAMPLE = [\n [1,2],\n [3,4],\n]\n').replaceAll('= "false"',"= 'false' # still disabled");
