@@ -56,7 +56,7 @@ function sqliteStorage() {
 function receiver(storage, options = {}, now = () => TIME) {
   return createSignedAuditReceiver({
     storage, secrets: new Map([['github-actions', SECRET]]),
-    allowedCommands: new Map([['github', new Set(['checks'])]]),
+    allowedCommands: new Map([['github-actions', new Map([['github', new Set(['checks'])]])]]),
     options, readerCapability: READ_CAP, now,
   });
 }
@@ -122,6 +122,47 @@ test('no source-only receiver can accept unknown commands', () => {
     const e = envelope(); e.record.commandId = 'deploy';
     assertError(() => submit(api, e), 'COMMAND_NOT_ALLOWLISTED');
     assert.equal(read(api, ).length, 0);
+  } finally { s.close(); }
+});
+
+
+test('source-scoped HMAC producer cannot use another producer command', () => {
+  const s = sqliteStorage();
+  const otherSecret = 'synthetic-second-source-secret-with-at-least-32-bytes';
+  try {
+    const api = createSignedAuditReceiver({
+      storage: s,
+      secrets: new Map([['github-actions', SECRET], ['manual-review', otherSecret]]),
+      allowedCommands: new Map([
+        ['github-actions', new Map([['github', new Set(['checks'])]])],
+        ['manual-review', new Map([['github', new Set(['annotations'])]])],
+      ]),
+      readerCapability: READ_CAP, now: () => TIME,
+    });
+    const stolenCommand = envelope(20, 120);
+    stolenCommand.record.commandId = 'annotations';
+    assertError(() => submit(api, stolenCommand), 'COMMAND_NOT_ALLOWLISTED');
+    const reversed = envelope(21, 121);
+    reversed.source = 'manual-review';
+    assertError(() => submit(api, reversed, otherSecret), 'COMMAND_NOT_ALLOWLISTED');
+    assert.equal(read(api).length, 0);
+    const allowed = envelope(22, 122);
+    allowed.source = 'manual-review';
+    allowed.record.commandId = 'annotations';
+    assert.equal(submit(api, allowed, otherSecret).status, 'RECORDED');
+    assert.equal(read(api).length, 1);
+  } finally { s.close(); }
+});
+
+test('legacy global tool grants are refused instead of silently inherited', () => {
+  const s = sqliteStorage();
+  try {
+    assertError(() => createSignedAuditReceiver({
+      storage: s, secrets: new Map([['github-actions', SECRET]]),
+      allowedCommands: new Map([['github', new Set(['checks'])]]),
+      readerCapability: READ_CAP, now: () => TIME,
+    }), 'TRUSTED_POLICY_REQUIRED');
+    assert.equal(receiver(s) !== null, true);
   } finally { s.close(); }
 });
 
