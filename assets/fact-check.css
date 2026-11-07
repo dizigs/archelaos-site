@@ -49,3 +49,101 @@
  #arch-factcheck-promo h2{font-size:30px}
 }
 @media(prefers-reduced-motion:reduce){#arch-factcheck-promo *{transition:none!important;animation:none!important}}
+
+
+/* Archelaos museum polish: forest-green / antique gold / parchment.
+   Animations are compositor-only, short, and disabled for reduced motion. */
+#arch-factcheck-promo{
+  --fc-forest:#073d2a;
+  --fc-forest-2:#164a36;
+  --fc-gold:#b99750;
+  --fc-parchment:#faf6ec;
+  --fc-ink:#123e2e;
+  color:#f4ead5;
+  background:
+    radial-gradient(ellipse at 10% 0%,rgba(237,217,172,.14),transparent 52%),
+    linear-gradient(155deg,#073d2a 0%,#124c37 55%,#073d2a 100%);
+}
+#arch-factcheck-promo .fc-super{color:#e3c78d;letter-spacing:.12em}
+#arch-factcheck-promo h2{color:#fff9ed}
+#arch-factcheck-promo h2 em{color:#e3c78d}
+#arch-factcheck-promo .fc-lead{color:#e5ecdf}
+#arch-factcheck-promo .fc-progress{color:#e8e2d3}
+#arch-factcheck-promo .fc-progress-track{background:rgba(237,217,172,.25)}
+#arch-factcheck-promo #fc-progress-fill{background:linear-gradient(90deg,#b99750,#e3c78d)}
+#arch-factcheck-promo .fc-card{
+  background:var(--fc-parchment);
+  border-color:rgba(185,151,80,.72);
+  box-shadow:0 10px 28px rgba(1,24,14,.19);
+  animation:fc-card-reveal 190ms cubic-bezier(.22,.8,.28,1) both;
+}
+@keyframes fc-card-reveal{
+ from{opacity:.45;transform:translate3d(0,10px,0)}
+ to{opacity:1;transform:translate3d(0,0,0)}
+}
+#arch-factcheck-promo .fc-card-top{color:#80632e}
+#arch-factcheck-promo .fc-id{color:#526d58}
+#arch-factcheck-promo .fc-question{color:var(--fc-ink)}
+#arch-factcheck-promo .fc-context{
+  margin:0 0 13px;
+  color:#465e50;
+  font:400 13px/1.55 system-ui,sans-serif;
+}
+#arch-factcheck-promo .fc-hint{color:#6d633f;margin-bottom:12px}
+#arch-factcheck-promo .fc-answer{
+  background:#eaf1e6;
+  border-color:#9bad9d;
+  color:#164a36;
+  transition:background-color 130ms ease,color 130ms ease,border-color 130ms ease,transform 130ms ease;
+}
+#arch-factcheck-promo .fc-answer:last-child{
+  background:#fbf5e8;
+  border-color:#bda576;
+  color:#6a532c;
+}
+#arch-factcheck-promo .fc-answer:hover:not(:disabled),
+#arch-factcheck-promo .fc-answer:focus-visible{
+  background:#164a36;
+  color:#fffdf7;
+  border-color:#164a36;
+}
+#arch-factcheck-promo .fc-answer:last-child:hover:not(:disabled),
+#arch-factcheck-promo .fc-answer:last-child:focus-visible{
+  background:#79602e;
+  border-color:#79602e;
+  color:#fffdf7;
+}
+#arch-factcheck-promo .fc-skip{
+  min-height:38px;
+  padding:8px 14px;
+  border:1px solid #bbac8c;
+  border-radius:999px;
+  background:#f8f0df;
+  color:#66522f;
+  transition:color 140ms ease,border-color 140ms ease,background-color 140ms ease,transform 140ms ease;
+}
+#arch-factcheck-promo .fc-skip:hover,
+#arch-factcheck-promo .fc-skip:focus-visible{
+  background:#e8dbc0;
+  color:#244932;
+  border-color:#ac8f55;
+  transform:translateY(-1px);
+}
+#arch-factcheck-promo .fc-skip:active{transform:scale(.98)}
+#arch-factcheck-promo .fc-bottom,
+#arch-factcheck-promo #fc-save-status,
+#arch-factcheck-promo .fc-note{color:#e5eadf}
+#arch-factcheck-promo .fc-note a{color:#f4d69a;text-underline-offset:3px}
+#arch-factcheck-promo #fc-retry{background:#fff7e9;border-color:#b99750;color:#4f4024}
+#arch-factcheck-promo .fc-finished-desc{color:#294d36}
+#arch-factcheck-promo .fc-pending-alert{color:#8e512d}
+@media(max-width:510px){
+ #arch-factcheck-promo .fc-card{box-shadow:0 5px 17px rgba(1,24,14,.16)}
+ #arch-factcheck-promo .fc-context{font-size:12.5px}
+ #arch-factcheck-promo .fc-card-choices{gap:8px}
+}
+@media(prefers-reduced-motion:reduce){
+ #arch-factcheck-promo .fc-card{animation:none!important}
+ #arch-factcheck-promo .fc-skip,
+ #arch-factcheck-promo .fc-answer{transition:none!important;transform:none!important}
+}
