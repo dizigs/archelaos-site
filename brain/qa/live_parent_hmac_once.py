@@ -20,7 +20,7 @@ BASE={BRAIN:"f6f360fc-c232-48a3-8370-df0fa6fe20b4",HEALER:"6db84d24-2d42-404a-ba
 PATHS={BRAIN:"brain/wrangler.toml",HEALER:"automation/self-heal-worker/wrangler.toml"}
 OFF=("BRAIN_SELFHEAL_BINDING_ATTESTED","BRAIN_SELFHEAL_DISPATCH_ENABLED",
      "BRAIN_SELFHEAL_RECOVERY_ENABLED","BRAIN_SELFHEAL_DURABLE_ACK_ENABLED")
-STATE=Path(os.environ.get("RUNNER_TEMP","/tmp"))/"archelaos-parent-hmac-once-state.json"
+STATE=Path(os.environ["RUNNER_TEMP"])/"archelaos-parent-hmac-once-state.json"
 SUBJECT="qa(live): one-shot bounded parent HMAC"
 WRANGLER=str(ROOT/"brain/node_modules/.bin/wrangler")
 temps=[]
