@@ -48,6 +48,7 @@ _Last baseline: 3 November 2026 (Europe/Athens)._
 | `ΑΥΤΟΜΑΤΙΣΜΟΙ` | Enabled schedule vs proven end-to-end completion | Column B (complete); C (enabled) |
 | `LOG` | Ordered, dated trace of real operations | No checkbox |
 | `CHATGPT INBOX` | New task intake from separate chats when accessible | Column B |
+| `ΠΗΓΕΣ ΚΑΤΑΓΡΑΦΗΣ` | Read-only map of canonical journal versus historical evidence, tool registry and GitHub handoffs | No checkbox |
 
 The last tab was introduced with this coordination change and is intentionally separate from already categorized tasks. A collected chat lead is not automatically a verified completion.
 
