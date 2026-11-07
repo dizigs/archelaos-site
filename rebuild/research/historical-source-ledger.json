@@ -1,0 +1,245 @@
+{
+  "schema_version": 1,
+  "collection": "Γ.Α.Σ. Αρχέλαος Κατερίνης — ανεξάρτητο μητρώο ιστορικής έρευνας",
+  "created_on": "2026-11-05",
+  "scope": {
+    "from_year": 1956,
+    "to_year": 2018,
+    "site_news_publication": false,
+    "independent_of_current_news": true
+  },
+  "workflow_status": "prepared_review_only_not_live_connected",
+  "policies": {
+    "candidate_is_not_fact": true,
+    "one_canonical_event_per_occasion": true,
+    "require_primary_url_issue_date_page_and_source": true,
+    "distinguish_person_club_same_name": true,
+    "keep_original_scans_permission_checked": true,
+    "no_private_data_in_repo": true,
+    "no_automatic_news_or_hall_publication": true,
+    "ocr_never_confirms_fact_by_itself": true
+  },
+  "sources": [
+    {
+      "id": "hist-src-nlg-newspapers",
+      "title": "Εθνική Βιβλιοθήκη — Ψηφιακές εφημερίδες",
+      "url": "https://www.gov.gr/el/services/1001727/psephiake-bibliotheke-ephemeridon-kai-periodikou-tupou",
+      "access": "catalogue_only_access_not_audited",
+      "contains_archelaos_evidence": "not_verified"
+    },
+    {
+      "id": "hist-src-parliament-press",
+      "title": "Βιβλιοθήκη Βουλής — Εφημερίδες και περιοδικά",
+      "url": "https://library.parliament.gr/",
+      "access": "catalogue_only_access_not_audited",
+      "contains_archelaos_evidence": "not_verified"
+    },
+    {
+      "id": "hist-src-gak-pieria",
+      "title": "ΓΑΚ — Εθνικό Ευρετήριο Αρχείων Πιερίας",
+      "url": "https://greekarchivesinventory.gak.gr/",
+      "access": "catalogue_leads_not_verified_in_subject",
+      "contains_archelaos_evidence": "not_verified"
+    },
+    {
+      "id": "hist-src-searchculture",
+      "title": "SearchCulture — Ψηφιακά πολιτιστικά τεκμήρια",
+      "url": "https://www.searchculture.gr/",
+      "access": "api_key_application_required_not_connected",
+      "contains_archelaos_evidence": "not_verified"
+    },
+    {
+      "id": "hist-src-openarchives",
+      "title": "OpenArchives — Ελληνικά ψηφιακά τεκμήρια",
+      "url": "https://www.openarchives.gr/",
+      "access": "api_key_application_required_not_connected",
+      "contains_archelaos_evidence": "not_verified"
+    },
+    {
+      "id": "hist-src-books",
+      "title": "Google Books δημόσια μεταδεδομένα βιβλίων",
+      "url": "https://www.googleapis.com/books/v1/volumes",
+      "access": "public_metadata_api_available_not_live_proven",
+      "contains_archelaos_evidence": "not_verified"
+    },
+    {
+      "id": "hist-src-archive",
+      "title": "Internet Archive δημόσια μεταδεδομένα",
+      "url": "https://archive.org/advancedsearch.php",
+      "access": "public_metadata_api_available_not_live_proven",
+      "contains_archelaos_evidence": "not_verified"
+    },
+    {
+      "id": "hist-src-wayback",
+      "title": "Internet Archive Wayback παλιές ιστοσελίδες",
+      "url": "https://web.archive.org/",
+      "access": "catalogue_only_access_not_audited",
+      "contains_archelaos_evidence": "not_verified"
+    }
+  ],
+  "leads": [
+    {
+      "id": "hist-lead-gak-pieria-olympio-vima-1982-1995",
+      "source_id": "hist-src-gak-pieria",
+      "publication": "Ολύμπιο Βήμα",
+      "coverage": "1982–1995",
+      "status": "catalogue_lead_subject_unverified",
+      "source_item_id": null,
+      "issue_date": null,
+      "page": null,
+      "scan_url": null,
+      "person_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "hist-lead-gak-pieria-echo-pierion",
+      "source_id": "hist-src-gak-pieria",
+      "publication": "Ηχώ των Πιερίων",
+      "coverage": "unknown",
+      "status": "catalogue_lead_subject_unverified",
+      "source_item_id": null,
+      "issue_date": null,
+      "page": null,
+      "scan_url": null,
+      "person_ids": [],
+      "event_ids": []
+    },
+    {
+      "id": "hist-lead-nlg-makedonia-1956-1981",
+      "source_id": "hist-src-nlg-newspapers",
+      "publication": "Μακεδονία",
+      "coverage": "1956–1981 to check by issue",
+      "status": "catalogue_lead_subject_unverified",
+      "source_item_id": null,
+      "issue_date": null,
+      "page": null,
+      "scan_url": null,
+      "person_ids": [],
+      "event_ids": []
+    }
+  ],
+  "existing_event_refs": [
+    {
+      "event_id": "arc-handball-top-flight-1983-84",
+      "source_registry_file": "rebuild/research/historical-events.json",
+      "existing_verified_state": "source_checked",
+      "status": "reference_only_not_duplicated"
+    },
+    {
+      "event_id": "arc-handball-cup-final-1984",
+      "source_registry_file": "rebuild/research/historical-events.json",
+      "existing_verified_state": "source_checked",
+      "status": "reference_only_not_duplicated"
+    },
+    {
+      "event_id": "arc-handball-cup-final-1990",
+      "source_registry_file": "rebuild/research/historical-events.json",
+      "existing_verified_state": "source_checked",
+      "status": "reference_only_not_duplicated"
+    },
+    {
+      "event_id": "arc-handball-cup-final-1993",
+      "source_registry_file": "rebuild/research/historical-events.json",
+      "existing_verified_state": "source_checked",
+      "status": "reference_only_not_duplicated"
+    },
+    {
+      "event_id": "arc-handball-cup-final-1994",
+      "source_registry_file": "rebuild/research/historical-events.json",
+      "existing_verified_state": "source_checked",
+      "status": "reference_only_not_duplicated"
+    },
+    {
+      "event_id": "arc-handball-borec-away-1994",
+      "source_registry_file": "rebuild/research/historical-events.json",
+      "existing_verified_state": "source_checked",
+      "status": "reference_only_not_duplicated"
+    },
+    {
+      "event_id": "arc-handball-borec-home-1994",
+      "source_registry_file": "rebuild/research/historical-events.json",
+      "existing_verified_state": "source_checked",
+      "status": "reference_only_not_duplicated"
+    },
+    {
+      "event_id": "arc-handball-mamuli-home-1995",
+      "source_registry_file": "rebuild/research/historical-events.json",
+      "existing_verified_state": "source_checked",
+      "status": "reference_only_not_duplicated"
+    },
+    {
+      "event_id": "arc-handball-mamuli-away-1995",
+      "source_registry_file": "rebuild/research/historical-events.json",
+      "existing_verified_state": "source_checked",
+      "status": "reference_only_not_duplicated"
+    },
+    {
+      "event_id": "arc-handball-veszprem-home-1996",
+      "source_registry_file": "rebuild/research/historical-events.json",
+      "existing_verified_state": "source_checked",
+      "status": "reference_only_not_duplicated"
+    },
+    {
+      "event_id": "arc-handball-veszprem-away-1996",
+      "source_registry_file": "rebuild/research/historical-events.json",
+      "existing_verified_state": "source_checked",
+      "status": "reference_only_not_duplicated"
+    },
+    {
+      "event_id": "arc-handball-flensburg-away-2000",
+      "source_registry_file": "rebuild/research/historical-events.json",
+      "existing_verified_state": "source_checked",
+      "status": "reference_only_not_duplicated"
+    },
+    {
+      "event_id": "arc-handball-flensburg-return-2000",
+      "source_registry_file": "rebuild/research/historical-events.json",
+      "existing_verified_state": "source_checked",
+      "status": "reference_only_not_duplicated"
+    },
+    {
+      "event_id": "arc-handball-youth-titles-1994-95",
+      "source_registry_file": "rebuild/research/historical-events.json",
+      "existing_verified_state": "source_checked",
+      "status": "reference_only_not_duplicated"
+    }
+  ],
+  "candidate_findings": [],
+  "candidate_schema": {
+    "id": "histcand-<provider>-<sha256(provider|source_item_id)[:16]>",
+    "source_id": "hist-src-books or hist-src-archive",
+    "source_item_id": "required",
+    "title": "required",
+    "date": "if supplied by source",
+    "url": "canonical public item URL",
+    "publication": "if known",
+    "issue_date": "if known",
+    "page": "if known",
+    "status": "discovery_only_unverified",
+    "person_ids": [],
+    "event_ids": [],
+    "ocr_checked": false
+  },
+  "review_queue": [
+    {
+      "id": "hist-review-1956-1981-local-press",
+      "status": "needs_catalogue_access",
+      "source_ids": [
+        "hist-src-nlg-newspapers",
+        "hist-src-parliament-press",
+        "hist-src-gak-pieria"
+      ],
+      "goal": "Find genuine historical mention of club with exact paper/date/page; do not infer event from catalogue."
+    },
+    {
+      "id": "hist-review-archived-person-names",
+      "status": "needs_identity_evidence",
+      "source_ids": [
+        "hist-src-gak-pieria",
+        "hist-src-archive"
+      ],
+      "goal": "Crosscheck named athletes and officials against current canonical Hall records before proposing new IDs."
+    }
+  ],
+  "notes": "This file indexes leads and link IDs only. Existing source-checked historical matches remain in rebuild/research/historical-events.json; no replication or proof claim is made by references here."
+}
