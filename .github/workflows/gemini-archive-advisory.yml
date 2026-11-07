@@ -25,6 +25,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Gemini audits public archive IDs (advisory only)
+        id: gemini_review
         continue-on-error: true
         uses: google-github-actions/run-gemini-cli@f77273f4c914e4bf38440cf36a0369cb64a37489 # v0.1.22
         env:
@@ -35,16 +36,18 @@ jobs:
           gemini_model: gemini-3.5-flash-lite
           settings: |
             {
-              "model": {"maxSessionTurns": 6},
-              "tools": {"core": ["read_file", "read_many_files", "glob", "grep_search", "list_directory"]},
+              "model": {"maxSessionTurns": 24},
+              "tools": {"core": ["read_file", "read_many_files"]},
               "telemetry": {"enabled": false},
               "privacy": {"usageStatisticsEnabled": false}
             }
           prompt: |
-            Read ONLY public files from this repository: archelaos-history-events.json,
-            rebuild/data/moments.json, news.json, hall-of-fame-people.json,
+            Read ONLY these four public files from this repository:
+            archelaos-history-events.json, rebuild/data/moments.json,
             rebuild/tools/build_archive_relationships.py, and
-            rebuild/tests/archive_relationships_test.py. This is an advisory audit
+            rebuild/tests/archive_relationships_test.py.
+            Use read_file or read_many_files only. Do not call update_topic.
+            Do not use grep_search on file paths. This is an advisory audit
             of stable IDs, NOT an instruction to edit anything or to publish.
             Check source_moment ↔ moment.id and news eventId ↔ historical event.id,
             ambiguous identities, broken links, duplicated facts, and missing
@@ -58,6 +61,11 @@ jobs:
             private Drive data, or any unapproved source. Do not modify files.
             All historically ambiguous proposed edges must remain UNPUBLISHED
             until independently verified. This result is advisory, not approval.
+      - name: Require a completed Gemini API response
+        if: steps.gemini_review.outcome == 'failure'
+        run: |
+          echo '::error::Gemini advisory did not complete; inspect provider job logs.'
+          exit 1
       - name: Verify advisory did not modify tracked files
         if: always()
         run: git diff --exit-code
