@@ -14,7 +14,10 @@
         "On 29 April 1956, the founding statutes of G.A.S. Archelaos Katerinis were drawn up at the initiative of Pieria's physical education inspector, Georgios Efthymiou (1908–2006). Athanasios Tsaknakis, Ioannis Zarogiannis and Theodoros Xiromeritis also served on the first founding board. Inspired by the ancient Macedonian king Archelaus I, they laid the foundations of organised athletics in Pieria."
       ],
       "id": 1,
-      "source_en": "G.A.S. Archelaos Katerinis — Anniversary historical record of 70 moments (1956–2026), based on board archives."
+      "source_en": "G.A.S. Archelaos Katerinis — Anniversary historical record of 70 moments (1956–2026), based on board archives.",
+      "personIds": [
+        "arch-4c82271a2365"
+      ]
     },
     {
       "year": "1957",
@@ -112,7 +115,10 @@
         "On 20 May 1967, during Ioannis Mantzaropoulos's presidency, Archelaos was officially registered with SEGAS, the Greek athletics federation, under membership number 238. Registration opened the way for the club's athletes to participate fully in national championship competitions."
       ],
       "id": 8,
-      "source_en": "G.A.S. Archelaos Katerinis — Anniversary historical record of 70 moments (1956–2026), based on board archives."
+      "source_en": "G.A.S. Archelaos Katerinis — Anniversary historical record of 70 moments (1956–2026), based on board archives.",
+      "departmentIds": [
+        "track"
+      ]
     },
     {
       "year": "1968",

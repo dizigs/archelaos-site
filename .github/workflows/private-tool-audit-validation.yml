@@ -1,0 +1,37 @@
+name: Private tool audit receipt contract (offline)
+
+on:
+  pull_request:
+    paths:
+      - 'automation/private-tool-audit/**'
+      - '.github/workflows/private-tool-audit-validation.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: private-tool-audit-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout source with no persisted credentials
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Source syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --version
+          node --check automation/private-tool-audit/receiver.mjs
+          node --check automation/private-tool-audit/receiver.test.mjs
+      - name: Offline SQLite HMAC audit contract tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --test automation/private-tool-audit/receiver.test.mjs
