@@ -134,6 +134,7 @@ jobs:
         if: steps.gate.outputs.enabled == 'true'
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_STAGING_DEPLOY_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: '898359728b3dfe8c3a3f56e3d19eecd1'
           EXPECTED_SHA: ${{ github.event.pull_request.head.sha }}
           OPERATOR_PR: '299'
           WRANGLER_SEND_METRICS: 'false'
@@ -143,6 +144,7 @@ jobs:
         if: always() && steps.gate.outputs.enabled == 'true' && steps.live.outcome != 'success'
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_STAGING_DEPLOY_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: '898359728b3dfe8c3a3f56e3d19eecd1'
           EXPECTED_SHA: ${{ github.event.pull_request.head.sha }}
           OPERATOR_PR: '299'
         run: python3 brain/qa/live_parent_hmac_once.py recover
