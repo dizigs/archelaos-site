@@ -1,0 +1,153 @@
+{
+  "schema": "archelaos.bridge.deployed-source.v1",
+  "observed_on": "2026-11-07",
+  "worker": "archelaos-automation-bridge",
+  "deployment_id": "e9da0b1c-99b4-4861-9a94-119732448ff0",
+  "version_id": "9445de37-5465-4927-be71-a546359c5b21",
+  "source_endpoint": "GET /workers/scripts/archelaos-automation-bridge/content/v2",
+  "github_baseline_sha": "8882f9ea224ea949f343140fd2d9f09549c87480",
+  "source_readbacks": 2,
+  "ordering": "multipart module part order/boundary may change; per-module bytes attested",
+  "comparison": {
+    "exact_repo_modules": 12,
+    "expected_repo_drift": 1,
+    "private_only_modules": 2
+  },
+  "modules": [
+    {
+      "name": "bridge-entry.mjs",
+      "bytes": 436,
+      "git_blob_sha1": "0c201d06b6e510807667d64a0cf7075b4f4e0296",
+      "sha256": "05b27eb88414174aa92326b3ba119a763f458200dfa5f292d7fddb166794b28b",
+      "repo_path": null,
+      "repo_blob_sha1": null,
+      "repo_sha256": null
+    },
+    {
+      "name": "cloudflare-mount.mjs",
+      "bytes": 5743,
+      "git_blob_sha1": "0ebca035b4701a8e1063fd1607eac2da803854fb",
+      "sha256": "f0279f11ff1c5275b9ba7f9abc5cae4e89a2afad26d39d7435969157ce2ac1a3",
+      "repo_path": "automation/apps-script/cloudflare-mount.mjs",
+      "repo_blob_sha1": "0ebca035b4701a8e1063fd1607eac2da803854fb",
+      "repo_sha256": "f0279f11ff1c5275b9ba7f9abc5cae4e89a2afad26d39d7435969157ce2ac1a3"
+    },
+    {
+      "name": "configure.mjs",
+      "bytes": 9439,
+      "git_blob_sha1": "e5843f008a6c2bac79793f283810bbcb2130afe3",
+      "sha256": "3809b343a7d07472064b37af5371dd1ce87f05bdf87a2fa0f858e40867bc3184",
+      "repo_path": "automation/apps-script/configure.mjs",
+      "repo_blob_sha1": "e5843f008a6c2bac79793f283810bbcb2130afe3",
+      "repo_sha256": "3809b343a7d07472064b37af5371dd1ce87f05bdf87a2fa0f858e40867bc3184"
+    },
+    {
+      "name": "editor.mjs",
+      "bytes": 10592,
+      "git_blob_sha1": "a5356e5240d4f4d54411d647c042b4f8cac8b923",
+      "sha256": "5d48596c2d0972f1f9f01117ca293e36b5a7b2e2123d23c0b66a6a07eefdd5b9",
+      "repo_path": "automation/apps-script/editor.mjs",
+      "repo_blob_sha1": "a5356e5240d4f4d54411d647c042b4f8cac8b923",
+      "repo_sha256": "5d48596c2d0972f1f9f01117ca293e36b5a7b2e2123d23c0b66a6a07eefdd5b9"
+    },
+    {
+      "name": "files.mjs",
+      "bytes": 3094,
+      "git_blob_sha1": "1905011bc2051861d656506d2047e790805278fa",
+      "sha256": "f53f4edb7af256337a45424c95d2a37d429420286a918b24beb7cb9b87271533",
+      "repo_path": "automation/apps-script/files.mjs",
+      "repo_blob_sha1": "1905011bc2051861d656506d2047e790805278fa",
+      "repo_sha256": "f53f4edb7af256337a45424c95d2a37d429420286a918b24beb7cb9b87271533"
+    },
+    {
+      "name": "github-oidc.mjs",
+      "bytes": 4981,
+      "git_blob_sha1": "4e8c8ac456ab5f1f2b70660453554275c44f6e27",
+      "sha256": "9b9f003c7921d0c89317fc3668e5dee1930205d413b98eee223a51d6e5703a2c",
+      "repo_path": "automation/apps-script/github-oidc.mjs",
+      "repo_blob_sha1": "4e8c8ac456ab5f1f2b70660453554275c44f6e27",
+      "repo_sha256": "9b9f003c7921d0c89317fc3668e5dee1930205d413b98eee223a51d6e5703a2c"
+    },
+    {
+      "name": "github-writer.mjs",
+      "bytes": 6103,
+      "git_blob_sha1": "4e6327c1a0cd9330e6e27dc818280c6e3c72e3ad",
+      "sha256": "96e9ed3afc3d3ba4860b1afaf88226cdf430f776b045f701762b795d2607ff91",
+      "repo_path": "automation/apps-script/github-writer.mjs",
+      "repo_blob_sha1": "4e6327c1a0cd9330e6e27dc818280c6e3c72e3ad",
+      "repo_sha256": "96e9ed3afc3d3ba4860b1afaf88226cdf430f776b045f701762b795d2607ff91"
+    },
+    {
+      "name": "interface.mjs",
+      "bytes": 11657,
+      "git_blob_sha1": "948c0b4196e600028a1d684e20a17d7af647ae6b",
+      "sha256": "bda5727e8437b1ab7ac822374f0c4a3f27309469298160a9464d53feb023a64b",
+      "repo_path": "automation/apps-script/interface.mjs",
+      "repo_blob_sha1": "948c0b4196e600028a1d684e20a17d7af647ae6b",
+      "repo_sha256": "bda5727e8437b1ab7ac822374f0c4a3f27309469298160a9464d53feb023a64b"
+    },
+    {
+      "name": "monitor-bridge.mjs",
+      "bytes": 8812,
+      "git_blob_sha1": "5a350a6b76f255550334749c602a177a2ebe0cde",
+      "sha256": "d37c7dffe69ce3b937e83042a4d2b01729460d16624af573dac016cce57331c2",
+      "repo_path": "automation/uptimerobot/monitor-bridge.mjs",
+      "repo_blob_sha1": "207a846c26e9a3fc0e4cf24ab3b601ba87cba20e",
+      "repo_sha256": "af1ebd2b0304aeb3fbef8efe103220cd33d086bba7d7f2f22f3364e3f7c9ecae"
+    },
+    {
+      "name": "oauth.mjs",
+      "bytes": 11874,
+      "git_blob_sha1": "db53594d75b9938a4707e1ac68c53489ab659991",
+      "sha256": "c8f72c68f7477ad1c9ee4171f6d873dfec3a8d72db6808f5c22c45d21ec0caa2",
+      "repo_path": "automation/apps-script/oauth.mjs",
+      "repo_blob_sha1": "db53594d75b9938a4707e1ac68c53489ab659991",
+      "repo_sha256": "c8f72c68f7477ad1c9ee4171f6d873dfec3a8d72db6808f5c22c45d21ec0caa2"
+    },
+    {
+      "name": "safety/index.mjs",
+      "bytes": 9963,
+      "git_blob_sha1": "9fbe9a457cefa6820233e9c10e8589a98dda2c70",
+      "sha256": "6927b2c77a0aa4549ddc052708d8d257dfca9fb8c0e31c0d6cec157b6b9d9162",
+      "repo_path": "automation/apps-script/safety/index.mjs",
+      "repo_blob_sha1": "9fbe9a457cefa6820233e9c10e8589a98dda2c70",
+      "repo_sha256": "6927b2c77a0aa4549ddc052708d8d257dfca9fb8c0e31c0d6cec157b6b9d9162"
+    },
+    {
+      "name": "safety/store.mjs",
+      "bytes": 5216,
+      "git_blob_sha1": "efeb58ad90841b42eddcdfaa4a9a9dcb6925215d",
+      "sha256": "72464d2edd16283584eb9e59143b714409fb29e2d58495d1ddc27a602b2f710b",
+      "repo_path": "automation/apps-script/safety/store.mjs",
+      "repo_blob_sha1": "efeb58ad90841b42eddcdfaa4a9a9dcb6925215d",
+      "repo_sha256": "72464d2edd16283584eb9e59143b714409fb29e2d58495d1ddc27a602b2f710b"
+    },
+    {
+      "name": "security.mjs",
+      "bytes": 4298,
+      "git_blob_sha1": "e35d14b508a526c10dc0d9915be93736c2528227",
+      "sha256": "1dc35749ea0f3560969533611f3b2fd3b0e64f4ac49f1d5c66ae3a551da1f29d",
+      "repo_path": "automation/apps-script/security.mjs",
+      "repo_blob_sha1": "e35d14b508a526c10dc0d9915be93736c2528227",
+      "repo_sha256": "1dc35749ea0f3560969533611f3b2fd3b0e64f4ac49f1d5c66ae3a551da1f29d"
+    },
+    {
+      "name": "store.mjs",
+      "bytes": 14375,
+      "git_blob_sha1": "fc93625192dd2ef5e2dca30ca0bb505ddd7e7be9",
+      "sha256": "5b5b6d4c0168ac626b279c717092638b827f9443c1683ac27945fc962af60afb",
+      "repo_path": "automation/apps-script/store.mjs",
+      "repo_blob_sha1": "fc93625192dd2ef5e2dca30ca0bb505ddd7e7be9",
+      "repo_sha256": "5b5b6d4c0168ac626b279c717092638b827f9443c1683ac27945fc962af60afb"
+    },
+    {
+      "name": "worker.js",
+      "bytes": 9584,
+      "git_blob_sha1": "7c46c2616ec1edd165c1c839f047f0677577c009",
+      "sha256": "1910d6aa9f0dc749bc0d5bc3e03b34b8222a50261c8297c7a1b898d8106a69d9",
+      "repo_path": null,
+      "repo_blob_sha1": null,
+      "repo_sha256": null
+    }
+  ]
+}
