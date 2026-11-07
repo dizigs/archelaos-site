@@ -47,6 +47,40 @@ test('native RPC proof accepts only a nonenumerable Symbol.dispose lifetime meth
     assert.deepEqual(await denied.json(),{status:'UNKNOWN',actionsExecuted:0});
   }
 });
+test('native RPC proof releases accepted Symbol.dispose lifecycle metadata',async()=>{
+  let released=0;
+  const value={...proof};
+  Object.defineProperty(value,Symbol.dispose,{value(){released++},enumerable:false});
+  const result=await runner.fetch(request(),{OPERATOR_CAPABILITY:CAP,BRAIN_QA:{async runChallenge(){return value}}});
+  assert.deepEqual(await result.json(),proof);
+  assert.equal(released,1);
+});
+test('hostile property getters and exotic own properties are rejected without execution',async()=>{
+  let getterCalls=0;
+  for(const mutate of [
+    p=>Object.defineProperty(p,'status',{get(){getterCalls++;return 'KEY_POSSESSION_CONFIRMED'}}),
+    p=>Object.defineProperty(p,'challengeDigest',{get(){getterCalls++;return digest}}),
+    p=>Object.defineProperty(p,Symbol.dispose,{get(){getterCalls++;return ()=>{}}}),
+    p=>Object.defineProperty(p,'surprise',{value:true}),
+    p=>Object.setPrototypeOf(p,{unsafe:true})
+  ]){
+    const result={...proof};mutate(result);
+    const response=await runner.fetch(request(),{OPERATOR_CAPABILITY:CAP,BRAIN_QA:{async runChallenge(){return result}}});
+    assert.deepEqual(await response.json(),{status:'UNKNOWN',actionsExecuted:0});
+  }
+  assert.equal(getterCalls,0);
+});
+test('diagnostic status preserves only safe code values without invoking accessors',async()=>{
+  let getterCalls=0;
+  const safe={status:'UNKNOWN',actionsExecuted:0,code:'QA_DIAG_UNVERIFIED'};
+  const ok=await runner.fetch(request(),{OPERATOR_CAPABILITY:CAP,BRAIN_QA:{async runChallenge(){return safe}}});
+  assert.deepEqual(await ok.json(),safe);
+  const hostile={status:'UNKNOWN'};
+  Object.defineProperty(hostile,'code',{get(){getterCalls++;throw Error('getter must not run')}});
+  const denied=await runner.fetch(request(),{OPERATOR_CAPABILITY:CAP,BRAIN_QA:{async runChallenge(){return hostile}}});
+  assert.deepEqual(await denied.json(),{status:'UNKNOWN',actionsExecuted:0});
+  assert.equal(getterCalls,0);
+});
 test('loopback, method, exact path and private per-run operator capability are mandatory',async()=>{
   let calls=0;const env={OPERATOR_CAPABILITY:CAP,BRAIN_QA:{async runChallenge(){calls++;return proof}}};
   for(const r of [

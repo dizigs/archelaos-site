@@ -5,6 +5,7 @@ import { mkdtemp, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { readFileSync } from 'node:fs';
 import { Miniflare } from 'miniflare';
 
 // Native workerd fixture loads BOTH operational Worker entrypoints, not the
@@ -17,6 +18,8 @@ const REPO_ROOT = fileURLToPath(new URL('../../', import.meta.url));
 const KEY = 'synthetic-offline-operational-hmac-test-'.repeat(3);
 const WRONG_KEY = 'different-synthetic-offline-hmac-test-'.repeat(3);
 const SHA = 'd'.repeat(40);
+const CAP = 'synthetic-operator-capability-'.repeat(3);
+const OPERATOR_RUNNER=readFileSync(new URL('../qa/private_hmac_operator_runner.mjs',import.meta.url),'utf8');
 const RUNNER = `export default {
   async fetch(request,env) {
     if(request.method!=='POST') return new Response('Not found',{status:404});
@@ -24,7 +27,7 @@ const RUNNER = `export default {
   }
 }`;
 
-async function fixture({ wrongKey = false, omitHmacPeer = false } = {}) {
+async function fixture({ wrongKey = false, omitHmacPeer = false, useOperatorRunner = false } = {}) {
   const persist = await mkdtemp(join(tmpdir(), 'archelaos-operational-qa-'));
   const session = randomUUID();
   const now = Date.now();
@@ -86,8 +89,10 @@ async function fixture({ wrongKey = false, omitHmacPeer = false } = {}) {
         },
       },
       {
-        name: 'synthetic-local-qa-runner', modules: true, script: RUNNER,
+        name: 'synthetic-local-qa-runner', modules: true,
+        script: useOperatorRunner ? OPERATOR_RUNNER : RUNNER,
         compatibilityDate: '2026-11-01',
+        bindings: useOperatorRunner ? { OPERATOR_CAPABILITY: CAP } : {},
         serviceBindings: {
           BRAIN_QA: { name: 'archelaos-brain-staging', entrypoint: 'BrainHmacAcceptancePort' },
         },
@@ -101,6 +106,12 @@ async function fixture({ wrongKey = false, omitHmacPeer = false } = {}) {
       const response = await worker.fetch('https://local.invalid/qa', { method: 'POST' });
       assert.equal(response.status, 200);
       return response.json();
+    },
+    async runOperator(capability=CAP) {
+      const worker=await mf.getWorker('synthetic-local-qa-runner');
+      return worker.fetch('http://127.0.0.1:8799/__local_private_hmac_qa',{
+        method:'POST',headers:{'x-operator-capability':capability}
+      });
     },
     async publicFailClosed() {
       // The actual Brain rejects HTTP with 503 before routing when staging is
@@ -151,4 +162,22 @@ test('actual operational ports refuse wrong HMAC key and missing private QA peer
       await f.publicFailClosed();
     } finally { await f.close(); }
   }
+});
+
+test('real native workerd RPC accepts the operator proof and denies unauthorized access',async()=>{
+  const f=await fixture({useOperatorRunner:true});
+  try{
+    const denied=await f.runOperator('invalid-capability');
+    assert.equal(denied.status,404);
+    const res=await f.runOperator(CAP);
+    assert.equal(res.status,200);
+    const data=await res.json();
+    assert.equal(data.status,'KEY_POSSESSION_CONFIRMED');
+    assert.equal(data.sourceSha,SHA);
+    assert.equal(data.actionsExecuted,0);
+    assert.match(data.challengeDigest,/^[0-9a-f]{64}$/);
+    assert.equal(JSON.stringify(data).includes(KEY),false);
+    assert.equal(JSON.stringify(data).includes(CAP),false);
+    await f.publicFailClosed();
+  }finally{await f.close()}
 });

@@ -41,12 +41,22 @@ export default {
       if(!await equalCapability(env.OPERATOR_CAPABILITY,request.headers.get('x-operator-capability')))return denied();
       if(!env.BRAIN_QA||typeof env.BRAIN_QA.runChallenge!=='function')return unknown();
       const result=await env.BRAIN_QA.runChallenge();
-      if(result?.status==='UNKNOWN')return unknown(result.code);
-      if(result?.status!=='KEY_POSSESSION_CONFIRMED'||result.actionsExecuted!==0||
+      // Validate the status descriptor before reading it: hostile accessors must not execute.
+      if(!result||typeof result!=='object'||Object.getPrototypeOf(result)!==Object.prototype)return unknown();
+      const status=Object.getOwnPropertyDescriptor(result,'status');
+      if(!status||!Object.hasOwn(status,'value')||typeof status.value!=='string')return unknown();
+      if(status.value==='UNKNOWN'){
+        const d=Object.getOwnPropertyDescriptor(result,'code');
+        return unknown(d&&Object.hasOwn(d,'value')&&typeof d.value==='string'?d.value:undefined);
+      }
+      // Inspect shape (including RPC lifetime symbols) before accessing any other field.
+      if(!validProofShape(result))return unknown();
+      if(result.status!=='KEY_POSSESSION_CONFIRMED'||result.actionsExecuted!==0||
         typeof result.sourceSha!=='string'||!/^[a-f0-9]{40}$/.test(result.sourceSha)||
         typeof result.sessionId!=='string'||!/^[a-f0-9-]{36}$/.test(result.sessionId)||
-        typeof result.challengeDigest!=='string'||!/^[a-f0-9]{64}$/.test(result.challengeDigest)||
-        !validProofShape(result))return unknown();
+        typeof result.challengeDigest!=='string'||!/^[a-f0-9]{64}$/.test(result.challengeDigest))return unknown();
+      const dispose=Object.getOwnPropertyDescriptor(result,Symbol.dispose);
+      if(dispose&&typeof dispose.value==='function')try{dispose.value.call(result)}catch{}
       return Response.json({status:'KEY_POSSESSION_CONFIRMED',sourceSha:result.sourceSha,
         sessionId:result.sessionId,challengeDigest:result.challengeDigest,actionsExecuted:0},
         {headers:{'cache-control':'no-store'}});
