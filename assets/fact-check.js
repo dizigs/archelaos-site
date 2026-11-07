@@ -1,112 +1,141 @@
-/* Anonymous historical leads — no scored answers, public tallies or auto-publishing. */
+/* One card at a time; all historical answers are private research leads, never graded. */
 (()=>{'use strict';
-const section=document.getElementById('arch-factcheck-promo');if(!section)return;
+const root=document.getElementById('arch-factcheck-promo');if(!root)return;
 const $=id=>document.getElementById(id);
-const grid=$('fc-grid'),filter=$('fc-filter'),search=$('fc-search'),more=$('fc-more'),dialog=$('fc-dialog');
-const sitekey='0x4AAAAAAFoyKwIFuvMbrcAd', labels={true:'Σωστό',false:'Λάθος',unknown:'Δεν γνωρίζω'};
-let claims=[],shown=[],limit=12,selected=null,ready=false,catalogError=false,widget=null,token='',previousFocus=null;
-const replied=new Set();
-const elt=(tag,cls,text)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined)e.textContent=text;return e};
-function updateStatus(){
- section.dataset.collection=ready?'ready':'unavailable';
- const p=$('fc-load-error');
- if(catalogError){p.textContent='Το αρχείο ερωτημάτων δεν φορτώθηκε. Μπορείς να επικοινωνήσεις με το ιστορικό αρχείο.';p.hidden=false;return;}
- if(!ready){p.textContent='Η ηλεκτρονική υποβολή δεν είναι αυτή τη στιγμή διαθέσιμη. Μπορείς να διαβάσεις τα διλήμματα και να στείλεις μαρτυρία από την Επικοινωνία.';p.hidden=false;return;}
- p.hidden=true;
+const host=$('fc-grid'),counter=$('fc-count'),progress=$('fc-progress-fill');
+const error=$('fc-load-error'),notice=$('fc-save-status'),security=$('fc-security'),retry=$('fc-retry');
+const defaultOptions=[{value:'true',label:'Σωστό'},{value:'false',label:'Λάθος'},{value:'unknown',label:'Δεν γνωρίζω'}];
+let questions=[],position=0,ready=false,sitekey='',widget=null,token='',inFlight=false,paused=false,stored=0,loaded=false;
+const pending=[];
+const make=(tag,cls,value)=>{const el=document.createElement(tag);if(cls)el.className=cls;if(value!==undefined)el.textContent=value;return el;};
+function message(value){error.hidden=!value;if(value)error.textContent=value;}
+function state(){
+ root.dataset.collection=ready?'ready':'unavailable';
+ const unsaved=pending.length;
+ security.hidden=!ready||(loaded&&position>=questions.length&&unsaved===0);
+ retry.hidden=!paused;
+ if(!ready)notice.textContent='Η αποστολή δεν είναι διαθέσιμη. Δεν καταχωρίζονται απαντήσεις.';
+ else if(paused)notice.textContent=unsaved+' απαντήσεις δεν έχουν αποθηκευτεί. Πάτησε «Επανάληψη αποστολής».';
+ else if(unsaved)notice.textContent=stored+' αποθηκευμένες · '+unsaved+' σε αναμονή ασφαλούς αποστολής.';
+ else if(stored)notice.textContent=stored+' απαντήσεις αποθηκεύτηκαν ιδιωτικά για έλεγχο.';
+ else notice.textContent='Οι απαντήσεις αποθηκεύονται ιδιωτικά, χωρίς βαθμολογία.';
 }
-async function availability(){
- try{const r=await fetch('/api/fact-check',{cache:'no-store'});if(!r.ok)throw Error();const data=await r.json();ready=data?.ready===true;}
- catch{ready=false;}
- updateStatus();
-}
-function render(){
- grid.replaceChildren();const visible=shown.slice(0,limit);
- for(const item of visible){
-  const card=elt('article','fc-card');card.id='fact-'+item.id;
-  const top=elt('div','fc-card-top');top.append(elt('span','',item.id),elt('span','fc-category',item.category));card.append(top,elt('p','fc-card-claim',item.claim));
-  const actions=elt('div','fc-card-choices');actions.setAttribute('role','group');actions.setAttribute('aria-label','Απάντηση για το '+item.id);
-  for(const [choice,label] of Object.entries(labels)){
-   const b=elt('button','',label);b.type='button';b.disabled=replied.has(item.id);b.addEventListener('click',()=>open(item,choice,b));actions.append(b);
-  }
-  card.append(actions);
-  if(replied.has(item.id)){
-   const confirmation=elt('p','fc-card-responded','Η μαρτυρία σου παραλήφθηκε για έλεγχο. Ευχαριστούμε!');
-   confirmation.tabIndex=-1;card.append(confirmation);
-  }
-  grid.append(card);
+function focusHeading(){const t=host.querySelector('.fc-question');if(t)t.focus({preventScroll:true});}
+function render(focus=false){
+ host.replaceChildren();
+ if(!loaded){counter.textContent='Φόρτωση ιστορικών ερωτημάτων…';return;}
+ const total=questions.length;
+ counter.textContent=position>=total?total+' από '+total+' · Ολοκληρώθηκε':(position+1)+' από '+total+' ιστορικά ερωτήματα';
+ progress.style.width=(total?Math.round(100*position/total):0)+'%';
+ if(position>=total){
+  const card=make('article','fc-card fc-finished');
+  const title=make('h3','fc-question','Σε ευχαριστούμε που βοηθάς την ιστορία του Αρχέλαου!');title.tabIndex=-1;
+  card.append(title,make('p','fc-finished-desc','Δεν υπάρχουν σωστές ή λανθασμένες βαθμολογίες. Οι εκτιμήσεις σου θα αξιολογηθούν ως ιστορικές μαρτυρίες.'));
+  if(pending.length)card.append(make('p','fc-pending-alert','Έλεγξε την κατάσταση αποστολής παρακάτω πριν κλείσεις τη σελίδα.'));
+  host.append(card);if(focus)focusHeading();state();return;
  }
- $('fc-count').textContent=shown.length+' από τα 61 ιστορικά διλήμματα · εμφανίζονται '+visible.length;
- more.hidden=limit>=shown.length;
+ const item=questions[position],card=make('article','fc-card');
+ const meta=make('div','fc-card-top');
+ meta.append(make('span','fc-category',item.category),make('span','fc-id','Ερώτημα '+(position+1)));
+ const title=make('h3','fc-question',item.claim);title.tabIndex=-1;
+ const prompt=make('p','fc-hint',Array.isArray(item.alternatives)?'Ποια εκδοχή θυμάσαι;':'Τι πιστεύεις ότι ισχύει;');
+ const actions=make('div','fc-card-choices');actions.setAttribute('role','group');actions.setAttribute('aria-label','Επιλογή απάντησης');
+ const options=Array.isArray(item.alternatives)?
+  [{value:'true',label:item.alternatives[0]},{value:'false',label:item.alternatives[1]},{value:'unknown',label:'Δεν γνωρίζω'}]:
+  defaultOptions;
+ for(const choice of options){
+  const button=make('button','fc-answer',choice.label);button.type='button';button.disabled=!ready;
+  button.addEventListener('click',()=>choose(item,choice.value));
+  actions.append(button);
+ }
+ const extras=make('details','fc-extra');
+ const summary=make('summary','','Θέλω να προσθέσω κάτι που θυμάμαι (προαιρετικό)');
+ const label1=make('label','fc-extra-label','Η μαρτυρία σου');
+ const note=make('textarea','fc-evidence');note.id='fc-evidence';note.maxLength=600;note.rows=3;
+ note.placeholder='Ένα γεγονός, ένα πρόσωπο ή κάτι που θυμάσαι…';
+ const label2=make('label','fc-extra-label','Σύνδεσμος πηγής (προαιρετικός)');
+ const link=make('input','fc-reference');link.id='fc-url';link.type='url';link.maxLength=350;
+ link.placeholder='https://…';link.autocomplete='off';
+ label1.append(note);label2.append(link);extras.append(summary,label1,label2);
+ const footer=make('div','fc-card-footer');
+ const skip=make('button','fc-skip','Παράλειψη');skip.type='button';
+ skip.addEventListener('click',()=>{position+=1;render(true);});
+ const inlineError=make('p','fc-inline-error');inlineError.id='fc-inline-error';inlineError.setAttribute('role','status');
+ footer.append(skip,inlineError);
+ card.append(meta,title,prompt,extras,actions,footer);host.append(card);
+ if(focus)focusHeading();state();
 }
-function refilter(){
- const q=search.value.trim().toLocaleLowerCase('el-GR'),category=filter.value;
- shown=claims.filter(x=>(!category||x.category===category)&&(!q||[x.claim,x.category,x.id].join(' ').toLocaleLowerCase('el-GR').includes(q)));
- limit=12;render();
+function choose(item,choice){
+ if(!ready||!crypto?.randomUUID)return;
+ const evidence=$('fc-evidence').value.trim(),referenceUrl=$('fc-url').value.trim();
+ if(referenceUrl){
+  try{const u=new URL(referenceUrl);
+   if(u.protocol!=='https:'||u.username||u.password)throw Error('url');
+  }catch{$('fc-inline-error').textContent='Ο σύνδεσμος πρέπει να είναι έγκυρη διεύθυνση https://';return;}
+ }
+ const answer={claimId:item.id,choice,receipt:crypto.randomUUID(),evidence,referenceUrl};
+ pending.push(answer);
+ position+=1;render(true);
+ void send();
 }
-async function catalog(){
+function ensureSecurity(){
+ if(!ready)return;
+ if(window.turnstile){if(widget===null)try{
+  widget=window.turnstile.render('#fc-turnstile',{
+   sitekey,action:'fact_check',theme:'light',
+   callback:value=>{token=value;void send();},
+   'expired-callback':()=>{token='';},
+   'error-callback':()=>{token='';}
+  });
+ }catch{message('Ο έλεγχος ασφαλείας δεν φορτώθηκε. Οι απαντήσεις δεν αποθηκεύονται.');}
+  return;}
+ if(document.querySelector('script[data-fc-turnstile]'))return;
+ const script=document.createElement('script');script.dataset.fcTurnstile='true';
+ script.src='https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+ script.async=true;script.addEventListener('load',ensureSecurity);
+ script.addEventListener('error',()=>message('Ο έλεγχος ασφαλείας δεν φορτώθηκε.'));
+ document.head.append(script);
+}
+async function send(){
+ if(inFlight||paused||!ready||!token||!pending.length)return;
+ inFlight=true;const batch=pending.slice(0,4),used=token;token='';state();
+ try{
+  const response=await fetch('/api/fact-check',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+    catalogVersion:1,turnstileToken:used,answers:batch
+  })});
+  const body=await response.json().catch(()=>({}));
+  if(!response.ok||body.ok!==true||body.accepted!==batch.length)throw Error('unconfirmed');
+  pending.splice(0,batch.length);stored+=batch.length;
+ }catch{paused=true;}
+ finally{
+  inFlight=false;state();
+  if(!paused&&widget!==null)try{window.turnstile?.reset(widget);}catch{message('Ο έλεγχος ασφαλείας χρειάζεται επαναφόρτωση.');}
+ }
+}
+async function readiness(){
+ try{
+  const r=await fetch('/api/fact-check',{cache:'no-store'});if(!r.ok)throw Error('api');
+  const obj=await r.json();
+  ready=obj?.ready===true&&typeof obj.sitekey==='string'&&obj.sitekey.length>10;
+  sitekey=ready?obj.sitekey:'';
+ }catch{ready=false;}
+ state();if(ready)ensureSecurity();if(loaded)render();
+}
+async function loadQuestions(){
  try{
   const r=await fetch('/assets/fact-check-claims.json',{cache:'no-store'});if(!r.ok)throw Error();
-  const payload=await r.json();
-  if(payload.schema_version!==1||!Array.isArray(payload.items)||payload.items.length!==61||new Set(payload.items.map(x=>x.id)).size!==61)throw Error();
-  claims=payload.items;shown=claims;catalogError=false;
-  for(const name of [...new Set(claims.map(x=>x.category))].sort((a,b)=>a.localeCompare(b,'el'))){const option=elt('option','',name);option.value=name;filter.append(option);}
-  render();
- }catch{catalogError=true;}
- updateStatus();
+  const obj=await r.json();if(obj.schema_version!==1||!Array.isArray(obj.items)||obj.items.length!==61||
+    new Set(obj.items.map(x=>x.id)).size!==61||obj.items.some(x=>!/^TF0(?:[0-5][0-9]|6[01])$/.test(x.id)||
+      x.status!=='unverified'||typeof x.claim!=='string'||(x.alternatives&&
+        (!Array.isArray(x.alternatives)||x.alternatives.length!==2||x.alternatives.some(v=>typeof v!=='string'||!v.trim())))))throw Error('invalid');
+  questions=obj.items;loaded=true;render();
+ }catch{loaded=true;questions=[];render();message('Τα ιστορικά ερωτήματα δεν φορτώθηκαν. Δοκίμασε ξανά αργότερα.');}
 }
-function turnstileWidget(){
- if(!dialog.open||!window.turnstile)return;
- try{
-  if(widget===null)widget=window.turnstile.render('#fc-turnstile',{
-   sitekey,action:'fact_check',theme:'light',
-   callback:value=>{token=value;$('fc-form-status').textContent=''},
-   'expired-callback':()=>{token=''},'error-callback':()=>{token=''}
-  });else window.turnstile.reset(widget);
- }catch{$('fc-form-status').textContent='Ο έλεγχος ασφαλείας δεν είναι διαθέσιμος.';}
-}
-function ensureTurnstile(){
- if(window.turnstile){turnstileWidget();return;}
- if(document.querySelector('script[data-fc-turnstile]'))return;
- const s=document.createElement('script');s.dataset.fcTurnstile='true';
- s.src='https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';s.async=true;
- s.addEventListener('load',turnstileWidget);
- s.addEventListener('error',()=>{$('fc-form-status').textContent='Δεν φορτώθηκε ο έλεγχος ασφαλείας.'});
- document.head.append(s);
-}
-function open(item,choice,button){
- previousFocus=button;
- selected={id:item.id,choice,receipt:crypto.randomUUID(),catalogVersion:1};
- token='';
- $('fc-dialog-claim').textContent=item.claim;
- $('fc-dialog-choice').textContent='Η εκτίμησή σου: '+labels[choice];
- $('fc-evidence').value='';$('fc-url').value='';
- $('fc-form-status').textContent=ready?'':'Η υποβολή δεν είναι διαθέσιμη. Στείλε μας τεκμήριο μέσω της Επικοινωνίας.';
- $('fc-submit').disabled=!ready;
- dialog.showModal();if(ready)ensureTurnstile();
-}
-function close(){dialog.close();previousFocus?.focus();}
-async function submit(e){
- e.preventDefault();if(!selected||!ready)return;
- const evidence=$('fc-evidence').value.trim(),referenceUrl=$('fc-url').value.trim();
- if(referenceUrl){try{if(new URL(referenceUrl).protocol!=='https:')throw Error();}catch{$('fc-form-status').textContent='Ο σύνδεσμος πρέπει να αρχίζει με https://';return;}}
- if(!token){$('fc-form-status').textContent='Ολοκλήρωσε πρώτα τον έλεγχο ασφαλείας.';return;}
- const send=$('fc-submit');send.disabled=true;$('fc-form-status').textContent='Καταχώριση μαρτυρίας…';
- try{
-  const r=await fetch('/api/fact-check',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
-   claimId:selected.id,choice:selected.choice,receipt:selected.receipt,catalogVersion:selected.catalogVersion,evidence,referenceUrl,turnstileToken:token
-  })});
-  const result=await r.json().catch(()=>({}));
-  if(!r.ok||result?.ok!==true)throw Error();
-  const id=selected.id;replied.add(id);dialog.close();render();
-  $('fact-'+id)?.querySelector('.fc-card-responded')?.focus();
- }catch{
-  $('fc-form-status').textContent='Δεν καταχωρίστηκε η μαρτυρία. Δοκίμασε ξανά ή χρησιμοποίησε την Επικοινωνία.';
-  token='';try{window.turnstile?.reset(widget);}catch{}
- }finally{send.disabled=false;}
-}
-search.addEventListener('input',refilter);filter.addEventListener('change',refilter);
-more.addEventListener('click',()=>{limit+=12;render()});
-$('fc-close').addEventListener('click',close);$('fc-cancel').addEventListener('click',close);
-$('fc-form').addEventListener('submit',submit);
-void catalog();void availability();
+retry.addEventListener('click',()=>{
+ paused=false;state();
+ if(widget!==null){try{window.turnstile?.reset(widget);}catch{message('Δεν είναι διαθέσιμος ο έλεγχος ασφαλείας.');}}
+ else ensureSecurity();
+ void send();
+});
+void loadQuestions();void readiness();
 })();

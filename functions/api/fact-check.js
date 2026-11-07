@@ -44,6 +44,67 @@ export async function onRequestPost({request,env}){
  if(Number(request.headers.get('Content-Length')||0)>6000)return json(413,{ok:false,error:'too_large'});
  const data=await boundedJSON(request);
  if(data?.oversize)return json(413,{ok:false,error:'too_large'});
+
+ // Fast card flow: a single verified Turnstile token can save up to four
+ // already-selected responses. Existing single-response clients stay compatible.
+ if(Array.isArray(data?.answers)){
+  const input=data.answers;
+  if(data.catalogVersion!==1||input.length<1||input.length>4||
+     new Set(input.map(x=>x?.claimId)).size!==input.length||
+     new Set(input.map(x=>x?.receipt)).size!==input.length)
+   return json(400,{ok:false,error:'invalid_batch'});
+  const entries=[];
+  for(const item of input){
+   if(!item||typeof item!=='object'||Array.isArray(item)||!validClaim(item.claimId)||
+      !['true','false','unknown'].includes(item.choice)||!validReceipt(item.receipt))
+    return json(400,{ok:false,error:'invalid_claim'});
+   const evidence=clean(item.evidence===undefined?'':item.evidence,600);
+   const referenceUrl=clean(item.referenceUrl===undefined?'':item.referenceUrl,350);
+   if(evidence===null||referenceUrl===null)return json(400,{ok:false,error:'invalid_fields'});
+   if(referenceUrl){try{
+    const u=new URL(referenceUrl),host=u.hostname.toLowerCase();
+    if(u.protocol!=='https:'||u.username||u.password||host==='localhost'||
+       host.endsWith('.local')||host.endsWith('.internal')||
+       /^(127\\.|10\\.|192\\.168\\.|169\\.254\\.|0\\.)/.test(host))
+      return json(400,{ok:false,error:'invalid_url'});
+   }catch{return json(400,{ok:false,error:'invalid_url'});}}
+   entries.push({claimId:item.claimId,choice:item.choice,receipt:item.receipt,evidence,referenceUrl});
+  }
+  if(!await verifyTurnstile(data.turnstileToken,request,env.TURNSTILE_SECRET))
+   return json(403,{ok:false,error:'verification_failed'});
+  try{
+   const insert=[];
+   for(const item of entries){
+    const existing=await env.FACTCHECK_DB.prepare(
+     'SELECT claim_id,choice,evidence,reference_url FROM factcheck_responses WHERE receipt=?'
+    ).bind(item.receipt).first();
+    if(existing){
+     if(existing.claim_id!==item.claimId||existing.choice!==item.choice||
+        existing.evidence!==item.evidence||existing.reference_url!==item.referenceUrl)
+      return json(409,{ok:false,error:'receipt_conflict'});
+    }else insert.push(item);
+   }
+   if(insert.length){
+    // D1 batch is atomic; no per-card round trips and no extra Turnstile challenge per card.
+    const statements=insert.map(item=>env.FACTCHECK_DB.prepare(
+     'INSERT OR IGNORE INTO factcheck_responses (receipt,claim_id,choice,evidence,reference_url) VALUES (?,?,?,?,?)'
+    ).bind(item.receipt,item.claimId,item.choice,item.evidence,item.referenceUrl));
+    const results=await env.FACTCHECK_DB.batch(statements);
+    if(!Array.isArray(results)||results.length!==insert.length)throw Error('batch_failed');
+    // Race-safe final receipt validation; never report success on an unconfirmed write.
+    for(const item of insert){
+     const actual=await env.FACTCHECK_DB.prepare(
+      'SELECT claim_id,choice,evidence,reference_url FROM factcheck_responses WHERE receipt=?'
+     ).bind(item.receipt).first();
+     if(!actual||actual.claim_id!==item.claimId||actual.choice!==item.choice||
+        actual.evidence!==item.evidence||actual.reference_url!==item.referenceUrl)
+      return json(409,{ok:false,error:'receipt_conflict'});
+    }
+   }
+   return json(insert.length?201:202,{ok:true,accepted:entries.length,duplicate:!insert.length});
+  }catch{return json(503,{ok:false,error:'storage_unavailable'});}
+ }
+
  if(!data||typeof data!=='object'||Array.isArray(data)||!validClaim(data.claimId)||
     !['true','false','unknown'].includes(data.choice)||data.catalogVersion!==1||!validReceipt(data.receipt))
   return json(400,{ok:false,error:'invalid_claim'});
