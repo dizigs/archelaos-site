@@ -15,7 +15,7 @@ SHA = "95c8ea0c7666f47986c8c9b85e2d3ded1b7c3204"
 BASE = "https://generativelanguage.googleapis.com/v1beta"
 OUT = pathlib.Path(os.environ.get("RUNNER_TEMP", "/tmp")) / "antigravity-snapshot-recovery"
 OUT.mkdir(parents=True, exist_ok=True)
-ROOT = pathlib.Path.cwd()
+ROOT = pathlib.Path.cwd() / "original-pr288"
 ALLOW = ("brain/src/", "brain/qa/", "brain/test/", "automation/self-heal-worker/test/",
          "automation/self-heal-worker/src/")
 SENSITIVE = re.compile(r"(?i)(?:-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----|"
@@ -46,7 +46,7 @@ def within_repo(name):
     if any(seg.startswith(".") for seg in sub.split("/")): return None
     return sub
 def main():
-    actual = subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
+    actual = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
     if actual != SHA: raise RuntimeError("EXACT_SOURCE_SHA_MISMATCH")
     env = getjson(BASE + "/environments/" + ENV)
     results["environmentAvailable"] = env.get("environment_id") == ENV

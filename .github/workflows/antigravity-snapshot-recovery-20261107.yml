@@ -17,7 +17,13 @@ jobs:
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Checkout exact former PR source as read-only baseline
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
           ref: '95c8ea0c7666f47986c8c9b85e2d3ded1b7c3204'
+          path: original-pr288
           persist-credentials: false
       - name: Inspect retained environment, no new agent/no write
         env:
