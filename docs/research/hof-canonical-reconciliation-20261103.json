@@ -6,16 +6,16 @@
     "canonical": 774,
     "historical": 680,
     "shared": 680,
-    "divergent_people": 75,
-    "divergent_fields": 129,
+    "divergent_people": 77,
+    "divergent_fields": 133,
     "fields": {
-      "bio": 75,
-      "bio_en": 53,
+      "bio": 77,
+      "bio_en": 55,
       "name": 1
     },
     "classifications": {
       "BLOCKED_SOURCE": 4,
-      "LEGACY_TEXT_RETAINED": 103,
+      "LEGACY_TEXT_RETAINED": 107,
       "QUALIFIED_ARCHIVE": 9,
       "SEMANTICALLY_RETAINED": 11,
       "SPELLING_CORRECTION": 2
@@ -257,6 +257,24 @@
           "classification": "LEGACY_TEXT_RETAINED",
           "legacy_sha256": "fe6643f2f00ebc534f913e7cb34e7ad22dd790dc906460397faf21bf2d248b4b",
           "canonical_sha256": "f4f711714f0f79be08f8445f39490e3ef7997b7a0023d1f1f6f073ee2aee9268"
+        }
+      ]
+    },
+    {
+      "id": "arch-2fa53787e4c6",
+      "name": "Αθανάσιος Τρυγώνης",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "c102ee98b3d9ce021bf5dfcb2ee7941a33e77319541bf206451b15182832bbb4",
+          "canonical_sha256": "cfb592a8f2535a6d64aaf8bd4afd72c7d9923c72f4f54d4e06b1ad74d33089fc"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "bf5af802fedeaeaddacba9f1e53eacad11526bf389b5d53adc3e40899d57177d",
+          "canonical_sha256": "322fe74248c9c18f5b81806b87f04d737c677f3ef791952e719c57121682f9f2"
         }
       ]
     },
@@ -595,6 +613,24 @@
           "classification": "LEGACY_TEXT_RETAINED",
           "legacy_sha256": "3b833eaebcad411a8b464a54ce23e80d8a463c053b0ebbac936bf2a67696bb4b",
           "canonical_sha256": "120648a4712ff1296876c00e0d22f32ecfdd54a4e457db60dafc0657b4572d50"
+        }
+      ]
+    },
+    {
+      "id": "arch-76d5e1b729ae",
+      "name": "Νίκος Παπανικολάου",
+      "fields": [
+        {
+          "field": "bio",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "f94e9a739dc3683c161f87453726fa3287fa5f3877c019a9f07189c86cf2e2bf",
+          "canonical_sha256": "c18c775b5654625b3d3a3bf4757366be8421787e7070d85354b2daa2df0264f5"
+        },
+        {
+          "field": "bio_en",
+          "classification": "LEGACY_TEXT_RETAINED",
+          "legacy_sha256": "d2aef3ae8e7f6c71e33f6d062872db53350badb4077ffb2545c22937d9e4a49e",
+          "canonical_sha256": "db423b1a1f2a784c0dddbb58dc4f59e0e86edde6f0d5ad34b73845d59e8c4ff3"
         }
       ]
     },
