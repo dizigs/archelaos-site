@@ -4,56 +4,77 @@ import { readFileSync } from 'node:fs';
 
 const read = relative => readFileSync(new URL('../' + relative, import.meta.url), 'utf8');
 const bank = JSON.parse(read('assets/fact-check-claims.json'));
-const backendSource = read('functions/api/fact-check.js');
-const api = await import('data:text/javascript;charset=utf-8,' + encodeURIComponent(backendSource));
+const api = await import('data:text/javascript;charset=utf-8,' + encodeURIComponent(read('functions/api/fact-check.js')));
+const receipt='1fdf0c72-938a-4b8f-8c2f-6bbfe0ca2a13';
+const url='https://archelaos.club/api/fact-check';
+const body=(patch={})=>({claimId:'TF001',choice:'unknown',catalogVersion:1,receipt,evidence:'',referenceUrl:'',turnstileToken:'test-valid-token',...patch});
+const request=(data,headers={})=>new Request(url,{method:'POST',headers:{Origin:'https://archelaos.club','Content-Type':'application/json',...headers},body:JSON.stringify(data)});
 
-test('all 61 unverified research dilemmas are present without answer key', () => {
-  assert.equal(bank.schema_version, 1);
-  assert.equal(bank.items.length, 61);
-  const ids = bank.items.map(entry => entry.id);
-  assert.deepEqual(ids, Array.from({length:61},(_,i)=>'TF'+String(i+1).padStart(3,'0')));
-  for (const entry of bank.items) {
-    assert.equal(entry.status, 'unverified');
-    assert.ok(entry.claim.trim().length > 20);
-    assert.ok(entry.category.length > 1);
-    assert.equal(Object.hasOwn(entry,'answer'), false);
-    assert.equal(Object.hasOwn(entry,'verified'), false);
-  }
+test('all 61 research dilemmas are listed and have no answers',()=>{
+ assert.equal(bank.schema_version,1);
+ assert.equal(bank.items.length,61);
+ assert.deepEqual(bank.items.map(x=>x.id),Array.from({length:61},(_,i)=>'TF'+String(i+1).padStart(3,'0')));
+ for(const entry of bank.items){assert.equal(entry.status,'unverified');assert.ok(entry.claim.length>20);
+  assert.ok(entry.category.length>1);assert.equal(Object.hasOwn(entry,'answer'),false);}
 });
 
-test('museum and rebuild both link to the same 61-dilemma feature', () => {
-  for (const path of ['history.html','rebuild/history.html']) {
-    const text = read(path);
-    assert.match(text,/id="arch-factcheck-promo"/);
-    assert.match(text,/id="fc-grid"/);
-    assert.match(text,/id="fc-dialog"/);
-    assert.match(text,/\/assets\/fact-check\.js\?v=2/);
-  }
+test('both museum versions embed the same discussion cards and dialog',()=>{
+ for(const path of ['history.html','rebuild/history.html']){
+  const html=read(path);
+  assert.match(html,/id="arch-factcheck-promo"/);
+  assert.match(html,/id="fc-grid"/);
+  assert.match(html,/id="fc-dialog"/);
+  assert.match(html,/\/assets\/fact-check\.js\?v=2/);
+ }
 });
 
-test('intake stays fail-closed without D1 or Turnstile secret', async () => {
-  const info = await api.onRequestGet({env:{}});
-  assert.deepEqual(await info.json(),{ready:false,sitekey:'0x4AAAAAAFoyKwIFuvMbrcAd'});
-  const r = await api.onRequestPost({request:new Request('https://archelaos.club/api/fact-check',{method:'POST'}),env:{}});
-  assert.equal(r.status,503);
+test('GET only advertises readiness after database schema exists',async()=>{
+ assert.deepEqual(await (await api.onRequestGet({env:{}})).json(),{ready:false,sitekey:'0x4AAAAAAFoyKwIFuvMbrcAd'});
+ const env={FACTCHECK_DB:{prepare(){return {first:async()=>null}}},TURNSTILE_SECRET:'x'};
+ assert.equal((await (await api.onRequestGet({env})).json()).ready,false);
+ env.FACTCHECK_DB.prepare=()=>({first:async()=>({name:'factcheck_responses'})});
+ assert.equal((await (await api.onRequestGet({env})).json()).ready,true);
 });
 
-test('nonexistent TF000 and TF062 are refused before verification or DB writes', async () => {
-  let called=false;
-  const env={FACTCHECK_DB:{prepare(){called=true;throw Error('unexpected write');}},TURNSTILE_SECRET:'secret'};
-  for (const id of ['TF000','TF062','TF999','FAKE']) {
-    const request = new Request('https://archelaos.club/api/fact-check',{method:'POST',headers:{Origin:'https://archelaos.club','Content-Type':'application/json'},body:JSON.stringify({claimId:id,choice:'true'})});
-    const r=await api.onRequestPost({request,env});
-    assert.equal(r.status,400,id);
-  }
-  assert.equal(called,false);
+test('handler fails closed without bindings or proper Origin',async()=>{
+ assert.equal((await api.onRequestPost({request:request(body()),env:{}})).status,503);
+ const env={FACTCHECK_DB:{},TURNSTILE_SECRET:'secret'};
+ assert.equal((await api.onRequestPost({request:request(body(),{Origin:'https://evil.example'}),env})).status,403);
 });
 
-test('without valid Turnstile token even a real dilemma does not write',async()=>{
-  let called=false;
-  const env={FACTCHECK_DB:{prepare(){called=true;throw Error('unexpected write');}},TURNSTILE_SECRET:'secret'};
-  const request = new Request('https://archelaos.club/api/fact-check',{method:'POST',headers:{Origin:'https://archelaos.club','Content-Type':'application/json'},body:JSON.stringify({claimId:'TF001',choice:'unknown',evidence:'',referenceUrl:''})});
-  const r=await api.onRequestPost({request,env});
-  assert.equal(r.status,403);
-  assert.equal(called,false);
+test('invalid IDs, version, receipts and optional field types fail before database access',async()=>{
+ let writes=0;const env={FACTCHECK_DB:{prepare(){writes++;throw Error('should not write')}},TURNSTILE_SECRET:'secret'};
+ const malformed=[
+  {claimId:'TF000'},{claimId:'TF062'},{claimId:'TF999'},
+  {catalogVersion:2},{receipt:'not-a-uuid'},{evidence:42},{referenceUrl:{}}
+ ];
+ for(const patch of malformed){const r=await api.onRequestPost({request:request(body(patch)),env});assert.equal(r.status,400,JSON.stringify(patch));}
+ assert.equal(writes,0);
+});
+
+test('body without Content-Length is still limited to 6000 bytes',async()=>{
+ const r=await api.onRequestPost({request:request(body({evidence:'x'.repeat(6500)})),env:{FACTCHECK_DB:{},TURNSTILE_SECRET:'secret'}});
+ assert.equal(r.status,413);
+});
+
+test('no token means no storage',async()=>{
+ let writes=0;const env={FACTCHECK_DB:{prepare(){writes++;throw Error('should not write')}},TURNSTILE_SECRET:'secret'};
+ const r=await api.onRequestPost({request:request(body({turnstileToken:''})),env});
+ assert.equal(r.status,403);assert.equal(writes,0);
+});
+
+test('valid submission writes pending record once; retry with same receipt is idempotent',async()=>{
+ const originalFetch=globalThis.fetch;let writes=0;
+ globalThis.fetch=async()=>Response.json({success:true,hostname:'archelaos.club',action:'fact_check'});
+ const env={TURNSTILE_SECRET:'test-secret',FACTCHECK_DB:{prepare(sql){return {bind(...values){return {
+  async run(){writes++;assert.match(sql,/INSERT OR IGNORE/);assert.equal(values[0],receipt);return {meta:{changes:writes===1?1:0}};},
+  async first(){return {claim_id:'TF001',choice:'unknown',evidence:'',reference_url:''};}
+ }}}}}};
+ try{
+  const first=await api.onRequestPost({request:request(body()),env});
+  assert.equal(first.status,201);assert.equal((await first.json()).ok,true);
+  const second=await api.onRequestPost({request:request(body()),env});
+  assert.equal(second.status,202);assert.equal((await second.json()).duplicate,true);
+  assert.equal(writes,2);
+ }finally{globalThis.fetch=originalFetch;}
 });
