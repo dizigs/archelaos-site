@@ -15,7 +15,7 @@
 <script defer src="/rebuild/js/favorites.js"></script>
 <link rel="stylesheet" href="/rebuild/css/support-footer.css">
 <script defer src="/rebuild/js/support-footer.js"></script>
-<link rel="stylesheet" href="/assets/fact-check.css?v=1">
+<link rel="stylesheet" href="/assets/fact-check.css?v=2">
 </head><body>
 <a href="#museum-collections" class="mu-skip">Μετάβαση στις συλλογές</a>
 <main id="main-content">
@@ -34,7 +34,17 @@
 <p class="mu-desc">Γεγονότα που έγραψαν ιστορία και άνθρωποι που την έκαναν πράξη.</p>
 <div id="mu-collection-cards" class="arch-cards"></div>
 </div></section>
-<section id="arch-factcheck-promo" aria-label="Fact Check · Διαδραστικό παιχνίδι του μουσείου"><a class="fc-promo" href="/fact-check.html"><span class="fc-promo-copy"><span class="fc-promo-kicker">ΤΟ ΜΟΥΣΕΙΟ ΓΙΝΕΤΑΙ ΠΑΙΧΝΙΔΙ</span><strong class="fc-promo-title">Fact <em>Check.</em></strong><span class="fc-promo-desc">Σωστό ή λάθος; Δοκίμασε τις γνώσεις σου για τον Αρχέλαο με ιστορικές ερωτήσεις, εξηγήσεις και τεκμηριωμένες πηγές.</span><span class="fc-promo-chip">Παίξε τώρα · 10 ερωτήσεις</span></span><span class="fc-promo-art" aria-hidden="true">? <small>TRUE / FALSE</small></span></a></section>
+<section id="arch-factcheck-promo" aria-labelledby="arch-fc-title" data-factcheck="research" aria-label="Fact Check · Βοήθησε να τεκμηριώσουμε την ιστορία">
+  <div class="fc-wrap">
+    <header class="fc-heading"><div><span class="fc-super">ΣΥΜΜΕΤΟΧΙΚΗ ΙΣΤΟΡΙΚΗ ΕΡΕΥΝΑ · Ο ΑΡΧΕΛΑΟΣ ΡΩΤΑ</span><h2 id="arch-fc-title">Fact <em>Check.</em></h2><p class="fc-lead">Εξήντα ένα ιστορικά διλήμματα ζητούν τη δική σου μνήμη. Ξέρεις κάτι; Έχεις μια φωτογραφία, ένα δημοσίευμα, ένα παλιό πρόγραμμα αγώνα; Η μαρτυρία σου μπορεί να συμπληρώσει ένα κομμάτι της ιστορίας μας.</p><p class="fc-disclaimer"><strong>Είναι ισχυρισμοί προς έλεγχο, όχι καταγεγραμμένα γεγονότα.</strong> Οι απαντήσεις δεν αποδεικνύουν από μόνες τους τι συνέβη και δεν δημοσιοποιούνται ως αποτελέσματα ψηφοφορίας.</p></div><div class="fc-mark" aria-hidden="true">?<small>1956—2026</small></div></header>
+    <div class="fc-toolbar"><label for="fc-search" class="fc-search-label">Αναζήτηση ιστορικού διλήμματος<input type="search" id="fc-search" placeholder="Αναζήτησε πρόσωπο, άθλημα ή γεγονός" autocomplete="off"></label><label for="fc-filter" class="fc-filter-label">Θεματική ενότητα<select id="fc-filter"><option value="">Όλες οι κατηγορίες</option></select></label></div>
+    <div class="fc-bar"><span id="fc-count" aria-live="polite">Φόρτωση ερευνητικών καρτών…</span><span>Σωστό · Λάθος · Δεν γνωρίζω</span></div>
+    <div id="fc-grid" class="fc-grid" aria-live="off"></div>
+    <p id="fc-load-error" class="fc-error" role="status" hidden></p><button id="fc-more" class="fc-more" type="button" hidden>Δες περισσότερα διλήμματα</button>
+    <div class="fc-under"><strong>Έχεις κάτι να προσθέσεις;</strong><p>Οι μαρτυρίες αποθηκεύονται ιδιωτικά και αξιολογούνται από το ιστορικό αρχείο. Δεν προβάλλουμε ψήφους, δεν εξάγουμε «σωστές» απαντήσεις από πλειοψηφίες και δεν ζητάμε στοιχεία ταυτότητας. <a href="/contact.html?topic=archive">Στείλε πρωτογενές τεκμήριο στο αρχείο</a>.</p></div>
+  </div>
+  <dialog id="fc-dialog" aria-labelledby="fc-dialog-title" class="fc-dialog"><form id="fc-form"><button type="button" class="fc-close" id="fc-close" aria-label="Κλείσιμο">×</button><p class="fc-super">ΜΑΡΤΥΡΙΑ ΓΙΑ ΤΟ ΑΡΧΕΙΟ</p><h3 id="fc-dialog-title">Τι γνωρίζεις;</h3><p id="fc-dialog-claim" class="fc-claim-text"></p><p id="fc-dialog-choice" class="fc-dialog-choice"></p><label class="fc-input-label" for="fc-evidence">Τι γνωρίζεις σχετικά; <small>(προαιρετικό)</small><textarea id="fc-evidence" maxlength="1200" rows="4" placeholder="Πες μας τι θυμάσαι ή από πού προκύπτει η πληροφορία…"></textarea></label><label class="fc-input-label" for="fc-url">Σύνδεσμος πηγής <small>(προαιρετικό)</small><input type="url" id="fc-url" maxlength="500" placeholder="https://..."></label><p class="fc-privacy">Μην καταχωρείς προσωπικά δεδομένα τρίτων. Η απάντησή σου παραμένει ιδιωτική μέχρι να εξεταστεί. Αν δεν γνωρίζεις, η επιλογή σου βοηθά να εντοπίσουμε τα μεγαλύτερα κενά.</p><div id="fc-turnstile"></div><p class="fc-form-status" id="fc-form-status" role="status" aria-live="polite"></p><div class="fc-dialog-actions"><button type="button" id="fc-cancel" class="fc-cancel">Άκυρο</button><button type="submit" id="fc-submit" class="fc-submit">Αποστολή μαρτυρίας</button></div></form></dialog>
+</section>
 <section class="mu-explore" id="museum-explore"><div class="arch-container"><p class="mu-label">ΨΗΦΙΑΚΟ ΜΟΥΣΕΙΟ</p><h2>Εξερεύνησε το αρχείο</h2>
 <p class="mu-desc">Επίλεξε μια ενότητα και ανακάλυψε το ιστορικό αρχείο.</p>
 <div class="mu-nav-grid"><a href="#museum-exhibits" class="mu-nav-card"><span>01</span><strong>Εκθέματα &amp; Αφηγήσεις</strong><small>Ίδρυση, χρώματα, διοικήσεις και ιστορικά τεκμήρια</small></a>
@@ -60,4 +70,5 @@
 </a>
 </div></section>
 <section class="mu-contribute"><div class="arch-container"><h2>Έχεις μια φωτογραφία ή μια μαρτυρία;</h2><p>Βοήθησέ μας να εμπλουτίσουμε το ψηφιακό αρχείο του συλλόγου.</p><a href="/contact.html">Επικοινώνησε μαζί μας</a></div></section>
-</main></body></html>
+</main><script defer src="/assets/fact-check.js?v=2"></script>
+</body></html>
