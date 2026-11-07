@@ -1,5 +1,6 @@
 """One-shot parent Worker private HMAC proof; operational flags remain OFF."""
 import datetime as dt
+import hashlib
 import importlib.util
 import json
 import os
@@ -103,8 +104,16 @@ def audit(name,b,old):
         deny("HMAC_SECRET_MISSING")
     for k,info in old.items():
         if k not in b or b[k].get("type")!=info["type"]:deny("BINDING_REMOVED")
-        if info.get("namespace_id") and b[k].get("namespace_id")!=info["namespace_id"]:
-            deny("DURABLE_NAMESPACE_DRIFT")
+        for field in ("namespace_id","service","entrypoint","class_name"):
+            if b[k].get(field)!=info.get(field):
+                deny("BINDING_TARGET_CHANGED")
+        if info["type"]=="plain_text" and k not in (
+            "DEPLOY_SHA","PRIVATE_HMAC_ACCEPTANCE_APPROVED_SHA",
+            "PRIVATE_HMAC_ACCEPTANCE_ISOLATED","PRIVATE_HMAC_ACCEPTANCE_SESSION",
+            "PRIVATE_HMAC_ACCEPTANCE_STARTED_AT","PRIVATE_HMAC_ACCEPTANCE_EXPIRES_AT"):
+            value=scalar(b,k)
+            digest=hashlib.sha256(str(value).encode()).hexdigest()
+            if digest!=info.get("value_digest"):deny("UNRELATED_VAR_CHANGED")
     namespace=b.get("HMAC_NONCES",{}).get("namespace_id")
     canonical=b.get("BRAIN" if name==BRAIN else "HEALER_MEMORY",{}).get("namespace_id")
     if not namespace or not canonical or namespace==canonical:deny("QA_DO_ALIASED")
@@ -120,7 +129,11 @@ def snapshot():
             scalar(b,"PRIVATE_HMAC_ACCEPTANCE_APPROVED_SHA")!="0"*40 or
             scalar(b,"PRIVATE_HMAC_ACCEPTANCE_ISOLATED")!="false"):
             deny("BASELINE_NOT_PINNED")
-        old={k:{"type":info.get("type"),"namespace_id":info.get("namespace_id")}
+        old={k:{"type":info.get("type"),"namespace_id":info.get("namespace_id"),
+                "service":info.get("service"),"entrypoint":info.get("entrypoint"),
+                "class_name":info.get("class_name"),
+                "value_digest":hashlib.sha256(str(scalar(b,k)).encode()).hexdigest()
+                               if info.get("type")=="plain_text" else None}
              for k,info in b.items()}
         audit(name,b,old)
         state[name]={"version":v,"bindings":old,"attempted":False,"new_version":None}
