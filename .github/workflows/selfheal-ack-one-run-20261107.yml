@@ -12,7 +12,10 @@ concurrency:
   cancel-in-progress: false
 jobs:
   one-durable-ack-test:
-    if: ${{ github.repository == 'dizigs/archelaos-site' && github.ref == 'refs/heads/qa/selfheal-ack-one-run-20261107' && github.event.head_commit.message == 'qa(ack): run one isolated durable ACK integration test' }}
+    if: >-
+      ${{ github.repository == 'dizigs/archelaos-site' &&
+          github.ref == 'refs/heads/qa/selfheal-ack-one-run-20261107' &&
+          github.event.head_commit.message == 'qa(ack): run one isolated durable ACK integration test' }}
     runs-on: ubuntu-latest
     timeout-minutes: 8
     steps:
