@@ -80,11 +80,11 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-          ref: \${{ github.event.pull_request.head.sha }}
+          ref: ${{ github.event.pull_request.head.sha }}
       - name: Gate one-shot execution on explicit commit subject
         id: once
         env:
-          EXPECTED_SHA: \${{ github.event.pull_request.head.sha }}
+          EXPECTED_SHA: ${{ github.event.pull_request.head.sha }}
         run: |
           test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
           if [ "$(git log -1 --format=%s)" = 'qa(remote): one-shot isolated Cloudflare HMAC acceptance' ]; then
@@ -104,9 +104,9 @@ jobs:
       - name: Run isolated Cloudflare deployment and private HMAC acceptance
         if: steps.once.outputs.enabled == 'true'
         env:
-          CLOUDFLARE_API_TOKEN: \${{ secrets.CLOUDFLARE_STAGING_DEPLOY_TOKEN }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_STAGING_DEPLOY_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: '898359728b3dfe8c3a3f56e3d19eecd1'
-          EXPECTED_SHA: \${{ github.event.pull_request.head.sha }}
+          EXPECTED_SHA: ${{ github.event.pull_request.head.sha }}
           QA_PR: '288'
           WRANGLER_SEND_METRICS: 'false'
         run: python3 brain/qa/cloudflare_isolated_acceptance.py
