@@ -38,7 +38,8 @@ function render(focus=false){
  const meta=make('div','fc-card-top');
  meta.append(make('span','fc-category',item.category),make('span','fc-id','Ερώτημα '+(position+1)));
  const title=make('h3','fc-question',item.claim);title.tabIndex=-1;
- const prompt=make('p','fc-hint',Array.isArray(item.alternatives)?'Ποια εκδοχή θυμάσαι;':'Τι πιστεύεις ότι ισχύει;');
+ const context=make('p','fc-context',item.reviewContext||'Χρειαζόμαστε τη δική σου μαρτυρία για να ελέγξουμε το ιστορικό αρχείο.');
+ const prompt=make('p','fc-hint',Array.isArray(item.alternatives)?'Ποια εκδοχή γνωρίζεις;':'Τι θυμάσαι για αυτό;');
  const actions=make('div','fc-card-choices');actions.setAttribute('role','group');actions.setAttribute('aria-label','Επιλογή απάντησης');
  const options=Array.isArray(item.alternatives)?
   [{value:'true',label:item.alternatives[0]},{value:'false',label:item.alternatives[1]},{value:'unknown',label:'Δεν γνωρίζω'}]:
@@ -62,7 +63,7 @@ function render(focus=false){
  skip.addEventListener('click',()=>{position+=1;render(true);});
  const inlineError=make('p','fc-inline-error');inlineError.id='fc-inline-error';inlineError.setAttribute('role','status');
  footer.append(skip,inlineError);
- card.append(meta,title,prompt,extras,actions,footer);host.append(card);
+ card.append(meta,title,context,prompt,extras,actions,footer);host.append(card);
  if(focus)focusHeading();state();
 }
 function choose(item,choice){
@@ -128,7 +129,16 @@ async function loadQuestions(){
     new Set(obj.items.map(x=>x.id)).size!==61||obj.items.some(x=>!/^TF0(?:[0-5][0-9]|6[01])$/.test(x.id)||
       x.status!=='unverified'||typeof x.claim!=='string'||(x.alternatives&&
         (!Array.isArray(x.alternatives)||x.alternatives.length!==2||x.alternatives.some(v=>typeof v!=='string'||!v.trim())))))throw Error('invalid');
-  questions=obj.items;loaded=true;render();
+  // Keep every historical TF ID in the archive, but never publish unreviewed
+  // intake leads as visitor dilemmas. Only editorially curated discrepancies show.
+  const published=obj.items.filter(x=>x.publicReview===true);
+  if(!published.length||published.length>25||
+     obj.items.some(x=>typeof x.publicReview!=='boolean')||
+     published.some(x=>typeof x.reviewContext!=='string'||!x.reviewContext.trim()||
+       !Array.isArray(x.alternatives)||x.alternatives.length!==2))throw Error('unreviewed_catalog');
+  if(new Set(published.map(x=>x.displayOrder)).size!==published.length||
+     published.some(x=>!Number.isInteger(x.displayOrder)||x.displayOrder<1))throw Error('invalid_review_order');
+  questions=published.sort((a,b)=>a.displayOrder-b.displayOrder);loaded=true;render();
  }catch{loaded=true;questions=[];render();message('Τα ιστορικά ερωτήματα δεν φορτώθηκαν. Δοκίμασε ξανά αργότερα.');}
 }
 retry.addEventListener('click',()=>{
