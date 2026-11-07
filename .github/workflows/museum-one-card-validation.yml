@@ -1,0 +1,28 @@
+name: Museum single-card research flow
+on:
+  pull_request:
+    paths:
+      - 'history.html'
+      - 'rebuild/history.html'
+      - 'assets/fact-check.js'
+      - 'assets/fact-check.css'
+      - 'assets/fact-check-claims.json'
+      - 'functions/api/fact-check.js'
+      - 'tests/factcheck-collection.test.mjs'
+      - '.github/workflows/museum-one-card-validation.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  research-card-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.2.2
+      - name: Check JavaScript syntax
+        run: |
+          node --check assets/fact-check.js
+          node --check functions/api/fact-check.js
+          node --check tests/factcheck-collection.test.mjs
+      - name: Run fast research-card and D1 mock regression tests
+        run: node --test tests/factcheck-collection.test.mjs
