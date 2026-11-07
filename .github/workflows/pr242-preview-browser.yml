@@ -23,7 +23,7 @@ jobs:
       - name: Install browser test dependencies
         run: npm ci --prefix rebuild/tests/browser --ignore-scripts
       - name: Install Chromium runtime
-        run: cd rebuild/tests/browser && npx playwright install --with-deps chromium
+        run: cd rebuild/tests/browser && ./node_modules/.bin/playwright install --with-deps chromium
       - name: Test real Cloudflare preview and popup form
         env:
           NODE_PATH: ./rebuild/tests/browser/node_modules
