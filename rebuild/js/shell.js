@@ -6,11 +6,11 @@ const pages=[
   ['70-stigmes.html','70 Στιγμές'],['hall-of-fame.html','Hall of Fame'],
   ['stories.html','Ιστορίες'],['index.html#about','Ο Σύλλογος'],
   ['tmimata.html','Τμήματα'],['board.html','Διοίκηση'],
-  ['sponsors.html','Χορηγίες'],['contact.html','Επικοινωνία'],['search.html','Αναζήτηση'],['favorites.html','Αγαπημένα'],['contribute.html','Συνεισφορά Αρχείου'],['interviews.html','Φωνές του Αρχέλαου']
+  ['sponsors.html','Χορηγίες'],['contact.html','Επικοινωνία'],['search.html','Αναζήτηση'],['favorites.html','Αγαπημένα'],['contribute.html','Συνεισφορά Αρχείου'],['interviews.html','Φωνές του Αρχέλαου'],['full-chronology.html','Πλήρες Χρονολόγιο']
 ];
-const groups=[['Αρχείο',[3,4,5,14]],['Ο Σύλλογος',[6,7,8,9,10]]];
+const groups=[['Αρχείο',[15,3,4,5,14]],['Ο Σύλλογος',[6,7,8,9,10]]];
 const path=(location.pathname.split('/').pop()||'index.html').toLowerCase();
-const COMPLETED=new Set(['index.html','news.html','history.html','hall-of-fame.html','70-stigmes.html','stories.html','board.html','contact.html','sponsors.html','tmimata.html','retro-matches.html','search.html','favorites.html','contribute.html','interviews.html']);
+const COMPLETED=new Set(['index.html','news.html','history.html','hall-of-fame.html','70-stigmes.html','stories.html','board.html','contact.html','sponsors.html','tmimata.html','retro-matches.html','search.html','favorites.html','contribute.html','interviews.html','full-chronology.html']);
 const stageUrl=(href)=>{
  if(!location.pathname.startsWith('/rebuild/'))return href;
  try{
