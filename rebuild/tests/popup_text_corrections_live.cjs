@@ -20,7 +20,7 @@ async function main(){
    await page.waitForTimeout(1400);
    const debug=await page.evaluate(()=>({url:location.href,hasFavorites:!!window.ArchelaosFavorites,hasBio:!!window.ArchelaosBio,globals:Object.keys(window).filter(k=>k.startsWith('Archelaos')).slice(0,20),scripts:[...document.scripts].map(x=>x.src).filter(Boolean).slice(-25),head:document.title}));
    console.log('PREVIEW_DIAGNOSTIC',JSON.stringify(debug),'pageErrors',JSON.stringify(errors));
-   await page.waitForFunction(()=>Boolean(window.ArchelaosFavorites?.live&&window.ArchelaosBio?.open),null,{timeout:7000});
+   await page.waitForFunction(()=>Boolean(window.ArchelaosFavorites?.button&&window.ArchelaosBio?.open&&window.ArchelaosCorrections?.version===1),null,{timeout:7000});
    const opened=await page.evaluate(async()=>{
     const r=await fetch('/hall-of-fame-people.json');if(!r.ok)throw Error('canonical people missing');
     const doc=await r.json();const first=doc.people.find(x=>x.id&&x.name);if(!first)throw Error('no people');
