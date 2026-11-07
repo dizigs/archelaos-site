@@ -17,7 +17,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          for check in 128498629328 128499621359; do
+          for check in 128500260390; do
             echo "SONAR CHECK $check"
             curl -fsSL --retry 2 -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${GH_TOKEN}" "https://api.github.com/repos/dizigs/archelaos-site/check-runs/${check}/annotations" |
               node -e "let b='';process.stdin.on('data',s=>b+=s);process.stdin.on('end',()=>{const rows=JSON.parse(b);for(const x of rows)console.log(JSON.stringify({path:x.path,line:x.start_line,title:x.title,message:x.message}))})"
