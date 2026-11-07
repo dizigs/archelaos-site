@@ -55,6 +55,16 @@ test('GET is disabled by default, no public key or write',()=>{
   for(let i=0;i<3;i++)await onRequestPost({request:request({...good,description:good.description+' '+i}),env});
   assert.equal((await onRequestPost({request:request(good),env})).status,429);
  });
+ test('public exhibit and archive-page cards may submit proposed edits',async()=>{
+  rate=0;dedupe.clear();const before=insertions.length;
+  for(const kind of ['exhibit','page']){
+   const entry={...good,record_kind:kind,record_id:'arch-museum-1956',description:good.description+' '+kind};
+   const res=await onRequestPost({request:request(entry),env});
+   assert.equal(res.status,201,kind);
+  }
+  assert.equal(insertions.length,before+2);
+  assert.deepEqual(insertions.slice(-2).map(x=>x.kind),['exhibit','page']);
+ });
  test('client animation is reduced-motion safe and JS loaded by favorites',async()=>{
   const css=await readFile(new URL('../assets/correction-suggestions.css',import.meta.url),'utf8');
   const frontend=await readFile(new URL('../assets/correction-suggestions.js',import.meta.url),'utf8');

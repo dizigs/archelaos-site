@@ -2,7 +2,7 @@
 -- Do not apply to production or enable submission before reviewed staging.
 CREATE TABLE IF NOT EXISTS text_corrections (
   id TEXT PRIMARY KEY,
-  record_kind TEXT NOT NULL CHECK(record_kind IN ('person','news','story','moment','view','interview','match','photo')),
+  record_kind TEXT NOT NULL CHECK(record_kind IN ('person','news','story','moment','view','interview','match','photo','exhibit','page')),
   record_id TEXT NOT NULL,
   record_title TEXT NOT NULL,
   source_page TEXT NOT NULL,

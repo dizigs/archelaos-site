@@ -3,7 +3,7 @@
  * No AI, auto-publishing, outbound URL fetching or second coordinator. */
 const headers={'content-type':'application/json; charset=utf-8','cache-control':'no-store','x-content-type-options':'nosniff'};
 const response=(status,body)=>new Response(JSON.stringify(body),{status,headers});
-const kinds=new Set(['person','news','story','moment','view','interview','match','photo']);
+const kinds=new Set(['person','news','story','moment','view','interview','match','photo','exhibit','page']);
 const ready=env=>env?.ENABLE_TEXT_CORRECTIONS==='true'&&env.ARCHIVE_DB&&env.TURNSTILE_SECRET&&
  env.ARCHIVE_RATE_SALT&&env.ARCHIVE_TURNSTILE_HOSTNAME&&env.TEXT_CORRECTIONS_SITE_KEY;
 export function onRequestGet({env}){
