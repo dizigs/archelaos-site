@@ -50,7 +50,7 @@ export function inspectSources(brain, healer, pkg) {
   ].every(v => v === 'false');
   const expired = value(bVars, 'STAGING_EXPIRES_AT') === '1970-01-01T00:00:00Z';
   const brainInfo = {
-    name: value(brain, 'name'),
+    name: value(brain.split(/^\[/m, 1)[0], 'name'),
     workersDev: value(brain,'workers_dev'),
     previewUrls: value(brain,'preview_urls'),
     hasSQLiteClass: /new_sqlite_classes\s*=\s*\[\s*"BrainCoordinator"\s*\]/m.test(brain),
@@ -58,7 +58,7 @@ export function inspectSources(brain, healer, pkg) {
     observabilityLogs: value(section(brain, 'observability.logs'), 'enabled'),
   };
   const healerInfo = {
-    name: value(healer, 'name'),
+    name: value(healer.split(/^\[/m, 1)[0], 'name'),
     workersDev: value(healer,'workers_dev'),
     previewUrls: value(healer,'preview_urls'),
     hasSQLiteClass: /new_sqlite_classes\s*=\s*\[\s*"HealerMemory"\s*\]/m.test(healer),
