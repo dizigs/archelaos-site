@@ -10,6 +10,8 @@ const DEFAULT_FILE = join(HERE, 'mcp_config.example.json');
 const ENDPOINTS = Object.freeze({
   'github-readonly': 'https://api.githubcopilot.com/mcp/x/all/readonly',
   'cloudflare-api': 'https://mcp.cloudflare.com/mcp',
+  'cloudflare-docs': 'https://docs.mcp.cloudflare.com/mcp',
+  'firecrawl-search': 'https://mcp.firecrawl.dev/v2/mcp-search',
 });
 const STATUS = Object.freeze({
   disabled: 'PREPARED_DISABLED',
