@@ -1,0 +1,450 @@
+{
+  "schemaVersion": 1,
+  "policy": "evidence-required; all release gates fail closed",
+  "requiredGates": [
+    "brand_approved",
+    "dns_routed",
+    "cloudflare_deployment_logs",
+    "canonical_seo",
+    "search_console_verified",
+    "analytics_consent_verified",
+    "privacy_security_review",
+    "mobile_accessibility_qa",
+    "content_sources_and_permissions",
+    "central_hall_history_links"
+  ],
+  "departments": {
+    "archery": {
+      "gates": {
+        "brand_approved": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "dns_routed": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "cloudflare_deployment_logs": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "canonical_seo": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "search_console_verified": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "analytics_consent_verified": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "privacy_security_review": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "mobile_accessibility_qa": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "content_sources_and_permissions": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "central_hall_history_links": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        }
+      }
+    },
+    "wrestling": {
+      "gates": {
+        "brand_approved": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "dns_routed": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "cloudflare_deployment_logs": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "canonical_seo": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "search_console_verified": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "analytics_consent_verified": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "privacy_security_review": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "mobile_accessibility_qa": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "content_sources_and_permissions": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "central_hall_history_links": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        }
+      }
+    },
+    "handball": {
+      "gates": {
+        "brand_approved": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "dns_routed": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "cloudflare_deployment_logs": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "canonical_seo": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "search_console_verified": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "analytics_consent_verified": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "privacy_security_review": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "mobile_accessibility_qa": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "content_sources_and_permissions": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "central_hall_history_links": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        }
+      }
+    },
+    "track": {
+      "gates": {
+        "brand_approved": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "dns_routed": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "cloudflare_deployment_logs": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "canonical_seo": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "search_console_verified": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "analytics_consent_verified": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "privacy_security_review": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "mobile_accessibility_qa": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "content_sources_and_permissions": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "central_hall_history_links": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        }
+      }
+    },
+    "gymnastics": {
+      "gates": {
+        "brand_approved": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "dns_routed": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "cloudflare_deployment_logs": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "canonical_seo": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "search_console_verified": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "analytics_consent_verified": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "privacy_security_review": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "mobile_accessibility_qa": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "content_sources_and_permissions": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "central_hall_history_links": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        }
+      }
+    },
+    "shooting": {
+      "gates": {
+        "brand_approved": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "dns_routed": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "cloudflare_deployment_logs": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "canonical_seo": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "search_console_verified": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "analytics_consent_verified": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "privacy_security_review": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "mobile_accessibility_qa": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "content_sources_and_permissions": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "central_hall_history_links": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        }
+      }
+    },
+    "volleyball": {
+      "gates": {
+        "brand_approved": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "dns_routed": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "cloudflare_deployment_logs": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "canonical_seo": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "search_console_verified": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "analytics_consent_verified": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "privacy_security_review": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "mobile_accessibility_qa": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "content_sources_and_permissions": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "central_hall_history_links": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        }
+      }
+    },
+    "swimming": {
+      "gates": {
+        "brand_approved": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "dns_routed": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "cloudflare_deployment_logs": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "canonical_seo": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "search_console_verified": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "analytics_consent_verified": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "privacy_security_review": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "mobile_accessibility_qa": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "content_sources_and_permissions": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        },
+        "central_hall_history_links": {
+          "status": "not-checked",
+          "checkedAt": null,
+          "evidenceUrl": null
+        }
+      }
+    }
+  }
+}

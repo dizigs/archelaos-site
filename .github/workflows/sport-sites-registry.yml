@@ -1,0 +1,47 @@
+name: Validate sport-site registry
+on:
+  pull_request:
+    paths:
+      - 'config/sport-sites.json'
+      - 'config/sport-data-contract.json'
+      - 'config/sport-launch-readiness.json'
+      - 'config/sport-self-heal-policy.json'
+      - 'tools/validate_sport_sites.py'
+      - 'tools/audit_sport_launch.py'
+      - 'tools/triage_sport_health.py'
+      - 'tools/repair_sport_preview.py'
+      - 'tools/validate_sport_data_contract.py'
+      - 'tests/test_sport_sites_registry.py'
+      - 'tests/test_sport_launch_gates.py'
+      - 'tests/test_sport_health_triage.py'
+      - 'tests/test_repair_sport_preview.py'
+      - 'tests/test_sport_data_contract.py'
+      - 'tests/test_sport_site_preview.py'
+      - 'prototypes/sport-site/**'
+      - '.github/workflows/sport-sites-registry.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+      - name: Validate schema and safety constraints
+        run: |
+          python tools/validate_sport_sites.py
+          python tools/audit_sport_launch.py
+          python tools/repair_sport_preview.py --check
+          python tools/validate_sport_data_contract.py
+          python -m unittest discover -s tests -p 'test_sport_sites_registry.py' -v
+          python -m unittest discover -s tests -p 'test_sport_launch_gates.py' -v
+          python -m unittest discover -s tests -p 'test_sport_health_triage.py' -v
+          python -m unittest discover -s tests -p 'test_repair_sport_preview.py' -v
+          python -m unittest discover -s tests -p 'test_sport_data_contract.py' -v
+          python -m unittest discover -s tests -p 'test_sport_site_preview.py' -v
