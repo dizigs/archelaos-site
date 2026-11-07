@@ -15,8 +15,8 @@ test('example configuration remains disabled and provides no authentication clai
   assert.equal(diagnosis.liveEndpointChecked, false);
   assert.equal(diagnosis.oauthVerified, false);
   assert.equal(diagnosis.providerPermissionsVerified, false);
-  assert.equal(diagnosis.providers.length, 2);
-  assert.ok(diagnosis.providers.every(x => x.status === 'PREPARED_DISABLED'));
+  assert.equal(diagnosis.providers.length, 4);
+  assert.deepEqual(diagnosis.providers.map(x=>x.status), ['PREPARED_DISABLED','PREPARED_DISABLED','NOT_CONFIGURED','NOT_CONFIGURED']);
   assert.ok(diagnosis.providers.every(x => !x.authenticated && !x.verified));
 });
 
@@ -25,7 +25,7 @@ test('locally enabled entries are still unverified, not claimed installed or aut
     'github-readonly': {serverUrl: github, disabled: false},
     'cloudflare-api': {serverUrl: cloudflare, disabled: false},
   }});
-  assert.ok(diagnosis.every(x => x.status === 'CONFIGURED_UNVERIFIED'));
+  assert.deepEqual(diagnosis.map(x=>x.status), ['CONFIGURED_UNVERIFIED','CONFIGURED_UNVERIFIED','NOT_CONFIGURED','NOT_CONFIGURED']);
   assert.ok(diagnosis.every(x => x.authenticated === false && x.verified === false));
 });
 
@@ -33,7 +33,7 @@ test('endpoint mismatch and missing servers are surfaced, never auto-corrected',
   const diagnosis = inspectMcpConfiguration({mcpServers: {
     'github-readonly': {serverUrl: 'https://evil.example/mcp', disabled: false},
   }});
-  assert.deepEqual(diagnosis.map(x=>x.status), ['ENDPOINT_MISMATCH','NOT_CONFIGURED']);
+  assert.deepEqual(diagnosis.map(x=>x.status), ['ENDPOINT_MISMATCH','NOT_CONFIGURED','NOT_CONFIGURED','NOT_CONFIGURED']);
 });
 
 test('unrelated secret values in local config are never displayed', () => {
