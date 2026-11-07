@@ -156,3 +156,7 @@ main{padding:60px 0 80px}
 .an-meta .an-topic-tag:hover{background:#e9dcba;text-decoration:none!important}
 .an-meta .an-topic-tag:focus-visible,.an-clear-tag:focus-visible{outline:3px solid #b18c45;outline-offset:3px}
 .an-clear-tag{display:inline-block;margin-inline-start:4px;color:#215b3b;text-decoration:underline;text-underline-offset:3px}
+
+/* Exact, source-backed canonical person IDs within article body text. */
+.an-person-tag{color:#215b3b;text-decoration:underline;text-underline-offset:3px;font-weight:700}
+.an-person-tag:focus-visible{outline:3px solid #b18c45;outline-offset:3px}
