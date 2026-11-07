@@ -39,6 +39,30 @@ jobs:
           python3 brain/qa/live_parent_hmac_once.py config
           git diff --check
 
+      - name: Diagnose exact Sonar security findings (read-only)
+        env:
+          GH_READ_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY'
+          import json,os,urllib.parse,urllib.request,urllib.error
+          headers={'Accept':'application/json','User-Agent':'archelaos-sonar-security-diagnostic'}
+          params=urllib.parse.urlencode({'componentKeys':'dizigs_archelaos-site','pullRequest':'299',
+            'impactSoftwareQualities':'SECURITY','issueStatuses':'OPEN,CONFIRMED','ps':'100'})
+          try:
+              r=urllib.request.Request('https://sonarcloud.io/api/issues/search?'+params,headers=headers)
+              with urllib.request.urlopen(r,timeout=16) as response:
+                  data=response.read(100001)
+                  if len(data)>100000: raise ValueError('TOO_MANY_ISSUES')
+                  issues=json.loads(data)
+              print('SONAR_SECURITY_COUNT',issues.get('total','UNKNOWN'))
+              for issue in issues.get('issues',[])[:30]:
+                  print('SONAR_SECURITY_FINDING',str(issue.get('component',''))[:120],
+                    str(issue.get('line',''))[:10],str(issue.get('rule',''))[:70],
+                    str(issue.get('message','')).replace('\n',' ')[:360])
+          except (urllib.error.HTTPError,urllib.error.URLError,ValueError) as error:
+              print('SONAR_READ_BLOCKED',str(getattr(error,'code',type(error).__name__)))
+          PY
+
       - name: Operator-gated exact commit subject
         id: gate
         env:
