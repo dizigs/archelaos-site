@@ -25,8 +25,9 @@ a future PRIVATE, durable and authenticated remote receipt contract.
 4. The source-only receiver verifies HMAC, source allowlist, 5-minute clock
    window, exact fields, evidence host, command allowlist, per-source quotas,
    unique nonce and idempotency in one synchronous SQLite transaction.
-5. A separately authenticated Admin/Brain reader may call listAuthorized.
-   It is a storage method, **not** itself a read-authorization mechanism.
+5. A separately authenticated Admin/Brain reader may call listAuthorized
+   ONLY with a runtime-owned non-serializable Symbol capability. This is an
+   additional guard, not a replacement for real Admin service authentication.
 6. A future Control Center can display concise, private receipts and use
    this evidence for analysis without revealing credentials.
 
@@ -59,7 +60,8 @@ a future PRIVATE, durable and authenticated remote receipt contract.
   hash anchoring, retention, backup/recovery and immutable evidence storage
   require separate design and approval.
 - No untrusted request may construct the secrets map, command allowlist,
-  Admin reader or server clock. Do not export listAuthorized through HTTP.
+  reader capability or server clock. Store the Symbol only in a trusted
+  server-side closure. Do not export listAuthorized through HTTP.
 - Stable event ID collisions with changed signed content fail closed.
   Duplicate event ID with a NEW valid nonce returns the original receipt;
   the exact original nonce is rejected as a replay.
