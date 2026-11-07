@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json.schemastore.org/wrangler.json",
+  "name": "archelaos-librarian",
+  "main": "src/index.mjs",
+  "compatibility_date": "2026-11-05",
+  "workers_dev": false,
+  "preview_urls": false,
+  "observability": {"enabled": false},
+  "durable_objects": {
+    "bindings": [{"name":"LEDGER","class_name":"LibrarianLedger"}]
+  },
+  "migrations": [{"tag":"librarian-ledger-v1","new_sqlite_classes":["LibrarianLedger"]}]
+}
